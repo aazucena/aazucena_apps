@@ -1,0 +1,127 @@
+site:
+  name: Aldrin Azucena
+  site: 'https://astrowind.vercel.app'
+  base: '/'
+  trailingSlash: false
+  publish: false
+  homepage: 'personal'
+  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+
+# Default SEO metadata
+metadata:
+  title:
+    default: Aldrin Azucena
+    template: '%s — Aldrin Azucena'
+  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Aldrin Azucena
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+  twitter:
+    handle: '@onwidget'
+    site: '@onwidget'
+    cardType: summary_large_image
+
+i18n:
+  language: en
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 6
+
+    post:
+      isEnabled: true
+      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      robots:
+        index: true
+
+    list:
+      isEnabled: true
+      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
+      robots:
+        index: true
+
+    category:
+      isEnabled: true
+      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      robots:
+        index: true
+
+    tag:
+      isEnabled: true
+      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: true
+    relatedPostsCount: 4
+  comingSoon:
+    hero:
+      layout: 'vertical'
+      title: "My Portfolio is Coming Soon!"
+      subtitle: "I'm crafting a space to showcase my work, skills, and passion."
+      tagline: "Great things are on the way!"
+      actions:
+        - text: "Contact Me"
+          href: "#"
+          variant: "primary"
+          icon: "tabler:square-rounded-arrow-right"
+        - text: "Learn more"
+          href: "#"
+      image:
+        src: "https://images.unsplash.com/photo-1493612276216-ee3925520721?w=120&dpr=1&h=200&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzM5Njk3MDIzfA&ixlib=rb-4.0.3"
+        alt: "Portfolio Coming Soon Illustration - Photo by Diego PH on Unsplash"
+    callToAction:
+      title: "Let's Stay Connected!"
+      subtitle: "Follow me for updates and insights into my creative process."
+      tagline: "Join me on this journey."
+      actions:
+        - text: "Instagram"
+          href: "https://instagram.com/yourhandle"
+          variant: secondary
+          icon: "tabler:brand-instagram"
+        - text: "LinkedIn"
+          href: "https://linkedin.com/in/yourhandle"
+          variant: secondary
+          icon: "tabler:brand-linkedin"
+        - text: "GitHub"
+          href: "https://github.com/yourhandle"
+          variant: secondary
+          icon: "tabler:brand-github"
+    metadata:
+      title: "Coming Soon | Aldrin Azucena - Portfolio"
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null # or "G-XXXXXXXXXX"
+
+ui:
+  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  branding:
+    colors:
+      primary: '#32a0c5'
+      primaryDark: '#32a0c5'
+      secondary: '#3b79bc'
+      secondaryDark: '#3b79bc'
+      accent: '#25c6d2'
+      accentDark: '#25c6d2'
+      textHeading: '#000000'
+      textHeadingDark: '#f7f8f8'
+      textDefault: '#101010'
+      textDefaultDark: '#e5ecf6'
+      textMuted: '#101010A2'
+      textMutedDark: '#e5ecf6A2'
+      bgPage: '#ffffff'
+      bgPageDark: '#253c5a'
+    font:
+      sans: 'Fira Sans'
+      serif: 'Fira Sans'
+      heading: 'Fira Sans'

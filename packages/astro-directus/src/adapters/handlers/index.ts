@@ -1,0 +1,12 @@
+export { default as handleActivity } from './activity';
+export { default as handleAggregate } from './aggregate';
+export { default as handleAssets } from './assets';
+export { default as handleAuth } from './auth';
+export { default as handleComments } from './comments';
+export { default as handleFiles } from './files';
+export { default as handleItems } from './items';
+export { default as handleRequest } from './request';
+export { default as handleRoles } from './roles';
+export { default as handleSystem } from './system';
+export { default as handleUsers } from './users';
+export { default as handleUtils } from './utils';

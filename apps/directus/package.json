@@ -1,0 +1,16 @@
+{
+  "name": "directus",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Directus is a self-hosted data platform for content and data management. It is a full-stack content management system (CMS) built on top of Postgres and GraphQL.",
+  "scripts": {
+    "dev": "docker compose up",
+    "stop": "docker compose down",
+    "postdev": "pnpm stop",
+    "start": "pnpm dev"
+  },
+  "private": true,
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >= 21.0.0"
+  }
+}

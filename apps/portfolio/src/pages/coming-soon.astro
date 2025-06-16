@@ -1,0 +1,61 @@
+---
+
+import Layout from '~/layouts/LandingLayout.astro';
+import Hero from '~/components/blocks/Hero.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { APP } from "astrowind:config";
+
+const client = Astro.locals.client;
+const params = Astro.url.searchParams;
+const preview = params.get("preview");
+
+const { comingSoon } = APP;
+let { hero, callToAction, metadata } = comingSoon;
+let heroId = null;
+if (preview) {
+  if (params.get("token") && client?.setToken) {
+    client?.setToken(params.get("token"));
+  }
+  const response = await client.items("coming_soon_page").readSingleton({
+    fields: [
+      '*',
+      'call_to_action.headline.*',
+      'call_to_action.actions.buttons_id.*',
+    ]
+  }).catch((e: Error) => {
+    console.log("🚀 ~ e:", e);
+    return null
+  });
+  if (response) {
+    heroId = response.hero;
+    callToAction = {
+      ...callToAction,
+      title: response.call_to_action.headline.title,
+      subtitle: response.call_to_action.headline.subtitle,
+      tagline: response.call_to_action.headline.tagline,
+      actions: response.call_to_action.actions.map(({ buttons_id: button }) => ({
+        text: button.text,
+        variant: button.variant,
+        ...(button.icon ? {
+          icon: "tabler:" + button.icon
+        }: {}),
+        ...(button.type === "link" ? {
+          href: button.target ?? "#"
+        }: {
+          type: button.type
+        }),
+      })),
+    }
+  }
+}
+---
+
+<Layout metadata={metadata}>
+  <Hero item={heroId} params={hero} />
+
+  <CallToAction
+    title={callToAction.title}
+    subtitle={callToAction.subtitle}
+    actions={callToAction.actions}
+  />
+</Layout>

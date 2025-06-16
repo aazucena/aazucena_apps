@@ -1,0 +1,29 @@
+---
+import type { SaveConfig } from './types';
+
+export interface Props extends Omit<SaveConfig, "elements"> {
+  enabled: boolean;
+  elements?: string | string[] | null | undefined;
+}
+const { enabled = false, directusUrl, elements, customClass } = Astro.props;
+---
+{enabled && directusUrl ? (
+  <>
+    <directus-visual-editor data-directus-url={directusUrl} data-elements={elements} data-custom-class={customClass} />
+    <script>
+      import { apply } from "@directus/visual-editing";
+      class DirectusVisualEditor extends HTMLElement {
+        connectedCallback() {
+          const { directusUrl, elements, customClass } = this.dataset;
+          const elementsSelector = elements && Array.isArray(elements) ? elements?.join(',') : elements ?? "";
+          const htmlElements = [];
+          if (elementsSelector && elementsSelector.length > 0) {
+            htmlElements.push(...document.querySelectorAll(elementsSelector ?? ""));
+          }
+          apply({ directusUrl: directusUrl, elements: htmlElements, customClass });
+        }
+      }
+      customElements.define('directus-visual-editor', DirectusVisualEditor);
+    </script>
+  </>
+) : null}

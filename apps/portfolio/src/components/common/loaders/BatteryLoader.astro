@@ -1,0 +1,85 @@
+---
+export interface Props {
+  color?: string;
+  duration?: number;
+  delay?: number;
+}
+const { color = '#000', duration = 50, delay = 1000 } = Astro.props;
+---
+<battery-loader data-color={color} data-duration={duration} data-delay={delay} class="flex items-center relative">
+  <div class="battery">
+    <div class={`battery-level`}></div>
+  </div>
+  <div class="battery-tip"></div>
+</battery-loader>
+
+<style define:vars={{ loaderColor: color, borderColor: "#333" }}>
+  .battery {
+    width: 360px;
+    height: 180px;
+    border: 4px solid var(--borderColor);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .battery-level {
+    height: 100%;
+    width: 0%; /* Starts at 0% */
+    background-color: var(--loaderColor); /* Green fill */
+    transition: width 0.5s ease;
+  }
+
+  .battery-tip {
+    width: 16px;
+    height: 40px;
+    background-color: #333;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .battery-percent {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+</style>
+<script is:inline>
+
+  const load = () => {
+    let level = 0;
+    const loader = document.querySelector('battery-loader');
+    const parent = loader.parentElement;
+    const duration =  Number(loader.dataset?.duration);
+    const delay =  Number(loader.dataset?.delay);
+    const batteryLevel = document.querySelector('battery-loader .battery-level');
+    // const batteryTip = document.querySelector('battery-loader .battery-tip');
+    const increment = () => {
+      if (level <= 100) {
+        if (batteryLevel) {
+          batteryLevel.style.width = `${level}%`;
+        }
+        // if (batteryTip) {
+        //   batteryTip.textContent = `${level}%`;
+        // }
+        level++;
+        setTimeout(increment, Number(duration)); // Speed of charging
+      } else {
+          if (parent) {
+            setTimeout(() => {
+              parent.classList.add("hidden"); 
+              parent.parentElement.remove();
+            }, Number(delay));
+          }
+      }
+    };
+    increment();
+  };
+  load();
+  document.addEventListener("astro:before-preparation", (event) => {
+    const originalLoader = event.loader;
+    event.loader = async function () {
+      load();
+      await originalLoader();
+    };
+  });
+</script>
+

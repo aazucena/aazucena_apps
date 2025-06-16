@@ -1,0 +1,43 @@
+---
+import type { EditConfig } from './types'
+import { setAttr } from './utils';
+
+export interface Props extends EditConfig {
+  target?: string | null;
+}
+
+const {
+  collection,
+  item,
+  mode,
+  fields,
+  target,
+} = Astro.props;
+let _fields = fields;
+if (_fields && !Array.isArray(_fields)) {
+  _fields = [_fields].filter((f) => !!f);
+}
+const path = await setAttr({ collection, item, mode, fields: _fields });
+---
+<directus-visual-editor-container data-directus={path} data-target={target}>
+  <slot />
+</directus-visual-editor-container>
+<script>
+  class DirectusVisualEditorContainer extends HTMLElement {
+    connectedCallback() {
+      const { directus, target } = this.dataset;
+      
+      const element = target ? this.querySelector(target) : this.children[0];
+      if (element) {
+        element.setAttribute("data-directus", directus);
+        this.removeAttribute("data-directus");
+        const fragment = document.createDocumentFragment();
+        while (this.firstChild) {
+          fragment.appendChild(this.firstChild);
+        }
+        this.parentNode.replaceChild(fragment, this);
+      }
+    }
+  }
+  customElements.define('directus-visual-editor-container', DirectusVisualEditorContainer);
+</script>

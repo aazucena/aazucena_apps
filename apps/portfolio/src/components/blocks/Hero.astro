@@ -1,0 +1,83 @@
+---
+import { default as HeroDefault } from '~/components/widgets/Hero.astro';
+import Hero2 from '~/components/widgets/Hero2.astro';
+import type { Hero as HeroParams } from '~/types';
+import { DirectusVisualEditorContainer, setAttr } from '@astro/directus/visual-editor';
+
+const client = Astro.locals.client;
+
+const searchParams = Astro.url.searchParams;
+const preview = searchParams.get("preview");
+
+export interface Props {
+  params: HeroParams,
+  item?: string | number | null,
+  layout?: "horizontal" | "vertical"
+}
+
+const { params, item } = Astro.props;
+let layout = Astro.props.layout || "vertical";
+let hero = params;
+let HeroComponent = HeroDefault;
+
+let itemId = searchParams.get("item") ?? item;
+
+if (preview && itemId) {
+  let response = await client.items("hero").readOne(itemId, {
+    fields: [
+      'image',
+      'headline.*',
+      'actions.buttons_id.*',
+      'content',
+    ]
+  }).catch((e: Error) => {
+    console.log(e);
+    return null
+  });
+  
+  if (response) {
+    const asset = await client.assets.readUrl(response.image);
+    const file = await client.files.readOne(response.image);
+    hero = {
+      ...hero,
+      title: response.headline.title,
+      subtitle: response.headline.subtitle,
+      tagline: response.headline.tagline,
+      image: {
+        src: asset,
+        alt: file.title
+      },
+      actions: response.actions.map(({ buttons_id: button }) => ({
+        text: button.text,
+        variant: button.variant,
+        ...(button.icon ? {
+          icon: "tabler:" + button.icon
+        }: {}),
+        ...(button.type === "link" ? {
+          href: button.target ?? "#"
+        }: {
+          type: button.type
+        }),
+      })),
+    }
+    layout = response.layout || "vertical"
+  }
+} 
+switch (layout) {
+  case 'horizontal':
+    HeroComponent = Hero2;
+    break;
+  case 'vertical':
+    HeroComponent = HeroDefault;
+    break;
+  }
+---
+<DirectusVisualEditorContainer target=".hero" collection="hero" item={itemId} mode="modal" fields={['headline', 'image', 'actions', 'content']}>
+  <HeroComponent
+    title={hero.title}
+    subtitle={hero.subtitle}
+    tagline={hero.tagline}
+    actions={hero.actions}
+    image={hero.image}
+  />
+</DirectusVisualEditorContainer>
