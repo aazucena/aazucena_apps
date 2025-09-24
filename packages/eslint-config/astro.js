@@ -4,12 +4,21 @@ import globals from 'globals';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import typescriptParser from '@typescript-eslint/parser';
+import { resolve } from 'node:path';
 
+const project = resolve(process.cwd(), "tsconfig.json");
 export default [
   js.configs.recommended,
   ...eslintPluginAstro.configs['flat/recommended'],
   ...tseslint.configs.recommended,
   {
+    settings: {
+      "import/resolver": {
+        typescript: {
+          project,
+        },
+      },
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -19,6 +28,13 @@ export default [
   },
   {
     files: ['**/*.astro'],
+    settings: {
+      "import/resolver": {
+        typescript: {
+          project,
+        },
+      },
+    },
     languageOptions: {
       parser: astroEslintParser,
       parserOptions: {
@@ -29,6 +45,13 @@ export default [
   },
   {
     files: ['**/*.{js,jsx,astro}'],
+    settings: {
+      "import/resolver": {
+        typescript: {
+          project,
+        },
+      },
+    },
     rules: {
       'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
     },
@@ -39,6 +62,13 @@ export default [
     files: ['**/*.{ts,tsx}', '**/*.astro/*.js'],
     languageOptions: {
       parser: typescriptParser,
+    },
+    settings: {
+      "import/resolver": {
+        typescript: {
+          project,
+        },
+      },
     },
     rules: {
       // Note: you must disable the base rule as it can report incorrect errors
@@ -54,6 +84,13 @@ export default [
     },
   },
   {
+    settings: {
+      "import/resolver": {
+        typescript: {
+          project,
+        },
+      },
+    },
     ignores: ['dist', 'node_modules', '.github', 'types.generated.d.ts', '.astro'],
   },
 ];

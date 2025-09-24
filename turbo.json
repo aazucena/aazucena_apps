@@ -16,7 +16,8 @@
         "!.astro/**/*",
         "!.cache/**/*",
         "!mod.js",
-        "!mod.js.map"
+        "!mod.js.map",
+        "storybook-static/**"
       ]
     },
     "lint": {
