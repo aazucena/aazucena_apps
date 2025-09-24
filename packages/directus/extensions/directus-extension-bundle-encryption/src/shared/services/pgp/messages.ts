@@ -111,3 +111,4 @@ const initMessages = (ctx: ExtensionCtx) => {
 }
 
 export default initMessages
+export type PGPEncryptionMessageService = ReturnType<typeof initMessages>

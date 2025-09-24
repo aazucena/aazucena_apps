@@ -12,3 +12,4 @@ const initPGP = (ctx: ExtensionCtx) => {
 }
 
 export default initPGP
+export type PGPEncryptionService = ReturnType<typeof initPGP>;

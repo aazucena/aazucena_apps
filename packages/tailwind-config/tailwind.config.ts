@@ -1,6 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import typographyPlugin from '@tailwindcss/typography';
-import { addVariablesForColorsPlugin, addCustomVariantsPlugin } from './plugins';
+import tailwindcssAnimate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,16 +8,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--aw-color-primary)',
-        secondary: 'var(--aw-color-secondary)',
-        accent: 'var(--aw-color-accent)',
-        default: 'var(--aw-color-text-default)',
-        muted: 'var(--aw-color-text-muted)',
+        primary: 'var(--aa-color-primary)',
+        secondary: 'var(--aa-color-secondary)',
+        accent: 'var(--aa-color-accent)',
+        default: 'var(--aa-color-text-default)',
+        muted: 'var(--aa-color-text-muted)',
       },
       fontFamily: {
-        sans: ['var(--aw-font-sans, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
-        serif: ['var(--aw-font-serif, ui-serif)', ...defaultTheme.fontFamily.serif],
-        heading: ['var(--aw-font-heading, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
+        sans: ['var(--aa-font-sans, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
+        serif: ['var(--aa-font-serif, ui-serif)', ...defaultTheme.fontFamily.serif],
+        heading: ['var(--aa-font-heading, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
       },
 
       animation: {
@@ -34,8 +34,7 @@ export default {
   },
   plugins: [
     typographyPlugin,
-    addVariablesForColorsPlugin,
-    addCustomVariantsPlugin
+    tailwindcssAnimate,
   ],
   darkMode: 'class',
 }

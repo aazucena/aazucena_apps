@@ -1,4 +1,4 @@
-import { decryptKey, generateKey, readKey, readKeys, readPrivateKey, readPrivateKeys } from "openpgp";
+import { decryptKey, generateKey, readKey, readKeys, readPrivateKey, readPrivateKeys,  } from "openpgp";
 import { getUsersService } from "../../utils/users";
 import { Accountability, ContentType, EllipticCurveName, ExtensionCtx, FactoryFunction, GenerateKeyFormat, GenerateKeyOptions, GenerateKeysOptions, Key, KeyPairResponse, KeyPairType, PrivateKey, User } from "../../types";
 import { formatUserID, generateRetrieveCurrentUser, generateRetrieveCurrentUserID, generateRetrieveUser, generateRetrieveUserByEmail, generateRetrieveUserIDs } from "./users";
@@ -69,7 +69,7 @@ const generateGenerateKeysByCurrentUser: FactoryFunction<KeyPairResponse, Genera
       payload.rsaBits = rsaBits || 2048;
     }
     if (keyExpirationTime) {
-      payload.keyExpirationTime = keyExpirationTime || 0;
+      payload.keyExpirationTime = keyExpirationTime;
     }
 
     const keys = await generateKey(payload);
@@ -78,11 +78,18 @@ const generateGenerateKeysByCurrentUser: FactoryFunction<KeyPairResponse, Genera
   
 }
 
-const generateGenerateKeys: FactoryFunction<KeyPairResponse, [email?: string, ...GenerateKeysParams]> = (ctx) => {
+
+type GenerateKeysByEmailParams = [
+  accountability: Accountability,
+  email?: string,
+  opts?: GenerateKeysOptions
+];
+
+const generateGenerateKeys: FactoryFunction<KeyPairResponse, GenerateKeysByEmailParams> = (ctx) => {
   const { env } = ctx;
   const retrieveUserIDs = generateRetrieveUserIDs(ctx);
   const retrieveUserByEmail = generateRetrieveUserByEmail(ctx);
-  return async(email = undefined, accountability, opts) => {
+  return async(accountability, email = undefined, opts) => {
     const userIDs = await retrieveUserIDs(accountability, opts?.users ?? []);
 
     const type: KeyPairType = opts?.type || env['PGP_KEYPAIR_TYPE'] || 'curve25519';
@@ -120,7 +127,7 @@ const generateGenerateKeys: FactoryFunction<KeyPairResponse, [email?: string, ..
       payload.rsaBits = rsaBits || 2048;
     }
     if (keyExpirationTime) {
-      payload.keyExpirationTime = keyExpirationTime || 0;
+      payload.keyExpirationTime = keyExpirationTime;
     }
 
     const keys = await generateKey(payload);
@@ -214,3 +221,5 @@ const initKeys = (ctx: ExtensionCtx) => {
 }
 
 export default initKeys
+
+export type PGPEncryptionKeysService = ReturnType<typeof initKeys>;

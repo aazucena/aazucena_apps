@@ -44,3 +44,19 @@ export interface GenerateKeysOptions extends Omit<GenerateKeyOpts, GenerateKeysB
   users?: PrimaryKey[] | User[];
   format?: GenerateKeyFormat;
 };
+
+export interface KeysRequestBody extends GenerateKeysOptions {
+	email?: string;
+	password?: string;
+};
+
+export interface ParamsDictionary {
+  [key: string]: string | string[] | undefined;
+}
+
+export interface ErrorResponse {
+  status: 'error';
+  code: number;
+  message: string;
+}
+export type KeyPairResponseBody<T = KeyPairResponse> = T | ErrorResponse;

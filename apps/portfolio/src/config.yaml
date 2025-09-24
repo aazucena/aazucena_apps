@@ -1,10 +1,9 @@
 site:
   name: Aldrin Azucena
-  site: 'https://astrowind.vercel.app'
+  site: 'https://aazucena.vercel.app'
   base: '/'
   trailingSlash: false
   publish: false
-  homepage: 'personal'
   googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
 
 # Default SEO metadata

@@ -1,0 +1,1 @@
+export { default as PGPEncryptionMiddleware } from './pgp';

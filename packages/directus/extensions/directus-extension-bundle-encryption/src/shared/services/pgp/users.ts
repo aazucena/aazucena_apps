@@ -78,3 +78,8 @@ export const generateRetrieveUserByEmail: FactoryFunction<User | null, [email: s
   }
 }
 
+export const generateValidatePassword: FactoryFunction<boolean, [password: string, user: string | User, accountability: Accountability]> = (ctx) => {
+  return async(password, user) => {
+    return user.password === password;
+  }
+}
