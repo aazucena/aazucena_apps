@@ -1,0 +1,15 @@
+{
+  "name": "@repo/playwright",
+  "private": true,
+  "exports": {
+    "./config": "./playwright.config.ts",
+    "./tests/*": "./tests/*.spec.ts"
+  },
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^22.8.4"
+  }
+}
