@@ -16,6 +16,7 @@ const config: StorybookConfig = {
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   "addons": [
+    getAbsolutePath("@storybook/addon-links"),
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-docs'),
     getAbsolutePath("@storybook/addon-a11y"),
@@ -37,7 +38,7 @@ const config: StorybookConfig = {
         alias: [
           {
             find: "ui",
-            replacement: resolve(__dirname, '../../../packages/ui'),
+            replacement: resolve(__dirname, "../../../packages/ui/"),
           },
         ],
       },

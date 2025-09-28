@@ -8,7 +8,7 @@
     "css": "src/styles/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
-    "prefix": "aa-"
+    "prefix": ""
   },
   "aliases": {
     "components": "@repo/ui/components",

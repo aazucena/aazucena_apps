@@ -8,16 +8,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--aa-color-primary)',
-        secondary: 'var(--aa-color-secondary)',
-        accent: 'var(--aa-color-accent)',
-        default: 'var(--aa-color-text-default)',
-        muted: 'var(--aa-color-text-muted)',
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        accent: 'var(--color-accent)',
+        default: 'var(--color-text-default)',
+        muted: 'var(--color-text-muted)',
       },
       fontFamily: {
-        sans: ['var(--aa-font-sans, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
-        serif: ['var(--aa-font-serif, ui-serif)', ...defaultTheme.fontFamily.serif],
-        heading: ['var(--aa-font-heading, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
+        sans: ['var(--font-sans, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
+        serif: ['var(--font-serif, ui-serif)', ...defaultTheme.fontFamily.serif],
+        heading: ['var(--font-heading, ui-sans-serif)', ...defaultTheme.fontFamily.sans],
       },
 
       animation: {
