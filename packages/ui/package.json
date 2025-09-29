@@ -5,18 +5,29 @@
   "type": "module",
   "exports": {
     "./components/*": "./src/components/*",
-    "./utils/*": "./src/utils/*"
+    "./utils/*": "./src/utils/*",
+    "./globals.css": "./src/styles/globals.css"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build"
   },
   "devDependencies": {
     "@astrojs/react": "^4.3.1",
+    "@chromatic-com/storybook": "^4.1.1",
     "@nanostores/react": "^0.8.4",
     "@repo/eslint-config": "workspace:*",
     "@repo/prettier-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@storybook/addon-a11y": "^9.1.8",
+    "@storybook/addon-docs": "^9.1.8",
+    "@storybook/addon-themes": "^9.1.8",
+    "@storybook/addon-vitest": "^9.1.8",
+    "@storybook/react": "^9.1.8",
+    "@storybook/react-vite": "^9.1.8",
+    "@tailwindcss/vite": "^4.1.13",
     "@turbo/gen": "^2.2.3",
     "@types/eslint": "^9.6.1",
     "@types/eslint__js": "^8.42.3",
@@ -28,21 +39,26 @@
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
+    "@vitest/browser": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
     "astro": "^5.13.10",
-    "autoprefixer": "^10.4.18",
     "clsx": "^2.1.1",
     "eslint": "^9.13.0",
+    "eslint-plugin-storybook": "^9.1.8",
     "framer-motion": "^11.15.0",
     "js-yaml": "^4.1.0",
     "lodash.merge": "^4.6.2",
     "nanostores": "^0.11.3",
-    "postcss": "^8.4.35",
+    "playwright": "^1.55.1",
+    "postcss": "^8.4.49",
     "postcss-load-config": "^6.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "storybook": "^9.1.8",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss": "^3.4.16",
-    "typescript": "^5.6.3"
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.4"
   },
   "overrides": {
     "framer-motion": {
@@ -52,6 +68,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/postcss": "^4.1.13",
     "class-variance-authority": "^0.7.1",
     "lucide-react": "^0.544.0",
     "tw-animate-css": "^1.3.8"

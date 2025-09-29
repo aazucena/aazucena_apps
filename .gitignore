@@ -54,3 +54,5 @@ yarn-error.log*
 .env
 .docker
 storybook-static
+
+*storybook.log
