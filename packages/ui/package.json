@@ -27,6 +27,7 @@
     "@storybook/addon-vitest": "^9.1.8",
     "@storybook/react": "^9.1.8",
     "@storybook/react-vite": "^9.1.8",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.13",
     "@turbo/gen": "^2.2.3",
     "@types/eslint": "^9.6.1",
@@ -68,6 +69,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@mynaui/icons-react": "^0.3.9",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-aspect-ratio": "^1.1.7",
     "@radix-ui/react-avatar": "^1.1.10",
