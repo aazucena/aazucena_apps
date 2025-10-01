@@ -21,6 +21,7 @@ export interface PreloaderProps {
   subtitle?: string;
   readyTitle?: string;
   readySubtitle?: string;
+  continueButton?: boolean;
   continueButtonText?: string;
   readyFooterNote?: string;
 

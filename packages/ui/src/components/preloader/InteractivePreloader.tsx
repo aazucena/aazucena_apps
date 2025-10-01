@@ -31,6 +31,7 @@ export default function InteractivePreloader({
   readySubtitle = "Your experience is fully optimized and ready",
   readyFooterNote = "All systems ready for your journey",
   continueButtonText = "Enter Website",
+  continueButton = true,
 
   // Styling & Theming
   className = "",
@@ -213,12 +214,13 @@ export default function InteractivePreloader({
             />
           ) : CustomReadyComponent ? (
             <CustomReadyComponent
+              continueButton={continueButton}
               loadTime={loadTime}
               onContinue={handleContinue}
               totalSteps={steps.length}
               completedSteps={Object.values(stepStatus).filter(Boolean).length}
             />
-          ) : (
+          ) : continueButton && (
             <ReadyState
               loadTime={loadTime}
               onContinue={handleContinue}
@@ -332,7 +334,7 @@ function LoadingState({
           }`}
         />
         <div className="flex justify-between text-xs text-muted-foreground">
-          <span>Starting...</span>
+          <span>{hasReached100 ? 'Finalizing...' : 'Starting...'}</span>
           <span className={hasReached100 ? 'text-green-600 font-semibold' : ''}>
             {hasReached100 ? 'Complete!' : 'Almost there'}
           </span>

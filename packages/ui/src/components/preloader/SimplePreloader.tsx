@@ -26,6 +26,7 @@ export default function SimplePreloader({
   readyTitle = "Ready!",
   readySubtitle = "All set to go",
   continueButtonText = "Continue",
+  continueButton = true,
 
   // Styling & Theming
   className = "",
@@ -169,11 +170,12 @@ export default function SimplePreloader({
           ) : CustomReadyComponent ? (
             <CustomReadyComponent
               loadTime={loadTime}
+              continueButton={continueButton}
               onContinue={handleContinue}
               totalSteps={steps.length}
               completedSteps={Object.values(stepStatus).filter(Boolean).length}
             />
-          ) : (
+          ) : continueButton &&(
             <>
               <CheckCircle className="w-12 h-12 text-green-500 mx-auto" />
               <div className="space-y-2">

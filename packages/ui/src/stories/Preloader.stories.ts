@@ -86,6 +86,14 @@ const meta = {
         defaultValue: { summary: 'Your experience is fully optimized and ready' },
       },
     },
+    continueButton: {
+      control: { type: 'boolean' },
+      description: 'Allow users to skip the continue button',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
     continueButtonText: {
       control: { type: 'text' },
       description: 'Text for the continue button',
@@ -233,6 +241,21 @@ export const SkipEnabled: Story = {
     },
   },
 };
+
+export const NoContinueButton: Story = {
+  args: {
+    variant: 'interactive',
+    continueButton: false,
+  },
+  name: 'No Continue Button',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Preloader without the continue button for a more streamlined experience.',
+      },
+    },
+  },
+}
 
 export const QuickLoad: Story = {
   args: {
