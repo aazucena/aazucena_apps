@@ -2,6 +2,7 @@
   "extends": "@repo/shared/typescript/react.json",
   "compilerOptions": {
     "esModuleInterop": true,
+    "noImplicitAny": false,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "outDir": "dist",
