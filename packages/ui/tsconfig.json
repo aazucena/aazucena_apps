@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/react.json",
+  "extends": "@repo/shared/typescript/react.json",
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "ESNext",

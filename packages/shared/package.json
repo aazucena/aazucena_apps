@@ -1,8 +1,18 @@
 {
-  "name": "@repo/eslint-config",
+  "name": "@repo/shared",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
+  "exports": {
+    "./config/*": "./config/*",
+    "./eslint/*": "./config/eslint/*",
+    "./prettier/*": "./config/prettier/*",
+    "./typescript/*": "./config/typescript/*",
+    "./tailwind/*": "./config/tailwind/*"
+  },
   "devDependencies": {
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.18.2",
     "@vercel/style-guide": "^6.0.0",
@@ -15,7 +25,10 @@
     "eslint-plugin-only-warn": "^1.1.0",
     "globals": "^15.13.0",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.17.0"
+    "typescript-eslint": "^8.17.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4.1.13",
+    "tailwindcss-animate": "^1.0.7"
   },
   "publishConfig": {
     "access": "public"

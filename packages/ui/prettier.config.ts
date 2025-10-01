@@ -1,4 +1,4 @@
-import prettierConfigAstro from "@repo/prettier-config/astro.ts";
+import prettierConfigAstro from "@repo/shared/prettier/astro.ts";
 
 /** @type {import('prettier').Config} */
 export default prettierConfigAstro;

@@ -44,7 +44,7 @@
     "@directus/sdk": "^19.1.0",
     "@directus/types": "^13.1.1",
     "@directus/visual-editing": "^1.1.0",
-    "@repo/typescript-config": "workspace:*",
+    "@repo/shared": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "@types/serialize-javascript": "^5.0.4",
     "astro": "^5.4.1",

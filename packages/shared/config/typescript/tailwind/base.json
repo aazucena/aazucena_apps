@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/astro.json",
+  "extends": "../base.json",
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "ESNext",

@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/astro.json",
+  "extends": "@repo/shared/tyoescript/astro.json",
   "compilerOptions": {
     "outDir": "dist"
   },
