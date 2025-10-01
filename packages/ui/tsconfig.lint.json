@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/shared/tyoescript/astro.json",
+  "extends": "@repo/shared/tyoescript/react.json",
   "compilerOptions": {
     "outDir": "dist"
   },
