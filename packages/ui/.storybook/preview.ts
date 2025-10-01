@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import { withThemeByClassName } from '@storybook/addon-themes';
+import { PreloaderDecorator } from '../src/stories/decorators/PreloaderDecorator';
 import '../src/styles/globals.css';
 
 const preview: Preview = {
@@ -31,7 +32,8 @@ const preview: Preview = {
         dark: 'dark',
       },
       defaultTheme: 'light'
-    })
+    }),
+    PreloaderDecorator,
   ],
 };
 
