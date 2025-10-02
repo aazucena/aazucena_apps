@@ -6,7 +6,9 @@
   "exports": {
     "./components/*": "./src/components/*",
     "./utils/*": "./src/utils/*",
-    "./globals.css": "./src/styles/globals.css"
+    "./styles": "./src/styles/globals.css",
+    "./globals.css": "./src/styles/globals.css",
+    "./postcss": "./postcss.config.js"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -38,6 +40,7 @@
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
+    "@vitejs/plugin-react": "^5.0.4",
     "@vitest/browser": "^3.2.4",
     "@vitest/coverage-v8": "^3.2.4",
     "astro": "^5.13.10",
@@ -51,12 +54,14 @@
     "playwright": "^1.55.1",
     "postcss": "^8.4.49",
     "postcss-load-config": "^6.0.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "storybook": "^9.1.8",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^4.1.13",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.6.3",
+    "vite": "^7.1.7",
     "vitest": "^3.2.4"
   },
   "overrides": {

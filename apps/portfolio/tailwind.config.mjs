@@ -1,9 +1,8 @@
-import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import typographyPlugin from '@tailwindcss/typography';
 import tailwindcssAnimate from "tailwindcss-animate";
 
-const config: Config = {
+export default {
   theme: {
     extend: {
       colors: {
@@ -36,7 +35,5 @@ const config: Config = {
     tailwindcssAnimate,
   ],
   darkMode: 'class',
+	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 }
-
-
-export default config;
