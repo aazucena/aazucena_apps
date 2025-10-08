@@ -1,0 +1,11 @@
+---
+import BaseLayout, { type Props as BaseLayoutProps } from "./BaseLayout.astro";
+
+const props: BaseLayoutProps = Astro.props;
+---
+
+<BaseLayout {...props}>
+  <div class="grid place-items-center h-screen content-center bg-primary-200">
+    <slot />
+  </div>
+</BaseLayout>
