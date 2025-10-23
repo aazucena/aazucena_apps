@@ -1,15 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
-import { Progress } from '../ui/progress';
 import { Card, CardContent } from '../ui/card';
+import { X } from '@mynaui/icons-react';
 import {
-  CircleNotch as LoadingCircle,
-  CheckCircle,
-  Rocket as RocketLaunch,
-  X
-} from '@mynaui/icons-react';
-import { useLoadingProgress } from './hooks';
+  useLoadingProgress,
+  usePreloaderVisibility,
+  usePreloaderLifecycle,
+  useKeyboardNavigation,
+} from './hooks';
 import { getLoadingSteps } from './constants';
+import { SimpleLoadingState, SimpleReadyState, ErrorState } from './components';
 import type { PreloaderProps } from './types';
 import { getTransitionClass } from './utils';
 
@@ -19,6 +18,7 @@ export default function SimplePreloader({
   maxDisplayTime = 10000,
   autoStart = true,
   enableSkip = false,
+  animationDuration = 600,
 
   // Content & Text
   title = "Loading",
@@ -29,13 +29,11 @@ export default function SimplePreloader({
   continueButton = true,
 
   // Styling & Theming
-  className = "",
   style,
   overlayClassName = "",
   cardClassName = "",
 
   // Animation & Transitions
-  animationDuration = 600,
   enableAnimations = true,
   transitionType = 'fade',
 
@@ -59,24 +57,18 @@ export default function SimplePreloader({
 
   // Performance
   lazyLoad = false,
-  preloadAssets = false,
 }: PreloaderProps) {
-  const [isVisible, setIsVisible] = useState(!lazyLoad);
-  const [isInViewport, setIsInViewport] = useState(!lazyLoad);
-  const [userSkipped, setUserSkipped] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const steps = getLoadingSteps(customSteps);
 
   const {
     progress,
-    currentStep,
     isReady,
     loadTime,
     stepStatus,
     startLoading,
     isLoading,
     error,
+    resetLoading,
   } = useLoadingProgress(
     minDisplayTime,
     steps,
@@ -84,26 +76,43 @@ export default function SimplePreloader({
     animationDuration
   );
 
-  // Auto-start loading when conditions are met
-  useEffect(() => {
-    if (autoStart && isInViewport && !isLoading && !isReady && !userSkipped) {
-      onLoadingStart?.();
-      startLoading();
-    }
-  }, [autoStart, isInViewport, isLoading, isReady, userSkipped, startLoading, onLoadingStart]);
+  const {
+    isVisible,
+    isInViewport,
+    userSkipped,
+    containerRef,
+    handleSkip,
+    handleContinue,
+  } = usePreloaderVisibility({
+    lazyLoad,
+    onSkip,
+    onComplete,
+  });
 
+  usePreloaderLifecycle({
+    autoStart,
+    maxDisplayTime,
+    isInViewport,
+    isLoading,
+    isReady,
+    userSkipped,
+    continueButton,
+    progress,
+    currentStep: 0,
+    error,
+    onLoadingStart,
+    onLoadingProgress,
+    onError,
+    handleSkip,
+    startLoading,
+  });
 
-  const handleContinue = () => {
-    setIsVisible(false);
-    onComplete?.();
-  };
-
-  const handleSkip = () => {
-    setUserSkipped(true);
-    setIsVisible(false);
-    onSkip?.();
-    onComplete?.();
-  };
+  useKeyboardNavigation({
+    enableSkip,
+    isReady,
+    onSkip: handleSkip,
+    onContinue: handleContinue,
+  });
 
   // Don't render if lazy loading and not in viewport
   if (lazyLoad && !isInViewport) {
@@ -113,6 +122,7 @@ export default function SimplePreloader({
   if (!isVisible) return null;
 
   const transitionClass = getTransitionClass(transitionType);
+  const completedSteps = Object.values(stepStatus).filter(Boolean).length;
 
   return (
     <div
@@ -126,6 +136,7 @@ export default function SimplePreloader({
       aria-label={ariaLabel}
       aria-live={ariaLive}
       role="status"
+      tabIndex={-1}
     >
       <Card className={`
         w-full max-w-sm
@@ -134,7 +145,7 @@ export default function SimplePreloader({
       `}>
         <CardContent className="p-6 space-y-4 text-center relative">
           {/* Skip Button */}
-          {enableSkip && !isReady && (
+          {enableSkip && !isReady && !error && (
             <Button
               variant="ghost"
               size="sm"
@@ -146,48 +157,36 @@ export default function SimplePreloader({
             </Button>
           )}
 
-          {!isReady ? (
-            <>
-              {CustomSpinner ? (
-                <CustomSpinner />
-              ) : (
-                <LoadingCircle className="w-8 h-8 animate-spin mx-auto text-primary" />
-              )}
-              <div className="space-y-2">
-                <h3 className="font-semibold">{title}</h3>
-                <Progress value={progress} />
-                <p className="text-sm text-muted-foreground text-center">{Math.round(progress)}%</p>
-                {steps.length > 0 && (
-                  <p className="text-xs text-muted-foreground text-center">
-                    {steps[Math.min(Math.floor(progress / (100 / steps.length)), steps.length - 1)]?.name}
-                  </p>
-                )}
-                {subtitle && (
-                  <p className="text-xs text-muted-foreground">{subtitle}</p>
-                )}
-              </div>
-            </>
+          {error ? (
+            <ErrorState
+              error={error}
+              onRetry={resetLoading}
+              onDismiss={handleContinue}
+            />
+          ) : !isReady ? (
+            <SimpleLoadingState
+              progress={progress}
+              title={title}
+              subtitle={subtitle}
+              steps={steps}
+              customSpinner={CustomSpinner}
+            />
           ) : CustomReadyComponent ? (
             <CustomReadyComponent
               loadTime={loadTime}
               continueButton={continueButton}
               onContinue={handleContinue}
               totalSteps={steps.length}
-              completedSteps={Object.values(stepStatus).filter(Boolean).length}
+              completedSteps={completedSteps}
             />
-          ) : continueButton &&(
-            <>
-              <CheckCircle className="w-12 h-12 text-green-500 mx-auto" />
-              <div className="space-y-2">
-                <h3 className="font-semibold">{readyTitle}</h3>
-                <p className="text-sm text-muted-foreground text-center">{readySubtitle}</p>
-              </div>
-              <Button onClick={handleContinue} className="w-full">
-                <RocketLaunch className="w-4 h-4 mr-2" />
-                {continueButtonText}
-              </Button>
-            </>
-          )}
+          ) : continueButton ? (
+            <SimpleReadyState
+              readyTitle={readyTitle}
+              readySubtitle={readySubtitle}
+              continueButtonText={continueButtonText}
+              onContinue={handleContinue}
+            />
+          ) : null}
         </CardContent>
       </Card>
     </div>

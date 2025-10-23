@@ -22,6 +22,9 @@
       "core-js-pure",
       "esbuild",
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "react-reconciler": "0.34.0-canary-71b3a03c-20251021"
+    }
   }
 }

@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/HomeLayout.astro';
-
+import HeroSection from '~/components/animations/Section';
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
 ---
 
 <Layout title="Aldrin Azucena">
-  <h1 class="text-8xl font-bold">Welcome to Aldrin Azucena</h1>
+  <!-- <h1 class="text-8xl font-bold">Welcome to Aldrin Azucena</h1> -->
+  <HeroSection client:load />
 </Layout>

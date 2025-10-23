@@ -218,6 +218,10 @@ const config: Config = {
           from: { opacity: '1' },
           to: { opacity: '0' },
         },
+        'hue-shift': {
+          '0%': { filter: 'hue-rotate(0deg)' },
+          '100%': { filter: 'hue-rotate(360deg)' },
+        },
       },
 
       animation: {
@@ -227,6 +231,7 @@ const config: Config = {
         'slide-in-left': 'slide-in-from-left 0.3s ease-out',
         'fade-in': 'fade-in 0.2s ease-out',
         'fade-out': 'fade-out 0.2s ease-out',
+        'hue-shift': 'hue-shift 5s linear infinite',
       },
 
       scale: {
