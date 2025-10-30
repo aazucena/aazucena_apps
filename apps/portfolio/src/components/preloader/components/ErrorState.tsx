@@ -3,6 +3,7 @@ import { Button } from '../../ui/button';
 import { CardTitle } from '../../ui/card';
 import { Badge } from '../../ui/badge';
 import { X, ClockHand as Retry } from '@mynaui/icons-react';
+import type { ThemeStyles } from '../hooks/useTheme';
 
 export interface ErrorStateProps {
   error: Error;
@@ -10,6 +11,7 @@ export interface ErrorStateProps {
   onDismiss: () => void;
   retryButtonText?: string;
   dismissButtonText?: string;
+  themeStyles: ThemeStyles;
 }
 
 export const ErrorState = memo(function ErrorState({
@@ -18,27 +20,39 @@ export const ErrorState = memo(function ErrorState({
   onDismiss,
   retryButtonText = 'Retry',
   dismissButtonText = 'Dismiss',
+  themeStyles,
 }: ErrorStateProps) {
   return (
     <div className="space-y-6 text-center" role="alert" aria-live="assertive">
       <div className="relative mx-auto w-20 h-20">
-        <div className="absolute inset-0 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
-          <X className="w-10 h-10 text-white" />
+        <div
+          className="absolute inset-0 rounded-full flex items-center justify-center shadow-lg"
+          style={{ background: themeStyles.config.colors.error }}
+        >
+          <X className="w-10 h-10" style={{ color: themeStyles.config.colors.errorForeground }} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <CardTitle className="text-2xl text-red-600">Loading Failed</CardTitle>
-        <p className="text-muted-foreground text-center">
+        <CardTitle className="text-2xl" style={{ ...themeStyles.titleStyle, color: themeStyles.config.colors.error }}>
+          Loading Failed
+        </CardTitle>
+        <p className="text-center" style={themeStyles.subtitleStyle}>
           An error occurred while loading the content
         </p>
       </div>
 
-      <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+      <div
+        className="p-4 border rounded-lg"
+        style={{
+          background: `${themeStyles.config.colors.error}15`,
+          borderColor: themeStyles.config.colors.error
+        }}
+      >
         <Badge variant="destructive" className="mb-2">
           Error Details
         </Badge>
-        <p className="text-sm text-red-800 font-mono break-words">
+        <p className="text-sm font-mono break-words" style={{ color: themeStyles.config.colors.error }}>
           {error.message}
         </p>
       </div>
@@ -48,7 +62,11 @@ export const ErrorState = memo(function ErrorState({
           <Button
             onClick={onRetry}
             variant="default"
-            className="flex-1 gap-2"
+            className="flex-1 gap-2 border-2"
+            style={{
+              ...themeStyles.getButtonStyle('primary'),
+              textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+            }}
             aria-label={retryButtonText}
           >
             <Retry className="w-4 h-4" aria-hidden="true" />
@@ -58,7 +76,11 @@ export const ErrorState = memo(function ErrorState({
         <Button
           onClick={onDismiss}
           variant="outline"
-          className="flex-1"
+          className="flex-1 border-2"
+          style={{
+            ...themeStyles.getButtonStyle('secondary'),
+            textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+          }}
           aria-label={dismissButtonText}
         >
           {dismissButtonText}

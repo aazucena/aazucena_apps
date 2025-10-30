@@ -8,6 +8,8 @@ import {
   Rocket as RocketLaunch,
   ClockCircle as Clock,
 } from '@mynaui/icons-react';
+import type { ThemeStyles } from '../hooks/useTheme';
+import { Progress } from '~/components/ui/progress';
 
 export interface ReadyStateProps {
   loadTime: string;
@@ -19,6 +21,7 @@ export interface ReadyStateProps {
   readyFooterNote: string;
   continueButtonText: string;
   debug?: boolean;
+  themeStyles: ThemeStyles;
 }
 
 export const ReadyState = memo(function ReadyState({
@@ -30,22 +33,33 @@ export const ReadyState = memo(function ReadyState({
   readySubtitle,
   readyFooterNote,
   continueButtonText,
+  themeStyles,
   debug = false
 }: ReadyStateProps) {
   return (
     <div className="space-y-6 text-center animate-in fade-in-0 zoom-in-95 duration-500" role="status" aria-live="polite">
       <div className="relative mx-auto w-20 h-20" aria-hidden="true">
-        <div className="absolute inset-0 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-          <Check className="w-10 h-10 text-green-foreground text-white" />
+        <div
+          className="absolute inset-0 rounded-full flex items-center justify-center shadow-lg"
+          style={{ background: themeStyles.config.colors.success }}
+        >
+          <Check className="w-10 h-10" style={{ color: themeStyles.config.colors.successForeground }} />
         </div>
-        <Sparkle className="absolute -top-2 -right-2 w-6 h-6 text-yellow-400 animate-pulse" />
+        <Sparkle className="absolute -top-2 -right-2 w-6 h-6 animate-pulse text-yellow-400" />
       </div>
 
       <div className="space-y-2">
-        <CardTitle className="text-2xl">{readyTitle}</CardTitle>
-        <p className="text-muted-foreground text-center">
+        <CardTitle className="text-2xl" style={themeStyles.titleStyle}>{readyTitle}</CardTitle>
+        <p className="text-center" style={themeStyles.subtitleStyle}>
           {readySubtitle}
         </p>
+
+        <Progress
+          value={100}
+          className="h-2 transition-all duration-300"
+          style={themeStyles.getProgressStyle(100)}
+          aria-label={`Loading progress: ${100}%`}
+        />
       </div>
 
       {debug && (
@@ -70,14 +84,19 @@ export const ReadyState = memo(function ReadyState({
       <Button
         onClick={onContinue}
         size="lg"
-        className="w-full gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary transition-all duration-300 transform hover:scale-105 active:scale-95"
+        className="w-full gap-2 transition-all duration-300 transform hover:scale-105 active:scale-95 border-2"
+        style={{
+          ...themeStyles.getButtonStyle('primary'),
+          // Ensure text is always visible
+          textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+        }}
         aria-label={continueButtonText}
       >
         <RocketLaunch className="w-4 h-4" aria-hidden="true" />
         {continueButtonText}
       </Button>
 
-      <p className="text-xs text-muted-foreground text-center">
+      <p className="text-xs text-center" style={themeStyles.subtitleStyle}>
         {readyFooterNote}
       </p>
     </div>

@@ -6,10 +6,11 @@ import {
   usePreloaderVisibility,
   usePreloaderLifecycle,
   useKeyboardNavigation,
+  useTheme,
 } from './hooks';
 import { getLoadingSteps } from './constants';
 import { SimpleLoadingState, SimpleReadyState, ErrorState } from './components';
-import type { PreloaderProps } from './types';
+import type { PreloaderPropsWithTheme } from './types';
 import { getTransitionClass } from './utils';
 
 export default function SimplePreloader({
@@ -32,6 +33,7 @@ export default function SimplePreloader({
   style,
   overlayClassName = "",
   cardClassName = "",
+  showCard = false,
 
   // Animation & Transitions
   enableAnimations = true,
@@ -57,7 +59,11 @@ export default function SimplePreloader({
 
   // Performance
   lazyLoad = false,
-}: PreloaderProps) {
+
+  // Theme
+  theme = 'default',
+  customTheme,
+}: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
 
   const {
@@ -114,6 +120,8 @@ export default function SimplePreloader({
     onContinue: handleContinue,
   });
 
+  const themeStyles = useTheme({ theme, customTheme });
+
   // Don't render if lazy loading and not in viewport
   if (lazyLoad && !isInViewport) {
     return <div ref={containerRef} className="h-20" />;
@@ -124,71 +132,95 @@ export default function SimplePreloader({
   const transitionClass = getTransitionClass(transitionType);
   const completedSteps = Object.values(stepStatus).filter(Boolean).length;
 
+  // Content wrapper - shared between card and non-card modes
+  const contentWrapperClasses = showCard
+    ? "p-6 space-y-4 text-center relative"
+    : "w-full max-w-sm p-6 space-y-4 text-center relative";
+
+  const cardWrapperClasses = `
+    w-full max-w-sm border
+    ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
+    ${cardClassName}
+    ${themeStyles.cardClasses}
+  `;
+
+  const content = (
+    <>
+      {/* Skip Button */}
+      {enableSkip && !isReady && !error && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSkip}
+          className="absolute top-2 right-2 z-10"
+          aria-label={skipButtonAriaLabel}
+        >
+          <X className="w-3 h-3" />
+        </Button>
+      )}
+
+      {error ? (
+        <ErrorState
+          error={error}
+          onRetry={resetLoading}
+          onDismiss={handleContinue}
+          themeStyles={themeStyles}
+        />
+      ) : !isReady ? (
+        <SimpleLoadingState
+          progress={progress}
+          title={title}
+          subtitle={subtitle}
+          steps={steps}
+          customSpinner={CustomSpinner}
+          themeStyles={themeStyles}
+        />
+      ) : CustomReadyComponent ? (
+        <CustomReadyComponent
+          loadTime={loadTime}
+          continueButton={continueButton}
+          onContinue={handleContinue}
+          totalSteps={steps.length}
+          completedSteps={completedSteps}
+        />
+      ) : continueButton ? (
+        <SimpleReadyState
+          readyTitle={readyTitle}
+          readySubtitle={readySubtitle}
+          continueButtonText={continueButtonText}
+          onContinue={handleContinue}
+          themeStyles={themeStyles}
+        />
+      ) : null}
+    </>
+  );
+
   return (
     <div
       ref={containerRef}
       className={`
-        fixed inset-0 z-50 bg-background flex items-center justify-center p-4
+        fixed inset-0 z-50 flex items-center justify-center p-4
         ${transitionClass}
         ${overlayClassName}
+        ${themeStyles.overlayClasses}
       `}
-      style={style}
+      style={{ ...themeStyles.overlayStyle, ...style }}
       aria-label={ariaLabel}
       aria-live={ariaLive}
       role="status"
       tabIndex={-1}
     >
-      <Card className={`
-        w-full max-w-sm
-        ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
-        ${cardClassName}
-      `}>
-        <CardContent className="p-6 space-y-4 text-center relative">
-          {/* Skip Button */}
-          {enableSkip && !isReady && !error && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleSkip}
-              className="absolute top-2 right-2 z-10"
-              aria-label={skipButtonAriaLabel}
-            >
-              <X className="w-3 h-3" />
-            </Button>
-          )}
-
-          {error ? (
-            <ErrorState
-              error={error}
-              onRetry={resetLoading}
-              onDismiss={handleContinue}
-            />
-          ) : !isReady ? (
-            <SimpleLoadingState
-              progress={progress}
-              title={title}
-              subtitle={subtitle}
-              steps={steps}
-              customSpinner={CustomSpinner}
-            />
-          ) : CustomReadyComponent ? (
-            <CustomReadyComponent
-              loadTime={loadTime}
-              continueButton={continueButton}
-              onContinue={handleContinue}
-              totalSteps={steps.length}
-              completedSteps={completedSteps}
-            />
-          ) : continueButton ? (
-            <SimpleReadyState
-              readyTitle={readyTitle}
-              readySubtitle={readySubtitle}
-              continueButtonText={continueButtonText}
-              onContinue={handleContinue}
-            />
-          ) : null}
-        </CardContent>
-      </Card>
+      {showCard ? (
+        <Card className={cardWrapperClasses} style={themeStyles.cardStyle}>
+          <CardContent className={contentWrapperClasses}>
+            {content}
+          </CardContent>
+        </Card>
+      ) : (
+        <div className={contentWrapperClasses} style={themeStyles.cardStyle}>
+          {content}
+        </div>
+      )}
     </div>
   );
 }

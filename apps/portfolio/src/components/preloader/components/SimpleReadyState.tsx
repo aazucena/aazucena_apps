@@ -1,12 +1,14 @@
 import { memo } from 'react';
 import { Button } from '../../ui/button';
 import { CheckCircle, Rocket as RocketLaunch } from '@mynaui/icons-react';
+import type { ThemeStyles } from '../hooks/useTheme';
 
 export interface SimpleReadyStateProps {
   readyTitle: string;
   readySubtitle: string;
   continueButtonText: string;
   onContinue: () => void;
+  themeStyles: ThemeStyles;
 }
 
 export const SimpleReadyState = memo(function SimpleReadyState({
@@ -14,15 +16,28 @@ export const SimpleReadyState = memo(function SimpleReadyState({
   readySubtitle,
   continueButtonText,
   onContinue,
+  themeStyles,
 }: SimpleReadyStateProps) {
   return (
     <>
-      <CheckCircle className="w-12 h-12 text-green-500 mx-auto" aria-label="Ready" />
+      <CheckCircle
+        className="w-12 h-12 mx-auto"
+        style={themeStyles.getIconStyle('success')}
+        aria-label="Ready"
+      />
       <div className="space-y-2">
-        <h3 className="font-semibold">{readyTitle}</h3>
-        <p className="text-sm text-muted-foreground text-center">{readySubtitle}</p>
+        <h3 className="font-semibold" style={themeStyles.titleStyle}>{readyTitle}</h3>
+        <p className="text-sm text-center" style={themeStyles.subtitleStyle}>{readySubtitle}</p>
       </div>
-      <Button onClick={onContinue} className="w-full" aria-label={continueButtonText}>
+      <Button
+        onClick={onContinue}
+        className="w-full border-2"
+        style={{
+          ...themeStyles.getButtonStyle('primary'),
+          textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+        }}
+        aria-label={continueButtonText}
+      >
         <RocketLaunch className="w-4 h-4 mr-2" aria-hidden="true" />
         {continueButtonText}
       </Button>

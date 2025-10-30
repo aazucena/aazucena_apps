@@ -19,6 +19,7 @@ export {
   usePreloaderVisibility,
   usePreloaderLifecycle,
   useKeyboardNavigation,
+  useTheme,
 } from './hooks';
 
 // Constants
@@ -32,6 +33,9 @@ export {
 
 // Utilities
 export { getTransitionClass } from './utils';
+
+// Theme
+export { themes, getTheme, mergeTheme } from './themes';
 
 // Types
 export type {
@@ -52,7 +56,16 @@ export type {
   AccessibilityConfig,
   PerformanceConfig,
   PreloaderGroupedProps,
+  PreloaderTheme,
+  PreloaderPropsWithTheme,
+  ThemeConfig,
+  ThemeColors,
+  ThemeEffects,
+  ThemeTypography,
 } from './types';
+
+// Re-export unified type with theme from Preloader
+export type { UnifiedPreloaderPropsWithTheme } from './Preloader';
 
 // Default export
 export { default } from './Preloader';

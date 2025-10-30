@@ -1,16 +1,22 @@
 import { memo } from 'react';
 import InteractivePreloader from './InteractivePreloader';
 import SimplePreloader from './SimplePreloader';
-import type { UnifiedPreloaderProps, PreloaderVariant } from './types';
+import type { PreloaderVariant, PreloaderPropsWithTheme } from './types';
+
+export interface UnifiedPreloaderPropsWithTheme extends PreloaderPropsWithTheme {
+  variant?: PreloaderVariant;
+}
 
 /**
  * Unified Preloader Component
  *
- * A flexible, accessible preloader with two variants:
+ * A flexible, accessible preloader with two variants and theme support:
  * - 'interactive': Feature-rich with step indicators and detailed progress
  * - 'simple': Minimal loading spinner with progress bar
  *
  * Features:
+ * - 8 Predefined themes (default, hoyoverse, cyberpunk, minimal, glass, dark, light, nature)
+ * - Custom theme configuration support
  * - Full keyboard navigation (Escape to skip, Enter/Space to continue)
  * - ARIA attributes for screen readers
  * - Error handling with retry capability
@@ -22,23 +28,41 @@ import type { UnifiedPreloaderProps, PreloaderVariant } from './types';
  * ```tsx
  * <Preloader
  *   variant="interactive"
+ *   theme="hoyoverse"
  *   title="Loading Your Experience"
  *   enableSkip
  *   onComplete={() => console.log('Done!')}
  * />
  * ```
+ *
+ * @example
+ * ```tsx
+ * <Preloader
+ *   variant="interactive"
+ *   theme="default"
+ *   customTheme={{
+ *     colors: {
+ *       primary: 'rgb(255, 0, 128)',
+ *       success: 'rgb(0, 255, 128)',
+ *     }
+ *   }}
+ * />
+ * ```
  */
 const Preloader = memo(function Preloader({
   variant = 'interactive',
+  theme = 'default',
+  customTheme,
+  showCard = false,
   ...props
-}: UnifiedPreloaderProps) {
+}: UnifiedPreloaderPropsWithTheme) {
   switch (variant) {
     case 'simple':
-      return <SimplePreloader {...props} />;
+      return <SimplePreloader theme={theme} customTheme={customTheme} showCard={showCard} {...props} />;
 
     case 'interactive':
     default:
-      return <InteractivePreloader {...props} />;
+      return <InteractivePreloader theme={theme} customTheme={customTheme} showCard={showCard} {...props} />;
   }
 });
 
@@ -51,4 +75,4 @@ export {
 };
 
 // Re-export types
-export type { PreloaderVariant, UnifiedPreloaderProps };
+export type { PreloaderVariant };

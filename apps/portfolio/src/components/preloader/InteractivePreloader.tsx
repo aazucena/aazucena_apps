@@ -6,10 +6,11 @@ import {
   usePreloaderVisibility,
   usePreloaderLifecycle,
   useKeyboardNavigation,
+  useTheme,
 } from './hooks';
 import { getLoadingSteps } from './constants';
 import { LoadingState, ReadyState, ErrorState } from './components';
-import type { PreloaderProps } from './types';
+import type { PreloaderPropsWithTheme } from './types';
 import { getTransitionClass } from './utils';
 
 export default function InteractivePreloader({
@@ -33,6 +34,7 @@ export default function InteractivePreloader({
   style,
   overlayClassName = "",
   cardClassName = "",
+  showCard = false,
 
   // Animation & Transitions
   enableAnimations = true,
@@ -59,7 +61,11 @@ export default function InteractivePreloader({
   // Performance
   lazyLoad = false,
   debug = false,
-}: PreloaderProps) {
+
+  // Theme
+  theme = 'default',
+  customTheme,
+}: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
 
   const {
@@ -118,6 +124,8 @@ export default function InteractivePreloader({
     onContinue: handleContinue,
   });
 
+  const themeStyles = useTheme({ theme, customTheme });
+
   // Don't render if lazy loading and not in viewport
   if (lazyLoad && !isInViewport) {
     return <div ref={containerRef} className="h-20" />;
@@ -128,83 +136,109 @@ export default function InteractivePreloader({
   const transitionClass = getTransitionClass(transitionType);
   const completedSteps = Object.values(stepStatus).filter(Boolean).length;
 
+  // Content wrapper - shared between card and non-card modes
+  const contentWrapperClasses = showCard
+    ? "p-6 space-y-6 relative"
+    : "w-full max-w-md p-6 space-y-6 relative";
+
+  const cardWrapperClasses = `
+    w-full max-w-md border
+    ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
+    ${cardClassName}
+    ${themeStyles.cardClasses}
+  `;
+
+  const content = (
+    <>
+      {/* Skip Button */}
+      {enableSkip && !isReady && !error && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSkip}
+          className="absolute top-4 right-4 z-10"
+          aria-label={skipButtonAriaLabel}
+        >
+          <X className="w-4 h-4" />
+          Skip
+        </Button>
+      )}
+
+      {error ? (
+        <ErrorState
+          error={error}
+          onRetry={resetLoading}
+          onDismiss={handleContinue}
+          themeStyles={themeStyles}
+        />
+      ) : !isReady ? (
+        <LoadingState
+          progress={progress}
+          currentStep={currentStep}
+          steps={steps}
+          stepStatus={stepStatus}
+          hasReached100={hasReached100}
+          title={title}
+          subtitle={subtitle}
+          animationDuration={animationDuration}
+          enableAnimations={enableAnimations}
+          customSpinner={CustomSpinner}
+          themeStyles={themeStyles}
+        />
+      ) : CustomReadyComponent ? (
+        <CustomReadyComponent
+          continueButton={continueButton}
+          loadTime={loadTime}
+          onContinue={handleContinue}
+          totalSteps={steps.length}
+          completedSteps={completedSteps}
+        />
+      ) : (
+        <ReadyState
+          loadTime={loadTime}
+          onContinue={handleContinue}
+          totalSteps={steps.length}
+          completedSteps={completedSteps}
+          readyTitle={readyTitle}
+          readySubtitle={readySubtitle}
+          continueButtonText={continueButtonText}
+          readyFooterNote={readyFooterNote}
+          debug={debug}
+          themeStyles={themeStyles}
+        />
+      )}
+    </>
+  );
+
+  const containerStyle = showCard ? themeStyles.overlayStyle : themeStyles.backgroundStyle;
+
   return (
     <div
       ref={containerRef}
       className={`
-        fixed inset-0 z-50 bg-background/95 backdrop-blur-sm
+        fixed inset-0 z-50
         flex items-center justify-center p-4
         ${transitionClass}
         ${overlayClassName}
+        ${themeStyles.overlayClasses}
       `}
-      style={style}
+      style={{ ...containerStyle, ...style }}
       aria-label={ariaLabel}
       aria-live={ariaLive}
       role="status"
       tabIndex={-1}
     >
-      <Card className={`
-        w-full max-w-md shadow-xl border-0
-        ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
-        ${cardClassName}
-      `}>
-        <CardContent className="p-6 space-y-6 relative">
-          {/* Skip Button */}
-          {enableSkip && !isReady && !error && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleSkip}
-              className="absolute top-4 right-4 z-10"
-              aria-label={skipButtonAriaLabel}
-            >
-              <X className="w-4 h-4" />
-              Skip
-            </Button>
-          )}
-
-          {error ? (
-            <ErrorState
-              error={error}
-              onRetry={resetLoading}
-              onDismiss={handleContinue}
-            />
-          ) : !isReady ? (
-            <LoadingState
-              progress={progress}
-              currentStep={currentStep}
-              steps={steps}
-              stepStatus={stepStatus}
-              hasReached100={hasReached100}
-              title={title}
-              subtitle={subtitle}
-              animationDuration={animationDuration}
-              enableAnimations={enableAnimations}
-              customSpinner={CustomSpinner}
-            />
-          ) : CustomReadyComponent ? (
-            <CustomReadyComponent
-              continueButton={continueButton}
-              loadTime={loadTime}
-              onContinue={handleContinue}
-              totalSteps={steps.length}
-              completedSteps={completedSteps}
-            />
-          ) : (
-            <ReadyState
-              loadTime={loadTime}
-              onContinue={handleContinue}
-              totalSteps={steps.length}
-              completedSteps={completedSteps}
-              readyTitle={readyTitle}
-              readySubtitle={readySubtitle}
-              continueButtonText={continueButtonText}
-              readyFooterNote={readyFooterNote}
-              debug={debug}
-            />
-          )}
-        </CardContent>
-      </Card>
+      {showCard ? (
+        <Card className={cardWrapperClasses} style={themeStyles.cardStyle}>
+          <CardContent className={contentWrapperClasses}>
+            {content}
+          </CardContent>
+        </Card>
+      ) : (
+        <div className={contentWrapperClasses}>
+          {content}
+        </div>
+      )}
     </div>
   );
 }
