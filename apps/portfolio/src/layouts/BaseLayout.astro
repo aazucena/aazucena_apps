@@ -17,7 +17,7 @@ const { title }: Props = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-    <Preloader continueButton={false} cardClassName='shadow-none bg-transparent' client:load />
+    <Preloader showCard={false} theme="default" client:load />
     <!-- Main content -->
     <main data-critical>
       <slot />

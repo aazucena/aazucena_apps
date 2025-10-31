@@ -425,6 +425,12 @@
     @apply border-border outline-ring/50;
   }
 
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -489,5 +495,87 @@
   .caption {
     font-size: 14px;
     line-height: 1.4;
+  }
+
+  /* Perspective for 3D transforms */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #06b6d4, #0891b2);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #22d3ee, #06b6d4);
+  }
+
+  /* Firefox Scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #06b6d4 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Bounce and Fade Animation */
+  @keyframes bounce-fade {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Delayed Entrance Animation */
+  @keyframes fade-in-delayed {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-bounce-fade {
+    animation: bounce-fade 2s ease-in-out infinite;
+  }
+
+  .animate-delayed-entrance {
+    opacity: 0;
+    animation: fade-in-delayed 0.8s ease-out 30s forwards, bounce-fade 2s ease-in-out 30.8s infinite;
+  }
+
+  /* Infinite Scroll Animation */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50% - 0.5rem));
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
   }
 }

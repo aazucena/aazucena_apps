@@ -171,7 +171,7 @@ export default function PixiJSParticles({ width = 800, height = 600 }: PixiJSPar
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 z-10"
+      className="fixed inset-0 z-10"
       style={{ pointerEvents: 'none' }}
     />
   );
