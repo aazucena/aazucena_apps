@@ -16,6 +16,7 @@ import {
   TimelineContent,
 } from '@/components/ui/timeline';
 import { InfiniteMovingCards, type Testimonial } from '@/components/ui/infinite-moving-cards';
+import { PhoneDialTabs } from '@/components/ui/phone-dial-tabs';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -647,7 +648,8 @@ export default function HeroSection(): JSX.Element {
         {/* Skills & Technologies Content */}
         <div
           ref={skillsContentRef}
-          className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center pointer-events-none"
+          className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center"
+          style={{ pointerEvents: currentSection === 4 ? 'auto' : 'none' }}
         >
           <div className="container mx-auto max-w-7xl">
             <div className="max-w-5xl mx-auto text-center">
@@ -658,83 +660,126 @@ export default function HeroSection(): JSX.Element {
                 </span>
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-                {/* Frontend */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <PhoneDialTabs
+                tabs={[
+                  {
+                    id: 'frontend',
+                    label: 'Frontend',
+                    gradient: 'from-cyan-400 to-blue-500',
+                    icon: (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                       </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">Frontend</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {['React', 'Vue.js', 'Svelte', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML5', 'CSS3'].map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-sm">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Backend */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ),
+                    content: (
+                      <div className="flex flex-wrap gap-3 justify-center">
+                        {['React', 'Vue.js', 'Svelte', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML5', 'CSS3'].map((skill) => (
+                          <span key={skill} className="px-4 py-2 bg-cyan-400/20 text-cyan-400 rounded-full text-sm font-medium border border-cyan-400/30 hover:bg-cyan-400/30 transition-colors">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )
+                  },
+                  {
+                    id: 'backend',
+                    label: 'Backend',
+                    gradient: 'from-purple-400 to-pink-500',
+                    icon: (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
                       </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">Backend</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {['Node.js', 'Python', 'Django', 'PHP', 'Java', 'GraphQL', 'REST APIs'].map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-purple-400/20 text-purple-400 rounded-full text-sm">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Database & Cloud */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ),
+                    content: (
+                      <div className="flex flex-wrap gap-3 justify-center">
+                        {['Node.js', 'Python', 'Django', 'PHP', 'Java', 'GraphQL', 'REST APIs'].map((skill) => (
+                          <span key={skill} className="px-4 py-2 bg-purple-400/20 text-purple-400 rounded-full text-sm font-medium border border-purple-400/30 hover:bg-purple-400/30 transition-colors">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )
+                  },
+                  {
+                    id: 'database',
+                    label: 'Database',
+                    gradient: 'from-green-400 to-emerald-500',
+                    icon: (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
                       </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">Database & Cloud</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {['PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Docker', 'AWS', 'Firebase'].map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-sm">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Tools & AI */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ),
+                    content: (
+                      <div className="flex flex-wrap gap-3 justify-center">
+                        {['PostgreSQL', 'MongoDB', 'MySQL', 'Redis'].map((skill) => (
+                          <span key={skill} className="px-4 py-2 bg-green-400/20 text-green-400 rounded-full text-sm font-medium border border-green-400/30 hover:bg-green-400/30 transition-colors">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )
+                  },
+                  {
+                    id: 'cloud',
+                    label: 'Cloud',
+                    gradient: 'from-blue-400 to-indigo-500',
+                    icon: (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                      </svg>
+                    ),
+                    content: (
+                      <div className="flex flex-wrap gap-3 justify-center">
+                        {['Docker', 'AWS', 'Firebase', 'Kubernetes', 'CI/CD'].map((skill) => (
+                          <span key={skill} className="px-4 py-2 bg-blue-400/20 text-blue-400 rounded-full text-sm font-medium border border-blue-400/30 hover:bg-blue-400/30 transition-colors">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )
+                  },
+                  {
+                    id: 'tools',
+                    label: 'Tools',
+                    gradient: 'from-yellow-400 to-orange-500',
+                    icon: (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    ),
+                    content: (
+                      <div className="flex flex-wrap gap-3 justify-center">
+                        {['Git', 'Figma', 'VS Code', 'Agile', 'Jira'].map((skill) => (
+                          <span key={skill} className="px-4 py-2 bg-yellow-400/20 text-yellow-400 rounded-full text-sm font-medium border border-yellow-400/30 hover:bg-yellow-400/30 transition-colors">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )
+                  },
+                  {
+                    id: 'ai',
+                    label: 'AI',
+                    gradient: 'from-pink-400 to-red-500',
+                    icon: (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                       </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">Tools & AI</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {['Git', 'LangChain', 'TensorFlow', 'Figma', 'VS Code', 'CI/CD', 'Agile'].map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-orange-400/20 text-orange-400 rounded-full text-sm">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                    ),
+                    content: (
+                      <div className="flex flex-wrap gap-3 justify-center">
+                        {['LangChain', 'TensorFlow', 'OpenAI', 'Machine Learning'].map((skill) => (
+                          <span key={skill} className="px-4 py-2 bg-pink-400/20 text-pink-400 rounded-full text-sm font-medium border border-pink-400/30 hover:bg-pink-400/30 transition-colors">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )
+                  }
+                ]}
+                defaultTab="frontend"
+              />
             </div>
           </div>
         </div>
