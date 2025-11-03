@@ -40,6 +40,7 @@ export default function HeroSection(): JSX.Element {
 
   const [mounted, setMounted] = useState<boolean>(false);
   const [currentSection, setCurrentSection] = useState<number>(0); // 0 = hero, 1 = about, 2 = projects, 3 = experience, 4 = skills, 5 = testimonials, 6 = blog, 7 = awards
+  const [scrollProgress, setScrollProgress] = useState<number>(0); // Smooth scroll progress between sections
   const [currentFlipIndex, setCurrentFlipIndex] = useState<number>(0);
   const [selectedExperience, setSelectedExperience] = useState<number | null>(null);
   const [deviceCapabilities, setDeviceCapabilities] = useState<DeviceCapabilities>({
@@ -185,23 +186,31 @@ export default function HeroSection(): JSX.Element {
 
     setDeviceCapabilities(detectCapabilities());
 
-    // Wheel event handler for section transitions
+    // Wheel event handler for smooth section transitions
     const handleWheel = (e: WheelEvent) => {
       if (isScrollingRef.current) return;
 
       const delta = e.deltaY;
+      const scrollSensitivity = 0.002;
 
-      if (delta > 0 && currentSection < totalSections - 1) {
-        // Scrolling down
+      // Accumulate scroll progress
+      const newProgress = Math.max(0, Math.min(0.8, scrollProgress + delta * scrollSensitivity));
+      setScrollProgress(newProgress);
+
+      // If we've scrolled enough, transition to next/previous section
+      if (newProgress >= 0.7 && delta > 0 && currentSection < totalSections - 1) {
+        // Scrolling down - move to next section
         isScrollingRef.current = true;
         setCurrentSection(currentSection + 1);
+        setScrollProgress(0);
         setTimeout(() => {
           isScrollingRef.current = false;
         }, 1000);
-      } else if (delta < 0 && currentSection > 0) {
-        // Scrolling up
+      } else if (newProgress <= 0.1 && delta < 0 && currentSection > 0) {
+        // Scrolling up - move to previous section
         isScrollingRef.current = true;
         setCurrentSection(currentSection - 1);
+        setScrollProgress(0.7); // Start at high progress when going back
         setTimeout(() => {
           isScrollingRef.current = false;
         }, 1000);
@@ -213,7 +222,7 @@ export default function HeroSection(): JSX.Element {
     return () => {
       window.removeEventListener('wheel', handleWheel);
     };
-  }, [currentSection]);
+  }, [currentSection, scrollProgress]);
 
   const handleCTAClick = (section: string): void => {
     // GSAP button animation
@@ -384,19 +393,125 @@ export default function HeroSection(): JSX.Element {
     }
   ];
 
+  // Determine background phase based on current section with smooth progress
+  const getBackgroundPhase = () => {
+    const progress = currentSection + scrollProgress;
+    if (progress <= 2.5) return 'space';
+    if (progress <= 4.5) return 'sky';
+    return 'ground';
+  };
+
+  const backgroundPhase = getBackgroundPhase();
+
+  // Interpolate between two colors
+  const interpolateColor = (color1: string, color2: string, factor: number): string => {
+    const hex1 = color1.replace('#', '');
+    const hex2 = color2.replace('#', '');
+
+    const r1 = parseInt(hex1.substring(0, 2), 16);
+    const g1 = parseInt(hex1.substring(2, 4), 16);
+    const b1 = parseInt(hex1.substring(4, 6), 16);
+
+    const r2 = parseInt(hex2.substring(0, 2), 16);
+    const g2 = parseInt(hex2.substring(2, 4), 16);
+    const b2 = parseInt(hex2.substring(4, 6), 16);
+
+    const r = Math.round(r1 + (r2 - r1) * factor);
+    const g = Math.round(g1 + (g2 - g1) * factor);
+    const b = Math.round(b1 + (b2 - b1) * factor);
+
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+
+  // Dynamic background gradients with smooth transitions
+  const getBackgroundStyle = () => {
+    const progress = currentSection + scrollProgress;
+
+    // Space colors (sections 0-2)
+    const spaceColors = {
+      from: '#000000',
+      via: '#1e3a8a',
+      to: '#000000'
+    };
+
+    // Sky colors (sections 3-4)
+    const skyColors = {
+      from: '#1e3a8a',
+      via: '#1d4ed8',
+      to: '#0891b2'
+    };
+
+    // Ground colors (sections 5-7)
+    const groundColors = {
+      from: '#38bdf8',
+      via: '#93c5fd',
+      to: '#a5f3fc'
+    };
+
+    let fromColor, viaColor, toColor;
+
+    if (progress <= 2.5) {
+      // Pure space
+      fromColor = spaceColors.from;
+      viaColor = spaceColors.via;
+      toColor = spaceColors.to;
+    } else if (progress <= 3) {
+      // Transitioning space → sky
+      const factor = (progress - 2.5) * 2;
+      fromColor = interpolateColor(spaceColors.from, skyColors.from, factor);
+      viaColor = interpolateColor(spaceColors.via, skyColors.via, factor);
+      toColor = interpolateColor(spaceColors.to, skyColors.to, factor);
+    } else if (progress <= 4.5) {
+      // Pure sky
+      fromColor = skyColors.from;
+      viaColor = skyColors.via;
+      toColor = skyColors.to;
+    } else if (progress <= 5) {
+      // Transitioning sky → ground
+      const factor = (progress - 4.5) * 2;
+      fromColor = interpolateColor(skyColors.from, groundColors.from, factor);
+      viaColor = interpolateColor(skyColors.via, groundColors.via, factor);
+      toColor = interpolateColor(skyColors.to, groundColors.to, factor);
+    } else {
+      // Pure ground
+      fromColor = groundColors.from;
+      viaColor = groundColors.via;
+      toColor = groundColors.to;
+    }
+
+    return {
+      backgroundImage: `linear-gradient(to bottom right, ${fromColor}, ${viaColor}, ${toColor})`
+    };
+  };
+
   return (
     <>
-      {/* Fixed Background Layers */}
-      <div className="fixed inset-0 bg-gradient-to-br from-black via-primary-800 to-black animate-hue-shift z-0" />
+      {/* Dynamic Background Layers with Smooth Transitions */}
+      <div
+        className="fixed inset-0 z-0 transition-all duration-300 ease-out"
+        style={getBackgroundStyle()}
+      />
 
-      {/* PixiJS Particles - Fixed */}
-      {mounted && deviceCapabilities.canUseHeavyAnimations && (
-        <PixiJSParticles width={window.innerWidth} height={window.innerHeight} />
+      {/* Dark overlay for ground phase to improve text readability */}
+      {backgroundPhase === 'ground' && (
+        <div className="fixed inset-0 bg-black/50 z-10 transition-opacity duration-1000" />
       )}
 
-      {/* Three.js Canvas - Fixed */}
+      {/* Subtle overlay for sky phase to improve text contrast */}
+      {backgroundPhase === 'sky' && (
+        <div className="fixed inset-0 bg-black/20 z-10 transition-opacity duration-1000" />
+      )}
+
+      {/* PixiJS Particles - Only in Space Phase */}
+      {mounted && deviceCapabilities.canUseHeavyAnimations && backgroundPhase === 'space' && (
+        <div className="fixed inset-0 transition-opacity duration-1000" style={{ opacity: backgroundPhase === 'space' ? 1 : 0 }}>
+          <PixiJSParticles width={window.innerWidth} height={window.innerHeight} />
+        </div>
+      )}
+
+      {/* Three.js Canvas - Adaptive to Phase */}
       {deviceCapabilities.canUseHeavyAnimations && (
-        <div className="fixed inset-0 z-20">
+        <div className="fixed inset-0 z-20 transition-opacity duration-1000">
           <Canvas
             camera={{ position: [0, 0, 0], fov: 15 }}
             gl={{
@@ -406,7 +521,12 @@ export default function HeroSection(): JSX.Element {
             }}
             shadows
           >
-            <ThreeJSScene intensity={deviceCapabilities.performanceTier === 'high' ? 1 : 0.7} />
+            <ThreeJSScene
+              intensity={deviceCapabilities.performanceTier === 'high' ? 1 : 0.7}
+              phase={backgroundPhase}
+              currentSection={currentSection}
+              scrollProgress={scrollProgress}
+            />
           </Canvas>
         </div>
       )}
