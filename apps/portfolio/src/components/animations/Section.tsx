@@ -305,6 +305,46 @@ export default function HeroSection(): JSX.Element {
     }
   ];
 
+  // Blog posts data
+  const blogPosts = [
+    {
+      title: 'Optimizing React Applications for Production',
+      description: 'Learn practical strategies to improve React app performance, including code splitting, lazy loading, and memoization techniques.',
+      date: 'March 15, 2024',
+      tags: [
+        { label: 'React', color: 'cyan' },
+        { label: 'Performance', color: 'cyan' }
+      ],
+      readTime: '5 min read',
+      url: '/blog/optimizing-react-applications',
+      isExternal: false
+    },
+    {
+      title: 'Building AI-Powered Apps with LangChain',
+      description: 'A comprehensive guide to integrating LangChain into your applications to build intelligent, context-aware features.',
+      date: 'February 28, 2024',
+      tags: [
+        { label: 'AI', color: 'purple' },
+        { label: 'LangChain', color: 'purple' }
+      ],
+      readTime: '8 min read',
+      url: 'https://medium.com/@yourhandle/building-ai-powered-apps',
+      isExternal: true
+    },
+    {
+      title: 'Zero-Downtime Database Migrations',
+      description: 'Best practices and strategies for migrating large-scale databases without impacting production systems.',
+      date: 'January 20, 2024',
+      tags: [
+        { label: 'Database', color: 'green' },
+        { label: 'Migration', color: 'green' }
+      ],
+      readTime: '6 min read',
+      url: 'https://dev.to/yourhandle/zero-downtime-migrations',
+      isExternal: true
+    }
+  ];
+
   // Testimonials data
   const testimonials: Testimonial[] = [
     {
@@ -514,6 +554,18 @@ export default function HeroSection(): JSX.Element {
                     <div className="text-3xl font-bold text-cyan-400 mb-2">50+</div>
                     <div className="text-sm text-gray-400">Client Sites Managed</div>
                   </div>
+                </div>
+
+                {/* Education Callout */}
+                <div className="mt-8 flex items-center justify-center gap-3 text-base text-gray-300">
+                  <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  <span className="font-semibold text-white">B.S. Computer Science</span>
+                  <span className="text-gray-500">•</span>
+                  <span>University of Lethbridge</span>
+                  <span className="text-gray-500">•</span>
+                  <span className="text-cyan-400">2023</span>
                 </div>
               </div>
             </div>
@@ -824,58 +876,73 @@ export default function HeroSection(): JSX.Element {
                 </span>
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-                {/* Blog Post 1 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left hover:bg-white/10 transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-xs">React</span>
-                    <span className="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-xs">Performance</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Optimizing React Applications for Production</h3>
-                  <p className="text-sm text-gray-400 mb-3">March 15, 2024</p>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    Learn practical strategies to improve React app performance, including code splitting, lazy loading, and memoization techniques.
-                  </p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                {blogPosts.map((post, index) => (
+                  <a
+                    key={index}
+                    href={post.url}
+                    target={post.isExternal ? '_blank' : '_self'}
+                    rel={post.isExternal ? 'noopener noreferrer' : undefined}
+                    className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 cursor-pointer group pointer-events-auto"
+                  >
+                    {/* Tags Row */}
+                    <div className="flex items-center gap-2 flex-wrap mb-3">
+                      {post.tags.map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          className={`px-3 py-1 bg-${tag.color}-400/20 text-${tag.color}-400 rounded-full text-xs`}
+                        >
+                          {tag.label}
+                        </span>
+                      ))}
+                    </div>
 
-                {/* Blog Post 2 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left hover:bg-white/10 transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-3 py-1 bg-purple-400/20 text-purple-400 rounded-full text-xs">AI</span>
-                    <span className="px-3 py-1 bg-purple-400/20 text-purple-400 rounded-full text-xs">LangChain</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Building AI-Powered Apps with LangChain</h3>
-                  <p className="text-sm text-gray-400 mb-3">February 28, 2024</p>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    A comprehensive guide to integrating LangChain into your applications to build intelligent, context-aware features.
-                  </p>
-                </div>
+                    {/* Title with External Link Icon */}
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                        {post.title}
+                      </h3>
+                      {post.isExternal && (
+                        <svg
+                          className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors flex-shrink-0 mt-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      )}
+                    </div>
 
-                {/* Blog Post 3 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left hover:bg-white/10 transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-xs">Database</span>
-                    <span className="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-xs">Migration</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Zero-Downtime Database Migrations</h3>
-                  <p className="text-sm text-gray-400 mb-3">January 20, 2024</p>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    Best practices and strategies for migrating large-scale databases without impacting production systems.
-                  </p>
-                </div>
+                    {/* Date and Read Time */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <p className="text-sm text-gray-400">{post.date}</p>
+                      <span className="text-gray-500">•</span>
+                      <p className="text-sm text-gray-400">{post.readTime}</p>
+                    </div>
 
-                {/* Blog Post 4 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left hover:bg-white/10 transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-3 py-1 bg-orange-400/20 text-orange-400 rounded-full text-xs">Architecture</span>
-                    <span className="px-3 py-1 bg-orange-400/20 text-orange-400 rounded-full text-xs">Scalability</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Microservices vs Monolith: Making the Right Choice</h3>
-                  <p className="text-sm text-gray-400 mb-3">December 10, 2023</p>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    An in-depth comparison to help you decide the best architecture pattern for your next project.
-                  </p>
-                </div>
+                    {/* Description */}
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {post.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+
+              {/* View All Articles Button */}
+              <div className="mt-16 flex justify-center pointer-events-auto">
+                <a
+                  href="/blog"
+                  className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-semibold text-lg shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50"
+                  aria-label="View all blog articles"
+                >
+                  View All Articles
+                </a>
               </div>
             </div>
           </div>
@@ -895,67 +962,176 @@ export default function HeroSection(): JSX.Element {
                 </span>
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-                {/* Certification 1 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2">AWS Certified Solutions Architect</h3>
-                      <p className="text-sm text-cyan-400 mb-2">Amazon Web Services • 2023</p>
-                      <p className="text-gray-300 text-sm">Professional-level certification demonstrating expertise in designing distributed systems on AWS.</p>
+              {/* Hexagonal Grid Layout */}
+              <div className="relative mt-16 flex items-center justify-center min-h-[600px]">
+                {/* Honeycomb container */}
+                <div className="relative w-full max-w-4xl">
+                  {/* Certifications Label */}
+                  <div className="flex items-center justify-center mb-8">
+                    <div className="flex items-center gap-4">
+                      <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-400/50"></div>
+                      <h3 className="text-lg font-semibold text-cyan-400 uppercase tracking-wider">Certifications</h3>
+                      <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-400/50"></div>
                     </div>
                   </div>
-                </div>
 
-                {/* Certification 2 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  {/* Row 1 - 2 hexagons (Certifications) */}
+                  <div className="flex justify-center gap-4 mb-[-30px]">
+                    {/* AWS Certification */}
+                    <div className="group relative w-48 h-52 flex items-center justify-center cursor-pointer">
+                      {/* Hexagon SVG */}
+                      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 110">
+                        <defs>
+                          <linearGradient id="grad-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style={{ stopColor: '#22d3ee', stopOpacity: 0.2 }} />
+                            <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 0.2 }} />
+                          </linearGradient>
+                        </defs>
+                        <polygon
+                          points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+                          fill="url(#grad-cyan)"
+                          stroke="#22d3ee"
+                          strokeWidth="2"
+                          className="transition-all duration-300 group-hover:fill-opacity-40"
+                        />
                       </svg>
+
+                      {/* Content */}
+                      <div className="relative z-10 flex flex-col items-center p-6 text-center">
+                        <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-sm font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">AWS</h3>
+                        <p className="text-xs text-cyan-400">2023</p>
+                      </div>
+
+                      {/* Tooltip on hover */}
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-64 bg-gray-900 border border-cyan-400/30 rounded-lg p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 shadow-xl">
+                        <h4 className="text-base font-bold text-white mb-2">AWS Certified Solutions Architect</h4>
+                        <p className="text-xs text-gray-300 mb-2">Amazon Web Services • 2023</p>
+                        <p className="text-xs text-gray-400">Professional-level certification demonstrating expertise in designing distributed systems.</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2">Google Cloud Professional Developer</h3>
-                      <p className="text-sm text-purple-400 mb-2">Google Cloud • 2022</p>
-                      <p className="text-gray-300 text-sm">Certified in building scalable and reliable cloud applications using Google Cloud technologies.</p>
+
+                    {/* Google Cloud Certification */}
+                    <div className="group relative w-48 h-52 flex items-center justify-center cursor-pointer">
+                      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 110">
+                        <defs>
+                          <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style={{ stopColor: '#c084fc', stopOpacity: 0.2 }} />
+                            <stop offset="100%" style={{ stopColor: '#ec4899', stopOpacity: 0.2 }} />
+                          </linearGradient>
+                        </defs>
+                        <polygon
+                          points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+                          fill="url(#grad-purple)"
+                          stroke="#c084fc"
+                          strokeWidth="2"
+                          className="transition-all duration-300 group-hover:fill-opacity-40"
+                        />
+                      </svg>
+
+                      <div className="relative z-10 flex flex-col items-center p-6 text-center">
+                        <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-sm font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">Google Cloud</h3>
+                        <p className="text-xs text-purple-400">2022</p>
+                      </div>
+
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-64 bg-gray-900 border border-purple-400/30 rounded-lg p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 shadow-xl">
+                        <h4 className="text-base font-bold text-white mb-2">Google Cloud Professional Developer</h4>
+                        <p className="text-xs text-gray-300 mb-2">Google Cloud • 2022</p>
+                        <p className="text-xs text-gray-400">Certified in building scalable and reliable cloud applications using Google Cloud technologies.</p>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Award 1 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2">Innovation Award</h3>
-                      <p className="text-sm text-yellow-400 mb-2">Tangle Media Inc. • 2024</p>
-                      <p className="text-gray-300 text-sm">Recognized for developing innovative solutions that significantly improved development efficiency.</p>
+                  {/* Awards Label */}
+                  <div className="flex items-center justify-center mb-8 mt-12">
+                    <div className="flex items-center gap-4">
+                      <div className="h-px w-16 bg-gradient-to-r from-transparent to-yellow-400/50"></div>
+                      <h3 className="text-lg font-semibold text-yellow-400 uppercase tracking-wider">Awards</h3>
+                      <div className="h-px w-16 bg-gradient-to-l from-transparent to-yellow-400/50"></div>
                     </div>
                   </div>
-                </div>
 
-                {/* Award 2 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                  {/* Row 2 - 2 hexagons (Awards - with dashed borders) */}
+                  <div className="flex justify-center gap-4">
+                    {/* Innovation Award */}
+                    <div className="group relative w-48 h-52 flex items-center justify-center cursor-pointer">
+                      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 110">
+                        <defs>
+                          <linearGradient id="grad-yellow" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style={{ stopColor: '#facc15', stopOpacity: 0.2 }} />
+                            <stop offset="100%" style={{ stopColor: '#f97316', stopOpacity: 0.2 }} />
+                          </linearGradient>
+                        </defs>
+                        <polygon
+                          points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+                          fill="url(#grad-yellow)"
+                          stroke="#facc15"
+                          strokeWidth="2"
+                          strokeDasharray="8,4"
+                          className="transition-all duration-300 group-hover:fill-opacity-40"
+                        />
                       </svg>
+
+                      <div className="relative z-10 flex flex-col items-center p-6 text-center">
+                        <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-sm font-bold text-white mb-1 group-hover:text-yellow-400 transition-colors">Innovation</h3>
+                        <p className="text-xs text-yellow-400">2024</p>
+                      </div>
+
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-64 bg-gray-900 border border-yellow-400/30 rounded-lg p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 shadow-xl">
+                        <h4 className="text-base font-bold text-white mb-2">Innovation Award</h4>
+                        <p className="text-xs text-gray-300 mb-2">Tangle Media Inc. • 2024</p>
+                        <p className="text-xs text-gray-400">Recognized for developing innovative solutions that significantly improved development efficiency.</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2">Hackathon Winner</h3>
-                      <p className="text-sm text-green-400 mb-2">University Tech Challenge • 2020</p>
-                      <p className="text-gray-300 text-sm">First place winner for developing an AI-powered accessibility tool for visually impaired users.</p>
+
+                    {/* Hackathon Winner */}
+                    <div className="group relative w-48 h-52 flex items-center justify-center cursor-pointer">
+                      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 110">
+                        <defs>
+                          <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style={{ stopColor: '#4ade80', stopOpacity: 0.2 }} />
+                            <stop offset="100%" style={{ stopColor: '#10b981', stopOpacity: 0.2 }} />
+                          </linearGradient>
+                        </defs>
+                        <polygon
+                          points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+                          fill="url(#grad-green)"
+                          stroke="#4ade80"
+                          strokeWidth="2"
+                          strokeDasharray="8,4"
+                          className="transition-all duration-300 group-hover:fill-opacity-40"
+                        />
+                      </svg>
+
+                      <div className="relative z-10 flex flex-col items-center p-6 text-center">
+                        <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                          </svg>
+                        </div>
+                        <h3 className="text-sm font-bold text-white mb-1 group-hover:text-green-400 transition-colors">Hackathon</h3>
+                        <p className="text-xs text-green-400">2020</p>
+                      </div>
+
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-64 bg-gray-900 border border-green-400/30 rounded-lg p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 shadow-xl">
+                        <h4 className="text-base font-bold text-white mb-2">Hackathon Winner</h4>
+                        <p className="text-xs text-gray-300 mb-2">University Tech Challenge • 2020</p>
+                        <p className="text-xs text-gray-400">First place winner for developing an AI-powered accessibility tool for visually impaired users.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
