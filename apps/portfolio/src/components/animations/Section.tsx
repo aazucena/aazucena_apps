@@ -393,15 +393,22 @@ export default function HeroSection(): JSX.Element {
     }
   ];
 
-  // Determine background phase based on current section with smooth progress
-  const getBackgroundPhase = () => {
+  // Determine atmospheric layer based on current section with smooth progress
+  const getAtmosphericLayer = () => {
     const progress = currentSection + scrollProgress;
-    if (progress <= 2.5) return 'space';
-    if (progress <= 4.5) return 'sky';
-    return 'ground';
+    // Section 0: Exosphere
+    if (progress < 0.5) return 'exosphere';
+    // Section 1: Thermosphere
+    if (progress < 1.5) return 'thermosphere';
+    // Sections 2-3: Mesosphere
+    if (progress < 3.5) return 'mesosphere';
+    // Sections 4-5: Stratosphere
+    if (progress < 5.5) return 'stratosphere';
+    // Sections 6-7: Troposphere
+    return 'troposphere';
   };
 
-  const backgroundPhase = getBackgroundPhase();
+  const atmosphericLayer = getAtmosphericLayer();
 
   // Interpolate between two colors
   const interpolateColor = (color1: string, color2: string, factor: number): string => {
@@ -423,60 +430,96 @@ export default function HeroSection(): JSX.Element {
     return `rgb(${r}, ${g}, ${b})`;
   };
 
-  // Dynamic background gradients with smooth transitions
+  // Dynamic background gradients with smooth transitions for atmospheric layers
   const getBackgroundStyle = () => {
     const progress = currentSection + scrollProgress;
 
-    // Space colors (sections 0-2)
-    const spaceColors = {
+    // Exosphere colors (section 0) - Pure space, black with deep blue hints
+    const exosphereColors = {
       from: '#000000',
-      via: '#1e3a8a',
-      to: '#000000'
+      via: '#0a0a1a',
+      to: '#1a1a2e'
     };
 
-    // Sky colors (sections 3-4)
-    const skyColors = {
+    // Thermosphere colors (section 1) - Aurora zone, dark blue to purple
+    const thermosphereColors = {
+      from: '#1a1a2e',
+      via: '#2d1b4e',
+      to: '#1e3a8a'
+    };
+
+    // Mesosphere colors (sections 2-3) - Coldest layer, deep blue
+    const mesosphereColors = {
       from: '#1e3a8a',
-      via: '#1d4ed8',
-      to: '#0891b2'
+      via: '#1e40af',
+      to: '#1d4ed8'
     };
 
-    // Ground colors (sections 5-7)
-    const groundColors = {
+    // Stratosphere colors (sections 4-5) - Ozone layer, sky blue
+    const stratosphereColors = {
+      from: '#1d4ed8',
+      via: '#2563eb',
+      to: '#3b82f6'
+    };
+
+    // Troposphere colors (sections 6-7) - Weather layer, light blue/clouds
+    const troposphereColors = {
       from: '#38bdf8',
-      via: '#93c5fd',
-      to: '#a5f3fc'
+      via: '#7dd3fc',
+      to: '#bae6fd'
     };
 
     let fromColor, viaColor, toColor;
 
-    if (progress <= 2.5) {
-      // Pure space
-      fromColor = spaceColors.from;
-      viaColor = spaceColors.via;
-      toColor = spaceColors.to;
-    } else if (progress <= 3) {
-      // Transitioning space → sky
-      const factor = (progress - 2.5) * 2;
-      fromColor = interpolateColor(spaceColors.from, skyColors.from, factor);
-      viaColor = interpolateColor(spaceColors.via, skyColors.via, factor);
-      toColor = interpolateColor(spaceColors.to, skyColors.to, factor);
-    } else if (progress <= 4.5) {
-      // Pure sky
-      fromColor = skyColors.from;
-      viaColor = skyColors.via;
-      toColor = skyColors.to;
-    } else if (progress <= 5) {
-      // Transitioning sky → ground
-      const factor = (progress - 4.5) * 2;
-      fromColor = interpolateColor(skyColors.from, groundColors.from, factor);
-      viaColor = interpolateColor(skyColors.via, groundColors.via, factor);
-      toColor = interpolateColor(skyColors.to, groundColors.to, factor);
+    if (progress < 0.5) {
+      // Pure Exosphere
+      fromColor = exosphereColors.from;
+      viaColor = exosphereColors.via;
+      toColor = exosphereColors.to;
+    } else if (progress < 1) {
+      // Transitioning Exosphere → Thermosphere
+      const factor = (progress - 0.5) * 2;
+      fromColor = interpolateColor(exosphereColors.from, thermosphereColors.from, factor);
+      viaColor = interpolateColor(exosphereColors.via, thermosphereColors.via, factor);
+      toColor = interpolateColor(exosphereColors.to, thermosphereColors.to, factor);
+    } else if (progress < 1.5) {
+      // Pure Thermosphere
+      fromColor = thermosphereColors.from;
+      viaColor = thermosphereColors.via;
+      toColor = thermosphereColors.to;
+    } else if (progress < 2) {
+      // Transitioning Thermosphere → Mesosphere
+      const factor = (progress - 1.5) * 2;
+      fromColor = interpolateColor(thermosphereColors.from, mesosphereColors.from, factor);
+      viaColor = interpolateColor(thermosphereColors.via, mesosphereColors.via, factor);
+      toColor = interpolateColor(thermosphereColors.to, mesosphereColors.to, factor);
+    } else if (progress < 3.5) {
+      // Pure Mesosphere
+      fromColor = mesosphereColors.from;
+      viaColor = mesosphereColors.via;
+      toColor = mesosphereColors.to;
+    } else if (progress < 4) {
+      // Transitioning Mesosphere → Stratosphere
+      const factor = (progress - 3.5) * 2;
+      fromColor = interpolateColor(mesosphereColors.from, stratosphereColors.from, factor);
+      viaColor = interpolateColor(mesosphereColors.via, stratosphereColors.via, factor);
+      toColor = interpolateColor(mesosphereColors.to, stratosphereColors.to, factor);
+    } else if (progress < 5.5) {
+      // Pure Stratosphere
+      fromColor = stratosphereColors.from;
+      viaColor = stratosphereColors.via;
+      toColor = stratosphereColors.to;
+    } else if (progress < 6) {
+      // Transitioning Stratosphere → Troposphere
+      const factor = (progress - 5.5) * 2;
+      fromColor = interpolateColor(stratosphereColors.from, troposphereColors.from, factor);
+      viaColor = interpolateColor(stratosphereColors.via, troposphereColors.via, factor);
+      toColor = interpolateColor(stratosphereColors.to, troposphereColors.to, factor);
     } else {
-      // Pure ground
-      fromColor = groundColors.from;
-      viaColor = groundColors.via;
-      toColor = groundColors.to;
+      // Pure Troposphere
+      fromColor = troposphereColors.from;
+      viaColor = troposphereColors.via;
+      toColor = troposphereColors.to;
     }
 
     return {
@@ -492,24 +535,29 @@ export default function HeroSection(): JSX.Element {
         style={getBackgroundStyle()}
       />
 
-      {/* Dark overlay for ground phase to improve text readability */}
-      {backgroundPhase === 'ground' && (
-        <div className="fixed inset-0 bg-black/50 z-10 transition-opacity duration-1000" />
+      {/* Overlay for Troposphere (ground) to improve text readability */}
+      {atmosphericLayer === 'troposphere' && (
+        <div className="fixed inset-0 bg-black/40 z-10 transition-opacity duration-1000" />
       )}
 
-      {/* Subtle overlay for sky phase to improve text contrast */}
-      {backgroundPhase === 'sky' && (
-        <div className="fixed inset-0 bg-black/20 z-10 transition-opacity duration-1000" />
+      {/* Subtle overlay for Stratosphere to improve text contrast */}
+      {atmosphericLayer === 'stratosphere' && (
+        <div className="fixed inset-0 bg-black/15 z-10 transition-opacity duration-1000" />
       )}
 
-      {/* PixiJS Particles - Only in Space Phase */}
-      {mounted && deviceCapabilities.canUseHeavyAnimations && backgroundPhase === 'space' && (
-        <div className="fixed inset-0 transition-opacity duration-1000" style={{ opacity: backgroundPhase === 'space' ? 1 : 0 }}>
+      {/* Very subtle overlay for Mesosphere */}
+      {atmosphericLayer === 'mesosphere' && (
+        <div className="fixed inset-0 bg-black/10 z-10 transition-opacity duration-1000" />
+      )}
+
+      {/* PixiJS Particles - Only in Exosphere (space) */}
+      {mounted && deviceCapabilities.canUseHeavyAnimations && atmosphericLayer === 'exosphere' && (
+        <div className="fixed inset-0 transition-opacity duration-1000" style={{ opacity: 1 }}>
           <PixiJSParticles width={window.innerWidth} height={window.innerHeight} />
         </div>
       )}
 
-      {/* Three.js Canvas - Adaptive to Phase */}
+      {/* Three.js Canvas - Adaptive to Atmospheric Layer */}
       {deviceCapabilities.canUseHeavyAnimations && (
         <div className="fixed inset-0 z-20 transition-opacity duration-1000">
           <Canvas
@@ -523,7 +571,7 @@ export default function HeroSection(): JSX.Element {
           >
             <ThreeJSScene
               intensity={deviceCapabilities.performanceTier === 'high' ? 1 : 0.7}
-              phase={backgroundPhase}
+              phase={atmosphericLayer}
               currentSection={currentSection}
               scrollProgress={scrollProgress}
             />
