@@ -199,7 +199,7 @@ export default function SimplePreloader({
     <div
       ref={containerRef}
       className={`
-        fixed inset-0 z-50 flex items-center justify-center p-4
+        fixed inset-0 z-[9999] flex items-center justify-center p-4
         ${transitionClass}
         ${overlayClassName}
         ${themeStyles.overlayClasses}

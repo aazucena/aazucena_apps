@@ -216,7 +216,7 @@ export default function InteractivePreloader({
     <div
       ref={containerRef}
       className={`
-        fixed inset-0 z-50
+        fixed inset-0 z-[9999]
         flex items-center justify-center p-4
         ${transitionClass}
         ${overlayClassName}

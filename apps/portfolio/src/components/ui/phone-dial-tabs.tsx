@@ -16,9 +16,10 @@ interface PhoneDialTabsProps {
   tabs: PhoneDialTab[];
   defaultTab?: string;
   className?: string;
+  isSoundMuted?: boolean;
 }
 
-export function PhoneDialTabs({ tabs, defaultTab, className }: PhoneDialTabsProps) {
+export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = false }: PhoneDialTabsProps) {
   const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id || '');
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -74,6 +75,9 @@ export function PhoneDialTabs({ tabs, defaultTab, className }: PhoneDialTabsProp
 
   // Play click sound
   const playClickSound = () => {
+    // Don't play sound if muted
+    if (isSoundMuted) return;
+
     // Create a subtle click sound using Web Audio API
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
