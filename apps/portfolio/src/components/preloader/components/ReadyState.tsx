@@ -9,7 +9,6 @@ import {
   ClockCircle as Clock,
 } from '@mynaui/icons-react';
 import type { ThemeStyles } from '../hooks/useTheme';
-import { Progress } from '~/components/ui/progress';
 
 export interface ReadyStateProps {
   loadTime: string;
@@ -17,8 +16,8 @@ export interface ReadyStateProps {
   totalSteps: number;
   completedSteps: number;
   readyTitle: string;
-  readySubtitle: string;
-  readyFooterNote: string;
+  readySubtitle?: string;
+  readyFooterNote?: string;
   continueButtonText: string;
   debug?: boolean;
   themeStyles: ThemeStyles;
@@ -50,16 +49,11 @@ export const ReadyState = memo(function ReadyState({
 
       <div className="space-y-2">
         <CardTitle className="text-2xl" style={themeStyles.titleStyle}>{readyTitle}</CardTitle>
-        <p className="text-center" style={themeStyles.subtitleStyle}>
-          {readySubtitle}
-        </p>
-
-        <Progress
-          value={100}
-          className="h-2 transition-all duration-300"
-          style={themeStyles.getProgressStyle(100)}
-          aria-label={`Loading progress: ${100}%`}
-        />
+        {readySubtitle && (
+          <p className="text-center" style={themeStyles.subtitleStyle}>
+            {readySubtitle}
+          </p>
+        )}
       </div>
 
       {debug && (
@@ -73,7 +67,7 @@ export const ReadyState = memo(function ReadyState({
           </div>
           <div className="space-y-1">
             <Badge variant="outline" className="text-xs">
-              <Check className="w-3 h-3 mr-1" />
+              <Check stroke="2.5" className="w-3 h-3 mr-1" />
               Steps Complete
             </Badge>
             <p className="text-lg font-bold text-foreground">{completedSteps}/{totalSteps}</p>
@@ -92,13 +86,14 @@ export const ReadyState = memo(function ReadyState({
         }}
         aria-label={continueButtonText}
       >
-        <RocketLaunch className="w-4 h-4" aria-hidden="true" />
+        <RocketLaunch stroke="2.5" className="w-4 h-4" aria-hidden="true" />
         {continueButtonText}
       </Button>
-
-      <p className="text-xs text-center" style={themeStyles.subtitleStyle}>
-        {readyFooterNote}
-      </p>
+      {readyFooterNote && (
+        <p className="text-xs text-center" style={themeStyles.subtitleStyle}>
+          {readyFooterNote}
+        </p>
+      )}
     </div>
   );
 });

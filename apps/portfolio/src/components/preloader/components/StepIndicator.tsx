@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Badge } from '../../ui/badge';
-import { CircleNotch as LoadingCircle, CheckCircleSolid as Checkmark } from '@mynaui/icons-react';
+import { type Icon, CircleNotch as LoadingCircle, CheckCircleSolid as Checkmark } from '@mynaui/icons-react';
 import type { LoadingStep } from '../types';
 import type { ThemeStyles } from '../hooks/useTheme';
 
@@ -19,7 +19,7 @@ export const StepIndicator = memo(function StepIndicator({
   stepComplete,
   themeStyles,
 }: StepIndicatorProps) {
-  const StepIcon = step.icon;
+  const StepIcon = step.icon as Icon;
 
   // Determine background and border styles based on state
   const getContainerStyle = () => {
@@ -85,7 +85,7 @@ export const StepIndicator = memo(function StepIndicator({
         style={getIconStyle()}
         aria-hidden="true"
       >
-        <StepIcon className="w-4 h-4" />
+        <StepIcon stroke="2.5" className="w-4 h-4" />
       </div>
 
       <div className="flex-1 text-left min-w-0">

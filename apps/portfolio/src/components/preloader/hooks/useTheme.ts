@@ -79,6 +79,7 @@ export function useTheme({ theme = 'default', customTheme }: UseThemeOptions = {
       // Progress bar styles
       getProgressStyle: (progress = 0) => {
         return {
+          backgroundColor: progress >= 100 ? colors.success : colors.primary,
           borderRadius: effects.borderRadius.progress,
           transition: `all ${300 * effects.animationSpeed}ms ${effects.animationEasing}`,
         } as React.CSSProperties;
@@ -125,10 +126,7 @@ export function useTheme({ theme = 'default', customTheme }: UseThemeOptions = {
           info: colors.accent,
         };
         return {
-          color: colorMap[type],
-          filter: effects.glowColor && type === 'success'
-            ? `drop-shadow(0 0 8px ${colors.success})`
-            : undefined,
+          color: colorMap[type]
         } as React.CSSProperties;
       },
 

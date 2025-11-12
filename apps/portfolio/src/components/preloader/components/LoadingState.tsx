@@ -1,11 +1,10 @@
-import { memo } from 'react';
-import { Badge } from '../../ui/badge';
-import { Progress } from '../../ui/progress';
-import { CardTitle } from '../../ui/card';
 import { CircleNotch as LoadingCircle } from '@mynaui/icons-react';
-import { StepIndicator } from './StepIndicator';
-import type { LoadingStep } from '../types';
+import { memo } from 'react';
+import { CardTitle } from '../../ui/card';
+import { Progress } from '../../ui/progress';
 import type { ThemeStyles } from '../hooks/useTheme';
+import type { LoadingStep } from '../types';
+import { StepIndicator } from './StepIndicator';
 
 export interface LoadingStateProps {
   progress: number;
@@ -54,9 +53,9 @@ export const LoadingState = memo(function LoadingState({
                 style={themeStyles.getSpinnerStyle(true)}
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <Badge variant="outline" className="text-xs font-bold" style={themeStyles.getBadgeStyle()}>
+                <span className="text-xs font-bold" style={themeStyles.getBadgeStyle()}>
                   {progress}%
-                </Badge>
+                </span>
               </div>
             </>
           ) : CustomSpinner ? (
@@ -68,9 +67,9 @@ export const LoadingState = memo(function LoadingState({
                 style={themeStyles.getSpinnerStyle(false)}
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <Badge variant="outline" className="text-xs font-bold" style={themeStyles.getBadgeStyle()}>
+                <span className="text-xs font-bold" style={themeStyles.getBadgeStyle()}>
                   {progress}%
-                </Badge>
+                </span>
               </div>
             </>
           )}
@@ -91,7 +90,7 @@ export const LoadingState = memo(function LoadingState({
             </p>
           )}
           {hasReached100 && (
-            <p className="text-sm animate-pulse text-center" style={themeStyles.getIconStyle('success')}>
+            <p className="text-sm text-center" style={themeStyles.getIconStyle('success')}>
               Almost ready! Finalizing your experience...
             </p>
           )}
@@ -103,7 +102,7 @@ export const LoadingState = memo(function LoadingState({
         <Progress
           value={progress}
           className="h-2 transition-all duration-300"
-          style={themeStyles.getProgressStyle(progress)}
+          progressStyle={themeStyles.getProgressStyle(progress)}
           aria-label={`Loading progress: ${progress}%`}
         />
         <div className="flex justify-between text-xs" style={{ color: themeStyles.config.colors.mutedForeground }}>
