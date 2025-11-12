@@ -1,6 +1,8 @@
 ---
 import '../styles/globals.css';
 import Preloader from '@/components/preloader';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights  from "@vercel/speed-insights/astro";
 export interface Props {
   title?: string;
 }
@@ -22,5 +24,7 @@ const { title }: Props = Astro.props;
     <main data-critical>
       <slot />
     </main>
+    <Analytics />
+    <SpeedInsights />
 	</body>
 </html>
