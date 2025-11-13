@@ -19,6 +19,15 @@ import {
   useSectionRefs,
   useSectionTransitions,
 } from "./hooks";
+import {
+  CTA_CLICK_SCALE,
+  CTA_CLICK_DURATION,
+  CTA_CLICK_REPEAT,
+  RESUME_BUTTON_SCALE,
+  RESUME_BUTTON_DURATION,
+  RESUME_BUTTON_COLOR,
+  RESUME_OPEN_DELAY,
+} from "./config/constants";
 import DynamicBackground from "./background/DynamicBackground";
 import AtmosphericOverlays from "./overlays/AtmosphericOverlays";
 import AnimationCanvas from "./canvas/AnimationCanvas";
@@ -79,30 +88,38 @@ function PortfolioSectionInner(): JSX.Element {
   useSectionTransitions(currentSection, refs);
 
   // CTA handlers
+  /**
+   * Handles navigation to a specific section with click animation feedback
+   * @param index - The target section index (0-7)
+   */
   const handleSectionClick = (index: number): void => {
     if (ctaRef.current) {
       gsap.to(ctaRef.current.children, {
-        scale: 0.95,
-        duration: 0.1,
+        scale: CTA_CLICK_SCALE,
+        duration: CTA_CLICK_DURATION,
         yoyo: true,
-        repeat: 1,
+        repeat: CTA_CLICK_REPEAT,
       });
     }
     navigateToSection(index);
   };
 
+  /**
+   * Handles resume download with button animation and secure window opening
+   * Animates the resume button, then opens the PDF in a new tab with tabnabbing protection
+   */
   const handleViewResume = (): void => {
     // Safely access the resume button (second child of CTA container)
     const resumeButton = ctaRef.current?.children[1];
     if (resumeButton) {
       const tl = gsap.timeline();
       tl.to(resumeButton, {
-        scale: 1.1,
-        duration: 0.2,
-        backgroundColor: "#059669",
+        scale: RESUME_BUTTON_SCALE,
+        duration: RESUME_BUTTON_DURATION,
+        backgroundColor: RESUME_BUTTON_COLOR,
       }).to(resumeButton, {
         scale: 1,
-        duration: 0.2,
+        duration: RESUME_BUTTON_DURATION,
       });
     }
 
@@ -112,7 +129,7 @@ function PortfolioSectionInner(): JSX.Element {
       if (resumeWindow) {
         resumeWindow.opener = null;
       }
-    }, 400);
+    }, RESUME_OPEN_DELAY);
   };
 
   return (

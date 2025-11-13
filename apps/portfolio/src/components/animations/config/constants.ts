@@ -46,3 +46,25 @@ export const ANIMATION_TIMING = {
   MODAL_ANIMATION: 300,
   SECTION_TRANSITION: 1000
 } as const;
+
+// CTA Button Animation
+export const CTA_CLICK_SCALE = 0.95;
+export const CTA_CLICK_DURATION = 0.1;
+export const CTA_CLICK_REPEAT = 1;
+
+// Resume Button Animation
+export const RESUME_BUTTON_SCALE = 1.1;
+export const RESUME_BUTTON_DURATION = 0.2;
+export const RESUME_BUTTON_COLOR = "#059669"; // Tailwind emerald-600
+export const RESUME_OPEN_DELAY = 400; // ms delay before opening resume
+
+// Scroll Navigation
+export const SCROLL_PROGRESS_MAX = 0.8;
+export const SCROLL_PROGRESS_THRESHOLD = 0.7;
+export const SCROLL_PROGRESS_RETURN = 0.7; // Starting progress when going back
+export const SCROLL_PROGRESS_MIN = 0.1;
+
+// Section Navigation
+export const TOTAL_SECTIONS = 8;
+export const SCROLL_SENSITIVITY = 0.002;
+export const SCROLL_DEBOUNCE_TIME = 1000; // ms

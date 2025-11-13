@@ -13,6 +13,15 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
+import {
+  TOTAL_SECTIONS,
+  SCROLL_SENSITIVITY,
+  SCROLL_DEBOUNCE_TIME,
+  SCROLL_PROGRESS_MAX,
+  SCROLL_PROGRESS_THRESHOLD,
+  SCROLL_PROGRESS_RETURN,
+  SCROLL_PROGRESS_MIN,
+} from "../config/constants";
 
 // Types
 export interface PortfolioState {
@@ -50,11 +59,6 @@ interface PortfolioProviderProps {
   initialSection?: number;
 }
 
-// Constants
-const TOTAL_SECTIONS = 8;
-const SCROLL_SENSITIVITY = 0.002;
-const DEBOUNCE_TIME = 1000;
-
 // Provider Component
 export function PortfolioProvider({
   children,
@@ -87,27 +91,27 @@ export function PortfolioProvider({
       // Accumulate scroll progress
       const newProgress = Math.max(
         0,
-        Math.min(0.8, scrollProgress + delta * SCROLL_SENSITIVITY)
+        Math.min(SCROLL_PROGRESS_MAX, scrollProgress + delta * SCROLL_SENSITIVITY)
       );
       setScrollProgress(newProgress);
 
       // If we've scrolled enough, transition to next/previous section
-      if (newProgress >= 0.7 && delta > 0 && currentSection < TOTAL_SECTIONS - 1) {
+      if (newProgress >= SCROLL_PROGRESS_THRESHOLD && delta > 0 && currentSection < TOTAL_SECTIONS - 1) {
         // Scrolling down - move to next section
         isScrollingRef.current = true;
         setCurrentSection(currentSection + 1);
         setScrollProgress(0);
         setTimeout(() => {
           isScrollingRef.current = false;
-        }, DEBOUNCE_TIME);
-      } else if (newProgress <= 0.1 && delta < 0 && currentSection > 0) {
+        }, SCROLL_DEBOUNCE_TIME);
+      } else if (newProgress <= SCROLL_PROGRESS_MIN && delta < 0 && currentSection > 0) {
         // Scrolling up - move to previous section
         isScrollingRef.current = true;
         setCurrentSection(currentSection - 1);
-        setScrollProgress(0.7); // Start at high progress when going back
+        setScrollProgress(SCROLL_PROGRESS_RETURN); // Start at high progress when going back
         setTimeout(() => {
           isScrollingRef.current = false;
-        }, DEBOUNCE_TIME);
+        }, SCROLL_DEBOUNCE_TIME);
       }
     };
 
