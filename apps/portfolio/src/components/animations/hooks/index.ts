@@ -5,7 +5,6 @@
 
 export * from './useDeviceCapabilities';
 export * from './useLocalStorage';
-export * from './useSectionTransition';
 export * from './useFlipText';
 export * from './useModal';
 export * from './useAtmosphericLayer';
