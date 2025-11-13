@@ -39,6 +39,9 @@ yarn-error.log*
 
 .registry
 
+# Editor/IDE
+.claude
+
 .local
 *.log
 *.pid

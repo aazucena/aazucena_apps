@@ -67,7 +67,7 @@ Unit tests, integration tests, E2E tests with Playwright.
 - **[Strudel.cc Live Coding](./features/strudel-integration.md)** - Interactive TidalCycles patterns (9-13 days)
 
 #### AI & Intelligence 🤖
-- **[AI-Powered Forms](./features/ai-forms.md)** - LangChain + Claude conversational forms (7-9 days)
+- **[AI-Powered Forms](./features/ai-forms.md)** - LangChain + LangGraph + Claude with vector search, embeddings, and RAG (16-20 days comprehensive, 7-9 days basic)
 - **[Machine Learning Features](./features/machine-learning.md)** - PyTorch/TensorFlow use cases (10-40 days)
 
 #### Infrastructure & Monitoring 📊
@@ -121,8 +121,8 @@ Features (Music, AI, ML, etc.) → 3-40 days each
 - **State:** React Context API + Custom Hooks
 
 ### Backend
-- **CMS:** Strapi v4
-- **Database:** PostgreSQL
+- **CMS:** Strapi v5
+- **Database:** PostgreSQL 16+ with pgVector extension
 - **Storage:** Cloudinary
 - **Auth:** Strapi built-in
 
@@ -133,7 +133,7 @@ Features (Music, AI, ML, etc.) → 3-40 days each
 - **CI/CD:** CircleCI (CMS only)
 
 ### Monitoring & Logging
-- **Frontend:** Sentry, Vercel Analytics
+- **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights
 - **Backend:** Pino, Sentry, Redis
 
 ### Development
@@ -143,9 +143,19 @@ Features (Music, AI, ML, etc.) → 3-40 days each
 - **Testing:** Vitest, Playwright
 - **API Testing:** Postman
 
-### AI/ML (Optional)
-- **LLMs:** LangChain, Anthropic Claude
-- **ML:** PyTorch/TensorFlow (future)
+### AI/ML
+- **LLM Orchestration:** LangChain, LangGraph
+- **Observability:** LangSmith
+- **Primary LLM:** Anthropic Claude 3.5 Sonnet
+- **Vector Database:** pgVector (PostgreSQL extension)
+- **Embeddings Models:**
+  - OpenAI (text-embedding-3-small, text-embedding-3-large)
+  - Cohere (embed-english-v3.0, embed-multilingual-v3.0)
+  - Anthropic Claude (via Voyage AI)
+  - Google Gemini (Vertex AI textembedding-gecko)
+  - Local Models (Sentence Transformers, all-MiniLM-L6-v2)
+- **Retrieval & Ranking:** LangChain Retrievers, Cohere Rerank, Cross-encoders
+- **ML Frameworks:** PyTorch/TensorFlow (optional, for advanced features)
 
 ### Payments
 - **Stripe** - Downloads, consultations
@@ -173,4 +183,6 @@ Features (Music, AI, ML, etc.) → 3-40 days each
 
 ---
 
-**Last Updated:** 2025-11-09
+**Last Updated:** 2025-11-12
+
+**Note:** AI-Powered Forms now includes comprehensive vector database (pgVector) integration with embeddings from multiple providers (OpenAI, Cohere, Voyage AI, Gemini, local models), semantic search, retrieval & ranking with Cohere Rerank and cross-encoders, and full RAG capabilities for intelligent form processing.

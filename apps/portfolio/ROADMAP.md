@@ -32,8 +32,8 @@
 - **State Management:** React Context API + Custom Hooks
 
 ### Backend & Infrastructure
-- **CMS:** Strapi v4
-- **Database:** PostgreSQL
+- **CMS:** Strapi v5
+- **Database:** PostgreSQL 16+ with pgVector extension
 - **Storage:** Cloudinary
 - **Monorepo:** pnpm + Turborepo
 - **Frontend Deploy:** Vercel (auto via GitHub)
@@ -41,7 +41,7 @@
 - **CI/CD:** CircleCI (CMS only)
 
 ### Monitoring & Logging
-- **Frontend:** Sentry, Vercel Analytics
+- **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights
 - **Backend:** Pino, Sentry
 - **Caching:** Redis
 
@@ -52,12 +52,22 @@
 - **Testing:** Vitest (unit), Playwright (E2E)
 - **API Testing:** Postman
 
-### AI/ML (Optional)
-- **LLMs:** LangChain, Anthropic Claude
-- **ML:** PyTorch/TensorFlow
+### AI/ML
+- **LLM Orchestration:** LangChain, LangGraph
+- **Observability:** LangSmith
+- **Primary LLM:** Anthropic Claude 3.5 Sonnet
+- **Vector Database:** pgVector (PostgreSQL extension)
+- **Embeddings Models:**
+  - OpenAI (text-embedding-3-small, text-embedding-3-large)
+  - Cohere (embed-english-v3.0, embed-multilingual-v3.0)
+  - Anthropic Claude (via Voyage AI)
+  - Google Gemini (Vertex AI textembedding-gecko)
+  - Local Models (Sentence Transformers, all-MiniLM-L6-v2)
+- **Retrieval & Ranking:** LangChain Retrievers, Cohere Rerank, Cross-encoders
+- **ML Frameworks:** PyTorch/TensorFlow (optional, for advanced features)
 
 ### API Integrations
-- YouTube, LinkedIn, Spotify, SoundCloud, Weather, WakaTime, SendGrid/Resend, Ko-fi
+- YouTube, LinkedIn, Spotify, SoundCloud, Weather, WakaTime, SendGrid/Resend, Ko-fi, reCAPTCHA v3
 
 ---
 
@@ -161,8 +171,106 @@ Comprehensive testing strategy.
 - **[Strudel.cc Live Coding](/docs/features/strudel-integration.md)** (9-13 days) - Interactive TidalCycles patterns
 
 ### AI & Intelligence
-- **[AI-Powered Forms](/docs/features/ai-forms.md)** (7-9 days) - LangChain + Claude conversational forms
-- **[Machine Learning](/docs/features/machine-learning.md)** (10-40 days) - Content analysis, image enhancement, RAG chatbot
+
+#### AI-Powered Forms (16-20 days comprehensive, 7-9 days basic)
+**[Full Documentation →](/docs/features/ai-forms.md)**
+
+Transform static forms into intelligent, conversational experiences using LangChain + LangGraph + Claude.
+
+**Form Types:**
+- **Contact** - General inquiries
+- **Feedback** - Portfolio feedback collection
+- **Testimonial** - Client reviews with approval workflow
+- **Bug Report** - Issue tracking with GitHub integration
+- **Feature Request** - Ideas with voting system
+- **Collaboration** - Speaking/partnership opportunities
+- **Referral** - Client referrals
+- **Music Feedback** - Track-specific reviews
+
+**Key Features:**
+- ✨ **Easter Egg Step** - Hidden step required before submission (fun engagement)
+- 🤖 **AI Intent Classification** - Routes inquiries automatically
+- 🔍 **Smart Field Extraction** - Pulls structured data from casual messages
+- 💬 **Follow-up Questions** - Context-aware clarifications
+- 📊 **Sentiment Analysis** - Analyzes emotional tone
+- 🧠 **AI Summarization** - Generates concise summaries
+- 🔒 **reCAPTCHA v3** - Spam protection
+- ✅ **Auto-Response** - Optional personalized replies
+
+**Vector Database & Semantic Search:**
+- **pgVector** - PostgreSQL extension for vector similarity search
+- **Embeddings Storage** - Store embeddings of `rawMessage`, `rawFeedback`, `testimonialText`, `rawDescription`, and `aiSummary`
+- **Metadata Indexing** - `formType`, `sentiment`, `tags`, `submissionDate`, `langSmithId`
+- **Retrieval Use Cases:**
+  - Semantic search for similar feedback/bug reports
+  - RAG (Retrieval-Augmented Generation) for AI responses
+  - Analytics clustering and pattern detection
+  - Duplicate detection for bug reports/feature requests
+
+**Embeddings Models:**
+- OpenAI (text-embedding-3-small: 1536 dims, fast, cheap)
+- Cohere (embed-english-v3.0: 1024 dims, multilingual)
+- Voyage AI (voyage-2: 1024 dims, Claude-optimized)
+- Gemini (textembedding-gecko: 768 dims, free tier)
+- Local Models (all-MiniLM-L6-v2: 384 dims, offline)
+
+**Retrieval & Ranking:**
+- LangChain Retrievers for semantic search
+- Cohere Rerank API (rerank-english-v3.0)
+- Cross-encoder models (local)
+- ContextualCompressionRetriever for result refinement
+
+**AI Pipeline Flow:**
+```
+Frontend (Astro/React)
+   ↓
+reCAPTCHA v3 + Rate Limiting
+   ↓
+LangGraph State Machine
+   ├─ IntentClassifierAgent → Classify form type
+   ├─ EasterEggDetectorAgent → Detect hidden keywords
+   ├─ FieldExtractionAgent → Extract structured data
+   ├─ ValidationAgent → Check required fields
+   ├─ SummarizationAgent → Generate AI summary + sentiment
+   └─ AutoResponseAgent → Optional personalized reply
+   ↓
+LangSmith (tracing/logging)
+   ↓
+Strapi v5 (structured data storage)
+   ↓
+[Async Job] Embedding Generation
+   ├─ Generate embeddings for message/summary/context
+   ├─ Choose embedding provider (OpenAI/Cohere/Gemini/local)
+   └─ Store in pgVector with metadata
+   ↓
+Retrieval & Ranking (Query Time)
+   ├─ Generate query embedding
+   ├─ pgVector similarity search (cosine distance)
+   ├─ Apply metadata filters
+   ├─ Fetch top K candidates (k=20-50)
+   ├─ Rerank with Cohere/cross-encoders
+   └─ Return top N results (n=5-10)
+```
+
+**Timeline:**
+- Phase A (Basic Forms): 3-4 days
+- Phase B (AI Integration): 12-16 days
+  - LangGraph state machine (3 days)
+  - Multi-intent classifier (1-2 days)
+  - Field extractors per form (3-4 days)
+  - Conversational UI (2 days)
+  - API routes & integrations (2 days)
+  - Admin dashboard (2-3 days)
+
+---
+
+#### Machine Learning Features (10-40 days)
+**[Full Documentation →](/docs/features/machine-learning.md)**
+
+- Content analysis and recommendation
+- Image enhancement and optimization
+- RAG chatbot with semantic search
+- PyTorch/TensorFlow integration
 
 ### Infrastructure
 - **[Logging & Monitoring](/docs/features/logging-monitoring.md)** (3-4 days) - Sentry, Vercel Analytics, Pino, Redis
@@ -224,6 +332,22 @@ Features (as needed) → 3-40 days each
 - PR review time: -40%
 - Component development: faster with Storybook
 - Visual regression: automated with Chromatic
+
+### AI Forms & Intelligence
+- **Conversion Rate:** AI chat vs traditional form (+30% target)
+- **Field Completion:** Fully completed forms (>85% target)
+- **Intent Classification Accuracy:** AI classifier performance (>95% target)
+- **User Satisfaction:** Average feedback rating (>8/10 target)
+- **Easter Egg Discovery Rate:** Percentage of users finding hidden steps
+- **Semantic Search Relevance:** Vector similarity match quality
+- **Response Time:** AI agent response latency (<2s target)
+
+### Form-Specific Metrics
+- **Testimonials:** Approval rate, average rating, publication rate
+- **Feedback:** Response rate, implementation rate of suggestions
+- **Bug Reports:** Time to resolution, severity distribution, GitHub sync rate
+- **Feature Requests:** Voting participation, implementation rate, deduplication accuracy
+- **Music Feedback:** Average track ratings, improvement trends over releases
 
 ---
 
@@ -308,10 +432,13 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 - **Ko-fi Already Set Up:** Quick win for monetization (15-30 min to integrate)
 - **ML Features Optional:** Only implement if showcasing AI/ML skills
 - **Vercel Auto-Deploys:** No CircleCI needed for frontend (Vercel handles it)
+- **AI Forms with Vector Search:** Comprehensive implementation includes pgVector for semantic search, embeddings from multiple providers, and RAG capabilities
+- **Strapi v5:** Upgraded from v4 to v5 for better PostgreSQL integration and pgVector support
+- **LangGraph State Machine:** Multi-agent workflow for intelligent form processing with LangSmith observability
 
 ---
 
-**Last Updated:** 2025-11-09
+**Last Updated:** 2025-11-12
 
 **Current Priority:** Phase 1 - Animations Refactoring 🔥
 

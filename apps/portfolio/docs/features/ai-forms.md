@@ -21,18 +21,180 @@ Transform static forms into intelligent, conversational experiences powered by C
 
 ## Tech Stack
 
+### AI & LLM
 - **LangChain** - LLM orchestration framework
 - **LangGraph** - State machine for multi-turn conversations
-- **Anthropic Claude 3.5 Sonnet** - Language model
+- **LangSmith** - Observability, tracing, and debugging for LLM apps
+- **Anthropic Claude 3.5 Sonnet** - Primary language model
 - **Zod** - Schema validation for extracted fields
+
+### Vector Database & Embeddings
+- **pgVector** - PostgreSQL extension for vector similarity search
+- **Embedding Providers:**
+  - OpenAI (`text-embedding-3-small`, `text-embedding-3-large`)
+  - Cohere (`embed-english-v3.0`, `embed-multilingual-v3.0`)
+  - Anthropic Claude (via Voyage AI)
+  - Google Gemini (Vertex AI `textembedding-gecko`)
+  - Local Models (Sentence Transformers, all-MiniLM-L6-v2)
+
+### Retrieval & Ranking
+- **LangChain Retrievers** - Semantic search, hybrid search, multi-query
+- **Ranking Models:**
+  - Cohere Rerank (`rerank-english-v3.0`)
+  - Cross-encoders (local)
+  - LangChain ContextualCompressionRetriever
+
+### Infrastructure
+- **Strapi v5** - Headless CMS with PostgreSQL + pgVector
+- **PostgreSQL 16+** - Database with pgVector extension
 - **SendGrid/Resend** - Email delivery
+- **reCAPTCHA v3** - Spam protection
 
 ## Architecture
+
+### High-Level AI Pipeline Flow
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         USER SUBMISSION                              │
+│  (Contact, Feedback, Testimonial, Bug Report, Feature Request, etc) │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │
+                             ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│                      SPAM PROTECTION                                 │
+│  • reCAPTCHA v3 Score Check (>0.5 threshold)                        │
+│  • Rate Limiting (Redis)                                             │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │
+                             ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│                    LANGGRAPH STATE MACHINE                           │
+│  ┌──────────────────────────────────────────────────────────────┐  │
+│  │  1. IntentClassifierAgent                                     │  │
+│  │     → Classify: contact | project | feedback | testimonial   │  │
+│  │                | bug | feature | collaboration | music        │  │
+│  └───────────────────────┬──────────────────────────────────────┘  │
+│                          │                                           │
+│  ┌───────────────────────▼──────────────────────────────────────┐  │
+│  │  2. EasterEggDetectorAgent (Optional)                         │  │
+│  │     → Detect hidden keywords, patterns, jokes                 │  │
+│  │     → Unlock special responses or badges                      │  │
+│  └───────────────────────┬──────────────────────────────────────┘  │
+│                          │                                           │
+│  ┌───────────────────────▼──────────────────────────────────────┐  │
+│  │  3. FieldExtractionAgent                                      │  │
+│  │     → Extract structured data (name, email, message, etc.)    │  │
+│  │     → Use intent-specific schemas                             │  │
+│  └───────────────────────┬──────────────────────────────────────┘  │
+│                          │                                           │
+│  ┌───────────────────────▼──────────────────────────────────────┐  │
+│  │  4. ValidationAgent                                            │  │
+│  │     → Check required fields with Zod                          │  │
+│  │     → Missing fields? → FollowUpAgent                         │  │
+│  └───────────────────────┬──────────────────────────────────────┘  │
+│                          │                                           │
+│  ┌───────────────────────▼──────────────────────────────────────┐  │
+│  │  5. SummarizationAgent                                         │  │
+│  │     → Generate AI summary (50-150 words)                      │  │
+│  │     → Sentiment analysis (positive/neutral/negative)          │  │
+│  │     → Extract key topics and tags                             │  │
+│  └───────────────────────┬──────────────────────────────────────┘  │
+│                          │                                           │
+│  ┌───────────────────────▼──────────────────────────────────────┐  │
+│  │  6. AutoResponseAgent (Optional)                               │  │
+│  │     → Generate personalized auto-reply                        │  │
+│  │     → Context-aware based on intent & sentiment               │  │
+│  └───────────────────────┬──────────────────────────────────────┘  │
+└─────────────────────────┬────────────────────────────────────────┘
+                          │
+                          ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│                  LANGSMITH OBSERVABILITY                             │
+│  • Trace full conversation flow                                      │
+│  • Log intent classification accuracy                                │
+│  • Monitor field extraction quality                                  │
+│  • Track latency and token usage                                     │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │
+                             ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│                  STRAPI v5 STORAGE                                   │
+│  • Store structured submission data                                  │
+│  • Save AI summary and sentiment                                     │
+│  • Record Easter egg info (if detected)                              │
+│  • Store metadata (timestamp, user agent, etc.)                      │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │
+                             ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│              EMBEDDING GENERATION (Async Job)                        │
+│  • Generate embeddings for:                                          │
+│    - Original message text                                           │
+│    - AI-generated summary                                            │
+│    - Combined text (message + context)                               │
+│                                                                       │
+│  • Embedding Provider (choose one):                                  │
+│    - OpenAI (text-embedding-3-small: 1536 dims, fast, cheap)       │
+│    - Cohere (embed-english-v3.0: 1024 dims, multilingual)          │
+│    - Voyage AI (voyage-2: 1024 dims, Claude-optimized)             │
+│    - Gemini (textembedding-gecko: 768 dims, free tier)             │
+│    - Local (all-MiniLM-L6-v2: 384 dims, free, offline)             │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │
+                             ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│                   PGVECTOR STORAGE                                   │
+│  • Store embeddings in PostgreSQL with pgVector extension            │
+│  • Create vector index (HNSW or IVFFlat)                            │
+│  • Store metadata for filtering:                                     │
+│    - formType (contact, feedback, testimonial, etc.)                │
+│    - sentiment (positive, neutral, negative)                         │
+│    - timestamp, tags, userId, sessionId                              │
+│    - easterEggDetected (boolean)                                     │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │
+                             ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│            RETRIEVAL & RANKING (Query Time)                          │
+│  ┌──────────────────────────────────────────────────────────────┐  │
+│  │  Use Cases:                                                   │  │
+│  │  1. Semantic Search - Find similar feedback/bug reports      │  │
+│  │  2. RAG - Provide context to AI for follow-up responses      │  │
+│  │  3. Analytics - Group similar submissions, detect patterns   │  │
+│  │  4. Deduplication - Identify duplicate bug reports/features  │  │
+│  └──────────────────────────────────────────────────────────────┘  │
+│                                                                       │
+│  ┌──────────────────────────────────────────────────────────────┐  │
+│  │  Retrieval Pipeline:                                          │  │
+│  │                                                                │  │
+│  │  Query → Generate Query Embedding                             │  │
+│  │            ↓                                                   │  │
+│  │  pgVector Similarity Search (cosine distance <-> 0.3)        │  │
+│  │            ↓                                                   │  │
+│  │  Apply Metadata Filters (formType, sentiment, dateRange)     │  │
+│  │            ↓                                                   │  │
+│  │  Fetch Top K candidates (k=20-50)                            │  │
+│  │            ↓                                                   │  │
+│  │  Rerank with LangChain ContextualCompressionRetriever        │  │
+│  │    • Cohere Rerank API (rerank-english-v3.0)                 │  │
+│  │    • Cross-encoder models (local)                            │  │
+│  │            ↓                                                   │  │
+│  │  Return Top N results (n=5-10)                               │  │
+│  └──────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Simplified Conversation Flow
 
 ```
 User Message
     ↓
-MessageClassifierAgent → Intent (contact, project, career, general)
+[reCAPTCHA + Rate Limit Check]
+    ↓
+IntentClassifierAgent → Intent Classification
+    ↓
+EasterEggDetectorAgent → Optional Easter Egg Detection
     ↓
 FieldExtractionAgent → Extract structured data
     ↓
@@ -40,9 +202,15 @@ ValidationAgent → Check required fields
     ↓
 [Missing fields?] → FollowUpAgent → Ask clarifying questions
     ↓
-SummaryAgent → Confirm details with user
+SummarizationAgent → Generate AI summary + sentiment
     ↓
-[User confirms?] → SubmissionAgent → Send email/store in DB
+AutoResponseAgent → Optional personalized reply
+    ↓
+[Store in Strapi] → Email notification → [Log to LangSmith]
+    ↓
+[Async] Generate embeddings → Store in pgVector
+    ↓
+[Available for] Semantic search, RAG, Analytics
 ```
 
 ## Implementation
