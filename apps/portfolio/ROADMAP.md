@@ -4,7 +4,7 @@
 
 **Phase 1 Completed:** ✅ Animations folder successfully refactored (324 → 174 lines, 46% reduction)
 
-**Next:** Integrate Strapi CMS v5, establish deployment pipeline, and prepare for production.
+**Next:** Docker Compose setup for Strapi CMS v5 with PostgreSQL 16 + pgVector, establish deployment pipeline, and prepare for production.
 
 ---
 
@@ -37,6 +37,7 @@
 - **CMS:** Strapi v5
 - **Database:** PostgreSQL 16+ with pgVector extension
 - **Storage:** Cloudinary
+- **Local Development:** Docker Compose (CMS + PostgreSQL + pgVector)
 - **Monorepo:** pnpm + Turborepo
 - **Frontend Deploy:** Vercel (auto via GitHub)
 - **Backend Deploy:** Railway
@@ -92,18 +93,20 @@ Refactor the animations folder to improve maintainability and reduce complexity.
 
 ---
 
-### Phase 0: Infrastructure & Architecture (12-16 days)
+### Phase 0: Infrastructure & Architecture (11-16 days)
 **[Full Documentation →](/docs/phase-0-infrastructure.md)**
 
-Convert to monorepo, integrate Strapi CMS, and establish deployment pipeline.
+Set up Docker Compose for local development, integrate Strapi CMS v5, and establish deployment pipeline.
 
 **Key Tasks:**
-- Monorepo restructuring (pnpm + Turborepo)
-- Strapi CMS setup with PostgreSQL
+- Monorepo verification ✅ (already complete)
+- Docker Compose setup (Strapi v5 + PostgreSQL 16 + pgVector)
+- Strapi configuration and content types
+- Frontend API integration (Strapi SDK)
 - Deployment (Vercel + Railway + CircleCI)
 - Content migration from static to CMS
 
-**Execute After:** Phase 1
+**Status:** 🚧 In Progress (Documentation complete)
 
 ---
 
@@ -441,11 +444,13 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 - **Tech Stack Decisions:** All major technology choices are documented with rationale
 - **No Redux:** Using Context API + Custom Hooks (sufficient for portfolio complexity)
+- **Docker Compose:** Local development uses Docker Compose for consistent environment (one-command setup: `docker-compose up`)
 - **Ko-fi Already Set Up:** Quick win for monetization (15-30 min to integrate)
 - **ML Features Optional:** Only implement if showcasing AI/ML skills
 - **Vercel Auto-Deploys:** No CircleCI needed for frontend (Vercel handles it)
 - **AI Forms with Vector Search:** Comprehensive implementation includes pgVector for semantic search, embeddings from multiple providers, and RAG capabilities
 - **Strapi v5:** Upgraded from v4 to v5 for better PostgreSQL integration and pgVector support
+- **PostgreSQL 16 + pgVector:** Docker image provides PostgreSQL 16 with pgVector extension pre-installed
 - **LangGraph State Machine:** Multi-agent workflow for intelligent form processing with LangSmith observability
 
 ---
@@ -454,4 +459,6 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 **Current Priority:** Phase 0 - Infrastructure & Architecture 🔥
 
-**Next Milestone:** Strapi CMS v5 Integration → Deployment Pipeline
+**Next Milestone:** Docker Compose Setup (Strapi v5 + PostgreSQL 16 + pgVector) → Deployment Pipeline
+
+**Recent Completion:** Phase 1 - Animations Refactoring ✅ (324 → 174 lines, 46% reduction)

@@ -163,17 +163,28 @@ Section.tsx (main orchestrator)
 - ✅ Renamed files (Particles → PixiJSParticles, Scene → ThreeJSScene)
 - ✅ All tests passing
 
-### Current Priority: Phase 0 - Infrastructure & Architecture (12-16 days)
+### Current Priority: Phase 0 - Infrastructure & Architecture (11-16 days)
 
 **Detailed docs:** `apps/portfolio/docs/phase-0-infrastructure.md`
 
-**Goal:** Set up production-ready infrastructure
-1. Verify monorepo structure (pnpm + Turborepo) ✅
-2. Integrate Strapi CMS v5 with PostgreSQL + pgVector
-3. Configure deployment pipeline (Vercel + Railway + CircleCI)
-4. Migrate static content to CMS
+**Goal:** Set up production-ready infrastructure with Docker Compose
 
-**Status:** In progress (Monorepo already configured)
+**Sub-phases:**
+- **0.1:** Verify monorepo structure (pnpm + Turborepo) ✅ COMPLETED
+- **0.2.1:** Docker Compose setup (Strapi + PostgreSQL 16 + pgVector) - 1-2 days
+- **0.2.2:** Strapi configuration (admin panel, Cloudinary) - 1 day
+- **0.2.3:** Content types creation (9 types) - 1-2 days
+- **0.2.4:** Frontend API integration (Strapi SDK) - 1-2 days
+- **0.3:** Deployment strategy (Vercel + Railway + CircleCI) - 1.5 days
+- **0.4:** Content migration from static to CMS - 3 days
+
+**Key Technology Decisions:**
+- ✅ Docker Compose for local development (consistent environment)
+- ✅ PostgreSQL 16+ with pgVector extension (ready for AI features)
+- ✅ Strapi v5 (upgraded from v4 for better PostgreSQL support)
+- ✅ One-command setup: `docker-compose up`
+
+**Status:** Documentation updated, ready to begin Phase 0.2.1
 
 ### Upcoming Phases (execute in order)
 - **Phase 2:** Component Architecture (6-8 days) - Further optimization
