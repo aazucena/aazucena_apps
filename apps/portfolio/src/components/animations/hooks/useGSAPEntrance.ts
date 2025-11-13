@@ -19,6 +19,9 @@ export function useGSAPEntrance(scope?: RefObject<HTMLElement | null>): GSAPEntr
   const ctaRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    // Validate DOM elements before animating
+    if (!titleRef.current || !subtitleRef.current || !ctaRef.current) return;
+
     const tl = gsap.timeline();
 
     tl.fromTo(titleRef.current,
