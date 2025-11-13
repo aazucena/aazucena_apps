@@ -13,6 +13,7 @@ import { AnimationProvider, useAnimation } from "./contexts/AnimationContext";
 import { aboutData } from "./sections/data/about";
 import {
   useFlipText,
+  useModal,
   useAtmosphericLayer,
   useGSAPEntrance,
   useSectionRefs,
@@ -67,6 +68,7 @@ function PortfolioSectionInner(): JSX.Element {
     },
   );
 
+  const { modalRef } = useModal({ closeOnEscape: false }); // Escape handled by PortfolioContext
   const { titleRef, subtitleRef, ctaRef } = useGSAPEntrance(refs.heroRef);
   const { phase: atmosphericLayer, backgroundStyle } = useAtmosphericLayer(
     currentSection,
@@ -90,15 +92,19 @@ function PortfolioSectionInner(): JSX.Element {
   };
 
   const handleViewResume = (): void => {
-    const tl = gsap.timeline();
-    tl.to(ctaRef.current?.children[1]!, {
-      scale: 1.1,
-      duration: 0.2,
-      backgroundColor: "#059669",
-    }).to(ctaRef.current?.children[1]!, {
-      scale: 1,
-      duration: 0.2,
-    });
+    // Safely access the resume button (second child of CTA container)
+    const resumeButton = ctaRef.current?.children[1];
+    if (resumeButton) {
+      const tl = gsap.timeline();
+      tl.to(resumeButton, {
+        scale: 1.1,
+        duration: 0.2,
+        backgroundColor: "#059669",
+      }).to(resumeButton, {
+        scale: 1,
+        duration: 0.2,
+      });
+    }
 
     setTimeout(() => {
       // Secure window.open to prevent tabnabbing attacks
@@ -162,7 +168,7 @@ function PortfolioSectionInner(): JSX.Element {
           isExperienceModalOpen={isExperienceModalOpen}
           selectedExperienceIndex={selectedExperienceIndex}
           onCloseExperienceModal={closeExperienceModal}
-          modalRef={null as any}
+          modalRef={modalRef}
           currentSection={currentSection}
           onNavigateToSection={navigateToSection}
           capabilities={capabilities}

@@ -6,15 +6,15 @@
 import { useRef, type RefObject } from 'react';
 
 export interface SectionRefs {
-  heroRef: RefObject<HTMLElement>;
-  heroContentRef: RefObject<HTMLDivElement>;
-  aboutContentRef: RefObject<HTMLDivElement>;
-  projectsContentRef: RefObject<HTMLDivElement>;
-  experienceContentRef: RefObject<HTMLDivElement>;
-  skillsContentRef: RefObject<HTMLDivElement>;
-  testimonialsContentRef: RefObject<HTMLDivElement>;
-  blogContentRef: RefObject<HTMLDivElement>;
-  awardsContentRef: RefObject<HTMLDivElement>;
+  heroRef: RefObject<HTMLElement | null>;
+  heroContentRef: RefObject<HTMLDivElement | null>;
+  aboutContentRef: RefObject<HTMLDivElement | null>;
+  projectsContentRef: RefObject<HTMLDivElement | null>;
+  experienceContentRef: RefObject<HTMLDivElement | null>;
+  skillsContentRef: RefObject<HTMLDivElement | null>;
+  testimonialsContentRef: RefObject<HTMLDivElement | null>;
+  blogContentRef: RefObject<HTMLDivElement | null>;
+  awardsContentRef: RefObject<HTMLDivElement | null>;
 }
 
 export function useSectionRefs(): SectionRefs {

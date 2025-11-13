@@ -20,10 +20,10 @@ import {
 
 export interface HeroSectionProps {
   data: AboutData;
-  titleRef: RefObject<HTMLHeadingElement>;
-  subtitleRef: RefObject<HTMLParagraphElement>;
-  ctaRef: RefObject<HTMLDivElement>;
-  flipTextRef: RefObject<HTMLSpanElement>;
+  titleRef: RefObject<HTMLHeadingElement | null>;
+  subtitleRef: RefObject<HTMLParagraphElement | null>;
+  ctaRef: RefObject<HTMLDivElement | null>;
+  flipTextRef: RefObject<HTMLElement | null>;
   currentFlipWord: string;
   onSectionClick: (index: number) => void;
   onViewResume: () => void;

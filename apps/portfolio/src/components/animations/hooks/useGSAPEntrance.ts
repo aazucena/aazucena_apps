@@ -8,12 +8,12 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 export interface GSAPEntranceRefs {
-  titleRef: RefObject<HTMLHeadingElement>;
-  subtitleRef: RefObject<HTMLParagraphElement>;
-  ctaRef: RefObject<HTMLDivElement>;
+  titleRef: RefObject<HTMLHeadingElement | null>;
+  subtitleRef: RefObject<HTMLParagraphElement | null>;
+  ctaRef: RefObject<HTMLDivElement | null>;
 }
 
-export function useGSAPEntrance(scope?: RefObject<HTMLElement>): GSAPEntranceRefs {
+export function useGSAPEntrance(scope?: RefObject<HTMLElement | null>): GSAPEntranceRefs {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);

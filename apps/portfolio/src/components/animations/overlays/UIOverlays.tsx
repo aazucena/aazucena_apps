@@ -36,7 +36,7 @@ interface UIOverlaysProps {
   isExperienceModalOpen: boolean;
   selectedExperienceIndex: number | null;
   onCloseExperienceModal: () => void;
-  modalRef: RefObject<HTMLDivElement>;
+  modalRef: RefObject<HTMLDivElement | null>;
 
   // Section navigation
   currentSection: number;
@@ -81,7 +81,7 @@ export default function UIOverlays({
           <ExperienceModal
             experience={experiences[selectedExperienceIndex]}
             onClose={onCloseExperienceModal}
-            modalRef={modalRef as any}
+            modalRef={modalRef}
           />
         )}
 

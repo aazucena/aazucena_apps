@@ -10,7 +10,7 @@ import { getBadgeClasses } from '../utilities/colors';
 export interface ExperienceModalProps {
   experience: Experience;
   onClose: () => void;
-  modalRef: RefObject<HTMLDivElement>;
+  modalRef: RefObject<HTMLDivElement | null>;
 }
 
 export function ExperienceModal({ experience, onClose, modalRef }: ExperienceModalProps): JSX.Element {

@@ -23,10 +23,10 @@ interface SectionContentProps {
   isSoundMuted: boolean;
   onOpenExperience: (index: number) => void;
   // Hero-specific props
-  titleRef: RefObject<HTMLHeadingElement>;
-  subtitleRef: RefObject<HTMLParagraphElement>;
-  ctaRef: RefObject<HTMLDivElement>;
-  flipTextRef: RefObject<HTMLSpanElement>;
+  titleRef: RefObject<HTMLHeadingElement | null>;
+  subtitleRef: RefObject<HTMLParagraphElement | null>;
+  ctaRef: RefObject<HTMLDivElement | null>;
+  flipTextRef: RefObject<HTMLElement | null>;
   currentFlipWord: string;
   onSectionClick: (index: number) => void;
   onViewResume: () => void;
@@ -58,7 +58,7 @@ export default function SectionContent({
           titleRef={titleRef}
           subtitleRef={subtitleRef}
           ctaRef={ctaRef}
-          flipTextRef={flipTextRef as any}
+          flipTextRef={flipTextRef}
           currentFlipWord={currentFlipWord}
           onSectionClick={onSectionClick}
           onViewResume={onViewResume}
