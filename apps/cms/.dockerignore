@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+.cache/
+build/
+dist/
+
+# Environment files (use docker-compose environment instead)
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Testing
+coverage/
+
+# Strapi generated files
+.strapi/
+.tmp/
+.cache/
+
+# Database files (managed by Docker volume)
+*.sqlite
+*.sqlite3
+.db/
+data/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml

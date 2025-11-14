@@ -1,0 +1,53 @@
+services:
+  strapi:
+    container_name: aazucena-cms
+    build:
+      context: .
+      dockerfile: apps/cms/Dockerfile
+    ports:
+      - "1337:1337"
+      - "5173:5173"  # Vite dev server for admin panel
+    volumes:
+      - ./apps/cms:/srv/app
+      - /srv/app/node_modules
+      - /srv/app/.cache
+    env_file:
+      - ./apps/cms/.env
+    environment:
+      # Override for Docker networking
+      DATABASE_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - aazucena-network
+    restart: unless-stopped
+
+  postgres:
+    container_name: aazucena-db
+    image: pgvector/pgvector:pg16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./apps/cms/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - aazucena-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strapi -d strapi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  aazucena-network:
+    driver: bridge
