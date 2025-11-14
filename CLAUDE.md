@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Rules
+- full context (x being the id of the session we are operation, if file doesn't exist, then create one)
+- @apps/portfolio/ROADMAP.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @apps/portfolio/docs, and are added/updated to.
+
 ## Repository Overview
 
 This is a **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The primary application is an Astro-based portfolio with React integration, featuring advanced animations (GSAP, Three.js, PixiJS) and a planned Strapi CMS backend.
