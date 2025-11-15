@@ -7,9 +7,9 @@ A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The prim
 
 ## 🎯 Quick Links
 
-- **[Full ROADMAP](./apps/portfolio/ROADMAP.md)** - Complete development roadmap with phases and features
-- **[Documentation Hub](./apps/portfolio/docs/README.md)** - Detailed implementation guides
-- **[Phase 1 (Current Priority)](./apps/portfolio/docs/phase-1-animations-refactoring.md)** - Animations refactoring
+- **[Full ROADMAP](./ROADMAP.md)** - Complete development roadmap with phases and features
+- **[Documentation Hub](./docs/README.md)** - Detailed implementation guides
+- **[Phase 1 (Current Priority)](./docs/phase-1-animations-refactoring.md)** - Animations refactoring
 
 ---
 
@@ -139,23 +139,23 @@ npx playwright show-report
 
 ## 📚 Documentation
 
-All detailed implementation guides, code examples, and specifications are in the **[`apps/portfolio/docs/`](./apps/portfolio/docs/)** folder:
+All detailed implementation guides, code examples, and specifications are in the **[`docs/`](./docs/)** folder:
 
 ### Phase Documentation
-- [Phase 0: Infrastructure](./apps/portfolio/docs/phase-0-infrastructure.md)
-- [Phase 1: Animations Refactoring](./apps/portfolio/docs/phase-1-animations-refactoring.md) 🔥 **CURRENT PRIORITY**
-- [Phase 2: Component Architecture](./apps/portfolio/docs/phase-2-component-architecture.md)
-- [Phase 3: Performance](./apps/portfolio/docs/phase-3-performance.md)
-- [Phase 4: Developer Experience](./apps/portfolio/docs/phase-4-developer-experience.md)
-- [Phase 5: Testing](./apps/portfolio/docs/phase-5-testing.md)
+- [Phase 0: Infrastructure](./docs/phase-0-infrastructure.md)
+- [Phase 1: Animations Refactoring](./docs/phase-1-animations-refactoring.md) 🔥 **CURRENT PRIORITY**
+- [Phase 2: Component Architecture](./docs/phase-2-component-architecture.md)
+- [Phase 3: Performance](./docs/phase-3-performance.md)
+- [Phase 4: Developer Experience](./docs/phase-4-developer-experience.md)
+- [Phase 5: Testing](./docs/phase-5-testing.md)
 
 ### Feature Documentation
-- [Music Player & Compositions](./apps/portfolio/docs/features/music-player.md)
-- [Strudel.cc Live Coding](./apps/portfolio/docs/features/strudel-integration.md)
-- [AI-Powered Forms](./apps/portfolio/docs/features/ai-forms.md) - Comprehensive with vector search
-- [Machine Learning Features](./apps/portfolio/docs/features/machine-learning.md)
-- [Logging & Monitoring](./apps/portfolio/docs/features/logging-monitoring.md)
-- [Payment Integration](./apps/portfolio/docs/features/payments.md)
+- [Music Player & Compositions](./docs/features/music-player.md)
+- [Strudel.cc Live Coding](./docs/features/strudel-integration.md)
+- [AI-Powered Forms](./docs/features/ai-forms.md) - Comprehensive with vector search
+- [Machine Learning Features](./docs/features/machine-learning.md)
+- [Logging & Monitoring](./docs/features/logging-monitoring.md)
+- [Payment Integration](./docs/features/payments.md)
 
 ---
 
@@ -241,8 +241,8 @@ turbo prune
 
 This is a personal portfolio project. For major changes or suggestions:
 
-1. Check the [ROADMAP](./apps/portfolio/ROADMAP.md)
-2. Review the [documentation](./apps/portfolio/docs/)
+1. Check the [ROADMAP](./ROADMAP.md)
+2. Review the [documentation](./docs/)
 3. Follow established patterns in Phase 1+
 
 ---

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Rules
 - full context (x being the id of the session we are operation, if file doesn't exist, then create one)
-- @apps/portfolio/ROADMAP.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @apps/portfolio/docs, and are added/updated to.
+- @ROADMAP.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @docs, and are added/updated to.
 
 ## Repository Overview
 
@@ -153,11 +153,11 @@ Section.tsx (main orchestrator)
 
 ## Development Roadmap
 
-**CRITICAL:** Always consult `apps/portfolio/ROADMAP.md` and `apps/portfolio/docs/` before major changes.
+**CRITICAL:** Always consult `ROADMAP.md` and `docs/` before major changes.
 
 ### ✅ Phase 1 - Animations Refactoring (COMPLETED - 2025-01-13)
 
-**Detailed docs:** `apps/portfolio/docs/phase-1-animations-refactoring.md`
+**Detailed docs:** `docs/phase-1-animations-refactoring.md`
 
 **Achievements:**
 - ✅ Reduced Section.tsx from 324 → 174 lines (46% reduction)
@@ -169,7 +169,7 @@ Section.tsx (main orchestrator)
 
 ### Current Priority: Phase 0 - Infrastructure & Architecture (11-16 days)
 
-**Detailed docs:** `apps/portfolio/docs/phase-0-infrastructure.md`
+**Detailed docs:** `docs/phase-0-infrastructure.md`
 
 **Goal:** Set up production-ready infrastructure with Docker Compose
 
@@ -284,10 +284,10 @@ Section.tsx (main orchestrator)
 - `turbo.json` - Turborepo pipeline
 
 ### Documentation
-- `apps/portfolio/ROADMAP.md` - High-level roadmap (318 lines)
-- `apps/portfolio/docs/README.md` - Documentation index
-- `apps/portfolio/docs/phase-*.md` - Phase-specific documentation
-- `apps/portfolio/docs/features/*.md` - Feature documentation
+- `ROADMAP.md` - High-level roadmap (318 lines)
+- `docs/README.md` - Documentation index
+- `docs/phase-*.md` - Phase-specific documentation
+- `docs/features/*.md` - Feature documentation
 
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
@@ -307,7 +307,7 @@ Section.tsx (main orchestrator)
 ## Workflow Tips
 
 ### Before Starting Work
-1. Read relevant documentation in `apps/portfolio/docs/`
+1. Read relevant documentation in `docs/`
 2. Check ROADMAP.md for current phase and priorities
 3. Understand the animation architecture if working with `src/components/animations/`
 
