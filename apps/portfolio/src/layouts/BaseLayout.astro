@@ -17,14 +17,41 @@ const { title }: Props = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
 		<title>{title}</title>
+    <style is:inline>
+      /* Prevent white flash - match preloader background immediately */
+      body {
+        background: rgba(15, 23, 42, 0.95);
+        margin: 0;
+        padding: 0;
+      }
+    </style>
 	</head>
 	<body>
-    <Preloader showCard={false} theme="default" client:load />
-    <!-- Main content -->
-    <main data-critical>
+    <Preloader showCard={false} theme="default" client:only="react" />
+    <!-- Main content - hidden until preloader completes -->
+    <main data-critical style="opacity: 0; transition: opacity 0.6s ease;">
       <slot />
     </main>
     <Analytics />
     <SpeedInsights />
+
+    <script is:inline>
+      // Show main content when preloader completes
+      document.addEventListener('preloader-complete', function() {
+        const mainContent = document.querySelector('main[data-critical]');
+        if (mainContent) {
+          mainContent.style.opacity = '1';
+        }
+      });
+
+      // Fallback: if preloader doesn't complete within 10s, show content anyway
+      setTimeout(function() {
+        const mainContent = document.querySelector('main[data-critical]');
+        if (mainContent && mainContent.style.opacity === '0') {
+          console.warn('Preloader timeout - forcing content display');
+          mainContent.style.opacity = '1';
+        }
+      }, 10000);
+    </script>
 	</body>
 </html>
