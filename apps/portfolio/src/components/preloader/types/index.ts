@@ -1,4 +1,4 @@
-import type { ComponentType, CSSProperties, ReactNode } from 'react';
+import type { ComponentType, CSSProperties } from 'react';
 
 // Icon component type
 export type IconComponent = ComponentType<{ className?: string }>;

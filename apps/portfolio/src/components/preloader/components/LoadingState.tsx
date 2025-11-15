@@ -3,8 +3,9 @@ import { memo } from 'react';
 import { CardTitle } from '../../ui/card';
 import { Progress } from '../../ui/progress';
 import type { ThemeStyles } from '../hooks/useTheme';
-import type { LoadingStep } from '../types';
+import type { CustomSpinnerProps, LoadingStep } from '../types';
 import { StepIndicator } from './StepIndicator';
+import type { ComponentType } from 'react';
 
 export interface LoadingStateProps {
   progress: number;
@@ -16,7 +17,7 @@ export interface LoadingStateProps {
   subtitle?: string;
   animationDuration: number;
   enableAnimations: boolean;
-  customSpinner?: React.ComponentType<Record<string, unknown>>;
+  customSpinner?: ComponentType<CustomSpinnerProps>;
   primaryColor?: string;
   themeStyles: ThemeStyles;
 }
