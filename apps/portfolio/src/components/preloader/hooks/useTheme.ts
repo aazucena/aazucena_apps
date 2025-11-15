@@ -49,7 +49,7 @@ export function useTheme({ theme = 'default', customTheme }: UseThemeOptions = {
 
       // Bacground styles
       backgroundStyle: {
-        background: colors.cardBackground,
+        background: colors.background,
       } as React.CSSProperties,
 
       // Card styles

@@ -1,12 +1,19 @@
 ---
 import '../styles/globals.css';
-import Preloader from '@/components/preloader';
+import Preloader, { type PreloaderTheme } from '@/components/preloader';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights  from "@vercel/speed-insights/astro";
+import { getTheme } from '@/components/preloader/themes/registry';
+
 export interface Props {
   title?: string;
 }
 const { title }: Props = Astro.props;
+
+// Get the preloader theme background to prevent white flash
+const preloaderTheme: PreloaderTheme = 'cyberpunk'; // Should match the theme prop passed to Preloader below
+const themeConfig = getTheme(preloaderTheme);
+const preloaderBackground = themeConfig.colors.background;
 ---
 
 <html lang="en">
@@ -20,14 +27,13 @@ const { title }: Props = Astro.props;
     <style is:inline>
       /* Prevent white flash - match preloader background immediately */
       body {
-        background: rgba(15, 23, 42, 0.95);
         margin: 0;
         padding: 0;
       }
     </style>
 	</head>
-	<body>
-    <Preloader showCard={false} theme="default" client:only="react" />
+	<body style={{ background: preloaderBackground }}>
+    <Preloader showCard={false} theme={preloaderTheme} client:only="react" />
     <!-- Main content - hidden until preloader completes -->
     <main data-critical style="opacity: 0; transition: opacity 0.6s ease;">
       <slot />

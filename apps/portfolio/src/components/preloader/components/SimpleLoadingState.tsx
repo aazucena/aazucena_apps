@@ -1,15 +1,16 @@
 import { memo } from 'react';
 import { Progress } from '../../ui/progress';
 import { CircleNotch as LoadingCircle } from '@mynaui/icons-react';
-import type { LoadingStep } from '../types';
+import type { CustomSpinnerProps, LoadingStep } from '../types';
 import type { ThemeStyles } from '../hooks/useTheme';
+import type { ComponentType } from 'react';
 
 export interface SimpleLoadingStateProps {
   progress: number;
   title: string;
   subtitle?: string;
   steps: LoadingStep[];
-  customSpinner?: React.ComponentType<Record<string, unknown>>;
+  customSpinner?: ComponentType<CustomSpinnerProps>;
   themeStyles: ThemeStyles;
 }
 

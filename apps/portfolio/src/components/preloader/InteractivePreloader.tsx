@@ -1,6 +1,7 @@
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { X } from '@mynaui/icons-react';
+import { useEffect } from 'react';
 import {
   useLoadingProgress,
   usePreloaderVisibility,
@@ -125,6 +126,22 @@ export default function InteractivePreloader({
   });
 
   const themeStyles = useTheme({ theme, customTheme });
+
+  // Sync body background with preloader theme
+  useEffect(() => {
+    const body = document.body;
+    const overlayBackground = themeStyles.overlayStyle.background as string;
+
+    if (body && overlayBackground) {
+      const originalBackground = body.style.background;
+      body.style.background = originalBackground;
+
+      // Restore original background when component unmounts
+      return () => {
+        body.style.background = originalBackground;
+      };
+    }
+  }, [themeStyles.overlayStyle.background]);
 
   // Don't render if lazy loading and not in viewport
   if (lazyLoad && !isInViewport) {
