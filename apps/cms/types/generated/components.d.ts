@@ -51,11 +51,21 @@ export interface SharedSeo extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedSocialLinks extends Struct.ComponentSchema {
+  collectionName: 'components_shared_social_links';
+  info: {
+    displayName: 'Social Links';
+    icon: 'link';
+  };
+  attributes: {};
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
+      'shared.social-links': SharedSocialLinks;
     }
   }
 }
