@@ -115,7 +115,7 @@ volumes:
 2. **Initialize Strapi v5**
    ```bash
    cd apps
-   npx create-strapi-app@latest cms \
+   pnpm dlx create-strapi-app@latest cms \
      --quickstart \
      --no-run \
      --skip-cloud \
@@ -193,10 +193,10 @@ volumes:
 6. **Start Local Development**
    ```bash
    # From project root
-   docker-compose up -d
+   docker compose up -d
 
    # View logs
-   docker-compose logs -f strapi
+   docker compose logs -f strapi
 
    # Access admin panel
    # http://localhost:1337/admin
@@ -205,13 +205,13 @@ volumes:
 7. **Useful Docker Commands**
    ```bash
    # Stop containers
-   docker-compose down
+   docker compose down
 
    # Remove volumes (reset database)
-   docker-compose down -v
+   docker compose down -v
 
    # Rebuild after dependency changes
-   docker-compose up -d --build
+   docker compose up -d --build
 
    # Access PostgreSQL shell
    docker exec -it aazucena-db psql -U strapi -d strapi
@@ -225,7 +225,7 @@ volumes:
 - ✅ Persistent data via Docker volumes
 - ✅ Hot reload for Strapi development
 - ✅ Isolated environment (no conflicts with system PostgreSQL)
-- ✅ Easy team onboarding (just `docker-compose up`)
+- ✅ Easy team onboarding (just `docker compose up`)
 
 ---
 
@@ -553,7 +553,7 @@ jobs:
 - ✅ Type-safe API integration
 - ✅ Docker Compose for consistent local development
 - ✅ PostgreSQL 16+ with pgVector extension ready
-- ✅ One-command setup (`docker-compose up`)
+- ✅ One-command setup (`docker compose up`)
 - ✅ Isolated development environment (no system conflicts)
 
 ---

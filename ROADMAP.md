@@ -446,7 +446,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 - **Tech Stack Decisions:** All major technology choices are documented with rationale
 - **No Redux:** Using Context API + Custom Hooks (sufficient for portfolio complexity)
-- **Docker Compose:** Local development uses Docker Compose for consistent environment (one-command setup: `docker-compose up`)
+- **Docker Compose:** Local development uses Docker Compose for consistent environment (one-command setup: `docker compose up`)
 - **Ko-fi Already Set Up:** Quick win for monetization (15-30 min to integrate)
 - **ML Features Optional:** Only implement if showcasing AI/ML skills
 - **Vercel Auto-Deploys:** No CircleCI needed for frontend (Vercel handles it)

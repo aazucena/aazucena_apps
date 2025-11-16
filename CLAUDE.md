@@ -62,16 +62,16 @@ pnpm preview
 ### Testing
 ```bash
 # E2E tests (Playwright) - from portfolio directory
-npx playwright test
+pnpm dlx playwright test
 
 # Run specific test file
-npx playwright test tests/example.spec.ts
+pnpm dlx playwright test tests/example.spec.ts
 
 # Run tests in headed mode
-npx playwright test --headed
+pnpm dlx playwright test --headed
 
 # View test report
-npx playwright show-report
+pnpm dlx playwright show-report
 ```
 
 **Note:** Vitest is installed but test configuration not yet implemented. Playwright config exists at `apps/portfolio/playwright.config.ts` with test directory at `apps/portfolio/tests/`.
@@ -186,7 +186,7 @@ Section.tsx (main orchestrator)
 - ✅ Docker Compose for local development (consistent environment)
 - ✅ PostgreSQL 16+ with pgVector extension (ready for AI features)
 - ✅ Strapi v5 (upgraded from v4 for better PostgreSQL support)
-- ✅ One-command setup: `docker-compose up`
+- ✅ One-command setup: `docker compose up`
 
 **Status:** Documentation updated, ready to begin Phase 0.2.1
 

@@ -65,16 +65,16 @@ pnpm preview
 ### Testing
 ```bash
 # E2E tests (Playwright) - from portfolio directory
-npx playwright test
+pnpm dlx playwright test
 
 # Run specific test file
-npx playwright test tests/example.spec.ts
+pnpm dlx playwright test tests/example.spec.ts
 
 # Run tests in headed mode
-npx playwright test --headed
+pnpm dlx playwright test --headed
 
 # View test report
-npx playwright show-report
+pnpm dlx playwright show-report
 ```
 
 **Note:** Vitest is installed but test configuration not yet implemented. Playwright config exists at `apps/portfolio/playwright.config.ts`.

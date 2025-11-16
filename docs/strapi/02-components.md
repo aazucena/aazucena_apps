@@ -259,7 +259,7 @@ After creating all 6 components:
 **Solution:**
 ```bash
 # Restart Strapi
-docker-compose restart strapi
+docker compose restart strapi
 
 # Clear Strapi cache
 rm -rf .cache

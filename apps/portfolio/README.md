@@ -37,13 +37,13 @@ pnpm preview
 ### Testing
 ```bash
 # Run E2E tests with Playwright
-npx playwright test
+pnpm dlx playwright test
 
 # Run in headed mode
-npx playwright test --headed
+pnpm dlx playwright test --headed
 
 # View test report
-npx playwright show-report
+pnpm dlx playwright show-report
 ```
 
 ---

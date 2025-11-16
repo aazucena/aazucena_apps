@@ -39,7 +39,7 @@ curl http://localhost:1337/admin
 **If not installed:**
 ```bash
 # See Phase 0.2.2 documentation for Docker Compose setup
-docker-compose up -d strapi
+docker compose up -d strapi
 ```
 
 ---
@@ -111,7 +111,7 @@ open http://localhost:1337/admin
 **If no admin account:**
 ```bash
 # Create admin user via CLI
-docker-compose exec strapi yarn strapi admin:create-user
+docker compose exec strapi pnpm dlx strapi admin:create-user
 ```
 
 ---
@@ -305,7 +305,7 @@ Run through this checklist before proceeding:
 **Solutions:**
 ```bash
 # Check Docker logs
-docker-compose logs -f strapi
+docker compose logs -f strapi
 
 # Common issues:
 # 1. Database connection failed
@@ -349,7 +349,7 @@ See [08-pgvector-setup.md](./08-pgvector-setup.md) for detailed migration.
 # 1. Verify credentials in Cloudinary dashboard
 # 2. Check .env file has correct values
 # 3. Restart Strapi after changing .env
-docker-compose restart strapi
+docker compose restart strapi
 
 # 4. Test credentials with curl
 curl -X POST https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload \
@@ -368,7 +368,7 @@ curl -X POST https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload \
 **Solutions:**
 ```bash
 # 1. Verify Redis is running
-docker-compose ps redis
+docker compose ps redis
 
 # 2. Test connection manually
 redis-cli -h localhost -p 6379 ping

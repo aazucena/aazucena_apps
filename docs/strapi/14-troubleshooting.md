@@ -9,7 +9,7 @@
 **Solution:**
 1. Check API Permissions (Settings → Roles → Public)
 2. Ensure content is **published** (if Draft & Publish enabled)
-3. Restart Strapi: `docker-compose restart strapi`
+3. Restart Strapi: `docker compose restart strapi`
 
 ---
 
@@ -28,7 +28,7 @@
 1. Verify Cloudinary credentials in `.env`
 2. Check Cloudinary upload preset settings
 3. Verify file type restrictions
-4. Check Docker logs: `docker-compose logs strapi`
+4. Check Docker logs: `docker compose logs strapi`
 
 ---
 
@@ -56,16 +56,16 @@
 **Solution:**
 ```bash
 # Check logs
-docker-compose logs -f strapi
+docker compose logs -f strapi
 
 # Verify PostgreSQL running
-docker-compose ps
+docker compose ps
 
 # Check database connection
 # in config/database.ts
 
 # Rebuild
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ---

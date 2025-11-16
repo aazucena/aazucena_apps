@@ -92,10 +92,10 @@ if (shouldRender) {
 ```bash
 # Analyze bundle size
 pnpm run build
-npx vite-bundle-visualizer
+pnpm dlx vite-bundle-visualizer
 
 # Check what's in the bundle
-npx source-map-explorer dist/**/*.js
+pnpm dlx source-map-explorer dist/**/*.js
 ```
 
 **Target Bundle Sizes:**
