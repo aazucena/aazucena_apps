@@ -13,9 +13,6 @@ services:
       - /srv/app/.cache
     env_file:
       - ./apps/cms/.env
-    environment:
-      # Override for Docker networking
-      DATABASE_HOST: postgres
     depends_on:
       postgres:
         condition: service_healthy
