@@ -55,6 +55,95 @@ docker compose down
 docker compose up -d --build
 ```
 
+## 🔌 Plugin Installation
+
+Strapi CMS uses a collection of plugins to enhance functionality. The `plugins.sh` script automates the installation of all required plugins.
+
+### Available Plugins
+
+This installation includes 10 plugins:
+
+1. **@strapi/provider-upload-cloudinary** - Cloud media storage provider for uploading images and files to Cloudinary
+2. **@strapi/plugin-graphql** - Adds GraphQL API endpoint alongside the REST API for flexible data querying
+3. **@strapi/plugin-documentation** - Auto-generates OpenAPI/Swagger documentation for your API endpoints
+4. **@strapi/plugin-sentry** - Error tracking and monitoring integration with Sentry for production debugging
+5. **strapi-plugin-preview-button** - Adds preview functionality to content types for viewing draft content before publishing
+6. **@strapi/plugin-seo** - SEO metadata management with meta tags, social sharing, and structured data support
+7. **@_sh/strapi-plugin-ckeditor** - Advanced WYSIWYG editor (CKEditor 5) for rich text content editing
+8. **strapi-plugin-multi-select** - Adds multi-select field type for selecting multiple options from a list
+9. **strapi-advanced-uuid** - UUID field type with advanced configuration options for unique identifiers
+10. **@strapi/plugin-color-picker** - Color picker field type for managing color values in content types
+
+### How to Use plugins.sh
+
+**From the `apps/cms/` directory:**
+
+```bash
+# Make the script executable (first time only)
+chmod +x plugins.sh
+
+# Run the installation script
+./plugins.sh
+```
+
+**What the script does:**
+
+1. **Installs all plugins** - Adds all 10 plugins to the Strapi project using pnpm
+2. **Resolves dependencies** - Runs `pnpm i --ignore-workspace` to ensure all dependencies are properly installed
+3. **Rebuilds Docker containers** - Rebuilds the Docker image with `--no-cache` to include the new plugins
+
+### Why `pnpm i --ignore-workspace`?
+
+The `--ignore-workspace` flag tells pnpm to install dependencies in the current package (`apps/cms`) without considering the monorepo workspace configuration. This is necessary because:
+
+- Strapi plugins expect to be installed directly in the Strapi project
+- Workspace hoisting can cause module resolution issues for Strapi plugins
+- It ensures plugins are available in the correct `node_modules` directory
+
+### Why `docker compose build --no-cache`?
+
+The `--no-cache` flag forces Docker to rebuild the image from scratch without using cached layers. This is critical after plugin installation because:
+
+- **Ensures fresh dependencies** - New plugins and their dependencies are properly included in the Docker image
+- **Prevents stale builds** - Cached layers might contain old dependency snapshots
+- **Guarantees consistency** - The rebuilt image exactly matches your local `package.json` and `pnpm-lock.yaml`
+- **Avoids runtime errors** - Prevents "module not found" errors when starting the container
+
+### Important Notes
+
+- **Strapi v5 Compatibility**: All plugins listed are compatible with Strapi v5. However, some community plugins may lag behind official releases. Always check plugin documentation for the latest compatibility information.
+
+- **Plugin Configuration**: After installation, most plugins require configuration in `config/plugins.ts` or through the Strapi admin panel. Refer to each plugin's documentation for setup instructions.
+
+- **Development vs Production**: Some plugins (like Sentry) require different configurations for development and production environments. Use environment variables in `config/plugins.ts` to manage this.
+
+- **Container Restart Required**: After running `plugins.sh`, you must restart the Docker containers for changes to take effect:
+  ```bash
+  docker compose down
+  docker compose up -d
+  ```
+
+- **Manual Installation Alternative**: If you prefer installing plugins individually, you can run:
+  ```bash
+  pnpm add <plugin-name>
+  pnpm i --ignore-workspace
+  docker compose build --no-cache
+  docker compose up -d
+  ```
+
+### Plugin Documentation Links
+
+- [Cloudinary Upload Provider](https://market.strapi.io/providers/@strapi-provider-upload-cloudinary)
+- [GraphQL Plugin](https://docs.strapi.io/dev-docs/plugins/graphql)
+- [Documentation Plugin](https://docs.strapi.io/dev-docs/plugins/documentation)
+- [Sentry Plugin](https://market.strapi.io/plugins/@strapi-plugin-sentry)
+- [Preview Button](https://market.strapi.io/plugins/strapi-plugin-preview-button)
+- [SEO Plugin](https://market.strapi.io/plugins/@strapi-plugin-seo)
+- [CKEditor Plugin](https://market.strapi.io/plugins/strapi-plugin-ckeditor)
+- [Multi-Select Plugin](https://market.strapi.io/plugins/strapi-plugin-multi-select)
+- [Advanced UUID](https://market.strapi.io/plugins/strapi-advanced-uuid)
+- [Color Picker](https://market.strapi.io/plugins/@strapi-plugin-color-picker)
+
 ## Local Development (Without Docker)
 
 If you prefer running Strapi locally without Docker:
