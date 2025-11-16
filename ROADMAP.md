@@ -93,7 +93,7 @@ Refactor the animations folder to improve maintainability and reduce complexity.
 
 ---
 
-### Phase 0: Infrastructure & Architecture (11-16 days)
+### Phase 0: Infrastructure & Architecture (16-20 days)
 **[Full Documentation →](/docs/phase-0-infrastructure.md)**
 
 Set up Docker Compose for local development, integrate Strapi CMS v5, and establish deployment pipeline.
@@ -101,7 +101,7 @@ Set up Docker Compose for local development, integrate Strapi CMS v5, and establ
 **Key Tasks:**
 - Monorepo verification ✅ (already complete)
 - Docker Compose setup (Strapi v5 + PostgreSQL 16 + pgVector)
-- Strapi configuration and content types
+- Strapi configuration and content types (14 content types - production-ready with pgVector, semantic search, AI forms support, rate limiting, Redis caching)
 - Frontend API integration (Strapi SDK)
 - Deployment (Vercel + Railway + CircleCI)
 - Content migration from static to CMS
@@ -293,7 +293,7 @@ Retrieval & Ranking (Query Time)
 ```
 Phase 1 (Animations) → 9-11 days ⚡ START HERE
     ↓
-Phase 0 (Infrastructure) → 12-16 days
+Phase 0 (Infrastructure) → 16-20 days
     ↓
 Phase 2 (Component Architecture) → 6-8 days
     ↓
@@ -306,7 +306,7 @@ Phase 5 (Testing) → 5-8 days
 Features (as needed) → 3-40 days each
 ```
 
-**Total Core Phases:** 52-71 days (~2.5-3.5 months)
+**Total Core Phases:** 56-75 days (~2.5-3.5 months)
 
 ### Weekly Breakdown
 
@@ -373,9 +373,10 @@ Features (as needed) → 3-40 days each
   - All tests passing (dev server: HTTP 200)
 
 ### In Progress 🚧
-- **Phase 0: Infrastructure & Architecture** (12-16 days)
-  - Strapi CMS v5 integration
-  - PostgreSQL + pgVector setup
+- **Phase 0: Infrastructure & Architecture** (16-20 days)
+  - Strapi CMS v5 integration with 14 production-ready content types
+  - PostgreSQL + pgVector setup with semantic search
+  - AI forms support, rate limiting, Redis caching
   - Deployment pipeline (Vercel + Railway + CircleCI)
 
 ### Next Up ⏳
@@ -391,6 +392,7 @@ All detailed implementation guides, code examples, and specifications are in the
 
 ### Phase Documentation
 - [Phase 0: Infrastructure](/docs/phase-0-infrastructure.md)
+  - [Strapi Content Types Guide (v2.0 - Enhanced)](/docs/strapi-content-types-guide.md) - 14 production-ready content types with pgVector, semantic search, AI forms support
 - [Phase 1: Animations Refactoring](/docs/phase-1-animations-refactoring.md) ⚡
 - [Phase 2: Component Architecture](/docs/phase-2-component-architecture.md)
 - [Phase 3: Performance](/docs/phase-3-performance.md)
@@ -455,10 +457,12 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 ---
 
-**Last Updated:** 2025-01-13
+**Last Updated:** 2025-11-15
 
 **Current Priority:** Phase 0 - Infrastructure & Architecture 🔥
 
-**Next Milestone:** Docker Compose Setup (Strapi v5 + PostgreSQL 16 + pgVector) → Deployment Pipeline
+**Phase 0 Timeline:** 16-20 days (updated from 11-16 days) - Enhanced content types implementation with 14 production-ready content types (was 9), including pgVector, semantic search, AI forms support, rate limiting, and Redis caching.
+
+**Next Milestone:** Docker Compose Setup (Strapi v5 + PostgreSQL 16 + pgVector) → Enhanced Content Types → Deployment Pipeline
 
 **Recent Completion:** Phase 1 - Animations Refactoring ✅ (324 → 174 lines, 46% reduction)
