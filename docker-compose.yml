@@ -11,8 +11,7 @@ services:
       - ./apps/cms:/srv/app
       - /srv/app/node_modules
       - /srv/app/.cache
-    env_file:
-      - ./apps/cms/.env
+    env_file: ./apps/cms/.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -23,6 +22,7 @@ services:
   postgres:
     container_name: aazucena-db
     image: pgvector/pgvector:pg16
+    platform: linux/amd64 #for platform error on Apple M1 chips
     ports:
       - "5432:5432"
     environment:
