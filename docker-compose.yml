@@ -15,6 +15,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - aazucena-network
     restart: unless-stopped
@@ -41,8 +43,29 @@ services:
       retries: 5
     restart: unless-stopped
 
+  redis:
+    container_name: aazucena-redis
+    image: bitnami/redis:latest
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      # For production, use: REDIS_PASSWORD=your_secure_password
+    volumes:
+      - redis-data:/bitnami/redis/data
+    networks:
+      - aazucena-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
   postgres-data:
+    driver: local
+  redis-data:
     driver: local
 
 networks:

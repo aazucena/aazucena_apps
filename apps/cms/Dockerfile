@@ -18,10 +18,13 @@ COPY apps/cms/pnpm-lock.yaml ./
 COPY apps/cms/package.json ./
 
 # Install pnpm globally
-RUN npm install -g pnpm@10.21.0
+RUN npm install -g pnpm
 
 # Install dependencies (standalone, with lockfile for deterministic builds)
 RUN pnpm install --frozen-lockfile
+
+# Update pnpm lockfile to the lastest version
+RUN pnpm self-update
 
 # Copy CMS application files
 COPY apps/cms ./
