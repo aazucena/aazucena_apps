@@ -9,12 +9,13 @@ pnpm add @strapi/provider-upload-cloudinary \
   strapi-advanced-uuid \
   @strapi/plugin-color-picker \
   strapi-plugin-preview-button \
+  strapi-plugin-navigation \
+  strapi-plugin-duplicate-button \
+  strapi-plugin-config-sync \
+  strapi-plugin-publisher \
   @strapi-community/plugin-rest-cache \
   @strapi-community/plugin-redis \
   @strapi-community/provider-rest-cache-redis
-  # strapi-plugin-navigation \
-  # @strapi/plugin-i18n \
-  # strapi-plugin-sitemap
 
 pnpm i --ignore-workspace
 docker compose build --no-cache
