@@ -58,6 +58,35 @@ CREATE EXTENSION IF NOT EXISTS vector;
 SELECT extname, extversion FROM pg_extension WHERE extname = 'vector';
 ```
 
+**Docker Compose configuration:**
+```yaml
+# docker-compose.yml
+postgres:
+  container_name: aazucena-db
+  image: pgvector/pgvector:pg16
+  platform: linux/amd64  # Required for Apple Silicon (M1/M2/M3) Macs
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_DB: strapi
+    POSTGRES_USER: strapi
+    POSTGRES_PASSWORD: strapi
+  volumes:
+    - postgres-data:/var/lib/postgresql/data
+    - ./apps/cms/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+  networks:
+    - aazucena-network
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U strapi -d strapi"]
+    interval: 10s
+    timeout: 5s
+    retries: 5
+  restart: unless-stopped
+```
+
+**Note for MacOS Users:**
+The `platform: linux/amd64` setting is required for Apple Silicon (M1/M2/M3) Macs to prevent compatibility issues with the pgvector Docker image.
+
 **If pgVector is not installed:**
 - Use the official `pgvector/pgvector:pg16` Docker image
 - See [Phase 0.2.1 Documentation](/docs/phase-0-infrastructure.md#0-2-1-local-development-with-docker-compose)
@@ -148,6 +177,9 @@ export default {
 # Test Redis connection
 redis-cli ping
 # Should return: PONG
+
+# Or via Docker
+docker compose exec redis redis-cli ping
 ```
 
 **Docker Compose configuration:**
@@ -155,23 +187,40 @@ redis-cli ping
 # docker-compose.yml
 services:
   redis:
-    image: redis:7-alpine
+    container_name: aazucena-redis
+    image: bitnami/redis:latest
     ports:
       - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      # For production, use: REDIS_PASSWORD=your_secure_password
     volumes:
-      - redis_data:/data
+      - redis-data:/bitnami/redis/data
+    networks:
+      - aazucena-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 ```
 
 **Environment variables:**
 ```env
-REDIS_HOST=localhost
+REDIS_HOST=redis  # Use 'redis' for Docker, 'localhost' for local
 REDIS_PORT=6379
-REDIS_PASSWORD=  # Optional
+REDIS_PASSWORD=  # Optional for development
 ```
+
+**Redis Plugins Installed:**
+- `@strapi-community/plugin-redis` - Core Redis integration
+- `@strapi-community/plugin-rest-cache` - REST API caching
+- `@strapi-community/provider-rest-cache-redis` - Redis cache provider
 
 **If Redis is not required:**
 - Rate limiting will use in-memory store (not recommended for production)
-- Caching will be disabled (slower API responses)
+- REST API caching will be disabled (slower API responses)
 
 ---
 
@@ -291,8 +340,113 @@ Run through this checklist before proceeding:
 ### Tools
 - [ ] Docker and Docker Compose installed
 - [ ] pnpm installed (v10.21.0+)
-- [ ] Node.js 18+ installed
+- [ ] Node.js 20+ installed (Node 22 recommended)
 - [ ] PostgreSQL client (psql) installed
+
+---
+
+## Installed Plugins
+
+The CMS comes pre-configured with the following plugins. These are automatically installed when running `docker compose up` or `pnpm install`.
+
+### Official Strapi Plugins
+
+| Plugin | Version | Purpose |
+|--------|---------|---------|
+| `@strapi/plugin-graphql` | ^5.31.0 | GraphQL API support |
+| `@strapi/plugin-documentation` | ^5.31.0 | OpenAPI/Swagger documentation |
+| `@strapi/plugin-sentry` | ^5.31.0 | Error tracking and monitoring |
+| `@strapi/plugin-seo` | ^2.0.8 | SEO management for content types |
+| `@strapi/plugin-color-picker` | ^5.31.0 | Color picker field type |
+| `@strapi/provider-upload-cloudinary` | ^5.31.0 | Cloudinary media upload |
+| `@strapi/plugin-users-permissions` | 5.31.0 | User authentication |
+
+### Community Plugins
+
+| Plugin | Version | Purpose |
+|--------|---------|---------|
+| `@strapi-community/plugin-redis` | ^2.0.0 | Redis integration for caching |
+| `@strapi-community/plugin-rest-cache` | ^5.0.1 | REST API response caching |
+| `@strapi-community/provider-rest-cache-redis` | ^5.0.0 | Redis provider for REST cache |
+
+### Third-Party Plugins
+
+| Plugin | Version | Purpose |
+|--------|---------|---------|
+| `@_sh/strapi-plugin-ckeditor` | ^6.0.3 | Rich text editor (CKEditor 5) |
+| `strapi-plugin-preview-button` | ^3.0.2 | Content preview functionality |
+| `strapi-plugin-multi-select` | ^2.1.1 | Multi-select field type |
+| `strapi-advanced-uuid` | ^2.1.1 | UUID field generation |
+| `strapi-plugin-navigation` | ^3.2.4 | Navigation management |
+| `strapi-plugin-duplicate-button` | ^2.0.0 | Content duplication |
+| `strapi-plugin-config-sync` | ^3.1.2 | Configuration synchronization |
+| `strapi-plugin-publisher` | ^2.0.5 | Scheduled publishing |
+
+### Installing/Updating Plugins
+
+To install or update plugins, use the provided script:
+
+```bash
+# From the monorepo root
+cd apps/cms
+
+# Make the script executable and run
+pnpm run update-plugins
+```
+
+This runs `plugins.sh` which:
+1. Installs all plugins via pnpm
+2. Runs `pnpm install --ignore-workspace`
+3. Rebuilds the Docker image with `docker compose build --no-cache`
+
+### Plugin Configuration
+
+The Redis and Cloudinary plugins are configured in `config/plugins.ts`:
+
+```typescript
+// config/plugins.ts
+export default ({ env }) => ({
+  redis: {
+    config: {
+      settings: {
+        debug: false,
+        enableRedlock: false,
+        lockTTL: 5000,
+      },
+      connections: {
+        default: {
+          connection: {
+            host: env('REDIS_HOST', '127.0.0.1'),
+            port: env.int('REDIS_PORT', 6379),
+            db: 0,
+          },
+        },
+      },
+    },
+  },
+  "rest-cache": {
+    config: {
+      provider: {
+        name: "redis",
+        options: {
+          connection: "default",
+          ttl: 3600 * 1000  // 1 hour
+        },
+      },
+    }
+  },
+  upload: {
+    config: {
+      provider: 'cloudinary',
+      providerOptions: {
+        cloud_name: env('CLOUDINARY_NAME'),
+        api_key: env('CLOUDINARY_KEY'),
+        api_secret: env('CLOUDINARY_SECRET'),
+      },
+    },
+  },
+});
+```
 
 ---
 
@@ -400,6 +554,6 @@ Once all prerequisites are verified:
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2025-11-18
 
-**[← Back to Index](./README.md)** | **[Next: Requirements Summary →](./01-requirements-summary.md)**
+**[<- Back to Index](./README.md)** | **[Next: Requirements Summary ->](./01-requirements-summary.md)**

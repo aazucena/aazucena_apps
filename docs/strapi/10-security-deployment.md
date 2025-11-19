@@ -58,34 +58,68 @@ export default [
 
 ## Redis Caching
 
-Cache frequently accessed content types:
+The CMS uses `@strapi-community/plugin-redis` and `@strapi-community/plugin-rest-cache` for Redis-based caching.
 
-```javascript
+**Current Configuration:**
+
+```typescript
 // config/plugins.ts
 export default ({ env }) => ({
-  'rest-cache': {
-    enabled: true,
+  redis: {
     config: {
-      provider: {
-        name: 'redis',
-        options: {
-          host: env('REDIS_HOST', 'localhost'),
-          port: env.int('REDIS_PORT', 6379),
-          password: env('REDIS_PASSWORD', ''),
+      settings: {
+        debug: false,
+        debugIORedis: false,
+        redlockConfig: {
+          driftFactor: 0.01,
+          retryCount: 10,
+          retryDelay: 200,
+          retryJitter: 200,
         },
+        enableRedlock: false,
+        lockDelay: null,
+        lockTTL: 5000,
       },
-      strategy: {
-        contentTypes: [
-          { contentType: 'api::skill.skill', maxAge: 3600000 }, // 1 hour
-          { contentType: 'api::project.project', maxAge: 1800000 }, // 30 min
-          { contentType: 'api::blog-post.blog-post', maxAge: 1800000 },
-          { contentType: 'api::setting.setting', maxAge: 7200000 }, // 2 hours
-          { contentType: 'api::about.about', maxAge: 3600000 },
-        ],
+      connections: {
+        default: {
+          connection: {
+            host: env('REDIS_HOST', '127.0.0.1'),
+            port: env.int('REDIS_PORT', 6379),
+            db: 0,
+          },
+        },
       },
     },
   },
+  "rest-cache": {
+    config: {
+      provider: {
+        name: "redis",
+        options: {
+          // The name of the connection as defined in the Redis plugin
+          connection: "default",
+          // TTL: 1 hour for all cached responses
+          ttl: 3600 * 1000
+        },
+      },
+    }
+  },
 });
+```
+
+**Note:** The REST cache is configured globally with a 1-hour TTL. For content-type specific caching strategies (different TTLs per content type), you can extend the configuration:
+
+```javascript
+// Example: Extended caching strategy
+strategy: {
+  contentTypes: [
+    { contentType: 'api::skill.skill', maxAge: 3600000 }, // 1 hour
+    { contentType: 'api::project.project', maxAge: 1800000 }, // 30 min
+    { contentType: 'api::blog-post.blog-post', maxAge: 1800000 },
+    { contentType: 'api::setting.setting', maxAge: 7200000 }, // 2 hours
+    { contentType: 'api::about.about', maxAge: 3600000 },
+  ],
+}
 ```
 
 ---

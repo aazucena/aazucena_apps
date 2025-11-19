@@ -90,9 +90,14 @@ This directory contains comprehensive, modular documentation for setting up Stra
 
 ## Content Types Summary
 
-### Components (6 total)
-- `meta.seo-metadata` - SEO fields for all content types
-- `links.social-links` - Social media URLs
+### Components (3 Implemented + 4 Planned)
+
+**Implemented (shared category):**
+- `shared.seo` - SEO metadata with nested Open Graph
+- `shared.open-graph` - Open Graph meta tags
+- `shared.social-links` - Social media URLs (fields pending)
+
+**Planned:**
 - `media.audio-metadata` - BPM, key, duration, waveform data
 - `ui.cta-button` - Call-to-action buttons with variants
 - `content.stat` - Statistics display
@@ -154,12 +159,22 @@ This directory contains comprehensive, modular documentation for setting up Stra
 
 ## Technology Stack
 
-- **CMS:** Strapi v5
+- **CMS:** Strapi v5.31.0
 - **Database:** PostgreSQL 16 with pgVector extension
 - **Storage:** Cloudinary (images, audio, video)
-- **Caching:** Redis
+- **Caching:** Redis with REST cache plugin
 - **Embeddings:** Google Gemini (textembedding-gecko)
 - **Environment:** Docker Compose
+
+### Installed Plugins
+
+**Official:** GraphQL, Documentation (Swagger), Sentry, SEO, Color Picker, Cloudinary, Users & Permissions
+
+**Community:** Redis, REST Cache, REST Cache Redis Provider
+
+**Third-Party:** CKEditor 5, Preview Button, Multi-Select, Advanced UUID, Navigation, Duplicate Button, Config Sync, Publisher
+
+See [Prerequisites](./00-prerequisites.md#installed-plugins) for complete plugin list and configuration.
 
 ---
 
@@ -205,10 +220,11 @@ See [15-implementation-timeline.md](./15-implementation-timeline.md) for detaile
 
 ---
 
-**Last Updated:** 2025-01-15
-**Version:** 2.0 Modular
-**Strapi Version:** v5
+**Last Updated:** 2025-11-18
+**Version:** 2.1 Modular
+**Strapi Version:** v5.31.0
 **Database:** PostgreSQL 16 + pgVector
+**Node.js:** 20+ (22 recommended)
 
 ---
 

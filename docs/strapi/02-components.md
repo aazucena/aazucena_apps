@@ -6,13 +6,89 @@
 
 ## Overview
 
-Create these 6 reusable components **BEFORE** creating any content types. Content types will reference these components.
+Create these reusable components **BEFORE** creating any content types. Content types will reference these components.
 
 **Creation Location:** `Content-Type Builder > Create new component`
 
+### Currently Implemented Components
+
+The following components have been created in the CMS (under `shared` category):
+
+| Component | Status | Description |
+|-----------|--------|-------------|
+| `shared.seo` | Configured | SEO metadata with nested Open Graph |
+| `shared.open-graph` | Configured | Open Graph meta tags (used by SEO) |
+| `shared.social-links` | Created | Shell only - fields need to be added |
+
+### Planned Components
+
+The following components are documented for future implementation:
+
+- `meta.seo-metadata` - Alternative SEO structure
+- `media.audio-metadata` - Music track metadata
+- `ui.cta-button` - Call-to-action buttons
+- `content.stat` - Statistics display
+- `content.achievement` - Achievement tracking
+
 ---
 
-## Component 1: SEO Metadata
+## Implemented: SEO Component (shared.seo)
+
+**Location:** `src/components/shared/seo.json`
+
+**Component Name:** `seo`
+**Display Name:** `seo`
+**Icon:** `search`
+**Category:** `shared`
+
+### Fields (Implemented)
+
+| Field Name | Type | Settings |
+|------------|------|----------|
+| `metaTitle` | String | **Max length:** 60, **Required:** true |
+| `metaDescription` | String | **Max length:** 160, **Min length:** 50, **Required:** true |
+| `metaImage` | Media (Single image) | **Allowed types:** Images only |
+| `openGraph` | Component | References `shared.open-graph` |
+| `keywords` | Text | **Regex:** `[^,]+` |
+| `metaRobots` | String | **Regex:** `[^,]+` |
+| `metaViewport` | String | Viewport settings |
+| `canonicalURL` | String | Canonical URL |
+| `structuredData` | JSON | Structured data (JSON-LD) |
+
+### Usage
+- Any content type requiring SEO metadata
+- Blog Posts, Projects, Pages
+
+---
+
+## Implemented: Open Graph Component (shared.open-graph)
+
+**Location:** `src/components/shared/open-graph.json`
+
+**Component Name:** `open-graph`
+**Display Name:** `openGraph`
+**Icon:** `project-diagram`
+**Category:** `shared`
+
+### Fields (Implemented)
+
+| Field Name | Type | Settings |
+|------------|------|----------|
+| `ogTitle` | String | **Max length:** 70, **Required:** true |
+| `ogDescription` | String | **Max length:** 200, **Required:** true |
+| `ogImage` | Media (Single image) | **Allowed types:** Images only |
+| `ogUrl` | String | Page URL |
+| `ogType` | String | Content type (e.g., "website", "article") |
+
+### Usage
+- Nested within `shared.seo` component
+- Controls social media preview cards
+
+---
+
+## Planned: SEO Metadata (Alternative Structure)
+
+**Note:** The following is an alternative planned structure. The `shared.seo` component above is currently implemented.
 
 **Location:** `Content-Type Builder > Create new component > meta`
 
@@ -51,12 +127,14 @@ Create these 6 reusable components **BEFORE** creating any content types. Conten
 
 ## Component 2: Social Links
 
-**Location:** `Content-Type Builder > Create new component > links`
+**Location:** `Content-Type Builder > Create new component > shared`
 
 **Component Name:** `social-links`
 **Display Name:** `Social Links`
-**Icon:** `share`
-**Category:** `links`
+**Icon:** `link`
+**Category:** `shared`
+
+**Status:** Component created (commit `1593f31`). Fields need to be added via Content-Type Builder.
 
 ### Fields
 
@@ -295,6 +373,6 @@ With all 6 components created:
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2025-11-18
 
-**[← Back to Requirements](./01-requirements-summary.md)** | **[Next: Single Types →](./03-single-types.md)**
+**[<- Back to Requirements](./01-requirements-summary.md)** | **[Next: Single Types ->](./03-single-types.md)**

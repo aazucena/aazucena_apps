@@ -75,9 +75,14 @@ Based on confirmed project requirements:
 - **3 Single Types:** Hero, About, Settings
 - **11 Collection Types:** Skills, Music Genres, Blog Series, Projects, Experience, Testimonials, Blog Posts, Awards, Compositions, Form Submissions, Easter Egg Completions
 
-**Components: 6 Reusable Components**
-- SEO Metadata
-- Social Links
+**Components: 3 Implemented + 4 Planned**
+
+**Implemented (shared category):**
+- `shared.seo` - SEO metadata with nested Open Graph
+- `shared.open-graph` - Open Graph meta tags
+- `shared.social-links` - Social media URLs (fields pending)
+
+**Planned:**
 - Audio Metadata
 - CTA Button
 - Stats
@@ -470,14 +475,23 @@ Run comprehensive tests to ensure everything works
 
 ---
 
-**Last Updated:** 2025-01-15
-**Version:** 2.0 Overview
-**Strapi Version:** v5
+**Last Updated:** 2025-11-18
+**Version:** 2.1 Overview
+**Strapi Version:** v5.31.0
 **Database:** PostgreSQL 16 + pgVector
 **Environment:** Docker Compose
+**Node.js:** 20+ (22 recommended)
 **Embedding Provider:** Google Gemini (textembedding-gecko, 768 dimensions)
 
 **Total Lines:** ~300 (condensed from 2278)
+
+### Installed Plugins
+
+- **Official:** GraphQL, Documentation, Sentry, SEO, Color Picker, Cloudinary
+- **Community:** Redis, REST Cache, REST Cache Redis Provider
+- **Third-Party:** CKEditor 5, Preview Button, Multi-Select, Advanced UUID, Navigation, Duplicate Button, Config Sync, Publisher
+
+See [Prerequisites - Installed Plugins](./strapi/00-prerequisites.md#installed-plugins) for complete configuration.
 
 ---
 
