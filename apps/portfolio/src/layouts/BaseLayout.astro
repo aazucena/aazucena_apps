@@ -11,7 +11,7 @@ export interface Props {
 const { title }: Props = Astro.props;
 
 // Get the preloader theme background to prevent white flash
-const preloaderTheme: PreloaderTheme = 'cyberpunk'; // Should match the theme prop passed to Preloader below
+const preloaderTheme: PreloaderTheme = 'default'; // Should match the theme prop passed to Preloader below
 const themeConfig = getTheme(preloaderTheme);
 const preloaderBackground = themeConfig.colors.background;
 ---
