@@ -24,7 +24,6 @@ The following components have been created in the CMS (under `shared` category):
 
 The following components are documented for future implementation:
 
-- `meta.seo-metadata` - Alternative SEO structure
 - `media.audio-metadata` - Music track metadata
 - `ui.cta-button` - Call-to-action buttons
 - `content.stat` - Statistics display
@@ -54,6 +53,7 @@ The following components are documented for future implementation:
 | `metaViewport` | String | Viewport settings |
 | `canonicalURL` | String | Canonical URL |
 | `structuredData` | JSON | Structured data (JSON-LD) |
+| `twitterCard` | Enumeration | **Values:** `summary`, `summary_large_image`, `app`, `player` - **Default:** `summary_large_image` |
 
 ### Usage
 - Any content type requiring SEO metadata
@@ -83,45 +83,6 @@ The following components are documented for future implementation:
 ### Usage
 - Nested within `shared.seo` component
 - Controls social media preview cards
-
----
-
-## Planned: SEO Metadata (Alternative Structure)
-
-**Note:** The following is an alternative planned structure. The `shared.seo` component above is currently implemented.
-
-**Location:** `Content-Type Builder > Create new component > meta`
-
-**Component Name:** `seo-metadata`
-**Display Name:** `SEO Metadata`
-**Icon:** `search`
-**Category:** `meta`
-
-### Fields
-
-| Field Name | Type | Settings |
-|------------|------|----------|
-| `metaTitle` | Text (Short text) | **Max length:** 60, **Required:** false, **Placeholder:** "Default to page title if empty" |
-| `metaDescription` | Text (Long text) | **Max length:** 160, **Required:** false, **Placeholder:** "SEO-friendly description" |
-| `keywords` | Text (Short text) | **Max length:** 255, **Required:** false, **Placeholder:** "keyword1, keyword2, keyword3" |
-| `ogImage` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
-| `ogTitle` | Text (Short text) | **Max length:** 60, **Required:** false, **Placeholder:** "Defaults to metaTitle" |
-| `ogDescription` | Text (Long text) | **Max length:** 160, **Required:** false, **Placeholder:** "Defaults to metaDescription" |
-| `twitterCard` | Enumeration | **Values:** `summary`, `summary_large_image`, `app`, `player` - **Default:** `summary_large_image` |
-
-**Click "Finish" then "Save"**
-
-### Usage
-- Settings (default SEO)
-- Projects (project-specific SEO)
-- Blog Posts (article SEO)
-- Blog Series (series SEO)
-
-### Best Practices
-- Always provide `ogImage` for better social sharing
-- Keep `metaTitle` under 60 characters (Google truncates)
-- Keep `metaDescription` under 160 characters
-- Use `summary_large_image` for rich previews on Twitter
 
 ---
 
