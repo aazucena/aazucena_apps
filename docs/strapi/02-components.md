@@ -106,9 +106,6 @@ The following components are documented for future implementation:
 | `twitter` | Text (Short text) | **Max length:** 255, **Required:** false, **Regex:** `^https?://(www\.)?(twitter\.com\|x\.com)/.*` |
 | `email` | Email | **Required:** false |
 | `youtube` | Text (Short text) | **Max length:** 255, **Required:** false, **Regex:** `^https?://(www\.)?youtube\.com/.*` |
-| `spotify` | Text (Short text) | **Max length:** 255, **Required:** false, **Regex:** `^https?://open\.spotify\.com/.*` |
-| `soundcloud` | Text (Short text) | **Max length:** 255, **Required:** false, **Regex:** `^https?://soundcloud\.com/.*` |
-| `website` | Text (Short text) | **Max length:** 255, **Required:** false, **Regex:** `^https?://.*` |
 
 **Click "Finish" then "Save"**
 
