@@ -88,6 +88,7 @@ Unit tests, integration tests, E2E tests with Playwright.
 
 #### Infrastructure & Monitoring 📊
 - **[Logging & Monitoring](./features/logging-monitoring.md)** - Sentry, Vercel Analytics, Pino, Redis (3-4 days)
+- **[Plausible Analytics](./features/plausible-analytics.md)** - Self-hosted privacy-friendly traffic analytics (2-3 days)
 
 #### Monetization 💰
 - **[Payment Integration](./features/payments.md)** - Stripe + Ko-fi (3-4 days)
@@ -152,7 +153,7 @@ Features (Music, AI, ML, etc.) → 3-40 days each
 - **CI/CD:** CircleCI (CMS only)
 
 ### Monitoring & Logging
-- **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights
+- **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights, Plausible (self-hosted)
 - **Backend:** Pino, Sentry, Redis
 
 ### Development

@@ -44,7 +44,7 @@
 - **CI/CD:** CircleCI (CMS only)
 
 ### Monitoring & Logging
-- **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights
+- **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights, Plausible (self-hosted)
 - **Backend:** Pino, Sentry
 - **Caching:** Redis
 
@@ -280,6 +280,7 @@ Retrieval & Ranking (Query Time)
 
 ### Infrastructure
 - **[Logging & Monitoring](/docs/features/logging-monitoring.md)** (3-4 days) - Sentry, Vercel Analytics, Pino, Redis
+- **[Plausible Analytics](/docs/features/plausible-analytics.md)** (2-3 days) - Self-hosted privacy-friendly traffic analytics
 
 ### Monetization
 - **[Payments](/docs/features/payments.md)** (3-4 days) - Stripe + Ko-fi integration

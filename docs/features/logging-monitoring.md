@@ -10,7 +10,9 @@ Comprehensive logging, error tracking, and performance monitoring stack for the 
 
 ### Frontend
 - **Sentry** - Error tracking & session replay
-- **Vercel Analytics** - Web analytics & speed insights (built-in)
+- **Vercel Analytics** - Web analytics & audience insights (built-in)
+- **Vercel Speed Insights** - Core Web Vitals & performance scoring (built-in)
+- **Plausible (Self-hosted)** - Privacy-friendly traffic analytics, UTM tracking, custom events
 
 ### Backend
 - **Pino** - Structured JSON logging for Strapi
@@ -25,13 +27,15 @@ Comprehensive logging, error tracking, and performance monitoring stack for the 
 | Tool | Priority | Effort | Status |
 |------|----------|--------|--------|
 | Vercel Analytics | High | 0 days | ⏳ Pending |
+| Vercel Speed Insights | High | 0 days | ⏳ Pending |
 | Sentry Frontend | High | 1 day | ⏳ Pending |
+| Plausible Analytics | Medium | 2-3 days | ⏳ Pending |
 | Pino Logger | Medium | 0.5 day | ⏳ Pending |
 | Redis Cache | Medium | 1-2 days | ⏳ Pending |
 | Postman Collection | Low | 0.5 day | ⏳ Pending |
 | Sentry Backend | Medium | 0.5 day | ⏳ Pending |
 
-**Total Effort:** 3-4 days
+**Total Effort:** 5-7 days
 
 ## Key Features
 
@@ -60,6 +64,8 @@ Comprehensive logging, error tracking, and performance monitoring stack for the 
 # Frontend
 PUBLIC_SENTRY_DSN=https://xxxxx@sentry.io/xxxxx
 PUBLIC_VERCEL_ANALYTICS_ID=xxxxx
+PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com
+PUBLIC_PLAUSIBLE_API_HOST=https://analytics.yourdomain.com
 
 # Backend
 SENTRY_DSN=https://xxxxx@sentry.io/xxxxx
@@ -103,3 +109,4 @@ strapi.log.info({
 **Related Documentation:**
 - [ROADMAP.md - Full Implementation Details](../../ROADMAP.md#320-logging--monitoring-infrastructure-)
 - [Phase 0: Infrastructure](../phase-0-infrastructure.md)
+- [Plausible Analytics Setup](./plausible-analytics.md)
