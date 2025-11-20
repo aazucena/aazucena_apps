@@ -16,6 +16,11 @@
       "maxLength": 255,
       "regex": "^https?://(www\\.)?linkedin\\.com/.*"
     },
+    "twitter": {
+      "type": "string",
+      "maxLength": 255,
+      "regex": "https?://(www\\.)?(twitter\\.com\\|x\\.com)/.*"
+    },
     "email": {
       "type": "email"
     },
