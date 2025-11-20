@@ -5,6 +5,25 @@
     "icon": "link"
   },
   "options": {},
-  "attributes": {},
+  "attributes": {
+    "github": {
+      "type": "string",
+      "maxLength": 255,
+      "regex": "^https?://github\\.com/.*"
+    },
+    "linkedin": {
+      "type": "string",
+      "maxLength": 255,
+      "regex": "^https?://(www\\.)?linkedin\\.com/.*"
+    },
+    "email": {
+      "type": "email"
+    },
+    "youtube": {
+      "type": "string",
+      "maxLength": 255,
+      "regex": "^https?://(www\\.)?youtube\\.com/.*"
+    }
+  },
   "config": {}
 }

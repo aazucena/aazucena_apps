@@ -48,6 +48,10 @@ export interface SharedSeo extends Struct.ComponentSchema {
     metaViewport: Schema.Attribute.String;
     openGraph: Schema.Attribute.Component<'shared.open-graph', false>;
     structuredData: Schema.Attribute.JSON;
+    twitterCard: Schema.Attribute.Enumeration<
+      ['summary', 'summary_large_image', 'app', 'player']
+    > &
+      Schema.Attribute.DefaultTo<'summary_large_image'>;
   };
 }
 
@@ -57,7 +61,21 @@ export interface SharedSocialLinks extends Struct.ComponentSchema {
     displayName: 'Social Links';
     icon: 'link';
   };
-  attributes: {};
+  attributes: {
+    email: Schema.Attribute.Email;
+    github: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    linkedin: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    youtube: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+  };
 }
 
 declare module '@strapi/strapi' {
