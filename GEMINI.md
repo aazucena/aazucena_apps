@@ -1,10 +1,12 @@
-# CLAUDE.md
+# GEMINI.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Google Gemini when working with code in this repository.
 
 ## Rules
-- full context (x being the id of the session we are operation, if file doesn't exist, then create one)
-- @ROADMAP.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @docs, and are added/updated to.
+- Maintain full context awareness throughout the session
+- @ROADMAP.md contains the overall plan and current progress
+- All detailed documentation is located in @docs/ and should be referenced when needed
+- Always check existing documentation before making architectural decisions
 
 ## Repository Overview
 
@@ -86,14 +88,14 @@ pnpm dlx playwright show-report
 - **Tailwind CSS 4** with @tailwindcss/vite plugin
 - **TypeScript** throughout
 
-**Animation Architecture (Post-Phase 1 Refactoring):**
+**Animation Architecture (Critical):**
 
-The portfolio features a complex animation system located in `apps/portfolio/src/components/animations/`. This was successfully refactored in Phase 1 (completed 2025-01-13).
+The portfolio features a complex animation system located in `apps/portfolio/src/components/animations/`. This has been recently refactored in Phase 1.
 
-**Current Structure (Post-Phase 1):**
+**Current Structure:**
 ```
 src/components/animations/
-├── Section.tsx              # Main orchestrator (174 lines - refactored)
+├── Section.tsx              # Main orchestrator (174 lines - recently refactored)
 ├── ThreeJSScene.tsx         # Three.js scene (renamed from Scene.tsx)
 ├── PixiJSParticles.tsx      # PixiJS particle system (renamed from Particles.tsx)
 ├── contexts/                # State management contexts
@@ -141,7 +143,7 @@ The animation system relies on custom hooks for encapsulation:
 - `useModal` - Modal state management
 - `useSectionRefs` - Manages refs for 8 sections
 
-### State Flow (Post-Phase 1)
+### State Flow (Current - Post Phase 1)
 
 ```
 Section.tsx (main orchestrator - 174 lines)
@@ -205,7 +207,7 @@ Section.tsx (main orchestrator - 174 lines)
 ### Planned Features (see docs/features/)
 - Music Player (Howler.js, wavesurfer.js) - 4-6 days
 - Strudel.cc Live Coding Integration - 9-13 days
-- AI-Powered Forms (LangChain + LangGraph + Claude with pgVector, embeddings, RAG) - 16-20 days comprehensive
+- AI-Powered Forms (LangChain + LangGraph + Claude/Gemini with pgVector, embeddings, RAG) - 16-20 days comprehensive
 - Machine Learning Features (PyTorch/TensorFlow) - 10-40 days
 - Logging & Monitoring (Sentry, Vercel Analytics, Vercel Speed Insights, Pino, Redis) - 3-4 days
 - Payments (Stripe + Ko-fi) - 3-4 days
@@ -237,23 +239,24 @@ Section.tsx (main orchestrator - 174 lines)
 - **Railway** - Backend deployment
 
 ### AI/ML Stack (Comprehensive)
-- **LangChain** - LLM orchestration framework
-- **LangGraph** - State machine for multi-turn conversations
-- **LangSmith** - Observability, tracing, and debugging
-- **Anthropic Claude 3.5 Sonnet** - Primary language model
-- **pgVector** - PostgreSQL extension for vector similarity search
+- **LLM Orchestration:** LangChain, LangGraph
+- **Observability:** LangSmith
+- **Primary LLMs:**
+  - Anthropic Claude 3.5 Sonnet
+  - Google Gemini Pro/Ultra (for Gemini-specific features)
+- **Vector Database:** pgVector (PostgreSQL extension)
 - **Embeddings Models:**
   - OpenAI (text-embedding-3-small, text-embedding-3-large)
   - Cohere (embed-english-v3.0, embed-multilingual-v3.0)
+  - Google Gemini (Vertex AI textembedding-gecko) - **Primary for Gemini workflows**
   - Anthropic Claude (via Voyage AI)
-  - Google Gemini (Vertex AI textembedding-gecko)
   - Local Models (Sentence Transformers, all-MiniLM-L6-v2)
 - **Retrieval & Ranking:**
   - LangChain Retrievers for semantic search
   - Cohere Rerank API (rerank-english-v3.0)
   - Cross-encoder models (local)
   - ContextualCompressionRetriever
-- **PyTorch/TensorFlow** - Optional for advanced ML features
+- **ML Frameworks:** PyTorch/TensorFlow (optional, for advanced features)
 
 ## Code Patterns & Conventions
 
@@ -272,7 +275,7 @@ Section.tsx (main orchestrator - 174 lines)
 ### State Management Pattern
 - Use React Context for cross-component state
 - Custom hooks for encapsulated logic
-- Avoid prop drilling (refactor to contexts if needed)
+- Avoid prop drilling (use contexts instead)
 
 ### Animation Patterns
 - GSAP for imperative animations and scroll-triggered effects
@@ -290,20 +293,20 @@ Section.tsx (main orchestrator - 174 lines)
 - `turbo.json` - Turborepo pipeline
 
 ### Documentation
-- `ROADMAP.md` - High-level roadmap (318 lines)
+- `ROADMAP.md` - High-level roadmap
 - `docs/README.md` - Documentation index
 - `docs/phase-*.md` - Phase-specific documentation
 - `docs/features/*.md` - Feature documentation
 
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
-- `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator
+- `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
 - `apps/portfolio/src/components/animations/hooks/` - Custom hooks library
+- `apps/portfolio/src/components/animations/contexts/` - Context providers
 
 ## Git & Deployment
 
 **Current Branch:** `main`
-**Status:** Clean working tree
 
 **Deployment Strategy (future):**
 - Frontend (Astro): Vercel (auto-deploy from GitHub)
@@ -316,6 +319,7 @@ Section.tsx (main orchestrator - 174 lines)
 1. Read relevant documentation in `docs/`
 2. Check ROADMAP.md for current phase and priorities
 3. Understand the animation architecture if working with `src/components/animations/`
+4. Review Phase 1 refactoring changes (contexts, extracted components)
 
 ### When Working with Animations
 1. Section.tsx is the main orchestrator - it's now cleaner (174 lines) after Phase 1
@@ -328,9 +332,10 @@ Section.tsx (main orchestrator - 174 lines)
 
 ### When Adding Features
 1. Check if similar functionality exists in custom hooks
-2. Follow the contexts pattern (don't add more useState in Section.tsx)
+2. Use the contexts pattern (PortfolioContext, AnimationContext)
 3. Consider device capabilities for performance-heavy features
 4. Update relevant documentation in `docs/` folder
+5. Follow the established component extraction patterns from Phase 1
 
 ### Monorepo Commands
 - Use `pnpm` (never npm or yarn)
@@ -341,7 +346,7 @@ Section.tsx (main orchestrator - 174 lines)
 ## AI-Powered Forms Architecture
 
 ### Overview
-The portfolio implements a comprehensive AI-powered forms system with LangChain + LangGraph + Claude 3.5 Sonnet, featuring vector database integration for semantic search and RAG capabilities.
+The portfolio implements a comprehensive AI-powered forms system with LangChain + LangGraph, supporting both Claude and Gemini as LLM providers, featuring vector database integration for semantic search and RAG capabilities.
 
 ### Form Types (8 Total)
 - **Contact** - General inquiries
@@ -376,15 +381,15 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
 ### AI Pipeline Flow
 ```
 Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Machine
-  ├─ IntentClassifierAgent (classify form type)
+  ├─ IntentClassifierAgent (classify form type) [Gemini/Claude]
   ├─ EasterEggDetectorAgent (detect hidden keywords)
   ├─ FieldExtractionAgent (extract structured data)
   ├─ ValidationAgent (check required fields)
-  ├─ SummarizationAgent (generate AI summary + sentiment)
-  └─ AutoResponseAgent (optional personalized reply)
+  ├─ SummarizationAgent (generate AI summary + sentiment) [Gemini/Claude]
+  └─ AutoResponseAgent (optional personalized reply) [Gemini/Claude]
 → LangSmith (tracing/logging)
 → Strapi v5 (structured data storage)
-→ [Async Job] Embedding Generation
+→ [Async Job] Embedding Generation (prefer Gemini embeddings when using Gemini)
 → pgVector (vector storage with metadata)
 → Retrieval & Ranking (query time with Cohere Rerank)
 ```
@@ -395,7 +400,8 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 3. **Embedding generation is async** - Don't block form submission on embedding creation
 4. **Metadata filtering is crucial** - Use `formType`, `sentiment`, `tags` for efficient retrieval
 5. **Reranking improves relevance** - Use Cohere Rerank or cross-encoders after vector search
-6. **See `docs/features/ai-forms.md`** for complete implementation details
+6. **LLM Provider Selection** - System supports both Gemini and Claude; use Gemini embeddings with Gemini LLM for consistency
+7. **See `docs/features/ai-forms.md`** for complete implementation details
 
 ## Performance Considerations
 
@@ -412,6 +418,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 4. **Check refs before accessing** - many components use React refs that may be null
 5. **pnpm lockfile is committed** - don't use other package managers
 6. **Turborepo cache is in gitignore** - don't commit `.turbo/`
+7. **Respect Phase 1 refactoring patterns** - use contexts, extracted components, and established patterns
 
 ## Resources
 
@@ -423,6 +430,8 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 - **LangChain Docs:** https://langchain.com
 - **LangGraph Docs:** https://langchain-ai.github.io/langgraph/
 - **LangSmith Docs:** https://docs.smith.langchain.com/
+- **Google Gemini API:** https://ai.google.dev/docs
+- **Vertex AI Docs:** https://cloud.google.com/vertex-ai/docs
 
 ---
 
@@ -433,5 +442,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 - ✅ Strapi v4 → v5 upgrade for better PostgreSQL and pgVector support
 - ✅ Comprehensive AI/ML stack with LangChain, LangGraph, LangSmith
 - ✅ AI-Powered Forms architecture with vector database and semantic search
+- ✅ Multiple LLM provider support (Claude + Gemini)
 - ✅ Multiple embedding providers and retrieval/ranking systems
 - ✅ Enhanced monitoring with Vercel Speed Insights
+- ✅ Gemini-specific guidance for embeddings and LLM integration
