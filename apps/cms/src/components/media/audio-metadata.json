@@ -1,0 +1,69 @@
+{
+  "collectionName": "components_media_audio_metadata",
+  "info": {
+    "displayName": "Audio Metadata",
+    "icon": "music"
+  },
+  "options": {},
+  "attributes": {
+    "bpm": {
+      "type": "integer",
+      "min": 20,
+      "max": 300
+    },
+    "timeSignature": {
+      "type": "string",
+      "default": "4/4",
+      "maxLength": 10,
+      "regex": "^[1-9]\\d{0,1}\\/(?:2|4|8|16|32)$"
+    },
+    "musicalKey": {
+      "type": "enumeration",
+      "enum": [
+        "C",
+        "C#/D♭",
+        "D",
+        "D#/E♭",
+        "E",
+        "F",
+        "F#/G♭",
+        "G",
+        "G#/A♭",
+        "A",
+        "A#/B♭",
+        "B"
+      ]
+    },
+    "scale": {
+      "type": "enumeration",
+      "enum": [
+        "major",
+        "minor",
+        "dorian",
+        "phrygian",
+        "lydian",
+        "mixolydian",
+        "aeolian",
+        "locrian",
+        "pentatonic_major",
+        "pentatonic_minor",
+        "blues",
+        "harmonic_minor",
+        "melodic_minor"
+      ]
+    },
+    "instrumental": {
+      "type": "boolean",
+      "default": true
+    },
+    "duration": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "waveformData": {
+      "type": "json"
+    }
+  },
+  "config": {}
+}

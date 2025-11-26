@@ -1,5 +1,71 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface MediaAudioMetadata extends Struct.ComponentSchema {
+  collectionName: 'components_media_audio_metadata';
+  info: {
+    displayName: 'Audio Metadata';
+    icon: 'music';
+  };
+  attributes: {
+    bpm: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 300;
+          min: 20;
+        },
+        number
+      >;
+    duration: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    instrumental: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    musicalKey: Schema.Attribute.Enumeration<
+      [
+        'C',
+        'C#/D\u266D',
+        'D',
+        'D#/E\u266D',
+        'E',
+        'F',
+        'F#/G\u266D',
+        'G',
+        'G#/A\u266D',
+        'A',
+        'A#/B\u266D',
+        'B',
+      ]
+    >;
+    scale: Schema.Attribute.Enumeration<
+      [
+        'major',
+        'minor',
+        'dorian',
+        'phrygian',
+        'lydian',
+        'mixolydian',
+        'aeolian',
+        'locrian',
+        'pentatonic_major',
+        'pentatonic_minor',
+        'blues',
+        'harmonic_minor',
+        'melodic_minor',
+      ]
+    >;
+    timeSignature: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 10;
+      }> &
+      Schema.Attribute.DefaultTo<'4/4'>;
+    waveformData: Schema.Attribute.JSON;
+  };
+}
+
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: 'components_shared_open_graphs';
   info: {
@@ -85,6 +151,7 @@ export interface SharedSocialLinks extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'media.audio-metadata': MediaAudioMetadata;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
       'shared.social-links': SharedSocialLinks;
