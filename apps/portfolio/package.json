@@ -14,7 +14,7 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,astro,json,css,md}\""
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.10",
+    "@astrojs/mdx": "^4.3.12",
     "@astrojs/react": "^4.4.2",
     "@astrojs/ts-plugin": "^1.10.5",
     "@gsap/react": "^2.1.2",
@@ -43,7 +43,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
-    "astro": "^5.15.8",
+    "astro": "^5.16.0",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
