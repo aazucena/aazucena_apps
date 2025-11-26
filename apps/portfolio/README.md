@@ -2,8 +2,8 @@
 
 An Astro-based portfolio application with React integration, featuring advanced animations (GSAP, Three.js, PixiJS), AI-powered forms, and a sophisticated content management system.
 
-**Framework:** Astro 5.15+ with React 19.2
-**Package Manager:** pnpm v10.21.0 (required)
+**Framework:** Astro v5.16.0 with React 19.2
+**Package Manager:** pnpm v10.22.0 (required)
 **Node Version:** >=18
 
 ---
@@ -78,7 +78,7 @@ Complete documentation is available in the [`/docs`](./docs/) folder:
 ## 🛠️ Tech Stack
 
 ### Core Framework
-- **Astro 5.15+** - Meta-framework with React integration
+- **Astro v5.16.0** - Meta-framework with React integration
 - **React 19.2** - Interactive components
 - **TypeScript** - Type safety
 - **Vite** - Build tool
@@ -121,10 +121,19 @@ The portfolio features a sophisticated animation architecture located in `src/co
   - Local Models (all-MiniLM-L6-v2)
 - **Retrieval & Ranking:** LangChain Retrievers, Cohere Rerank, Cross-encoders
 
-### Backend & CMS (Planned)
-- **Strapi v5** - Headless CMS
+### Backend & CMS (In Progress)
+- **Strapi v5** - Headless CMS with 15+ plugins
+  - Core: strapi-plugin-icons-field v1.1.5, GraphQL, Documentation, Sentry, SEO
+  - Editor: CKEditor, Multi-select, Color picker
+  - Workflow: Preview button, Navigation, Duplicate button, Config sync, Publisher
+  - Performance: REST cache, Redis integration
+- **Strapi Components (Implemented):**
+  - `media.audio-metadata` - Music track metadata with enharmonic keys
+  - `ui.cta-button` - CTA buttons with icon picker (@mynaui/icons)
+  - `shared.seo` - SEO metadata with Open Graph
+  - `shared.social-links` - Social media URLs
 - **PostgreSQL 16+** - Database with pgVector extension
-- **Cloudinary** - Media storage
+- **Cloudinary** - Media storage (via @strapi/provider-upload-cloudinary)
 - **Railway** - Backend hosting
 
 ### Monitoring & Analytics
@@ -295,19 +304,31 @@ See **[ROADMAP.md](./ROADMAP.md)** for complete timeline and feature details.
 ## 🚀 Current Status
 
 ### Completed ✅
-- Icons switched to @mynaui/icons-react
+- Icons switched to @mynaui/icons-react v0.3.9
 - Scroll indicators with animations
 - Toolbar panels with backdrop
 - Resume button improvements
 - Comprehensive ROADMAP & documentation
+- **Phase 1: Animations Refactoring** ✅ (2025-01-13)
+  - Created PortfolioContext & AnimationContext
+  - Extracted 5 new components
+  - Reduced Section.tsx from 324 → 174 lines (46% reduction)
+- **Astro v5.16.0 Upgrade** ✅ (2025-11-25)
+- **Strapi CMS Components** ✅ (2025-11-25)
+  - Audio Metadata component with enharmonic keys
+  - CTA Button component with icons-field integration
+  - Icon picker via strapi-plugin-icons-field v1.1.5
 
 ### In Progress 🚧
-- **None** (Ready to start Phase 1)
+- **Phase 0: Infrastructure & Architecture**
+  - Strapi CMS v5 integration
+  - PostgreSQL + pgVector setup
+  - Deployment pipeline
 
 ### Next Up ⏳
-- **Phase 1.1:** Create PortfolioContext & AnimationContext
-- **Phase 1.2:** Extract components from Section.tsx
-- **Phase 1.3:** File renaming & cleanup
+- **Phase 0.2:** Strapi CMS Integration
+- **Phase 0.3:** Deployment Strategy
+- **Phase 0.4:** Content Migration
 
 ---
 
@@ -364,9 +385,9 @@ This is a personal portfolio project. For suggestions:
 
 ---
 
-**Last Updated:** 2025-11-12
+**Last Updated:** 2025-11-25
 
-**Current Priority:** Phase 1 - Animations Refactoring 🔥
+**Current Priority:** Phase 0 - Infrastructure & Architecture 🔥
 
 ---
 

@@ -81,7 +81,7 @@ pnpm dlx playwright show-report
 ### Portfolio App Architecture
 
 **Framework Stack:**
-- **Astro 5.15+** as the meta-framework with React integration
+- **Astro 5.16.0** as the meta-framework with React integration
 - **React 19.2** for interactive components
 - **Tailwind CSS 4** with @tailwindcss/vite plugin
 - **TypeScript** throughout
@@ -230,11 +230,29 @@ Section.tsx (main orchestrator - 174 lines)
 
 ### Backend & Infrastructure (Planned/In Progress)
 - **Strapi v5** (CMS) - Upgraded from v4 for better PostgreSQL and pgVector support
+- **Strapi Plugins:**
+  - `strapi-plugin-icons-field` v1.1.5 - Icon picker field with @mynaui/icons support
+  - `@strapi/plugin-graphql` - GraphQL API
+  - `@strapi/plugin-documentation` - Auto-generated API documentation
+  - `@strapi/plugin-sentry` - Error tracking
+  - `@strapi/plugin-seo` - SEO management
+  - `@_sh/strapi-plugin-ckeditor` - Rich text editor
+  - `strapi-plugin-multi-select` - Multi-select field
+  - `strapi-advanced-uuid` - Advanced UUID generation
+  - `@strapi/plugin-color-picker` - Color picker field
+  - `strapi-plugin-preview-button` - Content preview
+  - `strapi-plugin-navigation` - Navigation builder
+  - `strapi-plugin-duplicate-button` - Content duplication
+  - `strapi-plugin-config-sync` - Configuration synchronization
+  - `strapi-plugin-publisher` - Publishing workflow
+  - `@strapi-community/plugin-rest-cache` - REST API caching
+  - `@strapi-community/plugin-redis` - Redis integration
 - **PostgreSQL 16+** with pgVector extension for vector similarity search
 - **Redis** - Caching
 - **Sentry** - Error tracking (frontend & backend)
 - **Pino** - Logging (backend)
 - **Railway** - Backend deployment
+- **Cloudinary** - Media storage via @strapi/provider-upload-cloudinary
 
 ### AI/ML Stack (Comprehensive)
 - **LangChain** - LLM orchestration framework
@@ -426,12 +444,24 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2025-11-21
+**Last Updated:** 2025-11-25
 
 **Key Updates:**
 - ✅ **Phase 1 Completed:** Animations refactoring (324 → 174 lines, 46% reduction)
+- ✅ **Astro v5.15 → v5.16.0:** Framework upgrade for latest features
+- ✅ **Strapi Components Added:** Audio Metadata component with enharmonic keys (media.audio-metadata)
+- ✅ **Icons Integration:** strapi-plugin-icons-field v1.1.5 with @mynaui/icons support
+- ✅ **CTA Button Component:** UI component with icons-field integration (ui.cta-button)
+- ✅ **Enhanced Icons Script:** icons.sh now supports multiple categorized icon sources
 - ✅ Strapi v4 → v5 upgrade for better PostgreSQL and pgVector support
 - ✅ Comprehensive AI/ML stack with LangChain, LangGraph, LangSmith
 - ✅ AI-Powered Forms architecture with vector database and semantic search
 - ✅ Multiple embedding providers and retrieval/ranking systems
 - ✅ Enhanced monitoring with Vercel Speed Insights
+
+**Strapi CMS Components (Implemented):**
+- `shared.seo` - SEO metadata with nested Open Graph
+- `shared.open-graph` - Open Graph meta tags (used by SEO)
+- `shared.social-links` - Social media URLs
+- `media.audio-metadata` - Music track metadata with enharmonic keys, BPM, time signatures, scales
+- `ui.cta-button` - Call-to-action buttons with icon picker (@mynaui/icons integration)

@@ -18,14 +18,14 @@ The following components have been created in the CMS:
 |-----------|----------|--------|-------------|
 | `shared.seo` | `shared` | ✅ Configured | SEO metadata with nested Open Graph |
 | `shared.open-graph` | `shared` | ✅ Configured | Open Graph meta tags (used by SEO) |
-| `shared.social-links` | `shared` | ⚠️ Shell only | Fields need to be added |
+| `shared.social-links` | `shared` | ✅ Configured | Social media URLs (GitHub, LinkedIn, Twitter, YouTube, Email) |
 | `media.audio-metadata` | `media` | ✅ Configured | Music track metadata with enharmonic keys |
+| `ui.cta-button` | `ui` | ✅ Configured | CTA buttons with icon picker (@mynaui/icons integration) |
 
 ### Planned Components
 
 The following components are documented for future implementation:
 
-- `ui.cta-button` - Call-to-action buttons
 - `content.stat` - Statistics display
 - `content.achievement` - Achievement tracking
 
@@ -86,16 +86,16 @@ The following components are documented for future implementation:
 
 ---
 
-## Component 2: Social Links
+## Implemented: Social Links Component (shared.social-links)
 
-**Location:** `Content-Type Builder > Create new component > shared`
+**Location:** `src/components/shared/social-links.json`
 
 **Component Name:** `social-links`
 **Display Name:** `Social Links`
 **Icon:** `link`
 **Category:** `shared`
 
-**Status:** Component created (commit `1593f31`). Fields need to be added via Content-Type Builder.
+**Status:** ✅ Fully Configured
 
 ### Fields
 
@@ -280,16 +280,55 @@ The following fields can be added later when needed. Strapi supports adding fiel
 
 ---
 
-## Component 4: CTA Button
+## Implemented: CTA Button Component (ui.cta-button)
 
-**Location:** `Content-Type Builder > Create new component > ui`
+**Location:** `src/components/ui/cta-button.json`
 
 **Component Name:** `cta-button`
 **Display Name:** `CTA Button`
 **Icon:** `cursor`
 **Category:** `ui`
 
-### Fields
+**Status:** ✅ Configured with Icons Field Integration
+
+### Fields (Implemented)
+
+| Field Name | Type | Settings |
+|------------|------|----------|
+| `icon` | Custom Field | **Type:** `plugin::icons-field.icon`, **Selection:** `mynaui` |
+
+**Note:** This component currently has the icon picker field implemented using `strapi-plugin-icons-field` v1.1.5. Additional fields (label, url, variant, size, openInNewTab) are documented below for future implementation.
+
+### Usage
+- Hero (primary and secondary CTAs)
+
+### Icon Picker Integration
+
+The CTA Button component uses `strapi-plugin-icons-field` v1.1.5 for icon selection:
+
+**Plugin Configuration:**
+```typescript
+// config/plugins.ts
+'icons-field': {
+  enabled: true,
+  config: {
+    publicPath: 'icons'
+  }
+}
+```
+
+**Icon Source:** @mynaui/icons v0.3.9
+- Icons are automatically copied to `public/icons/mynaui-regular/` via `icons.sh` script
+- The script supports multiple categorized icon sources
+- Categorization: `icons` folder renamed to `regular` when multiple sources exist
+
+**Enhanced Icons Script Features:**
+- Sanitizes folder names (removes "icons" keyword)
+- Supports multiple icon categories per package
+- Safe path traversal prevention
+- Automated installation and file copying
+
+### Future Fields to Add
 
 | Field Name | Type | Settings |
 |------------|------|----------|
@@ -298,28 +337,25 @@ The following fields can be added later when needed. Strapi supports adding fiel
 | `variant` | Enumeration | **Values:** `primary`, `secondary`, `outline`, `ghost` - **Default:** `primary` |
 | `size` | Enumeration | **Values:** `sm`, `md`, `lg` - **Default:** `md` |
 | `openInNewTab` | Boolean | **Default:** false |
-| `icon` | Text (Short text) | **Max length:** 50, **Required:** false, **Placeholder:** "Icon name from @mynaui/icons-react" |
-
-**Click "Finish" then "Save"**
-
-### Usage
-- Hero (primary and secondary CTAs)
 
 ### Best Practices
-- `url` regex allows:
-  - External URLs: `https://example.com`
-  - Internal paths: `/about`
-  - Anchor links: `#contact`
+- Icon picker provides visual selection from @mynaui/icons
+- `url` regex allows external URLs, internal paths, and anchor links
 - `variant` matches ShadCN UI button variants
-- `icon` uses icon names from @mynaui/icons-react package
+- Icons are served from `public/icons/mynaui-regular/`
 
 ### Example Frontend Usage
 ```tsx
-import { ArrowRight } from '@mynaui/icons-react';
+// Icon component from the CMS will provide the icon name
+// which can be used with @mynaui/icons-react
+
+import * as MynaIcons from '@mynaui/icons-react';
+
+const IconComponent = MynaIcons[cta.icon];
 
 <Button variant={cta.variant} size={cta.size}>
   {cta.label}
-  {cta.icon && <ArrowRight />}
+  {IconComponent && <IconComponent />}
 </Button>
 ```
 

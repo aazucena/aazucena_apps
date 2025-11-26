@@ -75,18 +75,18 @@ Based on confirmed project requirements:
 - **3 Single Types:** Hero, About, Settings
 - **11 Collection Types:** Skills, Music Genres, Blog Series, Projects, Experience, Testimonials, Blog Posts, Awards, Compositions, Form Submissions, Easter Egg Completions
 
-**Components: 3 Implemented + 4 Planned**
+**Components: 5 Implemented + 2 Planned**
 
-**Implemented (shared category):**
+**Implemented:**
 - `shared.seo` - SEO metadata with nested Open Graph
 - `shared.open-graph` - Open Graph meta tags
-- `shared.social-links` - Social media URLs (fields pending)
+- `shared.social-links` - Social media URLs (GitHub, LinkedIn, Twitter, YouTube, Email)
+- `media.audio-metadata` - Music track metadata with enharmonic keys
+- `ui.cta-button` - CTA buttons with icon picker (@mynaui/icons integration via strapi-plugin-icons-field v1.1.5)
 
 **Planned:**
-- Audio Metadata
-- CTA Button
-- Stats
-- Achievement
+- `content.stat` - Statistics display
+- `content.achievement` - Achievement tracking
 
 ### Creation Order & Dependencies
 

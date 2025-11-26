@@ -20,9 +20,9 @@
 ## Tech Stack
 
 ### Frontend
-- **Framework:** Astro (with React integration)
+- **Framework:** Astro v5.16.0 (with React integration)
 - **Build Tool:** Vite
-- **UI Library:** React 18+ with TypeScript
+- **UI Library:** React 19.2 with TypeScript
 - **Styling:** Tailwind CSS 4
 - **UI Components:** ShadCN UI
 - **Animations:** GSAP (GreenSock), Three.js, PixiJS
@@ -34,11 +34,15 @@
 - **State Management:** React Context API + Custom Hooks
 
 ### Backend & Infrastructure
-- **CMS:** Strapi v5
+- **CMS:** Strapi v5 with 15+ plugins
+  - Core: `strapi-plugin-icons-field` v1.1.5, GraphQL, Documentation, Sentry, SEO
+  - Editor: CKEditor, Multi-select, Color picker
+  - Workflow: Preview button, Navigation, Duplicate button, Config sync, Publisher
+  - Performance: REST cache, Redis integration
 - **Database:** PostgreSQL 16+ with pgVector extension
-- **Storage:** Cloudinary
+- **Storage:** Cloudinary (via @strapi/provider-upload-cloudinary)
 - **Local Development:** Docker Compose (CMS + PostgreSQL + pgVector)
-- **Monorepo:** pnpm + Turborepo
+- **Monorepo:** pnpm v10.22.0 + Turborepo
 - **Frontend Deploy:** Vercel (auto via GitHub)
 - **Backend Deploy:** Railway
 - **CI/CD:** CircleCI (CMS only)
@@ -361,7 +365,7 @@ Features (as needed) → 3-40 days each
 ## 🚀 Current Status
 
 ### Completed ✅
-- Icons switched to @mynaui/icons-react
+- Icons switched to @mynaui/icons-react v0.3.9
 - Scroll indicators with animations
 - Toolbar panels with backdrop
 - Resume button improvements
@@ -372,6 +376,14 @@ Features (as needed) → 3-40 days each
   - Reduced Section.tsx from 324 → 174 lines (46% reduction)
   - Renamed files (Particles → PixiJSParticles, Scene → ThreeJSScene)
   - All tests passing (dev server: HTTP 200)
+- **Astro v5.16.0 Upgrade** ✅ (2025-11-25)
+  - Upgraded from v5.15 to v5.16.0 for latest features
+- **Strapi CMS Components** ✅ (2025-11-25)
+  - Audio Metadata component (media.audio-metadata) with enharmonic keys
+  - CTA Button component (ui.cta-button) with icons-field integration
+  - Icon picker integration via strapi-plugin-icons-field v1.1.5
+  - Enhanced icons.sh script for multiple categorized icon sources
+  - Mynaui icons integration (@mynaui/icons v0.3.9)
 
 ### In Progress 🚧
 - **Phase 0: Infrastructure & Architecture** (16-20 days)
@@ -458,7 +470,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 ---
 
-**Last Updated:** 2025-11-15
+**Last Updated:** 2025-11-25
 
 **Current Priority:** Phase 0 - Infrastructure & Architecture 🔥
 
@@ -466,4 +478,8 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 **Next Milestone:** Docker Compose Setup (Strapi v5 + PostgreSQL 16 + pgVector) → Enhanced Content Types → Deployment Pipeline
 
-**Recent Completion:** Phase 1 - Animations Refactoring ✅ (324 → 174 lines, 46% reduction)
+**Recent Completions:**
+- Phase 1 - Animations Refactoring ✅ (324 → 174 lines, 46% reduction)
+- Astro v5.16.0 Upgrade ✅ (from v5.15)
+- Strapi Audio Metadata & CTA Button Components ✅
+- strapi-plugin-icons-field Integration ✅ (v1.1.5)
