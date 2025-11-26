@@ -148,6 +148,23 @@ export interface SharedSocialLinks extends Struct.ComponentSchema {
   };
 }
 
+export interface UiCtaButton extends Struct.ComponentSchema {
+  collectionName: 'components_ui_cta_buttons';
+  info: {
+    displayName: 'CTA Button';
+    icon: 'cursor';
+  };
+  attributes: {
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::icons-field.icon',
+        {
+          selection: ['mynaui'];
+        }
+      >;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -155,6 +172,7 @@ declare module '@strapi/strapi' {
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
       'shared.social-links': SharedSocialLinks;
+      'ui.cta-button': UiCtaButton;
     }
   }
 }
