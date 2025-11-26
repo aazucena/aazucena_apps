@@ -91,7 +91,7 @@ Unit tests, integration tests, E2E tests with Playwright.
 - **[Plausible Analytics](./features/plausible-analytics.md)** - Self-hosted privacy-friendly traffic analytics (2-3 days)
 
 #### Plugin Improvements 🔌
-- **[Strapi Plugin Icons Field v2.0](./features/strapi-plugin-icons-field-improvements.md)** - Transform basic icon selector into enterprise-grade icon management system (27-37 days)
+- **[Strapi Plugin Icons Field v2.0](./features/strapi-plugin-icons-field/README.md)** - Transform basic icon selector into enterprise-grade icon management system (35-48 days)
 
 #### Monetization 💰
 - **[Payment Integration](./features/payments.md)** - Stripe + Ko-fi (3-4 days)

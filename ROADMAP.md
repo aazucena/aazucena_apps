@@ -284,8 +284,8 @@ Retrieval & Ranking (Query Time)
 
 ---
 
-#### Strapi Plugin Icons Field v2.0 (27-37 days)
-**[Full Documentation →](/docs/features/strapi-plugin-icons-field-improvements.md)**
+#### Strapi Plugin Icons Field v2.0 (35-48 days)
+**[Full Documentation →](/docs/features/strapi-plugin-icons-field/README.md)**
 
 Transform the `strapi-plugin-icons-field` from a basic icon selector into a production-grade, enterprise-ready Strapi v5 plugin.
 
@@ -500,7 +500,7 @@ All detailed implementation guides, code examples, and specifications are in the
 - [Strudel.cc Live Coding](/docs/features/strudel-integration.md)
 - [AI-Powered Forms](/docs/features/ai-forms.md)
 - [Machine Learning Features](/docs/features/machine-learning.md)
-- [Strapi Plugin Icons Field v2.0](/docs/features/strapi-plugin-icons-field-improvements.md)
+- [Strapi Plugin Icons Field v2.0](/docs/features/strapi-plugin-icons-field/README.md)
 - [Logging & Monitoring](/docs/features/logging-monitoring.md)
 - [Payment Integration](/docs/features/payments.md)
 
@@ -551,7 +551,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 - **Strapi v5:** Upgraded from v4 to v5 for better PostgreSQL integration and pgVector support
 - **PostgreSQL 16 + pgVector:** Docker image provides PostgreSQL 16 with pgVector extension pre-installed
 - **LangGraph State Machine:** Multi-agent workflow for intelligent form processing with LangSmith observability
-- **Plugin Enhancement Strategy:** strapi-plugin-icons-field v2.0 planned as future enhancement (27-37 days) to showcase advanced Strapi plugin development and create reusable architecture for portfolio differentiation
+- **Plugin Enhancement Strategy:** strapi-plugin-icons-field v2.0 planned as future enhancement (35-48 days) to showcase advanced Strapi plugin development and create reusable architecture for portfolio differentiation
 
 ---
 
