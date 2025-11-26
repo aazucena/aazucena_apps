@@ -13,6 +13,7 @@ pnpm add @strapi/provider-upload-cloudinary \
   strapi-plugin-duplicate-button \
   strapi-plugin-config-sync \
   strapi-plugin-publisher \
+  strapi-plugin-icons-field \
   @strapi-community/plugin-rest-cache \
   @strapi-community/plugin-redis \
   @strapi-community/provider-rest-cache-redis

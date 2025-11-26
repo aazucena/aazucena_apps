@@ -37,6 +37,7 @@
     "strapi-advanced-uuid": "^2.1.1",
     "strapi-plugin-config-sync": "^3.1.2",
     "strapi-plugin-duplicate-button": "^2.0.0",
+    "strapi-plugin-icons-field": "^1.1.5",
     "strapi-plugin-multi-select": "^2.1.1",
     "strapi-plugin-navigation": "^3.2.4",
     "strapi-plugin-preview-button": "^3.0.2",

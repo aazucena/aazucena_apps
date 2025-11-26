@@ -1,4 +1,10 @@
 export default ({ env }) => ({
+  'icons-field': {
+    enabled: true,
+    config: {
+      publicPath: 'icons'
+    },
+  },
   redis: {
     config: {
       settings: {

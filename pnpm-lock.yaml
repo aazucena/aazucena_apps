@@ -80,6 +80,9 @@ importers:
       strapi-plugin-duplicate-button:
         specifier: ^2.0.0
         version: 2.0.0(5df17d3c8c0c2eda2aa157171438da8c)
+      strapi-plugin-icons-field:
+        specifier: ^1.1.5
+        version: 1.1.5(db5165870acbedfc031f472d3082e63b)
       strapi-plugin-multi-select:
         specifier: ^2.1.1
         version: 2.1.1(887e0e80bbc1deebfe47568c2868cd39)
