@@ -282,6 +282,89 @@ Retrieval & Ranking (Query Time)
 - RAG chatbot with semantic search
 - PyTorch/TensorFlow integration
 
+---
+
+#### Strapi Plugin Icons Field v2.0 (27-37 days)
+**[Full Documentation →](/docs/features/strapi-plugin-icons-field-improvements.md)**
+
+Transform the `strapi-plugin-icons-field` from a basic icon selector into a production-grade, enterprise-ready Strapi v5 plugin.
+
+**Current State (v1.1.5):**
+- Basic icon selection from `/public/icons` folder
+- Simple SVG rendering in Strapi admin
+- Subfolder organization support
+- Manual configuration via `config/plugins.js`
+
+**Target State (v2.0.0):**
+- Production-grade icon management system
+- Advanced search and filtering
+- Comprehensive testing suite
+- Enterprise features (versioning, analytics, CDN)
+- Best-in-class developer experience
+
+**Implementation Phases:**
+
+**Phase A: Critical Fixes & Performance (5-7 days)**
+- Icon caching system with manifest generation (<500ms for 1000 icons)
+- SVG sanitization & security (DOMPurify, XSS protection)
+- TypeScript strict mode with Zod schemas
+- Performance testing & benchmarking
+
+**Phase B: Advanced Features (8-10 days)**
+- Fuzzy search with Fuse.js, category filtering, favorites
+- Batch operations (bulk upload via ZIP, auto-categorization)
+- Icon analytics & usage tracking across content types
+- Accessibility enhancements (WCAG AA, keyboard navigation, ARIA labels)
+- Internationalization (en, fr, es, de, ja)
+
+**Phase C: Developer Experience (6-8 days)**
+- Comprehensive testing suite (85%+ coverage)
+  - Unit tests (Vitest)
+  - Integration tests
+  - E2E tests (Playwright)
+- Storybook component library
+- Developer documentation & API reference
+
+**Phase D: Enterprise Features (5-7 days)**
+- Icon versioning & history tracking
+- CDN integration (Cloudinary) with automatic optimization
+- Advanced permissions & RBAC
+- Icon presets & templates
+
+**Phase E: Documentation & Distribution (3-5 days)**
+- Complete documentation (README, API reference, migration guides)
+- npm package publishing (v2.0.0)
+- Community & marketing (Strapi marketplace, blog post)
+
+**Key Improvements:**
+- ✅ **Performance:** 95%+ faster icon loading with caching
+- ✅ **Security:** XSS protection, SVG sanitization, file size limits
+- ✅ **Type Safety:** Strict TypeScript, Zod validation, runtime checks
+- ✅ **Testing:** 85%+ unit coverage, E2E tests for critical flows
+- ✅ **Accessibility:** WCAG AA compliance, full keyboard navigation
+- ✅ **DX:** Storybook, comprehensive docs, migration scripts
+
+**Success Metrics:**
+- GitHub Stars: 500+ in first 3 months
+- npm Downloads: 10,000+ in first year
+- Code Coverage: 85%+ (unit), 70%+ (integration)
+- Lighthouse Accessibility: 95+
+- Zero Critical Security Vulnerabilities
+
+**Migration Path:**
+- Backward compatibility layer for v1 icon format
+- Automated migration script provided
+- Zero downtime migration strategy
+- Comprehensive migration guide
+
+**Strategic Value:**
+- Showcase advanced Strapi plugin development expertise
+- Create reusable architecture for future plugins
+- Demonstrate open source contribution commitment
+- Enhance portfolio differentiation with custom tooling
+
+---
+
 ### Infrastructure
 - **[Logging & Monitoring](/docs/features/logging-monitoring.md)** (3-4 days) - Sentry, Vercel Analytics, Pino, Redis
 - **[Plausible Analytics](/docs/features/plausible-analytics.md)** (2-3 days) - Self-hosted privacy-friendly traffic analytics
@@ -417,6 +500,7 @@ All detailed implementation guides, code examples, and specifications are in the
 - [Strudel.cc Live Coding](/docs/features/strudel-integration.md)
 - [AI-Powered Forms](/docs/features/ai-forms.md)
 - [Machine Learning Features](/docs/features/machine-learning.md)
+- [Strapi Plugin Icons Field v2.0](/docs/features/strapi-plugin-icons-field-improvements.md)
 - [Logging & Monitoring](/docs/features/logging-monitoring.md)
 - [Payment Integration](/docs/features/payments.md)
 
@@ -467,6 +551,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 - **Strapi v5:** Upgraded from v4 to v5 for better PostgreSQL integration and pgVector support
 - **PostgreSQL 16 + pgVector:** Docker image provides PostgreSQL 16 with pgVector extension pre-installed
 - **LangGraph State Machine:** Multi-agent workflow for intelligent form processing with LangSmith observability
+- **Plugin Enhancement Strategy:** strapi-plugin-icons-field v2.0 planned as future enhancement (27-37 days) to showcase advanced Strapi plugin development and create reusable architecture for portfolio differentiation
 
 ---
 
