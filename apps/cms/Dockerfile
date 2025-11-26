@@ -16,6 +16,8 @@ WORKDIR /srv/app
 # Copy CMS package files directly to WORKDIR
 COPY apps/cms/pnpm-lock.yaml ./
 COPY apps/cms/package.json ./
+COPY apps/cms/plugins.sh ./
+COPY apps/cms/icons.sh ./
 
 # Install pnpm globally
 RUN npm install -g pnpm

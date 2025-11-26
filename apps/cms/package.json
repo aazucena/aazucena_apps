@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^6.0.3",
+    "@mynaui/icons": "^0.3.9",
     "@strapi-community/plugin-redis": "^2.0.0",
     "@strapi-community/plugin-rest-cache": "^5.0.1",
     "@strapi-community/provider-rest-cache-redis": "^5.0.0",

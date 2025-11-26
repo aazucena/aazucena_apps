@@ -1,3 +1,10 @@
+#!/bin/bash
+
+# Load variables from .env
+set -a
+[ -f .env ] && source .env
+set +a
+
 pnpm add @strapi/provider-upload-cloudinary \
   @strapi/plugin-graphql \
   @strapi/plugin-documentation \
@@ -18,5 +25,8 @@ pnpm add @strapi/provider-upload-cloudinary \
   @strapi-community/plugin-redis \
   @strapi-community/provider-rest-cache-redis
 
+if [ -f "icons.sh" ]; then
+  chmod +x ./icons.sh && source ./icons.sh
+fi
+
 pnpm i --ignore-workspace
-docker compose build --no-cache
