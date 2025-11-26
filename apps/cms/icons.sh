@@ -117,22 +117,34 @@ for package_name in $ICON_LIST_SPACED; do
         SRC_DIR="$PACKAGE_DIR/$src_folder"
 
         # --- CONDITIONAL RENAMING LOGIC ---
-        # If there is more than 1 source folder AND the current folder name is 'icons' (case insensitive)
-        if [[ "$ICON_SRC_COUNT" -gt 1 ]] && [[ "$src_folder" =~ ^[iI][cC][oO][nN][sS]$ ]]; then
-            TARGET_FOLDER_NAME="default"
+        TARGET_SUFFIX=""
+
+        if [[ "$ICON_SRC_COUNT" -gt 1 ]]; then
+            # If multiple sources exist, we need a suffix.
+            if [[ "$src_folder" =~ ^[iI][cC][oO][nN][sS]$ ]]; then
+                # Rename 'icons' to 'regular' suffix
+                TARGET_SUFFIX="regular"
+            else
+                # Use the source folder name as the suffix (e.g., 'solid')
+                TARGET_SUFFIX="$src_folder"
+            fi
+        # If only one source exists, we leave TARGET_SUFFIX empty (e.g., "example" instead of "example-regular")
+        fi
+
+        # Sanitize the suffix
+        SANITIZED_SUFFIX=$(sanitize_folder_name "$TARGET_SUFFIX")
+
+        # Determine the final flat destination directory name
+        if [ -n "$SANITIZED_SUFFIX" ]; then
+            # e.g., example-regular or example-solid
+            FINAL_DEST_NAME="$DEST_FOLDER_BASE-$SANITIZED_SUFFIX"
         else
-            TARGET_FOLDER_NAME="$src_folder"
+            # e.g., example (if only one source)
+            FINAL_DEST_NAME="$DEST_FOLDER_BASE"
         fi
 
-        # Sanitize the target folder name before use
-        SANITIZED_SRC_FOLDER=$(sanitize_folder_name "$TARGET_FOLDER_NAME")
-
-        if [ -z "$SANITIZED_SRC_FOLDER" ] || [[ "$SANITIZED_SRC_FOLDER" == ".."* ]] || [[ "$SANITIZED_SRC_FOLDER" == "/"* ]]; then
-             echo "Error: Sanitized source folder name is unsafe or empty: $TARGET_FOLDER_NAME. Skipping copy for this source."
-             continue
-        fi
-
-        CATEGORIZED_DEST_DIR="$PACKAGE_DEST_BASE_DIR/$SANITIZED_SRC_FOLDER"
+        # Final destination path
+        CATEGORIZED_DEST_DIR="$ICON_PUBLIC_DIR/$FINAL_DEST_NAME"
 
         echo "Checking source path: $SRC_DIR for SVGs..."
 
