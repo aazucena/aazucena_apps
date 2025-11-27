@@ -30,8 +30,6 @@ Create these 3 Single Types after creating all reusable components. Single Types
 | `heading` | Text (Short text) | **Max length:** 150, **Required:** true, **Placeholder:** "Main hero headline" |
 | `subheading` | Text (Short text) | **Max length:** 200, **Required:** false, **Placeholder:** "Supporting text" |
 | `description` | Text (Long text) | **Max length:** 500, **Required:** false |
-| `backgroundImage` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
-| `backgroundVideo` | Media (Single file) | **Required:** false, **Allowed types:** Video only (.mp4, .webm) |
 | `overlayOpacity` | Number (Integer) | **Min:** 0, **Max:** 100, **Required:** false, **Default:** 50, **Placeholder:** "Background overlay opacity (0-100)" |
 | `primaryCTA` | Component (Repeatable) | **Component:** `ui.cta-button`, **Required:** false, **Min:** 0, **Max:** 1 |
 | `secondaryCTA` | Component (Repeatable) | **Component:** `ui.cta-button`, **Required:** false, **Min:** 0, **Max:** 1 |
@@ -56,7 +54,6 @@ Create these 3 Single Types after creating all reusable components. Single Types
   "heading": "Hi, I'm Aldrin Azucena",
   "subheading": "Full-Stack Developer & Music Producer",
   "description": "Building immersive web experiences with cutting-edge animations",
-  "backgroundVideo": "hero-background.mp4",
   "overlayOpacity": 60,
   "primaryCTA": {
     "label": "View My Work",
@@ -99,7 +96,7 @@ Create these 3 Single Types after creating all reusable components. Single Types
 | `profileImage` | Media (Single image) | **Required:** true, **Allowed types:** Images only |
 | `profileImageAlt` | Text (Short text) | **Max length:** 150, **Required:** false, **Placeholder:** "Alt text for accessibility" |
 | `resumeFile` | Media (Single file) | **Required:** false, **Allowed types:** PDF only |
-| `socialLinks` | Component (Repeatable) | **Component:** `links.social-links`, **Required:** false, **Min:** 0, **Max:** 1 |
+| `socialLinks` | Component (Repeatable) | **Component:** `shared.social-links`, **Required:** false, **Min:** 0, **Max:** 1 |
 | `yearsOfExperience` | Number (Integer) | **Min:** 0, **Max:** 50, **Required:** false |
 | `location` | Text (Short text) | **Max length:** 100, **Required:** false, **Placeholder:** "e.g., San Francisco, CA" |
 | `tagline` | Text (Short text) | **Max length:** 150, **Required:** false, **Placeholder:** "Short catchy tagline" |
@@ -184,7 +181,7 @@ Create these 3 Single Types after creating all reusable components. Single Types
 | `siteTagline` | Text (Short text) | **Max length:** 200, **Required:** false |
 | `siteLogo` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
 | `favicon` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
-| `defaultSEO` | Component (Repeatable) | **Component:** `meta.seo-metadata`, **Required:** true, **Min:** 1, **Max:** 1 |
+| `defaultSEO` | Component (Repeatable) | **Component:** `shared.seo`, **Required:** true, **Min:** 1, **Max:** 1 |
 | `googleAnalyticsId` | Text (Short text) | **Max length:** 50, **Required:** false, **Regex:** `^(G\|UA\|GTM)-.*` |
 | `vercelAnalyticsEnabled` | Boolean | **Default:** false |
 | `sentryDSN` | Text (Short text) | **Max length:** 200, **Required:** false |
