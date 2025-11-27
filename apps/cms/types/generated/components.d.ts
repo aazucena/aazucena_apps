@@ -159,9 +159,26 @@ export interface UiCtaButton extends Struct.ComponentSchema {
       Schema.Attribute.CustomField<
         'plugin::icons-field.icon',
         {
-          selection: ['mynaui'];
+          selection: [''];
         }
       >;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    size: Schema.Attribute.Enumeration<['sm', 'md', 'lg']> &
+      Schema.Attribute.DefaultTo<'md'>;
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    variant: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'outline', 'ghost']
+    > &
+      Schema.Attribute.DefaultTo<'primary'>;
   };
 }
 

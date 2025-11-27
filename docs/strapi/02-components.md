@@ -289,15 +289,18 @@ The following fields can be added later when needed. Strapi supports adding fiel
 **Icon:** `cursor`
 **Category:** `ui`
 
-**Status:** ✅ Configured with Icons Field Integration
+**Status:** ✅ Fully Configured
 
 ### Fields (Implemented)
 
 | Field Name | Type | Settings |
 |------------|------|----------|
-| `icon` | Custom Field | **Type:** `plugin::icons-field.icon`, **Selection:** `mynaui` |
-
-**Note:** This component currently has the icon picker field implemented using `strapi-plugin-icons-field` v1.1.5. Additional fields (label, url, variant, size, openInNewTab) are documented below for future implementation.
+| `label` | String | **Max length:** 50, **Required:** true |
+| `url` | String | **Max length:** 255, **Required:** true, **Regex:** `^(https?://.*\|/.*\|#.*)` |
+| `variant` | Enumeration | **Values:** `primary`, `secondary`, `outline`, `ghost` - **Default:** `primary` |
+| `size` | Enumeration | **Values:** `sm`, `md`, `lg` - **Default:** `md` |
+| `openInNewTab` | Boolean | **Default:** true |
+| `icon` | Custom Field | **Type:** `plugin::icons-field.icon` - Integration with `strapi-plugin-icons-field` v1.1.5 |
 
 ### Usage
 - Hero (primary and secondary CTAs)
@@ -328,35 +331,63 @@ The CTA Button component uses `strapi-plugin-icons-field` v1.1.5 for icon select
 - Safe path traversal prevention
 - Automated installation and file copying
 
-### Future Fields to Add
-
-| Field Name | Type | Settings |
-|------------|------|----------|
-| `label` | Text (Short text) | **Max length:** 50, **Required:** true, **Placeholder:** "e.g., Get Started" |
-| `url` | Text (Short text) | **Max length:** 255, **Required:** true, **Regex:** `^(https?://.*\|/.*\|#.*)` |
-| `variant` | Enumeration | **Values:** `primary`, `secondary`, `outline`, `ghost` - **Default:** `primary` |
-| `size` | Enumeration | **Values:** `sm`, `md`, `lg` - **Default:** `md` |
-| `openInNewTab` | Boolean | **Default:** false |
-
 ### Best Practices
-- Icon picker provides visual selection from @mynaui/icons
-- `url` regex allows external URLs, internal paths, and anchor links
-- `variant` matches ShadCN UI button variants
-- Icons are served from `public/icons/mynaui-regular/`
+- **Label:** Keep button text concise (max 50 chars) - use action-oriented language (e.g., "Get Started", "Learn More", "Download")
+- **URL:** Regex validation allows external URLs (`https://...`), internal paths (`/about`), and anchor links (`#contact`)
+- **Variant:** Matches ShadCN UI button variants for consistent styling
+  - `primary` - Main call-to-action (high contrast)
+  - `secondary` - Secondary actions (medium emphasis)
+  - `outline` - Tertiary actions (low emphasis with border)
+  - `ghost` - Minimal emphasis (hover state only)
+- **Size:** Choose appropriate size for context (`sm` for tight spaces, `md` for most uses, `lg` for hero sections)
+- **openInNewTab:** Defaults to `true` for external links - set to `false` for internal navigation
+- **Icon:** Visual selection from @mynaui/icons via `strapi-plugin-icons-field` - icons served from `public/icons/mynaui-regular/`
 
 ### Example Frontend Usage
 ```tsx
-// Icon component from the CMS will provide the icon name
-// which can be used with @mynaui/icons-react
-
+// Using the CTA Button component with all fields
 import * as MynaIcons from '@mynaui/icons-react';
+import { Button } from '@/components/ui/button';
 
-const IconComponent = MynaIcons[cta.icon];
+interface CTAButton {
+  label: string;
+  url: string;
+  variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size: 'sm' | 'md' | 'lg';
+  openInNewTab: boolean;
+  icon?: string;
+}
 
-<Button variant={cta.variant} size={cta.size}>
-  {cta.label}
-  {IconComponent && <IconComponent />}
-</Button>
+function CTAButton({ cta }: { cta: CTAButton }) {
+  const IconComponent = cta.icon ? MynaIcons[cta.icon as keyof typeof MynaIcons] : null;
+
+  return (
+    <Button
+      variant={cta.variant}
+      size={cta.size}
+      asChild
+    >
+      <a
+        href={cta.url}
+        target={cta.openInNewTab ? '_blank' : '_self'}
+        rel={cta.openInNewTab ? 'noopener noreferrer' : undefined}
+      >
+        {cta.label}
+        {IconComponent && <IconComponent className="ml-2 h-4 w-4" />}
+      </a>
+    </Button>
+  );
+}
+
+// Example usage
+<CTAButton cta={{
+  label: "Get Started",
+  url: "https://example.com",
+  variant: "primary",
+  size: "lg",
+  openInNewTab: true,
+  icon: "ArrowRight"
+}} />
 ```
 
 ---
@@ -489,6 +520,6 @@ With all 6 components created:
 
 ---
 
-**Last Updated:** 2025-11-25
+**Last Updated:** 2025-11-26
 
 **[<- Back to Requirements](./01-requirements-summary.md)** | **[Next: Single Types ->](./03-single-types.md)**
