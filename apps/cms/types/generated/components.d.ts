@@ -1,5 +1,29 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContentAchievement extends Struct.ComponentSchema {
+  collectionName: 'components_content_achievements';
+  info: {
+    displayName: 'Achievement';
+    icon: 'crown';
+  };
+  attributes: {
+    badge: Schema.Attribute.Media<'images'>;
+    date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+  };
+}
+
 export interface ContentStats extends Struct.ComponentSchema {
   collectionName: 'components_content_stats';
   info: {
@@ -212,6 +236,7 @@ export interface UiCtaButton extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'content.achievement': ContentAchievement;
       'content.stats': ContentStats;
       'media.audio-metadata': MediaAudioMetadata;
       'shared.open-graph': SharedOpenGraph;

@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_content_achievements",
+  "info": {
+    "displayName": "Achievement",
+    "icon": "crown"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "maxLength": 100,
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 300,
+      "required": true
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon"
+    },
+    "badge": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "date": {
+      "type": "date"
+    }
+  },
+  "config": {}
+}
