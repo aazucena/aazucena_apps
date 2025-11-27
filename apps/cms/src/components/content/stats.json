@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_content_stats",
+  "info": {
+    "displayName": "Stats",
+    "icon": "chartCircle"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "maxLength": 50,
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "maxLength": 20,
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 100
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon"
+    },
+    "sort": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}
