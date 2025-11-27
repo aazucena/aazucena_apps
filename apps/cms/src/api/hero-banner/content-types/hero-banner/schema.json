@@ -1,0 +1,124 @@
+{
+  "kind": "singleType",
+  "collectionName": "hero_banners",
+  "info": {
+    "singularName": "hero-banner",
+    "pluralName": "hero-banners",
+    "displayName": "Hero Banner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 150,
+      "required": true
+    },
+    "subheading": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 200,
+      "required": false
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 500
+    },
+    "overlayOpacity": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": 50,
+      "min": 0,
+      "max": 100
+    },
+    "primaryButton": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "ui.cta-button",
+      "repeatable": false
+    },
+    "secondaryButton": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "ui.cta-button",
+      "repeatable": false
+    },
+    "scrollIndicatorText": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "showScrollIndicator"
+            },
+            false
+          ]
+        }
+      },
+      "maxLength": 50
+    },
+    "showScrollIndicator": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": true
+    },
+    "animation": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "fade",
+      "enum": [
+        "fade",
+        "slide-up",
+        "slide-left",
+        "slide-right",
+        "zoom",
+        "none"
+      ]
+    }
+  }
+}

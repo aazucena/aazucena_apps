@@ -12,11 +12,13 @@ Create these 3 Single Types after creating all reusable components. Single Types
 
 ---
 
-## Single Type 1: Hero
+## Single Type 1: Hero Banner
 
-**Display Name:** `Hero`
-**API ID (Singular):** `hero`
-**API ID (Plural):** N/A (Single Type)
+**Display Name:** `Hero Banner`
+**API ID (Singular):** `hero-banner`
+**API ID (Plural):** `hero-banners` (Collection Name)
+
+**Status:** ✅ **IMPLEMENTED**
 
 ### Advanced Settings
 
@@ -31,21 +33,23 @@ Create these 3 Single Types after creating all reusable components. Single Types
 | `subheading` | Text (Short text) | **Max length:** 200, **Required:** false, **Placeholder:** "Supporting text" |
 | `description` | Text (Long text) | **Max length:** 500, **Required:** false |
 | `overlayOpacity` | Number (Integer) | **Min:** 0, **Max:** 100, **Required:** false, **Default:** 50, **Placeholder:** "Background overlay opacity (0-100)" |
-| `primaryCTA` | Component (Repeatable) | **Component:** `ui.cta-button`, **Required:** false, **Min:** 0, **Max:** 1 |
-| `secondaryCTA` | Component (Repeatable) | **Component:** `ui.cta-button`, **Required:** false, **Min:** 0, **Max:** 1 |
+| `primaryButton` | Component (Single) | **Component:** `ui.cta-button`, **Required:** false |
+| `secondaryButton` | Component (Single) | **Component:** `ui.cta-button`, **Required:** false |
 | `scrollIndicatorText` | Text (Short text) | **Max length:** 50, **Required:** false, **Placeholder:** "e.g., Scroll to explore" |
 | `showScrollIndicator` | Boolean | **Default:** true |
-| `animationVariant` | Enumeration | **Values:** `fade`, `slide-up`, `slide-left`, `zoom`, `none` - **Default:** `fade` |
+| `animation` | Enumeration | **Values:** `fade`, `slide-up`, `slide-left`, `slide-right`, `zoom`, `none` - **Default:** `fade` |
 
-**Click "Save"**
+**Location:** `apps/cms/src/api/hero-banner/content-types/hero-banner/schema.json`
 
 ### Notes
 
+- ✅ **IMPLEMENTED** - Hero Banner is fully configured and ready to use
 - CMS-editable hero section (per requirements)
 - i18n enabled for future language support
-- Uses CTA Button component for action buttons
-- Supports both image and video backgrounds
+- Uses CTA Button component (`ui.cta-button`) for action buttons
 - `overlayOpacity` controls dark overlay for text readability
+- `animation` controls entrance animation variant
+- All fields are i18n localized for multi-language support
 
 ### Example Content
 
@@ -55,13 +59,13 @@ Create these 3 Single Types after creating all reusable components. Single Types
   "subheading": "Full-Stack Developer & Music Producer",
   "description": "Building immersive web experiences with cutting-edge animations",
   "overlayOpacity": 60,
-  "primaryCTA": {
+  "primaryButton": {
     "label": "View My Work",
     "url": "#projects",
     "variant": "primary",
     "size": "lg"
   },
-  "secondaryCTA": {
+  "secondaryButton": {
     "label": "Get in Touch",
     "url": "#contact",
     "variant": "outline",
@@ -69,8 +73,22 @@ Create these 3 Single Types after creating all reusable components. Single Types
   },
   "scrollIndicatorText": "Scroll to explore",
   "showScrollIndicator": true,
-  "animationVariant": "fade"
+  "animation": "fade"
 }
+```
+
+### Frontend Integration
+
+```typescript
+// TypeScript interface (auto-generated)
+import type { ApiHeroBannerHeroBanner } from '@/types/generated/contentTypes';
+
+// Fetch Hero Banner content
+const response = await fetch('http://localhost:1337/api/hero-banner?populate=*');
+const { data } = await response.json();
+
+// Type-safe access
+const heroBanner: ApiHeroBannerHeroBanner = data.attributes;
 ```
 
 ---
@@ -243,11 +261,14 @@ When `maintenanceMode` is `true`:
 
 ## API Endpoints
 
-### Hero
+### Hero Banner
 
 ```bash
-# Get hero data
-GET http://localhost:1337/api/hero
+# Get hero banner data
+GET http://localhost:1337/api/hero-banner
+
+# With populated components (CTA buttons)
+GET http://localhost:1337/api/hero-banner?populate=*
 ```
 
 ### About
@@ -276,12 +297,16 @@ GET http://localhost:1337/api/setting?populate=defaultSEO
 
 After creating all 3 Single Types:
 
-- [ ] Hero, About, Settings visible in Content Manager
-- [ ] All components properly linked (CTA Button, Social Links, SEO, Stats)
-- [ ] Draft & Publish enabled for Hero and About
-- [ ] Draft & Publish disabled for Settings
-- [ ] i18n enabled for Hero and About
-- [ ] API endpoints return 200 OK
+- [x] **Hero Banner** - ✅ IMPLEMENTED (visible in Content Manager)
+- [ ] **About** - Pending implementation
+- [ ] **Settings** - Pending implementation
+- [x] All components properly linked (CTA Button, Social Links, SEO, Stats)
+- [x] Draft & Publish enabled for Hero Banner
+- [ ] Draft & Publish enabled for About (when implemented)
+- [ ] Draft & Publish disabled for Settings (when implemented)
+- [x] i18n enabled for Hero Banner
+- [ ] i18n enabled for About (when implemented)
+- [x] API endpoint `/api/hero-banner` returns 200 OK
 
 ---
 
@@ -326,6 +351,12 @@ With all Single Types created:
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2025-11-26
+
+**Recent Changes:**
+- ✅ Hero Banner implemented with correct field names (`primaryButton`, `secondaryButton`, `animation`)
+- ✅ Added `slide-right` to animation enum options
+- ✅ Updated API endpoints to use `/api/hero-banner`
+- ✅ Added frontend integration example with TypeScript types
 
 **[← Back to Components](./02-components.md)** | **[Next: Core Collection Types →](./04-collection-types-core.md)**

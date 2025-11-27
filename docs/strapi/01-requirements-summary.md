@@ -287,9 +287,9 @@ pnpm strapi ts:generate-types
 Based on requirements, we need:
 
 ### Single Types (3)
-1. **Hero** - CMS-editable hero section
-2. **About** - About page with bio embedding
-3. **Settings** - Global settings + Easter Egg config
+1. **Hero Banner** - ✅ IMPLEMENTED - CMS-editable hero section (`hero-banner`)
+2. **About** - About page with bio embedding (pending)
+3. **Settings** - Global settings + Easter Egg config (pending)
 
 ### Collection Types (11)
 1. **Skills** - Technical skills (cached)
@@ -404,6 +404,9 @@ With requirements confirmed, proceed to:
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2025-11-26
+
+**Recent Changes:**
+- ✅ Hero Banner single type implemented and documented
 
 **[← Back to Prerequisites](./00-prerequisites.md)** | **[Next: Reusable Components →](./02-components.md)**

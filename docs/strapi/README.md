@@ -90,23 +90,21 @@ This directory contains comprehensive, modular documentation for setting up Stra
 
 ## Content Types Summary
 
-### Components (3 Implemented + 4 Planned)
+### Components (7 Implemented)
 
-**Implemented (shared category):**
-- `shared.seo` - SEO metadata with nested Open Graph
-- `shared.open-graph` - Open Graph meta tags
-- `shared.social-links` - Social media URLs (fields pending)
+**Implemented:**
+- `shared.seo` - ✅ SEO metadata with nested Open Graph
+- `shared.open-graph` - ✅ Open Graph meta tags
+- `shared.social-links` - ✅ Social media URLs
+- `media.audio-metadata` - ✅ BPM, key, duration, waveform data
+- `ui.cta-button` - ✅ Call-to-action buttons with icon picker
+- `content.stat` - ✅ Statistics display with icon support
+- `content.achievement` - ✅ Achievement tracking with icon picker and badge support
 
-**Planned:**
-- `media.audio-metadata` - BPM, key, duration, waveform data
-- `ui.cta-button` - Call-to-action buttons with variants
-- `content.stat` - Statistics display
-- `content.achievement` - Achievement/milestone tracking
-
-### Single Types (3 total)
-- `Hero` - Homepage hero section (NEW - CMS-editable)
-- `About` - About page content with bio embedding
-- `Settings` - Global site settings and Easter Egg configuration
+### Single Types (1/3 Implemented)
+- `Hero Banner` - ✅ **IMPLEMENTED** - Homepage hero section (CMS-editable with i18n)
+- `About` - About page content with bio embedding (pending)
+- `Settings` - Global site settings and Easter Egg configuration (pending)
 
 ### Collection Types (11 total)
 
@@ -220,11 +218,16 @@ See [15-implementation-timeline.md](./15-implementation-timeline.md) for detaile
 
 ---
 
-**Last Updated:** 2025-11-18
-**Version:** 2.1 Modular
+**Last Updated:** 2025-11-26
+**Version:** 2.2 Modular
 **Strapi Version:** v5.31.0
 **Database:** PostgreSQL 16 + pgVector
 **Node.js:** 20+ (22 recommended)
+
+**Recent Changes:**
+- ✅ Hero Banner single type implemented (1/3 single types complete)
+- ✅ All 7 reusable components implemented
+- ✅ Documentation updated with actual schema field names
 
 ---
 
