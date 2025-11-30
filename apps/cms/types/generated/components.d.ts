@@ -37,14 +37,34 @@ export interface ContentEducation extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
     field: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
+    gpa: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 0;
+        },
+        number
+      >;
     graduationDate: Schema.Attribute.Date;
+    honors: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
     institution: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    location: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
