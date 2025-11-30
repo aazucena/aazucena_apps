@@ -1,10 +1,12 @@
 # Portfolio Development Roadmap
 
-## ⚡ CURRENT PRIORITY: Phase 0 - Infrastructure & Architecture
+## ⚡ CURRENT PRIORITY: Phase 1.5 - Code Quality & Security Fixes
 
 **Phase 1 Completed:** ✅ Animations folder successfully refactored (324 → 174 lines, 46% reduction)
 
-**Next:** Docker Compose setup for Strapi CMS v5 with PostgreSQL 16 + pgVector, establish deployment pipeline, and prepare for production.
+**Code Review Completed:** ✅ Quality assessment: 7.5/10 - GOOD (5 critical issues identified)
+
+**Next:** Fix critical security vulnerabilities and code quality issues (0.5-1 day), then proceed to Phase 0 (Infrastructure).
 
 ---
 
@@ -94,6 +96,30 @@ Refactor the animations folder to improve maintainability and reduce complexity.
 
 **Status:** ✅ Completed (2025-01-13)
 **Achievement:** Reduced Section.tsx from 324 lines to 174 lines (46% reduction)
+
+---
+
+### Phase 1.5: Code Quality & Security Fixes (0.5-1 day)
+**[Full Documentation →](/docs/phase-1.5-code-quality-security.md)**
+
+Address critical security vulnerabilities and code quality issues identified in post-Phase 1 code review.
+
+**Key Tasks:**
+- 🚨 Fix critical dependency vulnerability (happy-dom CVEs)
+- 🐛 Fix memory leak in scroll handler (PortfolioContext timeout)
+- 🔧 Add missing hook dependencies (useDeviceCapabilities, AnimationContext)
+- 📝 Improve type safety (AwardsSection any types)
+- 🧹 Add GSAP cleanup (useFlipText tween management)
+
+**Status:** ⏳ Pending (Ready to start)
+**Priority:** HIGH - Security fixes required before Phase 0
+
+**Quick Wins (20 min):**
+- ✅ Upgrade happy-dom to >=20.0.2 (5 min, eliminates 2 critical CVEs)
+- ✅ Add timeout cleanup to PortfolioContext (10 min, prevents memory leak)
+- ✅ Type AwardsSection award prop (5 min, improves type safety)
+
+**Code Quality:** 7.5/10 → 8.5-9.0/10 after fixes
 
 ---
 
@@ -379,7 +405,9 @@ Transform the `strapi-plugin-icons-field` from a basic icon selector into a prod
 ### Recommended Order
 
 ```
-Phase 1 (Animations) → 9-11 days ⚡ START HERE
+Phase 1 (Animations) → 9-11 days ✅ COMPLETED
+    ↓
+Phase 1.5 (Code Quality & Security) → 0.5-1 day 🔥 NEXT PRIORITY
     ↓
 Phase 0 (Infrastructure) → 16-20 days
     ↓
@@ -394,13 +422,14 @@ Phase 5 (Testing) → 5-8 days
 Features (as needed) → 3-40 days each
 ```
 
-**Total Core Phases:** 56-75 days (~2.5-3.5 months)
+**Total Core Phases:** 56.5-76 days (~2.5-3.5 months)
 
 ### Weekly Breakdown
 
 | Week | Phase | Focus |
 |------|-------|-------|
-| 1-2 | Phase 1 | Animations refactoring |
+| 1-2 | Phase 1 | Animations refactoring ✅ |
+| 2 | Phase 1.5 | Code quality & security fixes 🔥 |
 | 3-5 | Phase 0 | Infrastructure & CMS |
 | 6-7 | Phase 2-3 | Components & performance |
 | 8-11 | Phase 4 | DX & design system |
@@ -467,18 +496,27 @@ Features (as needed) → 3-40 days each
   - Icon picker integration via strapi-plugin-icons-field v1.1.5
   - Enhanced icons.sh script for multiple categorized icon sources
   - Mynaui icons integration (@mynaui/icons v0.3.9)
+- **Code Review Completed** ✅ (2025-11-28)
+  - Comprehensive code quality assessment (7.5/10 - GOOD)
+  - 5 critical issues identified with fix instructions
+  - 3 quick wins identified (20 min total)
+  - Phase 1.5 documentation created
 
 ### In Progress 🚧
+- **Phase 1.5: Code Quality & Security Fixes** (0.5-1 day) 🔥 NEXT PRIORITY
+  - Critical dependency vulnerability (happy-dom CVEs)
+  - Memory leak in scroll handler
+  - Missing hook dependencies
+  - Type safety improvements
+  - GSAP cleanup
+
+### Next Up ⏳
+- **Phase 1.5 Implementation:** Fix 5 critical issues (0.5-1 day)
 - **Phase 0: Infrastructure & Architecture** (16-20 days)
   - Strapi CMS v5 integration with 14 production-ready content types
   - PostgreSQL + pgVector setup with semantic search
   - AI forms support, rate limiting, Redis caching
   - Deployment pipeline (Vercel + Railway + CircleCI)
-
-### Next Up ⏳
-- **Phase 0.2:** Strapi CMS Integration
-- **Phase 0.3:** Deployment Strategy
-- **Phase 0.4:** Content Migration
 
 ---
 
@@ -489,7 +527,8 @@ All detailed implementation guides, code examples, and specifications are in the
 ### Phase Documentation
 - [Phase 0: Infrastructure](/docs/phase-0-infrastructure.md)
   - [Strapi Content Types Guide (v2.0 - Enhanced)](/docs/strapi-content-types-guide.md) - 14 production-ready content types with pgVector, semantic search, AI forms support
-- [Phase 1: Animations Refactoring](/docs/phase-1-animations-refactoring.md) ⚡
+- [Phase 1: Animations Refactoring](/docs/phase-1-animations-refactoring.md) ⚡ ✅
+- [Phase 1.5: Code Quality & Security Fixes](/docs/phase-1.5-code-quality-security.md) 🔥
 - [Phase 2: Component Architecture](/docs/phase-2-component-architecture.md)
 - [Phase 3: Performance](/docs/phase-3-performance.md)
 - [Phase 4: Developer Experience](/docs/phase-4-developer-experience.md)
@@ -517,10 +556,18 @@ All detailed implementation guides, code examples, and specifications are in the
 - ✅ Better understanding of state management needs
 - ✅ Prevents refactoring in monorepo (harder)
 
-### Infrastructure After Refactoring
-- ✅ CMS integration with clean components
-- ✅ Easier content migration
+### Phase 1.5 Before Infrastructure (Code Quality & Security)
+- ✅ Fix critical security vulnerabilities (happy-dom CVEs)
+- ✅ Eliminate memory leaks before complexity increases
+- ✅ Quick wins (0.5-1 day) with high impact
+- ✅ Clean, secure codebase before Docker/CMS integration
+- ✅ Prevents cascading issues in infrastructure setup
+
+### Infrastructure After Quality Fixes
+- ✅ CMS integration with clean, secure components
+- ✅ Easier content migration without bugs
 - ✅ Better monorepo package extraction
+- ✅ Confidence in codebase stability
 
 ### Performance & Testing Last
 - ✅ Optimize after architecture is stable
@@ -555,16 +602,18 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 ---
 
-**Last Updated:** 2025-11-25
+**Last Updated:** 2025-11-28
 
-**Current Priority:** Phase 0 - Infrastructure & Architecture 🔥
+**Current Priority:** Phase 1.5 - Code Quality & Security Fixes 🔥
 
-**Phase 0 Timeline:** 16-20 days (updated from 11-16 days) - Enhanced content types implementation with 14 production-ready content types (was 9), including pgVector, semantic search, AI forms support, rate limiting, and Redis caching.
+**Phase 1.5 Timeline:** 0.5-1 day - Critical security fixes (happy-dom CVEs), memory leak fixes, type safety improvements, GSAP cleanup
 
-**Next Milestone:** Docker Compose Setup (Strapi v5 + PostgreSQL 16 + pgVector) → Enhanced Content Types → Deployment Pipeline
+**Next Milestone:** Complete Phase 1.5 (0.5-1 day) → Phase 0: Docker Compose Setup (Strapi v5 + PostgreSQL 16 + pgVector) → Enhanced Content Types → Deployment Pipeline
 
 **Recent Completions:**
 - Phase 1 - Animations Refactoring ✅ (324 → 174 lines, 46% reduction)
+- Code Review Completed ✅ (7.5/10 quality assessment, 5 critical issues identified)
+- Phase 1.5 Documentation Created ✅ (comprehensive fix instructions)
 - Astro v5.16.0 Upgrade ✅ (from v5.15)
 - Strapi Audio Metadata & CTA Button Components ✅
 - strapi-plugin-icons-field Integration ✅ (v1.1.5)
