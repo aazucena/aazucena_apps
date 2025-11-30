@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-11-27T05:30:44.703Z"
+    "x-generation-date": "2025-11-30T03:14:11.517Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -38,7 +38,7 @@
     }
   ],
   "paths": {
-    "/hero-banner": {
+    "/portfolio": {
       "get": {
         "responses": {
           "200": {
@@ -46,7 +46,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HeroBannerResponse"
+                  "$ref": "#/components/schemas/PortfolioResponse"
                 }
               }
             }
@@ -103,7 +103,7 @@
           }
         },
         "tags": [
-          "Hero-banner"
+          "Portfolio"
         ],
         "parameters": [
           {
@@ -209,7 +209,7 @@
             }
           }
         ],
-        "operationId": "get/hero-banner"
+        "operationId": "get/portfolio"
       },
       "put": {
         "responses": {
@@ -218,7 +218,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HeroBannerResponse"
+                  "$ref": "#/components/schemas/PortfolioResponse"
                 }
               }
             }
@@ -275,16 +275,16 @@
           }
         },
         "tags": [
-          "Hero-banner"
+          "Portfolio"
         ],
         "parameters": [],
-        "operationId": "put/hero-banner",
+        "operationId": "put/portfolio",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/HeroBannerRequest"
+                "$ref": "#/components/schemas/PortfolioRequest"
               }
             }
           }
@@ -355,10 +355,333 @@
           }
         },
         "tags": [
-          "Hero-banner"
+          "Portfolio"
         ],
         "parameters": [],
-        "operationId": "delete/hero-banner"
+        "operationId": "delete/portfolio"
+      }
+    },
+    "/website-configuration": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebsiteConfigurationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Website-configuration"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by attributes ascending (asc) or descending (desc)",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagination[withCount]",
+            "in": "query",
+            "description": "Return page/pageSize (default: true)",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "pagination[page]",
+            "in": "query",
+            "description": "Page number (default: 0)",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pagination[pageSize]",
+            "in": "query",
+            "description": "Page size (default: 25)",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pagination[start]",
+            "in": "query",
+            "description": "Offset value (default: 0)",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pagination[limit]",
+            "in": "query",
+            "description": "Number of entities to return (default: 25)",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Fields to return (ex: title,author)",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "populate",
+            "in": "query",
+            "description": "Relations to return",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filters",
+            "in": "query",
+            "description": "Filters to apply",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "style": "deepObject"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "Locale to apply",
+            "deprecated": false,
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "get/website-configuration"
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebsiteConfigurationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Website-configuration"
+        ],
+        "parameters": [],
+        "operationId": "put/website-configuration",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebsiteConfigurationRequest"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Website-configuration"
+        ],
+        "parameters": [],
+        "operationId": "delete/website-configuration"
       }
     },
     "/upload": {
@@ -1813,7 +2136,7 @@
           }
         }
       },
-      "HeroBannerRequest": {
+      "PortfolioRequest": {
         "type": "object",
         "required": [
           "data"
@@ -1821,44 +2144,94 @@
         "properties": {
           "data": {
             "required": [
-              "heading"
+              "fullName",
+              "occupation",
+              "flipWords",
+              "heroTaglineTemplate",
+              "tagline",
+              "descriptions",
+              "highlights",
+              "socialLinks"
             ],
             "type": "object",
             "properties": {
-              "heading": {
+              "fullName": {
                 "type": "string"
               },
-              "subheading": {
+              "occupation": {
                 "type": "string"
               },
-              "description": {
+              "flipWords": {},
+              "heroTaglineTemplate": {
                 "type": "string"
               },
-              "overlayOpacity": {
-                "type": "integer"
-              },
-              "primaryButton": {
-                "$ref": "#/components/schemas/UiCtaButtonComponent"
-              },
-              "secondaryButton": {
-                "$ref": "#/components/schemas/UiCtaButtonComponent"
-              },
-              "scrollIndicatorText": {
+              "heroCTAPrimaryText": {
                 "type": "string"
               },
-              "showScrollIndicator": {
+              "heroShowDropdown": {
                 "type": "boolean"
               },
-              "animation": {
+              "heroDropdownOptions": {},
+              "heroCTASecondaryText": {
+                "type": "string"
+              },
+              "heroShowSecondaryButton": {
+                "type": "boolean"
+              },
+              "tagline": {
+                "type": "string"
+              },
+              "descriptions": {},
+              "highlights": {},
+              "stats": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ContentStatsComponent"
+                }
+              },
+              "learnMoreCards": {},
+              "profileImage": {
+                "$ref": "#/components/schemas/UiImageElementComponent"
+              },
+              "resumeFile": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "example": "string or id"
+              },
+              "bio": {
+                "type": "string"
+              },
+              "socialLinks": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SharedSocialLinksComponent"
+                }
+              },
+              "yearsOfExperience": {
+                "type": "integer"
+              },
+              "location": {
+                "type": "string"
+              },
+              "education": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ContentEducationComponent"
+                }
+              },
+              "bioEmbedding": {},
+              "bioEmbeddingModel": {
+                "type": "string"
+              },
+              "bioEmbeddingGeneratedAt": {
                 "type": "string",
-                "enum": [
-                  "fade",
-                  "slide-up",
-                  "slide-left",
-                  "slide-right",
-                  "zoom",
-                  "none"
-                ]
+                "format": "date-time"
               },
               "locale": {
                 "type": "string"
@@ -1881,13 +2254,13 @@
           }
         }
       },
-      "HeroBannerListResponse": {
+      "PortfolioListResponse": {
         "type": "object",
         "properties": {
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/HeroBanner"
+              "$ref": "#/components/schemas/Portfolio"
             }
           },
           "meta": {
@@ -1916,10 +2289,17 @@
           }
         }
       },
-      "HeroBanner": {
+      "Portfolio": {
         "type": "object",
         "required": [
-          "heading"
+          "fullName",
+          "occupation",
+          "flipWords",
+          "heroTaglineTemplate",
+          "tagline",
+          "descriptions",
+          "highlights",
+          "socialLinks"
         ],
         "properties": {
           "id": {
@@ -1928,40 +2308,811 @@
           "documentId": {
             "type": "string"
           },
-          "heading": {
+          "fullName": {
             "type": "string"
           },
-          "subheading": {
+          "occupation": {
+            "type": "string"
+          },
+          "flipWords": {},
+          "heroTaglineTemplate": {
+            "type": "string"
+          },
+          "heroCTAPrimaryText": {
+            "type": "string"
+          },
+          "heroShowDropdown": {
+            "type": "boolean"
+          },
+          "heroDropdownOptions": {},
+          "heroCTASecondaryText": {
+            "type": "string"
+          },
+          "heroShowSecondaryButton": {
+            "type": "boolean"
+          },
+          "tagline": {
+            "type": "string"
+          },
+          "descriptions": {},
+          "highlights": {},
+          "stats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentStatsComponent"
+            }
+          },
+          "learnMoreCards": {},
+          "profileImage": {
+            "$ref": "#/components/schemas/UiImageElementComponent"
+          },
+          "resumeFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "documentId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {},
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number",
+                "format": "float"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {},
+              "related": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "folder": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "folderPath": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "updatedBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "locale": {
+                "type": "string"
+              },
+              "localizations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "bio": {
+            "type": "string"
+          },
+          "socialLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SharedSocialLinksComponent"
+            }
+          },
+          "yearsOfExperience": {
+            "type": "integer"
+          },
+          "location": {
+            "type": "string"
+          },
+          "education": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentEducationComponent"
+            }
+          },
+          "bioEmbedding": {},
+          "bioEmbeddingModel": {
+            "type": "string"
+          },
+          "bioEmbeddingGeneratedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
+          },
+          "updatedBy": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
+          },
+          "locale": {
+            "type": "string"
+          },
+          "localizations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "documentId": {
+                  "type": "string"
+                },
+                "fullName": {
+                  "type": "string"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "flipWords": {},
+                "heroTaglineTemplate": {
+                  "type": "string"
+                },
+                "heroCTAPrimaryText": {
+                  "type": "string"
+                },
+                "heroShowDropdown": {
+                  "type": "boolean"
+                },
+                "heroDropdownOptions": {},
+                "heroCTASecondaryText": {
+                  "type": "string"
+                },
+                "heroShowSecondaryButton": {
+                  "type": "boolean"
+                },
+                "tagline": {
+                  "type": "string"
+                },
+                "descriptions": {},
+                "highlights": {},
+                "stats": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContentStatsComponent"
+                  }
+                },
+                "learnMoreCards": {},
+                "profileImage": {
+                  "$ref": "#/components/schemas/UiImageElementComponent"
+                },
+                "resumeFile": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "alternativeText": {
+                      "type": "string"
+                    },
+                    "caption": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "integer"
+                    },
+                    "height": {
+                      "type": "integer"
+                    },
+                    "formats": {},
+                    "hash": {
+                      "type": "string"
+                    },
+                    "ext": {
+                      "type": "string"
+                    },
+                    "mime": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "previewUrl": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "provider_metadata": {},
+                    "related": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "folder": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "folderPath": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "publishedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "createdBy": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "updatedBy": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "locale": {
+                      "type": "string"
+                    },
+                    "localizations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "bio": {
+                  "type": "string"
+                },
+                "socialLinks": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SharedSocialLinksComponent"
+                  }
+                },
+                "yearsOfExperience": {
+                  "type": "integer"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "education": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContentEducationComponent"
+                  }
+                },
+                "bioEmbedding": {},
+                "bioEmbeddingModel": {
+                  "type": "string"
+                },
+                "bioEmbeddingGeneratedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "publishedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "createdBy": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "updatedBy": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "localizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "documentId": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "PortfolioResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Portfolio"
+          },
+          "meta": {
+            "type": "object"
+          }
+        }
+      },
+      "ContentStatsComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "label": {
+            "type": "string"
+          },
+          "value": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
-          "overlayOpacity": {
-            "type": "integer"
-          },
-          "primaryButton": {
-            "$ref": "#/components/schemas/UiCtaButtonComponent"
-          },
-          "secondaryButton": {
-            "$ref": "#/components/schemas/UiCtaButtonComponent"
-          },
-          "scrollIndicatorText": {
+          "icon": {
             "type": "string"
           },
-          "showScrollIndicator": {
-            "type": "boolean"
+          "sort": {
+            "type": "integer"
+          }
+        }
+      },
+      "UiImageElementComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
           },
-          "animation": {
+          "src": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "documentId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {},
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number",
+                "format": "float"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {},
+              "related": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "folder": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "folderPath": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "updatedBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "locale": {
+                "type": "string"
+              },
+              "localizations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "altText": {
+            "type": "string"
+          }
+        }
+      },
+      "SharedSocialLinksComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "github": {
+            "type": "string"
+          },
+          "linkedin": {
+            "type": "string"
+          },
+          "twitter": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "youtube": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentEducationComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
             "type": "string",
             "enum": [
-              "fade",
-              "slide-up",
-              "slide-left",
-              "slide-right",
-              "zoom",
-              "none"
+              "diploma",
+              "bachelor",
+              "master",
+              "doctorates",
+              "certificate"
             ]
+          },
+          "degree": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "institution": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "graduationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "current": {
+            "type": "boolean"
+          }
+        }
+      },
+      "WebsiteConfigurationRequest": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "locale": {
+                "type": "string"
+              },
+              "localizations": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "example": "string or id"
+                }
+              }
+            }
+          }
+        }
+      },
+      "WebsiteConfigurationListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebsiteConfiguration"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "integer"
+                  },
+                  "pageSize": {
+                    "type": "integer",
+                    "minimum": 25
+                  },
+                  "pageCount": {
+                    "type": "integer",
+                    "maximum": 1
+                  },
+                  "total": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "WebsiteConfiguration": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "documentId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -2263,41 +3414,6 @@
                 "documentId": {
                   "type": "string"
                 },
-                "heading": {
-                  "type": "string"
-                },
-                "subheading": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "overlayOpacity": {
-                  "type": "integer"
-                },
-                "primaryButton": {
-                  "$ref": "#/components/schemas/UiCtaButtonComponent"
-                },
-                "secondaryButton": {
-                  "$ref": "#/components/schemas/UiCtaButtonComponent"
-                },
-                "scrollIndicatorText": {
-                  "type": "string"
-                },
-                "showScrollIndicator": {
-                  "type": "boolean"
-                },
-                "animation": {
-                  "type": "string",
-                  "enum": [
-                    "fade",
-                    "slide-up",
-                    "slide-left",
-                    "slide-right",
-                    "zoom",
-                    "none"
-                  ]
-                },
                 "createdAt": {
                   "type": "string",
                   "format": "date-time"
@@ -2354,51 +3470,14 @@
           }
         }
       },
-      "HeroBannerResponse": {
+      "WebsiteConfigurationResponse": {
         "type": "object",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/HeroBanner"
+            "$ref": "#/components/schemas/WebsiteConfiguration"
           },
           "meta": {
             "type": "object"
-          }
-        }
-      },
-      "UiCtaButtonComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "label": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "variant": {
-            "type": "string",
-            "enum": [
-              "primary",
-              "secondary",
-              "outline",
-              "ghost"
-            ]
-          },
-          "size": {
-            "type": "string",
-            "enum": [
-              "sm",
-              "md",
-              "lg"
-            ]
-          },
-          "openInNewTab": {
-            "type": "boolean"
-          },
-          "icon": {
-            "type": "string"
           }
         }
       },

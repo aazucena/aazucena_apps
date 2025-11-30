@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_ui_image_elements",
+  "info": {
+    "displayName": "Image Element",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "src": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "altText": {
+      "type": "string",
+      "maxLength": 150,
+      "required": true
+    }
+  },
+  "config": {}
+}

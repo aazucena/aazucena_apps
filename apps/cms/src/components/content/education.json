@@ -1,0 +1,58 @@
+{
+  "collectionName": "components_content_educations",
+  "info": {
+    "displayName": "Education",
+    "icon": "pencil"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "diploma",
+        "bachelor",
+        "master",
+        "doctorates",
+        "certificate"
+      ]
+    },
+    "degree": {
+      "type": "string",
+      "maxLength": 200,
+      "required": true
+    },
+    "field": {
+      "type": "string",
+      "maxLength": 150,
+      "required": true
+    },
+    "institution": {
+      "type": "string",
+      "maxLength": 200,
+      "required": true
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "graduationDate": {
+      "type": "date",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "current"
+            },
+            false
+          ]
+        }
+      }
+    },
+    "current": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "config": {}
+}

@@ -430,12 +430,12 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiHeroBannerHeroBanner extends Struct.SingleTypeSchema {
-  collectionName: 'hero_banners';
+export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
+  collectionName: 'portfolios';
   info: {
-    displayName: 'Hero Banner';
-    pluralName: 'hero-banners';
-    singularName: 'hero-banner';
+    displayName: 'Portfolio';
+    pluralName: 'portfolios';
+    singularName: 'portfolio';
   };
   options: {
     draftAndPublish: true;
@@ -446,28 +446,202 @@ export interface ApiHeroBannerHeroBanner extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    animation: Schema.Attribute.Enumeration<
-      ['fade', 'slide-up', 'slide-left', 'slide-right', 'zoom', 'none']
-    > &
+    bio: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.DefaultTo<'fade'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
+      }>;
+    bioEmbedding: Schema.Attribute.JSON &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    bioEmbeddingGeneratedAt: Schema.Attribute.DateTime &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    bioEmbeddingModel: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }> &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 500;
+        maxLength: 50;
       }>;
-    heading: Schema.Attribute.String &
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descriptions: Schema.Attribute.Blocks &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    education: Schema.Attribute.Component<'content.education', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 0;
+        },
+        number
+      >;
+    flipWords: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    fullName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    heroCTAPrimaryText: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }> &
+      Schema.Attribute.DefaultTo<'Get Started'>;
+    heroCTASecondaryText: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }> &
+      Schema.Attribute.DefaultTo<'View Resume'>;
+    heroDropdownOptions: Schema.Attribute.JSON &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroShowDropdown: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
+    heroShowSecondaryButton: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
+    heroTaglineTemplate: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Turning {flipWord} into elegant code, one pixel at a time.'>;
+    highlights: Schema.Attribute.Blocks &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    learnMoreCards: Schema.Attribute.Blocks &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portfolio.portfolio'
+    >;
+    location: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    occupation: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    profileImage: Schema.Attribute.Component<'ui.image-element', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    resumeFile: Schema.Attribute.Media<'files'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    socialLinks: Schema.Attribute.Component<'shared.social-links', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      >;
+    stats: Schema.Attribute.Component<'content.stats', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+          min: 0;
+        },
+        number
+      >;
+    tagline: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -477,12 +651,10 @@ export interface ApiHeroBannerHeroBanner extends Struct.SingleTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::hero-banner.hero-banner'
-    >;
-    overlayOpacity: Schema.Attribute.Integer &
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    yearsOfExperience: Schema.Attribute.Integer &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -490,50 +662,36 @@ export interface ApiHeroBannerHeroBanner extends Struct.SingleTypeSchema {
       }> &
       Schema.Attribute.SetMinMax<
         {
-          max: 100;
+          max: 50;
           min: 0;
         },
         number
-      > &
-      Schema.Attribute.DefaultTo<50>;
-    primaryButton: Schema.Attribute.Component<'ui.cta-button', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+      >;
+  };
+}
+
+export interface ApiWebsiteConfigurationWebsiteConfiguration
+  extends Struct.SingleTypeSchema {
+  collectionName: 'website_configurations';
+  info: {
+    displayName: 'Website Configuration';
+    pluralName: 'website-configurations';
+    singularName: 'website-configuration';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::website-configuration.website-configuration'
+    > &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    scrollIndicatorText: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 50;
-      }>;
-    secondaryButton: Schema.Attribute.Component<'ui.cta-button', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    showScrollIndicator: Schema.Attribute.Boolean &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<true>;
-    subheading: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1242,7 +1400,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::hero-banner.hero-banner': ApiHeroBannerHeroBanner;
+      'api::portfolio.portfolio': ApiPortfolioPortfolio;
+      'api::website-configuration.website-configuration': ApiWebsiteConfigurationWebsiteConfiguration;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

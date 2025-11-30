@@ -24,6 +24,38 @@ export interface ContentAchievement extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentEducation extends Struct.ComponentSchema {
+  collectionName: 'components_content_educations';
+  info: {
+    displayName: 'Education';
+    icon: 'pencil';
+  };
+  attributes: {
+    current: Schema.Attribute.Boolean & Schema.Attribute.Required;
+    degree: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    field: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    graduationDate: Schema.Attribute.Date;
+    institution: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    startDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<
+      ['diploma', 'bachelor', 'master', 'doctorates', 'certificate']
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface ContentStats extends Struct.ComponentSchema {
   collectionName: 'components_content_stats';
   info: {
@@ -233,16 +265,34 @@ export interface UiCtaButton extends Struct.ComponentSchema {
   };
 }
 
+export interface UiImageElement extends Struct.ComponentSchema {
+  collectionName: 'components_ui_image_elements';
+  info: {
+    displayName: 'Image Element';
+    icon: 'picture';
+  };
+  attributes: {
+    altText: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    src: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.achievement': ContentAchievement;
+      'content.education': ContentEducation;
       'content.stats': ContentStats;
       'media.audio-metadata': MediaAudioMetadata;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
       'shared.social-links': SharedSocialLinks;
       'ui.cta-button': UiCtaButton;
+      'ui.image-element': UiImageElement;
     }
   }
 }
