@@ -908,30 +908,6 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiGameGame extends Struct.CollectionTypeSchema {
-  collectionName: 'games';
-  info: {
-    displayName: 'Game';
-    pluralName: 'games';
-    singularName: 'game';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiHeroHero extends Struct.SingleTypeSchema {
   collectionName: 'heroes';
   info: {
@@ -2880,7 +2856,6 @@ declare module '@strapi/strapi' {
       'api::animation.animation': ApiAnimationAnimation;
       'api::blog.blog': ApiBlogBlog;
       'api::experience.experience': ApiExperienceExperience;
-      'api::game.game': ApiGameGame;
       'api::hero.hero': ApiHeroHero;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::maintenance.maintenance': ApiMaintenanceMaintenance;
