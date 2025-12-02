@@ -1,0 +1,83 @@
+{
+  "kind": "singleType",
+  "collectionName": "themes",
+  "info": {
+    "singularName": "theme",
+    "pluralName": "themes",
+    "displayName": "Theme & Branding"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mode": {
+      "type": "enumeration",
+      "required": true,
+      "default": "system",
+      "enum": [
+        "system",
+        "light",
+        "dark",
+        "light:only",
+        "dark:only"
+      ]
+    },
+    "primaryColor": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    },
+    "primaryColorDark": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    },
+    "secondaryColor": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    },
+    "secondaryColorDark": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    },
+    "accentColor": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    },
+    "accentColorDark": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true
+    },
+    "fontSans": {
+      "type": "string",
+      "default": "Fira Sans",
+      "maxLength": 100
+    },
+    "fontSerif": {
+      "type": "string",
+      "default": "Fira Sans",
+      "maxLength": 100
+    },
+    "fontHeading": {
+      "type": "string",
+      "default": "Fira Sans",
+      "maxLength": 100
+    },
+    "fontCode": {
+      "type": "string",
+      "default": "Fira Code",
+      "maxLength": 100
+    }
+  }
+}

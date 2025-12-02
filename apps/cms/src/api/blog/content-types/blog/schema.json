@@ -1,0 +1,73 @@
+{
+  "kind": "singleType",
+  "collectionName": "blogs",
+  "info": {
+    "singularName": "blog",
+    "pluralName": "blogs",
+    "displayName": "Blog Configuration"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "postsPerPage": {
+      "type": "integer",
+      "required": true,
+      "default": 6,
+      "min": 1,
+      "max": 50
+    },
+    "permalink": {
+      "type": "string",
+      "default": "/%slug%",
+      "maxLength": 100,
+      "required": true
+    },
+    "mainPath": {
+      "type": "string",
+      "default": "blog",
+      "maxLength": 50,
+      "required": true
+    },
+    "categoryPath": {
+      "type": "string",
+      "default": "category",
+      "maxLength": 50,
+      "required": true
+    },
+    "tagPath": {
+      "type": "string",
+      "default": "tag",
+      "maxLength": 50,
+      "required": true
+    },
+    "relatedPostsEnabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "relatedPostsCount": {
+      "type": "integer",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "relatedPostsEnabled"
+            },
+            true
+          ]
+        }
+      },
+      "required": true,
+      "default": 4,
+      "min": 1,
+      "max": 10
+    }
+  }
+}

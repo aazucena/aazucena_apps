@@ -1,0 +1,90 @@
+{
+  "kind": "singleType",
+  "collectionName": "website_configurations",
+  "info": {
+    "singularName": "website-configuration",
+    "pluralName": "website-configurations",
+    "displayName": "Website Configuration"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "maxLength": 100,
+      "required": true
+    },
+    "siteUrl": {
+      "type": "string",
+      "maxLength": 200,
+      "required": true,
+      "regex": "^https?://.*"
+    },
+    "siteTagline": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "baseUrl": {
+      "type": "string",
+      "default": "/",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "siteLogo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "favicon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "defaultSEO": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false,
+      "required": true
+    },
+    "metaTitleTemplate": {
+      "type": "string",
+      "default": "%s — {siteName}",
+      "maxLength": 100
+    },
+    "openGraphSiteName": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "twitterHandle": {
+      "type": "string",
+      "maxLength": 50,
+      "regex": "^@.*"
+    },
+    "robotsIndex": {
+      "type": "boolean",
+      "default": true
+    },
+    "robotsFollow": {
+      "type": "boolean",
+      "default": true
+    },
+    "googleSiteVerificationId": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "trailingSlash": {
+      "type": "boolean",
+      "default": false
+    },
+    "cleanUrls": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

@@ -6,28 +6,40 @@
   },
   "options": {},
   "attributes": {
-    "github": {
-      "type": "string",
-      "maxLength": 255,
-      "regex": "^https?://github\\.com/.*"
+    "platform": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "GitHub",
+        "LinkedIn",
+        "Twitter",
+        "YouTube",
+        "Instagram",
+        "Other"
+      ]
     },
-    "linkedin": {
+    "url": {
       "type": "string",
-      "maxLength": 255,
-      "regex": "^https?://(www\\.)?linkedin\\.com/.*"
+      "required": true,
+      "unique": true
     },
-    "twitter": {
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon",
+      "options": {
+        "preset": "icons"
+      },
+      "required": false,
+      "displayName": "Platform Icon"
+    },
+    "text": {
       "type": "string",
-      "maxLength": 255,
-      "regex": "https?://(www\\.)?(twitter\\.com\\|x\\.com)/.*"
+      "required": false
     },
-    "email": {
-      "type": "email"
-    },
-    "youtube": {
-      "type": "string",
-      "maxLength": 255,
-      "regex": "^https?://(www\\.)?youtube\\.com/.*"
+    "openInNewTab": {
+      "type": "boolean",
+      "required": true,
+      "default": true
     }
   },
   "config": {}

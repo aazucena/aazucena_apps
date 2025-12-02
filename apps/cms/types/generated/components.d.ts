@@ -172,7 +172,7 @@ export interface MediaAudioMetadata extends Struct.ComponentSchema {
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: 'components_shared_open_graphs';
   info: {
-    displayName: 'openGraph';
+    displayName: 'Open Graph';
     icon: 'project-diagram';
   };
   attributes: {
@@ -195,7 +195,7 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
-    displayName: 'seo';
+    displayName: 'SEO';
     icon: 'search';
   };
   attributes: {
@@ -231,23 +231,24 @@ export interface SharedSocialLinks extends Struct.ComponentSchema {
     icon: 'link';
   };
   attributes: {
-    email: Schema.Attribute.Email;
-    github: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
-      }>;
-    linkedin: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
-      }>;
-    twitter: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
-      }>;
-    youtube: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
-      }>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::icons-field.icon',
+        {
+          preset: 'icons';
+        }
+      >;
+    openInNewTab: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    platform: Schema.Attribute.Enumeration<
+      ['GitHub', 'LinkedIn', 'Twitter', 'YouTube', 'Instagram', 'Other']
+    > &
+      Schema.Attribute.Required;
+    text: Schema.Attribute.String;
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
   };
 }
 

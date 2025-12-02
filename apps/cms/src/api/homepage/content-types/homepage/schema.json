@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Homepage"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroSection": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "aboutSection": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "experienceSection": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "skillsSection": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "testimonialsSection": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "blogSection": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "awardsSection": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    }
+  }
+}

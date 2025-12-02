@@ -1,0 +1,66 @@
+{
+  "kind": "singleType",
+  "collectionName": "animations",
+  "info": {
+    "singularName": "animation",
+    "pluralName": "animations",
+    "displayName": "Animation System"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "heavyAnimations": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "defaultPerformanceTier": {
+      "type": "enumeration",
+      "required": true,
+      "default": "auto",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "auto"
+      ]
+    },
+    "particleCountLow": {
+      "type": "integer",
+      "default": 50,
+      "min": 0,
+      "max": 100
+    },
+    "particleCountMedium": {
+      "type": "integer",
+      "default": 100,
+      "min": 0,
+      "max": 200
+    },
+    "particleCountHigh": {
+      "type": "integer",
+      "default": 200,
+      "min": 0,
+      "max": 500
+    },
+    "timingFlipText": {
+      "type": "integer",
+      "default": 3000,
+      "min": 1000,
+      "max": 10000
+    },
+    "timingSectionTransition": {
+      "type": "integer",
+      "default": 1000,
+      "min": 100,
+      "max": 5000
+    }
+  }
+}
