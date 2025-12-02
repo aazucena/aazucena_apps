@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "easter_egg_completions",
+  "info": {
+    "singularName": "easter-egg-completion",
+    "pluralName": "easter-egg-completions",
+    "displayName": "Easter Egg Completion",
+    "description": "Easter egg challenge completions and leaderboard"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userIdentifier": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "challengeType": {
+      "type": "enumeration",
+      "enum": [
+        "Hidden Keyword",
+        "Secret Page",
+        "Konami Code",
+        "Scroll Pattern",
+        "TimeBased",
+        "Interactive Element",
+        "Other"
+      ],
+      "required": true,
+      "default": "Hidden Keyword"
+    },
+    "keywordFound": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "pageUrl": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "completedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "userIP": {
+      "type": "string",
+      "maxLength": 45
+    },
+    "userAgent": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "timeToComplete": {
+      "type": "integer",
+      "min": 0
+    },
+    "attemptsCount": {
+      "type": "integer",
+      "min": 1,
+      "default": 1
+    },
+    "rewardClaimed": {
+      "type": "boolean",
+      "default": false
+    },
+    "rewardType": {
+      "type": "enumeration",
+      "enum": [
+        "Badge",
+        "Confetti",
+        "Secret Content",
+        "Downloadable",
+        "Certificate",
+        "Leaderboard Entry",
+        "Other"
+      ]
+    },
+    "canRetryAt": {
+      "type": "datetime"
+    },
+    "metadata": {
+      "type": "json"
+    }
+  }
+}

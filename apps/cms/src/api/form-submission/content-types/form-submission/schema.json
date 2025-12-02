@@ -1,0 +1,130 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form_submissions",
+  "info": {
+    "singularName": "form-submission",
+    "pluralName": "form-submissions",
+    "displayName": "Form Submission",
+    "description": "AI-powered form submissions with embeddings"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "formType": {
+      "type": "enumeration",
+      "enum": [
+        "Contact",
+        "Feedback",
+        "Testimonial",
+        "Bug Report",
+        "Feature Request",
+        "Collaboration",
+        "Referral",
+        "Music Feedback"
+      ],
+      "required": true
+    },
+    "rawMessage": {
+      "type": "text",
+      "required": true,
+      "maxLength": 5000
+    },
+    "formData": {
+      "type": "json"
+    },
+    "structuredData": {
+      "type": "json"
+    },
+    "aiIntent": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "aiSummary": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "aiSentiment": {
+      "type": "enumeration",
+      "enum": [
+        "Very Positive",
+        "Positive",
+        "Neutral",
+        "Negative",
+        "Very Negative"
+      ],
+      "default": "Neutral"
+    },
+    "aiTags": {
+      "type": "json"
+    },
+    "easterEggDetected": {
+      "type": "boolean",
+      "default": false
+    },
+    "submittedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "submitterIP": {
+      "type": "string",
+      "maxLength": 45
+    },
+    "submitterEmail": {
+      "type": "email"
+    },
+    "submitterName": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "recaptchaScore": {
+      "type": "decimal",
+      "min": 0,
+      "max": 1
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "New",
+        "In Progress",
+        "Resolved",
+        "Closed",
+        "Spam"
+      ],
+      "default": "New"
+    },
+    "assignedTo": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "internalNotes": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "relatedProject": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "formSubmissions"
+    },
+    "langSmithTraceId": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "messageEmbedding": {
+      "type": "json"
+    },
+    "summaryEmbedding": {
+      "type": "json"
+    },
+    "embeddingModel": {
+      "type": "string",
+      "maxLength": 50,
+      "default": "gemini-textembedding-gecko"
+    },
+    "embeddingGeneratedAt": {
+      "type": "datetime"
+    }
+  }
+}
