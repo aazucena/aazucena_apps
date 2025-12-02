@@ -19,13 +19,19 @@ export function useFlipText({
 }: FlipTextOptions) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const elementRef = useRef<HTMLElement | null>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     if (!elementRef.current) return;
 
     const flipInterval = setInterval(() => {
       if (elementRef.current) {
-        gsap.to(elementRef.current, {
+        // Kill any existing tween before creating a new one
+        if (tweenRef.current) {
+          tweenRef.current.kill();
+        }
+
+        tweenRef.current = gsap.to(elementRef.current, {
           rotateX: 90,
           opacity: 0,
           duration,
@@ -33,7 +39,7 @@ export function useFlipText({
           onComplete: () => {
             setCurrentIndex((prev) => (prev + 1) % words.length);
             if (elementRef.current) {
-              gsap.fromTo(elementRef.current,
+              tweenRef.current = gsap.fromTo(elementRef.current,
                 { rotateX: -90, opacity: 0 },
                 { rotateX: 0, opacity: 1, duration, ease: "power2.out" }
               );
@@ -43,7 +49,12 @@ export function useFlipText({
       }
     }, interval);
 
-    return () => clearInterval(flipInterval);
+    return () => {
+      clearInterval(flipInterval);
+      if (tweenRef.current) {
+        tweenRef.current.kill();
+      }
+    };
   }, [words.length, interval, duration]);
 
   return {
