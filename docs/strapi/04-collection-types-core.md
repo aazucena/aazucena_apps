@@ -8,6 +8,8 @@
 
 These are the foundational Collection Types that other content types depend on. Create these **first** before creating Projects, Experience, Blog Posts, etc.
 
+**Note:** This document covers **2 core collection types** (Skills, Music Genres). Blog-related content types (Post, Blog Configuration) are documented in [Collection Types: Publishing](./06-collection-types-publishing.md).
+
 **Creation Location:** `Content-Type Builder > Create new collection type`
 
 ---
@@ -50,7 +52,7 @@ export default (config, { strapi }) => {
 
 **See:** [GitHub Issue #21472](https://github.com/strapi/strapi/issues/21472)
 
-**Impact:** Affects Music Genres, Blog Series (and all content types with UID fields in docs 05-07)
+**Impact:** Affects Music Genres and other content types with UID fields (see docs 05-07)
 
 ### Enumeration Naming Constraint
 
@@ -89,7 +91,7 @@ export default (config, { strapi }) => {
 | Field Name | Type | Settings |
 |------------|------|----------|
 | `name` | Text (Short text) | **Max length:** 100, **Required:** true, **Unique:** true |
-| `category` | Enumeration | **Values:** `Frontend`, `Backend`, `Database`, `DevOps`, `Design`, `Tools`, `Music Production`, `Other` - **Required:** true |
+| `category` | Enumeration | **Values:** `Frontend`, `Backend`, `Database`, `DevOps`, `Design`, `Tools`, `Music Production`, `Other` - **Required:** false |
 | `proficiency` | Number (Integer) | **Min:** 0, **Max:** 100, **Required:** true, **Default:** 50, **Placeholder:** "0-100 skill level" |
 | `icon` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
 | `description` | Text (Long text) | **Max length:** 500, **Required:** false |
@@ -103,8 +105,11 @@ export default (config, { strapi }) => {
 
 **Note:** Create these relations AFTER creating the related content types.
 
-- `projects` → Many-to-many → Projects (create after Projects collection exists)
-- `parentSkill` → Many-to-one → Skills (self-relation for skill hierarchies)
+- `projects` → Many-to-many → Projects (mapped by `techStack` on Projects side)
+- `experiences` → Many-to-many → Experience (mapped by `skillsUsed` on Experience side)
+
+**Optional Self-Relations (for skill hierarchies):**
+- `parentSkill` → Many-to-one → Skills (for organizing skills in tree structure)
 - `subSkills` → One-to-many → Skills (reverse of parentSkill)
 
 **Click "Save"**
@@ -236,70 +241,14 @@ JavaScript (parent)
 
 ---
 
-## Collection Type 3: Blog Series
+## Implementation Note: Blog Series
 
-**Display Name:** `Blog Series`
-**API ID (Singular):** `blog-series`
-**API ID (Plural):** `blog-series`
+**Note:** The originally planned "Blog Series" collection type was simplified during implementation. Instead of a separate series management system, blog functionality uses:
 
-### Advanced Settings
+- **`blog` (Single Type):** Global blog configuration and settings
+- **`post` (Collection Type):** Individual blog posts and articles
 
-- **Draft & Publish:** ✅ Enabled
-- **Default sort attribute:** `order` (ascending)
-- **Internationalization (i18n):** ✅ Enabled (for future language support)
-
-### Fields
-
-| Field Name | Type | Settings |
-|------------|------|----------|
-| `title` | Text (Short text) | **Max length:** 200, **Required:** true, **Placeholder:** "e.g., Building a Portfolio from Scratch" |
-| `slug` | UID | **Attached field:** `title`, **Required:** true |
-| `description` | Rich Text (Markdown) | **Required:** true, **Placeholder:** "Series overview and what readers will learn" |
-| `coverImage` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
-| `coverImageAlt` | Text (Short text) | **Max length:** 150, **Required:** false |
-| `status` | Enumeration | **Values:** `Planned`, `In Progress`, `Completed`, `On Hold` - **Default:** `In Progress` |
-| `order` | Number (Integer) | **Min:** 0, **Required:** false, **Default:** 0 |
-| `featured` | Boolean | **Default:** false |
-| `seo` | Component (Repeatable) | **Component:** `meta.seo-metadata`, **Required:** false, **Min:** 0, **Max:** 1 |
-
-### Relations
-
-- `posts` → One-to-many → Blog Posts (reverse relation, create after Blog Posts)
-
-**Click "Save"**
-
-### Notes
-
-- Dedicated content type for blog series management (per requirements)
-- Allows organizing multi-part tutorials and article sequences
-- Status field helps readers know if series is complete or ongoing
-- Featured series can be highlighted on blog index page
-
-### Series Status Guide
-
-- **Planned:** Series announced but not yet started
-- **In Progress:** Actively publishing posts in this series
-- **Completed:** All posts published, series is finished
-- **On Hold:** Series paused, may resume later
-
-### Example Data
-
-```json
-{
-  "title": "Building a Portfolio from Scratch",
-  "slug": "building-a-portfolio-from-scratch",
-  "description": "A comprehensive guide to creating a modern portfolio website with Astro, React, and advanced animations. This series covers everything from initial setup to deployment.",
-  "coverImage": "series-portfolio.jpg",
-  "coverImageAlt": "Portfolio building tutorial series cover",
-  "status": "In Progress",
-  "order": 1,
-  "featured": true,
-  "seo": {
-    "metaTitle": "Building a Portfolio from Scratch - Tutorial Series",
-    "metaDescription": "Learn to build a modern portfolio with Astro, React, and animations"
-  }
-}
-```
+For detailed documentation on blog-related content types, see [Collection Types: Publishing](./06-collection-types-publishing.md).
 
 ---
 
@@ -337,34 +286,20 @@ GET http://localhost:1337/api/music-genres/1?populate=compositions
 GET http://localhost:1337/api/music-genres?sort=name:asc
 ```
 
-### Blog Series
-
-```bash
-# Get all series
-GET http://localhost:1337/api/blog-series
-
-# Get featured series
-GET http://localhost:1337/api/blog-series?filters[featured][$eq]=true
-
-# Get single series with posts
-GET http://localhost:1337/api/blog-series/1?populate=posts,seo
-
-# Get series by status
-GET http://localhost:1337/api/blog-series?filters[status][$eq]=Completed
-```
+**Note:** Blog-related API endpoints (posts, blog configuration) are documented in [Collection Types: Publishing](./06-collection-types-publishing.md).
 
 ---
 
 ## Verification Checklist
 
-After creating all 3 core Collection Types:
+After creating the 2 core Collection Types:
 
-- [ ] Skills, Music Genres, Blog Series visible in Content Manager
+- [ ] Skills and Music Genres visible in Content Manager
 - [ ] All fields have correct validation (max length, regex, min/max)
 - [ ] Default values set correctly
 - [ ] i18n enabled for Skills and Music Genres
-- [ ] SEO component linked to Blog Series
-- [ ] API endpoints return 200 OK
+- [ ] API endpoints return 200 OK (`/api/skills` and `/api/music-genres`)
+- [ ] Relations work correctly after creating related content types
 
 ---
 
@@ -426,11 +361,15 @@ With core Collection Types created:
 ## Related Documentation
 
 - **[Collection Types: Content](./05-collection-types-content.md)** - Projects depend on Skills
-- **[Collection Types: Publishing](./06-collection-types-publishing.md)** - Blog Posts depend on Series
+- **[Collection Types: Publishing](./06-collection-types-publishing.md)** - Blog Posts and Blog Configuration
 - **[Best Practices](./13-best-practices.md)** - Content type design patterns
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2025-12-02
+
+**Changelog:**
+- **2025-12-02:** Updated to match actual implementation - removed Blog Series, documented simplified blog structure, fixed Skills category field
+- **2025-01-15:** Initial documentation
 
 **[← Back to Single Types](./03-single-types.md)** | **[Next: Collection Types - Content →](./05-collection-types-content.md)**

@@ -6,7 +6,9 @@
 
 ## Overview
 
-Publishing-focused Collection Types: Blog Posts, Awards, and Compositions (music tracks).
+Publishing-focused Collection Types: Blog Posts (simplified), Awards, and Compositions (music tracks).
+
+**Note:** The blog implementation was simplified from the original design. Blog Series was not implemented as a separate content type. See [Implementation Note](#implementation-note-blog-architecture) below.
 
 ---
 
@@ -16,88 +18,78 @@ Publishing-focused Collection Types: Blog Posts, Awards, and Compositions (music
 
 **Issue:** UID fields (slugs) do not auto-generate correctly in Strapi v5.
 
-**Impact:** Affects Blog Posts `slug` and Compositions `slug` fields
+**Impact:** Affects Posts `slug` and Compositions `slug` fields
 
 **See:** [GitHub Issue #21472](https://github.com/strapi/strapi/issues/21472) | **[Workarounds →](./04-collection-types-core.md#uid-field-auto-generation-bug)**
 
-### JSON Field Serialization Bug
+---
 
-**Issue:** JSON fields may be returned as strings instead of objects in Strapi v5.
+## Implementation Note: Blog Architecture
 
-**Affected Fields:**
-- Blog Posts: `tableOfContents`, `contentEmbedding`
+**Original Design:** The blog was originally designed with a separate "Blog Series" collection type for organizing multi-part tutorials.
 
-**Workaround - Backend:**
-```typescript
-const post = await strapi.entityService.findOne('api::blog-post.blog-post', id);
-const tableOfContents = typeof post.tableOfContents === 'string'
-  ? JSON.parse(post.tableOfContents)
-  : post.tableOfContents;
-```
+**Actual Implementation:** Simplified to a single "Post" collection type. Blog Series was not implemented.
 
-**Workaround - Frontend:**
-```typescript
-const parseJsonField = (field: any) => {
-  if (typeof field === 'string') {
-    try { return JSON.parse(field); }
-    catch { return field; }
-  }
-  return field;
-};
-```
-
-**See:** [GitHub Issue #20114](https://github.com/strapi/strapi/issues/20114) | **[Full workarounds →](./08-pgvector-setup.md#json-field-serialization-bug)**
-
-### Lifecycle Hooks vs Middleware
-
-**Important:** Strapi v5 changed how lifecycle hooks work with Draft & Publish.
-
-For auto-calculations (`readTime`, `tableOfContents`, `contentEmbedding`), use **Document Service Middleware** instead of lifecycle hooks to avoid duplicate processing.
-
-**See:** [pgVector Setup - Middleware Implementation →](./08-pgvector-setup.md#step-3-document-service-middleware-strapi-v5)
+**Rationale:** The simplified architecture is more maintainable and covers the current use case. If series functionality is needed in the future, it can be added via a new relation or category system.
 
 ---
 
-## Collection Type 7: Blog Posts
+## Collection Type 7: Posts (Blog Posts)
 
-**Display Name:** `Blog Post`
-**API ID:** `blog-post` / `blog-posts`
-
-### Fields (abbreviated)
-
-| Field | Type | Key Settings |
-|-------|------|--------------|
-| `title` | Text | Max 200, Required |
-| `slug` | UID | From title, Required |
-| `excerpt` | Text (Long) | Max 300, Required |
-| `content` | Rich Text | Required |
-| `featuredImage` | Media | Required |
-| `series` | Relation | Many-to-one → Blog Series |
-| `seriesOrder` | Number | Part number in series |
-| `relatedPosts` | Relation | Many-to-many → Blog Posts (self) |
-| `tags` | Text | Max 255 |
-| `category` | Enum | Development, Music, Design, Tutorial, Opinion, News |
-| `readTime` | Number | Auto-calculated from content |
-| `tableOfContents` | JSON | Auto-generated from headings |
-| `contentEmbedding` | JSON | 768 dimensions |
-| `seo` | Component | `meta.seo-metadata` |
-
-### Auto-Processing (via Middleware)
-
-⚠️ **Use Middleware, Not Lifecycle Hooks** - See warning section above
-
-**Auto-processing includes:**
-- Auto-calculate `readTime` from content length
-- Auto-generate `tableOfContents` from markdown headings
-- Generate `contentEmbedding` for semantic search
-
-**Implementation:** See [pgVector Setup - Middleware →](./08-pgvector-setup.md#step-3-document-service-middleware-strapi-v5)
+**Display Name:** `Post`
+**API ID (Singular):** `post`
+**API ID (Plural):** `posts`
 
 ### Advanced Settings
 
-- Draft & Publish: ✅ Enabled
-- i18n: ✅ Enabled
-- Cached in Redis (per requirements)
+- **Draft & Publish:** ✅ Enabled
+- **Default sort attribute:** `order` (ascending)
+- **Internationalization (i18n):** ✅ Enabled (for future language support)
+
+### Fields
+
+| Field Name | Type | Settings |
+|------------|------|----------|
+| `title` | Text (Short text) | **Max length:** 200, **Required:** true |
+| `slug` | UID | **Attached field:** `title`, **Required:** true |
+| `description` | Rich Text (Markdown) | **Required:** true |
+| `coverImage` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
+| `coverImageAlt` | Text (Short text) | **Max length:** 150, **Required:** false |
+| `status` | Enumeration | **Values:** `Planned`, `In Progress`, `Completed`, `On Hold` - **Default:** none |
+| `order` | Number (Integer) | **Min:** 0, **Required:** false, **Default:** 0 |
+| `featured` | Boolean | **Default:** false |
+
+**Click "Save"**
+
+### Notes
+
+- Simplified blog post structure without series or advanced features
+- Status field helps track article completion state
+- Featured flag for highlighting important posts
+- i18n enabled for future multilingual content
+- Rich text editor supports markdown formatting
+
+### Status Usage Guide
+
+- **Planned:** Article idea/outline created, not yet written
+- **In Progress:** Currently writing/editing the post
+- **Completed:** Article finished and ready for publication
+- **On Hold:** Article paused, may resume later
+
+### Example Data
+
+```json
+{
+  "title": "Building a Modern Portfolio with Astro",
+  "slug": "building-modern-portfolio-astro",
+  "description": "Learn how to create a stunning portfolio website using Astro, React, and modern web technologies...",
+  "coverImage": "portfolio-tutorial.jpg",
+  "coverImageAlt": "Modern portfolio website screenshot",
+  "status": "Completed",
+  "order": 1,
+  "featured": true
+}
+```
 
 ---
 
@@ -114,7 +106,7 @@ For auto-calculations (`readTime`, `tableOfContents`, `contentEmbedding`), use *
 | `organization` | Text | Max 150, Required |
 | `issuer` | Text | Max 150 |
 | `credentialId` | Text | Max 100 |
-| `year` | Number | Min 1900, Max 2100, Required |
+| `year` | Text | Max 4, Regex: `^(19|20)\d{2}`, Required |
 | `description` | Rich Text | |
 | `category` | Enum | Academic, Professional, Community, Music, Design, Certification, Competition, Other |
 | `verificationUrl` | Text | Max 255, Regex: `^https?://.*` |
@@ -177,21 +169,55 @@ For auto-calculations (`readTime`, `tableOfContents`, `contentEmbedding`), use *
 
 ## API Endpoints
 
+### Posts (Blog Posts)
+
 ```bash
-# Blog Posts
-GET /api/blog-posts
-GET /api/blog-posts?populate=series,relatedPosts,seo
-GET /api/blog-posts?filters[series][slug][$eq]=portfolio-series
+# Get all posts
+GET http://localhost:1337/api/posts
 
-# Awards
-GET /api/awards
-GET /api/awards?filters[category][$eq]=Professional
-GET /api/awards/1?populate=relatedProject,relatedSkill
+# Get featured posts only
+GET http://localhost:1337/api/posts?filters[featured][$eq]=true
 
-# Compositions
-GET /api/compositions
-GET /api/compositions?populate=genres,audioMetadata
-GET /api/compositions?filters[genres][slug][$eq]=electronic
+# Get posts by status
+GET http://localhost:1337/api/posts?filters[status][$eq]=Completed
+
+# Get single post with cover image
+GET http://localhost:1337/api/posts/1?populate=coverImage
+
+# Get posts sorted by order
+GET http://localhost:1337/api/posts?sort=order:asc
+```
+
+### Awards
+
+```bash
+# Get all awards
+GET http://localhost:1337/api/awards
+
+# Get awards by category
+GET http://localhost:1337/api/awards?filters[category][$eq]=Professional
+
+# Get single award with relations
+GET http://localhost:1337/api/awards/1?populate=relatedProject,relatedSkill
+
+# Get featured awards
+GET http://localhost:1337/api/awards?filters[featured][$eq]=true
+```
+
+### Compositions
+
+```bash
+# Get all compositions
+GET http://localhost:1337/api/compositions
+
+# Get compositions with metadata
+GET http://localhost:1337/api/compositions?populate=genres,audioMetadata
+
+# Get compositions by genre
+GET http://localhost:1337/api/compositions?filters[genres][slug][$eq]=electronic
+
+# Get featured compositions
+GET http://localhost:1337/api/compositions?filters[featured][$eq]=true
 ```
 
 ---
@@ -202,6 +228,10 @@ GET /api/compositions?filters[genres][slug][$eq]=electronic
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2025-12-02
+
+**Changelog:**
+- **2025-12-02:** Updated Posts schema to match actual implementation - removed blog-post references, removed advanced features (series, embeddings, auto-processing), documented actual simplified Post structure
+- **2025-01-15:** Initial documentation
 
 **[← Content Types](./05-collection-types-content.md)** | **[Next: AI Forms →](./07-collection-types-ai.md)**

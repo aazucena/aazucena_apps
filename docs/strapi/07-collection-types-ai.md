@@ -16,7 +16,8 @@ These content types are **essential** for the AI-powered forms system and Easter
 
 **Issue:** JSON fields are returned as strings instead of objects in Strapi v5.
 
-**Affected Fields (Multiple per Submission):**
+**Affected Fields (5 JSON fields per Submission):**
+- `formData` - Raw form submission with HTML name attributes
 - `structuredData` - AI-extracted fields
 - `aiTags` - AI-generated tags
 - `messageEmbedding` - 768-dimensional vector (critical for semantic search)
@@ -29,6 +30,7 @@ const submission = await strapi.entityService.findOne('api::form-submission.form
 // Parse all JSON fields
 const parseJson = (field: any) => typeof field === 'string' ? JSON.parse(field) : field;
 
+const formData = parseJson(submission.formData);
 const structuredData = parseJson(submission.structuredData);
 const aiTags = parseJson(submission.aiTags);
 const messageEmbedding = parseJson(submission.messageEmbedding);
@@ -39,6 +41,7 @@ const summaryEmbedding = parseJson(submission.summaryEmbedding);
 ```typescript
 const parseJsonFields = (submission: any) => ({
   ...submission,
+  formData: parseJson(submission.formData),
   structuredData: parseJson(submission.structuredData),
   aiTags: parseJson(submission.aiTags),
   messageEmbedding: parseJson(submission.messageEmbedding),
@@ -67,18 +70,20 @@ Traditional lifecycle hooks will cause duplicate processing with Draft & Publish
 
 - **Draft & Publish:** ❌ Disabled (submissions are final)
 - **Default sort:** `submittedAt` (descending)
+- **Internationalization (i18n):** ❌ Disabled (submissions are captured in user's language, not localized content)
 
 ### Fields (Complete List)
 
 | Field Name | Type | Settings |
 |------------|------|----------|
 | `formType` | Enumeration | Contact, Feedback, Testimonial, Bug Report, Feature Request, Collaboration, Referral, Music Feedback - Required |
-| `rawMessage` | Text (Long) | Max 5000, Required |
-| `structuredData` | JSON | AI-extracted fields |
+| `rawMessage` | Text (Long) | Max 5000, Required - Combined/concatenated message text |
+| `formData` | JSON | Raw form submission preserving HTML `name` attributes. Example: `{ "email": "user@example.com", "subject": "Bug report", "company": "Acme Corp", "message": "Description...", "priority": "high" }` - Dynamic structure based on form fields |
+| `structuredData` | JSON | AI-extracted and normalized fields from `formData`. Structure: `{ name?: string, email?: string, company?: string, projectName?: string, budget?: string, timeline?: string, description?: string }` - Flexible schema based on formType |
 | `aiIntent` | Text | Max 100, AI-classified intent |
-| `aiSummary` | Text (Long) | Max 500, AI summary (50-150 words) |
-| `aiSentiment` | Enumeration | Very Positive, Positive, Neutral, Negative, Very Negative |
-| `aiTags` | JSON | AI-generated tags |
+| `aiSummary` | Text (Long) | Max 1000, AI summary (50-150 words, ~750 chars) |
+| `aiSentiment` | Enumeration | Very Positive, Positive, Neutral, Negative, Very Negative - Default: Neutral |
+| `aiTags` | JSON | AI-generated tags. Array of strings. Example: `["urgent", "bug-report", "frontend", "needs-follow-up"]` |
 | `easterEggDetected` | Boolean | Default: false |
 | `submittedAt` | DateTime | Required |
 | `submitterIP` | Text | Max 45, IPv4/IPv6 |
@@ -88,12 +93,12 @@ Traditional lifecycle hooks will cause duplicate processing with Draft & Publish
 | `status` | Enumeration | New, In Progress, Resolved, Closed, Spam - Default: New |
 | `assignedTo` | Text | Max 100 |
 | `internalNotes` | Text (Long) | Max 2000 |
-| `relatedProject` | Relation | Many-to-one → Projects |
-| `langSmithTraceId` | Text | Max 100, LangSmith trace ID |
-| `messageEmbedding` | JSON | 768 dimensions (original message) |
-| `summaryEmbedding` | JSON | 768 dimensions (AI summary) |
-| `embeddingModel` | Text | Max 50, Default: "gemini-textembedding-gecko" |
-| `embeddingGeneratedAt` | DateTime | |
+| `relatedProject` | Relation | Many-to-one → Projects (inversedBy: `formSubmissions`), Optional |
+| `langSmithTraceId` | Text | Max 100, LangSmith trace ID for debugging |
+| `messageEmbedding` | JSON | 768-dimensional vector array. Example: `[0.123, -0.456, 0.789, ...]` (768 float values from Gemini textembedding-gecko) |
+| `summaryEmbedding` | JSON | 768-dimensional vector array. Example: `[0.234, -0.567, 0.890, ...]` (768 float values from Gemini textembedding-gecko) |
+| `embeddingModel` | Text | Max 50, Default: "gemini-textembedding-gecko" (supports: openai-text-embedding-3-small, cohere-embed-english-v3, voyage-2) |
+| `embeddingGeneratedAt` | DateTime | Timestamp when embeddings were generated |
 
 ### Critical Features
 
@@ -104,7 +109,8 @@ Traditional lifecycle hooks will cause duplicate processing with Draft & Publish
 
 **AI Pipeline:**
 - LangGraph state machine processes submissions
-- AI extracts structured data from `rawMessage`
+- Receives `formData` (raw HTML form fields) and `rawMessage`
+- AI extracts and normalizes into `structuredData`
 - Generates `aiIntent`, `aiSummary`, `aiSentiment`, `aiTags`
 - LangSmith tracking via `langSmithTraceId`
 
@@ -131,6 +137,17 @@ Combined filters example:
 
 ### Notes
 
+**Data Flow:**
+1. **`formData`** (raw) → Original HTML form submission with field names preserved
+2. **`rawMessage`** (text) → Combined/concatenated message text for display
+3. **`structuredData`** (normalized) → AI-extracted fields in consistent schema
+
+**Benefits:**
+- `formData`: Traceable (know which HTML field), flexible (any form structure)
+- `structuredData`: Queryable (normalized schema), analyzable (consistent format)
+- Both JSON fields support different form types without schema changes
+
+**Additional:**
 - All submissions retained forever (per requirements)
 - Rate limiting: 100 req/min per IP
 - See [AI-Powered Forms Documentation](/docs/features/ai-forms.md) for full implementation
@@ -146,13 +163,14 @@ Combined filters example:
 
 - **Draft & Publish:** ❌ Disabled (completions are final)
 - **Default sort:** `completedAt` (descending)
+- **Internationalization (i18n):** ❌ Disabled (completion events are not localized content)
 
 ### Fields
 
 | Field Name | Type | Settings |
 |------------|------|----------|
 | `userIdentifier` | Text | Max 100, Required (Session ID, email, username) |
-| `challengeType` | Enumeration | Hidden Keyword, Secret Page, Konami Code, Scroll Pattern, Time-Based, Interactive Element, Other - Required, Default: Hidden Keyword |
+| `challengeType` | Enumeration | Hidden Keyword, Secret Page, Konami Code, Scroll Pattern, TimeBased, Interactive Element, Other - Required, Default: Hidden Keyword |
 | `keywordFound` | Text | Max 100, Keyword that triggered Easter Egg |
 | `pageUrl` | Text | Max 500, Page where found |
 | `completedAt` | DateTime | Required |
