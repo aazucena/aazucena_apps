@@ -266,33 +266,44 @@ volumes:
 > - Form retention forever (no deletion)
 > - Projects featured by default
 
-**Content Types to Create:** 14 total (3 Single Types + 11 Collection Types)
+**Content Types to Create:** 20 total (10 Single Types + 10 Collection Types)
 
-**Reusable Components (6 total):**
-- SEO Metadata (`meta.seo-metadata`)
-- Social Links (`links.social-links`)
+**Reusable Components (9 total):**
+- SEO Metadata (`shared.seo`)
+- Open Graph (`shared.open-graph`)
+- Social Links (`shared.social-links`)
 - Audio Metadata (`media.audio-metadata`)
-- CTA Button (`ui.cta-button`) ⭐ NEW
-- Stats (`content.stat`) ⭐ NEW
-- Achievement (`content.achievement`) ⭐ NEW
+- CTA Button (`ui.cta-button`)
+- Image Element (`ui.image-element`)
+- Stats (`content.stats`)
+- Achievement (`content.achievement`)
+- Education (`content.education`)
 
-**Single Types (3):**
-1. **Hero** ⭐ NEW - CMS-editable hero section with CTAs, background media, animation variants
+**Single Types (10):**
+1. **Hero Banner** - CMS-editable hero section with CTAs, background media, animation variants
 2. **About** - Name, bio, profile image, social links, stats, achievements, pgVector embeddings
-3. **Settings** - Site configuration, SEO defaults, feature flags, Easter Egg settings
+3. **Settings** (Website Configuration) - Site configuration, SEO defaults, feature flags, Easter Egg settings
+4. **Homepage** - Homepage-specific configuration
+5. **Portfolio** - Portfolio page configuration
+6. **Blog** - Blog configuration and settings
+7. **Theme** - Theme and styling configuration
+8. **Analytics** - Analytics configuration
+9. **Animation** - Animation settings
+10. **Maintenance** - Maintenance mode configuration
 
-**Collection Types (11):**
+**Collection Types (10):**
 1. **Skills** - Name, category, proficiency, icon, self-relations for hierarchies
-2. **Music Genres** ⭐ NEW - Genre taxonomy for compositions with color/icon
-3. **Blog Series** ⭐ NEW - Multi-part tutorial/article series management
+2. **Music Genres** - Genre taxonomy for compositions with color/icon
+3. **Posts** - Blog articles (simplified architecture, no separate series)
 4. **Projects** - Title, description, tech stack (Skills relation), pgVector embeddings, metrics
 5. **Experience** - Work history with Skills/Projects relations, achievements component
 6. **Testimonials** - Client reviews with approval workflow, email notifications, pgVector embeddings
-7. **Blog Posts** - Articles with series relation, auto-generated TOC, pgVector embeddings
-8. **Awards** - Certifications with Projects/Skills relations
-9. **Compositions** - Music tracks with genre-based organization (Music Genres relation)
-10. **Form Submissions** ⭐ NEW - **CRITICAL for AI-powered forms** - Stores raw user input + AI-processed data with pgVector embeddings for semantic search, LangSmith integration, reCAPTCHA scoring
-11. **Easter Egg Completions** ⭐ NEW - Global challenge tracking with leaderboard support
+7. **Awards** - Certifications with Projects/Skills relations
+8. **Compositions** - Music tracks with genre-based organization (Music Genres relation)
+9. **Form Submissions** - **CRITICAL for AI-powered forms** - Stores raw user input + AI-processed data with pgVector embeddings for semantic search, LangSmith integration, reCAPTCHA scoring
+10. **Easter Egg Completions** - Global challenge tracking with leaderboard support
+
+**Note:** The blog architecture was simplified from the original design. Instead of a separate "Blog Series" collection type, there is a single `post` collection type and a `blog` single type for configuration. See [Collection Types: Publishing](../docs/strapi/06-collection-types-publishing.md) for details.
 
 **Enhanced Features (Production-Ready):**
 - ✅ **pgVector Integration** - 768-dimensional embeddings from Gemini (textembedding-gecko)
@@ -312,9 +323,9 @@ volumes:
 - **Phase E:** Data Migration & Production (1-2 days) - Migration scripts, deployment
 
 **Key User Requirements Implemented:**
-- ✅ Hero section is CMS-editable (Single Type)
+- ✅ Hero section is CMS-editable (Single Type: Hero Banner)
 - ✅ Music organized by genres (Music Genres collection)
-- ✅ Blog series for multi-part tutorials (Blog Series collection)
+- ✅ Blog articles with simplified architecture (Posts collection + Blog single type)
 - ✅ Testimonial email notifications with rejection reasons
 - ✅ Projects featured by default on projects page
 - ✅ All form submissions retained forever
