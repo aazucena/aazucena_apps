@@ -263,7 +263,7 @@ export interface UiCtaButton extends Struct.ComponentSchema {
       Schema.Attribute.CustomField<
         'plugin::icons-field.icon',
         {
-          selection: [''];
+          selection: [];
         }
       >;
     label: Schema.Attribute.String &

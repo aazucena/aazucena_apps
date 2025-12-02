@@ -641,6 +641,139 @@ export interface ApiAnimationAnimation extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAwardAward extends Struct.CollectionTypeSchema {
+  collectionName: 'awards';
+  info: {
+    description: 'Awards, certifications, and recognitions';
+    displayName: 'Award';
+    pluralName: 'awards';
+    singularName: 'award';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    badge: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    category: Schema.Attribute.Enumeration<
+      [
+        'Academic',
+        'Professional',
+        'Community',
+        'Music',
+        'Design',
+        'Certification',
+        'Competition',
+        'Other',
+      ]
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    certificate: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    credentialId: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    featured: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
+    issuer: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::award.award'>;
+    organization: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    relatedProject: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::project.project'
+    >;
+    relatedSkill: Schema.Attribute.Relation<'manyToOne', 'api::skill.skill'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    verificationUrl: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    year: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 4;
+      }>;
+  };
+}
+
 export interface ApiBlogBlog extends Struct.SingleTypeSchema {
   collectionName: 'blogs';
   info: {
@@ -715,6 +848,274 @@ export interface ApiBlogBlog extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiCompositionComposition extends Struct.CollectionTypeSchema {
+  collectionName: 'compositions';
+  info: {
+    description: 'Music compositions and tracks';
+    displayName: 'Composition';
+    pluralName: 'compositions';
+    singularName: 'composition';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    audioFile: Schema.Attribute.Media<'audios'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    audioMetadata: Schema.Attribute.Component<'media.audio-metadata', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    collaborators: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    coverArt: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    downloadCount: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    featured: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
+    genres: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::music-genre.music-genre'
+    >;
+    hasLyrics: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
+    isFreeDownload: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::composition.composition'
+    >;
+    lyrics: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    playCount: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    releaseDate: Schema.Attribute.Date &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    soundcloudUrl: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    spotifyUrl: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    youtubeUrl: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+  };
+}
+
+export interface ApiEasterEggCompletionEasterEggCompletion
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'easter_egg_completions';
+  info: {
+    description: 'Easter egg challenge completions and leaderboard';
+    displayName: 'Easter Egg Completion';
+    pluralName: 'easter-egg-completions';
+    singularName: 'easter-egg-completion';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    attemptsCount: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    canRetryAt: Schema.Attribute.DateTime;
+    challengeType: Schema.Attribute.Enumeration<
+      [
+        'Hidden Keyword',
+        'Secret Page',
+        'Konami Code',
+        'Scroll Pattern',
+        'TimeBased',
+        'Interactive Element',
+        'Other',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Hidden Keyword'>;
+    completedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    keywordFound: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::easter-egg-completion.easter-egg-completion'
+    > &
+      Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON;
+    pageUrl: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    rewardClaimed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    rewardType: Schema.Attribute.Enumeration<
+      [
+        'Badge',
+        'Confetti',
+        'Secret Content',
+        'Downloadable',
+        'Certificate',
+        'Leaderboard Entry',
+        'Other',
+      ]
+    >;
+    timeToComplete: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userAgent: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    userIdentifier: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    userIP: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 45;
+      }>;
+  };
+}
+
 export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
   collectionName: 'experiences';
   info: {
@@ -755,50 +1156,21 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
-    companyIndustry: Schema.Attribute.Enumeration<
-      [
-        'Technology',
-        'Finance',
-        'Healthcare',
-        'Education',
-        'Entertainment',
-        'Retail',
-        'Manufacturing',
-        'Government',
-        'Non-Profit',
-        'Startup',
-        'Other',
-      ]
-    > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
-    companyLogo: Schema.Attribute.Media<'images'> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
-    companyLogoAlt: Schema.Attribute.String &
+    companyLogo: Schema.Attribute.Component<'ui.image-element', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 150;
       }>;
     companySize: Schema.Attribute.Enumeration<
       [
-        'Employees 1-10',
-        'Employees 11-50',
-        'Employees 51-200',
-        'Employees 201-500',
-        'Employees 501-1000',
-        'Employees 1001-5000',
-        'Employees 5000+',
+        'Just getting started (1-10)',
+        'A small but mighty team (11-50)',
+        'A growing company (51-200)',
+        'A mid-size organization (201-500)',
+        'A large organization (501-1,000)',
+        'A big enterprise (1,001-5,000)',
+        'A global-scale enterprise (5,000+)',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -826,7 +1198,7 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
         };
       }>;
     employmentType: Schema.Attribute.Enumeration<
-      ['Full-time', 'Part-time', 'Contract', 'Freelance', 'Internship']
+      ['Full-time', 'Part-time', 'Contract', 'Freelance', 'Internship', 'Co-op']
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -843,6 +1215,26 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
+        };
+      }>;
+    industry: Schema.Attribute.Enumeration<
+      [
+        'Technology',
+        'Finance',
+        'Healthcare',
+        'Education',
+        'Entertainment',
+        'Retail',
+        'Manufacturing',
+        'Government',
+        'Non-Profit',
+        'Startup',
+        'Other',
+      ]
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
         };
       }>;
     isCurrent: Schema.Attribute.Boolean &
@@ -866,19 +1258,6 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
-    order: Schema.Attribute.Integer &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
     position: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -895,6 +1274,19 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
     >;
     publishedAt: Schema.Attribute.DateTime;
     skillsUsed: Schema.Attribute.Relation<'manyToMany', 'api::skill.skill'>;
+    sort: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     startDate: Schema.Attribute.Date &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -902,6 +1294,116 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
           localized: false;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFormSubmissionFormSubmission
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'form_submissions';
+  info: {
+    description: 'AI-powered form submissions with embeddings';
+    displayName: 'Form Submission';
+    pluralName: 'form-submissions';
+    singularName: 'form-submission';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    aiIntent: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    aiSentiment: Schema.Attribute.Enumeration<
+      ['Very Positive', 'Positive', 'Neutral', 'Negative', 'Very Negative']
+    > &
+      Schema.Attribute.DefaultTo<'Neutral'>;
+    aiSummary: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    aiTags: Schema.Attribute.JSON;
+    assignedTo: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    easterEggDetected: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    embeddingGeneratedAt: Schema.Attribute.DateTime;
+    embeddingModel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }> &
+      Schema.Attribute.DefaultTo<'gemini-textembedding-gecko'>;
+    formData: Schema.Attribute.JSON;
+    formType: Schema.Attribute.Enumeration<
+      [
+        'Contact',
+        'Feedback',
+        'Testimonial',
+        'Bug Report',
+        'Feature Request',
+        'Collaboration',
+        'Referral',
+        'Music Feedback',
+      ]
+    > &
+      Schema.Attribute.Required;
+    internalNotes: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+    langSmithTraceId: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::form-submission.form-submission'
+    > &
+      Schema.Attribute.Private;
+    messageEmbedding: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    rawMessage: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 5000;
+      }>;
+    recaptchaScore: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      >;
+    relatedProject: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::project.project'
+    >;
+    status: Schema.Attribute.Enumeration<
+      ['New', 'In Progress', 'Resolved', 'Closed', 'Spam']
+    > &
+      Schema.Attribute.DefaultTo<'New'>;
+    structuredData: Schema.Attribute.JSON;
+    submittedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    submitterEmail: Schema.Attribute.Email;
+    submitterIP: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 45;
+      }>;
+    submitterName: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    summaryEmbedding: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1129,14 +1631,11 @@ export interface ApiMusicGenreMusicGenre extends Struct.CollectionTypeSchema {
   };
   attributes: {
     color: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 7;
-      }>;
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    compositions: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::composition.composition'
+    >;
     coverImage: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1363,20 +1862,11 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    coverImage: Schema.Attribute.Media<'images'> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
-    coverImageAlt: Schema.Attribute.String &
+    coverImage: Schema.Attribute.Component<'ui.image-element', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 150;
       }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1397,7 +1887,15 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
-    order: Schema.Attribute.Integer &
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    sort: Schema.Attribute.Integer &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1410,14 +1908,6 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<0>;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'> &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     status: Schema.Attribute.Enumeration<
       ['Planned', 'In Progress', 'Completed', 'On Hold']
     > &
@@ -1459,21 +1949,12 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    coverImage: Schema.Attribute.Media<'images'> &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
-    coverImageAlt: Schema.Attribute.String &
+    awards: Schema.Attribute.Relation<'oneToMany', 'api::award.award'>;
+    coverImage: Schema.Attribute.Component<'ui.image-element', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 150;
       }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1510,20 +1991,15 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<true>;
+    formSubmissions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::form-submission.form-submission'
+    >;
     gallery: Schema.Attribute.Media<'images', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
         };
-      }>;
-    githubUrl: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
       }>;
     isFeaturedOnHome: Schema.Attribute.Boolean &
       Schema.Attribute.SetPluginOptions<{
@@ -1600,10 +2076,10 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
-    screenshots: Schema.Attribute.Media<'images', true> &
+    screenshots: Schema.Attribute.Component<'ui.image-element', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: false;
+          localized: true;
         };
       }>;
     seo: Schema.Attribute.Component<'shared.seo', false> &
@@ -1703,6 +2179,7 @@ export interface ApiSkillSkill extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    awards: Schema.Attribute.Relation<'oneToMany', 'api::award.award'>;
     category: Schema.Attribute.Enumeration<
       [
         'Frontend',
@@ -1736,12 +2213,13 @@ export interface ApiSkillSkill extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::experience.experience'
     >;
-    icon: Schema.Attribute.Media<'images'> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::icons-field.icon',
+        {
+          selection: [];
+        }
+      >;
     isCore: Schema.Attribute.Boolean &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1769,19 +2247,7 @@ export interface ApiSkillSkill extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
-    order: Schema.Attribute.Integer &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
+    parentSkill: Schema.Attribute.Relation<'manyToOne', 'api::skill.skill'>;
     proficiency: Schema.Attribute.Integer &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1798,6 +2264,20 @@ export interface ApiSkillSkill extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<50>;
     projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
+    sort: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    subSkills: Schema.Attribute.Relation<'oneToMany', 'api::skill.skill'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1914,10 +2394,10 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
-    avatar: Schema.Attribute.Media<'images'> &
+    avatar: Schema.Attribute.Component<'ui.image-element', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: false;
+          localized: true;
         };
       }>;
     company: Schema.Attribute.String &
@@ -2854,8 +3334,12 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::analytic.analytic': ApiAnalyticAnalytic;
       'api::animation.animation': ApiAnimationAnimation;
+      'api::award.award': ApiAwardAward;
       'api::blog.blog': ApiBlogBlog;
+      'api::composition.composition': ApiCompositionComposition;
+      'api::easter-egg-completion.easter-egg-completion': ApiEasterEggCompletionEasterEggCompletion;
       'api::experience.experience': ApiExperienceExperience;
+      'api::form-submission.form-submission': ApiFormSubmissionFormSubmission;
       'api::hero.hero': ApiHeroHero;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::maintenance.maintenance': ApiMaintenanceMaintenance;
