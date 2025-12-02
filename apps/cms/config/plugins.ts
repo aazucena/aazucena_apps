@@ -1,10 +1,122 @@
 export default ({ env }) => ({
+  // ========================================
+  // Custom Field Plugins
+  // ========================================
   'icons-field': {
     enabled: true,
     config: {
       publicPath: 'icons'
     },
   },
+  'color-picker': {
+    enabled: true,
+  },
+  'multi-select': {
+    enabled: true,
+  },
+
+  // ========================================
+  // API & Documentation Plugins
+  // ========================================
+  'documentation': {
+    enabled: true,
+    config: {
+      restrictedAccess: false, // Set to true in production with auth
+    },
+  },
+  'graphql': {
+    enabled: true,
+    config: {
+      endpoint: '/graphql',
+      shadowCRUD: true,
+      playgroundAlways: false, // Set to false in production
+      depthLimit: 10,
+      amountLimit: 100,
+      apolloServer: {
+        tracing: false,
+      },
+    },
+  },
+
+  // ========================================
+  // SEO & Metadata Plugins
+  // ========================================
+  'seo': {
+    enabled: true,
+  },
+
+  // ========================================
+  // Workflow & Publishing Plugins
+  // ========================================
+  'config-sync': {
+    enabled: true,
+    config: {
+      excludedConfig: [
+        'core-store.plugin_users-permissions_grant',
+        'core-store.plugin_upload_metrics',
+        'core-store.strapi_content_types_schema',
+        'core-store.ee_information',
+      ],
+    },
+  },
+  'duplicate-button': {
+    enabled: true,
+  },
+  'navigation': {
+    enabled: true,
+  },
+  'preview-button': {
+    enabled: true,
+    config: {
+      contentTypes: [
+        {
+          uid: 'api::page.page',
+          draft: {
+            url: env('FRONTEND_URL', 'http://localhost:4321') + '/preview',
+            query: {
+              type: 'page',
+              slug: '{slug}',
+            },
+          },
+          published: {
+            url: env('FRONTEND_URL', 'http://localhost:4321') + '/{slug}',
+          },
+        },
+      ],
+    },
+  },
+  'publisher': {
+    enabled: true,
+  },
+
+  // ========================================
+  // Utility Plugins
+  // ========================================
+  'strapi-advanced-uuid': {
+    enabled: true,
+  },
+
+  // ========================================
+  // Monitoring & Error Tracking
+  // ========================================
+  'sentry': {
+    enabled: true,
+    config: {
+      dsn: env('SENTRY_DSN'),
+      sendMetadata: true,
+    },
+  },
+
+  // ========================================
+  // Cloud & Deployment
+  // ========================================
+  'cloud': {
+    enabled: false, // Enable only if using Strapi Cloud
+  },
+
+  // ========================================
+  // Caching & Performance
+  // ========================================
   redis: {
     config: {
       settings: {
