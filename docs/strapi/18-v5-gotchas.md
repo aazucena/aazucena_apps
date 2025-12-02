@@ -237,8 +237,7 @@ const parsed = submissions.map(parseFormSubmission);
 
 **Affected Content Types:**
 - Music Genres (`slug` from `name`)
-- Blog Series (`slug` from `title`)
-- Blog Posts (`slug` from `title`)
+- Posts (`slug` from `title`)
 - Projects (`slug` from `title`)
 - Compositions (`slug` from `title`)
 
