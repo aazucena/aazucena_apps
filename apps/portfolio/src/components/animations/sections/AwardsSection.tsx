@@ -85,7 +85,7 @@ export function AwardsSection(): JSX.Element {
 }
 
 interface HexagonCardProps {
-  award: any;
+  award: Award;
   dashed?: boolean;
   onClick: () => void;
 }
