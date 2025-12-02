@@ -1,6 +1,9 @@
+# Use lightweight Alpine Node.js image.
 FROM node:22-alpine
 
-# Install dependencies required for sharp and other native modules
+
+
+# Install build tools and libraries for native Node.js module compilation (e.g., sharp).
 RUN apk update && apk add --no-cache \
     build-base \
     gcc \
@@ -11,31 +14,48 @@ RUN apk update && apk add --no-cache \
     vips-dev \
     git
 
-WORKDIR /srv/app
+# Declare build-time argument for Node.js environment.
+ARG NODE_ENV=development
+# Set Node.js environment variable for app configuration.
+ENV NODE_ENV=${NODE_ENV}
 
-# Copy CMS package files directly to WORKDIR
+# Increase Node.js memory limit for memory-intensive tasks.
+ENV NODE_OPTIONS=--max_old_space_size=4096
+
+# Set initial working directory.
+WORKDIR /srv
+
+# Copy essential package files and scripts to leverage Docker cache for dependencies.
 COPY apps/cms/pnpm-lock.yaml ./
 COPY apps/cms/package.json ./
 COPY apps/cms/plugins.sh ./
 COPY apps/cms/icons.sh ./
 
-# Install pnpm globally
-RUN npm install -g pnpm
+# Install pnpm globally and node-gyp for native module compilation.
+RUN npm install -g pnpm node-gyp
 
-# Install dependencies (standalone, with lockfile for deterministic builds)
-RUN pnpm install --frozen-lockfile
+# Configure pnpm and install dependencies deterministically with frozen-lockfile.
+RUN pnpm config --global set fetch-retry-maxtimeout 600000 && pnpm install --frozen-lockfile
 
-# Update pnpm lockfile to the lastest version
+# Update pnpm executable to latest version.
 RUN pnpm self-update
 
-# Copy CMS application files
+# Set application working directory.
+WORKDIR /srv/app
+
+# Copy application files after dependencies for build caching.
 COPY apps/cms ./
 
-# Set environment
-ENV NODE_ENV=development
+# Set ownership to non-root 'node' user for security.
+RUN chown -R node:node /srv/app
+# Switch to non-root user for enhanced security.
+USER node
 
-# Expose Strapi port
+# Build Strapi admin panel in production mode for optimization.
+RUN NODE_ENV=production pnpm build
+
+# Expose Strapi default port.
 EXPOSE 1337
 
-# Start Strapi in development mode
+# Start Strapi in development mode.
 CMD ["pnpm", "develop"]
