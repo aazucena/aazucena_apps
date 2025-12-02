@@ -15,9 +15,9 @@ This directory contains comprehensive, modular documentation for setting up Stra
 
 ### Content Type Configuration
 
-3. **[Reusable Components](./02-components.md)** - All 6 reusable components (SEO, Social Links, Audio, CTA, Stats, Achievement)
+3. **[Reusable Components](./02-components.md)** - All 9 reusable components (SEO, Open Graph, Social Links, Audio, CTA, Image, Stats, Achievement, Education)
 4. **[Single Types](./03-single-types.md)** - Hero, About, Settings configuration
-5. **[Collection Types: Core](./04-collection-types-core.md)** - Skills, Music Genres, Blog Series
+5. **[Collection Types: Core](./04-collection-types-core.md)** - Skills, Music Genres
 6. **[Collection Types: Content](./05-collection-types-content.md)** - Projects, Experience, Testimonials
 7. **[Collection Types: Publishing](./06-collection-types-publishing.md)** - Blog Posts, Awards, Compositions
 8. **[Collection Types: AI Forms](./07-collection-types-ai.md)** - Form Submissions, Easter Egg Completions (CRITICAL)
@@ -110,8 +110,7 @@ This directory contains comprehensive, modular documentation for setting up Stra
 
 **Core:**
 - `Skills` - Technical skills with proficiency levels
-- `Music Genres` - Genre taxonomy for compositions (NEW)
-- `Blog Series` - Multi-part article series (NEW)
+- `Music Genres` - Genre taxonomy for compositions
 
 **Content:**
 - `Projects` - Portfolio projects with embeddings
@@ -119,7 +118,7 @@ This directory contains comprehensive, modular documentation for setting up Stra
 - `Testimonials` - Client reviews with AI analysis
 
 **Publishing:**
-- `Blog Posts` - Blog articles with series support
+- `Posts` - Blog articles (simplified architecture, no separate series)
 - `Awards` - Certifications and achievements
 - `Compositions` - Music tracks with genre relations
 

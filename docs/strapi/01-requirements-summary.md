@@ -25,10 +25,11 @@ Based on confirmed project requirements:
 - **Features:** Genre taxonomy, cover images, color coding
 - **No Playlists:** Genre filtering only (per requirements)
 
-### ✅ Blog Series
-- **Type:** Dedicated Collection Type
-- **Rationale:** Organize multi-part tutorials
-- **Features:** Series status, ordering, cover images
+### ✅ Blog Architecture
+- **Type:** Simplified - Single `post` collection type + `blog` single type for configuration
+- **Rationale:** Simplified architecture is more maintainable for current use case
+- **Features:** Post status, ordering, cover images
+- **Note:** Blog Series was considered but not implemented. Series functionality can be added later if needed via categories or relations.
 
 ### ✅ Testimonials
 - **Type:** Collection Type with approval workflow
@@ -291,26 +292,28 @@ Based on requirements, we need:
 2. **About** - About page with bio embedding (pending)
 3. **Settings** - Global settings + Easter Egg config (pending)
 
-### Collection Types (11)
+### Collection Types (10)
 1. **Skills** - Technical skills (cached)
-2. **Music Genres** - Genre taxonomy (NEW)
-3. **Blog Series** - Multi-part tutorials (NEW)
+2. **Music Genres** - Genre taxonomy
+3. **Posts** - Blog articles (cached, simplified architecture)
 4. **Projects** - Portfolio projects (cached, featured by default)
 5. **Experience** - Work history with achievements
 6. **Testimonials** - Client reviews with approval workflow
-7. **Blog Posts** - Blog articles (cached, series support)
-8. **Awards** - Certifications and achievements
-9. **Compositions** - Music tracks with genre relations
-10. **Form Submissions** - CRITICAL for AI forms (keep forever)
-11. **Easter Egg Completions** - Global challenge tracking (NEW)
+7. **Awards** - Certifications and achievements
+8. **Compositions** - Music tracks with genre relations
+9. **Form Submissions** - CRITICAL for AI forms (keep forever)
+10. **Easter Egg Completions** - Global challenge tracking
 
-### Reusable Components (6)
-1. **SEO Metadata** - meta.seo-metadata
-2. **Social Links** - links.social-links
-3. **Audio Metadata** - media.audio-metadata
-4. **CTA Button** - ui.cta-button (NEW)
-5. **Stats** - content.stat (NEW)
-6. **Achievement** - content.achievement (NEW)
+### Reusable Components (9)
+1. **SEO Metadata** - shared.seo
+2. **Open Graph** - shared.open-graph
+3. **Social Links** - shared.social-links
+4. **Audio Metadata** - media.audio-metadata
+5. **CTA Button** - ui.cta-button
+6. **Image Element** - ui.image-element
+7. **Stats** - content.stats
+8. **Achievement** - content.achievement
+9. **Education** - content.education
 
 ---
 
@@ -323,7 +326,7 @@ Based on requirements, we need:
 | About | `bioEmbedding` | 768 | Semantic search for bio |
 | Projects | `descriptionEmbedding` | 768 | Find similar projects |
 | Testimonials | `contentEmbedding` | 768 | Duplicate detection |
-| Blog Posts | `contentEmbedding` | 768 | Related articles |
+| Posts | `contentEmbedding` | 768 | Related articles |
 | Form Submissions | `messageEmbedding` | 768 | Similar submissions |
 | Form Submissions | `summaryEmbedding` | 768 | AI summary search |
 
