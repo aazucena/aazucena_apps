@@ -43,7 +43,7 @@ Publishing-focused Collection Types: Blog Posts (simplified), Awards, and Compos
 ### Advanced Settings
 
 - **Draft & Publish:** ✅ Enabled
-- **Default sort attribute:** `order` (ascending)
+- **Default sort attribute:** `sort` (ascending)
 - **Internationalization (i18n):** ✅ Enabled (for future language support)
 
 ### Fields
@@ -53,10 +53,9 @@ Publishing-focused Collection Types: Blog Posts (simplified), Awards, and Compos
 | `title` | Text (Short text) | **Max length:** 200, **Required:** true |
 | `slug` | UID | **Attached field:** `title`, **Required:** true |
 | `description` | Rich Text (Markdown) | **Required:** true |
-| `coverImage` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
-| `coverImageAlt` | Text (Short text) | **Max length:** 150, **Required:** false |
+| `coverImage` | Component | **Component:** `ui.image-element`, **Required:** false, **Repeatable:** false |
 | `status` | Enumeration | **Values:** `Planned`, `In Progress`, `Completed`, `On Hold` - **Default:** none |
-| `order` | Number (Integer) | **Min:** 0, **Required:** false, **Default:** 0 |
+| `sort` | Number (Integer) | **Min:** 0, **Required:** false, **Default:** 0 |
 | `featured` | Boolean | **Default:** false |
 
 **Click "Save"**
@@ -83,10 +82,12 @@ Publishing-focused Collection Types: Blog Posts (simplified), Awards, and Compos
   "title": "Building a Modern Portfolio with Astro",
   "slug": "building-modern-portfolio-astro",
   "description": "Learn how to create a stunning portfolio website using Astro, React, and modern web technologies...",
-  "coverImage": "portfolio-tutorial.jpg",
-  "coverImageAlt": "Modern portfolio website screenshot",
+  "coverImage": {
+    "image": "portfolio-tutorial.jpg",
+    "altText": "Modern portfolio website screenshot"
+  },
   "status": "Completed",
-  "order": 1,
+  "sort": 1,
   "featured": true
 }
 ```
@@ -184,8 +185,8 @@ GET http://localhost:1337/api/posts?filters[status][$eq]=Completed
 # Get single post with cover image
 GET http://localhost:1337/api/posts/1?populate=coverImage
 
-# Get posts sorted by order
-GET http://localhost:1337/api/posts?sort=order:asc
+# Get posts sorted by sort order
+GET http://localhost:1337/api/posts?sort=sort:asc
 ```
 
 ### Awards

@@ -93,7 +93,7 @@ export default (config, { strapi }) => {
 | `name` | Text (Short text) | **Max length:** 100, **Required:** true, **Unique:** true |
 | `category` | Enumeration | **Values:** `Frontend`, `Backend`, `Database`, `DevOps`, `Design`, `Tools`, `Music Production`, `Other` - **Required:** false |
 | `proficiency` | Number (Integer) | **Min:** 0, **Max:** 100, **Required:** true, **Default:** 50, **Placeholder:** "0-100 skill level" |
-| `icon` | Media (Single image) | **Required:** false, **Allowed types:** Images only |
+| `icon` | Custom Field | **Plugin:** `strapi-plugin-icons-field` v1.1.5, **Required:** false |
 | `description` | Text (Long text) | **Max length:** 500, **Required:** false |
 | `yearsOfExperience` | Number (Decimal) | **Min:** 0, **Max:** 50, **Required:** false |
 | `isFeatured` | Boolean | **Default:** false |
