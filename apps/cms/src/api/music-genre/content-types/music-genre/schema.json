@@ -47,14 +47,9 @@
       }
     },
     "color": {
-      "type": "string",
-      "maxLength": 7,
-      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
     },
     "icon": {
       "type": "string",
@@ -85,6 +80,12 @@
           "localized": false
         }
       }
+    },
+    "compositions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::composition.composition",
+      "mappedBy": "genres"
     }
   }
 }

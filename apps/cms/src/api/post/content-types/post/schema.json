@@ -46,24 +46,14 @@
       }
     },
     "coverImage": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images"],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "coverImageAlt": {
-      "type": "string",
-      "maxLength": 150,
+      "type": "component",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "ui.image-element",
+      "repeatable": false
     },
     "status": {
       "type": "enumeration",
@@ -79,7 +69,7 @@
         }
       }
     },
-    "order": {
+    "sort": {
       "type": "integer",
       "default": 0,
       "min": 0,

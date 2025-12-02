@@ -44,9 +44,7 @@
       "type": "customField",
       "customField": "plugin::icons-field.icon",
       "options": {
-        "selection": [
-          ""
-        ]
+        "selection": []
       }
     }
   },

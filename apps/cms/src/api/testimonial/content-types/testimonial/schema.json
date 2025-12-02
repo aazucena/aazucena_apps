@@ -55,15 +55,14 @@
       }
     },
     "avatar": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images"],
+      "type": "component",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
-      }
+      },
+      "component": "ui.image-element",
+      "repeatable": false
     },
     "rating": {
       "type": "integer",

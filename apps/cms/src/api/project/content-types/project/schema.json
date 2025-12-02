@@ -56,41 +56,32 @@
       }
     },
     "coverImage": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": ["images"],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "coverImageAlt": {
-      "type": "string",
-      "maxLength": 150,
+      "type": "component",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "ui.image-element",
+      "repeatable": false
     },
     "screenshots": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": ["images"],
+      "type": "component",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
-      }
+      },
+      "component": "ui.image-element",
+      "repeatable": true
     },
     "demoVideo": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["videos"],
+      "allowedTypes": [
+        "videos"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -101,17 +92,9 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "githubUrl": {
-      "type": "string",
-      "maxLength": 255,
-      "regex": "^https?://github\\.com/.*",
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -275,6 +258,18 @@
       "relation": "oneToMany",
       "target": "api::testimonial.testimonial",
       "mappedBy": "projectRelated"
+    },
+    "awards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::award.award",
+      "mappedBy": "relatedProject"
+    },
+    "formSubmissions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::form-submission.form-submission",
+      "mappedBy": "relatedProject"
     }
   }
 }
