@@ -40,6 +40,8 @@ RUN pnpm config --global set fetch-retry-maxtimeout 600000 && pnpm install --fro
 # Update pnpm executable to latest version.
 RUN pnpm self-update
 
+ENV PATH=/srv/node_modules/.bin:$PATH
+
 # Set application working directory.
 WORKDIR /srv/app
 
@@ -52,7 +54,7 @@ RUN chown -R node:node /srv/app
 USER node
 
 # Build Strapi admin panel in production mode for optimization.
-RUN NODE_ENV=production pnpm build
+RUN ["pnpm", "build"]
 
 # Expose Strapi default port.
 EXPOSE 1337
