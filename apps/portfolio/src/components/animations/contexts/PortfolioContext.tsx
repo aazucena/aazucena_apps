@@ -68,6 +68,7 @@ export function PortfolioProvider({
   const [currentSection, setCurrentSection] = useState<number>(initialSection);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const isScrollingRef = useRef<boolean>(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Modal State
   const [isExperienceModalOpen, setIsExperienceModalOpen] =
@@ -101,7 +102,10 @@ export function PortfolioProvider({
         isScrollingRef.current = true;
         setCurrentSection(currentSection + 1);
         setScrollProgress(0);
-        setTimeout(() => {
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+        scrollTimeoutRef.current = setTimeout(() => {
           isScrollingRef.current = false;
         }, SCROLL_DEBOUNCE_TIME);
       } else if (newProgress <= SCROLL_PROGRESS_MIN && delta < 0 && currentSection > 0) {
@@ -109,7 +113,10 @@ export function PortfolioProvider({
         isScrollingRef.current = true;
         setCurrentSection(currentSection - 1);
         setScrollProgress(SCROLL_PROGRESS_RETURN); // Start at high progress when going back
-        setTimeout(() => {
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+        scrollTimeoutRef.current = setTimeout(() => {
           isScrollingRef.current = false;
         }, SCROLL_DEBOUNCE_TIME);
       }
@@ -119,6 +126,9 @@ export function PortfolioProvider({
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
   }, [currentSection, scrollProgress]);
 
