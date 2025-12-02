@@ -373,6 +373,7 @@ The CMS comes pre-configured with the following plugins. These are automatically
 
 | Plugin | Version | Purpose |
 |--------|---------|---------|
+| `strapi-plugin-icons-field` | ^1.1.5 | Icon picker field with @mynaui/icons support |
 | `@_sh/strapi-plugin-ckeditor` | ^6.0.3 | Rich text editor (CKEditor 5) |
 | `strapi-plugin-preview-button` | ^3.0.2 | Content preview functionality |
 | `strapi-plugin-multi-select` | ^2.1.1 | Multi-select field type |
@@ -401,11 +402,30 @@ This runs `plugins.sh` which:
 
 ### Plugin Configuration
 
-The Redis and Cloudinary plugins are configured in `config/plugins.ts`:
+The Redis, Cloudinary, and Icons Field plugins are configured in `config/plugins.ts`:
 
 ```typescript
 // config/plugins.ts
 export default ({ env }) => ({
+  // Icon Picker Plugin
+  "icons-field": {
+    enabled: true,
+    config: {
+      // Icons are read from /public/icons directory
+      // Supports subfolders for organization
+      // Example structure:
+      // /public/icons/
+      //   ├── social/
+      //   │   ├── github.svg
+      //   │   ├── linkedin.svg
+      //   └── ui/
+      //       ├── chevron-down.svg
+      //       └── menu.svg
+      preset: "icons",  // Default preset name
+    },
+  },
+
+  // Redis Configuration
   redis: {
     config: {
       settings: {
@@ -424,6 +444,8 @@ export default ({ env }) => ({
       },
     },
   },
+
+  // REST Cache Configuration
   "rest-cache": {
     config: {
       provider: {
@@ -435,6 +457,8 @@ export default ({ env }) => ({
       },
     }
   },
+
+  // Cloudinary Upload Configuration
   upload: {
     config: {
       provider: 'cloudinary',
@@ -447,6 +471,74 @@ export default ({ env }) => ({
   },
 });
 ```
+
+### Icon Picker Plugin Usage
+
+The `strapi-plugin-icons-field` adds a custom field type for selecting icons from your `/public/icons` directory.
+
+**Directory Structure:**
+```
+/public/icons/
+  ├── social/          # Social media icons
+  │   ├── github.svg
+  │   ├── linkedin.svg
+  │   ├── twitter.svg
+  │   └── youtube.svg
+  ├── ui/              # UI icons
+  │   ├── menu.svg
+  │   ├── close.svg
+  │   └── chevron-down.svg
+  └── logos/           # Logo icons
+      └── mynaui.svg
+```
+
+**Using in Components/Content Types:**
+
+In Content-Type Builder, select **Custom Field** → **Icon Picker**
+
+**Schema Definition:**
+```json
+{
+  "icon": {
+    "type": "customField",
+    "customField": "plugin::icons-field.icon",
+    "options": {
+      "preset": "icons"
+    }
+  }
+}
+```
+
+**Frontend Rendering:**
+
+The plugin stores the icon path as a string. In your frontend:
+
+```typescript
+// Example: Rendering icon in React
+import { Icon } from '@mynaui/icons-react';
+
+const MyComponent = ({ iconName }) => {
+  // iconName from Strapi: "social/github"
+  return <Icon name={iconName} />;
+};
+```
+
+**Populating Icons:**
+
+Use the provided `icons.sh` script to populate the `/public/icons` directory:
+
+```bash
+# From apps/cms directory
+./scripts/icons.sh
+
+# This downloads icons from @mynaui/icons and organizes them into categories
+```
+
+**Used In:**
+- Music Genres (`icon` field) - See [04-collection-types-core.md](./04-collection-types-core.md#collection-type-2-music-genres)
+- CTA Button Component (`icon` field) - See [02-components.md](./02-components.md#component-4-cta-button)
+
+**Note:** The icons-field plugin integrates with `@mynaui/icons` v0.3.9 for frontend rendering.
 
 ---
 

@@ -10,6 +10,54 @@ These content types are **essential** for the AI-powered forms system and Easter
 
 ---
 
+## ⚠️ Known Strapi v5 Issues
+
+### JSON Field Serialization Bug - HIGHLY CRITICAL
+
+**Issue:** JSON fields are returned as strings instead of objects in Strapi v5.
+
+**Affected Fields (Multiple per Submission):**
+- `structuredData` - AI-extracted fields
+- `aiTags` - AI-generated tags
+- `messageEmbedding` - 768-dimensional vector (critical for semantic search)
+- `summaryEmbedding` - 768-dimensional vector (critical for RAG)
+
+**Backend Workaround:**
+```typescript
+const submission = await strapi.entityService.findOne('api::form-submission.form-submission', id);
+
+// Parse all JSON fields
+const parseJson = (field: any) => typeof field === 'string' ? JSON.parse(field) : field;
+
+const structuredData = parseJson(submission.structuredData);
+const aiTags = parseJson(submission.aiTags);
+const messageEmbedding = parseJson(submission.messageEmbedding);
+const summaryEmbedding = parseJson(submission.summaryEmbedding);
+```
+
+**Frontend Utility Function:**
+```typescript
+const parseJsonFields = (submission: any) => ({
+  ...submission,
+  structuredData: parseJson(submission.structuredData),
+  aiTags: parseJson(submission.aiTags),
+  messageEmbedding: parseJson(submission.messageEmbedding),
+  summaryEmbedding: parseJson(submission.summaryEmbedding),
+});
+```
+
+**See:** [GitHub Issue #20114](https://github.com/strapi/strapi/issues/20114) | **[Full workarounds →](./08-pgvector-setup.md#json-field-serialization-bug)**
+
+### Lifecycle Hooks vs Middleware
+
+**Important:** Use **Document Service Middleware** for AI processing and embedding generation, NOT lifecycle hooks.
+
+Traditional lifecycle hooks will cause duplicate processing with Draft & Publish.
+
+**See:** [pgVector Setup - Middleware Implementation →](./08-pgvector-setup.md#step-3-document-service-middleware-strapi-v5)
+
+---
+
 ## Collection Type 10: Form Submissions
 
 **Display Name:** `Form Submission`
@@ -60,11 +108,17 @@ These content types are **essential** for the AI-powered forms system and Easter
 - Generates `aiIntent`, `aiSummary`, `aiSentiment`, `aiTags`
 - LangSmith tracking via `langSmithTraceId`
 
-**Lifecycle Hooks:**
-- On create: Process through LangGraph AI pipeline
-- On create: Generate embeddings asynchronously
-- On create: Check for Easter Egg keywords
-- On create: Auto-assign based on `formType`
+**Auto-Processing (via Middleware):**
+
+⚠️ **Use Middleware, Not Lifecycle Hooks** - See warning section above
+
+**On create:**
+- Process through LangGraph AI pipeline
+- Generate embeddings asynchronously (messageEmbedding, summaryEmbedding)
+- Check for Easter Egg keywords
+- Auto-assign based on `formType`
+
+**Implementation:** See [pgVector Setup - Middleware →](./08-pgvector-setup.md#step-3-document-service-middleware-strapi-v5)
 
 ### Metadata for pgVector
 

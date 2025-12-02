@@ -10,6 +10,54 @@ Publishing-focused Collection Types: Blog Posts, Awards, and Compositions (music
 
 ---
 
+## ⚠️ Known Strapi v5 Issues
+
+### UID Field Auto-Generation Bug
+
+**Issue:** UID fields (slugs) do not auto-generate correctly in Strapi v5.
+
+**Impact:** Affects Blog Posts `slug` and Compositions `slug` fields
+
+**See:** [GitHub Issue #21472](https://github.com/strapi/strapi/issues/21472) | **[Workarounds →](./04-collection-types-core.md#uid-field-auto-generation-bug)**
+
+### JSON Field Serialization Bug
+
+**Issue:** JSON fields may be returned as strings instead of objects in Strapi v5.
+
+**Affected Fields:**
+- Blog Posts: `tableOfContents`, `contentEmbedding`
+
+**Workaround - Backend:**
+```typescript
+const post = await strapi.entityService.findOne('api::blog-post.blog-post', id);
+const tableOfContents = typeof post.tableOfContents === 'string'
+  ? JSON.parse(post.tableOfContents)
+  : post.tableOfContents;
+```
+
+**Workaround - Frontend:**
+```typescript
+const parseJsonField = (field: any) => {
+  if (typeof field === 'string') {
+    try { return JSON.parse(field); }
+    catch { return field; }
+  }
+  return field;
+};
+```
+
+**See:** [GitHub Issue #20114](https://github.com/strapi/strapi/issues/20114) | **[Full workarounds →](./08-pgvector-setup.md#json-field-serialization-bug)**
+
+### Lifecycle Hooks vs Middleware
+
+**Important:** Strapi v5 changed how lifecycle hooks work with Draft & Publish.
+
+For auto-calculations (`readTime`, `tableOfContents`, `contentEmbedding`), use **Document Service Middleware** instead of lifecycle hooks to avoid duplicate processing.
+
+**See:** [pgVector Setup - Middleware Implementation →](./08-pgvector-setup.md#step-3-document-service-middleware-strapi-v5)
+
+---
+
 ## Collection Type 7: Blog Posts
 
 **Display Name:** `Blog Post`
@@ -34,11 +82,16 @@ Publishing-focused Collection Types: Blog Posts, Awards, and Compositions (music
 | `contentEmbedding` | JSON | 768 dimensions |
 | `seo` | Component | `meta.seo-metadata` |
 
-### Lifecycle Hooks
+### Auto-Processing (via Middleware)
 
+⚠️ **Use Middleware, Not Lifecycle Hooks** - See warning section above
+
+**Auto-processing includes:**
 - Auto-calculate `readTime` from content length
 - Auto-generate `tableOfContents` from markdown headings
 - Generate `contentEmbedding` for semantic search
+
+**Implementation:** See [pgVector Setup - Middleware →](./08-pgvector-setup.md#step-3-document-service-middleware-strapi-v5)
 
 ### Advanced Settings
 

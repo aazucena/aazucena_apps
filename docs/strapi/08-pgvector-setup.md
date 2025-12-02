@@ -123,44 +123,170 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 ---
 
-## Step 3: Lifecycle Hooks
+## Step 3: Document Service Middleware (Strapi v5)
 
-Auto-generate embeddings on content save:
+**CRITICAL:** Strapi v5 changed how lifecycle hooks work with Draft & Publish. Using traditional lifecycle hooks can cause **duplicate embeddings** when publishing drafts.
+
+**Recommended Approach:** Document Service Middleware
+
+### Why Middleware Instead of Lifecycle Hooks?
+
+In Strapi v5 with Draft & Publish enabled, publishing a draft triggers:
+1. `beforeDelete` + `afterDelete` on the old published entry
+2. `beforeCreate` + `afterCreate` on the new published entry
+
+This causes lifecycle hooks to fire twice, creating duplicate embeddings.
+
+**See:** [Strapi v5 Breaking Changes - Lifecycle Hooks](https://docs.strapi.io/cms/migration/v4-to-v5/breaking-changes/lifecycle-hooks-document-service)
+
+### Middleware Implementation
+
+```typescript
+// config/middlewares.ts
+export default [
+  'strapi::errors',
+  'strapi::security',
+  'strapi::cors',
+  'strapi::poweredBy',
+  'strapi::logger',
+  'strapi::query',
+  'strapi::body',
+  'strapi::session',
+  'strapi::favicon',
+  'strapi::public',
+  {
+    name: 'global::embedding-generator',
+    config: {},
+  },
+];
+```
+
+```typescript
+// src/middlewares/embedding-generator.ts
+import embeddingService from '../services/embedding.service';
+
+interface EmbeddingConfig {
+  uid: string;
+  field: string;
+  embeddingField: string;
+}
+
+const EMBEDDING_CONFIGS: EmbeddingConfig[] = [
+  { uid: 'api::about.about', field: 'bio', embeddingField: 'bioEmbedding' },
+  { uid: 'api::project.project', field: 'description', embeddingField: 'descriptionEmbedding' },
+  { uid: 'api::testimonial.testimonial', field: 'content', embeddingField: 'contentEmbedding' },
+  { uid: 'api::blog-post.blog-post', field: 'content', embeddingField: 'contentEmbedding' },
+  { uid: 'api::form-submission.form-submission', field: 'rawMessage', embeddingField: 'messageEmbedding' },
+  { uid: 'api::form-submission.form-submission', field: 'aiSummary', embeddingField: 'summaryEmbedding' },
+];
+
+export default (config, { strapi }) => {
+  return async (ctx, next) => {
+    await next();
+
+    // Only process POST/PUT requests that succeeded
+    if (!['POST', 'PUT'].includes(ctx.request.method) || ctx.status >= 400) {
+      return;
+    }
+
+    const { uid } = ctx.params;
+    if (!uid) return;
+
+    // Find matching embedding config
+    const configs = EMBEDDING_CONFIGS.filter(c => c.uid === uid);
+    if (configs.length === 0) return;
+
+    const entityId = ctx.response.body?.data?.id;
+    if (!entityId) return;
+
+    // Generate embeddings asynchronously (don't block response)
+    setImmediate(async () => {
+      try {
+        const entity = await strapi.documents(uid).findOne({ documentId: entityId });
+
+        for (const config of configs) {
+          const textValue = entity[config.field];
+          if (!textValue || typeof textValue !== 'string') continue;
+
+          // Skip if embedding already exists and text hasn't changed
+          if (entity[config.embeddingField] && entity[`${config.field}LastUpdated`]) {
+            const lastUpdated = new Date(entity[`${config.field}LastUpdated`]);
+            const embeddingGeneratedAt = new Date(entity[`${config.embeddingField}GeneratedAt`]);
+            if (embeddingGeneratedAt >= lastUpdated) continue;
+          }
+
+          const { embedding, model } = await embeddingService.generateEmbedding(textValue);
+
+          await strapi.db.query(uid).update({
+            where: { id: entityId },
+            data: {
+              [config.embeddingField]: embedding,
+              [`${config.embeddingField}Model`]: model,
+              [`${config.embeddingField}GeneratedAt`]: new Date(),
+            },
+          });
+
+          strapi.log.info(`Generated ${config.embeddingField} for ${uid}:${entityId}`);
+        }
+      } catch (error) {
+        strapi.log.error(`Embedding generation failed for ${uid}:${entityId}`, error);
+        // Don't throw - embedding generation failure shouldn't block content creation
+      }
+    });
+  };
+};
+```
+
+### Alternative: Lifecycle Hooks (Simple Use Cases Only)
+
+If you're NOT using Draft & Publish, lifecycle hooks are simpler:
 
 ```typescript
 // src/api/project/content-types/project/lifecycles.ts
 import embeddingService from '../../../../services/embedding.service';
 
 export default {
-  async beforeCreate(event) {
-    const { data } = event.params;
-    if (data.description) {
-      try {
-        const { embedding, model } = await embeddingService.generateEmbedding(data.description);
-        data.descriptionEmbedding = embedding;
-        data.descriptionEmbeddingModel = model;
-        data.descriptionEmbeddingGeneratedAt = new Date();
-      } catch (error) {
-        console.error('Failed to generate embedding:', error);
-      }
+  async afterCreate(event) {
+    const { result } = event;
+    if (!result.description) return;
+
+    try {
+      const { embedding, model } = await embeddingService.generateEmbedding(result.description);
+      await strapi.db.query('api::project.project').update({
+        where: { id: result.id },
+        data: {
+          descriptionEmbedding: embedding,
+          descriptionEmbeddingModel: model,
+          descriptionEmbeddingGeneratedAt: new Date(),
+        },
+      });
+    } catch (error) {
+      strapi.log.error('Embedding generation failed:', error);
     }
   },
 
-  async beforeUpdate(event) {
-    const { data } = event.params;
-    if (data.description) {
-      try {
-        const { embedding, model } = await embeddingService.generateEmbedding(data.description);
-        data.descriptionEmbedding = embedding;
-        data.descriptionEmbeddingModel = model;
-        data.descriptionEmbeddingGeneratedAt = new Date();
-      } catch (error) {
-        console.error('Failed to generate embedding:', error);
-      }
+  async afterUpdate(event) {
+    const { result } = event;
+    if (!result.description) return;
+
+    try {
+      const { embedding, model } = await embeddingService.generateEmbedding(result.description);
+      await strapi.db.query('api::project.project').update({
+        where: { id: result.id },
+        data: {
+          descriptionEmbedding: embedding,
+          descriptionEmbeddingModel: model,
+          descriptionEmbeddingGeneratedAt: new Date(),
+        },
+      });
+    } catch (error) {
+      strapi.log.error('Embedding generation failed:', error);
     }
   },
 };
 ```
+
+**WARNING:** Only use lifecycle hooks if Draft & Publish is disabled on ALL content types with embeddings.
 
 **Apply to:**
 - About, Testimonials, Blog Posts, Form Submissions
@@ -287,12 +413,90 @@ curl -X POST http://localhost:1337/api/semantic-search \
 
 ---
 
+## Known Strapi v5 Issues
+
+### JSON Field Serialization Bug
+
+**Issue:** JSON fields may be returned as strings instead of objects in Strapi v5.
+
+**Affected Fields:**
+- Form Submissions: `structuredData`, `metadata`
+- Music Tracks: `waveformData`
+
+**Workaround:**
+
+```typescript
+// Always parse JSON fields when retrieving from API
+const data = await strapi.entityService.findOne('api::form-submission.form-submission', id);
+
+// Parse JSON fields
+const structuredData = typeof data.structuredData === 'string'
+  ? JSON.parse(data.structuredData)
+  : data.structuredData;
+
+const metadata = typeof data.metadata === 'string'
+  ? JSON.parse(data.metadata)
+  : data.metadata;
+```
+
+**Frontend Workaround:**
+
+```typescript
+// In React components
+const parseJsonField = (field: any) => {
+  if (typeof field === 'string') {
+    try {
+      return JSON.parse(field);
+    } catch {
+      return field;
+    }
+  }
+  return field;
+};
+
+const structuredData = parseJsonField(submission.structuredData);
+```
+
+**See:** [GitHub Issue #20114](https://github.com/strapi/strapi/issues/20114)
+
+### TypeScript Type Safety for pgVector
+
+Add type definitions for vector columns:
+
+```typescript
+// types/pgvector.d.ts
+declare module '@strapi/database' {
+  interface Schema {
+    tables: {
+      abouts: {
+        bio_embedding: number[];
+      };
+      projects: {
+        description_embedding: number[];
+      };
+      testimonials: {
+        content_embedding: number[];
+      };
+      blog_posts: {
+        content_embedding: number[];
+      };
+      form_submissions: {
+        message_embedding: number[];
+        summary_embedding: number[];
+      };
+    };
+  }
+}
+```
+
+---
+
 ## Next Steps
 
 **[→ Configure API Permissions](./09-api-permissions.md)**
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2025-12-01
 
 **[← AI Forms](./07-collection-types-ai.md)** | **[Next: API Permissions →](./09-api-permissions.md)**

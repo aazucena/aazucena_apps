@@ -12,6 +12,66 @@ These are the foundational Collection Types that other content types depend on. 
 
 ---
 
+## ⚠️ Known Strapi v5 Issues
+
+Before creating these Collection Types, be aware of these known bugs:
+
+### UID Field Auto-Generation Bug
+
+**Issue:** UID fields (slugs) do not auto-generate correctly in Strapi v5.
+
+**Symptoms:**
+- If UID is NOT required: slug remains empty
+- If UID IS required: uses collection name instead of attached field value
+
+**Workarounds:**
+
+**Option 1: Install Plugin**
+```bash
+npm install strapi-plugin-auto-slug-manager-a-mi13
+```
+
+**Option 2: Manual Generation in Middleware**
+```typescript
+// src/middlewares/slug-generator.ts
+export default (config, { strapi }) => {
+  return async (ctx, next) => {
+    await next();
+    // Generate slug from title/name field
+  };
+};
+```
+
+**Option 3: Frontend Validation**
+```typescript
+// Require users to manually enter slugs in admin panel
+// Add validation to ensure slug is unique
+```
+
+**See:** [GitHub Issue #21472](https://github.com/strapi/strapi/issues/21472)
+
+**Impact:** Affects Music Genres, Blog Series (and all content types with UID fields in docs 05-07)
+
+### Enumeration Naming Constraint
+
+**Rule:** All enumeration values MUST start with an alphabetical character (A-Z, a-z).
+
+**Valid:**
+- ✅ `Frontend`, `Backend`, `Database`
+- ✅ `In Progress`, `Completed`, `On Hold`
+- ✅ `First Place`, `Award 2023`
+
+**Invalid (Will Crash GraphQL Plugin):**
+- ❌ `1st Place`, `2nd Place`, `3rd Place`
+- ❌ `2023 Award`, `2024 Award`
+- ❌ `100% Complete`
+
+**Workaround:** Prefix numbers with text: `Place 1st`, `Award 2023`, `Complete 100%`
+
+**Why:** GraphQL schema generation fails when enum values start with numbers or special characters.
+
+---
+
 ## Collection Type 1: Skills
 
 **Display Name:** `Skill`

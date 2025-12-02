@@ -10,6 +10,43 @@ These Collection Types represent the main content of the portfolio: Projects, Wo
 
 ---
 
+## ⚠️ Known Strapi v5 Issues
+
+### UID Field Auto-Generation Bug
+
+**Issue:** UID fields (slugs) do not auto-generate correctly in Strapi v5.
+
+**Workarounds:**
+1. Install plugin: `strapi-plugin-auto-slug-manager-a-mi13`
+2. Manually generate slugs in middleware
+3. Require manual slug entry in admin panel
+
+**See:** [GitHub Issue #21472](https://github.com/strapi/strapi/issues/21472) | **[Full details in Core Collection Types →](./04-collection-types-core.md#uid-field-auto-generation-bug)**
+
+**Impact:** Affects Projects `slug` field
+
+### Enumeration Naming - CRITICAL FIX REQUIRED
+
+**🚨 IMPORTANT:** The `companySize` enumeration values start with numbers, which will **crash the GraphQL plugin**.
+
+**Current (INVALID):**
+- ❌ `1-10`, `11-50`, `51-200` (starts with numbers)
+
+**Must Change To (VALID):**
+- ✅ `Employees 1-10`, `Employees 11-50`, `Employees 51-200`
+- ✅ `Size 1-10`, `Size 11-50`, `Size 51-200`
+- ✅ `Tiny (1-10)`, `Small (11-50)`, `Medium (51-200)`
+
+**All Other Enumerations Are Valid:**
+- ✅ `projectType`: All values start with letters
+- ✅ `status`: All values start with letters
+- ✅ `companyIndustry`: All values start with letters
+- ✅ `employmentType`: All values start with letters
+
+**See:** [Core Collection Types - Enumeration Constraints →](./04-collection-types-core.md#enumeration-naming-constraint)
+
+---
+
 ## Collection Type 4: Projects
 
 **Display Name:** `Project`
@@ -53,6 +90,20 @@ These Collection Types represent the main content of the portfolio: Projects, Wo
 | `descriptionEmbeddingGeneratedAt` | DateTime | |
 | `seo` | Component | `meta.seo-metadata`, Min 0, Max 1 |
 
+### ⚠️ JSON Field Warning
+
+The following field is JSON type and may be returned as a string in Strapi v5:
+- `descriptionEmbedding` (768-dimensional vector)
+
+**Always parse before use:**
+```typescript
+const embedding = typeof data.descriptionEmbedding === 'string'
+  ? JSON.parse(data.descriptionEmbedding)
+  : data.descriptionEmbedding;
+```
+
+**See:** [18-v5-gotchas.md - JSON Field Serialization](./18-v5-gotchas.md#2-json-field-serialization-bug)
+
 ### Notes
 
 - Cached in Redis (per requirements)
@@ -84,7 +135,7 @@ See [08-pgvector-setup.md](./08-pgvector-setup.md) for embedding implementation.
 | `companyLogo` | Media (Single image) | |
 | `companyLogoAlt` | Text | Max 150 |
 | `companyIndustry` | Enumeration | Technology, Finance, Healthcare, Education, Entertainment, Retail, Manufacturing, Government, Non-Profit, Startup, Other |
-| `companySize` | Enumeration | 1-10, 11-50, 51-200, 201-500, 501-1000, 1001-5000, 5000+ |
+| `companySize` | Enumeration | ⚠️ **CRITICAL:** Employees 1-10, Employees 11-50, Employees 51-200, Employees 201-500, Employees 501-1000, Employees 1001-5000, Employees 5000+ ⚠️ |
 | `location` | Text | Max 150 |
 | `startDate` | Date | Date only, Required |
 | `endDate` | Date | Date only |
@@ -143,11 +194,35 @@ See [08-pgvector-setup.md](./08-pgvector-setup.md) for embedding implementation.
 | `aiSentiment` | Enumeration | Very Positive, Positive, Neutral, Negative, Very Negative |
 | `aiTags` | JSON | |
 
-### Lifecycle Hooks
+### ⚠️ JSON Field Warning
 
+The following fields are JSON type and may be returned as strings in Strapi v5:
+- `contentEmbedding` (768-dimensional vector)
+- `aiTags` (AI-generated tags array)
+
+**Always parse before use:**
+```typescript
+const embedding = typeof data.contentEmbedding === 'string'
+  ? JSON.parse(data.contentEmbedding)
+  : data.contentEmbedding;
+
+const tags = typeof data.aiTags === 'string'
+  ? JSON.parse(data.aiTags)
+  : data.aiTags;
+```
+
+**See:** [18-v5-gotchas.md - JSON Field Serialization](./18-v5-gotchas.md#2-json-field-serialization-bug)
+
+### Auto-Processing (Middleware Implementation)
+
+⚠️ **CRITICAL:** Use Document Service Middleware, NOT lifecycle hooks (Strapi v5 + Draft & Publish will cause duplicate processing)
+
+**Processing Requirements:**
 - On approval/rejection: Send email to author (per requirements)
 - On rejection: Validate `rejectionReason` is provided
 - On save: Generate embedding for `content`
+
+**Implementation:** See [pgVector Setup - Middleware Implementation](./08-pgvector-setup.md#step-3-document-service-middleware-strapi-v5)
 
 ### Notes
 
