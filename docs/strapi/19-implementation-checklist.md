@@ -81,30 +81,31 @@
 
 ---
 
-### 3. Blog Series (10 min)
+### 3. Posts (Blog Articles) (10 min)
+
+**Note:** Blog architecture was simplified - single `post` collection type instead of separate Blog Series. See [Collection Types: Publishing](./06-collection-types-publishing.md) for details.
 
 **Settings:**
 - [ ] Content-Type Builder → **Create new collection type**
-- [ ] Display Name: `Blog Series` | API ID: `blog-series` / `blog-series`
+- [ ] Display Name: `Post` | API ID: `post` / `posts`
 - [ ] Draft & Publish: **✅ ENABLE**
-- [ ] Default sort: `order` (ascending)
+- [ ] Default sort: `sort` (ascending)
 - [ ] i18n: **✅ ENABLE**
 
-**Fields (8 total):**
+**Fields (7 total):**
 | Field | Type | Config |
 |-------|------|--------|
 | `title` | Short text | Max 200, Required |
 | `slug` | UID | Attached to `title`, **Required** ⚠️ |
 | `description` | Markdown | Required |
-| `coverImage` | Single image | Optional |
-| `coverImageAlt` | Short text | Max 150 |
+| `coverImage` | Component | ui.image-element, Optional |
 | `status` | Enum | Values: Planned, In Progress, Completed, On Hold |
-| `order` | Integer | Min 0, Default 0 |
+| `sort` | Integer | Min 0, Default 0 |
 | `featured` | Boolean | Default: false |
 
 - [ ] **Click "Save"**
 - [ ] ⚠️ **UID Known Issue:** Same as Music Genres
-- [ ] Test API: `GET http://localhost:1337/api/blog-series` → Should return 200
+- [ ] Test API: `GET http://localhost:1337/api/posts` → Should return 200
 
 ---
 
@@ -243,7 +244,6 @@
 - [ ] Experience → Projects (Many-to-many)
 - [ ] Testimonials → Projects (Many-to-one)
 - [ ] Music Genres → Compositions (One-to-many, after Compositions created)
-- [ ] Blog Series → Blog Posts (One-to-many, after Blog Posts created)
 
 ### Components to Verify
 - [ ] `content.stat` exists (for Projects metrics)
@@ -313,8 +313,8 @@ curl "http://localhost:1337/api/skills"
 # Music Genres
 curl "http://localhost:1337/api/music-genres"
 
-# Blog Series
-curl "http://localhost:1337/api/blog-series"
+# Posts (Blog Articles)
+curl "http://localhost:1337/api/posts"
 ```
 
 **Content Types:**
@@ -360,7 +360,7 @@ curl "http://localhost:1337/api/testimonials/1?populate=projectRelated"
 
 After completing all phases:
 
-- [ ] All 6 collection types created (Skills, Music Genres, Blog Series, Projects, Experience, Testimonials)
+- [ ] All collection types created (Skills, Music Genres, Posts, Projects, Experience, Testimonials, Awards, Compositions, Form Submissions, Easter Egg Completions)
 - [ ] All fields have correct validation (max length, regex, min/max)
 - [ ] All enum values start with alphabetical characters
 - [ ] Default values set correctly for boolean and number fields
@@ -377,7 +377,7 @@ After completing all phases:
 
 | Phase | Duration | Status |
 |-------|----------|--------|
-| Phase A: Core Types (Skills, Genres, Series) | 45-60 min | |
+| Phase A: Core Types (Skills, Genres, Posts) | 45-60 min | |
 | Phase B: Content Types (Projects, Experience, Testimonials) | 45-60 min | |
 | Phase C: Relations & Testing | 15-20 min | |
 | **Total** | **2-2.5 hours** | |
