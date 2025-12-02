@@ -34,15 +34,16 @@ Configure API permissions for public access after creating all content types.
 |--------------|-------------|
 | Skills | ✅ `find`, ✅ `findOne` |
 | Music Genres | ✅ `find`, ✅ `findOne` |
-| Blog Series | ✅ `find`, ✅ `findOne` |
+| Posts | ✅ `find`, ✅ `findOne` |
 | Projects | ✅ `find`, ✅ `findOne` |
 | Experience | ✅ `find`, ✅ `findOne` |
 | Testimonials | ✅ `find`, ✅ `findOne` (only published) |
-| Blog Posts | ✅ `find`, ✅ `findOne` |
 | Awards | ✅ `find`, ✅ `findOne` |
 | Compositions | ✅ `find`, ✅ `findOne` |
 | Form Submissions | ✅ `create` only |
 | Easter Egg Completions | ✅ `create`, ✅ `find` (for leaderboard) |
+
+**Note:** The blog architecture was simplified - there is a single `post` collection type instead of separate Blog Series and Blog Posts. See [Collection Types: Publishing](./06-collection-types-publishing.md) for details.
 
 ### DO NOT Enable
 
@@ -75,6 +76,7 @@ Test endpoints:
 # Should work (200 OK)
 curl http://localhost:1337/api/hero
 curl http://localhost:1337/api/skills
+curl http://localhost:1337/api/posts
 curl http://localhost:1337/api/projects
 
 # Should work (create)
