@@ -9,4 +9,9 @@ export default [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
+  // Custom middlewares
+  {
+    name: 'global::slug-generator',
+    config: {},
+  },
 ];
