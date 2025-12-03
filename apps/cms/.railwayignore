@@ -1,0 +1,16 @@
+node_modules/
+.tmp/
+.cache/
+.git/
+.env
+.env.local
+.vscode/
+.DS_Store
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.strapi-updater.json
+*.sqlite
+*.sqlite3
