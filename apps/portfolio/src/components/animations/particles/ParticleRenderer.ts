@@ -5,7 +5,6 @@
 
 import * as PIXI from 'pixi.js';
 import type { Particle, ParticleRendererConfig } from './types';
-
 export class ParticleRenderer {
   private config: ParticleRendererConfig;
   private graphics: PIXI.Graphics[] = [];
@@ -14,7 +13,7 @@ export class ParticleRenderer {
   constructor(container: PIXI.Container, config: Partial<ParticleRendererConfig> = {}) {
     this.container = container;
     this.config = {
-      blendMode: config.blendMode || PIXI.BLEND_MODES.NORMAL,
+      blendMode: config.blendMode || 'normal',
       tint: config.tint || 0xffffff,
       texture: config.texture
     };

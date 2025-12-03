@@ -3,6 +3,7 @@
  * TypeScript interfaces for the particle system
  */
 
+import type { BLEND_MODES } from 'pixi.js';
 import type { AtmosphericPhase } from '../config';
 
 export interface ParticleSystemConfig {
@@ -39,7 +40,7 @@ export interface ParticleEmitterConfig {
 }
 
 export interface ParticleRendererConfig {
-  blendMode: number;
+  blendMode: BLEND_MODES;
   tint: number;
   texture?: string;
 }
