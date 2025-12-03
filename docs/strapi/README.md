@@ -26,18 +26,20 @@ This directory contains comprehensive, modular documentation for setting up Stra
 
 9. **[pgVector Setup](./08-pgvector-setup.md)** - Database migration, embeddings, semantic search
 10. **[API Permissions](./09-api-permissions.md)** - Public and admin permissions configuration
-11. **[Security & Deployment](./10-security-deployment.md)** - Rate limiting, CORS, Redis, health check
+11. **[API Tokens Setup](./16-api-tokens-setup.md)** - Security-first token strategy (Build/SSR + Forms proxy) ⭐
+12. **[Frontend Integration Guide](./17-frontend-integration-guide.md)** - Connect Astro to Strapi CMS (complete examples) ⭐
+13. **[Security & Deployment](./10-security-deployment.md)** - Rate limiting, CORS, Redis, health check
 
 ### Migration & Testing
 
-12. **[Data Migration](./11-data-migration.md)** - Migration scripts and handling missing data
-13. **[Testing](./12-testing.md)** - Complete testing checklist with curl examples
+14. **[Data Migration](./11-data-migration.md)** - Migration scripts and handling missing data
+15. **[Testing](./12-testing.md)** - Complete testing checklist with curl examples
 
 ### Best Practices & Troubleshooting
 
-14. **[Best Practices](./13-best-practices.md)** - Field naming, validation, performance, SEO
-15. **[Troubleshooting](./14-troubleshooting.md)** - Common issues and solutions
-16. **[Implementation Timeline](./15-implementation-timeline.md)** - Phase-by-phase breakdown (7-10 days)
+16. **[Best Practices](./13-best-practices.md)** - Field naming, validation, performance, SEO
+17. **[Troubleshooting](./14-troubleshooting.md)** - Common issues and solutions
+18. **[Implementation Timeline](./15-implementation-timeline.md)** - Phase-by-phase breakdown (7-10 days)
 
 ---
 
@@ -73,13 +75,23 @@ This directory contains comprehensive, modular documentation for setting up Stra
 
 ### Step 4: Configure Advanced Features
 ```bash
-# Set up pgVector, permissions, and security:
+# Set up pgVector, permissions, tokens, and security:
 1. Run pgVector migration (08-pgvector-setup.md)
 2. Configure API permissions (09-api-permissions.md)
-3. Configure security (10-security-deployment.md)
+3. Create API tokens (16-api-tokens-setup.md) ⭐ REQUIRED
+4. Configure security (10-security-deployment.md)
 ```
 
-### Step 5: Migrate Data & Test
+### Step 5: Frontend Integration
+```bash
+# Connect Astro portfolio to Strapi CMS:
+1. Follow Frontend Integration Guide (17-frontend-integration-guide.md) ⭐
+2. Add STRAPI_TOKEN to apps/portfolio/.env
+3. Test integration: pnpm test:strapi
+4. Replace static data with CMS data in pages
+```
+
+### Step 6: Migrate Data & Test
 ```bash
 # Migrate existing data and verify:
 1. Run migration scripts (11-data-migration.md)
