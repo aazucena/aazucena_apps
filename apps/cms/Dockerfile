@@ -26,10 +26,10 @@ ENV NODE_OPTIONS=--max_old_space_size=4096
 WORKDIR /srv
 
 # Copy essential package files and scripts to leverage Docker cache for dependencies.
-COPY apps/cms/pnpm-lock.yaml ./
-COPY apps/cms/package.json ./
-COPY apps/cms/plugins.sh ./
-COPY apps/cms/icons.sh ./
+COPY ./pnpm-lock.yaml .
+COPY ./package.json .
+COPY ./plugins.sh .
+COPY ./icons.sh .
 
 # Install pnpm globally and node-gyp for native module compilation.
 RUN npm install -g pnpm node-gyp
@@ -46,7 +46,7 @@ ENV PATH=/srv/node_modules/.bin:$PATH
 WORKDIR /srv/app
 
 # Copy application files after dependencies for build caching.
-COPY apps/cms ./
+COPY . .
 
 # Set ownership to non-root 'node' user for security.
 RUN chown -R node:node /srv/app
