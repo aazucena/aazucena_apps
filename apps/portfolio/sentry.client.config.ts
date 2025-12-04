@@ -11,6 +11,8 @@ Sentry.init({
     Sentry.feedbackIntegration({
       // Additional SDK configuration goes in here, for example:
       colorScheme: "system",
+      // Control feedback widget visibility via environment variable
+      autoInject: !import.meta.env.DEV || !import.meta.env.PROD,
     }),
   ],
   // Enable logs to be sent to Sentry
