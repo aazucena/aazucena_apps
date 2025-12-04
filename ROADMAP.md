@@ -49,7 +49,7 @@
 - **Monorepo:** pnpm v10.22.0 + Turborepo
 - **Frontend Deploy:** Vercel (auto via GitHub)
 - **Backend Deploy:** Railway
-- **CI/CD:** CircleCI (CMS only)
+- **CI/CD:** CircleCI (future - prechecks only, currently stashed)
 
 ### Monitoring & Logging
 - **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights, Plausible (self-hosted)
@@ -136,7 +136,7 @@ Set up Docker Compose for local development, integrate Strapi CMS v5, and establ
 - ✅ 0.2.2: Strapi configuration (admin panel, Cloudinary)
 - ✅ 0.2.3: Content types creation (10 collection types + 10 single types + 9 components)
 - 🚧 0.2.4: Frontend API integration (Strapi SDK) - **CURRENT PRIORITY** 🔥
-- ⏳ 0.3: Deployment (Vercel + Railway + CircleCI) - PENDING
+- ⏳ 0.3: Deployment (Vercel + Railway) - PENDING (CircleCI stashed for future prechecks)
 - ⏳ 0.4: Content migration from static to CMS - PENDING
 
 **Status:** 🚧 ~80% Complete - Currently working on frontend API integration (0.2.4)
@@ -535,10 +535,10 @@ Features (as needed) → 3-40 days each
   - Setting up error handling and fallbacks
 
 ### Next Up ⏳
-- **Phase 0.3: Deployment Strategy** (1.5 days)
+- **Phase 0.3: Deployment Strategy** (1 day)
   - Vercel configuration for frontend (auto-deploy from GitHub)
-  - Railway setup for backend (Strapi + PostgreSQL)
-  - CircleCI workflow for CMS deployment
+  - Railway setup for backend (Strapi + PostgreSQL + Docker build)
+  - CircleCI stashed for future (will handle prechecks only when test suite matures)
 - **Phase 0.4: Content Migration** (3 days)
   - Migration scripts from static to CMS
   - Bulk import via Strapi API
@@ -625,6 +625,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 - **PostgreSQL 16 + pgVector:** Docker image provides PostgreSQL 16 with pgVector extension pre-installed
 - **LangGraph State Machine:** Multi-agent workflow for intelligent form processing with LangSmith observability
 - **Plugin Enhancement Strategy:** strapi-plugin-icons-field v2.0 planned as future enhancement (35-48 days) to showcase advanced Strapi plugin development and create reusable architecture for portfolio differentiation
+- **Railway Handles Docker Builds:** CircleCI is stashed for future implementation - will only handle prechecks (linting, tests, security audits) when test suite matures (Phase 5+). Railway handles Docker image building and deployment to avoid duplication. See [Deployment Strategy](./docs/deployment-strategy.md) for full rationale.
 
 ---
 

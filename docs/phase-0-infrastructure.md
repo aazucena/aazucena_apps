@@ -401,7 +401,9 @@ volumes:
 
 ---
 
-### 0.3 Deployment Strategy (1.5 days) - ⏳ PENDING
+### 0.3 Deployment Strategy (1 day) - ⏳ PENDING
+
+**See [Deployment Strategy Documentation](/home/aazucena/Projects/aazucena_apps/docs/deployment-strategy.md) for complete details.**
 
 #### Frontend Deployment (Vercel)
 
@@ -424,7 +426,7 @@ STRAPI_API_URL=https://cms.yoursite.com
 STRAPI_API_TOKEN=xxxxx
 ```
 
-**Effort:** 0.5 days (just configuration)
+**Effort:** 0.25 days (just configuration)
 
 ---
 
@@ -432,12 +434,14 @@ STRAPI_API_TOKEN=xxxxx
 
 **Railway Setup:**
 - Deploy `apps/cms` to Railway
-- Provision PostgreSQL database
+- **Railway handles Docker image building** (no need for external CI/CD for builds)
+- Provision PostgreSQL 16+ database with pgVector
+- Provision Redis for caching
 - Configure environment variables
 - Automatic deployments from `main` branch
 
 **Database:**
-- PostgreSQL 14+ on Railway
+- PostgreSQL 16+ on Railway (with pgVector extension)
 - Automated daily backups
 - Connection pooling (PgBouncer)
 - SSL connections enabled
@@ -457,33 +461,74 @@ CLOUDINARY_NAME=xxxxx
 CLOUDINARY_KEY=xxxxx
 CLOUDINARY_SECRET=xxxxx
 
+REDIS_URL=${REDIS_URL}
+
 ALLOWED_ORIGINS=https://yoursite.com
 ```
 
-**Effort:** 1 day
+**Railway Docker Build Process:**
+- Railway automatically detects `Dockerfile` in `apps/cms/`
+- Builds Docker image on each deployment
+- Handles container orchestration and scaling
+- Zero-downtime deployments with health checks
+
+**Effort:** 0.75 days
 
 ---
 
-#### CircleCI (CMS Only)
+#### CircleCI - Future Enhancement (Stashed)
 
-**Why CircleCI for CMS only?**
-- Vercel handles frontend CI/CD automatically
-- CircleCI focuses solely on CMS deployment to Railway
-- Centralized testing and linting for entire monorepo
+**Current Status:** Stashed for future implementation when test suite matures (Phase 5+)
 
-**Workflow:**
+**Rationale for Stashing:**
+- **Avoid Duplication:** Railway already handles Docker builds and deployments
+- **Iterative Approach:** CircleCI provides limited value without comprehensive tests
+- **Cost Efficiency:** No need for additional CI/CD infrastructure at this stage
+- **Simplicity:** Fewer moving parts reduces complexity and maintenance burden
+
+**Future Scope (Post-Phase 5):**
+
+When revisited, CircleCI will **only handle prechecks**, NOT Docker builds or deployment:
+
+**What CircleCI WILL Do:**
+- ✅ Linting (ESLint, Prettier)
+- ✅ Type checking (TypeScript strict mode)
+- ✅ Unit tests (Vitest - when coverage is 70%+)
+- ✅ Integration tests (when implemented)
+- ✅ Security audits (npm audit, Snyk, OWASP dependency check)
+- ✅ Code quality checks (SonarQube, CodeClimate)
+
+**What CircleCI WON'T Do:**
+- ❌ Docker image building (Railway handles this)
+- ❌ Deployment (Railway auto-deploys from GitHub)
+- ❌ Database migrations (Strapi handles this)
+
+**Future Workflow (Prechecks Only):**
 ```yaml
 jobs:
   - install-dependencies
-  - lint-and-test (requires: install-dependencies)
-  - build-cms (requires: lint-and-test, branch: main)
-  - deploy-cms (requires: build-cms, branch: main)
+  - lint (requires: install-dependencies)
+  - type-check (requires: install-dependencies)
+  - test-unit (requires: install-dependencies)
+  - test-integration (requires: install-dependencies)
+  - security-audit (requires: install-dependencies)
+  - code-quality (requires: install-dependencies)
+  - approve-deployment (requires: all checks, manual approval)
 ```
 
-**Environment Variables:**
-- `RAILWAY_TOKEN` - Railway API token for deployment
+**When to Implement:**
+- After Phase 5 (Testing & Quality) is complete
+- When unit test coverage reaches 70%+
+- When integration tests are implemented
+- When E2E tests with Playwright are mature
+- When security scanning is a priority
+
+**Environment Variables (Future):**
 - `STRAPI_API_URL` - For testing
 - `STRAPI_API_TOKEN` - For testing
+- No Railway deployment tokens needed (Railway auto-deploys)
+
+**See:** [Deployment Strategy Guide](/home/aazucena/Projects/aazucena_apps/docs/deployment-strategy.md) for decision rationale and future implementation plan.
 
 ---
 
@@ -540,12 +585,12 @@ jobs:
 | 0.2.2 Strapi Configuration | 1 day | ✅ COMPLETED | Docker setup |
 | 0.2.3 Content Types | 7-10 days | ✅ COMPLETED | Strapi config |
 | 0.2.4 Frontend API Integration | 1-2 days | 🚧 IN PROGRESS 🔥 | Content types |
-| 0.3 Deployment Strategy | 1.5 days | ⏳ PENDING | CMS setup |
+| 0.3 Deployment Strategy | 1 day | ⏳ PENDING | CMS setup |
 | 0.4 Content Migration | 3 days | ⏳ PENDING | All above |
 
-**Total:** 16-20 days
+**Total:** 15.5-19 days (reduced from 16-20 days - CircleCI stashed)
 **Completed:** ~13-16 days (Steps 0.1, 0.2.1, 0.2.2, 0.2.3)
-**Remaining:** ~3-4 days (Steps 0.2.4, 0.3, 0.4)
+**Remaining:** ~2.5-3 days (Steps 0.2.4, 0.3, 0.4)
 
 ---
 
@@ -602,10 +647,10 @@ jobs:
   - Setting up error handling and fallbacks
 
 ### Pending ⏳
-- ⏳ 0.3: Deployment Strategy (1.5 days)
+- ⏳ 0.3: Deployment Strategy (1 day)
   - Vercel configuration for frontend
-  - Railway setup for backend
-  - CircleCI workflow for CMS deployment
+  - Railway setup for backend (handles Docker builds)
+  - CircleCI stashed for future (prechecks only when test suite matures)
 - ⏳ 0.4: Content Migration (3 days)
   - Migration scripts from static to CMS
   - Bulk import via Strapi API

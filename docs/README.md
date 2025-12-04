@@ -53,7 +53,7 @@ Docker Compose local development, Strapi CMS v5 integration, PostgreSQL 16+ with
 - ✅ 0.2.2: Strapi configuration (admin panel, Cloudinary)
 - ✅ 0.2.3: Content types creation (10 collection + 10 single + 9 components)
 - 🚧 0.2.4: Frontend API integration (Strapi SDK) - **CURRENT PRIORITY** 🔥
-- ⏳ 0.3: Deployment strategy (1.5 days)
+- ⏳ 0.3: Deployment strategy (1 day) - CircleCI stashed for future
 - ⏳ 0.4: Content migration (3 days)
 
 ---
@@ -175,7 +175,8 @@ Features (Music, AI, ML, etc.) → 3-40 days each
 - **Local Development:** Docker Compose (Strapi + PostgreSQL 16 + pgVector)
 - **Frontend Deploy:** Vercel (auto via GitHub)
 - **Backend Deploy:** Railway
-- **CI/CD:** CircleCI (CMS only)
+- **CI/CD:** CircleCI (future - prechecks only, currently stashed)
+- **Deployment:** See [Deployment Strategy](./deployment-strategy.md) for details
 
 ### Monitoring & Logging
 - **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights, Plausible (self-hosted)
@@ -235,7 +236,7 @@ Features (Music, AI, ML, etc.) → 3-40 days each
 - ✅ Phase 1 completed (2025-01-13): Animations refactoring successful (324 → 174 lines, 46% reduction)
 - ✅ Phase 0 Infrastructure ~80% complete: Strapi v5.31.0, Docker Compose, PostgreSQL 16 + pgVector, 20 content types
 - 🔥 Phase 0.2.4 in progress: Frontend API Integration (connecting portfolio to Strapi CMS)
-- ⏳ Phase 0.3 pending: Deployment (Vercel + Railway + CircleCI)
+- ⏳ Phase 0.3 pending: Deployment (Vercel + Railway - CircleCI stashed for future prechecks)
 - ⏳ Phase 0.4 pending: Content migration from static to CMS
 
 **Current Focus:** Installing Strapi SDK, creating API client with type generation, implementing caching strategy (Astro SSG + ISR), replacing static data with dynamic CMS content, and setting up error handling/fallbacks. Phase 0 uses Docker Compose for consistent local development with PostgreSQL 16 + pgVector extension ready for future AI features including semantic search and RAG capabilities.
