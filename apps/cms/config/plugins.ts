@@ -29,7 +29,6 @@ export default ({ env }) => ({
     config: {
       endpoint: '/graphql',
       shadowCRUD: true,
-      playgroundAlways: false, // Set to false in production
       depthLimit: 10,
       amountLimit: 100,
       apolloServer: {
@@ -102,7 +101,7 @@ export default ({ env }) => ({
   'sentry': {
     enabled: true,
     config: {
-      dsn: env('SENTRY_DSN'),
+      dsn: env('NODE_ENV') === 'production' ? env('SENTRY_DSN') : null,
       sendMetadata: true,
     },
   },
