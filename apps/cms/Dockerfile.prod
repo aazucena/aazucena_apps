@@ -34,7 +34,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 # Install pnpm globally
-RUN npm install -g pnpm
+RUN npm install -g pnpm node-gyp
 
 # Install ALL dependencies (including devDependencies needed for build)
 RUN pnpm config set fetch-retry-maxtimeout 600000 && \
@@ -66,6 +66,7 @@ RUN npm install -g pnpm
 # Build Strapi admin panel
 # This pre-compiles the admin UI for production
 ENV NODE_ENV=production
+ENV NODE_OPTIONS=--max_old_space_size=4096
 RUN pnpm build
 
 # ==============================================================================
@@ -94,12 +95,11 @@ COPY package.json pnpm-lock.yaml ./
 # Install ONLY production dependencies (excludes devDependencies)
 RUN pnpm config set fetch-retry-maxtimeout 600000 && \
     pnpm install --prod --frozen-lockfile
-    
-RUN pnpm self-update
 
 # Copy built application from builder stage
+# Note: Strapi v5 'strapi build' only creates .strapi/ directory (built admin panel)
+# The 'build' directory doesn't exist in Strapi v5 - it was removed in the migration from v4
 COPY --from=builder /app/.strapi ./.strapi
-COPY --from=builder /app/build ./build
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/config ./config
@@ -118,7 +118,7 @@ USER node
 
 # Environment variables
 ENV NODE_ENV=production
-ENV NODE_OPTIONS=--max_old_space_size=2048
+ENV NODE_OPTIONS=--max_old_space_size=4096
 
 # Expose Strapi port (Railway will map this to public URL)
 EXPOSE 1337
