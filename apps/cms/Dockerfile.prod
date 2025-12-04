@@ -100,12 +100,16 @@ RUN pnpm config set fetch-retry-maxtimeout 600000 && \
 # Note: Strapi v5 'strapi build' only creates .strapi/ directory (built admin panel)
 # The 'build' directory doesn't exist in Strapi v5 - it was removed in the migration from v4
 COPY --from=builder /app/.strapi ./.strapi
-COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/config ./config
-COPY --from=builder /app/database ./database
-COPY --from=builder /app/src ./src
 COPY --from=builder /app/favicon.png ./favicon.png
+
+# Copy COMPILED JavaScript files from dist/ (not TypeScript source files)
+# Strapi in production cannot load .ts files - only .js files
+COPY --from=builder /app/dist/config ./config
+COPY --from=builder /app/dist/src ./src
+
+# Copy database directory (migrations, seeds) if it exists
+COPY --from=builder /app/database ./database
 
 # Create uploads directory (Cloudinary handles storage, but Strapi needs this for temp files)
 RUN mkdir -p public/uploads
