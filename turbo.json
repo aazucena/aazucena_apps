@@ -22,6 +22,11 @@
         "!mod.js",
         "!mod.js.map",
         "storybook-static/**"
+      ],
+      "passThroughEnv": [
+        "STRAPI_URL",
+        "STRAPI_TOKEN",
+        "SENTRY_AUTH_TOKEN"
       ]
     },
     "lint": {
