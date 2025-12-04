@@ -22,14 +22,11 @@ ENV NODE_ENV=${NODE_ENV}
 # Increase Node.js memory limit for memory-intensive tasks.
 ENV NODE_OPTIONS=--max_old_space_size=4096
 
-# Set initial working directory.
-WORKDIR /srv
+# Set application working directory.
+WORKDIR /srv/app
 
 # Copy essential package files and scripts to leverage Docker cache for dependencies.
-COPY ./pnpm-lock.yaml .
-COPY ./package.json .
-COPY ./plugins.sh .
-COPY ./icons.sh .
+COPY pnpm-lock.yaml package.json ./
 
 # Install pnpm globally and node-gyp for native module compilation.
 RUN npm install -g pnpm node-gyp
@@ -40,10 +37,7 @@ RUN pnpm config --global set fetch-retry-maxtimeout 600000 && pnpm install --fro
 # Update pnpm executable to latest version.
 RUN pnpm self-update
 
-ENV PATH=/srv/node_modules/.bin:$PATH
-
-# Set application working directory.
-WORKDIR /srv/app
+ENV PATH=/srv/app/node_modules/.bin:$PATH
 
 # Copy application files after dependencies for build caching.
 COPY . .

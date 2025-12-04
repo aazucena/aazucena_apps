@@ -1,0 +1,134 @@
+# ==============================================================================
+# Production-Optimized Multi-Stage Dockerfile for Strapi v5
+# ==============================================================================
+# Benefits:
+# - Smaller image size (~300MB vs ~800MB for development)
+# - Faster deployments (pre-built admin panel)
+# - Security hardened (non-root user, minimal dependencies)
+# - Optimized for Railway deployment via CircleCI
+# ==============================================================================
+
+# ==============================================================================
+# Stage 1: Dependencies
+# ==============================================================================
+FROM node:22-alpine AS dependencies
+
+LABEL maintainer="Aldrin Azucena"
+LABEL description="Strapi v5 CMS - Dependencies Stage"
+
+# Install build dependencies for native modules (sharp, better-sqlite3, etc.)
+RUN apk update && apk add --no-cache \
+    build-base \
+    gcc \
+    autoconf \
+    automake \
+    zlib-dev \
+    libpng-dev \
+    vips-dev \
+    git \
+    python3
+
+WORKDIR /app
+
+# Copy package files for dependency installation
+COPY package.json pnpm-lock.yaml ./
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Install ALL dependencies (including devDependencies needed for build)
+RUN pnpm config set fetch-retry-maxtimeout 600000 && \
+    pnpm install --frozen-lockfile
+
+RUN pnpm self-update
+
+# ==============================================================================
+# Stage 2: Builder
+# ==============================================================================
+FROM node:22-alpine AS builder
+
+LABEL description="Strapi v5 CMS - Build Stage"
+
+# Install only runtime dependencies needed for build
+RUN apk update && apk add --no-cache vips-dev
+
+WORKDIR /app
+
+# Copy dependencies from previous stage
+COPY --from=dependencies /app/node_modules ./node_modules
+
+# Copy application source
+COPY . .
+
+# Install pnpm for build command
+RUN npm install -g pnpm
+
+# Build Strapi admin panel
+# This pre-compiles the admin UI for production
+ENV NODE_ENV=production
+RUN pnpm build
+
+# ==============================================================================
+# Stage 3: Production Runtime
+# ==============================================================================
+FROM node:22-alpine AS production
+
+LABEL description="Strapi v5 CMS - Production Runtime"
+LABEL version="5.31.0"
+
+# Install only runtime dependencies (no build tools)
+RUN apk update && apk add --no-cache \
+    vips \
+    vips-cpp \
+    dumb-init
+
+# Create app directory
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
+
+# Install ONLY production dependencies (excludes devDependencies)
+RUN pnpm config set fetch-retry-maxtimeout 600000 && \
+    pnpm install --prod --frozen-lockfile
+    
+RUN pnpm self-update
+
+# Copy built application from builder stage
+COPY --from=builder /app/.strapi ./.strapi
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/config ./config
+COPY --from=builder /app/database ./database
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/favicon.png ./favicon.png
+
+# Create uploads directory (Cloudinary handles storage, but Strapi needs this for temp files)
+RUN mkdir -p public/uploads
+
+# Set ownership to non-root user for security
+RUN chown -R node:node /app
+
+# Switch to non-root user
+USER node
+
+# Environment variables
+ENV NODE_ENV=production
+ENV NODE_OPTIONS=--max_old_space_size=2048
+
+# Expose Strapi port (Railway will map this to public URL)
+EXPOSE 1337
+
+# Health check endpoint
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:1337/_health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start Strapi in production mode
+CMD ["pnpm", "start"]
