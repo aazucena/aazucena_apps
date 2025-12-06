@@ -1,6 +1,8 @@
 import * as Sentry from "@sentry/astro";
 import { nodeProfilingIntegration } from "@sentry/profiling-node";
 
+const PUBLIC_VERCEL_ENV = process.env.PUBLIC_VERCEL_ENV || 'development';
+
 Sentry.init({
   dsn: process.env.SENTRY_DSN || process.env.PUBLIC_SENTRY_DSN,
   // Adds request headers and IP for users, for more info visit: for more info visit:
@@ -14,7 +16,7 @@ Sentry.init({
   enableLogs: true,
   // Define how likely traces are sampled. Adjust this value in production,
   // or use tracesSampler for greater control.
-  tracesSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1.0,
+  tracesSampleRate: PUBLIC_VERCEL_ENV === "production" ? 0.1 : 1.0,
   // Define how many user sessions have profiling enabled.
-  profileSessionSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1.0,
+  profileSessionSampleRate: PUBLIC_VERCEL_ENV === "production" ? 0.1 : 1.0,
 });
