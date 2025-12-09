@@ -7,4 +7,7 @@ interface ImportMetaEnv {
   readonly PUBLIC_PLAUSIBLE_DOMAIN: string;
   readonly PUBLIC_PLAUSIBLE_API_HOST: string;
   readonly PUBLIC_SENTRY_DSN: string;
+  readonly PUBLIC_SENTRY_PROJECT: string;
+  readonly PUBLIC_SENTRY_ORG: string;
+  readonly SENTRY_AUTH_TOKEN: string;
 }
