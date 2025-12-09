@@ -19,6 +19,7 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "@sentry-internal/node-cpu-profiler",
       "core-js-pure",
       "esbuild",
       "sharp"
