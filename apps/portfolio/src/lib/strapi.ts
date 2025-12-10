@@ -138,7 +138,6 @@ export async function fetchStrapi<T>(
 ): Promise<StrapiResponse<T>> {
   const queryString = buildQueryString(options?.query);
   const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}${queryString ? `?${queryString}` : ''}`;
-  console.log("🚀 ~ fetchStrapi ~ url:", url)
 
   try {
     const res = await fetch(url, {
