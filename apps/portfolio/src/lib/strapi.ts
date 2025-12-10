@@ -10,10 +10,20 @@
 import qs from 'qs';
 
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
+const STRAPI_API_ENDPOINT = import.meta.env.STRAPI_API_ENDPOINT || '/api';
 const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
 
+// Token validation: Required in production, optional in development
 if (!STRAPI_TOKEN) {
-  throw new Error('STRAPI_TOKEN is not defined in environment variables');
+  if (import.meta.env.PROD) {
+    throw new Error('STRAPI_TOKEN is required in production environment');
+  } else {
+    console.warn(
+      '[Strapi] No STRAPI_TOKEN found in environment variables.',
+      'API calls will fail. Using fallback data.',
+      'Set STRAPI_TOKEN in your .env file to fetch from CMS.'
+    );
+  }
 }
 
 // ============================================================================
@@ -127,7 +137,8 @@ export async function fetchStrapi<T>(
   options?: FetchOptions
 ): Promise<StrapiResponse<T>> {
   const queryString = buildQueryString(options?.query);
-  const url = `${STRAPI_URL}/api/${endpoint}${queryString ? `?${queryString}` : ''}`;
+  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}${queryString ? `?${queryString}` : ''}`;
+  console.log("🚀 ~ fetchStrapi ~ url:", url)
 
   try {
     const res = await fetch(url, {
@@ -186,7 +197,7 @@ export async function createStrapiEntry<T>(
   endpoint: string,
   data: Record<string, any>
 ): Promise<StrapiResponse<T>> {
-  const url = `${STRAPI_URL}/api/${endpoint}`;
+  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}`;
 
   try {
     const res = await fetch(url, {
@@ -228,7 +239,7 @@ export async function updateStrapiEntry<T>(
   id: string | number,
   data: Record<string, any>
 ): Promise<StrapiResponse<T>> {
-  const url = `${STRAPI_URL}/api/${endpoint}/${id}`;
+  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}/${id}`;
 
   try {
     const res = await fetch(url, {
@@ -267,7 +278,7 @@ export async function deleteStrapiEntry<T>(
   endpoint: string,
   id: string | number
 ): Promise<StrapiResponse<T>> {
-  const url = `${STRAPI_URL}/api/${endpoint}/${id}`;
+  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}/${id}`;
 
   try {
     const res = await fetch(url, {
