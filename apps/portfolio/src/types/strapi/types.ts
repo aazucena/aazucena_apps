@@ -143,9 +143,8 @@ export interface StrapiEducation {
 
 export interface StrapiImageElement {
   id: number;
-  image: StrapiMedia;
-  altText?: string;
-  caption?: string;
+  src: StrapiMedia;
+  altText: string;
 }
 
 // ============================================================================
@@ -360,17 +359,17 @@ export interface Experience extends StrapiBaseAttributes {
 }
 
 export interface Testimonial extends StrapiBaseAttributes {
-  name: string;
-  position?: string;
+  author: string;
+  authorTitle?: string;
   company?: string;
-  testimonialText: string;
+  content: string;
   rating?: number; // 1-5
   featured?: boolean;
-  avatar?: StrapiMedia;
+  avatar?: StrapiImageElement;
   companyLogo?: StrapiMedia;
   relationship?: 'client' | 'colleague' | 'manager' | 'other';
   projectRelated?: Project;
-  approved?: boolean;
+  approvalStatus?: 'Pending' | 'Approved' | 'Rejected';
   aiSentiment?: 'positive' | 'neutral' | 'negative';
   aiSummary?: string;
   contentEmbedding?: any;
@@ -380,8 +379,9 @@ export interface Testimonial extends StrapiBaseAttributes {
 
 export interface Award extends StrapiBaseAttributes {
   title: string;
+  organization: string;
   issuer: string;
-  date: string;
+  year: string;
   description?: string;
   category?: 'certification' | 'award' | 'achievement' | 'recognition';
   credentialUrl?: string;

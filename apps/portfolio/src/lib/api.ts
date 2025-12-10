@@ -27,7 +27,6 @@ import type {
   Testimonial,
   Award,
   Composition,
-  FormSubmission,
   EasterEggCompletion,
   StrapiSingleTypeResponse,
   StrapiCollectionResponse,
@@ -84,11 +83,10 @@ export async function getPortfolio(options?: FetchOptions): Promise<Portfolio> {
     ...options,
     query: {
       populate: {
-        stats: true,
-        profileImage: { populate: 'image' },
+        profileImage: true, // Component
         resumeFile: true,
-        socialLinks: true,
-        education: true,
+        socialLinks: true, // Component
+        education: true, // Component
       },
       ...options?.query,
     },
@@ -227,7 +225,7 @@ export async function getSkills(filters?: {
     query: {
       populate: '*',
       filters: filters as any,
-      sort: ['proficiency:desc', 'order:asc'],
+      sort: ['proficiency:desc', 'sort:asc'], // Field is 'sort' not 'order'
       pagination: { pageSize: 100 },
     },
     cache: 'force-cache',
@@ -289,7 +287,7 @@ export async function getPosts(filters?: {
     query: {
       populate: {
         coverImage: true,
-        seo: true,
+        // Note: Post schema doesn't have an seo field
       },
       filters: restFilters as any,
       sort: ['publishedAt:desc'],
@@ -317,7 +315,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
         filters: { slug: { $eq: slug } },
         populate: {
           coverImage: true,
-          seo: true,
+          // Note: Post schema doesn't have an seo field
         },
         publicationState: 'live',
       },
@@ -414,17 +412,16 @@ export async function getExperiences(): Promise<Experience[]> {
  */
 export async function getTestimonials(filters?: {
   featured?: boolean;
-  approved?: boolean;
+  approvalStatus?: 'Pending' | 'Approved' | 'Rejected';
 }): Promise<Testimonial[]> {
   const response = await fetchStrapi<StrapiCollectionResponse<Testimonial>>('testimonials', {
     query: {
       populate: {
         avatar: true,
-        companyLogo: true,
         projectRelated: true,
       },
       filters: {
-        approved: true, // Only show approved testimonials by default
+        approvalStatus: { $eq: 'Approved' }, // Field is 'approvalStatus' not 'approved'
         ...filters,
       } as any,
       sort: ['publishedAt:desc'],
@@ -448,10 +445,10 @@ export async function getAwards(filters?: {
     query: {
       populate: {
         badge: true,
-        skills: true,
+        relatedSkill: true, // Correct relation name
       },
       filters: filters as any,
-      sort: ['date:desc', 'order:asc'],
+      sort: ['year:desc'], // Field is 'year' not 'date', no 'order' field exists
       pagination: { pageSize: 100 },
     },
     cache: 'force-cache',

@@ -7,6 +7,8 @@
  * @see docs/strapi/16-api-tokens-setup.md
  */
 
+import qs from 'qs';
+
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
 const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
 
@@ -62,62 +64,23 @@ export interface FetchOptions {
 // ============================================================================
 
 /**
- * Build query string from Strapi query options
+ * Build query string from Strapi query options using qs (Strapi recommended)
+ *
+ * Uses qs library to properly format nested objects and arrays for Strapi v5 API.
+ * This ensures correct bracket notation for complex populate queries.
+ *
+ * @example
+ * // Input: { populate: { author: { populate: 'avatar' } } }
+ * // Output: populate[author][populate]=avatar
  */
 function buildQueryString(query?: StrapiQueryOptions): string {
   if (!query) return '';
 
-  const params = new URLSearchParams();
+  const queryString = qs.stringify(query, {
+    encodeValuesOnly: true, // Keeps brackets readable
+  });
 
-  // Populate
-  if (query.populate) {
-    if (typeof query.populate === 'string') {
-      params.append('populate', query.populate);
-    } else if (Array.isArray(query.populate)) {
-      params.append('populate', query.populate.join(','));
-    } else {
-      params.append('populate', JSON.stringify(query.populate));
-    }
-  }
-
-  // Fields
-  if (query.fields) {
-    params.append('fields', query.fields.join(','));
-  }
-
-  // Filters
-  if (query.filters) {
-    Object.entries(query.filters).forEach(([key, value]) => {
-      params.append(`filters[${key}]`, String(value));
-    });
-  }
-
-  // Sort
-  if (query.sort) {
-    const sortValue = Array.isArray(query.sort) ? query.sort.join(',') : query.sort;
-    params.append('sort', sortValue);
-  }
-
-  // Pagination
-  if (query.pagination) {
-    Object.entries(query.pagination).forEach(([key, value]) => {
-      if (value !== undefined) {
-        params.append(`pagination[${key}]`, String(value));
-      }
-    });
-  }
-
-  // Locale (for i18n)
-  if (query.locale) {
-    params.append('locale', query.locale);
-  }
-
-  // Publication state
-  if (query.publicationState) {
-    params.append('publicationState', query.publicationState);
-  }
-
-  return params.toString();
+  return queryString;
 }
 
 /**
