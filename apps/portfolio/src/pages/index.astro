@@ -20,6 +20,7 @@ import {
   transformPostsData,
 } from '~/lib/transformers';
 import { aboutData } from '~/components/animations/sections/data/about';
+import * as data from '~/components/animations/sections/data';
 import type { PortfolioData } from '~/types/portfolio';
 
 // Fetch all CMS data in parallel at build time
@@ -57,12 +58,12 @@ const [portfolio, skills, projects, experiences, testimonials, awards, postsResu
 // Transform CMS data to component format with fallbacks
 const portfolioData: PortfolioData = {
   about: portfolio ? transformAboutData(portfolio) : aboutData,
-  skills: transformSkillsData(skills || []),
-  projects: transformProjectsData(projects || []),
-  experiences: transformExperiencesData(experiences || []),
-  testimonials: transformTestimonialsData(testimonials || []),
-  awards: transformAwardsData(awards || []),
-  posts: transformPostsData(postsResult?.posts || []),
+  skills: skills ? transformSkillsData(skills || []) : data.skillCategories,
+  projects: projects ? transformProjectsData(projects || []) : data.projects,
+  experiences: experiences ? transformExperiencesData(experiences || []) : data.experiences,
+  testimonials: testimonials ? transformTestimonialsData(testimonials || []) : data.testimonials,
+  awards: awards ? transformAwardsData(awards || []) : data.awards,
+  posts: postsResult?.posts?.length > 0 ? transformPostsData(postsResult?.posts || []) : data.blogPosts,
 };
 
 // Log data fetching status (helpful for debugging)
