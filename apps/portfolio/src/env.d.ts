@@ -1,6 +1,7 @@
 interface ImportMetaEnv {
   readonly STRAPI_URL: string;
   readonly STRAPI_TOKEN: string;
+  readonly STRAPI_ENDPOINT: string;
   readonly PUBLIC_RECAPTCHA_SITE_KEY: string;
   readonly RECAPTCHA_SECRET_KEY: string;
   readonly PUBLIC_GOOGLE_ANALYTICS_ID: string;

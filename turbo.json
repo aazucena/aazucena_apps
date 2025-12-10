@@ -24,6 +24,7 @@
         "storybook-static/**"
       ],
       "passThroughEnv": [
+        "STRAPI_API_ENDPOINT",
         "STRAPI_URL",
         "STRAPI_TOKEN",
         "SENTRY_AUTH_TOKEN"
