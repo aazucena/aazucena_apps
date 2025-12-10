@@ -1,11 +1,82 @@
 ---
 import Layout from '../layouts/HomeLayout.astro';
 import HeroSection from '~/components/animations/Section';
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import {
+  getPortfolio,
+  getSkills,
+  getProjects,
+  getExperiences,
+  getTestimonials,
+  getAwards,
+  getPosts,
+} from '~/lib/api';
+import {
+  transformAboutData,
+  transformSkillsData,
+  transformProjectsData,
+  transformExperiencesData,
+  transformTestimonialsData,
+  transformAwardsData,
+  transformPostsData,
+} from '~/lib/transformers';
+import { aboutData } from '~/components/animations/sections/data/about';
+import type { PortfolioData } from '~/types/portfolio';
+
+// Fetch all CMS data in parallel at build time
+const [portfolio, skills, projects, experiences, testimonials, awards, postsResult] = await Promise.all([
+  getPortfolio({ cache: 'force-cache' }).catch((err) => {
+    console.warn('Failed to fetch portfolio data:', err.message);
+    return null;
+  }),
+  getSkills().catch((err) => {
+    console.warn('Failed to fetch skills data:', err.message);
+    return [];
+  }),
+  getProjects().catch((err) => {
+    console.warn('Failed to fetch projects data:', err.message);
+    return [];
+  }),
+  getExperiences().catch((err) => {
+    console.warn('Failed to fetch experiences data:', err.message);
+    return [];
+  }),
+  getTestimonials().catch((err) => {
+    console.warn('Failed to fetch testimonials data:', err.message);
+    return [];
+  }),
+  getAwards().catch((err) => {
+    console.warn('Failed to fetch awards data:', err.message);
+    return [];
+  }),
+  getPosts({ featured: true, pageSize: 6 }).catch((err) => {
+    console.warn('Failed to fetch posts data:', err.message);
+    return { posts: [], meta: {} };
+  }),
+]);
+
+// Transform CMS data to component format with fallbacks
+const portfolioData: PortfolioData = {
+  about: portfolio ? transformAboutData(portfolio) : aboutData,
+  skills: transformSkillsData(skills || []),
+  projects: transformProjectsData(projects || []),
+  experiences: transformExperiencesData(experiences || []),
+  testimonials: transformTestimonialsData(testimonials || []),
+  awards: transformAwardsData(awards || []),
+  posts: transformPostsData(postsResult?.posts || []),
+};
+
+// Log data fetching status (helpful for debugging)
+console.log('CMS Data Status:', {
+  portfolio: portfolio ? '✅ Loaded' : '⚠️ Using fallback',
+  skills: skills?.length > 0 ? `✅ ${skills.length} loaded` : '⚠️ Empty',
+  projects: projects?.length > 0 ? `✅ ${projects.length} loaded` : '⚠️ Empty',
+  experiences: experiences?.length > 0 ? `✅ ${experiences.length} loaded` : '⚠️ Empty',
+  testimonials: testimonials?.length > 0 ? `✅ ${testimonials.length} loaded` : '⚠️ Empty',
+  awards: awards?.length > 0 ? `✅ ${awards.length} loaded` : '⚠️ Empty',
+  posts: postsResult?.posts?.length > 0 ? `✅ ${postsResult.posts.length} loaded` : '⚠️ Empty',
+});
 ---
 
 <Layout title="Aldrin Azucena">
-  <!-- <h1 class="text-8xl font-bold">Welcome to Aldrin Azucena</h1> -->
-  <HeroSection client:visible />
+  <HeroSection client:visible portfolioData={portfolioData} />
 </Layout>
