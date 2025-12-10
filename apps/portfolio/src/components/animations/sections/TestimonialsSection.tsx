@@ -5,9 +5,14 @@
 
 import type { JSX } from 'react';
 import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
-import { testimonials } from './data/testimonials';
+import { testimonials as staticTestimonials } from './data/testimonials';
+import type { TestimonialData } from '~/types/portfolio';
 
-export function TestimonialsSection(): JSX.Element {
+export interface TestimonialsSectionProps {
+  testimonials?: TestimonialData[];
+}
+
+export function TestimonialsSection({ testimonials = staticTestimonials }: TestimonialsSectionProps): JSX.Element {
   return (
     <div className="container mx-auto max-w-7xl">
       <div className="w-full text-center">

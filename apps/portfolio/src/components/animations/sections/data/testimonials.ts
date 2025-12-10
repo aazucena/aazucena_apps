@@ -5,6 +5,9 @@
 
 import type { Testimonial } from '@/components/ui/infinite-moving-cards';
 
+// Re-export Testimonial type for use in other files
+export type { Testimonial };
+
 export const testimonials: Testimonial[] = [
   {
     quote: "Aldrin consistently delivers high-quality code and demonstrates exceptional problem-solving skills. His ability to tackle complex technical challenges makes him an invaluable team member.",

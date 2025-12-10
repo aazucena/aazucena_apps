@@ -11,6 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PortfolioProvider, usePortfolio } from "./contexts/PortfolioContext";
 import { AnimationProvider, useAnimation } from "./contexts/AnimationContext";
 import { aboutData } from "./sections/data/about";
+import type { PortfolioData } from "~/types/portfolio";
 import {
   useFlipText,
   useModal,
@@ -40,7 +41,7 @@ if (typeof window !== "undefined") {
 }
 
 // Inner component that uses contexts
-function PortfolioSectionInner(): JSX.Element {
+function PortfolioSectionInner({ portfolioData }: { portfolioData: PortfolioData }): JSX.Element {
   const refs = useSectionRefs();
 
   // Context hooks
@@ -72,7 +73,7 @@ function PortfolioSectionInner(): JSX.Element {
   // Custom hooks
   const { currentWord: currentFlipWord, elementRef: flipTextRef } = useFlipText(
     {
-      words: aboutData.flipWords,
+      words: portfolioData.about.flipWords,
       interval: 3000,
     },
   );
@@ -167,6 +168,7 @@ function PortfolioSectionInner(): JSX.Element {
           currentFlipWord={currentFlipWord || ""}
           onSectionClick={handleSectionClick}
           onViewResume={handleViewResume}
+          portfolioData={portfolioData}
         />
 
         {/* UI Overlays */}
@@ -198,11 +200,11 @@ function PortfolioSectionInner(): JSX.Element {
 }
 
 // Main exported component with providers
-export default function PortfolioSection(): JSX.Element {
+export default function PortfolioSection({ portfolioData }: { portfolioData: PortfolioData }): JSX.Element {
   return (
     <AnimationProvider>
       <PortfolioProvider>
-        <PortfolioSectionInner />
+        <PortfolioSectionInner portfolioData={portfolioData} />
       </PortfolioProvider>
     </AnimationProvider>
   );

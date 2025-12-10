@@ -4,13 +4,18 @@
  */
 
 import type { JSX } from 'react';
-import { awards } from './data/awards';
+import { awards as staticAwards } from './data/awards';
 import { getGradientColors } from '../utilities/colors';
 import { useModal } from '../hooks';
 import { AwardModal } from '../ui';
 import type { Award } from './data/awards';
+import type { AwardData } from '~/types/portfolio';
 
-export function AwardsSection(): JSX.Element {
+export interface AwardsSectionProps {
+  awards?: AwardData[];
+}
+
+export function AwardsSection({ awards = staticAwards }: AwardsSectionProps): JSX.Element {
   const certifications = awards.filter(award => award.type === 'certification');
   const achievementAwards = awards.filter(award => award.type === 'award');
 

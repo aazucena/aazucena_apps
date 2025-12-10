@@ -4,10 +4,16 @@
  */
 
 import type { JSX } from 'react';
-import { blogPosts } from './data/blog';
+import { blogPosts as staticBlogPosts } from './data/blog';
 import { getTagClasses } from '../utilities/colors';
+import type { PostData } from '~/types/portfolio';
 
-export function BlogSection(): JSX.Element {
+export interface BlogSectionProps {
+  posts?: PostData[];
+}
+
+export function BlogSection({ posts = staticBlogPosts }: BlogSectionProps): JSX.Element {
+  const blogPosts = posts;
   return (
     <div className="container mx-auto max-w-7xl">
       <div className="max-w-5xl mx-auto text-center">

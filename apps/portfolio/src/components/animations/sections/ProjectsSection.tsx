@@ -6,9 +6,14 @@
 import type { JSX } from 'react';
 import { useState, useEffect } from 'react';
 import { ArrowLeftRight as ArrowsHorizontal } from '@mynaui/icons-react';
-import { projects } from './data/projects';
+import { projects as staticProjects } from './data/projects';
+import type { ProjectData } from '~/types/portfolio';
 
-export function ProjectsSection(): JSX.Element {
+export interface ProjectsSectionProps {
+  projects?: ProjectData[];
+}
+
+export function ProjectsSection({ projects = staticProjects }: ProjectsSectionProps): JSX.Element {
   const [currentPage, setCurrentPage] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState(0);

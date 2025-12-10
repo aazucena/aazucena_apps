@@ -4,7 +4,6 @@
  */
 
 import type { JSX, RefObject } from "react";
-import { aboutData } from "./data/about";
 import {
   HeroSection,
   AboutSection,
@@ -16,6 +15,7 @@ import {
   AwardsSection,
 } from "./index";
 import type { SectionRefs } from "../hooks/useSectionRefs";
+import type { PortfolioData } from "~/types/portfolio";
 
 interface SectionContentProps {
   refs: SectionRefs;
@@ -30,6 +30,8 @@ interface SectionContentProps {
   currentFlipWord: string;
   onSectionClick: (index: number) => void;
   onViewResume: () => void;
+  // Portfolio data from CMS
+  portfolioData: PortfolioData;
 }
 
 export default function SectionContent({
@@ -44,6 +46,7 @@ export default function SectionContent({
   currentFlipWord,
   onSectionClick,
   onViewResume,
+  portfolioData,
 }: SectionContentProps): JSX.Element {
   return (
     <>
@@ -54,7 +57,7 @@ export default function SectionContent({
         style={{ pointerEvents: currentSection === 0 ? "auto" : "none" }}
       >
         <HeroSection
-          data={aboutData}
+          data={portfolioData.about}
           titleRef={titleRef}
           subtitleRef={subtitleRef}
           ctaRef={ctaRef}
@@ -70,7 +73,7 @@ export default function SectionContent({
         ref={refs.aboutContentRef}
         className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center pointer-events-none"
       >
-        <AboutSection data={aboutData} />
+        <AboutSection data={portfolioData.about} />
       </div>
 
       {/* Projects Content */}
@@ -79,7 +82,7 @@ export default function SectionContent({
         className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center"
         style={{ pointerEvents: currentSection === 2 ? "auto" : "none" }}
       >
-        <ProjectsSection />
+        <ProjectsSection projects={portfolioData.projects} />
       </div>
 
       {/* Experience Content */}
@@ -88,7 +91,10 @@ export default function SectionContent({
         className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center"
         style={{ pointerEvents: currentSection === 3 ? "auto" : "none" }}
       >
-        <ExperienceSection onOpenExperience={onOpenExperience} />
+        <ExperienceSection
+          experiences={portfolioData.experiences}
+          onOpenExperience={onOpenExperience}
+        />
       </div>
 
       {/* Skills Content */}
@@ -97,7 +103,10 @@ export default function SectionContent({
         className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center"
         style={{ pointerEvents: currentSection === 4 ? "auto" : "none" }}
       >
-        <SkillsSection isSoundMuted={isSoundMuted} />
+        <SkillsSection
+          skillCategories={portfolioData.skills}
+          isSoundMuted={isSoundMuted}
+        />
       </div>
 
       {/* Testimonials Content */}
@@ -105,7 +114,7 @@ export default function SectionContent({
         ref={refs.testimonialsContentRef}
         className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center pointer-events-none"
       >
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={portfolioData.testimonials} />
       </div>
 
       {/* Blog Content */}
@@ -114,7 +123,7 @@ export default function SectionContent({
         className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center"
         style={{ pointerEvents: currentSection === 6 ? "auto" : "none" }}
       >
-        <BlogSection />
+        <BlogSection posts={portfolioData.posts} />
       </div>
 
       {/* Awards Content */}
@@ -123,7 +132,7 @@ export default function SectionContent({
         className="absolute top-0 left-0 right-0 z-30 w-full px-6 min-h-screen flex items-center"
         style={{ pointerEvents: currentSection === 7 ? "auto" : "none" }}
       >
-        <AwardsSection />
+        <AwardsSection awards={portfolioData.awards} />
       </div>
     </>
   );

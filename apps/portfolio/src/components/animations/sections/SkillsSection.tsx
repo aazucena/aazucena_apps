@@ -5,14 +5,16 @@
 
 import type { JSX } from 'react';
 import { PhoneDialTabs } from '@/components/ui/phone-dial-tabs';
-import { skillCategories } from './data/skills';
+import { skillCategories as staticSkillCategories } from './data/skills';
 import { getBadgeClasses } from '../utilities/colors';
+import type { SkillCategory } from '~/types/portfolio';
 
 export interface SkillsSectionProps {
   isSoundMuted: boolean;
+  skillCategories?: SkillCategory[];
 }
 
-export function SkillsSection({ isSoundMuted }: SkillsSectionProps): JSX.Element {
+export function SkillsSection({ isSoundMuted, skillCategories = staticSkillCategories }: SkillsSectionProps): JSX.Element {
   const tabs = skillCategories.map(category => ({
     id: category.id,
     label: category.label,

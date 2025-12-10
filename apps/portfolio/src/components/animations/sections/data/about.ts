@@ -3,17 +3,16 @@
  * Personal information and statistics
  */
 
+import type { BlocksContent } from '@strapi/blocks-react-renderer';
+
 export interface AboutData {
   name: string;
   title: string;
   tagline: string;
   flipWords: string[];
-  descriptions: string[];
-  highlights: string[];
-  stats: Array<{
-    value: string;
-    label: string;
-  }>;
+  descriptions: BlocksContent;
+  highlights: BlocksContent;
+  stats: Array<{ value: string; label: string; icon?: string; description?: string }>;
   education: {
     degree: string;
     institution: string;
@@ -21,22 +20,56 @@ export interface AboutData {
   };
 }
 
+/**
+ * Static fallback data in BlocksContent format
+ * Used when CMS is unavailable
+ */
 export const aboutData: AboutData = {
   name: 'Aldrin Azucena',
   title: 'Full Stack Software Developer',
   tagline: 'Building Products That Drive Impact',
   flipWords: ['ideas', 'concepts', 'visions', 'dreams'],
   descriptions: [
-    'I\'m a full-stack professional who transforms ideas into market-ready products. From rapid MVP development to enterprise-scale systems, I build high-performance SaaS, web, and mobile applications that deliver measurable business impact.',
-    'With expertise spanning TypeScript, Python, PHP, and Java, I leverage AI-powered workflows to create smarter, scalable solutions. I specialize in legacy system modernization, complex database migrations, and delivering secure, compliant applications that users love.'
+    {
+      type: 'paragraph',
+      children: [{
+        type: 'text',
+        text: 'I\'m a full-stack professional who transforms ideas into market-ready products. From rapid MVP development to enterprise-scale systems, I build high-performance SaaS, web, and mobile applications that deliver measurable business impact.'
+      }]
+    },
+    {
+      type: 'paragraph',
+      children: [{
+        type: 'text',
+        text: 'With expertise spanning TypeScript, Python, PHP, and Java, I leverage AI-powered workflows to create smarter, scalable solutions. I specialize in legacy system modernization, complex database migrations, and delivering secure, compliant applications that users love.'
+      }]
+    }
   ],
   highlights: [
-    'Full-Stack Development & Architecture',
-    'MVP to Enterprise Scaling',
-    'AI-Integrated Applications',
-    'Secure & Compliant Engineering',
-    'Legacy System Modernization',
-    'Clear Communication & Collaboration'
+    {
+      type: 'paragraph',
+      children: [{ type: 'text', text: 'Full-Stack Development & Architecture' }]
+    },
+    {
+      type: 'paragraph',
+      children: [{ type: 'text', text: 'MVP to Enterprise Scaling' }]
+    },
+    {
+      type: 'paragraph',
+      children: [{ type: 'text', text: 'AI-Integrated Applications' }]
+    },
+    {
+      type: 'paragraph',
+      children: [{ type: 'text', text: 'Secure & Compliant Engineering' }]
+    },
+    {
+      type: 'paragraph',
+      children: [{ type: 'text', text: 'Legacy System Modernization' }]
+    },
+    {
+      type: 'paragraph',
+      children: [{ type: 'text', text: 'Clear Communication & Collaboration' }]
+    }
   ],
   stats: [
     { value: '4+', label: 'Years Experience' },

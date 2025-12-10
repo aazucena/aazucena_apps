@@ -5,7 +5,7 @@
 
 import type { JSX } from 'react';
 import { useState } from 'react';
-import { experiences } from './data/experiences';
+import { experiences as staticExperiences } from './data/experiences';
 import {
   Timeline,
   TimelineItem,
@@ -13,14 +13,16 @@ import {
   TimelineLine,
   TimelineContent,
 } from '@/components/ui/timeline';
+import type { ExperienceData } from '~/types/portfolio';
 
 export interface ExperienceSectionProps {
   onOpenExperience: (index: number) => void;
+  experiences?: ExperienceData[];
 }
 
 const MAX_VISIBLE_EXPERIENCES = 5;
 
-export function ExperienceSection({ onOpenExperience }: ExperienceSectionProps): JSX.Element {
+export function ExperienceSection({ onOpenExperience, experiences = staticExperiences }: ExperienceSectionProps): JSX.Element {
   const [showAll, setShowAll] = useState(false);
 
   // Show only most recent 5 experiences unless "View All" is clicked

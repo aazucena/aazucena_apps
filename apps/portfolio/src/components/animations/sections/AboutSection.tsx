@@ -4,7 +4,9 @@
  */
 
 import type { JSX } from 'react';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import type { AboutData } from './data/about';
+import { defaultBlockRenderers, highlightBlockRenderers } from '~/components/blocks/BlockRenderers';
 
 export interface AboutSectionProps {
   data: AboutData;
@@ -21,20 +23,21 @@ export function AboutSection({ data }: AboutSectionProps): JSX.Element {
           </span>
         </h2>
 
-        <div className="space-y-6 text-lg md:text-xl text-gray-300 leading-relaxed text-center">
-          {data.descriptions.map((desc, index) => (
-            <p key={index}>{desc}</p>
-          ))}
+        <div className="space-y-6 text-lg md:text-xl text-center">
+          {/* Render descriptions with rich text formatting */}
+          <BlocksRenderer
+            content={data.descriptions}
+            blocks={defaultBlockRenderers}
+          />
 
           <div className="mt-8 bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10">
             <h3 className="text-xl font-semibold text-white mb-4">What I Bring to the Table</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-base text-left">
-              {data.highlights.map((highlight, index) => (
-                <div key={index} className="flex items-start gap-2">
-                  <span className="text-cyan-400 mt-1">✓</span>
-                  <span>{highlight}</span>
-                </div>
-              ))}
+              {/* Render highlights with checkmarks */}
+              <BlocksRenderer
+                content={data.highlights}
+                blocks={highlightBlockRenderers}
+              />
             </div>
           </div>
 
