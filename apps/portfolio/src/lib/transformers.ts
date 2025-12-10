@@ -26,6 +26,38 @@ import type {
 } from '~/types/strapi';
 
 // ============================================================================
+// Constants
+// ============================================================================
+
+/**
+ * Gradient palette for testimonials and awards
+ * Used to add visual variety across items
+ */
+const GRADIENT_PALETTE = [
+  'from-cyan-400 to-blue-500',
+  'from-purple-400 to-pink-500',
+  'from-green-400 to-emerald-500',
+  'from-orange-400 to-red-500',
+  'from-blue-400 to-indigo-500',
+  'from-pink-400 to-red-500',
+] as const;
+
+/**
+ * Color palette for blog post tags
+ * Used to add visual variety across tags
+ */
+const TAG_COLOR_PALETTE = [
+  'cyan',
+  'purple',
+  'green',
+  'orange',
+  'blue',
+  'pink',
+  'indigo',
+  'red',
+] as const;
+
+// ============================================================================
 // About Section Transformer
 // ============================================================================
 
@@ -344,14 +376,7 @@ export interface Testimonial {
  * Generate a gradient based on index for visual variety
  */
 function getTestimonialGradient(index: number): string {
-  const gradients = [
-    'from-cyan-400 to-blue-500',
-    'from-purple-400 to-pink-500',
-    'from-green-400 to-emerald-500',
-    'from-orange-400 to-red-500',
-    'from-blue-400 to-indigo-500',
-  ];
-  return gradients[index % gradients.length]!;
+  return GRADIENT_PALETTE[index % GRADIENT_PALETTE.length]!;
 }
 
 /**
@@ -412,15 +437,7 @@ export interface Award {
  * Generate a gradient based on index for visual variety
  */
 function getAwardGradient(index: number): string {
-  const gradients = [
-    'from-cyan-400 to-blue-500',
-    'from-purple-400 to-pink-500',
-    'from-green-400 to-emerald-500',
-    'from-orange-400 to-red-500',
-    'from-blue-400 to-indigo-500',
-    'from-pink-400 to-red-500',
-  ];
-  return gradients[index % gradients.length]!;
+  return GRADIENT_PALETTE[index % GRADIENT_PALETTE.length]!;
 }
 
 /**
@@ -494,17 +511,7 @@ export interface BlogPost {
  * Generate tag colors for visual variety
  */
 function getTagColor(index: number): string {
-  const colors = [
-    'cyan',
-    'purple',
-    'green',
-    'orange',
-    'blue',
-    'pink',
-    'indigo',
-    'red',
-  ];
-  return colors[index % colors.length]!;
+  return TAG_COLOR_PALETTE[index % TAG_COLOR_PALETTE.length]!;
 }
 
 /**
