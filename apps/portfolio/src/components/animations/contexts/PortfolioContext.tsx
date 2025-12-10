@@ -128,6 +128,7 @@ export function PortfolioProvider({
       window.removeEventListener("wheel", handleWheel);
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
+        isScrollingRef.current = false; // Reset scroll lock on cleanup
       }
     };
   }, [currentSection, scrollProgress]);
