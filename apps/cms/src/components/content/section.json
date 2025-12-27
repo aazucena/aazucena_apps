@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_content_sections",
+  "info": {
+    "displayName": "Section",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 100,
+      "required": true,
+      "unique": true
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 255,
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "buttonLabel": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon"
+    },
+    "sort": {
+      "type": "integer",
+      "default": 0
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_ui_card_links",
+  "info": {
+    "displayName": "Card Link",
+    "icon": "layer"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "maxLength": 100,
+      "required": true
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "cyan-blue",
+        "purple-pink",
+        "green-teal",
+        "orange-red",
+        "indigo-violet"
+      ]
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 255
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon"
+    },
+    "button": {
+      "type": "component",
+      "component": "ui.cta-button",
+      "repeatable": false,
+      "required": true
+    }
+  },
+  "config": {}
+}

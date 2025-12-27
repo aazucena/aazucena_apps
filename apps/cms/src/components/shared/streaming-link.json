@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_shared_streaming_links",
+  "info": {
+    "displayName": "Streaming Link",
+    "icon": "headphone"
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Spotify",
+        "SoundCloud",
+        "YouTube",
+        "Apple Music",
+        "Bandcamp",
+        "Tidal"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 500,
+      "required": true,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
+    },
+    "isPrimary": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}
