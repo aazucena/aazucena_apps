@@ -15,13 +15,19 @@
         "Twitter",
         "YouTube",
         "Instagram",
-        "Other"
+        "Facebook",
+        "TikTok",
+        "Discord",
+        "Twitch",
+        "Mastodon"
       ]
     },
     "url": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": true,
+      "maxLength": 500,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "icon": {
       "type": "customField",
@@ -29,12 +35,11 @@
       "options": {
         "preset": "icons"
       },
-      "required": false,
       "displayName": "Platform Icon"
     },
     "text": {
       "type": "string",
-      "required": false
+      "maxLength": 100
     },
     "openInNewTab": {
       "type": "boolean",

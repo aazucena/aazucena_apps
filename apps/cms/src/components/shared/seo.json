@@ -20,7 +20,6 @@
     "metaImage": {
       "type": "media",
       "multiple": false,
-      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -32,17 +31,28 @@
     },
     "keywords": {
       "type": "text",
-      "regex": "[^,]+"
+      "maxLength": 500,
+      "regex": "^[a-zA-Z0-9, -]+$"
     },
     "metaRobots": {
-      "type": "string",
-      "regex": "[^,]+"
+      "type": "enumeration",
+      "default": "index, follow",
+      "enum": [
+        "index, follow",
+        "noindex, follow",
+        "index, nofollow",
+        "noindex, nofollow"
+      ]
     },
     "metaViewport": {
-      "type": "string"
+      "type": "string",
+      "default": "width=device-width, initial-scale=1.0",
+      "maxLength": 200
     },
     "canonicalURL": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 500,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "structuredData": {
       "type": "json"

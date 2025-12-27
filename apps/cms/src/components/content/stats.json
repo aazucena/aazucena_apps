@@ -25,7 +25,8 @@
       "customField": "plugin::icons-field.icon"
     },
     "sort": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     }
   },
   "config": {}

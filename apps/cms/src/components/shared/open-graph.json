@@ -25,11 +25,17 @@
     },
     "ogUrl": {
       "type": "string",
-      "required": false
+      "maxLength": 500,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "ogType": {
-      "type": "string",
-      "required": false
+      "type": "enumeration",
+      "default": "website",
+      "enum": [
+        "website",
+        "article",
+        "profile"
+      ]
     }
   }
 }

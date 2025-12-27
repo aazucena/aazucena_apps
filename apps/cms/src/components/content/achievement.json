@@ -29,6 +29,10 @@
     },
     "date": {
       "type": "date"
+    },
+    "sort": {
+      "type": "integer",
+      "default": 0
     }
   },
   "config": {}

@@ -15,7 +15,7 @@
       "type": "string",
       "maxLength": 255,
       "required": true,
-      "regex": "^(https?://.*|/.*|#.*)"
+      "regex": "^(https?://.*|/.+|#.+|/|#)$"
     },
     "variant": {
       "type": "enumeration",
