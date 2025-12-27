@@ -18,47 +18,47 @@
   "attributes": {
     "author": {
       "type": "string",
-      "required": true,
-      "maxLength": 100,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 100,
+      "required": true
     },
     "authorTitle": {
       "type": "string",
-      "maxLength": 150,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 150
     },
     "company": {
       "type": "string",
-      "maxLength": 100,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 100
     },
     "content": {
       "type": "text",
-      "required": true,
-      "maxLength": 1000,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "maxLength": 1000,
+      "required": true
     },
     "avatar": {
       "type": "component",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "component": "ui.image-element",
@@ -66,62 +66,63 @@
     },
     "rating": {
       "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "required": true,
       "default": 5,
       "min": 1,
-      "max": 5,
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+      "max": 5
     },
     "featured": {
       "type": "boolean",
-      "default": false,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "default": false
     },
     "relationship": {
       "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "enum": [
         "Client",
         "Colleague",
         "Manager",
+        "Direct Report",
+        "Mentor",
         "Mentee",
-        "Collaborator",
-        "Other"
-      ],
+        "Collaborator"
+      ]
+    },
+    "approvalStatus": {
+      "type": "enumeration",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
-    },
-    "approvalStatus": {
-      "type": "enumeration",
+      },
       "enum": [
         "Pending",
         "Approved",
         "Rejected"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+      ]
     },
     "approvedBy": {
       "type": "string",
-      "maxLength": 100,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 100
     },
     "approvedAt": {
       "type": "datetime",
@@ -133,12 +134,12 @@
     },
     "rejectionReason": {
       "type": "text",
-      "maxLength": 500,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "maxLength": 500
     },
     "submittedAt": {
       "type": "datetime",
@@ -158,13 +159,13 @@
     },
     "authorLinkedIn": {
       "type": "string",
-      "maxLength": 255,
-      "regex": "^https?://(www\\.)?linkedin\\.com/.*",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 255,
+      "regex": "^https?://(www\\.)?linkedin\\.com/.*"
     },
     "contentEmbedding": {
       "type": "json",
@@ -176,18 +177,18 @@
     },
     "aiSentiment": {
       "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "enum": [
         "Very Positive",
         "Positive",
         "Neutral",
         "Negative",
         "Very Negative"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+      ]
     },
     "aiTags": {
       "type": "json",
@@ -196,12 +197,6 @@
           "localized": false
         }
       }
-    },
-    "projectRelated": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::project.project",
-      "inversedBy": "testimonials"
     }
   }
 }
