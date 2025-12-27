@@ -2,6 +2,51 @@ export default ({ env }) => ({
   // ========================================
   // Custom Field Plugins
   // ========================================
+  'advanced-fields': {
+    enabled: true,
+  },
+  'combobox': {
+    enabled: true
+  },
+  'liquid-templates': {
+    enabled: true,
+  },
+  'multiselect-field': {
+    enabled: true,
+  },
+  'sortable-entries': {
+    enabled: true,
+  },
+  'strapi-code-editor-custom-field': {
+    enabled: true,
+  },
+  'strapi-country-select': {
+    enabled: true
+  },
+  'strapi-location-picker': {
+    enabled: true,
+  },
+  'strapi-phone-validator-5': {
+    enabled: true
+  },
+  'strapi-plugin-sortable-list': {
+    enabled: true,
+  },
+  // 'strapi-reservations': {
+  //   enabled: true,
+  // },
+  'table-field': {
+    enabled: true,
+  },
+  'tagsinput': {
+    enabled: true,
+  },
+  'timezone-select': {
+    enabled: true,
+  },
+  'video-field':{
+    enabled: true
+  },
   'icons-field': {
     enabled: true,
     config: {
@@ -156,6 +201,14 @@ export default ({ env }) => ({
       },
     }
   },
+  'cloudinary-media-library': {
+    enabled: true,
+    config: {
+      cloudName: env('CLOUDINARY_NAME'),
+      apiKey: env('CLOUDINARY_KEY'),
+      encryptionKey: env('CLOUDINARY_SECRET'),
+    },
+  },
   upload: {
     config: {
       provider: 'cloudinary',
@@ -165,8 +218,16 @@ export default ({ env }) => ({
         api_secret: env('CLOUDINARY_SECRET'),
       },
       actionOptions: {
-        upload: {},
-        uploadStream: {},
+        upload: {
+          ...env('CLOUDINARY_UPLOAD_PRESET') ? {
+            upload_preset: env('CLOUDINARY_UPLOAD_PRESET')
+          } : {},
+        },
+        uploadStream: {
+          ...env('CLOUDINARY_UPLOAD_PRESET') ? {
+            upload_preset: env('CLOUDINARY_UPLOAD_PRESET')
+          } : {},
+        },
         delete: {},
       },
     },
