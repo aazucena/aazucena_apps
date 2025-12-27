@@ -238,7 +238,7 @@
 ```json
 {
   "label": "string (50 chars, required) - Button text",
-  "url": "string (255 chars, required, regex: '^(https?://.*|/.*|#.*)') - Link destination",
+  "url": "string (255 chars, required, regex: '^(https?://.*|/.+|#.+|/|#)$') - Link destination",
   "variant": "enum (default: 'primary') - ['primary', 'secondary', 'outline', 'ghost']",
   "size": "enum (default: 'md') - ['sm', 'md', 'lg']",
   "openInNewTab": "boolean (default: true) - Target _blank?",
@@ -248,13 +248,15 @@
 
 **URL Validation Regex:**
 ```regex
-^(https?://.*|/.*|#.*)
+^(https?://.*|/.+|#.+|/|#)$
 ```
 
 **Allows:**
-- External URLs: `https://example.com`
-- Absolute paths: `/about`
-- Anchors: `#contact`
+- External URLs: `https://example.com`, `http://site.com/path`
+- Absolute paths: `/about`, `/blog/post-name`
+- Root path: `/` (homepage/root)
+- Anchors: `#contact`, `#section`
+- Empty anchor: `#` (stay on current page)
 
 **Usage Example:**
 ```json
