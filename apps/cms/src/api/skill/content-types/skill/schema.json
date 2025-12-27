@@ -10,31 +10,28 @@
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {
-    "i18n": {
-      "localized": true
-    }
-  },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
       "maxLength": 100,
       "required": true,
       "unique": true
     },
+    "display": {
+      "type": "enumeration",
+      "required": true,
+      "default": "standard",
+      "enum": [
+        "hidden",
+        "standard",
+        "featured",
+        "core"
+      ]
+    },
     "category": {
       "type": "enumeration",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "required": false,
+      "required": true,
       "enum": [
         "Frontend",
         "Backend",
@@ -42,20 +39,18 @@
         "DevOps",
         "Design",
         "Tools",
-        "Music Production",
-        "Other"
+        "Music Production"
       ]
     },
     "proficiency": {
-      "type": "integer",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "default": 50,
-      "min": 0,
-      "max": 100
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "learning",
+        "competent",
+        "proficient",
+        "expert"
+      ]
     },
     "icon": {
       "type": "customField",
@@ -66,66 +61,24 @@
     },
     "description": {
       "type": "text",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
       "maxLength": 500
     },
     "yearsOfExperience": {
       "type": "decimal",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
       "min": 0,
       "max": 50
     },
-    "isFeatured": {
-      "type": "boolean",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "default": false
-    },
-    "isCore": {
-      "type": "boolean",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "default": false
-    },
-    "url": {
+    "documentationUrl": {
       "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "maxLength": 255,
-      "regex": "^https?://.*"
+      "maxLength": 2048,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "sort": {
       "type": "integer",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "default": 0,
-      "min": 0
+      "default": 0
     },
-    "projects": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::project.project",
-      "mappedBy": "techStack"
+    "lastUsed": {
+      "type": "date"
     },
     "experiences": {
       "type": "relation",
@@ -133,23 +86,11 @@
       "target": "api::experience.experience",
       "mappedBy": "skillsUsed"
     },
-    "parentSkill": {
+    "projects": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::skill.skill",
-      "inversedBy": "subSkills"
-    },
-    "subSkills": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::skill.skill",
-      "mappedBy": "parentSkill"
-    },
-    "awards": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::award.award",
-      "mappedBy": "relatedSkill"
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "mappedBy": "techStack"
     }
   }
 }

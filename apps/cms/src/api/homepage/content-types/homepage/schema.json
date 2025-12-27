@@ -11,40 +11,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "heroSection": {
-      "type": "boolean",
+    "sections": {
+      "type": "component",
+      "component": "content.section",
+      "repeatable": true,
       "required": true,
-      "default": true
-    },
-    "aboutSection": {
-      "type": "boolean",
-      "required": true,
-      "default": true
-    },
-    "experienceSection": {
-      "type": "boolean",
-      "required": true,
-      "default": true
-    },
-    "skillsSection": {
-      "type": "boolean",
-      "required": true,
-      "default": true
-    },
-    "testimonialsSection": {
-      "type": "boolean",
-      "required": true,
-      "default": true
-    },
-    "blogSection": {
-      "type": "boolean",
-      "required": true,
-      "default": true
-    },
-    "awardsSection": {
-      "type": "boolean",
-      "required": true,
-      "default": true
+      "min": 1,
+      "max": 8
     }
   }
 }

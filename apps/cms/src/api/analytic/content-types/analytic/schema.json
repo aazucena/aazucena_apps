@@ -7,7 +7,7 @@
     "displayName": "Analytics & Monitoring"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -30,7 +30,7 @@
       },
       "maxLength": 50,
       "required": true,
-      "regex": "^(G\\|UA\\|GTM)-.*"
+      "regex": "^(G|UA|GTM)-.*"
     },
     "vercelAnalyticsEnabled": {
       "type": "boolean",
@@ -66,21 +66,6 @@
       "type": "boolean",
       "required": true,
       "default": false
-    },
-    "sentryDSN": {
-      "type": "string",
-      "conditions": {
-        "visible": {
-          "!=": [
-            {
-              "var": "sentryEnabled"
-            },
-            false
-          ]
-        }
-      },
-      "maxLength": 200,
-      "required": true
     }
   }
 }

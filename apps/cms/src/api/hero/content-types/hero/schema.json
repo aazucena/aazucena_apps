@@ -4,7 +4,7 @@
   "info": {
     "singularName": "hero",
     "pluralName": "heroes",
-    "displayName": "Hero Section"
+    "displayName": "Hero Section Configuration"
   },
   "options": {
     "draftAndPublish": true
@@ -15,33 +15,14 @@
     }
   },
   "attributes": {
-    "title": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "maxLength": 100,
-      "required": true
-    },
-    "subtitle": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "maxLength": 200,
-      "required": true
-    },
     "flipWords": {
-      "type": "json",
+      "type": "customField",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
+      "customField": "plugin::strapi-plugin-sortable-list.sortable-list",
       "required": true
     },
     "taglineTemplate": {
@@ -69,19 +50,10 @@
       "type": "boolean",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "default": true
-    },
-    "dropdownOptions": {
-      "type": "json",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": false
     },
     "secondaryButtonText": {
       "type": "string",
@@ -97,7 +69,7 @@
       "type": "boolean",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "default": true

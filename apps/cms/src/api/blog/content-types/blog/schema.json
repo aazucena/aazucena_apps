@@ -11,11 +11,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "enabled": {
-      "type": "boolean",
-      "required": true,
-      "default": true
-    },
     "postsPerPage": {
       "type": "integer",
       "required": true,

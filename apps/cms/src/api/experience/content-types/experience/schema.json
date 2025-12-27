@@ -18,23 +18,23 @@
   "attributes": {
     "company": {
       "type": "string",
-      "required": true,
-      "maxLength": 150,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 150,
+      "required": true
     },
     "position": {
       "type": "string",
-      "required": true,
-      "maxLength": 150,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "maxLength": 150,
+      "required": true
     },
     "companyLogo": {
       "type": "component",
@@ -48,6 +48,11 @@
     },
     "industry": {
       "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "enum": [
         "Technology",
         "Finance",
@@ -59,48 +64,45 @@
         "Government",
         "Non-Profit",
         "Startup",
-        "Other"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+        "Food & Beverage",
+        "Oil & Gas",
+        "Media"
+      ]
     },
     "companySize": {
       "type": "enumeration",
-      "enum": [
-        "Just getting started (1-10)",
-        "A small but mighty team (11-50)",
-        "A growing company (51-200)",
-        "A mid-size organization (201-500)",
-        "A large organization (501-1,000)",
-        "A big enterprise (1,001-5,000)",
-        "A global-scale enterprise (5,000+)"
-      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "enum": [
+        "startup",
+        "small",
+        "medium",
+        "midsize",
+        "large",
+        "enterprise",
+        "global"
+      ]
     },
     "location": {
       "type": "string",
-      "maxLength": 150,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 150
     },
     "startDate": {
       "type": "date",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "required": true
     },
     "endDate": {
       "type": "date",
@@ -112,21 +114,21 @@
     },
     "isCurrent": {
       "type": "boolean",
-      "default": false,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "default": false
     },
     "description": {
       "type": "richtext",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "highlights": {
       "type": "richtext",
@@ -138,6 +140,11 @@
     },
     "employmentType": {
       "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "enum": [
         "Full-time",
         "Part-time",
@@ -145,32 +152,17 @@
         "Freelance",
         "Internship",
         "Co-op"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+      ]
     },
     "companyWebsite": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "maxLength": 255,
-      "regex": "^https?://.*",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "sort": {
-      "type": "integer",
-      "default": 0,
-      "min": 0,
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "skillsUsed": {
       "type": "relation",
@@ -178,22 +170,17 @@
       "target": "api::skill.skill",
       "inversedBy": "experiences"
     },
-    "projectsCompleted": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::project.project"
-    },
     "achievements": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.achievement",
-      "min": 0,
-      "max": 10,
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
-      }
+      },
+      "component": "content.achievement",
+      "repeatable": true,
+      "min": 0,
+      "max": 10
     }
   }
 }

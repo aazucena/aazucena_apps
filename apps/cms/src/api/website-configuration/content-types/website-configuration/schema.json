@@ -20,7 +20,7 @@
       "type": "string",
       "maxLength": 200,
       "required": true,
-      "regex": "^https?://.*"
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "siteTagline": {
       "type": "string",
@@ -64,7 +64,7 @@
     "twitterHandle": {
       "type": "string",
       "maxLength": 50,
-      "regex": "^@.*"
+      "regex": "^@[A-Za-z0-9_]{1,15}$"
     },
     "robotsIndex": {
       "type": "boolean",

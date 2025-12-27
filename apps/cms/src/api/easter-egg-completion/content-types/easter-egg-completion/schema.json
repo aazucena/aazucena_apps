@@ -24,9 +24,8 @@
         "Secret Page",
         "Konami Code",
         "Scroll Pattern",
-        "TimeBased",
-        "Interactive Element",
-        "Other"
+        "Time Based",
+        "Interactive Element"
       ],
       "required": true,
       "default": "Hidden Keyword"
@@ -72,8 +71,7 @@
         "Secret Content",
         "Downloadable",
         "Certificate",
-        "Leaderboard Entry",
-        "Other"
+        "Leaderboard Entry"
       ]
     },
     "canRetryAt": {

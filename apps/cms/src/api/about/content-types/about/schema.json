@@ -4,7 +4,7 @@
   "info": {
     "singularName": "about",
     "pluralName": "abouts",
-    "displayName": "About Section"
+    "displayName": "About Section Configuration"
   },
   "options": {
     "draftAndPublish": true
@@ -56,13 +56,16 @@
       "max": 6
     },
     "learnMoreCards": {
-      "type": "blocks",
+      "type": "component",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": false
+      "component": "ui.card-link",
+      "repeatable": true,
+      "min": 0,
+      "max": 2
     }
   }
 }

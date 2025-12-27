@@ -14,6 +14,7 @@
   "attributes": {
     "formType": {
       "type": "enumeration",
+      "required": true,
       "enum": [
         "Contact",
         "Feedback",
@@ -23,13 +24,12 @@
         "Collaboration",
         "Referral",
         "Music Feedback"
-      ],
-      "required": true
+      ]
     },
     "rawMessage": {
       "type": "text",
-      "required": true,
-      "maxLength": 5000
+      "maxLength": 5000,
+      "required": true
     },
     "formData": {
       "type": "json"
@@ -47,14 +47,14 @@
     },
     "aiSentiment": {
       "type": "enumeration",
+      "default": "Neutral",
       "enum": [
         "Very Positive",
         "Positive",
         "Neutral",
         "Negative",
         "Very Negative"
-      ],
-      "default": "Neutral"
+      ]
     },
     "aiTags": {
       "type": "json"
@@ -85,14 +85,14 @@
     },
     "status": {
       "type": "enumeration",
+      "default": "New",
       "enum": [
         "New",
         "In Progress",
         "Resolved",
         "Closed",
         "Spam"
-      ],
-      "default": "New"
+      ]
     },
     "assignedTo": {
       "type": "string",
@@ -101,12 +101,6 @@
     "internalNotes": {
       "type": "text",
       "maxLength": 2000
-    },
-    "relatedProject": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::project.project",
-      "inversedBy": "formSubmissions"
     },
     "langSmithTraceId": {
       "type": "string",
@@ -120,8 +114,8 @@
     },
     "embeddingModel": {
       "type": "string",
-      "maxLength": 50,
-      "default": "gemini-textembedding-gecko"
+      "default": "gemini-textembedding-gecko",
+      "maxLength": 50
     },
     "embeddingGeneratedAt": {
       "type": "datetime"

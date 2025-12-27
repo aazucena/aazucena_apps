@@ -18,52 +18,52 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true,
-      "maxLength": 200,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "maxLength": 200,
+      "required": true
     },
     "organization": {
       "type": "string",
-      "required": true,
-      "maxLength": 150,
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
-      }
+      },
+      "maxLength": 150,
+      "required": true
     },
     "issuer": {
       "type": "string",
-      "maxLength": 150,
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
-      }
+      },
+      "maxLength": 150
     },
     "credentialId": {
       "type": "string",
-      "maxLength": 100,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 100
     },
     "year": {
-      "type": "string",
-      "required": true,
-      "maxLength": 4,
-      "regex": "^(19|20)\\d{2}$",
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "required": true,
+      "min": 1900,
+      "max": 2100
     },
     "description": {
       "type": "richtext",
@@ -75,6 +75,11 @@
     },
     "category": {
       "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
       "enum": [
         "Academic",
         "Professional",
@@ -82,67 +87,54 @@
         "Music",
         "Design",
         "Certification",
-        "Competition",
-        "Other"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
+        "Competition"
+      ]
     },
     "verificationUrl": {
       "type": "string",
-      "maxLength": 255,
-      "regex": "^https?://.*",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "maxLength": 255,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "badge": {
       "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "certificate": {
       "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images", "files"],
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
-    },
-    "relatedProject": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::project.project",
-      "inversedBy": "awards"
-    },
-    "relatedSkill": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::skill.skill",
-      "inversedBy": "awards"
+      },
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     },
     "featured": {
       "type": "boolean",
-      "default": false,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "default": false
     }
   }
 }
