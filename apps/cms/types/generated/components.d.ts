@@ -16,6 +16,7 @@ export interface ContentAchievement extends Struct.ComponentSchema {
       }>;
     icon: Schema.Attribute.Text &
       Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    sort: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -70,9 +71,44 @@ export interface ContentEducation extends Struct.ComponentSchema {
       }>;
     startDate: Schema.Attribute.Date & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<
-      ['diploma', 'bachelor', 'master', 'doctorates', 'certificate']
+      ['diploma', 'bachelor', 'master', 'doctorate', 'certificate']
     > &
       Schema.Attribute.Required;
+  };
+}
+
+export interface ContentSection extends Struct.ComponentSchema {
+  collectionName: 'components_content_sections';
+  info: {
+    displayName: 'Section';
+    icon: 'grid';
+  };
+  attributes: {
+    buttonLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    enabled: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    sort: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
   };
 }
 
@@ -94,7 +130,7 @@ export interface ContentStats extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 50;
       }>;
-    sort: Schema.Attribute.Integer;
+    sort: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     value: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -187,8 +223,12 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 70;
       }>;
-    ogType: Schema.Attribute.String;
-    ogUrl: Schema.Attribute.String;
+    ogType: Schema.Attribute.Enumeration<['website', 'article', 'profile']> &
+      Schema.Attribute.DefaultTo<'website'>;
+    ogUrl: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
   };
 }
 
@@ -199,8 +239,14 @@ export interface SharedSeo extends Struct.ComponentSchema {
     icon: 'search';
   };
   attributes: {
-    canonicalURL: Schema.Attribute.String;
-    keywords: Schema.Attribute.Text;
+    canonicalURL: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    keywords: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
     metaDescription: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -208,13 +254,25 @@ export interface SharedSeo extends Struct.ComponentSchema {
         minLength: 50;
       }>;
     metaImage: Schema.Attribute.Media<'images'>;
-    metaRobots: Schema.Attribute.String;
+    metaRobots: Schema.Attribute.Enumeration<
+      [
+        'index, follow',
+        'noindex, follow',
+        'index, nofollow',
+        'noindex, nofollow',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'index, follow'>;
     metaTitle: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
       }>;
-    metaViewport: Schema.Attribute.String;
+    metaViewport: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'width=device-width, initial-scale=1.0'>;
     openGraph: Schema.Attribute.Component<'shared.open-graph', false>;
     structuredData: Schema.Attribute.JSON;
     twitterCard: Schema.Attribute.Enumeration<
@@ -242,13 +300,76 @@ export interface SharedSocialLinks extends Struct.ComponentSchema {
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
     platform: Schema.Attribute.Enumeration<
-      ['GitHub', 'LinkedIn', 'Twitter', 'YouTube', 'Instagram', 'Other']
+      [
+        'GitHub',
+        'LinkedIn',
+        'Twitter',
+        'YouTube',
+        'Instagram',
+        'Facebook',
+        'TikTok',
+        'Discord',
+        'Twitch',
+        'Mastodon',
+      ]
     > &
       Schema.Attribute.Required;
-    text: Schema.Attribute.String;
+    text: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
     url: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+  };
+}
+
+export interface SharedStreamingLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_streaming_links';
+  info: {
+    displayName: 'Streaming Link';
+    icon: 'headphone';
+  };
+  attributes: {
+    isPrimary: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    platform: Schema.Attribute.Enumeration<
+      ['Spotify', 'SoundCloud', 'YouTube', 'Apple Music', 'Bandcamp', 'Tidal']
+    > &
+      Schema.Attribute.Required;
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+  };
+}
+
+export interface UiCardLink extends Struct.ComponentSchema {
+  collectionName: 'components_ui_card_links';
+  info: {
+    displayName: 'Card Link';
+    icon: 'layer';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'ui.cta-button', false> &
+      Schema.Attribute.Required;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    variant: Schema.Attribute.Enumeration<
+      ['cyan-blue', 'purple-pink', 'green-teal', 'orange-red', 'indigo-violet']
+    >;
   };
 }
 
@@ -302,18 +423,70 @@ export interface UiImageElement extends Struct.ComponentSchema {
   };
 }
 
+export interface UiLoadingStep extends Struct.ComponentSchema {
+  collectionName: 'components_ui_loading_steps';
+  info: {
+    displayName: 'Loading Step';
+    icon: 'loader';
+  };
+  attributes: {
+    description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::icons-field.icon',
+        {
+          selection: [];
+        }
+      >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    stepId: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+          min: 1;
+        },
+        number
+      >;
+    weight: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 50;
+          min: 5;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<20>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.achievement': ContentAchievement;
       'content.education': ContentEducation;
+      'content.section': ContentSection;
       'content.stats': ContentStats;
       'media.audio-metadata': MediaAudioMetadata;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
       'shared.social-links': SharedSocialLinks;
+      'shared.streaming-link': SharedStreamingLink;
+      'ui.card-link': UiCardLink;
       'ui.cta-button': UiCtaButton;
       'ui.image-element': UiImageElement;
+      'ui.loading-step': UiLoadingStep;
     }
   }
 }
