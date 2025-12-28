@@ -1,0 +1,87 @@
+{
+  "kind": "singleType",
+  "collectionName": "project_showcases",
+  "info": {
+    "singularName": "project-showcase",
+    "pluralName": "project-showcases",
+    "displayName": "Project Showcase Configuration"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "dragHintText": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 100,
+      "required": true,
+      "default": "Drag to explore more projects"
+    },
+    "viewMoreButtonLabel": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 50,
+      "required": true,
+      "default": "View More"
+    },
+    "viewMoreButtonSubtitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 100,
+      "required": true,
+      "default": "Explore all projects"
+    },
+    "maxProjectsDisplayed": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "min": 1,
+      "max": 20,
+      "required": true,
+      "default": 7
+    },
+    "projectsPerPage": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "min": 1,
+      "max": 8,
+      "required": true,
+      "default": 4
+    },
+    "projectsListPagePath": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "maxLength": 200,
+      "required": false,
+      "default": "/projects"
+    }
+  }
+}

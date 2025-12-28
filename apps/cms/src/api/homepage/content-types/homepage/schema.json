@@ -11,6 +11,12 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Welcome",
+      "maxLength": 100,
+      "required": true
+    },
     "sections": {
       "type": "component",
       "component": "content.section",
@@ -18,6 +24,11 @@
       "required": true,
       "min": 1,
       "max": 8
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
     }
   }
 }

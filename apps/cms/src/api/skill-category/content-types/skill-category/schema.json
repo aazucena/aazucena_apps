@@ -14,15 +14,15 @@
   "attributes": {
     "name": {
       "type": "string",
+      "maxLength": 50,
       "required": true,
       "unique": true,
-      "maxLength": 50,
       "regex": "^[a-z0-9-]+$"
     },
     "label": {
       "type": "string",
-      "required": true,
-      "maxLength": 100
+      "maxLength": 100,
+      "required": true
     },
     "icon": {
       "type": "customField",
@@ -33,15 +33,9 @@
     },
     "skills": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "oneToMany",
       "target": "api::skill.skill",
-      "inversedBy": "categories"
-    },
-    "sort": {
-      "type": "integer",
-      "required": true,
-      "default": 0,
-      "min": 0
+      "mappedBy": "category"
     }
   }
 }

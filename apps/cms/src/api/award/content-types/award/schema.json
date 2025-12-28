@@ -16,6 +16,19 @@
     }
   },
   "attributes": {
+    "type": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "required": true,
+      "enum": [
+        "certification",
+        "award"
+      ]
+    },
     "title": {
       "type": "string",
       "pluginOptions": {
@@ -25,6 +38,15 @@
       },
       "maxLength": 200,
       "required": true
+    },
+    "shortTitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 50
     },
     "organization": {
       "type": "string",
@@ -135,28 +157,6 @@
         }
       },
       "default": false
-    },
-    "type": {
-      "type": "enumeration",
-      "required": true,
-      "enum": [
-        "certification",
-        "award"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "shortTitle": {
-      "type": "string",
-      "maxLength": 50,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
     }
   }
 }

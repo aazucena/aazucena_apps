@@ -1523,6 +1523,13 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
         },
         number
       >;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }> &
+      Schema.Attribute.DefaultTo<'Welcome'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1728,6 +1735,13 @@ export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
         },
         number
       >;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     fullName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -1761,6 +1775,36 @@ export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
       }> &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-phone-validator-5.phone',
+        {
+          country: 'ca';
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    preferredContactMethod: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::advanced-fields.checkbox',
+        {
+          checkboxOptions: 'email|Email\nphone|Phone\nsms|SMS\nsocial-media|Social Media\nlinkedin|LinkedIn\ngithub|Github\nchat|Work Chat (Slack / Microsoft Teams)\nvideo|Video Conferencing (Zoom / Jitsi / Google Meet / Teams)\nforms|Website Contact Forms\nmessenger|Messaging Apps (WhatsApp / Facebook Messenger / Telegram / Signal)';
+          checkboxType: 'multiple';
+          defaultSelected: 'email';
+          layout: 'vertical';
+          maxChoices: 0;
+          minChoices: 1;
+        }
+      > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
       }>;
     profileImage: Schema.Attribute.Component<'ui.image-element', false> &
       Schema.Attribute.SetPluginOptions<{
@@ -1857,6 +1901,12 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Schema.Attribute.UID<'title'> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -2230,6 +2280,111 @@ export interface ApiPreloaderPreloader extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiProjectShowcaseProjectShowcase
+  extends Struct.SingleTypeSchema {
+  collectionName: 'project_showcases';
+  info: {
+    displayName: 'Project Showcase Configuration';
+    pluralName: 'project-showcases';
+    singularName: 'project-showcase';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dragHintText: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }> &
+      Schema.Attribute.DefaultTo<'Drag to explore more projects'>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::project-showcase.project-showcase'
+    >;
+    maxProjectsDisplayed: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<7>;
+    projectsListPagePath: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'/projects'>;
+    projectsPerPage: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<4>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    viewMoreButtonLabel: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }> &
+      Schema.Attribute.DefaultTo<'View More'>;
+    viewMoreButtonSubtitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }> &
+      Schema.Attribute.DefaultTo<'Explore all projects'>;
+  };
+}
+
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
@@ -2465,16 +2620,7 @@ export interface ApiSkillCategorySkillCategory
         maxLength: 50;
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    skills: Schema.Attribute.Relation<'manyToMany', 'api::skill.skill'>;
-    sort: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
+    skills: Schema.Attribute.Relation<'oneToMany', 'api::skill.skill'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2493,22 +2639,10 @@ export interface ApiSkillSkill extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    categories: Schema.Attribute.Relation<
-      'manyToMany',
+    category: Schema.Attribute.Relation<
+      'manyToOne',
       'api::skill-category.skill-category'
     >;
-    category: Schema.Attribute.Enumeration<
-      [
-        'Frontend',
-        'Backend',
-        'Database',
-        'DevOps',
-        'Design',
-        'Tools',
-        'Music Production',
-      ]
-    > &
-      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -3701,6 +3835,7 @@ declare module '@strapi/strapi' {
       'api::portfolio.portfolio': ApiPortfolioPortfolio;
       'api::post.post': ApiPostPost;
       'api::preloader.preloader': ApiPreloaderPreloader;
+      'api::project-showcase.project-showcase': ApiProjectShowcaseProjectShowcase;
       'api::project.project': ApiProjectProject;
       'api::skill-category.skill-category': ApiSkillCategorySkillCategory;
       'api::skill.skill': ApiSkillSkill;

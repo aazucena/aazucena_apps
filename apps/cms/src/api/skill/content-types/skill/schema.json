@@ -18,6 +18,12 @@
       "required": true,
       "unique": true
     },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::skill-category.skill-category",
+      "inversedBy": "skills"
+    },
     "display": {
       "type": "enumeration",
       "required": true,
@@ -27,19 +33,6 @@
         "standard",
         "featured",
         "core"
-      ]
-    },
-    "category": {
-      "type": "enumeration",
-      "required": true,
-      "enum": [
-        "Frontend",
-        "Backend",
-        "Database",
-        "DevOps",
-        "Design",
-        "Tools",
-        "Music Production"
       ]
     },
     "proficiency": {
@@ -91,12 +84,6 @@
       "relation": "manyToMany",
       "target": "api::project.project",
       "mappedBy": "techStack"
-    },
-    "categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::skill-category.skill-category",
-      "mappedBy": "skills"
     }
   }
 }

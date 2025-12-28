@@ -65,6 +65,45 @@
         }
       }
     },
+    "email": {
+      "type": "email",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "required": true
+    },
+    "phone": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "customField": "plugin::strapi-phone-validator-5.phone",
+      "options": {
+        "country": "ca"
+      }
+    },
+    "preferredContactMethod": {
+      "type": "customField",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "customField": "plugin::advanced-fields.checkbox",
+      "options": {
+        "checkboxType": "multiple",
+        "minChoices": 1,
+        "maxChoices": 0,
+        "layout": "vertical",
+        "checkboxOptions": "email|Email\nphone|Phone\nsms|SMS\nsocial-media|Social Media\nlinkedin|LinkedIn\ngithub|Github\nchat|Work Chat (Slack / Microsoft Teams)\nvideo|Video Conferencing (Zoom / Jitsi / Google Meet / Teams)\nforms|Website Contact Forms\nmessenger|Messaging Apps (WhatsApp / Facebook Messenger / Telegram / Signal)",
+        "defaultSelected": "email"
+      },
+      "required": true
+    },
     "socialLinks": {
       "type": "component",
       "pluginOptions": {
