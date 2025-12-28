@@ -471,6 +471,38 @@ export interface UiLoadingStep extends Struct.ComponentSchema {
   };
 }
 
+export interface UiTag extends Struct.ComponentSchema {
+  collectionName: 'components_ui_tags';
+  info: {
+    description: 'Colored tag for categorization';
+    displayName: 'Tag';
+    icon: 'hashtag';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<
+      [
+        'cyan',
+        'blue',
+        'purple',
+        'pink',
+        'green',
+        'teal',
+        'orange',
+        'red',
+        'gray',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'cyan'>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 30;
+      }>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -487,6 +519,7 @@ declare module '@strapi/strapi' {
       'ui.cta-button': UiCtaButton;
       'ui.image-element': UiImageElement;
       'ui.loading-step': UiLoadingStep;
+      'ui.tag': UiTag;
     }
   }
 }
