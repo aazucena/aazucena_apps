@@ -1,12 +1,10 @@
 # GEMINI.md
 
-This file provides guidance to Google Gemini when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Rules
-- Maintain full context awareness throughout the session
-- @ROADMAP.md contains the overall plan and current progress
-- All detailed documentation is located in @docs/ and should be referenced when needed
-- Always check existing documentation before making architectural decisions
+- full context (x being the id of the session we are operation, if file doesn't exist, then create one)
+- @ROADMAP.md, @README.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @docs, and are added/updated to.
 
 ## Repository Overview
 
@@ -83,40 +81,56 @@ pnpm dlx playwright show-report
 ### Portfolio App Architecture
 
 **Framework Stack:**
-- **Astro 5.15+** as the meta-framework with React integration
+- **Astro 5.16.0** as the meta-framework with React integration
 - **React 19.2** for interactive components
 - **Tailwind CSS 4** with @tailwindcss/vite plugin
 - **TypeScript** throughout
 
-**Animation Architecture (Critical):**
+**Animation Architecture (Post-Phase 1 Refactoring):**
 
-The portfolio features a complex animation system located in `apps/portfolio/src/components/animations/`. This has been recently refactored in Phase 1.
+The portfolio features a complex animation system located in `apps/portfolio/src/components/animations/`. This was successfully refactored in Phase 1 (completed 2025-01-13).
 
-**Current Structure:**
+**Current Structure (Post-Phase 0.2.4):**
 ```
 src/components/animations/
-├── Section.tsx              # Main orchestrator (174 lines - recently refactored)
+├── Section.tsx              # Main orchestrator (174 lines - refactored)
+├── HomepageContent.tsx      # Section content renderer (replaces SectionContent)
 ├── ThreeJSScene.tsx         # Three.js scene (renamed from Scene.tsx)
 ├── PixiJSParticles.tsx      # PixiJS particle system (renamed from Particles.tsx)
 ├── contexts/                # State management contexts
-│   ├── PortfolioContext.tsx
-│   └── AnimationContext.tsx
-├── components/              # Extracted components
-│   ├── DynamicBackground.tsx
-│   ├── AtmosphericOverlays.tsx
+│   ├── PortfolioContext.tsx # Portfolio state (scroll, sections)
+│   ├── AnimationContext.tsx # Animation state (layers, effects)
+│   ├── DataContext.tsx      # CMS data provider (NEW in Phase 0.2.4)
+│   ├── usePortfolio.ts      # Hook for portfolio context
+│   ├── useAnimation.ts      # Hook for animation context
+│   ├── useDataContext.ts    # Hook for CMS data (NEW)
+│   └── index.ts             # Centralized exports
+├── canvas/                  # Canvas components (extracted)
 │   ├── AnimationCanvas.tsx
-│   ├── SectionContent.tsx
-│   └── UIOverlays.tsx
+│   └── index.ts
+├── overlays/                # Overlay components (extracted)
+│   ├── UIOverlays.tsx
+│   └── index.ts
 ├── config/                  # Configuration and types
-├── hooks/                   # 9 custom React hooks
+├── hooks/                   # 11 custom React hooks
 │   ├── useDeviceCapabilities.ts
 │   ├── useSectionTransition.ts
 │   ├── useAtmosphericLayer.ts
 │   ├── useModal.ts
-│   └── ... (5 more)
+│   ├── useSectionRefs.ts
+│   ├── useSectionTransitions.ts
+│   ├── useGSAPEntrance.ts
+│   ├── useFlipText.ts
+│   ├── useLocalStorage.ts
+│   ├── useSectionRegistry.ts  # NEW: Component mapping
+│   ├── useHandlebars.ts       # NEW: Template rendering
+│   └── index.ts
 ├── particles/               # Particle system internals
 ├── scene/                   # Three.js scene components
 ├── sections/                # 8 portfolio sections (Hero, About, Projects, etc.)
+│   └── layouts/             # Reusable section layouts (NEW)
+│       ├── SectionLayout.tsx
+│       └── index.ts
 ├── ui/                      # UI components (modals, toolbar, panels)
 └── utilities/               # Helper functions
 ```
@@ -143,21 +157,95 @@ The animation system relies on custom hooks for encapsulation:
 - `useModal` - Modal state management
 - `useSectionRefs` - Manages refs for 8 sections
 
-### State Flow (Current - Post Phase 1)
+### State Flow (Post-Phase 0.2.4)
 
 ```
 Section.tsx (main orchestrator - 174 lines)
-├─ PortfolioContext → Centralized portfolio state
-├─ AnimationContext → Centralized animation state
+├─ DataContext → CMS data (homepage, portfolio, sections registry)
+├─ PortfolioContext → Portfolio state (scroll, sections)
+├─ AnimationContext → Animation state (layers, effects)
 └─ Renders:
    ├─ DynamicBackground (extracted component)
    ├─ AtmosphericOverlays (extracted component)
    ├─ AnimationCanvas (extracted component)
    │   ├─ PixiJSParticles (conditional)
    │   └─ Three.js Canvas with ThreeJSScene
-   ├─ SectionContent (extracted component)
+   ├─ HomepageContent (section content renderer)
    └─ UIOverlays (extracted component)
 ```
+
+### CMS Data Architecture (Phase 0.2.4)
+
+**Data Flow:**
+```
+Strapi CMS (PostgreSQL + pgVector)
+   ↓
+/lib/api/homepage-data.ts → Parallel fetch (15+ endpoints)
+   ↓
+/lib/validators/* → Zod schema validation (runtime type safety)
+   ↓
+/lib/transformers/* → Data transformation (clean structures)
+   ↓
+DataContext → Provides data to all components
+   ↓
+Custom hooks → Components access data
+  ├─ useDataContext() → Full data access
+  ├─ useSectionData() → Section-specific data
+  ├─ usePortfolioData() → Portfolio metadata
+  ├─ useHomepageData() → Homepage configuration
+  └─ useRegistry() → Section component registry
+```
+
+**API Layer Structure:**
+```
+src/lib/
+├── api/              # 15+ specialized API clients
+│   ├── homepage-data.ts    # Orchestrates all homepage data
+│   ├── layout-data.ts      # Layout-specific (theme, maintenance)
+│   ├── hero.ts             # Hero section
+│   ├── about.ts            # About section
+│   ├── projects.ts         # Projects collection
+│   ├── experiences.ts      # Work experience
+│   ├── testimonials.ts     # Testimonials
+│   ├── awards.ts           # Awards/achievements
+│   ├── posts.ts            # Blog posts
+│   ├── skills.ts           # Skills collection
+│   ├── skill-categories.ts # Skill categories
+│   ├── animation.ts        # Animation config
+│   ├── theme.ts            # Theme config
+│   ├── maintenance.ts      # Maintenance mode
+│   ├── website-config.ts   # Website metadata
+│   ├── blog-config.ts      # Blog configuration
+│   ├── showcase.ts         # Showcase config
+│   ├── portfolio.ts        # Portfolio metadata
+│   ├── homepage.ts         # Homepage config
+│   └── preloader.ts        # Preloader config
+├── validators/       # 15+ Zod schemas (type-safe validation)
+├── transformers/     # 15+ data transformers (clean structures)
+├── utils/            # Helper functions
+│   ├── index.ts
+│   ├── contentHelpers.ts
+│   └── experienceHelpers.ts
+└── strapi.ts         # Base Strapi client
+```
+
+**Context Integration:**
+```typescript
+<DataProvider data={data} content={homepage} portfolio={portfolio}>
+  <PortfolioProvider>
+    <AnimationProvider>
+      {/* All components have access to CMS data via hooks */}
+    </AnimationProvider>
+  </PortfolioProvider>
+</DataProvider>
+```
+
+**Key Benefits:**
+- ✅ Complete type safety with Zod runtime validation
+- ✅ Parallel data fetching (all 15+ endpoints in parallel)
+- ✅ Graceful fallbacks if CMS unavailable
+- ✅ No prop drilling (context hooks throughout)
+- ✅ Testable, modular API clients
 
 ## Development Roadmap
 
@@ -175,7 +263,29 @@ Section.tsx (main orchestrator - 174 lines)
 - ✅ Renamed files (Particles → PixiJSParticles, Scene → ThreeJSScene)
 - ✅ All tests passing
 
-### Current Priority: Phase 0 - Infrastructure & Architecture (16-20 days)
+### ✅ Phase 1.5 - Code Quality & Security Fixes (COMPLETED - 2025-12-03)
+
+**Detailed docs:** `docs/phase-1.5-code-quality-security.md`
+
+**Achievements:**
+- ✅ Fixed critical CVEs (happy-dom upgraded to >=20.0.2)
+- ✅ Eliminated memory leaks (PortfolioContext timeout cleanup)
+- ✅ Improved type safety (AwardsSection typed properly)
+- ✅ Fixed hook dependencies (exhaustive-deps violations resolved)
+- ✅ Added GSAP cleanup (prevented animation memory leaks)
+- ✅ Code quality: 7.5/10 → 8.5-9.0/10
+
+### Current Priority: Phase 0.3 - Deployment Strategy (1 day) 🔥
+
+**Detailed docs:** `docs/phase-0-infrastructure.md`
+
+**Goal:** Deploy Strapi CMS to Railway and Astro frontend to Vercel
+
+**Status:** Ready to start after Phase 0.2.4 completion (2025-12-19)
+
+---
+
+### ✅ Phase 0 - Infrastructure & Architecture (SUBSTANTIALLY COMPLETE)
 
 **Detailed docs:** `docs/phase-0-infrastructure.md`
 
@@ -183,20 +293,21 @@ Section.tsx (main orchestrator - 174 lines)
 
 **Sub-phases:**
 - **0.1:** Verify monorepo structure (pnpm + Turborepo) ✅ COMPLETED
-- **0.2.1:** Docker Compose setup (Strapi + PostgreSQL 16 + pgVector) - 1-2 days
-- **0.2.2:** Strapi configuration (admin panel, Cloudinary) - 1 day
-- **0.2.3:** Content types creation (14 types) - 1-2 days
-- **0.2.4:** Frontend API integration (Strapi SDK) - 1-2 days
-- **0.3:** Deployment strategy (Vercel + Railway + CircleCI) - 1.5 days
-- **0.4:** Content migration from static to CMS - 3 days
+- **0.2.1:** Docker Compose setup (Strapi + PostgreSQL 16 + pgVector) ✅ COMPLETED
+- **0.2.2:** Strapi configuration (admin panel, Cloudinary) ✅ MOSTLY COMPLETE
+- **0.2.3:** Content types creation (16 types implemented) ✅ COMPLETED
+- **0.2.4:** Frontend API integration (Strapi SDK) ✅ COMPLETED (2025-12-19)
+- **0.3:** Deployment strategy (Vercel + Railway) 🚧 CURRENT PRIORITY
+- **0.4:** Content migration from static to CMS ⏳ PENDING
 
 **Key Technology Decisions:**
-- ✅ Docker Compose for local development (consistent environment)
-- ✅ PostgreSQL 16+ with pgVector extension (ready for AI features)
-- ✅ Strapi v5 (upgraded from v4 for better PostgreSQL support)
-- ✅ One-command setup: `docker compose up`
+- ✅ Docker Compose for local development (configured and running)
+- ✅ PostgreSQL 16+ with pgVector extension (configured)
+- ✅ Strapi v5.31.0 (installed and configured)
+- ✅ 16 content types created (Skills, Projects, Posts, Testimonials, etc.)
+- ✅ 9 components implemented
 
-**Status:** Documentation updated, ready to begin Phase 0.2.1
+**Status:** ~85% complete - Core CMS infrastructure operational, frontend integration complete (0.2.4), pending deployment (0.3) and content migration (0.4)
 
 ### Upcoming Phases (execute in order)
 - **Phase 2:** Component Architecture (6-8 days) - Further optimization
@@ -207,7 +318,7 @@ Section.tsx (main orchestrator - 174 lines)
 ### Planned Features (see docs/features/)
 - Music Player (Howler.js, wavesurfer.js) - 4-6 days
 - Strudel.cc Live Coding Integration - 9-13 days
-- AI-Powered Forms (LangChain + LangGraph + Claude/Gemini with pgVector, embeddings, RAG) - 16-20 days comprehensive
+- AI-Powered Forms (LangChain + LangGraph + Claude with pgVector, embeddings, RAG) - 16-20 days comprehensive
 - Machine Learning Features (PyTorch/TensorFlow) - 10-40 days
 - Logging & Monitoring (Sentry, Vercel Analytics, Vercel Speed Insights, Pino, Redis) - 3-4 days
 - Payments (Stripe + Ko-fi) - 3-4 days
@@ -232,31 +343,48 @@ Section.tsx (main orchestrator - 174 lines)
 
 ### Backend & Infrastructure (Planned/In Progress)
 - **Strapi v5** (CMS) - Upgraded from v4 for better PostgreSQL and pgVector support
+- **Strapi Plugins:**
+  - `strapi-plugin-icons-field` v1.1.5 - Icon picker field with @mynaui/icons support
+  - `@strapi/plugin-graphql` - GraphQL API
+  - `@strapi/plugin-documentation` - Auto-generated API documentation
+  - `@strapi/plugin-sentry` - Error tracking
+  - `@strapi/plugin-seo` - SEO management
+  - `@_sh/strapi-plugin-ckeditor` - Rich text editor
+  - `strapi-plugin-multi-select` - Multi-select field
+  - `strapi-advanced-uuid` - Advanced UUID generation
+  - `@strapi/plugin-color-picker` - Color picker field
+  - `strapi-plugin-preview-button` - Content preview
+  - `strapi-plugin-navigation` - Navigation builder
+  - `strapi-plugin-duplicate-button` - Content duplication
+  - `strapi-plugin-config-sync` - Configuration synchronization
+  - `strapi-plugin-publisher` - Publishing workflow
+  - `@strapi-community/plugin-rest-cache` - REST API caching
+  - `@strapi-community/plugin-redis` - Redis integration
 - **PostgreSQL 16+** with pgVector extension for vector similarity search
 - **Redis** - Caching
 - **Sentry** - Error tracking (frontend & backend)
 - **Pino** - Logging (backend)
 - **Railway** - Backend deployment
+- **Cloudinary** - Media storage via @strapi/provider-upload-cloudinary
 
 ### AI/ML Stack (Comprehensive)
-- **LLM Orchestration:** LangChain, LangGraph
-- **Observability:** LangSmith
-- **Primary LLMs:**
-  - Anthropic Claude 3.5 Sonnet
-  - Google Gemini Pro/Ultra (for Gemini-specific features)
-- **Vector Database:** pgVector (PostgreSQL extension)
+- **LangChain** - LLM orchestration framework
+- **LangGraph** - State machine for multi-turn conversations
+- **LangSmith** - Observability, tracing, and debugging
+- **Anthropic Claude 3.5 Sonnet** - Primary language model
+- **pgVector** - PostgreSQL extension for vector similarity search
 - **Embeddings Models:**
   - OpenAI (text-embedding-3-small, text-embedding-3-large)
   - Cohere (embed-english-v3.0, embed-multilingual-v3.0)
-  - Google Gemini (Vertex AI textembedding-gecko) - **Primary for Gemini workflows**
   - Anthropic Claude (via Voyage AI)
+  - Google Gemini (Vertex AI textembedding-gecko)
   - Local Models (Sentence Transformers, all-MiniLM-L6-v2)
 - **Retrieval & Ranking:**
   - LangChain Retrievers for semantic search
   - Cohere Rerank API (rerank-english-v3.0)
   - Cross-encoder models (local)
   - ContextualCompressionRetriever
-- **ML Frameworks:** PyTorch/TensorFlow (optional, for advanced features)
+- **PyTorch/TensorFlow** - Optional for advanced ML features
 
 ## Code Patterns & Conventions
 
@@ -275,7 +403,7 @@ Section.tsx (main orchestrator - 174 lines)
 ### State Management Pattern
 - Use React Context for cross-component state
 - Custom hooks for encapsulated logic
-- Avoid prop drilling (use contexts instead)
+- Avoid prop drilling (refactor to contexts if needed)
 
 ### Animation Patterns
 - GSAP for imperative animations and scroll-triggered effects
@@ -293,20 +421,25 @@ Section.tsx (main orchestrator - 174 lines)
 - `turbo.json` - Turborepo pipeline
 
 ### Documentation
-- `ROADMAP.md` - High-level roadmap
+- `ROADMAP.md` - High-level roadmap (318 lines)
 - `docs/README.md` - Documentation index
 - `docs/phase-*.md` - Phase-specific documentation
 - `docs/features/*.md` - Feature documentation
 
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
-- `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
+- `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator
+- `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer
 - `apps/portfolio/src/components/animations/hooks/` - Custom hooks library
-- `apps/portfolio/src/components/animations/contexts/` - Context providers
+- `apps/portfolio/src/lib/api/homepage-data.ts` - CMS data orchestration
+- `apps/portfolio/src/lib/api/layout-data.ts` - Layout data fetching
+- `apps/portfolio/src/lib/validators/` - Zod validation schemas
+- `apps/portfolio/src/lib/transformers/` - Data transformation layer
 
 ## Git & Deployment
 
 **Current Branch:** `main`
+**Status:** Clean working tree
 
 **Deployment Strategy (future):**
 - Frontend (Astro): Vercel (auto-deploy from GitHub)
@@ -319,7 +452,6 @@ Section.tsx (main orchestrator - 174 lines)
 1. Read relevant documentation in `docs/`
 2. Check ROADMAP.md for current phase and priorities
 3. Understand the animation architecture if working with `src/components/animations/`
-4. Review Phase 1 refactoring changes (contexts, extracted components)
 
 ### When Working with Animations
 1. Section.tsx is the main orchestrator - it's now cleaner (174 lines) after Phase 1
@@ -332,10 +464,9 @@ Section.tsx (main orchestrator - 174 lines)
 
 ### When Adding Features
 1. Check if similar functionality exists in custom hooks
-2. Use the contexts pattern (PortfolioContext, AnimationContext)
+2. Follow the contexts pattern (don't add more useState in Section.tsx)
 3. Consider device capabilities for performance-heavy features
 4. Update relevant documentation in `docs/` folder
-5. Follow the established component extraction patterns from Phase 1
 
 ### Monorepo Commands
 - Use `pnpm` (never npm or yarn)
@@ -346,7 +477,7 @@ Section.tsx (main orchestrator - 174 lines)
 ## AI-Powered Forms Architecture
 
 ### Overview
-The portfolio implements a comprehensive AI-powered forms system with LangChain + LangGraph, supporting both Claude and Gemini as LLM providers, featuring vector database integration for semantic search and RAG capabilities.
+The portfolio implements a comprehensive AI-powered forms system with LangChain + LangGraph + Claude 3.5 Sonnet, featuring vector database integration for semantic search and RAG capabilities.
 
 ### Form Types (8 Total)
 - **Contact** - General inquiries
@@ -381,15 +512,15 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
 ### AI Pipeline Flow
 ```
 Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Machine
-  ├─ IntentClassifierAgent (classify form type) [Gemini/Claude]
+  ├─ IntentClassifierAgent (classify form type)
   ├─ EasterEggDetectorAgent (detect hidden keywords)
   ├─ FieldExtractionAgent (extract structured data)
   ├─ ValidationAgent (check required fields)
-  ├─ SummarizationAgent (generate AI summary + sentiment) [Gemini/Claude]
-  └─ AutoResponseAgent (optional personalized reply) [Gemini/Claude]
+  ├─ SummarizationAgent (generate AI summary + sentiment)
+  └─ AutoResponseAgent (optional personalized reply)
 → LangSmith (tracing/logging)
 → Strapi v5 (structured data storage)
-→ [Async Job] Embedding Generation (prefer Gemini embeddings when using Gemini)
+→ [Async Job] Embedding Generation
 → pgVector (vector storage with metadata)
 → Retrieval & Ranking (query time with Cohere Rerank)
 ```
@@ -400,8 +531,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 3. **Embedding generation is async** - Don't block form submission on embedding creation
 4. **Metadata filtering is crucial** - Use `formType`, `sentiment`, `tags` for efficient retrieval
 5. **Reranking improves relevance** - Use Cohere Rerank or cross-encoders after vector search
-6. **LLM Provider Selection** - System supports both Gemini and Claude; use Gemini embeddings with Gemini LLM for consistency
-7. **See `docs/features/ai-forms.md`** for complete implementation details
+6. **See `docs/features/ai-forms.md`** for complete implementation details
 
 ## Performance Considerations
 
@@ -418,7 +548,6 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 4. **Check refs before accessing** - many components use React refs that may be null
 5. **pnpm lockfile is committed** - don't use other package managers
 6. **Turborepo cache is in gitignore** - don't commit `.turbo/`
-7. **Respect Phase 1 refactoring patterns** - use contexts, extracted components, and established patterns
 
 ## Resources
 
@@ -430,19 +559,47 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 - **LangChain Docs:** https://langchain.com
 - **LangGraph Docs:** https://langchain-ai.github.io/langgraph/
 - **LangSmith Docs:** https://docs.smith.langchain.com/
-- **Google Gemini API:** https://ai.google.dev/docs
-- **Vertex AI Docs:** https://cloud.google.com/vertex-ai/docs
 
 ---
 
-**Last Updated:** 2025-11-21
+**Last Updated:** 2025-12-28
 
 **Key Updates:**
+- ✅ **Phase 0.2.4 Completed:** Frontend API Integration (2025-12-19)
+  - DataContext system with 15+ API clients
+  - Zod validation + data transformers
+  - HomepageContent + SectionLayout components
+  - Complete elimination of prop drilling for CMS data
+- ✅ **Phase 1.5 Completed:** Code Quality & Security Fixes (2025-12-03)
+  - Fixed critical CVEs, memory leaks, type safety
+  - Code quality: 7.5/10 → 8.5-9.0/10
 - ✅ **Phase 1 Completed:** Animations refactoring (324 → 174 lines, 46% reduction)
+- ✅ **Phase 0 85% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components
+- 🔥 **Current Priority:** Phase 0.3 - Deployment Strategy (Vercel + Railway)
+- ✅ **Astro v5.15 → v5.16.0:** Framework upgrade for latest features
+- ✅ **Strapi Components Added:** Audio Metadata component with enharmonic keys (media.audio-metadata)
+- ✅ **Icons Integration:** strapi-plugin-icons-field v1.1.5 with @mynaui/icons support
+- ✅ **CTA Button Component:** UI component with icons-field integration (ui.cta-button)
+- ✅ **Enhanced Icons Script:** icons.sh now supports multiple categorized icon sources
 - ✅ Strapi v4 → v5 upgrade for better PostgreSQL and pgVector support
 - ✅ Comprehensive AI/ML stack with LangChain, LangGraph, LangSmith
 - ✅ AI-Powered Forms architecture with vector database and semantic search
-- ✅ Multiple LLM provider support (Claude + Gemini)
 - ✅ Multiple embedding providers and retrieval/ranking systems
 - ✅ Enhanced monitoring with Vercel Speed Insights
-- ✅ Gemini-specific guidance for embeddings and LLM integration
+
+**Strapi CMS Components (Implemented - 9 total):**
+- `shared.seo` - SEO metadata with nested Open Graph
+- `shared.open-graph` - Open Graph meta tags (used by SEO)
+- `shared.social-links` - Social media URLs
+- `media.audio-metadata` - Music track metadata with enharmonic keys, BPM, time signatures, scales
+- `ui.cta-button` - Call-to-action buttons with icon picker (@mynaui/icons integration)
+- `content.stats` - Statistics display component
+- `content.achievement` - Achievement/award display
+- `content.education` - Education history
+- `ui.image-element` - Image component with alt text
+
+**Strapi CMS Status:**
+- 20 total content types implemented (10 collection + 10 single)
+- 9 components implemented
+- Simplified blog architecture (Post collection + Blog configuration single type, no Blog Series)
+- AI Forms consolidated into single Form Submission collection type with formType enumeration (instead of 8 separate collection types)

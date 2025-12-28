@@ -545,6 +545,7 @@ Features (as needed) → 3-40 days each
   - Railway setup for backend (Strapi + PostgreSQL + Docker build)
   - CircleCI stashed for future (will handle prechecks only when test suite matures)
 - **Phase 0.4: Content Migration** (3 days)
+  - Migrate hardcoded content: SocialMenu placeholders, ProjectsSection config
   - Migration scripts from static to CMS
   - Bulk import via Strapi API
   - Strapi webhooks for Vercel rebuilds

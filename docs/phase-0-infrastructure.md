@@ -2,10 +2,10 @@
 
 📍 **Full Documentation:** [ROADMAP.md Phase 0](../ROADMAP.md#phase-0-infrastructure--architecture-foundation-after-phase-1-)
 
-## Priority Status: 🚧 IN PROGRESS - Currently at 0.2.4 (Frontend API Integration) 🔥
+## Priority Status: 🚧 IN PROGRESS - Currently at 0.3 (Deployment Strategy) 🔥
 
 **Estimated Effort:** 16-20 days
-**Progress:** ~80% Complete (Steps 0.1, 0.2.1, 0.2.2, 0.2.3 completed)
+**Progress:** ~85% Complete (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4 completed)
 
 ## Overview
 
@@ -346,62 +346,115 @@ volumes:
 
 ---
 
-#### 0.2.4 Frontend API Integration (1-2 days) - 🚧 CURRENT PRIORITY 🔥
+#### 0.2.4 Frontend API Integration (1-2 days) - ✅ COMPLETED (2025-12-19)
 
-**Goal:** Connect portfolio app to Strapi CMS API
+**Goal:** Replace static data with CMS-driven content via Strapi SDK
 
-**API Client Setup:**
+**Implementation:**
 
-1. **Install Strapi SDK**
-   ```bash
-   cd apps/portfolio
-   pnpm add @strapi/sdk-js
-   ```
+**1. API Layer Architecture**
+```
+src/lib/
+├── api/              # 15+ specialized API clients
+│   ├── homepage-data.ts    # Orchestrates all homepage data fetching
+│   ├── layout-data.ts      # Layout-specific data (theme, maintenance, etc.)
+│   ├── hero.ts             # Hero section API
+│   ├── about.ts            # About section API
+│   ├── projects.ts         # Projects collection API
+│   ├── experiences.ts      # Work experience API
+│   ├── testimonials.ts     # Testimonials collection API
+│   ├── awards.ts           # Awards/achievements API
+│   ├── posts.ts            # Blog posts API
+│   ├── skills.ts           # Skills collection API
+│   ├── skill-categories.ts # Skill categories API
+│   ├── animation.ts        # Animation config API
+│   ├── theme.ts            # Theme config API
+│   ├── maintenance.ts      # Maintenance mode API
+│   ├── website-config.ts   # Website metadata API
+│   ├── blog-config.ts      # Blog configuration API
+│   ├── showcase.ts         # Showcase config API
+│   ├── portfolio.ts        # Portfolio metadata API
+│   ├── homepage.ts         # Homepage config API
+│   └── preloader.ts        # Preloader config API
+├── validators/       # 15+ Zod schemas (type-safe validation)
+├── transformers/     # 15+ data transformers (clean structures)
+├── utils/            # Helper functions
+│   ├── index.ts
+│   ├── contentHelpers.ts
+│   └── experienceHelpers.ts
+└── strapi.ts         # Base Strapi client
+```
 
-2. **Create API Client** (`apps/portfolio/src/lib/strapi.ts`)
-   ```typescript
-   import { Strapi } from '@strapi/sdk-js';
+**2. DataContext System**
+- Created `DataContext.tsx` - Provides homepage data, portfolio data, and section registry
+- Custom hooks:
+  - `useDataContext()` - Full data access
+  - `useSectionData()` - Section-specific data
+  - `usePortfolioData()` - Portfolio metadata
+  - `useHomepageData()` - Homepage configuration
+  - `useRegistry()` - Section component registry
+- **Impact:** Complete elimination of prop drilling for CMS data
 
-   const strapi = new Strapi({
-     url: import.meta.env.STRAPI_API_URL || 'http://localhost:1337',
-     apiToken: import.meta.env.STRAPI_API_TOKEN,
-   });
+**3. Component Refactoring**
+- `HomepageContent.tsx` - Replaces `SectionContent.tsx`, uses context hooks
+- `SectionLayout.tsx` - Reusable layout wrapper for consistent section structure
+- All section components refactored to use context hooks instead of props
 
-   export default strapi;
-   ```
+**4. Type Safety & Validation**
+- Zod schemas for all CMS responses (`/lib/validators/*`)
+- Runtime validation with graceful fallbacks
+- TypeScript inference from Zod schemas
+- Example:
+  ```typescript
+  const HeroSchema = z.object({
+    title: z.string(),
+    subtitle: z.string().optional(),
+    // ... full schema
+  });
 
-3. **Type Generation**
-   - Use Strapi's TypeScript type generation
-   - Create shared types in `packages/shared/src/types/strapi.ts`
-   - Export to portfolio app
+  export type Hero = z.infer<typeof HeroSchema>;
+  ```
 
-4. **Data Fetching Utilities**
-   - Implement caching strategy (Astro's built-in cache)
-   - Add ISR with revalidation (60 seconds)
-   - Error handling and fallbacks
-   - Loading states for client-side fetching
+**5. Caching Strategy**
+- `force-cache` for SSG builds (fast production builds)
+- `no-cache` for maintenance mode checks (always fresh)
+- Parallel fetching via `Promise.all()` for all 15+ endpoints
 
-5. **Replace Static Data**
-   ```astro
-   ---
-   // Before (static)
-   import { aboutData } from '@/data/about';
+**6. Error Handling**
+- Graceful fallbacks to default data if CMS unavailable
+- Error logging for debugging
+- Build-time validation of CMS data
+- Example:
+  ```typescript
+  try {
+    const data = await fetchFromCMS();
+    return HeroSchema.parse(data);
+  } catch (error) {
+    console.error('CMS fetch failed, using fallback:', error);
+    return DEFAULT_HERO_DATA;
+  }
+  ```
 
-   // After (CMS)
-   import strapi from '@/lib/strapi';
-   const aboutData = await strapi.find('about');
-   ---
-   ```
+**Test Results:**
+- ✅ All 8 configuration APIs tested and working
+- ✅ Build passing with actual CMS data
+- ✅ Type safety validated across all endpoints
+- ✅ Error handling tested (CMS down scenario)
+- ✅ Parallel fetching reduces page load time
 
-**Caching Strategy:**
-- **Astro SSG:** Pre-render pages at build time
-- **ISR:** Revalidate every 60 seconds (Vercel)
-- **Strapi Webhooks:** Trigger Vercel rebuilds on content changes
-- **Redis (Optional):** Cache frequently accessed data
+**Test Report:** [Phase 0.2.4 Test Report](/docs/strapi/PHASE_0.2.4_TEST_REPORT.md)
+
+**Key Files:**
+- `/apps/portfolio/src/lib/api/homepage-data.ts` - Main data orchestration
+- `/apps/portfolio/src/components/animations/contexts/DataContext.tsx` - CMS data provider
+- `/apps/portfolio/src/components/animations/HomepageContent.tsx` - Section renderer
+- `/apps/portfolio/src/components/animations/sections/layouts/SectionLayout.tsx` - Reusable layout
+
+**Status:** ✅ COMPLETED (2025-12-19)
 
 ---
 
-### 0.3 Deployment Strategy (1 day) - ⏳ PENDING
+### 0.3 Deployment Strategy (1 day) - 🚧 CURRENT PRIORITY 🔥
 
 **See [Deployment Strategy Documentation](/home/aazucena/Projects/aazucena_apps/docs/deployment-strategy.md) for complete details.**
 
@@ -535,6 +588,26 @@ jobs:
 ### 0.4 Content Migration & API Integration (3 days) - ⏳ PENDING
 
 **Goal:** Seamlessly migrate from static to CMS-driven content
+
+**Known Hardcoded Content to Migrate:**
+
+**High Priority:**
+- `SocialMenu.tsx` (lines 12-43): GitHub/LinkedIn/Email placeholders → use `shared.social-links` component
+- `ProjectsSection.tsx` (line 51): TODO comment, display config → see `.claude/plans/logical-strolling-neumann.md`
+- `config.yaml` (lines 87-95): Social media URLs with "yourhandle" placeholders → migrate to CMS
+
+**Static Data Files (813 lines):**
+- `sections/data/blog.ts` (58 lines): 3 blog posts with "yourhandle" URLs (lines 43, 55)
+- `sections/data/about.ts` (93 lines): Profile data (interfaces defined, awaiting CMS)
+- `sections/data/projects.ts` (63 lines): Project cards (static data)
+- `sections/data/skills.ts` (66 lines): Skills taxonomy (static data)
+- `sections/data/experiences.ts` (162 lines): Work history with real URLs (Tangle Media, Interfaith)
+- `sections/data/testimonials.ts` (47 lines): Client testimonials (static data)
+- `sections/data/awards.ts` (98 lines): Awards/achievements (static data)
+- `sections/data/sections.ts` (77 lines): Section metadata (static data)
+- `sections/data/colors.ts` (135 lines): Theme colors (configuration)
+
+**Status:** Most static data files are **already being replaced by CMS** via `useSectionData()` hook. Remaining: config.yaml placeholders, SocialMenu, ProjectsSection config.
 
 **Migration Steps:**
 

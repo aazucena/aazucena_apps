@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Rules
 - full context (x being the id of the session we are operation, if file doesn't exist, then create one)
-- @ROADMAP.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @docs, and are added/updated to.
+- @ROADMAP.md, @README.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @docs, and are added/updated to.
 
 ## Repository Overview
 
@@ -90,31 +90,47 @@ pnpm dlx playwright show-report
 
 The portfolio features a complex animation system located in `apps/portfolio/src/components/animations/`. This was successfully refactored in Phase 1 (completed 2025-01-13).
 
-**Current Structure (Post-Phase 1):**
+**Current Structure (Post-Phase 0.2.4):**
 ```
 src/components/animations/
 ├── Section.tsx              # Main orchestrator (174 lines - refactored)
+├── HomepageContent.tsx      # Section content renderer (replaces SectionContent)
 ├── ThreeJSScene.tsx         # Three.js scene (renamed from Scene.tsx)
 ├── PixiJSParticles.tsx      # PixiJS particle system (renamed from Particles.tsx)
 ├── contexts/                # State management contexts
-│   ├── PortfolioContext.tsx
-│   └── AnimationContext.tsx
-├── components/              # Extracted components
-│   ├── DynamicBackground.tsx
-│   ├── AtmosphericOverlays.tsx
+│   ├── PortfolioContext.tsx # Portfolio state (scroll, sections)
+│   ├── AnimationContext.tsx # Animation state (layers, effects)
+│   ├── DataContext.tsx      # CMS data provider (NEW in Phase 0.2.4)
+│   ├── usePortfolio.ts      # Hook for portfolio context
+│   ├── useAnimation.ts      # Hook for animation context
+│   ├── useDataContext.ts    # Hook for CMS data (NEW)
+│   └── index.ts             # Centralized exports
+├── canvas/                  # Canvas components (extracted)
 │   ├── AnimationCanvas.tsx
-│   ├── SectionContent.tsx
-│   └── UIOverlays.tsx
+│   └── index.ts
+├── overlays/                # Overlay components (extracted)
+│   ├── UIOverlays.tsx
+│   └── index.ts
 ├── config/                  # Configuration and types
-├── hooks/                   # 9 custom React hooks
+├── hooks/                   # 11 custom React hooks
 │   ├── useDeviceCapabilities.ts
 │   ├── useSectionTransition.ts
 │   ├── useAtmosphericLayer.ts
 │   ├── useModal.ts
-│   └── ... (5 more)
+│   ├── useSectionRefs.ts
+│   ├── useSectionTransitions.ts
+│   ├── useGSAPEntrance.ts
+│   ├── useFlipText.ts
+│   ├── useLocalStorage.ts
+│   ├── useSectionRegistry.ts  # NEW: Component mapping
+│   ├── useHandlebars.ts       # NEW: Template rendering
+│   └── index.ts
 ├── particles/               # Particle system internals
 ├── scene/                   # Three.js scene components
 ├── sections/                # 8 portfolio sections (Hero, About, Projects, etc.)
+│   └── layouts/             # Reusable section layouts (NEW)
+│       ├── SectionLayout.tsx
+│       └── index.ts
 ├── ui/                      # UI components (modals, toolbar, panels)
 └── utilities/               # Helper functions
 ```
@@ -141,21 +157,95 @@ The animation system relies on custom hooks for encapsulation:
 - `useModal` - Modal state management
 - `useSectionRefs` - Manages refs for 8 sections
 
-### State Flow (Post-Phase 1)
+### State Flow (Post-Phase 0.2.4)
 
 ```
 Section.tsx (main orchestrator - 174 lines)
-├─ PortfolioContext → Centralized portfolio state
-├─ AnimationContext → Centralized animation state
+├─ DataContext → CMS data (homepage, portfolio, sections registry)
+├─ PortfolioContext → Portfolio state (scroll, sections)
+├─ AnimationContext → Animation state (layers, effects)
 └─ Renders:
    ├─ DynamicBackground (extracted component)
    ├─ AtmosphericOverlays (extracted component)
    ├─ AnimationCanvas (extracted component)
    │   ├─ PixiJSParticles (conditional)
    │   └─ Three.js Canvas with ThreeJSScene
-   ├─ SectionContent (extracted component)
+   ├─ HomepageContent (section content renderer)
    └─ UIOverlays (extracted component)
 ```
+
+### CMS Data Architecture (Phase 0.2.4)
+
+**Data Flow:**
+```
+Strapi CMS (PostgreSQL + pgVector)
+   ↓
+/lib/api/homepage-data.ts → Parallel fetch (15+ endpoints)
+   ↓
+/lib/validators/* → Zod schema validation (runtime type safety)
+   ↓
+/lib/transformers/* → Data transformation (clean structures)
+   ↓
+DataContext → Provides data to all components
+   ↓
+Custom hooks → Components access data
+  ├─ useDataContext() → Full data access
+  ├─ useSectionData() → Section-specific data
+  ├─ usePortfolioData() → Portfolio metadata
+  ├─ useHomepageData() → Homepage configuration
+  └─ useRegistry() → Section component registry
+```
+
+**API Layer Structure:**
+```
+src/lib/
+├── api/              # 15+ specialized API clients
+│   ├── homepage-data.ts    # Orchestrates all homepage data
+│   ├── layout-data.ts      # Layout-specific (theme, maintenance)
+│   ├── hero.ts             # Hero section
+│   ├── about.ts            # About section
+│   ├── projects.ts         # Projects collection
+│   ├── experiences.ts      # Work experience
+│   ├── testimonials.ts     # Testimonials
+│   ├── awards.ts           # Awards/achievements
+│   ├── posts.ts            # Blog posts
+│   ├── skills.ts           # Skills collection
+│   ├── skill-categories.ts # Skill categories
+│   ├── animation.ts        # Animation config
+│   ├── theme.ts            # Theme config
+│   ├── maintenance.ts      # Maintenance mode
+│   ├── website-config.ts   # Website metadata
+│   ├── blog-config.ts      # Blog configuration
+│   ├── showcase.ts         # Showcase config
+│   ├── portfolio.ts        # Portfolio metadata
+│   ├── homepage.ts         # Homepage config
+│   └── preloader.ts        # Preloader config
+├── validators/       # 15+ Zod schemas (type-safe validation)
+├── transformers/     # 15+ data transformers (clean structures)
+├── utils/            # Helper functions
+│   ├── index.ts
+│   ├── contentHelpers.ts
+│   └── experienceHelpers.ts
+└── strapi.ts         # Base Strapi client
+```
+
+**Context Integration:**
+```typescript
+<DataProvider data={data} content={homepage} portfolio={portfolio}>
+  <PortfolioProvider>
+    <AnimationProvider>
+      {/* All components have access to CMS data via hooks */}
+    </AnimationProvider>
+  </PortfolioProvider>
+</DataProvider>
+```
+
+**Key Benefits:**
+- ✅ Complete type safety with Zod runtime validation
+- ✅ Parallel data fetching (all 15+ endpoints in parallel)
+- ✅ Graceful fallbacks if CMS unavailable
+- ✅ No prop drilling (context hooks throughout)
+- ✅ Testable, modular API clients
 
 ## Development Roadmap
 
@@ -173,13 +263,25 @@ Section.tsx (main orchestrator - 174 lines)
 - ✅ Renamed files (Particles → PixiJSParticles, Scene → ThreeJSScene)
 - ✅ All tests passing
 
-### Current Priority: Phase 1.5 - Code Quality & Security Fixes (0.5-1 day)
+### ✅ Phase 1.5 - Code Quality & Security Fixes (COMPLETED - 2025-12-03)
 
 **Detailed docs:** `docs/phase-1.5-code-quality-security.md`
 
-**Goal:** Fix critical security vulnerabilities and code quality issues identified in Phase 1 code review
+**Achievements:**
+- ✅ Fixed critical CVEs (happy-dom upgraded to >=20.0.2)
+- ✅ Eliminated memory leaks (PortfolioContext timeout cleanup)
+- ✅ Improved type safety (AwardsSection typed properly)
+- ✅ Fixed hook dependencies (exhaustive-deps violations resolved)
+- ✅ Added GSAP cleanup (prevented animation memory leaks)
+- ✅ Code quality: 7.5/10 → 8.5-9.0/10
 
-**Status:** Ready to start (see ROADMAP.md for details)
+### Current Priority: Phase 0.3 - Deployment Strategy (1 day) 🔥
+
+**Detailed docs:** `docs/phase-0-infrastructure.md`
+
+**Goal:** Deploy Strapi CMS to Railway and Astro frontend to Vercel
+
+**Status:** Ready to start after Phase 0.2.4 completion (2025-12-19)
 
 ---
 
@@ -194,8 +296,8 @@ Section.tsx (main orchestrator - 174 lines)
 - **0.2.1:** Docker Compose setup (Strapi + PostgreSQL 16 + pgVector) ✅ COMPLETED
 - **0.2.2:** Strapi configuration (admin panel, Cloudinary) ✅ MOSTLY COMPLETE
 - **0.2.3:** Content types creation (16 types implemented) ✅ COMPLETED
-- **0.2.4:** Frontend API integration (Strapi SDK) ⏳ PENDING
-- **0.3:** Deployment strategy (Vercel + Railway + CircleCI) ⏳ PENDING
+- **0.2.4:** Frontend API integration (Strapi SDK) ✅ COMPLETED (2025-12-19)
+- **0.3:** Deployment strategy (Vercel + Railway) 🚧 CURRENT PRIORITY
 - **0.4:** Content migration from static to CMS ⏳ PENDING
 
 **Key Technology Decisions:**
@@ -205,7 +307,7 @@ Section.tsx (main orchestrator - 174 lines)
 - ✅ 16 content types created (Skills, Projects, Posts, Testimonials, etc.)
 - ✅ 9 components implemented
 
-**Status:** ~80% complete - Core CMS infrastructure operational, pending frontend integration and deployment
+**Status:** ~85% complete - Core CMS infrastructure operational, frontend integration complete (0.2.4), pending deployment (0.3) and content migration (0.4)
 
 ### Upcoming Phases (execute in order)
 - **Phase 2:** Component Architecture (6-8 days) - Further optimization
@@ -327,7 +429,12 @@ Section.tsx (main orchestrator - 174 lines)
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
 - `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator
+- `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer
 - `apps/portfolio/src/components/animations/hooks/` - Custom hooks library
+- `apps/portfolio/src/lib/api/homepage-data.ts` - CMS data orchestration
+- `apps/portfolio/src/lib/api/layout-data.ts` - Layout data fetching
+- `apps/portfolio/src/lib/validators/` - Zod validation schemas
+- `apps/portfolio/src/lib/transformers/` - Data transformation layer
 
 ## Git & Deployment
 
@@ -455,13 +562,20 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2025-12-02
+**Last Updated:** 2025-12-28
 
 **Key Updates:**
+- ✅ **Phase 0.2.4 Completed:** Frontend API Integration (2025-12-19)
+  - DataContext system with 15+ API clients
+  - Zod validation + data transformers
+  - HomepageContent + SectionLayout components
+  - Complete elimination of prop drilling for CMS data
+- ✅ **Phase 1.5 Completed:** Code Quality & Security Fixes (2025-12-03)
+  - Fixed critical CVEs, memory leaks, type safety
+  - Code quality: 7.5/10 → 8.5-9.0/10
 - ✅ **Phase 1 Completed:** Animations refactoring (324 → 174 lines, 46% reduction)
-- ✅ **Phase 0 Substantially Complete:** Strapi v5.31.0, Docker Compose, 16 content types, 9 components
-- ✅ **Current Priority:** Phase 1.5 - Code Quality & Security Fixes (0.5-1 day)
-- ✅ **Documentation Updated:** Fixed Strapi docs to match actual implementation (Blog Series removed, Post schema corrected)
+- ✅ **Phase 0 85% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components
+- 🔥 **Current Priority:** Phase 0.3 - Deployment Strategy (Vercel + Railway)
 - ✅ **Astro v5.15 → v5.16.0:** Framework upgrade for latest features
 - ✅ **Strapi Components Added:** Audio Metadata component with enharmonic keys (media.audio-metadata)
 - ✅ **Icons Integration:** strapi-plugin-icons-field v1.1.5 with @mynaui/icons support
