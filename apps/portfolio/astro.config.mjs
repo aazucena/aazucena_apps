@@ -22,6 +22,9 @@ export default defineConfig({
       project: process.env.PUBLIC_SENTRY_PROJECT,
       org: process.env.PUBLIC_SENTRY_ORG,
       authToken: process.env.SENTRY_AUTH_TOKEN,
+      sourceMapsUploadOptions: {
+        enabled: process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production',
+      },
     })
   ],
 

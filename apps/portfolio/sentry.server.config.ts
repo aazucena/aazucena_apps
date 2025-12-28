@@ -5,6 +5,7 @@ const PUBLIC_VERCEL_ENV = process.env.PUBLIC_VERCEL_ENV || 'development';
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN || process.env.PUBLIC_SENTRY_DSN,
+  enabled: PUBLIC_VERCEL_ENV === 'production',
   // Adds request headers and IP for users, for more info visit: for more info visit:
   // https://docs.sentry.io/platforms/javascript/guides/astro/configuration/options/#sendDefaultPii
   sendDefaultPii: true,
