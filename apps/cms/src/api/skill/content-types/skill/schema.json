@@ -91,6 +91,12 @@
       "relation": "manyToMany",
       "target": "api::project.project",
       "mappedBy": "techStack"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::skill-category.skill-category",
+      "mappedBy": "skills"
     }
   }
 }

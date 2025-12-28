@@ -196,13 +196,14 @@
       ]
     },
     "tags": {
-      "type": "string",
+      "type": "component",
+      "repeatable": true,
+      "component": "ui.tag",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      },
-      "maxLength": 255
+      }
     },
     "techStack": {
       "type": "relation",

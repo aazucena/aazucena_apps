@@ -63,6 +63,52 @@
       "default": 4,
       "min": 1,
       "max": 10
+    },
+    "displayPostsCount": {
+      "type": "integer",
+      "required": true,
+      "default": 6,
+      "min": 1,
+      "max": 12
+    },
+    "gridColumns": {
+      "type": "integer",
+      "default": 3,
+      "min": 1,
+      "max": 4,
+      "required": true
+    },
+    "viewAllButtonText": {
+      "type": "string",
+      "default": "View All Articles",
+      "maxLength": 50,
+      "required": true
+    },
+    "viewAllButtonAriaLabel": {
+      "type": "string",
+      "default": "View all blog articles",
+      "maxLength": 100,
+      "required": true
+    },
+    "showViewAllButton": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "showTags": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "showDate": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "showReadTime": {
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }

@@ -135,6 +135,28 @@
         }
       },
       "default": false
+    },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "certification",
+        "award"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "shortTitle": {
+      "type": "string",
+      "maxLength": 50,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
