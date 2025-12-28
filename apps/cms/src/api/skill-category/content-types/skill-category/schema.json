@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "skill_categories",
+  "info": {
+    "singularName": "skill-category",
+    "pluralName": "skill-categories",
+    "displayName": "Skill Category",
+    "description": "Categories for organizing skills (Frontend, Backend, etc.)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 50,
+      "regex": "^[a-z0-9-]+$"
+    },
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon",
+      "options": {
+        "selection": []
+      }
+    },
+    "skills": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::skill.skill",
+      "inversedBy": "categories"
+    },
+    "sort": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    }
+  }
+}

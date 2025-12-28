@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_ui_tags",
+  "info": {
+    "displayName": "Tag",
+    "description": "Colored tag for categorization",
+    "icon": "hashtag"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 30
+    },
+    "color": {
+      "type": "enumeration",
+      "required": true,
+      "default": "cyan",
+      "enum": [
+        "cyan",
+        "blue",
+        "purple",
+        "pink",
+        "green",
+        "teal",
+        "orange",
+        "red",
+        "gray"
+      ]
+    }
+  }
+}
