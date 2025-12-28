@@ -207,20 +207,20 @@ Basic SEO setup with Aldrin Azucena branding
 ```typescript
 import { getBlogConfig } from '~/lib/api/blog-config';
 
-const blogConfig = await getBlogConfig();
+const blog = await getBlogConfig();
 
 // Use for pagination:
 const page = 1;
-const offset = (page - 1) * blogConfig.postsPerPage;
+const offset = (page - 1) * blog.postsPerPage;
 
 // Use for URL building:
-const blogUrl = `/${blogConfig.paths.main}/`;
-const categoryUrl = `/${blogConfig.paths.main}/${blogConfig.paths.category}/tech/`;
-const tagUrl = `/${blogConfig.paths.main}/${blogConfig.paths.tag}/javascript/`;
+const blogUrl = `/${blog.paths.main}/`;
+const categoryUrl = `/${blog.paths.main}/${blog.paths.category}/tech/`;
+const tagUrl = `/${blog.paths.main}/${blog.paths.tag}/javascript/`;
 
 // Use for related posts:
-if (blogConfig.relatedPosts.enabled) {
-  const relatedPosts = await getRelatedPosts(postId, blogConfig.relatedPosts.count);
+if (blog.relatedPosts.enabled) {
+  const relatedPosts = await getRelatedPosts(postId, blog.relatedPosts.count);
 }
 ```
 
