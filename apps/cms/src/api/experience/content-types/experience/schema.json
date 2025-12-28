@@ -130,8 +130,8 @@
       },
       "required": true
     },
-    "highlights": {
-      "type": "richtext",
+    "responsibilities": {
+      "type": "blocks",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -155,6 +155,16 @@
       ]
     },
     "companyWebsite": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "maxLength": 255,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
+    },
+    "companyLinkedIn": {
       "type": "string",
       "pluginOptions": {
         "i18n": {

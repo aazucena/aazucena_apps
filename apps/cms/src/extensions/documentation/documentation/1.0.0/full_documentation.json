@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-12-27T02:12:42.301Z"
+    "x-generation-date": "2025-12-28T02:57:03.637Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -15955,9 +15955,7 @@
               "description": {
                 "type": "string"
               },
-              "highlights": {
-                "type": "string"
-              },
+              "responsibilities": {},
               "employmentType": {
                 "type": "string",
                 "enum": [
@@ -15970,6 +15968,9 @@
                 ]
               },
               "companyWebsite": {
+                "type": "string"
+              },
+              "companyLinkedIn": {
                 "type": "string"
               },
               "skillsUsed": {
@@ -16119,9 +16120,7 @@
           "description": {
             "type": "string"
           },
-          "highlights": {
-            "type": "string"
-          },
+          "responsibilities": {},
           "employmentType": {
             "type": "string",
             "enum": [
@@ -16134,6 +16133,9 @@
             ]
           },
           "companyWebsite": {
+            "type": "string"
+          },
+          "companyLinkedIn": {
             "type": "string"
           },
           "skillsUsed": {
@@ -16267,9 +16269,7 @@
                       "description": {
                         "type": "string"
                       },
-                      "highlights": {
-                        "type": "string"
-                      },
+                      "responsibilities": {},
                       "employmentType": {
                         "type": "string",
                         "enum": [
@@ -16282,6 +16282,9 @@
                         ]
                       },
                       "companyWebsite": {
+                        "type": "string"
+                      },
+                      "companyLinkedIn": {
                         "type": "string"
                       },
                       "skillsUsed": {
@@ -22663,9 +22666,7 @@
                       "description": {
                         "type": "string"
                       },
-                      "highlights": {
-                        "type": "string"
-                      },
+                      "responsibilities": {},
                       "employmentType": {
                         "type": "string",
                         "enum": [
@@ -22678,6 +22679,9 @@
                         ]
                       },
                       "companyWebsite": {
+                        "type": "string"
+                      },
+                      "companyLinkedIn": {
                         "type": "string"
                       },
                       "skillsUsed": {
@@ -23589,9 +23593,7 @@
                 "description": {
                   "type": "string"
                 },
-                "highlights": {
-                  "type": "string"
-                },
+                "responsibilities": {},
                 "employmentType": {
                   "type": "string",
                   "enum": [
@@ -23604,6 +23606,9 @@
                   ]
                 },
                 "companyWebsite": {
+                  "type": "string"
+                },
+                "companyLinkedIn": {
                   "type": "string"
                 },
                 "skillsUsed": {

@@ -1116,6 +1116,15 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
+    companyLinkedIn: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
     companyLogo: Schema.Attribute.Component<'ui.image-element', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1161,12 +1170,6 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
-        };
-      }>;
-    highlights: Schema.Attribute.RichText &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
         };
       }>;
     industry: Schema.Attribute.Enumeration<
@@ -1223,6 +1226,12 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
         maxLength: 150;
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    responsibilities: Schema.Attribute.Blocks &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     skillsUsed: Schema.Attribute.Relation<'manyToMany', 'api::skill.skill'>;
     startDate: Schema.Attribute.Date &
       Schema.Attribute.Required &
