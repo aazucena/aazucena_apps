@@ -112,7 +112,7 @@ src/components/animations/
 │   ├── UIOverlays.tsx
 │   └── index.ts
 ├── config/                  # Configuration and types
-├── hooks/                   # 11 custom React hooks
+├── hooks/                   # 13 custom React hooks
 │   ├── useDeviceCapabilities.ts
 │   ├── useSectionTransition.ts
 │   ├── useAtmosphericLayer.ts
@@ -122,8 +122,11 @@ src/components/animations/
 │   ├── useGSAPEntrance.ts
 │   ├── useFlipText.ts
 │   ├── useLocalStorage.ts
-│   ├── useSectionRegistry.ts  # NEW: Component mapping
-│   ├── useHandlebars.ts       # NEW: Template rendering
+│   ├── useSectionRegistry.ts  # NEW (0.2.4): Component mapping
+│   ├── useHandlebars.ts       # NEW (0.2.4): Template rendering
+│   ├── useDataContext.ts      # NEW (0.2.4): CMS data access
+│   ├── usePortfolio.ts        # Exported from contexts/
+│   ├── useAnimation.ts        # Exported from contexts/
 │   └── index.ts
 ├── particles/               # Particle system internals
 ├── scene/                   # Three.js scene components
@@ -428,13 +431,21 @@ src/lib/
 
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
-- `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator
-- `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer
-- `apps/portfolio/src/components/animations/hooks/` - Custom hooks library
-- `apps/portfolio/src/lib/api/homepage-data.ts` - CMS data orchestration
-- `apps/portfolio/src/lib/api/layout-data.ts` - Layout data fetching
-- `apps/portfolio/src/lib/validators/` - Zod validation schemas
-- `apps/portfolio/src/lib/transformers/` - Data transformation layer
+- `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
+- `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer (replaces SectionContent.tsx ❌ deleted)
+- `apps/portfolio/src/components/animations/contexts/DataContext.tsx` - CMS data provider (NEW in 0.2.4)
+- `apps/portfolio/src/components/animations/sections/layouts/SectionLayout.tsx` - Reusable section wrapper
+- `apps/portfolio/src/components/animations/hooks/` - Custom hooks library (13 total)
+  - `useSectionRegistry.ts` - Component mapping (NEW)
+  - `useHandlebars.ts` - Template rendering (NEW)
+  - `useDataContext.ts` - CMS data access (NEW)
+- `apps/portfolio/src/lib/api/` - 19 specialized API clients (modular structure)
+  - `homepage-data.ts` - Orchestrates all homepage data fetching
+  - `layout-data.ts` - Layout-specific data (theme, maintenance)
+  - ❌ `api.ts` - Deleted (replaced by modular structure)
+- `apps/portfolio/src/lib/validators/` - Zod validation schemas (18 schemas)
+- `apps/portfolio/src/lib/transformers/` - Data transformation layer (17 transformers)
+- `apps/portfolio/src/lib/utils/` - Helper utilities (contentHelpers, experienceHelpers)
 
 ## Git & Deployment
 
@@ -566,10 +577,11 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 **Key Updates:**
 - ✅ **Phase 0.2.4 Completed:** Frontend API Integration (2025-12-19)
-  - DataContext system with 15+ API clients
-  - Zod validation + data transformers
-  - HomepageContent + SectionLayout components
-  - Complete elimination of prop drilling for CMS data
+  - Modular API architecture: 19 specialized clients (replaced monolithic `api.ts` ❌)
+  - Type safety: 18 Zod validators + 17 transformers
+  - DataContext system for CMS data access (no prop drilling)
+  - New components: HomepageContent (replaces SectionContent ❌), SectionLayout
+  - New hooks: useSectionRegistry, useHandlebars, useDataContext
 - ✅ **Phase 1.5 Completed:** Code Quality & Security Fixes (2025-12-03)
   - Fixed critical CVEs, memory leaks, type safety
   - Code quality: 7.5/10 → 8.5-9.0/10
