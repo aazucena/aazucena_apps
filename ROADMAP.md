@@ -139,7 +139,7 @@ Set up Docker Compose for local development, integrate Strapi CMS v5, and establ
 - ✅ 0.2.3: Content types creation (10 collection types + 10 single types + 9 components)
 - ✅ 0.2.4: Frontend API integration (Strapi SDK) - **COMPLETED** (2025-12-19)
 - 🚧 0.3: Deployment (Vercel + Railway) - **CURRENT PRIORITY** 🔥
-- ⏳ 0.4: Content migration from static to CMS - PENDING
+- ⏳ 0.4: Content migration via Transfer Token workflow - PENDING
 
 **Status:** 🚧 ~85% Complete - Currently working on deployment strategy (0.3)
 
@@ -530,12 +530,14 @@ Features (as needed) → 3-40 days each
 
 ### Completed ✅ (Recent)
 - **Phase 0.2.4: Frontend API Integration** (1-2 days) ✅ COMPLETED (2025-12-19)
-  - ✅ Installed Strapi SDK and created API clients
-  - ✅ Implemented type generation with Zod validation
-  - ✅ Implemented caching strategy (force-cache for SSG, no-cache for maintenance)
-  - ✅ Replaced static data with CMS-driven content
-  - ✅ Set up error handling and graceful fallbacks
-  - ✅ All 8 configuration APIs tested and working
+  - ✅ Modular API architecture: 19 specialized clients (replaced monolithic `api.ts` ❌)
+  - ✅ Type safety: 18 Zod validators + 17 transformers
+  - ✅ DataContext system for CMS data access (no prop drilling)
+  - ✅ New components: HomepageContent (replaces SectionContent ❌), SectionLayout
+  - ✅ New hooks: useSectionRegistry, useHandlebars, useDataContext
+  - ✅ Caching strategy (force-cache for SSG, no-cache for maintenance)
+  - ✅ Error handling with graceful fallbacks
+  - ✅ All 15+ configuration APIs tested and working
   - ✅ Build passing with actual CMS data
   - **Test Report:** [Phase 0.2.4 Test Report](/docs/strapi/PHASE_0.2.4_TEST_REPORT.md)
 
@@ -544,11 +546,12 @@ Features (as needed) → 3-40 days each
   - Vercel configuration for frontend (auto-deploy from GitHub)
   - Railway setup for backend (Strapi + PostgreSQL + Docker build)
   - CircleCI stashed for future (will handle prechecks only when test suite matures)
-- **Phase 0.4: Content Migration** (3 days)
-  - Migrate hardcoded content: SocialMenu placeholders, ProjectsSection config
-  - Migration scripts from static to CMS
-  - Bulk import via Strapi API
+- **Phase 0.4: Content Migration via Transfer Token** (3-4 days)
+  - Populate local Strapi CMS (localhost:1337) with real content
+  - Use Transfer Token workflow to sync from local to production Railway
+  - Verify content integrity and API responses
   - Strapi webhooks for Vercel rebuilds
+  - See [phase-0-infrastructure.md](/docs/phase-0-infrastructure.md#04-content-migration--transfer-token-workflow-3-4-days---pending) for detailed workflow
 
 ---
 

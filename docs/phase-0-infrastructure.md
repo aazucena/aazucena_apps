@@ -585,67 +585,145 @@ jobs:
 
 ---
 
-### 0.4 Content Migration & API Integration (3 days) - ⏳ PENDING
+### 0.4 Content Migration & Transfer Token Workflow (3-4 days) - ⏳ PENDING
 
-**Goal:** Seamlessly migrate from static to CMS-driven content
+**Goal:** Populate production CMS with real content using Strapi's Transfer Token workflow
 
-**Known Hardcoded Content to Migrate:**
+**Note:** Static data files (813 lines in `sections/data/*.ts`) contain fake/placeholder data and are NOT imported by any components. All 8 section components already use CMS via `useSectionData()` hook.
 
-**High Priority:**
-- `SocialMenu.tsx` (lines 12-43): GitHub/LinkedIn/Email placeholders → use `shared.social-links` component
-- `ProjectsSection.tsx` (line 51): TODO comment, display config → see `.claude/plans/logical-strolling-neumann.md`
-- `config.yaml` (lines 87-95): Social media URLs with "yourhandle" placeholders → migrate to CMS
+---
 
-**Static Data Files (813 lines):**
-- `sections/data/blog.ts` (58 lines): 3 blog posts with "yourhandle" URLs (lines 43, 55)
-- `sections/data/about.ts` (93 lines): Profile data (interfaces defined, awaiting CMS)
-- `sections/data/projects.ts` (63 lines): Project cards (static data)
-- `sections/data/skills.ts` (66 lines): Skills taxonomy (static data)
-- `sections/data/experiences.ts` (162 lines): Work history with real URLs (Tangle Media, Interfaith)
-- `sections/data/testimonials.ts` (47 lines): Client testimonials (static data)
-- `sections/data/awards.ts` (98 lines): Awards/achievements (static data)
-- `sections/data/sections.ts` (77 lines): Section metadata (static data)
-- `sections/data/colors.ts` (135 lines): Theme colors (configuration)
+#### 0.4.1 Transfer Token Workflow
 
-**Status:** Most static data files are **already being replaced by CMS** via `useSectionData()` hook. Remaining: config.yaml placeholders, SocialMenu, ProjectsSection config.
+**Overview:**
+Use Strapi's native Transfer Token feature to sync content from local CMS (localhost:1337) to production Railway. This is more reliable than custom migration scripts and handles media files, relations, and content structure automatically.
 
-**Migration Steps:**
+**Prerequisites:**
+- ✅ Local Strapi running (`cd apps/cms && docker compose up`)
+- ✅ Production Strapi deployed to Railway
+- ✅ Admin access to both local and production instances
 
-1. **Create Migration Scripts**
-   - Export existing data from `src/data/*` files
-   - Transform to Strapi format
-   - Bulk import via Strapi API
+---
 
-2. **Build API Client**
-   ```typescript
-   // lib/strapi.ts
-   import type { AboutData, Experience, Project } from '@aazucena/shared';
+**Step 1: Populate Local CMS**
 
-   export class StrapiClient {
-     async getAbout(): Promise<AboutData>
-     async getExperiences(): Promise<Experience[]>
-     async getProjects(): Promise<Project[]>
-     // ...
-   }
-   ```
+1. Access `http://localhost:1337/admin`
+2. Create content in these content types (in order):
+   - **Portfolio** (Single Type): Personal info, social links, bio, resume
+   - **Hero** (Single Type): Flip words, tagline, button text
+   - **About** (Single Type): Bio, stats, highlights, learn more cards
+   - **Skill Categories** (Collection): 5-6 categories (Frontend, Backend, etc.)
+   - **Skills** (Collection): 15-30 individual skills linked to categories
+   - **Experiences** (Collection): 3+ work experiences with achievements
+   - **Website Configuration** (Single Type): Site metadata, SEO
+   - **Homepage** (Single Type): Section ordering and visibility
+   - **Project Showcase** (Single Type): Projects section UI config
+   - **Preloader** (Single Type): Preloader configuration
+3. **Publish all content** (not Draft status)
+4. Verify content displays in local portfolio (`pnpm dev` in `apps/portfolio`)
 
-3. **Update Components**
-   ```astro
-   ---
-   // Before
-   import { aboutData } from '@/data/about';
+---
 
-   // After
-   import { strapiClient } from '@/lib/strapi';
-   const aboutData = await strapiClient.getAbout();
-   ---
-   ```
+**Step 2: Create Transfer Tokens**
 
-4. **Caching Strategy**
-   - Use Astro's built-in caching
-   - Implement ISR with revalidation (60 seconds)
-   - Add Strapi webhooks to trigger Vercel rebuilds
-   - Optional: Redis cache layer for frequently accessed data
+**Local Strapi:**
+1. Settings → Transfer Tokens → "+ Create new Transfer Token"
+2. Token name: `Local to Production Transfer`
+3. Token duration: `7 days` (or appropriate)
+4. Token type: `Push` (sending data)
+5. **Copy token immediately** (can't view again)
+
+**Production Railway:**
+1. Access `https://your-project.up.railway.app/admin`
+2. Settings → Transfer Tokens → "+ Create new Transfer Token"
+3. Token name: `Production Receiver`
+4. Token duration: `7 days`
+5. Token type: `Pull` (receiving data)
+6. **Copy token immediately**
+
+---
+
+**Step 3: Run Transfer Command**
+
+```bash
+cd apps/cms
+
+pnpm dlx strapi transfer \
+  --from http://localhost:1337 \
+  --from-token <local-push-token> \
+  --to https://your-project.up.railway.app \
+  --to-token <production-pull-token>
+```
+
+**What gets transferred:**
+- ✅ All content entries (Portfolio, Hero, About, Skills, Experiences, etc.)
+- ✅ Media files (uploaded to Cloudinary on production)
+- ✅ Relations between content (Skills ↔ Experiences, Projects ↔ Skills)
+- ✅ Components (SEO, Social Links, CTA Buttons, etc.)
+- ✅ User roles and permissions (optional, can exclude with `--exclude admin`)
+
+**Transfer Progress:**
+- Terminal shows real-time progress
+- Displays count of transferred entries
+- Reports any errors or conflicts
+
+---
+
+**Step 4: Verify Transfer**
+
+**In Railway Strapi Admin:**
+- [ ] Check all content types have entries
+- [ ] Verify media files are in Cloudinary (not localhost paths)
+- [ ] Test relations (Skills linked to Experiences, etc.)
+- [ ] Verify all content is Published (not Draft)
+
+**Test API Endpoints:**
+```bash
+curl https://your-project.up.railway.app/api/portfolio
+curl https://your-project.up.railway.app/api/hero
+curl https://your-project.up.railway.app/api/about
+curl https://your-project.up.railway.app/api/skill-categories?populate=skills
+```
+
+**Trigger Vercel Rebuild:**
+1. Push any change to `main` branch, OR
+2. Vercel Dashboard → Deployments → Redeploy
+3. Wait for build to complete (2-5 min)
+4. Visit production site and verify CMS content displays
+
+---
+
+**Troubleshooting:**
+
+**Token Authentication Failed:**
+- Verify tokens are correct (copy/paste errors)
+- Check token hasn't expired
+- Ensure `--from-token` is Push type, `--to-token` is Pull type
+
+**Schema Mismatch:**
+- Ensure both local and production have identical content type schemas
+- Run `docker compose restart strapi` locally after schema changes
+- Verify Railway deployment is up to date
+
+**Media Transfer Issues:**
+- Check Cloudinary credentials in Railway environment variables
+- Verify `CLOUDINARY_NAME`, `CLOUDINARY_KEY`, `CLOUDINARY_SECRET` are set
+- Test media upload in production Strapi admin
+
+**Transfer Fails Midway:**
+- Re-run command (Strapi handles duplicates)
+- Check Railway logs for errors
+- Verify PostgreSQL connection is stable
+
+---
+
+**Post-Transfer Cleanup:**
+
+After successful transfer and verification:
+1. **Delete static data arrays** from `apps/portfolio/src/components/animations/sections/data/*.ts`
+2. Keep type definitions (or move to `types/portfolio.ts`)
+3. Update imports to use CMS transformer types
+4. Remove unused placeholder files
 
 ---
 
@@ -657,13 +735,13 @@ jobs:
 | 0.2.1 Docker Compose Setup | 1-2 days | ✅ COMPLETED | Monorepo |
 | 0.2.2 Strapi Configuration | 1 day | ✅ COMPLETED | Docker setup |
 | 0.2.3 Content Types | 7-10 days | ✅ COMPLETED | Strapi config |
-| 0.2.4 Frontend API Integration | 1-2 days | 🚧 IN PROGRESS 🔥 | Content types |
-| 0.3 Deployment Strategy | 1 day | ⏳ PENDING | CMS setup |
-| 0.4 Content Migration | 3 days | ⏳ PENDING | All above |
+| 0.2.4 Frontend API Integration | 1-2 days | ✅ COMPLETED (2025-12-19) | Content types |
+| 0.3 Deployment Strategy | 1 day | 🚧 IN PROGRESS 🔥 | CMS setup |
+| 0.4 Content Migration | 3-4 days | ⏳ PENDING | All above |
 
-**Total:** 15.5-19 days (reduced from 16-20 days - CircleCI stashed)
-**Completed:** ~13-16 days (Steps 0.1, 0.2.1, 0.2.2, 0.2.3)
-**Remaining:** ~2.5-3 days (Steps 0.2.4, 0.3, 0.4)
+**Total:** 16-23 days (reduced from 16-20 days - CircleCI stashed)
+**Completed:** ~14-18 days (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4)
+**Remaining:** ~4-5 days (Steps 0.3, 0.4)
 
 ---
 
@@ -703,31 +781,37 @@ jobs:
 
 ## 📊 Progress Tracker
 
-**Overall Progress:** 🚧 ~80% Complete
+**Overall Progress:** 🚧 ~85% Complete
 
 ### Completed ✅
 - ✅ 0.1: Monorepo verification
 - ✅ 0.2.1: Docker Compose setup (Strapi v5.31.0 + PostgreSQL 16 + pgVector)
 - ✅ 0.2.2: Strapi configuration (admin panel, Cloudinary)
 - ✅ 0.2.3: Content types creation (20 content types: 10 collection + 10 single + 9 components)
+- ✅ 0.2.4: Frontend API Integration (Strapi SDK) - ✅ **COMPLETED** (2025-12-19)
+  - ✅ Modular API architecture: 19 specialized clients (replaced monolithic `api.ts`)
+  - ✅ Type safety: 18 Zod validators + 17 transformers
+  - ✅ DataContext system for CMS data access (no prop drilling)
+  - ✅ New components: HomepageContent (replaces SectionContent), SectionLayout
+  - ✅ New hooks: useSectionRegistry, useHandlebars, useDataContext
+  - ✅ Caching strategy (force-cache for SSG, no-cache for maintenance)
+  - ✅ Error handling with graceful fallbacks
+  - ✅ All 15+ configuration APIs tested and working
+  - ✅ Build passing with actual CMS data
 
 ### In Progress 🚧
-- 🚧 0.2.4: Frontend API Integration (Strapi SDK) - **CURRENT PRIORITY** 🔥
-  - Installing Strapi SDK (@strapi/sdk-js)
-  - Creating API client with type generation
-  - Implementing caching strategy (Astro SSG + ISR)
-  - Replacing static data with CMS-driven content
-  - Setting up error handling and fallbacks
+- 🚧 0.3: Deployment Strategy (1 day) - **CURRENT PRIORITY** 🔥
+  - Vercel configuration for frontend (auto-deploy from GitHub)
+  - Railway setup for backend (Strapi + PostgreSQL + Docker build)
+  - CircleCI stashed for future (prechecks only when test suite matures)
 
 ### Pending ⏳
-- ⏳ 0.3: Deployment Strategy (1 day)
-  - Vercel configuration for frontend
-  - Railway setup for backend (handles Docker builds)
-  - CircleCI stashed for future (prechecks only when test suite matures)
-- ⏳ 0.4: Content Migration (3 days)
-  - Migration scripts from static to CMS
-  - Bulk import via Strapi API
+- ⏳ 0.4: Content Migration via Transfer Token (3-4 days)
+  - Populate local Strapi CMS (localhost:1337) with real content
+  - Use Transfer Token workflow to sync from local to production Railway
+  - Verify content integrity and API responses
   - Strapi webhooks for Vercel rebuilds
+  - See section 0.4 above for detailed Transfer Token workflow
 
 ---
 
@@ -739,6 +823,12 @@ jobs:
 - [AI-Powered Forms Feature](./features/ai-forms.md)
 - [Logging & Monitoring](./features/logging-monitoring.md)
 
-**Last Updated:** 2025-12-03
+**Last Updated:** 2025-12-28
 
-**Current Focus:** Step 0.2.4 - Frontend API Integration (connecting portfolio app to Strapi CMS API)
+**Current Focus:** Step 0.3 - Deployment Strategy (Vercel + Railway)
+
+**Recent Completion:** Step 0.2.4 - Frontend API Integration ✅ (2025-12-19)
+- Modular API architecture with 19 specialized clients
+- Complete type safety with 18 Zod validators + 17 transformers
+- DataContext system eliminates prop drilling
+- All 15+ APIs tested and build passing
