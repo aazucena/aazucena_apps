@@ -1,6 +1,6 @@
 # Portfolio Development Roadmap
 
-## ⚡ CURRENT PRIORITY: Phase 0.3 - Deployment Strategy (Vercel + Railway)
+## ⚡ CURRENT PRIORITY: Phase 0.4 - Content Migration (Transfer Token Workflow)
 
 **Phase 1 Completed:** ✅ Animations folder successfully refactored (324 → 174 lines, 46% reduction)
 
@@ -8,9 +8,9 @@
 
 **Phase 0.2.4 Completed:** ✅ Frontend API Integration - All 8 configuration APIs implemented and tested (2025-12-19)
 
-**Phase 0 Status:** 🚧 Currently at step 0.3 - Deployment Strategy (Vercel + Railway)
+**Phase 0 Status:** 🚧 Currently at step 0.4 - Content Migration (Transfer Token Workflow)
 
-**Next:** Deploy to Railway and Vercel, then Content Migration (0.4).
+**Next:** Populate local CMS and transfer to production Railway.
 
 ---
 
@@ -138,10 +138,10 @@ Set up Docker Compose for local development, integrate Strapi CMS v5, and establ
 - ✅ 0.2.2: Strapi configuration (admin panel, Cloudinary)
 - ✅ 0.2.3: Content types creation (10 collection types + 10 single types + 9 components)
 - ✅ 0.2.4: Frontend API integration (Strapi SDK) - **COMPLETED** (2025-12-19)
-- 🚧 0.3: Deployment (Vercel + Railway) - **CURRENT PRIORITY** 🔥
-- ⏳ 0.4: Content migration via Transfer Token workflow - PENDING
+- ✅ 0.3: Deployment (Vercel + Railway) - **COMPLETED** (2025-12-29)
+- 🚧 0.4: Content migration via Transfer Token workflow - **CURRENT PRIORITY** 🔥
 
-**Status:** 🚧 ~85% Complete - Currently working on deployment strategy (0.3)
+**Status:** 🚧 ~90% Complete - Currently working on content migration (0.4)
 
 **Note:** Documentation updated (2025-12-02) to reflect actual implementation - simplified blog architecture (Post collection instead of Blog Series)
 
@@ -416,7 +416,7 @@ Phase 1 (Animations) → 9-11 days ✅ COMPLETED
     ↓
 Phase 1.5 (Code Quality & Security) → 0.5-1 day ✅ COMPLETED
     ↓
-Phase 0 (Infrastructure) → 16-20 days 🚧 IN PROGRESS (0.3 - Deployment Strategy 🔥)
+Phase 0 (Infrastructure) → 16-20 days 🚧 IN PROGRESS (0.4 - Content Migration 🔥)
     ↓
 Phase 2 (Component Architecture) → 6-8 days
     ↓
@@ -437,7 +437,7 @@ Features (as needed) → 3-40 days each
 |------|-------|-------|
 | 1-2 | Phase 1 | Animations refactoring ✅ |
 | 2 | Phase 1.5 | Code quality & security fixes ✅ |
-| 3-5 | Phase 0 | Infrastructure & CMS 🚧 (Currently: 0.3 Deployment Strategy 🔥) |
+| 3-5 | Phase 0 | Infrastructure & CMS 🚧 (Currently: 0.4 Content Migration 🔥) |
 | 6-7 | Phase 2-3 | Components & performance |
 | 8-11 | Phase 4 | DX & design system |
 | 12 | Phase 5 | Testing |
@@ -529,6 +529,11 @@ Features (as needed) → 3-40 days each
   - Code quality improved: 7.5/10 → 8.5-9.0/10
 
 ### Completed ✅ (Recent)
+- **Phase 0.3: Deployment Strategy** (1 day) ✅ COMPLETED (2025-12-29)
+  - ✅ Railway: Strapi CMS deployed at admin.aazucena.com
+  - ✅ Vercel: Production portfolio deployed and connected
+  - ✅ Integration: Frontend successfully connects to Railway CMS
+  - ✅ APIs: All 19 endpoints accessible from production
 - **Phase 0.2.4: Frontend API Integration** (1-2 days) ✅ COMPLETED (2025-12-19)
   - ✅ Modular API architecture: 19 specialized clients (replaced monolithic `api.ts` ❌)
   - ✅ Type safety: 18 Zod validators + 17 transformers
@@ -542,15 +547,19 @@ Features (as needed) → 3-40 days each
   - **Test Report:** [Phase 0.2.4 Test Report](/docs/strapi/PHASE_0.2.4_TEST_REPORT.md)
 
 ### In Progress 🚧
-- **Phase 0.3: Deployment Strategy** (1 day) 🔥 CURRENT PRIORITY
-  - Vercel configuration for frontend (auto-deploy from GitHub)
-  - Railway setup for backend (Strapi + PostgreSQL + Docker build)
-  - CircleCI stashed for future (will handle prechecks only when test suite matures)
-- **Phase 0.4: Content Migration via Transfer Token** (3-4 days)
-  - Populate local Strapi CMS (localhost:1337) with real content
-  - Use Transfer Token workflow to sync from local to production Railway
-  - Verify content integrity and API responses
-  - Strapi webhooks for Vercel rebuilds
+- **Phase 0.4: Content Migration via Transfer Token** (3-4 days) 🔥 CURRENT PRIORITY
+  - **Completed:**
+    - ✅ Portfolio, Hero Section, About Section, Experiences populated
+    - ✅ 6 Skill Categories created (Frontend, Backend, Database, Cloud, Tools, AI)
+    - ✅ Complete projects documentation plan (8 projects, all documented)
+    - ✅ Complete skills creation guide (71 skills, schema-compliant)
+  - **In Progress:**
+    - 🚧 4 new Skill Categories (Mobile, Hardware/Embedded, Music Technology, Audio Engineering)
+    - 🚧 71 skills creation using schema-compliant guide
+  - **Pending:**
+    - ⏳ 8 Projects population (with skill linking)
+    - ⏳ Remaining content types (Awards, Blog, etc.)
+    - ⏳ Transfer to Railway via Transfer Token workflow
   - See [phase-0-infrastructure.md](/docs/phase-0-infrastructure.md#04-content-migration--transfer-token-workflow-3-4-days---pending) for detailed workflow
 
 ---
@@ -638,15 +647,16 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 ---
 
-**Last Updated:** 2025-12-19
+**Last Updated:** 2025-12-29
 
-**Current Priority:** Phase 0.3 - Deployment Strategy (Vercel + Railway) 🔥
+**Current Priority:** Phase 0.4 - Content Migration (Transfer Token Workflow) 🔥
 
-**Current Focus:** Deploying Strapi CMS to Railway with PostgreSQL 16 + pgVector, deploying Astro frontend to Vercel with auto-deploy from GitHub, and configuring environment variables for production
+**Current Focus:** Populate local Strapi CMS with real content, then transfer to production Railway using Transfer Token workflow
 
-**Next Milestone:** Deployment (0.3) → Content Migration (0.4) → Phase 2: Component Architecture
+**Next Milestone:** Content Migration (0.4) → Phase 2: Component Architecture
 
 **Recent Completions:**
+- Phase 0.3 - Deployment Strategy ✅ (2025-12-29) - Railway and Vercel deployed, all 19 APIs accessible from production
 - Phase 0.2.4 - Frontend API Integration ✅ (2025-12-19) - All 8 configuration APIs implemented and tested, build passing with CMS data
 - Phase 1.5 - Code Quality & Security Fixes ✅ (2025-12-03) - Fixed happy-dom CVEs, memory leaks, type safety, hook dependencies, GSAP cleanup (7.5/10 → 8.5-9.0/10)
 - Documentation Reconciliation ✅ (2025-12-02) - Fixed Strapi docs, reconciled ROADMAP/CLAUDE phase states
