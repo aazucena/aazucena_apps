@@ -2,10 +2,10 @@
 
 📍 **Full Documentation:** [ROADMAP.md Phase 0](../ROADMAP.md#phase-0-infrastructure--architecture-foundation-after-phase-1-)
 
-## Priority Status: 🚧 IN PROGRESS - Currently at 0.3 (Deployment Strategy) 🔥
+## Priority Status: 🚧 IN PROGRESS - Currently at 0.4 (Content Migration) 🔥
 
 **Estimated Effort:** 16-20 days
-**Progress:** ~85% Complete (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4 completed)
+**Progress:** ~90% Complete (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.3 completed - 2025-12-29)
 
 ## Overview
 
@@ -454,7 +454,7 @@ src/lib/
 
 ---
 
-### 0.3 Deployment Strategy (1 day) - 🚧 CURRENT PRIORITY 🔥
+### 0.3 Deployment Strategy (1 day) - ✅ COMPLETED (2025-12-29)
 
 **See [Deployment Strategy Documentation](/home/aazucena/Projects/aazucena_apps/docs/deployment-strategy.md) for complete details.**
 
@@ -585,7 +585,7 @@ jobs:
 
 ---
 
-### 0.4 Content Migration & Transfer Token Workflow (3-4 days) - ⏳ PENDING
+### 0.4 Content Migration & Transfer Token Workflow (3-4 days) - 🚧 CURRENT PRIORITY 🔥
 
 **Goal:** Populate production CMS with real content using Strapi's Transfer Token workflow
 
@@ -736,12 +736,12 @@ After successful transfer and verification:
 | 0.2.2 Strapi Configuration | 1 day | ✅ COMPLETED | Docker setup |
 | 0.2.3 Content Types | 7-10 days | ✅ COMPLETED | Strapi config |
 | 0.2.4 Frontend API Integration | 1-2 days | ✅ COMPLETED (2025-12-19) | Content types |
-| 0.3 Deployment Strategy | 1 day | 🚧 IN PROGRESS 🔥 | CMS setup |
-| 0.4 Content Migration | 3-4 days | ⏳ PENDING | All above |
+| 0.3 Deployment Strategy | 1 day | ✅ COMPLETED (2025-12-29) | CMS setup |
+| 0.4 Content Migration | 3-4 days | 🚧 IN PROGRESS 🔥 | All above |
 
 **Total:** 16-23 days (reduced from 16-20 days - CircleCI stashed)
-**Completed:** ~14-18 days (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4)
-**Remaining:** ~4-5 days (Steps 0.3, 0.4)
+**Completed:** ~15-19 days (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.3)
+**Remaining:** ~3-4 days (Step 0.4)
 
 ---
 
@@ -781,14 +781,14 @@ After successful transfer and verification:
 
 ## 📊 Progress Tracker
 
-**Overall Progress:** 🚧 ~85% Complete
+**Overall Progress:** 🚧 ~90% Complete
 
 ### Completed ✅
 - ✅ 0.1: Monorepo verification
 - ✅ 0.2.1: Docker Compose setup (Strapi v5.31.0 + PostgreSQL 16 + pgVector)
 - ✅ 0.2.2: Strapi configuration (admin panel, Cloudinary)
 - ✅ 0.2.3: Content types creation (20 content types: 10 collection + 10 single + 9 components)
-- ✅ 0.2.4: Frontend API Integration (Strapi SDK) - ✅ **COMPLETED** (2025-12-19)
+- ✅ 0.2.4: Frontend API Integration (Strapi SDK) - **COMPLETED** (2025-12-19)
   - ✅ Modular API architecture: 19 specialized clients (replaced monolithic `api.ts`)
   - ✅ Type safety: 18 Zod validators + 17 transformers
   - ✅ DataContext system for CMS data access (no prop drilling)
@@ -798,19 +798,51 @@ After successful transfer and verification:
   - ✅ Error handling with graceful fallbacks
   - ✅ All 15+ configuration APIs tested and working
   - ✅ Build passing with actual CMS data
+- ✅ 0.3: Deployment Strategy - **COMPLETED** (2025-12-29)
+  - ✅ Railway: Strapi CMS deployed at admin.aazucena.com
+  - ✅ Vercel: Production portfolio deployed and connected
+  - ✅ Integration: Frontend successfully connects to Railway CMS
+  - ✅ APIs: All 19 endpoints accessible from production
 
 ### In Progress 🚧
-- 🚧 0.3: Deployment Strategy (1 day) - **CURRENT PRIORITY** 🔥
-  - Vercel configuration for frontend (auto-deploy from GitHub)
-  - Railway setup for backend (Strapi + PostgreSQL + Docker build)
-  - CircleCI stashed for future (prechecks only when test suite matures)
-
-### Pending ⏳
-- ⏳ 0.4: Content Migration via Transfer Token (3-4 days)
-  - Populate local Strapi CMS (localhost:1337) with real content
-  - Use Transfer Token workflow to sync from local to production Railway
-  - Verify content integrity and API responses
-  - Strapi webhooks for Vercel rebuilds
+- 🚧 0.4: Content Migration via Transfer Token (3-4 days) - **CURRENT PRIORITY** 🔥
+  - **Completed So Far:**
+    - ✅ Portfolio (Single Type) populated with personal info, social links, bio, resume
+    - ✅ Hero (Single Type) populated with flip words, tagline, button text
+    - ✅ About (Single Type) populated with bio, stats, highlights, learn more cards
+    - ✅ Experiences (Collection Type) - 3+ work experiences with achievements
+    - ✅ 6 Skill Categories created (Frontend, Backend, Database, Cloud, Tools, AI)
+    - ✅ Complete projects documentation plan at `.claude/plans/portfolio-projects-documentation-plan.md`
+      - All 8 projects fully documented (Portfolio Website, Gaming Timeline, Conductor's Hand, Crunch Time, RPS Royale, Collective Assets, 65square, Target Hunger)
+      - Project descriptions, tech stacks, timelines, impact metrics complete
+      - Media requirements identified (screenshots, videos, music files)
+    - ✅ Complete skills creation guide at `.claude/plans/strapi-skills-creation-guide.md`
+      - 71 total skills documented and ready for creation
+      - Schema-compliant field mappings (correct proficiency enums, display levels)
+      - Project-to-skills mapping reference included
+  - **Currently Working On:**
+    - 🚧 Create 4 new Skill Categories (~10 min):
+      - Mobile
+      - Hardware/Embedded
+      - Music Technology
+      - Audio Engineering
+    - 🚧 Populate 71 Skills using schema-compliant guide (~60 min):
+      - Frontend: 16 skills
+      - Backend: 10 skills
+      - Database: 4 skills
+      - Cloud: 7 skills
+      - Tools: 9 skills
+      - AI: 5 skills
+      - Mobile: 5 skills (NEW)
+      - Hardware/Embedded: 4 skills (NEW)
+      - Music Technology: 4 skills (NEW)
+      - Audio Engineering: 7 skills (NEW)
+  - **Next Steps:**
+    - ⏳ Populate 8 Projects collection with skill linking (~2-3 hours)
+    - ⏳ Extract music files from Collective Assets repo
+    - ⏳ Gather screenshots for all projects
+    - ⏳ Populate remaining content types (Awards, Blog, etc.) (~1-2 hours)
+    - ⏳ Transfer to Railway production via Transfer Token workflow (~30 min)
   - See section 0.4 above for detailed Transfer Token workflow
 
 ---
@@ -823,11 +855,13 @@ After successful transfer and verification:
 - [AI-Powered Forms Feature](./features/ai-forms.md)
 - [Logging & Monitoring](./features/logging-monitoring.md)
 
-**Last Updated:** 2025-12-28
+**Last Updated:** 2025-12-29
 
-**Current Focus:** Step 0.3 - Deployment Strategy (Vercel + Railway)
+**Current Focus:** Step 0.4 - Content Migration (Transfer Token Workflow)
 
-**Recent Completion:** Step 0.2.4 - Frontend API Integration ✅ (2025-12-19)
+**Recent Completions:**
+- Step 0.3 - Deployment Strategy ✅ (2025-12-29) - Railway + Vercel deployed, all APIs accessible
+- Step 0.2.4 - Frontend API Integration ✅ (2025-12-19)
 - Modular API architecture with 19 specialized clients
 - Complete type safety with 18 Zod validators + 17 transformers
 - DataContext system eliminates prop drilling
