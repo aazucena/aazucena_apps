@@ -647,7 +647,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 ---
 
-**Last Updated:** 2025-12-29
+**Last Updated:** 2026-01-07
 
 **Current Priority:** Phase 0.4 - Content Migration (Transfer Token Workflow) 🔥
 
@@ -656,6 +656,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 **Next Milestone:** Content Migration (0.4) → Phase 2: Component Architecture
 
 **Recent Completions:**
+- Project Schema Enhancement ✅ (2026-01-07) - Added unlisted display option and expanded projectStatus enum (7 statuses)
 - Phase 0.3 - Deployment Strategy ✅ (2025-12-29) - Railway and Vercel deployed, all 19 APIs accessible from production
 - Phase 0.2.4 - Frontend API Integration ✅ (2025-12-19) - All 8 configuration APIs implemented and tested, build passing with CMS data
 - Phase 1.5 - Code Quality & Security Fixes ✅ (2025-12-03) - Fixed happy-dom CVEs, memory leaks, type safety, hook dependencies, GSAP cleanup (7.5/10 → 8.5-9.0/10)

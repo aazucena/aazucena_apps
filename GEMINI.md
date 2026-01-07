@@ -583,9 +583,12 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2025-12-29
+**Last Updated:** 2026-01-07
 
 **Key Updates:**
+- ✅ **Project Schema Enhanced:** (2026-01-07)
+  - Added `unlisted` to display enum (hidden, unlisted, standard, featured, home)
+  - Expanded projectStatus enum: Planned, In Progress, Released, Maintenance, On Hold, Completed, Archived
 - ✅ **Phase 0.3 Completed:** Deployment Strategy (2025-12-29)
   - Railway: Strapi CMS deployed at admin.aazucena.com
   - Vercel: Production portfolio deployed and connected
