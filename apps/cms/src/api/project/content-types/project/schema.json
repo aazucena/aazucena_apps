@@ -62,10 +62,11 @@
           "localized": false
         }
       },
-      "required": true,
+      "required": false,
       "default": "standard",
       "enum": [
         "hidden",
+        "unlisted",
         "standard",
         "featured",
         "home"
@@ -181,7 +182,7 @@
         }
       }
     },
-    "status": {
+    "projectStatus": {
       "type": "enumeration",
       "pluginOptions": {
         "i18n": {
@@ -189,21 +190,24 @@
         }
       },
       "enum": [
+        "Planned",
         "In Progress",
-        "Completed",
+        "Released",
         "Maintenance",
+        "On Hold",
+        "Completed",
         "Archived"
       ]
     },
     "tags": {
       "type": "component",
-      "repeatable": true,
-      "component": "ui.tag",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "component": "ui.tag",
+      "repeatable": true
     },
     "techStack": {
       "type": "relation",
