@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-01-07T08:34:49.395Z"
+    "x-generation-date": "2026-01-07T16:52:23.474Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -17719,9 +17719,12 @@
                       "projectStatus": {
                         "type": "string",
                         "enum": [
+                          "Planned",
                           "In Progress",
-                          "Completed",
+                          "Released",
                           "Maintenance",
+                          "On Hold",
+                          "Completed",
                           "Archived"
                         ]
                       },
@@ -22992,9 +22995,12 @@
               "projectStatus": {
                 "type": "string",
                 "enum": [
+                  "Planned",
                   "In Progress",
-                  "Completed",
+                  "Released",
                   "Maintenance",
+                  "On Hold",
+                  "Completed",
                   "Archived"
                 ]
               },
@@ -23423,9 +23429,12 @@
           "projectStatus": {
             "type": "string",
             "enum": [
+              "Planned",
               "In Progress",
-              "Completed",
+              "Released",
               "Maintenance",
+              "On Hold",
+              "Completed",
               "Archived"
             ]
           },
@@ -24067,9 +24076,12 @@
                       "projectStatus": {
                         "type": "string",
                         "enum": [
+                          "Planned",
                           "In Progress",
-                          "Completed",
+                          "Released",
                           "Maintenance",
+                          "On Hold",
+                          "Completed",
                           "Archived"
                         ]
                       },
@@ -25535,9 +25547,12 @@
                           "projectStatus": {
                             "type": "string",
                             "enum": [
+                              "Planned",
                               "In Progress",
-                              "Completed",
+                              "Released",
                               "Maintenance",
+                              "On Hold",
+                              "Completed",
                               "Archived"
                             ]
                           },
@@ -26859,9 +26874,12 @@
                       "projectStatus": {
                         "type": "string",
                         "enum": [
+                          "Planned",
                           "In Progress",
-                          "Completed",
+                          "Released",
                           "Maintenance",
+                          "On Hold",
+                          "Completed",
                           "Archived"
                         ]
                       },

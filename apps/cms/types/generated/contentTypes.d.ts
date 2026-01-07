@@ -2473,7 +2473,15 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         number
       >;
     projectStatus: Schema.Attribute.Enumeration<
-      ['In Progress', 'Completed', 'Maintenance', 'Archived']
+      [
+        'Planned',
+        'In Progress',
+        'Released',
+        'Maintenance',
+        'On Hold',
+        'Completed',
+        'Archived',
+      ]
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
