@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-12-29T05:08:04.699Z"
+    "x-generation-date": "2026-01-07T08:34:49.395Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -17410,6 +17410,7 @@
                         "type": "string",
                         "enum": [
                           "hidden",
+                          "unlisted",
                           "standard",
                           "featured",
                           "home"
@@ -17715,7 +17716,7 @@
                         "type": "string",
                         "format": "date"
                       },
-                      "status": {
+                      "projectStatus": {
                         "type": "string",
                         "enum": [
                           "In Progress",
@@ -22898,8 +22899,7 @@
               "title",
               "slug",
               "shortDescription",
-              "description",
-              "display"
+              "description"
             ],
             "type": "object",
             "properties": {
@@ -22919,6 +22919,7 @@
                 "type": "string",
                 "enum": [
                   "hidden",
+                  "unlisted",
                   "standard",
                   "featured",
                   "home"
@@ -22988,7 +22989,7 @@
                 "type": "string",
                 "format": "date"
               },
-              "status": {
+              "projectStatus": {
                 "type": "string",
                 "enum": [
                   "In Progress",
@@ -23088,8 +23089,7 @@
           "title",
           "slug",
           "shortDescription",
-          "description",
-          "display"
+          "description"
         ],
         "properties": {
           "id": {
@@ -23114,6 +23114,7 @@
             "type": "string",
             "enum": [
               "hidden",
+              "unlisted",
               "standard",
               "featured",
               "home"
@@ -23419,7 +23420,7 @@
             "type": "string",
             "format": "date"
           },
-          "status": {
+          "projectStatus": {
             "type": "string",
             "enum": [
               "In Progress",
@@ -23757,6 +23758,7 @@
                         "type": "string",
                         "enum": [
                           "hidden",
+                          "unlisted",
                           "standard",
                           "featured",
                           "home"
@@ -24062,7 +24064,7 @@
                         "type": "string",
                         "format": "date"
                       },
-                      "status": {
+                      "projectStatus": {
                         "type": "string",
                         "enum": [
                           "In Progress",
@@ -25224,6 +25226,7 @@
                             "type": "string",
                             "enum": [
                               "hidden",
+                              "unlisted",
                               "standard",
                               "featured",
                               "home"
@@ -25529,7 +25532,7 @@
                             "type": "string",
                             "format": "date"
                           },
-                          "status": {
+                          "projectStatus": {
                             "type": "string",
                             "enum": [
                               "In Progress",
@@ -26547,6 +26550,7 @@
                         "type": "string",
                         "enum": [
                           "hidden",
+                          "unlisted",
                           "standard",
                           "featured",
                           "home"
@@ -26852,7 +26856,7 @@
                         "type": "string",
                         "format": "date"
                       },
-                      "status": {
+                      "projectStatus": {
                         "type": "string",
                         "enum": [
                           "In Progress",
