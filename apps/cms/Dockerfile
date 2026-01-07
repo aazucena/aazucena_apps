@@ -11,6 +11,8 @@ RUN apk update && apk add --no-cache \
     automake \
     zlib-dev \
     libpng-dev \
+    nasm \
+    bash \
     vips-dev \
     git
 
