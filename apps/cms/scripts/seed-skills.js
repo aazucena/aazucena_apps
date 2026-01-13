@@ -1111,11 +1111,23 @@ async function seedSkills() {
     let existing = 0;
     let skipped = 0;
 
+    // Pre-fetch all categories once (avoids N+1 queries)
+    console.log('📦 Pre-fetching categories...');
+    const categories = await strapi.db
+      .query('api::skill-category.skill-category')
+      .findMany();
+    const categoryMap = new Map(categories.map(cat => [cat.name, cat]));
+
+    // Pre-fetch all existing skills once (avoids N+1 queries)
+    console.log('📦 Pre-fetching existing skills...');
+    const existingSkills = await strapi.db
+      .query('api::skill.skill')
+      .findMany();
+    const existingSkillsMap = new Map(existingSkills.map(skill => [skill.name, skill]));
+
     for (const skill of skillsData) {
-      // Resolve category relation
-      const category = await strapi.db
-        .query('api::skill-category.skill-category')
-        .findOne({ where: { name: skill.categoryName } });
+      // Resolve category relation from cache
+      const category = categoryMap.get(skill.categoryName);
 
       if (!category) {
         console.error(
@@ -1125,10 +1137,8 @@ async function seedSkills() {
         continue;
       }
 
-      // Check if skill already exists
-      const existingSkill = await strapi.db
-        .query('api::skill.skill')
-        .findOne({ where: { name: skill.name } });
+      // Check if skill already exists in cache
+      const existingSkill = existingSkillsMap.get(skill.name);
 
       if (existingSkill) {
         // Update missing fields
@@ -1148,7 +1158,8 @@ async function seedSkills() {
         };
 
         for (const [key, value] of Object.entries(fieldMap)) {
-          if (existingSkill[key] === null || existingSkill[key] === undefined || existingSkill[key] === '') {
+          // Only update if field is null or undefined (not empty string - that's intentional)
+          if (existingSkill[key] === null || existingSkill[key] === undefined) {
             // @ts-ignore
             updateData[key] = value;
             hasUpdates = true;

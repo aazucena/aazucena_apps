@@ -478,15 +478,16 @@ async function seedProjects() {
         const { techStackNames, ...projectData } = project;
 
         for (const [key, value] of Object.entries(projectData)) {
-          if (existingProject[key] === null || existingProject[key] === undefined || existingProject[key] === '') {
+          // Only update if field is null or undefined (not empty string - that's intentional)
+          if (existingProject[key] === null || existingProject[key] === undefined) {
             // @ts-ignore
             updateData[key] = value;
             hasUpdates = true;
           }
         }
 
-        // Check if techStack needs updating (if empty or missing)
-        if (!existingProject.techStack || existingProject.techStack.length === 0) {
+        // Check if techStack needs updating (only if null or undefined, not empty array)
+        if (existingProject.techStack === null || existingProject.techStack === undefined) {
           // @ts-ignore
           updateData.techStack = techStackIds;
           hasUpdates = true;

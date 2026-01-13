@@ -224,15 +224,16 @@ async function seedExperiences() {
         const { skillsUsed, ...experienceData } = experience;
 
         for (const [key, value] of Object.entries(experienceData)) {
-          if (existingExperience[key] === null || existingExperience[key] === undefined || existingExperience[key] === '') {
+          // Only update if field is null or undefined (not empty string - that's intentional)
+          if (existingExperience[key] === null || existingExperience[key] === undefined) {
             // @ts-ignore
             updateData[key] = value;
             hasUpdates = true;
           }
         }
 
-        // Check if skillsUsed needs updating (if empty or missing)
-        if (!existingExperience.skillsUsed || existingExperience.skillsUsed.length === 0) {
+        // Check if skillsUsed needs updating (only if null or undefined, not empty array)
+        if (existingExperience.skillsUsed === null || existingExperience.skillsUsed === undefined) {
           // @ts-ignore
           updateData.skillsUsed = skillIds;
           hasUpdates = true;
