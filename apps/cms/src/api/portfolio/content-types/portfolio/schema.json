@@ -74,6 +74,15 @@
       },
       "required": true
     },
+    "emailDescription": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 200
+    },
     "phone": {
       "type": "customField",
       "pluginOptions": {
