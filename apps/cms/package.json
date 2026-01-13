@@ -15,7 +15,8 @@
     "update-plugins": "./plugins.sh",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry",
-    "seed:preloader": "node --loader ts-node/esm scripts/seed-preloader.ts"
+    "seed": "node scripts/seed.js",
+    "seed:generate": "node scripts/generate-seed.js"
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^6.0.3",
@@ -26,15 +27,15 @@
     "@strapi-community/plugin-redis": "^2.0.0",
     "@strapi-community/plugin-rest-cache": "^5.0.1",
     "@strapi-community/provider-rest-cache-redis": "^5.0.0",
-    "@strapi/plugin-cloud": "5.33.1",
+    "@strapi/plugin-cloud": "5.33.2",
     "@strapi/plugin-color-picker": "^5.31.0",
     "@strapi/plugin-documentation": "^5.31.0",
     "@strapi/plugin-graphql": "^5.31.0",
     "@strapi/plugin-sentry": "^5.31.0",
     "@strapi/plugin-seo": "^2.0.8",
-    "@strapi/plugin-users-permissions": "5.33.1",
+    "@strapi/plugin-users-permissions": "5.33.2",
     "@strapi/provider-upload-cloudinary": "^5.31.0",
-    "@strapi/strapi": "5.33.1",
+    "@strapi/strapi": "5.33.2",
     "@webbycrown/advanced-fields": "^1.0.3",
     "monaco-editor": "^0.55.1",
     "pg": "8.8.0",
@@ -69,6 +70,7 @@
     "@types/react-dom": "^18",
     "husky": "^9.1.7",
     "shx": "^0.4.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5",
     "vite-plugin-monaco-editor": "^1.1.0"
   },
