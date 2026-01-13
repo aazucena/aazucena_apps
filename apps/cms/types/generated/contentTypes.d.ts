@@ -1303,6 +1303,12 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    workMode: Schema.Attribute.Enumeration<['Onsite', 'Hybrid', 'Remote']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
   };
 }
 
@@ -1741,6 +1747,15 @@ export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
         i18n: {
           localized: false;
         };
+      }>;
+    emailDescription: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
       }>;
     fullName: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -2498,6 +2513,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         'CLI Tool',
         'Game',
         'Music Production',
+        'Hardware/Embedded',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -2602,6 +2618,8 @@ export interface ApiSkillCategorySkillCategory
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    display: Schema.Attribute.Enumeration<['hidden', 'visible']> &
+      Schema.Attribute.DefaultTo<'visible'>;
     icon: Schema.Attribute.Text &
       Schema.Attribute.CustomField<
         'plugin::icons-field.icon',
@@ -2631,6 +2649,20 @@ export interface ApiSkillCategorySkillCategory
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    variant: Schema.Attribute.Enumeration<
+      [
+        'cyan-blue',
+        'purple-pink',
+        'green-emerald',
+        'blue-indigo',
+        'yellow-orange',
+        'pink-red',
+        'teal-cyan',
+        'orange-red',
+        'violet-purple',
+        'indigo-violet',
+      ]
+    >;
   };
 }
 

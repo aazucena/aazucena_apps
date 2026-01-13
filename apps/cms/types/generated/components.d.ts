@@ -289,6 +289,10 @@ export interface SharedSocialLinks extends Struct.ComponentSchema {
     icon: 'link';
   };
   attributes: {
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
     icon: Schema.Attribute.Text &
       Schema.Attribute.CustomField<
         'plugin::icons-field.icon',
@@ -496,7 +500,6 @@ export interface UiTag extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'cyan'>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 30;
       }>;
