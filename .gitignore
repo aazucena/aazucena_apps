@@ -59,3 +59,4 @@ yarn-error.log*
 storybook-static
 
 *storybook.log
+package-*.json
