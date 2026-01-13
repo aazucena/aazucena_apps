@@ -6,7 +6,9 @@ export default ({ env }) => ({
   },
   transfer: {
     remote: {
-      enabled: env.bool('STRAPI_TRANSFER_REMOTE_ENABLED', true),
+      // Use Railway's naming convention (disable flag, not enable flag)
+      // Set to false in Railway to ENABLE remote data transfer
+      enabled: !env.bool('STRAPI_DISABLE_REMOTE_DATA_TRANSFER', false),
     },
   },
 });
