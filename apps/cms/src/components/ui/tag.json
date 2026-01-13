@@ -10,7 +10,6 @@
     "label": {
       "type": "string",
       "required": true,
-      "unique": true,
       "maxLength": 30
     },
     "color": {
