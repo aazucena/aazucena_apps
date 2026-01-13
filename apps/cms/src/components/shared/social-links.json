@@ -41,6 +41,10 @@
       "type": "string",
       "maxLength": 100
     },
+    "description": {
+      "type": "string",
+      "maxLength": 200
+    },
     "openInNewTab": {
       "type": "boolean",
       "required": true,
