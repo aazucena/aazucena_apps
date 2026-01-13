@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-01-07T16:52:23.474Z"
+    "x-generation-date": "2026-01-12T23:36:38.029Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -16916,6 +16916,14 @@
                   "Co-op"
                 ]
               },
+              "workMode": {
+                "type": "string",
+                "enum": [
+                  "Onsite",
+                  "Hybrid",
+                  "Remote"
+                ]
+              },
               "companyWebsite": {
                 "type": "string"
               },
@@ -17081,6 +17089,14 @@
               "Co-op"
             ]
           },
+          "workMode": {
+            "type": "string",
+            "enum": [
+              "Onsite",
+              "Hybrid",
+              "Remote"
+            ]
+          },
           "companyWebsite": {
             "type": "string"
           },
@@ -17118,6 +17134,28 @@
                     },
                     "icon": {
                       "type": "string"
+                    },
+                    "display": {
+                      "type": "string",
+                      "enum": [
+                        "hidden",
+                        "visible"
+                      ]
+                    },
+                    "variant": {
+                      "type": "string",
+                      "enum": [
+                        "cyan-blue",
+                        "purple-pink",
+                        "green-emerald",
+                        "blue-indigo",
+                        "yellow-orange",
+                        "pink-red",
+                        "teal-cyan",
+                        "orange-red",
+                        "violet-purple",
+                        "indigo-violet"
+                      ]
                     },
                     "skills": {
                       "type": "array",
@@ -17301,6 +17339,14 @@
                           "Freelance",
                           "Internship",
                           "Co-op"
+                        ]
+                      },
+                      "workMode": {
+                        "type": "string",
+                        "enum": [
+                          "Onsite",
+                          "Hybrid",
+                          "Remote"
                         ]
                       },
                       "companyWebsite": {
@@ -17702,7 +17748,8 @@
                           "API",
                           "CLI Tool",
                           "Game",
-                          "Music Production"
+                          "Music Production",
+                          "Hardware/Embedded"
                         ]
                       },
                       "sort": {
@@ -21076,6 +21123,9 @@
                 "type": "string",
                 "format": "email"
               },
+              "emailDescription": {
+                "type": "string"
+              },
               "phone": {
                 "type": "string"
               },
@@ -21323,6 +21373,9 @@
             "type": "string",
             "format": "email"
           },
+          "emailDescription": {
+            "type": "string"
+          },
           "phone": {
             "type": "string"
           },
@@ -21546,6 +21599,9 @@
                   "type": "string",
                   "format": "email"
                 },
+                "emailDescription": {
+                  "type": "string"
+                },
                 "phone": {
                   "type": "string"
                 },
@@ -21671,6 +21727,9 @@
             "type": "string"
           },
           "text": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           },
           "openInNewTab": {
@@ -22978,7 +23037,8 @@
                   "API",
                   "CLI Tool",
                   "Game",
-                  "Music Production"
+                  "Music Production",
+                  "Hardware/Embedded"
                 ]
               },
               "sort": {
@@ -23412,7 +23472,8 @@
               "API",
               "CLI Tool",
               "Game",
-              "Music Production"
+              "Music Production",
+              "Hardware/Embedded"
             ]
           },
           "sort": {
@@ -23475,6 +23536,28 @@
                     },
                     "icon": {
                       "type": "string"
+                    },
+                    "display": {
+                      "type": "string",
+                      "enum": [
+                        "hidden",
+                        "visible"
+                      ]
+                    },
+                    "variant": {
+                      "type": "string",
+                      "enum": [
+                        "cyan-blue",
+                        "purple-pink",
+                        "green-emerald",
+                        "blue-indigo",
+                        "yellow-orange",
+                        "pink-red",
+                        "teal-cyan",
+                        "orange-red",
+                        "violet-purple",
+                        "indigo-violet"
+                      ]
                     },
                     "skills": {
                       "type": "array",
@@ -23658,6 +23741,14 @@
                           "Freelance",
                           "Internship",
                           "Co-op"
+                        ]
+                      },
+                      "workMode": {
+                        "type": "string",
+                        "enum": [
+                          "Onsite",
+                          "Hybrid",
+                          "Remote"
                         ]
                       },
                       "companyWebsite": {
@@ -24059,7 +24150,8 @@
                           "API",
                           "CLI Tool",
                           "Game",
-                          "Music Production"
+                          "Music Production",
+                          "Hardware/Embedded"
                         ]
                       },
                       "sort": {
@@ -24989,6 +25081,28 @@
               "icon": {
                 "type": "string"
               },
+              "display": {
+                "type": "string",
+                "enum": [
+                  "hidden",
+                  "visible"
+                ]
+              },
+              "variant": {
+                "type": "string",
+                "enum": [
+                  "cyan-blue",
+                  "purple-pink",
+                  "green-emerald",
+                  "blue-indigo",
+                  "yellow-orange",
+                  "pink-red",
+                  "teal-cyan",
+                  "orange-red",
+                  "violet-purple",
+                  "indigo-violet"
+                ]
+              },
               "skills": {
                 "type": "array",
                 "items": {
@@ -25129,6 +25243,14 @@
                               "Freelance",
                               "Internship",
                               "Co-op"
+                            ]
+                          },
+                          "workMode": {
+                            "type": "string",
+                            "enum": [
+                              "Onsite",
+                              "Hybrid",
+                              "Remote"
                             ]
                           },
                           "companyWebsite": {
@@ -25530,7 +25652,8 @@
                               "API",
                               "CLI Tool",
                               "Game",
-                              "Music Production"
+                              "Music Production",
+                              "Hardware/Embedded"
                             ]
                           },
                           "sort": {
@@ -25898,6 +26021,28 @@
               "icon": {
                 "type": "string"
               },
+              "display": {
+                "type": "string",
+                "enum": [
+                  "hidden",
+                  "visible"
+                ]
+              },
+              "variant": {
+                "type": "string",
+                "enum": [
+                  "cyan-blue",
+                  "purple-pink",
+                  "green-emerald",
+                  "blue-indigo",
+                  "yellow-orange",
+                  "pink-red",
+                  "teal-cyan",
+                  "orange-red",
+                  "violet-purple",
+                  "indigo-violet"
+                ]
+              },
               "skills": {
                 "type": "array",
                 "items": {
@@ -25990,6 +26135,28 @@
           "icon": {
             "type": "string"
           },
+          "display": {
+            "type": "string",
+            "enum": [
+              "hidden",
+              "visible"
+            ]
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "cyan-blue",
+              "purple-pink",
+              "green-emerald",
+              "blue-indigo",
+              "yellow-orange",
+              "pink-red",
+              "teal-cyan",
+              "orange-red",
+              "violet-purple",
+              "indigo-violet"
+            ]
+          },
           "skills": {
             "type": "array",
             "items": {
@@ -26021,6 +26188,28 @@
                     },
                     "icon": {
                       "type": "string"
+                    },
+                    "display": {
+                      "type": "string",
+                      "enum": [
+                        "hidden",
+                        "visible"
+                      ]
+                    },
+                    "variant": {
+                      "type": "string",
+                      "enum": [
+                        "cyan-blue",
+                        "purple-pink",
+                        "green-emerald",
+                        "blue-indigo",
+                        "yellow-orange",
+                        "pink-red",
+                        "teal-cyan",
+                        "orange-red",
+                        "violet-purple",
+                        "indigo-violet"
+                      ]
                     },
                     "skills": {
                       "type": "array",
@@ -26458,6 +26647,14 @@
                           "Co-op"
                         ]
                       },
+                      "workMode": {
+                        "type": "string",
+                        "enum": [
+                          "Onsite",
+                          "Hybrid",
+                          "Remote"
+                        ]
+                      },
                       "companyWebsite": {
                         "type": "string"
                       },
@@ -26857,7 +27054,8 @@
                           "API",
                           "CLI Tool",
                           "Game",
-                          "Music Production"
+                          "Music Production",
+                          "Hardware/Embedded"
                         ]
                       },
                       "sort": {
