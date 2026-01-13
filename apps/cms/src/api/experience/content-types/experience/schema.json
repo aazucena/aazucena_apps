@@ -154,6 +154,19 @@
         "Co-op"
       ]
     },
+    "workMode": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "enum": [
+        "Onsite",
+        "Hybrid",
+        "Remote"
+      ]
+    },
     "companyWebsite": {
       "type": "string",
       "pluginOptions": {
