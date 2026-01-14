@@ -10,7 +10,8 @@ export default ({ env }) => ({
       salt: env('TRANSFER_TOKEN_SALT'),
     },
     remote: {
-      enabled: !env.bool('STRAPI_DISABLE_REMOTE_DATA_TRANSFER', false),
+      // TEMPORARY: Absolutely force enable for debugging
+      enabled: true,
     },
   },
   secrets: {
