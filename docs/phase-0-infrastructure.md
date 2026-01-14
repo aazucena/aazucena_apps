@@ -2,10 +2,10 @@
 
 📍 **Full Documentation:** [ROADMAP.md Phase 0](../ROADMAP.md#phase-0-infrastructure--architecture-foundation-after-phase-1-)
 
-## Priority Status: 🚧 IN PROGRESS - Currently at 0.4 (Content Migration) 🔥
+## Priority Status: 🚧 IN PROGRESS - Currently at 0.5 (Portfolio Pages) 🔥
 
 **Estimated Effort:** 16-20 days
-**Progress:** ~90% Complete (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.3 completed - 2025-12-29)
+**Progress:** ~95% Complete (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.3, 0.4 completed - 2026-01-14)
 
 ## Overview
 
@@ -585,7 +585,7 @@ jobs:
 
 ---
 
-### 0.4 Content Migration & Transfer Token Workflow (3-4 days) - 🚧 CURRENT PRIORITY 🔥
+### 0.4 Content Migration & Transfer Token Workflow (3-4 days) - ✅ COMPLETED (2026-01-14)
 
 **Goal:** Populate production CMS with real content using Strapi's Transfer Token workflow
 
@@ -737,11 +737,11 @@ After successful transfer and verification:
 | 0.2.3 Content Types | 7-10 days | ✅ COMPLETED | Strapi config |
 | 0.2.4 Frontend API Integration | 1-2 days | ✅ COMPLETED (2025-12-19) | Content types |
 | 0.3 Deployment Strategy | 1 day | ✅ COMPLETED (2025-12-29) | CMS setup |
-| 0.4 Content Migration | 3-4 days | 🚧 IN PROGRESS 🔥 | All above |
+| 0.4 Content Migration | 3-4 days | ✅ COMPLETED (2026-01-14) | All above |
 
 **Total:** 16-23 days (reduced from 16-20 days - CircleCI stashed)
-**Completed:** ~15-19 days (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.3)
-**Remaining:** ~3-4 days (Step 0.4)
+**Completed:** ~18-22 days (Steps 0.1, 0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.3, 0.4)
+**Remaining:** ~5-6 hours (Step 0.5 - Portfolio Pages)
 
 ---
 
@@ -768,12 +768,116 @@ After successful transfer and verification:
 
 ---
 
+### 0.5 Portfolio Pages Implementation (5-6 hours) - ⏳ PENDING
+
+**Goal:** Create the actual Astro pages that CMS links navigate to, including list/detail pages for projects/experiences, plus About and Journey pages.
+
+**Detailed Plan:** [`.claude/plans/logical-strolling-neumann.md` - Phase 2](../.claude/plans/logical-strolling-neumann.md#phase-2-portfolio-pages-implementation)
+
+#### Pages to Create
+
+| Page | Route | Purpose | Time Est. |
+|------|-------|---------|-----------|
+| Projects List | `/projects` | Grid of all projects with filtering | 45 min |
+| Project Detail | `/projects/[slug]` | Individual project showcase | 60 min |
+| Experiences List | `/experiences` | Timeline of work experience | 30 min |
+| Experience Detail | `/experiences/[slug]` | Individual experience details | 45 min |
+| About | `/about` | Extended bio, interests, hobbies | 45 min |
+| Journey | `/journey` | Interactive career timeline | 60 min |
+
+#### Key Features
+
+**Projects List (`/projects`):**
+- Grid layout with project cards
+- Filter by display level (featured, standard)
+- Cover images with hover effects
+- Tag display (first 3 tags per project)
+- Links to detail pages
+
+**Project Detail (`/projects/[slug]`):**
+- Full project description (Markdown rendering)
+- Cover image and screenshots gallery
+- Tech stack with skill chips
+- Impact metrics (stats component)
+- Live demo and repository links
+- Static generation via `getStaticPaths()`
+
+**Experiences List (`/experiences`):**
+- Timeline visualization with gradient line
+- Chronological sorting (most recent first)
+- Timeline dots with hover effects
+- Company and role display
+- Links to detail pages
+
+**Experience Detail (`/experiences/[slug]`):**
+- Full experience description
+- Responsibilities and achievements
+- Technologies used
+- Timeline (start date - end date)
+
+**About Page (`/about`):**
+- Extended bio with profile image
+- Interests & hobbies grid (Music, Gaming, Hardware, Community)
+- Stats section ("By the Numbers")
+- Markdown content rendering
+- Back navigation to home
+
+**Journey Page (`/journey`):**
+- Interactive timeline (alternating left/right)
+- Chronological view (oldest first)
+- Year markers
+- Visual timeline with gradient line
+- Click to navigate to experience details
+
+#### Final Step: Enable Navigation Cards
+
+**Edit:** `apps/portfolio/src/components/animations/sections/AboutSection.tsx`
+
+Uncomment the two navigation cards (lines 68-113):
+
+```tsx
+{/* Get to Know Me Card */}
+<a href="/about" className="...">
+  {/* Card content */}
+</a>
+
+{/* Career Journey Card */}
+<a href="/journey" className="...">
+  {/* Card content */}
+</a>
+```
+
+#### Testing Checklist
+
+- [ ] All 6 pages build successfully
+- [ ] Static generation works for dynamic routes
+- [ ] CMS data displays correctly
+- [ ] Navigation between pages works
+- [ ] Back links function properly
+- [ ] Responsive on mobile/tablet/desktop
+- [ ] MarkdownRenderer component exists (or create)
+
+#### Dependencies
+
+**Requires:**
+- ✅ CMS content types (projects, experiences, portfolio, about)
+- ✅ API clients (getProjects, getExperiences, getAbout, getPortfolio)
+- ✅ BaseLayout component
+- ⚠️ MarkdownRenderer component (verify exists or create)
+
+**Creates:**
+- 6 new Astro pages
+- Enables 2 navigation cards in AboutSection
+
+---
+
 ## Next Steps After Phase 0
 
-1. **Phase 2:** Component Architecture Improvements
-2. **Phase 3:** Performance Optimization
-3. **Phase 4:** Developer Experience (Figma/Storybook/Chromatic)
-4. **Features:** Music player, logging, AI forms, etc.
+1. **Step 0.5:** Portfolio Pages Implementation (5-6 hours) ⏳ **COMPLETE THIS BEFORE PHASE 2**
+2. **Phase 2:** Component Architecture Improvements
+3. **Phase 3:** Performance Optimization
+4. **Phase 4:** Developer Experience (Figma/Storybook/Chromatic)
+5. **Features:** Music player, logging, AI forms, etc.
 
 ---
 
@@ -804,46 +908,22 @@ After successful transfer and verification:
   - ✅ Integration: Frontend successfully connects to Railway CMS
   - ✅ APIs: All 19 endpoints accessible from production
 
+### Completed ✅ (Phase 0.4)
+- ✅ 0.4: Content Migration via Transfer Token (3-4 days) - **COMPLETED** (2026-01-14)
+  - ✅ All content transferred from local Strapi to Railway production
+  - ✅ Transfer Token workflow successful
+  - ✅ Key fix: Transfer URL must include `/admin` suffix (e.g., `https://admin.aazucena.com/admin`)
+
 ### In Progress 🚧
-- 🚧 0.4: Content Migration via Transfer Token (3-4 days) - **CURRENT PRIORITY** 🔥
-  - **Completed So Far:**
-    - ✅ Portfolio (Single Type) populated with personal info, social links, bio, resume
-    - ✅ Hero (Single Type) populated with flip words, tagline, button text
-    - ✅ About (Single Type) populated with bio, stats, highlights, learn more cards
-    - ✅ Experiences (Collection Type) - 3+ work experiences with achievements
-    - ✅ 6 Skill Categories created (Frontend, Backend, Database, Cloud, Tools, AI)
-    - ✅ Complete projects documentation plan at `.claude/plans/portfolio-projects-documentation-plan.md`
-      - All 8 projects fully documented (Portfolio Website, Gaming Timeline, Conductor's Hand, Crunch Time, RPS Royale, Collective Assets, 65square, Target Hunger)
-      - Project descriptions, tech stacks, timelines, impact metrics complete
-      - Media requirements identified (screenshots, videos, music files)
-    - ✅ Complete skills creation guide at `.claude/plans/strapi-skills-creation-guide.md`
-      - 71 total skills documented and ready for creation
-      - Schema-compliant field mappings (correct proficiency enums, display levels)
-      - Project-to-skills mapping reference included
-  - **Currently Working On:**
-    - 🚧 Create 4 new Skill Categories (~10 min):
-      - Mobile
-      - Hardware/Embedded
-      - Music Technology
-      - Audio Engineering
-    - 🚧 Populate 71 Skills using schema-compliant guide (~60 min):
-      - Frontend: 16 skills
-      - Backend: 10 skills
-      - Database: 4 skills
-      - Cloud: 7 skills
-      - Tools: 9 skills
-      - AI: 5 skills
-      - Mobile: 5 skills (NEW)
-      - Hardware/Embedded: 4 skills (NEW)
-      - Music Technology: 4 skills (NEW)
-      - Audio Engineering: 7 skills (NEW)
-  - **Next Steps:**
-    - ⏳ Populate 8 Projects collection with skill linking (~2-3 hours)
-    - ⏳ Extract music files from Collective Assets repo
-    - ⏳ Gather screenshots for all projects
-    - ⏳ Populate remaining content types (Awards, Blog, etc.) (~1-2 hours)
-    - ⏳ Transfer to Railway production via Transfer Token workflow (~30 min)
-  - See section 0.4 above for detailed Transfer Token workflow
+- 🚧 0.5: Portfolio Pages Implementation (5-6 hours) - **CURRENT PRIORITY** 🔥
+  - Create 6 new Astro pages:
+    - `/projects` - Projects listing
+    - `/projects/[slug]` - Individual project detail
+    - `/experiences` - Experiences listing
+    - `/experiences/[slug]` - Individual experience detail
+    - `/about` - Expanded about page
+    - `/journey` - Career journey timeline
+  - Enable navigation cards in AboutSection
 
 ---
 
@@ -855,14 +935,11 @@ After successful transfer and verification:
 - [AI-Powered Forms Feature](./features/ai-forms.md)
 - [Logging & Monitoring](./features/logging-monitoring.md)
 
-**Last Updated:** 2025-12-29
+**Last Updated:** 2026-01-14
 
-**Current Focus:** Step 0.4 - Content Migration (Transfer Token Workflow)
+**Current Focus:** Step 0.5 - Portfolio Pages Implementation
 
 **Recent Completions:**
+- Step 0.4 - Content Migration ✅ (2026-01-14) - Transfer Token workflow successful, all content migrated to Railway
 - Step 0.3 - Deployment Strategy ✅ (2025-12-29) - Railway + Vercel deployed, all APIs accessible
-- Step 0.2.4 - Frontend API Integration ✅ (2025-12-19)
-- Modular API architecture with 19 specialized clients
-- Complete type safety with 18 Zod validators + 17 transformers
-- DataContext system eliminates prop drilling
-- All 15+ APIs tested and build passing
+- Step 0.2.4 - Frontend API Integration ✅ (2025-12-19) - 19 API clients, 18 validators, 17 transformers
