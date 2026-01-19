@@ -2,7 +2,7 @@
 import storybook from "eslint-plugin-storybook";
 
 import { defineConfig } from "eslint/config";
-import eslintConfigAstro from "@repo/shared/eslint/astro.js";
+import eslintConfigAstro from "@aazucena/shared/eslint/astro.js";
 
 
 /** @type {import("eslint").Linter.Config} */

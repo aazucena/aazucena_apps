@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/shared/typescript/react.json",
+  "extends": "@aazucena/shared/typescript/react.json",
   "compilerOptions": {
     "esModuleInterop": true,
     "noImplicitAny": false,

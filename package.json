@@ -1,5 +1,5 @@
 {
-  "name": "aazucena_apps",
+  "name": "aazucena",
   "private": true,
   "scripts": {
     "build": "turbo build",

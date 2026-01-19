@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "@aazucena/ui",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -20,7 +20,7 @@
     "@astrojs/react": "^4.3.1",
     "@chromatic-com/storybook": "^4.1.1",
     "@nanostores/react": "^0.8.4",
-    "@repo/shared": "workspace:*",
+    "@aazucena/shared": "workspace:*",
     "@storybook/addon-a11y": "^9.1.8",
     "@storybook/addon-docs": "^9.1.8",
     "@storybook/addon-themes": "^9.1.8",
