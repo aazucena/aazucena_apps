@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_shared_web_links",
+  "info": {
+    "displayName": "Web Link",
+    "icon": "hashtag"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "maxLength": 200,
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 255,
+      "required": true,
+      "unique": true,
+      "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon"
+    },
+    "description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

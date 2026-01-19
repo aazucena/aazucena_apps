@@ -8,7 +8,7 @@
  */
 
 import type { BlocksContent } from '@strapi/blocks-react-renderer';
-import type { AboutData } from '~/components/animations/sections/data/about';
+import type { ProfileData } from '~/components/animations/sections/data/about';
 import type { SkillCategory } from '~/components/animations/sections/data/skills';
 import type { Project as ComponentProject } from '~/components/animations/sections/data/projects';
 import type { Experience as ComponentExperience } from '~/components/animations/sections/data/experiences';
@@ -58,20 +58,21 @@ const TAG_COLOR_PALETTE = [
 ] as const;
 
 // ============================================================================
-// About Section Transformer
+// Profile Data Transformer (Portfolio Single Type)
 // ============================================================================
 
 /**
- * Transform Strapi Portfolio data to AboutData format
+ * Transform Strapi Portfolio data to ProfileData format
+ * NOTE: This is for portfolio/profile info, not About section content
  *
  * @param cmsData - Raw Strapi Portfolio single type
- * @returns Transformed AboutData for component consumption
+ * @returns Transformed ProfileData for component consumption
  *
  * @example
  * const portfolio = await getPortfolio();
- * const aboutData = transformAboutData(portfolio);
+ * const profileData = transformProfileData(portfolio);
  */
-export function transformAboutData(cmsData: StrapiPortfolio): AboutData {
+export function transformProfileData(cmsData: StrapiPortfolio): ProfileData {
   return {
     name: cmsData?.fullName || 'Aldrin Azucena',
     title: cmsData?.occupation || 'Full Stack Software Developer',

@@ -172,6 +172,15 @@
       },
       "default": false
     },
+    "showOnce": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "default": false
+    },
     "lazyLoad": {
       "type": "boolean",
       "pluginOptions": {

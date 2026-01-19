@@ -1,7 +1,7 @@
 {
   "collectionName": "components_shared_social_links",
   "info": {
-    "displayName": "Social Links",
+    "displayName": "Social Link",
     "icon": "link"
   },
   "options": {},
@@ -24,9 +24,9 @@
     },
     "url": {
       "type": "string",
+      "maxLength": 500,
       "required": true,
       "unique": true,
-      "maxLength": 500,
       "regex": "^https?://[a-zA-Z0-9-.]+(\\\\.[a-zA-Z]{2,})?(/.*)?$"
     },
     "icon": {

@@ -17,6 +17,7 @@ const { createStrapi, compileStrapi } = require('@strapi/strapi');
 
 const experiencesData = [
   {
+    slug: 'full-stack-software-developer-tangle-media',
     company: 'Tangle Media Inc.',
     position: 'Full Stack Software Developer',
     industry: 'Technology',
@@ -70,6 +71,7 @@ const experiencesData = [
   },
 
   {
+    slug: 'software-developer-intern-helpusdefend',
     company: 'HelpUsDefend',
     position: 'Software Developer Intern',
     industry: 'Technology',
@@ -118,6 +120,7 @@ const experiencesData = [
   },
 
   {
+    slug: 'web-developer-intern-interfaith-food-bank',
     company: 'Interfaith Food Bank',
     position: 'Web Developer Intern',
     industry: 'Non-Profit',

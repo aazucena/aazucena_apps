@@ -126,6 +126,16 @@
       },
       "component": "shared.seo",
       "repeatable": false
+    },
+    "relatedLinks": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.web-link",
+      "repeatable": true
     }
   }
 }

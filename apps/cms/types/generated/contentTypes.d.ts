@@ -1136,6 +1136,279 @@ export interface ApiEasterEggCompletionEasterEggCompletion
   };
 }
 
+export interface ApiEducationEducation extends Struct.CollectionTypeSchema {
+  collectionName: 'educations';
+  info: {
+    description: 'Academic education history with degrees, certifications, and achievements';
+    displayName: 'Education';
+    pluralName: 'educations';
+    singularName: 'education';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    achievements: Schema.Attribute.Component<'content.achievement', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+          min: 0;
+        },
+        number
+      >;
+    courses: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<'plugin::strapi-plugin-sortable-list.sortable-list'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    credentialId: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    credentialUrl: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    current: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
+    degree: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+    display: Schema.Attribute.Enumeration<['hidden', 'standard', 'featured']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'standard'>;
+    expectedGraduationDate: Schema.Attribute.Date &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    extracurriculars: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    featured: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
+    field: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    gpa: Schema.Attribute.Decimal &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 0;
+        },
+        number
+      >;
+    gpaScale: Schema.Attribute.Decimal &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<4>;
+    graduationDate: Schema.Attribute.Date &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    honors: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    institution: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    institutionLogo: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    institutionWebsite: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::education.education'
+    >;
+    location: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    projects: Schema.Attribute.Relation<'oneToMany', 'api::project.project'>;
+    publishedAt: Schema.Attribute.DateTime;
+    relatedLinks: Schema.Attribute.Component<'shared.web-link', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    skills: Schema.Attribute.Relation<'manyToMany', 'api::skill.skill'>;
+    slug: Schema.Attribute.UID<'degree'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    sort: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    startDate: Schema.Attribute.Date &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    thesis: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    thesisDescription: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    type: Schema.Attribute.Enumeration<
+      [
+        'high-school',
+        'diploma',
+        'associate',
+        'bachelor',
+        'master',
+        'doctorate',
+        'certificate',
+        'bootcamp',
+        'online-course',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'bachelor'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
   collectionName: 'experiences';
   info: {
@@ -1285,7 +1558,14 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
+    projects: Schema.Attribute.Relation<'oneToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
+    relatedLinks: Schema.Attribute.Component<'shared.web-link', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     responsibilities: Schema.Attribute.Blocks &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1293,6 +1573,13 @@ export interface ApiExperienceExperience extends Struct.CollectionTypeSchema {
         };
       }>;
     skillsUsed: Schema.Attribute.Relation<'manyToMany', 'api::skill.skill'>;
+    slug: Schema.Attribute.UID<'position'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     startDate: Schema.Attribute.Date &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -1682,6 +1969,62 @@ export interface ApiMusicGenreMusicGenre extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPagePage extends Struct.CollectionTypeSchema {
+  collectionName: 'pages';
+  info: {
+    description: 'CMS-driven pages for legal, landing, and generic content';
+    displayName: 'Web Page';
+    pluralName: 'pages';
+    singularName: 'page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    footerVariant: Schema.Attribute.Enumeration<['default', 'minimal']> &
+      Schema.Attribute.DefaultTo<'minimal'>;
+    lastUpdated: Schema.Attribute.Date & Schema.Attribute.Required;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    showTableOfContents: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    template: Schema.Attribute.Enumeration<['legal', 'default', 'landing']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'default'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
   collectionName: 'portfolios';
   info: {
@@ -1728,19 +2071,6 @@ export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    education: Schema.Attribute.Component<'content.education', true> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-          min: 0;
-        },
-        number
-      >;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -1916,6 +2246,12 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     publishedAt: Schema.Attribute.DateTime;
+    relatedLinks: Schema.Attribute.Component<'shared.web-link', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     seo: Schema.Attribute.Component<'shared.seo', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2217,6 +2553,13 @@ export interface ApiPreloaderPreloader extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<false>;
+    showOnce: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
     skipButtonAriaLabel: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2448,12 +2791,20 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'standard'>;
+    education: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::education.education'
+    >;
     endDate: Schema.Attribute.Date &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
         };
       }>;
+    experience: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::experience.experience'
+    >;
     gallery: Schema.Attribute.Media<'images', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2522,6 +2873,12 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    relatedLinks: Schema.Attribute.Component<'shared.web-link', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     repositoryUrl: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2698,6 +3055,10 @@ export interface ApiSkillSkill extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 2048;
       }>;
+    education: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::education.education'
+    >;
     experiences: Schema.Attribute.Relation<
       'manyToMany',
       'api::experience.experience'
@@ -3304,9 +3665,7 @@ export interface PluginNavigationAudience extends Struct.CollectionTypeSchema {
     singularName: 'audience';
   };
   options: {
-    comment: 'Audience';
     draftAndPublish: false;
-    increments: true;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -3865,12 +4224,14 @@ declare module '@strapi/strapi' {
       'api::blog.blog': ApiBlogBlog;
       'api::composition.composition': ApiCompositionComposition;
       'api::easter-egg-completion.easter-egg-completion': ApiEasterEggCompletionEasterEggCompletion;
+      'api::education.education': ApiEducationEducation;
       'api::experience.experience': ApiExperienceExperience;
       'api::form-submission.form-submission': ApiFormSubmissionFormSubmission;
       'api::hero.hero': ApiHeroHero;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::maintenance.maintenance': ApiMaintenanceMaintenance;
       'api::music-genre.music-genre': ApiMusicGenreMusicGenre;
+      'api::page.page': ApiPagePage;
       'api::portfolio.portfolio': ApiPortfolioPortfolio;
       'api::post.post': ApiPostPost;
       'api::preloader.preloader': ApiPreloaderPreloader;

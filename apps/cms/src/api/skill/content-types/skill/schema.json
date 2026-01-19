@@ -79,6 +79,12 @@
       "target": "api::experience.experience",
       "mappedBy": "skillsUsed"
     },
+    "education": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::education.education",
+      "mappedBy": "skills"
+    },
     "projects": {
       "type": "relation",
       "relation": "manyToMany",

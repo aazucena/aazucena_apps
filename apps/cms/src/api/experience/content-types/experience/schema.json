@@ -16,6 +16,16 @@
     }
   },
   "attributes": {
+    "slug": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "targetField": "position",
+      "required": true
+    },
     "company": {
       "type": "string",
       "pluginOptions": {
@@ -204,6 +214,22 @@
       "repeatable": true,
       "min": 0,
       "max": 10
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::project.project",
+      "mappedBy": "experience"
+    },
+    "relatedLinks": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.web-link",
+      "repeatable": true
     }
   }
 }

@@ -144,19 +144,6 @@
       },
       "maxLength": 100
     },
-    "education": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "content.education",
-      "repeatable": true,
-      "required": false,
-      "min": 0,
-      "max": 10
-    },
     "bioEmbedding": {
       "type": "json",
       "pluginOptions": {

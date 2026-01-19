@@ -147,6 +147,12 @@ export interface StrapiImageElement {
   altText: string;
 }
 
+export interface StrapiTag {
+  id: number;
+  label: string;
+  color: 'cyan' | 'blue' | 'purple' | 'pink' | 'green' | 'teal' | 'orange' | 'red' | 'gray';
+}
+
 // ============================================================================
 // Single Types
 // ============================================================================
@@ -284,13 +290,39 @@ export interface BlogConfiguration extends StrapiBaseAttributes {
 
 export interface Skill extends StrapiBaseAttributes {
   name: string;
-  category: 'frontend' | 'backend' | 'devops' | 'design' | 'other';
-  proficiency: number; // 1-100
+  display: 'hidden' | 'standard' | 'featured' | 'core';
+  category: 'Frontend' | 'Backend' | 'Database' | 'DevOps' | 'Design' | 'Tools' | 'Music Production';
+  proficiency: 'learning' | 'competent' | 'proficient' | 'expert';
   icon?: string;
   description?: string;
   yearsOfExperience?: number;
-  featured?: boolean;
-  order?: number;
+  documentationUrl?: string;
+  sort?: number;
+  lastUsed?: string;
+  // Relations (not populated by default)
+  experiences?: Experience[];
+  projects?: Project[];
+  categories?: SkillCategory[];
+}
+
+export interface SkillCategory extends StrapiBaseAttributes {
+  name: string;
+  label: string;
+  icon?: string;
+  display?: 'hidden' | 'visible';
+  variant?:
+    | 'cyan-blue'
+    | 'purple-pink'
+    | 'green-emerald'
+    | 'blue-indigo'
+    | 'yellow-orange'
+    | 'pink-red'
+    | 'teal-cyan'
+    | 'orange-red'
+    | 'violet-purple'
+    | 'indigo-violet';
+  // Relations (not populated by default)
+  skills?: Skill[];
 }
 
 export interface MusicGenre extends StrapiBaseAttributes {
@@ -308,7 +340,9 @@ export interface Post extends StrapiBaseAttributes {
   content: any; // Blocks/Richtext
   coverImage?: StrapiMedia;
   author?: string;
-  tags?: string[];
+  url?: string;
+  isExternal?: boolean;
+  tags?: StrapiTag[];
   categories?: string[];
   featured?: boolean;
   readingTime?: number;
@@ -322,20 +356,23 @@ export interface Post extends StrapiBaseAttributes {
 export interface Project extends StrapiBaseAttributes {
   title: string;
   slug: string;
+  shortDescription: string;
   description: string;
-  excerpt?: string;
+  display: 'hidden' | 'unlisted' | 'standard' | 'featured' | 'home';
   coverImage?: StrapiMedia;
+  screenshots?: StrapiMedia[];
+  demoVideo?: StrapiMedia;
   gallery?: StrapiMedia[];
-  technologies?: string[];
-  category?: 'web' | 'mobile' | 'desktop' | 'game' | 'other';
-  projectUrl?: string;
-  githubUrl?: string;
-  demoUrl?: string;
-  featured?: boolean;
-  order?: number;
+  repositoryUrl?: string;
+  liveDemoUrl?: string;
+  projectType?: 'Web App' | 'Mobile App' | 'Desktop App' | 'Library' | 'API' | 'CLI Tool' | 'Game' | 'Music Production' | 'Hardware/Embedded';
+  sort?: number;
   startDate?: string;
   endDate?: string;
-  status?: 'planning' | 'in-progress' | 'completed' | 'archived';
+  projectStatus?: 'Planned' | 'In Progress' | 'Released' | 'Maintenance' | 'On Hold' | 'Completed' | 'Archived';
+  tags?: StrapiTag[];
+  techStack?: Skill[];
+  metrics?: StrapiStats[];
   seo?: StrapiSEO;
   descriptionEmbedding?: any;
   descriptionEmbeddingModel?: string;
@@ -379,9 +416,11 @@ export interface Testimonial extends StrapiBaseAttributes {
 
 export interface Award extends StrapiBaseAttributes {
   title: string;
+  shortTitle?: string;
   organization: string;
   issuer: string;
   year: string;
+  type: 'certification' | 'award';
   description?: string;
   category?: 'certification' | 'award' | 'achievement' | 'recognition';
   credentialUrl?: string;

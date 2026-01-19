@@ -324,7 +324,7 @@ const projectsData = [
       'JavaScript',
       'HTML5',
       'CSS3',
-      'Firebase',
+      'Directus',
       'Music Composition',
       'Music Performance',
       'Musical Production',

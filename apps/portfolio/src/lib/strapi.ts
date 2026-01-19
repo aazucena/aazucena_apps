@@ -108,6 +108,12 @@ function handleStrapiError(status: number, error: any): never {
   throw strapiError;
 }
 
+function fetchUrl(endpoint: string, debug: boolean = false) {
+  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}`;
+  if (debug) console.log('[Strapi Fetch URL]', url);
+  return url;
+}
+
 // ============================================================================
 // Core API Functions
 // ============================================================================
@@ -137,7 +143,7 @@ export async function fetchStrapi<T>(
   options?: FetchOptions
 ): Promise<StrapiResponse<T>> {
   const queryString = buildQueryString(options?.query);
-  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}${queryString ? `?${queryString}` : ''}`;
+  const url = fetchUrl(`${endpoint}${queryString ? `?${queryString}` : ''}`);
 
   try {
     const res = await fetch(url, {
@@ -148,7 +154,9 @@ export async function fetchStrapi<T>(
       cache: options?.cache || 'no-store',
     });
 
+    
     const data = await res.json();
+    // console.log(url, data);
 
     if (!res.ok) {
       handleStrapiError(res.status, data);
@@ -196,7 +204,7 @@ export async function createStrapiEntry<T>(
   endpoint: string,
   data: Record<string, any>
 ): Promise<StrapiResponse<T>> {
-  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}`;
+  const url = fetchUrl(endpoint);
 
   try {
     const res = await fetch(url, {
@@ -238,7 +246,7 @@ export async function updateStrapiEntry<T>(
   id: string | number,
   data: Record<string, any>
 ): Promise<StrapiResponse<T>> {
-  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}/${id}`;
+  const url = fetchUrl(`${endpoint}/${id}`);
 
   try {
     const res = await fetch(url, {
@@ -277,7 +285,7 @@ export async function deleteStrapiEntry<T>(
   endpoint: string,
   id: string | number
 ): Promise<StrapiResponse<T>> {
-  const url = `${STRAPI_URL}${STRAPI_API_ENDPOINT}/${endpoint}/${id}`;
+  const url = fetchUrl(`${endpoint}/${id}`);
 
   try {
     const res = await fetch(url, {

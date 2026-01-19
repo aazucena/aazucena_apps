@@ -25,58 +25,6 @@ export interface ContentAchievement extends Struct.ComponentSchema {
   };
 }
 
-export interface ContentEducation extends Struct.ComponentSchema {
-  collectionName: 'components_content_educations';
-  info: {
-    displayName: 'Education';
-    icon: 'pencil';
-  };
-  attributes: {
-    current: Schema.Attribute.Boolean & Schema.Attribute.Required;
-    degree: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1000;
-      }>;
-    field: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 150;
-      }>;
-    gpa: Schema.Attribute.Decimal &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 5;
-          min: 0;
-        },
-        number
-      >;
-    graduationDate: Schema.Attribute.Date;
-    honors: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    institution: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    location: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    startDate: Schema.Attribute.Date & Schema.Attribute.Required;
-    type: Schema.Attribute.Enumeration<
-      ['diploma', 'bachelor', 'master', 'doctorate', 'certificate']
-    > &
-      Schema.Attribute.Required;
-  };
-}
-
 export interface ContentSection extends Struct.ComponentSchema {
   collectionName: 'components_content_sections';
   info: {
@@ -285,7 +233,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
 export interface SharedSocialLinks extends Struct.ComponentSchema {
   collectionName: 'components_shared_social_links';
   info: {
-    displayName: 'Social Links';
+    displayName: 'Social Link';
     icon: 'link';
   };
   attributes: {
@@ -347,6 +295,33 @@ export interface SharedStreamingLink extends Struct.ComponentSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
+      }>;
+  };
+}
+
+export interface SharedWebLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_web_links';
+  info: {
+    displayName: 'Web Link';
+    icon: 'hashtag';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    openInNewTab: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
       }>;
   };
 }
@@ -510,7 +485,6 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.achievement': ContentAchievement;
-      'content.education': ContentEducation;
       'content.section': ContentSection;
       'content.stats': ContentStats;
       'media.audio-metadata': MediaAudioMetadata;
@@ -518,6 +492,7 @@ declare module '@strapi/strapi' {
       'shared.seo': SharedSeo;
       'shared.social-links': SharedSocialLinks;
       'shared.streaming-link': SharedStreamingLink;
+      'shared.web-link': SharedWebLink;
       'ui.card-link': UiCardLink;
       'ui.cta-button': UiCtaButton;
       'ui.image-element': UiImageElement;

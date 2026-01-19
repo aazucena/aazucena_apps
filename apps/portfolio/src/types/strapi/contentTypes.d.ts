@@ -2058,7 +2058,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         'CLI Tool',
         'Game',
         'Music Production',
-        'Other',
+        'Hardware/Embedded',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

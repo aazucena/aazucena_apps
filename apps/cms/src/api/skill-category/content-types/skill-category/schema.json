@@ -35,7 +35,10 @@
       "type": "enumeration",
       "required": false,
       "default": "visible",
-      "enum": ["hidden", "visible"]
+      "enum": [
+        "hidden",
+        "visible"
+      ]
     },
     "variant": {
       "type": "enumeration",
