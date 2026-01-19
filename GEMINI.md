@@ -1,6 +1,6 @@
 # GEMINI.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Gemini when working with code in this repository.
 
 ## Rules
 - full context (x being the id of the session we are operation, if file doesn't exist, then create one)
@@ -278,23 +278,21 @@ src/lib/
 - ✅ Added GSAP cleanup (prevented animation memory leaks)
 - ✅ Code quality: 7.5/10 → 8.5-9.0/10
 
-### Current Priority: Phase 0.4 - Content Migration (3-4 days) 🔥
+### Current Priority: Phase 0.5 - Portfolio Pages (26-30 hours) 🔥
+
+**Plan Approved:** `/home/aazucena/.claude/plans/distributed-snacking-moth.md`
 
 **Detailed docs:** `docs/phase-0-infrastructure.md`
 
-**Goal:** Populate local CMS and transfer to production Railway using Transfer Token workflow
+**Goal:** Complete portfolio site with 16 pages (projects, experience, blog, contact, awards, testimonials, skills, legal pages, maintenance, 404, footer, RSS/sitemap)
 
-**Status:** In progress after Phase 0.3 completion (2025-12-29)
+**Scope:** Final Phase 0 sub-phase with comprehensive page implementation, footer component with copyright, CMS-driven legal pages, blog with RSS, and SEO infrastructure
 
-**Progress:**
-- ✅ Portfolio, Hero, About, Experiences populated in Strapi
-- ✅ 6 Skill Categories created (Frontend, Backend, Database, Cloud, Tools, AI)
-- ✅ Projects documentation plan complete (`.claude/plans/portfolio-projects-documentation-plan.md` - 8 projects)
-- ✅ Skills creation guide complete (`.claude/plans/strapi-skills-creation-guide.md` - 71 skills)
-- 🚧 4 new Skill Categories planned (Mobile, Hardware/Embedded, Music Technology, Audio Engineering)
-- 🚧 71 skills ready for creation
-- ⏳ 8 Projects pending population
-- ⏳ Transfer Token workflow pending
+### ✅ Phase 0.4 - Content Migration (COMPLETED - 2026-01-14)
+
+**Achievement:** Successfully transferred all CMS content from local to Railway production using Transfer Token workflow.
+
+**Key Fix:** Transfer URL must include `/admin` suffix (e.g., `https://admin.aazucena.com/admin`)
 
 ---
 
@@ -311,7 +309,7 @@ src/lib/
 - **0.2.3:** Content types creation (16 types implemented) ✅ COMPLETED
 - **0.2.4:** Frontend API integration (Strapi SDK) ✅ COMPLETED (2025-12-19)
 - **0.3:** Deployment strategy (Vercel + Railway) ✅ COMPLETED (2025-12-29)
-- **0.4:** Content migration from static to CMS 🚧 CURRENT PRIORITY
+- **0.4:** Content migration from static to CMS ✅ COMPLETED (2026-01-14)
 
 **Key Technology Decisions:**
 - ✅ Docker Compose for local development (configured and running)
@@ -320,7 +318,7 @@ src/lib/
 - ✅ 16 content types created (Skills, Projects, Posts, Testimonials, etc.)
 - ✅ 9 components implemented
 
-**Status:** ~90% complete - Core CMS infrastructure operational, frontend integration complete (0.2.4), deployment complete (0.3), content migration in progress (0.4)
+**Status:** ~95% complete - Core CMS infrastructure operational, frontend integration complete (0.2.4), deployment complete (0.3), content migration complete (0.4). Only 0.5 (Portfolio Pages) remaining.
 
 ### Upcoming Phases (execute in order)
 - **Phase 2:** Component Architecture (6-8 days) - Further optimization
@@ -583,9 +581,15 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2026-01-07
+**Last Updated:** 2026-01-16
 
 **Key Updates:**
+- ✅ **Phase 0.5 Plan Approved:** (2026-01-16)
+  - Comprehensive 16-page implementation plan ready for execution
+  - Plan location: `/home/aazucena/.claude/plans/distributed-snacking-moth.md`
+  - Estimated time: 26-30 hours (final Phase 0 sub-phase)
+  - Includes: Projects, Experience, Blog, Contact, Awards, Testimonials, Skills, Legal Pages, Maintenance, 404, Footer, RSS/Sitemap
+  - Prerequisites: Experience slug field, Page content type for legal pages
 - ✅ **Project Schema Enhanced:** (2026-01-07)
   - Added `unlisted` to display enum (hidden, unlisted, standard, featured, home)
   - Expanded projectStatus enum: Planned, In Progress, Released, Maintenance, On Hold, Completed, Archived
@@ -604,8 +608,8 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
   - Fixed critical CVEs, memory leaks, type safety
   - Code quality: 7.5/10 → 8.5-9.0/10
 - ✅ **Phase 1 Completed:** Animations refactoring (324 → 174 lines, 46% reduction)
-- ✅ **Phase 0 90% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components, deployed to Railway + Vercel
-- 🔥 **Current Priority:** Phase 0.4 - Content Migration (Transfer Token Workflow)
+- ✅ **Phase 0 95% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components, deployed to Railway + Vercel, content migrated
+- 🔥 **Current Priority:** Phase 0.5 - Portfolio Pages (5-6 hours)
 - ✅ **Astro v5.15 → v5.16.0:** Framework upgrade for latest features
 - ✅ **Strapi Components Added:** Audio Metadata component with enharmonic keys (media.audio-metadata)
 - ✅ **Icons Integration:** strapi-plugin-icons-field v1.1.5 with @mynaui/icons support
