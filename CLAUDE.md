@@ -82,9 +82,18 @@ pnpm dlx playwright show-report
 
 **Framework Stack:**
 - **Astro 5.16.0** as the meta-framework with React integration
+- **Rendering Pattern**: Hybrid (Static by default, SSR for dynamic status pages)
 - **React 19.2** for interactive components
 - **Tailwind CSS 4** with @tailwindcss/vite plugin
 - **TypeScript** throughout
+
+**Build Configuration:**
+- **Vercel + pnpm**: Requires `.npmrc` with `shamefully-hoist=true` and `public-hoist-pattern[]=*babel*` to resolve Babel dependency tracing issues.
+
+**Content Rendering Pattern:**
+- **MarkdownRenderer**: Used for `richtext` fields in Strapi (e.g., Post/Experience descriptions) which return strings.
+- **BlocksRenderer**: Used for `blocks` fields in Strapi (e.g., Experience responsibilities, About descriptions) which return JSON arrays.
+- **SSR Pages**: `maintenance.astro` and `500.astro` use `export const prerender = false` to support real-time status checks and error logging.
 
 **Animation Architecture (Post-Phase 1 Refactoring):**
 
@@ -176,6 +185,16 @@ Section.tsx (main orchestrator - 174 lines)
    ├─ HomepageContent (section content renderer)
    └─ UIOverlays (extracted component)
 ```
+
+### Journey Visualizations (New in Phase 0.5)
+
+Complex data visualizations for the `/journey` page, located in `src/components/journey/visualizations/`:
+- **ForceDirectedGraph**: Interactive skill dependency graph
+- **InteractiveTimeline**: Scroll-synced career progression
+- **SpiderChart**: Multi-dimensional skill profiling
+- **SankeyDiagram**: Career flow visualization
+- **StreamGraph**: Skill evolution over time
+- **Heatmap**: Activity and contribution tracking
 
 ### CMS Data Architecture (Phase 0.2.4)
 
@@ -278,30 +297,6 @@ src/lib/
 - ✅ Added GSAP cleanup (prevented animation memory leaks)
 - ✅ Code quality: 7.5/10 → 8.5-9.0/10
 
-### ✅ Phase 0.5 - Portfolio Pages (COMPLETED - 2026-01-17)
-
-**Achievement:** Successfully implemented 14 pages with Footer, RSS feed, Sitemap, and legal pages seed script.
-
-**Deliverables:**
-- 14 pages: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), 404, Maintenance
-- Footer component with CMS-driven social links (platform-based rendering)
-- RSS feed for blog posts (filters external posts)
-- Sitemap integration with auto-generation
-- Unified seed script for legal pages (`seed-pages.js`)
-
-**Key Decisions:**
-- Removed dedicated Awards, Testimonials, Skills pages (already on homepage)
-- Footer integrated into PageLayout only (not BaseLayout - homepage remains immersive)
-- Generic catch-all route with 3 templates (legal, default, landing)
-
-### ✅ Phase 0.4 - Content Migration (COMPLETED - 2026-01-14)
-
-**Achievement:** Successfully transferred all CMS content from local to Railway production using Transfer Token workflow.
-
-**Key Fix:** Transfer URL must include `/admin` suffix (e.g., `https://admin.aazucena.com/admin`)
-
----
-
 ### ✅ Phase 0 - Infrastructure & Architecture (COMPLETED - 2026-01-17)
 
 **Detailed docs:** `docs/phase-0-infrastructure.md`
@@ -330,7 +325,7 @@ src/lib/
 **Status:** ✅ 100% complete - All infrastructure, frontend integration, deployment, content migration, and pages implemented.
 
 ### Upcoming Phases (execute in order)
-- **Phase 2:** Component Architecture (6-8 days) - Further optimization
+- **Phase 2:** Component Architecture (6-8 days) - 🔥 CURRENT PRIORITY
 - **Phase 3:** Performance (4-6 days) - Code splitting, lazy loading
 - **Phase 4:** Developer Experience (16-22 days) - Figma, Storybook, Chromatic
 - **Phase 5:** Testing (9-13 days) - Vitest unit tests, Playwright E2E
