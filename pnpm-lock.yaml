@@ -327,6 +327,9 @@ importers:
       d3-axis:
         specifier: ^3.0.0
         version: 3.0.0
+      d3-sankey:
+        specifier: ^0.12.3
+        version: 0.12.3
       d3-scale:
         specifier: ^4.0.2
         version: 4.0.2
@@ -360,6 +363,9 @@ importers:
       luxon:
         specifier: ^3.7.2
         version: 3.7.2
+      make-plural:
+        specifier: ^8.1.0
+        version: 8.1.0
       nanostores:
         specifier: ^0.11.3
         version: 0.11.3
@@ -427,6 +433,9 @@ importers:
       '@types/d3-axis':
         specifier: ^3.0.6
         version: 3.0.6
+      '@types/d3-sankey':
+        specifier: ^0.12.5
+        version: 0.12.5
       '@types/d3-scale':
         specifier: ^4.0.9
         version: 4.0.9
@@ -6039,6 +6048,9 @@ packages:
   '@types/d3-interpolate@3.0.4':
     resolution: {integrity: sha512-mgLPETlrpVV1YRJIglr4Ez47g7Yxjl1lj7YKsiMCb27VJH9W8NVM6Bb9d8kkpG/uAQS5AmbA48q2IAolKKo1MA==}
 
+  '@types/d3-path@1.0.11':
+    resolution: {integrity: sha512-4pQMp8ldf7UaB/gR8Fvvy69psNHkTpD/pVw3vmEi8iZAB9EPMBruB1JvHO4BIq9QkUUd2lV1F5YXpMNj7JPBpw==}
+
   '@types/d3-path@3.1.1':
     resolution: {integrity: sha512-VMZBYyQvbGmWyWVea0EHs/BwLgxc+MKi1zLDCONksozI4YJMcTt8ZEuIR4Sb1MMTE8MMW49v0IwI5+b7RmfWlg==}
 
@@ -6051,6 +6063,9 @@ packages:
   '@types/d3-random@3.0.3':
     resolution: {integrity: sha512-Imagg1vJ3y76Y2ea0871wpabqp613+8/r0mCLEBfdtqC7xMSfj9idOnmBYyMoULfHePJyxMAw3nWhJxzc+LFwQ==}
 
+  '@types/d3-sankey@0.12.5':
+    resolution: {integrity: sha512-/3RZSew0cLAtzGQ+C89hq/Rp3H20QJuVRSqFy6RKLe7E0B8kd2iOS1oBsodrgds4PcNVpqWhdUEng/SHvBcJ6Q==}
+
   '@types/d3-scale-chromatic@3.1.0':
     resolution: {integrity: sha512-iWMJgwkK7yTRmWqRB5plb1kadXyQ5Sj8V/zYlFGMUBbIPKQScw+Dku9cAAMgJG+z5GYDoMjWGLVOvjghDEFnKQ==}
 
@@ -6059,6 +6074,9 @@ packages:
 
   '@types/d3-selection@3.0.11':
     resolution: {integrity: sha512-bhAXu23DJWsrI45xafYpkQ4NtcKMwWnAC/vKrd2l+nxMFuvOT3XMYTIj2opv8vq8AO5Yh7Qac/nSeP/3zjTK0w==}
+
+  '@types/d3-shape@1.3.12':
+    resolution: {integrity: sha512-8oMzcd4+poSLGgV0R1Q1rOlx/xdmozS4Xab7np0eamFFUYq71AU9pOCJEFnkXW2aI/oXdVYJzw6pssbSut7Z9Q==}
 
   '@types/d3-shape@3.1.8':
     resolution: {integrity: sha512-lae0iWfcDeR7qt7rA88BNiqdvPS5pFVPpo5OfjElwNaT2yyekbM0C9vK+yqBqEmHr6lDkRnYNoTBYlAgJa7a4w==}
@@ -8085,6 +8103,9 @@ packages:
   custom-media-element@1.4.5:
     resolution: {integrity: sha512-cjrsQufETwxjvwZbYbKBCJNvmQ2++G9AvT45zDi7NXL9k2PdVcs2h0jQz96J6G4TMKRCcEsoJ+QTgQD00Igtjw==}
 
+  d3-array@2.12.1:
+    resolution: {integrity: sha512-B0ErZK/66mHtEsR1TkPEEkwdy+WDesimkM5gpZr5Dsg54BiTA5RXtYW5qTLIAcekaS9xfZrzBLF/OAkB3Qn1YQ==}
+
   d3-array@3.2.4:
     resolution: {integrity: sha512-tdQAmyA18i4J7wprpYq8ClcxZy3SC31QMeByyCFyRt7BVHdREQZ5lpzoe5mFEYZUWe+oq8HBvk9JjpibyEV4Jg==}
     engines: {node: '>=12'}
@@ -8154,6 +8175,9 @@ packages:
     resolution: {integrity: sha512-3bYs1rOD33uo8aqJfKP3JWPAibgw8Zm2+L9vBKEHJ2Rg+viTR7o5Mmv5mZcieN+FRYaAOWX5SJATX6k1PWz72g==}
     engines: {node: '>=12'}
 
+  d3-path@1.0.9:
+    resolution: {integrity: sha512-VLaYcn81dtHVTjEHd8B+pbe9yHWpXKZUC87PzoFmsFrJqgFwDe/qxfp5MlfsfM1V5E/iVt0MmEbWQ7FVIXh/bg==}
+
   d3-path@3.1.0:
     resolution: {integrity: sha512-p3KP5HCf/bvjBSSKuXid6Zqijx7wIfNW+J/maPs+iwR35at5JCbLUT0LzF1cnjbCHWhqzQTIN2Jpe8pRebIEFQ==}
     engines: {node: '>=12'}
@@ -8170,6 +8194,9 @@ packages:
     resolution: {integrity: sha512-FXMe9GfxTxqd5D6jFsQ+DJ8BJS4E/fT5mqqdjovykEB2oFbTMDVdg1MGFxfQW+FBOGoB++k8swBrgwSHT1cUXQ==}
     engines: {node: '>=12'}
 
+  d3-sankey@0.12.3:
+    resolution: {integrity: sha512-nQhsBRmM19Ax5xEIPLMY9ZmJ/cDvd1BG3UVvt5h3WRxKg5zGRbvnteTyWAbzeSvlh3tW7ZEmq4VwR5mB3tutmQ==}
+
   d3-scale-chromatic@3.1.0:
     resolution: {integrity: sha512-A3s5PWiZ9YCXFye1o246KoscMWqf8BsD9eRiJ3He7C9OBaxKhAd5TFCdEx/7VbKtxxTsu//1mMJFrEt572cEyQ==}
     engines: {node: '>=12'}
@@ -8181,6 +8208,9 @@ packages:
   d3-selection@3.0.0:
     resolution: {integrity: sha512-fmTRWbNMmsmWq6xJV8D19U/gw/bwrHfNXxrIN+HfZgnzqTHp9jOmKMhsTUjXOJnZOdZY9Q28y4yebKzqDKlxlQ==}
     engines: {node: '>=12'}
+
+  d3-shape@1.3.7:
+    resolution: {integrity: sha512-EUkvKjqPFUAZyOlhY5gzCxCeI0Aep04LwIRpsZ/mLFelJiUfnK56jo5JMDSE7yyP2kLSb6LtF+S5chMk7uqPqw==}
 
   d3-shape@3.2.0:
     resolution: {integrity: sha512-SaLBuwGm3MOViRq2ABk3eLoxwZELpH6zhl3FbAoJ7Vm1gofKx6El1Ib5z23NUEhF9AsGl7y+dzLe5Cw2AArGTA==}
@@ -10064,6 +10094,9 @@ packages:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
     engines: {node: '>= 0.4'}
 
+  internmap@1.0.1:
+    resolution: {integrity: sha512-lDB5YccMydFBtasVtxnZ3MRBHuaoE8GKsppq+EchKL2U4nK/DmEpPHNH8MZe5HkMtpSiTSOZwfN0tzYjO/lJEw==}
+
   internmap@2.0.3:
     resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
     engines: {node: '>=12'}
@@ -11172,6 +11205,9 @@ packages:
   make-iterator@1.0.1:
     resolution: {integrity: sha512-pxiuXh0iVEq7VM7KMIhs5gxsfxCux2URptUQaXo4iZZJxBAzTPOLE2BumO5dbfVYq/hBJFBR/a1mFDmOx5AGmw==}
     engines: {node: '>=0.10.0'}
+
+  make-plural@8.1.0:
+    resolution: {integrity: sha512-p8EfQ2LFxnU4KGc82hOYdUplQw0eoWJLzJVKyv2GR9sd4zkjA8bLSXLEmp/qE08c/cFTZOK8j6Ex80+Wey+4PA==}
 
   map-cache@0.2.2:
     resolution: {integrity: sha512-8y/eV9QQZCiyn1SprXSrCmqJN0yNRATe+PO8ztwqrvrbdRLA3eYJF0yaR0YayLWkMbsQSKWS9N2gPcGEc4UsZg==}
@@ -21392,7 +21428,7 @@ snapshots:
       '@strapi/design-system': 2.0.1(@babel/runtime@7.27.1)(@codemirror/autocomplete@6.19.1)(@codemirror/language@6.11.3)(@codemirror/lint@6.9.2)(@codemirror/search@6.5.11)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.3)(@codemirror/view@6.38.6)(@strapi/icons@2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@types/react-dom@18.3.7(@types/react@18.3.26))(@types/react@18.3.26)(codemirror@5.65.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/icons': 2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/permissions': 5.33.2
-      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.8.3)
+      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)
       '@strapi/typescript-utils': 5.33.2
       '@strapi/utils': 5.33.2
       '@testing-library/dom': 10.4.1
@@ -21595,7 +21631,7 @@ snapshots:
       '@strapi/database': 5.33.2(@types/node@20.19.19)(pg@8.8.0)
       '@strapi/design-system': 2.0.1(@babel/runtime@7.27.1)(@codemirror/autocomplete@6.19.1)(@codemirror/language@6.11.3)(@codemirror/lint@6.9.2)(@codemirror/search@6.5.11)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.3)(@codemirror/view@6.38.6)(@strapi/icons@2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@types/react-dom@18.3.7(@types/react@18.3.26))(@types/react@18.3.26)(codemirror@5.65.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/icons': 2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.8.3)
+      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)
       '@strapi/utils': 5.33.2
       date-fns: 2.30.0
       date-fns-tz: 2.0.1(date-fns@2.30.0)
@@ -21696,7 +21732,7 @@ snapshots:
       '@strapi/generators': 5.33.2(@types/node@20.19.19)
       '@strapi/logger': 5.33.2
       '@strapi/permissions': 5.33.2
-      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.8.3)
+      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)
       '@strapi/typescript-utils': 5.33.2
       '@strapi/utils': 5.33.2
       '@vercel/stega': 0.1.2
@@ -21778,6 +21814,39 @@ snapshots:
       - styled-components
       - supports-color
       - tedious
+
+  '@strapi/data-transfer@5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)':
+    dependencies:
+      '@strapi/logger': 5.33.2
+      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)
+      '@strapi/utils': 5.33.2
+      chalk: 4.1.2
+      cli-table3: 0.6.5
+      commander: 8.3.0
+      fs-extra: 11.2.0
+      inquirer: 8.2.5
+      lodash: 4.17.21
+      ora: 5.4.1
+      resolve-cwd: 3.0.0
+      semver: 7.5.4
+      stream-chain: 2.2.5
+      stream-json: 1.8.0
+      tar: 6.2.1
+      tar-stream: 2.2.0
+      ws: 8.17.1
+    transitivePeerDependencies:
+      - '@types/node'
+      - better-sqlite3
+      - bufferutil
+      - mysql
+      - mysql2
+      - pg
+      - pg-native
+      - sqlite3
+      - supports-color
+      - tedious
+      - typescript
+      - utf-8-validate
 
   '@strapi/data-transfer@5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.8.3)':
     dependencies:
@@ -22699,7 +22768,7 @@ snapshots:
       '@strapi/content-releases': 5.33.2(f3c13c4858a1f48f0e5092b5afff0ba7)
       '@strapi/content-type-builder': 5.33.2(29ac4ceab85c3174a3c270ef201a2b9b)
       '@strapi/core': 5.33.2(@babel/runtime@7.27.1)(@codemirror/autocomplete@6.19.1)(@codemirror/language@6.11.3)(@codemirror/lint@6.9.2)(@codemirror/search@6.5.11)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.3)(@codemirror/view@6.38.6)(@emotion/is-prop-valid@1.4.0)(@strapi/data-transfer@5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.8.3))(@types/hoist-non-react-statics@3.3.7(@types/react@18.3.26))(@types/node@20.19.19)(@types/react-dom@18.3.7(@types/react@18.3.26))(@types/react@18.3.26)(codemirror@5.65.20)(pg@8.8.0)(react-dom@18.3.1(react@18.3.1))(react-router-dom@6.30.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      '@strapi/data-transfer': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.8.3)
+      '@strapi/data-transfer': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)
       '@strapi/database': 5.33.2(@types/node@20.19.19)(pg@8.8.0)
       '@strapi/email': 5.33.2(06273774ea5547fd4eeab0fbea953053)
       '@strapi/generators': 5.33.2(@types/node@20.19.19)
@@ -22708,7 +22777,7 @@ snapshots:
       '@strapi/openapi': 5.33.2
       '@strapi/permissions': 5.33.2
       '@strapi/review-workflows': 5.33.2(1c70ec91ddb29364394fea63bc461cc6)
-      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.8.3)
+      '@strapi/types': 5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)
       '@strapi/typescript-utils': 5.33.2
       '@strapi/upload': 5.33.2(905e82feb080b3c9f331f09bd7d67328)
       '@strapi/utils': 5.33.2
@@ -22859,6 +22928,36 @@ snapshots:
       typedoc: 0.25.10(typescript@5.9.3)
       typedoc-github-wiki-theme: 1.1.0(typedoc-plugin-markdown@3.17.1(typedoc@0.25.10(typescript@5.9.3)))(typedoc@0.25.10(typescript@5.9.3))
       typedoc-plugin-markdown: 3.17.1(typedoc@0.25.10(typescript@5.9.3))
+      zod: 3.25.67
+    transitivePeerDependencies:
+      - '@types/node'
+      - better-sqlite3
+      - mysql
+      - mysql2
+      - pg
+      - pg-native
+      - sqlite3
+      - supports-color
+      - tedious
+      - typescript
+
+  '@strapi/types@5.33.2(@types/node@20.19.19)(pg@8.8.0)(typescript@5.4.4)':
+    dependencies:
+      '@casl/ability': 6.5.0
+      '@koa/cors': 5.0.0
+      '@koa/router': 12.0.2
+      '@strapi/database': 5.33.2(@types/node@20.19.19)(pg@8.8.0)
+      '@strapi/logger': 5.33.2
+      '@strapi/permissions': 5.33.2
+      '@strapi/utils': 5.33.2
+      commander: 8.3.0
+      json-logic-js: 2.0.5
+      koa: 2.16.1
+      koa-body: 6.0.1
+      node-schedule: 2.1.1
+      typedoc: 0.25.10(typescript@5.4.4)
+      typedoc-github-wiki-theme: 1.1.0(typedoc-plugin-markdown@3.17.1(typedoc@0.25.10(typescript@5.8.3)))(typedoc@0.25.10(typescript@5.8.3))
+      typedoc-plugin-markdown: 3.17.1(typedoc@0.25.10(typescript@5.8.3))
       zod: 3.25.67
     transitivePeerDependencies:
       - '@types/node'
@@ -23616,6 +23715,8 @@ snapshots:
     dependencies:
       '@types/d3-color': 3.1.3
 
+  '@types/d3-path@1.0.11': {}
+
   '@types/d3-path@3.1.1': {}
 
   '@types/d3-polygon@3.0.2': {}
@@ -23624,6 +23725,10 @@ snapshots:
 
   '@types/d3-random@3.0.3': {}
 
+  '@types/d3-sankey@0.12.5':
+    dependencies:
+      '@types/d3-shape': 1.3.12
+
   '@types/d3-scale-chromatic@3.1.0': {}
 
   '@types/d3-scale@4.0.9':
@@ -23631,6 +23736,10 @@ snapshots:
       '@types/d3-time': 3.0.4
 
   '@types/d3-selection@3.0.11': {}
+
+  '@types/d3-shape@1.3.12':
+    dependencies:
+      '@types/d3-path': 1.0.11
 
   '@types/d3-shape@3.1.8':
     dependencies:
@@ -26428,6 +26537,10 @@ snapshots:
 
   custom-media-element@1.4.5: {}
 
+  d3-array@2.12.1:
+    dependencies:
+      internmap: 1.0.1
+
   d3-array@3.2.4:
     dependencies:
       internmap: 2.0.3
@@ -26493,6 +26606,8 @@ snapshots:
     dependencies:
       d3-color: 3.1.0
 
+  d3-path@1.0.9: {}
+
   d3-path@3.1.0: {}
 
   d3-polygon@3.0.1: {}
@@ -26500,6 +26615,11 @@ snapshots:
   d3-quadtree@3.0.1: {}
 
   d3-random@3.0.1: {}
+
+  d3-sankey@0.12.3:
+    dependencies:
+      d3-array: 2.12.1
+      d3-shape: 1.3.7
 
   d3-scale-chromatic@3.1.0:
     dependencies:
@@ -26515,6 +26635,10 @@ snapshots:
       d3-time-format: 4.1.0
 
   d3-selection@3.0.0: {}
+
+  d3-shape@1.3.7:
+    dependencies:
+      d3-path: 1.0.9
 
   d3-shape@3.2.0:
     dependencies:
@@ -29158,6 +29282,8 @@ snapshots:
       hasown: 2.0.2
       side-channel: 1.1.0
 
+  internmap@1.0.1: {}
+
   internmap@2.0.3: {}
 
   interpret@1.4.0: {}
@@ -30290,6 +30416,8 @@ snapshots:
   make-iterator@1.0.1:
     dependencies:
       kind-of: 6.0.3
+
+  make-plural@8.1.0: {}
 
   map-cache@0.2.2: {}
 
