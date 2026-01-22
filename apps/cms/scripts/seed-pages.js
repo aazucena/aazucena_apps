@@ -17,58 +17,49 @@ const pagesData = [
     lastUpdated: new Date().toISOString().split('T')[0],
     showTableOfContents: true,
     footerVariant: 'minimal',
-    content: `Last updated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    content: `## 1. Overview
 
-## 1. Introduction
+Your privacy is critically important to me. This Privacy Policy outlines how I handle personal data collected through this portfolio website (aazucena.com). My goal is to be transparent about what is collected and how it is used to provide you with a secure and professional experience.
 
-Welcome to Aldrin Azucena's portfolio website. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.
+## 2. Data Collection
 
-## 2. Information We Collect
+I collect limited information to facilitate communication and understand site performance:
 
-We may collect information about you in a variety of ways. The information we may collect on the website includes:
+- **Contact Form Data:** When you reach out via the contact form, I collect your name, email address, and any message content you provide. This information is used solely to respond to your inquiries.
+- **Analytics & Usage:** I use privacy-conscious analytics tools (like Vercel Analytics and Sentry) to collect non-identifying information such as browser type, page views, and error logs. This helps me maintain site stability and performance.
+- **Cookies:** This site uses minimal essential cookies required for basic functionality and performance monitoring.
 
-- **Personal Data:** Name, email address, and contact information you voluntarily provide through contact forms.
-- **Usage Data:** Information about how you access and use the website, including IP address, browser type, pages visited, and time spent on pages.
-- **Cookies and Tracking Technologies:** We may use cookies, web beacons, and similar tracking technologies to collect information.
+## 3. Third-Party Services
 
-## 3. How We Use Your Information
+To provide a high-performance experience, I utilize several trusted industry partners:
 
-We use the information we collect to:
+- **Vercel:** Hosting and performance analytics.
+- **Railway:** Backend infrastructure and database hosting.
+- **Strapi:** Content management and data storage.
+- **Cloudinary:** Secure media storage and optimization.
+- **Google reCAPTCHA:** To prevent spam and ensure secure form submissions.
 
-- Respond to your inquiries and provide customer support
-- Improve and optimize our website and services
-- Analyze usage patterns and trends
-- Send periodic emails regarding updates or services (with your consent)
+Each of these services maintains its own privacy policy regarding the data they process on my behalf.
 
-## 4. Data Security
+## 4. Data Security & Retention
 
-We use administrative, technical, and physical security measures to protect your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+I implement industry-standard security measures to protect your data. Personal information collected through contact forms is retained only as long as necessary to fulfill the purpose of the communication or as required by law. I do not sell, trade, or otherwise transfer your personal information to outside parties.
 
-## 5. Third-Party Services
+## 5. Your Rights
 
-We may use third-party services for analytics (such as Vercel Analytics, Sentry) and hosting. These third parties have their own privacy policies governing the use of your information.
+Depending on your jurisdiction (including GDPR and CCPA), you may have rights to access, correct, or delete your personal data. If you have any requests regarding your information, please contact me directly.
 
-## 6. Your Rights
+## 6. Policy Updates
 
-Depending on your location, you may have certain rights regarding your personal information, including:
+This policy may be updated to reflect changes in site functionality or legal requirements. The "Last Updated" date at the top of this page will always indicate the most recent version.
 
-- The right to access your personal data
-- The right to rectify inaccurate data
-- The right to request deletion of your data
-- The right to object to or restrict processing
+## 7. Contact Information
 
-## 7. Changes to This Privacy Policy
-
-We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Last updated" date at the top of this policy.
-
-## 8. Contact Us
-
-If you have questions or concerns about this Privacy Policy, please contact us through the contact form on this website.`,
+For any privacy-related questions, please reach out via the contact form or directly at **contact@aazucena.com**.`,
     seo: {
-      metaTitle: 'Privacy Policy - Aldrin Azucena',
-      metaDescription:
-        'Learn how we collect, use, and protect your personal information when you visit our portfolio website.',
-      keywords: 'privacy policy, data protection, personal information, data security, GDPR',
+      metaTitle: 'Privacy Policy | Aldrin Azucena',
+      metaDescription: 'Detailed information on how personal data and privacy are handled on Aldrin Azucena\'s professional portfolio.',
+      keywords: 'privacy policy, data protection, personal information, data security, gdpr, engineering portfolio',
     },
   },
   {
@@ -78,90 +69,51 @@ If you have questions or concerns about this Privacy Policy, please contact us t
     lastUpdated: new Date().toISOString().split('T')[0],
     showTableOfContents: true,
     footerVariant: 'minimal',
-    content: `Last updated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    content: `## 1. Acceptance of Terms
 
-## 1. Acceptance of Terms
+By accessing or using aazucena.com, you agree to comply with and be bound by these Terms of Service. If you do not agree with any part of these terms, please refrain from using this website.
 
-By accessing and using this portfolio website, you accept and agree to be bound by the terms and provision of this agreement.
+## 2. Intellectual Property
 
-## 2. Use License
+Unless otherwise stated, all materials on this website—including code, design, text, animations, and graphics—are the intellectual property of **Aldrin Azucena**.
 
-Permission is granted to temporarily view and navigate the materials (information or software) on this website for personal, non-commercial use only. This is the grant of a license, not a transfer of title, and under this license you may not:
+- **Code Snippets:** Code explicitly shared for educational purposes may be used according to the license specified in the relevant repository.
+- **Creative Assets:** Graphics, logos, and custom animations may not be reproduced or used without prior written consent.
 
-- Modify or copy the materials without permission
-- Use the materials for any commercial purpose or public display
-- Attempt to reverse engineer any software contained on the website
-- Remove any copyright or proprietary notations from the materials
+## 3. Permitted Use
 
-## 3. Intellectual Property
+You are granted a limited, non-exclusive license to view and interact with the materials on this website for personal, non-commercial, and informational purposes. 
 
-All content on this website, including but not limited to text, graphics, logos, images, code, and software, is the property of Aldrin Azucena and is protected by international copyright laws.
+You may **not**:
+- Use the site for any unlawful purpose.
+- Attempt to decompile, reverse engineer, or bypass security features.
+- Use automated systems (bots, scrapers) to extract data without permission.
 
-## 4. Disclaimer
+## 4. Disclaimers
 
-The materials on this website are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+The materials on this website are provided on an "as is" basis. While I strive for accuracy, I make no warranties, expressed or implied, regarding the completeness or reliability of the information shared.
 
-## 5. Limitations
+Technical tutorials and code examples are provided for informational purposes. Implementing them in production environments is done at your own risk.
 
-In no event shall Aldrin Azucena or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on this website.
+## 5. Limitation of Liability
 
-## 6. Links to Third-Party Sites
+In no event shall Aldrin Azucena be liable for any damages (including loss of data, profit, or business interruption) arising out of the use or inability to use the materials on this site, even if advised of the possibility of such damage.
 
-This website may contain links to third-party websites or services that are not owned or controlled by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party sites or services.
+## 6. External Links
 
-## 7. Revisions and Errata
+This website contains links to third-party sites (e.g., GitHub, LinkedIn, external blogs). I am not responsible for the content or privacy practices of these external platforms.
 
-The materials appearing on this website may include technical, typographical, or photographic errors. We do not warrant that any of the materials on this website are accurate, complete, or current.
+## 7. Governing Law
+
+These terms are governed by and construed in accordance with the laws of Canada, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
 
 ## 8. Modifications
 
-We may revise these Terms of Service at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these terms.
-
-## 9. Governing Law
-
-These terms and conditions are governed by and construed in accordance with the laws of your jurisdiction, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
-
-## 10. Contact Information
-
-If you have any questions about these Terms of Service, please contact us through the contact form on this website.`,
+I reserve the right to revise these terms at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms of Service.`,
     seo: {
-      metaTitle: 'Terms of Service - Aldrin Azucena',
-      metaDescription:
-        'Terms and conditions for using Aldrin Azucena\'s portfolio website, including use license, disclaimers, and limitations.',
-      keywords: 'terms of service, terms and conditions, legal, use license, disclaimer',
-    },
-  },
-  {
-    slug: 'contact',
-    title: 'Get in Touch',
-    template: 'default',
-    lastUpdated: new Date().toISOString().split('T')[0],
-    showTableOfContents: false,
-    footerVariant: 'default',
-    content: `## Let's Connect
-
-I'm always interested in hearing about new opportunities, collaborations, and interesting projects. Whether you have a question, want to discuss a project, or just want to say hello, feel free to reach out!
-
-### What I Can Help With
-
-- Full-stack web development (Astro, React, TypeScript)
-- Headless CMS integration (Strapi, PostgreSQL)
-- Advanced animations and 3D web experiences (GSAP, Three.js, PixiJS)
-- AI/ML integration (LangChain, LangGraph, Claude API)
-- Mobile app development (Flutter, React Native)
-- Music technology and interactive audio experiences
-
-### Response Time
-
-I typically respond to inquiries within 1-2 business days. For urgent matters, please mention that in your message.
-
-You can also find me on the social platforms listed in the footer of this website.`,
-    seo: {
-      metaTitle: 'Contact - Aldrin Azucena',
-      metaDescription:
-        'Get in touch with Aldrin Azucena for full-stack development, AI/ML integration, music technology, or collaboration opportunities.',
-      keywords:
-        'contact, hire developer, full-stack developer, web development, collaboration, freelance',
+      metaTitle: 'Terms of Service | Aldrin Azucena',
+      metaDescription: 'Standard terms and conditions for using the professional portfolio and technical resources of Aldrin Azucena.',
+      keywords: 'terms of service, legal, intellectual property, code license, engineering portfolio',
     },
   },
 ];
@@ -171,41 +123,29 @@ async function seedPages() {
   let strapi = null;
 
   try {
-    // Compile and load Strapi
     const appContext = await compileStrapi();
     strapi = await createStrapi(appContext).load();
 
-    console.log('🌱 Seeding Legal Pages...\n');
+    console.log('🌱 Seeding Refined Legal Pages...\n');
 
     let created = 0;
     let existing = 0;
     let updated = 0;
 
     for (const page of pagesData) {
-      // Check if page already exists
       const existingPage = await strapi.db
         .query('api::page.page')
         .findOne({ where: { slug: page.slug } });
 
       if (existingPage) {
-        // Update if lastUpdated is older
-        const existingDate = new Date(existingPage.lastUpdated);
-        const newDate = new Date(page.lastUpdated);
-
-        if (newDate > existingDate || !existingPage.content) {
-          await strapi.entityService.update('api::page.page', existingPage.id, {
-            data: page,
-          });
-          console.log(`🔄 Updated: ${page.title} (/${page.slug})`);
-          updated++;
-        } else {
-          console.log(`✓ Exists: ${page.title} (/${page.slug})`);
-          existing++;
-        }
+        await strapi.entityService.update('api::page.page', existingPage.id, {
+          data: page,
+        });
+        console.log(`🔄 Updated: ${page.title} (/${page.slug})`);
+        updated++;
         continue;
       }
 
-      // Create new page
       await strapi.entityService.create('api::page.page', {
         data: page,
       });
@@ -217,24 +157,10 @@ async function seedPages() {
     console.log(`\n📊 Summary:`);
     console.log(`   Created: ${created}`);
     console.log(`   Updated: ${updated}`);
-    console.log(`   Existing (unchanged): ${existing}`);
     console.log(`   Total: ${pagesData.length}`);
     console.log('\n✅ Legal pages seeding complete');
-    console.log('\n📝 Pages accessible at:');
-    pagesData.forEach((page) => {
-      console.log(`   - https://aazucena.com/${page.slug}`);
-    });
   } catch (error) {
     console.error('❌ Error seeding pages:', error);
-    // Log full validation error details
-    // @ts-ignore
-    if (error.details && error.details.errors) {
-      console.error('\n📋 Validation Error Details:');
-      // @ts-ignore
-      error.details.errors.forEach((err, index) => {
-        console.error(`  Error ${index + 1}:`, JSON.stringify(err, null, 2));
-      });
-    }
     throw error;
   } finally {
     if (strapi) {
@@ -243,5 +169,4 @@ async function seedPages() {
   }
 }
 
-// Export for unified seed runner
 module.exports = seedPages;
