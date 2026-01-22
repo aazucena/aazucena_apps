@@ -3,29 +3,30 @@
  * Featured projects horizontal grid with draggable slider
  */
 
-import type { JSX } from 'react';
-import { useState, useEffect } from 'react';
 import { ArrowLeftRight as ArrowsHorizontal } from '@mynaui/icons-react';
-import { projects as staticProjects } from './data/projects';
-import type { ProjectData } from '~/types/portfolio';
+import type { JSX } from 'react';
+import { useEffect, useState } from 'react';
+import { useSectionData } from '../contexts';
+import { SectionLayout } from './layouts';
+import type { SectionProps } from './types';
 
-export interface ProjectsSectionProps {
-  projects?: ProjectData[];
-}
+export interface ProjectsSectionProps  extends SectionProps {}
 
-export function ProjectsSection({ projects = staticProjects }: ProjectsSectionProps): JSX.Element {
+export function ProjectsSection({ title = 'Featured Projects', subtitle = 'Real Solutions, Real Impact' }: ProjectsSectionProps): JSX.Element {
+  const { projects, showcase } = useSectionData();
   const [currentPage, setCurrentPage] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState(0);
   const [hasMoved, setHasMoved] = useState(false);
 
-  // Only show first 7 projects
-  const displayedProjects = projects.slice(0, 7);
+  // Use CMS-configured max projects displayed
+  const displayedProjects = projects.slice(0, showcase.display.maxProjectsDisplayed);
 
-  // Split into pages of 4
+  // Split into pages using CMS-configured projects per page
   const pages = [];
-  for (let i = 0; i < displayedProjects.length; i += 4) {
-    pages.push(displayedProjects.slice(i, i + 4));
+  const { projectsPerPage } = showcase.display;
+  for (let i = 0; i < displayedProjects.length; i += projectsPerPage) {
+    pages.push(displayedProjects.slice(i, i + projectsPerPage));
   }
 
   // Add "View More" card to last page
@@ -43,20 +44,19 @@ export function ProjectsSection({ projects = staticProjects }: ProjectsSectionPr
     setHasMoved(false);
   };
 
-  const handleCardClick = (project: typeof projects[0]) => {
-    // Only trigger click if user didn't drag
+  const handleCardClick = (slug: string) => {
+    // Only navigate if user didn't drag
     if (!hasMoved) {
-      console.log('Clicked project:', project.title);
-      // TODO: Add your click handler here (e.g., open modal, navigate to project page, etc.)
+      window.location.href = `/projects/${slug}`;
     }
   };
 
-  const handleViewMoreClick = () => {
-    // Only trigger click if user didn't drag
-    if (!hasMoved) {
-      console.log('Clicked View More');
-      // TODO: Add your view more handler here
+  const handleViewMoreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Prevent navigation if user dragged
+    if (hasMoved) {
+      e.preventDefault();
     }
+    // Let browser handle navigation to href if not dragged
   };
 
   useEffect(() => {
@@ -118,20 +118,17 @@ export function ProjectsSection({ projects = staticProjects }: ProjectsSectionPr
   }, [isDragging, dragStart, currentPage, totalPages, hasMoved]);
 
   return (
-    <div className="container mx-auto max-w-7xl">
-      <div className="text-center">
-        <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-          Featured Projects
-          <span className="block text-3xl md:text-4xl mt-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Real Solutions, Real Impact
-          </span>
-        </h2>
-
-        {/* Drag Hint */}
+    <SectionLayout
+      title={title}
+      subtitle={subtitle}
+      contentWidth="full"
+      headerClassName="text-center"
+    >
+      {/* Drag Hint */}
         <div className="text-center mb-4">
           <p className="text-gray-400 text-sm flex items-center justify-center gap-2 animate-pulse">
             <ArrowsHorizontal className="w-5 h-5" />
-            Drag to explore more projects
+            {showcase.ui.dragHintText}
           </p>
         </div>
 
@@ -156,34 +153,40 @@ export function ProjectsSection({ projects = staticProjects }: ProjectsSectionPr
                         <div
                           key={index}
                           className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 text-left w-[420px] cursor-pointer hover:bg-white/10 hover:border-cyan-400/30 transition-all duration-300"
-                          onClick={() => handleCardClick(project)}
+                          onClick={() => handleCardClick(project.slug)}
                         >
                           <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
-                          <p className="text-gray-300 mb-4">{project.description}</p>
+                          <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
                           <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag, tagIndex) => (
+                            {project.tags.slice(0, 3).map((tag, tagIndex) => (
                               <span
                                 key={tagIndex}
                                 className="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-sm"
                               >
-                                {tag}
+                                {tag.label}
                               </span>
                             ))}
+                            {project.tags.length > 3 && (
+                              <span className="px-3 py-1 bg-white/10 text-gray-400 rounded-full text-sm">
+                                +{project.tags.length - 3}
+                              </span>
+                            )}
                           </div>
                         </div>
                       ))}
 
                       {/* Add View More card to last page */}
                       {isLastPage && (
-                        <div
-                          className="bg-gradient-to-br from-cyan-400/20 to-blue-500/20 backdrop-blur-sm rounded-lg p-6 border border-cyan-400/30 text-left w-[420px] flex items-center justify-center cursor-pointer hover:from-cyan-400/30 hover:to-blue-500/30 transition-all duration-300"
+                        <a
+                          href={showcase.navigation.projectsListPagePath}
+                          className="bg-gradient-to-br from-cyan-400/20 to-blue-500/20 backdrop-blur-sm rounded-lg p-6 border border-cyan-400/30 text-left w-[420px] flex items-center justify-center cursor-pointer hover:from-cyan-400/30 hover:to-blue-500/30 transition-all duration-300 block no-underline"
                           onClick={handleViewMoreClick}
                         >
                           <div className="text-center">
-                            <h3 className="text-3xl font-bold text-white mb-2">View More</h3>
-                            <p className="text-gray-300">Explore all projects</p>
+                            <h3 className="text-3xl font-bold text-white mb-2">{showcase.ui.viewMoreButtonLabel}</h3>
+                            <p className="text-gray-300">{showcase.ui.viewMoreButtonSubtitle}</p>
                           </div>
-                        </div>
+                        </a>
                       )}
                     </div>
                   </div>
@@ -207,7 +210,6 @@ export function ProjectsSection({ projects = staticProjects }: ProjectsSectionPr
             />
           ))}
         </div>
-      </div>
-    </div>
+    </SectionLayout>
   );
 }

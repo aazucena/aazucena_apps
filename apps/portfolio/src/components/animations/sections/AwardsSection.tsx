@@ -4,20 +4,20 @@
  */
 
 import type { JSX } from 'react';
-import { awards as staticAwards } from './data/awards';
-import { getGradientColors } from '../utilities/colors';
+import { useSectionData } from '../contexts';
 import { useModal } from '../hooks';
 import { AwardModal } from '../ui';
+import { getGradientColors } from '../utilities/colors';
+import { SectionLayout } from './layouts';
 import type { Award } from './data/awards';
-import type { AwardData } from '~/types/portfolio';
+import type { SectionProps } from './types';
 
-export interface AwardsSectionProps {
-  awards?: AwardData[];
-}
+export interface AwardsSectionProps extends SectionProps {}
 
-export function AwardsSection({ awards = staticAwards }: AwardsSectionProps): JSX.Element {
-  const certifications = awards.filter(award => award.type === 'certification');
-  const achievementAwards = awards.filter(award => award.type === 'award');
+export function AwardsSection({ title = 'Awards & Certifications', subtitle = 'Recognition & Achievements' }: AwardsSectionProps): JSX.Element {
+  const { awards: data } = useSectionData();
+  const certifications = data.filter(award => award.type === 'certification');
+  const achievementAwards = data.filter(award => award.type === 'award');
 
   const {
     isOpen: isAwardModalOpen,
@@ -29,16 +29,12 @@ export function AwardsSection({ awards = staticAwards }: AwardsSectionProps): JS
 
   return (
     <>
-      <div className="container mx-auto max-w-7xl">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-            Awards & Certifications
-            <span className="block text-3xl md:text-4xl mt-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Recognition & Achievements
-            </span>
-          </h2>
-
-          {/* Hexagonal Grid Layout */}
+      <SectionLayout
+        title={title}
+        subtitle={subtitle}
+        contentWidth="medium"
+      >
+        {/* Hexagonal Grid Layout */}
           <div className="relative mt-16 flex items-center justify-center min-h-[600px]">
             <div className="relative w-full max-w-4xl">
               {/* Certifications Label */}
@@ -74,8 +70,7 @@ export function AwardsSection({ awards = staticAwards }: AwardsSectionProps): JS
               </div>
             </div>
           </div>
-        </div>
-      </div>
+      </SectionLayout>
 
       {/* Award Modal - Outside container to avoid z-index issues */}
       {isAwardModalOpen && selectedAward && (

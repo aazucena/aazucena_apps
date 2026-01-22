@@ -118,7 +118,7 @@ export function getLoadingSteps(customSteps?: LoadingStep[]): LoadingStep[] {
   const stepMap = new Map<number, LoadingStep>();
 
   // Add all base steps
-  baseSteps.forEach(step => stepMap.set(step.id, step));
+  // baseSteps.forEach(step => stepMap.set(step.id, step));
 
   // Add or override with custom steps
   customSteps.forEach(customStep => {

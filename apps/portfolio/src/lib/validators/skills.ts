@@ -1,41 +1,18 @@
 import { z } from 'zod';
-
+import { StrapiSkillCategorySchema } from './skill-category';
 /**
  * Zod validation schema for Strapi Skill content type
  * Ensures runtime type safety for CMS data
  */
 export const StrapiSkillSchema = z.object({
-  id: z.number(),
-  documentId: z.string().optional(),
+  id: z.number().nullable().optional(),
+  documentId: z.string().nullable().optional(),
   name: z.string().max(100),
-  display: z.enum(['hidden', 'standard', 'featured', 'core']),
+  display: z.enum(['hidden', 'standard', 'featured', 'core'] as const),
 
   // CHANGED: category is now a relation to skill-category, not hardcoded enum
-  category: z
-    .object({
-      id: z.number(),
-      name: z.string(), // kebab-case (e.g., "frontend")
-      label: z.string(), // Display label (e.g., "Frontend Development")
-      display: z.enum(['hidden', 'visible']).nullable().optional(),
-      icon: z.string().nullable().optional(),
-      variant: z
-        .enum([
-          'cyan-blue',
-          'purple-pink',
-          'green-emerald',
-          'blue-indigo',
-          'yellow-orange',
-          'pink-red',
-          'teal-cyan',
-          'orange-red',
-          'violet-purple',
-          'indigo-violet',
-        ])
-        .nullable()
-        .optional(),
-    })
-    .nullable()
-    .optional(),
+  // Strapi v5 wraps relations in a 'data' property
+  category: StrapiSkillCategorySchema,
 
   proficiency: z.enum(['learning', 'competent', 'proficient', 'expert']),
   icon: z.string().nullable().optional(),
@@ -46,14 +23,13 @@ export const StrapiSkillSchema = z.object({
   lastUsed: z.string().nullable().optional(), // ISO date string
 
   // Strapi metadata
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  publishedAt: z.string().optional(),
-  locale: z.string().optional(),
-
+  createdAt: z.string().nullable().optional(),
+  updatedAt: z.string().nullable().optional(),
+  publishedAt: z.string().nullable().optional(),
   // Relations (optional, only if populated)
   experiences: z.array(z.any()).optional(),
   projects: z.array(z.any()).optional(),
+  education: z.array(z.any()).optional(), // ManyToMany relation to Education (Phase 0.5)
 });
 
 /**

@@ -17,3 +17,9 @@ export {
   getAwardGradient,
   formatDate,
 } from './contentHelpers';
+
+export { debounce, debounceInline } from './debounce';
+
+export { getTagColorClasses, isValidTagColor, getAllTagColors, type TagColor } from './tagColors';
+
+export { extractTOC, slugify, type TOCHeading } from './toc';

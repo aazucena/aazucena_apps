@@ -12,3 +12,4 @@ export * from './ExperienceModal';
 export * from './AwardModal';
 export * from './ScrollIndicators';
 export * from './ScrollDownIndicator';
+export * from './FlipWordsTagline';

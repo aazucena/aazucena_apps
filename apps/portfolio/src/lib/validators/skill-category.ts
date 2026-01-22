@@ -6,37 +6,29 @@ import { z } from 'zod';
  */
 export const StrapiSkillCategorySchema = z.object({
   id: z.number(),
-  documentId: z.string().optional(),
-
-  // Core fields
-  name: z.string().max(50).regex(/^[a-z0-9-]+$/), // kebab-case identifier
-  label: z.string().max(100), // Display label (e.g., "Frontend Development")
-  icon: z.string().nullable().optional(), // Icon from @mynaui/icons-react
-  display: z.enum(['hidden', 'visible']).nullable().optional(), // Visibility control
+  documentId: z.string(),
+  name: z.string().regex(/^[a-z0-9-]+$/), // kebab-case (e.g., "frontend")
+  label: z.string(), // Display label (e.g., "Frontend Development")
+  icon: z.string().nullable().optional(),
+  createdAt: z.string().nullable().optional(),
+  updatedAt: z.string().nullable().optional(),
+  publishedAt: z.string().nullable().optional(),
+  display: z.enum(['hidden', 'visible']).default('visible'),
   variant: z
     .enum([
-      'cyan-blue',
-      'purple-pink',
-      'green-emerald',
-      'blue-indigo',
-      'yellow-orange',
-      'pink-red',
-      'teal-cyan',
-      'orange-red',
-      'violet-purple',
-      'indigo-violet',
+        "cyan-blue",
+        "purple-pink",
+        "green-emerald",
+        "blue-indigo",
+        "yellow-orange",
+        "pink-red",
+        "teal-cyan",
+        "orange-red",
+        "violet-purple",
+        "indigo-violet"
     ])
     .nullable()
-    .optional(), // Color variant for category styling
-
-  // Strapi metadata
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  publishedAt: z.string().optional(),
-  locale: z.string().optional(),
-
-  // Relations (optional, only if populated)
-  skills: z.array(z.any()).optional(), // OneToMany relation to skills
+    .optional(),
 });
 
 /**

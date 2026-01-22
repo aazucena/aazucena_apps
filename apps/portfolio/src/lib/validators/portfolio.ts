@@ -55,14 +55,23 @@ export const StrapiPortfolioSchema = z.object({
   education: z
     .array(
       z.object({
+        type: z.enum([
+          "diploma",
+          "bachelor",
+          "master",
+          "doctorate",
+          "certificate"
+        ]),
         institution: z.string(),
         degree: z.string(),
-        field: z.string().optional(),
-        startDate: z.string().optional(),
-        endDate: z.string().optional(),
-        current: z.boolean().optional(),
-        description: z.string().optional(),
-        grade: z.string().optional(),
+        field: z.string(),
+        current: z.boolean(),
+        startDate: z.string(),
+        graduationDate: z.string().nullable().optional(),
+        location: z.string().nullable().optional(),
+        description: z.string().nullable().optional(),
+        gpa: z.number().min(0).max(5).nullable().optional(),
+        honors: z.string().nullable().optional(),
       })
     )
     .optional(),

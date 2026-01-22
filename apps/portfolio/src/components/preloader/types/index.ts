@@ -1,7 +1,5 @@
 import type { ComponentType, CSSProperties } from 'react';
-
-// Icon component type
-export type IconComponent = ComponentType<{ className?: string }>;
+import type { IconComponent } from '~/types/icons';
 
 // Loading step definition
 export interface LoadingStep {
@@ -40,6 +38,7 @@ export interface BehaviorConfig {
   continueButton?: boolean;
   lazyLoad?: boolean;
   preloadAssets?: boolean;
+  showOnce?: boolean; // Show preloader only once per session (uses sessionStorage)
 }
 
 export interface ContentConfig {
@@ -244,4 +243,5 @@ export interface ThemeConfig {
 export interface PreloaderPropsWithTheme extends PreloaderProps {
   theme?: PreloaderTheme;
   customTheme?: Partial<ThemeConfig>;
+  currentPath?: string; // Current page path for conditional behavior
 }

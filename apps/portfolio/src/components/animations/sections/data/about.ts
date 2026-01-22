@@ -1,30 +1,85 @@
 /**
- * About Data
- * Personal information and statistics
+ * Profile Data
+ * Personal/portfolio information from Portfolio single type
+ * NOTE: This is different from AboutData (About section content)
  */
 
 import type { BlocksContent } from '@strapi/blocks-react-renderer';
 
-export interface AboutData {
+/**
+ * Social Link - matches Strapi shared.social-links component
+ * Used for social media links in SocialMenu and footer
+ */
+export interface SocialLink {
+  id?: number;
+  platform:
+  | 'GitHub'
+  | 'LinkedIn'
+  | 'Twitter'
+  | 'YouTube'
+  | 'Instagram'
+  | 'Facebook'
+  | 'TikTok'
+  | 'Discord'
+  | 'Twitch'
+  | 'Mastodon';
+  url: string;
+  icon?: string | null; // Strapi returns null for empty fields
+  text?: string | null; // Display name override (e.g., "My GitHub")
+  description?: string | null; // Custom description (e.g., "Check out my projects")
+  openInNewTab?: boolean | null; // Strapi returns null for empty fields
+}
+
+export interface Education {
+  type: 'high-school' |
+  'diploma' |
+  'associate' |
+  'bachelor' |
+  'master' |
+  'doctorate' |
+  'certificate' |
+  'bootcamp' |
+  'online-course';
+  degree: string;
+  field: string;
+  institution: string;
+  startDate: string;
+  graduationDate?: string;
+  current: boolean;
+  location?: string;
+  gpa?: number;
+  description?: string;
+  honors?: string;
+}
+
+export interface ProfileData {
   name: string;
   title: string;
   tagline: string;
   flipWords: string[];
   descriptions: BlocksContent;
+  bio?: string; // NEW: Raw markdown bio from Portfolio single type
   highlights: BlocksContent;
   stats: Array<{ value: string; label: string; icon?: string; description?: string }>;
-  education: {
-    degree: string;
-    institution: string;
-    year: string;
-  };
+  education: Education[];
+  resume?: string;
+  profileImage?: string;
+  // New CMS contact fields
+  email?: string;
+  emailDescription?: string; // Custom description for email in social menu
+  phone?: string;
+  preferredContactMethod?: string[];
+  yearsOfExperience?: number;
+  location?: string;
+  // Social links from CMS (shared.social-links component)
+  socialLinks?: SocialLink[];
 }
 
 /**
- * Static fallback data in BlocksContent format
+ * Static fallback profile data in BlocksContent format
  * Used when CMS is unavailable
  */
-export const aboutData: AboutData = {
+export const profileData: ProfileData = {
   name: 'Aldrin Azucena',
   title: 'Full Stack Software Developer',
   tagline: 'Building Products That Drive Impact',
@@ -76,9 +131,15 @@ export const aboutData: AboutData = {
     { value: '30+', label: 'Databases Migrated' },
     { value: '50+', label: 'Client Sites Managed' }
   ],
-  education: {
-    degree: 'B.S. Computer Science',
-    institution: 'University of Lethbridge',
-    year: '2023'
-  }
+  education: [
+    {
+      type: 'bachelor',
+      field: 'Computer Science',
+      degree: 'Bachelor of Science',
+      institution: 'University of Lethbridge',
+      startDate: '09-09-2019',
+      graduationDate: '04-21-2023',
+      current: false,
+    }
+  ]
 };

@@ -1,83 +1,22 @@
 ---
 import Layout from '../layouts/HomeLayout.astro';
-import HeroSection from '~/components/animations/Section';
-import {
-  getPortfolio,
-  getSkills,
-  getProjects,
-  getExperiences,
-  getTestimonials,
-  getAwards,
-  getPosts,
-} from '~/lib/api';
-import {
-  transformAboutData,
-  transformSkillsData,
-  transformProjectsData,
-  transformExperiencesData,
-  transformTestimonialsData,
-  transformAwardsData,
-  transformPostsData,
-} from '~/lib/transformers';
-import { aboutData } from '~/components/animations/sections/data/about';
-import * as data from '~/components/animations/sections/data';
-import type { PortfolioData } from '~/types/portfolio';
+import Homepage from '~/components/animations/Section';
+import { getHomepageData } from '~/lib/api/homepage-data';
 
-// Fetch all CMS data in parallel at build time
-const [portfolio, skills, projects, experiences, testimonials, awards, postsResult] = await Promise.all([
-  getPortfolio({ cache: 'force-cache' }).catch((err) => {
-    console.warn('Failed to fetch portfolio data:', err.message);
-    return null;
-  }),
-  getSkills().catch((err) => {
-    console.warn('Failed to fetch skills data:', err.message);
-    return [];
-  }),
-  getProjects().catch((err) => {
-    console.warn('Failed to fetch projects data:', err.message);
-    return [];
-  }),
-  getExperiences().catch((err) => {
-    console.warn('Failed to fetch experiences data:', err.message);
-    return [];
-  }),
-  getTestimonials().catch((err) => {
-    console.warn('Failed to fetch testimonials data:', err.message);
-    return [];
-  }),
-  getAwards().catch((err) => {
-    console.warn('Failed to fetch awards data:', err.message);
-    return [];
-  }),
-  getPosts({ featured: true, pageSize: 6 }).catch((err) => {
-    console.warn('Failed to fetch posts data:', err.message);
-    return { posts: [], meta: {} };
-  }),
-]);
-
-// Transform CMS data to component format with fallbacks
-const portfolioData: PortfolioData = {
-  about: portfolio ? transformAboutData(portfolio) : aboutData,
-  skills: skills ? transformSkillsData(skills || []) : data.skillCategories,
-  projects: projects ? transformProjectsData(projects || []) : data.projects,
-  experiences: experiences ? transformExperiencesData(experiences || []) : data.experiences,
-  testimonials: testimonials ? transformTestimonialsData(testimonials || []) : data.testimonials,
-  awards: awards ? transformAwardsData(awards || []) : data.awards,
-  posts: postsResult?.posts?.length > 0 ? transformPostsData(postsResult?.posts || []) : data.blogPosts,
-};
-
-// Log data fetching status (helpful for debugging)
-console.log('CMS Data Status:', {
-  portfolio: portfolio ? '✅ Loaded' : '⚠️ Using fallback',
-  skills: skills?.length > 0 ? `✅ ${skills.length} loaded` : '⚠️ Empty',
-  projects: projects?.length > 0 ? `✅ ${projects.length} loaded` : '⚠️ Empty',
-  experiences: experiences?.length > 0 ? `✅ ${experiences.length} loaded` : '⚠️ Empty',
-  testimonials: testimonials?.length > 0 ? `✅ ${testimonials.length} loaded` : '⚠️ Empty',
-  awards: awards?.length > 0 ? `✅ ${awards.length} loaded` : '⚠️ Empty',
-  posts: postsResult?.posts?.length > 0 ? `✅ ${postsResult.posts.length} loaded` : '⚠️ Empty',
-});
+// Fetch all homepage data from Strapi CMS in parallel
+const { data, homepage, portfolio, animationConfig } = await getHomepageData();
 ---
 
-<Layout title="Aldrin Azucena">
-  <HeroSection client:visible portfolioData={portfolioData} />
+<Layout title={portfolio.name || "Aldrin Azucena"}>
+  {/* Pass animation config to client-side */}
+  <script is:inline define:vars={{ animationConfig }}>
+    window.__ANIMATION_CONFIG__ = animationConfig;
+  </script>
+
+  <Homepage
+    client:load
+    data={data}
+    portfolio={portfolio}
+    content={homepage}
+  />
 </Layout>

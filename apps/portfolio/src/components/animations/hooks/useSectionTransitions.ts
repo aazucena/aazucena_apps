@@ -5,38 +5,17 @@
 
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
-import type { SectionRefs } from './useSectionRefs';
+import type { SectionRef } from './useSectionRefs';
 
 export function useSectionTransitions(
   currentSection: number,
-  refs: SectionRefs
+  refs: SectionRef[]
 ): void {
   useEffect(() => {
-    const {
-      heroContentRef,
-      aboutContentRef,
-      projectsContentRef,
-      experienceContentRef,
-      skillsContentRef,
-      testimonialsContentRef,
-      blogContentRef,
-      awardsContentRef
-    } = refs;
 
-    if (!heroContentRef.current || !aboutContentRef.current || !projectsContentRef.current ||
-        !experienceContentRef.current || !skillsContentRef.current || !testimonialsContentRef.current ||
-        !blogContentRef.current || !awardsContentRef.current) return;
+    if (!refs || !refs.length || refs.length < 1) return;
 
-    const sections = [
-      heroContentRef.current,
-      aboutContentRef.current,
-      projectsContentRef.current,
-      experienceContentRef.current,
-      skillsContentRef.current,
-      testimonialsContentRef.current,
-      blogContentRef.current,
-      awardsContentRef.current
-    ];
+    const sections = refs.map((ref) => ref.current);
 
     sections.forEach((section, index) => {
       if (index === currentSection) {

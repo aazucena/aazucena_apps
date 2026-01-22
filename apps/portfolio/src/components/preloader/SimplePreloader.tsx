@@ -64,6 +64,7 @@ export default function SimplePreloader({
   // Theme
   theme = 'default',
   customTheme,
+  currentPath = '/', // Accepted for prop consistency but not used in simple variant
 }: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
 
@@ -122,6 +123,13 @@ export default function SimplePreloader({
   });
 
   const themeStyles = useTheme({ theme, customTheme });
+
+  // Emit 'preloader-mounted' event when component mounts
+  // This signals BrandIconLoader to hide and allows preloader to take over
+  useEffect(() => {
+    const event = new CustomEvent('preloader-mounted');
+    document.dispatchEvent(event);
+  }, []); // Empty deps - run only on mount
 
   // Sync body background with preloader theme
   useEffect(() => {

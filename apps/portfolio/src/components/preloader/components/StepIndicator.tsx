@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Badge } from '../../ui/badge';
-import { type Icon, CircleNotch as LoadingCircle, CheckCircleSolid as Checkmark } from '@mynaui/icons-react';
+import { CircleNotch as LoadingCircle, CheckCircleSolid as Checkmark } from '@mynaui/icons-react';
+import { IconRenderer } from '../../blocks/IconRenderer';
 import type { LoadingStep } from '../types';
 import type { ThemeStyles } from '../hooks/useTheme';
 
@@ -19,7 +20,11 @@ export const StepIndicator = memo(function StepIndicator({
   stepComplete,
   themeStyles,
 }: StepIndicatorProps) {
-  const StepIcon = step.icon as Icon;
+  // Defensive check: if icon is null/undefined, skip rendering this step
+  if (!step.icon) {
+    console.error(`[StepIndicator] Step "${step.name}" has no icon component`);
+    return null;
+  }
 
   // Determine background and border styles based on state
   const getContainerStyle = () => {
@@ -85,7 +90,12 @@ export const StepIndicator = memo(function StepIndicator({
         style={getIconStyle()}
         aria-hidden="true"
       >
-        <StepIcon stroke="2.5" className="w-4 h-4" />
+        <IconRenderer
+          icon={step.icon}
+          className="w-4 h-4"
+          stroke="2.5"
+          aria-hidden
+        />
       </div>
 
       <div className="flex-1 text-left min-w-0">

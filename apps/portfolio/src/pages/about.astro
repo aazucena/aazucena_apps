@@ -1,0 +1,418 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getAbout } from '~/lib/api/about';
+import { getPortfolio } from '~/lib/api/portfolio';
+import { fetchEducation } from '~/lib/api/education';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
+import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
+import { EducationItem } from '~/components/ui/EducationItem';
+import { WorkingStyleSection } from '~/components/ui/WorkingStyleSection';
+import { 
+  User, 
+  Award, 
+  Rocket, 
+  ArrowRight, 
+  Download, 
+  Location, 
+  Calendar, 
+  BookOpen, 
+  Chip as Cpu, 
+  Wrench,
+  Heart,
+  Compass,
+  Music,
+  Globe,
+  SmileSquare,
+  ClockCircle as Clock,
+  Terminal,
+  ExternalLink,
+  Box,
+  LayersOne as Layers,
+  Zap
+} from '@mynaui/icons-react';
+
+// Fetch data in parallel
+let about = null;
+let portfolio = null;
+let education = [];
+
+try {
+  [about, portfolio, education] = await Promise.all([
+    getAbout(),
+    getPortfolio(),
+    fetchEducation()
+  ]);
+} catch (error) {
+  console.error('Error fetching data for about page:', error);
+  return Astro.redirect('/404');
+}
+
+if (!about || !portfolio) {
+  return Astro.redirect('/404');
+}
+
+const pageTitle = `About | ${portfolio.name}`;
+const pageDescription = about.tagline;
+
+// Sort education by start date descending
+const sortedEducation = [...education].sort((a, b) => {
+  return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+});
+
+// Technical Mastery (Reflecting specific bio achievements)
+const mastery = [
+  {
+    name: 'Frontend Architecture',
+    exp: '4+ Years',
+    description: 'Building high-performance React systems and reusable component libraries that help engineering teams move faster.',
+    color: 'from-blue-500 to-cyan-500'
+  },
+  {
+    name: 'Legacy Modernization',
+    exp: '3+ Years',
+    description: 'Specialized in modernizing aging systems and executing massive, zero-loss data migrations for enterprise applications.',
+    color: 'from-purple-500 to-indigo-500'
+  },
+  {
+    name: 'Human-AI Coexistence',
+    exp: '2+ Years',
+    description: 'Integrating AI as a collaborative tool to empower creativity and build context-aware systems that solve real problems.',
+    color: 'from-emerald-500 to-teal-500'
+  }
+];
+
+// Narrative Roots (The 'Why')
+const roots = [
+  {
+    title: 'Music Theory',
+    desc: 'Classically-trained background that taught me how structure and emotion coexist within complex systems.',
+    icon: Music
+  },
+  {
+    title: 'Visual Arts',
+    desc: 'Years of photo/video editing and storyboarding shaped my eye for pacing, narrative, and user experience.',
+    icon: SmileSquare
+  },
+  {
+    title: 'System Mechanics',
+    desc: 'Fascinated by competitive gaming systems—fighting combos and emergent rules that require tactical problem-solving.',
+    icon: Zap
+  }
+];
+
+// Beyond the Screen (Personal passions)
+const interests = [
+  {
+    title: 'Live Coding & Sound',
+    desc: 'Exploring the intersection of code and composition using Strudel.cc, TidalCycles, and Supercollider.',
+    icon: Terminal,
+    color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+  },
+  {
+    title: 'Competitive Play',
+    desc: 'Enjoying the tension and clarity that come from close, contested play in fighting games and strategy.',
+    icon: Rocket,
+    color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20'
+  }
+];
+
+// Developer Ecosystem
+const workflow = [
+  { name: 'VS Code', detail: 'Customized logic-first environment' },
+  { name: 'Strudel.cc', detail: 'Live coding & algorave exploration' },
+  { name: 'Docker', detail: 'Containerization & local dev' },
+  { name: 'Figma', detail: 'Design systems & visual handoff' },
+  { name: 'Git / GitHub', detail: 'CI/CD & Collaborative reviews' },
+  { name: 'Jira & Agile', detail: 'Sprint planning & tracking' }
+];
+
+const languages = [
+  { name: 'English', level: 'Native / Bilingual' },
+  { name: 'French', level: 'Novice' }
+];
+
+const coreValues = [
+  {
+    title: 'Efficiency First',
+    description: 'I believe in writing code that machines can execute perfectly, but humans can read easily. Optimization is a journey, not a destination.',
+    icon: Cpu,
+    color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+  },
+  {
+    title: 'Empathy-Driven UX',
+    description: 'Software is for people. I strive to understand the human on the other side of the screen, ensuring every interaction feels natural and accessible.',
+    icon: Heart,
+    color: 'text-pink-600 bg-pink-50 dark:bg-pink-900/20'
+  },
+  {
+    title: 'Lifelong Learning',
+    description: 'The technical landscape changes every week. I embrace the "beginner mindset," constantly exploring new paradigms, from AI to low-level systems.',
+    icon: Compass,
+    color: 'text-green-600 bg-green-50 dark:bg-green-900/20'
+  }
+];
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": portfolio.fullName,
+      "jobTitle": portfolio.occupation,
+      "description": about.tagline
+    }
+  })} />
+
+  <main class="min-h-screen bg-white dark:bg-gray-950">
+    <div class="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 print:hidden" aria-hidden="true"></div>
+
+    <!-- Hero Section -->
+    <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 py-20 md:py-32 overflow-hidden relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
+          <!-- Profile Image -->
+          {portfolio.profileImage && (
+            <div class="flex-shrink-0 relative group">
+              <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+              <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden border-2 border-white dark:border-gray-800 shadow-2xl">
+                <img 
+                  src={portfolio.profileImage} 
+                  alt={portfolio.name} 
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+            </div>
+          )}
+          
+          <div class="flex-1 text-center md:text-left space-y-6">
+            <div>
+              <h1 class="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tighter leading-none mb-4">
+                Hi, I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">{portfolio.name.split(' ')[0]}</span>.
+              </h1>
+              <p class="text-2xl md:text-3xl font-bold text-gray-400 dark:text-gray-500 tracking-tight">
+                {portfolio.title}
+              </p>
+            </div>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-2xl leading-relaxed">
+              {about.tagline}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] dark:opacity-[0.05] whitespace-nowrap">
+        <span class="text-[20rem] font-black uppercase tracking-tighter">{portfolio.name}</span>
+      </div>
+    </header>
+
+    <!-- Narrative Content -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-32">
+          
+          <!-- 1. Biography -->
+          <section id="biography" class="relative">
+            <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-8 tracking-tight">
+              The Story So Far
+            </h2>
+            <article class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black">
+              {portfolio.bio ? (
+                <MarkdownRenderer content={portfolio.bio} />
+              ) : (
+                <BlocksRenderer content={about.descriptions} blocks={defaultBlockRenderers} />
+              )}
+            </article>
+          </section>
+
+          <!-- 1.5 Narrative Roots (The Origins) -->
+          <section id="roots" class="space-y-10">
+            <h2 class="text-xs font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">
+              Narrative Roots
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {roots.map((root) => (
+                <div class="space-y-4">
+                  <div class="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 dark:text-gray-600 border border-gray-100 dark:border-gray-800">
+                    <root.icon size={20} />
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{root.title}</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{root.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- 2. Core Competencies -->
+          <section id="mastery" class="space-y-12">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
+              <Layers size={24} className="text-blue-600" />
+              Focus Areas
+            </h2>
+            <div class="grid grid-cols-1 gap-6">
+              {mastery.map((item) => (
+                <div class="p-8 rounded-3xl bg-gray-50/50 dark:bg-gray-900/30 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-8 items-start hover:border-blue-500/20 transition-all group">
+                  <div class="flex-shrink-0">
+                    <div class={`w-16 h-1 bg-gradient-to-r ${item.color} rounded-full mb-4`}></div>
+                    <div class="text-2xl font-black text-gray-900 dark:text-white">{item.exp}</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">Experience</div>
+                  </div>
+                  <div class="space-y-3">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.name}</h3>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- 3. Working Style -->
+          <section id="working-style" class="space-y-12">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">
+              How I Think
+            </h2>
+            <WorkingStyleSection client:visible />
+          </section>
+
+          <!-- 4. Beyond the Screen -->
+          <section id="interests" class="space-y-10">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
+              <SmileSquare size={24} className="text-orange-500" />
+              Beyond the Screen
+            </h2>
+            <div class="prose prose-lg dark:prose-invert max-w-none bg-gray-50/50 dark:bg-gray-900/30 p-8 rounded-3xl border border-gray-100 dark:border-gray-800">
+              <p>
+                My creative life often feels like it's coming full circle. I'm finding that my fascination with <strong>emergent systems</strong> and <strong>expressive rules</strong> translates perfectly between the keyboard and the soundboard.
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 not-prose">
+                {interests.map(interest => (
+                  <div class="p-6 rounded-2xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 space-y-4">
+                    <div class={`w-10 h-10 rounded-xl flex items-center justify-center ${interest.color}`}>
+                      <interest.icon size={20} />
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{interest.title}</h3>
+                      <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{interest.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <!-- 5. Education -->
+          {sortedEducation && sortedEducation.length > 0 && (
+            <section id="education" class="space-y-10">
+              <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
+                <BookOpen size={24} className="text-blue-600" />
+                Academic Background
+              </h2>
+              <div class="space-y-12 px-3">
+                {sortedEducation.map((edu) => (
+                  <EducationItem edu={edu} client:visible />
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="space-y-12">
+          <!-- CV Action -->
+          <div class="bg-gray-900 dark:bg-white rounded-3xl p-8 text-white dark:text-gray-900 shadow-2xl relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-4 opacity-10 rotate-12 group-hover:rotate-0 transition-transform duration-700">
+              <Download size={80} />
+            </div>
+            <h3 class="text-xl font-bold mb-4 relative z-10">Curriculum Vitae</h3>
+            <p class="text-gray-400 dark:text-gray-500 text-sm mb-8 leading-relaxed relative z-10">
+              Need a copy for your records? Grab the full technical breakdown here.
+            </p>
+            {portfolio.resume && (
+              <a 
+                href={portfolio.resume} 
+                target="_blank" 
+                class="flex items-center justify-center gap-3 w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 transition-all shadow-lg active:scale-95 relative z-10"
+              >
+                <Download size={18} />
+                Download PDF
+              </a>
+            )}
+          </div>
+
+          <!-- Professional Meta -->
+          <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
+            <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+              Vital Stats
+            </h2>
+            <div class="space-y-6">
+              {portfolio.location && (
+                <div class="flex items-center gap-4 group">
+                  <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                    <Location size={20} />
+                  </div>
+                  <div>
+                    <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Based in</div>
+                    <div class="text-sm font-bold text-gray-900 dark:text-white">{portfolio.location}</div>
+                  </div>
+                </div>
+              )}
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-xl bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600 group-hover:scale-110 transition-transform">
+                  <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Availability</div>
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">Open to Opportunities</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional Workflow -->
+          <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
+            <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+              Modern Workflow
+            </h2>
+            <div class="space-y-6">
+              {workflow.map(item => (
+                <div class="group">
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="text-sm font-bold text-gray-900 dark:text-white">{item.name}</div>
+                    <Wrench size={14} className="text-gray-300 dark:text-gray-700 group-hover:text-blue-500 transition-colors" />
+                  </div>
+                  <div class="text-[10px] text-gray-400 dark:text-gray-500 italic">{item.detail}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Human Languages -->
+          <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
+            <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+              Communication
+            </h2>
+            <div class="space-y-6">
+              {languages.map(lang => (
+                <div class="flex items-center gap-4 group">
+                  <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform">
+                    <Globe size={20} />
+                  </div>
+                  <div>
+                    <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">{lang.name}</div>
+                    <div class="text-sm font-bold text-gray-900 dark:text-white">{lang.level}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</PageLayout>

@@ -1,0 +1,121 @@
+---
+import ListLayout from '~/layouts/ListLayout.astro';
+import type { FilterConfig } from '~/layouts/ListLayout.astro';
+import { getPosts } from '~/lib/api/posts';
+import type { BlogPost } from '~/components/animations/sections/data';
+import { getTagColorClasses } from '~/lib/utils/tagColors';
+import { ClockCircle as Clock, BookOpen, ArrowRight, FileText, Star, ExternalLink } from '@mynaui/icons-react';
+
+// Fetch all posts
+let posts: BlogPost[] = [];
+try {
+  posts = await getPosts(false, 100);
+} catch (error) {
+  console.error('Error fetching blog posts:', error);
+}
+
+// Get unique tags for filtering
+const allTags = [...new Set(posts.flatMap((p) => p.tags.map((t: any) => t.label)))].sort();
+
+const filters: FilterConfig[] = [
+  { id: 'tag', label: 'Tag', options: allTags }
+];
+---
+
+<ListLayout
+  title="Writings"
+  description={`A collection of ${posts.length} articles, tutorials, and deep dives into software engineering, architecture, and creative coding.`}
+  watermark="JOURNAL"
+  filters={filters}
+  searchPlaceholder="Search articles by title or tag..."
+  layout="grid"
+  maxWidth="7xl"
+  hasItems={posts.length > 0}
+>
+  {posts.map((post) => (
+    <article
+      class="item-card flex flex-col group bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-2xl hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-2 relative"
+      data-filter-tag={post.tags.map((t: any) => t.label).join(',')}
+      data-search={`${post.title} ${post.description} ${post.tags.map(t => t.label).join(' ')}`.toLowerCase()}
+    >
+      <!-- Featured/External Glow -->
+      {post.featured && (
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent pointer-events-none z-0"></div>
+      )}
+
+      <!-- Cover Image -->
+      <div class="relative h-60 overflow-hidden z-10">
+        {post.coverImageUrl ? (
+          <img 
+            src={post.coverImageUrl} 
+            alt={post.title} 
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
+            loading="lazy" 
+          />
+        ) : (
+          <div class="w-full h-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 flex items-center justify-center relative">
+            <div class="absolute inset-0 bg-black/[0.02] dark:bg-white/[0.02]"></div>
+            <FileText size={64} className="text-blue-500/20 dark:text-blue-400/20" />
+          </div>
+        )}
+        
+        <!-- Badges Overlay -->
+        <div class="absolute top-6 left-6 flex flex-col gap-2">
+          {post.featured && (
+            <span class="bg-yellow-400 text-yellow-950 text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-1.5">
+              <Star size={12} /> Featured
+            </span>
+          )}
+          {post.isExternal && (
+            <span class="bg-black/40 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
+              <ExternalLink size={12} /> External
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div class="p-8 flex-1 flex flex-col z-10">
+        <!-- Metadata -->
+        <div class="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">
+          <time datetime={post.date} class="flex items-center gap-1.5">
+            <Clock size={14} className="text-blue-500/50" />
+            {post.date}
+          </time>
+          <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700"></span>
+          <span class="flex items-center gap-1.5">
+            <BookOpen size={14} className="text-purple-500/50" />
+            {post.readTime}
+          </span>
+        </div>
+
+        <h3 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight tracking-tighter">
+          <a href={post.url}>
+            {post.title}
+          </a>
+        </h3>
+
+        <p class="text-gray-600 dark:text-gray-400 text-sm mb-8 line-clamp-3 leading-relaxed font-medium">
+          {post.description}
+        </p>
+
+        <div class="mt-auto space-y-6">
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2">
+            {post.tags.map((tag: any) => (
+              <span class={`inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border ${getTagColorClasses(tag.color)}`}>
+                {tag.label}
+              </span>
+            ))}
+          </div>
+
+          <div class="pt-6 border-t border-gray-100 dark:border-gray-800">
+            <a href={post.url} class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-black uppercase tracking-[0.2em] flex items-center gap-2 group/link">
+              Read Article
+              <ArrowRight size={16} className="transform group-hover/link:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  ))}
+</ListLayout>

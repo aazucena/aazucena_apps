@@ -3,31 +3,32 @@
  * About me section with description, highlights, stats, and education
  */
 
-import type { JSX } from 'react';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-import type { AboutData } from './data/about';
-import { defaultBlockRenderers, highlightBlockRenderers } from '~/components/blocks/BlockRenderers';
+import type { JSX } from 'react';
+import { darkBlockRenderers, darkHighlightBlockRenderers } from '~/components/blocks/BlockRenderers';
+import { IconRenderer } from '~/components/blocks/IconRenderer';
+import { cn } from '~/lib/utils';
+import type { CardLink } from '~/lib/validators/about';
+import type { IconComponent } from '~/types/icons';
+import { useSectionData } from '../contexts';
+import { SectionLayout } from './layouts';
+import type { SectionProps } from './types';
 
-export interface AboutSectionProps {
-  data: AboutData;
-}
+export interface AboutSectionProps extends SectionProps {}
 
-export function AboutSection({ data }: AboutSectionProps): JSX.Element {
+export function AboutSection({ title = 'About Me', subtitle }: AboutSectionProps): JSX.Element {
+  const { about } = useSectionData();
   return (
-    <div className="container mx-auto max-w-7xl">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-          About Me
-          <span className="block text-3xl md:text-4xl mt-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            {data.tagline}
-          </span>
-        </h2>
-
-        <div className="space-y-6 text-lg md:text-xl text-center">
+    <SectionLayout
+      title={title}
+      subtitle={subtitle || about.tagline}
+      contentWidth="narrow"
+    >
+      <div className="space-y-6 text-lg md:text-xl text-center">
           {/* Render descriptions with rich text formatting */}
           <BlocksRenderer
-            content={data.descriptions}
-            blocks={defaultBlockRenderers}
+            content={about.descriptions}
+            blocks={darkBlockRenderers}
           />
 
           <div className="mt-8 bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10">
@@ -35,14 +36,14 @@ export function AboutSection({ data }: AboutSectionProps): JSX.Element {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-base text-left">
               {/* Render highlights with checkmarks */}
               <BlocksRenderer
-                content={data.highlights}
-                blocks={highlightBlockRenderers}
+                content={about.highlights}
+                blocks={darkHighlightBlockRenderers}
               />
             </div>
           </div>
 
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
-            {data.stats.map((stat, index) => (
+            {about.stats.map((stat, index) => (
               <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10">
                 <div className="text-3xl font-bold text-cyan-400 mb-2">{stat.value}</div>
                 <div className="text-sm text-gray-400">{stat.label}</div>
@@ -51,9 +52,22 @@ export function AboutSection({ data }: AboutSectionProps): JSX.Element {
           </div>
 
           {/* Learn More Links */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className={cn("mt-8 grid grid-cols-1 md:grid-cols-2 gap-3")}>
+            {about.learnMoreCards.map((card, index) => (
+              <LearnMoreCard
+                key={index}
+                href={card.button.url}
+                title={card.title}
+                variant={card.variant}
+                icon={card.icon}
+                buttonText={card.button.label}
+                buttonIcon={card.button.icon}
+              >
+                {card.description}
+              </LearnMoreCard>
+            ))}
             {/* Get to Know Me Card */}
-            <a
+            {/* <a
               href="/about"
               className="group bg-gradient-to-br from-cyan-500/10 to-blue-500/10 hover:from-cyan-500/20 hover:to-blue-500/20 border border-cyan-400/30 rounded-lg p-4 transition-all duration-300 hover:scale-105"
             >
@@ -74,10 +88,10 @@ export function AboutSection({ data }: AboutSectionProps): JSX.Element {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-            </a>
+            </a> */}
 
             {/* Career Journey Card */}
-            <a
+            {/* <a
               href="/journey"
               className="group bg-gradient-to-br from-purple-500/10 to-pink-500/10 hover:from-purple-500/20 hover:to-pink-500/20 border border-purple-400/30 rounded-lg p-4 transition-all duration-300 hover:scale-105"
             >
@@ -98,10 +112,74 @@ export function AboutSection({ data }: AboutSectionProps): JSX.Element {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-            </a>
+            </a> */}
           </div>
         </div>
-      </div>
-    </div>
+    </SectionLayout>
   );
 }
+
+
+interface LearnMoreCardProps {
+  href?: string;
+  title: string;
+  variant: CardLink['variant'];
+  className?: string;
+  iconClassName?: string;
+  children?: React.ReactNode;
+  icon: IconComponent;
+  buttonText: string;
+  buttonIcon: IconComponent;
+  buttonClassName?: string;
+}
+
+const DEFAULT_LEARN_MORE_CARD_VARIANT = 'cyan-blue';
+interface LearnMoreCardVariantResult {
+  primary: string;
+  secondary: string;
+}
+function getCardLinkVariant(value: string): LearnMoreCardVariantResult {
+  if (!value.includes('-') || value.split('-').length !== 2) {
+    value = DEFAULT_LEARN_MORE_CARD_VARIANT;
+  }
+  const [ primary, secondary ] = value.split('-');
+  return {
+    primary: `${primary}`,
+    secondary: `${secondary}`
+  }
+}
+
+function LearnMoreCard({ className, iconClassName, buttonClassName, variant, href, title, children, icon, buttonText, buttonIcon }: LearnMoreCardProps): JSX.Element {
+
+  const { primary, secondary } = getCardLinkVariant(variant as string);
+
+  const defaultCardClassName = `group bg-gradient-to-br from-${primary}-500/10 to-${secondary}-500/10 hover:from-${primary}-400/20 hover:to-${secondary}-500/20 border border-${primary}-400/30 rounded-lg p-4 transition-all duration-300 hover:scale-105`
+  const defaultIconClassName = `w-8 h-8 bg-gradient-to-br from-${primary}-400 to-${secondary}-500 rounded-lg flex items-center justify-center flex-shrink-0`
+  const defaultButtonClassName = `flex items-center gap-2 text-${primary}-400 text-xs font-medium`
+
+
+  return (
+    
+    <a
+      href={href}
+      className={cn(defaultCardClassName, className)}
+    >
+      <div className="flex items-center gap-3 mb-2">
+        <div className={cn(defaultIconClassName, iconClassName)}>
+          <IconRenderer icon={icon} className="w-5 h-5 text-white" />
+        </div>
+        <h4 className="text-base font-bold text-white">{title}</h4>
+      </div>
+      {children && (
+        <p className="text-xs text-gray-400 mb-2">
+          {children}
+        </p>
+      )}
+      
+      <div className={cn(defaultButtonClassName, buttonClassName)}>
+        <span>{buttonText}</span>
+        {buttonIcon && (<IconRenderer icon={buttonIcon} className="w-3 h-3 transition-transform group-hover:translate-x-1" />)}
+      </div>
+    </a>
+  )
+};

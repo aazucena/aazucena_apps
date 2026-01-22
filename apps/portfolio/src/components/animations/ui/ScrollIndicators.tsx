@@ -4,20 +4,20 @@
  */
 
 import type { JSX } from 'react';
-import { SECTION_NAMES } from '../sections/data';
 
 export interface ScrollIndicatorsProps {
   visible: boolean;
   currentSection: number;
   onSectionClick: (index: number) => void;
+  sectionNames: string[]; // Dynamic section names from CMS
 }
 
-export function ScrollIndicators({ currentSection, onSectionClick, visible }: ScrollIndicatorsProps): JSX.Element {
+export function ScrollIndicators({ currentSection, onSectionClick, visible, sectionNames }: ScrollIndicatorsProps): JSX.Element {
   if (!visible) return <></>;
 
   return (
     <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
-      {SECTION_NAMES.map((section, index) => (
+      {sectionNames.map((section, index) => (
         <button
           key={section}
           onClick={() => onSectionClick(index)}

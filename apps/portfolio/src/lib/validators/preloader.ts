@@ -83,6 +83,7 @@ export const StrapiPreloaderConfigSchema = z.object({
 
   autoStart: z.boolean(),
   enableSkip: z.boolean(),
+  showOnce: z.boolean(),
   lazyLoad: z.boolean(),
   preloadAssets: z.boolean(),
   enableAnimations: z.boolean(),

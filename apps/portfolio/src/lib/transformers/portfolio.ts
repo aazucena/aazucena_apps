@@ -30,15 +30,8 @@ export function transformPortfolio(strapiPortfolio: StrapiPortfolio): PortfolioC
     title: strapiPortfolio.occupation,
     tagline: 'Building Products That Drive Impact', // Default - should come from About
     flipWords: ['ideas', 'concepts', 'visions', 'dreams'], // Default - should come from About
-    descriptions: strapiPortfolio.bio ? [
-      {
-        type: 'paragraph',
-        children: [{
-          type: 'text',
-          text: typeof strapiPortfolio.bio === 'string' ? strapiPortfolio.bio : 'Full-stack professional who transforms ideas into market-ready products.',
-        }],
-      },
-    ] : [
+    bio: strapiPortfolio.bio, // NEW: Pass raw markdown bio
+    descriptions: [
       {
         type: 'paragraph',
         children: [{
@@ -54,7 +47,7 @@ export function transformPortfolio(strapiPortfolio: StrapiPortfolio): PortfolioC
       },
     ], // Default - should come from About
     stats: [], // Default - should come from About
-    education: educationData,
+    education: educationData as any,
     resume,
     profileImage,
     // NEW: Contact fields from CMS
@@ -65,7 +58,7 @@ export function transformPortfolio(strapiPortfolio: StrapiPortfolio): PortfolioC
     yearsOfExperience: strapiPortfolio.yearsOfExperience ?? undefined,
     location: strapiPortfolio.location ?? undefined,
     // Social links from CMS (shared.social-links component)
-    socialLinks: strapiPortfolio.socialLinks,
+    socialLinks: strapiPortfolio.socialLinks as any,
   };
 }
 

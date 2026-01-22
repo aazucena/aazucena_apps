@@ -15,7 +15,6 @@ export async function getPortfolio(): Promise<ProfileData> {
           profileImage: true,
           resumeFile: true,
           socialLinks: true,
-          education: true,
         },
       },
       cache: 'force-cache',

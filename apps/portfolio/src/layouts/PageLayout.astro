@@ -1,0 +1,37 @@
+---
+import BaseLayout, { type Props as BaseLayoutProps } from "./BaseLayout.astro";
+import Footer from '~/components/Footer.astro';
+import { Navbar } from '~/components/ui/Navbar';
+import { BackToTop } from '~/components/ui/BackToTop';
+import { getPortfolio } from '~/lib/api/portfolio';
+import { getWebsiteConfig } from '~/lib/api/website-config';
+
+const props: BaseLayoutProps = Astro.props;
+
+// Fetch data for layout
+const [portfolio, websiteConfig] = await Promise.all([
+  getPortfolio(),
+  getWebsiteConfig(),
+]);
+
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout {...props}>
+  <Navbar 
+    siteName={websiteConfig.siteName} 
+    currentPath={currentPath} 
+    logoUrl={websiteConfig.siteLogo?.url || '/icon.svg'}
+    client:load 
+  />
+  
+  <div class="pt-20 md:pt-28">
+    <slot />
+  </div>
+  
+  <Footer
+    siteName={websiteConfig.siteName}
+    socialLinks={portfolio.socialLinks}
+  />
+  <BackToTop client:load />
+</BaseLayout>

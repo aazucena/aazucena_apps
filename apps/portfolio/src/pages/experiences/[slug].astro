@@ -1,0 +1,263 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getExperiences } from '~/lib/api/experiences';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
+import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
+import { MetricCard } from '~/components/ui/MetricCard';
+import { TechStackDistribution } from '~/components/ui/TechStackDistribution';
+import { ReadingProgress } from '~/components/ui/ReadingProgress';
+import { TableOfContents } from '~/components/ui/TableOfContents';
+import { RelatedLinks } from '~/components/ui/RelatedLinks';
+import { Briefcase, Location, Calendar, ArrowRight, ArrowLeft, Globe, BrandLinkedin } from '@mynaui/icons-react';
+
+// Generate static paths for all experiences and pass data via props
+export async function getStaticPaths() {
+  try {
+    const experiences = await getExperiences();
+
+    return experiences.map((experience, index) => {
+      const nextExperience = index > 0 ? experiences[index - 1] : null;
+      const prevExperience = index < experiences.length - 1 ? experiences[index + 1] : null;
+
+      return {
+        params: { slug: experience.slug },
+        props: {
+          experience,
+          nextExperience,
+          prevExperience
+        },
+      };
+    });
+  } catch (error) {
+    console.error('Error generating experience paths:', error);
+    return [];
+  }
+}
+
+const { experience, nextExperience, prevExperience } = Astro.props;
+
+if (!experience) {
+  return Astro.redirect('/404');
+}
+
+// Extract Impact Metrics
+const extractedMetrics = (experience.achievements || [])
+  .filter(achievement => /([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/.test(achievement.title))
+  .map(achievement => {
+    const match = achievement.title.match(/([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/);
+    if (!match) return null;
+    const value = match[0];
+    let label = achievement.title.replace(value, '').trim();
+    label = label.replace(/^(increase(d)?|decrease(d)?|reduction|growth|boost(ed)?)(\s+(by|in|of))?\s*/i, '');
+    if (label.length < 2) label = achievement.title;
+
+    return {
+      value,
+      label,
+      description: achievement.description,
+      icon: achievement.icon
+    };
+  })
+  .filter(Boolean)
+  .slice(0, 4);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "Aldrin Azucena",
+      "worksFor": { "@type": "Organization", "name": experience.company },
+      "jobTitle": experience.position,
+      "startDate": experience.startDate,
+      "endDate": experience.endDate || undefined
+    }
+  ]
+};
+---
+
+<PageLayout title={`${experience.position} | ${experience.company}`} description={experience.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <ReadingProgress client:load />
+
+  <main class="min-h-screen bg-white dark:bg-gray-950">
+    <!-- Gradient Accent -->
+    <div class="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 print:hidden" aria-hidden="true"></div>
+
+    <!-- Hero Header -->
+    <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 py-20 md:py-32 overflow-hidden relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-12 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 print:hidden">
+          <ol class="flex items-center gap-2">
+            <li><a href="/" class="hover:text-blue-600 transition-colors">Home</a></li>
+            <li>/</li>
+            <li><a href="/experiences" class="hover:text-blue-600 transition-colors">Journey</a></li>
+            <li>/</li>
+            <li class="text-blue-600 truncate max-w-[150px]">{experience.company}</li>
+          </ol>
+        </nav>
+
+        <div class="flex flex-col md:flex-row md:items-start gap-8">
+          <div class={`flex-shrink-0 w-24 h-24 rounded-[2rem] bg-gradient-to-br ${experience.logoGradient} flex items-center justify-center text-white font-black text-3xl shadow-2xl`}>
+            {experience.logo}
+          </div>
+          <div class="flex-1 space-y-4 text-center md:text-left">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-none tracking-tighter">
+              {experience.position}
+            </h1>
+            <div class="text-2xl font-bold text-blue-600 dark:text-blue-400 tracking-tight">
+              {experience.company}
+            </div>
+          </div>
+        </div>
+
+        <!-- Meta Summary Grid -->
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-gray-50 dark:bg-gray-900/50 rounded-[2rem] border border-gray-100 dark:border-gray-800">
+          {[
+            { label: 'Duration', value: experience.duration, icon: Calendar },
+            { label: 'Location', value: experience.location, icon: Location },
+            { label: 'Engagement', value: experience.employmentType, icon: Briefcase },
+            { label: 'Environment', value: experience.workMode, icon: Globe }
+          ].map(stat => (
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-gray-400">
+                <stat.icon size={12} className="text-blue-500" />
+                {stat.label}
+              </div>
+              <div class="text-sm font-bold text-gray-900 dark:text-white">{stat.value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Watermark -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] dark:opacity-[0.05] whitespace-nowrap z-0">
+        <span class="text-[20rem] font-black uppercase tracking-tighter italic">EXPERIENCE</span>
+      </div>
+    </header>
+
+    <TableOfContents containerSelector="#case-study-content" client:idle />
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
+        <!-- Main Content -->
+        <div id="case-study-content" class="lg:col-span-2 space-y-24">
+          <!-- Overview -->
+          <section id="overview" class="space-y-8">
+            <h2 class="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">Mission Overview</h2>
+            <article class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed">
+              <MarkdownRenderer content={experience.description} />
+            </article>
+          </section>
+
+          <!-- Impact -->
+          {extractedMetrics.length > 0 && (
+            <section id="impact" class="space-y-10">
+              <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">Core Impact</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {extractedMetrics.map(metric => (
+                  <MetricCard client:visible {...metric} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Responsibilities -->
+          {experience.responsibilities && (
+            <section id="responsibilities" class="space-y-10">
+              <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">Architecture & Responsibilities</h2>
+              <div class="p-10 bg-gray-50 dark:bg-gray-900/30 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 prose prose-md dark:prose-invert max-w-none">
+                <BlocksRenderer content={experience.responsibilities} blocks={defaultBlockRenderers} />
+              </div>
+            </section>
+          )}
+
+          <!-- Projects -->
+          {experience.projects && experience.projects.length > 0 && (
+            <section id="projects" class="space-y-10">
+              <div class="flex items-center gap-4">
+                <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">Featured Work</h2>
+                <div class="flex-grow h-px bg-gray-100 dark:bg-gray-800"></div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {experience.projects.map(project => (
+                  <a href={`/projects/${project.slug}`} class="group p-8 rounded-[2rem] bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:border-blue-500/20 transition-all duration-500 flex flex-col h-full">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">{project.title}</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 flex-grow mb-6">{project.shortDescription}</p>
+                    <div class="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                      View Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="space-y-12">
+          <!-- Tech Distribution -->
+          <div class="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
+            <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+              Technology DNA
+            </h2>
+            <TechStackDistribution skills={experience.skills} client:visible />
+          </div>
+
+          <!-- Company Info -->
+          <div class="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
+            <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+              The Organization
+            </h2>
+            <div class="space-y-6">
+              {[
+                { label: 'Industry', value: experience.industry },
+                { label: 'Company Size', value: experience.companySize },
+                { label: 'Direct Site', value: experience.companyWebsite, isLink: true }
+              ].map(item => item.value && (
+                <div>
+                  <div class="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">{item.label}</div>
+                  {item.isLink ? (
+                    <a href={item.value} target="_blank" class="text-sm font-bold text-blue-600 hover:underline flex items-center gap-1.5 truncate">
+                      {new URL(item.value).hostname} <ArrowRight size={12} />
+                    </a>
+                  ) : (
+                    <div class="text-sm font-bold text-gray-900 dark:text-white capitalize">{item.value}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <RelatedLinks links={experience.relatedLinks} />
+        </aside>
+      </div>
+
+      <!-- Detail Navigation -->
+      {(nextExperience || prevExperience) && (
+        <div class="mt-20 pt-12 border-t border-gray-100 dark:border-gray-900">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {nextExperience ? (
+              <a href={`/experiences/${nextExperience.slug}`} class="group p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 transition-all text-left space-y-2">
+                <div class="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center gap-2">
+                  <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Next Role
+                </div>
+                <div class="font-bold text-gray-900 dark:text-white text-xl tracking-tighter">{nextExperience.position}</div>
+              </a>
+            ) : <div/>}
+            {prevExperience && (
+              <a href={`/experiences/${prevExperience.slug}`} class="group p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 transition-all text-right space-y-2">
+                <div class="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center justify-end gap-2">
+                  Previous Role <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+                <div class="font-bold text-gray-900 dark:text-white text-xl tracking-tighter">{prevExperience.position}</div>
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  </main>
+</PageLayout>

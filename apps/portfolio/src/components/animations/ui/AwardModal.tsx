@@ -3,7 +3,7 @@
  * Modal for displaying award/certification details
  */
 
-import type { JSX, RefObject } from 'react';
+import { useEffect, type JSX, type RefObject } from 'react';
 import type { Award } from '../sections/data/awards';
 import { getBadgeClasses } from '../utilities/colors';
 
@@ -14,6 +14,26 @@ export interface AwardModalProps {
 }
 
 export function AwardModal({ award, onClose, modalRef }: AwardModalProps): JSX.Element {
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+
+    // Get scrollbar width to prevent layout shift
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    // Lock scroll
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    // Cleanup: restore original overflow when modal closes
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    };
+  }, []);
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"

@@ -1,5 +1,36 @@
+import type { BlocksContent } from '@strapi/blocks-react-renderer';
 import type { StrapiPost } from '~/lib/validators/posts';
 import type { BlogPost } from '~/components/animations/sections/data/blog';
+import { transformWebLinks } from './web-link';
+import type { WebLink } from '~/lib/validators/web-link';
+
+/**
+ * Blog post detail interface with full richtext content
+ */
+export interface BlogPostDetail {
+  title: string;
+  slug: string;
+  description: BlocksContent; // Full richtext content
+  descriptionPlainText: string; // Plain text excerpt for meta description
+  date: string;
+  tags: Array<{ label: string; color: string }>;
+  readTime: string;
+  url: string;
+  isExternal: boolean;
+  status?: 'Planned' | 'In Progress' | 'Completed' | 'On Hold';
+  featured?: boolean;
+  coverImageUrl?: string;
+  coverImageAlt?: string;
+  relatedLinks?: WebLink[];
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string;
+    canonicalURL?: string;
+    metaRobots?: string;
+    openGraph?: any;
+  };
+}
 
 /**
  * Generate tag color if not provided by CMS
@@ -69,6 +100,7 @@ export function transformPost(strapiPost: StrapiPost): BlogPost {
     title: strapiPost.title,
     description: description || '',
     date: formatDate(strapiPost.publishedAt || strapiPost.createdAt),
+    publishedAt: strapiPost.publishedAt || strapiPost.createdAt,
     tags,
     readTime,
     url,
@@ -94,6 +126,54 @@ export function transformPosts(
   });
 
   return filtered.map(transformPost);
+}
+
+/**
+ * Transform Strapi post to frontend post detail (with full richtext)
+ */
+export function transformPostDetail(strapiPost: StrapiPost): BlogPostDetail {
+  // Transform tags
+  const tags = (strapiPost.tags || []).map((tag) => ({
+    label: tag.label,
+    color: tag.color || getTagColor(tag.label),
+  }));
+
+  // Extract plain text description for SEO
+  const descriptionPlainText = extractPlainText(strapiPost.description);
+
+  // Calculate estimated read time
+  const wordCount = descriptionPlainText.split(/\s+/).length;
+  const estimatedMinutes = Math.max(1, Math.ceil(wordCount / 200));
+  const readTime = `${estimatedMinutes} min read`;
+
+  // Use CMS url or fallback to slug-based URL
+  const url = strapiPost.url || `/blog/${strapiPost.slug}`;
+  const isExternal = strapiPost.isExternal ?? false;
+
+  return {
+    title: strapiPost.title,
+    slug: strapiPost.slug,
+    description: strapiPost.description, // Full richtext (BlocksContent)
+    descriptionPlainText,
+    date: formatDate(strapiPost.publishedAt || strapiPost.createdAt),
+    tags,
+    readTime,
+    url,
+    isExternal,
+    status: strapiPost.status,
+    featured: strapiPost.featured ?? false,
+    coverImageUrl: strapiPost.coverImage?.src?.url,
+    coverImageAlt: strapiPost.coverImage?.altText,
+    relatedLinks: transformWebLinks(strapiPost.relatedLinks),
+    seo: strapiPost.seo ? {
+      metaTitle: strapiPost.seo.metaTitle,
+      metaDescription: strapiPost.seo.metaDescription,
+      keywords: strapiPost.seo.keywords,
+      canonicalURL: strapiPost.seo.canonicalURL,
+      metaRobots: strapiPost.seo.metaRobots,
+      openGraph: strapiPost.seo.openGraph,
+    } : undefined,
+  };
 }
 
 /**

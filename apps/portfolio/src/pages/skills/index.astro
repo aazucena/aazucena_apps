@@ -1,0 +1,204 @@
+---
+import ListLayout from '~/layouts/ListLayout.astro';
+import { getSkills } from '~/lib/api/skills';
+import { getProjects } from '~/lib/api/projects';
+import { getExperiences } from '~/lib/api/experiences';
+import { fetchEducation } from '~/lib/api/education';
+import { IconRenderer } from '~/components/blocks/IconRenderer';
+import { 
+  Chip as Cpu, 
+  Zap, 
+  Box, 
+  LayersOne as Layers, 
+  CircleCheck, 
+  Star, 
+  Briefcase, 
+  BookOpen
+} from '@mynaui/icons-react';
+
+// Fetch skills, projects, experiences, and education to calculate usage
+const [skillCategories, projects, experiences, education] = await Promise.all([
+  getSkills('all'),
+  getProjects('listed'),
+  getExperiences(),
+  fetchEducation()
+]);
+
+const pageTitle = 'Technical Expertise';
+const pageDescription = 'A comprehensive index of my technical stack, tools, and methodologies, categorized by domain and impact.';
+
+// Map skills to project counts
+const skillProjectCounts = new Map<string, number>();
+projects.forEach(project => {
+  project.techStack.forEach(skill => {
+    const skillName = typeof skill === 'string' ? skill : skill.name;
+    skillProjectCounts.set(skillName, (skillProjectCounts.get(skillName) || 0) + 1);
+  });
+});
+
+// Map skills to experience counts
+const skillExperienceCounts = new Map<string, number>();
+experiences.forEach(exp => {
+  exp.skills.forEach(skill => {
+    const skillName = typeof skill === 'string' ? skill : skill.name;
+    skillExperienceCounts.set(skillName, (skillExperienceCounts.get(skillName) || 0) + 1);
+  });
+});
+
+// Map skills to education counts
+const skillEducationCounts = new Map<string, number>();
+education.forEach(edu => {
+  (edu.skills || []).forEach(skill => {
+    const skillName = typeof skill === 'string' ? skill : skill.name;
+    skillEducationCounts.set(skillName, (skillEducationCounts.get(skillName) || 0) + 1);
+  });
+});
+
+const filters = [
+  { id: 'domain', label: 'Domain', options: skillCategories.map(c => c.label) }
+];
+---
+
+<ListLayout
+  title={pageTitle}
+  description={pageDescription}
+  filters={filters}
+  watermark="FULL-STACK"
+  searchPlaceholder="Search technologies (e.g. React, PostgreSQL)..."
+  layout="none"
+  maxWidth="7xl"
+  ignoreMaxWidth={true}
+  hasItems={skillCategories.length > 0}
+>
+  <div class="relative group/board">
+    <!-- Right Side Fade Overlay (Subtle hint) -->
+    <div class="absolute right-0 top-0 bottom-6 w-24 bg-gradient-to-l from-white dark:from-gray-950 to-transparent z-30 pointer-events-none hidden md:block opacity-40"></div>
+
+    <!-- Kanban Board Container with Custom Scrollbar -->
+    <div class="kanban-board flex gap-6 overflow-x-auto pb-6 pt-4 px-4 sm:px-6 lg:px-8 snap-x custom-scrollbar">
+      {skillCategories.map((category) => (
+        <section 
+          class="item-card kanban-lane flex-shrink-0 w-[80vw] md:w-[340px] snap-start group"
+          data-filter-domain={category.label}
+          data-search={`${category.label} ${category.skills.join(' ')}`.toLowerCase()}
+        >
+          <!-- Lane Container -->
+          <div class="h-full bg-gray-50/50 dark:bg-gray-900/50 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 flex flex-col transition-all duration-500 hover:bg-white dark:hover:bg-gray-900 hover:shadow-2xl hover:border-blue-500/10">
+            
+            <!-- Lane Header (Sticky) -->
+            <div class="p-6 pb-2 sticky top-0 bg-transparent z-20">
+              <div class="flex items-center gap-4 mb-6">
+                <div class={`w-12 h-12 rounded-2xl bg-gradient-to-br ${category.gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                  <IconRenderer icon={category.icon || Cpu} size={24} />
+                </div>
+                <div class="flex-1">
+                  <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight">{category.label}</h2>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">{category.skills.length} Items</span>
+                    <div class={`h-1 flex-1 bg-gradient-to-r ${category.gradient} rounded-full opacity-20`}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lane Items -->
+            <div class="flex-1 p-4 pt-0 space-y-3 overflow-y-auto max-h-[60vh] scrollbar-hide">
+              {category.skills.map((skillName) => {
+                const projectCount = skillProjectCounts.get(skillName) || 0;
+                const expCount = skillExperienceCounts.get(skillName) || 0;
+                const eduCount = skillEducationCounts.get(skillName) || 0;
+                const isHighlyUsed = (projectCount + expCount) >= 3;
+                
+                return (
+                  <div 
+                    class="kanban-card p-5 rounded-2xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 shadow-sm hover:shadow-lg transition-all duration-300 group/skill"
+                  >
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                      <div class="flex items-center gap-2.5">
+                        <div class={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isHighlyUsed ? 'bg-blue-500 animate-pulse' : 'bg-gray-300 dark:bg-gray-700'}`}></div>
+                        <span class="text-sm font-bold text-gray-800 dark:text-gray-200 group-hover/skill:text-blue-600 dark:group-hover/skill:text-blue-400 transition-colors">
+                          {skillName}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-1.5 mt-auto">
+                      {expCount > 0 && (
+                        <a 
+                          href={`/experiences?search=${skillName.toLowerCase()}`}
+                          class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-[8px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all border border-blue-100 dark:border-blue-800/50"
+                          title={`${expCount} professional roles`}
+                        >
+                          <Briefcase size={8} />
+                          {expCount} {expCount === 1 ? 'Role' : 'Roles'}
+                        </a>
+                      )}
+
+                      {projectCount > 0 && (
+                        <a 
+                          href={`/projects?search=${skillName.toLowerCase()}`}
+                          class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-orange-50 dark:bg-orange-900/20 text-[8px] font-black uppercase tracking-widest text-orange-600 dark:text-orange-400 hover:bg-orange-600 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white transition-all border border-orange-100 dark:border-orange-800/50"
+                          title={`${projectCount} public projects`}
+                        >
+                          <Star size={8} />
+                          {projectCount} {projectCount === 1 ? 'Proj' : 'Projs'}
+                        </a>
+                      )}
+
+                      {eduCount > 0 && (
+                        <div 
+                          class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gray-50 dark:bg-gray-800 text-[8px] font-black uppercase tracking-widest text-gray-400 border border-gray-100 dark:border-gray-700 cursor-default"
+                          title={`${eduCount} academic background entries`}
+                        >
+                          <BookOpen size={8} />
+                          {eduCount} EDU
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <!-- Bottom Accent -->
+            <div class={`h-1.5 w-full bg-gradient-to-r ${category.gradient} rounded-b-[2.5rem] opacity-30`}></div>
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</ListLayout>
+
+<style is:global>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom modern scrollbar for the Kanban board */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 0 2rem;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e5e7eb; /* gray-200 */
+    border-radius: 20px;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #1f2937; /* gray-800 */
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6; /* blue-500 */
+  }
+  
+  /* Snap scrolling adjustments */
+  .kanban-board {
+    scroll-padding: 2rem;
+  }
+</style>

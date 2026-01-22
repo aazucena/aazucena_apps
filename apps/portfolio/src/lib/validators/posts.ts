@@ -25,6 +25,8 @@ const SEOSchema = z.object({
   openGraph: z.any().optional(), // nested component
 }).nullable().optional();
 
+import { WebLinkArraySchema } from './web-link';
+
 export const StrapiPostSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
@@ -51,6 +53,9 @@ export const StrapiPostSchema = z.object({
 
   // SEO
   seo: SEOSchema, // NEW - shared.seo component
+
+  // Relations
+  relatedLinks: WebLinkArraySchema, // NEW
 
   // Strapi metadata
   createdAt: z.string(),

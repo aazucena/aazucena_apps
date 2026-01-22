@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { WebLinkArraySchema } from './web-link';
+import { StrapiSkillSchema } from './skills';
 
 // Image Element component schema
 const ImageElementSchema = z.object({
@@ -20,6 +22,7 @@ const AchievementSchema = z.object({
 export const StrapiExperienceSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
+  slug: z.string().max(200).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
 
   // Core fields
   company: z.string().max(150),
@@ -76,12 +79,20 @@ export const StrapiExperienceSchema = z.object({
     'Hybrid',
     'Remote'
   ]).optional(),
-  companyWebsite: z.string().max(255).nullish(),
-  companyLinkedIn: z.string().max(255).nullish(),
+  companyWebsite: z.string().max(255).nullable().optional(),
+  companyLinkedIn: z.string().max(255).nullable().optional(),
 
   // Relations and components
-  skillsUsed: z.array(z.any()).optional(), // Skills relation
+  skillsUsed: z.array(StrapiSkillSchema).optional(), // Skills relation (raw Strapi format)
   achievements: z.array(AchievementSchema).optional(),
+  projects: z.array(z.object({
+    id: z.number(),
+    documentId: z.string().optional(),
+    title: z.string(),
+    slug: z.string(),
+    shortDescription: z.string().optional(),
+  })).optional(), // OneToMany relation to Project
+  relatedLinks: WebLinkArraySchema, // Web link components
 
   // Metadata
   createdAt: z.string(),

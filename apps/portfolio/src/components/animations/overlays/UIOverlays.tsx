@@ -1,10 +1,11 @@
 /**
  * UIOverlays Component
  * Renders all UI overlays: toolbar, panels, modals, and scroll indicators
+ *
+ * Refactored to use context hooks directly instead of prop drilling
  */
 
-import type { JSX, RefObject } from "react";
-import { experiences } from "../sections/data/experiences";
+import type { JSX } from "react";
 import {
   Toolbar,
   SocialMenu,
@@ -14,64 +15,52 @@ import {
   ScrollIndicators,
   ScrollDownIndicator,
 } from "../ui";
-import type { DeviceCapabilities, AtmosphericPhase } from "../config";
+import type { AtmosphericPhase } from "../config";
+import { useSectionData, usePortfolio, useAnimation, useDataContext, usePortfolioData } from "../contexts";
+import { useModal } from "../hooks";
 
 interface UIOverlaysProps {
-  // Sound state
-  isSoundMuted: boolean;
-  onToggleSound: () => void;
-
-  // Panel state
-  showInfoPanel: boolean;
-  showSettingsPanel: boolean;
-  showSocialMenu: boolean;
-  onToggleInfo: () => void;
-  onToggleSettings: () => void;
-  onToggleSocial: () => void;
-  onCloseInfo: () => void;
-  onCloseSettings: () => void;
-  onCloseSocial: () => void;
-
-  // Modal state
-  isExperienceModalOpen: boolean;
-  selectedExperienceIndex: number | null;
-  onCloseExperienceModal: () => void;
-  modalRef: RefObject<HTMLDivElement | null>;
-
-  // Section navigation
-  currentSection: number;
-  onNavigateToSection: (index: number) => void;
-
-  // Settings
-  capabilities: DeviceCapabilities;
-  onUpdateCapabilities: (updates: Partial<DeviceCapabilities>) => void;
-
-  // Atmospheric layer
+  // Atmospheric layer (not in contexts yet)
   currentPhase: AtmosphericPhase;
 }
 
 export default function UIOverlays({
-  isSoundMuted,
-  onToggleSound,
-  showInfoPanel,
-  showSettingsPanel,
-  showSocialMenu,
-  onToggleInfo,
-  onToggleSettings,
-  onToggleSocial,
-  onCloseInfo,
-  onCloseSettings,
-  onCloseSocial,
-  isExperienceModalOpen,
-  selectedExperienceIndex,
-  onCloseExperienceModal,
-  modalRef,
-  currentSection,
-  onNavigateToSection,
-  capabilities,
-  onUpdateCapabilities,
   currentPhase,
 }: UIOverlaysProps): JSX.Element {
+  // Get data from contexts
+  const { experiences } = useSectionData();
+  const { content } = useDataContext();
+  const portfolioData = usePortfolioData();
+
+  // Portfolio context - navigation and UI state
+  const {
+    currentSection,
+    navigateToSection,
+    isExperienceModalOpen,
+    selectedExperienceIndex,
+    closeExperienceModal,
+    showInfoPanel,
+    showSettingsPanel,
+    showSocialMenu,
+    setShowInfoPanel,
+    setShowSettingsPanel,
+    setShowSocialMenu,
+    togglePanel,
+  } = usePortfolio();
+
+  // Animation context - sound and capabilities
+  const {
+    isSoundMuted,
+    toggleSound,
+    capabilities,
+    updateCapabilities,
+  } = useAnimation();
+
+  // Modal ref
+  const { modalRef } = useModal({ closeOnEscape: false });
+
+  // Extract section names from CMS data
+  const sectionNames = content.sections.map(section => section.name);
   return (
     <>
       {/* Experience Modal */}
@@ -80,7 +69,7 @@ export default function UIOverlays({
         experiences[selectedExperienceIndex] && (
           <ExperienceModal
             experience={experiences[selectedExperienceIndex]}
-            onClose={onCloseExperienceModal}
+            onClose={closeExperienceModal}
             modalRef={modalRef}
           />
         )}
@@ -88,41 +77,52 @@ export default function UIOverlays({
       {/* Toolbar */}
       <Toolbar
         isSoundMuted={isSoundMuted}
-        onToggleSound={onToggleSound}
-        onToggleInfo={onToggleInfo}
-        onToggleSettings={onToggleSettings}
-        onToggleSocial={onToggleSocial}
+        onToggleSound={toggleSound}
+        onToggleInfo={() => togglePanel('info')}
+        onToggleSettings={() => togglePanel('settings')}
+        onToggleSocial={() => togglePanel('social')}
       />
 
       {/* Social Menu */}
-      {showSocialMenu && <SocialMenu onClose={onCloseSocial} />}
+      {showSocialMenu && (
+        <SocialMenu
+          onClose={() => setShowSocialMenu(false)}
+          socialLinks={portfolioData.socialLinks}
+          email={portfolioData.email}
+          emailDescription={portfolioData.emailDescription}
+        />
+      )}
 
       {/* Settings Panel */}
       {showSettingsPanel && (
         <SettingsPanel
-          onClose={onCloseSettings}
+          onClose={() => setShowSettingsPanel(false)}
           capabilities={capabilities}
-          onUpdateCapabilities={onUpdateCapabilities}
+          onUpdateCapabilities={updateCapabilities}
         />
       )}
 
       {/* Info Panel */}
       {showInfoPanel && (
-        <InfoPanel onClose={onCloseInfo} currentPhase={currentPhase} />
+        <InfoPanel
+          onClose={() => setShowInfoPanel(false)}
+          currentPhase={currentPhase}
+        />
       )}
 
       {/* Scroll Indicators */}
       <ScrollIndicators
         visible={currentSection !== 0}
         currentSection={currentSection}
-        onSectionClick={onNavigateToSection}
+        onSectionClick={navigateToSection}
+        sectionNames={sectionNames}
       />
 
       {/* Scroll Down Indicator */}
       <ScrollDownIndicator
         timeout={15 * 1000}
         visible={currentSection === 0}
-        onClick={() => onNavigateToSection(1)}
+        onClick={() => navigateToSection(1)}
       />
     </>
   );

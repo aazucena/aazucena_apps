@@ -2,29 +2,30 @@
  * AnimationCanvas Component
  * Orchestrates Three.js Canvas and PixiJS Particles rendering
  * Conditionally renders based on device capabilities and atmospheric layer
+ *
+ * Refactored to use context hooks directly instead of prop drilling
  */
 
 import type { JSX } from "react";
 import { Canvas } from "@react-three/fiber";
 import PixiJSParticles from "../PixiJSParticles";
 import ThreeJSScene from "../ThreeJSScene";
-import type { AtmosphericPhase, DeviceCapabilities } from "../config";
+import type { AtmosphericPhase } from "../config";
+import { useAnimation, usePortfolio } from "../contexts";
 
 interface AnimationCanvasProps {
-  capabilities: DeviceCapabilities;
-  mounted: boolean;
+  // Only atmospheric layer remains as prop (not in context)
   atmosphericLayer: AtmosphericPhase;
-  currentSection: number;
-  scrollProgress: number;
 }
 
 export default function AnimationCanvas({
-  capabilities,
-  mounted,
   atmosphericLayer,
-  currentSection,
-  scrollProgress,
 }: AnimationCanvasProps): JSX.Element | null {
+  // Get animation state from context
+  const { capabilities, mounted } = useAnimation();
+
+  // Get portfolio state from context
+  const { currentSection, scrollProgress } = usePortfolio();
   // Don't render heavy animations if not capable
   if (!capabilities.canUseHeavyAnimations) {
     return null;

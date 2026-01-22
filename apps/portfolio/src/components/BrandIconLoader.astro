@@ -1,0 +1,200 @@
+---
+/**
+ * BrandIconLoader - CSS-only loading animation
+ *
+ * Displays a flashing brand icon during:
+ * 1. Initial page load (before React hydrates)
+ * 2. CMS data fetch failures (when using fallback config)
+ *
+ * Features:
+ * - Pure CSS (no JavaScript required)
+ * - Uses /icon.svg as default brand icon
+ * - Smooth fade transitions
+ * - Accessible (prefers-reduced-motion support)
+ * - Lightweight (<2KB)
+ */
+
+export interface Props {
+  /**
+   * Brand logo URL from Strapi CMS
+   * Falls back to /icon.svg if not provided
+   */
+  logoUrl?: string;
+
+  /**
+   * Background color (should match preloader background)
+   */
+  backgroundColor: string;
+
+  /**
+   * Whether this is a CMS failure state (extends display time)
+   */
+  isCmsFallback?: boolean;
+}
+
+const {
+  logoUrl = '/icon.svg', // Default to public/icon.svg
+  backgroundColor,
+  isCmsFallback = false
+} = Astro.props;
+
+// Extend duration for CMS failures
+const animationDuration = isCmsFallback ? '2s' : '1.5s';
+const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
+---
+
+<div
+  id="brand-icon-loader"
+  class="brand-icon-loader"
+  style={{ backgroundColor }}
+  data-cms-fallback={isCmsFallback}
+>
+  <div class="brand-icon-container">
+    <img
+      src={logoUrl}
+      alt="Loading Aldrin Azucena Portfolio"
+      class="brand-logo"
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+</div>
+
+<style define:vars={{ animationDuration, displayDuration }}>
+  .brand-icon-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000; /* Above everything except preloader */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.6s ease-out;
+    pointer-events: none; /* Don't block interactions */
+  }
+
+  /* Hide when preloader is ready */
+  .brand-icon-loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .brand-icon-container {
+    animation: pulse var(--animationDuration) ease-in-out infinite;
+  }
+
+  /* Logo styles */
+  .brand-logo {
+    width: 270px;
+    height: 270px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
+    will-change: transform, opacity; /* Performance optimization */
+  }
+
+  /* Pulse animation */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(0.95);
+    }
+  }
+
+  /* Respect user preferences for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .brand-icon-container {
+      animation: none;
+    }
+
+    .brand-icon-loader {
+      transition: opacity 0.3s ease-out;
+    }
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 640px) {
+    .brand-logo {
+      width: 192px;
+      height: 192px;
+    }
+  }
+</style>
+
+<script is:inline>
+  /**
+   * Auto-hide brand icon loader when:
+   * 1. Preloader component mounts (React hydration complete)
+   * 2. Maximum timeout reached (failsafe)
+   */
+  (function() {
+    function lockScroll() {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function unlockScroll() {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+
+    function hideBrandLoader(loader) {
+      if (!loader || loader.classList.contains('hidden')) return;
+      loader.classList.add('hidden');
+      unlockScroll();
+      
+      // Remove from DOM after transition to keep it clean
+      setTimeout(() => {
+        if (loader && loader.parentElement) {
+          loader.remove();
+        }
+      }, 1000); 
+    }
+
+    function initLoader() {
+      const loader = document.getElementById('brand-icon-loader');
+      if (!loader) return;
+
+      // Check if preloader already signaled completion or was skipped
+      const isSkipped = document.querySelector('[data-preloader-skipped="true"]');
+      if (isSkipped) {
+        hideBrandLoader(loader);
+        return;
+      }
+
+      // Lock scroll while loader is active
+      lockScroll();
+
+      // Check if this is a CMS fallback (longer timeout)
+      const isCmsFallback = loader.getAttribute('data-cms-fallback') === 'true';
+      const maxTimeout = isCmsFallback ? 3000 : 1500;
+
+      // Listen for preloader events
+      const handleReady = () => hideBrandLoader(loader);
+      
+      document.addEventListener('preloader-mounted', handleReady, { once: true });
+      document.addEventListener('preloader-complete', handleReady, { once: true });
+
+      // Fallback timeout
+      setTimeout(() => {
+        hideBrandLoader(loader);
+      }, maxTimeout);
+    }
+
+    // Initialize on load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLoader);
+    } else {
+      initLoader();
+    }
+
+    // Re-initialize on every view transition navigation
+    document.addEventListener('astro:page-load', initLoader);
+  })();
+</script>

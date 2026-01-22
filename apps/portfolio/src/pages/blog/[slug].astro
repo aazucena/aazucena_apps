@@ -1,0 +1,161 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getPosts } from '~/lib/api/posts';
+import { getTagColorClasses } from '~/lib/utils/tagColors';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
+import { ReadingProgress } from '~/components/ui/ReadingProgress';
+import { TableOfContents } from '~/components/ui/TableOfContents';
+import { RelatedLinks } from '~/components/ui/RelatedLinks';
+import { ClockCircle as Clock, BookOpen, ArrowRight, ArrowLeft, Share, BrandTwitter, BrandLinkedin } from '@mynaui/icons-react';
+
+export async function getStaticPaths() {
+  try {
+    const posts = await getPosts(false, 100);
+    const internalPosts = posts.filter((p) => !p.isExternal);
+    return internalPosts.map((post, index) => {
+      const nextPost = index > 0 ? internalPosts[index - 1] : null;
+      const prevPost = index < internalPosts.length - 1 ? internalPosts[index + 1] : null;
+      return {
+        params: { slug: post.url.replace('/blog/', '') },
+        props: { post, nextPost, prevPost },
+      };
+    });
+  } catch (error) {
+    console.error('Error generating blog paths:', error);
+    return [];
+  }
+}
+
+const { post, nextPost, prevPost } = Astro.props;
+const seoTitle = post.seo?.metaTitle || post.title;
+const seoDescription = post.seo?.metaDescription || post.descriptionPlainText;
+const siteOrigin = "https://aazucena.com";
+const postUrl = `${siteOrigin}/blog/${post.slug}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.description,
+  "image": post.coverImageUrl,
+  "datePublished": post.publishedAt || post.createdAt,
+  "author": { "@type": "Person", "name": "Aldrin Azucena" }
+};
+---
+
+<PageLayout title={seoTitle} description={seoDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <ReadingProgress client:load />
+
+  <main class="min-h-screen bg-white dark:bg-gray-950">
+    <div class="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 print:hidden" aria-hidden="true"></div>
+
+    <!-- Hero Header -->
+    <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 py-20 md:py-32 overflow-hidden relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <nav class="flex mb-12 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 print:hidden">
+          <ol class="flex items-center gap-2">
+            <li><a href="/" class="hover:text-blue-600 transition-colors">Home</a></li>
+            <li>/</li>
+            <li><a href="/blog" class="hover:text-blue-600 transition-colors">Journal</a></li>
+            <li>/</li>
+            <li class="text-blue-600 truncate max-w-[150px]">{post.title}</li>
+          </ol>
+        </nav>
+
+        <div class="space-y-8">
+          <div class="flex flex-wrap gap-2">
+            {post.tags.map((tag: any) => (
+              <span class={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${getTagColorClasses(tag.color)}`}>
+                {tag.label}
+              </span>
+            ))}
+          </div>
+          
+          <h1 class="text-4xl md:text-7xl font-black text-gray-900 dark:text-white leading-none tracking-tighter">
+            {post.title}
+          </h1>
+
+          <div class="flex items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
+            <time datetime={post.date} class="flex items-center gap-2">
+              <Clock size={14} className="text-blue-500" /> {post.date}
+            </time>
+            <span class="w-1 h-1 rounded-full bg-gray-200 dark:bg-gray-800"></span>
+            <span class="flex items-center gap-2">
+              <BookOpen size={14} className="text-purple-500" /> {post.readTime}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watermark -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] dark:opacity-[0.05] whitespace-nowrap z-0">
+        <span class="text-[20rem] font-black uppercase tracking-tighter italic">ARTICLE</span>
+      </div>
+    </header>
+
+    <TableOfContents containerSelector="#article-content" client:idle />
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {post.coverImageUrl && (
+        <div class="mb-20 rounded-[2.5rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl">
+          <img src={post.coverImageUrl} alt={post.title} class="w-full h-auto object-cover" />
+        </div>
+      )}
+
+      <article id="article-content" class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600">
+        <BlocksRenderer content={post.description} blocks={defaultBlockRenderers} />
+      </article>
+
+      {post.relatedLinks && post.relatedLinks.length > 0 && (
+        <div class="mt-20">
+          <RelatedLinks links={post.relatedLinks} title="Deep Dives & Resources" className="bg-gray-50 dark:bg-gray-900 rounded-[2rem] border-none p-10" />
+        </div>
+      )}
+
+      <!-- Share & Navigation -->
+      <footer class="mt-32 pt-12 border-t border-gray-100 dark:border-gray-900 space-y-20">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+          <a href="/blog" class="group flex items-center gap-3 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-blue-600 transition-colors">
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Journal
+          </a>
+
+          <div class="flex items-center gap-4">
+            <span class="text-[10px] font-black uppercase tracking-widest text-gray-300">Share Insight</span>
+            <div class="flex gap-2">
+              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`} target="_blank" class="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-blue-500 hover:text-white transition-all">
+                <BrandTwitter size={20} />
+              </a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`} target="_blank" class="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-blue-700 hover:text-white transition-all">
+                <BrandLinkedin size={20} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        {(nextPost || prevPost) && (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {prevPost ? (
+              <a href={prevPost.url} class="group p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 transition-all text-left space-y-2">
+                <div class="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center gap-2">
+                  <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Previous
+                </div>
+                <div class="font-bold text-gray-900 dark:text-white text-xl tracking-tighter">{prevPost.title}</div>
+              </a>
+            ) : <div/>}
+            {nextPost && (
+              <a href={nextPost.url} class="group p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 transition-all text-right space-y-2">
+                <div class="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center justify-end gap-2">
+                  Next <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+                <div class="font-bold text-gray-900 dark:text-white text-xl tracking-tighter">{nextPost.title}</div>
+              </a>
+            )}
+          </div>
+        )}
+      </footer>
+    </div>
+  </main>
+</PageLayout>

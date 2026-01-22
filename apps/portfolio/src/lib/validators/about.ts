@@ -17,9 +17,9 @@ export const StatsSchema = z.object({
  */
 export const CTAButtonSchema = z.object({
   id: z.number(),
-  text: z.string(),
+  label: z.string(),
   url: z.string().optional(),
-  variant: z.enum(['default', 'outline', 'ghost']).optional(),
+  variant: z.enum(['primary', 'secondary', 'outline', 'ghost']).optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
   icon: z.any().optional(),
 });

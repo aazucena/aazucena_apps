@@ -427,8 +427,22 @@
 
   html,
   body {
-    overflow-x: hidden;
     width: 100%;
+    height: 100%;
+  }
+
+  /* Homepage: Custom scroll with wheel event - prevent default scrolling */
+  html.homepage,
+  html.homepage body {
+    overflow: hidden;
+  }
+
+  /* Content pages: Allow normal scrolling */
+  html.content-page,
+  html.content-page body {
+    overflow: auto;
+    height: auto;
+    min-height: 100%;
   }
 
   body {

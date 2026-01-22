@@ -28,6 +28,7 @@ export function transformPreloaderConfig(
     // Behavior
     autoStart: strapiConfig.autoStart,
     enableSkip: strapiConfig.enableSkip,
+    showOnce: strapiConfig.showOnce,
     continueButton: true,  // Always true since continueButton component is required
     lazyLoad: strapiConfig.lazyLoad,
     preloadAssets: strapiConfig.preloadAssets,
@@ -106,6 +107,7 @@ export const DEFAULT_PRELOADER_CONFIG: PreloaderPropsWithTheme = {
   animationDuration: 600,
   autoStart: true,
   enableSkip: false,
+  showOnce: false,
   continueButton: true,
   lazyLoad: false,
   preloadAssets: false,

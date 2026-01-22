@@ -5,7 +5,6 @@
 
 import {
   createContext,
-  useContext,
   useState,
   useEffect,
   useRef,
@@ -14,7 +13,6 @@ import {
   type SetStateAction,
 } from "react";
 import {
-  TOTAL_SECTIONS,
   SCROLL_SENSITIVITY,
   SCROLL_DEBOUNCE_TIME,
   SCROLL_PROGRESS_MAX,
@@ -51,18 +49,20 @@ export interface PortfolioState {
 }
 
 // Context
-const PortfolioContext = createContext<PortfolioState | undefined>(undefined);
+export const PortfolioContext = createContext<PortfolioState | undefined>(undefined);
 
 // Provider Props
 interface PortfolioProviderProps {
   children: ReactNode;
   initialSection?: number;
+  totalSections: number; // Dynamic section count from CMS
 }
 
 // Provider Component
 export function PortfolioProvider({
   children,
   initialSection = 0,
+  totalSections,
 }: PortfolioProviderProps) {
   // Section Navigation State
   const [currentSection, setCurrentSection] = useState<number>(initialSection);
@@ -85,9 +85,22 @@ export function PortfolioProvider({
   // Scroll Navigation Handler
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (isScrollingRef.current) return;
+      // Don't handle scroll when modal is open (check body overflow to support any modal)
+      const isModalOpen = document.body.style.overflow === 'hidden';
+      if (isScrollingRef.current || isModalOpen) return;
 
       const delta = e.deltaY;
+
+      // Only accumulate scroll progress if we can actually scroll in that direction
+      const canScrollDown = currentSection < totalSections - 1;
+      const canScrollUp = currentSection > 0;
+      const isScrollingDown = delta > 0;
+      const isScrollingUp = delta < 0;
+
+      // Don't update scroll progress if we're at a boundary
+      if ((isScrollingDown && !canScrollDown) || (isScrollingUp && !canScrollUp)) {
+        return;
+      }
 
       // Accumulate scroll progress
       const newProgress = Math.max(
@@ -97,7 +110,7 @@ export function PortfolioProvider({
       setScrollProgress(newProgress);
 
       // If we've scrolled enough, transition to next/previous section
-      if (newProgress >= SCROLL_PROGRESS_THRESHOLD && delta > 0 && currentSection < TOTAL_SECTIONS - 1) {
+      if (newProgress >= SCROLL_PROGRESS_THRESHOLD && isScrollingDown && canScrollDown) {
         // Scrolling down - move to next section
         isScrollingRef.current = true;
         setCurrentSection(currentSection + 1);
@@ -108,7 +121,7 @@ export function PortfolioProvider({
         scrollTimeoutRef.current = setTimeout(() => {
           isScrollingRef.current = false;
         }, SCROLL_DEBOUNCE_TIME);
-      } else if (newProgress <= SCROLL_PROGRESS_MIN && delta < 0 && currentSection > 0) {
+      } else if (newProgress <= SCROLL_PROGRESS_MIN && isScrollingUp && canScrollUp) {
         // Scrolling up - move to previous section
         isScrollingRef.current = true;
         setCurrentSection(currentSection - 1);
@@ -131,7 +144,7 @@ export function PortfolioProvider({
         isScrollingRef.current = false; // Reset scroll lock on cleanup
       }
     };
-  }, [currentSection, scrollProgress]);
+  }, [currentSection, scrollProgress, totalSections]);
 
   // Modal Handlers
   const openExperienceModal = (index: number): void => {
@@ -204,11 +217,5 @@ export function PortfolioProvider({
   );
 }
 
-// Custom Hook
-export function usePortfolio(): PortfolioState {
-  const context = useContext(PortfolioContext);
-  if (context === undefined) {
-    throw new Error("usePortfolio must be used within a PortfolioProvider");
-  }
-  return context;
-}
+// Add display name for React Fast Refresh
+PortfolioProvider.displayName = 'PortfolioProvider';

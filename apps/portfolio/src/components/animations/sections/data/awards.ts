@@ -15,6 +15,11 @@ export interface Award {
   icon: string;
   details?: string[];
   skills?: string[];
+  // New CMS fields
+  featured?: boolean;
+  verificationUrl?: string;
+  badgeUrl?: string;
+  certificateUrl?: string;
 }
 
 export const awards: Award[] = [

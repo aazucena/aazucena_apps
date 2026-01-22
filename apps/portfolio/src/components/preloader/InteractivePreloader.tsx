@@ -8,6 +8,7 @@ import {
   usePreloaderLifecycle,
   useKeyboardNavigation,
   useTheme,
+  useShowOnce,
 } from './hooks';
 import { getLoadingSteps } from './constants';
 import { LoadingState, ReadyState, ErrorState } from './components';
@@ -20,6 +21,7 @@ export default function InteractivePreloader({
   maxDisplayTime = 10000,
   autoStart = true,
   enableSkip = false,
+  showOnce = false,
   animationDuration = 600,
 
   // Content & Text
@@ -66,8 +68,22 @@ export default function InteractivePreloader({
   // Theme
   theme = 'default',
   customTheme,
+  currentPath = '/',
 }: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
+
+  // ============================================================================
+  // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS (Rules of Hooks)
+  // ============================================================================
+
+  // Determine effective showOnce behavior:
+  // - Homepage ('/'): Always show preloader (showOnce = false)
+  // - Other pages: Use the configured showOnce value
+  const isHomepage = currentPath === '/';
+  const effectiveShowOnce = isHomepage ? false : showOnce;
+
+  // Handle show-once behavior with sessionStorage
+  const { hasSeenBefore, markAsSeen, isChecking } = useShowOnce(effectiveShowOnce);
 
   const {
     progress,
@@ -93,12 +109,20 @@ export default function InteractivePreloader({
     userSkipped,
     containerRef,
     handleSkip,
-    handleContinue,
+    handleContinue: originalHandleContinue,
   } = usePreloaderVisibility({
     lazyLoad,
     onSkip,
     onComplete,
   });
+
+  // Wrap handleContinue to mark as seen when show-once is enabled
+  const handleContinue = () => {
+    if (effectiveShowOnce) {
+      markAsSeen();
+    }
+    originalHandleContinue();
+  };
 
   usePreloaderLifecycle({
     autoStart,
@@ -127,6 +151,54 @@ export default function InteractivePreloader({
 
   const themeStyles = useTheme({ theme, customTheme });
 
+  // ============================================================================
+  // EFFECTS (after all hooks)
+  // ============================================================================
+
+  // If user has seen preloader before and showOnce is enabled, skip it
+  useEffect(() => {
+    console.log('[Preloader DEBUG] showOnce effect running:', {
+      currentPath,
+      isHomepage,
+      showOnce,
+      effectiveShowOnce,
+      hasSeenBefore,
+      isChecking
+    });
+
+    if (effectiveShowOnce && hasSeenBefore && !isChecking) {
+      console.log('[Preloader DEBUG] Skipping preloader - dispatching events');
+
+      // Immediately dispatch completion events
+      const brandEvent = new CustomEvent('preloader-mounted');
+      const completeEvent = new CustomEvent('preloader-complete');
+
+      document.dispatchEvent(brandEvent);
+      console.log('[Preloader DEBUG] Dispatched preloader-mounted event');
+
+      document.dispatchEvent(completeEvent);
+      console.log('[Preloader DEBUG] Dispatched preloader-complete event');
+
+      // Call onComplete callback if provided
+      onComplete?.();
+
+      if (debug) {
+        console.log('[Preloader] Skipped - already seen in this session');
+      }
+    }
+  }, [currentPath, isHomepage, showOnce, effectiveShowOnce, hasSeenBefore, isChecking, onComplete, debug]);
+
+  // Emit 'preloader-mounted' event when component mounts
+  // This signals BrandIconLoader to hide and allows preloader to take over
+  useEffect(() => {
+    const event = new CustomEvent('preloader-mounted');
+    document.dispatchEvent(event);
+
+    if (debug) {
+      console.log('[Preloader] Component mounted, dispatched preloader-mounted event');
+    }
+  }, []); // Empty deps - run only on mount
+
   // Sync body background with preloader theme
   useEffect(() => {
     const body = document.body;
@@ -142,6 +214,18 @@ export default function InteractivePreloader({
       };
     }
   }, [themeStyles.overlayStyle.background]);
+
+  // ============================================================================
+  // CONDITIONAL RENDERING (after all hooks and effects)
+  // ============================================================================
+
+  // If show-once is enabled and user has seen it, render hidden element
+  // (this allows all hooks and effects to run while remaining invisible)
+  // Note: Homepage always shows preloader, so this only applies to other pages
+  if (effectiveShowOnce && hasSeenBefore && !isChecking) {
+    console.log('[Preloader DEBUG] Rendering hidden element (already seen on non-homepage)');
+    return <div style={{ display: 'none' }} aria-hidden="true" data-preloader-skipped="true" />;
+  }
 
   // Don't render if lazy loading and not in viewport
   if (lazyLoad && !isInViewport) {

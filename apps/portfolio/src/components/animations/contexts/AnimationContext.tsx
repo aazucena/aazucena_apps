@@ -5,7 +5,6 @@
 
 import {
   createContext,
-  useContext,
   useState,
   useEffect,
   type ReactNode,
@@ -32,7 +31,7 @@ export interface AnimationState {
 }
 
 // Context
-const AnimationContext = createContext<AnimationState | undefined>(undefined);
+export const AnimationContext = createContext<AnimationState | undefined>(undefined);
 
 // Provider Props
 interface AnimationProviderProps {
@@ -160,11 +159,5 @@ export function AnimationProvider({ children }: AnimationProviderProps) {
   );
 }
 
-// Custom Hook
-export function useAnimation(): AnimationState {
-  const context = useContext(AnimationContext);
-  if (context === undefined) {
-    throw new Error("useAnimation must be used within an AnimationProvider");
-  }
-  return context;
-}
+// Add display name for React Fast Refresh
+AnimationProvider.displayName = 'AnimationProvider';

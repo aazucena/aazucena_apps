@@ -1,0 +1,202 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getPortfolio } from '~/lib/api/portfolio';
+import { 
+  Envelope, 
+  BrandLinkedin, 
+  BrandGithub, 
+  BrandTwitter, 
+  Send,
+  Location,
+  Globe,
+  MessageDots
+} from '@mynaui/icons-react';
+
+// Fetch contact info from Portfolio single type
+const portfolio = await getPortfolio();
+
+const pageTitle = 'Contact';
+const pageDescription = "Let's build something together. Currently open to new opportunities and interesting collaborations.";
+
+// Helper to get local time
+const localTime = new Date().toLocaleTimeString('en-US', { 
+  timeZone: 'America/Edmonton', // Placeholder - should ideally come from portfolio.timezone
+  hour: '2-digit', 
+  minute: '2-digit',
+  hour12: true 
+});
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <main class="min-h-screen bg-white dark:bg-gray-950">
+    <div class="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 print:hidden" aria-hidden="true"></div>
+
+    <!-- Hero Header -->
+    <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 py-20 md:py-32 overflow-hidden relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left">
+        <h1 class="text-5xl md:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-none mb-8">
+          Let's build <br class="hidden md:block"/><span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">together.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-2xl leading-relaxed">
+          {pageDescription}
+        </p>
+      </div>
+      
+      <!-- Watermark -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] dark:opacity-[0.05] whitespace-nowrap">
+        <span class="text-[20rem] font-black uppercase tracking-tighter">CONTACT</span>
+      </div>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
+        
+        <!-- Left: Contact Form -->
+        <div class="lg:col-span-2 space-y-12">
+          <section id="message" class="space-y-8">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
+              <MessageDots size={24} className="text-blue-600" />
+              Send a Message
+            </h2>
+            
+            <form class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label for="name" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Full Name</label>
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    placeholder="John Doe"
+                    class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label for="email" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Email Address</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="john@example.com"
+                    class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
+                  />
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label for="subject" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Subject</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  name="subject" 
+                  placeholder="How can I help?"
+                  class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
+                />
+              </div>
+              <div class="space-y-2">
+                <label for="message" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Message</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="6" 
+                  placeholder="Tell me about your project..."
+                  class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white resize-none"
+                ></textarea>
+              </div>
+              
+              <button 
+                type="submit"
+                class="flex items-center justify-center gap-3 w-full md:w-auto px-12 py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-blue-600 dark:hover:bg-blue-50 transition-all shadow-xl active:scale-95 group"
+              >
+                <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+                Send Message
+              </button>
+            </form>
+          </section>
+        </div>
+
+        <!-- Right: Professional Meta & Links -->
+        <aside class="space-y-12">
+          <!-- Availability -->
+          <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
+            <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+              Presence
+            </h2>
+            <div class="space-y-6">
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-xl bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600">
+                  <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Status</div>
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">Open to Opportunities</div>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
+                  <Globe size={20} />
+                </div>
+                <div>
+                  <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Local Time</div>
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">{localTime} (MST)</div>
+                </div>
+              </div>
+
+              {portfolio.location && (
+                <div class="flex items-center gap-4 group">
+                  <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600">
+                    <Location size={20} />
+                  </div>
+                  <div>
+                    <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">HQ</div>
+                    <div class="text-sm font-bold text-gray-900 dark:text-white">{portfolio.location}</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <!-- Direct Channels -->
+          <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
+            <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+              Direct Channels
+            </h2>
+            <div class="space-y-4">
+              <a 
+                href={`mailto:${portfolio.email}`}
+                class="flex items-center gap-4 p-4 rounded-2xl bg-gray-50/50 dark:bg-gray-800/50 border border-transparent hover:border-blue-500/20 hover:bg-white dark:hover:bg-gray-900 transition-all group"
+              >
+                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 flex-shrink-0">
+                  <Envelope size={20} />
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">Email</div>
+                  <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Direct Message</div>
+                </div>
+              </a>
+
+              {portfolio.socialLinks?.map(link => (
+                <a 
+                  href={link.url}
+                  target="_blank"
+                  class="flex items-center gap-4 p-4 rounded-2xl bg-gray-50/50 dark:bg-gray-800/50 border border-transparent hover:border-blue-500/20 hover:bg-white dark:hover:bg-gray-900 transition-all group"
+                >
+                  <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:text-blue-600 flex-shrink-0">
+                    {link.platform === 'LinkedIn' && <BrandLinkedin size={20} />}
+                    {link.platform === 'GitHub' && <BrandGithub size={20} />}
+                    {link.platform === 'Twitter' && <BrandTwitter size={20} />}
+                    {!['LinkedIn', 'GitHub', 'Twitter'].includes(link.platform) && <Globe size={20} />}
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-gray-900 dark:text-white">{link.platform}</div>
+                    <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">{link.text || 'Professional Profile'}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</PageLayout>

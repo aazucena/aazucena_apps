@@ -1,5 +1,6 @@
 import type { StrapiExperience } from '~/lib/validators/experiences';
 import type { Experience } from '~/components/animations/sections/data/experiences';
+import { transformWebLinks } from './web-link';
 
 /**
  * Generate logo initials from company name
@@ -159,8 +160,22 @@ function parseRichtextToArray(richtext: any): string[] {
  * Transform Strapi experience to frontend format
  */
 export function transformExperience(strapiExp: StrapiExperience, index: number): Experience {
-  // Extract skills from relation
-  const skills = strapiExp.skillsUsed?.map((skill: any) => skill.name || skill) || [];
+  // Extract skills from relation with category information
+  const skills = strapiExp.skillsUsed?.map((skill: any) => {
+    // If skill is just a string, return it as-is (fallback)
+    if (typeof skill === 'string') return skill;
+
+    // Strapi v5 wraps relations in a 'data' property
+    // Try: skill.category.data.label (v5) or skill.category.label (v4)
+    const categoryData = skill.category?.data || skill.category;
+    const categoryName = categoryData?.label || categoryData?.name || 'Other';
+
+    // Return skill object with name and category
+    return {
+      name: skill.name,
+      category: categoryName,
+    };
+  }) || [];
 
   // Transform achievements (keep full objects)
   const achievements = strapiExp.achievements || [];
@@ -170,11 +185,17 @@ export function transformExperience(strapiExp: StrapiExperience, index: number):
   const logo = uploadedLogoUrl || getLogoInitials(strapiExp.company);
 
   return {
+    slug: strapiExp.slug,
     logo,
     logoGradient: getLogoGradient(strapiExp.company, index),
     position: strapiExp.position,
     company: strapiExp.company,
     duration: formatDuration(strapiExp.startDate, strapiExp.endDate, strapiExp.isCurrent),
+
+    // Raw date fields from CMS (for journey visualizations)
+    startDate: strapiExp.startDate,
+    endDate: strapiExp.endDate,
+    isCurrent: strapiExp.isCurrent ?? false,
 
     // Content fields (Blocks content from Strapi richtext)
     description: strapiExp.description,
@@ -182,6 +203,10 @@ export function transformExperience(strapiExp: StrapiExperience, index: number):
     achievements,
 
     skills,
+
+    // New relations (Phase 0.5)
+    projects: strapiExp.projects || [],
+    relatedLinks: transformWebLinks(strapiExp.relatedLinks),
 
     // Additional metadata
     location: strapiExp.location,
@@ -213,11 +238,15 @@ export function transformExperiences(strapiExps: StrapiExperience[]): Experience
  */
 export const DEFAULT_EXPERIENCES: Experience[] = [
   {
+    slug: 'full-stack-software-developer-tangle-media',
     logo: 'TM',
     logoGradient: 'from-cyan-400 to-blue-500',
     position: 'Full Stack Software Developer',
     company: 'Tangle Media Inc.',
     duration: 'Dec 2021 – Sep 2025',
+    startDate: '2021-12-01',
+    endDate: '2025-09-30',
+    isCurrent: false,
     location: 'Lethbridge, AB',
     employmentType: 'Full-time',
     workMode: 'Onsite',

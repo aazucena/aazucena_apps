@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap Location
+Sitemap: https://aazucena.com/sitemap-index.xml
+
+# Host
+Host: https://aazucena.com

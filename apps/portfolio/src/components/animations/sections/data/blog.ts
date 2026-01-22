@@ -7,10 +7,16 @@ export interface BlogPost {
   title: string;
   description: string;
   date: string;
+  publishedAt: string; // NEW: ISO string for robust parsing
   tags: Array<{ label: string; color: string }>;
   readTime: string;
   url: string;
   isExternal: boolean;
+  // New CMS fields
+  status?: 'Planned' | 'In Progress' | 'Completed' | 'On Hold';
+  featured?: boolean;
+  coverImageUrl?: string;
+  coverImageAlt?: string;
 }
 
 export const blogPosts: BlogPost[] = [

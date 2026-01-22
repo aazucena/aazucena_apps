@@ -4,35 +4,29 @@
  * Reduced from 324 lines to ~180 lines
  */
 
-import type { JSX } from "react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PortfolioProvider, usePortfolio } from "./contexts/PortfolioContext";
-import { AnimationProvider, useAnimation } from "./contexts/AnimationContext";
-import { aboutData } from "./sections/data/about";
+import type { JSX } from "react";
+import type { HomepageData } from "~/lib/transformers/homepage";
+import type { PortfolioContent } from "~/lib/transformers/portfolio";
 import type { PortfolioData } from "~/types/portfolio";
-import {
-  useFlipText,
-  useModal,
-  useAtmosphericLayer,
-  useGSAPEntrance,
-  useSectionRefs,
-  useSectionTransitions,
-} from "./hooks";
-import {
-  CTA_CLICK_SCALE,
-  CTA_CLICK_DURATION,
-  CTA_CLICK_REPEAT,
-  RESUME_BUTTON_SCALE,
-  RESUME_BUTTON_DURATION,
-  RESUME_BUTTON_COLOR,
-  RESUME_OPEN_DELAY,
-} from "./config/constants";
 import DynamicBackground from "./background/DynamicBackground";
-import AtmosphericOverlays from "./overlays/AtmosphericOverlays";
 import AnimationCanvas from "./canvas/AnimationCanvas";
-import SectionContent from "./sections/SectionContent";
+import {
+  DataProvider,
+  useDataContext,
+  AnimationProvider,
+  PortfolioProvider,
+  usePortfolio,
+} from "./contexts";
+import HomepageContent from "./HomepageContent";
+import {
+  useAtmosphericLayer,
+  useSectionRefs,
+  useSectionTransitions
+} from "./hooks";
+import AtmosphericOverlays from "./overlays/AtmosphericOverlays";
 import UIOverlays from "./overlays/UIOverlays";
 
 // Register GSAP plugins
@@ -41,45 +35,16 @@ if (typeof window !== "undefined") {
 }
 
 // Inner component that uses contexts
-function PortfolioSectionInner({ portfolioData }: { portfolioData: PortfolioData }): JSX.Element {
-  const refs = useSectionRefs();
+function PortfolioSectionInner(): JSX.Element {
+  const { content } = useDataContext();
+  const sections = content.sections;
+  const refs = useSectionRefs(sections);
 
-  // Context hooks
-  const {
-    currentSection,
-    scrollProgress,
-    isExperienceModalOpen,
-    selectedExperienceIndex,
-    openExperienceModal,
-    closeExperienceModal,
-    showInfoPanel,
-    showSettingsPanel,
-    showSocialMenu,
-    setShowInfoPanel,
-    setShowSettingsPanel,
-    setShowSocialMenu,
-    navigateToSection,
-    togglePanel,
-  } = usePortfolio();
+  // Get only the state needed for this component
+  // (Most state is now consumed directly by child components via contexts)
+  const { currentSection, scrollProgress } = usePortfolio();
 
-  const {
-    capabilities,
-    updateCapabilities,
-    isSoundMuted,
-    toggleSound,
-    mounted,
-  } = useAnimation();
-
-  // Custom hooks
-  const { currentWord: currentFlipWord, elementRef: flipTextRef } = useFlipText(
-    {
-      words: portfolioData.about.flipWords,
-      interval: 3000,
-    },
-  );
-
-  const { modalRef } = useModal({ closeOnEscape: false }); // Escape handled by PortfolioContext
-  const { titleRef, subtitleRef, ctaRef } = useGSAPEntrance(refs.heroRef);
+  // Calculate atmospheric layer and background style
   const { phase: atmosphericLayer, backgroundStyle } = useAtmosphericLayer(
     currentSection,
     scrollProgress,
@@ -88,50 +53,6 @@ function PortfolioSectionInner({ portfolioData }: { portfolioData: PortfolioData
   // Apply section transition animations
   useSectionTransitions(currentSection, refs);
 
-  // CTA handlers
-  /**
-   * Handles navigation to a specific section with click animation feedback
-   * @param index - The target section index (0-7)
-   */
-  const handleSectionClick = (index: number): void => {
-    if (ctaRef.current) {
-      gsap.to(ctaRef.current.children, {
-        scale: CTA_CLICK_SCALE,
-        duration: CTA_CLICK_DURATION,
-        yoyo: true,
-        repeat: CTA_CLICK_REPEAT,
-      });
-    }
-    navigateToSection(index);
-  };
-
-  /**
-   * Handles resume download with button animation and secure window opening
-   * Animates the resume button, then opens the PDF in a new tab with tabnabbing protection
-   */
-  const handleViewResume = (): void => {
-    // Safely access the resume button (second child of CTA container)
-    const resumeButton = ctaRef.current?.children[1];
-    if (resumeButton) {
-      const tl = gsap.timeline();
-      tl.to(resumeButton, {
-        scale: RESUME_BUTTON_SCALE,
-        duration: RESUME_BUTTON_DURATION,
-        backgroundColor: RESUME_BUTTON_COLOR,
-      }).to(resumeButton, {
-        scale: 1,
-        duration: RESUME_BUTTON_DURATION,
-      });
-    }
-
-    setTimeout(() => {
-      // Secure window.open to prevent tabnabbing attacks
-      const resumeWindow = window.open("/AldrinAzucena_Resume.pdf", "_blank");
-      if (resumeWindow) {
-        resumeWindow.opener = null;
-      }
-    }, RESUME_OPEN_DELAY);
-  };
 
   return (
     <>
@@ -141,71 +62,39 @@ function PortfolioSectionInner({ portfolioData }: { portfolioData: PortfolioData
       {/* Atmospheric Overlays */}
       <AtmosphericOverlays atmosphericLayer={atmosphericLayer} />
 
-      {/* Animation Canvas (Three.js + PixiJS) */}
-      <AnimationCanvas
-        capabilities={capabilities}
-        mounted={mounted}
-        atmosphericLayer={atmosphericLayer}
-        currentSection={currentSection}
-        scrollProgress={scrollProgress}
-      />
+      {/* Animation Canvas - Uses contexts directly, only needs atmosphericLayer */}
+      <AnimationCanvas atmosphericLayer={atmosphericLayer} />
 
       {/* Main Content Section */}
-      <section
-        ref={refs.heroRef}
-        className="relative h-screen w-full overflow-hidden"
-      >
-        {/* Section Content */}
-        <SectionContent
-          refs={refs}
-          currentSection={currentSection}
-          isSoundMuted={isSoundMuted}
-          onOpenExperience={openExperienceModal}
-          titleRef={titleRef}
-          subtitleRef={subtitleRef}
-          ctaRef={ctaRef}
-          flipTextRef={flipTextRef as any}
-          currentFlipWord={currentFlipWord || ""}
-          onSectionClick={handleSectionClick}
-          onViewResume={handleViewResume}
-          portfolioData={portfolioData}
-        />
+      <section className="relative h-screen w-full overflow-hidden">
+        {/* Section Content - Uses contexts directly, only needs refs */}
+        <HomepageContent refs={refs} />
 
-        {/* UI Overlays */}
-        <UIOverlays
-          isSoundMuted={isSoundMuted}
-          onToggleSound={toggleSound}
-          showInfoPanel={showInfoPanel}
-          showSettingsPanel={showSettingsPanel}
-          showSocialMenu={showSocialMenu}
-          onToggleInfo={() => togglePanel("info")}
-          onToggleSettings={() => togglePanel("settings")}
-          onToggleSocial={() => togglePanel("social")}
-          onCloseInfo={() => setShowInfoPanel(false)}
-          onCloseSettings={() => setShowSettingsPanel(false)}
-          onCloseSocial={() => setShowSocialMenu(false)}
-          isExperienceModalOpen={isExperienceModalOpen}
-          selectedExperienceIndex={selectedExperienceIndex}
-          onCloseExperienceModal={closeExperienceModal}
-          modalRef={modalRef}
-          currentSection={currentSection}
-          onNavigateToSection={navigateToSection}
-          capabilities={capabilities}
-          onUpdateCapabilities={updateCapabilities}
-          currentPhase={atmosphericLayer}
-        />
+        {/* UI Overlays - Uses contexts directly, only needs currentPhase */}
+        <UIOverlays currentPhase={atmosphericLayer} />
       </section>
     </>
   );
 }
 
+// Add display name for React Fast Refresh
+PortfolioSectionInner.displayName = 'PortfolioSectionInner';
+
 // Main exported component with providers
-export default function PortfolioSection({ portfolioData }: { portfolioData: PortfolioData }): JSX.Element {
+export default function PortfolioSection({ data, content, portfolio }: { data: PortfolioData, content: HomepageData, portfolio: PortfolioContent }): JSX.Element {
+  // Calculate total sections from CMS data
+  const totalSections = content.sections.length;
+
   return (
-    <AnimationProvider>
-      <PortfolioProvider>
-        <PortfolioSectionInner portfolioData={portfolioData} />
-      </PortfolioProvider>
-    </AnimationProvider>
+    <DataProvider data={data} content={content} portfolio={portfolio}>
+      <AnimationProvider>
+        <PortfolioProvider totalSections={totalSections}>
+          <PortfolioSectionInner  />
+        </PortfolioProvider>
+      </AnimationProvider>
+    </DataProvider>
   );
 }
+
+// Add display name for React Fast Refresh
+PortfolioSection.displayName = 'PortfolioSection';

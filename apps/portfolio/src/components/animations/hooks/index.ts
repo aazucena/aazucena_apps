@@ -11,3 +11,6 @@ export * from './useAtmosphericLayer';
 export * from './useGSAPEntrance';
 export * from './useSectionRefs';
 export * from './useSectionTransitions';
+export * from './useSectionRegistry';
+export * from './useHandlebars';
+
