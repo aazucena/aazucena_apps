@@ -415,16 +415,12 @@ export function AIContactForm() {
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`mb-4 ${
-              message.role === 'user' ? 'text-right' : 'text-left'
-            }`}
+            className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}
           >
             <div
-              className={`inline-block px-4 py-2 rounded-lg ${
-                message.role === 'user'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-700 text-gray-100'
-              }`}
+              className={`inline-block px-4 py-2 rounded-lg ${message.role === 'user'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-700 text-gray-100'}`}
             >
               {message.content}
             </div>
@@ -964,7 +960,7 @@ Respond with just the category name.
   </BugReports>
 
   <FeatureVoting>
-    <TopRequests items={[
+    <TopRequests items={[ 
       { title: 'Dark mode', votes: 34 },
       { title: 'RSS feed', votes: 21 },
       { title: 'Search', votes: 18 }
@@ -1094,6 +1090,146 @@ async function addToNotionRoadmap(featureRequest: FeatureRequest) {
 3. File upload support (screenshots for bugs, photos for testimonials)
 4. Smart follow-up emails
 5. Analytics dashboard with charts
+
+---
+
+## Vercel AI SDK Integration
+
+This section details the integration of the **Vercel AI SDK** to provide a robust, streaming user interface for the AI Portfolio Assistant, Case Study Explorer, Code Insight Layer, and Resume Alignment Tool. It acts as the high-performance bridge between the React frontend and the backend LangGraph orchestration, ensuring low-latency responses and a modern chat experience.
+
+### Benefits
+- **Perceived Latency:** Streaming text reduces "Time to First Token" (TTFT), making the AI feel instant even during complex LangGraph reasoning steps.
+- **Edge Friendliness:** Designed for Vercel's edge and serverless functions, preventing timeout issues common with long-running LLM chains.
+- **Client SDK Primitives:** The `ai/react` library provides ready-to-use hooks (`useChat`) that handle message state, optimistic updates, and error handling automatically.
+- **Simpler Bridging:** Built-in adapters easily bridge LangChain streams to the client without manual WebSocket management.
+
+### Integration Points
+
+#### Where to use Vercel AI
+1.  **AI Portfolio Assistant (Global Chat):** Uses `useChat` with global scope to answer general questions.
+2.  **AI Case Study Explorer:** Uses `useChat` with `scope: 'case_study'`, passing the current project ID in the body to restrict vector retrieval.
+3.  **AI Code Insight Layer:** Uses `useChat` with `scope: 'code_insight'`, accepting repository links or file snippets as context.
+4.  **AI Resume Alignment Tool:** Uses `useChat` with `scope: 'resume_alignment'`, allowing users to paste Job Descriptions (JDs) to receive tailored content strategy suggestions.
+
+#### Frontend (React + ai/react)
+**`src/components/PortfolioAssistant.tsx`**
+```tsx
+import { useChat } from 'ai/react';
+
+export default function PortfolioAssistant({ scope = 'global', contextId }: { scope?: string, contextId?: string }) {
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    api: '/api/chat',
+    body: { scope, contextId }, // Pass meta-information to backend for filtering
+    onError: (error) => console.error('Chat error:', error),
+  });
+
+  return (
+    <div className="flex flex-col h-[500px] border rounded-lg bg-background">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.map(m => (
+          <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[80%] rounded-lg p-3 ${m.role === 'user' ? 'bg-primary text-white' : 'bg-muted'}`}>
+              <p className="text-sm whitespace-pre-wrap">{m.content}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <form onSubmit={handleSubmit} className="p-4 border-t flex gap-2">
+        <input
+          className="flex-1 px-3 py-2 border rounded-md bg-transparent"
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Ask about my experience..."
+        />
+        <button type="submit" disabled={isLoading} className="px-4 py-2 bg-primary text-white rounded-md disabled:opacity-50">
+          Send
+        </button>
+      </form>
+    </div>
+  );
+}
+```
+
+#### Server (Vercel Serverless Streaming Endpoint)
+**`src/pages/api/chat.ts`**
+```ts
+import { LangChainAdapter } from 'ai';
+import { runLangGraphForConversation } from '@/lib/langgraph/runner';
+
+export const runtime = 'edge';
+
+export async function POST(req: Request) {
+  const { messages, scope, contextId } = await req.json();
+
+  // Create a stream from the LangGraph runner
+  // contextId allows filtering retrieval to specific projects/scopes
+  const stream = await runLangGraphForConversation({
+    messages,
+    scope,
+    contextId,
+    modelName: 'claude-3-5-sonnet-20240229',
+    apiKey: process.env.ANTHROPIC_API_KEY
+  });
+
+  // Return streaming response using Vercel AI SDK adapter
+  return LangChainAdapter.toDataStreamResponse(stream);
+}
+```
+
+#### LangGraph Wiring Notes
+The `runLangGraphForConversation` function must:
+1.  **Accept:** `messages` array, `scope` (string), and `contextId` (optional).
+2.  **Orchestrate:** Initialize the LangGraph `StateGraph` with the appropriate retrieval tool (filtered by scope).
+3.  **Stream:** Return a `ReadableStream` or `IterableReadableStream`.
+4.  **Trace:** Initialize a LangSmith run for observability.
+5.  **Log:** Attach the `langsmith_trace_id` to the corresponding `ai_conversations` record in Strapi for debugging.
+
+#### Security & Privacy
+- **API Keys:** Store `ANTHROPIC_API_KEY` only in server-side environment variables (`.env.local`).
+- **PII Redaction:** Use a PII scrubbing layer (middleware or LangChain runnable) before sending user input to vector storage or LLMs.
+- **Rate Limiting:** Implement rate limiting (e.g., Upstash Redis) on the `/api/chat` route (e.g., 10 requests/minute/IP).
+- **Confirmation:** Require explicit admin confirmation (via UI button) for any agent actions that write to external systems (GitHub, Notion).
+
+### Sample Prompts with Metadata
+
+1.  **Case Study Comparison:**
+    -   **User:** "How does the caching strategy here differ from Project A?"
+    -   **Payload:** `{ messages: [...], scope: 'case_study', contextId: 'project-b-slug' }`
+    -   **Effect:** Agent retrieves chunks tagged with `project-b-slug` AND high-level architecture docs of Project A.
+
+2.  **Resume Alignment:**
+    -   **User:** [Pastes JD] "Highlight my most relevant skills for this Senior Frontend role."
+    -   **Payload:** `{ messages: [...], scope: 'resume_alignment' }`
+    -   **Effect:** System prompt switches to "Career Coach Mode"; retrieval focuses on `shared.skill` and `content.experience` records.
+
+### Embeddings & Retrieval Reminder
+This integration relies on the existing **Strapi → Chunking → Embed → pgVector** pipeline.
+- The Vercel AI SDK layer is purely for *transport and UI*.
+- Ensure `pgVector` queries strictly respect the `scope` passed from the frontend to prevent "hallucinating" features from one project into another.
+
+### Timeline & Effort Delta
+
+| Task | Estimated Effort |
+| :--- | :--- |
+| **Vercel AI SDK Integration** | **3–4 Days** |
+| *Frontend Components (ai/react)* | 1 Day |
+| *Streaming API & LangGraph Bridge* | 1–2 Days |
+| *Testing & Edge Optimization* | 1 Day |
+
+**Updated Total (Phase 3.1):** 10–13 Days (originally 7–9 days)
+
+### Success Metrics (Vercel Specific)
+- **Time-to-First-Token (TTFT):** < 800ms on 4G networks.
+- **Streaming Reliability:** < 1% connection drop rate.
+- **Chat Engagement:** Average session duration > 2 minutes.
+
+### Acceptance Criteria
+- [ ] `PortfolioAssistant` component renders and accepts user input.
+- [ ] Messages stream character-by-character in the UI.
+- [ ] `scope` parameter correctly alters the backend retrieval strategy (verified via logs).
+- [ ] Attachments (JDs, Code) are accepted and processed.
+- [ ] Fallback to non-streaming behavior handles errors gracefully.
+- [ ] No API keys are exposed in the client-side bundle.
 
 ---
 

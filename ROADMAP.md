@@ -277,7 +277,7 @@ Transform static forms into intelligent, conversational experiences using LangCh
 ```
 Frontend (Astro/React)
    ↓
-reCAPTCHA v3 + Rate Limiting
+reCAPTCHA v3 + Rate Limit Check
    ↓
 LangGraph State Machine
    ├─ IntentClassifierAgent → Classify form type
@@ -305,6 +305,30 @@ Retrieval & Ranking (Query Time)
    └─ Return top N results (n=5-10)
 ```
 
+#### Vercel AI SDK Integration
+
+This section details the integration of the **Vercel AI SDK** to provide a robust, streaming user interface for the AI Portfolio Assistant, Case Study Explorer, Code Insight Layer, and Resume Alignment Tool. It acts as the high-performance bridge between the React frontend and the backend LangGraph orchestration, ensuring low-latency responses and a modern chat experience.
+
+**Benefits:**
+- **Perceived Latency:** Streaming text reduces "Time to First Token" (TTFT), making the AI feel instant even during complex LangGraph reasoning steps.
+- **Edge Friendliness:** Designed for Vercel's edge and serverless functions, preventing timeout issues common with long-running LLM chains.
+- **Client SDK Primitives:** The `ai/react` library provides ready-to-use hooks (`useChat`) that handle message state, optimistic updates, and error handling automatically.
+- **Simpler Bridging:** Built-in adapters easily bridge LangChain streams to the client without manual WebSocket management.
+
+**Integration Points:**
+- **AI Portfolio Assistant (Global Chat):** Uses `useChat` with global scope to answer general questions.
+- **AI Case Study Explorer:** Uses `useChat` with `scope: 'case_study'`, passing the current project ID in the body to restrict vector retrieval.
+- **AI Code Insight Layer:** Uses `useChat` with `scope: 'code_insight'`, accepting repository links or file snippets as context.
+- **AI Resume Alignment Tool:** Uses `useChat` with `scope: 'resume_alignment'`, allowing users to paste Job Descriptions (JDs) to receive tailored content strategy suggestions.
+
+**Security & Privacy:**
+- **API Keys:** Store `ANTHROPIC_API_KEY` only in server-side environment variables (`.env.local`).
+- **PII Redaction:** Use a PII scrubbing layer (middleware or LangChain runnable) before sending user input to vector storage or LLMs.
+- **Rate Limiting:** Implement rate limiting (e.g., Upstash Redis) on the `/api/chat` route (e.g., 10 requests/minute/IP).
+
+**Embeddings & Retrieval Reminder:**
+This integration relies on the existing **Strapi → Chunking → Embed → pgVector** pipeline. The Vercel AI SDK layer is purely for *transport and UI*. Ensure `pgVector` queries strictly respect the `scope` passed from the frontend to prevent "hallucinating" features from one project into another.
+
 **Timeline:**
 - Phase A (Basic Forms): 3-4 days
 - Phase B (AI Integration): 12-16 days
@@ -314,6 +338,22 @@ Retrieval & Ranking (Query Time)
   - Conversational UI (2 days)
   - API routes & integrations (2 days)
   - Admin dashboard (2-3 days)
+- **Vercel AI SDK Integration:** 3-4 days
+
+**Updated Total (Phase 3.1):** 10-13 Days (core) / 19-24 Days (comprehensive)
+
+**Success Metrics (Vercel Specific):**
+- **Time-to-First-Token (TTFT):** < 800ms on 4G networks.
+- **Streaming Reliability:** < 1% connection drop rate.
+- **Chat Engagement:** Average session duration > 2 minutes.
+
+**Acceptance Criteria:**
+- [ ] `PortfolioAssistant` component renders and accepts user input.
+- [ ] Messages stream character-by-character in the UI.
+- [ ] `scope` parameter correctly alters the backend retrieval strategy (verified via logs).
+- [ ] Attachments (JDs, Code) are accepted and processed.
+- [ ] Fallback to non-streaming behavior handles errors gracefully.
+- [ ] No API keys are exposed in the client-side bundle.
 
 ---
 
