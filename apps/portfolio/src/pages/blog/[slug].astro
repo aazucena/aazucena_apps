@@ -2,7 +2,7 @@
 import PageLayout from '~/layouts/PageLayout.astro';
 import { getPosts } from '~/lib/api/posts';
 import { getTagColorClasses } from '~/lib/utils/tagColors';
-import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
 import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
 import { ReadingProgress } from '~/components/ui/ReadingProgress';
 import { TableOfContents } from '~/components/ui/TableOfContents';
@@ -105,7 +105,7 @@ const jsonLd = {
       )}
 
       <article id="article-content" class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600">
-        <BlocksRenderer content={post.description} blocks={defaultBlockRenderers} />
+        <MarkdownRenderer content={post.description} />
       </article>
 
       {post.relatedLinks && post.relatedLinks.length > 0 && (

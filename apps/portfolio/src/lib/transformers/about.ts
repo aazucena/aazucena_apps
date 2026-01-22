@@ -15,8 +15,17 @@ export interface AboutData {
 export function transformAbout(strapiAbout: StrapiAbout): AboutData {
   return {
     tagline: strapiAbout.tagline,
-    descriptions: strapiAbout.descriptions,
-    highlights: strapiAbout.highlights,
+    // Ensure both are BlocksContent arrays
+    descriptions: Array.isArray(strapiAbout.descriptions)
+      ? strapiAbout.descriptions
+      : typeof strapiAbout.descriptions === 'string'
+        ? [{ type: 'paragraph', children: [{ type: 'text', text: strapiAbout.descriptions }] }]
+        : [],
+    highlights: Array.isArray(strapiAbout.highlights)
+      ? strapiAbout.highlights
+      : typeof strapiAbout.highlights === 'string'
+        ? [{ type: 'paragraph', children: [{ type: 'text', text: strapiAbout.highlights }] }]
+        : [],
     stats: strapiAbout.stats || [],
     learnMoreCards: strapiAbout.learnMoreCards || [],
   };

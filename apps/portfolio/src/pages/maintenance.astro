@@ -4,6 +4,8 @@ import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
 import { getMaintenance } from '~/lib/api/maintenance';
 import { Wrench, Refresh, Envelope, Globe, ClockCircle as Clock } from '@mynaui/icons-react';
 
+export const prerender = false;
+
 // Fetch maintenance configuration
 const maintenance = await getMaintenance();
 

@@ -153,7 +153,10 @@ export function transformPostDetail(strapiPost: StrapiPost): BlogPostDetail {
   return {
     title: strapiPost.title,
     slug: strapiPost.slug,
-    description: strapiPost.description, // Full richtext (BlocksContent)
+    // description is a richtext (string) field in Strapi
+    description: typeof strapiPost.description === 'string' 
+      ? strapiPost.description 
+      : extractPlainText(strapiPost.description),
     descriptionPlainText,
     date: formatDate(strapiPost.publishedAt || strapiPost.createdAt),
     tags,

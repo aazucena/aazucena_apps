@@ -198,8 +198,8 @@ export function transformExperience(strapiExp: StrapiExperience, index: number):
     isCurrent: strapiExp.isCurrent ?? false,
 
     // Content fields (Blocks content from Strapi richtext)
-    description: strapiExp.description,
-    responsibilities: strapiExp.responsibilities,
+    description: typeof strapiExp.description === 'string' ? strapiExp.description : '',
+    responsibilities: Array.isArray(strapiExp.responsibilities) ? strapiExp.responsibilities : [],
     achievements,
 
     skills,
