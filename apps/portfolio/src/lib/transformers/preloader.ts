@@ -1,121 +1,89 @@
-import type { PreloaderPropsWithTheme, LoadingStep, ThemeConfig } from '~/components/preloader/types';
-import type { StrapiPreloaderConfigValidated, StrapiLoadingStep } from '~/lib/validators/preloader';
-import { getIconComponent } from '~/lib/utils/icons';
+import type { StrapiPreloaderConfigValidated } from '../validators/preloader';
+import { transformCtaButton } from './utils';
+import type { LoadingStep } from '../validators/components';
+import type { PreloaderTheme } from '~/components/preloader';
+import type { TransitionType } from '../validators/enums';
 
-/**
- * Transforms Strapi preloader config to component props
- */
-export function transformPreloaderConfig(
-  strapiConfig: StrapiPreloaderConfigValidated
-): PreloaderPropsWithTheme {
-  return {
-    // Theme (variant is not used by component)
-    theme: strapiConfig.theme,
-
-    // Content Text (required fields)
-    title: strapiConfig.title,
-    subtitle: strapiConfig.subtitle ?? undefined,
-    readyTitle: strapiConfig.readyTitle,
-    readySubtitle: strapiConfig.readySubtitle,
-    readyFooterNote: strapiConfig.readyFooterNote ?? undefined,
-    continueButtonText: strapiConfig.continueButton.label,  // continueButton is required
-
-    // Timing
-    minDisplayTime: strapiConfig.minDisplayTime,
-    maxDisplayTime: strapiConfig.maxDisplayTime,
-    animationDuration: strapiConfig.animationDuration,
-
-    // Behavior
-    autoStart: strapiConfig.autoStart,
-    enableSkip: strapiConfig.enableSkip,
-    showOnce: strapiConfig.showOnce,
-    continueButton: true,  // Always true since continueButton component is required
-    lazyLoad: strapiConfig.lazyLoad,
-    preloadAssets: strapiConfig.preloadAssets,
-    enableAnimations: strapiConfig.enableAnimations,
-
-    // Transitions
-    transitionType: strapiConfig.transitionType,
-    showCard: strapiConfig.showCard,
-
-    // Loading Steps
-    customSteps: transformLoadingSteps(strapiConfig.loadingSteps),
-
-    // Colors
-    primaryColor: strapiConfig.primaryColor ?? undefined,
-    secondaryColor: strapiConfig.secondaryColor ?? undefined,
-
-    // Theme Overrides
-    customTheme: strapiConfig.themeOverrides as Partial<ThemeConfig>,
-
-    // Accessibility
-    ariaLabel: strapiConfig.ariaLabel,
-    ariaLive: strapiConfig.ariaLive,
-    skipButtonAriaLabel: strapiConfig.skipButtonAriaLabel,
-
-    // Custom Classes
-    className: strapiConfig.customClassName ?? undefined,
-    overlayClassName: strapiConfig.overlayClassName ?? undefined,
-    cardClassName: strapiConfig.cardClassName ?? undefined,
-
-    // Debug
-    debug: strapiConfig.debug,
-  };
+export interface PreloaderConfig {
+  enabled: boolean;
+  variant: 'interactive' | 'simple';
+  theme: PreloaderTheme;
+  title: string;
+  subtitle?: string;
+  readyTitle: string;
+  readySubtitle: string;
+  readyFooterNote?: string;
+  continueButton: ReturnType<typeof transformCtaButton>;
+  minDisplayTime: number;
+  maxDisplayTime: number;
+  animationDuration: number;
+  autoStart: boolean;
+  enableSkip: boolean;
+  showOnce: boolean;
+  lazyLoad: boolean;
+  preloadAssets: boolean;
+  enableAnimations: boolean;
+  transitionType: TransitionType;
+  showCard: boolean;
+  loadingSteps: LoadingStep[];
+  debug: boolean;
 }
 
-/**
- * Transforms Strapi loading steps to component LoadingStep[]
- * Note: loadingSteps is required in schema (min: 1)
- */
-function transformLoadingSteps(
-  strapiSteps: StrapiLoadingStep[]
-): LoadingStep[] {
-  return strapiSteps
-    .filter(step => step.enabled)
-    .filter(step => {
-      // Additional safety check for icon field
-      if (!step.icon || step.icon.trim() === '') {
-        console.warn(`[Preloader] Step "${step.name}" has empty icon, skipping`);
-        return false;
-      }
-      return true;
-    })
-    .map(step => ({
-      id: step.stepId, // Map stepId to id for component compatibility
-      name: step.name,
-      description: step.description,
-      icon: getIconComponent(step.icon),
-      weight: step.weight,
-    }));
-}
-
-// getIconComponent is now imported from ~/lib/utils/icons for consistency
-
-/**
- * Default fallback config if CMS is unavailable
- * Note: Includes all required fields from schema (title, readyTitle, readySubtitle, continueButton)
- */
-export const DEFAULT_PRELOADER_CONFIG: PreloaderPropsWithTheme = {
+export const DEFAULT_PRELOADER: PreloaderConfig = {
+  enabled: true,
+  variant: 'interactive',
   theme: 'default',
-  title: 'Preparing Your Experience',  // Required in schema
-  readyTitle: 'Ready to Explore!',  // Required in schema
-  readySubtitle: 'Your experience is fully optimized and ready',  // Required in schema
-  readyFooterNote: 'All systems ready for your journey',
-  continueButtonText: 'Enter Website',  // continueButton is required in schema
+  title: 'Preparing Your Experience',
+  readyTitle: 'Ready to Explore!',
+  readySubtitle: 'Your experience is fully optimized and ready',
+  continueButton: {
+    label: 'Enter Website',
+    url: '#main-content',
+    variant: 'primary',
+    size: 'md',
+    openInNewTab: false,
+    icon: undefined
+  },
   minDisplayTime: 1500,
   maxDisplayTime: 10000,
   animationDuration: 600,
   autoStart: true,
   enableSkip: false,
   showOnce: false,
-  continueButton: true,
   lazyLoad: false,
   preloadAssets: false,
   enableAnimations: true,
   transitionType: 'fade',
   showCard: false,
-  ariaLabel: 'Loading progress',
-  ariaLive: 'polite',
-  skipButtonAriaLabel: 'Skip loading',
+  loadingSteps: [],
   debug: false,
 };
+
+export function transformPreloader(data: StrapiPreloaderConfigValidated): PreloaderConfig {
+  if (!data) return DEFAULT_PRELOADER;
+
+  return {
+    enabled: !!data.enabled,
+    variant: data.variant,
+    theme: data.theme,
+    title: data.title,
+    subtitle: data.subtitle || undefined,
+    readyTitle: data.readyTitle,
+    readySubtitle: data.readySubtitle,
+    readyFooterNote: data.readyFooterNote || undefined,
+    continueButton: transformCtaButton(data.continueButton),
+    minDisplayTime: data.minDisplayTime,
+    maxDisplayTime: data.maxDisplayTime,
+    animationDuration: data.animationDuration,
+    autoStart: !!data.autoStart,
+    enableSkip: !!data.enableSkip,
+    showOnce: !!data.showOnce,
+    lazyLoad: !!data.lazyLoad,
+    preloadAssets: !!data.preloadAssets,
+    enableAnimations: !!data.enableAnimations,
+    transitionType: data.transitionType,
+    showCard: !!data.showCard,
+    loadingSteps: (data.loadingSteps || []) as LoadingStep[],
+    debug: !!data.debug,
+  };
+}

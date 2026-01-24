@@ -1,0 +1,24 @@
+---
+/**
+ * Favicon Component
+ *
+ * Renders favicon link with fallback support.
+ * Accepts custom favicon URL or defaults to /favicon.svg
+ *
+ * Usage:
+ * <Favicon url={websiteConfig.faviconUrl} />
+ * <Favicon /> // Uses default /favicon.svg
+ */
+
+export interface Props {
+  url?: string;
+}
+
+const { url } = Astro.props;
+---
+
+{url ? (
+  <link rel="icon" href={url} />
+) : (
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+)}

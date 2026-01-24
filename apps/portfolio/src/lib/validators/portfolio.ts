@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { ImageElementSchema, SocialLinkSchema } from './components';
+import { AvailabilityStatusEnum } from './enums';
 
 export const StrapiPortfolioSchema = z.object({
   id: z.number(),
@@ -7,76 +9,28 @@ export const StrapiPortfolioSchema = z.object({
   // Core fields
   fullName: z.string().max(100),
   occupation: z.string().max(200),
-  profileImage: z
-    .object({
-      src: z.any(),
-      altText: z.string(),
-    })
-    .nullable()
-    .optional(),
+  profileImage: ImageElementSchema.nullable().optional(),
   resumeFile: z.any().optional(),
   bio: z.any().nullable().optional(), // Richtext field
 
-  // Contact information (NEW)
-  email: z.string().email(), // Required
-  emailDescription: z.string().max(200).nullable().optional(), // Custom description for email link
-  phone: z.string().nullable().optional(), // Custom field (plugin::strapi-phone-validator-5.phone)
-  preferredContactMethod: z.array(z.string()).optional(), // Custom checkbox field (plugin::advanced-fields.checkbox)
+  // Contact information
+  email: z.string().email(),
+  emailDescription: z.string().max(200).nullable().optional(),
+  phone: z.string().nullable().optional(),
+  preferredContactMethod: z.array(z.string()).optional(),
 
-  // Social & Online Presence (matches shared.social-links component)
-  socialLinks: z
-    .array(
-      z.object({
-        id: z.number().optional(), // Strapi auto-ID
-        platform: z.enum([
-          'GitHub',
-          'LinkedIn',
-          'Twitter',
-          'YouTube',
-          'Instagram',
-          'Facebook',
-          'TikTok',
-          'Discord',
-          'Twitch',
-          'Mastodon',
-        ]),
-        url: z.string().max(500),
-        icon: z.string().nullable().optional(), // icons-field plugin (Strapi returns null if empty)
-        text: z.string().max(100).nullable().optional(), // Strapi returns null if empty
-        description: z.string().max(200).nullable().optional(), // Custom description (Strapi returns null if empty)
-        openInNewTab: z.boolean().nullable().optional(), // Strapi returns null if empty
-      })
-    )
-    .optional(),
+  // Social & Online Presence
+  socialLinks: z.array(SocialLinkSchema).optional(),
 
   // Professional Information
   yearsOfExperience: z.number().nullable().optional(),
   location: z.string().max(100).nullable().optional(),
-  education: z
-    .array(
-      z.object({
-        type: z.enum([
-          "diploma",
-          "bachelor",
-          "master",
-          "doctorate",
-          "certificate"
-        ]),
-        institution: z.string(),
-        degree: z.string(),
-        field: z.string(),
-        current: z.boolean(),
-        startDate: z.string(),
-        graduationDate: z.string().nullable().optional(),
-        location: z.string().nullable().optional(),
-        description: z.string().nullable().optional(),
-        gpa: z.number().min(0).max(5).nullable().optional(),
-        honors: z.string().nullable().optional(),
-      })
-    )
-    .optional(),
+  
+  // Status and Context
+  availabilityStatus: AvailabilityStatusEnum.default("Open to Opportunities"),
+  timezone: z.string().default("America/Edmonton"),
 
-  // AI/ML fields (for pgVector embeddings)
+  // AI/ML fields
   bioEmbedding: z.any().optional(),
   bioEmbeddingModel: z.string().max(50).nullable().optional(),
   bioEmbeddingGeneratedAt: z.string().nullable().optional(),

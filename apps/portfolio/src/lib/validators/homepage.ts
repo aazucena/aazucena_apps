@@ -1,29 +1,7 @@
 import { z } from 'zod';
+import { SectionSchema, SeoSchema } from './components';
 
-/**
- * Zod schema for a single section component
- */
-export const SectionSchema = z.object({
-  id: z.number(),
-  enabled: z.boolean(),
-  name: z.string().max(100),
-  title: z.string().max(255),
-  subtitle: z.string().max(255).nullable().optional(),
-  buttonLabel: z.string().max(255).nullable().optional(),
-  icon: z.any().optional(), // Icon picker custom field
-  sort: z.number().nullable().optional(),
-});
-
-// Schema for shared.seo component
-const SEOSchema = z.object({
-  id: z.number().optional(),
-  metaTitle: z.string().optional(),
-  metaDescription: z.string().optional(),
-  keywords: z.string().optional(),
-  canonicalURL: z.string().optional(),
-  metaRobots: z.string().optional(),
-  openGraph: z.any().optional(), // nested openGraph component
-}).nullable().optional();
+export type { Section } from './components';
 
 /**
  * Zod schema for Homepage from Strapi CMS
@@ -32,14 +10,9 @@ export const StrapiHomepageSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
 
-  // NEW: Homepage title field
-  title: z.string().max(100), // Required in CMS
-
-  // Sections configuration
+  title: z.string().max(100),
   sections: z.array(SectionSchema).min(1).max(8),
-
-  // NEW: SEO component
-  seo: SEOSchema,
+  seo: SeoSchema,
 
   // Strapi metadata
   createdAt: z.string(),
@@ -49,4 +22,3 @@ export const StrapiHomepageSchema = z.object({
 });
 
 export type StrapiHomepage = z.infer<typeof StrapiHomepageSchema>;
-export type Section = z.infer<typeof SectionSchema>;

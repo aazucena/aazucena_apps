@@ -3,8 +3,10 @@
  * Handles evolution, network graph, and skill details
  */
 
-import type { Experience } from '~/components/animations/sections/data';
-import type { StrapiEducation } from '~/lib/validators/education';
+
+import type { SkillWithCategory } from '~/components/animations/sections/data';
+import type { Experience } from '~/lib/transformers/experiences'
+import type { Education } from '~/lib/transformers/education';
 import type { Project } from '~/lib/transformers/projects';
 import { getSafeSkillInfo } from './base';
 
@@ -48,7 +50,7 @@ export interface SkillDetails {
 
 export function transformToSkillsEvolution(
   experiences: Experience[],
-  education: StrapiEducation[] = [],
+  education: Education[] = [],
   projects: Project[] = []
 ): SkillsOverTime[] {
   const skillsByYear = new Map<number, Map<string, Set<string>>>();
@@ -78,7 +80,7 @@ export function transformToSkillsEvolution(
 
   education.forEach((edu, index) => {
     const startDate = new Date(edu.startDate);
-    const endDate = edu.current ? new Date() : new Date(edu.graduationDate || edu.expectedGraduationDate || Date.now());
+    const endDate = edu.current ? new Date() : new Date(edu.graduationDate || edu.graduationDate || Date.now());
     const startYear = !isNaN(startDate.getTime()) ? startDate.getFullYear() : currentYear - experiences.length - index - 5;
     const endYear = !isNaN(endDate.getTime()) ? endDate.getFullYear() : currentYear;
 
@@ -116,7 +118,7 @@ export function transformToSkillsEvolution(
 
 export function transformToSkillsNetwork(
   experiences: Experience[],
-  education: StrapiEducation[] = [],
+  education: Education[] = [],
   projects: Project[] = []
 ): SkillsNetworkData {
   const skillFrequency = new Map<string, number>();
@@ -181,7 +183,7 @@ export function transformToSkillsNetwork(
 export function getSkillDetails(
   skillName: string,
   experiences: Experience[],
-  education: StrapiEducation[],
+  education: Education[],
   projects: Project[]
 ): SkillDetails {
   const occurrences: { date: Date; source: string }[] = [];

@@ -1,47 +1,41 @@
 import type { StrapiPage } from '../validators/page';
+import { transformSeo } from './utils';
 
 export interface Page {
+  id: number;
   slug: string;
   title: string;
-  content: string; // Richtext content (Blocks format)
-  template: 'legal' | 'default' | 'landing';
-  lastUpdated: Date;
-  seo?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    keywords?: string;
-    openGraph?: {
-      title?: string;
-      description?: string;
-      image?: string;
-    };
-  };
+  content: any;
+  template: string;
+  lastUpdated: string;
+  seo?: ReturnType<typeof transformSeo>;
   showTableOfContents: boolean;
-  footerVariant: 'default' | 'minimal';
+  footerVariant: string;
 }
 
+export const DEFAULT_PAGE: Page = {
+  id: 0,
+  slug: '',
+  title: '',
+  content: [],
+  template: 'default',
+  lastUpdated: new Date().toISOString(),
+  showTableOfContents: true,
+  footerVariant: 'minimal',
+};
+
 export function transformPage(data: StrapiPage): Page {
+  if (!data) return DEFAULT_PAGE;
+
   return {
+    id: data.id,
     slug: data.slug,
     title: data.title,
     content: data.content,
     template: data.template,
-    lastUpdated: new Date(data.lastUpdated),
-    seo: data.seo,
-    showTableOfContents: data.showTableOfContents,
+    lastUpdated: data.lastUpdated,
+    seo: transformSeo(data.seo),
+    showTableOfContents: !!data.showTableOfContents,
     footerVariant: data.footerVariant,
   };
 }
-
-/**
- * Default fallback page (404 scenario)
- */
-export const DEFAULT_PAGE: Page = {
-  slug: 'not-found',
-  title: 'Page Not Found',
-  content: 'The requested page could not be found.',
-  template: 'default',
-  lastUpdated: new Date(),
-  showTableOfContents: false,
-  footerVariant: 'minimal',
-};

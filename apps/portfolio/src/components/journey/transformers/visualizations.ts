@@ -3,8 +3,9 @@
  * Sankey, Heatmap, and Stream Graph
  */
 
-import type { Experience, SkillWithCategory } from '~/components/animations/sections/data';
-import type { StrapiEducation } from '~/lib/validators/education';
+import type { SkillWithCategory } from '~/components/animations/sections/data';
+import type { Experience } from '~/lib/transformers/experiences'
+import type { Education } from '~/lib/transformers/education';
 import type { Project } from '~/lib/transformers/projects';
 import { getSafeSkillInfo } from './base';
 
@@ -38,7 +39,7 @@ export interface StreamGraphStep {
 
 export function transformToSankeyData(
   experiences: Experience[],
-  education: StrapiEducation[] = [],
+  education: Education[] = [],
   projects: Project[] = []
 ): SankeyData {
   const nodes: SankeyNode[] = [];
@@ -116,7 +117,7 @@ export function transformToSankeyData(
 
 export function transformToHeatmapData(
   experiences: Experience[],
-  education: StrapiEducation[] = [],
+  education: Education[] = [],
   projects: Project[] = []
 ): HeatmapCell[] {
   const heatmap: HeatmapCell[] = [];
@@ -175,7 +176,7 @@ export function transformToHeatmapData(
 
 export function transformToStreamGraphData(
   experiences: Experience[],
-  education: StrapiEducation[] = [],
+  education: Education[] = [],
   projects: Project[] = []
 ): StreamGraphStep[] {
   const data: StreamGraphStep[] = [];

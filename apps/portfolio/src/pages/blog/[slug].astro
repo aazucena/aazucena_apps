@@ -1,13 +1,20 @@
 ---
+import {
+ArrowLeft,
+ArrowRight,
+BookOpen,
+BrandLinkedin,
+BrandTwitter,
+ClockCircle as Clock
+} from '@mynaui/icons-react';
+import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
+import { ReadingProgress } from '~/components/ui/ReadingProgress';
+import { RelatedLinks } from '~/components/ui/RelatedLinks';
+import { TableOfContents } from '~/components/ui/TableOfContents';
 import PageLayout from '~/layouts/PageLayout.astro';
 import { getPosts } from '~/lib/api/posts';
+import { calculateReadTime, formatPostDate, getPostDateTime } from '~/lib/utils/blogHelpers';
 import { getTagColorClasses } from '~/lib/utils/tagColors';
-import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
-import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
-import { ReadingProgress } from '~/components/ui/ReadingProgress';
-import { TableOfContents } from '~/components/ui/TableOfContents';
-import { RelatedLinks } from '~/components/ui/RelatedLinks';
-import { ClockCircle as Clock, BookOpen, ArrowRight, ArrowLeft, Share, BrandTwitter, BrandLinkedin } from '@mynaui/icons-react';
 
 export async function getStaticPaths() {
   try {
@@ -28,8 +35,8 @@ export async function getStaticPaths() {
 }
 
 const { post, nextPost, prevPost } = Astro.props;
-const seoTitle = post.seo?.metaTitle || post.title;
-const seoDescription = post.seo?.metaDescription || post.descriptionPlainText;
+const seoTitle = post.seo?.title || post.title;
+const seoDescription = post.seo?.description || post.description;
 const siteOrigin = "https://aazucena.com";
 const postUrl = `${siteOrigin}/blog/${post.slug}`;
 
@@ -38,7 +45,7 @@ const jsonLd = {
   "@type": "BlogPosting",
   "headline": post.title,
   "description": post.description,
-  "image": post.coverImageUrl,
+  "image": post.coverImage?.url,
   "datePublished": post.publishedAt || post.createdAt,
   "author": { "@type": "Person", "name": "Aldrin Azucena" }
 };
@@ -78,12 +85,12 @@ const jsonLd = {
           </h1>
 
           <div class="flex items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
-            <time datetime={post.date} class="flex items-center gap-2">
-              <Clock size={14} className="text-blue-500" /> {post.date}
+            <time datetime={getPostDateTime(post)} class="flex items-center gap-2">
+              <Clock size={14} className="text-blue-500" /> {formatPostDate(post)}
             </time>
             <span class="w-1 h-1 rounded-full bg-gray-200 dark:bg-gray-800"></span>
             <span class="flex items-center gap-2">
-              <BookOpen size={14} className="text-purple-500" /> {post.readTime}
+              <BookOpen size={14} className="text-purple-500" /> {calculateReadTime(post.description)}
             </span>
           </div>
         </div>
@@ -98,9 +105,9 @@ const jsonLd = {
     <TableOfContents containerSelector="#article-content" client:idle />
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      {post.coverImageUrl && (
+      {post.coverImage?.url && (
         <div class="mb-20 rounded-[2.5rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl">
-          <img src={post.coverImageUrl} alt={post.title} class="w-full h-auto object-cover" />
+          <img src={post.coverImage?.url} alt={post.coverImage?.alt ?? post.title} class="w-full h-auto object-cover" />
         </div>
       )}
 

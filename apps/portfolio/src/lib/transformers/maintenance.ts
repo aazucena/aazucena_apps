@@ -1,41 +1,29 @@
-import type { StrapiMaintenance } from '~/lib/validators/maintenance';
+import type { StrapiMaintenance } from '../validators/maintenance';
 
-export interface MaintenanceData {
+export interface MaintenanceConfig {
   enabled: boolean;
-  message: string;
+  message: any;
+  heroSubtitle: string;
+  reachOutLabel: string;
 }
 
-/**
- * Transform Strapi maintenance to frontend format
- */
-export function transformMaintenance(strapiMaintenance: StrapiMaintenance): MaintenanceData {
-  // Handle rich text - extract plain text if needed
-  let message = '';
-  if (typeof strapiMaintenance.message === 'string') {
-    message = strapiMaintenance.message;
-  } else if (Array.isArray(strapiMaintenance.message)) {
-    // If it's structured richtext, extract text from paragraphs
-    message = strapiMaintenance.message
-      .map((block: any) => {
-        if (block.type === 'paragraph' && block.children) {
-          return block.children.map((child: any) => child.text || '').join('');
-        }
-        return '';
-      })
-      .filter(Boolean)
-      .join('\n');
-  }
+// Backward compatibility alias
+export type MaintenanceData = MaintenanceConfig;
+
+export const DEFAULT_MAINTENANCE: MaintenanceConfig = {
+  enabled: false,
+  message: [],
+  heroSubtitle: 'Refining the Experience',
+  reachOutLabel: 'Reach out directly',
+};
+
+export function transformMaintenance(data: StrapiMaintenance): MaintenanceConfig {
+  if (!data) return DEFAULT_MAINTENANCE;
 
   return {
-    enabled: strapiMaintenance.enabled,
-    message,
+    enabled: !!data.enabled,
+    message: data.message,
+    heroSubtitle: data.heroSubtitle,
+    reachOutLabel: data.reachOutLabel,
   };
 }
-
-/**
- * Default fallback maintenance data
- */
-export const DEFAULT_MAINTENANCE: MaintenanceData = {
-  enabled: false,
-  message: 'The site is currently under maintenance. Please check back soon.',
-};

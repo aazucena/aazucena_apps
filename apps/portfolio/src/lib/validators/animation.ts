@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PerformanceTierEnum } from './enums';
 
 /**
  * Zod schema for Animation System from Strapi CMS
@@ -8,7 +9,7 @@ export const StrapiAnimationSchema = z.object({
   documentId: z.string().optional(),
   enabled: z.boolean(),
   heavyAnimations: z.boolean(),
-  defaultPerformanceTier: z.enum(['low', 'medium', 'high', 'auto']),
+  defaultPerformanceTier: PerformanceTierEnum,
   particleCountLow: z.number().min(0).max(100).optional(),
   particleCountMedium: z.number().min(0).max(200).optional(),
   particleCountHigh: z.number().min(0).max(500).optional(),

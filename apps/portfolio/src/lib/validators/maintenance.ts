@@ -7,7 +7,12 @@ export const StrapiMaintenanceSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
   enabled: z.boolean(),
-  message: z.any(), // Rich text field (can be string or structured data)
+  message: z.any(),
+  
+  // Managed UI fields
+  heroSubtitle: z.string().default('Refining the Experience'),
+  reachOutLabel: z.string().default('Reach out directly'),
+
   createdAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string().optional(),

@@ -1,24 +1,32 @@
 import { z } from 'zod';
+import { ImageElementSchema } from './components';
+import { 
+  RelationshipEnum, 
+  ApprovalStatusEnum, 
+  SentimentEnum 
+} from './enums';
 
 export const StrapiTestimonialSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
-  author: z.string().max(200),
-  authorTitle: z.string().max(200).optional(),
-  company: z.string().max(200).optional(),
-  content: z.string(),
-  rating: z.number().min(1).max(5).optional(),
-  featured: z.boolean().optional(),
-  avatar: z.object({
-    src: z.any(),
-    altText: z.string(),
-  }).optional(),
-  companyLogo: z.any().optional(),
-  relationship: z.enum(['client', 'colleague', 'manager', 'other']).optional(),
-  projectRelated: z.any().optional(),
-  approvalStatus: z.enum(['Pending', 'Approved', 'Rejected']).optional(),
-  aiSentiment: z.enum(['positive', 'neutral', 'negative']).optional(),
-  aiSummary: z.string().optional(),
+  author: z.string().max(100),
+  authorTitle: z.string().max(150).optional().nullable(),
+  company: z.string().max(100).optional().nullable(),
+  content: z.string().max(1000),
+  avatar: ImageElementSchema.nullable().optional(),
+  rating: z.number().min(1).max(5).default(5),
+  featured: z.boolean().default(false),
+  relationship: RelationshipEnum.optional().nullable(),
+  approvalStatus: ApprovalStatusEnum.optional().nullable(),
+  approvedBy: z.string().max(100).optional().nullable(),
+  approvedAt: z.string().optional().nullable(),
+  rejectionReason: z.string().max(500).optional().nullable(),
+  submittedAt: z.string().optional().nullable(),
+  authorEmail: z.string().email().optional().nullable(),
+  authorLinkedIn: z.string().max(255).optional().nullable(),
+  contentEmbedding: z.any().optional().nullable(),
+  aiSentiment: SentimentEnum.optional().nullable(),
+  aiTags: z.any().optional().nullable(),
 
   createdAt: z.string(),
   updatedAt: z.string(),

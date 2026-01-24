@@ -1,39 +1,31 @@
 import { z } from 'zod';
+import { StrapiMediaSchema } from './components';
+import { AwardTypeEnum, AwardCategoryEnum } from './enums';
 
 export const StrapiAwardSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
 
   // Core fields
-  type: z.enum(['certification', 'award']).default('award'),
+  type: AwardTypeEnum.default('award'),
   title: z.string().max(200),
-  shortTitle: z.string().max(50).optional(),
-  organization: z.string().max(150), // CHANGED: max 150 to match CMS
-  issuer: z.string().max(150).optional(), // CHANGED: max 150 to match CMS
-  year: z.number().int().min(1900).max(2100), // CHANGED: from string to number
-  credentialId: z.string().max(100).optional(),
+  shortTitle: z.string().max(50).optional().nullable(),
+  organization: z.string().max(150),
+  issuer: z.string().max(150).optional().nullable(),
+  year: z.number().int().min(1900).max(2100),
+  credentialId: z.string().max(100).optional().nullable(),
 
   // Content
-  description: z.any().optional(), // Richtext field
-  category: z
-    .enum([
-      'Academic',
-      'Professional',
-      'Community',
-      'Music',
-      'Design',
-      'Certification',
-      'Competition',
-    ])
-    .optional(),
+  description: z.any().optional().nullable(), // Richtext
+  category: AwardCategoryEnum.optional().nullable(),
 
   // URLs & Media
-  verificationUrl: z.string().max(255).optional(), // RENAMED: from credentialUrl
-  badge: z.any().optional(), // Media field (image)
-  certificate: z.any().optional(), // NEW: Media field (image/file)
+  verificationUrl: z.string().max(255).optional().nullable(),
+  badge: StrapiMediaSchema.nullable().optional(),
+  certificate: StrapiMediaSchema.nullable().optional(),
 
   // Meta
-  featured: z.boolean().default(false), // NEW: featured flag
+  featured: z.boolean().default(false),
 
   // Strapi metadata
   createdAt: z.string(),

@@ -1,4 +1,5 @@
 import type { ComponentType, CSSProperties } from 'react';
+import type { PreloaderConfig } from '~/lib/transformers/preloader';
 import type { IconComponent } from '~/types/icons';
 
 // Loading step definition
@@ -91,7 +92,7 @@ export interface PerformanceConfig {
 }
 
 // Main preloader props interface (flattened for backward compatibility)
-export interface PreloaderProps {
+export interface PreloaderProps extends Partial<PreloaderConfig> {
   // Timing & Behavior
   minDisplayTime?: number;
   maxDisplayTime?: number;
@@ -104,7 +105,7 @@ export interface PreloaderProps {
   subtitle?: string;
   readyTitle?: string;
   readySubtitle?: string;
-  continueButton?: boolean;
+  continueButton?: PreloaderConfig['continueButton'];
   continueButtonText?: string;
   readyFooterNote?: string;
 

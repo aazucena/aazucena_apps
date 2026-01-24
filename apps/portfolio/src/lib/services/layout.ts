@@ -1,7 +1,7 @@
-import { getPreloaderConfig } from './preloader';
-import { getWebsiteConfig } from './website-config';
-import { getTheme } from './theme';
-import { getMaintenance } from './maintenance';
+import { getPreloaderConfig } from '../api/preloader';
+import { getWebsiteConfig } from '../api/website-config';
+import { getTheme } from '../api/theme';
+import { getMaintenance } from '../api/maintenance';
 
 export interface LayoutDataResponse {
   preloaderConfig: Awaited<ReturnType<typeof getPreloaderConfig>>;

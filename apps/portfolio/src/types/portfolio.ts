@@ -18,7 +18,7 @@ import type { BlogPost as PostData } from '~/components/animations/sections/data
 import type { HeroData } from '~/lib/transformers/hero';
 import type { AboutData } from '~/lib/transformers/about';
 import type { BlogConfigData } from '~/lib/transformers/blog-config';
-import type { ShowcaseConfig } from '~/lib/transformers/showcase';
+import type { ShowcaseConfig } from '~/lib/transformers/project-showcase';
 
 // Re-export types for use in section components
 export type { AboutData, SkillCategory, ProjectData, ExperienceData, TestimonialData, AwardData, PostData, BlogConfigData };

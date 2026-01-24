@@ -1,32 +1,30 @@
 import { z } from 'zod';
 import { fetchStrapi } from '../strapi';
-import { StrapiPortfolioSchema } from '~/lib/validators/portfolio';
-import { transformPortfolio, DEFAULT_PORTFOLIO } from '~/lib/transformers/portfolio';
-import type { ProfileData } from '~/components/animations/sections/data/about';
+import { StrapiPortfolioSchema } from '../validators/portfolio';
+import { 
+  transformPortfolio, 
+  DEFAULT_PORTFOLIO, 
+  type PortfolioData 
+} from '../transformers/portfolio';
 
 /**
- * Fetches portfolio/profile data from Strapi CMS
+ * Fetch portfolio single type data
  */
-export async function getPortfolio(): Promise<ProfileData> {
+export async function getPortfolio(): Promise<PortfolioData> {
   try {
     const response = await fetchStrapi('portfolio', {
       query: {
-        populate: {
-          profileImage: true,
-          resumeFile: true,
-          socialLinks: true,
-        },
+        populate: ['profileImage.src', 'resumeFile', 'socialLinks'],
       },
-      cache: 'force-cache',
     });
 
-    const validatedData = StrapiPortfolioSchema.parse(response.data);
-    return transformPortfolio(validatedData);
+    const validated = StrapiPortfolioSchema.parse(response.data);
+    return transformPortfolio(validated);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error('[Portfolio] Invalid CMS data:', error.issues);
+      console.error('[Portfolio API] Invalid CMS data:', error.issues);
     } else {
-      console.error('[Portfolio] Failed to fetch:', error);
+      console.error('[Portfolio API] Failed to fetch portfolio:', error);
     }
     return DEFAULT_PORTFOLIO;
   }

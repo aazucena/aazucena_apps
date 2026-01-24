@@ -1,10 +1,18 @@
 ---
+import {
+  ArrowRight,
+  BookOpen,
+  ClockCircle as Clock,
+  ExternalLink,
+  FileText,
+  Star
+} from '@mynaui/icons-react';
 import ListLayout from '~/layouts/ListLayout.astro';
 import type { FilterConfig } from '~/layouts/ListLayout.astro';
 import { getPosts } from '~/lib/api/posts';
-import type { BlogPost } from '~/components/animations/sections/data';
+import { calculateReadTime, formatPostDate, getPostDateTime } from '~/lib/utils/blogHelpers';
 import { getTagColorClasses } from '~/lib/utils/tagColors';
-import { ClockCircle as Clock, BookOpen, ArrowRight, FileText, Star, ExternalLink } from '@mynaui/icons-react';
+import type { BlogPost } from '~/lib/transformers/posts';
 
 // Fetch all posts
 let posts: BlogPost[] = [];
@@ -45,10 +53,10 @@ const filters: FilterConfig[] = [
 
       <!-- Cover Image -->
       <div class="relative h-60 overflow-hidden z-10">
-        {post.coverImageUrl ? (
+        {post.coverImage?.url ? (
           <img 
-            src={post.coverImageUrl} 
-            alt={post.title} 
+            src={post.coverImage?.url} 
+            alt={post.coverImage?.alt ?? post?.title} 
             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
             loading="lazy" 
           />
@@ -77,14 +85,14 @@ const filters: FilterConfig[] = [
       <div class="p-8 flex-1 flex flex-col z-10">
         <!-- Metadata -->
         <div class="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">
-          <time datetime={post.date} class="flex items-center gap-1.5">
+          <time datetime={getPostDateTime(post)} class="flex items-center gap-1.5">
             <Clock size={14} className="text-blue-500/50" />
-            {post.date}
+            {formatPostDate(post)}
           </time>
           <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700"></span>
           <span class="flex items-center gap-1.5">
             <BookOpen size={14} className="text-purple-500/50" />
-            {post.readTime}
+            {calculateReadTime(post.description)}
           </span>
         </div>
 

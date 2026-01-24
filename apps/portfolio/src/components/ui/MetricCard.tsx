@@ -6,9 +6,10 @@
 import type { JSX } from 'react';
 
 interface MetricCardProps {
-  value: string;
-  label: string;
+  value?: string;
+  label?: string;
   description?: string;
+  icon?: any;
 }
 
 export function MetricCard({ value, label, description }: MetricCardProps): JSX.Element {

@@ -37,7 +37,7 @@ const formatProjectDate = (date?: Date) => {
   filters={filters}
   searchPlaceholder="Search projects by tech, title..."
   layout="grid"
-  maxWidth="8xl"
+  maxWidth="7xl"
   hasItems={projects.length > 0}
 >
   {projects.map((project) => (
@@ -49,10 +49,10 @@ const formatProjectDate = (date?: Date) => {
     >
       <!-- Cover Image -->
       <div class="relative aspect-[16/10] overflow-hidden">
-        {project.coverImage?.src?.url ? (
+        {project.coverImage?.url ? (
           <img
-            src={project.coverImage.src.url}
-            alt={project.coverImage.altText || project.title}
+            src={project.coverImage.url}
+            alt={project.coverImage.alt || project.title}
             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             loading="lazy"
           />

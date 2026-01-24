@@ -1,36 +1,26 @@
 ---
-import PageLayout from '~/layouts/PageLayout.astro';
-import { getAbout } from '~/lib/api/about';
-import { getPortfolio } from '~/lib/api/portfolio';
-import { fetchEducation } from '~/lib/api/education';
+import {
+BookOpen,
+Download,
+Globe,
+LayersOne as Layers,
+Location,
+Music,
+Rocket,
+SmileSquare,
+Terminal,
+Wrench,
+Zap
+} from '@mynaui/icons-react';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
 import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
 import { EducationItem } from '~/components/ui/EducationItem';
 import { WorkingStyleSection } from '~/components/ui/WorkingStyleSection';
-import { 
-  User, 
-  Award, 
-  Rocket, 
-  ArrowRight, 
-  Download, 
-  Location, 
-  Calendar, 
-  BookOpen, 
-  Chip as Cpu, 
-  Wrench,
-  Heart,
-  Compass,
-  Music,
-  Globe,
-  SmileSquare,
-  ClockCircle as Clock,
-  Terminal,
-  ExternalLink,
-  Box,
-  LayersOne as Layers,
-  Zap
-} from '@mynaui/icons-react';
+import PageLayout from '~/layouts/PageLayout.astro';
+import { getAbout } from '~/lib/api/about';
+import { fetchEducation } from '~/lib/api/education';
+import { getPortfolio } from '~/lib/api/portfolio';
 
 // Fetch data in parallel
 let about = null;
@@ -52,7 +42,7 @@ if (!about || !portfolio) {
   return Astro.redirect('/404');
 }
 
-const pageTitle = `About | ${portfolio.name}`;
+const pageTitle = `About | ${portfolio.fullName}`;
 const pageDescription = about.tagline;
 
 // Sort education by start date descending
@@ -132,26 +122,26 @@ const languages = [
   { name: 'French', level: 'Novice' }
 ];
 
-const coreValues = [
-  {
-    title: 'Efficiency First',
-    description: 'I believe in writing code that machines can execute perfectly, but humans can read easily. Optimization is a journey, not a destination.',
-    icon: Cpu,
-    color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-  },
-  {
-    title: 'Empathy-Driven UX',
-    description: 'Software is for people. I strive to understand the human on the other side of the screen, ensuring every interaction feels natural and accessible.',
-    icon: Heart,
-    color: 'text-pink-600 bg-pink-50 dark:bg-pink-900/20'
-  },
-  {
-    title: 'Lifelong Learning',
-    description: 'The technical landscape changes every week. I embrace the "beginner mindset," constantly exploring new paradigms, from AI to low-level systems.',
-    icon: Compass,
-    color: 'text-green-600 bg-green-50 dark:bg-green-900/20'
-  }
-];
+// const coreValues = [
+//   {
+//     title: 'Efficiency First',
+//     description: 'I believe in writing code that machines can execute perfectly, but humans can read easily. Optimization is a journey, not a destination.',
+//     icon: Cpu,
+//     color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+//   },
+//   {
+//     title: 'Empathy-Driven UX',
+//     description: 'Software is for people. I strive to understand the human on the other side of the screen, ensuring every interaction feels natural and accessible.',
+//     icon: Heart,
+//     color: 'text-pink-600 bg-pink-50 dark:bg-pink-900/20'
+//   },
+//   {
+//     title: 'Lifelong Learning',
+//     description: 'The technical landscape changes every week. I embrace the "beginner mindset," constantly exploring new paradigms, from AI to low-level systems.',
+//     icon: Compass,
+//     color: 'text-green-600 bg-green-50 dark:bg-green-900/20'
+//   }
+// ];
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
@@ -174,13 +164,13 @@ const coreValues = [
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
           <!-- Profile Image -->
-          {portfolio.profileImage && (
+          {portfolio.profileImage?.url && (
             <div class="flex-shrink-0 relative group">
               <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
               <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden border-2 border-white dark:border-gray-800 shadow-2xl">
-                <img 
-                  src={portfolio.profileImage} 
-                  alt={portfolio.name} 
+                <img
+                  src={portfolio.profileImage.url}
+                  alt={portfolio.fullName}
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -190,10 +180,10 @@ const coreValues = [
           <div class="flex-1 text-center md:text-left space-y-6">
             <div>
               <h1 class="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tighter leading-none mb-4">
-                Hi, I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">{portfolio.name.split(' ')[0]}</span>.
+                Hi, I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">{portfolio.fullName.split(' ')[0]}</span>.
               </h1>
               <p class="text-2xl md:text-3xl font-bold text-gray-400 dark:text-gray-500 tracking-tight">
-                {portfolio.title}
+                {portfolio.occupation}
               </p>
             </div>
             <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-2xl leading-relaxed">
@@ -203,7 +193,7 @@ const coreValues = [
         </div>
       </div>
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] dark:opacity-[0.05] whitespace-nowrap">
-        <span class="text-[20rem] font-black uppercase tracking-tighter">{portfolio.name}</span>
+        <span class="text-[20rem] font-black uppercase tracking-tighter">{portfolio.fullName}</span>
       </div>
     </header>
 
@@ -333,10 +323,10 @@ const coreValues = [
             <p class="text-gray-400 dark:text-gray-500 text-sm mb-8 leading-relaxed relative z-10">
               Need a copy for your records? Grab the full technical breakdown here.
             </p>
-            {portfolio.resume && (
-              <a 
-                href={portfolio.resume} 
-                target="_blank" 
+            {portfolio.resumeUrl && (
+              <a
+                href={portfolio.resumeUrl}
+                target="_blank"
                 class="flex items-center justify-center gap-3 w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 transition-all shadow-lg active:scale-95 relative z-10"
               >
                 <Download size={18} />

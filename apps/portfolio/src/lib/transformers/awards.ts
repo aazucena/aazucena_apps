@@ -1,94 +1,53 @@
-import type { StrapiAward } from '~/lib/validators/awards';
-import type { Award } from '~/components/animations/sections/data/awards';
+import type { StrapiAward } from '../validators/awards';
+import { getMediaUrl } from './utils';
 
-/**
- * Generate gradient based on category
- * Maps new CMS category enum values to visual gradients
- */
-function getCategoryGradient(category?: string): string {
-  const gradientMap: Record<string, string> = {
-    // CMS category enum values
-    Academic: 'from-blue-400 to-indigo-500',
-    Professional: 'from-purple-400 to-pink-500',
-    Community: 'from-green-400 to-emerald-500',
-    Music: 'from-fuchsia-400 to-purple-500',
-    Design: 'from-orange-400 to-red-500',
-    Certification: 'from-cyan-400 to-blue-500',
-    Competition: 'from-yellow-400 to-orange-500',
-  };
-
-  return gradientMap[category || 'Certification'] || 'from-blue-400 to-indigo-500';
+export interface Award {
+  id: string;
+  type: 'certification' | 'award';
+  title: string;
+  shortTitle: string;
+  organization: string;
+  issuer?: string;
+  year: number;
+  credentialId?: string;
+  description?: any;
+  category?: string;
+  verificationUrl?: string;
+  badgeUrl?: string;
+  certificateUrl?: string;
+  featured: boolean;
+  createdAt: string;
 }
 
-/**
- * Generate short title from full title
- */
-function getShortTitle(title: string): string {
-  // Take first 2-3 words or abbreviation
-  const words = title.split(/\s+/);
-  if (words.length <= 2) return title;
+export const DEFAULT_AWARDS: Award[] = [];
 
-  // Check if title has abbreviation in it (e.g., "AWS Certified...")
-  const abbr = words.find((word) => word.length <= 4 && word.toUpperCase() === word);
-  if (abbr) return abbr;
-
-  // Otherwise take first 2 words
-  return words.slice(0, 2).join(' ');
-}
-
-/**
- * Transform Strapi award to frontend format
- */
-export function transformAward(strapiAward: StrapiAward): Award {
+export function transformAward(data: StrapiAward): Award {
   return {
-    id: strapiAward.id.toString(),
-    type: strapiAward.type || 'award', // Use new type field from CMS
-    title: strapiAward.title,
-    shortTitle: strapiAward.shortTitle || getShortTitle(strapiAward.title), // Use CMS field or generate
-    organization: strapiAward.organization,
-    year: strapiAward.year.toString(), // Convert number to string for display
-    description: strapiAward.description || '',
-    gradient: getCategoryGradient(strapiAward.category),
-    icon: strapiAward.badge ? 'badge' : 'award', // Use badge icon if media exists
-    featured: strapiAward.featured ?? false, // NEW: featured flag
-    verificationUrl: strapiAward.verificationUrl, // NEW: verification URL
-    badgeUrl: strapiAward.badge?.url, // NEW: badge media URL
-    certificateUrl: strapiAward.certificate?.url, // NEW: certificate media URL
+    id: data.id.toString(),
+    type: data.type as 'certification' | 'award',
+    title: data.title,
+    shortTitle: data.shortTitle || data.title.substring(0, 30),
+    organization: data.organization,
+    issuer: data.issuer || undefined,
+    year: data.year,
+    credentialId: data.credentialId || undefined,
+    description: data.description,
+    category: data.category || undefined,
+    verificationUrl: data.verificationUrl || undefined,
+    badgeUrl: getMediaUrl(data.badge),
+    certificateUrl: getMediaUrl(data.certificate),
+    featured: !!data.featured,
+    createdAt: data.createdAt,
   };
 }
 
-/**
- * Transform array of awards
- */
-export function transformAwards(strapiAwards: StrapiAward[]): Award[] {
-  // Sort by year descending (most recent first), then by sort
-  const sorted = strapiAwards.sort((a, b) => {
-    const yearA = parseInt(a.year, 10);
-    const yearB = parseInt(b.year, 10);
-    if (yearA !== yearB) return yearB - yearA;
+export function transformAwards(items: StrapiAward[]): Award[] {
+  if (!items || items.length === 0) return DEFAULT_AWARDS;
 
-    const sortA = a.sort ?? 0;
-    const sortB = b.sort ?? 0;
-    return sortA - sortB;
-  });
-
-  return sorted.map(transformAward);
+  return items
+    .sort((a, b) => {
+      if (b.year !== a.year) return b.year - a.year;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    })
+    .map(transformAward);
 }
-
-/**
- * Default fallback awards
- */
-export const DEFAULT_AWARDS: Award[] = [
-  {
-    id: 'aws',
-    type: 'certification',
-    title: 'AWS Certified Solutions Architect',
-    shortTitle: 'AWS',
-    organization: 'Amazon Web Services',
-    year: '2023',
-    description: 'Professional-level certification demonstrating expertise in designing distributed systems on AWS.',
-    gradient: 'from-cyan-400 to-blue-500',
-    icon: 'badge',
-    skills: ['AWS', 'Cloud Architecture'],
-  },
-];

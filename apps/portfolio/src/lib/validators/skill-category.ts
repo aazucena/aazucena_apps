@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SkillCategoryVariantEnum, CategoryDisplayEnum } from './enums';
 
 /**
  * Zod validation schema for Strapi Skill Category content type
@@ -7,28 +8,14 @@ import { z } from 'zod';
 export const StrapiSkillCategorySchema = z.object({
   id: z.number(),
   documentId: z.string(),
-  name: z.string().regex(/^[a-z0-9-]+$/), // kebab-case (e.g., "frontend")
-  label: z.string(), // Display label (e.g., "Frontend Development")
+  name: z.string().regex(/^[a-z0-9-]+$/), // kebab-case
+  label: z.string(),
   icon: z.string().nullable().optional(),
   createdAt: z.string().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
   publishedAt: z.string().nullable().optional(),
-  display: z.enum(['hidden', 'visible']).default('visible'),
-  variant: z
-    .enum([
-        "cyan-blue",
-        "purple-pink",
-        "green-emerald",
-        "blue-indigo",
-        "yellow-orange",
-        "pink-red",
-        "teal-cyan",
-        "orange-red",
-        "violet-purple",
-        "indigo-violet"
-    ])
-    .nullable()
-    .optional(),
+  display: CategoryDisplayEnum.default('visible'),
+  variant: SkillCategoryVariantEnum.nullable().optional(),
 });
 
 /**

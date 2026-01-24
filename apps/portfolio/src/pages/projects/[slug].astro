@@ -1,14 +1,13 @@
 ---
-import { BrandGithub, Briefcase, ExternalLink, Calendar, LayersOne as Layers, ArrowRight, ArrowLeft } from '@mynaui/icons-react';
+import { ArrowLeft, ArrowRight, BrandGithub, Briefcase, ExternalLink } from '@mynaui/icons-react';
 import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
 import { MetricCard } from '~/components/ui/MetricCard';
 import { ReadingProgress } from '~/components/ui/ReadingProgress';
+import { RelatedLinks } from '~/components/ui/RelatedLinks';
 import { TableOfContents } from '~/components/ui/TableOfContents';
 import { TechStackDistribution } from '~/components/ui/TechStackDistribution';
-import { RelatedLinks } from '~/components/ui/RelatedLinks';
 import PageLayout from '~/layouts/PageLayout.astro';
 import { getProjects } from '~/lib/api/projects';
-import { getTagColorClasses } from '~/lib/utils/tagColors';
 
 // Generate static paths for all projects
 export async function getStaticPaths() {
@@ -56,7 +55,7 @@ const jsonLd = {
 };
 ---
 
-<PageLayout title={project.seo?.metaTitle || project.title} description={project.seo?.metaDescription || project.shortDescription}>
+t<PageLayout title={project.seo?.title || project.title} description={project.seo?.description || project.shortDescription}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <ReadingProgress client:load />
 
@@ -123,10 +122,10 @@ const jsonLd = {
         <div id="project-content" class="lg:col-span-2 space-y-24">
           
           <!-- Hero Image -->
-          {project.coverImage?.src?.url && (
+          {project.coverImage?.url && (
             <div class="rounded-[2.5rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group relative">
               <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent pointer-events-none"></div>
-              <img src={project.coverImage.src.url} alt={project.title} class="w-full h-auto group-hover:scale-[1.02] transition-transform duration-1000" />
+              <img src={project.coverImage.url} alt={project.title} class="w-full h-auto group-hover:scale-[1.02] transition-transform duration-1000" />
             </div>
           )}
 
@@ -155,14 +154,14 @@ const jsonLd = {
             <section id="gallery" class="space-y-12">
               <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">Visual Deep Dive</h2>
               <div class="space-y-12">
-                {project.screenshots.map((shot, idx) => screenshot?.src?.url && (
+                {project.screenshots.map((shot, idx) => shot?.url && (
                   <figure class="space-y-4 group">
                     <div class="rounded-[2rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-xl transition-all duration-700 hover:shadow-2xl">
-                      <img src={shot.src.url} alt={shot.altText} class="w-full h-auto" loading="lazy" />
+                      <img src={shot.url} alt={shot.alt} class="w-full h-auto" loading="lazy" />
                     </div>
-                    {shot.altText && (
+                    {shot.alt && (
                       <figcaption class="text-[10px] font-black uppercase tracking-widest text-gray-400 text-center opacity-50 group-hover:opacity-100 transition-opacity">
-                        Visual {idx + 1}: {shot.altText}
+                        Visual {idx + 1}: {shot.alt}
                       </figcaption>
                     )}
                   </figure>

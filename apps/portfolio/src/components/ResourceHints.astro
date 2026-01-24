@@ -1,0 +1,24 @@
+---
+/**
+ * Resource Hints Component
+ *
+ * Provides browser hints for optimizing resource loading:
+ * - dns-prefetch: Resolve DNS early for external domains
+ * - preconnect: Establish connections early for critical resources
+ * - preload: Load critical assets with high priority
+ *
+ * Usage:
+ * <ResourceHints />
+ */
+---
+
+<!-- DNS Prefetch - Resolve DNS for external domains early -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+<!-- Preconnect - Establish early connections for critical resources -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Preload - Load critical CSS early -->
+<link rel="preload" href="/styles/theme.css" as="style">

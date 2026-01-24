@@ -3,8 +3,9 @@
  * Converts experience and education into timeline nodes
  */
 
-import type { Experience, SkillWithCategory } from '~/components/animations/sections/data';
-import type { Education, StrapiEducation } from '~/lib/validators/education';
+import type { SkillWithCategory } from '~/components/animations/sections/data';
+import type { Education } from '~/lib/transformers/education';
+import type { Experience } from '~/lib/transformers/experiences';
 import { calculateMonthsDuration } from './base';
 
 export interface TimelineNode {
@@ -54,8 +55,7 @@ export function transformExperiencesToTimeline(experiences: Experience[]): Timel
       subtitle: exp.company,
       company: exp.company,
       position: exp.position,
-      logo: exp.logo,
-      logoGradient: exp.logoGradient,
+      logo: exp.companyLogo?.url,
       duration: calculateMonthsDuration(validStartDate, endDate),
       slug: exp.slug,
       isCurrent: exp.isCurrent,
@@ -64,7 +64,7 @@ export function transformExperiencesToTimeline(experiences: Experience[]): Timel
   });
 }
 
-export function transformEducationToTimeline(education: StrapiEducation[]): TimelineNode[] {
+export function transformEducationToTimeline(education: Education[]): TimelineNode[] {
   return education.map((edu, index) => {
     const startDate = new Date(edu.startDate);
     const validStartDate = !isNaN(startDate.getTime())
@@ -105,7 +105,6 @@ export function transformEducationToTimeline(education: StrapiEducation[]): Time
       degree: edu.degree,
       field: edu.field,
       educationType: edu.type,
-      honors: edu.honors,
       gpa: edu.gpa,
       skills: edu.skills as SkillWithCategory[] || [],
       duration: calculateMonthsDuration(validStartDate, endDate),
@@ -116,7 +115,7 @@ export function transformEducationToTimeline(education: StrapiEducation[]): Time
 
 export function transformToTimelineData(
   experiences: Experience[],
-  education: StrapiEducation[] = []
+  education: Education[] = []
 ): TimelineNode[] {
   const experienceNodes = transformExperiencesToTimeline(experiences);
   const educationNodes = transformEducationToTimeline(education);

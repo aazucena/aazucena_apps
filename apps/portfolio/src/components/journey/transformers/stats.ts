@@ -3,10 +3,11 @@
  * Quantitative metrics calculation for career summary
  */
 
-import type { Experience, SkillWithCategory } from '~/components/animations/sections/data';
-import type { StrapiEducation } from '~/lib/validators/education';
+import type { Experience } from '~/lib/transformers/experiences';
+import type { Education } from '~/lib/transformers/education';
 import type { Project } from '~/lib/transformers/projects';
 import { getSafeSkillInfo } from './base';
+import type { SkillWithCategory } from '~/components/animations/sections/data';
 
 export interface CareerStat {
   totalYears: number;
@@ -65,7 +66,7 @@ export function calculateCareerStats(experiences: Experience[]): CareerStat {
 
 export function calculateSkillGrowthMetrics(
   experiences: Experience[],
-  education: StrapiEducation[] = [],
+  education: Education[] = [],
   projects: Project[] = []
 ): GrowthData {
   const skillUsageCount = new Map<string, number>();

@@ -1,61 +1,41 @@
 import { z } from 'zod';
-
-// Schema for ui.image-element component
-const ImageElementSchema = z.object({
-  id: z.number().optional(),
-  src: z.any().optional(), // Media field
-  altText: z.string().optional(),
-}).nullable().optional();
-
-// Schema for ui.tag component
-const TagSchema = z.object({
-  id: z.number().optional(),
-  label: z.string(),
-  color: z.string().optional(),
-});
-
-// Schema for shared.seo component
-const SEOSchema = z.object({
-  id: z.number().optional(),
-  metaTitle: z.string().optional(),
-  metaDescription: z.string().optional(),
-  keywords: z.string().optional(),
-  canonicalURL: z.string().optional(),
-  metaRobots: z.string().optional(),
-  openGraph: z.any().optional(), // nested component
-}).nullable().optional();
-
-import { WebLinkArraySchema } from './web-link';
+import { 
+  ImageElementSchema, 
+  TagSchema, 
+  SeoSchema, 
+  WebLinkArraySchema 
+} from './components';
+import { PostStatusEnum } from './enums';
 
 export const StrapiPostSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
 
   // Core fields
-  title: z.string().max(200), // CHANGED: max 200 to match CMS
+  title: z.string().max(200),
   slug: z.string(),
-  description: z.any(), // CHANGED: richtext field (required in CMS)
+  description: z.any(), // richtext field
 
   // Media
-  coverImage: ImageElementSchema, // CHANGED: ui.image-element component
+  coverImage: ImageElementSchema.nullable().optional(),
 
   // Status & Display
-  status: z.enum(['Planned', 'In Progress', 'Completed', 'On Hold']).optional(), // NEW
-  sort: z.number().min(0).optional(), // NEW
-  featured: z.boolean().default(false), // Moved from optional to default
+  status: PostStatusEnum.optional(),
+  sort: z.number().min(0).optional(),
+  featured: z.boolean().default(false),
 
   // URLs
-  url: z.string().max(255), // NEW - required
-  isExternal: z.boolean().default(false), // NEW
+  url: z.string().max(255),
+  isExternal: z.boolean().default(false),
 
   // Taxonomy
-  tags: z.array(TagSchema).optional(), // CHANGED: ui.tag component
+  tags: z.array(TagSchema).optional(),
 
   // SEO
-  seo: SEOSchema, // NEW - shared.seo component
+  seo: SeoSchema,
 
   // Relations
-  relatedLinks: WebLinkArraySchema, // NEW
+  relatedLinks: WebLinkArraySchema,
 
   // Strapi metadata
   createdAt: z.string(),

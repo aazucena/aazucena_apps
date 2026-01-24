@@ -1,77 +1,87 @@
 import { z } from 'zod';
-import { WebLinkArraySchema } from './web-link';
+import { 
+  ImageElementSchema, 
+  TagSchema, 
+  StatsSchema, 
+  SeoSchema, 
+  WebLinkArraySchema 
+} from './components';
+import { 
+  ProjectDisplayEnum, 
+  ProjectTypeEnum, 
+  ProjectStatusEnum 
+} from './enums';
 import { StrapiSkillSchema } from './skills';
+import { StrapiExperienceSchema } from './experiences';
+import { StrapiEducationSchema } from './education';
 
 /**
- * Image element component schema
+ * Explicit Interface for recursion
  */
-const ImageElementSchema = z.object({
-  id: z.number().optional(),
-  src: z.any(), // StrapiMedia
-  altText: z.string(),
-}).nullable().optional();
-
-/**
- * Tag component schema
- */
-const TagSchema = z.object({
-  id: z.number().optional(),
-  label: z.string().max(30),
-  color: z.enum(['cyan', 'blue', 'purple', 'pink', 'green', 'teal', 'orange', 'red', 'gray']),
-});
-
-/**
- * Stats/Metrics component schema
- */
-const StatsSchema = z.object({
-  id: z.number().optional(),
-  label: z.string(),
-  value: z.string(),
-  icon: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-});
+export interface StrapiProject {
+  id: number;
+  documentId?: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  description: any;
+  display: 'hidden' | 'unlisted' | 'standard' | 'featured' | 'home';
+  coverImage?: any | null;
+  screenshots?: any[] | null;
+  demoVideo?: any | null;
+  gallery?: any[] | null;
+  repositoryUrl?: string | null;
+  liveDemoUrl?: string | null;
+  projectType?: string | null;
+  sort?: number | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  projectStatus?: string | null;
+  tags?: any[] | null;
+  techStack?: any[];
+  metrics?: any[] | null;
+  seo?: any | null;
+  relatedLinks?: any[] | null;
+  experience?: any | null;
+  education?: any | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+  locale?: string;
+}
 
 /**
  * Zod validation schema for Strapi Project content type
  */
-export const StrapiProjectSchema = z.object({
+export const StrapiProjectSchema: z.ZodType<StrapiProject> = z.object({
   id: z.number(),
   documentId: z.string().optional(),
   title: z.string().max(200),
   slug: z.string(),
   shortDescription: z.string().max(300),
-  description: z.any(), // Richtext/Blocks
-  display: z.enum(['hidden', 'unlisted', 'standard', 'featured', 'home']),
-  coverImage: ImageElementSchema,
+  description: z.any(), 
+  display: ProjectDisplayEnum,
+  coverImage: ImageElementSchema.nullable().optional(),
   screenshots: z.array(ImageElementSchema).nullable().optional(),
-  demoVideo: z.any().nullable().optional(), // StrapiMedia
-  gallery: z.array(z.any()).nullable().optional(), // Array of StrapiMedia
+  demoVideo: z.any().nullable().optional(),
+  gallery: z.array(z.any()).nullable().optional(),
   repositoryUrl: z.string().max(255).url().nullable().optional(),
   liveDemoUrl: z.string().max(255).url().nullable().optional(),
-  projectType: z.enum(['Web App', 'Mobile App', 'Desktop App', 'Library', 'API', 'CLI Tool', 'Game', 'Music Production', 'Hardware/Embedded']).nullable().optional(),
+  projectType: ProjectTypeEnum.nullable().optional(),
   sort: z.number().nullable().optional(),
-  startDate: z.string().nullable().optional(), // ISO date string
-  endDate: z.string().nullable().optional(), // ISO date string
-  projectStatus: z.enum(['Planned', 'In Progress', 'Released', 'Maintenance', 'On Hold', 'Completed', 'Archived']).nullable().optional(),
-  tags: z.array(TagSchema).nullable().optional(), // Repeatable tag components
-  techStack: z.array(StrapiSkillSchema).optional(), // Skills relation (raw Strapi format)
-  metrics: z.array(StatsSchema).nullable().optional(), // Repeatable stats components
-  seo: z.any().nullable().optional(), // SEO component
-
-  // New fields (Phase 0.5)
-  relatedLinks: WebLinkArraySchema, // Repeatable web-link components
-  experience: z.object({
-    id: z.number(),
-    documentId: z.string().optional(),
-    position: z.string(),
-    company: z.string(),
-  }).nullable().optional(), // ManyToOne relation to Experience
-  education: z.object({
-    id: z.number(),
-    documentId: z.string().optional(),
-    degree: z.string(),
-    institution: z.string(),
-  }).nullable().optional(), // ManyToOne relation to Education
+  startDate: z.string().nullable().optional(),
+  endDate: z.string().nullable().optional(),
+  projectStatus: ProjectStatusEnum.nullable().optional(),
+  tags: z.array(TagSchema).nullable().optional(),
+  
+  // Relations
+  techStack: z.array(z.lazy(() => StrapiSkillSchema)).optional(),
+  
+  metrics: z.array(StatsSchema).nullable().optional(),
+  seo: SeoSchema.nullable().optional(),
+  relatedLinks: WebLinkArraySchema.nullable().optional(),
+  experience: z.lazy(() => StrapiExperienceSchema).nullable().optional(),
+  education: z.lazy(() => StrapiEducationSchema).nullable().optional(),
 
   // Strapi metadata
   createdAt: z.string(),
@@ -92,5 +102,4 @@ export const StrapiProjectsResponseSchema = z.object({
   }).optional(),
 });
 
-export type StrapiProject = z.infer<typeof StrapiProjectSchema>;
 export type StrapiProjectsResponse = z.infer<typeof StrapiProjectsResponseSchema>;

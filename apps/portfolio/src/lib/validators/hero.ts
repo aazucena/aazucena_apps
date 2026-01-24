@@ -6,12 +6,12 @@ import { z } from 'zod';
 export const StrapiHeroSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
-  flipWords: z.any(), // Sortable list custom field (array of strings)
+  flipWords: z.array(z.string()), // plugin::strapi-plugin-sortable-list.sortable-list
   taglineTemplate: z.string().max(200),
-  primaryButtonText: z.string().max(50).optional(),
-  showDropdown: z.boolean().optional(),
-  secondaryButtonText: z.string().max(50).optional(),
-  showSecondaryButton: z.boolean().optional(),
+  primaryButtonText: z.string().max(50).optional().nullable(),
+  showDropdown: z.boolean().default(true),
+  secondaryButtonText: z.string().max(50).optional().nullable(),
+  showSecondaryButton: z.boolean().default(true),
   createdAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string().optional(),

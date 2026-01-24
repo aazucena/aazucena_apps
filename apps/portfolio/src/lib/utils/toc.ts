@@ -38,7 +38,7 @@ export function extractTOC(markdown: string, maxLevel: number = 3): TOCHeading[]
   for (const line of lines) {
     // Match markdown headings (# H1, ## H2, ### H3, etc.)
     const match = line.match(/^(#{1,6})\s+(.+)$/);
-    if (match) {
+    if (match && match[1] && match[2]) {
       const level = match[1].length;
       const text = match[2].trim();
 

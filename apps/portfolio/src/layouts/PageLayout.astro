@@ -21,7 +21,7 @@ const currentPath = Astro.url.pathname;
   <Navbar 
     siteName={websiteConfig.siteName} 
     currentPath={currentPath} 
-    logoUrl={websiteConfig.siteLogo?.url || '/icon.svg'}
+    logoUrl={websiteConfig.faviconUrl || '/icon.svg'}
     client:load 
   />
   

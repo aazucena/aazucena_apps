@@ -1,0 +1,87 @@
+---
+/**
+ * SEOHead Component
+ *
+ * Renders all SEO-related meta tags including Open Graph, Twitter Cards,
+ * canonical URLs, and structured data. Accepts configuration from CMS.
+ *
+ * Usage:
+ * <SEOHead
+ *   title="Page Title"
+ *   description="Page description"
+ *   canonical="https://example.com/page"
+ *   keywords="keyword1, keyword2"
+ *   robots="index, follow"
+ *   openGraph={{ ... }}
+ *   twitterCard="summary_large_image"
+ *   twitterSite="@handle"
+ *   googleSiteVerificationId="verification-id"
+ * />
+ */
+
+export interface OpenGraphConfig {
+  title: string;
+  description: string;
+  type: string;
+  url?: string;
+  siteName?: string;
+  image?: string;
+}
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  keywords?: string;
+  robots?: string;
+  viewport?: string;
+  openGraph?: OpenGraphConfig;
+  twitterCard?: string;
+  twitterSite?: string;
+  googleSiteVerificationId?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  keywords,
+  robots = 'index, follow',
+  viewport = 'width=device-width, initial-scale=1',
+  openGraph,
+  twitterCard = 'summary_large_image',
+  twitterSite,
+  googleSiteVerificationId,
+} = Astro.props;
+---
+
+<!-- Basic Meta Tags -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="viewport" content={viewport} />
+{keywords && <meta name="keywords" content={keywords} />}
+{robots && <meta name="robots" content={robots} />}
+
+<!-- Canonical URL -->
+{canonical && <link rel="canonical" href={canonical} />}
+
+<!-- Open Graph Meta Tags -->
+{openGraph && (
+  <>
+    <meta property="og:title" content={openGraph.title} />
+    <meta property="og:description" content={openGraph.description} />
+    <meta property="og:type" content={openGraph.type} />
+    {openGraph.url && <meta property="og:url" content={openGraph.url} />}
+    {openGraph.siteName && <meta property="og:site_name" content={openGraph.siteName} />}
+    {openGraph.image && <meta property="og:image" content={openGraph.image} />}
+  </>
+)}
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content={twitterCard} />
+{twitterSite && <meta name="twitter:site" content={twitterSite} />}
+
+<!-- Google Site Verification -->
+{googleSiteVerificationId && (
+  <meta name="google-site-verification" content={googleSiteVerificationId} />
+)}

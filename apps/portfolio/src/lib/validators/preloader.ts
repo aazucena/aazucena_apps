@@ -1,24 +1,13 @@
 import { z } from 'zod';
+import { LoadingStepSchema, CTAButtonSchema } from './components';
+import { 
+  PreloaderThemeEnum, 
+  PreloaderVariantEnum, 
+  TransitionTypeEnum, 
+  AriaLiveEnum 
+} from './enums';
 
-const StrapiLoadingStepSchema = z.object({
-  id: z.number().optional(),
-  stepId: z.number().int().min(1).max(20),
-  name: z.string().max(50),
-  description: z.string().max(100),
-  icon: z.string(),
-  weight: z.number().int().min(5).max(50),
-  enabled: z.boolean(),
-});
-
-const StrapiCTAButtonSchema = z.object({
-  id: z.number().optional(),
-  label: z.string().max(50),
-  url: z.string().max(255),
-  variant: z.enum(['primary', 'secondary', 'outline', 'ghost']),
-  size: z.enum(['sm', 'md', 'lg']),
-  openInNewTab: z.boolean(),
-  icon: z.string().nullable().optional(),
-});
+export type { LoadingStep } from './components';
 
 const StrapiThemeOverridesSchema = z.object({
   colors: z.object({
@@ -66,16 +55,16 @@ const StrapiThemeOverridesSchema = z.object({
 export const StrapiPreloaderConfigSchema = z.object({
   id: z.number().optional(),
   enabled: z.boolean(),
-  variant: z.enum(['interactive', 'simple']),
-  theme: z.enum(['default', 'hoyoverse', 'cyberpunk', 'minimal', 'glass', 'dark', 'light', 'nature']),
+  variant: PreloaderVariantEnum,
+  theme: PreloaderThemeEnum,
 
-  title: z.string().max(100),  // Required
+  title: z.string().max(100),
   subtitle: z.string().max(150).nullable().optional(),
-  readyTitle: z.string().max(100),  // Required
-  readySubtitle: z.string().max(150),  // Required
+  readyTitle: z.string().max(100),
+  readySubtitle: z.string().max(150),
   readyFooterNote: z.string().max(150).nullable().optional(),
 
-  continueButton: StrapiCTAButtonSchema,  // Required
+  continueButton: CTAButtonSchema,
 
   minDisplayTime: z.number().int().min(500).max(10000),
   maxDisplayTime: z.number().int().min(1000).max(30000),
@@ -88,17 +77,17 @@ export const StrapiPreloaderConfigSchema = z.object({
   preloadAssets: z.boolean(),
   enableAnimations: z.boolean(),
 
-  transitionType: z.enum(['fade', 'slide', 'scale', 'none']),
+  transitionType: TransitionTypeEnum,
   showCard: z.boolean(),
 
-  loadingSteps: z.array(StrapiLoadingStepSchema).min(1).max(10),  // Required, min 1
+  loadingSteps: z.array(LoadingStepSchema).min(1).max(10),
 
   primaryColor: z.string().nullable().optional(),
   secondaryColor: z.string().nullable().optional(),
   themeOverrides: StrapiThemeOverridesSchema.nullable().optional(),
 
   ariaLabel: z.string().max(100),
-  ariaLive: z.enum(['off', 'polite', 'assertive']),
+  ariaLive: AriaLiveEnum,
   skipButtonAriaLabel: z.string().max(100),
 
   customClassName: z.string().max(200).nullable().optional(),
@@ -121,6 +110,4 @@ export const StrapiPreloaderConfigSchema = z.object({
   }
 );
 
-export type StrapiLoadingStep = z.infer<typeof StrapiLoadingStepSchema>;
-export type StrapiCTAButton = z.infer<typeof StrapiCTAButtonSchema>;
 export type StrapiPreloaderConfigValidated = z.infer<typeof StrapiPreloaderConfigSchema>;

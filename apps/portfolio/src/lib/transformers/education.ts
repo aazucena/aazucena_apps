@@ -1,93 +1,59 @@
-/**
- * Transformer for Education collection type
- * Converts Strapi API response to clean Education type
- */
+import type { StrapiEducation } from '../validators/education';
+import { 
+  transformWebLink as utilTransformWebLink, 
+  getMediaUrl 
+} from './utils';
+import type { Achievement } from '../validators/components';
 
-import type { Education, StrapiEducation } from '../validators/education';
-import { transformWebLinks } from './web-link';
+export interface Education {
+  id: number;
+  slug: string;
+  type: string;
+  degree: string;
+  field: string;
+  institution: string;
+  institutionLogoUrl?: string;
+  startDate: string;
+  graduationDate?: string;
+  current: boolean;
+  location?: string;
+  gpa?: number;
+  description?: string;
+  achievements: Achievement[];
+  skills: { name: string; category: string }[];
+  relatedLinks: ReturnType<typeof utilTransformWebLink>[];
+}
 
-/**
- * Transform a single education entry from Strapi format
- */
-export function transformEducation(rawEducation: Education): StrapiEducation {
-  const achievements = rawEducation.achievements || [];
-
-  // Extract skills with category information
-  const skills = rawEducation.skills?.map((skill: any) => {
-    // If skill is just a string, return it as-is (fallback)
-    if (typeof skill === 'string') return skill;
-
-    // Strapi v5 wraps relations in a 'data' property
-    // Try: skill.category.data.label (v5) or skill.category.label (v4)
-    const categoryData = skill.category?.data || skill.category;
-    const categoryName = categoryData?.label || categoryData?.name || 'Other';
-
-    // Return skill object with name and category
-    return {
-      name: skill.name,
-      category: categoryName,
-    };
-  }) || [];
+export function transformEducation(data: StrapiEducation): Education {
+  const skills = (data.skills || []).map((skill: any) => ({
+    name: skill.name,
+    category: skill.category?.label || skill.category?.name || 'Other',
+  }));
 
   return {
-    id: rawEducation.id,
-    documentId: rawEducation.documentId,
-    type: rawEducation.type || 'bachelor',
-    degree: rawEducation.degree || '',
-    field: rawEducation.field || '',
-    slug: rawEducation.slug || '',
-    institution: rawEducation.institution || '',
-    institutionLogo: rawEducation.institutionLogo
-      ? {
-          url: rawEducation.institutionLogo.url || '',
-          alternativeText: rawEducation.institutionLogo.alternativeText || null,
-          width: rawEducation.institutionLogo.width,
-          height: rawEducation.institutionLogo.height,
-        }
-      : null,
-    institutionWebsite: rawEducation.institutionWebsite || null,
-    startDate: rawEducation.startDate || '',
-    graduationDate: rawEducation.graduationDate || null,
-    expectedGraduationDate: rawEducation.expectedGraduationDate || null,
-    current: rawEducation.current ?? false,
-    location: rawEducation.location || null,
-    gpa: rawEducation.gpa ?? null,
-    gpaScale: rawEducation.gpaScale ?? 4,
-    description: rawEducation.description || null,
-    honors: rawEducation.honors || null,
-    thesis: rawEducation.thesis || null,
-    thesisDescription: rawEducation.thesisDescription || null,
-    sort: rawEducation.sort ?? 0,
-    achievements: achievements,
-    courses: Array.isArray(rawEducation.courses) ? rawEducation.courses : [],
-    skills: skills,
-    extracurriculars: rawEducation.extracurriculars || null,
-    credentialUrl: rawEducation.credentialUrl || null,
-    credentialId: rawEducation.credentialId || null,
-    featured: rawEducation.featured ?? false,
-    display: rawEducation.display || 'standard',
-    relatedLinks: transformWebLinks(rawEducation.relatedLinks),
-    publishedAt: rawEducation.publishedAt || null,
-    createdAt: rawEducation.createdAt,
-    updatedAt: rawEducation.updatedAt,
+    id: data.id,
+    slug: data.slug,
+    type: data.type,
+    degree: data.degree,
+    field: data.field,
+    institution: data.institution,
+    institutionLogoUrl: getMediaUrl(data.institutionLogo),
+    startDate: data.startDate,
+    graduationDate: data.graduationDate || undefined,
+    current: !!data.current,
+    location: data.location || undefined,
+    gpa: data.gpa || undefined,
+    description: data.description || undefined,
+    achievements: (data.achievements || []) as Achievement[],
+    skills,
+    relatedLinks: (data.relatedLinks || []).map(utilTransformWebLink),
   };
 }
 
-/**
- * Transform an array of education entries
- */
-export function transformEducationList(rawEducation: Education[]): StrapiEducation[] {
-  if (!Array.isArray(rawEducation)) {
-    return [];
-  }
+export function transformEducationList(items: StrapiEducation[]): Education[] {
+  if (!items || items.length === 0) return [];
 
-  return rawEducation
-    .map(transformEducation)
-    .sort((a, b) => {
-      // Sort by sort field first, then by startDate (most recent first)
-      if (a.sort !== b.sort) {
-        return b.sort - a.sort;
-      }
-      return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-    });
+  return items
+    .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+    .map(transformEducation);
 }

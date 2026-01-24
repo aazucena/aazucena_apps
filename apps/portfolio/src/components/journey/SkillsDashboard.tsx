@@ -7,8 +7,8 @@ import { useState } from 'react';
 import { StreamGraph, Heatmap,SankeyDiagram, SpiderChart, ForceDirectedGraph } from './';
 import { DetailsModal, CareerStats, Toolbar, GrowthMetrics } from './ui';
 import { getSkillDetails, type SkillsOverTime, type SkillsNetworkData, type SkillNode, type SankeyData, type HeatmapCell, type StreamGraphStep, type GrowthData, type CareerStat as CareerStatsType } from './transformers';
-import type { Experience } from '~/components/animations/sections/data';
-import type { StrapiEducation } from '~/lib/validators/education';
+import type { Experience } from '~/lib/transformers/experiences'
+import type { Education } from '~/lib/transformers/education';
 import type { Project } from '~/lib/transformers/projects';
 
 interface SkillsDashboardProps {
@@ -21,7 +21,7 @@ interface SkillsDashboardProps {
   careerStats: CareerStatsType;
   categories: string[];
   experiences: Experience[];
-  education: StrapiEducation[];
+  education: Education[];
   projects: Project[];
   hideHeader?: boolean;
   hideStats?: boolean;

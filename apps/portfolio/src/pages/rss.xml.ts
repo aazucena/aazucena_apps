@@ -21,7 +21,7 @@ export async function GET(context: APIContext) {
   return rss({
     // Required fields
     title: `${websiteConfig.siteName} Blog`,
-    description: websiteConfig.seo.metaDescription,
+    description: websiteConfig?.defaultSEO!.description || 'Blog',
     site: context.site || websiteConfig.siteUrl,
 
     // RSS feed items
@@ -34,7 +34,7 @@ export async function GET(context: APIContext) {
       return {
         title: post.title,
         description: post.description,
-        pubDate: new Date(post.publishedAt), // Use raw ISO string for reliable parsing
+        pubDate: new Date(post.publishedAt!), // Use raw ISO string for reliable parsing
         link,
         categories: post.tags.map((tag) => tag.label),
         author: websiteConfig.siteName,

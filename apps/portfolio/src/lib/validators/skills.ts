@@ -1,20 +1,50 @@
 import { z } from 'zod';
 import { StrapiSkillCategorySchema } from './skill-category';
+import { SkillDisplayEnum, SkillProficiencyEnum } from './enums';
+
+// Import related schemas for reference in z.lazy()
+import { StrapiExperienceSchema } from './experiences';
+import { StrapiProjectSchema } from './projects';
+import { StrapiEducationSchema } from './education';
+
+/**
+ * Explicit Interfaces for recursive types
+ */
+export interface StrapiSkill {
+  id?: number | null;
+  documentId?: string | null;
+  name: string;
+  display: 'hidden' | 'standard' | 'featured' | 'core';
+  category: any; 
+  proficiency: 'learning' | 'competent' | 'proficient' | 'expert';
+  icon?: string | null;
+  description?: string | null;
+  yearsOfExperience?: number | null;
+  documentationUrl?: string | null;
+  sort?: number | null;
+  lastUsed?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  publishedAt?: string | null;
+  experiences?: any[]; 
+  projects?: any[];
+  education?: any[];
+}
+
 /**
  * Zod validation schema for Strapi Skill content type
- * Ensures runtime type safety for CMS data
+ * Uses explicit type annotation to handle recursion via z.lazy()
  */
-export const StrapiSkillSchema = z.object({
+export const StrapiSkillSchema: z.ZodType<StrapiSkill> = z.object({
   id: z.number().nullable().optional(),
   documentId: z.string().nullable().optional(),
   name: z.string().max(100),
-  display: z.enum(['hidden', 'standard', 'featured', 'core'] as const),
+  display: SkillDisplayEnum,
 
-  // CHANGED: category is now a relation to skill-category, not hardcoded enum
-  // Strapi v5 wraps relations in a 'data' property
+  // Relation to category
   category: StrapiSkillCategorySchema,
 
-  proficiency: z.enum(['learning', 'competent', 'proficient', 'expert']),
+  proficiency: SkillProficiencyEnum,
   icon: z.string().nullable().optional(),
   description: z.string().max(500).nullable().optional(),
   yearsOfExperience: z.number().min(0).max(50).nullable().optional(),
@@ -26,10 +56,11 @@ export const StrapiSkillSchema = z.object({
   createdAt: z.string().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
   publishedAt: z.string().nullable().optional(),
-  // Relations (optional, only if populated)
-  experiences: z.array(z.any()).optional(),
-  projects: z.array(z.any()).optional(),
-  education: z.array(z.any()).optional(), // ManyToMany relation to Education (Phase 0.5)
+  
+  // Relations - using lazy to handle deep nesting/circles
+  experiences: z.array(z.lazy(() => StrapiExperienceSchema)).optional(),
+  projects: z.array(z.lazy(() => StrapiProjectSchema)).optional(),
+  education: z.array(z.lazy(() => StrapiEducationSchema)).optional(),
 });
 
 /**
@@ -47,5 +78,4 @@ export const StrapiSkillsResponseSchema = z.object({
   }).optional(),
 });
 
-export type StrapiSkill = z.infer<typeof StrapiSkillSchema>;
 export type StrapiSkillsResponse = z.infer<typeof StrapiSkillsResponseSchema>;

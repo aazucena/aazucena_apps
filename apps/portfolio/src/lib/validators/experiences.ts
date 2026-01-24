@@ -1,25 +1,51 @@
 import { z } from 'zod';
-import { WebLinkArraySchema } from './web-link';
+import { 
+  ImageElementSchema, 
+  AchievementSchema, 
+  WebLinkArraySchema 
+} from './components';
+import { 
+  IndustryEnum, 
+  CompanySizeEnum, 
+  EmploymentTypeEnum, 
+  WorkModeEnum 
+} from './enums';
 import { StrapiSkillSchema } from './skills';
+import { StrapiProjectSchema } from './projects';
 
-// Image Element component schema
-const ImageElementSchema = z.object({
-  src: z.any(), // Media object
-  altText: z.string().max(150),
-}).nullish(); // Allow null or undefined
+/**
+ * Explicit Interface for recursion
+ */
+export interface StrapiExperience {
+  id: number;
+  documentId?: string;
+  slug: string;
+  company: string;
+  position: string;
+  companyLogo?: any;
+  industry?: string;
+  companySize?: string;
+  location?: string;
+  startDate: string;
+  endDate?: string;
+  isCurrent?: boolean;
+  description: any;
+  responsibilities?: any;
+  employmentType?: string;
+  workMode?: string;
+  companyWebsite?: string | null;
+  companyLinkedIn?: string | null;
+  skillsUsed?: any[];
+  achievements?: any[];
+  projects?: any[];
+  relatedLinks?: any[] | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+  locale?: string;
+}
 
-// Achievement component schema (matches content.achievement)
-const AchievementSchema = z.object({
-  id: z.number().optional(),
-  title: z.string().max(100),
-  description: z.string().max(300),
-  icon: z.string().optional(), // Icons field
-  badge: z.any().optional(), // Media object
-  date: z.string().optional(),
-  sort: z.number().optional(),
-});
-
-export const StrapiExperienceSchema = z.object({
+export const StrapiExperienceSchema: z.ZodType<StrapiExperience> = z.object({
   id: z.number(),
   documentId: z.string().optional(),
   slug: z.string().max(200).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
@@ -27,33 +53,11 @@ export const StrapiExperienceSchema = z.object({
   // Core fields
   company: z.string().max(150),
   position: z.string().max(150),
-  companyLogo: ImageElementSchema,
+  companyLogo: ImageElementSchema.nullable().optional(),
 
   // Company metadata
-  industry: z.enum([
-    'Technology',
-    'Finance',
-    'Healthcare',
-    'Education',
-    'Entertainment',
-    'Retail',
-    'Manufacturing',
-    'Government',
-    'Non-Profit',
-    'Startup',
-    'Food & Beverage',
-    'Oil & Gas',
-    'Media'
-  ]).optional(),
-  companySize: z.enum([
-    'startup',
-    'small',
-    'medium',
-    'midsize',
-    'large',
-    'enterprise',
-    'global'
-  ]).optional(),
+  industry: IndustryEnum.optional(),
+  companySize: CompanySizeEnum.optional(),
   location: z.string().max(150).optional(),
 
   // Date fields
@@ -62,37 +66,20 @@ export const StrapiExperienceSchema = z.object({
   isCurrent: z.boolean().optional(),
 
   // Content fields
-  description: z.any(), // Richtext (required in Strapi)
-  responsibilities: z.any().optional(), // Richtext
+  description: z.any(), 
+  responsibilities: z.any().optional(), 
 
   // Employment details
-  employmentType: z.enum([
-    'Full-time',
-    'Part-time',
-    'Contract',
-    'Freelance',
-    'Internship',
-    'Co-op'
-  ]).optional(),
-  workMode: z.enum([
-    'Onsite',
-    'Hybrid',
-    'Remote'
-  ]).optional(),
+  employmentType: EmploymentTypeEnum.optional(),
+  workMode: WorkModeEnum.optional(),
   companyWebsite: z.string().max(255).nullable().optional(),
   companyLinkedIn: z.string().max(255).nullable().optional(),
 
-  // Relations and components
-  skillsUsed: z.array(StrapiSkillSchema).optional(), // Skills relation (raw Strapi format)
+  // Relations
+  skillsUsed: z.array(z.lazy(() => StrapiSkillSchema)).optional(),
   achievements: z.array(AchievementSchema).optional(),
-  projects: z.array(z.object({
-    id: z.number(),
-    documentId: z.string().optional(),
-    title: z.string(),
-    slug: z.string(),
-    shortDescription: z.string().optional(),
-  })).optional(), // OneToMany relation to Project
-  relatedLinks: WebLinkArraySchema, // Web link components
+  projects: z.array(z.lazy(() => StrapiProjectSchema)).optional(),
+  relatedLinks: WebLinkArraySchema.nullable().optional(),
 
   // Metadata
   createdAt: z.string(),
@@ -113,5 +100,4 @@ export const StrapiExperiencesResponseSchema = z.object({
   }).optional(),
 });
 
-export type StrapiExperience = z.infer<typeof StrapiExperienceSchema>;
 export type StrapiExperiencesResponse = z.infer<typeof StrapiExperiencesResponseSchema>;

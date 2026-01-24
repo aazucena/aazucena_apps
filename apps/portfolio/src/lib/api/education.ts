@@ -1,131 +1,54 @@
-/**
- * API client for Education collection type
- * Fetches academic education history from Strapi CMS
- */
-
+import { z } from 'zod';
 import { fetchStrapi } from '../strapi';
-import { transformEducationList } from '../transformers/education';
-import { StrapiEducationResponseSchema, type Education, type StrapiEducation } from '../validators/education';
+import { StrapiEducationResponseSchema } from '../validators/education';
+import { 
+  transformEducation, 
+  transformEducationList,
+  type Education 
+} from '../transformers/education';
 
 /**
- * Fetch all published education entries
- * @returns Array of education entries sorted by sort field and date
+ * Fetch all education entries
  */
-export async function fetchEducation(): Promise<StrapiEducation[]> {
+export async function fetchEducation(): Promise<Education[]> {
   try {
-    const response = await fetchStrapi<Education[]>('educations', {
+    const response = await fetchStrapi('educations', {
       query: {
-        populate: {
-          achievements: true,
-          institutionLogo: true,
-          skills: {
-            populate: ['category'],
-          },
-          relatedLinks: true,
-        },
-        sort: ['sort:desc', 'startDate:desc'],
-        filters: {
-          publishedAt: {
-            $notNull: true,
-          },
-        },
+        populate: ['institutionLogo', 'skills.category', 'achievements', 'relatedLinks', 'projects'],
+        sort: ['sort:asc', 'startDate:desc'],
       },
     });
-    const validatedData = StrapiEducationResponseSchema.parse(response);
 
-    return transformEducationList(validatedData.data);
+    const validated = StrapiEducationResponseSchema.parse(response);
+    return transformEducationList(validated.data);
   } catch (error) {
-    console.error('Error fetching education:', error);
-    return [];
-  }
-}
-
-/**
- * Fetch featured education entries only
- * @returns Array of featured education entries
- */
-export async function fetchFeaturedEducation(): Promise<StrapiEducation[]> {
-  try {
-    const response = await fetchStrapi<Education[]>('educations', {
-      query: {
-        populate: {
-          achievements: true,
-          institutionLogo: true,
-          skills: {
-            populate: ['category'],
-          },
-          relatedLinks: true,
-        },
-        filters: {
-          featured: {
-            $eq: true,
-          },
-          publishedAt: {
-            $notNull: true,
-          },
-        },
-        sort: ['sort:desc', 'startDate:desc'],
-      },
-    });
-
-    
-    const validatedData = StrapiEducationResponseSchema.parse(response);
-
-    return transformEducationList(validatedData.data);
-  } catch (error) {
-    console.error('Error fetching featured education:', error);
-    return [];
-  }
-}
-
-/**
- * Fetch a single education entry by slug
- * @param slug - Education slug
- * @returns Single education entry or null
- */
-export async function fetchEducationBySlug(slug: string): Promise<StrapiEducation | null> {
-  try {
-    const response = await fetchStrapi<Education[]>('educations', {
-      query: {
-        filters: {
-          slug: {
-            $eq: slug,
-          },
-          publishedAt: {
-            $notNull: true,
-          },
-        },
-        populate: {
-          achievements: true,
-          institutionLogo: true,
-          skills: {
-            populate: ['category'],
-          },
-          relatedLinks: true,
-          projects: true,
-        },
-      },
-    });
-
-    const rawEducation = response.data?.[0];
-    if (!rawEducation) {
-      return null;
+    if (error instanceof z.ZodError) {
+      console.error('[Education API] Invalid CMS data:', error.issues);
+    } else {
+      console.error('[Education API] Failed to fetch education:', error);
     }
+    return [];
+  }
+}
 
-    const validatedData = StrapiEducationResponseSchema.parse(response);
+/**
+ * Fetch single education entry by slug
+ */
+export async function getEducationBySlug(slug: string): Promise<Education | null> {
+  try {
+    const response = await fetchStrapi('educations', {
+      query: {
+        filters: { slug: { $eq: slug } },
+        populate: ['institutionLogo', 'skills.category', 'achievements', 'relatedLinks', 'projects'],
+      },
+    });
 
-
-    return transformEducationList(validatedData.data)[0] || null;
+    const validated = StrapiEducationResponseSchema.parse(response);
+    const entry = validated.data[0];
+    if (!entry) return null;
+    return transformEducation(entry);
   } catch (error) {
-    console.error(`Error fetching education by slug "${slug}":`, error);
+    console.error(`[Education API] Failed to fetch education slug ${slug}:`, error);
     return null;
   }
-}
-
-/**
- * Legacy function for backward compatibility
- * @deprecated Use fetchEducation() instead
- */
-export async function getEducation(): Promise<StrapiEducation[]> {
-  return fetchEducation();
 }

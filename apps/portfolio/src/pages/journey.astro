@@ -1,30 +1,28 @@
 ---
+import { Compass, Heart, Lamp, Rocket } from '@mynaui/icons-react';
+import {
+calculateCareerStats,
+calculateSkillGrowthMetrics,
+CareerStats,
+GrowthMetrics,
+InteractiveTimeline,
+SkillsDashboard,
+transformToHeatmapData,
+transformToSankeyData,
+transformToSkillsEvolution,
+transformToSkillsNetwork,
+transformToStreamGraphData,
+transformToTimelineData,
+} from '~/components/journey';
 import PageLayout from '~/layouts/PageLayout.astro';
-import { getExperiences } from '~/lib/api/experiences';
 import { fetchEducation as getEducation } from '~/lib/api/education';
+import { getExperiences } from '~/lib/api/experiences';
 import { getProjects } from '~/lib/api/projects';
 import { getSkillCategories } from '~/lib/api/skill-categories';
-import type { StrapiEducation as Education } from '~/lib/validators/education';
+import type { Education } from '~/lib/transformers/education';
 import type { Project } from '~/lib/transformers/projects';
+import type { Experience } from '~/lib/transformers/experiences';
 import type { SkillCategoryInfo } from '~/lib/transformers/skill-category';
-import {
-  InteractiveTimeline,
-  SkillsDashboard,
-  CareerStats,
-  GrowthMetrics,
-} from '~/components/journey';
-import {
-  transformToTimelineData,
-  transformToSkillsEvolution,
-  transformToSkillsNetwork,
-  transformToSankeyData,
-  transformToHeatmapData,
-  transformToStreamGraphData,
-  calculateCareerStats,
-  calculateSkillGrowthMetrics,
-} from '~/components/journey';
-import type { Experience } from '~/components/animations/sections/data/experiences';
-import { Calendar, Chip as Cpu, Heart, Compass, Rocket, ArrowRight, ClockCircle as Clock, LayersOne as Layers, Lamp } from '@mynaui/icons-react';
 
 // Fetch all experiences, education, projects, and categories
 let experiences: Experience[] = [];

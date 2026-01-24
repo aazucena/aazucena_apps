@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PageHeaderSchema } from './components';
 
 /**
  * Zod schema for Project Showcase Configuration from Strapi CMS
@@ -6,6 +7,8 @@ import { z } from 'zod';
 export const StrapiShowcaseSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
+  header: PageHeaderSchema.nullable().optional(),
+  searchPlaceholder: z.string().default('Search projects by tech, title...'),
   dragHintText: z.string().max(100),
   viewMoreButtonLabel: z.string().max(50),
   viewMoreButtonSubtitle: z.string().max(100),

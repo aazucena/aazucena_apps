@@ -119,6 +119,49 @@ function fetchUrl(endpoint: string, debug: boolean = false) {
 // ============================================================================
 
 /**
+ * Recursively sanitizes data by replacing null values with safe defaults
+ * to prevent validation errors when the schema expects non-nullable values.
+ */
+function sanitizeData(data: any): any {
+  if (data === null || data === undefined) {
+    return data;
+  }
+
+  // Handle Strapi's { data: ... } wrapper automatically if encountered
+  if (data.data !== undefined) {
+    return {
+      ...data,
+      data: sanitizeData(data.data)
+    };
+  }
+
+  if (Array.isArray(data)) {
+    return data.map(sanitizeData);
+  }
+
+  if (typeof data === 'object') {
+    const sanitized: Record<string, any> = {};
+    for (const [key, value] of Object.entries(data)) {
+      // Apply field-specific safe defaults for common null-related errors
+      if (value === null || value === undefined) {
+        if (key === 'sort') sanitized[key] = 0;
+        else if (key === 'metaRobots') sanitized[key] = 'index, follow';
+        else if (key === 'metaViewport') sanitized[key] = 'width=device-width, initial-scale=1.0';
+        else if (key === 'availabilityStatus') sanitized[key] = 'Open to Opportunities';
+        else if (key === 'timezone') sanitized[key] = 'America/Edmonton';
+        else if (key === 'relatedLinks') sanitized[key] = [];
+        else sanitized[key] = value;
+      } else {
+        sanitized[key] = sanitizeData(value);
+      }
+    }
+    return sanitized;
+  }
+
+  return data;
+}
+
+/**
  * Fetch data from Strapi API (server-side only)
  *
  * @example
@@ -155,8 +198,10 @@ export async function fetchStrapi<T>(
     });
 
     
-    const data = await res.json();
-    // console.log(url, data);
+    const rawData = await res.json();
+    
+    // Sanitize data before returning to handle null values
+    const data = sanitizeData(rawData);
 
     if (!res.ok) {
       handleStrapiError(res.status, data);

@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/HomeLayout.astro';
 import Homepage from '~/components/animations/Section';
-import { getHomepageData } from '~/lib/api/homepage-data';
+import { getHomepageData } from '~/lib/services/homepage';
 
 // Fetch all homepage data from Strapi CMS in parallel
 const { data, homepage, portfolio, animationConfig } = await getHomepageData();

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { fetchStrapi } from '../strapi';
 import { PageSchema } from '../validators/page';
-import { transformPage, DEFAULT_PAGE, type Page } from '../transformers/page';
+import { transformPage, type Page } from '../transformers/page';
 
 /**
  * Fetch all published pages

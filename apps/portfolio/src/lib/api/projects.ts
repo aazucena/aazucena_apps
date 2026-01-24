@@ -1,119 +1,48 @@
 import { z } from 'zod';
 import { fetchStrapi } from '../strapi';
-import { StrapiProjectsResponseSchema, type StrapiProject } from '~/lib/validators/projects';
-import { transformProjects, transformProject, DEFAULT_PROJECTS, type Project } from '~/lib/transformers/projects';
+import { StrapiProjectsResponseSchema } from '../validators/projects';
+import { 
+  transformProjects, 
+  DEFAULT_PROJECTS, 
+  type Project 
+} from '../transformers/projects';
 
 /**
- * Fetches all projects from Strapi CMS
- * @param displayFilter - Filter by display type
+ * Fetch projects from Strapi CMS
  */
-export async function getProjects(
-  displayFilter: 'all' | 'listed' | 'standard' | 'featured' | 'home' = 'all'
-): Promise<Project[]> {
+export async function getProjects(displayFilter: 'all' | 'listed' | 'featured' | 'home' = 'all'): Promise<Project[]> {
   try {
-    const response = await fetchStrapi<Project[]>('projects', {
+    const filters: any = {};
+    if (displayFilter === 'featured') filters.display = { $eq: 'featured' };
+    if (displayFilter === 'home') filters.display = { $eq: 'home' };
+    if (displayFilter === 'listed') filters.display = { $in: ['standard', 'featured', 'home'] };
+
+    const response = await fetchStrapi('projects', {
       query: {
-        sort: ['sort:asc', 'publishedAt:desc'],
-        pagination: {
-          pageSize: 100,
-        },
-        publicationState: 'live',
-        populate: {
-          coverImage: {
-            populate: 'src',
-          },
-          screenshots: {
-            populate: 'src',
-          },
-          demoVideo: true,
-          gallery: true,
-          tags: true,
-          techStack: {
-            populate: ['category'],
-          },
-          metrics: true,
-          seo: {
-            populate: ['openGraph'],
-          },
-          relatedLinks: {
-            populate: '*',
-          },
-          experience: {
-            fields: ['id', 'documentId', 'position', 'company'],
-          },
-          education: {
-            fields: ['id', 'documentId', 'degree', 'institution'],
-          },
-        },
+        filters,
+        populate: [
+          'coverImage.src', 
+          'screenshots.src', 
+          'tags', 
+          'techStack.category', 
+          'metrics', 
+          'seo', 
+          'relatedLinks', 
+          'experience'
+        ],
+        sort: ['sort:asc'],
+        pagination: { pageSize: 100 },
       },
     });
-  // console.log('strapiProjects', (response?.data || [])?.map(project => project.techStack.map((skill) => skill)))
 
-    const validatedData = StrapiProjectsResponseSchema.parse(response);
-    return transformProjects(validatedData.data, displayFilter);
+    const validated = StrapiProjectsResponseSchema.parse(response);
+    return transformProjects(validated.data);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error('[Projects] Invalid CMS data:', error.issues);
+      console.error('[Projects API] Invalid CMS data:', error.issues);
     } else {
-      console.error('[Projects] Failed to fetch:', error);
+      console.error('[Projects API] Failed to fetch projects:', error);
     }
     return DEFAULT_PROJECTS;
-  }
-}
-
-/**
- * Fetches a single project by slug
- * @param slug - Project slug
- */
-export async function getProjectBySlug(slug: string): Promise<Project | null> {
-  try {
-    const response = await fetchStrapi<Project[]>('projects', {
-      query: {
-        filters: {
-          slug: {
-            $eq: slug,
-          },
-        },
-        publicationState: 'live',
-        populate: {
-          coverImage: {
-            populate: 'src',
-          },
-          screenshots: {
-            populate: 'src',
-          },
-          demoVideo: true,
-          gallery: true,
-          tags: true,
-          techStack: {
-            populate: '*',
-          },
-          metrics: true,
-          seo: {
-            populate: ['openGraph'],
-          },
-          relatedLinks: {
-            populate: '*',
-          },
-        },
-      },
-      cache: 'force-cache',
-    });
-
-    const validatedData = StrapiProjectsResponseSchema.parse(response);
-
-    if (validatedData.data.length === 0) {
-      console.warn(`[Projects] No project found with slug: ${slug}`);
-      return null;
-    }
-
-    return transformProject(validatedData.data[0] as StrapiProject);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.error('[Projects] Invalid CMS data for slug:', slug, error.issues);
-    } else {
-      console.error('[Projects] Failed to fetch project:', slug, error);
-    }
-    return null;
   }
 }
