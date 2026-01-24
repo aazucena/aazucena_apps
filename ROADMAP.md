@@ -4,7 +4,7 @@
 
 **Phase 0 Completed:** ✅ Infrastructure & Architecture - 100% Complete (2026-01-17)
 
-**Phase 0.5 Completed:** ✅ Portfolio Pages Implementation - 15 pages implemented with Footer, RSS, and Sitemap (2026-01-17)
+**Phase 0.5 Completed:** ✅ Portfolio Pages Implementation - 15 pages implemented with Footer, RSS, Sitemap, 500 error page (2026-01-17)
 
 **Phase 1 Completed:** ✅ Animations folder successfully refactored (324 → 174 lines, 46% reduction)
 
@@ -19,7 +19,7 @@
 ## 🎯 Quick Navigation
 
 - **[Comprehensive Documentation](/docs/README.md)** - Full project documentation
-- **[Current Priority: Phase 0](/docs/phase-0-infrastructure.md)** - CMS & Deployment Setup
+- **[Current Priority: Phase 2](/docs/phase-2-component-architecture.md)** - Component Architecture
 - **[Tech Stack](#tech-stack)** - Complete technology overview
 - **[Execution Timeline](#execution-timeline)** - Recommended order
 
@@ -145,11 +145,13 @@ Set up Docker Compose for local development, integrate Strapi CMS v5, and establ
 - ✅ 0.5: Portfolio pages implementation - **COMPLETED** (2026-01-17)
 
 **Phase 0.5 Deliverables:**
-- 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), 404, 500, Maintenance
-- Footer component with CMS-driven social links
-- RSS feed for blog posts
+- 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
+- Footer component with CMS-driven social links (platform-based rendering)
+- RSS feed for blog posts (filters external posts)
 - Sitemap integration with auto-generation
-- Seed script for legal pages (unified seed runner)
+- 500 error page with real-time status checks (SSR)
+- Rich text rendering fixes (MarkdownRenderer + BlocksRenderer)
+- Unified seed script for legal pages
 
 **Status:** ✅ 100% Complete - All infrastructure and pages implemented (2026-01-17)
 
@@ -466,7 +468,7 @@ Phase 1 (Animations) → 9-11 days ✅ COMPLETED
     ↓
 Phase 1.5 (Code Quality & Security) → 0.5-1 day ✅ COMPLETED
     ↓
-Phase 0 (Infrastructure) → 16-20 days 🚧 IN PROGRESS (0.5 - Portfolio Pages 🔥)
+Phase 0 (Infrastructure) → 16-20 days ✅ COMPLETED
     ↓
 Phase 2 (Component Architecture) → 6-8 days
     ↓
@@ -487,8 +489,8 @@ Features (as needed) → 3-40 days each
 |------|-------|-------|
 | 1-2 | Phase 1 | Animations refactoring ✅ |
 | 2 | Phase 1.5 | Code quality & security fixes ✅ |
-| 3-5 | Phase 0 | Infrastructure & CMS 🚧 (Currently: 0.5 Portfolio Pages 🔥) |
-| 6-7 | Phase 2-3 | Components & performance |
+| 3-5 | Phase 0 | Infrastructure & CMS ✅ |
+| 6-7 | Phase 2-3 | Components & performance 🔥 CURRENT |
 | 8-11 | Phase 4 | DX & design system |
 | 12 | Phase 5 | Testing |
 | 13+ | Features | Music, AI, logging, payments |
@@ -543,7 +545,8 @@ Features (as needed) → 3-40 days each
 - **Phase 1.5: Code Quality & Security Fixes** ✅ (2025-12-03)
 - **Phase 0: Infrastructure & Architecture** ✅ (2026-01-17)
   - 100% Complete (Sub-phases 0.1 → 0.5)
-  - 14 pages implemented, CMS production-ready, content migrated
+  - 15 pages implemented, CMS production-ready, content migrated
+  - 24 modular API clients, Footer, RSS, Sitemap, 500 error page
 
 ### In Progress 🚧
 - **Phase 2: Component Architecture** (6-8 days) 🔥 CURRENT PRIORITY
@@ -649,8 +652,8 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 **Next Milestone:** Complete Phase 2 (Component Architecture) → Begin Phase 3 (Performance Optimization)
 
-**Recent Completions (Updated 2026-01-17):**
-- **Phase 0.5 - Portfolio Pages** ✅ (2026-01-17) - 14 pages implemented (Projects, Experiences, About, Journey, Blog, Legal pages, 404, Maintenance), Footer with social links, RSS feed, Sitemap, unified seed script for legal pages
+**Recent Completions (Updated 2026-01-24):**
+- **Phase 0.5 - Portfolio Pages** ✅ (2026-01-17) - 15 pages implemented (Projects, Experiences, About, Journey, Skills, Blog, Legal pages, Contact, 404, 500, Maintenance), Footer with social links, RSS feed, Sitemap, 500 error page, rich text rendering fixes
 - **Phase 0 - Infrastructure & Architecture** ✅ (2026-01-17) - 100% Complete - All sub-phases finished
 - Phase 0.4 - Content Migration ✅ (2026-01-14) - Transfer Token workflow successful, all content migrated to Railway production (URL fix: use /admin suffix)
 - Documentation Synchronization ✅ (2026-01-13) - All docs updated to reflect Phase 0.3 completion and 0.4 progress

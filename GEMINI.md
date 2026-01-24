@@ -202,29 +202,33 @@ Custom hooks → Components access data
 **API Layer Structure:**
 ```
 src/lib/
-├── api/              # 15+ specialized API clients
-│   ├── homepage-data.ts    # Orchestrates all homepage data
-│   ├── layout-data.ts      # Layout-specific (theme, maintenance)
+├── api/              # 24 specialized API clients (modular structure)
 │   ├── hero.ts             # Hero section
 │   ├── about.ts            # About section
 │   ├── projects.ts         # Projects collection
 │   ├── experiences.ts      # Work experience
 │   ├── testimonials.ts     # Testimonials
 │   ├── awards.ts           # Awards/achievements
+│   ├── education.ts        # Education history
 │   ├── posts.ts            # Blog posts
 │   ├── skills.ts           # Skills collection
 │   ├── skill-categories.ts # Skill categories
+│   ├── pages.ts            # Static pages (legal, etc.)
 │   ├── animation.ts        # Animation config
 │   ├── theme.ts            # Theme config
 │   ├── maintenance.ts      # Maintenance mode
 │   ├── website-config.ts   # Website metadata
 │   ├── blog-config.ts      # Blog configuration
-│   ├── showcase.ts         # Showcase config
 │   ├── portfolio.ts        # Portfolio metadata
 │   ├── homepage.ts         # Homepage config
-│   └── preloader.ts        # Preloader config
-├── validators/       # 15+ Zod schemas (type-safe validation)
-├── transformers/     # 15+ data transformers (clean structures)
+│   ├── preloader.ts        # Preloader config
+│   ├── journey.ts          # Journey page config (NEW)
+│   ├── skill-showcase.ts   # Skill showcase (NEW)
+│   ├── experience-showcase.ts # Experience showcase (NEW)
+│   ├── project-showcase.ts # Project showcase (NEW)
+│   └── contact-form.ts     # Contact form config (NEW)
+├── validators/       # 20+ Zod schemas (type-safe validation)
+├── transformers/     # 20+ data transformers (clean structures)
 ├── utils/            # Helper functions
 │   ├── index.ts
 │   ├── contentHelpers.ts
@@ -278,23 +282,6 @@ src/lib/
 - ✅ Added GSAP cleanup (prevented animation memory leaks)
 - ✅ Code quality: 7.5/10 → 8.5-9.0/10
 
-### Current Priority: Phase 0.5 - Portfolio Pages (26-30 hours) 🔥
-
-**Plan Approved:** `/home/aazucena/.claude/plans/distributed-snacking-moth.md`
-
-**Detailed docs:** `docs/phase-0-infrastructure.md`
-
-**Goal:** Complete portfolio site with 16 pages (projects, experience, blog, contact, awards, testimonials, skills, legal pages, maintenance, 404, footer, RSS/sitemap)
-
-**Scope:** Final Phase 0 sub-phase with comprehensive page implementation, footer component with copyright, CMS-driven legal pages, blog with RSS, and SEO infrastructure
-
-### ✅ Phase 0.4 - Content Migration (COMPLETED - 2026-01-14)
-
-**Achievement:** Successfully transferred all CMS content from local to Railway production using Transfer Token workflow.
-
-**Key Fix:** Transfer URL must include `/admin` suffix (e.g., `https://admin.aazucena.com/admin`)
-
----
 
 ### ✅ Phase 0 - Infrastructure & Architecture (COMPLETED - 2026-01-17)
 
@@ -318,8 +305,9 @@ src/lib/
 - ✅ Strapi v5.31.0 (installed and configured)
 - ✅ 20 content types created (Skills, Projects, Posts, Testimonials, Pages, etc.)
 - ✅ 9 components implemented
-- ✅ 14 pages implemented (Projects, Experiences, About, Journey, Blog, Legal, 404, Maintenance)
-- ✅ Footer, RSS feed, Sitemap integrated
+- ✅ 15 pages implemented (Projects, Experiences, About, Journey, Skills, Blog, Legal, Contact, 404, 500, Maintenance)
+- ✅ Footer, RSS feed, Sitemap, 500 error page integrated
+- ✅ 24 modular API clients (journey, skill-showcase, experience-showcase, project-showcase, contact-form added in 0.5)
 
 **Status:** ✅ 100% complete - All infrastructure, frontend integration, deployment, content migration, and pages implemented.
 

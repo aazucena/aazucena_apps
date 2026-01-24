@@ -9,7 +9,7 @@ A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The prim
 
 - **[Full ROADMAP](./ROADMAP.md)** - Complete development roadmap with phases and features
 - **[Documentation Hub](./docs/README.md)** - Detailed implementation guides
-- **[Phase 1 (Current Priority)](./docs/phase-1-animations-refactoring.md)** - Animations refactoring
+- **[Phase 2 (Current Priority)](./docs/phase-2-component-architecture.md)** - Component Architecture
 
 ---
 
@@ -143,8 +143,8 @@ All detailed implementation guides, code examples, and specifications are in the
 
 ### Phase Documentation
 - [Phase 0: Infrastructure](./docs/phase-0-infrastructure.md)
-- [Phase 1: Animations Refactoring](./docs/phase-1-animations-refactoring.md) 🔥 **CURRENT PRIORITY**
-- [Phase 2: Component Architecture](./docs/phase-2-component-architecture.md)
+- [Phase 1: Animations Refactoring](./docs/phase-1-animations-refactoring.md) ✅ COMPLETED
+- [Phase 2: Component Architecture](./docs/phase-2-component-architecture.md) 🔥 **CURRENT PRIORITY**
 - [Phase 3: Performance](./docs/phase-3-performance.md)
 - [Phase 4: Developer Experience](./docs/phase-4-developer-experience.md)
 - [Phase 5: Testing](./docs/phase-5-testing.md)
@@ -190,6 +190,7 @@ Features (as needed) → 3-40 days each
 - **Phase 1.5:** Code Quality & Security Fixes (CVEs, memory leaks) - 2025-12-03
 - **Phase 0:** Infrastructure & Architecture (100% complete) - 2026-01-17
   - Sub-phases 0.1 → 0.5 (CMS, Deployment, Content Migration, 15 Pages)
+  - 24 modular API clients, Footer, RSS, Sitemap, 500 error page
   - Fixed rich text rendering and Vercel build configuration
 
 ### In Progress 🚧
@@ -245,6 +246,6 @@ This is a personal portfolio project. For major changes or suggestions:
 
 ---
 
-**Last Updated:** 2026-01-17
+**Last Updated:** 2026-01-24
 
 **Current Priority:** Phase 2 - Component Architecture 🔥

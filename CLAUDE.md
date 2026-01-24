@@ -221,29 +221,33 @@ Custom hooks → Components access data
 **API Layer Structure:**
 ```
 src/lib/
-├── api/              # 15+ specialized API clients
-│   ├── homepage-data.ts    # Orchestrates all homepage data
-│   ├── layout-data.ts      # Layout-specific (theme, maintenance)
+├── api/              # 24 specialized API clients (modular structure)
 │   ├── hero.ts             # Hero section
 │   ├── about.ts            # About section
 │   ├── projects.ts         # Projects collection
 │   ├── experiences.ts      # Work experience
 │   ├── testimonials.ts     # Testimonials
 │   ├── awards.ts           # Awards/achievements
+│   ├── education.ts        # Education history
 │   ├── posts.ts            # Blog posts
 │   ├── skills.ts           # Skills collection
 │   ├── skill-categories.ts # Skill categories
+│   ├── pages.ts            # Static pages (legal, etc.)
 │   ├── animation.ts        # Animation config
 │   ├── theme.ts            # Theme config
 │   ├── maintenance.ts      # Maintenance mode
 │   ├── website-config.ts   # Website metadata
 │   ├── blog-config.ts      # Blog configuration
-│   ├── showcase.ts         # Showcase config
 │   ├── portfolio.ts        # Portfolio metadata
 │   ├── homepage.ts         # Homepage config
-│   └── preloader.ts        # Preloader config
-├── validators/       # 15+ Zod schemas (type-safe validation)
-├── transformers/     # 15+ data transformers (clean structures)
+│   ├── preloader.ts        # Preloader config
+│   ├── journey.ts          # Journey page config (NEW)
+│   ├── skill-showcase.ts   # Skill showcase (NEW)
+│   ├── experience-showcase.ts # Experience showcase (NEW)
+│   ├── project-showcase.ts # Project showcase (NEW)
+│   └── contact-form.ts     # Contact form config (NEW)
+├── validators/       # 20+ Zod schemas (type-safe validation)
+├── transformers/     # 20+ data transformers (clean structures)
 ├── utils/            # Helper functions
 │   ├── index.ts
 │   ├── contentHelpers.ts
@@ -451,12 +455,13 @@ src/lib/
   - `useSectionRegistry.ts` - Component mapping (NEW)
   - `useHandlebars.ts` - Template rendering (NEW)
   - `useDataContext.ts` - CMS data access (NEW)
-- `apps/portfolio/src/lib/api/` - 19 specialized API clients (modular structure)
-  - `homepage-data.ts` - Orchestrates all homepage data fetching
-  - `layout-data.ts` - Layout-specific data (theme, maintenance)
-  - ❌ `api.ts` - Deleted (replaced by modular structure)
-- `apps/portfolio/src/lib/validators/` - Zod validation schemas (18 schemas)
-- `apps/portfolio/src/lib/transformers/` - Data transformation layer (17 transformers)
+- `apps/portfolio/src/lib/api/` - 24 specialized API clients (modular structure)
+  - Core: `hero.ts`, `about.ts`, `projects.ts`, `experiences.ts`, `education.ts`
+  - Content: `posts.ts`, `testimonials.ts`, `awards.ts`, `skills.ts`, `pages.ts`
+  - Config: `animation.ts`, `theme.ts`, `maintenance.ts`, `website-config.ts`, `blog-config.ts`, `portfolio.ts`, `homepage.ts`, `preloader.ts`, `skill-categories.ts`
+  - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts` (NEW in Phase 0.5)
+- `apps/portfolio/src/lib/validators/` - Zod validation schemas (20+ schemas)
+- `apps/portfolio/src/lib/transformers/` - Data transformation layer (20+ transformers)
 - `apps/portfolio/src/lib/utils/` - Helper utilities (contentHelpers, experienceHelpers)
 
 ## Git & Deployment
@@ -585,16 +590,18 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2026-01-17
+**Last Updated:** 2026-01-24
 
 **Key Updates:**
 - ✅ **Phase 0.5 Completed:** Portfolio Pages Implementation (2026-01-17)
-  - 14 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Blog (list + detail), Legal pages (privacy, terms, contact), 404, Maintenance
+  - 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
   - Footer component with CMS-driven social links (platform-based rendering)
   - RSS feed for blog posts (filters external posts)
   - Sitemap integration with auto-generation
+  - 500 error page with SSR (real-time status checks, error logging)
+  - Rich text rendering fixes (MarkdownRenderer for `richtext`, BlocksRenderer for `blocks`)
   - Unified seed script for legal pages (`seed-pages.js`)
-  - Key decisions: Removed dedicated Awards/Testimonials/Skills pages (homepage sections), Footer in PageLayout only, generic catch-all with 3 templates
+  - Key decisions: Removed dedicated Awards/Testimonials pages (homepage sections), Footer in PageLayout only, generic catch-all with 3 templates
 - ✅ **Phase 0 Completed:** Infrastructure & Architecture (2026-01-17)
   - All sub-phases finished (0.1 → 0.5)
   - CMS, deployment, content migration, and pages fully implemented
@@ -607,8 +614,8 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
   - Integration: Frontend successfully connects to Railway CMS
   - APIs: All 19 endpoints accessible from production
 - ✅ **Phase 0.2.4 Completed:** Frontend API Integration (2025-12-19)
-  - Modular API architecture: 19 specialized clients (replaced monolithic `api.ts` ❌)
-  - Type safety: 18 Zod validators + 17 transformers
+  - Modular API architecture: 24 specialized clients (journey, skill-showcase, experience-showcase, project-showcase, contact-form added in 0.5)
+  - Type safety: 20+ Zod validators + 20+ transformers
   - DataContext system for CMS data access (no prop drilling)
   - New components: HomepageContent (replaces SectionContent ❌), SectionLayout
   - New hooks: useSectionRegistry, useHandlebars, useDataContext
@@ -616,7 +623,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
   - Fixed critical CVEs, memory leaks, type safety
   - Code quality: 7.5/10 → 8.5-9.0/10
 - ✅ **Phase 1 Completed:** Animations refactoring (324 → 174 lines, 46% reduction)
-- ✅ **Phase 0 100% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components, deployed to Railway + Vercel, content migrated, 14 pages implemented
+- ✅ **Phase 0 100% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components, deployed to Railway + Vercel, content migrated, 15 pages implemented, 24 API clients
 - 🔥 **Current Priority:** Phase 2 - Component Architecture (further optimization)
 - ✅ **Astro v5.15 → v5.16.0:** Framework upgrade for latest features
 - ✅ **Strapi Components Added:** Audio Metadata component with enharmonic keys (media.audio-metadata)
