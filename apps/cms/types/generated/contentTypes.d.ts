@@ -446,6 +446,12 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    coreValues: Schema.Attribute.Component<'content.narrative-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -456,8 +462,26 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    focusAreas: Schema.Attribute.Component<'content.focus-area', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     highlights: Schema.Attribute.Blocks &
       Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    interests: Schema.Attribute.Component<'content.narrative-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    languages: Schema.Attribute.Component<'content.language-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -479,6 +503,12 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'>;
     publishedAt: Schema.Attribute.DateTime;
+    roots: Schema.Attribute.Component<'content.narrative-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     stats: Schema.Attribute.Component<'content.stats', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -505,6 +535,12 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    workflow: Schema.Attribute.Component<'content.workflow-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
   };
 }
 
@@ -1045,6 +1081,68 @@ export interface ApiCompositionComposition extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiContactFormContactForm extends Struct.SingleTypeSchema {
+  collectionName: 'contact_forms';
+  info: {
+    description: 'Manages the narrative and configuration of the contact page';
+    displayName: 'Contact Form Configuration';
+    pluralName: 'contact-forms';
+    singularName: 'contact-form';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    formTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Send a Message'>;
+    header: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact-form.contact-form'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    submitButtonLabel: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Send Message'>;
+    successMessage: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Message sent successfully!'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEasterEggCompletionEasterEggCompletion
   extends Struct.CollectionTypeSchema {
   collectionName: 'easter_egg_completions';
@@ -1403,6 +1501,52 @@ export interface ApiEducationEducation extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'bachelor'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiExperienceShowcaseExperienceShowcase
+  extends Struct.SingleTypeSchema {
+  collectionName: 'experience_showcases';
+  info: {
+    description: 'Manages the experience list page and homepage section';
+    displayName: 'Experience Showcase Configuration';
+    pluralName: 'experience-showcases';
+    singularName: 'experience-showcase';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    header: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::experience-showcase.experience-showcase'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    searchPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Search by skills, company, or result...'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1829,6 +1973,56 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiJourneyJourney extends Struct.SingleTypeSchema {
+  collectionName: 'journeys';
+  info: {
+    description: 'Interactive report on career growth and technical adaptation';
+    displayName: 'Journey Page';
+    pluralName: 'journeys';
+    singularName: 'journey';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    callToAction: Schema.Attribute.Component<'ui.cta-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    header: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::journey.journey'
+    >;
+    phases: Schema.Attribute.Component<'content.phase-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMaintenanceMaintenance extends Struct.SingleTypeSchema {
   collectionName: 'maintenances';
   info: {
@@ -1856,6 +2050,13 @@ export interface ApiMaintenanceMaintenance extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<false>;
+    heroSubtitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Refining the Experience'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1872,6 +2073,13 @@ export interface ApiMaintenanceMaintenance extends Struct.SingleTypeSchema {
         maxLength: 1000;
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    reachOutLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Reach out directly'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2041,6 +2249,21 @@ export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    availabilityStatus: Schema.Attribute.Enumeration<
+      [
+        'Open to Opportunities',
+        'Busy / Working on Projects',
+        'On Break / Personal Time',
+        'Looking for Collaborations',
+        'Unavailable',
+      ]
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Open to Opportunities'>;
     bio: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2177,6 +2400,13 @@ export interface ApiPortfolioPortfolio extends Struct.SingleTypeSchema {
         },
         number
       >;
+    timezone: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'America/Edmonton'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2669,6 +2899,12 @@ export interface ApiProjectShowcaseProjectShowcase
         maxLength: 100;
       }> &
       Schema.Attribute.DefaultTo<'Drag to explore more projects'>;
+    header: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -2715,6 +2951,13 @@ export interface ApiProjectShowcaseProjectShowcase
       > &
       Schema.Attribute.DefaultTo<4>;
     publishedAt: Schema.Attribute.DateTime;
+    searchPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Search projects by tech, title...'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -3020,6 +3263,65 @@ export interface ApiSkillCategorySkillCategory
         'indigo-violet',
       ]
     >;
+  };
+}
+
+export interface ApiSkillShowcaseSkillShowcase extends Struct.SingleTypeSchema {
+  collectionName: 'skill_showcases';
+  info: {
+    description: 'Manages the skills list page and homepage section';
+    displayName: 'Skill Showcase Configuration';
+    pluralName: 'skill-showcases';
+    singularName: 'skill-showcase';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emptyMessage: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'No technologies found matching your criteria.'>;
+    header: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    highlyUsedThreshold: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<3>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::skill-showcase.skill-showcase'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    searchPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Search technologies (e.g. React, PostgreSQL)...'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -4223,12 +4525,15 @@ declare module '@strapi/strapi' {
       'api::award.award': ApiAwardAward;
       'api::blog.blog': ApiBlogBlog;
       'api::composition.composition': ApiCompositionComposition;
+      'api::contact-form.contact-form': ApiContactFormContactForm;
       'api::easter-egg-completion.easter-egg-completion': ApiEasterEggCompletionEasterEggCompletion;
       'api::education.education': ApiEducationEducation;
+      'api::experience-showcase.experience-showcase': ApiExperienceShowcaseExperienceShowcase;
       'api::experience.experience': ApiExperienceExperience;
       'api::form-submission.form-submission': ApiFormSubmissionFormSubmission;
       'api::hero.hero': ApiHeroHero;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::journey.journey': ApiJourneyJourney;
       'api::maintenance.maintenance': ApiMaintenanceMaintenance;
       'api::music-genre.music-genre': ApiMusicGenreMusicGenre;
       'api::page.page': ApiPagePage;
@@ -4238,6 +4543,7 @@ declare module '@strapi/strapi' {
       'api::project-showcase.project-showcase': ApiProjectShowcaseProjectShowcase;
       'api::project.project': ApiProjectProject;
       'api::skill-category.skill-category': ApiSkillCategorySkillCategory;
+      'api::skill-showcase.skill-showcase': ApiSkillShowcaseSkillShowcase;
       'api::skill.skill': ApiSkillSkill;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::theme.theme': ApiThemeTheme;

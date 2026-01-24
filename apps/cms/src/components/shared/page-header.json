@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_shared_page_headers",
+  "info": {
+    "displayName": "Page Header",
+    "icon": "heading",
+    "description": "Standard header configuration for list and showcase pages"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "watermark": {
+      "type": "string"
+    },
+    "accentColor": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    }
+  }
+}

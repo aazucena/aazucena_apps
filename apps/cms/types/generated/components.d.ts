@@ -25,6 +25,81 @@ export interface ContentAchievement extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentFocusArea extends Struct.ComponentSchema {
+  collectionName: 'components_content_focus_areas';
+  info: {
+    description: 'Technical mastery area with years of experience';
+    displayName: 'Focus Area';
+    icon: 'layer';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    experience: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    variant: Schema.Attribute.Enumeration<
+      [
+        'blue-cyan',
+        'purple-indigo',
+        'emerald-teal',
+        'orange-red',
+        'pink-purple',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'blue-cyan'>;
+  };
+}
+
+export interface ContentLanguageItem extends Struct.ComponentSchema {
+  collectionName: 'components_content_language_items';
+  info: {
+    description: 'Human language proficiency';
+    displayName: 'Language Item';
+    icon: 'globe';
+  };
+  attributes: {
+    level: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ContentNarrativeItem extends Struct.ComponentSchema {
+  collectionName: 'components_content_narrative_items';
+  info: {
+    description: 'Repeatable items for roots, interests, or principles';
+    displayName: 'Narrative Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    variant: Schema.Attribute.Enumeration<
+      ['blue', 'orange', 'pink', 'purple', 'green', 'cyan', 'red']
+    > &
+      Schema.Attribute.DefaultTo<'blue'>;
+  };
+}
+
+export interface ContentPhaseItem extends Struct.ComponentSchema {
+  collectionName: 'components_content_phase_items';
+  info: {
+    description: 'A narrative phase section for the journey page';
+    displayName: 'Phase Item';
+    icon: 'layer';
+  };
+  attributes: {
+    badge: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    enabled: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    items: Schema.Attribute.Component<'content.narrative-item', true>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ContentSection extends Struct.ComponentSchema {
   collectionName: 'components_content_sections';
   info: {
@@ -84,6 +159,19 @@ export interface ContentStats extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 20;
       }>;
+  };
+}
+
+export interface ContentWorkflowItem extends Struct.ComponentSchema {
+  collectionName: 'components_content_workflow_items';
+  info: {
+    description: 'Item for modern workflow list';
+    displayName: 'Workflow Item';
+    icon: 'cog';
+  };
+  attributes: {
+    detail: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -177,6 +265,22 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
+  };
+}
+
+export interface SharedPageHeader extends Struct.ComponentSchema {
+  collectionName: 'components_shared_page_headers';
+  info: {
+    description: 'Standard header configuration for list and showcase pages';
+    displayName: 'Page Header';
+    icon: 'heading';
+  };
+  attributes: {
+    accentColor: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    watermark: Schema.Attribute.String;
   };
 }
 
@@ -386,6 +490,27 @@ export interface UiCtaButton extends Struct.ComponentSchema {
   };
 }
 
+export interface UiCtaSection extends Struct.ComponentSchema {
+  collectionName: 'components_ui_cta_sections';
+  info: {
+    description: 'Global call-to-action section with multiple buttons';
+    displayName: 'CTA Section';
+    icon: 'cursor';
+  };
+  attributes: {
+    buttons: Schema.Attribute.Component<'ui.cta-button', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 1;
+        },
+        number
+      >;
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface UiImageElement extends Struct.ComponentSchema {
   collectionName: 'components_ui_image_elements';
   info: {
@@ -485,16 +610,23 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.achievement': ContentAchievement;
+      'content.focus-area': ContentFocusArea;
+      'content.language-item': ContentLanguageItem;
+      'content.narrative-item': ContentNarrativeItem;
+      'content.phase-item': ContentPhaseItem;
       'content.section': ContentSection;
       'content.stats': ContentStats;
+      'content.workflow-item': ContentWorkflowItem;
       'media.audio-metadata': MediaAudioMetadata;
       'shared.open-graph': SharedOpenGraph;
+      'shared.page-header': SharedPageHeader;
       'shared.seo': SharedSeo;
       'shared.social-links': SharedSocialLinks;
       'shared.streaming-link': SharedStreamingLink;
       'shared.web-link': SharedWebLink;
       'ui.card-link': UiCardLink;
       'ui.cta-button': UiCtaButton;
+      'ui.cta-section': UiCtaSection;
       'ui.image-element': UiImageElement;
       'ui.loading-step': UiLoadingStep;
       'ui.tag': UiTag;

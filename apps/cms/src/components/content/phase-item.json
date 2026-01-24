@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_content_phase_items",
+  "info": {
+    "displayName": "Phase Item",
+    "icon": "layer",
+    "description": "A narrative phase section for the journey page"
+  },
+  "options": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Identifier for the frontend (e.g., chronology, adaptation, logic)"
+    },
+    "badge": {
+      "type": "string",
+      "description": "e.g., Phase I"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.narrative-item",
+      "description": "Optional cards or items for this phase (e.g., Principles)"
+    }
+  }
+}

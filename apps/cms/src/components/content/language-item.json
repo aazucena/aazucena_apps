@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_language_items",
+  "info": {
+    "displayName": "Language Item",
+    "icon": "globe",
+    "description": "Human language proficiency"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "level": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

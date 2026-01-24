@@ -15,6 +15,25 @@
     }
   },
   "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "default": "Search projects by tech, title...",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "dragHintText": {
       "type": "string",
       "pluginOptions": {

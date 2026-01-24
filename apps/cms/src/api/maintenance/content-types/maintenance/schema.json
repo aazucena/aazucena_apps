@@ -34,6 +34,24 @@
       },
       "required": true,
       "maxLength": 1000
+    },
+    "heroSubtitle": {
+      "type": "string",
+      "default": "Refining the Experience",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "reachOutLabel": {
+      "type": "string",
+      "default": "Reach out directly",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

@@ -66,6 +66,66 @@
       "repeatable": true,
       "min": 0,
       "max": 2
+    },
+    "focusAreas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.focus-area",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "roots": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.narrative-item",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "interests": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.narrative-item",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "coreValues": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.narrative-item",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "workflow": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.workflow-item",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "languages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.language-item",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

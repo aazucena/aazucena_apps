@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_content_narrative_items",
+  "info": {
+    "displayName": "Narrative Item",
+    "icon": "bulletList",
+    "description": "Repeatable items for roots, interests, or principles"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon"
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "blue",
+        "orange",
+        "pink",
+        "purple",
+        "green",
+        "cyan",
+        "red"
+      ],
+      "default": "blue"
+    }
+  }
+}

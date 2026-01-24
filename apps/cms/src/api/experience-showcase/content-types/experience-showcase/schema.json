@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "experience_showcases",
+  "info": {
+    "singularName": "experience-showcase",
+    "pluralName": "experience-showcases",
+    "displayName": "Experience Showcase Configuration",
+    "description": "Manages the experience list page and homepage section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "default": "Search by skills, company, or result...",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

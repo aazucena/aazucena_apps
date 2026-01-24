@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_content_focus_areas",
+  "info": {
+    "displayName": "Focus Area",
+    "icon": "layer",
+    "description": "Technical mastery area with years of experience"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "experience": {
+      "type": "string",
+      "required": true,
+      "description": "e.g. 4+ Years"
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "blue-cyan",
+        "purple-indigo",
+        "emerald-teal",
+        "orange-red",
+        "pink-purple"
+      ],
+      "default": "blue-cyan"
+    }
+  }
+}

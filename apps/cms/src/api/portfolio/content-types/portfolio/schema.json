@@ -144,6 +144,32 @@
       },
       "maxLength": 100
     },
+    "availabilityStatus": {
+      "type": "enumeration",
+      "enum": [
+        "Open to Opportunities",
+        "Busy / Working on Projects",
+        "On Break / Personal Time",
+        "Looking for Collaborations",
+        "Unavailable"
+      ],
+      "default": "Open to Opportunities",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "timezone": {
+      "type": "string",
+      "default": "America/Edmonton",
+      "description": "IANA Timezone string for local time display",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
     "bioEmbedding": {
       "type": "json",
       "pluginOptions": {

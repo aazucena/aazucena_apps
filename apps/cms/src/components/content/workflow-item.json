@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_workflow_items",
+  "info": {
+    "displayName": "Workflow Item",
+    "icon": "cog",
+    "description": "Item for modern workflow list"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

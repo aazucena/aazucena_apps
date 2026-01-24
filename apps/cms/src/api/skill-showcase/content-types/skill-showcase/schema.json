@@ -1,0 +1,58 @@
+{
+  "kind": "singleType",
+  "collectionName": "skill_showcases",
+  "info": {
+    "singularName": "skill-showcase",
+    "pluralName": "skill-showcases",
+    "displayName": "Skill Showcase Configuration",
+    "description": "Manages the skills list page and homepage section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "highlyUsedThreshold": {
+      "type": "integer",
+      "default": 3,
+      "description": "Number of projects/roles required to trigger the highly-used pulse effect",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "searchPlaceholder": {
+      "type": "string",
+      "default": "Search technologies (e.g. React, PostgreSQL)...",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "emptyMessage": {
+      "type": "string",
+      "default": "No technologies found matching your criteria.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
