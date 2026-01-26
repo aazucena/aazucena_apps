@@ -2,10 +2,10 @@
 
 📍 **Full Documentation:** [ROADMAP.md Phase 2](../ROADMAP.md#phase-2-component-architecture-improvements-priority-high)
 
-## Priority Status: High - 🚧 IN PROGRESS (~40% Complete)
+## Priority Status: High - 🚧 IN PROGRESS (~45% Complete)
 
 **Estimated Effort:** 6-8 days
-**Progress:** ~2.5-3 days equivalent work completed
+**Progress:** ~3.5 days equivalent work completed
 
 ## Overview
 
@@ -19,6 +19,12 @@ Further optimize component structure, standardize patterns across sections, and 
 3. **Common Components** - 6 new reusable components
 4. **Site Configuration** - Centralized config with types and helpers
 5. **Footer Enhancement** - Tech stack logos (Astro, React, Tailwind, Vite)
+6. **About Section - Working Style Integration:**
+   - Implemented `content.working-style-item.json` Strapi component.
+   - Updated About schema, transformer, and validator to support working style entries.
+   - Created `WorkingStyleSection.tsx` React component.
+   - Added `getWorkingStyleColor` utility function for dynamic styling.
+   - Integrated into `about.astro` page.
 
 ### 🚧 In Progress
 - Scene.tsx optimization (next priority)
@@ -224,6 +230,46 @@ const sharedProps = {
 
 **Files Modified:**
 - `src/pages/[slug].astro` (refactored from 113 → 114 total lines, 73 logic lines)
+
+---
+
+## 2.5 About Section Enhancements - Working Style Integration ✅ COMPLETED (2026-01-26)
+
+**Goal:** Integrate a dynamic "Working Style" component into the About section, driven by Strapi CMS. This enhances content flexibility and allows for easy updates to the display of work preferences and methodologies.
+
+**Implementation:** 0.5 days
+
+**Problem Solved:**
+- Static content for "Working Style" section.
+- Lack of CMS-driven flexibility for personal attributes.
+- Inability to easily update or extend working style items without code changes.
+
+**Solution Architecture:**
+- **Strapi Component:** `content.working-style-item` JSON schema defined to capture title, description, and an icon for each working style entry.
+- **Strapi Single Type Schema:** The `About` single type schema (`apps/cms/src/api/about/content-types/about/schema.json`) was updated to include a repeatable component field for `workingStyle`, linking to the new `content.working-style-item`.
+- **Frontend Validator:** `WorkingStyleItemSchema` (Zod) created in `apps/portfolio/src/lib/validators/components.ts` for runtime type validation of CMS data.
+- **Frontend Transformer:** The About transformer (`apps/portfolio/src/lib/transformers/about.ts`) was extended to correctly process and transform the `workingStyle` data from Strapi into a format consumable by the frontend.
+- **Utility Function:** `getWorkingStyleColor` (in `apps/portfolio/src/lib/utils/about.ts`) was implemented to provide dynamic color styling based on item attributes or index, ensuring visual variety and consistency.
+- **React Component:** `WorkingStyleSection.tsx` (`apps/portfolio/src/components/ui/WorkingStyleSection.tsx`) was developed to render the working style items, consuming data from the CMS via props. It leverages the utility function for styling and integrates icons.
+- **Astro Page Integration:** The `about.astro` page (`apps/portfolio/src/pages/about.astro`) was updated to fetch the About data, including the new `workingStyle` field, and pass it as props to the `WorkingStyleSection` React component.
+
+**Results:**
+- ✅ **CMS-driven content:** Working style items are now fully manageable through Strapi.
+- ✅ **Enhanced flexibility:** Easy to add, remove, or modify working style entries without code deployments.
+- ✅ **Type safety:** End-to-end type safety from Strapi to frontend components via Zod and TypeScript.
+- ✅ **Modular structure:** Clear separation of concerns with dedicated component, schema, validator, transformer, and utility.
+- ✅ **Dynamic styling:** Utility function enables flexible and consistent visual presentation.
+- ✅ **Improved DX:** Developers can quickly understand and extend the working style feature.
+
+**Files Created/Modified:**
+- `apps/cms/src/components/content/working-style-item.json` (New Strapi component schema)
+- `apps/cms/src/api/about/content-types/about/schema.json` (Modified About schema)
+- `apps/portfolio/src/lib/validators/components.ts` (Modified with `WorkingStyleItemSchema`)
+- `apps/portfolio/src/lib/transformers/about.ts` (Modified to transform `workingStyle` field)
+- `apps/portfolio/src/lib/utils/about.ts` (Modified with `getWorkingStyleColor` utility)
+- `apps/portfolio/src/components/ui/WorkingStyleSection.tsx` (New React component)
+- `apps/portfolio/src/pages/about.astro` (Modified to pass `workingStyle` prop)
+
 
 ---
 
