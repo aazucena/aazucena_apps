@@ -3,11 +3,11 @@
  * An expandable education card showing degree, institution, and detailed description.
  */
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, ClockCircle as Clock, ChevronDown } from '@mynaui/icons-react';
+import { Calendar, ChevronDown, ClockCircle as Clock } from '@mynaui/icons-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
-import { calculateDuration } from '~/lib/utils/experienceHelpers';
+import { calculateDuration } from '~/lib/utils/experiences';
 
 interface EducationItemProps {
   edu: {

@@ -4,15 +4,21 @@
  * Automatically highlights the active section.
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { cn } from '~/lib/utils';
-import { List } from '@mynaui/icons-react';
+import { List, ChevronDown } from '@mynaui/icons-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { toTitleCase } from '~/lib/utils/text';
 import type { JSX } from 'react';
 
 interface ToCItem {
   id: string;
   label: string;
   depth: number;
+}
+
+interface ToCTreeItem extends ToCItem {
+  children: ToCItem[];
 }
 
 interface TableOfContentsProps {
@@ -34,6 +40,27 @@ export function TableOfContents({
 }: TableOfContentsProps): JSX.Element | null {
   const [activeId, setActiveId] = useState<string>('');
   const [sections, setSections] = useState<ToCItem[]>([]);
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+
+  // Build tree structure: Group H3s under their preceding H2
+  const tree = useMemo(() => {
+    const result: ToCTreeItem[] = [];
+    let currentParent: ToCTreeItem | null = null;
+
+    sections.forEach((section) => {
+      if (section.depth === 2) {
+        currentParent = { ...section, children: [] };
+        result.push(currentParent);
+      } else if (section.depth === 3 && currentParent) {
+        currentParent.children.push(section);
+      } else if (section.depth === 1) {
+        // Fallback for h1 if included
+        currentParent = { ...section, children: [] };
+        result.push(currentParent);
+      }
+    });
+    return result;
+  }, [sections]);
 
   useEffect(() => {
     const container = document.querySelector(containerSelector);
@@ -46,9 +73,7 @@ export function TableOfContents({
     elements.forEach((element, index) => {
       const htmlElement = element as HTMLElement;
 
-      // 1. Ensure ID exists
       if (!htmlElement.id) {
-        // Generate a slugified ID if missing
         const text = htmlElement.innerText || '';
         htmlElement.id = text
           .toLowerCase()
@@ -56,10 +81,7 @@ export function TableOfContents({
           .replace(/(^-|-$)+/g, '') || `section-${index}`;
       }
 
-      // 2. Determine Label (data attribute > innerText)
       const label = htmlElement.dataset.tocLabel || htmlElement.innerText;
-
-      // Skip empty labels
       if (!label.trim()) return;
 
       scannedSections.push({
@@ -73,21 +95,15 @@ export function TableOfContents({
 
     if (scannedSections.length === 0) return;
 
-    // 3. Set up IntersectionObserver
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      // Find the first intersecting entry
       const intersecting = entries.find(e => e.isIntersecting);
       if (intersecting) {
         setActiveId(intersecting.target.id);
-      } else {
-        // Fallback: If scrolling up, find the one just above the viewport
-        // This logic can be complex; simplified to just track intersections for now.
-        // A common pattern is to track all visible and pick the top one.
       }
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      rootMargin: '-100px 0px -66% 0px', // Trigger when element is near top
+      rootMargin: '-100px 0px -66% 0px',
       threshold: 0
     });
 
@@ -99,14 +115,36 @@ export function TableOfContents({
     return () => observer.disconnect();
   }, [containerSelector, headerSelector]);
 
+  // Auto-expand parent if a child is active
+  useEffect(() => {
+    if (!activeId) return;
+    
+    const parent = tree.find(node => 
+      node.id === activeId || node.children.some(child => child.id === activeId)
+    );
+
+    if (parent && !expandedIds.has(parent.id)) {
+      setExpandedIds(prev => new Set(prev).add(parent.id));
+    }
+  }, [activeId, tree]);
+
+  const toggleExpand = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setExpandedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      // Offset for sticky headers if any
       const yOffset = -100;
       const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-      
       window.scrollTo({ top: y, behavior: 'smooth' });
       setActiveId(id);
     }
@@ -117,32 +155,87 @@ export function TableOfContents({
   }
 
   return (
-    <nav className="hidden xl:block fixed right-8 top-32 w-48 z-40 print:hidden animate-fade-in">
-      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 p-4 shadow-sm">
-        <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+    <nav className="hidden xl:block fixed right-8 top-32 w-56 z-40 print:hidden animate-fade-in">
+      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-700 p-4 shadow-sm max-h-[70vh] overflow-y-auto custom-scrollbar">
+        <div className="flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-4 ml-2">
           <List size={14} />
           Contents
         </div>
+        
         <ul className="space-y-1">
-          {sections.map(({ id, label, depth }) => (
-            <li key={id}>
-              <a
-                href={`#${id}`}
-                onClick={(e) => handleClick(e, id)}
-                className={cn(
-                  "block text-sm py-1 px-2 rounded-md transition-all duration-200 truncate",
-                  activeId === id
-                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium translate-x-1"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50",
-                  // Indent h3s
-                  depth === 3 && "ml-3 border-l border-gray-200 dark:border-gray-700"
-                )}
-                title={label}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
+          {tree.map((node) => {
+            const isExpanded = expandedIds.has(node.id);
+            const hasChildren = node.children.length > 0;
+            const isParentActive = activeId === node.id;
+            const isChildActive = node.children.some(c => c.id === activeId);
+
+            return (
+              <li key={node.id} className="space-y-1">
+                <div className="group flex items-center gap-1">
+                  <a
+                    href={`#${node.id}`}
+                    onClick={(e) => handleClick(e, node.id)}
+                    className={cn(
+                      "flex-1 text-sm py-1.5 px-3 rounded-xl transition-all duration-300 truncate",
+                      isParentActive
+                        ? "bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/20 translate-x-1"
+                        : isChildActive
+                        ? "text-blue-600 dark:text-blue-400 font-bold"
+                        : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                    )}
+                    title={toTitleCase(node.label)}
+                  >
+                    {toTitleCase(node.label)}
+                  </a>
+                  
+                  {hasChildren && (
+                    <button
+                      onClick={(e) => toggleExpand(e, node.id)}
+                      className={cn(
+                        "p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors",
+                        isExpanded ? "text-blue-500" : "text-gray-400"
+                      )}
+                    >
+                      <ChevronDown 
+                        size={14} 
+                        className={cn("transition-transform duration-300", isExpanded && "rotate-180")} 
+                      />
+                    </button>
+                  )}
+                </div>
+
+                <AnimatePresence initial={false}>
+                  {isExpanded && hasChildren && (
+                    <motion.ul
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden ml-4 border-l border-gray-100 dark:border-gray-700/50 pl-2 space-y-1"
+                    >
+                      {node.children.map((child) => (
+                        <li key={child.id}>
+                          <a
+                            href={`#${child.id}`}
+                            onClick={(e) => handleClick(e, child.id)}
+                            className={cn(
+                              "block text-xs py-1.5 px-3 rounded-lg transition-all duration-200 truncate",
+                              activeId === child.id
+                                ? "text-blue-600 dark:text-blue-400 font-bold bg-blue-50 dark:bg-blue-900/20"
+                                : "text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                            )}
+                            title={toTitleCase(child.label)}
+                          >
+                            {toTitleCase(child.label)}
+                          </a>
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>
