@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { visibleCategoriesStore, toggleCategory, resetCategories, skillSearchQueryStore } from '../store';
+import { toTitleCase } from '~/lib/utils/text';
 
 interface ToolbarProps {
   categories: string[];
@@ -68,7 +69,7 @@ export function Toolbar({ categories }: ToolbarProps) {
                       : 'bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
-                  {cat}
+                  {toTitleCase(cat)}
                 </button>
               ))}
               

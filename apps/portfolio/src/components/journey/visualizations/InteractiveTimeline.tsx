@@ -8,6 +8,8 @@ import * as d3 from 'd3';
 import type { TimelineNode } from '../transformers';
 import { ExportControls } from '../ui/ExportControls';
 import { calculateDetailedDuration } from '../transformers';
+import { getCompanyInitials } from '~/lib/utils/experiences';
+import { toTitleCase } from '~/lib/utils/text';
 interface InteractiveTimelineProps {
   data: TimelineNode[];
   hideHeader?: boolean;
@@ -28,9 +30,9 @@ export function InteractiveTimeline({ data, hideHeader = false }: InteractiveTim
   });
 
   const filterOptions = [
-    { id: 'all', label: 'All', icon: '✨', activeClass: 'bg-indigo-600 shadow-indigo-200', textActive: 'text-white' },
-    { id: 'experience', label: 'Experience', icon: '💼', activeClass: 'bg-blue-600 shadow-blue-200', textActive: 'text-white' },
-    { id: 'education', label: 'Education', icon: '🎓', activeClass: 'bg-green-600 shadow-green-200', textActive: 'text-white' },
+    { id: 'all', label: toTitleCase('All'), icon: '✨', activeClass: 'bg-indigo-600 shadow-indigo-200', textActive: 'text-white' },
+    { id: 'experience', label: toTitleCase('Experience'), icon: '💼', activeClass: 'bg-blue-600 shadow-blue-200', textActive: 'text-white' },
+    { id: 'education', label: toTitleCase('Education'), icon: '🎓', activeClass: 'bg-green-600 shadow-green-200', textActive: 'text-white' },
   ];
 
   // Timeout ref for tooltip persistence
@@ -288,9 +290,10 @@ export function InteractiveTimeline({ data, hideHeader = false }: InteractiveTim
       .html((d) => {
         if (d.type === 'education') return '🎓';
         if (d.logo && (d.logo.startsWith('http') || d.logo.startsWith('/'))) {
-          return `<img src="${d.logo}" alt="${d.company}" class="w-full h-full object-cover rounded-full" />`;
+          return `<img src="${d.logo}" alt="${d.company || 'Company'}" class="w-full h-full object-cover rounded-full" />`;
         }
-        return d.logo || '';
+        // Fallback to company initials
+        return d.company ? getCompanyInitials(d.company) : '';
       });
 
     // Subtitle positioning
@@ -482,10 +485,10 @@ export function InteractiveTimeline({ data, hideHeader = false }: InteractiveTim
               </div>
 
               <h3 className="font-bold text-gray-900 dark:text-white mb-1 leading-tight">
-                {hoveredNode.title}
+                {toTitleCase(hoveredNode.title)}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                {hoveredNode.subtitle}
+                {toTitleCase(hoveredNode.subtitle)}
               </p>
 
               {hoveredNode.skills && hoveredNode.skills.length > 0 && (

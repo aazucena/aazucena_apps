@@ -7,6 +7,7 @@ import type { SkillWithCategory } from '~/components/animations/sections/data';
 import type { Education } from '~/lib/transformers/education';
 import type { Experience } from '~/lib/transformers/experiences';
 import { calculateMonthsDuration } from './base';
+import { getCompanyLogoGradient } from '~/lib/utils/experiences';
 
 export interface TimelineNode {
   date: Date;
@@ -56,6 +57,7 @@ export function transformExperiencesToTimeline(experiences: Experience[]): Timel
       company: exp.company,
       position: exp.position,
       logo: exp.companyLogo?.url,
+      logoGradient: getCompanyLogoGradient(exp.company),
       duration: calculateMonthsDuration(validStartDate, endDate),
       slug: exp.slug,
       isCurrent: exp.isCurrent,
@@ -106,6 +108,7 @@ export function transformEducationToTimeline(education: Education[]): TimelineNo
       field: edu.field,
       educationType: edu.type,
       gpa: edu.gpa,
+      honors: edu.honors || null,
       skills: edu.skills as SkillWithCategory[] || [],
       duration: calculateMonthsDuration(validStartDate, endDate),
       isCurrent: edu.current,
