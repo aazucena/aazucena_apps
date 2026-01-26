@@ -8,8 +8,36 @@ import { getTestimonials } from '../api/testimonials';
 import { getAwards } from '../api/awards';
 import { getSkills } from '../api/skills';
 import { getHomepage } from '../api/homepage';
-import { getShowcaseConfig } from '../api/project-showcase';
+import { getProjectShowcaseConfig } from '../api/project-showcase';
+import { getExperienceShowcase } from '../api/experience-showcase';
+import { getSkillShowcase } from '../api/skill-showcase';
 import { getWebsiteConfig } from '../api/website-config';
+import { getAnimationConfig } from '../api/animation';
+import type { HeroData } from '../transformers/hero';
+import type { AboutData } from '../transformers/about';
+import type { Project } from '../transformers/projects';
+import type { Experience } from '../transformers/experiences';
+import type { BlogPost } from '../transformers/posts';
+import type { Testimonial } from '~/components/ui/infinite-moving-cards';
+import type { Award } from '../transformers/awards';
+import type { SkillCategory } from '../transformers/skills';
+import type { ProjectShowcaseConfig } from '../transformers/project-showcase';
+import type { ExperienceShowcaseConfig } from '../transformers/experience-showcase';
+import type { SkillShowcaseConfig } from '../transformers/skill-showcase';
+
+export interface PortfolioData {
+  hero: HeroData;
+  about: AboutData;
+  projects: Project[];
+  experiences: Experience[];
+  posts: BlogPost[];
+  testimonials: Testimonial[];
+  awards: Award[];
+  skills: SkillCategory[];
+  projectShowcase: ProjectShowcaseConfig;
+  experienceShowcase: ExperienceShowcaseConfig;
+  skillShowcase: SkillShowcaseConfig;
+}
 
 /**
  * Orchestrates fetching of all data required for the homepage
@@ -28,8 +56,11 @@ export async function getHomepageData() {
       awards,
       skills,
       homepage,
-      showcase,
-      websiteConfig
+      projectShowcase,
+      experienceShowcase,
+      skillShowcase,
+      websiteConfig,
+      animationConfig,
     ] = await Promise.all([
       getPortfolio(),
       getAbout(),
@@ -41,23 +72,33 @@ export async function getHomepageData() {
       getAwards(),
       getSkills('core'),
       getHomepage(),
-      getShowcaseConfig(),
-      getWebsiteConfig()
+      getProjectShowcaseConfig(),
+      getExperienceShowcase(),
+      getSkillShowcase(),
+      getWebsiteConfig(),
+      getAnimationConfig(),
     ]);
 
-    return {
-      portfolio,
-      about,
+    const portfolioData: PortfolioData = {
       hero,
+      about,
       projects,
       experiences,
       posts,
       testimonials,
       awards,
       skills,
+      projectShowcase,
+      experienceShowcase,
+      skillShowcase,
+    };
+
+    return {
+      data: portfolioData,
+      portfolio,
       homepage,
-      showcase,
-      websiteConfig
+      websiteConfig,
+      animationConfig,
     };
   } catch (error) {
     console.error('[HomepageData] Failed to fetch aggregate data:', error);

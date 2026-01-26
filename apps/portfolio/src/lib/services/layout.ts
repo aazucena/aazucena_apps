@@ -1,25 +1,27 @@
 import { getPreloaderConfig } from '../api/preloader';
-import { getWebsiteConfig } from '../api/website-config';
-import { getTheme } from '../api/theme';
 import { getMaintenance } from '../api/maintenance';
+import { SITE_CONFIG } from '~/config/site';
 
 export interface LayoutDataResponse {
+  siteConfig: typeof SITE_CONFIG;
   preloaderConfig: Awaited<ReturnType<typeof getPreloaderConfig>>;
-  websiteConfig: Awaited<ReturnType<typeof getWebsiteConfig>>;
-  themeConfig: Awaited<ReturnType<typeof getTheme>>;
   maintenance: Awaited<ReturnType<typeof getMaintenance>>;
 }
 
 /**
- * Fetches all layout configuration data from Strapi CMS in parallel
+ * Returns static site configuration (no API call)
+ */
+export function getSiteConfig() {
+  return SITE_CONFIG;
+}
+
+/**
+ * Fetches dynamic layout configuration data from Strapi CMS in parallel
  * Used by BaseLayout.astro to configure site-wide settings
- * Falls back to defaults if CMS is unavailable (built into each API client)
  */
 export async function getLayoutData(): Promise<LayoutDataResponse> {
-  const [preloaderConfig, websiteConfig, themeConfig, maintenance] = await Promise.all([
+  const [preloaderConfig, maintenance] = await Promise.all([
     getPreloaderConfig(),
-    getWebsiteConfig(),
-    getTheme(),
     getMaintenance(),
   ]);
 
@@ -29,9 +31,8 @@ export async function getLayoutData(): Promise<LayoutDataResponse> {
   }
 
   return {
+    siteConfig: SITE_CONFIG,
     preloaderConfig,
-    websiteConfig,
-    themeConfig,
     maintenance,
   };
 }

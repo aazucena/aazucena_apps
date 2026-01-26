@@ -2,15 +2,15 @@ import { z } from 'zod';
 import { fetchStrapi } from '../strapi';
 import { StrapiShowcaseSchema } from '../validators/project-showcase';
 import {
-  transformShowcase,
-  DEFAULT_SHOWCASE_CONFIG,
-  type ShowcaseConfig
+  transformProjectShowcase,
+  DEFAULT_PROJECT_SHOWCASE_CONFIG,
+  type ProjectShowcaseConfig
 } from '../transformers/project-showcase';
 
 /**
  * Fetches project showcase configuration from Strapi CMS
  */
-export async function getShowcaseConfig(): Promise<ShowcaseConfig> {
+export async function getProjectShowcaseConfig(): Promise<ProjectShowcaseConfig> {
   try {
     const response = await fetchStrapi('project-showcase', {
       query: { populate: ['header'] },
@@ -18,13 +18,13 @@ export async function getShowcaseConfig(): Promise<ShowcaseConfig> {
     });
 
     const validatedData = StrapiShowcaseSchema.parse(response.data);
-    return transformShowcase(validatedData);
+    return transformProjectShowcase(validatedData);
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.error('[ProjectShowcase API] Invalid CMS data:', error.issues);
     } else {
       console.error('[ProjectShowcase API] Failed to fetch:', error);
     }
-    return DEFAULT_SHOWCASE_CONFIG;
+    return DEFAULT_PROJECT_SHOWCASE_CONFIG;
   }
 }

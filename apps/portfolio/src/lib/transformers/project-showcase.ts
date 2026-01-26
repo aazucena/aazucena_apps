@@ -1,7 +1,7 @@
 import type { StrapiShowcase } from '../validators/project-showcase';
 import { transformPageHeader } from './utils';
 
-export interface ShowcaseConfig {
+export interface ProjectShowcaseConfig {
   header?: ReturnType<typeof transformPageHeader>;
   searchPlaceholder: string;
   dragHintText: string;
@@ -12,7 +12,7 @@ export interface ShowcaseConfig {
   projectsListPagePath?: string;
 }
 
-export const DEFAULT_SHOWCASE_CONFIG: ShowcaseConfig = {
+export const DEFAULT_PROJECT_SHOWCASE_CONFIG: ProjectShowcaseConfig = {
   searchPlaceholder: 'Search projects by tech, title...',
   dragHintText: 'Drag to explore more projects',
   viewMoreButtonLabel: 'View More',
@@ -21,8 +21,8 @@ export const DEFAULT_SHOWCASE_CONFIG: ShowcaseConfig = {
   projectsPerPage: 4,
 };
 
-export function transformShowcase(data: StrapiShowcase): ShowcaseConfig {
-  if (!data) return DEFAULT_SHOWCASE_CONFIG;
+export function transformProjectShowcase(data: StrapiShowcase): ProjectShowcaseConfig {
+  if (!data) return DEFAULT_PROJECT_SHOWCASE_CONFIG;
 
   return {
     header: transformPageHeader(data.header),
