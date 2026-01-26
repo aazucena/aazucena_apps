@@ -1,0 +1,106 @@
+---
+/**
+ * Landing Template (Stub)
+ *
+ * Specialized layout for marketing pages, product launches, and campaigns.
+ * This is a placeholder implementation ready for future enhancement.
+ *
+ * Planned Features:
+ * - Hero section with background image/video
+ * - Prominent CTA buttons above the fold
+ * - Feature highlights with icons
+ * - Social proof sections (testimonials, logos)
+ * - Conversion-optimized layout
+ * - A/B testing hooks
+ *
+ * Current Implementation:
+ * Uses a hero-style header with larger text and optional CTA.
+ * Content area is similar to editorial but with wider max-width.
+ *
+ * Usage:
+ * This template is automatically selected for pages with template='landing' in CMS.
+ * Currently used as a placeholder for future marketing page functionality.
+ *
+ * @component
+ * @status stub
+ */
+
+import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
+import DetailLayout from '~/layouts/DetailLayout.astro';
+import type { LandingTemplateProps } from './index';
+
+interface Props extends LandingTemplateProps {}
+
+const {
+  title,
+  content,
+  seoTitle,
+  seoDescription,
+  jsonLd,
+  breadcrumbs,
+  watermarkText,
+  watermarkSize = 'medium', // Larger watermark for landing pages
+  showTableOfContents,
+  tocSelector = '#dynamic-content',
+  heroCta,
+} = Astro.props;
+---
+
+<DetailLayout
+  title={seoTitle}
+  description={seoDescription}
+  jsonLd={jsonLd}
+  breadcrumbs={breadcrumbs}
+  watermarkText={watermarkText}
+  watermarkSize={watermarkSize}
+  maxWidth="7xl"
+  hasSidebar={false}
+  showTableOfContents={showTableOfContents}
+  tocSelector={tocSelector}
+  basePath="/"
+>
+  <!-- Hero Header: Large centered title with optional CTA -->
+  <div slot="header" class="text-center space-y-12">
+    <h1
+      class="text-6xl md:text-9xl font-black text-gray-900 dark:text-white tracking-tighter leading-none"
+    >
+      {title}<span class="text-blue-600">.</span>
+    </h1>
+
+    <!-- TODO: Add hero subtitle/description -->
+    <!-- TODO: Add background image/video support -->
+
+    <!-- Optional CTA Button -->
+    {
+      heroCta && (
+        <div class="flex justify-center">
+          <a
+            href={heroCta.href}
+            class="inline-flex items-center px-8 py-4 text-lg font-black uppercase tracking-[0.2em] text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-all shadow-lg hover:shadow-xl"
+          >
+            {heroCta.text}
+          </a>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Content: Wide prose-styled content -->
+  <Fragment slot="content">
+    <article
+      id="dynamic-content"
+      class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600"
+    >
+      <MarkdownRenderer content={content} />
+    </article>
+
+    <!-- TODO: Add feature highlights section -->
+    <!-- TODO: Add testimonials/social proof section -->
+    <!-- TODO: Add secondary CTA section -->
+    <!-- TODO: Add FAQ section -->
+  </Fragment>
+</DetailLayout>
+
+<!-- TODO: Add custom styles for landing page specific elements -->
+<!-- TODO: Add animation/interaction styles -->
+<!-- TODO: Add A/B testing data attributes -->

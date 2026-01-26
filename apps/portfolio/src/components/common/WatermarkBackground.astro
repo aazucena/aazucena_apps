@@ -1,0 +1,26 @@
+---
+interface Props {
+  text: string;
+  size?: 'small' | 'medium' | 'large' | 'huge';
+  class?: string;
+}
+
+const { text, size = 'large', class: className } = Astro.props;
+
+const sizeClasses = {
+  small: 'text-[15rem] md:text-[25rem]',
+  medium: 'text-[20rem]',
+  large: 'text-[25rem]',
+  huge: 'text-[30rem] md:text-[40rem]'
+};
+---
+
+<div 
+  class:list={[
+    "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] dark:opacity-[0.05] whitespace-nowrap z-0",
+    className
+  ]}
+  aria-hidden="true"
+>
+  <span class={`${sizeClasses[size]} font-black uppercase tracking-tighter italic`}>{text}</span>
+</div>

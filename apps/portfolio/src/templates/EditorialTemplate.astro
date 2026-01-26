@@ -1,0 +1,71 @@
+---
+/**
+ * Editorial Template
+ *
+ * Clean, minimal layout for general content pages, articles, and documentation.
+ * This is the default template used when no specific template is specified.
+ *
+ * Features:
+ * - Centered title with blue period accent
+ * - Prose-styled content area with optimal reading width
+ * - Optional table of contents
+ * - Responsive typography
+ *
+ * Usage:
+ * This template is automatically selected for pages with template='default' in CMS.
+ *
+ * @component
+ */
+
+import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
+import DetailLayout from '~/layouts/DetailLayout.astro';
+import type { EditorialTemplateProps } from './index';
+
+interface Props extends EditorialTemplateProps {}
+
+const {
+  title,
+  content,
+  seoTitle,
+  seoDescription,
+  jsonLd,
+  breadcrumbs,
+  watermarkText,
+  watermarkSize = 'small',
+  showTableOfContents,
+  tocSelector = '#dynamic-content',
+} = Astro.props;
+---
+
+<DetailLayout
+  title={seoTitle}
+  description={seoDescription}
+  jsonLd={jsonLd}
+  breadcrumbs={breadcrumbs}
+  watermarkText={watermarkText}
+  watermarkSize={watermarkSize}
+  maxWidth="4xl"
+  hasSidebar={false}
+  showTableOfContents={showTableOfContents}
+  tocSelector={tocSelector}
+  basePath="/"
+>
+  <!-- Editorial Header: Clean centered title -->
+  <div slot="header" class="text-center space-y-8">
+    <h1
+      class="text-5xl md:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-none"
+    >
+      {title}<span class="text-blue-600">.</span>
+    </h1>
+  </div>
+
+  <!-- Content: Prose-styled article -->
+  <Fragment slot="content">
+    <article
+      id="dynamic-content"
+      class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600"
+    >
+      <MarkdownRenderer content={content} />
+    </article>
+  </Fragment>
+</DetailLayout>

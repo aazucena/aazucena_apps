@@ -1,0 +1,57 @@
+---
+import { ArrowLeft, ArrowRight } from '@mynaui/icons-react';
+
+interface NavItem {
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  prevItem?: NavItem | null;
+  nextItem?: NavItem | null;
+  basePath: string; // e.g., '/blog', '/experiences', '/projects'
+  prevLabel?: string;
+  nextLabel?: string;
+}
+
+const { prevItem, nextItem, basePath, prevLabel = 'Previous', nextLabel = 'Next' } = Astro.props;
+
+// Ensure basePath doesn't end with slash to avoid double slashes
+const normalizedBasePath = basePath.replace(/\/$/, '');
+---
+
+{(nextItem || prevItem) && (
+  <nav class="mt-20 pt-12 border-t border-gray-100 dark:border-gray-900" aria-label="Pagination">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {prevItem ? (
+        <a 
+          href={`${normalizedBasePath}/${prevItem.slug}`} 
+          class="group p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 transition-all text-left space-y-2"
+        >
+          <div class="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center gap-2">
+            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+            {prevLabel}
+          </div>
+          <div class="font-bold text-gray-900 dark:text-white text-xl tracking-tighter line-clamp-2">
+            {prevItem.title}
+          </div>
+        </a>
+      ) : <div aria-hidden="true" />}
+      
+      {nextItem && (
+        <a 
+          href={`${normalizedBasePath}/${nextItem.slug}`} 
+          class="group p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 transition-all text-right space-y-2"
+        >
+          <div class="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center justify-end gap-2">
+            {nextLabel} 
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </div>
+          <div class="font-bold text-gray-900 dark:text-white text-xl tracking-tighter line-clamp-2">
+            {nextItem.title}
+          </div>
+        </a>
+      )}
+    </div>
+  </nav>
+)}

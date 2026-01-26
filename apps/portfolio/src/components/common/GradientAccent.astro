@@ -1,0 +1,17 @@
+---
+interface Props {
+  variant?: 'default' | 'print-hidden';
+  class?: string;
+}
+
+const { variant = 'default', class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    "h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500",
+    variant === 'print-hidden' && "print:hidden",
+    className
+  ]}
+  aria-hidden="true"
+></div>
