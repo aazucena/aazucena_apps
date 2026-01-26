@@ -1,3 +1,5 @@
+/// <reference types="astro/client" />
+
 interface ImportMetaEnv {
   readonly STRAPI_URL: string;
   readonly STRAPI_TOKEN: string;
@@ -11,4 +13,57 @@ interface ImportMetaEnv {
   readonly PUBLIC_SENTRY_PROJECT: string;
   readonly PUBLIC_SENTRY_ORG: string;
   readonly SENTRY_AUTH_TOKEN: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
+declare module '~/config/site' {
+  export interface SiteMetadata {
+    siteName: string;
+    siteUrl: string;
+    baseUrl: string;
+    metaTitleTemplate: string;
+    defaultSEO: {
+      title: string;
+      description: string;
+      keywords?: string;
+      robots: string;
+      viewport: string;
+      canonical?: string;
+      twitterCard: string;
+    };
+    social: {
+      twitter?: string;
+    };
+    faviconUrl?: string;
+    siteLogoUrl?: string;
+    googleSiteVerificationId?: string;
+    robotsIndex: boolean;
+    robotsFollow: boolean;
+  }
+
+  export interface ThemeConfig {
+    mode: 'system' | 'light' | 'dark' | 'light:only' | 'dark:only';
+    colors: {
+      light: { primary: string; secondary: string; accent: string };
+      dark: { primary: string; secondary: string; accent: string };
+    };
+    fonts: {
+      sans: string;
+      serif: string;
+      heading: string;
+      code: string;
+    };
+  }
+
+  export interface SiteConfig {
+    metadata: SiteMetadata;
+    theme: ThemeConfig;
+  }
+
+  export const SITE_CONFIG: SiteConfig;
+  export function formatPageTitle(title?: string): string;
+  export function getAbsoluteUrl(path: string): string;
 }
