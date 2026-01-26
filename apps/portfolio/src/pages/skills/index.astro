@@ -304,14 +304,14 @@ const filters = [
 <script>
   // Grab-and-drag scrolling for kanban board
   document.addEventListener('DOMContentLoaded', () => {
-    const kanbanBoard = document.querySelector('.kanban-board');
+    const kanbanBoard = document.querySelector('.kanban-board') as HTMLElement | null;
     if (!kanbanBoard) return;
 
     let isDown = false;
     let startX: number;
     let scrollLeft: number;
 
-    kanbanBoard.addEventListener('mousedown', (e: MouseEvent) => {
+    kanbanBoard.addEventListener('mousedown', (e) => {
       // Only activate on direct board clicks, not on interactive elements
       const target = e.target as HTMLElement;
       if (target.closest('a, button, input, textarea')) return;
@@ -332,7 +332,7 @@ const filters = [
       kanbanBoard.classList.remove('is-dragging');
     });
 
-    kanbanBoard.addEventListener('mousemove', (e: MouseEvent) => {
+    kanbanBoard.addEventListener('mousemove', (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - kanbanBoard.offsetLeft;
@@ -341,7 +341,7 @@ const filters = [
     });
 
     // Prevent click events on links during drag
-    kanbanBoard.addEventListener('click', (e: MouseEvent) => {
+    kanbanBoard.addEventListener('click', (e) => {
       if (kanbanBoard.classList.contains('is-dragging')) {
         e.preventDefault();
         e.stopPropagation();
@@ -356,18 +356,19 @@ const filters = [
       let startY: number;
       let scrollTop: number;
 
-      lane.addEventListener('mousedown', (e: MouseEvent) => {
+      lane.addEventListener('mousedown', (e) => {
+        const mouseEvent = e as MouseEvent;
         // Only activate on direct lane clicks, not on interactive elements
-        const target = e.target as HTMLElement;
+        const target = mouseEvent.target as HTMLElement;
         if (target.closest('a, button, input, textarea')) return;
 
         isLaneDown = true;
         lane.classList.add('is-dragging');
-        startY = e.pageY - lane.getBoundingClientRect().top;
+        startY = mouseEvent.pageY - lane.getBoundingClientRect().top;
         scrollTop = lane.scrollTop;
 
         // Prevent board drag when dragging a lane
-        e.stopPropagation();
+        mouseEvent.stopPropagation();
       });
 
       lane.addEventListener('mouseleave', () => {
@@ -380,18 +381,19 @@ const filters = [
         lane.classList.remove('is-dragging');
       });
 
-      lane.addEventListener('mousemove', (e: MouseEvent) => {
+      lane.addEventListener('mousemove', (e) => {
         if (!isLaneDown) return;
-        e.preventDefault();
-        e.stopPropagation(); // Prevent board drag
+        const mouseEvent = e as MouseEvent;
+        mouseEvent.preventDefault();
+        mouseEvent.stopPropagation(); // Prevent board drag
 
-        const y = e.pageY - lane.getBoundingClientRect().top;
+        const y = mouseEvent.pageY - lane.getBoundingClientRect().top;
         const walk = (y - startY) * 1.5; // Multiply for responsive scroll
         lane.scrollTop = scrollTop - walk;
       });
 
       // Prevent click events during drag
-      lane.addEventListener('click', (e: MouseEvent) => {
+      lane.addEventListener('click', (e) => {
         if (lane.classList.contains('is-dragging')) {
           e.preventDefault();
           e.stopPropagation();
