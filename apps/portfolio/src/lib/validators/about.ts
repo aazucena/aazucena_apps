@@ -1,11 +1,12 @@
 import { z } from 'zod';
-import { 
+import {
   StatsSchema,
   CardLinkSchema,
-  FocusAreaSchema, 
-  NarrativeItemSchema, 
-  WorkflowItemSchema, 
-  LanguageItemSchema 
+  FocusAreaSchema,
+  NarrativeItemSchema,
+  WorkflowItemSchema,
+  LanguageItemSchema,
+  WorkingStyleItemSchema
 } from './components';
 
 export type { Stats, CardLink } from './components';
@@ -29,6 +30,7 @@ export const StrapiAboutSchema = z.object({
   coreValues: z.array(NarrativeItemSchema).optional(),
   workflow: z.array(WorkflowItemSchema).optional(),
   languages: z.array(LanguageItemSchema).optional(),
+  workingStyle: z.array(WorkingStyleItemSchema).optional(),
 
   createdAt: z.string(),
   updatedAt: z.string(),
