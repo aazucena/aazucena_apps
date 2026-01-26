@@ -126,6 +126,18 @@
       },
       "component": "content.language-item",
       "repeatable": true
+    },
+    "workingStyle": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.working-style-item",
+      "repeatable": true,
+      "min": 0,
+      "max": 4
     }
   }
 }

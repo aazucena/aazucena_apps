@@ -175,6 +175,47 @@ export interface ContentWorkflowItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ContentWorkingStyleItem extends Struct.ComponentSchema {
+  collectionName: 'components_content_working_style_items';
+  info: {
+    description: 'Individual working style attribute with icon and description';
+    displayName: 'Working Style Item';
+    icon: 'briefcase';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    variant: Schema.Attribute.Enumeration<
+      [
+        'blue-cyan',
+        'purple-indigo',
+        'emerald-teal',
+        'orange-red',
+        'pink-purple',
+        'amber-orange',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'blue-cyan'>;
+  };
+}
+
 export interface MediaAudioMetadata extends Struct.ComponentSchema {
   collectionName: 'components_media_audio_metadata';
   info: {
@@ -617,6 +658,7 @@ declare module '@strapi/strapi' {
       'content.section': ContentSection;
       'content.stats': ContentStats;
       'content.workflow-item': ContentWorkflowItem;
+      'content.working-style-item': ContentWorkingStyleItem;
       'media.audio-metadata': MediaAudioMetadata;
       'shared.open-graph': SharedOpenGraph;
       'shared.page-header': SharedPageHeader;

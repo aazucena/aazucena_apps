@@ -541,6 +541,22 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    workingStyle: Schema.Attribute.Component<
+      'content.working-style-item',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 0;
+        },
+        number
+      >;
   };
 }
 

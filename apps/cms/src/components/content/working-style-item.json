@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_content_working_style_items",
+  "info": {
+    "displayName": "Working Style Item",
+    "icon": "briefcase",
+    "description": "Individual working style attribute with icon and description"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon",
+      "required": true
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "blue-cyan",
+        "purple-indigo",
+        "emerald-teal",
+        "orange-red",
+        "pink-purple",
+        "amber-orange"
+      ],
+      "default": "blue-cyan",
+      "required": true
+    }
+  }
+}
