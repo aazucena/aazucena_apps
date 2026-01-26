@@ -1,13 +1,14 @@
 import type { StrapiAbout } from '../validators/about';
-import { 
-  transformStats, 
-  transformCtaButton, 
+import {
+  transformStats,
+  transformCtaButton,
 } from './utils';
-import type { 
-  FocusArea, 
-  NarrativeItem, 
-  WorkflowItem, 
-  LanguageItem 
+import type {
+  FocusArea,
+  NarrativeItem,
+  WorkflowItem,
+  LanguageItem,
+  WorkingStyleItem
 } from '../validators/components';
 
 export interface AboutData {
@@ -30,6 +31,7 @@ export interface AboutData {
   coreValues: NarrativeItem[];
   workflow: WorkflowItem[];
   languages: LanguageItem[];
+  workingStyle: WorkingStyleItem[];
 }
 
 export const DEFAULT_ABOUT: AboutData = {
@@ -44,6 +46,7 @@ export const DEFAULT_ABOUT: AboutData = {
   coreValues: [],
   workflow: [],
   languages: [],
+  workingStyle: [],
 };
 
 export function transformAbout(data: StrapiAbout): AboutData {
@@ -67,5 +70,6 @@ export function transformAbout(data: StrapiAbout): AboutData {
     coreValues: (data.coreValues || []) as NarrativeItem[],
     workflow: (data.workflow || []) as WorkflowItem[],
     languages: (data.languages || []) as LanguageItem[],
+    workingStyle: (data.workingStyle || []) as WorkingStyleItem[],
   };
 }

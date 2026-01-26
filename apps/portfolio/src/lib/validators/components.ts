@@ -223,6 +223,18 @@ export const LanguageItemSchema = z.object({
   level: z.string(),
 });
 
+/**
+ * Working Style Item component schema (content.working-style-item)
+ */
+export const WorkingStyleItemSchema = z.object({
+  id: z.number().optional(),
+  title: z.string().max(100),
+  subtitle: z.string().max(100),
+  description: z.string().max(500),
+  icon: z.any().nullable().optional(), // plugin::icons-field.icon
+  variant: GradientVariantEnum.default('blue-cyan'),
+});
+
 // --- Meta & Special Components ---
 
 /**
@@ -320,6 +332,7 @@ export type PhaseItem = z.infer<typeof PhaseItemSchema>;
 export type FocusArea = z.infer<typeof FocusAreaSchema>;
 export type WorkflowItem = z.infer<typeof WorkflowItemSchema>;
 export type LanguageItem = z.infer<typeof LanguageItemSchema>;
+export type WorkingStyleItem = z.infer<typeof WorkingStyleItemSchema>;
 export type SocialLink = z.infer<typeof SocialLinkSchema>;
 export type StreamingLink = z.infer<typeof StreamingLinkSchema>;
 export type Achievement = z.infer<typeof AchievementSchema>;

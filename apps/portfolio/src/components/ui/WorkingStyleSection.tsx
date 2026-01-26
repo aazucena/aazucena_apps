@@ -1,8 +1,15 @@
-import React from 'react';
-import { InteractiveCard } from './InteractiveCard';
 import { Users, Zap, Message } from '@mynaui/icons-react';
+import { InteractiveCard } from './InteractiveCard';
+import { IconRenderer } from '~/components/blocks/IconRenderer';
+import { getWorkingStyleColor } from '~/lib/utils/about';
+import type { WorkingStyleItem } from '~/lib/validators/components';
 
-const workingStyle = [
+interface WorkingStyleSectionProps {
+  workingStyle?: WorkingStyleItem[];
+}
+
+// Fallback data for when CMS is not configured
+const defaultWorkingStyle = [
   {
     title: 'Collaborative Architect',
     subtitle: 'Teamwork & Communication',
@@ -26,11 +33,37 @@ const workingStyle = [
   }
 ];
 
-export function WorkingStyleSection() {
+// Map string icon to React component for CMS icons
+const getIconComponent = (iconString?: string | null) => {
+  if (!iconString) return Users;
+
+  // If icon is from CMS (SVG string), return a wrapper component
+  if (typeof iconString === 'string' && iconString.includes('<svg')) {
+    return ({ size }: { size: number }) => (
+      <IconRenderer icon={iconString} size={size} />
+    );
+  }
+
+  // Fallback to default icon
+  return Users;
+};
+
+export function WorkingStyleSection({ workingStyle }: WorkingStyleSectionProps) {
+  // Use CMS data if available, otherwise fallback to hardcoded data
+  const items = workingStyle && workingStyle.length > 0
+    ? workingStyle.map((style) => ({
+        title: style.title,
+        subtitle: style.subtitle,
+        description: style.description,
+        icon: getIconComponent(style.icon),
+        color: getWorkingStyleColor(style.variant || 'blue-cyan'),
+      }))
+    : defaultWorkingStyle;
+
   return (
     <div className="grid grid-cols-1 gap-4">
-      {workingStyle.map((style, index) => (
-        <InteractiveCard 
+      {items.map((style, index) => (
+        <InteractiveCard
           key={index}
           title={style.title}
           subtitle={style.subtitle}
