@@ -10,6 +10,8 @@ import {
   User, 
   Send
 } from '@mynaui/icons-react';
+import { ThemeToggle } from './ThemeToggle';
+import { toTitleCase } from '~/lib/utils/text';
 
 interface NavbarProps {
   siteName: string;
@@ -64,7 +66,7 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
               />
             ) : (
               <span className="text-xl font-black text-gray-900 dark:text-white tracking-tighter transition-transform duration-500 group-hover:scale-105">
-                {siteName.toUpperCase()}<span className="text-blue-600">.</span>
+                {toTitleCase(siteName)}<span className="text-blue-600">.</span>
               </span>
             )}
           </a>
@@ -80,14 +82,14 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
                   key={link.href}
                   href={link.href}
                   className={`
-                    relative flex items-center gap-2 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300
+                    relative flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300
                     ${isActive 
                       ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm' 
                       : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}
                   `}
                 >
                   <Icon size={14} className={isActive ? 'text-blue-600' : 'text-current'} />
-                  {link.label}
+                  {toTitleCase(link.label)}
                   {isActive && (
                     <motion.div 
                       layoutId="active-nav"
@@ -102,9 +104,12 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
 
           {/* CTA / Mobile Toggle */}
           <div className="flex items-center gap-4 relative z-[110]">
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
             <a 
               href="/contact"
-              className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-black text-[10px] uppercase tracking-[0.2em] hover:bg-blue-600 dark:hover:bg-blue-50 transition-all shadow-lg active:scale-95 group"
+              className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-bold text-sm hover:bg-blue-600 dark:hover:bg-blue-50 transition-all shadow-lg active:scale-95 group"
             >
               <Send size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               Let's Talk
@@ -141,7 +146,10 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
               className="fixed top-0 right-0 bottom-0 w-full max-w-[300px] bg-white dark:bg-gray-900 border-l border-gray-100 dark:border-gray-800 z-[105] md:hidden p-8 pt-24 flex flex-col gap-8 shadow-2xl"
             >
               <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-2">Navigation</span>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-xs font-bold text-gray-400">Navigation</span>
+                  <ThemeToggle />
+                </div>
                 {navLinks.map((link) => {
                   const isActive = currentPath.startsWith(link.href);
                   const Icon = link.icon;
@@ -151,16 +159,16 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
                       key={link.href}
                       href={link.href}
                       className={`
-                        flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all
+                        flex items-center gap-4 p-4 rounded-2xl text-base font-bold transition-all
                         ${isActive 
                           ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
                           : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'}
                       `}
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isActive ? 'bg-white dark:bg-gray-900 shadow-sm' : 'bg-gray-100 dark:bg-gray-800'}`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isActive ? 'bg-white dark:bg-gray-950 shadow-sm' : 'bg-gray-100 dark:bg-gray-800'}`}>
                         <Icon size={18} />
                       </div>
-                      {link.label}
+                      {toTitleCase(link.label)}
                     </a>
                   );
                 })}
@@ -169,13 +177,13 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
               <div className="mt-auto space-y-6">
                 <a 
                   href="/contact"
-                  className="flex items-center justify-center gap-3 w-full py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em]"
+                  className="flex items-center justify-center gap-3 w-full py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-[1.5rem] font-bold text-sm"
                 >
                   <Send size={16} />
                   Get in Touch
                 </a>
-                <p className="text-[10px] text-center text-gray-400 dark:text-gray-500 font-bold uppercase tracking-widest">
-                  © {new Date().getFullYear()} {siteName}
+                <p className="text-xs text-center text-gray-400 dark:text-gray-500 font-medium">
+                  © {new Date().getFullYear()} {toTitleCase(siteName)}
                 </p>
               </div>
             </motion.div>
