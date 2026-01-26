@@ -157,34 +157,16 @@ export default function InteractivePreloader({
 
   // If user has seen preloader before and showOnce is enabled, skip it
   useEffect(() => {
-    console.log('[Preloader DEBUG] showOnce effect running:', {
-      currentPath,
-      isHomepage,
-      showOnce,
-      effectiveShowOnce,
-      hasSeenBefore,
-      isChecking
-    });
-
     if (effectiveShowOnce && hasSeenBefore && !isChecking) {
-      console.log('[Preloader DEBUG] Skipping preloader - dispatching events');
-
       // Immediately dispatch completion events
       const brandEvent = new CustomEvent('preloader-mounted');
       const completeEvent = new CustomEvent('preloader-complete');
 
       document.dispatchEvent(brandEvent);
-      console.log('[Preloader DEBUG] Dispatched preloader-mounted event');
-
       document.dispatchEvent(completeEvent);
-      console.log('[Preloader DEBUG] Dispatched preloader-complete event');
 
       // Call onComplete callback if provided
       onComplete?.();
-
-      if (debug) {
-        console.log('[Preloader] Skipped - already seen in this session');
-      }
     }
   }, [currentPath, isHomepage, showOnce, effectiveShowOnce, hasSeenBefore, isChecking, onComplete, debug]);
 
@@ -193,10 +175,6 @@ export default function InteractivePreloader({
   useEffect(() => {
     const event = new CustomEvent('preloader-mounted');
     document.dispatchEvent(event);
-
-    if (debug) {
-      console.log('[Preloader] Component mounted, dispatched preloader-mounted event');
-    }
   }, []); // Empty deps - run only on mount
 
   // Sync body background with preloader theme
@@ -223,7 +201,6 @@ export default function InteractivePreloader({
   // (this allows all hooks and effects to run while remaining invisible)
   // Note: Homepage always shows preloader, so this only applies to other pages
   if (effectiveShowOnce && hasSeenBefore && !isChecking) {
-    console.log('[Preloader DEBUG] Rendering hidden element (already seen on non-homepage)');
     return <div style={{ display: 'none' }} aria-hidden="true" data-preloader-skipped="true" />;
   }
 

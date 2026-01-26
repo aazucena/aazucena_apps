@@ -8,6 +8,7 @@ import type { JSX } from 'react';
 import { darkBlockRenderers, darkHighlightBlockRenderers } from '~/components/blocks/BlockRenderers';
 import { IconRenderer } from '~/components/blocks/IconRenderer';
 import { cn } from '~/lib/utils';
+import { toTitleCase } from '~/lib/utils/text';
 import type { CardLink } from '~/lib/validators/about';
 import type { IconComponent } from '~/types/icons';
 import { useSectionData } from '../contexts';
@@ -46,7 +47,7 @@ export function AboutSection({ title = 'About Me', subtitle }: AboutSectionProps
             {about.stats.map((stat, index) => (
               <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10">
                 <div className="text-3xl font-bold text-cyan-400 mb-2">{stat.value}</div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
+                <div className="text-sm text-gray-400">{toTitleCase(stat.label)}</div>
               </div>
             ))}
           </div>
@@ -57,7 +58,7 @@ export function AboutSection({ title = 'About Me', subtitle }: AboutSectionProps
               <LearnMoreCard
                 key={index}
                 href={card.button.url}
-                title={card.title}
+                title={toTitleCase(card.title)}
                 variant={card.variant}
                 icon={card.icon}
                 buttonText={card.button.label}

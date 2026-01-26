@@ -6,6 +6,7 @@
 import { useEffect, type JSX, type RefObject } from 'react';
 import type { Award } from '../sections/data/awards';
 import { getBadgeClasses } from '../utilities/colors';
+import { toTitleCase } from '~/lib/utils/text';
 
 export interface AwardModalProps {
   award: Award;
@@ -73,9 +74,9 @@ export function AwardModal({ award, onClose, modalRef }: AwardModalProps): JSX.E
               </span>
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-              {award.title}
+              {toTitleCase(award.title)}
             </h2>
-            <p className="text-lg text-gray-300 mb-1">{award.organization}</p>
+            <p className="text-lg text-gray-300 mb-1">{toTitleCase(award.organization)}</p>
             <p className="text-sm text-cyan-400">{award.year}</p>
           </div>
         </div>

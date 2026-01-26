@@ -7,7 +7,8 @@
 import { useEffect, type JSX, type RefObject } from 'react';
 import type { Experience } from '../sections/data/experiences';
 import { getBadgeClasses } from '../utilities/colors';
-import { formatCompanySize } from '~/lib/utils/experienceHelpers';
+import { formatCompanySize } from '~/lib/utils/experiences';
+import { toTitleCase } from '~/lib/utils/text';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { darkBlockRenderers } from '~/components/blocks/BlockRenderers';
 import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
@@ -84,9 +85,9 @@ export function ExperienceModal({ experience, onClose, modalRef }: ExperienceMod
           </div>
           <div className="flex-grow">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-              {experience.position}
+              {toTitleCase(experience.position)}
             </h2>
-            <p className="text-lg text-gray-300 mb-1">{experience.company}</p>
+            <p className="text-lg text-gray-300 mb-1">{toTitleCase(experience.company)}</p>
             <p className="text-sm text-cyan-400">{experience.duration}</p>
             {(experience.location || experience.employmentType) && (
               <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400 mt-2">
@@ -192,7 +193,7 @@ export function ExperienceModal({ experience, onClose, modalRef }: ExperienceMod
                       </div>
                     )}
                     <div className="flex-grow">
-                      <h4 className="text-base font-semibold text-white mb-1">{achievement.title}</h4>
+                      <h4 className="text-base font-semibold text-white mb-1">{toTitleCase(achievement.title)}</h4>
                       <p className="text-sm text-gray-300 leading-relaxed">{achievement.description}</p>
                       {achievement.date && (
                         <p className="text-xs text-gray-500 mt-2">{achievement.date}</p>
@@ -236,7 +237,7 @@ export function ExperienceModal({ experience, onClose, modalRef }: ExperienceMod
                     className={getBadgeClasses(experience.logoGradient)}
                     title={skillCategory ? `Category: ${skillCategory}` : undefined}
                   >
-                    {skillName}
+                    {toTitleCase(skillName)}
                   </span>
                 );
               })}
