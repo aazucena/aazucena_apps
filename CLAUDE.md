@@ -196,6 +196,70 @@ Complex data visualizations for the `/journey` page, located in `src/components/
 - **StreamGraph**: Skill evolution over time
 - **Heatmap**: Activity and contribution tracking
 
+### Page Template System (New in Phase 2)
+
+**Architecture:** Clean separation between routing and presentation through dedicated template components.
+
+**Directory Structure:**
+```
+src/
+├── pages/
+│   └── [slug].astro              # Router (~73 lines of logic)
+└── templates/
+    ├── index.ts                  # Type definitions & registry
+    ├── EditorialTemplate.astro   # Default content pages
+    ├── LegalTemplate.astro       # Legal documents (privacy, terms)
+    └── LandingTemplate.astro     # Marketing pages (stub)
+```
+
+**Supported Templates:**
+1. **Legal Template** (`template: 'legal'`):
+   - Revision badge with formatted date + animated pulse
+   - Back-to-home navigation button
+   - Print-optimized styles (@media print)
+   - Used for: Privacy Policy, Terms of Service
+
+2. **Editorial Template** (`template: 'default'`):
+   - Clean, minimal layout with centered title
+   - Prose-styled content area
+   - Optional table of contents
+   - Used for: General content pages, articles, documentation
+
+3. **Landing Template** (`template: 'landing'`):
+   - Hero-style header with larger typography
+   - Optional CTA button support
+   - Wider layout (7xl vs 4xl)
+   - Stub for future marketing pages
+
+**Router Pattern:**
+```typescript
+// Router computes SEO, breadcrumbs, JSON-LD
+const sharedProps = { title, content, seoTitle, jsonLd, ... };
+
+// Conditional rendering ensures type safety
+{templateType === 'legal' ? (
+  <LegalTemplate {...sharedProps} lastUpdated={page.lastUpdated} />
+) : templateType === 'landing' ? (
+  <LandingTemplate {...sharedProps} />
+) : (
+  <EditorialTemplate {...sharedProps} />
+)}
+```
+
+**Adding New Templates:**
+1. Add template name to `PageTemplateEnum` in `validators/enums.ts`
+2. Create `[TemplateName]Template.astro` component
+3. Define props interface in `templates/index.ts`
+4. Add to `TEMPLATE_MAP` constant
+5. Update router conditional rendering
+
+**Key Benefits:**
+- ✅ **35% code reduction**: Router logic reduced from 113 → 73 lines
+- ✅ **Type safety**: Explicit props contracts per template
+- ✅ **Maintainability**: Self-contained, testable components
+- ✅ **Extensibility**: Easy to add new templates without touching router
+- ✅ **Separation of concerns**: Router handles routing, templates handle presentation
+
 ### CMS Data Architecture (Phase 0.2.4)
 
 **Data Flow:**
@@ -248,10 +312,23 @@ src/lib/
 │   └── contact-form.ts     # Contact form config (NEW)
 ├── validators/       # 20+ Zod schemas (type-safe validation)
 ├── transformers/     # 20+ data transformers (clean structures)
-├── utils/            # Helper functions
-│   ├── index.ts
-│   ├── contentHelpers.ts
-│   └── experienceHelpers.ts
+├── utils/            # Helper functions (15 modular utilities - Phase 2)
+│   ├── index.ts              # Central exports
+│   ├── about.ts              # About page utilities
+│   ├── availability.ts       # Status indicator logic
+│   ├── base.ts               # Base utilities
+│   ├── blog.ts               # Blog utilities
+│   ├── contact-form.ts       # Contact form helpers
+│   ├── content.ts            # Content utilities
+│   ├── debounce.ts           # Debounce utilities
+│   ├── experiences.ts        # Experience utilities
+│   ├── icons.ts              # Icon utilities
+│   ├── projects.ts           # Project utilities
+│   ├── strapi.ts             # Strapi helpers
+│   ├── tagColors.ts          # Tag color mapping
+│   ├── text.ts               # Text utilities
+│   ├── toc.ts                # Table of contents
+│   └── url.ts                # URL utilities
 └── strapi.ts         # Base Strapi client
 ```
 
@@ -328,8 +405,28 @@ src/lib/
 
 **Status:** ✅ 100% complete - All infrastructure, frontend integration, deployment, content migration, and pages implemented.
 
+### 🚧 Phase 2 - Component Architecture (IN PROGRESS - Est. 40% Complete)
+
+**Detailed docs:** `docs/phase-2-component-architecture.md`
+
+**Completed:**
+- ✅ Template system (Editorial, Legal, Landing) - 3 templates operational
+- ✅ Utility refactoring - Split monolithic files into 15 specialized modules
+- ✅ Common components - 6 new reusable components
+  - `StatusBadge.tsx` - Reusable status indicators
+  - `ThemeToggle.tsx` - Dark/light theme switcher
+  - `Breadcrumbs.astro` - Navigation breadcrumbs
+  - `GradientAccent.astro` - Gradient decorations
+  - `WatermarkBackground.astro` - Branded watermarks
+  - `DetailNavigation.astro` - Back/forward navigation
+- ✅ Site config centralization - `config/site.ts` with types and helpers
+- ✅ Footer component - Tech stack logos (Astro, React, Tailwind, Vite)
+
+**In Progress:**
+- 🚧 Scene.tsx optimization
+- 🚧 Section components standardization
+
 ### Upcoming Phases (execute in order)
-- **Phase 2:** Component Architecture (6-8 days) - 🔥 CURRENT PRIORITY
 - **Phase 3:** Performance (4-6 days) - Code splitting, lazy loading
 - **Phase 4:** Developer Experience (16-22 days) - Figma, Storybook, Chromatic
 - **Phase 5:** Testing (9-13 days) - Vitest unit tests, Playwright E2E
@@ -447,6 +544,20 @@ src/lib/
 
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
+- `apps/portfolio/src/pages/[slug].astro` - Dynamic page router (73 lines logic, Phase 2 refactored)
+- `apps/portfolio/src/templates/` - Page template components (Phase 2)
+  - `index.ts` - Type definitions & template registry
+  - `EditorialTemplate.astro` - Default content pages
+  - `LegalTemplate.astro` - Legal documents with revision badge
+  - `LandingTemplate.astro` - Marketing pages (stub)
+- `apps/portfolio/src/config/site.ts` - Centralized site configuration (Phase 2)
+- `apps/portfolio/src/components/common/` - Shared components (Phase 2)
+  - `StatusBadge.tsx` - Reusable status indicators
+  - `ThemeToggle.tsx` - Dark/light theme switcher
+  - `Breadcrumbs.astro` - Navigation breadcrumbs
+  - `GradientAccent.astro` - Gradient decorations
+  - `WatermarkBackground.astro` - Branded watermarks
+  - `DetailNavigation.astro` - Back/forward navigation
 - `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
 - `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer (replaces SectionContent.tsx ❌ deleted)
 - `apps/portfolio/src/components/animations/contexts/DataContext.tsx` - CMS data provider (NEW in 0.2.4)
@@ -462,7 +573,8 @@ src/lib/
   - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts` (NEW in Phase 0.5)
 - `apps/portfolio/src/lib/validators/` - Zod validation schemas (20+ schemas)
 - `apps/portfolio/src/lib/transformers/` - Data transformation layer (20+ transformers)
-- `apps/portfolio/src/lib/utils/` - Helper utilities (contentHelpers, experienceHelpers)
+- `apps/portfolio/src/lib/utils/` - Helper utilities (15 modular files - Phase 2)
+  - See API Layer Structure section for complete list
 
 ## Git & Deployment
 
@@ -495,6 +607,30 @@ src/lib/
 2. Follow the contexts pattern (don't add more useState in Section.tsx)
 3. Consider device capabilities for performance-heavy features
 4. Update relevant documentation in `docs/` folder
+
+### When Working with Page Templates
+1. **Router is routing only** - `[slug].astro` handles SEO, breadcrumbs, and delegates to templates
+2. **Templates are presentation only** - Each template focuses solely on layout and rendering
+3. **Adding new templates**:
+   - Add to `PageTemplateEnum` in `src/lib/validators/enums.ts`
+   - Create `[Name]Template.astro` in `src/templates/`
+   - Define props interface in `src/templates/index.ts`
+   - Update router conditional rendering
+4. **Template-specific features** - Add props to template's interface (e.g., `lastUpdated` for Legal)
+5. **Test print styles** - Legal template has print optimization, verify with Cmd/Ctrl+P
+6. **Type safety** - Use conditional rendering in router to ensure correct props per template
+
+### When Working with Utilities (Phase 2 Pattern)
+1. **Modular structure** - Utilities are organized by domain (blog, projects, experiences, etc.)
+2. **Single responsibility** - Each utility file has a focused purpose
+3. **Central exports** - Import from `~/lib/utils` (barrel export pattern via `index.ts`)
+4. **Type safety** - All utilities have proper TypeScript types
+5. **Deleted files** - `utils.ts`, `blogHelpers.ts`, `contentHelpers.ts`, `experienceHelpers.ts` consolidated into modular structure
+6. **Adding new utilities**:
+   - Create domain-specific file (e.g., `analytics.ts`)
+   - Export functions with JSDoc comments
+   - Add to `index.ts` barrel export
+   - Follow naming: camelCase for functions, PascalCase for types
 
 ### Monorepo Commands
 - Use `pnpm` (never npm or yarn)
@@ -590,9 +726,15 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2026-01-24
+**Last Updated:** 2026-01-26
 
 **Key Updates:**
+- 🚧 **Phase 2 In Progress:** Component Architecture (~40% complete)
+  - Template system operational (3 templates)
+  - Utility refactoring complete (15 modular files)
+  - Common components added (6 new reusable components)
+  - Site config centralized
+  - Footer updated with tech stack logos
 - ✅ **Phase 0.5 Completed:** Portfolio Pages Implementation (2026-01-17)
   - 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
   - Footer component with CMS-driven social links (platform-based rendering)

@@ -13,6 +13,8 @@ This is a **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. 
 **Package Manager:** pnpm v10.22.0 (required)
 **Node Version:** >=18
 
+**Current Phase:** Phase 2 - Component Architecture (~40% complete)
+
 ## Project Structure
 
 ```
@@ -82,9 +84,18 @@ pnpm dlx playwright show-report
 
 **Framework Stack:**
 - **Astro 5.16.0** as the meta-framework with React integration
+- **Rendering Pattern**: Hybrid (Static by default, SSR for dynamic status pages)
 - **React 19.2** for interactive components
 - **Tailwind CSS 4** with @tailwindcss/vite plugin
 - **TypeScript** throughout
+
+**Build Configuration:**
+- **Vercel + pnpm**: Requires `.npmrc` with `shamefully-hoist=true` and `public-hoist-pattern[]=*babel*` to resolve Babel dependency tracing issues.
+
+**Content Rendering Pattern:**
+- **MarkdownRenderer**: Used for `richtext` fields in Strapi (e.g., Post/Experience descriptions) which return strings.
+- **BlocksRenderer**: Used for `blocks` fields in Strapi (e.g., Experience responsibilities, About descriptions) which return JSON arrays.
+- **SSR Pages**: `maintenance.astro` and `500.astro` use `export const prerender = false` to support real-time status checks and error logging.
 
 **Animation Architecture (Post-Phase 1 Refactoring):**
 
@@ -176,6 +187,80 @@ Section.tsx (main orchestrator - 174 lines)
    ├─ HomepageContent (section content renderer)
    └─ UIOverlays (extracted component)
 ```
+
+### Journey Visualizations (New in Phase 0.5)
+
+Complex data visualizations for the `/journey` page, located in `src/components/journey/visualizations/`:
+- **ForceDirectedGraph**: Interactive skill dependency graph
+- **InteractiveTimeline**: Scroll-synced career progression
+- **SpiderChart**: Multi-dimensional skill profiling
+- **SankeyDiagram**: Career flow visualization
+- **StreamGraph**: Skill evolution over time
+- **Heatmap**: Activity and contribution tracking
+
+### Page Template System (New in Phase 2)
+
+**Architecture:** Clean separation between routing and presentation through dedicated template components.
+
+**Directory Structure:**
+```
+src/
+├── pages/
+│   └── [slug].astro              # Router (~73 lines of logic)
+└── templates/
+    ├── index.ts                  # Type definitions & registry
+    ├── EditorialTemplate.astro   # Default content pages
+    ├── LegalTemplate.astro       # Legal documents (privacy, terms)
+    └── LandingTemplate.astro     # Marketing pages (stub)
+```
+
+**Supported Templates:**
+1. **Legal Template** (`template: 'legal'`):
+   - Revision badge with formatted date + animated pulse
+   - Back-to-home navigation button
+   - Print-optimized styles (@media print)
+   - Used for: Privacy Policy, Terms of Service
+
+2. **Editorial Template** (`template: 'default'`):
+   - Clean, minimal layout with centered title
+   - Prose-styled content area
+   - Optional table of contents
+   - Used for: General content pages, articles, documentation
+
+3. **Landing Template** (`template: 'landing'`):
+   - Hero-style header with larger typography
+   - Optional CTA button support
+   - Wider layout (7xl vs 4xl)
+   - Stub for future marketing pages
+
+**Router Pattern:**
+```typescript
+// Router computes SEO, breadcrumbs, JSON-LD
+const sharedProps = { title, content, seoTitle, jsonLd, ... };
+
+// Conditional rendering ensures type safety
+{templateType === 'legal' ? (
+  <LegalTemplate {...sharedProps} lastUpdated={page.lastUpdated} />
+) : templateType === 'landing' ? (
+  <LandingTemplate {...sharedProps} />
+) : (
+  <EditorialTemplate {...sharedProps} />
+)}
+```
+
+**Adding New Templates:**
+1. Add template name to `PageTemplateEnum` in `validators/enums.ts`
+2. Create `[TemplateName]Template.astro` component
+3. Define props interface in `templates/index.ts`
+4. Add to `TEMPLATE_MAP` constant
+5. Update router conditional rendering
+
+**Key Benefits:**
+- ✅ **35% code reduction**: Router logic reduced from 113 → 73 lines
+- ✅ **Type safety**: Explicit props contracts per template
+- ✅ **Maintainability**: Self-contained, testable components
+- ✅ **Extensibility**: Easy to add new templates without touching router
+- ✅ **Separation of concerns**: Router handles routing, templates handle presentation
 
 ### CMS Data Architecture (Phase 0.2.4)
 
@@ -282,7 +367,6 @@ src/lib/
 - ✅ Added GSAP cleanup (prevented animation memory leaks)
 - ✅ Code quality: 7.5/10 → 8.5-9.0/10
 
-
 ### ✅ Phase 0 - Infrastructure & Architecture (COMPLETED - 2026-01-17)
 
 **Detailed docs:** `docs/phase-0-infrastructure.md`
@@ -305,9 +389,8 @@ src/lib/
 - ✅ Strapi v5.31.0 (installed and configured)
 - ✅ 20 content types created (Skills, Projects, Posts, Testimonials, Pages, etc.)
 - ✅ 9 components implemented
-- ✅ 15 pages implemented (Projects, Experiences, About, Journey, Skills, Blog, Legal, Contact, 404, 500, Maintenance)
-- ✅ Footer, RSS feed, Sitemap, 500 error page integrated
-- ✅ 24 modular API clients (journey, skill-showcase, experience-showcase, project-showcase, contact-form added in 0.5)
+- ✅ 14 pages implemented (Projects, Experiences, About, Journey, Blog, Legal, 404, Maintenance)
+- ✅ Footer, RSS feed, Sitemap integrated
 
 **Status:** ✅ 100% complete - All infrastructure, frontend integration, deployment, content migration, and pages implemented.
 
@@ -430,6 +513,12 @@ src/lib/
 
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
+- `apps/portfolio/src/pages/[slug].astro` - Dynamic page router (73 lines logic, Phase 2 refactored)
+- `apps/portfolio/src/templates/` - Page template components (NEW in Phase 2)
+  - `index.ts` - Type definitions & template registry
+  - `EditorialTemplate.astro` - Default content pages
+  - `LegalTemplate.astro` - Legal documents with revision badge
+  - `LandingTemplate.astro` - Marketing pages (stub)
 - `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
 - `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer (replaces SectionContent.tsx ❌ deleted)
 - `apps/portfolio/src/components/animations/contexts/DataContext.tsx` - CMS data provider (NEW in 0.2.4)
@@ -438,12 +527,13 @@ src/lib/
   - `useSectionRegistry.ts` - Component mapping (NEW)
   - `useHandlebars.ts` - Template rendering (NEW)
   - `useDataContext.ts` - CMS data access (NEW)
-- `apps/portfolio/src/lib/api/` - 19 specialized API clients (modular structure)
-  - `homepage-data.ts` - Orchestrates all homepage data fetching
-  - `layout-data.ts` - Layout-specific data (theme, maintenance)
-  - ❌ `api.ts` - Deleted (replaced by modular structure)
-- `apps/portfolio/src/lib/validators/` - Zod validation schemas (18 schemas)
-- `apps/portfolio/src/lib/transformers/` - Data transformation layer (17 transformers)
+- `apps/portfolio/src/lib/api/` - 24 specialized API clients (modular structure)
+  - Core: `hero.ts`, `about.ts`, `projects.ts`, `experiences.ts`, `education.ts`
+  - Content: `posts.ts`, `testimonials.ts`, `awards.ts`, `skills.ts`, `pages.ts`
+  - Config: `animation.ts`, `theme.ts`, `maintenance.ts`, `website-config.ts`, `blog-config.ts`, `portfolio.ts`, `homepage.ts`, `preloader.ts`, `skill-categories.ts`
+  - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts` (NEW in Phase 0.5)
+- `apps/portfolio/src/lib/validators/` - Zod validation schemas (20+ schemas)
+- `apps/portfolio/src/lib/transformers/` - Data transformation layer (20+ transformers)
 - `apps/portfolio/src/lib/utils/` - Helper utilities (contentHelpers, experienceHelpers)
 
 ## Git & Deployment
@@ -477,6 +567,18 @@ src/lib/
 2. Follow the contexts pattern (don't add more useState in Section.tsx)
 3. Consider device capabilities for performance-heavy features
 4. Update relevant documentation in `docs/` folder
+
+### When Working with Page Templates
+1. **Router is routing only** - `[slug].astro` handles SEO, breadcrumbs, and delegates to templates
+2. **Templates are presentation only** - Each template focuses solely on layout and rendering
+3. **Adding new templates**:
+   - Add to `PageTemplateEnum` in `src/lib/validators/enums.ts`
+   - Create `[Name]Template.astro` in `src/templates/`
+   - Define props interface in `src/templates/index.ts`
+   - Update router conditional rendering
+4. **Template-specific features** - Add props to template's interface (e.g., `lastUpdated` for Legal)
+5. **Test print styles** - Legal template has print optimization, verify with Cmd/Ctrl+P
+6. **Type safety** - Use conditional rendering in router to ensure correct props per template
 
 ### Monorepo Commands
 - Use `pnpm` (never npm or yarn)
@@ -572,17 +674,21 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2026-01-17
+**Last Updated:** 2026-01-24
 
 **Key Updates:**
-- ✅ **Phase 0.5 Completed:** Portfolio Pages (2026-01-17)
-  - 15 pages implemented: Projects, Experiences, About, Journey, Blog, Legal, 404, 500, Maintenance
-  - Fixed 'content.map' TypeError by implementing robust Blocks vs Markdown rendering logic
-  - Footer component, RSS feed, and Sitemap integration
-  - Seed scripts for legal pages
+- ✅ **Phase 0.5 Completed:** Portfolio Pages Implementation (2026-01-17)
+  - 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
+  - Footer component with CMS-driven social links (platform-based rendering)
+  - RSS feed for blog posts (filters external posts)
+  - Sitemap integration with auto-generation
+  - 500 error page with SSR (real-time status checks, error logging)
+  - Rich text rendering fixes (MarkdownRenderer for `richtext`, BlocksRenderer for `blocks`)
+  - Unified seed script for legal pages (`seed-pages.js`)
+  - Key decisions: Removed dedicated Awards/Testimonials pages (homepage sections), Footer in PageLayout only, generic catch-all with 3 templates
 - ✅ **Phase 0 Completed:** Infrastructure & Architecture (2026-01-17)
   - All sub-phases finished (0.1 → 0.5)
-- ✅ **Vercel Build Fixed:** Added hoisting patterns to `.npmrc` to resolve Babel tracing errors.
+  - CMS, deployment, content migration, and pages fully implemented
 - ✅ **Project Schema Enhanced:** (2026-01-07)
   - Added `unlisted` to display enum (hidden, unlisted, standard, featured, home)
   - Expanded projectStatus enum: Planned, In Progress, Released, Maintenance, On Hold, Completed, Archived
@@ -592,8 +698,8 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
   - Integration: Frontend successfully connects to Railway CMS
   - APIs: All 19 endpoints accessible from production
 - ✅ **Phase 0.2.4 Completed:** Frontend API Integration (2025-12-19)
-  - Modular API architecture: 19 specialized clients (replaced monolithic `api.ts` ❌)
-  - Type safety: 18 Zod validators + 17 transformers
+  - Modular API architecture: 24 specialized clients (journey, skill-showcase, experience-showcase, project-showcase, contact-form added in 0.5)
+  - Type safety: 20+ Zod validators + 20+ transformers
   - DataContext system for CMS data access (no prop drilling)
   - New components: HomepageContent (replaces SectionContent ❌), SectionLayout
   - New hooks: useSectionRegistry, useHandlebars, useDataContext
@@ -601,7 +707,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
   - Fixed critical CVEs, memory leaks, type safety
   - Code quality: 7.5/10 → 8.5-9.0/10
 - ✅ **Phase 1 Completed:** Animations refactoring (324 → 174 lines, 46% reduction)
-- ✅ **Phase 0 100% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components, deployed to Railway + Vercel, content migrated, 15 pages implemented
+- ✅ **Phase 0 100% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components, deployed to Railway + Vercel, content migrated, 15 pages implemented, 24 API clients
 - 🔥 **Current Priority:** Phase 2 - Component Architecture (further optimization)
 - ✅ **Astro v5.15 → v5.16.0:** Framework upgrade for latest features
 - ✅ **Strapi Components Added:** Audio Metadata component with enharmonic keys (media.audio-metadata)
