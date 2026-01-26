@@ -1,10 +1,17 @@
 ---
+/**
+ * Projects list page - displays all publicly listed projects with filtering.
+ * Fetches from CMS and groups by type/status.
+ */
 import ListLayout from '~/layouts/ListLayout.astro';
 import type { FilterConfig } from '~/layouts/ListLayout.astro';
 import { getProjects } from '~/lib/api/projects';
 import type { Project } from '~/lib/transformers/projects';
 import { getTagColorClasses } from '~/lib/utils/tagColors';
-import { getCompanyLogoGradient, getCompanyInitials } from '~/lib/utils/experienceHelpers';
+import { toTitleCase } from '~/lib/utils/text';
+import { getCompanyLogoGradient, getCompanyInitials } from '~/lib/utils/experiences';
+import { getProjectStatusVariant, formatProjectDate } from '~/lib/utils/projects';
+import { StatusBadge } from '~/components/ui/StatusBadge';
 import { Star, Calendar, ArrowRight } from '@mynaui/icons-react';
 
 // Fetch all publicly listed projects
@@ -23,11 +30,6 @@ const filters: FilterConfig[] = [
   { id: 'type', label: 'Project Type', options: projectTypes },
   { id: 'status', label: 'Status', options: projectStatuses }
 ];
-
-const formatProjectDate = (date?: Date) => {
-  if (!date) return '';
-  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-};
 ---
 
 <ListLayout
@@ -85,7 +87,7 @@ const formatProjectDate = (date?: Date) => {
 
         <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight tracking-tighter">
           <a href={`/projects/${project.slug}`}>
-            {project.title}
+            {toTitleCase(project.title)}
           </a>
         </h3>
 
@@ -107,12 +109,12 @@ const formatProjectDate = (date?: Date) => {
           </div>
 
           <div class="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-gray-800">
-            <span class={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest border
-              ${project.projectStatus === 'Released' || project.projectStatus === 'Completed' ? 'bg-green-50 text-green-700 border-green-100 dark:bg-green-900/20 dark:text-green-400 dark:border-green-900/50' : 'bg-blue-50 text-blue-700 border-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-900/50'}
-            `}>
-              <div class={`w-1 h-1 rounded-full ${project.projectStatus === 'Released' ? 'bg-green-500 animate-pulse' : 'bg-blue-500'}`}></div>
-              {project.projectStatus}
-            </span>
+            <StatusBadge 
+              label={project.projectStatus}
+              variant={getProjectStatusVariant(project.projectStatus!)}
+              animated={project.projectStatus === 'Released' || project.projectStatus === 'In Progress'}
+              size="sm"
+            />
 
             <a href={`/projects/${project.slug}`} class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-black uppercase tracking-widest flex items-center gap-2 group/link">
               Case Study

@@ -8,7 +8,8 @@ import {
 import ListLayout from '~/layouts/ListLayout.astro';
 import type { FilterConfig } from '~/layouts/ListLayout.astro';
 import { getExperiences } from '~/lib/api/experiences';
-import { calculateDuration, getCompanyLogoGradient, getCompanyInitials } from '~/lib/utils/experienceHelpers';
+import { calculateDuration, getCompanyLogoGradient, getCompanyInitials } from '~/lib/utils/experiences';
+import { toTitleCase } from '~/lib/utils/text';
 import type { Experience } from '~/lib/transformers/experiences';
 
 // Fetch all experiences
@@ -84,11 +85,11 @@ function getTopMetric(experience: Experience) {
               <div class="flex-1 min-w-0">
                 <h3 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-1 leading-tight tracking-tighter">
                   <a href={`/experiences/${experience.slug}`} class="group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400 transition-colors">
-                    {experience.position}
+                    {toTitleCase(experience.position)}
                   </a>
                 </h3>
                 <div class="text-sm font-bold text-blue-600 dark:text-blue-400 flex items-center gap-2">
-                  {experience.company}
+                  {toTitleCase(experience.company)}
                 </div>
                 {experience.employmentType && (
                   <div class="text-[10px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-widest mt-1 flex items-center gap-1.5">
