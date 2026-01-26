@@ -13,8 +13,8 @@ const maintenance = await getMaintenance();
 if (!maintenance.enabled && !import.meta.env.DEV) {
   const referer = Astro.request.headers.get('referer');
   // Avoid redirect loops if the referer is the maintenance page itself
-  const redirectUrl = (referer && !referer.includes('/maintenance')) ? referer : '/';
-  return Astro.redirect(redirectUrl);
+  const _redirectUrl = (referer && !referer.includes('/maintenance')) ? referer : '/';
+  return Astro.redirect(_redirectUrl);
 }
 
 const pageTitle = 'Maintenance Mode';
@@ -115,7 +115,6 @@ const pageDescription = maintenance.message;
 
     function startAutoRefresh() {
       refreshInterval = setInterval(() => {
-        console.log('[Maintenance] Checking if maintenance is over...');
         window.location.reload();
       }, 30000); // 30 seconds
     }

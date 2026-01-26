@@ -7,7 +7,7 @@ import { getHomepageData } from '~/lib/services/homepage';
 const { data, homepage, portfolio, animationConfig } = await getHomepageData();
 ---
 
-<Layout title={portfolio.name || "Aldrin Azucena"}>
+<Layout title={portfolio.fullName || "Aldrin Azucena"}>
   {/* Pass animation config to client-side */}
   <script is:inline define:vars={{ animationConfig }}>
     window.__ANIMATION_CONFIG__ = animationConfig;
