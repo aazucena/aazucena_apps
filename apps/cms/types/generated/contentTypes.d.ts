@@ -433,7 +433,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   collectionName: 'abouts';
   info: {
-    displayName: 'About Section Configuration';
+    displayName: 'About Data Configuration';
     pluralName: 'abouts';
     singularName: 'about';
   };

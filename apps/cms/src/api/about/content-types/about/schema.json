@@ -4,7 +4,7 @@
   "info": {
     "singularName": "about",
     "pluralName": "abouts",
-    "displayName": "About Section Configuration"
+    "displayName": "About Data Configuration"
   },
   "options": {
     "draftAndPublish": true
@@ -69,63 +69,63 @@
     },
     "focusAreas": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.focus-area",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "content.focus-area",
+      "repeatable": true
     },
     "roots": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.narrative-item",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "content.narrative-item",
+      "repeatable": true
     },
     "interests": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.narrative-item",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "content.narrative-item",
+      "repeatable": true
     },
     "coreValues": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.narrative-item",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "content.narrative-item",
+      "repeatable": true
     },
     "workflow": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.workflow-item",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "content.workflow-item",
+      "repeatable": true
     },
     "languages": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.language-item",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "content.language-item",
+      "repeatable": true
     }
   }
 }
