@@ -1,0 +1,126 @@
+---
+/**
+ * DetailLayout - Reusable layout for all detail pages (blog, projects, experiences).
+ * Provides consistent structure with flexible content via named slots.
+ *
+ * Structure:
+ * 1. Gradient accent bar
+ * 2. Hero header with breadcrumbs + watermark
+ * 3. Table of contents (optional)
+ * 4. Main content area with optional sidebar
+ * 5. Detail navigation (prev/next)
+ */
+import { ReadingProgress } from '~/components/ui/ReadingProgress';
+import { TableOfContents } from '~/components/ui/TableOfContents';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import GradientAccent from '~/components/common/GradientAccent.astro';
+import WatermarkBackground from '~/components/common/WatermarkBackground.astro';
+import DetailNavigation from '~/components/common/DetailNavigation.astro';
+import PageLayout from '~/layouts/PageLayout.astro';
+import type { BreadcrumbItem } from '~/components/common/Breadcrumbs.astro';
+
+interface Props {
+  // SEO
+  title: string;
+  description: string;
+  jsonLd: Record<string, any>;
+
+  // Header
+  breadcrumbs: BreadcrumbItem[];
+  watermarkText: string;
+  watermarkSize?: 'small' | 'medium' | 'large' | 'huge';
+
+  // Layout
+  maxWidth?: '4xl' | '5xl' | '7xl';
+  hasSidebar?: boolean;
+
+  // Navigation
+  prevItem?: { slug: string; title: string } | null;
+  nextItem?: { slug: string; title: string } | null;
+  basePath: string;
+  prevLabel?: string;
+  nextLabel?: string;
+
+  // Optional features
+  showReadingProgress?: boolean;
+  showTableOfContents?: boolean;
+  tocSelector?: string;
+}
+
+const {
+  title,
+  description,
+  jsonLd,
+  breadcrumbs,
+  watermarkText,
+  watermarkSize = 'medium',
+  maxWidth = '5xl',
+  hasSidebar = false,
+  prevItem,
+  nextItem,
+  basePath,
+  prevLabel = 'Previous',
+  nextLabel = 'Next',
+  showReadingProgress = true,
+  showTableOfContents = true,
+  tocSelector = '#detail-content'
+} = Astro.props;
+
+const containerClasses = {
+  '4xl': 'max-w-4xl',
+  '5xl': 'max-w-5xl',
+  '7xl': 'max-w-7xl'
+};
+
+const maxWidthClass = containerClasses[maxWidth];
+---
+
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  {showReadingProgress && <ReadingProgress client:load />}
+
+  <main class="min-h-screen bg-white dark:bg-gray-950">
+    <GradientAccent variant="print-hidden" />
+
+    <!-- Hero Header -->
+    <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 py-20 md:py-32 overflow-hidden relative">
+      <div class={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 relative z-10`}>
+        <Breadcrumbs items={breadcrumbs} />
+
+        <!-- Header Content - Fully customizable via slot -->
+        <slot name="header" />
+      </div>
+
+      <WatermarkBackground text={watermarkText} size={watermarkSize} />
+    </header>
+
+    {showTableOfContents && <TableOfContents containerSelector={tocSelector} client:idle />}
+
+    <!-- Main Content Area -->
+    <div class={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 py-20`}>
+      <div class={hasSidebar ? 'grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24' : ''}>
+
+        <!-- Main Content -->
+        <div id="detail-content" class={hasSidebar ? 'lg:col-span-2 space-y-16' : 'space-y-16'}>
+          <slot name="content" />
+        </div>
+
+        <!-- Sidebar (optional) -->
+        {hasSidebar && (
+          <aside class="space-y-12">
+            <slot name="sidebar" />
+          </aside>
+        )}
+      </div>
+
+      <!-- Detail Navigation -->
+      <DetailNavigation
+        prevItem={prevItem}
+        nextItem={nextItem}
+        basePath={basePath}
+        prevLabel={prevLabel}
+        nextLabel={nextLabel}
+      />
+    </div>
+  </main>
+</PageLayout>

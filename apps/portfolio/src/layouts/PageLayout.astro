@@ -4,24 +4,23 @@ import Footer from '~/components/Footer.astro';
 import { Navbar } from '~/components/ui/Navbar';
 import { BackToTop } from '~/components/ui/BackToTop';
 import { getPortfolio } from '~/lib/api/portfolio';
-import { getWebsiteConfig } from '~/lib/api/website-config';
+import { getSiteConfig } from '~/lib/services/layout';
 
 const props: BaseLayoutProps = Astro.props;
 
+const siteConfig = getSiteConfig();
+
 // Fetch data for layout
-const [portfolio, websiteConfig] = await Promise.all([
-  getPortfolio(),
-  getWebsiteConfig(),
-]);
+const portfolio = await getPortfolio();
 
 const currentPath = Astro.url.pathname;
 ---
 
 <BaseLayout {...props}>
   <Navbar 
-    siteName={websiteConfig.siteName} 
+    siteName={siteConfig.metadata.siteName} 
     currentPath={currentPath} 
-    logoUrl={websiteConfig.faviconUrl || '/icon.svg'}
+    logoUrl={siteConfig.metadata.faviconUrl || '/icon.svg'}
     client:load 
   />
   
@@ -30,8 +29,9 @@ const currentPath = Astro.url.pathname;
   </div>
   
   <Footer
-    siteName={websiteConfig.siteName}
+    siteName={siteConfig.metadata.siteName}
     socialLinks={portfolio.socialLinks}
+    availabilityStatus={portfolio.availabilityStatus}
   />
   <BackToTop client:load />
 </BaseLayout>

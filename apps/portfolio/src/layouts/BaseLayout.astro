@@ -8,7 +8,7 @@ import Preloader, { type PreloaderTheme } from '@/components/preloader';
 import BrandIconLoader from '@/components/BrandIconLoader.astro';
 import { getTheme as getPreloaderTheme } from '@/components/preloader/themes/registry';
 import { getLayoutData } from '~/lib/services/layout';
-import { DEFAULT_WEBSITE_CONFIG } from '~/lib/transformers/website-config';
+import { formatPageTitle } from '~/config/site';
 
 export interface Props {
   title?: string;
@@ -17,11 +17,10 @@ export interface Props {
 const { title, description }: Props = Astro.props;
 
 // Fetch all layout configuration from Strapi CMS in parallel
-const { preloaderConfig, websiteConfig, themeConfig } = await getLayoutData();
-console.log("🚀 ~ websiteConfig:", websiteConfig)
+const { siteConfig, preloaderConfig, maintenance } = await getLayoutData();
 
 // Detect if we're using CMS fallback configs (indicates CMS fetch failure)
-const isCmsFallback = websiteConfig.siteName === DEFAULT_WEBSITE_CONFIG.siteName;
+const isCmsFallback = false;
 
 // Get the preloader theme background to prevent white flash
 const preloaderTheme: PreloaderTheme = preloaderConfig.theme || 'default';
@@ -29,14 +28,12 @@ const preloaderThemeConfig = getPreloaderTheme(preloaderTheme);
 const preloaderBackground = preloaderThemeConfig.colors.background;
 
 // Extract brand logo URL (use CMS siteLogo if available, otherwise default to /icon.svg)
-const brandLogoUrl = websiteConfig.siteLogoUrl || '/icon.svg';
+const brandLogoUrl = siteConfig.metadata.siteLogoUrl || '/icon.svg';
 
 // Build meta title using template
-const pageTitle = title
-  ? websiteConfig.metaTitleTemplate.replace('%s', title).replace('{siteName}', websiteConfig.siteName)
-  : (websiteConfig?.defaultSEO?.title || 'Aldrin Azucena - Portfolio');
+const pageTitle = formatPageTitle(title);
 
-const pageDescription = description || websiteConfig?.defaultSEO?.description || 'Full-stack developer portfolio showcasing projects and experience';
+const pageDescription = description || siteConfig.metadata.defaultSEO.description;
 
 // Detect page type for transition styles
 const path = Astro.url.pathname;
@@ -45,20 +42,20 @@ const isDetailPage = path.includes('[slug]') || /\/[^\/]+\/[^\/]+/.test(path); /
 const pageType = isHomepage ? 'homepage' : isDetailPage ? 'detail' : 'list';
 
 const themeStyles = {
-  colorPrimaryLight: themeConfig.colors.light.primary,
-  colorSecondaryLight: themeConfig.colors.light.secondary,
-  colorAccentLight: themeConfig.colors.light.accent,
-  colorPrimaryDark: themeConfig.colors.dark.primary,
-  colorSecondaryDark: themeConfig.colors.dark.secondary,
-  colorAccentDark: themeConfig.colors.dark.accent,
-  fontSans: themeConfig.fonts.sans,
-  fontSerif: themeConfig.fonts.serif,
-  fontHeading: themeConfig.fonts.heading,
-  fontCode: themeConfig.fonts.code,
+  colorPrimaryLight: siteConfig.theme.colors.light.primary,
+  colorSecondaryLight: siteConfig.theme.colors.light.secondary,
+  colorAccentLight: siteConfig.theme.colors.light.accent,
+  colorPrimaryDark: siteConfig.theme.colors.dark.primary,
+  colorSecondaryDark: siteConfig.theme.colors.dark.secondary,
+  colorAccentDark: siteConfig.theme.colors.dark.accent,
+  fontSans: siteConfig.theme.fonts.sans,
+  fontSerif: siteConfig.theme.fonts.serif,
+  fontHeading: siteConfig.theme.fonts.heading,
+  fontCode: siteConfig.theme.fonts.code,
 }
 ---
 
-<html lang="en" data-theme={themeConfig.mode} class={isHomepage ? 'homepage' : 'content-page'} data-page-type={pageType}>
+<html lang="en" data-theme={siteConfig.theme.mode} class={isHomepage ? 'homepage' : 'content-page'} data-page-type={pageType}>
 	<head>
 		<meta charset="utf-8" />
 
@@ -66,26 +63,19 @@ const themeStyles = {
 		<ResourceHints />
 
 		{/* Favicon - Extracted component with fallback */}
-		<Favicon url={websiteConfig.faviconUrl} />
+		<Favicon url={siteConfig.metadata.faviconUrl} />
 
 		{/* SEO Meta Tags - Extracted to reusable component */}
 		<SEO
 			title={pageTitle}
 			description={pageDescription}
-			canonical={websiteConfig?.defaultSEO!.canonical}
-			keywords={websiteConfig?.defaultSEO!.keywords}
-			robots={websiteConfig?.defaultSEO!.robots}
-			viewport={websiteConfig?.defaultSEO!.viewport}
-			openGraph={websiteConfig?.defaultSEO!.openGraph ? {
-				title: websiteConfig.defaultSEO.openGraph.title,
-				description: websiteConfig.defaultSEO.openGraph.description,
-				type: websiteConfig.defaultSEO.openGraph.type,
-				url: websiteConfig.defaultSEO.openGraph.url,
-				siteName: websiteConfig.openGraphSiteName,
-			} : undefined}
-			twitterCard={websiteConfig?.defaultSEO!.twitterCard}
-			twitterSite={websiteConfig.twitterHandle}
-			googleSiteVerificationId={websiteConfig.googleSiteVerificationId}
+			canonical={siteConfig.metadata.defaultSEO.canonical}
+			keywords={siteConfig.metadata.defaultSEO.keywords}
+			robots={siteConfig.metadata.defaultSEO.robots}
+			viewport={siteConfig.metadata.defaultSEO.viewport}
+			twitterCard={siteConfig.metadata.defaultSEO.twitterCard}
+			twitterSite={siteConfig.metadata.social.twitter}
+			googleSiteVerificationId={siteConfig.metadata.googleSiteVerificationId}
 		/>
 
 		{/* Theme Stylesheet - Static styles referencing dynamic CMS variables */}
@@ -94,12 +84,12 @@ const themeStyles = {
 		{/* Font Optimization - Asynchronous loading for better performance */}
 		<link
 			rel="stylesheet"
-			href={`https://fonts.googleapis.com/css2?family=${themeConfig.fonts.code.replace(' ', '+')}&family=${themeConfig.fonts.sans.replace(' ', '+')}:wght@400;700&display=swap`}
+			href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(' ', '+')}&family=${siteConfig.theme.fonts.sans.replace(' ', '+')}:wght@400;700&display=swap`}
 			media="print"
 			onload="this.media='all'"
 		>
 		<noscript>
-			<link rel="stylesheet" href={`https://fonts.googleapis.com/css2?family=${themeConfig.fonts.code.replace(' ', '+')}&family=${themeConfig.fonts.sans.replace(' ', '+')}:wght@400;700&display=swap`}>
+			<link rel="stylesheet" href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(' ', '+')}&family=${siteConfig.theme.fonts.sans.replace(' ', '+')}:wght@400;700&display=swap`}>
 		</noscript>
 
 		{/* Dynamic Theme Variables - Injected from CMS configuration */}
@@ -158,26 +148,19 @@ const themeStyles = {
     <AnalyticsScripts />
 
     <script is:inline>
-      console.log('[BaseLayout DEBUG] Script starting');
-
       // Show main content when preloader completes
       document.addEventListener('preloader-complete', function() {
-        console.log('[BaseLayout DEBUG] Received preloader-complete event');
         const mainContent = document.querySelector('main[data-critical]');
         if (mainContent) {
-          console.log('[BaseLayout DEBUG] Setting main content opacity to 1');
           mainContent.style.opacity = '1';
           // Reset body background to allow CSS themes to take over
           document.body.style.background = '';
-        } else {
-          console.error('[BaseLayout DEBUG] Main content not found!');
         }
       });
 
       // Fallback: if preloader doesn't complete within 10s, show content anyway
       setTimeout(function() {
         const mainContent = document.querySelector('main[data-critical]');
-        console.log('[BaseLayout DEBUG] Timeout check - opacity:', mainContent?.style.opacity);
         if (mainContent && mainContent.style.opacity === '0') {
           console.warn('[BaseLayout] Preloader timeout - forcing content display');
           mainContent.style.opacity = '1';
