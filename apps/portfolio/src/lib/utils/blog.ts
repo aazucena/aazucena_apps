@@ -60,7 +60,7 @@ export function formatPostDate(
         day: 'numeric',
       });
     case 'iso':
-      return date.toISOString().split('T')[0]; // YYYY-MM-DD
+      return date.toISOString().split('T')[0]!; // YYYY-MM-DD
     case 'short':
     default:
       return date.toLocaleDateString('en-US', {

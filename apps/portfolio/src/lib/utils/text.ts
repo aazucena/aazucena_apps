@@ -20,3 +20,15 @@ export function pluralize(word: string, count?: number): string {
   
   return word + 's';
 }
+
+/**
+ * Converts a string to Title Case (e.g., "HELLO WORLD" -> "Hello World")
+ */
+export function toTitleCase(str: string): string {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
