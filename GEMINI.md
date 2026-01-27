@@ -13,8 +13,6 @@ This is a **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. 
 **Package Manager:** pnpm v10.22.0 (required)
 **Node Version:** >=18
 
-**Current Phase:** Phase 2 - Component Architecture (~40% complete)
-
 ## Project Structure
 
 ```
@@ -314,10 +312,23 @@ src/lib/
 │   └── contact-form.ts     # Contact form config (NEW)
 ├── validators/       # 20+ Zod schemas (type-safe validation)
 ├── transformers/     # 20+ data transformers (clean structures)
-├── utils/            # Helper functions
-│   ├── index.ts
-│   ├── contentHelpers.ts
-│   └── experienceHelpers.ts
+├── utils/            # Helper functions (15 modular utilities - Phase 2)
+│   ├── index.ts              # Central exports
+│   ├── about.ts              # About page utilities
+│   ├── availability.ts       # Status indicator logic
+│   ├── base.ts               # Base utilities
+│   ├── blog.ts               # Blog utilities
+│   ├── contact-form.ts       # Contact form helpers
+│   ├── content.ts            # Content utilities
+│   ├── debounce.ts           # Debounce utilities
+│   ├── experiences.ts        # Experience utilities
+│   ├── icons.ts              # Icon utilities
+│   ├── projects.ts           # Project utilities
+│   ├── strapi.ts             # Strapi helpers
+│   ├── tagColors.ts          # Tag color mapping
+│   ├── text.ts               # Text utilities
+│   ├── toc.ts                # Table of contents
+│   └── url.ts                # URL utilities
 └── strapi.ts         # Base Strapi client
 ```
 
@@ -394,8 +405,28 @@ src/lib/
 
 **Status:** ✅ 100% complete - All infrastructure, frontend integration, deployment, content migration, and pages implemented.
 
+### 🚧 Phase 2 - Component Architecture (IN PROGRESS - Est. 40% Complete)
+
+**Detailed docs:** `docs/phase-2-component-architecture.md`
+
+**Completed:**
+- ✅ Template system (Editorial, Legal, Landing) - 3 templates operational
+- ✅ Utility refactoring - Split monolithic files into 15 specialized modules
+- ✅ Common components - 6 new reusable components
+  - `StatusBadge.tsx` - Reusable status indicators
+  - `ThemeToggle.tsx` - Dark/light theme switcher
+  - `Breadcrumbs.astro` - Navigation breadcrumbs
+  - `GradientAccent.astro` - Gradient decorations
+  - `WatermarkBackground.astro` - Branded watermarks
+  - `DetailNavigation.astro` - Back/forward navigation
+- ✅ Site config centralization - `config/site.ts` with types and helpers
+- ✅ Footer component - Tech stack logos (Astro, React, Tailwind, Vite)
+
+**In Progress:**
+- 🚧 Scene.tsx optimization
+- 🚧 Section components standardization
+
 ### Upcoming Phases (execute in order)
-- **Phase 2:** Component Architecture (6-8 days) - 🔥 CURRENT PRIORITY
 - **Phase 3:** Performance (4-6 days) - Code splitting, lazy loading
 - **Phase 4:** Developer Experience (16-22 days) - Figma, Storybook, Chromatic
 - **Phase 5:** Testing (9-13 days) - Vitest unit tests, Playwright E2E
@@ -514,11 +545,19 @@ src/lib/
 ### Key Source Files
 - `apps/portfolio/src/pages/index.astro` - Main entry point
 - `apps/portfolio/src/pages/[slug].astro` - Dynamic page router (73 lines logic, Phase 2 refactored)
-- `apps/portfolio/src/templates/` - Page template components (NEW in Phase 2)
+- `apps/portfolio/src/templates/` - Page template components (Phase 2)
   - `index.ts` - Type definitions & template registry
   - `EditorialTemplate.astro` - Default content pages
   - `LegalTemplate.astro` - Legal documents with revision badge
   - `LandingTemplate.astro` - Marketing pages (stub)
+- `apps/portfolio/src/config/site.ts` - Centralized site configuration (Phase 2)
+- `apps/portfolio/src/components/common/` - Shared components (Phase 2)
+  - `StatusBadge.tsx` - Reusable status indicators
+  - `ThemeToggle.tsx` - Dark/light theme switcher
+  - `Breadcrumbs.astro` - Navigation breadcrumbs
+  - `GradientAccent.astro` - Gradient decorations
+  - `WatermarkBackground.astro` - Branded watermarks
+  - `DetailNavigation.astro` - Back/forward navigation
 - `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
 - `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer (replaces SectionContent.tsx ❌ deleted)
 - `apps/portfolio/src/components/animations/contexts/DataContext.tsx` - CMS data provider (NEW in 0.2.4)
@@ -527,14 +566,16 @@ src/lib/
   - `useSectionRegistry.ts` - Component mapping (NEW)
   - `useHandlebars.ts` - Template rendering (NEW)
   - `useDataContext.ts` - CMS data access (NEW)
-- `apps/portfolio/src/lib/api/` - 24 specialized API clients (modular structure)
+- `apps/portfolio/src/lib/api/` - 25 specialized API clients (modular structure)
   - Core: `hero.ts`, `about.ts`, `projects.ts`, `experiences.ts`, `education.ts`
   - Content: `posts.ts`, `testimonials.ts`, `awards.ts`, `skills.ts`, `pages.ts`
   - Config: `animation.ts`, `theme.ts`, `maintenance.ts`, `website-config.ts`, `blog-config.ts`, `portfolio.ts`, `homepage.ts`, `preloader.ts`, `skill-categories.ts`
-  - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts` (NEW in Phase 0.5)
+  - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts`
+  - Navigation: `navigation.ts` (NEW in Phase 2 - 2026-01-27)
 - `apps/portfolio/src/lib/validators/` - Zod validation schemas (20+ schemas)
 - `apps/portfolio/src/lib/transformers/` - Data transformation layer (20+ transformers)
-- `apps/portfolio/src/lib/utils/` - Helper utilities (contentHelpers, experienceHelpers)
+- `apps/portfolio/src/lib/utils/` - Helper utilities (15 modular files - Phase 2)
+  - See API Layer Structure section for complete list
 
 ## Git & Deployment
 
@@ -579,6 +620,18 @@ src/lib/
 4. **Template-specific features** - Add props to template's interface (e.g., `lastUpdated` for Legal)
 5. **Test print styles** - Legal template has print optimization, verify with Cmd/Ctrl+P
 6. **Type safety** - Use conditional rendering in router to ensure correct props per template
+
+### When Working with Utilities (Phase 2 Pattern)
+1. **Modular structure** - Utilities are organized by domain (blog, projects, experiences, etc.)
+2. **Single responsibility** - Each utility file has a focused purpose
+3. **Central exports** - Import from `~/lib/utils` (barrel export pattern via `index.ts`)
+4. **Type safety** - All utilities have proper TypeScript types
+5. **Deleted files** - `utils.ts`, `blogHelpers.ts`, `contentHelpers.ts`, `experienceHelpers.ts` consolidated into modular structure
+6. **Adding new utilities**:
+   - Create domain-specific file (e.g., `analytics.ts`)
+   - Export functions with JSDoc comments
+   - Add to `index.ts` barrel export
+   - Follow naming: camelCase for functions, PascalCase for types
 
 ### Monorepo Commands
 - Use `pnpm` (never npm or yarn)
@@ -674,16 +727,23 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2026-01-24
+**Last Updated:** 2026-01-27
 
 **Key Updates:**
-- ✅ **Working Style Component Integrated:** (2026-01-26)
-  - Added `content.working-style-item` component to Strapi CMS.
-  - Updated About schema, validator, and transformer to include working style data.
-  - Implemented `WorkingStyleSection` component and `getWorkingStyleColor` utility.
-  - Integrated into `about.astro` page.
-- ✅ **TypeScript Errors Resolved:** (2026-01-26)
-  - Fixed 8 TypeScript errors in `skills/index.astro`, improving type safety and developer experience.
+- 🚧 **Phase 2 In Progress:** Component Architecture (~50% complete)
+  - Template system operational (3 templates)
+  - Utility refactoring complete (15 modular files)
+  - Common components added (6 new reusable components)
+  - Site config centralized
+  - Footer updated with tech stack logos
+  - ✅ **Navigation Plugin Integration** (2026-01-27)
+    - CMS-driven navigation via `strapi-plugin-navigation` v3.2.4
+    - WRAPPER architecture: Single `footer-navigation` container with nested sections
+    - Custom fields: `label` (display override), `icon`, `buttonStyle` (primary/secondary/outline), `description`, `cssClass`
+    - Dynamic CTA buttons in Navbar (configurable from CMS)
+    - Flattened `additionalFields` in transformer for component ergonomics
+    - API calls reduced 3→2 (33% performance improvement)
+    - Files: `lib/api/navigation.ts`, `lib/validators/navigation.ts`, `lib/transformers/navigation.ts`
 - ✅ **Phase 0.5 Completed:** Portfolio Pages Implementation (2026-01-17)
   - 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
   - Footer component with CMS-driven social links (platform-based rendering)
@@ -727,7 +787,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 - ✅ Multiple embedding providers and retrieval/ranking systems
 - ✅ Enhanced monitoring with Vercel Speed Insights
 
-**Strapi CMS Components (Implemented - 9 total):**
+**Strapi CMS Components (Implemented - 10 total):**
 - `shared.seo` - SEO metadata with nested Open Graph
 - `shared.open-graph` - Open Graph meta tags (used by SEO)
 - `shared.social-links` - Social media URLs
@@ -737,6 +797,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 - `content.achievement` - Achievement/award display
 - `content.education` - Education history
 - `ui.image-element` - Image component with alt text
+- `content.working-style-item` - Working style item for About section
 
 **Strapi CMS Status:**
 - 20 total content types implemented (10 collection + 10 single)
