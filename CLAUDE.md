@@ -566,11 +566,12 @@ src/lib/
   - `useSectionRegistry.ts` - Component mapping (NEW)
   - `useHandlebars.ts` - Template rendering (NEW)
   - `useDataContext.ts` - CMS data access (NEW)
-- `apps/portfolio/src/lib/api/` - 24 specialized API clients (modular structure)
+- `apps/portfolio/src/lib/api/` - 25 specialized API clients (modular structure)
   - Core: `hero.ts`, `about.ts`, `projects.ts`, `experiences.ts`, `education.ts`
   - Content: `posts.ts`, `testimonials.ts`, `awards.ts`, `skills.ts`, `pages.ts`
   - Config: `animation.ts`, `theme.ts`, `maintenance.ts`, `website-config.ts`, `blog-config.ts`, `portfolio.ts`, `homepage.ts`, `preloader.ts`, `skill-categories.ts`
-  - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts` (NEW in Phase 0.5)
+  - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts`
+  - Navigation: `navigation.ts` (NEW in Phase 2 - 2026-01-27)
 - `apps/portfolio/src/lib/validators/` - Zod validation schemas (20+ schemas)
 - `apps/portfolio/src/lib/transformers/` - Data transformation layer (20+ transformers)
 - `apps/portfolio/src/lib/utils/` - Helper utilities (15 modular files - Phase 2)
@@ -726,15 +727,23 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 
 ---
 
-**Last Updated:** 2026-01-26
+**Last Updated:** 2026-01-27
 
 **Key Updates:**
-- 🚧 **Phase 2 In Progress:** Component Architecture (~40% complete)
+- 🚧 **Phase 2 In Progress:** Component Architecture (~50% complete)
   - Template system operational (3 templates)
   - Utility refactoring complete (15 modular files)
   - Common components added (6 new reusable components)
   - Site config centralized
   - Footer updated with tech stack logos
+  - ✅ **Navigation Plugin Integration** (2026-01-27)
+    - CMS-driven navigation via `strapi-plugin-navigation` v3.2.4
+    - WRAPPER architecture: Single `footer-navigation` container with nested sections
+    - Custom fields: `label` (display override), `icon`, `buttonStyle` (primary/secondary/outline), `description`, `cssClass`
+    - Dynamic CTA buttons in Navbar (configurable from CMS)
+    - Flattened `additionalFields` in transformer for component ergonomics
+    - API calls reduced 3→2 (33% performance improvement)
+    - Files: `lib/api/navigation.ts`, `lib/validators/navigation.ts`, `lib/transformers/navigation.ts`
 - ✅ **Phase 0.5 Completed:** Portfolio Pages Implementation (2026-01-17)
   - 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
   - Footer component with CMS-driven social links (platform-based rendering)

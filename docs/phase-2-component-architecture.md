@@ -2,16 +2,16 @@
 
 📍 **Full Documentation:** [ROADMAP.md Phase 2](../ROADMAP.md#phase-2-component-architecture-improvements-priority-high)
 
-## Priority Status: High - 🚧 IN PROGRESS (~45% Complete)
+## Priority Status: High - 🚧 IN PROGRESS (~50% Complete)
 
 **Estimated Effort:** 6-8 days
-**Progress:** ~3.5 days equivalent work completed
+**Progress:** ~4.0 days equivalent work completed
 
 ## Overview
 
 Further optimize component structure, standardize patterns across sections, and improve Scene.tsx organization.
 
-## Current Status (2026-01-26)
+## Current Status (2026-01-27)
 
 ### ✅ Completed Tasks
 1. **Template System** - 3 operational templates (Editorial, Legal, Landing)
@@ -25,6 +25,14 @@ Further optimize component structure, standardize patterns across sections, and 
    - Created `WorkingStyleSection.tsx` React component.
    - Added `getWorkingStyleColor` utility function for dynamic styling.
    - Integrated into `about.astro` page.
+7. **Navigation Plugin Integration (2026-01-27):**
+   - Integrated `strapi-plugin-navigation` v3.2.4 for CMS-driven navigation
+   - WRAPPER architecture for footer sections (reduced 3 containers → 2)
+   - Custom fields: `label`, `icon`, `buttonStyle`, `description`, `cssClass`
+   - Dynamic CTA buttons with 3 styles (primary, secondary, outline)
+   - Label override system (admin titles vs display text)
+   - Flattened `additionalFields` for component ergonomics
+   - Performance: API calls reduced 3→2 (33% improvement)
 
 ### 🚧 In Progress
 - Scene.tsx optimization (next priority)
@@ -58,6 +66,62 @@ Further optimize component structure, standardize patterns across sections, and 
   - Platform-based social icon rendering with `getPlatformIcon()`
 
 **Status:** Foundation complete (~40% of Phase 2)
+
+---
+
+### 2.0.1 Navigation Plugin Integration (COMPLETED ✅ - 2026-01-27)
+
+**Goal:** Replace hardcoded navigation with CMS-driven navigation via Strapi plugin
+
+**Implementation:**
+- **Plugin:** `strapi-plugin-navigation` v3.2.4
+- **Architecture:** WRAPPER-based footer sections (2 containers vs 3)
+- **Custom Fields:**
+  - `label` - Display text override (separate admin title from user-facing text)
+  - `icon` - MynaUI icon name for navigation items
+  - `buttonStyle` - Render as CTA button (primary/secondary/outline)
+  - `description` - Accessibility descriptions
+  - `cssClass` - Custom styling classes
+- **Files Created:**
+  - `lib/api/navigation.ts` - API client with parallel fetching (32 lines)
+  - `lib/validators/navigation.ts` - Zod schemas with `additionalFields` (66 lines)
+  - `lib/transformers/navigation.ts` - Flattens `additionalFields`, fallback navigation (88 lines)
+- **Files Modified:**
+  - `cms/config/plugins.ts` - Added 5 custom fields to navigation plugin
+  - `lib/utils/icons.ts` - Added `navigationIcons` mapping and `getNavigationIcon()` helper
+  - `layouts/PageLayout.astro` - Fetches navigation data and passes to components
+  - `components/ui/Navbar.tsx` - Dynamic navigation rendering with CTA button support
+  - `components/Footer.astro` - WRAPPER section rendering with dynamic links
+
+**Key Features:**
+- **WRAPPER Architecture:**
+  - Top-level WRAPPERs = section groupings (Explore, Resources)
+  - Nested WRAPPERs = static files (RSS, Sitemap) - not CMS content types
+- **Dynamic CTA Buttons:** Navigation items with `buttonStyle` render as prominent buttons
+- **Label Override System:** `label` field overrides `title` for display (A/B testing ready)
+- **Flattened Fields:** Transformer extracts `additionalFields` to top level for component convenience
+- **Type Safety:** Full Zod validation with TypeScript types
+- **Graceful Fallbacks:** Default navigation if CMS unavailable
+
+**Performance:**
+- Reduced API calls from 3 → 2 (33% improvement)
+- Parallel fetching with `Promise.all()`
+- SSG caching with `force-cache`
+
+**Navigation Containers:**
+1. `main-navigation` - Header navigation (5 items + optional CTA buttons)
+2. `footer-navigation` - Single footer container with WRAPPER sections
+
+**Benefits:**
+- ✅ No hardcoded navigation arrays in components
+- ✅ CMS control over all navigation (header + footer)
+- ✅ A/B testing ready (change labels/CTAs without deployment)
+- ✅ Button styling configurable from CMS
+- ✅ Icon support for all navigation items
+- ✅ Unlimited footer sections supported
+- ✅ Ready for future enhancements (audience filtering, i18n)
+
+**Effort:** 1 day (~0.5 days implementation + documentation)
 
 ---
 
