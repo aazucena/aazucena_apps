@@ -7,6 +7,7 @@ import { PageHeaderSchema, PhaseItemSchema, CtaSectionSchema } from './component
 export const StrapiJourneySchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
+  slug: z.string().default('journey').optional(), // Navigation integration
   header: PageHeaderSchema.nullable().optional(),
   phases: z.array(PhaseItemSchema).optional(),
   callToAction: CtaSectionSchema.nullable().optional(),

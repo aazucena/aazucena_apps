@@ -1,35 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Menu, 
-  X, 
-  Briefcase, 
-  ClockCircle, 
-  Code, 
-  FileText, 
-  User, 
-  Send
+import {
+  Menu,
+  X
 } from '@mynaui/icons-react';
 import { ThemeToggle } from './ThemeToggle';
 import { toTitleCase } from '~/lib/utils/text';
+import { getNavigationIcon } from '~/lib/utils/icons';
+import type { NavigationItem } from '~/lib/validators/navigation';
 
 interface NavbarProps {
   siteName: string;
   currentPath: string;
   logoUrl?: string;
+  navItems: NavigationItem[];
 }
 
-const navLinks = [
-  { label: 'Portfolio', href: '/projects', icon: Briefcase },
-  { label: 'Journey', href: '/experiences', icon: ClockCircle },
-  { label: 'Expertise', href: '/skills', icon: Code },
-  { label: 'Journal', href: '/blog', icon: FileText },
-  { label: 'Biography', href: '/about', icon: User },
-];
-
-export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
+export function Navbar({ siteName, currentPath, logoUrl, navItems }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Map navigation items with icon components
+  const navItemsWithIcons = navItems.map(item => ({
+    ...item,
+    iconComponent: getNavigationIcon(item.icon),
+  }));
+
+  // Separate navigation items by type: regular links vs CTA buttons
+  const regularNavItems = navItemsWithIcons.filter(item => !item.buttonStyle);
+  const ctaButtons = navItemsWithIcons.filter(item => item.buttonStyle);
 
   // Handle scroll effect
   useEffect(() => {
@@ -73,25 +72,27 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1 bg-gray-50/50 dark:bg-gray-900/50 p-1.5 rounded-full border border-gray-100 dark:border-gray-800 backdrop-blur-md">
-            {navLinks.map((link) => {
-              const isActive = currentPath.startsWith(link.href);
-              const Icon = link.icon;
-              
+            {regularNavItems.map((item) => {
+              const isActive = currentPath.startsWith(item.path || '');
+              const Icon = item.iconComponent;
+
               return (
                 <a
-                  key={link.href}
-                  href={link.href}
+                  key={item.id}
+                  href={item.path || undefined}
                   className={`
                     relative flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300
-                    ${isActive 
-                      ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm' 
+                    ${isActive
+                      ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm'
                       : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}
                   `}
+                  target={item.type === 'EXTERNAL' ? '_blank' : undefined}
+                  rel={item.type === 'EXTERNAL' ? 'noopener noreferrer' : undefined}
                 >
-                  <Icon size={14} className={isActive ? 'text-blue-600' : 'text-current'} />
-                  {toTitleCase(link.label)}
+                  {Icon && <Icon size={14} className={isActive ? 'text-blue-600' : 'text-current'} />}
+                  {toTitleCase(item.title)}
                   {isActive && (
-                    <motion.div 
+                    <motion.div
                       layoutId="active-nav"
                       className="absolute inset-0 border-2 border-blue-600/10 dark:border-blue-400/10 rounded-full"
                       transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
@@ -107,13 +108,29 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
             <div className="hidden sm:block">
               <ThemeToggle />
             </div>
-            <a 
-              href="/contact"
-              className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-bold text-sm hover:bg-blue-600 dark:hover:bg-blue-50 transition-all shadow-lg active:scale-95 group"
-            >
-              <Send size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              Let's Talk
-            </a>
+
+            {/* Dynamic CTA Buttons from navigation */}
+            {ctaButtons.map((button) => {
+              const Icon = button.iconComponent;
+              const buttonClasses = {
+                primary: 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-blue-600 dark:hover:bg-blue-50',
+                secondary: 'bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600',
+                outline: 'bg-transparent border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900',
+              };
+
+              return (
+                <a
+                  key={button.id}
+                  href={button.path || undefined}
+                  className={`hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg active:scale-95 group ${buttonClasses[button.buttonStyle || 'primary']}`}
+                  target={button.type === 'EXTERNAL' ? '_blank' : undefined}
+                  rel={button.type === 'EXTERNAL' ? 'noopener noreferrer' : undefined}
+                >
+                  {Icon && <Icon size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />}
+                  {toTitleCase(button.title)}
+                </a>
+              );
+            })}
 
             {/* Mobile Menu Toggle */}
             <button
@@ -150,38 +167,55 @@ export function Navbar({ siteName, currentPath, logoUrl }: NavbarProps) {
                   <span className="text-xs font-bold text-gray-400">Navigation</span>
                   <ThemeToggle />
                 </div>
-                {navLinks.map((link) => {
-                  const isActive = currentPath.startsWith(link.href);
-                  const Icon = link.icon;
-                  
+                {regularNavItems.map((item) => {
+                  const isActive = currentPath.startsWith(item.path || '');
+                  const Icon = item.iconComponent;
+
                   return (
                     <a
-                      key={link.href}
-                      href={link.href}
+                      key={item.id}
+                      href={item.path || undefined}
                       className={`
                         flex items-center gap-4 p-4 rounded-2xl text-base font-bold transition-all
-                        ${isActive 
-                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                        ${isActive
+                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
                           : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'}
                       `}
+                      target={item.type === 'EXTERNAL' ? '_blank' : undefined}
+                      rel={item.type === 'EXTERNAL' ? 'noopener noreferrer' : undefined}
                     >
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isActive ? 'bg-white dark:bg-gray-950 shadow-sm' : 'bg-gray-100 dark:bg-gray-800'}`}>
-                        <Icon size={18} />
+                        {Icon && <Icon size={18} />}
                       </div>
-                      {toTitleCase(link.label)}
+                      {toTitleCase(item.title)}
                     </a>
                   );
                 })}
               </div>
 
               <div className="mt-auto space-y-6">
-                <a 
-                  href="/contact"
-                  className="flex items-center justify-center gap-3 w-full py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-[1.5rem] font-bold text-sm"
-                >
-                  <Send size={16} />
-                  Get in Touch
-                </a>
+                {/* Dynamic CTA Buttons in mobile menu */}
+                {ctaButtons.map((button) => {
+                  const Icon = button.iconComponent;
+                  const mobileButtonClasses = {
+                    primary: 'bg-gray-900 dark:bg-white text-white dark:text-gray-900',
+                    secondary: 'bg-blue-600 dark:bg-blue-500 text-white',
+                    outline: 'bg-transparent border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white',
+                  };
+
+                  return (
+                    <a
+                      key={button.id}
+                      href={button.path || undefined}
+                      className={`flex items-center justify-center gap-3 w-full py-5 rounded-[1.5rem] font-bold text-sm ${mobileButtonClasses[button.buttonStyle || 'primary']}`}
+                      target={button.type === 'EXTERNAL' ? '_blank' : undefined}
+                      rel={button.type === 'EXTERNAL' ? 'noopener noreferrer' : undefined}
+                    >
+                      {Icon && <Icon size={16} />}
+                      {toTitleCase(button.title)}
+                    </a>
+                  );
+                })}
                 <p className="text-xs text-center text-gray-400 dark:text-gray-500 font-medium">
                   © {new Date().getFullYear()} {toTitleCase(siteName)}
                 </p>

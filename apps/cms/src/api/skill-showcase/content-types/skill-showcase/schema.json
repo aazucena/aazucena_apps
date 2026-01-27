@@ -18,41 +18,59 @@
   "attributes": {
     "header": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.page-header",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "shared.page-header",
+      "repeatable": false
     },
     "highlyUsedThreshold": {
       "type": "integer",
-      "default": 3,
-      "description": "Number of projects/roles required to trigger the highly-used pulse effect",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "default": 3
+    },
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "Skills",
+      "required": true
     },
     "searchPlaceholder": {
       "type": "string",
-      "default": "Search technologies (e.g. React, PostgreSQL)...",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "Search technologies (e.g. React, PostgreSQL)..."
     },
     "emptyMessage": {
       "type": "string",
-      "default": "No technologies found matching your criteria.",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "No technologies found matching your criteria."
+    },
+    "taxonomyPagePath": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "skills"
     }
   }
 }

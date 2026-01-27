@@ -15,6 +15,16 @@
     }
   },
   "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "About",
+      "required": true
+    },
     "tagline": {
       "type": "string",
       "pluginOptions": {
@@ -24,6 +34,15 @@
       },
       "maxLength": 150,
       "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "about"
     },
     "descriptions": {
       "type": "blocks",

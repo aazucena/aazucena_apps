@@ -9,6 +9,7 @@ export const StrapiExperienceShowcaseSchema = z.object({
   documentId: z.string().optional(),
   header: PageHeaderSchema.nullable().optional(),
   searchPlaceholder: z.string().default('Search by skills, company, or result...'),
+  listPagePath: z.string().default('experiences').optional(), // Navigation integration
   createdAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string().optional(),

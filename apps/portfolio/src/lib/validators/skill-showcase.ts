@@ -11,6 +11,7 @@ export const StrapiSkillShowcaseSchema = z.object({
   highlyUsedThreshold: z.number().default(3),
   searchPlaceholder: z.string().default('Search technologies (e.g. React, PostgreSQL)...'),
   emptyMessage: z.string().default('No technologies found matching your criteria.'),
+  taxonomyPagePath: z.string().default('skills').optional(), // Navigation integration
   createdAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string().optional(),

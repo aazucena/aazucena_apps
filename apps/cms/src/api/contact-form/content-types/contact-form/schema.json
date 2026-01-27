@@ -26,6 +26,25 @@
       "component": "shared.page-header",
       "repeatable": false
     },
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "Contact us",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "contact"
+    },
     "formTitle": {
       "type": "string",
       "pluginOptions": {

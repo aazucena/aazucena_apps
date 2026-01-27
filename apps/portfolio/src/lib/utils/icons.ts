@@ -1,4 +1,16 @@
 import * as Icons from '@mynaui/icons-react';
+import {
+  Briefcase,
+  ClockCircle,
+  Code,
+  FileText,
+  User,
+  Shield,
+  Rss,
+  Map,
+  GitBranch,
+  Send,
+} from '@mynaui/icons-react';
 import type { IconComponent } from '~/types/icons';
 
 /**
@@ -138,4 +150,31 @@ export function getIconDisplayName(icon: IconComponent): string {
 
   const IconComp = icon as React.ComponentType;
   return IconComp.displayName || IconComp.name || 'Unknown Icon';
+}
+
+/**
+ * Navigation-specific icon mapping
+ * Maps icon names used in Strapi navigation to MynaUI icon components
+ */
+export const navigationIcons = {
+  'briefcase': Briefcase,
+  'clock-circle': ClockCircle,
+  'code': Code,
+  'file-text': FileText,
+  'user': User,
+  'shield': Shield,
+  'rss': Rss,
+  'map': Map,
+  'git-branch': GitBranch,
+  'send': Send,
+};
+
+/**
+ * Get navigation icon component by name
+ * @param iconName - Icon name from navigation (e.g., "briefcase", "clock-circle")
+ * @returns React icon component or null
+ */
+export function getNavigationIcon(iconName?: string) {
+  if (!iconName) return null;
+  return navigationIcons[iconName as keyof typeof navigationIcons] || null;
 }

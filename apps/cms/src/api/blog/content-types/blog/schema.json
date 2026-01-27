@@ -11,6 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Blog",
+      "required": true
+    },
     "postsPerPage": {
       "type": "integer",
       "required": true,
@@ -73,10 +78,10 @@
     },
     "gridColumns": {
       "type": "integer",
+      "required": true,
       "default": 3,
       "min": 1,
-      "max": 4,
-      "required": true
+      "max": 4
     },
     "viewAllButtonText": {
       "type": "string",
@@ -92,23 +97,23 @@
     },
     "showViewAllButton": {
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": true,
+      "default": true
     },
     "showTags": {
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": true,
+      "default": true
     },
     "showDate": {
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": true,
+      "default": true
     },
     "showReadTime": {
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": true,
+      "default": true
     }
   }
 }

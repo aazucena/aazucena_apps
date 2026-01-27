@@ -18,33 +18,52 @@
   "attributes": {
     "header": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.page-header",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "shared.page-header",
+      "repeatable": false
+    },
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "Journey",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "journey"
     },
     "phases": {
       "type": "component",
-      "repeatable": true,
-      "component": "content.phase-item",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "content.phase-item",
+      "repeatable": true
     },
     "callToAction": {
       "type": "component",
-      "repeatable": false,
-      "component": "ui.cta-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "ui.cta-section",
+      "repeatable": false
     }
   }
 }

@@ -7,6 +7,7 @@ import { PageHeaderSchema } from './components';
 export const StrapiContactFormSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
+  slug: z.string().default('contact').optional(), // Navigation integration
   header: PageHeaderSchema.nullable().optional(),
   formTitle: z.string().default('Send a Message'),
   submitButtonLabel: z.string().default('Send Message'),

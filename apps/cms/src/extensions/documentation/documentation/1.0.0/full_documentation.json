@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-01-24T23:57:19.896Z"
+    "x-generation-date": "2026-01-27T02:31:40.838Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -13245,13 +13245,20 @@
         "properties": {
           "data": {
             "required": [
+              "title",
               "tagline",
               "descriptions",
               "highlights"
             ],
             "type": "object",
             "properties": {
+              "title": {
+                "type": "string"
+              },
               "tagline": {
+                "type": "string"
+              },
+              "slug": {
                 "type": "string"
               },
               "descriptions": {},
@@ -13302,6 +13309,12 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/ContentLanguageItemComponent"
+                }
+              },
+              "workingStyle": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ContentWorkingStyleItemComponent"
                 }
               },
               "locale": {
@@ -13363,6 +13376,7 @@
       "About": {
         "type": "object",
         "required": [
+          "title",
           "tagline",
           "descriptions",
           "highlights"
@@ -13374,7 +13388,13 @@
           "documentId": {
             "type": "string"
           },
+          "title": {
+            "type": "string"
+          },
           "tagline": {
+            "type": "string"
+          },
+          "slug": {
             "type": "string"
           },
           "descriptions": {},
@@ -13425,6 +13445,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ContentLanguageItemComponent"
+            }
+          },
+          "workingStyle": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentWorkingStyleItemComponent"
             }
           },
           "createdAt": {
@@ -13727,7 +13753,13 @@
                 "documentId": {
                   "type": "string"
                 },
+                "title": {
+                  "type": "string"
+                },
                 "tagline": {
+                  "type": "string"
+                },
+                "slug": {
                   "type": "string"
                 },
                 "descriptions": {},
@@ -13778,6 +13810,12 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ContentLanguageItemComponent"
+                  }
+                },
+                "workingStyle": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContentWorkingStyleItemComponent"
                   }
                 },
                 "createdAt": {
@@ -14018,6 +14056,37 @@
           },
           "level": {
             "type": "string"
+          }
+        }
+      },
+      "ContentWorkingStyleItemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "blue-cyan",
+              "purple-indigo",
+              "emerald-teal",
+              "orange-red",
+              "pink-purple",
+              "amber-orange"
+            ]
           }
         }
       },
@@ -16438,6 +16507,7 @@
         "properties": {
           "data": {
             "required": [
+              "title",
               "postsPerPage",
               "permalink",
               "mainPath",
@@ -16456,6 +16526,9 @@
             ],
             "type": "object",
             "properties": {
+              "title": {
+                "type": "string"
+              },
               "postsPerPage": {
                 "type": "integer"
               },
@@ -16560,6 +16633,7 @@
       "Blog": {
         "type": "object",
         "required": [
+          "title",
           "postsPerPage",
           "permalink",
           "mainPath",
@@ -16581,6 +16655,9 @@
             "type": "number"
           },
           "documentId": {
+            "type": "string"
+          },
+          "title": {
             "type": "string"
           },
           "postsPerPage": {
@@ -16926,6 +17003,9 @@
                   "type": "number"
                 },
                 "documentId": {
+                  "type": "string"
+                },
+                "title": {
                   "type": "string"
                 },
                 "postsPerPage": {
@@ -18721,6 +18801,7 @@
         "properties": {
           "data": {
             "required": [
+              "title",
               "formTitle",
               "submitButtonLabel",
               "successMessage"
@@ -18729,6 +18810,12 @@
             "properties": {
               "header": {
                 "$ref": "#/components/schemas/SharedPageHeaderComponent"
+              },
+              "title": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
               },
               "formTitle": {
                 "type": "string"
@@ -18798,6 +18885,7 @@
       "ContactForm": {
         "type": "object",
         "required": [
+          "title",
           "formTitle",
           "submitButtonLabel",
           "successMessage"
@@ -18811,6 +18899,12 @@
           },
           "header": {
             "$ref": "#/components/schemas/SharedPageHeaderComponent"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
           },
           "formTitle": {
             "type": "string"
@@ -19123,6 +19217,12 @@
                 },
                 "header": {
                   "$ref": "#/components/schemas/SharedPageHeaderComponent"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
                 },
                 "formTitle": {
                   "type": "string"
@@ -24143,12 +24243,21 @@
         ],
         "properties": {
           "data": {
+            "required": [
+              "title"
+            ],
             "type": "object",
             "properties": {
               "header": {
                 "$ref": "#/components/schemas/SharedPageHeaderComponent"
               },
+              "title": {
+                "type": "string"
+              },
               "searchPlaceholder": {
+                "type": "string"
+              },
+              "listPagePath": {
                 "type": "string"
               },
               "locale": {
@@ -24209,6 +24318,9 @@
       },
       "ExperienceShowcase": {
         "type": "object",
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -24219,7 +24331,13 @@
           "header": {
             "$ref": "#/components/schemas/SharedPageHeaderComponent"
           },
+          "title": {
+            "type": "string"
+          },
           "searchPlaceholder": {
+            "type": "string"
+          },
+          "listPagePath": {
             "type": "string"
           },
           "createdAt": {
@@ -24525,7 +24643,13 @@
                 "header": {
                   "$ref": "#/components/schemas/SharedPageHeaderComponent"
                 },
+                "title": {
+                  "type": "string"
+                },
                 "searchPlaceholder": {
+                  "type": "string"
+                },
+                "listPagePath": {
                   "type": "string"
                 },
                 "createdAt": {
@@ -26064,10 +26188,19 @@
         ],
         "properties": {
           "data": {
+            "required": [
+              "title"
+            ],
             "type": "object",
             "properties": {
               "header": {
                 "$ref": "#/components/schemas/SharedPageHeaderComponent"
+              },
+              "title": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
               },
               "phases": {
                 "type": "array",
@@ -26136,6 +26269,9 @@
       },
       "Journey": {
         "type": "object",
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -26145,6 +26281,12 @@
           },
           "header": {
             "$ref": "#/components/schemas/SharedPageHeaderComponent"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
           },
           "phases": {
             "type": "array",
@@ -26457,6 +26599,12 @@
                 },
                 "header": {
                   "$ref": "#/components/schemas/SharedPageHeaderComponent"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
                 },
                 "phases": {
                   "type": "array",
@@ -31780,6 +31928,7 @@
         "properties": {
           "data": {
             "required": [
+              "title",
               "dragHintText",
               "viewMoreButtonLabel",
               "viewMoreButtonSubtitle",
@@ -31790,6 +31939,9 @@
             "properties": {
               "header": {
                 "$ref": "#/components/schemas/SharedPageHeaderComponent"
+              },
+              "title": {
+                "type": "string"
               },
               "searchPlaceholder": {
                 "type": "string"
@@ -31809,7 +31961,7 @@
               "projectsPerPage": {
                 "type": "integer"
               },
-              "projectsListPagePath": {
+              "listPagePath": {
                 "type": "string"
               },
               "locale": {
@@ -31871,6 +32023,7 @@
       "ProjectShowcase": {
         "type": "object",
         "required": [
+          "title",
           "dragHintText",
           "viewMoreButtonLabel",
           "viewMoreButtonSubtitle",
@@ -31886,6 +32039,9 @@
           },
           "header": {
             "$ref": "#/components/schemas/SharedPageHeaderComponent"
+          },
+          "title": {
+            "type": "string"
           },
           "searchPlaceholder": {
             "type": "string"
@@ -31905,7 +32061,7 @@
           "projectsPerPage": {
             "type": "integer"
           },
-          "projectsListPagePath": {
+          "listPagePath": {
             "type": "string"
           },
           "createdAt": {
@@ -32211,6 +32367,9 @@
                 "header": {
                   "$ref": "#/components/schemas/SharedPageHeaderComponent"
                 },
+                "title": {
+                  "type": "string"
+                },
                 "searchPlaceholder": {
                   "type": "string"
                 },
@@ -32229,7 +32388,7 @@
                 "projectsPerPage": {
                   "type": "integer"
                 },
-                "projectsListPagePath": {
+                "listPagePath": {
                   "type": "string"
                 },
                 "createdAt": {
@@ -35472,6 +35631,9 @@
         ],
         "properties": {
           "data": {
+            "required": [
+              "title"
+            ],
             "type": "object",
             "properties": {
               "header": {
@@ -35480,10 +35642,16 @@
               "highlyUsedThreshold": {
                 "type": "integer"
               },
+              "title": {
+                "type": "string"
+              },
               "searchPlaceholder": {
                 "type": "string"
               },
               "emptyMessage": {
+                "type": "string"
+              },
+              "taxonomyPagePath": {
                 "type": "string"
               },
               "locale": {
@@ -35544,6 +35712,9 @@
       },
       "SkillShowcase": {
         "type": "object",
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -35557,10 +35728,16 @@
           "highlyUsedThreshold": {
             "type": "integer"
           },
+          "title": {
+            "type": "string"
+          },
           "searchPlaceholder": {
             "type": "string"
           },
           "emptyMessage": {
+            "type": "string"
+          },
+          "taxonomyPagePath": {
             "type": "string"
           },
           "createdAt": {
@@ -35869,10 +36046,16 @@
                 "highlyUsedThreshold": {
                   "type": "integer"
                 },
+                "title": {
+                  "type": "string"
+                },
                 "searchPlaceholder": {
                   "type": "string"
                 },
                 "emptyMessage": {
+                  "type": "string"
+                },
+                "taxonomyPagePath": {
                   "type": "string"
                 },
                 "createdAt": {

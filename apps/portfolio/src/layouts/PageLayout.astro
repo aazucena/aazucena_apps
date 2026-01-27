@@ -5,6 +5,7 @@ import { Navbar } from '~/components/ui/Navbar';
 import { BackToTop } from '~/components/ui/BackToTop';
 import { getPortfolio } from '~/lib/api/portfolio';
 import { getSiteConfig } from '~/lib/services/layout';
+import { getAllNavigations } from '~/lib/api/navigation';
 
 const props: BaseLayoutProps = Astro.props;
 
@@ -13,25 +14,30 @@ const siteConfig = getSiteConfig();
 // Fetch data for layout
 const portfolio = await getPortfolio();
 
+// Fetch navigation data
+const { mainNav, footerNav } = await getAllNavigations();
+
 const currentPath = Astro.url.pathname;
 ---
 
 <BaseLayout {...props}>
-  <Navbar 
-    siteName={siteConfig.metadata.siteName} 
-    currentPath={currentPath} 
+  <Navbar
+    siteName={siteConfig.metadata.siteName}
+    currentPath={currentPath}
     logoUrl={siteConfig.metadata.faviconUrl || '/icon.svg'}
-    client:load 
+    navItems={mainNav.items}
+    client:load
   />
-  
+
   <div class="pt-20 md:pt-28">
     <slot />
   </div>
-  
+
   <Footer
     siteName={siteConfig.metadata.siteName}
     socialLinks={portfolio.socialLinks}
     availabilityStatus={portfolio.availabilityStatus}
+    navigationSections={footerNav.items}
   />
   <BackToTop client:load />
 </BaseLayout>

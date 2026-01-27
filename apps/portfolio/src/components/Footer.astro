@@ -11,8 +11,8 @@ Globe
 } from '@mynaui/icons-react';
 
 import { getAvailabilityIndicator } from '~/lib/utils/availability';
-
 import { toTitleCase } from '~/lib/utils/text';
+import type { NavigationItem } from '~/lib/validators/navigation';
 
 interface SocialLink {
   platform: string;
@@ -26,9 +26,21 @@ interface Props {
   siteName: string;
   socialLinks?: SocialLink[];
   availabilityStatus?: string;
+  navigationSections: NavigationItem[]; // WRAPPER items containing grouped links
 }
 
-const { siteName, socialLinks = [], availabilityStatus = 'Systems Operational' } = Astro.props;
+const {
+  siteName,
+  socialLinks = [],
+  availabilityStatus = 'Systems Operational',
+  navigationSections,
+} = Astro.props;
+
+// Filter for WRAPPER type items (footer sections)
+// Note: WRAPPER items serve dual purposes:
+// 1. Top-level WRAPPERs = section groupings (Explore, Resources)
+// 2. Nested WRAPPERs = static/generated files (RSS, Sitemap) - not CMS content types
+const footerSections = navigationSections.filter(item => item.type === 'WRAPPER');
 const currentYear = new Date().getFullYear();
 
 // Get dynamic indicator styles
@@ -79,51 +91,34 @@ const getPlatformIcon = (platform: string) => {
         </div>
       </div>
 
-      <!-- Sitemap -->
-      <div class="space-y-8">
-        <h4 class="text-sm font-bold text-gray-900 dark:text-white">
-          {toTitleCase('Explore')}
-        </h4>
-        <nav class="flex flex-col space-y-4">
-          {[
-            { label: 'Projects Portfolio', href: '/projects' },
-            { label: 'Career Journey', href: '/experiences' },
-            { label: 'Technical Expertise', href: '/skills' },
-            { label: 'Technical Journal', href: '/blog' },
-            { label: 'Biography', href: '/about' }
-          ].map(link => (
-            <a href={link.href} class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-bold group flex items-center gap-2">
-              {link.label}
-              <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-            </a>
-          ))}
-        </nav>
-      </div>
-
-      <!-- Legal & Social -->
-      <div class="space-y-8">
-        <h4 class="text-sm font-bold text-gray-900 dark:text-white">
-          {toTitleCase('Resources')}
-        </h4>
-        <nav class="flex flex-col space-y-4">
-          <a href="/privacy" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-bold group flex items-center gap-2">
-            Privacy Framework
-            <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
-          <a href="/terms" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-bold group flex items-center gap-2">
-            Terms of Service
-            <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
-          <a href="/rss.xml" class="text-sm text-gray-500 dark:text-gray-400 hover:text-orange-500 transition-colors font-bold flex items-center gap-2 group">
-            RSS Feed
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-8.18v4.831c10.555.062 19.121 8.505 19.183 19.001h4.817c-.062-13.209-7.118-23.77-24-23.832z"/></svg>
-          </a>
-          <a href="/sitemap-index.xml" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-bold flex items-center gap-2 group">
-            Sitemap
-            <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
-        </nav>
-      </div>
+      <!-- Dynamic Navigation Sections (from WRAPPER items) -->
+      {footerSections.map((section) => (
+        <div class="space-y-8">
+          <h4 class="text-sm font-bold text-gray-900 dark:text-white">
+            {toTitleCase(section.title)}
+          </h4>
+          <nav class="flex flex-col space-y-4">
+            {section.items?.map((link) => {
+              const isRss = link.path?.includes('rss.xml');
+              return (
+                <a
+                  href={link.path || undefined}
+                  class={`text-sm text-gray-500 dark:text-gray-400 ${isRss ? 'hover:text-orange-500' : 'hover:text-blue-600 dark:hover:text-blue-400'} transition-colors font-bold flex items-center gap-2 group`}
+                  target={link.type === 'EXTERNAL' ? '_blank' : undefined}
+                  rel={link.type === 'EXTERNAL' ? 'noopener noreferrer' : undefined}
+                >
+                  {link.title}
+                  {isRss ? (
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-8.18v4.831c10.555.062 19.121 8.505 19.183 19.001h4.817c-.062-13.209-7.118-23.77-24-23.832z"/></svg>
+                  ) : (
+                    <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+        </div>
+      ))}
 
       <!-- Social Links -->
       <div class="space-y-8">

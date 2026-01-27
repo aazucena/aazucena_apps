@@ -108,6 +108,47 @@ export default ({ env }) => ({
   },
   'navigation': {
     enabled: true,
+    config: {
+      additionalFields: [
+        {
+          name: 'label',
+          type: 'string',
+          label: 'Display Label',
+          description: 'Custom display text (overrides title)',
+          placeholder: 'Projects Portfolio'
+        },
+        {
+          name: 'icon',
+          type: 'string',
+          label: 'Icon Name',
+          description: 'MynaUI icon name (e.g., "briefcase", "clock-circle")',
+          placeholder: 'briefcase'
+        },
+        {
+          name: 'buttonStyle',
+          type: 'string',
+          label: 'Button Style',
+          description: 'If set, renders as button. Options: "primary", "secondary", "outline"',
+          placeholder: 'primary'
+        },
+        {
+          name: 'description',
+          type: 'string',
+          label: 'Description',
+          description: 'Optional description for accessibility',
+        },
+        {
+          name: 'cssClass',
+          type: 'string',
+          label: 'CSS Class',
+          description: 'Optional custom CSS class',
+        }
+      ],
+      allowedLevels: 2,
+      gql: {
+        navigationItemRelated: []
+      }
+    }
   },
   'preview-button': {
     enabled: true,

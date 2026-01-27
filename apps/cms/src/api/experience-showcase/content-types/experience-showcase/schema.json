@@ -18,22 +18,41 @@
   "attributes": {
     "header": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.page-header",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "shared.page-header",
+      "repeatable": false
+    },
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "Experience",
+      "required": true
     },
     "searchPlaceholder": {
       "type": "string",
-      "default": "Search by skills, company, or result...",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "Search by skills, company, or result..."
+    },
+    "listPagePath": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "experiences"
     }
   }
 }

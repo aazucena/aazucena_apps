@@ -17,12 +17,13 @@ export type { Stats, CardLink } from './components';
 export const StrapiAboutSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
+  slug: z.string().default('about').optional(), // Navigation integration
   tagline: z.string().max(150),
   descriptions: z.any(), // Blocks content
   highlights: z.any(), // Blocks content
   stats: z.array(StatsSchema).optional(),
   learnMoreCards: z.array(CardLinkSchema).optional(),
-  
+
   // Managed content fields
   focusAreas: z.array(FocusAreaSchema).optional(),
   roots: z.array(NarrativeItemSchema).optional(),
