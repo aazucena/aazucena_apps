@@ -17,22 +17,32 @@
   "attributes": {
     "header": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.page-header",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "shared.page-header",
+      "repeatable": false
+    },
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "Projects",
+      "required": true
     },
     "searchPlaceholder": {
       "type": "string",
-      "default": "Search projects by tech, title...",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "Search projects by tech, title..."
     },
     "dragHintText": {
       "type": "string",
@@ -41,9 +51,9 @@
           "localized": true
         }
       },
+      "default": "Drag to explore more projects",
       "maxLength": 100,
-      "required": true,
-      "default": "Drag to explore more projects"
+      "required": true
     },
     "viewMoreButtonLabel": {
       "type": "string",
@@ -52,9 +62,9 @@
           "localized": true
         }
       },
+      "default": "View More",
       "maxLength": 50,
-      "required": true,
-      "default": "View More"
+      "required": true
     },
     "viewMoreButtonSubtitle": {
       "type": "string",
@@ -63,9 +73,9 @@
           "localized": true
         }
       },
+      "default": "Explore all projects",
       "maxLength": 100,
-      "required": true,
-      "default": "Explore all projects"
+      "required": true
     },
     "maxProjectsDisplayed": {
       "type": "integer",
@@ -74,10 +84,10 @@
           "localized": false
         }
       },
-      "min": 1,
-      "max": 20,
       "required": true,
-      "default": 7
+      "default": 7,
+      "min": 1,
+      "max": 20
     },
     "projectsPerPage": {
       "type": "integer",
@@ -86,21 +96,21 @@
           "localized": false
         }
       },
-      "min": 1,
-      "max": 8,
       "required": true,
-      "default": 4
+      "default": 4,
+      "min": 1,
+      "max": 8
     },
-    "projectsListPagePath": {
+    "listPagePath": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
+      "default": "projects",
       "maxLength": 200,
-      "required": false,
-      "default": "/projects"
+      "required": false
     }
   }
 }

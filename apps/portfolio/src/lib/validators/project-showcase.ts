@@ -14,7 +14,7 @@ export const StrapiShowcaseSchema = z.object({
   viewMoreButtonSubtitle: z.string().max(100),
   maxProjectsDisplayed: z.number().min(1).max(20),
   projectsPerPage: z.number().min(1).max(8),
-  projectsListPagePath: z.string().max(200).nullable().optional(),
+  listPagePath: z.string().default('projects').optional(), // Navigation integration (renamed from projectsListPagePath)
   createdAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string().optional(),

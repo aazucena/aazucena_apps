@@ -20,11 +20,11 @@ export function ProjectsSection({ title = 'Featured Projects', subtitle = 'Real 
   const [hasMoved, setHasMoved] = useState(false);
 
   // Use CMS-configured max projects displayed
-  const displayedProjects = projects.slice(0, showcase.display.maxProjectsDisplayed);
+  const displayedProjects = projects.slice(0, showcase.maxProjectsDisplayed);
 
   // Split into pages using CMS-configured projects per page
   const pages = [];
-  const { projectsPerPage } = showcase.display;
+  const { projectsPerPage } = showcase;
   for (let i = 0; i < displayedProjects.length; i += projectsPerPage) {
     pages.push(displayedProjects.slice(i, i + projectsPerPage));
   }
@@ -128,7 +128,7 @@ export function ProjectsSection({ title = 'Featured Projects', subtitle = 'Real 
         <div className="text-center mb-4">
           <p className="text-gray-400 text-sm flex items-center justify-center gap-2 animate-pulse">
             <ArrowsHorizontal className="w-5 h-5" />
-            {showcase.ui.dragHintText}
+            {showcase.dragHintText}
           </p>
         </div>
 
@@ -178,13 +178,13 @@ export function ProjectsSection({ title = 'Featured Projects', subtitle = 'Real 
                       {/* Add View More card to last page */}
                       {isLastPage && (
                         <a
-                          href={showcase.navigation.projectsListPagePath}
+                          href={showcase.listPagePath || '/projects'}
                           className="bg-gradient-to-br from-cyan-400/20 to-blue-500/20 backdrop-blur-sm rounded-lg p-6 border border-cyan-400/30 text-left w-[420px] flex items-center justify-center cursor-pointer hover:from-cyan-400/30 hover:to-blue-500/30 transition-all duration-300 block no-underline"
                           onClick={handleViewMoreClick}
                         >
                           <div className="text-center">
-                            <h3 className="text-3xl font-bold text-white mb-2">{showcase.ui.viewMoreButtonLabel}</h3>
-                            <p className="text-gray-300">{showcase.ui.viewMoreButtonSubtitle}</p>
+                            <h3 className="text-3xl font-bold text-white mb-2">{showcase.viewMoreButtonLabel}</h3>
+                            <p className="text-gray-300">{showcase.viewMoreButtonSubtitle}</p>
                           </div>
                         </a>
                       )}
