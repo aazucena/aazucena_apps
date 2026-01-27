@@ -1,6 +1,13 @@
 import type { StrapiWebsiteConfig } from '../validators/website-config';
 import { transformSeo, getMediaUrl } from './utils';
 
+export interface TechStackItem {
+  name: string;
+  iconTitle: string;
+  iconUrl?: string;
+  sort: number;
+}
+
 export interface WebsiteConfig {
   siteName: string;
   siteUrl: string;
@@ -15,6 +22,11 @@ export interface WebsiteConfig {
   robotsIndex: boolean;
   robotsFollow: boolean;
   googleSiteVerificationId?: string;
+  // Footer configuration
+  footerBrandDescription?: string;
+  footerLocationTagline?: string;
+  footerBuiltWithLabel: string;
+  techStack: TechStackItem[];
 }
 
 export const DEFAULT_WEBSITE_CONFIG: WebsiteConfig = {
@@ -36,6 +48,16 @@ export const DEFAULT_WEBSITE_CONFIG: WebsiteConfig = {
   metaTitleTemplate: '%s — {siteName}',
   robotsIndex: true,
   robotsFollow: true,
+  // Footer defaults
+  footerBrandDescription: 'Architecting high-performance digital systems with a focus on logic, scale, and human-centric design.',
+  footerLocationTagline: 'Engineered with precision in Canada',
+  footerBuiltWithLabel: 'Built with',
+  techStack: [
+    { name: 'Astro', iconTitle: 'Astro', sort: 0 },
+    { name: 'React', iconTitle: 'React', sort: 1 },
+    { name: 'Tailwind CSS', iconTitle: 'Tailwind CSS', sort: 2 },
+    { name: 'Vite', iconTitle: 'Vite', sort: 3 },
+  ],
 };
 
 export function transformWebsiteConfig(data: StrapiWebsiteConfig): WebsiteConfig {
@@ -55,5 +77,19 @@ export function transformWebsiteConfig(data: StrapiWebsiteConfig): WebsiteConfig
     robotsIndex: !!data.robotsIndex,
     robotsFollow: !!data.robotsFollow,
     googleSiteVerificationId: data.googleSiteVerificationId || undefined,
+    // Footer configuration
+    footerBrandDescription: data.footerBrandDescription || DEFAULT_WEBSITE_CONFIG.footerBrandDescription,
+    footerLocationTagline: data.footerLocationTagline || DEFAULT_WEBSITE_CONFIG.footerLocationTagline,
+    footerBuiltWithLabel: data.footerBuiltWithLabel || DEFAULT_WEBSITE_CONFIG.footerBuiltWithLabel,
+    techStack: (data.techStack && data.techStack.length > 0)
+      ? data.techStack
+          .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+          .map(item => ({
+            name: item.name,
+            iconTitle: item.iconTitle,
+            iconUrl: item.iconUrl || undefined,
+            sort: item.sort || 0,
+          }))
+      : DEFAULT_WEBSITE_CONFIG.techStack,
   };
 }

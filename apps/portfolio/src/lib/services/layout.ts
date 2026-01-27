@@ -1,9 +1,11 @@
 import { getPreloaderConfig } from '../api/preloader';
 import { getMaintenance } from '../api/maintenance';
+import { getWebsiteConfig } from '../api/website-config';
 import { SITE_CONFIG } from '~/config/site';
 
 export interface LayoutDataResponse {
   siteConfig: typeof SITE_CONFIG;
+  websiteConfig: Awaited<ReturnType<typeof getWebsiteConfig>>;
   preloaderConfig: Awaited<ReturnType<typeof getPreloaderConfig>>;
   maintenance: Awaited<ReturnType<typeof getMaintenance>>;
 }
@@ -20,7 +22,8 @@ export function getSiteConfig() {
  * Used by BaseLayout.astro to configure site-wide settings
  */
 export async function getLayoutData(): Promise<LayoutDataResponse> {
-  const [preloaderConfig, maintenance] = await Promise.all([
+  const [websiteConfig, preloaderConfig, maintenance] = await Promise.all([
+    getWebsiteConfig(),
     getPreloaderConfig(),
     getMaintenance(),
   ]);
@@ -32,6 +35,7 @@ export async function getLayoutData(): Promise<LayoutDataResponse> {
 
   return {
     siteConfig: SITE_CONFIG,
+    websiteConfig,
     preloaderConfig,
     maintenance,
   };

@@ -13,7 +13,7 @@ import {
 export async function getWebsiteConfig(): Promise<WebsiteConfig> {
   try {
     const response = await fetchStrapi('website-configuration', {
-      query: { populate: ['defaultSEO.openGraph.ogImage', 'siteLogo', 'favicon'] },
+      query: { populate: ['defaultSEO.openGraph.ogImage', 'siteLogo', 'favicon', 'techStack'] },
     });
 
     const validated = StrapiWebsiteConfigSchema.parse(response.data);

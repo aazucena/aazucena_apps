@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-01-27T02:31:40.838Z"
+    "x-generation-date": "2026-01-27T03:59:52.427Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -37200,6 +37200,21 @@
               "cleanUrls": {
                 "type": "boolean"
               },
+              "footerBrandDescription": {
+                "type": "string"
+              },
+              "footerLocationTagline": {
+                "type": "string"
+              },
+              "footerBuiltWithLabel": {
+                "type": "string"
+              },
+              "techStack": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/UiTechStackItemComponent"
+                }
+              },
               "locale": {
                 "type": "string"
               },
@@ -38036,6 +38051,21 @@
           "cleanUrls": {
             "type": "boolean"
           },
+          "footerBrandDescription": {
+            "type": "string"
+          },
+          "footerLocationTagline": {
+            "type": "string"
+          },
+          "footerBuiltWithLabel": {
+            "type": "string"
+          },
+          "techStack": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UiTechStackItemComponent"
+            }
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -38381,6 +38411,21 @@
                 "cleanUrls": {
                   "type": "boolean"
                 },
+                "footerBrandDescription": {
+                  "type": "string"
+                },
+                "footerLocationTagline": {
+                  "type": "string"
+                },
+                "footerBuiltWithLabel": {
+                  "type": "string"
+                },
+                "techStack": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UiTechStackItemComponent"
+                  }
+                },
                 "createdAt": {
                   "type": "string",
                   "format": "date-time"
@@ -38445,6 +38490,29 @@
           },
           "meta": {
             "type": "object"
+          }
+        }
+      },
+      "UiTechStackItemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "iconTitle": {
+            "type": "string"
+          },
+          "iconUrl": {
+            "type": "string"
+          },
+          "sort": {
+            "type": "integer"
           }
         }
       },

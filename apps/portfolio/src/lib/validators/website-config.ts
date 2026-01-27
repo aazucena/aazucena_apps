@@ -2,6 +2,20 @@ import { z } from 'zod';
 import { SeoSchema, StrapiMediaSchema } from './components';
 
 /**
+ * Zod schema for Tech Stack item
+ */
+export const TechStackSchema = z.object({
+  id: z.number().optional(),
+  name: z.string().max(50),
+  icon: z.any().nullable().optional(), // icons-field plugin
+  iconTitle: z.string().max(100),
+  iconUrl: z.string().url().max(255).nullable().optional(),
+  sort: z.number().default(0),
+});
+
+export type TechStackItem = z.infer<typeof TechStackSchema>;
+
+/**
  * Zod schema for Website Configuration from Strapi CMS
  */
 export const StrapiWebsiteConfigSchema = z.object({
@@ -22,6 +36,11 @@ export const StrapiWebsiteConfigSchema = z.object({
   googleSiteVerificationId: z.string().max(100).nullable().optional(),
   trailingSlash: z.boolean().default(false),
   cleanUrls: z.boolean().default(true),
+  // Footer configuration
+  footerBrandDescription: z.string().max(500).nullable().optional(),
+  footerLocationTagline: z.string().max(200).nullable().optional(),
+  footerBuiltWithLabel: z.string().max(50).default('Built with'),
+  techStack: z.array(TechStackSchema).nullable().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string().optional(),

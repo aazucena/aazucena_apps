@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_ui_tech_stack_items",
+  "info": {
+    "displayName": "Tech Stack Item",
+    "icon": "code",
+    "description": "Technology stack item for footer display"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "maxLength": 50,
+      "required": true
+    },
+    "icon": {
+      "type": "customField",
+      "customField": "plugin::icons-field.icon",
+      "options": {
+        "selection": []
+      }
+    },
+    "iconTitle": {
+      "type": "string",
+      "maxLength": 100,
+      "required": true
+    },
+    "iconUrl": {
+      "type": "string",
+      "maxLength": 255,
+      "regex": "^(https?://.*|/.+|#.+|/|#)$"
+    },
+    "sort": {
+      "type": "integer",
+      "default": 0,
+      "min": 0,
+      "max": 100
+    }
+  },
+  "config": {}
+}

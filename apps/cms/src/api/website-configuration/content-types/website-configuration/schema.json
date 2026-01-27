@@ -85,6 +85,25 @@
     "cleanUrls": {
       "type": "boolean",
       "default": true
+    },
+    "footerBrandDescription": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "footerLocationTagline": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "footerBuiltWithLabel": {
+      "type": "string",
+      "maxLength": 50,
+      "default": "Built with"
+    },
+    "techStack": {
+      "type": "component",
+      "component": "ui.tech-stack-item",
+      "repeatable": true,
+      "max": 10
     }
   }
 }

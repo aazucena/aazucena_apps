@@ -17,7 +17,7 @@ export interface Props {
 const { title, description }: Props = Astro.props;
 
 // Fetch all layout configuration from Strapi CMS in parallel
-const { siteConfig, preloaderConfig, maintenance } = await getLayoutData();
+const { siteConfig, websiteConfig, preloaderConfig } = await getLayoutData();
 
 // Detect if we're using CMS fallback configs (indicates CMS fetch failure)
 const isCmsFallback = false;
@@ -28,12 +28,12 @@ const preloaderThemeConfig = getPreloaderTheme(preloaderTheme);
 const preloaderBackground = preloaderThemeConfig.colors.background;
 
 // Extract brand logo URL (use CMS siteLogo if available, otherwise default to /icon.svg)
-const brandLogoUrl = siteConfig.metadata.siteLogoUrl || '/icon.svg';
+const brandLogoUrl = websiteConfig.siteLogoUrl || '/icon.svg';
 
 // Build meta title using template
 const pageTitle = formatPageTitle(title);
 
-const pageDescription = description || siteConfig.metadata.defaultSEO.description;
+const pageDescription = description || websiteConfig.defaultSEO?.description;
 
 // Detect page type for transition styles
 const path = Astro.url.pathname;
@@ -63,19 +63,19 @@ const themeStyles = {
 		<ResourceHints />
 
 		{/* Favicon - Extracted component with fallback */}
-		<Favicon url={siteConfig.metadata.faviconUrl} />
+		<Favicon url={websiteConfig.faviconUrl} />
 
 		{/* SEO Meta Tags - Extracted to reusable component */}
 		<SEO
 			title={pageTitle}
-			description={pageDescription}
-			canonical={siteConfig.metadata.defaultSEO.canonical}
-			keywords={siteConfig.metadata.defaultSEO.keywords}
-			robots={siteConfig.metadata.defaultSEO.robots}
-			viewport={siteConfig.metadata.defaultSEO.viewport}
-			twitterCard={siteConfig.metadata.defaultSEO.twitterCard}
-			twitterSite={siteConfig.metadata.social.twitter}
-			googleSiteVerificationId={siteConfig.metadata.googleSiteVerificationId}
+			description={pageDescription!}
+			canonical={websiteConfig.defaultSEO?.canonical}
+			keywords={websiteConfig.defaultSEO?.keywords}
+			robots={websiteConfig.defaultSEO?.robots}
+			viewport={websiteConfig.defaultSEO?.viewport}
+			twitterCard={websiteConfig.defaultSEO?.twitterCard}
+			twitterSite={websiteConfig.twitterHandle}
+			googleSiteVerificationId={websiteConfig.googleSiteVerificationId}
 		/>
 
 		{/* Theme Stylesheet - Static styles referencing dynamic CMS variables */}

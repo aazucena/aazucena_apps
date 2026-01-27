@@ -4,15 +4,18 @@ import Footer from '~/components/Footer.astro';
 import { Navbar } from '~/components/ui/Navbar';
 import { BackToTop } from '~/components/ui/BackToTop';
 import { getPortfolio } from '~/lib/api/portfolio';
-import { getSiteConfig } from '~/lib/services/layout';
+import { getWebsiteConfig } from '~/lib/api/website-config';
 import { getAllNavigations } from '~/lib/api/navigation';
 
 const props: BaseLayoutProps = Astro.props;
 
-const siteConfig = getSiteConfig();
-
-// Fetch data for layout
-const portfolio = await getPortfolio();
+// Fetch data for layout (in parallel)
+// Note: BaseLayout already fetches websiteConfig via getLayoutData()
+// We fetch it again here to pass to Navbar/Footer (minor duplication for cleaner architecture)
+const [portfolio, websiteConfig] = await Promise.all([
+  getPortfolio(),
+  getWebsiteConfig(),
+]);
 
 // Fetch navigation data
 const { mainNav, footerNav } = await getAllNavigations();
@@ -22,9 +25,9 @@ const currentPath = Astro.url.pathname;
 
 <BaseLayout {...props}>
   <Navbar
-    siteName={siteConfig.metadata.siteName}
+    siteName={websiteConfig.siteName}
     currentPath={currentPath}
-    logoUrl={siteConfig.metadata.faviconUrl || '/icon.svg'}
+    logoUrl={websiteConfig.faviconUrl || '/icon.svg'}
     navItems={mainNav.items}
     client:load
   />
@@ -34,10 +37,14 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <Footer
-    siteName={siteConfig.metadata.siteName}
+    siteName={websiteConfig.siteName}
     socialLinks={portfolio.socialLinks}
     availabilityStatus={portfolio.availabilityStatus}
     navigationSections={footerNav.items}
+    footerBrandDescription={websiteConfig.footerBrandDescription}
+    footerLocationTagline={websiteConfig.footerLocationTagline}
+    footerBuiltWithLabel={websiteConfig.footerBuiltWithLabel}
+    techStack={websiteConfig.techStack}
   />
   <BackToTop client:load />
 </BaseLayout>

@@ -3784,6 +3784,19 @@ export interface ApiWebsiteConfigurationWebsiteConfiguration
     defaultSEO: Schema.Attribute.Component<'shared.seo', false> &
       Schema.Attribute.Required;
     favicon: Schema.Attribute.Media<'images'>;
+    footerBrandDescription: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    footerBuiltWithLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }> &
+      Schema.Attribute.DefaultTo<'Built with'>;
+    footerLocationTagline: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
     googleSiteVerificationId: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
@@ -3821,6 +3834,13 @@ export interface ApiWebsiteConfigurationWebsiteConfiguration
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    techStack: Schema.Attribute.Component<'ui.tech-stack-item', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+        },
+        number
+      >;
     trailingSlash: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     twitterHandle: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{

@@ -647,6 +647,47 @@ export interface UiTag extends Struct.ComponentSchema {
   };
 }
 
+export interface UiTechStackItem extends Struct.ComponentSchema {
+  collectionName: 'components_ui_tech_stack_items';
+  info: {
+    description: 'Technology stack item for footer display';
+    displayName: 'Tech Stack Item';
+    icon: 'code';
+  };
+  attributes: {
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::icons-field.icon',
+        {
+          selection: [];
+        }
+      >;
+    iconTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    iconUrl: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    sort: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -672,6 +713,7 @@ declare module '@strapi/strapi' {
       'ui.image-element': UiImageElement;
       'ui.loading-step': UiLoadingStep;
       'ui.tag': UiTag;
+      'ui.tech-stack-item': UiTechStackItem;
     }
   }
 }
