@@ -258,6 +258,14 @@ This is a personal portfolio project. For major changes or suggestions:
 **Last Updated:** 2026-01-27
 
 **Recent Changes:**
+- ✅ **Footer CMS Implementation (2026-01-27):**
+  - Extended `website-configuration` single type with footer fields
+  - Added `ui.tech-stack-item` component for dynamic tech stack
+  - Renamed `order` → `sort` for clarity
+  - Zero API overhead (reuses existing website-config fetch)
+  - Fields: `footerBrandDescription`, `footerLocationTagline`, `footerBuiltWithLabel`, `techStack`
+  - Architecture: `siteConfig` (static theme) + `websiteConfig` (CMS content)
+  - Files modified: 9 (5 frontend + 2 backend + 2 CMS schemas)
 - ✅ **Navigation Plugin Integration (2026-01-27):**
   - Integrated `strapi-plugin-navigation` v3.2.4 for CMS-driven navigation
   - WRAPPER architecture: Combined footer sections (3 containers → 2)

@@ -20,10 +20,10 @@ Further optimize component structure, standardize patterns across sections, and 
 4. **Site Configuration** - Centralized config with types and helpers
 5. **Footer Enhancement** - Tech stack logos (Astro, React, Tailwind, Vite)
 6. **About Section - Working Style Integration:**
-   - Implemented `content.working-style-item.json` Strapi component.
-   - Updated About schema, transformer, and validator to support working style entries.
-   - Created `WorkingStyleSection.tsx` React component.
-   - Added `getWorkingStyleColor` utility function for dynamic styling.
+   - Implemented `content.working-style-item` json component.
+   - Updated About schema, transformer, and validator.
+   - Created `WorkingStyleSection.tsx` component.
+   - Added `getWorkingStyleColor` utility.
    - Integrated into `about.astro` page.
 7. **Navigation Plugin Integration (2026-01-27):**
    - Integrated `strapi-plugin-navigation` v3.2.4 for CMS-driven navigation
@@ -33,6 +33,10 @@ Further optimize component structure, standardize patterns across sections, and 
    - Label override system (admin titles vs display text)
    - Flattened `additionalFields` for component ergonomics
    - Performance: API calls reduced 3→2 (33% improvement)
+8. **Footer CMS Integration (2026-01-27):**
+   - website-config extension with tech stack component
+   - Footer content moved to CMS with zero API overhead
+   - Clean separation: siteConfig (theme) vs websiteConfig (content)
 
 ### 🚧 In Progress
 - Scene.tsx optimization (next priority)
@@ -122,6 +126,50 @@ Further optimize component structure, standardize patterns across sections, and 
 - ✅ Ready for future enhancements (audience filtering, i18n)
 
 **Effort:** 1 day (~0.5 days implementation + documentation)
+
+---
+
+#### Footer CMS Integration (2026-01-27) ✅
+
+**Objective:** Move hardcoded Footer content to Strapi CMS while maintaining zero API overhead.
+
+**Implementation:**
+- Extended `website-configuration` single type with 4 footer fields
+- Created `ui.tech-stack-item` repeatable component
+- Renamed `order` → `sort` for clarity
+- Zero additional API calls (reuses existing website-config fetch)
+
+**Architecture Decision:**
+- `siteConfig` (from `config/site.ts`) → Static theme (colors, fonts)
+- `websiteConfig` (from Strapi API) → Dynamic content (footer, SEO, branding)
+- Both configs used in `BaseLayout` and `PageLayout`
+
+**Files Modified (9 total):**
+Frontend (5):
+- `src/lib/validators/website-config.ts` - Added TechStackSchema
+- `src/lib/transformers/website-config.ts` - Transform logic + defaults
+- `src/lib/api/website-config.ts` - Populate query update
+- `src/components/Footer.astro` - Dynamic rendering
+- `src/layouts/PageLayout.astro` - Props wiring
+
+Backend (2):
+- `src/layouts/BaseLayout.astro` - Uses websiteConfig
+- `src/lib/services/layout.ts` - Returns both configs
+
+CMS Schemas (2):
+- `apps/cms/src/api/website-configuration/.../schema.json` - Footer fields
+- `apps/cms/src/components/ui/tech-stack-item.json` - New component
+
+**Benefits:**
+- ✅ Content editors can update footer without code changes
+- ✅ Type-safe with Zod validation
+- ✅ Graceful fallbacks to defaults
+- ✅ No performance impact (zero additional API calls)
+
+**CMS Configuration Required:**
+1. Restart Strapi to load new schemas
+2. Populate Website Configuration with footer fields
+3. Add tech stack items (Astro, React, Tailwind CSS, Vite)
 
 ---
 
