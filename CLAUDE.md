@@ -18,7 +18,9 @@ This is a **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. 
 ```
 aazucena_apps/
 ├── apps/
-│   └── portfolio/          # Main Astro portfolio application
+│   ├── portfolio/          # Main Astro portfolio application
+│   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal
+│   └── cms/                # Strapi CMS backend
 ├── packages/
 │   ├── shared/             # Shared utilities and types
 │   └── ui/                 # Shared UI components
@@ -36,6 +38,9 @@ pnpm dev
 
 # Run only portfolio app
 pnpm web:dev
+
+# Run only analytics app
+pnpm analytics:dev
 
 # Build all apps
 pnpm build
@@ -59,6 +64,15 @@ pnpm build
 pnpm preview
 ```
 
+### Analytics-Specific (from apps/analytics/)
+```bash
+# Development server (Next.js)
+pnpm dev
+
+# Production build
+pnpm build
+```
+
 ### Testing
 ```bash
 # E2E tests (Playwright) - from portfolio directory
@@ -78,95 +92,250 @@ pnpm dlx playwright show-report
 
 ## Architecture Overview
 
+
+
 ### Portfolio App Architecture
 
+
+
 **Framework Stack:**
+
 - **Astro 5.16.0** as the meta-framework with React integration
+
 - **Rendering Pattern**: Hybrid (Static by default, SSR for dynamic status pages)
+
 - **React 19.2** for interactive components
+
 - **Tailwind CSS 4** with @tailwindcss/vite plugin
+
 - **TypeScript** throughout
 
+
+
 **Build Configuration:**
+
 - **Vercel + pnpm**: Requires `.npmrc` with `shamefully-hoist=true` and `public-hoist-pattern[]=*babel*` to resolve Babel dependency tracing issues.
 
+
+
 **Content Rendering Pattern:**
+
 - **MarkdownRenderer**: Used for `richtext` fields in Strapi (e.g., Post/Experience descriptions) which return strings.
+
 - **BlocksRenderer**: Used for `blocks` fields in Strapi (e.g., Experience responsibilities, About descriptions) which return JSON arrays.
+
 - **SSR Pages**: `maintenance.astro` and `500.astro` use `export const prerender = false` to support real-time status checks and error logging.
+
+
 
 **Animation Architecture (Post-Phase 1 Refactoring):**
 
+
+
 The portfolio features a complex animation system located in `apps/portfolio/src/components/animations/`. This was successfully refactored in Phase 1 (completed 2025-01-13).
 
+
+
 **Current Structure (Post-Phase 0.2.4):**
+
 ```
+
 src/components/animations/
+
 ├── Section.tsx              # Main orchestrator (174 lines - refactored)
+
 ├── HomepageContent.tsx      # Section content renderer (replaces SectionContent)
+
 ├── ThreeJSScene.tsx         # Three.js scene (renamed from Scene.tsx)
+
 ├── PixiJSParticles.tsx      # PixiJS particle system (renamed from Particles.tsx)
+
 ├── contexts/                # State management contexts
+
 │   ├── PortfolioContext.tsx # Portfolio state (scroll, sections)
+
 │   ├── AnimationContext.tsx # Animation state (layers, effects)
+
 │   ├── DataContext.tsx      # CMS data provider (NEW in Phase 0.2.4)
+
 │   ├── usePortfolio.ts      # Hook for portfolio context
+
 │   ├── useAnimation.ts      # Hook for animation context
-│   ├── useDataContext.ts    # Hook for CMS data (NEW)
+
+│   ├── useDataContext.ts      # Hook for CMS data (NEW)
+
 │   └── index.ts             # Centralized exports
+
 ├── canvas/                  # Canvas components (extracted)
+
 │   ├── AnimationCanvas.tsx
+
 │   └── index.ts
+
 ├── overlays/                # Overlay components (extracted)
+
 │   ├── UIOverlays.tsx
+
 │   └── index.ts
+
 ├── config/                  # Configuration and types
+
 ├── hooks/                   # 13 custom React hooks
+
 │   ├── useDeviceCapabilities.ts
+
 │   ├── useSectionTransition.ts
+
 │   ├── useAtmosphericLayer.ts
+
 │   ├── useModal.ts
+
 │   ├── useSectionRefs.ts
+
 │   ├── useSectionTransitions.ts
+
 │   ├── useGSAPEntrance.ts
+
 │   ├── useFlipText.ts
+
 │   ├── useLocalStorage.ts
+
 │   ├── useSectionRegistry.ts  # NEW (0.2.4): Component mapping
+
 │   ├── useHandlebars.ts       # NEW (0.2.4): Template rendering
+
 │   ├── useDataContext.ts      # NEW (0.2.4): CMS data access
+
 │   ├── usePortfolio.ts        # Exported from contexts/
+
 │   ├── useAnimation.ts        # Exported from contexts/
+
 │   └── index.ts
+
 ├── particles/               # Particle system internals
+
 ├── scene/                   # Three.js scene components
+
 ├── sections/                # 8 portfolio sections (Hero, About, Projects, etc.)
+
 │   └── layouts/             # Reusable section layouts (NEW)
+
 │       ├── SectionLayout.tsx
+
 │       └── index.ts
+
 ├── ui/                      # UI components (modals, toolbar, panels)
+
 └── utilities/               # Helper functions
+
 ```
+
+
 
 **Key Animation Concepts:**
 
+
+
 1. **Atmospheric Layers:** The portfolio uses a metaphor of atmospheric layers (troposphere, stratosphere, mesosphere, exosphere) that transition based on scroll progress. Each layer has different visual effects and backgrounds.
+
+
 
 2. **Section Navigation:** 8 distinct sections (0-7) that users navigate through. Each section has dedicated content components.
 
+
+
 3. **Performance Tiers:** Device capabilities are detected and animations adapt (high/medium/low performance modes). Heavy animations (Three.js, PixiJS) are conditionally rendered.
+
+
 
 4. **State Management:** Uses centralized contexts (PortfolioContext, AnimationContext) established in Phase 1 refactoring.
 
+
+
+### AZUCENA_LYTICS: Engineering Intelligence Terminal Architecture
+
+
+
+**Framework Stack:**
+
+- **Next.js 15** (App Router)
+
+- **UI Library:** React 19.2 with TypeScript
+
+- **Styling:** Tailwind CSS 4
+
+- **Visualizations:** D3.js (Heatmaps, StreamGraphs)
+
+- **State Management:** Redux Toolkit
+
+- **Data Fetching:** TanStack Query v5
+
+- **Animations:** Framer Motion
+
+
+
+**Core Features:**
+
+1.  **Telemetry Ingestion API (`/api/ingest`):** Zod-validated POST endpoint for collecting structured telemetry data.
+
+2.  **ClickHouse Integration:** OLAP database for high-volume, immutable event streams. Connection managed via singleton in `lib/clickhouse.ts`.
+
+3.  **Real-time Dashboards:**
+
+    -   **Node Overview (`/`):** Summary KPIs, system integrity.
+
+    -   **Audio Intelligence (`/music`):** Telemetry streams related to audio processing.
+
+    -   **Telemetry Stream (`/logs`):** Raw event logs, searchable and filterable.
+
+    -   **System Integrity (`/performance`):** Performance metrics and trend visualizations.
+
+4.  **Global State Management:** Redux Toolkit for global filters (`visibleCategories`, `searchQuery`), UI states (`isSidebarCollapsed`, `isLive`).
+
+5.  **Data Polling:** `useTelemetry` hooks (TanStack Query) for real-time data updates.
+
+6.  **Brand Theming:** Zinc-scale base with Cyan Blue (`--primary-500`) and Coral Orange (`--secondary-500`) accents, fully responsive to light/dark mode.
+
+
+
+**Key Components:**
+
+-   `src/app/api/ingest/route.ts`: Secure data collector.
+
+-   `src/app/api/stats/{summary,trends,logs}/route.ts`: Data endpoints for dashboards.
+
+-   `src/hooks/useTelemetry.ts`: TanStack Query hooks.
+
+-   `src/components/visualizations/{Heatmap,StreamGraph}.tsx`: D3.js powered charts.
+
+-   `src/components/logs/{TelemetryFeed,LogDetailModal}.tsx`: Log display and detail views.
+
+-   `src/components/common/AdminMenu.tsx`: Identity management popover.
+
+-   `src/store/slices/dashboard.ts`: Redux slice for dashboard state.
+
+
+
 ### Hooks System
 
+
+
 The animation system relies on custom hooks for encapsulation:
+
 - `useDeviceCapabilities` - Detects performance tier
+
 - `useSectionTransition` - Manages section navigation state
+
 - `useAtmosphericLayer` - Determines current atmospheric layer
+
 - `useGSAPEntrance` - GSAP animation setup
+
 - `useSectionTransitions` - GSAP section transitions
+
 - `useFlipText` - Text flipping animation
+
 - `useModal` - Modal state management
+
 - `useSectionRefs` - Manages refs for 8 sections
 
 ### State Flow (Post-Phase 0.2.4)
@@ -451,6 +620,9 @@ src/lib/
 - **@radix-ui/** - Headless UI primitives (used by ShadCN)
 - **react-hook-form** + **zod** - Form validation
 - **@vercel/analytics** + **@vercel/speed-insights** - Analytics
+- **d3** - Data visualizations (Used in AZUCENA_LYTICS)
+- **@reduxjs/toolkit** - State management (Used in AZUCENA_LYTICS)
+- **@tanstack/react-query** - Server state management (Used in AZUCENA_LYTICS)
 
 ### Development Tools
 - **Playwright** - E2E testing (configured)
@@ -460,6 +632,7 @@ src/lib/
 
 ### Backend & Infrastructure (Planned/In Progress)
 - **Strapi v5** (CMS) - Upgraded from v4 for better PostgreSQL and pgVector support
+- **ClickHouse** (OLAP Database) - For high-volume telemetry and analytics
 - **Strapi Plugins:**
   - `strapi-plugin-icons-field` v1.1.5 - Icon picker field with @mynaui/icons support
   - `@strapi/plugin-graphql` - GraphQL API
@@ -731,6 +904,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 **Last Updated:** 2026-01-27
 
 **Key Updates:**
+- ✅ **AZUCENA_LYTICS // Core_Terminal (V1 Prototype Complete)** (2026-01-28) - Engineering Intelligence Terminal for the monorepo, built with Next.js 15, D3.js, ClickHouse, Redux Toolkit, and TanStack Query v5. Fully themed (light/dark mode) and responsive.
 - ✅ **Footer CMS Implementation (2026-01-27):**
   - Extended `website-configuration` single type with footer fields
   - Added `ui.tech-stack-item` component for dynamic tech stack

@@ -18,7 +18,9 @@ A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The prim
 ```
 aazucena_apps/
 ├── apps/
-│   └── portfolio/          # Main Astro portfolio application
+│   ├── portfolio/          # Main Astro portfolio application
+│   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal (Next.js)
+│   └── cms/                # Strapi CMS backend
 ├── packages/
 │   ├── shared/             # Shared utilities and types
 │   └── ui/                 # Shared UI components
@@ -38,6 +40,9 @@ pnpm dev
 
 # Run only portfolio app
 pnpm web:dev
+
+# Run only analytics dashboard
+pnpm analytics:dev
 
 # Build all apps
 pnpm build
@@ -62,6 +67,16 @@ pnpm build
 pnpm preview
 ```
 
+### Analytics-Specific Commands
+From `apps/analytics/`:
+```bash
+# Development server (Next.js)
+pnpm dev
+
+# Production build
+pnpm build
+```
+
 ### Testing
 ```bash
 # E2E tests (Playwright) - from portfolio directory
@@ -83,25 +98,29 @@ pnpm dlx playwright show-report
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework:** Astro (with React integration)
-- **Build Tool:** Vite
-- **UI Library:** React 18+ with TypeScript
+### Frontend & Analytics
+- **Frameworks:** Astro (Portfolio), Next.js 15 (Analytics)
+- **Build Tool:** Vite, Turbo
+- **UI Library:** React 19 with TypeScript
 - **Styling:** Tailwind CSS 4
 - **UI Components:** ShadCN UI
-- **Animations:** GSAP (GreenSock), Three.js, PixiJS
+- **Animations:** GSAP (GreenSock), Three.js, PixiJS, Framer Motion
+- **Visualizations:** D3.js (Telemetry Dashboards)
 - **Audio:** Howler.js (playback), wavesurfer.js (waveform), Strudel.cc (live coding)
 - **Icons:** @mynaui/icons-react v0.3.9
-- **Data Management:** TanStack Query, TanStack Table
+- **Data Management:** TanStack Query v5, TanStack Table
 - **Forms:** react-hook-form + Zod
 - **Payments:** Stripe, Ko-fi
-- **State Management:** React Context API + Custom Hooks
+- **State Management:** Redux Toolkit (Analytics), React Context API + Custom Hooks (Portfolio)
 
 ### Backend & Infrastructure
 - **CMS:** Strapi v5
-- **Database:** PostgreSQL 16+ with pgVector extension
+- **Databases:** 
+  - PostgreSQL 16+ with pgVector extension (App Data)
+  - ClickHouse (OLAP Analytics Data)
 - **Storage:** Cloudinary
 - **Monorepo:** pnpm + Turborepo
+- **Caching:** Redis
 - **Frontend Deploy:** Vercel (auto via GitHub)
 - **Backend Deploy:** Railway
 - **CI/CD:** CircleCI (CMS only)

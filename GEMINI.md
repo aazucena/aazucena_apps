@@ -18,7 +18,9 @@ This is a **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. 
 ```
 aazucena_apps/
 ├── apps/
-│   └── portfolio/          # Main Astro portfolio application
+│   ├── portfolio/          # Main Astro portfolio application
+│   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal
+│   └── cms/                # Strapi CMS backend
 ├── packages/
 │   ├── shared/             # Shared utilities and types
 │   └── ui/                 # Shared UI components
@@ -36,6 +38,9 @@ pnpm dev
 
 # Run only portfolio app
 pnpm web:dev
+
+# Run only analytics app
+pnpm analytics:dev
 
 # Build all apps
 pnpm build
@@ -57,6 +62,15 @@ pnpm build
 
 # Preview production build
 pnpm preview
+```
+
+### Analytics-Specific (from apps/analytics/)
+```bash
+# Development server (Next.js)
+pnpm dev
+
+# Production build
+pnpm build
 ```
 
 ### Testing
@@ -156,6 +170,38 @@ src/components/animations/
 3. **Performance Tiers:** Device capabilities are detected and animations adapt (high/medium/low performance modes). Heavy animations (Three.js, PixiJS) are conditionally rendered.
 
 4. **State Management:** Uses centralized contexts (PortfolioContext, AnimationContext) established in Phase 1 refactoring.
+
+### AZUCENA_LYTICS: Engineering Intelligence Terminal Architecture
+
+**Framework Stack:**
+- **Next.js 15** (App Router)
+- **UI Library:** React 19.2 with TypeScript
+- **Styling:** Tailwind CSS 4
+- **Visualizations:** D3.js (Heatmaps, StreamGraphs)
+- **State Management:** Redux Toolkit
+- **Data Fetching:** TanStack Query v5
+- **Animations:** Framer Motion
+
+**Core Features:**
+1.  **Telemetry Ingestion API (`/api/ingest`):** Zod-validated POST endpoint for collecting structured telemetry data.
+2.  **ClickHouse Integration:** OLAP database for high-volume, immutable event streams. Connection managed via singleton in `lib/clickhouse.ts`.
+3.  **Real-time Dashboards:**
+    -   **Node Overview (`/`):** Summary KPIs, system integrity.
+    -   **Audio Intelligence (`/music`):** Telemetry streams related to audio processing.
+    -   **Telemetry Stream (`/logs`):** Raw event logs, searchable and filterable.
+    -   **System Integrity (`/performance`):** Performance metrics and trend visualizations.
+4.  **Global State Management:** Redux Toolkit for global filters (`visibleCategories`, `searchQuery`), UI states (`isSidebarCollapsed`, `isLive`).
+5.  **Data Polling:** `useTelemetry` hooks (TanStack Query) for real-time data updates.
+6.  **Brand Theming:** Zinc-scale base with Cyan Blue (`--primary-500`) and Coral Orange (`--secondary-500`) accents, fully responsive to light/dark mode.
+
+**Key Components:**
+-   `src/app/api/ingest/route.ts`: Secure data collector.
+-   `src/app/api/stats/{summary,trends,logs}/route.ts`: Data endpoints for dashboards.
+-   `src/hooks/useTelemetry.ts`: TanStack Query hooks.
+-   `src/components/visualizations/{Heatmap,StreamGraph}.tsx`: D3.js powered charts.
+-   `src/components/logs/{TelemetryFeed,LogDetailModal}.tsx`: Log display and detail views.
+-   `src/components/common/AdminMenu.tsx`: Identity management popover.
+-   `src/store/slices/dashboard.ts`: Redux slice for dashboard state.
 
 ### Hooks System
 
@@ -451,6 +497,9 @@ src/lib/
 - **@radix-ui/** - Headless UI primitives (used by ShadCN)
 - **react-hook-form** + **zod** - Form validation
 - **@vercel/analytics** + **@vercel/speed-insights** - Analytics
+- **d3** - Data visualizations (Used in AZUCENA_LYTICS)
+- **@reduxjs/toolkit** - State management (Used in AZUCENA_LYTICS)
+- **@tanstack/react-query** - Server state management (Used in AZUCENA_LYTICS)
 
 ### Development Tools
 - **Playwright** - E2E testing (configured)
@@ -460,6 +509,7 @@ src/lib/
 
 ### Backend & Infrastructure (Planned/In Progress)
 - **Strapi v5** (CMS) - Upgraded from v4 for better PostgreSQL and pgVector support
+- **ClickHouse** (OLAP Database) - For high-volume telemetry and analytics
 - **Strapi Plugins:**
   - `strapi-plugin-icons-field` v1.1.5 - Icon picker field with @mynaui/icons support
   - `@strapi/plugin-graphql` - GraphQL API
@@ -731,6 +781,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
 **Last Updated:** 2026-01-27
 
 **Key Updates:**
+- ✅ **AZUCENA_LYTICS // Core_Terminal (V1 Prototype Complete)** (2026-01-28) - Engineering Intelligence Terminal for the monorepo, built with Next.js 15, D3.js, ClickHouse, Redux Toolkit, and TanStack Query v5. Fully themed (light/dark mode) and responsive.
 - ✅ **Footer CMS Implementation (2026-01-27):**
   - Extended `website-configuration` single type with footer fields
   - Added `ui.tech-stack-item` component for dynamic tech stack
@@ -746,6 +797,7 @@ Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Mach
   - Site config centralized
   - Footer updated with tech stack logos
   - ✅ **Navigation Plugin Integration** (2026-01-27)
+  - ✅ **AZUCENA_LYTICS // Core_Terminal (V1 Prototype)** (2026-01-28) - Engineering Intelligence dashboard for the monorepo, built with Next.js 15, D3.js, ClickHouse, Redux Toolkit, and TanStack Query v5. Fully themed (light/dark mode) and responsive.
     - CMS-driven navigation via `strapi-plugin-navigation` v3.2.4
     - WRAPPER architecture: Single `footer-navigation` container with nested sections
     - Custom fields: `label` (display override), `icon`, `buttonStyle` (primary/secondary/outline), `description`, `cssClass`

@@ -103,6 +103,11 @@ Unit tests, integration tests, E2E tests with Playwright.
 
 ### Feature Documentation
 
+#### Analytics & Telemetry 📊
+- **[AZUCENA_LYTICS Overview](/apps/analytics/README.md)** - Engineering Intelligence Terminal architecture and setup (Next.js/ClickHouse/D3.js)
+- **[Logging & Monitoring](./features/logging-monitoring.md)** - Sentry, Vercel Analytics, Pino, Redis (3-4 days)
+- **[Plausible Analytics](./features/plausible-analytics.md)** - Self-hosted privacy-friendly traffic analytics (2-3 days)
+
 #### Music & Compositions 🎵
 - **[Music Player](./features/music-player.md)** - Howler.js, waveform visualization (4-6 days)
 - **[Strudel.cc Live Coding](./features/strudel-integration.md)** - Interactive TidalCycles patterns (9-13 days)
