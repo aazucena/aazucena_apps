@@ -6,7 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "web:dev": "pnpm dev --filter *portfolio*",
-    "cms:dev": "pnpm dev --filter *directus*",
+    "cms:dev": "pnpm dev --filter *cms*",
+    "analytics:dev": "pnpm dev --filter *analytics*",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
