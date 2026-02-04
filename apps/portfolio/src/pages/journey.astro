@@ -4,20 +4,20 @@
  * Includes interactive graphs, timelines, and heatmaps.
  */
 import { Compass, Heart, Lamp, Rocket } from '@mynaui/icons-react';
+// Journey page imports - organized by type
+import { JourneyDashboard } from '~/components/journey';
+import { CareerStats, GrowthMetrics } from '~/components/ui/journey';
+import { InteractiveTimeline } from '~/components/visualizations/journey';
 import {
-calculateCareerStats,
-calculateSkillGrowthMetrics,
-CareerStats,
-GrowthMetrics,
-InteractiveTimeline,
-SkillsDashboard,
-transformToHeatmapData,
-transformToSankeyData,
-transformToSkillsEvolution,
-transformToSkillsNetwork,
-transformToStreamGraphData,
-transformToTimelineData,
-} from '~/components/journey';
+  calculateCareerStats,
+  calculateSkillGrowthMetrics,
+  transformToHeatmapData,
+  transformToSankeyData,
+  transformToSkillsEvolution,
+  transformToSkillsNetwork,
+  transformToStreamGraphData,
+  transformToTimelineData,
+} from '~/lib/transformers/journey';
 import { IconRenderer } from '~/components/blocks/IconRenderer';
 import GradientAccent from '~/components/common/GradientAccent.astro';
 import WatermarkBackground from '~/components/common/WatermarkBackground.astro';
@@ -209,7 +209,7 @@ const phases = (journeyConfig?.phases && journeyConfig.phases.length > 0)
               <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
                 <GrowthMetrics metrics={growthMetrics} client:visible />
               </div>
-              <SkillsDashboard
+              <JourneyDashboard
                 evolutionData={skillsEvolutionData}
                 networkData={skillsNetworkData}
                 sankeyData={sankeyData}

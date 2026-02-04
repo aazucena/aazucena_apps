@@ -250,7 +250,7 @@ const [ firstName, /*lastName*/ ] = portfolio.fullName.split(' ');
           <BookOpen size={24} className="text-blue-600" />
           Academic Background
         </h2>
-        <div class="space-y-12 px-3">
+        <div class="flex flex-col gap-6 px-3">
           {sortedEducation.map((edu) => (
             <EducationItem edu={edu} client:visible />
           ))}
