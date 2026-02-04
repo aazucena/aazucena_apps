@@ -1,0 +1,14 @@
+<clickhouse>
+    <users>
+        <admin>
+            <!-- Enable SQL-based access management for this user -->
+            <access_management>1</access_management>
+            <networks>
+                <ip>::/0</ip>
+            </networks>
+            <grants>
+                <query>GRANT ALL ON *.* WITH GRANT OPTION</query>
+            </grants>
+        </admin>
+    </users>
+</clickhouse>

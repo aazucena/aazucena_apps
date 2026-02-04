@@ -1,0 +1,7 @@
+[
+  { "id": "strapi", "url": "http://aazucena-cms:1337/_health", "type": "CORE" },
+  { "id": "clickhouse", "url": "http://aazucena-clickhouse:8123/ping", "type": "CORE" },
+  { "id": "intel-bridge", "url": "http://aazucena-intel-bridge:3001/health", "type": "CORE" },
+  { "id": "portfolio", "url": "http://10.0.0.97:4321/api/health", "type": "APP" },
+  { "id": "analytics-dashboard", "url": "http://10.0.0.97:8080/api/health", "type": "APP" }
+]

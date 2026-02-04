@@ -1,0 +1,17 @@
+services:
+  intel-bridge:
+    container_name: aazucena-intel-bridge
+    image: aazucena/intel-bridge:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3001"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - INGESTION_SECRET_KEY=${INGESTION_SECRET_KEY}
+      - INTERNAL_INGEST_URL=http://host.docker.internal:8080/api/ingest
+      - STRAPI_URL=http://aazucena-cms:1337
+    restart: unless-stopped

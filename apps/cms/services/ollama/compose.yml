@@ -1,0 +1,21 @@
+services:
+  ollama:
+    container_name: aazucena-ollama
+    image: ollama/ollama:rocm
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    # Optional: Enable GPU support for Linux
+    devices:
+      # Map the necessary AMD GPU devices from the host to the container
+      - "/dev/kfd:/dev/kfd"
+      - "/dev/dri:/dev/dri"
+    # Add the container to the 'video' group to ensure proper permissions
+    group_add:
+      - video
+
+volumes:
+  ollama-data:
+    driver: local

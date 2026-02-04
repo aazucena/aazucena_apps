@@ -1,0 +1,85 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prompts",
+  "info": {
+    "singularName": "prompt",
+    "pluralName": "prompts",
+    "displayName": "AI Prompt",
+    "description": "Centrally managed prompt templates for the Engineering Intelligence ecosystem"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "system_message": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "human_template": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "type": {
+      "type": "enumeration",
+      "default": "assistant",
+      "enum": [
+        "intent_analyst",
+        "assistant",
+        "expert",
+        "tool",
+        "evaluation"
+      ]
+    },
+    "langsmith_id": {
+      "type": "string"
+    },
+    "langsmith_url": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "component",
+      "component": "ui.tag",
+      "repeatable": true
+    },
+    "metadata": {
+      "type": "json"
+    }
+  }
+}
