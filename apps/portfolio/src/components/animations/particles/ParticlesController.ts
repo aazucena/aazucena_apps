@@ -4,7 +4,7 @@
  */
 
 import type { ParticleSystemConfig, Particle } from './types';
-import { PARTICLE_DEFAULTS } from '../config';
+import { PARTICLE_DEFAULTS, PARTICLE_PRESETS } from '~/config/animations';
 
 export class ParticlesController {
   private particles: Particle[] = [];
@@ -13,13 +13,17 @@ export class ParticlesController {
   private animationFrameId: number | null = null;
 
   constructor(config: Partial<ParticleSystemConfig> = {}) {
+    // Apply preset if specified
+    const preset = config.preset ? PARTICLE_PRESETS[config.preset] : null;
+
     this.config = {
-      count: config.count || 100,
-      size: config.size || PARTICLE_DEFAULTS.SIZE,
-      speed: config.speed || PARTICLE_DEFAULTS.SPEED,
-      opacity: config.opacity || PARTICLE_DEFAULTS.OPACITY,
+      count: config.count || preset?.count || 100,
+      size: config.size || preset?.size || PARTICLE_DEFAULTS.SIZE,
+      speed: config.speed || preset?.speed || PARTICLE_DEFAULTS.SPEED,
+      opacity: config.opacity || preset?.opacity || PARTICLE_DEFAULTS.OPACITY,
       color: config.color,
-      phase: config.phase
+      phase: config.phase,
+      preset: config.preset
     };
   }
 
@@ -37,8 +41,9 @@ export class ParticlesController {
    * Create a single particle
    */
   private createParticle(width: number, height: number): Particle {
-    // Star colors: white, blue-white, cyan, pale yellow, icy blue
-    const starColors = [
+    // Get colors from preset or use defaults
+    const preset = this.config.preset ? PARTICLE_PRESETS[this.config.preset] : null;
+    const colors = preset?.colors || [
       0xffffff, // White
       0xe0f0ff, // Blue-white
       0x88ffff, // Cyan
@@ -46,20 +51,48 @@ export class ParticlesController {
       0xddeeff  // Icy blue
     ];
 
-    const baseColor = 0xffffff; // Always start with white
-    const targetColor = starColors[Math.floor(Math.random() * starColors.length)];
+    const baseColor = colors[0] || 0xffffff; // First color as base
+    const targetColor = colors[Math.floor(Math.random() * colors.length)] || 0xffffff;
     const baseAlpha = this.config.opacity * (0.6 + Math.random() * 0.4);
+
+    // Get twinkling speed from preset or use defaults
+    const twinkleSpeedMin = preset?.twinkling ? (preset.twinkleSpeed?.min || 0.5) : 0.5;
+    const twinkleSpeedMax = preset?.twinkling ? (preset.twinkleSpeed?.max || 1.5) : 1.5;
+
+    // Apply preset-specific motion
+    let vx = (Math.random() - 0.5) * this.config.speed * 10; // 10x multiplier for visibility
+    let vy = (Math.random() - 0.5) * this.config.speed * 10;
+
+    if (this.config.preset) {
+      if (this.config.preset === 'rain') {
+        // Rain falls straight down with some drift
+        vx = (Math.random() - 0.5) * 0.5;
+        vy = this.config.speed * 50; // Fast downward
+      } else if (this.config.preset === 'snow') {
+        // Snow drifts sideways while falling
+        vx = (Math.random() - 0.5) * 2; // Gentle sideways drift
+        vy = this.config.speed * 10; // Moderate fall
+      } else if (this.config.preset === 'space') {
+        // Space - very slow drift
+        vx = (Math.random() - 0.5) * this.config.speed * 2;
+        vy = (Math.random() - 0.5) * this.config.speed * 2;
+      } else if (this.config.preset === 'floating') {
+        // Floating - slow random motion
+        vx = (Math.random() - 0.5) * this.config.speed * 5;
+        vy = (Math.random() - 0.5) * this.config.speed * 5;
+      }
+    }
 
     return {
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * this.config.speed,
-      vy: (Math.random() - 0.5) * this.config.speed,
+      vx,
+      vy,
       size: this.config.size * (0.5 + Math.random() * 0.5),
       color: baseColor,
       alpha: baseAlpha,
       // Twinkling properties
-      twinkleSpeed: 0.5 + Math.random() * 1.5, // Random speed for varied twinkling
+      twinkleSpeed: twinkleSpeedMin + Math.random() * (twinkleSpeedMax - twinkleSpeedMin),
       twinklePhase: Math.random() * Math.PI * 2, // Random phase so they don't sync
       baseColor,
       targetColor,
@@ -76,9 +109,9 @@ export class ParticlesController {
     const currentTime = performance.now() / 1000; // Convert to seconds
 
     this.particles.forEach(particle => {
-      // Update position
-      particle.x += particle.vx * deltaTime * 10; // Slower movement
-      particle.y += particle.vy * deltaTime * 10;
+      // Update position (velocity already scaled in createParticle)
+      particle.x += particle.vx * deltaTime;
+      particle.y += particle.vy * deltaTime;
 
       // Wrap around screen
       if (particle.x < 0) particle.x = width;

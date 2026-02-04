@@ -9,6 +9,8 @@ import BrandIconLoader from '@/components/BrandIconLoader.astro';
 import { getTheme as getPreloaderTheme } from '@/components/preloader/themes/registry';
 import { getLayoutData } from '~/lib/services/layout';
 import { formatPageTitle } from '~/config/site';
+import PlausibleScript from '~/components/common/PlausibleScript.astro';
+import PageViewTracker from '~/components/telemetry/PageViewTracker';
 
 export interface Props {
   title?: string;
@@ -77,6 +79,8 @@ const themeStyles = {
 			twitterSite={websiteConfig.twitterHandle}
 			googleSiteVerificationId={websiteConfig.googleSiteVerificationId}
 		/>
+    <PlausibleScript domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} />
+    <PageViewTracker client:load />
 
 		{/* Theme Stylesheet - Static styles referencing dynamic CMS variables */}
 		<link rel="stylesheet" href="/styles/theme.css">

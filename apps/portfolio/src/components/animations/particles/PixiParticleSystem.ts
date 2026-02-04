@@ -4,14 +4,17 @@
  */
 
 import * as PIXI from 'pixi.js';
-import type { ParticleSystemConfig, Particle } from './types';
+import type { ParticleSystemConfig, ParticleEmitterConfig } from './types';
 import { ParticlesController } from './ParticlesController';
+import { ParticleRenderer } from './ParticleRenderer';
+import { ParticleEmitter } from './ParticleEmitter';
 
 export class PixiParticleSystem {
   private app: PIXI.Application | null = null;
   private container: PIXI.Container | null = null;
-  private graphics: PIXI.Graphics[] = [];
   private controller: ParticlesController;
+  private renderer: ParticleRenderer | null = null;
+  private emitter: ParticleEmitter | null = null;
   private lastTime: number = 0;
 
   constructor(config: Partial<ParticleSystemConfig> = {}) {
@@ -37,9 +40,24 @@ export class PixiParticleSystem {
     this.container = new PIXI.Container();
     this.app.stage.addChild(this.container);
 
+    // Initialize renderer
+    this.renderer = new ParticleRenderer(this.container);
+
+    // Initialize emitter for dynamic particles
+    this.emitter = new ParticleEmitter({
+      emissionRate: 10,
+      lifetime: 2000, // 2 seconds before fade-out
+      initialVelocity: { x: 0, y: -1 },
+      velocityVariance: 0.5,
+      sizeRange: [2, 5] // Larger particles for visibility
+    });
+
     // Initialize particles
     this.controller.initialize(width, height);
-    this.createGraphics();
+
+    // Create graphics through renderer
+    const particles = this.controller.getParticles();
+    this.renderer.createGraphics(particles);
 
     // Start animation loop
     this.lastTime = performance.now();
@@ -47,26 +65,11 @@ export class PixiParticleSystem {
   }
 
   /**
-   * Create graphics for particles
-   */
-  private createGraphics(): void {
-    if (!this.container) return;
-
-    const particles = this.controller.getParticles();
-
-    particles.forEach(particle => {
-      const graphics = new PIXI.Graphics();
-      graphics.circle(0, 0, particle.size);
-      graphics.fill({ color: particle.color, alpha: particle.alpha });
-      this.container!.addChild(graphics);
-      this.graphics.push(graphics);
-    });
-  }
-
-  /**
    * Animation loop
    */
   private animate(): void {
+    if (!this.renderer || !this.emitter) return;
+
     const currentTime = performance.now();
     const deltaTime = (currentTime - this.lastTime) / 1000; // Convert to seconds
     this.lastTime = currentTime;
@@ -74,25 +77,19 @@ export class PixiParticleSystem {
     const width = this.app?.renderer.width || 800;
     const height = this.app?.renderer.height || 600;
 
-    // Update particle positions and twinkling
+    // Update background particles (static stars/snow)
     this.controller.update(deltaTime, width, height);
 
-    // Update graphics positions, colors, and alpha
-    const particles = this.controller.getParticles();
-    particles.forEach((particle, index) => {
-      if (this.graphics[index]) {
-        const graphics = this.graphics[index];
+    // Update emitted particles (dynamic effects)
+    this.emitter.update(deltaTime);
 
-        // Update position
-        graphics.x = particle.x;
-        graphics.y = particle.y;
+    // Combine both particle sets for rendering
+    const backgroundParticles = this.controller.getParticles();
+    const emittedParticles = this.emitter.getActiveParticles();
+    const allParticles = [...backgroundParticles, ...emittedParticles];
 
-        // Redraw with updated color and alpha (for twinkling effect)
-        graphics.clear();
-        graphics.circle(0, 0, particle.size);
-        graphics.fill({ color: particle.color, alpha: particle.alpha });
-      }
-    });
+    // Render all particles
+    this.renderer.render(allParticles);
   }
 
   /**
@@ -126,14 +123,67 @@ export class PixiParticleSystem {
   }
 
   /**
+   * Apply visual effect
+   */
+  applyEffect(effect: 'glow' | 'blur' | 'none'): void {
+    if (this.renderer) {
+      this.renderer.applyEffect(effect);
+    }
+  }
+
+  /**
+   * Emit particles at a specific position
+   */
+  emitAt(x: number, y: number, count: number = 1): void {
+    if (this.emitter) {
+      this.emitter.emit(x, y, count);
+    }
+  }
+
+  /**
+   * Emit a burst of particles (explosion effect)
+   */
+  emitBurst(x: number, y: number, count: number = 50): void {
+    if (this.emitter) {
+      this.emitter.emit(x, y, count);
+    }
+  }
+
+  /**
+   * Update emitter configuration
+   */
+  updateEmitterConfig(config: Partial<ParticleEmitterConfig>): void {
+    if (this.emitter) {
+      this.emitter.updateConfig(config);
+    }
+  }
+
+  /**
+   * Clear all emitted particles
+   */
+  clearEmittedParticles(): void {
+    if (this.emitter) {
+      this.emitter.clear();
+    }
+  }
+
+  /**
    * Cleanup and destroy
    */
   destroy(): void {
     this.controller.destroy();
 
+    if (this.emitter) {
+      this.emitter.destroy();
+      this.emitter = null;
+    }
+
+    if (this.renderer) {
+      this.renderer.destroy();
+      this.renderer = null;
+    }
+
     if (this.container) {
-      this.graphics.forEach(g => g.destroy());
-      this.graphics = [];
       this.container.destroy();
       this.container = null;
     }

@@ -5,7 +5,7 @@ import {
   transformJourney, 
   DEFAULT_JOURNEY, 
   type JourneyPageConfig 
-} from '../transformers/journey';
+} from '../transformers/journey-page';
 
 /**
  * Fetch journey page configuration and narrative

@@ -314,6 +314,15 @@ export const StreamingLinkSchema = z.object({
   isPrimary: z.boolean().default(false),
 });
 
+/**
+ * Skill with Category - used across experiences, education, projects
+ * Represents a technical skill with its category classification
+ */
+export const SkillWithCategorySchema = z.object({
+  name: z.string(),
+  category: z.string(),
+});
+
 // --- Type Exports ---
 
 export type Stats = z.infer<typeof StatsSchema>;
@@ -335,5 +344,6 @@ export type LanguageItem = z.infer<typeof LanguageItemSchema>;
 export type WorkingStyleItem = z.infer<typeof WorkingStyleItemSchema>;
 export type SocialLink = z.infer<typeof SocialLinkSchema>;
 export type StreamingLink = z.infer<typeof StreamingLinkSchema>;
+export type SkillWithCategory = z.infer<typeof SkillWithCategorySchema>;
 export type Achievement = z.infer<typeof AchievementSchema>;
 export type Section = z.infer<typeof SectionSchema>;

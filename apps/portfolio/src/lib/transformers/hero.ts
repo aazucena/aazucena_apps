@@ -11,7 +11,7 @@ export interface HeroData {
 
 export const DEFAULT_HERO: HeroData = {
   flipWords: ['ideas', 'concepts', 'visions', 'dreams'],
-  taglineTemplate: 'Turning {flipWord} into elegant code, one pixel at a time.',
+  taglineTemplate: 'Turning {{flipWord}} into elegant code, one pixel at a time.',
   showDropdown: true,
   showSecondaryButton: true,
 };

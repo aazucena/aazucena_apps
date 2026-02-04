@@ -4,7 +4,7 @@
  */
 
 import type { BLEND_MODES } from 'pixi.js';
-import type { AtmosphericPhase } from '../config';
+import type { AtmosphericPhase } from '~/config/animations';
 
 export interface ParticleSystemConfig {
   count: number;
@@ -13,6 +13,7 @@ export interface ParticleSystemConfig {
   opacity: number;
   color?: string;
   phase?: AtmosphericPhase;
+  preset?: 'space' | 'snow' | 'rain' | 'floating';
 }
 
 export interface Particle {

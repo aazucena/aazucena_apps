@@ -13,6 +13,7 @@ import { getExperienceShowcase } from '../api/experience-showcase';
 import { getSkillShowcase } from '../api/skill-showcase';
 import { getWebsiteConfig } from '../api/website-config';
 import { getAnimationConfig } from '../api/animation';
+import { getBlogConfig } from '../api/blog-config';
 import type { HeroData } from '../transformers/hero';
 import type { AboutData } from '../transformers/about';
 import type { Project } from '../transformers/projects';
@@ -24,12 +25,14 @@ import type { SkillCategory } from '../transformers/skills';
 import type { ProjectShowcaseConfig } from '../transformers/project-showcase';
 import type { ExperienceShowcaseConfig } from '../transformers/experience-showcase';
 import type { SkillShowcaseConfig } from '../transformers/skill-showcase';
+import type { BlogConfigData } from '../transformers/blog-config';
 
 export interface PortfolioData {
   hero: HeroData;
   about: AboutData;
   projects: Project[];
   experiences: Experience[];
+  blog: BlogConfigData;
   posts: BlogPost[];
   testimonials: Testimonial[];
   awards: Award[];
@@ -51,6 +54,7 @@ export async function getHomepageData() {
       hero,
       projects,
       experiences,
+      blog,
       posts,
       testimonials,
       awards,
@@ -67,10 +71,11 @@ export async function getHomepageData() {
       getHero(),
       getProjects('home'),
       getExperiences(),
+      getBlogConfig(),
       getPosts(true, 3), // Featured only, limit 3
       getTestimonials(),
       getAwards(),
-      getSkills('core'),
+      getSkills('featured'),
       getHomepage(),
       getProjectShowcaseConfig(),
       getExperienceShowcase(),
@@ -84,6 +89,7 @@ export async function getHomepageData() {
       about,
       projects,
       experiences,
+      blog,
       posts,
       testimonials,
       awards,

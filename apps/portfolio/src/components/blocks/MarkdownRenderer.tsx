@@ -6,9 +6,11 @@
 import { marked } from 'marked';
 import type { Tokens } from 'marked';
 import type { JSX } from 'react';
+import { cn } from '~/lib/utils';
 
 interface MarkdownRendererProps {
   content: string;
+  className?: string;
 }
 
 /**
@@ -58,7 +60,7 @@ marked.use({
 
       // Properly render list items with nested content
       const items = token.items.map((item: Tokens.ListItem) => {
-        const content = this.parser.parseInline(item.tokens);
+        const content = this.parser.parse(item.tokens);
         return `<li class="text-gray-700 dark:text-gray-300 leading-relaxed">${content}</li>`;
       }).join('');
 
@@ -79,7 +81,7 @@ marked.use({
     blockquote(token: Tokens.Blockquote): string {
       // Parse block-level tokens in blockquotes
       const content = this.parser.parse(token.tokens);
-      return `<blockquote class="border-l-4 border-blue-600 dark:border-cyan-400 pl-4 py-2 mb-4 italic text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-white/5 rounded-r-lg [&_p]:!mt-0">${content}</blockquote>`;
+      return `<blockquote class="border-l-4 border-blue-600 dark:border-cyan-400 px-4 py-6 mb-4 italic text-gray-700 dark:text-gray-300 bg-cyan-900/10 dark:bg-cyan-900/20 rounded-r-lg [&_p]:!mt-0">${content}</blockquote>`;
     },
 
     // Code blocks
@@ -116,14 +118,14 @@ marked.use({
 /**
  * Parse and render markdown content with Tailwind styling
  */
-export function MarkdownRenderer({ content }: MarkdownRendererProps): JSX.Element {
+export function MarkdownRenderer({ content, className: _className }: MarkdownRendererProps): JSX.Element {
   if (!content) return <></>;
 
   const html = marked.parse(content) as string;
 
   return (
     <div
-      className="markdown-content"
+      className={cn('markdown-content', _className)}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

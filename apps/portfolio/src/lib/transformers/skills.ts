@@ -1,9 +1,10 @@
 import type { StrapiSkill } from '../validators/skills';
 import type { GradientVariant } from '../validators/enums';
+import type { StrapiSkillCategory } from '../validators/skill-category';
 
 export interface Skill {
   name: string;
-  category: string;
+  category: StrapiSkillCategory;
   proficiency: string;
   display: string;
   icon?: string;
@@ -15,8 +16,11 @@ export interface Skill {
 }
 
 export interface SkillCategory {
-  id: string;
+  id: number;
+  name: string;
+  documentId: string;
   label: string;
+  display: StrapiSkillCategory['display'],
   gradient: GradientVariant;
   icon?: any;
   skills: Skill[];
@@ -49,14 +53,17 @@ export function transformSkill(skill: StrapiSkill): Skill {
 export function groupSkillsByCategory(cmsSkills: StrapiSkill[]): SkillCategory[] {
   // Group logic
   const grouped = cmsSkills.reduce((acc, skill) => {
-    const categoryData = skill.category;
+    const categoryData = skill.category as StrapiSkillCategory;
+    const categoryDisplay = categoryData.display || 'visible';
     const categoryName = categoryData?.label || categoryData?.name || 'Other';
-    const categoryId = categoryData?.documentId || categoryData?.id?.toString() || categoryName.toLowerCase().replace(/\s+/g, '-');
 
     if (!acc[categoryName]) {
       acc[categoryName] = {
-        id: categoryId,
+        id: categoryData.id,
+        documentId: categoryData?.documentId,
+        name: categoryData?.name || 'other',
         label: categoryName,
+        display: categoryDisplay,
         gradient: (categoryData?.variant as GradientVariant) || 'blue-cyan',
         icon: categoryData?.icon,
         skills: []
@@ -67,5 +74,5 @@ export function groupSkillsByCategory(cmsSkills: StrapiSkill[]): SkillCategory[]
     return acc;
   }, {} as Record<string, SkillCategory>);
 
-  return Object.values(grouped);
+  return Object.values(grouped).sort((a, b) => a.id - b.id);
 }

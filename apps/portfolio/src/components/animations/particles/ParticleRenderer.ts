@@ -7,8 +7,10 @@ import * as PIXI from 'pixi.js';
 import type { Particle, ParticleRendererConfig } from './types';
 export class ParticleRenderer {
   private config: ParticleRendererConfig;
-  private graphics: PIXI.Graphics[] = [];
+  private sprites: PIXI.Sprite[] = [];
   private container: PIXI.Container;
+  private particleTexture: PIXI.Texture | null = null;
+  private currentEffect: 'glow' | 'blur' | 'none' = 'none';
 
   constructor(container: PIXI.Container, config: Partial<ParticleRendererConfig> = {}) {
     this.container = container;
@@ -17,45 +19,105 @@ export class ParticleRenderer {
       tint: config.tint || 0xffffff,
       texture: config.texture
     };
+
+    // Create particle texture
+    this.particleTexture = this.createParticleTexture(32); // 32x32 particle texture
   }
 
   /**
-   * Create graphics objects for particles
+   * Create a circular particle texture using canvas
+   */
+  private createParticleTexture(size: number): PIXI.Texture {
+    // Create canvas for particle texture
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      throw new Error('Failed to get 2D context');
+    }
+
+    const center = size / 2;
+    const radius = size / 2;
+
+    // Create radial gradient (bright center, soft edges)
+    const gradient = ctx.createRadialGradient(center, center, 0, center, center, radius);
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.8)');
+    gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.4)');
+    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    // Draw circle
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(center, center, radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Create PixiJS texture from canvas
+    return PIXI.Texture.from(canvas);
+  }
+
+  /**
+   * Create sprite objects for particles
    */
   createGraphics(particles: Particle[]): void {
     this.clearGraphics();
 
-    particles.forEach(particle => {
-      const graphics = new PIXI.Graphics();
-      graphics.circle(0, 0, particle.size);
-      graphics.fill({ color: particle.color, alpha: particle.alpha });
-      graphics.blendMode = this.config.blendMode;
+    if (!this.particleTexture) return;
 
-      this.container.addChild(graphics);
-      this.graphics.push(graphics);
+    particles.forEach(particle => {
+      const sprite = new PIXI.Sprite(this.particleTexture!);
+
+      // Set anchor to center for rotation and scaling
+      sprite.anchor.set(0.5);
+
+      // Set initial properties
+      sprite.x = particle.x;
+      sprite.y = particle.y;
+      sprite.tint = particle.color;
+      sprite.alpha = particle.alpha;
+      sprite.blendMode = this.config.blendMode;
+
+      // Scale sprite to match particle size
+      const scale = particle.size / 16; // 32px texture → particle size
+      sprite.scale.set(scale);
+
+      this.container.addChild(sprite);
+      this.sprites.push(sprite);
     });
   }
 
   /**
-   * Update graphics positions and opacity
+   * Update sprite positions, colors, and opacity (OPTIMIZED - no redrawing!)
    */
   updateGraphics(particles: Particle[]): void {
+    // Apply effect-based alpha multiplier
+    const alphaMultiplier =
+      this.currentEffect === 'glow' ? 1.5 :
+      this.currentEffect === 'blur' ? 1.2 :
+      1.0;
+
     particles.forEach((particle, index) => {
-      const graphic = this.graphics[index];
-      if (graphic) {
-        graphic.x = particle.x;
-        graphic.y = particle.y;
-        graphic.alpha = particle.alpha;
+      const sprite = this.sprites[index];
+      if (sprite) {
+        // Update position
+        sprite.x = particle.x;
+        sprite.y = particle.y;
+
+        // Update color and alpha with sprite tinting (fast!)
+        sprite.tint = particle.color;
+        sprite.alpha = Math.min(particle.alpha * alphaMultiplier, 1);
       }
     });
   }
 
   /**
-   * Render particles with optimized batching
+   * Render particles with optimized sprite batching
    */
   render(particles: Particle[]): void {
-    // Ensure we have the right number of graphics
-    if (this.graphics.length !== particles.length) {
+    // Ensure we have the right number of sprites
+    if (this.sprites.length !== particles.length) {
       this.createGraphics(particles);
     } else {
       this.updateGraphics(particles);
@@ -66,18 +128,36 @@ export class ParticleRenderer {
    * Apply visual effects to particles
    */
   applyEffect(effect: 'glow' | 'blur' | 'none'): void {
+    if (this.currentEffect === effect) return; // No change needed
+
+    // Remove previous filters
+    this.container.filters = null;
+
     if (effect === 'glow') {
-      this.graphics.forEach(g => {
-        g.tint = this.config.tint;
+      // Create glow effect with additive blending
+      this.sprites.forEach(s => {
+        s.blendMode = 'add'; // Additive blending for glow
+        s.alpha = Math.min(s.alpha * 1.5, 1); // Boost alpha for visibility
       });
+      this.currentEffect = 'glow';
     } else if (effect === 'blur') {
-      // PixiJS blur filter can be added here if needed
-      // const blurFilter = new PIXI.BlurFilter();
-      // this.container.filters = [blurFilter];
-    } else {
-      this.graphics.forEach(g => {
-        g.tint = 0xffffff;
+      // Add blur filter for soft, dreamy effect
+      const blurFilter = new PIXI.BlurFilter({
+        strength: 4, // Increased from 2
+        quality: 4
       });
+      this.container.filters = [blurFilter];
+      this.sprites.forEach(s => {
+        s.blendMode = 'normal';
+        s.alpha = Math.min(s.alpha * 1.2, 1); // Slightly boost to compensate for blur
+      });
+      this.currentEffect = 'blur';
+    } else {
+      // Reset to normal
+      this.sprites.forEach(s => {
+        s.blendMode = 'normal';
+      });
+      this.currentEffect = 'none';
     }
   }
 
@@ -89,11 +169,11 @@ export class ParticleRenderer {
   }
 
   /**
-   * Clear all graphics
+   * Clear all sprites
    */
   clearGraphics(): void {
-    this.graphics.forEach(g => g.destroy());
-    this.graphics = [];
+    this.sprites.forEach(s => s.destroy());
+    this.sprites = [];
   }
 
   /**
@@ -101,5 +181,10 @@ export class ParticleRenderer {
    */
   destroy(): void {
     this.clearGraphics();
+
+    if (this.particleTexture) {
+      this.particleTexture.destroy(true);
+      this.particleTexture = null;
+    }
   }
 }

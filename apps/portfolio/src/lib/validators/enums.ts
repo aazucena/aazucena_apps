@@ -249,3 +249,15 @@ export type FormType = z.infer<typeof FormTypeEnum>;
 export type SubmissionStatus = z.infer<typeof SubmissionStatusEnum>;
 export type ChallengeType = z.infer<typeof ChallengeTypeEnum>;
 export type RewardType = z.infer<typeof RewardTypeEnum>;
+
+// --- AI & Intelligence Enums ---
+
+export const PromptTypeEnum = z.enum([
+  'intent_analyst',
+  'assistant',
+  'expert',
+  'tool',
+  'evaluation'
+]);
+
+export type PromptType = z.infer<typeof PromptTypeEnum>;
