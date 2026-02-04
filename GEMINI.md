@@ -707,162 +707,96 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
 
 ### Key Features
 - ✨ **Easter Egg Step** - Hidden engagement step required before submission
-- 🤖 **AI Intent Classification** - Automatic routing of form submissions
-- 🔍 **Smart Field Extraction** - Extracts structured data from casual messages
-- 💬 **Follow-up Questions** - Context-aware clarifications
-- 📊 **Sentiment Analysis** - Analyzes emotional tone
-- 🧠 **AI Summarization** - Generates concise summaries (50-150 words)
-- 🔒 **reCAPTCHA v3** - Spam protection
-- ✅ **Auto-Response** - Optional personalized replies
 
-### Vector Database & Semantic Search
-- **pgVector** - PostgreSQL extension for vector similarity search
-- **Embeddings Storage** - Store embeddings of `rawMessage`, `rawFeedback`, `testimonialText`, `rawDescription`, `aiSummary`
-- **Metadata Indexing** - `formType`, `sentiment`, `tags`, `submissionDate`, `langSmithId`
-- **Retrieval Use Cases:**
-  - Semantic search for similar feedback/bug reports
-  - RAG (Retrieval-Augmented Generation) for AI responses
-  - Analytics clustering and pattern detection
-  - Duplicate detection for bug reports/feature requests
+**Framework Stack:**
+- **Astro 5.16.0** as the meta-framework with React integration
+- **Rendering Pattern**: Hybrid (Static by default, SSR for dynamic status pages)
+- **React 19.2** for interactive components
+- **Tailwind CSS 4** with @tailwindcss/vite plugin
+- **TypeScript** throughout
 
-### AI Pipeline Flow
-```
-Frontend (Astro/React) → reCAPTCHA v3 + Rate Limiting → LangGraph State Machine
-  ├─ IntentClassifierAgent (classify form type)
-  ├─ EasterEggDetectorAgent (detect hidden keywords)
-  ├─ FieldExtractionAgent (extract structured data)
-  ├─ ValidationAgent (check required fields)
-  ├─ SummarizationAgent (generate AI summary + sentiment)
-  └─ AutoResponseAgent (optional personalized reply)
-→ LangSmith (tracing/logging)
-→ Strapi v5 (structured data storage)
-→ [Async Job] Embedding Generation
-→ pgVector (vector storage with metadata)
-→ Retrieval & Ranking (query time with Cohere Rerank)
-```
+**Build Configuration:**
+- **Vercel + pnpm**: Requires `.npmrc` with `shamefully-hoist=true` and `public-hoist-pattern[]=*babel*` to resolve Babel dependency tracing issues.
 
-### Important Considerations
-1. **Always use LangSmith for tracing** - Track full conversation flow and token usage
-2. **Easter Egg detection is required** - Users must find hidden step before submission
-3. **Embedding generation is async** - Don't block form submission on embedding creation
-4. **Metadata filtering is crucial** - Use `formType`, `sentiment`, `tags` for efficient retrieval
-5. **Reranking improves relevance** - Use Cohere Rerank or cross-encoders after vector search
-6. **See `docs/features/ai-forms.md`** for complete implementation details
+**Content Rendering Pattern:**
+- **MarkdownRenderer**: Used for `richtext` fields in Strapi (e.g., Post/Experience descriptions) which return strings.
+- **BlocksRenderer**: Used for `blocks` fields in Strapi (e.g., Experience responsibilities, About descriptions) which return JSON arrays.
+- **SSR Pages**: `maintenance.astro` and `500.astro` use `export const prerender = false` to support real-time status checks and error logging.
 
-## Performance Considerations
+### AZUCENA_LYTICS: Engineering Intelligence Terminal Architecture
 
-1. **Heavy animations are gated by device detection** - always respect `capabilities.canUseHeavyAnimations`
-2. **Three.js scene only renders if capable** - reduces load on low-end devices
-3. **PixiJS particles only in "exosphere" layer** - conditional rendering based on scroll state
-4. **Performance tier affects animation intensity** - `capabilities.performanceTier` is 'high', 'medium', or 'low'
+**Framework Stack:**
+- **Next.js 15** (App Router)
+- **UI Library:** React 19.2 with TypeScript
+- **Styling:** Tailwind CSS 4
+- **Visualizations:** D3.js (Heatmaps, StreamGraphs)
+- **State Management:** Redux Toolkit
+- **Data Fetching:** TanStack Query v5
+- **AI Stack:** Vercel AI SDK + Vercel AI Gateway (Native Provider)
 
-## Common Pitfalls
+**Core Features:**
+1.  **Telemetry Ingestion API (`/api/ingest`):** Central entry point for TS and Python events.
+2.  **ClickHouse Integration:** High-volume event streams stored in the `analytics` DB.
+3.  **Real-time Dashboards:**
+    -   **Node Overview (`/`):** Summary KPIs, system integrity.
+    -   **Audio Intelligence (`/music`):** Live playback telemetry from ClickHouse.
+    -   **AI Terminal (`/ai`):** Model-agnostic chat interface using Vercel AI Gateway.
+    -   **AI Cost Center (`/ai/costs`):** Real-time spend and model efficiency auditing.
+    -   **Trajectory Labs (`/ai/trajectories`):** Decision playback for RL agents.
+    -   **System Integrity (`/performance`):** Real-time heartbeat monitoring.
 
-1. **Don't add new state directly to Section.tsx** - use PortfolioContext or AnimationContext instead
-2. **Don't skip atmospheric layer logic** - it's core to the UX
-3. **Always test section transitions** - GSAP animations are fragile
-4. **Check refs before accessing** - many components use React refs that may be null
-5. **pnpm lockfile is committed** - don't use other package managers
-6. **Turborepo cache is in gitignore** - don't commit `.turbo/`
+### Intelligence Infrastructure (Microservices)
 
-## Resources
+**Conventions:**
+- **Health Checks:** Every service must expose a machine-readable `/health` endpoint.
+- **Status Dashboards:** Every service serves a human-readable `/status` HTML page.
+- **Inter-service Communication:** Uses internal Docker hostnames (e.g., `aazucena-websocket`) within the `aazucena-network`.
+- **Hybrid Networking:** Host-based apps (Next.js/Astro) communicate with Docker via LAN IP or `host.docker.internal`.
 
-- **Astro Docs:** https://astro.build
-- **GSAP Docs:** https://gsap.com/docs
-- **Three.js Docs:** https://threejs.org/docs
-- **PixiJS Docs:** https://pixijs.com/guides
-- **Turborepo Docs:** https://turbo.build/repo/docs
-- **LangChain Docs:** https://langchain.com
-- **LangGraph Docs:** https://langchain-ai.github.io/langgraph/
-- **LangSmith Docs:** https://docs.smith.langchain.com/
+**Service Mesh:**
+- **WebSocket Bridge:** Node/TS service broadcasting ClickHouse signals to the dashboard UI.
+- **Intel Bridge:** FastAPI service acting as an async telemetry gateway for Python agents.
+- **Intel Engine:** High-performance core for LangChain, LangGraph, and pgVector processing.
+
+### 🎯 Current Status
+
+#### Completed ✅
+- **AZUCENA_LYTICS v1** - Engineering Intelligence Terminal (100% Complete) - 2026-02-04
+  - ✅ **ALL 5 PHASES COMPLETE** (Ingestion, AI Observability, External Data, Advanced Features, Hardening).
+  - ✅ **Predictive Sentinel & RBAC** - Automated health watchdog and secure ClickHouse access controls.
+  - ✅ **Automated Knowledge Sync** - Internal RAG indexing project context (`ROADMAP`, `GEMINI`, `CLAUDE`) into pgVector.
+  - ✅ **Geospatial & Behavioral Intelligence** - Real-time Choropleth maps and Session Journey Explorer.
+  - ✅ **Prompt IDE & Sync** - Strapi v5 prompt management with LangSmith Hub sync.
+- **Phase 2:** Component Architecture (100% complete) - 2026-02-02
+  - ✅ Template system (Editorial, Legal, Landing)
+  - ✅ Navigation Plugin & Footer CMS Integration
+  - ✅ Homepage/Journey restructuring & component extraction (<120 lines)
+  - ✅ Scene directory flattening
+- **Phase 1:** Animations Refactoring (324 → 174 lines, 46% reduction) - 2025-01-13
+- **Phase 1.5:** Code Quality & Security Fixes (CVEs, memory leaks) - 2025-12-03
+- **Phase 0:** Infrastructure & Architecture (100% complete) - 2026-01-17
+
+#### In Progress 🚧
+- **Phase 3:** Performance Optimization - 🔥 CURRENT PRIORITY
+  - Code splitting and lazy loading
+  - Bundle optimization
+  - Scene.tsx optimization (refactoring Three.js scene)
 
 ---
 
-**Last Updated:** 2026-01-27
+**Last Updated:** 2026-02-03
 
-**Key Updates:**
-- ✅ **AZUCENA_LYTICS // Core_Terminal (V1 Prototype Complete)** (2026-01-28) - Engineering Intelligence Terminal for the monorepo, built with Next.js 15, D3.js, ClickHouse, Redux Toolkit, and TanStack Query v5. Fully themed (light/dark mode) and responsive.
-- ✅ **Footer CMS Implementation (2026-01-27):**
-  - Extended `website-configuration` single type with footer fields
-  - Added `ui.tech-stack-item` component for dynamic tech stack
-  - Renamed `order` → `sort` for clarity
-  - Zero API overhead (reuses existing website-config fetch)
-  - Fields: `footerBrandDescription`, `footerLocationTagline`, `footerBuiltWithLabel`, `techStack`
-  - Architecture: `siteConfig` (static theme) + `websiteConfig` (CMS content)
-  - Files modified: 9 (5 frontend + 2 backend + 2 CMS schemas)
-- 🚧 **Phase 2 In Progress:** Component Architecture (~50% complete)
-  - Template system operational (3 templates)
-  - Utility refactoring complete (15 modular files)
-  - Common components added (6 new reusable components)
-  - Site config centralized
-  - Footer updated with tech stack logos
-  - ✅ **Navigation Plugin Integration** (2026-01-27)
-  - ✅ **AZUCENA_LYTICS // Core_Terminal (V1 Prototype)** (2026-01-28) - Engineering Intelligence dashboard for the monorepo, built with Next.js 15, D3.js, ClickHouse, Redux Toolkit, and TanStack Query v5. Fully themed (light/dark mode) and responsive.
-    - CMS-driven navigation via `strapi-plugin-navigation` v3.2.4
-    - WRAPPER architecture: Single `footer-navigation` container with nested sections
-    - Custom fields: `label` (display override), `icon`, `buttonStyle` (primary/secondary/outline), `description`, `cssClass`
-    - Dynamic CTA buttons in Navbar (configurable from CMS)
-    - Flattened `additionalFields` in transformer for component ergonomics
-    - API calls reduced 3→2 (33% performance improvement)
-    - Files: `lib/api/navigation.ts`, `lib/validators/navigation.ts`, `lib/transformers/navigation.ts`
-- ✅ **Phase 0.5 Completed:** Portfolio Pages Implementation (2026-01-17)
-  - 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
-  - Footer component with CMS-driven social links (platform-based rendering)
-  - RSS feed for blog posts (filters external posts)
-  - Sitemap integration with auto-generation
-  - 500 error page with SSR (real-time status checks, error logging)
-  - Rich text rendering fixes (MarkdownRenderer for `richtext`, BlocksRenderer for `blocks`)
-  - Unified seed script for legal pages (`seed-pages.js`)
-  - Key decisions: Removed dedicated Awards/Testimonials pages (homepage sections), Footer in PageLayout only, generic catch-all with 3 templates
-- ✅ **Phase 0 Completed:** Infrastructure & Architecture (2026-01-17)
-  - All sub-phases finished (0.1 → 0.5)
-  - CMS, deployment, content migration, and pages fully implemented
-- ✅ **Project Schema Enhanced:** (2026-01-07)
-  - Added `unlisted` to display enum (hidden, unlisted, standard, featured, home)
-  - Expanded projectStatus enum: Planned, In Progress, Released, Maintenance, On Hold, Completed, Archived
-- ✅ **Phase 0.3 Completed:** Deployment Strategy (2025-12-29)
-  - Railway: Strapi CMS deployed at admin.aazucena.com
-  - Vercel: Production portfolio deployed and connected
-  - Integration: Frontend successfully connects to Railway CMS
-  - APIs: All 19 endpoints accessible from production
-- ✅ **Phase 0.2.4 Completed:** Frontend API Integration (2025-12-19)
-  - Modular API architecture: 24 specialized clients (journey, skill-showcase, experience-showcase, project-showcase, contact-form added in 0.5)
-  - Type safety: 20+ Zod validators + 20+ transformers
-  - DataContext system for CMS data access (no prop drilling)
-  - New components: HomepageContent (replaces SectionContent ❌), SectionLayout
-  - New hooks: useSectionRegistry, useHandlebars, useDataContext
-- ✅ **Phase 1.5 Completed:** Code Quality & Security Fixes (2025-12-03)
-  - Fixed critical CVEs, memory leaks, type safety
-  - Code quality: 7.5/10 → 8.5-9.0/10
-- ✅ **Phase 1 Completed:** Animations refactoring (324 → 174 lines, 46% reduction)
-- ✅ **Phase 0 100% Complete:** Strapi v5.31.0, Docker Compose, 20 content types, 9 components, deployed to Railway + Vercel, content migrated, 15 pages implemented, 24 API clients
-- 🔥 **Current Priority:** Phase 2 - Component Architecture (further optimization)
-- ✅ **Astro v5.15 → v5.16.0:** Framework upgrade for latest features
-- ✅ **Strapi Components Added:** Audio Metadata component with enharmonic keys (media.audio-metadata)
-- ✅ **Icons Integration:** strapi-plugin-icons-field v1.1.5 with @mynaui/icons support
-- ✅ **CTA Button Component:** UI component with icons-field integration (ui.cta-button)
-- ✅ **Enhanced Icons Script:** icons.sh now supports multiple categorized icon sources
-- ✅ Strapi v4 → v5 upgrade for better PostgreSQL and pgVector support
-- ✅ Comprehensive AI/ML stack with LangChain, LangGraph, LangSmith
-- ✅ AI-Powered Forms architecture with vector database and semantic search
-- ✅ Multiple embedding providers and retrieval/ranking systems
-- ✅ Enhanced monitoring with Vercel Speed Insights
-
-**Strapi CMS Components (Implemented - 11 total):**
-- `shared.seo` - SEO metadata with nested Open Graph
-- `shared.open-graph` - Open Graph meta tags (used by SEO)
-- `shared.social-links` - Social media URLs
-- `media.audio-metadata` - Music track metadata with enharmonic keys, BPM, time signatures, scales
-- `ui.cta-button` - Call-to-action buttons with icon picker (@mynaui/icons integration)
-- `content.stats` - Statistics display component
-- `content.achievement` - Achievement/award display
-- `content.education` - Education history
-- `ui.image-element` - Image component with alt text
-- `content.working-style-item` - Working style item for About section
-- `ui.tech-stack-item` - Technology stack item for footer display
-
-**Strapi CMS Status:**
-- 20 total content types implemented (10 collection + 10 single)
-- 10 components implemented
-- Simplified blog architecture (Post collection + Blog configuration single type, no Blog Series)
-- AI Forms consolidated into single Form Submission collection type with formType enumeration (instead of 8 separate collection types)
+**Recent Changes:**
+- ✅ **Prompt IDE & Sync (2026-02-03):**
+  - Implemented bi-directional sync between Strapi v5 and LangSmith Hub.
+  - Added "Force_Reset" capability to ensure default technical personas are consistently seeded.
+  - Enhanced Prompt Manager UI with estimated payload costs and locale support.
+- ✅ **Intelligence Infrastructure (2026-01-29):**
+  - Real-time ClickHouse telemetry for AI inferences, Music playback, and System Integrity.
+  - Trajectory Labs implementation for visual agent decision playback with SHADES highlighting.
+  - Integrated Vercel AI Gateway for model-agnostic chat (GPT-4o, Claude, Gemini).
+- ✅ **Phase 2 Complete - Component Architecture (2026-02-02):**
+  - Scene directory flattening (depth 3 → 2)
+  - Homepage and Journey type-first restructuring.
+  - All 8 sections now <120 lines (component extraction complete).
+  - Build verified: 35.89s, all 18 pages rendered, zero TypeScript errors.
