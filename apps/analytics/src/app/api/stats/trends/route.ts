@@ -1,4 +1,4 @@
-import { clickhouse } from '@/lib/clickhouse';
+import { mainClickhouseClient as clickhouse } from '@/lib/services';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
           toStartOfMonth(timestamp) as date,
           event,
           count() as count
-        FROM analytics_events
+        FROM telemetry_events
         GROUP BY date, event
         ORDER BY date ASC
       `,

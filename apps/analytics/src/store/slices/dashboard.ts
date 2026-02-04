@@ -9,7 +9,9 @@ export const CATEGORY_PRESETS = {
   OVERVIEW: ['Page View', 'Music Play', 'Interaction', 'Form Submit', 'Error'],
   MUSIC: ['Music Play'],
   PERFORMANCE: ['Error', 'Interaction', 'API', 'Database', 'Cache'], // Focus on potential issues
-  LOGS: ['Page View', 'Music Play', 'Interaction', 'Form Submit', 'Error']
+  LOGS: ['Page View', 'Music Play', 'Interaction', 'Form Submit', 'Error'],
+  SYSTEM: ['Page View', 'Interaction', 'Error', 'API'],
+  INTELLIGENCE: ['Interaction', 'Error', 'API', 'Database']
 } as const;
 
 export type CategoryPreset = keyof typeof CATEGORY_PRESETS;
@@ -27,6 +29,7 @@ interface DashboardState {
   // UI State (persists during session)
   ui: {
     isSidebarCollapsed: boolean;
+    navMode: 'SYSTEM' | 'INTELLIGENCE';
     activeTab: string; // 'overview' | 'music' | 'logs'
     refreshInterval: number; // 5000ms, 10000ms, or 0 (paused)
   };
@@ -48,6 +51,7 @@ const initialState: DashboardState = {
   },
   ui: {
     isSidebarCollapsed: false,
+    navMode: 'SYSTEM',
     activeTab: 'overview',
     refreshInterval: 5000,
   },
@@ -91,7 +95,17 @@ export const dashboardSlice = createSlice({
       state.filters.visibleCategories = action.payload;
     },
     setCategoryPreset: (state, action: PayloadAction<CategoryPreset>) => {
-      state.filters.visibleCategories = [...CATEGORY_PRESETS[action.payload]];
+      console.log(`[Redux] setCategoryPreset payload: ${action.payload}`);
+      console.log(`[Redux] Available presets:`, Object.keys(CATEGORY_PRESETS));
+      const preset = CATEGORY_PRESETS[action.payload];
+      if (preset) {
+        state.filters.visibleCategories = [...preset];
+      } else {
+        console.warn(`[Redux] Attempted to set unknown category preset: ${action.payload}`);
+      }
+    },
+    setNavMode: (state, action: PayloadAction<'SYSTEM' | 'INTELLIGENCE'>) => {
+      state.ui.navMode = action.payload;
     },
   },
 });
@@ -105,6 +119,7 @@ export const {
   resetCategories,
   toggleCategory,
   setCategoryPreset,
+  setNavMode,
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

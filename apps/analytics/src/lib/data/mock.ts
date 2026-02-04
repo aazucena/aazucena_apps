@@ -142,3 +142,61 @@ export const MOCK_LATENCY_HISTORY = DATES.map((date) => ({
   'Database': Math.floor(Math.random() * 30) + 10,
   'Cache': Math.floor(Math.random() * 10) + 2,
 }));
+
+
+// --- MOCK DATA ---
+export const MOCK_TRAJECTORIES = [
+  {
+    id: 'AGENT_SESSION_LX42',
+    agent: 'Intel_Analyst_v1 (LangGraph)',
+    timestamp: new Date().toISOString(),
+    totalReward: 1.0, // Binary success/fail
+    length: 4,
+    steps: [
+      { 
+        step: 0, 
+        observation: 'User Query: "Why is the portfolio latency high?"', 
+        action: 'PLAN_REASONING', 
+        reward: 0, 
+        probability: 0.99, 
+        metadata: { 
+          intent: 'infrastructure_diagnosis',
+          initial_hypothesis: 'ClickHouse buffer congestion'
+        } 
+      },
+      { 
+        step: 1, 
+        observation: 'Awaiting data from performance metrics table.', 
+        action: 'CALL_TOOL: query_clickhouse', 
+        reward: 0.2, 
+        probability: 0.95, 
+        metadata: { 
+          query: 'SELECT avg(latency_ms) FROM telemetry_events WHERE event = "PerformanceMetric"',
+          result_latency: '142ms' 
+        } 
+      },
+      { 
+        step: 2, 
+        observation: 'Latency is within normal HTTP range, but TTFB is high.', 
+        action: 'CALL_TOOL: check_ufw_status', 
+        reward: 0.5, 
+        probability: 0.88, 
+        metadata: { 
+          command: 'sudo ufw status',
+          detected_issue: 'Port 4321 throttle active' 
+        } 
+      },
+      { 
+        step: 3, 
+        observation: 'Issue identified: Firewall throttling on the host bridge.', 
+        action: 'FINALIZE_RESPONSE', 
+        reward: 1.0, 
+        probability: 0.99, 
+        metadata: { 
+          resolution: 'Recommend running "sudo ufw allow in on docker0"',
+          confidence: 'high'
+        } 
+      },
+    ]
+  }
+];

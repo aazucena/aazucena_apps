@@ -1,17 +1,18 @@
-import { clickhouse } from '@/lib/clickhouse';
+import { mainClickhouseClient as clickhouse } from '@/lib/services';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    // 1. Execute summary query
+    // 1. Execute summary query from pre-aggregated daily table
     const resultSet = await clickhouse.query({
       query: `
         SELECT 
-          count() as total_events,
-          uniq(session_id) as total_visitors,
-          countIf(event = 'Music Play') as total_music_plays,
-          countIf(event = 'Error') as total_errors
-        FROM analytics_events
+          sum(total_events) as total_events,
+          uniqCombinedMerge(unique_visitors) as total_visitors,
+          sum(page_views) as total_page_views,
+          sum(music_plays) as total_music_plays,
+          sum(errors) as total_errors
+        FROM analytics.daily_event_summary
       `,
       format: 'JSONEachRow',
     });

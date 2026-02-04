@@ -1,4 +1,4 @@
-import { clickhouse } from '@/lib/clickhouse';
+import { mainClickhouseClient as clickhouse } from '@/lib/services';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -10,10 +10,10 @@ export async function GET() {
           event,
           timestamp,
           url,
-          session_id as sessionId,
+          sessionId,
           country,
           data
-        FROM analytics_events
+        FROM telemetry_events
         ORDER BY timestamp DESC
         LIMIT 100
       `,
@@ -25,7 +25,9 @@ export async function GET() {
     // Parse the 'data' string back into JSON objects
     const logs = rawLogs.map(log => ({
       ...log,
-      data: log.data ? JSON.parse(log.data) : {}
+      data: log.data && typeof log.data == 'string' ? JSON.parse(log.data) : {
+        ...log?.data ?? {}
+      }
     }));
 
     return NextResponse.json({

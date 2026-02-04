@@ -1,3 +1,4 @@
+// apps/analytics/src/components/widgets/MetricCard.tsx
 /**
  * Metric Card Component
  * Displays a single impact metric (e.g., "30%", "25+") with a label.
@@ -10,13 +11,16 @@ interface MetricCardProps {
   value?: string;
   label?: string;
   description?: string;
-  icon?: any;
+  icon?: JSX.Element;
   className?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'success' | 'rose' | 'default'; // Added 'rose' and 'default'
 }
 
 export function MetricCard({ value, label, description, icon, className, variant = 'primary' }: MetricCardProps): JSX.Element {
   const isSecondary = variant === 'secondary';
+  const isSuccess = variant === 'success';
+  const isRose = variant === 'rose'; // New variant check
+  const isDefault = variant === 'default'; // New variant check
 
   return (
     <div className={cn(
@@ -27,6 +31,12 @@ export function MetricCard({ value, label, description, icon, className, variant
         "text-3xl md:text-4xl font-black font-mono tracking-tighter bg-clip-text text-transparent mb-2 group-hover:scale-105 transition-transform duration-300",
         isSecondary 
           ? "bg-gradient-to-br from-secondary-600 to-secondary-400 dark:from-secondary-400 dark:to-secondary-200" 
+          : isSuccess
+          ? "bg-gradient-to-br from-emerald-600 to-emerald-400 dark:from-emerald-400 dark:to-emerald-200"
+          : isRose // New rose variant styling
+          ? "bg-gradient-to-br from-rose-600 to-rose-400 dark:from-rose-400 dark:to-rose-200"
+          : isDefault // New default variant styling
+          ? "text-zinc-900 dark:text-zinc-100" 
           : "bg-gradient-to-br from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-200"
       )}>
         {value}
@@ -37,7 +47,10 @@ export function MetricCard({ value, label, description, icon, className, variant
       {description && (
         <div className={cn(
           "text-[10px] font-mono uppercase",
-          isSecondary ? "text-secondary-500/70" : "text-zinc-400 dark:text-zinc-600"
+          isSecondary ? "text-secondary-500/70" : 
+          isSuccess ? "text-emerald-500/70" : 
+          isRose ? "text-rose-500/70" :
+          "text-zinc-400 dark:text-zinc-600" // Neutral for default and primary
         )}>
           {description}
         </div>
@@ -47,7 +60,11 @@ export function MetricCard({ value, label, description, icon, className, variant
           "mt-4 transition-colors duration-500",
           isSecondary 
             ? "text-secondary-300 dark:text-secondary-900 group-hover:text-secondary-500/50" 
-            : "text-zinc-300 dark:text-zinc-800 group-hover:text-primary-500/50"
+            : isSuccess
+            ? "text-emerald-300 dark:text-emerald-900 group-hover:text-emerald-500/50"
+            : isRose // New rose variant styling
+            ? "text-rose-300 dark:text-rose-900 group-hover:text-rose-500/50"
+            : "text-zinc-300 dark:text-zinc-800 group-hover:text-primary-500/50" // Neutral for default and primary
         )}>
           {icon}
         </div>

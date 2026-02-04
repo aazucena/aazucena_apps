@@ -6,6 +6,7 @@ import { RootState, setCategoryPreset } from '@/store';
 
 // 1. Core Layout Components
 import { DashboardFilters } from '@/components/dashboard/DashboardFilters';
+import { SentinelWatchdog } from '@/components/dashboard/SentinelWatchdog';
 import { MetricCard } from '@/components/widgets/MetricCard';
 import { TelemetryFeed } from '@/components/logs/TelemetryFeed';
 
@@ -57,6 +58,9 @@ export default function DashboardPage() {
 
         <DashboardFilters categories={categories} />
       </div>
+
+      {/* SECTION 1.5: SENTINEL WATCHDOG */}
+      <SentinelWatchdog />
 
       {/* SECTION 2: KPI METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

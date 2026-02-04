@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, toggleSidebar } from '@/store'; 
+import { RootState, toggleSidebar, setNavMode } from '@/store'; 
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import {
   Grid,
   Music,
@@ -11,20 +12,64 @@ import {
   ChartBarOne,
   ChevronLeft,
   ChevronRight,
+  Puzzle,
+  Chip,
+  Database,
+  LayersThree,
+  Activity,
+  Globe,
+  CreditCard,
+  Compass
 } from '@mynaui/icons-react';
 import { cn } from '@/lib/utils';
+import { navModeStore } from '@/store/navModeStore';
+import { IntegrityBadge } from './IntegrityBadge';
 
-const navItems = [
+// --- Subsystem Definitions ---
+const SYSTEM_NAV = [
   { name: 'Node Overview', href: '/', icon: Grid },
-  { name: 'Audio Intelligence', href: '/music', icon: Music },
+  { name: 'Traffic Center', href: '/traffic', icon: Globe },
+  { name: 'Journey Explorer', href: '/journey', icon: Compass },
   { name: 'Telemetry Stream', href: '/logs', icon: Terminal },
   { name: 'System Integrity', href: '/performance', icon: ChartBarOne },
+];
+
+const INTELLIGENCE_NAV = [
+  { name: 'AI Core Terminal', href: '/ai', icon: Puzzle },
+  { name: 'Prompt IDE', href: '/ai/prompts', icon: LayersThree },
+  { name: 'Trajectory Labs', href: '/ai/trajectories', icon: Chip },
+  { name: 'Audio Intelligence', href: '/music', icon: Music },
+  { name: 'Cost Center', href: '/ai/costs', icon: Database },
+  { name: 'Financial Ledger', href: '/finance', icon: CreditCard },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state: RootState) => state.dashboard.ui.isSidebarCollapsed);
+  const reduxNavMode = useSelector((state: RootState) => state.dashboard.ui.navMode);
+  
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Sync with localStorage store using useSyncExternalStore
+  const clientNavMode = useSyncExternalStore(
+    navModeStore.subscribe, 
+    navModeStore.getSnapshot,
+    navModeStore.getServerSnapshot
+  );
+
+  // Handle client-side mount and initial sync
+  useEffect(() => {
+    setIsMounted(true);
+    // Keep Redux in sync with localStorage on mount
+    if (clientNavMode !== reduxNavMode) {
+      dispatch(setNavMode(clientNavMode));
+    }
+  }, [clientNavMode, reduxNavMode, dispatch]);
+
+  // Use clientNavMode for rendering once mounted to ensure no hydration flicker
+  const displayNavMode = isMounted ? clientNavMode : 'SYSTEM';
+  const navItems = displayNavMode === 'SYSTEM' ? SYSTEM_NAV : INTELLIGENCE_NAV;
 
   return (
     <div className={cn(
@@ -44,8 +89,51 @@ export function Sidebar() {
         )}
       </div>
 
+      {/* Mode Switcher */}
+      {!isCollapsed && (
+        <div className="px-4 pt-6">
+          <div className="p-1 bg-zinc-100 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-zinc-800 flex gap-1">
+            <button
+              onClick={() => {
+                navModeStore.set('SYSTEM');
+                dispatch(setNavMode('SYSTEM'));
+              }}
+              className={cn(
+                "flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all",
+                displayNavMode === 'SYSTEM' 
+                  ? "bg-white dark:bg-zinc-800 text-primary-500 shadow-sm border border-zinc-200 dark:border-zinc-700" 
+                  : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+              )}
+            >
+              <Activity size={12} />
+              System
+            </button>
+            <button
+              onClick={() => {
+                navModeStore.set('INTELLIGENCE');
+                dispatch(setNavMode('INTELLIGENCE'));
+              }}
+              className={cn(
+                "flex-1 flex items-center justify-center gap-2 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all",
+                displayNavMode === 'INTELLIGENCE' 
+                  ? "bg-white dark:bg-zinc-800 text-primary-500 shadow-sm border border-zinc-200 dark:border-zinc-700" 
+                  : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+              )}
+            >
+              <Puzzle size={12} />
+              Intel
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Navigation Links */}
       <nav className="flex-1 py-6 px-3 space-y-1 overflow-y-auto custom-scrollbar">
+        <div className={cn("px-3 mb-2", isCollapsed ? "text-center" : "text-left")}>
+          <span className="text-[8px] font-black text-zinc-400 dark:text-zinc-600 uppercase tracking-[0.3em]">
+            {isCollapsed ? "NAV" : `${displayNavMode}_SUBSYSTEMS`}
+          </span>
+        </div>
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -71,6 +159,11 @@ export function Sidebar() {
 
       {/* Footer / Toggle Section */}
       <div className="p-3 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950">
+        {!isCollapsed && (
+          <div className="px-2 mb-4">
+            <IntegrityBadge className="w-full justify-center" />
+          </div>
+        )}
         <button
           onClick={() => dispatch(toggleSidebar())}
           className="w-full h-10 flex items-center justify-center rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-400 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-200 transition-all duration-300 active:scale-95 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800"
