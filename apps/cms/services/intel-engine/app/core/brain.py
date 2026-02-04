@@ -90,6 +90,12 @@ class IntelBrain:
                 "You are a hallucination checker. Verify if the generated response "
                 "is supported by the retrieved structured knowledge. "
                 "Respond ONLY with 'VALID' or 'INVALID: reasoning'."
+            ),
+            "librarian": (
+                "You are the Guardian of Knowledge for the aazucena ecosystem. Your task is to accurately retrieve and synthesize documentation, technical research, and conceptual bridges from the collective memory."
+            ),
+            "architect": (
+                "You are the Systems Architect for the aazucena monorepo. Your task is to analyze infrastructure, database schemas, and service-mesh topologies to provide high-level engineering guidance and structural clarity."
             )
         }
         
@@ -117,6 +123,22 @@ class IntelBrain:
                 "description": "Summarizes AI conversations into concise technical titles.",
                 "system_message": "You are a professional metadata architect. Summarize the following AI conversation into a {scope}. Respond ONLY with the title (max 5 words), no quotes or punctuation.",
                 "human_template": "TEXT: {text}"
+            },
+            {
+                "name": "portfolio-librarian",
+                "slug": "portfolio-librarian",
+                "type": "assistant",
+                "description": "Specialized persona for document retrieval and knowledge synthesis.",
+                "system_message": self.SYSTEM_PROMPTS["librarian"],
+                "human_template": "RESEARCH_QUERY: {input}\n\nCONTEXT_CHUNKS:\n{context}\n\nSYNTHESIS:"
+            },
+            {
+                "name": "portfolio-architect",
+                "slug": "portfolio-architect",
+                "type": "assistant",
+                "description": "Specialized persona for infrastructure and system design analysis.",
+                "system_message": self.SYSTEM_PROMPTS["architect"],
+                "human_template": "SCHEMA_AUDIT: {input}\n\nINFRASTRUCTURE_CONTEXT:\n{context}\n\nARCHITECTURE_GUIDANCE:"
             }
         ]
         

@@ -252,7 +252,7 @@ export async function POST(req: NextRequest) {
 
     const endTime = performance.now();
     const durationMs = endTime - startTime;
-    console.log(`Ingestion successful for type '${payload.type}'${payload.type === 'telemetry_event' ? `in '${payload?.event}'` : ''}. Duration: ${durationMs.toFixed(2)}ms`);
+    console.log(`[INGEST] Type: ${payload.type} | Event: ${payload.type === 'telemetry_event' ? payload.event : 'N/A'} | Latency: ${durationMs.toFixed(2)}ms`);
 
     return NextResponse.json({ message: 'Event ingested successfully', type: payload.type }, {status: 200 });
 
