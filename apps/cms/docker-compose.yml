@@ -1,16 +1,14 @@
 # ==============================================================================
 # Docker Compose Configuration for LOCAL DEVELOPMENT ONLY
 # ==============================================================================
-# This file is configured for local development with default credentials.
-# For production deployment, use Railway or other cloud services with
-# proper environment variables set.
-#
-# Security Notes:
-# - Default credentials are ONLY for local development
-# - Set strong passwords in .env for production
-# - Never commit .env with production credentials
-# ==============================================================================
-
+include:
+  - services/clickhouse/compose.yml
+  - services/plausible/compose.yml
+  - services/websocket/compose.yml
+  - services/intel-bridge/compose.yml
+  - services/intel-engine/compose.yml
+  - services/ollama/compose.yml
+  
 services:
   strapi:
     container_name: aazucena-cms
@@ -18,7 +16,7 @@ services:
     build: .
     ports:
       - "1337:1337"
-      - "5173:5173"  # Vite dev server for admin panel
+      - "5173:5173"
     volumes:
       - ./:/srv/app
       - /srv/app/node_modules
@@ -36,7 +34,7 @@ services:
   postgres:
     container_name: aazucena-db
     image: pgvector/pgvector:pg16
-    platform: linux/amd64 #for platform error on Apple M1 chips
+    platform: linux/amd64
     ports:
       - "5432:5432"
     environment:
@@ -61,8 +59,6 @@ services:
     ports:
       - "6379:6379"
     environment:
-      # Development: empty password allowed
-      # Production: Set REDIS_PASSWORD in .env
       - REDIS_PASSWORD=${REDIS_PASSWORD:-}
       - ALLOW_EMPTY_PASSWORD=${REDIS_PASSWORD:+no}
       - ALLOW_EMPTY_PASSWORD=${REDIS_PASSWORD:-yes}
@@ -77,45 +73,55 @@ services:
       retries: 5
     restart: unless-stopped
 
+  # Microservice Network Injection
   clickhouse:
-    image: clickhouse/clickhouse-server:latest
-    container_name: aazucena-clickhouse
-    ports:
-      - "8123:8123"
-      - "9000:9000"
-    environment:
-    # Use .env variables to stay consistent with your other services
-      - CLICKHOUSE_USER=${CLICKHOUSE_USER:-admin}
-      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD:-password}
-      - CLICKHOUSE_DB=${CLICKHOUSE_DB:-analytics}
-    volumes:
-      - clickhouse-data:/var/lib/clickhouse
-    ulimits:
-      nofile:
-        soft: 262144
-        hard: 262144
-    deploy:
-      resources:
-        limits:
-          memory: 2G
     networks:
       - aazucena-network
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8123/ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-    restart: unless-stopped
 
+  plausible:
+    networks:
+      - aazucena-network
+      
+  plausible-clickhouse:
+    networks:
+      - aazucena-network
+      
+  websocket:
+    networks:
+      - aazucena-network
+      
+  intel-bridge:
+    networks:
+      - aazucena-network
+      
+  intel-engine:
+    networks:
+      - aazucena-network
+    volumes:
+      - /home/aazucena/Projects/aazucena_apps/docs:/app/data/docs:ro
+      - /home/aazucena/Projects/aazucena_apps/ROADMAP.md:/app/data/context/ROADMAP.md:ro
+      - /home/aazucena/Projects/aazucena_apps/GEMINI.md:/app/data/context/GEMINI.md:ro
+      - /home/aazucena/Projects/aazucena_apps/CLAUDE.md:/app/data/context/CLAUDE.md:ro
+      - /home/aazucena/Projects/aazucena_apps/README.md:/app/data/context/README.md:ro
+
+  ollama:
+    networks:
+      - aazucena-network
+      
 volumes:
   postgres-data:
     driver: local
   redis-data:
     driver: local
+  clickhouse-logs:    
+    driver: local
   clickhouse-data:
+    driver: local
+  clickhouse-backups:
     driver: local
 
 networks:
   aazucena-network:
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: "1400"

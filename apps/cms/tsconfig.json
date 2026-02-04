@@ -40,6 +40,8 @@
     // Do not include plugins in the server compilation
     "src/plugins/**",
     // Do not include seed scripts (they use their own tsconfig)
-    "scripts/"
+    "scripts/",
+    // Do not include independent microservices
+    "services/"
   ]
 }

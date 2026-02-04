@@ -92,7 +92,8 @@ public/uploads/*
 lib-cov
 lcov.info
 pids
-logs
+logs/*
+!logs/.gitkeep
 results
 node_modules
 .node_history
@@ -130,3 +131,12 @@ build
 .strapi-updater.json
 .strapi-cloud.json
 /public/icons
+
+**/clickhouse/data/*
+!**/clickhouse/data/.gitkeep
+
+**/clickhouse/backups/*
+!**/clickhouse/backups/.gitkeep
+
+!**/clickhouse/scripts/*
+!**/clickhouse/scripts/.gitkeep

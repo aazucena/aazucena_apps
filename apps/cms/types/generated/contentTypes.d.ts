@@ -2102,6 +2102,61 @@ export interface ApiJourneyJourney extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiKnowledgeItemKnowledgeItem
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'knowledge_items';
+  info: {
+    description: 'Vectorized knowledge chunks for the Internal Knowledge Base';
+    displayName: 'Knowledge Item';
+    pluralName: 'knowledge-items';
+    singularName: 'knowledge-item';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    content: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::knowledge-item.knowledge-item'
+    >;
+    metadata: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    source: Schema.Attribute.String & Schema.Attribute.Required;
+    tags: Schema.Attribute.Component<'ui.tag', true>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    type: Schema.Attribute.Enumeration<
+      ['docs', 'code', 'user_upload', 'telemetry_insight']
+    > &
+      Schema.Attribute.DefaultTo<'docs'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMaintenanceMaintenance extends Struct.SingleTypeSchema {
   collectionName: 'maintenances';
   info: {
@@ -3283,6 +3338,71 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPromptPrompt extends Struct.CollectionTypeSchema {
+  collectionName: 'prompts';
+  info: {
+    description: 'Centrally managed prompt templates for the Engineering Intelligence ecosystem';
+    displayName: 'AI Prompt';
+    pluralName: 'prompts';
+    singularName: 'prompt';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    human_template: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    langsmith_id: Schema.Attribute.String;
+    langsmith_url: Schema.Attribute.String;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::prompt.prompt'>;
+    metadata: Schema.Attribute.JSON;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    system_message: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tags: Schema.Attribute.Component<'ui.tag', true>;
+    type: Schema.Attribute.Enumeration<
+      ['intent_analyst', 'assistant', 'expert', 'tool', 'evaluation']
+    > &
+      Schema.Attribute.DefaultTo<'assistant'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -4656,6 +4776,7 @@ declare module '@strapi/strapi' {
       'api::hero.hero': ApiHeroHero;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::journey.journey': ApiJourneyJourney;
+      'api::knowledge-item.knowledge-item': ApiKnowledgeItemKnowledgeItem;
       'api::maintenance.maintenance': ApiMaintenanceMaintenance;
       'api::music-genre.music-genre': ApiMusicGenreMusicGenre;
       'api::page.page': ApiPagePage;
@@ -4664,6 +4785,7 @@ declare module '@strapi/strapi' {
       'api::preloader.preloader': ApiPreloaderPreloader;
       'api::project-showcase.project-showcase': ApiProjectShowcaseProjectShowcase;
       'api::project.project': ApiProjectProject;
+      'api::prompt.prompt': ApiPromptPrompt;
       'api::skill-category.skill-category': ApiSkillCategorySkillCategory;
       'api::skill-showcase.skill-showcase': ApiSkillShowcaseSkillShowcase;
       'api::skill.skill': ApiSkillSkill;
