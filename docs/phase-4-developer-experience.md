@@ -299,6 +299,61 @@ visual-tests:
 
 ---
 
+### 4.5 Persona Selection System (0.5 days / 3 hours) 🎯
+
+**📍 Full Documentation:** [Persona Selection Implementation Plan](/docs/features/persona-selection-implementation-plan.md)
+
+**Goal:** Add persona-based navigation customization for improved UX
+
+**Overview:**
+Implement a persona selection system that allows visitors to select their intent (Hire me, Learn & Collaborate, Hear my music, or General) and dynamically reorder navigation based on their goals.
+
+**Key Features:**
+- 4 persona options with distinct navigation priorities
+- localStorage persistence (key: `az_active_persona`)
+- Non-blocking UI (shows only on first visit)
+- Analytics tracking for persona selection
+- Graceful degradation without CMS/analytics
+
+**State Management:** React Context (extends PortfolioContext)
+- **Decision:** Use existing Context pattern (not Redux/Zustand)
+- **Rationale:** Zero bundle impact, simple state, consistent with Portfolio architecture
+- **Bundle Impact:** ~11KB total
+
+**Implementation Tasks:**
+1. Create type definitions (`types/persona.ts`)
+2. Define persona configurations (`data/personas.ts`)
+3. Add navigation reordering utility (`lib/utils/persona.ts`)
+4. Extend PortfolioContext with persona state
+5. Create `usePersona` hook
+6. Build PersonaSelector UI component
+7. Integrate into HeroSection with reordering logic
+8. Add analytics tracking
+
+**Files Created:** 5 new files
+**Files Modified:** 5 existing files
+
+**Timeline:** ~3 hours total
+- Types & Data: 35 min
+- State Management: 50 min
+- UI Component: 45 min
+- Integration & Testing: 50 min
+
+**Success Criteria:**
+- ✅ PersonaSelector renders on first visit only
+- ✅ Selection persists across sessions
+- ✅ Navigation reorders based on persona
+- ✅ Bundle size increase < 15KB
+- ✅ No performance regression
+- ✅ Fully accessible (keyboard, screen reader)
+
+**Documentation:**
+- Feature Overview: `/docs/features/persona-selection.md`
+- Implementation Plan: `/docs/features/persona-selection-implementation-plan.md`
+- Architectural Decision Log: Documented in both files (2026-02-03)
+
+---
+
 ## Timeline Summary
 
 | Task | Duration |
@@ -309,8 +364,9 @@ visual-tests:
 | 4.3.2 Storybook Setup | 4-5 days |
 | 4.3.3 Chromatic Integration | 2-3 days |
 | 4.4 Additional Tooling | 1-2 days |
+| 4.5 Persona Selection System | 0.5 days (3 hours) |
 
-**Total:** 16-22 days
+**Total:** 16.5-22.5 days
 
 **Phase 4.3 Total (Figma/Storybook/Chromatic):** 12-16 days
 
