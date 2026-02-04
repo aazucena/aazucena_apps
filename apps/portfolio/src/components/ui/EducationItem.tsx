@@ -74,7 +74,7 @@ export function EducationItem({ edu }: EducationItemProps) {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
-              <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+              <div className="mt-4 py-4 border-t border-gray-100 dark:border-gray-800">
                 {edu.description ? (
                   <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-400 leading-relaxed">
                     <MarkdownRenderer content={edu.description} />

@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { cn } from '../../lib/utils';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { cn } from '~/lib/utils';
 
 export interface PhoneDialTab {
   id: string;
   label: string;
+  name: string;
   icon?: React.ReactNode;
   gradient: string;
   content: React.ReactNode;
@@ -109,7 +110,7 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
     if (immediate) {
       setRotation(targetRotation);
       setCurrentStepIndex(clampedIndex);
-      setActiveTab(tabs[clampedIndex]!.id);
+      setActiveTab(tabs[clampedIndex]!.name);
     } else {
       rotationTweenRef.current = gsap.to({ value: rotation }, {
         value: targetRotation,
@@ -120,7 +121,7 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
         },
         onComplete: () => {
           setCurrentStepIndex(clampedIndex);
-          setActiveTab(tabs[clampedIndex]!.id);
+          setActiveTab(tabs[clampedIndex]!.name);
           rotationTweenRef.current = null;
         }
       });
@@ -175,7 +176,7 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
       playClickSound();
       lastHapticStepRef.current = clampedStep;
       setCurrentStepIndex(clampedStep);
-      setActiveTab(tabs[clampedStep]!.id);
+      setActiveTab(tabs[clampedStep]!.name);
     }
 
     lastAngleRef.current = currentAngle;
@@ -269,7 +270,11 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
     snapToTabIndex(index, false);
   };
 
-  const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content;
+  // const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content;
+  const activeTabContent = useMemo(() => {
+    const tab = tabs.find(tab => tab.name === activeTab);
+    return tab?.content;
+  }, [activeTab]);
 
   return (
     <div className={cn('relative w-full', className)}>
