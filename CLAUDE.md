@@ -184,6 +184,9 @@ src/components/animations/
 
 **Core Features:**
 1.  **Telemetry Ingestion API (`/api/ingest`):** Zod-validated POST endpoint for collecting structured telemetry data.
+    - **Runtime:** Vercel Edge Runtime (`export const runtime = 'edge'`) for <50ms response times
+    - **Geo-Enrichment:** Native Vercel headers (x-vercel-ip-country/city/latitude/longitude) - no external API calls
+    - **Optimization:** Eliminated ip-api.com dependency (30-50ms latency reduction)
 2.  **ClickHouse Integration:** OLAP database for high-volume, immutable event streams. Connection managed via singleton in `lib/clickhouse.ts`.
 3.  **Real-time Dashboards:**
     -   **Node Overview (`/`):** Summary KPIs, system integrity.
@@ -458,13 +461,14 @@ src/lib/
 **Completed:**
 - ✅ Template system (Editorial, Legal, Landing) - 3 templates operational
 - ✅ Utility refactoring - Split monolithic files into 15 specialized modules
-- ✅ Common components - 6 new reusable components
+- ✅ Common components - 7 new reusable components
   - `StatusBadge.tsx` - Reusable status indicators
   - `ThemeToggle.tsx` - Dark/light theme switcher
   - `Breadcrumbs.astro` - Navigation breadcrumbs
   - `GradientAccent.astro` - Gradient decorations
   - `WatermarkBackground.astro` - Branded watermarks
   - `DetailNavigation.astro` - Back/forward navigation
+  - `telemetry/IntegrityBadge.tsx` - Real-time system health indicator (connects to AZUCENA_LYTICS)
 - ✅ Site config centralization - `config/site.ts` with types and helpers
 - ✅ Footer component - Tech stack logos (Astro, React, Tailwind, Vite)
 - ✅ **Navigation Plugin Integration** - CMS-driven header/footer navigation with custom fields
@@ -609,6 +613,11 @@ src/lib/
   - `GradientAccent.astro` - Gradient decorations
   - `WatermarkBackground.astro` - Branded watermarks
   - `DetailNavigation.astro` - Back/forward navigation
+- `apps/portfolio/src/components/telemetry/` - Analytics components (Phase 2)
+  - `IntegrityBadge.tsx` - Real-time system health indicator (NEW 2026-02-04)
+    - Fetches from `/api/health/public` endpoint
+    - 4 states: OPERATIONAL, DEGRADED, UNKNOWN, LOADING
+    - Embedded in Footer component
 - `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
 - `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer (replaces SectionContent.tsx ❌ deleted)
 - `apps/portfolio/src/components/animations/contexts/DataContext.tsx` - CMS data provider (NEW in 0.2.4)
@@ -784,9 +793,18 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
 
 ---
 
-**Last Updated:** 2026-02-03
+**Last Updated:** 2026-02-04
 
 **Recent Changes:**
+- ✅ **IntegrityBadge Component (2026-02-04):**
+  - Real-time system health indicator integrated into Footer.
+  - Connects to AZUCENA_LYTICS `/api/health/public` endpoint.
+  - Status states: OPERATIONAL (green pulse), DEGRADED (amber), UNKNOWN (gray), LOADING (blue pulse).
+  - Clickable link to full status dashboard.
+- ✅ **Edge Runtime Migration (2026-02-04):**
+  - Moved `/api/ingest` to Vercel Edge Runtime for <50ms response times.
+  - Native geo-enrichment via x-vercel-ip-country/city/latitude/longitude headers (no external API).
+  - Eliminated ip-api.com dependency (30-50ms latency reduction).
 - ✅ **Prompt IDE & Sync (2026-02-03):**
   - Implemented bi-directional sync between Strapi v5 and LangSmith Hub.
   - Added "Force_Reset" capability to ensure default technical personas are consistently seeded.

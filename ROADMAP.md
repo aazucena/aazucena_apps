@@ -709,7 +709,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 ---
 
-**Last Updated:** 2026-02-02
+**Last Updated:** 2026-02-04
 
 **Current Priority:** Phase 3 - Performance Optimization 🔥
 
@@ -717,9 +717,29 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 **Current Focus:** Begin Phase 3 - Performance Optimization (code splitting, lazy loading, bundle optimization)
 
-**Next Milestone:** Complete Phase 3 (Performance) → Begin Phase 4 (Developer Experience)
+**Next Milestone:** Complete Phase 3 (Performance) → Begin Phase 4 (Developer Experience) → **Ecosystem Expansion (The 6 Nodes)**
 
-**Recent Completions (Updated 2026-02-02):**
+---
+
+## 🏛️ Ecosystem Expansion: The Utilitarian Nodes
+**[Ecosystem Overview & Documentation →](/docs/ecosystem/README.md)**
+
+A suite of high-utility applications and microsites designed to extend the "aazucena" digital identity beyond the main portfolio. **Note:** Implementation is contingent upon 100% polish of the core stack.
+
+- 💼 **AAZUCENA_SONA (`cv.aazucena.com`):** High-speed recruitment re-ranking and dossier generation.
+- 🗃️ **AAZUCENA_LEDGE (`wiki.aazucena.com`):** Public engineering wiki and technical blueprint repository.
+- 📡 **AAZUCENA_DAR (`radar.aazucena.com`):** GitHub-integrated roadmap, issue tracker, and voting hub.
+- 🎹 **AAZUCENA_DIO (`studio.aazucena.com`):** Interactive live-coding studio and data-modulated radio.
+- 🎮 **AAZUCENA_SIM (`play.aazucena.com`):** Playable technical mission with agentic NPC companions.
+- 🔮 **AAZUCENA_CLE (`cli.aazucena.com`):** CLI-first RAG interaction terminal for the digital twin.
+
+---
+
+
+
+**Recent Completions (Updated 2026-02-04):**
+- **IntegrityBadge Component** ✅ (2026-02-04) - Real-time system health indicator in Footer, connects to `/api/health/public`
+- **Edge Runtime Ingestion** ✅ (2026-02-04) - Vercel Edge with native geo-headers (x-vercel-ip-country/city/lat/lon)
 - **Phase 2 - Component Architecture** ✅ (2026-02-02) - 100% Complete - Scene flattening (depth 3→2), Homepage/Journey restructuring, all sections <120 lines, ~70 files reorganized, ~24 legacy files deleted
 - **Footer CMS Integration** ✅ (2026-01-27) - website-config extension with tech stack component
 - **Navigation Plugin Integration** ✅ (2026-01-27) - CMS-driven header/footer navigation

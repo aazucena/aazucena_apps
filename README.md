@@ -283,9 +283,16 @@ This is a personal portfolio project. For major changes or suggestions:
 
 ---
 
-**Last Updated:** 2026-02-02
+**Last Updated:** 2026-02-04
 
 **Recent Changes:**
+- ✅ **IntegrityBadge Component (2026-02-04):**
+  - Real-time system health indicator in Footer
+  - 4 states: OPERATIONAL (green pulse), DEGRADED (amber), UNKNOWN (gray), LOADING (blue pulse)
+  - Links to AZUCENA_LYTICS status dashboard
+- ✅ **Edge Runtime Ingestion (2026-02-04):**
+  - Vercel Edge Runtime for <50ms response times
+  - Native geo-headers (x-vercel-ip-country/city/lat/lon) - eliminated ip-api.com dependency
 - ✅ **Phase 2 Complete - Component Architecture (2026-02-02):**
   - Scene directory flattening (depth 3 → 2)
   - Deleted 24 legacy files (ground/, .BACKUP.tsx files, utilities redirect)
