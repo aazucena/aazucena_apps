@@ -105,6 +105,7 @@ Unit tests, integration tests, E2E tests with Playwright.
 
 #### Analytics & Telemetry 📊
 - **[AZUCENA_LYTICS Overview](/apps/analytics/README.md)** - Engineering Intelligence Terminal architecture and setup (Next.js/ClickHouse/D3.js)
+- **[AZUCENA_LYTICS Roadmap](./features/azucena-lytics-plan.md)** - Detailed 5-phase implementation plan (100% COMPLETE)
 - **[Logging & Monitoring](./features/logging-monitoring.md)** - Sentry, Vercel Analytics, Pino, Redis (3-4 days)
 - **[Plausible Analytics](./features/plausible-analytics.md)** - Self-hosted privacy-friendly traffic analytics (2-3 days)
 
