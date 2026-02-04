@@ -5,14 +5,15 @@
  */
 
 // Atmospheric Layers (flattened from layers/)
-export * from './Exosphere';
-export * from './Thermosphere';
-export * from './Mesosphere';
-export * from './Stratosphere';
-export * from './Troposphere';
+// NOTE: Static exports removed to enable code splitting.
+// These layers are now ONLY exported via index.lazy.ts for lazy loading.
+// Static exports here would prevent Vite from code-splitting, bundling
+// all 5 layers (~375-750KB) into the main chunk unnecessarily.
+// Use SceneLayerManager.lazy with ENABLE_LAYER_LAZY_LOADING=true instead.
 
 // Scene Management
-export * from './SceneLayerManager';
+// NOTE: SceneLayerManager (non-lazy) export removed - we now ONLY use LazySceneLayerManager
+// Exporting both would prevent code-splitting since SceneLayerManager imports all layers directly
 export * from './SceneLayerManager.lazy';
 export * from './SceneLighting';
 

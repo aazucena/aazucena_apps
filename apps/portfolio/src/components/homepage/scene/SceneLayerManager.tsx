@@ -16,13 +16,13 @@ import type {
   FlowerData
 } from '~/config/animations';
 import type { ParticleData } from '~/data/scene/particles';
-import {
-  Exosphere,
-  Thermosphere,
-  Mesosphere,
-  Stratosphere,
-  Troposphere
-} from './index';
+// Direct imports (not from index.ts) to avoid bundling when lazy loading is enabled
+// When ENABLE_LAYER_LAZY_LOADING=true, LazySceneLayerManager is used instead
+import { Exosphere } from './Exosphere';
+import { Thermosphere } from './Thermosphere';
+import { Mesosphere } from './Mesosphere';
+import { Stratosphere } from './Stratosphere';
+import { Troposphere } from './Troposphere';
 
 export interface SceneLayerManagerProps {
   /** Current atmospheric phase */

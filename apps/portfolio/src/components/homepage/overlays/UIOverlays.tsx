@@ -3,14 +3,18 @@
  * Renders all UI overlays: navigation toolbar, modals, and scroll indicators
  *
  * Simplified architecture with encapsulated NavigationToolbar component
+ * Phase 3 Task #5: ExperienceModal lazy-loaded for bundle optimization
  */
 
-import type { JSX } from "react";
-import { ExperienceModal, ScrollIndicators, ScrollDownIndicator } from '~/components/ui';
+import { lazy, Suspense, type JSX } from "react";
+import { ScrollIndicators, ScrollDownIndicator } from '~/components/ui';
 import { NavigationToolbar } from './NavigationToolbar';
 import type { AtmosphericPhase } from '~/config/animations';
 import { useSectionData, usePortfolio, useDataContext } from '~/contexts/animations';
 import { useModal } from '~/hooks/animations';
+
+// Lazy load ExperienceModal - only loads when user clicks to view experience
+const ExperienceModal = lazy(() => import('~/components/ui/ExperienceModal').then(m => ({ default: m.ExperienceModal })));
 
 interface UIOverlaysProps {
   // Atmospheric layer (not in contexts yet)
@@ -40,15 +44,17 @@ export default function UIOverlays({
   const sectionNames = content.sections.map(section => section.name);
   return (
     <>
-      {/* Experience Modal */}
+      {/* Experience Modal - Lazy loaded */}
       {isExperienceModalOpen &&
         selectedExperienceIndex !== null &&
         experiences[selectedExperienceIndex] && (
-          <ExperienceModal
-            experience={experiences[selectedExperienceIndex]}
-            onClose={closeExperienceModal}
-            modalRef={modalRef}
-          />
+          <Suspense fallback={<div className="sr-only">Loading...</div>}>
+            <ExperienceModal
+              experience={experiences[selectedExperienceIndex]}
+              onClose={closeExperienceModal}
+              modalRef={modalRef}
+            />
+          </Suspense>
         )}
 
       {/* Navigation toolbar with integrated panels (Info, Settings, Social) */}

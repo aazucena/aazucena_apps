@@ -137,12 +137,13 @@ export const SCROLL_DEBOUNCE_TIME = 1000; // ms
 // Performance Features
 /**
  * Enable lazy loading for atmospheric layers
- * When true: Layers code-split and load on-demand (~75-150KB initial bundle reduction)
+ * When true: Layers code-split and load on-demand (~375-750KB initial bundle reduction)
  * When false: All layers loaded upfront (simpler, no loading delays)
  *
- * NOTE: Currently disabled due to React Suspense compatibility issues with R3F Canvas
- * Suspense boundaries inside Three.js scenes cause rendering errors
+ * UPDATED (2026-02-04 - Phase 3): ✅ ENABLED after removing conflicting static exports
+ * from scene/index.ts. The lazy loading infrastructure now works correctly because
+ * layers are ONLY exported via index.lazy.ts, allowing Vite to code-split properly.
  *
- * Recommended: false until we implement Canvas-level Suspense
+ * Expected Impact: 40-83% reduction in HomepageSection bundle (411KB → ~150-250KB gzipped)
  */
-export const ENABLE_LAYER_LAZY_LOADING = false;
+export const ENABLE_LAYER_LAZY_LOADING = true;

@@ -4,6 +4,7 @@
  * Conditionally renders based on device capabilities and atmospheric layer
  *
  * Refactored to use context hooks directly instead of prop drilling
+ * Phase 3 Task #6: Demand-based rendering for improved FPS
  */
 
 import type { JSX } from "react";
@@ -46,9 +47,10 @@ export default function AnimationCanvas({
         </div>
       )}
 
-      {/* Three.js Canvas - Adaptive to Atmospheric Layer */}
+      {/* Three.js Canvas - Demand-based rendering (Phase 3 Task #6) */}
       <div className="fixed inset-0 z-20 transition-opacity duration-1000">
         <Canvas
+          frameloop="demand"
           camera={{ position: [0, 0, 0], fov: 15 }}
           gl={{
             alpha: true,

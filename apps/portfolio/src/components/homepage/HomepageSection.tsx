@@ -4,17 +4,19 @@
  * Reduced from 324 lines to ~180 lines
  *
  * Scoped to homepage - not a general-purpose section component
+ * Phase 3: AnimationCanvas lazy-loaded for 60% bundle reduction
  */
 
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { JSX } from "react";
+import { lazy, Suspense, type JSX } from "react";
 import type { HomepageData } from "~/lib/transformers/homepage";
 import type { PortfolioContent } from "~/lib/transformers/portfolio";
 import type { PortfolioData } from "~/types/portfolio";
 import DynamicBackground from "./background/DynamicBackground";
-import AnimationCanvas from "./canvas/AnimationCanvas";
+// Lazy load AnimationCanvas to defer Three.js (~600KB) + PixiJS (~400KB)
+const AnimationCanvas = lazy(() => import("./canvas/AnimationCanvas"));
 import {
   DataProvider,
   useDataContext,
@@ -64,8 +66,18 @@ function HomepageSectionInner(): JSX.Element {
       {/* Atmospheric Overlays */}
       <AtmosphericOverlays atmosphericLayer={atmosphericLayer} />
 
-      {/* Animation Canvas - Uses contexts directly, only needs atmosphericLayer */}
-      <AnimationCanvas atmosphericLayer={atmosphericLayer} />
+      {/* Animation Canvas - Lazy loaded to defer Three.js + PixiJS (~1MB) */}
+      <Suspense
+        fallback={
+          <div
+            className="fixed inset-0 z-20 transition-opacity duration-1000"
+            style={backgroundStyle}
+            aria-label="Loading 3D animations"
+          />
+        }
+      >
+        <AnimationCanvas atmosphericLayer={atmosphericLayer} />
+      </Suspense>
 
       {/* Main Content Section */}
       <section className="relative h-screen w-full overflow-hidden">

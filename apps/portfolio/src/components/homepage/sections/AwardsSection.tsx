@@ -1,16 +1,19 @@
 /**
  * AwardsSection Component
  * Awards and certifications with hexagonal grid layout
+ * Phase 3 Task #5: AwardModal lazy-loaded for bundle optimization
  */
 
-import type { JSX } from 'react';
+import { lazy, Suspense, type JSX } from 'react';
 import { useSectionData } from '~/contexts/animations';
 import { useModal } from '~/hooks/animations';
-import { AwardModal } from '~/components/ui';
 import { HexagonCard, SectionLabel } from '~/components/ui/awards';
 import { SectionLayout } from './layouts';
 import type { SectionProps } from './types';
 import type { Award } from '~/lib/transformers/awards';
+
+// Lazy load AwardModal - only loads when user clicks to view award details
+const AwardModal = lazy(() => import('~/components/ui/AwardModal').then(m => ({ default: m.AwardModal })));
 
 export interface AwardsSectionProps extends SectionProps {}
 
@@ -56,13 +59,15 @@ export function AwardsSection({ title = 'Awards & Certifications', subtitle = 'R
         </div>
       </SectionLayout>
 
-      {/* Award Modal - Outside container to avoid z-index issues */}
+      {/* Award Modal - Lazy loaded, outside container to avoid z-index issues */}
       {isAwardModalOpen && selectedAward && (
-        <AwardModal
-          award={selectedAward}
-          onClose={closeAwardModal}
-          modalRef={modalRef as any}
-        />
+        <Suspense fallback={<div className="sr-only">Loading...</div>}>
+          <AwardModal
+            award={selectedAward}
+            onClose={closeAwardModal}
+            modalRef={modalRef as any}
+          />
+        </Suspense>
       )}
     </>
   );

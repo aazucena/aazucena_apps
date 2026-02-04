@@ -129,13 +129,12 @@ const themeStyles = {
 			Skip to main content
 		</a>
     <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
-    <!-- transition:persist keeps the same DOM element across page navigations -->
     <!-- Once hidden and removed, it won't reappear -->
+    <!-- Note: transition:persist removed due to React 19 compatibility issues -->
     <BrandIconLoader
       logoUrl={brandLogoUrl}
       backgroundColor={preloaderBackground}
       isCmsFallback={isCmsFallback}
-      transition:persist="brand-loader"
     />
 
     <!-- Preloader - Hydrates with React (client:only) -->

@@ -3,12 +3,16 @@
  * Tabbed interface combining all technical visualizations for the journey page
  *
  * Scoped to /journey page - not a general-purpose dashboard
+ * Phase 3 Task #5: DetailsModal lazy-loaded for bundle optimization
  */
 
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { StreamGraph, Heatmap, SankeyDiagram, SpiderChart, ForceDirectedGraph } from '~/components/visualizations/journey';
-import { DetailsModal, CareerStats, Toolbar, GrowthMetrics } from '~/components/ui/journey';
+import { CareerStats, Toolbar, GrowthMetrics } from '~/components/ui/journey';
 import { getSkillDetails, type SkillsOverTime, type SkillsNetworkData, type SkillNode, type SankeyData, type HeatmapCell, type StreamGraphStep, type GrowthData, type CareerStat as CareerStatsType } from '~/lib/transformers/journey';
+
+// Lazy load DetailsModal - only loads when user clicks to view skill details
+const DetailsModal = lazy(() => import('~/components/ui/journey/DetailsModal').then(m => ({ default: m.DetailsModal })));
 import type { Experience } from '~/lib/transformers/experiences';
 import type { Education } from '~/lib/transformers/education';
 import type { Project } from '~/lib/transformers/projects';
@@ -160,11 +164,14 @@ export function JourneyDashboard({
           </div>
         </div>
 
-        <DetailsModal 
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          skillDetails={skillDetails}
-        />
+        {/* DetailsModal - Lazy loaded */}
+        <Suspense fallback={<div className="sr-only">Loading...</div>}>
+          <DetailsModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            skillDetails={skillDetails}
+          />
+        </Suspense>
 
       </div>
     </div>

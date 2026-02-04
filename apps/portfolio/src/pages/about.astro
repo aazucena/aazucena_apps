@@ -22,6 +22,7 @@ import DetailLayout from '~/layouts/DetailLayout.astro';
 import { getAbout } from '~/lib/api/about';
 import { fetchEducation } from '~/lib/api/education';
 import { getPortfolio } from '~/lib/api/portfolio';
+import { cn } from '~/lib/utils';
 import { getColorClass, getGradientClass } from '~/lib/utils/about';
 import { getAvailabilityIndicator } from '~/lib/utils/availability';
 import type { InterestItem, Language, MasteryItem, RootItem, WorkflowTool } from '~/types/about';
@@ -133,7 +134,7 @@ const [ firstName, /*lastName*/ ] = portfolio.fullName.split(' ');
       </div>
     )}
     
-    <div class="flex-1 text-center md:text-left space-y-6">
+    <div class={cn("flex-1 text-center md:text-left space-y-6", portfolio.profileImage?.url && "my-auto")}>
       <div>
         <h1 class="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tighter leading-none mb-4">
           Hi, I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">{firstName}</span>.
