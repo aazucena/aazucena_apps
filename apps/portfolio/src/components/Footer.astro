@@ -13,6 +13,7 @@ Globe
 import { getAvailabilityIndicator } from '~/lib/utils/availability';
 import { toTitleCase } from '~/lib/utils/text';
 import type { NavigationItem } from '~/lib/validators/navigation';
+import { IntegrityBadge } from './telemetry/IntegrityBadge';
 
 interface SocialLink {
   platform: string;
@@ -170,15 +171,18 @@ const getPlatformIcon = (platform: string) => {
 
     <!-- Copyright & Tech Stack -->
     <div class="mt-24 pt-12 border-t border-gray-100 dark:border-gray-900 flex flex-col md:flex-row justify-between items-center gap-8">
-      <div class="flex flex-col items-center md:items-start gap-2">
-        <p class="text-xs font-bold text-gray-400 dark:text-gray-600">
-          © {currentYear} {toTitleCase(siteName)}
-        </p>
-        {footerLocationTagline && (
-          <p class="text-[10px] font-medium text-gray-300 dark:text-gray-700 tracking-wide">
-            {footerLocationTagline}
+      <div class="flex flex-col items-center md:items-start gap-4">
+        <div class="flex flex-col items-center md:items-start gap-2">
+          <p class="text-xs font-bold text-gray-400 dark:text-gray-600">
+            © {currentYear} {toTitleCase(siteName)}
           </p>
-        )}
+          {footerLocationTagline && (
+            <p class="text-[10px] font-medium text-gray-300 dark:text-gray-700 tracking-wide">
+              {footerLocationTagline}
+            </p>
+          )}
+        </div>
+        <IntegrityBadge client:load />
       </div>
       
       <div class="flex items-center gap-6 text-gray-300 dark:text-gray-800">
