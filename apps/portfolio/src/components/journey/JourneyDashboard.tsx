@@ -1,17 +1,19 @@
 /**
- * Unified Skills Dashboard Component
- * Tabbed interface combining all technical visualizations
+ * Journey Dashboard Component
+ * Tabbed interface combining all technical visualizations for the journey page
+ *
+ * Scoped to /journey page - not a general-purpose dashboard
  */
 
 import { useState } from 'react';
-import { StreamGraph, Heatmap,SankeyDiagram, SpiderChart, ForceDirectedGraph } from './';
-import { DetailsModal, CareerStats, Toolbar, GrowthMetrics } from './ui';
-import { getSkillDetails, type SkillsOverTime, type SkillsNetworkData, type SkillNode, type SankeyData, type HeatmapCell, type StreamGraphStep, type GrowthData, type CareerStat as CareerStatsType } from './transformers';
-import type { Experience } from '~/lib/transformers/experiences'
+import { StreamGraph, Heatmap, SankeyDiagram, SpiderChart, ForceDirectedGraph } from '~/components/visualizations/journey';
+import { DetailsModal, CareerStats, Toolbar, GrowthMetrics } from '~/components/ui/journey';
+import { getSkillDetails, type SkillsOverTime, type SkillsNetworkData, type SkillNode, type SankeyData, type HeatmapCell, type StreamGraphStep, type GrowthData, type CareerStat as CareerStatsType } from '~/lib/transformers/journey';
+import type { Experience } from '~/lib/transformers/experiences';
 import type { Education } from '~/lib/transformers/education';
 import type { Project } from '~/lib/transformers/projects';
 
-interface SkillsDashboardProps {
+interface JourneyDashboardProps {
   evolutionData: SkillsOverTime[];
   networkData: SkillsNetworkData;
   sankeyData: SankeyData;
@@ -30,7 +32,7 @@ interface SkillsDashboardProps {
 
 type TabType = 'evolution' | 'network' | 'flow' | 'momentum' | 'intensity';
 
-export function SkillsDashboard({
+export function JourneyDashboard({
   evolutionData,
   networkData,
   sankeyData,
@@ -45,7 +47,7 @@ export function SkillsDashboard({
   hideHeader = false,
   hideStats = false,
   hideMetrics = false,
-}: SkillsDashboardProps) {
+}: JourneyDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>('evolution');
   
   // Modal state for network graph

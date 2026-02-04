@@ -1,10 +1,21 @@
 /**
  * Journey Components Index
- * Export all journey visualization and utility components
+ * Re-exports journey components from their new organized locations
+ *
+ * Main component stays here, subcomponents moved to:
+ * - UI: ~/components/ui/journey
+ * - Visualizations: ~/components/visualizations/journey
+ * - Transformers: ~/lib/transformers/journey
+ * - Utils: ~/lib/utils/journey
+ * - Store: ~/store/journey
  */
 
-export * from './store'
-export * from './visualizations'
-export { SkillsDashboard } from './SkillsDashboard';
-export * from './ui';
-export * from './transformers';
+// Main journey dashboard component (stays in this directory)
+export { JourneyDashboard } from './JourneyDashboard';
+
+// Re-export from new locations for backward compatibility
+export * from '~/components/ui/journey';
+export * from '~/components/visualizations/journey';
+export * from '~/lib/transformers/journey';
+export * from '~/lib/utils/journey';
+export * from '~/store/journey';
