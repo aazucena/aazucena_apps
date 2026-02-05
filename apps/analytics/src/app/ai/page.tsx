@@ -45,7 +45,7 @@ const AVAILABLE_MODELS = [
   { id: 'google/gemini-1.5-flash', name: 'Gemini 1.5 Flash', provider: 'Google' },
 ];
 
-export default function AiTerminalPage() {
+function AiTerminalContent() {
   const dispatch = useDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -530,3 +530,22 @@ export default function AiTerminalPage() {
     </div>
   );
 }
+
+export default function AiTerminalPage() {
+  return (
+    <React.Suspense fallback={
+      <div className="h-[calc(100vh-8rem)] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Activity className="w-8 h-8 text-primary-500 animate-pulse" />
+          <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest text-center">
+            Initializing_Neural_Core...<br/>
+            Loading_System_Context
+          </p>
+        </div>
+      </div>
+    }>
+      <AiTerminalContent />
+    </React.Suspense>
+  );
+}
+
