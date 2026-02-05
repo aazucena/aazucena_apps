@@ -1,5 +1,5 @@
 {
-  "extends": "@aazucena/shared/tyoescript/react.json",
+  "extends": "@aazucena/config/tyoescript/react.json",
   "compilerOptions": {
     "outDir": "dist"
   },

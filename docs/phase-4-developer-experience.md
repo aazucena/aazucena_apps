@@ -365,12 +365,15 @@ packages/
 - [ ] Create `@aazucena/forms/fields/`
   - TextField, TextArea, SelectField
 
-**Afternoon (4 hours): More Fields**
-- [ ] CheckboxField, RadioField, DateField
-- [ ] Create validators and hooks
+**Afternoon (4 hours): Inquiry Firewall (Cal.com)**
+- [ ] **Implement Intelligent Inquiry Firewall**
+  - Integrate `@calcom/embed-react` into `@aazucena/ui`
+  - Build gated form logic in `@aazucena/forms`
+  - Connect to `intel-engine` for SHADES analysis
 
 **Deliverables:**
 - ✅ Complete form system
+- ✅ AI-Gated Scheduler (Inquiry Firewall)
 
 ---
 
@@ -382,15 +385,16 @@ packages/
 - [ ] Create `@aazucena/icons/`
   - Icon, IconButton, registry
 
-**Afternoon (4 hours): Analytics**
-- [ ] Create `@aazucena/analytics/providers/`
-- [ ] Create `@aazucena/analytics/events/`
-- [ ] Create `@aazucena/analytics/hooks/`
+**Afternoon (4 hours): Analytics & Agentic Telemetry**
+- [ ] Create `@aazucena/analytics/`
+  - Implement **Agentic Telemetry Standard** (MG/EG Phase tracking)
+  - Define `token_stats` and `call_stats` schemas
+  - Set up real-time ClickHouse event emitters
 
 **Deliverables:**
 - ✅ Layout components
 - ✅ Icon system
-- ✅ Analytics utilities
+- ✅ Agentic Telemetry implementation
 
 ---
 
