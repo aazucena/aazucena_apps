@@ -1,0 +1,25 @@
+{
+  "name": "@aazucena/hooks",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./device": "./src/device/index.ts",
+    "./state": "./src/state/index.ts",
+    "./animation": "./src/animation/index.ts",
+    "./data": "./src/data/index.ts",
+    "./dom": "./src/dom/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "typescript": "^5.6.3",
+    "react": "^19.2.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

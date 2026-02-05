@@ -1,0 +1,20 @@
+{
+  "name": "@aazucena/utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./string": "./src/string/index.ts",
+    "./date": "./src/date/index.ts",
+    "./number": "./src/number/index.ts",
+    "./dom": "./src/dom/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@aazucena/analytics",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "typescript": "^5.6.3"
+  }
+}

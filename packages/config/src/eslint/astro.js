@@ -1,5 +1,7 @@
 import astroEslintParser from 'astro-eslint-parser';
 import eslintPluginAstro from 'eslint-plugin-astro';
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
+import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import globals from 'globals';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
@@ -11,6 +13,16 @@ export default [
   js.configs.recommended,
   ...eslintPluginAstro.configs['flat/recommended'],
   ...tseslint.configs.recommended,
+  {
+    plugins: {
+      'react-hooks': eslintPluginReactHooks,
+      'jsx-a11y': eslintPluginJsxA11y,
+    },
+    rules: {
+      ...eslintPluginReactHooks.configs.recommended.rules,
+      ...eslintPluginJsxA11y.configs.recommended.rules,
+    },
+  },
   {
     settings: {
       "import/resolver": {

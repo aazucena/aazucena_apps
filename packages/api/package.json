@@ -1,0 +1,20 @@
+{
+  "name": "@aazucena/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./clients/*": "./src/clients/*.ts",
+    "./validators/*": "./src/validators/*.ts",
+    "./transformers/*": "./src/transformers/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "typescript": "^5.6.3",
+    "zod": "^3.23.8"
+  }
+}

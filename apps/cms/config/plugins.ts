@@ -1,4 +1,6 @@
-export default ({ env }) => ({
+import { ConfigContext } from '../types/strapi';
+
+export default ({ env }: ConfigContext) => ({
   // ========================================
   // Custom Field Plugins
   // ========================================

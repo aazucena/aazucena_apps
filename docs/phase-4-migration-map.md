@@ -11,9 +11,9 @@ This manifest maps the current monolithic structure of `apps/portfolio` and `app
 ### 1. `@aazucena/config` (Renamed from shared)
 | Source | Type | Destination |
 |--------|------|-------------|
-| `packages/shared/eslint/*` | Build Config | `packages/config/eslint/*` |
-| `packages/shared/typescript/*` | Build Config | `packages/config/typescript/*` |
-| `packages/shared/tailwind/*` | Build Config | `packages/config/tailwind/*` |
+| `packages/shared/eslint/*` | Build Config | `packages/config/src/eslint/*` |
+| `packages/shared/typescript/*` | Build Config | `packages/config/src/typescript/*` |
+| `packages/shared/tailwind/*` | Build Config | `packages/config/src/tailwind/*` |
 
 ### 2. `@aazucena/design-system` (New)
 | Source | Type | Destination |

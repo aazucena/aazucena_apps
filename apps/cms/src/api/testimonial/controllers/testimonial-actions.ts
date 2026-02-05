@@ -33,7 +33,7 @@ export default factories.createCoreController(
           meta: { count: testimonials.length }
         });
       } catch (error) {
-        ctx.throw(500, `Failed to fetch pending testimonials: ${error.message}`);
+        ctx.throw(500, `Failed to fetch pending testimonials: ${(error as Error).message}`);
       }
     },
 
@@ -46,7 +46,7 @@ export default factories.createCoreController(
         const stats = await getApprovalStatistics(strapi);
         return ctx.send({ data: stats });
       } catch (error) {
-        ctx.throw(500, `Failed to fetch statistics: ${error.message}`);
+        ctx.throw(500, `Failed to fetch statistics: ${(error as Error).message}`);
       }
     },
 
@@ -74,7 +74,7 @@ export default factories.createCoreController(
           message: `Testimonial #${id} approved successfully`
         });
       } catch (error) {
-        ctx.throw(500, `Failed to approve testimonial: ${error.message}`);
+        ctx.throw(500, `Failed to approve testimonial: ${(error as Error).message}`);
       }
     },
 
@@ -110,7 +110,7 @@ export default factories.createCoreController(
           message: `Testimonial #${id} rejected successfully`
         });
       } catch (error) {
-        ctx.throw(500, `Failed to reject testimonial: ${error.message}`);
+        ctx.throw(500, `Failed to reject testimonial: ${(error as Error).message}`);
       }
     },
 
@@ -130,7 +130,7 @@ export default factories.createCoreController(
         });
       } catch (error) {
         // This will catch the "not approved" error from publishTestimonial helper
-        ctx.throw(400, error.message);
+        ctx.throw(400, (error as Error).message);
       }
     },
 
@@ -149,7 +149,7 @@ export default factories.createCoreController(
           message: `Testimonial #${id} unpublished successfully (can now be edited)`
         });
       } catch (error) {
-        ctx.throw(500, `Failed to unpublish testimonial: ${error.message}`);
+        ctx.throw(500, `Failed to unpublish testimonial: ${(error as Error).message}`);
       }
     }
   })

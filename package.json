@@ -8,9 +8,21 @@
     "web:dev": "pnpm dev --filter *portfolio*",
     "cms:dev": "pnpm dev --filter *cms*",
     "analytics:dev": "pnpm dev --filter *analytics*",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{astro,md,json,css}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.4.2",
     "turbo": "^2.4.2"
   },
