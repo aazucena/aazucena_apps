@@ -21,9 +21,20 @@ aazucena_apps/
 │   ├── portfolio/          # Main Astro portfolio application
 │   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal (Next.js)
 │   └── cms/                # Strapi CMS backend
-├── packages/
-│   ├── shared/             # Shared utilities and types
-│   └── ui/                 # Shared UI components
+├── packages/               # 13 specialized packages (Phase 4)
+│   ├── design-system/      # Design tokens + documentation
+│   ├── ui/                 # Component library (ShadCN + composed)
+│   ├── hooks/              # React hooks library
+│   ├── utils/              # Pure utility functions
+│   ├── types/              # TypeScript type definitions
+│   ├── constants/          # Global constants
+│   ├── animations/         # Animation utilities (GSAP, Three.js, PixiJS)
+│   ├── api/                # API clients, validators, transformers
+│   ├── forms/              # Form system (react-hook-form + Zod)
+│   ├── layouts/            # Layout components
+│   ├── icons/              # Icon system
+│   ├── analytics/          # Tracking & telemetry
+│   └── config/             # Build configurations
 ├── turbo.json              # Turborepo task pipeline configuration
 ├── pnpm-workspace.yaml     # pnpm workspace configuration
 └── package.json            # Root workspace scripts
@@ -191,14 +202,14 @@ Phase 2 (Component Architecture) → 6-8 days
     ↓
 Phase 3 (Performance) → 4-6 days
     ↓
-Phase 4 (Developer Experience) → 16-22 days
+Phase 4 (Developer Experience) → 21 days
     ↓
 Phase 5 (Testing) → 5-8 days
     ↓
 Features (as needed) → 3-40 days each
 ```
 
-**Total Core Phases:** 52-71 days (~2.5-3.5 months)
+**Total Core Phases:** 61.5-75 days (~2.5-3.5 months)
 
 ---
 
@@ -233,11 +244,14 @@ Features (as needed) → 3-40 days each
   - Fixed rich text rendering and Vercel build configuration
 
 ### In Progress 🚧
-- **Phase 4:** Developer Experience - 🔥 CURRENT PRIORITY
-  - TypeScript strict mode & centralized types
-  - Figma Design System
-  - Storybook Setup
-  - Chromatic Visual Testing
+- **Phase 4:** Developer Experience (21 days) - 🔥 CURRENT PRIORITY
+  - 13 specialized packages (design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config)
+  - @aazucena/design-system - Tokens + comprehensive docs
+  - Figma Design System (40+ components)
+  - Storybook (50+ stories)
+  - Chromatic integration
+  - TypeScript strict mode + Git hooks
+  - Zero code duplication (565 lines eliminated)
 
 ### Next Up ⏳
 - **Phase 5:** Testing & Quality (Vitest, Playwright)
@@ -273,7 +287,8 @@ turbo prune
 
 - **Always use pnpm** (never npm or yarn) for consistency
 - **Turborepo caches builds** - use `turbo build --force` to bypass cache
-- **Current Priority:** Phase 4 - Developer Experience 🔥
+- **Current Priority:** Phase 4 - Developer Experience (21 days, 13 packages) 🔥
+- **Phase 3 Complete:** Performance Optimization - 74.3% bundle reduction (410KB → 105KB)
 - **Phase 2 Complete:** Component Architecture - Flat structure (max depth 2), all sections <120 lines
 - **AI Forms:** Comprehensive implementation with pgVector for semantic search, embeddings, and RAG capabilities
 - **Strapi v5:** Upgraded for better PostgreSQL integration and pgVector support
@@ -293,6 +308,14 @@ This is a personal portfolio project. For major changes or suggestions:
 **Last Updated:** 2026-02-04
 
 **Recent Changes:**
+- ✅ **Phase 4 Documentation Updated (2026-02-04):**
+  - Enhanced architecture plan: 4 → 13 specialized packages
+  - Renamed @aazucena/design-tokens → @aazucena/design-system (expanded scope)
+  - Renamed @aazucena/data → @aazucena/api (more descriptive)
+  - Timeline refined: 16-22 days → 21 days
+  - Package breakdown: design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config
+  - Complete responsibility matrix with sizes and priorities
+  - All docs synchronized (ROADMAP.md, CLAUDE.md, README.md, GEMINI.md)
 - ✅ **Phase 3 Complete - Performance Optimization (2026-02-04):**
   - 74.3% bundle reduction (410KB → 105KB gzipped)
   - Exceeded 63% target by 11.3%

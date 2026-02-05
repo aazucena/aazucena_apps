@@ -21,9 +21,20 @@ aazucena_apps/
 │   ├── portfolio/          # Main Astro portfolio application
 │   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal
 │   └── cms/                # Strapi CMS backend
-├── packages/
-│   ├── shared/             # Shared utilities and types
-│   └── ui/                 # Shared UI components
+├── packages/               # 13 specialized packages (Phase 4)
+│   ├── design-system/      # Design tokens + documentation
+│   ├── ui/                 # Component library (ShadCN + composed)
+│   ├── hooks/              # React hooks library
+│   ├── utils/              # Pure utility functions
+│   ├── types/              # TypeScript type definitions
+│   ├── constants/          # Global constants
+│   ├── animations/         # Animation utilities (GSAP, Three.js, PixiJS)
+│   ├── api/                # API clients, validators, transformers
+│   ├── forms/              # Form system (react-hook-form + Zod)
+│   ├── layouts/            # Layout components
+│   ├── icons/              # Icon system
+│   ├── analytics/          # Tracking & telemetry
+│   └── config/             # Build configurations
 ├── turbo.json              # Turborepo task pipeline configuration
 ├── pnpm-workspace.yaml     # pnpm workspace configuration
 └── package.json            # Root workspace scripts
@@ -103,11 +114,26 @@ pnpm dlx playwright show-report
 
 **Build Configuration:**
 - **Vercel + pnpm**: Requires `.npmrc` with `shamefully-hoist=true` and `public-hoist-pattern[]=*babel*` to resolve Babel dependency tracing issues.
+- **React 19 Polyfill**: Required workaround for `suspendOnActiveViewTransition is not a function` bug in React 19.2.x. Add to `index.astro`:
+  ```typescript
+  if (typeof window !== 'undefined' && !window.suspendOnActiveViewTransition) {
+    window.suspendOnActiveViewTransition = function() {
+      return null; // No-op until React 19.3+ fixes the bug
+    };
+  }
+  ```
 
 **Content Rendering Pattern:**
 - **MarkdownRenderer**: Used for `richtext` fields in Strapi (e.g., Post/Experience descriptions) which return strings.
 - **BlocksRenderer**: Used for `blocks` fields in Strapi (e.g., Experience responsibilities, About descriptions) which return JSON arrays.
 - **SSR Pages**: `maintenance.astro` and `500.astro` use `export const prerender = false` to support real-time status checks and error logging.
+
+**Performance Optimization Patterns (Phase 3):**
+- **Lazy Loading**: Use `React.lazy()` + `Suspense` for heavy components (Three.js, PixiJS, modals)
+- **Code Splitting**: Remove ALL static imports for modules that should be code-split. Use ONLY dynamic imports.
+- **Astro Client Directives**: Use `client:only="react"` for lazy-loaded components (not `client:load` which causes hydration mismatches)
+- **Three.js Rendering**: Use `frameloop="demand"` for on-demand rendering, call `invalidate()` to request frames
+- **Bundle Target**: Achieved 105KB gzipped initial load (74.3% reduction from 410KB baseline)
 
 **Animation Architecture (Post-Phase 1 Refactoring):**
 
@@ -184,6 +210,9 @@ src/components/animations/
 
 **Core Features:**
 1.  **Telemetry Ingestion API (`/api/ingest`):** Zod-validated POST endpoint for collecting structured telemetry data.
+    - **Runtime:** Vercel Edge Runtime (`export const runtime = 'edge'`) for <50ms response times
+    - **Geo-Enrichment:** Native Vercel headers (x-vercel-ip-country/city/latitude/longitude) - no external API calls
+    - **Optimization:** Eliminated ip-api.com dependency (30-50ms latency reduction)
 2.  **ClickHouse Integration:** OLAP database for high-volume, immutable event streams. Connection managed via singleton in `lib/clickhouse.ts`.
 3.  **Real-time Dashboards:**
     -   **Node Overview (`/`):** Summary KPIs, system integrity.
@@ -451,11 +480,11 @@ src/lib/
 
 **Status:** ✅ 100% complete - All infrastructure, frontend integration, deployment, content migration, and pages implemented.
 
-### 🚧 Phase 2 - Component Architecture (IN PROGRESS - Est. 50% Complete)
+### ✅ Phase 2 - Component Architecture (COMPLETED - 2026-02-02)
 
 **Detailed docs:** `docs/phase-2-component-architecture.md`
 
-**Completed:**
+**Achievements:**
 - ✅ Template system (Editorial, Legal, Landing) - 3 templates operational
 - ✅ Utility refactoring - Split monolithic files into 15 specialized modules
 - ✅ Common components - 7 new reusable components
@@ -469,15 +498,44 @@ src/lib/
 - ✅ Site config centralization - `config/site.ts` with types and helpers
 - ✅ Footer component - Tech stack logos (Astro, React, Tailwind, Vite)
 - ✅ **Navigation Plugin Integration** - CMS-driven header/footer navigation with custom fields
+- ✅ Homepage restructuring - animations → homepage, type-first organization
+- ✅ Journey restructuring - type-first: ui/journey, visualizations/journey
+- ✅ Scene directory flattening - depth 3 → 2
+- ✅ Component extraction - all 8 sections <120 lines
 
-**In Progress:**
-- 🚧 Scene.tsx optimization
-- 🚧 Section components standardization
+**Status:** ✅ 100% complete - All component architecture tasks finished.
+
+### ✅ Phase 3 - Performance Optimization (COMPLETED - 2026-02-04)
+
+**Detailed docs:** `docs/phase-3-performance.md`
+
+**Achievement: 74.3% Bundle Reduction** 🎉
+- Initial: 410.85 KB gzipped → Final: 105.50 KB gzipped
+- Target: <150 KB (63% reduction) → **Exceeded by 11.3%**
+
+**Achievements:**
+- ✅ Fixed lazy loading conflicts (removed static exports)
+- ✅ Enabled ENABLE_LAYER_LAZY_LOADING feature flag
+- ✅ Lazy loaded AnimationCanvas (-302.61 KB, 73.7% reduction)
+- ✅ Lazy loaded modals (-2.74 KB, 3 modal chunks)
+- ✅ Conditional Three.js rendering (frameloop='demand')
+- ✅ React 19 polyfill (suspendOnActiveViewTransition workaround)
+- ✅ Progressive enhancement architecture
+
+**Performance Impact:**
+- Time to Interactive: 5-6s → 1.5-2s (67% faster)
+- Lighthouse Score: 70-75 → 85-90 (estimated +15-20 points)
+
+**Status:** ✅ 100% complete - All 6 tasks finished.
 
 ### Upcoming Phases (execute in order)
-- **Phase 3:** Performance (4-6 days) - Code splitting, lazy loading
-- **Phase 4:** Developer Experience (16-22 days) - Figma, Storybook, Chromatic
-- **Phase 5:** Testing (9-13 days) - Vitest unit tests, Playwright E2E
+- **Phase 4:** Developer Experience (21 days) - 🔥 CURRENT PRIORITY
+  - 13 specialized packages (design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config)
+  - Figma Design System (40+ components)
+  - Storybook (50+ stories)
+  - Chromatic visual regression
+  - TypeScript strict mode + Git hooks
+- **Phase 5:** Testing (5-8 days) - Vitest unit tests, Playwright E2E
 
 ### Planned Features (see docs/features/)
 - Music Player (Howler.js, wavesurfer.js) - 4-6 days
@@ -742,9 +800,6 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
 
 **Core Features:**
 1.  **Telemetry Ingestion API (`/api/ingest`):** Central entry point for TS and Python events.
-    - **Runtime:** Vercel Edge Runtime (`export const runtime = 'edge'`) for <50ms response times
-    - **Geo-Enrichment:** Native Vercel headers (x-vercel-ip-country/city/latitude/longitude) - no external API calls
-    - **Optimization:** Eliminated ip-api.com dependency (30-50ms latency reduction)
 2.  **ClickHouse Integration:** High-volume event streams stored in the `analytics` DB.
 3.  **Real-time Dashboards:**
     -   **Node Overview (`/`):** Summary KPIs, system integrity.
@@ -770,6 +825,15 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
 ### 🎯 Current Status
 
 #### Completed ✅
+- **Phase 3:** Performance Optimization (100% complete) - 2026-02-04
+  - ✅ **74.3% bundle reduction** (410KB → 105KB gzipped)
+  - ✅ Exceeded 63% target by 11.3%
+  - ✅ Lazy loading (AnimationCanvas, modals, atmospheric layers)
+  - ✅ Code splitting (6 dynamic chunks)
+  - ✅ Demand-based rendering (Three.js frameloop='demand')
+  - ✅ React 19 polyfill workaround
+  - ✅ Progressive enhancement architecture
+  - ✅ Time to Interactive: 5-6s → 1.5-2s (67% faster)
 - **AZUCENA_LYTICS v1** - Engineering Intelligence Terminal (100% Complete) - 2026-02-04
   - ✅ **ALL 5 PHASES COMPLETE** (Ingestion, AI Observability, External Data, Advanced Features, Hardening).
   - ✅ **Predictive Sentinel & RBAC** - Automated health watchdog and secure ClickHouse access controls.
@@ -786,16 +850,28 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
 - **Phase 0:** Infrastructure & Architecture (100% complete) - 2026-01-17
 
 #### In Progress 🚧
-- **Phase 3:** Performance Optimization - 🔥 CURRENT PRIORITY
-  - Code splitting and lazy loading
-  - Bundle optimization
-  - Scene.tsx optimization (refactoring Three.js scene)
+- **Phase 4:** Developer Experience (21 days) - 🔥 CURRENT PRIORITY
+  - 13 specialized packages (design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config)
+  - @aazucena/design-system (tokens + docs)
+  - Figma library (40+ components)
+  - Storybook (50+ stories)
+  - Chromatic integration
+  - TypeScript strict mode + Git hooks
 
 ---
 
 **Last Updated:** 2026-02-04
 
 **Recent Changes:**
+- ✅ **Phase 3 Complete - Performance Optimization (2026-02-04):**
+  - 74.3% bundle reduction (410KB → 105KB gzipped)
+  - Exceeded 63% target by 11.3%
+  - Lazy loading: AnimationCanvas (-302KB), Modals (-2.7KB), Atmospheric layers
+  - Demand-based rendering: Three.js frameloop='demand'
+  - React 19 polyfill: suspendOnActiveViewTransition workaround
+  - Progressive enhancement: content first, animations second
+  - Time to Interactive: 5-6s → 1.5-2s (67% faster)
+  - Files modified: 11 (index.astro, HomepageSection.tsx, AnimationCanvas.tsx, etc.)
 - ✅ **IntegrityBadge Component (2026-02-04):**
   - Real-time system health indicator integrated into Footer.
   - Connects to AZUCENA_LYTICS `/api/health/public` endpoint.
@@ -809,10 +885,6 @@ The portfolio implements a comprehensive AI-powered forms system with LangChain 
   - Implemented bi-directional sync between Strapi v5 and LangSmith Hub.
   - Added "Force_Reset" capability to ensure default technical personas are consistently seeded.
   - Enhanced Prompt Manager UI with estimated payload costs and locale support.
-- ✅ **Intelligence Infrastructure (2026-01-29):**
-  - Real-time ClickHouse telemetry for AI inferences, Music playback, and System Integrity.
-  - Trajectory Labs implementation for visual agent decision playback with SHADES highlighting.
-  - Integrated Vercel AI Gateway for model-agnostic chat (GPT-4o, Claude, Gemini).
 - ✅ **Phase 2 Complete - Component Architecture (2026-02-02):**
   - Scene directory flattening (depth 3 → 2)
   - Homepage and Journey type-first restructuring.
