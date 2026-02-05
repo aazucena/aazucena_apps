@@ -539,6 +539,190 @@ packages/
 
 ---
 
+## 🚀 Execution Strategy: Hybrid Approach (Recommended)
+
+**Philosophy:** Immediate start + Weekly checkpoints + Course correction = Controlled velocity
+
+### Overview
+
+The hybrid approach combines:
+- **Velocity** (Option 1): Start immediately, work daily, finish in 19-20 days
+- **Control** (Option 2): Weekly checkpoints, early issue detection, flexible scope
+
+**Result:** Best of both worlds - momentum with safety nets.
+
+### Pre-Phase 4 Prep (1-2 hours, do first)
+
+Complete before Day 1:
+
+```bash
+# 1. Rename shared → config (30 min)
+mv packages/shared packages/config
+# Update package.json: @aazucena/shared → @aazucena/config
+# Update apps/portfolio/package.json imports
+pnpm install && pnpm build --filter portfolio  # Verify
+
+# 2. Document baseline metrics (15 min)
+pnpm build --filter portfolio  # Note gzip bundle size
+pnpm build --filter analytics  # Note gzip bundle size
+
+# 3. Create Phase 4 branch (5 min)
+git checkout -b phase-4/developer-experience
+git commit -m "🔧 chore: Phase 4 prep (rename config, baselines)"
+
+# 4. Test Storybook (15 min)
+cd packages/ui && pnpm dev  # Verify 4 stories load
+
+# 5. Set up checkpoint calendar (5 min)
+# Friday 4:30 PM (Week 1), Saturday 4:30 PM (Week 2),
+# Sunday 4:30 PM (Week 3), Tuesday 5:00 PM (Week 4 Final)
+```
+
+### Weekly Checkpoint Structure
+
+**Every Friday/Saturday/Sunday at 4:30 PM (30 minutes):**
+
+#### Checkpoint Template
+
+```markdown
+## Week [N] Review (30 min)
+
+**Timeline Health:**
+- ✅ Green: On schedule or ahead → Proceed as planned
+- ⚠️ Yellow: 1 day behind → Recoverable, minor adjustments
+- 🚨 Red: 2+ days behind → Major adjustments needed
+
+**Completed This Week:**
+- Day X: [Status] (✅ Complete | ⚠️ Partial | ❌ Blocked)
+- Day Y: [Status]
+- Day Z: [Status]
+
+**Issues Encountered:**
+1. [Issue description] → [Resolution/Deferred]
+2. [Issue description] → [Resolution/Deferred]
+
+**Decisions for Next Week:**
+- [ ] Continue as planned
+- [ ] Adjust Figma timeline (4 → 2 days)
+- [ ] Defer [specific scope]
+- [ ] Add buffer day if needed
+
+**Confidence Level for Next Week:**
+- High / Medium / Low
+```
+
+### Week-by-Week Execution
+
+#### **Week 1: Days 1-5 (Mon-Fri) - Foundation Sprint**
+**Goal:** Core infrastructure + 5 packages operational
+
+**Daily:** Work 8 focused hours, commit EOD
+
+**Friday 4:30 PM Checkpoint:**
+- Review Days 1-5 actual vs planned
+- Assess TypeScript strict mode effort (planned 2hr, actual?)
+- Validate 13 packages created successfully
+- **Decision:** Proceed to Week 2 or adjust Figma timeline?
+
+---
+
+#### **Week 2: Days 6-11 (Mon-Sat) - Packages + Figma Start**
+**Goal:** Complete 8 packages, start Figma
+
+**Note:** 6-day week to maintain momentum if Week 1 was Green
+
+**Saturday 4:30 PM Checkpoint:**
+- Review package completion (Forms, Layouts, Icons, Analytics, UI)
+- Test integration preview: `import { Button } from '@aazucena/ui'` in portfolio
+- **Figma Go/No-Go Decision:**
+  - ✅ Continue 4-day Figma (Days 12-15)
+  - ⚠️ Compress to 2-day Figma (Days 12-13)
+  - 🚨 Defer Figma post-Phase 4
+
+---
+
+#### **Week 3: Days 12-18 (Mon-Sun) - Figma + Stories Sprint**
+**Goal:** Figma Design System + 40-50 Storybook stories
+
+**Note:** 7-day week for story sprint if needed
+
+**Sunday 4:30 PM Checkpoint:**
+- Figma completion status (can defer if needed)
+- Story count: Day 16 (15-20), Day 17 (10-15), Day 18 (10)
+- **Total stories:** Adjust target 40-50 based on quality
+- **Integration readiness:** All packages built? Types exported?
+- **Risk assessment:** 2-day integration sufficient or need buffer?
+
+---
+
+#### **Week 4: Days 19-20 (Mon-Tue) - Integration + Chromatic**
+**Goal:** Portfolio/Analytics integration, Chromatic setup
+
+**CRITICAL WEEK:** Value materializes here
+
+**Monday (Day 19):**
+- 8:00 AM: Start portfolio integration
+- 12:00 PM: Mid-day checkpoint (stuck >4hrs? Escalate)
+- 4:00 PM: Basic integration complete
+- 5:00 PM: EOD commit
+
+**Tuesday (Day 20):**
+- Morning: Analytics integration + Chromatic project
+- Afternoon: Baselines (50+ snapshots) + GitHub Actions
+- 5:00 PM: **Phase 4 Complete** 🎉
+
+**Tuesday 5:00 PM Final Review (1 hour):**
+- All deliverables complete?
+- Actual vs planned days?
+- Deferred items documented?
+- Lessons learned for Phase 5
+
+### Red Flags (Escalate Immediately)
+
+🚨 **Stop and reassess if:**
+- Single task takes 2x estimated time
+- Blocked >4 hours on one issue
+- Timeline slips >2 days in one week
+- Integration reveals fundamental architecture problem
+
+**Response:**
+1. Document the blocker
+2. Assess impact (critical vs nice-to-have)
+3. Decide: Fix now, defer, or abandon
+4. Adjust remaining timeline
+
+### Scope Flexibility Guidelines
+
+**Can Defer If Needed:**
+- Figma Design System (Days 12-15) → Post-Phase 4
+- Story count: 50 → 40 stories (prioritize quality)
+- Chromatic GitHub Actions → Manual runs acceptable
+
+**Cannot Defer (Core Deliverables):**
+- 13 packages created ✅
+- TypeScript strict mode ✅
+- Git hooks ✅
+- Integration (Days 19-20) ✅
+- Minimum 30 Storybook stories ✅
+
+### Advantages of Hybrid Approach
+
+| Feature | Option 1 (Immediate) | Option 2 (Staged) | Hybrid ⭐ |
+|---------|---------------------|-------------------|---------|
+| Start delay | None | ~1 week | None |
+| Momentum | High | Medium | High |
+| Course correction | None (Day 20) | Every week | Every week |
+| Context switching | None | High | Low |
+| Burnout risk | High | Low | Medium-Low |
+| Early issue detection | No | Yes | Yes |
+| Incremental value | Day 20 | Every week | Every week |
+| Timeline flexibility | None | High | High |
+
+**Confidence Level:** 95%
+**Recommended For:** Most projects (balanced risk/reward)
+
+---
+
 ## 🎨 Design System Package (`@aazucena/design-system`)
 
 ### Why "Design System" vs "Design Tokens"?
@@ -866,9 +1050,10 @@ When Phase 4 is complete, you'll have:
 
 ---
 
-**Last Updated:** 2026-02-05
+**Last Updated:** 2026-02-05 (Added Hybrid Execution Strategy)
 **Status:** ⏳ PENDING (Ready to Start - Adjusted for Existing Work)
 **Timeline:** 19-20 days (reduced from 21 days due to existing packages/ui and Storybook setup)
+**Execution Strategy:** Hybrid Approach (immediate start + weekly checkpoints) - See section above
 **Existing Work:** packages/ui/ (20+ components), packages/shared/ (configs), Storybook 9.1.8, Chromatic 4.1.1
 **Phase 3 Completion:** 2026-02-04 (74.3% bundle reduction)
 **Next Phase:** Phase 5 - Testing (Vitest + Playwright E2E)
