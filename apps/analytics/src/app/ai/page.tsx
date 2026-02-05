@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import {
@@ -46,6 +47,9 @@ const AVAILABLE_MODELS = [
 
 export default function AiTerminalPage() {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const q = searchParams.get('q');
   
   // Redux Selectors
   const conversations = useSelector((state: RootState) => state.chat.conversations);
@@ -65,11 +69,13 @@ export default function AiTerminalPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Initialize first chat if none exists
   useEffect(() => {
+    setIsMounted(true);
     if (Object.keys(conversations).length === 0) {
       dispatch(createNewChat());
     }
@@ -267,6 +273,17 @@ export default function AiTerminalPage() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [activeThread, thoughtTrace]);
+
+  // Handle incoming query from Command Palette
+  useEffect(() => {
+    if (q && activeConversationId && !isLoading && isMounted) {
+      onSend(null as any, q);
+      // Clean up URL
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.delete('q');
+      router.replace(`/ai${newParams.toString() ? `?${newParams.toString()}` : ''}`, { scroll: false });
+    }
+  }, [q, activeConversationId, isLoading, isMounted]);
 
   return (
     <div className="h-[calc(100vh-8rem)] flex gap-6">

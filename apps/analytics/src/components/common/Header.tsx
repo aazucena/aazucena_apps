@@ -15,16 +15,18 @@ export function Header() {
     <div className="flex-1 flex items-center justify-between h-full">
       
       {/* 1. SEARCH SECTION */}
-      <div className="relative w-80 group">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-600 group-focus-within:text-primary-500 transition-colors" />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-          placeholder="QUERY_TELEMETRY_STREAM..."
-          className="w-full h-8 bg-zinc-100 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 rounded-lg pl-10 pr-4 text-[10px] font-mono text-zinc-900 dark:text-zinc-300 placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/20 transition-all"
-        />
-      </div>
+      <button 
+        onClick={() => {
+          window.dispatchEvent(new CustomEvent('open-command-palette'));
+        }}
+        className="relative w-80 group flex items-center h-8 bg-zinc-100 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 text-[10px] font-mono text-zinc-400 dark:text-zinc-600 hover:border-primary-500/50 transition-all cursor-text"
+      >
+        <Search className="w-4 h-4 mr-3 text-zinc-400 group-hover:text-primary-500 transition-colors" />
+        <span className="flex-1 text-left uppercase tracking-tighter">QUERY_TELEMETRY_STREAM...</span>
+        <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-[9px] font-bold text-zinc-500">
+          <span className="text-[10px]">⌘</span>K
+        </div>
+      </button>
 
       {/* 2. ACTIONS & STATUS SECTION */}
       <div className="flex items-center gap-6 h-full">
