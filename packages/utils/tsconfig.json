@@ -1,5 +1,9 @@
+/**
+ * [Utils] : Core_Functional_Toolkit
+ * Configures TypeScript for pure utility functions.
+ */
 {
-  "extends": "@aazucena/config/typescript/base.json",
+  "extends": "@aazucena/config/tsconfig/react.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src"

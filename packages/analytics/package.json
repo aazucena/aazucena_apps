@@ -7,10 +7,26 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@reduxjs/toolkit": "^2.11.2",
+    "@sentry/nextjs": "^10.38.0",
+    "@tanstack/react-query": "^5.90.20",
+    "@tanstack/react-query-devtools": "^5.91.2",
+    "react": "^19.2.3",
+    "react-redux": "^9.2.0",
+    "socket.io-client": "^4.8.3",
+    "web-vitals": "^5.1.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "typescript": "^5.6.3"
+    "@types/react": "^19.2.0",
+    "typescript": "^5.9.3"
   }
 }

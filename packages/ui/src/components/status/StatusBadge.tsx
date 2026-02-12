@@ -1,0 +1,49 @@
+import type { FC } from 'react';
+import { cn } from '@aazucena/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const statusBadgeVariants = cva(
+  'inline-flex items-center gap-1.5 rounded-xl border font-black tracking-widest uppercase',
+  {
+    variants: {
+      variant: {
+        green:
+          'bg-green-50 text-green-700 border-green-100 dark:bg-green-900/20 dark:text-green-400 dark:border-green-900/50',
+        blue: 'bg-blue-50 text-blue-700 border-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-900/50',
+        gray: 'bg-gray-50 text-gray-700 border-gray-100 dark:bg-gray-900/20 dark:text-gray-400 dark:border-gray-900/50',
+        yellow:
+          'bg-yellow-50 text-yellow-700 border-yellow-100 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-900/50',
+        red: 'bg-red-50 text-red-700 border-red-100 dark:bg-red-900/20 dark:text-red-400 dark:border-red-900/50',
+      },
+      size: {
+        sm: 'px-2.5 py-0.5 text-[10px]',
+        md: 'px-3 py-1.5 text-xs',
+      },
+    },
+    defaultVariants: {
+      variant: 'gray',
+      size: 'md',
+    },
+  },
+);
+
+export interface StatusBadgeProps extends VariantProps<typeof statusBadgeVariants> {
+  label?: string;
+  animated?: boolean;
+  className?: string;
+}
+
+export const StatusBadge: FC<StatusBadgeProps> = ({
+  label,
+  variant,
+  animated = false,
+  size,
+  className = '',
+}) => {
+  return (
+    <span className={cn(statusBadgeVariants({ variant, size }), className)}>
+      {animated && <div className="h-1 w-1 animate-pulse rounded-full bg-current" />}
+      {label}
+    </span>
+  );
+};

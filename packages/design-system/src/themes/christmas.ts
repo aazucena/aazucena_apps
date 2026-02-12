@@ -1,0 +1,99 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors.js';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('red', 700),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('emerald', 900),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('green', 600),
+    successForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 50),
+    base: getColor('zinc', 50),
+    elevated: getColor('zinc', 100),
+    floating: getColor('zinc', 50, 0.95),
+    cardBackground: getColor('zinc', 100),
+    overlayBackground: getColor('zinc', 50, 0.95),
+    foreground: getColor('zinc', 900),
+    mutedForeground: getColor('zinc', 500),
+    accent: getColor('amber', 500),
+    accentForeground: getColor('emerald', 900),
+    border: getColor('zinc', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(8px)',
+    shadow: `0 4px 15px ${getColor('red', 700, 0.1)}`,
+    borderRadius: {
+      card: '0.75rem',
+      button: '0.5rem',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1,
+    animationEasing: 'ease-out',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '700',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('red', 500),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('emerald', 500),
+    secondaryForeground: getColor('emerald', 950),
+    success: getColor('emerald', 500),
+    successForeground: getColor('emerald', 950),
+    error: getColor('rose', 400),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('emerald', 950),
+    base: getColor('emerald', 950),
+    elevated: getColor('emerald', 900, 0.3),
+    floating: getColor('emerald', 950, 0.95),
+    cardBackground: getColor('emerald', 900, 0.3),
+    overlayBackground: getColor('emerald', 950, 0.95),
+    foreground: getColor('emerald', 50),
+    mutedForeground: getColor('emerald', 300),
+    accent: getColor('amber', 400),
+    accentForeground: getColor('amber', 950),
+    border: getColor('red', 500, 0.3),
+  },
+  effects: {
+    backdropBlur: 'blur(16px)',
+    shadow: `0 0 20px ${getColor('red', 500, 0.2)}`,
+    glowColor: getColor('amber', 400, 0.4),
+    borderRadius: {
+      card: '0.75rem',
+      button: '0.5rem',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  },
+  typography: {
+    titleSize: '1.625rem',
+    titleWeight: '800',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+};
+
+export const christmasVibe: ThemeVibe = {
+  id: 'christmas',
+  name: 'Christmas',
+  type: 'holiday',
+  light,
+  dark,
+};

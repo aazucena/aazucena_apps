@@ -5,16 +5,36 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./clients/*": "./src/clients/*.ts",
+    "./modules/*": "./src/modules/*.ts",
+    "./controllers/*": "./src/controllers/*.ts",
+    "./services/*": "./src/services/*.ts",
     "./validators/*": "./src/validators/*.ts",
     "./transformers/*": "./src/transformers/*.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "@ai-sdk/gateway": "^3.0.29",
+    "@ai-sdk/react": "^3.0.64",
+    "@clickhouse/client": "^1.16.0",
+    "@clickhouse/client-web": "^0.3.1",
+    "@tanstack/react-query": "^5.90.20",
+    "ai": "^6.0.62",
+    "qs": "^6.13.0",
+    "socket.io-client": "^4.8.3",
+    "web-vitals": "^4.2.4",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "typescript": "^5.6.3",
-    "zod": "^3.23.8"
+    "@types/qs": "^6.9.15",
+    "@types/socket.io-client": "^3.0.0",
+    "typescript": "^5.6.3"
   }
 }

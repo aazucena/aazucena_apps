@@ -35,6 +35,14 @@
         "^lint"
       ]
     },
+    "format": {
+      "cache": true
+    },
+    "type-check": {
+      "dependsOn": [
+        "^type-check"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true

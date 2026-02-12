@@ -1,0 +1,100 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors.js';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('zinc', 400),
+    primaryForeground: getColor('zinc', 950),
+    secondary: getColor('amber', 700),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('emerald', 600),
+    successForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 50),
+    base: '', // to be filled
+    elevated: '',
+    floating: '',
+    cardBackground: getColor('zinc', 100),
+    overlayBackground: getColor('zinc', 50, 0.95),
+    foreground: getColor('zinc', 950),
+    mutedForeground: getColor('zinc', 500),
+    accent: getColor('amber', 500),
+    accentForeground: getColor('zinc', 950),
+    border: getColor('zinc', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(10px)',
+    shadow: `0 10px 20px ${getColor('zinc', 950, 0.1)}`,
+    borderRadius: {
+      card: '0.25rem',
+      button: '0px',
+      badge: '9999px',
+      progress: '0px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '300',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('amber', 400),
+    primaryForeground: getColor('zinc', 950),
+    secondary: getColor('zinc', 500),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('emerald', 400),
+    successForeground: getColor('zinc', 950),
+    error: getColor('rose', 400),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 950),
+    base: '', // to be filled
+    elevated: '',
+    floating: '',
+    cardBackground: getColor('zinc', 900),
+    overlayBackground: getColor('zinc', 950, 0.98),
+    foreground: getColor('zinc', 50),
+    mutedForeground: getColor('zinc', 400),
+    accent: getColor('zinc', 50),
+    accentForeground: getColor('zinc', 950),
+    border: getColor('amber', 400, 0.3),
+  },
+  effects: {
+    backdropBlur: 'blur(20px)',
+    shadow: `0 0 40px ${getColor('amber', 400, 0.15)}`,
+    glowColor: getColor('amber', 400, 0.4),
+    borderRadius: {
+      card: '0.25rem',
+      button: '0px',
+      badge: '9999px',
+      progress: '0px',
+    },
+    animationSpeed: 1.5,
+    animationEasing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  },
+  typography: {
+    titleSize: '1.75rem',
+    titleWeight: '200',
+    subtitleSize: '0.9375rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+  customClass: 'new-years-glitter',
+};
+
+export const newYearsVibe: ThemeVibe = {
+  id: 'new-years',
+  name: "New Year's Eve",
+  type: 'holiday',
+  light,
+  dark,
+};

@@ -5,13 +5,31 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./tokens/*": "./src/tokens/*.ts"
+    "./tokens/*": "./src/tokens/*.ts",
+    "./css-vars.css": "./dist/css-vars.css",
+    "./figma.json": "./figma.json"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "ds": "tsx scripts/cli.ts",
+    "ds:sync": "tsx scripts/cli.ts all default FAVICON_MAIN ./dist"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
+    "@clack/prompts": "^1.0.0",
+    "@types/culori": "^4.0.1",
+    "@types/node": "^25.2.2",
+    "culori": "^4.0.2",
+    "picocolors": "^1.1.1",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.5",
     "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4.1.13",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

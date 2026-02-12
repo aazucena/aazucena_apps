@@ -1,0 +1,47 @@
+{
+  "name": "@aazucena/visualizations",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./d3/*": "./src/d3/*.tsx",
+    "./intelligence/*": "./src/intelligence/*.tsx"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/types": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "d3": "^7.9.0",
+    "d3-axis": "^3.0.0",
+    "d3-cloud": "^1.2.8",
+    "d3-sankey": "^0.12.3",
+    "d3-scale": "^4.0.2",
+    "d3-selection": "^3.0.0",
+    "d3-shape": "^3.2.0",
+    "d3-time": "^3.1.0",
+    "d3-zoom": "^3.0.0",
+    "framer-motion": "^11.15.0",
+    "react": "^19.2.3",
+    "topojson-client": "^3.1.0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "@types/d3": "^7.4.3",
+    "@types/d3-axis": "^3.0.6",
+    "@types/d3-cloud": "^1.2.9",
+    "@types/d3-sankey": "^0.12.5",
+    "@types/d3-scale": "^4.0.9",
+    "@types/d3-selection": "^3.0.11",
+    "@types/d3-shape": "^3.1.8",
+    "@types/d3-time": "^3.0.4",
+    "@types/d3-zoom": "^3.0.8",
+    "@types/react": "^19.2.0",
+    "@types/topojson-client": "^3.1.5",
+    "typescript": "^5.9.3"
+  }
+}

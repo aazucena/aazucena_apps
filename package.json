@@ -4,19 +4,24 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "type-check:packages": "turbo type-check --filter=\"./packages/*\"",
     "web:dev": "pnpm dev --filter *portfolio*",
     "cms:dev": "pnpm dev --filter *cms*",
     "analytics:dev": "pnpm dev --filter *analytics*",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "turbo format",
+    "format:packages": "pnpm format --filter=\"./packages/*\"",
+    "format:check:packages": "prettier --check \"packages/**/*.{ts,tsx,js,jsx,mjs,md,json,css,scss}\"",
+    "lint": "turbo lint",
+    "lint:packages": "pnpm lint --filter=\"./packages/*\"",
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
+    "*.{ts,tsx,js,jsx,mjs,mjsx}": [
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{astro,md,json,css}": [
+    "*.{astro,md,json,css,scss}": [
       "prettier --write"
     ]
   },

@@ -1,8 +1,10 @@
 {
-  "extends": "@aazucena/config/typescript/react.json",
+  "extends": "@aazucena/config/tsconfig/react.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "paths": {
+      "@aazucena/context": ["../context/src/index.ts"]
+    }
   },
   "include": ["src"]
 }

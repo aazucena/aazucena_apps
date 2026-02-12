@@ -1,5 +1,5 @@
 {
-  "extends": "@aazucena/config/typescript/base.json",
+  "extends": "@aazucena/config/tsconfig/react.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src"

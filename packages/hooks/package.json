@@ -7,19 +7,37 @@
     ".": "./src/index.ts",
     "./device": "./src/device/index.ts",
     "./state": "./src/state/index.ts",
-    "./animation": "./src/animation/index.ts",
+    "./animations": "./src/animations/index.ts",
     "./data": "./src/data/index.ts",
-    "./dom": "./src/dom/index.ts"
+    "./dom": "./src/dom/index.ts",
+    "./preloader": "./src/preloader/index.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/context": "workspace:*",
+    "@aazucena/design-system": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "@gsap/react": "^2.1.1",
+    "gsap": "^3.12.5",
+    "handlebars": "^4.7.8",
+    "three": "^0.173.0",
+    "use-sync-external-store": "^1.6.0"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "typescript": "^5.6.3",
-    "react": "^19.2.0"
+    "@types/react": "^19.2.0",
+    "@types/three": "^0.173.0",
+    "@types/use-sync-external-store": "^1.5.0",
+    "react": "^19.2.3",
+    "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "^19.2.3"
   }
 }

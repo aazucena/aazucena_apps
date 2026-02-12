@@ -1,5 +1,5 @@
 {
-  "extends": "@aazucena/config/typescript/react.json",
+  "extends": "@aazucena/config/tsconfig/react.json",
   "compilerOptions": {
     "esModuleInterop": true,
     "noImplicitAny": false,

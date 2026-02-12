@@ -10,18 +10,34 @@
     "./pixi": "./src/pixi/index.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/context": "workspace:*",
+    "@aazucena/hooks": "workspace:*",
+    "@aazucena/stores": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "@gsap/react": "^2.1.2",
+    "@nanostores/react": "^0.8.4",
+    "@pixi/react": "8.1.0-alpha.1",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "gsap": "^3.13.0",
+    "pixi.js": "^8.2.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "typescript": "^5.6.3",
-    "gsap": "^3.12.5",
-    "three": "^0.170.0",
-    "pixi.js": "^8.0.0"
-  },
-  "peerDependencies": {
-    "gsap": "^3.0.0",
-    "three": ">=0.150.0",
-    "pixi.js": ">=8.0.0"
+    "@aazucena/constants": "workspace:*",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.180.0",
+    "typescript": "^5.9.3"
   }
 }

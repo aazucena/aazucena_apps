@@ -1,5 +1,9 @@
+/**
+ * [Types] : Neural_Type_Definitions
+ * Configures TypeScript for shared entity definitions.
+ */
 {
-  "extends": "@aazucena/config/typescript/base.json",
+  "extends": "@aazucena/config/tsconfig/base.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src"

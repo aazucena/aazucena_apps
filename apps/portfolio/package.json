@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview --host 0.0.0.0",
     "astro": "astro",
+    "type-check": "astro check",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.astro --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro,json,css,md}\"",
@@ -70,6 +71,7 @@
     "d3-shape": "^3.2.0",
     "d3-time": "^3.1.0",
     "d3-zoom": "^3.0.0",
+    "fast-xml-parser": "^5.3.5",
     "framer-motion": "^11.15.0",
     "gsap": "^3.13.0",
     "handlebars": "^4.7.8",
@@ -78,9 +80,10 @@
     "luxon": "^3.7.2",
     "make-plural": "^8.1.0",
     "nanostores": "^0.11.3",
+    "path-to-regexp": "^8.3.0",
     "pixi.js": "^8.2.6",
     "postcss": "^8.4.49",
-    "qs": "^6.14.0",
+    "qs": "^6.14.1",
     "react": "^19.2.3",
     "react-countup": "^6.5.3",
     "react-dom": "^19.2.3",
@@ -93,7 +96,7 @@
     "tw-animate-css": "^1.3.8",
     "typescript": "^5.9.3",
     "web-vitals": "^5.1.0",
-    "zod": "^4.1.11"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",

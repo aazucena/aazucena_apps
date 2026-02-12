@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { fn } from 'storybook/test';
 
-import { Button } from '../components/ui/button';
+import { Button } from '../components/ui/button.js';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -36,14 +36,14 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     children: 'Button',
-    variant: "default",
+    variant: 'default',
   },
 };
 
 export const Secondary: Story = {
   args: {
     children: 'Button',
-    variant: "secondary",
+    variant: 'secondary',
   },
 };
 

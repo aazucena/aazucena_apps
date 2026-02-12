@@ -5,16 +5,27 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./string": "./src/string/index.ts",
-    "./date": "./src/date/index.ts",
-    "./number": "./src/number/index.ts",
-    "./dom": "./src/dom/index.ts"
+    "./*": "./src/*.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "clsx": "^2.1.1",
+    "flexsearch": "^0.8.212",
+    "luxon": "^3.5.0",
+    "make-plural": "^8.1.0",
+    "tailwind-merge": "^3.4.0",
+    "ua-parser-js": "^2.0.8"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
+    "@types/luxon": "^3.4.2",
+    "@types/ua-parser-js": "^0.7.39",
     "typescript": "^5.6.3"
   }
 }

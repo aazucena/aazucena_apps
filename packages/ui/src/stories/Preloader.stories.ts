@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from 'storybook/test';
-import Preloader, { type UnifiedPreloaderProps } from '../components/preloader';
-import { Check, Database, Layout, Shield } from '@mynaui/icons-react';
-import { Page } from './Page';
+import Preloader, {
+  type UnifiedPreloaderPropsWithTheme as UnifiedPreloaderProps,
+} from '../components/preloader/index.js';
+import { Check, Database, Layout, Shield } from '@aazucena/icons';
 
 const meta = {
   title: 'UI/Preloader',
@@ -11,7 +12,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A highly customizable preloader component with multiple variants and extensive configuration options.',
+        component:
+          'A highly customizable preloader component with multiple variants and extensive configuration options.',
       },
     },
   },
@@ -83,7 +85,9 @@ const meta = {
       description: 'Subtitle shown when ready',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'Your experience is fully optimized and ready' },
+        defaultValue: {
+          summary: 'Your experience is fully optimized and ready',
+        },
       },
     },
     continueButton: {
@@ -188,7 +192,8 @@ export const Interactive: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Feature-rich preloader with step indicators, progress tracking, and smooth animations.',
+        story:
+          'Feature-rich preloader with step indicators, progress tracking, and smooth animations.',
       },
     },
   },
@@ -255,7 +260,7 @@ export const NoContinueButton: Story = {
       },
     },
   },
-}
+};
 
 export const QuickLoad: Story = {
   args: {
@@ -293,23 +298,24 @@ export const WithCallbacks: Story = {
   args: {
     variant: 'interactive',
     onLoadingStart: fn().mockImplementation(() => {
-      console.log('🔄 Loading started at:', new Date().toISOString());
+      console.warn('🔄 Loading started at:', new Date().toISOString());
     }),
     onLoadingProgress: fn().mockImplementation((progress, step) => {
-      console.log(`📊 Progress: ${progress}%, Step: ${step}`);
+      console.warn(`📊 Progress: ${progress}%, Step: ${step}`);
     }),
     onComplete: fn().mockImplementation(() => {
-      console.log('✅ Loading completed at:', new Date().toISOString());
+      console.warn('✅ Loading completed at:', new Date().toISOString());
     }),
     onSkip: fn().mockImplementation(() => {
-      console.log('⏭️ User skipped loading');
+      console.warn('⏭️ User skipped loading');
     }),
   },
   name: 'With All Callbacks',
   parameters: {
     docs: {
       description: {
-        story: 'Preloader demonstrating all available callback functions for tracking loading lifecycle.',
+        story:
+          'Preloader demonstrating all available callback functions for tracking loading lifecycle.',
       },
     },
   },
@@ -326,9 +332,9 @@ export const CustomSteps: Story = {
         icon: Shield,
         weight: 20,
         check: async () => {
-          await new Promise(resolve => setTimeout(resolve, 800));
+          await new Promise((resolve) => setTimeout(resolve, 800));
           return true;
-        }
+        },
       },
       {
         id: 2,
@@ -337,9 +343,9 @@ export const CustomSteps: Story = {
         icon: Database,
         weight: 40,
         check: async () => {
-          await new Promise(resolve => setTimeout(resolve, 1200));
+          await new Promise((resolve) => setTimeout(resolve, 1200));
           return true;
-        }
+        },
       },
       {
         id: 3,
@@ -354,8 +360,8 @@ export const CustomSteps: Story = {
         description: 'Running final verifications',
         icon: Check,
         weight: 10,
-      }
-    ]
+      },
+    ],
   },
   name: 'With Custom Steps',
   parameters: {

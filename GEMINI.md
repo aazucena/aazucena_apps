@@ -3,6 +3,7 @@
 This file provides guidance to Gemini when working with code in this repository.
 
 ## Rules
+- Always check if the file exists before doing anything (reading, writing, modifying).
 - full context (x being the id of the session we are operation, if file doesn't exist, then create one)
 - @ROADMAP.md, @README.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @docs, and are added/updated to.
 

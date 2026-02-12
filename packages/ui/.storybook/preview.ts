@@ -25,13 +25,13 @@ const preview: Preview = {
       lightClass: 'light',
     },
   },
-  decorators:[
+  decorators: [
     withThemeByClassName({
       themes: {
         light: 'light',
         dark: 'dark',
       },
-      defaultTheme: 'light'
+      defaultTheme: 'light',
     }),
     PreloaderDecorator,
   ],
