@@ -61,18 +61,14 @@ export function Chart({ data, height = 400 }) {
 
   return (
     <div ref={containerRef} className="w-full relative">
-      <svg
-        ref={svgRef}
-        width={width}
-        height={height}
-        className="w-full"
-      />
+      <svg ref={svgRef} width={width} height={height} className="w-full" />
     </div>
   );
 }
 ```
 
 **Key Principles:**
+
 - ✅ **useRef for SVG** - Direct DOM access for D3
 - ✅ **useEffect for rendering** - React lifecycle integration
 - ✅ **Clear on re-render** - `svg.selectAll('*').remove()`
@@ -102,6 +98,7 @@ export function Heatmap<T extends GenericHeatmapCell>({
 ```
 
 **Benefits:**
+
 - ✅ **Type safety** - Generic constraint on data
 - ✅ **Flexibility** - Extend base types for custom fields
 - ✅ **IntelliSense** - Auto-completion for data properties
@@ -127,6 +124,7 @@ const barWidth = xScale(dataPoint.value);
 ```
 
 **Use Cases:**
+
 - Bar chart widths
 - Line chart Y-axis
 - Scatter plot positions
@@ -142,17 +140,13 @@ const xScale = d3
   .range([0, width]);
 
 // Format axis
-const xAxis = d3
-  .axisBottom(xScale)
-  .ticks(5)
-  .tickFormat(d3.timeFormat('%b %d'));
+const xAxis = d3.axisBottom(xScale).ticks(5).tickFormat(d3.timeFormat('%b %d'));
 
-svg.append('g')
-  .attr('transform', `translate(0,${height})`)
-  .call(xAxis);
+svg.append('g').attr('transform', `translate(0,${height})`).call(xAxis);
 ```
 
 **Use Cases:**
+
 - Time-series charts
 - Timeline visualizations
 - StreamGraphs
@@ -179,6 +173,7 @@ svg
 ```
 
 **Use Cases:**
+
 - Bar charts (categorical axis)
 - Heatmap axes
 - Grouped visualizations
@@ -205,6 +200,7 @@ const colorScale = d3
 ```
 
 **D3 Color Schemes:**
+
 - `d3.schemeTableau10` - 10 distinct colors
 - `d3.schemeCategory10` - Classic 10 colors
 - `d3.schemeSet3` - 12 pastel colors
@@ -235,6 +231,7 @@ useEffect(() => {
 ```
 
 **Benefits:**
+
 - ✅ Adapts to parent container
 - ✅ Works with CSS Grid/Flexbox
 - ✅ Mobile-friendly
@@ -260,6 +257,7 @@ useEffect(() => {
 ```
 
 **Benefits:**
+
 - ✅ More accurate than window resize
 - ✅ Detects container size changes (not just window)
 - ✅ Better performance (no polling)
@@ -273,9 +271,7 @@ const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
 
-const g = svg
-  .append('g')
-  .attr('transform', `translate(${margin.left},${margin.top})`);
+const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
 // Use innerWidth/innerHeight for scales
 const xScale = d3.scaleLinear().range([0, innerWidth]);
@@ -283,6 +279,7 @@ const yScale = d3.scaleLinear().range([innerHeight, 0]);
 ```
 
 **Benefits:**
+
 - ✅ Space for axes and labels
 - ✅ Standard D3 pattern
 - ✅ Clean coordinate system
@@ -300,20 +297,13 @@ interface ChartProps {
 }
 
 // Usage
-const fillColor = (d: DataPoint) =>
-  d.category
-    ? colorMap[d.category] || baseColor
-    : baseColor;
+const fillColor = (d: DataPoint) => (d.category ? colorMap[d.category] || baseColor : baseColor);
 
-svg
-  .selectAll('rect')
-  .data(data)
-  .enter()
-  .append('rect')
-  .attr('fill', fillColor);
+svg.selectAll('rect').data(data).enter().append('rect').attr('fill', fillColor);
 ```
 
 **Pattern:**
+
 1. Try `colorMap[category]` first (explicit mapping)
 2. Fallback to `baseColor` (default)
 3. Final fallback to D3 color scheme
@@ -335,15 +325,17 @@ const accentColor = getComputedStyle(document.documentElement)
 ```
 
 **Theme-Aware Scales:**
+
 ```typescript
 const isDark = document.documentElement.classList.contains('dark');
 
 const colorScale = d3
   .scaleLinear<string>()
   .domain([0, max])
-  .range(isDark
-    ? ['#1e293b', '#3b82f6'] // Dark mode: slate → blue
-    : ['#f1f5f9', '#3b82f6'] // Light mode: lighter slate → blue
+  .range(
+    isDark
+      ? ['#1e293b', '#3b82f6'] // Dark mode: slate → blue
+      : ['#f1f5f9', '#3b82f6'], // Light mode: lighter slate → blue
   );
 ```
 
@@ -379,9 +371,7 @@ svg
       .html(`<strong>${d.label}</strong><br/>Value: ${d.value}`);
   })
   .on('mousemove', (event) => {
-    tooltip
-      .style('top', `${event.pageY - 10}px`)
-      .style('left', `${event.pageX + 10}px`);
+    tooltip.style('top', `${event.pageY - 10}px`).style('left', `${event.pageX + 10}px`);
   })
   .on('mouseout', () => {
     tooltip.style('visibility', 'hidden');
@@ -417,6 +407,7 @@ svg
 ```
 
 **Benefits:**
+
 - ✅ Type-safe callbacks
 - ✅ Integrates with React state
 - ✅ Optional interactivity
@@ -434,18 +425,10 @@ svg
   .attr('fill', baseColor)
   .attr('opacity', 0.8)
   .on('mouseover', function () {
-    d3.select(this)
-      .transition()
-      .duration(200)
-      .attr('opacity', 1)
-      .attr('transform', 'scale(1.05)');
+    d3.select(this).transition().duration(200).attr('opacity', 1).attr('transform', 'scale(1.05)');
   })
   .on('mouseout', function () {
-    d3.select(this)
-      .transition()
-      .duration(200)
-      .attr('opacity', 0.8)
-      .attr('transform', 'scale(1)');
+    d3.select(this).transition().duration(200).attr('opacity', 0.8).attr('transform', 'scale(1)');
   });
 ```
 
@@ -459,7 +442,8 @@ svg
 // ✅ GOOD - Join pattern (enter/update/exit)
 const bars = svg.selectAll('rect').data(data);
 
-bars.enter()
+bars
+  .enter()
   .append('rect')
   .merge(bars) // Combine enter + update
   .attr('x', (d, i) => i * barWidth)
@@ -471,10 +455,7 @@ bars.exit().remove();
 
 // ❌ BAD - Remove and re-create on every update
 svg.selectAll('rect').remove();
-svg.selectAll('rect')
-  .data(data)
-  .enter()
-  .append('rect');
+svg.selectAll('rect').data(data).enter().append('rect');
 ```
 
 ---
@@ -495,6 +476,7 @@ useEffect(() => {
 ```
 
 **Benefits:**
+
 - ✅ Avoid re-processing on every render
 - ✅ Reduce expensive computations
 - ✅ Better React reconciliation
@@ -543,13 +525,11 @@ const visibleData = useMemo(() => {
 ### Tailwind CSS Classes
 
 ```tsx
-<svg
-  ref={svgRef}
-  className="w-full text-foreground bg-accent/5 rounded-2xl transition-colors"
-/>
+<svg ref={svgRef} className="w-full text-foreground bg-accent/5 rounded-2xl transition-colors" />
 ```
 
 **Key Classes:**
+
 - `text-foreground` - Adapts to light/dark text color
 - `bg-accent/5` - Subtle background (5% opacity)
 - `transition-colors` - Smooth theme transitions
@@ -561,9 +541,7 @@ const visibleData = useMemo(() => {
 ```typescript
 // Extract theme colors from CSS
 const getThemeColor = (varName: string) => {
-  return getComputedStyle(document.documentElement)
-    .getPropertyValue(varName)
-    .trim();
+  return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
 };
 
 const foreground = getThemeColor('--foreground');
@@ -571,9 +549,7 @@ const accent = getThemeColor('--accent');
 const primary = getThemeColor('--primary');
 
 // Use in D3 scales
-const colorScale = d3
-  .scaleLinear<string>()
-  .range(['var(--accent)', 'var(--primary)']);
+const colorScale = d3.scaleLinear<string>().range(['var(--accent)', 'var(--primary)']);
 ```
 
 ---
@@ -692,6 +668,7 @@ export function ExportControls({ svgRef, fileName }: ExportControlsProps) {
 ```
 
 **Usage:**
+
 ```tsx
 <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
   <ExportControls svgRef={svgRef} fileName="my-chart" />
@@ -774,6 +751,7 @@ svg
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Lines:** ~500

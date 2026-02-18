@@ -19,6 +19,7 @@ Complete reference for all D3.js visualizations in @aazucena/visualizations.
 ## 📈 BASIC_CHARTS
 
 ### AreaChart
+
 **Purpose:** Visualize continuous data with filled areas
 
 ```tsx
@@ -36,10 +37,11 @@ const data = [
   baseColor="#3b82f6"
   gradient={true}
   exportFileName="monthly-metrics"
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { label: string; value: number }[]` - Chart data
 - `height?: number` - Chart height (default: 300)
 - `baseColor?: string` - Fill color (default: '#3b82f6')
@@ -48,6 +50,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Revenue/sales trends
 - User growth over time
 - Performance metrics
@@ -55,6 +58,7 @@ const data = [
 ---
 
 ### BarChart
+
 **Purpose:** Compare categorical data with bars
 
 ```tsx
@@ -72,10 +76,11 @@ const data = [
   orientation="vertical"
   colorMap={{ React: '#61dafb', Vue: '#42b883', Angular: '#dd0031' }}
   onBarClick={(bar) => console.log(bar.label)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { label: string; value: number }[]` - Chart data
 - `height?: number` - Chart height (default: 300)
 - `orientation?: 'vertical' | 'horizontal'` - Bar direction (default: 'vertical')
@@ -84,6 +89,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Technology comparisons
 - Category breakdowns
 - Frequency distributions
@@ -91,6 +97,7 @@ const data = [
 ---
 
 ### LineChart
+
 **Purpose:** Show trends over time with a line
 
 ```tsx
@@ -102,16 +109,11 @@ const data = [
   { label: '02:00', value: 15 },
 ];
 
-<LineChart
-  data={data}
-  height={300}
-  strokeWidth={2}
-  color="#10b981"
-  showPoints={true}
-/>
+<LineChart data={data} height={300} strokeWidth={2} color="#10b981" showPoints={true} />;
 ```
 
 **Props:**
+
 - `data: { label: string; value: number }[]` - Chart data
 - `height?: number` - Chart height (default: 300)
 - `strokeWidth?: number` - Line thickness (default: 2)
@@ -120,6 +122,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Time-series data
 - Stock prices
 - Temperature trends
@@ -127,6 +130,7 @@ const data = [
 ---
 
 ### PieChart
+
 **Purpose:** Show proportions of a whole
 
 ```tsx
@@ -148,10 +152,11 @@ const data = [
     DevOps: '#f59e0b',
   }}
   onSliceClick={(slice) => console.log(slice.label)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { label: string; value: number }[]` - Slice data
 - `height?: number` - Chart height (default: 400)
 - `innerRadius?: number` - Donut inner radius (0-1, default: 0)
@@ -160,6 +165,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Market share
 - Budget allocation
 - Survey results
@@ -167,6 +173,7 @@ const data = [
 ---
 
 ### ScatterPlot
+
 **Purpose:** Plot points to show correlation
 
 ```tsx
@@ -185,10 +192,11 @@ const data = [
   pointSize={6}
   showTrendLine={true}
   onPointClick={(point) => console.log(point.label)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { x: number; y: number; label?: string }[]` - Point data
 - `height?: number` - Chart height (default: 400)
 - `color?: string` - Point color (default: '#3b82f6')
@@ -198,6 +206,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Correlation analysis
 - Data clustering
 - Outlier detection
@@ -207,6 +216,7 @@ const data = [
 ## 🌊 FLOW_DIAGRAMS
 
 ### SankeyDiagram
+
 **Purpose:** Visualize flow between nodes
 
 ```tsx
@@ -235,10 +245,11 @@ const data = {
     purchase: '#f59e0b',
   }}
   onNodeClick={(node) => console.log(node.label)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { nodes: Node[]; links: Link[] }` - Graph data
 - `height?: number` - Chart height (default: 500)
 - `nodeWidth?: number` - Node bar width (default: 20)
@@ -248,6 +259,7 @@ const data = {
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - User funnels
 - Energy flow
 - Budget allocation
@@ -255,6 +267,7 @@ const data = {
 ---
 
 ### StreamGraph
+
 **Purpose:** Show stacked time-series data
 
 ```tsx
@@ -275,10 +288,11 @@ const data = [
     angular: '#dd0031',
   }}
   onLayerClick={(key) => console.log(key)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: GenericTimeSeriesStep[]` - Time-series data
 - `height?: number` - Chart height (default: 400)
 - `colorMap?: Record<string, string>` - Category colors
@@ -286,6 +300,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Type Definition:**
+
 ```typescript
 interface GenericTimeSeriesStep {
   timestamp: string | Date;
@@ -294,6 +309,7 @@ interface GenericTimeSeriesStep {
 ```
 
 **Use Cases:**
+
 - Tech stack evolution
 - Skill development over time
 - Market trends
@@ -301,6 +317,7 @@ interface GenericTimeSeriesStep {
 ---
 
 ### ForceDirectedGraph
+
 **Purpose:** Interactive network graph with physics simulation
 
 ```tsx
@@ -327,10 +344,11 @@ const data = {
     language: '#3178c6',
   }}
   onNodeClick={(node) => console.log(node.label)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { nodes: Node[]; links: Link[] }` - Graph data
 - `height?: number` - Chart height (default: 600)
 - `colorMap?: Record<string, string>` - Group colors
@@ -340,6 +358,7 @@ const data = {
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Skill dependencies
 - Knowledge graphs
 - Network topology
@@ -347,6 +366,7 @@ const data = {
 ---
 
 ### InteractiveTimeline
+
 **Purpose:** Scroll-synced career progression timeline
 
 ```tsx
@@ -373,10 +393,11 @@ const events = [
   events={events}
   height={500}
   onEventClick={(event) => console.log(event.title)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `events: TimelineEvent[]` - Timeline events
 - `height?: number` - Chart height (default: 500)
 - `colorMap?: Record<string, string>` - Event type colors
@@ -384,6 +405,7 @@ const events = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Career journey
 - Project timeline
 - Historical events
@@ -393,6 +415,7 @@ const events = [
 ## 🗺️ GEOGRAPHIC_MAPS
 
 ### ChoroplethMap
+
 **Purpose:** Geographic data visualization
 
 ```tsx
@@ -410,10 +433,11 @@ const data = [
   height={600}
   colorScale="blues"
   onRegionClick={(region) => console.log(region.label)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { id: string; value: number; label?: string }[]` - Geographic data
 - `geoData: GeoJSON` - Map boundaries
 - `height?: number` - Map height (default: 600)
@@ -422,6 +446,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - User demographics by region
 - Sales by territory
 - Visitor geolocation heatmap
@@ -431,6 +456,7 @@ const data = [
 ## 🎯 SPECIALIZED_CHARTS
 
 ### Heatmap
+
 **Purpose:** Display density data in a grid
 
 ```tsx
@@ -449,13 +475,14 @@ const data = [
   colorMap={{
     'Music Play': '#f59e0b',
     'Page View': '#3b82f6',
-    'Interaction': '#10b981',
+    Interaction: '#10b981',
   }}
   onCellClick={(cell) => console.log(cell)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: GenericHeatmapCell[]` - Grid data
 - `height?: number` - Chart height (default: 200)
 - `baseColor?: string` - Default color (default: '#3b82f6')
@@ -464,6 +491,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Type Definition:**
+
 ```typescript
 interface GenericHeatmapCell {
   x: string;
@@ -474,6 +502,7 @@ interface GenericHeatmapCell {
 ```
 
 **Use Cases:**
+
 - Activity patterns (GitHub contribution grid)
 - Time-based data
 - Correlation matrices
@@ -481,6 +510,7 @@ interface GenericHeatmapCell {
 ---
 
 ### SpiderChart
+
 **Purpose:** Multi-dimensional data comparison (radar chart)
 
 ```tsx
@@ -494,16 +524,11 @@ const data = [
   { axis: 'AWS', value: 70 },
 ];
 
-<SpiderChart
-  data={data}
-  height={400}
-  levels={5}
-  color="#8b5cf6"
-  fillOpacity={0.2}
-/>
+<SpiderChart data={data} height={400} levels={5} color="#8b5cf6" fillOpacity={0.2} />;
 ```
 
 **Props:**
+
 - `data: { axis: string; value: number }[]` - Radar data
 - `height?: number` - Chart height (default: 400)
 - `levels?: number` - Concentric circles (default: 5)
@@ -512,6 +537,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Skill profiling
 - Product comparison
 - Performance metrics
@@ -519,6 +545,7 @@ const data = [
 ---
 
 ### Treemap
+
 **Purpose:** Hierarchical data with nested rectangles
 
 ```tsx
@@ -549,10 +576,11 @@ const data = {
   height={500}
   colorScale={(d) => categoryColors[d.data.name]}
   onTileClick={(tile) => console.log(tile.data.name)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: HierarchyNode` - Tree structure
 - `height?: number` - Chart height (default: 500)
 - `colorScale?: (d: any) => string` - Color function
@@ -560,6 +588,7 @@ const data = {
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - File system visualization
 - Market capitalization
 - Budget breakdown
@@ -567,6 +596,7 @@ const data = {
 ---
 
 ### WordCloud
+
 **Purpose:** Text frequency visualization
 
 ```tsx
@@ -584,10 +614,11 @@ const words = [
   height={400}
   colorScale="blues"
   onWordClick={(word) => console.log(word.text)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `words: { text: string; size: number }[]` - Word data
 - `height?: number` - Cloud height (default: 400)
 - `colorScale?: string` - Color scheme
@@ -595,6 +626,7 @@ const words = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Tag clouds
 - Keyword analysis
 - Document summarization
@@ -602,6 +634,7 @@ const words = [
 ---
 
 ### CircularPacking
+
 **Purpose:** Hierarchical circle packing
 
 ```tsx
@@ -621,10 +654,11 @@ const data = {
   height={500}
   colorScale={(d) => colorByGroup[d.data.group]}
   onCircleClick={(circle) => console.log(circle.data.name)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: HierarchyNode` - Tree structure
 - `height?: number` - Chart height (default: 500)
 - `colorScale?: (d: any) => string` - Color function
@@ -632,6 +666,7 @@ const data = {
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Organization hierarchy
 - File size visualization
 - Portfolio allocation
@@ -639,6 +674,7 @@ const data = {
 ---
 
 ### Dendrogram
+
 **Purpose:** Tree diagram for hierarchical clustering
 
 ```tsx
@@ -649,17 +685,11 @@ const data = {
   children: [
     {
       name: 'Frontend',
-      children: [
-        { name: 'React' },
-        { name: 'Vue' },
-      ],
+      children: [{ name: 'React' }, { name: 'Vue' }],
     },
     {
       name: 'Backend',
-      children: [
-        { name: 'Node.js' },
-        { name: 'Python' },
-      ],
+      children: [{ name: 'Node.js' }, { name: 'Python' }],
     },
   ],
 };
@@ -669,10 +699,11 @@ const data = {
   height={500}
   orientation="horizontal"
   onNodeClick={(node) => console.log(node.data.name)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: HierarchyNode` - Tree structure
 - `height?: number` - Chart height (default: 500)
 - `orientation?: 'horizontal' | 'vertical'` - Tree direction (default: 'horizontal')
@@ -680,6 +711,7 @@ const data = {
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Taxonomies
 - Decision trees
 - Organizational charts
@@ -687,6 +719,7 @@ const data = {
 ---
 
 ### ParetoFrontier
+
 **Purpose:** Multi-objective optimization visualization
 
 ```tsx
@@ -705,10 +738,11 @@ const data = [
   yAxisLabel="Accuracy (%)"
   showFrontierLine={true}
   onPointClick={(point) => console.log(point.label)}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { x: number; y: number; label?: string; isOptimal?: boolean }[]` - Point data
 - `height?: number` - Chart height (default: 400)
 - `xAxisLabel?: string` - X-axis label
@@ -718,6 +752,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - Model performance comparison
 - Cost-benefit analysis
 - Trade-off visualization
@@ -725,6 +760,7 @@ const data = [
 ---
 
 ### RadialGauge
+
 **Purpose:** Circular gauge for single metric
 
 ```tsx
@@ -737,10 +773,11 @@ import { RadialGauge } from '@aazucena/visualizations';
   color="#10b981"
   label="System Health"
   showValue={true}
-/>
+/>;
 ```
 
 **Props:**
+
 - `value: number` - Current value
 - `max: number` - Maximum value (default: 100)
 - `height?: number` - Chart height (default: 300)
@@ -750,6 +787,7 @@ import { RadialGauge } from '@aazucena/visualizations';
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - KPI dashboards
 - Progress indicators
 - Health metrics
@@ -757,6 +795,7 @@ import { RadialGauge } from '@aazucena/visualizations';
 ---
 
 ### BarPlot
+
 **Purpose:** Statistical bar plot with error bars
 
 ```tsx
@@ -777,10 +816,11 @@ const data = [
     Vue: '#42b883',
     Angular: '#dd0031',
   }}
-/>
+/>;
 ```
 
 **Props:**
+
 - `data: { label: string; mean: number; stdDev?: number }[]` - Statistical data
 - `height?: number` - Chart height (default: 400)
 - `showErrorBars?: boolean` - Display error bars (default: false)
@@ -788,6 +828,7 @@ const data = [
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - A/B test results
 - Performance benchmarks
 - Survey data with confidence intervals
@@ -797,6 +838,7 @@ const data = [
 ## 🧠 INTELLIGENCE_VISUALIZATIONS
 
 ### NeuralMap
+
 **Purpose:** Visualize AI decision path and cognitive flow
 
 ```tsx
@@ -821,16 +863,18 @@ const steps = [
     ],
     edges: [],
   }}
-/>
+/>;
 ```
 
 **Props:**
+
 - `steps: any[]` - Trajectory steps with rewards
 - `currentStepIndex: number` - Current active step
 - `graphData?: { nodes: any[]; edges: any[] }` - Graph structure
 - `className?: string` - Custom CSS classes
 
 **Use Cases:**
+
 - RL agent trajectories
 - Decision process visualization
 - AI workflow tracking
@@ -838,6 +882,7 @@ const steps = [
 ---
 
 ### NeuralNode
+
 **Purpose:** Individual node in neural map
 
 ```tsx
@@ -849,10 +894,11 @@ import { NeuralNode } from '@aazucena/visualizations/intelligence';
   isActive={true}
   isCompleted={false}
   isFailed={false}
-/>
+/>;
 ```
 
 **Props:**
+
 - `type: string` - Node type/ID
 - `label: string` - Display label
 - `isActive: boolean` - Current step indicator
@@ -860,6 +906,7 @@ import { NeuralNode } from '@aazucena/visualizations/intelligence';
 - `isFailed: boolean` - Failed step indicator
 
 **Use Cases:**
+
 - Component of NeuralMap
 - Custom AI visualization pipelines
 
@@ -868,21 +915,24 @@ import { NeuralNode } from '@aazucena/visualizations/intelligence';
 ## 🎨 COMMON_PATTERNS
 
 ### Export Controls
+
 All charts include `ExportControls` for SVG/PNG export:
 
 ```tsx
 import { ExportControls } from '@aazucena/visualizations/common';
 
-<ExportControls svgRef={svgRef} fileName="my-chart" />
+<ExportControls svgRef={svgRef} fileName="my-chart" />;
 ```
 
 **Exports:**
+
 - **SVG** - Scalable vector format (lossless)
 - **PNG** - Raster image (1920x1080)
 
 ---
 
 ### Responsive Design
+
 All charts are responsive by default:
 
 ```tsx
@@ -903,6 +953,7 @@ useEffect(() => {
 ---
 
 ### Dark Mode Support
+
 Charts adapt to theme automatically:
 
 ```css
@@ -910,12 +961,14 @@ className="text-foreground bg-accent/5"
 ```
 
 Uses Tailwind's dark mode system:
+
 - `text-foreground` - Adapts to light/dark text color
 - `bg-accent/5` - Subtle background with 5% opacity
 
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Charts:** 19 D3 + 2 Intelligence

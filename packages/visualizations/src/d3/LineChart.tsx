@@ -1,99 +1,164 @@
-/**
- * Generic Line Chart Component
- * D3.js-powered line chart for time-series or sequential data.
- */
-
-import React, { useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useRef, useState, useEffect, useMemo } from 'react';
 import * as d3 from 'd3';
 import { cn } from '@aazucena/utils';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
-import { ExportControls } from '../common/ExportControls.js';
+import {
+  ChartContainer,
+  ChartHeader,
+  ChartTitle,
+  ChartDescription,
+  ChartContent,
+  ChartFooter,
+} from '../common/ChartContainer.js';
+import { ChartToolbar } from '../common/ChartToolbar.js';
+import { useChartState } from '../hooks/useChartState.js';
+import { useLineChart } from '../hooks/useLineChart.js';
+import { Refresh, Dots, Activity } from '@aazucena/icons';
 
-export interface LineChartProps<T extends GenericTimeSeriesStep = GenericTimeSeriesStep> {
-  data: T[];
+export interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: GenericTimeSeriesStep[];
+  title?: string;
+  description?: string;
   height?: number;
   colorMap?: Record<string, string>;
   exportFileName?: string;
-  className?: string;
 }
 
-export function LineChart<T extends GenericTimeSeriesStep>({
-  data,
-  height = 400,
-  colorMap = {},
-  exportFileName = 'line-chart',
-  className,
-}: LineChartProps<T>) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
+  (
+    {
+      data,
+      title = 'Trends',
+      description,
+      height = 400,
+      colorMap = {},
+      exportFileName = 'line-chart',
+      className,
+      ...props
+    },
+    ref,
+  ) => {
+    const svgRef = useRef<SVGSVGElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(0);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (containerRef.current) setWidth(containerRef.current.clientWidth);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    const allKeys = useMemo(() => {
+      return Array.from(new Set(data.flatMap((d) => Object.keys(d.values))));
+    }, [data]);
 
-  useEffect(() => {
-    if (!svgRef.current || width === 0 || !data.length) return;
+    const {
+      visibleKeys,
+      toggleKey,
+      resetVisibility,
+      scaleType,
+      setScaleType,
+      showGrid,
+      setShowGrid,
+      showPoints,
+      setShowPoints,
+    } = useChartState(allKeys);
 
-    const svg = d3.select(svgRef.current);
-    svg.selectAll('*').remove();
+    useEffect(() => {
+      const handleResize = () => {
+        if (containerRef.current) setWidth(containerRef.current.clientWidth);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
-    const margin = { top: 30, right: 30, bottom: 40, left: 50 };
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-
-    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
-
-    const x = d3
-      .scaleTime()
-      .domain(d3.extent(data, (d) => new Date(d.timestamp)) as [Date, Date])
-      .range([0, innerWidth]);
-
-    const keys = Array.from(new Set(data.flatMap((d) => Object.keys(d.values))));
-    const y = d3
-      .scaleLinear()
-      .domain([0, d3.max(data, (d) => d3.max(Object.values(d.values))) || 0])
-      .nice()
-      .range([innerHeight, 0]);
-
-    g.append('g').attr('transform', `translate(0,${innerHeight})`).call(d3.axisBottom(x).ticks(5));
-    g.append('g').call(d3.axisLeft(y));
+    useLineChart(svgRef, data, {
+      width,
+      height: height - 120, // Adjusted for header/footer
+      visibleKeys,
+      scaleType,
+      showGrid,
+      showPoints,
+      colorMap,
+      allKeys,
+    });
 
     const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
 
-    keys.forEach((key) => {
-      g.append('path')
-        .datum(data)
-        .attr('fill', 'none')
-        .attr('stroke', colorMap[key] || defaultColors(key))
-        .attr('stroke-width', 2)
-        .attr(
-          'd',
-          d3
-            .line<T>()
-            .x((d) => x(new Date(d.timestamp)))
-            .y((d) => y(d.values[key] || 0))
-            .curve(d3.curveMonotoneX),
-        );
-    });
-  }, [data, width, height, colorMap]);
+    return (
+      <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
+        <div ref={containerRef} className="flex flex-col h-full">
+          <ChartHeader>
+            <div>
+              <ChartTitle>{title}</ChartTitle>
+              {description && <ChartDescription>{description}</ChartDescription>}
+            </div>
+            <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName}>
+              <button
+                onClick={() => setShowGrid(!showGrid)}
+                className={cn(
+                  'p-1 rounded md transition-colors',
+                  showGrid ? 'bg-primary/20 text-primary' : 'hover:bg-white/10',
+                )}
+                title="Toggle Grid"
+              >
+                <Activity size={14} />
+              </button>
+              <button
+                onClick={() => setShowPoints(!showPoints)}
+                className={cn(
+                  'p-1 rounded md transition-colors',
+                  showPoints ? 'bg-primary/20 text-primary' : 'hover:bg-white/10',
+                )}
+                title="Toggle Points"
+              >
+                <Dots size={14} />
+              </button>
+              <button
+                onClick={() => setScaleType(scaleType === 'linear' ? 'log' : 'linear')}
+                className="px-2 py-1 rounded md hover:bg-white/10 text-[10px] font-bold uppercase transition-colors"
+                title="Toggle Linear/Log Scale"
+              >
+                {scaleType}
+              </button>
+              <button
+                onClick={resetVisibility}
+                className="p-1 rounded md hover:bg-white/10 transition-colors"
+                title="Reset View"
+              >
+                <Refresh size={14} />
+              </button>
+            </ChartToolbar>
+          </ChartHeader>
 
-  return (
-    <div ref={containerRef} className={cn('w-full relative group', className)}>
-      <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-        <ExportControls svgRef={svgRef} fileName={exportFileName} />
-      </div>
-      <svg
-        ref={svgRef}
-        width={width}
-        height={height}
-        className="w-full text-foreground bg-accent/5 rounded-3xl"
-      />
-    </div>
-  );
-}
+          <ChartContent>
+            <svg
+              ref={svgRef}
+              width={width}
+              height="100%"
+              className="w-full h-full text-foreground"
+            />
+          </ChartContent>
+
+          <ChartFooter>
+            <div className="flex flex-wrap gap-4">
+              {allKeys.map((key) => (
+                <button
+                  key={key}
+                  onClick={() => toggleKey(key)}
+                  className={cn(
+                    'flex items-center gap-2 transition-all duration-200 group/item',
+                    !visibleKeys.has(key) && 'opacity-30 grayscale',
+                  )}
+                >
+                  <div
+                    className="w-3 h-3 rounded-full shadow-sm group-hover/item:scale-125 transition-transform"
+                    style={{ backgroundColor: colorMap[key] || defaultColors(key) }}
+                  />
+                  <span className="text-[10px] font-black uppercase tracking-widest">{key}</span>
+                </button>
+              ))}
+            </div>
+          </ChartFooter>
+        </div>
+      </ChartContainer>
+    );
+  },
+);
+
+LineChart.displayName = 'LineChart';

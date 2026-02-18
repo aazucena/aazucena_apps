@@ -8,16 +8,16 @@ D3.js-powered data visualization library featuring 21 chart types (19 D3 + 2 int
 
 ## 🛠️ VISUALIZATION_MANIFEST
 
-| System                     | Protocol          | Description                                                                 |
-| :------------------------- | :---------------- | :-------------------------------------------------------------------------- |
-| **Basic_Charts**           | Continuous_Data   | Area, Bar, Line, Pie, Scatter. Foundation for trends and comparisons.      |
-| **Flow_Diagrams**          | Relational_Data   | Sankey, StreamGraph, ForceDirectedGraph, Timeline. Network topology.       |
-| **Geographic_Maps**        | Spatial_Data      | ChoroplethMap with TopoJSON. Geolocation heatmaps.                         |
-| **Specialized_Charts**     | Statistical_Data  | Heatmap, SpiderChart, Treemap, WordCloud, BoxPlot, ViolinPlot, Dendrogram.|
-| **Intelligence_Viz**       | Agentic_Insights  | NeuralMap (decision paths), NeuralNode (RL trajectories).                  |
-| **Export_Controls**        | Asset_Generation  | SVG (lossless) and PNG (1920x1080) export.                                 |
-| **Responsive_Design**      | Container_Adapt   | ResizeObserver, width auto-detection, mobile-friendly.                     |
-| **Dark_Mode_Support**      | Theme_Awareness   | Tailwind classes, CSS variable integration.                                 |
+| System                 | Protocol         | Description                                                                |
+| :--------------------- | :--------------- | :------------------------------------------------------------------------- |
+| **Basic_Charts**       | Continuous_Data  | Area, Bar, Line, Pie, Scatter. Foundation for trends and comparisons.      |
+| **Flow_Diagrams**      | Relational_Data  | Sankey, StreamGraph, ForceDirectedGraph, Timeline. Network topology.       |
+| **Geographic_Maps**    | Spatial_Data     | ChoroplethMap with TopoJSON. Geolocation heatmaps.                         |
+| **Specialized_Charts** | Statistical_Data | Heatmap, SpiderChart, Treemap, WordCloud, BoxPlot, ViolinPlot, Dendrogram. |
+| **Intelligence_Viz**   | Agentic_Insights | NeuralMap (decision paths), NeuralNode (RL trajectories).                  |
+| **Export_Controls**    | Asset_Generation | SVG (lossless) and PNG (1920x1080) export.                                 |
+| **Responsive_Design**  | Container_Adapt  | ResizeObserver, width auto-detection, mobile-friendly.                     |
+| **Dark_Mode_Support**  | Theme_Awareness  | Tailwind classes, CSS variable integration.                                |
 
 ---
 
@@ -34,6 +34,7 @@ D3.js-powered data visualization library featuring 21 chart types (19 D3 + 2 int
 **Purpose:** Visualize continuous data with filled areas (revenue trends, user growth)
 
 **Props:**
+
 ```typescript
 interface AreaChartProps<T extends { label: string; value: number }> {
   data: T[];
@@ -46,6 +47,7 @@ interface AreaChartProps<T extends { label: string; value: number }> {
 ```
 
 **Example:**
+
 ```tsx
 import { AreaChart } from '@aazucena/visualizations';
 
@@ -61,10 +63,11 @@ const monthlyRevenue = [
   baseColor="#10b981"
   gradient={true}
   exportFileName="revenue-2026-q1"
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **D3 scales:** `d3.scaleLinear()` for Y-axis, `d3.scaleBand()` for X-axis
 - **Area generator:** `d3.area()` with `.curve(d3.curveMonotoneX)`
 - **Gradients:** SVG `<linearGradient>` for visual depth
@@ -76,6 +79,7 @@ const monthlyRevenue = [
 **Purpose:** Compare categorical data (technology usage, performance benchmarks)
 
 **Props:**
+
 ```typescript
 interface BarChartProps<T extends { label: string; value: number }> {
   data: T[];
@@ -88,6 +92,7 @@ interface BarChartProps<T extends { label: string; value: number }> {
 ```
 
 **Example:**
+
 ```tsx
 import { BarChart } from '@aazucena/visualizations';
 
@@ -107,10 +112,11 @@ const techUsage = [
     Angular: '#dd0031',
   }}
   onBarClick={(bar) => console.log(`${bar.label}: ${bar.value}%`)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Scale:** `d3.scaleBand()` with `.padding(0.1)` for spacing
 - **Hover effects:** D3 transitions for opacity + scale
 - **Click handlers:** React callbacks integrated with D3 events
@@ -122,6 +128,7 @@ const techUsage = [
 **Purpose:** Show trends over time (temperature, stock prices, latency)
 
 **Props:**
+
 ```typescript
 interface LineChartProps<T extends { label: string; value: number }> {
   data: T[];
@@ -134,6 +141,7 @@ interface LineChartProps<T extends { label: string; value: number }> {
 ```
 
 **Example:**
+
 ```tsx
 import { LineChart } from '@aazucena/visualizations';
 
@@ -143,16 +151,11 @@ const hourlyLatency = [
   { label: '02:00', value: 38 },
 ];
 
-<LineChart
-  data={hourlyLatency}
-  height={250}
-  strokeWidth={3}
-  color="#ef4444"
-  showPoints={true}
-/>
+<LineChart data={hourlyLatency} height={250} strokeWidth={3} color="#ef4444" showPoints={true} />;
 ```
 
 **Patterns:**
+
 - **Line generator:** `d3.line()` with `.curve(d3.curveMonotoneX)`
 - **Points:** SVG `<circle>` elements at data points
 - **Tooltip:** Positioned tooltip on hover
@@ -164,6 +167,7 @@ const hourlyLatency = [
 **Purpose:** Show proportions (budget allocation, market share)
 
 **Props:**
+
 ```typescript
 interface PieChartProps<T extends { label: string; value: number }> {
   data: T[];
@@ -176,6 +180,7 @@ interface PieChartProps<T extends { label: string; value: number }> {
 ```
 
 **Example:**
+
 ```tsx
 import { PieChart } from '@aazucena/visualizations';
 
@@ -195,10 +200,11 @@ const budget = [
     DevOps: '#f59e0b',
   }}
   onSliceClick={(slice) => console.log(slice)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Arc generator:** `d3.arc()` with inner/outer radius
 - **Pie layout:** `d3.pie()` for angle calculations
 - **Labels:** Positioned with `arc.centroid()`
@@ -210,6 +216,7 @@ const budget = [
 **Purpose:** Plot correlation (performance vs cost, features vs complexity)
 
 **Props:**
+
 ```typescript
 interface ScatterPlotProps<T extends { x: number; y: number; label?: string }> {
   data: T[];
@@ -223,6 +230,7 @@ interface ScatterPlotProps<T extends { x: number; y: number; label?: string }> {
 ```
 
 **Example:**
+
 ```tsx
 import { ScatterPlot } from '@aazucena/visualizations';
 
@@ -239,10 +247,11 @@ const modelPerformance = [
   pointSize={6}
   showTrendLine={true}
   onPointClick={(point) => console.log(point.label)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Scales:** `d3.scaleLinear()` for both axes
 - **Trend line:** Linear regression with `d3.line()`
 - **Voronoi overlay:** For precise hover targeting
@@ -260,6 +269,7 @@ const modelPerformance = [
 **Purpose:** Visualize flow between nodes (user funnels, energy flow, budget allocation)
 
 **Props:**
+
 ```typescript
 interface SankeyDiagramProps {
   data: {
@@ -276,6 +286,7 @@ interface SankeyDiagramProps {
 ```
 
 **Example:**
+
 ```tsx
 import { SankeyDiagram } from '@aazucena/visualizations';
 
@@ -302,10 +313,11 @@ const userFunnel = {
     purchase: '#f59e0b',
   }}
   onNodeClick={(node) => console.log(node.label)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **d3-sankey plugin:** `d3.sankey()` layout algorithm
 - **Link path:** Custom SVG path for curved flows
 - **Node tooltips:** Flow value + percentage
@@ -317,6 +329,7 @@ const userFunnel = {
 **Purpose:** Stacked time-series (tech stack evolution, skill development)
 
 **Props:**
+
 ```typescript
 interface StreamGraphProps<T extends GenericTimeSeriesStep> {
   data: T[]; // { timestamp: string, values: Record<string, number> }
@@ -333,6 +346,7 @@ interface GenericTimeSeriesStep {
 ```
 
 **Example:**
+
 ```tsx
 import { StreamGraph } from '@aazucena/visualizations';
 
@@ -351,10 +365,11 @@ const techEvolution = [
     angular: '#dd0031',
   }}
   onLayerClick={(key) => console.log(key)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Stack layout:** `d3.stack()` with `.offset(d3.stackOffsetSilhouette)`
 - **Area generator:** `d3.area()` with `.curve(d3.curveBasis)`
 - **Time scale:** `d3.scaleTime()` for X-axis
@@ -366,6 +381,7 @@ const techEvolution = [
 **Purpose:** Network visualization (skill dependencies, knowledge graphs)
 
 **Props:**
+
 ```typescript
 interface ForceDirectedGraphProps {
   data: {
@@ -382,6 +398,7 @@ interface ForceDirectedGraphProps {
 ```
 
 **Example:**
+
 ```tsx
 import { ForceDirectedGraph } from '@aazucena/visualizations';
 
@@ -408,10 +425,11 @@ const skillGraph = {
   chargeStrength={-200}
   linkDistance={80}
   onNodeClick={(node) => console.log(node.label)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Force simulation:** `d3.forceSimulation()` with charge, link, center forces
 - **Drag behavior:** `d3.drag()` for interactive nodes
 - **Canvas rendering:** Optional for >1000 nodes
@@ -423,6 +441,7 @@ const skillGraph = {
 **Purpose:** Scroll-synced career progression (journey page, project history)
 
 **Props:**
+
 ```typescript
 interface InteractiveTimelineProps {
   events: TimelineEvent[];
@@ -442,6 +461,7 @@ interface TimelineEvent {
 ```
 
 **Example:**
+
 ```tsx
 import { InteractiveTimeline } from '@aazucena/visualizations';
 
@@ -471,10 +491,11 @@ const careerEvents = [
     education: '#10b981',
   }}
   onEventClick={(event) => console.log(event.title)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Time scale:** `d3.scaleTime()` with extent
 - **Scroll sync:** IntersectionObserver integration
 - **Animations:** Framer Motion for entry/exit
@@ -492,6 +513,7 @@ const careerEvents = [
 **Purpose:** Geographic data visualization (user demographics, sales by region)
 
 **Props:**
+
 ```typescript
 interface ChoroplethMapProps<T extends { id: string; value: number }> {
   data: T[];
@@ -504,6 +526,7 @@ interface ChoroplethMapProps<T extends { id: string; value: number }> {
 ```
 
 **Example:**
+
 ```tsx
 import { ChoroplethMap } from '@aazucena/visualizations';
 import usStatesGeoJSON from './us-states.json';
@@ -520,10 +543,11 @@ const usersByState = [
   height={600}
   colorScale="blues"
   onRegionClick={(region) => console.log(region.label)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Projection:** `d3.geoAlbersUsa()` or `d3.geoMercator()`
 - **Path generator:** `d3.geoPath()`
 - **Color scale:** `d3.scaleQuantize()` with buckets
@@ -542,6 +566,7 @@ const usersByState = [
 **Purpose:** Activity patterns (GitHub contribution grid, time-based telemetry)
 
 **Props:**
+
 ```typescript
 interface HeatmapProps<T extends GenericHeatmapCell> {
   data: T[];
@@ -561,6 +586,7 @@ interface GenericHeatmapCell {
 ```
 
 **Example:**
+
 ```tsx
 import { Heatmap } from '@aazucena/visualizations';
 
@@ -577,13 +603,14 @@ const activityData = [
   colorMap={{
     'Music Play': '#f59e0b',
     'Page View': '#3b82f6',
-    'Interaction': '#10b981',
+    Interaction: '#10b981',
   }}
   onCellClick={(cell) => console.log(cell)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Grid layout:** Fixed cell size (`Math.min(width / 53, height / 7)`)
 - **Color scale:** `d3.scaleLinear()` from light to baseColor
 - **Tooltip:** Hover shows X, Y, value, category
@@ -595,6 +622,7 @@ const activityData = [
 **Purpose:** Multi-dimensional comparison (skill profiling, product features)
 
 **Props:**
+
 ```typescript
 interface SpiderChartProps {
   data: { axis: string; value: number }[];
@@ -607,6 +635,7 @@ interface SpiderChartProps {
 ```
 
 **Example:**
+
 ```tsx
 import { SpiderChart } from '@aazucena/visualizations';
 
@@ -618,16 +647,11 @@ const skills = [
   { axis: 'AWS', value: 70 },
 ];
 
-<SpiderChart
-  data={skills}
-  height={400}
-  levels={5}
-  color="#8b5cf6"
-  fillOpacity={0.3}
-/>
+<SpiderChart data={skills} height={400} levels={5} color="#8b5cf6" fillOpacity={0.3} />;
 ```
 
 **Patterns:**
+
 - **Radial coordinates:** Angle per axis, radius per value
 - **Polygon path:** Connect all points with SVG path
 - **Grid:** Concentric circles + radial lines
@@ -639,6 +663,7 @@ const skills = [
 **Purpose:** Hierarchical data with nested rectangles (file systems, portfolio)
 
 **Props:**
+
 ```typescript
 interface TreemapProps {
   data: HierarchyNode;
@@ -650,6 +675,7 @@ interface TreemapProps {
 ```
 
 **Example:**
+
 ```tsx
 import { Treemap } from '@aazucena/visualizations';
 
@@ -678,10 +704,11 @@ const fileSystem = {
   height={500}
   colorScale={(d) => categoryColors[d.data.name]}
   onTileClick={(tile) => console.log(tile.data.name)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Hierarchy:** `d3.hierarchy()` with `.sum()`
 - **Treemap layout:** `d3.treemap()` with `.tile(d3.treemapSquarify)`
 - **Labels:** Clipped text inside rectangles
@@ -693,6 +720,7 @@ const fileSystem = {
 **Purpose:** Text frequency visualization (tag clouds, keyword analysis)
 
 **Props:**
+
 ```typescript
 interface WordCloudProps {
   words: { text: string; size: number }[];
@@ -704,6 +732,7 @@ interface WordCloudProps {
 ```
 
 **Example:**
+
 ```tsx
 import { WordCloud } from '@aazucena/visualizations';
 
@@ -719,10 +748,11 @@ const keywords = [
   height={400}
   colorScale="blues"
   onWordClick={(word) => console.log(word.text)}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **d3-cloud plugin:** `d3.layout.cloud()` for positioning
 - **Font scaling:** Size maps to fontSize
 - **Rotation:** Optional random rotation angles
@@ -740,6 +770,7 @@ const keywords = [
 **Purpose:** Visualize AI decision flow (perceive → reason → decide → execute)
 
 **Props:**
+
 ```typescript
 interface NeuralMapProps {
   steps: any[]; // Array of trajectory steps with rewards
@@ -750,6 +781,7 @@ interface NeuralMapProps {
 ```
 
 **Example:**
+
 ```tsx
 import { NeuralMap } from '@aazucena/visualizations/intelligence';
 
@@ -772,10 +804,11 @@ const aiSteps = [
     ],
     edges: [],
   }}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Node states:** isActive, isCompleted, isFailed
 - **Reward coloring:** Green (positive), red (negative)
 - **Arrow connectors:** SVG paths between nodes
@@ -788,6 +821,7 @@ const aiSteps = [
 **Purpose:** Individual node in neural map (building block)
 
 **Props:**
+
 ```typescript
 interface NeuralNodeProps {
   type: string;
@@ -799,6 +833,7 @@ interface NeuralNodeProps {
 ```
 
 **Example:**
+
 ```tsx
 import { NeuralNode } from '@aazucena/visualizations/intelligence';
 
@@ -808,10 +843,11 @@ import { NeuralNode } from '@aazucena/visualizations/intelligence';
   isActive={true}
   isCompleted={false}
   isFailed={false}
-/>
+/>;
 ```
 
 **Patterns:**
+
 - **Icon mapping:** `perceive` → Eye, `reason` → Brain, `decide` → Target, `execute` → Zap
 - **Pulse animation:** Active nodes have animated pulse effect
 - **Checkmark:** Completed nodes show checkmark overlay
@@ -855,8 +891,7 @@ export function Chart({ data, height = 400 }) {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
     // ... D3 visualization logic
 
@@ -989,6 +1024,7 @@ packages/visualizations/
 ```
 
 **Design Principles:**
+
 - **D3 Powered:** Leverage D3.js v7 ecosystem (scales, layouts, transitions)
 - **React Integration:** Declarative D3 with React lifecycle (useEffect, useRef)
 - **Responsive:** Auto-resize with ResizeObserver, container-based width
@@ -1001,15 +1037,16 @@ packages/visualizations/
 
 ## 🌐 FRAMEWORK_COMPATIBILITY
 
-| Framework | Support | Notes                                         |
-| :-------- | :------ | :-------------------------------------------- |
+| Framework | Support | Notes                                             |
+| :-------- | :------ | :------------------------------------------------ |
 | Next.js   | ✅      | App Router + Pages Router. Use client components. |
-| Astro     | ✅      | Use `client:load` or `client:only="react"`.   |
-| Remix     | ✅      | Full support with React 19.                    |
-| Vite      | ✅      | Native support.                                |
-| Universal | ✅      | Any React 18+ environment.                     |
+| Astro     | ✅      | Use `client:load` or `client:only="react"`.       |
+| Remix     | ✅      | Full support with React 19.                       |
+| Vite      | ✅      | Native support.                                   |
+| Universal | ✅      | Any React 18+ environment.                        |
 
 **SSR Considerations:**
+
 - All charts safe for SSR (no window references during import)
 - Use `client:only="react"` in Astro for interactive features
 - Export controls work client-side only
@@ -1020,24 +1057,24 @@ packages/visualizations/
 
 ### Internal Dependencies
 
-| Package           | Purpose                          |
-| :---------------- | :------------------------------- |
-| @aazucena/types   | Chart data type definitions      |
-| @aazucena/utils   | Data transformation utilities    |
-| @aazucena/icons   | Icon components for NeuralMap    |
-| @aazucena/context | TelemetryConfig for NeuralMap    |
-| @aazucena/constants | NEURAL_MAP_FALLBACK_NODES       |
+| Package             | Purpose                       |
+| :------------------ | :---------------------------- |
+| @aazucena/types     | Chart data type definitions   |
+| @aazucena/utils     | Data transformation utilities |
+| @aazucena/icons     | Icon components for NeuralMap |
+| @aazucena/context   | TelemetryConfig for NeuralMap |
+| @aazucena/constants | NEURAL_MAP_FALLBACK_NODES     |
 
 ### External Dependencies
 
-| Package              | Version  | Purpose                          |
-| :------------------- | :------- | :------------------------------- |
-| d3                   | ^7.9.0   | Core visualization library       |
-| d3-sankey            | ^0.12.3  | Sankey diagram plugin            |
-| d3-cloud             | ^1.2.7   | Word cloud layout                |
-| topojson-client      | ^3.1.0   | Geographic data utilities        |
-| react                | ^19.2.0  | Peer dependency                  |
-| framer-motion        | ^11.18.3 | Animation library (optional)     |
+| Package         | Version  | Purpose                      |
+| :-------------- | :------- | :--------------------------- |
+| d3              | ^7.9.0   | Core visualization library   |
+| d3-sankey       | ^0.12.3  | Sankey diagram plugin        |
+| d3-cloud        | ^1.2.7   | Word cloud layout            |
+| topojson-client | ^3.1.0   | Geographic data utilities    |
+| react           | ^19.2.0  | Peer dependency              |
+| framer-motion   | ^11.18.3 | Animation library (optional) |
 
 ---
 
