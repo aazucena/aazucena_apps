@@ -739,6 +739,9 @@ importers:
       '@aazucena/icons':
         specifier: workspace:*
         version: link:../../packages/icons
+      '@aazucena/layouts':
+        specifier: workspace:*
+        version: link:../../packages/layouts
       '@aazucena/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -1303,9 +1306,15 @@ importers:
 
   packages/layouts:
     dependencies:
+      '@aazucena/ui':
+        specifier: workspace:*
+        version: link:../ui
       '@aazucena/utils':
         specifier: workspace:*
         version: link:../utils
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
       framer-motion:
         specifier: ^11.15.0
         version: 11.15.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -19892,6 +19901,18 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@formatjs/intl@2.10.0(typescript@5.4.4)':
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.18.2
+      '@formatjs/fast-memoize': 2.2.0
+      '@formatjs/icu-messageformat-parser': 2.7.6
+      '@formatjs/intl-displaynames': 6.6.6
+      '@formatjs/intl-listformat': 7.5.5
+      intl-messageformat: 10.5.11
+      tslib: 2.8.1
+    optionalDependencies:
+      typescript: 5.4.4
+
   '@formatjs/intl@2.10.0(typescript@5.9.3)':
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
@@ -34559,7 +34580,7 @@ snapshots:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
       '@formatjs/icu-messageformat-parser': 2.7.6
-      '@formatjs/intl': 2.10.0(typescript@5.9.3)
+      '@formatjs/intl': 2.10.0(typescript@5.4.4)
       '@formatjs/intl-displaynames': 6.6.6
       '@formatjs/intl-listformat': 7.5.5
       '@types/hoist-non-react-statics': 3.3.7(@types/react@18.3.28)

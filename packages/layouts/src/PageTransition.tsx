@@ -2,15 +2,16 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@aazucena/utils';
 
-interface ShellProps {
+export interface PageTransitionProps {
   children: React.ReactNode;
   className?: string;
 }
 
 /**
- * A React-based inner shell that handles the transition animations.
+ * A React-based wrapper that handles page transition animations.
+ * Uses `AnimatePresence` to animate page mounts and unmounts.
  */
-export const Shell = ({ children, className }: ShellProps) => {
+export const PageTransition = ({ children, className }: PageTransitionProps) => {
   return (
     <AnimatePresence mode="wait">
       <motion.div
