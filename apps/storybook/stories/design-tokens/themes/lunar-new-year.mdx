@@ -1,0 +1,93 @@
+{/* design-tokens/themes/lunar-new-year.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Lunar New Year" />
+
+# Lunar New Year Vibe
+
+Prosperous, traditional, and vibrant. Centered around deep reds and bright golds with cultural design elements.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Red 600" colors={{ primary: '#dc2626' }} />
+  <ColorItem title="Secondary" subtitle="Amber 500" colors={{ secondary: '#f59e0b' }} />
+  <ColorItem title="Background" subtitle="Red 50" colors={{ background: '#fef2f2' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Red 500" colors={{ primary: '#ef4444' }} />
+  <ColorItem title="Secondary" subtitle="Amber 400" colors={{ secondary: '#fbbf24' }} />
+  <ColorItem title="Background" subtitle="Red 950" colors={{ background: '#450a0a' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Red (Fortune)
+<ColorPalette>
+  <ColorItem
+    title="Red Scale"
+    subtitle="Lunar Primary base"
+    colors={{
+      50: '#fef2f2',
+      100: '#fee2e2',
+      200: '#fecaca',
+      300: '#fca5a5',
+      400: '#f87171',
+      500: '#ef4444',
+      600: '#dc2626',
+      700: '#b91c1c',
+      800: '#991b1b',
+      900: '#7f1d1d',
+      950: '#450a0a',
+    }}
+  />
+</ColorPalette>
+
+### Amber (Gold)
+<ColorPalette>
+  <ColorItem
+    title="Amber Scale"
+    subtitle="Lunar Secondary base"
+    colors={{
+      50: '#fffbeb',
+      100: '#fef3c7',
+      200: '#fde68a',
+      300: '#fcd34d',
+      400: '#fbbf24',
+      500: '#f59e0b',
+      600: '#d97706',
+      700: '#b45309',
+      800: '#92400e',
+      900: '#78350f',
+      950: '#451a03',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `8px` (Light) / `16px` (Dark) |
+| Card Radius | `0.5rem` |
+| Glow Color | `Amber 400` (Dark) |
+| Animation Speed | `1.0` (Light) / `1.2` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Body Font | `sans` |
+| Title Weight | `800` (Light) / `900` (Dark) |

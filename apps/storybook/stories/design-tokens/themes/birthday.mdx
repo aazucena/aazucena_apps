@@ -1,0 +1,94 @@
+{/* design-tokens/themes/birthday.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Birthday" />
+
+# Birthday Vibe
+
+Celebratory, colorful, and fun. A multi-colored aesthetic featuring confetti-like accents and playful typography.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Pink 500" colors={{ primary: '#ec4899' }} />
+  <ColorItem title="Secondary" subtitle="Blue 500" colors={{ secondary: '#3b82f6' }} />
+  <ColorItem title="Background" subtitle="Zinc 50" colors={{ background: '#fafafa' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Pink 400" colors={{ primary: '#f472b6' }} />
+  <ColorItem title="Secondary" subtitle="Blue 400" colors={{ secondary: '#60a5fa' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: '#09090b' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Pink)
+<ColorPalette>
+  <ColorItem
+    title="Pink Scale"
+    subtitle="Celebratory Primary base"
+    colors={{
+      50: '#fdf2f8',
+      100: '#fce7f3',
+      200: '#fbcfe8',
+      300: '#f9a8d4',
+      400: '#f472b6',
+      500: '#ec4899',
+      600: '#db2777',
+      700: '#be185d',
+      800: '#9d174d',
+      900: '#831843',
+      950: '#500724',
+    }}
+  />
+</ColorPalette>
+
+### Secondary (Blue)
+<ColorPalette>
+  <ColorItem
+    title="Blue Scale"
+    subtitle="Confetti Secondary base"
+    colors={{
+      50: '#eff6ff',
+      100: '#dbeafe',
+      200: '#bfdbfe',
+      300: '#93c5fd',
+      400: '#60a5fa',
+      500: '#3b82f6',
+      600: '#2563eb',
+      700: '#1d4ed8',
+      800: '#1e40af',
+      900: '#1e3a8a',
+      950: '#172554',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `8px` (Light) / `16px` (Dark) |
+| Card Radius | `1.5rem` |
+| Animation Speed | `1.5` (Excited) |
+| Custom Class | `birthday-confetti` (Light) / `birthday-glow` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `sans` |
+| Body Font | `sans` |
+| Title Weight | `900` |
+| Title Size | `1.75rem` (Light) / `1.875rem` (Dark) |

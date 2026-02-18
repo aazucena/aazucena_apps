@@ -1,0 +1,74 @@
+{/* design-tokens/themes/nature.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Nature" />
+
+# Nature Vibe
+
+Organic, calm, and grounded. Uses soft greens and ambers to create a serene user experience.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Green 600" colors={{ primary: '#16a34a' }} />
+  <ColorItem title="Secondary" subtitle="Teal 600" colors={{ secondary: '#0d9488' }} />
+  <ColorItem title="Background (Solid)" subtitle="Lime 50" colors={{ background: '#f7fee7' }} />
+  <ColorItem title="Background (Gradient)" subtitle="Lime to Emerald" colors={{ gradient: 'linear-gradient(135deg, #f7fee7 0%, #ecfdf5 100%)' }} />
+</ColorPalette>
+
+### Dark Mode
+> Inherits from **Default Dark Mode**.
+
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Cyan 500" colors={{ primary: 'oklch(0.64 0.11 215)' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: 'oklch(0.14 0 0)' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Green)
+<ColorPalette>
+  <ColorItem
+    title="Green Scale"
+    subtitle="Organic Primary base"
+    colors={{
+      50: '#f0fdf4',
+      100: '#dcfce7',
+      200: '#bbf7d0',
+      300: '#86efac',
+      400: '#4ade80',
+      500: '#22c55e',
+      600: '#16a34a',
+      700: '#15803d',
+      800: '#166534',
+      900: '#14532d',
+      950: '#052e16',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects (Light)
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `12px` |
+| Card Radius | `1.25rem` |
+| Button Radius | `9999px` (Pill) |
+| Animation Speed | `1.1` (Playful) |
+
+---
+
+## Typography (Light)
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Body Font | `sans` |
+| Title Weight | `700` |

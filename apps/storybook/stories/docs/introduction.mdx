@@ -1,0 +1,64 @@
+{/* docs/introduction.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Introduction" />
+
+# @aazucena Design System
+
+A comprehensive, token-driven component library for the Aldrin Azucena portfolio monorepo.
+Built with React 19, Tailwind CSS 4, and Radix UI primitives.
+
+---
+
+## What's in here
+
+| Package | Purpose |
+|---|---|
+| `@aazucena/ui` | 225+ composed components (ShadCN base + custom) |
+| `@aazucena/visualizations` | 21 D3-powered chart & graph components with companion hooks |
+| `@aazucena/design-system` | Design tokens, themes (17 vibes), CSS variable generation |
+| `@aazucena/icons` | Custom SVG icon library |
+| `@aazucena/hooks` | Shared React hooks |
+| `@aazucena/context` | Shared React contexts (Telemetry, etc.) |
+| `@aazucena/types` | Centralized TypeScript type definitions |
+| `@aazucena/utils` | Pure utility functions (`cn()`, export helpers, etc.) |
+| `@aazucena/constants` | Global constants and fallback data |
+
+---
+
+This Storybook contains **1,000+ stories** organized into top-level categories:
+- **Components** — UI primitives, forms, navigation, data display, feedback, overlays, and more
+- **Charts & Graphs** — D3-powered visualizations (standard, advanced, relational, specialized, intelligence)
+- **Design Tokens** — Colors, typography, spacing, shadows, motion, z-index, and theme system
+- **Icons** — Proprietary assets, MynaUI system icons, and SimpleIcons tech/social set
+
+---
+
+## Theming
+
+This Storybook supports two independent controls in the toolbar:
+
+- **Light / Dark** — toggles the `dark` class on `<html>` via `@storybook/addon-themes`
+- **Vibe** — applies one of 17 seasonal/style vibes to the story canvas via `ThemeManager`
+
+Both controls are fully independent. You can preview any vibe in either light or dark mode.
+
+---
+
+## Maturity tags
+
+Stories are tagged to indicate component status:
+
+| Tag | Meaning |
+|---|---|
+| `stable` | Production-ready, API frozen |
+| `beta` | Functional but API may change |
+| `experimental` | Work in progress, use with caution |
+| `a11y-verified` | Passed accessibility audit |
+| `design-verified` | Approved against Figma specs |
+
+---
+
+## Maintained by
+
+Aldrin Azucena — [github.com/aazucena](https://github.com/aazucena)

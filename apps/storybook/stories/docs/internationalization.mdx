@@ -1,0 +1,56 @@
+{/* docs/internationalization.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Internationalization" />
+
+# Internationalization (i18n)
+
+The **@aazucena** monorepo is architected to support global engineering intelligence. We follow a strict protocol for delivering content across multiple locales while maintaining technical consistency.
+
+---
+
+## 🏗️ Architecture
+
+Our i18n strategy is split between static UI strings and dynamic CMS content.
+
+### 1. Dynamic Content (Strapi v5)
+Content types in Strapi are configured with i18n enabled. Every technical dossier, blog post, and experience entry should support:
+- **English (en):** The primary technical language of the system.
+- **Other Locales:** (e.g., fr, es, de, ja) based on node requirements.
+
+### 2. Static UI Strings
+Standard UI elements (buttons, labels, status messages) are managed via a centralized i18n dictionary.
+*   **Rule:** Never hard-code strings directly in components. Use the localization hook.
+
+---
+
+## 🚀 Translation Protocols
+
+### Numerical Precision
+Regardless of the locale, technical metrics (latency, bandwidth, timestamps) must remain mathematically precise. Use the browser's native `Intl` API for formatting.
+
+```typescript
+// Do this:
+new Intl.NumberFormat(locale, { style: 'unit', unit: 'megabyte' }).format(124);
+```
+
+### UI Reflow Resilience
+Different languages have different average character lengths (e.g., German is often 30% longer than English). 
+*   **Protocol:** Always test your components in the **Viewport Resonance Chamber** with expanded widths to ensure long translated strings don't break the 4px baseline grid.
+
+---
+
+## 🛡️ A11y & RTL Support
+
+- **Language Attributes:** The `<html>` tag must always reflect the current `lang` attribute.
+- **RTL Protocols:** All layout components must utilize logical properties (e.g., `ms-4` instead of `ml-4`) to ensure compatibility with Right-to-Left languages.
+
+---
+
+## Best Practices
+
+| Category | Guideline |
+|---|---|
+| **Dates** | Use `Intl.DateTimeFormat` or `formatDate` utility. Avoid locale-specific strings. |
+| **Currencies** | Use the currency tokens from the design system for consistent symbol rendering. |
+| **Direction** | Avoid "left" and "right" in technical copy. Use "previous," "next," "start," or "end." |

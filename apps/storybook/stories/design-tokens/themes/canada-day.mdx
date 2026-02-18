@@ -1,0 +1,72 @@
+{/* design-tokens/themes/canada-day.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Canada Day" />
+
+# Canada Day Vibe
+
+Bold, patriotic, and crisp. A clean red and white aesthetic celebrating Canadian heritage.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Red 600" colors={{ primary: '#dc2626' }} />
+  <ColorItem title="Secondary" subtitle="Zinc 50" colors={{ secondary: '#fafafa' }} />
+  <ColorItem title="Background" subtitle="Zinc 50" colors={{ background: '#fafafa' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Red 500" colors={{ primary: '#ef4444' }} />
+  <ColorItem title="Secondary" subtitle="Zinc 900" colors={{ secondary: '#18181b' }} />
+  <ColorItem title="Background" subtitle="Red 950" colors={{ background: '#450a0a' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Red)
+<ColorPalette>
+  <ColorItem
+    title="Red Scale"
+    subtitle="Patriotic Primary base"
+    colors={{
+      50: '#fef2f2',
+      100: '#fee2e2',
+      200: '#fecaca',
+      300: '#fca5a5',
+      400: '#f87171',
+      500: '#ef4444',
+      600: '#dc2626',
+      700: '#b91c1c',
+      800: '#991b1b',
+      900: '#7f1d1d',
+      950: '#450a0a',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `8px` (Light) / `12px` (Dark) |
+| Card Radius | `0.5rem` |
+| Glow Color | `Red 600` (Dark) |
+| Animation Speed | `1.0` (Light) / `0.9` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `sans` |
+| Body Font | `sans` |
+| Title Weight | `800` (Light) / `900` (Dark) |

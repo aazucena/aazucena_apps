@@ -1,0 +1,93 @@
+{/* design-tokens/themes/easter.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Easter" />
+
+# Easter Vibe
+
+Pastel, light, and fresh. Uses a palette of soft lavender, mint, and lemon colors to represent spring and renewal.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Purple 500" colors={{ primary: '#a855f7' }} />
+  <ColorItem title="Secondary" subtitle="Teal 400" colors={{ secondary: '#2dd4bf' }} />
+  <ColorItem title="Background" subtitle="Purple 50" colors={{ background: '#faf5ff' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Purple 300" colors={{ primary: '#d8b4fe' }} />
+  <ColorItem title="Secondary" subtitle="Teal 300" colors={{ secondary: '#5eead4' }} />
+  <ColorItem title="Background" subtitle="Purple 950" colors={{ background: '#3b0764' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Purple)
+<ColorPalette>
+  <ColorItem
+    title="Purple Scale"
+    subtitle="Pastel Primary base"
+    colors={{
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      200: '#e9d5ff',
+      300: '#d8b4fe',
+      400: '#c084fc',
+      500: '#a855f7',
+      600: '#9333ea',
+      700: '#7e22ce',
+      800: '#6b21a8',
+      900: '#581c87',
+      950: '#3b0764',
+    }}
+  />
+</ColorPalette>
+
+### Secondary (Teal)
+<ColorPalette>
+  <ColorItem
+    title="Teal Scale"
+    subtitle="Spring Secondary base"
+    colors={{
+      50: '#f0fdfa',
+      100: '#ccfbf1',
+      200: '#99f6e4',
+      300: '#5eead4',
+      400: '#2dd4bf',
+      500: '#14b8a6',
+      600: '#0d9488',
+      700: '#0f766e',
+      800: '#115e59',
+      900: '#134e4a',
+      950: '#042f2e',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `8px` (Light) / `16px` (Dark) |
+| Card Radius | `2rem` (Pill-like) |
+| Animation Speed | `1.4` (Light) / `1.2` (Dark) |
+| Animation Easing | `Spring / Playful` |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Body Font | `sans` |
+| Title Weight | `600` (Light) / `700` (Dark) |

@@ -1,0 +1,73 @@
+{/* design-tokens/themes/glass.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Glass" />
+
+# Glass Vibe
+
+A modern, translucent aesthetic focused on depth and material layers. High blur and soft reflections.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Indigo 500 (85%)" colors={{ primary: 'rgba(99, 102, 241, 0.85)' }} />
+  <ColorItem title="Secondary" subtitle="Purple 500 (85%)" colors={{ secondary: 'rgba(168, 85, 247, 0.85)' }} />
+  <ColorItem title="Background" subtitle="Blue 50 (80%)" colors={{ background: 'rgba(239, 246, 255, 0.8)' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Indigo 500 (90%)" colors={{ primary: 'rgba(99, 102, 241, 0.9)' }} />
+  <ColorItem title="Floating" subtitle="Zinc 950 (90%)" colors={{ floating: 'rgba(9, 9, 11, 0.9)' }} />
+  <ColorItem title="Background" subtitle="Zinc 900 (95%)" colors={{ background: 'rgba(24, 24, 27, 0.95)' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Indigo (Material Primary)
+<ColorPalette>
+  <ColorItem
+    title="Indigo Scale"
+    subtitle="Translucent base"
+    colors={{
+      50: '#eef2ff',
+      100: '#e0e7ff',
+      200: '#c7d2fe',
+      300: '#a5b4fc',
+      400: '#818cf8',
+      500: '#6366f1',
+      600: '#4f46e5',
+      700: '#4338ca',
+      800: '#3730a3',
+      900: '#312e81',
+      950: '#1e1b4b',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `24px` |
+| Card Blur | `32px` |
+| Card Radius | `1.5rem` |
+| Border | `Translucent Material` |
+| Animation Speed | `1.1` |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `sans` |
+| Body Font | `sans` |
+| Title Weight | `600` |

@@ -1,0 +1,70 @@
+{/* docs/changelog.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Changelog" />
+
+# Changelog
+
+## Phase 4 — Developer Experience (2026-02)
+
+**Added**
+
+- `ThemeManager` class — instance-based vibe application for Storybook canvas isolation
+- `applyVibe` / `resetVibe` / `getActiveVibe` / `isValidVibe` — functional runtime theme API
+- Vibe toolbar picker in Storybook — 17 vibes switchable per-story without page reload
+- CSS variable generation via `generateCssVariables(vibeId)` (build-time)
+- Tailwind preset from `@aazucena/design-system`
+- Full Storybook suite — 1,000+ stories across 23 sub-categories
+- `Charts & Graphs` top-level Storybook category — 21 visualization components with mock data (34 stories)
+- Overview MDX documentation page for the `@aazucena/visualizations` package
+- MDX documentation pages (Introduction, Getting Started, Design Tokens, Changelog)
+- `Result` component — centered block-level status feedback (success, error, warning, info) with 7 sub-components and 10 stories
+- `ErrorPageVisual` `status` prop — auto-maps 9 HTTP codes (400–503) to `code`, `label`, and `color` presets
+- `errorPageStatusMap` export — introspectable lookup of HTTP status presets for consumer extension
+- 7 new StatusPages stories — Error400, Error401, Error403, Error408, Error429, Error502, Error503
+
+**Changed**
+
+- Storybook preview converted to TSX to support JSX decorators
+- `storySort` updated to reflect actual category tree
+- Four orphaned story titles moved under `Components/` hierarchy
+- `ErrorPageVisual` `color` prop type updated from `'rose'` to `'destructive'` for design system consistency
+- Existing Error404 and Error500Cyber stories updated to use `status` prop presets
+
+---
+
+## Phase 3 — Performance (2026-02-04)
+
+**Changed**
+
+- Bundle size: 410KB gzipped down to 105KB (74.3% reduction)
+- Time to Interactive improved from 5–6s to 1.5–2s
+- `AnimationCanvas` lazy loaded
+- Three.js switched to demand-based rendering
+- React 19 `suspendOnActiveViewTransition` polyfill added
+
+---
+
+## Phase 2 — Component Architecture (2026-02-02)
+
+**Added**
+
+- Template system: `Editorial`, `Legal`, `Landing`
+- Common components: `StatusBadge`, `ThemeToggle`, `Breadcrumbs`, `GradientAccent`, `WatermarkBackground`, `DetailNavigation`
+- `IntegrityBadge` — real-time system health indicator
+
+**Changed**
+
+- All portfolio sections reduced to under 120 lines
+- Scene directory depth reduced from 3 to 2
+- Utilities split into 15 domain-specific modules
+
+---
+
+## Phase 1 — Animations Refactoring (2025-01-13)
+
+**Changed**
+
+- `Section.tsx` reduced from 324 to 174 lines (46% reduction)
+- Extracted five components: `DynamicBackground`, `AtmosphericOverlays`, `AnimationCanvas`, `HomepageContent`, `UIOverlays`
+- Introduced `PortfolioContext` and `AnimationContext`

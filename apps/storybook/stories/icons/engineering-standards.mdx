@@ -1,0 +1,128 @@
+{/* stories/icons/engineering-standards.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Code, Terminal, Zap, Shield } from '@mynaui/icons-react';
+
+<Meta title="Icons/Engineering Standards" />
+
+# Engineering Standards
+
+To maintain visual integrity across the monorepo, all icon implementations must adhere to the following technical and ergonomic standards.
+
+---
+
+## 🏗️ The Scalability Ramp
+
+We enforce a strict tier system for icon sizing. Using non-standard sizes creates visual friction and breaks the mathematical rhythm of the 4px baseline.
+
+<div className="p-12 border rounded-2xl bg-[var(--base)] border-[var(--border)] transition-all duration-500">
+  <div className="flex flex-col md:flex-row items-end justify-around gap-12">
+    
+    {/* Tier: Compact */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-16 h-16 rounded-xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+        <Terminal size={16} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold uppercase">16px // Compact</span>
+        <p className="text-[10px] text-[var(--muted-foreground)]">Micro-labels & In-line stats.</p>
+      </div>
+    </div>
+
+    {/* Tier: Standard */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-16 h-16 rounded-xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+        <Terminal size={24} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold uppercase">24px // Standard</span>
+        <p className="text-[10px] text-[var(--muted-foreground)]">Navigation & Default buttons.</p>
+      </div>
+    </div>
+
+    {/* Tier: Large */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-16 h-16 rounded-xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+        <Terminal size={32} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold uppercase">32px // Large</span>
+        <p className="text-[10px] text-[var(--muted-foreground)]">Category headers & Feature blocks.</p>
+      </div>
+    </div>
+
+    {/* Tier: Hero */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-16 h-16 rounded-xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+        <Terminal size={48} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold uppercase">48px // Hero</span>
+        <p className="text-[10px] text-[var(--muted-foreground)]">Empty states & Splash screens.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## 🏗️ Visual Weight Balancing
+
+When mixing libraries, developers must be aware of the difference between **Stroke** (MynaUI) and **Fill** (SimpleIcons). Strokes generally feel lighter than solid fills of the same size.
+
+<div className="p-12 border rounded-2xl bg-[var(--base)] border-[var(--border)] transition-all duration-500">
+  <div className="max-w-md mx-auto space-y-8">
+    
+    {/* Problematic Mix */}
+    <div className="space-y-3">
+      <span className="text-[10px] font-mono text-[var(--error)] uppercase font-bold tracking-widest">Protocol: IMBALANCED</span>
+      <div className="p-4 rounded-xl border border-[var(--error)]/20 bg-[var(--error)]/5 flex items-center gap-6">
+        <Code size={24} stroke={1.5} className="text-[var(--foreground)]" />
+        <div className="w-6 h-6 bg-[var(--foreground)] rounded-full" />
+        <span className="text-xs text-[var(--muted-foreground)]">Strokes look "lighter" than solid circular fills.</span>
+      </div>
+    </div>
+
+    {/* Balanced Mix */}
+    <div className="space-y-3">
+      <span className="text-[10px] font-mono text-[var(--success)] uppercase font-bold tracking-widest">Protocol: BALANCED</span>
+      <div className="p-4 rounded-xl border border-[var(--success)]/20 bg-[var(--success)]/5 flex items-center gap-6">
+        <Code size={24} stroke={2.5} className="text-[var(--foreground)]" />
+        <div className="w-6 h-6 bg-[var(--foreground)] rounded-full opacity-80" />
+        <span className="text-xs text-[var(--muted-foreground)]">Increasing stroke to 2.5 balances the visual weight.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## 🏗️ Accessible Integration
+
+Icons must always be treated as part of the accessibility tree.
+
+| Context | Protocol | Implementation |
+|---|---|---|
+| **Decorative** | Hidden | Use `aria-hidden="true"` to prevent screen reader noise. |
+| **Actionable** | Labeled | Icon-only buttons **must** have a `title` or `aria-label`. |
+| **Status** | Described | Icons used as status indicators must include a text fallback for screen readers. |
+
+---
+
+## 🏗️ CMS Integration (The SVG Protocol)
+
+The registry supports direct injection of raw SVG strings. This allows the CMS to deliver one-off custom icons without package redeployment.
+
+```tsx
+// 1. Data comes from Strapi as a string:
+const cmsIcon = "<svg ...>...</svg>";
+
+// 2. The registry resolves it:
+const ResolvedIcon = getIconComponent(cmsIcon);
+
+// 3. Render it directly (if string):
+if (typeof ResolvedIcon === 'string') {
+  return <div dangerouslySetInnerHTML={{ __html: ResolvedIcon }} />;
+}
+```

@@ -1,0 +1,167 @@
+{/* design-tokens/motion-animation.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Motion & Animation" />
+
+# Motion & Animation
+
+Our motion system defines the physical laws of the **@aazucena** ecosystem. It ensures that every interaction feels intentional, responsive, and high-fidelity.
+
+---
+
+## 🏗️ Implementation Demo: The Physics Laboratory
+
+This sandbox demonstrates our motion tokens in constant operation. These are live elements driven by our design system's CSS variables.
+
+<div className="p-12 border rounded-3xl bg-[var(--base)] border-[var(--border)] transition-all duration-500 space-y-16">
+  
+  {/* 1. Standard Transitions Loop */}
+  <div className="space-y-8">
+    <div className="flex justify-between items-end">
+      <div>
+        <h4 className="text-sm font-bold text-[var(--foreground)]">Standard Orbital Protocol</h4>
+        <p className="text-xs text-[var(--muted-foreground)]">Looping demonstration of <code className="text-[var(--primary)]">--duration-normal</code> and <code className="text-[var(--primary)]">--timing-authentic</code>.</p>
+      </div>
+      <div className="text-[10px] font-mono opacity-40 uppercase tracking-widest">Physics: GPU_ACCELERATED</div>
+    </div>
+
+    <div className="h-32 rounded-xl bg-[var(--elevated)] border border-[var(--border)] relative flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(var(--primary)_1px,transparent_1px)] [background-size:16px_16px]" />
+      <div className="relative w-full max-w-md h-1 bg-[var(--border)] rounded-full">
+        <div 
+          className="absolute top-1/2 left-0 w-8 h-8 rounded-full bg-[var(--primary)] shadow-[0_0_20px_var(--glow-color)] -translate-y-1/2"
+          style={{
+            animation: `orbital-slide var(--duration-ultra-slow) var(--timing-authentic) infinite alternate`
+          }}
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* 2. Entrance & Exit Scenarios */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="p-6 rounded-xl border border-[var(--border)] bg-[var(--elevated)] space-y-4 overflow-hidden">
+      <h4 className="text-xs font-mono uppercase tracking-widest text-[var(--muted-foreground)]">Entrance_Protocol</h4>
+      <div className="h-24 flex items-center justify-center">
+        <div 
+          className="w-16 h-16 bg-[var(--primary)] rounded-lg shadow-xl"
+          style={{ animation: 'entrance-sim var(--duration-slow) var(--timing-out) infinite' }}
+        />
+      </div>
+      <p className="text-[10px] text-center opacity-60">Uses <code className="text-[var(--primary)]">--timing-out</code> for a snappy arrival.</p>
+    </div>
+
+    <div className="p-6 rounded-xl border border-[var(--border)] bg-[var(--elevated)] space-y-4 overflow-hidden">
+      <h4 className="text-xs font-mono uppercase tracking-widest text-[var(--muted-foreground)]">Hover_Feedback</h4>
+      <div className="h-24 flex items-center justify-center">
+        <button className="px-6 py-3 rounded-[var(--radius-button)] bg-[var(--secondary)] text-[var(--secondary-foreground)] font-bold transition-all duration-[var(--duration-fast)] ease-[var(--timing-base)] hover:scale-110 hover:shadow-xl active:scale-95">
+          Interactive Node
+        </button>
+      </div>
+      <p className="text-[10px] text-center opacity-60">Uses <code className="text-[var(--secondary)]">--duration-fast</code> for reactive feel.</p>
+    </div>
+  </div>
+
+  {/* 3. Physics Comparison Matrix */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div className="space-y-6">
+      <h4 className="text-xs font-mono uppercase tracking-widest text-[var(--primary)] font-bold">Duration_Scale</h4>
+      <div className="space-y-4">
+        {[
+          { label: 'Fast (150ms)', var: '--duration-fast' },
+          { label: 'Normal (300ms)', var: '--duration-normal' },
+          { label: 'Slow (500ms)', var: '--duration-slow' }
+        ].map((item) => (
+          <div key={item.label} className="space-y-1">
+            <div className="h-2 w-full bg-[var(--border)] rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-[var(--primary)] opacity-40" 
+                style={{
+                  width: '20%',
+                  animation: `matrix-slide var(${item.var}) var(--timing-authentic) infinite`
+                }}
+              />
+            </div>
+            <span className="text-[10px] font-mono text-[var(--muted-foreground)]">{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div className="space-y-6">
+      <h4 className="text-xs font-mono uppercase tracking-widest text-[var(--secondary)] font-bold">Easing_Protocols</h4>
+      <div className="space-y-4">
+        {[
+          { label: 'Authentic (Standard)', var: '--timing-authentic' },
+          { label: 'Out (Snappy Arrival)', var: '--timing-out' },
+          { label: 'In (Accelerated)', var: '--timing-in' }
+        ].map((item) => (
+          <div key={item.label} className="space-y-1">
+            <div className="h-2 w-full bg-[var(--border)] rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-[var(--secondary)] opacity-40" 
+                style={{
+                  width: '20%',
+                  animation: `matrix-slide var(--duration-slow) var(${item.var}) infinite`
+                }}
+              />
+            </div>
+            <span className="text-[10px] font-mono text-[var(--muted-foreground)]">{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+{`
+  @keyframes orbital-slide {
+    from { left: 0%; transform: translate(-50%, -50%); }
+    to { left: 100%; transform: translate(-50%, -50%); }
+  }
+  @keyframes matrix-slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(500%); }
+  }
+  @keyframes entrance-sim {
+    0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+`}
+</style>
+
+---
+
+## Durations
+
+| Name | CSS Variable | Value | Usage |
+|---|---|---|---|
+| Fast | `--duration-fast` | `150ms` | Micro-interactions, hover states. |
+| Normal | `--duration-normal` | `300ms` | General UI transitions, content swaps. |
+| Slow | `--duration-slow` | `500ms` | Page entrances, large component movement. |
+| Ultra Slow | `--duration-ultra-slow` | `1000ms` | Atmospheric effects, slow reveals. |
+
+---
+
+## Easing Functions
+
+| Name | CSS Variable | Curve |
+|---|---|---|
+| Base | `--timing-base` | `cubic-bezier(0.4, 0, 0.2, 1)` |
+| Authentic | `--timing-authentic` | `cubic-bezier(0.4, 0, 0.2, 1)` |
+| In | `--timing-in` | `cubic-bezier(0.4, 0, 1, 1)` |
+| Out | `--timing-out` | `cubic-bezier(0, 0, 0.2, 1)` |
+| In-Out | `--timing-in-out` | `cubic-bezier(0.4, 0, 0.2, 1)` |
+
+---
+
+## Spring Protocols
+
+| Vibe | Stiffness | Damping | Mass | Description |
+|---|---|---|---|---|
+| **Bouncy** | `400` | `10` | `1` | High energy, elastic feedback. |
+| **Smooth** | `260` | `20` | `1` | Default, responsive, and stable. |
+| **Snappy** | `300` | `30` | `1` | Quick arrival with minimal oscillation. |
+| **Gentle** | `100` | `15` | `1` | Soft, atmospheric transitions. |

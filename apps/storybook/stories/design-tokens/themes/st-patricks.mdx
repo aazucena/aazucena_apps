@@ -1,0 +1,93 @@
+{/* design-tokens/themes/st-patricks.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/St Patricks" />
+
+# St Patricks Vibe
+
+Lucky, vibrant, and green. Celebrates Irish heritage with a variety of emerald and lime green shades combined with golden accents.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Green 700" colors={{ primary: '#15803d' }} />
+  <ColorItem title="Secondary" subtitle="Amber 600" colors={{ secondary: '#d97706' }} />
+  <ColorItem title="Background" subtitle="Green 50" colors={{ background: '#f0fdf4' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Green 500" colors={{ primary: '#22c55e' }} />
+  <ColorItem title="Secondary" subtitle="Amber 500" colors={{ secondary: '#f59e0b' }} />
+  <ColorItem title="Background" subtitle="Green 950" colors={{ background: '#052e16' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Green)
+<ColorPalette>
+  <ColorItem
+    title="Green Scale"
+    subtitle="Lucky Primary base"
+    colors={{
+      50: '#f0fdf4',
+      100: '#dcfce7',
+      200: '#bbf7d0',
+      300: '#86efac',
+      400: '#4ade80',
+      500: '#22c55e',
+      600: '#16a34a',
+      700: '#15803d',
+      800: '#166534',
+      900: '#14532d',
+      950: '#052e16',
+    }}
+  />
+</ColorPalette>
+
+### Secondary (Amber)
+<ColorPalette>
+  <ColorItem
+    title="Amber Scale"
+    subtitle="Golden Secondary base"
+    colors={{
+      50: '#fffbeb',
+      100: '#fef3c7',
+      200: '#fde68a',
+      300: '#fcd34d',
+      400: '#fbbf24',
+      500: '#f59e0b',
+      600: '#d97706',
+      700: '#b45309',
+      800: '#92400e',
+      900: '#78350f',
+      950: '#451a03',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `8px` (Light) / `12px` (Dark) |
+| Card Radius | `1rem` |
+| Glow Color | `Amber 500` (Dark) |
+| Animation Speed | `1.0` (Light) / `1.1` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `sans` |
+| Body Font | `sans` |
+| Title Weight | `700` (Light) / `800` (Dark) |

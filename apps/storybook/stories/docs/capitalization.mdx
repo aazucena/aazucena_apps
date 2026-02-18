@@ -1,0 +1,64 @@
+{/* docs/capitalization.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Capitalization" />
+
+# Capitalization Standards
+
+To maintain mathematical consistency and a distinct technical voice, we enforce strict capitalization protocols for different UI elements across the **@aazucena** monorepo.
+
+---
+
+## 🏗️ Protocol Overview
+
+| Logic | Implementation | Strategic Usage |
+|---|---|---|
+| **Sentence case** | `This is a message` | Descriptions, tooltips, and long-form content. |
+| **Title Case** | `Execute Command` | Page titles, buttons, and high-level menu items. |
+| **ALL CAPS** | `AAZUCENA_MARK` | Technical keys, node identifiers, and high-urgency alerts. |
+| **lowercase** | `aazucena` | The primary brand identifier (unless emphasized). |
+
+---
+
+## 🚀 Usage Guidelines
+
+### 1. Functional UI Elements
+We prioritize clarity and scannability.
+- **Buttons:** Use Title Case (e.g., `Save Changes`, `Initialize Node`).
+- **Input Labels:** Use Title Case (e.g., `Email Address`).
+- **Placeholder Text:** Use Sentence case (e.g., `Search terminal...`).
+
+### 2. Technical Metadata
+To differentiate between "Content" and "Data," technical markers follow a terminal-grade protocol.
+- **Node IDs:** ALWAYS_UPPERCASE_WITH_UNDERSCORES (e.g., `NODE_ALPHA_01`).
+- **File Extensions:** Lowercase (e.g., `reader.cpp`).
+- **Telemetry Logs:** ALL CAPS for status keys (e.g., `READY`, `WARN`, `CRITICAL`).
+
+### 3. Editorial Copy
+Follow standard linguistic rules for the active locale.
+- **Paragraphs:** Sentence case.
+- **Quotes:** Sentence case.
+
+---
+
+## 🎨 Brand Stylization
+
+The **aazucena** brand identity has a specific stylistic exception:
+- **Default:** lowercase (`aazucena`) to emphasize modern, digital-first identity.
+- **Emphasis:** ALL CAPS (`AAZUCENA`) for high-fidelity branding or logo-adjacent text.
+- **Never:** Mixed Title Case (`Aazucena`) unless required by a specific third-party platform convention.
+
+---
+
+## Technical Enforcement
+
+Where possible, capitalization should be handled by CSS or utility functions rather than being hard-coded in the CMS to ensure i18n flexibility.
+
+```tsx
+// Preferred: Use CSS transformation
+<span className="uppercase tracking-widest">Technical_Key</span>
+
+// Functional: Use utility for Title Case
+import { titleCase } from '@aazucena/utils';
+<span>{titleCase(dynamicLabel)}</span>
+```

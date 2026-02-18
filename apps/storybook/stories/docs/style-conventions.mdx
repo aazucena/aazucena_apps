@@ -1,0 +1,64 @@
+{/* docs/style-conventions.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Style Conventions" />
+
+# Style Conventions
+
+This document outlines the standard coding and visual styles enforced across the **@aazucena** monorepo to ensure technical integrity and team velocity.
+
+---
+
+## 🏗️ Code Style Protocol
+
+We enforce a strict, automated code style suite. If the CI/CD pipeline fails a lint check, the protocol has been breached.
+
+### 1. React & TypeScript
+- **Component Naming:** Use `PascalCase` for components (e.g., `IntegrityBadge.tsx`).
+- **Hook Naming:** Use `camelCase` with a `use` prefix (e.g., `useVibe.ts`).
+- **Props Interface:** Every component **must** have a defined `Props` interface exported.
+- **Strict Typing:** Avoid `any`. Utilize the shared types from `@aazucena/types`.
+
+### 2. Styling (Tailwind CSS 4)
+- **Token First:** Always prefer design tokens (`text-primary`, `bg-base`) over arbitrary values.
+- **Utility Order:** Enforced by Prettier (Layout → Box Model → Typography → Visuals).
+- **Logical Properties:** Use `ms-*` and `me-*` instead of `ml-*` and `mr-*` for i18n resilience.
+
+---
+
+## 🎨 Visual Style Protocol
+
+### 1. Corner Geometry
+- **Technical:** Use `rounded-sm` or `rounded-none` for high-density technical modules (e.g., code blocks).
+- **Standard:** Use `rounded-lg` or `rounded-xl` for standard cards and containers.
+- **Interactive:** Use `rounded-full` for badges, status indicators, and pill buttons.
+
+### 2. Elevation & Depth
+- **Rule:** Never use more than 3 levels of elevation on a single screen.
+- **Hierarchy:** Body (`--base`) → Cards (`--elevated`) → Modals/Tooltips (`--floating`).
+
+---
+
+## 🛡️ File Organization
+
+Maintain a flat hierarchy (max depth 2) where possible within packages.
+
+```
+packages/ui/                    packages/visualizations/
+├── src/                        ├── src/
+│   ├── components/             │   ├── d3/           (19 chart components)
+│   │   └── ui/                 │   ├── common/       (ChartContainer, Toolbar, ExportControl)
+│   ├── styles/                 │   ├── hooks/        (18 companion hooks)
+│   ├── index.ts (barrel)       │   ├── intelligence/ (NeuralMap, NeuralNode)
+│   └── ...                     │   └── index.ts      (barrel export)
+├── package.json                ├── package.json
+└── README.md                   └── README.md
+```
+
+---
+
+## Automated Verification
+These conventions are enforced via:
+- **ESLint:** Logic and syntax rules.
+- **Prettier:** Formatting and utility ordering.
+- **Husky:** Pre-commit hooks preventing "Style Drift."

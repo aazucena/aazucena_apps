@@ -1,0 +1,73 @@
+{/* design-tokens/themes/minimal.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Minimal" />
+
+# Minimal Vibe
+
+Ultra-clean, high-contrast, and focused on typography. Eliminates unnecessary decoration for maximum clarity.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Zinc 900" colors={{ primary: 'oklch(0.21 0 0)' }} />
+  <ColorItem title="Secondary" subtitle="Zinc 500" colors={{ secondary: 'oklch(0.55 0 0)' }} />
+  <ColorItem title="Background" subtitle="Zinc 50" colors={{ background: 'oklch(0.98 0 0)' }} />
+</ColorPalette>
+
+### Dark Mode
+> Inherits from **Default Dark Mode**.
+
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Cyan 500" colors={{ primary: 'oklch(0.64 0.11 215)' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: 'oklch(0.14 0 0)' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Zinc (Grayscale)
+<ColorPalette>
+  <ColorItem
+    title="Zinc Scale"
+    subtitle="Grayscale base"
+    colors={{
+      50:  'oklch(0.98 0 0)',
+      100: 'oklch(0.96 0 0)',
+      200: 'oklch(0.91 0 0)',
+      300: 'oklch(0.83 0 0)',
+      400: 'oklch(0.71 0 0)',
+      500: 'oklch(0.55 0 0)',
+      600: 'oklch(0.44 0 0)',
+      700: 'oklch(0.37 0 0)',
+      800: 'oklch(0.27 0 0)',
+      900: 'oklch(0.21 0 0)',
+      950: 'oklch(0.14 0 0)',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects (Light)
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `4px` |
+| Card Radius | `0.5rem` |
+| Button Radius | `0.375rem` |
+| Animation Speed | `0.9` |
+
+---
+
+## Typography (Light)
+
+| Property | Value |
+|---|---|
+| Heading Font | `sans` |
+| Body Font | `sans` |
+| Title Weight | `600` |

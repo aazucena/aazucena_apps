@@ -1,0 +1,71 @@
+{/* design-tokens/themes/valentines.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Valentines" />
+
+# Valentines Vibe
+
+Soft, romantic, and sweet. Features a palette of pinks, reds, and soft whites with rounded corners and gentle animations.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Rose 600" colors={{ primary: '#e11d48' }} />
+  <ColorItem title="Secondary" subtitle="Pink 200" colors={{ secondary: '#fbcfe8' }} />
+  <ColorItem title="Background" subtitle="Rose 50" colors={{ background: '#fff1f2' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Rose 400" colors={{ primary: '#fb7185' }} />
+  <ColorItem title="Secondary" subtitle="Rose 950" colors={{ secondary: '#4c0519' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: '#09090b' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Rose)
+<ColorPalette>
+  <ColorItem
+    title="Rose Scale"
+    subtitle="Romantic Primary base"
+    colors={{
+      50: '#fff1f2',
+      100: '#ffe4e6',
+      200: '#fecdd3',
+      300: '#fda4af',
+      400: '#fb7185',
+      500: '#f43f5e',
+      600: '#e11d48',
+      700: '#be123c',
+      800: '#9f1239',
+      900: '#881337',
+      950: '#4c0519',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `8px` (Light) / `12px` (Dark) |
+| Card Radius | `1.5rem` |
+| Button Radius | `9999px` (Pill) |
+| Animation Speed | `1.2` (Smooth) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Title Weight | `700` (Light) / `800` (Dark) |

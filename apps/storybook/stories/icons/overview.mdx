@@ -1,0 +1,127 @@
+{/* stories/icons/overview.mdx */}
+import { Meta, Title, IconGallery, IconItem } from '@storybook/addon-docs/blocks';
+import { getIconComponent } from '@aazucena/icons';
+import * as Icons from '@aazucena/icons';
+
+<Meta title="Icons/Overview" />
+
+# Icons
+
+The **@aazucena** icon system is a unified protocol for delivering high-fidelity vector assets across the monorepo. It combines the clean, technical aesthetic of **Myna UI Icons** with custom brand-specific marks and pixel-perfect simple icons.
+
+---
+
+## 🏗️ Icon Architecture
+
+Our icon system operates on a **Single Entry Point** model. All applications utilize the `@aazucena/icons` package, which provides:
+
+1.  **Registry-Driven Logic:** A central registry that maps strings to components for dynamic rendering.
+2.  **Custom Asset Support:** Hand-crafted SVG components for brand-specific needs (Astro, React, Vite, etc.).
+3.  **SimpleIcons Integration:** Pre-configured aliases for common dev-tool logos with standardized casing.
+4.  **CMS Resilience:** Built-in support for direct SVG injection from Strapi content fields.
+
+---
+
+## 🚀 Usage Protocol
+
+### 1. Registry-Based Usage (Recommended)
+For dynamic content (CMS data, navigation arrays) where the icon name is provided as a string.
+
+```tsx
+import { getIconComponent } from '@aazucena/icons';
+
+const MyIcon = ({ name }) => {
+  const Icon = getIconComponent(name);
+  
+  if (typeof Icon === 'string' && Icon.startsWith('<svg')) {
+    return <div dangerouslySetInnerHTML={{ __html: Icon }} className="w-6 h-6" />;
+  }
+  
+  return <Icon size={24} className="text-primary" stroke={1.5} />;
+};
+```
+
+### 2. Direct Component Usage
+For internal development or when the icon is strictly known at compile-time.
+
+```tsx
+import { Code, Terminal } from '@mynaui/icons-react';
+
+export const MyComponent = () => (
+  <div className="flex gap-4">
+    <Code size={24} stroke={2} />
+    <Terminal size={24} stroke={2} />
+  </div>
+);
+```
+
+---
+
+## 🎨 Featured Custom Icons
+
+These are hand-crafted brand marks optimized for the **@aazucena** aesthetic. They are theme-reactive and support the full color protocol.
+
+<div className="p-8 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 overflow-hidden relative group">
+  <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)]" />
+  
+  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 relative z-10">
+    {[
+      { name: 'BrandLogo', label: 'AAZUCENA' },
+      { name: 'Astro', label: 'Astro' },
+      { name: 'React', label: 'React' },
+      { name: 'Tailwind', label: 'Tailwind' },
+      { name: 'Vite', label: 'Vite' },
+      { name: 'Rss', label: 'RSS' },
+    ].map((icon) => {
+      const IconComp = getIconComponent(icon.name);
+      return (
+        <div key={icon.name} className="flex flex-col items-center gap-3 group/item">
+          <div className="w-16 h-16 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] shadow-[var(--shadow-sm)] group-hover/item:scale-110 group-hover/item:border-[var(--primary)] group-hover/item:text-[var(--foreground)] transition-all duration-500">
+            {['object', 'function'].includes(typeof IconComp) ? <IconComp size={32} stroke={1.5} /> : null}
+          </div>
+          <span className="text-[10px] font-mono font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">{icon.label}</span>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+---
+
+## 🛡️ Technical Standards
+
+| Metric | Standard |
+|---|---|
+| **Primary Library** | `@mynaui/icons-react` (v0.3.9) |
+| **Brand Library** | `@icons-pack/react-simple-icons` |
+| **Stroke Width** | Default: `1.5` / Technical: `2.0` |
+| **Standard Sizes** | `16`, `20`, `24`, `32`, `48` |
+| **Color Protocol** | `fill='none' stroke='currentColor'` (UI Icons) |
+| **Format** | Pure React Components (SVG-in-JS) |
+
+---
+
+## 🔍 Library Preview: Technical Set
+
+Our core UI icons are selected for their clean, mathematical clarity.
+
+<IconGallery>
+  <IconItem name="Code">
+    <Icons.Code />
+  </IconItem>
+  <IconItem name="Terminal">
+    <Icons.Terminal />
+  </IconItem>
+  <IconItem name="Activity">
+    <Icons.Activity />
+  </IconItem>
+  <IconItem name="Database">
+    <Icons.Database />
+  </IconItem>
+  <IconItem name="Globe">
+    <Icons.Globe />
+  </IconItem>
+  <IconItem name="Zap">
+    <Icons.Zap />
+  </IconItem>
+</IconGallery>

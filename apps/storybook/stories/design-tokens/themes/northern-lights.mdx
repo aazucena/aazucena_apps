@@ -1,0 +1,93 @@
+{/* design-tokens/themes/northern-lights.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Northern Lights" />
+
+# Northern Lights Vibe
+
+Ethereal, magical, and flowing. Uses deep indigo backgrounds with vibrant cyan and magenta aurora-like gradients.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Teal 600" colors={{ primary: '#0d9488' }} />
+  <ColorItem title="Secondary" subtitle="Violet 600" colors={{ secondary: '#7c3aed' }} />
+  <ColorItem title="Background" subtitle="Teal 50" colors={{ background: '#f0fdfa' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Teal 400" colors={{ primary: '#2dd4bf' }} />
+  <ColorItem title="Secondary" subtitle="Violet 400" colors={{ secondary: '#a78bfa' }} />
+  <ColorItem title="Background" subtitle="Indigo 950" colors={{ background: '#020617' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Teal)
+<ColorPalette>
+  <ColorItem
+    title="Teal Scale"
+    subtitle="Aurora Primary base"
+    colors={{
+      50: '#f0fdfa',
+      100: '#ccfbf1',
+      200: '#99f6e4',
+      300: '#5eead4',
+      400: '#2dd4bf',
+      500: '#14b8a6',
+      600: '#0d9488',
+      700: '#0f766e',
+      800: '#115e59',
+      900: '#134e4a',
+      950: '#042f2e',
+    }}
+  />
+</ColorPalette>
+
+### Secondary (Violet)
+<ColorPalette>
+  <ColorItem
+    title="Violet Scale"
+    subtitle="Aurora Secondary base"
+    colors={{
+      50: '#f5f3ff',
+      100: '#ede9fe',
+      200: '#ddd6fe',
+      300: '#c4b5fd',
+      400: '#a78bfa',
+      500: '#8b5cf6',
+      600: '#7c3aed',
+      700: '#6d28d9',
+      800: '#5b21b6',
+      900: '#4c1d95',
+      950: '#2e1065',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `12px` (Light) / `20px` (Dark) |
+| Card Radius | `1.25rem` (Light) / `1.5rem` (Dark) |
+| Glow Color | `Teal 400` |
+| Animation Speed | `1.3` (Light) / `1.5` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Body Font | `sans` |
+| Title Weight | `600` (Light) / `800` (Dark) |

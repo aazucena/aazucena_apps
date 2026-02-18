@@ -1,0 +1,118 @@
+{/* docs/getting-started.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Getting Started" />
+
+# Getting Started
+
+## Installation
+
+All packages are internal to the monorepo. Add them as workspace dependencies:
+
+```json
+{
+  "dependencies": {
+    "@aazucena/ui": "workspace:*",
+    "@aazucena/visualizations": "workspace:*",
+    "@aazucena/design-system": "workspace:*",
+    "@aazucena/icons": "workspace:*",
+    "@aazucena/hooks": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "@aazucena/types": "workspace:*"
+  }
+}
+```
+
+---
+
+## Setup
+
+### 1. Import the global stylesheet
+
+In your app's entry point:
+
+```ts
+import '@aazucena/ui/styles/globals.css';
+```
+
+### 2. Add the Tailwind preset
+
+```ts
+// tailwind.config.ts
+import { tailwindPreset } from '@aazucena/design-system';
+
+export default {
+  presets: [tailwindPreset],
+};
+```
+
+### 3. Generate CSS variables (build time)
+
+```bash
+pnpm --filter @aazucena/design-system ds:css
+```
+
+This outputs `dist/css-vars.css` which you import once in your app's root layout.
+
+---
+
+## Using components
+
+```tsx
+import { Button, Card } from '@aazucena/ui';
+
+export function Example() {
+  return (
+    <Card>
+      <Button variant="default">Hello</Button>
+    </Card>
+  );
+}
+```
+
+---
+
+## Using visualizations
+
+```tsx
+import { BarChart, PieChart, ForceDirectedGraph } from '@aazucena/visualizations';
+import type { BarChartData } from '@aazucena/types';
+
+const data: BarChartData[] = [
+  { label: 'React', value: 90 },
+  { label: 'TypeScript', value: 85 },
+];
+
+export function Dashboard() {
+  return <BarChart data={data} title="Skills" />;
+}
+```
+
+Every chart component wraps in `ChartContainer` and includes a built-in export toolbar (SVG / PNG / CSV).
+See the **Charts & Graphs** section in the sidebar for live examples.
+
+---
+
+## Applying a vibe at runtime
+
+```ts
+import { applyVibe, resetVibe } from '@aazucena/design-system';
+
+// Apply a seasonal vibe
+applyVibe('halloween', 'dark');
+
+// Reset back to baked-in defaults
+resetVibe();
+```
+
+---
+
+## Package manager
+
+Always use **pnpm**. Never npm or yarn.
+
+```bash
+pnpm install
+pnpm dev
+pnpm build
+```

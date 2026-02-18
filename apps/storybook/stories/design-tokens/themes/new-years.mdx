@@ -1,0 +1,94 @@
+{/* design-tokens/themes/new-years.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/New Years" />
+
+# New Years Vibe
+
+Glamorous, high-contrast, and sparkly. Features black and gold with high-density light effects and elegant typography.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Zinc 400" colors={{ primary: '#a1a1aa' }} />
+  <ColorItem title="Secondary" subtitle="Amber 700" colors={{ secondary: '#b45309' }} />
+  <ColorItem title="Background" subtitle="Zinc 50" colors={{ background: '#fafafa' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Amber 400" colors={{ primary: '#fbbf24' }} />
+  <ColorItem title="Secondary" subtitle="Zinc 500" colors={{ secondary: '#71717a' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: '#09090b' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Amber (Gold)
+<ColorPalette>
+  <ColorItem
+    title="Amber Scale"
+    subtitle="Glitter/Gold base"
+    colors={{
+      50: '#fffbeb',
+      100: '#fef3c7',
+      200: '#fde68a',
+      300: '#fcd34d',
+      400: '#fbbf24',
+      500: '#f59e0b',
+      600: '#d97706',
+      700: '#b45309',
+      800: '#92400e',
+      900: '#78350f',
+      950: '#451a03',
+    }}
+  />
+</ColorPalette>
+
+### Zinc (Silver/Black)
+<ColorPalette>
+  <ColorItem
+    title="Zinc Scale"
+    subtitle="Night base"
+    colors={{
+      50:  'oklch(0.98 0 0)',
+      100: 'oklch(0.96 0 0)',
+      200: 'oklch(0.91 0 0)',
+      300: 'oklch(0.83 0 0)',
+      400: 'oklch(0.71 0 0)',
+      500: 'oklch(0.55 0 0)',
+      600: 'oklch(0.44 0 0)',
+      700: 'oklch(0.37 0 0)',
+      800: 'oklch(0.27 0 0)',
+      900: 'oklch(0.21 0 0)',
+      950: 'oklch(0.14 0 0)',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `10px` (Light) / `20px` (Dark) |
+| Card Radius | `0.25rem` (Sharp) |
+| Glow Color | `Amber 400` (Dark) |
+| Animation Speed | `1.2` (Light) / `1.5` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Body Font | `sans` |
+| Title Weight | `300` (Elegant) / `200` (Extra Elegant) |
+| Custom Class | `new-years-glitter` (Dark) |
