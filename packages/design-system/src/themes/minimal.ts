@@ -10,6 +10,8 @@ const light: SystemThemeConfig = {
     secondaryForeground: getColor('zinc', 50),
     success: getColor('zinc', 900),
     successForeground: getColor('zinc', 50),
+    destructive: getColor('zinc', 500),
+    destructiveForeground: getColor('zinc', 50),
     error: getColor('zinc', 500),
     errorForeground: getColor('zinc', 50),
     background: getColor('zinc', 50),

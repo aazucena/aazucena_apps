@@ -17,7 +17,7 @@ import {
 
 const tailwindPreset: Config = {
   content: [],
-  darkMode: 'class',
+  darkMode: ['class', '[data-mode="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -28,7 +28,7 @@ const tailwindPreset: Config = {
         ring: 'var(--ring)',
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        base: 'var(--base)',
+        'surface-base': 'var(--base)',
         elevated: 'var(--elevated)',
         floating: 'var(--floating)',
         primary: {
@@ -108,6 +108,32 @@ const tailwindPreset: Config = {
         sm: 'var(--radius-sm)',
         xl: 'var(--radius-xl)',
       },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'fade-out': {
+          from: { opacity: '1' },
+          to: { opacity: '0' },
+        },
+        'hue-shift': {
+          '0%': { filter: 'hue-rotate(0deg)' },
+          '100%': { filter: 'hue-rotate(360deg)' },
+        },
+        'cyber-pulse': {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.5', transform: 'scale(0.95)' },
+        },
+      },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
@@ -116,6 +142,7 @@ const tailwindPreset: Config = {
         'fade-in': 'fade-in 0.2s ease-out',
         'fade-out': 'fade-out 0.2s ease-out',
         'hue-shift': 'hue-shift 5s linear infinite',
+        'cyber-pulse': 'cyber-pulse 2s ease-in-out infinite',
       },
       transitionDuration: {
         ...transitions.duration,
@@ -125,7 +152,31 @@ const tailwindPreset: Config = {
       },
     },
   },
-  plugins: [typographyPlugin, tailwindcssAnimate],
-} as unknown as Config;
+  plugins: [
+    typographyPlugin,
+    tailwindcssAnimate,
+    ({ addUtilities }: { addUtilities: Function }) => {
+      addUtilities({
+        '.glass': {
+          '@apply bg-white/40 backdrop-blur-xl border border-white/50 shadow-xl dark:bg-black/40 dark:border-white/10':
+            {},
+        },
+        '.glass-m': {
+          '@apply bg-white/20 backdrop-blur-md border border-white/30 dark:bg-black/20 dark:border-white/10':
+            {},
+        },
+      });
+    },
+    ({ addVariant }: { addVariant: Function }) => {
+      addVariant('data-open', ['&[data-state="open"]', '&[data-state="opened"]']);
+      addVariant('data-closed', ['&[data-state="closed"]', '&[data-state="closed"]']);
+      addVariant('data-active', ['&[data-state="active"]', '&[data-active="true"]']);
+      addVariant('data-checked', ['&[data-state="checked"]', '&[data-checked="true"]']);
+      addVariant('data-unchecked', ['&[data-state="unchecked"]', '&[data-unchecked="true"]']);
+      addVariant('data-visible', ['&[data-state="visible"]']);
+      addVariant('data-hidden', ['&[data-state="hidden"]']);
+    },
+  ],
+} satisfies Config;
 
 export default tailwindPreset;

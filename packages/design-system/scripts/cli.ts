@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint-disable no-console */
 import { writeFileSync, mkdirSync } from 'fs';
 import { join, dirname, isAbsolute, resolve } from 'path';
@@ -17,6 +18,76 @@ import * as assets from '../src/assets/index.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
+ * Display CLI help information
+ */
+function displayHelp() {
+  console.log('');
+  console.log(color.bgCyan(color.black(' AZDS - Azucena Design System CLI ')));
+  console.log('');
+  console.log(color.bold('USAGE'));
+  console.log(
+    '  azds                                       ' +
+      color.dim('# Interactive mode (after install)'),
+  );
+  console.log(
+    '  pnpm ds                                    ' + color.dim('# Interactive mode (dev)'),
+  );
+  console.log('  pnpm ds:sync                               ' + color.dim('# Sync everything'));
+  console.log('  pnpm ds:css                                ' + color.dim('# Generate CSS only'));
+  console.log('  pnpm ds:figma                              ' + color.dim('# Generate Figma only'));
+  console.log('  azds <action> <vibe> <asset> <output>      ' + color.dim('# Non-interactive'));
+  console.log('');
+  console.log(color.bold('ACTIONS'));
+  console.log('  ' + color.cyan('all') + '       Sync everything (CSS + Figma + Favicons)');
+  console.log('  ' + color.cyan('tokens') + '    Sync all tokens (CSS + Figma)');
+  console.log('  ' + color.cyan('css') + '       Generate CSS variables only');
+  console.log('  ' + color.cyan('figma') + '     Generate Figma design tokens only');
+  console.log('  ' + color.cyan('favicons') + '  Generate favicons and logos only');
+  console.log('');
+  console.log(color.bold('VIBES (THEMES)'));
+  console.log('  ' + color.green('default') + '     Clean, professional (recommended)');
+  console.log('  ' + color.magenta('cyberpunk') + '   Neon pink and cyan');
+  console.log('  ' + color.cyan('glass') + '       Glassmorphism with blur');
+  console.log('  ' + color.gray('minimal') + '     Monochrome minimalist');
+  console.log('  ' + color.yellow('nature') + '      Earth tones');
+  console.log('  ' + color.dim('...and 13 more (seasonal, special)'));
+  console.log('');
+  console.log(color.bold('ASSET KEYS'));
+  console.log('  FAVICON_MAIN    Brand Blue (primary color)');
+  console.log('  FAVICON_ALT     Clean White (neutral)');
+  console.log('');
+  console.log(color.bold('EXAMPLES'));
+  console.log('  ' + color.dim('# Interactive mode (recommended)'));
+  console.log('  azds');
+  console.log('');
+  console.log('  ' + color.dim('# Quick CSS regeneration after theme changes'));
+  console.log('  azds css');
+  console.log('  ' + color.dim('# or during development:'));
+  console.log('  pnpm ds:css');
+  console.log('');
+  console.log('  ' + color.dim('# Generate cyberpunk theme CSS'));
+  console.log('  azds css cyberpunk FAVICON_MAIN ./dist');
+  console.log('');
+  console.log('  ' + color.dim('# Full sync with Halloween theme'));
+  console.log('  azds all halloween FAVICON_ALT ./dist');
+  console.log('');
+  console.log(color.bold('OUTPUT'));
+  console.log('  dist/css-vars.css         ' + color.dim('CSS custom properties (33KB)'));
+  console.log('  figma.json                ' + color.dim('Figma design tokens (DTCG format)'));
+  console.log('  dist/favicons/*           ' + color.dim('Favicon suite + manifest'));
+  console.log('  dist/logo*.svg            ' + color.dim('Brand logos'));
+  console.log('');
+  console.log(color.bold('FLAGS'));
+  console.log('  -h, --help                Show this help message');
+  console.log('  -v, --version             Show version information');
+  console.log('');
+  console.log(
+    color.dim('For detailed documentation, see: packages/design-system/docs/cli-usage.md'),
+  );
+  console.log('');
+}
+
+/**
  * Helper to ensure colors are in Hex for the manifest
  */
 function toHex(colorStr: string): string {
@@ -25,27 +96,49 @@ function toHex(colorStr: string): string {
 }
 
 /**
- * 1. Logic for Syncing Tokens (CSS + Figma)
+ * 1a. Logic for Syncing CSS Tokens Only
  */
-async function syncTokens(vibeId: string, outputDir: string) {
+async function syncCssTokens(vibeId: string, outputDir: string) {
   const s = p.spinner();
-  s.start(`Syncing tokens for vibe: ${vibeId}`);
+  s.start(`Generating CSS variables for vibe: ${vibeId}`);
 
   try {
     const css = generateCssVariables(vibeId);
-    const figma = generateFigmaTokens();
-
     const cssPath = join(outputDir, 'css-vars.css');
-    const figmaPath = join(__dirname, '../figma.json');
-
     writeFileSync(cssPath, css);
-    writeFileSync(figmaPath, figma);
 
-    s.stop(`Tokens synced successfully to ${color.dim(outputDir)}`);
+    s.stop(`CSS variables synced successfully to ${color.dim(cssPath)}`);
   } catch (error) {
-    s.stop('Failed to sync tokens');
+    s.stop('Failed to generate CSS');
     throw error;
   }
+}
+
+/**
+ * 1b. Logic for Syncing Figma Tokens Only
+ */
+async function syncFigmaTokens() {
+  const s = p.spinner();
+  s.start('Generating Figma design tokens');
+
+  try {
+    const figma = generateFigmaTokens();
+    const figmaPath = join(__dirname, '../figma.json');
+    writeFileSync(figmaPath, figma);
+
+    s.stop(`Figma tokens synced successfully to ${color.dim(figmaPath)}`);
+  } catch (error) {
+    s.stop('Failed to generate Figma tokens');
+    throw error;
+  }
+}
+
+/**
+ * 1c. Logic for Syncing All Tokens (CSS + Figma)
+ */
+async function syncTokens(vibeId: string, outputDir: string) {
+  await syncCssTokens(vibeId, outputDir);
+  await syncFigmaTokens();
 }
 
 /**
@@ -129,6 +222,19 @@ async function generateFavicons(assetKey: string, outputDir: string, vibeId: str
 async function main() {
   const args = process.argv.slice(2);
 
+  // Check for help flag
+  if (args.includes('-h') || args.includes('--help') || args[0] === 'help') {
+    displayHelp();
+    return;
+  }
+
+  // Check for version flag
+  if (args.includes('-v') || args.includes('--version')) {
+    const pkg = await import('../package.json', { assert: { type: 'json' } });
+    console.log(color.cyan(`azds (Azucena Design System) v${pkg.default.version}`));
+    return;
+  }
+
   // Non-interactive mode
   if (args.length >= 4) {
     const [action, vibeId, assetKey, destination] = args;
@@ -150,7 +256,12 @@ async function main() {
 
     if (action === 'all' || action === 'tokens') {
       await syncTokens(vibeId, resolvedPath);
+    } else if (action === 'css') {
+      await syncCssTokens(vibeId, resolvedPath);
+    } else if (action === 'figma') {
+      await syncFigmaTokens();
     }
+
     if (action === 'all' || action === 'favicons') {
       await generateFavicons(assetKey, resolvedPath, vibeId);
     }
@@ -170,7 +281,9 @@ async function main() {
         label: '🚀 Sync Everything (Tokens + Favicons)',
         hint: 'Recommended',
       },
-      { value: 'tokens', label: '🎨 Sync Tokens Only', hint: 'CSS & Figma' },
+      { value: 'tokens', label: '🎨 Sync All Tokens', hint: 'CSS & Figma' },
+      { value: 'css', label: '📄 Generate CSS Only', hint: 'css-vars.css' },
+      { value: 'figma', label: '🎭 Generate Figma Only', hint: 'figma.json' },
       { value: 'favicons', label: '🖼️  Generate Favicons Only' },
     ],
   });
@@ -181,7 +294,8 @@ async function main() {
   }
 
   let vibeId = 'default';
-  if (action === 'all' || action === 'tokens' || action === 'favicons') {
+  // Only ask for vibe if we're generating CSS (which is theme-specific)
+  if (action === 'all' || action === 'tokens' || action === 'css' || action === 'favicons') {
     const vibeResult = await p.select({
       message: 'Select a visual vibe for assets:',
       options: Object.keys(vibes).map((id) => ({
@@ -232,7 +346,12 @@ async function main() {
   try {
     if (action === 'all' || action === 'tokens') {
       await syncTokens(vibeId, resolvedPath);
+    } else if (action === 'css') {
+      await syncCssTokens(vibeId, resolvedPath);
+    } else if (action === 'figma') {
+      await syncFigmaTokens();
     }
+
     if (action === 'all' || action === 'favicons') {
       await generateFavicons(assetKey, resolvedPath, vibeId);
     }

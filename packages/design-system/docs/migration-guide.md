@@ -9,6 +9,7 @@ Step-by-step migration guide for upgrading between major versions of the aazucen
 ## VERSION_HISTORY
 
 ### v1.0.0 (Current) - Intelligence Core Release
+
 - Initial stable release
 - OKLCH color system
 - MG/EG phase protocols
@@ -16,6 +17,7 @@ Step-by-step migration guide for upgrading between major versions of the aazucen
 - Tailwind 4 integration
 
 ### v0.x.x (Beta) - Pre-release
+
 - Experimental implementations
 - HSL color system (deprecated)
 - Non-standardized spacing
@@ -29,6 +31,7 @@ Step-by-step migration guide for upgrading between major versions of the aazucen
 #### 1. Color System Migration (HSL → OKLCH)
 
 **What Changed:**
+
 - All color tokens now use OKLCH instead of HSL
 - New lightness-based contrast system
 - Semantic color names updated
@@ -44,6 +47,7 @@ const primaryColor = 'oklch(60% 0.2 220)';
 ```
 
 **Automated Migration:**
+
 ```bash
 # Run codemod
 npx @aazucena/design-system-codemod hsl-to-oklch
@@ -55,13 +59,14 @@ find . -name "*.css" -exec sed -i 's/hsl(/oklch(/g' {} \;
 #### 2. Spacing Tokens Standardization
 
 **What Changed:**
+
 - Moved from arbitrary px values to 4px baseline grid
 - All spacing tokens are multiples of 4
 
 **Migration Table:**
 
 | Old (px) | New (Token) | Multiplier |
-|:---------|:------------|:-----------|
+| :------- | :---------- | :--------- |
 | 6px      | spacing-1.5 | 4px × 1.5  |
 | 12px     | spacing-3   | 4px × 3    |
 | 18px     | spacing-4.5 | 4px × 4.5  |
@@ -86,6 +91,7 @@ find . -name "*.css" -exec sed -i 's/hsl(/oklch(/g' {} \;
 #### 3. Typography Scale Changes
 
 **What Changed:**
+
 - Font families consolidated to Fira Sans/Code
 - Type scale uses rem instead of px
 - Line heights normalized
@@ -118,14 +124,14 @@ h1 {
 
 ```typescript
 // ⚠️ Deprecated
-'text-blue-500'      // Use text-primary-500
-'bg-green-500'       // Use bg-success-500
-'border-red-500'     // Use border-error-500
+'text-blue-500'; // Use text-primary-500
+'bg-green-500'; // Use bg-success-500
+'border-red-500'; // Use border-error-500
 
 // ✅ Replacement
-'text-primary-500'
-'bg-success-500'
-'border-error-500'
+'text-primary-500';
+'bg-success-500';
+'border-error-500';
 ```
 
 #### 2. Non-Standard Spacing
@@ -408,6 +414,7 @@ git restore src/styles/globals.css
 #### Issue: Colors look washed out after migration
 
 **Solution**: OKLCH uses different color space. Adjust chroma values:
+
 ```css
 /* Increase chroma for more vibrant colors */
 --primary-500: oklch(60% 0.25 220); /* Was 0.2 */
@@ -416,6 +423,7 @@ git restore src/styles/globals.css
 #### Issue: Spacing feels off
 
 **Solution**: 4px grid may require layout adjustments. Use half-steps:
+
 ```css
 --spacing-2-5: 10px; /* 4px × 2.5 */
 ```
@@ -423,6 +431,7 @@ git restore src/styles/globals.css
 #### Issue: Font rendering different
 
 **Solution**: Fira Sans has different metrics than Inter. Adjust line-height:
+
 ```css
 body {
   line-height: 1.6; /* Was 1.5 */

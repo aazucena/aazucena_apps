@@ -36,6 +36,58 @@ Centralized source of truth for the aazucena ecosystem’s visual and behavioral
 - **Location:** `src/styles/tokens.css`
 - **Logic:** Low-level runtime access for Three.js shaders and D3.js visualizations.
 
+### [Integration_Layer] : The_Adapters
+
+- **Location:** `src/integrations/`
+- **Logic:** 35 specialized adapters for translating tokens into platform-specific formats (HEX, Integer, JSON).
+- **Coverage:** Stripe, Monaco, Strapi, LangSmith, Mapbox, GitHub, and more.
+
+---
+
+## ⚡ CLI_INTERFACE : `azds`
+
+### [Binary] : Design_System_Controller
+
+- **Command:** `azds` (**Az**ucena **D**esign **S**ystem)
+- **Location:** `dist/cli.js` (compiled from `scripts/cli.ts`)
+- **Protocol:** Interactive + Non-interactive execution modes
+
+### Quick_Start
+
+```bash
+# Build binary
+pnpm build
+
+# Interactive mode (recommended)
+azds
+
+# Quick commands
+azds --help                              # Show command reference
+azds css                                 # Generate CSS variables
+azds figma                               # Generate Figma design tokens
+azds all default FAVICON_MAIN ./dist    # Full sync
+```
+
+### Why\_"azds"?
+
+- **Ergonomics:** 4-character command - optimized for terminal velocity
+- **Semantics:** **Az**ucena **D**esign **S**ystem - zero ambiguity
+- **Convention:** Follows industry patterns (jest, vite, pnpm, tsup)
+
+### Command_Matrix
+
+| Action       | Output                 | Use_Case                                 |
+| ------------ | ---------------------- | ---------------------------------------- |
+| `azds css`   | `dist/css-vars.css`    | Theme updates, CSS variable regeneration |
+| `azds figma` | `figma.json`           | Design handoff, DTCG token export        |
+| `azds all`   | CSS + Figma + Favicons | Full system sync before deployment       |
+
+### Documentation
+
+- **Full Reference:** `docs/cli-usage.md`
+- **Available Vibes:** 18 themes (default, cyberpunk, glass, seasonal variants)
+- **Asset Keys:** `FAVICON_MAIN`, `FAVICON_ALT`
+
 ---
 
 ## 🚦 PHASE_PROTOCOLS (MG/EG)

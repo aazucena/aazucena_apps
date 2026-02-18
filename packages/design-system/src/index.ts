@@ -26,3 +26,11 @@ export * from './assets/index.js';
 
 // Tailwind Integration
 export { default as tailwindPreset } from './tailwind.js';
+
+// Runtime Theme Switching
+export { applyVibe, resetVibe, getActiveVibe, isValidVibe } from './utils/apply-theme.js';
+export { ThemeManager, type VibeChangeCallback } from './utils/theme-manager.js';
+export { toHex } from './utils/color-converter.js';
+
+// Platform Integrations
+export * from './integrations/index.js';

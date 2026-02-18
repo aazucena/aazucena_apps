@@ -13,18 +13,18 @@ Standardized timing values, easing functions, and scroll thresholds for consiste
 ```typescript
 export const ANIMATION_TIMINGS = {
   // Micro-interactions (< 300ms)
-  instant: 100,        // Hover states, tooltips
-  snappy: 200,         // Button clicks, toggles
-  quick: 300,          // Modal entrances, dropdowns
+  instant: 100, // Hover states, tooltips
+  snappy: 200, // Button clicks, toggles
+  quick: 300, // Modal entrances, dropdowns
 
   // Standard transitions (300-700ms)
-  normal: 500,         // Section transitions, fades
-  relaxed: 700,        // Page transitions, major UI shifts
+  normal: 500, // Section transitions, fades
+  relaxed: 700, // Page transitions, major UI shifts
 
   // Cinematic (> 700ms)
-  slow: 1000,          // Hero animations, reveals
-  cinematic: 1500,     // Atmospheric layer transitions
-  epic: 2500,          // Full-screen takeovers
+  slow: 1000, // Hero animations, reveals
+  cinematic: 1500, // Atmospheric layer transitions
+  epic: 2500, // Full-screen takeovers
 } as const;
 ```
 
@@ -33,14 +33,14 @@ export const ANIMATION_TIMINGS = {
 ```typescript
 export const PHASE_TIMINGS = {
   midgame: {
-    thinking: 300,     // Pulsing "Reasoning" indicator
-    trace: 150,        // Thought trace animation speed
-    loop: 2000,        // Continuous pulse cycle
+    thinking: 300, // Pulsing "Reasoning" indicator
+    trace: 150, // Thought trace animation speed
+    loop: 2000, // Continuous pulse cycle
   },
   endgame: {
-    synthesis: 700,    // Final output reveal
-    success: 500,      // Success state transition
-    static: 0,         // No animation (terminal state)
+    synthesis: 700, // Final output reveal
+    success: 500, // Success state transition
+    static: 0, // No animation (terminal state)
   },
 } as const;
 ```
@@ -54,10 +54,10 @@ export const PHASE_TIMINGS = {
 ```typescript
 export const EASING = {
   // Natural motion
-  ease: 'power2.out',           // Default easing
-  easeIn: 'power2.in',          // Accelerating
-  easeOut: 'power2.out',        // Decelerating
-  easeInOut: 'power2.inOut',    // Smooth S-curve
+  ease: 'power2.out', // Default easing
+  easeIn: 'power2.in', // Accelerating
+  easeOut: 'power2.out', // Decelerating
+  easeInOut: 'power2.inOut', // Smooth S-curve
 
   // Elastic (overshoots)
   elastic: 'elastic.out(1, 0.3)',
@@ -149,9 +149,9 @@ export const ATMOSPHERIC_LAYERS = {
 export const SCROLL_BREAKPOINTS = {
   // Start/end positions
   start: {
-    top: 'top 80%',      // When element top hits 80% of viewport
+    top: 'top 80%', // When element top hits 80% of viewport
     center: 'center center', // When element center is in viewport center
-    bottom: 'bottom 20%',    // When element bottom hits 20% of viewport
+    bottom: 'bottom 20%', // When element bottom hits 20% of viewport
   },
   end: {
     top: 'top top',
@@ -161,10 +161,10 @@ export const SCROLL_BREAKPOINTS = {
 
   // Scrub values (scroll-linked animation)
   scrub: {
-    smooth: 1,           // 1 second scrub delay (smoothest)
-    moderate: 0.5,       // 0.5 second scrub
-    immediate: 0.1,      // Near-instant scrub
-    direct: true,        // Direct 1:1 scroll binding
+    smooth: 1, // 1 second scrub delay (smoothest)
+    moderate: 0.5, // 0.5 second scrub
+    immediate: 0.1, // Near-instant scrub
+    direct: true, // Direct 1:1 scroll binding
   },
 } as const;
 ```
@@ -225,8 +225,8 @@ gsap.to('.element', {
 import { ATMOSPHERIC_LAYERS } from '@aazucena/design-system';
 
 function getAtmosphericLayer(scrollProgress: number) {
-  return Object.entries(ATMOSPHERIC_LAYERS).find(([_, layer]) =>
-    scrollProgress >= layer.start && scrollProgress < layer.end
+  return Object.entries(ATMOSPHERIC_LAYERS).find(
+    ([_, layer]) => scrollProgress >= layer.start && scrollProgress < layer.end,
   );
 }
 

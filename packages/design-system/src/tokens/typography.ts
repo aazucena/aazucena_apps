@@ -29,7 +29,7 @@ export const fontFamilies = {
 
 export const fontSizes = {
   // Headings
-  h1: ['32px', { lineHeight: '1.2', fontWeight: '700' }],
+  h1: ['30px', { lineHeight: '1.2', fontWeight: '700' }],
   h2: ['24px', { lineHeight: '1.3', fontWeight: '700' }],
   h3: ['20px', { lineHeight: '1.4', fontWeight: '700' }],
   h4: ['18px', { lineHeight: '1.4', fontWeight: '700' }],
@@ -37,20 +37,20 @@ export const fontSizes = {
   h6: ['14px', { lineHeight: '1.5', fontWeight: '700' }],
 
   // Body
-  body: ['16px', { lineHeight: '1.5', fontWeight: '400' }],
-  caption: ['14px', { lineHeight: '1.4', fontWeight: '400' }],
+  body: ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+  caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
 
   // Base scales (Standard Tailwind-like names for consistency)
-  xs: ['12px', { lineHeight: '1rem' }],
-  sm: ['14px', { lineHeight: '1.25rem' }],
-  base: ['16px', { lineHeight: '1.5rem' }],
-  lg: ['18px', { lineHeight: '1.75rem' }],
-  xl: ['20px', { lineHeight: '1.75rem' }],
-  '2xl': ['24px', { lineHeight: '2rem' }],
-  '3xl': ['30px', { lineHeight: '2.25rem' }],
-  '4xl': ['36px', { lineHeight: '2.5rem' }],
-  '5xl': ['48px', { lineHeight: '1' }],
-  '6xl': ['60px', { lineHeight: '1' }],
+  xs: ['10px', { lineHeight: '1rem' }],
+  sm: ['12px', { lineHeight: '1.25rem' }],
+  base: ['14px', { lineHeight: '1.5rem' }],
+  lg: ['16px', { lineHeight: '1.75rem' }],
+  xl: ['18px', { lineHeight: '1.75rem' }],
+  '2xl': ['20px', { lineHeight: '2rem' }],
+  '3xl': ['24px', { lineHeight: '2.25rem' }],
+  '4xl': ['30px', { lineHeight: '2.5rem' }],
+  '5xl': ['36px', { lineHeight: '1' }],
+  '6xl': ['48px', { lineHeight: '1' }],
 } as const;
 
 export const fontWeights = {

@@ -60,5 +60,6 @@ export const layout = {
     md: '0.5rem', // 8px
     lg: '0.5rem', // 8px - default
     xl: '0.75rem', // 12px
+    '2xl': '1rem', // 16px
   },
 } as const;

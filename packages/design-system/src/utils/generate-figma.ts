@@ -19,13 +19,22 @@ export function generateFigmaTokens(): string {
 
   // 1. Colors
   Object.entries(colors).forEach(([name, scale]) => {
-    tokens.colors[name] = {};
-    Object.entries(scale).forEach(([weight, value]) => {
-      tokens.colors[name][weight] = {
-        $value: value,
+    // Handle primitive color values (inherit, current, transparent, black, white)
+    if (typeof scale === 'string') {
+      tokens.colors[name] = {
+        $value: scale,
         $type: 'color',
       };
-    });
+    } else {
+      // Handle color scales (slate, gray, zinc, etc.)
+      tokens.colors[name] = {};
+      Object.entries(scale).forEach(([weight, value]) => {
+        tokens.colors[name][weight] = {
+          $value: value,
+          $type: 'color',
+        };
+      });
+    }
   });
 
   // 2. Spacing

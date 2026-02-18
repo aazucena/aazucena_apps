@@ -13,6 +13,7 @@ Visual differentiation system for Agentic Lifecycle phases: **Midgame (MG)** rep
 **State:** Agent is actively reasoning, exploring solution space, processing context.
 
 **Visual Characteristics:**
+
 - **Primary Color:** Pulsing primary-500 (cyan blue) with 2s animation cycle
 - **Typography:** "Thinking..." with dot animation, Fira Code monospace
 - **Motion:** Continuous pulse, floating indicators, subtle oscillation
@@ -21,6 +22,7 @@ Visual differentiation system for Agentic Lifecycle phases: **Midgame (MG)** rep
 - **Icons:** Animated thought bubbles, processing spinners
 
 **UI States:**
+
 ```typescript
 const MG_STYLES = {
   badge: {
@@ -48,6 +50,7 @@ const MG_STYLES = {
 **State:** Agent has completed reasoning and is delivering final output.
 
 **Visual Characteristics:**
+
 - **Primary Color:** Static emerald-500 (success green) or cyan-500 (info)
 - **Typography:** "Complete" or "Ready", Fira Sans bold
 - **Motion:** Single entrance animation (700ms), then static
@@ -56,6 +59,7 @@ const MG_STYLES = {
 - **Icons:** Checkmarks, solid indicators, completion badges
 
 **UI States:**
+
 ```typescript
 const EG_STYLES = {
   badge: {
@@ -218,21 +222,24 @@ interface PhaseStateMachine {
 function usePhaseStateMachine(): PhaseStateMachine {
   const [current, setCurrent] = useState<PhaseState>('idle');
 
-  const transition = useCallback((to: PhaseState) => {
-    // Validate transitions
-    const validTransitions: Record<PhaseState, PhaseState[]> = {
-      idle: ['midgame'],
-      midgame: ['endgame', 'error'],
-      endgame: ['idle'],
-      error: ['idle', 'midgame'],
-    };
+  const transition = useCallback(
+    (to: PhaseState) => {
+      // Validate transitions
+      const validTransitions: Record<PhaseState, PhaseState[]> = {
+        idle: ['midgame'],
+        midgame: ['endgame', 'error'],
+        endgame: ['idle'],
+        error: ['idle', 'midgame'],
+      };
 
-    if (validTransitions[current].includes(to)) {
-      setCurrent(to);
-    } else {
-      console.warn(`Invalid phase transition: ${current} → ${to}`);
-    }
-  }, [current]);
+      if (validTransitions[current].includes(to)) {
+        setCurrent(to);
+      } else {
+        console.warn(`Invalid phase transition: ${current} → ${to}`);
+      }
+    },
+    [current],
+  );
 
   return { current, transition };
 }

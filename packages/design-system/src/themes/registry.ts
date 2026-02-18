@@ -41,6 +41,7 @@ export const vibes: Record<string, ThemeVibe> = {
   'new-years': newYearsVibe,
   'lunar-new-year': lunarNewYearVibe,
 };
+export type ThemeVibeRegistry = typeof vibes;
 
 /**
  * Get a specific theme configuration based on vibe and mode.

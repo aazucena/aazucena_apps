@@ -1,6 +1,53 @@
 import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
 import { getColor } from '../tokens/colors.js';
-import { defaultVibe } from './default.js';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('cyan', 600),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('pink', 600),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('cyan', 700),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('orange', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('orange', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 50),
+    backgroundGradient: `linear-gradient(135deg, ${getColor('cyan', 50, 0.6)} 0%, ${getColor('pink', 50, 0.6)} 100%)`,
+    base: getColor('zinc', 50),
+    elevated: getColor('zinc', 100),
+    floating: getColor('zinc', 50, 0.95),
+    cardBackground: getColor('zinc', 100),
+    overlayBackground: getColor('zinc', 50, 0.95),
+    foreground: getColor('zinc', 900),
+    mutedForeground: getColor('zinc', 500),
+    accent: getColor('violet', 600),
+    accentForeground: getColor('zinc', 50),
+    border: getColor('cyan', 600, 0.4),
+  },
+  effects: {
+    backdropBlur: 'blur(12px)',
+    shadow: `0 0 12px ${getColor('cyan', 500, 0.25)}, 0 0 24px ${getColor('pink', 500, 0.15)}`,
+    glowColor: getColor('cyan', 500, 0.35),
+    borderRadius: {
+      card: '0.25rem',
+      button: '0.25rem',
+      badge: '0.25rem',
+      progress: '0.125rem',
+    },
+    animationSpeed: 0.8,
+    animationEasing: 'cubic-bezier(0.87, 0, 0.13, 1)',
+  },
+  typography: {
+    titleSize: '1.625rem',
+    titleWeight: '900',
+    subtitleSize: '0.875rem',
+    headingFont: 'mono',
+    bodyFont: 'sans',
+  },
+  customClass: 'uppercase tracking-wider',
+};
 
 const dark: SystemThemeConfig = {
   colors: {
@@ -10,6 +57,8 @@ const dark: SystemThemeConfig = {
     secondaryForeground: getColor('zinc', 50),
     success: getColor('cyan', 300),
     successForeground: getColor('zinc', 950),
+    destructive: getColor('orange', 500),
+    destructiveForeground: getColor('zinc', 50),
     error: getColor('orange', 500),
     errorForeground: getColor('zinc', 50),
     background: getColor('zinc', 950),
@@ -52,6 +101,6 @@ export const cyberpunkVibe: ThemeVibe = {
   id: 'cyberpunk',
   name: 'Cyberpunk',
   type: 'standard',
-  light: defaultVibe.light,
+  light,
   dark,
 };

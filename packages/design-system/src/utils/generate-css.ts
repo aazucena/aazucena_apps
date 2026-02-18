@@ -1,14 +1,15 @@
+import { kebabCase } from 'lodash-es';
 import { colors } from '../tokens/colors.js';
 import { spacing, layout } from '../tokens/spacing.js';
 import { zIndex } from '../tokens/z-index.js';
+import { shadows } from '../tokens/shadows.js';
 import { vibes } from '../themes/registry.js';
 import { fontFamilies } from '../tokens/typography.js';
+import { breakpoints } from '../tokens/breakpoints.js';
+import { transitions } from '../tokens/motion.js';
 import type { SystemThemeConfig } from '@aazucena/types';
 
-/**
- * Helper to convert a camelCase string to kebab-case
- */
-const toKebabCase = (str: string) => str.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+const toKebabCase = kebabCase;
 
 /**
  * Generates semantic CSS variables for a specific theme config
@@ -71,6 +72,7 @@ export function generateCssVariables(vibeId: string = 'default'): string {
   css += '  /* Primitive Radii */\n';
   Object.entries(layout.radii).forEach(([key, value]) => {
     css += `  --radius-primitive-${key}: ${value};\n`;
+    css += `  --radius-${key}: ${value};\n`;
   });
   css += '  --radius: var(--radius-md);\n\n';
 
@@ -101,7 +103,34 @@ export function generateCssVariables(vibeId: string = 'default'): string {
   });
   css += '\n';
 
-  // 5. Default Vibe Mode (Light)
+  // 5. Core Primitives (Shadows)
+  css += '  /* Elevation Primitives */\n';
+  Object.entries(shadows).forEach(([key, value]) => {
+    css += `  --shadow-${key}: ${value};\n`;
+  });
+  css += '\n';
+
+  // 6. Breakpoints
+  css += '  /* Responsive Breakpoints */\n';
+  Object.entries(breakpoints).forEach(([key, value]) => {
+    css += `  --breakpoint-${key}: ${value};\n`;
+  });
+  css += '\n';
+
+  // 6. Motion (Transitions)
+  css += '  /* Animation Durations */\n';
+  Object.entries(transitions.duration).forEach(([key, value]) => {
+    css += `  --duration-${key}: ${value};\n`;
+  });
+  css += '\n';
+
+  css += '  /* Animation Timing Functions */\n';
+  Object.entries(transitions.timing).forEach(([key, value]) => {
+    css += `  --timing-${key}: ${value};\n`;
+  });
+  css += '\n';
+
+  // 7. Default Vibe Mode (Light)
   if (vibe) {
     css += `  /* ${vibe.name} Light Mode */\n`;
     css += generateSemanticVars(vibe.light);
@@ -109,7 +138,7 @@ export function generateCssVariables(vibeId: string = 'default'): string {
 
   css += '}\n\n';
 
-  // 6. Dark Mode Overrides
+  // 8. Dark Mode Overrides
   css += '.dark {\n';
   if (vibe) {
     css += `  /* ${vibe.name} Dark Mode */\n`;

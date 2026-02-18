@@ -1,19 +1,70 @@
 import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
 import { getColor } from '../tokens/colors.js';
-import { defaultVibe } from './default.js';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('amber', 600),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('violet', 600),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('amber', 500),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('red', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('amber', 50),
+    backgroundGradient: `linear-gradient(135deg, ${getColor('amber', 50)} 0%, ${getColor('indigo', 50)} 100%)`,
+    base: getColor('amber', 50),
+    elevated: getColor('amber', 100, 0.8),
+    floating: getColor('amber', 50, 0.92),
+    cardBackground: getColor('amber', 100, 0.7),
+    overlayBackground: getColor('amber', 50, 0.92),
+    foreground: getColor('indigo', 950),
+    mutedForeground: getColor('indigo', 400),
+    accent: getColor('amber', 500),
+    accentForeground: getColor('zinc', 50),
+    border: getColor('amber', 400, 0.4),
+  },
+  effects: {
+    backdropBlur: 'blur(16px)',
+    cardBlur: 'blur(20px)',
+    shadow: `0 20px 60px ${getColor('amber', 300, 0.2)}, 0 0 40px ${getColor('violet', 300, 0.1)}`,
+    glowColor: getColor('amber', 400, 0.3),
+    borderRadius: {
+      card: '1rem',
+      button: '0.75rem',
+      badge: '0.5rem',
+      progress: '9999px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  },
+  typography: {
+    titleSize: '1.75rem',
+    titleWeight: '800',
+    subtitleSize: '0.9375rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+  },
+  customClass: 'font-serif',
+};
 
 const dark: SystemThemeConfig = {
   colors: {
-    primary: `linear-gradient(135deg, ${getColor('amber', 400)} 0%, ${getColor('amber', 600)} 100%)`,
+    primary: getColor('amber', 500),
     primaryForeground: getColor('zinc', 950),
+    primaryGradient: `linear-gradient(135deg, ${getColor('amber', 400)} 0%, ${getColor('amber', 600)} 100%)`,
     secondary: getColor('violet', 500),
     secondaryForeground: getColor('zinc', 50),
     success: getColor('amber', 400),
     successForeground: getColor('zinc', 950),
+    destructive: getColor('red', 600),
+    destructiveForeground: getColor('zinc', 50),
     error: getColor('red', 600),
     errorForeground: getColor('zinc', 50),
-    background: `linear-gradient(135deg, ${getColor('indigo', 950)} 0%, ${getColor('indigo', 900)} 100%)`,
-    backgroundGradient: `radial-gradient(circle at 50% 50%, ${getColor('amber', 400, 0.1)} 0%, transparent 50%)`,
+    background: getColor('indigo', 950),
+    backgroundGradient: `linear-gradient(135deg, ${getColor('indigo', 950)} 0%, ${getColor('indigo', 900)} 100%)`,
     base: getColor('indigo', 950),
     elevated: getColor('indigo', 900, 0.8),
     floating: getColor('indigo', 950, 0.9),
@@ -53,6 +104,6 @@ export const hoyoverseVibe: ThemeVibe = {
   id: 'hoyoverse',
   name: 'Hoyoverse',
   type: 'standard',
-  light: defaultVibe.light,
+  light,
   dark,
 };

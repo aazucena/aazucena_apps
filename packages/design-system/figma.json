@@ -1,166 +1,24 @@
 {
   "colors": {
     "inherit": {
-      "0": {
-        "$value": "i",
-        "$type": "color"
-      },
-      "1": {
-        "$value": "n",
-        "$type": "color"
-      },
-      "2": {
-        "$value": "h",
-        "$type": "color"
-      },
-      "3": {
-        "$value": "e",
-        "$type": "color"
-      },
-      "4": {
-        "$value": "r",
-        "$type": "color"
-      },
-      "5": {
-        "$value": "i",
-        "$type": "color"
-      },
-      "6": {
-        "$value": "t",
-        "$type": "color"
-      }
+      "$value": "inherit",
+      "$type": "color"
     },
     "current": {
-      "0": {
-        "$value": "c",
-        "$type": "color"
-      },
-      "1": {
-        "$value": "u",
-        "$type": "color"
-      },
-      "2": {
-        "$value": "r",
-        "$type": "color"
-      },
-      "3": {
-        "$value": "r",
-        "$type": "color"
-      },
-      "4": {
-        "$value": "e",
-        "$type": "color"
-      },
-      "5": {
-        "$value": "n",
-        "$type": "color"
-      },
-      "6": {
-        "$value": "t",
-        "$type": "color"
-      },
-      "7": {
-        "$value": "c",
-        "$type": "color"
-      },
-      "8": {
-        "$value": "o",
-        "$type": "color"
-      },
-      "9": {
-        "$value": "l",
-        "$type": "color"
-      },
-      "10": {
-        "$value": "o",
-        "$type": "color"
-      },
-      "11": {
-        "$value": "r",
-        "$type": "color"
-      }
+      "$value": "currentcolor",
+      "$type": "color"
     },
     "transparent": {
-      "0": {
-        "$value": "t",
-        "$type": "color"
-      },
-      "1": {
-        "$value": "r",
-        "$type": "color"
-      },
-      "2": {
-        "$value": "a",
-        "$type": "color"
-      },
-      "3": {
-        "$value": "n",
-        "$type": "color"
-      },
-      "4": {
-        "$value": "s",
-        "$type": "color"
-      },
-      "5": {
-        "$value": "p",
-        "$type": "color"
-      },
-      "6": {
-        "$value": "a",
-        "$type": "color"
-      },
-      "7": {
-        "$value": "r",
-        "$type": "color"
-      },
-      "8": {
-        "$value": "e",
-        "$type": "color"
-      },
-      "9": {
-        "$value": "n",
-        "$type": "color"
-      },
-      "10": {
-        "$value": "t",
-        "$type": "color"
-      }
+      "$value": "transparent",
+      "$type": "color"
     },
     "black": {
-      "0": {
-        "$value": "#",
-        "$type": "color"
-      },
-      "1": {
-        "$value": "0",
-        "$type": "color"
-      },
-      "2": {
-        "$value": "0",
-        "$type": "color"
-      },
-      "3": {
-        "$value": "0",
-        "$type": "color"
-      }
+      "$value": "#000",
+      "$type": "color"
     },
     "white": {
-      "0": {
-        "$value": "#",
-        "$type": "color"
-      },
-      "1": {
-        "$value": "f",
-        "$type": "color"
-      },
-      "2": {
-        "$value": "f",
-        "$type": "color"
-      },
-      "3": {
-        "$value": "f",
-        "$type": "color"
-      }
+      "$value": "#fff",
+      "$type": "color"
     },
     "slate": {
       "50": {
@@ -1500,7 +1358,7 @@
   "typography": {
     "fontSizes": {
       "h1": {
-        "$value": "32px",
+        "$value": "30px",
         "$type": "dimension"
       },
       "h2": {
@@ -1524,51 +1382,51 @@
         "$type": "dimension"
       },
       "body": {
-        "$value": "16px",
+        "$value": "14px",
         "$type": "dimension"
       },
       "caption": {
-        "$value": "14px",
-        "$type": "dimension"
-      },
-      "xs": {
         "$value": "12px",
         "$type": "dimension"
       },
+      "xs": {
+        "$value": "10px",
+        "$type": "dimension"
+      },
       "sm": {
-        "$value": "14px",
+        "$value": "12px",
         "$type": "dimension"
       },
       "base": {
-        "$value": "16px",
+        "$value": "14px",
         "$type": "dimension"
       },
       "lg": {
-        "$value": "18px",
+        "$value": "16px",
         "$type": "dimension"
       },
       "xl": {
-        "$value": "20px",
+        "$value": "18px",
         "$type": "dimension"
       },
       "2xl": {
-        "$value": "24px",
+        "$value": "20px",
         "$type": "dimension"
       },
       "3xl": {
-        "$value": "30px",
+        "$value": "24px",
         "$type": "dimension"
       },
       "4xl": {
-        "$value": "36px",
+        "$value": "30px",
         "$type": "dimension"
       },
       "5xl": {
-        "$value": "48px",
+        "$value": "36px",
         "$type": "dimension"
       },
       "6xl": {
-        "$value": "60px",
+        "$value": "48px",
         "$type": "dimension"
       }
     },

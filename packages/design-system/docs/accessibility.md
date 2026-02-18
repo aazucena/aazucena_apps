@@ -9,17 +9,20 @@ Comprehensive accessibility standards for the aazucena ecosystem. Every componen
 ## WCAG_COMPLIANCE_LEVELS
 
 ### Level A (Minimum)
+
 - Keyboard navigation
 - Alt text for images
 - Semantic HTML
 
 ### Level AA (Target for all components)
+
 - 4.5:1 contrast ratio for normal text
 - 3:1 contrast ratio for large text (18pt+)
 - Focus indicators
 - Accessible forms
 
 ### Level AAA (Target for dashboards)
+
 - 7:1 contrast ratio for normal text
 - 4.5:1 contrast ratio for large text
 - Enhanced focus indicators
@@ -86,7 +89,7 @@ function useFocusTrap(ref: React.RefObject<HTMLElement>) {
     if (!ref.current) return;
 
     const focusableElements = ref.current.querySelectorAll(
-      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
 
     const firstElement = focusableElements[0] as HTMLElement;

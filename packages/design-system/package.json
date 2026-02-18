@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "azds": "./dist/cli.js"
+  },
   "exports": {
     ".": "./src/index.ts",
     "./tokens/*": "./src/tokens/*.ts",
@@ -10,11 +13,15 @@
     "./figma.json": "./figma.json"
   },
   "scripts": {
+    "build": "tsup ./scripts/cli.ts --format esm --outDir ./dist",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "ds": "tsx scripts/cli.ts",
-    "ds:sync": "tsx scripts/cli.ts all default FAVICON_MAIN ./dist"
+    "ds:help": "tsx scripts/cli.ts --help",
+    "ds:sync": "tsx scripts/cli.ts all default FAVICON_MAIN ./dist",
+    "ds:css": "tsx scripts/cli.ts css default FAVICON_MAIN ./dist",
+    "ds:figma": "tsx scripts/cli.ts figma default FAVICON_MAIN ./dist"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
@@ -28,8 +35,10 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "@aazucena/utils": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",
     "tailwindcss": "^4.1.13",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tsup": "^8.5.1"
   }
 }
