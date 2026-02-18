@@ -1,24 +1,65 @@
-export * from './AstroIcon.js';
-export * from './ReactIcon.js';
-export * from './TailwindIcon.js';
-export * from './ViteIcon.js';
-export * from './RssIcon.js';
-export * from './BrandIcon.js';
-export * from './ScrollDownIcon.js';
-export * from './EmptyIcon.js';
-export * from './GitHubIcon.js';
-export * from './LinkedInIcon.js';
-export * from './TwitterIcon.js';
-export * from './YoutubeIcon.js';
-export * from './InstagramIcon.js';
-export * from './FacebookIcon.js';
-export * from './TiktokIcon.js';
-export * from './DiscordIcon.js';
-export * from './TwitchIcon.js';
-export * from './MastodonIcon.js';
-export * from './EmailIcon.js';
-export * from './DownloadIcon.js';
-export * from './ImageIcon.js';
-export * from './VectorIcon.js';
-export * from './AwardBadgeIcon.js';
-export * from './ViewportsIcon.js';
+// ─── Original custom icons ────────────────────────────────────────────────────
+export * from './Astro.js';
+export * from './React.js';
+export * from './Tailwind.js';
+export * from './Vite.js';
+export * from './Rss.js';
+export * from './Brand.js';
+export * from './ScrollDown.js';
+export * from './Empty.js';
+export * from './GitHub.js';
+export * from './LinkedIn.js';
+export * from './Twitter.js';
+export * from './Youtube.js';
+export * from './Instagram.js';
+export * from './Facebook.js';
+export * from './Tiktok.js';
+export * from './Discord.js';
+export * from './Twitch.js';
+export * from './Mastodon.js';
+export * from './Email.js';
+export * from './Download.js';
+export * from './Image.js';
+export * from './Vector.js';
+export * from './AwardBadge.js';
+export * from './Viewports.js';
+
+// ─── Tech stack (Phase 4 additions) ───────────────────────────────────────────
+export * from './TypeScript.js';
+export * from './Threejs.js';
+export * from './JavaScript.js';
+export * from './Nextjs.js';
+export * from './Nodejs.js';
+export * from './Python.js';
+export * from './Docker.js';
+export * from './Strapi.js';
+export * from './ClickHouse.js';
+export * from './Vercel.js';
+export * from './Railway.js';
+export * from './Figma.js';
+export * from './GraphQL.js';
+export * from './Redis.js';
+export * from './Anthropic.js';
+export * from './D3.js';
+export * from './LangChain.js';
+
+// ─── Dev tooling ──────────────────────────────────────────────────────────────
+export * from './FastAPI.js';
+export * from './Storybook.js';
+export * from './ShadcnUI.js';
+export * from './Turborepo.js';
+export * from './Turbo.js';
+export * from './Sentry.js';
+
+// ─── Payments & support ───────────────────────────────────────────────────────
+export * from './Stripe.js';
+export * from './Kofi.js';
+
+// ─── Live coding & creative ───────────────────────────────────────────────────
+export * from './Strudel.js';
+export * from './Tidalcycles.js';
+export * from './Phaser.js';
+
+// ─── Themes & analytics ───────────────────────────────────────────────────────
+export * from './Catppuccin.js';
+export * from './Plausible.js';
