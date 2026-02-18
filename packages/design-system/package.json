@@ -1,8 +1,11 @@
 {
   "name": "@aazucena/design-system",
   "version": "0.0.0",
-  "private": true,
+  "license": "MIT",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "azds": "./dist/cli.js"
   },

@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\"",
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "preview": "serve storybook-static",

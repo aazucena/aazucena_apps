@@ -4,6 +4,9 @@
   "private": true,
   "description": "A Strapi application",
   "scripts": {
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "build": "strapi build",
     "console": "strapi console",
     "deploy": "strapi deploy",
@@ -65,10 +68,15 @@
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
+    "@strapi-community/eslint-config": "^0.4.3",
     "@types/node": "^20.19.19",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.5.5",
     "husky": "^9.1.7",
+    "prettier": "^3.7.4",
     "shx": "^0.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5",

@@ -1,0 +1,13 @@
+@aazucena/icons — Third-Party Notices
+
+This package includes icon code from:
+
+  @mynaui/icons-react — MIT License
+  https://github.com/mynaui/icons
+
+  @icons-pack/react-simple-icons — MIT License (code only)
+  https://github.com/icons-pack/react-simple-icons
+
+Brand icons and logos in the custom/ directory are trademarks of their
+respective owners. Their inclusion does not indicate endorsement by trademark
+holders. Use must comply with each brand's own trademark guidelines.
