@@ -1,0 +1,78 @@
+{/* animations/overview.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Animations/Overview" />
+
+# Animation System
+
+A sophisticated, performance-tiered motion orchestration engine for the Aldrin Azucena portfolio.
+Powered by GSAP, Three.js, and PixiJS for immersive atmospheric storytelling.
+
+---
+
+## Technical Stack
+
+| System | Protocol | Description |
+|---|---|---|
+| **GSAP** | `The_Orchestrator` | Entrance/exit animations, scroll-driven transitions, and complex timeline sequencing. |
+| **Three.js** | `The_Environment` | High-fidelity 3D background scenes, atmospheric layers, and depth-aware object interaction. |
+| **PixiJS** | `The_Atmosphere` | High-performance 2D particle systems for dense environmental details (stars, snow, debris). |
+
+---
+
+## Implementation
+
+### 1. Main Orchestrator
+
+The `AnimationCanvas` component acts as the primary entry point, automatically switching between rendering technologies based on the current `atmosphericLayer`.
+
+```tsx
+import { AnimationCanvas } from '@aazucena/animations';
+
+export function Background() {
+  return <AnimationCanvas atmosphericLayer="exosphere" />;
+}
+```
+
+### 2. Context Integration
+
+Animations are fully integrated with the global state via `@aazucena/context`. This ensures that motion parameters (intensity, visibility) adapt to the user's current environment.
+
+```tsx
+import { useAnimation, usePortfolio } from '@aazucena/context';
+
+export function MyComponent() {
+  const { capabilities } = useAnimation();
+  const { scrollProgress } = usePortfolio();
+  
+  // Use progress to drive local GSAP timelines or Three.js frames
+}
+```
+
+---
+
+## Performance Tiers
+
+Motion fidelity scales dynamically based on detected device capabilities to ensure a consistent 60fps experience.
+
+| Tier | Characteristics | Primary Effects |
+|---|---|---|
+| `high` | Desktop / Dedicated GPU | High density particles, full antialiasing, advanced post-processing |
+| `medium` | Modern mobile / Laptop | Balanced density, simplified lighting, basic shadow mapping |
+| `low` | Legacy / Battery Saver | Minimal particles, static background fallback, 2D motion only |
+
+---
+
+## Content Organization
+
+The stories in this section are categorized by their underlying technology:
+
+- **ThreeJS** — 3D scene layers, lighting controls, and individual interactive objects
+- **Particles** — 2D PixiJS particle presets (Space, Snow, Rain, Floating)
+- **GSAP** — Standardized imperative motion presets for UI components
+
+---
+
+## Maintained by
+
+Aldrin Azucena — [github.com/aazucena](https://github.com/aazucena)

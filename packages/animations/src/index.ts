@@ -13,8 +13,8 @@ export * from './three/geometries.js';
 export * from './three/materials.js';
 export * from './three/objects/index.js';
 export { AnimationCanvas } from './three/AnimationCanvas.js';
-export { HomepageScene } from './three/HomepageScene.js';
+export { AnimationScene } from './three/AnimationScene.js';
 
 // PixiJS
 export * from './pixi/particles.js';
-export { PixiJSParticles } from './pixi/PixiJSParticles.js';
+export { AnimationParticles } from './pixi/AnimationParticles.js';

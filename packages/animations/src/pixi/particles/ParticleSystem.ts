@@ -9,7 +9,7 @@ import { ParticlesController } from './ParticlesController.js';
 import { ParticleRenderer } from './ParticleRenderer.js';
 import { ParticleEmitter } from './ParticleEmitter.js';
 
-export class PixiParticleSystem {
+export class ParticleSystem {
   private app: PIXI.Application | null = null;
   private container: PIXI.Container | null = null;
   private controller: ParticlesController;

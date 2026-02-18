@@ -1,18 +1,18 @@
 /**
  * PixiJS Particles Component
- * Thin wrapper around PixiParticleSystem module
+ * Thin wrapper around ParticleSystem module
  */
 
 import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
-import { PixiParticleSystem } from './particles/index.js';
+import { ParticleSystem } from './particles/index.js';
 
-export interface PixiJSParticlesHandle {
+export interface AnimationParticlesHandle {
   emitAt: (x: number, y: number, count?: number) => void;
   emitBurst: (x: number, y: number, count?: number) => void;
   clearEmittedParticles: () => void;
 }
 
-interface PixiJSParticlesProps {
+interface AnimationParticlesProps {
   width?: number;
   height?: number;
   count?: number;
@@ -24,7 +24,7 @@ interface PixiJSParticlesProps {
   effect?: 'glow' | 'blur' | 'none';
 }
 
-export const PixiJSParticles = forwardRef<PixiJSParticlesHandle, PixiJSParticlesProps>(
+export const AnimationParticles = forwardRef<AnimationParticlesHandle, AnimationParticlesProps>(
   (props, ref) => {
     const {
       width = 800,
@@ -38,7 +38,7 @@ export const PixiJSParticles = forwardRef<PixiJSParticlesHandle, PixiJSParticles
       effect = 'glow',
     } = props;
     const containerRef = useRef<HTMLDivElement>(null);
-    const systemRef = useRef<PixiParticleSystem | null>(null);
+    const systemRef = useRef<ParticleSystem | null>(null);
 
     useEffect(() => {
       if (!containerRef.current) return;
@@ -46,7 +46,7 @@ export const PixiJSParticles = forwardRef<PixiJSParticlesHandle, PixiJSParticles
       const canvas = document.createElement('canvas');
       containerRef.current.appendChild(canvas);
 
-      const particleSystem = new PixiParticleSystem({
+      const particleSystem = new ParticleSystem({
         preset,
         count,
         speed,
@@ -110,4 +110,4 @@ export const PixiJSParticles = forwardRef<PixiJSParticlesHandle, PixiJSParticles
   },
 );
 
-PixiJSParticles.displayName = 'PixiJSParticles';
+AnimationParticles.displayName = 'AnimationParticles';

@@ -13,6 +13,7 @@
     "chromatic": "chromatic"
   },
   "dependencies": {
+    "@aazucena/animations": "workspace:*",
     "@aazucena/constants": "workspace:*",
     "@aazucena/layouts": "workspace:*",
     "@aazucena/context": "workspace:*",

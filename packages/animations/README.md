@@ -25,70 +25,58 @@ Sophisticated animation orchestration system providing GSAP, Three.js, and PixiJ
 
 - **Location:** `src/gsap/`
 - **Logic:** Entrance/exit animations, scroll triggers, timeline sequencing.
-- **Exports:** `fadeIn`, `slideUp`, `createScrollTrigger`, `atmosphericTransition`.
+- **Exports:** `fadeIn`, `slideInFromLeft`, `bounceIn`, `scaleIn`, `staggerChildren`.
 
 ### [Three.js] : The_Renderer
 
 - **Location:** `src/three/`
 - **Logic:** Scene setup, geometry helpers, material presets, lighting utilities.
-- **Exports:** `createScene`, `createCamera`, `createRenderer`, `addLights`.
+- **Exports:** `AnimationCanvas`, `AnimationScene`, `SceneObject`, `createBasicGeometries`.
 
 ### [PixiJS] : The_Accelerator
 
 - **Location:** `src/pixi/`
-- **Logic:** Particle systems, sprite management, performance optimization.
-- **Exports:** `createParticleSystem`, `updateParticles`, `enableCulling`.
+- **Logic:** Particle systems, performance optimization.
+- **Exports:** `AnimationParticles`, `PixiParticleSystem`.
 
 ---
 
 ## 🚦 USAGE_PROTOCOLS
 
-### GSAP Scroll Animations
+### GSAP Animation Presets
 
 ```typescript
-import { fadeIn, createScrollTrigger, atmosphericTransition } from '@aazucena/animations/gsap';
+import { fadeIn, slideInFromLeft, scaleIn } from '@aazucena/animations';
 
-fadeIn('.hero-title', { duration: 1.2, delay: 0.3 });
-
-createScrollTrigger({
-  trigger: '.section',
-  start: 'top 80%',
-  onEnter: () => fadeIn('.content'),
-});
-
-atmosphericTransition({
-  layerName: 'STRATOSPHERE',
-  scrollProgress: 0.3,
-  onTransition: (layer) => console.log(`Transitioned to ${layer}`),
-});
+// In a React component
+useEffect(() => {
+  fadeIn(elementRef.current, { duration: 1.2, delay: 0.3 });
+}, []);
 ```
 
-### Three.js Scene Initialization
+### Three.js Scene Components
 
 ```typescript
-import { createScene, createCamera, createRenderer, addLights } from '@aazucena/animations/three';
+import { AnimationCanvas } from '@aazucena/animations';
 
-const scene = createScene({ background: 0x000000 });
-const camera = createCamera({ fov: 75, position: [0, 0, 5] });
-const renderer = createRenderer({ antialias: true, alpha: true });
-addLights(scene, { ambient: { intensity: 0.5 }, directional: { intensity: 1 } });
+// Main orchestrator component
+function Background() {
+  return <AnimationCanvas atmosphericLayer="exosphere" />;
+}
+
+// Low-level scene component (inside Canvas)
+import { AnimationScene } from '@aazucena/animations';
+// <AnimationScene phase="exosphere" intensity={1} />
 ```
 
-### PixiJS Particle System
+### PixiJS Particles
 
 ```typescript
-import { createParticleSystem, updateParticles } from '@aazucena/animations/pixi';
+import { AnimationParticles } from '@aazucena/animations';
 
-const particles = createParticleSystem(app, {
-  count: 100,
-  speed: 1.0,
-  size: { min: 2, max: 5 },
-  color: 0xffffff,
-});
-
-app.ticker.add(() => {
-  updateParticles(particles, { scroll: scrollProgress, mousePosition: { x, y } });
-});
+function Particles() {
+  return <AnimationParticles width={800} height={600} preset="space" />;
+}
 ```
 
 ---

@@ -4,6 +4,6 @@
  */
 
 export { ParticlesController } from './ParticlesController.js';
-export { PixiParticleSystem } from './PixiParticleSystem.js';
+export { ParticleSystem } from './ParticleSystem.js';
 export { ParticleEmitter } from './ParticleEmitter.js';
 export { ParticleRenderer } from './ParticleRenderer.js';

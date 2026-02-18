@@ -9,8 +9,8 @@
 
 import type { JSX } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { PixiJSParticles } from '../pixi/index.js';
-import { HomepageScene } from './HomepageScene.js';
+import { AnimationParticles } from '../pixi/index.js';
+import { AnimationScene } from './AnimationScene.js';
 import type { AtmosphericPhase } from '@aazucena/types';
 import { useAnimation, usePortfolio } from '@aazucena/context';
 
@@ -35,7 +35,7 @@ export function AnimationCanvas({ atmosphericLayer }: AnimationCanvasProps): JSX
       {/* PixiJS Particles - Only in Exosphere */}
       {mounted && atmosphericLayer === 'exosphere' && typeof window !== 'undefined' && (
         <div className="fixed inset-0 transition-opacity duration-1000" style={{ opacity: 1 }}>
-          <PixiJSParticles width={window.innerWidth} height={window.innerHeight} />
+          <AnimationParticles width={window.innerWidth} height={window.innerHeight} />
         </div>
       )}
 
@@ -51,7 +51,7 @@ export function AnimationCanvas({ atmosphericLayer }: AnimationCanvasProps): JSX
           }}
           shadows
         >
-          <HomepageScene
+          <AnimationScene
             intensity={capabilities.performanceTier === 'high' ? 1 : 0.7}
             phase={atmosphericLayer}
             currentSection={currentSection}

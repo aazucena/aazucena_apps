@@ -33,19 +33,19 @@ import {
   generateFlowerData,
 } from './data/index.js';
 
-interface HomepageSceneProps {
+interface AnimationSceneProps {
   intensity?: number;
   phase?: AtmosphericPhase;
   currentSection?: number;
   scrollProgress?: number;
 }
 
-export function HomepageScene({
+export function AnimationScene({
   intensity = 1,
   phase = 'exosphere',
   currentSection = 0,
   scrollProgress = 0,
-}: HomepageSceneProps): JSX.Element {
+}: AnimationSceneProps): JSX.Element {
   const groupRef = useRef<Group>(null);
   const { setRef: setShapeRef, getAllRefs: getAllShapeRefs } = useShapeRefs();
 
