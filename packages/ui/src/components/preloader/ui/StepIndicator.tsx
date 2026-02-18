@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Badge } from '../../ui/badge.js';
 import { CircleNotch as LoadingCircle, CheckCircleSolid as Checkmark } from '@aazucena/icons';
-import { IconRenderer } from '../../blocks/IconRenderer.js';
+import { IconRenderer } from '../../ui/icon-renderer.js';
 import type { LoadingStep } from '@aazucena/types';
 import type { ThemeStyles } from '@aazucena/hooks';
 

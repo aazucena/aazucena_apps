@@ -10,7 +10,7 @@ import {
   usePreloaderTheme,
   useShowOnce,
 } from '@aazucena/hooks';
-import { LoadingState, ReadyState, ErrorState } from './ui';
+import { LoadingState, ReadyState, ErrorState } from './ui/index.js';
 import type { PreloaderPropsWithTheme } from '@aazucena/types';
 import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
 
@@ -214,7 +214,7 @@ export default function InteractivePreloader({
 
   if (!isVisible) return null;
 
-  const transitionClass = getTransitionClass(transitionType);
+  const transitionClass = getTransitionClass(isReady ? transitionType : isReady);
   const completedSteps = Object.values(stepStatus).filter(Boolean).length;
 
   // Content wrapper - shared between card and non-card modes

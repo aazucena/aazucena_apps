@@ -56,24 +56,24 @@ import { Preloader } from '@aazucena/ui';
 ### Custom Steps
 
 ```tsx
-import { Preloader, type LoadingStep } from "@aazucena/ui";
-import { Database, Code } from "@aazucena/icons";
+import { Preloader, type LoadingStep } from '@aazucena/ui';
+import { Database, Code } from '@aazucena/icons';
 
 const customSteps: LoadingStep[] = [
   {
     id: 1,
-    name: "Connecting to Database",
-    description: "Establishing secure connection",
+    name: 'Connecting to Database',
+    description: 'Establishing secure connection',
     icon: Database,
     check: async () => {
-      const response = await fetch("/api/health");
+      const response = await fetch('/api/health');
       return response.ok;
     },
   },
   {
     id: 2,
-    name: "Loading Code",
-    description: "Initializing application",
+    name: 'Loading Code',
+    description: 'Initializing application',
     icon: Code,
   },
 ];
@@ -89,7 +89,7 @@ const customSteps: LoadingStep[] = [
 ### Custom Ready Component
 
 ```tsx
-import { Preloader, type CustomReadyComponentProps } from "@aazucena/ui";
+import { Preloader, type CustomReadyComponentProps } from '@aazucena/ui';
 
 function CustomReady({ loadTime, onContinue }: CustomReadyComponentProps) {
   return (
@@ -107,12 +107,12 @@ function CustomReady({ loadTime, onContinue }: CustomReadyComponentProps) {
 ### Using Hooks Independently
 
 ```tsx
-import { useLoadingProgress, usePreloaderVisibility } from "@aazucena/ui";
+import { useLoadingProgress, usePreloaderVisibility } from '@aazucena/ui';
 
 function MyComponent() {
   const { progress, isReady, startLoading } = useLoadingProgress();
   const { isVisible, handleContinue } = usePreloaderVisibility({
-    onComplete: () => console.log("Done!"),
+    onComplete: () => console.log('Done!'),
   });
 
   // Your custom logic here
@@ -191,7 +191,7 @@ function MyComponent() {
 For cleaner prop organization, you can use grouped config objects:
 
 ```tsx
-import { Preloader, type PreloaderGroupedProps } from "@aazucena/ui";
+import { Preloader, type PreloaderGroupedProps } from '@aazucena/ui';
 
 const config: PreloaderGroupedProps = {
   timing: {
@@ -199,11 +199,11 @@ const config: PreloaderGroupedProps = {
     animationDuration: 800,
   },
   content: {
-    title: "Loading Your App",
-    readyTitle: "Welcome!",
+    title: 'Loading Your App',
+    readyTitle: 'Welcome!',
   },
   callbacks: {
-    onComplete: () => console.log("Done!"),
+    onComplete: () => console.log('Done!'),
     onError: (err) => console.error(err),
   },
 };
@@ -235,17 +235,17 @@ The preloader automatically displays an error state when:
   customSteps={[
     {
       id: 1,
-      name: "API Check",
+      name: 'API Check',
       icon: Globe,
       check: async () => {
-        const response = await fetch("/api/health");
-        if (!response.ok) throw new Error("API unavailable");
+        const response = await fetch('/api/health');
+        if (!response.ok) throw new Error('API unavailable');
         return true;
       },
     },
   ]}
   onError={(error) => {
-    console.error("Preloader error:", error);
+    console.error('Preloader error:', error);
   }}
 />
 ```
@@ -278,11 +278,7 @@ The new API is **fully backward compatible**. No changes needed to existing code
 All components and hooks are fully typed with strict TypeScript:
 
 ```tsx
-import type {
-  PreloaderProps,
-  LoadingStep,
-  CustomReadyComponentProps,
-} from "@aazucena/ui";
+import type { PreloaderProps, LoadingStep, CustomReadyComponentProps } from '@aazucena/ui';
 ```
 
 ## Contributing

@@ -31,17 +31,17 @@ import type { StorybookConfig } from '@storybook/react-vite';
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-essentials',      // Essential Storybook addons
-    '@storybook/addon-a11y',            // Accessibility testing
-    '@storybook/addon-interactions',    // Component interaction testing
-    '@storybook/addon-themes',          // Theme switching
+    '@storybook/addon-essentials', // Essential Storybook addons
+    '@storybook/addon-a11y', // Accessibility testing
+    '@storybook/addon-interactions', // Component interaction testing
+    '@storybook/addon-themes', // Theme switching
   ],
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
   docs: {
-    autodocs: 'tag',                    // Auto-generate docs from stories
+    autodocs: 'tag', // Auto-generate docs from stories
   },
 };
 
@@ -60,12 +60,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './button';
 
 const meta: Meta<typeof Button> = {
-  title: 'UI/Button',                   // Category/Component name
+  title: 'UI/Button', // Category/Component name
   component: Button,
   parameters: {
-    layout: 'centered',                 // Center component in canvas
+    layout: 'centered', // Center component in canvas
   },
-  tags: ['autodocs'],                   // Enable auto-generated docs
+  tags: ['autodocs'], // Enable auto-generated docs
   argTypes: {
     variant: {
       control: 'select',
@@ -282,6 +282,7 @@ export const DarkMode: Story = {
 The `@storybook/addon-a11y` runs automated accessibility checks on every story.
 
 **Viewing Results:**
+
 1. Open Storybook at http://localhost:6006
 2. Select a story
 3. Open the "Accessibility" tab in the addons panel
@@ -602,7 +603,7 @@ Create custom documentation pages:
 ```mdx
 {/* Button.mdx */}
 import { Meta, Canvas, Story, Controls } from '@storybook/blocks';
-import * as ButtonStories from './Button.stories';
+import \* as ButtonStories from './Button.stories';
 
 <Meta of={ButtonStories} />
 
@@ -663,7 +664,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'default', size = 'md', asChild = false, ...props }, ref) => {
     // Component implementation
-  }
+  },
 );
 ```
 
@@ -700,10 +701,10 @@ src/components/
 ```typescript
 // Category/SubCategory/Component
 const meta: Meta = {
-  title: 'UI/Button',                 // ShadCN primitive
-  title: 'Domain/BlogCard',           // Domain component
-  title: 'Navigation/Navbar',         // Navigation component
-  title: 'Telemetry/IntegrityBadge',  // Telemetry component
+  title: 'UI/Button', // ShadCN primitive
+  title: 'Domain/BlogCard', // Domain component
+  title: 'Navigation/Navbar', // Navigation component
+  title: 'Telemetry/IntegrityBadge', // Telemetry component
 };
 ```
 
@@ -714,26 +715,32 @@ const meta: Meta = {
 ### Essential Addons
 
 **1. Controls**
+
 - Dynamically edit component props
 - Automatically generated from `argTypes`
 
 **2. Actions**
+
 - Log component events (onClick, onChange, etc.)
 - Useful for debugging interactions
 
 **3. Viewport**
+
 - Test component responsiveness
 - Predefined breakpoints (mobile, tablet, desktop)
 
 **4. Backgrounds**
+
 - Test components on different backgrounds
 - Light/dark mode testing
 
 **5. Measure**
+
 - Display component dimensions
 - Useful for layout debugging
 
 **6. Outline**
+
 - Visualize component boundaries
 - Helps debug spacing and alignment
 
@@ -792,7 +799,7 @@ const meta: Meta = {
   component: Button,
   parameters: {
     docs: {
-      disable: true,                   // Skip auto-docs generation
+      disable: true, // Skip auto-docs generation
     },
   },
 };
@@ -818,7 +825,7 @@ pnpm dev
 
 ```typescript
 // .storybook/preview.ts
-import '../src/styles/globals.css';  // Import Tailwind CSS
+import '../src/styles/globals.css'; // Import Tailwind CSS
 ```
 
 **Issue: TypeScript errors in stories**

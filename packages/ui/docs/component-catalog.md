@@ -11,6 +11,7 @@ Complete reference for all 93 production-ready components in the @aazucena/ui li
 Accessible UI components built on Radix UI primitives.
 
 ### Accordion
+
 Collapsible content sections with keyboard navigation.
 
 ```typescript
@@ -29,6 +30,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@a
 ---
 
 ### Alert
+
 Status messages with semantic variants.
 
 ```typescript
@@ -45,6 +47,7 @@ import { Alert, AlertTitle, AlertDescription } from '@aazucena/ui';
 ---
 
 ### Avatar
+
 User profile images with fallback initials.
 
 ```typescript
@@ -61,6 +64,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@aazucena/ui';
 ---
 
 ### Badge
+
 Inline labels with variant styling.
 
 ```typescript
@@ -75,6 +79,7 @@ import { Badge } from '@aazucena/ui';
 ---
 
 ### Button
+
 Primary interaction component with variants and sizes.
 
 ```typescript
@@ -91,6 +96,7 @@ import { Button } from '@aazucena/ui';
 ---
 
 ### Card
+
 Container component for grouped content.
 
 ```typescript
@@ -109,6 +115,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 ---
 
 ### Command
+
 Command palette for keyboard-driven navigation.
 
 ```typescript
@@ -126,6 +133,7 @@ import { Command, CommandInput, CommandList, CommandItem } from '@aazucena/ui';
 ---
 
 ### Dialog
+
 Modal overlays with accessibility.
 
 ```typescript
@@ -147,6 +155,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from 
 ---
 
 ### Form
+
 Form component with react-hook-form integration.
 
 ```typescript
@@ -177,6 +186,7 @@ const form = useForm();
 ---
 
 ### HoverCard
+
 Floating card on hover interactions.
 
 ```typescript
@@ -191,6 +201,7 @@ import { HoverCard, HoverCardTrigger, HoverCardContent } from '@aazucena/ui';
 ---
 
 ### Input
+
 Text input field with variants.
 
 ```typescript
@@ -204,6 +215,7 @@ import { Input } from '@aazucena/ui';
 ---
 
 ### Label
+
 Form label component.
 
 ```typescript
@@ -216,6 +228,7 @@ import { Label } from '@aazucena/ui';
 ---
 
 ### Progress
+
 Progress bar with percentage.
 
 ```typescript
@@ -227,6 +240,7 @@ import { Progress } from '@aazucena/ui';
 ---
 
 ### ScrollArea
+
 Custom scrollbar container.
 
 ```typescript
@@ -240,6 +254,7 @@ import { ScrollArea } from '@aazucena/ui';
 ---
 
 ### Separator
+
 Visual divider line.
 
 ```typescript
@@ -252,6 +267,7 @@ import { Separator } from '@aazucena/ui';
 ---
 
 ### Sheet
+
 Side panel overlay (drawer).
 
 ```typescript
@@ -275,6 +291,7 @@ import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from '@aaz
 ---
 
 ### Skeleton
+
 Loading placeholder animation.
 
 ```typescript
@@ -286,6 +303,7 @@ import { Skeleton } from '@aazucena/ui';
 ---
 
 ### Tabs
+
 Tabbed navigation panels.
 
 ```typescript
@@ -304,6 +322,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@aazucena/ui';
 ---
 
 ### Textarea
+
 Multi-line text input.
 
 ```typescript
@@ -315,6 +334,7 @@ import { Textarea } from '@aazucena/ui';
 ---
 
 ### Tooltip
+
 Contextual help on hover.
 
 ```typescript
@@ -335,6 +355,7 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@aazuc
 Content-specific components for blog, projects, experiences, and testimonials.
 
 ### BlogCard
+
 Blog post preview card.
 
 ```typescript
@@ -356,6 +377,7 @@ import { BlogCard } from '@aazucena/ui';
 ---
 
 ### ProjectCard
+
 Project showcase card.
 
 ```typescript
@@ -377,6 +399,7 @@ import { ProjectCard } from '@aazucena/ui';
 ---
 
 ### ExperienceCard
+
 Work experience timeline item.
 
 ```typescript
@@ -397,6 +420,7 @@ import { ExperienceCard } from '@aazucena/ui';
 ---
 
 ### TestimonialCard
+
 Client testimonial display.
 
 ```typescript
@@ -416,6 +440,7 @@ import { TestimonialCard } from '@aazucena/ui';
 ---
 
 ### EducationItem
+
 Education timeline entry.
 
 ```typescript
@@ -435,6 +460,7 @@ import { EducationItem } from '@aazucena/ui';
 ---
 
 ### AwardModal
+
 Award detail modal popup.
 
 ```typescript
@@ -460,6 +486,7 @@ import { AwardModal } from '@aazucena/ui';
 Navigation components for app-wide and page-level navigation.
 
 ### Navbar
+
 Primary site navigation header.
 
 ```typescript
@@ -481,6 +508,7 @@ import { Navbar } from '@aazucena/ui';
 ---
 
 ### CommandPalette
+
 Keyboard-driven command interface (Cmd+K).
 
 ```typescript
@@ -501,6 +529,7 @@ import { CommandPalette } from '@aazucena/ui';
 ---
 
 ### Breadcrumbs
+
 Hierarchical navigation trail.
 
 ```typescript
@@ -520,6 +549,7 @@ import { Breadcrumbs } from '@aazucena/ui';
 ---
 
 ### TableOfContents
+
 Page outline navigation.
 
 ```typescript
@@ -539,6 +569,7 @@ import { TableOfContents } from '@aazucena/ui';
 ---
 
 ### Sidebar
+
 Collapsible side navigation panel.
 
 ```typescript
@@ -563,6 +594,7 @@ import { Sidebar } from '@aazucena/ui';
 ---
 
 ### BackToTop
+
 Scroll-to-top button.
 
 ```typescript
@@ -576,6 +608,7 @@ import { BackToTop } from '@aazucena/ui';
 ---
 
 ### ReadingProgress
+
 Reading progress bar.
 
 ```typescript
@@ -587,6 +620,7 @@ import { ReadingProgress } from '@aazucena/ui';
 ---
 
 ### ScrollDownIndicator
+
 Animated scroll hint.
 
 ```typescript
@@ -598,6 +632,7 @@ import { ScrollDownIndicator } from '@aazucena/ui';
 ---
 
 ### ScrollIndicators
+
 Composite scroll UI (progress + down indicator).
 
 ```typescript
@@ -611,6 +646,7 @@ import { ScrollIndicators } from '@aazucena/ui';
 ---
 
 ### DetailNavigation
+
 Previous/Next navigation for detail pages.
 
 ```typescript
@@ -631,6 +667,7 @@ import { DetailNavigation } from '@aazucena/ui';
 Loading states, transitions, and motion components.
 
 ### Preloader
+
 Multi-step loading system with theme support.
 
 ```typescript
@@ -651,6 +688,7 @@ import { Preloader } from '@aazucena/ui';
 ---
 
 ### SimplePreloader
+
 Minimal loading indicator.
 
 ```typescript
@@ -664,6 +702,7 @@ import { SimplePreloader } from '@aazucena/ui';
 ---
 
 ### InteractivePreloader
+
 Preloader with user interaction required.
 
 ```typescript
@@ -682,6 +721,7 @@ import { InteractivePreloader } from '@aazucena/ui';
 ---
 
 ### InfiniteMovingCards
+
 Continuous scrolling card carousel.
 
 ```typescript
@@ -700,6 +740,7 @@ import { InfiniteMovingCards } from '@aazucena/ui';
 ---
 
 ### FlipWordsTagline
+
 Animated word rotation effect.
 
 ```typescript
@@ -713,6 +754,7 @@ import { FlipWordsTagline } from '@aazucena/ui';
 ---
 
 ### PhoneDialTabs
+
 Phone-style dial tab navigation.
 
 ```typescript
@@ -731,6 +773,7 @@ import { PhoneDialTabs } from '@aazucena/ui';
 ---
 
 ### Timeline
+
 Vertical timeline component.
 
 ```typescript
@@ -753,6 +796,7 @@ import { Timeline } from '@aazucena/ui';
 System status and analytics visualizations.
 
 ### IntegrityBadge
+
 Real-time system health indicator.
 
 ```typescript
@@ -766,6 +810,7 @@ import { IntegrityBadge } from '@aazucena/ui';
 ---
 
 ### MetricCard
+
 KPI display card.
 
 ```typescript
@@ -784,6 +829,7 @@ import { MetricCard } from '@aazucena/ui';
 ---
 
 ### LogDetailModal
+
 Telemetry log detail view.
 
 ```typescript
@@ -805,6 +851,7 @@ import { LogDetailModal } from '@aazucena/ui';
 ---
 
 ### LogDetailsCard
+
 Log entry summary card.
 
 ```typescript
@@ -824,6 +871,7 @@ import { LogDetailsCard } from '@aazucena/ui';
 ---
 
 ### TelemetryFeed
+
 Real-time log stream viewer.
 
 ```typescript
@@ -841,6 +889,7 @@ import { TelemetryFeed } from '@aazucena/ui';
 ---
 
 ### SentinelWatchdog
+
 Automated health monitoring indicator.
 
 ```typescript
@@ -862,6 +911,7 @@ import { SentinelWatchdog } from '@aazucena/ui';
 Utility and decorative components.
 
 ### GradientAccent
+
 Decorative gradient overlay.
 
 ```typescript
@@ -876,6 +926,7 @@ import { GradientAccent } from '@aazucena/ui';
 ---
 
 ### WatermarkBackground
+
 Branded watermark pattern.
 
 ```typescript
@@ -889,6 +940,7 @@ import { WatermarkBackground } from '@aazucena/ui';
 ---
 
 ### Logo
+
 Site logo component.
 
 ```typescript
@@ -903,6 +955,7 @@ import { Logo } from '@aazucena/ui';
 ---
 
 ### ResponsiveGrid
+
 Auto-responsive grid layout.
 
 ```typescript
@@ -920,6 +973,7 @@ import { ResponsiveGrid } from '@aazucena/ui';
 ---
 
 ### StatusBadge
+
 Status indicator badge.
 
 ```typescript
@@ -933,6 +987,7 @@ import { StatusBadge } from '@aazucena/ui';
 ---
 
 ### ThemeToggle
+
 Dark/light mode toggle button.
 
 ```typescript
@@ -944,6 +999,7 @@ import { ThemeToggle } from '@aazucena/ui';
 ---
 
 ### InteractiveCard
+
 Hover-reactive card with effects.
 
 ```typescript
@@ -958,6 +1014,7 @@ import { InteractiveCard } from '@aazucena/ui';
 ---
 
 ### GlassCard
+
 Glassmorphism-styled card.
 
 ```typescript
@@ -973,6 +1030,7 @@ import { GlassCard } from '@aazucena/ui';
 ---
 
 ### Panel
+
 Generic panel container.
 
 ```typescript
@@ -988,6 +1046,7 @@ import { Panel } from '@aazucena/ui';
 ---
 
 ### Popover
+
 Floating popover container.
 
 ```typescript
@@ -1003,6 +1062,7 @@ import { Popover } from '@aazucena/ui';
 ---
 
 ### RelatedLinks
+
 Related content link grid.
 
 ```typescript
@@ -1021,6 +1081,7 @@ import { RelatedLinks } from '@aazucena/ui';
 ---
 
 ### SkillBadgeList
+
 Tag list for skills/technologies.
 
 ```typescript
@@ -1034,6 +1095,7 @@ import { SkillBadgeList } from '@aazucena/ui';
 ---
 
 ### TechStackDistribution
+
 Technology usage visualization.
 
 ```typescript
@@ -1057,6 +1119,7 @@ import { TechStackDistribution } from '@aazucena/ui';
 Functional components for rendering and data display.
 
 ### BlockRenderers
+
 Strapi blocks renderer.
 
 ```typescript
@@ -1070,6 +1133,7 @@ import { BlockRenderers } from '@aazucena/ui';
 ---
 
 ### MarkdownRenderer
+
 Markdown to JSX renderer.
 
 ```typescript
@@ -1083,6 +1147,7 @@ import { MarkdownRenderer } from '@aazucena/ui';
 ---
 
 ### SimpleRichTextRenderer
+
 Simple rich text renderer.
 
 ```typescript
@@ -1096,6 +1161,7 @@ import { SimpleRichTextRenderer } from '@aazucena/ui';
 ---
 
 ### IconRenderer
+
 Dynamic icon renderer.
 
 ```typescript
@@ -1113,6 +1179,7 @@ import { IconRenderer } from '@aazucena/ui';
 Composite panel components for settings and info displays.
 
 ### SettingsPanel
+
 Application settings panel.
 
 ```typescript
@@ -1130,6 +1197,7 @@ import { SettingsPanel } from '@aazucena/ui';
 ---
 
 ### InfoPanel
+
 Information display panel.
 
 ```typescript
@@ -1147,6 +1215,7 @@ import { InfoPanel } from '@aazucena/ui';
 Social media integration components.
 
 ### SocialMenu
+
 Social media link menu.
 
 ```typescript
@@ -1170,6 +1239,7 @@ import { SocialMenu } from '@aazucena/ui';
 About page specific components.
 
 ### AskMeAbout
+
 Interests/expertise display.
 
 ```typescript
@@ -1183,6 +1253,7 @@ import { AskMeAbout } from '@aazucena/ui';
 ---
 
 ### HighlightsPanel
+
 Key highlights panel.
 
 ```typescript
@@ -1201,6 +1272,7 @@ import { HighlightsPanel } from '@aazucena/ui';
 ---
 
 ### StatCard
+
 Statistics display card.
 
 ```typescript
@@ -1214,6 +1286,7 @@ import { StatCard } from '@aazucena/ui';
 ---
 
 ### WorkingStyleSection
+
 Working style visualization.
 
 ```typescript
@@ -1232,6 +1305,7 @@ import { WorkingStyleSection } from '@aazucena/ui';
 ---
 
 ### LearnMoreCard
+
 Call-to-action card.
 
 ```typescript
@@ -1254,6 +1328,7 @@ import { LearnMoreCard } from '@aazucena/ui';
 Awards and achievements components.
 
 ### HexagonCard
+
 Hexagonal award card.
 
 ```typescript
@@ -1272,6 +1347,7 @@ import { HexagonCard } from '@aazucena/ui';
 ---
 
 ### SectionLabel
+
 Decorative section label.
 
 ```typescript
@@ -1289,6 +1365,7 @@ import { SectionLabel } from '@aazucena/ui';
 Project showcase components.
 
 ### ViewMoreCard
+
 View more projects card.
 
 ```typescript
@@ -1302,6 +1379,7 @@ import { ViewMoreCard } from '@aazucena/ui';
 ---
 
 ### PageIndicators
+
 Pagination dots indicator.
 
 ```typescript
@@ -1323,6 +1401,7 @@ import { PageIndicators } from '@aazucena/ui';
 Toolbar and action buttons.
 
 ### Toolbar
+
 Floating action toolbar.
 
 ```typescript
@@ -1341,6 +1420,7 @@ import { Toolbar } from '@aazucena/ui';
 ---
 
 ### ToolbarButton
+
 Individual toolbar button.
 
 ```typescript
@@ -1358,6 +1438,7 @@ import { ToolbarButton } from '@aazucena/ui';
 Work experience display components.
 
 ### ExperienceActions
+
 Action buttons for experience items.
 
 ```typescript
@@ -1374,6 +1455,7 @@ import { ExperienceActions } from '@aazucena/ui';
 ---
 
 ### ExperienceModal
+
 Detailed experience modal.
 
 ```typescript
@@ -1391,6 +1473,7 @@ import { ExperienceModal } from '@aazucena/ui';
 ---
 
 ### CompanyLogo
+
 Company logo display.
 
 ```typescript

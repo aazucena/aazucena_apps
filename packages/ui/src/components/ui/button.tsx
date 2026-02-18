@@ -1,3 +1,4 @@
+/** @shadcn standard component */
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -9,14 +10,18 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        destructive:
-          'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm',
         outline:
-          'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+          'border border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-xs transition-colors',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
+        glass: 'glass-m text-foreground hover:opacity-80 transition-opacity',
+        cyber:
+          'bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+        gradient:
+          'bg-gradient-to-br from-primary to-blue-600 text-foreground hover:opacity-90 shadow-md',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

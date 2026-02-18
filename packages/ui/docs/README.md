@@ -17,15 +17,19 @@ Complete reference for the aazucena Component Intelligence Library.
 ## Advanced Topics
 
 ### Component Development
+
 Comprehensive guides for building with the component library.
 
 ### [Component Catalog](./component-catalog.md) - Complete_Reference
+
 All 93 components organized by category: ShadCN primitives, domain components, navigation suite, telemetry visualizations.
 
 ### [Theming Guide](./theming-guide.md) - Visual_Customization
+
 OKLCH color system, dark/light mode implementation, CSS variable architecture, Tailwind integration.
 
 ### [Composition Patterns](./composition-patterns.md) - Factory_Architecture
+
 Building cards, forms, and layouts from primitive components. Compound component patterns, slot composition.
 
 ---
@@ -33,12 +37,15 @@ Building cards, forms, and layouts from primitive components. Compound component
 ## Development Workflows
 
 ### [Storybook Usage](./storybook-usage.md) - Component_Playground
+
 Developing components in isolation, writing stories with accessibility tests, Chromatic visual regression testing.
 
 ### [Form Patterns](./form-patterns.md) - Input_Intelligence
+
 react-hook-form integration, Zod validation schemas, multi-step forms, error handling strategies.
 
 ### [Navigation Patterns](./navigation-patterns.md) - Routing_Intelligence
+
 Command palette (Cmd+K), breadcrumbs, table of contents, sidebar navigation, scroll indicators.
 
 ---

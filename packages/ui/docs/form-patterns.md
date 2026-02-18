@@ -131,7 +131,7 @@ const registrationSchema = z
         const age = new Date().getFullYear() - date.getFullYear();
         return age >= 18;
       },
-      { message: 'You must be at least 18 years old' }
+      { message: 'You must be at least 18 years old' },
     ),
 
     acceptTerms: z.boolean().refine((val) => val === true, {
@@ -169,13 +169,16 @@ function RegistrationForm() {
 ```typescript
 // Custom email domain validator
 const emailDomainValidator = (allowedDomains: string[]) =>
-  z.string().email().refine(
-    (email) => {
-      const domain = email.split('@')[1];
-      return allowedDomains.includes(domain);
-    },
-    { message: `Email must be from allowed domains: ${allowedDomains.join(', ')}` }
-  );
+  z
+    .string()
+    .email()
+    .refine(
+      (email) => {
+        const domain = email.split('@')[1];
+        return allowedDomains.includes(domain);
+      },
+      { message: `Email must be from allowed domains: ${allowedDomains.join(', ')}` },
+    );
 
 // Usage
 const schema = z.object({
@@ -198,13 +201,13 @@ const usernameSchema = z.string().refine(
     const { available } = await response.json();
     return available;
   },
-  { message: 'Username is already taken' }
+  { message: 'Username is already taken' },
 );
 
 // Usage in form
 const form = useForm({
   resolver: zodResolver(z.object({ username: usernameSchema })),
-  mode: 'onBlur',  // Validate on blur to avoid excessive API calls
+  mode: 'onBlur', // Validate on blur to avoid excessive API calls
 });
 ```
 

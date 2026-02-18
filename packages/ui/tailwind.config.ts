@@ -1,6 +1,3 @@
-import tailwindConfig from '@aazucena/config/tailwind/astro.ts';
+import { tailwindPreset as tailwindConfig } from '@aazucena/design-system';
 /** @type {import('tailwindcss').Config} */
-export default {
-  ...tailwindConfig,
-  darkMode: ['class'],
-};
+export default tailwindConfig;

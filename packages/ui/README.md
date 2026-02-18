@@ -8,16 +8,16 @@ Comprehensive component library with 80+ production-ready React components. Buil
 
 ## 🛠️ TOOLKIT_MANIFEST
 
-| System                     | Protocol         | Description                                                                 |
-| :------------------------- | :--------------- | :-------------------------------------------------------------------------- |
-| **ShadCN_Primitives**      | Radix_UI         | 20+ accessible UI components (Button, Dialog, Form, Input, etc.).          |
-| **Domain_Components**      | Content_Cards    | Blog cards, project cards, experience items, testimonials.                  |
-| **Navigation_Suite**       | Command_Palette  | Navbar, breadcrumbs, command palette (Cmd+K), table of contents.           |
-| **Animation_Components**   | Motion_System    | Preloader system, infinite cards, flip text, gradient accents.             |
-| **Block_Renderers**        | Content_Engine   | Markdown/rich text rendering, icon handling, Strapi blocks.                |
-| **Telemetry_Components**   | Intelligence_UI  | System status indicators, metrics cards, log viewers, integrity badges.    |
-| **Storybook_Integration**  | Component_Dev    | 50+ stories with accessibility testing and theme support.                  |
-| **Chromatic_VRT**          | Visual_Regression| Automated visual regression testing for component consistency.             |
+| System                    | Protocol          | Description                                                             |
+| :------------------------ | :---------------- | :---------------------------------------------------------------------- |
+| **ShadCN_Primitives**     | Radix_UI          | 20+ accessible UI components (Button, Dialog, Form, Input, etc.).       |
+| **Domain_Components**     | Content_Cards     | Blog cards, project cards, experience items, testimonials.              |
+| **Navigation_Suite**      | Command_Palette   | Navbar, breadcrumbs, command palette (Cmd+K), table of contents.        |
+| **Animation_Components**  | Motion_System     | Preloader system, infinite cards, flip text, gradient accents.          |
+| **Block_Renderers**       | Content_Engine    | Markdown/rich text rendering, icon handling, Strapi blocks.             |
+| **Telemetry_Components**  | Intelligence_UI   | System status indicators, metrics cards, log viewers, integrity badges. |
+| **Storybook_Integration** | Component_Dev     | 50+ stories with accessibility testing and theme support.               |
+| **Chromatic_VRT**         | Visual_Regression | Automated visual regression testing for component consistency.          |
 
 ---
 
@@ -117,7 +117,7 @@ import { IntegrityBadge, MetricCard, LogDetailModal } from '@aazucena/ui';
 ## 🔗 DEPENDENCY_GRAPH
 
 **Internal:** @aazucena/constants, @aazucena/context, @aazucena/design-system, @aazucena/hooks, @aazucena/icons, @aazucena/utils
-**External:** React 19, @radix-ui/*, @strapi/blocks-react-renderer, framer-motion, lucide-react, react-hook-form, zod, tailwindcss
+**External:** React 19, @radix-ui/\*, @strapi/blocks-react-renderer, framer-motion, lucide-react, react-hook-form, zod, tailwindcss
 
 **Compatible:** ✅ Next.js | ✅ Astro | ✅ Remix | ✅ Vite
 
