@@ -6,6 +6,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./device": "./src/device/index.ts",
+    "./use-mobile": "./src/device/useIsMobile.ts",
     "./state": "./src/state/index.ts",
     "./animations": "./src/animations/index.ts",
     "./data": "./src/data/index.ts",

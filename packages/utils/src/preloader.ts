@@ -63,15 +63,7 @@ export function getTransitionClass(trigger: boolean | string): string {
       : 'opacity-100 translate-y-0';
   }
 
-  // If it's a string (transitionType), return based on type
-  switch (trigger) {
-    case 'fade':
-      return 'opacity-0 pointer-events-none transition-opacity duration-700 ease-in-out';
-    case 'slide-up':
-      return 'opacity-0 pointer-events-none translate-y-[-100%] transition-transform duration-700 ease-in-out';
-    case 'none':
-      return 'opacity-0 pointer-events-none';
-    default:
-      return 'opacity-0 pointer-events-none translate-y-[-20px] transition-all duration-700 ease-in-out';
-  }
+  // If it's a string, it means it's still loading (the transition hasn't started yet)
+  // We should return an "active" visible state based on the requested transition type
+  return 'opacity-100 translate-y-0 transition-all duration-700 ease-in-out';
 }

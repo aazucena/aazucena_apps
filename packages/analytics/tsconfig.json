@@ -1,6 +1,7 @@
 {
   "extends": "@aazucena/config/tsconfig/react.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "outDir": "dist",
     "rootDir": "src"
   },

@@ -50,12 +50,16 @@ export interface SiteConfig {
 export interface SystemThemeColors {
   primary: string;
   primaryForeground: string;
+  primaryGradient?: string;
   secondary: string;
   secondaryForeground: string;
+  secondaryGradient?: string;
   success: string;
   successForeground: string;
-  error: string;
-  errorForeground: string;
+  destructive: string;
+  destructiveForeground: string;
+  error?: string;
+  errorForeground?: string;
   background: string;
   backgroundGradient?: string;
   base: string; // Lowest layer (e.g., Body background)
