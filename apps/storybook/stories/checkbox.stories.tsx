@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Checkbox } from '@aazucena/ui';
 import { Label } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -115,4 +116,30 @@ export const Checklist: Story = {
       </div>
     </div>
   ),
+};
+
+/**
+ * Automated interaction test: click to check, click to uncheck, Space key.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <div className="flex items-center gap-3">
+      <Checkbox id="interaction-test" />
+      <Label htmlFor="interaction-test" className="cursor-pointer">Toggle me</Label>
+    </div>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole('checkbox');
+    await expect(checkbox).not.toBeChecked();
+    await userEvent.click(checkbox);
+    await expect(checkbox).toBeChecked();
+    await userEvent.click(checkbox);
+    await expect(checkbox).not.toBeChecked();
+    // Space key toggle
+    checkbox.focus();
+    await userEvent.keyboard(' ');
+    await expect(checkbox).toBeChecked();
+  },
 };

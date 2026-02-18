@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SearchInput } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -149,5 +150,24 @@ export const WithClearButton: Story = {
     ...Basic.args,
     value: 'React components',
     onClear: () => {},
+  },
+};
+/**
+ * Automated interaction test: type into search field, verify value.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  args: {
+    placeholder: 'Search here...',
+    variant: 'default',
+    size: 'md',
+  },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('searchbox');
+    await userEvent.type(input, 'react hooks');
+    await expect(input).toHaveValue('react hooks');
+    await userEvent.clear(input);
+    await expect(input).toHaveValue('');
   },
 };

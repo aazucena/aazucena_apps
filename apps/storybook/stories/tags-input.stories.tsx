@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TagsInput } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -182,5 +183,23 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true,
+  },
+};
+
+
+/**
+ * Automated interaction test: type a tag and press Enter, verify chip appears.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => <TagsInput placeholder="Add tag..." />,
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox');
+    // Type a tag
+    await userEvent.type(input, 'newtag');
+    await userEvent.keyboard('{Enter}');
+    // Tag chip should appear
+    await expect(canvas.getByText('newtag')).toBeVisible();
   },
 };

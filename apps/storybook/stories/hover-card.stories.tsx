@@ -6,6 +6,7 @@ import {
 } from '@aazucena/ui';
 import { Button, Avatar, AvatarImage, AvatarFallback, Badge } from '@aazucena/ui';
 import { Calendar, Shield, Activity, Globe } from '@aazucena/icons';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -139,4 +140,30 @@ export const GlassPreview: Story = {
       </HoverCard>
     </div>
   ),
+};
+
+
+/**
+ * Automated interaction test: hover trigger to show hover card.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <HoverCard openDelay={0}>
+      <HoverCardTrigger asChild>
+        <Button variant="link">@aazucena</Button>
+      </HoverCardTrigger>
+      <HoverCardContent className="w-64">
+        <p className="text-sm">Hover card content is visible</p>
+      </HoverCardContent>
+    </HoverCard>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('link', { name: /@aazucena/i });
+    await userEvent.hover(trigger);
+    const content = await within(document.body).findByText('Hover card content is visible');
+    await expect(content).toBeVisible();
+    await userEvent.unhover(trigger);
+  },
 };

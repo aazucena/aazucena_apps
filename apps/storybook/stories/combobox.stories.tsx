@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Combobox } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -187,5 +188,34 @@ export const WithDisabledOptions: Story = {
       { value: 'redis', label: 'Redis' },
       { value: 'sqlite', label: 'SQLite', disabled: true },
     ],
+  },
+};
+
+/**
+ * Automated interaction test: open combobox, type to filter, select option.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  args: {
+    placeholder: 'Select framework...',
+    variant: 'default',
+    size: 'md',
+    options: frameworkOptions,
+  },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    // Open combobox
+    const trigger = canvas.getByRole('combobox');
+    await userEvent.click(trigger);
+    // Type to filter
+    const searchInput = await within(document.body).findByRole('textbox');
+    await userEvent.type(searchInput, 'Ast');
+    // Verify filtered option visible
+    const option = await within(document.body).findByText('Astro');
+    await expect(option).toBeVisible();
+    // Select it
+    await userEvent.click(option);
+    // Trigger shows selected value
+    await expect(canvas.getByRole('combobox')).toHaveTextContent('Astro');
   },
 };

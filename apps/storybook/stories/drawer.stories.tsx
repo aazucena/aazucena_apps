@@ -149,3 +149,37 @@ export const LiveMonitor: Story = {
     </Drawer>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: open drawer, verify visible, close via ESC.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button variant="outline">Open Drawer</Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>Test Drawer</DrawerTitle>
+          <DrawerDescription>Drawer interaction test</DrawerDescription>
+        </DrawerHeader>
+        <p className="p-4 text-sm">Drawer content is visible</p>
+        <DrawerFooter>
+          <DrawerClose asChild>
+            <Button variant="outline">Close</Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /open drawer/i }));
+    const drawer = await within(document.body).findByRole('dialog');
+    await expect(drawer).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+  },
+};

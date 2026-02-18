@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Textarea } from '@aazucena/ui';
 import { Label, Badge, Button } from '@aazucena/ui';
 import { Terminal, Shield, Zap, Activity } from '@aazucena/icons';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -126,4 +127,23 @@ export const Disabled: Story = {
       <Textarea {...args} />
     </div>
   ),
+};
+/**
+ * Automated interaction test: type in textarea, verify value updates.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: (args) => (
+    <div className="w-80">
+      <Textarea {...args} placeholder="Type your message..." />
+    </div>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const textarea = canvas.getByRole('textbox');
+    await userEvent.type(textarea, 'Hello from interaction test');
+    await expect(textarea).toHaveValue('Hello from interaction test');
+    await userEvent.clear(textarea);
+    await expect(textarea).toHaveValue('');
+  },
 };

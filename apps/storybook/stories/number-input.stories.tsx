@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { NumberInput } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -168,5 +169,40 @@ export const Disabled: Story = {
     ...Basic.args,
     defaultValue: 10,
     disabled: true,
+  },
+};
+
+/**
+ * Automated interaction test: click increment → value +1, click decrement → value -1.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  args: {
+    defaultValue: 5,
+    min: 0,
+    max: 100,
+    variant: 'default',
+    size: 'md',
+  },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('spinbutton');
+    // Initial value
+    await expect(input).toHaveValue(5);
+    // Find increment button (aria-label contains 'increment' or '+')
+    const buttons = canvas.getAllByRole('button');
+    // NumberInput has decrement (index 0) and increment (index 1)
+    const incrementBtn = buttons.find((b: HTMLElement) =>
+      b.getAttribute('aria-label')?.toLowerCase().includes('increment') ||
+      b.textContent?.includes('+')
+    ) ?? buttons[1];
+    const decrementBtn = buttons.find((b: HTMLElement) =>
+      b.getAttribute('aria-label')?.toLowerCase().includes('decrement') ||
+      b.textContent?.includes('-')
+    ) ?? buttons[0];
+    await userEvent.click(incrementBtn);
+    await expect(input).toHaveValue(6);
+    await userEvent.click(decrementBtn);
+    await expect(input).toHaveValue(5);
   },
 };

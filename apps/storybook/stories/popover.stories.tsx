@@ -157,3 +157,32 @@ export const GlassInfo: Story = {
     </div>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: click trigger to open popover, verify content, close via ESC.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Open Popover</Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 p-4">
+        <p className="text-sm">Popover content is visible</p>
+      </PopoverContent>
+    </Popover>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: /open popover/i });
+    // Open popover
+    await userEvent.click(trigger);
+    // Popover portals to body
+    const content = await within(document.body).findByText('Popover content is visible');
+    await expect(content).toBeVisible();
+    // Close via ESC
+    await userEvent.keyboard('{Escape}');
+  },
+};

@@ -165,3 +165,33 @@ export const GlassFloating: Story = {
     </div>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: open sheet, verify visible, close via ESC.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="outline">Open Sheet</Button>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Test Sheet</SheetTitle>
+          <SheetDescription>Sheet interaction test</SheetDescription>
+        </SheetHeader>
+        <p className="text-sm mt-4">Sheet content is visible</p>
+      </SheetContent>
+    </Sheet>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /open sheet/i }));
+    const sheet = await within(document.body).findByRole('dialog');
+    await expect(sheet).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await expect(within(document.body).queryByRole('dialog')).not.toBeInTheDocument();
+  },
+};

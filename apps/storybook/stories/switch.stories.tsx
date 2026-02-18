@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Switch } from '@aazucena/ui';
 import { Label, Badge } from '@aazucena/ui';
 import { Shield, Zap, Activity, Globe } from '@aazucena/icons';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -125,4 +126,26 @@ export const SettingsList: Story = {
       </div>
     </div>
   ),
+};
+
+/**
+ * Automated interaction test: click to enable, click to disable.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <div className="flex items-center gap-3">
+      <Switch id="interaction-switch" />
+      <Label htmlFor="interaction-switch" className="cursor-pointer">Toggle switch</Label>
+    </div>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByRole('switch');
+    await expect(toggle).toHaveAttribute('aria-checked', 'false');
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-checked', 'false');
+  },
 };

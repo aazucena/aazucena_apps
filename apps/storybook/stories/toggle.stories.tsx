@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Toggle } from '@aazucena/ui';
 import { Shield, Zap, Activity, Globe, Pin, TypeBold as Bold, TypeItalic as Italic } from '@aazucena/icons';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -115,4 +116,24 @@ export const Sizes: Story = {
       </div>
     </div>
   ),
+};
+
+/**
+ * Automated interaction test: click to press, click to unpress.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  args: {
+    children: 'Pin',
+    'aria-label': 'Toggle Pin',
+  },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByRole('button', { name: /toggle pin/i });
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  },
 };

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { FloatingLabel } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -163,4 +164,28 @@ export const FormLayout: Story = {
       <FloatingLabel label="Message" multiline rows={3} />
     </div>
   ),
+};
+/**
+ * Automated interaction test: focus causes label to float; value persists after blur.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  args: {
+    label: 'Email Address',
+    variant: 'default',
+    size: 'md',
+  },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    // Find the input inside FloatingLabel
+    const input = canvas.getByRole('textbox');
+    // Focus the input
+    await userEvent.click(input);
+    // Type a value
+    await userEvent.type(input, 'user@example.com');
+    await expect(input).toHaveValue('user@example.com');
+    // Blur — label should stay floated (value exists)
+    await userEvent.tab();
+    await expect(input).toHaveValue('user@example.com');
+  },
 };

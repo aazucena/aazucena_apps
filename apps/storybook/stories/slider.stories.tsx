@@ -146,3 +146,26 @@ export const Disabled: Story = {
     </div>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: focus slider, press ArrowRight to increment value.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <div className="w-64 px-4">
+      <Slider defaultValue={[25]} min={0} max={100} step={1} aria-label="Volume" />
+    </div>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const slider = canvas.getByRole('slider');
+    slider.focus();
+    await expect(slider).toHaveAttribute('aria-valuenow', '25');
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(slider).toHaveAttribute('aria-valuenow', '26');
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(slider).toHaveAttribute('aria-valuenow', '25');
+  },
+};

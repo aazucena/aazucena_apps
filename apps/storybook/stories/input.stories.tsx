@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Input } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -123,4 +124,28 @@ export const Disabled: Story = {
       <Input {...args} />
     </div>
   ),
+};
+
+/**
+ * Automated interaction test: type text, verify value, then clear.
+ */
+export const InteractionTest: Story = {
+  args: {
+    placeholder: 'Type here...',
+    variant: 'default',
+  },
+  tags: ['!autodocs'],
+  render: (args) => (
+    <div className="w-80">
+      <Input {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox');
+    await userEvent.type(input, 'Hello World');
+    await expect(input).toHaveValue('Hello World');
+    await userEvent.clear(input);
+    await expect(input).toHaveValue('');
+  },
 };

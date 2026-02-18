@@ -145,3 +145,32 @@ export const Positioning: Story = {
     </div>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: hover trigger to reveal tooltip.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline" aria-label="Help">Help</Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Tooltip is visible</p>
+      </TooltipContent>
+    </Tooltip>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: /help/i });
+    // Hover to show tooltip
+    await userEvent.hover(trigger);
+    // Tooltip portals to body — wait for it to appear
+    const tip = await within(document.body).findByText('Tooltip is visible');
+    await expect(tip).toBeVisible();
+    // Move away
+    await userEvent.unhover(trigger);
+  },
+};

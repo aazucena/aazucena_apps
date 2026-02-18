@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Spoiler } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 const loremText = (
   <>
@@ -98,4 +99,27 @@ export const DefaultOpen: Story = {
 
 export const TallContent: Story = {
   args: { children: loremText, maxHeight: 60 },
+};
+
+
+/**
+ * Automated interaction test: click 'Show more' to reveal content.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  args: { children: loremText },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    // Find the show more button
+    const showMore = canvas.getByRole('button', { name: /show more/i });
+    await expect(showMore).toBeVisible();
+    // Click to expand
+    await userEvent.click(showMore);
+    // Now the hide button should appear
+    const hideBtn = canvas.getByRole('button', { name: /show less/i });
+    await expect(hideBtn).toBeVisible();
+    // Collapse again
+    await userEvent.click(hideBtn);
+    await expect(canvas.getByRole('button', { name: /show more/i })).toBeVisible();
+  },
 };

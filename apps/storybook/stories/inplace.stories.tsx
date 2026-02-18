@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Inplace } from '@aazucena/ui';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -118,4 +119,32 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
+};
+
+
+/**
+ * Automated interaction test: click display to enter edit mode, verify input visible.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <Inplace display={<span>Click to edit this text</span>}>
+      <input
+        className="rounded border border-input bg-background px-2 py-1 text-sm outline-none"
+        defaultValue="Editable value"
+        aria-label="Edit field"
+      />
+    </Inplace>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    // Initially display is shown, input is hidden
+    const displayText = canvas.getByText('Click to edit this text');
+    await expect(displayText).toBeVisible();
+    // Click to enter edit mode
+    await userEvent.click(displayText);
+    // Input should now be visible
+    const input = canvas.getByRole('textbox', { name: /edit field/i });
+    await expect(input).toBeVisible();
+  },
 };

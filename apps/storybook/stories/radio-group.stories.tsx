@@ -126,3 +126,31 @@ export const Disabled: Story = {
     </RadioGroup>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: click option, verify aria-checked updates.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <RadioGroup defaultValue="option-one" className="space-y-2">
+      <div className="flex items-center gap-2">
+        <RadioGroupItem value="option-one" id="r1" />
+        <label htmlFor="r1">Option One</label>
+      </div>
+      <div className="flex items-center gap-2">
+        <RadioGroupItem value="option-two" id="r2" />
+        <label htmlFor="r2">Option Two</label>
+      </div>
+    </RadioGroup>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const optionTwo = canvas.getByRole('radio', { name: /option two/i });
+    await userEvent.click(optionTwo);
+    await expect(optionTwo).toBeChecked();
+    const optionOne = canvas.getByRole('radio', { name: /option one/i });
+    await expect(optionOne).not.toBeChecked();
+  },
+};

@@ -7,6 +7,7 @@ import {
 import { Button } from '@aazucena/ui';
 import { ChevronDown, CogFour as Cog, InfoCircle as Info } from '@aazucena/icons';
 import { useState } from 'react';
+import { within, userEvent, expect } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -152,4 +153,42 @@ export const DetailInspection: Story = {
       </div>
     );
   }
+};
+
+/**
+ * Automated interaction test: click to expand, verify content visible, click to collapse.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-[400px] space-y-2">
+        <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-xl bg-muted/30">
+          <h4 className="text-sm font-semibold">System Log</h4>
+          <CollapsibleTrigger asChild>
+            <Button variant="ghost" size="icon" className="size-8" aria-label="Toggle system log">
+              <ChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+            </Button>
+          </CollapsibleTrigger>
+        </div>
+        <CollapsibleContent>
+          <div className="rounded-xl border px-4 py-3 font-mono text-sm">
+            Hidden content revealed
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+    );
+  },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: /toggle system log/i });
+    // Content should not be visible initially
+    await expect(canvas.queryByText('Hidden content revealed')).not.toBeInTheDocument();
+    // Click to expand
+    await userEvent.click(trigger);
+    await expect(canvas.getByText('Hidden content revealed')).toBeVisible();
+    // Click to collapse
+    await userEvent.click(trigger);
+  },
 };

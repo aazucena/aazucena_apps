@@ -190,3 +190,38 @@ export const PhoneDial: Story = {
     </div>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: click tab, verify correct panel active.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <Tabs defaultValue="account" className="w-[400px]">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        <p className="text-sm p-4">Account panel content</p>
+      </TabsContent>
+      <TabsContent value="password">
+        <p className="text-sm p-4">Password panel content</p>
+      </TabsContent>
+    </Tabs>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    // Initially the account tab is active
+    const accountTab = canvas.getByRole('tab', { name: /account/i });
+    const passwordTab = canvas.getByRole('tab', { name: /password/i });
+    await expect(accountTab).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByText('Account panel content')).toBeVisible();
+    // Click Password tab
+    await userEvent.click(passwordTab);
+    await expect(passwordTab).toHaveAttribute('aria-selected', 'true');
+    await expect(accountTab).toHaveAttribute('aria-selected', 'false');
+    await expect(canvas.getByText('Password panel content')).toBeVisible();
+  },
+};

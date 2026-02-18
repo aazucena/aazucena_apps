@@ -194,9 +194,13 @@ export const GuidedTour: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByText('Is it accessible?');
+    // Click to expand
     await userEvent.click(trigger);
-    await new Promise(r => setTimeout(r, 2000));
+    const content = canvas.getByText('Yes. It adheres to the WAI-ARIA design pattern and includes full keyboard support.');
+    await expect(content).toBeVisible();
+    // Click to collapse
     await userEvent.click(trigger);
+    await expect(content).not.toBeVisible();
   },
 };
 

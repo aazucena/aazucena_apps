@@ -170,3 +170,36 @@ export const AdvancedComposition: Story = {
     </Select>
   ),
 };
+import { within, userEvent, expect } from '@storybook/test';
+
+/**
+ * Automated interaction test: open select dropdown, select an item, verify trigger updates.
+ */
+export const InteractionTest: Story = {
+  tags: ['!autodocs'],
+  render: () => (
+    <Select>
+      <SelectTrigger className="w-[240px] rounded-xl">
+        <SelectValue placeholder="Select a region" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="us">North America</SelectItem>
+        <SelectItem value="eu">Europe</SelectItem>
+        <SelectItem value="as">Asia Pacific</SelectItem>
+      </SelectContent>
+    </Select>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('combobox');
+    // Open dropdown
+    await userEvent.click(trigger);
+    // Content portals to body
+    const option = await within(document.body).findByText('Europe');
+    await expect(option).toBeVisible();
+    // Select an option
+    await userEvent.click(option);
+    // Trigger should now show selected value
+    await expect(canvas.getByRole('combobox')).toHaveTextContent('Europe');
+  },
+};
