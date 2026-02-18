@@ -6,6 +6,49 @@ import { docsTheme } from './theme';
 import '../styles/globals.css';
 
 // ---------------------------------------------------------------------------
+// Variant background decorator
+// ---------------------------------------------------------------------------
+
+/**
+ * Automatically wraps Cyber/Glass variant stories with the appropriate
+ * dark or gradient canvas background so components are always visible.
+ * Reads context.args.variant at render time — no per-story configuration needed.
+ */
+const withVariantBackground: Decorator = (Story, context) => {
+  const variant = context.args?.variant as string | undefined;
+
+  if (variant === 'cyber') {
+    return (
+      <div style={{
+        background: '#09090b',
+        padding: '1.5rem',
+        borderRadius: '0.75rem',
+        display: 'inline-block',
+        minWidth: 'max-content',
+      }}>
+        <Story />
+      </div>
+    );
+  }
+
+  if (variant === 'glass') {
+    return (
+      <div style={{
+        background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
+        padding: '2rem',
+        borderRadius: '1rem',
+        display: 'inline-block',
+        minWidth: 'max-content',
+      }}>
+        <Story />
+      </div>
+    );
+  }
+
+  return <Story />;
+};
+
+// ---------------------------------------------------------------------------
 // Vibe decorator
 // ---------------------------------------------------------------------------
 
@@ -157,6 +200,13 @@ const preview: Preview = {
             'Specialized',
             'Intelligence',
           ],
+          'Recipes',
+          [
+            'Forms',
+            'Cards',
+            'Navigation',
+            'Dashboards',
+          ],
           '*',
         ],
       },
@@ -165,6 +215,7 @@ const preview: Preview = {
 
   decorators: [
     withVibe,
+    withVariantBackground,
     withThemeByDataAttribute({
       defaultTheme: 'light',
       themes: {
