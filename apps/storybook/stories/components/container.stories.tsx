@@ -11,7 +11,7 @@ import { Container } from '@aazucena/ui';
  * | Design | Layout primitive that constrains content width; pairs with Stack for vertical rhythm |
  */
 const meta = {
-  title: 'Components/Layout/Container',
+  title: 'Components/Containers/Container',
   component: Container,
   parameters: {
     docs: {

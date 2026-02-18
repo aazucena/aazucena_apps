@@ -18,7 +18,7 @@ import { Activity, Layout, CogFour as Settings, User, Search, Zap, Database, Shi
  * - **Composition:** Fully modular parts (Sidebar, View, Header, Main, Content) for tailorable app architecture.
  */
 const meta = {
-  title: 'Components/Layout/Shell',
+  title: 'Components/Containers/Shell',
   component: Shell,
   subcomponents: {
     ShellSidebar,
