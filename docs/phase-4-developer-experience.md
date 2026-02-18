@@ -365,15 +365,17 @@ packages/
 - [ ] Create `@aazucena/forms/fields/`
   - TextField, TextArea, SelectField
 
-**Afternoon (4 hours): Inquiry Firewall (Cal.com)**
-- [ ] **Implement Intelligent Inquiry Firewall**
-  - Integrate `@calcom/embed-react` into `@aazucena/ui`
-  - Build gated form logic in `@aazucena/forms`
-  - Connect to `intel-engine` for SHADES analysis
+**Afternoon (4 hours): Form Schema + Wizard Foundation**
+- [x] ~~Implement Intelligent Inquiry Firewall~~ → **DEFERRED to AI Forms feature phase**
+  - Requires formal SHADES scoring pipeline in `intel-engine`, Cal.com integration, multi-step AI dialogue state machine, and `MeetingQualifier` API route — full product feature, not DX tooling
+  - Foundation already laid: `FormWizard`, `useFormSubmit`, 8 Zod schemas in `@aazucena/forms`
+  - See: `docs/features/inquiry-firewall.md`
+- [ ] Validate form schemas type-check correctly against `@aazucena/types`
+- [ ] Ensure `FormWizard` and `useEasterEggChallenge` are exported cleanly
 
 **Deliverables:**
-- ✅ Complete form system
-- ✅ AI-Gated Scheduler (Inquiry Firewall)
+- ✅ Complete form system (schemas, wizard, submission hook)
+- ⏳ AI-Gated Scheduler (Inquiry Firewall) → Deferred to AI Forms phase
 
 ---
 
