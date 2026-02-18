@@ -4,6 +4,10 @@
     "**/.env.*local"
   ],
   "tasks": {
+    "release": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
     "e2e": {
       "passThroughEnv": ["PLAYWRIGHT_*"],
       "dependsOn": ["^build"]

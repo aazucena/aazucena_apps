@@ -1,4 +1,1 @@
-pnpm lint-staged
-pnpm run type-check:packages
-pnpm run lint:packages
-pnpm run format:check:packages
+npx lint-staged

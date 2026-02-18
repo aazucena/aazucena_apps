@@ -1,7 +1,11 @@
 {
   "name": "aazucena",
   "private": true,
+  "license": "MIT",
   "scripts": {
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo build && changeset publish",
     "build": "turbo build",
     "dev": "turbo dev",
     "type-check": "turbo type-check",
@@ -14,7 +18,8 @@
     "format:check:packages": "prettier --check \"packages/**/*.{ts,tsx,js,jsx,mjs,md,json,css,scss}\"",
     "lint": "turbo lint",
     "lint:packages": "pnpm lint --filter=\"./packages/*\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "pre-commit": "turbo lint type-check"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mjs,mjsx}": [
@@ -26,6 +31,10 @@
     ]
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/cli": "^2.29.8",
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.4.2",
