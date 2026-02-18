@@ -107,6 +107,7 @@ export * from './item.js';
 export * from './kanban.js';
 export * from './kbd.js';
 export * from './label.js';
+export * from './lightbox.js';
 export * from './link-menu.js';
 export * from './list-group.js';
 export * from './list.js';
