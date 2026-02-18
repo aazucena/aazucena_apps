@@ -8,6 +8,10 @@
       "passThroughEnv": ["PLAYWRIGHT_*"],
       "dependsOn": ["^build"]
     },
+    "build:storybook": {
+      "dependsOn": ["^build:storybook"],
+      "outputs": ["storybook-static/**"]
+    },
     "build": {
       "dependsOn": [
         "^build"
@@ -20,8 +24,7 @@
         "!.astro/**/*",
         "!.cache/**/*",
         "!mod.js",
-        "!mod.js.map",
-        "storybook-static/**"
+        "!mod.js.map"
       ],
       "passThroughEnv": [
         "STRAPI_API_ENDPOINT",

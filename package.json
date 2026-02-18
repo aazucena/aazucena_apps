@@ -43,6 +43,8 @@
       "sharp"
     ],
     "overrides": {
+      "react": "19.2.4",
+      "react-dom": "19.2.4",
       "react-reconciler": "0.34.0-canary-71b3a03c-20251021"
     }
   }

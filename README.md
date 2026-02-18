@@ -22,7 +22,7 @@ aazucena_apps/
 │   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal (Next.js)
 │   └── cms/                # Strapi CMS backend
 ├── packages/               # 13 specialized packages (Phase 4)
-│   ├── design-system/      # Design tokens + documentation
+│   ├── design-system/      # Design tokens + 35 platform integrations + docs
 │   ├── ui/                 # Component library (ShadCN + composed)
 │   ├── hooks/              # React hooks library
 │   ├── utils/              # Pure utility functions
