@@ -27,8 +27,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component:
-          'A data dashboard composed from Stat, Tabs, Badge, and Card primitives.',
+        component: 'A data dashboard composed from Stat, Tabs, Badge, and Card primitives.',
       },
     },
   },
@@ -98,9 +97,7 @@ export const Default: Story = {
                     <StatLabel>{stat.label}</StatLabel>
                   </div>
                   <StatValue>{stat.value}</StatValue>
-                  <StatDescription className="text-emerald-500 mt-1">
-                    {stat.change}
-                  </StatDescription>
+                  <StatDescription className="text-emerald-500 mt-1">{stat.change}</StatDescription>
                 </Stat>
               </CardContent>
             </Card>

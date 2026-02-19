@@ -17,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A semantic label component for form controls. Features built-in accessibility and peer-state awareness.',
+        component:
+          'A semantic label component for form controls. Features built-in accessibility and peer-state awareness.',
       },
     },
   },
@@ -65,7 +66,9 @@ export const TechnicalContext: Story = {
         <Label htmlFor="key" className="gap-2">
           Encryption_Key <Info size={12} className="opacity-40" />
         </Label>
-        <Badge variant="cyber" size="xs">REQUIRED</Badge>
+        <Badge variant="cyber" size="xs">
+          REQUIRED
+        </Badge>
       </div>
       <Input id="key" type="password" />
     </div>
@@ -78,7 +81,9 @@ export const TechnicalContext: Story = {
 export const DisabledState: Story = {
   render: () => (
     <div className="w-80 space-y-3">
-      <Label htmlFor="disabled-input" className="peer-disabled:opacity-50">Locked_Configuration</Label>
+      <Label htmlFor="disabled-input" className="peer-disabled:opacity-50">
+        Locked_Configuration
+      </Label>
       <Input id="disabled-input" disabled value="0x7F42_ADMIN_ONLY" />
     </div>
   ),

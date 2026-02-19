@@ -27,9 +27,7 @@ const sampleData = {
       id: '3',
       label: 'Lisa Wang',
       title: 'CFO',
-      children: [
-        { id: '6', label: 'Rachel Green', title: 'Finance Director' },
-      ],
+      children: [{ id: '6', label: 'Rachel Green', title: 'Finance Director' }],
     },
   ],
 };

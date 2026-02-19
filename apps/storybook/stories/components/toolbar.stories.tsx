@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Toolbar, ToolbarButton } from '@aazucena/ui';
-import { Layout, Globe, Activity, CogFour as Cog, Shield, Zap, Search, User } from '@aazucena/icons';
+import {
+  Layout,
+  Globe,
+  Activity,
+  CogFour as Cog,
+  Shield,
+  Zap,
+  Search,
+  User,
+} from '@aazucena/icons';
 import { useState } from 'react';
 
 /**
@@ -19,7 +28,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A persistent navigation or utility bar. Usually fixed to the viewport edges to provide global actions.',
+        component:
+          'A persistent navigation or utility bar. Usually fixed to the viewport edges to provide global actions.',
       },
     },
   },
@@ -29,20 +39,27 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber', 'ghost'],
       description: 'The visual theme of the toolbar',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     position: {
       control: 'select',
-      options: ['top-left', 'top-right', 'top-center', 'bottom-left', 'bottom-right', 'bottom-center'],
+      options: [
+        'top-left',
+        'top-right',
+        'top-center',
+        'bottom-left',
+        'bottom-right',
+        'bottom-center',
+      ],
       description: 'The fixed anchoring point',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     orientation: {
       control: 'radio',
       options: ['horizontal', 'vertical'],
       description: 'The layout axis',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Toolbar>;
 
@@ -93,7 +110,9 @@ export const CyberTerminal: Story = {
         <ToolbarButton variant="cyber" icon={<Cog size={20} />} label="SYS_CONFIG" />
       </Toolbar>
       <div className="h-full flex items-center justify-center">
-        <h1 className="font-mono text-cyan-500/20 text-4xl font-black italic select-none uppercase tracking-[0.2em]">UPLINK_TERMINAL</h1>
+        <h1 className="font-mono text-cyan-500/20 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
+          UPLINK_TERMINAL
+        </h1>
       </div>
     </div>
   ),
@@ -112,11 +131,26 @@ export const GlassAtmospheric: Story = {
     <div className="h-[400px] w-full bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 relative overflow-hidden flex flex-col items-center justify-center">
       <div className="absolute inset-0 bg-black/20" />
       <Toolbar {...args} className="bg-white/5 border-white/10 shadow-2xl">
-        <ToolbarButton variant="glass" icon={<Layout size={20} className="text-white" />} label="Layers" />
-        <ToolbarButton variant="glass" icon={<Globe size={20} className="text-white" />} label="Regions" isActive />
-        <ToolbarButton variant="glass" icon={<Activity size={20} className="text-white" />} label="Telemetry" />
+        <ToolbarButton
+          variant="glass"
+          icon={<Layout size={20} className="text-white" />}
+          label="Layers"
+        />
+        <ToolbarButton
+          variant="glass"
+          icon={<Globe size={20} className="text-white" />}
+          label="Regions"
+          isActive
+        />
+        <ToolbarButton
+          variant="glass"
+          icon={<Activity size={20} className="text-white" />}
+          label="Telemetry"
+        />
       </Toolbar>
-      <span className="text-white font-black text-3xl tracking-tighter uppercase opacity-20">Crystal_Layer_Sync</span>
+      <span className="text-white font-black text-3xl tracking-tighter uppercase opacity-20">
+        Crystal_Layer_Sync
+      </span>
     </div>
   ),
 };
@@ -129,27 +163,31 @@ export const Interactive: Story = {
     const [active, setActive] = useState('d');
     return (
       <div className="h-[200px] w-full flex items-center justify-center bg-muted/5 border-2 border-dashed rounded-[3rem]">
-        <Toolbar position="top-center" variant="glass" className="relative top-0 left-0 translate-x-0">
-          <ToolbarButton 
-            icon={<Layout size={20} />} 
-            label="Layout" 
-            isActive={active === 'l'} 
-            onClick={() => setActive('l')} 
+        <Toolbar
+          position="top-center"
+          variant="glass"
+          className="relative top-0 left-0 translate-x-0"
+        >
+          <ToolbarButton
+            icon={<Layout size={20} />}
+            label="Layout"
+            isActive={active === 'l'}
+            onClick={() => setActive('l')}
           />
-          <ToolbarButton 
-            icon={<Globe size={20} />} 
-            label="Globe" 
-            isActive={active === 'g'} 
-            onClick={() => setActive('g')} 
+          <ToolbarButton
+            icon={<Globe size={20} />}
+            label="Globe"
+            isActive={active === 'g'}
+            onClick={() => setActive('g')}
           />
-          <ToolbarButton 
-            icon={<Activity size={20} />} 
-            label="Activity" 
-            isActive={active === 'a'} 
-            onClick={() => setActive('a')} 
+          <ToolbarButton
+            icon={<Activity size={20} />}
+            label="Activity"
+            isActive={active === 'a'}
+            onClick={() => setActive('a')}
           />
         </Toolbar>
       </div>
     );
-  }
+  },
 };

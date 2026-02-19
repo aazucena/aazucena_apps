@@ -59,7 +59,10 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Inplace display={<span className="text-muted-foreground">Click to edit</span>}>
-      <input className="rounded border border-input bg-background px-2 py-1 text-sm outline-none" defaultValue="Edit me" />
+      <input
+        className="rounded border border-input bg-background px-2 py-1 text-sm outline-none"
+        defaultValue="Edit me"
+      />
     </Inplace>
   ),
 };
@@ -67,7 +70,10 @@ export const Basic: Story = {
 export const Closable: Story = {
   render: () => (
     <Inplace closable display={<span className="text-muted-foreground">Click to edit</span>}>
-      <input className="rounded border border-input bg-background px-2 py-1 text-sm outline-none" defaultValue="Edit me" />
+      <input
+        className="rounded border border-input bg-background px-2 py-1 text-sm outline-none"
+        defaultValue="Edit me"
+      />
     </Inplace>
   ),
 };
@@ -77,13 +83,11 @@ export const Controlled: Story = {
     const [active, setActive] = React.useState(false);
     return (
       <div className="flex flex-col gap-2">
-        <Inplace
-          active={active}
-          onToggle={setActive}
-          closable
-          display={<span>Click to edit</span>}
-        >
-          <input className="rounded border border-input bg-background px-2 py-1 text-sm outline-none" defaultValue="Controlled" />
+        <Inplace active={active} onToggle={setActive} closable display={<span>Click to edit</span>}>
+          <input
+            className="rounded border border-input bg-background px-2 py-1 text-sm outline-none"
+            defaultValue="Controlled"
+          />
         </Inplace>
         <p className="text-xs text-muted-foreground">Active: {String(active)}</p>
       </div>
@@ -95,7 +99,10 @@ export const Glass: Story = {
   render: () => (
     <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
       <Inplace variant="glass" closable display={<span>Click to edit</span>}>
-        <input className="rounded border border-white/20 bg-white/10 px-2 py-1 text-sm text-white outline-none" defaultValue="Glass" />
+        <input
+          className="rounded border border-white/20 bg-white/10 px-2 py-1 text-sm text-white outline-none"
+          defaultValue="Glass"
+        />
       </Inplace>
     </div>
   ),
@@ -104,7 +111,10 @@ export const Glass: Story = {
 export const Cyber: Story = {
   render: () => (
     <Inplace variant="cyber" closable display={<span>CLICK_TO_EDIT</span>}>
-      <input className="rounded border border-cyan-500/30 bg-black/50 px-2 py-1 text-sm text-cyan-50 font-mono outline-none" defaultValue="CYBER_VALUE" />
+      <input
+        className="rounded border border-cyan-500/30 bg-black/50 px-2 py-1 text-sm text-cyan-50 font-mono outline-none"
+        defaultValue="CYBER_VALUE"
+      />
     </Inplace>
   ),
 };
@@ -113,14 +123,20 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
       {(['sm', 'md', 'lg'] as const).map((s) => (
-        <Inplace key={s} size={s} display={<span className="text-muted-foreground">Size: {s}</span>}>
-          <input className="rounded border border-input bg-background px-2 py-1 text-sm outline-none" defaultValue={s} />
+        <Inplace
+          key={s}
+          size={s}
+          display={<span className="text-muted-foreground">Size: {s}</span>}
+        >
+          <input
+            className="rounded border border-input bg-background px-2 py-1 text-sm outline-none"
+            defaultValue={s}
+          />
         </Inplace>
       ))}
     </div>
   ),
 };
-
 
 /**
  * Automated interaction test: click display to enter edit mode, verify input visible.

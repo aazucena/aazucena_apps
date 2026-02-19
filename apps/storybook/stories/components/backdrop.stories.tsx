@@ -81,9 +81,7 @@ export const Basic: Story = {
     variant: 'default',
     open: true,
   },
-  render: (args) => (
-    <Backdrop {...args} className="!absolute !z-10" />
-  ),
+  render: (args) => <Backdrop {...args} className="!absolute !z-10" />,
 };
 
 // --- VISUAL VARIANTS ---
@@ -116,9 +114,7 @@ export const Cyber: Story = {
     ...Basic.args,
     variant: 'cyber',
   },
-  render: (args) => (
-    <Backdrop {...args} className="!absolute !z-10" />
-  ),
+  render: (args) => <Backdrop {...args} className="!absolute !z-10" />,
 };
 
 /**
@@ -129,9 +125,7 @@ export const Light: Story = {
     ...Basic.args,
     variant: 'light',
   },
-  render: (args) => (
-    <Backdrop {...args} className="!absolute !z-10" />
-  ),
+  render: (args) => <Backdrop {...args} className="!absolute !z-10" />,
 };
 
 // --- ADVANCED ---

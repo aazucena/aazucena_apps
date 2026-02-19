@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { within, expect, userEvent } from '@storybook/test';
-import {
-  ArrowLink,
-  ArrowLinkSubtitle,
-  ArrowLinkTitle,
-} from '@aazucena/ui';
+import { ArrowLink, ArrowLinkSubtitle, ArrowLinkTitle } from '@aazucena/ui';
 
 /**
  * ## Engineering Standards
@@ -20,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A semantic navigation link featuring an animated directional arrow. Supports inline, circular, and large card variations.',
+        component:
+          'A semantic navigation link featuring an animated directional arrow. Supports inline, circular, and large card variations.',
       },
     },
   },
@@ -29,41 +26,41 @@ const meta = {
     variant: {
       control: 'select',
       options: [
-        'default', 
-        'cyber', 
-        'muted', 
-        'white', 
-        'card', 
-        'card-glass', 
-        'card-cyber', 
-        'circular', 
-        'circular-cyber'
+        'default',
+        'cyber',
+        'muted',
+        'white',
+        'card',
+        'card-glass',
+        'card-cyber',
+        'circular',
+        'circular-cyber',
       ],
       description: 'Visual style variation',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['xs', 'sm', 'default', 'lg', 'xl'],
       description: 'Text size preset',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     direction: {
       control: 'radio',
       options: ['left', 'right'],
       description: 'Direction of the arrow and flow',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     showArrow: {
       control: 'boolean',
       description: 'Toggle arrow visibility',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     iconSize: {
       control: 'number',
       description: 'Override standard icon size',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof ArrowLink>;
 
@@ -103,8 +100,12 @@ export const Cyber: Story = {
 export const Circular: Story = {
   render: () => (
     <div className="flex gap-8 items-center">
-      <ArrowLink variant="circular" direction="left" href="#">Back</ArrowLink>
-      <ArrowLink variant="circular-cyber" size="sm" href="#">CONTINUE</ArrowLink>
+      <ArrowLink variant="circular" direction="left" href="#">
+        Back
+      </ArrowLink>
+      <ArrowLink variant="circular-cyber" size="sm" href="#">
+        CONTINUE
+      </ArrowLink>
     </div>
   ),
 };
@@ -119,12 +120,12 @@ export const Cards: Story = {
         <ArrowLinkTitle>PROJECTS</ArrowLinkTitle>
         <ArrowLinkSubtitle>Engineering portfolio</ArrowLinkSubtitle>
       </ArrowLink>
-      
+
       <ArrowLink variant="card-glass" href="#">
         <ArrowLinkTitle>JOURNEY</ArrowLinkTitle>
         <ArrowLinkSubtitle>Career timeline & stats</ArrowLinkSubtitle>
       </ArrowLink>
-      
+
       <ArrowLink variant="card-cyber" href="#">
         <ArrowLinkTitle className="font-mono italic">// INTEL</ArrowLinkTitle>
         <ArrowLinkSubtitle className="font-mono">Technical telemetry</ArrowLinkSubtitle>
@@ -144,11 +145,11 @@ export const InteractionTest: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole('link');
-    
+
     // Test focus
     await link.focus();
     await expect(link).toHaveFocus();
-    
+
     // Simulate interaction
     await userEvent.click(link);
   },

@@ -70,6 +70,7 @@ apps/storybook/
 ### Adding New Stories
 
 1. Create a new story file in `stories/`:
+
    ```typescript
    // stories/my-component.stories.tsx
    import type { Meta, StoryObj } from '@storybook/react-vite';

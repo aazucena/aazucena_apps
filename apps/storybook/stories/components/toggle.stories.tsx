@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Toggle } from '@aazucena/ui';
-import { Shield, Zap, Activity, Globe, Pin, TypeBold as Bold, TypeItalic as Italic } from '@aazucena/icons';
+import {
+  Shield,
+  Zap,
+  Activity,
+  Globe,
+  Pin,
+  TypeBold as Bold,
+  TypeItalic as Italic,
+} from '@aazucena/icons';
 import { within, userEvent, expect } from '@storybook/test';
 
 /**
@@ -27,24 +35,24 @@ const meta = {
       control: 'select',
       options: ['default', 'outline'],
       description: 'The visual style of the toggle',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'radio',
       options: ['sm', 'default', 'lg'],
       description: 'Physical dimensions',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents interaction',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     pressed: {
       control: 'boolean',
       description: 'The controlled pressed state',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof Toggle>;
 
@@ -86,10 +94,17 @@ export const CyberTerminal: Story = {
   render: () => (
     <div className="p-8 bg-black border border-cyan-500/10 rounded-2xl flex items-center gap-6">
       <div className="flex flex-col gap-1">
-        <span className="text-[10px] font-mono text-cyan-500 opacity-40 uppercase tracking-widest">Uplink_Sync</span>
-        <span className="text-[8px] font-mono text-cyan-500/20 uppercase tracking-tighter italic">Phase: 0x7F42</span>
+        <span className="text-[10px] font-mono text-cyan-500 opacity-40 uppercase tracking-widest">
+          Uplink_Sync
+        </span>
+        <span className="text-[8px] font-mono text-cyan-500/20 uppercase tracking-tighter italic">
+          Phase: 0x7F42
+        </span>
       </div>
-      <Toggle variant="outline" className="h-12 w-12 rounded-xl border-cyan-500/30 text-cyan-500 data-[state=on]:bg-cyan-500/20 data-[state=on]:text-cyan-400 data-[state=on]:border-cyan-400 hover:bg-cyan-500/10">
+      <Toggle
+        variant="outline"
+        className="h-12 w-12 rounded-xl border-cyan-500/30 text-cyan-500 data-[state=on]:bg-cyan-500/20 data-[state=on]:text-cyan-400 data-[state=on]:border-cyan-400 hover:bg-cyan-500/10"
+      >
         <Activity size={20} />
       </Toggle>
     </div>
@@ -103,15 +118,21 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-6">
       <div className="text-center space-y-3">
-        <Toggle size="sm" variant="outline"><Bold size={14}/></Toggle>
+        <Toggle size="sm" variant="outline">
+          <Bold size={14} />
+        </Toggle>
         <p className="text-[9px] font-mono opacity-40 uppercase">SM</p>
       </div>
       <div className="text-center space-y-3">
-        <Toggle size="default" variant="outline"><Bold size={16}/></Toggle>
+        <Toggle size="default" variant="outline">
+          <Bold size={16} />
+        </Toggle>
         <p className="text-[9px] font-mono opacity-40 uppercase">DEFAULT</p>
       </div>
       <div className="text-center space-y-3">
-        <Toggle size="lg" variant="outline"><Bold size={20}/></Toggle>
+        <Toggle size="lg" variant="outline">
+          <Bold size={20} />
+        </Toggle>
         <p className="text-[9px] font-mono opacity-40 uppercase">LG</p>
       </div>
     </div>

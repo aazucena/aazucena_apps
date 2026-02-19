@@ -12,7 +12,15 @@ import {
   StatusMonitorLogHeader,
   StatusMonitorLogContent,
 } from '@aazucena/ui';
-import { Activity, CheckCircle as ShieldCheck, DangerCircle as AlertCircle, InfoCircle, Terminal, Database, Globe } from '@aazucena/icons';
+import {
+  Activity,
+  CheckCircle as ShieldCheck,
+  DangerCircle as AlertCircle,
+  InfoCircle,
+  Terminal,
+  Database,
+  Globe,
+} from '@aazucena/icons';
 import { useState } from 'react';
 import { Badge, Button } from '@aazucena/ui';
 
@@ -40,7 +48,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A sophisticated monitoring module for displaying system health, active alerts, and diagnostic logs.',
+        component:
+          'A sophisticated monitoring module for displaying system health, active alerts, and diagnostic logs.',
       },
     },
   },
@@ -50,8 +59,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the monitor container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof StatusMonitor>;
 
@@ -80,11 +89,14 @@ export const NominalState: Story = {
               <StatusMonitorValue status="NOMINAL">ENCRYPTED_LOCKED</StatusMonitorValue>
             </div>
           </div>
-          <Badge variant="outline" size="xs">STABLE</Badge>
+          <Badge variant="outline" size="xs">
+            STABLE
+          </Badge>
         </StatusMonitorHeader>
         <StatusMonitorContent>
           <p className="text-sm opacity-60 leading-relaxed">
-            All cryptographic barriers are active. Node US_EAST_01 is reporting zero unauthorized handshake attempts in the current epoch.
+            All cryptographic barriers are active. Node US_EAST_01 is reporting zero unauthorized
+            handshake attempts in the current epoch.
           </p>
           <div className="mt-6 space-y-3">
             <StatusMonitorAlert level="NOMINAL">
@@ -97,8 +109,16 @@ export const NominalState: Story = {
           </div>
         </StatusMonitorContent>
         <StatusMonitorFooter>
-          <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Auto_Audit: PASS</span>
-          <Button variant="ghost" size="sm" className="h-8 text-[10px] font-bold uppercase tracking-widest">Details</Button>
+          <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+            Auto_Audit: PASS
+          </span>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 text-[10px] font-bold uppercase tracking-widest"
+          >
+            Details
+          </Button>
         </StatusMonitorFooter>
       </StatusMonitor>
     </div>
@@ -138,14 +158,24 @@ export const CriticalTerminal: Story = {
             <StatusMonitorAlert level="CRITICAL" className="bg-rose-500/10 border-rose-500/20">
               <div className="flex items-center gap-3">
                 <Terminal size={14} className="text-rose-500" />
-                <span className="text-xs font-black uppercase text-rose-500">Manual_Init_Required</span>
+                <span className="text-xs font-black uppercase text-rose-500">
+                  Manual_Init_Required
+                </span>
               </div>
             </StatusMonitorAlert>
           </div>
         </StatusMonitorContent>
         <StatusMonitorFooter variant="cyber" className="border-rose-500/20">
-          <span className="text-[10px] font-mono text-rose-500/40 uppercase">Awaiting_Admin_Pulse_</span>
-          <Button variant="destructive" size="sm" className="h-8 rounded-lg uppercase font-black tracking-widest text-[9px]">Reboot_Kernel</Button>
+          <span className="text-[10px] font-mono text-rose-500/40 uppercase">
+            Awaiting_Admin_Pulse_
+          </span>
+          <Button
+            variant="destructive"
+            size="sm"
+            className="h-8 rounded-lg uppercase font-black tracking-widest text-[9px]"
+          >
+            Reboot_Kernel
+          </Button>
         </StatusMonitorFooter>
       </StatusMonitor>
     </div>
@@ -166,7 +196,10 @@ export const GlassMonitor: Story = {
         <StatusMonitor {...args} className="border-white/10 shadow-2xl">
           <StatusMonitorHeader status="NOMINAL" className="border-white/10 bg-white/5">
             <div className="flex items-center gap-4 text-white">
-              <StatusMonitorIcon status="NOMINAL" className="bg-white/10 border-white/20 text-white shadow-none">
+              <StatusMonitorIcon
+                status="NOMINAL"
+                className="bg-white/10 border-white/20 text-white shadow-none"
+              >
                 <Globe size={24} />
               </StatusMonitorIcon>
               <div>
@@ -177,7 +210,10 @@ export const GlassMonitor: Story = {
           </StatusMonitorHeader>
           <StatusMonitorContent className="text-white/80">
             <div className="space-y-6">
-              <p className="text-xs leading-relaxed">Continental edge nodes are reporting consistent heartbeat signals. Signal gain optimization is running at **98.4%** efficiency.</p>
+              <p className="text-xs leading-relaxed">
+                Continental edge nodes are reporting consistent heartbeat signals. Signal gain
+                optimization is running at **98.4%** efficiency.
+              </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-3 bg-white/5 border border-white/10 rounded-xl">
                   <span className="text-[9px] font-black uppercase text-white/40">US_East</span>

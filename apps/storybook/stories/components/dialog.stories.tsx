@@ -42,7 +42,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A standard modal dialog box. Supports multiple visual themes and immersive header compositions.',
+        component:
+          'A standard modal dialog box. Supports multiple visual themes and immersive header compositions.',
       },
     },
   },
@@ -52,14 +53,14 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the dialog content',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['default', 'sm', 'lg', 'xl', 'full'],
       description: 'The physical maximum width of the dialog',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Dialog>;
 
@@ -131,14 +132,21 @@ export const CyberSpec: Story = {
           <DialogBody className="p-0 py-8 font-mono text-xs space-y-4">
             <div className="p-4 bg-rose-500/5 border border-rose-500/20 rounded-xl text-rose-500">
               <p className="font-black uppercase mb-1 underline">WARNING_DESTRUCTION_NOTICE</p>
-              <p>Proceeding will purge all cached telemetry packets and reset local node identifiers. This action is **IRREVERSIBLE**.</p>
+              <p>
+                Proceeding will purge all cached telemetry packets and reset local node identifiers.
+                This action is **IRREVERSIBLE**.
+              </p>
             </div>
             <p className="opacity-60 italic">{'>'} Confirming authorization sequence...</p>
           </DialogBody>
         </div>
         <DialogFooter className="px-8 border-cyan-500/10">
-          <Button variant="ghost" className="text-cyan-500">Abort</Button>
-          <Button variant="destructive" className="px-10">PURGE_DATA</Button>
+          <Button variant="ghost" className="text-cyan-500">
+            Abort
+          </Button>
+          <Button variant="destructive" className="px-10">
+            PURGE_DATA
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -171,10 +179,17 @@ export const GlassHero: Story = {
             </DialogDescription>
           </DialogHeader>
           <DialogBody className="p-0 py-8 text-center text-white/80">
-            <p className="text-sm">Join the 14,000+ engineers leveraging high-fidelity telemetry for biometric optimization.</p>
+            <p className="text-sm">
+              Join the 14,000+ engineers leveraging high-fidelity telemetry for biometric
+              optimization.
+            </p>
           </DialogBody>
           <DialogFooter className="p-0 border-white/10 justify-center">
-            <Button variant="glass" size="lg" className="rounded-full px-12 bg-white text-black hover:bg-white/90">
+            <Button
+              variant="glass"
+              size="lg"
+              className="rounded-full px-12 bg-white text-black hover:bg-white/90"
+            >
               Upgrade_Now
             </Button>
           </DialogFooter>

@@ -81,9 +81,15 @@ export const Cyber: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="space-y-4">
-      <AvatarGroup size="sm" max={4}>{renderAvatars(5)}</AvatarGroup>
-      <AvatarGroup size="default" max={4}>{renderAvatars(5)}</AvatarGroup>
-      <AvatarGroup size="lg" max={4}>{renderAvatars(5)}</AvatarGroup>
+      <AvatarGroup size="sm" max={4}>
+        {renderAvatars(5)}
+      </AvatarGroup>
+      <AvatarGroup size="default" max={4}>
+        {renderAvatars(5)}
+      </AvatarGroup>
+      <AvatarGroup size="lg" max={4}>
+        {renderAvatars(5)}
+      </AvatarGroup>
     </div>
   ),
 };

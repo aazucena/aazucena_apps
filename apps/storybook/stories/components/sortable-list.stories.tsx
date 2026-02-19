@@ -61,7 +61,9 @@ const SortableDemo = (props: Partial<React.ComponentProps<typeof SortableList>>)
       keyExtractor={(item: Item) => item.id}
       renderItem={(item: Item, _index: number, dragHandleProps) => (
         <div className="flex items-center gap-3 rounded-md border bg-background px-3 py-2">
-          <span className="cursor-grab text-muted-foreground" {...dragHandleProps}>⠿</span>
+          <span className="cursor-grab text-muted-foreground" {...dragHandleProps}>
+            ⠿
+          </span>
           <span className="text-sm">{item.label}</span>
         </div>
       )}

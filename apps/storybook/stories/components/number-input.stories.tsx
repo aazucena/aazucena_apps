@@ -192,14 +192,18 @@ export const InteractionTest: Story = {
     // Find increment button (aria-label contains 'increment' or '+')
     const buttons = canvas.getAllByRole('button');
     // NumberInput has decrement (index 0) and increment (index 1)
-    const incrementBtn = buttons.find((b: HTMLElement) =>
-      b.getAttribute('aria-label')?.toLowerCase().includes('increment') ||
-      b.textContent?.includes('+')
-    ) ?? buttons[1];
-    const decrementBtn = buttons.find((b: HTMLElement) =>
-      b.getAttribute('aria-label')?.toLowerCase().includes('decrement') ||
-      b.textContent?.includes('-')
-    ) ?? buttons[0];
+    const incrementBtn =
+      buttons.find(
+        (b: HTMLElement) =>
+          b.getAttribute('aria-label')?.toLowerCase().includes('increment') ||
+          b.textContent?.includes('+'),
+      ) ?? buttons[1];
+    const decrementBtn =
+      buttons.find(
+        (b: HTMLElement) =>
+          b.getAttribute('aria-label')?.toLowerCase().includes('decrement') ||
+          b.textContent?.includes('-'),
+      ) ?? buttons[0];
     await userEvent.click(incrementBtn);
     await expect(input).toHaveValue(6);
     await userEvent.click(decrementBtn);

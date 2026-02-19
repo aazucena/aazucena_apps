@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  ButtonGroup, 
-  ButtonGroupItem, 
-  ButtonGroupSeparator, 
-  ButtonGroupText 
-} from '@aazucena/ui';
+import { ButtonGroup, ButtonGroupItem, ButtonGroupSeparator, ButtonGroupText } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';
 import { Layout, Globe, Activity, Plus, Minus } from '@aazucena/icons';
 
@@ -18,16 +13,17 @@ import { Layout, Globe, Activity, Plus, Minus } from '@aazucena/icons';
 const meta = {
   title: 'Components/Actions/ButtonGroup',
   component: ButtonGroup,
-  subcomponents: { 
-    ButtonGroupItem, 
-    ButtonGroupSeparator, 
-    ButtonGroupText 
+  subcomponents: {
+    ButtonGroupItem,
+    ButtonGroupSeparator,
+    ButtonGroupText,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A wrapper for clustering buttons together. Handles layout distribution, orientation, and visual unification of nested elements.',
+        component:
+          'A wrapper for clustering buttons together. Handles layout distribution, orientation, and visual unification of nested elements.',
       },
     },
   },
@@ -37,14 +33,14 @@ const meta = {
       control: 'select',
       options: ['default', 'actions', 'inline', 'glass', 'cyber'],
       description: 'The visual grouping style',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     orientation: {
       control: 'radio',
       options: ['horizontal', 'vertical'],
       description: 'Layout flow of the group',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof ButtonGroup>;
 
@@ -59,9 +55,15 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: (args) => (
     <ButtonGroup {...args}>
-      <Button variant="outline" size="sm"><Layout className="mr-2 h-3 w-3" /> Grid</Button>
-      <Button variant="outline" size="sm"><Activity className="mr-2 h-3 w-3" /> List</Button>
-      <Button variant="outline" size="sm"><Globe className="mr-2 h-3 w-3" /> Map</Button>
+      <Button variant="outline" size="sm">
+        <Layout className="mr-2 h-3 w-3" /> Grid
+      </Button>
+      <Button variant="outline" size="sm">
+        <Activity className="mr-2 h-3 w-3" /> List
+      </Button>
+      <Button variant="outline" size="sm">
+        <Globe className="mr-2 h-3 w-3" /> Map
+      </Button>
     </ButtonGroup>
   ),
 };
@@ -97,11 +99,17 @@ export const GlassSegments: Story = {
   render: (args) => (
     <div className="p-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[3rem]">
       <ButtonGroup {...args}>
-        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">ANALYTICS</Button>
+        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">
+          ANALYTICS
+        </Button>
         <ButtonGroupSeparator className="bg-white/10" />
-        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">TRAJECTORY</Button>
+        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">
+          TRAJECTORY
+        </Button>
         <ButtonGroupSeparator className="bg-white/10" />
-        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">INTEL</Button>
+        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">
+          INTEL
+        </Button>
       </ButtonGroup>
     </div>
   ),
@@ -133,9 +141,15 @@ export const VerticalGroup: Story = {
   },
   render: (args) => (
     <ButtonGroup {...args} className="w-48">
-      <Button variant="outline" className="justify-start">Profile Settings</Button>
-      <Button variant="outline" className="justify-start">Security</Button>
-      <Button variant="outline" className="justify-start">Uplink Status</Button>
+      <Button variant="outline" className="justify-start">
+        Profile Settings
+      </Button>
+      <Button variant="outline" className="justify-start">
+        Security
+      </Button>
+      <Button variant="outline" className="justify-start">
+        Uplink Status
+      </Button>
     </ButtonGroup>
   ),
 };

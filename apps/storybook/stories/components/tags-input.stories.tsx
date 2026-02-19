@@ -186,7 +186,6 @@ export const Disabled: Story = {
   },
 };
 
-
 /**
  * Automated interaction test: type a tag and press Enter, verify chip appears.
  */

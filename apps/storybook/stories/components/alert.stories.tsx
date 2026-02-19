@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Alert, AlertDescription, AlertTitle } from '@aazucena/ui';
-import { 
-  InfoCircle, 
-  DangerTriangle, 
-  Activity, 
-  Terminal, 
+import {
+  InfoCircle,
+  DangerTriangle,
+  Activity,
+  Terminal,
   CheckCircle,
   Bell,
   CloudUpload,
-  Refresh
+  Refresh,
 } from '@aazucena/icons';
 import { Button } from '@aazucena/ui';
 
@@ -18,7 +18,7 @@ import { Button } from '@aazucena/ui';
  * - **Role:** Uses `role="alert"` to notify assistive technologies of important information.
  * - **Contrast:** All variants are checked for AA contrast ratios in both light and dark modes.
  * - **Dismissal:** When `dismissible` is true, a button with `aria-label="Close alert"` is rendered.
- * 
+ *
  * ## Engineering Status
  * - **Design:** `Verified`
  * - **Maturity:** `Stable`
@@ -32,7 +32,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Displays a callout for user attention. Useful for success messages, errors, warnings, or technical status updates.',
+        component:
+          'Displays a callout for user attention. Useful for success messages, errors, warnings, or technical status updates.',
       },
     },
   },
@@ -40,7 +41,17 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'info', 'warning', 'success', 'error', 'destructive', 'dashboard', 'glass', 'cyber'],
+      options: [
+        'default',
+        'info',
+        'warning',
+        'success',
+        'error',
+        'destructive',
+        'dashboard',
+        'glass',
+        'cyber',
+      ],
       description: 'The visual style of the alert',
       table: {
         category: 'Appearance',
@@ -93,7 +104,7 @@ type Story = StoryObj<typeof meta>;
 // --- BASIC USAGE ---
 
 /**
- * The primary playground for the Alert. 
+ * The primary playground for the Alert.
  * **Interact with the Controls below** to live-edit the variant, icon, and dismissibility.
  */
 export const Basic: Story = {
@@ -123,9 +134,7 @@ export const SingleLine: Story = {
   },
   render: (args) => (
     <Alert {...args}>
-      <AlertDescription>
-        Telemetry stream 0.4.2 is now active and stable.
-      </AlertDescription>
+      <AlertDescription>Telemetry stream 0.4.2 is now active and stable.</AlertDescription>
     </Alert>
   ),
 };
@@ -141,9 +150,7 @@ export const NoIcon: Story = {
   render: (args) => (
     <Alert {...args}>
       <AlertTitle>System Notice</AlertTitle>
-      <AlertDescription>
-        Maintenance window scheduled for tomorrow at 02:00 UTC.
-      </AlertDescription>
+      <AlertDescription>Maintenance window scheduled for tomorrow at 02:00 UTC.</AlertDescription>
     </Alert>
   ),
 };
@@ -175,9 +182,7 @@ export const Warning: Story = {
   render: (args) => (
     <Alert {...args}>
       <AlertTitle>Warning</AlertTitle>
-      <AlertDescription>
-        Your current session is about to expire in 5 minutes.
-      </AlertDescription>
+      <AlertDescription>Your current session is about to expire in 5 minutes.</AlertDescription>
     </Alert>
   ),
 };
@@ -191,9 +196,7 @@ export const Success: Story = {
   render: (args) => (
     <Alert {...args}>
       <AlertTitle>Success</AlertTitle>
-      <AlertDescription>
-        All system deployments were executed successfully.
-      </AlertDescription>
+      <AlertDescription>All system deployments were executed successfully.</AlertDescription>
     </Alert>
   ),
 };
@@ -290,13 +293,14 @@ export const Announcement: Story = {
     variant: 'default',
     icon: Bell,
     borderAccent: true,
-    className: "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800",
+    className: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
   },
   render: (args) => (
     <Alert {...args}>
       <AlertTitle>Important Announcement</AlertTitle>
       <AlertDescription>
-        The AAZUCENA Design System v2.0 is launching next week. Stay tuned for the engineering workshop.
+        The AAZUCENA Design System v2.0 is launching next week. Stay tuned for the engineering
+        workshop.
       </AlertDescription>
     </Alert>
   ),
@@ -332,7 +336,7 @@ export const WithList: Story = {
 export const Dismissible: Story = {
   render: () => {
     const [isVisible, setIsVisible] = useState(true);
-    
+
     return (
       <div className="flex flex-col gap-4">
         {isVisible ? (
@@ -363,9 +367,7 @@ export const ManualPlacement: Story = {
     <Alert variant="default">
       <Bell className="h-4 w-4 text-blue-500" />
       <AlertTitle>Update Available</AlertTitle>
-      <AlertDescription>
-        You have 3 pending updates for your dashboard components.
-      </AlertDescription>
+      <AlertDescription>You have 3 pending updates for your dashboard components.</AlertDescription>
     </Alert>
   ),
 };
@@ -387,7 +389,9 @@ export const ComplexContent: Story = {
           <div className="h-1 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
             <div className="h-full bg-primary w-2/3" />
           </div>
-          <span className="text-[10px] opacity-50 uppercase font-mono tracking-widest">67% COMPLETED</span>
+          <span className="text-[10px] opacity-50 uppercase font-mono tracking-widest">
+            67% COMPLETED
+          </span>
         </div>
       </AlertDescription>
     </Alert>

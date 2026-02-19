@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@aazucena/ui';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@aazucena/ui';
 import { Button, Badge } from '@aazucena/ui';
 import { Shield, Zap, Activity, Globe, Plus, InfoCircle as Info } from '@aazucena/icons';
 
@@ -28,13 +23,13 @@ const meta = {
     delayDuration: {
       control: 'number',
       description: 'The duration from when the mouse enters the trigger until the tooltip opens.',
-      table: { category: 'Behavior', defaultValue: { summary: '700' } }
+      table: { category: 'Behavior', defaultValue: { summary: '700' } },
     },
     disableHoverableContent: {
       control: 'boolean',
       description: 'Prevents content from being hoverable',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
   decorators: [
     (Story) => (
@@ -78,14 +73,18 @@ export const CyberTerminal: Story = {
       <TooltipTrigger asChild>
         <div className="flex items-center gap-3 p-4 bg-black border border-cyan-500/10 rounded-xl cursor-help group">
           <Activity size={16} className="text-cyan-500" />
-          <span className="font-mono text-xs text-cyan-400 group-hover:text-cyan-300">UPLINK_US_EAST</span>
+          <span className="font-mono text-xs text-cyan-400 group-hover:text-cyan-300">
+            UPLINK_US_EAST
+          </span>
         </div>
       </TooltipTrigger>
       <TooltipContent variant="cyber" side="top" className="font-mono p-4">
         <div className="space-y-2">
           <div className="flex justify-between gap-8 text-[9px] uppercase font-black italic text-cyan-500/60">
             <span># BUFFER_SYNC</span>
-            <Badge variant="cyber" size="xs">NOMINAL</Badge>
+            <Badge variant="cyber" size="xs">
+              NOMINAL
+            </Badge>
           </div>
           <p className="text-[10px] text-cyan-50">Ingestion rate: 450 packets/s</p>
         </div>
@@ -107,7 +106,11 @@ export const GlassAtmospheric: Story = {
             <Info size={24} />
           </button>
         </TooltipTrigger>
-        <TooltipContent variant="glass" side="bottom" className="w-64 border-white/10 text-white p-4">
+        <TooltipContent
+          variant="glass"
+          side="bottom"
+          className="w-64 border-white/10 text-white p-4"
+        >
           <div className="flex flex-col gap-2">
             <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
             <p className="text-xs text-white/60 leading-relaxed">
@@ -127,19 +130,27 @@ export const Positioning: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-12">
       <Tooltip>
-        <TooltipTrigger asChild><Button variant="outline">Top</Button></TooltipTrigger>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Top</Button>
+        </TooltipTrigger>
         <TooltipContent side="top">Tooltip_Top</TooltipContent>
       </Tooltip>
       <Tooltip>
-        <TooltipTrigger asChild><Button variant="outline">Bottom</Button></TooltipTrigger>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Bottom</Button>
+        </TooltipTrigger>
         <TooltipContent side="bottom">Tooltip_Bottom</TooltipContent>
       </Tooltip>
       <Tooltip>
-        <TooltipTrigger asChild><Button variant="outline">Left</Button></TooltipTrigger>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Left</Button>
+        </TooltipTrigger>
         <TooltipContent side="left">Tooltip_Left</TooltipContent>
       </Tooltip>
       <Tooltip>
-        <TooltipTrigger asChild><Button variant="outline">Right</Button></TooltipTrigger>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Right</Button>
+        </TooltipTrigger>
         <TooltipContent side="right">Tooltip_Right</TooltipContent>
       </Tooltip>
     </div>
@@ -155,7 +166,9 @@ export const InteractionTest: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="outline" aria-label="Help">Help</Button>
+        <Button variant="outline" aria-label="Help">
+          Help
+        </Button>
       </TooltipTrigger>
       <TooltipContent>
         <p>Tooltip is visible</p>

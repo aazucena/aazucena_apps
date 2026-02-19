@@ -17,7 +17,18 @@ import {
   MenubarGroup,
   MenubarPortal,
 } from '@aazucena/ui';
-import { User, CogFour as Cog, Activity, Globe, Layout, PlusCircle as Plus, Shield, Zap, Trash, Copy } from '@aazucena/icons';
+import {
+  User,
+  CogFour as Cog,
+  Activity,
+  Globe,
+  Layout,
+  PlusCircle as Plus,
+  Shield,
+  Zap,
+  Trash,
+  Copy,
+} from '@aazucena/icons';
 import { useState } from 'react';
 
 /**
@@ -51,7 +62,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A persistent horizontal menu bar for complex application interfaces. Supports nested submenus, selection items, and keyboard shortcuts.',
+        component:
+          'A persistent horizontal menu bar for complex application interfaces. Supports nested submenus, selection items, and keyboard shortcuts.',
       },
     },
   },
@@ -90,12 +102,16 @@ export const Basic: Story = {
           <MenubarItem>Print_Report</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
-      
+
       <MenubarMenu>
         <MenubarTrigger className="font-bold">Edit</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>Undo <MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
-          <MenubarItem>Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut></MenubarItem>
+          <MenubarItem>
+            Undo <MenubarShortcut>⌘Z</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
+          </MenubarItem>
           <MenubarSeparator />
           <MenubarItem>Reset_Session</MenubarItem>
         </MenubarContent>
@@ -130,7 +146,9 @@ export const CyberTerminal: Story = {
             // KERNEL
           </MenubarTrigger>
           <MenubarContent variant="cyber" className="w-64">
-            <MenubarLabel className="text-cyan-500/60 uppercase text-[10px]"># CORE_OPERATIONS</MenubarLabel>
+            <MenubarLabel className="text-cyan-500/60 uppercase text-[10px]">
+              # CORE_OPERATIONS
+            </MenubarLabel>
             <MenubarSeparator className="bg-cyan-500/20" />
             <MenubarItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
               <Activity className="size-4" /> STATUS_REPORT
@@ -142,7 +160,7 @@ export const CyberTerminal: Story = {
             <MenubarItem className="focus:bg-rose-500/20 text-rose-500">SHUTDOWN_NODE</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
-        
+
         <MenubarMenu>
           <MenubarTrigger className="text-cyan-500 hover:bg-cyan-500/10 italic font-black uppercase tracking-tighter">
             // NETWORK
@@ -185,7 +203,9 @@ export const GlassToolbar: Story = {
               View
             </MenubarTrigger>
             <MenubarContent variant="glass" className="border-white/10 text-white">
-              <MenubarCheckboxItem checked className="focus:bg-white/10">Show_Telemetry</MenubarCheckboxItem>
+              <MenubarCheckboxItem checked className="focus:bg-white/10">
+                Show_Telemetry
+              </MenubarCheckboxItem>
               <MenubarCheckboxItem className="focus:bg-white/10">Grid_Overlay</MenubarCheckboxItem>
             </MenubarContent>
           </MenubarMenu>

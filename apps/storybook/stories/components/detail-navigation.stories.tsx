@@ -15,7 +15,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A navigation footer for detail pages that provides links to the previous and next items in a sequence.',
+        component:
+          'A navigation footer for detail pages that provides links to the previous and next items in a sequence.',
       },
     },
   },
@@ -25,13 +26,13 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual style of the navigation blocks',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     basePath: {
       control: 'text',
       description: 'The root path for generating full URLs',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof DetailNavigation>;
 
@@ -46,8 +47,8 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     basePath: '/projects',
-    prevItem: { slug: "distributed-tracing", title: "Distributed Tracing System" },
-    nextItem: { slug: "adaptive-shell", title: "Adaptive Engineering Shell" },
+    prevItem: { slug: 'distributed-tracing', title: 'Distributed Tracing System' },
+    nextItem: { slug: 'adaptive-shell', title: 'Adaptive Engineering Shell' },
     variant: 'default',
   },
   render: (args) => (
@@ -64,8 +65,8 @@ export const Cyber: Story = {
   args: {
     ...Basic.args,
     variant: 'cyber',
-    prevItem: { slug: "node-01", title: "PRIMARY_UPLINK_CORE" },
-    nextItem: { slug: "node-03", title: "SECONDARY_BUFFER_NODE" },
+    prevItem: { slug: 'node-01', title: 'PRIMARY_UPLINK_CORE' },
+    nextItem: { slug: 'node-03', title: 'SECONDARY_BUFFER_NODE' },
     prevLabel: 'PREV_UNIT',
     nextLabel: 'NEXT_UNIT',
   },
@@ -100,7 +101,7 @@ export const SingleSided: Story = {
   args: {
     ...Basic.args,
     prevItem: null,
-    nextItem: { slug: "first-step", title: "Beginning the Sequence" },
+    nextItem: { slug: 'first-step', title: 'Beginning the Sequence' },
     nextLabel: 'START_JOURNEY',
   },
   render: (args) => (

@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  Status, 
-  StatusDot, 
-  StatusLabel 
-} from '@aazucena/ui';
+import { Status, StatusDot, StatusLabel } from '@aazucena/ui';
 
 /**
  * ## Engineering Standards
@@ -20,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A standard signal indicator used to represent the health, availability, or activity state of a system component.',
+        component:
+          'A standard signal indicator used to represent the health, availability, or activity state of a system component.',
       },
     },
   },
@@ -28,16 +25,26 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'pill', 'ghost', 'cyber', 'nominal', 'warning', 'critical', 'loading', 'neutral'],
+      options: [
+        'default',
+        'pill',
+        'ghost',
+        'cyber',
+        'nominal',
+        'warning',
+        'critical',
+        'loading',
+        'neutral',
+      ],
       description: 'The visual theme of the indicator',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'radio',
       options: ['default', 'sm', 'lg'],
       description: 'The overall scale of the component',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Status>;
 
@@ -72,7 +79,9 @@ export const CyberTerminal: Story = {
     <div className="p-8 bg-black border border-cyan-500/10 rounded-xl">
       <Status {...args}>
         <StatusDot state="intel" size="lg" pulse />
-        <StatusLabel variant="cyber" className="text-cyan-400">ACTIVE_INFERENCE</StatusLabel>
+        <StatusLabel variant="cyber" className="text-cyan-400">
+          ACTIVE_INFERENCE
+        </StatusLabel>
       </Status>
     </div>
   ),
@@ -89,15 +98,21 @@ export const StatusPill: Story = {
     <div className="flex gap-6">
       <Status {...args} className="border-emerald-500/20 bg-emerald-500/5">
         <StatusDot state="nominal" animated />
-        <StatusLabel variant="bright" className="text-emerald-600 dark:text-emerald-400">OPERATIONAL</StatusLabel>
+        <StatusLabel variant="bright" className="text-emerald-600 dark:text-emerald-400">
+          OPERATIONAL
+        </StatusLabel>
       </Status>
       <Status {...args} className="border-amber-500/20 bg-amber-500/5">
         <StatusDot state="warning" animated />
-        <StatusLabel variant="bright" className="text-amber-600 dark:text-amber-400">DEGRADED</StatusLabel>
+        <StatusLabel variant="bright" className="text-amber-600 dark:text-amber-400">
+          DEGRADED
+        </StatusLabel>
       </Status>
       <Status {...args} className="border-rose-500/20 bg-rose-500/5">
         <StatusDot state="critical" pulse />
-        <StatusLabel variant="bright" className="text-rose-600 dark:text-rose-400">CRITICAL</StatusLabel>
+        <StatusLabel variant="bright" className="text-rose-600 dark:text-rose-400">
+          CRITICAL
+        </StatusLabel>
       </Status>
     </div>
   ),

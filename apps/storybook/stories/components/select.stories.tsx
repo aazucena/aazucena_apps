@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  Select, 
-  SelectContent, 
-  SelectGroup, 
-  SelectItem, 
-  SelectLabel, 
-  SelectTrigger, 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
   SelectValue,
-  SelectSeparator
+  SelectSeparator,
 } from '@aazucena/ui';
 import { Globe, Database, Shield, Zap, Activity } from '@aazucena/icons';
 
@@ -35,7 +35,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust dropdown component for selecting a single option from a list. Supports grouping, separators, and high-fidelity themes.',
+        component:
+          'A robust dropdown component for selecting a single option from a list. Supports grouping, separators, and high-fidelity themes.',
       },
     },
   },
@@ -61,14 +62,18 @@ export const Basic: Story = {
       </SelectTrigger>
       <SelectContent className="rounded-2xl">
         <SelectGroup>
-          <SelectLabel className="text-[10px] font-black uppercase opacity-40">Primary_Sectors</SelectLabel>
+          <SelectLabel className="text-[10px] font-black uppercase opacity-40">
+            Primary_Sectors
+          </SelectLabel>
           <SelectItem value="us">North_America_Core</SelectItem>
           <SelectItem value="eu">European_Union_Relay</SelectItem>
           <SelectItem value="as">Asia_Pacific_Edge</SelectItem>
         </SelectGroup>
         <SelectSeparator />
         <SelectGroup>
-          <SelectLabel className="text-[10px] font-black uppercase opacity-40">Secondary_Nodes</SelectLabel>
+          <SelectLabel className="text-[10px] font-black uppercase opacity-40">
+            Secondary_Nodes
+          </SelectLabel>
           <SelectItem value="au">Australia_South</SelectItem>
           <SelectItem value="sa">South_America_East</SelectItem>
         </SelectGroup>
@@ -86,16 +91,24 @@ export const CyberTerminal: Story = {
       <div className="flex flex-col items-center gap-6">
         <div className="flex items-center gap-3">
           <Zap className="size-4 text-cyan-500 animate-pulse" />
-          <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]"># PROTOCOL_OVERRIDE</span>
+          <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+            # PROTOCOL_OVERRIDE
+          </span>
         </div>
         <Select defaultValue="v2">
           <SelectTrigger variant="cyber" className="w-[240px] font-mono italic">
             <SelectValue placeholder="EXECUTE_PHASE" />
           </SelectTrigger>
           <SelectContent variant="cyber" className="font-mono">
-            <SelectItem value="v1" className="focus:bg-cyan-500/20 focus:text-cyan-400">PHASE_01_BOOT</SelectItem>
-            <SelectItem value="v2" className="focus:bg-cyan-500/20 focus:text-cyan-400">PHASE_02_SYNC</SelectItem>
-            <SelectItem value="v3" className="focus:bg-rose-500/20 text-rose-500">PHASE_03_BYPASS</SelectItem>
+            <SelectItem value="v1" className="focus:bg-cyan-500/20 focus:text-cyan-400">
+              PHASE_01_BOOT
+            </SelectItem>
+            <SelectItem value="v2" className="focus:bg-cyan-500/20 focus:text-cyan-400">
+              PHASE_02_SYNC
+            </SelectItem>
+            <SelectItem value="v3" className="focus:bg-rose-500/20 text-rose-500">
+              PHASE_03_BYPASS
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -111,7 +124,10 @@ export const GlassAtmospheric: Story = {
     <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-sm" />
       <Select defaultValue="stratosphere">
-        <SelectTrigger variant="glass" className="w-[240px] border-white/10 bg-white/5 text-white rounded-full px-6">
+        <SelectTrigger
+          variant="glass"
+          className="w-[240px] border-white/10 bg-white/5 text-white rounded-full px-6"
+        >
           <SelectValue placeholder="Atmospheric_Layer" />
         </SelectTrigger>
         <SelectContent variant="glass" className="border-white/10 text-white">
@@ -146,13 +162,17 @@ export const AdvancedComposition: Story = {
           <SelectItem value="n1">
             <div className="flex items-center gap-3">
               <span className="font-bold">UNIT_0x7F42</span>
-              <Badge variant="secondary" size="xs">NOMINAL</Badge>
+              <Badge variant="secondary" size="xs">
+                NOMINAL
+              </Badge>
             </div>
           </SelectItem>
           <SelectItem value="n2">
             <div className="flex items-center gap-3">
               <span className="font-bold">UNIT_0x1A2B</span>
-              <Badge variant="secondary" size="xs">STABLE</Badge>
+              <Badge variant="secondary" size="xs">
+                STABLE
+              </Badge>
             </div>
           </SelectItem>
         </SelectGroup>

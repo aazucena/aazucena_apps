@@ -19,13 +19,15 @@ const withVariantBackground: Decorator = (Story, context) => {
 
   if (variant === 'cyber') {
     return (
-      <div style={{
-        background: '#09090b',
-        padding: '1.5rem',
-        borderRadius: '0.75rem',
-        display: 'inline-block',
-        minWidth: 'max-content',
-      }}>
+      <div
+        style={{
+          background: '#09090b',
+          padding: '1.5rem',
+          borderRadius: '0.75rem',
+          display: 'inline-block',
+          minWidth: 'max-content',
+        }}
+      >
         <Story />
       </div>
     );
@@ -33,13 +35,15 @@ const withVariantBackground: Decorator = (Story, context) => {
 
   if (variant === 'glass') {
     return (
-      <div style={{
-        background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
-        padding: '2rem',
-        borderRadius: '1rem',
-        display: 'inline-block',
-        minWidth: 'max-content',
-      }}>
+      <div
+        style={{
+          background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
+          padding: '2rem',
+          borderRadius: '1rem',
+          display: 'inline-block',
+          minWidth: 'max-content',
+        }}
+      >
         <Story />
       </div>
     );
@@ -115,7 +119,6 @@ const preview: Preview = {
   },
 
   parameters: {
-
     docs: {
       theme: docsTheme,
     },
@@ -192,21 +195,9 @@ const preview: Preview = {
             'Utilities',
           ],
           'Charts & Graphs',
-          [
-            'Overview',
-            'Standard',
-            'Advanced',
-            'Relational',
-            'Specialized',
-            'Intelligence',
-          ],
+          ['Overview', 'Standard', 'Advanced', 'Relational', 'Specialized', 'Intelligence'],
           'Recipes',
-          [
-            'Forms',
-            'Cards',
-            'Navigation',
-            'Dashboards',
-          ],
+          ['Forms', 'Cards', 'Navigation', 'Dashboards'],
           '*',
         ],
       },

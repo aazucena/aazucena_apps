@@ -17,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'The primary action primitive. Supports multiple visual themes (ShadCN + Custom), polymorphic rendering, and tactile feedback animations.',
+        component:
+          'The primary action primitive. Supports multiple visual themes (ShadCN + Custom), polymorphic rendering, and tactile feedback animations.',
       },
     },
   },
@@ -26,35 +27,35 @@ const meta = {
     variant: {
       control: 'select',
       options: [
-        'default', 
-        'destructive', 
-        'outline', 
-        'secondary', 
-        'ghost', 
-        'link', 
-        'glass', 
-        'cyber', 
-        'gradient'
+        'default',
+        'destructive',
+        'outline',
+        'secondary',
+        'ghost',
+        'link',
+        'glass',
+        'cyber',
+        'gradient',
       ],
       description: 'The visual style of the button',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'radio',
       options: ['default', 'sm', 'lg', 'icon'],
       description: 'Physical dimensions',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     asChild: {
       control: 'boolean',
       description: 'Change the underlying element (e.g. to a Link)',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents interaction and applies dimming',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof Button>;
 
@@ -131,7 +132,9 @@ export const Sizes: Story = {
       <Button size="sm">Small_Unit</Button>
       <Button size="default">Default_Unit</Button>
       <Button size="lg">Large_Unit</Button>
-      <Button size="icon" variant="outline" aria-label="Download"><Download /></Button>
+      <Button size="icon" variant="outline" aria-label="Download">
+        <Download />
+      </Button>
     </div>
   ),
 };
@@ -163,10 +166,10 @@ export const InteractionTest: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button');
-    
+
     // Initial state check
-    await new Promise(r => setTimeout(r, 500));
-    
+    await new Promise((r) => setTimeout(r, 500));
+
     // Simulate interaction
     await userEvent.click(button);
   },

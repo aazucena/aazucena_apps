@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   args: {
-    className: "size-6",
+    className: 'size-6',
   },
 };
 
@@ -41,7 +41,7 @@ export const Basic: Story = {
  */
 export const Large: Story = {
   args: {
-    className: "size-16 text-primary",
+    className: 'size-16 text-primary',
   },
 };
 
@@ -50,13 +50,13 @@ export const Large: Story = {
  */
 export const Cyber: Story = {
   args: {
-    className: "size-10 text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]",
+    className: 'size-10 text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]',
   },
   render: (args) => (
     <div className="p-12 bg-black rounded-3xl border border-cyan-500/10 flex justify-center">
       <Spinner {...args} />
     </div>
-  )
+  ),
 };
 
 /**

@@ -31,7 +31,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A navigational helper showing the current page position within a site hierarchy.',
+        component:
+          'A navigational helper showing the current page position within a site hierarchy.',
       },
     },
   },
@@ -74,7 +75,9 @@ export const Cyber: Story = {
     <Breadcrumb>
       <BreadcrumbList variant="cyber">
         <BreadcrumbItem>
-          <BreadcrumbLink variant="cyber" href="/">ROOT</BreadcrumbLink>
+          <BreadcrumbLink variant="cyber" href="/">
+            ROOT
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator variant="cyber" />
         <BreadcrumbItem>
@@ -98,11 +101,15 @@ export const Intel: Story = {
       <Breadcrumb>
         <BreadcrumbList variant="intel">
           <BreadcrumbItem>
-            <BreadcrumbLink variant="intel" href="/">System</BreadcrumbLink>
+            <BreadcrumbLink variant="intel" href="/">
+              System
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator variant="intel" />
           <BreadcrumbItem>
-            <BreadcrumbLink variant="intel" href="/nodes">Nodes</BreadcrumbLink>
+            <BreadcrumbLink variant="intel" href="/nodes">
+              Nodes
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator variant="intel" />
           <BreadcrumbItem>
@@ -123,11 +130,15 @@ export const Glass: Story = {
       <Breadcrumb>
         <BreadcrumbList variant="glass">
           <BreadcrumbItem>
-            <BreadcrumbLink variant="glass" href="/">Home</BreadcrumbLink>
+            <BreadcrumbLink variant="glass" href="/">
+              Home
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator variant="glass" />
           <BreadcrumbItem>
-            <BreadcrumbLink variant="glass" href="/docs">Docs</BreadcrumbLink>
+            <BreadcrumbLink variant="glass" href="/docs">
+              Docs
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator variant="glass" />
           <BreadcrumbItem>

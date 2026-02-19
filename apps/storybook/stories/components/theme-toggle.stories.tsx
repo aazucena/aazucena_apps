@@ -17,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A persistent toggle component for switching between light and dark visual themes.',
+        component:
+          'A persistent toggle component for switching between light and dark visual themes.',
       },
     },
   },
@@ -27,14 +28,14 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber', 'ghost'],
       description: 'The visual style of the toggle button',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'radio',
       options: ['sm', 'default', 'lg'],
       description: 'Physical dimensions',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
   decorators: [
     (Story) => (
@@ -69,7 +70,9 @@ export const CyberTerminal: Story = {
   },
   render: (args) => (
     <div className="p-12 bg-black rounded-[3rem] border border-cyan-500/10 flex flex-col items-center gap-6">
-      <span className="text-[10px] font-mono text-cyan-500 opacity-40 uppercase tracking-[0.4em]">Atmosphere_Shift</span>
+      <span className="text-[10px] font-mono text-cyan-500 opacity-40 uppercase tracking-[0.4em]">
+        Atmosphere_Shift
+      </span>
       <ThemeToggle {...args} />
     </div>
   ),

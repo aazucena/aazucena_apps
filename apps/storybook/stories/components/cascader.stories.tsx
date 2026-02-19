@@ -143,7 +143,12 @@ export const Glass: Story = {
     const [value, setValue] = React.useState<string[]>([]);
     return (
       <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
-        <Cascader variant="glass" options={locationOptions} value={value} onChange={(v) => setValue(v)} />
+        <Cascader
+          variant="glass"
+          options={locationOptions}
+          value={value}
+          onChange={(v) => setValue(v)}
+        />
       </div>
     );
   },
@@ -152,7 +157,14 @@ export const Glass: Story = {
 export const Cyber: Story = {
   render: () => {
     const [value, setValue] = React.useState<string[]>([]);
-    return <Cascader variant="cyber" options={locationOptions} value={value} onChange={(v) => setValue(v)} />;
+    return (
+      <Cascader
+        variant="cyber"
+        options={locationOptions}
+        value={value}
+        onChange={(v) => setValue(v)}
+      />
+    );
   },
 };
 

@@ -34,7 +34,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'An expandable card component designed for detailed metrics, system logs, or FAQ-style disclosure. Features integrated animation and semantic visual states.',
+        component:
+          'An expandable card component designed for detailed metrics, system logs, or FAQ-style disclosure. Features integrated animation and semantic visual states.',
       },
     },
   },
@@ -44,13 +45,13 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the card',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     isOpen: {
       control: 'boolean',
       description: 'The controlled expansion state',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof InteractiveCard>;
 
@@ -80,7 +81,8 @@ export const Basic: Story = {
           </InteractiveCardHeader>
           <InteractiveCardContent>
             <p className="text-muted-foreground leading-relaxed">
-              Comprehensive diagnostic sequence initialized. All kernel parameters within optimal range. No anomalies detected in the current processing cycle.
+              Comprehensive diagnostic sequence initialized. All kernel parameters within optimal
+              range. No anomalies detected in the current processing cycle.
             </p>
             <div className="mt-6 flex gap-3">
               <Badge variant="outline">STABLE</Badge>
@@ -110,7 +112,9 @@ export const CyberTerminal: Story = {
               <InteractiveCardTitle className="text-cyan-400 font-black tracking-tighter uppercase italic">
                 // DATA_ENCLAVE_ROOT
               </InteractiveCardTitle>
-              <InteractiveCardSubtitle className="text-cyan-500/60">SECTOR_ACCESS_GRANTED</InteractiveCardSubtitle>
+              <InteractiveCardSubtitle className="text-cyan-500/60">
+                SECTOR_ACCESS_GRANTED
+              </InteractiveCardSubtitle>
             </div>
             <InteractiveCardIndicator className="text-cyan-400" />
           </InteractiveCardHeader>
@@ -121,7 +125,9 @@ export const CyberTerminal: Story = {
               <p className="text-cyan-500/80">{'>'} SYNCHRONIZING_WITH_MASTER_NODE...</p>
               <p className="text-cyan-500/80">{'>'} HANDSHAKE_COMPLETE.</p>
             </div>
-            <Button variant="cyber" size="sm" className="mt-6 w-full">INIT_EXTRACTION</Button>
+            <Button variant="cyber" size="sm" className="mt-6 w-full">
+              INIT_EXTRACTION
+            </Button>
           </InteractiveCardContent>
         </InteractiveCard>
       </div>
@@ -145,12 +151,17 @@ export const GlassAtmospheric: Story = {
               </InteractiveCardIcon>
               <div className="flex flex-col">
                 <InteractiveCardTitle>Global_Traffic</InteractiveCardTitle>
-                <InteractiveCardSubtitle className="text-white/40">Real-time Node Distribution</InteractiveCardSubtitle>
+                <InteractiveCardSubtitle className="text-white/40">
+                  Real-time Node Distribution
+                </InteractiveCardSubtitle>
               </div>
               <InteractiveCardIndicator className="text-white/60" />
             </InteractiveCardHeader>
             <InteractiveCardContent className="text-white/80 border-white/10">
-              <p className="text-xs font-medium">98 active trajectories detected across 4 continental sectors. Atmospheric layers are performing within nominal latency thresholds.</p>
+              <p className="text-xs font-medium">
+                98 active trajectories detected across 4 continental sectors. Atmospheric layers are
+                performing within nominal latency thresholds.
+              </p>
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div className="p-3 bg-white/5 border border-white/10 rounded-xl">
                   <span className="text-[9px] font-black uppercase text-white/40">US_East</span>
@@ -183,14 +194,23 @@ export const AlertState: Story = {
               <Shield size={20} />
             </InteractiveCardIcon>
             <div className="flex flex-col">
-              <InteractiveCardTitle className="text-rose-600 dark:text-rose-400">Security_Breach_Attempt</InteractiveCardTitle>
-              <InteractiveCardSubtitle className="text-rose-500/40">Node: US_EAST_01 // CRITICAL</InteractiveCardSubtitle>
+              <InteractiveCardTitle className="text-rose-600 dark:text-rose-400">
+                Security_Breach_Attempt
+              </InteractiveCardTitle>
+              <InteractiveCardSubtitle className="text-rose-500/40">
+                Node: US_EAST_01 // CRITICAL
+              </InteractiveCardSubtitle>
             </div>
             <InteractiveCardIndicator className="text-rose-500" />
           </InteractiveCardHeader>
           <InteractiveCardContent className="text-rose-600/80 border-rose-500/10">
-            <p className="font-mono text-xs italic">Multiple unauthorized handshake attempts detected from IP range 192.168.x.x. Port 8080 has been automatically isolated.</p>
-            <Button variant="destructive" size="sm" className="mt-6 w-full rounded-xl">EXECUTE_LOCKDOWN</Button>
+            <p className="font-mono text-xs italic">
+              Multiple unauthorized handshake attempts detected from IP range 192.168.x.x. Port 8080
+              has been automatically isolated.
+            </p>
+            <Button variant="destructive" size="sm" className="mt-6 w-full rounded-xl">
+              EXECUTE_LOCKDOWN
+            </Button>
           </InteractiveCardContent>
         </InteractiveCard>
       </div>

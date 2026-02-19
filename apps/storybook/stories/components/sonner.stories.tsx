@@ -1,7 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Toaster, toast } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';
-import { Shield, Zap, Activity, Globe, CheckCircle, InfoCircle, DangerCircle } from '@aazucena/icons';
+import {
+  Shield,
+  Zap,
+  Activity,
+  Globe,
+  CheckCircle,
+  InfoCircle,
+  DangerCircle,
+} from '@aazucena/icons';
 
 /**
  * ## Engineering Standards
@@ -17,7 +25,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A standard toast notification system. Provides clear, concise feedback about an action or an event.',
+        component:
+          'A standard toast notification system. Provides clear, concise feedback about an action or an event.',
       },
     },
   },
@@ -39,10 +48,10 @@ export const Basic: Story = {
       <Button
         variant="outline"
         onClick={() =>
-          toast("Session_Initialization_Successful", {
-            description: "Binary pulse synchronized across all active node clusters.",
+          toast('Session_Initialization_Successful', {
+            description: 'Binary pulse synchronized across all active node clusters.',
             action: {
-              label: "Undo",
+              label: 'Undo',
               onClick: () => {},
             },
           })
@@ -65,9 +74,9 @@ export const SemanticStates: Story = {
         variant="outline"
         className="border-emerald-500/20 hover:bg-emerald-500/5 text-emerald-600 dark:text-emerald-400"
         onClick={() =>
-          toast.success("Uplink_Established", {
+          toast.success('Uplink_Established', {
             icon: <CheckCircle className="size-4" />,
-            description: "Connection to UNIT_0x7F42 is stable.",
+            description: 'Connection to UNIT_0x7F42 is stable.',
           })
         }
       >
@@ -78,9 +87,9 @@ export const SemanticStates: Story = {
         variant="outline"
         className="border-rose-500/20 hover:bg-rose-500/5 text-rose-600 dark:text-rose-400"
         onClick={() =>
-          toast.error("Auth_Sequence_Failed", {
+          toast.error('Auth_Sequence_Failed', {
             icon: <DangerCircle className="size-4" />,
-            description: "Invalid credentials detected at Edge_Node.",
+            description: 'Invalid credentials detected at Edge_Node.',
           })
         }
       >
@@ -91,9 +100,9 @@ export const SemanticStates: Story = {
         variant="outline"
         className="border-primary/20 hover:bg-primary/5"
         onClick={() =>
-          toast.info("Maintenance_Notice", {
+          toast.info('Maintenance_Notice', {
             icon: <InfoCircle className="size-4" />,
-            description: "Kernel rotation scheduled in 14 minutes.",
+            description: 'Kernel rotation scheduled in 14 minutes.',
           })
         }
       >
@@ -113,10 +122,10 @@ export const TechnicalTelemetry: Story = {
       <Button
         variant="cyber"
         onClick={() =>
-          toast("INGESTION_TRACE_ACTIVE", {
+          toast('INGESTION_TRACE_ACTIVE', {
             icon: <Activity className="size-4 text-cyan-500 animate-pulse" />,
-            description: "Monitoring packet flow from continental sectors...",
-            className: "font-mono italic",
+            description: 'Monitoring packet flow from continental sectors...',
+            className: 'font-mono italic',
           })
         }
       >
@@ -136,7 +145,9 @@ export const PromiseState: Story = {
       <Button
         variant="outline"
         onClick={() => {
-          const promise = new Promise((resolve) => setTimeout(() => resolve({ name: 'Node_01' }), 2000));
+          const promise = new Promise((resolve) =>
+            setTimeout(() => resolve({ name: 'Node_01' }), 2000),
+          );
           toast.promise(promise, {
             loading: 'Establishing Secure Enclave...',
             success: (data: any) => `Access Granted to ${data.name}`,

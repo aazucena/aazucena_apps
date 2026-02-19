@@ -18,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A set of checkable buttons—known as radio buttons—where no more than one button can be checked at a time.',
+        component:
+          'A set of checkable buttons—known as radio buttons—where no more than one button can be checked at a time.',
       },
     },
   },
@@ -38,15 +39,21 @@ export const Basic: Story = {
     <RadioGroup defaultValue="standard" className="w-64 gap-4">
       <div className="flex items-center gap-3">
         <RadioGroupItem value="standard" id="r1" />
-        <Label htmlFor="r1" className="cursor-pointer">Standard_Ingestion</Label>
+        <Label htmlFor="r1" className="cursor-pointer">
+          Standard_Ingestion
+        </Label>
       </div>
       <div className="flex items-center gap-3">
         <RadioGroupItem value="priority" id="r2" />
-        <Label htmlFor="r2" className="cursor-pointer">Priority_Uplink</Label>
+        <Label htmlFor="r2" className="cursor-pointer">
+          Priority_Uplink
+        </Label>
       </div>
       <div className="flex items-center gap-3">
         <RadioGroupItem value="batch" id="r3" />
-        <Label htmlFor="r3" className="cursor-pointer">Batch_Processing</Label>
+        <Label htmlFor="r3" className="cursor-pointer">
+          Batch_Processing
+        </Label>
       </div>
     </RadioGroup>
   ),
@@ -60,19 +67,36 @@ export const CyberTerminal: Story = {
     <div className="p-8 border border-cyan-500/20 bg-black rounded-xl w-80">
       <div className="flex items-center gap-3 mb-6">
         <Zap className="size-4 text-cyan-500 animate-pulse" />
-        <span className="text-[10px] font-mono text-cyan-500 uppercase tracking-[0.3em]"># SELECT_PROTOCOL_PHASE</span>
+        <span className="text-[10px] font-mono text-cyan-500 uppercase tracking-[0.3em]">
+          # SELECT_PROTOCOL_PHASE
+        </span>
       </div>
       <RadioGroup defaultValue="phase-1" className="gap-6">
         <div className="flex items-center justify-between group">
-          <Label htmlFor="p1" className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300">PHASE_01_BOOT</Label>
+          <Label
+            htmlFor="p1"
+            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300"
+          >
+            PHASE_01_BOOT
+          </Label>
           <RadioGroupItem value="phase-1" id="p1" variant="cyber" />
         </div>
         <div className="flex items-center justify-between group">
-          <Label htmlFor="p2" className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300">PHASE_02_SYNC</Label>
+          <Label
+            htmlFor="p2"
+            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300"
+          >
+            PHASE_02_SYNC
+          </Label>
           <RadioGroupItem value="phase-2" id="p2" variant="cyber" />
         </div>
         <div className="flex items-center justify-between group">
-          <Label htmlFor="p3" className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300 text-rose-500">PHASE_03_OVERRIDE</Label>
+          <Label
+            htmlFor="p3"
+            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300 text-rose-500"
+          >
+            PHASE_03_OVERRIDE
+          </Label>
           <RadioGroupItem value="phase-3" id="p3" variant="cyber" className="border-rose-500/50" />
         </div>
       </RadioGroup>

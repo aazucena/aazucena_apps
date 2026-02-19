@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  DashboardCard, 
-  DashboardHeader, 
-  DashboardTitle, 
-  DashboardStatus, 
-  DashboardActions, 
-  DashboardBody, 
+import {
+  DashboardCard,
+  DashboardHeader,
+  DashboardTitle,
+  DashboardStatus,
+  DashboardActions,
+  DashboardBody,
   IconBox,
   PageTitle,
-  PageSubtitle
+  PageSubtitle,
 } from '@aazucena/ui';
 import { Activity, CogFour as Settings, Refresh, Shield, Database, Zap } from '@aazucena/icons';
 import { Button, Badge } from '@aazucena/ui';
@@ -23,21 +23,22 @@ import { Button, Badge } from '@aazucena/ui';
 const meta = {
   title: 'Components/Layout/Dashboard',
   component: DashboardCard,
-  subcomponents: { 
-    DashboardHeader, 
-    DashboardTitle, 
-    DashboardStatus, 
-    DashboardActions, 
-    DashboardBody, 
+  subcomponents: {
+    DashboardHeader,
+    DashboardTitle,
+    DashboardStatus,
+    DashboardActions,
+    DashboardBody,
     IconBox,
     PageTitle,
-    PageSubtitle 
+    PageSubtitle,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A comprehensive set of layout components for building analytical terminals and dashboards.',
+        component:
+          'A comprehensive set of layout components for building analytical terminals and dashboards.',
       },
     },
   },
@@ -47,14 +48,14 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the dashboard card',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     padding: {
       control: 'select',
       options: ['none', 'sm', 'md', 'lg', 'xl'],
       description: 'Internal body spacing',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof DashboardCard>;
 
@@ -105,11 +106,19 @@ export const BasicCard: Story = {
 export const PageIdentity: Story = {
   render: () => (
     <div className="w-[800px] border-b pb-8">
-      <PageTitle version="v1.4.2" variant="cyber">ENGINEERING_TERMINAL</PageTitle>
-      <PageSubtitle variant="cyber">Real-time ingestion monitor // Node status: OPERATIONAL</PageSubtitle>
+      <PageTitle version="v1.4.2" variant="cyber">
+        ENGINEERING_TERMINAL
+      </PageTitle>
+      <PageSubtitle variant="cyber">
+        Real-time ingestion monitor // Node status: OPERATIONAL
+      </PageSubtitle>
       <div className="flex gap-4 mt-8">
-        <Badge variant="cyber" animated>UPLINK_LIVE</Badge>
-        <Badge variant="outline" size="xs">ZONE:US_EAST_1</Badge>
+        <Badge variant="cyber" animated>
+          UPLINK_LIVE
+        </Badge>
+        <Badge variant="outline" size="xs">
+          ZONE:US_EAST_1
+        </Badge>
       </div>
     </div>
   ),
@@ -173,10 +182,16 @@ export const GlassMonitor: Story = {
         <DashboardBody>
           <div className="h-32 flex items-end gap-1 mb-6">
             {[40, 70, 45, 90, 65, 80, 30, 50, 85, 60, 40, 75].map((h, i) => (
-              <div key={i} className="flex-1 bg-white/20 rounded-t-sm hover:bg-white/40 transition-colors" style={{ height: `${h}%` }} />
+              <div
+                key={i}
+                className="flex-1 bg-white/20 rounded-t-sm hover:bg-white/40 transition-colors"
+                style={{ height: `${h}%` }}
+              />
             ))}
           </div>
-          <p className="text-[10px] font-mono text-white/60 text-center uppercase tracking-widest italic">Peak_Usage_Window: 14:00 - 16:00</p>
+          <p className="text-[10px] font-mono text-white/60 text-center uppercase tracking-widest italic">
+            Peak_Usage_Window: 14:00 - 16:00
+          </p>
         </DashboardBody>
       </DashboardCard>
     </div>

@@ -37,7 +37,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust chronological display system. Supports multiple visual variants for milestones, status changes, and project history.',
+        component:
+          'A robust chronological display system. Supports multiple visual variants for milestones, status changes, and project history.',
       },
     },
   },
@@ -47,8 +48,8 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber', 'alternating'],
       description: 'The overall theme and layout of the timeline',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Timeline>;
 
@@ -77,7 +78,8 @@ export const Basic: Story = {
               <TimelineDescription>Primary node infrastructure deployment.</TimelineDescription>
             </TimelineHeader>
             <p className="text-sm opacity-60 leading-relaxed">
-              Successfully established the neural-adaptive ingestion layer across all US_EAST continental clusters.
+              Successfully established the neural-adaptive ingestion layer across all US_EAST
+              continental clusters.
             </p>
           </TimelineContent>
         </TimelineItem>
@@ -124,14 +126,18 @@ export const CyberTerminal: Story = {
           <TimelineLine variant="cyber" />
           <TimelineContent>
             <div className="flex items-center gap-3 mb-4">
-              <Badge variant="cyber" size="xs">EPOCH_1742</Badge>
+              <Badge variant="cyber" size="xs">
+                EPOCH_1742
+              </Badge>
               <Activity className="size-3 text-cyan-500 animate-pulse" />
             </div>
             <TimelineHeader>
               <TimelineTitle className="font-mono italic text-cyan-400 uppercase tracking-tighter text-xl">
                 // KERNEL_SYNC_INIT
               </TimelineTitle>
-              <TimelineDescription className="font-mono text-[10px] text-cyan-500/40 uppercase">Handshake sequence successful.</TimelineDescription>
+              <TimelineDescription className="font-mono text-[10px] text-cyan-500/40 uppercase">
+                Handshake sequence successful.
+              </TimelineDescription>
             </TimelineHeader>
           </TimelineContent>
         </TimelineItem>
@@ -140,13 +146,17 @@ export const CyberTerminal: Story = {
           <TimelineDot variant="cyber" />
           <TimelineContent>
             <div className="flex items-center gap-3 mb-4">
-              <Badge variant="cyber" size="xs">EPOCH_1741</Badge>
+              <Badge variant="cyber" size="xs">
+                EPOCH_1741
+              </Badge>
             </div>
             <TimelineHeader>
               <TimelineTitle className="font-mono italic text-cyan-400 uppercase tracking-tighter text-xl">
                 // BUFFER_FLUSH
               </TimelineTitle>
-              <TimelineDescription className="font-mono text-[10px] text-cyan-500/40 uppercase">Purging legacy packets.</TimelineDescription>
+              <TimelineDescription className="font-mono text-[10px] text-cyan-500/40 uppercase">
+                Purging legacy packets.
+              </TimelineDescription>
             </TimelineHeader>
           </TimelineContent>
         </TimelineItem>
@@ -170,7 +180,10 @@ export const Alternating: Story = {
           <TimelineLine position="center" />
           <TimelineContent side="left">
             <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">The_Beginning</h3>
-            <p className="text-muted-foreground">Architecting the first high-fidelity telemetry bridges for decentralized edge computing.</p>
+            <p className="text-muted-foreground">
+              Architecting the first high-fidelity telemetry bridges for decentralized edge
+              computing.
+            </p>
           </TimelineContent>
         </TimelineItem>
 
@@ -178,16 +191,24 @@ export const Alternating: Story = {
           <TimelineDot variant="success" position="center" />
           <TimelineLine position="center" />
           <TimelineContent side="right">
-            <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Global_Expansion</h3>
-            <p className="text-muted-foreground">Scaling node synchronization across 4 continental sectors with zero latency deviation.</p>
+            <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">
+              Global_Expansion
+            </h3>
+            <p className="text-muted-foreground">
+              Scaling node synchronization across 4 continental sectors with zero latency deviation.
+            </p>
           </TimelineContent>
         </TimelineItem>
 
         <TimelineItem side="left">
           <TimelineDot variant="warning" position="center" />
           <TimelineContent side="left">
-            <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Neural_Integration</h3>
-            <p className="text-muted-foreground">Implementing AI-driven trajectory inference for real-time biometric optimization.</p>
+            <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">
+              Neural_Integration
+            </h3>
+            <p className="text-muted-foreground">
+              Implementing AI-driven trajectory inference for real-time biometric optimization.
+            </p>
           </TimelineContent>
         </TimelineItem>
       </Timeline>

@@ -17,7 +17,18 @@ import {
   DropdownMenuShortcut,
 } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';
-import { User, CogFour as Cog, Activity, Globe, Layout, PlusCircle as Plus, Shield, Zap, Trash, Copy } from '@aazucena/icons';
+import {
+  User,
+  CogFour as Cog,
+  Activity,
+  Globe,
+  Layout,
+  PlusCircle as Plus,
+  Shield,
+  Zap,
+  Trash,
+  Copy,
+} from '@aazucena/icons';
 import { useState } from 'react';
 
 /**
@@ -49,7 +60,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A versatile dropdown menu for presenting a list of actions or navigation links. Supports submenus, checkboxes, and radio selections.',
+        component:
+          'A versatile dropdown menu for presenting a list of actions or navigation links. Supports submenus, checkboxes, and radio selections.',
       },
     },
   },
@@ -105,7 +117,9 @@ export const Cyber: Story = {
         <Button variant="cyber">NODE_OPERATIONS</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent variant="cyber" size="lg" className="font-mono">
-        <DropdownMenuLabel className="text-cyan-500 italic tracking-tighter uppercase">// SELECT_PROTOCOL</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-cyan-500 italic tracking-tighter uppercase">
+          // SELECT_PROTOCOL
+        </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-cyan-500/20" />
         <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
           <Globe className="size-4" />
@@ -123,8 +137,12 @@ export const Cyber: Story = {
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent variant="cyber" className="font-mono">
-              <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400">AES_256_GCM</DropdownMenuItem>
-              <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400">CHACHA20_POLY1305</DropdownMenuItem>
+              <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400">
+                AES_256_GCM
+              </DropdownMenuItem>
+              <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400">
+                CHACHA20_POLY1305
+              </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
@@ -145,15 +163,18 @@ export const GlassSelection: Story = {
       <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="glass" className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-8">
+            <Button
+              variant="glass"
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-8"
+            >
               Environment_Config
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent variant="glass" className="w-64 border-white/10 text-white">
             <DropdownMenuLabel className="text-white/60">LAYER_VISUALS</DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-white/10" />
-            <DropdownMenuCheckboxItem 
-              checked={blur} 
+            <DropdownMenuCheckboxItem
+              checked={blur}
               onCheckedChange={setBlur}
               className="focus:bg-white/10"
             >
@@ -162,15 +183,21 @@ export const GlassSelection: Story = {
             <DropdownMenuSeparator className="bg-white/10" />
             <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
               <DropdownMenuLabel className="text-[10px] opacity-40">DISPLAY_MODE</DropdownMenuLabel>
-              <DropdownMenuRadioItem value="light" className="focus:bg-white/10">Light_Layer</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="dark" className="focus:bg-white/10">Dark_Layer</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="auto" className="focus:bg-white/10">System_Sync</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="light" className="focus:bg-white/10">
+                Light_Layer
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="dark" className="focus:bg-white/10">
+                Dark_Layer
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="auto" className="focus:bg-white/10">
+                System_Sync
+              </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
     );
-  }
+  },
 };
 
 /**
@@ -180,7 +207,9 @@ export const AdvancedComposition: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon"><Plus /></Button>
+        <Button variant="outline" size="icon">
+          <Plus />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64">
         <DropdownMenuGroup>

@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@aazucena/ui';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';
 import { ChevronDown, CogFour as Cog, InfoCircle as Info } from '@aazucena/icons';
 import { useState } from 'react';
@@ -24,7 +20,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'An interactive component which can be expanded or collapsed. Useful for secondary information or high-density technical interfaces.',
+        component:
+          'An interactive component which can be expanded or collapsed. Useful for secondary information or high-density technical interfaces.',
       },
     },
   },
@@ -33,13 +30,13 @@ const meta = {
     open: {
       control: 'boolean',
       description: 'The controlled open state',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents interaction',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof meta>;
 
@@ -56,11 +53,7 @@ export const Basic: Story = {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <Collapsible
-        open={isOpen}
-        onOpenChange={setIsOpen}
-        className="w-[400px] space-y-2"
-      >
+      <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-[400px] space-y-2">
         <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-xl bg-muted/30">
           <div className="flex items-center gap-3">
             <Cog className="size-4 animate-spin-slow opacity-40" />
@@ -70,12 +63,14 @@ export const Basic: Story = {
           </div>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="icon" className="size-8">
-              <ChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown
+                className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+              />
               <span className="sr-only">Toggle</span>
             </Button>
           </CollapsibleTrigger>
         </div>
-        
+
         <div className="rounded-xl border border-border px-4 py-3 font-mono text-[10px] bg-muted/10 opacity-80">
           {'>'} INITIALIZING_KERNEL... [OK]
         </div>
@@ -117,7 +112,7 @@ export const DetailInspection: Story = {
             <span>Core_Metrics</span>
             <CollapsibleTrigger asChild>
               <button className="hover:text-primary transition-colors flex items-center gap-1">
-                {isOpen ? 'Hide' : 'Inspect'} <Info size={12}/>
+                {isOpen ? 'Hide' : 'Inspect'} <Info size={12} />
               </button>
             </CollapsibleTrigger>
           </div>
@@ -152,7 +147,7 @@ export const DetailInspection: Story = {
         </Collapsible>
       </div>
     );
-  }
+  },
 };
 
 /**
@@ -168,7 +163,9 @@ export const InteractionTest: Story = {
           <h4 className="text-sm font-semibold">System Log</h4>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="icon" className="size-8" aria-label="Toggle system log">
-              <ChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown
+                className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+              />
             </Button>
           </CollapsibleTrigger>
         </div>

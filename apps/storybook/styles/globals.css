@@ -11,9 +11,11 @@
    surrounding canvas area. */
 html,
 body,
-#storybook-root, #storybook-docs {
+#storybook-root,
+#storybook-docs {
   background-color: var(--background);
   color: var(--foreground);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
-

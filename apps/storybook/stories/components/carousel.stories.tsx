@@ -29,7 +29,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A responsive carousel component with navigation controls and item-level customization.',
+        component:
+          'A responsive carousel component with navigation controls and item-level customization.',
       },
     },
   },
@@ -39,13 +40,13 @@ const meta = {
       control: 'radio',
       options: ['horizontal', 'vertical'],
       description: 'The scroll axis of the carousel',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     opts: {
       control: 'object',
       description: 'Embla Carousel options (align, loop, skipSnaps, etc.)',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Carousel>;
 
@@ -92,7 +93,9 @@ export const MultiItem: Story = {
                   <CardTitle className="text-sm">ITEM_0{index + 1}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Badge variant="outline" size="xs">NODE_SPEC</Badge>
+                  <Badge variant="outline" size="xs">
+                    NODE_SPEC
+                  </Badge>
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -115,7 +118,10 @@ export const Vertical: Story = {
         <CarouselContent className="-mt-1 h-[300px]">
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index} className="pt-1 basis-1/2">
-              <Card variant="glass" className="h-full flex items-center justify-center bg-zinc-900 border-white/10">
+              <Card
+                variant="glass"
+                className="h-full flex items-center justify-center bg-zinc-900 border-white/10"
+              >
                 <span className="text-2xl font-bold text-white/40">{index + 1}</span>
               </Card>
             </CarouselItem>
@@ -139,7 +145,7 @@ export const ProjectShowcase: Story = {
           {[
             { title: 'Project_Alpha', type: 'CORE' },
             { title: 'Project_Beta', type: 'INTEL' },
-            { title: 'Project_Gamma', type: 'WEB' }
+            { title: 'Project_Gamma', type: 'WEB' },
           ].map((item, index) => (
             <CarouselItem key={index}>
               <Card variant="glass" className="h-96 border-white/5 bg-white/5 backdrop-blur-2xl">

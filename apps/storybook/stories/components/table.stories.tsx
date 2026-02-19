@@ -35,7 +35,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust table system for presenting structured information. Supports high-fidelity technical themes and responsive overflow management.',
+        component:
+          'A robust table system for presenting structured information. Supports high-fidelity technical themes and responsive overflow management.',
       },
     },
   },
@@ -45,8 +46,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the table container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Table>;
 
@@ -88,8 +89,14 @@ export const Basic: Story = {
               <TableCell className="font-bold font-mono">{node.id}</TableCell>
               <TableCell>{node.sector}</TableCell>
               <TableCell>
-                <Badge 
-                  variant={node.status === 'NOMINAL' ? 'secondary' : node.status === 'OFFLINE' ? 'destructive' : 'outline'}
+                <Badge
+                  variant={
+                    node.status === 'NOMINAL'
+                      ? 'secondary'
+                      : node.status === 'OFFLINE'
+                        ? 'destructive'
+                        : 'outline'
+                  }
                   size="xs"
                 >
                   {node.status}
@@ -97,7 +104,9 @@ export const Basic: Story = {
               </TableCell>
               <TableCell className="text-right font-mono">{node.latency}</TableCell>
               <TableCell className="text-right">
-                <Button variant="ghost" size="icon" className="size-8"><MoreHorizontal size={14}/></Button>
+                <Button variant="ghost" size="icon" className="size-8">
+                  <MoreHorizontal size={14} />
+                </Button>
               </TableCell>
             </TableRow>
           ))}
@@ -118,14 +127,18 @@ export const CyberTerminal: Story = {
     <div className="w-[800px] p-8 bg-black rounded-[2rem]">
       <div className="flex items-center gap-3 mb-6 px-4">
         <Activity className="size-4 text-cyan-500 animate-pulse" />
-        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">// KERNEL_INGESTION_BUFFER</span>
+        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+          // KERNEL_INGESTION_BUFFER
+        </span>
       </div>
       <Table {...args} className="font-mono text-xs">
         <TableHeader variant="cyber">
           <TableRow variant="cyber" className="hover:bg-transparent">
             <TableHead className="text-cyan-500 font-black uppercase">Sector</TableHead>
             <TableHead className="text-cyan-500 font-black uppercase">Buffer_Load</TableHead>
-            <TableHead className="text-right text-cyan-500 font-black uppercase">Stability</TableHead>
+            <TableHead className="text-right text-cyan-500 font-black uppercase">
+              Stability
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -135,7 +148,10 @@ export const CyberTerminal: Story = {
               <TableCell>
                 <div className="flex items-center gap-4">
                   <div className="h-1 w-24 bg-cyan-500/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,1)]" style={{ width: `${node.load}%` }} />
+                    <div
+                      className="h-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,1)]"
+                      style={{ width: `${node.load}%` }}
+                    />
                   </div>
                   <span className="opacity-40">{node.load}%</span>
                 </div>
@@ -167,9 +183,15 @@ export const GlassAtmospheric: Story = {
         <Table {...args} className="border-white/10 text-white">
           <TableHeader variant="glass">
             <TableRow variant="glass" className="hover:bg-transparent">
-              <TableHead className="text-white/40 uppercase tracking-widest font-black text-[10px]">Resource</TableHead>
-              <TableHead className="text-white/40 uppercase tracking-widest font-black text-[10px]">Encryption</TableHead>
-              <TableHead className="text-right text-white/40 uppercase tracking-widest font-black text-[10px]">Availability</TableHead>
+              <TableHead className="text-white/40 uppercase tracking-widest font-black text-[10px]">
+                Resource
+              </TableHead>
+              <TableHead className="text-white/40 uppercase tracking-widest font-black text-[10px]">
+                Encryption
+              </TableHead>
+              <TableHead className="text-right text-white/40 uppercase tracking-widest font-black text-[10px]">
+                Availability
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

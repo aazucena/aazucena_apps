@@ -18,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A drag-and-drop file upload component. Supports multiple files, specific mime-types, and high-fidelity technical styling.',
+        component:
+          'A drag-and-drop file upload component. Supports multiple files, specific mime-types, and high-fidelity technical styling.',
       },
     },
   },
@@ -28,18 +29,18 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the dropzone',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     multiple: {
       control: 'boolean',
       description: 'Allow selecting multiple files',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     accept: {
       control: 'text',
       description: 'Comma-separated list of allowed mime-types',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Dropzone>;
 
@@ -55,9 +56,11 @@ export const Basic: Story = {
   render: (args) => (
     <div className="w-[500px]">
       <Toaster />
-      <Dropzone 
-        {...args} 
-        onFilesSelected={(files) => toast.success(`INGESTION_SUCCESS: ${files.length} units received.`)} 
+      <Dropzone
+        {...args}
+        onFilesSelected={(files) =>
+          toast.success(`INGESTION_SUCCESS: ${files.length} units received.`)
+        }
       />
     </div>
   ),
@@ -74,13 +77,17 @@ export const CyberTerminal: Story = {
     <div className="w-[600px] p-12 bg-black rounded-[3rem] border border-cyan-500/10">
       <div className="flex items-center gap-3 mb-8 px-4">
         <Activity className="size-4 text-cyan-500 animate-pulse" />
-        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">// SIGNAL_INGESTION_SHELL</span>
+        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+          // SIGNAL_INGESTION_SHELL
+        </span>
       </div>
-      <Dropzone 
-        {...args} 
+      <Dropzone
+        {...args}
         onFilesSelected={(files) => toast.info(`PARSING_PAYLOAD: Found ${files[0].name}`)}
       />
-      <p className="mt-6 text-center text-[9px] font-mono text-cyan-500/20 uppercase tracking-widest italic">Awaiting_Secure_Packet_Stream</p>
+      <p className="mt-6 text-center text-[9px] font-mono text-cyan-500/20 uppercase tracking-widest italic">
+        Awaiting_Secure_Packet_Stream
+      </p>
     </div>
   ),
 };
@@ -102,7 +109,9 @@ export const GlassAtmospheric: Story = {
           </div>
           <div className="space-y-2">
             <h3 className="text-sm font-black uppercase tracking-widest">Atmospheric_Upload</h3>
-            <p className="text-[10px] opacity-40">Drag reflection maps or layer coordinates here.</p>
+            <p className="text-[10px] opacity-40">
+              Drag reflection maps or layer coordinates here.
+            </p>
           </div>
         </Dropzone>
       </div>

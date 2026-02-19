@@ -57,9 +57,28 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const basicSteps = [
-  { label: 'Account', content: <div className="space-y-2"><p className="text-sm">Enter your account details.</p><input className="w-full rounded border px-3 py-2 text-sm" placeholder="Email" /></div> },
-  { label: 'Profile', content: <div className="space-y-2"><p className="text-sm">Tell us about yourself.</p><input className="w-full rounded border px-3 py-2 text-sm" placeholder="Display name" /></div> },
-  { label: 'Review', content: <p className="text-sm text-muted-foreground">Review your information and submit.</p> },
+  {
+    label: 'Account',
+    content: (
+      <div className="space-y-2">
+        <p className="text-sm">Enter your account details.</p>
+        <input className="w-full rounded border px-3 py-2 text-sm" placeholder="Email" />
+      </div>
+    ),
+  },
+  {
+    label: 'Profile',
+    content: (
+      <div className="space-y-2">
+        <p className="text-sm">Tell us about yourself.</p>
+        <input className="w-full rounded border px-3 py-2 text-sm" placeholder="Display name" />
+      </div>
+    ),
+  },
+  {
+    label: 'Review',
+    content: <p className="text-sm text-muted-foreground">Review your information and submit.</p>,
+  },
 ];
 
 export const Basic: Story = {
@@ -72,8 +91,20 @@ export const Basic: Story = {
 export const WithValidation: Story = {
   args: {
     steps: [
-      { label: 'Step 1', content: <p className="text-sm">This step always passes validation.</p>, isValid: () => true },
-      { label: 'Step 2', content: <p className="text-sm text-destructive">This step always fails validation — Next is disabled.</p>, isValid: () => false },
+      {
+        label: 'Step 1',
+        content: <p className="text-sm">This step always passes validation.</p>,
+        isValid: () => true,
+      },
+      {
+        label: 'Step 2',
+        content: (
+          <p className="text-sm text-destructive">
+            This step always fails validation — Next is disabled.
+          </p>
+        ),
+        isValid: () => false,
+      },
       { label: 'Step 3', content: <p className="text-sm">You should not reach here.</p> },
     ],
     onSubmit: () => alert('Submitted!'),

@@ -15,7 +15,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'High-performance 2D particle system using PixiJS. Ideal for atmospheric backgrounds like space, snow, or rain.',
+        component:
+          'High-performance 2D particle system using PixiJS. Ideal for atmospheric backgrounds like space, snow, or rain.',
       },
     },
   },
@@ -25,39 +26,39 @@ const meta = {
       control: 'select',
       options: ['space', 'snow', 'rain', 'floating'],
       description: 'The visual preset for the particle system',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     effect: {
       control: 'select',
       options: ['glow', 'blur', 'none'],
       description: 'Visual post-processing effects',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     count: {
       control: { type: 'number', min: 10, max: 2000 },
       description: 'Number of particles',
-      table: { category: 'Performance' }
+      table: { category: 'Performance' },
     },
     speed: {
       control: { type: 'number', min: 0.1, max: 10, step: 0.1 },
       description: 'Movement speed multiplier',
-      table: { category: 'Animation' }
+      table: { category: 'Animation' },
     },
     size: {
       control: { type: 'number', min: 1, max: 20 },
       description: 'Base particle size',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     opacity: {
       control: { type: 'number', min: 0, max: 1, step: 0.1 },
       description: 'Particle opacity',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     isPlaying: {
       control: 'boolean',
       description: 'Toggle playback',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof AnimationParticles>;
 
@@ -96,7 +97,7 @@ export const Space: Story = {
         <AnimationParticles {...args} width={dimensions.width} height={dimensions.height} />
       </div>
     );
-  }
+  },
 };
 
 /**

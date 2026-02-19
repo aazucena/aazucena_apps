@@ -1,12 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Hero,
-  HeroActions,
-  HeroContent,
-  HeroHeader,
-  HeroSubtitle,
-  HeroTitle,
-} from '@aazucena/ui';
+import { Hero, HeroActions, HeroContent, HeroHeader, HeroSubtitle, HeroTitle } from '@aazucena/ui';
 import { Button, Badge } from '@aazucena/ui';
 import { Activity, Play, Globe, Zap, ArrowRight } from '@aazucena/icons';
 
@@ -32,7 +25,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A high-impact header section for landing pages and major site modules. Supports multiple visual themes and responsive sizing.',
+        component:
+          'A high-impact header section for landing pages and major site modules. Supports multiple visual themes and responsive sizing.',
       },
     },
   },
@@ -42,14 +36,14 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the hero section',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['default', 'lg', 'xl', 'full'],
       description: 'The physical height of the hero section',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Hero>;
 
@@ -71,17 +65,27 @@ export const Basic: Story = {
       <HeroContent>
         <HeroHeader>
           <div className="flex justify-center mb-8">
-            <Badge variant="outline" className="px-6 py-1.5 rounded-full border-zinc-200">v2.4.0_STABLE</Badge>
+            <Badge variant="outline" className="px-6 py-1.5 rounded-full border-zinc-200">
+              v2.4.0_STABLE
+            </Badge>
           </div>
           <HeroTitle>Engineering_Intelligence</HeroTitle>
           <HeroSubtitle>
-            Building the next generation of high-fidelity adaptive interfaces and neural-ready design systems.
+            Building the next generation of high-fidelity adaptive interfaces and neural-ready
+            design systems.
           </HeroSubtitle>
           <HeroActions>
-            <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest uppercase">
+            <Button
+              size="lg"
+              className="rounded-full px-10 h-14 font-black tracking-widest uppercase"
+            >
               View_Projects <ArrowRight className="ml-2 size-5" />
             </Button>
-            <Button variant="outline" size="lg" className="rounded-full px-10 h-14 font-black tracking-widest uppercase border-zinc-200">
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-full px-10 h-14 font-black tracking-widest uppercase border-zinc-200"
+            >
               Get_in_Touch
             </Button>
           </HeroActions>
@@ -108,7 +112,9 @@ export const CyberTerminal: Story = {
               <div className="p-4 border border-cyan-500/30 rounded-full animate-pulse">
                 <Zap className="size-8 text-cyan-500" />
               </div>
-              <span className="font-mono text-[10px] text-cyan-500/60 uppercase tracking-[0.4em]">UPLINK_STATUS: SECURE_ENCLAVE</span>
+              <span className="font-mono text-[10px] text-cyan-500/60 uppercase tracking-[0.4em]">
+                UPLINK_STATUS: SECURE_ENCLAVE
+              </span>
             </div>
             <HeroTitle variant="cyber" size="lg" className="text-cyan-500 italic uppercase">
               CORE_PROTOCOL
@@ -149,7 +155,10 @@ export const GlassAtmospheric: Story = {
               Adaptive layered surfaces with real-time backdrop blur and environmental projection.
             </HeroSubtitle>
             <HeroActions className="mt-16">
-              <Button variant="glass" className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-12 h-16 text-xl">
+              <Button
+                variant="glass"
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-12 h-16 text-xl"
+              >
                 <Globe className="mr-2 size-6" /> Explore_Enclave
               </Button>
             </HeroActions>
@@ -176,9 +185,13 @@ export const IntelDashboard: Story = {
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <Activity className="size-4 text-primary animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">LIVE_TELEMETRY_STREAM</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">
+                  LIVE_TELEMETRY_STREAM
+                </span>
               </div>
-              <h1 className="text-5xl font-black tracking-tighter text-white uppercase">Neural_Stats</h1>
+              <h1 className="text-5xl font-black tracking-tighter text-white uppercase">
+                Neural_Stats
+              </h1>
             </div>
             <div className="text-right space-y-2">
               <p className="text-[10px] font-mono text-white/40 uppercase">Assigned_Node</p>

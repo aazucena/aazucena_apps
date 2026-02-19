@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A floating button that appears after scrolling a certain distance, allowing users to return to the top of the page.',
+        component:
+          'A floating button that appears after scrolling a certain distance, allowing users to return to the top of the page.',
       },
     },
   },
@@ -26,24 +27,24 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual style of the button',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg'],
       description: 'Physical dimensions',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     threshold: {
       control: 'number',
       description: 'Scroll distance (px) before the button appears',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     forceVisible: {
       control: 'boolean',
       description: 'Force the button to be visible regardless of scroll position (Storybook only)',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof BackToTop>;
 
@@ -104,10 +105,10 @@ export const InteractionTest: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button');
-    
+
     // Check initial state
-    await new Promise(r => setTimeout(r, 500));
-    
+    await new Promise((r) => setTimeout(r, 500));
+
     // Simulate Click
     await userEvent.click(button);
   },

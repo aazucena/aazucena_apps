@@ -62,7 +62,13 @@ interface User {
 }
 
 const sampleData: User[] = [
-  { name: 'Aldrin Azucena', email: 'aldrin@example.com', role: 'Engineer', status: 'Active', score: 98 },
+  {
+    name: 'Aldrin Azucena',
+    email: 'aldrin@example.com',
+    role: 'Engineer',
+    status: 'Active',
+    score: 98,
+  },
   { name: 'Jane Smith', email: 'jane@example.com', role: 'Designer', status: 'Active', score: 87 },
   { name: 'Bob Johnson', email: 'bob@example.com', role: 'PM', status: 'Inactive', score: 72 },
   { name: 'Alice Chen', email: 'alice@example.com', role: 'Engineer', status: 'Active', score: 95 },
@@ -70,7 +76,13 @@ const sampleData: User[] = [
   { name: 'Eve Williams', email: 'eve@example.com', role: 'PM', status: 'Inactive', score: 68 },
   { name: 'Frank Lee', email: 'frank@example.com', role: 'Engineer', status: 'Active', score: 91 },
   { name: 'Grace Kim', email: 'grace@example.com', role: 'Designer', status: 'Active', score: 89 },
-  { name: 'Hank Brown', email: 'hank@example.com', role: 'Engineer', status: 'Inactive', score: 76 },
+  {
+    name: 'Hank Brown',
+    email: 'hank@example.com',
+    role: 'Engineer',
+    status: 'Inactive',
+    score: 76,
+  },
   { name: 'Iris Davis', email: 'iris@example.com', role: 'PM', status: 'Active', score: 84 },
   { name: 'Jack Wilson', email: 'jack@example.com', role: 'Engineer', status: 'Active', score: 93 },
   { name: 'Kate Moore', email: 'kate@example.com', role: 'Designer', status: 'Active', score: 79 },
@@ -139,9 +151,7 @@ export const CustomRender: Story = {
         header: 'Score',
         sortable: true,
         width: '80px',
-        render: (value) => (
-          <span className="font-mono font-semibold">{String(value)}</span>
-        ),
+        render: (value) => <span className="font-mono font-semibold">{String(value)}</span>,
       },
     ] as DataTableColumn<User>[],
     pageSize: 6,

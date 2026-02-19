@@ -107,9 +107,7 @@ export const SignUp: Story = {
     <Card className="w-[400px] shadow-2xl">
       <CardHeader className="text-center">
         <CardTitle className="text-3xl font-black tracking-tighter">Create Account</CardTitle>
-        <CardDescription>
-          Join thousands of developers building with this stack.
-        </CardDescription>
+        <CardDescription>Join thousands of developers building with this stack.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
@@ -124,12 +122,7 @@ export const SignUp: Story = {
         </div>
         <div className="space-y-2">
           <Label htmlFor="signup-email">Email</Label>
-          <Input
-            id="signup-email"
-            type="email"
-            placeholder="name@example.com"
-            className="h-11"
-          />
+          <Input id="signup-email" type="email" placeholder="name@example.com" className="h-11" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="signup-password">Password</Label>

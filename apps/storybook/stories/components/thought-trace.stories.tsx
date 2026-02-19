@@ -18,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A component for displaying a sequence of "thoughts" or internal processing steps, commonly used in AI reasoning views.',
+        component:
+          'A component for displaying a sequence of "thoughts" or internal processing steps, commonly used in AI reasoning views.',
       },
     },
   },
@@ -28,8 +29,8 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber', 'ai'],
       description: 'The visual theme of the trace list',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof ThoughtTrace>;
 
@@ -62,13 +63,23 @@ export const CyberTerminal: Story = {
     <div className="w-96 p-10 bg-black border border-cyan-500/10 rounded-2xl">
       <div className="flex items-center gap-3 mb-6">
         <Terminal size={14} className="text-cyan-500 opacity-40" />
-        <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-[0.2em]"># INTERNAL_PROCESS_TRACE</span>
+        <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-[0.2em]">
+          # INTERNAL_PROCESS_TRACE
+        </span>
       </div>
       <ThoughtTrace variant="cyber">
-        <ThoughtStep variant="cyber" status="completed">DECRYPTING_SIGNAL_0x7F</ThoughtStep>
-        <ThoughtStep variant="cyber" status="completed">RSA_KEY_VERIFIED</ThoughtStep>
-        <ThoughtStep variant="cyber" status="active">MAPPING_NODE_TOPOLOGY</ThoughtStep>
-        <ThoughtStep variant="cyber" status="pending">SYNC_MASTER_KERNEL</ThoughtStep>
+        <ThoughtStep variant="cyber" status="completed">
+          DECRYPTING_SIGNAL_0x7F
+        </ThoughtStep>
+        <ThoughtStep variant="cyber" status="completed">
+          RSA_KEY_VERIFIED
+        </ThoughtStep>
+        <ThoughtStep variant="cyber" status="active">
+          MAPPING_NODE_TOPOLOGY
+        </ThoughtStep>
+        <ThoughtStep variant="cyber" status="pending">
+          SYNC_MASTER_KERNEL
+        </ThoughtStep>
       </ThoughtTrace>
     </div>
   ),
@@ -83,15 +94,27 @@ export const AIReasoning: Story = {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <Activity size={14} className="text-primary animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">Reasoning_Layer</span>
+          <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">
+            Reasoning_Layer
+          </span>
         </div>
-        <Badge variant="secondary" size="xs">CLAUDE_3.5</Badge>
+        <Badge variant="secondary" size="xs">
+          CLAUDE_3.5
+        </Badge>
       </div>
       <ThoughtTrace variant="ai">
-        <ThoughtStep variant="ai" status="completed">INDEXING_PROJECT_ROADMAP</ThoughtStep>
-        <ThoughtStep variant="ai" status="completed">ANALYZING_COMPONENT_ARCHITECTURE</ThoughtStep>
-        <ThoughtStep variant="ai" status="active">GENERATING_GOLD_STANDARD_DOCS</ThoughtStep>
-        <ThoughtStep variant="ai" status="pending">VALIDATING_STORYBOOK_SUITE</ThoughtStep>
+        <ThoughtStep variant="ai" status="completed">
+          INDEXING_PROJECT_ROADMAP
+        </ThoughtStep>
+        <ThoughtStep variant="ai" status="completed">
+          ANALYZING_COMPONENT_ARCHITECTURE
+        </ThoughtStep>
+        <ThoughtStep variant="ai" status="active">
+          GENERATING_GOLD_STANDARD_DOCS
+        </ThoughtStep>
+        <ThoughtStep variant="ai" status="pending">
+          VALIDATING_STORYBOOK_SUITE
+        </ThoughtStep>
       </ThoughtTrace>
     </div>
   ),

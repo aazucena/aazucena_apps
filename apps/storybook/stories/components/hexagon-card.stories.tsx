@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  HexagonCard,
-  HexagonCardDescription,
-  HexagonCardTitle,
-} from '@aazucena/ui';
+import { HexagonCard, HexagonCardDescription, HexagonCardTitle } from '@aazucena/ui';
 import { Shield, Zap, Activity, Globe } from '@aazucena/icons';
 
 /**
@@ -22,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A geometric card component for displaying awards, certifications, and technical achievements. Features an animated SVG background and custom icon support.',
+        component:
+          'A geometric card component for displaying awards, certifications, and technical achievements. Features an animated SVG background and custom icon support.',
       },
     },
   },
@@ -32,19 +29,19 @@ const meta = {
       control: 'select',
       options: ['award', 'certification'],
       description: 'The visual theme and color palette',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg'],
       description: 'The physical dimensions of the hexagon',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     dashed: {
       control: 'boolean',
       description: 'Renders the border with a dashed stroke',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof HexagonCard>;
 

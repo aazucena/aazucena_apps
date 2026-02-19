@@ -14,7 +14,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Displays content within a desired ratio. Commonly used for images, videos, and map embeds to prevent layout shifts.',
+        component:
+          'Displays content within a desired ratio. Commonly used for images, videos, and map embeds to prevent layout shifts.',
       },
     },
   },
@@ -23,10 +24,10 @@ const meta = {
     ratio: {
       control: { type: 'number', step: 0.1 },
       description: 'The desired aspect ratio (width / height)',
-      table: { 
+      table: {
         category: 'Layout',
         type: { summary: 'number' },
-        defaultValue: { summary: '1' }
+        defaultValue: { summary: '1' },
       },
     },
   },
@@ -53,7 +54,9 @@ export const SixteenByNine: Story = {
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-          <p className="text-white font-black uppercase tracking-widest text-xs">VIDEO_STREAM // 16:9</p>
+          <p className="text-white font-black uppercase tracking-widest text-xs">
+            VIDEO_STREAM // 16:9
+          </p>
         </div>
       </AspectRatio>
     </div>
@@ -72,7 +75,9 @@ export const FourByThree: Story = {
       <AspectRatio {...args}>
         <div className="flex h-full items-center justify-center flex-col gap-2">
           <div className="w-12 h-12 rounded-full bg-primary/20 animate-pulse" />
-          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-tighter">SIGNAL_LOST // 4:3</span>
+          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-tighter">
+            SIGNAL_LOST // 4:3
+          </span>
         </div>
       </AspectRatio>
     </div>
@@ -112,7 +117,9 @@ export const CinemaScope: Story = {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="h-[1px] w-0 bg-cyan-500 group-hover:w-full transition-all duration-700 opacity-50" />
         </div>
-        <div className="absolute top-4 left-4 text-[9px] font-mono text-cyan-500/50">ULTRAWIDE_OUTPUT</div>
+        <div className="absolute top-4 left-4 text-[9px] font-mono text-cyan-500/50">
+          ULTRAWIDE_OUTPUT
+        </div>
       </AspectRatio>
     </div>
   ),

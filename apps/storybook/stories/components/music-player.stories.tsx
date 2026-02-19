@@ -119,9 +119,7 @@ export const Sizes: Story = {
     <div className="flex w-[450px] flex-col gap-6">
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <div key={size} className="space-y-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">
-            {size}
-          </span>
+          <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">{size}</span>
           <MusicPlayer
             src="https://example.com/audio.mp3"
             title="Midnight Protocol"

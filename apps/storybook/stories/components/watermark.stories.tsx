@@ -16,7 +16,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A background typography component used for large-scale branding. Automatically centers itself and handles responsive scaling.',
+        component:
+          'A background typography component used for large-scale branding. Automatically centers itself and handles responsive scaling.',
       },
     },
   },
@@ -26,13 +27,13 @@ const meta = {
       control: 'select',
       options: ['sm', 'md', 'lg', 'xl', 'huge'],
       description: 'The massive font size preset',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     text: {
       control: 'text',
       description: 'The background string to display',
-      table: { category: 'Content' }
-    }
+      table: { category: 'Content' },
+    },
   },
 } satisfies Meta<typeof Watermark>;
 
@@ -54,7 +55,10 @@ export const Basic: Story = {
       <Watermark {...args} />
       <div className="relative z-10 h-full flex flex-col items-center justify-center p-20 text-center gap-4">
         <h1 className="text-5xl font-black tracking-tighter uppercase">Foreground_Content</h1>
-        <p className="max-w-md opacity-60">The watermark sits at z-index 0, providing a subtle architectural layer behind your primary components.</p>
+        <p className="max-w-md opacity-60">
+          The watermark sits at z-index 0, providing a subtle architectural layer behind your
+          primary components.
+        </p>
       </div>
     </div>
   ),

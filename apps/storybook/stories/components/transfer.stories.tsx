@@ -92,7 +92,9 @@ export const Glass: Story = {
 export const Cyber: Story = {
   render: () => {
     const [targetKeys, setTargetKeys] = React.useState<string[]>([]);
-    return <Transfer variant="cyber" items={items} targetKeys={targetKeys} onChange={setTargetKeys} />;
+    return (
+      <Transfer variant="cyber" items={items} targetKeys={targetKeys} onChange={setTargetKeys} />
+    );
   },
 };
 
@@ -113,7 +115,5 @@ export const Sizes: Story = {
 };
 
 export const Disabled: Story = {
-  render: () => (
-    <Transfer items={items} targetKeys={['1', '2']} onChange={() => {}} disabled />
-  ),
+  render: () => <Transfer items={items} targetKeys={['1', '2']} onChange={() => {}} disabled />,
 };

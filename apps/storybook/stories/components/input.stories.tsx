@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'The base input component for text, passwords, emails, and files. Supports brand-aligned visual variants.',
+        component:
+          'The base input component for text, passwords, emails, and files. Supports brand-aligned visual variants.',
       },
     },
   },
@@ -26,19 +27,19 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the input',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     type: {
       control: 'select',
       options: ['text', 'password', 'email', 'number', 'file', 'tel', 'url'],
       description: 'The HTML input type',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents user interaction',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof Input>;
 
@@ -89,7 +90,10 @@ export const GlassAtmospheric: Story = {
   render: (args) => (
     <div className="p-20 bg-gradient-to-br from-indigo-600 to-blue-800 rounded-[3rem]">
       <div className="w-80">
-        <Input {...args} className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-xl h-12 px-6" />
+        <Input
+          {...args}
+          className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-xl h-12 px-6"
+        />
       </div>
     </div>
   ),
@@ -104,7 +108,9 @@ export const FileUpload: Story = {
   },
   render: (args) => (
     <div className="w-96 p-6 border rounded-2xl bg-muted/5">
-      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-4 px-1">Source_Payload_Upload</p>
+      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-4 px-1">
+        Source_Payload_Upload
+      </p>
       <Input {...args} className="h-auto py-4 cursor-pointer" />
     </div>
   ),

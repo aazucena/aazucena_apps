@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A threaded comment display with nested replies, like actions, and configurable depth.',
+        component:
+          'A threaded comment display with nested replies, like actions, and configurable depth.',
       },
     },
   },

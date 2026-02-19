@@ -27,7 +27,10 @@ const fileSystemData = [
         key: 'hooks',
         data: { name: 'hooks', size: '—', modified: '2026-02-13' },
         children: [
-          { key: 'useTheme', data: { name: 'useTheme.ts', size: '0.8 KB', modified: '2026-02-11' } },
+          {
+            key: 'useTheme',
+            data: { name: 'useTheme.ts', size: '0.8 KB', modified: '2026-02-11' },
+          },
         ],
       },
     ],
@@ -95,9 +98,7 @@ export const CustomRender: Story = {
         key: 'name',
         header: 'Name',
         width: '50%',
-        render: (value: unknown) => (
-          <span className="font-medium">{String(value)}</span>
-        ),
+        render: (value: unknown) => <span className="font-medium">{String(value)}</span>,
       },
       {
         key: 'size',
@@ -107,7 +108,9 @@ export const CustomRender: Story = {
           String(value) === '—' ? (
             <span className="text-muted-foreground italic">folder</span>
           ) : (
-            <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs text-primary">{String(value)}</span>
+            <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs text-primary">
+              {String(value)}
+            </span>
           ),
       },
       { key: 'modified', header: 'Modified', width: '25%' },

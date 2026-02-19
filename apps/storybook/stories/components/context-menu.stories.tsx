@@ -48,7 +48,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust context menu system triggered by a right-click or long-press. Supports nesting, checkbox items, and radio groups.',
+        component:
+          'A robust context menu system triggered by a right-click or long-press. Supports nesting, checkbox items, and radio groups.',
       },
     },
   },
@@ -101,11 +102,15 @@ export const Cyber: Story = {
     <ContextMenu>
       <ContextMenuTrigger className="group flex h-[200px] w-[400px] flex-col items-center justify-center rounded-3xl border border-cyan-500/20 bg-black shadow-inner">
         <Activity className="size-8 text-cyan-500 mb-4 animate-pulse" />
-        <span className="font-mono text-cyan-400 text-xs tracking-widest">[ENCRYPTED_NODE_TERMINAL]</span>
+        <span className="font-mono text-cyan-400 text-xs tracking-widest">
+          [ENCRYPTED_NODE_TERMINAL]
+        </span>
         <span className="text-[9px] opacity-20 uppercase mt-2">Right-click for root access</span>
       </ContextMenuTrigger>
       <ContextMenuContent variant="cyber" className="w-72 font-mono">
-        <ContextMenuLabel className="text-cyan-500 uppercase italic tracking-tighter">// NODE_PROTOCOLS</ContextMenuLabel>
+        <ContextMenuLabel className="text-cyan-500 uppercase italic tracking-tighter">
+          // NODE_PROTOCOLS
+        </ContextMenuLabel>
         <ContextMenuSeparator className="bg-cyan-500/20" />
         <ContextMenuItem className="gap-3 focus:bg-cyan-500/20 focus:text-cyan-400">
           <Play className="size-3.5" />

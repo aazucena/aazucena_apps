@@ -5,12 +5,7 @@ import {
   Dendrogram,
   CircularPacking,
 } from '@aazucena/visualizations';
-import {
-  networkData,
-  sankeyData,
-  dendrogramData,
-  circularPackingData,
-} from './_mock-data';
+import { networkData, sankeyData, dendrogramData, circularPackingData } from './_mock-data';
 
 /**
  * ## Engineering Standards
@@ -93,22 +88,12 @@ export const Sankey: StoryObj<typeof SankeyDiagram> = {
 
 export const DendrogramHorizontal: StoryObj<typeof Dendrogram> = {
   render: () => (
-    <Dendrogram
-      data={dendrogramData}
-      title="Skill Tree (Horizontal)"
-      direction="horizontal"
-    />
+    <Dendrogram data={dendrogramData} title="Skill Tree (Horizontal)" direction="horizontal" />
   ),
 };
 
 export const DendrogramRadial: StoryObj<typeof Dendrogram> = {
-  render: () => (
-    <Dendrogram
-      data={dendrogramData}
-      title="Skill Tree (Radial)"
-      direction="radial"
-    />
-  ),
+  render: () => <Dendrogram data={dendrogramData} title="Skill Tree (Radial)" direction="radial" />,
 };
 
 // ---------------------------------------------------------------------------

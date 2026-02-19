@@ -15,7 +15,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A small visual indicator for categorization, status, or counts. Supports a variety of brand-aligned visual styles and animated states.',
+        component:
+          'A small visual indicator for categorization, status, or counts. Supports a variety of brand-aligned visual styles and animated states.',
       },
     },
   },
@@ -24,31 +25,31 @@ const meta = {
     variant: {
       control: 'select',
       options: [
-        'default', 
-        'secondary', 
-        'destructive', 
-        'outline', 
-        'glass', 
+        'default',
+        'secondary',
+        'destructive',
+        'outline',
+        'glass',
         'cyber',
         'indigo',
         'sky',
         'emerald',
-        'rose'
+        'rose',
       ],
       description: 'The visual style of the badge',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg'],
       description: 'Physical dimensions and typography preset',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     animated: {
       control: 'boolean',
       description: 'Displays a pulsing status dot inside the badge',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Badge>;
 

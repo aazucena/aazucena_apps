@@ -17,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A small metadata component used to display the estimated reading or consumption time for an article or module.',
+        component:
+          'A small metadata component used to display the estimated reading or consumption time for an article or module.',
       },
     },
   },
@@ -27,14 +28,14 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber', 'bright', 'muted'],
       description: 'The visual theme of the component',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['xs', 'sm', 'default', 'lg'],
       description: 'The typography and icon scale',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof ReadingTime>;
 

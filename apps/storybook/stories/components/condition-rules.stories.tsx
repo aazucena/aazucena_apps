@@ -53,11 +53,16 @@ const fields: ConditionField[] = [
   { key: 'age', label: 'Age', type: 'number' },
   { key: 'active', label: 'Active', type: 'boolean' },
   { key: 'created_at', label: 'Created At', type: 'date' },
-  { key: 'role', label: 'Role', type: 'select', options: [
-    { label: 'Admin', value: 'admin' },
-    { label: 'Editor', value: 'editor' },
-    { label: 'Viewer', value: 'viewer' },
-  ]},
+  {
+    key: 'role',
+    label: 'Role',
+    type: 'select',
+    options: [
+      { label: 'Admin', value: 'admin' },
+      { label: 'Editor', value: 'editor' },
+      { label: 'Viewer', value: 'viewer' },
+    ],
+  },
 ];
 
 const ConditionDemo = (props: Partial<React.ComponentProps<typeof ConditionRules>>) => {

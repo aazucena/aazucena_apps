@@ -7,7 +7,7 @@ import {
   AppLoaderProgress,
   AppLoaderTitle,
   AppLoaderStatus,
-  Logo
+  Logo,
 } from '@aazucena/ui';
 import { useState, useEffect } from 'react';
 
@@ -16,26 +16,27 @@ import { useState, useEffect } from 'react';
  * - **Design Agency:** `AAZUCENA_DIGITAL`
  * - **Maturity:** `Stable`
  * - **A11y:** Traps focus and prevents interaction with underlying content.
- * 
+ *
  * ## Structuring Guide Alignment
- * This component follows the "Atomic Composability" pattern. The root `AppLoader` 
+ * This component follows the "Atomic Composability" pattern. The root `AppLoader`
  * provides the backdrop, while sub-components handle the branding, progress, and status.
  */
 const meta = {
   title: 'Components/Feedback/AppLoader',
   component: AppLoader,
-  subcomponents: { 
-    AppLoaderContent, 
-    AppLoaderIcon, 
-    AppLoaderProgress, 
-    AppLoaderTitle, 
-    AppLoaderStatus 
+  subcomponents: {
+    AppLoaderContent,
+    AppLoaderIcon,
+    AppLoaderProgress,
+    AppLoaderTitle,
+    AppLoaderStatus,
   } as any,
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A full-screen application preloader with integrated brand identity and progress tracking.',
+        component:
+          'A full-screen application preloader with integrated brand identity and progress tracking.',
       },
     },
   },
@@ -45,29 +46,29 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'Visual theme of the background',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     isHidden: {
       control: 'boolean',
       description: 'Toggle visibility (trigger exit animation)',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     // Progress Props (for the playground)
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'Progress completion percentage',
-      table: { category: 'Progress' }
+      table: { category: 'Progress' },
     },
     showPercentage: {
       control: 'boolean',
       description: 'Display the numeric percentage label',
-      table: { category: 'Progress' }
+      table: { category: 'Progress' },
     },
     progressVariant: {
       control: 'select',
       options: ['default', 'primary', 'cyan', 'destructive'],
       description: 'Color variant of the progress bar',
-      table: { category: 'Progress' }
+      table: { category: 'Progress' },
     },
   },
 } satisfies Meta<typeof AppLoader>;
@@ -83,13 +84,13 @@ const StaticLoader = (args: any) => (
       <AppLoaderIcon animation={args.animation || 'cyber-pulse'} size="md">
         <Logo variant={args.variant === 'cyber' ? 'cyber' : 'default'} size="full" />
       </AppLoaderIcon>
-      
+
       <div className="flex flex-col items-center gap-4">
         <AppLoaderTitle>{args.title || 'Aldrin Azucena'}</AppLoaderTitle>
-        <AppLoaderProgress 
-          value={args.value} 
-          variant={args.progressVariant} 
-          showPercentage={args.showPercentage} 
+        <AppLoaderProgress
+          value={args.value}
+          variant={args.progressVariant}
+          showPercentage={args.showPercentage}
         />
         <AppLoaderStatus>{args.status || 'SYSTEM_READY'}</AppLoaderStatus>
       </div>
@@ -97,7 +98,11 @@ const StaticLoader = (args: any) => (
   </AppLoader>
 );
 
-const AnimatedSequence = ({ variant, iconAnimation = 'cyber-pulse', progressVariant = 'default' }: any) => {
+const AnimatedSequence = ({
+  variant,
+  iconAnimation = 'cyber-pulse',
+  progressVariant = 'default',
+}: any) => {
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState('Initializing_Core_Modules');
 
@@ -119,13 +124,13 @@ const AnimatedSequence = ({ variant, iconAnimation = 'cyber-pulse', progressVari
   }, []);
 
   return (
-    <StaticLoader 
-      variant={variant} 
-      value={progress} 
-      status={status} 
-      animation={iconAnimation} 
+    <StaticLoader
+      variant={variant}
+      value={progress}
+      status={status}
+      animation={iconAnimation}
       progressVariant={progressVariant}
-      showPercentage 
+      showPercentage
     />
   );
 };
@@ -133,7 +138,7 @@ const AnimatedSequence = ({ variant, iconAnimation = 'cyber-pulse', progressVari
 // --- CATEGORY: ESSENTIALS ---
 
 /**
- * The primary playground story. **Use the Controls panel** to manually adjust 
+ * The primary playground story. **Use the Controls panel** to manually adjust
  * the progress bar, variant, and percentage display.
  */
 export const Basic: Story = {
@@ -220,7 +225,7 @@ export const ExitAnimation: Story = {
     const [hidden, setHidden] = useState(args.isHidden);
     return (
       <div className="flex h-screen items-center justify-center bg-background text-foreground transition-colors duration-500">
-        <button 
+        <button
           onClick={() => setHidden(!hidden)}
           className="fixed bottom-8 right-8 z-[10001] rounded-full bg-primary px-6 py-3 text-primary-foreground shadow-2xl hover:scale-105 active:scale-95 transition-all font-bold"
         >
@@ -233,17 +238,17 @@ export const ExitAnimation: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const trigger = await canvas.findByRole('button', { name: /Trigger Exit/i });
-    
+
     // Wait for initial view
-    await new Promise(r => setTimeout(r, 1500));
-    
+    await new Promise((r) => setTimeout(r, 1500));
+
     // Trigger Exit
     await userEvent.click(trigger);
-    
+
     // Wait for animation to finish
-    await new Promise(r => setTimeout(r, 1500));
-    
+    await new Promise((r) => setTimeout(r, 1500));
+
     // Reset for the user
     await userEvent.click(await canvas.findByRole('button', { name: /Re-run Loader/i }));
-  }
+  },
 };

@@ -16,7 +16,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Main Three.js scene orchestrator for the portfolio background. Supports atmospheric layer transitions and demand-based rendering.',
+        component:
+          'Main Three.js scene orchestrator for the portfolio background. Supports atmospheric layer transitions and demand-based rendering.',
       },
     },
   },
@@ -26,23 +27,23 @@ const meta = {
       control: 'select',
       options: ['exosphere', 'thermosphere', 'mesosphere', 'stratosphere', 'troposphere'],
       description: 'The current atmospheric phase/layer',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     intensity: {
       control: { type: 'number', min: 0, max: 2, step: 0.1 },
       description: 'Animation intensity multiplier',
-      table: { category: 'Visuals' }
+      table: { category: 'Visuals' },
     },
     currentSection: {
       control: { type: 'number', min: 0, max: 7 },
       description: 'Current section index (0-7)',
-      table: { category: 'Navigation' }
+      table: { category: 'Navigation' },
     },
     scrollProgress: {
       control: { type: 'number', min: 0, max: 1, step: 0.1 },
       description: 'Scroll progress within current section (0-1)',
-      table: { category: 'Navigation' }
-    }
+      table: { category: 'Navigation' },
+    },
   },
   decorators: [
     (Story) => (

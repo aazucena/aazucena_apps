@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from '@aazucena/ui';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@aazucena/ui';
 import { Terminal, Layout, Activity, Database, Globe } from '@aazucena/icons';
 
 /**
@@ -21,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust layout system for creating resizable multi-panel interfaces. Supports horizontal and vertical orientations with high-fidelity technical styling.',
+        component:
+          'A robust layout system for creating resizable multi-panel interfaces. Supports horizontal and vertical orientations with high-fidelity technical styling.',
       },
     },
   },
@@ -31,8 +28,8 @@ const meta = {
       control: 'radio',
       options: ['horizontal', 'vertical'],
       description: 'The primary axis of the panel group',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof ResizablePanelGroup>;
 
@@ -71,7 +68,9 @@ export const Basic: Story = {
               <Activity className="size-8 text-primary animate-pulse" />
             </div>
             <h3 className="text-xl font-black tracking-tighter uppercase">Main_Stage_Area</h3>
-            <p className="text-xs text-muted-foreground max-w-xs">Primary visualization and telemetry processing environment.</p>
+            <p className="text-xs text-muted-foreground max-w-xs">
+              Primary visualization and telemetry processing environment.
+            </p>
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
@@ -88,10 +87,15 @@ export const TechnicalIDE: Story = {
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel defaultSize={20} minSize={15}>
           <div className="flex h-full flex-col p-4 border-r border-white/5">
-            <span className="font-mono text-[9px] text-cyan-500 opacity-40 uppercase mb-4">Files_Expl</span>
+            <span className="font-mono text-[9px] text-cyan-500 opacity-40 uppercase mb-4">
+              Files_Expl
+            </span>
             <div className="space-y-2">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="flex items-center gap-2 text-cyan-500/60 font-mono text-[10px]">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 text-cyan-500/60 font-mono text-[10px]"
+                >
                   <Database size={12} /> NODE_0{i}.LOG
                 </div>
               ))}
@@ -112,9 +116,15 @@ export const TechnicalIDE: Story = {
             <ResizableHandle className="bg-white/5" withHandle />
             <ResizablePanel defaultSize={30}>
               <div className="flex h-full flex-col p-4 bg-cyan-500/5">
-                <span className="font-mono text-[9px] text-cyan-500 opacity-40 uppercase mb-2">Diagnostic_Console</span>
-                <p className="font-mono text-[10px] text-emerald-500/80">{'>'} ALL_SYSTEMS_NOMINAL</p>
-                <p className="font-mono text-[10px] text-cyan-500/40 mt-1">{'>'} Waiting for signal sync...</p>
+                <span className="font-mono text-[9px] text-cyan-500 opacity-40 uppercase mb-2">
+                  Diagnostic_Console
+                </span>
+                <p className="font-mono text-[10px] text-emerald-500/80">
+                  {'>'} ALL_SYSTEMS_NOMINAL
+                </p>
+                <p className="font-mono text-[10px] text-cyan-500/40 mt-1">
+                  {'>'} Waiting for signal sync...
+                </p>
               </div>
             </ResizablePanel>
           </ResizablePanelGroup>

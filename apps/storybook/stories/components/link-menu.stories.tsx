@@ -40,7 +40,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A structured list of links with support for icons, descriptions, and visual variants. Ideal for social footers or resource sidebars.',
+        component:
+          'A structured list of links with support for icons, descriptions, and visual variants. Ideal for social footers or resource sidebars.',
       },
     },
   },
@@ -50,8 +51,8 @@ const meta = {
       control: 'select',
       options: ['default', 'card', 'glass', 'cyber'],
       description: 'The visual theme of the menu container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof LinkMenu>;
 
@@ -76,20 +77,28 @@ export const Basic: Story = {
         <LinkMenuList>
           <LinkMenuItem>
             <LinkMenuLink href="#">
-              <LinkMenuIcon><Github /></LinkMenuIcon>
+              <LinkMenuIcon>
+                <Github />
+              </LinkMenuIcon>
               <LinkMenuContent>
                 <LinkMenuLabel>GitHub_Repository</LinkMenuLabel>
-                <LinkMenuDescription>View the full source code and technical documentation.</LinkMenuDescription>
+                <LinkMenuDescription>
+                  View the full source code and technical documentation.
+                </LinkMenuDescription>
               </LinkMenuContent>
               <LinkMenuExternal />
             </LinkMenuLink>
           </LinkMenuItem>
           <LinkMenuItem>
             <LinkMenuLink href="#">
-              <LinkMenuIcon><Linkedin /></LinkMenuIcon>
+              <LinkMenuIcon>
+                <Linkedin />
+              </LinkMenuIcon>
               <LinkMenuContent>
                 <LinkMenuLabel>LinkedIn_Intel</LinkMenuLabel>
-                <LinkMenuDescription>Professional network and engineering updates.</LinkMenuDescription>
+                <LinkMenuDescription>
+                  Professional network and engineering updates.
+                </LinkMenuDescription>
               </LinkMenuContent>
               <LinkMenuExternal />
             </LinkMenuLink>
@@ -113,25 +122,35 @@ export const CyberTerminal: Story = {
         <LinkMenuHeader className="border-cyan-500/10">
           <div className="flex items-center gap-3 text-cyan-500">
             <Activity className="size-4 animate-pulse" />
-            <LinkMenuTitle className="font-mono italic uppercase tracking-tighter">// NODE_DIRECTORIES</LinkMenuTitle>
+            <LinkMenuTitle className="font-mono italic uppercase tracking-tighter">
+              // NODE_DIRECTORIES
+            </LinkMenuTitle>
           </div>
         </LinkMenuHeader>
         <LinkMenuList>
           <LinkMenuItem>
             <LinkMenuLink variant="cyber" href="#">
-              <LinkMenuIcon variant="cyber"><Zap /></LinkMenuIcon>
+              <LinkMenuIcon variant="cyber">
+                <Zap />
+              </LinkMenuIcon>
               <LinkMenuContent>
                 <LinkMenuLabel className="font-mono">SIGNAL_STREAM</LinkMenuLabel>
-                <LinkMenuDescription className="font-mono text-[10px] opacity-40 uppercase">Real-time telemetry</LinkMenuDescription>
+                <LinkMenuDescription className="font-mono text-[10px] opacity-40 uppercase">
+                  Real-time telemetry
+                </LinkMenuDescription>
               </LinkMenuContent>
             </LinkMenuLink>
           </LinkMenuItem>
           <LinkMenuItem>
             <LinkMenuLink variant="cyber" href="#">
-              <LinkMenuIcon variant="cyber"><Shield /></LinkMenuIcon>
+              <LinkMenuIcon variant="cyber">
+                <Shield />
+              </LinkMenuIcon>
               <LinkMenuContent>
                 <LinkMenuLabel className="font-mono">SECURITY_LOGS</LinkMenuLabel>
-                <LinkMenuDescription className="font-mono text-[10px] opacity-40 uppercase">Enclave_Access_Archive</LinkMenuDescription>
+                <LinkMenuDescription className="font-mono text-[10px] opacity-40 uppercase">
+                  Enclave_Access_Archive
+                </LinkMenuDescription>
               </LinkMenuContent>
             </LinkMenuLink>
           </LinkMenuItem>
@@ -159,10 +178,14 @@ export const GlassAtmospheric: Story = {
           <LinkMenuList>
             <LinkMenuItem>
               <LinkMenuLink variant="glass" href="#" className="text-white">
-                <LinkMenuIcon variant="glass" className="bg-white/10 border-white/20"><Globe /></LinkMenuIcon>
+                <LinkMenuIcon variant="glass" className="bg-white/10 border-white/20">
+                  <Globe />
+                </LinkMenuIcon>
                 <LinkMenuContent>
                   <LinkMenuLabel>Global_Nodes</LinkMenuLabel>
-                  <LinkMenuDescription className="text-white/40">Visualized edge network</LinkMenuDescription>
+                  <LinkMenuDescription className="text-white/40">
+                    Visualized edge network
+                  </LinkMenuDescription>
                 </LinkMenuContent>
               </LinkMenuLink>
             </LinkMenuItem>

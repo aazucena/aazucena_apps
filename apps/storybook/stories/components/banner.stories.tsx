@@ -28,7 +28,9 @@ const meta = {
       description: 'Visual style and color scheme',
       table: {
         category: 'Appearance',
-        type: { summary: "'default' | 'glass' | 'cyber' | 'info' | 'warning' | 'destructive' | 'success'" },
+        type: {
+          summary: "'default' | 'glass' | 'cyber' | 'info' | 'warning' | 'destructive' | 'success'",
+        },
         defaultValue: { summary: 'default' },
       },
     },
@@ -129,10 +131,18 @@ export const Cyber: Story = {
 export const SemanticVariants: Story = {
   render: () => (
     <div className="space-y-3">
-      <Banner variant="info" position="inline">Scheduled maintenance at 2:00 AM UTC.</Banner>
-      <Banner variant="warning" position="inline">API rate limit approaching threshold.</Banner>
-      <Banner variant="destructive" position="inline">Service outage detected in region us-east-1.</Banner>
-      <Banner variant="success" position="inline">All systems operational. Deploy successful.</Banner>
+      <Banner variant="info" position="inline">
+        Scheduled maintenance at 2:00 AM UTC.
+      </Banner>
+      <Banner variant="warning" position="inline">
+        API rate limit approaching threshold.
+      </Banner>
+      <Banner variant="destructive" position="inline">
+        Service outage detected in region us-east-1.
+      </Banner>
+      <Banner variant="success" position="inline">
+        All systems operational. Deploy successful.
+      </Banner>
     </div>
   ),
 };

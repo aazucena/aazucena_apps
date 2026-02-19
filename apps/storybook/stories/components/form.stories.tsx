@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { 
-  Form, 
-  FormControl, 
-  FormDescription, 
-  FormField, 
-  FormItem, 
-  FormLabel, 
-  FormMessage 
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@aazucena/ui';
 import { Button, Input, Checkbox, Textarea, Badge, Toaster, toast } from '@aazucena/ui';
 import { Shield, Zap, Activity, Globe, Send } from '@aazucena/icons';
@@ -36,7 +36,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust form system built on top of React Hook Form and Zod. Provides a standardized structure for handling complex validation and accessibility.',
+        component:
+          'A robust form system built on top of React Hook Form and Zod. Provides a standardized structure for handling complex validation and accessibility.',
       },
     },
   },
@@ -49,12 +50,12 @@ type Story = StoryObj<typeof meta>;
 // --- SCHEMAS ---
 
 const loginSchema = z.object({
-  username: z.string().min(2, { message: "IDENT_INVALID: Minimum 2 characters required." }),
-  password: z.string().min(8, { message: "SECURITY_LOW: Password too short." }),
+  username: z.string().min(2, { message: 'IDENT_INVALID: Minimum 2 characters required.' }),
+  password: z.string().min(8, { message: 'SECURITY_LOW: Password too short.' }),
 });
 
 const configSchema = z.object({
-  node_name: z.string().min(1, "Required"),
+  node_name: z.string().min(1, 'Required'),
   enable_uplink: z.boolean().default(false),
   buffer_capacity: z.string(),
 });
@@ -68,7 +69,7 @@ export const Basic: Story = {
   render: () => {
     const form = useForm<z.infer<typeof loginSchema>>({
       resolver: zodResolver(loginSchema),
-      defaultValues: { username: "", password: "" },
+      defaultValues: { username: '', password: '' },
     });
 
     const onSubmit = (values: z.infer<typeof loginSchema>) => {
@@ -79,7 +80,9 @@ export const Basic: Story = {
       <div className="w-[400px] p-8 border rounded-[2rem] bg-card shadow-2xl">
         <Toaster />
         <div className="flex items-center gap-3 mb-8">
-          <div className="p-2 bg-primary/10 rounded-lg text-primary"><Shield size={20}/></div>
+          <div className="p-2 bg-primary/10 rounded-lg text-primary">
+            <Shield size={20} />
+          </div>
           <h3 className="font-black tracking-tighter uppercase text-xl">Identity_Auth</h3>
         </div>
         <Form {...form}>
@@ -89,7 +92,9 @@ export const Basic: Story = {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black tracking-widest uppercase opacity-40">Username</FormLabel>
+                  <FormLabel className="text-[10px] font-black tracking-widest uppercase opacity-40">
+                    Username
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="aazucena" {...field} />
                   </FormControl>
@@ -102,7 +107,9 @@ export const Basic: Story = {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black tracking-widest uppercase opacity-40">Access_Token</FormLabel>
+                  <FormLabel className="text-[10px] font-black tracking-widest uppercase opacity-40">
+                    Access_Token
+                  </FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -110,7 +117,10 @@ export const Basic: Story = {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full h-12 rounded-full font-black uppercase tracking-widest mt-4">
+            <Button
+              type="submit"
+              className="w-full h-12 rounded-full font-black uppercase tracking-widest mt-4"
+            >
               Initialize_Session
             </Button>
           </form>
@@ -127,7 +137,7 @@ export const CyberConfig: Story = {
   render: () => {
     const form = useForm<z.infer<typeof configSchema>>({
       resolver: zodResolver(configSchema),
-      defaultValues: { node_name: "US_EAST_01", enable_uplink: true, buffer_capacity: "1024" },
+      defaultValues: { node_name: 'US_EAST_01', enable_uplink: true, buffer_capacity: '1024' },
     });
 
     return (
@@ -135,11 +145,13 @@ export const CyberConfig: Story = {
         <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
           <div className="flex items-center gap-3">
             <Activity className="size-4 text-cyan-500 animate-pulse" />
-            <span className="font-mono text-xs text-cyan-500 italic uppercase tracking-tighter">// NODE_CALIBRATION_v4</span>
+            <span className="font-mono text-xs text-cyan-500 italic uppercase tracking-tighter">
+              // NODE_CALIBRATION_v4
+            </span>
           </div>
           <Badge variant="cyber">SECURE</Badge>
         </div>
-        
+
         <Form {...form}>
           <form className="space-y-8">
             <FormField
@@ -147,11 +159,15 @@ export const CyberConfig: Story = {
               name="node_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[9px] font-mono text-cyan-500/60 uppercase">Identifier</FormLabel>
+                  <FormLabel className="text-[9px] font-mono text-cyan-500/60 uppercase">
+                    Identifier
+                  </FormLabel>
                   <FormControl>
                     <Input variant="cyber" {...field} />
                   </FormControl>
-                  <FormDescription className="text-[9px] text-white/20 uppercase font-mono">Assigned_Node_Alias</FormDescription>
+                  <FormDescription className="text-[9px] text-white/20 uppercase font-mono">
+                    Assigned_Node_Alias
+                  </FormDescription>
                 </FormItem>
               )}
             />
@@ -163,7 +179,9 @@ export const CyberConfig: Story = {
                 <FormItem className="flex flex-row items-center justify-between rounded-xl border border-white/5 p-4 bg-white/5">
                   <div className="space-y-0.5">
                     <FormLabel className="text-xs font-bold text-white">Global_Uplink</FormLabel>
-                    <FormDescription className="text-[10px] text-white/40">Enable real-time sync with main cluster.</FormDescription>
+                    <FormDescription className="text-[10px] text-white/40">
+                      Enable real-time sync with main cluster.
+                    </FormDescription>
                   </div>
                   <FormControl>
                     <Checkbox checked={field.value} onCheckedChange={field.onChange} />
@@ -179,7 +197,7 @@ export const CyberConfig: Story = {
         </Form>
       </div>
     );
-  }
+  },
 };
 
 /**
@@ -188,7 +206,7 @@ export const CyberConfig: Story = {
 export const DetailedSubmission: Story = {
   render: () => {
     const form = useForm({
-      defaultValues: { subject: "", message: "" },
+      defaultValues: { subject: '', message: '' },
     });
 
     return (
@@ -212,10 +230,10 @@ export const DetailedSubmission: Story = {
                 <FormItem>
                   <FormLabel>Full_Telemetry_Report</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="Paste stack traces or detailed logs here..." 
-                      className="min-h-[200px] rounded-2xl" 
-                      {...field} 
+                    <Textarea
+                      placeholder="Paste stack traces or detailed logs here..."
+                      className="min-h-[200px] rounded-2xl"
+                      {...field}
                     />
                   </FormControl>
                   <FormDescription>Supports Markdown for code blocks and links.</FormDescription>
@@ -231,5 +249,5 @@ export const DetailedSubmission: Story = {
         </Form>
       </div>
     );
-  }
+  },
 };

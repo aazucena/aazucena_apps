@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  Item, 
-  ItemMedia, 
-  ItemContent, 
-  ItemTitle, 
-  ItemDescription, 
+import {
+  Item,
+  ItemMedia,
+  ItemContent,
+  ItemTitle,
+  ItemDescription,
   ItemActions,
   ItemGroup,
   ItemSeparator,
   ItemHeader,
-  ItemFooter
+  ItemFooter,
 } from '@aazucena/ui';
 import { User, Activity, ChevronRight, Shield, Globe, Zap, Database, Copy } from '@aazucena/icons';
 import { Button, Badge, Avatar, AvatarImage, AvatarFallback } from '@aazucena/ui';
@@ -40,7 +40,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A versatile list item primitive. Handles media alignment, content hierarchy, and trailing actions. Typically used within an ItemGroup.',
+        component:
+          'A versatile list item primitive. Handles media alignment, content hierarchy, and trailing actions. Typically used within an ItemGroup.',
       },
     },
   },
@@ -50,14 +51,14 @@ const meta = {
       control: 'select',
       options: ['default', 'outline', 'muted'],
       description: 'The visual style of the item container',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['default', 'sm'],
       description: 'Internal padding and gap preset',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Item>;
 
@@ -87,8 +88,12 @@ export const Basic: Story = {
           <ItemDescription>Lead Systems Architect // UNIT_0x7F42</ItemDescription>
         </ItemContent>
         <ItemActions>
-          <Badge variant="outline" size="xs">ACTIVE</Badge>
-          <Button variant="ghost" size="icon" className="size-8"><ChevronRight size={14}/></Button>
+          <Badge variant="outline" size="xs">
+            ACTIVE
+          </Badge>
+          <Button variant="ghost" size="icon" className="size-8">
+            <ChevronRight size={14} />
+          </Button>
         </ItemActions>
       </Item>
     </div>
@@ -114,7 +119,9 @@ export const TechnicalItem: Story = {
             <ItemTitle className="text-xs font-black uppercase">Ingestion_Pulse</ItemTitle>
             <div className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
           </div>
-          <ItemDescription className="font-mono text-[10px]">FREQ: 2.4GHz // SYNC: TRUE</ItemDescription>
+          <ItemDescription className="font-mono text-[10px]">
+            FREQ: 2.4GHz // SYNC: TRUE
+          </ItemDescription>
         </ItemContent>
         <ItemActions>
           <span className="font-mono text-[10px] opacity-40">12ms</span>
@@ -131,23 +138,31 @@ export const NavigationList: Story = {
   render: () => (
     <div className="w-[350px] border rounded-2xl overflow-hidden shadow-2xl bg-card">
       <div className="p-4 border-b bg-muted/30">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">SYSTEM_REGISTRY</h3>
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
+          SYSTEM_REGISTRY
+        </h3>
       </div>
       <ItemGroup>
         <Item asChild>
           <a href="#">
-            <ItemMedia variant="icon"><Database size={14}/></ItemMedia>
+            <ItemMedia variant="icon">
+              <Database size={14} />
+            </ItemMedia>
             <ItemContent>
               <ItemTitle>Global_Nodes</ItemTitle>
               <ItemDescription>Manage distributed clusters</ItemDescription>
             </ItemContent>
-            <ItemActions><Badge variant="secondary">14.2K</Badge></ItemActions>
+            <ItemActions>
+              <Badge variant="secondary">14.2K</Badge>
+            </ItemActions>
           </a>
         </Item>
         <ItemSeparator />
         <Item asChild>
           <a href="#">
-            <ItemMedia variant="icon"><Shield size={14}/></ItemMedia>
+            <ItemMedia variant="icon">
+              <Shield size={14} />
+            </ItemMedia>
             <ItemContent>
               <ItemTitle>Security_Enclave</ItemTitle>
               <ItemDescription>Identity & access logs</ItemDescription>
@@ -157,12 +172,16 @@ export const NavigationList: Story = {
         <ItemSeparator />
         <Item asChild>
           <a href="#">
-            <ItemMedia variant="icon"><Zap size={14}/></ItemMedia>
+            <ItemMedia variant="icon">
+              <Zap size={14} />
+            </ItemMedia>
             <ItemContent>
               <ItemTitle>Telemetry_Stream</ItemTitle>
               <ItemDescription>Real-time pulse monitoring</ItemDescription>
             </ItemContent>
-            <ItemActions><div className="size-2 rounded-full bg-emerald-500 animate-pulse" /></ItemActions>
+            <ItemActions>
+              <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+            </ItemActions>
           </a>
         </Item>
       </ItemGroup>
@@ -184,17 +203,18 @@ export const RichContent: Story = {
           </div>
           <Badge variant="outline">STABLE</Badge>
         </ItemHeader>
-        
+
         <ItemContent>
           <ItemDescription className="text-base line-clamp-none">
-            Detailed telemetry analysis for the US_EAST sector. Ingestion rates have stabilized after the buffer flush sequence.
+            Detailed telemetry analysis for the US_EAST sector. Ingestion rates have stabilized
+            after the buffer flush sequence.
           </ItemDescription>
         </ItemContent>
 
         <ItemFooter className="pt-4 border-t">
           <div className="flex items-center gap-4">
             <div className="flex -space-x-2">
-              {[1, 2, 3].map(i => (
+              {[1, 2, 3].map((i) => (
                 <Avatar key={i} className="size-6 border-2 border-background">
                   <AvatarFallback className="text-[8px]">U{i}</AvatarFallback>
                 </Avatar>
@@ -202,7 +222,9 @@ export const RichContent: Story = {
             </div>
             <span className="text-[10px] font-bold opacity-40 uppercase">3 Agents Active</span>
           </div>
-          <Button variant="ghost" size="sm" className="gap-2"><Copy size={12}/> Copy_Log_ID</Button>
+          <Button variant="ghost" size="sm" className="gap-2">
+            <Copy size={12} /> Copy_Log_ID
+          </Button>
         </ItemFooter>
       </Item>
     </div>

@@ -24,20 +24,20 @@ import {
   SidebarMenuSubItem,
   SidebarMenuSubButton,
 } from '@aazucena/ui';
-import { 
-  Activity, 
-  Layout, 
-  User, 
-  CogFour as Cog, 
-  Database, 
-  Shield, 
+import {
+  Activity,
+  Layout,
+  User,
+  CogFour as Cog,
+  Database,
+  Shield,
   Globe,
   PlusCircle as Plus,
   Sparkles,
   Search,
   Zap,
   Terminal,
-  MoveHorizontal
+  MoveHorizontal,
 } from '@aazucena/icons';
 import { Badge, Button, Avatar, AvatarImage, AvatarFallback } from '@aazucena/ui';
 
@@ -77,7 +77,9 @@ const meta = {
             <header className="flex h-14 items-center gap-4 border-b bg-card px-6">
               <SidebarTrigger />
               <div className="h-4 w-px bg-border" />
-              <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Stage_Environment // Unit_0x7F42</span>
+              <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+                Stage_Environment // Unit_0x7F42
+              </span>
             </header>
             <main className="flex-1 p-8 overflow-auto">
               <div className="space-y-8">
@@ -86,7 +88,10 @@ const meta = {
                 </div>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="aspect-video rounded-3xl bg-muted/10 border border-border/50 animate-pulse" />
+                    <div
+                      key={i}
+                      className="aspect-video rounded-3xl bg-muted/10 border border-border/50 animate-pulse"
+                    />
                   ))}
                 </div>
               </div>
@@ -114,7 +119,9 @@ export const BasicDashboard: Story = {
           <MoveHorizontal size="sm" />
           <div className="flex flex-col leading-none">
             <span className="font-black tracking-tighter uppercase text-sm">Aazucena</span>
-            <span className="text-[9px] opacity-40 uppercase font-bold tracking-widest">Intelligence_Unit</span>
+            <span className="text-[9px] opacity-40 uppercase font-bold tracking-widest">
+              Intelligence_Unit
+            </span>
           </div>
         </div>
       </SidebarHeader>
@@ -141,12 +148,14 @@ export const BasicDashboard: Story = {
                   <Database />
                   <span>Clusters</span>
                 </SidebarMenuButton>
-                <SidebarMenuAction><Plus /></SidebarMenuAction>
+                <SidebarMenuAction>
+                  <Plus />
+                </SidebarMenuAction>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        
+
         <SidebarGroup>
           <SidebarGroupLabel>Security_Enclave</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -169,7 +178,9 @@ export const BasicDashboard: Story = {
       </SidebarContent>
       <SidebarFooter className="p-6 mt-auto border-t">
         <div className="flex items-center gap-4 px-2 mb-6">
-          <Avatar className="size-8"><AvatarFallback>AA</AvatarFallback></Avatar>
+          <Avatar className="size-8">
+            <AvatarFallback>AA</AvatarFallback>
+          </Avatar>
           <div className="flex flex-col">
             <span className="text-xs font-bold">Aldrin_A</span>
             <span className="text-[9px] opacity-40">Admin_L1</span>
@@ -177,7 +188,10 @@ export const BasicDashboard: Story = {
         </div>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton><Cog /><span>Settings</span></SidebarMenuButton>
+            <SidebarMenuButton>
+              <Cog />
+              <span>Settings</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
@@ -197,13 +211,17 @@ export const CyberTerminal: Story = {
       <SidebarHeader className="p-6 border-b border-cyan-500/10 bg-cyan-500/5">
         <div className="flex items-center gap-3 text-cyan-500">
           <Terminal size={18} />
-          <span className="font-mono text-xs italic font-black uppercase tracking-tighter">// SYSTEM_SHELL_V4</span>
+          <span className="font-mono text-xs italic font-black uppercase tracking-tighter">
+            // SYSTEM_SHELL_V4
+          </span>
         </div>
       </SidebarHeader>
       <SidebarContent className="p-4 space-y-8">
         <SidebarBlock variant="cyber">
           <SidebarBlockHeader>
-            <SidebarBlockTitle className="text-cyan-500/60 uppercase text-[9px] font-mono tracking-[0.2em]"># NODE_PULSE</SidebarBlockTitle>
+            <SidebarBlockTitle className="text-cyan-500/60 uppercase text-[9px] font-mono tracking-[0.2em]">
+              # NODE_PULSE
+            </SidebarBlockTitle>
           </SidebarBlockHeader>
           <SidebarBlockContent className="space-y-3">
             <SidebarBlockItem className="bg-cyan-500/5 border-cyan-500/10">
@@ -224,19 +242,27 @@ export const CyberTerminal: Story = {
         </SidebarBlock>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="font-mono text-[9px] text-cyan-500/40 uppercase"># CONTROL_PLANE</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-mono text-[9px] text-cyan-500/40 uppercase">
+            # CONTROL_PLANE
+          </SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton className="font-mono text-xs text-cyan-500/80 italic hover:text-cyan-400">{'>'} TRACE_SIGNAL</SidebarMenuButton>
+              <SidebarMenuButton className="font-mono text-xs text-cyan-500/80 italic hover:text-cyan-400">
+                {'>'} TRACE_SIGNAL
+              </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton className="font-mono text-xs text-cyan-500/80 italic hover:text-cyan-400">{'>'} FLUSH_KERNEL</SidebarMenuButton>
+              <SidebarMenuButton className="font-mono text-xs text-cyan-500/80 italic hover:text-cyan-400">
+                {'>'} FLUSH_KERNEL
+              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-6 border-t border-cyan-500/10">
-        <Badge variant="cyber" animated className="w-full justify-center">SECURE_ENCLAVE_ACTIVE</Badge>
+        <Badge variant="cyber" animated className="w-full justify-center">
+          SECURE_ENCLAVE_ACTIVE
+        </Badge>
       </SidebarFooter>
     </Sidebar>
   ),
@@ -252,7 +278,9 @@ export const GlassMonitor: Story = {
   render: (args) => (
     <Sidebar {...args} className="bg-transparent border-white/10">
       <SidebarHeader className="p-8">
-        <span className="text-white font-black uppercase tracking-[0.4em] text-[10px]">Environment_Intel</span>
+        <span className="text-white font-black uppercase tracking-[0.4em] text-[10px]">
+          Environment_Intel
+        </span>
       </SidebarHeader>
       <SidebarContent className="p-4 space-y-12">
         <div className="space-y-4 px-4">

@@ -28,18 +28,18 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber', 'logic'],
       description: 'The visual theme of the toggle',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents interaction',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     checked: {
       control: 'boolean',
       description: 'The checked state of the switch',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof Switch>;
 
@@ -58,7 +58,9 @@ export const Basic: Story = {
   render: (args) => (
     <div className="flex items-center gap-3">
       <Switch {...args} id="basic-opt" />
-      <Label htmlFor="basic-opt" className="cursor-pointer font-bold">Enable_Notifications</Label>
+      <Label htmlFor="basic-opt" className="cursor-pointer font-bold">
+        Enable_Notifications
+      </Label>
     </div>
   ),
 };
@@ -75,7 +77,10 @@ export const CyberTerminal: Story = {
       <div className="flex items-center justify-between group">
         <div className="flex items-center gap-3">
           <Shield size={16} className="text-cyan-500" />
-          <Label htmlFor="cyber-lock" className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300">
+          <Label
+            htmlFor="cyber-lock"
+            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300"
+          >
             ENCRYPTION_SYNC
           </Label>
         </div>
@@ -95,7 +100,10 @@ export const LogicOverride: Story = {
   render: (args) => (
     <div className="flex items-center gap-4 px-6 py-3 border-2 border-dashed rounded-2xl bg-muted/5">
       <Zap size={14} className="text-rose-500 animate-pulse" />
-      <Label htmlFor="logic-opt" className="text-[10px] font-black uppercase tracking-widest opacity-60 cursor-pointer">
+      <Label
+        htmlFor="logic-opt"
+        className="text-[10px] font-black uppercase tracking-widest opacity-60 cursor-pointer"
+      >
         Force_Reset_Sequence
       </Label>
       <Switch {...args} id="logic-opt" />
@@ -109,18 +117,26 @@ export const LogicOverride: Story = {
 export const SettingsList: Story = {
   render: () => (
     <div className="w-80 space-y-6 p-6 border rounded-2xl bg-card shadow-lg">
-      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 px-1">SYSTEM_PREFERENCES</h4>
+      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 px-1">
+        SYSTEM_PREFERENCES
+      </h4>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label htmlFor="s1" className="text-sm font-medium">Automatic_Updates</Label>
+          <Label htmlFor="s1" className="text-sm font-medium">
+            Automatic_Updates
+          </Label>
           <Switch id="s1" defaultChecked />
         </div>
         <div className="flex items-center justify-between">
-          <Label htmlFor="s2" className="text-sm font-medium">Telemetry_Ingestion</Label>
+          <Label htmlFor="s2" className="text-sm font-medium">
+            Telemetry_Ingestion
+          </Label>
           <Switch id="s2" defaultChecked />
         </div>
         <div className="flex items-center justify-between opacity-50">
-          <Label htmlFor="s3" className="text-sm font-medium">Enclave_Access</Label>
+          <Label htmlFor="s3" className="text-sm font-medium">
+            Enclave_Access
+          </Label>
           <Switch id="s3" disabled />
         </div>
       </div>
@@ -136,7 +152,9 @@ export const InteractionTest: Story = {
   render: () => (
     <div className="flex items-center gap-3">
       <Switch id="interaction-switch" />
-      <Label htmlFor="interaction-switch" className="cursor-pointer">Toggle switch</Label>
+      <Label htmlFor="interaction-switch" className="cursor-pointer">
+        Toggle switch
+      </Label>
     </div>
   ),
   play: async ({ canvasElement }: any) => {

@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@aazucena/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@aazucena/ui';
 import { Card, CardContent } from '@aazucena/ui';
 import { Activity, Database, Globe, Shield, Zap, Terminal } from '@aazucena/icons';
 import { Badge } from '@aazucena/ui';
@@ -24,7 +19,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
+        component:
+          'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
       },
     },
   },
@@ -52,14 +48,18 @@ export const Basic: Story = {
       <TabsContent value="account">
         <Card className="rounded-2xl shadow-lg border-zinc-200">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground">Update your identity tokens and global display preferences.</p>
+            <p className="text-sm text-muted-foreground">
+              Update your identity tokens and global display preferences.
+            </p>
           </CardContent>
         </Card>
       </TabsContent>
       <TabsContent value="password">
         <Card className="rounded-2xl shadow-lg border-zinc-200">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground">Manage your secure enclave access tokens.</p>
+            <p className="text-sm text-muted-foreground">
+              Manage your secure enclave access tokens.
+            </p>
           </CardContent>
         </Card>
       </TabsContent>
@@ -117,17 +117,36 @@ export const GlassAtmospheric: Story = {
     <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-black/20" />
       <Tabs defaultValue="stratosphere" className="w-[450px] relative z-10">
-        <TabsList variant="glass" className="grid w-full grid-cols-2 rounded-full border-white/10 bg-white/5 backdrop-blur-2xl px-2 py-1.5 h-12">
-          <TabsTrigger variant="glass" value="stratosphere" className="rounded-full text-white font-black uppercase tracking-widest text-[10px]">Stratosphere</TabsTrigger>
-          <TabsTrigger variant="glass" value="exosphere" className="rounded-full text-white font-black uppercase tracking-widest text-[10px]">Exosphere</TabsTrigger>
+        <TabsList
+          variant="glass"
+          className="grid w-full grid-cols-2 rounded-full border-white/10 bg-white/5 backdrop-blur-2xl px-2 py-1.5 h-12"
+        >
+          <TabsTrigger
+            variant="glass"
+            value="stratosphere"
+            className="rounded-full text-white font-black uppercase tracking-widest text-[10px]"
+          >
+            Stratosphere
+          </TabsTrigger>
+          <TabsTrigger
+            variant="glass"
+            value="exosphere"
+            className="rounded-full text-white font-black uppercase tracking-widest text-[10px]"
+          >
+            Exosphere
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="stratosphere" className="mt-8 text-center text-white">
           <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Middle_Layer</h3>
-          <p className="text-white/60 text-sm leading-relaxed">Altitude: 12km - 50km. Primary ingestion zone for high-altitude telemetry data points.</p>
+          <p className="text-white/60 text-sm leading-relaxed">
+            Altitude: 12km - 50km. Primary ingestion zone for high-altitude telemetry data points.
+          </p>
         </TabsContent>
         <TabsContent value="exosphere" className="mt-8 text-center text-white">
           <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Outer_Enclave</h3>
-          <p className="text-white/60 text-sm leading-relaxed">Altitude: 10,000km+. Secure buffer synchronization zone for orbital node clusters.</p>
+          <p className="text-white/60 text-sm leading-relaxed">
+            Altitude: 10,000km+. Secure buffer synchronization zone for orbital node clusters.
+          </p>
         </TabsContent>
       </Tabs>
     </div>
@@ -140,7 +159,9 @@ export const GlassAtmospheric: Story = {
 export const PhoneDial: Story = {
   render: () => (
     <div className="w-[600px] flex flex-col items-center">
-      <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-12">CLICK_AND_DRAG_TO_ROTATE_DIAL</p>
+      <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-12">
+        CLICK_AND_DRAG_TO_ROTATE_DIAL
+      </p>
       <Tabs defaultValue="t1">
         <TabsList variant="phone">
           <TabsTrigger variant="phone" value="t1">
@@ -170,19 +191,29 @@ export const PhoneDial: Story = {
             <Badge variant="secondary">STABLE</Badge>
           </TabsContent>
           <TabsContent value="t2" className="animate-in fade-in zoom-in duration-500">
-            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">Beta_Signal_Gain</h4>
+            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">
+              Beta_Signal_Gain
+            </h4>
             <Badge variant="outline">BOOSTING</Badge>
           </TabsContent>
           <TabsContent value="t3" className="animate-in fade-in zoom-in duration-500">
-            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">Gamma_Enclave_Lock</h4>
+            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">
+              Gamma_Enclave_Lock
+            </h4>
             <Badge variant="cyber">SECURE</Badge>
           </TabsContent>
           <TabsContent value="t4" className="animate-in fade-in zoom-in duration-500">
-            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">Delta_Pulse_Trace</h4>
-            <Badge variant="outline" animated>LIVE</Badge>
+            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">
+              Delta_Pulse_Trace
+            </h4>
+            <Badge variant="outline" animated>
+              LIVE
+            </Badge>
           </TabsContent>
           <TabsContent value="t5" className="animate-in fade-in zoom-in duration-500">
-            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">Epsilon_Storage_Init</h4>
+            <h4 className="text-2xl font-black tracking-tighter uppercase mb-2">
+              Epsilon_Storage_Init
+            </h4>
             <Badge variant="secondary">READY</Badge>
           </TabsContent>
         </div>

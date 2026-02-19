@@ -32,7 +32,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A chronological timeline component designed for career progression and system activity logs. Features animated expanding descriptions and technical metadata tagging.',
+        component:
+          'A chronological timeline component designed for career progression and system activity logs. Features animated expanding descriptions and technical metadata tagging.',
       },
     },
   },
@@ -42,8 +43,8 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber'],
       description: 'The visual style of the timeline',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof History>;
 
@@ -70,7 +71,8 @@ export const Basic: Story = {
             <HistoryBadge>REMOTE</HistoryBadge>
           </HistoryMeta>
           <HistoryDescription>
-            Leading the development of high-fidelity engineering intelligence terminals and decentralized telemetry systems. Optimized ingestion pipelines for 14k+ active nodes.
+            Leading the development of high-fidelity engineering intelligence terminals and
+            decentralized telemetry systems. Optimized ingestion pipelines for 14k+ active nodes.
           </HistoryDescription>
         </HistoryItem>
 
@@ -82,7 +84,8 @@ export const Basic: Story = {
             <HistoryBadge>HYBRID</HistoryBadge>
           </HistoryMeta>
           <HistoryDescription>
-            Established design system patterns and optimized performance for large-scale enterprise applications. Reduced bundle size by 45% via advanced code-splitting strategies.
+            Established design system patterns and optimized performance for large-scale enterprise
+            applications. Reduced bundle size by 45% via advanced code-splitting strategies.
           </HistoryDescription>
         </HistoryItem>
       </History>
@@ -111,7 +114,7 @@ export const CyberLog: Story = {
             BUFFER_INITIALIZATION_SUCCESSFUL. SECURE_ENCLAVE_LOCKED. READY_FOR_TRAJECTORY_INFERENCE.
           </HistoryDescription>
         </HistoryItem>
-        
+
         <HistoryItem variant="cyber">
           <HistoryTitle variant="cyber">// KERNEL_SYNC_PROTOCOL</HistoryTitle>
           <HistorySubtitle variant="cyber">MAIN_CLUSTER_UPLINK</HistorySubtitle>
@@ -145,15 +148,12 @@ export const InteractiveHistory: Story = {
       <div className="w-[500px]">
         <History>
           {items.map((item, index) => (
-            <HistoryItem 
-              key={index} 
-              clickable 
+            <HistoryItem
+              key={index}
+              clickable
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
             >
-              <HistoryTitle 
-                showIndicator 
-                isExpanded={openIndex === index}
-              >
+              <HistoryTitle showIndicator isExpanded={openIndex === index}>
                 {item.title}
               </HistoryTitle>
               <HistorySubtitle>{item.subtitle}</HistorySubtitle>
@@ -161,12 +161,13 @@ export const InteractiveHistory: Story = {
                 <HistoryBadge>{item.date}</HistoryBadge>
               </HistoryMeta>
               <HistoryDescription isOpen={openIndex === index}>
-                Full telemetry report for this milestone is available in the secondary buffer. This phase involved the stabilization of the core ingestion engine.
+                Full telemetry report for this milestone is available in the secondary buffer. This
+                phase involved the stabilization of the core ingestion engine.
               </HistoryDescription>
             </HistoryItem>
           ))}
         </History>
       </div>
     );
-  }
+  },
 };

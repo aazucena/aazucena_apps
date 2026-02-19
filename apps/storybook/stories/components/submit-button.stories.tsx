@@ -25,7 +25,17 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link', 'glass', 'cyber', 'gradient'],
+      options: [
+        'default',
+        'destructive',
+        'outline',
+        'secondary',
+        'ghost',
+        'link',
+        'glass',
+        'cyber',
+        'gradient',
+      ],
       table: { category: 'Appearance', defaultValue: { summary: 'default' } },
     },
     size: {
@@ -70,8 +80,16 @@ export const WithIcons: Story = {
   args: {
     children: 'Send',
     leftIcon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M22 2 11 13" /><path d="m22 2-7 20-4-9-9-4z" />
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path d="M22 2 11 13" />
+        <path d="m22 2-7 20-4-9-9-4z" />
       </svg>
     ),
   },

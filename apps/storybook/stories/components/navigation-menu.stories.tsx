@@ -37,7 +37,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A sophisticated navigation system for complex sites. Features drop-down content panels with support for multi-column grids and high-fidelity themes.',
+        component:
+          'A sophisticated navigation system for complex sites. Features drop-down content panels with support for multi-column grids and high-fidelity themes.',
       },
     },
   },
@@ -50,8 +51,8 @@ type Story = StoryObj<typeof meta>;
 // --- HELPERS ---
 
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a"> & { title: string; icon?: React.ReactNode }
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'> & { title: string; icon?: React.ReactNode }
 >(({ className, title, children, icon, ...props }, ref) => {
   return (
     <li>
@@ -59,13 +60,17 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-2xl p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group/item",
-            className
+            'block select-none space-y-1 rounded-2xl p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group/item',
+            className,
           )}
           {...props}
         >
           <div className="flex items-center gap-3 mb-1">
-            {icon && <div className="text-primary opacity-40 group-hover/item:opacity-100 transition-opacity">{icon}</div>}
+            {icon && (
+              <div className="text-primary opacity-40 group-hover/item:opacity-100 transition-opacity">
+                {icon}
+              </div>
+            )}
             <div className="text-sm font-black tracking-tight uppercase">{title}</div>
           </div>
           <p className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground">
@@ -74,9 +79,9 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = 'ListItem';
 
 // --- STORIES ---
 
@@ -102,25 +107,29 @@ export const Basic: Story = {
                       aazucena/ui
                     </div>
                     <p className="text-xs leading-relaxed text-muted-foreground">
-                      High-fidelity React components optimized for decentralized intelligence terminals.
+                      High-fidelity React components optimized for decentralized intelligence
+                      terminals.
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="#" title="Introduction" icon={<Globe size={14}/>}>
+              <ListItem href="#" title="Introduction" icon={<Globe size={14} />}>
                 Standard-compliant design primitives.
               </ListItem>
-              <ListItem href="#" title="Infrastructure" icon={<Database size={14}/>}>
+              <ListItem href="#" title="Infrastructure" icon={<Database size={14} />}>
                 Multi-node telemetry ingestion layers.
               </ListItem>
-              <ListItem href="#" title="Security" icon={<Shield size={14}/>}>
+              <ListItem href="#" title="Security" icon={<Shield size={14} />}>
                 RSA-4096 enclave authentication protocols.
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className={navigationMenuTriggerStyle({ variant: 'default' })} href="#">
+          <NavigationMenuLink
+            className={navigationMenuTriggerStyle({ variant: 'default' })}
+            href="#"
+          >
             Archive
           </NavigationMenuLink>
         </NavigationMenuItem>
@@ -142,16 +151,36 @@ export const CyberTerminal: Story = {
           </NavigationMenuTrigger>
           <NavigationMenuContent variant="cyber">
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-black border border-cyan-500/20 rounded-2xl shadow-2xl">
-              <ListItem href="#" title="SCAN_GEO" icon={<Globe size={14}/>} className="hover:bg-cyan-500/10 hover:text-cyan-400">
+              <ListItem
+                href="#"
+                title="SCAN_GEO"
+                icon={<Globe size={14} />}
+                className="hover:bg-cyan-500/10 hover:text-cyan-400"
+              >
                 Execute geospatial signal trace.
               </ListItem>
-              <ListItem href="#" title="SYNC_KERNEL" icon={<Zap size={14}/>} className="hover:bg-cyan-500/10 hover:text-cyan-400">
+              <ListItem
+                href="#"
+                title="SYNC_KERNEL"
+                icon={<Zap size={14} />}
+                className="hover:bg-cyan-500/10 hover:text-cyan-400"
+              >
                 Initialize node pulse calibration.
               </ListItem>
-              <ListItem href="#" title="AUTH_LOGS" icon={<Shield size={14}/>} className="hover:bg-cyan-500/10 hover:text-cyan-400">
+              <ListItem
+                href="#"
+                title="AUTH_LOGS"
+                icon={<Shield size={14} />}
+                className="hover:bg-cyan-500/10 hover:text-cyan-400"
+              >
                 Review enclave access patterns.
               </ListItem>
-              <ListItem href="#" title="EXIT_SHELL" icon={<Terminal size={14}/>} className="hover:bg-rose-500/10 hover:text-rose-400">
+              <ListItem
+                href="#"
+                title="EXIT_SHELL"
+                icon={<Terminal size={14} />}
+                className="hover:bg-rose-500/10 hover:text-rose-400"
+              >
                 Terminate active session identifiers.
               </ListItem>
             </ul>
@@ -192,7 +221,13 @@ export const GlassAtmospheric: Story = {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-white/10 text-white font-black uppercase tracking-widest text-[10px]")} href="#">
+            <NavigationMenuLink
+              className={cn(
+                navigationMenuTriggerStyle(),
+                'bg-transparent hover:bg-white/10 text-white font-black uppercase tracking-widest text-[10px]',
+              )}
+              href="#"
+            >
               Status
               <div className="ml-2 size-1.5 rounded-full bg-emerald-400 animate-pulse" />
             </NavigationMenuLink>

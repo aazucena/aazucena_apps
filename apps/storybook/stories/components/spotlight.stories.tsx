@@ -31,7 +31,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A high-impact feature card used to spotlight specific projects, services, or technical capabilities.',
+        component:
+          'A high-impact feature card used to spotlight specific projects, services, or technical capabilities.',
       },
     },
   },
@@ -40,24 +41,24 @@ const meta = {
     variant: {
       control: 'select',
       options: [
-        'default', 
-        'glass', 
-        'cyber', 
-        'cyan-blue', 
-        'emerald-teal', 
-        'purple-pink', 
-        'orange-red', 
-        'indigo-purple'
+        'default',
+        'glass',
+        'cyber',
+        'cyan-blue',
+        'emerald-teal',
+        'purple-pink',
+        'orange-red',
+        'indigo-purple',
       ],
       description: 'The visual theme and color palette',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'radio',
       options: ['default', 'lg'],
       description: 'Internal padding and gap scale',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Spotlight>;
 
@@ -76,14 +77,19 @@ export const Basic: Story = {
   render: (args) => (
     <div className="w-[700px]">
       <Spotlight {...args}>
-        <SpotlightVisual><Activity size={24} /></SpotlightVisual>
+        <SpotlightVisual>
+          <Activity size={24} />
+        </SpotlightVisual>
         <SpotlightContent>
           <SpotlightTitle>Real-Time_Telemetry</SpotlightTitle>
           <SpotlightDescription>
-            High-bandwidth ingestion pipelines processing millions of technical data points every second with zero packet loss.
+            High-bandwidth ingestion pipelines processing millions of technical data points every
+            second with zero packet loss.
           </SpotlightDescription>
           <div className="pt-4">
-            <Button variant="ghost" size="sm" className="gap-2">Learn_More <ArrowRight size={14}/></Button>
+            <Button variant="ghost" size="sm" className="gap-2">
+              Learn_More <ArrowRight size={14} />
+            </Button>
           </div>
         </SpotlightContent>
       </Spotlight>
@@ -101,15 +107,24 @@ export const CyberTerminal: Story = {
   render: (args) => (
     <div className="w-[700px] p-12 bg-black rounded-[3rem]">
       <Spotlight {...args}>
-        <SpotlightVisual variant="cyber"><Database size={24} /></SpotlightVisual>
+        <SpotlightVisual variant="cyber">
+          <Database size={24} />
+        </SpotlightVisual>
         <SpotlightContent>
           <div className="flex items-center gap-3 mb-2">
-            <Badge variant="cyber" size="xs">SECURE_ENCLAVE</Badge>
-            <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-widest">Protocol: RSA-4096</span>
+            <Badge variant="cyber" size="xs">
+              SECURE_ENCLAVE
+            </Badge>
+            <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-widest">
+              Protocol: RSA-4096
+            </span>
           </div>
-          <SpotlightTitle variant="cyber" className="font-mono italic">// KERNEL_STORAGE_V4</SpotlightTitle>
+          <SpotlightTitle variant="cyber" className="font-mono italic">
+            // KERNEL_STORAGE_V4
+          </SpotlightTitle>
           <SpotlightDescription className="font-mono text-xs text-cyan-500/60 leading-relaxed">
-            Encrypted buffer synchronization established across all continental edge nodes. Persistence level: CRITICAL.
+            Encrypted buffer synchronization established across all continental edge nodes.
+            Persistence level: CRITICAL.
           </SpotlightDescription>
         </SpotlightContent>
       </Spotlight>
@@ -128,9 +143,13 @@ export const GradientHighlight: Story = {
   render: (args) => (
     <div className="w-[800px]">
       <Spotlight {...args}>
-        <SpotlightVisual variant="cyan-blue"><Zap size={28} /></SpotlightVisual>
+        <SpotlightVisual variant="cyan-blue">
+          <Zap size={28} />
+        </SpotlightVisual>
         <SpotlightContent>
-          <SpotlightTitle variant="cyan-blue" className="text-3xl">Neural_Inference_Sync</SpotlightTitle>
+          <SpotlightTitle variant="cyan-blue" className="text-3xl">
+            Neural_Inference_Sync
+          </SpotlightTitle>
           <SpotlightDescription className="text-lg">
             Leveraging advanced pathfinding algorithms to optimize global node handshakes.
           </SpotlightDescription>
@@ -164,7 +183,9 @@ export const GlassAtmospheric: Story = {
       <div className="absolute inset-0 bg-black/20" />
       <div className="w-[600px] relative z-10">
         <Spotlight {...args} className="border-white/10 shadow-2xl">
-          <SpotlightVisual variant="glass"><Globe size={24} className="text-white" /></SpotlightVisual>
+          <SpotlightVisual variant="glass">
+            <Globe size={24} className="text-white" />
+          </SpotlightVisual>
           <SpotlightContent className="text-white">
             <SpotlightTitle className="text-white">Global_Reach</SpotlightTitle>
             <SpotlightDescription className="text-white/60">

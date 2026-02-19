@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  Field, 
-  FieldContent, 
-  FieldDescription, 
-  FieldError, 
-  FieldLabel, 
-  FieldSeparator, 
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  FieldSeparator,
   FieldTitle,
   FieldHeader,
   FieldMeta,
   FieldControl,
   FieldGroup,
   FieldSet,
-  FieldLegend
+  FieldLegend,
 } from '@aazucena/ui';
 import { Input, Checkbox, Button, Badge } from '@aazucena/ui';
 import { Shield, Zap, Activity } from '@aazucena/icons';
@@ -45,7 +45,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A comprehensive layout suite for form elements. Manages labels, descriptions, error states, and technical metadata.',
+        component:
+          'A comprehensive layout suite for form elements. Manages labels, descriptions, error states, and technical metadata.',
       },
     },
   },
@@ -55,8 +56,8 @@ const meta = {
       control: 'radio',
       options: ['vertical', 'horizontal', 'responsive'],
       description: 'Layout flow of the field elements',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Field>;
 
@@ -103,7 +104,9 @@ export const TechnicalField: Story = {
         </FieldControl>
         <div className="mt-3 flex justify-between items-center">
           <FieldDescription className="text-[10px]">RSA-4096 // Rotated 12d ago</FieldDescription>
-          <Badge variant="outline" size="xs">ACTIVE</Badge>
+          <Badge variant="outline" size="xs">
+            ACTIVE
+          </Badge>
         </div>
       </Field>
     </div>
@@ -122,7 +125,9 @@ export const HorizontalToggle: Story = {
       <Field {...args}>
         <div className="flex-1 space-y-1">
           <FieldLabel className="text-sm font-bold">Enable_Edge_Ingestion</FieldLabel>
-          <FieldDescription className="text-xs">Automatically process telemetry at the closest node.</FieldDescription>
+          <FieldDescription className="text-xs">
+            Automatically process telemetry at the closest node.
+          </FieldDescription>
         </div>
         <FieldControl className="w-auto">
           <Checkbox defaultChecked />
@@ -139,7 +144,9 @@ export const FormSection: Story = {
   render: () => (
     <div className="w-[500px]">
       <FieldSet>
-        <FieldLegend variant="legend" className="text-xl font-black tracking-tighter uppercase">Protocol_Configuration</FieldLegend>
+        <FieldLegend variant="legend" className="text-xl font-black tracking-tighter uppercase">
+          Protocol_Configuration
+        </FieldLegend>
         <FieldGroup className="space-y-8">
           <Field>
             <FieldLabel>Ingestion_Path</FieldLabel>
@@ -147,9 +154,9 @@ export const FormSection: Story = {
               <Input placeholder="/api/v1/telemetry" />
             </FieldControl>
           </Field>
-          
+
           <FieldSeparator>AUDIT_LEVELS</FieldSeparator>
-          
+
           <Field>
             <FieldHeader>
               <FieldLabel>Validation_Threshold</FieldLabel>
@@ -158,7 +165,7 @@ export const FormSection: Story = {
             <FieldControl>
               <Input type="number" defaultValue={95} />
             </FieldControl>
-            <FieldError errors={[{ message: "Threshold below 98% increases jitter risk." }]} />
+            <FieldError errors={[{ message: 'Threshold below 98% increases jitter risk.' }]} />
           </Field>
         </FieldGroup>
       </FieldSet>

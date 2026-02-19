@@ -33,7 +33,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A component for displaying client feedback or endorsements. Supports multiple visual themes and high-fidelity avatar integration.',
+        component:
+          'A component for displaying client feedback or endorsements. Supports multiple visual themes and high-fidelity avatar integration.',
       },
     },
   },
@@ -43,8 +44,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the card',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Testimonial>;
 
@@ -65,10 +66,14 @@ export const Basic: Story = {
       <Testimonial {...args} className="shadow-2xl">
         <div className="flex justify-between items-start mb-4">
           <Quote className="size-8 text-primary opacity-20" />
-          <Badge variant="outline" size="xs">CLIENT_REVIEW</Badge>
+          <Badge variant="outline" size="xs">
+            CLIENT_REVIEW
+          </Badge>
         </div>
         <TestimonialQuote>
-          "Aldrin's approach to engineering intelligence is truly unique. The level of fidelity and adaptive logic in his design systems has significantly optimized our workflow and increased signal gain by 42%."
+          "Aldrin's approach to engineering intelligence is truly unique. The level of fidelity and
+          adaptive logic in his design systems has significantly optimized our workflow and
+          increased signal gain by 42%."
         </TestimonialQuote>
         <TestimonialFooter>
           <TestimonialAuthor>
@@ -94,15 +99,22 @@ export const CyberTerminal: Story = {
       <Testimonial {...args} className="border-cyan-500/20 shadow-none">
         <div className="flex justify-between items-center mb-6">
           <Activity className="size-5 text-cyan-500 animate-pulse" />
-          <span className="font-mono text-[9px] text-cyan-500/40 uppercase tracking-[0.4em]">SOURCE: EXTERNAL_VALIDATOR</span>
+          <span className="font-mono text-[9px] text-cyan-500/40 uppercase tracking-[0.4em]">
+            SOURCE: EXTERNAL_VALIDATOR
+          </span>
         </div>
         <TestimonialQuote className="font-mono italic text-cyan-100/80 leading-relaxed text-sm">
-          "PROTOCOL_SUCCESS: Integration with the AAZUCENA_OS core was seamless. Performance benchmarks exceeded all previous iterations across US_EAST sectors."
+          "PROTOCOL_SUCCESS: Integration with the AAZUCENA_OS core was seamless. Performance
+          benchmarks exceeded all previous iterations across US_EAST sectors."
         </TestimonialQuote>
         <TestimonialFooter>
           <TestimonialAuthor className="font-mono">
-            <TestimonialName className="text-cyan-400 uppercase tracking-tighter">UNIT_0x7F42</TestimonialName>
-            <TestimonialTitle className="text-cyan-500/40 uppercase text-[10px]">Security_Enclave_V4</TestimonialTitle>
+            <TestimonialName className="text-cyan-400 uppercase tracking-tighter">
+              UNIT_0x7F42
+            </TestimonialName>
+            <TestimonialTitle className="text-cyan-500/40 uppercase text-[10px]">
+              Security_Enclave_V4
+            </TestimonialTitle>
           </TestimonialAuthor>
           <TestimonialAvatar variant="cyber">CY</TestimonialAvatar>
         </TestimonialFooter>
@@ -124,14 +136,19 @@ export const GlassAtmospheric: Story = {
       <div className="w-[500px] relative z-10">
         <Testimonial {...args} className="border-white/10 text-white shadow-2xl">
           <TestimonialQuote className="text-white text-lg font-medium tracking-tight">
-            "The crystal-clear interface and responsiveness of the glass-mode components are world-class. A paradigm shift in high-fidelity application architecture."
+            "The crystal-clear interface and responsiveness of the glass-mode components are
+            world-class. A paradigm shift in high-fidelity application architecture."
           </TestimonialQuote>
           <TestimonialFooter className="pt-8 border-t border-white/10">
             <TestimonialAuthor>
               <TestimonialName className="text-white">Sarah Connor</TestimonialName>
-              <TestimonialTitle className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Lead_UX_Unit</TestimonialTitle>
+              <TestimonialTitle className="text-white/40 font-bold uppercase tracking-widest text-[10px]">
+                Lead_UX_Unit
+              </TestimonialTitle>
             </TestimonialAuthor>
-            <TestimonialAvatar variant="glass" className="bg-white/10 border-white/20">SC</TestimonialAvatar>
+            <TestimonialAvatar variant="glass" className="bg-white/10 border-white/20">
+              SC
+            </TestimonialAvatar>
           </TestimonialFooter>
         </Testimonial>
       </div>

@@ -1,11 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Heatmap,
-  StreamGraph,
-  SpiderChart,
-  Treemap,
-  WordCloud,
-} from '@aazucena/visualizations';
+import { Heatmap, StreamGraph, SpiderChart, Treemap, WordCloud } from '@aazucena/visualizations';
 import {
   heatmapData,
   streamGraphData,
@@ -50,13 +44,7 @@ export default meta;
 // ---------------------------------------------------------------------------
 
 export const HeatmapActivity: StoryObj<typeof Heatmap> = {
-  render: () => (
-    <Heatmap
-      data={heatmapData}
-      title="Contribution Activity"
-      baseColor="#3b82f6"
-    />
-  ),
+  render: () => <Heatmap data={heatmapData} title="Contribution Activity" baseColor="#3b82f6" />,
 };
 
 // ---------------------------------------------------------------------------
@@ -101,9 +89,7 @@ export const Spider: StoryObj<typeof SpiderChart> = {
 // ---------------------------------------------------------------------------
 
 export const TreemapHierarchy: StoryObj<typeof Treemap> = {
-  render: () => (
-    <Treemap data={treemapData} title="Tech Stack Breakdown" />
-  ),
+  render: () => <Treemap data={treemapData} title="Tech Stack Breakdown" />,
 };
 
 // ---------------------------------------------------------------------------

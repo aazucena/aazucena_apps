@@ -32,7 +32,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A versatile container for grouping related content and actions. Features standard ShadCN structure with enhanced high-fidelity variants.',
+        component:
+          'A versatile container for grouping related content and actions. Features standard ShadCN structure with enhanced high-fidelity variants.',
       },
     },
   },
@@ -42,30 +43,30 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber', 'outline', 'ghost', 'dashboard'],
       description: 'Visual theme of the card',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     padding: {
       control: 'select',
       options: ['none', 'sm', 'md', 'lg', 'xl', '2xl'],
       description: 'Internal content spacing',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     radius: {
       control: 'select',
       options: ['default', 'lg', 'xl', '2xl', '3xl', 'full'],
       description: 'Corner rounding preset',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     hover: {
       control: 'boolean',
       description: 'Enable scale and shadow on hover',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     clickable: {
       control: 'boolean',
       description: 'Enable cursor-pointer and active-scale feedback',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Card>;
 
@@ -89,11 +90,15 @@ export const Basic: Story = {
         <CardDescription>Core infrastructure module for real-time telemetry.</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm opacity-80">This card demonstrates the standard composition of nested elements.</p>
+        <p className="text-sm opacity-80">
+          This card demonstrates the standard composition of nested elements.
+        </p>
       </CardContent>
       <CardFooter className="justify-between">
         <Badge variant="outline">STABLE</Badge>
-        <Button variant="ghost" size="sm">Details</Button>
+        <Button variant="ghost" size="sm">
+          Details
+        </Button>
       </CardFooter>
     </Card>
   ),
@@ -124,7 +129,9 @@ export const Cyber: Story = {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="cyber" size="sm" className="w-full">ENGAGE_UPLINK</Button>
+        <Button variant="cyber" size="sm" className="w-full">
+          ENGAGE_UPLINK
+        </Button>
       </CardFooter>
     </Card>
   ),
@@ -169,13 +176,19 @@ export const AnalyticsDashboard: Story = {
       <div className="flex justify-between items-start mb-6">
         <div>
           <h3 className="text-lg font-black tracking-tighter">NODE_TRAFFIC</h3>
-          <p className="text-xs text-muted-foreground uppercase tracking-widest">Global Ingestion Stream</p>
+          <p className="text-xs text-muted-foreground uppercase tracking-widest">
+            Global Ingestion Stream
+          </p>
         </div>
         <Activity className="text-primary animate-pulse" />
       </div>
       <div className="h-32 flex items-end gap-1 mb-6">
         {[40, 70, 45, 90, 65, 80, 30, 50, 85, 60, 40, 75].map((h, i) => (
-          <div key={i} className="flex-1 bg-primary/30 rounded-t-sm hover:bg-primary transition-colors" style={{ height: `${h}%` }} />
+          <div
+            key={i}
+            className="flex-1 bg-primary/30 rounded-t-sm hover:bg-primary transition-colors"
+            style={{ height: `${h}%` }}
+          />
         ))}
       </div>
       <div className="grid grid-cols-2 gap-4">

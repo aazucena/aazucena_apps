@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'The primary brand mark for the project. Features multiple visual variants, size presets, and interactive hover states.',
+        component:
+          'The primary brand mark for the project. Features multiple visual variants, size presets, and interactive hover states.',
       },
     },
   },
@@ -26,25 +27,25 @@ const meta = {
       control: 'select',
       options: ['main', 'alt', 'white', 'cyber'],
       description: 'The visual theme and color palette',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['xs', 'sm', 'default', 'lg', 'xl', '2xl'],
       description: 'Standard size presets',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     logoType: {
       control: 'radio',
       options: ['main', 'alt'],
       description: 'The SVG path variation',
-      table: { category: 'Content' }
+      table: { category: 'Content' },
     },
     hover: {
       control: 'boolean',
       description: 'Enable scale and rotation on hover',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Logo>;
 

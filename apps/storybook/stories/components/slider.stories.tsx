@@ -28,28 +28,28 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber'],
       description: 'The visual theme of the track and thumb',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     defaultValue: {
       control: 'object',
       description: 'The initial value(s) of the slider',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     max: {
       control: 'number',
       description: 'Maximum value',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     step: {
       control: 'number',
       description: 'The stepping interval',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents interaction',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof Slider>;
 
@@ -71,7 +71,9 @@ export const Basic: Story = {
   render: (args) => (
     <div className="w-80 space-y-6">
       <div className="flex justify-between items-center">
-        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">System_Volume</Label>
+        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">
+          System_Volume
+        </Label>
         <Volume size={14} className="opacity-40" />
       </div>
       <Slider {...args} />
@@ -101,7 +103,9 @@ export const CyberTerminal: Story = {
           <span className="text-xl font-black text-cyan-400 leading-none">{val}%</span>
         </div>
         <Slider {...args} onValueChange={([v]) => setVal(v)} />
-        <p className="text-[9px] font-mono text-cyan-500/20 uppercase text-center italic">Awaiting_Manual_Override</p>
+        <p className="text-[9px] font-mono text-cyan-500/20 uppercase text-center italic">
+          Awaiting_Manual_Override
+        </p>
       </div>
     );
   },
@@ -119,8 +123,12 @@ export const RangeSelection: Story = {
   render: (args) => (
     <div className="w-80 space-y-6">
       <div className="flex justify-between items-center">
-        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Buffer_Range</Label>
-        <Badge variant="outline" size="xs">SECURE</Badge>
+        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">
+          Buffer_Range
+        </Label>
+        <Badge variant="outline" size="xs">
+          SECURE
+        </Badge>
       </div>
       <Slider {...args} />
       <div className="flex justify-between text-[10px] font-mono opacity-20 uppercase">

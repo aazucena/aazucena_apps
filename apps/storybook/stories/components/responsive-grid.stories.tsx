@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust grid system that automatically manages column spans and gaps based on the viewport size.',
+        component:
+          'A robust grid system that automatically manages column spans and gaps based on the viewport size.',
       },
     },
   },
@@ -26,20 +27,20 @@ const meta = {
       control: 'select',
       options: [1, 2, 3, 4, 5, 6],
       description: 'Maximum columns at the largest breakpoint',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     gap: {
       control: 'select',
       options: ['none', 'xs', 'sm', 'md', 'lg', 'xl'],
       description: 'The space between grid items',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     variant: {
       control: 'select',
       options: ['default', 'archive'],
       description: 'Visual layout variation',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof ResponsiveGrid>;
 
@@ -81,7 +82,10 @@ export const DenseGrid: Story = {
     <div className="w-[1000px]">
       <ResponsiveGrid {...args}>
         {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} className="aspect-square bg-muted/30 border-2 border-dashed rounded-xl flex items-center justify-center">
+          <div
+            key={i}
+            className="aspect-square bg-muted/30 border-2 border-dashed rounded-xl flex items-center justify-center"
+          >
             <div className="size-2 rounded-full bg-primary/20" />
           </div>
         ))}
@@ -122,7 +126,9 @@ export const AdaptiveColumns: Story = {
   },
   render: (args) => (
     <div className="w-[900px] border border-dashed p-8 rounded-[3rem]">
-      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-8 text-center">Breakpoints: SM(2) // MD(3) // LG(4)</p>
+      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-8 text-center">
+        Breakpoints: SM(2) // MD(3) // LG(4)
+      </p>
       <ResponsiveGrid {...args}>
         {Array.from({ length: 8 }).map((_, i) => (
           <Card key={i} hover className="h-24">

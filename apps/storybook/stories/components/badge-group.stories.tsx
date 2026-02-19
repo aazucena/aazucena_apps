@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A wrapper for clustering badges together with consistent spacing and alignment logic. Supports automatic truncation for long lists.',
+        component:
+          'A wrapper for clustering badges together with consistent spacing and alignment logic. Supports automatic truncation for long lists.',
       },
     },
   },
@@ -26,19 +27,19 @@ const meta = {
       control: 'radio',
       options: ['left', 'center', 'right'],
       description: 'Horizontal distribution of badges',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     spacing: {
       control: 'select',
       options: ['tight', 'default', 'wide'],
       description: 'Gap between badges',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     maxItems: {
       control: 'number',
       description: 'Maximum items to show before truncating',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof BadgeGroup>;
 
@@ -113,9 +114,15 @@ export const TightSpacing: Story = {
   },
   render: (args) => (
     <BadgeGroup {...args}>
-      <BadgeGroupItem size="sm" variant="outline">v1.0.4</BadgeGroupItem>
-      <BadgeGroupItem size="sm" variant="outline">MIT_LICENSE</BadgeGroupItem>
-      <BadgeGroupItem size="sm" variant="outline">BUILD_PASSING</BadgeGroupItem>
+      <BadgeGroupItem size="sm" variant="outline">
+        v1.0.4
+      </BadgeGroupItem>
+      <BadgeGroupItem size="sm" variant="outline">
+        MIT_LICENSE
+      </BadgeGroupItem>
+      <BadgeGroupItem size="sm" variant="outline">
+        BUILD_PASSING
+      </BadgeGroupItem>
     </BadgeGroup>
   ),
 };

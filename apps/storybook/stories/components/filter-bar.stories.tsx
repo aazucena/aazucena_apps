@@ -31,7 +31,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust search and filter interface designed for project archives, blog feeds, and telemetry logs.',
+        component:
+          'A robust search and filter interface designed for project archives, blog feeds, and telemetry logs.',
       },
     },
   },
@@ -41,8 +42,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the filter container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof FilterBar>;
 
@@ -67,7 +68,9 @@ export const Basic: Story = {
             <FilterBarSearch label="Signal_Query" placeholder="Filter by tech or title..." />
           </FilterBarItem>
           <FilterBarItem>
-            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase opacity-40 mb-3">Domain_Sector</label>
+            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase opacity-40 mb-3">
+              Domain_Sector
+            </label>
             <NativeSelect className="rounded-2xl h-12">
               <option>All_Sectors</option>
               <option>Frontend_Engineering</option>
@@ -76,11 +79,19 @@ export const Basic: Story = {
             </NativeSelect>
           </FilterBarItem>
           <FilterBarItem>
-            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase opacity-40 mb-3">Sort_Order</label>
+            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase opacity-40 mb-3">
+              Sort_Order
+            </label>
             <div className="flex gap-2">
-              <Badge variant="default" className="cursor-pointer">LATEST</Badge>
-              <Badge variant="outline" className="cursor-pointer">POPULAR</Badge>
-              <Badge variant="outline" className="cursor-pointer">ALPHABETIC</Badge>
+              <Badge variant="default" className="cursor-pointer">
+                LATEST
+              </Badge>
+              <Badge variant="outline" className="cursor-pointer">
+                POPULAR
+              </Badge>
+              <Badge variant="outline" className="cursor-pointer">
+                ALPHABETIC
+              </Badge>
             </div>
           </FilterBarItem>
         </FilterBarGrid>
@@ -113,10 +124,17 @@ export const CyberTerminal: Story = {
         <FilterBarGrid className="lg:grid-cols-2">
           <FilterBarSearch label="IDENT_SEARCH" variant="cyber" placeholder="Enter sector ID..." />
           <FilterBarItem>
-            <label className="ml-2 block font-mono text-[10px] text-cyan-500/60 uppercase mb-3">PROTOCOL_LEVEL</label>
+            <label className="ml-2 block font-mono text-[10px] text-cyan-500/60 uppercase mb-3">
+              PROTOCOL_LEVEL
+            </label>
             <div className="flex gap-4">
               <Badge variant="cyber">CORE_NOMINAL</Badge>
-              <Badge variant="outline" className="text-cyan-500/40 border-cyan-500/10 uppercase tracking-tighter">Legacy_Buffer</Badge>
+              <Badge
+                variant="outline"
+                className="text-cyan-500/40 border-cyan-500/10 uppercase tracking-tighter"
+              >
+                Legacy_Buffer
+              </Badge>
             </div>
           </FilterBarItem>
         </FilterBarGrid>
@@ -137,17 +155,25 @@ export const GlassOverlay: Story = {
       <FilterBar {...args} className="w-[800px] border-white/10">
         <FilterBarHeader className="text-white/60">LAYER_COORDINATES</FilterBarHeader>
         <FilterBarGrid className="md:grid-cols-2">
-          <FilterBarSearch 
-            label="Vector_Search" 
-            placeholder="Search spatial data..." 
+          <FilterBarSearch
+            label="Vector_Search"
+            placeholder="Search spatial data..."
             className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
           />
           <FilterBarItem>
-            <label className="ml-2 block text-[10px] font-black tracking-widest text-white/40 uppercase mb-3">Visibility_Range</label>
+            <label className="ml-2 block text-[10px] font-black tracking-widest text-white/40 uppercase mb-3">
+              Visibility_Range
+            </label>
             <div className="flex gap-3">
-              <Badge variant="outline" className="bg-white/10 border-white/20 text-white">NEAR</Badge>
-              <Badge variant="default" className="bg-white text-black hover:bg-white/90">ORBITAL</Badge>
-              <Badge variant="outline" className="bg-white/10 border-white/20 text-white">DEEP_SPACE</Badge>
+              <Badge variant="outline" className="bg-white/10 border-white/20 text-white">
+                NEAR
+              </Badge>
+              <Badge variant="default" className="bg-white text-black hover:bg-white/90">
+                ORBITAL
+              </Badge>
+              <Badge variant="outline" className="bg-white/10 border-white/20 text-white">
+                DEEP_SPACE
+              </Badge>
             </div>
           </FilterBarItem>
         </FilterBarGrid>

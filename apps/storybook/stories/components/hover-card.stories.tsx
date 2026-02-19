@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@aazucena/ui';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@aazucena/ui';
 import { Button, Avatar, AvatarImage, AvatarFallback, Badge } from '@aazucena/ui';
 import { Calendar, Shield, Activity, Globe } from '@aazucena/icons';
 import { within, userEvent, expect } from '@storybook/test';
@@ -23,7 +19,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'For sighted users to preview content available behind a link or button without navigating.',
+        component:
+          'For sighted users to preview content available behind a link or button without navigating.',
       },
     },
   },
@@ -31,14 +28,16 @@ const meta = {
   argTypes: {
     openDelay: {
       control: 'number',
-      description: 'The duration from when the mouse enters the trigger until the hover card opens.',
-      table: { category: 'Behavior', defaultValue: { summary: '700' } }
+      description:
+        'The duration from when the mouse enters the trigger until the hover card opens.',
+      table: { category: 'Behavior', defaultValue: { summary: '700' } },
     },
     closeDelay: {
       control: 'number',
-      description: 'The duration from when the mouse leaves the trigger or content until the hover card closes.',
-      table: { category: 'Behavior', defaultValue: { summary: '300' } }
-    }
+      description:
+        'The duration from when the mouse leaves the trigger or content until the hover card closes.',
+      table: { category: 'Behavior', defaultValue: { summary: '300' } },
+    },
   },
 } satisfies Meta<typeof HoverCard>;
 
@@ -54,7 +53,9 @@ export const Basic: Story = {
   render: () => (
     <HoverCard openDelay={200}>
       <HoverCardTrigger asChild>
-        <Button variant="link" className="font-bold">@aazucena</Button>
+        <Button variant="link" className="font-bold">
+          @aazucena
+        </Button>
       </HoverCardTrigger>
       <HoverCardContent className="w-80 p-6 rounded-2xl shadow-2xl">
         <div className="flex justify-between space-x-4">
@@ -69,7 +70,9 @@ export const Basic: Story = {
             </p>
             <div className="flex items-center pt-2 gap-2 opacity-40">
               <Calendar className="size-3" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">Joined FEB 2026</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest">
+                Joined FEB 2026
+              </span>
             </div>
           </div>
         </div>
@@ -93,8 +96,12 @@ export const CyberSpec: Story = {
       <HoverCardContent variant="cyber" side="top" className="w-72 font-mono p-6">
         <div className="space-y-4">
           <div className="flex justify-between items-start">
-            <div className="text-[10px] text-cyan-500 font-black uppercase italic tracking-tighter">// IDENT_DECRYPTED</div>
-            <Badge variant="cyber" size="xs">ACTIVE</Badge>
+            <div className="text-[10px] text-cyan-500 font-black uppercase italic tracking-tighter">
+              // IDENT_DECRYPTED
+            </div>
+            <Badge variant="cyber" size="xs">
+              ACTIVE
+            </Badge>
           </div>
           <div className="space-y-1">
             <p className="text-xs font-bold text-white uppercase">Primary_Uplink_Core</p>
@@ -118,7 +125,10 @@ export const GlassPreview: Story = {
     <div className="p-20 bg-gradient-to-tr from-indigo-600 to-blue-800 rounded-[3rem]">
       <HoverCard openDelay={100}>
         <HoverCardTrigger asChild>
-          <Button variant="glass" className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full">
+          <Button
+            variant="glass"
+            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full"
+          >
             Inspect_Layer
           </Button>
         </HoverCardTrigger>
@@ -129,10 +139,13 @@ export const GlassPreview: Story = {
               <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
             </div>
             <p className="text-xs text-white/60 leading-relaxed">
-              Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur enabled.
+              Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur
+              enabled.
             </p>
             <div className="p-3 bg-white/5 border border-white/10 rounded-xl">
-              <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">SIGNAL_LOCK</span>
+              <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">
+                SIGNAL_LOCK
+              </span>
               <div className="text-emerald-400 font-mono text-xs mt-1">99.98% STABLE</div>
             </div>
           </div>
@@ -141,7 +154,6 @@ export const GlassPreview: Story = {
     </div>
   ),
 };
-
 
 /**
  * Automated interaction test: hover trigger to show hover card.

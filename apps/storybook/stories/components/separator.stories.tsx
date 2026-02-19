@@ -25,25 +25,25 @@ const meta = {
       control: 'radio',
       options: ['horizontal', 'vertical'],
       description: 'The physical axis of the line',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     variant: {
       control: 'select',
       options: ['default', 'glass', 'cyber', 'gradient', 'cyber-gradient'],
       description: 'The visual theme and color palette',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     thickness: {
       control: 'radio',
       options: ['thin', 'default', 'thick'],
       description: 'The visual weight of the line',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     decorative: {
       control: 'boolean',
       description: 'If true, hide from screen readers',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Separator>;
 
@@ -64,7 +64,9 @@ export const Basic: Story = {
     <div className="w-[400px] space-y-4">
       <p className="text-sm font-bold">Protocol_Header</p>
       <Separator {...args} />
-      <p className="text-xs opacity-60">Initializing ingestion sequence for primary node cluster US_EAST_01.</p>
+      <p className="text-xs opacity-60">
+        Initializing ingestion sequence for primary node cluster US_EAST_01.
+      </p>
     </div>
   ),
 };
@@ -138,7 +140,9 @@ export const GlassAtmospheric: Story = {
   },
   render: (args) => (
     <div className="p-20 bg-gradient-to-tr from-indigo-600 to-blue-800 rounded-[3rem] w-[600px] flex flex-col items-center gap-6">
-      <span className="text-white/40 font-black uppercase tracking-[0.4em] text-[10px]">Atmospheric_Control</span>
+      <span className="text-white/40 font-black uppercase tracking-[0.4em] text-[10px]">
+        Atmospheric_Control
+      </span>
       <Separator {...args} className="w-1/2" />
       <div className="p-8 glass border-white/10 rounded-2xl text-white font-bold uppercase text-xs">
         Layer_Sync_Active

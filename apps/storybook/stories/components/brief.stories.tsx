@@ -32,7 +32,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A structured informational module used to display technical specifications, project metadata, or status summaries.',
+        component:
+          'A structured informational module used to display technical specifications, project metadata, or status summaries.',
       },
     },
   },
@@ -42,8 +43,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual style of the brief container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Brief>;
 
@@ -75,7 +76,9 @@ export const Basic: Story = {
         </BriefSection>
         <BriefCallout>
           <Activity className="size-5 shrink-0" />
-          <p className="text-xs">Real-time ingestion is active and reporting optimal latency across all nodes.</p>
+          <p className="text-xs">
+            Real-time ingestion is active and reporting optimal latency across all nodes.
+          </p>
         </BriefCallout>
       </Brief>
     </div>
@@ -92,7 +95,9 @@ export const Cyber: Story = {
   render: (args) => (
     <div className="w-[450px]">
       <Brief {...args}>
-        <BriefHeader className="text-cyan-600 dark:text-cyan-400">// CORE_SPECIFICATIONS</BriefHeader>
+        <BriefHeader className="text-cyan-600 dark:text-cyan-400">
+          // CORE_SPECIFICATIONS
+        </BriefHeader>
         <BriefSection>
           <div className="grid grid-cols-2 gap-8">
             <BriefItem>
@@ -107,7 +112,9 @@ export const Cyber: Story = {
         </BriefSection>
         <BriefCallout variant="cyber">
           <Globe className="size-5 shrink-0" />
-          <p className="text-xs font-mono">ENCRYPTED_UPLINK_ESTABLISHED // TARGET: ORBITAL_STATION_01</p>
+          <p className="text-xs font-mono">
+            ENCRYPTED_UPLINK_ESTABLISHED // TARGET: ORBITAL_STATION_01
+          </p>
         </BriefCallout>
       </Brief>
     </div>

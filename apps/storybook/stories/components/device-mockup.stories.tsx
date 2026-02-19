@@ -145,13 +145,19 @@ export const DeviceTypes: Story = {
   render: () => (
     <div className="flex flex-wrap items-end gap-6">
       <DeviceMockup device="browser" size="sm" url="https://azucena.dev">
-        <div className="flex h-32 items-center justify-center text-xs text-muted-foreground">Browser</div>
+        <div className="flex h-32 items-center justify-center text-xs text-muted-foreground">
+          Browser
+        </div>
       </DeviceMockup>
       <DeviceMockup device="tablet" size="sm">
-        <div className="flex h-40 items-center justify-center text-xs text-muted-foreground">Tablet</div>
+        <div className="flex h-40 items-center justify-center text-xs text-muted-foreground">
+          Tablet
+        </div>
       </DeviceMockup>
       <DeviceMockup device="phone" size="sm">
-        <div className="flex h-48 items-center justify-center text-xs text-muted-foreground">Phone</div>
+        <div className="flex h-48 items-center justify-center text-xs text-muted-foreground">
+          Phone
+        </div>
       </DeviceMockup>
     </div>
   ),

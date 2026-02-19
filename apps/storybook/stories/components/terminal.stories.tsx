@@ -1,11 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Terminal,
-  TerminalAction,
-  TerminalBody,
-  TerminalHeader,
-  TerminalLine,
-} from '@aazucena/ui';
+import { Terminal, TerminalAction, TerminalBody, TerminalHeader, TerminalLine } from '@aazucena/ui';
 import { Badge, Button } from '@aazucena/ui';
 import { Activity, Globe, Zap, Database, Shield } from '@aazucena/icons';
 import { useState } from 'react';
@@ -30,7 +24,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A high-fidelity terminal emulator component for displaying technical logs, code, and system status.',
+        component:
+          'A high-fidelity terminal emulator component for displaying technical logs, code, and system status.',
       },
     },
   },
@@ -40,8 +35,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the terminal',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Terminal>;
 
@@ -62,14 +57,27 @@ export const CyberBoot: Story = {
       <Terminal {...args}>
         <TerminalHeader>KERNEL_BOOT_SEQUENCE</TerminalHeader>
         <TerminalBody className="max-h-[300px]">
-          <TerminalLine number={1}>[    0.000000] Linux version 6.5.0-intel-aazucena</TerminalLine>
-          <TerminalLine number={2}>[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009efff] usable</TerminalLine>
-          <TerminalLine number={3}>[    0.000000] NX (Execute Disable) protection: active</TerminalLine>
-          <TerminalLine number={4}>[    0.000000] DMI: AAZUCENA_LABS_UNIT_0x7F42</TerminalLine>
-          <TerminalLine number={5} className="text-cyan-400 font-bold">-- INITIALIZING_UPLINK_ENCLAVE --</TerminalLine>
-          <TerminalLine number={6}>[    0.420042] pci 0000:00:00.0: [8086:9b41] type 00 class 0x060000</TerminalLine>
-          <TerminalLine number={7}>[    0.420884] usbcore: registered new interface driver usbfs</TerminalLine>
-          <TerminalLine number={8} className="text-emerald-500 font-bold"> SUCCESS: Uplink synchronized across all continental nodes.</TerminalLine>
+          <TerminalLine number={1}>[ 0.000000] Linux version 6.5.0-intel-aazucena</TerminalLine>
+          <TerminalLine number={2}>
+            [ 0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009efff] usable
+          </TerminalLine>
+          <TerminalLine number={3}>
+            [ 0.000000] NX (Execute Disable) protection: active
+          </TerminalLine>
+          <TerminalLine number={4}>[ 0.000000] DMI: AAZUCENA_LABS_UNIT_0x7F42</TerminalLine>
+          <TerminalLine number={5} className="text-cyan-400 font-bold">
+            -- INITIALIZING_UPLINK_ENCLAVE --
+          </TerminalLine>
+          <TerminalLine number={6}>
+            [ 0.420042] pci 0000:00:00.0: [8086:9b41] type 00 class 0x060000
+          </TerminalLine>
+          <TerminalLine number={7}>
+            [ 0.420884] usbcore: registered new interface driver usbfs
+          </TerminalLine>
+          <TerminalLine number={8} className="text-emerald-500 font-bold">
+            {' '}
+            SUCCESS: Uplink synchronized across all continental nodes.
+          </TerminalLine>
         </TerminalBody>
       </Terminal>
     </div>
@@ -97,27 +105,60 @@ export const GlassCode: Story = {
           <Terminal {...args} className="border-white/10 shadow-2xl">
             <TerminalHeader className="text-white border-white/10">
               <div className="flex items-center gap-3">
-                <Badge variant="outline" className="text-white border-white/20">JSON</Badge>
+                <Badge variant="outline" className="text-white border-white/20">
+                  JSON
+                </Badge>
                 <span>node_config.json</span>
               </div>
               <TerminalAction active={copied} onClick={handleCopy} className="text-white" />
             </TerminalHeader>
             <TerminalBody className="text-white/80">
-              <TerminalLine number={1}><span className="text-pink-400">&#123;</span></TerminalLine>
-              <TerminalLine number={2}>  <span className="text-cyan-400">"id"</span>: <span className="text-yellow-200">"0x7F42"</span>,</TerminalLine>
-              <TerminalLine number={3}>  <span className="text-cyan-400">"alias"</span>: <span className="text-yellow-200">"Azucena_Primary"</span>,</TerminalLine>
-              <TerminalLine number={4}>  <span className="text-cyan-400">"status"</span>: <span className="text-emerald-400">"OPERATIONAL"</span>,</TerminalLine>
-              <TerminalLine number={5}>  <span className="text-cyan-400">"enclave"</span>: <span className="text-pink-400">&#123;</span></TerminalLine>
-              <TerminalLine number={6}>    <span className="text-cyan-400">"type"</span>: <span className="text-yellow-200">"RSA-4096"</span>,</TerminalLine>
-              <TerminalLine number={7}>    <span className="text-cyan-400">"active"</span>: <span className="text-orange-400">true</span></TerminalLine>
-              <TerminalLine number={8}>  <span className="text-pink-400">&#125;</span></TerminalLine>
-              <TerminalLine number={9}><span className="text-pink-400">&#125;</span></TerminalLine>
+              <TerminalLine number={1}>
+                <span className="text-pink-400">&#123;</span>
+              </TerminalLine>
+              <TerminalLine number={2}>
+                {' '}
+                <span className="text-cyan-400">"id"</span>:{' '}
+                <span className="text-yellow-200">"0x7F42"</span>,
+              </TerminalLine>
+              <TerminalLine number={3}>
+                {' '}
+                <span className="text-cyan-400">"alias"</span>:{' '}
+                <span className="text-yellow-200">"Azucena_Primary"</span>,
+              </TerminalLine>
+              <TerminalLine number={4}>
+                {' '}
+                <span className="text-cyan-400">"status"</span>:{' '}
+                <span className="text-emerald-400">"OPERATIONAL"</span>,
+              </TerminalLine>
+              <TerminalLine number={5}>
+                {' '}
+                <span className="text-cyan-400">"enclave"</span>:{' '}
+                <span className="text-pink-400">&#123;</span>
+              </TerminalLine>
+              <TerminalLine number={6}>
+                {' '}
+                <span className="text-cyan-400">"type"</span>:{' '}
+                <span className="text-yellow-200">"RSA-4096"</span>,
+              </TerminalLine>
+              <TerminalLine number={7}>
+                {' '}
+                <span className="text-cyan-400">"active"</span>:{' '}
+                <span className="text-orange-400">true</span>
+              </TerminalLine>
+              <TerminalLine number={8}>
+                {' '}
+                <span className="text-pink-400">&#125;</span>
+              </TerminalLine>
+              <TerminalLine number={9}>
+                <span className="text-pink-400">&#125;</span>
+              </TerminalLine>
             </TerminalBody>
           </Terminal>
         </div>
       </div>
     );
-  }
+  },
 };
 
 /**
@@ -130,7 +171,9 @@ export const StatusMonitor: Story = {
         <TerminalHeader showButtons={false}>
           <div className="flex items-center gap-3">
             <Activity className="size-4 text-primary animate-pulse" />
-            <span className="text-xs font-black uppercase tracking-widest">Global_Heartbeat_Monitor</span>
+            <span className="text-xs font-black uppercase tracking-widest">
+              Global_Heartbeat_Monitor
+            </span>
           </div>
         </TerminalHeader>
         <TerminalBody className="bg-muted/30">

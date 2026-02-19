@@ -17,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'An image element with a fallback for representing the user or entity. Includes built-in support for theme-aware visual variants.',
+        component:
+          'An image element with a fallback for representing the user or entity. Includes built-in support for theme-aware visual variants.',
       },
     },
   },
@@ -27,14 +28,14 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual style of the container',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg', 'xl'],
       description: 'Predefined size preset',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Avatar>;
 
@@ -137,7 +138,7 @@ export const Fallbacks: Story = {
         <AvatarImage src="/invalid.jpg" />
         <AvatarFallback>AA</AvatarFallback>
       </Avatar>
-      
+
       <Avatar variant="default" size="lg">
         <AvatarImage src="/invalid.jpg" />
         <AvatarFallback>

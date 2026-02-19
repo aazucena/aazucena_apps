@@ -19,7 +19,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A high-impact call-to-action section used to drive user engagement. Supports multiple visual themes and responsive action groups.',
+        component:
+          'A high-impact call-to-action section used to drive user engagement. Supports multiple visual themes and responsive action groups.',
       },
     },
   },
@@ -29,8 +30,8 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber', 'glass'],
       description: 'The visual theme of the section',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof CTA>;
 
@@ -56,7 +57,11 @@ export const Basic: Story = {
         <Button size="lg" className="px-8 h-14 rounded-full font-black uppercase tracking-widest">
           Get Started <ArrowRight className="ml-2" />
         </Button>
-        <Button variant="outline" size="lg" className="px-8 h-14 rounded-full font-black uppercase tracking-widest bg-white/10 border-white/20 text-white hover:bg-white/20">
+        <Button
+          variant="outline"
+          size="lg"
+          className="px-8 h-14 rounded-full font-black uppercase tracking-widest bg-white/10 border-white/20 text-white hover:bg-white/20"
+        >
           Learn More
         </Button>
       </CTAActions>
@@ -103,13 +108,21 @@ export const GlassHero: Story = {
   render: (args) => (
     <div className="relative h-[600px] w-full flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center">
       <div className="absolute inset-0 bg-black/40" />
-      <CTA {...args} className="w-full h-full flex items-center bg-transparent backdrop-blur-none border-none">
+      <CTA
+        {...args}
+        className="w-full h-full flex items-center bg-transparent backdrop-blur-none border-none"
+      >
         <CTATitle className="text-white">Crystal_Clear_Aesthetics</CTATitle>
         <CTADescription className="text-white/80">
-          Adaptive glass surfacing with multi-layer depth effects and real-time reflection simulation.
+          Adaptive glass surfacing with multi-layer depth effects and real-time reflection
+          simulation.
         </CTADescription>
         <CTAActions>
-          <Button variant="glass" size="lg" className="h-14 px-12 bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full">
+          <Button
+            variant="glass"
+            size="lg"
+            className="h-14 px-12 bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full"
+          >
             <Globe className="mr-2 size-5" /> Experience Depth
           </Button>
         </CTAActions>
@@ -128,10 +141,16 @@ export const MidPageTransition: Story = {
   },
   render: (args) => (
     <CTA {...args}>
-      <h3 className="text-[10px] font-black tracking-[0.4em] uppercase opacity-40 mb-6">SECTION_REACHED</h3>
-      <CTATitle className="text-3xl md:text-4xl normal-case font-black tracking-tighter">Want to see the source code?</CTATitle>
+      <h3 className="text-[10px] font-black tracking-[0.4em] uppercase opacity-40 mb-6">
+        SECTION_REACHED
+      </h3>
+      <CTATitle className="text-3xl md:text-4xl normal-case font-black tracking-tighter">
+        Want to see the source code?
+      </CTATitle>
       <CTAActions className="mt-8">
-        <Button variant="outline" className="rounded-full px-8">Visit Repository</Button>
+        <Button variant="outline" className="rounded-full px-8">
+          Visit Repository
+        </Button>
       </CTAActions>
     </CTA>
   ),

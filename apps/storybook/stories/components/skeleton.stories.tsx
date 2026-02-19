@@ -25,8 +25,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the placeholder',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Skeleton>;
 
@@ -99,7 +99,7 @@ export const GlassAtmospheric: Story = {
 export const DataGrid: Story = {
   render: () => (
     <div className="w-[800px] grid grid-cols-1 md:grid-cols-3 gap-8">
-      {[1, 2, 3, 4, 5, 6].map(i => (
+      {[1, 2, 3, 4, 5, 6].map((i) => (
         <div key={i} className="p-6 border rounded-[2rem] bg-card space-y-4 shadow-sm">
           <Skeleton className="aspect-video w-full rounded-2xl" />
           <div className="space-y-2">

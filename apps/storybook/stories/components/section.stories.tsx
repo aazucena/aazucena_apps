@@ -30,7 +30,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A comprehensive layout system for building page sections. Manages vertical spacing, content max-widths, and header hierarchies.',
+        component:
+          'A comprehensive layout system for building page sections. Manages vertical spacing, content max-widths, and header hierarchies.',
       },
     },
   },
@@ -40,20 +41,20 @@ const meta = {
       control: 'select',
       options: ['narrow', 'medium', 'wide', 'full'],
       description: 'The maximum width of the content container',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     variant: {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the section',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     alignment: {
       control: 'radio',
       options: ['left', 'center', 'right'],
       description: 'Horizontal alignment of the header content',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Section>;
 
@@ -79,9 +80,11 @@ export const Basic: Story = {
         </SectionHeader>
         <SectionContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map(i => (
+            {[1, 2, 3].map((i) => (
               <Card key={i} variant="outline" className="h-48 flex items-center justify-center">
-                <span className="text-xs font-black opacity-20 uppercase tracking-widest">MODULE_0{i}</span>
+                <span className="text-xs font-black opacity-20 uppercase tracking-widest">
+                  MODULE_0{i}
+                </span>
               </Card>
             ))}
           </div>
@@ -106,7 +109,9 @@ export const CyberTerminal: Story = {
         <SectionHeader alignment="left">
           <div className="flex items-center gap-3 mb-6">
             <Activity className="size-4 text-cyan-500 animate-pulse" />
-            <Badge variant="cyber" size="xs">ACTIVE_SIGNAL</Badge>
+            <Badge variant="cyber" size="xs">
+              ACTIVE_SIGNAL
+            </Badge>
           </div>
           <SectionTitle className="text-white font-mono italic uppercase tracking-tighter text-4xl md:text-5xl">
             // PROTOCOL_0x7F
@@ -138,17 +143,20 @@ export const ContentFocused: Story = {
       <Section {...args}>
         <SectionHeader alignment="left" className="mb-16">
           <SectionTitle className="text-4xl">System_Philosophy</SectionTitle>
-          <p className="text-muted-foreground mt-4 text-lg">The architectural standards driving our engineering unit.</p>
+          <p className="text-muted-foreground mt-4 text-lg">
+            The architectural standards driving our engineering unit.
+          </p>
         </SectionHeader>
         <SectionContent className="space-y-8 text-base leading-relaxed opacity-80">
           <p>
-            The future of decentralized computing requires a paradigm shift in how we handle telemetry. 
-            By establishing high-bandwidth ingestion layers directly at the edge, we reduce latency 
-            while preserving data integrity across all continental node clusters.
+            The future of decentralized computing requires a paradigm shift in how we handle
+            telemetry. By establishing high-bandwidth ingestion layers directly at the edge, we
+            reduce latency while preserving data integrity across all continental node clusters.
           </p>
           <p>
-            Our neural-adaptive pathfinding algorithms ensure that every packet is traced and 
-            verified against local security enclaves before being committed to the global master node.
+            Our neural-adaptive pathfinding algorithms ensure that every packet is traced and
+            verified against local security enclaves before being committed to the global master
+            node.
           </p>
           <div className="pt-8">
             <Button className="rounded-full px-10">Explore_Blueprint</Button>
@@ -176,7 +184,11 @@ export const GlassHero: Story = {
           <SectionSubtitle className="text-white/60">Atmospheric_Unit_Inference</SectionSubtitle>
         </SectionHeader>
         <SectionContent className="flex justify-center mt-12">
-          <Button variant="glass" size="lg" className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-12 h-16 text-xl">
+          <Button
+            variant="glass"
+            size="lg"
+            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-12 h-16 text-xl"
+          >
             <Globe className="mr-2" /> Start_Observation
           </Button>
         </SectionContent>

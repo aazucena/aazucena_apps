@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button
+  Button,
 } from '@aazucena/ui';
 
 /**
@@ -18,7 +18,7 @@ import {
  * - **Focus Trapping:** Automatically traps focus within the dialog when open.
  * - **Dismissal:** Can be closed via `Escape` key or by clicking the Cancel button.
  * - **Screen Readers:** Uses `AlertDialogTitle` and `AlertDialogDescription` to set the appropriate accessible labels.
- * 
+ *
  * ## Engineering Status
  * - **Design:** `Verified`
  * - **Maturity:** `Stable`
@@ -27,21 +27,22 @@ import {
 const meta = {
   title: 'Components/Overlay/AlertDialog',
   component: AlertDialog,
-  subcomponents: { 
-    AlertDialogTrigger, 
-    AlertDialogContent, 
-    AlertDialogHeader, 
-    AlertDialogFooter, 
-    AlertDialogTitle, 
-    AlertDialogDescription, 
-    AlertDialogAction, 
-    AlertDialogCancel 
+  subcomponents: {
+    AlertDialogTrigger,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogFooter,
+    AlertDialogTitle,
+    AlertDialogDescription,
+    AlertDialogAction,
+    AlertDialogCancel,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A modal dialog that interrupts the user with urgent content and expects a confirmation. Built on Radix UI AlertDialog.',
+        component:
+          'A modal dialog that interrupts the user with urgent content and expects a confirmation. Built on Radix UI AlertDialog.',
       },
     },
   },
@@ -85,22 +86,27 @@ type Story = StoryObj<typeof meta>;
 const AlertDialogTemplate = (args: any) => (
   <AlertDialog>
     <AlertDialogTrigger asChild>
-      <Button variant={args.variant === 'cyber' ? 'cyber' : args.variant === 'glass' ? 'glass' : 'outline'}>
+      <Button
+        variant={
+          args.variant === 'cyber' ? 'cyber' : args.variant === 'glass' ? 'glass' : 'outline'
+        }
+      >
         Trigger {args.size?.toUpperCase() || 'LG'} Alert
       </Button>
     </AlertDialogTrigger>
     <AlertDialogContent variant={args.variant} size={args.size}>
       <AlertDialogHeader>
-        <AlertDialogTitle>
-          {args.title || 'Are you absolutely sure?'}
-        </AlertDialogTitle>
+        <AlertDialogTitle>{args.title || 'Are you absolutely sure?'}</AlertDialogTitle>
         <AlertDialogDescription>
-          {args.description || 'This action cannot be undone. This will permanently delete your account and remove your data from our servers.'}
+          {args.description ||
+            'This action cannot be undone. This will permanently delete your account and remove your data from our servers.'}
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter alignment={args.alignment}>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction className={args.variant === 'cyber' ? 'bg-cyan-600 hover:bg-cyan-500' : ''}>
+        <AlertDialogAction
+          className={args.variant === 'cyber' ? 'bg-cyan-600 hover:bg-cyan-500' : ''}
+        >
           Continue
         </AlertDialogAction>
       </AlertDialogFooter>
@@ -111,7 +117,7 @@ const AlertDialogTemplate = (args: any) => (
 // --- BASIC USAGE ---
 
 /**
- * The primary playground for the AlertDialog. 
+ * The primary playground for the AlertDialog.
  * **Interact with the Controls below** to live-edit the variant, size, and button alignment.
  */
 export const Basic: Story = {
@@ -136,16 +142,16 @@ export const GuidedTour: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: /Trigger LG Alert/i });
-    
+
     // Open Dialog
     await userEvent.click(trigger);
-    
+
     // Verify visibility (Radix portals to body, so we check document)
     const title = await within(document.body).findByText(/Interaction Verified/i);
     await expect(title).toBeVisible();
-    
+
     // Close Dialog after delay
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 2000));
     const cancel = within(document.body).getByRole('button', { name: /Cancel/i });
     await userEvent.click(cancel);
   },
@@ -166,7 +172,8 @@ export const ExtraLarge: Story = {
   args: {
     size: 'xl',
     title: 'Expanded Context',
-    description: 'Use larger sizes when you need to display more descriptive text or additional data visualizations within the alert dialog.',
+    description:
+      'Use larger sizes when you need to display more descriptive text or additional data visualizations within the alert dialog.',
   },
   render: (args) => <AlertDialogTemplate {...args} />,
 };
@@ -175,7 +182,8 @@ export const FullWidth: Story = {
   args: {
     size: 'full',
     title: 'Maximum Impact',
-    description: 'The full width variant scales to 95% of the viewport width, useful for complex workflows.',
+    description:
+      'The full width variant scales to 95% of the viewport width, useful for complex workflows.',
   },
   render: (args) => <AlertDialogTemplate {...args} />,
 };
@@ -204,7 +212,8 @@ export const StackedButtons: Story = {
   args: {
     alignment: 'stacked',
     title: 'Mobile-First Layout',
-    description: 'Buttons are stacked vertically, which is often better for long button labels or mobile-optimized interfaces.',
+    description:
+      'Buttons are stacked vertically, which is often better for long button labels or mobile-optimized interfaces.',
   },
   render: (args) => <AlertDialogTemplate {...args} />,
 };

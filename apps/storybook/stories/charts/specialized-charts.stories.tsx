@@ -1,16 +1,8 @@
 import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as topojson from 'topojson-client';
-import {
-  InteractiveTimeline,
-  ParetoFrontier,
-  ChoroplethMap,
-} from '@aazucena/visualizations';
-import {
-  timelineData,
-  paretoData,
-  choroplethData,
-} from './_mock-data';
+import { InteractiveTimeline, ParetoFrontier, ChoroplethMap } from '@aazucena/visualizations';
+import { timelineData, paretoData, choroplethData } from './_mock-data';
 
 /**
  * ## Engineering Standards
@@ -79,8 +71,7 @@ export const Pareto: StoryObj<typeof ParetoFrontier> = {
 // ChoroplethMap — fetches real Natural Earth world map
 // ---------------------------------------------------------------------------
 
-const WORLD_ATLAS_URL =
-  'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
+const WORLD_ATLAS_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 
 function ChoroplethDemo() {
   const [geoJson, setGeoJson] = useState<any>(null);
@@ -90,10 +81,7 @@ function ChoroplethDemo() {
     fetch(WORLD_ATLAS_URL)
       .then((res) => res.json())
       .then((topo) => {
-        const countries = topojson.feature(
-          topo,
-          topo.objects.countries,
-        ) as any;
+        const countries = topojson.feature(topo, topo.objects.countries) as any;
         setGeoJson(countries);
       })
       .catch(() => setError('Failed to load world map data'));

@@ -14,7 +14,8 @@ const meta: Meta<ComponentProps<typeof ObjectViewer>> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Interactive 3D inspector for all objects in the animation registry. This component is part of the @aazucena/animations package and can be used to create galleries or encyclopedias within the main app.',
+        component:
+          'Interactive 3D inspector for all objects in the animation registry. This component is part of the @aazucena/animations package and can be used to create galleries or encyclopedias within the main app.',
       },
     },
   },

@@ -1,24 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  ErrorPage, 
-  ErrorPageContent, 
-  ErrorPageVisual, 
-  ErrorPageHeader, 
-  ErrorPageTitle, 
-  ErrorPageDescription, 
-  ErrorPageActions, 
-  ErrorPageFooter, 
-  ErrorPageBeacon 
+import {
+  ErrorPage,
+  ErrorPageContent,
+  ErrorPageVisual,
+  ErrorPageHeader,
+  ErrorPageTitle,
+  ErrorPageDescription,
+  ErrorPageActions,
+  ErrorPageFooter,
+  ErrorPageBeacon,
 } from '@aazucena/ui';
-import { 
-  Maintenance, 
-  MaintenanceIcon, 
-  MaintenanceTitle, 
-  MaintenanceMessage, 
-  MaintenanceFooter 
+import {
+  Maintenance,
+  MaintenanceIcon,
+  MaintenanceTitle,
+  MaintenanceMessage,
+  MaintenanceFooter,
 } from '@aazucena/ui';
 import { Button, Badge } from '@aazucena/ui';
-import { Home, Refresh as RefreshCw, Wrench, Shield, Globe, ClockCircle, Lock } from '@aazucena/icons';
+import {
+  Home,
+  Refresh as RefreshCw,
+  Wrench,
+  Shield,
+  Globe,
+  ClockCircle,
+  Lock,
+} from '@aazucena/icons';
 
 /**
  * ## Engineering Standards
@@ -33,7 +41,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A collection of components for building full-page error (404, 500) and maintenance states. Features high-impact visuals and standard ShadCN-aligned structures.',
+        component:
+          'A collection of components for building full-page error (404, 500) and maintenance states. Features high-impact visuals and standard ShadCN-aligned structures.',
       },
     },
   },
@@ -56,14 +65,19 @@ export const Error404: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Sector_Not_Found</ErrorPageTitle>
           <ErrorPageDescription>
-            The requested coordinates could not be located in the current node topology. It may have been relocated or purged.
+            The requested coordinates could not be located in the current node topology. It may have
+            been relocated or purged.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
           <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
             <Home className="mr-2 size-5" /> Return_to_Root
           </Button>
-          <Button variant="outline" size="lg" className="rounded-full px-10 h-14 font-black tracking-widest border-zinc-200">
+          <Button
+            variant="outline"
+            size="lg"
+            className="rounded-full px-10 h-14 font-black tracking-widest border-zinc-200"
+          >
             Report_Anomaly
           </Button>
         </ErrorPageActions>
@@ -72,7 +86,7 @@ export const Error404: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /**
@@ -98,14 +112,16 @@ export const Error500Cyber: Story = {
         </ErrorPageActions>
         <div className="mt-20 p-6 border-2 border-dashed border-cyan-500/10 rounded-2xl bg-cyan-500/5 max-w-md mx-auto">
           <p className="text-[10px] font-mono text-cyan-500/60 leading-relaxed">
-            Incident ID: {Math.random().toString(16).slice(2, 10).toUpperCase()}<br/>
-            Timestamp: {new Date().toISOString()}<br/>
+            Incident ID: {Math.random().toString(16).slice(2, 10).toUpperCase()}
+            <br />
+            Timestamp: {new Date().toISOString()}
+            <br />
             Status: LISTENING_FOR_ADMIN_OVERRIDE
           </p>
         </div>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /**
@@ -116,19 +132,26 @@ export const MaintenanceMode: Story = {
     <div className="h-screen flex items-center justify-center bg-zinc-50 dark:bg-background">
       <Maintenance>
         <MaintenanceIcon className="text-primary animate-pulse" />
-        <MaintenanceTitle className="text-4xl font-black tracking-tighter uppercase">Scheduled_Calibration</MaintenanceTitle>
+        <MaintenanceTitle className="text-4xl font-black tracking-tighter uppercase">
+          Scheduled_Calibration
+        </MaintenanceTitle>
         <MaintenanceMessage className="max-w-md mx-auto text-muted-foreground font-medium uppercase tracking-widest text-[10px]">
-          We're currently optimizing the global telemetry engines to improve ingestion latency. Synchronization will resume shortly.
+          We're currently optimizing the global telemetry engines to improve ingestion latency.
+          Synchronization will resume shortly.
         </MaintenanceMessage>
         <MaintenanceFooter className="mt-12">
           <div className="flex gap-4 justify-center">
-            <Button variant="outline" className="rounded-full px-8 h-12">System Status</Button>
-            <Button variant="ghost" className="rounded-full px-8 h-12">Contact Uplink</Button>
+            <Button variant="outline" className="rounded-full px-8 h-12">
+              System Status
+            </Button>
+            <Button variant="ghost" className="rounded-full px-8 h-12">
+              Contact Uplink
+            </Button>
           </div>
         </MaintenanceFooter>
       </Maintenance>
     </div>
-  )
+  ),
 };
 
 /**
@@ -137,10 +160,16 @@ export const MaintenanceMode: Story = {
 export const StatusGlass: Story = {
   render: () => (
     <div className="h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-10 overflow-hidden">
-      <ErrorPage variant="glass" className="w-full max-w-4xl min-h-[70vh] border-white/10 bg-white/5 backdrop-blur-2xl">
+      <ErrorPage
+        variant="glass"
+        className="w-full max-w-4xl min-h-[70vh] border-white/10 bg-white/5 backdrop-blur-2xl"
+      >
         <ErrorPageContent>
           <div className="flex justify-center mb-12">
-            <Badge variant="cyber" className="bg-white/10 text-white border-white/20 px-6 py-2 rounded-full scale-125">
+            <Badge
+              variant="cyber"
+              className="bg-white/10 text-white border-white/20 px-6 py-2 rounded-full scale-125"
+            >
               MAINTENANCE_IN_PROGRESS
             </Badge>
           </div>
@@ -149,14 +178,17 @@ export const StatusGlass: Story = {
             Atmospheric data points are being re-indexed across all orbital nodes.
           </ErrorPageDescription>
           <ErrorPageActions>
-            <Button variant="glass" className="bg-white text-black hover:bg-white/90 rounded-full px-12 h-14">
+            <Button
+              variant="glass"
+              className="bg-white text-black hover:bg-white/90 rounded-full px-12 h-14"
+            >
               <Globe className="mr-2" /> View Global Map
             </Button>
           </ErrorPageActions>
         </ErrorPageContent>
       </ErrorPage>
     </div>
-  )
+  ),
 };
 
 // --- HTTP STATUS PRESET STORIES ---
@@ -170,7 +202,8 @@ export const Error400: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Malformed_Request</ErrorPageTitle>
           <ErrorPageDescription>
-            The submitted payload could not be parsed. Validate your input schema and retry the transmission.
+            The submitted payload could not be parsed. Validate your input schema and retry the
+            transmission.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
@@ -183,7 +216,7 @@ export const Error400: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /** 401 Unauthorized — authentication required with login CTA. */
@@ -195,14 +228,19 @@ export const Error401: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Authentication_Required</ErrorPageTitle>
           <ErrorPageDescription>
-            Your session token has expired or is missing. Re-authenticate to regain access to this node.
+            Your session token has expired or is missing. Re-authenticate to regain access to this
+            node.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
           <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
             <Lock className="mr-2 size-5" /> Authenticate
           </Button>
-          <Button variant="outline" size="lg" className="rounded-full px-10 h-14 font-black tracking-widest border-zinc-200">
+          <Button
+            variant="outline"
+            size="lg"
+            className="rounded-full px-10 h-14 font-black tracking-widest border-zinc-200"
+          >
             <Home className="mr-2 size-5" /> Return_to_Root
           </Button>
         </ErrorPageActions>
@@ -211,7 +249,7 @@ export const Error401: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /** 403 Access Denied — insufficient permissions. */
@@ -223,7 +261,8 @@ export const Error403: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Clearance_Insufficient</ErrorPageTitle>
           <ErrorPageDescription>
-            Your credentials lack the required privilege level for this restricted sector. Contact an administrator for escalation.
+            Your credentials lack the required privilege level for this restricted sector. Contact
+            an administrator for escalation.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
@@ -236,7 +275,7 @@ export const Error403: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /** 408 Request Timeout — connection stalled with refresh action. */
@@ -248,7 +287,8 @@ export const Error408: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Connection_Stalled</ErrorPageTitle>
           <ErrorPageDescription>
-            The upstream node did not respond within the allocated time window. Network congestion or server overload may be the cause.
+            The upstream node did not respond within the allocated time window. Network congestion
+            or server overload may be the cause.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
@@ -261,7 +301,7 @@ export const Error408: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /** 429 Rate Limited — throttled with cooldown narrative. */
@@ -273,7 +313,8 @@ export const Error429: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Throughput_Throttled</ErrorPageTitle>
           <ErrorPageDescription>
-            Request frequency has exceeded the permitted threshold. The rate limiter will reset shortly. Reduce request cadence and retry.
+            Request frequency has exceeded the permitted threshold. The rate limiter will reset
+            shortly. Reduce request cadence and retry.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
@@ -286,7 +327,7 @@ export const Error429: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /** 502 Bad Gateway — upstream failure. */
@@ -298,7 +339,8 @@ export const Error502: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Upstream_Failure</ErrorPageTitle>
           <ErrorPageDescription>
-            The gateway received an invalid response from the upstream service. Infrastructure teams have been alerted automatically.
+            The gateway received an invalid response from the upstream service. Infrastructure teams
+            have been alerted automatically.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
@@ -311,7 +353,7 @@ export const Error502: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };
 
 /** 503 Service Unavailable — maintenance or overload. */
@@ -323,7 +365,8 @@ export const Error503: Story = {
         <ErrorPageHeader>
           <ErrorPageTitle>Node_Offline</ErrorPageTitle>
           <ErrorPageDescription>
-            This service node is temporarily unavailable due to scheduled maintenance or capacity overflow. Normal operations will resume shortly.
+            This service node is temporarily unavailable due to scheduled maintenance or capacity
+            overflow. Normal operations will resume shortly.
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
@@ -336,5 +379,5 @@ export const Error503: Story = {
         </ErrorPageFooter>
       </ErrorPageContent>
     </ErrorPage>
-  )
+  ),
 };

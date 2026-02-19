@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Beacon,
-  BeaconGrid,
-  BeaconHeader,
-  BeaconLink,
-} from '@aazucena/ui';
+import { Beacon, BeaconGrid, BeaconHeader, BeaconLink } from '@aazucena/ui';
 import { Github, Linkedin, Twitter, Discord } from '@aazucena/icons';
 
 /**
@@ -22,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A secondary navigation module typically used as a footer or section transition. Features a centered header with an animated icon and a grid of links.',
+        component:
+          'A secondary navigation module typically used as a footer or section transition. Features a centered header with an animated icon and a grid of links.',
       },
     },
   },
@@ -32,8 +28,8 @@ const meta = {
       control: 'radio',
       options: ['default', 'cyber'],
       description: 'The visual theme of the beacon',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Beacon>;
 
@@ -76,9 +72,15 @@ export const Cyber: Story = {
       <Beacon {...args}>
         <BeaconHeader>UPLINK_CHANNELS:OPEN</BeaconHeader>
         <BeaconGrid>
-          <BeaconLink variant="cyber" href="#">NODE_REPOS</BeaconLink>
-          <BeaconLink variant="cyber" href="#">IDENT_AUTH</BeaconLink>
-          <BeaconLink variant="cyber" href="#">SIGNAL_TRACE</BeaconLink>
+          <BeaconLink variant="cyber" href="#">
+            NODE_REPOS
+          </BeaconLink>
+          <BeaconLink variant="cyber" href="#">
+            IDENT_AUTH
+          </BeaconLink>
+          <BeaconLink variant="cyber" href="#">
+            SIGNAL_TRACE
+          </BeaconLink>
         </BeaconGrid>
       </Beacon>
     </div>
@@ -114,10 +116,26 @@ export const SocialGrid: Story = {
       <Beacon>
         <BeaconHeader>Global_Presence</BeaconHeader>
         <BeaconGrid>
-          <BeaconLink href="#"><div className="flex items-center gap-2"><Github size={12}/> Github</div></BeaconLink>
-          <BeaconLink href="#"><div className="flex items-center gap-2"><Linkedin size={12}/> LinkedIn</div></BeaconLink>
-          <BeaconLink href="#"><div className="flex items-center gap-2"><Twitter size={12}/> Twitter</div></BeaconLink>
-          <BeaconLink href="#"><div className="flex items-center gap-2"><Discord size={12}/> Discord</div></BeaconLink>
+          <BeaconLink href="#">
+            <div className="flex items-center gap-2">
+              <Github size={12} /> Github
+            </div>
+          </BeaconLink>
+          <BeaconLink href="#">
+            <div className="flex items-center gap-2">
+              <Linkedin size={12} /> LinkedIn
+            </div>
+          </BeaconLink>
+          <BeaconLink href="#">
+            <div className="flex items-center gap-2">
+              <Twitter size={12} /> Twitter
+            </div>
+          </BeaconLink>
+          <BeaconLink href="#">
+            <div className="flex items-center gap-2">
+              <Discord size={12} /> Discord
+            </div>
+          </BeaconLink>
         </BeaconGrid>
       </Beacon>
     </div>

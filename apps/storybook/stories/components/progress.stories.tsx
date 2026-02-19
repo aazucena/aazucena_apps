@@ -25,26 +25,26 @@ const meta = {
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'The current progress value',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     variant: {
       control: 'select',
       options: ['default', 'cyber', 'glass', 'branded'],
       description: 'Visual style of the track',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['xs', 'sm', 'default', 'lg'],
       description: 'The height of the progress bar',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     indicatorVariant: {
       control: 'select',
       options: ['default', 'cyber', 'glass', 'gradient', 'emerald', 'rose'],
       description: 'Visual style of the fill indicator',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Progress>;
 
@@ -101,7 +101,9 @@ export const GlassAtmospheric: Story = {
   render: (args) => (
     <div className="p-20 bg-gradient-to-tr from-indigo-600 to-blue-800 rounded-[3rem]">
       <div className="w-80 space-y-2">
-        <p className="text-[10px] text-white/40 font-black uppercase tracking-[0.3em]">Refraction_Index</p>
+        <p className="text-[10px] text-white/40 font-black uppercase tracking-[0.3em]">
+          Refraction_Index
+        </p>
         <Progress {...args} className="bg-white/10" />
       </div>
     </div>
@@ -170,5 +172,5 @@ export const LiveSequence: Story = {
         <Progress value={progress} indicatorVariant="gradient" className="h-1.5" />
       </div>
     );
-  }
+  },
 };

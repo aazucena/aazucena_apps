@@ -9,20 +9,20 @@ import {
   CommandSeparator,
   CommandShortcut,
   CommandPalette,
-  CommandDialog
+  CommandDialog,
 } from '@aazucena/ui';
-import { 
-  Math as Calculator, 
-  Calendar, 
-  CreditCard, 
-  Cog as Settings, 
+import {
+  Math as Calculator,
+  Calendar,
+  CreditCard,
+  Cog as Settings,
   User,
   Globe,
   Database,
   Shield,
   Activity,
   Zap,
-  GitHub
+  GitHub,
 } from '@aazucena/icons';
 import { useState } from 'react';
 import { Button } from '@aazucena/ui';
@@ -46,13 +46,14 @@ const meta = {
     CommandSeparator,
     CommandShortcut,
     CommandPalette,
-    CommandDialog
+    CommandDialog,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A composable command menu for search, navigation, and quick actions. Supports keyboard shortcuts and high-performance filtering.',
+        component:
+          'A composable command menu for search, navigation, and quick actions. Supports keyboard shortcuts and high-performance filtering.',
       },
     },
   },
@@ -62,8 +63,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the command menu',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Command>;
 
@@ -157,7 +158,10 @@ export const Glass: Story = {
     <div className="p-20 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[3rem]">
       <div className="w-[450px]">
         <Command {...args}>
-          <CommandInput placeholder="Search system..." className="text-white placeholder:text-white/40" />
+          <CommandInput
+            placeholder="Search system..."
+            className="text-white placeholder:text-white/40"
+          />
           <CommandList className="max-h-[250px]">
             <CommandGroup heading="NAVIGATION" className="text-white/60">
               <CommandItem className="text-white hover:bg-white/10">
@@ -181,14 +185,38 @@ export const PaletteDemo: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     const mockActions = [
-      { id: '1', name: 'Go to GitHub', icon: Github, category: 'Navigation', keywords: 'source code repo', href: 'https://github.com' },
-      { id: '2', name: 'Check Status', icon: Activity, category: 'System', keywords: 'telemetry health', actionId: 'check-status' },
-      { id: '3', name: 'Toggle Theme', icon: Zap, category: 'Settings', keywords: 'dark light mode', actionId: 'toggle-theme' },
+      {
+        id: '1',
+        name: 'Go to GitHub',
+        icon: Github,
+        category: 'Navigation',
+        keywords: 'source code repo',
+        href: 'https://github.com',
+      },
+      {
+        id: '2',
+        name: 'Check Status',
+        icon: Activity,
+        category: 'System',
+        keywords: 'telemetry health',
+        actionId: 'check-status',
+      },
+      {
+        id: '3',
+        name: 'Toggle Theme',
+        icon: Zap,
+        category: 'Settings',
+        keywords: 'dark light mode',
+        actionId: 'toggle-theme',
+      },
     ];
 
     return (
       <div className="text-center space-y-4">
-        <p className="text-xs opacity-40 uppercase tracking-widest">Press <kbd className="bg-muted px-1.5 py-0.5 rounded border shadow-sm">⌘K</kbd> to activate</p>
+        <p className="text-xs opacity-40 uppercase tracking-widest">
+          Press <kbd className="bg-muted px-1.5 py-0.5 rounded border shadow-sm">⌘K</kbd> to
+          activate
+        </p>
         <Button onClick={() => setOpen(true)}>Open Palette</Button>
         <CommandDialog open={open} onOpenChange={setOpen} variant="cyber">
           <CommandInput placeholder="Search actions..." />
@@ -202,7 +230,9 @@ export const PaletteDemo: Story = {
                   </div>
                   <div className="flex flex-1 flex-col">
                     <span className="text-xs font-bold tracking-wide uppercase">{action.name}</span>
-                    <span className="truncate font-mono text-[10px] opacity-50">{action.keywords}</span>
+                    <span className="truncate font-mono text-[10px] opacity-50">
+                      {action.keywords}
+                    </span>
                   </div>
                 </CommandItem>
               ))}
@@ -211,5 +241,5 @@ export const PaletteDemo: Story = {
         </CommandDialog>
       </div>
     );
-  }
+  },
 };

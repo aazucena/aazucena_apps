@@ -77,7 +77,14 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => {
     const [value, setValue] = React.useState('');
-    return <AutoComplete options={frameworks} value={value} onChange={setValue} placeholder="Search frameworks..." />;
+    return (
+      <AutoComplete
+        options={frameworks}
+        value={value}
+        onChange={setValue}
+        placeholder="Search frameworks..."
+      />
+    );
   },
 };
 
@@ -88,7 +95,15 @@ export const Loading: Story = {
 export const FreeSolo: Story = {
   render: () => {
     const [value, setValue] = React.useState('');
-    return <AutoComplete options={frameworks} value={value} onChange={setValue} freeSolo placeholder="Type anything..." />;
+    return (
+      <AutoComplete
+        options={frameworks}
+        value={value}
+        onChange={setValue}
+        freeSolo
+        placeholder="Type anything..."
+      />
+    );
   },
 };
 

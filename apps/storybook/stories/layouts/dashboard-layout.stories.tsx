@@ -106,7 +106,10 @@ const ContentPlaceholder = ({ rows = 3 }: { rows?: number }) => (
     </div>
     <div className={`grid grid-cols-${rows} gap-4`}>
       {Array.from({ length: rows * 2 }).map((_, i) => (
-        <div key={i} className="h-40 rounded-xl bg-card border border-border/50 border-dashed flex items-center justify-center">
+        <div
+          key={i}
+          className="h-40 rounded-xl bg-card border border-border/50 border-dashed flex items-center justify-center"
+        >
           <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">
             Module_0{i + 1}
           </span>
@@ -125,11 +128,7 @@ export const Default: Story = {
     contentPadding: 'lg',
   },
   render: (args) => (
-    <DashboardLayout
-      {...args}
-      sidebar={<SidebarSlot />}
-      header={<HeaderSlot />}
-    >
+    <DashboardLayout {...args} sidebar={<SidebarSlot />} header={<HeaderSlot />}>
       <ContentPlaceholder rows={3} />
     </DashboardLayout>
   ),
@@ -144,11 +143,7 @@ export const CollapsedSidebar: Story = {
     contentPadding: 'lg',
   },
   render: (args) => (
-    <DashboardLayout
-      {...args}
-      sidebar={<SidebarSlot collapsed />}
-      header={<HeaderSlot />}
-    >
+    <DashboardLayout {...args} sidebar={<SidebarSlot collapsed />} header={<HeaderSlot />}>
       <ContentPlaceholder rows={3} />
     </DashboardLayout>
   ),
@@ -162,15 +157,27 @@ export const WithContentMaxWidths: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-6">
       {(['sm', 'md', 'lg', 'xl', '2xl', '7xl', 'full'] as const).map((mw) => (
-        <div key={mw} className="border border-border rounded-xl overflow-hidden" style={{ height: 180 }}>
+        <div
+          key={mw}
+          className="border border-border rounded-xl overflow-hidden"
+          style={{ height: 180 }}
+        >
           <DashboardLayout
             sidebar={<div className="w-16 h-full bg-card border-r border-border" />}
-            header={<div className="h-10 bg-muted border-b border-border flex items-center px-4"><span className="text-[10px] font-black text-muted-foreground">contentMaxWidth=&quot;{mw}&quot;</span></div>}
+            header={
+              <div className="h-10 bg-muted border-b border-border flex items-center px-4">
+                <span className="text-[10px] font-black text-muted-foreground">
+                  contentMaxWidth=&quot;{mw}&quot;
+                </span>
+              </div>
+            }
             contentMaxWidth={mw}
             contentPadding="sm"
           >
             <div className="h-20 rounded-lg bg-primary/10 border border-primary/20 border-dashed flex items-center justify-center">
-              <span className="text-[10px] font-mono text-primary">max-w-{mw === '7xl' ? '7xl' : mw}</span>
+              <span className="text-[10px] font-mono text-primary">
+                max-w-{mw === '7xl' ? '7xl' : mw}
+              </span>
             </div>
           </DashboardLayout>
         </div>

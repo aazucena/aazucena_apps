@@ -31,7 +31,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A full-width section component for representing a distinct chapter, phase, or milestone in a process.',
+        component:
+          'A full-width section component for representing a distinct chapter, phase, or milestone in a process.',
       },
     },
   },
@@ -41,8 +42,8 @@ const meta = {
       control: 'select',
       options: ['default', 'alternate', 'cyber'],
       description: 'The background and border theme of the section',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Phase>;
 
@@ -64,19 +65,24 @@ export const Basic: Story = {
         <PhaseBadge variant="blue">Phase_01: Initiation</PhaseBadge>
         <PhaseTitle>Establishing_Neural_Core</PhaseTitle>
         <PhaseDescription>
-          Setting up the foundational telemetry ingestion engines and establishing initial node handshake protocols for global synchronization.
+          Setting up the foundational telemetry ingestion engines and establishing initial node
+          handshake protocols for global synchronization.
         </PhaseDescription>
       </PhaseHeader>
       <PhaseContent className="max-w-5xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[1, 2, 3].map(i => (
+          {[1, 2, 3].map((i) => (
             <Card key={i} variant="outline" className="border-zinc-200">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <Badge variant="secondary" size="xs">UNIT_0{i}</Badge>
+                  <Badge variant="secondary" size="xs">
+                    UNIT_0{i}
+                  </Badge>
                 </div>
                 <p className="text-sm font-bold">Inference_Engine_{i}</p>
-                <p className="text-xs opacity-60 mt-2">Nominal pulse interval detected across all local buffers.</p>
+                <p className="text-xs opacity-60 mt-2">
+                  Nominal pulse interval detected across all local buffers.
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -129,11 +135,15 @@ export const AlternatePhase: Story = {
         <PhaseBadge variant="green">Phase_04: Deployment</PhaseBadge>
         <PhaseTitle className="text-3xl md:text-4xl">Global_Edge_Rollout</PhaseTitle>
         <PhaseDescription className="text-base md:text-lg">
-          Scaling the synchronized node infrastructure across multiple continental sectors to improve global ingestion latency.
+          Scaling the synchronized node infrastructure across multiple continental sectors to
+          improve global ingestion latency.
         </PhaseDescription>
       </PhaseHeader>
       <PhaseContent className="max-w-5xl mx-auto px-4 md:px-8 flex justify-center">
-        <Button variant="outline" className="rounded-full px-12 h-14 font-black tracking-widest uppercase">
+        <Button
+          variant="outline"
+          className="rounded-full px-12 h-14 font-black tracking-widest uppercase"
+        >
           Review_Deployment_Stats <Globe className="ml-2 size-5" />
         </Button>
       </PhaseContent>

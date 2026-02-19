@@ -109,9 +109,7 @@ export const Glass: Story = {
       <Paper {...args}>
         <div>
           <h3 className="font-semibold">Glass Surface</h3>
-          <p className="mt-2 text-sm opacity-80">
-            Frosted glass effect with backdrop blur.
-          </p>
+          <p className="mt-2 text-sm opacity-80">Frosted glass effect with backdrop blur.</p>
         </div>
       </Paper>
     </div>
@@ -163,9 +161,7 @@ export const Elevations: Story = {
     <div className="flex flex-wrap gap-4">
       {([0, 1, 2, 3, 4, 5] as const).map((e) => (
         <Paper key={e} elevation={e} padding="md">
-          <p className="text-center font-mono text-xs text-muted-foreground">
-            elevation={e}
-          </p>
+          <p className="text-center font-mono text-xs text-muted-foreground">elevation={e}</p>
         </Paper>
       ))}
     </div>
@@ -182,9 +178,7 @@ export const PaddingPresets: Story = {
     <div className="flex flex-col gap-4">
       {(['none', 'sm', 'md', 'lg', 'xl'] as const).map((p) => (
         <Paper key={p} elevation={1} padding={p}>
-          <span className="font-mono text-xs text-muted-foreground">
-            padding=&quot;{p}&quot;
-          </span>
+          <span className="font-mono text-xs text-muted-foreground">padding=&quot;{p}&quot;</span>
         </Paper>
       ))}
     </div>
@@ -201,9 +195,7 @@ export const Square: Story = {
     children: (
       <div>
         <h3 className="font-semibold">Square Paper</h3>
-        <p className="mt-2 text-sm text-muted-foreground">
-          No border radius for flush layouts.
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">No border radius for flush layouts.</p>
       </div>
     ),
   },

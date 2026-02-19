@@ -15,7 +15,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Provides a reading direction context (LTR or RTL) to all nested components. Useful for localization and specific UI layout overrides.',
+        component:
+          'Provides a reading direction context (LTR or RTL) to all nested components. Useful for localization and specific UI layout overrides.',
       },
     },
   },
@@ -25,8 +26,8 @@ const meta = {
       control: 'radio',
       options: ['ltr', 'rtl'],
       description: 'The reading direction of the nested content',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof DirectionProvider>;
 
@@ -78,13 +79,18 @@ export const ComponentResponse: Story = {
   },
   render: (args) => (
     <div className="space-y-8">
-      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 text-center">RTL_CONTEXT_ACTIVE</p>
+      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 text-center">
+        RTL_CONTEXT_ACTIVE
+      </p>
       <DirectionProvider {...args}>
         <div className="w-[400px] p-8 border rounded-[2rem] space-y-4">
           <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
             <div className="h-full w-2/3 bg-primary" />
           </div>
-          <p className="text-xs italic opacity-60">Notice how the progress bar and text alignment would naturally shift in a full RTL implementation.</p>
+          <p className="text-xs italic opacity-60">
+            Notice how the progress bar and text alignment would naturally shift in a full RTL
+            implementation.
+          </p>
         </div>
       </DirectionProvider>
     </div>

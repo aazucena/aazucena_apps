@@ -185,15 +185,8 @@ export const Sizes: Story = {
     <div className="flex items-start gap-4">
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <div key={size} className="space-y-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">
-            {size}
-          </span>
-          <Tree
-            data={fileSystemData}
-            size={size}
-            defaultExpanded={['src']}
-            className="w-56"
-          />
+          <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">{size}</span>
+          <Tree data={fileSystemData} size={size} defaultExpanded={['src']} className="w-56" />
         </div>
       ))}
     </div>

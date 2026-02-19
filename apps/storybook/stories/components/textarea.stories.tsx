@@ -18,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A versatile multi-line input component for long-form text, code snippets, or system logs.',
+        component:
+          'A versatile multi-line input component for long-form text, code snippets, or system logs.',
       },
     },
   },
@@ -28,18 +29,18 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the input',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents user interaction',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     rows: {
       control: 'number',
       description: 'Initial number of visible lines',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Textarea>;
 
@@ -79,12 +80,18 @@ export const CyberTerminal: Story = {
     <div className="w-[500px] p-8 bg-black border border-cyan-500/10 rounded-2xl">
       <div className="flex items-center gap-3 mb-6">
         <Terminal className="size-4 text-cyan-500 animate-pulse" />
-        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">// KERNEL_INPUT_SHELL</span>
+        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+          // KERNEL_INPUT_SHELL
+        </span>
       </div>
       <Textarea {...args} />
       <div className="flex justify-between items-center mt-6">
-        <p className="text-[9px] font-mono text-cyan-500/40 uppercase italic">Awaiting_Secure_Uplink</p>
-        <Button variant="cyber" size="sm">TRANSMIT</Button>
+        <p className="text-[9px] font-mono text-cyan-500/40 uppercase italic">
+          Awaiting_Secure_Uplink
+        </p>
+        <Button variant="cyber" size="sm">
+          TRANSMIT
+        </Button>
       </div>
     </div>
   ),
@@ -103,10 +110,15 @@ export const GlassAtmospheric: Story = {
     <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
       <div className="w-[450px] space-y-4">
         <div className="flex items-center justify-between">
-          <Badge variant="outline" className="bg-white/10 text-white border-white/20">ATMOSPHERE_V1</Badge>
+          <Badge variant="outline" className="bg-white/10 text-white border-white/20">
+            ATMOSPHERE_V1
+          </Badge>
           <div className="size-2 rounded-full bg-emerald-400 animate-pulse" />
         </div>
-        <Textarea {...args} className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-3xl p-6" />
+        <Textarea
+          {...args}
+          className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-3xl p-6"
+        />
       </div>
     </div>
   ),
@@ -118,7 +130,8 @@ export const GlassAtmospheric: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
-    value: 'SYSTEM_LOCK_ACTIVE: Unauthorized access to this buffer is prohibited by Security_Enclave_V4.',
+    value:
+      'SYSTEM_LOCK_ACTIVE: Unauthorized access to this buffer is prohibited by Security_Enclave_V4.',
     variant: 'cyber',
     rows: 3,
   },

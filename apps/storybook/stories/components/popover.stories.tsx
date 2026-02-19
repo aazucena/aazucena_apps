@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  PopoverAnchor,
-} from '@aazucena/ui';
+import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from '@aazucena/ui';
 import { Button, Input, Label, Badge } from '@aazucena/ui';
 import { CogFour as Cog, Activity, Shield, Zap, Globe, InfoCircle as Info } from '@aazucena/icons';
 
@@ -23,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust popover component for displaying content relative to a trigger element. Ideal for small settings, help text, or tool palettes.',
+        component:
+          'A robust popover component for displaying content relative to a trigger element. Ideal for small settings, help text, or tool palettes.',
       },
     },
   },
@@ -33,14 +29,14 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the popover content',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     side: {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right'],
       description: 'The preferred side for positioning',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Popover>;
 
@@ -62,19 +58,27 @@ export const Basic: Story = {
         <div className="space-y-6">
           <div className="space-y-1">
             <h4 className="font-black tracking-tighter uppercase text-sm">Visual_Coordinates</h4>
-            <p className="text-[10px] text-muted-foreground uppercase">Configure spatial distribution.</p>
+            <p className="text-[10px] text-muted-foreground uppercase">
+              Configure spatial distribution.
+            </p>
           </div>
           <div className="space-y-4">
             <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width" className="text-[10px] font-bold">WIDTH</Label>
+              <Label htmlFor="width" className="text-[10px] font-bold">
+                WIDTH
+              </Label>
               <Input id="width" defaultValue="100%" className="col-span-2 h-8 text-xs" />
             </div>
             <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="height" className="text-[10px] font-bold">HEIGHT</Label>
+              <Label htmlFor="height" className="text-[10px] font-bold">
+                HEIGHT
+              </Label>
               <Input id="height" defaultValue="300px" className="col-span-2 h-8 text-xs" />
             </div>
           </div>
-          <Button size="sm" className="w-full rounded-lg uppercase font-bold text-[10px]">Apply_Coordinates</Button>
+          <Button size="sm" className="w-full rounded-lg uppercase font-bold text-[10px]">
+            Apply_Coordinates
+          </Button>
         </div>
       </PopoverContent>
     </Popover>
@@ -88,13 +92,17 @@ export const CyberSpec: Story = {
   render: () => (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="cyber"><Cog className="mr-2 animate-spin-slow" /> CONFIG_OVERRIDE</Button>
+        <Button variant="cyber">
+          <Cog className="mr-2 animate-spin-slow" /> CONFIG_OVERRIDE
+        </Button>
       </PopoverTrigger>
       <PopoverContent variant="cyber" side="right" className="w-72 font-mono p-6">
         <div className="space-y-6">
           <div className="flex items-center gap-2 text-cyan-500 mb-2">
             <Activity size={14} className="animate-pulse" />
-            <span className="text-[10px] font-black uppercase italic tracking-tighter">// KERNEL_PARAMETERS</span>
+            <span className="text-[10px] font-black uppercase italic tracking-tighter">
+              // KERNEL_PARAMETERS
+            </span>
           </div>
           <div className="space-y-4">
             <div className="space-y-2">
@@ -118,7 +126,9 @@ export const CyberSpec: Story = {
           </div>
           <div className="pt-4 border-t border-cyan-500/10 flex justify-between items-center">
             <span className="text-[9px] opacity-40 uppercase">Protection_Layer</span>
-            <Badge variant="cyber" size="xs">LOCKED</Badge>
+            <Badge variant="cyber" size="xs">
+              LOCKED
+            </Badge>
           </div>
         </div>
       </PopoverContent>
@@ -135,17 +145,21 @@ export const GlassInfo: Story = {
       <Popover>
         <PopoverTrigger asChild>
           <button className="text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Info size={20} /> <span className="text-xs font-black uppercase tracking-widest">Environment_Intel</span>
+            <Info size={20} />{' '}
+            <span className="text-xs font-black uppercase tracking-widest">Environment_Intel</span>
           </button>
         </PopoverTrigger>
         <PopoverContent variant="glass" side="top" className="w-80 border-white/10 text-white">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/10 rounded-lg"><Globe size={16} /></div>
+              <div className="p-2 bg-white/10 rounded-lg">
+                <Globe size={16} />
+              </div>
               <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
             </div>
             <p className="text-xs text-white/60 leading-relaxed">
-              Active telemetry indicates nominal refraction across all frosted surfaces. Backdrop blur is performing within optimal parameters.
+              Active telemetry indicates nominal refraction across all frosted surfaces. Backdrop
+              blur is performing within optimal parameters.
             </p>
             <div className="flex justify-between items-center pt-2">
               <span className="text-[9px] font-bold text-white/40 uppercase">Phase: EXOSPHERE</span>

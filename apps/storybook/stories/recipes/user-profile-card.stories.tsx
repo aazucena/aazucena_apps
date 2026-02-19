@@ -17,14 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@aazucena/ui';
-import {
-  Globe,
-  Email,
-  Dots,
-  User,
-  ArrowRight,
-  Shield,
-} from '@aazucena/icons';
+import { Globe, Email, Dots, User, ArrowRight, Shield } from '@aazucena/icons';
 
 /**
  * ## User Profile Card Recipe
@@ -88,8 +81,8 @@ export const Default: Story = {
               <p className="text-sm text-muted-foreground">@aazucena</p>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Full-stack developer specializing in React, Astro, and AI-driven experiences.
-              Building the future of the web.
+              Full-stack developer specializing in React, Astro, and AI-driven experiences. Building
+              the future of the web.
             </p>
             <Separator />
             <div className="flex items-center justify-between text-sm">

@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  DataList, 
-  DataListHeader, 
-  DataListTitle, 
-  DataListSubtitle, 
-  DataListTable, 
-  DataListRow, 
-  DataListCell, 
+import {
+  DataList,
+  DataListHeader,
+  DataListTitle,
+  DataListSubtitle,
+  DataListTable,
+  DataListRow,
+  DataListCell,
   DataListProgress,
   DataListGrid,
   DataListItem,
   DataListLabel,
-  DataListValue
+  DataListValue,
 } from '@aazucena/ui';
 import { Badge } from '@aazucena/ui';
 import { Activity, Globe, Zap, Database } from '@aazucena/icons';
@@ -26,24 +26,25 @@ import { Activity, Globe, Zap, Database } from '@aazucena/icons';
 const meta = {
   title: 'Components/Data/DataList',
   component: DataList,
-  subcomponents: { 
-    DataListHeader, 
-    DataListTitle, 
-    DataListSubtitle, 
-    DataListTable, 
-    DataListRow, 
-    DataListCell, 
+  subcomponents: {
+    DataListHeader,
+    DataListTitle,
+    DataListSubtitle,
+    DataListTable,
+    DataListRow,
+    DataListCell,
     DataListProgress,
     DataListGrid,
     DataListItem,
     DataListLabel,
-    DataListValue
+    DataListValue,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A comprehensive suite of components for displaying structured data in tabular or grid formats. Optimized for analytical dashboards and terminal views.',
+        component:
+          'A comprehensive suite of components for displaying structured data in tabular or grid formats. Optimized for analytical dashboards and terminal views.',
       },
     },
   },
@@ -53,8 +54,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber', 'transparent'],
       description: 'The visual theme of the data list container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof DataList>;
 
@@ -81,15 +82,25 @@ export const LeaderboardTable: Story = {
           <DataListTitle>Signal_Intelligence_Stream</DataListTitle>
           <DataListSubtitle>High-Priority Node Processing</DataListSubtitle>
         </div>
-        <Badge variant="outline" animated>LIVE_UPLINK</Badge>
+        <Badge variant="outline" animated>
+          LIVE_UPLINK
+        </Badge>
       </DataListHeader>
       <DataListTable>
         <thead>
           <DataListRow className="bg-transparent hover:bg-transparent">
-            <DataListCell type="rank" as="th">ID</DataListCell>
-            <DataListCell type="detail" as="th">Component</DataListCell>
-            <DataListCell type="metric" as="th">Origin_Node</DataListCell>
-            <DataListCell type="visual" as="th">Buffer_Load</DataListCell>
+            <DataListCell type="rank" as="th">
+              ID
+            </DataListCell>
+            <DataListCell type="detail" as="th">
+              Component
+            </DataListCell>
+            <DataListCell type="metric" as="th">
+              Origin_Node
+            </DataListCell>
+            <DataListCell type="visual" as="th">
+              Buffer_Load
+            </DataListCell>
           </DataListRow>
         </thead>
         <tbody>
@@ -98,10 +109,17 @@ export const LeaderboardTable: Story = {
               <DataListCell type="rank">#{signal.id}</DataListCell>
               <DataListCell type="detail">
                 <div className="flex items-center gap-3">
-                  <div className={cn("size-2 rounded-full", signal.load > 80 ? "bg-amber-500 animate-pulse" : "bg-emerald-500")} />
+                  <div
+                    className={cn(
+                      'size-2 rounded-full',
+                      signal.load > 80 ? 'bg-amber-500 animate-pulse' : 'bg-emerald-500',
+                    )}
+                  />
                   <div>
                     <div className="font-bold text-xs uppercase">{signal.name}</div>
-                    <div className="text-[9px] opacity-40 font-mono italic">STATE: {signal.status}</div>
+                    <div className="text-[9px] opacity-40 font-mono italic">
+                      STATE: {signal.status}
+                    </div>
                   </div>
                 </div>
               </DataListCell>
@@ -125,8 +143,12 @@ export const CyberGrid: Story = {
     <div className="w-[850px] space-y-8">
       <div className="flex flex-col px-2">
         <div className="flex items-center gap-3 mb-6">
-          <IconBox variant="cyber" size="sm"><Activity size={14}/></IconBox>
-          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500">GEO_DISTRIBUTION_PROTOCOLS</h3>
+          <IconBox variant="cyber" size="sm">
+            <Activity size={14} />
+          </IconBox>
+          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500">
+            GEO_DISTRIBUTION_PROTOCOLS
+          </h3>
         </div>
         <DataListGrid cols={4} gap="lg">
           <DataListItem variant="cyber">
@@ -183,7 +205,9 @@ export const GlassDisplay: Story = {
             <DataListProgress value={65} label="65%" className="text-white" />
           </div>
           <div className="flex justify-between items-center text-white/80">
-            <span className="text-[10px] font-black uppercase tracking-widest">Network_Stability</span>
+            <span className="text-[10px] font-black uppercase tracking-widest">
+              Network_Stability
+            </span>
             <DataListProgress value={98} label="98%" className="text-white" />
           </div>
         </div>
@@ -195,10 +219,15 @@ export const GlassDisplay: Story = {
 // Helper for stories
 const cn = (...args: any[]) => args.filter(Boolean).join(' ');
 const IconBox = ({ children, variant, size }: any) => (
-  <div className={cn("flex items-center justify-center rounded-lg border", 
-    variant === 'cyber' ? "bg-cyan-500/10 border-cyan-500/20 text-cyan-500" : "bg-muted border-border",
-    size === 'sm' ? "size-8" : "size-10"
-  )}>
+  <div
+    className={cn(
+      'flex items-center justify-center rounded-lg border',
+      variant === 'cyber'
+        ? 'bg-cyan-500/10 border-cyan-500/20 text-cyan-500'
+        : 'bg-muted border-border',
+      size === 'sm' ? 'size-8' : 'size-10',
+    )}
+  >
     {children}
   </div>
 );

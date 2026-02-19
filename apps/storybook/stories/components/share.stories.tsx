@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  Share,
-  ShareAction,
-  ShareGroup,
-  ShareHeader,
-} from '@aazucena/ui';
+import { Share, ShareAction, ShareGroup, ShareHeader } from '@aazucena/ui';
 import { Github, Linkedin, Twitter, LinkOne as Link, Discord, Send } from '@aazucena/icons';
 
 /**
@@ -22,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A social sharing and link distribution module. Ideal for the footer of blog posts, projects, or telemetry reports.',
+        component:
+          'A social sharing and link distribution module. Ideal for the footer of blog posts, projects, or telemetry reports.',
       },
     },
   },
@@ -32,8 +28,8 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber'],
       description: 'The visual theme of the container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Share>;
 
@@ -55,12 +51,20 @@ export const Basic: Story = {
         <ShareHeader>
           <div className="flex flex-col gap-1">
             <span className="text-sm font-bold tracking-tight">Share_Intelligence</span>
-            <span className="text-[10px] uppercase font-black tracking-widest opacity-40">Broadcast this report</span>
+            <span className="text-[10px] uppercase font-black tracking-widest opacity-40">
+              Broadcast this report
+            </span>
           </div>
           <ShareGroup>
-            <ShareAction label="Twitter" href="#"><Twitter size={18}/></ShareAction>
-            <ShareAction label="LinkedIn" href="#"><Linkedin size={18}/></ShareAction>
-            <ShareAction label="Copy Link" href="#"><Link size={18}/></ShareAction>
+            <ShareAction label="Twitter" href="#">
+              <Twitter size={18} />
+            </ShareAction>
+            <ShareAction label="LinkedIn" href="#">
+              <Linkedin size={18} />
+            </ShareAction>
+            <ShareAction label="Copy Link" href="#">
+              <Link size={18} />
+            </ShareAction>
           </ShareGroup>
         </ShareHeader>
       </Share>
@@ -79,11 +83,19 @@ export const CyberTerminal: Story = {
     <div className="w-[600px] p-8 bg-black border border-cyan-500/10 rounded-xl">
       <Share {...args}>
         <ShareHeader>
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-cyan-500/60">// BROADCAST_SIGNAL_ENCLAVE</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-cyan-500/60">
+            // BROADCAST_SIGNAL_ENCLAVE
+          </span>
           <ShareGroup>
-            <ShareAction variant="cyber" href="#"><Github size={18}/></ShareAction>
-            <ShareAction variant="cyber" href="#"><Twitter size={18}/></ShareAction>
-            <ShareAction variant="cyber" href="#"><Discord size={18}/></ShareAction>
+            <ShareAction variant="cyber" href="#">
+              <Github size={18} />
+            </ShareAction>
+            <ShareAction variant="cyber" href="#">
+              <Twitter size={18} />
+            </ShareAction>
+            <ShareAction variant="cyber" href="#">
+              <Discord size={18} />
+            </ShareAction>
           </ShareGroup>
         </ShareHeader>
       </Share>
@@ -101,10 +113,22 @@ export const GlassAtmospheric: Story = {
       <div className="w-[500px] relative z-10">
         <Share className="border-t-white/10">
           <ShareHeader>
-            <span className="text-white font-black uppercase tracking-[0.4em] text-[10px]">Cloud_Distribution</span>
+            <span className="text-white font-black uppercase tracking-[0.4em] text-[10px]">
+              Cloud_Distribution
+            </span>
             <ShareGroup>
-              <ShareAction variant="glass" className="bg-white/10 border-white/20 text-white rounded-full"><Send size={18}/></ShareAction>
-              <ShareAction variant="glass" className="bg-white/10 border-white/20 text-white rounded-full"><Link size={18}/></ShareAction>
+              <ShareAction
+                variant="glass"
+                className="bg-white/10 border-white/20 text-white rounded-full"
+              >
+                <Send size={18} />
+              </ShareAction>
+              <ShareAction
+                variant="glass"
+                className="bg-white/10 border-white/20 text-white rounded-full"
+              >
+                <Link size={18} />
+              </ShareAction>
             </ShareGroup>
           </ShareHeader>
         </Share>

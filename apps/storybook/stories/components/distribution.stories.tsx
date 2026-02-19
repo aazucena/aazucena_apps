@@ -31,7 +31,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A data visualization suite for displaying relative proportions and clustered tags. Ideal for project metadata and skill profiling.',
+        component:
+          'A data visualization suite for displaying relative proportions and clustered tags. Ideal for project metadata and skill profiling.',
       },
     },
   },
@@ -41,8 +42,8 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber'],
       description: 'The visual theme of the distribution suite',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Distribution>;
 
@@ -64,9 +65,24 @@ export const Basic: Story = {
         <DistributionGroup>
           <DistributionHeader>Regional_Intelligence_Metrics</DistributionHeader>
           <DistributionList>
-            <DistributionBar value={45} label="North America" icon={<Globe />} color="from-blue-500 to-indigo-600" />
-            <DistributionBar value={30} label="European Union" icon={<Globe />} color="from-emerald-500 to-teal-600" />
-            <DistributionBar value={25} label="APAC Region" icon={<Globe />} color="from-orange-500 to-rose-600" />
+            <DistributionBar
+              value={45}
+              label="North America"
+              icon={<Globe />}
+              color="from-blue-500 to-indigo-600"
+            />
+            <DistributionBar
+              value={30}
+              label="European Union"
+              icon={<Globe />}
+              color="from-emerald-500 to-teal-600"
+            />
+            <DistributionBar
+              value={25}
+              label="APAC Region"
+              icon={<Globe />}
+              color="from-orange-500 to-rose-600"
+            />
           </DistributionList>
         </DistributionGroup>
 
@@ -98,14 +114,28 @@ export const Cyber: Story = {
         <DistributionGroup>
           <div className="flex items-center gap-3 mb-6">
             <Activity className="size-4 text-cyan-500 animate-pulse" />
-            <DistributionHeader className="mb-0 text-cyan-500 opacity-60">SYSTEM_SECURITY_DISTRIBUTION</DistributionHeader>
+            <DistributionHeader className="mb-0 text-cyan-500 opacity-60">
+              SYSTEM_SECURITY_DISTRIBUTION
+            </DistributionHeader>
           </div>
           <DistributionList>
-            <DistributionBar variant="cyber" value={98} label="ENCRYPTION_STRENGTH" icon={<Shield />} color="from-cyan-500 to-blue-600" />
-            <DistributionBar variant="cyber" value={12} label="THREAT_VECTOR_COUNT" icon={<Code />} color="from-rose-500 to-red-600" />
+            <DistributionBar
+              variant="cyber"
+              value={98}
+              label="ENCRYPTION_STRENGTH"
+              icon={<Shield />}
+              color="from-cyan-500 to-blue-600"
+            />
+            <DistributionBar
+              variant="cyber"
+              value={12}
+              label="THREAT_VECTOR_COUNT"
+              icon={<Code />}
+              color="from-rose-500 to-red-600"
+            />
           </DistributionList>
         </DistributionGroup>
-        
+
         <div className="flex flex-wrap gap-3 pt-4">
           <DistributionTag weight="cyber">CORE_ACTIVE</DistributionTag>
           <DistributionTag weight="cyber">UPLINK_STABLE</DistributionTag>
@@ -126,9 +156,24 @@ export const PerformanceMetrics: Story = {
         <DistributionGroup>
           <DistributionHeader>Resource_Allocation</DistributionHeader>
           <DistributionList className="space-y-6">
-            <DistributionBar value={12} label="CPU_Cycle_Load" icon={<Activity />} color="from-zinc-500 to-zinc-700" />
-            <DistributionBar value={85} label="Memory_Cache_Util" icon={<Database />} color="from-blue-400 to-blue-600" />
-            <DistributionBar value={42} label="Network_Bandwidth" icon={<Zap />} color="from-emerald-400 to-emerald-600" />
+            <DistributionBar
+              value={12}
+              label="CPU_Cycle_Load"
+              icon={<Activity />}
+              color="from-zinc-500 to-zinc-700"
+            />
+            <DistributionBar
+              value={85}
+              label="Memory_Cache_Util"
+              icon={<Database />}
+              color="from-blue-400 to-blue-600"
+            />
+            <DistributionBar
+              value={42}
+              label="Network_Bandwidth"
+              icon={<Zap />}
+              color="from-emerald-400 to-emerald-600"
+            />
           </DistributionList>
         </DistributionGroup>
       </Distribution>

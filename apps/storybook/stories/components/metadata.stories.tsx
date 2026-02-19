@@ -37,7 +37,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A comprehensive layout system for displaying technical specifications, item metadata, or real-time status readouts.',
+        component:
+          'A comprehensive layout system for displaying technical specifications, item metadata, or real-time status readouts.',
       },
     },
   },
@@ -47,8 +48,8 @@ const meta = {
       control: 'select',
       options: ['default', 'card', 'glass', 'cyber', 'readout', 'stack'],
       description: 'The visual theme and layout of the metadata container',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof MetaData>;
 
@@ -74,21 +75,27 @@ export const BasicCard: Story = {
           <MetaDataItem>
             <MetaDataLabel>Auth_Unit</MetaDataLabel>
             <MetaDataValue className="flex items-center gap-2">
-              <MetaDataIcon variant="muted"><User size={14} /></MetaDataIcon>
+              <MetaDataIcon variant="muted">
+                <User size={14} />
+              </MetaDataIcon>
               Aldrin Azucena
             </MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
             <MetaDataLabel>Epoch_Timestamp</MetaDataLabel>
             <MetaDataValue className="flex items-center gap-2">
-              <MetaDataIcon variant="muted"><Calendar size={14} /></MetaDataIcon>
+              <MetaDataIcon variant="muted">
+                <Calendar size={14} />
+              </MetaDataIcon>
               Feb 14, 2026
             </MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
             <MetaDataLabel>Visibility_Level</MetaDataLabel>
             <MetaDataValue>
-              <Badge variant="outline" size="xs">PUBLIC_ACCESS</Badge>
+              <Badge variant="outline" size="xs">
+                PUBLIC_ACCESS
+              </Badge>
             </MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
@@ -120,15 +127,21 @@ export const CyberTelemetry: Story = {
         <MetaDataGrid cols={3} gap="lg">
           <MetaDataItem>
             <MetaDataLabel variant="cyber">UPLINK_ID</MetaDataLabel>
-            <MetaDataValue variant="cyber" className="text-white">0x7F42</MetaDataValue>
+            <MetaDataValue variant="cyber" className="text-white">
+              0x7F42
+            </MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
             <MetaDataLabel variant="cyber">SIGNAL_GAIN</MetaDataLabel>
-            <MetaDataValue variant="cyber" className="text-cyan-400">85.4%</MetaDataValue>
+            <MetaDataValue variant="cyber" className="text-cyan-400">
+              85.4%
+            </MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
             <MetaDataLabel variant="cyber">SYNC_STATUS</MetaDataLabel>
-            <MetaDataValue variant="cyber" className="text-emerald-500">STABLE</MetaDataValue>
+            <MetaDataValue variant="cyber" className="text-emerald-500">
+              STABLE
+            </MetaDataValue>
           </MetaDataItem>
         </MetaDataGrid>
       </MetaData>
@@ -173,7 +186,9 @@ export const GlassSidebar: Story = {
     <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
       <MetaData {...args} className="w-[300px] border-white/10 shadow-2xl">
         <MetaDataHeader>
-          <MetaDataTitle size="lg" className="text-white">File_Info</MetaDataTitle>
+          <MetaDataTitle size="lg" className="text-white">
+            File_Info
+          </MetaDataTitle>
         </MetaDataHeader>
         <div className="space-y-6">
           <MetaDataItem>

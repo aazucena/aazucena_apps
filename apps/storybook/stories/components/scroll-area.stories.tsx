@@ -18,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A custom scroll area for providing consistent cross-browser scrolling behavior and high-fidelity technical styling.',
+        component:
+          'A custom scroll area for providing consistent cross-browser scrolling behavior and high-fidelity technical styling.',
       },
     },
   },
@@ -43,7 +44,9 @@ export const Basic: Story = {
   render: () => (
     <ScrollArea className="h-72 w-64 rounded-2xl border bg-card shadow-lg">
       <div className="p-6">
-        <h4 className="mb-6 text-[10px] font-black tracking-[0.2em] uppercase opacity-40">System_Registry</h4>
+        <h4 className="mb-6 text-[10px] font-black tracking-[0.2em] uppercase opacity-40">
+          System_Registry
+        </h4>
         <div className="space-y-4">
           {Array.from({ length: 20 }).map((_, i) => (
             <div key={i} className="flex flex-col gap-1">
@@ -67,12 +70,16 @@ export const CyberTerminal: Story = {
         <div className="p-4 space-y-3">
           <div className="flex items-center gap-3 text-cyan-500 mb-6">
             <Terminal className="size-4 animate-pulse" />
-            <span className="text-xs font-black uppercase tracking-widest">// KERNEL_INGESTION_LOG</span>
+            <span className="text-xs font-black uppercase tracking-widest">
+              // KERNEL_INGESTION_LOG
+            </span>
           </div>
           {mockLogs.map((log) => (
             <div key={log.id} className="flex gap-4 text-[10px] tracking-tighter">
               <span className="opacity-20">[{new Date().toLocaleTimeString()}]</span>
-              <span className={log.status === 'FAILED' ? 'text-rose-500' : 'text-cyan-400'}>{log.id}</span>
+              <span className={log.status === 'FAILED' ? 'text-rose-500' : 'text-cyan-400'}>
+                {log.id}
+              </span>
               <span className="opacity-40 uppercase">{log.status}</span>
               <span className="text-white/60 truncate">{log.message}</span>
             </div>
@@ -93,10 +100,15 @@ export const Horizontal: Story = {
       <ScrollArea className="w-full pb-4">
         <div className="flex gap-6 w-max px-2">
           {['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta'].map((name, i) => (
-            <div key={i} className="w-48 h-32 bg-card border rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+            <div
+              key={i}
+              className="w-48 h-32 bg-card border rounded-2xl p-6 flex flex-col justify-between shadow-sm"
+            >
               <div className="flex justify-between items-start">
                 <Database className="text-primary size-5" />
-                <Badge variant="outline" size="xs">UNIT_{i+1}</Badge>
+                <Badge variant="outline" size="xs">
+                  UNIT_{i + 1}
+                </Badge>
               </div>
               <span className="font-black uppercase tracking-tighter">{name}_Sector</span>
             </div>
@@ -118,11 +130,16 @@ export const GlassMonitor: Story = {
         <div className="p-6 space-y-6">
           <div className="flex items-center gap-3 opacity-60">
             <Activity className="size-4" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em]">Active_Trajectories</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em]">
+              Active_Trajectories
+            </span>
           </div>
           {Array.from({ length: 10 }).map((_, i) => (
-            <div key={i} className="flex justify-between items-center border-b border-white/5 pb-4 last:border-0">
-              <span className="text-xs font-bold">Orbit_TRJ_{i+1}</span>
+            <div
+              key={i}
+              className="flex justify-between items-center border-b border-white/5 pb-4 last:border-0"
+            >
+              <span className="text-xs font-bold">Orbit_TRJ_{i + 1}</span>
               <div className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
             </div>
           ))}

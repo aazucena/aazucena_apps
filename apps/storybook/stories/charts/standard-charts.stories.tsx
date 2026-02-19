@@ -63,11 +63,7 @@ export const Bar: StoryObj<typeof BarChart> = {
 
 export const BarHorizontal: StoryObj<typeof BarChart> = {
   render: () => (
-    <BarChart
-      data={barChartData}
-      title="Language Proficiency (Horizontal)"
-      horizontal
-    />
+    <BarChart data={barChartData} title="Language Proficiency (Horizontal)" horizontal />
   ),
 };
 
@@ -98,13 +94,7 @@ export const Pie: StoryObj<typeof PieChart> = {
 };
 
 export const Donut: StoryObj<typeof PieChart> = {
-  render: () => (
-    <PieChart
-      data={pieChartData}
-      title="Time Allocation (Donut)"
-      innerRadius={60}
-    />
-  ),
+  render: () => <PieChart data={pieChartData} title="Time Allocation (Donut)" innerRadius={60} />,
 };
 
 // ---------------------------------------------------------------------------
@@ -112,13 +102,7 @@ export const Donut: StoryObj<typeof PieChart> = {
 // ---------------------------------------------------------------------------
 
 export const Area: StoryObj<typeof AreaChart> = {
-  render: () => (
-    <AreaChart
-      data={areaChartData}
-      title="Performance Trend"
-      fillOpacity={0.25}
-    />
-  ),
+  render: () => <AreaChart data={areaChartData} title="Performance Trend" fillOpacity={0.25} />,
 };
 
 // ---------------------------------------------------------------------------
@@ -164,12 +148,7 @@ export const Histogram: StoryObj<typeof BarPlot> = {
 export const Gauge: StoryObj<typeof RadialGauge> = {
   render: () => (
     <div className="flex items-center justify-center p-8">
-      <RadialGauge
-        value={73}
-        max={100}
-        label="Performance"
-        color="var(--color-primary, #3b82f6)"
-      />
+      <RadialGauge value={73} max={100} label="Performance" color="var(--color-primary, #3b82f6)" />
     </div>
   ),
 };
@@ -177,14 +156,7 @@ export const Gauge: StoryObj<typeof RadialGauge> = {
 export const GaugeSmall: StoryObj<typeof RadialGauge> = {
   render: () => (
     <div className="flex items-center justify-center p-8">
-      <RadialGauge
-        value={42}
-        max={100}
-        label="CPU"
-        size={120}
-        thickness={12}
-        color="#10b981"
-      />
+      <RadialGauge value={42} max={100} label="CPU" size={120} thickness={12} color="#10b981" />
     </div>
   ),
 };

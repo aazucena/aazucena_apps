@@ -31,7 +31,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A versatile empty state component used when content is unavailable. Includes built-in support for icons, titles, descriptions, and action groups.',
+        component:
+          'A versatile empty state component used when content is unavailable. Includes built-in support for icons, titles, descriptions, and action groups.',
       },
     },
   },
@@ -41,8 +42,8 @@ const meta = {
       control: 'select',
       options: ['default', 'archive', 'fullscreen'],
       description: 'The layout preset for the empty state',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Empty>;
 
@@ -71,7 +72,9 @@ export const Basic: Story = {
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
-          <Button variant="outline" className="rounded-full px-8">Clear_Filters</Button>
+          <Button variant="outline" className="rounded-full px-8">
+            Clear_Filters
+          </Button>
         </EmptyContent>
       </Empty>
     </div>
@@ -91,13 +94,20 @@ export const BrandedArchive: Story = {
         <EmptyMedia variant="branded" className="bg-primary/5 border-primary/20 text-primary">
           <Database size={32} />
         </EmptyMedia>
-        <EmptyTitle size="lg" className="font-black tracking-tighter">DATA_BUFFER_EMPTY</EmptyTitle>
+        <EmptyTitle size="lg" className="font-black tracking-tighter">
+          DATA_BUFFER_EMPTY
+        </EmptyTitle>
         <EmptyDescription className="max-w-sm">
-          Node US_EAST_1 has reported zero active trajectories for this window. Please initialize a new sync sequence.
+          Node US_EAST_1 has reported zero active trajectories for this window. Please initialize a
+          new sync sequence.
         </EmptyDescription>
         <EmptyContent className="mt-8 flex flex-row gap-4">
-          <Button variant="cyber" size="sm">INIT_SYNC</Button>
-          <Button variant="outline" size="sm">CHECK_HEALTH</Button>
+          <Button variant="cyber" size="sm">
+            INIT_SYNC
+          </Button>
+          <Button variant="outline" size="sm">
+            CHECK_HEALTH
+          </Button>
         </EmptyContent>
       </Empty>
     </div>
@@ -113,7 +123,10 @@ export const SignalLost: Story = {
       <Empty>
         <div className="relative mb-8">
           <div className="absolute inset-0 bg-rose-500/20 blur-2xl animate-pulse rounded-full" />
-          <EmptyMedia variant="icon" className="bg-rose-500/10 border-rose-500/30 text-rose-500 size-16 rounded-full relative z-10">
+          <EmptyMedia
+            variant="icon"
+            className="bg-rose-500/10 border-rose-500/30 text-rose-500 size-16 rounded-full relative z-10"
+          >
             <Activity size={32} />
           </EmptyMedia>
         </div>
@@ -122,7 +135,9 @@ export const SignalLost: Story = {
           UPLINK_STATUS: DISCONNECTED // ERROR_CODE: 0x7F42
         </EmptyDescription>
         <EmptyContent className="mt-6">
-          <Badge variant="outline" animated>RETRYING_CONNECTION...</Badge>
+          <Badge variant="outline" animated>
+            RETRYING_CONNECTION...
+          </Badge>
         </EmptyContent>
       </Empty>
     </div>
@@ -143,7 +158,9 @@ export const Fullscreen: Story = {
         <EmptyMedia className="mb-12">
           <Sparkles className="size-16 text-cyan-400 animate-pulse" />
         </EmptyMedia>
-        <EmptyTitle size="lg" className="text-4xl">Welcome_to_Intelligence</EmptyTitle>
+        <EmptyTitle size="lg" className="text-4xl">
+          Welcome_to_Intelligence
+        </EmptyTitle>
         <EmptyDescription className="text-white/60 text-base mt-4 max-w-md">
           Start by connecting your first edge node to visualize real-time trajectory flows.
         </EmptyDescription>

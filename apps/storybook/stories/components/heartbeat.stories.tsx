@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  Status, 
-  StatusDot, 
-  StatusLabel, 
-  HeartbeatItem, 
-  HeartbeatHeader, 
-  HeartbeatFooter, 
-  HeartbeatDetail, 
-  HeartbeatDetailLabel, 
-  HeartbeatDetailValue 
+import {
+  Status,
+  StatusDot,
+  StatusLabel,
+  HeartbeatItem,
+  HeartbeatHeader,
+  HeartbeatFooter,
+  HeartbeatDetail,
+  HeartbeatDetailLabel,
+  HeartbeatDetailValue,
 } from '@aazucena/ui';
 import { IconBox } from '@aazucena/ui';
 import { Activity, Database, Globe } from '@aazucena/icons';
@@ -23,21 +23,22 @@ import { Activity, Database, Globe } from '@aazucena/icons';
 const meta = {
   title: 'Components/Data/Heartbeat',
   component: HeartbeatItem,
-  subcomponents: { 
-    HeartbeatHeader, 
-    HeartbeatFooter, 
-    HeartbeatDetail, 
-    HeartbeatDetailLabel, 
+  subcomponents: {
+    HeartbeatHeader,
+    HeartbeatFooter,
+    HeartbeatDetail,
+    HeartbeatDetailLabel,
     HeartbeatDetailValue,
     Status,
     StatusDot,
-    StatusLabel
+    StatusLabel,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A service health monitoring component. Provides detailed uptime, stability, and pulse metrics for individual edge nodes or backend services.',
+        component:
+          'A service health monitoring component. Provides detailed uptime, stability, and pulse metrics for individual edge nodes or backend services.',
       },
     },
   },
@@ -65,17 +66,25 @@ export const ServiceCard: Story = {
               <span className="text-xs font-black tracking-widest uppercase">CLUSTER_MAIN_01</span>
               <div className="flex items-center gap-2 mt-1">
                 <StatusDot state="nominal" pulse />
-                <StatusLabel variant="cyber" className="text-emerald-500">CONNECTED</StatusLabel>
+                <StatusLabel variant="cyber" className="text-emerald-500">
+                  CONNECTED
+                </StatusLabel>
               </div>
             </div>
           </div>
-          <span className="font-mono text-[10px] font-bold opacity-40 uppercase tracking-tighter">Latency: 12ms</span>
+          <span className="font-mono text-[10px] font-bold opacity-40 uppercase tracking-tighter">
+            Latency: 12ms
+          </span>
         </HeartbeatHeader>
-        
+
         {/* Trend Mock */}
         <div className="h-16 flex items-end gap-1 px-2 opacity-30">
           {[...Array(24)].map((_, i) => (
-            <div key={i} className="flex-1 bg-primary rounded-t-sm" style={{ height: `${20 + Math.random() * 80}%` }} />
+            <div
+              key={i}
+              className="flex-1 bg-primary rounded-t-sm"
+              style={{ height: `${20 + Math.random() * 80}%` }}
+            />
           ))}
         </div>
 
@@ -103,23 +112,37 @@ export const DegradedState: Story = {
       <HeartbeatItem className="border-rose-500/20 bg-rose-500/5 shadow-rose-500/5 shadow-2xl">
         <HeartbeatHeader>
           <div className="flex items-center gap-4">
-            <IconBox variant="cyber" size="md" className="border-rose-500/20 text-rose-500 bg-rose-500/10">
+            <IconBox
+              variant="cyber"
+              size="md"
+              className="border-rose-500/20 text-rose-500 bg-rose-500/10"
+            >
               <Activity size={20} />
             </IconBox>
             <div className="flex flex-col">
-              <span className="text-xs font-black tracking-widest uppercase text-rose-500">INGESTION_RELAY</span>
+              <span className="text-xs font-black tracking-widest uppercase text-rose-500">
+                INGESTION_RELAY
+              </span>
               <div className="flex items-center gap-2 mt-1">
                 <StatusDot state="warning" animated />
-                <StatusLabel variant="cyber" className="text-amber-500">JITTER_DETECTED</StatusLabel>
+                <StatusLabel variant="cyber" className="text-amber-500">
+                  JITTER_DETECTED
+                </StatusLabel>
               </div>
             </div>
           </div>
-          <span className="font-mono text-[10px] font-black text-rose-500/60 uppercase">HIGH_LATENCY</span>
+          <span className="font-mono text-[10px] font-black text-rose-500/60 uppercase">
+            HIGH_LATENCY
+          </span>
         </HeartbeatHeader>
-        
+
         <div className="h-16 flex items-end gap-1 px-2 opacity-20">
           {[...Array(24)].map((_, i) => (
-            <div key={i} className="flex-1 bg-rose-500 rounded-t-sm" style={{ height: `${Math.random() * 100}%` }} />
+            <div
+              key={i}
+              className="flex-1 bg-rose-500 rounded-t-sm"
+              style={{ height: `${Math.random() * 100}%` }}
+            />
           ))}
         </div>
 
@@ -145,7 +168,9 @@ export const IndicatorGallery: Story = {
   render: () => (
     <div className="p-12 border rounded-[2rem] bg-card space-y-12 w-[500px]">
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">SYSTEM_SIGNALS</p>
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
+          SYSTEM_SIGNALS
+        </p>
         <div className="flex justify-center gap-12">
           <Status variant="pill" className="px-4 py-1.5">
             <StatusDot state="nominal" pulse />
@@ -153,13 +178,17 @@ export const IndicatorGallery: Story = {
           </Status>
           <Status variant="pill" className="px-4 py-1.5 border-rose-500/20 bg-rose-500/5">
             <StatusDot state="critical" animated />
-            <StatusLabel variant="bright" className="text-rose-500">OFFLINE</StatusLabel>
+            <StatusLabel variant="bright" className="text-rose-500">
+              OFFLINE
+            </StatusLabel>
           </Status>
         </div>
       </div>
 
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">AGENT_STATUS</p>
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
+          AGENT_STATUS
+        </p>
         <div className="flex justify-center gap-12">
           <div className="flex items-center gap-2">
             <StatusDot state="intel" size="lg" pulse />
@@ -172,5 +201,5 @@ export const IndicatorGallery: Story = {
         </div>
       </div>
     </div>
-  )
-}
+  ),
+};

@@ -17,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A date picker component that allows users to select single days, multiple days, or ranges. Features theme-aware visual variants.',
+        component:
+          'A date picker component that allows users to select single days, multiple days, or ranges. Features theme-aware visual variants.',
       },
     },
   },
@@ -27,19 +28,19 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual style of the calendar container and navigation',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     mode: {
       control: 'select',
       options: ['single', 'multiple', 'range'],
       description: 'Selection mode',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     showOutsideDays: {
       control: 'boolean',
       description: 'Toggle visibility of days from adjacent months',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Calendar>;
 
@@ -60,11 +61,7 @@ export const Basic: Story = {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
       <div className="rounded-xl border shadow-lg overflow-hidden">
-        <Calendar
-          {...args}
-          selected={date}
-          onSelect={setDate}
-        />
+        <Calendar {...args} selected={date} onSelect={setDate} />
       </div>
     );
   },
@@ -80,13 +77,7 @@ export const Cyber: Story = {
   },
   render: (args) => {
     const [date, setDate] = useState<Date | undefined>(new Date());
-    return (
-      <Calendar
-        {...args}
-        selected={date}
-        onSelect={setDate}
-      />
-    );
+    return <Calendar {...args} selected={date} onSelect={setDate} />;
   },
 };
 
@@ -102,11 +93,7 @@ export const Glass: Story = {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
       <div className="p-12 bg-gradient-to-br from-zinc-900 to-black rounded-[2rem]">
-        <Calendar
-          {...args}
-          selected={date}
-          onSelect={setDate}
-        />
+        <Calendar {...args} selected={date} onSelect={setDate} />
       </div>
     );
   },
@@ -127,11 +114,7 @@ export const RangeSelection: Story = {
 
     return (
       <div className="rounded-xl border shadow-lg overflow-hidden">
-        <Calendar
-          {...args}
-          selected={range}
-          onSelect={setRange}
-        />
+        <Calendar {...args} selected={range} onSelect={setRange} />
       </div>
     );
   },
@@ -148,11 +131,7 @@ export const MultipleMonths: Story = {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
       <div className="rounded-xl border shadow-lg overflow-hidden">
-        <Calendar
-          {...args}
-          selected={date}
-          onSelect={setDate}
-        />
+        <Calendar {...args} selected={date} onSelect={setDate} />
       </div>
     );
   },

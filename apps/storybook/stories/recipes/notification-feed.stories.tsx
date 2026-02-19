@@ -21,8 +21,7 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component:
-          'A notification feed composed from Avatar, Badge, Card, and Button primitives.',
+        component: 'A notification feed composed from Avatar, Badge, Card, and Button primitives.',
       },
     },
   },

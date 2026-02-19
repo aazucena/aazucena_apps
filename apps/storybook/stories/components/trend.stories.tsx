@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A compact indicator used to show the direction and magnitude of change in a metric.',
+        component:
+          'A compact indicator used to show the direction and magnitude of change in a metric.',
       },
     },
   },
@@ -26,24 +27,24 @@ const meta = {
       control: 'select',
       options: ['up', 'down', 'neutral'],
       description: 'The semantic direction of the change',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     variant: {
       control: 'select',
       options: ['default', 'pill', 'ghost'],
       description: 'The visual style of the indicator',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     value: {
       control: 'text',
       description: 'The numeric or text value to display',
-      table: { category: 'Content' }
+      table: { category: 'Content' },
     },
     showIcon: {
       control: 'boolean',
       description: 'Toggle the directional icon',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof Trend>;
 
@@ -100,7 +101,7 @@ export const IntegratedContext: Story = {
         </div>
         <div className="text-3xl font-black tracking-tighter">85dBm</div>
       </Card>
-      
+
       <Card variant="outline" className="p-6">
         <div className="flex justify-between items-start mb-4">
           <span className="text-[10px] font-black uppercase opacity-40">Packet_Loss</span>

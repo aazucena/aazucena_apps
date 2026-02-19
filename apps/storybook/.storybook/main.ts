@@ -13,7 +13,8 @@ const config: StorybookConfig = {
     options: {},
   },
   addons: [
-    '@storybook/addon-a11y',{
+    '@storybook/addon-a11y',
+    {
       name: '@storybook/addon-docs',
       options: {
         mdxPluginOptions: {
@@ -35,11 +36,9 @@ const config: StorybookConfig = {
     // Define environment variables for browser compatibility
     config.define = config.define || {};
     config.define['process.env.STRAPI_URL'] = JSON.stringify(
-      process.env.STRAPI_URL || 'http://localhost:1337'
+      process.env.STRAPI_URL || 'http://localhost:1337',
     );
-    config.define['process.env.NODE_ENV'] = JSON.stringify(
-      process.env.NODE_ENV || 'development'
-    );
+    config.define['process.env.NODE_ENV'] = JSON.stringify(process.env.NODE_ENV || 'development');
 
     return config;
   },

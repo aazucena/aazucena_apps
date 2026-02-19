@@ -96,9 +96,21 @@ export const Sizes: Story = {
 export const UserList: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
-      <User name="Alice Johnson" description="Frontend Engineer" avatarSrc="https://i.pravatar.cc/150?u=alice" />
-      <User name="Bob Williams" description="Backend Engineer" avatarSrc="https://i.pravatar.cc/150?u=bob" />
-      <User name="Carol Davis" description="DevOps Engineer" avatarSrc="https://i.pravatar.cc/150?u=carol" />
+      <User
+        name="Alice Johnson"
+        description="Frontend Engineer"
+        avatarSrc="https://i.pravatar.cc/150?u=alice"
+      />
+      <User
+        name="Bob Williams"
+        description="Backend Engineer"
+        avatarSrc="https://i.pravatar.cc/150?u=bob"
+      />
+      <User
+        name="Carol Davis"
+        description="DevOps Engineer"
+        avatarSrc="https://i.pravatar.cc/150?u=carol"
+      />
     </div>
   ),
 };

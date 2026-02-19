@@ -35,11 +35,41 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const sampleNotifications: NotificationItemData[] = [
-  { id: '1', title: 'New deployment', description: 'Production build v3.2.1 deployed successfully.', time: '2 min ago', read: false },
-  { id: '2', title: 'Comment on PR #42', description: 'Alice left a comment on your pull request.', time: '15 min ago', read: false },
-  { id: '3', title: 'Build passed', description: 'CI pipeline completed without errors.', time: '1 hour ago', read: true },
-  { id: '4', title: 'New team member', description: 'Bob joined the engineering team.', time: '3 hours ago', read: true },
-  { id: '5', title: 'Security alert', description: 'Dependency vulnerability detected in lodash.', time: 'Yesterday', read: false },
+  {
+    id: '1',
+    title: 'New deployment',
+    description: 'Production build v3.2.1 deployed successfully.',
+    time: '2 min ago',
+    read: false,
+  },
+  {
+    id: '2',
+    title: 'Comment on PR #42',
+    description: 'Alice left a comment on your pull request.',
+    time: '15 min ago',
+    read: false,
+  },
+  {
+    id: '3',
+    title: 'Build passed',
+    description: 'CI pipeline completed without errors.',
+    time: '1 hour ago',
+    read: true,
+  },
+  {
+    id: '4',
+    title: 'New team member',
+    description: 'Bob joined the engineering team.',
+    time: '3 hours ago',
+    read: true,
+  },
+  {
+    id: '5',
+    title: 'Security alert',
+    description: 'Dependency vulnerability detected in lodash.',
+    time: 'Yesterday',
+    read: false,
+  },
 ];
 
 export const Basic: Story = {
@@ -79,6 +109,10 @@ export const Cyber: Story = {
 export const CustomTrigger: Story = {
   args: {
     ...Basic.args,
-    trigger: <button className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">Messages (3)</button>,
+    trigger: (
+      <button className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">
+        Messages (3)
+      </button>
+    ),
   },
 };

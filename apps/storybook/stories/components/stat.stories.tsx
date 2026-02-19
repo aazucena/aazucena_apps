@@ -1,16 +1,25 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  Stat, 
-  StatValue, 
-  StatLabel, 
-  StatDescription, 
-  StatIcon, 
-  StatBoard, 
+import {
+  Stat,
+  StatValue,
+  StatLabel,
+  StatDescription,
+  StatIcon,
+  StatBoard,
   StatBoardGrid,
-  StatBoardHeader
+  StatBoardHeader,
 } from '@aazucena/ui';
 import { Trend } from '@aazucena/ui';
-import { Activity, Database, Globe, Shield, Zap, DollarCircle as Dollar, Users, Refresh } from '@aazucena/icons';
+import {
+  Activity,
+  Database,
+  Globe,
+  Shield,
+  Zap,
+  DollarCircle as Dollar,
+  Users,
+  Refresh,
+} from '@aazucena/icons';
 import { Badge, Button } from '@aazucena/ui';
 
 /**
@@ -23,20 +32,21 @@ import { Badge, Button } from '@aazucena/ui';
 const meta = {
   title: 'Components/Data/Stat',
   component: Stat,
-  subcomponents: { 
-    StatValue, 
-    StatLabel, 
-    StatDescription, 
-    StatIcon, 
-    StatBoard, 
+  subcomponents: {
+    StatValue,
+    StatLabel,
+    StatDescription,
+    StatIcon,
+    StatBoard,
     StatBoardGrid,
-    StatBoardHeader 
+    StatBoardHeader,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A suite of components for displaying data metrics, key performance indicators, and technical readouts.',
+        component:
+          'A suite of components for displaying data metrics, key performance indicators, and technical readouts.',
       },
     },
   },
@@ -46,14 +56,14 @@ const meta = {
       control: 'select',
       options: ['default', 'card', 'glass', 'cyber'],
       description: 'The visual theme of the stat container',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     alignment: {
       control: 'radio',
       options: ['left', 'center', 'right'],
       description: 'Horizontal alignment of content',
-      table: { category: 'Layout' }
-    }
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof Stat>;
 
@@ -93,10 +103,14 @@ export const CyberTerminal: Story = {
           <StatIcon variant="cyber" size="sm">
             <Zap className="size-5 text-cyan-500" />
           </StatIcon>
-          <Badge variant="cyber" size="xs">STABLE</Badge>
+          <Badge variant="cyber" size="xs">
+            STABLE
+          </Badge>
         </div>
         <StatLabel variant="cyber">KERNEL_PULSE</StatLabel>
-        <StatValue variant="cyber" size="xl">99.9%</StatValue>
+        <StatValue variant="cyber" size="xl">
+          99.9%
+        </StatValue>
         <StatDescription variant="success">INBOUND_SIGNALS_VERIFIED</StatDescription>
       </Stat>
     </div>
@@ -116,10 +130,14 @@ export const GlassAtmospheric: Story = {
         <Stat {...args}>
           <div className="flex items-center gap-3 mb-4 opacity-60">
             <Globe className="size-5 text-white" />
-            <StatLabel variant="glass" className="mb-0">Global_Reach</StatLabel>
+            <StatLabel variant="glass" className="mb-0">
+              Global_Reach
+            </StatLabel>
           </div>
           <StatValue className="text-white text-5xl">14.2K</StatValue>
-          <StatDescription className="text-white/40 font-bold mt-2 tracking-widest uppercase">Nodes_Active</StatDescription>
+          <StatDescription className="text-white/40 font-bold mt-2 tracking-widest uppercase">
+            Nodes_Active
+          </StatDescription>
         </Stat>
       </div>
     </div>
@@ -136,11 +154,17 @@ export const DashboardBoard: Story = {
         <StatBoardHeader>
           <div className="space-y-1">
             <h3 className="text-xl font-black tracking-tighter uppercase">Cluster_Inference</h3>
-            <p className="text-[10px] font-mono opacity-40 uppercase tracking-[0.3em]">Real-time node analysis</p>
+            <p className="text-[10px] font-mono opacity-40 uppercase tracking-[0.3em]">
+              Real-time node analysis
+            </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="rounded-full"><Refresh size={14}/></Button>
-            <Button size="sm" className="rounded-full">Export_Intel</Button>
+            <Button variant="outline" size="sm" className="rounded-full">
+              <Refresh size={14} />
+            </Button>
+            <Button size="sm" className="rounded-full">
+              Export_Intel
+            </Button>
           </div>
         </StatBoardHeader>
         <StatBoardGrid>

@@ -31,7 +31,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A comprehensive layout system for site identity, user profiles, or entity representations. Features large typography and branded visual depth.',
+        component:
+          'A comprehensive layout system for site identity, user profiles, or entity representations. Features large typography and branded visual depth.',
       },
     },
   },
@@ -41,8 +42,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the identity section',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof Identity>;
 
@@ -64,19 +65,28 @@ export const Basic: Story = {
         <IdentityProfile src="https://avatars.githubusercontent.com/u/1234567?v=4" alt="Aldrin" />
         <IdentityContent>
           <div className="flex items-center gap-3 mb-4 justify-center md:justify-start">
-            <Badge variant="outline" animated>AVAILABLE_FOR_PROTOCOL</Badge>
+            <Badge variant="outline" animated>
+              AVAILABLE_FOR_PROTOCOL
+            </Badge>
           </div>
           <IdentityName>
             <IdentityFirst>Aldrin</IdentityFirst> Azucena
           </IdentityName>
           <IdentityOccupation>Engineering Intelligence Lead</IdentityOccupation>
           <p className="text-xl opacity-60 leading-relaxed max-w-xl">
-            Architecting high-fidelity decentralized interfaces and neural-adaptive telemetry systems for the next generation of computing.
+            Architecting high-fidelity decentralized interfaces and neural-adaptive telemetry
+            systems for the next generation of computing.
           </p>
           <div className="flex gap-4 justify-center md:justify-start pt-4">
-            <Button variant="outline" size="icon" className="rounded-full"><Github size={18}/></Button>
-            <Button variant="outline" size="icon" className="rounded-full"><Linkedin size={18}/></Button>
-            <Button variant="outline" size="icon" className="rounded-full"><Twitter size={18}/></Button>
+            <Button variant="outline" size="icon" className="rounded-full">
+              <Github size={18} />
+            </Button>
+            <Button variant="outline" size="icon" className="rounded-full">
+              <Linkedin size={18} />
+            </Button>
+            <Button variant="outline" size="icon" className="rounded-full">
+              <Twitter size={18} />
+            </Button>
           </div>
         </IdentityContent>
       </Identity>
@@ -96,12 +106,14 @@ export const CyberTerminal: Story = {
       <div className="absolute top-0 right-0 p-8">
         <div className="flex items-center gap-2">
           <Activity size={12} className="text-cyan-500 animate-pulse" />
-          <span className="font-mono text-[9px] text-cyan-500/40 uppercase">NODE_STATUS: STABLE</span>
+          <span className="font-mono text-[9px] text-cyan-500/40 uppercase">
+            NODE_STATUS: STABLE
+          </span>
         </div>
       </div>
       <Identity {...args}>
-        <IdentityProfile 
-          src="https://avatars.githubusercontent.com/u/1234567?v=4" 
+        <IdentityProfile
+          src="https://avatars.githubusercontent.com/u/1234567?v=4"
           className="border-cyan-500/40 shadow-[0_0_30px_rgba(6,182,212,0.2)]"
         />
         <IdentityContent className="space-y-8">
@@ -113,10 +125,14 @@ export const CyberTerminal: Story = {
           </IdentityOccupation>
           <div className="p-6 bg-cyan-500/5 border border-cyan-500/10 rounded-2xl max-w-lg">
             <p className="font-mono text-sm text-cyan-500/80 leading-relaxed italic">
-              "Establishing high-bandwidth knowledge ingestion layers across distributed node clusters."
+              "Establishing high-bandwidth knowledge ingestion layers across distributed node
+              clusters."
             </p>
           </div>
-          <Button variant="cyber" className="h-14 px-12 rounded-full font-black uppercase tracking-widest">
+          <Button
+            variant="cyber"
+            className="h-14 px-12 rounded-full font-black uppercase tracking-widest"
+          >
             Execute_Link_Sequence
           </Button>
         </IdentityContent>
@@ -136,15 +152,17 @@ export const StatusGlass: Story = {
     <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden">
       <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-sm" />
       <Identity {...args} className="relative z-10 text-white">
-        <IdentityProfile 
-          src="https://avatars.githubusercontent.com/u/1234567?v=4" 
+        <IdentityProfile
+          src="https://avatars.githubusercontent.com/u/1234567?v=4"
           className="border-white/20 bg-white/5 backdrop-blur-3xl"
         />
         <IdentityContent>
           <IdentityName className="text-white drop-shadow-2xl">
             <span className="opacity-60">Aldrin</span> Azucena
           </IdentityName>
-          <IdentityOccupation className="text-white/40 uppercase tracking-widest text-lg">Atmospheric_Designer</IdentityOccupation>
+          <IdentityOccupation className="text-white/40 uppercase tracking-widest text-lg">
+            Atmospheric_Designer
+          </IdentityOccupation>
           <div className="flex items-center gap-4 pt-8">
             <div className="p-4 bg-white/5 border border-white/10 rounded-2xl flex items-center gap-3">
               <Globe size={20} className="text-cyan-400" />

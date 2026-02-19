@@ -33,7 +33,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   args: {
-    children: "⌘K",
+    children: '⌘K',
   },
 };
 
@@ -44,15 +44,19 @@ export const ShortcutCombo: Story = {
   render: () => (
     <div className="flex flex-col items-center gap-6">
       <div className="flex items-center gap-4">
-        <span className="text-xs font-black uppercase tracking-widest opacity-40">Open_Command_Palette</span>
+        <span className="text-xs font-black uppercase tracking-widest opacity-40">
+          Open_Command_Palette
+        </span>
         <KbdGroup>
           <Kbd>⌘</Kbd>
           <Kbd>K</Kbd>
         </KbdGroup>
       </div>
-      
+
       <div className="flex items-center gap-4">
-        <span className="text-xs font-black uppercase tracking-widest opacity-40">Hard_Refresh</span>
+        <span className="text-xs font-black uppercase tracking-widest opacity-40">
+          Hard_Refresh
+        </span>
         <KbdGroup>
           <Kbd>⇧</Kbd>
           <Kbd>⌘</Kbd>
@@ -70,8 +74,12 @@ export const TechnicalContext: Story = {
   render: () => (
     <div className="p-8 border-2 border-dashed rounded-2xl bg-muted/5 flex flex-col items-center gap-4">
       <div className="bg-zinc-950 text-white p-4 rounded-xl border border-white/10 shadow-2xl flex items-center gap-4">
-        <span className="text-[10px] font-mono uppercase tracking-tighter opacity-60">Terminal_Toggle</span>
-        <Kbd className="bg-white/10 text-white border-white/20 h-6 px-2 min-w-6 rounded-md">F12</Kbd>
+        <span className="text-[10px] font-mono uppercase tracking-tighter opacity-60">
+          Terminal_Toggle
+        </span>
+        <Kbd className="bg-white/10 text-white border-white/20 h-6 px-2 min-w-6 rounded-md">
+          F12
+        </Kbd>
       </div>
       <p className="text-[9px] font-mono opacity-40 italic">// AUTO_LINKING_DETECTED</p>
     </div>

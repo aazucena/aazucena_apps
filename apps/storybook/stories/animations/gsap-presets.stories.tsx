@@ -19,7 +19,13 @@ const meta = {
 
 export default meta;
 
-const AnimationBox = ({ preset, name }: { preset: keyof typeof ANIMATION_PRESETS, name: string }) => {
+const AnimationBox = ({
+  preset,
+  name,
+}: {
+  preset: keyof typeof ANIMATION_PRESETS;
+  name: string;
+}) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

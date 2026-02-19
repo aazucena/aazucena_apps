@@ -43,15 +43,11 @@ export default meta;
 // ---------------------------------------------------------------------------
 
 export const NeuralMapDefault: StoryObj<typeof NeuralMap> = {
-  render: () => (
-    <NeuralMap steps={neuralSteps} currentStepIndex={2} />
-  ),
+  render: () => <NeuralMap steps={neuralSteps} currentStepIndex={2} />,
 };
 
 export const NeuralMapFailed: StoryObj<typeof NeuralMap> = {
-  render: () => (
-    <NeuralMap steps={neuralStepsFailed} currentStepIndex={3} />
-  ),
+  render: () => <NeuralMap steps={neuralStepsFailed} currentStepIndex={3} />,
 };
 
 export const NeuralMapWithGraph: StoryObj<typeof NeuralMap> = {

@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A polymorphic renderer that unifies the display of various icon formats. Essential for components driven by CMS data or dynamic string IDs.',
+        component:
+          'A polymorphic renderer that unifies the display of various icon formats. Essential for components driven by CMS data or dynamic string IDs.',
       },
     },
   },
@@ -25,23 +26,23 @@ const meta = {
     icon: {
       control: 'text',
       description: 'Accepts an IconComponent, a string ID (e.g. "Activity"), or a raw <svg> string',
-      table: { category: 'Content' }
+      table: { category: 'Content' },
     },
     size: {
       control: 'text',
       description: 'Dimensions in pixels or CSS units',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     stroke: {
       control: 'text',
       description: 'Overrides the stroke width or color',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     fallback: {
       control: 'none',
       description: 'React node to show if rendering fails',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof IconRenderer>;
 
@@ -57,7 +58,7 @@ export const Basic: Story = {
   args: {
     icon: Activity,
     size: 48,
-    className: "text-primary",
+    className: 'text-primary',
   },
 };
 
@@ -66,9 +67,9 @@ export const Basic: Story = {
  */
 export const StringIdentifier: Story = {
   args: {
-    icon: "Shield",
+    icon: 'Shield',
     size: 48,
-    className: "text-emerald-500",
+    className: 'text-emerald-500',
   },
 };
 
@@ -79,7 +80,7 @@ export const RawSVG: Story = {
   args: {
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>',
     size: 48,
-    className: "text-amber-500",
+    className: 'text-amber-500',
   },
 };
 
@@ -90,23 +91,39 @@ export const TechnicalIcons: Story = {
   render: () => (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-12 p-8 border rounded-[2rem] bg-muted/5">
       <div className="flex flex-col items-center gap-4 group">
-        <IconRenderer icon={Zap} size={40} className="text-yellow-500 transition-transform group-hover:scale-125" />
+        <IconRenderer
+          icon={Zap}
+          size={40}
+          className="text-yellow-500 transition-transform group-hover:scale-125"
+        />
         <span className="text-[10px] font-black uppercase opacity-40">ENERGY_SIGNAL</span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
-        <IconRenderer icon="Terminal" size={40} className="text-cyan-500 transition-transform group-hover:scale-125" />
+        <IconRenderer
+          icon="Terminal"
+          size={40}
+          className="text-cyan-500 transition-transform group-hover:scale-125"
+        />
         <span className="text-[10px] font-black uppercase opacity-40">SYSTEM_SHELL</span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
-        <IconRenderer icon={Database} size={40} className="text-blue-500 transition-transform group-hover:scale-125" />
+        <IconRenderer
+          icon={Database}
+          size={40}
+          className="text-blue-500 transition-transform group-hover:scale-125"
+        />
         <span className="text-[10px] font-black uppercase opacity-40">DATA_CLUSTER</span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
-        <IconRenderer icon={Github} size={40} className="text-zinc-400 transition-transform group-hover:scale-125" />
+        <IconRenderer
+          icon={Github}
+          size={40}
+          className="text-zinc-400 transition-transform group-hover:scale-125"
+        />
         <span className="text-[10px] font-black uppercase opacity-40">SOURCE_CORE</span>
       </div>
     </div>
-  )
+  ),
 };
 
 /**
@@ -114,7 +131,11 @@ export const TechnicalIcons: Story = {
  */
 export const ErrorFallback: Story = {
   args: {
-    icon: "NonExistentIcon",
-    fallback: <div className="p-4 border border-rose-500/20 bg-rose-500/5 rounded-lg text-rose-500 text-[10px] font-mono">RENDER_FAILED // INVALID_ID</div>
-  }
+    icon: 'NonExistentIcon',
+    fallback: (
+      <div className="p-4 border border-rose-500/20 bg-rose-500/5 rounded-lg text-rose-500 text-[10px] font-mono">
+        RENDER_FAILED // INVALID_ID
+      </div>
+    ),
+  },
 };

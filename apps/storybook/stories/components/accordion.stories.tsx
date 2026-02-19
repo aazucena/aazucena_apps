@@ -8,7 +8,7 @@ import { ChevronDown, Search, Cog, Plus, Minus, ArrowRight } from '@aazucena/ico
  * - **Keyboard Navigation:** Use `Tab` to navigate between triggers and `Enter` or `Space` to toggle content.
  * - **Aria Roles:** Automatically handles `aria-expanded` and `aria-controls` for screen readers.
  * - **Nested Support:** Properly manages focus trapping and labels even in deep hierarchies.
- * 
+ *
  * ## Engineering Status
  * - **Design:** `Verified`
  * - **Maturity:** `Stable`
@@ -22,7 +22,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A vertically stacked set of interactive headings that each reveal an associated section of content. Built on top of Radix UI Accordion primitive with enhanced styling and icon support.',
+        component:
+          'A vertically stacked set of interactive headings that each reveal an associated section of content. Built on top of Radix UI Accordion primitive with enhanced styling and icon support.',
       },
     },
   },
@@ -41,18 +42,19 @@ const meta = {
     },
     collapsible: {
       control: 'boolean',
-      description: 'Allows closing content when clicking trigger for an open item (Single type only).',
+      description:
+        'Allows closing content when clicking trigger for an open item (Single type only).',
       table: {
         category: 'Behavior',
         defaultValue: { summary: 'true' },
-      }
+      },
     },
     defaultValue: {
       control: 'text',
       description: 'The value of the item to expand by default.',
       table: {
         category: 'Behavior',
-      }
+      },
     },
 
     // --- APPEARANCE ---
@@ -134,12 +136,12 @@ const defaultItems = [
   {
     value: 'item-2',
     trigger: 'Is it styled?',
-    content: 'Yes. It comes with default styles that matches the other components\' aesthetic.',
+    content: "Yes. It comes with default styles that matches the other components' aesthetic.",
   },
   {
     value: 'item-3',
     trigger: 'Is it animated?',
-    content: 'Yes. It\'s animated by default, but you can disable it if you prefer.',
+    content: "Yes. It's animated by default, but you can disable it if you prefer.",
   },
 ];
 
@@ -150,7 +152,7 @@ const AccordionTemplate = (args: any) => (
   <Accordion {...args} className="w-full">
     {defaultItems.map((item) => (
       <AccordionItem key={item.value} value={item.value} variant={args.variant}>
-        <AccordionTrigger 
+        <AccordionTrigger
           variant={args.variant}
           icon={args.icon}
           openIcon={args.openIcon}
@@ -159,9 +161,7 @@ const AccordionTemplate = (args: any) => (
         >
           {item.trigger}
         </AccordionTrigger>
-        <AccordionContent>
-          {item.content}
-        </AccordionContent>
+        <AccordionContent>{item.content}</AccordionContent>
       </AccordionItem>
     ))}
   </Accordion>
@@ -170,7 +170,7 @@ const AccordionTemplate = (args: any) => (
 // --- BASIC USAGE ---
 
 /**
- * The primary playground for the accordion. 
+ * The primary playground for the accordion.
  * **Interact with the Controls below** to live-edit the type, variant, and animations.
  */
 export const Basic: Story = {
@@ -196,7 +196,9 @@ export const GuidedTour: Story = {
     const trigger = canvas.getByText('Is it accessible?');
     // Click to expand
     await userEvent.click(trigger);
-    const content = canvas.getByText('Yes. It adheres to the WAI-ARIA design pattern and includes full keyboard support.');
+    const content = canvas.getByText(
+      'Yes. It adheres to the WAI-ARIA design pattern and includes full keyboard support.',
+    );
     await expect(content).toBeVisible();
     // Click to collapse
     await userEvent.click(trigger);
@@ -279,25 +281,19 @@ export const Animations: Story = {
         <AccordionTrigger icon={ChevronDown} iconAnimation="rotate">
           Rotate 180 (Chevron)
         </AccordionTrigger>
-        <AccordionContent>
-          Standard rotation for navigation-style accordions.
-        </AccordionContent>
+        <AccordionContent>Standard rotation for navigation-style accordions.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger icon={Plus} iconAnimation="rotate-45">
           Rotate 45 (Plus to X)
         </AccordionTrigger>
-        <AccordionContent>
-          Transforms a plus icon into a close cross.
-        </AccordionContent>
+        <AccordionContent>Transforms a plus icon into a close cross.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
         <AccordionTrigger icon={ArrowRight} iconAnimation="rotate-90">
           Rotate 90 (Arrow Right to Down)
         </AccordionTrigger>
-        <AccordionContent>
-          Great for directional arrows that indicate expansion.
-        </AccordionContent>
+        <AccordionContent>Great for directional arrows that indicate expansion.</AccordionContent>
       </AccordionItem>
     </Accordion>
   ),
@@ -325,7 +321,7 @@ export const Styling: Story = {
   render: () => (
     <Accordion type="single" collapsible={true} className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger 
+        <AccordionTrigger
           className="text-primary hover:text-primary/90"
           iconClassName="text-primary"
         >
@@ -336,7 +332,7 @@ export const Styling: Story = {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger 
+        <AccordionTrigger
           headerClassName="bg-emerald-500/10 rounded-lg px-2"
           className="text-emerald-600 dark:text-emerald-400 hover:no-underline"
           iconClassName="text-emerald-500"
@@ -360,8 +356,14 @@ export const Nested: Story = {
       <AccordionItem value="parent-1" variant="card">
         <AccordionTrigger variant="card">Frontend Architecture</AccordionTrigger>
         <AccordionContent>
-          <div className="pb-2 text-muted-foreground italic text-xs">Explore our frontend stack:</div>
-          <Accordion type="single" collapsible={true} className="w-full border-t border-border mt-2">
+          <div className="pb-2 text-muted-foreground italic text-xs">
+            Explore our frontend stack:
+          </div>
+          <Accordion
+            type="single"
+            collapsible={true}
+            className="w-full border-t border-border mt-2"
+          >
             <AccordionItem value="child-1">
               <AccordionTrigger className="py-2">Framework Core</AccordionTrigger>
               <AccordionContent>

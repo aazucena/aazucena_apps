@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Prose } from '@aazucena/ui/components/ui/prose.js';
 import { MarkdownRenderer } from '@aazucena/ui/components/ui/markdown-renderer.js';
 import { ReadingProgress } from '@aazucena/ui/components/ui/reading-progress.js';
-import { 
-  ReadingTime, 
-  ReadingTimeIcon, 
-  ReadingTimeValue 
+import {
+  ReadingTime,
+  ReadingTimeIcon,
+  ReadingTimeValue,
 } from '@aazucena/ui/components/ui/reading-time.js';
 
 /**
@@ -13,7 +13,7 @@ import {
  * - **Visual Hierarchy:** Large headings and consistent vertical rhythm for readability.
  * - **Reading Indicators:** Non-interactive visual cues (progress bar, time) to aid long-form content consumption.
  * - **Semantic HTML:** Uses `<header>`, `<article>`, and headings (`h1`-`h3`) correctly.
- * 
+ *
  * ## Engineering Status
  * - **Design:** `Verified`
  * - **Maturity:** `Stable`
@@ -25,7 +25,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A composite layout pattern for long-form content, integrating Prose, MarkdownRenderer, ReadingProgress, and ReadingTime.',
+        component:
+          'A composite layout pattern for long-form content, integrating Prose, MarkdownRenderer, ReadingProgress, and ReadingTime.',
       },
     },
   },
@@ -77,7 +78,7 @@ export const Default: Story = {
             <ReadingTimeValue>8 MIN READ</ReadingTimeValue>
           </ReadingTime>
         </header>
-        
+
         <Prose>
           <MarkdownRenderer content={mockMarkdown} />
         </Prose>
@@ -103,7 +104,7 @@ export const Cyber: Story = {
             <ReadingTimeValue>ACCESS_TIME: 12ms</ReadingTimeValue>
           </ReadingTime>
         </header>
-        
+
         <Prose variant="cyber">
           <MarkdownRenderer content={mockMarkdown} />
         </Prose>
@@ -129,7 +130,7 @@ export const Glass: Story = {
             <ReadingTimeValue>15 MIN READ</ReadingTimeValue>
           </ReadingTime>
         </header>
-        
+
         <Prose variant="glass">
           <MarkdownRenderer content={mockMarkdown} />
         </Prose>

@@ -43,8 +43,18 @@ export const pieChartData: PieChartData[] = [
 ];
 
 const months = [
-  '2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06',
-  '2025-07', '2025-08', '2025-09', '2025-10', '2025-11', '2025-12',
+  '2025-01',
+  '2025-02',
+  '2025-03',
+  '2025-04',
+  '2025-05',
+  '2025-06',
+  '2025-07',
+  '2025-08',
+  '2025-09',
+  '2025-10',
+  '2025-11',
+  '2025-12',
 ];
 
 export const lineChartData: GenericTimeSeriesStep[] = months.map((m, i) => ({
@@ -324,7 +334,13 @@ export const circularPackingData: CircularPackingNode = {
 export const timelineData: TimelineEvent[] = [
   { id: 'e1', name: 'Started Web Development', date: '2018-06-01', type: 'career' },
   { id: 'e2', name: 'First React Project', date: '2019-03-15', type: 'milestone' },
-  { id: 'e3', name: 'Full-Stack Engineer', date: '2020-01-10', endDate: '2022-06-30', type: 'career' },
+  {
+    id: 'e3',
+    name: 'Full-Stack Engineer',
+    date: '2020-01-10',
+    endDate: '2022-06-30',
+    type: 'career',
+  },
   { id: 'e4', name: 'Open Source Contribution', date: '2021-08-20', type: 'milestone' },
   { id: 'e5', name: 'Senior Developer', date: '2022-07-01', endDate: '2024-12-31', type: 'career' },
   { id: 'e6', name: 'Portfolio Monorepo', date: '2025-01-01', type: 'project' },

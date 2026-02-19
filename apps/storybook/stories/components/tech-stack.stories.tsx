@@ -28,7 +28,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A visual representation of a technology stack. Automatically handles icons, labels, and grayscale-hover effects.',
+        component:
+          'A visual representation of a technology stack. Automatically handles icons, labels, and grayscale-hover effects.',
       },
     },
   },
@@ -38,8 +39,8 @@ const meta = {
       control: 'select',
       options: ['default', 'bright', 'cyber'],
       description: 'The overall theme of the stack',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof TechStack>;
 
@@ -89,7 +90,9 @@ export const CyberTerminal: Story = {
   render: (args) => (
     <div className="p-12 bg-black rounded-[3rem] border border-cyan-500/10">
       <div className="flex flex-col items-center gap-8">
-        <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-[0.4em]"># CORE_SYSTEM_STACK</span>
+        <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-[0.4em]">
+          # CORE_SYSTEM_STACK
+        </span>
         <TechStack {...args}>
           <TechStackGroup>
             <TechStackItem variant="cyber">
@@ -157,7 +160,12 @@ export const SkillsGrid: Story = {
           { name: 'AWS', color: 'text-orange-400' },
         ].map((item) => (
           <TechStackItem key={item.name} className="flex-col items-center gap-3">
-            <div className={cn("p-4 rounded-2xl bg-muted/50 border flex items-center justify-center size-16 hover:scale-110 transition-transform group", item.color)}>
+            <div
+              className={cn(
+                'p-4 rounded-2xl bg-muted/50 border flex items-center justify-center size-16 hover:scale-110 transition-transform group',
+                item.color,
+              )}
+            >
               <span className="font-black text-xl">{item.name.charAt(0)}</span>
             </div>
             <TechStackLabel className="opacity-40">{item.name}</TechStackLabel>

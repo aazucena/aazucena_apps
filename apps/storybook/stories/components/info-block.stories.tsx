@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  InfoBlock,
-  InfoBlockActions,
-  InfoBlockContent,
-} from '@aazucena/ui';
+import { InfoBlock, InfoBlockActions, InfoBlockContent } from '@aazucena/ui';
 import { Button, Badge } from '@aazucena/ui';
 import { Activity, Shield, Zap, Globe, Refresh, ChevronRight, CheckCircle } from '@aazucena/icons';
 
@@ -22,7 +18,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A compact informational strip used for displaying service status, resource metadata, or quick system notices.',
+        component:
+          'A compact informational strip used for displaying service status, resource metadata, or quick system notices.',
       },
     },
   },
@@ -32,8 +29,8 @@ const meta = {
       control: 'select',
       options: ['default', 'primary', 'secondary', 'success', 'warning', 'cyber'],
       description: 'The visual theme and semantic color of the block',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof InfoBlock>;
 
@@ -56,7 +53,9 @@ export const Basic: Story = {
           <Activity className="size-5 text-primary" />
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-bold tracking-tight">Main_Cluster_Status</span>
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Uptime: 99.98%</span>
+            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+              Uptime: 99.98%
+            </span>
           </div>
         </InfoBlockContent>
         <InfoBlockActions>
@@ -82,7 +81,9 @@ export const CyberMonitor: Story = {
         <InfoBlockContent>
           <Zap className="size-5 text-cyan-500" />
           <div className="flex flex-col gap-0.5 font-mono">
-            <span className="text-xs font-black uppercase tracking-tighter text-white">// POWER_CELL_0x7F</span>
+            <span className="text-xs font-black uppercase tracking-tighter text-white">
+              // POWER_CELL_0x7F
+            </span>
             <span className="text-[9px] text-cyan-500/60 uppercase">CHARGE: 82% // TEMP: 42°C</span>
           </div>
         </InfoBlockContent>
@@ -108,11 +109,18 @@ export const SemanticLevels: Story = {
           <CheckCircle className="size-5" />
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-bold tracking-tight">Security_Protocol_Verified</span>
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">ENCLAVE_LOCKED</span>
+            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+              ENCLAVE_LOCKED
+            </span>
           </div>
         </InfoBlockContent>
         <InfoBlockActions>
-          <Badge variant="outline" className="border-emerald-500/20 text-emerald-600 dark:text-emerald-400">ACTIVE</Badge>
+          <Badge
+            variant="outline"
+            className="border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+          >
+            ACTIVE
+          </Badge>
         </InfoBlockActions>
       </InfoBlock>
 
@@ -121,11 +129,15 @@ export const SemanticLevels: Story = {
           <Activity className="size-5" />
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-bold tracking-tight">Latency_Deviation_Detected</span>
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">PEAK: 142ms</span>
+            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+              PEAK: 142ms
+            </span>
           </div>
         </InfoBlockContent>
         <InfoBlockActions>
-          <Button size="icon" variant="ghost" className="size-8"><Refresh size={14}/></Button>
+          <Button size="icon" variant="ghost" className="size-8">
+            <Refresh size={14} />
+          </Button>
         </InfoBlockActions>
       </InfoBlock>
     </div>

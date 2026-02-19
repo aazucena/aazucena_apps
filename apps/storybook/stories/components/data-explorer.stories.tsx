@@ -15,7 +15,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A recursive JSON explorer with built-in semantic analysis. Automatically formats technical telemetry, knowledge sources, and audit failures.',
+        component:
+          'A recursive JSON explorer with built-in semantic analysis. Automatically formats technical telemetry, knowledge sources, and audit failures.',
       },
     },
   },
@@ -25,23 +26,23 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the explorer',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     maxDepth: {
       control: 'number',
       description: 'Maximum recursion depth before truncating',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     initialExpanded: {
       control: 'boolean',
       description: 'Whether to expand objects by default',
-      table: { category: 'Behavior' }
+      table: { category: 'Behavior' },
     },
     data: {
       control: 'object',
       description: 'The JSON payload to render',
-      table: { category: 'Content' }
-    }
+      table: { category: 'Content' },
+    },
   },
 } satisfies Meta<typeof DataExplorer>;
 
@@ -49,24 +50,25 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const mockData = {
-  session_id: "7f8a9b2c-3d4e-5f6g-7h8i",
-  timestamp: "2026-02-13T14:30:00Z",
+  session_id: '7f8a9b2c-3d4e-5f6g-7h8i',
+  timestamp: '2026-02-13T14:30:00Z',
   is_valid: true,
   metadata: {
-    origin: "Vercel_Edge",
+    origin: 'Vercel_Edge',
     geo: {
-      city: "Berlin",
-      country: "DE",
-      coords: [52.52, 13.405]
+      city: 'Berlin',
+      country: 'DE',
+      coords: [52.52, 13.405],
     },
     system: {
-      version: "1.2.0",
-      kernel: "stable",
-      flags: ["INGESTION", "PULSE_SYNC"]
-    }
+      version: '1.2.0',
+      kernel: 'stable',
+      flags: ['INGESTION', 'PULSE_SYNC'],
+    },
   },
   buffer: [12, 45, 89, 32, 11],
-  reasoning: "[KNOWLEDGE_SOURCE] Data validated against ClickHouse schema. No anomalies detected. Full trace available in secondary buffer."
+  reasoning:
+    '[KNOWLEDGE_SOURCE] Data validated against ClickHouse schema. No anomalies detected. Full trace available in secondary buffer.',
 };
 
 /**
@@ -110,9 +112,10 @@ export const AuditFailure: Story = {
     data: {
       ...mockData,
       is_valid: false,
-      error: "INGESTION_LAG_EXCEEDED_THRESHOLD",
-      critical_reasoning: "Node US_EAST_1 is reporting a pulse deviation of >50ms. Immediate re-sync required."
-    }
+      error: 'INGESTION_LAG_EXCEEDED_THRESHOLD',
+      critical_reasoning:
+        'Node US_EAST_1 is reporting a pulse deviation of >50ms. Immediate re-sync required.',
+    },
   },
   render: (args) => (
     <div className="w-[600px] h-[450px] overflow-auto p-8 border border-rose-500/20 bg-card rounded-[2rem] shadow-2xl">
@@ -128,10 +131,11 @@ export const KnowledgeSignal: Story = {
   args: {
     ...Basic.args,
     data: {
-      source: "[KNOWLEDGE_SOURCE]",
-      analysis: "### System Analysis\n- **Stability:** 99.9%\n- **Risk:** Low\n\nThe internal kernel has reported successful pulse synchronization across all active nodes.",
-      is_valid: true
-    }
+      source: '[KNOWLEDGE_SOURCE]',
+      analysis:
+        '### System Analysis\n- **Stability:** 99.9%\n- **Risk:** Low\n\nThe internal kernel has reported successful pulse synchronization across all active nodes.',
+      is_valid: true,
+    },
   },
   render: (args) => (
     <div className="w-[600px] p-8 border rounded-[2rem] bg-card">

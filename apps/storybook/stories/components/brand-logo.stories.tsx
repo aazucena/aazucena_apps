@@ -16,7 +16,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A standard container for project or company logos. Handles gradients, images, and text fallback states.',
+        component:
+          'A standard container for project or company logos. Handles gradients, images, and text fallback states.',
       },
     },
   },
@@ -26,19 +27,19 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'Visual style of the container',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg', 'xl'],
       description: 'Standard size presets',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     name: {
       control: 'text',
       description: 'Used to determine the default gradient color',
-      table: { category: 'Content' }
-    }
+      table: { category: 'Content' },
+    },
   },
 } satisfies Meta<typeof BrandLogo>;
 

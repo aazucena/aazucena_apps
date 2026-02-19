@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  InputGroup, 
-  InputGroupAddon, 
+import {
+  InputGroup,
+  InputGroupAddon,
   InputGroupText,
   InputGroupInput,
   InputGroupButton,
-  InputGroupTextarea
+  InputGroupTextarea,
 } from '@aazucena/ui';
 import { Globe, Database, Search, Copy, Refresh, Shield, Send } from '@aazucena/icons';
 
@@ -24,13 +24,14 @@ const meta = {
     InputGroupText,
     InputGroupInput,
     InputGroupButton,
-    InputGroupTextarea
+    InputGroupTextarea,
   } as any,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A wrapper for clustering input elements with related actions, icons, or labels.',
+        component:
+          'A wrapper for clustering input elements with related actions, icons, or labels.',
       },
     },
   },
@@ -49,7 +50,9 @@ export const Basic: Story = {
   render: () => (
     <div className="w-96 space-y-6">
       <InputGroup>
-        <InputGroupAddon><Globe size={14} /></InputGroupAddon>
+        <InputGroupAddon>
+          <Globe size={14} />
+        </InputGroupAddon>
         <InputGroupInput placeholder="https://aazucena.com" />
       </InputGroup>
 
@@ -70,10 +73,19 @@ export const CyberTerminal: Story = {
   render: () => (
     <div className="w-96 p-10 bg-black rounded-3xl border border-cyan-500/10">
       <InputGroup className="border-cyan-500/30 bg-cyan-500/5 h-12 rounded-xl">
-        <InputGroupAddon className="text-cyan-500 pl-4"><Database size={16} /></InputGroupAddon>
-        <InputGroupInput className="text-cyan-400 font-mono uppercase tracking-widest placeholder:text-cyan-500/20" placeholder="QUERY_ID" />
+        <InputGroupAddon className="text-cyan-500 pl-4">
+          <Database size={16} />
+        </InputGroupAddon>
+        <InputGroupInput
+          className="text-cyan-400 font-mono uppercase tracking-widest placeholder:text-cyan-500/20"
+          placeholder="QUERY_ID"
+        />
         <InputGroupAddon align="inline-end">
-          <InputGroupButton variant="ghost" size="icon-sm" className="text-cyan-500 hover:bg-cyan-500/10 mr-1">
+          <InputGroupButton
+            variant="ghost"
+            size="icon-sm"
+            className="text-cyan-500 hover:bg-cyan-500/10 mr-1"
+          >
             <Refresh size={14} />
           </InputGroupButton>
         </InputGroupAddon>
@@ -92,10 +104,15 @@ export const MultilineConfig: Story = {
         <InputGroupAddon align="block-start" className="border-b bg-muted/30">
           <div className="flex items-center gap-2">
             <Shield size={14} className="text-primary" />
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Security_Protocol_Override</span>
+            <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
+              Security_Protocol_Override
+            </span>
           </div>
         </InputGroupAddon>
-        <InputGroupTextarea placeholder="Paste RSA public key or PGP signature here..." className="min-h-[150px] p-4 text-xs font-mono" />
+        <InputGroupTextarea
+          placeholder="Paste RSA public key or PGP signature here..."
+          className="min-h-[150px] p-4 text-xs font-mono"
+        />
         <InputGroupAddon align="inline-end" className="absolute bottom-2 right-2 border-none">
           <InputGroupButton variant="default" size="sm" className="rounded-lg h-10 px-6">
             Apply_Key

@@ -27,18 +27,18 @@ const meta = {
       control: 'select',
       options: ['default', 'cyber'],
       description: 'The visual style of the checkbox',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents interaction',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     checked: {
       control: 'boolean',
       description: 'The checked state of the checkbox',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof Checkbox>;
 
@@ -57,7 +57,9 @@ export const Basic: Story = {
   render: (args) => (
     <div className="flex items-center gap-3">
       <Checkbox {...args} id="terms" />
-      <Label htmlFor="terms" className="cursor-pointer">Accept terms and conditions</Label>
+      <Label htmlFor="terms" className="cursor-pointer">
+        Accept terms and conditions
+      </Label>
     </div>
   ),
 };
@@ -72,7 +74,10 @@ export const Cyber: Story = {
   render: (args) => (
     <div className="flex items-center gap-3 p-6 bg-black rounded-xl border border-white/5">
       <Checkbox {...args} id="cyber-lock" />
-      <Label htmlFor="cyber-lock" className="font-mono text-cyan-400 cursor-pointer tracking-widest text-[10px]">
+      <Label
+        htmlFor="cyber-lock"
+        className="font-mono text-cyan-400 cursor-pointer tracking-widest text-[10px]"
+      >
         ENCRYPT_PAYLOAD_VOLUME
       </Label>
     </div>
@@ -90,7 +95,9 @@ export const Disabled: Story = {
   render: (args) => (
     <div className="flex items-center gap-3">
       <Checkbox {...args} id="disabled-opt" />
-      <Label htmlFor="disabled-opt" className="opacity-50">Locked Configuration</Label>
+      <Label htmlFor="disabled-opt" className="opacity-50">
+        Locked Configuration
+      </Label>
     </div>
   ),
 };
@@ -101,17 +108,34 @@ export const Disabled: Story = {
 export const Checklist: Story = {
   render: () => (
     <div className="space-y-4 w-64 p-6 border rounded-2xl bg-muted/5">
-      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 mb-4">MODULE_SUBSCRIPTION</h4>
+      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 mb-4">
+        MODULE_SUBSCRIPTION
+      </h4>
       <div className="flex items-center justify-between group">
-        <Label htmlFor="c1" className="text-xs cursor-pointer group-hover:text-primary transition-colors">Telemetry_Core</Label>
+        <Label
+          htmlFor="c1"
+          className="text-xs cursor-pointer group-hover:text-primary transition-colors"
+        >
+          Telemetry_Core
+        </Label>
         <Checkbox id="c1" defaultChecked />
       </div>
       <div className="flex items-center justify-between group">
-        <Label htmlFor="c2" className="text-xs cursor-pointer group-hover:text-primary transition-colors">AI_Orchestrator</Label>
+        <Label
+          htmlFor="c2"
+          className="text-xs cursor-pointer group-hover:text-primary transition-colors"
+        >
+          AI_Orchestrator
+        </Label>
         <Checkbox id="c2" />
       </div>
       <div className="flex items-center justify-between group">
-        <Label htmlFor="c3" className="text-xs cursor-pointer group-hover:text-primary transition-colors">Edge_Ingestion</Label>
+        <Label
+          htmlFor="c3"
+          className="text-xs cursor-pointer group-hover:text-primary transition-colors"
+        >
+          Edge_Ingestion
+        </Label>
         <Checkbox id="c3" defaultChecked />
       </div>
     </div>
@@ -126,7 +150,9 @@ export const InteractionTest: Story = {
   render: () => (
     <div className="flex items-center gap-3">
       <Checkbox id="interaction-test" />
-      <Label htmlFor="interaction-test" className="cursor-pointer">Toggle me</Label>
+      <Label htmlFor="interaction-test" className="cursor-pointer">
+        Toggle me
+      </Label>
     </div>
   ),
   play: async ({ canvasElement }: any) => {

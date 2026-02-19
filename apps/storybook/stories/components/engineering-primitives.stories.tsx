@@ -2,10 +2,29 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Trend } from '@aazucena/ui/components/ui/trend.js';
 import { ThoughtTrace, ThoughtStep } from '@aazucena/ui/components/ui/thought-trace.js';
 import { SegmentedControl, SegmentedItem } from '@aazucena/ui/components/ui/segmented-control.js';
-import { Playback, PlaybackCounter, PlaybackControls, PlaybackButton, PlaybackActions } from '@aazucena/ui/components/ui/playback.js';
-import { Stepper, Step, StepIndicator, StepLabel, StepLine } from '@aazucena/ui/components/ui/stepper.js';
+import {
+  Playback,
+  PlaybackCounter,
+  PlaybackControls,
+  PlaybackButton,
+  PlaybackActions,
+} from '@aazucena/ui/components/ui/playback.js';
+import {
+  Stepper,
+  Step,
+  StepIndicator,
+  StepLabel,
+  StepLine,
+} from '@aazucena/ui/components/ui/stepper.js';
 import { Dropzone } from '@aazucena/ui/components/ui/dropzone.js';
-import { Play, Pause, ChevronLeft, ChevronRight, Refresh, CogFour as Settings } from '@aazucena/icons';
+import {
+  Play,
+  Pause,
+  ChevronLeft,
+  ChevronRight,
+  Refresh,
+  CogFour as Settings,
+} from '@aazucena/icons';
 import { Button } from '@aazucena/ui/components/ui/button.js';
 
 /**
@@ -13,7 +32,7 @@ import { Button } from '@aazucena/ui/components/ui/button.js';
  * - **Interactive Elements:** Uses standard button and input behaviors.
  * - **Semantic Markers:** Steppers and indicators use status attributes for assistive tech.
  * - **Visual Contrast:** High-contrast indicators for critical engineering states (up/down/alert).
- * 
+ *
  * ## Engineering Status
  * - **Design:** `Verified`
  * - **Maturity:** `Stable`
@@ -25,7 +44,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A collection of low-level dashboard components specialized for engineering telemetry and AI state visualization.',
+        component:
+          'A collection of low-level dashboard components specialized for engineering telemetry and AI state visualization.',
       },
     },
   },
@@ -72,19 +92,29 @@ export const ModelSelector: Story = {
   render: () => (
     <div className="space-y-8 p-10 bg-zinc-50 dark:bg-background border rounded-[3rem] shadow-2xl">
       <div className="space-y-2">
-        <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4">Primary_Engine</h4>
+        <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4">
+          Primary_Engine
+        </h4>
         <SegmentedControl variant="default">
-          <SegmentedItem value="gpt4" isActive>GPT_4O</SegmentedItem>
+          <SegmentedItem value="gpt4" isActive>
+            GPT_4O
+          </SegmentedItem>
           <SegmentedItem value="claude">CLAUDE_3.5</SegmentedItem>
           <SegmentedItem value="llama">LLAMA_3</SegmentedItem>
         </SegmentedControl>
       </div>
 
       <div className="space-y-2">
-        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-cyan-500/60 ml-4">// RUNTIME_ENVIRONMENT</h4>
+        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-cyan-500/60 ml-4">
+          // RUNTIME_ENVIRONMENT
+        </h4>
         <SegmentedControl variant="cyber">
-          <SegmentedItem value="stable" isActive variant="cyber">STABLE</SegmentedItem>
-          <SegmentedItem value="experimental" variant="cyber">EXPERIMENTAL</SegmentedItem>
+          <SegmentedItem value="stable" isActive variant="cyber">
+            STABLE
+          </SegmentedItem>
+          <SegmentedItem value="experimental" variant="cyber">
+            EXPERIMENTAL
+          </SegmentedItem>
         </SegmentedControl>
       </div>
     </div>
@@ -126,9 +156,15 @@ export const PlaybackController: Story = {
       <Playback variant="cyber">
         <PlaybackCounter current={42} total={120} />
         <PlaybackControls>
-          <PlaybackButton><ChevronLeft size={16} /></PlaybackButton>
-          <PlaybackButton active><Pause size={16} /></PlaybackButton>
-          <PlaybackButton><ChevronRight size={16} /></PlaybackButton>
+          <PlaybackButton>
+            <ChevronLeft size={16} />
+          </PlaybackButton>
+          <PlaybackButton active>
+            <Pause size={16} />
+          </PlaybackButton>
+          <PlaybackButton>
+            <ChevronRight size={16} />
+          </PlaybackButton>
         </PlaybackControls>
         <PlaybackActions>
           <Button variant="ghost" size="icon" className="text-cyan-400">
@@ -153,4 +189,3 @@ export const SignalIngestion: Story = {
     </div>
   ),
 };
-

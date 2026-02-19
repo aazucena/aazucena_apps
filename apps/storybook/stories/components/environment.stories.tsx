@@ -36,7 +36,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A global layout system used to create immersive, multi-layered background environments and standard page structures.',
+        component:
+          'A global layout system used to create immersive, multi-layered background environments and standard page structures.',
       },
     },
   },
@@ -61,7 +62,7 @@ export const BasicShell: Story = {
         <EnvironmentGlow color="emerald" size="sm" position="bottom-right" delay="2s" />
         <EnvironmentNoise />
       </Environment>
-      
+
       <EnvironmentHeader className="p-8 border-b border-current/10 bg-white/5 backdrop-blur-sm">
         <div className="flex justify-between items-center">
           <span className="font-black uppercase tracking-widest text-xs">Environment_Protocol</span>
@@ -72,7 +73,9 @@ export const BasicShell: Story = {
       <EnvironmentMain className="p-20 flex items-center justify-center">
         <div className="text-center space-y-4">
           <h1 className="text-6xl font-black tracking-tighter uppercase">Surface_Layer</h1>
-          <p className="text-muted-foreground font-medium uppercase tracking-[0.3em] text-[10px]">Altitude: 0km - 12km [TROPOSPHERE]</p>
+          <p className="text-muted-foreground font-medium uppercase tracking-[0.3em] text-[10px]">
+            Altitude: 0km - 12km [TROPOSPHERE]
+          </p>
         </div>
       </EnvironmentMain>
 
@@ -99,8 +102,12 @@ export const CyberSpace: Story = {
         <div className="p-4 border border-cyan-500/30 rounded-full mb-8 animate-pulse">
           <div className="size-4 rounded-full bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,1)]" />
         </div>
-        <h1 className="text-5xl font-mono font-black tracking-[0.4em] uppercase italic">SIGNAL_ENCLAVE</h1>
-        <p className="mt-4 font-mono text-[10px] opacity-40 tracking-widest">ENCRYPTED_UPLINK_STABLE // ALTITUDE: 10,000KM+</p>
+        <h1 className="text-5xl font-mono font-black tracking-[0.4em] uppercase italic">
+          SIGNAL_ENCLAVE
+        </h1>
+        <p className="mt-4 font-mono text-[10px] opacity-40 tracking-widest">
+          ENCRYPTED_UPLINK_STABLE // ALTITUDE: 10,000KM+
+        </p>
       </div>
     </EnvironmentShell>
   ),
@@ -122,7 +129,9 @@ export const GlowComposition: Story = {
       <div className="relative z-10 h-full flex items-center justify-center">
         <div className="text-center p-12 glass rounded-[3rem] border-white/10">
           <h2 className="text-white text-3xl font-black tracking-tighter">Compositional_Depth</h2>
-          <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mt-2">Stacked Glow Layers</p>
+          <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mt-2">
+            Stacked Glow Layers
+          </p>
         </div>
       </div>
     </EnvironmentShell>
@@ -143,7 +152,9 @@ export const MesospherePhase: Story = {
       </Environment>
       <div className="relative z-10 h-full flex flex-col items-center justify-center">
         <h1 className="text-4xl font-black tracking-tighter uppercase">Node_Processing_Zone</h1>
-        <p className="text-primary font-mono text-[10px] mt-4 uppercase tracking-[0.3em]">Phase: MESOSPHERE // ALT: 50KM - 85KM</p>
+        <p className="text-primary font-mono text-[10px] mt-4 uppercase tracking-[0.3em]">
+          Phase: MESOSPHERE // ALT: 50KM - 85KM
+        </p>
       </div>
     </EnvironmentShell>
   ),

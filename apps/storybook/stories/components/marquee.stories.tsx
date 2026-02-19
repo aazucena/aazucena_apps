@@ -61,10 +61,7 @@ type Story = StoryObj<typeof meta>;
 const TagBadges = () => (
   <>
     {tags.map((t) => (
-      <span
-        key={t}
-        className="rounded-full bg-muted px-4 py-2 text-sm font-medium"
-      >
+      <span key={t} className="rounded-full bg-muted px-4 py-2 text-sm font-medium">
         {t}
       </span>
     ))}

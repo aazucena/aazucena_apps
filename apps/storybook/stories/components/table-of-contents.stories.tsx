@@ -16,7 +16,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A dynamic navigation sidebar that automatically scans the page for headings and tracks the users scroll position.',
+        component:
+          'A dynamic navigation sidebar that automatically scans the page for headings and tracks the users scroll position.',
       },
     },
   },
@@ -26,19 +27,19 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the floating panel',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     position: {
       control: 'radio',
       options: ['top-right', 'top-left'],
       description: 'Fixed positioning on the screen',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     containerSelector: {
       control: 'text',
       description: 'CSS selector for the content area to scan',
-      table: { category: 'Behavior', defaultValue: { summary: 'main' } }
-    }
+      table: { category: 'Behavior', defaultValue: { summary: 'main' } },
+    },
   },
 } satisfies Meta<typeof TableOfContents>;
 
@@ -61,21 +62,33 @@ export const Basic: Story = {
       <TableOfContents {...args} />
       <div id="basic-content" className="space-y-32">
         <section>
-          <h2 id="intro" className="text-4xl font-black tracking-tighter uppercase mb-8">Introduction</h2>
-          <p className="text-lg opacity-60 leading-relaxed">Scroll down to see the Contents panel update its active state automatically.</p>
+          <h2 id="intro" className="text-4xl font-black tracking-tighter uppercase mb-8">
+            Introduction
+          </h2>
+          <p className="text-lg opacity-60 leading-relaxed">
+            Scroll down to see the Contents panel update its active state automatically.
+          </p>
           <div className="h-96 bg-muted/10 rounded-[3rem] border-2 border-dashed mt-12" />
         </section>
         <section>
-          <h2 id="arch" className="text-4xl font-black tracking-tighter uppercase mb-8">System_Architecture</h2>
+          <h2 id="arch" className="text-4xl font-black tracking-tighter uppercase mb-8">
+            System_Architecture
+          </h2>
           <div className="space-y-12 pl-8 border-l-2">
-            <h3 id="kernel" className="text-2xl font-bold uppercase">Kernel_Processing</h3>
+            <h3 id="kernel" className="text-2xl font-bold uppercase">
+              Kernel_Processing
+            </h3>
             <div className="h-64 bg-muted/10 rounded-2xl" />
-            <h3 id="uplink" className="text-2xl font-bold uppercase">Global_Uplink</h3>
+            <h3 id="uplink" className="text-2xl font-bold uppercase">
+              Global_Uplink
+            </h3>
             <div className="h-64 bg-muted/10 rounded-2xl" />
           </div>
         </section>
         <section>
-          <h2 id="security" className="text-4xl font-black tracking-tighter uppercase mb-8">Security_Enclave</h2>
+          <h2 id="security" className="text-4xl font-black tracking-tighter uppercase mb-8">
+            Security_Enclave
+          </h2>
           <div className="h-screen bg-muted/10 rounded-[3rem] border-2 border-dashed" />
         </section>
       </div>
@@ -97,13 +110,19 @@ export const CyberTerminal: Story = {
       <TableOfContents {...args} />
       <div id="cyber-content" className="space-y-32 font-mono">
         <section>
-          <h2 id="init" className="text-cyan-500 italic text-4xl mb-8 uppercase tracking-tighter">// 01_INITIALIZATION</h2>
+          <h2 id="init" className="text-cyan-500 italic text-4xl mb-8 uppercase tracking-tighter">
+            // 01_INITIALIZATION
+          </h2>
           <div className="h-96 border border-cyan-500/20 bg-cyan-500/5 rounded-xl" />
         </section>
         <section>
-          <h2 id="sync" className="text-cyan-500 italic text-4xl mb-8 uppercase tracking-tighter">// 02_BUFFER_SYNC</h2>
+          <h2 id="sync" className="text-cyan-500 italic text-4xl mb-8 uppercase tracking-tighter">
+            // 02_BUFFER_SYNC
+          </h2>
           <div className="space-y-12">
-            <h3 id="packets" className="text-cyan-400 text-xl uppercase"># PACKET_TRACE</h3>
+            <h3 id="packets" className="text-cyan-400 text-xl uppercase">
+              # PACKET_TRACE
+            </h3>
             <div className="h-64 border border-cyan-500/20 bg-cyan-500/5 rounded-xl" />
           </div>
         </section>
@@ -128,11 +147,15 @@ export const GlassAtmospheric: Story = {
         <TableOfContents {...args} className="border-white/10" />
         <div id="glass-content" className="space-y-32 text-white">
           <section>
-            <h2 id="troposphere" className="text-5xl font-black uppercase tracking-tighter mb-8">Troposphere_Layer</h2>
+            <h2 id="troposphere" className="text-5xl font-black uppercase tracking-tighter mb-8">
+              Troposphere_Layer
+            </h2>
             <div className="h-96 glass border-white/10 rounded-[3rem]" />
           </section>
           <section>
-            <h2 id="mesosphere" className="text-5xl font-black uppercase tracking-tighter mb-8">Mesosphere_Layer</h2>
+            <h2 id="mesosphere" className="text-5xl font-black uppercase tracking-tighter mb-8">
+              Mesosphere_Layer
+            </h2>
             <div className="h-screen glass border-white/10 rounded-[3rem]" />
           </section>
         </div>

@@ -7,7 +7,17 @@ import {
   SplitButtonItem,
   SplitButtonMenu,
 } from '@aazucena/ui';
-import { Play, ChevronDown, Database, Shield, Zap, Globe, Save, Download, Share } from '@aazucena/icons';
+import {
+  Play,
+  ChevronDown,
+  Database,
+  Shield,
+  Zap,
+  Globe,
+  Save,
+  Download,
+  Share,
+} from '@aazucena/icons';
 
 /**
  * ## Engineering Standards
@@ -30,7 +40,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A button group that provides a primary action and a secondary dropdown menu for related tasks.',
+        component:
+          'A button group that provides a primary action and a secondary dropdown menu for related tasks.',
       },
     },
   },
@@ -40,14 +51,14 @@ const meta = {
       control: 'select',
       options: ['default', 'outline', 'secondary', 'ghost', 'glass', 'cyber', 'gradient'],
       description: 'The visual style of the button pair',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     size: {
       control: 'radio',
       options: ['default', 'sm', 'lg'],
       description: 'Physical dimensions',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof SplitButton>;
 
@@ -91,7 +102,10 @@ export const CyberTerminal: Story = {
     <div className="p-12 bg-black border border-cyan-500/10 rounded-[3rem]">
       <SplitButtonMenu>
         <SplitButton {...args}>
-          <SplitButtonPrimary variant="cyber" className="font-mono italic uppercase tracking-tighter text-sm h-12">
+          <SplitButtonPrimary
+            variant="cyber"
+            className="font-mono italic uppercase tracking-tighter text-sm h-12"
+          >
             <Play className="mr-2 animate-pulse" /> EXECUTE_INIT
           </SplitButtonPrimary>
           <SplitButtonTrigger variant="cyber" className="h-12 border-cyan-500/40" />
@@ -119,10 +133,16 @@ export const Highlight: Story = {
   render: (args) => (
     <SplitButtonMenu>
       <SplitButton {...args}>
-        <SplitButtonPrimary variant="gradient" className="rounded-full rounded-r-none px-10 h-14 font-black uppercase tracking-widest text-white">
+        <SplitButtonPrimary
+          variant="gradient"
+          className="rounded-full rounded-r-none px-10 h-14 font-black uppercase tracking-widest text-white"
+        >
           DOWNLOAD_INTEL
         </SplitButtonPrimary>
-        <SplitButtonTrigger variant="gradient" className="rounded-full rounded-l-none h-14 px-6 border-white/20 text-white" />
+        <SplitButtonTrigger
+          variant="gradient"
+          className="rounded-full rounded-l-none h-14 px-6 border-white/20 text-white"
+        />
       </SplitButton>
       <SplitButtonContent className="rounded-2xl shadow-2xl">
         <SplitButtonItem className="gap-3">
@@ -148,10 +168,16 @@ export const GlassAtmospheric: Story = {
       <div className="absolute inset-0 bg-black/20" />
       <SplitButtonMenu>
         <SplitButton {...args} className="shadow-2xl">
-          <SplitButtonPrimary variant="glass" className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-l-2xl h-12">
+          <SplitButtonPrimary
+            variant="glass"
+            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-l-2xl h-12"
+          >
             Share_Uplink
           </SplitButtonPrimary>
-          <SplitButtonTrigger variant="glass" className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-r-2xl h-12" />
+          <SplitButtonTrigger
+            variant="glass"
+            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-r-2xl h-12"
+          />
         </SplitButton>
         <SplitButtonContent variant="glass" className="border-white/10 text-white">
           <SplitButtonItem className="focus:bg-white/10">To_Public_Channel</SplitButtonItem>

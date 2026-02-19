@@ -17,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A visual cue typically placed at the bottom of hero sections to encourage users to scroll for more content.',
+        component:
+          'A visual cue typically placed at the bottom of hero sections to encourage users to scroll for more content.',
       },
     },
   },
@@ -27,18 +28,18 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the indicator',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     visible: {
       control: 'boolean',
       description: 'The base visibility state (subject to timeout)',
-      table: { category: 'State' }
+      table: { category: 'State' },
     },
     timeout: {
       control: 'number',
       description: 'Delay in ms before the indicator appears',
-      table: { category: 'Behavior', defaultValue: { summary: '2000' } }
-    }
+      table: { category: 'Behavior', defaultValue: { summary: '2000' } },
+    },
   },
 } satisfies Meta<typeof ScrollDown>;
 
@@ -80,9 +81,13 @@ export const CyberTerminal: Story = {
     <div className="h-[300px] w-full bg-black border border-cyan-500/10 rounded-2xl relative overflow-hidden flex items-center justify-center">
       <ScrollDown {...args} className="absolute bottom-8">
         <ScrollDownIcon className="text-cyan-400" />
-        <ScrollDownLabel className="text-cyan-500 font-mono italic">// DISCOVER_MORE</ScrollDownLabel>
+        <ScrollDownLabel className="text-cyan-500 font-mono italic">
+          // DISCOVER_MORE
+        </ScrollDownLabel>
       </ScrollDown>
-      <h1 className="font-mono text-cyan-500/10 text-4xl font-black italic select-none uppercase tracking-[0.2em]">UPLINK_CORE</h1>
+      <h1 className="font-mono text-cyan-500/10 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
+        UPLINK_CORE
+      </h1>
     </div>
   ),
 };
@@ -104,7 +109,9 @@ export const GlassAtmospheric: Story = {
         <ScrollDownLabel className="text-white/60">Atmospheric_Descent</ScrollDownLabel>
       </ScrollDown>
       <div className="p-12 glass border-white/10 rounded-full">
-        <span className="text-white font-black text-xl tracking-tighter uppercase">Crystal_Layer</span>
+        <span className="text-white font-black text-xl tracking-tighter uppercase">
+          Crystal_Layer
+        </span>
       </div>
     </div>
   ),

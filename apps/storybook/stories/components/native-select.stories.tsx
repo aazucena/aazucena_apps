@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  NativeSelect, 
-  NativeSelectOption, 
-  NativeSelectOptGroup 
-} from '@aazucena/ui';
+import { NativeSelect, NativeSelectOption, NativeSelectOptGroup } from '@aazucena/ui';
 import { Globe, Database, Shield, Zap } from '@aazucena/icons';
 
 /**
@@ -21,7 +17,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A wrapper for the native select element. Provides standardized styling while preserving the performance and accessibility of the browser’s default picker.',
+        component:
+          'A wrapper for the native select element. Provides standardized styling while preserving the performance and accessibility of the browser’s default picker.',
       },
     },
   },
@@ -31,18 +28,18 @@ const meta = {
       control: 'radio',
       options: ['sm', 'default'],
       description: 'Physical height of the input',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     label: {
       control: 'text',
       description: 'Optional semantic label',
-      table: { category: 'Content' }
+      table: { category: 'Content' },
     },
     disabled: {
       control: 'boolean',
       description: 'Prevents user interaction',
-      table: { category: 'State' }
-    }
+      table: { category: 'State' },
+    },
   },
 } satisfies Meta<typeof NativeSelect>;
 

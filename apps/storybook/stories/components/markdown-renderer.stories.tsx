@@ -15,7 +15,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A robust Markdown parser and renderer. Automatically styles standard Markdown syntax (headings, lists, code, quotes) to match the project design system.',
+        component:
+          'A robust Markdown parser and renderer. Automatically styles standard Markdown syntax (headings, lists, code, quotes) to match the project design system.',
       },
     },
   },
@@ -24,8 +25,8 @@ const meta = {
     content: {
       control: 'text',
       description: 'Raw markdown string to be parsed',
-      table: { category: 'Content' }
-    }
+      table: { category: 'Content' },
+    },
   },
 } satisfies Meta<typeof MarkdownRenderer>;
 

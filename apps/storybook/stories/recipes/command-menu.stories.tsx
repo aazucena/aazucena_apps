@@ -9,15 +9,7 @@ import {
   CommandSeparator,
   Badge,
 } from '@aazucena/ui';
-import {
-  Search,
-  FileText,
-  Cog,
-  Users,
-  Terminal,
-  Zap,
-  Globe,
-} from '@aazucena/icons';
+import { Search, FileText, Cog, Users, Terminal, Zap, Globe } from '@aazucena/icons';
 
 /**
  * ## Command Menu Recipe

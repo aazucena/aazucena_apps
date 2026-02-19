@@ -4,22 +4,14 @@ import { TieredMenu } from '@aazucena/ui';
 const basicItems = [
   {
     label: 'New',
-    children: [
-      { label: 'Project' },
-      { label: 'File' },
-      { label: 'Template' },
-    ],
+    children: [{ label: 'Project' }, { label: 'File' }, { label: 'Template' }],
   },
   { label: 'Open', command: '\u2318O' },
   { label: 'Save', command: '\u2318S' },
   { label: '', separator: true },
   {
     label: 'Export',
-    children: [
-      { label: 'PDF' },
-      { label: 'CSV' },
-      { label: 'JSON' },
-    ],
+    children: [{ label: 'PDF' }, { label: 'CSV' }, { label: 'JSON' }],
   },
   { label: '', separator: true },
   { label: 'Preferences' },

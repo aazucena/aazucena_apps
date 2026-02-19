@@ -16,7 +16,8 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A progress bar fixed to the top of the viewport that fills as the user scrolls down the page.',
+        component:
+          'A progress bar fixed to the top of the viewport that fills as the user scrolls down the page.',
       },
     },
   },
@@ -26,8 +27,8 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber'],
       description: 'The visual theme of the bar',
-      table: { category: 'Appearance' }
-    }
+      table: { category: 'Appearance' },
+    },
   },
 } satisfies Meta<typeof ReadingProgress>;
 
@@ -47,7 +48,9 @@ export const Basic: Story = {
     <div className="h-[200vh] w-full relative bg-muted/5">
       <ReadingProgress {...args} />
       <div className="flex flex-col items-center justify-center h-screen space-y-4">
-        <p className="font-mono text-xs opacity-40 uppercase tracking-[0.4em]">↓ SCROLL_TO_FILL_BAR ↓</p>
+        <p className="font-mono text-xs opacity-40 uppercase tracking-[0.4em]">
+          ↓ SCROLL_TO_FILL_BAR ↓
+        </p>
         <div className="h-96 w-px bg-current/10" />
       </div>
     </div>

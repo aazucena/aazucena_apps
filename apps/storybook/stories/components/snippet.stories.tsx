@@ -87,7 +87,9 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
       {(['sm', 'md', 'lg'] as const).map((s) => (
-        <Snippet key={s} size={s}>pnpm install</Snippet>
+        <Snippet key={s} size={s}>
+          pnpm install
+        </Snippet>
       ))}
     </div>
   ),

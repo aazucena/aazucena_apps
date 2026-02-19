@@ -39,7 +39,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A feature-rich card component designed for blog posts, project showcases, and rich-media displays.',
+        component:
+          'A feature-rich card component designed for blog posts, project showcases, and rich-media displays.',
       },
     },
   },
@@ -49,25 +50,25 @@ const meta = {
       control: 'select',
       options: ['default', 'glass', 'cyber', 'outline'],
       description: 'The visual theme of the card',
-      table: { category: 'Appearance' }
+      table: { category: 'Appearance' },
     },
     padding: {
       control: 'select',
       options: ['none', 'sm', 'md', 'lg', 'xl', '2xl'],
       description: 'Internal content spacing',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     radius: {
       control: 'select',
       options: ['default', 'lg', 'xl', '2xl', '3xl'],
       description: 'Corner rounding preset',
-      table: { category: 'Layout' }
+      table: { category: 'Layout' },
     },
     hover: {
       control: 'boolean',
       description: 'Enable scale and glow on hover',
-      table: { category: 'Behavior' }
-    }
+      table: { category: 'Behavior' },
+    },
   },
 } satisfies Meta<typeof ContentCard>;
 
@@ -87,9 +88,9 @@ export const Basic: Story = {
   },
   render: (args) => (
     <ContentCard {...args} className="w-[400px] group">
-      <ContentCardImage 
-        src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" 
-        alt="Engineering Aesthetic" 
+      <ContentCardImage
+        src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop"
+        alt="Engineering Aesthetic"
       />
       <ContentCardHeader>
         <ContentCardMeta>
@@ -101,15 +102,22 @@ export const Basic: Story = {
         </ContentCardMeta>
         <ContentCardTitle size="xl">Neural_Interface_Optimization</ContentCardTitle>
         <ContentCardDescription>
-          Implementing high-performance telemetry processing for next-generation biometric interfaces.
+          Implementing high-performance telemetry processing for next-generation biometric
+          interfaces.
         </ContentCardDescription>
       </ContentCardHeader>
       <ContentCardFooter>
         <div className="flex gap-2">
-          <Badge variant="secondary" size="xs">REACT</Badge>
-          <Badge variant="secondary" size="xs">D3.JS</Badge>
+          <Badge variant="secondary" size="xs">
+            REACT
+          </Badge>
+          <Badge variant="secondary" size="xs">
+            D3.JS
+          </Badge>
         </div>
-        <Button variant="ghost" size="sm">Review_Intel</Button>
+        <Button variant="ghost" size="sm">
+          Review_Intel
+        </Button>
       </ContentCardFooter>
     </ContentCard>
   ),
@@ -126,12 +134,14 @@ export const CyberShowcase: Story = {
   render: (args) => (
     <ContentCard {...args} className="w-[400px] group">
       <div className="relative">
-        <ContentCardImage 
-          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
+        <ContentCardImage
+          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
           aspect="wide"
         />
         <ContentCardOverlay position="top-right">
-          <Badge variant="cyber" animated>LIVE_FEED</Badge>
+          <Badge variant="cyber" animated>
+            LIVE_FEED
+          </Badge>
         </ContentCardOverlay>
         <ContentCardOverlay position="bottom-left">
           <div className="size-10 bg-black/60 backdrop-blur-md rounded-lg flex items-center justify-center border border-white/10">
@@ -140,7 +150,9 @@ export const CyberShowcase: Story = {
         </ContentCardOverlay>
       </div>
       <ContentCardHeader className="pt-6">
-        <ContentCardTitle size="lg" className="font-mono italic">// SIGNAL_TRACER_v2</ContentCardTitle>
+        <ContentCardTitle size="lg" className="font-mono italic">
+          // SIGNAL_TRACER_v2
+        </ContentCardTitle>
         <ContentCardDescription className="font-mono text-xs">
           Cryptographic protocol analyzer for secure node-to-node communication.
         </ContentCardDescription>
@@ -163,7 +175,9 @@ export const GlassHero: Story = {
       <ContentCard {...args} className="w-[450px] group">
         <ContentCardHeader>
           <ContentCardMeta className="text-white/60">DEPLOYMENT_STATION</ContentCardMeta>
-          <ContentCardTitle size="2xl" className="text-white">Atmospheric_Unit</ContentCardTitle>
+          <ContentCardTitle size="2xl" className="text-white">
+            Atmospheric_Unit
+          </ContentCardTitle>
           <ContentCardDescription className="text-white/70 line-clamp-2">
             Real-time environmental monitoring across high-altitude edge nodes.
           </ContentCardDescription>
@@ -206,7 +220,10 @@ export const SidebarCard: Story = {
         </div>
       </ContentCardHeader>
       <ContentCardContent className="pt-2">
-        <p className="text-[11px] opacity-60">Authentication tokens will expire in **12 minutes**. Please re-validate your session identifiers.</p>
+        <p className="text-[11px] opacity-60">
+          Authentication tokens will expire in **12 minutes**. Please re-validate your session
+          identifiers.
+        </p>
       </ContentCardContent>
     </ContentCard>
   ),
