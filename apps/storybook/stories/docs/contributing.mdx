@@ -48,6 +48,7 @@ We use a **pnpm + Turborepo** monorepo architecture:
     - `design-system/`: Design tokens, themes (17 vibes), and platform integrations.
     - `ui/`: 225+ shared React components (ShadCN base + custom composed).
     - `visualizations/`: 21 D3-powered chart & graph components with companion hooks.
+    - `animations/`: 64+ Three.js objects, GSAP presets, and modular 3D inspection tools.
     - `hooks/`: Domain-specific React hooks.
     - `icons/`: Custom SVG icon library with registry.
     - `utils/`: Pure utility functions (`cn()`, export helpers).
@@ -66,6 +67,12 @@ UI components reside in `packages/ui`, data visualizations in `packages/visualiz
 - **Styling:** Use [Tailwind CSS 4](https://tailwindcss.com/) with design tokens.
 - **UI Primitives:** Prefer [Radix UI](https://www.radix-ui.com/) or [ShadCN](https://ui.shadcn.com/) as base components.
 - **Visualizations:** D3-powered charts live in `packages/visualizations/src/d3/` with companion hooks in `src/hooks/`.
+- **3D & Animations:**
+    - 3D Objects reside in `packages/animations/src/three/objects/`.
+    - **Modeling:** Use low-poly/primitive-based geometry for performance.
+    - **Fidelity:** Implement **Inverse Kinematics (IK)** for realistic limb motion and follow strict **Canon Landmarks** for pop-culture references.
+    - **Registry:** Every new object must be registered in `packages/animations/src/three/objects/registry.ts` with an assigned `cost` tier and `layer`.
+    - **Verification:** Use the `ObjectViewer` story to audit $360^\circ$ rotation, materials, and slow-motion mechanics.
 - **Animations:** Use GSAP for imperative animations and Framer Motion for declarative ones.
 - **Storybook:** Every new component **must** have a corresponding `.stories.tsx` file in `apps/storybook/stories`. UI component stories go in `stories/`, chart stories in `stories/charts/`.
 - **Performance:** Heavy dependencies (Three.js, PixiJS, D3) must be lazy-loaded using `React.lazy()` and `Suspense`.
@@ -117,4 +124,4 @@ Update the relevant documentation in the `docs/` folder for any major architectu
 
 ---
 
-**Last Updated:** February 16, 2026
+**Last Updated:** February 18, 2026
