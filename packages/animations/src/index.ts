@@ -14,6 +14,7 @@ export * from './three/materials.js';
 export * from './three/objects/index.js';
 export { AnimationCanvas } from './three/AnimationCanvas.js';
 export { AnimationScene } from './three/AnimationScene.js';
+export * from './three/viewer/index.js';
 
 // PixiJS
 export * from './pixi/particles.js';
