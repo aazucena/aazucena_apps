@@ -9,7 +9,7 @@ const ctaVariants = cva('relative py-32 overflow-hidden transition-all duration-
     variant: {
       default: 'bg-primary text-primary-foreground',
       cyber:
-        'bg-primary/5 border-y border-cyan-500/30 text-foreground dark:bg-black',
+        'glass bg-primary-100 border-y border-cyan-500/30 text-foreground dark:bg-black',
       glass: 'glass text-foreground',
     },
   },

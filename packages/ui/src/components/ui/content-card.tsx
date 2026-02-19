@@ -157,7 +157,7 @@ ContentCardOverlay.displayName = 'ContentCardOverlay';
 const ContentCardGlow = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { color?: string }
->(({ className, color = 'bg-primary/5', ...props }, ref) => (
+>(({ className, color = 'glass bg-primary-100', ...props }, ref) => (
   <div
     ref={ref}
     className={cn(

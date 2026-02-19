@@ -38,7 +38,7 @@ const sheetVariants = cva(
         default: 'bg-background border-border text-foreground',
         glass: 'glass text-foreground dark:text-white',
         cyber:
-          'bg-primary/5 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
       },
       side: {
         top: 'inset-x-0 top-0 border-b data-closed:slide-out-to-top data-open:slide-in-from-top',

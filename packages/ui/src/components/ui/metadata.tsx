@@ -163,7 +163,7 @@ const MetaDataIcon = React.forwardRef<
     className={cn(
       'flex h-8 w-8 items-center justify-center rounded-lg border',
       variant === 'cyber'
-        ? 'border-border dark:border-cyan-500/20 bg-primary/5 dark:bg-cyan-500/5 text-primary dark:text-cyan-400'
+        ? 'border-border dark:border-cyan-500/20 glass bg-primary-100 dark:bg-cyan-500/5 text-primary dark:text-cyan-400'
         : variant === 'muted'
           ? 'h-auto w-auto shrink-0 border-none bg-transparent text-zinc-400'
           : 'bg-muted/50 border-border text-muted-foreground',

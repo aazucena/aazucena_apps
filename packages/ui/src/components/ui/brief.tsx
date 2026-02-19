@@ -79,7 +79,7 @@ const briefCalloutVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary/5 border-primary/20 text-primary',
+        default: 'glass bg-primary-100 border-primary/20 text-primary',
         cyber: 'bg-cyan-500/5 border-cyan-500/20 text-cyan-600 dark:text-cyan-400',
         glass: 'glass text-foreground dark:text-white',
       },

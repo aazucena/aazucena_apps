@@ -41,7 +41,7 @@ const accordionItemVariants = cva('', {
       glass:
         'glass rounded-lg px-4 mb-2 border-b-0 shadow-sm dark:text-white',
       cyber:
-        'bg-primary/5 border-cyan-500/30 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.1)] rounded-lg px-4 mb-2 border-b-0 dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
+        'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.1)] rounded-lg px-4 mb-2 border-b-0 dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
     },
   },
   defaultVariants: {

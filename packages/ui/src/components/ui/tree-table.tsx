@@ -19,13 +19,13 @@ const wrapperStyles: Record<string, string> = {
   default: '',
   glass: 'glass dark:bg-background/5 dark:bg-white/5 dark:border-border/10 shadow-xl rounded-lg',
   cyber:
-    'border border-border/10 dark:border-cyan-500/30 bg-primary/5 dark:bg-background/80 dark:bg-black/80 shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-lg',
+    'border border-border/10 dark:border-cyan-500/30 glass bg-primary-100 dark:bg-background/80 dark:bg-black/80 shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-lg',
 };
 
 const headerStyles: Record<string, string> = {
   default: '',
   glass: 'bg-background/5 dark:bg-white/5 [&_th]:border-border/10',
-  cyber: 'bg-primary/5 dark:bg-cyan-500/5 [&_th]:border-border/10 dark:[&_th]:border-cyan-500/20',
+  cyber: 'glass bg-primary-100 dark:bg-cyan-500/5 [&_th]:border-border/10 dark:[&_th]:border-cyan-500/20',
 };
 
 const rowStyles: Record<string, string> = {

@@ -15,7 +15,7 @@ const navbarVariants = cva(
             default: 'bg-background/80 backdrop-blur-lg border-border text-foreground',
             glass: 'glass text-foreground dark:text-white',
             cyber:
-              'bg-primary/5 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
+              'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
           },      isScrolled: {
         true: '',
         false: '',

@@ -18,7 +18,7 @@ const arrowLinkVariants = cva(
         'card-glass':
           'flex flex-col items-center justify-center rounded-[2rem] border p-12 backdrop-blur-sm border-border/10 bg-background/5 dark:bg-white/5 hover:bg-background/10 dark:hover:bg-white/10 text-foreground shadow-xl',
         'card-cyber':
-          'flex flex-col items-center justify-center rounded-[2rem] border p-12 backdrop-blur-sm border-border/10 dark:border-cyan-500/30 bg-primary/5 dark:bg-gradient-to-br dark:from-cyan-400/20 dark:to-blue-500/20 dark:hover:from-cyan-400/30 dark:hover:to-blue-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+          'flex flex-col items-center justify-center rounded-[2rem] border p-12 backdrop-blur-sm border-border/10 dark:border-cyan-500/30 glass bg-primary-100 dark:bg-gradient-to-br dark:from-cyan-400/20 dark:to-blue-500/20 dark:hover:from-cyan-400/30 dark:hover:to-blue-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
         circular: 'gap-3 text-xs',
         'circular-cyber': 'gap-3 text-xs text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 font-mono italic',
       },

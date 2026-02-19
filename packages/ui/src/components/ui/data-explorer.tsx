@@ -119,7 +119,7 @@ const RecursiveRenderer = ({
                 ? 'border-emerald-500/30 bg-emerald-500/5'
                 : variant === 'cyber'
                   ? 'border-cyan-500/30 bg-cyan-500/5'
-                  : 'bg-primary/5 border-primary/30',
+                  : 'glass bg-primary-100 border-primary/30',
             'w-full',
           )}
         >

@@ -54,7 +54,7 @@ marked.use({
     },
     blockquote(token: Tokens.Blockquote): string {
       const content = this.parser.parse(token.tokens);
-      return `<blockquote class="border-l-4 border-primary px-4 py-6 mb-4 italic text-muted-foreground bg-primary/5 rounded-r-lg [&_p]:!mt-0">${content}</blockquote>`;
+      return `<blockquote class="border-l-4 border-primary px-4 py-6 mb-4 italic text-muted-foreground glass bg-primary-100 rounded-r-lg [&_p]:!mt-0">${content}</blockquote>`;
     },
     code(token: Tokens.Code): string {
       return `<pre class="bg-muted border border-border rounded-lg p-4 mb-4 overflow-x-auto"><code class="text-sm font-mono">${token.text}</code></pre>`;

@@ -36,7 +36,7 @@ const alertDialogContentVariants = cva(
       variant: {
         default: 'bg-background text-foreground',
         glass: 'glass text-foreground shadow-2xl',
-        cyber: 'bg-primary/5 border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-zinc-950/90 dark:text-cyan-50',
+        cyber: 'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-zinc-950/90 dark:text-cyan-50',
       },
       size: {
         default: 'max-w-lg',

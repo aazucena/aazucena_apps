@@ -38,7 +38,7 @@ const dialogContentVariants = cva(
         default: 'bg-background rounded-lg p-6 text-foreground',
         glass: 'glass text-foreground dark:text-white shadow-2xl rounded-[2rem] p-6',
         cyber:
-          'bg-primary/5 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] rounded-3xl p-6 dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] rounded-3xl p-6 dark:bg-black/90 dark:text-cyan-50',
       },
       size: {
         default: 'max-w-lg',

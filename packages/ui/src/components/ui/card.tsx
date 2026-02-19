@@ -11,7 +11,7 @@ const cardVariants = cva('transition-all duration-300', {
       glass:
         'glass text-foreground shadow-xl',
       cyber:
-        'bg-primary/5 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)] text-foreground dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
+        'glass bg-primary-100 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)] text-foreground dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
       outline: 'bg-transparent border-2 border-muted text-foreground',
       ghost: 'bg-transparent border-none text-foreground shadow-none',
       // Dashboard variant absorbed from analytics app

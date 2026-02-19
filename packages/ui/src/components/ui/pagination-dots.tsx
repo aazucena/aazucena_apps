@@ -57,9 +57,9 @@ export const paginationDotVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary/30 hover:bg-primary/50 h-2 w-2',
+        default: 'bg-primary/30 hover:glass bg-primary-1000 h-2 w-2',
         glass: 'bg-white/30 hover:bg-background/5 dark:bg-white/50 h-2 w-2',
-        cyber: 'bg-primary/30 dark:bg-cyan-500/30 hover:bg-primary/50 dark:hover:bg-cyan-500/50 h-2 w-2',
+        cyber: 'bg-primary/30 dark:bg-cyan-500/30 hover:glass bg-primary-1000 dark:hover:bg-cyan-500/50 h-2 w-2',
       },
       isActive: {
         true: '',

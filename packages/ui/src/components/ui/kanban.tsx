@@ -75,7 +75,7 @@ const kanbanLaneVariants = cva(
         default: 'bg-muted/30 border-border hover:bg-card hover:shadow-2xl hover:border-primary/10 text-foreground',
         glass: 'glass text-foreground dark:text-white hover:bg-background/10 dark:bg-white/10',
         cyber:
-          'bg-primary/5 border-cyan-500/20 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:border-cyan-400 dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',
+          'glass bg-primary-100 border-cyan-500/20 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:border-cyan-400 dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',
       },
     },
     defaultVariants: {

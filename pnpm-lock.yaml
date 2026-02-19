@@ -951,12 +951,18 @@ importers:
       '@aazucena/hooks':
         specifier: workspace:*
         version: link:../hooks
+      '@aazucena/icons':
+        specifier: workspace:*
+        version: link:../icons
       '@aazucena/stores':
         specifier: workspace:*
         version: link:../stores
       '@aazucena/types':
         specifier: workspace:*
         version: link:../types
+      '@aazucena/ui':
+        specifier: workspace:*
+        version: link:../ui
       '@aazucena/utils':
         specifier: workspace:*
         version: link:../utils

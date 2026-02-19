@@ -10,7 +10,7 @@ const footerVariants = cva('relative overflow-hidden transition-colors duration-
       default: 'bg-background border-border text-foreground',
       glass: 'glass text-foreground dark:text-white',
       cyber:
-        'bg-primary/5 border-cyan-500/20 text-foreground dark:bg-black dark:text-cyan-50',
+        'glass bg-primary-100 border-cyan-500/20 text-foreground dark:bg-black dark:text-cyan-50',
     },
   },
   defaultVariants: {

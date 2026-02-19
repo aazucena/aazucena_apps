@@ -8,7 +8,7 @@ const skeletonVariants = cva('animate-pulse rounded-md transition-all duration-3
         variant: {
           default: 'bg-primary/10 dark:bg-primary/20',
           glass: 'glass shadow-none',
-          cyber: 'bg-primary/5 border border-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.1)] dark:bg-zinc-950/40',
+          cyber: 'glass bg-primary-100 border border-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.1)] dark:bg-zinc-950/40',
         },
       },  defaultVariants: {
     variant: 'default',

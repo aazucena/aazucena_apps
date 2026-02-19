@@ -60,7 +60,7 @@ export const preloaderStepVariants = cva(
     variants: {
       status: {
         pending: 'border-border opacity-40',
-        active: 'border-primary bg-primary/5 animate-pulse',
+        active: 'border-primary glass bg-primary-100 animate-pulse',
         completed: 'border-success/30 bg-success/5',
       },
       theme: {

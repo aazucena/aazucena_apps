@@ -25,7 +25,7 @@ const alertVariants = cva(
         glass:
           'glass shadow-xl border-l-4 border-l-primary dark:text-white dark:border-l-white/40',
         cyber:
-          'bg-primary/5 border-cyan-500/30 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.1)] [&_svg]:text-cyan-600 border-l-4 border-l-cyan-500 dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50 dark:[&_svg]:text-cyan-400',
+          'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.1)] [&_svg]:text-cyan-600 border-l-4 border-l-cyan-500 dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50 dark:[&_svg]:text-cyan-400',
         dashboard:
           'bg-background/5 dark:bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md shadow-sm',
       },

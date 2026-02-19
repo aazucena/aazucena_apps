@@ -15,7 +15,7 @@ const tabsListVariants = cva(
       variant: {
         default: 'bg-muted text-muted-foreground',
         glass: 'glass-m text-foreground',
-        cyber: 'bg-primary/5 border border-cyan-500/20 text-cyan-600 dark:bg-zinc-950/40 dark:text-cyan-500/70',
+        cyber: 'glass bg-primary-100 border border-cyan-500/20 text-cyan-600 dark:bg-zinc-950/40 dark:text-cyan-500/70',
         phone:
           'relative mt-16 mb-8 h-[420px] w-full max-w-[600px] flex items-center justify-center bg-transparent border-none overflow-visible',
       },

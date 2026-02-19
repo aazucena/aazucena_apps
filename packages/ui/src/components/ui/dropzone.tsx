@@ -10,10 +10,10 @@ const dropzoneVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border-border bg-muted/30 hover:border-primary/50 hover:bg-primary/5',
+        default: 'border-border bg-muted/30 hover:border-primary/50 hover:glass bg-primary-100',
         glass: 'glass text-foreground dark:text-white',
         cyber:
-          'bg-primary/5 border-cyan-500/30 text-foreground hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',
+          'glass bg-primary-100 border-cyan-500/30 text-foreground hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',
       },
       isDragging: {
         true: 'scale-[1.02] border-primary bg-primary/10',

@@ -12,7 +12,7 @@ const terminalVariants = cva(
       variant: {
         default: 'bg-muted border-border text-foreground shadow-sm',
         cyber:
-          'bg-primary/5 border-cyan-500/30 text-foreground shadow-[0_0_25px_rgba(6,182,212,0.1)] dark:bg-black dark:text-cyan-50',
+          'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_25px_rgba(6,182,212,0.1)] dark:bg-black dark:text-cyan-50',
         glass: 'glass text-foreground dark:text-white',
       },
     },

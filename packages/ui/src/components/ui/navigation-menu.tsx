@@ -79,7 +79,7 @@ const navigationMenuContentVariants = cva(
         default: '',
         glass: 'glass text-foreground dark:text-white shadow-2xl rounded-md mt-2',
         cyber:
-          'bg-primary/5 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] rounded-md mt-2 dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] rounded-md mt-2 dark:bg-black/90 dark:text-cyan-50',
       },
     },
     defaultVariants: {
@@ -111,7 +111,7 @@ const navigationMenuViewportVariants = cva(
         default: 'bg-popover text-popover-foreground',
         glass: 'glass text-foreground dark:text-white shadow-2xl',
         cyber:
-          'bg-primary/5 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
       },
     },
     defaultVariants: {
