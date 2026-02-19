@@ -20,56 +20,53 @@ Powered by GSAP, Three.js, and PixiJS for immersive atmospheric storytelling.
 
 ---
 
-## Implementation
+## 🔍 Inspection Tooling: ObjectViewer
 
-### 1. Main Orchestrator
+The `ObjectViewer` is a professional-grade 3D inspection component designed for auditing and showcasing assets within the `@aazucena/animations` registry.
 
-The `AnimationCanvas` component acts as the primary entry point, automatically switching between rendering technologies based on the current `atmosphericLayer`.
-
-```tsx
-import { AnimationCanvas } from '@aazucena/animations';
-
-export function Background() {
-  return <AnimationCanvas atmosphericLayer="exosphere" />;
-}
-```
-
-### 2. Context Integration
-
-Animations are fully integrated with the global state via `@aazucena/context`. This ensures that motion parameters (intensity, visibility) adapt to the user's current environment.
-
-```tsx
-import { useAnimation, usePortfolio } from '@aazucena/context';
-
-export function MyComponent() {
-  const { capabilities } = useAnimation();
-  const { scrollProgress } = usePortfolio();
-  
-  // Use progress to drive local GSAP timelines or Three.js frames
-}
-```
+### Key Capabilities
+- **360° Inspection:** Fully interactive `OrbitControls` with zoom, pan, and auto-rotate modes.
+- **Environment Logic:** Integrated HDR switcher to test materials under 5 lighting presets (City, Night, Warehouse, etc.).
+- **Performance HUD:** Real-time visibility of **Cost Tiers (1-8)** and **Atmospheric Layer** assignments.
+- **Diagnostic Helpers:** Toggles for coordinate grids, wireframes, bounding boxes, and XYZ origin axes.
+- **Action Feedback:** High-fidelity animations for actions, including a camera shutter flash for screenshots and spinning resets.
+- **System Notifications:** Integrated `sonner` toast system for action confirmation.
 
 ---
 
-## Performance Tiers
+## 🛰️ Atmospheric Registry
 
-Motion fidelity scales dynamically based on detected device capabilities to ensure a consistent 60fps experience.
+The system maintains a centralized registry of **64+ unique objects**, categorized by atmospheric layers to support the vertical scrolling narrative.
 
-| Tier | Characteristics | Primary Effects |
+### Layer Architecture
+
+| Layer | Elevation | Key Objects |
 |---|---|---|
-| `high` | Desktop / Dedicated GPU | High density particles, full antialiasing, advanced post-processing |
-| `medium` | Modern mobile / Laptop | Balanced density, simplified lighting, basic shadow mapping |
-| `low` | Legacy / Battery Saver | Minimal particles, static background fallback, 2D motion only |
+| **Troposphere** | `0 - 12km` | Airplane, BirdFlock, HotAirBalloon, SantaSleigh, Superman |
+| **Stratosphere** | `12 - 50km` | **ETBike**, UpHouse, MaryPoppins, WeatherBalloon, **PlanetExpress** |
+| **Mesosphere** | `50 - 85km` | NyanCat, ThorsHammer, MeteorSmokeTrail, NoctilucentCloud |
+| **Thermosphere** | `85 - 600km` | **ISS**, DeathStar, Hubble, Tardis, TeslaRoadster |
+| **Exosphere** | `600km+` | BlackHole, FlatEarth, Voyager, GPSSatellite, JamesWebb |
+| **Ground** | `0km` | WindTurbine, Lighthouse, Skyscraper, House, Tree |
 
 ---
 
-## Content Organization
+## 🦅 Mechanical Fidelity
 
-The stories in this section are categorized by their underlying technology:
+We prioritize high-fidelity mechanical logic for our 3D assets to ensure they feel "alive" rather than static decorations.
 
-- **ThreeJS** — 3D scene layers, lighting controls, and individual interactive objects
-- **Particles** — 2D PixiJS particle presets (Space, Snow, Rain, Floating)
-- **GSAP** — Standardized imperative motion presets for UI components
+- **IK Pedaling:** Character feet are mathematically locked to circular pedal paths using Law of Cosines solvers.
+- **Shoulder Joint Pivots:** Wing flapping mechanics rotate from the shoulder joint for realistic avian motion.
+- **Flight Profiles:** Objects support multiple behavioral variants (e.g., `majestic` vs `frantic`) via custom configuration.
+- **Canon Precision:** Pop-culture assets follow strict color palettes and geometric landmarks (e.g., Planet Express overbite and racing stripes).
+
+---
+
+## ⚖️ Legal & Fair Use
+
+This animation system includes "Easter Egg" objects that reference iconic pop-culture iconography. These are created exclusively for **non-commercial, transformative, and educational purposes** to demonstrate technical 3D modeling skill within a personal portfolio context. 
+
+All trademarks belong to their respective owners.
 
 ---
 
