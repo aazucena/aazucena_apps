@@ -12,19 +12,12 @@ jobs:
       HSKY: "0" # This works for all steps in the job, including the Orb
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-      - run:
-          name: Install Dependencies (Auto-syncing overrides)
-          command: |
-            corepack enable
-            pnpm install --no-frozen-lockfile
-      - save_cache:
-          key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-          paths:
-            - node_modules
-            - ~/.local/share/pnpm/store
+      - node/install-packages:
+          pkg-manager: pnpm
+          with-cache: true
+          # This allows pnpm to sync the overrides without failing the build
+          check-cache: false
+          extra-args: "--no-frozen-lockfile"
       - run:
           name: "List Workspace Projects"
           command: pnpm list -r --depth -1
