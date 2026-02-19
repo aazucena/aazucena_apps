@@ -8,15 +8,15 @@ Comprehensive collection of 40+ production-ready React hooks organized by domain
 
 ## 🛠️ TOOLKIT_MANIFEST
 
-| System                    | Protocol         | Description                                                                 |
-| :------------------------ | :--------------- | :-------------------------------------------------------------------------- |
-| **Device_Hooks**          | Capability_Sense | useDeviceCapabilities, useMediaQuery, useViewport, useOrientation.         |
-| **State_Management**      | Local_Persist    | useLocalStorage, useSessionStorage, useDebounce, useThrottle.              |
-| **Animation_Hooks**       | Motion_Control   | useGSAPAnimation, useScrollProgress, useIntersectionObserver.               |
-| **Data_Hooks**            | Fetch_Subscribe  | useFetch, useAsync, usePaginatedQuery, useInfiniteScroll.                  |
-| **Telemetry_Hooks**       | Intelligence_Log | useAnalytics, useTelemetry, usePerformanceMonitor.                          |
-| **Preloader_Hooks**       | Load_Orchestrate | useLoadingProgress, usePreloaderTheme, useAssetLoader.                     |
-| **DOM_Hooks**             | Element_Track    | useElementSize, useClickOutside, useFocusTrap, useScrollLock.              |
+| System               | Protocol         | Description                                                        |
+| :------------------- | :--------------- | :----------------------------------------------------------------- |
+| **Device_Hooks**     | Capability_Sense | useDeviceCapabilities, useMediaQuery, useViewport, useOrientation. |
+| **State_Management** | Local_Persist    | useLocalStorage, useSessionStorage, useDebounce, useThrottle.      |
+| **Animation_Hooks**  | Motion_Control   | useGSAPAnimation, useScrollProgress, useIntersectionObserver.      |
+| **Data_Hooks**       | Fetch_Subscribe  | useFetch, useAsync, usePaginatedQuery, useInfiniteScroll.          |
+| **Telemetry_Hooks**  | Intelligence_Log | useAnalytics, useTelemetry, usePerformanceMonitor.                 |
+| **Preloader_Hooks**  | Load_Orchestrate | useLoadingProgress, usePreloaderTheme, useAssetLoader.             |
+| **DOM_Hooks**        | Element_Track    | useElementSize, useClickOutside, useFocusTrap, useScrollLock.      |
 
 ---
 

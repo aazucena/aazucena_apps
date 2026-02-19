@@ -3,21 +3,24 @@
  * WebGL rendering optimizations and visual effects
  */
 
-import * as PIXI from 'pixi.js';
-import type { Particle, ParticleRendererConfig } from './types';
+import * as PIXI from "pixi.js";
+import type { Particle, ParticleRendererConfig } from "./types";
 export class ParticleRenderer {
   private config: ParticleRendererConfig;
   private sprites: PIXI.Sprite[] = [];
   private container: PIXI.Container;
   private particleTexture: PIXI.Texture | null = null;
-  private currentEffect: 'glow' | 'blur' | 'none' = 'none';
+  private currentEffect: "glow" | "blur" | "none" = "none";
 
-  constructor(container: PIXI.Container, config: Partial<ParticleRendererConfig> = {}) {
+  constructor(
+    container: PIXI.Container,
+    config: Partial<ParticleRendererConfig> = {},
+  ) {
     this.container = container;
     this.config = {
-      blendMode: config.blendMode || 'normal',
+      blendMode: config.blendMode || "normal",
       tint: config.tint || 0xffffff,
-      texture: config.texture
+      texture: config.texture,
     };
 
     // Create particle texture
@@ -29,24 +32,31 @@ export class ParticleRenderer {
    */
   private createParticleTexture(size: number): PIXI.Texture {
     // Create canvas for particle texture
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
 
     if (!ctx) {
-      throw new Error('Failed to get 2D context');
+      throw new Error("Failed to get 2D context");
     }
 
     const center = size / 2;
     const radius = size / 2;
 
     // Create radial gradient (bright center, soft edges)
-    const gradient = ctx.createRadialGradient(center, center, 0, center, center, radius);
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.8)');
-    gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.4)');
-    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    const gradient = ctx.createRadialGradient(
+      center,
+      center,
+      0,
+      center,
+      center,
+      radius,
+    );
+    gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
+    gradient.addColorStop(0.4, "rgba(255, 255, 255, 0.8)");
+    gradient.addColorStop(0.7, "rgba(255, 255, 255, 0.4)");
+    gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
 
     // Draw circle
     ctx.fillStyle = gradient;
@@ -66,7 +76,7 @@ export class ParticleRenderer {
 
     if (!this.particleTexture) return;
 
-    particles.forEach(particle => {
+    particles.forEach((particle) => {
       const sprite = new PIXI.Sprite(this.particleTexture!);
 
       // Set anchor to center for rotation and scaling
@@ -94,9 +104,11 @@ export class ParticleRenderer {
   updateGraphics(particles: Particle[]): void {
     // Apply effect-based alpha multiplier
     const alphaMultiplier =
-      this.currentEffect === 'glow' ? 1.5 :
-      this.currentEffect === 'blur' ? 1.2 :
-      1.0;
+      this.currentEffect === "glow"
+        ? 1.5
+        : this.currentEffect === "blur"
+          ? 1.2
+          : 1.0;
 
     particles.forEach((particle, index) => {
       const sprite = this.sprites[index];
@@ -127,37 +139,37 @@ export class ParticleRenderer {
   /**
    * Apply visual effects to particles
    */
-  applyEffect(effect: 'glow' | 'blur' | 'none'): void {
+  applyEffect(effect: "glow" | "blur" | "none"): void {
     if (this.currentEffect === effect) return; // No change needed
 
     // Remove previous filters
     this.container.filters = null;
 
-    if (effect === 'glow') {
+    if (effect === "glow") {
       // Create glow effect with additive blending
-      this.sprites.forEach(s => {
-        s.blendMode = 'add'; // Additive blending for glow
+      this.sprites.forEach((s) => {
+        s.blendMode = "add"; // Additive blending for glow
         s.alpha = Math.min(s.alpha * 1.5, 1); // Boost alpha for visibility
       });
-      this.currentEffect = 'glow';
-    } else if (effect === 'blur') {
+      this.currentEffect = "glow";
+    } else if (effect === "blur") {
       // Add blur filter for soft, dreamy effect
       const blurFilter = new PIXI.BlurFilter({
         strength: 4, // Increased from 2
-        quality: 4
+        quality: 4,
       });
       this.container.filters = [blurFilter];
-      this.sprites.forEach(s => {
-        s.blendMode = 'normal';
+      this.sprites.forEach((s) => {
+        s.blendMode = "normal";
         s.alpha = Math.min(s.alpha * 1.2, 1); // Slightly boost to compensate for blur
       });
-      this.currentEffect = 'blur';
+      this.currentEffect = "blur";
     } else {
       // Reset to normal
-      this.sprites.forEach(s => {
-        s.blendMode = 'normal';
+      this.sprites.forEach((s) => {
+        s.blendMode = "normal";
       });
-      this.currentEffect = 'none';
+      this.currentEffect = "none";
     }
   }
 
@@ -172,7 +184,7 @@ export class ParticleRenderer {
    * Clear all sprites
    */
   clearGraphics(): void {
-    this.sprites.forEach(s => s.destroy());
+    this.sprites.forEach((s) => s.destroy());
     this.sprites = [];
   }
 

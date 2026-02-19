@@ -3,12 +3,12 @@
  * Zeppelin-style blimp (Stratosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface BlimpProps {
   opacity: number;
@@ -26,8 +26,8 @@ export function Blimp({ opacity }: BlimpProps): JSX.Element {
       rotation: { y: 0.05 },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
-        x: { frequency: 0.15, amplitude: 2 }
-      }
+        x: { frequency: 0.15, amplitude: 2 },
+      },
     });
   });
 

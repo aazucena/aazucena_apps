@@ -25,7 +25,7 @@ export function transformPrompt(prompt: StrapiPrompt): Prompt {
     humanTemplate: prompt.human_template || undefined,
     type: prompt.type,
     locale: prompt.locale || 'en',
-    tags: prompt.tags?.map(t => t.label) || [],
+    tags: prompt.tags?.map((t) => t.label) || [],
     metadata: prompt.metadata || {},
     lastUpdated: prompt.updatedAt || prompt.createdAt || '',
   };

@@ -13,19 +13,23 @@ Strategic guide to state management architecture using @aazucena/context provide
 #### AnimationContext - Use When:
 
 ✅ **Device Capabilities Required:**
+
 - Checking if device can handle Three.js/PixiJS
 - Adapting animation quality to performance tier
 - GPU detection for WebGL rendering
 
 ✅ **Sound Management:**
+
 - Global sound on/off toggle
 - Audio playback permissions
 
 ✅ **Performance Tier Detection:**
+
 - Low/medium/high tier device classification
 - Adjusting particle counts, texture quality
 
 **Example Use Cases:**
+
 ```typescript
 import { useAnimation } from '@aazucena/context';
 
@@ -57,21 +61,25 @@ function AudioControls() {
 #### PortfolioContext - Use When:
 
 ✅ **Section Navigation:**
+
 - Navigating between 8 portfolio sections
 - Tracking current section number
 - URL sync with section state
 
 ✅ **Scroll Tracking:**
+
 - Reading scroll progress (0-1)
 - Triggering effects based on scroll position
 - Atmospheric layer transitions
 
 ✅ **Modal/Panel Management:**
+
 - Opening/closing modals (Experience details, etc.)
 - Toggling side panels (Settings, Info)
 - Managing overlay state
 
 **Example Use Cases:**
+
 ```typescript
 import { usePortfolio } from '@aazucena/context';
 
@@ -120,21 +128,25 @@ function ExperienceCard({ experience }) {
 #### DataContext - Use When:
 
 ✅ **CMS Data Access:**
+
 - Reading homepage configuration
 - Accessing portfolio metadata
 - Fetching section-specific data
 
 ✅ **Dynamic Content Rendering:**
+
 - Rendering sections from CMS registry
 - Component mapping from Strapi data
 - Template-driven layouts
 
 ✅ **Data-Driven UI:**
+
 - Displaying project counts, years of experience
 - Rendering skills, awards, testimonials
 - Blog post listings
 
 **Example Use Cases:**
+
 ```typescript
 import { useDataContext, useSectionData } from '@aazucena/context';
 
@@ -182,21 +194,25 @@ function DynamicSections() {
 #### FormContext - Use When:
 
 ✅ **Multi-Step Forms:**
+
 - Contact forms with multiple steps
 - Onboarding wizards
 - Survey flows
 
 ✅ **Form State Persistence:**
+
 - Saving progress to localStorage
 - Restoring form state on page reload
 - Cross-page form continuation
 
 ✅ **Step Validation:**
+
 - Validating each step before proceeding
 - Conditional step visibility
 - Progress tracking
 
 **Example Use Cases:**
+
 ```typescript
 import { useFormContext } from '@aazucena/context';
 
@@ -249,21 +265,25 @@ function PersistentForm() {
 #### TelemetryContext - Use When:
 
 ✅ **Analytics Configuration:**
+
 - Setting AZUCENA_LYTICS API endpoint
 - Configuring API secret keys
 - Environment-specific analytics URLs
 
 ✅ **Framework-Agnostic Telemetry:**
+
 - Next.js telemetry ingestion
 - Astro telemetry ingestion
 - Unified analytics across apps
 
 ✅ **Event Tracking:**
+
 - Page view tracking
 - Button click analytics
 - User interaction metrics
 
 **Example Use Cases:**
+
 ```typescript
 import { useTelemetryConfig } from '@aazucena/context';
 
@@ -427,16 +447,16 @@ function AtmosphericScene() {
 
 ### Decision Matrix
 
-| State Type | Scope | Duration | Use Context? | Use Local State? |
-|:-----------|:------|:---------|:-------------|:-----------------|
-| **User authentication** | Global | Session | ✅ Yes | ❌ No |
-| **Theme (dark/light)** | Global | Persistent | ✅ Yes | ❌ No |
-| **Current route** | Global | Navigation | ✅ Yes | ❌ No |
-| **Form input value** | Local | Component | ❌ No | ✅ Yes |
-| **Modal open state** | Local/Feature | Interaction | ⚠️ Depends | ⚠️ Depends |
-| **Animation frame** | Local | Render | ❌ No | ✅ Yes |
-| **API loading state** | Local | Request | ❌ No | ✅ Yes |
-| **Device capabilities** | Global | Session | ✅ Yes | ❌ No |
+| State Type              | Scope         | Duration    | Use Context? | Use Local State? |
+| :---------------------- | :------------ | :---------- | :----------- | :--------------- |
+| **User authentication** | Global        | Session     | ✅ Yes       | ❌ No            |
+| **Theme (dark/light)**  | Global        | Persistent  | ✅ Yes       | ❌ No            |
+| **Current route**       | Global        | Navigation  | ✅ Yes       | ❌ No            |
+| **Form input value**    | Local         | Component   | ❌ No        | ✅ Yes           |
+| **Modal open state**    | Local/Feature | Interaction | ⚠️ Depends   | ⚠️ Depends       |
+| **Animation frame**     | Local         | Render      | ❌ No        | ✅ Yes           |
+| **API loading state**   | Local         | Request     | ❌ No        | ✅ Yes           |
+| **Device capabilities** | Global        | Session     | ✅ Yes       | ❌ No            |
 
 ---
 
@@ -521,7 +541,16 @@ function SyncPortfolioWithURL() {
 
   // Update URL when section changes
   useEffect(() => {
-    const sectionNames = ['hero', 'about', 'projects', 'experience', 'skills', 'testimonials', 'blog', 'contact'];
+    const sectionNames = [
+      'hero',
+      'about',
+      'projects',
+      'experience',
+      'skills',
+      'testimonials',
+      'blog',
+      'contact',
+    ];
     window.history.pushState(null, '', `#${sectionNames[currentSection]}`);
   }, [currentSection]);
 
@@ -529,7 +558,16 @@ function SyncPortfolioWithURL() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
-      const sectionIndex = ['hero', 'about', 'projects', 'experience', 'skills', 'testimonials', 'blog', 'contact'].indexOf(hash);
+      const sectionIndex = [
+        'hero',
+        'about',
+        'projects',
+        'experience',
+        'skills',
+        'testimonials',
+        'blog',
+        'contact',
+      ].indexOf(hash);
 
       if (sectionIndex !== -1 && sectionIndex !== currentSection) {
         navigateToSection(sectionIndex);
@@ -559,10 +597,7 @@ function PersistFormState() {
 
   // Save to localStorage on change
   useEffect(() => {
-    localStorage.setItem(
-      'formState',
-      JSON.stringify({ formData, currentStep })
-    );
+    localStorage.setItem('formState', JSON.stringify({ formData, currentStep }));
   }, [formData, currentStep]);
 
   // Restore on mount

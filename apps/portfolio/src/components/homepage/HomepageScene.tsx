@@ -6,24 +6,24 @@
  * Phase 3 Task #6: Demand-based rendering for 20-30% FPS improvement
  */
 
-import { useRef, useMemo, useEffect, type JSX } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import { Float, OrbitControls } from '@react-three/drei';
-import type { Group } from 'three';
-import { useShapeRefs } from '~/hooks/animations';
-import type { AtmosphericPhase } from '~/config/animations';
+import { useRef, useMemo, useEffect, type JSX } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import { Float, OrbitControls } from "@react-three/drei";
+import type { Group } from "three";
+import { useShapeRefs } from "~/hooks/animations";
+import type { AtmosphericPhase } from "~/config/animations";
 import {
   SCENE_ELEMENT_COUNTS,
   SCENE_ANIMATION_SPEEDS,
   SHAPE_ROTATION,
   FLOAT_CONFIG,
   SHAPE_MATERIAL,
-} from '~/config/animations';
+} from "~/config/animations";
 import {
   LazySceneLayerManager as SceneLayerManager,
   SceneLighting,
-} from './scene';
-import { calculateLayerOpacities } from '~/lib/utils/scene';
+} from "./scene";
+import { calculateLayerOpacities } from "~/lib/utils/scene";
 import {
   generateParticleData,
   createBasicGeometries,
@@ -34,7 +34,7 @@ import {
   generateBushData,
   generateRockData,
   generateFlowerData,
-} from '~/data/scene';
+} from "~/data/scene";
 
 interface HomepageSceneProps {
   intensity?: number;
@@ -45,9 +45,9 @@ interface HomepageSceneProps {
 
 export default function HomepageScene({
   intensity = 1,
-  phase = 'exosphere',
+  phase = "exosphere",
   currentSection = 0,
-  scrollProgress = 0
+  scrollProgress = 0,
 }: HomepageSceneProps): JSX.Element {
   const groupRef = useRef<Group>(null);
   const { setRef: setShapeRef, getAllRefs: getAllShapeRefs } = useShapeRefs();
@@ -59,23 +59,50 @@ export default function HomepageScene({
   // This reduces initial bundle size by ~375-750KB
 
   // Generate data for all scene elements (memoized for performance)
-  const particles = useMemo(() => generateParticleData(SCENE_ELEMENT_COUNTS.particles, phase), [phase]);
+  const particles = useMemo(
+    () => generateParticleData(SCENE_ELEMENT_COUNTS.particles, phase),
+    [phase],
+  );
   const shapes = useMemo(() => createBasicGeometries(), []);
-  const mainShapes = useMemo(() => generateShapeData(SCENE_ELEMENT_COUNTS.mainShapes, shapes, phase), [shapes, phase]);
-  const clouds = useMemo(() => generateCloudData(SCENE_ELEMENT_COUNTS.clouds), []);
-  const houses = useMemo(() => generateHouseData(SCENE_ELEMENT_COUNTS.houses), []);
+  const mainShapes = useMemo(
+    () => generateShapeData(SCENE_ELEMENT_COUNTS.mainShapes, shapes, phase),
+    [shapes, phase],
+  );
+  const clouds = useMemo(
+    () => generateCloudData(SCENE_ELEMENT_COUNTS.clouds),
+    [],
+  );
+  const houses = useMemo(
+    () => generateHouseData(SCENE_ELEMENT_COUNTS.houses),
+    [],
+  );
   const trees = useMemo(() => generateTreeData(SCENE_ELEMENT_COUNTS.trees), []);
-  const bushes = useMemo(() => generateBushData(SCENE_ELEMENT_COUNTS.bushes), []);
+  const bushes = useMemo(
+    () => generateBushData(SCENE_ELEMENT_COUNTS.bushes),
+    [],
+  );
   const rocks = useMemo(() => generateRockData(SCENE_ELEMENT_COUNTS.rocks), []);
-  const flowers = useMemo(() => generateFlowerData(SCENE_ELEMENT_COUNTS.flowers), []);
+  const flowers = useMemo(
+    () => generateFlowerData(SCENE_ELEMENT_COUNTS.flowers),
+    [],
+  );
 
   // Pre-calculate rotation speed multipliers for each shape (performance optimization)
   const shapeRotationMultipliers = useMemo(() => {
-    return Array.from({ length: SCENE_ELEMENT_COUNTS.mainShapes }, (_, index) => ({
-      x: SHAPE_ROTATION.base.x + (index % SHAPE_ROTATION.modulo.x) * SHAPE_ROTATION.variation.x,
-      y: SHAPE_ROTATION.base.y + (index % SHAPE_ROTATION.modulo.y) * SHAPE_ROTATION.variation.y,
-      z: SHAPE_ROTATION.base.z + (index % SHAPE_ROTATION.modulo.z) * SHAPE_ROTATION.variation.z,
-    }));
+    return Array.from(
+      { length: SCENE_ELEMENT_COUNTS.mainShapes },
+      (_, index) => ({
+        x:
+          SHAPE_ROTATION.base.x +
+          (index % SHAPE_ROTATION.modulo.x) * SHAPE_ROTATION.variation.x,
+        y:
+          SHAPE_ROTATION.base.y +
+          (index % SHAPE_ROTATION.modulo.y) * SHAPE_ROTATION.variation.y,
+        z:
+          SHAPE_ROTATION.base.z +
+          (index % SHAPE_ROTATION.modulo.z) * SHAPE_ROTATION.variation.z,
+      }),
+    );
   }, []);
 
   // Demand-based rendering: Request renders when scene state changes (Phase 3 Task #6)
@@ -99,8 +126,9 @@ export default function HomepageScene({
     const safeDelta = delta || 0.016;
 
     // Rotate main group continuously (except in troposphere)
-    if (groupRef.current && phase !== 'troposphere') {
-      groupRef.current.rotation.y += safeDelta * SCENE_ANIMATION_SPEEDS.groupRotation * intensity;
+    if (groupRef.current && phase !== "troposphere") {
+      groupRef.current.rotation.y +=
+        safeDelta * SCENE_ANIMATION_SPEEDS.groupRotation * intensity;
       groupRef.current.rotation.y %= Math.PI * 2;
     }
 
@@ -154,34 +182,45 @@ export default function HomepageScene({
         />
 
         {/* Main floating shapes (Exosphere & Thermosphere) */}
-        {(opacities.exosphere > 0 || opacities.thermosphere > 0) && mainShapes.map((shape, i) => (
-          <Float
-            key={i}
-            speed={FLOAT_CONFIG.baseSpeed + (i % FLOAT_CONFIG.speedModulo) * FLOAT_CONFIG.speedVariation}
-            rotationIntensity={FLOAT_CONFIG.rotationIntensity}
-            floatIntensity={FLOAT_CONFIG.floatIntensity}
-            floatingRange={FLOAT_CONFIG.floatingRange}
-          >
-            <mesh
-              ref={setShapeRef(i)}
-              position={shape.position}
-              rotation={shape.rotation}
-              scale={shape.scale}
-              geometry={shape.geometry}
-              castShadow
+        {(opacities.exosphere > 0 || opacities.thermosphere > 0) &&
+          mainShapes.map((shape, i) => (
+            <Float
+              key={i}
+              speed={
+                FLOAT_CONFIG.baseSpeed +
+                (i % FLOAT_CONFIG.speedModulo) * FLOAT_CONFIG.speedVariation
+              }
+              rotationIntensity={FLOAT_CONFIG.rotationIntensity}
+              floatIntensity={FLOAT_CONFIG.floatIntensity}
+              floatingRange={FLOAT_CONFIG.floatingRange}
             >
-              <meshStandardMaterial
-                color={shape.color}
-                emissive={shape.color}
-                emissiveIntensity={opacities.thermosphere > 0 ? SHAPE_MATERIAL.emissiveThermosphere : SHAPE_MATERIAL.emissiveExosphere}
-                transparent
-                opacity={SHAPE_MATERIAL.opacity * Math.max(opacities.exosphere, opacities.thermosphere)}
-                roughness={SHAPE_MATERIAL.roughness}
-                metalness={SHAPE_MATERIAL.metalness}
-              />
-            </mesh>
-          </Float>
-        ))}
+              <mesh
+                ref={setShapeRef(i)}
+                position={shape.position}
+                rotation={shape.rotation}
+                scale={shape.scale}
+                geometry={shape.geometry}
+                castShadow
+              >
+                <meshStandardMaterial
+                  color={shape.color}
+                  emissive={shape.color}
+                  emissiveIntensity={
+                    opacities.thermosphere > 0
+                      ? SHAPE_MATERIAL.emissiveThermosphere
+                      : SHAPE_MATERIAL.emissiveExosphere
+                  }
+                  transparent
+                  opacity={
+                    SHAPE_MATERIAL.opacity *
+                    Math.max(opacities.exosphere, opacities.thermosphere)
+                  }
+                  roughness={SHAPE_MATERIAL.roughness}
+                  metalness={SHAPE_MATERIAL.metalness}
+                />
+              </mesh>
+            </Float>
+          ))}
       </group>
     </>
   );

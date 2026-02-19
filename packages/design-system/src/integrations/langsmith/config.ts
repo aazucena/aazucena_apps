@@ -13,7 +13,7 @@ export const langsmithBranding = {
     managerial: toHex(colors.amber[500]),
     security: toHex(colors.destructive[500]),
   },
-  
+
   /** Colors for different trace types or outcomes */
   traces: {
     success: toHex(colors.success[500]),
@@ -21,7 +21,7 @@ export const langsmithBranding = {
     streaming: toHex(colors.primary[300]),
     cached: toHex(colors.zinc[500]),
   },
-  
+
   /** UI primary accent for LangSmith shared views */
   accent: toHex(colors.primary[500]),
 } as const;

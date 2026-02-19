@@ -17,15 +17,19 @@ Complete reference for the aazucena Motion Intelligence Engine.
 ## Core Topics
 
 ### GSAP Utilities
+
 Entrance/exit animations, scroll-triggered effects, timeline sequencing, atmospheric layer transitions.
 
 ### Three.js Helpers
+
 Scene setup, geometry creators, material presets, lighting utilities, post-processing.
 
 ### PixiJS Wrappers
+
 High-performance 2D particle systems, sprite management, culling, batch rendering.
 
 ### Performance Optimization
+
 Device capability detection, performance tiers, adaptive animation quality, 60fps maintenance.
 
 ---

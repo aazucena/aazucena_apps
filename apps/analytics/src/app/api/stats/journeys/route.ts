@@ -29,18 +29,18 @@ export async function GET(req: NextRequest) {
         format: 'JSONEachRow',
       });
 
-      const rawEvents = await resultSet.json() as any[];
-      const events = rawEvents.map(ev => ({
+      const rawEvents = (await resultSet.json()) as any[];
+      const events = rawEvents.map((ev) => ({
         ...ev,
-        data: ev.data && typeof ev.data === 'string' ? JSON.parse(ev.data) : ev.data
+        data: ev.data && typeof ev.data === 'string' ? JSON.parse(ev.data) : ev.data,
       }));
 
       return NextResponse.json({
         success: true,
         data: {
           sessionId,
-          events
-        }
+          events,
+        },
       });
     }
 
@@ -64,13 +64,12 @@ export async function GET(req: NextRequest) {
       format: 'JSONEachRow',
     });
 
-    const journeys = await resultSet.json() as any[];
+    const journeys = (await resultSet.json()) as any[];
 
     return NextResponse.json({
       success: true,
-      data: journeys
+      data: journeys,
     });
-
   } catch (error) {
     console.error('[STATS_JOURNEYS_ERROR]', error);
     return NextResponse.json({ error: 'FAILED_TO_FETCH_JOURNEYS' }, { status: 500 });

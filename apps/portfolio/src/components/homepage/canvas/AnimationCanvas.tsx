@@ -11,8 +11,8 @@ import type { JSX } from "react";
 import { Canvas } from "@react-three/fiber";
 import PixiJSParticles from "~/components/animations/PixiJSParticles";
 import HomepageScene from "../HomepageScene";
-import type { AtmosphericPhase } from '~/config/animations';
-import { useAnimation, usePortfolio } from '~/contexts/animations';
+import type { AtmosphericPhase } from "~/config/animations";
+import { useAnimation, usePortfolio } from "~/contexts/animations";
 
 interface AnimationCanvasProps {
   // Only atmospheric layer remains as prop (not in context)
@@ -35,17 +35,19 @@ export default function AnimationCanvas({
   return (
     <>
       {/* PixiJS Particles - Only in Exosphere */}
-      {mounted && atmosphericLayer === "exosphere" && typeof window !== "undefined" && (
-        <div
-          className="fixed inset-0 transition-opacity duration-1000"
-          style={{ opacity: 1 }}
-        >
-          <PixiJSParticles
-            width={window.innerWidth}
-            height={window.innerHeight}
-          />
-        </div>
-      )}
+      {mounted &&
+        atmosphericLayer === "exosphere" &&
+        typeof window !== "undefined" && (
+          <div
+            className="fixed inset-0 transition-opacity duration-1000"
+            style={{ opacity: 1 }}
+          >
+            <PixiJSParticles
+              width={window.innerWidth}
+              height={window.innerHeight}
+            />
+          </div>
+        )}
 
       {/* Three.js Canvas - Demand-based rendering (Phase 3 Task #6) */}
       <div className="fixed inset-0 z-20 transition-opacity duration-1000">

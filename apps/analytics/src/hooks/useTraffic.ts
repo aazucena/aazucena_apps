@@ -11,8 +11,8 @@ interface TrafficStatsData {
     total_pageviews: number;
     direct_traffic: number;
   };
-  trends: { date: string; visitors: number; pageviews: number; }[];
-  geo: { country: string; visitors: number; }[];
+  trends: { date: string; visitors: number; pageviews: number }[];
+  geo: { country: string; visitors: number }[];
 }
 
 export function useTrafficStats() {

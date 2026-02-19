@@ -58,8 +58,10 @@ This policy may be updated to reflect changes in site functionality or legal req
 For any privacy-related questions, please reach out via the contact form or directly at **contact@aazucena.com**.`,
     seo: {
       metaTitle: 'Privacy Policy | Aldrin Azucena',
-      metaDescription: 'Detailed information on how personal data and privacy are handled on Aldrin Azucena\'s professional portfolio.',
-      keywords: 'privacy policy, data protection, personal information, data security, gdpr, engineering portfolio',
+      metaDescription:
+        "Detailed information on how personal data and privacy are handled on Aldrin Azucena's professional portfolio.",
+      keywords:
+        'privacy policy, data protection, personal information, data security, gdpr, engineering portfolio',
     },
   },
   {
@@ -112,8 +114,10 @@ These terms are governed by and construed in accordance with the laws of Canada,
 I reserve the right to revise these terms at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms of Service.`,
     seo: {
       metaTitle: 'Terms of Service | Aldrin Azucena',
-      metaDescription: 'Standard terms and conditions for using the professional portfolio and technical resources of Aldrin Azucena.',
-      keywords: 'terms of service, legal, intellectual property, code license, engineering portfolio',
+      metaDescription:
+        'Standard terms and conditions for using the professional portfolio and technical resources of Aldrin Azucena.',
+      keywords:
+        'terms of service, legal, intellectual property, code license, engineering portfolio',
     },
   },
 ];

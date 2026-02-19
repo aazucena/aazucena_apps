@@ -7,11 +7,7 @@
 import type { JSX } from 'react';
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { 
-  OrbitControls, 
-  PerspectiveCamera, 
-  Stats, 
-} from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Stats } from '@react-three/drei';
 
 // Import internal design system
 import { TooltipProvider, Section } from '@aazucena/ui';
@@ -40,18 +36,18 @@ export interface ObjectViewerProps {
  * Internal View Orchestrator (Accesses context)
  */
 function ObjectViewInternal({ showGrid: initialShowGrid }: { showGrid: boolean }) {
-  const { 
-    showGrid, 
-    autoRotate, 
-    showStats, 
-    controlsRef, 
-    isCapturing 
-  } = useObjectViewer();
+  const { showGrid, autoRotate, showStats, controlsRef, isCapturing } = useObjectViewer();
 
   return (
-    <Section contentWidth="full" variant="default" className="relative flex flex-col group h-full overflow-hidden">
+    <Section
+      contentWidth="full"
+      variant="default"
+      className="relative flex flex-col group h-full overflow-hidden"
+    >
       {/* Shutter Flash Effect */}
-      <div className={`absolute inset-0 z-50 bg-white pointer-events-none transition-opacity duration-300 ${isCapturing ? 'opacity-40' : 'opacity-0'}`} />
+      <div
+        className={`absolute inset-0 z-50 bg-white pointer-events-none transition-opacity duration-300 ${isCapturing ? 'opacity-40' : 'opacity-0'}`}
+      />
 
       {/* Layer 1: HUD & Metadata */}
       <ObjectViewerHUD />
@@ -60,29 +56,24 @@ function ObjectViewInternal({ showGrid: initialShowGrid }: { showGrid: boolean }
       <ObjectViewerControls />
 
       {/* Layer 3: The 3D Engine */}
-      <Canvas 
-        shadows 
-        gl={{ antialias: true, preserveDrawingBuffer: true }}
-      >
+      <Canvas shadows gl={{ antialias: true, preserveDrawingBuffer: true }}>
         <PerspectiveCamera makeDefault position={[5, 3, 5]} fov={50} />
-        
+
         <Suspense fallback={<ObjectViewerLoading />}>
           <ObjectViewerStage />
         </Suspense>
 
-        {showGrid && (
-          <gridHelper args={[20, 20, 0x444444, 0x222222]} />
-        )}
+        {showGrid && <gridHelper args={[20, 20, 0x444444, 0x222222]} />}
 
         {showStats && <Stats className="!left-auto !right-0 !top-auto !bottom-0" />}
-        
-        <OrbitControls 
+
+        <OrbitControls
           ref={controlsRef}
-          makeDefault 
-          autoRotate={autoRotate} 
-          autoRotateSpeed={0.5} 
-          minDistance={2} 
-          maxDistance={15} 
+          makeDefault
+          autoRotate={autoRotate}
+          autoRotateSpeed={0.5}
+          minDistance={2}
+          maxDistance={15}
           enableDamping
         />
       </Canvas>
@@ -96,12 +87,12 @@ function ObjectViewInternal({ showGrid: initialShowGrid }: { showGrid: boolean }
 export function ObjectViewer(props: ObjectViewerProps): JSX.Element {
   return (
     <TooltipProvider>
-      <ObjectViewerProvider 
-        objectKey={props.objectKey} 
-        initialShowGrid={props.showGrid} 
+      <ObjectViewerProvider
+        objectKey={props.objectKey}
+        initialShowGrid={props.showGrid}
         initialAutoRotate={props.autoRotate}
       >
-        <div className={`w-full h-full ${props.className || "bg-zinc-100 dark:bg-zinc-950"}`}>
+        <div className={`w-full h-full ${props.className || 'bg-zinc-100 dark:bg-zinc-950'}`}>
           <ObjectViewInternal showGrid={props.showGrid ?? true} />
         </div>
       </ObjectViewerProvider>

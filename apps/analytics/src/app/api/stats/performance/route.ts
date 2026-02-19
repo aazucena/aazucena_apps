@@ -78,7 +78,10 @@ export async function GET() {
       ORDER BY timestamp DESC
       LIMIT 10
     `;
-    const integrityResult = await mainClickhouseClient.query({ query: integrityQuery, format: 'JSONEachRow' });
+    const integrityResult = await mainClickhouseClient.query({
+      query: integrityQuery,
+      format: 'JSONEachRow',
+    });
     const integrityData = await integrityResult.json();
 
     return NextResponse.json({
@@ -90,7 +93,7 @@ export async function GET() {
           summary: errorSummaryData[0] || {},
           top: topErrorsData,
         },
-      }
+      },
     });
   } catch (error) {
     console.error('Performance Stats Fetch Error:', error);

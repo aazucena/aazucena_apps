@@ -44,7 +44,7 @@ export function useTrendAnalysis() {
       const res = await fetch(`/api/stats/trends?range=${timeRange}`);
       if (!res.ok) throw new Error('FAILED_TRENDS_FETCH');
       const json = await res.json();
-      
+
       // Normalize dates for D3 immediately
       return {
         stream: json.data.stream.map((d: any) => ({ ...d, date: new Date(d.date) })),
@@ -103,7 +103,7 @@ export function usePlausibleStats() {
       const res = await fetch('/api/stats/plausible');
       if (!res.ok) throw new Error('FAILED_PLAUSIBLE_FETCH');
       const json = await res.json();
-      
+
       // Normalize dates
       return json.data.map((d: any) => ({
         ...d,

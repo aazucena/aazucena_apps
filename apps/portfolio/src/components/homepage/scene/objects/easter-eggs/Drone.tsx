@@ -3,12 +3,12 @@
  * Hovering drone with spinning propellers (Troposphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface DroneProps {
   opacity: number;
@@ -20,7 +20,7 @@ const propellerArmPositions: readonly [number, number][] = [
   [0.8, 0.8],
   [0.8, -0.8],
   [-0.8, 0.8],
-  [-0.8, -0.8]
+  [-0.8, -0.8],
 ] as const;
 
 export function Drone({ opacity }: DroneProps): JSX.Element {
@@ -36,8 +36,8 @@ export function Drone({ opacity }: DroneProps): JSX.Element {
       positionWave: {
         base: { x: 0, y: 0, z: 0 }, // Position handled by SceneObject wrapper
         y: { frequency: 1.5, amplitude: 0.2 },
-        x: { frequency: 0.4, amplitude: 1 }
-      }
+        x: { frequency: 0.4, amplitude: 1 },
+      },
     });
 
     // Propeller spinning (imperative for child element access)
@@ -56,13 +56,25 @@ export function Drone({ opacity }: DroneProps): JSX.Element {
       {/* Central body */}
       <mesh>
         <boxGeometry args={[0.6, 0.2, 0.6]} />
-        <meshStandardMaterial color="#1f2937" metalness={0.6} roughness={0.4} transparent opacity={opacity} />
+        <meshStandardMaterial
+          color="#1f2937"
+          metalness={0.6}
+          roughness={0.4}
+          transparent
+          opacity={opacity}
+        />
       </mesh>
 
       {/* Camera */}
       <mesh position={[0, -0.15, 0]}>
         <sphereGeometry args={[0.1, 12, 12]} />
-        <meshStandardMaterial color="#374151" metalness={0.7} roughness={0.3} transparent opacity={opacity} />
+        <meshStandardMaterial
+          color="#374151"
+          metalness={0.7}
+          roughness={0.3}
+          transparent
+          opacity={opacity}
+        />
       </mesh>
 
       {/* Lens */}
@@ -81,15 +93,30 @@ export function Drone({ opacity }: DroneProps): JSX.Element {
       {propellerArmPositions.map((pos, i) => (
         <group key={i}>
           {/* Arm */}
-          <mesh position={[pos[0] / 2, 0, pos[1] / 2]} rotation={[0, Math.atan2(pos[1], pos[0]), 0]}>
+          <mesh
+            position={[pos[0] / 2, 0, pos[1] / 2]}
+            rotation={[0, Math.atan2(pos[1], pos[0]), 0]}
+          >
             <cylinderGeometry args={[0.03, 0.03, 0.9, 8]} />
-            <meshStandardMaterial color="#4b5563" metalness={0.7} roughness={0.3} transparent opacity={opacity} />
+            <meshStandardMaterial
+              color="#4b5563"
+              metalness={0.7}
+              roughness={0.3}
+              transparent
+              opacity={opacity}
+            />
           </mesh>
 
           {/* Motor */}
           <mesh position={[pos[0], 0.15, pos[1]]}>
             <cylinderGeometry args={[0.08, 0.08, 0.1, 12]} />
-            <meshStandardMaterial color="#6b7280" metalness={0.8} roughness={0.2} transparent opacity={opacity} />
+            <meshStandardMaterial
+              color="#6b7280"
+              metalness={0.8}
+              roughness={0.2}
+              transparent
+              opacity={opacity}
+            />
           </mesh>
 
           {/* Propeller (will spin in animation) */}

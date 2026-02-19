@@ -8,13 +8,13 @@ Centralized React Context providers for global state management across the portf
 
 ## 🛠️ TOOLKIT_MANIFEST
 
-| System                  | Protocol         | Description                                                                 |
-| :---------------------- | :--------------- | :-------------------------------------------------------------------------- |
-| **AnimationContext**    | Device_State     | Device capabilities, sound settings, performance tiers.                     |
-| **PortfolioContext**    | Navigation_State | Section navigation, scroll progress, modal/panel state.                     |
-| **DataContext**         | CMS_Provider     | CMS data provider (homepage, portfolio, section registry).                  |
-| **FormContext**         | Multi_Step_State | Multi-step form state, validation, submission tracking.                     |
-| **TelemetryContext**    | Analytics_Config | Analytics API configuration for meta-framework agnosticism.                 |
+| System               | Protocol         | Description                                                 |
+| :------------------- | :--------------- | :---------------------------------------------------------- |
+| **AnimationContext** | Device_State     | Device capabilities, sound settings, performance tiers.     |
+| **PortfolioContext** | Navigation_State | Section navigation, scroll progress, modal/panel state.     |
+| **DataContext**      | CMS_Provider     | CMS data provider (homepage, portfolio, section registry).  |
+| **FormContext**      | Multi_Step_State | Multi-step form state, validation, submission tracking.     |
+| **TelemetryContext** | Analytics_Config | Analytics API configuration for meta-framework agnosticism. |
 
 ---
 

@@ -3,12 +3,12 @@
  * Commercial airplane with cruising flight path (Troposphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface AirplaneProps {
   opacity: number;
@@ -27,8 +27,8 @@ export function Airplane({ opacity }: AirplaneProps): JSX.Element {
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
         x: { frequency: 0.2, amplitude: 3 },
-        y: { frequency: 0.15, amplitude: 0.3 }
-      }
+        y: { frequency: 0.15, amplitude: 0.3 },
+      },
     });
   });
 

@@ -8,10 +8,10 @@ import { toHex } from '../../utils/color-converter.js';
 export const postmanBranding = {
   /** The main color used for headings and primary buttons */
   accentColor: toHex(colors.primary[500]),
-  
+
   /** The theme for the documentation workspace ('dark' or 'light') */
   theme: 'dark' as const,
-  
+
   /** Visual branding configuration */
   branding: {
     logo_background: toHex(colors.zinc[950]),
@@ -19,7 +19,7 @@ export const postmanBranding = {
     heading_color: toHex(colors.primary[500]),
     body_text_color: toHex(colors.zinc[100]),
     link_color: toHex(colors.primary[400]),
-  }
+  },
 } as const;
 
 export type PostmanBranding = typeof postmanBranding;

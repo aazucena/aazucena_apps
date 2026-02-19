@@ -7,11 +7,11 @@
  * REDUCTION: 289 lines removed (78% smaller!)
  */
 
-import type { JSX } from 'react';
-import { memo } from 'react';
-import { Sparkles } from '@react-three/drei';
-import { SceneObjectManager } from './objects';
-import { mesosphereObjects } from '~/data/scene/objects';
+import type { JSX } from "react";
+import { memo } from "react";
+import { Sparkles } from "@react-three/drei";
+import { SceneObjectManager } from "./objects";
+import { mesosphereObjects } from "~/data/scene/objects";
 
 export interface MesosphereProps {
   opacity: number;
@@ -34,11 +34,7 @@ function MesosphereComponent({ opacity }: MesosphereProps): JSX.Element {
       {Array.from({ length: 5 }).map((_, i) => (
         <mesh
           key={`cloud-${i}`}
-          position={[
-            -10 + i * 5,
-            -2 + Math.sin(i) * 2,
-            -15 + i * 3
-          ]}
+          position={[-10 + i * 5, -2 + Math.sin(i) * 2, -15 + i * 3]}
           rotation={[0, i * 0.3, 0]}
         >
           <planeGeometry args={[4, 2, 1, 1]} />
@@ -84,11 +80,7 @@ function MesosphereComponent({ opacity }: MesosphereProps): JSX.Element {
       {Array.from({ length: 5 }).map((_, i) => (
         <mesh
           key={`meteor-${i}`}
-          position={[
-            (i - 2) * 12,
-            6 - i * 2,
-            10 - i * 6
-          ]}
+          position={[(i - 2) * 12, 6 - i * 2, 10 - i * 6]}
           rotation={[Math.PI / 6, i * 0.5, 0]}
         >
           <cylinderGeometry args={[0.05, 0.15, 3, 8]} />
@@ -106,7 +98,7 @@ function MesosphereComponent({ opacity }: MesosphereProps): JSX.Element {
       <SceneObjectManager
         objects={mesosphereObjects.easterEggs}
         opacity={opacity}
-        categoryFilter={['easter-egg']}
+        categoryFilter={["easter-egg"]}
       />
     </>
   );
@@ -121,4 +113,4 @@ export const Mesosphere = memo(MesosphereComponent, (prevProps, nextProps) => {
   return Math.abs(prevProps.opacity - nextProps.opacity) < 0.01;
 });
 
-Mesosphere.displayName = 'Mesosphere';
+Mesosphere.displayName = "Mesosphere";

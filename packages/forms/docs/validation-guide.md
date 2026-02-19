@@ -82,14 +82,17 @@ const form = useForm({
 ### Email Uniqueness Check
 
 ```typescript
-const emailSchema = z.string().email().refine(
-  async (email) => {
-    const response = await fetch(`/api/check-email?email=${email}`);
-    const { available } = await response.json();
-    return available;
-  },
-  { message: 'Email is already taken' }
-);
+const emailSchema = z
+  .string()
+  .email()
+  .refine(
+    async (email) => {
+      const response = await fetch(`/api/check-email?email=${email}`);
+      const { available } = await response.json();
+      return available;
+    },
+    { message: 'Email is already taken' },
+  );
 ```
 
 ---

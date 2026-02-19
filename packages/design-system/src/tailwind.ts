@@ -155,7 +155,7 @@ const tailwindPreset: Config = {
   plugins: [
     typographyPlugin,
     tailwindcssAnimate,
-    ({ addUtilities }: { addUtilities: Function }) => {
+    ({ addUtilities }: { addUtilities: (...args: any[]) => any }) => {
       addUtilities({
         '.glass': {
           '@apply bg-white/40 backdrop-blur-xl border border-white/50 shadow-xl dark:bg-black/40 dark:border-white/10':
@@ -167,7 +167,7 @@ const tailwindPreset: Config = {
         },
       });
     },
-    ({ addVariant }: { addVariant: Function }) => {
+    ({ addVariant }: { addVariant: (...args: any[]) => any }) => {
       addVariant('data-open', ['&[data-state="open"]', '&[data-state="opened"]']);
       addVariant('data-closed', ['&[data-state="closed"]', '&[data-state="closed"]']);
       addVariant('data-active', ['&[data-state="active"]', '&[data-active="true"]']);

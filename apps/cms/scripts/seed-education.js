@@ -109,7 +109,7 @@ Comprehensive program covering software engineering, algorithms, data structures
       'Agile',
       'Software Development Life Cycle',
       'High-Concurrency System Management',
-      'Real-Time Data Stream Processing'
+      'Real-Time Data Stream Processing',
     ],
     sort: 0,
     featured: true,
@@ -196,7 +196,7 @@ Two-year technical program focused on practical IT skills, programming fundament
       'Unit Testing',
       'Debugging',
       'Web Applications',
-      'Application Development'
+      'Application Development',
     ],
     sort: 1,
     featured: true,
@@ -239,7 +239,7 @@ Comprehensive IBM professional certificate covering modern full-stack developmen
       'Full Stack Application Development Capstone Project',
       'Full Stack Software Developer Assessment',
       'Generative AI: Elevate your Software Development Career',
-      'Software Developer Career Guide and Interview Preparation'
+      'Software Developer Career Guide and Interview Preparation',
     ],
     skills: [
       'Software Engineering',
@@ -303,7 +303,8 @@ Comprehensive IBM professional certificate covering modern full-stack developmen
       'Programming Principles',
       'Interviewing Skills',
     ],
-    credentialUrl: 'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer',
+    credentialUrl:
+      'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer',
     sort: 2,
     featured: true,
     display: 'featured',
@@ -431,7 +432,7 @@ Foundational course introducing AI concepts, applications, and ethical considera
       'Key AI Technologies',
       'Ethics and Responsible AI Use',
       'AI Applications and Human-AI Collaboration',
-      'Case Studies'
+      'Case Studies',
     ],
     skills: [
       'AI Fundamentals',
@@ -484,9 +485,7 @@ async function seedEducation() {
       }
 
       if (missingSkills.length > 0) {
-        console.warn(
-          `  ⚠️  Missing skills for ${education.degree}: ${missingSkills.join(', ')}`
-        );
+        console.warn(`  ⚠️  Missing skills for ${education.degree}: ${missingSkills.join(', ')}`);
       }
 
       if (existingEducation) {

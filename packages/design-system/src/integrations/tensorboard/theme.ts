@@ -14,21 +14,21 @@ export const tensorboardTheme = {
     toHex(colors.amber[500]),
     toHex(colors.destructive[500]),
   ],
-  
+
   /** UI colors for the TensorBoard dashboard */
   ui: {
     background: toHex(colors.zinc[950]),
     foreground: toHex(colors.zinc[100]),
     paper: toHex(colors.zinc[900]),
   },
-  
+
   /** Specific colors for loss and accuracy charts */
   metrics: {
     loss: toHex(colors.destructive[500]),
     accuracy: toHex(colors.success[500]),
     val_loss: toHex(colors.destructive[300]),
     val_accuracy: toHex(colors.success[300]),
-  }
+  },
 } as const;
 
 export type TensorboardTheme = typeof tensorboardTheme;

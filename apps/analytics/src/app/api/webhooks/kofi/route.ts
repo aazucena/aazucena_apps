@@ -34,7 +34,10 @@ export async function POST(req: NextRequest) {
     }
 
     const row = {
-      timestamp: new Date(event.timestamp || Date.now()).toISOString().slice(0, 19).replace('T', ' '),
+      timestamp: new Date(event.timestamp || Date.now())
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
       transaction_id: event.kofi_transaction_id || event.message_id,
       provider: 'KOFI',
       amount: parseFloat(String(event.amount)),
@@ -47,8 +50,8 @@ export async function POST(req: NextRequest) {
         from_name: event.from_name || '',
         message: event.message || '',
         url: event.url || '',
-        is_public: String(event.is_public || false)
-      }
+        is_public: String(event.is_public || false),
+      },
     };
 
     await mainClickhouseClient.insert({
@@ -57,9 +60,10 @@ export async function POST(req: NextRequest) {
       format: 'JSONEachRow',
     });
 
-    console.log(`[KofiWebhook] Ingested ${row.type} of $${row.amount} from ${row.metadata.from_name}`);
+    console.log(
+      `[KofiWebhook] Ingested ${row.type} of $${row.amount} from ${row.metadata.from_name}`,
+    );
     return NextResponse.json({ received: true });
-
   } catch (err) {
     console.error(`[KofiWebhook] Error:`, err);
     return NextResponse.json({ message: 'Webhook handler failed' }, { status: 400 });

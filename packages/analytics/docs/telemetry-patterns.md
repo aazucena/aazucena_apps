@@ -248,16 +248,16 @@ Events are collected in memory and sent in batches to reduce network overhead:
 ```typescript
 // Configuration
 setTelemetryConfig({
-  batchSize: 10,      // Send after 10 events
+  batchSize: 10, // Send after 10 events
   flushInterval: 5000, // Or send after 5 seconds
 });
 
 // Events are batched automatically
 trackEvent({ category: 'navigation', action: 'page_view' }); // Event 1
-trackEvent({ category: 'interaction', action: 'click' });    // Event 2
-trackEvent({ category: 'interaction', action: 'click' });    // Event 3
+trackEvent({ category: 'interaction', action: 'click' }); // Event 2
+trackEvent({ category: 'interaction', action: 'click' }); // Event 3
 // ... 7 more events ...
-trackEvent({ category: 'interaction', action: 'submit' });   // Event 10
+trackEvent({ category: 'interaction', action: 'submit' }); // Event 10
 
 // Batch of 10 events sent to /api/ingest
 ```
@@ -328,7 +328,7 @@ setTelemetryConfig({
   endpoint: '/api/ingest',
   enabled: true,
   persistQueue: true, // Save queue to localStorage
-  maxQueueSize: 100,  // Maximum queued events
+  maxQueueSize: 100, // Maximum queued events
 });
 
 // Events persist across page reloads
@@ -369,13 +369,13 @@ trackWebVitals((metric) => {
 
 ### Web Vitals Thresholds
 
-| Metric | Good | Needs Improvement | Poor |
-|:-------|:-----|:------------------|:-----|
-| **CLS** (Cumulative Layout Shift) | ≤ 0.1 | 0.1 - 0.25 | > 0.25 |
-| **FID** (First Input Delay) | ≤ 100ms | 100 - 300ms | > 300ms |
-| **LCP** (Largest Contentful Paint) | ≤ 2.5s | 2.5 - 4.0s | > 4.0s |
-| **FCP** (First Contentful Paint) | ≤ 1.8s | 1.8 - 3.0s | > 3.0s |
-| **TTFB** (Time to First Byte) | ≤ 800ms | 800 - 1800ms | > 1800ms |
+| Metric                             | Good    | Needs Improvement | Poor     |
+| :--------------------------------- | :------ | :---------------- | :------- |
+| **CLS** (Cumulative Layout Shift)  | ≤ 0.1   | 0.1 - 0.25        | > 0.25   |
+| **FID** (First Input Delay)        | ≤ 100ms | 100 - 300ms       | > 300ms  |
+| **LCP** (Largest Contentful Paint) | ≤ 2.5s  | 2.5 - 4.0s        | > 4.0s   |
+| **FCP** (First Contentful Paint)   | ≤ 1.8s  | 1.8 - 3.0s        | > 3.0s   |
+| **TTFB** (Time to First Byte)      | ≤ 800ms | 800 - 1800ms      | > 1800ms |
 
 ---
 
@@ -417,7 +417,7 @@ trackEvent({
   action: 'form_submit',
   metadata: {
     email: 'user@example.com', // PII
-    name: 'John Doe',           // PII
+    name: 'John Doe', // PII
   },
 });
 
@@ -543,7 +543,7 @@ const PurchaseSchema = createEventSchema({
         name: z.string(),
         price: z.number().positive(),
         quantity: z.number().int().positive(),
-      })
+      }),
     ),
     currency: z.string().length(3).default('USD'),
     paymentMethod: z.enum(['card', 'paypal', 'crypto']).optional(),
@@ -559,7 +559,7 @@ trackEvent(PurchaseSchema, {
     transactionId: 'txn_abc123',
     items: [
       { productId: 'prod_1', name: 'Product 1', price: 99.99, quantity: 1 },
-      { productId: 'prod_2', name: 'Product 2', price: 50.00, quantity: 1 },
+      { productId: 'prod_2', name: 'Product 2', price: 50.0, quantity: 1 },
     ],
     currency: 'USD',
     paymentMethod: 'card',
@@ -594,9 +594,7 @@ describe('Component with tracking', () => {
       action: 'button_click',
     });
 
-    expect(spy).toHaveBeenCalledWith(
-      expect.stringContaining('button_click')
-    );
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining('button_click'));
   });
 });
 ```

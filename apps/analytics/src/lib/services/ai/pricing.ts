@@ -7,7 +7,7 @@ export const MODEL_REGISTRY: Record<string, { in: number; out: number }> = {
   'openai/gpt-4o': { in: 5.0, out: 15.0 },
   'openai/gpt-4o-mini': { in: 0.15, out: 0.6 },
   'openai/gpt-4-turbo': { in: 10.0, out: 30.0 },
-  
+
   // Anthropic
   'anthropic/claude-3-5-sonnet': { in: 3.0, out: 15.0 },
   'anthropic/claude-3-opus': { in: 15.0, out: 75.0 },
@@ -21,11 +21,11 @@ export const MODEL_REGISTRY: Record<string, { in: number; out: number }> = {
   // Local Models (Ollama)
   'llama3.2': { in: 0, out: 0 },
   'llama3.1': { in: 0, out: 0 },
-  'phi3': { in: 0, out: 0 },
+  phi3: { in: 0, out: 0 },
   'nomic-embed-text': { in: 0, out: 0 },
 
   // Default fallback for unknown models
-  'default': { in: 0, out: 0 }
+  default: { in: 0, out: 0 },
 };
 
 /**
@@ -33,13 +33,13 @@ export const MODEL_REGISTRY: Record<string, { in: number; out: number }> = {
  */
 export function normalizeModelName(model: string): string {
   if (!model) return 'default';
-  
+
   // Strip ollama prefix if present
   let normalized = model.toLowerCase();
   if (normalized.startsWith('ollama/')) {
     normalized = normalized.replace('ollama/', '');
   }
-  
+
   return normalized;
 }
 
@@ -54,10 +54,10 @@ export const SAVINGS_BASELINE_MODEL = 'openai/gpt-4o';
 export function calculateAiCost(model: string, inputTokens: number, outputTokens: number): number {
   const normalized = normalizeModelName(model);
   const pricing = MODEL_REGISTRY[normalized] || MODEL_REGISTRY['default'];
-  
+
   const inputCost = (inputTokens / 1_000_000) * pricing.in;
   const outputCost = (outputTokens / 1_000_000) * pricing.out;
-  
+
   return inputCost + outputCost;
 }
 

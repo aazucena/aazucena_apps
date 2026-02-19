@@ -14,8 +14,8 @@
 // Scene Management
 // NOTE: SceneLayerManager (non-lazy) export removed - we now ONLY use LazySceneLayerManager
 // Exporting both would prevent code-splitting since SceneLayerManager imports all layers directly
-export * from './SceneLayerManager.lazy';
-export * from './SceneLighting';
+export * from "./SceneLayerManager.lazy";
+export * from "./SceneLighting";
 
 // Scene Objects (kept at depth 2)
-export * from './objects';
+export * from "./objects";

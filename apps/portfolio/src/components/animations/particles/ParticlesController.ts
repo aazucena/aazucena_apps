@@ -3,8 +3,8 @@
  * Manages particle system lifecycle and state
  */
 
-import type { ParticleSystemConfig, Particle } from './types';
-import { PARTICLE_DEFAULTS, PARTICLE_PRESETS } from '~/config/animations';
+import type { ParticleSystemConfig, Particle } from "./types";
+import { PARTICLE_DEFAULTS, PARTICLE_PRESETS } from "~/config/animations";
 
 export class ParticlesController {
   private particles: Particle[] = [];
@@ -23,7 +23,7 @@ export class ParticlesController {
       opacity: config.opacity || preset?.opacity || PARTICLE_DEFAULTS.OPACITY,
       color: config.color,
       phase: config.phase,
-      preset: config.preset
+      preset: config.preset,
     };
   }
 
@@ -42,41 +42,48 @@ export class ParticlesController {
    */
   private createParticle(width: number, height: number): Particle {
     // Get colors from preset or use defaults
-    const preset = this.config.preset ? PARTICLE_PRESETS[this.config.preset] : null;
+    const preset = this.config.preset
+      ? PARTICLE_PRESETS[this.config.preset]
+      : null;
     const colors = preset?.colors || [
       0xffffff, // White
       0xe0f0ff, // Blue-white
       0x88ffff, // Cyan
       0xfffacd, // Pale yellow
-      0xddeeff  // Icy blue
+      0xddeeff, // Icy blue
     ];
 
     const baseColor = colors[0] || 0xffffff; // First color as base
-    const targetColor = colors[Math.floor(Math.random() * colors.length)] || 0xffffff;
+    const targetColor =
+      colors[Math.floor(Math.random() * colors.length)] || 0xffffff;
     const baseAlpha = this.config.opacity * (0.6 + Math.random() * 0.4);
 
     // Get twinkling speed from preset or use defaults
-    const twinkleSpeedMin = preset?.twinkling ? (preset.twinkleSpeed?.min || 0.5) : 0.5;
-    const twinkleSpeedMax = preset?.twinkling ? (preset.twinkleSpeed?.max || 1.5) : 1.5;
+    const twinkleSpeedMin = preset?.twinkling
+      ? preset.twinkleSpeed?.min || 0.5
+      : 0.5;
+    const twinkleSpeedMax = preset?.twinkling
+      ? preset.twinkleSpeed?.max || 1.5
+      : 1.5;
 
     // Apply preset-specific motion
     let vx = (Math.random() - 0.5) * this.config.speed * 10; // 10x multiplier for visibility
     let vy = (Math.random() - 0.5) * this.config.speed * 10;
 
     if (this.config.preset) {
-      if (this.config.preset === 'rain') {
+      if (this.config.preset === "rain") {
         // Rain falls straight down with some drift
         vx = (Math.random() - 0.5) * 0.5;
         vy = this.config.speed * 50; // Fast downward
-      } else if (this.config.preset === 'snow') {
+      } else if (this.config.preset === "snow") {
         // Snow drifts sideways while falling
         vx = (Math.random() - 0.5) * 2; // Gentle sideways drift
         vy = this.config.speed * 10; // Moderate fall
-      } else if (this.config.preset === 'space') {
+      } else if (this.config.preset === "space") {
         // Space - very slow drift
         vx = (Math.random() - 0.5) * this.config.speed * 2;
         vy = (Math.random() - 0.5) * this.config.speed * 2;
-      } else if (this.config.preset === 'floating') {
+      } else if (this.config.preset === "floating") {
         // Floating - slow random motion
         vx = (Math.random() - 0.5) * this.config.speed * 5;
         vy = (Math.random() - 0.5) * this.config.speed * 5;
@@ -92,11 +99,12 @@ export class ParticlesController {
       color: baseColor,
       alpha: baseAlpha,
       // Twinkling properties
-      twinkleSpeed: twinkleSpeedMin + Math.random() * (twinkleSpeedMax - twinkleSpeedMin),
+      twinkleSpeed:
+        twinkleSpeedMin + Math.random() * (twinkleSpeedMax - twinkleSpeedMin),
       twinklePhase: Math.random() * Math.PI * 2, // Random phase so they don't sync
       baseColor,
       targetColor,
-      baseAlpha
+      baseAlpha,
     };
   }
 
@@ -108,7 +116,7 @@ export class ParticlesController {
 
     const currentTime = performance.now() / 1000; // Convert to seconds
 
-    this.particles.forEach(particle => {
+    this.particles.forEach((particle) => {
       // Update position (velocity already scaled in createParticle)
       particle.x += particle.vx * deltaTime;
       particle.y += particle.vy * deltaTime;
@@ -120,7 +128,10 @@ export class ParticlesController {
       if (particle.y > height) particle.y = 0;
 
       // Update twinkling effect
-      const twinkle = Math.sin(currentTime * particle.twinkleSpeed + particle.twinklePhase) * 0.5 + 0.5;
+      const twinkle =
+        Math.sin(currentTime * particle.twinkleSpeed + particle.twinklePhase) *
+          0.5 +
+        0.5;
 
       // Interpolate alpha for twinkling
       particle.alpha = particle.baseAlpha * (0.3 + twinkle * 0.7);

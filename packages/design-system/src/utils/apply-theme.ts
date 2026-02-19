@@ -32,7 +32,10 @@ function getTrackedProps(root: HTMLElement): string[] {
  * applyVibe('cyberpunk');
  * applyVibe('halloween', 'light');
  */
-export function applyVibe(vibeId: string | keyof ThemeVibeRegistry, mode: 'light' | 'dark' = 'dark'): void {
+export function applyVibe(
+  vibeId: string | keyof ThemeVibeRegistry,
+  mode: 'light' | 'dark' = 'dark',
+): void {
   if (!isBrowser()) return;
 
   const vibe = vibes[resolveVibeId(vibeId)] ?? vibes['default'] ?? Object.values(vibes)[0];

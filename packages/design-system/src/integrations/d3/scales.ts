@@ -19,7 +19,7 @@ export const d3Scales = {
     toHex(colors.indigo[500]),
     toHex(colors.rose[500]),
   ],
-  
+
   /** Sequential scale for heatmaps or intensity (Zinc based) */
   sequentialZinc: [
     toHex(colors.zinc[950]),
@@ -29,7 +29,7 @@ export const d3Scales = {
     toHex(colors.zinc[200]),
     toHex(colors.zinc[50]),
   ],
-  
+
   /** Sequential scale for brand intensity (Cyan based) */
   sequentialPrimary: [
     toHex(colors.primary[950]),
@@ -39,7 +39,7 @@ export const d3Scales = {
     toHex(colors.primary[200]),
     toHex(colors.primary[50]),
   ],
-  
+
   /** Diverging scale (Success -> Zinc -> Danger) */
   diverging: [
     toHex(colors.success[600]),
@@ -47,7 +47,7 @@ export const d3Scales = {
     toHex(colors.zinc[200]),
     toHex(colors.destructive[200]),
     toHex(colors.destructive[600]),
-  ]
+  ],
 } as const;
 
 export type D3Scales = typeof d3Scales;

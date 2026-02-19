@@ -3,7 +3,7 @@
  * Handles particle emission and lifecycle
  */
 
-import type { Particle, ParticleEmitterConfig } from './types';
+import type { Particle, ParticleEmitterConfig } from "./types";
 
 export class ParticleEmitter {
   private config: ParticleEmitterConfig;
@@ -16,7 +16,7 @@ export class ParticleEmitter {
       lifetime: config.lifetime || 3000,
       initialVelocity: config.initialVelocity || { x: 0, y: -1 },
       velocityVariance: config.velocityVariance || 0.5,
-      sizeRange: config.sizeRange || [1, 3]
+      sizeRange: config.sizeRange || [1, 3],
     };
   }
 
@@ -38,7 +38,11 @@ export class ParticleEmitter {
   /**
    * Create a single particle with explosion physics
    */
-  private createParticle(x: number, y: number, burstCount: number = 1): Particle {
+  private createParticle(
+    x: number,
+    y: number,
+    burstCount: number = 1,
+  ): Particle {
     // Try to reuse from pool
     const particle = this.particlePool.pop() || this.createNewParticle();
 
@@ -52,7 +56,9 @@ export class ParticleEmitter {
       const speed = 100 + Math.random() * 100; // 100-200 pixels/sec
       particle.vx = Math.cos(angle) * speed;
       particle.vy = Math.sin(angle) * speed;
-      particle.size = this.config.sizeRange[0] + Math.random() * (this.config.sizeRange[1] - this.config.sizeRange[0]);
+      particle.size =
+        this.config.sizeRange[0] +
+        Math.random() * (this.config.sizeRange[1] - this.config.sizeRange[0]);
       particle.alpha = 1;
     } else {
       // Single particle (shooting star) - bright, fast, diagonal
@@ -87,7 +93,7 @@ export class ParticleEmitter {
       twinklePhase: 0,
       baseColor: 0xffffff,
       targetColor: 0xffffff,
-      baseAlpha: 1
+      baseAlpha: 1,
     };
   }
 
@@ -95,7 +101,7 @@ export class ParticleEmitter {
    * Update active particles (position + physics + fade-out)
    */
   update(deltaTime: number): void {
-    this.activeParticles = this.activeParticles.filter(particle => {
+    this.activeParticles = this.activeParticles.filter((particle) => {
       // Update position based on velocity
       particle.x += particle.vx * deltaTime;
       particle.y += particle.vy * deltaTime;

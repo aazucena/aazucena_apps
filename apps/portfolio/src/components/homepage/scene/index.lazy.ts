@@ -6,21 +6,23 @@
  * This reduces the initial JavaScript bundle by ~75-150KB (uncompressed).
  */
 
-import { lazy, type ComponentType } from 'react';
+import { lazy, type ComponentType } from "react";
 
 // Re-export prop types to satisfy TypeScript's module resolution
-export type { ExosphereProps } from './Exosphere';
-export type { ThermosphereProps } from './Thermosphere';
-export type { MesosphereProps } from './Mesosphere';
-export type { StratosphereProps } from './Stratosphere';
-export type { TroposphereProps } from './Troposphere';
+export type { ExosphereProps } from "./Exosphere";
+export type { ThermosphereProps } from "./Thermosphere";
+export type { MesosphereProps } from "./Mesosphere";
+export type { StratosphereProps } from "./Stratosphere";
+export type { TroposphereProps } from "./Troposphere";
 
 /**
  * Exosphere - Outermost space layer with Milky Way and particles
  * Loaded immediately (visible on page load)
  */
 export const ExosphereLazy = lazy(() =>
-  import('./Exosphere').then(module => ({ default: module.Exosphere as ComponentType<any> }))
+  import("./Exosphere").then((module) => ({
+    default: module.Exosphere as ComponentType<any>,
+  })),
 );
 
 /**
@@ -28,7 +30,9 @@ export const ExosphereLazy = lazy(() =>
  * Loaded when user scrolls to section 1-2
  */
 export const ThermosphereLazy = lazy(() =>
-  import('./Thermosphere').then(module => ({ default: module.Thermosphere as ComponentType<any> }))
+  import("./Thermosphere").then((module) => ({
+    default: module.Thermosphere as ComponentType<any>,
+  })),
 );
 
 /**
@@ -36,7 +40,9 @@ export const ThermosphereLazy = lazy(() =>
  * Loaded when user scrolls to section 2-3
  */
 export const MesosphereLazy = lazy(() =>
-  import('./Mesosphere').then(module => ({ default: module.Mesosphere as ComponentType<any> }))
+  import("./Mesosphere").then((module) => ({
+    default: module.Mesosphere as ComponentType<any>,
+  })),
 );
 
 /**
@@ -44,7 +50,9 @@ export const MesosphereLazy = lazy(() =>
  * Loaded when user scrolls to section 3-4
  */
 export const StratosphereLazy = lazy(() =>
-  import('./Stratosphere').then(module => ({ default: module.Stratosphere as ComponentType<any> }))
+  import("./Stratosphere").then((module) => ({
+    default: module.Stratosphere as ComponentType<any>,
+  })),
 );
 
 /**
@@ -52,5 +60,7 @@ export const StratosphereLazy = lazy(() =>
  * Loaded when user scrolls to section 5+
  */
 export const TroposphereLazy = lazy(() =>
-  import('./Troposphere').then(module => ({ default: module.Troposphere as ComponentType<any> }))
+  import("./Troposphere").then((module) => ({
+    default: module.Troposphere as ComponentType<any>,
+  })),
 );

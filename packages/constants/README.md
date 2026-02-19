@@ -35,20 +35,20 @@ The **@aazucena/constants** package provides **type-safe, immutable constants** 
 
 ### Key Features
 
-| Feature | Description | Status |
-|---------|-------------|--------|
+| Feature                 | Description                                                | Status    |
+| ----------------------- | ---------------------------------------------------------- | --------- |
 | **Animation Constants** | Particle systems, scene config, atmospheric phases, timing | ✅ Active |
-| **Route Management** | Portfolio routes, analytics routes, external links | ✅ Active |
-| **Storage Keys** | LocalStorage, SessionStorage, Cookie identifiers | ✅ Active |
-| **AI/ML Config** | Model registry, pricing (per 1M tokens), neural map | ✅ Active |
-| **Color Palettes** | Atmospheric gradients (HSL/Hex), phase-specific colors | ✅ Active |
-| **Domain URLs** | API endpoints, CMS routes, service URLs | ✅ Active |
-| **Finance Data** | Currency codes, payment providers, pricing tiers | ✅ Active |
-| **Meta Defaults** | SEO values, Open Graph templates, JSON-LD schemas | ✅ Active |
-| **Preloader Config** | Loading states, progress thresholds, animation sequences | ✅ Active |
-| **Sentinel Thresholds** | Health monitoring (AI cost, latency, Core Web Vitals) | ✅ Active |
-| **Command Definitions** | CLI commands, keyboard shortcuts, action constants | ✅ Active |
-| **Site Configuration** | Site metadata, navigation structure, social links | ✅ Active |
+| **Route Management**    | Portfolio routes, analytics routes, external links         | ✅ Active |
+| **Storage Keys**        | LocalStorage, SessionStorage, Cookie identifiers           | ✅ Active |
+| **AI/ML Config**        | Model registry, pricing (per 1M tokens), neural map        | ✅ Active |
+| **Color Palettes**      | Atmospheric gradients (HSL/Hex), phase-specific colors     | ✅ Active |
+| **Domain URLs**         | API endpoints, CMS routes, service URLs                    | ✅ Active |
+| **Finance Data**        | Currency codes, payment providers, pricing tiers           | ✅ Active |
+| **Meta Defaults**       | SEO values, Open Graph templates, JSON-LD schemas          | ✅ Active |
+| **Preloader Config**    | Loading states, progress thresholds, animation sequences   | ✅ Active |
+| **Sentinel Thresholds** | Health monitoring (AI cost, latency, Core Web Vitals)      | ✅ Active |
+| **Command Definitions** | CLI commands, keyboard shortcuts, action constants         | ✅ Active |
+| **Site Configuration**  | Site metadata, navigation structure, social links          | ✅ Active |
 
 ### Package Info
 
@@ -96,7 +96,7 @@ import {
   AI_PRICING,
   SENTINEL_THRESHOLDS,
   ATMOSPHERIC_COLORS,
-  PARTICLE_PRESETS
+  PARTICLE_PRESETS,
 } from '@aazucena/constants';
 
 // Configure AI model
@@ -209,13 +209,14 @@ packages/constants/
 ### Design Principles
 
 #### 1. Immutability
+
 ```typescript
 // ✅ All exports use 'as const' for literal types
 export const ROUTES = {
   PORTFOLIO: {
     HOME: '/',
     PROJECTS: '/projects',
-  }
+  },
 } as const;
 
 // Result: TypeScript infers literal types
@@ -223,6 +224,7 @@ type HomeRoute = typeof ROUTES.PORTFOLIO.HOME; // Type: "/"
 ```
 
 #### 2. Tree-Shaking
+
 ```typescript
 // ✅ Named exports (not default exports)
 export const ANIMATION_TIMING = { ... };
@@ -233,6 +235,7 @@ import { ANIMATION_TIMING } from '@aazucena/constants'; // Only imports used mod
 ```
 
 #### 3. Zero Runtime
+
 ```typescript
 // ✅ Pure data (no functions, no side effects)
 export const STORAGE_KEYS = {
@@ -307,6 +310,7 @@ export const HSL_RANGES = {
 ```
 
 **Use Cases:**
+
 - Configure particle systems (PixiJS)
 - Set Three.js scene element counts
 - Define scroll-triggered animation timing
@@ -356,6 +360,7 @@ export const ROUTES = {
 ```
 
 **Use Cases:**
+
 - Define navigation menu items
 - Build link components
 - Configure API endpoints
@@ -381,12 +386,14 @@ export const STORAGE_KEYS = {
 ```
 
 **Use Cases:**
+
 - Persist user theme preference
 - Store authentication tokens
 - Save terminal command history
 - Manage cookie consent state
 
 **Example:**
+
 ```typescript
 import { STORAGE_KEYS } from '@aazucena/constants';
 
@@ -444,12 +451,14 @@ export const NEURAL_MAP_FALLBACK_NODES = [
 ```
 
 **Use Cases:**
+
 - Calculate AI cost estimates
 - Compare model pricing
 - Configure neural map visualization (Trajectory Labs)
 - Track AI spending against baseline
 
 **Example:**
+
 ```typescript
 import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
 
@@ -506,12 +515,14 @@ export const ATMOSPHERIC_COLORS = {
 ```
 
 **Use Cases:**
+
 - Generate CSS gradients for atmospheric layers
 - Configure Three.js background colors
 - Set light colors for each phase
 - Theme transitions based on scroll position
 
 **Example:**
+
 ```typescript
 import { ATMOSPHERIC_COLORS } from '@aazucena/constants';
 
@@ -584,12 +595,14 @@ export interface SentinelAlert {
 ```
 
 **Use Cases:**
+
 - Monitor AI spending (daily budget alerts)
 - Track Core Web Vitals (LCP, CLS)
 - Detect system degradation (latency, errors)
 - Trigger automated alerts
 
 **Example:**
+
 ```typescript
 import { SENTINEL_THRESHOLDS, type SentinelAlertLevel } from '@aazucena/constants';
 
@@ -619,6 +632,7 @@ const themeKey = STORAGE_KEYS.THEME; // "aazucena-theme"
 ```
 
 **Pros:**
+
 - ✅ Type-safe (autocomplete works)
 - ✅ No runtime lookup cost
 - ✅ Tree-shakeable
@@ -657,7 +671,7 @@ import { SENTINEL_THRESHOLDS } from '@aazucena/constants';
 
 function evaluateMetric(
   metric: keyof typeof SENTINEL_THRESHOLDS,
-  value: number
+  value: number,
 ): 'NOMINAL' | 'WARNING' | 'CRITICAL' {
   const thresholds = SENTINEL_THRESHOLDS[metric];
 
@@ -890,6 +904,7 @@ if (cost > SENTINEL_THRESHOLDS.AI_COST_DAILY.WARNING) { alert('Warning!'); }
 ```
 
 **Benefits:**
+
 - ✅ Single source of truth (update once, applies everywhere)
 - ✅ Type-safe (autocomplete, refactoring support)
 - ✅ Searchable (find all usages)
@@ -900,10 +915,12 @@ if (cost > SENTINEL_THRESHOLDS.AI_COST_DAILY.WARNING) { alert('Warning!'); }
 ## 📚 RELATED_DOCUMENTATION
 
 ### Package Documentation
+
 - [📖 Constants Catalog](./docs/constants-catalog.md) - Complete module reference
 - [🎯 Usage Patterns](./docs/usage-patterns.md) - Best practices guide
 
 ### Related Packages
+
 - [@aazucena/types](../types/README.md) - TypeScript type definitions
 - [@aazucena/config](../config/README.md) - Build configurations
 - [@aazucena/design-system](../design-system/README.md) - Design tokens
@@ -913,10 +930,12 @@ if (cost > SENTINEL_THRESHOLDS.AI_COST_DAILY.WARNING) { alert('Warning!'); }
 ## 🔗 REFERENCES
 
 ### Dependencies
+
 - **None** - Zero runtime dependencies
-- **@aazucena/types** workspace:* - Dev dependency only (type checking)
+- **@aazucena/types** workspace:\* - Dev dependency only (type checking)
 
 ### Used By
+
 - **apps/portfolio** - Main portfolio application
 - **apps/analytics** - AZUCENA_LYTICS dashboard
 - **apps/cms** - Strapi CMS configuration
@@ -925,6 +944,7 @@ if (cost > SENTINEL_THRESHOLDS.AI_COST_DAILY.WARNING) { alert('Warning!'); }
 - **packages/animations** - Animation utilities
 
 ### Version History
+
 - **0.1.0** (2026-02-11) - Initial release with 12 domain modules
 
 ---
@@ -949,11 +969,13 @@ if (cost > SENTINEL_THRESHOLDS.AI_COST_DAILY.WARNING) { alert('Warning!'); }
    - Autocomplete works perfectly with modern editors
 
 ### Browser Support
+
 - ✅ All modern browsers (ES modules required)
 - ✅ Node.js 18+
 - ✅ Edge runtimes (Vercel, Cloudflare Workers)
 
 ### Maintenance
+
 - ✅ **Add new constants:** Create new file in `src/`, export from `index.ts`
 - ✅ **Update values:** Edit source file, all consumers update automatically
 - ✅ **Deprecate constants:** Mark with JSDoc `@deprecated`, provide migration path
@@ -961,6 +983,7 @@ if (cost > SENTINEL_THRESHOLDS.AI_COST_DAILY.WARNING) { alert('Warning!'); }
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Author:** AAZUCENA Development Team

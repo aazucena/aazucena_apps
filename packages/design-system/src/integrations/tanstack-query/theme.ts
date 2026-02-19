@@ -8,7 +8,7 @@ import { toHex } from '../../utils/color-converter.js';
 export const tanstackQueryTheme = {
   /** The theme for the devtools ('dark' or 'light') */
   mode: 'dark' as const,
-  
+
   /** Custom colors for the devtools UI */
   colors: {
     background: toHex(colors.zinc[950]),
@@ -17,7 +17,7 @@ export const tanstackQueryTheme = {
     secondary: toHex(colors.secondary[500]),
     border: toHex(colors.zinc[800]),
   },
-  
+
   /** Panel positioning and visibility defaults */
   position: 'bottom' as const,
   initialIsOpen: false,

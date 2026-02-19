@@ -3,11 +3,11 @@
  * SR-71 Blackbird-style spy plane (Stratosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import type { SceneObjectConfig } from "../types";
 
 interface SpyPlaneProps {
   opacity: number;

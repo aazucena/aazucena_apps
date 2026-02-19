@@ -3,8 +3,8 @@
  * Simple spherical bush with customizable color
  */
 
-import type { JSX } from 'react';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import type { SceneObjectConfig } from "../types";
 
 interface BushProps {
   opacity: number;
@@ -17,7 +17,7 @@ interface BushProps {
  */
 export function Bush({ opacity, config }: BushProps): JSX.Element {
   // Use color from config or default green
-  const color = (config?.custom?.color as string) || '#22AA22';
+  const color = (config?.custom?.color as string) || "#22AA22";
 
   return (
     <mesh castShadow>

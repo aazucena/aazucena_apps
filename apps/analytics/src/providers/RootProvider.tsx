@@ -13,15 +13,17 @@ function SocketListener() {
 
 export function RootProvider({ children }: { children: React.ReactNode }) {
   // TanStack Query Client
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 5000,
-        refetchInterval: 5000,
-      },
-    },
-  }));
-
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 5000,
+            refetchInterval: 5000,
+          },
+        },
+      }),
+  );
 
   return (
     <ReduxStoreProvider>

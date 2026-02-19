@@ -13,11 +13,13 @@ Server-side rendering patterns, hydration strategies, and browser-safe implement
 **Server-Side Rendering (SSR)** generates HTML on the server before sending to the client.
 
 **Flow:**
+
 1. **Server:** Render React components to HTML string
 2. **Client:** Receive HTML, display immediately (fast initial paint)
 3. **Hydration:** React attaches event listeners to existing HTML
 
 **Frameworks:**
+
 - **Astro:** Hybrid SSR/SSG with Islands architecture
 - **Next.js:** Full SSR with App Router / Pages Router
 - **Remix:** Server-first with nested routes
@@ -37,6 +39,7 @@ function useBrokenHook() {
 ```
 
 **Common SSR Errors:**
+
 - `ReferenceError: window is not defined`
 - `ReferenceError: document is not defined`
 - `ReferenceError: localStorage is not defined`
@@ -80,6 +83,7 @@ function useWindowSize() {
 ```
 
 **Key Points:**
+
 - `useEffect` only runs on the client (never on server)
 - Use safe default values (0, null, undefined, false)
 - Server renders with defaults, client hydrates with real values
@@ -136,6 +140,7 @@ function Component() {
 ```
 
 **Why Mounted Flag?**
+
 - **Server:** Renders with defaultValue
 - **Client (initial render):** Still uses defaultValue (mounted = false)
 - **Client (after mount):** Loads from localStorage (mounted = true)
@@ -161,6 +166,7 @@ function useBrowserOnly() {
 ```
 
 **Use Cases:**
+
 - One-time checks (not reactive)
 - Conditional imports (dynamic imports)
 - Feature detection
@@ -176,12 +182,14 @@ function useBrowserOnly() {
 **Definition:** Server-rendered HTML doesn't match client-rendered HTML.
 
 **Error Message:**
+
 ```
 Warning: Text content did not match. Server: "..." Client: "..."
 Warning: Expected server HTML to contain a matching <div> in <div>.
 ```
 
 **Causes:**
+
 1. Using browser APIs on initial render
 2. Conditional rendering based on client-only state
 3. Date.now() or Math.random() in render
@@ -206,11 +214,13 @@ function BadComponent() {
 ```
 
 **What Happens:**
+
 1. Server: `<div>Mounted: No</div>`
 2. Client (initial): `<div>Mounted: No</div>` (matches, good!)
 3. Client (after useEffect): `<div>Mounted: Yes</div>` (updates, no error)
 
 **If you forget the initial match:**
+
 ```typescript
 // ❌ HYDRATION MISMATCH
 function BadComponent() {
@@ -284,6 +294,7 @@ const ClientOnlyComponent = dynamic(() => import('./ClientOnly'), {
 Astro uses **Islands** - interactive components in a sea of static HTML.
 
 **Client Directives:**
+
 - `client:load` - Hydrate immediately on page load
 - `client:idle` - Hydrate when browser idle (recommended)
 - `client:visible` - Hydrate when component visible
@@ -356,6 +367,7 @@ export default {
 ```
 
 **SSR Pages:**
+
 ```astro
 ---
 // src/pages/dynamic.astro
@@ -378,11 +390,13 @@ const data = await fetch('https://api.example.com/data');
 ### App Router (React Server Components)
 
 **Server Components (default):**
+
 - Render on server only
 - Cannot use hooks
 - Cannot access browser APIs
 
 **Client Components:**
+
 - Use `'use client'` directive
 - Can use hooks
 - Can access browser APIs
@@ -434,24 +448,24 @@ export default function Page() {
 
 ## 📚 HOOK_COMPATIBILITY_TABLE
 
-| Hook | SSR Safe | Notes |
-|:-----|:---------|:------|
-| **useDeviceCapabilities** | ✅ Yes | Uses mounted flag + useEffect |
-| **useLocalStorage** | ✅ Yes | Returns mounted flag for safety |
-| **useWindowSize** | ✅ Yes | Safe defaults (width: 0, height: 0) |
-| **useIntersectionObserver** | ✅ Yes | useEffect-based, no SSR issues |
-| **useScrollToTop** | ✅ Yes | Returns function (no immediate execution) |
-| **useTheme** | ✅ Yes | Safe default + useEffect sync |
-| **useModal** | ✅ Yes | Pure state management |
-| **useGSAPEntrance** | ✅ Yes | GSAP animations in useEffect |
-| **useFlipText** | ✅ Yes | Returns ref (safe) |
-| **useSectionRefs** | ✅ Yes | Returns refs (safe) |
-| **useHandlebars** | ✅ Yes | Pure function, no browser APIs |
-| **useCommandSearch** | ✅ Yes | State-based, no browser dependencies |
-| **useLoadingProgress** | ✅ Yes | Pure state management |
-| **usePreloaderTheme** | ⚠️ Caution | Check mounted before using colors |
-| **useSystemStats** | ✅ Yes | TanStack Query handles SSR |
-| **useSentinel** | ✅ Yes | TanStack Query handles SSR |
+| Hook                        | SSR Safe   | Notes                                     |
+| :-------------------------- | :--------- | :---------------------------------------- |
+| **useDeviceCapabilities**   | ✅ Yes     | Uses mounted flag + useEffect             |
+| **useLocalStorage**         | ✅ Yes     | Returns mounted flag for safety           |
+| **useWindowSize**           | ✅ Yes     | Safe defaults (width: 0, height: 0)       |
+| **useIntersectionObserver** | ✅ Yes     | useEffect-based, no SSR issues            |
+| **useScrollToTop**          | ✅ Yes     | Returns function (no immediate execution) |
+| **useTheme**                | ✅ Yes     | Safe default + useEffect sync             |
+| **useModal**                | ✅ Yes     | Pure state management                     |
+| **useGSAPEntrance**         | ✅ Yes     | GSAP animations in useEffect              |
+| **useFlipText**             | ✅ Yes     | Returns ref (safe)                        |
+| **useSectionRefs**          | ✅ Yes     | Returns refs (safe)                       |
+| **useHandlebars**           | ✅ Yes     | Pure function, no browser APIs            |
+| **useCommandSearch**        | ✅ Yes     | State-based, no browser dependencies      |
+| **useLoadingProgress**      | ✅ Yes     | Pure state management                     |
+| **usePreloaderTheme**       | ⚠️ Caution | Check mounted before using colors         |
+| **useSystemStats**          | ✅ Yes     | TanStack Query handles SSR                |
+| **useSentinel**             | ✅ Yes     | TanStack Query handles SSR                |
 
 ---
 
@@ -605,6 +619,7 @@ export function useDeviceCapabilities() {
 ```
 
 **SSR-Safe Features:**
+
 1. ✅ Safe defaults: `{ isMobile: false, performanceTier: 'medium', ... }`
 2. ✅ Mounted flag: Prevents hydration mismatch
 3. ✅ useEffect: Browser APIs accessed only on client
@@ -612,6 +627,7 @@ export function useDeviceCapabilities() {
 5. ✅ Fallback: Uses detectDeviceCapabilities if localStorage empty
 
 **Usage:**
+
 ```tsx
 function Component() {
   const { capabilities, mounted } = useDeviceCapabilities();
@@ -653,14 +669,14 @@ export function useTheme() {
     return () => mediaQuery.removeEventListener('change', updateSystemTheme);
   }, []);
 
-  const isDark =
-    theme === 'dark' || (theme === 'system' && systemTheme === 'dark');
+  const isDark = theme === 'dark' || (theme === 'system' && systemTheme === 'dark');
 
   return { theme, setTheme, systemTheme, isDark, mounted };
 }
 ```
 
 **Usage:**
+
 ```tsx
 function ThemeProvider({ children }) {
   const { isDark, mounted } = useTheme();
@@ -670,11 +686,7 @@ function ThemeProvider({ children }) {
     return <div className="theme-loading">{children}</div>;
   }
 
-  return (
-    <div className={isDark ? 'dark' : 'light'}>
-      {children}
-    </div>
-  );
+  return <div className={isDark ? 'dark' : 'light'}>{children}</div>;
 }
 ```
 

@@ -26,7 +26,9 @@ function validatePreloaderData(data: any) {
     const uniqueIds = new Set(stepIds);
 
     if (stepIds.length !== uniqueIds.size) {
-      const duplicates = stepIds.filter((id: number, index: number) => stepIds.indexOf(id) !== index);
+      const duplicates = stepIds.filter(
+        (id: number, index: number) => stepIds.indexOf(id) !== index
+      );
       throw new Error(
         `Duplicate loading step IDs found: ${duplicates.join(', ')}. Each step must have a unique ID.`
       );
@@ -38,9 +40,7 @@ function validatePreloaderData(data: any) {
     try {
       JSON.parse(data.themeOverrides);
     } catch (error) {
-      throw new Error(
-        `Invalid JSON in themeOverrides field. Please check your syntax.`
-      );
+      throw new Error(`Invalid JSON in themeOverrides field. Please check your syntax.`);
     }
   }
 }

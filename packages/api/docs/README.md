@@ -17,15 +17,19 @@ Complete reference for the aazucena Data Intelligence Gateway.
 ## Core Topics
 
 ### Configuration
+
 Set up meta-framework agnostic clients for Strapi CMS and ClickHouse analytics.
 
 ### Modules
+
 Domain-separated API clients for content, configuration, and data endpoints.
 
 ### Validation
+
 Runtime type safety with Zod schemas and custom validation logic.
 
 ### Transformers
+
 Data sanitization and structure normalization for clean TypeScript objects.
 
 ---

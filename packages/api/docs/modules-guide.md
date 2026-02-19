@@ -74,12 +74,7 @@ const nav = await fetchNavigationConfig();
 ## PARALLEL_FETCHING
 
 ```typescript
-import {
-  fetchHomepage,
-  fetchProjects,
-  fetchExperiences,
-  fetchWebsiteConfig,
-} from '@aazucena/api';
+import { fetchHomepage, fetchProjects, fetchExperiences, fetchWebsiteConfig } from '@aazucena/api';
 
 // Fetch multiple endpoints in parallel
 const [homepage, projects, experiences, config] = await Promise.all([

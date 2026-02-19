@@ -5,7 +5,7 @@ export const PromptTypeEnum = z.enum([
   'assistant',
   'expert',
   'tool',
-  'evaluation'
+  'evaluation',
 ]);
 
 export type PromptType = z.infer<typeof PromptTypeEnum>;

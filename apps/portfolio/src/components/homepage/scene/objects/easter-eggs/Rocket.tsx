@@ -3,12 +3,12 @@
  * Classic rocket with engine glow and slow tumble (Exosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface RocketProps {
   opacity: number;
@@ -24,7 +24,7 @@ export function Rocket({ opacity }: RocketProps): JSX.Element {
 
     applyAnimation(rocketRef, time, {
       rotation: { z: 0.4 },
-      rotationOscillation: { x: { frequency: 0.3, amplitude: 0.2 } }
+      rotationOscillation: { x: { frequency: 0.3, amplitude: 0.2 } },
     });
   });
 

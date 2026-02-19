@@ -14,13 +14,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     s.on('connect', () => console.log('[Socket] Connected to Live Terminal'));
     s.on('connect_error', (err) => console.warn('[Socket] Connection failed:', err.message));
     setSocket(s);
-    return () => { s.disconnect(); };
+    return () => {
+      s.disconnect();
+    };
   }, []);
-  return (
-    <SocketContext.Provider value={socket}>
-      {children}
-    </SocketContext.Provider>
-  );
+  return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
 };
 
 export const useSocket = () => useContext(SocketContext);

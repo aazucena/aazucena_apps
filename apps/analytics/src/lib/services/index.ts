@@ -1,2 +1,2 @@
-export * from './clickhouse'
-export * from './ai'
+export * from './clickhouse';
+export * from './ai';

@@ -11,7 +11,7 @@ export const makeStore = () => {
   });
 };
 
-export * from './slices'
+export * from './slices';
 export { default as ReduxStoreProvider } from '@/store/ReduxStoreProvider';
 
 // Infer the types for TypeScript safety

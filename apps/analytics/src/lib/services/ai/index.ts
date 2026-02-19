@@ -1,2 +1,2 @@
-export * from './gateway'
-export * from './pricing'
+export * from './gateway';
+export * from './pricing';

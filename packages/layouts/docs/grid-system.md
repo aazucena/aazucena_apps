@@ -13,11 +13,13 @@ Flexible 12-column responsive grid patterns using Tailwind CSS grid utilities an
 The grid system divides the page into 12 equal columns, providing flexible layout options.
 
 **Why 12 Columns?**
+
 - Divisible by 2, 3, 4, 6 (flexible layout options)
 - Common industry standard (Bootstrap, Material UI)
 - Supports complex multi-column layouts
 
 **Column Spans:**
+
 - `col-span-1` → 1/12 width (8.33%)
 - `col-span-2` → 2/12 width (16.67%)
 - `col-span-3` → 3/12 width (25%)
@@ -54,6 +56,7 @@ function BasicGrid() {
 ```
 
 **Breakdown:**
+
 - `grid-cols-12` → 12-column grid
 - `gap-4` → 1rem (16px) gap between columns
 - `col-span-3` → Span 3 columns (25% width)
@@ -103,6 +106,7 @@ function ResponsiveGrid() {
 ```
 
 **Breakpoint Behavior:**
+
 - **Mobile (< 768px):** 1 column (100% width)
 - **Tablet (≥ 768px):** 2 columns (50% each)
 - **Desktop (≥ 1024px):** 3 columns (33.33% each)
@@ -143,6 +147,7 @@ function ComplexGrid() {
 ```
 
 **Breakpoint Behavior:**
+
 - **Mobile:** All items full width (stacked)
 - **Tablet:** Hero + Sidebar full width, Cards 2-column (50% each)
 - **Desktop:** Hero 66.67%, Sidebar 33.33%, Cards 33.33% each
@@ -170,11 +175,13 @@ function AutoGrid() {
 ```
 
 **How it works:**
+
 - `auto-fill` → Creates as many columns as fit
 - `minmax(250px, 1fr)` → Each column min 250px, max 1fr (equal width)
 - Result: Responsive without breakpoints
 
 **Use Cases:**
+
 - Product grids
 - Image galleries
 - Blog post cards
@@ -199,6 +206,7 @@ function AutoFitGrid() {
 ```
 
 **Difference from Auto-Fill:**
+
 - `auto-fill` → Creates empty columns if space available
 - `auto-fit` → Expands existing columns to fill space
 - Use `auto-fit` when you want columns to stretch
@@ -230,6 +238,7 @@ function OffsetGrid() {
 ```
 
 **Grid Lines:**
+
 ```
 1  2  3  4  5  6  7  8  9  10 11 12 13
 |--|--|--|--|--|--|--|--|--|--|--|--|
@@ -287,6 +296,7 @@ function NestedGrid() {
 ```
 
 **Use Cases:**
+
 - Complex dashboards
 - Magazine-style layouts
 - Multi-level navigation
@@ -431,6 +441,7 @@ function VariableGapGrid() {
 ```
 
 **Gap Sizes:**
+
 - `gap-4` → 1rem (16px) - Mobile
 - `md:gap-6` → 1.5rem (24px) - Tablet
 - `lg:gap-8` → 2rem (32px) - Desktop
@@ -458,6 +469,7 @@ function DirectionalGaps() {
 ```
 
 **Result:**
+
 - Horizontal gap: 1rem (16px)
 - Vertical gap: 2rem (32px)
 
@@ -589,39 +601,43 @@ function ProductGrid({ products }) {
 ### Tailwind Grid Classes Reference
 
 **Grid Columns:**
+
 ```typescript
-grid-cols-1   // 1 column
-grid-cols-2   // 2 columns
-grid-cols-3   // 3 columns
-grid-cols-4   // 4 columns
-grid-cols-12  // 12 columns
+grid - cols - 1; // 1 column
+grid - cols - 2; // 2 columns
+grid - cols - 3; // 3 columns
+grid - cols - 4; // 4 columns
+grid - cols - 12; // 12 columns
 ```
 
 **Column Span:**
+
 ```typescript
-col-span-1    // Span 1 column
-col-span-2    // Span 2 columns
-col-span-6    // Span 6 columns
-col-span-12   // Span all 12 columns
-col-span-full // Span all columns (any grid)
+col - span - 1; // Span 1 column
+col - span - 2; // Span 2 columns
+col - span - 6; // Span 6 columns
+col - span - 12; // Span all 12 columns
+col - span - full; // Span all columns (any grid)
 ```
 
 **Column Start/End:**
+
 ```typescript
-col-start-1   // Start at column 1
-col-start-4   // Start at column 4
-col-end-7     // End at column 7
-col-end-13    // End at column 13 (after last column)
+col - start - 1; // Start at column 1
+col - start - 4; // Start at column 4
+col - end - 7; // End at column 7
+col - end - 13; // End at column 13 (after last column)
 ```
 
 **Grid Gaps:**
+
 ```typescript
-gap-0         // No gap
-gap-4         // 1rem gap
-gap-6         // 1.5rem gap
-gap-8         // 2rem gap
-gap-x-4       // Horizontal gap only
-gap-y-8       // Vertical gap only
+gap - 0; // No gap
+gap - 4; // 1rem gap
+gap - 6; // 1.5rem gap
+gap - 8; // 2rem gap
+gap - x - 4; // Horizontal gap only
+gap - y - 8; // Vertical gap only
 ```
 
 ---

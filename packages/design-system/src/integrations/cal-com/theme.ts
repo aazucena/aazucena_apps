@@ -8,19 +8,19 @@ import { toHex } from '../../utils/color-converter.js';
 export const calComTheme = {
   /** Main brand color (buttons, primary accents) */
   brandColor: toHex(colors.primary[500]),
-  
+
   /** Background color of the widget */
   bgColor: toHex(colors.zinc[950]),
-  
+
   /** Primary text color */
   textColor: toHex(colors.zinc[100]),
-  
+
   /** Subtle text for captions/hints */
   subtleColor: toHex(colors.zinc[400]),
-  
+
   /** Border colors for inputs and cards */
   borderColor: toHex(colors.zinc[800]),
-  
+
   /** Mapping to Cal.com specific CSS variables if using custom CSS injection */
   cssVars: {
     '--cal-brand': toHex(colors.primary[500]),
@@ -29,7 +29,7 @@ export const calComTheme = {
     '--cal-text': toHex(colors.zinc[100]),
     '--cal-text-subtle': toHex(colors.zinc[400]),
     '--cal-border-subtle': toHex(colors.zinc[800]),
-  }
+  },
 } as const;
 
 export type CalComTheme = typeof calComTheme;

@@ -18,7 +18,7 @@ export const SentryWebhookPayloadSchema = z.object({
   culprit: z.string().optional().nullable(),
   // Information about the Sentry project/issue
   project_slug: z.string(), // Project ID
-  issue_id: z.string(),     // Sentry's internal issue ID (not the event_id)
+  issue_id: z.string(), // Sentry's internal issue ID (not the event_id)
 
   // Release and environment information
   release: z.string().optional().nullable(),
@@ -26,11 +26,14 @@ export const SentryWebhookPayloadSchema = z.object({
 
   // Contextual information
   tags: z.record(z.string(), z.string()).optional(), // Key-value tags
-  user: z.object({
-    id: z.string().optional().nullable(),
-    email: z.string().email().optional().nullable(),
-    ip_address: z.string().optional().nullable(),
-  }).optional().nullable(),
+  user: z
+    .object({
+      id: z.string().optional().nullable(),
+      email: z.string().email().optional().nullable(),
+      ip_address: z.string().optional().nullable(),
+    })
+    .optional()
+    .nullable(),
 });
 
 export type SentryWebhookPayload = z.infer<typeof SentryWebhookPayloadSchema>;

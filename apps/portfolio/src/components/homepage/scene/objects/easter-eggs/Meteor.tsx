@@ -3,12 +3,12 @@
  * Rocky meteor with fiery tail (Mesosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface MeteorProps {
   opacity: number;
@@ -23,13 +23,13 @@ export function Meteor({ opacity }: MeteorProps): JSX.Element {
     const time = clock.getElapsedTime();
 
     applyAnimation(meteorRef, time, {
-      rotation: { x: 0.8, y: 0.6 }
+      rotation: { x: 0.8, y: 0.6 },
     });
 
     // Linear diagonal motion (must stay imperative)
     if (meteorRef.current) {
-      meteorRef.current.position.x = -time * 0.3 % 12;
-      meteorRef.current.position.y = -time * 0.4 % 10;
+      meteorRef.current.position.x = (-time * 0.3) % 12;
+      meteorRef.current.position.y = (-time * 0.4) % 10;
     }
   });
 
@@ -81,7 +81,11 @@ export function Meteor({ opacity }: MeteorProps): JSX.Element {
 
       {/* Fiery tail trailing behind */}
       {[0, 1, 2, 3].map((i) => (
-        <mesh key={i} position={[0.3 + i * 0.6, 0.3 + i * 0.7, 0]} rotation={[0, 0, -Math.PI / 4]}>
+        <mesh
+          key={i}
+          position={[0.3 + i * 0.6, 0.3 + i * 0.7, 0]}
+          rotation={[0, 0, -Math.PI / 4]}
+        >
           <coneGeometry args={[0.25 - i * 0.05, 0.8, 8]} />
           <meshStandardMaterial
             color={i < 2 ? "#f97316" : "#fb923c"}

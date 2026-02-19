@@ -8,14 +8,14 @@ Shared layout components and structural patterns for Astro and React application
 
 ## 🛠️ TOOLKIT_MANIFEST
 
-| System                  | Protocol         | Description                                                                 |
-| :---------------------- | :--------------- | :-------------------------------------------------------------------------- |
-| **Base_Layouts**        | Foundation       | BaseLayout, DashboardLayout, ErrorLayout with meta tag management.         |
-| **Section_Wrappers**    | Container_Logic  | Section, SectionLayout with padding, margins, and responsive breakpoints.   |
-| **Grid_Systems**        | Responsive_Grid  | Grid, GridItem with 12-column system and gap utilities.                    |
-| **Container_Components**| Constraint_Width | MainContainer, ProseContainer, Shell with max-width and centering.         |
-| **React_Layouts**       | JSX_Templates    | Portable layouts for React-based frameworks (Next.js, Remix).              |
-| **Astro_Layouts**       | Component_Slots  | Astro-native layouts with slot-based composition.                          |
+| System                   | Protocol         | Description                                                               |
+| :----------------------- | :--------------- | :------------------------------------------------------------------------ |
+| **Base_Layouts**         | Foundation       | BaseLayout, DashboardLayout, ErrorLayout with meta tag management.        |
+| **Section_Wrappers**     | Container_Logic  | Section, SectionLayout with padding, margins, and responsive breakpoints. |
+| **Grid_Systems**         | Responsive_Grid  | Grid, GridItem with 12-column system and gap utilities.                   |
+| **Container_Components** | Constraint_Width | MainContainer, ProseContainer, Shell with max-width and centering.        |
+| **React_Layouts**        | JSX_Templates    | Portable layouts for React-based frameworks (Next.js, Remix).             |
+| **Astro_Layouts**        | Component_Slots  | Astro-native layouts with slot-based composition.                         |
 
 ---
 

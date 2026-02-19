@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
+/* eslint-disable no-console, security/detect-non-literal-fs-filename */
 import { writeFileSync, mkdirSync } from 'fs';
 import { join, dirname, isAbsolute, resolve } from 'path';
 import { fileURLToPath } from 'url';

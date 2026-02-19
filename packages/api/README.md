@@ -8,14 +8,14 @@ Unified API orchestration layer providing type-safe CMS and analytics access. En
 
 ## 🛠️ TOOLKIT_MANIFEST
 
-| System                 | Protocol       | Description                                                                 |
-| :--------------------- | :------------- | :-------------------------------------------------------------------------- |
-| **Strapi_Client**      | Config_Inject  | Authenticated CMS fetching with framework-agnostic initialization.          |
-| **ClickHouse_Client**  | Singleton_OLAP | High-performance analytics queries with read/write separation.              |
-| **Zod_Validators**     | Runtime_Guard  | 50+ validation schemas ensuring type safety at API boundaries.              |
-| **Data_Transformers**  | Clean_Structs  | 50+ transform functions for sanitized, predictable data structures.         |
-| **Domain_Modules**     | Separation     | 30+ specialized endpoints (hero, about, projects, posts, experiences).      |
-| **AI_Gateway**         | Vercel_SDK     | Multi-provider LLM orchestration with streaming support.                    |
+| System                | Protocol       | Description                                                            |
+| :-------------------- | :------------- | :--------------------------------------------------------------------- |
+| **Strapi_Client**     | Config_Inject  | Authenticated CMS fetching with framework-agnostic initialization.     |
+| **ClickHouse_Client** | Singleton_OLAP | High-performance analytics queries with read/write separation.         |
+| **Zod_Validators**    | Runtime_Guard  | 50+ validation schemas ensuring type safety at API boundaries.         |
+| **Data_Transformers** | Clean_Structs  | 50+ transform functions for sanitized, predictable data structures.    |
+| **Domain_Modules**    | Separation     | 30+ specialized endpoints (hero, about, projects, posts, experiences). |
+| **AI_Gateway**        | Vercel_SDK     | Multi-provider LLM orchestration with streaming support.               |
 
 ---
 
@@ -343,7 +343,7 @@ const data = await fetchStrapi(
   {
     url: 'https://secondary.com',
     token: 'token2',
-  }
+  },
 );
 ```
 

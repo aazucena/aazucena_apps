@@ -10,9 +10,12 @@ export const StripeCheckoutSessionSchema = z.object({
   currency: z.string().nullable(),
   payment_status: z.string(),
   status: z.string().nullable(),
-  customer_details: z.object({
+  customer_details: z
+    .object({
       email: z.string().email().nullable().optional(),
-  }).nullable().optional(),
+    })
+    .nullable()
+    .optional(),
   metadata: z.record(z.string(), z.any()).nullable().optional(), // Specified valueType as z.any()
   created: z.number(), // Unix timestamp (seconds)
 });

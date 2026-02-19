@@ -14,7 +14,6 @@
 
 const { createStrapi, compileStrapi } = require('@strapi/strapi');
 
-
 const projectsData = [
   {
     title: 'Portfolio Website',
@@ -48,7 +47,8 @@ const projectsData = [
       metaTitle: 'Aldrin Azucena - Full-Stack Portfolio Website',
       metaDescription:
         'High-performance portfolio featuring advanced 3D animations, Astro 5, React 19, and Strapi v5 headless CMS with PostgreSQL and pgVector.',
-      keywords: 'portfolio, full-stack developer, Astro, React, Strapi, TypeScript, 3D animations, GSAP, ThreeJS, headless CMS',
+      keywords:
+        'portfolio, full-stack developer, Astro, React, Strapi, TypeScript, 3D animations, GSAP, ThreeJS, headless CMS',
       canonicalURL: 'https://aazucena.com/projects/portfolio-website',
       openGraph: {
         ogTitle: 'Aldrin Azucena - Full-Stack Portfolio with Advanced 3D Animations',
@@ -86,9 +86,9 @@ const projectsData = [
     title: 'Video Game History',
     slug: 'gaming-timeline',
     shortDescription:
-      'An interactive timeline exploring 50+ years of gaming history (1970s-2020s) with period-appropriate aesthetics—featured in University of Lethbridge\'s New Media showcase for exceptional design and historical research.',
+      "An interactive timeline exploring 50+ years of gaming history (1970s-2020s) with period-appropriate aesthetics—featured in University of Lethbridge's New Media showcase for exceptional design and historical research.",
     description:
-      'Video Game History takes users on a journey through gaming\'s evolution from the 1970s to 2020. Starting with a terminal console interface reminiscent of early computing, the project progresses through each decade showcasing influential games that shaped the industry. Built with vanilla JavaScript and enhanced with npm packages for 2D SVG animations, the project showcases advanced front-end development skills.',
+      "Video Game History takes users on a journey through gaming's evolution from the 1970s to 2020. Starting with a terminal console interface reminiscent of early computing, the project progresses through each decade showcasing influential games that shaped the industry. Built with vanilla JavaScript and enhanced with npm packages for 2D SVG animations, the project showcases advanced front-end development skills.",
     display: 'featured',
     projectStatus: 'Completed',
     projectType: 'Web App',
@@ -105,14 +105,20 @@ const projectsData = [
     ],
     metrics: [
       { label: 'Decades Covered', value: '50+ years', description: '1970s to 2020s', sort: 1 },
-      { label: 'Design Achievement', value: 'Featured', description: 'U of L New Media showcase', sort: 2 },
+      {
+        label: 'Design Achievement',
+        value: 'Featured',
+        description: 'U of L New Media showcase',
+        sort: 2,
+      },
       { label: 'Animation Library', value: '2D SVG', description: 'Custom npm packages', sort: 3 },
     ],
     seo: {
       metaTitle: 'Video Game History - Interactive Timeline | Aldrin Azucena',
       metaDescription:
         'Explore 50+ years of gaming history (1970s-2020s) through an interactive timeline with period-appropriate aesthetics and 2D SVG animations.',
-      keywords: 'video game history, interactive timeline, gaming evolution, JavaScript, SVG animations, retro gaming, 1970s-2020s',
+      keywords:
+        'video game history, interactive timeline, gaming evolution, JavaScript, SVG animations, retro gaming, 1970s-2020s',
       canonicalURL: 'https://aazucena.com/projects/gaming-timeline',
       openGraph: {
         ogTitle: 'Video Game History - 50+ Years of Gaming Evolution',
@@ -125,12 +131,12 @@ const projectsData = [
     techStackNames: ['JavaScript', 'HTML5', 'CSS3', 'Git'],
   },
   {
-    title: 'Conductor\'s Hand',
+    title: "Conductor's Hand",
     slug: 'conductors-hand',
     shortDescription:
       'A wearable musical instrument combining Arduino, custom audio synthesis, and 3D-printed hardware—transforming hand gestures into expressive musical performance through accelerometer-driven synthesis.',
     description:
-      'Conductor\'s Hand is an innovative wearable instrument that transforms natural conducting gestures into expressive musical performance. Built with Arduino Nano 33 IoT and the Mozzi Audio Library, the device uses a 9-axis accelerometer to capture hand movements and translate them into real-time audio synthesis. The custom gauntlet design, created with 3D printing, houses the electronics while allowing natural hand movement for intuitive musical expression.',
+      "Conductor's Hand is an innovative wearable instrument that transforms natural conducting gestures into expressive musical performance. Built with Arduino Nano 33 IoT and the Mozzi Audio Library, the device uses a 9-axis accelerometer to capture hand movements and translate them into real-time audio synthesis. The custom gauntlet design, created with 3D printing, houses the electronics while allowing natural hand movement for intuitive musical expression.",
     display: 'home',
     projectStatus: 'Completed',
     projectType: 'Hardware/Embedded',
@@ -147,18 +153,24 @@ const projectsData = [
       { label: '3D Printing', color: 'orange' },
     ],
     metrics: [
-      { label: 'Hardware', value: 'Arduino Nano', description: '33 IoT with 9-axis sensor', sort: 1 },
+      {
+        label: 'Hardware',
+        value: 'Arduino Nano',
+        description: '33 IoT with 9-axis sensor',
+        sort: 1,
+      },
       { label: 'Audio Library', value: 'Mozzi', description: 'Real-time synthesis', sort: 2 },
       { label: 'Fabrication', value: '3D Printed', description: 'Custom gauntlet design', sort: 3 },
     ],
     seo: {
-      metaTitle: 'Conductor\'s Hand - Musical Instrument | Aldrin Azucena',
+      metaTitle: "Conductor's Hand - Musical Instrument | Aldrin Azucena",
       metaDescription:
         'Wearable musical instrument combining Arduino, Mozzi audio synthesis, and 3D printing to transform hand gestures into expressive musical performance.',
-      keywords: 'wearable instrument, Arduino, audio synthesis, Mozzi, music technology, 3D printing, accelerometer, gesture control',
+      keywords:
+        'wearable instrument, Arduino, audio synthesis, Mozzi, music technology, 3D printing, accelerometer, gesture control',
       canonicalURL: 'https://aazucena.com/projects/conductors-hand',
       openGraph: {
-        ogTitle: 'Conductor\'s Hand - Gesture-Controlled Musical Instrument',
+        ogTitle: "Conductor's Hand - Gesture-Controlled Musical Instrument",
         ogDescription:
           'Innovative wearable that transforms conducting gestures into music using Arduino, accelerometer, and real-time audio synthesis.',
         ogUrl: 'https://aazucena.com/projects/conductors-hand',
@@ -205,7 +217,8 @@ const projectsData = [
       metaTitle: 'Crunch Time - Hybrid Desktop Alarm Clock | Aldrin Azucena',
       metaDescription:
         'Hybrid alarm clock combining Arduino hardware with Electron desktop interface through serial communication and custom PCB design.',
-      keywords: 'Electron app, Arduino, desktop application, serial communication, hardware integration, alarm clock, PCB design',
+      keywords:
+        'Electron app, Arduino, desktop application, serial communication, hardware integration, alarm clock, PCB design',
       canonicalURL: 'https://aazucena.com/projects/crunch-time',
       openGraph: {
         ogTitle: 'Crunch Time - Hardware-Software Hybrid Alarm Clock',
@@ -248,14 +261,20 @@ const projectsData = [
     ],
     metrics: [
       { label: 'Framework', value: 'Framework7', description: 'Mobile-first hybrid', sort: 1 },
-      { label: 'Matchmaking', value: 'WebSockets', description: 'Instant player connections', sort: 2 },
+      {
+        label: 'Matchmaking',
+        value: 'WebSockets',
+        description: 'Instant player connections',
+        sort: 2,
+      },
       { label: 'Backend', value: 'Firebase', description: 'Authentication & history', sort: 3 },
     ],
     seo: {
       metaTitle: 'RPS Royale - Real-Time Multiplayer Game | Aldrin Azucena',
       metaDescription:
         'Real-time multiplayer Rock Paper Scissors game with WebSocket matchmaking, Firebase backend, and Material Design built with Framework7 and Cordova.',
-      keywords: 'real-time multiplayer, mobile game, WebSockets, Firebase, Framework7, Cordova, Material Design, hybrid app',
+      keywords:
+        'real-time multiplayer, mobile game, WebSockets, Firebase, Framework7, Cordova, Material Design, hybrid app',
       canonicalURL: 'https://aazucena.com/projects/rps-royale',
       openGraph: {
         ogTitle: 'RPS Royale - Real-Time Multiplayer Rock Paper Scissors',
@@ -307,7 +326,8 @@ const projectsData = [
       metaTitle: 'Collective Assets - Mobile Gacha Game | Aldrin Azucena',
       metaDescription:
         'Mobile gacha game featuring original Big Band Jazz soundtrack and P5.js generative art system with unique procedural visual cards.',
-      keywords: 'mobile game, gacha game, music composition, Big Band Jazz, P5JS, generative art, procedural animation, Framework7',
+      keywords:
+        'mobile game, gacha game, music composition, Big Band Jazz, P5JS, generative art, procedural animation, Framework7',
       canonicalURL: 'https://aazucena.com/projects/collective-assets',
       openGraph: {
         ogTitle: 'Collective Assets - Original Jazz Soundtrack Mobile Game',
@@ -355,13 +375,19 @@ const projectsData = [
     metrics: [
       { label: 'Accuracy', value: '90%+', description: 'Age & gender detection', sort: 1 },
       { label: 'Deployment', value: 'iOS & Android', description: 'Both app stores', sort: 2 },
-      { label: 'ML Platform', value: 'Firebase ML Kit', description: 'On-device inference', sort: 3 },
+      {
+        label: 'ML Platform',
+        value: 'Firebase ML Kit',
+        description: 'On-device inference',
+        sort: 3,
+      },
     ],
     seo: {
       metaTitle: '65square - AI Age & Gender Detection | Aldrin Azucena',
       metaDescription:
         'Flutter mobile app with TensorFlow Lite achieving 90%+ accuracy in age/gender detection. Published to iOS and Android app stores with Firebase ML Kit.',
-      keywords: 'machine learning, TensorFlow Lite, Flutter, age detection, gender detection, mobile AI, Firebase ML Kit, child safety',
+      keywords:
+        'machine learning, TensorFlow Lite, Flutter, age detection, gender detection, mobile AI, Firebase ML Kit, child safety',
       canonicalURL: 'https://aazucena.com/projects/65square',
       openGraph: {
         ogTitle: '65square - On-Device AI Age & Gender Detection',
@@ -405,14 +431,20 @@ const projectsData = [
     metrics: [
       { label: 'Food Distributed', value: '59K+ lbs', description: 'Over 5+ years', sort: 1 },
       { label: 'Impact Value', value: '$159K+', description: 'Community value delivered', sort: 2 },
-      { label: 'Service Duration', value: '5+ years', description: 'Continuous operation', sort: 3 },
+      {
+        label: 'Service Duration',
+        value: '5+ years',
+        description: 'Continuous operation',
+        sort: 3,
+      },
       { label: 'Development Time', value: '1 year', description: 'Initial build period', sort: 4 },
     ],
     seo: {
       metaTitle: 'Target Hunger Volunteer Tool | Aldrin Azucena',
       metaDescription:
         'WordPress volunteer coordination system serving 5+ years with 59K+ lbs food distributed ($159K+ value). Custom PHP plugins and sustainable architecture.',
-      keywords: 'WordPress, nonprofit software, volunteer management, food distribution, custom plugins, PHP, MySQL, social impact',
+      keywords:
+        'WordPress, nonprofit software, volunteer management, food distribution, custom plugins, PHP, MySQL, social impact',
       canonicalURL: 'https://aazucena.com/projects/target-hunger-tool',
       openGraph: {
         ogTitle: 'Target Hunger - Nonprofit Volunteer Management System',
@@ -464,9 +496,7 @@ async function seedProjects() {
       }
 
       if (missingSkills.length > 0) {
-        console.warn(
-          `  ⚠️  Missing skills for ${project.title}: ${missingSkills.join(', ')}`
-        );
+        console.warn(`  ⚠️  Missing skills for ${project.title}: ${missingSkills.join(', ')}`);
       }
 
       if (existingProject) {
@@ -514,9 +544,7 @@ async function seedProjects() {
         },
       });
 
-      console.log(
-        `✅ Created: ${project.title} (${techStackIds.length} skills linked)`
-      );
+      console.log(`✅ Created: ${project.title} (${techStackIds.length} skills linked)`);
       console.log(`  📝 Remember to add images via Strapi UI`);
       created++;
     }

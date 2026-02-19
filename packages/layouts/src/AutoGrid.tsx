@@ -19,8 +19,7 @@ const autoGridVariants = cva('grid', {
 });
 
 export interface AutoGridProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof autoGridVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof autoGridVariants> {
   /**
    * CSS Grid `auto-fill` vs `auto-fit` behaviour.
    * - `fill`: always creates the maximum number of track slots (may leave empty columns).

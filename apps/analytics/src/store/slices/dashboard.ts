@@ -11,7 +11,7 @@ export const CATEGORY_PRESETS = {
   PERFORMANCE: ['Error', 'Interaction', 'API', 'Database', 'Cache'], // Focus on potential issues
   LOGS: ['Page View', 'Music Play', 'Interaction', 'Form Submit', 'Error'],
   SYSTEM: ['Page View', 'Interaction', 'Error', 'API'],
-  INTELLIGENCE: ['Interaction', 'Error', 'API', 'Database']
+  INTELLIGENCE: ['Interaction', 'Error', 'API', 'Database'],
 } as const;
 
 export type CategoryPreset = keyof typeof CATEGORY_PRESETS;
@@ -22,8 +22,8 @@ interface DashboardState {
   filters: {
     timeRange: TimeRange;
     startDate: string | null; // ISO Date String
-    endDate: string | null;   // ISO Date String
-    searchQuery: string;      // For filtering logs/tables
+    endDate: string | null; // ISO Date String
+    searchQuery: string; // For filtering logs/tables
     visibleCategories: string[];
   };
   // UI State (persists during session)
@@ -86,8 +86,10 @@ export const dashboardSlice = createSlice({
     toggleCategory: (state, action: PayloadAction<string>) => {
       const category = action.payload;
       if (state.filters.visibleCategories.includes(category)) {
-        state.filters.visibleCategories = state.filters.visibleCategories.filter(c => c !== category);
-       } else {
+        state.filters.visibleCategories = state.filters.visibleCategories.filter(
+          (c) => c !== category,
+        );
+      } else {
         state.filters.visibleCategories.push(category);
       }
     },

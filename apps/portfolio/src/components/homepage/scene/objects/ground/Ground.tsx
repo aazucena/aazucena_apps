@@ -3,8 +3,8 @@
  * The ground plane for troposphere phase
  */
 
-import type { JSX } from 'react';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import type { SceneObjectConfig } from "../types";
 
 interface GroundProps {
   opacity: number;

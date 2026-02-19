@@ -123,7 +123,9 @@ async function seedSkillCategories() {
             where: { id: existingCategory.id },
             data: updateData,
           });
-          console.log(`🔄 Updated: ${category.label} (${category.variant}) - filled missing fields`);
+          console.log(
+            `🔄 Updated: ${category.label} (${category.variant}) - filled missing fields`
+          );
           existing++;
         } else {
           console.log(`✓ Exists: ${category.label} (${category.variant})`);

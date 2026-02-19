@@ -1,3 +1,3 @@
-export * from './base'
-export * from './text'
-export * from './export'
+export * from './base';
+export * from './text';
+export * from './export';

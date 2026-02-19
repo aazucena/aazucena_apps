@@ -1,9 +1,9 @@
-import { mergeConfig } from 'vite'
-import monacoEditorPlugin from 'vite-plugin-monaco-editor'
+import { mergeConfig, type UserConfig } from 'vite';
+import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 
-export default (config) => {
+export default (config: UserConfig) => {
   // Important: always return the modified config
   return mergeConfig(config, {
     plugins: [monacoEditorPlugin({})],
-  })
-}
+  });
+};

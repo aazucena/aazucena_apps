@@ -13,20 +13,24 @@ export const VercelLogEntrySchema = z.object({
   path: z.string().optional(),
   method: z.string().optional(),
   statusCode: z.number().optional(),
-  proxy: z.object({
-    timestamp: z.number().optional(),
-    clientIp: z.string().optional(),
-    userAgent: z.array(z.string()).optional(),
-    referer: z.string().optional(),
-    vercel: z.any().optional(), // Vercel internal metadata
-    geo: z.object({
-      city: z.string().optional(),
-      country: z.string().optional(),
-      region: z.string().optional(),
-      latitude: z.number().optional(),
-      longitude: z.number().optional(),
-    }).optional(),
-  }).optional(),
+  proxy: z
+    .object({
+      timestamp: z.number().optional(),
+      clientIp: z.string().optional(),
+      userAgent: z.array(z.string()).optional(),
+      referer: z.string().optional(),
+      vercel: z.any().optional(), // Vercel internal metadata
+      geo: z
+        .object({
+          city: z.string().optional(),
+          country: z.string().optional(),
+          region: z.string().optional(),
+          latitude: z.number().optional(),
+          longitude: z.number().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 // The payload is typically an array of these entries

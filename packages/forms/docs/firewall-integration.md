@@ -13,12 +13,14 @@ Interactive Easter egg challenge system for form gating with visual, technical, 
 The **Inquiry Firewall** is a gamified anti-spam system that requires users to complete an interactive challenge before submitting forms. Unlike traditional CAPTCHAs, it's deeply integrated into the portfolio's atmospheric layer system and provides an engaging user experience.
 
 **Goals:**
+
 1. **Prevent Spam:** Filter automated bot submissions
 2. **Engage Users:** Provide fun, interactive challenges
 3. **Showcase Skills:** Demonstrate technical capabilities
 4. **Collect Quality Leads:** Ensure serious inquiries
 
 **Challenge Types:**
+
 - **Visual:** Find hidden objects in atmospheric layers (bird, blimp, ISS, etc.)
 - **Technical:** Trigger chess engine states (QSEARCH, PROBCUT, etc.)
 - **Logic:** Solve programming puzzles or riddles
@@ -58,6 +60,7 @@ function FormWithChallenge() {
 ```
 
 **Hook API:**
+
 ```typescript
 interface Challenge {
   id: string;
@@ -169,6 +172,7 @@ function HiddenObject({ id, position, onFound }) {
 ```
 
 **User Flow:**
+
 1. User reaches last step of form
 2. Challenge appears: "Find the bird in the Troposphere"
 3. User scrolls to Troposphere section
@@ -253,6 +257,7 @@ function ChessEngineChallengeDetector() {
 ```
 
 **User Flow:**
+
 1. Challenge appears: "Trigger a QSEARCH stabilization"
 2. User opens chess board (if available in portfolio)
 3. User analyzes a tactical position
@@ -850,6 +855,7 @@ function useChallengeTelemetry(challenge: Challenge) {
 ```
 
 **Metrics to Track:**
+
 - Challenge assignment (which challenge was shown)
 - Time to complete
 - Success rate per challenge type

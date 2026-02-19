@@ -20,12 +20,12 @@ export const phaserColors = {
   success: toPhaserColor(toHex(colors.success[500])),
   danger: toPhaserColor(toHex(colors.destructive[500])),
   warning: toPhaserColor(toHex(colors.amber[500])),
-  
+
   /** Transparent versions for overlays */
   overlay: {
     dark: toPhaserColor(toHex(colors.zinc[950])),
     light: toPhaserColor(toHex(colors.zinc[100])),
-  }
+  },
 } as const;
 
 export type PhaserColors = typeof phaserColors;

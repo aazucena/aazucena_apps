@@ -3,12 +3,12 @@
  * Flying saucer with lights and wobbling motion (Exosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation, applyCircularMotion } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation, applyCircularMotion } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface UFOProps {
   opacity: number;
@@ -24,13 +24,13 @@ export function UFO({ opacity }: UFOProps): JSX.Element {
 
     applyAnimation(ufoRef, time, {
       rotation: { y: 0.5 },
-      rotationOscillation: { x: { frequency: 0.8, amplitude: 0.15 } }
+      rotationOscillation: { x: { frequency: 0.8, amplitude: 0.15 } },
     });
 
     applyCircularMotion(ufoRef, time, {
       base: { x: 0, y: 0, z: 0 },
       x: { frequency: 0.4, amplitude: 0.2 },
-      y: { frequency: 0.6, amplitude: 0.3 }
+      y: { frequency: 0.6, amplitude: 0.3 },
     });
   });
 

@@ -16,12 +16,12 @@ interface ObjectViewerContextType {
   showBBox: boolean;
   showAxes: boolean;
   isSlowMo: boolean;
-  
+
   // Feedback States
   isCapturing: boolean;
   isResetting: boolean;
   actionStatus: string | null;
-  
+
   // Setters/Actions
   setShowGrid: (val: boolean) => void;
   setAutoRotate: (val: boolean) => void;
@@ -32,7 +32,7 @@ interface ObjectViewerContextType {
   setShowBBox: (val: boolean) => void;
   setShowAxes: (val: boolean) => void;
   setIsSlowMo: (val: boolean) => void;
-  
+
   // Logic
   resetCamera: () => void;
   takeScreenshot: () => void;
@@ -49,12 +49,12 @@ export function useObjectViewer() {
   return context;
 }
 
-export const ObjectViewerProvider = ({ 
-  children, 
+export const ObjectViewerProvider = ({
+  children,
   objectKey,
   initialShowGrid = true,
   initialAutoRotate = true,
-}: { 
+}: {
   children: React.ReactNode;
   objectKey: SceneObjectType;
   initialShowGrid?: boolean;
@@ -69,11 +69,11 @@ export const ObjectViewerProvider = ({
   const [showBBox, setShowBBox] = React.useState(false);
   const [showAxes, setShowAxes] = React.useState(false);
   const [isSlowMo, setIsSlowMo] = React.useState(false);
-  
+
   const [isCapturing, setIsCapturing] = React.useState(false);
   const [isResetting, setIsResetting] = React.useState(false);
   const [actionStatus, setActionStatus] = React.useState<string | null>(null);
-  
+
   const controlsRef = React.useRef<any>(null);
 
   const resetCamera = () => {
@@ -89,7 +89,7 @@ export const ObjectViewerProvider = ({
   const takeScreenshot = () => {
     setIsCapturing(true);
     setActionStatus('CAPTURING_FRAME');
-    
+
     setTimeout(() => {
       const canvas = document.querySelector('canvas');
       if (canvas) {
@@ -98,7 +98,7 @@ export const ObjectViewerProvider = ({
         link.href = canvas.toDataURL('image/png');
         link.click();
       }
-      
+
       setActionStatus('IMAGE_SAVED');
       setTimeout(() => {
         setIsCapturing(false);
@@ -132,12 +132,8 @@ export const ObjectViewerProvider = ({
     setIsSlowMo,
     resetCamera,
     takeScreenshot,
-    controlsRef
+    controlsRef,
   };
 
-  return (
-    <ObjectViewerContext.Provider value={value}>
-      {children}
-    </ObjectViewerContext.Provider>
-  );
+  return <ObjectViewerContext.Provider value={value}>{children}</ObjectViewerContext.Provider>;
 };

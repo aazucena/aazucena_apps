@@ -20,12 +20,12 @@ export const vitestTheme = {
       --vitest-color-warning: ${toHex(colors.amber[500])};
     }
   `.trim(),
-  
+
   /** Raw theme mapping for programmatic use */
   tokens: {
     primary: toHex(colors.primary[500]),
     background: toHex(colors.zinc[950]),
-  }
+  },
 } as const;
 
 export type VitestTheme = typeof vitestTheme;

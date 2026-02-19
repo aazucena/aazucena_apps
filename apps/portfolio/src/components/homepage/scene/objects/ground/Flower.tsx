@@ -3,8 +3,8 @@
  * Simple flower with stem and petals
  */
 
-import type { JSX } from 'react';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import type { SceneObjectConfig } from "../types";
 
 interface FlowerProps {
   opacity: number;
@@ -17,7 +17,7 @@ interface FlowerProps {
  */
 export function Flower({ opacity, config }: FlowerProps): JSX.Element {
   // Use color from config or default colors
-  const color = (config?.custom?.color as string) || '#FF69B4';
+  const color = (config?.custom?.color as string) || "#FF69B4";
 
   return (
     <group>

@@ -55,7 +55,7 @@ export async function GET() {
         summary: summaryData[0] || { total_visitors: 0, total_pageviews: 0, direct_traffic: 0 },
         trends: trendsData,
         geo: geoData,
-      }
+      },
     });
   } catch (error) {
     console.error('[TrafficStats] Error:', error);

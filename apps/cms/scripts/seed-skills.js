@@ -15,7 +15,6 @@
 
 const { createStrapi, compileStrapi } = require('@strapi/strapi');
 
-
 const skillsData = [
   // Frontend Category (23 skills)
   {
@@ -373,7 +372,7 @@ const skillsData = [
     display: 'featured',
     yearsOfExperience: 2,
     description:
-      'Protocol for software-hardware data exchange. Used for Arduino-to-software integration in Conductor\'s Hand and Crunch Time projects.',
+      "Protocol for software-hardware data exchange. Used for Arduino-to-software integration in Conductor's Hand and Crunch Time projects.",
     sort: 10,
   },
   {
@@ -905,7 +904,7 @@ const skillsData = [
     display: 'standard',
     yearsOfExperience: 2,
     description:
-      'Google\'s design system providing components and guidelines for mobile and web applications with consistent user experience.',
+      "Google's design system providing components and guidelines for mobile and web applications with consistent user experience.",
     sort: 4,
     documentationUrl: 'https://m3.material.io',
   },
@@ -939,7 +938,7 @@ const skillsData = [
     display: 'core',
     yearsOfExperience: 3,
     description:
-      'Microcontroller platform for embedded systems and IoT. Built Conductor\'s Hand wearable instrument and Crunch Time alarm clock with custom hardware.',
+      "Microcontroller platform for embedded systems and IoT. Built Conductor's Hand wearable instrument and Crunch Time alarm clock with custom hardware.",
     sort: 1,
     documentationUrl: 'https://www.arduino.cc',
   },
@@ -971,7 +970,7 @@ const skillsData = [
     display: 'standard',
     yearsOfExperience: 2,
     description:
-      'Additive manufacturing for creating physical prototypes and custom hardware enclosures. Designed and printed gauntlet for Conductor\'s Hand project.',
+      "Additive manufacturing for creating physical prototypes and custom hardware enclosures. Designed and printed gauntlet for Conductor's Hand project.",
     sort: 4,
   },
 
@@ -1035,7 +1034,7 @@ const skillsData = [
     display: 'featured',
     yearsOfExperience: 1,
     description:
-      'Arduino audio synthesis library for creating sound generators. Implemented custom audio synthesis in Conductor\'s Hand wearable instrument.',
+      "Arduino audio synthesis library for creating sound generators. Implemented custom audio synthesis in Conductor's Hand wearable instrument.",
     sort: 2,
     documentationUrl: 'https://sensorium.github.io/Mozzi',
   },
@@ -1113,26 +1112,20 @@ async function seedSkills() {
 
     // Pre-fetch all categories once (avoids N+1 queries)
     console.log('📦 Pre-fetching categories...');
-    const categories = await strapi.db
-      .query('api::skill-category.skill-category')
-      .findMany();
-    const categoryMap = new Map(categories.map(cat => [cat.name, cat]));
+    const categories = await strapi.db.query('api::skill-category.skill-category').findMany();
+    const categoryMap = new Map(categories.map((cat) => [cat.name, cat]));
 
     // Pre-fetch all existing skills once (avoids N+1 queries)
     console.log('📦 Pre-fetching existing skills...');
-    const existingSkills = await strapi.db
-      .query('api::skill.skill')
-      .findMany();
-    const existingSkillsMap = new Map(existingSkills.map(skill => [skill.name, skill]));
+    const existingSkills = await strapi.db.query('api::skill.skill').findMany();
+    const existingSkillsMap = new Map(existingSkills.map((skill) => [skill.name, skill]));
 
     for (const skill of skillsData) {
       // Resolve category relation from cache
       const category = categoryMap.get(skill.categoryName);
 
       if (!category) {
-        console.error(
-          `❌ Category not found: ${skill.categoryName} for ${skill.name}`
-        );
+        console.error(`❌ Category not found: ${skill.categoryName} for ${skill.name}`);
         skipped++;
         continue;
       }

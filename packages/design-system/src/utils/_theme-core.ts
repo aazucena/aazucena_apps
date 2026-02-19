@@ -64,7 +64,11 @@ export function resolveVibeId(vibeId: string): string {
  * element. Returns the list of property names that were set, so callers can
  * track and later remove exactly what they wrote.
  */
-export function writeThemeConfig(config: SystemThemeConfig, target: HTMLElement, context = '[design-system]'): string[] {
+export function writeThemeConfig(
+  config: SystemThemeConfig,
+  target: HTMLElement,
+  context = '[design-system]',
+): string[] {
   const applied: string[] = [];
 
   function set(prop: string, value: string): void {

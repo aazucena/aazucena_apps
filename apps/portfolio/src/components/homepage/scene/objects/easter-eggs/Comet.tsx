@@ -3,13 +3,13 @@
  * Comet with glowing curved tail (Mesosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface CometProps {
   opacity: number;
@@ -25,11 +25,13 @@ export function Comet({ opacity }: CometProps): JSX.Element {
     for (let i = 0; i <= 30; i++) {
       const t = i / 30;
       const curve = Math.pow(t, 0.7); // Natural curve falloff
-      points.push(new THREE.Vector3(
-        -curve * 0.8 - t * 0.2, // Drift left and back
-        curve * 5, // Flow upward
-        0
-      ));
+      points.push(
+        new THREE.Vector3(
+          -curve * 0.8 - t * 0.2, // Drift left and back
+          curve * 5, // Flow upward
+          0,
+        ),
+      );
     }
     return new THREE.CatmullRomCurve3(points);
   }, []);
@@ -39,13 +41,13 @@ export function Comet({ opacity }: CometProps): JSX.Element {
     const time = clock.getElapsedTime();
 
     applyAnimation(cometRef, time, {
-      rotation: { z: 0.05 }
+      rotation: { z: 0.05 },
     });
 
     // Linear falling motion (must stay imperative)
     if (cometRef.current) {
       cometRef.current.position.x = Math.sin(time * 0.2) * 2;
-      cometRef.current.position.y = -time * 0.5 % 10;
+      cometRef.current.position.y = (-time * 0.5) % 10;
     }
   });
 
@@ -85,12 +87,12 @@ export function Comet({ opacity }: CometProps): JSX.Element {
             <tubeGeometry
               args={[
                 new THREE.CatmullRomCurve3(
-                  cometTailCurve.getPoints(30).slice(i * 6, (i + 1) * 6 + 1)
+                  cometTailCurve.getPoints(30).slice(i * 6, (i + 1) * 6 + 1),
                 ),
                 12,
                 radius,
                 8,
-                false
+                false,
               ]}
             />
             <meshStandardMaterial

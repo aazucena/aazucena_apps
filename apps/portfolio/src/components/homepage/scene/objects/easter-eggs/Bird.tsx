@@ -3,11 +3,11 @@
  * Animated bird with wing flapping (Troposphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import type { SceneObjectConfig } from "../types";
 
 interface BirdProps {
   opacity: number;

@@ -28,10 +28,12 @@ interface ChatState {
 const isClient = typeof window !== 'undefined';
 const savedState = isClient ? localStorage.getItem('aazucena_chat_state_v2') : null;
 
-const initialState: ChatState = savedState ? JSON.parse(savedState) : {
-  conversations: {},
-  activeConversationId: null,
-};
+const initialState: ChatState = savedState
+  ? JSON.parse(savedState)
+  : {
+      conversations: {},
+      activeConversationId: null,
+    };
 
 const chatSlice = createSlice({
   name: 'chat',
@@ -40,12 +42,12 @@ const chatSlice = createSlice({
     createNewChat: (state) => {
       // 1. Find all empty conversations
       const emptyConvs = Object.values(state.conversations).filter(
-        conv => Object.keys(conv.messages).length === 0
+        (conv) => Object.keys(conv.messages).length === 0,
       );
 
       if (emptyConvs.length > 0) {
         // 2. If multiple somehow exist, delete all but the first one
-        emptyConvs.slice(1).forEach(c => delete state.conversations[c.id]);
+        emptyConvs.slice(1).forEach((c) => delete state.conversations[c.id]);
         // 3. Switch to the first one
         state.activeConversationId = emptyConvs[0].id;
       } else {
@@ -60,21 +62,26 @@ const chatSlice = createSlice({
         };
         state.activeConversationId = id;
       }
-      
+
       if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
     },
-    
-    addMessage: (state, action: PayloadAction<{ conversationId: string; message: TerminalMessage }>) => {
+
+    addMessage: (
+      state,
+      action: PayloadAction<{ conversationId: string; message: TerminalMessage }>,
+    ) => {
       const { conversationId, message } = action.payload;
       const conv = state.conversations[conversationId];
       if (conv) {
         conv.messages[message.id] = message;
         conv.activeNodeId = message.id;
         conv.updatedAt = Date.now();
-        
+
         // Auto-title if it's the first user message
         if (message.role === 'user' && Object.keys(conv.messages).length === 1) {
-          conv.title = message.parts[0]?.text.substring(0, 40) + (message.parts[0]?.text.length > 40 ? '...' : '');
+          conv.title =
+            message.parts[0]?.text.substring(0, 40) +
+            (message.parts[0]?.text.length > 40 ? '...' : '');
         }
       }
       if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
@@ -114,18 +121,18 @@ const chatSlice = createSlice({
       state.conversations = {};
       state.activeConversationId = null;
       if (isClient) localStorage.removeItem('aazucena_chat_state_v2');
-    }
+    },
   },
 });
 
-export const { 
-  createNewChat, 
-  addMessage, 
-  setActiveNode, 
-  switchConversation, 
-  deleteConversation, 
+export const {
+  createNewChat,
+  addMessage,
+  setActiveNode,
+  switchConversation,
+  deleteConversation,
   clearAllHistory,
-  updateConversationTitle
+  updateConversationTitle,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;
@@ -136,7 +143,7 @@ export default chatSlice.reducer;
 export const selectActiveThread = (state: { chat: ChatState }) => {
   const activeId = state.chat.activeConversationId;
   if (!activeId) return [];
-  
+
   const conv = state.chat.conversations[activeId];
   if (!conv) return [];
 

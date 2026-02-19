@@ -23,13 +23,13 @@ export const scalarTheme = {
       --scalar-font-family-mono: 'Fira Code', monospace;
     }
   `.trim(),
-  
+
   /** Raw token mapping for programmatic use */
   tokens: {
     primary: toHex(colors.primary[500]),
     background: toHex(colors.zinc[950]),
     text: toHex(colors.zinc[100]),
-  }
+  },
 } as const;
 
 export type ScalarTheme = typeof scalarTheme;

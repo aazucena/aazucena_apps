@@ -24,74 +24,72 @@ async function seedPreloader() {
 
     // Preloader data to seed
     const preloaderData = {
-        enabled: true,
-        variant: 'interactive',
-        theme: 'default',
+      enabled: true,
+      variant: 'interactive',
+      theme: 'default',
 
-        title: 'Preparing Your Experience',
-        readyTitle: 'Ready to Explore!',
-        readySubtitle: 'Your experience is fully optimized and ready',
-        readyFooterNote: 'All systems ready for your journey',
+      title: 'Preparing Your Experience',
+      readyTitle: 'Ready to Explore!',
+      readySubtitle: 'Your experience is fully optimized and ready',
+      readyFooterNote: 'All systems ready for your journey',
 
-        minDisplayTime: 1500,
-        maxDisplayTime: 10000,
-        animationDuration: 600,
+      minDisplayTime: 1500,
+      maxDisplayTime: 10000,
+      animationDuration: 600,
 
-        autoStart: true,
-        enableSkip: false,
-        lazyLoad: false,
-        preloadAssets: false,
-        enableAnimations: true,
+      autoStart: true,
+      enableSkip: false,
+      lazyLoad: false,
+      preloadAssets: false,
+      enableAnimations: true,
 
-        transitionType: 'fade',
-        showCard: false,
+      transitionType: 'fade',
+      showCard: false,
 
-        loadingSteps: [
-          {
-            stepId: 1,
-            name: 'Initializing',
-            description: 'Setting up framework',
-            // icon: 'Code', // Icon field stores SVG strings - fill manually via Strapi UI
-            weight: 20,
-            enabled: true,
-          },
-          {
-            stepId: 2,
-            name: 'Loading Assets',
-            description: 'Images and resources',
-            // icon: 'Image', // Icon field stores SVG strings - fill manually via Strapi UI
-            weight: 30,
-            enabled: true,
-          },
-          {
-            stepId: 3,
-            name: 'Optimizing',
-            description: 'Performance tweaks',
-            // icon: 'Zap', // Icon field stores SVG strings - fill manually via Strapi UI
-            weight: 20,
-            enabled: true,
-          },
-        ],
-
-        continueButton: {
-          label: 'Enter Website',
-          url: '#main-content',
-          variant: 'primary',
-          size: 'md',
-          openInNewTab: false,
+      loadingSteps: [
+        {
+          stepId: 1,
+          name: 'Initializing',
+          description: 'Setting up framework',
+          // icon: 'Code', // Icon field stores SVG strings - fill manually via Strapi UI
+          weight: 20,
+          enabled: true,
         },
+        {
+          stepId: 2,
+          name: 'Loading Assets',
+          description: 'Images and resources',
+          // icon: 'Image', // Icon field stores SVG strings - fill manually via Strapi UI
+          weight: 30,
+          enabled: true,
+        },
+        {
+          stepId: 3,
+          name: 'Optimizing',
+          description: 'Performance tweaks',
+          // icon: 'Zap', // Icon field stores SVG strings - fill manually via Strapi UI
+          weight: 20,
+          enabled: true,
+        },
+      ],
 
-        ariaLabel: 'Loading progress',
-        ariaLive: 'polite',
-        skipButtonAriaLabel: 'Skip loading',
+      continueButton: {
+        label: 'Enter Website',
+        url: '#main-content',
+        variant: 'primary',
+        size: 'md',
+        openInNewTab: false,
+      },
 
-        debug: false,
+      ariaLabel: 'Loading progress',
+      ariaLive: 'polite',
+      skipButtonAriaLabel: 'Skip loading',
+
+      debug: false,
     };
 
     // Check if preloader config already exists
-    const existing = await strapi.db
-      .query('api::preloader.preloader')
-      .findOne();
+    const existing = await strapi.db.query('api::preloader.preloader').findOne();
 
     if (existing) {
       // Update missing fields

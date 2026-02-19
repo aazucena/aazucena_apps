@@ -23,7 +23,7 @@ export function validateStrapiToken(token: string | undefined = STRAPI_TOKEN): b
     console.warn(
       '[Strapi] No STRAPI_API_TOKEN found in environment variables.',
       'API calls will fail. Using fallback data.',
-      'Set STRAPI_API_TOKEN in your .env file to fetch from CMS.'
+      'Set STRAPI_API_TOKEN in your .env file to fetch from CMS.',
     );
   }
   return false;
@@ -130,14 +130,14 @@ function sanitizeData(data: any): any {
 
 export async function fetchStrapi<T>(
   endpoint: string,
-  options?: FetchOptions
+  options?: FetchOptions,
 ): Promise<StrapiResponse<T>> {
   const queryString = buildQueryString(options?.query);
   const url = fetchUrl(`${endpoint}${queryString ? `?${queryString}` : ''}`);
   try {
     const res = await fetch(url, {
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
         'Content-Type': 'application/json',
       },
       cache: options?.cache || 'no-store',
@@ -154,28 +154,30 @@ export async function fetchStrapi<T>(
   } catch (error) {
     if (error && typeof error === 'object' && 'status' in error) throw error;
     console.error('[Strapi Fetch Error]', error);
-    throw new Error(`Failed to fetch from Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to fetch from Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
   }
 }
 
 export async function fetchStrapiById<T>(
   endpoint: string,
   id: string | number,
-  options?: FetchOptions
+  options?: FetchOptions,
 ): Promise<StrapiResponse<T>> {
   return fetchStrapi(`${endpoint}/${id}`, options);
 }
 
 export async function createStrapiEntry<T>(
   endpoint: string,
-  data: Record<string, any>
+  data: Record<string, any>,
 ): Promise<StrapiResponse<T>> {
   const url = fetchUrl(endpoint);
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ data }),
@@ -186,21 +188,23 @@ export async function createStrapiEntry<T>(
   } catch (error) {
     if (error && typeof error === 'object' && 'status' in error) throw error;
     console.error('[Strapi Create Error]', error);
-    throw new Error(`Failed to create entry in Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to create entry in Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
   }
 }
 
 export async function updateStrapiEntry<T>(
   endpoint: string,
   id: string | number,
-  data: Record<string, any>
+  data: Record<string, any>,
 ): Promise<StrapiResponse<T>> {
   const url = fetchUrl(`${endpoint}/${id}`);
   try {
     const res = await fetch(url, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ data }),
@@ -211,20 +215,22 @@ export async function updateStrapiEntry<T>(
   } catch (error) {
     if (error && typeof error === 'object' && 'status' in error) throw error;
     console.error('[Strapi Update Error]', error);
-    throw new Error(`Failed to update entry in Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to update entry in Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
   }
 }
 
 export async function deleteStrapiEntry<T>(
   endpoint: string,
-  id: string | number
+  id: string | number,
 ): Promise<StrapiResponse<T>> {
   const url = fetchUrl(`${endpoint}/${id}`);
   try {
     const res = await fetch(url, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
         'Content-Type': 'application/json',
       },
     });
@@ -234,7 +240,9 @@ export async function deleteStrapiEntry<T>(
   } catch (error) {
     if (error && typeof error === 'object' && 'status' in error) throw error;
     console.error('[Strapi Delete Error]', error);
-    throw new Error(`Failed to delete entry from Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to delete entry from Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
   }
 }
 

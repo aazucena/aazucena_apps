@@ -50,6 +50,7 @@ function generateFieldTemplate(attributes) {
   for (const [fieldName, config] of Object.entries(attributes)) {
     // Skip relations for now (handle separately)
     if (config.type === 'relation') continue;
+    const enumValues = config.enum || [];
 
     const comment = `// ${fieldName}: ${config.type}${config.required ? ' (required)' : ''}`;
 
@@ -79,15 +80,18 @@ function generateFieldTemplate(attributes) {
         fields.push(`    ${comment}\n    ${fieldName}: '2024-01-01T00:00:00.000Z',`);
         break;
       case 'enumeration':
-        const enumValues = config.enum || [];
-        fields.push(`    ${comment} (options: ${enumValues.join(', ')})\n    ${fieldName}: '${enumValues[0] || ''}',`);
+        fields.push(
+          `    ${comment} (options: ${enumValues.join(', ')})\n    ${fieldName}: '${enumValues[0] || ''}',`
+        );
         break;
       case 'json':
       case 'blocks':
         fields.push(`    ${comment}\n    ${fieldName}: [],`);
         break;
       case 'component':
-        fields.push(`    ${comment} (component: ${config.component})\n    ${fieldName}: ${config.repeatable ? '[]' : '{}'}, // TODO: Fill component data`);
+        fields.push(
+          `    ${comment} (component: ${config.component})\n    ${fieldName}: ${config.repeatable ? '[]' : '{}'}, // TODO: Fill component data`
+        );
         break;
       default:
         fields.push(`    ${comment}\n    ${fieldName}: null, // TODO: Set value`);

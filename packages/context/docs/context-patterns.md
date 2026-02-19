@@ -44,6 +44,7 @@ function App({ children }) {
 ```
 
 **Nesting Hierarchy:**
+
 1. **Foundation Contexts** (Telemetry, Animation) - No dependencies
 2. **Navigation Contexts** (Portfolio) - May depend on Animation
 3. **Data Contexts** (Data) - May depend on Navigation

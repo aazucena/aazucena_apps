@@ -59,7 +59,7 @@ export async function GET() {
         summary: summaryData[0] || { total_revenue: 0, avg_transaction: 0, transaction_count: 0 },
         trends: trendsData,
         history: historyData,
-      }
+      },
     });
   } catch (error) {
     console.error('[FinanceStats] Error:', error);

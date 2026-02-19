@@ -3,12 +3,12 @@
  * International Space Station with solar panels (Thermosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface ISSProps {
   opacity: number;
@@ -24,7 +24,7 @@ export function ISS({ opacity }: ISSProps): JSX.Element {
 
     applyAnimation(issRef, time, {
       rotation: { y: 0.1 },
-      rotationOscillation: { z: { frequency: 0.2, amplitude: 0.05 } }
+      rotationOscillation: { z: { frequency: 0.2, amplitude: 0.05 } },
     });
   });
 

@@ -13,6 +13,7 @@ Optimization strategies, memoization techniques, and performance profiling for c
 Custom hooks can inadvertently cause performance issues:
 
 **Common Problems:**
+
 1. **Unnecessary Re-renders** - Hook returns new object/function references every render
 2. **Expensive Calculations** - Hook recomputes values on every render
 3. **Memory Leaks** - Effect cleanup not properly implemented
@@ -20,6 +21,7 @@ Custom hooks can inadvertently cause performance issues:
 5. **Stale Closures** - Captured values in callbacks become outdated
 
 **Impact:**
+
 - Slow interactions (>100ms delay perceived as sluggish)
 - High memory usage (garbage collection pauses)
 - Battery drain on mobile devices
@@ -36,9 +38,7 @@ Custom hooks can inadvertently cause performance issues:
 ```typescript
 // ❌ BAD: Expensive calculation on every render
 function useFilteredProjects(projects, query) {
-  const filtered = projects.filter((p) =>
-    p.title.toLowerCase().includes(query.toLowerCase())
-  );
+  const filtered = projects.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()));
 
   return filtered; // New array reference every render
 }
@@ -48,9 +48,7 @@ import { useMemo } from 'react';
 
 function useFilteredProjects(projects, query) {
   const filtered = useMemo(() => {
-    return projects.filter((p) =>
-      p.title.toLowerCase().includes(query.toLowerCase())
-    );
+    return projects.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()));
   }, [projects, query]); // Only recompute when dependencies change
 
   return filtered;
@@ -58,17 +56,20 @@ function useFilteredProjects(projects, query) {
 ```
 
 **When to use useMemo:**
+
 - Filtering/sorting large arrays (>100 items)
 - Complex transformations (nested maps/filters)
 - Heavy string operations (regex, parsing)
 - Mathematical calculations (>10ms to compute)
 
 **When NOT to use useMemo:**
+
 - Simple operations (<1ms)
 - Primitive values (numbers, strings, booleans)
 - Values already memoized by parent
 
 **Benchmark:**
+
 ```typescript
 function useHeavyComputation(data) {
   // Measure computation time
@@ -119,12 +120,14 @@ function useProjectActions() {
 ```
 
 **When to use useCallback:**
+
 - Function passed as prop to memoized child
 - Function used in dependency array of useEffect/useMemo
 - Event handlers attached to DOM elements
 - Callbacks passed to third-party libraries
 
 **When NOT to use useCallback:**
+
 - Function used only inside component
 - Function not passed as prop
 - Over-optimization (adds complexity for no gain)
@@ -163,20 +166,36 @@ function useTheme() {
       isDark: theme === 'dark',
       toggle,
     }),
-    [theme, toggle]
+    [theme, toggle],
   );
 }
 ```
 
 **Pattern for Complex Returns:**
+
 ```typescript
 function useComplexHook(props) {
-  const stableCallback1 = useCallback(() => {}, [/* deps */]);
-  const stableCallback2 = useCallback(() => {}, [/* deps */]);
+  const stableCallback1 = useCallback(
+    () => {},
+    [
+      /* deps */
+    ],
+  );
+  const stableCallback2 = useCallback(
+    () => {},
+    [
+      /* deps */
+    ],
+  );
 
-  const computedValue = useMemo(() => {
-    // Expensive computation
-  }, [/* deps */]);
+  const computedValue = useMemo(
+    () => {
+      // Expensive computation
+    },
+    [
+      /* deps */
+    ],
+  );
 
   // Return memoized object
   return useMemo(
@@ -185,7 +204,7 @@ function useComplexHook(props) {
       action1: stableCallback1,
       action2: stableCallback2,
     }),
-    [computedValue, stableCallback1, stableCallback2]
+    [computedValue, stableCallback1, stableCallback2],
   );
 }
 ```
@@ -218,10 +237,7 @@ function useFetchProject(id, optionsParam) {
   const { method, headers } = optionsParam;
 
   // Memoize complex options
-  const options = useMemo(
-    () => ({ method, headers }),
-    [method, headers]
-  );
+  const options = useMemo(() => ({ method, headers }), [method, headers]);
 
   useEffect(() => {
     fetch(`/api/projects/${id}`, options).then((res) => setProject(res));
@@ -232,6 +248,7 @@ function useFetchProject(id, optionsParam) {
 ```
 
 **Strategies:**
+
 1. Extract primitive values from objects
 2. Use refs for values that don't need re-renders
 3. Memoize object/array dependencies
@@ -285,6 +302,7 @@ function useSearch(query) {
 ```
 
 **Reusable Debounce Hook:**
+
 ```typescript
 function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -444,6 +462,7 @@ function useHover() {
 ```
 
 **Use refs for:**
+
 - Timers and intervals
 - Animation frame IDs
 - DOM element references
@@ -493,6 +512,7 @@ function Component({ count }) {
    - Identify components using slow hooks
 
 **Metrics to Watch:**
+
 - **Render Duration:** Time to render component (should be <16ms for 60fps)
 - **Commit Phase:** Time to update DOM (should be <10ms)
 - **Why Did This Render:** Shows which prop/state changed
@@ -661,10 +681,7 @@ function useSimpleCounter() {
   // Unnecessary memoization for primitive
   const doubleCount = useMemo(() => count * 2, [count]);
 
-  return useMemo(
-    () => ({ count, increment, doubleCount }),
-    [count, increment, doubleCount]
-  );
+  return useMemo(() => ({ count, increment, doubleCount }), [count, increment, doubleCount]);
 }
 
 // ✅ GOOD: Simple and clear
@@ -679,6 +696,7 @@ function useSimpleCounter() {
 ```
 
 **Rule of Thumb:** Only optimize when:
+
 1. Profiling shows a performance issue
 2. Hook used in hot path (renders >60fps)
 3. Processing large data sets (>100 items)
@@ -766,12 +784,13 @@ export function useDeviceCapabilities() {
   // Memoized return object
   return useMemo(
     () => ({ capabilities, updateCapabilities, mounted }),
-    [capabilities, updateCapabilities, mounted]
+    [capabilities, updateCapabilities, mounted],
   );
 }
 ```
 
 **Optimizations:**
+
 1. Lazy state initialization for capabilities
 2. Memoized updateCapabilities with useCallback
 3. Memoized return object to prevent re-renders
@@ -827,6 +846,7 @@ export function useFetch<T>(url: string | null) {
 ```
 
 **Optimizations:**
+
 1. AbortController ref prevents re-creation
 2. Proper cleanup with abort on unmount
 3. Memoized return object

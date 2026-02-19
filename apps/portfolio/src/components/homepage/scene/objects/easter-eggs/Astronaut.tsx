@@ -3,12 +3,12 @@
  * Astronaut on spacewalk with floating/tumbling animation (Thermosphere)
  */
 
-import type { JSX } from 'react';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation, applyCircularMotion } from '~/lib/utils/scene';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation, applyCircularMotion } from "~/lib/utils/scene";
+import type { SceneObjectConfig } from "../types";
 
 interface AstronautProps {
   opacity: number;
@@ -23,13 +23,13 @@ export function Astronaut({ opacity }: AstronautProps): JSX.Element {
     const time = clock.getElapsedTime();
 
     applyAnimation(astronautRef, time, {
-      rotation: { x: 0.2, z: 0.15 }
+      rotation: { x: 0.2, z: 0.15 },
     });
 
     applyCircularMotion(astronautRef, time, {
       base: { x: 0, y: 0, z: 0 },
       x: { frequency: 0.3, amplitude: 0.2 },
-      y: { frequency: 0.5, amplitude: 0.4 }
+      y: { frequency: 0.5, amplitude: 0.4 },
     });
   });
 

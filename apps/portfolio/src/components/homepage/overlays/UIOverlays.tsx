@@ -7,14 +7,22 @@
  */
 
 import { lazy, Suspense, type JSX } from "react";
-import { ScrollIndicators, ScrollDownIndicator } from '~/components/ui';
-import { NavigationToolbar } from './NavigationToolbar';
-import type { AtmosphericPhase } from '~/config/animations';
-import { useSectionData, usePortfolio, useDataContext } from '~/contexts/animations';
-import { useModal } from '~/hooks/animations';
+import { ScrollIndicators, ScrollDownIndicator } from "~/components/ui";
+import { NavigationToolbar } from "./NavigationToolbar";
+import type { AtmosphericPhase } from "~/config/animations";
+import {
+  useSectionData,
+  usePortfolio,
+  useDataContext,
+} from "~/contexts/animations";
+import { useModal } from "~/hooks/animations";
 
 // Lazy load ExperienceModal - only loads when user clicks to view experience
-const ExperienceModal = lazy(() => import('~/components/ui/ExperienceModal').then(m => ({ default: m.ExperienceModal })));
+const ExperienceModal = lazy(() =>
+  import("~/components/ui/ExperienceModal").then((m) => ({
+    default: m.ExperienceModal,
+  })),
+);
 
 interface UIOverlaysProps {
   // Atmospheric layer (not in contexts yet)
@@ -41,7 +49,7 @@ export default function UIOverlays({
   const { modalRef } = useModal({ closeOnEscape: false });
 
   // Extract section names from CMS data
-  const sectionNames = content.sections.map(section => section.name);
+  const sectionNames = content.sections.map((section) => section.name);
   return (
     <>
       {/* Experience Modal - Lazy loaded */}

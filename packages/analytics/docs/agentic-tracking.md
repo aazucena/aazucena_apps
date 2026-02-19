@@ -11,11 +11,13 @@ Comprehensive guide to AI performance profiling: Midgame (MG) and Endgame (EG) p
 ### Conceptual Framework
 
 **Midgame (MG)**: AI reasoning phase
+
 - Problem analysis, context gathering, multi-step thinking
 - Higher token consumption, longer latency
 - Quality measured by reasoning depth and accuracy
 
 **Endgame (EG)**: AI synthesis phase
+
 - Final answer formulation, output generation, polish
 - Lower token consumption, faster response
 - Quality measured by coherence and completeness
@@ -121,7 +123,7 @@ const MODEL_COSTS = {
   'claude-haiku-4.5': { input: 0.25, output: 1.25 },
   'gpt-4-turbo': { input: 10.0, output: 30.0 },
   'gpt-4o': { input: 5.0, output: 15.0 },
-  'gemini-2.0-flash': { input: 0.075, output: 0.30 },
+  'gemini-2.0-flash': { input: 0.075, output: 0.3 },
 };
 
 function calculateCost(model: string, inputTokens: number, outputTokens: number): number {
@@ -295,7 +297,7 @@ interface SHADESMetrics {
 function analyzeSHADES(
   userFeedback: string,
   interactionHistory: string[],
-  taskMetrics: { tokenCount: number; costUsd: number; quality: number }
+  taskMetrics: { tokenCount: number; costUsd: number; quality: number },
 ): SHADESMetrics {
   // Sentiment analysis (placeholder - use actual NLP)
   const sentiment = analyzeSentiment(userFeedback); // -1 to 1
@@ -318,19 +320,22 @@ function analyzeSHADES(
   };
 
   // Signal confidence
-  const signal = sentiment > 0.7 && alignment > 0.8 ? 'high_confidence' :
-                 sentiment > 0.3 && alignment > 0.5 ? 'medium_confidence' :
-                 'low_confidence';
+  const signal =
+    sentiment > 0.7 && alignment > 0.8
+      ? 'high_confidence'
+      : sentiment > 0.3 && alignment > 0.5
+        ? 'medium_confidence'
+        : 'low_confidence';
 
   return { sentiment, history, alignment, drive, economics, signal };
 }
 
 // Track SHADES
-const shades = analyzeSHADES(
-  'This answer was very helpful!',
-  ['query_1', 'query_2', 'query_3'],
-  { tokenCount: 3500, costUsd: 0.021, quality: 0.92 }
-);
+const shades = analyzeSHADES('This answer was very helpful!', ['query_1', 'query_2', 'query_3'], {
+  tokenCount: 3500,
+  costUsd: 0.021,
+  quality: 0.92,
+});
 
 trackEvent({
   category: 'shades',

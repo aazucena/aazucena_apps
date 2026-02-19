@@ -17,15 +17,19 @@ Complete reference for the aazucena Input Intelligence System.
 ## Core Topics
 
 ### Field Components
+
 Reusable form inputs with built-in validation: TextField, TextArea, SelectField, CheckboxField, RadioGroup.
 
 ### Multi-Step Wizards
+
 State machine-driven forms with step validation, progress tracking, and persistence.
 
 ### Validation Schemas
+
 Pre-built Zod schemas for common forms: contact, feedback, testimonial, bug report, feature request.
 
 ### Inquiry Firewall
+
 AI-powered scheduling gating system with context-aware filtering and alternative suggestion engine.
 
 ---

@@ -9,12 +9,12 @@ import { toHex } from '../../utils/color-converter.js';
 const stripHash = (hex: string) => hex.replace('#', '');
 
 export const audioEmbeds = {
-  /** 
+  /**
    * Formatted color for Spotify embeds (requires HEX with # for some, or just HEX).
    * Note: Spotify's internal API for widgets is limited but some embeds support a 'color' param.
    */
   spotify: toHex(colors.primary[500]),
-  
+
   /**
    * Formatted color for SoundCloud embeds (requires HEX without '#').
    */

@@ -13,7 +13,8 @@ export const emailStyles = {
     margin: '0 auto',
   },
   typography: {
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    fontFamily:
+      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     color: toHex(colors.zinc[800]),
     fontSize: '16px',
     lineHeight: '1.5',

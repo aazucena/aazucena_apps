@@ -10,7 +10,7 @@ export function toHex(color: string): string {
     const parsed = parse(color);
     if (!parsed) return color;
     return formatHex(parsed) || color;
-  } catch (e) {
+  } catch {
     return color;
   }
 }

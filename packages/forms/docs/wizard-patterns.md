@@ -81,6 +81,7 @@ function ContactWizard() {
 ```
 
 **Key Features:**
+
 - **Progress Indicator:** Visual stepper with numbered circles
 - **Step Validation:** `isValid` flag prevents navigation to next step
 - **Framer Motion:** Smooth transitions between steps (fade + slide)
@@ -94,14 +95,15 @@ function ContactWizard() {
 
 ```typescript
 export interface FormStep {
-  id: string;           // Unique step identifier
-  title: string;        // Display name (shown in progress indicator)
+  id: string; // Unique step identifier
+  title: string; // Display name (shown in progress indicator)
   component: ReactNode; // Step content (form fields)
-  isValid?: boolean;    // Validation state (optional, defaults to true)
+  isValid?: boolean; // Validation state (optional, defaults to true)
 }
 ```
 
 **Best Practices:**
+
 1. **Unique IDs:** Use descriptive IDs ('personal', 'contact', 'payment')
 2. **Short Titles:** 1-2 words for progress indicator (e.g., 'Info', 'Details', 'Review')
 3. **Component Composition:** Each step is a self-contained form section
@@ -127,10 +129,12 @@ The FormWizard includes a built-in progress indicator:
 ```
 
 **Responsive Behavior:**
+
 - Desktop: Step numbers + titles
 - Mobile: Step numbers only (titles hidden with `hidden md:block`)
 
 **Styling:**
+
 ```typescript
 <div className="flex justify-between items-center mb-12">
   {steps.map((step, idx) => (
@@ -183,6 +187,7 @@ The FormWizard includes a built-in progress indicator:
 ```
 
 **Animation Sequence:**
+
 1. **Exit (Previous Step):**
    - Fade out (opacity: 1 → 0)
    - Slide left (x: 0 → -20)
@@ -242,6 +247,7 @@ const handleBack = () => {
 ```
 
 **Button Logic:**
+
 ```typescript
 <div className="flex justify-between mt-8">
   {/* Back Button (hidden on first step) */}
@@ -263,6 +269,7 @@ const handleBack = () => {
 ```
 
 **Keyboard Shortcuts:**
+
 ```typescript
 // Add keyboard navigation
 useEffect(() => {
@@ -339,6 +346,7 @@ function PersistentWizard() {
 ```
 
 **Features:**
+
 - Auto-save on every field change
 - Restore draft on page reload
 - Clear draft after successful submission
@@ -377,13 +385,13 @@ function StepWithValidation() {
 
 ```typescript
 // Strategy 1: All fields must be valid
-isValid: Object.keys(errors).length === 0
+isValid: Object.keys(errors).length === 0;
 
 // Strategy 2: Specific fields only
-isValid: !errors.name && !errors.email
+isValid: !errors.name && !errors.email;
 
 // Strategy 3: Custom validation function
-isValid: validateStep1(form.getValues())
+isValid: validateStep1(form.getValues());
 
 // Strategy 4: Async validation
 const [isValid, setIsValid] = useState(false);

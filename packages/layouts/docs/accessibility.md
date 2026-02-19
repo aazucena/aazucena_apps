@@ -11,18 +11,21 @@ Semantic HTML patterns, ARIA landmarks, keyboard navigation, and screen reader o
 ### Why Accessibility Matters
 
 **Statistics:**
+
 - 15% of world population has some form of disability
 - 1 in 4 adults in the US has a disability
 - Screen readers used by ~2% of web users
 - Keyboard-only navigation common among power users
 
 **Benefits:**
+
 1. **Legal Compliance:** WCAG 2.1, ADA, Section 508
 2. **SEO:** Semantic HTML improves search rankings
 3. **User Experience:** Better UX for all users, not just disabled
 4. **Business:** Larger audience, better conversion rates
 
 **WCAG 2.1 Levels:**
+
 - **Level A:** Minimum accessibility (must meet)
 - **Level AA:** Recommended target (should meet)
 - **Level AAA:** Enhanced accessibility (optional)
@@ -74,6 +77,7 @@ Semantic HTML patterns, ARIA landmarks, keyboard navigation, and screen reader o
 ```
 
 **Benefits:**
+
 - Screen readers understand page structure
 - Search engines better index content
 - Keyboard navigation works properly
@@ -84,6 +88,7 @@ Semantic HTML patterns, ARIA landmarks, keyboard navigation, and screen reader o
 ### Semantic Elements Reference
 
 **Sectioning:**
+
 - `<header>` - Page or section header
 - `<nav>` - Navigation links
 - `<main>` - Main content (one per page)
@@ -93,6 +98,7 @@ Semantic HTML patterns, ARIA landmarks, keyboard navigation, and screen reader o
 - `<footer>` - Page or section footer
 
 **Text:**
+
 - `<h1>` to `<h6>` - Headings (hierarchical)
 - `<p>` - Paragraphs
 - `<ul>`, `<ol>`, `<li>` - Lists
@@ -101,6 +107,7 @@ Semantic HTML patterns, ARIA landmarks, keyboard navigation, and screen reader o
 - `<time>` - Dates/times
 
 **Interactive:**
+
 - `<button>` - Clickable buttons
 - `<a>` - Links to other pages/anchors
 - `<input>` - Form inputs
@@ -116,6 +123,7 @@ Semantic HTML patterns, ARIA landmarks, keyboard navigation, and screen reader o
 **ARIA (Accessible Rich Internet Applications)** attributes help screen readers understand page structure.
 
 **Landmark Roles:**
+
 - `role="banner"` - Site header (auto on `<header>` in body)
 - `role="navigation"` - Navigation (auto on `<nav>`)
 - `role="main"` - Main content (auto on `<main>`)
@@ -171,6 +179,7 @@ function AccessibleLayout({ children }) {
 ```
 
 **Screen Reader Benefits:**
+
 - Users can jump between landmarks (Cmd+Ctrl+N in VoiceOver)
 - Navigate page structure without reading all content
 - Quickly find main content or navigation
@@ -213,12 +222,14 @@ function AccessiblePage() {
 ```
 
 **How it works:**
+
 1. Link is visually hidden (`.sr-only`)
 2. When tabbed to, becomes visible
 3. Clicking jumps to `#main-content`
 4. Keyboard users skip navigation
 
 **Tailwind SR-Only:**
+
 ```css
 .sr-only {
   position: absolute;
@@ -267,6 +278,7 @@ function KeyboardAccessibleComponent() {
 ```
 
 **Keyboard Shortcuts:**
+
 - `Tab` - Next focusable element
 - `Shift+Tab` - Previous focusable element
 - `Enter` - Activate button/link
@@ -352,6 +364,7 @@ function Modal({ isOpen, onClose, children }) {
 ```
 
 **Focus Trap Features:**
+
 1. Focus first element on open
 2. Trap Tab/Shift+Tab within modal
 3. Escape key closes modal
@@ -522,6 +535,7 @@ function AccessiblePageLayout() {
 ```
 
 **Why Label Navigations?**
+
 - Multiple `<nav>` elements on page need differentiation
 - Screen readers announce: "Primary navigation" vs "Footer navigation"
 
@@ -593,6 +607,7 @@ function AccessibleForm() {
 ```
 
 **Key Patterns:**
+
 - Every `<input>` has associated `<label>` via `htmlFor`/`id`
 - Required fields marked with `aria-required="true"`
 - Errors announced with `role="alert"`
@@ -633,6 +648,7 @@ function LiveRegionExample() {
 ```
 
 **ARIA Live Attributes:**
+
 - `aria-live="polite"` - Announce after current speech
 - `aria-live="assertive"` - Interrupt current speech
 - `aria-atomic="true"` - Read entire region, not just changes
@@ -663,6 +679,7 @@ describe('Accessibility', () => {
 ```
 
 **Tools:**
+
 - **jest-axe** - Automated accessibility testing
 - **@axe-core/react** - Runtime accessibility checks
 - **eslint-plugin-jsx-a11y** - Lint rules for accessibility
@@ -690,23 +707,27 @@ describe('Accessibility', () => {
 ### Level AA Compliance (Target)
 
 **Perceivable:**
+
 1. Text alternatives for non-text content
 2. Captions and alternatives for multimedia
 3. Adaptable content structure
 4. Distinguishable content (contrast, resize)
 
 **Operable:**
+
 1. Keyboard accessible
 2. Sufficient time to read/interact
 3. Seizure-free (no flashing > 3 times/sec)
 4. Navigable (skip links, page titles, focus order)
 
 **Understandable:**
+
 1. Readable text
 2. Predictable behavior
 3. Input assistance (labels, errors, suggestions)
 
 **Robust:**
+
 1. Compatible with assistive technologies
 2. Valid HTML
 3. Correct ARIA usage

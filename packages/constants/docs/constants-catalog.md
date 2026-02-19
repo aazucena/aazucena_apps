@@ -31,6 +31,7 @@ Complete reference for all **12 constant modules** in the @aazucena/constants pa
 ### Particle System
 
 #### PARTICLE_COUNTS
+
 ```typescript
 export const PARTICLE_COUNTS = {
   HIGH: 200,
@@ -44,6 +45,7 @@ export const PARTICLE_COUNTS = {
 ---
 
 #### PARTICLE_DEFAULTS
+
 ```typescript
 export const PARTICLE_DEFAULTS = {
   SIZE: 2,
@@ -57,6 +59,7 @@ export const PARTICLE_DEFAULTS = {
 ---
 
 #### PARTICLE_PRESETS
+
 ```typescript
 export const PARTICLE_PRESETS = {
   space: {
@@ -104,12 +107,14 @@ export const PARTICLE_PRESETS = {
 ```
 
 **Preset Types:**
+
 - `space` - Star field with twinkling effect
 - `snow` - Falling snow with drift
 - `rain` - Fast rain with streaks
 - `floating` - Colorful floating particles with wave motion
 
 **Example:**
+
 ```typescript
 import { PARTICLE_PRESETS } from '@aazucena/constants';
 
@@ -122,16 +127,17 @@ console.log(`Creating ${config.count} particles at ${config.speed} speed`);
 ### Scene Configuration
 
 #### SCENE_ELEMENT_COUNTS
+
 ```typescript
 export const SCENE_ELEMENT_COUNTS = {
-  particles: 3000,   // Background particles in exosphere
-  mainShapes: 150,   // Main floating shapes
-  clouds: 12,        // Clouds in stratosphere
-  houses: 8,         // Houses on ground
-  trees: 15,         // Trees on ground
-  bushes: 25,        // Bushes on ground
-  rocks: 20,         // Rocks on ground
-  flowers: 35,       // Flowers on ground
+  particles: 3000, // Background particles in exosphere
+  mainShapes: 150, // Main floating shapes
+  clouds: 12, // Clouds in stratosphere
+  houses: 8, // Houses on ground
+  trees: 15, // Trees on ground
+  bushes: 25, // Bushes on ground
+  rocks: 20, // Rocks on ground
+  flowers: 35, // Flowers on ground
 } as const;
 ```
 
@@ -140,11 +146,12 @@ export const SCENE_ELEMENT_COUNTS = {
 ---
 
 #### SCENE_ANIMATION_SPEEDS
+
 ```typescript
 export const SCENE_ANIMATION_SPEEDS = {
-  groupRotation: 0.05,   // Base rotation speed (radians/sec)
-  sunRotation: 0.05,     // Sun movement speed
-  orbitDamping: 0.05,    // OrbitControls damping factor
+  groupRotation: 0.05, // Base rotation speed (radians/sec)
+  sunRotation: 0.05, // Sun movement speed
+  orbitDamping: 0.05, // OrbitControls damping factor
 } as const;
 ```
 
@@ -155,16 +162,18 @@ export const SCENE_ANIMATION_SPEEDS = {
 ### Animation Timing
 
 #### ANIMATION_TIMING
+
 ```typescript
 export const ANIMATION_TIMING = {
-  FLIP_TEXT_INTERVAL: 3000,      // ms between text flips
-  SCROLL_DEBOUNCE: 1000,         // ms scroll debounce
-  MODAL_ANIMATION: 300,          // ms modal transition
-  SECTION_TRANSITION: 1000,      // ms section transition
+  FLIP_TEXT_INTERVAL: 3000, // ms between text flips
+  SCROLL_DEBOUNCE: 1000, // ms scroll debounce
+  MODAL_ANIMATION: 300, // ms modal transition
+  SECTION_TRANSITION: 1000, // ms section transition
 } as const;
 ```
 
 **Example:**
+
 ```typescript
 import { ANIMATION_TIMING } from '@aazucena/constants';
 
@@ -178,6 +187,7 @@ setTimeout(() => {
 ### Atmospheric Phases
 
 #### ATMOSPHERIC_PHASES
+
 ```typescript
 export const ATMOSPHERIC_PHASES = [
   'exosphere',
@@ -191,8 +201,9 @@ export const ATMOSPHERIC_PHASES = [
 **Use Case:** Define scroll-triggered atmospheric layer transitions.
 
 **Type Inference:**
+
 ```typescript
-type Phase = typeof ATMOSPHERIC_PHASES[number];
+type Phase = (typeof ATMOSPHERIC_PHASES)[number];
 // Type: "exosphere" | "thermosphere" | "mesosphere" | "stratosphere" | "troposphere"
 ```
 
@@ -201,6 +212,7 @@ type Phase = typeof ATMOSPHERIC_PHASES[number];
 ### HSL Color Ranges
 
 #### HSL_RANGES
+
 ```typescript
 export const HSL_RANGES = {
   exosphere: {
@@ -226,6 +238,7 @@ export const HSL_RANGES = {
 **Use Case:** Generate random colors within phase-specific HSL ranges.
 
 **Example:**
+
 ```typescript
 import { HSL_RANGES } from '@aazucena/constants';
 
@@ -243,6 +256,7 @@ function getRandomColor(phase: keyof typeof HSL_RANGES): string {
 ### Background Colors
 
 #### BACKGROUND_COLORS
+
 ```typescript
 export const BACKGROUND_COLORS = {
   exosphere: '#0a0e27',
@@ -260,6 +274,7 @@ export const BACKGROUND_COLORS = {
 ### Scroll Navigation
 
 #### Scroll Constants
+
 ```typescript
 export const SCROLL_PROGRESS_MAX = 0.8;
 export const SCROLL_PROGRESS_THRESHOLD = 0.7;
@@ -277,6 +292,7 @@ export const SCROLL_DEBOUNCE_TIME = 1000; // ms
 ### Performance Features
 
 #### ENABLE_LAYER_LAZY_LOADING
+
 ```typescript
 export const ENABLE_LAYER_LAZY_LOADING = true;
 ```
@@ -328,11 +344,13 @@ export const ROUTES = {
 ```
 
 **Categories:**
+
 - **PORTFOLIO** - Main portfolio application routes
 - **ANALYTICS** - AZUCENA_LYTICS dashboard routes
 - **EXTERNAL** - Third-party service URLs
 
 **Example:**
+
 ```typescript
 import { ROUTES } from '@aazucena/constants';
 
@@ -367,6 +385,7 @@ export const STORAGE_KEYS = {
 ```
 
 **Keys:**
+
 - `THEME` - User theme preference (light/dark/auto)
 - `SESSION_ID` - Anonymous session identifier
 - `AUTH_TOKEN` - JWT authentication token
@@ -375,6 +394,7 @@ export const STORAGE_KEYS = {
 - `TERMINAL_HISTORY` - Command history for AI terminal
 
 **Example:**
+
 ```typescript
 import { STORAGE_KEYS } from '@aazucena/constants';
 
@@ -389,6 +409,7 @@ localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
 ```
 
 **Best Practices:**
+
 - ✅ Always use constants (not hardcoded strings)
 - ✅ Prefix all keys with `aazucena-` to avoid collisions
 - ✅ Validate/parse values after retrieval (localStorage returns strings)
@@ -418,6 +439,7 @@ export const AI_MODELS = {
 ```
 
 **Model Categories:**
+
 - **Local:** BRAIN (on-device inference)
 - **OpenAI:** GPT-4o, GPT-4o Mini, GPT-4 Turbo
 - **Anthropic:** Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku
@@ -442,15 +464,18 @@ export const AI_PRICING = {
 ```
 
 **Pricing per 1,000,000 (1M) tokens in USD:**
+
 - `in` - Input tokens cost
 - `out` - Output tokens cost
 
 **Cost Comparison:**
+
 - **Most Expensive:** Claude 3 Opus ($15/$75 per 1M)
 - **Mid-Tier:** GPT-4o ($5/$15), Claude 3.5 Sonnet ($3/$15), Gemini Pro ($3.5/$10.5)
 - **Budget:** GPT-4o Mini ($0.15/$0.6), Claude 3 Haiku ($0.25/$1.25), Gemini Flash ($0.075/$0.3)
 
 **Example:**
+
 ```typescript
 import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
 
@@ -501,45 +526,47 @@ export const NEURAL_MAP_FALLBACK_NODES = [
 ```typescript
 export const ATMOSPHERIC_COLORS = {
   exosphere: {
-    from: '#000000',  // Pure black
-    via: '#0a0a1a',   // Very dark gray
-    to: '#1a1a2e',    // Dark navy
+    from: '#000000', // Pure black
+    via: '#0a0a1a', // Very dark gray
+    to: '#1a1a2e', // Dark navy
     light: '#ffffff', // White light
   },
   thermosphere: {
-    from: '#1a1a2e',  // Dark navy
-    via: '#2d1b4e',   // Dark purple
-    to: '#1e3a8a',    // Deep blue
+    from: '#1a1a2e', // Dark navy
+    via: '#2d1b4e', // Dark purple
+    to: '#1e3a8a', // Deep blue
     light: '#9D4EDD', // Purple light
   },
   mesosphere: {
-    from: '#1e3a8a',  // Deep blue
-    via: '#1e40af',   // Medium blue
-    to: '#1d4ed8',    // Bright blue
+    from: '#1e3a8a', // Deep blue
+    via: '#1e40af', // Medium blue
+    to: '#1d4ed8', // Bright blue
     light: '#3A86FF', // Cyan light
   },
   stratosphere: {
-    from: '#1d4ed8',  // Bright blue
-    via: '#2563eb',   // Sky blue
-    to: '#3b82f6',    // Light blue
+    from: '#1d4ed8', // Bright blue
+    via: '#2563eb', // Sky blue
+    to: '#3b82f6', // Light blue
     light: '#87CEEB', // Sky blue light
   },
   troposphere: {
-    from: '#38bdf8',  // Cyan
-    via: '#7dd3fc',   // Light cyan
-    to: '#bae6fd',    // Pale cyan
+    from: '#38bdf8', // Cyan
+    via: '#7dd3fc', // Light cyan
+    to: '#bae6fd', // Pale cyan
     light: '#FFA07A', // Light salmon
   },
 } as const;
 ```
 
 **Color Structure:**
+
 - `from` - Gradient start color
 - `via` - Gradient middle color
 - `to` - Gradient end color
 - `light` - Directional light color for the phase
 
 **Example:**
+
 ```typescript
 import { ATMOSPHERIC_COLORS } from '@aazucena/constants';
 
@@ -553,6 +580,7 @@ const exosphereCSS = getPhaseGradient('exosphere');
 ```
 
 **Use Cases:**
+
 - CSS background gradients
 - Three.js scene background colors
 - PointLight colors per phase
@@ -701,19 +729,19 @@ export const ANIMATION_SEQUENCES = {
 export const SENTINEL_THRESHOLDS = {
   // AI INFRASTRUCTURE
   AI_COST_DAILY: {
-    WARNING: 2.5,  // USD
+    WARNING: 2.5, // USD
     CRITICAL: 5.0, // USD
     LABEL: 'AI_COST_EXPOSURE',
   },
   AI_LATENCY_AVG: {
-    WARNING: 2000,  // ms
+    WARNING: 2000, // ms
     CRITICAL: 5000, // ms
     LABEL: 'AI_RESPONSE_LATENCY',
   },
 
   // PERFORMANCE (Core Web Vitals)
   LCP_P75: {
-    WARNING: 1500,  // ms
+    WARNING: 1500, // ms
     CRITICAL: 2500, // ms
     LABEL: 'EXPERIENCE_LATENCY_LCP',
   },
@@ -738,19 +766,25 @@ export const SENTINEL_THRESHOLDS = {
 ```
 
 **Threshold Categories:**
+
 1. **AI Infrastructure** - Cost and latency monitoring
 2. **Performance** - Core Web Vitals (LCP, CLS)
 3. **System Integrity** - Error rates and incidents
 
 **Threshold Levels:**
+
 - `WARNING` - Elevated metric, investigate
 - `CRITICAL` - Severe issue, immediate action required
 
 **Example:**
+
 ```typescript
 import { SENTINEL_THRESHOLDS, type SentinelAlertLevel } from '@aazucena/constants';
 
-function evaluateHealth(metric: keyof typeof SENTINEL_THRESHOLDS, value: number): SentinelAlertLevel {
+function evaluateHealth(
+  metric: keyof typeof SENTINEL_THRESHOLDS,
+  value: number,
+): SentinelAlertLevel {
   const threshold = SENTINEL_THRESHOLDS[metric];
 
   if (value >= threshold.CRITICAL) return 'CRITICAL';
@@ -855,20 +889,20 @@ export const SOCIAL_LINKS = {
 
 ### Module Sizes
 
-| Module | Lines | Exports | Use Cases |
-|--------|-------|---------|-----------|
-| animations.ts | 362 | 20+ | Particle systems, scene config, timing |
-| sentinel.ts | 54 | 3 | Health monitoring thresholds |
-| ai.ts | 45 | 4 | AI model registry, pricing, neural map |
-| colors.ts | 38 | 1 | Atmospheric gradient colors |
-| routes.ts | 38 | 1 | Application routing |
-| storage.ts | 13 | 1 | LocalStorage keys |
-| domain.ts | ~30 | 2 | API endpoints, CMS routes |
-| finance.ts | ~40 | 3 | Currency, payments, pricing |
-| meta.ts | ~50 | 3 | SEO defaults, Open Graph, JSON-LD |
-| preloader.ts | ~30 | 3 | Loading states, thresholds |
-| commands.ts | ~25 | 3 | CLI commands, shortcuts, actions |
-| site.ts | ~40 | 3 | Site metadata, navigation, social |
+| Module        | Lines | Exports | Use Cases                              |
+| ------------- | ----- | ------- | -------------------------------------- |
+| animations.ts | 362   | 20+     | Particle systems, scene config, timing |
+| sentinel.ts   | 54    | 3       | Health monitoring thresholds           |
+| ai.ts         | 45    | 4       | AI model registry, pricing, neural map |
+| colors.ts     | 38    | 1       | Atmospheric gradient colors            |
+| routes.ts     | 38    | 1       | Application routing                    |
+| storage.ts    | 13    | 1       | LocalStorage keys                      |
+| domain.ts     | ~30   | 2       | API endpoints, CMS routes              |
+| finance.ts    | ~40   | 3       | Currency, payments, pricing            |
+| meta.ts       | ~50   | 3       | SEO defaults, Open Graph, JSON-LD      |
+| preloader.ts  | ~30   | 3       | Loading states, thresholds             |
+| commands.ts   | ~25   | 3       | CLI commands, shortcuts, actions       |
+| site.ts       | ~40   | 3       | Site metadata, navigation, social      |
 
 **Total:** ~765 lines of pure data constants
 
@@ -882,6 +916,7 @@ export const SOCIAL_LINKS = {
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Total Modules:** 12

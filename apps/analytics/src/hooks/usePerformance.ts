@@ -12,8 +12,8 @@ interface PerformanceStatsData {
     total_metrics?: number;
     good_metrics?: number;
   };
-  history: { date: string; value: number; metric: string; }[];
-  integrity: { service: string; status: string; latency_ms: number; timestamp: string; }[];
+  history: { date: string; value: number; metric: string }[];
+  integrity: { service: string; status: string; latency_ms: number; timestamp: string }[];
   errors: {
     summary: {
       total_errors?: number;

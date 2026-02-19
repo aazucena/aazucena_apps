@@ -24,6 +24,7 @@ Comprehensive guide for creating, optimizing, and integrating custom SVG icons i
 ### When to Create Custom Icons
 
 Create custom icons when:
+
 - ✅ Icon doesn't exist in @mynaui/icons-react library
 - ✅ Brand-specific logos or designs required
 - ✅ Unique visual identity needed
@@ -31,6 +32,7 @@ Create custom icons when:
 - ✅ Custom animations or interactions
 
 **Examples:**
+
 - ✅ AAZUCENA brand logo (BrandIcon)
 - ✅ Tech stack logos (AstroIcon, ReactIcon, TailwindIcon)
 - ✅ Social media logos (GitHubIcon, LinkedInIcon)
@@ -40,14 +42,14 @@ Create custom icons when:
 
 ### Custom Icon Requirements
 
-| Requirement | Specification | Reason |
-|-------------|---------------|--------|
-| **Format** | SVG (Scalable Vector Graphics) | Resolution-independent, small file size |
-| **Viewbox** | Consistent dimensions (e.g., 24×24) | Predictable sizing behavior |
-| **Stroke** | Consistent width (1-2px typical) | Visual consistency with @mynaui icons |
-| **Fill** | Use `currentColor` | Inherits text color for theming |
-| **Optimization** | Minified paths, no unnecessary attributes | Smallest file size |
-| **Accessibility** | Semantic SVG markup | Screen reader support |
+| Requirement       | Specification                             | Reason                                  |
+| ----------------- | ----------------------------------------- | --------------------------------------- |
+| **Format**        | SVG (Scalable Vector Graphics)            | Resolution-independent, small file size |
+| **Viewbox**       | Consistent dimensions (e.g., 24×24)       | Predictable sizing behavior             |
+| **Stroke**        | Consistent width (1-2px typical)          | Visual consistency with @mynaui icons   |
+| **Fill**          | Use `currentColor`                        | Inherits text color for theming         |
+| **Optimization**  | Minified paths, no unnecessary attributes | Smallest file size                      |
+| **Accessibility** | Semantic SVG markup                       | Screen reader support                   |
 
 ---
 
@@ -56,6 +58,7 @@ Create custom icons when:
 ### Step 1: Design the Icon
 
 #### Design Tools
+
 - **Figma** (Recommended) - Free, web-based, collaborative
 - **Adobe Illustrator** - Industry standard for vector graphics
 - **Sketch** - macOS design tool
@@ -74,6 +77,7 @@ Colors: Single color (will be replaced with currentColor)
 ```
 
 **Example Figma Setup:**
+
 ```
 1. Create new frame: 24×24px
 2. Enable grid: 1px spacing
@@ -88,6 +92,7 @@ Colors: Single color (will be replaced with currentColor)
 ### Step 2: Export SVG
 
 #### Figma Export Settings
+
 ```
 Format: SVG
 Export as: Outline
@@ -97,6 +102,7 @@ Flatten transforms: Yes
 ```
 
 #### Illustrator Export Settings
+
 ```
 Format: SVG
 Styling: Inline Style
@@ -109,6 +115,7 @@ Responsive: Yes
 ```
 
 #### Raw SVG Example
+
 ```xml
 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" fill="currentColor"/>
@@ -122,9 +129,11 @@ Responsive: Yes
 ### Step 3: Optimize SVG
 
 #### Tool 1: SVGOMG (Recommended)
+
 **Website:** [jakearchibald.github.io/svgomg/](https://jakearchibald.github.io/svgomg/)
 
 **Settings:**
+
 ```yaml
 Precision: 2 decimals
 Multipass: Yes
@@ -142,6 +151,7 @@ Remove desc: Yes
 ```
 
 **Before Optimization (245 bytes):**
+
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -151,6 +161,7 @@ Remove desc: Yes
 ```
 
 **After Optimization (128 bytes - 48% reduction):**
+
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM9 9l6 6m0-6l-6 6"/></svg>
 ```
@@ -158,12 +169,15 @@ Remove desc: Yes
 ---
 
 #### Tool 2: SVGO (Command Line)
+
 **Installation:**
+
 ```bash
 npm install -g svgo
 ```
 
 **Usage:**
+
 ```bash
 # Optimize single file
 svgo input.svg -o output.svg
@@ -176,6 +190,7 @@ svgo --config=svgo.config.js input.svg
 ```
 
 **Config File (`svgo.config.js`):**
+
 ```javascript
 module.exports = {
   plugins: [
@@ -199,7 +214,7 @@ module.exports = {
 
 ### Optimization Checklist
 
-- ✅ **Remove unnecessary attributes** (id, class, data-*)
+- ✅ **Remove unnecessary attributes** (id, class, data-\*)
 - ✅ **Merge redundant paths** into single path
 - ✅ **Simplify path commands** (use relative commands)
 - ✅ **Round decimal precision** to 2 places
@@ -248,25 +263,27 @@ export const MyCustomIcon = ({
 
 ```typescript
 interface MynaIconsProps extends Omit<SVGProps<SVGSVGElement>, 'stroke'> {
-  size?: number | string;      // Controls width + height
-  stroke?: number | string;    // SVG stroke-width
-  color?: string;              // SVG fill/stroke color
-  className?: string;          // Tailwind/CSS classes
+  size?: number | string; // Controls width + height
+  stroke?: number | string; // SVG stroke-width
+  color?: string; // SVG fill/stroke color
+  className?: string; // Tailwind/CSS classes
 }
 ```
 
 **Key Features:**
+
 1. **`size` prop** - Controls both width and height simultaneously
 2. **`stroke` prop** - Maps to strokeWidth attribute
 3. **`className` prop** - Tailwind CSS support
 4. **`fill="currentColor"`** - Inherits text color from parent
-5. **`...props`** - Passes all other SVG props (aria-*, data-*, etc.)
+5. **`...props`** - Passes all other SVG props (aria-_, data-_, etc.)
 
 ---
 
 #### Real-World Examples
 
 ##### Example 1: Simple Outline Icon
+
 ```typescript
 // packages/icons/src/custom/ShieldIcon.tsx
 import type { MynaIconsProps as IconProps } from '@mynaui/icons-react';
@@ -291,6 +308,7 @@ export const ShieldIcon = ({ size = 24, stroke, className = '', ...props }: Icon
 ```
 
 **Usage:**
+
 ```typescript
 <ShieldIcon size={32} stroke={2} className="text-blue-500" />
 ```
@@ -298,6 +316,7 @@ export const ShieldIcon = ({ size = 24, stroke, className = '', ...props }: Icon
 ---
 
 ##### Example 2: Brand Logo with Multiple Paths
+
 ```typescript
 // packages/icons/src/custom/AstroIcon.tsx
 import type { MynaIconsProps as IconProps } from '@mynaui/icons-react';
@@ -324,6 +343,7 @@ export const AstroIcon = ({ size = 24, stroke, className = '', ...props }: IconP
 ```
 
 **Note:** Brand logos often have:
+
 - Non-square viewBox (256×366)
 - Multiple paths with different fills
 - Specific brand colors (override currentColor)
@@ -331,6 +351,7 @@ export const AstroIcon = ({ size = 24, stroke, className = '', ...props }: IconP
 ---
 
 ##### Example 3: Social Media Icon
+
 ```typescript
 // packages/icons/src/custom/GitHubIcon.tsx
 import type { MynaIconsProps as IconProps } from '@mynaui/icons-react';
@@ -352,6 +373,7 @@ export const GitHubIcon = ({ size = 24, stroke, className = '', ...props }: Icon
 ```
 
 **Usage:**
+
 ```typescript
 <GitHubIcon size={24} className="text-gray-800 dark:text-white" />
 ```
@@ -430,6 +452,7 @@ export function isValidIconName(iconName: string): boolean {
 ### Design Principles
 
 #### 1. Consistency
+
 ```yaml
 ✅ GOOD:
   - Same stroke width as @mynaui icons (2px)
@@ -447,6 +470,7 @@ export function isValidIconName(iconName: string): boolean {
 ---
 
 #### 2. Simplicity
+
 ```yaml
 ✅ GOOD:
   - Clean, minimal paths
@@ -464,6 +488,7 @@ export function isValidIconName(iconName: string): boolean {
 ---
 
 #### 3. Scalability
+
 ```yaml
 ✅ GOOD:
   - Recognizable at 16px, 24px, 48px
@@ -483,6 +508,7 @@ export function isValidIconName(iconName: string): boolean {
 ### Code Patterns
 
 #### 1. Always Use `currentColor`
+
 ```typescript
 // ✅ GOOD - Inherits text color (themeable)
 <svg fill="currentColor" stroke="currentColor">
@@ -500,6 +526,7 @@ export function isValidIconName(iconName: string): boolean {
 ---
 
 #### 2. Props Destructuring
+
 ```typescript
 // ✅ GOOD - Clean, readable
 export const MyIcon = ({ size = 24, stroke, className = '', ...props }: IconProps) => (
@@ -519,6 +546,7 @@ export const MyIcon = (props: IconProps) => (
 ---
 
 #### 3. Default Values
+
 ```typescript
 // ✅ GOOD - Sensible defaults
 {
@@ -555,6 +583,7 @@ packages/icons/src/custom/
 ```
 
 **Naming Convention:**
+
 - PascalCase file names (MyCustomIcon.tsx)
 - Match component name (export const MyCustomIcon)
 - Descriptive, not abbreviated (GitHubIcon not GHIcon)
@@ -659,6 +688,7 @@ packages/icons/src/custom/
 ### Manual Testing
 
 #### Test 1: Rendering
+
 ```tsx
 // Test component rendering at multiple sizes
 function IconTest() {
@@ -679,6 +709,7 @@ function IconTest() {
 ---
 
 #### Test 2: Color Inheritance
+
 ```tsx
 // Test currentColor inheritance
 function ColorTest() {
@@ -703,6 +734,7 @@ function ColorTest() {
 ---
 
 #### Test 3: Dark Mode
+
 ```tsx
 // Test dark mode compatibility
 function DarkModeTest() {
@@ -721,6 +753,7 @@ function DarkModeTest() {
 ---
 
 #### Test 4: Accessibility
+
 ```tsx
 // Test with screen reader
 function AccessibilityTest() {
@@ -739,6 +772,7 @@ function AccessibilityTest() {
 ### Automated Testing (Optional)
 
 #### Visual Regression Test (Storybook + Chromatic)
+
 ```typescript
 // packages/ui/src/stories/MyCustomIcon.stories.ts
 import { MyCustomIcon } from '@aazucena/icons';
@@ -788,21 +822,25 @@ Before merging your custom icon:
 ## 📚 RESOURCES
 
 ### Design Tools
+
 - **Figma:** [figma.com](https://figma.com) - Free design tool
 - **Adobe Illustrator:** [adobe.com/illustrator](https://adobe.com/illustrator) - Vector graphics editor
 - **Inkscape:** [inkscape.org](https://inkscape.org) - Free, open-source alternative
 
 ### Optimization Tools
+
 - **SVGOMG:** [jakearchibald.github.io/svgomg/](https://jakearchibald.github.io/svgomg/) - Web-based SVG optimizer
 - **SVGO:** [github.com/svg/svgo](https://github.com/svg/svgo) - Node.js SVG optimizer
 
 ### Icon Resources
+
 - **Heroicons:** [heroicons.com](https://heroicons.com) - Free MIT-licensed icons
 - **Lucide:** [lucide.dev](https://lucide.dev) - Beautiful open-source icons
 - **Tabler Icons:** [tabler.io/icons](https://tabler.io/icons) - 5000+ free icons
 - **Phosphor Icons:** [phosphoricons.com](https://phosphoricons.com) - Flexible icon family
 
 ### Learning Resources
+
 - **SVG Tutorial:** [developer.mozilla.org/docs/Web/SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)
 - **SVG Optimization:** [css-tricks.com/a-complete-guide-to-svg-optimization/](https://css-tricks.com/a-complete-guide-to-svg-optimization/)
 
@@ -816,6 +854,7 @@ Before merging your custom icon:
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Author:** AAZUCENA Development Team

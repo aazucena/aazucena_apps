@@ -58,7 +58,7 @@ function navigate(route: string) {
 }
 
 // ✅ GOOD - TypeScript validates at compile time
-type PortfolioRoute = typeof ROUTES.PORTFOLIO[keyof typeof ROUTES.PORTFOLIO];
+type PortfolioRoute = (typeof ROUTES.PORTFOLIO)[keyof typeof ROUTES.PORTFOLIO];
 
 function navigate(route: PortfolioRoute) {
   // ... navigate (guaranteed valid)
@@ -104,6 +104,7 @@ const route = ROUTES.PORTFOLIO.HOME;
 ```
 
 **Impact:**
+
 - Bad: ~15KB in bundle
 - Good: ~0.5KB in bundle (97% reduction)
 
@@ -125,6 +126,7 @@ const duration = ANIMATION_TIMING.SECTION_TRANSITION;
 ```
 
 **Pros:**
+
 - ✅ Maximum type safety
 - ✅ Best tree-shaking
 - ✅ Autocomplete works perfectly
@@ -136,11 +138,7 @@ const duration = ANIMATION_TIMING.SECTION_TRANSITION;
 **Best for:** Related constants from same module.
 
 ```typescript
-import {
-  AI_MODELS,
-  AI_PRICING,
-  SAVINGS_BASELINE_MODEL
-} from '@aazucena/constants';
+import { AI_MODELS, AI_PRICING, SAVINGS_BASELINE_MODEL } from '@aazucena/constants';
 
 function calculateAICost(model: string, inputTokens: number, outputTokens: number) {
   const pricing = AI_PRICING[model] || AI_PRICING.default;
@@ -149,6 +147,7 @@ function calculateAICost(model: string, inputTokens: number, outputTokens: numbe
 ```
 
 **Pros:**
+
 - ✅ Logical grouping
 - ✅ Clear dependencies
 - ✅ Easy to refactor
@@ -160,10 +159,7 @@ function calculateAICost(model: string, inputTokens: number, outputTokens: numbe
 **Best for:** Large modules where you only need a few values.
 
 ```typescript
-import {
-  PARTICLE_PRESETS,
-  ATMOSPHERIC_PHASES
-} from '@aazucena/constants';
+import { PARTICLE_PRESETS, ATMOSPHERIC_PHASES } from '@aazucena/constants';
 
 // Only imports what's used
 const spaceConfig = PARTICLE_PRESETS.space;
@@ -171,6 +167,7 @@ const phases = ATMOSPHERIC_PHASES;
 ```
 
 **Pros:**
+
 - ✅ Minimal bundle impact
 - ✅ Clear intent
 - ✅ Fast build times
@@ -187,7 +184,7 @@ const phases = ATMOSPHERIC_PHASES;
 import { ATMOSPHERIC_PHASES } from '@aazucena/constants';
 
 // Type is inferred as literal union
-type Phase = typeof ATMOSPHERIC_PHASES[number];
+type Phase = (typeof ATMOSPHERIC_PHASES)[number];
 // Type: "exosphere" | "thermosphere" | "mesosphere" | "stratosphere" | "troposphere"
 
 function getPhaseIndex(phase: Phase): number {
@@ -227,15 +224,13 @@ getPhaseColors('invalid'); // ❌ TypeScript error
 ```typescript
 import { STORAGE_KEYS } from '@aazucena/constants';
 
-type StorageValue<K extends keyof typeof STORAGE_KEYS> =
-  K extends 'THEME' ? 'light' | 'dark' | 'auto' :
-  K extends 'COOKIE_CONSENT' ? boolean :
-  string;
+type StorageValue<K extends keyof typeof STORAGE_KEYS> = K extends 'THEME'
+  ? 'light' | 'dark' | 'auto'
+  : K extends 'COOKIE_CONSENT'
+    ? boolean
+    : string;
 
-function setStorage<K extends keyof typeof STORAGE_KEYS>(
-  key: K,
-  value: StorageValue<K>
-): void {
+function setStorage<K extends keyof typeof STORAGE_KEYS>(key: K, value: StorageValue<K>): void {
   localStorage.setItem(STORAGE_KEYS[key], String(value));
 }
 
@@ -252,11 +247,7 @@ setStorage('THEME', 'invalid'); // ❌ TypeScript error
 **Use Case:** Configure components/services with constants.
 
 ```typescript
-import {
-  PARTICLE_PRESETS,
-  ATMOSPHERIC_COLORS,
-  SCENE_ELEMENT_COUNTS
-} from '@aazucena/constants';
+import { PARTICLE_PRESETS, ATMOSPHERIC_COLORS, SCENE_ELEMENT_COUNTS } from '@aazucena/constants';
 
 const sceneConfig = {
   particles: {
@@ -274,6 +265,7 @@ initializeScene(sceneConfig);
 ```
 
 **Benefits:**
+
 - ✅ Centralized configuration
 - ✅ Easy to override specific values
 - ✅ Type-safe merging
@@ -289,10 +281,13 @@ import { SENTINEL_THRESHOLDS } from '@aazucena/constants';
 
 type MetricKey = keyof typeof SENTINEL_THRESHOLDS;
 
-const METRIC_CONFIGS: Record<MetricKey, {
-  unit: string;
-  format: (value: number) => string;
-}> = {
+const METRIC_CONFIGS: Record<
+  MetricKey,
+  {
+    unit: string;
+    format: (value: number) => string;
+  }
+> = {
   AI_COST_DAILY: {
     unit: 'USD',
     format: (v) => `$${v.toFixed(2)}`,
@@ -335,19 +330,22 @@ function formatMetric(metric: MetricKey, value: number): string {
 import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
 
 // Compute model efficiency (tokens per dollar)
-const MODEL_EFFICIENCY = Object.entries(AI_PRICING).reduce((acc, [model, pricing]) => {
-  if (model === 'default') return acc;
+const MODEL_EFFICIENCY = Object.entries(AI_PRICING).reduce(
+  (acc, [model, pricing]) => {
+    if (model === 'default') return acc;
 
-  const avgCostPer1M = (pricing.in + pricing.out) / 2;
-  const tokensPerDollar = 1_000_000 / avgCostPer1M;
+    const avgCostPer1M = (pricing.in + pricing.out) / 2;
+    const tokensPerDollar = 1_000_000 / avgCostPer1M;
 
-  acc[model] = {
-    tokensPerDollar,
-    costPer1KTokens: avgCostPer1M / 1000,
-  };
+    acc[model] = {
+      tokensPerDollar,
+      costPer1KTokens: avgCostPer1M / 1000,
+    };
 
-  return acc;
-}, {} as Record<string, { tokensPerDollar: number; costPer1KTokens: number }>);
+    return acc;
+  },
+  {} as Record<string, { tokensPerDollar: number; costPer1KTokens: number }>,
+);
 
 // Usage
 const efficiency = MODEL_EFFICIENCY[AI_MODELS.GEMINI_FLASH];
@@ -396,11 +394,15 @@ export default {
 ```typescript
 import { ROUTES } from '@aazucena/constants';
 
-function isValidPortfolioRoute(path: string): path is typeof ROUTES.PORTFOLIO[keyof typeof ROUTES.PORTFOLIO] {
+function isValidPortfolioRoute(
+  path: string,
+): path is (typeof ROUTES.PORTFOLIO)[keyof typeof ROUTES.PORTFOLIO] {
   return Object.values(ROUTES.PORTFOLIO).includes(path as any);
 }
 
-function isValidAnalyticsRoute(path: string): path is typeof ROUTES.ANALYTICS[keyof typeof ROUTES.ANALYTICS] {
+function isValidAnalyticsRoute(
+  path: string,
+): path is (typeof ROUTES.ANALYTICS)[keyof typeof ROUTES.ANALYTICS] {
   return Object.values(ROUTES.ANALYTICS).includes(path as any);
 }
 
@@ -436,6 +438,7 @@ setTimeout(() => {}, ANIMATION_TIMING.SECTION_TRANSITION);
 ```
 
 **Why It's Bad:**
+
 - ❌ No autocomplete
 - ❌ Typos not caught at compile time
 - ❌ Hard to find all usages
@@ -458,7 +461,7 @@ function getPhaseIndex(phase: string): number {
 // ✅ GOOD - Use constant
 import { ATMOSPHERIC_PHASES } from '@aazucena/constants';
 
-function getPhaseIndex(phase: typeof ATMOSPHERIC_PHASES[number]): number {
+function getPhaseIndex(phase: (typeof ATMOSPHERIC_PHASES)[number]): number {
   return ATMOSPHERIC_PHASES.indexOf(phase);
 }
 ```
@@ -562,8 +565,9 @@ function createModelMetadata(modelKey: string): ModelMetadata {
 }
 
 // Generate metadata for all models
-const allModels = Object.keys(AI_MODELS)
-  .map(key => createModelMetadata(AI_MODELS[key as keyof typeof AI_MODELS]));
+const allModels = Object.keys(AI_MODELS).map((key) =>
+  createModelMetadata(AI_MODELS[key as keyof typeof AI_MODELS]),
+);
 ```
 
 ---
@@ -575,9 +579,9 @@ const allModels = Object.keys(AI_MODELS)
 ```typescript
 import { ROUTES } from '@aazucena/constants';
 
-type PortfolioRoute = typeof ROUTES.PORTFOLIO[keyof typeof ROUTES.PORTFOLIO];
-type AnalyticsRoute = typeof ROUTES.ANALYTICS[keyof typeof ROUTES.ANALYTICS];
-type ExternalRoute = typeof ROUTES.EXTERNAL[keyof typeof ROUTES.EXTERNAL];
+type PortfolioRoute = (typeof ROUTES.PORTFOLIO)[keyof typeof ROUTES.PORTFOLIO];
+type AnalyticsRoute = (typeof ROUTES.ANALYTICS)[keyof typeof ROUTES.ANALYTICS];
+type ExternalRoute = (typeof ROUTES.EXTERNAL)[keyof typeof ROUTES.EXTERNAL];
 
 function isPortfolioRoute(path: string): path is PortfolioRoute {
   return Object.values(ROUTES.PORTFOLIO).includes(path as any);
@@ -633,7 +637,7 @@ function storageReducer(state: StorageState, action: StorageAction): StorageStat
       return { ...state, sessionId: action.sessionId };
 
     case 'CLEAR_ALL':
-      Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+      Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
       return { theme: null, sessionId: null };
 
     default:
@@ -691,23 +695,20 @@ import { ROUTES, STORAGE_KEYS, AI_MODELS } from '@aazucena/constants';
 
 describe('Constants Integrity', () => {
   test('ROUTES should have unique values', () => {
-    const allRoutes = [
-      ...Object.values(ROUTES.PORTFOLIO),
-      ...Object.values(ROUTES.ANALYTICS),
-    ];
+    const allRoutes = [...Object.values(ROUTES.PORTFOLIO), ...Object.values(ROUTES.ANALYTICS)];
     const uniqueRoutes = new Set(allRoutes);
 
     expect(allRoutes.length).toBe(uniqueRoutes.size);
   });
 
   test('STORAGE_KEYS should be prefixed with "aazucena-"', () => {
-    Object.values(STORAGE_KEYS).forEach(key => {
+    Object.values(STORAGE_KEYS).forEach((key) => {
       expect(key).toMatch(/^aazucena-/);
     });
   });
 
   test('AI_MODELS should follow provider/model format', () => {
-    Object.values(AI_MODELS).forEach(model => {
+    Object.values(AI_MODELS).forEach((model) => {
       if (model !== AI_MODELS.BRAIN) {
         expect(model).toMatch(/^\w+\/[\w-]+$/);
       }
@@ -732,7 +733,7 @@ describe('Type Safety', () => {
   });
 
   test('Phase type should be literal union', () => {
-    type Phase = typeof ATMOSPHERIC_PHASES[number];
+    type Phase = (typeof ATMOSPHERIC_PHASES)[number];
 
     const validPhase: Phase = 'exosphere';
     expect(ATMOSPHERIC_PHASES).toContain(validPhase);
@@ -802,6 +803,7 @@ describe('AI Cost Calculator Integration', () => {
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Author:** AAZUCENA Development Team

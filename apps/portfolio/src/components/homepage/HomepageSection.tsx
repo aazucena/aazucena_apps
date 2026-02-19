@@ -23,12 +23,12 @@ import {
   AnimationProvider,
   PortfolioProvider,
   usePortfolio,
-} from '~/contexts/animations';
+} from "~/contexts/animations";
 import HomepageContent from "./HomepageContent";
 import {
   useAtmosphericLayer,
   useSectionRefs,
-  useSectionTransitions
+  useSectionTransitions,
 } from "~/hooks/animations";
 import AtmosphericOverlays from "./overlays/AtmosphericOverlays";
 import UIOverlays from "./overlays/UIOverlays";
@@ -56,7 +56,6 @@ function HomepageSectionInner(): JSX.Element {
 
   // Apply section transition animations
   useSectionTransitions(currentSection, refs);
-
 
   return (
     <>
@@ -92,10 +91,18 @@ function HomepageSectionInner(): JSX.Element {
 }
 
 // Add display name for React Fast Refresh
-HomepageSectionInner.displayName = 'HomepageSectionInner';
+HomepageSectionInner.displayName = "HomepageSectionInner";
 
 // Main exported component with providers
-export default function HomepageSection({ data, content, portfolio }: { data: PortfolioData, content: HomepageData, portfolio: PortfolioContent }): JSX.Element {
+export default function HomepageSection({
+  data,
+  content,
+  portfolio,
+}: {
+  data: PortfolioData;
+  content: HomepageData;
+  portfolio: PortfolioContent;
+}): JSX.Element {
   // Calculate total sections from CMS data
   const totalSections = content.sections.length;
 
@@ -103,7 +110,7 @@ export default function HomepageSection({ data, content, portfolio }: { data: Po
     <DataProvider data={data} content={content} portfolio={portfolio}>
       <AnimationProvider>
         <PortfolioProvider totalSections={totalSections}>
-          <HomepageSectionInner  />
+          <HomepageSectionInner />
         </PortfolioProvider>
       </AnimationProvider>
     </DataProvider>
@@ -111,4 +118,4 @@ export default function HomepageSection({ data, content, portfolio }: { data: Po
 }
 
 // Add display name for React Fast Refresh
-HomepageSection.displayName = 'HomepageSection';
+HomepageSection.displayName = "HomepageSection";

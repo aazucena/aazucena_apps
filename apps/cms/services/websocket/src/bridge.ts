@@ -13,7 +13,9 @@ const server = http.createServer((req, res) => {
     }
 
     let body = '';
-    req.on('data', chunk => { body += chunk.toString(); });
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+    });
     req.on('end', () => {
       try {
         const payload = JSON.parse(body);
@@ -32,7 +34,7 @@ const server = http.createServer((req, res) => {
   if (req.url === '/status' && req.method === 'GET') {
     const clients = io.engine.clientsCount;
     const uptime = Math.floor(process.uptime());
-    
+
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(`
     <html>
@@ -81,7 +83,7 @@ const server = http.createServer((req, res) => {
 
   // 3. Redirect / to /status
   if (req.url === '/' && req.method === 'GET') {
-    res.writeHead(302, { 'Location': '/status' });
+    res.writeHead(302, { Location: '/status' });
     res.end();
     return;
   }
@@ -92,9 +94,9 @@ const server = http.createServer((req, res) => {
 
 const io = new Server(server, {
   cors: {
-    origin: "*", 
-    methods: ["GET", "POST"]
-  }
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
 });
 
 io.on('connection', (socket) => {

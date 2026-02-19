@@ -3,11 +3,11 @@
  * PixiJS implementation for 2D particle rendering
  */
 
-import * as PIXI from 'pixi.js';
-import type { ParticleSystemConfig, ParticleEmitterConfig } from './types';
-import { ParticlesController } from './ParticlesController';
-import { ParticleRenderer } from './ParticleRenderer';
-import { ParticleEmitter } from './ParticleEmitter';
+import * as PIXI from "pixi.js";
+import type { ParticleSystemConfig, ParticleEmitterConfig } from "./types";
+import { ParticlesController } from "./ParticlesController";
+import { ParticleRenderer } from "./ParticleRenderer";
+import { ParticleEmitter } from "./ParticleEmitter";
 
 export class PixiParticleSystem {
   private app: PIXI.Application | null = null;
@@ -24,7 +24,11 @@ export class PixiParticleSystem {
   /**
    * Initialize PixiJS application
    */
-  async initialize(canvas: HTMLCanvasElement, width: number, height: number): Promise<void> {
+  async initialize(
+    canvas: HTMLCanvasElement,
+    width: number,
+    height: number,
+  ): Promise<void> {
     this.app = new PIXI.Application();
 
     await this.app.init({
@@ -34,7 +38,7 @@ export class PixiParticleSystem {
       backgroundAlpha: 0,
       antialias: true,
       resolution: window.devicePixelRatio || 1,
-      autoDensity: true
+      autoDensity: true,
     });
 
     this.container = new PIXI.Container();
@@ -49,7 +53,7 @@ export class PixiParticleSystem {
       lifetime: 2000, // 2 seconds before fade-out
       initialVelocity: { x: 0, y: -1 },
       velocityVariance: 0.5,
-      sizeRange: [2, 5] // Larger particles for visibility
+      sizeRange: [2, 5], // Larger particles for visibility
     });
 
     // Initialize particles
@@ -125,7 +129,7 @@ export class PixiParticleSystem {
   /**
    * Apply visual effect
    */
-  applyEffect(effect: 'glow' | 'blur' | 'none'): void {
+  applyEffect(effect: "glow" | "blur" | "none"): void {
     if (this.renderer) {
       this.renderer.applyEffect(effect);
     }
@@ -189,7 +193,11 @@ export class PixiParticleSystem {
     }
 
     if (this.app) {
-      this.app.destroy(true, { children: true, texture: true, textureSource: true });
+      this.app.destroy(true, {
+        children: true,
+        texture: true,
+        textureSource: true,
+      });
       this.app = null;
     }
   }

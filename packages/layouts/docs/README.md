@@ -17,15 +17,19 @@ Complete reference for the aazucena Structure Intelligence System.
 ## Core Topics
 
 ### Base Layouts
+
 Root layout templates with SEO, navigation, and footer: BaseLayout, DashboardLayout, ErrorLayout.
 
 ### Section Wrappers
+
 Reusable section components with responsive padding and backgrounds: Section, SectionLayout.
 
 ### Grid Systems
+
 Flexible 12-column grid with responsive breakpoints: Grid, GridItem, AutoGrid.
 
 ### Container Components
+
 Max-width containers for content constraint: MainContainer, ProseContainer, Shell.
 
 ---

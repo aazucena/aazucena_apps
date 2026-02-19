@@ -18,15 +18,20 @@ const BaseEventSchema = z.object({
 // --- Telemetry Event (e.g., Page View, Interaction, Client Error, Performance Metric) ---
 export const TelemetryEventPayloadSchema = BaseEventSchema.extend({
   type: z.literal('telemetry_event').describe('Discriminator for telemetry events'),
-  event: z.enum([
-    'PageView',
-    'Interaction',
-    'ClientError',
-    'PerformanceMetric',
-    'Heartbeat', // Useful for active session tracking
-    'CustomEvent',
-  ]).describe('Specific type of telemetry event'),
-  data: z.record(z.string(), z.string()).optional().describe('Flexible key-value pairs forevent-specific data'),
+  event: z
+    .enum([
+      'PageView',
+      'Interaction',
+      'ClientError',
+      'PerformanceMetric',
+      'Heartbeat', // Useful for active session tracking
+      'CustomEvent',
+    ])
+    .describe('Specific type of telemetry event'),
+  data: z
+    .record(z.string(), z.string())
+    .optional()
+    .describe('Flexible key-value pairs forevent-specific data'),
 });
 export type TelemetryEventPayload = z.infer<typeof TelemetryEventPayloadSchema>;
 
@@ -38,7 +43,11 @@ export const AiEventPayloadSchema = BaseEventSchema.extend({
   model: z.string().describe('LLM model used'),
   input_tokens: z.number().int().min(0).describe('Number of input tokens'),
   output_tokens: z.number().int().min(0).describe('Number of output tokens'),
-  cost_usd: z.number().min(0).optional().describe('Estimated cost of the LLM call in USD (calculated server-side if omitted)'),
+  cost_usd: z
+    .number()
+    .min(0)
+    .optional()
+    .describe('Estimated cost of the LLM call in USD (calculated server-side if omitted)'),
   latency_ms: z.number().int().min(0).describe('Latency of the LLM call in milliseconds'),
   form_type: z.string().optional().describe('Contextual form type if applicable'),
 });
@@ -59,9 +68,18 @@ export type MusicPlaybackPayload = z.infer<typeof MusicPlaybackPayloadSchema>;
 // --- System Integrity Event (for system_integrity table) ---
 export const SystemIntegrityPayloadSchema = BaseEventSchema.extend({
   type: z.literal('system_integrity').describe('Discriminator for system integrity events'),
-  service: z.string().describe("Name of the service ('strapi-cms', 'portfolio-frontend','redis-cache', 'clickhouse')"),
+  service: z
+    .string()
+    .describe(
+      "Name of the service ('strapi-cms', 'portfolio-frontend','redis-cache', 'clickhouse')",
+    ),
   status: z.enum(['UP', 'DOWN', 'DEGRADED', 'RESPONDING']).describe('Health status of theservice'),
-  latency_ms: z.number().int().min(0).optional().describe('Response time of health check inmilliseconds'),
+  latency_ms: z
+    .number()
+    .int()
+    .min(0)
+    .optional()
+    .describe('Response time of health check inmilliseconds'),
   error_count: z.number().int().min(0).optional().describe('Number of errors detected'),
   payload_size: z.number().int().min(0).optional().describe('Size of the response payload'),
   message: z.string().optional().describe('Associated health check message'),

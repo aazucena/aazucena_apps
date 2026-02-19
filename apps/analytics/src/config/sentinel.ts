@@ -6,8 +6,8 @@
 export const SENTINEL_THRESHOLDS = {
   // AI INFRASTRUCTURE
   AI_COST_DAILY: {
-    WARNING: 2.50, // USD
-    CRITICAL: 5.00, // USD
+    WARNING: 2.5, // USD
+    CRITICAL: 5.0, // USD
     LABEL: 'AI_COST_EXPOSURE',
   },
   AI_LATENCY_AVG: {
@@ -38,7 +38,7 @@ export const SENTINEL_THRESHOLDS = {
     WARNING: 1,
     CRITICAL: 3,
     LABEL: 'FATAL_CORE_INTERRUPT',
-  }
+  },
 };
 
 export type SentinelAlertLevel = 'NOMINAL' | 'WARNING' | 'CRITICAL';

@@ -8,14 +8,14 @@ Sophisticated animation orchestration system providing GSAP, Three.js, and PixiJ
 
 ## 🛠️ TOOLKIT_MANIFEST
 
-| System                    | Protocol           | Description                                                                  |
-| :------------------------ | :----------------- | :--------------------------------------------------------------------------- |
-| **GSAP_Utilities**        | Scroll_Triggers    | Entrance animations, timeline management, atmospheric layer transitions.     |
-| **Three.js_Helpers**      | Scene_Factory      | Scene setup, geometry creators, material presets, post-processing effects.   |
-| **PixiJS_Wrappers**       | Particle_System    | High-performance 2D particle systems with sprite management.                 |
-| **Scroll_Orchestration**  | Layer_Transitions  | Atmospheric layer switching based on scroll progress (troposphere → exosphere). |
-| **Performance_Tiers**     | Device_Detection   | Adaptive animation quality (high/medium/low) based on device capabilities.   |
-| **React_Integration**     | Hook_Lifecycle     | Custom hooks for animation state management and lifecycle control.           |
+| System                   | Protocol          | Description                                                                     |
+| :----------------------- | :---------------- | :------------------------------------------------------------------------------ |
+| **GSAP_Utilities**       | Scroll_Triggers   | Entrance animations, timeline management, atmospheric layer transitions.        |
+| **Three.js_Helpers**     | Scene_Factory     | Scene setup, geometry creators, material presets, post-processing effects.      |
+| **PixiJS_Wrappers**      | Particle_System   | High-performance 2D particle systems with sprite management.                    |
+| **Scroll_Orchestration** | Layer_Transitions | Atmospheric layer switching based on scroll progress (troposphere → exosphere). |
+| **Performance_Tiers**    | Device_Detection  | Adaptive animation quality (high/medium/low) based on device capabilities.      |
+| **React_Integration**    | Hook_Lifecycle    | Custom hooks for animation state management and lifecycle control.              |
 
 ---
 
@@ -515,15 +515,21 @@ const particles = createParticleSystem(app, { count });
 // 🎯 Best: Enable culling and batching
 import { enableCulling, batchRender } from '@aazucena/animations/pixi';
 
-enableCulling(particleContainer, { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight });
+enableCulling(particleContainer, {
+  x: 0,
+  y: 0,
+  width: window.innerWidth,
+  height: window.innerHeight,
+});
 batchRender(sprites); // Batch draw calls
 ```
 
 ---
 
-## ⚖️ LEGAL_&_FAIR_USE
+## ⚖️ LEGAL\_&_FAIR_USE
 
 ### Pop-Culture References (Easter Eggs)
+
 The `@aazucena/animations` package includes several low-poly "Easter Egg" objects that reference iconic pop-culture iconography (e.g., Planet Express, E.T. Bike, TARDIS, Death Star).
 
 - **Non-Commercial Purpose:** These objects are created exclusively for non-commercial, transformative, and creative/educational purposes within the context of a personal engineering portfolio.

@@ -9,9 +9,9 @@ const INGEST_URL = process.env.INTERNAL_INGEST_URL || 'http://10.0.0.97:8080/api
 const SECRET_KEY = process.env.INGESTION_SECRET_KEY || '';
 
 const BOOTSTRAP_CONFIG: MonitorConfig[] = [
-  { id: "strapi", url: "http://aazucena-cms:1337/_health", type: "CORE" },
-  { id: "clickhouse", url: "http://aazucena-clickhouse:8123/ping", type: "CORE" },
-  { id: "intel-bridge", url: "http://aazucena-intel-bridge:3001/health", type: "CORE" }
+  { id: 'strapi', url: 'http://aazucena-cms:1337/_health', type: 'CORE' },
+  { id: 'clickhouse', url: 'http://aazucena-clickhouse:8123/ping', type: 'CORE' },
+  { id: 'intel-bridge', url: 'http://aazucena-intel-bridge:3001/health', type: 'CORE' },
 ];
 
 let activeMonitors: MonitorConfig[] = [...BOOTSTRAP_CONFIG];
@@ -42,12 +42,15 @@ async function checkService(service: MonitorConfig): Promise<ServiceHealth> {
   return new Promise((resolve) => {
     const req = http.get(service.url, (res) => {
       let data = '';
-      res.on('data', chunk => data += chunk);
+      res.on('data', (chunk) => (data += chunk));
       res.on('end', () => {
         const latency = Date.now() - start;
-        let status: 'UP' | 'DOWN' | 'DEGRADED' = (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) 
-          ? (latency > 500 ? 'DEGRADED' : 'UP') 
-          : 'DOWN';
+        let status: 'UP' | 'DOWN' | 'DEGRADED' =
+          res.statusCode && res.statusCode >= 200 && res.statusCode < 300
+            ? latency > 500
+              ? 'DEGRADED'
+              : 'UP'
+            : 'DOWN';
 
         // Deep Inspection: Check JSON response for explicit "status" field
         if (status === 'UP' && res.headers['content-type']?.includes('application/json')) {
@@ -60,12 +63,12 @@ async function checkService(service: MonitorConfig): Promise<ServiceHealth> {
             // Invalid JSON ignored
           }
         }
-        
+
         resolve({
           service: service.id,
           status: status,
           latency_ms: latency,
-          message: `HTTP ${res.statusCode}`
+          message: `HTTP ${res.statusCode}`,
         });
       });
     });
@@ -75,7 +78,7 @@ async function checkService(service: MonitorConfig): Promise<ServiceHealth> {
         service: service.id,
         status: 'DOWN',
         latency_ms: Date.now() - start,
-        message: e.code || 'CONNECTION_ERROR'
+        message: e.code || 'CONNECTION_ERROR',
       });
     });
 
@@ -85,7 +88,7 @@ async function checkService(service: MonitorConfig): Promise<ServiceHealth> {
         service: service.id,
         status: 'DOWN',
         latency_ms: 5000,
-        message: 'TIMEOUT'
+        message: 'TIMEOUT',
       });
     });
   });
@@ -95,19 +98,19 @@ async function runPulse() {
   console.log('💓 System Integrity Pulse...');
   for (const service of activeMonitors) {
     const result = await checkService(service);
-    
+
     // Post to Ingestion API
     const postData = JSON.stringify({
       type: 'system_integrity',
-      ...result
+      ...result,
     });
 
     const req = http.request(INGEST_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-secret-key': SECRET_KEY
-      }
+        'x-secret-key': SECRET_KEY,
+      },
     });
 
     req.on('error', (e: any) => {
@@ -122,7 +125,7 @@ async function runPulse() {
 // Initial load and start cycles
 loadConfig();
 setInterval(loadConfig, 300000); // Sync config every 5 mins
-setInterval(runPulse, 60000);   // Run checks every 1 min
+setInterval(runPulse, 60000); // Run checks every 1 min
 
 // Immediate first pulse
 runPulse();

@@ -8,14 +8,14 @@ Comprehensive form management system built on react-hook-form and Zod. Provides 
 
 ## 🛠️ TOOLKIT_MANIFEST
 
-| System                  | Protocol         | Description                                                                 |
-| :---------------------- | :--------------- | :-------------------------------------------------------------------------- |
-| **Field_Components**    | Input_Standard   | TextField, TextArea, SelectField, CheckboxField, RadioGroup.                |
-| **Multi_Step_Wizard**   | State_Machine    | StepForm, WizardProgress, step validation, persistence.                     |
-| **Validation_Schemas**  | Zod_Runtime      | Pre-built schemas for contact, feedback, testimonial, bug report forms.     |
-| **Inquiry_Firewall**    | AI_Gating        | Intelligent scheduling system with context-aware filtering.                 |
-| **Submission_Logic**    | Handler_Factory  | Form submission handlers with error handling and success callbacks.         |
-| **Accessibility**       | WCAG_Compliant   | Full ARIA support, keyboard navigation, screen reader optimized.            |
+| System                 | Protocol        | Description                                                             |
+| :--------------------- | :-------------- | :---------------------------------------------------------------------- |
+| **Field_Components**   | Input_Standard  | TextField, TextArea, SelectField, CheckboxField, RadioGroup.            |
+| **Multi_Step_Wizard**  | State_Machine   | StepForm, WizardProgress, step validation, persistence.                 |
+| **Validation_Schemas** | Zod_Runtime     | Pre-built schemas for contact, feedback, testimonial, bug report forms. |
+| **Inquiry_Firewall**   | AI_Gating       | Intelligent scheduling system with context-aware filtering.             |
+| **Submission_Logic**   | Handler_Factory | Form submission handlers with error handling and success callbacks.     |
+| **Accessibility**      | WCAG_Compliant  | Full ARIA support, keyboard navigation, screen reader optimized.        |
 
 ---
 

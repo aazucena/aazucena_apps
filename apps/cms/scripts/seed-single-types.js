@@ -24,22 +24,24 @@ const singleTypesData = {
     descriptions: [
       {
         type: 'paragraph',
-        children: [{
-          type: 'text',
-          text: "I'm a full-stack professional who transforms ideas into market-ready products. From rapid MVP development to enterprise-scale systems, I build high-performance SaaS, web, and mobile applications that deliver measurable business impact."
-        }]
-      }
+        children: [
+          {
+            type: 'text',
+            text: "I'm a full-stack professional who transforms ideas into market-ready products. From rapid MVP development to enterprise-scale systems, I build high-performance SaaS, web, and mobile applications that deliver measurable business impact.",
+          },
+        ],
+      },
     ],
     highlights: [
       {
         type: 'paragraph',
-        children: [{ type: 'text', text: 'Full-Stack Development & Architecture' }]
-      }
+        children: [{ type: 'text', text: 'Full-Stack Development & Architecture' }],
+      },
     ],
     stats: [
       { label: 'Years Experience', value: '4+', sort: 1 },
       { label: 'Databases Migrated', value: '30+', sort: 2 },
-      { label: 'Client Sites Managed', value: '50+', sort: 3 }
+      { label: 'Client Sites Managed', value: '50+', sort: 3 },
     ],
   },
   'api::portfolio.portfolio': {
@@ -60,11 +62,12 @@ const singleTypesData = {
     robotsFollow: true,
     defaultSEO: {
       metaTitle: 'Aldrin Azucena - Full Stack Developer',
-      metaDescription: 'Portfolio of Aldrin Azucena, a full-stack developer specialized in React, Node.js, and high-performance applications.',
+      metaDescription:
+        'Portfolio of Aldrin Azucena, a full-stack developer specialized in React, Node.js, and high-performance applications.',
       metaViewport: 'width=device-width, initial-scale=1.0',
       metaRobots: 'index, follow',
       twitterCard: 'summary_large_image',
-    }
+    },
   },
   'api::theme.theme': {
     mode: 'system',
@@ -89,13 +92,14 @@ const singleTypesData = {
       { name: 'skills', title: 'Skills & Technologies', enabled: true, sort: 4 },
       { name: 'testimonials', title: 'Testimonials', enabled: true, sort: 5 },
       { name: 'blog', title: 'Blog', enabled: true, sort: 6 },
-      { name: 'awards', title: 'Awards & Certifications', enabled: true, sort: 7 }
+      { name: 'awards', title: 'Awards & Certifications', enabled: true, sort: 7 },
     ],
     seo: {
       metaTitle: 'Aldrin Azucena | Full Stack Developer',
-      metaDescription: 'Explore the portfolio of Aldrin Azucena, featuring advanced animations and full-stack expertise.',
+      metaDescription:
+        'Explore the portfolio of Aldrin Azucena, featuring advanced animations and full-stack expertise.',
       metaRobots: 'index, follow',
-    }
+    },
   },
   'api::animation.animation': {
     enabled: true,
@@ -130,7 +134,7 @@ const singleTypesData = {
     relatedPostsCount: 4,
   },
   'api::project-showcase.project-showcase': {
-    searchPlaceholder: 'Search projects by tech, title...', 
+    searchPlaceholder: 'Search projects by tech, title...',
     dragHintText: 'Drag to explore more projects',
     viewMoreButtonLabel: 'View More',
     viewMoreButtonSubtitle: 'Explore all projects',
@@ -148,7 +152,7 @@ const singleTypesData = {
     formTitle: 'Send a Message',
     submitButtonLabel: 'Send Message',
     successMessage: 'Message sent successfully!',
-  }
+  },
 };
 
 async function seedSingleTypes() {
@@ -161,11 +165,13 @@ async function seedSingleTypes() {
 
     console.log('🌱 Seeding Single Types...\n');
     const singleTypes = singleTypesData;
-    for (/** @type {[UID.Service, Record<string, any>]} */ const [uid, data] of Object.entries(singleTypes)) {
+    for (/** @type {[UID.Service, Record<string, any>]} */ const [uid, data] of Object.entries(
+      singleTypes
+    )) {
       console.log(`📦 Seeding ${uid}...`);
       try {
         const existing = await strapi.db.query(uid).findOne({});
-        
+
         if (existing) {
           // @ts-ignore
           await strapi.service(uid).createOrUpdate({
@@ -186,7 +192,7 @@ async function seedSingleTypes() {
           console.log(`  ✅ Created new ${uid}`);
         }
       } catch (err) {
-          // @ts-ignore
+        // @ts-ignore
         console.error(`  ❌ Failed to seed ${uid}:`, err.message);
       }
     }

@@ -22,8 +22,8 @@ export function downloadSVG(svgElement: SVGSVGElement, fileName: string = 'visua
     source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
 
     // Convert to blob
-    const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
-    const downloadLink = document.createElement("a");
+    const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+    const downloadLink = document.createElement('a');
     downloadLink.href = url;
     downloadLink.download = `${fileName}.svg`;
     document.body.appendChild(downloadLink);
@@ -37,14 +37,18 @@ export function downloadSVG(svgElement: SVGSVGElement, fileName: string = 'visua
 /**
  * Downloads an SVG element as a .png file
  */
-export function downloadPNG(svgElement: SVGSVGElement, fileName: string = 'visualization', scale: number = 2) {
+export function downloadPNG(
+  svgElement: SVGSVGElement,
+  fileName: string = 'visualization',
+  scale: number = 2,
+) {
   try {
     const serializer = new XMLSerializer();
     const source = serializer.serializeToString(svgElement);
-    
+
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-    
+
     if (!context) return;
 
     const width = svgElement.width.baseVal.value || svgElement.getBoundingClientRect().width;
@@ -61,7 +65,7 @@ export function downloadPNG(svgElement: SVGSVGElement, fileName: string = 'visua
       context.fillStyle = 'white'; // White background for transparency
       context.fillRect(0, 0, canvas.width, canvas.height);
       context.drawImage(image, 0, 0, canvas.width, canvas.height);
-      
+
       const pngUrl = canvas.toDataURL('image/png');
       const downloadLink = document.createElement('a');
       downloadLink.href = pngUrl;

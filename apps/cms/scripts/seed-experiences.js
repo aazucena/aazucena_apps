@@ -14,7 +14,6 @@
 
 const { createStrapi, compileStrapi } = require('@strapi/strapi');
 
-
 const experiencesData = [
   {
     slug: 'full-stack-software-developer-tangle-media',
@@ -30,7 +29,8 @@ const experiencesData = [
     workMode: 'Onsite',
     companyWebsite: 'https://www.tanglemedia.ca',
 
-    description: 'Full-stack software development with focus on scalable web applications and database management',
+    description:
+      'Full-stack software development with focus on scalable web applications and database management',
 
     responsibilities: [
       {
@@ -39,35 +39,98 @@ const experiencesData = [
         children: [
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Built 25+ reusable UI components reducing development time by 25% and UI-related bugs by 15%' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Built 25+ reusable UI components reducing development time by 25% and UI-related bugs by 15%',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Migrated 30+ databases (5TB+) with zero data loss using custom Python scripts and validation frameworks' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Migrated 30+ databases (5TB+) with zero data loss using custom Python scripts and validation frameworks',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Managed 50+ client sites with 99.95% uptime through proactive monitoring and rapid incident response' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Managed 50+ client sites with 99.95% uptime through proactive monitoring and rapid incident response',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Developed 15+ multilingual accessible websites achieving Lighthouse scores above 95 and WCAG compliance' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Developed 15+ multilingual accessible websites achieving Lighthouse scores above 95 and WCAG compliance',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Created 15+ admin dashboards reducing content publishing time from 30 minutes to under 10 minutes' }]
-          }
-        ]
-      }
+            children: [
+              {
+                type: 'text',
+                text: 'Created 15+ admin dashboards reducing content publishing time from 30 minutes to under 10 minutes',
+              },
+            ],
+          },
+        ],
+      },
     ],
 
     skillsUsed: [
-      'Hugo', 'PostCSS', 'SCSS', 'CSS', 'React', 'Vue', 'Svelte', 'JQuery', 'Alpine.js', 'Bootstrap', 'Tailwind', 'ShadCN', 'PHP', 'Laravel', 'DigitalOcean', 'LangChain', 'Stripe', 'OpenAI', 'TypeScript', 'JavaScript', 'Agile', 'MySQL',
-      'PostgreSQL', 'Websockets', 'PGP Encryption', 'REST APIs', 'API Design', 'Jira', 'MS SQL', 'Redis', 'Docker', 'CI/CD', 'CircleCI', 'Netlify', 'Accessibility', 'Performance Optimization', 'SEO Optimization', 'Content Management System', 'Cursor',
-      'UI/UX Design', 'Database Migration'
+      'Hugo',
+      'PostCSS',
+      'SCSS',
+      'CSS',
+      'React',
+      'Vue',
+      'Svelte',
+      'JQuery',
+      'Alpine.js',
+      'Bootstrap',
+      'Tailwind',
+      'ShadCN',
+      'PHP',
+      'Laravel',
+      'DigitalOcean',
+      'LangChain',
+      'Stripe',
+      'OpenAI',
+      'TypeScript',
+      'JavaScript',
+      'Agile',
+      'MySQL',
+      'PostgreSQL',
+      'Websockets',
+      'PGP Encryption',
+      'REST APIs',
+      'API Design',
+      'Jira',
+      'MS SQL',
+      'Redis',
+      'Docker',
+      'CI/CD',
+      'CircleCI',
+      'Netlify',
+      'Accessibility',
+      'Performance Optimization',
+      'SEO Optimization',
+      'Content Management System',
+      'Cursor',
+      'UI/UX Design',
+      'Database Migration',
     ],
 
-    achievements: []
+    achievements: [],
   },
 
   {
@@ -83,7 +146,8 @@ const experiencesData = [
     employmentType: 'Internship',
     workMode: 'Remote',
 
-    description: 'Mobile app development internship with focus on AI/ML integration and legacy code refactoring',
+    description:
+      'Mobile app development internship with focus on AI/ML integration and legacy code refactoring',
 
     responsibilities: [
       {
@@ -92,31 +156,60 @@ const experiencesData = [
         children: [
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Built proof-of-concept Flutter mobile app with TensorFlow Lite AI camera integration achieving 95% accuracy' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Built proof-of-concept Flutter mobile app with TensorFlow Lite AI camera integration achieving 95% accuracy',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Reduced technical debt by 25% through comprehensive refactoring of legacy codebase' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Reduced technical debt by 25% through comprehensive refactoring of legacy codebase',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Implemented automated testing suite improving code coverage from 40% to 75%' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Implemented automated testing suite improving code coverage from 40% to 75%',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Collaborated with cross-functional teams in an Agile environment to deliver features on schedule' }]
-          }
-        ]
-      }
+            children: [
+              {
+                type: 'text',
+                text: 'Collaborated with cross-functional teams in an Agile environment to deliver features on schedule',
+              },
+            ],
+          },
+        ],
+      },
     ],
 
     skillsUsed: [
-      'Python', 'Django', 'Flutter', 'Dart', 'TensorFlow Lite', 'AI/ML', 'Firebase', 'MongoDB',
-      'Mobile Development', 'Automated Testing', 'Agile',
-      'Code Refactoring'
+      'Python',
+      'Django',
+      'Flutter',
+      'Dart',
+      'TensorFlow Lite',
+      'AI/ML',
+      'Firebase',
+      'MongoDB',
+      'Mobile Development',
+      'Automated Testing',
+      'Agile',
+      'Code Refactoring',
     ],
 
-    achievements: []
+    achievements: [],
   },
 
   {
@@ -133,7 +226,8 @@ const experiencesData = [
     workMode: 'Onsite',
     companyWebsite: 'https://www.interfaithfoodbank.ca',
 
-    description: 'Web development internship for non-profit organization building volunteer management system',
+    description:
+      'Web development internship for non-profit organization building volunteer management system',
 
     responsibilities: [
       {
@@ -142,32 +236,58 @@ const experiencesData = [
         children: [
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Launched volunteer management tool serving 1,000+ active users with real-time scheduling capabilities' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Launched volunteer management tool serving 1,000+ active users with real-time scheduling capabilities',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Increased volunteer sign-ups by 35% through intuitive UX design and streamlined registration process' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Increased volunteer sign-ups by 35% through intuitive UX design and streamlined registration process',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Built responsive web application using React and Node.js with PostgreSQL database' }]
+            children: [
+              {
+                type: 'text',
+                text: 'Built responsive web application using React and Node.js with PostgreSQL database',
+              },
+            ],
           },
           {
             type: 'list-item',
-            children: [{ type: 'text', text: 'Implemented user authentication and authorization system ensuring data security and privacy' }]
-          }
-        ]
-      }
+            children: [
+              {
+                type: 'text',
+                text: 'Implemented user authentication and authorization system ensuring data security and privacy',
+              },
+            ],
+          },
+        ],
+      },
     ],
 
     skillsUsed: [
-      'PHP', 'WordPress', 'MySQL', 'JQuery', 'Authentication',
-      'UX Design', 'Responsive Design', 'Real-time Systems',
-      'REST APIs'
+      'PHP',
+      'WordPress',
+      'MySQL',
+      'JQuery',
+      'Authentication',
+      'UX Design',
+      'Responsive Design',
+      'Real-time Systems',
+      'REST APIs',
     ],
 
-    achievements: []
-  }
+    achievements: [],
+  },
 ];
 
 async function seedExperiences() {
@@ -187,14 +307,12 @@ async function seedExperiences() {
 
     for (const experience of experiencesData) {
       // Check if experience already exists
-      const existingExperience = await strapi.db
-        .query('api::experience.experience')
-        .findOne({
-          where: {
-            company: experience.company,
-            position: experience.position
-          }
-        });
+      const existingExperience = await strapi.db.query('api::experience.experience').findOne({
+        where: {
+          company: experience.company,
+          position: experience.position,
+        },
+      });
 
       // Resolve skill relations (many-to-many)
       const skillIds = [];
@@ -213,9 +331,7 @@ async function seedExperiences() {
       }
 
       if (missingSkills.length > 0) {
-        console.warn(
-          `  ⚠️  Missing skills for ${experience.company}: ${missingSkills.join(', ')}`
-        );
+        console.warn(`  ⚠️  Missing skills for ${experience.company}: ${missingSkills.join(', ')}`);
       }
 
       if (existingExperience) {
@@ -246,7 +362,9 @@ async function seedExperiences() {
           await strapi.entityService.update('api::experience.experience', existingExperience.id, {
             data: updateData,
           });
-          console.log(`🔄 Updated: ${experience.company} - ${experience.position} - filled missing fields`);
+          console.log(
+            `🔄 Updated: ${experience.company} - ${experience.position} - filled missing fields`
+          );
         } else {
           console.log(`✓ Exists: ${experience.company} - ${experience.position}`);
         }

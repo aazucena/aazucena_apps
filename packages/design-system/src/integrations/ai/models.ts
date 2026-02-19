@@ -12,25 +12,25 @@ export const aiBranding = {
     brand: '#D97757', // Official Claude brand color
     accent: toHex(colors.primary[500]),
   },
-  
+
   /** Google Gemini (Vertex AI) */
   google: {
     brand: '#4E86F8', // Gemini Blue
     accent: toHex(colors.primary[400]),
   },
-  
+
   /** OpenAI (Embeddings & GPT) */
   openai: {
     brand: '#10A37F', // OpenAI Green
     accent: toHex(colors.success[500]),
   },
-  
+
   /** Cohere (Rerank & Embed) */
   cohere: {
     brand: '#3D3D3D', // Cohere Dark Grey
     accent: toHex(colors.zinc[400]),
   },
-  
+
   /** Voyage AI (Embeddings) */
   voyage: {
     brand: toHex(colors.primary[600]), // Custom mapping

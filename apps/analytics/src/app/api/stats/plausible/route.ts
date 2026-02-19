@@ -34,8 +34,11 @@ export async function GET() {
   } catch (error) {
     console.error('[PlausibleStats] Error fetching stats:', error);
     return NextResponse.json(
-      { message: 'Failed to fetch Plausible stats. Ensure Plausible ClickHouse is running and accessible.' },
-      { status: 500 }
+      {
+        message:
+          'Failed to fetch Plausible stats. Ensure Plausible ClickHouse is running and accessible.',
+      },
+      { status: 500 },
     );
   }
 }

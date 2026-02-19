@@ -11,7 +11,7 @@ interface FinanceStatsData {
     avg_transaction: number;
     transaction_count: number;
   };
-  trends: { date: string; revenue: number; provider: string; }[];
+  trends: { date: string; revenue: number; provider: string }[];
   history: {
     timestamp: string;
     transaction_id: string;

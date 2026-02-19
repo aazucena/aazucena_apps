@@ -33,14 +33,14 @@ export interface Props {
 }
 
 const {
-  logoUrl = '/icon.svg', // Default to public/icon.svg
+  logoUrl = "/icon.svg", // Default to public/icon.svg
   backgroundColor,
-  isCmsFallback = false
+  isCmsFallback = false,
 } = Astro.props;
 
 // Extend duration for CMS failures
-const animationDuration = isCmsFallback ? '2s' : '1.5s';
-const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
+const animationDuration = isCmsFallback ? "2s" : "1.5s";
+const displayDuration = isCmsFallback ? "3000ms" : "1500ms";
 ---
 
 <div
@@ -97,7 +97,8 @@ const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
 
   /* Pulse animation */
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
@@ -133,36 +134,38 @@ const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
    * 1. Preloader component mounts (React hydration complete)
    * 2. Maximum timeout reached (failsafe)
    */
-  (function() {
+  (function () {
     function lockScroll() {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
     }
 
     function unlockScroll() {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
 
     function hideBrandLoader(loader) {
-      if (!loader || loader.classList.contains('hidden')) return;
-      loader.classList.add('hidden');
+      if (!loader || loader.classList.contains("hidden")) return;
+      loader.classList.add("hidden");
       unlockScroll();
-      
+
       // Remove from DOM after transition to keep it clean
       setTimeout(() => {
         if (loader && loader.parentElement) {
           loader.remove();
         }
-      }, 1000); 
+      }, 1000);
     }
 
     function initLoader() {
-      const loader = document.getElementById('brand-icon-loader');
+      const loader = document.getElementById("brand-icon-loader");
       if (!loader) return;
 
       // Check if preloader already signaled completion or was skipped
-      const isSkipped = document.querySelector('[data-preloader-skipped="true"]');
+      const isSkipped = document.querySelector(
+        '[data-preloader-skipped="true"]',
+      );
       if (isSkipped) {
         hideBrandLoader(loader);
         return;
@@ -172,14 +175,18 @@ const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
       lockScroll();
 
       // Check if this is a CMS fallback (longer timeout)
-      const isCmsFallback = loader.getAttribute('data-cms-fallback') === 'true';
+      const isCmsFallback = loader.getAttribute("data-cms-fallback") === "true";
       const maxTimeout = isCmsFallback ? 3000 : 1500;
 
       // Listen for preloader events
       const handleReady = () => hideBrandLoader(loader);
-      
-      document.addEventListener('preloader-mounted', handleReady, { once: true });
-      document.addEventListener('preloader-complete', handleReady, { once: true });
+
+      document.addEventListener("preloader-mounted", handleReady, {
+        once: true,
+      });
+      document.addEventListener("preloader-complete", handleReady, {
+        once: true,
+      });
 
       // Fallback timeout
       setTimeout(() => {
@@ -188,13 +195,13 @@ const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
     }
 
     // Initialize on load
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initLoader);
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initLoader);
     } else {
       initLoader();
     }
 
     // Re-initialize on every view transition navigation
-    document.addEventListener('astro:page-load', initLoader);
+    document.addEventListener("astro:page-load", initLoader);
   })();
 </script>

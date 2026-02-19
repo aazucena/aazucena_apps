@@ -8,35 +8,38 @@ const { createStrapi, compileStrapi } = require('@strapi/strapi');
 
 const testimonialsData = [
   {
-    author: "John Doe",
-    authorTitle: "Senior Engineering Manager",
-    company: "Tangle Media Inc.",
-    content: "Aldrin consistently delivers high-quality code and demonstrates exceptional problem-solving skills. His ability to tackle complex technical challenges makes him an invaluable team member.",
+    author: 'John Doe',
+    authorTitle: 'Senior Engineering Manager',
+    company: 'Tangle Media Inc.',
+    content:
+      'Aldrin consistently delivers high-quality code and demonstrates exceptional problem-solving skills. His ability to tackle complex technical challenges makes him an invaluable team member.',
     rating: 5,
     featured: true,
-    approvalStatus: "Approved",
-    relationship: "Manager",
+    approvalStatus: 'Approved',
+    relationship: 'Manager',
   },
   {
-    author: "Sarah Miller",
-    authorTitle: "Product Manager",
-    company: "Tech Solutions",
-    content: "Working with Aldrin has been a pleasure. He translates complex requirements into elegant solutions and always delivers ahead of schedule with exceptional attention to detail.",
+    author: 'Sarah Miller',
+    authorTitle: 'Product Manager',
+    company: 'Tech Solutions',
+    content:
+      'Working with Aldrin has been a pleasure. He translates complex requirements into elegant solutions and always delivers ahead of schedule with exceptional attention to detail.',
     rating: 5,
     featured: true,
-    approvalStatus: "Approved",
-    relationship: "Colleague",
+    approvalStatus: 'Approved',
+    relationship: 'Colleague',
   },
   {
-    author: "Michael Kim",
-    authorTitle: "Tech Lead",
-    company: "Innovate Corp",
-    content: "Aldrin's expertise in full-stack development and his collaborative approach make him stand out. He's always willing to share knowledge and mentor junior developers.",
+    author: 'Michael Kim',
+    authorTitle: 'Tech Lead',
+    company: 'Innovate Corp',
+    content:
+      "Aldrin's expertise in full-stack development and his collaborative approach make him stand out. He's always willing to share knowledge and mentor junior developers.",
     rating: 5,
     featured: true,
-    approvalStatus: "Approved",
-    relationship: "Colleague",
-  }
+    approvalStatus: 'Approved',
+    relationship: 'Colleague',
+  },
 ];
 
 async function seedTestimonials() {

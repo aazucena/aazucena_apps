@@ -3,10 +3,10 @@
  * Renders markdown using the `marked` library with Tailwind CSS styling
  */
 
-import { marked } from 'marked';
-import type { Tokens } from 'marked';
-import type { JSX } from 'react';
-import { cn } from '~/lib/utils';
+import { marked } from "marked";
+import type { Tokens } from "marked";
+import type { JSX } from "react";
+import { cn } from "~/lib/utils";
 
 interface MarkdownRendererProps {
   content: string;
@@ -29,21 +29,21 @@ marked.use({
     // Headings
     heading(token: Tokens.Heading): string {
       const sizes: Record<number, string> = {
-        1: 'text-4xl md:text-5xl',
-        2: 'text-3xl md:text-4xl',
-        3: 'text-2xl md:text-3xl',
-        4: 'text-xl md:text-2xl',
-        5: 'text-lg md:text-xl',
-        6: 'text-base md:text-lg',
+        1: "text-4xl md:text-5xl",
+        2: "text-3xl md:text-4xl",
+        3: "text-2xl md:text-3xl",
+        4: "text-xl md:text-2xl",
+        5: "text-lg md:text-xl",
+        6: "text-base md:text-lg",
       };
       const size = sizes[token.depth] || sizes[6];
 
       // Generate ID from heading text for anchor links (use raw text, not parsed HTML)
       const id = token.text
         .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
-        .replace(/\s+/g, '-') // Replace spaces with hyphens
-        .replace(/-+/g, '-') // Replace multiple hyphens with single
+        .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+        .replace(/\s+/g, "-") // Replace spaces with hyphens
+        .replace(/-+/g, "-") // Replace multiple hyphens with single
         .trim();
 
       // Parse inline tokens in headings
@@ -53,25 +53,29 @@ marked.use({
 
     // Lists
     list(token: Tokens.List): string {
-      const tag = token.ordered ? 'ol' : 'ul';
+      const tag = token.ordered ? "ol" : "ul";
       const className = token.ordered
-        ? 'list-decimal list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300'
-        : 'list-disc list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300';
+        ? "list-decimal list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300"
+        : "list-disc list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300";
 
       // Properly render list items with nested content
-      const items = token.items.map((item: Tokens.ListItem) => {
-        const content = this.parser.parse(item.tokens);
-        return `<li class="text-gray-700 dark:text-gray-300 leading-relaxed">${content}</li>`;
-      }).join('');
+      const items = token.items
+        .map((item: Tokens.ListItem) => {
+          const content = this.parser.parse(item.tokens);
+          return `<li class="text-gray-700 dark:text-gray-300 leading-relaxed">${content}</li>`;
+        })
+        .join("");
 
       return `<${tag} class="${className}">${items}</${tag}>`;
     },
 
     // Links
     link(token: Tokens.Link): string {
-      const isExternal = token.href?.startsWith('http');
-      const titleAttr = token.title ? `title="${token.title}"` : '';
-      const targetAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+      const isExternal = token.href?.startsWith("http");
+      const titleAttr = token.title ? `title="${token.title}"` : "";
+      const targetAttr = isExternal
+        ? 'target="_blank" rel="noopener noreferrer"'
+        : "";
       // Parse inline tokens within links (e.g., **bold text in link**)
       const content = this.parser.parseInline(token.tokens);
       return `<a href="${token.href}" ${titleAttr} ${targetAttr} class="text-blue-600 dark:text-cyan-400 hover:text-blue-800 dark:hover:text-cyan-300 underline decoration-cyan-400/30 hover:decoration-cyan-300 transition-colors duration-200">${content}</a>`;
@@ -118,14 +122,17 @@ marked.use({
 /**
  * Parse and render markdown content with Tailwind styling
  */
-export function MarkdownRenderer({ content, className: _className }: MarkdownRendererProps): JSX.Element {
+export function MarkdownRenderer({
+  content,
+  className: _className,
+}: MarkdownRendererProps): JSX.Element {
   if (!content) return <></>;
 
   const html = marked.parse(content) as string;
 
   return (
     <div
-      className={cn('markdown-content', _className)}
+      className={cn("markdown-content", _className)}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

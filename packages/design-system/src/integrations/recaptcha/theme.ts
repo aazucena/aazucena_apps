@@ -8,14 +8,14 @@ import { toHex } from '../../utils/color-converter.js';
 export const recaptchaTheme = {
   /** The theme for the reCAPTCHA badge ('dark' or 'light') */
   theme: 'dark' as const,
-  
+
   /** Visual mapping for branding overrides if using a custom badge */
   colors: {
     accent: toHex(colors.primary[500]),
     background: toHex(colors.zinc[950]),
     text: toHex(colors.zinc[100]),
   },
-  
+
   /** Badge visibility and positioning hints */
   badge: 'bottomright' as const,
 } as const;

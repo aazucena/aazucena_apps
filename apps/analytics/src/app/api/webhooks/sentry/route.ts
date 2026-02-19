@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z, ZodError, ZodIssue } from 'zod'; // Import z and ZodError, ZodIssue
 import { createHmac } from 'crypto';
 import { mainClickhouseClient } from '@/lib/services'; // Assuming this exports mainClickhouseClient
-import { SentryWebhookPayloadSchema, ErrorTraceClickHouseSchema, SentryWebhookPayload } from '@/lib/schemas/sentryWebhook';
+import {
+  SentryWebhookPayloadSchema,
+  ErrorTraceClickHouseSchema,
+  SentryWebhookPayload,
+} from '@/lib/schemas/sentryWebhook';
 
 const SENTRY_WEBHOOK_SECRET = process.env.SENTRY_WEBHOOK_SECRET;
 
@@ -19,7 +23,7 @@ export async function POST(req: NextRequest) {
     }
 
     const rawBody = await req.text(); // Read raw body for signature verification
-    
+
     // Verify signature
     const [signatureHeader, timestampHeader] = sentrySignature.split(',');
     const signature = signatureHeader.split('=')[1];
@@ -41,9 +45,13 @@ export async function POST(req: NextRequest) {
     // Sentry can send various webhook types (e.g., issue, error, comment, release)
     // For error_traces table, we care about issue events.
     // The plan states 'issue_id' so we assume it's for 'issue' type webhooks.
-    if (payload.type !== 'error' && payload.type !== 'default') { // 'default' type often indicates an unhandled error
-        console.log(`[SentryWebhook] Ignoring non-error/default event type: ${payload.type}`);
-        return NextResponse.json({ message: `Ignoring event type: ${payload.type}` }, { status: 200 });
+    if (payload.type !== 'error' && payload.type !== 'default') {
+      // 'default' type often indicates an unhandled error
+      console.log(`[SentryWebhook] Ignoring non-error/default event type: ${payload.type}`);
+      return NextResponse.json(
+        { message: `Ignoring event type: ${payload.type}` },
+        { status: 200 },
+      );
     }
 
     // Transform to ClickHouse schema
@@ -57,30 +65,41 @@ export async function POST(req: NextRequest) {
       environment: payload.environment || null,
       url: payload.url,
       user_id: payload.user?.id || null,
-      tags: payload.tags ? Object.entries(payload.tags).map(([key, value]) => `${key}:${value}`) : [],
+      tags: payload.tags
+        ? Object.entries(payload.tags).map(([key, value]) => `${key}:${value}`)
+        : [],
       sentry_url: payload.url,
     };
 
     // Insert into ClickHouse (non-blocking)
-    mainClickhouseClient.insert({
-      table: 'analytics.error_traces',
-      values: [errorTrace],
-      format: 'JSONEachRow',
-    }).catch((e: unknown) => console.error('[SentryWebhook] ClickHouse insertion error:', e));
+    mainClickhouseClient
+      .insert({
+        table: 'analytics.error_traces',
+        values: [errorTrace],
+        format: 'JSONEachRow',
+      })
+      .catch((e: unknown) => console.error('[SentryWebhook] ClickHouse insertion error:', e));
 
-    console.log(`[SentryWebhook] Successfully processed event for issue: ${payload.issue_id} (${payload.message})`);
+    console.log(
+      `[SentryWebhook] Successfully processed event for issue: ${payload.issue_id} (${payload.message})`,
+    );
     return NextResponse.json({ message: 'Webhook processed successfully' }, { status: 200 });
-
   } catch (error: unknown) {
-        console.error('[SentryWebhook] Error processing webhook:', error);
-        if (error instanceof ZodError) {
-          const zodError = error as ZodError; // Cast once to ZodError
-          if ('errors' in zodError) { // Explicitly check for 'errors' property existence
-            return NextResponse.json({ message: 'Invalid payload format', errors: zodError.errors }, { status: 400 });
-          }
-          return NextResponse.json({ message: 'Invalid payload format', errors: 'Unknown Zod error details.' }, { status: 400 });
-        }
-        return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    console.error('[SentryWebhook] Error processing webhook:', error);
+    if (error instanceof ZodError) {
+      const zodError = error as ZodError; // Cast once to ZodError
+      if ('errors' in zodError) {
+        // Explicitly check for 'errors' property existence
+        return NextResponse.json(
+          { message: 'Invalid payload format', errors: zodError.errors },
+          { status: 400 },
+        );
       }
+      return NextResponse.json(
+        { message: 'Invalid payload format', errors: 'Unknown Zod error details.' },
+        { status: 400 },
+      );
     }
-    
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+  }
+}

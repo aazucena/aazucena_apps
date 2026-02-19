@@ -26,7 +26,7 @@ export const playwrightTheme = {
     .test-result-success { color: var(--color-success); }
     .test-result-error { color: var(--color-error); }
   `.trim(),
-  
+
   /** Configuration for the Playwright config file */
   config: {
     reporter: [['html', { open: 'never', dark: true }]],

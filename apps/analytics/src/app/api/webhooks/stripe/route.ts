@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   // import Stripe from 'stripe';
   // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   // const event = stripe.webhooks.constructEvent(body, sig, STRIPE_WEBHOOK_SECRET);
-  
+
   try {
     // Parsing directly for ingestion logic demonstration
     const json = JSON.parse(body);
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
-      
+
       const row = {
         timestamp: new Date(event.created * 1000).toISOString().slice(0, 19).replace('T', ' '),
         transaction_id: session.id,
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
         status: (session.payment_status || 'unknown').toUpperCase(),
         sessionId: session.metadata?.sessionId || '',
         customer_email: session.customer_details?.email || '',
-        metadata: session.metadata || {}
+        metadata: session.metadata || {},
       };
 
       await mainClickhouseClient.insert({
@@ -49,10 +49,10 @@ export async function POST(req: NextRequest) {
         values: [row],
         format: 'JSONEachRow',
       });
-      
+
       console.log(`[StripeWebhook] Ingested transaction ${session.id} for $${row.amount}`);
     } else {
-        console.log(`[StripeWebhook] Ignored event type: ${event.type}`);
+      console.log(`[StripeWebhook] Ignored event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });

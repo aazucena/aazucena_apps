@@ -1,1 +1,4 @@
-export { SiThreedotjs as Threejs, SiThreedotjsHex as ThreejsHex } from '@icons-pack/react-simple-icons';
+export {
+  SiThreedotjs as Threejs,
+  SiThreedotjsHex as ThreejsHex,
+} from '@icons-pack/react-simple-icons';

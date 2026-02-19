@@ -31,11 +31,13 @@ function HeroSection() {
 ```
 
 **Returns:**
+
 - `titleRef` - Ref for title element (animates with y: 100 → 0, opacity: 0 → 1)
 - `subtitleRef` - Ref for subtitle element (animates with y: 50 → 0, opacity: 0 → 1)
 - `ctaRef` - Ref for CTA element (animates with scale: 0.8 → 1, opacity: 0 → 1)
 
 **Timeline:**
+
 1. Title fades in from bottom (1.2s, power3.out)
 2. Subtitle fades in from bottom (-0.5s overlap, power2.out)
 3. CTA scales in with bounce (-0.3s overlap, back.out)
@@ -61,11 +63,13 @@ function AnimatedText() {
 ```
 
 **Options:**
+
 - `duration` - Animation duration in seconds (default: 0.6)
 - `stagger` - Delay between character animations (default: 0.03)
 - `ease` - GSAP easing function (default: 'power1.out')
 
 **Use Cases:**
+
 - Hero titles with character-by-character reveal
 - Section headings with staggered entrance
 - Interactive text animations on hover/scroll
@@ -96,9 +100,11 @@ function AnimatedBackground() {
 ```
 
 **Parameters:**
+
 - `scrollProgress` - Scroll position (0-1)
 
 **Returns:**
+
 - `name` - Layer name ('troposphere' | 'stratosphere' | 'mesosphere' | 'exosphere')
 - `start` - Layer start position (0-1)
 - `end` - Layer end position (0-1)
@@ -106,6 +112,7 @@ function AnimatedBackground() {
 - `backgroundColor` - OKLCH color string
 
 **Layer Ranges:**
+
 - Troposphere: 0.0 - 0.25 (100 particles)
 - Stratosphere: 0.25 - 0.50 (75 particles)
 - Mesosphere: 0.50 - 0.75 (50 particles)
@@ -138,6 +145,7 @@ function Portfolio() {
 Array of 8 refs (RefObject<HTMLElement | null>[])
 
 **Section Mapping:**
+
 - 0: Hero
 - 1: About
 - 2: Projects
@@ -174,12 +182,14 @@ function AnimatedSections() {
 ```
 
 **Options:**
+
 - `sections` - Array of section refs
 - `onSectionChange` - Callback when section changes
 - `duration` - Transition duration (default: 1.2s)
 - `ease` - GSAP easing (default: 'power2.inOut')
 
 **Returns:**
+
 - `currentSection` - Active section index (0-7)
 - `transitionTo` - Function to navigate to section
 - `isTransitioning` - Boolean transition state
@@ -208,11 +218,13 @@ function DynamicPortfolio() {
 ```
 
 **Usage:**
+
 - Register components by key
 - Dynamically render sections based on CMS data
 - Type-safe component lookup
 
 **Methods:**
+
 - `get(key)` - Retrieve component by key
 - `has(key)` - Check if component exists
 - `keys()` - Get all registered keys
@@ -250,6 +262,7 @@ function ThreeJSScene() {
 ```
 
 **Returns:**
+
 - `sphere` - Ref for sphere mesh
 - `torus` - Ref for torus mesh
 - `icosahedron` - Ref for icosahedron mesh
@@ -280,12 +293,14 @@ function Carousel() {
 ```
 
 **Options:**
+
 - `onSwipeLeft` - Callback for left swipe
 - `onSwipeRight` - Callback for right swipe
 - `threshold` - Swipe distance threshold (default: 50px)
 - `momentum` - Enable momentum scrolling (default: true)
 
 **Returns:**
+
 - `dragProps` - Props to spread on draggable element
 - `offset` - Current drag offset (px)
 - `isDragging` - Boolean drag state
@@ -312,11 +327,13 @@ function TemplatedContent() {
 ```
 
 **Usage:**
+
 - Render Handlebars templates from Strapi CMS
 - Dynamic content interpolation
 - Supports helpers and partials
 
 **Helpers:**
+
 - `{{uppercase value}}` - Uppercase text
 - `{{lowercase value}}` - Lowercase text
 - `{{formatDate date}}` - Format date
@@ -350,11 +367,13 @@ function CommandPalette() {
 ```
 
 **Options:**
+
 - `keys` - Fields to search (default: ['title', 'description'])
 - `threshold` - Fuzzy match threshold (0-1, default: 0.3)
 - `limit` - Max results (default: 10)
 
 **Returns:**
+
 - `results` - Filtered and scored results
 - `loading` - Boolean loading state
 
@@ -395,6 +414,7 @@ function AdaptiveUI() {
 ```
 
 **Returns:**
+
 - `capabilities` - Device capabilities object
   - `isMobile` - Is mobile device
   - `performanceTier` - 'low' | 'medium' | 'high'
@@ -403,6 +423,7 @@ function AdaptiveUI() {
 - `mounted` - Boolean for SSR safety
 
 **Detection Logic:**
+
 - **isMobile:** User agent check + screen width < 768px
 - **performanceTier:**
   - High: 16GB+ RAM, 8+ cores, GPU available
@@ -440,12 +461,14 @@ function LazyImage({ src, alt }) {
 ```
 
 **Options:**
+
 - `threshold` - Visibility percentage (0-1, default: 0)
 - `rootMargin` - Margin around root (default: '0px')
 - `root` - Root element (default: viewport)
 - `triggerOnce` - Disconnect after first intersection (default: false)
 
 **Returns:**
+
 - `ref` - Ref to attach to observed element
 - `isIntersecting` - Boolean visibility state
 - `entry` - Full IntersectionObserverEntry object
@@ -472,10 +495,12 @@ function ResponsiveComponent() {
 ```
 
 **Returns:**
+
 - `width` - Window width (px, undefined on SSR)
 - `height` - Window height (px, undefined on SSR)
 
 **Use Cases:**
+
 - Responsive layout logic
 - Canvas/SVG sizing
 - Conditional rendering based on breakpoints
@@ -500,6 +525,7 @@ function BackToTop() {
 ```
 
 **Options:**
+
 - `smooth` - Smooth scroll behavior (default: true)
 - `duration` - Animation duration (default: 600ms)
 - `offset` - Scroll offset from top (default: 0)
@@ -548,10 +574,12 @@ function Preloader() {
 ```
 
 **Options:**
+
 - `steps` - Array of loading steps with weights
 - `onComplete` - Callback when all steps complete
 
 **Returns:**
+
 - `progress` - Progress object
   - `total` - Overall progress (0-100)
   - `current` - Current step progress (0-100)
@@ -592,11 +620,13 @@ function App() {
 ```
 
 **Options:**
+
 - `delay` - Delay before hiding (default: 0ms)
 - `fadeOut` - Fade-out duration (default: 300ms)
 - `persistent` - Keep in DOM after hide (default: false)
 
 **Returns:**
+
 - `visible` - Boolean visibility state
 - `hide()` - Hide preloader
 - `show()` - Show preloader
@@ -631,6 +661,7 @@ function PreloaderStateMachine() {
 ```
 
 **States:**
+
 - `idle` - Initial state
 - `loading` - Loading in progress
 - `complete` - Loading finished successfully
@@ -638,6 +669,7 @@ function PreloaderStateMachine() {
 - `interactive` - User interaction required
 
 **Transitions:**
+
 - `start()` - idle → loading
 - `complete()` - loading → complete
 - `error(message)` - loading → error
@@ -676,16 +708,19 @@ function InteractivePreloader() {
 ```
 
 **Options:**
+
 - `items` - Array of navigation items
 - `onConfirm` - Callback when Enter pressed
 - `wrap` - Wrap navigation at ends (default: true)
 
 **Returns:**
+
 - `selected` - Selected item index
 - `navigate(direction)` - Navigate up (-1) or down (1)
 - `confirm()` - Trigger onConfirm for selected item
 
 **Keyboard Shortcuts:**
+
 - `↑` / `k` - Navigate up
 - `↓` / `j` - Navigate down
 - `Enter` - Confirm selection
@@ -723,6 +758,7 @@ function ThemedPreloader() {
 ```
 
 **Options:**
+
 - `primary` - Primary color (OKLCH)
 - `secondary` - Secondary color (OKLCH)
 - `background` - Background color (OKLCH)
@@ -731,6 +767,7 @@ function ThemedPreloader() {
 
 **Returns:**
 Theme object with all colors and helper functions
+
 - `colors` - All color values
 - `isDark` - Boolean for dark mode
 - `toggle()` - Toggle light/dark
@@ -763,11 +800,13 @@ function SmartPreloader() {
 ```
 
 **Options:**
+
 - `key` - localStorage key
 - `duration` - Cache duration (ms, default: session)
 - `resetOnError` - Reset if previous session errored (default: true)
 
 **Returns:**
+
 - `shouldShow` - Boolean whether to show
 - `markShown()` - Mark as shown
 - `reset()` - Reset cache
@@ -797,15 +836,18 @@ function ThemeToggle() {
 ```
 
 **Parameters:**
+
 - `key` - localStorage key
 - `defaultValue` - Default value if key not found
 
 **Returns:**
+
 - `value` - Current value
 - `setValue` - Update function (supports callback like useState)
 - `mounted` - Boolean for SSR safety
 
 **Features:**
+
 - TypeScript generic for type safety
 - JSON serialization/deserialization
 - Error handling with fallback
@@ -836,12 +878,14 @@ function ThemeProvider({ children }) {
 ```
 
 **Returns:**
+
 - `theme` - Current theme ('light' | 'dark' | 'system')
 - `setTheme(theme)` - Update theme
 - `systemTheme` - System preference ('light' | 'dark')
 - `isDark` - Computed boolean for dark mode
 
 **Features:**
+
 - Respects system preference
 - localStorage persistence
 - Media query listener for system changes
@@ -881,12 +925,14 @@ function ModalExample() {
 ```
 
 **Options:**
+
 - `onOpen` - Callback when modal opens
 - `onClose` - Callback when modal closes
 - `closeOnEscape` - Close on Esc key (default: true)
 - `closeOnOutsideClick` - Close on overlay click (default: true)
 
 **Returns:**
+
 - `isOpen` - Boolean modal state
 - `open()` - Open modal
 - `close()` - Close modal
@@ -922,10 +968,12 @@ function SystemDashboard() {
 ```
 
 **Options:**
+
 - `isLive` - Enable polling (default: false)
 - `refetchInterval` - Poll interval (default: 15000ms)
 
 **Returns:**
+
 - `data` - System statistics
 - `loading` - Boolean loading state
 - `error` - Error object if failed
@@ -957,10 +1005,12 @@ function PerformanceGraph() {
 ```
 
 **Options:**
+
 - `timeRange` - '1h' | '24h' | '7d' | '30d' (default: '24h')
 - `isLive` - Enable polling (default: false)
 
 **Returns:**
+
 - `data` - Time-series performance data
 - `loading` - Boolean loading state
 
@@ -990,6 +1040,7 @@ function SentinelStatus() {
 ```
 
 **Returns:**
+
 - `data` - Sentinel status object
   - `status` - 'healthy' | 'degraded' | 'down'
   - `alerts` - Active alerts array
@@ -1019,6 +1070,7 @@ function PublicStatus() {
 ```
 
 **Returns:**
+
 - `data` - Public status information
   - `overall` - 'operational' | 'degraded' | 'outage'
   - `uptime` - Uptime percentage
@@ -1058,10 +1110,12 @@ function AiCostCenter() {
 ```
 
 **Options:**
+
 - `timeRange` - '1h' | '24h' | '7d' | '30d' (default: '24h')
 - `isLive` - Enable polling (default: false)
 
 **Returns:**
+
 - `data` - AI intelligence data
   - `totalCost` - Total USD spent
   - `totalTokens` - Total tokens used
@@ -1103,10 +1157,12 @@ function RevenueChart() {
 ```
 
 **Options:**
+
 - `timeRange` - '1h' | '24h' | '7d' | '30d' (default: '30d')
 - `isLive` - Enable polling (default: false)
 
 **Returns:**
+
 - `data` - Financial metrics
   - `revenue` - Total revenue
   - `expenses` - Total expenses

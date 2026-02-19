@@ -3,8 +3,8 @@
  * Thin wrapper around PixiParticleSystem module
  */
 
-import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
-import { PixiParticleSystem } from './particles';
+import { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
+import { PixiParticleSystem } from "./particles";
 
 export interface PixiJSParticlesHandle {
   emitAt: (x: number, y: number, count?: number) => void;
@@ -20,94 +20,100 @@ interface PixiJSParticlesProps {
   size?: number;
   opacity?: number;
   isPlaying?: boolean;
-  preset?: 'space' | 'snow' | 'rain' | 'floating';
-  effect?: 'glow' | 'blur' | 'none';
+  preset?: "space" | "snow" | "rain" | "floating";
+  effect?: "glow" | "blur" | "none";
 }
 
-const PixiJSParticles = forwardRef<PixiJSParticlesHandle, PixiJSParticlesProps>((props, ref) => {
-  const {
-    width = 800,
-    height = 600,
-    count,
-    speed,
-    size,
-    opacity,
-    isPlaying = true,
-    preset = 'space',
-    effect = 'glow'
-  } = props;
-  const containerRef = useRef<HTMLDivElement>(null);
-  const systemRef = useRef<PixiParticleSystem | null>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const canvas = document.createElement('canvas');
-    containerRef.current.appendChild(canvas);
-
-    const particleSystem = new PixiParticleSystem({
-      preset,
+const PixiJSParticles = forwardRef<PixiJSParticlesHandle, PixiJSParticlesProps>(
+  (props, ref) => {
+    const {
+      width = 800,
+      height = 600,
       count,
       speed,
       size,
-      opacity
-    });
+      opacity,
+      isPlaying = true,
+      preset = "space",
+      effect = "glow",
+    } = props;
+    const containerRef = useRef<HTMLDivElement>(null);
+    const systemRef = useRef<PixiParticleSystem | null>(null);
 
-    systemRef.current = particleSystem;
+    useEffect(() => {
+      if (!containerRef.current) return;
 
-    // Initialize the particle system
-    particleSystem.initialize(canvas, width, height);
+      const canvas = document.createElement("canvas");
+      containerRef.current.appendChild(canvas);
 
-    if (!isPlaying) {
-      particleSystem.pause();
-    }
+      const particleSystem = new PixiParticleSystem({
+        preset,
+        count,
+        speed,
+        size,
+        opacity,
+      });
 
-    return () => {
-      particleSystem.destroy();
-      systemRef.current = null;
-    };
-  }, [width, height, count, speed, size, opacity, preset]);
+      systemRef.current = particleSystem;
 
-  // Handle play/pause
-  useEffect(() => {
-    if (systemRef.current) {
-      if (isPlaying) {
-        systemRef.current.play();
-      } else {
-        systemRef.current.pause();
+      // Initialize the particle system
+      particleSystem.initialize(canvas, width, height);
+
+      if (!isPlaying) {
+        particleSystem.pause();
       }
-    }
-  }, [isPlaying]);
 
-  // Handle visual effects
-  useEffect(() => {
-    if (systemRef.current) {
-      systemRef.current.applyEffect(effect);
-    }
-  }, [effect]);
+      return () => {
+        particleSystem.destroy();
+        systemRef.current = null;
+      };
+    }, [width, height, count, speed, size, opacity, preset]);
 
-  // Expose emission methods via ref
-  useImperativeHandle(ref, () => ({
-    emitAt: (x: number, y: number, count?: number) => {
-      systemRef.current?.emitAt(x, y, count);
-    },
-    emitBurst: (x: number, y: number, count?: number) => {
-      systemRef.current?.emitBurst(x, y, count);
-    },
-    clearEmittedParticles: () => {
-      systemRef.current?.clearEmittedParticles();
-    }
-  }), []);
+    // Handle play/pause
+    useEffect(() => {
+      if (systemRef.current) {
+        if (isPlaying) {
+          systemRef.current.play();
+        } else {
+          systemRef.current.pause();
+        }
+      }
+    }, [isPlaying]);
 
-  return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 z-10"
-      style={{ pointerEvents: 'none' }}
-    />
-  );
-});
+    // Handle visual effects
+    useEffect(() => {
+      if (systemRef.current) {
+        systemRef.current.applyEffect(effect);
+      }
+    }, [effect]);
 
-PixiJSParticles.displayName = 'PixiJSParticles';
+    // Expose emission methods via ref
+    useImperativeHandle(
+      ref,
+      () => ({
+        emitAt: (x: number, y: number, count?: number) => {
+          systemRef.current?.emitAt(x, y, count);
+        },
+        emitBurst: (x: number, y: number, count?: number) => {
+          systemRef.current?.emitBurst(x, y, count);
+        },
+        clearEmittedParticles: () => {
+          systemRef.current?.clearEmittedParticles();
+        },
+      }),
+      [],
+    );
+
+    return (
+      <div
+        ref={containerRef}
+        className="fixed inset-0 z-10"
+        style={{ pointerEvents: "none" }}
+      />
+    );
+  },
+);
+
+PixiJSParticles.displayName = "PixiJSParticles";
 
 export default PixiJSParticles;

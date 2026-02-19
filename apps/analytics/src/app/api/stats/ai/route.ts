@@ -78,11 +78,16 @@ export async function GET() {
 
     return NextResponse.json({
       data: {
-        summary: summary[0] || { total_spend: 0, avg_latency: 0, total_tokens: 0, total_inferences: 0 },
+        summary: summary[0] || {
+          total_spend: 0,
+          avg_latency: 0,
+          total_tokens: 0,
+          total_inferences: 0,
+        },
         distribution,
         agents,
-        history: history.map((h: any) => ({ ...h, date: new Date(h.date) }))
-      }
+        history: history.map((h: any) => ({ ...h, date: new Date(h.date) })),
+      },
     });
   } catch (error) {
     console.error('[AI-Stats-API] Error:', error);

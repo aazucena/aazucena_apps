@@ -13,25 +13,25 @@ export const previewTheme = {
   brandTitle: managerTheme.brandTitle,
   brandUrl: managerTheme.brandUrl,
   brandTarget: managerTheme.brandTarget,
-  
+
   fontBase: managerTheme.fontBase,
   fontCode: managerTheme.fontCode,
-  
+
   // UI Colors (Docs are simpler, mostly content-focused) - Adjusted for light theme
   appBg: toHex(colors.zinc[50]), // Light background for docs page
   appContentBg: toHex(colors.zinc[100]), // Slightly darker for content panels
   appBorderColor: toHex(colors.zinc[200]),
   appBorderRadius: 4,
-  
+
   // Text Colors (for rendered MDX content) - Adjusted for light theme
   textColor: toHex(colors.zinc[900]),
   textInverseColor: toHex(colors.zinc[100]), // Inverted for contrast if needed
   textMutedColor: toHex(colors.zinc[500]),
-  
+
   // Code Block Colors (syntax highlighting, inline code) - Adjusted for light theme
   codeBg: toHex(colors.zinc[100]),
   codeBorder: toHex(colors.zinc[200]),
-  
+
   // Primary & Secondary for general highlighting (if applicable in docs) - Keep as is, they are accents
   colorPrimary: toHex(colors.primary[500]),
   colorSecondary: toHex(colors.secondary[500]),

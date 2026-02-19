@@ -3,8 +3,8 @@
  * TypeScript interfaces for the particle system
  */
 
-import type { BLEND_MODES } from 'pixi.js';
-import type { AtmosphericPhase } from '~/config/animations';
+import type { BLEND_MODES } from "pixi.js";
+import type { AtmosphericPhase } from "~/config/animations";
 
 export interface ParticleSystemConfig {
   count: number;
@@ -13,7 +13,7 @@ export interface ParticleSystemConfig {
   opacity: number;
   color?: string;
   phase?: AtmosphericPhase;
-  preset?: 'space' | 'snow' | 'rain' | 'floating';
+  preset?: "space" | "snow" | "rain" | "floating";
 }
 
 export interface Particle {
@@ -53,5 +53,5 @@ export interface PixiParticlesProps {
   isPlaying?: boolean;
   width?: number;
   height?: number;
-  preset?: 'space' | 'snow' | 'rain' | 'floating';
+  preset?: "space" | "snow" | "rain" | "floating";
 }

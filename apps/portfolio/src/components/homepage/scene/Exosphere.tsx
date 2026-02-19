@@ -7,14 +7,14 @@
  * REDUCTION: 78% smaller, 292 lines removed
  */
 
-import type { JSX } from 'react';
-import { useRef, useMemo, memo } from 'react';
-import { Sparkles } from '@react-three/drei';
-import * as THREE from 'three';
-import type { Points, BufferGeometry, Material } from 'three';
-import type { ParticleData } from '~/data/scene/particles';
-import { SceneObjectManager } from './objects';
-import { exosphereObjects } from '~/data/scene/objects';
+import type { JSX } from "react";
+import { useRef, useMemo, memo } from "react";
+import { Sparkles } from "@react-three/drei";
+import * as THREE from "three";
+import type { Points, BufferGeometry, Material } from "three";
+import type { ParticleData } from "~/data/scene/particles";
+import { SceneObjectManager } from "./objects";
+import { exosphereObjects } from "~/data/scene/objects";
 
 export interface ExosphereProps {
   particles: ParticleData;
@@ -23,10 +23,18 @@ export interface ExosphereProps {
   intensity: number;
 }
 
-function ExosphereComponent({ particles, particleCount, opacity, intensity }: ExosphereProps): JSX.Element {
-  const particlesRef = useRef<Points<BufferGeometry, Material | Material[]>>(null);
-  const milkyWayRef = useRef<Points<BufferGeometry, Material | Material[]>>(null);
-  const sparklesRef = useRef<Points<BufferGeometry, Material | Material[]>>(null);
+function ExosphereComponent({
+  particles,
+  particleCount,
+  opacity,
+  intensity,
+}: ExosphereProps): JSX.Element {
+  const particlesRef =
+    useRef<Points<BufferGeometry, Material | Material[]>>(null);
+  const milkyWayRef =
+    useRef<Points<BufferGeometry, Material | Material[]>>(null);
+  const sparklesRef =
+    useRef<Points<BufferGeometry, Material | Material[]>>(null);
 
   // Generate Milky Way band particles
   const milkyWayData = useMemo(() => {
@@ -54,15 +62,20 @@ function ExosphereComponent({ particles, particleCount, opacity, intensity }: Ex
       const bandOffset = (Math.random() - 0.5) * bandWidth;
 
       // More particles in the center of the band (gaussian distribution)
-      const gaussianOffset = (Math.random() + Math.random() + Math.random() + Math.random() - 2) * bandWidth * 0.5;
+      const gaussianOffset =
+        (Math.random() + Math.random() + Math.random() + Math.random() - 2) *
+        bandWidth *
+        0.5;
 
       // Position along the band
       positions[i * 3] = Math.cos(angle) * radius + (Math.random() - 0.5) * 2;
       positions[i * 3 + 1] = bandOffset + gaussianOffset; // Height creates the band
-      positions[i * 3 + 2] = Math.sin(angle) * radius + (Math.random() - 0.5) * 2;
+      positions[i * 3 + 2] =
+        Math.sin(angle) * radius + (Math.random() - 0.5) * 2;
 
       // Color variation
-      const color = milkyWayColors[Math.floor(Math.random() * milkyWayColors.length)];
+      const color =
+        milkyWayColors[Math.floor(Math.random() * milkyWayColors.length)];
       colors[i * 3] = color!.r;
       colors[i * 3 + 1] = color!.g;
       colors[i * 3 + 2] = color!.b;
@@ -145,7 +158,7 @@ function ExosphereComponent({ particles, particleCount, opacity, intensity }: Ex
       <SceneObjectManager
         objects={exosphereObjects.easterEggs}
         opacity={opacity}
-        categoryFilter={['easter-egg']}
+        categoryFilter={["easter-egg"]}
       />
     </>
   );
@@ -165,4 +178,4 @@ export const Exosphere = memo(ExosphereComponent, (prevProps, nextProps) => {
   );
 });
 
-Exosphere.displayName = 'Exosphere';
+Exosphere.displayName = "Exosphere";

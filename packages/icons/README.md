@@ -36,14 +36,14 @@ The **@aazucena/icons** package provides a **type-safe, performant icon system**
 
 ### Key Features
 
-| Feature | Description | Status |
-|---------|-------------|--------|
-| **Base Library** | @mynaui/icons-react v0.3.9 | ✅ Active |
-| **Custom Icons** | 24 brand-specific SVG components | ✅ Complete |
-| **Registry System** | Type-safe icon name → component mapping | ✅ Active |
-| **Strapi Support** | Direct SVG string rendering | ✅ Active |
-| **Navigation Icons** | Dedicated subset for menu items | ✅ Active |
-| **TypeScript** | Full type definitions with IntelliSense | ✅ Active |
+| Feature              | Description                             | Status      |
+| -------------------- | --------------------------------------- | ----------- |
+| **Base Library**     | @mynaui/icons-react v0.3.9              | ✅ Active   |
+| **Custom Icons**     | 24 brand-specific SVG components        | ✅ Complete |
+| **Registry System**  | Type-safe icon name → component mapping | ✅ Active   |
+| **Strapi Support**   | Direct SVG string rendering             | ✅ Active   |
+| **Navigation Icons** | Dedicated subset for menu items         | ✅ Active   |
+| **TypeScript**       | Full type definitions with IntelliSense | ✅ Active   |
 
 ### Package Info
 
@@ -276,12 +276,14 @@ packages/icons/
 ### Custom Icons (24 Total)
 
 #### Tech Stack (4)
+
 - `AstroIcon` - Astro framework logo
 - `ReactIcon` - React library logo
 - `TailwindIcon` - Tailwind CSS logo
 - `ViteIcon` - Vite build tool logo
 
 #### Social Media (10)
+
 - `GitHubIcon` - GitHub
 - `LinkedInIcon` - LinkedIn
 - `TwitterIcon` - X/Twitter
@@ -294,6 +296,7 @@ packages/icons/
 - `MastodonIcon` - Mastodon
 
 #### Brand & UI (10)
+
 - `BrandIcon` - AAZUCENA brand logo
 - `RssIcon` - RSS feed
 - `EmailIcon` - Email communication
@@ -310,6 +313,7 @@ packages/icons/
 Full catalog available in [`icon-catalog.md`](./icon-catalog.md).
 
 **Popular Categories:**
+
 - **Communication** (50+) - Chat, email, phone, notifications
 - **Development** (80+) - Code, terminal, git, database
 - **UI/UX** (100+) - Layout, navigation, forms, buttons
@@ -351,25 +355,25 @@ Special subset for menu/navigation items:
 Maps icon name string to React component or SVG string.
 
 **Type Signature:**
-```typescript
-function getIconComponent(
-  iconName: string | null | undefined
-): IconComponent;
 
-type IconComponent =
-  | React.ComponentType<MynaIconsProps>
-  | string; // SVG string from Strapi
+```typescript
+function getIconComponent(iconName: string | null | undefined): IconComponent;
+
+type IconComponent = React.ComponentType<MynaIconsProps> | string; // SVG string from Strapi
 ```
 
 **Parameters:**
+
 - `iconName` (string | null | undefined) - Icon name or SVG string
 
 **Returns:**
+
 - React component with `MynaIconsProps` interface
 - SVG string if input starts with `<svg`
 - Fallback `Code` icon if not found or null/undefined
 
 **Examples:**
+
 ```typescript
 // Custom icon
 const Icon1 = getIconComponent('Astro'); // AstroIcon component
@@ -394,21 +398,25 @@ const Icon5 = getIconComponent('NonExistent'); // Code icon (fallback)
 Checks if an icon name exists in the registry.
 
 **Type Signature:**
+
 ```typescript
 function isValidIconName(iconName: string): boolean;
 ```
 
 **Parameters:**
+
 - `iconName` (string) - Icon name to validate
 
 **Returns:**
+
 - `true` if icon exists in custom icons, @mynaui library, or is SVG string
 - `false` otherwise
 
 **Examples:**
+
 ```typescript
-isValidIconName('Code');        // true (@mynaui icon)
-isValidIconName('Astro');       // true (custom icon)
+isValidIconName('Code'); // true (@mynaui icon)
+isValidIconName('Astro'); // true (custom icon)
 isValidIconName('<svg>...</svg>'); // true (SVG string)
 isValidIconName('NonExistent'); // false
 ```
@@ -420,25 +428,27 @@ isValidIconName('NonExistent'); // false
 Gets navigation-specific icon component by kebab-case name.
 
 **Type Signature:**
+
 ```typescript
-function getNavigationIcon(
-  iconName?: string
-): React.ElementType | null;
+function getNavigationIcon(iconName?: string): React.ElementType | null;
 ```
 
 **Parameters:**
+
 - `iconName` (string | undefined) - Navigation icon name (kebab-case)
 
 **Returns:**
+
 - React component if found
 - `null` if not found or undefined
 
 **Examples:**
+
 ```typescript
-const Icon1 = getNavigationIcon('briefcase');      // Briefcase component
-const Icon2 = getNavigationIcon('clock-circle');   // ClockCircle component
-const Icon3 = getNavigationIcon('non-existent');   // null
-const Icon4 = getNavigationIcon(undefined);        // null
+const Icon1 = getNavigationIcon('briefcase'); // Briefcase component
+const Icon2 = getNavigationIcon('clock-circle'); // ClockCircle component
+const Icon3 = getNavigationIcon('non-existent'); // null
+const Icon4 = getNavigationIcon(undefined); // null
 ```
 
 ---
@@ -451,14 +461,15 @@ Base props interface for all icons (extends SVG props).
 
 ```typescript
 interface MynaIconsProps extends Omit<SVGProps<SVGSVGElement>, 'stroke'> {
-  size?: number | string;      // Icon size (px or string like "2rem")
-  stroke?: number | string;    // Stroke width (1-4 typical)
-  color?: string;              // Icon color (CSS color value)
-  className?: string;          // Tailwind/CSS classes
+  size?: number | string; // Icon size (px or string like "2rem")
+  stroke?: number | string; // Stroke width (1-4 typical)
+  color?: string; // Icon color (CSS color value)
+  className?: string; // Tailwind/CSS classes
 }
 ```
 
 **Common Props:**
+
 ```typescript
 // Size
 <Icon size={24} />           // 24px (default)
@@ -512,11 +523,13 @@ function Sidebar() {
 ```
 
 **Pros:**
+
 - ✅ Tree-shakeable (only imports used icons)
 - ✅ Type-safe at compile time
 - ✅ Best performance (no registry lookup)
 
 **Cons:**
+
 - ❌ Icon must be known at build time
 
 ---
@@ -571,11 +584,13 @@ function FeatureCard({ iconName, title, description }: FeatureCardProps) {
 ```
 
 **Pros:**
+
 - ✅ Works with dynamic icon names
 - ✅ Supports Strapi SVG strings
 - ✅ Automatic fallback to Code icon
 
 **Cons:**
+
 - ❌ All icons included in bundle
 - ❌ Runtime lookup overhead
 
@@ -622,15 +637,18 @@ function SafeSvgRenderer({ svg }: { svg: string }) {
 ## 📚 RELATED_DOCUMENTATION
 
 ### Package Documentation
+
 - [📖 Icon Catalog](./docs/icon-catalog.md) - Complete icon reference (800+ icons)
 - [🎨 Custom Icons Guide](./docs/custom-icons-guide.md) - Creating custom icons
 
 ### Related Packages
+
 - [@aazucena/types](../types/README.md) - TypeScript type definitions
 - [@aazucena/ui](../ui/README.md) - UI component library
 - [@aazucena/design-system](../design-system/README.md) - Design tokens
 
 ### External Resources
+
 - [@mynaui/icons-react Documentation](https://icons.mynaui.com/)
 - [Strapi Icons Field Plugin](https://github.com/ChristopheCVB/strapi-plugin-icons-field)
 - [SVG Optimization](https://jakearchibald.github.io/svgomg/)
@@ -658,11 +676,13 @@ function SafeSvgRenderer({ svg }: { svg: string }) {
    - Compress SVG paths (already optimized in custom icons)
 
 ### Browser Support
+
 - ✅ All modern browsers (Chrome, Firefox, Safari, Edge)
 - ✅ React 18+
 - ✅ TypeScript 5+
 
 ### Accessibility
+
 - ✅ All icons support `aria-label` via SVG props
 - ✅ Use semantic HTML with icon+text combinations
 - ✅ Avoid icon-only buttons without labels
@@ -684,6 +704,7 @@ function SafeSvgRenderer({ svg }: { svg: string }) {
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Author:** AAZUCENA Development Team

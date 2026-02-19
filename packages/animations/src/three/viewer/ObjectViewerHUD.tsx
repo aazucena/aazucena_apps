@@ -20,7 +20,7 @@ export function ObjectViewerHUD() {
       <div className="absolute top-6 left-6 z-10 pointer-events-none">
         <div className="flex flex-col gap-3">
           <h2 className="text-left text-zinc-900 dark:text-zinc-100 font-bold text-3xl uppercase tracking-tighter drop-shadow-lg">
-            {objectKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            {objectKey.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
           </h2>
           <div className="flex gap-2">
             <Badge variant="cyber" size="sm" className="bg-blue-500/10">
@@ -37,9 +37,9 @@ export function ObjectViewerHUD() {
       <div className="absolute bottom-6 left-6 z-10 pointer-events-none">
         <Status variant="cyber" className="bg-transparent border-none p-0 gap-3">
           <div className="flex items-center gap-2">
-            <StatusDot 
-              state={actionStatus ? "loading" : (autoRotate ? "intel" : "neutral")} 
-              size="xs" 
+            <StatusDot
+              state={actionStatus ? 'loading' : autoRotate ? 'intel' : 'neutral'}
+              size="xs"
               animated={!!actionStatus || autoRotate}
               pulse={!!actionStatus || autoRotate}
             />

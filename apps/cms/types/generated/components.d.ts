@@ -14,8 +14,7 @@ export interface ContentAchievement extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
       }>;
-    icon: Schema.Attribute.Text &
-      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    icon: Schema.Attribute.Text & Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
     sort: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -37,13 +36,7 @@ export interface ContentFocusArea extends Struct.ComponentSchema {
     experience: Schema.Attribute.String & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     variant: Schema.Attribute.Enumeration<
-      [
-        'blue-cyan',
-        'purple-indigo',
-        'emerald-teal',
-        'orange-red',
-        'pink-purple',
-      ]
+      ['blue-cyan', 'purple-indigo', 'emerald-teal', 'orange-red', 'pink-purple']
     > &
       Schema.Attribute.DefaultTo<'blue-cyan'>;
   };
@@ -71,8 +64,7 @@ export interface ContentNarrativeItem extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text & Schema.Attribute.Required;
-    icon: Schema.Attribute.Text &
-      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    icon: Schema.Attribute.Text & Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     variant: Schema.Attribute.Enumeration<
       ['blue', 'orange', 'pink', 'purple', 'green', 'cyan', 'red']
@@ -114,8 +106,7 @@ export interface ContentSection extends Struct.ComponentSchema {
     enabled: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
-    icon: Schema.Attribute.Text &
-      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    icon: Schema.Attribute.Text & Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
@@ -146,8 +137,7 @@ export interface ContentStats extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
-    icon: Schema.Attribute.Text &
-      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    icon: Schema.Attribute.Text & Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
     label: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -202,14 +192,7 @@ export interface ContentWorkingStyleItem extends Struct.ComponentSchema {
         maxLength: 100;
       }>;
     variant: Schema.Attribute.Enumeration<
-      [
-        'blue-cyan',
-        'purple-indigo',
-        'emerald-teal',
-        'orange-red',
-        'pink-purple',
-        'amber-orange',
-      ]
+      ['blue-cyan', 'purple-indigo', 'emerald-teal', 'orange-red', 'pink-purple', 'amber-orange']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'blue-cyan'>;
@@ -348,12 +331,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
       }>;
     metaImage: Schema.Attribute.Media<'images'>;
     metaRobots: Schema.Attribute.Enumeration<
-      [
-        'index, follow',
-        'noindex, follow',
-        'index, nofollow',
-        'noindex, nofollow',
-      ]
+      ['index, follow', 'noindex, follow', 'index, nofollow', 'noindex, nofollow']
     > &
       Schema.Attribute.DefaultTo<'index, follow'>;
     metaTitle: Schema.Attribute.String &
@@ -368,9 +346,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'width=device-width, initial-scale=1.0'>;
     openGraph: Schema.Attribute.Component<'shared.open-graph', false>;
     structuredData: Schema.Attribute.JSON;
-    twitterCard: Schema.Attribute.Enumeration<
-      ['summary', 'summary_large_image', 'app', 'player']
-    > &
+    twitterCard: Schema.Attribute.Enumeration<['summary', 'summary_large_image', 'app', 'player']> &
       Schema.Attribute.DefaultTo<'summary_large_image'>;
   };
 }
@@ -452,8 +428,7 @@ export interface SharedWebLink extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
-    icon: Schema.Attribute.Text &
-      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    icon: Schema.Attribute.Text & Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
     openInNewTab: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
@@ -478,14 +453,12 @@ export interface UiCardLink extends Struct.ComponentSchema {
     icon: 'layer';
   };
   attributes: {
-    button: Schema.Attribute.Component<'ui.cta-button', false> &
-      Schema.Attribute.Required;
+    button: Schema.Attribute.Component<'ui.cta-button', false> & Schema.Attribute.Required;
     description: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
-    icon: Schema.Attribute.Text &
-      Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
+    icon: Schema.Attribute.Text & Schema.Attribute.CustomField<'plugin::icons-field.icon'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -517,16 +490,13 @@ export interface UiCtaButton extends Struct.ComponentSchema {
         maxLength: 50;
       }>;
     openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    size: Schema.Attribute.Enumeration<['sm', 'md', 'lg']> &
-      Schema.Attribute.DefaultTo<'md'>;
+    size: Schema.Attribute.Enumeration<['sm', 'md', 'lg']> & Schema.Attribute.DefaultTo<'md'>;
     url: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
-    variant: Schema.Attribute.Enumeration<
-      ['primary', 'secondary', 'outline', 'ghost']
-    > &
+    variant: Schema.Attribute.Enumeration<['primary', 'secondary', 'outline', 'ghost']> &
       Schema.Attribute.DefaultTo<'primary'>;
   };
 }
@@ -625,17 +595,7 @@ export interface UiTag extends Struct.ComponentSchema {
   };
   attributes: {
     color: Schema.Attribute.Enumeration<
-      [
-        'cyan',
-        'blue',
-        'purple',
-        'pink',
-        'green',
-        'teal',
-        'orange',
-        'red',
-        'gray',
-      ]
+      ['cyan', 'blue', 'purple', 'pink', 'green', 'teal', 'orange', 'red', 'gray']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'cyan'>;

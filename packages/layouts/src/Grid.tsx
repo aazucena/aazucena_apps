@@ -33,8 +33,7 @@ const colsMap: Record<number, string> = {
 };
 
 export interface GridProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof gridVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof gridVariants> {
   /** Number of columns in the grid. Defaults to `12`. */
   cols?: 1 | 2 | 3 | 4 | 6 | 12;
   /** Render as a different HTML element. */

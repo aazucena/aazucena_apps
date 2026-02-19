@@ -21,7 +21,7 @@ import {
   Activity,
   DangerTriangle as Bug,
   TrendingUp,
-  ClockCircle as History
+  ClockCircle as History,
 } from '@mynaui/icons-react';
 
 // 4. Telemetry Hooks
@@ -44,7 +44,6 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-10 pb-20">
-
       {/* SECTION 1: HEADER & FILTERS */}
       <div className="flex flex-col gap-8">
         <div>
@@ -99,7 +98,9 @@ export default function DashboardPage() {
               <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500">
                 <TrendingUp size={18} />
               </div>
-              <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">Velocity Dynamics</h3>
+              <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
+                Velocity Dynamics
+              </h3>
             </div>
             <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 uppercase font-bold">
               {trendsLoading ? 'SYNCING_METRICS...' : 'Mode: Time_Series_Inference'}
@@ -116,9 +117,13 @@ export default function DashboardPage() {
               <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500">
                 <Activity size={18} />
               </div>
-              <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">Interaction Density</h3>
+              <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
+                Interaction Density
+              </h3>
             </div>
-            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 uppercase font-bold">Horizon: 120_Month_Audit</span>
+            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 uppercase font-bold">
+              Horizon: 120_Month_Audit
+            </span>
           </div>
           <div className="min-h-[400px]">
             <Heatmap data={trends?.heatmap || []} />
@@ -133,7 +138,9 @@ export default function DashboardPage() {
             <div className="w-8 h-8 rounded-lg bg-zinc-200 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-500">
               <History size={18} />
             </div>
-            <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">Raw Telemetry Logs</h3>
+            <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
+              Raw Telemetry Logs
+            </h3>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 uppercase font-bold">
@@ -144,13 +151,9 @@ export default function DashboardPage() {
         </div>
 
         <div className="p-8">
-          <TelemetryFeed
-            logs={logs || []}
-            filter={searchQuery}
-          />
+          <TelemetryFeed logs={logs || []} filter={searchQuery} />
         </div>
       </div>
-
     </div>
   );
 }

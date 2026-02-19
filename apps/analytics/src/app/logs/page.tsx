@@ -21,7 +21,6 @@ export default function LogsPage() {
 
   return (
     <div className="space-y-10 pb-20 h-[calc(100vh-8rem)] flex flex-col">
-      
       {/* HEADER */}
       <div className="shrink-0">
         <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter uppercase">
@@ -42,7 +41,9 @@ export default function LogsPage() {
             <div className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100">
               {summary?.total_signals?.toLocaleString() || '0'}
             </div>
-            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">Total Signals</div>
+            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">
+              Total Signals
+            </div>
           </div>
         </div>
         <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex items-center gap-4">
@@ -53,7 +54,9 @@ export default function LogsPage() {
             <div className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100">
               {summary?.visitors?.toLocaleString() || '0'}
             </div>
-            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">Active Sessions</div>
+            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">
+              Active Sessions
+            </div>
           </div>
         </div>
         <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex items-center gap-4">
@@ -62,7 +65,9 @@ export default function LogsPage() {
           </div>
           <div>
             <div className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100">14</div>
-            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">Global Regions</div>
+            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">
+              Global Regions
+            </div>
           </div>
         </div>
         <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex items-center gap-4">
@@ -71,7 +76,9 @@ export default function LogsPage() {
           </div>
           <div>
             <div className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100">42ms</div>
-            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">Trace Latency</div>
+            <div className="text-[9px] font-black uppercase tracking-wider text-zinc-400">
+              Trace Latency
+            </div>
           </div>
         </div>
       </div>
@@ -86,21 +93,18 @@ export default function LogsPage() {
             </span>
           </div>
           <div className="flex gap-2">
-             <span className="px-2 py-1 rounded bg-zinc-200 dark:bg-zinc-800 text-[9px] font-mono text-zinc-500 font-bold uppercase">FILTER: {searchQuery || 'NULL'}</span>
+            <span className="px-2 py-1 rounded bg-zinc-200 dark:bg-zinc-800 text-[9px] font-mono text-zinc-500 font-bold uppercase">
+              FILTER: {searchQuery || 'NULL'}
+            </span>
           </div>
         </div>
 
         <div className="flex-1 p-0 overflow-hidden relative">
           <div className="absolute inset-0 overflow-y-auto p-8 custom-scrollbar">
-            <TelemetryFeed 
-              scrollable={false}
-              logs={logs || []} 
-              filter={searchQuery} 
-            />
+            <TelemetryFeed scrollable={false} logs={logs || []} filter={searchQuery} />
           </div>
         </div>
       </div>
-
     </div>
   );
 }

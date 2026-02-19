@@ -50,8 +50,8 @@ export async function GET() {
       data: {
         tracks: tracks.map((t: any, i: number) => ({ ...t, rank: i + 1 })),
         genres,
-        stats: stats[0] || {}
-      }
+        stats: stats[0] || {},
+      },
     });
   } catch (error) {
     console.error('Music Stats Fetch Error:', error);

@@ -8,12 +8,12 @@ import { toHex } from '../../utils/color-converter.js';
  */
 export const managerTheme = {
   base: 'dark' as const,
-  
+
   // Brand Identity
   brandTitle: 'AAZUCENA Design System',
   brandUrl: 'https://aazucena.com',
   brandTarget: '_self',
-  
+
   // UI Colors
   appBg: toHex(colors.zinc[950]),
   appContentBg: toHex(colors.zinc[900]),
@@ -21,22 +21,22 @@ export const managerTheme = {
   appPreviewBg: toHex(colors.zinc[950]),
   appBorderColor: toHex(colors.zinc[800]),
   appBorderRadius: 4,
-  
+
   // Typography
   fontBase: '"Fira Sans", sans-serif',
   fontCode: '"Fira Code", monospace',
-  
+
   // Text Colors
   textColor: toHex(colors.zinc[100]),
   textInverseColor: toHex(colors.zinc[900]),
   textMutedColor: toHex(colors.zinc[400]),
-  
+
   // Toolbar Colors
   barTextColor: toHex(colors.zinc[400]),
   barSelectedColor: toHex(colors.primary[500]),
   barHoverColor: toHex(colors.primary[500]),
   barBg: toHex(colors.zinc[950]),
-  
+
   // Form Colors
   inputBg: toHex(colors.zinc[900]),
   inputBorder: toHex(colors.zinc[800]),
@@ -48,7 +48,7 @@ export const managerTheme = {
   booleanSelectedBg: toHex(colors.primary[500]),
   buttonBg: toHex(colors.zinc[800]),
   buttonBorder: toHex(colors.zinc[700]),
-  
+
   // Primary Color
   colorPrimary: toHex(colors.primary[500]),
   colorSecondary: toHex(colors.secondary[500]),

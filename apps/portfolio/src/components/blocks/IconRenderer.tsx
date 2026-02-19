@@ -1,6 +1,6 @@
-import { memo } from 'react';
-import SVG from 'react-inlinesvg';
-import type { MynaIconsProps as IconProps } from '@mynaui/icons-react';
+import { memo } from "react";
+import SVG from "react-inlinesvg";
+import type { MynaIconsProps as IconProps } from "@mynaui/icons-react";
 
 /**
  * IconComponent type - can be a React component or an SVG string
@@ -22,9 +22,9 @@ export interface IconRendererProps {
   /** Stroke width for SVG icons */
   stroke?: string | number;
   /** ARIA label for accessibility */
-  'aria-label'?: string;
+  "aria-label"?: string;
   /** Whether the icon is decorative (hides from screen readers) */
-  'aria-hidden'?: boolean;
+  "aria-hidden"?: boolean;
   /** Fallback component to render if icon fails to load */
   fallback?: React.ReactNode;
   /** Callback when icon fails to load */
@@ -61,19 +61,19 @@ export interface IconRendererProps {
  */
 export const IconRenderer = memo(function IconRenderer({
   icon,
-  className = '',
+  className = "",
   style,
   size,
   stroke,
-  'aria-label': ariaLabel,
-  'aria-hidden': ariaHidden = false,
+  "aria-label": ariaLabel,
+  "aria-hidden": ariaHidden = false,
   fallback = null,
   onError,
 }: IconRendererProps) {
   // Handle null/undefined icons
   if (!icon) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('[IconRenderer] No icon provided');
+    if (process.env.NODE_ENV === "development") {
+      console.warn("[IconRenderer] No icon provided");
     }
     return <>{fallback}</>;
   }
@@ -81,8 +81,8 @@ export const IconRenderer = memo(function IconRenderer({
   // Compute size styles
   const sizeStyles = size
     ? {
-        width: typeof size === 'number' ? `${size}px` : size,
-        height: typeof size === 'number' ? `${size}px` : size,
+        width: typeof size === "number" ? `${size}px` : size,
+        height: typeof size === "number" ? `${size}px` : size,
       }
     : {};
 
@@ -92,13 +92,13 @@ export const IconRenderer = memo(function IconRenderer({
   };
 
   // Handle SVG strings
-  if (typeof icon === 'string') {
+  if (typeof icon === "string") {
     // Validate SVG string
-    if (!icon.trim().startsWith('<svg')) {
+    if (!icon.trim().startsWith("<svg")) {
       const error = new Error(`Invalid SVG string: must start with '<svg'`);
 
-      if (process.env.NODE_ENV === 'development') {
-        console.error('[IconRenderer]', error.message, { icon });
+      if (process.env.NODE_ENV === "development") {
+        console.error("[IconRenderer]", error.message, { icon });
       }
 
       onError?.(error);
@@ -118,16 +118,19 @@ export const IconRenderer = memo(function IconRenderer({
           aria-label={ariaLabel}
           aria-hidden={ariaHidden}
           onError={(error) => {
-            if (process.env.NODE_ENV === 'development') {
-              console.error('[IconRenderer] Failed to render SVG string', error);
+            if (process.env.NODE_ENV === "development") {
+              console.error(
+                "[IconRenderer] Failed to render SVG string",
+                error,
+              );
             }
             onError?.(error as Error);
           }}
         />
       );
     } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('[IconRenderer] Failed to encode SVG string', error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("[IconRenderer] Failed to encode SVG string", error);
       }
 
       onError?.(error as Error);
@@ -149,8 +152,8 @@ export const IconRenderer = memo(function IconRenderer({
       />
     );
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('[IconRenderer] Failed to render icon component', error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("[IconRenderer] Failed to render icon component", error);
     }
 
     onError?.(error as Error);
@@ -163,8 +166,8 @@ export const IconRenderer = memo(function IconRenderer({
  */
 export function isValidIcon(icon: unknown): icon is IconComponent {
   return (
-    typeof icon === 'function' ||
-    (typeof icon === 'string' && icon.trim().startsWith('<svg'))
+    typeof icon === "function" ||
+    (typeof icon === "string" && icon.trim().startsWith("<svg"))
   );
 }
 
@@ -172,10 +175,10 @@ export function isValidIcon(icon: unknown): icon is IconComponent {
  * Utility: Get icon display name for debugging
  */
 export function getIconDisplayName(icon: IconComponent): string {
-  if (typeof icon === 'string') {
-    return 'SVG String';
+  if (typeof icon === "string") {
+    return "SVG String";
   }
 
   const IconComponent = icon as React.ComponentType<IconProps>;
-  return IconComponent.displayName || IconComponent.name || 'Unknown Icon';
+  return IconComponent.displayName || IconComponent.name || "Unknown Icon";
 }

@@ -8,13 +8,13 @@ import { toHex } from '../../utils/color-converter.js';
 export const plausibleTheme = {
   /** Main brand color for charts and buttons */
   primary: toHex(colors.primary[500]),
-  
+
   /** Background of the dashboard */
   bg: toHex(colors.zinc[950]),
-  
+
   /** Text color */
   text: toHex(colors.zinc[100]),
-  
+
   /** Generated CSS string for injection */
   css: `
     :root {
