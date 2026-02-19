@@ -4,6 +4,14 @@ dist/
 build/
 .cache/
 .tmp/
+coverage/
+.next/
+.cache/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.min.js
+*.min.css
 
 # Strapi-Specific Generated Files
 .strapi/
@@ -23,3 +31,16 @@ pnpm-lock.yaml
 # Documentation and Coverage
 coverage/
 *.md
+
+# Database data
+**/clickhouse/**
+
+# Strapi-Generated Schema/Content types
+types/generated/**
+**/generated/**
+**/content-types/**/schema.json
+**/components/**/*.json
+src/admin/build/
+src/admin/.cache/
+src/admin/.tmp/
+
