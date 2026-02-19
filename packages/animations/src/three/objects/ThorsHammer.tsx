@@ -18,12 +18,12 @@ export function ThorsHammer({ opacity }: ThorsHammerProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Chaotic tumbling
     applyAnimation(hammerRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         x: { frequency: 0.1, amplitude: Math.PI * 2 },
-        y: { frequency: 0.05, amplitude: Math.PI * 2 }
+        y: { frequency: 0.05, amplitude: Math.PI * 2 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -37,9 +37,15 @@ export function ThorsHammer({ opacity }: ThorsHammerProps): JSX.Element {
       {/* Hammer Head */}
       <mesh castShadow>
         <boxGeometry args={[1.5, 1, 1]} />
-        <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial
+          color="#94a3b8"
+          transparent
+          opacity={opacity}
+          metalness={0.8}
+          roughness={0.2}
+        />
       </mesh>
-      
+
       {/* Beveled edges (Visual detail) */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[1.6, 0.8, 0.8]} />
@@ -61,7 +67,13 @@ export function ThorsHammer({ opacity }: ThorsHammerProps): JSX.Element {
       {/* Occasional Lightning Spark (Visual) */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[0.1, 4, 4]} />
-        <meshStandardMaterial color="#38bdf8" emissive="#ffffff" emissiveIntensity={5} transparent opacity={opacity * 0.2} />
+        <meshStandardMaterial
+          color="#38bdf8"
+          emissive="#ffffff"
+          emissiveIntensity={5}
+          transparent
+          opacity={opacity * 0.2}
+        />
       </mesh>
     </group>
   );

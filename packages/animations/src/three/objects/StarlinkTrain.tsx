@@ -29,7 +29,13 @@ export function StarlinkTrain({ opacity }: StarlinkTrainProps): JSX.Element {
       {[...Array(8)].map((_, i) => (
         <mesh key={i} position={[i * -3, 0, 0]}>
           <boxGeometry args={[0.2, 0.05, 0.1]} />
-          <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={2} transparent opacity={opacity} />
+          <meshStandardMaterial
+            color="#ffffff"
+            emissive="#ffffff"
+            emissiveIntensity={2}
+            transparent
+            opacity={opacity}
+          />
         </mesh>
       ))}
     </group>

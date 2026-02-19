@@ -20,12 +20,12 @@ export function PlanetExpress({ opacity }: PlanetExpressProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Stable, heavy cargo ship flight path
     applyAnimation(shipRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         z: { frequency: 0.1, amplitude: 0.02 },
-        y: { frequency: 0.05, amplitude: 0.04 } 
+        y: { frequency: 0.05, amplitude: 0.04 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -36,26 +36,25 @@ export function PlanetExpress({ opacity }: PlanetExpressProps): JSX.Element {
   });
 
   // --- CANON COLOR PALETTE (DEFINITIVE) ---
-  const HULL_COLOR = "#78d9a0";   // "Electric Mucus" Mint Green
-  const FIN_COLOR = "#30af92";    // Dark Contrasting Green for Fins
-  const STRIPE_COLOR = "#BC1915"; // Signature Red for Stripe & Nose
-  const METAL_COLOR = "#d3c8a4";  // CANON Tan/Beige Metal
-  const GLASS_COLOR = "#edf1ed";  // CANON Glass color
-  const GOLD_COLOR = "#fbbf24";   // LX Hood Ornament
+  const HULL_COLOR = '#78d9a0'; // "Electric Mucus" Mint Green
+  const FIN_COLOR = '#30af92'; // Dark Contrasting Green for Fins
+  const STRIPE_COLOR = '#BC1915'; // Signature Red for Stripe & Nose
+  const METAL_COLOR = '#d3c8a4'; // CANON Tan/Beige Metal
+  const GLASS_COLOR = '#edf1ed'; // CANON Glass color
+  const GOLD_COLOR = '#fbbf24'; // LX Hood Ornament
 
   return (
     <group ref={shipRef}>
       <group rotation={[0, -Math.PI / 2, 0]} scale={[0.8, 0.8, 0.8]}>
-        
         {/* 1. MAIN HULL (The 'Cigar' Capsule) */}
         <mesh rotation={[0, 0, Math.PI / 2]} castShadow receiveShadow>
           <capsuleGeometry args={[0.8, 2.5, 32, 32]} />
-          <meshStandardMaterial 
-            color={HULL_COLOR} 
-            transparent 
-            opacity={opacity} 
-            metalness={0.2} 
-            roughness={0.4} 
+          <meshStandardMaterial
+            color={HULL_COLOR}
+            transparent
+            opacity={opacity}
+            metalness={0.2}
+            roughness={0.4}
           />
         </mesh>
 
@@ -75,7 +74,13 @@ export function PlanetExpress({ opacity }: PlanetExpressProps): JSX.Element {
         {/* Panoramic Wrap-around Cockpit */}
         <mesh position={[1.35, 0.12, 0]}>
           <sphereGeometry args={[0.75, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2.5]} />
-          <meshStandardMaterial color={GLASS_COLOR} transparent opacity={opacity} metalness={0.9} roughness={0.1} />
+          <meshStandardMaterial
+            color={GLASS_COLOR}
+            transparent
+            opacity={opacity}
+            metalness={0.9}
+            roughness={0.1}
+          />
         </mesh>
 
         {/* 3. THE ICONIC RACING STRIPE */}
@@ -96,12 +101,23 @@ export function PlanetExpress({ opacity }: PlanetExpressProps): JSX.Element {
         <group position={[0, 0.75, 0]}>
           <mesh>
             <sphereGeometry args={[0.3, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshStandardMaterial color={GLASS_COLOR} transparent opacity={opacity * 0.4} metalness={1} />
+            <meshStandardMaterial
+              color={GLASS_COLOR}
+              transparent
+              opacity={opacity * 0.4}
+              metalness={1}
+            />
           </mesh>
           <group position={[0.1, 0.1, 0]} rotation={[0, 0, -Math.PI / 3]}>
             {/* Turret Base / Barrels in METAL_COLOR */}
-            <mesh position={[0, 0, 0.04]}><cylinderGeometry args={[0.015, 0.015, 0.4]} /><meshStandardMaterial color={METAL_COLOR} /></mesh>
-            <mesh position={[0, 0, -0.04]}><cylinderGeometry args={[0.015, 0.015, 0.4]} /><meshStandardMaterial color={METAL_COLOR} /></mesh>
+            <mesh position={[0, 0, 0.04]}>
+              <cylinderGeometry args={[0.015, 0.015, 0.4]} />
+              <meshStandardMaterial color={METAL_COLOR} />
+            </mesh>
+            <mesh position={[0, 0, -0.04]}>
+              <cylinderGeometry args={[0.015, 0.015, 0.4]} />
+              <meshStandardMaterial color={METAL_COLOR} />
+            </mesh>
           </group>
         </group>
 

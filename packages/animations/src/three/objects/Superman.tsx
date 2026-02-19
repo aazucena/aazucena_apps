@@ -19,7 +19,7 @@ export function Superman({ opacity }: SupermanProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Fast forward flight (along X axis)
     if (groupRef.current) {
       groupRef.current.position.x += 0.15;
@@ -47,7 +47,7 @@ export function Superman({ opacity }: SupermanProps): JSX.Element {
         BODY CONSTRUCTION 
         Aligned perfectly along the Z-axis (which becomes the forward direction)
       */}
-      
+
       {/* UPPER TORSO / CHEST */}
       <mesh position={[0, 0, 0.3]} rotation={[Math.PI / 2, 0, 0]} castShadow>
         <capsuleGeometry args={[0.2, 0.4, 4, 8]} />
@@ -68,12 +68,12 @@ export function Superman({ opacity }: SupermanProps): JSX.Element {
 
       {/* THE "S" SHIELD */}
       <group position={[0, 0.14, 0.4]} rotation={[0.2, 0, 0]}>
-        <mesh>
-          <boxGeometry args={[0.2, 0.2, 0.02]} rotation={[0, 0, Math.PI / 4]} />
+        <mesh rotation={[0, 0, Math.PI / 4]}>
+          <boxGeometry args={[0.2, 0.2, 0.02]} />
           <meshStandardMaterial color="#fbbf24" transparent opacity={opacity} />
         </mesh>
-        <mesh position={[0, 0, 0.01]}>
-          <boxGeometry args={[0.12, 0.12, 0.02]} rotation={[0, 0, Math.PI / 4]} />
+        <mesh position={[0, 0, 0.01]} rotation={[0, 0, Math.PI / 4]}>
+          <boxGeometry args={[0.12, 0.12, 0.02]} />
           <meshStandardMaterial color="#dc2626" transparent opacity={opacity} />
         </mesh>
       </group>
@@ -85,8 +85,10 @@ export function Superman({ opacity }: SupermanProps): JSX.Element {
           <meshStandardMaterial color="#fecaca" transparent opacity={opacity} />
         </mesh>
         {/* Hair with Curl */}
-        <mesh position={[0, 0.08, 0]} castShadow>
-          <sphereGeometry args={[0.15, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} rotation={[-0.5, 0, 0]} />
+        <mesh position={[0, 0.08, 0]} rotation={[-0.5, 0, 0]} castShadow>
+          <sphereGeometry
+            args={[0.15, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]}
+          />
           <meshStandardMaterial color="#000000" transparent opacity={opacity} />
         </mesh>
         <mesh position={[0.05, 0.05, 0.12]} rotation={[0, 0.5, 0]}>
@@ -101,7 +103,7 @@ export function Superman({ opacity }: SupermanProps): JSX.Element {
         <cylinderGeometry args={[0.04, 0.05, 0.7, 4]} />
         <meshStandardMaterial color="#1e40af" transparent opacity={opacity} />
       </mesh>
-      
+
       {/* Left Arm (Tucked/Forward) */}
       <mesh position={[-0.18, 0, 0.7]} rotation={[Math.PI / 2, 0, 0]} castShadow>
         <cylinderGeometry args={[0.04, 0.05, 0.7, 4]} />
@@ -111,13 +113,17 @@ export function Superman({ opacity }: SupermanProps): JSX.Element {
       {/* CAPE */}
       <group ref={capeRef} position={[0, 0.1, -0.1]}>
         <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
-          <cylinderGeometry args={[0.25, 0.8, 1.8, 4]} position={[0, -0.9, 0]} />
-          <meshStandardMaterial color="#dc2626" transparent opacity={opacity} side={2} />
+          <group position={[0, -0.9, 0]}>
+            <mesh>
+              <cylinderGeometry args={[0.25, 0.8, 1.8, 4]} />
+              <meshStandardMaterial color="#dc2626" transparent opacity={opacity} side={2} />
+            </mesh>
+          </group>
         </mesh>
       </group>
 
       {/* RED BOOTS */}
-      {[0.08, -0.08].map((x, i) => (
+      {([0.08, -0.08] as const).map((x, i) => (
         <mesh key={i} position={[x, 0, -0.5]} rotation={[Math.PI / 2, 0, 0]} castShadow>
           <boxGeometry args={[0.1, 0.6, 0.1]} />
           <meshStandardMaterial color="#dc2626" transparent opacity={opacity} />

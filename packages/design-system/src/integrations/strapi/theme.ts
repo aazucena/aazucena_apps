@@ -8,7 +8,7 @@ const lightColors = {
   primary500: toHex(colors.primary[500]),
   primary600: toHex(colors.primary[600]),
   primary700: toHex(colors.primary[700]),
-  
+
   secondary100: toHex(colors.secondary[100]),
   secondary200: toHex(colors.secondary[200]),
   secondary500: toHex(colors.secondary[500]),
@@ -35,7 +35,7 @@ const lightColors = {
 
   neutral0: '#ffffff',
   neutral100: toHex(colors.zinc[100]),
-  neutral150: toHex(colors.zinc[150] || colors.zinc[200]),
+  neutral150: toHex(colors.zinc[200]),
   neutral200: toHex(colors.zinc[200]),
   neutral300: toHex(colors.zinc[300]),
   neutral400: toHex(colors.zinc[400]),

@@ -334,7 +334,7 @@ export const ANIMATION_OBJECT_REGISTRY: Record<SceneObjectType, ObjectRegistryEn
     cost: 2,
     layer: 'thermosphere',
   },
-  'cubesat': {
+  cubesat: {
     type: 'cubesat',
     component: CubeSat,
     cost: 3,

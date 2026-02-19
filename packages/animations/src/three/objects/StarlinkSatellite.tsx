@@ -18,7 +18,7 @@ export function StarlinkSatellite({ opacity }: StarlinkSatelliteProps): JSX.Elem
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Stable orbital orientation
     applyAnimation(satRef, time, {
       rotationOscillation: { x: { frequency: 0.05, amplitude: 0.05 } },
@@ -40,7 +40,13 @@ export function StarlinkSatellite({ opacity }: StarlinkSatelliteProps): JSX.Elem
       {/* Folded solar array (Single vertical panel) */}
       <mesh position={[0, 1.2, 0]} castShadow>
         <boxGeometry args={[1.1, 2.4, 0.02]} />
-        <meshStandardMaterial color="#1d4ed8" emissive="#1e40af" emissiveIntensity={0.3} transparent opacity={opacity} />
+        <meshStandardMaterial
+          color="#1d4ed8"
+          emissive="#1e40af"
+          emissiveIntensity={0.3}
+          transparent
+          opacity={opacity}
+        />
       </mesh>
 
       {/* Support boom for array */}

@@ -33,10 +33,10 @@ export function MeteorSmokeTrail({ opacity }: MeteorSmokeTrailProps): JSX.Elemen
       {[...Array(10)].map((_, i) => (
         <mesh key={i} position={[i * 0.5 - 2.5, i * -0.3 + 1.5, Math.sin(i) * 0.2]}>
           <sphereGeometry args={[0.2 + i * 0.02, 8, 8]} />
-          <meshStandardMaterial 
-            color="#94a3b8" 
-            transparent 
-            opacity={opacity * 0.3 * (1 - i / 10)} 
+          <meshStandardMaterial
+            color="#94a3b8"
+            transparent
+            opacity={opacity * 0.3 * (1 - i / 10)}
           />
         </mesh>
       ))}

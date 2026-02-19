@@ -18,12 +18,12 @@ export function Sputnik({ opacity }: SputnikProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Slow tumbling
     applyAnimation(sputnikRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         y: { frequency: 0.1, amplitude: Math.PI },
-        x: { frequency: 0.05, amplitude: 0.5 }
+        x: { frequency: 0.05, amplitude: 0.5 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -37,20 +37,32 @@ export function Sputnik({ opacity }: SputnikProps): JSX.Element {
       {/* Main polished sphere */}
       <mesh castShadow>
         <sphereGeometry args={[0.5, 16, 16]} />
-        <meshStandardMaterial color="#cbd5e1" metalness={1} roughness={0.1} transparent opacity={opacity} />
+        <meshStandardMaterial
+          color="#cbd5e1"
+          metalness={1}
+          roughness={0.1}
+          transparent
+          opacity={opacity}
+        />
       </mesh>
 
       {/* 4 Long trailing antennae */}
-      {[ [0.2, 0.2], [0.2, -0.2], [-0.2, 0.2], [-0.2, -0.2] ].map((pos, i) => (
-        <mesh 
-          key={i} 
-          position={[pos[0], -0.2, pos[1]]} 
-          rotation={[Math.PI / 4, 0, (i % 2 === 0 ? 1 : -1) * Math.PI / 4]}
-          castShadow
+      {([
+        [0.2, 0.2],
+        [0.2, -0.2],
+        [-0.2, 0.2],
+        [-0.2, -0.2],
+      ] as const).map((pos, i) => (
+        <group
+          key={i}
+          position={[pos[0], -0.2, pos[1]]}
+          rotation={[Math.PI / 4, 0, ((i % 2 === 0 ? 1 : -1) * Math.PI) / 4]}
         >
-          <cylinderGeometry args={[0.01, 0.01, 3, 4]} position={[0, -1.5, 0]} />
-          <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />
-        </mesh>
+          <mesh position={[0, -1.5, 0]} castShadow>
+            <cylinderGeometry args={[0.01, 0.01, 3, 4]} />
+            <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />
+          </mesh>
+        </group>
       ))}
     </group>
   );

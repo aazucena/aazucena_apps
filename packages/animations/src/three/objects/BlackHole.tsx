@@ -37,12 +37,12 @@ export function BlackHole({ opacity }: BlackHoleProps): JSX.Element {
       {/* Accretion Disk */}
       <mesh ref={diskRef} rotation={[Math.PI / 2.5, 0, 0]}>
         <torusGeometry args={[2, 0.4, 2, 64]} />
-        <meshStandardMaterial 
-          color="#fbbf24" 
-          emissive="#f59e0b" 
-          emissiveIntensity={5} 
-          transparent 
-          opacity={opacity * 0.8} 
+        <meshStandardMaterial
+          color="#fbbf24"
+          emissive="#f59e0b"
+          emissiveIntensity={5}
+          transparent
+          opacity={opacity * 0.8}
         />
       </mesh>
 

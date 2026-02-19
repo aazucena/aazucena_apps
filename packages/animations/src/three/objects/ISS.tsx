@@ -20,12 +20,12 @@ export function ISS({ opacity }: ISSProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Slow, majestic orbital rotation
     applyAnimation(stationRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         y: { frequency: 0.05, amplitude: 0.2 },
-        z: { frequency: 0.03, amplitude: 0.1 } 
+        z: { frequency: 0.03, amplitude: 0.1 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -34,10 +34,10 @@ export function ISS({ opacity }: ISSProps): JSX.Element {
     });
   });
 
-  const HULL_SILVER = "#cbd5e1";
-  const HULL_WHITE = "#f8fafc";
-  const SOLAR_GOLD = "#b45309"; // Darker gold for solar cells
-  const TRUSS_DARK = "#334155";
+  const HULL_SILVER = '#cbd5e1';
+  const HULL_WHITE = '#f8fafc';
+  const SOLAR_GOLD = '#b45309'; // Darker gold for solar cells
+  const TRUSS_DARK = '#334155';
 
   // Reusable Solar Array Component (8 panels per side)
   const SolarWing = ({ side }: { side: number }) => (
@@ -54,12 +54,24 @@ export function ISS({ opacity }: ISSProps): JSX.Element {
           {/* Top Panel */}
           <mesh position={[0, 0.8, 0]}>
             <boxGeometry args={[0.6, 1.5, 0.02]} />
-            <meshStandardMaterial color={SOLAR_GOLD} metalness={0.8} roughness={0.2} transparent opacity={opacity} />
+            <meshStandardMaterial
+              color={SOLAR_GOLD}
+              metalness={0.8}
+              roughness={0.2}
+              transparent
+              opacity={opacity}
+            />
           </mesh>
           {/* Bottom Panel */}
           <mesh position={[0, -0.8, 0]}>
             <boxGeometry args={[0.6, 1.5, 0.02]} />
-            <meshStandardMaterial color={SOLAR_GOLD} metalness={0.8} roughness={0.2} transparent opacity={opacity} />
+            <meshStandardMaterial
+              color={SOLAR_GOLD}
+              metalness={0.8}
+              roughness={0.2}
+              transparent
+              opacity={opacity}
+            />
           </mesh>
           {/* Connecting Strut */}
           <mesh>

@@ -18,7 +18,7 @@ export function GPSSatellite({ opacity }: GPSSatelliteProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Stable orbital orientation
     applyAnimation(satRef, time, {
       rotationOscillation: { x: { frequency: 0.05, amplitude: 0.1 } },
@@ -41,13 +41,25 @@ export function GPSSatellite({ opacity }: GPSSatelliteProps): JSX.Element {
       {[1, -1].map((side) => (
         <mesh key={side} position={[side * 3, 0, 0]} castShadow>
           <boxGeometry args={[4, 0.8, 0.05]} />
-          <meshStandardMaterial color="#1d4ed8" emissive="#1e40af" emissiveIntensity={0.2} transparent opacity={opacity} />
+          <meshStandardMaterial
+            color="#1d4ed8"
+            emissive="#1e40af"
+            emissiveIntensity={0.2}
+            transparent
+            opacity={opacity}
+          />
         </mesh>
       ))}
 
       {/* Earth-facing antenna array */}
       <group position={[0, -0.6, 0]}>
-        {[ [-0.2, -0.2], [0.2, -0.2], [-0.2, 0.2], [0.2, 0.2], [0, 0] ].map((pos, i) => (
+        {([
+          [-0.2, -0.2],
+          [0.2, -0.2],
+          [-0.2, 0.2],
+          [0.2, 0.2],
+          [0, 0],
+        ] as const).map((pos, i) => (
           <mesh key={i} position={[pos[0], -0.2, pos[1]]} castShadow>
             <cylinderGeometry args={[0.1, 0.1, 0.4, 8]} />
             <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />

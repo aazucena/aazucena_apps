@@ -18,12 +18,12 @@ export function Voyager({ opacity }: VoyagerProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Slow drifting away
     applyAnimation(voyagerRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         y: { frequency: 0.05, amplitude: 0.2 },
-        z: { frequency: 0.02, amplitude: 0.1 }
+        z: { frequency: 0.02, amplitude: 0.1 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -41,8 +41,8 @@ export function Voyager({ opacity }: VoyagerProps): JSX.Element {
       </mesh>
 
       {/* Main spacecraft bus (Cylinder under dish) */}
-      <mesh position={[0, -0.5, 0]} castShadow>
-        <cylinderGeometry args={[0.8, 0.8, 0.6, 10]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh position={[0, -0.5, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.8, 0.8, 0.6, 10]} />
         <meshStandardMaterial color="#475569" transparent opacity={opacity} metalness={0.5} />
       </mesh>
 

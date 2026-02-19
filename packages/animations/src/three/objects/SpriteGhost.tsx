@@ -28,12 +28,12 @@ export function SpriteGhost({ opacity }: SpriteGhostProps): JSX.Element {
     <mesh ref={meshRef}>
       {/* Diffuse glowing blob */}
       <sphereGeometry args={[1, 16, 16]} />
-      <meshStandardMaterial 
-        color="#4ade80" 
-        emissive="#22c55e" 
-        emissiveIntensity={1} 
-        transparent 
-        opacity={opacity * 0.15} 
+      <meshStandardMaterial
+        color="#4ade80"
+        emissive="#22c55e"
+        emissiveIntensity={1}
+        transparent
+        opacity={opacity * 0.15}
       />
     </mesh>
   );

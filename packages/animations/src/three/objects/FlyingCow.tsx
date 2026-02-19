@@ -18,12 +18,12 @@ export function FlyingCow({ opacity }: FlyingCowProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Slow, helpless tumbling
     applyAnimation(cowRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         x: { frequency: 0.1, amplitude: Math.PI },
-        z: { frequency: 0.05, amplitude: Math.PI }
+        z: { frequency: 0.05, amplitude: Math.PI },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -41,7 +41,11 @@ export function FlyingCow({ opacity }: FlyingCowProps): JSX.Element {
       </mesh>
 
       {/* Spots (Flat boxes) */}
-      {[ [0.2, 0.4, 0.31], [-0.3, -0.2, 0.31], [0.4, 0, -0.31] ].map((pos, i) => (
+      {[
+        [0.2, 0.4, 0.31],
+        [-0.3, -0.2, 0.31],
+        [0.4, 0, -0.31],
+      ].map((pos, i) => (
         <mesh key={i} position={pos as [number, number, number]}>
           <boxGeometry args={[0.3, 0.3, 0.01]} />
           <meshStandardMaterial color="#000000" transparent opacity={opacity} />
@@ -55,7 +59,12 @@ export function FlyingCow({ opacity }: FlyingCowProps): JSX.Element {
       </mesh>
 
       {/* Legs (Dangling) */}
-      {[ [0.4, 0.2], [0.4, -0.2], [-0.4, 0.2], [-0.4, -0.2] ].map((pos, i) => (
+      {([
+        [0.4, 0.2],
+        [0.4, -0.2],
+        [-0.4, 0.2],
+        [-0.4, -0.2],
+      ] as const).map((pos, i) => (
         <mesh key={i} position={[pos[0], -0.6, pos[1]]} rotation={[0.2, 0, 0]} castShadow>
           <boxGeometry args={[0.1, 0.6, 0.1]} />
           <meshStandardMaterial color="#ffffff" transparent opacity={opacity} />

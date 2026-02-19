@@ -23,7 +23,7 @@ export function Bird({ opacity, config }: BirdProps): JSX.Element {
 
   // 1. Determine Flight Profile from Config
   const variant = (config?.custom?.variant as 'majestic' | 'frantic') || 'majestic';
-  
+
   // Profile Parameters
   const flapSpeed = variant === 'frantic' ? 12 : 4;
   const flapAmplitude = variant === 'frantic' ? 0.4 : 0.8;
@@ -44,7 +44,7 @@ export function Bird({ opacity, config }: BirdProps): JSX.Element {
       // 3. Shoulder-Joint Flapping (X-axis)
       // Sin wave for smooth up/down motion
       const flap = Math.sin(time * flapSpeed) * flapAmplitude;
-      
+
       leftShoulderRef.current.rotation.x = flap;
       rightShoulderRef.current.rotation.x = -flap;
     }
@@ -55,12 +55,7 @@ export function Bird({ opacity, config }: BirdProps): JSX.Element {
       {/* Body */}
       <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
         <capsuleGeometry args={[0.15, 0.6, 8, 12]} />
-        <meshStandardMaterial
-          color="#78716c"
-          roughness={0.8}
-          transparent
-          opacity={opacity}
-        />
+        <meshStandardMaterial color="#78716c" roughness={0.8} transparent opacity={opacity} />
       </mesh>
 
       {/* LEFT WING SYSTEM (Shoulder Joint) */}
@@ -68,12 +63,7 @@ export function Bird({ opacity, config }: BirdProps): JSX.Element {
         {/* Offset mesh so pivot is at the shoulder edge */}
         <mesh position={[0, 0, -0.4]}>
           <boxGeometry args={[0.3, 0.03, 0.8]} />
-          <meshStandardMaterial
-            color="#57534e"
-            roughness={0.7}
-            transparent
-            opacity={opacity}
-          />
+          <meshStandardMaterial color="#57534e" roughness={0.7} transparent opacity={opacity} />
         </mesh>
       </group>
 
@@ -81,43 +71,26 @@ export function Bird({ opacity, config }: BirdProps): JSX.Element {
       <group ref={rightShoulderRef} position={[0, 0, 0.1]}>
         <mesh position={[0, 0, 0.4]}>
           <boxGeometry args={[0.3, 0.03, 0.8]} />
-          <meshStandardMaterial
-            color="#57534e"
-            roughness={0.7}
-            transparent
-            opacity={opacity}
-          />
+          <meshStandardMaterial color="#57534e" roughness={0.7} transparent opacity={opacity} />
         </mesh>
       </group>
 
       {/* Head */}
       <mesh position={[-0.35, 0.05, 0]}>
         <sphereGeometry args={[0.12, 12, 12]} />
-        <meshStandardMaterial
-          color="#292524"
-          transparent
-          opacity={opacity}
-        />
+        <meshStandardMaterial color="#292524" transparent opacity={opacity} />
       </mesh>
 
       {/* Beak */}
       <mesh position={[-0.45, 0.02, 0]} rotation={[0, 0, -Math.PI / 2]}>
         <coneGeometry args={[0.04, 0.15, 8]} />
-        <meshStandardMaterial
-          color="#f59e0b"
-          transparent
-          opacity={opacity}
-        />
+        <meshStandardMaterial color="#f59e0b" transparent opacity={opacity} />
       </mesh>
 
       {/* Tail */}
       <mesh position={[0.35, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
         <coneGeometry args={[0.12, 0.4, 3]} />
-        <meshStandardMaterial
-          color="#44403c"
-          transparent
-          opacity={opacity}
-        />
+        <meshStandardMaterial color="#44403c" transparent opacity={opacity} />
       </mesh>
     </group>
   );

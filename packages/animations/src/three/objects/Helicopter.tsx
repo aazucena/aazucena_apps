@@ -27,9 +27,9 @@ export function Helicopter({ opacity }: HelicopterProps): JSX.Element {
 
     // Agile movement wave
     applyAnimation(helicopterRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         x: { frequency: 0.5, amplitude: 0.1 }, // Pitch
-        z: { frequency: 0.3, amplitude: 0.15 } // Roll
+        z: { frequency: 0.3, amplitude: 0.15 }, // Roll
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -43,7 +43,13 @@ export function Helicopter({ opacity }: HelicopterProps): JSX.Element {
       {/* Fuselage */}
       <mesh castShadow>
         <sphereGeometry args={[0.6, 16, 16]} />
-        <meshStandardMaterial color="#334155" transparent opacity={opacity} metalness={0.7} roughness={0.3} />
+        <meshStandardMaterial
+          color="#334155"
+          transparent
+          opacity={opacity}
+          metalness={0.7}
+          roughness={0.3}
+        />
       </mesh>
 
       {/* Tail boom */}

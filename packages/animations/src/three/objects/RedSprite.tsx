@@ -30,12 +30,12 @@ export function RedSprite({ opacity }: RedSpriteProps): JSX.Element {
       {/* Central "Jellyfish" body */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[0.5, 8, 8]} />
-        <meshStandardMaterial 
-          color="#ef4444" 
-          emissive="#b91c1c" 
-          emissiveIntensity={2} 
-          transparent 
-          opacity={opacity * flicker} 
+        <meshStandardMaterial
+          color="#ef4444"
+          emissive="#b91c1c"
+          emissiveIntensity={2}
+          transparent
+          opacity={opacity * flicker}
         />
       </mesh>
 
@@ -47,12 +47,12 @@ export function RedSprite({ opacity }: RedSpriteProps): JSX.Element {
         return (
           <mesh key={i} position={[x, -1.5, z]} rotation={[0, 0, 0]}>
             <coneGeometry args={[0.05, 3, 4]} />
-            <meshStandardMaterial 
-              color="#ef4444" 
-              emissive="#f87171" 
-              emissiveIntensity={1.5} 
-              transparent 
-              opacity={opacity * 0.6 * flicker} 
+            <meshStandardMaterial
+              color="#ef4444"
+              emissive="#f87171"
+              emissiveIntensity={1.5}
+              transparent
+              opacity={opacity * 0.6 * flicker}
             />
           </mesh>
         );
@@ -61,12 +61,12 @@ export function RedSprite({ opacity }: RedSpriteProps): JSX.Element {
       {/* Upward "Carrot" bursts */}
       <mesh position={[0, 1, 0]}>
         <coneGeometry args={[0.3, 1.5, 8]} />
-        <meshStandardMaterial 
-          color="#ef4444" 
-          emissive="#ef4444" 
-          emissiveIntensity={3} 
-          transparent 
-          opacity={opacity * 0.8 * flicker} 
+        <meshStandardMaterial
+          color="#ef4444"
+          emissive="#ef4444"
+          emissiveIntensity={3}
+          transparent
+          opacity={opacity * 0.8 * flicker}
         />
       </mesh>
     </group>

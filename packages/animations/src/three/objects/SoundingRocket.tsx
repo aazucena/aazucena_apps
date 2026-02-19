@@ -21,7 +21,7 @@ export function SoundingRocket({ opacity }: SoundingRocketProps): JSX.Element {
       // Rapid vertical ascent with slight jitter
       rocketRef.current.position.y += 0.1;
       rocketRef.current.position.x += Math.sin(time * 50) * 0.01;
-      
+
       // Reset position for loop
       if (rocketRef.current.position.y > 50) rocketRef.current.position.y = -50;
     }
@@ -54,7 +54,13 @@ export function SoundingRocket({ opacity }: SoundingRocketProps): JSX.Element {
       {/* Exhaust plume (Static visual) */}
       <mesh position={[0, -2.5, 0]} rotation={[Math.PI, 0, 0]}>
         <coneGeometry args={[0.1, 1, 8]} />
-        <meshStandardMaterial color="#fbbf24" emissive="#f59e0b" emissiveIntensity={2} transparent opacity={opacity * 0.6} />
+        <meshStandardMaterial
+          color="#fbbf24"
+          emissive="#f59e0b"
+          emissiveIntensity={2}
+          transparent
+          opacity={opacity * 0.6}
+        />
       </mesh>
     </group>
   );

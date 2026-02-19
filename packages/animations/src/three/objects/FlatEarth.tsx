@@ -19,7 +19,7 @@ export function FlatEarth({ opacity }: FlatEarthProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Majestic tumbling of the whole system
     if (earthRef.current) {
       earthRef.current.rotation.x = Math.sin(time * 0.2) * 0.2;
@@ -33,7 +33,15 @@ export function FlatEarth({ opacity }: FlatEarthProps): JSX.Element {
   });
 
   // Continents: Simplified low-poly islands on the disc
-  const Continent = ({ pos, scale, color }: { pos: [number, number, number], scale: [number, number, number], color: string }) => (
+  const Continent = ({
+    pos,
+    scale,
+    color,
+  }: {
+    pos: [number, number, number];
+    scale: [number, number, number];
+    color: string;
+  }) => (
     <mesh position={pos} scale={scale}>
       <boxGeometry args={[1, 0.05, 1]} />
       <meshStandardMaterial color={color} transparent opacity={opacity} />
@@ -50,7 +58,8 @@ export function FlatEarth({ opacity }: FlatEarthProps): JSX.Element {
 
       {/* Continents (The "Land") */}
       <group position={[0, 0.06, 0]}>
-        <Continent pos={[0, 0, 0]} scale={[0.4, 1, 0.4]} color="#166534" /> {/* Pangea-ish center */}
+        <Continent pos={[0, 0, 0]} scale={[0.4, 1, 0.4]} color="#166534" />{' '}
+        {/* Pangea-ish center */}
         <Continent pos={[0.3, 0, 0.4]} scale={[0.2, 1, 0.3]} color="#15803d" />
         <Continent pos={[-0.4, 0, -0.2]} scale={[0.3, 1, 0.25]} color="#14532d" />
         <Continent pos={[0.5, 0, -0.3]} scale={[0.25, 1, 0.2]} color="#16a34a" />
@@ -58,15 +67,27 @@ export function FlatEarth({ opacity }: FlatEarthProps): JSX.Element {
       </group>
 
       {/* The Ice Wall (Antarctic Rim) */}
-      <mesh rotation={[0, 0, 0]} position={[0, 0.05, 0]}>
-        <torusGeometry args={[1.02, 0.08, 8, 48]} rotation={[Math.PI / 2, 0, 0]} />
-        <meshStandardMaterial color="#f1f5f9" transparent opacity={opacity} metalness={0.1} roughness={0.1} />
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
+        <torusGeometry args={[1.02, 0.08, 8, 48]} />
+        <meshStandardMaterial
+          color="#f1f5f9"
+          transparent
+          opacity={opacity}
+          metalness={0.1}
+          roughness={0.1}
+        />
       </mesh>
 
       {/* The Dome (Transparent half-sphere) */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[1.05, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
-        <meshStandardMaterial color="#7dd3fc" transparent opacity={opacity * 0.2} metalness={0.5} roughness={0} />
+        <meshStandardMaterial
+          color="#7dd3fc"
+          transparent
+          opacity={opacity * 0.2}
+          metalness={0.5}
+          roughness={0}
+        />
       </mesh>
 
       {/* Orbital Sun & Moon */}
@@ -79,11 +100,17 @@ export function FlatEarth({ opacity }: FlatEarthProps): JSX.Element {
           </mesh>
           <pointLight color="#fbbf24" intensity={2} distance={3} />
         </group>
-        
+
         {/* Moon */}
         <mesh position={[-0.6, 0, 0]}>
           <sphereGeometry args={[0.06, 12, 12]} />
-          <meshStandardMaterial color="#cbd5e1" transparent opacity={opacity} emissive="#475569" emissiveIntensity={0.5} />
+          <meshStandardMaterial
+            color="#cbd5e1"
+            transparent
+            opacity={opacity}
+            emissive="#475569"
+            emissiveIntensity={0.5}
+          />
         </mesh>
       </group>
 

@@ -19,9 +19,9 @@ export function GiantPaperPlane({ opacity }: GiantPaperPlaneProps): JSX.Element 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
     applyAnimation(planeRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         z: { frequency: 0.5, amplitude: 0.2 }, // Gliding roll
-        x: { frequency: 0.2, amplitude: 0.1 }  // Pitch
+        x: { frequency: 0.2, amplitude: 0.1 }, // Pitch
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },

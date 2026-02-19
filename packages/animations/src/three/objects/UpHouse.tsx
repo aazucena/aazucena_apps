@@ -56,15 +56,19 @@ export function UpHouse({ opacity }: UpHouseProps): JSX.Element {
           const radius = 0.8 + Math.random() * 0.7;
           const theta = Math.random() * Math.PI * 2;
           const phi = Math.random() * Math.PI;
-          
+
           const x = radius * Math.sin(phi) * Math.cos(theta);
           const y = radius * Math.sin(phi) * Math.sin(theta) + 0.5;
           const z = radius * Math.cos(phi);
-          
+
           return (
             <mesh key={i} position={[x, y, z]} castShadow>
               <sphereGeometry args={[0.2, 8, 8]} />
-              <meshStandardMaterial color={colors[i % colors.length]} transparent opacity={opacity} />
+              <meshStandardMaterial
+                color={colors[i % colors.length]}
+                transparent
+                opacity={opacity}
+              />
             </mesh>
           );
         })}

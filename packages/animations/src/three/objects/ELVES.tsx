@@ -20,7 +20,7 @@ export function ELVES({ opacity }: ELVESProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Periodically trigger (every 10-15 seconds)
     const cycle = time % 12;
     if (cycle < 0.3) {
@@ -39,12 +39,12 @@ export function ELVES({ opacity }: ELVESProps): JSX.Element {
       {/* Expanding ring of light */}
       <mesh>
         <torusGeometry args={[1, 0.01, 8, 32]} />
-        <meshStandardMaterial 
-          color="#fca5a5" 
-          emissive="#ef4444" 
-          emissiveIntensity={10} 
-          transparent 
-          opacity={opacity * (1 - scale / 31)} 
+        <meshStandardMaterial
+          color="#fca5a5"
+          emissive="#ef4444"
+          emissiveIntensity={10}
+          transparent
+          opacity={opacity * (1 - scale / 31)}
         />
       </mesh>
     </group>

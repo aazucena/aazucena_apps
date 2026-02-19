@@ -29,7 +29,13 @@ export function Monolith({ opacity }: MonolithProps): JSX.Element {
     <mesh ref={meshRef} castShadow>
       {/* Exact 1:4:9 dimensions */}
       <boxGeometry args={[1, 9, 4]} />
-      <meshStandardMaterial color="#000000" transparent opacity={opacity} metalness={1} roughness={0} />
+      <meshStandardMaterial
+        color="#000000"
+        transparent
+        opacity={opacity}
+        metalness={1}
+        roughness={0}
+      />
     </mesh>
   );
 }

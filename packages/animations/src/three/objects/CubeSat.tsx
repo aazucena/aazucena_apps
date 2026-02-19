@@ -18,12 +18,12 @@ export function CubeSat({ opacity }: CubeSatProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Quick tumbling rotation
     applyAnimation(satRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         y: { frequency: 0.2, amplitude: Math.PI },
-        z: { frequency: 0.15, amplitude: Math.PI }
+        z: { frequency: 0.15, amplitude: Math.PI },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -45,7 +45,13 @@ export function CubeSat({ opacity }: CubeSatProps): JSX.Element {
         <mesh key={i} position={[0, 0, 0]}>
           {/* Visual detail on cube faces */}
           <boxGeometry args={[0.3, 0.3, 0.41]} />
-          <meshStandardMaterial color="#1d4ed8" emissive="#1e40af" emissiveIntensity={0.3} transparent opacity={opacity * 0.5} />
+          <meshStandardMaterial
+            color="#1d4ed8"
+            emissive="#1e40af"
+            emissiveIntensity={0.3}
+            transparent
+            opacity={opacity * 0.5}
+          />
         </mesh>
       ))}
 

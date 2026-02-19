@@ -18,7 +18,7 @@ export function DeathStar({ opacity }: DeathStarProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Very slow majestic rotation
     if (meshRef.current) {
       meshRef.current.rotation.y = time * 0.05;
@@ -30,8 +30,14 @@ export function DeathStar({ opacity }: DeathStarProps): JSX.Element {
       {/* Main Sphere */}
       <mesh ref={meshRef} castShadow>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} metalness={0.5} roughness={0.8} />
-        
+        <meshStandardMaterial
+          color="#94a3b8"
+          transparent
+          opacity={opacity}
+          metalness={0.5}
+          roughness={0.8}
+        />
+
         {/* Trench Line (Visual detail) */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[1.01, 0.01, 8, 64]} />
@@ -39,8 +45,8 @@ export function DeathStar({ opacity }: DeathStarProps): JSX.Element {
         </mesh>
 
         {/* Superlaser Dish indentation */}
-        <mesh position={[0.5, 0.5, 0.7]} rotation={[0.5, 0.5, 0]}>
-          <coneGeometry args={[0.3, 0.1, 16, 1, true]} rotation={[Math.PI, 0, 0]} />
+        <mesh position={[0.5, 0.5, 0.7]} rotation={[Math.PI + 0.5, 0.5, 0]}>
+          <coneGeometry args={[0.3, 0.1, 16, 1, true]} />
           <meshStandardMaterial color="#64748b" transparent opacity={opacity} />
         </mesh>
       </mesh>

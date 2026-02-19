@@ -44,7 +44,12 @@ export function LawnChairBalloon({ opacity }: LawnChairBalloonProps): JSX.Elemen
           <meshStandardMaterial color="#cbd5e1" transparent opacity={opacity} />
         </mesh>
         {/* Legs */}
-        {[[-0.25, -0.3], [0.25, -0.3], [-0.25, 0.3], [0.25, 0.3]].map((pos, i) => (
+        {([
+          [-0.25, -0.3],
+          [0.25, -0.3],
+          [-0.25, 0.3],
+          [0.25, 0.3],
+        ] as const).map((pos, i) => (
           <mesh key={i} position={[pos[0], -0.2, pos[1]]} castShadow>
             <cylinderGeometry args={[0.02, 0.02, 0.4, 4]} />
             <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />
@@ -64,7 +69,11 @@ export function LawnChairBalloon({ opacity }: LawnChairBalloonProps): JSX.Elemen
             <group key={i} position={[x, y, z]}>
               <mesh castShadow>
                 <sphereGeometry args={[0.25, 12, 12]} />
-                <meshStandardMaterial color={colors[i % colors.length]} transparent opacity={opacity} />
+                <meshStandardMaterial
+                  color={colors[i % colors.length]}
+                  transparent
+                  opacity={opacity}
+                />
               </mesh>
               {/* String */}
               <mesh position={[0, -0.8, 0]}>

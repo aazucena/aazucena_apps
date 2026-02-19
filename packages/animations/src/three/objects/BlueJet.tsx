@@ -19,7 +19,7 @@ export function BlueJet({ opacity }: BlueJetProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Periodically trigger the jet (every 5-8 seconds)
     const cycle = time % 7;
     if (cycle < 0.5) {
@@ -38,24 +38,24 @@ export function BlueJet({ opacity }: BlueJetProps): JSX.Element {
       {/* Main upward blue cone */}
       <mesh position={[0, 1, 0]}>
         <coneGeometry args={[0.5, 2, 8]} />
-        <meshStandardMaterial 
-          color="#3b82f6" 
-          emissive="#2563eb" 
-          emissiveIntensity={5} 
-          transparent 
-          opacity={opacity * 0.8} 
+        <meshStandardMaterial
+          color="#3b82f6"
+          emissive="#2563eb"
+          emissiveIntensity={5}
+          transparent
+          opacity={opacity * 0.8}
         />
       </mesh>
 
       {/* Inner bright core */}
       <mesh position={[0, 0.8, 0]}>
         <coneGeometry args={[0.2, 1.8, 8]} />
-        <meshStandardMaterial 
-          color="#60a5fa" 
-          emissive="#ffffff" 
-          emissiveIntensity={10} 
-          transparent 
-          opacity={opacity} 
+        <meshStandardMaterial
+          color="#60a5fa"
+          emissive="#ffffff"
+          emissiveIntensity={10}
+          transparent
+          opacity={opacity}
         />
       </mesh>
     </group>

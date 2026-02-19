@@ -57,7 +57,12 @@ export function NyanCat({ opacity }: NyanCatProps): JSX.Element {
       </mesh>
 
       {/* Feet */}
-      {[ [-0.4, -0.4], [0.4, -0.4], [-0.4, 0.4], [0.4, 0.4] ].map((pos, i) => (
+      {([
+        [-0.4, -0.4],
+        [0.4, -0.4],
+        [-0.4, 0.4],
+        [0.4, 0.4],
+      ] as const).map((pos, i) => (
         <mesh key={i} position={[pos[0], -0.45, 0.05]}>
           <boxGeometry args={[0.2, 0.2, 0.1]} />
           <meshStandardMaterial color="#999999" transparent opacity={opacity} />

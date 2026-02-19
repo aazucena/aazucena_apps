@@ -18,7 +18,7 @@ export function SoyuzCapsule({ opacity }: SoyuzCapsuleProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Stable drift
     applyAnimation(capsuleRef, time, {
       rotationOscillation: { z: { frequency: 0.05, amplitude: 0.1 } },

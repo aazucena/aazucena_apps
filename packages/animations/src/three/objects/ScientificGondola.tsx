@@ -18,7 +18,7 @@ export function ScientificGondola({ opacity }: ScientificGondolaProps): JSX.Elem
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Slow spinning and swaying as it hangs
     applyAnimation(gondolaRef, time, {
       rotationOscillation: { y: { frequency: 0.1, amplitude: 0.5 } },
@@ -38,13 +38,13 @@ export function ScientificGondola({ opacity }: ScientificGondolaProps): JSX.Elem
       </mesh>
 
       {/* External sensors/arms */}
-      <mesh position={[0.6, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.02, 0.02, 1.2, 4]} rotation={[0, 0, Math.PI / 2]} />
+      <mesh position={[0.6, 0, 0]} rotation={[0, 0, Math.PI / 2]} castShadow>
+        <cylinderGeometry args={[0.02, 0.02, 1.2, 4]} />
         <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />
       </mesh>
-      
-      <mesh position={[-0.6, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.02, 0.02, 1.2, 4]} rotation={[0, 0, Math.PI / 2]} />
+
+      <mesh position={[-0.6, 0, 0]} rotation={[0, 0, Math.PI / 2]} castShadow>
+        <cylinderGeometry args={[0.02, 0.02, 1.2, 4]} />
         <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />
       </mesh>
 

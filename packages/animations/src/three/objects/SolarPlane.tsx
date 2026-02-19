@@ -18,7 +18,7 @@ export function SolarPlane({ opacity }: SolarPlaneProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Extremely slow, stable banking
     applyAnimation(planeRef, time, {
       rotationOscillation: { z: { frequency: 0.05, amplitude: 0.05 } },
@@ -40,12 +40,18 @@ export function SolarPlane({ opacity }: SolarPlaneProps): JSX.Element {
       {/* Solar panel texture detail (visual) */}
       <mesh position={[0, 0.03, 0]}>
         <boxGeometry args={[9.8, 0.01, 0.35]} />
-        <meshStandardMaterial color="#3b82f6" emissive="#1d4ed8" emissiveIntensity={0.2} transparent opacity={opacity * 0.5} />
+        <meshStandardMaterial
+          color="#3b82f6"
+          emissive="#1d4ed8"
+          emissiveIntensity={0.2}
+          transparent
+          opacity={opacity * 0.5}
+        />
       </mesh>
 
       {/* Tiny fuselage */}
-      <mesh position={[0, -0.1, 0]} castShadow>
-        <cylinderGeometry args={[0.05, 0.05, 1.2, 8]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh position={[0, -0.1, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.05, 0.05, 1.2, 8]} />
         <meshStandardMaterial color="#cbd5e1" transparent opacity={opacity} />
       </mesh>
 

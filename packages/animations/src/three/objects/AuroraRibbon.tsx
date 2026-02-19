@@ -32,12 +32,12 @@ export function AuroraRibbon({ opacity }: AuroraRibbonProps): JSX.Element {
       {[...Array(10)].map((_, i) => (
         <mesh key={i} position={[i * 0.8 - 4, 0, 0]}>
           <planeGeometry args={[1, 6]} />
-          <meshStandardMaterial 
-            color="#4ade80" 
-            emissive="#22c55e" 
-            emissiveIntensity={2} 
-            transparent 
-            opacity={opacity * 0.15 * (1 - Math.abs(i - 5) / 6)} 
+          <meshStandardMaterial
+            color="#4ade80"
+            emissive="#22c55e"
+            emissiveIntensity={2}
+            transparent
+            opacity={opacity * 0.15 * (1 - Math.abs(i - 5) / 6)}
           />
         </mesh>
       ))}

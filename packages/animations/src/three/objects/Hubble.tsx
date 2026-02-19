@@ -18,12 +18,12 @@ export function Hubble({ opacity }: HubbleProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Majestic slow tumbling
     applyAnimation(hubbleRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         y: { frequency: 0.02, amplitude: Math.PI },
-        x: { frequency: 0.01, amplitude: 0.2 }
+        x: { frequency: 0.01, amplitude: 0.2 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },
@@ -35,14 +35,20 @@ export function Hubble({ opacity }: HubbleProps): JSX.Element {
   return (
     <group ref={hubbleRef}>
       {/* Main telescope body */}
-      <mesh castShadow>
-        <cylinderGeometry args={[0.5, 0.5, 3, 16]} rotation={[Math.PI / 2, 0, 0]} />
-        <meshStandardMaterial color="#cbd5e1" transparent opacity={opacity} metalness={0.9} roughness={0.1} />
+      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.5, 0.5, 3, 16]} />
+        <meshStandardMaterial
+          color="#cbd5e1"
+          transparent
+          opacity={opacity}
+          metalness={0.9}
+          roughness={0.1}
+        />
       </mesh>
 
       {/* Aperture cover (open) */}
-      <mesh position={[0, 0.45, 1.5]} rotation={[-0.5, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.52, 0.52, 0.05, 16]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh position={[0, 0.45, 1.5]} rotation={[(Math.PI / 2) - 0.5, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.52, 0.52, 0.05, 16]} />
         <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />
       </mesh>
 
@@ -51,7 +57,13 @@ export function Hubble({ opacity }: HubbleProps): JSX.Element {
         <group key={side} position={[side * 1.2, 0, 0]}>
           <mesh castShadow>
             <boxGeometry args={[1.5, 0.02, 2.5]} />
-            <meshStandardMaterial color="#fbbf24" emissive="#d97706" emissiveIntensity={0.2} transparent opacity={opacity} />
+            <meshStandardMaterial
+              color="#fbbf24"
+              emissive="#d97706"
+              emissiveIntensity={0.2}
+              transparent
+              opacity={opacity}
+            />
           </mesh>
           {/* Support struts */}
           <mesh position={[side * -0.35, 0, 0]} castShadow>

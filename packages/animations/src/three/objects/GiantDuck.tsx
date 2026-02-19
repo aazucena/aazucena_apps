@@ -19,9 +19,9 @@ export function GiantDuck({ opacity }: GiantDuckProps): JSX.Element {
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
     applyAnimation(duckRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         z: { frequency: 0.4, amplitude: 0.15 }, // Playful waddle
-        y: { frequency: 0.1, amplitude: 0.3 } 
+        y: { frequency: 0.1, amplitude: 0.3 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },

@@ -51,7 +51,12 @@ export function HotAirBalloon({ opacity }: HotAirBalloonProps): JSX.Element {
       </mesh>
 
       {/* Burner frame (Cylinders as wires) */}
-      {[ [0.25, 0.25], [0.25, -0.25], [-0.25, 0.25], [-0.25, -0.25] ].map((pos, i) => (
+      {([
+        [0.25, 0.25],
+        [0.25, -0.25],
+        [-0.25, 0.25],
+        [-0.25, -0.25],
+      ] as const).map((pos, i) => (
         <mesh key={i} position={[pos[0], 0.5, pos[1]]} castShadow>
           <cylinderGeometry args={[0.01, 0.01, 0.6, 4]} />
           <meshStandardMaterial color="#451a03" transparent opacity={opacity} />

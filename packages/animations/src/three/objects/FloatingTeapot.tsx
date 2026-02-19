@@ -18,7 +18,7 @@ export function FloatingTeapot({ opacity }: FloatingTeapotProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Smooth slow rotation
     applyAnimation(teapotRef, time, {
       rotationOscillation: { y: { frequency: 0.1, amplitude: Math.PI } },
@@ -34,7 +34,13 @@ export function FloatingTeapot({ opacity }: FloatingTeapotProps): JSX.Element {
       {/* Teapot Body (Simplified) */}
       <mesh castShadow>
         <sphereGeometry args={[0.6, 16, 16]} scale={[1.2, 0.8, 1.2]} />
-        <meshStandardMaterial color="#ffffff" transparent opacity={opacity} metalness={0.2} roughness={0.1} />
+        <meshStandardMaterial
+          color="#ffffff"
+          transparent
+          opacity={opacity}
+          metalness={0.2}
+          roughness={0.1}
+        />
       </mesh>
 
       {/* Lid */}

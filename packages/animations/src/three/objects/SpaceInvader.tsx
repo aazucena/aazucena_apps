@@ -27,28 +27,66 @@ export function SpaceInvader({ opacity }: SpaceInvaderProps): JSX.Element {
   });
 
   // 11x8 Pixel Art Grid for the Invader
-  const pixels = [
-    [2,0], [8,0],
-    [3,1], [7,1],
-    [2,2], [3,2], [4,2], [5,2], [6,2], [7,2], [8,2],
-    [1,3], [2,3], [4,3], [5,3], [6,3], [8,3], [9,3],
-    [0,4], [1,4], [2,4], [3,4], [4,4], [5,4], [6,4], [7,4], [8,4], [9,4], [10,4],
-    [0,5], [2,5], [3,5], [4,5], [5,5], [6,5], [7,5], [8,5], [10,5],
-    [0,6], [2,6], [8,6], [10,6],
-    [3,7], [4,7], [6,7], [7,7]
-  ];
+  const pixels = ([
+    [2, 0],
+    [8, 0],
+    [3, 1],
+    [7, 1],
+    [2, 2],
+    [3, 2],
+    [4, 2],
+    [5, 2],
+    [6, 2],
+    [7, 2],
+    [8, 2],
+    [1, 3],
+    [2, 3],
+    [4, 3],
+    [5, 3],
+    [6, 3],
+    [8, 3],
+    [9, 3],
+    [0, 4],
+    [1, 4],
+    [2, 4],
+    [3, 4],
+    [4, 4],
+    [5, 4],
+    [6, 4],
+    [7, 4],
+    [8, 4],
+    [9, 4],
+    [10, 4],
+    [0, 5],
+    [2, 5],
+    [3, 5],
+    [4, 5],
+    [5, 5],
+    [6, 5],
+    [7, 5],
+    [8, 5],
+    [10, 5],
+    [0, 6],
+    [2, 6],
+    [8, 6],
+    [10, 6],
+    [3, 7],
+    [4, 7],
+    [6, 7],
+    [7, 7],
+  ] as const);
 
   return (
     <group ref={invaderRef} scale={[0.2, 0.2, 0.2]}>
       {pixels.map((pos, i) => (
         <mesh key={i} position={[pos[0] - 5, 4 - pos[1], 0]}>
           <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial 
-            color="#22c55e" 
-            emissive="#22c55e" 
-            emissiveIntensity={0.5} 
-            transparent 
-            opacity={opacity} 
+          <meshStandardMaterial
+            color="#22c55e"
+            emissive="#22c55e"
+            emissiveIntensity={0.5}
+            transparent
+            opacity={opacity}
           />
         </mesh>
       ))}

@@ -22,7 +22,7 @@ export function BirdFlock({ opacity }: BirdFlockProps): JSX.Element {
       // Linear forward movement
       flockRef.current.position.x += 0.03;
       if (flockRef.current.position.x > 30) flockRef.current.position.x = -30;
-      
+
       // Gentle flock-wide swaying
       flockRef.current.position.y = Math.sin(time * 0.5) * 0.5;
     }

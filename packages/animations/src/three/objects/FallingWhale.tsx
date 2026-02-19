@@ -20,12 +20,12 @@ export function FallingWhale({ opacity }: FallingWhaleProps): JSX.Element {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    
+
     // Tumbling fall movement for whale
     applyAnimation(whaleRef, time, {
-      rotationOscillation: { 
+      rotationOscillation: {
         x: { frequency: 0.1, amplitude: Math.PI * 2 }, // Tumbling
-        y: { frequency: 0.05, amplitude: 0.5 }
+        y: { frequency: 0.05, amplitude: 0.5 },
       },
       positionWave: {
         base: { x: 0, y: 0, z: 0 },

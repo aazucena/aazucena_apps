@@ -64,7 +64,13 @@ export function Lighthouse({ opacity }: LighthouseProps): JSX.Element {
       <group position={[0, 5, 0]} ref={lightRef}>
         <mesh position={[0, 0, 0.5]}>
           <boxGeometry args={[0.1, 0.1, 0.1]} />
-          <meshStandardMaterial color="#fbbf24" emissive="#f59e0b" emissiveIntensity={2} transparent opacity={opacity} />
+          <meshStandardMaterial
+            color="#fbbf24"
+            emissive="#f59e0b"
+            emissiveIntensity={2}
+            transparent
+            opacity={opacity}
+          />
         </mesh>
         {/* SpotLight representing the beam */}
         <spotLight
