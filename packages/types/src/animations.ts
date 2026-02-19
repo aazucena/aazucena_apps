@@ -199,21 +199,65 @@ export type ObjectCategory = 'easter-egg' | 'ground' | 'decoration';
 export type EasterEggType =
   | 'airplane'
   | 'bird'
+  | 'bird-flock'
   | 'drone'
+  | 'helicopter'
+  | 'hot-air-balloon'
+  | 'lawn-chair-balloon'
+  | 'giant-duck'
+  | 'santa-sleigh'
+  | 'giant-paper-plane'
+  | 'superman'
   | 'weather-balloon'
   | 'spy-plane'
   | 'blimp'
+  | 'red-sprite'
+  | 'solar-plane'
+  | 'supersonic-transport'
+  | 'scientific-gondola'
+  | 'blue-jet'
+  | 'up-house'
+  | 'falling-whale'
+  | 'mary-poppins'
+  | 'flying-cow'
+  | 'et-bike'
   | 'comet'
   | 'meteor'
   | 'space-debris'
+  | 'sounding-rocket'
+  | 'noctilucent-cloud'
+  | 'elves'
+  | 'meteor-smoke-trail'
+  | 'sprite-ghost'
+  | 'nyan-cat'
+  | 'space-invader'
+  | 'thors-hammer'
+  | 'floating-teapot'
   | 'space-shuttle'
-  | 'astronaut'
   | 'iss'
+  | 'astronaut'
+  | 'hubble'
+  | 'aurora-ribbon'
+  | 'cubesat'
+  | 'soyuz-capsule'
+  | 'starlink-satellite'
+  | 'tardis'
+  | 'death-star'
+  | 'tesla-roadster'
   | 'satellite'
   | 'ufo'
-  | 'rocket';
+  | 'rocket'
+  | 'starlink-train'
+  | 'james-webb'
+  | 'voyager'
+  | 'gps-satellite'
+  | 'sputnik'
+  | 'monolith'
+  | 'planet-express'
+  | 'black-hole'
+  | 'flat-earth';
 
-export type GroundObjectType = 'house' | 'tree' | 'bush' | 'rock' | 'flower' | 'ground';
+export type GroundObjectType = 'house' | 'tree' | 'bush' | 'rock' | 'flower' | 'ground' | 'wind-turbine' | 'utility-pylon' | 'skyscraper' | 'lighthouse';
 
 export type SceneObjectType = EasterEggType | GroundObjectType;
 
@@ -270,6 +314,7 @@ export interface ObjectRegistryEntry {
   component: ComponentType<{ opacity: number; config?: SceneObjectConfig }>;
   defaults?: Partial<SceneObjectConfig>;
   cost?: number;
+  layer: AtmosphericPhase | 'ground';
 }
 
 export interface LayerObjects {
