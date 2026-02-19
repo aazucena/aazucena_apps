@@ -42,7 +42,13 @@
         "^lint"
       ]
     },
+    "lint:fix": {
+      "cache": false
+    },
     "format": {
+      "cache": true
+    },
+    "format:check": {
       "cache": true
     },
     "type-check": {

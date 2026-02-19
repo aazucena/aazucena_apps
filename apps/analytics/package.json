@@ -8,7 +8,9 @@
     "start": "next start -p 8080 -H 0.0.0.0",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
-    "lint": "eslint"
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^3.0.29",
