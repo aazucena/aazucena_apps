@@ -76,6 +76,7 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
     const inputRef = React.useRef<HTMLInputElement>(null);
+    const listboxId = React.useId();
     const v = variant ?? 'default';
     const s = size ?? 'md';
 
@@ -112,6 +113,8 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
           type="text"
           role="combobox"
           aria-expanded={open}
+          aria-haspopup="listbox"
+          aria-controls={open ? listboxId : undefined}
           placeholder={placeholder}
           value={query}
           disabled={disabled}
@@ -128,6 +131,8 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
 
         {open && (
           <div
+            id={listboxId}
+            role="listbox"
             className={cn(
               'absolute z-50 mt-1 w-full rounded-md border shadow-lg',
               v === 'cyber'

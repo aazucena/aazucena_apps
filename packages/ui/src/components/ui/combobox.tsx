@@ -70,6 +70,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
     const inputRef = React.useRef<HTMLInputElement>(null);
+    const listboxId = React.useId();
     const v = variant ?? 'default';
     const s = size ?? 'md';
 
@@ -85,6 +86,8 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           type="button"
           role="combobox"
           aria-expanded={open}
+          aria-haspopup="listbox"
+          aria-controls={open ? listboxId : undefined}
           disabled={disabled}
           onClick={() => { setOpen(!open); setTimeout(() => inputRef.current?.focus(), 0); }}
           className={cn(
@@ -104,6 +107,8 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
 
         {open && (
           <div
+            id={listboxId}
+            role="listbox"
             className={cn(
               'absolute z-50 mt-1 w-full rounded-md border shadow-lg',
               v === 'cyber'

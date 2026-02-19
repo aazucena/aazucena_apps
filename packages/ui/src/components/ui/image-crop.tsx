@@ -71,7 +71,7 @@ const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
         const dx = ((ev.clientX - startPos.current.mx) / rect.width) * 100;
         const dy = ((ev.clientY - startPos.current.my) / rect.height) * 100;
         const prev = startPos.current.crop;
-        let next = { ...prev };
+        const next = { ...prev };
 
         if (dragging.current === 'move') {
           next.x = clamp(prev.x + dx, 0, 100 - prev.width);

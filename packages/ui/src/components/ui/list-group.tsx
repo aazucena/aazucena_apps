@@ -56,31 +56,35 @@ const listGroupItemVariants = cva(
 );
 
 export interface ListGroupItemProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof listGroupItemVariants> {
   icon?: React.ReactNode;
   action?: React.ReactNode;
   asButton?: boolean;
 }
 
-const ListGroupItem = React.forwardRef<HTMLDivElement, ListGroupItemProps>(
-  ({ className, variant, active, icon, action, asButton, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      role="listitem"
-      tabIndex={asButton ? 0 : undefined}
-      className={cn(
-        listGroupItemVariants({ variant, active }),
-        asButton && 'cursor-pointer',
-        className,
-      )}
-      {...props}
-    >
-      {icon && <span className="shrink-0 [&_svg]:size-4">{icon}</span>}
-      <span className="flex-1">{children}</span>
-      {action && <span className="shrink-0">{action}</span>}
-    </div>
-  ),
+const ListGroupItem = React.forwardRef<HTMLElement, ListGroupItemProps>(
+  ({ className, variant, active, icon, action, asButton, children, ...props }, ref) => {
+    const Component = (asButton ? 'button' : 'div') as any;
+    return (
+      <Component
+        ref={ref}
+        role="listitem"
+        tabIndex={asButton ? 0 : undefined}
+        type={asButton ? 'button' : undefined}
+        className={cn(
+          listGroupItemVariants({ variant, active }),
+          asButton && 'cursor-pointer w-full text-left',
+          className,
+        )}
+        {...props}
+      >
+        {icon && <span className="shrink-0 [&_svg]:size-4">{icon}</span>}
+        <span className="flex-1">{children}</span>
+        {action && <span className="shrink-0">{action}</span>}
+      </Component>
+    );
+  },
 );
 ListGroupItem.displayName = 'ListGroupItem';
 

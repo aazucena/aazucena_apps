@@ -45,14 +45,11 @@ const config: PlausibleProps = {
   ...opts,
   ...defaultOptions,
 }
-
-
-
 ---
 
-{(PLAUSIBLE_URL) && (
+{PLAUSIBLE_URL && (
   <>
-    <!-- Privacy-friendly analytics by Plausible -->
+    {/* Privacy-friendly analytics by Plausible */}
     <script 
       is:inline 
       async

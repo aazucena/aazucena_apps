@@ -56,6 +56,7 @@ const Video = React.forwardRef<HTMLVideoElement, VideoProps>(
             className="absolute inset-0 h-full w-full object-cover"
           />
         )}
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <video
           ref={videoRef}
           src={src}

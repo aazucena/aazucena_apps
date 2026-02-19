@@ -75,6 +75,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
   ) => {
     const v = variant ?? 'default';
     const s = size ?? 'md';
+    const nativePickerId = React.useId();
     const [showSwatches, setShowSwatches] = React.useState(false);
     const wrapperRef = React.useRef<HTMLDivElement>(null);
 
@@ -130,8 +131,13 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                 />
               ))}
               {/* Native picker */}
-              <label className="border-muted-foreground/40 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm border border-dashed">
+              <label 
+                htmlFor={nativePickerId}
+                className="border-muted-foreground/40 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm border border-dashed"
+              >
+                <span className="sr-only">Custom color</span>
                 <input
+                  id={nativePickerId}
                   type="color"
                   value={value}
                   onChange={(e) => onChange?.(e.target.value)}

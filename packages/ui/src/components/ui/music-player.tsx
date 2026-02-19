@@ -98,6 +98,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
 
     return (
       <div ref={ref} className={cn(musicPlayerVariants({ variant, size }), className)} {...props}>
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <audio
           ref={audioRef}
           src={src}
