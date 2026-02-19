@@ -15,8 +15,9 @@ jobs:
       - node/install-packages:
           pkg-manager: pnpm
           with-cache: true
-          # This allows pnpm to sync the overrides without failing the build
-          check-cache: false
+          # 'never' prevents the orb from failing on lockfile mismatches
+          check-cache: never
+          # This allows pnpm to sync your overrides during the CI run
           extra-args: "--no-frozen-lockfile"
       - run:
           name: "List Workspace Projects"
