@@ -521,6 +521,18 @@ batchRender(sprites); // Batch draw calls
 
 ---
 
+## ⚖️ LEGAL_&_FAIR_USE
+
+### Pop-Culture References (Easter Eggs)
+The `@aazucena/animations` package includes several low-poly "Easter Egg" objects that reference iconic pop-culture iconography (e.g., Planet Express, E.T. Bike, TARDIS, Death Star).
+
+- **Non-Commercial Purpose:** These objects are created exclusively for non-commercial, transformative, and creative/educational purposes within the context of a personal engineering portfolio.
+- **Intellectual Property:** All trademarks, characters, and related indicia are the property of their respective owners (e.g., Disney/Lucasfilm, 20th Century Studios, Universal Pictures, BBC).
+- **No Affiliation:** This project is not affiliated with, endorsed by, or sponsored by any of the aforementioned entities.
+- **Fair Use:** These low-poly, primitive-based recreations are intended to demonstrate technical skill in 3D modeling and animation logic under Fair Use principles.
+
+---
+
 **VERSION:** 0.0.0
 **STATUS:** Development
 **PROVIDER:** aazucena_intelligence_engine
