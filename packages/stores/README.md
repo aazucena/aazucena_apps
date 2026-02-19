@@ -8,14 +8,14 @@ Multi-paradigm state management architecture unifying Redux Toolkit (global stat
 
 ## 🛠️ STATE_MANIFEST
 
-| System                  | Protocol           | Description                                                                 |
-| :---------------------- | :----------------- | :-------------------------------------------------------------------------- |
-| **Redux_Slices**        | Global_Persist     | Dashboard, Chat, Journey slices with localStorage sync. Type-safe actions. |
-| **TanStack_Query**      | Server_Cache       | Query hooks with polling, mutations, invalidation. DevTools included.      |
-| **Nanostores**          | Lightweight_Atoms  | Theme, sidebar, interactions. Sub-100 byte reactive atoms.                  |
-| **WebSocket_Provider**  | Realtime_Stream    | Socket.IO integration for live telemetry. Auto-reconnect.                  |
-| **RealtimeSync**        | Cross_Tab_Sync     | BroadcastChannel API for multi-tab state synchronization.                  |
-| **Provider_Composer**   | Zero_Config_Setup  | Compose multiple providers with single wrapper component.                   |
+| System                 | Protocol          | Description                                                                |
+| :--------------------- | :---------------- | :------------------------------------------------------------------------- |
+| **Redux_Slices**       | Global_Persist    | Dashboard, Chat, Journey slices with localStorage sync. Type-safe actions. |
+| **TanStack_Query**     | Server_Cache      | Query hooks with polling, mutations, invalidation. DevTools included.      |
+| **Nanostores**         | Lightweight_Atoms | Theme, sidebar, interactions. Sub-100 byte reactive atoms.                 |
+| **WebSocket_Provider** | Realtime_Stream   | Socket.IO integration for live telemetry. Auto-reconnect.                  |
+| **RealtimeSync**       | Cross_Tab_Sync    | BroadcastChannel API for multi-tab state synchronization.                  |
+| **Provider_Composer**  | Zero_Config_Setup | Compose multiple providers with single wrapper component.                  |
 
 ---
 
@@ -32,6 +32,7 @@ Multi-paradigm state management architecture unifying Redux Toolkit (global stat
 **Purpose:** AZUCENA_LYTICS dashboard state (filters, UI, status)
 
 **State Shape:**
+
 ```typescript
 interface Dashboard_State {
   filters: {
@@ -55,6 +56,7 @@ interface Dashboard_State {
 ```
 
 **Actions:**
+
 ```typescript
 // Time Range Control
 setDashboardTimeRange(timeRange: Telemetry_TimeRange)
@@ -76,6 +78,7 @@ updateDashboardLastSync()
 ```
 
 **Category Presets:**
+
 ```typescript
 export const CATEGORY_PRESETS = {
   OVERVIEW: ['Page View', 'Music Play', 'Interaction', 'Form Submit', 'Error'],
@@ -90,6 +93,7 @@ export type CategoryPreset = keyof typeof CATEGORY_PRESETS;
 ```
 
 **Usage:**
+
 ```typescript
 import { useAppDispatch, useAppSelector } from '@aazucena/stores';
 import {
@@ -139,6 +143,7 @@ export function DashboardFilters() {
 **Purpose:** AI Terminal conversation management (tree-structured messages, branching)
 
 **State Shape:**
+
 ```typescript
 interface ChatState {
   conversations: Record<string, AI_Conversation>;
@@ -162,6 +167,7 @@ interface AI_TerminalMessage {
 ```
 
 **Actions:**
+
 ```typescript
 // Conversation Management
 createNewChat() // Creates or reuses empty conversation
@@ -176,6 +182,7 @@ setActiveNode({ conversationId: string, nodeId: string })
 ```
 
 **Persistence:**
+
 ```typescript
 // localStorage key: 'aazucena_chat_state_v2'
 // Auto-saves on every action
@@ -183,6 +190,7 @@ setActiveNode({ conversationId: string, nodeId: string })
 ```
 
 **Selectors:**
+
 ```typescript
 // Reconstructs linear thread from tree structure
 export const selectActiveThread = (state: { chat: ChatState }) => {
@@ -207,6 +215,7 @@ export const selectActiveThread = (state: { chat: ChatState }) => {
 ```
 
 **Usage:**
+
 ```typescript
 import { useAppDispatch, useAppSelector } from '@aazucena/stores';
 import {
@@ -270,6 +279,7 @@ export function toggleTheme() {
 ```
 
 **Usage:**
+
 ```tsx
 import { useStore } from '@nanostores/react';
 import { $theme, toggleTheme } from '@aazucena/stores/ui';
@@ -277,11 +287,7 @@ import { $theme, toggleTheme } from '@aazucena/stores/ui';
 export function ThemeToggle() {
   const theme = useStore($theme);
 
-  return (
-    <button onClick={toggleTheme}>
-      Current: {theme}
-    </button>
-  );
+  return <button onClick={toggleTheme}>Current: {theme}</button>;
 }
 ```
 
@@ -328,6 +334,7 @@ export function getClickCount(elementId: string): number {
 ```
 
 **Usage:**
+
 ```tsx
 import { useStore } from '@nanostores/react';
 import { $clickedElements, recordClick } from '@aazucena/stores/interactions';
@@ -335,11 +342,7 @@ import { $clickedElements, recordClick } from '@aazucena/stores/interactions';
 export function InteractiveButton({ id }: { id: string }) {
   const clicks = useStore($clickedElements);
 
-  return (
-    <button onClick={() => recordClick(id)}>
-      Clicked {clicks[id] || 0} times
-    </button>
-  );
+  return <button onClick={() => recordClick(id)}>Clicked {clicks[id] || 0} times</button>;
 }
 ```
 
@@ -504,13 +507,7 @@ const WebSocketContext = createContext<WebSocketContextValue>({
   isConnected: false,
 });
 
-export function WebSocketProvider({
-  url,
-  children
-}: {
-  url: string;
-  children: ReactNode;
-}) {
+export function WebSocketProvider({ url, children }: { url: string; children: ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
@@ -639,9 +636,7 @@ export function RealtimeSyncProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <RealtimeSyncContext.Provider value={{ channel }}>
-      {children}
-    </RealtimeSyncContext.Provider>
+    <RealtimeSyncContext.Provider value={{ channel }}>{children}</RealtimeSyncContext.Provider>
   );
 }
 
@@ -697,10 +692,7 @@ function DashboardFilters() {
   return (
     <div>
       <p>Synced across tabs: {isSynced ? '✅' : '⏳'}</p>
-      <select
-        value={state || 'all'}
-        onChange={(e) => setState(e.target.value)}
-      >
+      <select value={state || 'all'} onChange={(e) => setState(e.target.value)}>
         <option value="all">All</option>
         <option value="errors">Errors</option>
         <option value="performance">Performance</option>
@@ -730,10 +722,7 @@ interface ProviderComposerProps {
 }
 
 export function ProviderComposer({ providers, children }: ProviderComposerProps) {
-  return providers.reduceRight(
-    (acc, Provider) => <Provider>{acc}</Provider>,
-    children
-  );
+  return providers.reduceRight((acc, Provider) => <Provider>{acc}</Provider>, children);
 }
 ```
 
@@ -762,12 +751,7 @@ const WebSocketWrapper = ({ children }: { children: ReactNode }) => (
 export function App() {
   return (
     <ProviderComposer
-      providers={[
-        StoreProvider,
-        QueryProvider,
-        WebSocketWrapper,
-        RealtimeSyncProvider,
-      ]}
+      providers={[StoreProvider, QueryProvider, WebSocketWrapper, RealtimeSyncProvider]}
     >
       <Dashboard />
     </ProviderComposer>
@@ -819,6 +803,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 #### dashboardSlice
 
 **State:**
+
 ```typescript
 {
   filters: {
@@ -840,6 +825,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
 
 **Actions:**
+
 - `setDashboardTimeRange(timeRange: Telemetry_TimeRange)`
 - `setDashboardSearchQuery(query: string)`
 - `toggleDashboardCategory(category: string)`
@@ -856,6 +842,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 #### chatSlice
 
 **State:**
+
 ```typescript
 {
   conversations: Record<string, AI_Conversation>,
@@ -864,6 +851,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
 
 **Actions:**
+
 - `createNewChat()`
 - `addMessage({ conversationId: string, message: AI_TerminalMessage })`
 - `setActiveNode({ conversationId: string, nodeId: string })`
@@ -873,6 +861,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 - `clearAllHistory()`
 
 **Selectors:**
+
 - `selectActiveThread(state: { chat: ChatState })` - Reconstructs linear thread from tree
 
 ---
@@ -880,21 +869,25 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ### Nanostores API
 
 #### Theme Store
+
 - `$theme: Atom<'light' | 'dark' | 'auto'>`
 - `setTheme(theme)`
 - `toggleTheme()`
 
 #### Sidebar Store
+
 - `$sidebarOpen: Atom<boolean>`
 - `toggleSidebar()`
 - `setSidebarOpen(open: boolean)`
 
 #### Interactions Store
+
 - `$clickedElements: MapStore<Record<string, number>>`
 - `recordClick(elementId: string)`
 - `getClickCount(elementId: string)`
 
 #### Journey Store
+
 - `$currentStep: Atom<number>`
 - `nextStep()`
 - `prevStep()`
@@ -909,14 +902,18 @@ All query hooks follow TanStack Query v5 conventions:
 ```typescript
 const { data, isLoading, error, refetch } = useQuery({
   queryKey: ['resource', params],
-  queryFn: async () => { /* fetch logic */ },
+  queryFn: async () => {
+    /* fetch logic */
+  },
   staleTime: 5 * 60 * 1000,
   gcTime: 10 * 60 * 1000,
   refetchInterval: 5000, // Optional polling
 });
 
 const { mutate, isPending } = useMutation({
-  mutationFn: async (payload) => { /* mutation logic */ },
+  mutationFn: async (payload) => {
+    /* mutation logic */
+  },
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: ['resource'] });
   },
@@ -928,20 +925,24 @@ const { mutate, isPending } = useMutation({
 ### Provider Components
 
 #### `<QueryProvider />`
+
 - **Purpose:** TanStack Query client setup
 - **Props:** `children: ReactNode`
 - **DevTools:** Included
 
 #### `<WebSocketProvider />`
+
 - **Purpose:** Socket.IO real-time connection
 - **Props:** `url: string`, `children: ReactNode`
 - **Auto-reconnect:** Yes
 
 #### `<RealtimeSyncProvider />`
+
 - **Purpose:** Cross-tab state sync via BroadcastChannel
 - **Props:** `children: ReactNode`
 
 #### `<ProviderComposer />`
+
 - **Purpose:** Compose multiple providers
 - **Props:** `providers: ComponentType[]`, `children: ReactNode`
 
@@ -978,6 +979,7 @@ packages/stores/
 ```
 
 **Design Principles:**
+
 - **Type Safety:** Full TypeScript with inferred types
 - **DevTools:** Redux DevTools + React Query DevTools
 - **Performance:** Memoization, selector optimization, lazy loading
@@ -989,15 +991,16 @@ packages/stores/
 
 ## 🌐 FRAMEWORK_COMPATIBILITY
 
-| Framework | Support | Notes                                         |
-| :-------- | :------ | :-------------------------------------------- |
+| Framework | Support | Notes                                             |
+| :-------- | :------ | :------------------------------------------------ |
 | Next.js   | ✅      | App Router + Pages Router. Use client components. |
-| Astro     | ✅      | Use `client:load` or `client:only="react"`.   |
-| Remix     | ✅      | Full support with React 19.                    |
-| Vite      | ✅      | Native support.                                |
-| Universal | ✅      | Any React 18+ environment.                     |
+| Astro     | ✅      | Use `client:load` or `client:only="react"`.       |
+| Remix     | ✅      | Full support with React 19.                       |
+| Vite      | ✅      | Native support.                                   |
+| Universal | ✅      | Any React 18+ environment.                        |
 
 **SSR Considerations:**
+
 - Redux slices: Safe (no window references)
 - Nanostores: Safe (reactive atoms)
 - WebSocket: Use `client:only` in Astro
@@ -1008,20 +1011,21 @@ packages/stores/
 ## 📦 DEPENDENCY_MATRIX
 
 ### Internal Dependencies
+
 None (leaf package)
 
 ### External Dependencies
 
-| Package                             | Version | Purpose                          |
-| :---------------------------------- | :------ | :------------------------------- |
-| @reduxjs/toolkit                    | ^2.5.0  | Redux state management           |
-| @tanstack/react-query               | ^5.62.14| Server state caching             |
-| @tanstack/react-query-devtools      | ^5.62.14| Query DevTools                   |
-| nanostores                          | ^0.11.3 | Lightweight reactive atoms       |
-| @nanostores/react                   | ^0.8.0  | React integration for Nanostores |
-| socket.io-client                    | ^4.8.1  | WebSocket client                 |
-| react                               | ^19.2.0 | Peer dependency                  |
-| react-redux                         | ^9.2.0  | Redux React bindings             |
+| Package                        | Version  | Purpose                          |
+| :----------------------------- | :------- | :------------------------------- |
+| @reduxjs/toolkit               | ^2.5.0   | Redux state management           |
+| @tanstack/react-query          | ^5.62.14 | Server state caching             |
+| @tanstack/react-query-devtools | ^5.62.14 | Query DevTools                   |
+| nanostores                     | ^0.11.3  | Lightweight reactive atoms       |
+| @nanostores/react              | ^0.8.0   | React integration for Nanostores |
+| socket.io-client               | ^4.8.1   | WebSocket client                 |
+| react                          | ^19.2.0  | Peer dependency                  |
+| react-redux                    | ^9.2.0   | Redux React bindings             |
 
 ---
 

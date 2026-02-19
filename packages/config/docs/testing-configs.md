@@ -22,6 +22,7 @@ Complete guide to **Playwright E2E testing** configuration in @aazucena/config. 
 **Purpose:** E2E testing with cross-browser support
 
 **Features:**
+
 - ✅ **Cross-browser** - Chromium, Firefox, WebKit
 - ✅ **Parallel execution** - Fast test runs
 - ✅ **CI/CD optimized** - Retries, workers, reporters
@@ -163,6 +164,7 @@ test.beforeEach(async ({ page }) => {
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Lines:** ~200

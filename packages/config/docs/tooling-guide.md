@@ -38,6 +38,7 @@ Complete guide to **Prettier, PostCSS, Sentry, and Vercel** configurations in @a
 ```
 
 **Usage:**
+
 ```typescript
 // prettier.config.ts
 import astroPreset from '@aazucena/config/prettier/astro';
@@ -74,6 +75,7 @@ export default astroPreset;
 ```
 
 **Usage:**
+
 ```javascript
 // postcss.config.js
 import postcssConfig from '@aazucena/config/postcss/base';
@@ -93,10 +95,7 @@ import * as Sentry from '@sentry/astro';
 Sentry.init({
   dsn: process.env.PUBLIC_SENTRY_DSN,
   environment: import.meta.env.MODE,
-  integrations: [
-    new Sentry.BrowserTracing(),
-    new Sentry.Replay(),
-  ],
+  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
   tracesSampleRate: 0.1,
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
@@ -133,6 +132,7 @@ Sentry.init({
 ```
 
 **Environment Variables:**
+
 ```bash
 # .env.production
 PUBLIC_SENTRY_DSN=https://...
@@ -142,6 +142,7 @@ SENTRY_AUTH_TOKEN=...
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Lines:** ~150

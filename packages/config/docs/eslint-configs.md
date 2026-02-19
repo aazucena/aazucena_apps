@@ -24,6 +24,7 @@ Complete guide to **ESLint Flat Config** presets in @aazucena/config. Modern ESL
 **Modern ESLint v9+** uses JavaScript-based flat config (not JSON `.eslintrc`).
 
 **Key Benefits:**
+
 - ✅ **JavaScript-based** - Dynamic configuration, imports, composition
 - ✅ **No string extends** - Direct array spreading
 - ✅ **Explicit imports** - No hidden configs
@@ -31,6 +32,7 @@ Complete guide to **ESLint Flat Config** presets in @aazucena/config. Modern ESL
 - ✅ **Simpler mental model** - Flat array of config objects
 
 **Migration:**
+
 ```javascript
 // ❌ OLD (.eslintrc.json)
 {
@@ -52,6 +54,7 @@ export default nextjsConfig;
 **Purpose:** ESLint for Astro projects with React support
 
 **Includes:**
+
 - `@eslint/js` recommended
 - `typescript-eslint` recommended + strict
 - `eslint-plugin-astro` recommended
@@ -60,6 +63,7 @@ export default nextjsConfig;
 - `eslint-plugin-security`
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import astroConfig from '@aazucena/config/eslint/astro.js';
@@ -68,6 +72,7 @@ export default astroConfig;
 ```
 
 **Custom Rules:**
+
 ```javascript
 {
   rules: {
@@ -80,6 +85,7 @@ export default astroConfig;
 ```
 
 **File Patterns:**
+
 ```javascript
 {
   files: ['**/*.astro', '**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
@@ -94,6 +100,7 @@ export default astroConfig;
 **Purpose:** ESLint for Next.js applications
 
 **Includes:**
+
 - `@eslint/js` recommended
 - `typescript-eslint` recommended
 - `@next/eslint-plugin-next`
@@ -101,6 +108,7 @@ export default astroConfig;
 - `eslint-plugin-security`
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import nextjsConfig from '@aazucena/config/eslint/nextjs.js';
@@ -109,6 +117,7 @@ export default nextjsConfig;
 ```
 
 **Next.js-Specific Rules:**
+
 ```javascript
 {
   rules: {
@@ -127,6 +136,7 @@ export default nextjsConfig;
 **Purpose:** ESLint for React libraries
 
 **Includes:**
+
 - `@eslint/js` recommended
 - `typescript-eslint` recommended
 - `eslint-plugin-react` recommended
@@ -135,6 +145,7 @@ export default nextjsConfig;
 - `eslint-plugin-security`
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import reactConfig from '@aazucena/config/eslint/react.js';
@@ -143,6 +154,7 @@ export default reactConfig;
 ```
 
 **React-Specific Rules:**
+
 ```javascript
 {
   rules: {
@@ -161,11 +173,13 @@ export default reactConfig;
 **Purpose:** ESLint for pure TypeScript libraries
 
 **Includes:**
+
 - `@eslint/js` recommended
 - `typescript-eslint` recommended
 - `eslint-plugin-security`
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import { createLibraryConfig } from '@aazucena/config/eslint/library.js';
@@ -178,6 +192,7 @@ export default createLibraryConfig({ isVisualization: true });
 ```
 
 **Options:**
+
 ```typescript
 interface LibraryConfigOptions {
   isVisualization?: boolean; // Relaxes no-explicit-any for D3/Zod logic
@@ -185,6 +200,7 @@ interface LibraryConfigOptions {
 ```
 
 **Standard Rules:**
+
 ```javascript
 {
   rules: {
@@ -199,6 +215,7 @@ interface LibraryConfigOptions {
 ```
 
 **Visualization Mode:**
+
 ```javascript
 // When isVisualization: true
 {
@@ -216,6 +233,7 @@ interface LibraryConfigOptions {
 ### TypeScript Rules
 
 #### @typescript-eslint/no-unused-vars
+
 **Level:** warn
 **Config:** `{ argsIgnorePattern: '^_' }`
 
@@ -234,6 +252,7 @@ function handleClick(event: MouseEvent) {
 ---
 
 #### @typescript-eslint/no-explicit-any
+
 **Level:** warn (off in library config)
 
 ```typescript
@@ -258,6 +277,7 @@ function processData(data: unknown) {
 ---
 
 #### @typescript-eslint/no-non-null-assertion
+
 **Level:** off
 
 ```typescript
@@ -274,6 +294,7 @@ if (!element) throw new Error('Root element not found');
 ### React Rules
 
 #### react-hooks/rules-of-hooks
+
 **Level:** error
 
 ```typescript
@@ -297,6 +318,7 @@ function Component({ condition }: { condition: boolean }) {
 ---
 
 #### react-hooks/exhaustive-deps
+
 **Level:** warn
 
 ```typescript
@@ -323,6 +345,7 @@ useEffect(() => {
 ### Accessibility Rules
 
 #### jsx-a11y/alt-text
+
 **Level:** error
 
 ```typescript
@@ -339,6 +362,7 @@ useEffect(() => {
 ---
 
 #### jsx-a11y/click-events-have-key-events
+
 **Level:** error
 
 ```typescript
@@ -359,6 +383,7 @@ useEffect(() => {
 ### Security Rules
 
 #### security/detect-object-injection
+
 **Level:** off (too noisy)
 
 ```typescript
@@ -447,6 +472,7 @@ export default [
 ### Enabled by eslint-plugin-security
 
 #### detect-non-literal-regexp
+
 ```typescript
 // ⚠️ WARN - Dynamic regex
 const userInput = getUserInput();
@@ -457,6 +483,7 @@ const regex = /^[a-z]+$/;
 ```
 
 #### detect-unsafe-regex
+
 ```typescript
 // ⚠️ WARN - Catastrophic backtracking
 const regex = /(a+)+b/;
@@ -506,6 +533,7 @@ export default [
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Author:** AAZUCENA Development Team

@@ -35,15 +35,15 @@ The **@aazucena/config** package provides **battle-tested, zero-config presets**
 
 ### Key Features
 
-| Feature | Description | Status |
-|---------|-------------|--------|
+| Feature                  | Description                                                | Status    |
+| ------------------------ | ---------------------------------------------------------- | --------- |
 | **ESLint (Flat Config)** | Modern ESLint v9+ with TypeScript, React, Security plugins | ✅ Active |
-| **Prettier** | Code formatting with Astro plugin support | ✅ Active |
-| **TypeScript** | Strict mode configs with framework-specific JSX handling | ✅ Active |
-| **Playwright** | E2E testing with Chromium, Firefox, WebKit | ✅ Active |
-| **PostCSS** | Tailwind CSS v4 + Autoprefixer | ✅ Active |
-| **Sentry** | Error tracking with source maps and release tracking | ✅ Active |
-| **Vercel** | Deployment with environment variables and routing | ✅ Active |
+| **Prettier**             | Code formatting with Astro plugin support                  | ✅ Active |
+| **TypeScript**           | Strict mode configs with framework-specific JSX handling   | ✅ Active |
+| **Playwright**           | E2E testing with Chromium, Firefox, WebKit                 | ✅ Active |
+| **PostCSS**              | Tailwind CSS v4 + Autoprefixer                             | ✅ Active |
+| **Sentry**               | Error tracking with source maps and release tracking       | ✅ Active |
+| **Vercel**               | Deployment with environment variables and routing          | ✅ Active |
 
 ### Package Info
 
@@ -197,6 +197,7 @@ packages/config/
 ### Design Principles
 
 #### 1. Convention over Configuration
+
 ```typescript
 // ✅ GOOD - Zero config
 import astroConfig from '@aazucena/config/eslint/astro.js';
@@ -211,6 +212,7 @@ export default {
 ```
 
 #### 2. Composable Configs
+
 ```typescript
 // ✅ GOOD - Extend and override
 import baseConfig from '@aazucena/config/playwright/base';
@@ -222,6 +224,7 @@ export default {
 ```
 
 #### 3. Framework-Specific Presets
+
 ```
 eslint/
 ├── astro.js     → Astro-specific rules (JSX in .astro files)
@@ -237,9 +240,11 @@ eslint/
 ### 1. ESLint Configurations
 
 #### eslint/astro.js
+
 **Purpose:** ESLint for Astro projects with React support
 
 **Key Features:**
+
 - ✅ Astro parser (`eslint-plugin-astro`)
 - ✅ TypeScript support (`typescript-eslint`)
 - ✅ React rules for embedded components
@@ -247,6 +252,7 @@ eslint/
 - ✅ Security plugin (`eslint-plugin-security`)
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import astroConfig from '@aazucena/config/eslint/astro.js';
@@ -255,6 +261,7 @@ export default astroConfig;
 ```
 
 **Includes:**
+
 - `@eslint/js` recommended rules
 - `typescript-eslint` recommended + strict
 - `eslint-plugin-astro` recommended
@@ -265,9 +272,11 @@ export default astroConfig;
 ---
 
 #### eslint/nextjs.js
+
 **Purpose:** ESLint for Next.js applications
 
 **Key Features:**
+
 - ✅ Next.js-specific rules (`@next/eslint-plugin-next`)
 - ✅ React 19 hooks enforcement
 - ✅ TypeScript strict mode
@@ -275,6 +284,7 @@ export default astroConfig;
 - ✅ Security scanning
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import nextjsConfig from '@aazucena/config/eslint/nextjs.js';
@@ -285,9 +295,11 @@ export default nextjsConfig;
 ---
 
 #### eslint/react.js
+
 **Purpose:** ESLint for React libraries
 
 **Key Features:**
+
 - ✅ React best practices
 - ✅ Hooks rules (`eslint-plugin-react-hooks`)
 - ✅ TypeScript integration
@@ -295,6 +307,7 @@ export default nextjsConfig;
 - ✅ No console statements (warn)
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import reactConfig from '@aazucena/config/eslint/react.js';
@@ -305,9 +318,11 @@ export default reactConfig;
 ---
 
 #### eslint/library.js
+
 **Purpose:** ESLint for pure TypeScript libraries
 
 **Key Features:**
+
 - ✅ TypeScript strict rules
 - ✅ No JSX (pure TS)
 - ✅ D3/visualization-friendly (optional)
@@ -315,6 +330,7 @@ export default reactConfig;
 - ✅ Import/export validation
 
 **Usage:**
+
 ```javascript
 // eslint.config.js
 import { createLibraryConfig } from '@aazucena/config/eslint/library.js';
@@ -327,6 +343,7 @@ export default createLibraryConfig({ isVisualization: true });
 ```
 
 **Special Options:**
+
 ```typescript
 createLibraryConfig({
   isVisualization: true, // Disables no-explicit-any for D3/Zod logic
@@ -338,9 +355,11 @@ createLibraryConfig({
 ### 2. Prettier Configurations
 
 #### prettier/astro.ts
+
 **Purpose:** Prettier formatting for Astro projects
 
 **Configuration:**
+
 ```typescript
 {
   semi: true,
@@ -361,6 +380,7 @@ createLibraryConfig({
 ```
 
 **Usage:**
+
 ```typescript
 // prettier.config.ts
 import astroPreset from '@aazucena/config/prettier/astro';
@@ -371,9 +391,11 @@ export default astroPreset;
 ---
 
 #### prettier/base.ts
+
 **Purpose:** Base Prettier formatting (no plugins)
 
 **Configuration:**
+
 ```typescript
 {
   semi: true,
@@ -385,6 +407,7 @@ export default astroPreset;
 ```
 
 **Usage:**
+
 ```typescript
 // prettier.config.ts
 import basePreset from '@aazucena/config/prettier/base';
@@ -397,9 +420,11 @@ export default basePreset;
 ### 3. TypeScript Configurations
 
 #### tsconfig/astro.json
+
 **Purpose:** TypeScript for Astro projects
 
 **Key Settings:**
+
 ```json
 {
   "extends": "./base.json",
@@ -415,9 +440,11 @@ export default basePreset;
 ---
 
 #### tsconfig/nextjs.json
+
 **Purpose:** TypeScript for Next.js applications
 
 **Key Settings:**
+
 ```json
 {
   "extends": "./base.json",
@@ -433,9 +460,11 @@ export default basePreset;
 ---
 
 #### tsconfig/react.json
+
 **Purpose:** TypeScript for React libraries
 
 **Key Settings:**
+
 ```json
 {
   "extends": "./base.json",
@@ -450,9 +479,11 @@ export default basePreset;
 ---
 
 #### tsconfig/base.json
+
 **Purpose:** Base TypeScript configuration
 
 **Key Settings:**
+
 ```json
 {
   "compilerOptions": {
@@ -471,9 +502,11 @@ export default basePreset;
 ### 4. Playwright Configuration
 
 #### playwright/base.ts
+
 **Purpose:** E2E testing configuration
 
 **Configuration:**
+
 ```typescript
 {
   testDir: './tests',
@@ -495,6 +528,7 @@ export default basePreset;
 ```
 
 **Usage:**
+
 ```typescript
 // playwright.config.ts
 import { defineConfig } from '@playwright/test';
@@ -514,9 +548,11 @@ export default defineConfig({
 ### 5. PostCSS Configuration
 
 #### postcss/base.js
+
 **Purpose:** PostCSS with Tailwind CSS v4
 
 **Configuration:**
+
 ```javascript
 {
   plugins: {
@@ -527,6 +563,7 @@ export default defineConfig({
 ```
 
 **Usage:**
+
 ```javascript
 // postcss.config.js
 import postcssConfig from '@aazucena/config/postcss/base';
@@ -539,19 +576,18 @@ export default postcssConfig;
 ### 6. Sentry Configuration
 
 #### sentry/client.ts
+
 **Purpose:** Browser error tracking
 
 **Usage:**
+
 ```typescript
 import * as Sentry from '@sentry/astro';
 
 Sentry.init({
   dsn: process.env.PUBLIC_SENTRY_DSN,
   environment: import.meta.env.MODE,
-  integrations: [
-    new Sentry.BrowserTracing(),
-    new Sentry.Replay(),
-  ],
+  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
   tracesSampleRate: 0.1,
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
@@ -561,9 +597,11 @@ Sentry.init({
 ---
 
 #### sentry/server.ts
+
 **Purpose:** Server-side error tracking
 
 **Usage:**
+
 ```typescript
 import * as Sentry from '@sentry/node';
 
@@ -579,9 +617,11 @@ Sentry.init({
 ### 7. Vercel Configuration
 
 #### vercel/base.json
+
 **Purpose:** Vercel deployment settings
 
 **Configuration:**
+
 ```json
 {
   "buildCommand": "pnpm build",
@@ -676,11 +716,13 @@ export default defineConfig({
 ## 📚 RELATED_DOCUMENTATION
 
 ### Package Documentation
+
 - [📖 ESLint Configs](./docs/eslint-configs.md) - Complete ESLint guide
 - [🧪 Testing Configs](./docs/testing-configs.md) - Playwright testing guide
 - [🔧 Tooling Guide](./docs/tooling-guide.md) - Prettier, PostCSS, Sentry, Vercel
 
 ### Related Packages
+
 - [@aazucena/types](../types/README.md) - TypeScript type definitions
 - [@aazucena/constants](../constants/README.md) - Application constants
 
@@ -689,6 +731,7 @@ export default defineConfig({
 ## 🔗 REFERENCES
 
 ### Dependencies
+
 - **ESLint** v9+ (Flat Config)
 - **Prettier** v3+
 - **TypeScript** v5+
@@ -697,6 +740,7 @@ export default defineConfig({
 - **Sentry** v7+
 
 ### Used By
+
 - **apps/portfolio** - Astro configuration
 - **apps/analytics** - Next.js configuration
 - **packages/ui** - React configuration
@@ -704,6 +748,7 @@ export default defineConfig({
 - **packages/utils** - Library configuration
 
 ### Version History
+
 - **0.1.0** (2026-02-11) - Initial release with 7 config modules
 
 ---
@@ -713,6 +758,7 @@ export default defineConfig({
 ### Migration from ESLint v8
 
 **Old (eslintrc.json):**
+
 ```json
 {
   "extends": ["next/core-web-vitals", "prettier"],
@@ -723,6 +769,7 @@ export default defineConfig({
 ```
 
 **New (Flat Config):**
+
 ```javascript
 import nextjsConfig from '@aazucena/config/eslint/nextjs.js';
 
@@ -730,6 +777,7 @@ export default nextjsConfig;
 ```
 
 **Benefits:**
+
 - ✅ JavaScript-based (dynamic configuration)
 - ✅ Better TypeScript support
 - ✅ Composable (spread arrays instead of string extends)
@@ -738,6 +786,7 @@ export default nextjsConfig;
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Author:** AAZUCENA Development Team

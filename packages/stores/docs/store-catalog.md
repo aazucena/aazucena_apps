@@ -11,6 +11,7 @@ Complete reference for all stores in @aazucena/stores package.
 ### dashboard.ts
 
 **State:**
+
 ```typescript
 {
   visibleCategories: string[];
@@ -21,17 +22,20 @@ Complete reference for all stores in @aazucena/stores package.
 ```
 
 **Actions:**
+
 - `toggleCategory(category: string)` - Toggle category visibility
 - `setSearchQuery(query: string)` - Update search filter
 - `toggleSidebar()` - Collapse/expand sidebar
 - `setLiveMode(isLive: boolean)` - Enable/disable live updates
 
 **Selectors:**
+
 - `selectVisibleCategories(state)` - Get active categories
 - `selectSearchQuery(state)` - Get search query
 - `selectIsSidebarCollapsed(state)` - Get sidebar state
 
 **Usage:**
+
 ```typescript
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCategory, setLiveMode } from '@aazucena/stores';
@@ -48,6 +52,7 @@ dispatch(setLiveMode(true));
 ### chat.ts
 
 **State:**
+
 ```typescript
 {
   messages: Message[];
@@ -58,6 +63,7 @@ dispatch(setLiveMode(true));
 ```
 
 **Actions:**
+
 - `addMessage(message: Message)` - Add chat message
 - `setLoading(isLoading: boolean)` - Set loading state
 - `setModel(model: string)` - Change AI model
@@ -70,6 +76,7 @@ dispatch(setLiveMode(true));
 ### ui/index.ts
 
 #### $theme
+
 **Type:** `Atom<'light' | 'dark' | 'auto'>`
 **Purpose:** Global theme preference
 
@@ -82,6 +89,7 @@ setTheme('dark');
 ```
 
 #### $sidebarOpen
+
 **Type:** `Atom<boolean>`
 **Purpose:** Sidebar visibility state
 
@@ -97,6 +105,7 @@ toggleSidebar();
 ### interactions/index.ts
 
 #### $clickedElements
+
 **Type:** `MapStore<Record<string, number>>`
 **Purpose:** Track user click interactions
 
@@ -112,6 +121,7 @@ recordClick('submit-button');
 ### journey/index.ts
 
 #### $currentStep
+
 **Type:** `Atom<number>`
 **Purpose:** Current journey step
 
@@ -128,6 +138,7 @@ prevStep(); // Decrement step
 ## PROVIDERS
 
 ### QueryProvider
+
 **Purpose:** TanStack Query client setup
 
 ```typescript
@@ -139,6 +150,7 @@ import { QueryProvider } from '@aazucena/stores/providers';
 ```
 
 ### WebSocketProvider
+
 **Purpose:** Real-time event streaming
 
 ```typescript
@@ -150,6 +162,7 @@ import { WebSocketProvider } from '@aazucena/stores/providers';
 ```
 
 ### ProviderComposer
+
 **Purpose:** Compose multiple providers
 
 ```typescript
@@ -163,6 +176,7 @@ import { ProviderComposer, StoreProvider, QueryProvider } from '@aazucena/stores
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Lines:** ~200

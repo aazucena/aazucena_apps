@@ -64,7 +64,7 @@ export const dashboardSlice = createSlice({
       const categories = state.filters.visibleCategories;
 
       if (categories.includes(category)) {
-        state.filters.visibleCategories = categories.filter(c => c !== category);
+        state.filters.visibleCategories = categories.filter((c) => c !== category);
       } else {
         state.filters.visibleCategories.push(category);
       }
@@ -84,6 +84,7 @@ export default dashboardSlice.reducer;
 ```
 
 **Key Patterns:**
+
 - ✅ **`as const` for presets** - Enables literal type inference
 - ✅ **PayloadAction typing** - Type-safe action payloads
 - ✅ **Immer mutations** - Direct state mutation (Immer handles immutability)
@@ -165,6 +166,7 @@ export default chatSlice.reducer;
 ```
 
 **Advanced Patterns:**
+
 - ✅ **Record<string, T>** - Dynamic object keys with type safety
 - ✅ **Optional chaining** - Safe nested property access
 - ✅ **Auto-titling logic** - Derived state updates
@@ -232,6 +234,7 @@ export default telemetrySlice.reducer;
 ```
 
 **Usage in Components:**
+
 ```tsx
 import { useAppDispatch, useAppSelector } from '@aazucena/stores';
 import { fetchTelemetry } from '@aazucena/stores/slices/telemetry';
@@ -241,10 +244,12 @@ export function TelemetryDashboard() {
   const { data, loading, error } = useAppSelector((state) => state.telemetry);
 
   useEffect(() => {
-    dispatch(fetchTelemetry({
-      timeRange: '24h',
-      categories: ['Error', 'Performance'],
-    }));
+    dispatch(
+      fetchTelemetry({
+        timeRange: '24h',
+        categories: ['Error', 'Performance'],
+      }),
+    );
   }, [dispatch]);
 
   if (loading) return <Spinner />;
@@ -255,6 +260,7 @@ export function TelemetryDashboard() {
 ```
 
 **Key Benefits:**
+
 - ✅ **Automatic loading states** - pending/fulfilled/rejected
 - ✅ **Error handling** - rejectWithValue for typed errors
 - ✅ **ThunkAPI** - Access to dispatch, getState, extra args
@@ -279,13 +285,10 @@ export const startPolling = createAsyncThunk(
   },
 );
 
-export const fetchLatestData = createAsyncThunk(
-  'liveData/fetch',
-  async () => {
-    const response = await fetch('/api/live');
-    return await response.json();
-  },
-);
+export const fetchLatestData = createAsyncThunk('liveData/fetch', async () => {
+  const response = await fetch('/api/live');
+  return await response.json();
+});
 
 const liveDataSlice = createSlice({
   name: 'liveData',
@@ -327,20 +330,18 @@ export default liveDataSlice.reducer;
 import type { RootState } from '../store';
 
 // 1. Direct selectors
-export const selectTimeRange = (state: RootState) =>
-  state.dashboard.filters.timeRange;
+export const selectTimeRange = (state: RootState) => state.dashboard.filters.timeRange;
 
-export const selectSearchQuery = (state: RootState) =>
-  state.dashboard.filters.searchQuery;
+export const selectSearchQuery = (state: RootState) => state.dashboard.filters.searchQuery;
 
 export const selectVisibleCategories = (state: RootState) =>
   state.dashboard.filters.visibleCategories;
 
-export const selectIsLive = (state: RootState) =>
-  state.dashboard.status.isLive;
+export const selectIsLive = (state: RootState) => state.dashboard.status.isLive;
 ```
 
 **Usage:**
+
 ```tsx
 import { useAppSelector } from '@aazucena/stores';
 import { selectTimeRange, selectIsLive } from '@aazucena/stores/selectors';
@@ -369,10 +370,8 @@ import type { RootState } from '../store';
 
 // 1. Input selectors
 const selectAllEvents = (state: RootState) => state.telemetry.data;
-const selectVisibleCategories = (state: RootState) =>
-  state.dashboard.filters.visibleCategories;
-const selectSearchQuery = (state: RootState) =>
-  state.dashboard.filters.searchQuery;
+const selectVisibleCategories = (state: RootState) => state.dashboard.filters.visibleCategories;
+const selectSearchQuery = (state: RootState) => state.dashboard.filters.searchQuery;
 
 // 2. Memoized filtered selector
 export const selectFilteredEvents = createSelector(
@@ -393,22 +392,23 @@ export const selectFilteredEvents = createSelector(
 );
 
 // 3. Derived statistics selector
-export const selectEventStats = createSelector(
-  [selectFilteredEvents],
-  (events) => {
-    return {
-      total: events.length,
-      byCategory: events.reduce((acc, event) => {
+export const selectEventStats = createSelector([selectFilteredEvents], (events) => {
+  return {
+    total: events.length,
+    byCategory: events.reduce(
+      (acc, event) => {
         acc[event.category] = (acc[event.category] || 0) + 1;
         return acc;
-      }, {} as Record<string, number>),
-      lastUpdated: events[events.length - 1]?.timestamp || null,
-    };
-  },
-);
+      },
+      {} as Record<string, number>,
+    ),
+    lastUpdated: events[events.length - 1]?.timestamp || null,
+  };
+});
 ```
 
 **Benefits of createSelector:**
+
 - ✅ **Memoization** - Only recomputes when inputs change
 - ✅ **Composition** - Combine multiple selectors
 - ✅ **Performance** - Prevents unnecessary re-renders
@@ -485,6 +485,7 @@ export const chatSlice = createSlice({
 ```
 
 **Best Practices:**
+
 - ✅ **Version keys** - `_v2` suffix for schema changes
 - ✅ **SSR safety** - Check `typeof window !== 'undefined'`
 - ✅ **Try/catch** - Handle JSON parsing errors
@@ -524,6 +525,7 @@ export const persistor = persistStore(store);
 ```
 
 **Usage:**
+
 ```tsx
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -557,6 +559,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
 
 **Benefits:**
+
 - ✅ **Auto-completion** - IntelliSense for state shape
 - ✅ **Type safety** - Catch errors at compile time
 - ✅ **No manual typing** - Inferred from store
@@ -575,6 +578,7 @@ src/slices/
 ```
 
 **Naming Convention:**
+
 - `dashboard.ts` → `dashboardSlice` → `state.dashboard`
 - Prefix actions: `setDashboardTimeRange`, `toggleDashboardSidebar`
 - Avoid name collisions across slices
@@ -585,14 +589,14 @@ src/slices/
 
 ```typescript
 // ✅ GOOD - Clear, scoped action names
-setDashboardTimeRange
-toggleDashboardCategory
-resetDashboardFilters
+setDashboardTimeRange;
+toggleDashboardCategory;
+resetDashboardFilters;
 
 // ❌ BAD - Generic names (collision risk)
-setTimeRange
-toggleCategory
-reset
+setTimeRange;
+toggleCategory;
+reset;
 ```
 
 ---
@@ -646,6 +650,7 @@ export const store = configureStore({
 ```
 
 **DevTools Features:**
+
 - Time-travel debugging
 - Action history
 - State diff visualization
@@ -657,11 +662,7 @@ export const store = configureStore({
 
 ```typescript
 // dashboard.test.ts
-import dashboardReducer, {
-  setTimeRange,
-  toggleCategory,
-  CATEGORY_PRESETS,
-} from './dashboard';
+import dashboardReducer, { setTimeRange, toggleCategory, CATEGORY_PRESETS } from './dashboard';
 
 describe('dashboardSlice', () => {
   it('should set time range', () => {
@@ -688,6 +689,7 @@ describe('dashboardSlice', () => {
 ---
 
 **DOCUMENTATION_METADATA:**
+
 - **Version:** 1.0.0
 - **Last Updated:** 2026-02-11
 - **Lines:** ~400
