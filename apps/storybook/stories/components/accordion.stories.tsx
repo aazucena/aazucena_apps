@@ -120,7 +120,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Accordion>;
+} satisfies Meta<any>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
