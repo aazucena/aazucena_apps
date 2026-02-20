@@ -25,7 +25,10 @@ export interface SplitButtonProps {
 }
 
 const SplitButton = React.forwardRef<HTMLDivElement, SplitButtonProps>(
-  ({ className, variant: _variant = 'default', size: _size = 'default', children, ...props }, ref) => {
+  (
+    { className, variant: _variant = 'default', size: _size = 'default', children, ...props },
+    ref,
+  ) => {
     return (
       <ButtonGroup
         ref={ref}

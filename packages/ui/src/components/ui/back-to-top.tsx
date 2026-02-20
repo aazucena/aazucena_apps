@@ -42,7 +42,12 @@ const BackToTop = React.forwardRef<HTMLButtonElement, BackToTopProps>(
     const visible = forceVisible ?? scrolled;
 
     // Omit motion-conflicting props
-    const { onDrag: _onDrag, onDragStart: _onDragStart, onDragEnd: _onDragEnd, ...cleanProps } = props as any;
+    const {
+      onDrag: _onDrag,
+      onDragStart: _onDragStart,
+      onDragEnd: _onDragEnd,
+      ...cleanProps
+    } = props as any;
 
     React.useEffect(() => {
       if (forceVisible !== undefined) return;

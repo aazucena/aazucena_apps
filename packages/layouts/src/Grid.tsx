@@ -58,11 +58,7 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
   ({ className, gap, cols = 12, as: Component = 'div', children, ...props }, ref) => {
     const Element = Component as any;
     return (
-      <Element
-        ref={ref}
-        className={cn(gridVariants({ gap }), colsMap[cols], className)}
-        {...props}
-      >
+      <Element ref={ref} className={cn(gridVariants({ gap }), colsMap[cols], className)} {...props}>
         {children}
       </Element>
     );

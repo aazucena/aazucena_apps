@@ -3,9 +3,9 @@
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from "@aazucena/utils";
-import { Plus } from "@aazucena/icons";
-import { IconRenderer } from "./icon-renderer.js";
+import { cn } from '@aazucena/utils';
+import { Plus } from '@aazucena/icons';
+import { IconRenderer } from './icon-renderer.js';
 
 const accordionVariants = cva('flex w-full flex-col', {
   variants: {

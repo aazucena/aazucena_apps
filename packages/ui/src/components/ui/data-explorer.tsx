@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from "@aazucena/utils";
-import { Activity, Database } from "@aazucena/icons";
-import { MarkdownRenderer } from "./markdown-renderer.js";
+import { cn } from '@aazucena/utils';
+import { Activity, Database } from '@aazucena/icons';
+import { MarkdownRenderer } from './markdown-renderer.js';
 
 const dataExplorerVariants = cva('w-full transition-all duration-300 font-mono text-xs', {
   variants: {
@@ -29,7 +29,15 @@ interface DataExplorerProps
 
 const DataExplorer = React.forwardRef<HTMLDivElement, DataExplorerProps>(
   (
-    { className, variant, data, depth = 0, maxDepth = 10, initialExpanded: _initialExpanded = true, ...props },
+    {
+      className,
+      variant,
+      data,
+      depth = 0,
+      maxDepth = 10,
+      initialExpanded: _initialExpanded = true,
+      ...props
+    },
     ref,
   ) => {
     return (

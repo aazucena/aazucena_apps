@@ -34,7 +34,12 @@ const ReadingProgress = React.forwardRef<HTMLDivElement, ReadingProgressProps>(
     });
 
     // Omit motion-conflicting props
-    const { onDrag: _onDrag, onDragStart: _onDragStart, onDragEnd: _onDragEnd, ...cleanProps } = props as any;
+    const {
+      onDrag: _onDrag,
+      onDragStart: _onDragStart,
+      onDragEnd: _onDragEnd,
+      ...cleanProps
+    } = props as any;
 
     return (
       <motion.div

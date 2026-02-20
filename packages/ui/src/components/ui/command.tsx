@@ -29,7 +29,11 @@ const Command = React.forwardRef<
   ElementRef<typeof CommandPrimitive>,
   ComponentPropsWithoutRef<typeof CommandPrimitive> & VariantProps<typeof commandVariants>
 >(({ className: _className, variant, ..._props }, _ref) => (
-  <CommandPrimitive ref={_ref} className={cn(commandVariants({ variant }), _className)} {..._props} />
+  <CommandPrimitive
+    ref={_ref}
+    className={cn(commandVariants({ variant }), _className)}
+    {..._props}
+  />
 ));
 Command.displayName = CommandPrimitive.displayName;
 
