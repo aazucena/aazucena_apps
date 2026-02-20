@@ -125,19 +125,19 @@ jobs:
     executor: node-executor
     steps:
       - attach_project
-      - run: echo "TBA\: Testing Packages"
+      - run: echo "[TBA] Testing Packages"
       # - run:
       #     name: Testing Packages (TBA)
-      #     command: echo "TBA\: Testing Packages"
+      #     command: echo "[TBA] Testing Packages"
 
   publish_packages:
     executor: node-executor
     steps:
       - attach_project
-      - run: "TBA\: Publishing packages"
+      - run: "[TBA] Publishing packages"
       # - run:
       #     name: Publishing packages (TBA)
-      #     command: echo "TBA\: Publishing packages"
+      #     command: echo "[TBA] Publishing packages"
 
   build_portfolio:
     executor: node-executor
@@ -151,10 +151,10 @@ jobs:
     executor: node-executor
     steps:
       - attach_project
-      - run: echo "TBA\: Testing Portfolio"
+      - run: echo "[TBA] Testing Portfolio"
       # - run:
       #     name: Testing Portfolio (TBA)
-      #     command: echo "TBA\: Testing Portfolio"
+      #     command: echo "[TBA] Testing Portfolio"
 
   build_storybook:
     executor: node-executor
@@ -168,19 +168,19 @@ jobs:
     executor: node-executor
     steps:
       - attach_project
-      - run: echo "TBA\: Testing Storybook"
+      - run: echo "[TBA] Testing Storybook"
       # - run:
       #     name: Testing Storybook (TBA)
-      #     command: echo "TBA\: Testing Storybook"
+      #     command: echo "[TBA] Testing Storybook"
 
   publish_chromatic:
     executor: node-executor
     steps:
       - attach_project
-      - run: echo "TBA\: Publish Storybook to Chromatic"
+      - run: echo "[TBA] Publish Storybook to Chromatic"
       # - run:
       #     name: Publish Storybook to Chromatic (TBA)
-      #     command: echo "TBA\: Publish Storybook to Chromatic"
+      #     command: echo "[TBA] Publish Storybook to Chromatic"
 
   build_analytics:
     executor: node-executor
@@ -195,19 +195,19 @@ jobs:
     executor: node-executor
     steps:
       - attach_project
-      - run: echo "TBA\: Testing Analytics Dashboard"
+      - run: echo "[TBA] Testing Analytics Dashboard"
       # - run:
       #     name: Testing Analytics Dashboard (TBA)
-      #     command: echo "TBA\: Testing Analytics Dashboard"
+      #     command: echo "[TBA] Testing Analytics Dashboard"
 
   build_cms:
     executor: node-executor
     steps:
       - attach_project
-      - run: echo "TBA\: CMS build skipped"
+      - run: echo "[TBA] CMS build skipped"
       # - run:
       #     name: Building Strapi CMS (TBA)
-      #     command: echo "TBA\: CMS build skipped"
+      #     command: echo "[TBA] CMS build skipped"
 
   verify_changesets:
     executor: node-executor
