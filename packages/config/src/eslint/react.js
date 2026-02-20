@@ -1,51 +1,42 @@
-const { resolve } = require("node:path");
+import baseConfig from "./base.js";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
 
-const project = resolve(process.cwd(), "tsconfig.json");
-
-/*
- * This is a custom ESLint configuration for use with
- * internal (bundled by their consumer) libraries
- * that utilize React.
+/**
+ * Shared React ESLint Configuration for libraries.
  */
-
-/** @type {import("eslint").Linter.Config} */
-module.exports = {
-  extends: [
-    "eslint:recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended",
-    "turbo"
-  ],
-  plugins: ["only-warn", "react-hooks", "jsx-a11y"],
-  globals: {
-    React: true,
-    JSX: true,
+export const reactConfig = [
+  ...baseConfig,
+  {
+    plugins: {
+      "react-hooks": eslintPluginReactHooks,
+      "jsx-a11y": eslintPluginJsxA11y,
+    },
+    rules: {
+      ...eslintPluginReactHooks.configs.recommended.rules,
+      ...eslintPluginJsxA11y.configs.recommended.rules,
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react/no-unescaped-entities": "off",
+      "jsx-a11y/no-static-element-interactions": "off",
+      "jsx-a11y/click-events-have-key-events": "off",
+    },
   },
-  rules: {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-    "no-console": ["warn", { allow: ["warn", "error"] }],
+  {
+    files: ["**/*.stories.tsx", "**/*.stories.ts"],
+    rules: {
+      "react-hooks/rules-of-hooks": "off",
+      "import/no-anonymous-default-export": "off",
+    },
   },
-  env: {
-    browser: true,
-  },
-  settings: {
-    "import/resolver": {
-      typescript: {
-        project,
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: {
+      parserOptions: {
+        project: true,
       },
     },
   },
-  ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-    "dist/",
-  ],
-  overrides: [
-    // Force ESLint to detect .tsx files
-    { files: ["*.js?(x)", "*.ts?(x)"] },
-  ],
-};
+];
+
+export default reactConfig;

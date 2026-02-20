@@ -1,36 +1,40 @@
-const { resolve } = require("node:path");
+import baseConfig from "./base.js";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
 
-const project = resolve(process.cwd(), "tsconfig.json");
+/**
+ * Shared Next.js ESLint Configuration Factory.
+ * Applies standard Next.js rules plus monorepo-specific pragmatic overrides.
+ */
+export function createNextConfig({ project } = {}) {
+  return [
+    ...baseConfig,
+    {
+      plugins: {
+        "react-hooks": eslintPluginReactHooks,
+        "jsx-a11y": eslintPluginJsxA11y,
+      },
+      rules: {
+        ...eslintPluginReactHooks.configs.recommended.rules,
+        ...eslintPluginJsxA11y.configs.recommended.rules,
 
-/** @type {import("eslint").Linter.Config} */
-module.exports = {
-  extends: [
-    "eslint:recommended",
-    require.resolve("@vercel/style-guide/eslint/next"),
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended",
-    "turbo",
-  ],
-  globals: {
-    React: true,
-    JSX: true,
-  },
-  env: {
-    node: true,
-    browser: true,
-  },
-  plugins: ["only-warn", "react-hooks", "jsx-a11y"],
-  settings: {
-    "import/resolver": {
-      typescript: {
-        project,
+        // Pragmatic overrides
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/heading-has-content": "off",
       },
     },
-  },
-  ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-  ],
-  overrides: [{ files: ["*.js?(x)", "*.ts?(x)"] }],
-};
+    {
+      languageOptions: {
+        parserOptions: {
+          project: project || true,
+        },
+      },
+    },
+  ];
+}
+
+export default createNextConfig();
