@@ -27,7 +27,7 @@ export function SpaceInvader({ opacity }: SpaceInvaderProps): JSX.Element {
   });
 
   // 11x8 Pixel Art Grid for the Invader
-  const pixels = ([
+  const pixels = [
     [2, 0],
     [8, 0],
     [3, 1],
@@ -74,7 +74,7 @@ export function SpaceInvader({ opacity }: SpaceInvaderProps): JSX.Element {
     [4, 7],
     [6, 7],
     [7, 7],
-  ] as const);
+  ] as const;
 
   return (
     <group ref={invaderRef} scale={[0.2, 0.2, 0.2]}>

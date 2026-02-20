@@ -86,9 +86,7 @@ export function Superman({ opacity }: SupermanProps): JSX.Element {
         </mesh>
         {/* Hair with Curl */}
         <mesh position={[0, 0.08, 0]} rotation={[-0.5, 0, 0]} castShadow>
-          <sphereGeometry
-            args={[0.15, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]}
-          />
+          <sphereGeometry args={[0.15, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
           <meshStandardMaterial color="#000000" transparent opacity={opacity} />
         </mesh>
         <mesh position={[0.05, 0.05, 0.12]} rotation={[0, 0.5, 0]}>

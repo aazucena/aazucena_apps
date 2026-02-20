@@ -12,9 +12,7 @@ Advanced TypeScript patterns for @aazucena/types: discriminated unions, type gua
 
 ```typescript
 // Define discriminated union with 'type' field
-type ApiResponse =
-  | { type: 'success'; data: Project[] }
-  | { type: 'error'; error: string };
+type ApiResponse = { type: 'success'; data: Project[] } | { type: 'error'; error: string };
 
 // Type narrowing with type guard
 function handleResponse(response: ApiResponse) {
@@ -276,10 +274,7 @@ const str = identity('hello'); // T is inferred as string
 
 ```typescript
 // Constrain T to have 'id' and 'name' properties
-function findById<T extends { id: number; name: string }>(
-  items: T[],
-  id: number
-): T | undefined {
+function findById<T extends { id: number; name: string }>(items: T[], id: number): T | undefined {
   return items.find((item) => item.id === id);
 }
 
@@ -305,13 +300,17 @@ type ApiResponse<T> = {
 // Usage with specific types
 const postsResponse: ApiResponse<Post[]> = {
   success: true,
-  data: [/* posts */],
+  data: [
+    /* posts */
+  ],
   meta: { timestamp: Date.now(), requestId: 'req_123' },
 };
 
 const projectResponse: ApiResponse<Project> = {
   success: true,
-  data: { /* project */ },
+  data: {
+    /* project */
+  },
   meta: { timestamp: Date.now(), requestId: 'req_456' },
 };
 ```
@@ -544,7 +543,9 @@ type B = IsString<number>; // false
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 
 function getPost(): Post {
-  return { /* post */ };
+  return {
+    /* post */
+  };
 }
 
 type PostType = ReturnType<typeof getPost>; // Post
@@ -569,9 +570,7 @@ type C = ElementType<boolean>; // boolean (not an array)
 ### Safe API Response Type
 
 ```typescript
-type ApiResponse<T> =
-  | { success: true; data: T }
-  | { success: false; error: string };
+type ApiResponse<T> = { success: true; data: T } | { success: false; error: string };
 
 async function fetchPosts(): Promise<ApiResponse<Post[]>> {
   try {

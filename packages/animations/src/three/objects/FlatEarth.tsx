@@ -7,7 +7,7 @@
 import type { JSX } from 'react';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import type { Group, Mesh } from 'three';
+import type { Group } from 'three';
 
 interface FlatEarthProps {
   opacity: number;

@@ -221,7 +221,9 @@ import type { ApiSuccess, ApiError, PaginationMeta } from '@aazucena/types';
 // Successful response
 const success: ApiSuccess<Project[]> = {
   success: true,
-  data: [/* projects */],
+  data: [
+    /* projects */
+  ],
   meta: {
     timestamp: Date.now(),
     requestId: 'req_123',
@@ -302,7 +304,16 @@ const fieldProps: FormFieldProps = {
 Blog posts, projects, experiences, and more.
 
 ```typescript
-import type { Post, Project, Experience, Testimonial, Award, Education, Skill, Page } from '@aazucena/types';
+import type {
+  Post,
+  Project,
+  Experience,
+  Testimonial,
+  Award,
+  Education,
+  Skill,
+  Page,
+} from '@aazucena/types';
 
 // Blog post
 const post: Post = {
@@ -454,7 +465,7 @@ const modelConfig: ModelConfig = {
 // Embedding vector
 const embedding: EmbeddingVector = {
   id: 'emb_123',
-  vector: [0.1, 0.2, 0.3, /* ... 1536 dimensions */],
+  vector: [0.1, 0.2, 0.3 /* ... 1536 dimensions */],
   metadata: {
     source: 'blog_post_123',
     text: 'Original text content',

@@ -16,33 +16,43 @@ Complete reference for the aazucena Utility Intelligence System.
 ## Core Categories
 
 ### String & Text Processing
+
 Slugify, truncate, capitalize, pluralize, camelCase/kebab-case conversion. Pure functions for text manipulation without regex overhead.
 
 ### Date & Time Formatting
+
 Luxon-powered date formatting, relative time calculations, timezone handling. Consistent date display across the portfolio.
 
 ### DOM Operations
+
 Class name merging (clsx + tailwind-merge), scroll tracking, viewport detection, element measurements. Browser-safe utilities with SSR compatibility.
 
 ### Device Detection
+
 User agent parsing, mobile/desktop detection, touch support, screen size tracking. Performance tier classification for adaptive experiences.
 
 ### Content Processing
+
 Markdown to HTML conversion, table of contents generation, reading time estimation, heading extraction. Blog and CMS content utilities.
 
 ### Strapi Integration
+
 Media URL formatting, response transformation, entity flattening. Clean API client helpers for CMS data.
 
 ### Number & Math
+
 Currency formatting, percentage display, number abbreviation (1.2K, 3.4M), byte formatting, clamp, lerp, interpolation.
 
 ### Function Utilities
+
 Debounce, throttle, memoization. Performance optimization helpers for event handlers and expensive computations.
 
 ### Environment Helpers
+
 Development logging (devLog), type-safe environment variable access, meta-framework agnostic utilities.
 
 ### URL Processing
+
 Query string parsing/building, URL validation, parameter extraction. Router-agnostic URL manipulation.
 
 ---
@@ -50,9 +60,11 @@ Query string parsing/building, URL validation, parameter extraction. Router-agno
 ## Documentation Topics
 
 ### [Utility Catalog](./utility-catalog.md) - Complete_Reference
+
 All 33 utility modules with usage examples, type signatures, and integration patterns.
 
 ### [Best Practices](./best-practices.md) - Optimization_Guide
+
 - When to use utilities vs hooks
 - Tree-shaking strategies
 - Performance optimization

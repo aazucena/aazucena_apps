@@ -11,6 +11,7 @@ Strategic guide to using @aazucena/utils effectively: performance optimization, 
 ### When to Use Utilities
 
 ✅ **Pure Functions** - No React state or lifecycle needed:
+
 ```typescript
 // ✅ GOOD: Pure utility
 import { slugify, formatDate } from '@aazucena/utils';
@@ -20,6 +21,7 @@ const date = formatDate(publishedAt, 'MMM dd, yyyy');
 ```
 
 ✅ **One-Time Computations** - Calculate once, no reactivity:
+
 ```typescript
 // ✅ GOOD: One-time calculation
 import { calculateReadingTime } from '@aazucena/utils';
@@ -31,6 +33,7 @@ function BlogPost({ content }) {
 ```
 
 ✅ **Server-Side Rendering** - Works in Node.js environment:
+
 ```typescript
 // ✅ GOOD: SSR-safe
 import { formatCurrency } from '@aazucena/utils';
@@ -46,6 +49,7 @@ export async function getStaticProps() {
 ### When to Use Hooks
 
 ❌ **Reactive State** - Needs to update when dependencies change:
+
 ```typescript
 // ❌ WRONG: Using utility for reactive state
 import { getScrollProgress } from '@aazucena/utils';
@@ -65,6 +69,7 @@ function Component() {
 ```
 
 ❌ **Browser APIs** - Requires window/document access:
+
 ```typescript
 // ❌ WRONG: Direct browser API access
 import { isMobile } from '@aazucena/utils';
@@ -85,6 +90,7 @@ function Component() {
 ```
 
 ❌ **Lifecycle Integration** - Needs useEffect, useState:
+
 ```typescript
 // ❌ WRONG: Trying to use utility for side effects
 import { debounce } from '@aazucena/utils';
@@ -524,18 +530,19 @@ const slug = slugify(title); // Fast, no memoization needed
 
 Approximate execution times for common utilities:
 
-| Utility | Time | Classification |
-|:--------|:-----|:---------------|
-| `slugify()` | ~0.1ms | Fast |
-| `capitalize()` | ~0.05ms | Fast |
-| `truncate()` | ~0.08ms | Fast |
-| `formatDate()` | ~0.5ms | Medium (Luxon) |
-| `cn()` | ~0.2ms | Fast |
-| `markdownToHtml()` | ~5-20ms | Slow (varies by content) |
-| `generateTOC()` | ~2-10ms | Medium (varies by content) |
-| `getDeviceInfo()` | ~1-2ms | Medium (ua-parser-js) |
+| Utility            | Time    | Classification             |
+| :----------------- | :------ | :------------------------- |
+| `slugify()`        | ~0.1ms  | Fast                       |
+| `capitalize()`     | ~0.05ms | Fast                       |
+| `truncate()`       | ~0.08ms | Fast                       |
+| `formatDate()`     | ~0.5ms  | Medium (Luxon)             |
+| `cn()`             | ~0.2ms  | Fast                       |
+| `markdownToHtml()` | ~5-20ms | Slow (varies by content)   |
+| `generateTOC()`    | ~2-10ms | Medium (varies by content) |
+| `getDeviceInfo()`  | ~1-2ms  | Medium (ua-parser-js)      |
 
 **Optimization Strategy:**
+
 - **Fast utilities** (<1ms): Use freely
 - **Medium utilities** (1-5ms): Memoize if called frequently
 - **Slow utilities** (>5ms): Always memoize or cache

@@ -13,12 +13,14 @@ export function UtilityPylon({ opacity }: UtilityPylonProps): JSX.Element {
   return (
     <group>
       {/* 4 Main Legs */}
-      {([
-        [0.5, 0.5],
-        [0.5, -0.5],
-        [-0.5, 0.5],
-        [-0.5, -0.5],
-      ] as const).map((pos, i) => (
+      {(
+        [
+          [0.5, 0.5],
+          [0.5, -0.5],
+          [-0.5, 0.5],
+          [-0.5, -0.5],
+        ] as const
+      ).map((pos, i) => (
         <mesh
           key={i}
           position={[pos[0] * 0.5, 2, pos[1] * 0.5]}

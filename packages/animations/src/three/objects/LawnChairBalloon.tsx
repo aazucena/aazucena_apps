@@ -44,12 +44,14 @@ export function LawnChairBalloon({ opacity }: LawnChairBalloonProps): JSX.Elemen
           <meshStandardMaterial color="#cbd5e1" transparent opacity={opacity} />
         </mesh>
         {/* Legs */}
-        {([
-          [-0.25, -0.3],
-          [0.25, -0.3],
-          [-0.25, 0.3],
-          [0.25, 0.3],
-        ] as const).map((pos, i) => (
+        {(
+          [
+            [-0.25, -0.3],
+            [0.25, -0.3],
+            [-0.25, 0.3],
+            [0.25, 0.3],
+          ] as const
+        ).map((pos, i) => (
           <mesh key={i} position={[pos[0], -0.2, pos[1]]} castShadow>
             <cylinderGeometry args={[0.02, 0.02, 0.4, 4]} />
             <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />

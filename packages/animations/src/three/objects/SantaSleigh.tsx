@@ -138,10 +138,12 @@ export function SantaSleigh({ opacity }: SantaSleighProps): JSX.Element {
       </group>
 
       {/* 2. REINDEER TEAM */}
-      {([
-        [4, 0.4],
-        [4, -0.4],
-      ] as const).map((pos, i) => (
+      {(
+        [
+          [4, 0.4],
+          [4, -0.4],
+        ] as const
+      ).map((pos, i) => (
         <group key={i} position={[pos[0], -0.2, pos[1]]}>
           <mesh castShadow>
             <boxGeometry args={[0.8, 0.45, 0.3]} />
@@ -151,12 +153,14 @@ export function SantaSleigh({ opacity }: SantaSleighProps): JSX.Element {
             <boxGeometry args={[0.1, 0.2, 0.05]} />
             <meshStandardMaterial color="#78350f" transparent opacity={opacity} />
           </mesh>
-          {([
-            [0.25, 0.1],
-            [0.25, -0.1],
-            [-0.25, 0.1],
-            [-0.25, -0.1],
-          ] as const).map((lp, j) => (
+          {(
+            [
+              [0.25, 0.1],
+              [0.25, -0.1],
+              [-0.25, 0.1],
+              [-0.25, -0.1],
+            ] as const
+          ).map((lp, j) => (
             <mesh key={j} position={[lp[0], -0.4, lp[1]]} castShadow>
               <cylinderGeometry args={[0.04, 0.03, 0.6, 4]} />
               <meshStandardMaterial color="#78350f" transparent opacity={opacity} />

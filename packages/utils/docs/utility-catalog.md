@@ -413,9 +413,9 @@ import { transformStrapiResponse } from '@aazucena/utils';
 const response = {
   data: [
     { id: 1, attributes: { title: 'Post 1' } },
-    { id: 2, attributes: { title: 'Post 2' } }
+    { id: 2, attributes: { title: 'Post 2' } },
   ],
-  meta: { pagination: { total: 2 } }
+  meta: { pagination: { total: 2 } },
 };
 
 const posts = transformStrapiResponse(response);
@@ -438,7 +438,7 @@ import { formatStrapiData } from '@aazucena/utils';
 
 const entity = {
   id: 1,
-  attributes: { title: 'My Post', slug: 'my-post' }
+  attributes: { title: 'My Post', slug: 'my-post' },
 };
 
 const flat = formatStrapiData(entity);
@@ -634,6 +634,7 @@ devLog.error('Validation failed:', errors);
 ```
 
 **Signature:**
+
 - `devLog(...args: any[]): void`
 - `devLog.warn(...args: any[]): void`
 - `devLog.error(...args: any[]): void`
@@ -714,7 +715,7 @@ import {
   calculateReadingTime,
   extractExcerpt,
   generateSlugFromTitle,
-  sortPostsByDate
+  sortPostsByDate,
 } from '@aazucena/utils';
 
 const time = calculateReadingTime(content); // '5 min read'
@@ -732,7 +733,7 @@ import {
   calculateJourneyStats,
   generateTimeline,
   groupSkillsByCategory,
-  calculateSkillProgress
+  calculateSkillProgress,
 } from '@aazucena/utils';
 
 const stats = calculateJourneyStats(experiences);
@@ -746,11 +747,7 @@ const progress = calculateSkillProgress(skill, startDate, endDate);
 ### Preloader Utilities (`preloader.ts`)
 
 ```typescript
-import {
-  calculateProgress,
-  determinePreloaderTheme,
-  formatLoadingMessage
-} from '@aazucena/utils';
+import { calculateProgress, determinePreloaderTheme, formatLoadingMessage } from '@aazucena/utils';
 
 const progress = calculateProgress(loaded, total); // 0-100
 const theme = determinePreloaderTheme('cyber'); // Theme config

@@ -6,8 +6,7 @@
 import type { JSX } from 'react';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import type { Mesh } from 'three';
-import { applyAnimation } from '@aazucena/utils';
+import type { Mesh } from "three";
 
 interface DeathStarProps {
   opacity: number;

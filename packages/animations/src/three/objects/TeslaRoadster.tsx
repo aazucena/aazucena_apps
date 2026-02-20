@@ -53,12 +53,14 @@ export function TeslaRoadster({ opacity }: TeslaRoadsterProps): JSX.Element {
       </mesh>
 
       {/* Wheels */}
-      {([
-        [0.5, 0.4],
-        [0.5, -0.4],
-        [-0.5, 0.4],
-        [-0.5, -0.4],
-      ] as const).map((pos, i) => (
+      {(
+        [
+          [0.5, 0.4],
+          [0.5, -0.4],
+          [-0.5, 0.4],
+          [-0.5, -0.4],
+        ] as const
+      ).map((pos, i) => (
         <mesh key={i} position={[pos[0], -0.1, pos[1]]} rotation={[Math.PI / 2, 0, 0]} castShadow>
           <cylinderGeometry args={[0.2, 0.2, 0.1, 8]} />
           <meshStandardMaterial color="#1e293b" transparent opacity={opacity} />

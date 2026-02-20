@@ -57,12 +57,14 @@ export function SupersonicTransport({ opacity }: SupersonicTransportProps): JSX.
       </mesh>
 
       {/* 4 Engines under wings */}
-      {([
-        [-0.6, -0.3],
-        [-0.3, -0.3],
-        [0.3, -0.3],
-        [0.6, -0.3],
-      ] as const).map((pos, i) => (
+      {(
+        [
+          [-0.6, -0.3],
+          [-0.3, -0.3],
+          [0.3, -0.3],
+          [0.6, -0.3],
+        ] as const
+      ).map((pos, i) => (
         <mesh key={i} position={[pos[0], pos[1], -1.5]} rotation={[Math.PI / 2, 0, 0]} castShadow>
           <cylinderGeometry args={[0.12, 0.15, 0.8, 8]} />
           <meshStandardMaterial color="#475569" transparent opacity={opacity} />

@@ -257,7 +257,17 @@ export type EasterEggType =
   | 'black-hole'
   | 'flat-earth';
 
-export type GroundObjectType = 'house' | 'tree' | 'bush' | 'rock' | 'flower' | 'ground' | 'wind-turbine' | 'utility-pylon' | 'skyscraper' | 'lighthouse';
+export type GroundObjectType =
+  | 'house'
+  | 'tree'
+  | 'bush'
+  | 'rock'
+  | 'flower'
+  | 'ground'
+  | 'wind-turbine'
+  | 'utility-pylon'
+  | 'skyscraper'
+  | 'lighthouse';
 
 export type SceneObjectType = EasterEggType | GroundObjectType;
 

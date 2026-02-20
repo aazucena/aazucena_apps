@@ -10,7 +10,7 @@ export async function getHighlighter() {
 
   highlighter = await createHighlighter({
     themes: ['github-dark', 'nord', 'dracula', 'one-dark-pro'],
-    langs: Object.keys(bundledLanguages)
+    langs: Object.keys(bundledLanguages),
   });
 
   return highlighter;

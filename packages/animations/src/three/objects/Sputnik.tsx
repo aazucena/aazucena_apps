@@ -47,12 +47,14 @@ export function Sputnik({ opacity }: SputnikProps): JSX.Element {
       </mesh>
 
       {/* 4 Long trailing antennae */}
-      {([
-        [0.2, 0.2],
-        [0.2, -0.2],
-        [-0.2, 0.2],
-        [-0.2, -0.2],
-      ] as const).map((pos, i) => (
+      {(
+        [
+          [0.2, 0.2],
+          [0.2, -0.2],
+          [-0.2, 0.2],
+          [-0.2, -0.2],
+        ] as const
+      ).map((pos, i) => (
         <group
           key={i}
           position={[pos[0], -0.2, pos[1]]}

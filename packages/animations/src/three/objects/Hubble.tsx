@@ -47,7 +47,7 @@ export function Hubble({ opacity }: HubbleProps): JSX.Element {
       </mesh>
 
       {/* Aperture cover (open) */}
-      <mesh position={[0, 0.45, 1.5]} rotation={[(Math.PI / 2) - 0.5, 0, 0]} castShadow>
+      <mesh position={[0, 0.45, 1.5]} rotation={[Math.PI / 2 - 0.5, 0, 0]} castShadow>
         <cylinderGeometry args={[0.52, 0.52, 0.05, 16]} />
         <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />
       </mesh>

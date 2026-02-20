@@ -30,25 +30,16 @@
     "skipLibCheck": true,
     "incremental": true,
     "paths": {
-      "~/*": [
-        "src/*"
-      ],
-      "@/*": [
-        "./src/*"
-      ]
+      "~/*": ["src/*"],
+      "@/*": ["./src/*"]
     },
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"
-      },
+      }
     ],
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
-  "include": [
-    ".astro/types.d.ts",
-    "**/*"
-  ],
-  "exclude": [
-    "dist/"
-  ]
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist/"]
 }

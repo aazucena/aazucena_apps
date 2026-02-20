@@ -59,12 +59,14 @@ export function FlyingCow({ opacity }: FlyingCowProps): JSX.Element {
       </mesh>
 
       {/* Legs (Dangling) */}
-      {([
-        [0.4, 0.2],
-        [0.4, -0.2],
-        [-0.4, 0.2],
-        [-0.4, -0.2],
-      ] as const).map((pos, i) => (
+      {(
+        [
+          [0.4, 0.2],
+          [0.4, -0.2],
+          [-0.4, 0.2],
+          [-0.4, -0.2],
+        ] as const
+      ).map((pos, i) => (
         <mesh key={i} position={[pos[0], -0.6, pos[1]]} rotation={[0.2, 0, 0]} castShadow>
           <boxGeometry args={[0.1, 0.6, 0.1]} />
           <meshStandardMaterial color="#ffffff" transparent opacity={opacity} />

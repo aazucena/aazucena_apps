@@ -53,13 +53,15 @@ export function GPSSatellite({ opacity }: GPSSatelliteProps): JSX.Element {
 
       {/* Earth-facing antenna array */}
       <group position={[0, -0.6, 0]}>
-        {([
-          [-0.2, -0.2],
-          [0.2, -0.2],
-          [-0.2, 0.2],
-          [0.2, 0.2],
-          [0, 0],
-        ] as const).map((pos, i) => (
+        {(
+          [
+            [-0.2, -0.2],
+            [0.2, -0.2],
+            [-0.2, 0.2],
+            [0.2, 0.2],
+            [0, 0],
+          ] as const
+        ).map((pos, i) => (
           <mesh key={i} position={[pos[0], -0.2, pos[1]]} castShadow>
             <cylinderGeometry args={[0.1, 0.1, 0.4, 8]} />
             <meshStandardMaterial color="#94a3b8" transparent opacity={opacity} />

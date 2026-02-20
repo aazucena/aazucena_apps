@@ -35,7 +35,11 @@ export interface ObjectViewerProps {
 /**
  * Internal View Orchestrator (Accesses context)
  */
-function ObjectViewInternal({ showGrid: initialShowGrid }: { showGrid: boolean }) {
+function ObjectViewInternal({
+  showGrid: _initialShowGrid,
+}: {
+  showGrid: boolean;
+}) {
   const { showGrid, autoRotate, showStats, controlsRef, isCapturing } = useObjectViewer();
 
   return (
