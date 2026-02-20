@@ -1,16 +1,28 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@6.1.0
+  node: circleci/node@7.0.0
+
+# Common configuration for all jobs
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:22.14.0
+    environment:
+      HSKY: "0" # Intentional: Not a typo
+      NODE_OPTIONS: "--max_old_space_size=4096"
+      TURBO_UI: "false"
+
+# Reusable command to attach the workspace
+commands:
+  attach_project:
+    steps:
+      - attach_workspace:
+          at: .
 
 jobs:
-  validate_and_test: # Combined to save overhead
-    executor:
-      name: node/default
-      tag: "22.14.0"
-    environment:
-      HSKY: "0" # This works for all steps in the job, including the Orb
-      NODE_OPTIONS: "--max_old_space_size=4096"
+  setup:
+    executor: node-executor
     steps:
       - checkout
       - restore_cache:
@@ -18,39 +30,226 @@ jobs:
           keys:
             - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
       - run:
-          name: Install pnpm package manager
+          name: Install & validate PNPM packages
           command: |
             sudo npm install --global corepack@latest
             sudo corepack enable
             corepack prepare pnpm@10.30.0 --activate
             pnpm config set store-dir .pnpm-store
-      - run:
-          name: Install Dependencies
-          command: |
-            pnpm install
+            pnpm install --frozen-lockfile
       - save_cache:
           name: Save pnpm Package Cache
           key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - .pnpm-store
+      - persist_to_workspace:
+          root: .
+          paths: [ . ]
+
+  list_projects:
+    executor: node-executor
+    steps:
+      - attach_project
       - run:
-          name: "List Workspace Projects"
+          name: List Workspace Projects
           command: pnpm list -r --depth -1
+
+  verify_commits:
+    executor: node-executor
+    steps:
+      - attach_project
       - run:
-          name: "Verify Commit Messages"
+          name: Verify Commit Messages
           command: |
             if [ -n "$CIRCLE_PR_NUMBER" ]; then
-              npx commitlint --from=main --to=HEAD
+              npx commitlint --from=main --to=HEAD --verbose
             fi
+
+  format_packages:
+    executor: node-executor
+    steps:
+      - attach_project
       - run:
-          name: "Lint, Format & Type-Check"
-          # Run parallelizable tasks together
-          command: pnpm turbo lint format type-check build
+          name: Formatting Packages
+          command: pnpm turbo format:check --filter="./packages/*"
+
+  format_apps:
+    executor: node-executor
+    steps:
+      - attach_project
       - run:
-          name: "Verify Changesets"
+          name: Formatting Applications
+          command: pnpm turbo format:check --filter="./apps/*"
+
+  lint_packages:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Linting Packages
+          command: pnpm turbo lint --filter="./packages/*"
+
+  lint_apps:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Linking Applications
+          command: pnpm turbo lint --filter="./apps/*"
+
+  type_check_packages:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Type check packages
+          command: pnpm turbo type-check --filter="./packages/*"
+
+  type_check_apps:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Type check applications
+          command: pnpm turbo type-check --filter="./apps/*"
+
+  build_packages:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Packages
+          command: pnpm turbo build --filter="./packages/*"
+
+  test_packages:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Testing Packages (TBA)
+          command: echo "TBA: Testing Packages"
+
+  publish_packages:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Publishing packages (TBA)
+          command: echo "TBA: Publishing packages"
+
+  build_portfolio:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Portfolio
+          command: pnpm turbo build --filter="portfolio"
+
+  test_portfolio:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Testing Portfolio (TBA)
+          command: echo "TBA: Testing Portfolio"
+
+  build_storybook:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Storybook
+          command: pnpm turbo build --filter="storybook"
+
+  test_storybook:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Testing Storybook (TBA)
+          command: echo "TBA: Testing Storybook"
+
+  publish_chromatic:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Publish Storybook to Chromatic (TBA)
+          command: echo "TBA: Publish Storybook to Chromatic"
+
+  build_analytics:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Analytics Dashboard (TBA)
+          command: pnpm turbo build --filter="analytics" || echo "Analytics build skipped (TBA)"
+
+  test_analytics:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Testing Analytics Dashboard (TBA)
+          command: echo "TBA: Testing Analytics Dashboard"
+
+  build_cms:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Strapi CMS (TBA)
+          command: echo "TBA: CMS build skipped"
+
+  verify_changesets:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run:
+          name: Verify Changesets
           command: npx changeset status
 
 workflows:
   quality_gate:
     jobs:
-      - validate_and_test
+      - setup
+      - list_projects:
+          requires: [ setup ]
+      - verify_commits:
+          requires: [ setup ]
+      - format_packages:
+          requires: [ setup ]
+      - format_apps:
+          requires: [ setup ]
+      - lint_packages:
+          requires: [ setup ]
+      - lint_apps:
+          requires: [ setup ]
+      - type_check_packages:
+          requires: [ setup ]
+      - type_check_apps:
+          requires: [ setup ]
+      - build_packages:
+          requires: [ setup ]
+      - test_packages:
+          requires: [ build_packages ]
+      - publish_packages:
+          requires: [ build_packages ]
+      - build_portfolio:
+          requires: [ build_packages ]
+      - test_portfolio:
+          requires: [ build_portfolio ]
+      - build_storybook:
+          requires: [ build_packages ]
+      - test_storybook:
+          requires: [ build_storybook ]
+      - publish_chromatic:
+          requires: [ build_storybook ]
+      - build_analytics:
+          requires: [ build_packages ]
+      - test_analytics:
+          requires: [ build_analytics ]
+      - build_cms:
+          requires: [ build_packages ]
+      - verify_changesets:
+          requires: [ setup ]
