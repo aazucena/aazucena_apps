@@ -12,11 +12,9 @@ import {
   Zap,
   Message,
   XCircle,
-  DangerTriangle,
 } from '@mynaui/icons-react';
 import { cn } from '@/lib/utils';
 import { usePrompts, useUpdatePrompt } from '@/hooks/usePrompts';
-import type { Prompt } from '@/lib/transformers/prompt';
 
 export default function PromptManagerPage() {
   // --- Data Fetching ---

@@ -8,19 +8,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Database,
-  Terminal,
   Components,
   ArrowRight,
   Copy,
-  Check,
   CheckCircle,
-  Sparkles,
-  Search,
-  Message,
-  ChartBar,
-  CreditCard,
-  HardDrive,
-  ClockCircle,
   Refresh,
 } from '@mynaui/icons-react';
 import { NeuralMap } from '@/components/visualizations/NeuralMap';
@@ -134,7 +125,7 @@ const JsonView = ({
           isInvalid ? 'text-rose-500 font-bold' : 'text-zinc-600 dark:text-zinc-300',
         )}
       >
-        "{data}"
+        &quot;{data}&quot;
       </span>
     );
   }

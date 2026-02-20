@@ -5,17 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
 import { StreamGraph } from '@/components/visualizations/StreamGraph';
-import {
-  CreditCard,
-  Zap,
-  Activity,
-  Chip,
-  Database,
-  ArrowUpRight,
-  TrendingUp,
-} from '@mynaui/icons-react';
+import { CreditCard, Zap, Activity, Chip, Database, TrendingUp } from '@mynaui/icons-react';
 import { useAiStats } from '@/hooks/useAiStats';
-import { cn } from '@/lib/utils';
 
 export default function AiCostCenterPage() {
   const dispatch = useDispatch();
@@ -29,7 +20,7 @@ export default function AiCostCenterPage() {
   const totalSpend = totalSpendNum.toFixed(4);
   const totalSavingsNum = stats?.summary?.total_savings || 0;
   const totalSavings = totalSavingsNum.toFixed(4);
-  const avgLatency = stats?.summary?.avg_latency?.toFixed(0) || '0';
+  const _avgLatency = stats?.summary?.avg_latency?.toFixed(0) || '0';
   const totalTokens = stats?.summary?.total_tokens?.toLocaleString() || '0';
 
   // Calculate Monthly Projection (24h burn * 30)

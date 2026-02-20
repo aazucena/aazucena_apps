@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, setCategoryPreset } from '@/store';
 
@@ -32,7 +32,7 @@ export default function DashboardPage() {
   const { searchQuery } = useSelector((state: RootState) => state.dashboard.filters);
 
   // Initialize Hooks
-  const { data: summary, isLoading: summaryLoading } = useSystemSummary();
+  const { data: summary, isLoading: _summaryLoading } = useSystemSummary();
   const { data: trends, isLoading: trendsLoading } = useTrendAnalysis();
   const { data: logs, isLoading: logsLoading } = useTelemetryStream();
 

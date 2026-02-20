@@ -108,7 +108,7 @@ export function Heatmap({ data }: HeatmapProps) {
 
     const margin = { top: 60, right: 60, bottom: 60, left: 60 };
     const width = dimensions.width - margin.left - margin.right;
-    const height = dimensions.height - margin.top - margin.bottom;
+    const _height = dimensions.height - margin.top - margin.bottom;
     const months = Info.months('short');
     const cellSize = Math.min(35, width / (years.length || 1));
     const gridWidth = years.length * cellSize;
@@ -177,7 +177,7 @@ export function Heatmap({ data }: HeatmapProps) {
           });
         }
       })
-      .on('mouseleave', function (event, d) {
+      .on('mouseleave', function (_event, _d) {
         d3.select(this).attr('stroke', 'var(--chart-grid)').attr('stroke-width', 1);
         setHoveredCell(null);
       });

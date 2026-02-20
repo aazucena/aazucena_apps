@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHmac } from 'crypto';
-import { z, ZodError } from 'zod';
+import { ZodError } from 'zod';
 import { UAParser } from 'ua-parser-js';
 import { mainClickhouseClient } from '@/lib/services';
 import { VercelLogDrainPayloadSchema } from '@/lib/schemas/vercelAnalyticsWebhook';
@@ -28,14 +28,14 @@ export async function POST(req: NextRequest) {
 
     try {
       jsonBody = JSON.parse(body);
-    } catch (e) {
+    } catch (_e) {
       return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 });
     }
   } else {
     // If no secret, just parse JSON directly
     try {
       jsonBody = await req.json();
-    } catch (e) {
+    } catch (_e) {
       return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 });
     }
   }

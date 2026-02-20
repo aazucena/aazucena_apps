@@ -1,15 +1,14 @@
 'use client';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, setSearchQuery, toggleLiveMode } from '@/store';
-import { Search, ClockCircle, UserCircle } from '@mynaui/icons-react';
+import { RootState, toggleLiveMode } from '@/store';
+import { Search, ClockCircle } from '@mynaui/icons-react';
 import { ThemeToggle } from './ThemeToggle';
 import { AdminMenu } from './AdminMenu';
 
 export function Header() {
   const dispatch = useDispatch();
   const { isLive, lastUpdated } = useSelector((state: RootState) => state.dashboard.status);
-  const searchQuery = useSelector((state: RootState) => state.dashboard.filters.searchQuery);
 
   return (
     <div className="flex-1 flex items-center justify-between h-full">

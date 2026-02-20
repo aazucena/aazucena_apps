@@ -2,8 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Compass, Home, Activity, DangerTriangle } from '@mynaui/icons-react';
-import { motion } from 'framer-motion';
+import { ArrowLeft, Compass, Home, DangerTriangle } from '@mynaui/icons-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 

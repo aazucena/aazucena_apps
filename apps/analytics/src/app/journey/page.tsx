@@ -326,8 +326,8 @@ export default function JourneyPage() {
               <div className="space-y-4">
                 <div className="p-4 bg-zinc-50 dark:bg-zinc-950/50 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                   <p className="text-[10px] leading-relaxed text-zinc-500 dark:text-zinc-400 font-medium italic">
-                    "This entity has strong engagement with audio tracks and high-latency
-                    interactions. Potential Persona: MUSIC_ENTHUSIAST."
+                    &quot;This entity has strong engagement with audio tracks and high-latency
+                    interactions. Potential Persona: MUSIC_ENTHUSIAST.&quot;
                   </p>
                 </div>
                 <button className="w-full py-3 bg-primary-500/10 border border-primary-500/20 rounded-xl text-[9px] font-black uppercase text-primary-500 hover:bg-primary-500/20 transition-all">

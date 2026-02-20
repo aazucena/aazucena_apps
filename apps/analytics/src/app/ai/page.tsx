@@ -134,7 +134,7 @@ function AiTerminalContent() {
         for (const eventStr of events) {
           if (!eventStr.trim()) continue;
           let eventType = 'message';
-          let dataLines: string[] = [];
+          const dataLines: string[] = [];
           const lines = eventStr.split(/(?:\r\n|\n|\r)/g);
           for (const line of lines) {
             if (line.startsWith('event:')) eventType = line.replace('event:', '').trim();
