@@ -55,7 +55,9 @@ const MaintenanceIcon = React.forwardRef<
     <div
       className={cn(
         'relative flex h-28 w-28 items-center justify-center rounded-[2.5rem] border shadow-2xl transition-all duration-500',
-        variant === 'cyber' ? 'border-border/10 dark:border-cyan-500/30 bg-background dark:bg-black' : 'bg-card border-border',
+        variant === 'cyber'
+          ? 'border-border/10 bg-background dark:border-cyan-500/30 dark:bg-black'
+          : 'bg-card border-border',
       )}
     >
       {icon || <Wrench size={48} className="animate-[spin_12s_linear_infinite]" />}

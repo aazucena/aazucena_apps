@@ -22,7 +22,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 z-50 bg-background/80 dark:bg-black/80 backdrop-blur-sm',
+      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-background/80 fixed inset-0 z-50 backdrop-blur-sm dark:bg-black/80',
       className,
     )}
     {...props}
@@ -68,7 +68,7 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-open:bg-accent data-open:text-muted-foreground absolute top-4 right-4 z-50 rounded-full bg-background/10 dark:bg-white/10 p-2 text-foreground opacity-70 transition-all hover:scale-110 hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none">
+      <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-open:bg-accent data-open:text-muted-foreground bg-background/10 text-foreground absolute top-4 right-4 z-50 rounded-full p-2 opacity-70 transition-all hover:scale-110 hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none dark:bg-white/10">
         <Cross2Icon className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
@@ -94,7 +94,7 @@ const DialogHero = React.forwardRef<
     className={cn(
       'relative flex h-32 items-end overflow-hidden p-6',
       variant === 'cyber'
-        ? 'border-b border-border/10 dark:border-cyan-500/20 bg-background/40 dark:bg-cyan-950/40'
+        ? 'border-border/10 bg-background/40 border-b dark:border-cyan-500/20 dark:bg-cyan-950/40'
         : 'from-primary/20 bg-gradient-to-r via-blue-600/20 to-purple-600/20',
       className,
     )}
@@ -114,7 +114,7 @@ const DialogIcon = React.forwardRef<
     className={cn(
       'flex h-16 w-16 items-center justify-center rounded-xl border-4 text-3xl shadow-xl transition-transform duration-500 hover:scale-110',
       variant === 'cyber'
-        ? 'border-cyan-500/20 bg-background dark:bg-black text-cyan-400'
+        ? 'bg-background border-cyan-500/20 text-cyan-400 dark:bg-black'
         : 'text-primary border-border/20 bg-white dark:bg-gray-800',
       className,
     )}
@@ -133,7 +133,7 @@ DialogBody.displayName = 'DialogBody';
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      'flex flex-col-reverse border-t border-border p-6 sm:flex-row sm:justify-end sm:space-x-2',
+      'border-border flex flex-col-reverse border-t p-6 sm:flex-row sm:justify-end sm:space-x-2',
       className,
     )}
     {...props}

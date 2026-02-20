@@ -16,7 +16,8 @@ export const paginationDotsVariants = cva(
       variant: {
         default: 'mt-6',
         inline: '',
-        glass: 'p-2 bg-background/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-border/10',
+        glass:
+          'p-2 bg-background/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-border/10',
         cyber:
           'p-2 bg-background/40 dark:bg-black/40 rounded-full border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]',
       },
@@ -59,7 +60,8 @@ export const paginationDotVariants = cva(
       variant: {
         default: 'bg-primary/30 hover:glass bg-primary-1000 h-2 w-2',
         glass: 'bg-white/30 hover:bg-background/5 dark:bg-white/50 h-2 w-2',
-        cyber: 'bg-primary/30 dark:bg-cyan-500/30 hover:glass bg-primary-1000 dark:hover:bg-cyan-500/50 h-2 w-2',
+        cyber:
+          'bg-primary/30 dark:bg-cyan-500/30 hover:glass bg-primary-1000 dark:hover:bg-cyan-500/50 h-2 w-2',
       },
       isActive: {
         true: '',

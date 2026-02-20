@@ -24,7 +24,8 @@ const downloadTriggerVariants = cva(
 );
 
 export interface DownloadTriggerProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children'>,
+  extends
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children'>,
     VariantProps<typeof downloadTriggerVariants> {
   href: string;
   fileName?: string;

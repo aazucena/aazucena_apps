@@ -3,16 +3,17 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Search, X } from '@aazucena/icons';
+import { Search } from '@aazucena/icons';
 import { Input } from './input.js';
-import { NativeSelect } from './native-select.js';
 
 const filterBarVariants = cva('w-full transition-all duration-500 rounded-[2rem] border p-8', {
   variants: {
     variant: {
       default: 'bg-card border-border shadow-sm',
-      glass: 'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl',
-      cyber: 'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+      glass:
+        'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl',
+      cyber:
+        'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
     },
   },
   defaultVariants: {

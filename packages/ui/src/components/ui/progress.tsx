@@ -30,14 +30,15 @@ const progressIndicatorVariants = cva(
   'h-full w-full flex-1 transition-all duration-500 ease-in-out',
   {
     variants: {
-          variant: {
-            default: 'bg-primary',
-            cyber: 'bg-primary dark:bg-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.5)]',
-            glass: 'bg-primary dark:bg-white',
-            gradient: 'bg-gradient-to-r from-primary to-secondary',
-            emerald: 'bg-emerald-500',
-            rose: 'bg-rose-500',
-          },    },
+      variant: {
+        default: 'bg-primary',
+        cyber: 'bg-primary dark:bg-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.5)]',
+        glass: 'bg-primary dark:bg-white',
+        gradient: 'bg-gradient-to-r from-primary to-secondary',
+        emerald: 'bg-emerald-500',
+        rose: 'bg-rose-500',
+      },
+    },
     defaultVariants: {
       variant: 'default',
     },

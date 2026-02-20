@@ -17,7 +17,8 @@ const codeBlockVariants = cva('relative w-full overflow-hidden rounded-lg', {
 });
 
 export interface CodeBlockProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof codeBlockVariants> {
   code: string;
   language?: string;
@@ -36,7 +37,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
       code,
       language = 'typescript',
       showLineNumbers = true,
-      highlightLines = [],
+      highlightLines: _highlightLines = [],
       fileName,
       copyable = true,
       theme,
@@ -92,7 +93,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
               {fileName && (
                 <span
                   className={cn(
-                    'text-[10px] font-bold uppercase tracking-widest',
+                    'text-[10px] font-bold tracking-widest uppercase',
                     v === 'cyber' ? 'text-cyan-400' : 'text-foreground',
                   )}
                 >
@@ -102,7 +103,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
               {language && (
                 <span
                   className={cn(
-                    'rounded-md border px-1.5 py-0.5 text-[9px] font-black uppercase tracking-tighter',
+                    'rounded-md border px-1.5 py-0.5 text-[9px] font-black tracking-tighter uppercase',
                     v === 'cyber'
                       ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-500'
                       : 'border-border bg-muted text-muted-foreground',
@@ -140,11 +141,11 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
         )}
 
         {/* Code Content */}
-        <div className="relative group/code">
+        <div className="group/code relative">
           {highlightedCode ? (
             <div
               className={cn(
-                'shiki-container overflow-x-auto p-4 text-sm leading-relaxed [&>pre]:!bg-transparent [&>pre]:!m-0',
+                'shiki-container overflow-x-auto p-4 text-sm leading-relaxed [&>pre]:!m-0 [&>pre]:!bg-transparent',
                 showLineNumbers && 'line-numbers',
               )}
               dangerouslySetInnerHTML={{ __html: highlightedCode }}

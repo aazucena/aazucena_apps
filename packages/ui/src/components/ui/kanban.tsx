@@ -27,6 +27,7 @@ Kanban.displayName = 'Kanban';
 const KanbanBoard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     const boardRef = React.useRef<HTMLDivElement>(null);
+    React.useImperativeHandle(ref, () => boardRef.current!);
     const [isDragging, setIsDragging] = React.useState(false);
     const [startX, setStartX] = React.useState(0);
     const [scrollLeft, setScrollLeft] = React.useState(0);
@@ -72,7 +73,8 @@ const kanbanLaneVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-muted/30 border-border hover:bg-card hover:shadow-2xl hover:border-primary/10 text-foreground',
+        default:
+          'bg-muted/30 border-border hover:bg-card hover:shadow-2xl hover:border-primary/10 text-foreground',
         glass: 'glass text-foreground dark:text-white hover:bg-background/10 dark:bg-white/10',
         cyber:
           'glass bg-primary-100 border-cyan-500/20 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:border-cyan-400 dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',

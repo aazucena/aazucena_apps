@@ -24,7 +24,7 @@ export interface MasonryProps
 
 const Masonry = React.forwardRef<HTMLDivElement, MasonryProps>(
   ({ className, variant, columns = 3, gap = 16, children, style, ...props }, ref) => {
-    const colCount = typeof columns === 'number' ? columns : (columns.md ?? 3);
+    const _colCount = typeof columns === 'number' ? columns : (columns.md ?? 3);
     const responsiveClass =
       typeof columns === 'object'
         ? [

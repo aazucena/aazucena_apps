@@ -55,7 +55,8 @@ const shellHeaderVariants = cva(
         default:
           'bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-md border-zinc-200 dark:border-zinc-800',
         glass: 'bg-background/20 backdrop-blur-xl border-border/10',
-        cyber: 'bg-background/80 dark:bg-black/80 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        cyber:
+          'bg-background/80 dark:bg-black/80 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]',
       },
     },
     defaultVariants: {

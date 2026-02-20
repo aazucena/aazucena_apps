@@ -31,7 +31,8 @@ export interface CommentData {
 }
 
 export interface CommentsProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof commentsVariants> {
   comments: CommentData[];
   onReply?: (commentId: string) => void;
@@ -55,15 +56,18 @@ function CommentNode({
   onLike?: (id: string) => void;
 }) {
   return (
-    <div className={cn(depth > 0 && 'ml-6 border-l pl-4', variant === 'cyber' ? 'border-cyan-500/15' : 'border-border')}>
+    <div
+      className={cn(
+        depth > 0 && 'ml-6 border-l pl-4',
+        variant === 'cyber' ? 'border-cyan-500/15' : 'border-border',
+      )}
+    >
       <div className="flex gap-3">
         {/* Avatar */}
         <div
           className={cn(
             'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold',
-            variant === 'cyber'
-              ? 'bg-cyan-500/10 text-cyan-400'
-              : 'bg-primary/10 text-primary',
+            variant === 'cyber' ? 'bg-cyan-500/10 text-cyan-400' : 'bg-primary/10 text-primary',
           )}
         >
           {comment.avatar ? (
@@ -113,8 +117,16 @@ function CommentNode({
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M7 10v12" /><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" />
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M7 10v12" />
+                  <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" />
                 </svg>
                 {comment.likes ?? 0}
               </button>
@@ -157,7 +169,10 @@ function CommentNode({
 }
 
 const Comments = React.forwardRef<HTMLDivElement, CommentsProps>(
-  ({ className, variant = 'default', size, comments, onReply, onLike, maxDepth = 3, ...props }, ref) => {
+  (
+    { className, variant = 'default', size, comments, onReply, onLike, maxDepth = 3, ...props },
+    ref,
+  ) => {
     const v = variant ?? 'default';
 
     return (

@@ -12,7 +12,7 @@ export interface RangeCalendarProps extends Omit<CalendarProps, 'mode' | 'select
 }
 
 function RangeCalendar({ value, onChange, ...props }: RangeCalendarProps) {
-  return <Calendar mode="range" selected={value} onSelect={onChange} {...props} />;
+  return <Calendar mode="range" selected={value} onSelect={onChange as any} {...(props as any)} />;
 }
 RangeCalendar.displayName = 'RangeCalendar';
 

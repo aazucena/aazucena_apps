@@ -8,8 +8,7 @@ const switchVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'h-5 w-9 data-checked:bg-primary data-unchecked:bg-input shadow-sm',
+        default: 'h-5 w-9 data-checked:bg-primary data-unchecked:bg-input shadow-sm',
         // Logic variant absorbed from Prompt IDE (Force Reset style)
         logic:
           'h-4 w-7 data-checked:bg-rose-500/20 data-unchecked:bg-zinc-200 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-700 data-checked:border-rose-500/40',

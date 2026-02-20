@@ -40,7 +40,8 @@ const StarIcon = ({ filled, half }: { filled: boolean; half?: boolean }) => (
 );
 
 export interface RatingProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
     VariantProps<typeof ratingVariants> {
   value?: number;
   max?: number;
@@ -83,10 +84,7 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
           return (
             <span
               key={i}
-              className={cn(
-                'transition-transform',
-                !readOnly && 'cursor-pointer hover:scale-110',
-              )}
+              className={cn('transition-transform', !readOnly && 'cursor-pointer hover:scale-110')}
               onMouseEnter={() => !readOnly && setHoverValue(starValue)}
               onMouseLeave={() => !readOnly && setHoverValue(null)}
               onClick={() => !readOnly && onChange?.(starValue)}

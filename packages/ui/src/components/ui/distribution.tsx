@@ -72,7 +72,7 @@ const DistributionBar = React.forwardRef<
         {icon && (
           <span
             className={cn(
-              'flex h-4 w-4 items-center justify-center rounded bg-gradient-to-br text-[10px] text-foreground',
+              'text-foreground flex h-4 w-4 items-center justify-center rounded bg-gradient-to-br text-[10px]',
               color,
             )}
           >

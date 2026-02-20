@@ -23,9 +23,10 @@ const Table = React.forwardRef<
   <div
     className={cn(
       'relative w-full overflow-auto rounded-lg',
-      variant === 'glass' && 'glass dark:bg-background/5 dark:bg-white/5 dark:border-border/10 shadow-xl',
+      variant === 'glass' &&
+        'glass dark:bg-background/5 dark:border-border/10 shadow-xl dark:bg-white/5',
       variant === 'cyber' &&
-        'border border-border/10 dark:border-cyan-500/30 glass bg-primary-100 dark:bg-background/80 dark:bg-black/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        'border-border/10 glass bg-primary-100 dark:bg-background/80 border shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:border-cyan-500/30 dark:bg-black/80',
     )}
   >
     <table ref={ref} className={cn(tableVariants({ variant }), className)} {...props} />
@@ -38,7 +39,8 @@ const tableHeaderVariants = cva('[&_tr]:border-b', {
     variant: {
       default: '',
       glass: '[&_tr]:border-border/10 bg-background/5 dark:bg-white/5',
-      cyber: '[&_tr]:border-border/10 dark:[&_tr]:border-cyan-500/20 glass bg-primary-100 dark:bg-cyan-500/5',
+      cyber:
+        '[&_tr]:border-border/10 dark:[&_tr]:border-cyan-500/20 glass bg-primary-100 dark:bg-cyan-500/5',
     },
   },
   defaultVariants: {
@@ -79,7 +81,8 @@ const tableRowVariants = cva('border-b transition-colors data-[state=selected]:b
     variant: {
       default: 'hover:bg-muted/50',
       glass: 'border-border/10 hover:bg-background/5 dark:bg-white/5',
-      cyber: 'border-border/10 dark:border-cyan-500/20 hover:bg-primary/10 dark:hover:bg-cyan-500/10',
+      cyber:
+        'border-border/10 dark:border-cyan-500/20 hover:bg-primary/10 dark:hover:bg-cyan-500/10',
     },
   },
   defaultVariants: {

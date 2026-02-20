@@ -72,7 +72,7 @@ const ErrorPageVisual = React.forwardRef<
   const resolvedColor = color ?? preset?.color ?? 'primary';
 
   return (
-    <div className={cn('group relative mb-12 inline-block', className)} {...props}>
+    <div ref={ref} className={cn('group relative mb-12 inline-block', className)} {...props}>
       <div
         className={cn(
           'absolute inset-0 scale-150 rounded-full opacity-0 blur-[80px] transition-opacity duration-1000 group-hover:opacity-100',
@@ -179,7 +179,7 @@ const ErrorPageBeacon = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { label?: string }
 >(({ className, label, ...props }, ref) => (
-  <div className={cn('flex flex-col items-center gap-4', className)} {...props}>
+  <div ref={ref} className={cn('flex flex-col items-center gap-4', className)} {...props}>
     <div className="flex items-center gap-3">
       <Activity size={14} className="text-secondary-500 animate-pulse" />
       <h3 className="font-mono text-[10px] font-black tracking-[0.4em] text-zinc-400 uppercase dark:text-zinc-600">

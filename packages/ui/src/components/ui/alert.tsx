@@ -20,10 +20,8 @@ const alertVariants = cva(
           'border-emerald-500/50 text-emerald-600 dark:text-emerald-400 [&_svg]:text-emerald-600 dark:[_svg]:text-emerald-400',
         warning:
           'border-amber-500/50 text-amber-600 dark:text-amber-400 [&_svg]:text-amber-600 dark:[_svg]:text-amber-400',
-        info:
-          'border-blue-500/50 text-blue-600 dark:text-blue-400 [&_svg]:text-blue-600 dark:[_svg]:text-blue-400',
-        glass:
-          'glass shadow-xl border-l-4 border-l-primary dark:text-white dark:border-l-white/40',
+        info: 'border-blue-500/50 text-blue-600 dark:text-blue-400 [&_svg]:text-blue-600 dark:[_svg]:text-blue-400',
+        glass: 'glass shadow-xl border-l-4 border-l-primary dark:text-white dark:border-l-white/40',
         cyber:
           'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.1)] [&_svg]:text-cyan-600 border-l-4 border-l-cyan-500 dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50 dark:[&_svg]:text-cyan-400',
         dashboard:
@@ -36,7 +34,7 @@ const alertVariants = cva(
       compact: {
         true: 'items-center py-2.5',
         false: 'items-start',
-      }
+      },
     },
     compoundVariants: [
       { borderAccent: true, variant: 'default', className: 'border-l-primary' },
@@ -56,47 +54,50 @@ const alertVariants = cva(
 
 const Alert = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & 
-  VariantProps<typeof alertVariants> & {
-    icon?: any;
-    dismissible?: boolean;
-    onClose?: () => void;
-  }
->(({ className, variant, icon, children, dismissible, onClose, borderAccent, compact, ...props }, ref) => (
-  <div 
-    ref={ref} 
-    role="alert" 
-    className={cn(alertVariants({ variant, borderAccent, compact, className }))} 
-    {...props}
-  >
-    {icon && (
-      <IconRenderer 
-        icon={icon} 
-        className={cn(
-          "h-4 w-4 shrink-0 mt-0.5",
-          compact && "mt-0",
-          variant === 'cyber' && "text-cyan-500",
-          variant === 'destructive' && "text-destructive"
-        )} 
-      />
-    )}
-    <div className="flex-1 min-w-0">
-      {children}
+  React.HTMLAttributes<HTMLDivElement> &
+    VariantProps<typeof alertVariants> & {
+      icon?: any;
+      dismissible?: boolean;
+      onClose?: () => void;
+    }
+>(
+  (
+    { className, variant, icon, children, dismissible, onClose, borderAccent, compact, ...props },
+    ref,
+  ) => (
+    <div
+      ref={ref}
+      role="alert"
+      className={cn(alertVariants({ variant, borderAccent, compact, className }))}
+      {...props}
+    >
+      {icon && (
+        <IconRenderer
+          icon={icon}
+          className={cn(
+            'mt-0.5 h-4 w-4 shrink-0',
+            compact && 'mt-0',
+            variant === 'cyber' && 'text-cyan-500',
+            variant === 'destructive' && 'text-destructive',
+          )}
+        />
+      )}
+      <div className="min-w-0 flex-1">{children}</div>
+      {dismissible && (
+        <button
+          onClick={onClose}
+          className={cn(
+            'focus:ring-ring shrink-0 rounded-md p-1 opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none',
+            !compact && '-mt-1',
+          )}
+          aria-label="Close alert"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      )}
     </div>
-    {dismissible && (
-      <button
-        onClick={onClose}
-        className={cn(
-          "shrink-0 rounded-md p-1 opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          !compact && "-mt-1"
-        )}
-        aria-label="Close alert"
-      >
-        <X className="h-4 w-4" />
-      </button>
-    )}
-  </div>
-));
+  ),
+);
 Alert.displayName = 'Alert';
 
 const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(

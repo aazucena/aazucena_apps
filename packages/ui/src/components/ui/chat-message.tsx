@@ -82,7 +82,8 @@ export const chatBubbleVariants = cva(
         muted:
           'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800',
         glass: 'glass text-foreground',
-        cyber: 'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        cyber:
+          'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
       },
       role: {
         user: 'rounded-tr-none',
@@ -110,7 +111,7 @@ export const ChatReasoning = React.forwardRef<HTMLDivElement, React.HTMLAttribut
     <div
       ref={ref}
       className={cn(
-        'border-primary/30 glass bg-primary-100 my-3 rounded-r-lg border-l-2 py-2 pl-3 text-left font-mono text-[11px] text-muted-foreground italic',
+        'border-primary/30 glass bg-primary-100 text-muted-foreground my-3 rounded-r-lg border-l-2 py-2 pl-3 text-left font-mono text-[11px] italic',
         className,
       )}
       {...props}
@@ -127,8 +128,10 @@ ChatReasoning.displayName = 'ChatReasoning';
 export const ChatHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { label?: string; timestamp?: string }
->(({ className, label, timestamp, children, ...props }, ref) => (
-  <div ref={ref} className={cn('mb-1.5 flex items-center gap-2 px-1', className)} {...props} />
+>(({ className, label: _label, timestamp: _timestamp, children, ...props }, ref) => (
+  <div ref={ref} className={cn('mb-1.5 flex items-center gap-2 px-1', className)} {...props}>
+    {children}
+  </div>
 ));
 ChatHeader.displayName = 'ChatHeader';
 

@@ -8,8 +8,7 @@ const cardVariants = cva('transition-all duration-300', {
   variants: {
     variant: {
       default: 'bg-card text-card-foreground shadow-sm border',
-      glass:
-        'glass text-foreground shadow-xl',
+      glass: 'glass text-foreground shadow-xl',
       cyber:
         'glass bg-primary-100 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)] text-foreground dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
       outline: 'bg-transparent border-2 border-muted text-foreground',

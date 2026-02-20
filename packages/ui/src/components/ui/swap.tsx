@@ -21,7 +21,8 @@ const swapVariants = cva('relative inline-flex cursor-pointer items-center justi
 });
 
 export interface SwapProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof swapVariants> {
   active?: boolean;
   onSwap?: (active: boolean) => void;
@@ -52,11 +53,7 @@ const Swap = React.forwardRef<HTMLDivElement, SwapProps>(
         ? 'transition-transform duration-300'
         : 'transition-opacity duration-200';
 
-    const activeTransform = rotate
-      ? 'rotate-180'
-      : flip
-        ? 'scale-x-0'
-        : 'opacity-0';
+    const activeTransform = rotate ? 'rotate-180' : flip ? 'scale-x-0' : 'opacity-0';
 
     return (
       <div

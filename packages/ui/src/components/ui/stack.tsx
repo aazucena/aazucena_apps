@@ -57,13 +57,15 @@ const stackVariants = cva('flex', {
 });
 
 export interface StackProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof stackVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof stackVariants> {
   divider?: React.ReactNode;
 }
 
 const Stack = React.forwardRef<HTMLDivElement, StackProps>(
-  ({ className, variant, direction, gap, align, justify, wrap, divider, children, ...props }, ref) => {
+  (
+    { className, variant, direction, gap, align, justify, wrap, divider, children, ...props },
+    ref,
+  ) => {
     const items = React.Children.toArray(children).filter(Boolean);
 
     return (

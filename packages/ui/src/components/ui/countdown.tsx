@@ -23,7 +23,8 @@ const countdownVariants = cva('inline-flex items-center', {
 const segmentStyles: Record<string, string> = {
   default: 'bg-muted text-foreground rounded-lg border border-border',
   glass: 'glass rounded-lg',
-  cyber: 'bg-cyan-500/5 border border-cyan-500/30 text-cyan-400 rounded-lg shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+  cyber:
+    'bg-cyan-500/5 border border-cyan-500/30 text-cyan-400 rounded-lg shadow-[0_0_10px_rgba(6,182,212,0.1)]',
 };
 
 const segmentSizes: Record<string, string> = {
@@ -51,7 +52,8 @@ function calcTimeLeft(target: Date | number): TimeLeft {
 }
 
 export interface CountdownProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof countdownVariants> {
   target: Date | number;
   onComplete?: () => void;
@@ -141,7 +143,7 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
                 </span>
                 <span
                   className={cn(
-                    'text-[9px] uppercase tracking-wider',
+                    'text-[9px] tracking-wider uppercase',
                     v === 'cyber' ? 'text-cyan-500/40' : 'text-muted-foreground',
                   )}
                 >

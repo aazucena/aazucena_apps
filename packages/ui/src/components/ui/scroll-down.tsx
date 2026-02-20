@@ -9,11 +9,13 @@ const scrollDownVariants = cva(
   'fixed bottom-12 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 transition-all duration-1000 cursor-pointer group outline-none',
   {
     variants: {
-          variant: {
-            default: 'text-foreground/80 hover:text-foreground',
-            glass: 'text-foreground/80 hover:text-primary dark:hover:text-white',
-            cyber: 'text-primary/80 dark:text-cyan-400/80 hover:text-primary dark:hover:text-cyan-400 font-mono tracking-wider',
-          },      visible: {
+      variant: {
+        default: 'text-foreground/80 hover:text-foreground',
+        glass: 'text-foreground/80 hover:text-primary dark:hover:text-white',
+        cyber:
+          'text-primary/80 dark:text-cyan-400/80 hover:text-primary dark:hover:text-cyan-400 font-mono tracking-wider',
+      },
+      visible: {
         true: 'opacity-100 scale-100',
         false: 'opacity-0 scale-90 pointer-events-none',
       },

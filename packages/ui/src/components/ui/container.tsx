@@ -33,8 +33,7 @@ const containerVariants = cva('mx-auto w-full px-4 sm:px-6 lg:px-8', {
 });
 
 export interface ContainerProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof containerVariants> {}
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof containerVariants> {}
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, variant, maxWidth, center, ...props }, ref) => (

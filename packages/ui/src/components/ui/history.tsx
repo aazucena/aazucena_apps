@@ -10,7 +10,8 @@ const historyVariants = cva('relative border-l-2 pl-8 transition-all duration-30
   variants: {
     variant: {
       default: 'border-border space-y-8',
-      cyber: 'border-border/10 dark:border-cyan-500/30 space-y-12 shadow-[inset_1px_0_0_rgba(6,182,212,0.1)]',
+      cyber:
+        'border-border/10 dark:border-cyan-500/30 space-y-12 shadow-[inset_1px_0_0_rgba(6,182,212,0.1)]',
     },
   },
   defaultVariants: {
@@ -166,5 +167,16 @@ const HistoryDescription = React.forwardRef<
 HistoryDescription.displayName = 'HistoryDescription';
 
 export {
-  History, HistoryBadge, historyBadgeVariants, HistoryDescription, HistoryItem, historyItemVariants, HistoryMeta, HistorySubtitle, historySubtitleVariants, HistoryTitle, historyTitleVariants, historyVariants
+  History,
+  HistoryBadge,
+  historyBadgeVariants,
+  HistoryDescription,
+  HistoryItem,
+  historyItemVariants,
+  HistoryMeta,
+  HistorySubtitle,
+  historySubtitleVariants,
+  HistoryTitle,
+  historyTitleVariants,
+  historyVariants,
 };

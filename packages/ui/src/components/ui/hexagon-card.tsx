@@ -77,7 +77,9 @@ const HexagonCard = React.forwardRef<HTMLDivElement, HexagonCardProps>(
 
         <div className="relative z-10 flex flex-col items-center p-6 text-center">
           <div className={cn(hexagonIconVariants({ variant, size }))}>
-            {icon || <AwardBadge size={size === 'sm' ? 24 : 32} className="text-primary-foreground" />}
+            {icon || (
+              <AwardBadge size={size === 'sm' ? 24 : 32} className="text-primary-foreground" />
+            )}
           </div>
           {children}
         </div>
@@ -91,7 +93,7 @@ const HexagonCardTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <h3 ref={ref} className={cn('mb-1 text-sm font-bold text-foreground', className)} {...props} />
+  <h3 ref={ref} className={cn('text-foreground mb-1 text-sm font-bold', className)} {...props} />
 ));
 HexagonCardTitle.displayName = 'HexagonCardTitle';
 

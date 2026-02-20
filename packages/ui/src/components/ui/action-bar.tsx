@@ -27,14 +27,16 @@ const actionBarVariants = cva(
 );
 
 export interface ActionBarProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof actionBarVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof actionBarVariants> {
   open?: boolean;
   onClose?: () => void;
 }
 
 const ActionBar = React.forwardRef<HTMLDivElement, ActionBarProps>(
-  ({ className, variant = 'default', position, open = false, onClose, children, ...props }, ref) => {
+  (
+    { className, variant = 'default', position, open = false, onClose, children, ...props },
+    ref,
+  ) => {
     const v = variant ?? 'default';
 
     if (!open) return null;
@@ -62,8 +64,16 @@ const ActionBar = React.forwardRef<HTMLDivElement, ActionBarProps>(
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
             )}
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
             </svg>
           </button>
         )}

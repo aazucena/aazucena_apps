@@ -9,8 +9,7 @@ const indicatorVariants = cva('absolute flex items-center justify-center rounded
     variant: {
       default: 'bg-primary text-primary-foreground',
       glass: 'glass-m text-foreground',
-      cyber:
-        'bg-cyan-500 text-black shadow-[0_0_8px_rgba(6,182,212,0.6)]',
+      cyber: 'bg-cyan-500 text-black shadow-[0_0_8px_rgba(6,182,212,0.6)]',
       destructive: 'bg-destructive text-destructive-foreground',
       success: 'bg-emerald-500 text-white',
       warning: 'bg-amber-500 text-black',
@@ -41,8 +40,7 @@ const indicatorVariants = cva('absolute flex items-center justify-center rounded
 });
 
 export interface IndicatorProps
-  extends React.HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof indicatorVariants> {
+  extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof indicatorVariants> {
   count?: number;
   maxCount?: number;
   showZero?: boolean;
@@ -50,19 +48,27 @@ export interface IndicatorProps
 
 const Indicator = React.forwardRef<HTMLSpanElement, IndicatorProps>(
   (
-    { className, variant, size, position, ping, count, maxCount = 99, showZero, children, ...props },
+    {
+      className,
+      variant,
+      size,
+      position,
+      ping,
+      count,
+      maxCount = 99,
+      showZero,
+      children,
+      ...props
+    },
     ref,
   ) => {
-    const showContent = size !== 'dot' && (count !== undefined && (count > 0 || showZero));
+    const showContent = size !== 'dot' && count !== undefined && (count > 0 || showZero);
     const displayCount = count !== undefined && count > maxCount ? `${maxCount}+` : count;
 
     return (
       <span ref={ref} className="relative inline-flex">
         {children}
-        <span
-          className={cn(indicatorVariants({ variant, size, position }), className)}
-          {...props}
-        >
+        <span className={cn(indicatorVariants({ variant, size, position }), className)} {...props}>
           {ping && (
             <span className="absolute inset-0 animate-ping rounded-full bg-current opacity-75" />
           )}

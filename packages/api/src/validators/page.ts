@@ -8,6 +8,7 @@ export const PageSchema = z.object({
   slug: z
     .string()
     .max(100)
+    // eslint-disable-next-line security/detect-unsafe-regex
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   title: z.string().max(200),
   content: z.any(), // Blocks/Richtext

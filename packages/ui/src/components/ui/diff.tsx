@@ -29,7 +29,10 @@ function computeDiff(original: string, modified: string): DiffLine[] {
       result.push({ type: 'equal', content: oldLines[oi]! });
       oi++;
       ni++;
-    } else if (ni < newLines.length && (oi >= oldLines.length || !oldLines.includes(newLines[ni]!, oi))) {
+    } else if (
+      ni < newLines.length &&
+      (oi >= oldLines.length || !oldLines.includes(newLines[ni]!, oi))
+    ) {
       result.push({ type: 'add', content: newLines[ni]! });
       ni++;
     } else if (oi < oldLines.length) {
@@ -41,7 +44,8 @@ function computeDiff(original: string, modified: string): DiffLine[] {
 }
 
 export interface DiffProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof diffVariants> {
   original: string;
   modified: string;
@@ -49,7 +53,10 @@ export interface DiffProps
 }
 
 const Diff = React.forwardRef<HTMLDivElement, DiffProps>(
-  ({ className, variant = 'default', original, modified, showLineNumbers = true, ...props }, ref) => {
+  (
+    { className, variant = 'default', original, modified, showLineNumbers = true, ...props },
+    ref,
+  ) => {
     const v = variant ?? 'default';
     const lines = computeDiff(original, modified);
     let addNum = 0;
@@ -93,16 +100,20 @@ const Diff = React.forwardRef<HTMLDivElement, DiffProps>(
             return (
               <div key={i} className={cn('flex px-4 py-0.5 leading-6', lineColors[v]?.[line.type])}>
                 {showLineNumbers && (
-                  <span className={cn('mr-2 inline-block w-8 select-none text-right', gutterColors[v])}>
+                  <span
+                    className={cn('mr-2 inline-block w-8 text-right select-none', gutterColors[v])}
+                  >
                     {line.type !== 'add' ? removeNum : ''}
                   </span>
                 )}
                 {showLineNumbers && (
-                  <span className={cn('mr-4 inline-block w-8 select-none text-right', gutterColors[v])}>
+                  <span
+                    className={cn('mr-4 inline-block w-8 text-right select-none', gutterColors[v])}
+                  >
                     {line.type !== 'remove' ? addNum : ''}
                   </span>
                 )}
-                <span className="mr-2 select-none opacity-60">{prefix}</span>
+                <span className="mr-2 opacity-60 select-none">{prefix}</span>
                 <span className="flex-1">{line.content || ' '}</span>
               </div>
             );

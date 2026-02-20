@@ -26,8 +26,7 @@ const speedDialVariants = cva('fixed z-50', {
 const triggerClasses: Record<string, string> = {
   default: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg',
   glass: 'glass text-foreground shadow-xl',
-  cyber:
-    'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.4)]',
+  cyber: 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.4)]',
 };
 
 const actionClasses: Record<string, string> = {
@@ -44,7 +43,8 @@ export interface SpeedDialAction {
 }
 
 export interface SpeedDialProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof speedDialVariants> {
   icon?: React.ReactNode;
   actions: SpeedDialAction[];
@@ -52,7 +52,10 @@ export interface SpeedDialProps
 }
 
 const SpeedDial = React.forwardRef<HTMLDivElement, SpeedDialProps>(
-  ({ className, variant = 'default', position, icon, actions, direction = 'up', ...props }, ref) => {
+  (
+    { className, variant = 'default', position, icon, actions, direction = 'up', ...props },
+    ref,
+  ) => {
     const [open, setOpen] = React.useState(false);
     const v = variant ?? 'default';
 
@@ -67,8 +70,10 @@ const SpeedDial = React.forwardRef<HTMLDivElement, SpeedDialProps>(
         <div
           className={cn(
             'absolute flex gap-2 transition-all duration-200',
-            direction === 'up' ? 'bottom-full mb-2 flex-col-reverse' : 'right-full mr-2 flex-row-reverse',
-            open ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none',
+            direction === 'up'
+              ? 'bottom-full mb-2 flex-col-reverse'
+              : 'right-full mr-2 flex-row-reverse',
+            open ? 'scale-100 opacity-100' : 'pointer-events-none scale-75 opacity-0',
           )}
         >
           {actions.map((action, i) => (
@@ -77,7 +82,10 @@ const SpeedDial = React.forwardRef<HTMLDivElement, SpeedDialProps>(
               type="button"
               aria-label={action.label}
               title={action.label}
-              onClick={() => { action.onClick?.(); setOpen(false); }}
+              onClick={() => {
+                action.onClick?.();
+                setOpen(false);
+              }}
               className={cn(
                 'flex size-10 items-center justify-center rounded-full transition-all [&_svg]:size-4',
                 actionClasses[v],
@@ -101,8 +109,16 @@ const SpeedDial = React.forwardRef<HTMLDivElement, SpeedDialProps>(
           )}
         >
           {icon ?? (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14" /><path d="M12 5v14" />
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
             </svg>
           )}
         </button>

@@ -3,9 +3,9 @@
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@aazucena/utils';
-import { Plus, Minus, ChevronDown } from '@aazucena/icons';
-import { IconRenderer } from './icon-renderer.js';
+import { cn } from "@aazucena/utils";
+import { Plus } from "@aazucena/icons";
+import { IconRenderer } from "./icon-renderer.js";
 
 const accordionVariants = cva('flex w-full flex-col', {
   variants: {
@@ -38,8 +38,7 @@ const accordionItemVariants = cva('', {
     variant: {
       default: 'border-b last:border-b-0 border-border px-0',
       card: 'border-none px-4 bg-transparent transition-colors hover:bg-muted/30 data-[state=open]:bg-muted/50',
-      glass:
-        'glass rounded-lg px-4 mb-2 border-b-0 shadow-sm dark:text-white',
+      glass: 'glass rounded-lg px-4 mb-2 border-b-0 shadow-sm dark:text-white',
       cyber:
         'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.1)] rounded-lg px-4 mb-2 border-b-0 dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
     },
@@ -91,98 +90,101 @@ const AccordionTrigger = React.forwardRef<
       headerClassName?: string;
       iconClassName?: string;
     }
->(({ 
-  className, 
-  variant, 
-  children, 
-  icon = Plus, 
-  openIcon,
-  iconAnimation = 'rotate',
-  hideIcon = false, 
-  headerClassName,
-  iconClassName,
-  ...props 
-}, ref) => {
-  const isPlus = icon === Plus || icon === 'Plus';
-  
-  // Logic for animation classes
-  let animationClass = '';
-  
-  if (iconAnimation !== 'none' && !openIcon) {
-    switch (iconAnimation) {
-      case 'rotate-90':
-        animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-90';
-        break;
-      case 'rotate-45':
-        animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-45';
-        break;
-      case 'flip-v':
-        animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:scale-y-[-1]';
-        break;
-      case 'flip-h':
-        animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:scale-x-[-1]';
-        break;
-      case 'rotate':
-      default:
-        animationClass = isPlus 
-          ? '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-45' 
-          : '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-180';
-        break;
-    }
-  }
+>(
+  (
+    {
+      className,
+      variant,
+      children,
+      icon = Plus,
+      openIcon,
+      iconAnimation = 'rotate',
+      hideIcon = false,
+      headerClassName,
+      iconClassName,
+      ...props
+    },
+    ref,
+  ) => {
+    const isPlus = icon === Plus || icon === 'Plus';
 
-  return (
-    <AccordionPrimitive.Header className={cn('flex', headerClassName)}>
-      <AccordionPrimitive.Trigger
-        ref={ref}
-        data-slot="accordion-trigger"
-        className={cn(accordionTriggerVariants({ variant }), animationClass, className)}
-        {...props}
-      >
-        {children}
-        {!hideIcon && (
-          <div className="relative flex h-4 w-4 items-center justify-center">
-            {openIcon ? (
-              <>
+    // Logic for animation classes
+    let animationClass = '';
+
+    if (iconAnimation !== 'none' && !openIcon) {
+      switch (iconAnimation) {
+        case 'rotate-90':
+          animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-90';
+          break;
+        case 'rotate-45':
+          animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-45';
+          break;
+        case 'flip-v':
+          animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:scale-y-[-1]';
+          break;
+        case 'flip-h':
+          animationClass = '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:scale-x-[-1]';
+          break;
+        case 'rotate':
+        default:
+          animationClass = isPlus
+            ? '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-45'
+            : '[&[data-state=open]_[data-slot=accordion-trigger-icon]]:rotate-180';
+          break;
+      }
+    }
+
+    return (
+      <AccordionPrimitive.Header className={cn('flex', headerClassName)}>
+        <AccordionPrimitive.Trigger
+          ref={ref}
+          data-slot="accordion-trigger"
+          className={cn(accordionTriggerVariants({ variant }), animationClass, className)}
+          {...props}
+        >
+          {children}
+          {!hideIcon && (
+            <div className="relative flex h-4 w-4 items-center justify-center">
+              {openIcon ? (
+                <>
+                  <IconRenderer
+                    icon={icon}
+                    data-slot="accordion-trigger-icon"
+                    className={cn(
+                      'text-muted-foreground pointer-events-none absolute h-4 w-4 shrink-0 transition-all duration-200 group-data-[state=open]/accordion-trigger:scale-0 group-data-[state=open]/accordion-trigger:opacity-0',
+                      variant === 'cyber' && 'text-foreground',
+                      iconClassName,
+                    )}
+                  />
+                  <IconRenderer
+                    icon={openIcon}
+                    data-slot="accordion-trigger-icon"
+                    className={cn(
+                      'text-muted-foreground pointer-events-none absolute h-4 w-4 shrink-0 scale-0 opacity-0 transition-all duration-200 group-data-[state=open]/accordion-trigger:scale-100 group-data-[state=open]/accordion-trigger:opacity-100',
+                      variant === 'cyber' && 'text-foreground',
+                      iconClassName,
+                    )}
+                  />
+                </>
+              ) : (
                 <IconRenderer
                   icon={icon}
                   data-slot="accordion-trigger-icon"
                   className={cn(
-                    'absolute h-4 w-4 shrink-0 transition-all duration-200 pointer-events-none text-muted-foreground group-data-[state=open]/accordion-trigger:scale-0 group-data-[state=open]/accordion-trigger:opacity-0',
+                    'text-muted-foreground pointer-events-none h-4 w-4 shrink-0 transition-transform duration-200',
                     variant === 'cyber' && 'text-foreground',
-                    iconClassName
+                    iconClassName,
                   )}
                 />
-                <IconRenderer
-                  icon={openIcon}
-                  data-slot="accordion-trigger-icon"
-                  className={cn(
-                    'absolute h-4 w-4 shrink-0 transition-all duration-200 pointer-events-none text-muted-foreground scale-0 opacity-0 group-data-[state=open]/accordion-trigger:scale-100 group-data-[state=open]/accordion-trigger:opacity-100',
-                    variant === 'cyber' && 'text-foreground',
-                    iconClassName
-                  )}
-                />
-              </>
-            ) : (
-              <IconRenderer
-                icon={icon}
-                data-slot="accordion-trigger-icon"
-                className={cn(
-                  'h-4 w-4 shrink-0 transition-transform duration-200 pointer-events-none text-muted-foreground',
-                  variant === 'cyber' && 'text-foreground',
-                  iconClassName
-                )}
-              />
-            )}
-          </div>
-        )}
-      </AccordionPrimitive.Trigger>
-    </AccordionPrimitive.Header>
-  );
-});
+              )}
+            </div>
+          )}
+        </AccordionPrimitive.Trigger>
+      </AccordionPrimitive.Header>
+    );
+  },
+);
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
-
-
 
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
@@ -194,12 +196,9 @@ const AccordionContent = React.forwardRef<
     className="data-open:animate-accordion-down data-closed:animate-accordion-up overflow-hidden text-sm"
     {...props}
   >
-    <div className={cn('pt-0 pb-4', className)}>
-      {children}
-    </div>
+    <div className={cn('pt-0 pb-4', className)}>{children}</div>
   </AccordionPrimitive.Content>
 ));
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
-

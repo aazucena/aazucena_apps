@@ -94,7 +94,7 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
   ) => {
     const [activeId, setActiveId] = React.useState<string>('');
     const [sections, setSections] = React.useState<ToCItem[]>([]);
-    const [expandedIds, setExpandedIds] = React.useState<Set<string>>(new Set());
+    const [_expandedIds, _setExpandedIds] = React.useState<Set<string>>(new Set());
 
     // Build tree structure
     const tree = React.useMemo(() => {

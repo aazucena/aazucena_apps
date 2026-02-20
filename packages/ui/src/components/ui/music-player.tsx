@@ -28,7 +28,8 @@ function formatTime(s: number): string {
 }
 
 export interface MusicPlayerProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof musicPlayerVariants> {
   src: string;
   title?: string;
@@ -116,7 +117,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
         <div className="flex items-center gap-3">
           {/* Artwork */}
           {artwork && (
-            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-muted">
+            <div className="bg-muted h-12 w-12 shrink-0 overflow-hidden rounded-lg">
               <img src={artwork} alt="" className="h-full w-full object-cover" />
             </div>
           )}

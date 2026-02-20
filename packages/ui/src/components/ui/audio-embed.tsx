@@ -28,7 +28,8 @@ function fmt(s: number): string {
 }
 
 export interface AudioEmbedProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof audioEmbedVariants> {
   src: string;
   title?: string;

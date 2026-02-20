@@ -25,7 +25,8 @@ const wrapperStyles: Record<string, string> = {
 const headerStyles: Record<string, string> = {
   default: '',
   glass: 'bg-background/5 dark:bg-white/5 [&_th]:border-border/10',
-  cyber: 'glass bg-primary-100 dark:bg-cyan-500/5 [&_th]:border-border/10 dark:[&_th]:border-cyan-500/20',
+  cyber:
+    'glass bg-primary-100 dark:bg-cyan-500/5 [&_th]:border-border/10 dark:[&_th]:border-cyan-500/20',
 };
 
 const rowStyles: Record<string, string> = {

@@ -41,8 +41,7 @@ const deviceMockupVariants = cva('relative mx-auto', {
 });
 
 export interface DeviceMockupProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof deviceMockupVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof deviceMockupVariants> {
   url?: string;
 }
 
@@ -56,7 +55,7 @@ const DeviceMockup = React.forwardRef<HTMLDivElement, DeviceMockupProps>(
         ref={ref}
         className={cn(
           deviceMockupVariants({ variant, device, size }),
-          'overflow-hidden rounded-xl border-2 bg-background shadow-xl',
+          'bg-background overflow-hidden rounded-xl border-2 shadow-xl',
           variant === 'cyber' && 'shadow-[0_0_30px_rgba(6,182,212,0.1)]',
           className,
         )}
@@ -80,7 +79,7 @@ const DeviceMockup = React.forwardRef<HTMLDivElement, DeviceMockupProps>(
                 className={cn(
                   'flex-1 rounded-md px-3 py-0.5 text-center text-[10px]',
                   variant === 'cyber'
-                    ? 'bg-cyan-500/5 text-cyan-500/60 font-mono'
+                    ? 'bg-cyan-500/5 font-mono text-cyan-500/60'
                     : 'bg-background/80 text-muted-foreground',
                 )}
               >
@@ -104,7 +103,7 @@ const DeviceMockup = React.forwardRef<HTMLDivElement, DeviceMockupProps>(
         {isPhone && (
           <div
             className={cn(
-              'mx-auto mb-1.5 mt-2 h-1 w-24 rounded-full',
+              'mx-auto mt-2 mb-1.5 h-1 w-24 rounded-full',
               variant === 'cyber' ? 'bg-cyan-500/30' : 'bg-muted-foreground/30',
             )}
           />

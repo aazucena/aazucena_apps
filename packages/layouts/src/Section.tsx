@@ -12,9 +12,10 @@ interface SectionProps {
  * The vertical engine. Handles section-level padding and semantic tags.
  */
 export const Section = ({ children, className, id, as: Component = 'section' }: SectionProps) => {
+  const Element = Component as any;
   return (
-    <Component id={id} className={cn('relative py-16 sm:py-24 lg:py-32', className)}>
+    <Element id={id} className={cn('relative py-16 sm:py-24 lg:py-32', className)}>
       {children}
-    </Component>
+    </Element>
   );
 };

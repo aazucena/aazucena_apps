@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@aazucena/utils';
-import { Activity, Database, ChevronDown, ChevronRight, Copy, Check } from '@aazucena/icons';
-import { MarkdownRenderer } from './markdown-renderer.js';
+import { cn } from "@aazucena/utils";
+import { Activity, Database } from "@aazucena/icons";
+import { MarkdownRenderer } from "./markdown-renderer.js";
 
 const dataExplorerVariants = cva('w-full transition-all duration-300 font-mono text-xs', {
   variants: {
@@ -29,7 +29,7 @@ interface DataExplorerProps
 
 const DataExplorer = React.forwardRef<HTMLDivElement, DataExplorerProps>(
   (
-    { className, variant, data, depth = 0, maxDepth = 10, initialExpanded = true, ...props },
+    { className, variant, data, depth = 0, maxDepth = 10, initialExpanded: _initialExpanded = true, ...props },
     ref,
   ) => {
     return (
@@ -39,7 +39,6 @@ const DataExplorer = React.forwardRef<HTMLDivElement, DataExplorerProps>(
           variant={variant || 'default'}
           level={depth}
           maxDepth={maxDepth}
-          initialExpanded={initialExpanded}
         />
       </div>
     );
@@ -56,17 +55,13 @@ const RecursiveRenderer = ({
   level,
   keyName,
   maxDepth,
-  initialExpanded,
 }: {
   data: any;
   variant: 'default' | 'glass' | 'cyber';
   level: number;
   keyName?: string;
   maxDepth: number;
-  initialExpanded: boolean;
 }) => {
-  const [isExpanded, setIsExpanded] = React.useState(initialExpanded || level < 2);
-
   if (level > maxDepth) return <span className="italic opacity-40">...Max Depth</span>;
 
   // 1. PRIMITIVES
@@ -78,9 +73,9 @@ const RecursiveRenderer = ({
         className={cn(
           'rounded px-1.5 py-0.5 text-[10px] font-bold',
           keyName === 'is_valid' && data === false
-            ? 'animate-pulse bg-rose-500 text-foreground'
+            ? 'text-foreground animate-pulse bg-rose-500'
             : keyName === 'is_valid' && data === true
-              ? 'bg-emerald-500 text-foreground'
+              ? 'text-foreground bg-emerald-500'
               : 'text-amber-500',
         )}
       >
@@ -137,10 +132,10 @@ const RecursiveRenderer = ({
             content={data}
             className={cn(
               'prose-sm prose-zinc dark:prose-invert prose-p:mb-3 last:prose-p:mb-0 text-[13px] leading-relaxed',
-              isInvalid 
-                ? 'text-destructive dark:text-red-200' 
-                : isKnowledgeSource 
-                  ? 'text-emerald-800 dark:text-emerald-200' 
+              isInvalid
+                ? 'text-destructive dark:text-red-200'
+                : isKnowledgeSource
+                  ? 'text-emerald-800 dark:text-emerald-200'
                   : 'text-zinc-950 dark:text-zinc-100',
             )}
           />
@@ -172,7 +167,6 @@ const RecursiveRenderer = ({
               variant={variant}
               level={level + 1}
               maxDepth={maxDepth}
-              initialExpanded={initialExpanded}
             />
           </div>
         ))}
@@ -222,7 +216,6 @@ const RecursiveRenderer = ({
                 level={level + 1}
                 keyName={key}
                 maxDepth={maxDepth}
-                initialExpanded={initialExpanded}
               />
             </div>
           </div>

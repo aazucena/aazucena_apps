@@ -78,13 +78,7 @@ const Gallery = React.forwardRef<HTMLDivElement, GalleryProps>(
                 />
               </button>
             ) : (
-              <div
-                key={i}
-                className={cn(
-                  'relative aspect-square overflow-hidden',
-                  thumbStyles[v],
-                )}
-              >
+              <div key={i} className={cn('relative aspect-square overflow-hidden', thumbStyles[v])}>
                 <img
                   src={item.thumbnail ?? item.src}
                   alt={item.alt ?? ''}

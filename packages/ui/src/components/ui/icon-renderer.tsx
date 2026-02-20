@@ -34,9 +34,10 @@ export const IconRenderer = memo(function IconRenderer({
   }
 
   // Handle string IDs by converting them to components first
-  const icon = typeof rawIcon === 'string' && !rawIcon.trim().startsWith('<svg') 
-    ? getIconComponent(rawIcon) 
-    : rawIcon;
+  const icon =
+    typeof rawIcon === 'string' && !rawIcon.trim().startsWith('<svg')
+      ? getIconComponent(rawIcon)
+      : rawIcon;
 
   const sizeStyles = size
     ? {
@@ -67,8 +68,12 @@ export const IconRenderer = memo(function IconRenderer({
     }
 
     // Extract properties that cause type conflicts with SVG component
-    const { onCopyCapture, onPointerEnterCapture, onPointerLeaveCapture, ...safeProps } =
-      props as any;
+    const {
+      onCopyCapture: _onCopyCapture,
+      onPointerEnterCapture: _onPointerEnterCapture,
+      onPointerLeaveCapture: _onPointerLeaveCapture,
+      ...safeProps
+    } = props as any;
 
     return (
       <SVG

@@ -30,7 +30,8 @@ export interface TreeNode {
 }
 
 export interface TreeItemProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'onSelect' | 'onToggle'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'onSelect' | 'onToggle'>,
     VariantProps<typeof treeItemVariants> {
   node: TreeNode;
   level: number;
@@ -41,7 +42,20 @@ export interface TreeItemProps
 }
 
 const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
-  ({ className, variant = 'default', node, level, expanded, selected, onToggle, onSelect, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = 'default',
+      node,
+      level,
+      expanded,
+      selected,
+      onToggle,
+      onSelect,
+      ...props
+    },
+    ref,
+  ) => {
     const v = variant ?? 'default';
     const hasChildren = node.children && node.children.length > 0;
     const isExpanded = expanded?.has(node.id);

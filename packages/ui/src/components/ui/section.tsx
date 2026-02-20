@@ -14,7 +14,8 @@ const sectionVariants = cva('container mx-auto transition-all duration-500', {
     },
     variant: {
       default: '',
-      glass: 'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 rounded-3xl p-8 my-8 shadow-xl',
+      glass:
+        'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 rounded-3xl p-8 my-8 shadow-xl',
       cyber:
         'bg-background/40 dark:bg-black/40 border border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-3xl p-8 my-8',
     },

@@ -69,7 +69,8 @@ const linkMenuItemVariants = cva(
       variant: {
         default: 'hover:border-border hover:bg-muted',
         glass: 'hover:border-border/20 hover:bg-background/10 dark:bg-white/10',
-        cyber: 'hover:border-border/40 dark:hover:border-cyan-500/40 hover:bg-primary/10 dark:hover:bg-cyan-500/10',
+        cyber:
+          'hover:border-border/40 dark:hover:border-cyan-500/40 hover:bg-primary/10 dark:hover:bg-cyan-500/10',
       },
     },
     defaultVariants: {
@@ -104,7 +105,8 @@ const linkMenuIconVariants = cva(
       variant: {
         default: 'bg-muted text-foreground group-hover:text-primary',
         glass: 'bg-background/10 dark:bg-white/10 text-foreground',
-        cyber: 'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 border border-border/10 dark:border-cyan-500/30',
+        cyber:
+          'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 border border-border/10 dark:border-cyan-500/30',
       },
     },
     defaultVariants: {
@@ -168,6 +170,18 @@ const LinkMenuExternal = React.forwardRef<
 LinkMenuExternal.displayName = 'LinkMenuExternal';
 
 export {
-  LinkMenu, LinkMenuContent, LinkMenuDescription,
-  LinkMenuExternal, LinkMenuHeader, LinkMenuIcon, linkMenuIconVariants, LinkMenuItem, linkMenuItemVariants, LinkMenuLabel, LinkMenuLink, LinkMenuList, LinkMenuTitle, linkMenuVariants
+  LinkMenu,
+  LinkMenuContent,
+  LinkMenuDescription,
+  LinkMenuExternal,
+  LinkMenuHeader,
+  LinkMenuIcon,
+  linkMenuIconVariants,
+  LinkMenuItem,
+  linkMenuItemVariants,
+  LinkMenuLabel,
+  LinkMenuLink,
+  LinkMenuList,
+  LinkMenuTitle,
+  linkMenuVariants,
 };

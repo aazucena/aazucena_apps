@@ -11,6 +11,7 @@ export const StrapiExperienceSchema: z.ZodType<StrapiExperience> = z.object({
   slug: z
     .string()
     .max(200)
+    // eslint-disable-next-line security/detect-unsafe-regex
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
 
   // Core fields

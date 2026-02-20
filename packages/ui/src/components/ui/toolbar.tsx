@@ -75,7 +75,8 @@ const toolbarButtonVariants = cva(
       {
         variant: 'glass',
         isActive: true,
-        className: 'bg-background/20 dark:bg-white/20 border-border/40 dark:border-white/40 shadow-lg',
+        className:
+          'bg-background/20 dark:bg-white/20 border-border/40 dark:border-white/40 shadow-lg',
       },
       {
         variant: 'cyber',

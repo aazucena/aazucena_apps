@@ -16,8 +16,7 @@ const videoVariants = cva('relative overflow-hidden group', {
 });
 
 export interface VideoProps
-  extends React.VideoHTMLAttributes<HTMLVideoElement>,
-    VariantProps<typeof videoVariants> {
+  extends React.VideoHTMLAttributes<HTMLVideoElement>, VariantProps<typeof videoVariants> {
   thumbnail?: string;
   aspectRatio?: string;
 }
@@ -42,19 +41,10 @@ const Video = React.forwardRef<HTMLVideoElement, VideoProps>(
     };
 
     return (
-      <div
-        className={cn(videoVariants({ variant }), className)}
-        style={{ aspectRatio, ...style }}
-      >
-        {!loaded && (
-          <div className="absolute inset-0 animate-pulse bg-muted" />
-        )}
+      <div className={cn(videoVariants({ variant }), className)} style={{ aspectRatio, ...style }}>
+        {!loaded && <div className="bg-muted absolute inset-0 animate-pulse" />}
         {thumbnail && !playing && (
-          <img
-            src={thumbnail}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-          />
+          <img src={thumbnail} alt="" className="absolute inset-0 h-full w-full object-cover" />
         )}
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <video

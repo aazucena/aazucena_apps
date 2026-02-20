@@ -11,8 +11,7 @@ const clipboardVariants = cva(
       variant: {
         default: 'bg-muted text-foreground border border-border',
         glass: 'glass-m text-foreground',
-        cyber:
-          'bg-cyan-500/5 border border-cyan-500/30 text-cyan-400 font-mono text-xs',
+        cyber: 'bg-cyan-500/5 border border-cyan-500/30 text-cyan-400 font-mono text-xs',
         minimal: 'text-muted-foreground hover:text-foreground',
       },
       size: {
@@ -29,19 +28,39 @@ const clipboardVariants = cva(
 );
 
 const CopyIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="14" height="14" x="8" y="8" rx="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="14" height="14" x="8" y="8" rx="2" />
+    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
   </svg>
 );
 
 const CheckIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
 
 export interface ClipboardProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'onCopy'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'onCopy'>,
     VariantProps<typeof clipboardVariants> {
   value: string;
   label?: string;
@@ -76,11 +95,7 @@ const Clipboard = React.forwardRef<HTMLDivElement, ClipboardProps>(
     };
 
     return (
-      <div
-        ref={ref}
-        className={cn(clipboardVariants({ variant, size }), className)}
-        {...props}
-      >
+      <div ref={ref} className={cn(clipboardVariants({ variant, size }), className)} {...props}>
         {label && <span className="truncate opacity-70">{label}</span>}
         <code className="truncate">{value}</code>
         <button

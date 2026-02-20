@@ -35,7 +35,8 @@ const sizeStyles: Record<string, string> = {
 };
 
 export interface DatepickerProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
     VariantProps<typeof datepickerVariants> {
   value?: Date;
   placeholder?: string;
@@ -47,7 +48,18 @@ export interface DatepickerProps
 
 const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>(
   (
-    { className, variant = 'default', size = 'md', value, placeholder = 'Pick a date', onChange, disabled, min, max, ...props },
+    {
+      className,
+      variant = 'default',
+      size = 'md',
+      value,
+      placeholder = 'Pick a date',
+      onChange,
+      disabled,
+      min,
+      max,
+      ...props
+    },
     ref,
   ) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -80,18 +92,27 @@ const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>(
           disabled={disabled}
           onClick={() => inputRef.current?.showPicker()}
           className={cn(
-            'flex w-full items-center gap-2 rounded-md border outline-none transition-all',
+            'flex w-full items-center gap-2 rounded-md border transition-all outline-none',
             triggerStyles[v],
             sizeStyles[s],
             disabled && 'pointer-events-none opacity-50',
           )}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 text-muted-foreground">
-            <rect width="18" height="18" x="3" y="4" rx="2" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h18" />
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="text-muted-foreground shrink-0"
+          >
+            <rect width="18" height="18" x="3" y="4" rx="2" />
+            <path d="M16 2v4" />
+            <path d="M8 2v4" />
+            <path d="M3 10h18" />
           </svg>
-          <span className={cn(!value && 'text-muted-foreground')}>
-            {formatted || placeholder}
-          </span>
+          <span className={cn(!value && 'text-muted-foreground')}>{formatted || placeholder}</span>
         </button>
       </div>
     );

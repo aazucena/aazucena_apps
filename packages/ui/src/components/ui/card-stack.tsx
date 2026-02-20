@@ -22,7 +22,8 @@ const cardStyles: Record<string, string> = {
 };
 
 export interface CardStackProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof cardStackVariants> {
   cards: React.ReactNode[];
   offset?: number;
@@ -31,10 +32,7 @@ export interface CardStackProps
 }
 
 const CardStack = React.forwardRef<HTMLDivElement, CardStackProps>(
-  (
-    { className, variant = 'default', cards, offset = 8, rotation = 3, onSwipe, ...props },
-    ref,
-  ) => {
+  ({ className, variant = 'default', cards, offset = 8, rotation = 3, onSwipe, ...props }, ref) => {
     const v = variant ?? 'default';
     const [current, setCurrent] = React.useState(0);
     const visibleCount = Math.min(3, cards.length);

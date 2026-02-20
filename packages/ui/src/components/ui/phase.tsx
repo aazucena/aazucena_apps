@@ -46,7 +46,8 @@ const phaseBadgeVariants = cva(
           'bg-purple-50 dark:bg-purple-900/20 border-purple-100 dark:border-purple-800 text-purple-600 dark:text-purple-400',
         green:
           'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400',
-        cyber: 'glass bg-primary-100 dark:bg-cyan-500/5 border-border dark:border-cyan-500/20 text-primary dark:text-cyan-400',
+        cyber:
+          'glass bg-primary-100 dark:bg-cyan-500/5 border-border dark:border-cyan-500/20 text-primary dark:text-cyan-400',
       },
     },
     defaultVariants: {

@@ -22,7 +22,7 @@ export const FieldMeta = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn('font-mono text-[8px] tracking-widest text-foreground0 uppercase', className)}
+      className={cn('text-foreground0 font-mono text-[8px] tracking-widest uppercase', className)}
       {...props}
     />
   ),

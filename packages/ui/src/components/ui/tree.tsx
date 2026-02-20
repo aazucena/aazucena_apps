@@ -22,7 +22,8 @@ const treeVariants = cva('w-full select-none', {
 });
 
 export interface TreeProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'onSelect'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'onSelect'>,
     VariantProps<typeof treeVariants> {
   data: TreeNode[];
   defaultExpanded?: string[];

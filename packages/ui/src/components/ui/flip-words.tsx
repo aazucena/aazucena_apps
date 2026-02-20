@@ -47,6 +47,7 @@ const FlipWords = React.forwardRef<HTMLParagraphElement, FlipWordsProps>(
     });
 
     const parts = React.useMemo(() => {
+      // eslint-disable-next-line security/detect-non-literal-regexp
       const tagPattern = new RegExp(`{{\\s*${tag}\\s*}}`, 'g');
       return content.split(tagPattern);
     }, [content, tag]);

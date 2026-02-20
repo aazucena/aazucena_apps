@@ -56,5 +56,9 @@ const SidebarBlockItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
 SidebarBlockItem.displayName = 'SidebarBlockItem';
 
 export {
-  SidebarBlock, SidebarBlockContent, SidebarBlockHeader, SidebarBlockItem, SidebarBlockTitle
+  SidebarBlock,
+  SidebarBlockContent,
+  SidebarBlockHeader,
+  SidebarBlockItem,
+  SidebarBlockTitle,
 };

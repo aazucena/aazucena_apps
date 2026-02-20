@@ -43,8 +43,10 @@ export const dataListItemVariants = cva(
       variant: {
         default:
           'bg-zinc-50 dark:bg-zinc-950/50 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700',
-        glass: 'bg-background/5 dark:bg-white/5 border-border/10 text-foreground hover:bg-background/10 dark:bg-white/10',
-        cyber: 'bg-background/40 dark:bg-black/40 border-cyan-500/20 text-foreground hover:border-cyan-400',
+        glass:
+          'bg-background/5 dark:bg-white/5 border-border/10 text-foreground hover:bg-background/10 dark:bg-white/10',
+        cyber:
+          'bg-background/40 dark:bg-black/40 border-cyan-500/20 text-foreground hover:border-cyan-400',
       },
     },
     defaultVariants: {

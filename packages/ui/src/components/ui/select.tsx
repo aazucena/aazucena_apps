@@ -58,8 +58,10 @@ const selectContentVariants = cva(
     variants: {
       variant: {
         default: 'bg-popover text-popover-foreground',
-        glass: 'bg-background/5 dark:bg-white/5 backdrop-blur-xl border-border/10 text-foreground shadow-2xl',
-        cyber: 'bg-black/90 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)]',
+        glass:
+          'bg-background/5 dark:bg-white/5 backdrop-blur-xl border-border/10 text-foreground shadow-2xl',
+        cyber:
+          'bg-black/90 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)]',
       },
     },
     defaultVariants: {

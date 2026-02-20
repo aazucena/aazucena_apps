@@ -21,7 +21,8 @@ export const chatThreadVariants = cva(
           'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-900',
         glass:
           'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground hover:bg-background/10 dark:bg-white/10 hover:border-border/20',
-        cyber: 'bg-background/40 dark:bg-black/40 border-cyan-500/20 text-foreground hover:border-cyan-400',
+        cyber:
+          'bg-background/40 dark:bg-black/40 border-cyan-500/20 text-foreground hover:border-cyan-400',
       },
       isActive: {
         true: '',
@@ -65,7 +66,7 @@ ChatThread.displayName = 'ChatThread';
 export const ChatThreadIcon = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { icon?: React.ReactNode }
->(({ className, icon, ...props }, ref) => (
+>(({ className, icon: _icon, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(

@@ -11,12 +11,13 @@ const navbarVariants = cva(
   'fixed top-0 right-0 left-0 z-[100] border-b transition-all duration-500',
   {
     variants: {
-          variant: {
-            default: 'bg-background/80 backdrop-blur-lg border-border text-foreground',
-            glass: 'glass text-foreground dark:text-white',
-            cyber:
-              'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
-          },      isScrolled: {
+      variant: {
+        default: 'bg-background/80 backdrop-blur-lg border-border text-foreground',
+        glass: 'glass text-foreground dark:text-white',
+        cyber:
+          'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
+      },
+      isScrolled: {
         true: '',
         false: '',
       },
@@ -45,7 +46,8 @@ const navbarVariants = cva(
       {
         variant: 'cyber',
         isScrolled: true,
-        className: 'py-4 bg-background dark:bg-black/95 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.2)]',
+        className:
+          'py-4 bg-background dark:bg-black/95 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.2)]',
       },
       {
         variant: 'cyber',
@@ -153,7 +155,7 @@ const NavbarMobile = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 z-[120] bg-background dark:bg-black/60 backdrop-blur-md md:hidden"
+          className="bg-background fixed inset-0 z-[120] backdrop-blur-md md:hidden dark:bg-black/60"
         />
         <motion.div
           initial={{ x: '100%' }}
@@ -162,8 +164,11 @@ const NavbarMobile = ({
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           className={cn(
             'fixed top-0 right-0 bottom-0 z-[130] flex w-[85vw] max-w-sm flex-col border-l p-8 md:hidden',
-            variant === 'cyber' ? 'border-cyan-500/20 bg-background dark:bg-black' : 'bg-background border-border',
-            variant === 'glass' && 'border-border/10 bg-background/5 dark:bg-white/5 backdrop-blur-xl',
+            variant === 'cyber'
+              ? 'bg-background border-cyan-500/20 dark:bg-black'
+              : 'bg-background border-border',
+            variant === 'glass' &&
+              'border-border/10 bg-background/5 backdrop-blur-xl dark:bg-white/5',
           )}
         >
           <div className="mb-8 flex justify-end">

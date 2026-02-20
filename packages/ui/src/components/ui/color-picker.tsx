@@ -131,7 +131,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                 />
               ))}
               {/* Native picker */}
-              <label 
+              <label
                 htmlFor={nativePickerId}
                 className="border-muted-foreground/40 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm border border-dashed"
               >

@@ -14,10 +14,8 @@ const bannerVariants = cva(
         cyber:
           'bg-cyan-500/10 border-b border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider',
         info: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-b border-blue-500/20',
-        warning:
-          'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-b border-amber-500/20',
-        destructive:
-          'bg-destructive/10 text-destructive border-b border-destructive/20',
+        warning: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-b border-amber-500/20',
+        destructive: 'bg-destructive/10 text-destructive border-b border-destructive/20',
         success:
           'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-b border-emerald-500/20',
       },
@@ -34,8 +32,7 @@ const bannerVariants = cva(
 );
 
 export interface BannerProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof bannerVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof bannerVariants> {
   dismissible?: boolean;
   onDismiss?: () => void;
 }
@@ -62,7 +59,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(
               setVisible(false);
               onDismiss?.();
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-sm p-0.5 opacity-70 hover:opacity-100 transition-opacity"
+            className="absolute top-1/2 right-3 -translate-y-1/2 rounded-sm p-0.5 opacity-70 transition-opacity hover:opacity-100"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

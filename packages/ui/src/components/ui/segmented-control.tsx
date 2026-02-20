@@ -8,12 +8,13 @@ const segmentedControlVariants = cva(
   'inline-flex items-center p-1 rounded-xl transition-all duration-300',
   {
     variants: {
-          variant: {
-            default: 'bg-zinc-100 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800',
-            glass: 'glass text-foreground',
-            cyber:
-              'bg-background/80 dark:bg-black/80 border border-border dark:border-cyan-500/20 text-foreground',
-          },      size: {
+      variant: {
+        default: 'bg-zinc-100 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800',
+        glass: 'glass text-foreground',
+        cyber:
+          'bg-background/80 dark:bg-black/80 border border-border dark:border-cyan-500/20 text-foreground',
+      },
+      size: {
         default: 'gap-1',
         sm: 'gap-0.5',
       },
@@ -68,7 +69,8 @@ const segmentedItemVariants = cva(
       {
         isActive: true,
         variant: 'glass',
-        className: 'bg-background/20 dark:bg-white/20 text-foreground shadow-lg border border-border dark:border-white/30',
+        className:
+          'bg-background/20 dark:bg-white/20 text-foreground shadow-lg border border-border dark:border-white/30',
       },
     ],
     defaultVariants: {

@@ -56,14 +56,15 @@ export interface GridProps
  */
 export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
   ({ className, gap, cols = 12, as: Component = 'div', children, ...props }, ref) => {
+    const Element = Component as any;
     return (
-      <Component
+      <Element
         ref={ref}
         className={cn(gridVariants({ gap }), colsMap[cols], className)}
         {...props}
       >
         {children}
-      </Component>
+      </Element>
     );
   },
 );
@@ -191,8 +192,9 @@ export interface GridItemProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 export const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
   ({ className, span, sm, md, lg, xl, start, as: Component = 'div', ...props }, ref) => {
+    const Element = Component as any;
     return (
-      <Component
+      <Element
         ref={ref}
         className={cn(
           span != null && spanMap[span],

@@ -52,7 +52,8 @@ const labelClasses: Record<string, Record<string, string>> = {
 };
 
 export interface FloatingLabelProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'size'>,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'size'>,
     VariantProps<typeof floatingLabelVariants> {
   label: string;
   multiline?: boolean;
@@ -60,7 +61,19 @@ export interface FloatingLabelProps
 }
 
 const FloatingLabel = React.forwardRef<HTMLInputElement, FloatingLabelProps>(
-  ({ className, variant = 'default', size = 'md', label, multiline, rows = 3, id: providedId, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = 'default',
+      size = 'md',
+      label,
+      multiline,
+      rows = 3,
+      id: providedId,
+      ...props
+    },
+    ref,
+  ) => {
     const autoId = React.useId();
     const id = providedId ?? autoId;
     const v = variant ?? 'default';
@@ -87,7 +100,7 @@ const FloatingLabel = React.forwardRef<HTMLInputElement, FloatingLabelProps>(
             ref={ref as React.Ref<HTMLTextAreaElement>}
             placeholder=" "
             rows={rows}
-            className={cn(fieldCn, 'pt-6 resize-none')}
+            className={cn(fieldCn, 'resize-none pt-6')}
             {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
           />
         ) : (

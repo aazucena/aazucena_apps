@@ -39,7 +39,8 @@ const appLoaderIconVariants = cva('transition-all duration-1000', {
       pulse: 'animate-pulse',
       'cyber-pulse': 'animate-cyber-pulse',
       spin: 'animate-[spin_10s_linear_infinite]',
-      glitch: 'animate-[glitch_0.3s_ease-in-out_infinite] [@keyframes_glitch]:[0%_=>_translate(0)][20%_=>_translate(-2px,2px)][40%_=>_translate(-2px,-2px)][60%_=>_translate(2px,2px)][80%_=>_translate(2px,-2px)][100%_=>_translate(0)]',
+      glitch:
+        'animate-[glitch_0.3s_ease-in-out_infinite] [@keyframes_glitch]:[0%_=>_translate(0)][20%_=>_translate(-2px,2px)][40%_=>_translate(-2px,-2px)][60%_=>_translate(2px,2px)][80%_=>_translate(2px,-2px)][100%_=>_translate(0)]',
       none: '',
     },
     size: {
@@ -61,7 +62,11 @@ const AppLoaderIcon = React.forwardRef<
 >(({ className, animation, size, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(appLoaderIconVariants({ animation, size }), 'flex items-center justify-center', className)}
+    className={cn(
+      appLoaderIconVariants({ animation, size }),
+      'flex items-center justify-center',
+      className,
+    )}
     {...props}
   />
 ));
@@ -100,7 +105,7 @@ const AppLoaderStatus = React.forwardRef<
   <p
     ref={ref}
     className={cn(
-      'text-[9px] font-mono tracking-widest uppercase opacity-30 animate-pulse',
+      'animate-pulse font-mono text-[9px] tracking-widest uppercase opacity-30',
       className,
     )}
     {...props}
@@ -108,44 +113,37 @@ const AppLoaderStatus = React.forwardRef<
 ));
 AppLoaderStatus.displayName = 'AppLoaderStatus';
 
-const appLoaderProgressVariants = cva(
-  'h-0.5 w-48 overflow-hidden rounded-full bg-current/10',
-  {
-    variants: {
-      variant: {
-        default: 'text-foreground',
-        primary: 'text-primary',
-        cyan: 'text-cyan-500',
-        destructive: 'text-destructive',
-      }
+const appLoaderProgressVariants = cva('h-0.5 w-48 overflow-hidden rounded-full bg-current/10', {
+  variants: {
+    variant: {
+      default: 'text-foreground',
+      primary: 'text-primary',
+      cyan: 'text-cyan-500',
+      destructive: 'text-destructive',
     },
-    defaultVariants: {
-      variant: 'default',
-    }
-  }
-);
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const AppLoaderProgress = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & 
-  VariantProps<typeof appLoaderProgressVariants> & { 
-    value?: number;
-    showPercentage?: boolean;
-  }
+  React.HTMLAttributes<HTMLDivElement> &
+    VariantProps<typeof appLoaderProgressVariants> & {
+      value?: number;
+      showPercentage?: boolean;
+    }
 >(({ className, value, variant, showPercentage, ...props }, ref) => (
   <div className="flex flex-col items-center gap-2">
-    <div
-      ref={ref}
-      className={cn(appLoaderProgressVariants({ variant }), className)}
-      {...props}
-    >
+    <div ref={ref} className={cn(appLoaderProgressVariants({ variant }), className)} {...props}>
       <div
         className="h-full bg-current transition-all duration-500 ease-out"
         style={{ width: `${value || 0}%` }}
       />
     </div>
     {showPercentage && (
-      <span className="text-[10px] font-mono opacity-40 tracking-tighter">
+      <span className="font-mono text-[10px] tracking-tighter opacity-40">
         {Math.round(value || 0)}%
       </span>
     )}

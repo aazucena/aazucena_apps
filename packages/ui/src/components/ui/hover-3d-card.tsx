@@ -16,8 +16,7 @@ const hover3dCardVariants = cva('overflow-hidden rounded-xl transition-shadow', 
 });
 
 export interface Hover3DCardProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof hover3dCardVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof hover3dCardVariants> {
   intensity?: number;
   glare?: boolean;
   perspective?: number;
@@ -25,7 +24,16 @@ export interface Hover3DCardProps
 
 const Hover3DCard = React.forwardRef<HTMLDivElement, Hover3DCardProps>(
   (
-    { className, variant, intensity = 10, glare = false, perspective = 1000, children, style, ...props },
+    {
+      className,
+      variant,
+      intensity = 10,
+      glare = false,
+      perspective = 1000,
+      children,
+      style,
+      ...props
+    },
     ref,
   ) => {
     const innerRef = React.useRef<HTMLDivElement>(null);

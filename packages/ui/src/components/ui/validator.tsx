@@ -26,7 +26,8 @@ export interface ValidatorRule {
 }
 
 export interface ValidatorProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof validatorVariants> {
   rules: ValidatorRule[];
   showProgress?: boolean;

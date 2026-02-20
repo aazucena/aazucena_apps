@@ -17,7 +17,8 @@ const tourVariants = cva('', {
 });
 
 export interface TourProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof tourVariants> {
   steps: TourStepData[];
   open?: boolean;
@@ -27,7 +28,19 @@ export interface TourProps
 }
 
 const Tour = React.forwardRef<HTMLDivElement, TourProps>(
-  ({ className, variant = 'default', steps, open = false, defaultStep = 0, onComplete, onSkip, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = 'default',
+      steps,
+      open = false,
+      defaultStep = 0,
+      onComplete,
+      onSkip,
+      ...props
+    },
+    ref,
+  ) => {
     const [current, setCurrent] = React.useState(defaultStep);
     const v = variant ?? 'default';
 
@@ -49,10 +62,7 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
       <div ref={ref} className={cn(tourVariants({ variant }), className)} {...props}>
         {/* Backdrop */}
         <div
-          className={cn(
-            'fixed inset-0 z-[9998]',
-            v === 'cyber' ? 'bg-black/70' : 'bg-black/50',
-          )}
+          className={cn('fixed inset-0 z-[9998]', v === 'cyber' ? 'bg-black/70' : 'bg-black/50')}
           onClick={onSkip}
           aria-hidden="true"
         />
@@ -75,7 +85,9 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
             if (current < steps.length - 1) setCurrent(current + 1);
             else onComplete?.();
           }}
-          onPrev={() => { if (current > 0) setCurrent(current - 1); }}
+          onPrev={() => {
+            if (current > 0) setCurrent(current - 1);
+          }}
           onSkip={onSkip}
         />
       </div>

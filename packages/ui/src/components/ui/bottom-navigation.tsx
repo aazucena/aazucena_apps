@@ -11,8 +11,7 @@ const bottomNavigationVariants = cva(
       variant: {
         default: 'bg-background border-border',
         glass: 'glass border-white/10',
-        cyber:
-          'bg-black/90 border-cyan-500/30 shadow-[0_-2px_20px_rgba(6,182,212,0.1)]',
+        cyber: 'bg-black/90 border-cyan-500/30 shadow-[0_-2px_20px_rgba(6,182,212,0.1)]',
       },
       size: {
         sm: 'h-14 px-2',
@@ -28,8 +27,7 @@ const bottomNavigationVariants = cva(
 );
 
 export interface BottomNavigationProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof bottomNavigationVariants> {}
+  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof bottomNavigationVariants> {}
 
 const BottomNavigation = React.forwardRef<HTMLElement, BottomNavigationProps>(
   ({ className, variant, size, ...props }, ref) => (
@@ -71,7 +69,8 @@ const bottomNavigationItemVariants = cva(
 );
 
 export interface BottomNavigationItemProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof bottomNavigationItemVariants> {
   icon?: React.ReactNode;
   label?: string;

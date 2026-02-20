@@ -121,14 +121,16 @@ const iconBoxVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-foreground0',
+        default:
+          'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-foreground0',
         primary:
           'bg-primary-500/10 border-primary-500/20 text-primary-500 shadow-sm shadow-primary-500/5',
         secondary:
           'bg-secondary-500/10 border-secondary-500/20 text-secondary-500 shadow-sm shadow-secondary-500/5',
         success:
           'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 shadow-sm shadow-emerald-500/5',
-        cyber: 'bg-primary/10 dark:bg-cyan-500/10 border-border dark:border-cyan-500/20 text-primary dark:text-cyan-500 shadow-sm shadow-cyan-500/5',
+        cyber:
+          'bg-primary/10 dark:bg-cyan-500/10 border-border dark:border-cyan-500/20 text-primary dark:text-cyan-500 shadow-sm shadow-cyan-500/5',
       },
       size: {
         sm: 'w-8 h-8',

@@ -28,8 +28,10 @@ export const sidebarHeaderVariants = cva('flex flex-col gap-2 p-2 transition-all
   variants: {
     variant: {
       default: '',
-      glass: 'border-b border-border/10 dark:border-white/10 bg-background/5 dark:bg-white/5 backdrop-blur-xl',
-      cyber: 'border-b border-border/10 dark:border-cyan-500/20 shadow-[0_4px_15px_rgba(6,182,212,0.05)] bg-background/80 dark:bg-black/80',
+      glass:
+        'border-b border-border/10 dark:border-white/10 bg-background/5 dark:bg-white/5 backdrop-blur-xl',
+      cyber:
+        'border-b border-border/10 dark:border-cyan-500/20 shadow-[0_4px_15px_rgba(6,182,212,0.05)] bg-background/80 dark:bg-black/80',
     },
   },
   defaultVariants: {

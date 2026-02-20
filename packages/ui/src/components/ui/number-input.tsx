@@ -4,32 +4,30 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const numberInputVariants = cva(
-  'inline-flex items-center rounded-md border transition-colors',
-  {
-    variants: {
-      variant: {
-        default:
-          'border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-        glass: 'glass-m border-white/10 focus-within:border-white/30',
-        cyber:
-          'border-cyan-500/30 bg-black/50 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
-      },
-      size: {
-        sm: 'h-8 text-xs',
-        md: 'h-9 text-sm',
-        lg: 'h-10 text-base',
-      },
+const numberInputVariants = cva('inline-flex items-center rounded-md border transition-colors', {
+  variants: {
+    variant: {
+      default:
+        'border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
+      glass: 'glass-m border-white/10 focus-within:border-white/30',
+      cyber:
+        'border-cyan-500/30 bg-black/50 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'md',
+    size: {
+      sm: 'h-8 text-xs',
+      md: 'h-9 text-sm',
+      lg: 'h-10 text-base',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+    size: 'md',
+  },
+});
 
 export interface NumberInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'type'>,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'type'>,
     VariantProps<typeof numberInputVariants> {
   value?: number;
   defaultValue?: number;
@@ -41,7 +39,19 @@ export interface NumberInputProps
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   (
-    { className, variant, size, value: controlledValue, defaultValue = 0, min, max, step = 1, onChange, disabled, ...props },
+    {
+      className,
+      variant,
+      size,
+      value: controlledValue,
+      defaultValue = 0,
+      min,
+      max,
+      step = 1,
+      onChange,
+      disabled,
+      ...props
+    },
     ref,
   ) => {
     const [internalValue, setInternalValue] = React.useState(defaultValue);
@@ -68,7 +78,9 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     );
 
     return (
-      <div className={cn(numberInputVariants({ variant, size }), disabled && 'opacity-50', className)}>
+      <div
+        className={cn(numberInputVariants({ variant, size }), disabled && 'opacity-50', className)}
+      >
         <button
           type="button"
           aria-label="Decrease"
@@ -76,7 +88,14 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           onClick={() => update(value - step)}
           className={cn(btnCn, 'rounded-l-md border-r border-inherit')}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
             <path d="M5 12h14" />
           </svg>
         </button>
@@ -89,7 +108,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           step={step}
           disabled={disabled}
           onChange={(e) => update(Number(e.target.value))}
-          className="w-14 bg-transparent text-center outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          className="w-14 [appearance:textfield] bg-transparent text-center outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           {...props}
         />
         <button
@@ -99,8 +118,16 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           onClick={() => update(value + step)}
           className={cn(btnCn, 'rounded-r-md border-l border-inherit')}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M5 12h14" /><path d="M12 5v14" />
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
           </svg>
         </button>
       </div>

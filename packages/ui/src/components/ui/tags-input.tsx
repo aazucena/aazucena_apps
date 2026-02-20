@@ -32,7 +32,8 @@ const tagStyles: Record<string, string> = {
 };
 
 export interface TagsInputProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
     VariantProps<typeof tagsInputVariants> {
   value?: string[];
   onChange?: (tags: string[]) => void;
@@ -99,10 +100,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
         {value.map((tag, i) => (
           <span
             key={`${tag}-${i}`}
-            className={cn(
-              'inline-flex items-center gap-1 rounded-md px-2 py-0.5',
-              tagStyles[v],
-            )}
+            className={cn('inline-flex items-center gap-1 rounded-md px-2 py-0.5', tagStyles[v])}
           >
             {tag}
             <button
@@ -114,8 +112,16 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
               className="ml-0.5 opacity-60 hover:opacity-100"
               aria-label={`Remove ${tag}`}
             >
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
               </svg>
             </button>
           </span>
@@ -130,7 +136,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           placeholder={value.length === 0 ? placeholder : ''}
           disabled={disabled}
           className={cn(
-            'min-w-[80px] flex-1 bg-transparent outline-none placeholder:text-muted-foreground',
+            'placeholder:text-muted-foreground min-w-[80px] flex-1 bg-transparent outline-none',
             v === 'cyber' && 'font-mono text-cyan-50 placeholder:text-cyan-500/30',
           )}
         />

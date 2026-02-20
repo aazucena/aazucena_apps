@@ -32,8 +32,7 @@ const headingVariants = cva('scroll-m-20 tracking-tight', {
 type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface HeadingProps
-  extends React.HTMLAttributes<HTMLHeadingElement>,
-    VariantProps<typeof headingVariants> {
+  extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof headingVariants> {
   as?: HeadingLevel;
 }
 
@@ -41,11 +40,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ className, variant, size, as, ...props }, ref) => {
     const Comp = as ?? (size as HeadingLevel) ?? 'h2';
     return (
-      <Comp
-        ref={ref}
-        className={cn(headingVariants({ variant, size }), className)}
-        {...props}
-      />
+      <Comp ref={ref} className={cn(headingVariants({ variant, size }), className)} {...props} />
     );
   },
 );

@@ -11,8 +11,10 @@ const testimonialVariants = cva(
     variants: {
       variant: {
         default: 'bg-card border-border shadow-sm',
-        glass: 'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl',
-        cyber: 'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        glass:
+          'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl',
+        cyber:
+          'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
       },
     },
     defaultVariants: {
@@ -84,7 +86,8 @@ const testimonialAvatarVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground',
-        cyber: 'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 border border-primary/40 dark:border-cyan-500/40',
+        cyber:
+          'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 border border-primary/40 dark:border-cyan-500/40',
         glass: 'bg-background/10 dark:bg-white/10 text-foreground border border-border/20',
       },
     },

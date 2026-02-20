@@ -12,7 +12,8 @@ const playbackVariants = cva(
       variant: {
         default: 'bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800',
         glass: 'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground',
-        cyber: 'bg-background dark:bg-black border border-border dark:border-cyan-500/30 text-foreground',
+        cyber:
+          'bg-background dark:bg-black border border-border dark:border-cyan-500/30 text-foreground',
       },
     },
     defaultVariants: {
@@ -79,5 +80,10 @@ const PlaybackActions = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
 PlaybackActions.displayName = 'PlaybackActions';
 
 export {
-  Playback, PlaybackActions, PlaybackButton, PlaybackControls, PlaybackCounter, playbackVariants
+  Playback,
+  PlaybackActions,
+  PlaybackButton,
+  PlaybackControls,
+  PlaybackCounter,
+  playbackVariants,
 };

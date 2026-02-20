@@ -41,7 +41,8 @@ export interface ComboboxOption {
 }
 
 export interface ComboboxProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
     VariantProps<typeof comboboxVariants> {
   options: ComboboxOption[];
   value?: string;
@@ -74,9 +75,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
     const v = variant ?? 'default';
     const s = size ?? 'md';
 
-    const filtered = options.filter((o) =>
-      o.label.toLowerCase().includes(query.toLowerCase()),
-    );
+    const filtered = options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()));
 
     const selected = options.find((o) => o.value === value);
 
@@ -89,9 +88,12 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           aria-haspopup="listbox"
           aria-controls={open ? listboxId : undefined}
           disabled={disabled}
-          onClick={() => { setOpen(!open); setTimeout(() => inputRef.current?.focus(), 0); }}
+          onClick={() => {
+            setOpen(!open);
+            setTimeout(() => inputRef.current?.focus(), 0);
+          }}
           className={cn(
-            'flex w-full items-center justify-between rounded-md border outline-none transition-all',
+            'flex w-full items-center justify-between rounded-md border transition-all outline-none',
             triggerClasses[v],
             sizeClasses[s],
             disabled && 'pointer-events-none opacity-50',
@@ -100,7 +102,15 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           <span className={cn(!selected && 'text-muted-foreground')}>
             {selected?.label ?? placeholder}
           </span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={cn('shrink-0 transition-transform', open && 'rotate-180')}>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className={cn('shrink-0 transition-transform', open && 'rotate-180')}
+          >
             <path d="m6 9 6 6 6-6" />
           </svg>
         </button>
@@ -126,14 +136,16 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className={cn(
-                  'w-full rounded border-none bg-transparent px-2 py-1 text-sm outline-none placeholder:text-muted-foreground',
+                  'placeholder:text-muted-foreground w-full rounded border-none bg-transparent px-2 py-1 text-sm outline-none',
                   v === 'cyber' && 'font-mono text-cyan-50',
                 )}
               />
             </div>
             <div className="max-h-48 overflow-auto p-1">
               {filtered.length === 0 ? (
-                <p className="px-2 py-1.5 text-center text-xs text-muted-foreground">{emptyMessage}</p>
+                <p className="text-muted-foreground px-2 py-1.5 text-center text-xs">
+                  {emptyMessage}
+                </p>
               ) : (
                 filtered.map((option) => (
                   <button
@@ -159,7 +171,15 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                           : 'hover:bg-accent',
                     )}
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={cn('shrink-0', value !== option.value && 'invisible')}>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      className={cn('shrink-0', value !== option.value && 'invisible')}
+                    >
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
                     {option.label}

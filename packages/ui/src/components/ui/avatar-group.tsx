@@ -39,7 +39,7 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
 
     return (
       <div ref={ref} className={cn(avatarGroupVariants({ variant, size }), className)} {...props}>
-        {visible.map((child, i) =>
+        {visible.map((child, _i) =>
           React.isValidElement(child)
             ? React.cloneElement(child as React.ReactElement<{ variant?: string; size?: string }>, {
                 variant: variant ?? undefined,

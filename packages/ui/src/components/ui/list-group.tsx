@@ -16,8 +16,7 @@ const listGroupVariants = cva('overflow-hidden rounded-lg border', {
 });
 
 export interface ListGroupProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof listGroupVariants> {}
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof listGroupVariants> {}
 
 const ListGroup = React.forwardRef<HTMLDivElement, ListGroupProps>(
   ({ className, variant, ...props }, ref) => (
@@ -38,8 +37,7 @@ const listGroupItemVariants = cva(
       variant: {
         default: 'border-border hover:bg-muted/50',
         glass: 'border-white/5 hover:bg-white/5',
-        cyber:
-          'border-cyan-500/10 hover:bg-cyan-500/5 text-cyan-50 font-mono text-xs',
+        cyber: 'border-cyan-500/10 hover:bg-cyan-500/5 text-cyan-50 font-mono text-xs',
       },
       active: {
         true: '',
@@ -56,8 +54,7 @@ const listGroupItemVariants = cva(
 );
 
 export interface ListGroupItemProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof listGroupItemVariants> {
+  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof listGroupItemVariants> {
   icon?: React.ReactNode;
   action?: React.ReactNode;
   asButton?: boolean;
@@ -74,7 +71,7 @@ const ListGroupItem = React.forwardRef<HTMLElement, ListGroupItemProps>(
         type={asButton ? 'button' : undefined}
         className={cn(
           listGroupItemVariants({ variant, active }),
-          asButton && 'cursor-pointer w-full text-left',
+          asButton && 'w-full cursor-pointer text-left',
           className,
         )}
         {...props}

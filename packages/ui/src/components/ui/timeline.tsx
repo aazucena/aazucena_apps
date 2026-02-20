@@ -56,7 +56,8 @@ const timelineDotVariants = cva(
         success: 'bg-gradient-to-br from-green-400 to-emerald-500 shadow-green-400/50',
         warning: 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-yellow-400/50',
         danger: 'bg-gradient-to-br from-red-400 to-rose-500 shadow-red-400/50',
-        cyber: 'bg-zinc-100 border border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.2)] dark:bg-black dark:shadow-[0_0_10px_rgba(6,182,212,0.5)]',
+        cyber:
+          'bg-zinc-100 border border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.2)] dark:bg-black dark:shadow-[0_0_10px_rgba(6,182,212,0.5)]',
       },
       position: {
         left: 'absolute top-1/2 left-0 -translate-y-1/2 z-10',
@@ -80,7 +81,7 @@ const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
         <div
           ref={ref}
           className={cn(
-            'h-3 w-3 rounded-full bg-zinc-400 dark:bg-white/80 transition-all duration-300',
+            'h-3 w-3 rounded-full bg-zinc-400 transition-all duration-300 dark:bg-white/80',
             variant === 'cyber' && 'animate-pulse bg-cyan-600 dark:bg-cyan-400',
           )}
           {...props}

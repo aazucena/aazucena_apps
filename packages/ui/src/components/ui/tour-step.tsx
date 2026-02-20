@@ -47,10 +47,18 @@ export const TourStep = React.forwardRef<HTMLDivElement, TourStepProps>(
 
       if (placement === 'bottom') top = rect.bottom + 12;
       else if (placement === 'top') top = rect.top - 12;
-      else if (placement === 'left') { left = rect.left - 12; top = rect.top + rect.height / 2; }
-      else { left = rect.right + 12; top = rect.top + rect.height / 2; }
+      else if (placement === 'left') {
+        left = rect.left - 12;
+        top = rect.top + rect.height / 2;
+      } else {
+        left = rect.right + 12;
+        top = rect.top + rect.height / 2;
+      }
 
-      setPos({ top: top + window.scrollY, left: Math.max(16, Math.min(left, window.innerWidth - 280)) });
+      setPos({
+        top: top + window.scrollY,
+        left: Math.max(16, Math.min(left, window.innerWidth - 280)),
+      });
     }, [step]);
 
     return (
@@ -58,35 +66,43 @@ export const TourStep = React.forwardRef<HTMLDivElement, TourStepProps>(
         ref={ref}
         role="dialog"
         aria-label={step.title}
-        className={cn(
-          'fixed z-[9999] w-64 rounded-lg p-4',
-          variantClasses[variant],
-        )}
+        className={cn('fixed z-[9999] w-64 rounded-lg p-4', variantClasses[variant])}
         style={{ top: pos.top, left: pos.left, transform: 'translateX(-50%)' }}
       >
         <h4 className={cn('mb-1 text-sm font-semibold', variant === 'cyber' && 'font-mono')}>
           {step.title}
         </h4>
-        <p className="mb-3 text-xs text-muted-foreground">{step.description}</p>
+        <p className="text-muted-foreground mb-3 text-xs">{step.description}</p>
         <div className="flex items-center justify-between">
-          <span className="text-[10px] text-muted-foreground">
+          <span className="text-muted-foreground text-[10px]">
             {current + 1} / {total}
           </span>
           <div className="flex gap-1.5">
             {onSkip && (
-              <button type="button" onClick={onSkip} className="rounded px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors">
+              <button
+                type="button"
+                onClick={onSkip}
+                className="text-muted-foreground hover:text-foreground rounded px-2 py-1 text-xs transition-colors"
+              >
                 Skip
               </button>
             )}
             {onPrev && current > 0 && (
-              <button type="button" onClick={onPrev} className="rounded px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors">
+              <button
+                type="button"
+                onClick={onPrev}
+                className="text-muted-foreground hover:text-foreground rounded px-2 py-1 text-xs transition-colors"
+              >
                 Back
               </button>
             )}
             <button
               type="button"
               onClick={onNext}
-              className={cn('rounded px-3 py-1 text-xs font-medium transition-colors', btnClasses[variant])}
+              className={cn(
+                'rounded px-3 py-1 text-xs font-medium transition-colors',
+                btnClasses[variant],
+              )}
             >
               {current === total - 1 ? 'Done' : 'Next'}
             </button>

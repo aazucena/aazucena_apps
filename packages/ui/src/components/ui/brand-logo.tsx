@@ -62,10 +62,13 @@ BrandLogoImage.displayName = 'BrandLogoImage';
 
 const BrandLogoInitials = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div 
-      ref={ref} 
-      className={cn('flex items-center justify-center font-black uppercase tracking-tighter', className)} 
-      {...props} 
+    <div
+      ref={ref}
+      className={cn(
+        'flex items-center justify-center font-black tracking-tighter uppercase',
+        className,
+      )}
+      {...props}
     />
   ),
 );

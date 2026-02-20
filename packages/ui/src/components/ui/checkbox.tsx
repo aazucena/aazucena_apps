@@ -11,8 +11,7 @@ const checkboxVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'border-primary data-checked:bg-primary data-checked:text-primary-foreground',
+        default: 'border-primary data-checked:bg-primary data-checked:text-primary-foreground',
         cyber:
           'border-border dark:border-cyan-500/50 data-checked:bg-primary/20 dark:data-checked:bg-cyan-500/20 data-checked:text-primary dark:data-checked:text-cyan-400 data-checked:border-primary dark:data-checked:border-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0)] data-checked:shadow-[0_0_15px_rgba(6,182,212,0.2)]',
       },

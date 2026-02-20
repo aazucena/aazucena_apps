@@ -20,7 +20,7 @@ const AlertDialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Overlay
     className={cn(
-      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 z-50 bg-background/80 dark:bg-black/80 backdrop-blur-sm',
+      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-background/80 fixed inset-0 z-50 backdrop-blur-sm dark:bg-black/80',
       className,
     )}
     {...props}
@@ -36,7 +36,8 @@ const alertDialogContentVariants = cva(
       variant: {
         default: 'bg-background text-foreground',
         glass: 'glass text-foreground shadow-2xl',
-        cyber: 'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-zinc-950/90 dark:text-cyan-50',
+        cyber:
+          'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-zinc-950/90 dark:text-cyan-50',
       },
       size: {
         default: 'max-w-lg',
@@ -51,7 +52,7 @@ const alertDialogContentVariants = cva(
       shaking: {
         true: '[animation:pulse-scale_0.3s_ease-in-out] [@keyframes_pulse-scale]:[0%,100%_=>_translate(-50%,-50%)_scale(1)][50%_=>_translate(-50%,-50%)_scale(1.02)]',
         false: '',
-      }
+      },
     },
     defaultVariants: {
       variant: 'default',
@@ -92,33 +93,27 @@ const AlertDialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDiv
 );
 AlertDialogHeader.displayName = 'AlertDialogHeader';
 
-const alertDialogFooterVariants = cva(
-  'flex flex-col-reverse sm:flex-row sm:space-x-2',
-  {
-    variants: {
-      alignment: {
-        start: 'sm:justify-start sm:space-x-reverse sm:flex-row-reverse',
-        center: 'sm:justify-center',
-        end: 'sm:justify-end',
-        between: 'sm:justify-between sm:flex-row-reverse',
-        stacked: 'flex-col space-y-2 space-y-reverse',
-      },
-    },
-    defaultVariants: {
-      alignment: 'end',
+const alertDialogFooterVariants = cva('flex flex-col-reverse sm:flex-row sm:space-x-2', {
+  variants: {
+    alignment: {
+      start: 'sm:justify-start sm:space-x-reverse sm:flex-row-reverse',
+      center: 'sm:justify-center',
+      end: 'sm:justify-end',
+      between: 'sm:justify-between sm:flex-row-reverse',
+      stacked: 'flex-col space-y-2 space-y-reverse',
     },
   },
-);
+  defaultVariants: {
+    alignment: 'end',
+  },
+});
 
-const AlertDialogFooter = ({ 
-  className, 
+const AlertDialogFooter = ({
+  className,
   alignment,
-  ...props 
+  ...props
 }: React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertDialogFooterVariants>) => (
-  <div
-    className={cn(alertDialogFooterVariants({ alignment }), className)}
-    {...props}
-  />
+  <div className={cn(alertDialogFooterVariants({ alignment }), className)} {...props} />
 );
 AlertDialogFooter.displayName = 'AlertDialogFooter';
 

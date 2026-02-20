@@ -15,7 +15,8 @@ const tabsListVariants = cva(
       variant: {
         default: 'bg-muted text-muted-foreground',
         glass: 'glass-m text-foreground',
-        cyber: 'glass bg-primary-100 border border-cyan-500/20 text-cyan-600 dark:bg-zinc-950/40 dark:text-cyan-500/70',
+        cyber:
+          'glass bg-primary-100 border border-cyan-500/20 text-cyan-600 dark:bg-zinc-950/40 dark:text-cyan-500/70',
         phone:
           'relative mt-16 mb-8 h-[420px] w-full max-w-[600px] flex items-center justify-center bg-transparent border-none overflow-visible',
       },
@@ -49,8 +50,7 @@ const tabsTriggerVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'data-active:bg-background data-active:text-foreground data-active:shadow',
+        default: 'data-active:bg-background data-active:text-foreground data-active:shadow',
         glass:
           'text-foreground/60 data-active:bg-background/20 data-active:text-foreground data-active:border-white/20',
         cyber:
@@ -97,16 +97,16 @@ TabsContent.displayName = TabsPrimitive.Content.displayName;
  * Phone Dial Tabs Logic (Consolidated)
  */
 const PhoneDialTabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...props }, _ref) => {
     const [rotation, setRotation] = React.useState(0);
     const [isDragging, setIsDragging] = React.useState(false);
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const rotationTweenRef = React.useRef<gsap.core.Tween | null>(null);
+    const _rotationTweenRef = React.useRef<gsap.core.Tween | null>(null);
 
     const triggers = React.Children.toArray(children);
     const totalTabs = triggers.length;
     const radius = 200;
-    const angleStep = 180 / (totalTabs - 1);
+    const _angleStep = 180 / (totalTabs - 1);
 
     const getAngleFromCenter = (clientX: number, clientY: number): number => {
       if (!containerRef.current) return 0;

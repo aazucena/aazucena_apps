@@ -16,8 +16,7 @@ const marqueeVariants = cva('overflow-hidden', {
 });
 
 export interface MarqueeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof marqueeVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof marqueeVariants> {
   speed?: number;
   direction?: 'left' | 'right';
   pauseOnHover?: boolean;
@@ -42,11 +41,7 @@ const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
     const dur = `${speed}s`;
 
     return (
-      <div
-        ref={ref}
-        className={cn(marqueeVariants({ variant }), className)}
-        {...props}
-      >
+      <div ref={ref} className={cn(marqueeVariants({ variant }), className)} {...props}>
         <style>{`
           @keyframes az-marquee {
             from { transform: translateX(0); }
@@ -54,10 +49,7 @@ const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
           }
         `}</style>
         <div
-          className={cn(
-            'flex w-max',
-            pauseOnHover && 'hover:[animation-play-state:paused]',
-          )}
+          className={cn('flex w-max', pauseOnHover && 'hover:[animation-play-state:paused]')}
           style={{
             animation: `az-marquee ${dur} linear infinite`,
             animationDirection: animDir,

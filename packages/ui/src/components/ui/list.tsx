@@ -31,7 +31,8 @@ const listVariants = cva('space-y-1', {
 });
 
 export interface ListProps
-  extends React.HTMLAttributes<HTMLUListElement | HTMLOListElement>,
+  extends
+    React.HTMLAttributes<HTMLUListElement | HTMLOListElement>,
     VariantProps<typeof listVariants> {}
 
 const List = React.forwardRef<HTMLUListElement | HTMLOListElement, ListProps>(
@@ -61,8 +62,7 @@ const listItemVariants = cva('', {
 });
 
 export interface ListItemProps
-  extends React.LiHTMLAttributes<HTMLLIElement>,
-    VariantProps<typeof listItemVariants> {}
+  extends React.LiHTMLAttributes<HTMLLIElement>, VariantProps<typeof listItemVariants> {}
 
 const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
   ({ className, variant, ...props }, ref) => (

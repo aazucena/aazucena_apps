@@ -42,8 +42,7 @@ const paperVariants = cva('rounded-lg bg-background transition-shadow', {
 });
 
 export interface PaperProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof paperVariants> {}
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof paperVariants> {}
 
 const Paper = React.forwardRef<HTMLDivElement, PaperProps>(
   ({ className, variant, elevation, padding, square, ...props }, ref) => (
