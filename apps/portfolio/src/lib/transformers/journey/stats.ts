@@ -3,11 +3,11 @@
  * Quantitative metrics calculation for career summary
  */
 
-import type { Experience } from '~/lib/transformers/experiences';
-import type { Education } from '~/lib/transformers/education';
-import type { Project } from '~/lib/transformers/projects';
-import { getSafeSkillInfo } from './base';
-import type { SkillWithCategory } from '~/lib/validators/components';
+import type { Experience } from "~/lib/transformers/experiences";
+import type { Education } from "~/lib/transformers/education";
+import type { Project } from "~/lib/transformers/projects";
+import { getSafeSkillInfo } from "./base";
+import type { SkillWithCategory } from "~/lib/validators/components";
 
 export interface CareerStat {
   totalYears: number;
@@ -42,7 +42,8 @@ export function calculateCareerStats(experiences: Experience[]): CareerStat {
   if (validStartDates.length > 0) {
     const firstJobDate = validStartDates[0];
     const now = new Date();
-    totalYears = (now.getTime() - firstJobDate!.getTime()) / (1000 * 60 * 60 * 24 * 365);
+    totalYears =
+      (now.getTime() - firstJobDate!.getTime()) / (1000 * 60 * 60 * 24 * 365);
   } else {
     totalYears = experiences.length * 2;
   }
@@ -50,7 +51,9 @@ export function calculateCareerStats(experiences: Experience[]): CareerStat {
   const uniqueCompanies = new Set(experiences.map((exp) => exp.company));
   const uniqueSkills = new Set<string>();
   experiences.forEach((exp) => {
-    exp.skills.forEach((skill) => uniqueSkills.add((skill as SkillWithCategory)?.name));
+    exp.skills.forEach((skill) =>
+      uniqueSkills.add((skill as SkillWithCategory)?.name),
+    );
   });
 
   const currentExp = experiences.find((exp) => exp.isCurrent);
@@ -67,17 +70,23 @@ export function calculateCareerStats(experiences: Experience[]): CareerStat {
 export function calculateSkillGrowthMetrics(
   experiences: Experience[],
   education: Education[] = [],
-  projects: Project[] = []
+  projects: Project[] = [],
 ): GrowthData {
   const skillUsageCount = new Map<string, number>();
   const categoryUsageCount = new Map<string, number>();
   const skillsByYear = new Map<number, Set<string>>();
-  
-  const processSkills = (skills: (string | SkillWithCategory)[], year?: number) => {
-    skills.forEach(s => {
+
+  const processSkills = (
+    skills: (string | SkillWithCategory)[],
+    year?: number,
+  ) => {
+    skills.forEach((s) => {
       const { name, category } = getSafeSkillInfo(s);
       skillUsageCount.set(name, (skillUsageCount.get(name) || 0) + 1);
-      categoryUsageCount.set(category, (categoryUsageCount.get(category) || 0) + 1);
+      categoryUsageCount.set(
+        category,
+        (categoryUsageCount.get(category) || 0) + 1,
+      );
       if (year) {
         if (!skillsByYear.has(year)) skillsByYear.set(year, new Set());
         skillsByYear.get(year)!.add(name);
@@ -85,22 +94,22 @@ export function calculateSkillGrowthMetrics(
     });
   };
 
-  experiences.forEach(e => {
+  experiences.forEach((e) => {
     const year = new Date(e.startDate).getFullYear();
     if (!isNaN(year)) processSkills(e.skills, year);
   });
-  
-  projects.forEach(p => {
+
+  projects.forEach((p) => {
     const year = (p.startDate || p.createdAt).getFullYear();
     processSkills(p.techStack || [], year);
   });
 
-  education.forEach(e => {
+  education.forEach((e) => {
     const year = new Date(e.startDate).getFullYear();
     if (!isNaN(year)) processSkills(e.skills || [], year);
   });
 
-  let mostUsedTechnology = 'N/A';
+  let mostUsedTechnology = "N/A";
   let maxUsage = 0;
   skillUsageCount.forEach((count, name) => {
     if (count > maxUsage) {
@@ -109,7 +118,7 @@ export function calculateSkillGrowthMetrics(
     }
   });
 
-  let topDomain = 'N/A';
+  let topDomain = "N/A";
   let maxCatUsage = 0;
   categoryUsageCount.forEach((count, cat) => {
     if (count > maxCatUsage) {
@@ -122,9 +131,9 @@ export function calculateSkillGrowthMetrics(
   let totalNewSkills = 0;
   const seenSkills = new Set<string>();
 
-  years.forEach(year => {
+  years.forEach((year) => {
     const yearSkills = skillsByYear.get(year)!;
-    yearSkills.forEach(s => {
+    yearSkills.forEach((s) => {
       if (!seenSkills.has(s)) {
         totalNewSkills++;
         seenSkills.add(s);
@@ -132,13 +141,14 @@ export function calculateSkillGrowthMetrics(
     });
   });
 
-  const yearRange = years.length > 0 ? (years[years.length - 1]! - years[0]! + 1) : 1;
+  const yearRange =
+    years.length > 0 ? years[years.length - 1]! - years[0]! + 1 : 1;
   const learningVelocity = Math.round((totalNewSkills / yearRange) * 10) / 10;
 
   return {
     fastestGrowingCategory: topDomain,
     mostUsedTechnology,
     learningVelocity,
-    topDomain
+    topDomain,
   };
 }

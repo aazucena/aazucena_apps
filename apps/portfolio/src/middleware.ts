@@ -1,5 +1,5 @@
-import { defineMiddleware } from 'astro:middleware';
-import { getMaintenance } from './lib/api/maintenance';
+import { defineMiddleware } from "astro:middleware";
+import { getMaintenance } from "./lib/api/maintenance";
 
 /**
  * Global Middleware for Maintenance Mode
@@ -10,14 +10,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   // 1. Skip in development mode to avoid blocking the developer
   // You can still test it by adding ?maintenance=true to any URL
-  if (import.meta.env.DEV && !url.searchParams.has('maintenance')) {
+  if (import.meta.env.DEV && !url.searchParams.has("maintenance")) {
     return next();
   }
 
   // 2. Exclude static assets, API routes, and Astro internal routes
-  const isStaticAsset = url.pathname.includes('.') || url.pathname.startsWith('/_astro');
-  const isApiRoute = url.pathname.startsWith('/api');
-  const isMaintenancePage = url.pathname === '/maintenance';
+  const isStaticAsset =
+    url.pathname.includes(".") || url.pathname.startsWith("/_astro");
+  const isApiRoute = url.pathname.startsWith("/api");
+  const isMaintenancePage = url.pathname === "/maintenance";
 
   if (isStaticAsset || isApiRoute || isMaintenancePage) {
     return next();
@@ -30,10 +31,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
     // 3. If enabled, force redirect to maintenance page
     if (maintenance.enabled) {
-      return redirect('/maintenance');
+      return redirect("/maintenance");
     }
   } catch (error) {
-    console.error('[Middleware] Maintenance check failed:', error);
+    console.error("[Middleware] Maintenance check failed:", error);
     // If CMS is down, we allow the request to proceed to avoid complete lockout
   }
 

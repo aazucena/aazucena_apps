@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 import {
   StatsSchema,
   CardLinkSchema,
@@ -6,10 +6,10 @@ import {
   NarrativeItemSchema,
   WorkflowItemSchema,
   LanguageItemSchema,
-  WorkingStyleItemSchema
-} from './components';
+  WorkingStyleItemSchema,
+} from "./components";
 
-export type { Stats, CardLink } from './components';
+export type { Stats, CardLink } from "./components";
 
 /**
  * Zod schema for About Section from Strapi CMS
@@ -17,7 +17,7 @@ export type { Stats, CardLink } from './components';
 export const StrapiAboutSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
-  slug: z.string().default('about').optional(), // Navigation integration
+  slug: z.string().default("about").optional(), // Navigation integration
   tagline: z.string().max(150),
   descriptions: z.any(), // Blocks content
   highlights: z.any(), // Blocks content

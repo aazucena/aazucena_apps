@@ -15,17 +15,17 @@
  * - Bottom action sheets
  */
 
-import type { JSX, ReactNode } from 'react';
+import type { JSX, ReactNode } from "react";
 
 export type ToolbarPosition =
-  | 'top-left'
-  | 'top-right'
-  | 'top-center'
-  | 'bottom-left'
-  | 'bottom-right'
-  | 'bottom-center';
+  | "top-left"
+  | "top-right"
+  | "top-center"
+  | "bottom-left"
+  | "bottom-right"
+  | "bottom-center";
 
-export type ToolbarOrientation = 'horizontal' | 'vertical';
+export type ToolbarOrientation = "horizontal" | "vertical";
 
 export interface ToolbarProps {
   /** Toolbar content (buttons, inputs, etc.) */
@@ -64,20 +64,20 @@ export interface ToolbarProps {
  */
 function getPositionClasses(position: ToolbarPosition): string {
   switch (position) {
-    case 'top-left':
-      return 'top-8 left-8';
-    case 'top-right':
-      return 'top-8 right-8';
-    case 'top-center':
-      return 'top-8 left-1/2 -translate-x-1/2';
-    case 'bottom-left':
-      return 'bottom-8 left-8';
-    case 'bottom-right':
-      return 'bottom-8 right-8';
-    case 'bottom-center':
-      return 'bottom-8 left-1/2 -translate-x-1/2';
+    case "top-left":
+      return "top-8 left-8";
+    case "top-right":
+      return "top-8 right-8";
+    case "top-center":
+      return "top-8 left-1/2 -translate-x-1/2";
+    case "bottom-left":
+      return "bottom-8 left-8";
+    case "bottom-right":
+      return "bottom-8 right-8";
+    case "bottom-center":
+      return "bottom-8 left-1/2 -translate-x-1/2";
     default:
-      return 'top-8 right-8';
+      return "top-8 right-8";
   }
 }
 
@@ -87,34 +87,24 @@ function getPositionClasses(position: ToolbarPosition): string {
  */
 export function Toolbar({
   children,
-  position = 'top-right',
-  orientation = 'horizontal',
-  spacing = 'gap-4',
-  background = 'bg-black/30 backdrop-blur-md',
-  border = 'border border-white/20',
-  borderRadius = 'rounded-full',
-  padding = 'px-4 py-3',
-  zIndex = 'z-50',
-  className = '',
+  position = "top-right",
+  orientation = "horizontal",
+  spacing = "gap-4",
+  background = "bg-black/30 backdrop-blur-md",
+  border = "border border-white/20",
+  borderRadius = "rounded-full",
+  padding = "px-4 py-3",
+  zIndex = "z-50",
+  className = "",
 }: ToolbarProps): JSX.Element {
   const positionClasses = getPositionClasses(position);
-  const flexDirection = orientation === 'horizontal' ? 'flex-row' : 'flex-col';
+  const flexDirection = orientation === "horizontal" ? "flex-row" : "flex-col";
 
   return (
     <div
-      className={`
-        fixed
-        ${positionClasses}
-        ${zIndex}
-        flex
-        ${flexDirection}
-        ${spacing}
-        ${background}
-        ${border}
-        ${borderRadius}
-        ${padding}
-        ${className}
-      `.trim().replace(/\s+/g, ' ')}
+      className={`fixed ${positionClasses} ${zIndex} flex ${flexDirection} ${spacing} ${background} ${border} ${borderRadius} ${padding} ${className} `
+        .trim()
+        .replace(/\s+/g, " ")}
     >
       {children}
     </div>

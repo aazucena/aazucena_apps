@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { SeoSchema, StrapiMediaSchema } from './components';
+import { z } from "zod";
+import { SeoSchema, StrapiMediaSchema } from "./components";
 
 /**
  * Zod schema for Tech Stack item
@@ -24,11 +24,11 @@ export const StrapiWebsiteConfigSchema = z.object({
   siteName: z.string().max(100),
   siteUrl: z.string().max(200),
   siteTagline: z.string().max(200).nullable().optional(),
-  baseUrl: z.string().max(50).default('/'),
+  baseUrl: z.string().max(50).default("/"),
   siteLogo: StrapiMediaSchema.nullable().optional(),
   favicon: StrapiMediaSchema.nullable().optional(),
   defaultSEO: SeoSchema,
-  metaTitleTemplate: z.string().max(100).default('%s — {siteName}'),
+  metaTitleTemplate: z.string().max(100).default("%s — {siteName}"),
   openGraphSiteName: z.string().max(100).nullable().optional(),
   twitterHandle: z.string().max(50).nullable().optional(),
   robotsIndex: z.boolean().default(true),
@@ -39,7 +39,7 @@ export const StrapiWebsiteConfigSchema = z.object({
   // Footer configuration
   footerBrandDescription: z.string().max(500).nullable().optional(),
   footerLocationTagline: z.string().max(200).nullable().optional(),
-  footerBuiltWithLabel: z.string().max(50).default('Built with'),
+  footerBuiltWithLabel: z.string().max(50).default("Built with"),
   techStack: z.array(TechStackSchema).nullable().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),

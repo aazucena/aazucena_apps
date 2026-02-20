@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { FormTypeEnum, SentimentEnum, SubmissionStatusEnum } from './enums';
+import { z } from "zod";
+import { FormTypeEnum, SentimentEnum, SubmissionStatusEnum } from "./enums";
 
 /**
  * Zod schema for Form Submission from Strapi CMS
@@ -13,7 +13,7 @@ export const StrapiFormSubmissionSchema = z.object({
   structuredData: z.any().optional().nullable(),
   aiIntent: z.string().max(100).optional().nullable(),
   aiSummary: z.string().max(1000).optional().nullable(),
-  aiSentiment: SentimentEnum.default('Neutral'),
+  aiSentiment: SentimentEnum.default("Neutral"),
   aiTags: z.any().optional().nullable(),
   easterEggDetected: z.boolean().default(false),
   submittedAt: z.string(), // Datetime string
@@ -21,13 +21,13 @@ export const StrapiFormSubmissionSchema = z.object({
   submitterEmail: z.string().email().optional().nullable(),
   submitterName: z.string().max(100).optional().nullable(),
   recaptchaScore: z.number().min(0).max(1).optional().nullable(),
-  status: SubmissionStatusEnum.default('New'),
+  status: SubmissionStatusEnum.default("New"),
   assignedTo: z.string().max(100).optional().nullable(),
   internalNotes: z.string().max(2000).optional().nullable(),
   langSmithTraceId: z.string().max(100).optional().nullable(),
   messageEmbedding: z.any().optional().nullable(),
   summaryEmbedding: z.any().optional().nullable(),
-  embeddingModel: z.string().max(50).default('gemini-textembedding-gecko'),
+  embeddingModel: z.string().max(50).default("gemini-textembedding-gecko"),
   embeddingGeneratedAt: z.string().optional().nullable(),
   createdAt: z.string(),
   updatedAt: z.string(),

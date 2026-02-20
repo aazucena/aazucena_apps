@@ -3,16 +3,16 @@
  * Shared TypeScript interfaces and types
  */
 
-import type { ATMOSPHERIC_PHASES } from './constants';
-import * as THREE from 'three';
+import type { ATMOSPHERIC_PHASES } from "./constants";
+import * as THREE from "three";
 
 // Atmospheric Phase Type
-export type AtmosphericPhase = typeof ATMOSPHERIC_PHASES[number];
+export type AtmosphericPhase = (typeof ATMOSPHERIC_PHASES)[number];
 
 // Device Capabilities
 export interface DeviceCapabilities {
   isMobile: boolean;
-  performanceTier: 'low' | 'medium' | 'high';
+  performanceTier: "low" | "medium" | "high";
   canUseHeavyAnimations: boolean;
 }
 

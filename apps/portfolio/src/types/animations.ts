@@ -6,7 +6,7 @@ export interface ParticleData {
 
 export interface DeviceCapabilities {
   isMobile: boolean;
-  performanceTier: 'high' | 'medium' | 'low';
+  performanceTier: "high" | "medium" | "low";
   canUseHeavyAnimations: boolean;
 }
 
@@ -16,8 +16,14 @@ export interface MousePosition {
 }
 
 // Animation configuration types
-export type EntranceAnimation = 'fade' | 'slide' | 'elastic' | 'scale' | 'blur' | 'none';
-export type ScrollAnimation = 'parallax' | 'fade' | 'scale' | 'reveal' | 'none';
+export type EntranceAnimation =
+  | "fade"
+  | "slide"
+  | "elastic"
+  | "scale"
+  | "blur"
+  | "none";
+export type ScrollAnimation = "parallax" | "fade" | "scale" | "reveal" | "none";
 
 export interface AnimationConfig {
   entrance?: {
@@ -47,11 +53,16 @@ export interface AnimatedSectionProps {
   children: React.ReactNode;
   animationConfig?: AnimationConfig;
   className?: string;
-  as?: 'section' | 'div' | 'article';
+  as?: "section" | "div" | "article";
 }
 
 // Preset configurations
-export type AnimationPreset = 'hero' | 'feature' | 'minimal' | 'immersive' | 'none';
+export type AnimationPreset =
+  | "hero"
+  | "feature"
+  | "minimal"
+  | "immersive"
+  | "none";
 
 export interface ScrollTriggerConfig {
   trigger?: Element | string;

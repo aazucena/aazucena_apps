@@ -4,15 +4,15 @@
  * Reduces initial bundle size by ~75-150KB
  */
 
-import { Suspense, memo, type JSX } from 'react';
-import type { SceneLayerManagerProps } from './SceneLayerManager';
+import { Suspense, memo, type JSX } from "react";
+import type { SceneLayerManagerProps } from "./SceneLayerManager";
 import {
   ExosphereLazy,
   ThermosphereLazy,
   MesosphereLazy,
   StratosphereLazy,
-  TroposphereLazy
-} from './index.lazy';
+  TroposphereLazy,
+} from "./index.lazy";
 
 // Re-export props type for consistency
 export type { SceneLayerManagerProps };
@@ -46,7 +46,7 @@ function LazySceneLayerManagerComponent({
   trees,
   bushes,
   rocks,
-  flowers
+  flowers,
 }: SceneLayerManagerProps): JSX.Element {
   return (
     <>
@@ -109,35 +109,41 @@ export const LazySceneLayerManager = memo(
   LazySceneLayerManagerComponent,
   (prevProps, nextProps) => {
     // Check if data arrays changed (reference equality from useMemo)
-    const dataUnchanged = (
+    const dataUnchanged =
       prevProps.particles === nextProps.particles &&
       prevProps.clouds === nextProps.clouds &&
       prevProps.houses === nextProps.houses &&
       prevProps.trees === nextProps.trees &&
       prevProps.bushes === nextProps.bushes &&
       prevProps.rocks === nextProps.rocks &&
-      prevProps.flowers === nextProps.flowers
-    );
+      prevProps.flowers === nextProps.flowers;
 
     // Check if opacity values changed significantly (> 0.01)
-    const opacitiesUnchanged = (
-      Math.abs(prevProps.opacities.exosphere - nextProps.opacities.exosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.thermosphere - nextProps.opacities.thermosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.mesosphere - nextProps.opacities.mesosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.stratosphere - nextProps.opacities.stratosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.troposphere - nextProps.opacities.troposphere) < 0.01
-    );
+    const opacitiesUnchanged =
+      Math.abs(prevProps.opacities.exosphere - nextProps.opacities.exosphere) <
+        0.01 &&
+      Math.abs(
+        prevProps.opacities.thermosphere - nextProps.opacities.thermosphere,
+      ) < 0.01 &&
+      Math.abs(
+        prevProps.opacities.mesosphere - nextProps.opacities.mesosphere,
+      ) < 0.01 &&
+      Math.abs(
+        prevProps.opacities.stratosphere - nextProps.opacities.stratosphere,
+      ) < 0.01 &&
+      Math.abs(
+        prevProps.opacities.troposphere - nextProps.opacities.troposphere,
+      ) < 0.01;
 
     // Check other values
-    const otherValuesUnchanged = (
+    const otherValuesUnchanged =
       prevProps.phase === nextProps.phase &&
       Math.abs(prevProps.intensity - nextProps.intensity) < 0.01 &&
       Math.abs(prevProps.progress - nextProps.progress) < 0.01 &&
-      prevProps.particleCount === nextProps.particleCount
-    );
+      prevProps.particleCount === nextProps.particleCount;
 
     return dataUnchanged && opacitiesUnchanged && otherValuesUnchanged;
-  }
+  },
 );
 
-LazySceneLayerManager.displayName = 'LazySceneLayerManager';
+LazySceneLayerManager.displayName = "LazySceneLayerManager";

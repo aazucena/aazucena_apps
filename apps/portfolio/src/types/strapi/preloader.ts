@@ -1,13 +1,13 @@
-import type { StrapiBaseAttributes } from './types';
+import type { StrapiBaseAttributes } from "./types";
 
 // Local CTA Button interface with correct field name (schema uses 'label', not 'text')
 export interface StrapiCTAButton {
   id?: number;
-  label: string;  // Correct field name from schema
+  label: string; // Correct field name from schema
   url: string;
   icon?: string;
-  variant: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size: 'sm' | 'md' | 'lg';
+  variant: "primary" | "secondary" | "outline" | "ghost";
+  size: "sm" | "md" | "lg";
   openInNewTab: boolean;
 }
 
@@ -16,7 +16,7 @@ export interface StrapiLoadingStep {
   stepId: number;
   name: string;
   description: string;
-  icon: string;  // Icon name from @mynaui/icons-react
+  icon: string; // Icon name from @mynaui/icons-react
   weight: number;
   enabled: boolean;
 }
@@ -66,16 +66,24 @@ export interface StrapiThemeOverrides {
 
 export interface StrapiPreloaderConfig extends StrapiBaseAttributes {
   enabled: boolean;
-  variant: 'interactive' | 'simple';
-  theme: 'default' | 'hoyoverse' | 'cyberpunk' | 'minimal' | 'glass' | 'dark' | 'light' | 'nature';
+  variant: "interactive" | "simple";
+  theme:
+    | "default"
+    | "hoyoverse"
+    | "cyberpunk"
+    | "minimal"
+    | "glass"
+    | "dark"
+    | "light"
+    | "nature";
 
-  title: string;  // Required
+  title: string; // Required
   subtitle?: string;
-  readyTitle: string;  // Required
-  readySubtitle: string;  // Required
+  readyTitle: string; // Required
+  readySubtitle: string; // Required
   readyFooterNote?: string;
 
-  continueButton: StrapiCTAButton;  // Required
+  continueButton: StrapiCTAButton; // Required
 
   minDisplayTime: number;
   maxDisplayTime: number;
@@ -87,17 +95,17 @@ export interface StrapiPreloaderConfig extends StrapiBaseAttributes {
   preloadAssets: boolean;
   enableAnimations: boolean;
 
-  transitionType: 'fade' | 'slide' | 'scale' | 'none';
+  transitionType: "fade" | "slide" | "scale" | "none";
   showCard: boolean;
 
-  loadingSteps: StrapiLoadingStep[];  // Required, min 1
+  loadingSteps: StrapiLoadingStep[]; // Required, min 1
 
   primaryColor?: string;
   secondaryColor?: string;
   themeOverrides?: StrapiThemeOverrides;
 
   ariaLabel: string;
-  ariaLive: 'off' | 'polite' | 'assertive';
+  ariaLive: "off" | "polite" | "assertive";
   skipButtonAriaLabel: string;
 
   customClassName?: string;

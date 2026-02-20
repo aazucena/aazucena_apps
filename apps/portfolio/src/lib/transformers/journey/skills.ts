@@ -3,12 +3,10 @@
  * Handles evolution, network graph, and skill details
  */
 
-
-import type { SkillWithCategory } from '~/lib/validators/components';
-import type { Experience } from '~/lib/transformers/experiences'
-import type { Education } from '~/lib/transformers/education';
-import type { Project } from '~/lib/transformers/projects';
-import { getSafeSkillInfo } from './base';
+import type { Experience } from "~/lib/transformers/experiences";
+import type { Education } from "~/lib/transformers/education";
+import type { Project } from "~/lib/transformers/projects";
+import { getSafeSkillInfo } from "./base";
 
 export interface SkillsOverTime {
   year: number;
@@ -44,14 +42,14 @@ export interface SkillDetails {
   relatedSkills: string[];
   firstUsed: Date;
   lastUsed: Date;
-  proficiencyLevel?: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+  proficiencyLevel?: "Beginner" | "Intermediate" | "Advanced" | "Expert";
   description?: string;
 }
 
 export function transformToSkillsEvolution(
   experiences: Experience[],
   education: Education[] = [],
-  projects: Project[] = []
+  projects: Project[] = [],
 ): SkillsOverTime[] {
   const skillsByYear = new Map<number, Map<string, Set<string>>>();
   const currentYear = new Date().getFullYear();
@@ -61,17 +59,25 @@ export function transformToSkillsEvolution(
     const yearSkillsMap = skillsByYear.get(year)!;
 
     skills.forEach((skill) => {
-      const { name: skillName, category: categoryName } = getSafeSkillInfo(skill);
-      if (!yearSkillsMap.has(categoryName)) yearSkillsMap.set(categoryName, new Set());
+      const { name: skillName, category: categoryName } =
+        getSafeSkillInfo(skill);
+      if (!yearSkillsMap.has(categoryName))
+        yearSkillsMap.set(categoryName, new Set());
       yearSkillsMap.get(categoryName)!.add(skillName);
     });
   };
 
   experiences.forEach((exp, index) => {
     const startDate = new Date(exp.startDate);
-    const endDate = exp.isCurrent ? new Date() : new Date(exp.endDate || Date.now());
-    const startYear = !isNaN(startDate.getTime()) ? startDate.getFullYear() : currentYear - index - 1;
-    const endYear = !isNaN(endDate.getTime()) ? endDate.getFullYear() : currentYear;
+    const endDate = exp.isCurrent
+      ? new Date()
+      : new Date(exp.endDate || Date.now());
+    const startYear = !isNaN(startDate.getTime())
+      ? startDate.getFullYear()
+      : currentYear - index - 1;
+    const endYear = !isNaN(endDate.getTime())
+      ? endDate.getFullYear()
+      : currentYear;
 
     for (let year = startYear; year <= endYear; year++) {
       addSkillsToYear(year, exp.skills);
@@ -80,9 +86,15 @@ export function transformToSkillsEvolution(
 
   education.forEach((edu, index) => {
     const startDate = new Date(edu.startDate);
-    const endDate = edu.current ? new Date() : new Date(edu.graduationDate || edu.graduationDate || Date.now());
-    const startYear = !isNaN(startDate.getTime()) ? startDate.getFullYear() : currentYear - experiences.length - index - 5;
-    const endYear = !isNaN(endDate.getTime()) ? endDate.getFullYear() : currentYear;
+    const endDate = edu.current
+      ? new Date()
+      : new Date(edu.graduationDate || edu.graduationDate || Date.now());
+    const startYear = !isNaN(startDate.getTime())
+      ? startDate.getFullYear()
+      : currentYear - experiences.length - index - 5;
+    const endYear = !isNaN(endDate.getTime())
+      ? endDate.getFullYear()
+      : currentYear;
 
     for (let year = startYear; year <= endYear; year++) {
       addSkillsToYear(year, edu.skills || []);
@@ -105,9 +117,11 @@ export function transformToSkillsEvolution(
     const yearSkillsMap = skillsByYear.get(year)!;
     const categories: { [category: string]: number } = {};
     let totalSkills = 0;
-    
-    yearSkillsMap.forEach((skills) => { totalSkills += skills.size; });
-    categories['Total Skills'] = totalSkills;
+
+    yearSkillsMap.forEach((skills) => {
+      totalSkills += skills.size;
+    });
+    categories["Total Skills"] = totalSkills;
     yearSkillsMap.forEach((skills, categoryName) => {
       categories[categoryName] = skills.size;
     });
@@ -119,7 +133,7 @@ export function transformToSkillsEvolution(
 export function transformToSkillsNetwork(
   experiences: Experience[],
   education: Education[] = [],
-  projects: Project[] = []
+  projects: Project[] = [],
 ): SkillsNetworkData {
   const skillFrequency = new Map<string, number>();
   const skillPairs = new Map<string, number>();
@@ -128,10 +142,12 @@ export function transformToSkillsNetwork(
 
   const processSkills = (skills: any[]) => {
     skills.forEach((skill) => {
-      const { name: skillName, category: categoryName } = getSafeSkillInfo(skill);
+      const { name: skillName, category: categoryName } =
+        getSafeSkillInfo(skill);
       allSkills.add(skillName);
       skillFrequency.set(skillName, (skillFrequency.get(skillName) || 0) + 1);
-      if (!skillCategories.has(skillName)) skillCategories.set(skillName, categoryName);
+      if (!skillCategories.has(skillName))
+        skillCategories.set(skillName, categoryName);
     });
   };
 
@@ -139,7 +155,7 @@ export function transformToSkillsNetwork(
     const skillNames = skills.map((skill) => getSafeSkillInfo(skill).name);
     for (let i = 0; i < skillNames.length; i++) {
       for (let j = i + 1; j < skillNames.length; j++) {
-        const pair = [skillNames[i]!, skillNames[j]!].sort().join('|');
+        const pair = [skillNames[i]!, skillNames[j]!].sort().join("|");
         skillPairs.set(pair, (skillPairs.get(pair) || 0) + 1);
       }
     }
@@ -167,13 +183,13 @@ export function transformToSkillsNetwork(
   const nodes: SkillNode[] = Array.from(allSkills).map((skillName) => ({
     id: skillName,
     name: skillName,
-    category: skillCategories.get(skillName) || 'Other',
+    category: skillCategories.get(skillName) || "Other",
     size: skillFrequency.get(skillName) || 1,
   }));
 
   const links: SkillLink[] = [];
   skillPairs.forEach((count, pair) => {
-    const [source, target] = pair.split('|');
+    const [source, target] = pair.split("|");
     links.push({ source: source!, target: target!, value: count });
   });
 
@@ -183,20 +199,20 @@ export function transformToSkillsNetwork(
 export function getSkillDetails(
   skillName: string,
   experiences: Experience[],
-  education: Education[],
-  projects: Project[]
+  _education: Education[],
+  projects: Project[],
 ): SkillDetails {
   const occurrences: { date: Date; source: string }[] = [];
   const relatedSkillsSet = new Set<string>();
   let totalProjects = 0;
   let totalExperiences = 0;
-  let category = 'Other';
+  let category = "Other";
 
   experiences.forEach((exp) => {
     const hasSkill = exp.skills.some((s) => {
       const info = getSafeSkillInfo(s);
       if (info.name === skillName) {
-        if (info.category !== 'Other') category = info.category;
+        if (info.category !== "Other") category = info.category;
         return true;
       }
       return false;
@@ -205,9 +221,13 @@ export function getSkillDetails(
     if (hasSkill) {
       totalExperiences++;
       const startDate = new Date(exp.startDate);
-      if (!isNaN(startDate.getTime())) occurrences.push({ date: startDate, source: exp.company });
-      const endDate = exp.isCurrent ? new Date() : new Date(exp.endDate || Date.now());
-      if (!isNaN(endDate.getTime())) occurrences.push({ date: endDate, source: exp.company });
+      if (!isNaN(startDate.getTime()))
+        occurrences.push({ date: startDate, source: exp.company });
+      const endDate = exp.isCurrent
+        ? new Date()
+        : new Date(exp.endDate || Date.now());
+      if (!isNaN(endDate.getTime()))
+        occurrences.push({ date: endDate, source: exp.company });
 
       exp.skills.forEach((s) => {
         const info = getSafeSkillInfo(s);
@@ -220,7 +240,7 @@ export function getSkillDetails(
     const hasSkill = proj.techStack?.some((s) => {
       const info = getSafeSkillInfo(s);
       if (info.name === skillName) {
-        if (info.category !== 'Other') category = info.category;
+        if (info.category !== "Other") category = info.category;
         return true;
       }
       return false;
@@ -238,15 +258,21 @@ export function getSkillDetails(
   });
 
   occurrences.sort((a, b) => a.date.getTime() - b.date.getTime());
-  const yearsUsed = Array.from(new Set(occurrences.map((o) => o.date.getFullYear()))).sort();
-  const firstUsed = occurrences && occurrences.length > 0 ? occurrences[0]!.date : new Date();
-  const lastUsed = occurrences && occurrences.length > 0 ? occurrences[occurrences.length - 1]!.date : new Date();
+  const yearsUsed = Array.from(
+    new Set(occurrences.map((o) => o.date.getFullYear())),
+  ).sort();
+  const firstUsed =
+    occurrences && occurrences.length > 0 ? occurrences[0]!.date : new Date();
+  const lastUsed =
+    occurrences && occurrences.length > 0
+      ? occurrences[occurrences.length - 1]!.date
+      : new Date();
 
   const yearsCount = yearsUsed.length;
-  let proficiencyLevel: SkillDetails['proficiencyLevel'] = 'Beginner';
-  if (yearsCount >= 5) proficiencyLevel = 'Expert';
-  else if (yearsCount >= 3) proficiencyLevel = 'Advanced';
-  else if (yearsCount >= 1) proficiencyLevel = 'Intermediate';
+  let proficiencyLevel: SkillDetails["proficiencyLevel"] = "Beginner";
+  if (yearsCount >= 5) proficiencyLevel = "Expert";
+  else if (yearsCount >= 3) proficiencyLevel = "Advanced";
+  else if (yearsCount >= 1) proficiencyLevel = "Intermediate";
 
   return {
     name: skillName,

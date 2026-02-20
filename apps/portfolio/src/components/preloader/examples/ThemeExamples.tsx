@@ -5,9 +5,9 @@
  * and custom theme configurations with the Preloader component.
  */
 
-import Preloader from '../Preloader';
-import InteractivePreloader from '../InteractivePreloader';
-import SimplePreloader from '../SimplePreloader';
+import Preloader from "../Preloader";
+import InteractivePreloader from "../InteractivePreloader";
+import SimplePreloader from "../SimplePreloader";
 
 // Example 1: Basic Theme Usage
 export function HoyoversePreloader() {
@@ -19,7 +19,7 @@ export function HoyoversePreloader() {
       readySubtitle="Your journey begins now"
       continueButtonText="Begin Adventure"
       enableAnimations={true}
-      onComplete={() => console.log('Ready to explore!')}
+      onComplete={() => console.log("Ready to explore!")}
     />
   );
 }
@@ -84,17 +84,17 @@ export function CustomBrandPreloader() {
       theme="default"
       customTheme={{
         colors: {
-          primary: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          success: 'rgb(99, 102, 241)',
-          accent: 'rgb(236, 72, 153)',
+          primary: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          success: "rgb(99, 102, 241)",
+          accent: "rgb(236, 72, 153)",
         },
         effects: {
-          glowColor: 'rgba(102, 126, 234, 0.5)',
+          glowColor: "rgba(102, 126, 234, 0.5)",
           borderRadius: {
-            card: '1.5rem',
-            button: '0.75rem',
-            badge: '9999px',
-            progress: '9999px',
+            card: "1.5rem",
+            button: "0.75rem",
+            badge: "9999px",
+            progress: "9999px",
           },
         },
       }}
@@ -112,42 +112,42 @@ export function FullyCustomPreloader() {
       theme="default"
       customTheme={{
         colors: {
-          primary: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-          primaryForeground: 'rgb(255, 255, 255)',
-          secondary: 'rgb(100, 116, 139)',
-          secondaryForeground: 'rgb(255, 255, 255)',
-          success: 'rgb(34, 197, 94)',
-          successForeground: 'rgb(255, 255, 255)',
-          error: 'rgb(239, 68, 68)',
-          errorForeground: 'rgb(255, 255, 255)',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          cardBackground: 'rgba(255, 255, 255, 0.1)',
-          overlayBackground: 'rgba(102, 126, 234, 0.9)',
-          foreground: 'rgb(255, 255, 255)',
-          mutedForeground: 'rgba(255, 255, 255, 0.7)',
-          accent: 'rgb(236, 72, 153)',
-          accentForeground: 'rgb(255, 255, 255)',
-          border: 'rgba(255, 255, 255, 0.2)',
+          primary: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+          primaryForeground: "rgb(255, 255, 255)",
+          secondary: "rgb(100, 116, 139)",
+          secondaryForeground: "rgb(255, 255, 255)",
+          success: "rgb(34, 197, 94)",
+          successForeground: "rgb(255, 255, 255)",
+          error: "rgb(239, 68, 68)",
+          errorForeground: "rgb(255, 255, 255)",
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          cardBackground: "rgba(255, 255, 255, 0.1)",
+          overlayBackground: "rgba(102, 126, 234, 0.9)",
+          foreground: "rgb(255, 255, 255)",
+          mutedForeground: "rgba(255, 255, 255, 0.7)",
+          accent: "rgb(236, 72, 153)",
+          accentForeground: "rgb(255, 255, 255)",
+          border: "rgba(255, 255, 255, 0.2)",
         },
         effects: {
-          backdropBlur: 'blur(20px)',
-          cardBlur: 'blur(24px)',
-          shadow: '0 25px 50px rgba(102, 126, 234, 0.4)',
-          glowColor: 'rgba(245, 87, 108, 0.6)',
+          backdropBlur: "blur(20px)",
+          cardBlur: "blur(24px)",
+          shadow: "0 25px 50px rgba(102, 126, 234, 0.4)",
+          glowColor: "rgba(245, 87, 108, 0.6)",
           borderRadius: {
-            card: '2rem',
-            button: '1rem',
-            badge: '9999px',
-            progress: '9999px',
+            card: "2rem",
+            button: "1rem",
+            badge: "9999px",
+            progress: "9999px",
           },
           animationSpeed: 1.3,
-          animationEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+          animationEasing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
         },
         typography: {
-          titleSize: '2rem',
-          titleWeight: '800',
-          subtitleSize: '1rem',
-          fontFamily: 'Inter, system-ui, sans-serif',
+          titleSize: "2rem",
+          titleWeight: "800",
+          subtitleSize: "1rem",
+          fontFamily: "Inter, system-ui, sans-serif",
         },
       }}
       title="Welcome to the Future"
@@ -205,20 +205,20 @@ export function CustomStepsWithTheme() {
       customSteps={[
         {
           id: 1,
-          name: 'Connecting',
-          description: 'Establishing secure connection...',
+          name: "Connecting",
+          description: "Establishing secure connection...",
           icon: () => <div>🔌</div>,
         },
         {
           id: 2,
-          name: 'Authenticating',
-          description: 'Verifying credentials...',
+          name: "Authenticating",
+          description: "Verifying credentials...",
           icon: () => <div>🔐</div>,
         },
         {
           id: 3,
-          name: 'Loading Data',
-          description: 'Fetching your data...',
+          name: "Loading Data",
+          description: "Fetching your data...",
           icon: () => <div>📦</div>,
         },
       ]}
@@ -236,7 +236,7 @@ export function TimeBasedThemePreloader() {
 
   return (
     <InteractivePreloader
-      theme={isDayTime ? 'light' : 'dark'}
+      theme={isDayTime ? "light" : "dark"}
       title="Loading Your Experience"
       readyTitle="Welcome!"
       continueButtonText="Continue"

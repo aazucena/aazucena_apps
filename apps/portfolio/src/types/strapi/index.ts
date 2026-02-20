@@ -1,3 +1,3 @@
-export * from './contentTypes'
-export * from './components'
-export * from './types'
+export * from "./contentTypes";
+export * from "./components";
+export * from "./types";

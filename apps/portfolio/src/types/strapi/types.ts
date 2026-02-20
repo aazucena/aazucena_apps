@@ -107,8 +107,8 @@ export interface StrapiCTAButton {
   text: string;
   url?: string;
   icon?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
   openInNewTab?: boolean;
 }
 
@@ -150,7 +150,16 @@ export interface StrapiImageElement {
 export interface StrapiTag {
   id: number;
   label: string;
-  color: 'cyan' | 'blue' | 'purple' | 'pink' | 'green' | 'teal' | 'orange' | 'red' | 'gray';
+  color:
+    | "cyan"
+    | "blue"
+    | "purple"
+    | "pink"
+    | "green"
+    | "teal"
+    | "orange"
+    | "red"
+    | "gray";
 }
 
 // ============================================================================
@@ -223,7 +232,7 @@ export interface WebsiteConfiguration extends StrapiBaseAttributes {
 }
 
 export interface Theme extends StrapiBaseAttributes {
-  mode: 'system' | 'light' | 'dark' | 'light:only' | 'dark:only';
+  mode: "system" | "light" | "dark" | "light:only" | "dark:only";
   primaryColor: string;
   primaryColorDark: string;
   secondaryColor: string;
@@ -249,7 +258,7 @@ export interface Homepage extends StrapiBaseAttributes {
 export interface AnimationSystem extends StrapiBaseAttributes {
   enabled: boolean;
   heavyAnimations: boolean;
-  defaultPerformanceTier: 'low' | 'medium' | 'high' | 'auto';
+  defaultPerformanceTier: "low" | "medium" | "high" | "auto";
   particleCountLow?: number;
   particleCountMedium?: number;
   particleCountHigh?: number;
@@ -290,9 +299,16 @@ export interface BlogConfiguration extends StrapiBaseAttributes {
 
 export interface Skill extends StrapiBaseAttributes {
   name: string;
-  display: 'hidden' | 'standard' | 'featured' | 'core';
-  category: 'Frontend' | 'Backend' | 'Database' | 'DevOps' | 'Design' | 'Tools' | 'Music Production';
-  proficiency: 'learning' | 'competent' | 'proficient' | 'expert';
+  display: "hidden" | "standard" | "featured" | "core";
+  category:
+    | "Frontend"
+    | "Backend"
+    | "Database"
+    | "DevOps"
+    | "Design"
+    | "Tools"
+    | "Music Production";
+  proficiency: "learning" | "competent" | "proficient" | "expert";
   icon?: string;
   description?: string;
   yearsOfExperience?: number;
@@ -309,18 +325,18 @@ export interface SkillCategory extends StrapiBaseAttributes {
   name: string;
   label: string;
   icon?: string;
-  display?: 'hidden' | 'visible';
+  display?: "hidden" | "visible";
   variant?:
-    | 'cyan-blue'
-    | 'purple-pink'
-    | 'green-emerald'
-    | 'blue-indigo'
-    | 'yellow-orange'
-    | 'pink-red'
-    | 'teal-cyan'
-    | 'orange-red'
-    | 'violet-purple'
-    | 'indigo-violet';
+    | "cyan-blue"
+    | "purple-pink"
+    | "green-emerald"
+    | "blue-indigo"
+    | "yellow-orange"
+    | "pink-red"
+    | "teal-cyan"
+    | "orange-red"
+    | "violet-purple"
+    | "indigo-violet";
   // Relations (not populated by default)
   skills?: Skill[];
 }
@@ -358,18 +374,34 @@ export interface Project extends StrapiBaseAttributes {
   slug: string;
   shortDescription: string;
   description: string;
-  display: 'hidden' | 'unlisted' | 'standard' | 'featured' | 'home';
+  display: "hidden" | "unlisted" | "standard" | "featured" | "home";
   coverImage?: StrapiMedia;
   screenshots?: StrapiMedia[];
   demoVideo?: StrapiMedia;
   gallery?: StrapiMedia[];
   repositoryUrl?: string;
   liveDemoUrl?: string;
-  projectType?: 'Web App' | 'Mobile App' | 'Desktop App' | 'Library' | 'API' | 'CLI Tool' | 'Game' | 'Music Production' | 'Hardware/Embedded';
+  projectType?:
+    | "Web App"
+    | "Mobile App"
+    | "Desktop App"
+    | "Library"
+    | "API"
+    | "CLI Tool"
+    | "Game"
+    | "Music Production"
+    | "Hardware/Embedded";
   sort?: number;
   startDate?: string;
   endDate?: string;
-  projectStatus?: 'Planned' | 'In Progress' | 'Released' | 'Maintenance' | 'On Hold' | 'Completed' | 'Archived';
+  projectStatus?:
+    | "Planned"
+    | "In Progress"
+    | "Released"
+    | "Maintenance"
+    | "On Hold"
+    | "Completed"
+    | "Archived";
   tags?: StrapiTag[];
   techStack?: Skill[];
   metrics?: StrapiStats[];
@@ -404,10 +436,10 @@ export interface Testimonial extends StrapiBaseAttributes {
   featured?: boolean;
   avatar?: StrapiImageElement;
   companyLogo?: StrapiMedia;
-  relationship?: 'client' | 'colleague' | 'manager' | 'other';
+  relationship?: "client" | "colleague" | "manager" | "other";
   projectRelated?: Project;
-  approvalStatus?: 'Pending' | 'Approved' | 'Rejected';
-  aiSentiment?: 'positive' | 'neutral' | 'negative';
+  approvalStatus?: "Pending" | "Approved" | "Rejected";
+  aiSentiment?: "positive" | "neutral" | "negative";
   aiSummary?: string;
   contentEmbedding?: any;
   contentEmbeddingModel?: string;
@@ -420,9 +452,9 @@ export interface Award extends StrapiBaseAttributes {
   organization: string;
   issuer: string;
   year: string;
-  type: 'certification' | 'award';
+  type: "certification" | "award";
   description?: string;
-  category?: 'certification' | 'award' | 'achievement' | 'recognition';
+  category?: "certification" | "award" | "achievement" | "recognition";
   credentialUrl?: string;
   credentialId?: string;
   badge?: StrapiMedia;
@@ -449,7 +481,15 @@ export interface Composition extends StrapiBaseAttributes {
 }
 
 export interface FormSubmission extends StrapiBaseAttributes {
-  formType: 'Contact' | 'Feedback' | 'Testimonial' | 'BugReport' | 'FeatureRequest' | 'Collaboration' | 'Referral' | 'MusicFeedback';
+  formType:
+    | "Contact"
+    | "Feedback"
+    | "Testimonial"
+    | "BugReport"
+    | "FeatureRequest"
+    | "Collaboration"
+    | "Referral"
+    | "MusicFeedback";
   rawMessage?: string;
   email?: string;
   name?: string;
@@ -460,14 +500,14 @@ export interface FormSubmission extends StrapiBaseAttributes {
 
   // AI processing
   aiIntent?: string;
-  aiSentiment?: 'positive' | 'neutral' | 'negative';
+  aiSentiment?: "positive" | "neutral" | "negative";
   aiSummary?: string;
   aiTags?: string[];
   aiConfidence?: number;
   langSmithTraceId?: string;
 
   // Status tracking
-  status?: 'pending' | 'reviewed' | 'resolved' | 'archived';
+  status?: "pending" | "reviewed" | "resolved" | "archived";
   assignedTo?: string;
   responseText?: string;
   respondedAt?: string;
@@ -486,7 +526,7 @@ export interface FormSubmission extends StrapiBaseAttributes {
   testimonialText?: string;
 
   // Bug Report
-  bugSeverity?: 'low' | 'medium' | 'high' | 'critical';
+  bugSeverity?: "low" | "medium" | "high" | "critical";
   bugStepsToReproduce?: string;
   bugExpectedBehavior?: string;
   bugActualBehavior?: string;
@@ -500,7 +540,12 @@ export interface FormSubmission extends StrapiBaseAttributes {
   // Music Feedback
   compositionRelated?: Composition;
   trackTimestamp?: string;
-  feedbackType?: 'general' | 'mixing' | 'composition' | 'performance' | 'production';
+  feedbackType?:
+    | "general"
+    | "mixing"
+    | "composition"
+    | "performance"
+    | "production";
 }
 
 export interface EasterEggCompletion extends StrapiBaseAttributes {

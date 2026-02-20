@@ -1,7 +1,7 @@
-import { memo } from 'react';
-import InteractivePreloader from './InteractivePreloader';
-import SimplePreloader from './SimplePreloader';
-import type { PreloaderVariant, PreloaderPropsWithTheme } from './types';
+import { memo } from "react";
+import InteractivePreloader from "./InteractivePreloader";
+import SimplePreloader from "./SimplePreloader";
+import type { PreloaderVariant, PreloaderPropsWithTheme } from "./types";
 
 export interface UnifiedPreloaderPropsWithTheme extends PreloaderPropsWithTheme {
   variant?: PreloaderVariant;
@@ -50,29 +50,40 @@ export interface UnifiedPreloaderPropsWithTheme extends PreloaderPropsWithTheme 
  * ```
  */
 const Preloader = memo(function Preloader({
-  variant = 'interactive',
-  theme = 'default',
+  variant = "interactive",
+  theme = "default",
   customTheme,
   showCard = false,
   ...props
 }: UnifiedPreloaderPropsWithTheme) {
   switch (variant) {
-    case 'simple':
-      return <SimplePreloader theme={theme} customTheme={customTheme} showCard={showCard} {...props} />;
+    case "simple":
+      return (
+        <SimplePreloader
+          theme={theme}
+          customTheme={customTheme}
+          showCard={showCard}
+          {...props}
+        />
+      );
 
-    case 'interactive':
+    case "interactive":
     default:
-      return <InteractivePreloader theme={theme} customTheme={customTheme} showCard={showCard} {...props} />;
+      return (
+        <InteractivePreloader
+          theme={theme}
+          customTheme={customTheme}
+          showCard={showCard}
+          {...props}
+        />
+      );
   }
 });
 
 export default Preloader;
 
 // Re-export the individual preloaders
-export {
-  InteractivePreloader,
-  SimplePreloader
-};
+export { InteractivePreloader, SimplePreloader };
 
 // Re-export types
 export type { PreloaderVariant };

@@ -4,11 +4,11 @@
  * Provides consistent backdrop, animations, and behavior
  */
 
-import { useEffect, useState, type JSX, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState, type JSX, type ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export type PanelPosition = 'left' | 'right' | 'top' | 'bottom' | 'center';
-export type PanelState = 'closed' | 'opening' | 'open' | 'closing';
+export type PanelPosition = "left" | "right" | "top" | "bottom" | "center";
+export type PanelState = "closed" | "opening" | "open" | "closing";
 
 export interface PanelProps {
   /** Whether the panel is open */
@@ -49,38 +49,38 @@ export interface PanelProps {
  * Get animation variants based on panel position
  */
 function getAnimationVariants(position: PanelPosition) {
-  const slideDistance = '100%';
+  const slideDistance = "100%";
 
   switch (position) {
-    case 'left':
+    case "left":
       return {
         hidden: { x: `-${slideDistance}`, opacity: 0 },
         visible: { x: 0, opacity: 1 },
         exit: { x: `-${slideDistance}`, opacity: 0 },
       };
 
-    case 'right':
+    case "right":
       return {
         hidden: { x: slideDistance, opacity: 0 },
         visible: { x: 0, opacity: 1 },
         exit: { x: slideDistance, opacity: 0 },
       };
 
-    case 'top':
+    case "top":
       return {
         hidden: { y: `-${slideDistance}`, opacity: 0 },
         visible: { y: 0, opacity: 1 },
         exit: { y: `-${slideDistance}`, opacity: 0 },
       };
 
-    case 'bottom':
+    case "bottom":
       return {
         hidden: { y: slideDistance, opacity: 0 },
         visible: { y: 0, opacity: 1 },
         exit: { y: slideDistance, opacity: 0 },
       };
 
-    case 'center':
+    case "center":
       return {
         hidden: { scale: 0.9, opacity: 0 },
         visible: { scale: 1, opacity: 1 },
@@ -101,25 +101,25 @@ function getAnimationVariants(position: PanelPosition) {
  */
 function getPositionClasses(position: PanelPosition): string {
   switch (position) {
-    case 'left':
-      return 'left-0 top-0 h-full';
-    case 'right':
-      return 'right-0 top-0 h-full';
-    case 'top':
-      return 'top-0 left-0 w-full';
-    case 'bottom':
-      return 'bottom-0 left-0 w-full';
-    case 'center':
-      return 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2';
+    case "left":
+      return "left-0 top-0 h-full";
+    case "right":
+      return "right-0 top-0 h-full";
+    case "top":
+      return "top-0 left-0 w-full";
+    case "bottom":
+      return "bottom-0 left-0 w-full";
+    case "center":
+      return "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2";
     default:
-      return '';
+      return "";
   }
 }
 
 export function Panel({
   isOpen,
   onClose,
-  position = 'right',
+  position = "right",
   children,
   backdrop = true,
   closeOnBackdropClick = true,
@@ -127,22 +127,22 @@ export function Panel({
   zIndex = 50,
   width,
   height,
-  className = '',
+  className = "",
 }: PanelProps): JSX.Element | null {
-  const [panelState, setPanelState] = useState<PanelState>('closed');
+  const [panelState, setPanelState] = useState<PanelState>("closed");
 
   // Handle Escape key
   useEffect(() => {
     if (!closeOnEscape || !isOpen) return;
 
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, closeOnEscape, onClose]);
 
   // Lock body scroll when panel is open
@@ -153,10 +153,11 @@ export function Panel({
     const originalPaddingRight = document.body.style.paddingRight;
 
     // Get scrollbar width to prevent layout shift
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
 
     // Lock scroll
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     if (scrollbarWidth > 0) {
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
@@ -170,15 +171,15 @@ export function Panel({
 
   // Update panel state based on isOpen prop
   useEffect(() => {
-    if (isOpen && panelState === 'closed') {
-      setPanelState('opening');
+    if (isOpen && panelState === "closed") {
+      setPanelState("opening");
       // Transition to 'open' after animation completes
-      const timer = setTimeout(() => setPanelState('open'), 200);
+      const timer = setTimeout(() => setPanelState("open"), 200);
       return () => clearTimeout(timer);
-    } else if (!isOpen && (panelState === 'open' || panelState === 'opening')) {
-      setPanelState('closing');
+    } else if (!isOpen && (panelState === "open" || panelState === "opening")) {
+      setPanelState("closing");
       // Transition to 'closed' after animation completes
-      const timer = setTimeout(() => setPanelState('closed'), 200);
+      const timer = setTimeout(() => setPanelState("closed"), 200);
       return () => clearTimeout(timer);
     }
   }, [isOpen, panelState]);
@@ -195,11 +196,14 @@ export function Panel({
   const positionClasses = getPositionClasses(position);
 
   // Determine default dimensions based on position
-  const defaultWidth = position === 'left' || position === 'right' ? '400px' : '100%';
-  const defaultHeight = position === 'top' || position === 'bottom' ? '400px' : '100%';
+  const defaultWidth =
+    position === "left" || position === "right" ? "400px" : "100%";
+  const defaultHeight =
+    position === "top" || position === "bottom" ? "400px" : "100%";
 
-  const panelWidth = width || (position === 'center' ? 'auto' : defaultWidth);
-  const panelHeight = height || (position === 'center' ? 'auto' : defaultHeight);
+  const panelWidth = width || (position === "center" ? "auto" : defaultWidth);
+  const panelHeight =
+    height || (position === "center" ? "auto" : defaultHeight);
 
   return (
     <AnimatePresence mode="wait">
@@ -226,15 +230,15 @@ export function Panel({
             style={{
               width: panelWidth,
               height: panelHeight,
-              maxWidth: position === 'center' ? '90vw' : undefined,
-              maxHeight: position === 'center' ? '90vh' : undefined,
+              maxWidth: position === "center" ? "90vw" : undefined,
+              maxHeight: position === "center" ? "90vh" : undefined,
             }}
             variants={variants}
             initial="hidden"
             animate="visible"
             exit="exit"
             transition={{
-              type: 'spring',
+              type: "spring",
               damping: 25,
               stiffness: 300,
               duration: 0.2,

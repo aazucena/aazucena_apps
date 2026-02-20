@@ -1,7 +1,7 @@
-import { z } from 'zod';
-import { SectionSchema, SeoSchema } from './components';
+import { z } from "zod";
+import { SectionSchema, SeoSchema } from "./components";
 
-export type { Section } from './components';
+export type { Section } from "./components";
 
 /**
  * Zod schema for Homepage from Strapi CMS

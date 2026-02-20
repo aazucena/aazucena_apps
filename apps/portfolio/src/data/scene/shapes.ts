@@ -3,10 +3,10 @@
  * Generates geometric shapes for space scenes
  */
 
-import * as THREE from 'three';
-import { generatePhaseColor } from '~/lib/utils/scene/phaseColors';
-import type { ShapeData } from '~/config/animations';
-import type { AtmosphericPhase } from '~/config/animations';
+import * as THREE from "three";
+import { generatePhaseColor } from "~/lib/utils/scene/phaseColors";
+import type { ShapeData } from "~/config/animations";
+import type { AtmosphericPhase } from "~/config/animations";
 
 /**
  * Create basic geometric shapes for reuse
@@ -21,7 +21,7 @@ export function createBasicGeometries(): THREE.BufferGeometry[] {
     new THREE.DodecahedronGeometry(0.08, 0),
     new THREE.TorusGeometry(0.08, 0.03, 8, 6),
     new THREE.CylinderGeometry(0.08, 0.08, 0.2, 8),
-    new THREE.RingGeometry(0.05, 0.1, 8)
+    new THREE.RingGeometry(0.05, 0.1, 8),
   ];
 }
 
@@ -35,12 +35,12 @@ export function createBasicGeometries(): THREE.BufferGeometry[] {
 export function generateShapeData(
   count: number,
   geometries: THREE.BufferGeometry[],
-  phase: AtmosphericPhase
+  phase: AtmosphericPhase,
 ): ShapeData[] {
   return Array.from({ length: count }, () => {
     const arm = Math.floor(Math.random() * 4);
     const radius = Math.random() * 12 + 6;
-    const angle = (arm * Math.PI / 2) + (Math.random() * 0.6 - 0.3);
+    const angle = (arm * Math.PI) / 2 + (Math.random() * 0.6 - 0.3);
     const height = (Math.random() - 0.5) * 2;
 
     const spiralOffset = Math.sin(radius * 0.3) * 1.5;
@@ -49,16 +49,18 @@ export function generateShapeData(
       position: [
         Math.cos(angle) * (radius + spiralOffset) + (Math.random() - 0.5) * 1.5,
         height,
-        Math.sin(angle) * (radius + spiralOffset) + (Math.random() - 0.5) * 1.5
+        Math.sin(angle) * (radius + spiralOffset) + (Math.random() - 0.5) * 1.5,
       ] as [number, number, number],
       rotation: [
         Math.random() * Math.PI,
         Math.random() * Math.PI,
-        Math.random() * Math.PI
+        Math.random() * Math.PI,
       ] as [number, number, number],
       scale: Math.random() * 0.4 + 0.2,
       color: generatePhaseColor(phase),
-      geometry: geometries[Math.floor(Math.random() * geometries.length)]
+      geometry: geometries[
+        Math.floor(Math.random() * geometries.length)
+      ] as THREE.BufferGeometry,
     };
   });
 }

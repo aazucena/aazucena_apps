@@ -7,21 +7,21 @@
  * @see docs/strapi/16-api-tokens-setup.md
  */
 
-import qs from 'qs';
+import qs from "qs";
 
-const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
-const STRAPI_API_ENDPOINT = import.meta.env.STRAPI_API_ENDPOINT || '/api';
+const STRAPI_URL = import.meta.env.STRAPI_URL || "http://localhost:1337";
+const STRAPI_API_ENDPOINT = import.meta.env.STRAPI_API_ENDPOINT || "/api";
 const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN;
 
 export function validateStrapiToken(token: string = STRAPI_TOKEN): boolean {
   if (token) return true;
   if (import.meta.env.PROD) {
-    throw new Error('STRAPI_TOKEN is required in production environment');
+    throw new Error("STRAPI_TOKEN is required in production environment");
   } else {
     console.warn(
-      '[Strapi] No STRAPI_TOKEN found in environment variables.',
-      'API calls will fail. Using fallback data.',
-      'Set STRAPI_TOKEN in your .env file to fetch from CMS.'
+      "[Strapi] No STRAPI_TOKEN found in environment variables.",
+      "API calls will fail. Using fallback data.",
+      "Set STRAPI_TOKEN in your .env file to fetch from CMS.",
     );
   }
   return false;
@@ -62,7 +62,7 @@ export interface StrapiQueryOptions {
     limit?: number;
   };
   locale?: string;
-  publicationState?: 'live' | 'preview';
+  publicationState?: "live" | "preview";
 }
 
 export interface FetchOptions {
@@ -85,7 +85,7 @@ export interface FetchOptions {
  * // Output: populate[author][populate]=avatar
  */
 function buildQueryString(query?: StrapiQueryOptions): string {
-  if (!query) return '';
+  if (!query) return "";
 
   const queryString = qs.stringify(query, {
     encodeValuesOnly: true, // Keeps brackets readable
@@ -100,12 +100,14 @@ function buildQueryString(query?: StrapiQueryOptions): string {
 function handleStrapiError(status: number, error: any): never {
   const strapiError: StrapiError = {
     status,
-    name: error?.error?.name || 'StrapiError',
-    message: error?.error?.message || 'An error occurred while fetching data from Strapi',
+    name: error?.error?.name || "StrapiError",
+    message:
+      error?.error?.message ||
+      "An error occurred while fetching data from Strapi",
     details: error?.error?.details,
   };
 
-  console.error('[Strapi API Error]', strapiError);
+  console.error("[Strapi API Error]", strapiError);
   throw strapiError;
 }
 
@@ -131,7 +133,7 @@ function sanitizeData(data: any): any {
   if (data.data !== undefined) {
     return {
       ...data,
-      data: sanitizeData(data.data)
+      data: sanitizeData(data.data),
     };
   }
 
@@ -139,17 +141,19 @@ function sanitizeData(data: any): any {
     return data.map(sanitizeData);
   }
 
-  if (typeof data === 'object') {
+  if (typeof data === "object") {
     const sanitized: Record<string, any> = {};
     for (const [key, value] of Object.entries(data)) {
       // Apply field-specific safe defaults for common null-related errors
       if (value === null || value === undefined) {
-        if (key === 'sort') sanitized[key] = 0;
-        else if (key === 'metaRobots') sanitized[key] = 'index, follow';
-        else if (key === 'metaViewport') sanitized[key] = 'width=device-width, initial-scale=1.0';
-        else if (key === 'availabilityStatus') sanitized[key] = 'Open to Opportunities';
-        else if (key === 'timezone') sanitized[key] = 'America/Edmonton';
-        else if (key === 'relatedLinks') sanitized[key] = [];
+        if (key === "sort") sanitized[key] = 0;
+        else if (key === "metaRobots") sanitized[key] = "index, follow";
+        else if (key === "metaViewport")
+          sanitized[key] = "width=device-width, initial-scale=1.0";
+        else if (key === "availabilityStatus")
+          sanitized[key] = "Open to Opportunities";
+        else if (key === "timezone") sanitized[key] = "America/Edmonton";
+        else if (key === "relatedLinks") sanitized[key] = [];
         else sanitized[key] = value;
       } else {
         sanitized[key] = sanitizeData(value);
@@ -183,22 +187,21 @@ function sanitizeData(data: any): any {
  */
 export async function fetchStrapi<T>(
   endpoint: string,
-  options?: FetchOptions
+  options?: FetchOptions,
 ): Promise<StrapiResponse<T>> {
   const queryString = buildQueryString(options?.query);
-  const url = fetchUrl(`${endpoint}${queryString ? `?${queryString}` : ''}`);
+  const url = fetchUrl(`${endpoint}${queryString ? `?${queryString}` : ""}`);
   try {
     const res = await fetch(url, {
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
+        "Content-Type": "application/json",
       },
-      cache: options?.cache || 'no-store',
+      cache: options?.cache || "no-store",
     });
 
-    
     const rawData = await res.json();
-    
+
     // Sanitize data before returning to handle null values
     const data = sanitizeData(rawData);
 
@@ -208,13 +211,15 @@ export async function fetchStrapi<T>(
 
     return data;
   } catch (error) {
-    if (error && typeof error === 'object' && 'status' in error) {
+    if (error && typeof error === "object" && "status" in error) {
       throw error; // Re-throw Strapi errors
     }
 
     // Network or other errors
-    console.error('[Strapi Fetch Error]', error);
-    throw new Error(`Failed to fetch from Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error("[Strapi Fetch Error]", error);
+    throw new Error(
+      `Failed to fetch from Strapi: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
 }
 
@@ -229,7 +234,7 @@ export async function fetchStrapi<T>(
 export async function fetchStrapiById<T>(
   endpoint: string,
   id: string | number,
-  options?: FetchOptions
+  options?: FetchOptions,
 ): Promise<StrapiResponse<T>> {
   return fetchStrapi(`${endpoint}/${id}`, options);
 }
@@ -246,16 +251,16 @@ export async function fetchStrapiById<T>(
  */
 export async function createStrapiEntry<T>(
   endpoint: string,
-  data: Record<string, any>
+  data: Record<string, any>,
 ): Promise<StrapiResponse<T>> {
   const url = fetchUrl(endpoint);
 
   try {
     const res = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ data }),
     });
@@ -268,12 +273,14 @@ export async function createStrapiEntry<T>(
 
     return responseData;
   } catch (error) {
-    if (error && typeof error === 'object' && 'status' in error) {
+    if (error && typeof error === "object" && "status" in error) {
       throw error; // Re-throw Strapi errors
     }
 
-    console.error('[Strapi Create Error]', error);
-    throw new Error(`Failed to create entry in Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error("[Strapi Create Error]", error);
+    throw new Error(
+      `Failed to create entry in Strapi: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
 }
 
@@ -288,16 +295,16 @@ export async function createStrapiEntry<T>(
 export async function updateStrapiEntry<T>(
   endpoint: string,
   id: string | number,
-  data: Record<string, any>
+  data: Record<string, any>,
 ): Promise<StrapiResponse<T>> {
   const url = fetchUrl(`${endpoint}/${id}`);
 
   try {
     const res = await fetch(url, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ data }),
     });
@@ -310,12 +317,14 @@ export async function updateStrapiEntry<T>(
 
     return responseData;
   } catch (error) {
-    if (error && typeof error === 'object' && 'status' in error) {
+    if (error && typeof error === "object" && "status" in error) {
       throw error;
     }
 
-    console.error('[Strapi Update Error]', error);
-    throw new Error(`Failed to update entry in Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error("[Strapi Update Error]", error);
+    throw new Error(
+      `Failed to update entry in Strapi: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
 }
 
@@ -327,16 +336,16 @@ export async function updateStrapiEntry<T>(
  */
 export async function deleteStrapiEntry<T>(
   endpoint: string,
-  id: string | number
+  id: string | number,
 ): Promise<StrapiResponse<T>> {
   const url = fetchUrl(`${endpoint}/${id}`);
 
   try {
     const res = await fetch(url, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Authorization': `Bearer ${STRAPI_TOKEN}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${STRAPI_TOKEN}`,
+        "Content-Type": "application/json",
       },
     });
 
@@ -348,12 +357,14 @@ export async function deleteStrapiEntry<T>(
 
     return data;
   } catch (error) {
-    if (error && typeof error === 'object' && 'status' in error) {
+    if (error && typeof error === "object" && "status" in error) {
       throw error;
     }
 
-    console.error('[Strapi Delete Error]', error);
-    throw new Error(`Failed to delete entry from Strapi: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error("[Strapi Delete Error]", error);
+    throw new Error(
+      `Failed to delete entry from Strapi: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
 }
 
@@ -368,10 +379,10 @@ export async function deleteStrapiEntry<T>(
  * const imageUrl = getStrapiMediaUrl(hero.data.image.url);
  */
 export function getStrapiMediaUrl(path?: string): string {
-  if (!path) return '';
+  if (!path) return "";
 
   // If it's already a full URL (Cloudinary), return as-is
-  if (path.startsWith('http://') || path.startsWith('https://')) {
+  if (path.startsWith("http://") || path.startsWith("https://")) {
     return path;
   }
 
@@ -385,11 +396,11 @@ export function getStrapiMediaUrl(path?: string): string {
 export async function checkStrapiHealth(): Promise<boolean> {
   try {
     const res = await fetch(`${STRAPI_URL}/_health`, {
-      cache: 'no-store',
+      cache: "no-store",
     });
     return res.ok;
   } catch (error) {
-    console.error('[Strapi Health Check Failed]', error);
+    console.error("[Strapi Health Check Failed]", error);
     return false;
   }
 }

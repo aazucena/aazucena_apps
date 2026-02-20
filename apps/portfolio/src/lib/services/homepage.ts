@@ -1,31 +1,31 @@
-import { getPortfolio } from '../api/portfolio';
-import { getAbout } from '../api/about';
-import { getHero } from '../api/hero';
-import { getProjects } from '../api/projects';
-import { getExperiences } from '../api/experiences';
-import { getPosts } from '../api/posts';
-import { getTestimonials } from '../api/testimonials';
-import { getAwards } from '../api/awards';
-import { getSkills } from '../api/skills';
-import { getHomepage } from '../api/homepage';
-import { getProjectShowcaseConfig } from '../api/project-showcase';
-import { getExperienceShowcase } from '../api/experience-showcase';
-import { getSkillShowcase } from '../api/skill-showcase';
-import { getWebsiteConfig } from '../api/website-config';
-import { getAnimationConfig } from '../api/animation';
-import { getBlogConfig } from '../api/blog-config';
-import type { HeroData } from '../transformers/hero';
-import type { AboutData } from '../transformers/about';
-import type { Project } from '../transformers/projects';
-import type { Experience } from '../transformers/experiences';
-import type { BlogPost } from '../transformers/posts';
-import type { Testimonial } from '~/components/ui/infinite-moving-cards';
-import type { Award } from '../transformers/awards';
-import type { SkillCategory } from '../transformers/skills';
-import type { ProjectShowcaseConfig } from '../transformers/project-showcase';
-import type { ExperienceShowcaseConfig } from '../transformers/experience-showcase';
-import type { SkillShowcaseConfig } from '../transformers/skill-showcase';
-import type { BlogConfigData } from '../transformers/blog-config';
+import { getPortfolio } from "../api/portfolio";
+import { getAbout } from "../api/about";
+import { getHero } from "../api/hero";
+import { getProjects } from "../api/projects";
+import { getExperiences } from "../api/experiences";
+import { getPosts } from "../api/posts";
+import { getTestimonials } from "../api/testimonials";
+import { getAwards } from "../api/awards";
+import { getSkills } from "../api/skills";
+import { getHomepage } from "../api/homepage";
+import { getProjectShowcaseConfig } from "../api/project-showcase";
+import { getExperienceShowcase } from "../api/experience-showcase";
+import { getSkillShowcase } from "../api/skill-showcase";
+import { getWebsiteConfig } from "../api/website-config";
+import { getAnimationConfig } from "../api/animation";
+import { getBlogConfig } from "../api/blog-config";
+import type { HeroData } from "../transformers/hero";
+import type { AboutData } from "../transformers/about";
+import type { Project } from "../transformers/projects";
+import type { Experience } from "../transformers/experiences";
+import type { BlogPost } from "../transformers/posts";
+import type { Testimonial } from "~/components/ui/infinite-moving-cards";
+import type { Award } from "../transformers/awards";
+import type { SkillCategory } from "../transformers/skills";
+import type { ProjectShowcaseConfig } from "../transformers/project-showcase";
+import type { ExperienceShowcaseConfig } from "../transformers/experience-showcase";
+import type { SkillShowcaseConfig } from "../transformers/skill-showcase";
+import type { BlogConfigData } from "../transformers/blog-config";
 
 export interface PortfolioData {
   hero: HeroData;
@@ -69,13 +69,13 @@ export async function getHomepageData() {
       getPortfolio(),
       getAbout(),
       getHero(),
-      getProjects('home'),
+      getProjects("home"),
       getExperiences(),
       getBlogConfig(),
       getPosts(true, 3), // Featured only, limit 3
       getTestimonials(),
       getAwards(),
-      getSkills('featured'),
+      getSkills("featured"),
       getHomepage(),
       getProjectShowcaseConfig(),
       getExperienceShowcase(),
@@ -107,7 +107,7 @@ export async function getHomepageData() {
       animationConfig,
     };
   } catch (error) {
-    console.error('[HomepageData] Failed to fetch aggregate data:', error);
+    console.error("[HomepageData] Failed to fetch aggregate data:", error);
     throw error;
   }
 }

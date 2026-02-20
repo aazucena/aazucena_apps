@@ -3,7 +3,7 @@
  * Action buttons for experience section (toggle view all, link to full timeline)
  */
 
-import type { JSX } from 'react';
+import type { JSX } from "react";
 
 export interface ExperienceActionsProps {
   /** Whether to show the "View All" toggle button */
@@ -24,8 +24,18 @@ export interface ExperienceActionsProps {
  */
 function ArrowRightIcon(): JSX.Element {
   return (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+    <svg
+      className="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13 7l5 5m0 0l-5 5m5-5H6"
+      />
     </svg>
   );
 }
@@ -42,21 +52,21 @@ export function ExperienceActions({
   timelineUrl,
 }: ExperienceActionsProps): JSX.Element {
   return (
-    <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
       {/* View All / Show Less Toggle Button */}
       {showToggle && (
         <button
           onClick={onToggle}
-          className="px-6 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold rounded-lg hover:scale-105 transition-transform duration-300"
+          className="rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-3 font-semibold text-white transition-transform duration-300 hover:scale-105"
         >
-          {showAll ? 'Show Less' : `View All Experiences (${totalCount})`}
+          {showAll ? "Show Less" : `View All Experiences (${totalCount})`}
         </button>
       )}
 
       {/* Link to Full Timeline Page */}
       <a
         href={`/${timelineUrl}`}
-        className="px-6 py-3 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-300 flex items-center gap-2"
+        className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20"
       >
         View Full Timeline
         <ArrowRightIcon />

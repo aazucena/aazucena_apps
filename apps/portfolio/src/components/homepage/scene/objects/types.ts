@@ -3,50 +3,50 @@
  * Unified type system for all 3D scene objects (easter eggs + ground objects)
  */
 
-import type { RefObject } from 'react';
-import type { Group } from 'three';
-import type { AnimationConfig } from '~/lib/utils/scene';
+import type { RefObject } from "react";
+import type { Group } from "three";
+import type { AnimationConfig } from "~/lib/utils/scene";
 
 /**
  * Object Categories
  */
-export type ObjectCategory = 'easter-egg' | 'ground' | 'decoration';
+export type ObjectCategory = "easter-egg" | "ground" | "decoration";
 
 /**
  * Easter Egg Types
  */
 export type EasterEggType =
   // Troposphere
-  | 'airplane'
-  | 'bird'
-  | 'drone'
+  | "airplane"
+  | "bird"
+  | "drone"
   // Stratosphere
-  | 'weather-balloon'
-  | 'spy-plane'
-  | 'blimp'
+  | "weather-balloon"
+  | "spy-plane"
+  | "blimp"
   // Mesosphere
-  | 'comet'
-  | 'meteor'
-  | 'space-debris'
+  | "comet"
+  | "meteor"
+  | "space-debris"
   // Thermosphere
-  | 'space-shuttle'
-  | 'astronaut'
-  | 'iss'
+  | "space-shuttle"
+  | "astronaut"
+  | "iss"
   // Exosphere
-  | 'satellite'
-  | 'ufo'
-  | 'rocket';
+  | "satellite"
+  | "ufo"
+  | "rocket";
 
 /**
  * Ground Object Types
  */
 export type GroundObjectType =
-  | 'house'
-  | 'tree'
-  | 'bush'
-  | 'rock'
-  | 'flower'
-  | 'ground';
+  | "house"
+  | "tree"
+  | "bush"
+  | "rock"
+  | "flower"
+  | "ground";
 
 /**
  * All Scene Object Types
@@ -72,7 +72,7 @@ export interface SceneObjectConfig {
   /** Opacity multiplier (0-1) */
   opacity?: number;
   /** Animation configuration */
-  animation?: AnimationConfig | 'custom';
+  animation?: AnimationConfig | "custom";
   /** Custom animation preset name */
   animationPreset?: string;
   /** Additional custom properties */
@@ -84,7 +84,7 @@ export interface SceneObjectConfig {
  */
 export interface EasterEggConfig extends SceneObjectConfig {
   type: EasterEggType;
-  category: 'easter-egg';
+  category: "easter-egg";
   /** Whether the easter egg is currently visible */
   visible?: boolean;
   /** Enable click interaction */
@@ -98,7 +98,7 @@ export interface EasterEggConfig extends SceneObjectConfig {
  */
 export interface GroundObjectConfig extends SceneObjectConfig {
   type: GroundObjectType;
-  category: 'ground';
+  category: "ground";
   /** Object color (for procedural objects) */
   color?: string;
   /** Object variant (for objects with multiple designs) */
@@ -142,7 +142,10 @@ export interface ObjectRegistryEntry {
   /** Object type */
   type: SceneObjectType;
   /** Component to render */
-  component: React.ComponentType<{ opacity: number; config?: SceneObjectConfig }>;
+  component: React.ComponentType<{
+    opacity: number;
+    config?: SceneObjectConfig;
+  }>;
   /** Default configuration */
   defaults?: Partial<SceneObjectConfig>;
   /** Performance cost (1-5, higher = more expensive) */

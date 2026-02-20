@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { gsap } from 'gsap';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { cn } from '~/lib/utils';
+import { gsap } from "gsap";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { cn } from "~/lib/utils";
 
 export interface PhoneDialTab {
   id: string;
@@ -20,8 +20,13 @@ interface PhoneDialTabsProps {
   isSoundMuted?: boolean;
 }
 
-export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = false }: PhoneDialTabsProps) {
-  const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id || '');
+export function PhoneDialTabs({
+  tabs,
+  defaultTab,
+  className,
+  isSoundMuted = false,
+}: PhoneDialTabsProps) {
+  const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id || "");
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -41,7 +46,11 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
   const angleStep = 180 / (totalTabs - 1); // 180 degrees divided by number of gaps
 
   // Calculate position for each tab in semicircle with rotation
-  const getTabPosition = (index: number, total: number, currentRotation: number) => {
+  const getTabPosition = (
+    index: number,
+    total: number,
+    currentRotation: number,
+  ) => {
     const startAngle = -180;
     const endAngle = 0;
     const angleRange = endAngle - startAngle;
@@ -63,13 +72,14 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    const angle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
+    const angle =
+      Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
     return angle;
   };
 
   // Trigger haptic feedback
   const triggerHaptic = () => {
-    if ('vibrate' in navigator) {
+    if ("vibrate" in navigator) {
       navigator.vibrate(10);
     }
   };
@@ -80,7 +90,9 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
     if (isSoundMuted) return;
 
     // Create a subtle click sound using Web Audio API
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioContext = new (
+      window.AudioContext || (window as any).webkitAudioContext
+    )();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -88,10 +100,13 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
     gainNode.connect(audioContext.destination);
 
     oscillator.frequency.value = 800;
-    oscillator.type = 'sine';
+    oscillator.type = "sine";
 
     gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.01,
+      audioContext.currentTime + 0.05,
+    );
 
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.05);
@@ -112,19 +127,22 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
       setCurrentStepIndex(clampedIndex);
       setActiveTab(tabs[clampedIndex]!.name);
     } else {
-      rotationTweenRef.current = gsap.to({ value: rotation }, {
-        value: targetRotation,
-        duration: 0.4,
-        ease: 'back.out(2)',
-        onUpdate: function() {
-          setRotation(this.targets()[0].value);
+      rotationTweenRef.current = gsap.to(
+        { value: rotation },
+        {
+          value: targetRotation,
+          duration: 0.4,
+          ease: "back.out(2)",
+          onUpdate: function () {
+            setRotation(this.targets()[0].value);
+          },
+          onComplete: () => {
+            setCurrentStepIndex(clampedIndex);
+            setActiveTab(tabs[clampedIndex]!.name);
+            rotationTweenRef.current = null;
+          },
         },
-        onComplete: () => {
-          setCurrentStepIndex(clampedIndex);
-          setActiveTab(tabs[clampedIndex]!.name);
-          rotationTweenRef.current = null;
-        }
-      });
+      );
     }
   };
 
@@ -135,7 +153,7 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
       x: clientX,
       y: clientY,
       rotation: rotation,
-      stepIndex: currentStepIndex
+      stepIndex: currentStepIndex,
     };
     lastAngleRef.current = getAngleFromCenter(clientX, clientY);
     lastHapticStepRef.current = currentStepIndex;
@@ -160,7 +178,7 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
 
     // Calculate new rotation with resistance
     const resistance = 0.6; // Add resistance to make it feel more mechanical
-    const newRotation = rotation + (adjustedDiff * resistance);
+    const newRotation = rotation + adjustedDiff * resistance;
 
     // Calculate which step we're at
     const stepFromRotation = Math.round(-newRotation / angleStep);
@@ -228,16 +246,16 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
   // Setup global event listeners
   useEffect(() => {
     if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-      window.addEventListener('touchmove', handleTouchMove, { passive: false });
-      window.addEventListener('touchend', handleTouchEnd);
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("touchmove", handleTouchMove, { passive: false });
+      window.addEventListener("touchend", handleTouchEnd);
 
       return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseup', handleMouseUp);
-        window.removeEventListener('touchmove', handleTouchMove);
-        window.removeEventListener('touchend', handleTouchEnd);
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mouseup", handleMouseUp);
+        window.removeEventListener("touchmove", handleTouchMove);
+        window.removeEventListener("touchend", handleTouchEnd);
       };
     }
   }, [isDragging, rotation, currentStepIndex]);
@@ -257,7 +275,7 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
       gsap.fromTo(
         contentRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
       );
     }
   }, [activeTab]);
@@ -272,28 +290,34 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
 
   // const activeTabContent = tabs.find(tab => tab.id === activeTab)?.content;
   const activeTabContent = useMemo(() => {
-    const tab = tabs.find(tab => tab.name === activeTab);
+    const tab = tabs.find((tab) => tab.name === activeTab);
     return tab?.content;
   }, [activeTab]);
 
   return (
-    <div className={cn('relative w-full', className)}>
+    <div className={cn("relative w-full", className)}>
       {/* Tabs Container - Semicircle Layout */}
-      <div className="relative flex items-center justify-center mb-8 mt-16">
+      <div className="relative mt-16 mb-8 flex items-center justify-center">
         <div
           ref={wheelRef}
           className={cn(
-            'relative select-none touch-none overflow-visible',
-            isDragging ? 'cursor-grabbing' : 'cursor-grab'
+            "relative touch-none overflow-visible select-none",
+            isDragging ? "cursor-grabbing" : "cursor-grab",
           )}
-          style={{ width: '600px', height: '420px', minHeight: '420px' }}
+          style={{ width: "600px", height: "420px", minHeight: "420px" }}
           onMouseDown={handleMouseDown}
           onTouchStart={handleTouchStart}
         >
           {/* Background Arc Visual with Notches */}
           <svg
-            className="absolute w-full h-full pointer-events-none"
-            style={{ top: '0', left: '50%', transform: 'translateX(-50%)', width: '500px', height: '400px' }}
+            className="pointer-events-none absolute h-full w-full"
+            style={{
+              top: "0",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "500px",
+              height: "400px",
+            }}
             viewBox="0 0 500 400"
           >
             {/* Full circle background - dashed */}
@@ -327,8 +351,12 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
                   y1={y1}
                   x2={x2}
                   y2={y2}
-                  stroke={index === currentStepIndex ? 'rgba(34, 211, 238, 0.8)' : 'rgba(255, 255, 255, 0.3)'}
-                  strokeWidth={index === currentStepIndex ? '3' : '2'}
+                  stroke={
+                    index === currentStepIndex
+                      ? "rgba(34, 211, 238, 0.8)"
+                      : "rgba(255, 255, 255, 0.3)"
+                  }
+                  strokeWidth={index === currentStepIndex ? "3" : "2"}
                 />
               );
             })}
@@ -381,14 +409,14 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
             return (
               <div
                 key={`placeholder-${index}`}
-                className="absolute flex items-center justify-center pointer-events-none"
+                className="pointer-events-none absolute flex items-center justify-center"
                 style={{
                   left: `calc(50% + ${x}px)`,
                   top: `calc(50% + ${y}px)`,
-                  transform: 'translate(-50%, -50%)'
+                  transform: "translate(-50%, -50%)",
                 }}
               >
-                <div className="w-3 h-3 rounded-full bg-white/10 border border-white/20" />
+                <div className="h-3 w-3 rounded-full border border-white/20 bg-white/10" />
               </div>
             );
           })}
@@ -401,36 +429,42 @@ export function PhoneDialTabs({ tabs, defaultTab, className, isSoundMuted = fals
             return (
               <button
                 key={tab.id}
-                ref={el => { tabRefs.current[index] = el; }}
+                ref={(el) => {
+                  tabRefs.current[index] = el;
+                }}
                 onClick={() => handleTabClick(tab.id, index)}
                 className={cn(
-                  'absolute flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-200',
-                  'backdrop-blur-sm border pointer-events-auto',
+                  "absolute flex flex-col items-center justify-center gap-2 rounded-xl p-4 transition-all duration-200",
+                  "pointer-events-auto border backdrop-blur-sm",
                   isActive
-                    ? `bg-gradient-to-br ${tab.gradient} border-white/40 shadow-lg shadow-cyan-500/20 scale-110`
-                    : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20 hover:scale-105'
+                    ? `bg-gradient-to-br ${tab.gradient} scale-110 border-white/40 shadow-lg shadow-cyan-500/20`
+                    : "border-white/10 bg-white/5 hover:scale-105 hover:border-white/20 hover:bg-white/10",
                 )}
                 style={{
                   left: `calc(50% + ${x}px)`,
                   top: `calc(50% + ${y}px)`,
-                  transform: 'translate(-50%, -50%)',
-                  minWidth: '100px',
-                  minHeight: '80px'
+                  transform: "translate(-50%, -50%)",
+                  minWidth: "100px",
+                  minHeight: "80px",
                 }}
                 aria-label={tab.label}
               >
                 {tab.icon && (
-                  <div className={cn(
-                    'flex-shrink-0 transition-transform duration-200',
-                    isActive ? 'text-white scale-110' : 'text-gray-400'
-                  )}>
+                  <div
+                    className={cn(
+                      "flex-shrink-0 transition-transform duration-200",
+                      isActive ? "scale-110 text-white" : "text-gray-400",
+                    )}
+                  >
                     {tab.icon}
                   </div>
                 )}
-                <span className={cn(
-                  'text-sm font-semibold text-center whitespace-nowrap',
-                  isActive ? 'text-white' : 'text-gray-300'
-                )}>
+                <span
+                  className={cn(
+                    "text-center text-sm font-semibold whitespace-nowrap",
+                    isActive ? "text-white" : "text-gray-300",
+                  )}
+                >
                   {tab.label}
                 </span>
               </button>

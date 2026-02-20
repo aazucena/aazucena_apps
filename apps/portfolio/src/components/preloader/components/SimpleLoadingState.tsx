@@ -1,9 +1,9 @@
-import { memo } from 'react';
-import { Progress } from '../../ui/progress';
-import { CircleNotch as LoadingCircle } from '@mynaui/icons-react';
-import type { CustomSpinnerProps, LoadingStep } from '../types';
-import type { ThemeStyles } from '../hooks/useTheme';
-import type { ComponentType } from 'react';
+import { memo } from "react";
+import { Progress } from "../../ui/progress";
+import { CircleNotch as LoadingCircle } from "@mynaui/icons-react";
+import type { CustomSpinnerProps, LoadingStep } from "../types";
+import type { ThemeStyles } from "../hooks/useTheme";
+import type { ComponentType } from "react";
 
 export interface SimpleLoadingStateProps {
   progress: number;
@@ -28,22 +28,38 @@ export const SimpleLoadingState = memo(function SimpleLoadingState({
         <CustomSpinner />
       ) : (
         <LoadingCircle
-          className="w-8 h-8 animate-spin mx-auto"
+          className="mx-auto h-8 w-8 animate-spin"
           style={themeStyles.getSpinnerStyle(false)}
           aria-label="Loading"
         />
       )}
       <div className="space-y-2" role="status" aria-live="polite">
-        <h3 className="font-semibold" style={themeStyles.titleStyle}>{title}</h3>
-        <Progress value={progress} aria-label={`Loading progress: ${Math.round(progress)}%`} />
-        <p className="text-sm text-center" style={themeStyles.subtitleStyle}>{Math.round(progress)}%</p>
+        <h3 className="font-semibold" style={themeStyles.titleStyle}>
+          {title}
+        </h3>
+        <Progress
+          value={progress}
+          aria-label={`Loading progress: ${Math.round(progress)}%`}
+        />
+        <p className="text-center text-sm" style={themeStyles.subtitleStyle}>
+          {Math.round(progress)}%
+        </p>
         {steps.length > 0 && (
-          <p className="text-xs text-center" style={themeStyles.subtitleStyle}>
-            {steps[Math.min(Math.floor(progress / (100 / steps.length)), steps.length - 1)]?.name}
+          <p className="text-center text-xs" style={themeStyles.subtitleStyle}>
+            {
+              steps[
+                Math.min(
+                  Math.floor(progress / (100 / steps.length)),
+                  steps.length - 1,
+                )
+              ]?.name
+            }
           </p>
         )}
         {subtitle && (
-          <p className="text-xs" style={themeStyles.subtitleStyle}>{subtitle}</p>
+          <p className="text-xs" style={themeStyles.subtitleStyle}>
+            {subtitle}
+          </p>
         )}
       </div>
     </>

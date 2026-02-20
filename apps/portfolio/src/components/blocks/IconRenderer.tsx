@@ -107,7 +107,12 @@ export const IconRenderer = memo(function IconRenderer({
 
     try {
       // Encode SVG string to base64 for inline rendering
-      const encodedSVG = btoa(unescape(encodeURIComponent(icon)));
+      // Using TextEncoder for better modern support
+      const encodedSVG = btoa(
+        new TextEncoder()
+          .encode(icon)
+          .reduce((data, byte) => data + String.fromCharCode(byte), ""),
+      );
       const dataUrl = `data:image/svg+xml;base64,${encodedSVG}`;
 
       return (
@@ -117,23 +122,23 @@ export const IconRenderer = memo(function IconRenderer({
           style={combinedStyles}
           aria-label={ariaLabel}
           aria-hidden={ariaHidden}
-          onError={(error) => {
+          onError={(_error) => {
             if (process.env.NODE_ENV === "development") {
               console.error(
                 "[IconRenderer] Failed to render SVG string",
-                error,
+                _error,
               );
             }
-            onError?.(error as Error);
+            onError?.(_error as Error);
           }}
         />
       );
-    } catch (error) {
+    } catch (_error) {
       if (process.env.NODE_ENV === "development") {
-        console.error("[IconRenderer] Failed to encode SVG string", error);
+        console.error("[IconRenderer] Failed to encode SVG string", _error);
       }
 
-      onError?.(error as Error);
+      onError?.(_error as Error);
       return <>{fallback}</>;
     }
   }
@@ -151,12 +156,12 @@ export const IconRenderer = memo(function IconRenderer({
         aria-hidden={ariaHidden}
       />
     );
-  } catch (error) {
+  } catch (_error) {
     if (process.env.NODE_ENV === "development") {
-      console.error("[IconRenderer] Failed to render icon component", error);
+      console.error("[IconRenderer] Failed to render icon component", _error);
     }
 
-    onError?.(error as Error);
+    onError?.(_error as Error);
     return <>{fallback}</>;
   }
 });

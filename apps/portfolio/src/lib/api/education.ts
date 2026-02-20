@@ -1,21 +1,27 @@
-import { z } from 'zod';
-import { fetchStrapi } from '../strapi';
-import { StrapiEducationResponseSchema } from '../validators/education';
-import { 
-  transformEducation, 
+import { z } from "zod";
+import { fetchStrapi } from "../strapi";
+import { StrapiEducationResponseSchema } from "../validators/education";
+import {
+  transformEducation,
   transformEducationList,
-  type Education 
-} from '../transformers/education';
+  type Education,
+} from "../transformers/education";
 
 /**
  * Fetch all education entries
  */
 export async function fetchEducation(): Promise<Education[]> {
   try {
-    const response = await fetchStrapi('educations', {
+    const response = await fetchStrapi("educations", {
       query: {
-        populate: ['institutionLogo', 'skills.category', 'achievements', 'relatedLinks', 'projects'],
-        sort: ['sort:asc', 'startDate:desc'],
+        populate: [
+          "institutionLogo",
+          "skills.category",
+          "achievements",
+          "relatedLinks",
+          "projects",
+        ],
+        sort: ["sort:asc", "startDate:desc"],
       },
     });
 
@@ -23,9 +29,9 @@ export async function fetchEducation(): Promise<Education[]> {
     return transformEducationList(validated.data);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error('[Education API] Invalid CMS data:', error.issues);
+      console.error("[Education API] Invalid CMS data:", error.issues);
     } else {
-      console.error('[Education API] Failed to fetch education:', error);
+      console.error("[Education API] Failed to fetch education:", error);
     }
     return [];
   }
@@ -34,12 +40,20 @@ export async function fetchEducation(): Promise<Education[]> {
 /**
  * Fetch single education entry by slug
  */
-export async function getEducationBySlug(slug: string): Promise<Education | null> {
+export async function getEducationBySlug(
+  slug: string,
+): Promise<Education | null> {
   try {
-    const response = await fetchStrapi('educations', {
+    const response = await fetchStrapi("educations", {
       query: {
         filters: { slug: { $eq: slug } },
-        populate: ['institutionLogo', 'skills.category', 'achievements', 'relatedLinks', 'projects'],
+        populate: [
+          "institutionLogo",
+          "skills.category",
+          "achievements",
+          "relatedLinks",
+          "projects",
+        ],
       },
     });
 
@@ -48,7 +62,10 @@ export async function getEducationBySlug(slug: string): Promise<Education | null
     if (!entry) return null;
     return transformEducation(entry);
   } catch (error) {
-    console.error(`[Education API] Failed to fetch education slug ${slug}:`, error);
+    console.error(
+      `[Education API] Failed to fetch education slug ${slug}:`,
+      error,
+    );
     return null;
   }
 }

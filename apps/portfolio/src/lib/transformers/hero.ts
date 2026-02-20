@@ -1,4 +1,4 @@
-import type { StrapiHero } from '../validators/hero';
+import type { StrapiHero } from "../validators/hero";
 
 export interface HeroData {
   flipWords: string[];
@@ -10,8 +10,9 @@ export interface HeroData {
 }
 
 export const DEFAULT_HERO: HeroData = {
-  flipWords: ['ideas', 'concepts', 'visions', 'dreams'],
-  taglineTemplate: 'Turning {{flipWord}} into elegant code, one pixel at a time.',
+  flipWords: ["ideas", "concepts", "visions", "dreams"],
+  taglineTemplate:
+    "Turning {{flipWord}} into elegant code, one pixel at a time.",
   showDropdown: true,
   showSecondaryButton: true,
 };

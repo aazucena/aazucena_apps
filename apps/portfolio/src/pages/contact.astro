@@ -3,51 +3,48 @@
  * Contact page - provides a contact form and links to professional social channels.
  * Fetches availability status and social links from the CMS.
  */
-import { 
-  Envelope, 
-  BrandLinkedin, 
-  BrandGithub, 
-  BrandTwitter, 
+import {
+  Envelope,
+  BrandLinkedin,
+  BrandGithub,
+  BrandTwitter,
   Send,
   Location,
   Globe,
-  MessageDots
-} from '@mynaui/icons-react';
-import DetailLayout from '~/layouts/DetailLayout.astro';
-import { getPortfolio } from '~/lib/api/portfolio';
-import { getAvailabilityIndicator } from '~/lib/utils/availability';
+  MessageDots,
+} from "@mynaui/icons-react";
+import DetailLayout from "~/layouts/DetailLayout.astro";
+import { getPortfolio } from "~/lib/api/portfolio";
+import { getAvailabilityIndicator } from "~/lib/utils/availability";
 
 // Fetch contact info from Portfolio single type
 const portfolio = await getPortfolio();
 
-const pageTitle = 'Contact';
+const pageTitle = "Contact";
 const pageDescription = `Let's build something together. Currently ${portfolio.availabilityStatus.toLowerCase()} and interesting collaborations.`;
 
 // Get dynamic indicator styles
 const statusIndicator = getAvailabilityIndicator(portfolio.availabilityStatus);
 
 // Helper to get local time
-const localTime = new Date().toLocaleTimeString('en-US', { 
-  timeZone: portfolio?.timezone ?? 'America/Edmonton', // Placeholder - should ideally come from portfolio.timezone
-  hour: '2-digit', 
-  minute: '2-digit',
-  hour12: true 
+const localTime = new Date().toLocaleTimeString("en-US", {
+  timeZone: portfolio?.timezone ?? "America/Edmonton", // Placeholder - should ideally come from portfolio.timezone
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: true,
 });
 
-const breadcrumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Contact' }
-];
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Contact" }];
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  "mainEntity": {
+  mainEntity: {
     "@type": "Person",
-    "name": portfolio.fullName,
-    "email": portfolio.email,
-    "jobTitle": portfolio.occupation
-  }
+    name: portfolio.fullName,
+    email: portfolio.email,
+    jobTitle: portfolio.occupation,
+  },
 };
 ---
 
@@ -66,10 +63,17 @@ const jsonLd = {
 >
   <!-- Hero Header Slot -->
   <div slot="header" class="text-center md:text-left">
-    <h1 class="text-5xl md:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-none mb-8">
-      Let's build <br class="hidden md:block"/><span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">together.</span>
+    <h1
+      class="mb-8 text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
+    >
+      Let's build <br class="hidden md:block" /><span
+        class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+        >together.</span
+      >
     </h1>
-    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-2xl leading-relaxed">
+    <p
+      class="max-w-2xl text-xl leading-relaxed font-medium text-gray-600 md:text-2xl dark:text-gray-400"
+    >
       {pageDescription}
     </p>
   </div>
@@ -77,60 +81,81 @@ const jsonLd = {
   <!-- Main Content Slot: Form -->
   <Fragment slot="content">
     <section id="message" class="space-y-8">
-      <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
+      <h2
+        class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
+      >
         <MessageDots size={24} className="text-blue-600" />
         Send a Message
       </h2>
-      
+
       <form class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div class="space-y-2">
-            <label for="name" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Full Name</label>
-            <input 
-              type="text" 
-              id="name" 
-              name="name" 
+            <label
+              for="name"
+              class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
               placeholder="John Doe"
-              class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
+              class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
             />
           </div>
           <div class="space-y-2">
-            <label for="email" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Email Address</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
+            <label
+              for="email"
+              class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
               placeholder="john@example.com"
-              class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
+              class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
             />
           </div>
         </div>
         <div class="space-y-2">
-          <label for="subject" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Subject</label>
-          <input 
-            type="text" 
-            id="subject" 
-            name="subject" 
+          <label
+            for="subject"
+            class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
+            >Subject</label
+          >
+          <input
+            type="text"
+            id="subject"
+            name="subject"
             placeholder="How can I help?"
-            class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
+            class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
           />
         </div>
         <div class="space-y-2">
-          <label for="message" class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Message</label>
-          <textarea 
-            id="message" 
-            name="message" 
-            rows="6" 
+          <label
+            for="message"
+            class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
+            >Message</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
             placeholder="Tell me about your project..."
-            class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white resize-none"
+            class="w-full resize-none rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
           ></textarea>
         </div>
-        
-        <button 
+
+        <button
           type="submit"
-          class="flex items-center justify-center gap-3 w-full md:w-auto px-12 py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-blue-600 dark:hover:bg-blue-50 transition-all shadow-xl active:scale-95 group"
+          class="group flex w-full items-center justify-center gap-3 rounded-2xl bg-gray-900 px-12 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-xl transition-all hover:bg-blue-600 active:scale-95 md:w-auto dark:bg-white dark:text-gray-900 dark:hover:bg-blue-50"
         >
-          <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+          <Send
+            size={18}
+            className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
+          />
           Send Message
         </button>
       </form>
@@ -140,87 +165,139 @@ const jsonLd = {
   <!-- Sidebar Slot -->
   <Fragment slot="sidebar">
     <!-- Availability -->
-    <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
-      <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+    <div
+      class="space-y-8 rounded-3xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <h2
+        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
+      >
         Presence
       </h2>
       <div class="space-y-6">
-        <div class="flex items-center gap-4 group">
-          <div class="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+        <div class="group flex items-center gap-4">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 transition-transform group-hover:scale-110 dark:bg-gray-900/20"
+          >
             <div class="relative flex h-2 w-2">
-              {statusIndicator.pulse && (
-                <span class={`animate-ping absolute inline-flex h-full w-full rounded-full ${statusIndicator.color} opacity-75`}></span>
-              )}
-              <span class={`relative inline-flex rounded-full h-2 w-2 ${statusIndicator.color}`}></span>
+              {
+                statusIndicator.pulse && (
+                  <span
+                    class={`absolute inline-flex h-full w-full animate-ping rounded-full ${statusIndicator.color} opacity-75`}
+                  />
+                )
+              }
+              <span
+                class={`relative inline-flex rounded-full h-2 w-2 ${statusIndicator.color}`}
+              ></span>
             </div>
           </div>
           <div>
-            <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Status</div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">{portfolio.availabilityStatus}</div>
-          </div>
-        </div>
-        
-        <div class="flex items-center gap-4 group">
-          <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
-            <Globe size={20} />
-          </div>
-          <div>
-            <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Local Time</div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">{localTime} (MST)</div>
+            <div
+              class="text-[10px] font-black tracking-wider text-gray-400 uppercase"
+            >
+              Status
+            </div>
+            <div class="text-sm font-bold text-gray-900 dark:text-white">
+              {portfolio.availabilityStatus}
+            </div>
           </div>
         </div>
 
-        {portfolio.location && (
-          <div class="flex items-center gap-4 group">
-            <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600">
-              <Location size={20} />
+        <div class="group flex items-center gap-4">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20"
+          >
+            <Globe size={20} />
+          </div>
+          <div>
+            <div
+              class="text-[10px] font-black tracking-wider text-gray-400 uppercase"
+            >
+              Local Time
             </div>
-            <div>
-              <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">HQ</div>
-              <div class="text-sm font-bold text-gray-900 dark:text-white">{portfolio.location}</div>
+            <div class="text-sm font-bold text-gray-900 dark:text-white">
+              {localTime} (MST)
             </div>
           </div>
-        )}
+        </div>
+
+        {
+          portfolio.location && (
+            <div class="group flex items-center gap-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-900/20">
+                <Location size={20} />
+              </div>
+              <div>
+                <div class="text-[10px] font-black tracking-wider text-gray-400 uppercase">
+                  HQ
+                </div>
+                <div class="text-sm font-bold text-gray-900 dark:text-white">
+                  {portfolio.location}
+                </div>
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
 
     <!-- Direct Channels -->
-    <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
-      <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+    <div
+      class="space-y-8 rounded-3xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <h2
+        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
+      >
         Direct Channels
       </h2>
       <div class="space-y-4">
-        <a 
+        <a
           href={`mailto:${portfolio.email}`}
-          class="flex items-center gap-4 p-4 rounded-2xl bg-gray-50/50 dark:bg-gray-800/50 border border-transparent hover:border-blue-500/20 hover:bg-white dark:hover:bg-gray-900 transition-all group"
+          class="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50/50 p-4 transition-all hover:border-blue-500/20 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-900"
         >
-          <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 flex-shrink-0">
+          <div
+            class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20"
+          >
             <Envelope size={20} />
           </div>
           <div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">Email</div>
-            <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Direct Message</div>
+            <div class="text-sm font-bold text-gray-900 dark:text-white">
+              Email
+            </div>
+            <div
+              class="text-[10px] font-black tracking-wider text-gray-400 uppercase"
+            >
+              Direct Message
+            </div>
           </div>
         </a>
 
-        {portfolio.socialLinks?.map(link => (
-          <a 
-            href={link.url}
-            target="_blank"
-            class="flex items-center gap-4 p-4 rounded-2xl bg-gray-50/50 dark:bg-gray-800/50 border border-transparent hover:border-blue-500/20 hover:bg-white dark:hover:bg-gray-900 transition-all group"
-          >
-            <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:text-blue-600 flex-shrink-0">
-              {link.platform === 'LinkedIn' && <BrandLinkedin size={20} />}
-              {link.platform === 'GitHub' && <BrandGithub size={20} />}
-              {link.platform === 'Twitter' && <BrandTwitter size={20} />}
-              {!['LinkedIn', 'GitHub', 'Twitter'].includes(link.platform) && <Globe size={20} />}
-            </div>
-            <div>
-              <div class="text-sm font-bold text-gray-900 dark:text-white">{link.platform}</div>
-              <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">{link.text || 'Professional Profile'}</div>
-            </div>
-          </a>
-        ))}
+        {
+          portfolio.socialLinks?.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              class="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50/50 p-4 transition-all hover:border-blue-500/20 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-900"
+            >
+              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 group-hover:text-blue-600 dark:bg-gray-800 dark:text-gray-400">
+                {link.platform === "LinkedIn" && <BrandLinkedin size={20} />}
+                {link.platform === "GitHub" && <BrandGithub size={20} />}
+                {link.platform === "Twitter" && <BrandTwitter size={20} />}
+                {!["LinkedIn", "GitHub", "Twitter"].includes(link.platform) && (
+                  <Globe size={20} />
+                )}
+              </div>
+              <div>
+                <div class="text-sm font-bold text-gray-900 dark:text-white">
+                  {link.platform}
+                </div>
+                <div class="text-[10px] font-black tracking-wider text-gray-400 uppercase">
+                  {link.text || "Professional Profile"}
+                </div>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </div>
   </Fragment>

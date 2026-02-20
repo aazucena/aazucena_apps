@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { PromptTypeEnum } from './enums';
-import { StrapiTagSchema } from './components';
+import { z } from "zod";
+import { PromptTypeEnum } from "./enums";
+import { TagSchema } from "./components";
 
 /**
  * Zod validation schema for Strapi Prompt content type
@@ -14,10 +14,10 @@ export const StrapiPromptSchema = z.object({
   system_message: z.string(),
   human_template: z.string().nullable().optional(),
   type: PromptTypeEnum,
-  
+
   // Components
-  tags: z.array(StrapiTagSchema).optional(),
-  
+  tags: z.array(TagSchema).optional(),
+
   // Metadata
   metadata: z.record(z.string(), z.any()).nullable().optional(),
 
@@ -32,14 +32,18 @@ export const StrapiPromptSchema = z.object({
  */
 export const StrapiPromptsResponseSchema = z.object({
   data: z.array(StrapiPromptSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 export type StrapiPrompt = z.infer<typeof StrapiPromptSchema>;

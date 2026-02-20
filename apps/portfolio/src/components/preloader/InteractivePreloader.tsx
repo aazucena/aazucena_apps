@@ -1,7 +1,7 @@
-import { Button } from '../ui/button';
-import { Card, CardContent } from '../ui/card';
-import { X } from '@mynaui/icons-react';
-import { useEffect } from 'react';
+import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
+import { X } from "@mynaui/icons-react";
+import { useEffect } from "react";
 import {
   useLoadingProgress,
   usePreloaderVisibility,
@@ -9,11 +9,11 @@ import {
   useKeyboardNavigation,
   useTheme,
   useShowOnce,
-} from './hooks';
-import { getLoadingSteps } from './constants';
-import { LoadingState, ReadyState, ErrorState } from './components';
-import type { PreloaderPropsWithTheme } from './types';
-import { getTransitionClass } from './utils';
+} from "./hooks";
+import { getLoadingSteps } from "./constants";
+import { LoadingState, ReadyState, ErrorState } from "./components";
+import type { PreloaderPropsWithTheme } from "./types";
+import { getTransitionClass } from "./utils";
 
 export default function InteractivePreloader({
   // Timing & Behavior
@@ -31,7 +31,7 @@ export default function InteractivePreloader({
   readySubtitle = "Your experience is fully optimized and ready",
   readyFooterNote = "All systems ready for your journey",
   continueButtonText = "Enter Website",
-  continueButton = true,
+  continueButton: continueButtonRaw = true as any,
 
   // Styling & Theming
   style,
@@ -41,7 +41,7 @@ export default function InteractivePreloader({
 
   // Animation & Transitions
   enableAnimations = true,
-  transitionType = 'fade',
+  transitionType = "fade",
 
   // Customization
   customSteps,
@@ -66,11 +66,22 @@ export default function InteractivePreloader({
   debug = false,
 
   // Theme
-  theme = 'default',
+  theme = "default",
   customTheme,
-  currentPath = '/',
+  currentPath = "/",
 }: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
+  const continueButton =
+    (continueButtonRaw as any) === true
+      ? {
+          label: "Enter Website",
+          url: "#main-content",
+          variant: "primary" as const,
+          size: "md" as const,
+          openInNewTab: false,
+          icon: undefined,
+        }
+      : (continueButtonRaw as any);
 
   // ============================================================================
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS (Rules of Hooks)
@@ -79,11 +90,12 @@ export default function InteractivePreloader({
   // Determine effective showOnce behavior:
   // - Homepage ('/'): Always show preloader (showOnce = false)
   // - Other pages: Use the configured showOnce value
-  const isHomepage = currentPath === '/';
+  const isHomepage = currentPath === "/";
   const effectiveShowOnce = isHomepage ? false : showOnce;
 
   // Handle show-once behavior with sessionStorage
-  const { hasSeenBefore, markAsSeen, isChecking } = useShowOnce(effectiveShowOnce);
+  const { hasSeenBefore, markAsSeen, isChecking } =
+    useShowOnce(effectiveShowOnce);
 
   const {
     progress,
@@ -100,7 +112,7 @@ export default function InteractivePreloader({
     minDisplayTime,
     steps,
     onStepComplete,
-    animationDuration
+    animationDuration,
   );
 
   const {
@@ -159,8 +171,8 @@ export default function InteractivePreloader({
   useEffect(() => {
     if (effectiveShowOnce && hasSeenBefore && !isChecking) {
       // Immediately dispatch completion events
-      const brandEvent = new CustomEvent('preloader-mounted');
-      const completeEvent = new CustomEvent('preloader-complete');
+      const brandEvent = new CustomEvent("preloader-mounted");
+      const completeEvent = new CustomEvent("preloader-complete");
 
       document.dispatchEvent(brandEvent);
       document.dispatchEvent(completeEvent);
@@ -168,12 +180,21 @@ export default function InteractivePreloader({
       // Call onComplete callback if provided
       onComplete?.();
     }
-  }, [currentPath, isHomepage, showOnce, effectiveShowOnce, hasSeenBefore, isChecking, onComplete, debug]);
+  }, [
+    currentPath,
+    isHomepage,
+    showOnce,
+    effectiveShowOnce,
+    hasSeenBefore,
+    isChecking,
+    onComplete,
+    debug,
+  ]);
 
   // Emit 'preloader-mounted' event when component mounts
   // This signals BrandIconLoader to hide and allows preloader to take over
   useEffect(() => {
-    const event = new CustomEvent('preloader-mounted');
+    const event = new CustomEvent("preloader-mounted");
     document.dispatchEvent(event);
   }, []); // Empty deps - run only on mount
 
@@ -201,7 +222,13 @@ export default function InteractivePreloader({
   // (this allows all hooks and effects to run while remaining invisible)
   // Note: Homepage always shows preloader, so this only applies to other pages
   if (effectiveShowOnce && hasSeenBefore && !isChecking) {
-    return <div style={{ display: 'none' }} aria-hidden="true" data-preloader-skipped="true" />;
+    return (
+      <div
+        style={{ display: "none" }}
+        aria-hidden="true"
+        data-preloader-skipped="true"
+      />
+    );
   }
 
   // Don't render if lazy loading and not in viewport
@@ -221,7 +248,7 @@ export default function InteractivePreloader({
 
   const cardWrapperClasses = `
     w-full max-w-md border
-    ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
+    ${enableAnimations ? "animate-in fade-in-0 zoom-in-95" : ""}
     ${cardClassName}
     ${themeStyles.cardClasses}
   `;
@@ -237,7 +264,7 @@ export default function InteractivePreloader({
           className="absolute top-4 right-4 z-10"
           aria-label={skipButtonAriaLabel}
         >
-          <X className="w-4 h-4" />
+          <X className="h-4 w-4" />
           Skip
         </Button>
       )}
@@ -265,7 +292,7 @@ export default function InteractivePreloader({
         />
       ) : CustomReadyComponent ? (
         <CustomReadyComponent
-          continueButton={continueButton}
+          continueButton={continueButton as any}
           loadTime={loadTime}
           onContinue={handleContinue}
           totalSteps={steps.length}
@@ -288,18 +315,14 @@ export default function InteractivePreloader({
     </>
   );
 
-  const containerStyle = showCard ? themeStyles.overlayStyle : themeStyles.backgroundStyle;
+  const containerStyle = showCard
+    ? themeStyles.overlayStyle
+    : themeStyles.backgroundStyle;
 
   return (
     <div
       ref={containerRef}
-      className={`
-        fixed inset-0 z-[9999]
-        flex items-center justify-center p-4
-        ${transitionClass}
-        ${overlayClassName}
-        ${themeStyles.overlayClasses}
-      `}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center p-4 ${transitionClass} ${overlayClassName} ${themeStyles.overlayClasses} `}
       style={{ ...containerStyle, ...style }}
       aria-label={ariaLabel}
       aria-live={ariaLive}
@@ -308,14 +331,10 @@ export default function InteractivePreloader({
     >
       {showCard ? (
         <Card className={cardWrapperClasses} style={themeStyles.cardStyle}>
-          <CardContent className={contentWrapperClasses}>
-            {content}
-          </CardContent>
+          <CardContent className={contentWrapperClasses}>{content}</CardContent>
         </Card>
       ) : (
-        <div className={contentWrapperClasses}>
-          {content}
-        </div>
+        <div className={contentWrapperClasses}>{content}</div>
       )}
     </div>
   );

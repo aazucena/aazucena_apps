@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Zod schema for Maintenance Mode from Strapi CMS
@@ -8,10 +8,10 @@ export const StrapiMaintenanceSchema = z.object({
   documentId: z.string().optional(),
   enabled: z.boolean(),
   message: z.any(),
-  
+
   // Managed UI fields
-  heroSubtitle: z.string().default('Refining the Experience'),
-  reachOutLabel: z.string().default('Reach out directly'),
+  heroSubtitle: z.string().default("Refining the Experience"),
+  reachOutLabel: z.string().default("Reach out directly"),
 
   createdAt: z.string(),
   updatedAt: z.string(),

@@ -3,15 +3,18 @@
  * Testimonials carousel
  */
 
-import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
-import type { JSX } from 'react';
-import { useSectionData } from '~/contexts/animations';
-import { SectionLayout } from './layouts';
-import type { SectionProps } from './types';
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import type { JSX } from "react";
+import { useSectionData } from "~/contexts/animations";
+import { SectionLayout } from "./layouts";
+import type { SectionProps } from "./types";
 
 export interface TestimonialsSectionProps extends SectionProps {}
 
-export function TestimonialsSection({ title = 'Testimonials', subtitle = 'What People Say' }: TestimonialsSectionProps): JSX.Element {
+export function TestimonialsSection({
+  title = "Testimonials",
+  subtitle = "What People Say",
+}: TestimonialsSectionProps): JSX.Element {
   const { testimonials: data } = useSectionData();
   return (
     <SectionLayout

@@ -25,9 +25,9 @@
  * @status stub
  */
 
-import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
-import DetailLayout from '~/layouts/DetailLayout.astro';
-import type { LandingTemplateProps } from './index';
+import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
+import DetailLayout from "~/layouts/DetailLayout.astro";
+import type { LandingTemplateProps } from "./index";
 
 interface Props extends LandingTemplateProps {}
 
@@ -39,9 +39,9 @@ const {
   jsonLd,
   breadcrumbs,
   watermarkText,
-  watermarkSize = 'medium', // Larger watermark for landing pages
+  watermarkSize = "medium", // Larger watermark for landing pages
   showTableOfContents,
-  tocSelector = '#dynamic-content',
+  tocSelector = "#dynamic-content",
   heroCta,
 } = Astro.props;
 ---
@@ -60,9 +60,9 @@ const {
   basePath="/"
 >
   <!-- Hero Header: Large centered title with optional CTA -->
-  <div slot="header" class="text-center space-y-12">
+  <div slot="header" class="space-y-12 text-center">
     <h1
-      class="text-6xl md:text-9xl font-black text-gray-900 dark:text-white tracking-tighter leading-none"
+      class="text-6xl leading-none font-black tracking-tighter text-gray-900 md:text-9xl dark:text-white"
     >
       {title}<span class="text-blue-600">.</span>
     </h1>
@@ -76,7 +76,7 @@ const {
         <div class="flex justify-center">
           <a
             href={heroCta.href}
-            class="inline-flex items-center px-8 py-4 text-lg font-black uppercase tracking-[0.2em] text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-all shadow-lg hover:shadow-xl"
+            class="inline-flex items-center rounded-full bg-blue-600 px-8 py-4 text-lg font-black tracking-[0.2em] text-white uppercase shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl"
           >
             {heroCta.text}
           </a>
@@ -89,7 +89,7 @@ const {
   <Fragment slot="content">
     <article
       id="dynamic-content"
-      class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600"
+      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 max-w-none"
     >
       <MarkdownRenderer content={content} />
     </article>

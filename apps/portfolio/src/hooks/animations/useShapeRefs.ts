@@ -4,8 +4,8 @@
  * Provides automatic cleanup and prevents memory leaks
  */
 
-import { useRef, useCallback } from 'react';
-import type * as THREE from 'three';
+import { useRef, useCallback } from "react";
+import type * as THREE from "three";
 
 /**
  * useShapeRefs
@@ -94,6 +94,6 @@ export function useShapeRefs() {
     getRef,
     getAllRefs,
     clearRefs,
-    getRefCount
+    getRefCount,
   };
 }

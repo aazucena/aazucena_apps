@@ -1,4 +1,4 @@
-import type { StrapiMaintenance } from '../validators/maintenance';
+import type { StrapiMaintenance } from "../validators/maintenance";
 
 export interface MaintenanceConfig {
   enabled: boolean;
@@ -13,11 +13,13 @@ export type MaintenanceData = MaintenanceConfig;
 export const DEFAULT_MAINTENANCE: MaintenanceConfig = {
   enabled: false,
   message: [],
-  heroSubtitle: 'Refining the Experience',
-  reachOutLabel: 'Reach out directly',
+  heroSubtitle: "Refining the Experience",
+  reachOutLabel: "Reach out directly",
 };
 
-export function transformMaintenance(data: StrapiMaintenance): MaintenanceConfig {
+export function transformMaintenance(
+  data: StrapiMaintenance,
+): MaintenanceConfig {
   if (!data) return DEFAULT_MAINTENANCE;
 
   return {

@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { ImageElementSchema } from './components';
+import { z } from "zod";
+import { ImageElementSchema } from "./components";
 
 /**
  * Zod schema for Music Genre from Strapi CMS

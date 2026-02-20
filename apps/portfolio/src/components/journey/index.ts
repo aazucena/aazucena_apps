@@ -11,11 +11,11 @@
  */
 
 // Main journey dashboard component (stays in this directory)
-export { JourneyDashboard } from './JourneyDashboard';
+export { JourneyDashboard } from "./JourneyDashboard";
 
 // Re-export from new locations for backward compatibility
-export * from '~/components/ui/journey';
-export * from '~/components/visualizations/journey';
-export * from '~/lib/transformers/journey';
-export * from '~/lib/utils/journey';
-export * from '~/store/journey';
+export * from "~/components/ui/journey";
+export * from "~/components/visualizations/journey";
+export * from "~/lib/transformers/journey";
+export * from "~/lib/utils/journey";
+export * from "~/store/journey";

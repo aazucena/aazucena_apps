@@ -7,8 +7,8 @@ import { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 import { PixiParticleSystem } from "./particles";
 
 export interface PixiJSParticlesHandle {
-  emitAt: (x: number, y: number, count?: number) => void;
-  emitBurst: (x: number, y: number, count?: number) => void;
+  emitAt: (_x: number, _y: number, _count?: number) => void;
+  emitBurst: (_x: number, _y: number, _count?: number) => void;
   clearEmittedParticles: () => void;
 }
 
@@ -91,11 +91,11 @@ const PixiJSParticles = forwardRef<PixiJSParticlesHandle, PixiJSParticlesProps>(
     useImperativeHandle(
       ref,
       () => ({
-        emitAt: (x: number, y: number, count?: number) => {
-          systemRef.current?.emitAt(x, y, count);
+        emitAt: (_x: number, _y: number, _count?: number) => {
+          systemRef.current?.emitAt(_x, _y, _count);
         },
-        emitBurst: (x: number, y: number, count?: number) => {
-          systemRef.current?.emitBurst(x, y, count);
+        emitBurst: (_x: number, _y: number, _count?: number) => {
+          systemRef.current?.emitBurst(_x, _y, _count);
         },
         clearEmittedParticles: () => {
           systemRef.current?.clearEmittedParticles();

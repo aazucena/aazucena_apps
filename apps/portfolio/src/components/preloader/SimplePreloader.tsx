@@ -1,18 +1,18 @@
-import { Button } from '../ui/button';
-import { Card, CardContent } from '../ui/card';
-import { X } from '@mynaui/icons-react';
-import { useEffect } from 'react';
+import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
+import { X } from "@mynaui/icons-react";
+import { useEffect } from "react";
 import {
   useLoadingProgress,
   usePreloaderVisibility,
   usePreloaderLifecycle,
   useKeyboardNavigation,
   useTheme,
-} from './hooks';
-import { getLoadingSteps } from './constants';
-import { SimpleLoadingState, SimpleReadyState, ErrorState } from './components';
-import type { PreloaderPropsWithTheme } from './types';
-import { getTransitionClass } from './utils';
+} from "./hooks";
+import { getLoadingSteps } from "./constants";
+import { SimpleLoadingState, SimpleReadyState, ErrorState } from "./components";
+import type { PreloaderPropsWithTheme } from "./types";
+import { getTransitionClass } from "./utils";
 
 export default function SimplePreloader({
   // Timing & Behavior
@@ -28,7 +28,7 @@ export default function SimplePreloader({
   readyTitle = "Ready!",
   readySubtitle = "All set to go",
   continueButtonText = "Continue",
-  continueButton = true,
+  continueButton: continueButtonRaw = true as any,
 
   // Styling & Theming
   style,
@@ -38,7 +38,7 @@ export default function SimplePreloader({
 
   // Animation & Transitions
   enableAnimations = true,
-  transitionType = 'fade',
+  transitionType = "fade",
 
   // Customization
   customSteps,
@@ -60,13 +60,27 @@ export default function SimplePreloader({
 
   // Performance
   lazyLoad = false,
+  debug = false,
 
   // Theme
-  theme = 'default',
+  theme = "default",
   customTheme,
-  currentPath = '/', // Accepted for prop consistency but not used in simple variant
+  currentPath = "/", // Accepted for prop consistency but not used in simple variant
 }: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
+  if (debug) console.log("SimplePreloader currentPath:", currentPath);
+
+  const continueButton =
+    (continueButtonRaw as any) === true
+      ? {
+          label: "Continue",
+          url: "#main-content",
+          variant: "primary" as const,
+          size: "md" as const,
+          openInNewTab: false,
+          icon: undefined,
+        }
+      : (continueButtonRaw as any);
 
   const {
     progress,
@@ -81,7 +95,7 @@ export default function SimplePreloader({
     minDisplayTime,
     steps,
     onStepComplete,
-    animationDuration
+    animationDuration,
   );
 
   const {
@@ -127,7 +141,7 @@ export default function SimplePreloader({
   // Emit 'preloader-mounted' event when component mounts
   // This signals BrandIconLoader to hide and allows preloader to take over
   useEffect(() => {
-    const event = new CustomEvent('preloader-mounted');
+    const event = new CustomEvent("preloader-mounted");
     document.dispatchEvent(event);
   }, []); // Empty deps - run only on mount
 
@@ -164,7 +178,7 @@ export default function SimplePreloader({
 
   const cardWrapperClasses = `
     w-full max-w-sm border
-    ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
+    ${enableAnimations ? "animate-in fade-in-0 zoom-in-95" : ""}
     ${cardClassName}
     ${themeStyles.cardClasses}
   `;
@@ -180,7 +194,7 @@ export default function SimplePreloader({
           className="absolute top-2 right-2 z-10"
           aria-label={skipButtonAriaLabel}
         >
-          <X className="w-3 h-3" />
+          <X className="h-3 w-3" />
         </Button>
       )}
 
@@ -203,7 +217,7 @@ export default function SimplePreloader({
       ) : CustomReadyComponent ? (
         <CustomReadyComponent
           loadTime={loadTime}
-          continueButton={continueButton}
+          continueButton={continueButton as any}
           onContinue={handleContinue}
           totalSteps={steps.length}
           completedSteps={completedSteps}
@@ -223,12 +237,7 @@ export default function SimplePreloader({
   return (
     <div
       ref={containerRef}
-      className={`
-        fixed inset-0 z-[9999] flex items-center justify-center p-4
-        ${transitionClass}
-        ${overlayClassName}
-        ${themeStyles.overlayClasses}
-      `}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center p-4 ${transitionClass} ${overlayClassName} ${themeStyles.overlayClasses} `}
       style={{ ...themeStyles.overlayStyle, ...style }}
       aria-label={ariaLabel}
       aria-live={ariaLive}
@@ -237,9 +246,7 @@ export default function SimplePreloader({
     >
       {showCard ? (
         <Card className={cardWrapperClasses} style={themeStyles.cardStyle}>
-          <CardContent className={contentWrapperClasses}>
-            {content}
-          </CardContent>
+          <CardContent className={contentWrapperClasses}>{content}</CardContent>
         </Card>
       ) : (
         <div className={contentWrapperClasses} style={themeStyles.cardStyle}>

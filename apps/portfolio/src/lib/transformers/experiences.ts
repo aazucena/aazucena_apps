@@ -1,9 +1,9 @@
-import type { StrapiExperience } from '../validators/experiences';
-import { 
-  transformImage, 
-  transformWebLink as utilTransformWebLink 
-} from './utils';
-import type { Achievement } from '../validators/components';
+import type { StrapiExperience } from "../validators/experiences";
+import {
+  transformImage,
+  transformWebLink as utilTransformWebLink,
+} from "./utils";
+import type { Achievement } from "../validators/components";
 
 export interface Experience {
   id: number;
@@ -36,7 +36,7 @@ export const DEFAULT_EXPERIENCES: Experience[] = [];
 export function transformExperience(data: StrapiExperience): Experience {
   const skills = (data.skillsUsed || []).map((skill: any) => ({
     name: skill.name,
-    category: skill.category?.label || skill.category?.name || 'Other',
+    category: skill.category?.label || skill.category?.name || "Other",
   }));
 
   const projects = (data.projects || []).map((project: any) => ({
@@ -47,17 +47,17 @@ export function transformExperience(data: StrapiExperience): Experience {
 
   return {
     id: data.id,
-    slug: data.slug,
-    company: data.company,
-    position: data.position,
+    slug: data.slug || "",
+    company: data.company || "Unknown Company",
+    position: data.position || "Unknown Position",
     companyLogo: transformImage(data.companyLogo),
     industry: data.industry,
     companySize: data.companySize,
     location: data.location,
-    startDate: data.startDate,
+    startDate: data.startDate || new Date().toISOString(),
     endDate: data.endDate,
     isCurrent: !!data.isCurrent,
-    description: data.description,
+    description: data.description || "",
     responsibilities: data.responsibilities,
     employmentType: data.employmentType,
     workMode: data.workMode,
@@ -74,6 +74,10 @@ export function transformExperiences(items: StrapiExperience[]): Experience[] {
   if (!items || items.length === 0) return DEFAULT_EXPERIENCES;
 
   return items
-    .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.startDate || 0).getTime() -
+        new Date(a.startDate || 0).getTime(),
+    )
     .map(transformExperience);
 }

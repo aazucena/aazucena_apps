@@ -3,12 +3,12 @@
  * Generic hook for localStorage state management
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export function useLocalStorage<T>(
   key: string,
-  defaultValue: T
-): [T, (value: T | ((prev: T) => T)) => void, boolean] {
+  defaultValue: T,
+): [T, (_value: T | ((_prev: T) => T)) => void, boolean] {
   const [mounted, setMounted] = useState(false);
   const [value, setValue] = useState<T>(defaultValue);
 

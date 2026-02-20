@@ -12,7 +12,7 @@ export function dampedSpring(
   velocity: number,
   damping: number,
   stiffness: number,
-  deltaTime: number
+  deltaTime: number,
 ): { value: number; velocity: number } {
   const force = (target - current) * stiffness;
   const dampingForce = velocity * damping;
@@ -23,7 +23,7 @@ export function dampedSpring(
 
   return {
     value: newValue,
-    velocity: newVelocity
+    velocity: newVelocity,
   };
 }
 
@@ -31,9 +31,7 @@ export function dampedSpring(
  * Ease-in-out function
  */
 export function easeInOut(t: number): number {
-  return t < 0.5
-    ? 2 * t * t
-    : -1 + (4 - 2 * t) * t;
+  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 }
 
 /**
@@ -58,8 +56,8 @@ export function easeOutElastic(t: number): number {
   return t === 0
     ? 0
     : t === 1
-    ? 1
-    : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+      ? 1
+      : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
 }
 
 /**
@@ -86,7 +84,7 @@ export function easeOutBounce(t: number): number {
 export function applyFriction(
   velocity: number,
   friction: number,
-  deltaTime: number
+  deltaTime: number,
 ): number {
   return velocity * Math.pow(1 - friction, deltaTime);
 }
@@ -97,7 +95,7 @@ export function applyFriction(
 export function velocityToTarget(
   current: number,
   target: number,
-  time: number
+  time: number,
 ): number {
   return (target - current) / time;
 }

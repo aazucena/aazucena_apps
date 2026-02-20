@@ -1,9 +1,9 @@
-import type { StrapiAward } from '../validators/awards';
-import { getMediaUrl } from './utils';
+import type { StrapiAward } from "../validators/awards";
+import { getMediaUrl } from "./utils";
 
 export interface Award {
   id: string;
-  type: 'certification' | 'award';
+  type: "certification" | "award";
   title: string;
   shortTitle: string;
   organization: string;
@@ -24,7 +24,7 @@ export const DEFAULT_AWARDS: Award[] = [];
 export function transformAward(data: StrapiAward): Award {
   return {
     id: data.id.toString(),
-    type: data.type as 'certification' | 'award',
+    type: data.type as "certification" | "award",
     title: data.title,
     shortTitle: data.shortTitle || data.title.substring(0, 30),
     organization: data.organization,

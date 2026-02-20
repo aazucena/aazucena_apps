@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/HomeLayout.astro';
-import Homepage from '~/components/homepage/HomepageSection';
-import { getHomepageData } from '~/lib/services/homepage';
+import Layout from "../layouts/HomeLayout.astro";
+import Homepage from "~/components/homepage/HomepageSection";
+import { getHomepageData } from "~/lib/services/homepage";
 
 // Fetch all homepage data from Strapi CMS in parallel
 const { data, homepage, portfolio, animationConfig } = await getHomepageData();
@@ -13,28 +13,35 @@ const { data, homepage, portfolio, animationConfig } = await getHomepageData();
     window.__ANIMATION_CONFIG__ = animationConfig;
   </script>
 
-  {/*
+  {
+    /*
     React 19 View Transitions Polyfill
     Temporary fix for React 19.2.x bug with suspendOnActiveViewTransition
     This polyfill will be removed once React 19.3+ fixes the issue
     See: https://github.com/facebook/react/issues/...
-  */}
+  */
+  }
   <script is:inline>
-    if (typeof window !== 'undefined' && !window.suspendOnActiveViewTransition) {
+    if (
+      typeof window !== "undefined" &&
+      !window.suspendOnActiveViewTransition
+    ) {
       // Polyfill: Provide empty function to prevent React crash
-      window.suspendOnActiveViewTransition = function() {
+      window.suspendOnActiveViewTransition = function () {
         // No-op: View transitions handled by Suspense instead
         return null;
       };
     }
   </script>
 
-  {/*
+  {
+    /*
     client:only="react" - Skip SSR entirely for this component
     Why: HomepageSection uses React.lazy() for AnimationCanvas, which only works client-side.
     Also, Three.js/PixiJS require browser APIs (canvas, WebGL) that don't exist during SSR.
     This prevents hydration mismatches and improves performance.
-  */}
+  */
+  }
   <Homepage
     client:only="react"
     data={data}

@@ -3,9 +3,9 @@
  * Calculates atmospheric layer based on section progress
  */
 
-import { useMemo } from 'react';
-import type { AtmosphericPhase } from '~/config/animations';
-import { getAtmosphericPhase, getBackgroundGradient } from '~/lib/utils/scene';
+import { useMemo } from "react";
+import type { AtmosphericPhase } from "~/config/animations";
+import { getAtmosphericPhase, getBackgroundGradient } from "~/lib/utils/scene";
 
 export interface AtmosphericLayerResult {
   phase: AtmosphericPhase;
@@ -14,7 +14,7 @@ export interface AtmosphericLayerResult {
 
 export function useAtmosphericLayer(
   currentSection: number,
-  scrollProgress: number
+  scrollProgress: number,
 ): AtmosphericLayerResult {
   const progress = currentSection + scrollProgress;
 
@@ -24,7 +24,7 @@ export function useAtmosphericLayer(
 
   const backgroundStyle = useMemo(() => {
     return {
-      backgroundImage: getBackgroundGradient(currentSection, scrollProgress)
+      backgroundImage: getBackgroundGradient(currentSection, scrollProgress),
     };
   }, [currentSection, scrollProgress]);
 

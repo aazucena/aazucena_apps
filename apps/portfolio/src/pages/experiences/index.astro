@@ -1,40 +1,45 @@
 ---
+import { ArrowRight, Briefcase, Location, Zap } from "@mynaui/icons-react";
+import ListLayout from "~/layouts/ListLayout.astro";
+import type { FilterConfig } from "~/layouts/ListLayout.astro";
+import { getExperiences } from "~/lib/api/experiences";
 import {
-  ArrowRight,
-  Briefcase,
-  Location,
-  Zap
-} from '@mynaui/icons-react';
-import ListLayout from '~/layouts/ListLayout.astro';
-import type { FilterConfig } from '~/layouts/ListLayout.astro';
-import { getExperiences } from '~/lib/api/experiences';
-import { calculateDuration, getCompanyLogoGradient, getCompanyInitials } from '~/lib/utils/experiences';
-import { toTitleCase } from '~/lib/utils/text';
-import type { Experience } from '~/lib/transformers/experiences';
+  calculateDuration,
+  getCompanyLogoGradient,
+  getCompanyInitials,
+} from "~/lib/utils/experiences";
+import { toTitleCase } from "~/lib/utils/text";
+import type { Experience } from "~/lib/transformers/experiences";
 
 // Fetch all experiences
 let experiences: Experience[] = [];
 try {
   experiences = await getExperiences();
 } catch (error) {
-  console.error('Error fetching experiences:', error);
+  console.error("Error fetching experiences:", error);
 }
 
 // Extract unique companies and employment types for filters
-const companies = [...new Set(experiences.map(e => e.company))].sort();
-const employmentTypes = [...new Set(experiences.map(e => e.employmentType))].filter(Boolean).sort() as string[];
+const companies = [...new Set(experiences.map((e) => e.company))].sort();
+const employmentTypes = [...new Set(experiences.map((e) => e.employmentType))]
+  .filter(Boolean)
+  .sort() as string[];
 
 const filters: FilterConfig[] = [
-  { id: 'company', label: 'Company', options: companies },
-  { id: 'type', label: 'Employment Type', options: employmentTypes }
+  { id: "company", label: "Company", options: companies },
+  { id: "type", label: "Employment Type", options: employmentTypes },
 ];
 
 // Helper to extract the first metric found in achievements
 function getTopMetric(experience: Experience) {
-  const metric = (experience.achievements || []).find(a => /([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/.test(a.title));
+  const metric = (experience.achievements || []).find((a) =>
+    /([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/.test(a.title),
+  );
   if (!metric) return null;
   const match = metric.title.match(/([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/);
-  return match ? { value: match[0], label: metric.title.replace(match[0], '').trim() } : null;
+  return match
+    ? { value: match[0], label: metric.title.replace(match[0], "").trim() }
+    : null;
 }
 ---
 
@@ -48,109 +53,135 @@ function getTopMetric(experience: Experience) {
   maxWidth="5xl"
   hasItems={experiences.length > 0}
 >
-  {experiences.map((experience, index) => {
-    const topMetric = getTopMetric(experience);
-    
-    return (
-      <div
-        class="item-card group relative flex flex-col md:flex-row items-center"
-        data-filter-company={experience.company}
-        data-filter-type={experience.employmentType || ''}
-        data-search={`${experience.company} ${experience.position} ${experience.skills.map(s => s.name).join(' ')} ${experience.location || ''}`.toLowerCase()}
-      >
-        <!-- Timeline Node -->
-        <div class="absolute left-0 md:left-1/2 w-5 h-5 rounded-full bg-white dark:bg-gray-950 border-4 border-blue-600 dark:border-blue-400 transform md:-translate-x-1/2 z-20 group-hover:scale-125 transition-transform duration-500 shadow-xl shadow-blue-500/20"></div>
+  {
+    experiences.map((experience, index) => {
+      const topMetric = getTopMetric(experience);
 
-        <!-- Content Card Wrapper -->
-        <div class={`timeline-content-wrapper w-full md:w-1/2 ml-8 md:ml-0 ${index % 2 === 0 ? 'md:mr-auto md:pr-16' : 'md:ml-auto md:pl-16'}`}>
-          <div class="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-8 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-500/50 transition-all duration-500 group/card relative overflow-hidden">
-            
-            <!-- Hover Gradient Background -->
-            <div class={`absolute inset-0 bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} opacity-0 group-hover/card:opacity-[0.02] dark:group-hover/card:opacity-[0.05] transition-opacity duration-700 pointer-events-none`}></div>
+      return (
+        <div
+          class="item-card group relative flex flex-col items-center md:flex-row"
+          data-filter-company={experience.company}
+          data-filter-type={experience.employmentType || ""}
+          data-search={`${experience.company} ${experience.position} ${experience.skills.map((s) => s.name).join(" ")} ${experience.location || ""}`.toLowerCase()}
+        >
+          {/* Timeline Node */}
+          <div class="absolute left-0 z-20 h-5 w-5 transform rounded-full border-4 border-blue-600 bg-white shadow-xl shadow-blue-500/20 transition-transform duration-500 group-hover:scale-125 md:left-1/2 md:-translate-x-1/2 dark:border-blue-400 dark:bg-gray-950" />
 
-            <!-- Duration Badge -->
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-500 mb-6 border border-gray-100 dark:border-gray-700">
-              {calculateDuration(experience.startDate, experience.endDate, !experience.endDate)}
-            </div>
+          {/* Content Card Wrapper */}
+          <div
+            class={`timeline-content-wrapper ml-8 w-full md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:mr-auto md:pr-16" : "md:ml-auto md:pl-16"}`}
+          >
+            <div class="group/card relative overflow-hidden rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm transition-all duration-500 hover:border-blue-300 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-500/50">
+              {/* Hover Gradient Background */}
+              <div
+                class={`absolute inset-0 bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} pointer-events-none opacity-0 transition-opacity duration-700 group-hover/card:opacity-[0.02] dark:group-hover/card:opacity-[0.05]`}
+              />
 
-            <!-- Company Info -->
-            <div class="flex items-start gap-5 mb-8">
-              <div class={`flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} flex items-center justify-center text-white font-black text-xl shadow-xl group-hover/card:scale-110 transition-transform duration-700`}>
-                {experience.companyLogo?.url ? (
-                  <img src={experience.companyLogo.url} alt={experience.company} class="w-full h-full object-cover rounded-2xl" />
-                ) : (
-                  getCompanyInitials(experience.company)
+              {/* Duration Badge */}
+              <div class="mb-6 inline-flex items-center rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500">
+                {calculateDuration(
+                  experience.startDate,
+                  experience.endDate,
+                  !experience.endDate,
                 )}
               </div>
-              <div class="flex-1 min-w-0">
-                <h3 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-1 leading-tight tracking-tighter">
-                  <a href={`/experiences/${experience.slug}`} class="group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400 transition-colors">
-                    {toTitleCase(experience.position)}
-                  </a>
-                </h3>
-                <div class="text-sm font-bold text-blue-600 dark:text-blue-400 flex items-center gap-2">
-                  {toTitleCase(experience.company)}
-                </div>
-                {experience.employmentType && (
-                  <div class="text-[10px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-widest mt-1 flex items-center gap-1.5">
-                    <Briefcase size={12} />
-                    {experience.employmentType}
-                  </div>
-                )}
-              </div>
-            </div>
 
-            <!-- Impact Highlight -->
-            {topMetric && (
-              <div class="mb-8 p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-800/50 flex items-center gap-4 group/metric">
-                <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                  <Zap size={20} className="animate-pulse" />
+              {/* Company Info */}
+              <div class="mb-8 flex items-start gap-5">
+                <div
+                  class={`h-16 w-16 flex-shrink-0 rounded-2xl bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} flex items-center justify-center text-xl font-black text-white shadow-xl transition-transform duration-700 group-hover/card:scale-110`}
+                >
+                  {experience.companyLogo?.url ? (
+                    <img
+                      src={experience.companyLogo.url}
+                      alt={experience.company}
+                      class="h-full w-full rounded-2xl object-cover"
+                    />
+                  ) : (
+                    getCompanyInitials(experience.company)
+                  )}
                 </div>
-                <div>
-                  <div class="text-[10px] font-black text-blue-900/40 dark:text-blue-200/40 uppercase tracking-widest">Key Outcome</div>
-                  <div class="text-base text-blue-900 dark:text-blue-100 font-bold leading-tight">
-                    <span class="text-blue-600 dark:text-blue-400">{topMetric.value}</span> {topMetric.label}
+                <div class="min-w-0 flex-1">
+                  <h3 class="mb-1 text-2xl leading-tight font-black tracking-tighter text-gray-900 md:text-3xl dark:text-white">
+                    <a
+                      href={`/experiences/${experience.slug}`}
+                      class="transition-colors group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400"
+                    >
+                      {toTitleCase(experience.position)}
+                    </a>
+                  </h3>
+                  <div class="flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400">
+                    {toTitleCase(experience.company)}
                   </div>
+                  {experience.employmentType && (
+                    <div class="mt-1 flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-400 uppercase dark:text-gray-500">
+                      <Briefcase size={12} />
+                      {experience.employmentType}
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
 
-            <!-- Skills -->
-            <div class="flex flex-wrap gap-2 mb-8">
-              {experience.skills.slice(0, 5).map(skill => (
-                <span class="px-2.5 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-gray-100 dark:border-gray-700 hover:border-blue-500/20 transition-colors">
-                  {skill.name}
-                </span>
-              ))}
-              {experience.skills.length > 5 && (
-                <span class="px-2.5 py-1 text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                  +{experience.skills.length - 5}
-                </span>
+              {/* Impact Highlight */}
+              {topMetric && (
+                <div class="group/metric mb-8 flex items-center gap-4 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 dark:border-blue-800/50 dark:bg-blue-900/10">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                    <Zap size={20} className="animate-pulse" />
+                  </div>
+                  <div>
+                    <div class="text-[10px] font-black tracking-widest text-blue-900/40 uppercase dark:text-blue-200/40">
+                      Key Outcome
+                    </div>
+                    <div class="text-base leading-tight font-bold text-blue-900 dark:text-blue-100">
+                      <span class="text-blue-600 dark:text-blue-400">
+                        {topMetric.value}
+                      </span>{" "}
+                      {topMetric.label}
+                    </div>
+                  </div>
+                </div>
               )}
-            </div>
 
-            <!-- Bottom Actions -->
-            <div class="flex items-center justify-between mt-auto pt-6 border-t border-gray-100 dark:border-gray-800">
-              <div class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                {experience.location && (
-                  <span class="flex items-center gap-1.5">
-                    <Location size={14} />
-                    {experience.location}
+              {/* Skills */}
+              <div class="mb-8 flex flex-wrap gap-2">
+                {experience.skills.slice(0, 5).map((skill) => (
+                  <span class="rounded-lg border border-gray-100 bg-gray-50 px-2.5 py-1 text-[10px] font-bold tracking-wider text-gray-600 uppercase transition-colors hover:border-blue-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                    {skill.name}
+                  </span>
+                ))}
+                {experience.skills.length > 5 && (
+                  <span class="px-2.5 py-1 text-[10px] font-bold tracking-widest text-gray-400 uppercase dark:text-gray-500">
+                    +{experience.skills.length - 5}
                   </span>
                 )}
               </div>
-              
-              <a
-                href={`/experiences/${experience.slug}`}
-                class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-xs font-black uppercase tracking-widest group/link"
-              >
-                Case Study
-                <ArrowRight size={16} className="transform group-hover/link:translate-x-1 transition-transform" />
-              </a>
+
+              {/* Bottom Actions */}
+              <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-6 dark:border-gray-800">
+                <div class="flex items-center gap-3 text-[10px] font-black tracking-widest text-gray-400 uppercase dark:text-gray-500">
+                  {experience.location && (
+                    <span class="flex items-center gap-1.5">
+                      <Location size={14} />
+                      {experience.location}
+                    </span>
+                  )}
+                </div>
+
+                <a
+                  href={`/experiences/${experience.slug}`}
+                  class="group/link inline-flex items-center gap-2 text-xs font-black tracking-widest text-blue-600 uppercase hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                >
+                  Case Study
+                  <ArrowRight
+                    size={16}
+                    className="transform group-hover/link:translate-x-1 transition-transform"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-  })}
+      );
+    })
+  }
 </ListLayout>

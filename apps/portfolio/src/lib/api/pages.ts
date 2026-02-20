@@ -1,22 +1,22 @@
-import { z } from 'zod';
-import { fetchStrapi } from '../strapi';
-import { PageSchema } from '../validators/page';
-import { transformPage, type Page } from '../transformers/page';
+import { z } from "zod";
+import { fetchStrapi } from "../strapi";
+import { PageSchema } from "../validators/page";
+import { transformPage, type Page } from "../transformers/page";
 
 /**
  * Fetch all published pages
  */
 export async function getPages(): Promise<Page[]> {
   try {
-    const response = await fetchStrapi('pages', {
+    const response = await fetchStrapi("pages", {
       query: {
-        populate: ['seo', 'seo.openGraph'],
+        populate: ["seo", "seo.openGraph"],
         filters: {
           publishedAt: {
             $notNull: true,
           },
         },
-        publicationState: 'live',
+        publicationState: "live",
       },
     });
 
@@ -26,9 +26,9 @@ export async function getPages(): Promise<Page[]> {
     return validated.map(transformPage);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error('[Pages API] Invalid CMS data:', error.issues);
+      console.error("[Pages API] Invalid CMS data:", error.issues);
     } else {
-      console.error('[Pages API] Failed to fetch pages:', error);
+      console.error("[Pages API] Failed to fetch pages:", error);
     }
     return [];
   }
@@ -39,9 +39,9 @@ export async function getPages(): Promise<Page[]> {
  */
 export async function getPageBySlug(slug: string): Promise<Page | null> {
   try {
-    const response = await fetchStrapi('pages', {
+    const response = await fetchStrapi("pages", {
       query: {
-        populate: ['seo', 'seo.openGraph'],
+        populate: ["seo", "seo.openGraph"],
         filters: {
           slug: {
             $eq: slug,
@@ -50,7 +50,7 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
             $notNull: true,
           },
         },
-        publicationState: 'live',
+        publicationState: "live",
       },
     });
 
@@ -65,7 +65,10 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
     return transformPage(validated);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error(`[Pages API] Invalid CMS data for slug ${slug}:`, error.issues);
+      console.error(
+        `[Pages API] Invalid CMS data for slug ${slug}:`,
+        error.issues,
+      );
     } else {
       console.error(`[Pages API] Failed to fetch page ${slug}:`, error);
     }

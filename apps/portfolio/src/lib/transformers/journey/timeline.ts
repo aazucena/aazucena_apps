@@ -3,16 +3,16 @@
  * Converts experience and education into timeline nodes
  */
 
-import type { SkillWithCategory } from '~/lib/validators/components';
-import type { Education } from '~/lib/transformers/education';
-import type { Experience } from '~/lib/transformers/experiences';
-import { calculateMonthsDuration } from './base';
-import { getCompanyLogoGradient } from '~/lib/utils/experiences';
+import type { SkillWithCategory } from "~/lib/validators/components";
+import type { Education } from "~/lib/transformers/education";
+import type { Experience } from "~/lib/transformers/experiences";
+import { calculateMonthsDuration } from "./base";
+import { getCompanyLogoGradient } from "~/lib/utils/experiences";
 
 export interface TimelineNode {
   date: Date;
   endDate: Date;
-  type: 'experience' | 'education';
+  type: "experience" | "education";
   company?: string;
   position?: string;
   logo?: string;
@@ -31,7 +31,9 @@ export interface TimelineNode {
   subtitle: string;
 }
 
-export function transformExperiencesToTimeline(experiences: Experience[]): TimelineNode[] {
+export function transformExperiencesToTimeline(
+  experiences: Experience[],
+): TimelineNode[] {
   return experiences.map((exp, index) => {
     const startDate = new Date(exp.startDate);
     const validStartDate = !isNaN(startDate.getTime())
@@ -49,7 +51,7 @@ export function transformExperiencesToTimeline(experiences: Experience[]): Timel
     }
 
     return {
-      type: 'experience',
+      type: "experience",
       date: validStartDate,
       endDate: endDate,
       title: exp.position,
@@ -66,7 +68,9 @@ export function transformExperiencesToTimeline(experiences: Experience[]): Timel
   });
 }
 
-export function transformEducationToTimeline(education: Education[]): TimelineNode[] {
+export function transformEducationToTimeline(
+  education: Education[],
+): TimelineNode[] {
   return education.map((edu, index) => {
     const startDate = new Date(edu.startDate);
     const validStartDate = !isNaN(startDate.getTime())
@@ -83,22 +87,22 @@ export function transformEducationToTimeline(education: Education[]): TimelineNo
       endDate = new Date();
     }
 
-    const DEGREE_ICONS: Record<Education['type'], string> = {
-      'high-school': '📜',
-      'diploma': '📜',
-      'associate': '🎓',
-      'bachelor': '🎓',
-      'master': '🎓',
-      'doctorate': '🎓',
-      'certificate': '📜',
-      'bootcamp': '📜',
-      'online-course': '📜',
+    const DEGREE_ICONS: Record<Education["type"], string> = {
+      "high-school": "📜",
+      diploma: "📜",
+      associate: "🎓",
+      bachelor: "🎓",
+      master: "🎓",
+      doctorate: "🎓",
+      certificate: "📜",
+      bootcamp: "📜",
+      "online-course": "📜",
     };
-    
-    const degreeIcon: string = DEGREE_ICONS[edu.type] || '🎓';
+
+    const degreeIcon: string = DEGREE_ICONS[edu.type] || "🎓";
 
     return {
-      type: 'education',
+      type: "education",
       date: validStartDate,
       endDate: endDate,
       title: `${degreeIcon} ${edu.degree}`,
@@ -109,7 +113,7 @@ export function transformEducationToTimeline(education: Education[]): TimelineNo
       educationType: edu.type,
       gpa: edu.gpa,
       honors: edu.honors || null,
-      skills: edu.skills as SkillWithCategory[] || [],
+      skills: (edu.skills as SkillWithCategory[]) || [],
       duration: calculateMonthsDuration(validStartDate, endDate),
       isCurrent: edu.current,
     } satisfies TimelineNode;
@@ -118,11 +122,11 @@ export function transformEducationToTimeline(education: Education[]): TimelineNo
 
 export function transformToTimelineData(
   experiences: Experience[],
-  education: Education[] = []
+  education: Education[] = [],
 ): TimelineNode[] {
   const experienceNodes = transformExperiencesToTimeline(experiences);
   const educationNodes = transformEducationToTimeline(education);
   return [...experienceNodes, ...educationNodes].sort(
-    (a, b) => b.date.getTime() - a.date.getTime()
+    (a, b) => b.date.getTime() - a.date.getTime(),
   );
 }

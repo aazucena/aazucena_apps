@@ -1,6 +1,7 @@
-import type { ComponentType, CSSProperties } from 'react';
-import type { PreloaderConfig } from '~/lib/transformers/preloader';
-import type { IconComponent } from '~/types/icons';
+import type { ComponentType, CSSProperties } from "react";
+import type { PreloaderConfig } from "~/lib/transformers/preloader";
+import type { IconComponent } from "~/types/icons";
+import type { transformCtaButton } from "~/lib/transformers/utils";
 
 // Loading step definition
 export interface LoadingStep {
@@ -12,10 +13,12 @@ export interface LoadingStep {
   weight?: number;
 }
 
+export type { IconComponent };
+
 // Custom component props for ready state
 export interface CustomReadyComponentProps {
   loadTime: string;
-  continueButton?: boolean;
+  continueButton?: boolean | ReturnType<typeof transformCtaButton>;
   onContinue: () => void;
   totalSteps: number;
   completedSteps: number;
@@ -63,7 +66,7 @@ export interface StylingConfig {
 
 export interface AnimationConfig {
   enableAnimations?: boolean;
-  transitionType?: 'fade' | 'slide' | 'scale' | 'none';
+  transitionType?: "fade" | "slide" | "scale" | "none";
 }
 
 export interface CustomizationConfig {
@@ -74,16 +77,16 @@ export interface CustomizationConfig {
 
 export interface CallbackConfig {
   onComplete?: () => void;
-  onStepComplete?: (stepId: number, stepName: string) => void;
+  onStepComplete?: (_stepId: number, _stepName: string) => void;
   onLoadingStart?: () => void;
-  onLoadingProgress?: (progress: number, currentStep: number) => void;
+  onLoadingProgress?: (_progress: number, _currentStep: number) => void;
   onSkip?: () => void;
-  onError?: (error: Error) => void;
+  onError?: (_error: Error) => void;
 }
 
 export interface AccessibilityConfig {
   ariaLabel?: string;
-  ariaLive?: 'off' | 'polite' | 'assertive';
+  ariaLive?: "off" | "polite" | "assertive";
   skipButtonAriaLabel?: string;
 }
 
@@ -105,7 +108,7 @@ export interface PreloaderProps extends Partial<PreloaderConfig> {
   subtitle?: string;
   readyTitle?: string;
   readySubtitle?: string;
-  continueButton?: PreloaderConfig['continueButton'];
+  continueButton?: PreloaderConfig["continueButton"];
   continueButtonText?: string;
   readyFooterNote?: string;
 
@@ -120,7 +123,7 @@ export interface PreloaderProps extends Partial<PreloaderConfig> {
 
   // Animation & Transitions
   enableAnimations?: boolean;
-  transitionType?: 'fade' | 'slide' | 'scale' | 'none';
+  transitionType?: "fade" | "slide" | "scale" | "none";
 
   // Customization
   customSteps?: LoadingStep[];
@@ -129,15 +132,15 @@ export interface PreloaderProps extends Partial<PreloaderConfig> {
 
   // Callbacks
   onComplete?: () => void;
-  onStepComplete?: (stepId: number, stepName: string) => void;
+  onStepComplete?: (_stepId: number, _stepName: string) => void;
   onLoadingStart?: () => void;
-  onLoadingProgress?: (progress: number, currentStep: number) => void;
+  onLoadingProgress?: (_progress: number, _currentStep: number) => void;
   onSkip?: () => void;
-  onError?: (error: Error) => void;
+  onError?: (_error: Error) => void;
 
   // Accessibility
   ariaLabel?: string;
-  ariaLive?: 'off' | 'polite' | 'assertive';
+  ariaLive?: "off" | "polite" | "assertive";
   skipButtonAriaLabel?: string;
 
   // Performance
@@ -159,7 +162,7 @@ export interface PreloaderGroupedProps {
   performance?: PerformanceConfig;
 }
 
-export type PreloaderVariant = 'interactive' | 'simple';
+export type PreloaderVariant = "interactive" | "simple";
 
 export interface UnifiedPreloaderProps extends PreloaderProps {
   variant?: PreloaderVariant;
@@ -167,14 +170,14 @@ export interface UnifiedPreloaderProps extends PreloaderProps {
 
 // Theme System
 export type PreloaderTheme =
-  | 'default'
-  | 'hoyoverse'
-  | 'cyberpunk'
-  | 'minimal'
-  | 'glass'
-  | 'dark'
-  | 'light'
-  | 'nature';
+  | "default"
+  | "hoyoverse"
+  | "cyberpunk"
+  | "minimal"
+  | "glass"
+  | "dark"
+  | "light"
+  | "nature";
 
 export interface ThemeColors {
   // Primary colors
@@ -243,6 +246,11 @@ export interface ThemeConfig {
 
 export interface PreloaderPropsWithTheme extends PreloaderProps {
   theme?: PreloaderTheme;
-  customTheme?: Partial<ThemeConfig>;
+  customTheme?: {
+    colors?: Partial<ThemeColors>;
+    effects?: Partial<ThemeEffects>;
+    typography?: Partial<ThemeTypography>;
+    customClass?: string;
+  };
   currentPath?: string; // Current page path for conditional behavior
 }

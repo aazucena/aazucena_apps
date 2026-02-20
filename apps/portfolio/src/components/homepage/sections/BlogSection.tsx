@@ -3,16 +3,19 @@
  * Blog posts grid with external/internal links
  */
 
-import type { JSX } from 'react';
-import { useSectionData } from '~/contexts/animations';
-import { ResponsiveGrid } from '~/components/ui/common';
-import { BlogCard, ViewAllButton } from '~/components/ui/blog';
-import { SectionLayout } from './layouts';
-import type { SectionProps } from './types';
+import type { JSX } from "react";
+import { useSectionData } from "~/contexts/animations";
+import { ResponsiveGrid } from "~/components/ui/common";
+import { BlogCard, ViewAllButton } from "~/components/ui/blog";
+import { SectionLayout } from "./layouts";
+import type { SectionProps } from "./types";
 
 export interface BlogSectionProps extends SectionProps {}
 
-export function BlogSection({ title = 'Blog', subtitle = 'Thoughts & Insights' }: BlogSectionProps): JSX.Element {
+export function BlogSection({
+  title = "Blog",
+  subtitle = "Thoughts & Insights",
+}: BlogSectionProps): JSX.Element {
   const { posts: blogPosts, blog } = useSectionData();
 
   // Limit posts to display count from CMS
@@ -35,18 +38,10 @@ export function BlogSection({ title = 'Blog', subtitle = 'Thoughts & Insights' }
   })();
 
   return (
-    <SectionLayout
-      title={title}
-      subtitle={subtitle}
-      contentWidth="medium"
-    >
+    <SectionLayout title={title} subtitle={subtitle} contentWidth="medium">
       <ResponsiveGrid cols={gridColumns} gap="lg" className="mt-12">
         {displayedPosts.map((post, index) => (
-          <BlogCard
-            key={index}
-            post={post}
-            displayConfig={blog.display}
-          />
+          <BlogCard key={index} post={post} displayConfig={blog.display} />
         ))}
       </ResponsiveGrid>
 

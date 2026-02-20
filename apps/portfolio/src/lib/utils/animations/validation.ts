@@ -7,17 +7,13 @@
  * Check if value is a valid number
  */
 export function isValidNumber(value: any): value is number {
-  return typeof value === 'number' && !isNaN(value) && isFinite(value);
+  return typeof value === "number" && !isNaN(value) && isFinite(value);
 }
 
 /**
  * Check if value is within range
  */
-export function isInRange(
-  value: number,
-  min: number,
-  max: number
-): boolean {
+export function isInRange(value: number, min: number, max: number): boolean {
   return isValidNumber(value) && value >= min && value <= max;
 }
 
@@ -34,7 +30,7 @@ export function isValidOpacity(value: any): boolean {
 export function isValidHSL(
   hue: number,
   saturation: number,
-  lightness: number
+  lightness: number,
 ): boolean {
   return (
     isInRange(hue, 0, 360) &&
@@ -53,8 +49,11 @@ export function isValidHexColor(color: string): boolean {
 /**
  * Sanitize string input
  */
-export function sanitizeString(input: string, maxLength: number = 1000): string {
-  if (typeof input !== 'string') return '';
+export function sanitizeString(
+  input: string,
+  maxLength: number = 1000,
+): string {
+  if (typeof input !== "string") return "";
   return input.slice(0, maxLength).trim();
 }
 
@@ -63,19 +62,18 @@ export function sanitizeString(input: string, maxLength: number = 1000): string 
  */
 export function isValidNumberArray(
   arr: any,
-  expectedLength?: number
+  expectedLength?: number,
 ): arr is number[] {
   if (!Array.isArray(arr)) return false;
-  if (expectedLength !== undefined && arr.length !== expectedLength) return false;
+  if (expectedLength !== undefined && arr.length !== expectedLength)
+    return false;
   return arr.every(isValidNumber);
 }
 
 /**
  * Validate 3D position tuple
  */
-export function isValid3DPosition(
-  pos: any
-): pos is [number, number, number] {
+export function isValid3DPosition(pos: any): pos is [number, number, number] {
   return isValidNumberArray(pos, 3);
 }
 
@@ -84,8 +82,8 @@ export function isValid3DPosition(
  */
 export function hasRequiredProperties<T extends Record<string, any>>(
   obj: any,
-  requiredProps: (keyof T)[]
+  requiredProps: (keyof T)[],
 ): obj is T {
-  if (!obj || typeof obj !== 'object') return false;
-  return requiredProps.every(prop => prop in obj);
+  if (!obj || typeof obj !== "object") return false;
+  return requiredProps.every((prop) => prop in obj);
 }

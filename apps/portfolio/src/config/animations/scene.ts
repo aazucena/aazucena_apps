@@ -97,7 +97,7 @@ export const SUN_CONFIG = {
   /** Light intensity multiplier */
   intensity: 0.8,
   /** Light color */
-  color: '#FFD700',
+  color: "#FFD700",
 } as const;
 
 /**

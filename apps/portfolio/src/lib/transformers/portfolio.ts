@@ -1,8 +1,5 @@
-import type { StrapiPortfolio } from '../validators/portfolio';
-import { 
-  transformImage, 
-  transformSocialLink 
-} from './utils';
+import type { StrapiPortfolio } from "../validators/portfolio";
+import { transformImage, transformSocialLink } from "./utils";
 
 export interface PortfolioData {
   fullName: string;
@@ -23,11 +20,11 @@ export interface PortfolioData {
 export type PortfolioContent = PortfolioData;
 
 export const DEFAULT_PORTFOLIO: PortfolioData = {
-  fullName: 'Aldrin Azucena',
-  occupation: 'Full Stack Software Developer',
-  email: 'contact@aazucena.com',
-  availabilityStatus: 'Open to Opportunities',
-  timezone: 'America/Edmonton',
+  fullName: "Aldrin Azucena",
+  occupation: "Full Stack Software Developer",
+  email: "contact@aazucena.com",
+  availabilityStatus: "Open to Opportunities",
+  timezone: "America/Edmonton",
   socialLinks: [],
 };
 

@@ -4,8 +4,8 @@
  * Eliminates repetitive grid class strings
  */
 
-import type { JSX } from 'react';
-import { cn } from '~/lib/utils';
+import type { JSX } from "react";
+import { cn } from "~/lib/utils";
 
 export interface ResponsiveGridProps {
   /** Grid items */
@@ -20,37 +20,37 @@ export interface ResponsiveGridProps {
     lg?: 1 | 2 | 3 | 4 | 5 | 6;
   };
   /** Gap between items */
-  gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  gap?: "none" | "sm" | "md" | "lg" | "xl";
   /** Additional classes */
   className?: string;
 }
 
 const gapVariants = {
-  none: 'gap-0',
-  sm: 'gap-2',
-  md: 'gap-4',
-  lg: 'gap-6',
-  xl: 'gap-8',
+  none: "gap-0",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
 } as const;
 
 const colClasses = {
   sm: {
-    1: 'grid-cols-1',
-    2: 'grid-cols-2',
+    1: "grid-cols-1",
+    2: "grid-cols-2",
   },
   md: {
-    1: 'md:grid-cols-1',
-    2: 'md:grid-cols-2',
-    3: 'md:grid-cols-3',
-    4: 'md:grid-cols-4',
+    1: "md:grid-cols-1",
+    2: "md:grid-cols-2",
+    3: "md:grid-cols-3",
+    4: "md:grid-cols-4",
   },
   lg: {
-    1: 'lg:grid-cols-1',
-    2: 'lg:grid-cols-2',
-    3: 'lg:grid-cols-3',
-    4: 'lg:grid-cols-4',
-    5: 'lg:grid-cols-5',
-    6: 'lg:grid-cols-6',
+    1: "lg:grid-cols-1",
+    2: "lg:grid-cols-2",
+    3: "lg:grid-cols-3",
+    4: "lg:grid-cols-4",
+    5: "lg:grid-cols-5",
+    6: "lg:grid-cols-6",
   },
 } as const;
 
@@ -83,7 +83,7 @@ const colClasses = {
 export function ResponsiveGrid({
   children,
   cols = { sm: 1, md: 2, lg: 3 },
-  gap = 'md',
+  gap = "md",
   className,
 }: ResponsiveGridProps): JSX.Element {
   const { sm = 1, md, lg } = cols;
@@ -91,7 +91,7 @@ export function ResponsiveGrid({
   return (
     <div
       className={cn(
-        'grid',
+        "grid",
         // Base columns (mobile)
         colClasses.sm[sm],
         // Tablet columns
@@ -101,7 +101,7 @@ export function ResponsiveGrid({
         // Gap
         gapVariants[gap],
         // Custom classes
-        className
+        className,
       )}
     >
       {children}

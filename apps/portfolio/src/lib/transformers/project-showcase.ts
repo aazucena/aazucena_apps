@@ -1,5 +1,5 @@
-import type { StrapiShowcase } from '../validators/project-showcase';
-import { transformPageHeader } from './utils';
+import type { StrapiShowcase } from "../validators/project-showcase";
+import { transformPageHeader } from "./utils";
 
 /**
  * Project Showcase Configuration
@@ -20,10 +20,10 @@ export interface ProjectShowcaseConfig {
 export type ShowcaseConfig = ProjectShowcaseConfig;
 
 export const DEFAULT_PROJECT_SHOWCASE_CONFIG: ProjectShowcaseConfig = {
-  searchPlaceholder: 'Search projects by tech, title...',
-  dragHintText: 'Drag to explore more projects',
-  viewMoreButtonLabel: 'View More',
-  viewMoreButtonSubtitle: 'Explore all projects',
+  searchPlaceholder: "Search projects by tech, title...",
+  dragHintText: "Drag to explore more projects",
+  viewMoreButtonLabel: "View More",
+  viewMoreButtonSubtitle: "Explore all projects",
   maxProjectsDisplayed: 7,
   projectsPerPage: 4,
 };
@@ -32,7 +32,9 @@ export const DEFAULT_PROJECT_SHOWCASE_CONFIG: ProjectShowcaseConfig = {
  * Transform Strapi project showcase data
  * Direct mapping - no nesting, follows Strapi schema
  */
-export function transformProjectShowcase(data: StrapiShowcase): ProjectShowcaseConfig {
+export function transformProjectShowcase(
+  data: StrapiShowcase,
+): ProjectShowcaseConfig {
   if (!data) return DEFAULT_PROJECT_SHOWCASE_CONFIG;
 
   return {
@@ -43,6 +45,6 @@ export function transformProjectShowcase(data: StrapiShowcase): ProjectShowcaseC
     viewMoreButtonSubtitle: data.viewMoreButtonSubtitle,
     maxProjectsDisplayed: data.maxProjectsDisplayed,
     projectsPerPage: data.projectsPerPage,
-    listPagePath: data.listPagePath || '/projects',
+    listPagePath: data.listPagePath || "/projects",
   };
 }

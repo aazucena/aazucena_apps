@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export interface UsePreloaderLifecycleOptions {
   autoStart?: boolean;
@@ -12,8 +12,8 @@ export interface UsePreloaderLifecycleOptions {
   currentStep: number;
   error: Error | null;
   onLoadingStart?: () => void;
-  onLoadingProgress?: (progress: number, currentStep: number) => void;
-  onError?: (error: Error) => void;
+  onLoadingProgress?: (_progress: number, _currentStep: number) => void;
+  onError?: (_error: Error) => void;
   handleSkip: () => void;
   startLoading: () => void;
 }
@@ -26,9 +26,9 @@ export function usePreloaderLifecycle({
   isReady,
   userSkipped,
   continueButton,
-  progress,
-  currentStep,
-  error,
+  progress: _progress,
+  currentStep: _currentStep,
+  error: _error,
   onLoadingStart,
   onLoadingProgress,
   onError,
@@ -39,26 +39,41 @@ export function usePreloaderLifecycle({
 
   // Auto-start loading when conditions are met
   useEffect(() => {
-    if (autoStart && isInViewport && !isLoading && !isReady && !userSkipped && !hasStartedRef.current) {
+    if (
+      autoStart &&
+      isInViewport &&
+      !isLoading &&
+      !isReady &&
+      !userSkipped &&
+      !hasStartedRef.current
+    ) {
       hasStartedRef.current = true;
       onLoadingStart?.();
       startLoading();
     }
-  }, [autoStart, isInViewport, isLoading, isReady, userSkipped, startLoading, onLoadingStart]);
+  }, [
+    autoStart,
+    isInViewport,
+    isLoading,
+    isReady,
+    userSkipped,
+    startLoading,
+    onLoadingStart,
+  ]);
 
   // Progress callback
   useEffect(() => {
     if (onLoadingProgress) {
-      onLoadingProgress(progress, currentStep);
+      onLoadingProgress(_progress, _currentStep);
     }
-  }, [progress, currentStep, onLoadingProgress]);
+  }, [_progress, _currentStep, onLoadingProgress]);
 
   // Error callback
   useEffect(() => {
-    if (error && onError) {
-      onError(error);
+    if (_error && onError) {
+      onError(_error);
     }
-  }, [error, onError]);
+  }, [_error, onError]);
 
   // Max display time safety net
   useEffect(() => {
@@ -70,10 +85,17 @@ export function usePreloaderLifecycle({
     }
 
     const timer = setTimeout(() => {
-      console.warn('Preloader exceeded max display time');
-      onError?.(new Error('Preloader timeout'));
+      console.warn("Preloader exceeded max display time");
+      onError?.(new Error("Preloader timeout"));
     }, maxDisplayTime);
 
     return () => clearTimeout(timer);
-  }, [maxDisplayTime, isReady, userSkipped, continueButton, handleSkip, onError]);
+  }, [
+    maxDisplayTime,
+    isReady,
+    userSkipped,
+    continueButton,
+    handleSkip,
+    onError,
+  ]);
 }

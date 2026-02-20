@@ -1,5 +1,5 @@
-import type { StrapiSkillShowcase } from '../validators/skill-showcase';
-import { transformPageHeader } from './utils';
+import type { StrapiSkillShowcase } from "../validators/skill-showcase";
+import { transformPageHeader } from "./utils";
 
 export interface SkillShowcaseConfig {
   header?: ReturnType<typeof transformPageHeader>;
@@ -10,11 +10,13 @@ export interface SkillShowcaseConfig {
 
 export const DEFAULT_SKILL_SHOWCASE: SkillShowcaseConfig = {
   highlyUsedThreshold: 3,
-  searchPlaceholder: 'Search technologies...',
-  emptyMessage: 'No results found.',
+  searchPlaceholder: "Search technologies...",
+  emptyMessage: "No results found.",
 };
 
-export function transformSkillShowcase(data: StrapiSkillShowcase): SkillShowcaseConfig {
+export function transformSkillShowcase(
+  data: StrapiSkillShowcase,
+): SkillShowcaseConfig {
   if (!data) return DEFAULT_SKILL_SHOWCASE;
 
   return {

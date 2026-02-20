@@ -1,10 +1,10 @@
-import { z } from 'zod';
-import { 
-  AudioMetadataSchema, 
-  StrapiMediaSchema, 
-  StreamingLinkSchema 
-} from './components';
-import { StrapiMusicGenreSchema } from './music-genre';
+import { z } from "zod";
+import {
+  AudioMetadataSchema,
+  StrapiMediaSchema,
+  StreamingLinkSchema,
+} from "./components";
+import { StrapiMusicGenreSchema } from "./music-genre";
 
 /**
  * Zod validation schema for Strapi Composition content type
@@ -37,15 +37,21 @@ export const StrapiCompositionSchema = z.object({
 
 export const StrapiCompositionsResponseSchema = z.object({
   data: z.array(StrapiCompositionSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 export type StrapiComposition = z.infer<typeof StrapiCompositionSchema>;
-export type StrapiCompositionsResponse = z.infer<typeof StrapiCompositionsResponseSchema>;
+export type StrapiCompositionsResponse = z.infer<
+  typeof StrapiCompositionsResponseSchema
+>;

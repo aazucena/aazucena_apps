@@ -1,6 +1,6 @@
-import type { StrapiHomepage } from '../validators/homepage';
-import { transformSeo } from './utils';
-import type { Section } from '../validators/components';
+import type { StrapiHomepage } from "../validators/homepage";
+import { transformSeo } from "./utils";
+import type { Section } from "../validators/components";
 
 export type HomepageSection = Section;
 
@@ -11,7 +11,7 @@ export interface HomepageData {
 }
 
 export const DEFAULT_HOMEPAGE: HomepageData = {
-  title: 'Welcome',
+  title: "Welcome",
   sections: [],
 };
 
@@ -20,7 +20,7 @@ export function transformHomepage(data: StrapiHomepage): HomepageData {
 
   return {
     title: data.title,
-    sections: (data.sections || []).filter(s => !!s.enabled),
+    sections: (data.sections || []).filter((s) => !!s.enabled),
     seo: transformSeo(data.seo),
   };
 }

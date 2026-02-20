@@ -3,8 +3,8 @@
  * Simple rock using dodecahedron geometry
  */
 
-import type { JSX } from 'react';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import type { SceneObjectConfig } from "../types";
 
 interface RockProps {
   opacity: number;

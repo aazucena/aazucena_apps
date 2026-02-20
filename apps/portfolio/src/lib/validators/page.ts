@@ -1,18 +1,21 @@
-import { z } from 'zod';
-import { SeoSchema } from './components';
-import { PageTemplateEnum, FooterVariantEnum } from './enums';
+import { z } from "zod";
+import { SeoSchema } from "./components";
+import { PageTemplateEnum, FooterVariantEnum } from "./enums";
 
 export const PageSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
-  slug: z.string().max(100).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  slug: z
+    .string()
+    .max(100)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   title: z.string().max(200),
   content: z.any(), // Blocks/Richtext
   template: PageTemplateEnum,
   lastUpdated: z.string(), // ISO date string
   seo: SeoSchema,
   showTableOfContents: z.boolean().default(true),
-  footerVariant: FooterVariantEnum.default('minimal'),
+  footerVariant: FooterVariantEnum.default("minimal"),
 
   // Metadata
   createdAt: z.string(),

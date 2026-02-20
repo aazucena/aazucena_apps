@@ -3,7 +3,7 @@
  * Displays a single impact metric (e.g., "30%", "25+") with a label.
  */
 
-import type { JSX } from 'react';
+import type { JSX } from "react";
 
 interface MetricCardProps {
   value?: string;
@@ -12,13 +12,17 @@ interface MetricCardProps {
   icon?: any;
 }
 
-export function MetricCard({ value, label, description }: MetricCardProps): JSX.Element {
+export function MetricCard({
+  value,
+  label,
+  description,
+}: MetricCardProps): JSX.Element {
   return (
-    <div className="bg-white dark:bg-gray-800/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center group">
-      <div className="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-400 dark:to-cyan-400 mb-2 group-hover:scale-105 transition-transform duration-300">
+    <div className="group flex flex-col items-center rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800/50">
+      <div className="mb-2 bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent transition-transform duration-300 group-hover:scale-105 md:text-4xl dark:from-blue-400 dark:to-cyan-400">
         {value}
       </div>
-      <div className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-1">
+      <div className="mb-1 text-sm font-bold tracking-wider text-gray-900 uppercase dark:text-white">
         {label}
       </div>
       {description && (

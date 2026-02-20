@@ -7,18 +7,15 @@
  * REDUCTION: 216 lines removed (58% smaller!)
  */
 
-import type { JSX } from 'react';
-import { useRef, useMemo, memo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Sparkles } from '@react-three/drei';
-import * as THREE from 'three';
-import type { ShaderMaterial } from 'three';
-import {
-  createAuroraMaterial,
-  updateShaderTime,
-} from '~/lib/utils/scene';
-import { SceneObjectManager } from './objects';
-import { thermosphereObjects } from '~/data/scene/objects';
+import type { JSX } from "react";
+import { useRef, useMemo, memo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Sparkles } from "@react-three/drei";
+import * as THREE from "three";
+import type { ShaderMaterial } from "three";
+import { createAuroraMaterial, updateShaderTime } from "~/lib/utils/scene";
+import { SceneObjectManager } from "./objects";
+import { thermosphereObjects } from "~/data/scene/objects";
 
 export interface ThermosphereProps {
   opacity: number;
@@ -29,10 +26,19 @@ function ThermosphereComponent({ opacity }: ThermosphereProps): JSX.Element {
   const auroraMeshRefs = useRef<THREE.Mesh[]>([]);
 
   // Create materials for green and purple auroras
-  const auroraMaterials = useMemo(() => ({
-    green: createAuroraMaterial({ color: '#06FFA5', baseOpacity: 0.3 * opacity }),
-    purple: createAuroraMaterial({ color: '#9D4EDD', baseOpacity: 0.3 * opacity })
-  }), [opacity]);
+  const auroraMaterials = useMemo(
+    () => ({
+      green: createAuroraMaterial({
+        color: "#06FFA5",
+        baseOpacity: 0.3 * opacity,
+      }),
+      purple: createAuroraMaterial({
+        color: "#9D4EDD",
+        baseOpacity: 0.3 * opacity,
+      }),
+    }),
+    [opacity],
+  );
 
   // Animate aurora curtains
   useFrame(({ clock }) => {
@@ -87,7 +93,7 @@ function ThermosphereComponent({ opacity }: ThermosphereProps): JSX.Element {
             position={[
               Math.cos(angle) * radius,
               1 + heightVariation,
-              Math.sin(angle) * radius
+              Math.sin(angle) * radius,
             ]}
             rotation={[0, angle + Math.PI / 2, 0]}
             material={isGreen ? auroraMaterials.green : auroraMaterials.purple}
@@ -119,7 +125,7 @@ function ThermosphereComponent({ opacity }: ThermosphereProps): JSX.Element {
       <SceneObjectManager
         objects={thermosphereObjects.easterEggs}
         opacity={opacity}
-        categoryFilter={['easter-egg']}
+        categoryFilter={["easter-egg"]}
       />
     </>
   );
@@ -129,10 +135,13 @@ function ThermosphereComponent({ opacity }: ThermosphereProps): JSX.Element {
  * Memoized Thermosphere component
  * Only re-renders when opacity changes by a meaningful amount (> 0.01)
  */
-export const Thermosphere = memo(ThermosphereComponent, (prevProps, nextProps) => {
-  // Return true if props are equal (skip re-render)
-  // Return false if props are different (trigger re-render)
-  return Math.abs(prevProps.opacity - nextProps.opacity) < 0.01;
-});
+export const Thermosphere = memo(
+  ThermosphereComponent,
+  (prevProps, nextProps) => {
+    // Return true if props are equal (skip re-render)
+    // Return false if props are different (trigger re-render)
+    return Math.abs(prevProps.opacity - nextProps.opacity) < 0.01;
+  },
+);
 
-Thermosphere.displayName = 'Thermosphere';
+Thermosphere.displayName = "Thermosphere";

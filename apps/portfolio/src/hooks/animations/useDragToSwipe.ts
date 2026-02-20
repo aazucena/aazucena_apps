@@ -4,7 +4,7 @@
  * Used in ProjectsSection for horizontal project carousel
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export interface UseDragToSwipeOptions {
   /** Total number of pages */
@@ -12,7 +12,7 @@ export interface UseDragToSwipeOptions {
   /** Minimum drag distance in pixels to trigger page change */
   minDragDistance?: number;
   /** Callback when page changes */
-  onPageChange?: (page: number) => void;
+  onPageChange?: (_page: number) => void;
 }
 
 export interface UseDragToSwipeResult {
@@ -23,15 +23,15 @@ export interface UseDragToSwipeResult {
   /** Whether user has moved during drag (prevents unwanted clicks) */
   hasMoved: boolean;
   /** Set the current page */
-  setCurrentPage: (page: number) => void;
+  setCurrentPage: (_page: number) => void;
   /** Mouse down handler */
-  handleMouseDown: (e: React.MouseEvent) => void;
+  handleMouseDown: (_e: React.MouseEvent) => void;
   /** Touch start handler */
-  handleTouchStart: (e: React.TouchEvent) => void;
+  handleTouchStart: (_e: React.TouchEvent) => void;
   /** Click handler that respects drag state */
-  handleItemClick: (callback: () => void) => void;
+  handleItemClick: (_callback: () => void) => void;
   /** Link click handler that prevents navigation if dragged */
-  handleLinkClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  handleLinkClick: (_e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 /**
@@ -140,20 +140,28 @@ export function useDragToSwipe({
       }
     };
 
-    const handleTouchEnd = (e: TouchEvent) => handleEnd(e.changedTouches[0]!.clientX);
+    const handleTouchEnd = (e: TouchEvent) =>
+      handleEnd(e.changedTouches[0]!.clientX);
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("touchmove", handleTouchMove);
+    document.addEventListener("touchend", handleTouchEnd);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isDragging, dragStart, currentPage, totalPages, hasMoved, minDragDistance]);
+  }, [
+    isDragging,
+    dragStart,
+    currentPage,
+    totalPages,
+    hasMoved,
+    minDragDistance,
+  ]);
 
   return {
     currentPage,

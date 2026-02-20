@@ -1,7 +1,10 @@
-import { fetchStrapi } from '../strapi';
-import { validateNavigationRender } from '../validators/navigation';
-import { transformNavigationRender, getDefaultNavigation } from '../transformers/navigation';
-import type { Navigation } from '../validators/navigation';
+import { fetchStrapi } from "../strapi";
+import { validateNavigationRender } from "../validators/navigation";
+import {
+  transformNavigationRender,
+  getDefaultNavigation,
+} from "../transformers/navigation";
+import type { Navigation } from "../validators/navigation";
 
 /**
  * Fetch navigation by slug from Strapi
@@ -12,7 +15,7 @@ export async function getNavigation(slug: string): Promise<Navigation> {
   try {
     // Note: type=TREE is passed as URL parameter for Strapi navigation plugin
     const data = await fetchStrapi(`navigation/render/${slug}?type=TREE`, {
-      cache: 'force-cache', // SSG caching
+      cache: "force-cache", // SSG caching
     });
 
     // Validate render response (array of items)
@@ -32,8 +35,8 @@ export async function getNavigation(slug: string): Promise<Navigation> {
  */
 export async function getAllNavigations() {
   const [mainNav, footerNav] = await Promise.all([
-    getNavigation('main-navigation'),
-    getNavigation('footer-navigation'),
+    getNavigation("main-navigation"),
+    getNavigation("footer-navigation"),
   ]);
 
   return {

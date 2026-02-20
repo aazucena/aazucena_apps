@@ -1,25 +1,26 @@
-import type { 
-  StrapiMedia, 
-  ImageElement, 
-  Seo, 
-  OpenGraph, 
-  Tag, 
-  Stats, 
+import type {
+  StrapiMedia,
+  ImageElement,
+  Seo,
+  OpenGraph,
+  Tag,
+  Stats,
   CTAButton,
   SocialLink,
   StreamingLink,
   WebLink,
-  PageHeader
-} from '../validators/components';
+  PageHeader,
+} from "../validators/components";
 
-const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = import.meta.env.STRAPI_URL || "http://localhost:1337";
 
 /**
  * Get full URL for Strapi media
  */
 export function getMediaUrl(media?: StrapiMedia | null): string | undefined {
   if (!media || !media.url) return undefined;
-  if (media.url.startsWith('http://') || media.url.startsWith('https://')) return media.url;
+  if (media.url.startsWith("http://") || media.url.startsWith("https://"))
+    return media.url;
   return `${STRAPI_URL}${media.url}`;
 }
 

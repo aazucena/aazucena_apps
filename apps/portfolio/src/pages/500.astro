@@ -1,11 +1,12 @@
 ---
-import PageLayout from '~/layouts/PageLayout.astro';
-import { Home, Refresh, DangerCircle, Terminal } from '@mynaui/icons-react';
+import PageLayout from "~/layouts/PageLayout.astro";
+import { Home, Refresh, DangerCircle, Terminal } from "@mynaui/icons-react";
 
 export const prerender = false;
 
-const pageTitle = '500 - Internal Server Error';
-const pageDescription = 'The system encountered an unexpected malfunction. Our engineering team has been notified.';
+const pageTitle = "500 - Internal Server Error";
+const pageDescription =
+  "The system encountered an unexpected malfunction. Our engineering team has been notified.";
 
 // In Astro, 500.astro receives the error object in its props if configured
 interface Props {
@@ -16,81 +17,129 @@ const { error } = Astro.props;
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
-  <main class="min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center relative overflow-hidden text-center">
+  <main
+    class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white text-center dark:bg-gray-950"
+  >
     <!-- Immersive Background Decoration -->
-    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <div class="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-red-500/10 dark:bg-red-600/5 blur-[120px] rounded-full animate-pulse"></div>
-      <div class="absolute -bottom-[10%] -right-[10%] w-[70%] h-[70%] bg-orange-500/10 dark:bg-orange-600/5 blur-[120px] rounded-full animate-pulse" style="animation-delay: 2s;"></div>
-      
+    <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <div
+        class="absolute -top-[10%] -left-[10%] h-[70%] w-[70%] animate-pulse rounded-full bg-red-500/10 blur-[120px] dark:bg-red-600/5"
+      >
+      </div>
+      <div
+        class="absolute -right-[10%] -bottom-[10%] h-[70%] w-[70%] animate-pulse rounded-full bg-orange-500/10 blur-[120px] dark:bg-orange-600/5"
+        style="animation-delay: 2s;"
+      >
+      </div>
+
       <!-- Glitchy Watermark Background -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.03] dark:opacity-[0.07] whitespace-nowrap">
-        <span class="text-[25rem] font-black uppercase tracking-tighter italic animate-glitch">ERROR</span>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] select-none dark:opacity-[0.07]"
+      >
+        <span
+          class="animate-glitch text-[25rem] font-black tracking-tighter uppercase italic"
+          >ERROR</span
+        >
       </div>
     </div>
 
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+    <div class="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <!-- 500 Visual -->
-      <div class="mb-16 relative inline-block group">
-        <div class="absolute inset-0 bg-red-600/20 blur-[80px] rounded-full scale-125 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-        <h1 class="text-[12rem] md:text-[18rem] font-black leading-none tracking-tighter text-gray-900 dark:text-white drop-shadow-2xl">
+      <div class="group relative mb-16 inline-block">
+        <div
+          class="absolute inset-0 scale-125 rounded-full bg-red-600/20 opacity-0 blur-[80px] transition-opacity duration-1000 group-hover:opacity-100"
+        >
+        </div>
+        <h1
+          class="text-[12rem] leading-none font-black tracking-tighter text-gray-900 drop-shadow-2xl md:text-[18rem] dark:text-white"
+        >
           500
         </h1>
-        <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-red-700 dark:bg-red-600 text-white rounded-full font-bold text-sm uppercase tracking-[0.2em] shadow-xl shadow-red-900/20 rotate-[2deg] whitespace-nowrap border border-red-500/30">
+        <div
+          class="absolute -bottom-4 left-1/2 -translate-x-1/2 rotate-[2deg] rounded-full border border-red-500/30 bg-red-700 px-6 py-2 text-sm font-bold tracking-[0.2em] whitespace-nowrap text-white uppercase shadow-xl shadow-red-900/20 dark:bg-red-600"
+        >
           System Malfunction
         </div>
       </div>
 
       <!-- Error Message -->
-      <div class="space-y-6 mb-16">
-        <h2 class="text-4xl md:text-6xl font-black text-gray-900 dark:text-white tracking-tight">
-          Critical <br class="hidden md:block"/><span class="bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-orange-600">Core Failure.</span>
+      <div class="mb-16 space-y-6">
+        <h2
+          class="text-4xl font-black tracking-tight text-gray-900 md:text-6xl dark:text-white"
+        >
+          Critical <br class="hidden md:block" /><span
+            class="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent"
+            >Core Failure.</span
+          >
         </h2>
-        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-md mx-auto leading-relaxed font-medium">
-          Something went wrong deep within the system. We're working on stabilizing the core.
+        <p
+          class="mx-auto max-w-md text-xl leading-relaxed font-medium text-gray-600 dark:text-gray-400"
+        >
+          Something went wrong deep within the system. We're working on
+          stabilizing the core.
         </p>
       </div>
 
       <!-- Error Detail (DEV ONLY) -->
-      {import.meta.env.DEV && error && (
-        <div class="mb-12 p-6 bg-gray-50 dark:bg-gray-900 rounded-[1.5rem] border border-gray-100 dark:border-gray-800 text-left overflow-auto max-h-64">
-          <div class="flex items-center gap-2 mb-4 text-red-500">
-            <Terminal size={16} />
-            <span class="text-[10px] font-black uppercase tracking-widest">Debug Info</span>
+      {
+        import.meta.env.DEV && error && (
+          <div class="mb-12 max-h-64 overflow-auto rounded-[1.5rem] border border-gray-100 bg-gray-50 p-6 text-left dark:border-gray-800 dark:bg-gray-900">
+            <div class="mb-4 flex items-center gap-2 text-red-500">
+              <Terminal size={16} />
+              <span class="text-[10px] font-black tracking-widest uppercase">
+                Debug Info
+              </span>
+            </div>
+            <pre class="font-mono text-xs text-gray-600 dark:text-gray-400">
+              {error instanceof Error
+                ? error.stack
+                : JSON.stringify(error, null, 2)}
+            </pre>
           </div>
-          <pre class="text-xs text-gray-600 dark:text-gray-400 font-mono">
-            {error instanceof Error ? error.stack : JSON.stringify(error, null, 2)}
-          </pre>
-        </div>
-      )}
+        )
+      }
 
       <!-- Action Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24">
+      <div
+        class="mb-24 flex flex-col items-center justify-center gap-4 sm:flex-row"
+      >
         <button
           onclick="window.location.reload()"
-          class="inline-flex items-center justify-center gap-3 px-10 py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-red-600 dark:hover:bg-red-50 transition-all shadow-2xl active:scale-95 group"
+          class="group inline-flex items-center justify-center gap-3 rounded-[1.5rem] bg-gray-900 px-10 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl transition-all hover:bg-red-600 active:scale-95 dark:bg-white dark:text-gray-900 dark:hover:bg-red-50"
         >
-          <Refresh size={18} className="group-hover:rotate-180 transition-transform duration-700" />
+          <Refresh
+            size={18}
+            className="transition-transform duration-700 group-hover:rotate-180"
+          />
           Reboot System
         </button>
         <a
           href="/"
-          class="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-800 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-gray-50 dark:hover:bg-gray-800 transition-all shadow-sm active:scale-95 group"
+          class="group inline-flex items-center justify-center gap-3 rounded-[1.5rem] border border-gray-200 bg-white px-10 py-5 text-xs font-black tracking-[0.2em] text-gray-900 uppercase shadow-sm transition-all hover:bg-gray-50 active:scale-95 dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
         >
-          <Home size={18} className="group-hover:-translate-y-0.5 transition-transform" />
+          <Home
+            size={18}
+            className="transition-transform group-hover:-translate-y-0.5"
+          />
           Safe Harbor
         </a>
       </div>
 
       <!-- Support Status -->
-      <div class="pt-12 border-t border-gray-100 dark:border-gray-900">
-        <div class="flex items-center justify-center gap-3 mb-4">
-          <DangerCircle size={16} className="text-red-500 animate-pulse" />
-          <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-500">
+      <div class="border-t border-gray-100 pt-12 dark:border-gray-900">
+        <div class="mb-4 flex items-center justify-center gap-3">
+          <DangerCircle size={16} className="animate-pulse text-red-500" />
+          <h3
+            class="text-[10px] font-black tracking-[0.4em] text-gray-400 uppercase dark:text-gray-500"
+          >
             Incident Monitoring Active
           </h3>
         </div>
-        <p class="text-[10px] font-medium text-gray-400 dark:text-gray-600 uppercase tracking-[0.2em] max-w-xs mx-auto">
-          Automated logs have been dispatched to the engineering deck for immediate analysis.
+        <p
+          class="mx-auto max-w-xs text-[10px] font-medium tracking-[0.2em] text-gray-400 uppercase dark:text-gray-600"
+        >
+          Automated logs have been dispatched to the engineering deck for
+          immediate analysis.
         </p>
       </div>
     </div>
@@ -98,12 +147,24 @@ const { error } = Astro.props;
 
   <style>
     @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-5px, 5px); }
-      40% { transform: translate(-5px, -5px); }
-      60% { transform: translate(5px, 5px); }
-      80% { transform: translate(5px, -5px); }
-      100% { transform: translate(0); }
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-5px, 5px);
+      }
+      40% {
+        transform: translate(-5px, -5px);
+      }
+      60% {
+        transform: translate(5px, 5px);
+      }
+      80% {
+        transform: translate(5px, -5px);
+      }
+      100% {
+        transform: translate(0);
+      }
     }
     .animate-glitch {
       animation: glitch 1s linear infinite;

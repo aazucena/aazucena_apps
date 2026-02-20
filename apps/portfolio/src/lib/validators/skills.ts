@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { StrapiSkillCategorySchema } from './skill-category';
-import { SkillDisplayEnum, SkillProficiencyEnum } from './enums';
+import { z } from "zod";
+import { StrapiSkillCategorySchema } from "./skill-category";
+import { SkillDisplayEnum, SkillProficiencyEnum } from "./enums";
 
 // Import related schemas for reference in z.lazy()
-import { StrapiExperienceSchema } from './experiences';
-import { StrapiProjectSchema } from './projects';
-import { StrapiEducationSchema } from './education';
+import { StrapiExperienceSchema } from "./experiences";
+import { StrapiProjectSchema } from "./projects";
+import { StrapiEducationSchema } from "./education";
 
 /**
  * Explicit Interfaces for recursive types
@@ -14,9 +14,9 @@ export interface StrapiSkill {
   id?: number | null;
   documentId?: string | null;
   name: string;
-  display: 'hidden' | 'standard' | 'featured' | 'core';
-  category: any; 
-  proficiency: 'learning' | 'competent' | 'proficient' | 'expert';
+  display: "hidden" | "standard" | "featured" | "core";
+  category: any;
+  proficiency: "learning" | "competent" | "proficient" | "expert";
   icon?: string | null;
   description?: string | null;
   yearsOfExperience?: number | null;
@@ -26,7 +26,7 @@ export interface StrapiSkill {
   createdAt?: string | null;
   updatedAt?: string | null;
   publishedAt?: string | null;
-  experiences?: any[]; 
+  experiences?: any[];
   projects?: any[];
   education?: any[];
 }
@@ -56,7 +56,7 @@ export const StrapiSkillSchema: z.ZodType<StrapiSkill> = z.object({
   createdAt: z.string().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
   publishedAt: z.string().nullable().optional(),
-  
+
   // Relations - using lazy to handle deep nesting/circles
   experiences: z.array(z.lazy(() => StrapiExperienceSchema)).optional(),
   projects: z.array(z.lazy(() => StrapiProjectSchema)).optional(),
@@ -68,14 +68,18 @@ export const StrapiSkillSchema: z.ZodType<StrapiSkill> = z.object({
  */
 export const StrapiSkillsResponseSchema = z.object({
   data: z.array(StrapiSkillSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 export type StrapiSkillsResponse = z.infer<typeof StrapiSkillsResponseSchema>;

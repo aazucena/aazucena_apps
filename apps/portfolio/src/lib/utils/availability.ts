@@ -11,7 +11,7 @@ export interface AvailabilityIndicator {
 
 /**
  * Get visual indicator properties based on availability status string
- * 
+ *
  * Mappings:
  * - 'Open to Opportunities' -> Green + Pulse
  * - 'Busy / Working on Projects' -> Yellow
@@ -20,54 +20,68 @@ export interface AvailabilityIndicator {
  * - 'Unavailable' -> Red
  * - Default -> Gray
  */
-export function getAvailabilityIndicator(status?: string): AvailabilityIndicator {
+export function getAvailabilityIndicator(
+  status?: string,
+): AvailabilityIndicator {
   // Normalize input
-  const normalizedStatus = (status || '').toLowerCase().trim();
+  const normalizedStatus = (status || "").toLowerCase().trim();
 
-  if (normalizedStatus.includes('open') || normalizedStatus.includes('opportunities')) {
+  if (
+    normalizedStatus.includes("open") ||
+    normalizedStatus.includes("opportunities")
+  ) {
     return {
-      color: 'bg-green-500',
+      color: "bg-green-500",
       pulse: true,
-      label: status || 'Open to Opportunities'
+      label: status || "Open to Opportunities",
     };
   }
 
-  if (normalizedStatus.includes('busy') || normalizedStatus.includes('working')) {
+  if (
+    normalizedStatus.includes("busy") ||
+    normalizedStatus.includes("working")
+  ) {
     return {
-      color: 'bg-yellow-500',
+      color: "bg-yellow-500",
       pulse: false,
-      label: status || 'Busy'
+      label: status || "Busy",
     };
   }
 
-  if (normalizedStatus.includes('break') || normalizedStatus.includes('personal')) {
+  if (
+    normalizedStatus.includes("break") ||
+    normalizedStatus.includes("personal")
+  ) {
     return {
-      color: 'bg-orange-500',
+      color: "bg-orange-500",
       pulse: false,
-      label: status || 'On Break'
+      label: status || "On Break",
     };
   }
 
-  if (normalizedStatus.includes('collaboration')) {
+  if (normalizedStatus.includes("collaboration")) {
     return {
-      color: 'bg-blue-500',
+      color: "bg-blue-500",
       pulse: true,
-      label: status || 'Collaborating'
+      label: status || "Collaborating",
     };
   }
 
-  if (normalizedStatus.includes('unavailable') || normalizedStatus.includes('closed')) {
+  if (
+    normalizedStatus.includes("unavailable") ||
+    normalizedStatus.includes("closed")
+  ) {
     return {
-      color: 'bg-red-500',
+      color: "bg-red-500",
       pulse: false,
-      label: status || 'Unavailable'
+      label: status || "Unavailable",
     };
   }
 
   // Default fallback
   return {
-    color: 'bg-gray-400',
+    color: "bg-gray-400",
     pulse: false,
-    label: status || 'Status Unknown'
+    label: status || "Status Unknown",
   };
 }

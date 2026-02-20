@@ -1,10 +1,10 @@
-import type { StrapiPost } from '../validators/posts';
-import { 
-  transformImage, 
-  transformTag, 
-  transformSeo, 
-  transformWebLink 
-} from './utils';
+import type { StrapiPost } from "../validators/posts";
+import {
+  transformImage,
+  transformTag,
+  transformSeo,
+  transformWebLink,
+} from "./utils";
 
 export interface BlogPost {
   id: number;
@@ -60,7 +60,10 @@ export function transformPosts(posts: StrapiPost[]): BlogPost[] {
   return posts
     .sort((a, b) => {
       if ((a.sort ?? 0) !== (b.sort ?? 0)) return (a.sort ?? 0) - (b.sort ?? 0);
-      return new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime();
+      return (
+        new Date(b.publishedAt || b.createdAt).getTime() -
+        new Date(a.publishedAt || a.createdAt).getTime()
+      );
     })
     .map(transformPost);
 }

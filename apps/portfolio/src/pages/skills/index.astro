@@ -1,64 +1,74 @@
 ---
-import {
-BookOpen,
-Briefcase,
-Star
-} from '@mynaui/icons-react';
-import { IconRenderer } from '~/components/blocks/IconRenderer';
-import ListLayout from '~/layouts/ListLayout.astro';
-import { fetchEducation } from '~/lib/api/education';
-import { getExperiences } from '~/lib/api/experiences';
-import { getProjects } from '~/lib/api/projects';
-import { getSkills } from '~/lib/api/skills';
-import type { SkillCategory } from '~/lib/transformers/skills';
+import { BookOpen, Briefcase, Star } from "@mynaui/icons-react";
+import { IconRenderer } from "~/components/blocks/IconRenderer";
+import ListLayout from "~/layouts/ListLayout.astro";
+import { fetchEducation } from "~/lib/api/education";
+import { getExperiences } from "~/lib/api/experiences";
+import { getProjects } from "~/lib/api/projects";
+import { getSkills } from "~/lib/api/skills";
+import type { SkillCategory } from "~/lib/transformers/skills";
 // import { cn } from '~/lib/utils';
-import { getGradientClass } from '~/lib/utils/about';
+import { getGradientClass } from "~/lib/utils/about";
 
 // Fetch skills, projects, experiences, and education to calculate usage
 const [skillCategories, projects, experiences, education] = await Promise.all([
-  getSkills('all'),
-  getProjects('listed'),
+  getSkills("all"),
+  getProjects("listed"),
   getExperiences(),
-  fetchEducation()
+  fetchEducation(),
 ]);
 
-const pageTitle = 'Technical Expertise';
-const pageDescription = 'A comprehensive index of my technical stack, tools, and methodologies, categorized by domain and impact.';
+const pageTitle = "Technical Expertise";
+const pageDescription =
+  "A comprehensive index of my technical stack, tools, and methodologies, categorized by domain and impact.";
 
 // Map skills to project counts
 const skillProjectCounts = new Map<string, number>();
-projects.forEach(project => {
-  project.techStack.forEach(skill => {
-    const skillName = typeof skill === 'string' ? skill : skill.name;
-    skillProjectCounts.set(skillName, (skillProjectCounts.get(skillName) || 0) + 1);
+projects.forEach((project) => {
+  project.techStack.forEach((skill) => {
+    const skillName = typeof skill === "string" ? skill : skill.name;
+    skillProjectCounts.set(
+      skillName,
+      (skillProjectCounts.get(skillName) || 0) + 1,
+    );
   });
 });
 
 // Map skills to experience counts
 const skillExperienceCounts = new Map<string, number>();
-experiences.forEach(exp => {
-  exp.skills.forEach(skill => {
-    const skillName = typeof skill === 'string' ? skill : skill.name;
-    skillExperienceCounts.set(skillName, (skillExperienceCounts.get(skillName) || 0) + 1);
+experiences.forEach((exp) => {
+  exp.skills.forEach((skill) => {
+    const skillName = typeof skill === "string" ? skill : skill.name;
+    skillExperienceCounts.set(
+      skillName,
+      (skillExperienceCounts.get(skillName) || 0) + 1,
+    );
   });
 });
 
 // Map skills to education counts
 const skillEducationCounts = new Map<string, number>();
-education.forEach(edu => {
-  (edu.skills || []).forEach(skill => {
-    const skillName = typeof skill === 'string' ? skill : skill.name;
-    skillEducationCounts.set(skillName, (skillEducationCounts.get(skillName) || 0) + 1);
+education.forEach((edu) => {
+  (edu.skills || []).forEach((skill) => {
+    const skillName = typeof skill === "string" ? skill : skill.name;
+    skillEducationCounts.set(
+      skillName,
+      (skillEducationCounts.get(skillName) || 0) + 1,
+    );
   });
 });
 
 // Get all skill names for search data attribute
 function getAllSkillNames(category: SkillCategory): string {
-  return category.skills.map((skill) => skill.name).join(' ');
+  return category.skills.map((skill) => skill.name).join(" ");
 }
 
 const filters = [
-  { id: 'domain', label: 'Domain', options: skillCategories.map(c => c.label) }
+  {
+    id: "domain",
+    label: "Domain",
+    options: skillCategories.map((c) => c.label),
+  },
 ];
 ---
 
@@ -73,143 +83,186 @@ const filters = [
   ignoreMaxWidth={true}
   hasItems={skillCategories.length > 0}
 >
-  <div class="relative group/board">
+  <div class="group/board relative">
     <!-- Right Side Fade Overlay (Subtle hint) -->
-    <div class="absolute right-0 top-0 bottom-6 w-24 bg-gradient-to-l from-white dark:from-gray-950 to-transparent z-30 pointer-events-none hidden md:block opacity-40"></div>
+    <div
+      class="pointer-events-none absolute top-0 right-0 bottom-6 z-30 hidden w-24 bg-gradient-to-l from-white to-transparent opacity-40 md:block dark:from-gray-950"
+    >
+    </div>
 
     <!-- Kanban Board Container with Custom Scrollbar -->
-    <div class="kanban-board flex gap-6 overflow-x-auto pb-6 pt-4 px-4 sm:px-6 lg:px-8 snap-x custom-scrollbar cursor-grab active:cursor-grabbing">
-      {skillCategories.map((category) => (
-        <section
-          class="item-card kanban-lane flex-shrink-0 w-[80vw] md:w-[340px] snap-start group"
-          data-filter-domain={category.label}
-          data-search={`${category.label} ${getAllSkillNames(category)}`.toLowerCase()}
-        >
-          <!-- Lane Container -->
-          <div class="h-full bg-gray-50/50 dark:bg-gray-900/50 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 flex flex-col transition-all duration-500 hover:bg-white dark:hover:bg-gray-900 hover:shadow-2xl hover:border-blue-500/10 overflow-hidden">
-            
-            <!-- Lane Header (Sticky) -->
-            <div class="px-6 pt-6 sticky top-0 bg-transparent z-20">
-              <div class="flex items-center gap-4 mb-6">
-                <div class={`w-12 h-12 rounded-2xl bg-gradient-to-br ${getGradientClass(category.gradient)} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                  <IconRenderer icon={category.icon} client:load />
-                </div>
-                <div class="flex-1">
-                  <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight">
-                    {category.label}
-                  </h2>
-                  <div class="flex items-center gap-2">
-                    <span class="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">{category.skills.length} Items</span>
-                    <div class={`h-1 flex-1 bg-gradient-to-r ${getGradientClass(category.gradient)} rounded-full opacity-20`}></div>
+    <div
+      class="kanban-board custom-scrollbar flex cursor-grab snap-x gap-6 overflow-x-auto px-4 pt-4 pb-6 active:cursor-grabbing sm:px-6 lg:px-8"
+    >
+      {
+        skillCategories.map((category) => (
+          <section
+            class="item-card kanban-lane group w-[80vw] flex-shrink-0 snap-start md:w-[340px]"
+            data-filter-domain={category.label}
+            data-search={`${category.label} ${getAllSkillNames(category)}`.toLowerCase()}
+          >
+            {/* Lane Container */}
+            <div class="flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-gray-100 bg-gray-50/50 transition-all duration-500 hover:border-blue-500/10 hover:bg-white hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900/50 dark:hover:bg-gray-900">
+              {/* Lane Header (Sticky) */}
+              <div class="sticky top-0 z-20 bg-transparent px-6 pt-6">
+                <div class="mb-6 flex items-center gap-4">
+                  <div
+                    class={`h-12 w-12 rounded-2xl bg-gradient-to-br ${getGradientClass(category.gradient)} flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110`}
+                  >
+                    <IconRenderer icon={category.icon} client:load />
+                  </div>
+                  <div class="flex-1">
+                    <h2 class="text-xl font-black tracking-tight text-gray-900 dark:text-white">
+                      {category.label}
+                    </h2>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[9px] font-black tracking-[0.2em] text-gray-400 uppercase">
+                        {category.skills.length} Items
+                      </span>
+                      <div
+                        class={`h-1 flex-1 bg-gradient-to-r ${getGradientClass(category.gradient)} rounded-full opacity-20`}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Lane Items -->
-            <div class="lane-items flex-1 p-4 pt-5 pb-10 space-y-3 overflow-y-auto max-h-[60vh] scrollbar-hide mask-fade-y cursor-grab active:cursor-grabbing">
-              {category.skills.map((skill) => {
-                const projectCount = skillProjectCounts.get(skill.name) || 0;
-                const expCount = skillExperienceCounts.get(skill.name) || 0;
-                const eduCount = skillEducationCounts.get(skill.name) || 0;
+              {/* Lane Items */}
+              <div class="lane-items scrollbar-hide mask-fade-y max-h-[60vh] flex-1 cursor-grab space-y-3 overflow-y-auto p-4 pt-5 pb-10 active:cursor-grabbing">
+                {category.skills.map((skill) => {
+                  const projectCount = skillProjectCounts.get(skill.name) || 0;
+                  const expCount = skillExperienceCounts.get(skill.name) || 0;
+                  const eduCount = skillEducationCounts.get(skill.name) || 0;
 
-                return (
-                  <div
-                    class="kanban-card p-5 rounded-2xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 shadow-sm hover:shadow-lg transition-all duration-300 group/skill"
-                  >
-                    <!-- Header: Name & Proficiency -->
-                    <div class="flex items-start justify-between gap-4 mb-3">
-                      <div class="flex flex-col gap-1">
-                        <span class="text-sm font-bold text-gray-800 dark:text-gray-200 group-hover/skill:text-blue-600 dark:group-hover/skill:text-blue-400 transition-colors">
-                          {skill.name}
-                        </span>
-                        <div class="flex items-center gap-2">
-                          <span class={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md ${
-                            skill.proficiency === 'expert' ? 'bg-blue-500/10 text-blue-500' :
-                            skill.proficiency === 'proficient' ? 'bg-emerald-500/10 text-emerald-500' :
-                            skill.proficiency === 'competent' ? 'bg-amber-500/10 text-amber-500' :
-                            'bg-gray-500/10 text-gray-500'
-                          }`}>
-                            {skill.proficiency}
+                  return (
+                    <div class="kanban-card group/skill rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:border-blue-500/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-950">
+                      {/* Header: Name & Proficiency */}
+                      <div class="mb-3 flex items-start justify-between gap-4">
+                        <div class="flex flex-col gap-1">
+                          <span class="text-sm font-bold text-gray-800 transition-colors group-hover/skill:text-blue-600 dark:text-gray-200 dark:group-hover/skill:text-blue-400">
+                            {skill.name}
                           </span>
-                          {skill.yearsOfExperience && (
-                            <span class="text-[10px] font-bold text-gray-400 dark:text-gray-600">
-                              {skill.yearsOfExperience}Y+
+                          <div class="flex items-center gap-2">
+                            <span
+                              class={`rounded-md px-1.5 py-0.5 text-[9px] font-black tracking-wider uppercase ${
+                                skill.proficiency === "expert"
+                                  ? "bg-blue-500/10 text-blue-500"
+                                  : skill.proficiency === "proficient"
+                                    ? "bg-emerald-500/10 text-emerald-500"
+                                    : skill.proficiency === "competent"
+                                      ? "bg-amber-500/10 text-amber-500"
+                                      : "bg-gray-500/10 text-gray-500"
+                              }`}
+                            >
+                              {skill.proficiency}
                             </span>
-                          )}
+                            {skill.yearsOfExperience && (
+                              <span class="text-[10px] font-bold text-gray-400 dark:text-gray-600">
+                                {skill.yearsOfExperience}Y+
+                              </span>
+                            )}
+                          </div>
                         </div>
+
+                        {skill.documentationUrl && (
+                          <a
+                            href={skill.documentationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="rounded-lg border border-transparent bg-gray-50 p-1.5 text-gray-400 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-500 dark:bg-gray-900 dark:hover:border-blue-800 dark:hover:bg-blue-900/20"
+                            title="View Documentation"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                              <polyline points="15 3 21 3 21 9" />
+                              <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                          </a>
+                        )}
                       </div>
 
-                      {skill.documentationUrl && (
-                        <a 
-                          href={skill.documentationUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          class="p-1.5 rounded-lg bg-gray-50 dark:bg-gray-900 text-gray-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all border border-transparent hover:border-blue-200 dark:hover:border-blue-800"
-                          title="View Documentation"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </a>
+                      {/* Description */}
+                      {skill.description && (
+                        <p class="skill-desc mb-4 text-[11px] leading-relaxed text-gray-500 dark:text-gray-400">
+                          {skill.description}
+                        </p>
                       )}
+
+                      {/* Usage Pills */}
+                      <div class="mt-auto flex flex-wrap items-center gap-2">
+                        {expCount > 0 && (
+                          <a
+                            href={`/experiences?search=${skill.name.toLowerCase()}`}
+                            class="flex items-center gap-1.5 rounded-xl border border-blue-100/50 bg-blue-50/50 px-3 py-1.5 text-[10px] font-bold text-blue-600 transition-all hover:bg-blue-600 hover:text-white hover:shadow-md hover:shadow-blue-500/10 dark:border-blue-800/30 dark:bg-blue-900/10 dark:text-blue-400 dark:hover:bg-blue-500 dark:hover:text-white"
+                            title={`${expCount} professional roles`}
+                          >
+                            <Briefcase size={12} />
+                            <span>
+                              {expCount} {expCount === 1 ? "Role" : "Roles"}
+                            </span>
+                          </a>
+                        )}
+
+                        {projectCount > 0 && (
+                          <a
+                            href={`/projects?search=${skill.name.toLowerCase()}`}
+                            class="flex items-center gap-1.5 rounded-xl border border-orange-100/50 bg-orange-50/50 px-3 py-1.5 text-[10px] font-bold text-orange-600 transition-all hover:bg-orange-600 hover:text-white hover:shadow-md hover:shadow-orange-500/10 dark:border-orange-800/30 dark:bg-orange-900/10 dark:text-orange-400 dark:hover:bg-orange-500 dark:hover:text-white"
+                            title={`${projectCount} public projects`}
+                          >
+                            <Star size={12} />
+                            <span>
+                              {projectCount}{" "}
+                              {projectCount === 1 ? "Proj" : "Projs"}
+                            </span>
+                          </a>
+                        )}
+
+                        {eduCount > 0 && (
+                          <div
+                            class="flex cursor-default items-center gap-1.5 rounded-xl border border-gray-100 bg-gray-50/50 px-3 py-1.5 text-[10px] font-bold text-gray-500 dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-400"
+                            title={`${eduCount} academic background entries`}
+                          >
+                            <BookOpen size={12} />
+                            <span>{eduCount} EDU</span>
+                          </div>
+                        )}
+
+                        {skill.lastUsed && (
+                          <div
+                            class="ml-auto text-[9px] font-black tracking-tighter text-gray-300 uppercase italic dark:text-gray-700"
+                            title={`Last active in ${new Date(skill.lastUsed).getFullYear()}`}
+                          >
+                            Active '
+                            {new Date(skill.lastUsed)
+                              .getFullYear()
+                              .toString()
+                              .slice(-2)}
+                          </div>
+                        )}
+                      </div>
                     </div>
+                  );
+                })}
+              </div>
 
-                    <!-- Description -->
-                    {skill.description && (
-                      <p class="skill-desc text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
-                        {skill.description}
-                      </p>
-                    )}
-
-                    <!-- Usage Pills -->
-                    <div class="flex flex-wrap items-center gap-2 mt-auto">
-                      {expCount > 0 && (
-                        <a
-                          href={`/experiences?search=${skill.name.toLowerCase()}`}
-                          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all border border-blue-100/50 dark:border-blue-800/30 hover:shadow-md hover:shadow-blue-500/10"
-                          title={`${expCount} professional roles`}
-                        >
-                          <Briefcase size={12} />
-                          <span>{expCount} {expCount === 1 ? 'Role' : 'Roles'}</span>
-                        </a>
-                      )}
-
-                      {projectCount > 0 && (
-                        <a
-                          href={`/projects?search=${skill.name.toLowerCase()}`}
-                          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50/50 dark:bg-orange-900/10 text-[10px] font-bold text-orange-600 dark:text-orange-400 hover:bg-orange-600 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white transition-all border border-orange-100/50 dark:border-orange-800/30 hover:shadow-md hover:shadow-orange-500/10"
-                          title={`${projectCount} public projects`}
-                        >
-                          <Star size={12} />
-                          <span>{projectCount} {projectCount === 1 ? 'Proj' : 'Projs'}</span>
-                        </a>
-                      )}
-
-                      {eduCount > 0 && (
-                        <div
-                          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-50/50 dark:bg-gray-800/50 text-[10px] font-bold text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-gray-700 cursor-default"
-                          title={`${eduCount} academic background entries`}
-                        >
-                          <BookOpen size={12} />
-                          <span>{eduCount} EDU</span>
-                        </div>
-                      )}
-
-                      {skill.lastUsed && (
-                        <div class="ml-auto text-[9px] font-black uppercase tracking-tighter text-gray-300 dark:text-gray-700 italic" title={`Last active in ${new Date(skill.lastUsed).getFullYear()}`}>
-                          Active '{new Date(skill.lastUsed).getFullYear().toString().slice(-2)}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+              {/* Bottom Accent */}
+              <div
+                class={`h-1.5 w-full bg-gradient-to-r ${getGradientClass(category.gradient)} mt-auto opacity-30`}
+              />
             </div>
-
-            <!-- Bottom Accent -->
-            <div class={`h-1.5 w-full bg-gradient-to-r ${getGradientClass(category.gradient)} opacity-30 mt-auto`}></div>
-          </div>
-        </section>
-      ))}
+          </section>
+        ))
+      }
     </div>
   </div>
 </ListLayout>
@@ -259,7 +312,7 @@ const filters = [
       transparent 100%
     );
   }
-  
+
   /* Snap scrolling adjustments */
   .kanban-board {
     scroll-padding: 2rem;
@@ -303,36 +356,38 @@ const filters = [
 
 <script>
   // Grab-and-drag scrolling for kanban board
-  document.addEventListener('DOMContentLoaded', () => {
-    const kanbanBoard = document.querySelector('.kanban-board') as HTMLElement | null;
+  document.addEventListener("DOMContentLoaded", () => {
+    const kanbanBoard = document.querySelector(
+      ".kanban-board",
+    ) as HTMLElement | null;
     if (!kanbanBoard) return;
 
     let isDown = false;
     let startX: number;
     let scrollLeft: number;
 
-    kanbanBoard.addEventListener('mousedown', (e) => {
+    kanbanBoard.addEventListener("mousedown", (e) => {
       // Only activate on direct board clicks, not on interactive elements
       const target = e.target as HTMLElement;
-      if (target.closest('a, button, input, textarea')) return;
+      if (target.closest("a, button, input, textarea")) return;
 
       isDown = true;
-      kanbanBoard.classList.add('is-dragging');
+      kanbanBoard.classList.add("is-dragging");
       startX = e.pageX - kanbanBoard.offsetLeft;
       scrollLeft = kanbanBoard.scrollLeft;
     });
 
-    kanbanBoard.addEventListener('mouseleave', () => {
+    kanbanBoard.addEventListener("mouseleave", () => {
       isDown = false;
-      kanbanBoard.classList.remove('is-dragging');
+      kanbanBoard.classList.remove("is-dragging");
     });
 
-    kanbanBoard.addEventListener('mouseup', () => {
+    kanbanBoard.addEventListener("mouseup", () => {
       isDown = false;
-      kanbanBoard.classList.remove('is-dragging');
+      kanbanBoard.classList.remove("is-dragging");
     });
 
-    kanbanBoard.addEventListener('mousemove', (e) => {
+    kanbanBoard.addEventListener("mousemove", (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - kanbanBoard.offsetLeft;
@@ -341,29 +396,33 @@ const filters = [
     });
 
     // Prevent click events on links during drag
-    kanbanBoard.addEventListener('click', (e) => {
-      if (kanbanBoard.classList.contains('is-dragging')) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
+    kanbanBoard.addEventListener(
+      "click",
+      (e) => {
+        if (kanbanBoard.classList.contains("is-dragging")) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      true,
+    );
 
     // Grab-and-drag vertical scrolling for each lane
-    const lanes = document.querySelectorAll('.lane-items');
+    const lanes = document.querySelectorAll(".lane-items");
 
     lanes.forEach((lane) => {
       let isLaneDown = false;
       let startY: number;
       let scrollTop: number;
 
-      lane.addEventListener('mousedown', (e) => {
+      lane.addEventListener("mousedown", (e) => {
         const mouseEvent = e as MouseEvent;
         // Only activate on direct lane clicks, not on interactive elements
         const target = mouseEvent.target as HTMLElement;
-        if (target.closest('a, button, input, textarea')) return;
+        if (target.closest("a, button, input, textarea")) return;
 
         isLaneDown = true;
-        lane.classList.add('is-dragging');
+        lane.classList.add("is-dragging");
         startY = mouseEvent.pageY - lane.getBoundingClientRect().top;
         scrollTop = lane.scrollTop;
 
@@ -371,17 +430,17 @@ const filters = [
         mouseEvent.stopPropagation();
       });
 
-      lane.addEventListener('mouseleave', () => {
+      lane.addEventListener("mouseleave", () => {
         isLaneDown = false;
-        lane.classList.remove('is-dragging');
+        lane.classList.remove("is-dragging");
       });
 
-      lane.addEventListener('mouseup', () => {
+      lane.addEventListener("mouseup", () => {
         isLaneDown = false;
-        lane.classList.remove('is-dragging');
+        lane.classList.remove("is-dragging");
       });
 
-      lane.addEventListener('mousemove', (e) => {
+      lane.addEventListener("mousemove", (e) => {
         if (!isLaneDown) return;
         const mouseEvent = e as MouseEvent;
         mouseEvent.preventDefault();
@@ -393,12 +452,16 @@ const filters = [
       });
 
       // Prevent click events during drag
-      lane.addEventListener('click', (e) => {
-        if (lane.classList.contains('is-dragging')) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }, true);
+      lane.addEventListener(
+        "click",
+        (e) => {
+          if (lane.classList.contains("is-dragging")) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        },
+        true,
+      );
     });
   });
 </script>

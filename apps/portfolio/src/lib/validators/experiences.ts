@@ -1,17 +1,17 @@
-import { z } from 'zod';
-import { 
-  ImageElementSchema, 
-  AchievementSchema, 
-  WebLinkArraySchema 
-} from './components';
-import { 
-  IndustryEnum, 
-  CompanySizeEnum, 
-  EmploymentTypeEnum, 
-  WorkModeEnum 
-} from './enums';
-import { StrapiSkillSchema } from './skills';
-import { StrapiProjectSchema } from './projects';
+import { z } from "zod";
+import {
+  ImageElementSchema,
+  AchievementSchema,
+  WebLinkArraySchema,
+} from "./components";
+import {
+  IndustryEnum,
+  CompanySizeEnum,
+  EmploymentTypeEnum,
+  WorkModeEnum,
+} from "./enums";
+import { StrapiSkillSchema } from "./skills";
+import { StrapiProjectSchema } from "./projects";
 
 /**
  * Explicit Interface for recursion
@@ -19,17 +19,17 @@ import { StrapiProjectSchema } from './projects';
 export interface StrapiExperience {
   id: number;
   documentId?: string;
-  slug: string;
-  company: string;
-  position: string;
+  slug?: string;
+  company?: string;
+  position?: string;
   companyLogo?: any;
   industry?: string;
   companySize?: string;
   location?: string;
-  startDate: string;
+  startDate?: string;
   endDate?: string;
   isCurrent?: boolean;
-  description: any;
+  description?: any;
   responsibilities?: any;
   employmentType?: string;
   workMode?: string;
@@ -39,8 +39,8 @@ export interface StrapiExperience {
   achievements?: any[];
   projects?: any[];
   relatedLinks?: any[] | null;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   publishedAt?: string;
   locale?: string;
 }
@@ -48,7 +48,10 @@ export interface StrapiExperience {
 export const StrapiExperienceSchema: z.ZodType<StrapiExperience> = z.object({
   id: z.number(),
   documentId: z.string().optional(),
-  slug: z.string().max(200).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  slug: z
+    .string()
+    .max(200)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
 
   // Core fields
   company: z.string().max(150),
@@ -66,8 +69,8 @@ export const StrapiExperienceSchema: z.ZodType<StrapiExperience> = z.object({
   isCurrent: z.boolean().optional(),
 
   // Content fields
-  description: z.any(), 
-  responsibilities: z.any().optional(), 
+  description: z.any(),
+  responsibilities: z.any().optional(),
 
   // Employment details
   employmentType: EmploymentTypeEnum.optional(),
@@ -90,14 +93,20 @@ export const StrapiExperienceSchema: z.ZodType<StrapiExperience> = z.object({
 
 export const StrapiExperiencesResponseSchema = z.object({
   data: z.array(StrapiExperienceSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
-export type StrapiExperiencesResponse = z.infer<typeof StrapiExperiencesResponseSchema>;
+export type StrapiExperiencesResponse = z.infer<
+  typeof StrapiExperiencesResponseSchema
+>;

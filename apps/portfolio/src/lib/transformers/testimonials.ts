@@ -1,5 +1,5 @@
-import type { StrapiTestimonial } from '~/lib/validators/testimonials';
-import type { Testimonial } from '~/components/ui/infinite-moving-cards';
+import type { StrapiTestimonial } from "~/lib/validators/testimonials";
+import type { Testimonial } from "~/components/ui/infinite-moving-cards";
 
 /**
  * Generate avatar initials from name
@@ -8,7 +8,7 @@ function getAvatarInitials(name: string): string {
   return name
     .split(/\s+/)
     .map((word) => word[0])
-    .join('')
+    .join("")
     .toUpperCase()
     .slice(0, 2);
 }
@@ -19,26 +19,30 @@ function getAvatarInitials(name: string): string {
  */
 function getAvatarGradient(name: string): string {
   const gradients = [
-    'from-cyan-400 to-blue-500',
-    'from-purple-400 to-pink-500',
-    'from-green-400 to-emerald-500',
-    'from-orange-400 to-red-500',
-    'from-blue-400 to-indigo-500',
-    'from-yellow-400 to-orange-500',
+    "from-cyan-400 to-blue-500",
+    "from-purple-400 to-pink-500",
+    "from-green-400 to-emerald-500",
+    "from-orange-400 to-red-500",
+    "from-blue-400 to-indigo-500",
+    "from-yellow-400 to-orange-500",
   ];
 
-  const hash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const hash = name
+    .split("")
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
   return gradients[hash % gradients.length] ?? gradients[0]!;
 }
 
 /**
  * Transform Strapi testimonial to frontend format
  */
-export function transformTestimonial(strapiTest: StrapiTestimonial): Testimonial {
+export function transformTestimonial(
+  strapiTest: StrapiTestimonial,
+): Testimonial {
   return {
     quote: strapiTest.content,
     name: strapiTest.author,
-    title: strapiTest.authorTitle || strapiTest.company || 'Client',
+    title: strapiTest.authorTitle || strapiTest.company || "Client",
     avatar: getAvatarInitials(strapiTest.author),
     gradient: getAvatarGradient(strapiTest.author),
   };
@@ -50,11 +54,11 @@ export function transformTestimonial(strapiTest: StrapiTestimonial): Testimonial
  */
 export function transformTestimonials(
   strapiTests: StrapiTestimonial[],
-  featuredOnly: boolean = false
+  featuredOnly: boolean = false,
 ): Testimonial[] {
   const filtered = strapiTests.filter((test) => {
     // Only show approved testimonials
-    if (test.approvalStatus !== 'Approved') return false;
+    if (test.approvalStatus !== "Approved") return false;
     // Filter by featured if requested
     if (featuredOnly && !test.featured) return false;
     return true;
@@ -68,14 +72,16 @@ export function transformTestimonials(
  */
 export const DEFAULT_TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Aldrin consistently delivers high-quality code and demonstrates exceptional problem-solving skills.",
+    quote:
+      "Aldrin consistently delivers high-quality code and demonstrates exceptional problem-solving skills.",
     name: "John Doe",
     title: "Senior Engineering Manager",
     avatar: "JD",
     gradient: "from-cyan-400 to-blue-500",
   },
   {
-    quote: "Working with Aldrin has been a pleasure. He translates complex requirements into elegant solutions.",
+    quote:
+      "Working with Aldrin has been a pleasure. He translates complex requirements into elegant solutions.",
     name: "Sarah Miller",
     title: "Product Manager",
     avatar: "SM",

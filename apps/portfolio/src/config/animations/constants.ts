@@ -7,13 +7,13 @@
 export const PARTICLE_COUNTS = {
   HIGH: 200,
   MEDIUM: 100,
-  LOW: 50
+  LOW: 50,
 } as const;
 
 export const PARTICLE_DEFAULTS = {
   SIZE: 2,
   SPEED: 1,
-  OPACITY: 0.6
+  OPACITY: 0.6,
 } as const;
 
 // Particle Presets
@@ -28,10 +28,10 @@ export const PARTICLE_PRESETS = {
       0xe0f0ff, // Blue-white
       0x88ffff, // Cyan
       0xfffacd, // Pale yellow
-      0xddeeff  // Icy blue
+      0xddeeff, // Icy blue
     ],
     twinkling: true,
-    twinkleSpeed: { min: 0.5, max: 2.0 }
+    twinkleSpeed: { min: 0.5, max: 2.0 },
   },
   snow: {
     count: 200,
@@ -41,11 +41,11 @@ export const PARTICLE_PRESETS = {
     colors: [
       0xffffff, // Pure white
       0xf0f8ff, // Alice blue
-      0xe6f2ff  // Very pale blue
+      0xe6f2ff, // Very pale blue
     ],
     twinkling: false,
     drift: true, // Sideways movement
-    driftSpeed: 0.5
+    driftSpeed: 0.5,
   },
   rain: {
     count: 300,
@@ -55,11 +55,11 @@ export const PARTICLE_PRESETS = {
     colors: [
       0x88ccff, // Light blue
       0x99ddff, // Pale cyan
-      0xaaeeff  // Very pale cyan
+      0xaaeeff, // Very pale cyan
     ],
     twinkling: false,
     streaks: true, // Elongated particles
-    streakLength: 8
+    streakLength: 8,
   },
   floating: {
     count: 80,
@@ -71,14 +71,14 @@ export const PARTICLE_PRESETS = {
       0xffa500, // Orange
       0xff69b4, // Hot pink
       0x00ffff, // Cyan
-      0x9370db  // Medium purple
+      0x9370db, // Medium purple
     ],
     twinkling: true,
     twinkleSpeed: { min: 1.0, max: 3.0 },
     sineWave: true, // Wave motion
     waveAmplitude: 2,
-    waveFrequency: 0.5
-  }
+    waveFrequency: 0.5,
+  },
 } as const;
 
 // Scene Configuration
@@ -92,16 +92,16 @@ export const GROUND_OBJECT_COUNTS = {
   TREES: 15,
   BUSHES: 25,
   ROCKS: 20,
-  FLOWERS: 35
+  FLOWERS: 35,
 } as const;
 
 // Atmospheric Phases
 export const ATMOSPHERIC_PHASES = [
-  'exosphere',
-  'thermosphere',
-  'mesosphere',
-  'stratosphere',
-  'troposphere'
+  "exosphere",
+  "thermosphere",
+  "mesosphere",
+  "stratosphere",
+  "troposphere",
 ] as const;
 
 // Animation Timing (in milliseconds)
@@ -109,7 +109,7 @@ export const ANIMATION_TIMING = {
   FLIP_TEXT_INTERVAL: 3000,
   SCROLL_DEBOUNCE: 1000,
   MODAL_ANIMATION: 300,
-  SECTION_TRANSITION: 1000
+  SECTION_TRANSITION: 1000,
 } as const;
 
 // CTA Button Animation

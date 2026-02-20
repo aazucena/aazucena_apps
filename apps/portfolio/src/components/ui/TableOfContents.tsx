@@ -4,12 +4,12 @@
  * Automatically highlights the active section.
  */
 
-import { useEffect, useState, useMemo } from 'react';
-import { cn } from '~/lib/utils';
-import { List, ChevronDown } from '@mynaui/icons-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { toTitleCase } from '~/lib/utils/text';
-import type { JSX } from 'react';
+import { useEffect, useState, useMemo } from "react";
+import { cn } from "~/lib/utils";
+import { List, ChevronDown } from "@mynaui/icons-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { toTitleCase } from "~/lib/utils/text";
+import type { JSX } from "react";
 
 interface ToCItem {
   id: string;
@@ -35,10 +35,10 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents({
-  containerSelector = 'main',
-  headerSelector = 'h2, h3'
+  containerSelector = "main",
+  headerSelector = "h2, h3",
 }: TableOfContentsProps): JSX.Element | null {
-  const [activeId, setActiveId] = useState<string>('');
+  const [activeId, setActiveId] = useState<string>("");
   const [sections, setSections] = useState<ToCItem[]>([]);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
@@ -74,11 +74,12 @@ export function TableOfContents({
       const htmlElement = element as HTMLElement;
 
       if (!htmlElement.id) {
-        const text = htmlElement.innerText || '';
-        htmlElement.id = text
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/(^-|-$)+/g, '') || `section-${index}`;
+        const text = htmlElement.innerText || "";
+        htmlElement.id =
+          text
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)+/g, "") || `section-${index}`;
       }
 
       const label = htmlElement.dataset.tocLabel || htmlElement.innerText;
@@ -87,7 +88,7 @@ export function TableOfContents({
       scannedSections.push({
         id: htmlElement.id,
         label,
-        depth: parseInt(htmlElement.tagName.substring(1), 10)
+        depth: parseInt(htmlElement.tagName.substring(1), 10),
       });
     });
 
@@ -96,15 +97,15 @@ export function TableOfContents({
     if (scannedSections.length === 0) return;
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      const intersecting = entries.find(e => e.isIntersecting);
+      const intersecting = entries.find((e) => e.isIntersecting);
       if (intersecting) {
         setActiveId(intersecting.target.id);
       }
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      rootMargin: '-100px 0px -66% 0px',
-      threshold: 0
+      rootMargin: "-100px 0px -66% 0px",
+      threshold: 0,
     });
 
     scannedSections.forEach(({ id }) => {
@@ -118,20 +119,22 @@ export function TableOfContents({
   // Auto-expand parent if a child is active
   useEffect(() => {
     if (!activeId) return;
-    
-    const parent = tree.find(node => 
-      node.id === activeId || node.children.some(child => child.id === activeId)
+
+    const parent = tree.find(
+      (node) =>
+        node.id === activeId ||
+        node.children.some((child) => child.id === activeId),
     );
 
     if (parent && !expandedIds.has(parent.id)) {
-      setExpandedIds(prev => new Set(prev).add(parent.id));
+      setExpandedIds((prev) => new Set(prev).add(parent.id));
     }
   }, [activeId, tree]);
 
   const toggleExpand = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     e.stopPropagation();
-    setExpandedIds(prev => {
+    setExpandedIds((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -145,7 +148,7 @@ export function TableOfContents({
     if (element) {
       const yOffset = -100;
       const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      window.scrollTo({ top: y, behavior: "smooth" });
       setActiveId(id);
     }
   };
@@ -155,19 +158,19 @@ export function TableOfContents({
   }
 
   return (
-    <nav className="hidden xl:block fixed right-8 top-32 w-56 z-40 print:hidden animate-fade-in">
-      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-700 p-4 shadow-sm max-h-[70vh] overflow-y-auto custom-scrollbar">
-        <div className="flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-4 ml-2">
+    <nav className="animate-fade-in fixed top-32 right-8 z-40 hidden w-56 xl:block print:hidden">
+      <div className="custom-scrollbar max-h-[70vh] overflow-y-auto rounded-2xl border border-gray-200 bg-white/80 p-4 shadow-sm backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/80">
+        <div className="mb-4 ml-2 flex items-center gap-2 text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
           <List size={14} />
           Contents
         </div>
-        
+
         <ul className="space-y-1">
           {tree.map((node) => {
             const isExpanded = expandedIds.has(node.id);
             const hasChildren = node.children.length > 0;
             const isParentActive = activeId === node.id;
-            const isChildActive = node.children.some(c => c.id === activeId);
+            const isChildActive = node.children.some((c) => c.id === activeId);
 
             return (
               <li key={node.id} className="space-y-1">
@@ -176,29 +179,32 @@ export function TableOfContents({
                     href={`#${node.id}`}
                     onClick={(e) => handleClick(e, node.id)}
                     className={cn(
-                      "flex-1 text-sm py-1.5 px-3 rounded-xl transition-all duration-300 truncate",
+                      "flex-1 truncate rounded-xl px-3 py-1.5 text-sm transition-all duration-300",
                       isParentActive
-                        ? "bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/20 translate-x-1"
+                        ? "translate-x-1 bg-blue-600 font-bold text-white shadow-lg shadow-blue-500/20"
                         : isChildActive
-                        ? "text-blue-600 dark:text-blue-400 font-bold"
-                        : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50"
+                          ? "font-bold text-blue-600 dark:text-blue-400"
+                          : "text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700/50 dark:hover:text-gray-200",
                     )}
                     title={toTitleCase(node.label)}
                   >
                     {toTitleCase(node.label)}
                   </a>
-                  
+
                   {hasChildren && (
                     <button
                       onClick={(e) => toggleExpand(e, node.id)}
                       className={cn(
-                        "p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors",
-                        isExpanded ? "text-blue-500" : "text-gray-400"
+                        "rounded-lg p-1 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700",
+                        isExpanded ? "text-blue-500" : "text-gray-400",
                       )}
                     >
-                      <ChevronDown 
-                        size={14} 
-                        className={cn("transition-transform duration-300", isExpanded && "rotate-180")} 
+                      <ChevronDown
+                        size={14}
+                        className={cn(
+                          "transition-transform duration-300",
+                          isExpanded && "rotate-180",
+                        )}
                       />
                     </button>
                   )}
@@ -211,7 +217,7 @@ export function TableOfContents({
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden ml-4 border-l border-gray-100 dark:border-gray-700/50 pl-2 space-y-1"
+                      className="ml-4 space-y-1 overflow-hidden border-l border-gray-100 pl-2 dark:border-gray-700/50"
                     >
                       {node.children.map((child) => (
                         <li key={child.id}>
@@ -219,10 +225,10 @@ export function TableOfContents({
                             href={`#${child.id}`}
                             onClick={(e) => handleClick(e, child.id)}
                             className={cn(
-                              "block text-xs py-1.5 px-3 rounded-lg transition-all duration-200 truncate",
+                              "block truncate rounded-lg px-3 py-1.5 text-xs transition-all duration-200",
                               activeId === child.id
-                                ? "text-blue-600 dark:text-blue-400 font-bold bg-blue-50 dark:bg-blue-900/20"
-                                : "text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                                ? "bg-blue-50 font-bold text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+                                : "text-gray-400 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-500 dark:hover:bg-gray-800/50 dark:hover:text-gray-300",
                             )}
                             title={toTitleCase(child.label)}
                           >

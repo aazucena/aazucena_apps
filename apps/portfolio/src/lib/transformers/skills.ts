@@ -1,6 +1,6 @@
-import type { StrapiSkill } from '../validators/skills';
-import type { GradientVariant } from '../validators/enums';
-import type { StrapiSkillCategory } from '../validators/skill-category';
+import type { StrapiSkill } from "../validators/skills";
+import type { GradientVariant } from "../validators/enums";
+import type { StrapiSkillCategory } from "../validators/skill-category";
 
 export interface Skill {
   name: string;
@@ -20,7 +20,7 @@ export interface SkillCategory {
   name: string;
   documentId: string;
   label: string;
-  display: StrapiSkillCategory['display'],
+  display: StrapiSkillCategory["display"];
   gradient: GradientVariant;
   icon?: any;
   skills: Skill[];
@@ -31,7 +31,7 @@ export interface SkillCategory {
  */
 export function transformSkill(skill: StrapiSkill): Skill {
   const categoryData = skill.category;
-  const categoryName = categoryData?.label || categoryData?.name || 'Other';
+  const categoryName = categoryData?.label || categoryData?.name || "Other";
 
   return {
     name: skill.name,
@@ -50,29 +50,34 @@ export function transformSkill(skill: StrapiSkill): Skill {
 /**
  * Groups raw Strapi skills into categories for the Kanban display
  */
-export function groupSkillsByCategory(cmsSkills: StrapiSkill[]): SkillCategory[] {
+export function groupSkillsByCategory(
+  cmsSkills: StrapiSkill[],
+): SkillCategory[] {
   // Group logic
-  const grouped = cmsSkills.reduce((acc, skill) => {
-    const categoryData = skill.category as StrapiSkillCategory;
-    const categoryDisplay = categoryData.display || 'visible';
-    const categoryName = categoryData?.label || categoryData?.name || 'Other';
+  const grouped = cmsSkills.reduce(
+    (acc, skill) => {
+      const categoryData = skill.category as StrapiSkillCategory;
+      const categoryDisplay = categoryData.display || "visible";
+      const categoryName = categoryData?.label || categoryData?.name || "Other";
 
-    if (!acc[categoryName]) {
-      acc[categoryName] = {
-        id: categoryData.id,
-        documentId: categoryData?.documentId,
-        name: categoryData?.name || 'other',
-        label: categoryName,
-        display: categoryDisplay,
-        gradient: (categoryData?.variant as GradientVariant) || 'blue-cyan',
-        icon: categoryData?.icon,
-        skills: []
-      };
-    }
+      if (!acc[categoryName]) {
+        acc[categoryName] = {
+          id: categoryData.id,
+          documentId: categoryData?.documentId,
+          name: categoryData?.name || "other",
+          label: categoryName,
+          display: categoryDisplay,
+          gradient: (categoryData?.variant as GradientVariant) || "blue-cyan",
+          icon: categoryData?.icon,
+          skills: [],
+        };
+      }
 
-    acc[categoryName]!.skills.push(transformSkill(skill));
-    return acc;
-  }, {} as Record<string, SkillCategory>);
+      acc[categoryName]!.skills.push(transformSkill(skill));
+      return acc;
+    },
+    {} as Record<string, SkillCategory>,
+  );
 
   return Object.values(grouped).sort((a, b) => a.id - b.id);
 }

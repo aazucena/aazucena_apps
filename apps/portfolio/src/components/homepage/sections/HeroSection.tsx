@@ -4,8 +4,8 @@
  */
 
 import { gsap } from "gsap";
-import type { JSX } from 'react';
-import { useRef } from 'react';
+import type { JSX } from "react";
+import { useRef } from "react";
 import {
   CTA_CLICK_DURATION,
   CTA_CLICK_REPEAT,
@@ -13,13 +13,21 @@ import {
   RESUME_BUTTON_COLOR,
   RESUME_BUTTON_DURATION,
   RESUME_BUTTON_SCALE,
-} from '~/config/animations/constants';
-import { useHomepageData, usePortfolioData, useSectionData } from '~/contexts/animations';
-import { useGSAPEntrance } from '~/hooks/animations';
-import { FlipWordsTagline, NavigationButton, ResumeButton } from '~/components/ui';
-import type { NavigationDropdownOption } from '~/components/ui/hero/NavigationButton';
-import { SectionLayout } from './layouts';
-import type { SectionProps } from './types';
+} from "~/config/animations/constants";
+import {
+  useHomepageData,
+  usePortfolioData,
+  useSectionData,
+} from "~/contexts/animations";
+import { useGSAPEntrance } from "~/hooks/animations";
+import {
+  FlipWordsTagline,
+  NavigationButton,
+  ResumeButton,
+} from "~/components/ui";
+import type { NavigationDropdownOption } from "~/components/ui/hero/NavigationButton";
+import { SectionLayout } from "./layouts";
+import type { SectionProps } from "./types";
 
 export interface HeroSectionProps extends SectionProps {}
 
@@ -36,7 +44,7 @@ export function HeroSection({
   const portfolio = usePortfolioData();
   const { sections } = useHomepageData();
   const options: NavigationDropdownOption[] = sections
-    .filter((section) => section.name !== 'hero')
+    .filter((section) => section.name !== "hero")
     .map((section, index) => ({
       label: section?.buttonLabel ?? section.title,
       index: section?.sort ?? index,
@@ -52,7 +60,7 @@ export function HeroSection({
         repeat: CTA_CLICK_REPEAT,
       });
     }
-  }
+  };
 
   const onViewResumeClick = () => {
     const resumeButton = ctaRef.current?.children[1];
@@ -67,7 +75,7 @@ export function HeroSection({
         duration: RESUME_BUTTON_DURATION,
       });
     }
-  }
+  };
 
   return (
     <SectionLayout
@@ -82,25 +90,32 @@ export function HeroSection({
       titleClassName="block text-6xl md:text-7xl mb-4 text-white"
       subtitleClassName="block text-4xl md:text-5xl bg-gradient-to-r from-secondary-400 to-secondary-500 bg-clip-text text-transparent"
     >
-      <FlipWordsTagline words={hero.flipWords} ref={subtitleRef} content={hero.taglineTemplate} />
+      <FlipWordsTagline
+        words={hero.flipWords}
+        ref={subtitleRef}
+        content={hero.taglineTemplate}
+      />
 
-        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <NavigationButton
-            options={options}
-            onNavigateClick={onNavigate}
-            dropdown={hero.showDropdown}
-          >
-            {hero?.primaryButtonText ?? 'Get Started'}
-          </NavigationButton>
+      <div
+        ref={ctaRef}
+        className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+      >
+        <NavigationButton
+          options={options}
+          onNavigateClick={onNavigate}
+          dropdown={hero.showDropdown}
+        >
+          {hero?.primaryButtonText ?? "Get Started"}
+        </NavigationButton>
 
-          <ResumeButton
-            src={portfolio.resumeUrl ?? '/AldrinAzucena_Resume.pdf'}
-            show={hero.showSecondaryButton}
-            onClick={onViewResumeClick}
-          >
-            {hero?.secondaryButtonText ?? 'View Resume'}
-          </ResumeButton>
-        </div>
+        <ResumeButton
+          src={portfolio.resumeUrl ?? "/AldrinAzucena_Resume.pdf"}
+          show={hero.showSecondaryButton}
+          onClick={onViewResumeClick}
+        >
+          {hero?.secondaryButtonText ?? "View Resume"}
+        </ResumeButton>
+      </div>
     </SectionLayout>
   );
 }

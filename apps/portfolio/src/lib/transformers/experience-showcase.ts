@@ -1,5 +1,5 @@
-import type { StrapiExperienceShowcase } from '../validators/experience-showcase';
-import { transformPageHeader } from './utils';
+import type { StrapiExperienceShowcase } from "../validators/experience-showcase";
+import { transformPageHeader } from "./utils";
 
 export interface ExperienceShowcaseConfig {
   header?: ReturnType<typeof transformPageHeader>;
@@ -8,11 +8,13 @@ export interface ExperienceShowcaseConfig {
 }
 
 export const DEFAULT_EXPERIENCE_SHOWCASE: ExperienceShowcaseConfig = {
-  searchPlaceholder: 'Search experiences...',
-  listPagePath: 'experiences',
+  searchPlaceholder: "Search experiences...",
+  listPagePath: "experiences",
 };
 
-export function transformExperienceShowcase(data: StrapiExperienceShowcase): ExperienceShowcaseConfig {
+export function transformExperienceShowcase(
+  data: StrapiExperienceShowcase,
+): ExperienceShowcaseConfig {
   if (!data) return DEFAULT_EXPERIENCE_SHOWCASE;
 
   return {

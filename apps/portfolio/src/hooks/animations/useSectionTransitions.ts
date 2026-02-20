@@ -3,16 +3,15 @@
  * Manages GSAP transitions between sections
  */
 
-import { useEffect } from 'react';
-import { gsap } from 'gsap';
-import type { SectionRef } from './useSectionRefs';
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import type { SectionRef } from "./useSectionRefs";
 
 export function useSectionTransitions(
   currentSection: number,
-  refs: SectionRef[]
+  refs: SectionRef[],
 ): void {
   useEffect(() => {
-
     if (!refs || !refs.length || refs.length < 1) return;
 
     const sections = refs.map((ref) => ref.current);
@@ -25,7 +24,7 @@ export function useSectionTransitions(
           y: 0,
           scale: 1,
           duration: 1,
-          ease: "power3.out"
+          ease: "power3.out",
         });
       } else {
         // Hide other sections
@@ -35,7 +34,7 @@ export function useSectionTransitions(
           y: direction,
           scale: 0.95,
           duration: 1,
-          ease: "power3.out"
+          ease: "power3.out",
         });
       }
     });

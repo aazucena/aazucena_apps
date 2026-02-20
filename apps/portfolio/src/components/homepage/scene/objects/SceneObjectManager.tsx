@@ -3,11 +3,11 @@
  * Manages rendering of multiple scene objects with filtering and optimization
  */
 
-import type { JSX } from 'react';
-import { useMemo } from 'react';
-import { SceneObject } from './SceneObject';
-import type { SceneObjectManagerProps, SceneObjectConfig } from './types';
-import { objectRegistry } from './registry';
+import type { JSX } from "react";
+import { useMemo } from "react";
+import { SceneObject } from "./SceneObject";
+import type { SceneObjectManagerProps, SceneObjectConfig } from "./types";
+import { objectRegistry } from "./registry";
 
 /**
  * SceneObjectManager - Renders and manages multiple scene objects
@@ -38,7 +38,9 @@ export function SceneObjectManager({
     let filtered = objects;
 
     if (categoryFilter && categoryFilter.length > 0) {
-      filtered = filtered.filter((obj) => categoryFilter.includes(obj.category));
+      filtered = filtered.filter((obj) =>
+        categoryFilter.includes(obj.category),
+      );
     }
 
     if (typeFilter && typeFilter.length > 0) {
@@ -54,7 +56,9 @@ export function SceneObjectManager({
         const registryEntry = objectRegistry[config.type];
 
         if (!registryEntry) {
-          console.warn(`SceneObjectManager: No component registered for type "${config.type}"`);
+          console.warn(
+            `SceneObjectManager: No component registered for type "${config.type}"`,
+          );
           return null;
         }
 

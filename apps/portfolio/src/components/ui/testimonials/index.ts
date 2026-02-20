@@ -3,5 +3,5 @@
  * Reusable components for testimonials-related sections
  */
 
-export { TestimonialCard } from './TestimonialCard';
-export type { TestimonialCardProps } from './TestimonialCard';
+export { TestimonialCard } from "./TestimonialCard";
+export type { TestimonialCardProps } from "./TestimonialCard";

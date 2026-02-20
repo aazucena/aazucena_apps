@@ -3,19 +3,19 @@
  * Featured projects horizontal grid with draggable slider
  */
 
-import { ArrowLeftRight as ArrowsHorizontal } from '@mynaui/icons-react';
-import type { JSX } from 'react';
-import { useSectionData } from '~/contexts/animations';
-import { useDragToSwipe } from '~/hooks/animations';
-import { ProjectCard, ViewMoreCard, PageIndicators } from '~/components/ui';
-import { SectionLayout } from './layouts';
-import type { SectionProps } from './types';
+import { ArrowLeftRight as ArrowsHorizontal } from "@mynaui/icons-react";
+import type { JSX } from "react";
+import { useSectionData } from "~/contexts/animations";
+import { useDragToSwipe } from "~/hooks/animations";
+import { ProjectCard, ViewMoreCard, PageIndicators } from "~/components/ui";
+import { SectionLayout } from "./layouts";
+import type { SectionProps } from "./types";
 
 export interface ProjectsSectionProps extends SectionProps {}
 
 export function ProjectsSection({
-  title = 'Featured Projects',
-  subtitle = 'Real Solutions, Real Impact'
+  title = "Featured Projects",
+  subtitle = "Real Solutions, Real Impact",
 }: ProjectsSectionProps): JSX.Element {
   const { projects, projectShowcase: showcase } = useSectionData();
 
@@ -52,25 +52,25 @@ export function ProjectsSection({
       headerClassName="text-center"
     >
       {/* Drag Hint */}
-      <div className="text-center mb-4">
-        <p className="text-gray-400 text-sm flex items-center justify-center gap-2 animate-pulse">
-          <ArrowsHorizontal className="w-5 h-5" />
-          {showcase?.dragHintText ?? 'Drag to explore more projects'}
+      <div className="mb-4 text-center">
+        <p className="flex animate-pulse items-center justify-center gap-2 text-sm text-gray-400">
+          <ArrowsHorizontal className="h-5 w-5" />
+          {showcase?.dragHintText ?? "Drag to explore more projects"}
         </p>
       </div>
 
       {/* Draggable Carousel */}
       <div
-        className={`mt-4 overflow-hidden mx-auto select-none relative z-10 ${
-          isDragging ? '!cursor-grabbing' : '!cursor-grab'
+        className={`relative z-10 mx-auto mt-4 overflow-hidden select-none ${
+          isDragging ? "!cursor-grabbing" : "!cursor-grab"
         }`}
-        style={{ maxWidth: '880px', minHeight: '400px' }}
+        style={{ maxWidth: "880px", minHeight: "400px" }}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
         onDragStart={(e) => e.preventDefault()}
       >
         <div
-          className="flex transition-transform duration-500 ease-in-out gap-x-1"
+          className="flex gap-x-1 transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentPage * 100}%)` }}
         >
           {pages.map((pageProjects, pageIndex) => {
@@ -78,7 +78,7 @@ export function ProjectsSection({
 
             return (
               <div key={pageIndex} className="min-w-full flex-shrink-0">
-                <div className="grid grid-rows-2 grid-flow-col gap-6 w-max mx-auto">
+                <div className="mx-auto grid w-max grid-flow-col grid-rows-2 gap-6">
                   {/* Project Cards */}
                   {pageProjects.map((project, index) => (
                     <ProjectCard
@@ -96,9 +96,14 @@ export function ProjectsSection({
                   {/* View More Card (last page only) */}
                   {isLastPage && (
                     <ViewMoreCard
-                      href={showcase?.listPagePath ?? '/projects'}
-                      title={showcase?.viewMoreButtonLabel ?? 'View All Projects'}
-                      subtitle={showcase?.viewMoreButtonSubtitle ?? 'Explore my complete portfolio'}
+                      href={showcase?.listPagePath ?? "/projects"}
+                      title={
+                        showcase?.viewMoreButtonLabel ?? "View All Projects"
+                      }
+                      subtitle={
+                        showcase?.viewMoreButtonSubtitle ??
+                        "Explore my complete portfolio"
+                      }
                       onClick={handleLinkClick}
                     />
                   )}

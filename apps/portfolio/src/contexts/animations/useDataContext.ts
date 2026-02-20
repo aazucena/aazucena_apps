@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { DataContext } from './DataContext';
+import { useContext } from "react";
+import { DataContext } from "./DataContext";
 
 // Custom hook with error handling
 export function useDataContext() {
@@ -9,14 +9,14 @@ export function useDataContext() {
     const isDev = import.meta.env.DEV;
     if (isDev) {
       console.error(
-        '[DataContext] Component is missing DataProvider wrapper.\n' +
-        'This can happen during HMR (Hot Module Reload).\n' +
-        'Try refreshing the page to restore the proper context.'
+        "[DataContext] Component is missing DataProvider wrapper.\n" +
+          "This can happen during HMR (Hot Module Reload).\n" +
+          "Try refreshing the page to restore the proper context.",
       );
     }
     throw new Error(
-      'useDataContext must be used within DataProvider. ' +
-      (isDev ? 'Check console for details or refresh the page.' : '')
+      "useDataContext must be used within DataProvider. " +
+        (isDev ? "Check console for details or refresh the page." : ""),
     );
   }
   return context;

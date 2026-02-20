@@ -7,7 +7,7 @@
  * @param params - Record of parameters to update or delete (if value is empty)
  */
 export function updateURL(params: Record<string, string>) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const url = new URL(window.location.href);
   Object.entries(params).forEach(([key, value]) => {
@@ -17,7 +17,7 @@ export function updateURL(params: Record<string, string>) {
       url.searchParams.delete(key);
     }
   });
-  window.history.replaceState({}, '', url.toString());
+  window.history.replaceState({}, "", url.toString());
 }
 
 /**
@@ -26,15 +26,15 @@ export function updateURL(params: Record<string, string>) {
  * @returns Record of parameter values
  */
 export function getURLParams(keys: string[]): Record<string, string> {
-  if (typeof window === 'undefined') return {};
+  if (typeof window === "undefined") return {};
 
   const params = new URLSearchParams(window.location.search);
   const result: Record<string, string> = {};
-  
-  keys.forEach(key => {
+
+  keys.forEach((key) => {
     const value = params.get(key);
     if (value) result[key] = value;
   });
-  
+
   return result;
 }

@@ -21,7 +21,7 @@ export const HSL_RANGES: Record<AtmosphericPhase, HSLRange> = {
     saturationMin: 60,
     saturationMax: 80,
     lightnessMin: 70,
-    lightnessMax: 85
+    lightnessMax: 85,
   },
   thermosphere: {
     hueMin: 120,
@@ -29,7 +29,7 @@ export const HSL_RANGES: Record<AtmosphericPhase, HSLRange> = {
     saturationMin: 70,
     saturationMax: 90,
     lightnessMin: 65,
-    lightnessMax: 80
+    lightnessMax: 80,
   },
   mesosphere: {
     hueMin: 200,
@@ -37,7 +37,7 @@ export const HSL_RANGES: Record<AtmosphericPhase, HSLRange> = {
     saturationMin: 60,
     saturationMax: 80,
     lightnessMin: 60,
-    lightnessMax: 75
+    lightnessMax: 75,
   },
   stratosphere: {
     hueMin: 180,
@@ -45,7 +45,7 @@ export const HSL_RANGES: Record<AtmosphericPhase, HSLRange> = {
     saturationMin: 50,
     saturationMax: 80,
     lightnessMin: 75,
-    lightnessMax: 90
+    lightnessMax: 90,
   },
   troposphere: {
     hueMin: 90,
@@ -53,30 +53,30 @@ export const HSL_RANGES: Record<AtmosphericPhase, HSLRange> = {
     saturationMin: 40,
     saturationMax: 70,
     lightnessMin: 60,
-    lightnessMax: 80
-  }
+    lightnessMax: 80,
+  },
 };
 
 export const BACKGROUND_COLORS: Record<AtmosphericPhase, string> = {
-  exosphere: '#0a0e27',
-  thermosphere: '#1a1a2e',
-  mesosphere: '#16213e',
-  stratosphere: '#0f3460',
-  troposphere: '#533483'
+  exosphere: "#0a0e27",
+  thermosphere: "#1a1a2e",
+  mesosphere: "#16213e",
+  stratosphere: "#0f3460",
+  troposphere: "#533483",
 };
 
 export const POINT_LIGHT_COLORS: Record<AtmosphericPhase, string> = {
-  exosphere: '#ffffff',
-  thermosphere: '#9D4EDD',
-  mesosphere: '#3A86FF',
-  stratosphere: '#87CEEB',
-  troposphere: '#FFA07A'
+  exosphere: "#ffffff",
+  thermosphere: "#9D4EDD",
+  mesosphere: "#3A86FF",
+  stratosphere: "#87CEEB",
+  troposphere: "#FFA07A",
 };
 
 export const SECONDARY_LIGHT_COLORS: Record<AtmosphericPhase, string> = {
-  exosphere: '#aaaaff',
-  thermosphere: '#06FFA5',
-  mesosphere: '#1E40AF',
-  stratosphere: '#B0E0E6',
-  troposphere: '#D2691E'
+  exosphere: "#aaaaff",
+  thermosphere: "#06FFA5",
+  mesosphere: "#1E40AF",
+  stratosphere: "#B0E0E6",
+  troposphere: "#D2691E",
 };

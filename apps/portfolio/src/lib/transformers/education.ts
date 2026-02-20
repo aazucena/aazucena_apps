@@ -1,9 +1,6 @@
-import type { StrapiEducation } from '../validators/education';
-import { 
-  transformWebLink as utilTransformWebLink, 
-  getMediaUrl 
-} from './utils';
-import type { Achievement } from '../validators/components';
+import type { StrapiEducation } from "../validators/education";
+import { transformWebLink as utilTransformWebLink, getMediaUrl } from "./utils";
+import type { Achievement } from "../validators/components";
 
 export interface Education {
   id: number;
@@ -19,6 +16,9 @@ export interface Education {
   location?: string;
   gpa?: number;
   description?: string;
+  honors?: string;
+  thesis?: string;
+  thesisDescription?: string;
   achievements: Achievement[];
   skills: { name: string; category: string }[];
   relatedLinks: ReturnType<typeof utilTransformWebLink>[];
@@ -27,7 +27,7 @@ export interface Education {
 export function transformEducation(data: StrapiEducation): Education {
   const skills = (data.skills || []).map((skill: any) => ({
     name: skill.name,
-    category: skill.category?.label || skill.category?.name || 'Other',
+    category: skill.category?.label || skill.category?.name || "Other",
   }));
 
   return {
@@ -44,6 +44,9 @@ export function transformEducation(data: StrapiEducation): Education {
     location: data.location || undefined,
     gpa: data.gpa || undefined,
     description: data.description || undefined,
+    honors: data.honors || undefined,
+    thesis: data.thesis || undefined,
+    thesisDescription: data.thesisDescription || undefined,
     achievements: (data.achievements || []) as Achievement[],
     skills,
     relatedLinks: (data.relatedLinks || []).map(utilTransformWebLink),
@@ -54,6 +57,9 @@ export function transformEducationList(items: StrapiEducation[]): Education[] {
   if (!items || items.length === 0) return [];
 
   return items
-    .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
+    )
     .map(transformEducation);
 }

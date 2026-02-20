@@ -2,14 +2,18 @@
  * Zod validator for Education collection type
  */
 
-import { z } from 'zod';
-import { EducationDisplayEnum, EducationTypeEnum } from './enums';
-import { StrapiProjectSchema } from './projects';
-import { AchievementSchema, StrapiMediaSchema, WebLinkArraySchema } from './components';
-import { StrapiSkillSchema } from './skills';
+import { z } from "zod";
+import { EducationDisplayEnum, EducationTypeEnum } from "./enums";
+import { StrapiProjectSchema } from "./projects";
+import {
+  AchievementSchema,
+  StrapiMediaSchema,
+  WebLinkArraySchema,
+} from "./components";
+import { StrapiSkillSchema } from "./skills";
 
 // Re-export types for backward compatibility
-export type { EducationDisplay, EducationType } from './enums';
+export type { EducationDisplay, EducationType } from "./enums";
 
 /**
  * Explicit Interface for recursion
@@ -27,24 +31,24 @@ export interface StrapiEducation {
   startDate: string;
   graduationDate?: string | null;
   expectedGraduationDate?: string | null;
-  current: boolean;
+  current?: boolean;
   location?: string | null;
   gpa?: number | null;
-  gpaScale: number;
+  gpaScale?: number;
   description?: string | null;
   honors?: string | null;
   thesis?: string | null;
   thesisDescription?: string | null;
-  sort: number;
-  achievements: any[];
-  courses: string[];
-  skills: any[];
+  sort?: number;
+  achievements?: any[];
+  courses?: string[];
+  skills?: any[];
   extracurriculars?: string | null;
   credentialUrl?: string | null;
   credentialId?: string | null;
-  featured: boolean;
-  display: string;
-  relatedLinks: any[];
+  featured?: boolean;
+  display?: string;
+  relatedLinks?: any[];
   projects?: any[];
   publishedAt?: string | null;
   createdAt?: string;
@@ -80,11 +84,11 @@ export const StrapiEducationSchema: z.ZodType<StrapiEducation> = z.object({
   thesisDescription: z.string().max(1000).optional().nullable(),
   sort: z.number().default(0),
   achievements: z.array(AchievementSchema).default([]),
-  courses: z.array(z.string()).default([]), 
-  
+  courses: z.array(z.string()).default([]),
+
   // Relations
   skills: z.array(z.lazy(() => StrapiSkillSchema)).default([]),
-  
+
   extracurriculars: z.string().max(1000).optional().nullable(),
   credentialUrl: z.string().url().max(500).optional().nullable(),
   credentialId: z.string().max(100).optional().nullable(),
@@ -98,17 +102,22 @@ export const StrapiEducationSchema: z.ZodType<StrapiEducation> = z.object({
   updatedAt: z.string().optional(),
 });
 
-
 export const StrapiEducationResponseSchema = z.object({
   data: z.array(StrapiEducationSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
-export type StrapiEducationResponse = z.infer<typeof StrapiEducationResponseSchema>;
+export type StrapiEducationResponse = z.infer<
+  typeof StrapiEducationResponseSchema
+>;

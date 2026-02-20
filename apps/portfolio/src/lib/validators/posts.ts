@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { 
-  ImageElementSchema, 
-  TagSchema, 
-  SeoSchema, 
-  WebLinkArraySchema 
-} from './components';
-import { PostStatusEnum } from './enums';
+import { z } from "zod";
+import {
+  ImageElementSchema,
+  TagSchema,
+  SeoSchema,
+  WebLinkArraySchema,
+} from "./components";
+import { PostStatusEnum } from "./enums";
 
 export const StrapiPostSchema = z.object({
   id: z.number(),
@@ -46,14 +46,18 @@ export const StrapiPostSchema = z.object({
 
 export const StrapiPostsResponseSchema = z.object({
   data: z.array(StrapiPostSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 export type StrapiPost = z.infer<typeof StrapiPostSchema>;

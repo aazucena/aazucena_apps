@@ -10,29 +10,30 @@ export {
   getIndustryIcon,
   getCompanyLogoGradient,
   getCompanyInitials,
-} from './experiences';
+} from "./experiences";
+
+export { calculateReadTime, getAwardGradient, formatDate } from "./content";
+
+export { debounce, debounceInline } from "./debounce";
 
 export {
-  calculateReadTime,
-  getAwardGradient,
-  formatDate,
-} from './content';
+  getTagColorClasses,
+  isValidTagColor,
+  getAllTagColors,
+  type TagColor,
+} from "./tagColors";
 
-export { debounce, debounceInline } from './debounce';
+export { extractTOC, slugify, type TOCHeading } from "./toc";
 
-export { getTagColorClasses, isValidTagColor, getAllTagColors, type TagColor } from './tagColors';
-
-export { extractTOC, slugify, type TOCHeading } from './toc';
-
-export * from './blog';
-export * from './contact-form';
-export * from './experiences';
-export * from './projects';
-export * from './url';
-export * from './text';
-export * from './url';
-export * from './icons';
-export * from './base';
-export * from './strapi';
-export * from './about';
-export * from './projects';
+export * from "./blog";
+export * from "./contact-form";
+export * from "./experiences";
+export * from "./projects";
+export * from "./url";
+export * from "./text";
+export * from "./url";
+export * from "./icons";
+export * from "./base";
+export * from "./strapi";
+export * from "./about";
+export * from "./projects";

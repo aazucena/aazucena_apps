@@ -124,7 +124,7 @@ async function runTests() {
       logInfo("Make sure Strapi is running: docker compose up -d");
       process.exit(1);
     }
-  } catch (error) {
+  } catch {
     logError(`Cannot connect to Strapi at ${STRAPI_URL}`);
     logInfo("Make sure Strapi is running: docker compose up -d");
     process.exit(1);

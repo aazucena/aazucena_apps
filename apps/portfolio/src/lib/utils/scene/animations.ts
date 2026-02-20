@@ -3,8 +3,8 @@
  * Reusable animation helpers for atmospheric layers and easter eggs
  */
 
-import type { Group } from 'three';
-import type { RefObject } from 'react';
+import type { Group } from "three";
+import type { RefObject } from "react";
 
 /**
  * Rotation Animation Configuration
@@ -85,7 +85,7 @@ export interface AnimationConfig {
 export function applyRotation(
   ref: RefObject<Group | null>,
   time: number,
-  config: RotationConfig
+  config: RotationConfig,
 ): void {
   if (!ref.current) return;
 
@@ -119,7 +119,7 @@ export function applyRotation(
 export function applyRotationOscillation(
   ref: RefObject<Group | null>,
   time: number,
-  config: RotationOscillationConfig
+  config: RotationOscillationConfig,
 ): void {
   if (!ref.current) return;
 
@@ -157,7 +157,7 @@ export function applyRotationOscillation(
 export function applyPositionWave(
   ref: RefObject<Group | null>,
   time: number,
-  config: PositionWaveConfig
+  config: PositionWaveConfig,
 ): void {
   if (!ref.current) return;
 
@@ -205,7 +205,7 @@ export function applyPositionWave(
 export function applyCircularMotion(
   ref: RefObject<Group | null>,
   time: number,
-  config: PositionWaveConfig
+  config: PositionWaveConfig,
 ): void {
   if (!ref.current) return;
 
@@ -257,7 +257,7 @@ export function applyCircularMotion(
 export function applyAnimation(
   ref: RefObject<Group | null>,
   time: number,
-  config: AnimationConfig
+  config: AnimationConfig,
 ): void {
   if (!ref.current) return;
 
@@ -284,7 +284,7 @@ export const ANIMATION_PRESETS = {
   /** Slow orbital rotation (satellites, space stations) */
   ORBITAL: {
     rotation: { y: 0.1 },
-    rotationOscillation: { z: { frequency: 0.2, amplitude: 0.05 } }
+    rotationOscillation: { z: { frequency: 0.2, amplitude: 0.05 } },
   },
 
   /** Floating/bobbing motion (astronauts, balloons) */
@@ -292,8 +292,8 @@ export const ANIMATION_PRESETS = {
     positionWave: {
       base: { x: 0, y: 0, z: 0 }, // Override with actual position
       y: { frequency: 0.5, amplitude: 0.4 },
-      x: { frequency: 0.3, amplitude: 0.2 }
-    }
+      x: { frequency: 0.3, amplitude: 0.2 },
+    },
   },
 
   /** Flying motion (planes, birds) */
@@ -302,8 +302,8 @@ export const ANIMATION_PRESETS = {
     rotationOscillation: { x: { frequency: 0.3, amplitude: 0.1 } },
     positionWave: {
       base: { x: 0, y: 0, z: 0 }, // Override with actual position
-      y: { frequency: 0.25, amplitude: 0.3 }
-    }
+      y: { frequency: 0.25, amplitude: 0.3 },
+    },
   },
 
   /** Wobbling motion (UFOs) */
@@ -313,12 +313,12 @@ export const ANIMATION_PRESETS = {
     positionWave: {
       base: { x: 0, y: 0, z: 0 }, // Override with actual position
       y: { frequency: 0.6, amplitude: 0.3 },
-      x: { frequency: 0.4, amplitude: 0.2 }
-    }
+      x: { frequency: 0.4, amplitude: 0.2 },
+    },
   },
 
   /** Tumbling motion (space debris, meteors) */
   TUMBLING: {
-    rotation: { y: 0.6, x: 0.4, z: 0.3 }
-  }
+    rotation: { y: 0.6, x: 0.4, z: 0.3 },
+  },
 } as const;

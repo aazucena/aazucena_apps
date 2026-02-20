@@ -4,10 +4,10 @@
  * Reusable across all sections for consistent card appearance
  */
 
-import type { JSX, ElementType, ComponentPropsWithoutRef } from 'react';
-import { cn } from '~/lib/utils';
+import type { JSX, ElementType, ComponentPropsWithoutRef } from "react";
+import { cn } from "~/lib/utils";
 
-export interface GlassCardProps<T extends ElementType = 'div'> {
+export interface GlassCardProps<T extends ElementType = "div"> {
   /** HTML element to render as (div, article, section, etc.) */
   as?: T;
   /** Card content */
@@ -17,16 +17,16 @@ export interface GlassCardProps<T extends ElementType = 'div'> {
   /** Enable cursor pointer */
   clickable?: boolean;
   /** Padding size variant */
-  padding?: 'none' | 'sm' | 'md' | 'lg';
+  padding?: "none" | "sm" | "md" | "lg";
   /** Additional classes */
   className?: string;
 }
 
 const paddingVariants = {
-  none: '',
-  sm: 'p-3',
-  md: 'p-4',
-  lg: 'p-6',
+  none: "",
+  sm: "p-3",
+  md: "p-4",
+  lg: "p-6",
 } as const;
 
 /**
@@ -57,32 +57,33 @@ const paddingVariants = {
  * </GlassCard>
  * ```
  */
-export function GlassCard<T extends ElementType = 'div'>({
+export function GlassCard<T extends ElementType = "div">({
   as,
   children,
   hover = false,
   clickable = false,
-  padding = 'md',
+  padding = "md",
   className,
   ...props
-}: GlassCardProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof GlassCardProps<T>>): JSX.Element {
-  const Component = as || 'div';
+}: GlassCardProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof GlassCardProps<T>>): JSX.Element {
+  const Component = (as || "div") as any;
   const paddingClass = paddingVariants[padding];
 
   return (
     <Component
       className={cn(
         // Base glass-morphism styling
-        'bg-white/5 backdrop-blur-sm rounded-lg border border-white/10',
+        "rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm",
         // Padding
         paddingClass,
         // Hover effects
-        hover && 'hover:bg-white/10 transition-all duration-300',
-        hover && 'hover:scale-[1.02]',
+        hover && "transition-all duration-300 hover:bg-white/10",
+        hover && "hover:scale-[1.02]",
         // Cursor
-        clickable && 'cursor-pointer',
+        clickable && "cursor-pointer",
         // Custom classes
-        className
+        className,
       )}
       {...props}
     >

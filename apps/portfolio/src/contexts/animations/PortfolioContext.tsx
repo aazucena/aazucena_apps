@@ -19,7 +19,7 @@ import {
   SCROLL_PROGRESS_THRESHOLD,
   SCROLL_PROGRESS_RETURN,
   SCROLL_PROGRESS_MIN,
-} from '~/config/animations/constants';
+} from "~/config/animations/constants";
 
 // Types
 export interface PortfolioState {
@@ -32,7 +32,7 @@ export interface PortfolioState {
   // Modal State
   isExperienceModalOpen: boolean;
   selectedExperienceIndex: number | null;
-  openExperienceModal: (index: number) => void;
+  openExperienceModal: (_index: number) => void;
   closeExperienceModal: () => void;
 
   // Panel State
@@ -44,12 +44,14 @@ export interface PortfolioState {
   setShowSocialMenu: Dispatch<SetStateAction<boolean>>;
 
   // Utility functions
-  navigateToSection: (index: number) => void;
-  togglePanel: (panelType: "info" | "settings" | "social") => void;
+  navigateToSection: (_index: number) => void;
+  togglePanel: (_panelType: "info" | "settings" | "social") => void;
 }
 
 // Context
-export const PortfolioContext = createContext<PortfolioState | undefined>(undefined);
+export const PortfolioContext = createContext<PortfolioState | undefined>(
+  undefined,
+);
 
 // Provider Props
 interface PortfolioProviderProps {
@@ -86,7 +88,7 @@ export function PortfolioProvider({
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       // Don't handle scroll when modal is open (check body overflow to support any modal)
-      const isModalOpen = document.body.style.overflow === 'hidden';
+      const isModalOpen = document.body.style.overflow === "hidden";
       if (isScrollingRef.current || isModalOpen) return;
 
       const delta = e.deltaY;
@@ -98,19 +100,29 @@ export function PortfolioProvider({
       const isScrollingUp = delta < 0;
 
       // Don't update scroll progress if we're at a boundary
-      if ((isScrollingDown && !canScrollDown) || (isScrollingUp && !canScrollUp)) {
+      if (
+        (isScrollingDown && !canScrollDown) ||
+        (isScrollingUp && !canScrollUp)
+      ) {
         return;
       }
 
       // Accumulate scroll progress
       const newProgress = Math.max(
         0,
-        Math.min(SCROLL_PROGRESS_MAX, scrollProgress + delta * SCROLL_SENSITIVITY)
+        Math.min(
+          SCROLL_PROGRESS_MAX,
+          scrollProgress + delta * SCROLL_SENSITIVITY,
+        ),
       );
       setScrollProgress(newProgress);
 
       // If we've scrolled enough, transition to next/previous section
-      if (newProgress >= SCROLL_PROGRESS_THRESHOLD && isScrollingDown && canScrollDown) {
+      if (
+        newProgress >= SCROLL_PROGRESS_THRESHOLD &&
+        isScrollingDown &&
+        canScrollDown
+      ) {
         // Scrolling down - move to next section
         isScrollingRef.current = true;
         setCurrentSection(currentSection + 1);
@@ -121,7 +133,11 @@ export function PortfolioProvider({
         scrollTimeoutRef.current = setTimeout(() => {
           isScrollingRef.current = false;
         }, SCROLL_DEBOUNCE_TIME);
-      } else if (newProgress <= SCROLL_PROGRESS_MIN && isScrollingUp && canScrollUp) {
+      } else if (
+        newProgress <= SCROLL_PROGRESS_MIN &&
+        isScrollingUp &&
+        canScrollUp
+      ) {
         // Scrolling up - move to previous section
         isScrollingRef.current = true;
         setCurrentSection(currentSection - 1);
@@ -218,4 +234,4 @@ export function PortfolioProvider({
 }
 
 // Add display name for React Fast Refresh
-PortfolioProvider.displayName = 'PortfolioProvider';
+PortfolioProvider.displayName = "PortfolioProvider";

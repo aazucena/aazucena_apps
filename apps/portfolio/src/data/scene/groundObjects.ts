@@ -3,11 +3,24 @@
  * Generates data for houses, trees, bushes, rocks, and flowers
  */
 
-import type { HouseData, TreeData, BushData, RockData, FlowerData } from '~/config/animations';
+import type {
+  HouseData,
+  TreeData,
+  BushData,
+  RockData,
+  FlowerData,
+} from "~/config/animations";
 
-const HOUSE_COLORS = ['#D4AF37', '#CD853F', '#DEB887', '#F4A460', '#E6BE8A'];
-const BUSH_COLORS = ['#228B22', '#2E8B57', '#3CB371', '#90EE90'];
-const FLOWER_COLORS = ['#FF69B4', '#FFD700', '#FF6347', '#FF4500', '#FFA500', '#FFFF00'];
+const HOUSE_COLORS = ["#D4AF37", "#CD853F", "#DEB887", "#F4A460", "#E6BE8A"];
+const BUSH_COLORS = ["#228B22", "#2E8B57", "#3CB371", "#90EE90"];
+const FLOWER_COLORS = [
+  "#FF69B4",
+  "#FFD700",
+  "#FF6347",
+  "#FF4500",
+  "#FFA500",
+  "#FFFF00",
+];
 
 /**
  * Generate house data for ground phase
@@ -18,14 +31,16 @@ export function generateHouseData(count: number): HouseData[] {
     const radius = 6 + Math.random() * 2;
 
     return {
-      position: [
-        Math.cos(angle) * radius,
-        -0.5,
-        Math.sin(angle) * radius
-      ] as [number, number, number],
+      position: [Math.cos(angle) * radius, -0.5, Math.sin(angle) * radius] as [
+        number,
+        number,
+        number,
+      ],
       rotation: Math.random() * Math.PI * 2,
       scale: 0.7 + Math.random() * 0.3,
-      color: HOUSE_COLORS[Math.floor(Math.random() * HOUSE_COLORS.length)]
+      color: HOUSE_COLORS[
+        Math.floor(Math.random() * HOUSE_COLORS.length)
+      ] as string,
     };
   });
 }
@@ -39,12 +54,12 @@ export function generateTreeData(count: number): TreeData[] {
     const radius = 4.5 + Math.random() * 2.5;
 
     return {
-      position: [
-        Math.cos(angle) * radius,
-        -0.5,
-        Math.sin(angle) * radius
-      ] as [number, number, number],
-      scale: 0.6 + Math.random() * 0.3
+      position: [Math.cos(angle) * radius, -0.5, Math.sin(angle) * radius] as [
+        number,
+        number,
+        number,
+      ],
+      scale: 0.6 + Math.random() * 0.3,
     };
   });
 }
@@ -58,13 +73,15 @@ export function generateBushData(count: number): BushData[] {
     const radius = 2.5 + Math.random() * 4;
 
     return {
-      position: [
-        Math.cos(angle) * radius,
-        -0.5,
-        Math.sin(angle) * radius
-      ] as [number, number, number],
+      position: [Math.cos(angle) * radius, -0.5, Math.sin(angle) * radius] as [
+        number,
+        number,
+        number,
+      ],
       scale: 0.25 + Math.random() * 0.2,
-      color: BUSH_COLORS[Math.floor(Math.random() * BUSH_COLORS.length)]
+      color: BUSH_COLORS[
+        Math.floor(Math.random() * BUSH_COLORS.length)
+      ] as string,
     };
   });
 }
@@ -78,17 +95,17 @@ export function generateRockData(count: number): RockData[] {
     const radius = 3 + Math.random() * 4.5;
 
     return {
-      position: [
-        Math.cos(angle) * radius,
-        -0.5,
-        Math.sin(angle) * radius
-      ] as [number, number, number],
+      position: [Math.cos(angle) * radius, -0.5, Math.sin(angle) * radius] as [
+        number,
+        number,
+        number,
+      ],
       scale: 0.2 + Math.random() * 0.2,
       rotation: [
         Math.random() * Math.PI,
         Math.random() * Math.PI,
-        Math.random() * Math.PI
-      ] as [number, number, number]
+        Math.random() * Math.PI,
+      ] as [number, number, number],
     };
   });
 }
@@ -102,13 +119,15 @@ export function generateFlowerData(count: number): FlowerData[] {
     const radius = 2 + Math.random() * 5;
 
     return {
-      position: [
-        Math.cos(angle) * radius,
-        -0.48,
-        Math.sin(angle) * radius
-      ] as [number, number, number],
+      position: [Math.cos(angle) * radius, -0.48, Math.sin(angle) * radius] as [
+        number,
+        number,
+        number,
+      ],
       scale: 0.1 + Math.random() * 0.1,
-      color: FLOWER_COLORS[Math.floor(Math.random() * FLOWER_COLORS.length)]
+      color: FLOWER_COLORS[
+        Math.floor(Math.random() * FLOWER_COLORS.length)
+      ] as string,
     };
   });
 }

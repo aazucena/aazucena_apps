@@ -1,7 +1,7 @@
-import { getPreloaderConfig } from '../api/preloader';
-import { getMaintenance } from '../api/maintenance';
-import { getWebsiteConfig } from '../api/website-config';
-import { SITE_CONFIG } from '~/config/site';
+import { getPreloaderConfig } from "../api/preloader";
+import { getMaintenance } from "../api/maintenance";
+import { getWebsiteConfig } from "../api/website-config";
+import { SITE_CONFIG } from "~/config/site";
 
 export interface LayoutDataResponse {
   siteConfig: typeof SITE_CONFIG;
@@ -30,7 +30,10 @@ export async function getLayoutData(): Promise<LayoutDataResponse> {
 
   // Log maintenance status in development
   if (import.meta.env.DEV && maintenance.enabled) {
-    console.warn('[Maintenance] Site is in maintenance mode:', maintenance.message);
+    console.warn(
+      "[Maintenance] Site is in maintenance mode:",
+      maintenance.message,
+    );
   }
 
   return {

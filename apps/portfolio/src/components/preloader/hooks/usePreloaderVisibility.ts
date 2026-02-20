@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 export interface UsePreloaderVisibilityOptions {
   lazyLoad?: boolean;
@@ -13,7 +13,7 @@ export interface UsePreloaderVisibilityReturn {
   containerRef: React.RefObject<HTMLDivElement | null>;
   handleSkip: () => void;
   handleContinue: () => void;
-  setIsVisible: (visible: boolean) => void;
+  setIsVisible: (_visible: boolean) => void;
 }
 
 export function usePreloaderVisibility({
@@ -37,7 +37,7 @@ export function usePreloaderVisibility({
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(containerRef.current);
@@ -54,7 +54,7 @@ export function usePreloaderVisibility({
   const handleContinue = () => {
     setIsVisible(false);
     onComplete?.();
-    document.dispatchEvent(new CustomEvent('preloader-complete'));
+    document.dispatchEvent(new CustomEvent("preloader-complete"));
   };
 
   return {

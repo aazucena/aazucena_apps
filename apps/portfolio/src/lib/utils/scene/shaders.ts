@@ -3,8 +3,8 @@
  * Reusable shader material creation and management for atmospheric layers
  */
 
-import * as THREE from 'three';
-import type { ShaderMaterial } from 'three';
+import * as THREE from "three";
+import type { ShaderMaterial } from "three";
 
 /**
  * Aurora Shader Configuration
@@ -42,20 +42,24 @@ export interface AuroraShaderConfig {
  * });
  * ```
  */
-export function createAuroraMaterial(config: AuroraShaderConfig): THREE.ShaderMaterial {
+export function createAuroraMaterial(
+  config: AuroraShaderConfig,
+): THREE.ShaderMaterial {
   const {
     color,
     baseOpacity,
     verticalFadeRange = 0.4,
     edgeSoftness = 0.15,
-    flickerIntensity = 0.05
+    flickerIntensity = 0.05,
   } = config;
 
   return new THREE.ShaderMaterial({
     uniforms: {
-      uColor: { value: typeof color === 'string' ? new THREE.Color(color) : color },
+      uColor: {
+        value: typeof color === "string" ? new THREE.Color(color) : color,
+      },
       uOpacity: { value: baseOpacity },
-      uTime: { value: 0 }
+      uTime: { value: 0 },
     },
     vertexShader: `
       varying vec2 vUv;
@@ -100,7 +104,7 @@ export function createAuroraMaterial(config: AuroraShaderConfig): THREE.ShaderMa
     transparent: true,
     side: THREE.DoubleSide,
     blending: THREE.AdditiveBlending,
-    depthWrite: false
+    depthWrite: false,
   });
 }
 
@@ -137,8 +141,11 @@ export function updateShaderTime(material: ShaderMaterial, time: number): void {
  * });
  * ```
  */
-export function updateShadersTime(materials: ShaderMaterial[], time: number): void {
-  materials.forEach(material => updateShaderTime(material, time));
+export function updateShadersTime(
+  materials: ShaderMaterial[],
+  time: number,
+): void {
+  materials.forEach((material) => updateShaderTime(material, time));
 }
 
 /**
@@ -148,7 +155,10 @@ export function updateShadersTime(materials: ShaderMaterial[], time: number): vo
  * @param material - Shader material to update
  * @param opacity - New opacity value (0-1)
  */
-export function updateShaderOpacity(material: ShaderMaterial, opacity: number): void {
+export function updateShaderOpacity(
+  material: ShaderMaterial,
+  opacity: number,
+): void {
   if (material.uniforms?.uOpacity) {
     material.uniforms.uOpacity.value = opacity;
   }

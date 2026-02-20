@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { SkillCategoryVariantEnum, CategoryDisplayEnum } from './enums';
+import { z } from "zod";
+import { SkillCategoryVariantEnum, CategoryDisplayEnum } from "./enums";
 
 /**
  * Zod validation schema for Strapi Skill Category content type
@@ -14,7 +14,7 @@ export const StrapiSkillCategorySchema = z.object({
   createdAt: z.string().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
   publishedAt: z.string().nullable().optional(),
-  display: CategoryDisplayEnum.default('visible'),
+  display: CategoryDisplayEnum.default("visible"),
   variant: SkillCategoryVariantEnum.nullable().optional(),
 });
 

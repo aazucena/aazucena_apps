@@ -1,10 +1,21 @@
-import { useMemo } from 'react';
-import type { PreloaderTheme, ThemeConfig } from '../types';
-import { mergeTheme } from '../themes';
+import { useMemo } from "react";
+import type {
+  PreloaderTheme,
+  ThemeConfig,
+  ThemeColors,
+  ThemeEffects,
+  ThemeTypography,
+} from "../types";
+import { mergeTheme } from "../themes";
 
 export interface UseThemeOptions {
   theme?: PreloaderTheme;
-  customTheme?: Partial<ThemeConfig>;
+  customTheme?: {
+    colors?: Partial<ThemeColors>;
+    effects?: Partial<ThemeEffects>;
+    typography?: Partial<ThemeTypography>;
+    customClass?: string;
+  };
 }
 
 export interface ThemeStyles {
@@ -18,21 +29,24 @@ export interface ThemeStyles {
   subtitleStyle: React.CSSProperties;
 
   // Utility functions
-  getProgressStyle: (progress?: number) => React.CSSProperties;
-  getButtonStyle: (variant?: 'primary' | 'secondary') => React.CSSProperties;
+  getProgressStyle: (_progress?: number) => React.CSSProperties;
+  getButtonStyle: (_variant?: "primary" | "secondary") => React.CSSProperties;
   getBadgeStyle: () => React.CSSProperties;
-  getSpinnerStyle: (isComplete?: boolean) => React.CSSProperties;
-  getIconStyle: (type: 'success' | 'error' | 'info') => React.CSSProperties;
+  getSpinnerStyle: (_isComplete?: boolean) => React.CSSProperties;
+  getIconStyle: (_type: "success" | "error" | "info") => React.CSSProperties;
 
   // CSS classes
   overlayClasses: string;
   cardClasses: string;
 }
 
-export function useTheme({ theme = 'default', customTheme }: UseThemeOptions = {}): ThemeStyles {
+export function useTheme({
+  theme = "default",
+  customTheme,
+}: UseThemeOptions = {}): ThemeStyles {
   const config = useMemo(
-    () => mergeTheme(theme, customTheme),
-    [theme, customTheme]
+    () => mergeTheme(theme, customTheme as any),
+    [theme, customTheme],
   );
 
   const styles = useMemo(() => {
@@ -86,53 +100,59 @@ export function useTheme({ theme = 'default', customTheme }: UseThemeOptions = {
       },
 
       // Button styles
-      getButtonStyle: (variant: 'primary' | 'secondary' = 'primary') => {
+      getButtonStyle: (variant: "primary" | "secondary" = "primary") => {
         // Use brighter, more contrasting colors for buttons to prevent blending
         const primaryBg = colors.accent || colors.success || colors.primary;
         const primaryBorder = colors.accent || colors.success || colors.primary;
 
         return {
-          background: variant === 'primary' ? primaryBg : 'transparent',
-          color: variant === 'primary'
-            ? (colors.accentForeground || colors.successForeground || colors.primaryForeground)
-            : colors.foreground,
+          background: variant === "primary" ? primaryBg : "transparent",
+          color:
+            variant === "primary"
+              ? colors.accentForeground ||
+                colors.successForeground ||
+                colors.primaryForeground
+              : colors.foreground,
           borderRadius: effects.borderRadius.button,
-          border: variant === 'primary'
-            ? `2px solid ${primaryBorder}`
-            : `2px solid ${colors.border}`,
+          border:
+            variant === "primary"
+              ? `2px solid ${primaryBorder}`
+              : `2px solid ${colors.border}`,
           transition: `all ${300 * effects.animationSpeed}ms ${effects.animationEasing}`,
-          fontWeight: '600',
-          padding: '0.75rem 1.5rem',
+          fontWeight: "600",
+          padding: "0.75rem 1.5rem",
         } as React.CSSProperties;
       },
 
       // Badge styles
-      getBadgeStyle: () => ({
-        borderRadius: effects.borderRadius.badge,
-        borderColor: colors.border,
-        color: colors.mutedForeground,
-      } as React.CSSProperties),
+      getBadgeStyle: () =>
+        ({
+          borderRadius: effects.borderRadius.badge,
+          borderColor: colors.border,
+          color: colors.mutedForeground,
+        }) as React.CSSProperties,
 
       // Spinner styles
-      getSpinnerStyle: (isComplete = false) => ({
-        color: isComplete ? colors.success : colors.primary,
-      } as React.CSSProperties),
+      getSpinnerStyle: (isComplete = false) =>
+        ({
+          color: isComplete ? colors.success : colors.primary,
+        }) as React.CSSProperties,
 
       // Icon styles by type
-      getIconStyle: (type: 'success' | 'error' | 'info') => {
+      getIconStyle: (type: "success" | "error" | "info") => {
         const colorMap = {
           success: colors.success,
           error: colors.error,
           info: colors.accent,
         };
         return {
-          color: colorMap[type]
+          color: colorMap[type],
         } as React.CSSProperties;
       },
 
       // CSS classes
-      overlayClasses: config.customClass || '',
-      cardClasses: config.customClass || '',
+      overlayClasses: config.customClass || "",
+      cardClasses: config.customClass || "",
     };
   }, [config]);
 

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo } from "react";
 import {
   HeroSection,
   AboutSection,
@@ -7,16 +7,14 @@ import {
   SkillsSection,
   TestimonialsSection,
   BlogSection,
-  AwardsSection
-} from '~/components/homepage/sections';
-import type { HomepageData } from '~/lib/transformers/homepage';
-
+  AwardsSection,
+} from "~/components/homepage/sections";
+import type { HomepageData } from "~/lib/transformers/homepage";
 
 /**
  * A section component - generic to support different prop types
  * Defaults to `any` since dynamic lookup prevents compile-time type checking
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SectionComponent<P = any> = React.FC<P>;
 
 /**
@@ -51,7 +49,10 @@ type BaseSection = keyof typeof BASE_REGISTRY;
  * @param customRegistry - Optional custom section components to extend base registry
  * @returns Registry object mapping section names to components
  */
-export function useSectionRegistry(data: HomepageData, customRegistry?: SectionRegistry): SectionRegistry {
+export function useSectionRegistry(
+  data: HomepageData,
+  customRegistry?: SectionRegistry,
+): SectionRegistry {
   return useMemo(() => {
     const sections = data.sections ?? [];
 

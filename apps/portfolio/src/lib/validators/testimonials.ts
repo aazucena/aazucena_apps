@@ -1,10 +1,6 @@
-import { z } from 'zod';
-import { ImageElementSchema } from './components';
-import { 
-  RelationshipEnum, 
-  ApprovalStatusEnum, 
-  SentimentEnum 
-} from './enums';
+import { z } from "zod";
+import { ImageElementSchema } from "./components";
+import { RelationshipEnum, ApprovalStatusEnum, SentimentEnum } from "./enums";
 
 export const StrapiTestimonialSchema = z.object({
   id: z.number(),
@@ -36,15 +32,21 @@ export const StrapiTestimonialSchema = z.object({
 
 export const StrapiTestimonialsResponseSchema = z.object({
   data: z.array(StrapiTestimonialSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 export type StrapiTestimonial = z.infer<typeof StrapiTestimonialSchema>;
-export type StrapiTestimonialsResponse = z.infer<typeof StrapiTestimonialsResponseSchema>;
+export type StrapiTestimonialsResponse = z.infer<
+  typeof StrapiTestimonialsResponseSchema
+>;

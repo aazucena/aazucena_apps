@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { fetchStrapi } from '../strapi';
-import { StrapiSkillCategoriesResponseSchema } from '~/lib/validators/skill-category';
+import { z } from "zod";
+import { fetchStrapi } from "../strapi";
+import { StrapiSkillCategoriesResponseSchema } from "~/lib/validators/skill-category";
 import {
   transformSkillCategories,
   DEFAULT_SKILL_CATEGORIES,
-} from '~/lib/transformers/skill-category';
-import type { SkillCategoryInfo } from '~/lib/transformers/skill-category';
+} from "~/lib/transformers/skill-category";
+import type { SkillCategoryInfo } from "~/lib/transformers/skill-category";
 
 /**
  * Fetches skill categories from Strapi CMS
@@ -16,14 +16,14 @@ import type { SkillCategoryInfo } from '~/lib/transformers/skill-category';
  */
 export async function getSkillCategories(): Promise<SkillCategoryInfo[]> {
   try {
-    const response = await fetchStrapi('skill-categories', {
+    const response = await fetchStrapi("skill-categories", {
       query: {
-        sort: ['name:asc'],
+        sort: ["name:asc"],
         pagination: {
           pageSize: 100, // Get all categories
         },
       },
-      cache: 'force-cache', // Cache for build-time SSG
+      cache: "force-cache", // Cache for build-time SSG
     });
 
     // Validate response data with Zod
@@ -34,12 +34,15 @@ export async function getSkillCategories(): Promise<SkillCategoryInfo[]> {
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.error(
-        '[Skill Categories] Invalid CMS data structure:',
-        error.issues
+        "[Skill Categories] Invalid CMS data structure:",
+        error.issues,
       );
-      console.error('[Skill Categories] Falling back to defaults');
+      console.error("[Skill Categories] Falling back to defaults");
     } else {
-      console.error('[Skill Categories] Failed to fetch CMS categories:', error);
+      console.error(
+        "[Skill Categories] Failed to fetch CMS categories:",
+        error,
+      );
     }
 
     return DEFAULT_SKILL_CATEGORIES;
@@ -52,7 +55,7 @@ export async function getSkillCategories(): Promise<SkillCategoryInfo[]> {
  * @returns Skill category or undefined if not found
  */
 export async function getSkillCategoryByName(
-  name: string
+  name: string,
 ): Promise<SkillCategoryInfo | undefined> {
   const categories = await getSkillCategories();
   return categories.find((cat) => cat.name === name);

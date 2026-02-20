@@ -65,24 +65,24 @@ import { Preloader } from '@/components/preloader';
 ### Custom Steps
 
 ```tsx
-import { Preloader, type LoadingStep } from '@/components/preloader';
-import { Database, Code } from '@mynaui/icons-react';
+import { Preloader, type LoadingStep } from "@/components/preloader";
+import { Database, Code } from "@mynaui/icons-react";
 
 const customSteps: LoadingStep[] = [
   {
     id: 1,
-    name: 'Connecting to Database',
-    description: 'Establishing secure connection',
+    name: "Connecting to Database",
+    description: "Establishing secure connection",
     icon: Database,
     check: async () => {
-      const response = await fetch('/api/health');
+      const response = await fetch("/api/health");
       return response.ok;
     },
   },
   {
     id: 2,
-    name: 'Loading Code',
-    description: 'Initializing application',
+    name: "Loading Code",
+    description: "Initializing application",
     icon: Code,
   },
 ];
@@ -92,13 +92,16 @@ const customSteps: LoadingStep[] = [
   onStepComplete={(id, name) => {
     console.log(`Step ${id}: ${name} completed`);
   }}
-/>
+/>;
 ```
 
 ### Custom Ready Component
 
 ```tsx
-import { Preloader, type CustomReadyComponentProps } from '@/components/preloader';
+import {
+  Preloader,
+  type CustomReadyComponentProps,
+} from "@/components/preloader";
 
 function CustomReady({ loadTime, onContinue }: CustomReadyComponentProps) {
   return (
@@ -110,18 +113,21 @@ function CustomReady({ loadTime, onContinue }: CustomReadyComponentProps) {
   );
 }
 
-<Preloader customReadyComponent={CustomReady} />
+<Preloader customReadyComponent={CustomReady} />;
 ```
 
 ### Using Hooks Independently
 
 ```tsx
-import { useLoadingProgress, usePreloaderVisibility } from '@/components/preloader';
+import {
+  useLoadingProgress,
+  usePreloaderVisibility,
+} from "@/components/preloader";
 
 function MyComponent() {
   const { progress, isReady, startLoading } = useLoadingProgress();
   const { isVisible, handleContinue } = usePreloaderVisibility({
-    onComplete: () => console.log('Done!'),
+    onComplete: () => console.log("Done!"),
   });
 
   // Your custom logic here
@@ -132,75 +138,75 @@ function MyComponent() {
 
 ### Main Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'interactive' \| 'simple'` | `'interactive'` | Preloader variant |
-| `minDisplayTime` | `number` | `1500` | Minimum display time (ms) |
-| `maxDisplayTime` | `number` | `10000` | Maximum display time (ms) |
-| `autoStart` | `boolean` | `true` | Auto-start loading |
-| `enableSkip` | `boolean` | `false` | Allow skip button |
-| `continueButton` | `boolean` | `true` | Show continue button when ready |
+| Prop             | Type                        | Default         | Description                     |
+| ---------------- | --------------------------- | --------------- | ------------------------------- |
+| `variant`        | `'interactive' \| 'simple'` | `'interactive'` | Preloader variant               |
+| `minDisplayTime` | `number`                    | `1500`          | Minimum display time (ms)       |
+| `maxDisplayTime` | `number`                    | `10000`         | Maximum display time (ms)       |
+| `autoStart`      | `boolean`                   | `true`          | Auto-start loading              |
+| `enableSkip`     | `boolean`                   | `false`         | Allow skip button               |
+| `continueButton` | `boolean`                   | `true`          | Show continue button when ready |
 
 ### Content Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `title` | `string` | `'Preparing Your Experience'` | Loading title |
-| `subtitle` | `string` | `undefined` | Loading subtitle |
-| `readyTitle` | `string` | `'Ready to Explore!'` | Ready state title |
-| `readySubtitle` | `string` | `'Your experience is fully optimized and ready'` | Ready state subtitle |
-| `continueButtonText` | `string` | `'Enter Website'` | Continue button text |
+| Prop                 | Type     | Default                                          | Description          |
+| -------------------- | -------- | ------------------------------------------------ | -------------------- |
+| `title`              | `string` | `'Preparing Your Experience'`                    | Loading title        |
+| `subtitle`           | `string` | `undefined`                                      | Loading subtitle     |
+| `readyTitle`         | `string` | `'Ready to Explore!'`                            | Ready state title    |
+| `readySubtitle`      | `string` | `'Your experience is fully optimized and ready'` | Ready state subtitle |
+| `continueButtonText` | `string` | `'Enter Website'`                                | Continue button text |
 
 ### Styling Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `style` | `CSSProperties` | `undefined` | Inline styles |
-| `overlayClassName` | `string` | `''` | Overlay CSS classes |
-| `cardClassName` | `string` | `''` | Card CSS classes |
-| `enableAnimations` | `boolean` | `true` | Enable animations |
-| `transitionType` | `'fade' \| 'slide' \| 'scale' \| 'none'` | `'fade'` | Transition type |
+| Prop               | Type                                     | Default     | Description         |
+| ------------------ | ---------------------------------------- | ----------- | ------------------- |
+| `style`            | `CSSProperties`                          | `undefined` | Inline styles       |
+| `overlayClassName` | `string`                                 | `''`        | Overlay CSS classes |
+| `cardClassName`    | `string`                                 | `''`        | Card CSS classes    |
+| `enableAnimations` | `boolean`                                | `true`      | Enable animations   |
+| `transitionType`   | `'fade' \| 'slide' \| 'scale' \| 'none'` | `'fade'`    | Transition type     |
 
 ### Customization Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `customSteps` | `LoadingStep[]` | `undefined` | Custom loading steps |
-| `customReadyComponent` | `ComponentType` | `undefined` | Custom ready component |
-| `customSpinner` | `ComponentType` | `undefined` | Custom spinner component |
+| Prop                   | Type            | Default     | Description              |
+| ---------------------- | --------------- | ----------- | ------------------------ |
+| `customSteps`          | `LoadingStep[]` | `undefined` | Custom loading steps     |
+| `customReadyComponent` | `ComponentType` | `undefined` | Custom ready component   |
+| `customSpinner`        | `ComponentType` | `undefined` | Custom spinner component |
 
 ### Callback Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `onComplete` | `() => void` | Called when loading completes |
-| `onStepComplete` | `(stepId: number, stepName: string) => void` | Called when each step completes |
-| `onLoadingStart` | `() => void` | Called when loading starts |
-| `onLoadingProgress` | `(progress: number, currentStep: number) => void` | Called on progress update |
-| `onSkip` | `() => void` | Called when user skips |
-| `onError` | `(error: Error) => void` | Called on error |
+| Prop                | Type                                              | Description                     |
+| ------------------- | ------------------------------------------------- | ------------------------------- |
+| `onComplete`        | `() => void`                                      | Called when loading completes   |
+| `onStepComplete`    | `(stepId: number, stepName: string) => void`      | Called when each step completes |
+| `onLoadingStart`    | `() => void`                                      | Called when loading starts      |
+| `onLoadingProgress` | `(progress: number, currentStep: number) => void` | Called on progress update       |
+| `onSkip`            | `() => void`                                      | Called when user skips          |
+| `onError`           | `(error: Error) => void`                          | Called on error                 |
 
 ### Accessibility Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `ariaLabel` | `string` | `'Loading progress'` | ARIA label |
-| `ariaLive` | `'off' \| 'polite' \| 'assertive'` | `'polite'` | ARIA live region |
-| `skipButtonAriaLabel` | `string` | `'Skip loading'` | Skip button ARIA label |
+| Prop                  | Type                               | Default              | Description            |
+| --------------------- | ---------------------------------- | -------------------- | ---------------------- |
+| `ariaLabel`           | `string`                           | `'Loading progress'` | ARIA label             |
+| `ariaLive`            | `'off' \| 'polite' \| 'assertive'` | `'polite'`           | ARIA live region       |
+| `skipButtonAriaLabel` | `string`                           | `'Skip loading'`     | Skip button ARIA label |
 
 ### Performance Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| Prop       | Type      | Default | Description                  |
+| ---------- | --------- | ------- | ---------------------------- |
 | `lazyLoad` | `boolean` | `false` | Only render when in viewport |
-| `debug` | `boolean` | `false` | Show debug information |
+| `debug`    | `boolean` | `false` | Show debug information       |
 
 ## Grouped Configuration (Alternative API)
 
 For cleaner prop organization, you can use grouped config objects:
 
 ```tsx
-import { Preloader, type PreloaderGroupedProps } from '@/components/preloader';
+import { Preloader, type PreloaderGroupedProps } from "@/components/preloader";
 
 const config: PreloaderGroupedProps = {
   timing: {
@@ -208,11 +214,11 @@ const config: PreloaderGroupedProps = {
     animationDuration: 800,
   },
   content: {
-    title: 'Loading Your App',
-    readyTitle: 'Welcome!',
+    title: "Loading Your App",
+    readyTitle: "Welcome!",
   },
   callbacks: {
-    onComplete: () => console.log('Done!'),
+    onComplete: () => console.log("Done!"),
     onError: (err) => console.error(err),
   },
 };
@@ -234,6 +240,7 @@ const config: PreloaderGroupedProps = {
 ## Error Handling
 
 The preloader automatically displays an error state when:
+
 - A loading step fails
 - Maximum display time is exceeded
 - Custom error is triggered
@@ -243,17 +250,17 @@ The preloader automatically displays an error state when:
   customSteps={[
     {
       id: 1,
-      name: 'API Check',
+      name: "API Check",
       icon: Globe,
       check: async () => {
-        const response = await fetch('/api/health');
-        if (!response.ok) throw new Error('API unavailable');
+        const response = await fetch("/api/health");
+        if (!response.ok) throw new Error("API unavailable");
         return true;
       },
     },
   ]}
   onError={(error) => {
-    console.error('Preloader error:', error);
+    console.error("Preloader error:", error);
   }}
 />
 ```
@@ -270,20 +277,15 @@ The preloader automatically displays an error state when:
 The new API is **fully backward compatible**. No changes needed to existing code.
 
 ### Before (Old API)
+
 ```tsx
-<InteractivePreloader
-  title="Loading"
-  onComplete={() => {}}
-/>
+<InteractivePreloader title="Loading" onComplete={() => {}} />
 ```
 
 ### After (New API - Same Result)
+
 ```tsx
-<Preloader
-  variant="interactive"
-  title="Loading"
-  onComplete={() => {}}
-/>
+<Preloader variant="interactive" title="Loading" onComplete={() => {}} />
 ```
 
 ## TypeScript Support
@@ -295,7 +297,7 @@ import type {
   PreloaderProps,
   LoadingStep,
   CustomReadyComponentProps,
-} from '@/components/preloader';
+} from "@/components/preloader";
 ```
 
 ## Contributing

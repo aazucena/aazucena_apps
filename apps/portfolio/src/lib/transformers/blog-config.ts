@@ -1,4 +1,4 @@
-import type { StrapiBlogConfig } from '~/lib/validators/blog-config';
+import type { StrapiBlogConfig } from "~/lib/validators/blog-config";
 
 export interface BlogConfigData {
   postsPerPage: number;
@@ -29,7 +29,9 @@ export interface BlogConfigData {
 /**
  * Transform Strapi blog config to frontend format
  */
-export function transformBlogConfig(strapiConfig: StrapiBlogConfig): BlogConfigData {
+export function transformBlogConfig(
+  strapiConfig: StrapiBlogConfig,
+): BlogConfigData {
   return {
     postsPerPage: strapiConfig.postsPerPage,
     permalink: strapiConfig.permalink,
@@ -62,11 +64,11 @@ export function transformBlogConfig(strapiConfig: StrapiBlogConfig): BlogConfigD
  */
 export const DEFAULT_BLOG_CONFIG: BlogConfigData = {
   postsPerPage: 6,
-  permalink: '/%slug%',
+  permalink: "/%slug%",
   paths: {
-    main: 'blog',
-    category: 'category',
-    tag: 'tag',
+    main: "blog",
+    category: "category",
+    tag: "tag",
   },
   relatedPosts: {
     enabled: true,
@@ -80,8 +82,8 @@ export const DEFAULT_BLOG_CONFIG: BlogConfigData = {
     showReadTime: true,
   },
   viewAllButton: {
-    text: 'View All Articles',
-    ariaLabel: 'View all blog articles',
+    text: "View All Articles",
+    ariaLabel: "View all blog articles",
     show: true,
   },
 };

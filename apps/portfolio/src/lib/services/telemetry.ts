@@ -2,7 +2,7 @@
 // This should ideally be shared or derived from a shared package for type safety.
 // For now, we'll define a basic shape that aligns with `TelemetryEventPayload` in ingest.t
 interface TelemetryPayload {
-  type: 'telemetry_event' | 'ai_event' | 'music_playback' | 'system_integrity';
+  type: "telemetry_event" | "ai_event" | "music_playback" | "system_integrity";
   sessionId?: string;
   url?: string;
   event?: string; // For telemetry_event type
@@ -10,7 +10,7 @@ interface TelemetryPayload {
   // ... other fields for ai_event, music_playback, system_integrity types as needed
 }
 
-const SESSION_ID_KEY = 'az_analytics_session_id';
+const SESSION_ID_KEY = "az_analytics_session_id";
 
 const {
   PUBLIC_ANALYTICS_API_URL: ANALYTICS_API_URL,
@@ -33,13 +33,16 @@ function getOrCreateSessionId(): string {
   return sessionId;
 }
 
-export function validateTelemetry(url: string = ANALYTICS_API_URL, secretKey: string = INGESTION_SECRET_KEY): boolean {
+export function validateTelemetry(
+  url: string = ANALYTICS_API_URL,
+  secretKey: string = INGESTION_SECRET_KEY,
+): boolean {
   if (!url) {
-    console.error('Telementry URL is not defined')
+    console.error("Telementry URL is not defined");
     return false;
   }
   if (!secretKey) {
-    console.error('Telementry Ingestion Secret Key is not defined')
+    console.error("Telementry Ingestion Secret Key is not defined");
     return false;
   }
   return true;
@@ -50,7 +53,7 @@ export function validateTelemetry(url: string = ANALYTICS_API_URL, secretKey: st
  * @param {TelemetryPayload} payload - The telemetry data to send.
  */
 export async function sendTelemetry(payload: TelemetryPayload): Promise<void> {
-  if (typeof window === 'undefined' || !validateTelemetry()) {
+  if (typeof window === "undefined" || !validateTelemetry()) {
     // Do not send telemetry from server-side rendering
     return;
   }
@@ -66,10 +69,10 @@ export async function sendTelemetry(payload: TelemetryPayload): Promise<void> {
 
   try {
     const response = await fetch(`${ANALYTICS_API_URL}/api/ingest`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-secret-key': INGESTION_SECRET_KEY!, // Accessing Astro public env
+        "Content-Type": "application/json",
+        "x-secret-key": INGESTION_SECRET_KEY!, // Accessing Astro public env
       },
       body: JSON.stringify(fullPayload),
       keepalive: true, // Crucial for sending data reliably during page navigation
@@ -77,12 +80,14 @@ export async function sendTelemetry(payload: TelemetryPayload): Promise<void> {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error(`Failed to send telemetry: ${response.status} ${response.statusText} - ${errorText}`);
+      console.error(
+        `Failed to send telemetry: ${response.status} ${response.statusText} - ${errorText}`,
+      );
     } else {
       // console.log('Telemetry sent successfully:', fullPayload.type);
     }
   } catch (error) {
-    console.error('Error sending telemetry:', error);
+    console.error("Error sending telemetry:", error);
   }
 }
 
@@ -91,29 +96,33 @@ export async function sendTelemetry(payload: TelemetryPayload): Promise<void> {
  */
 export function sendPageViewTelemetry(url?: string): void {
   sendTelemetry({
-    type: 'telemetry_event',
-    event: 'PageView',
+    type: "telemetry_event",
+    event: "PageView",
     url: url,
     data: {
       pathname: window.location.pathname,
       search: window.location.search,
       hash: window.location.hash,
-    }
+    },
   });
 }
 
 /**
  * Helper to send an interaction telemetry event.
  */
-export function sendInteractionTelemetry(elementName: string, action: string, additionalData?: Record<string, string>): void {
+export function sendInteractionTelemetry(
+  elementName: string,
+  action: string,
+  additionalData?: Record<string, string>,
+): void {
   sendTelemetry({
-    type: 'telemetry_event',
-    event: 'Interaction',
+    type: "telemetry_event",
+    event: "Interaction",
     data: {
       element: elementName,
       action: action,
       ...additionalData,
-    }
+    },
   });
 }
 
@@ -130,7 +139,7 @@ export function sendAiTelemetry(params: {
   traceId?: string;
 }): void {
   sendTelemetry({
-    type: 'ai_event',
+    type: "ai_event",
     trace_id: params.traceId || crypto.randomUUID(),
     agent_name: params.agentName,
     model: params.model,
@@ -144,14 +153,18 @@ export function sendAiTelemetry(params: {
 /**
  * Helper to send a client-side error telemetry event.
  */
-export function sendClientErrorTelemetry(message: string, stack?: string, url?: string): void {
+export function sendClientErrorTelemetry(
+  message: string,
+  stack?: string,
+  url?: string,
+): void {
   sendTelemetry({
-    type: 'telemetry_event',
-    event: 'ClientError',
+    type: "telemetry_event",
+    event: "ClientError",
     url: url,
     data: {
       message: message,
-      stack: stack || 'N/A',
-    }
+      stack: stack || "N/A",
+    },
   });
 }

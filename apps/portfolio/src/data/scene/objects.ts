@@ -3,7 +3,7 @@
  * Centralized configuration for all scene objects across all atmospheric layers
  */
 
-import type { LayerObjects } from '~/components/homepage/scene/objects';
+import type { LayerObjects } from "~/components/homepage/scene/objects";
 
 /**
  * Troposphere Objects (Ground Level - 0-12km)
@@ -12,31 +12,43 @@ import type { LayerObjects } from '~/components/homepage/scene/objects';
 export const troposphereObjects: LayerObjects = {
   easterEggs: [
     {
-      id: 'airplane-1',
-      type: 'airplane',
-      category: 'easter-egg',
-      position: [-5 + Math.random() * 2, 4 + Math.random() * 2, -6 + Math.random() * 2],
+      id: "airplane-1",
+      type: "airplane",
+      category: "easter-egg",
+      position: [
+        -5 + Math.random() * 2,
+        4 + Math.random() * 2,
+        -6 + Math.random() * 2,
+      ],
       scale: 0.3,
       rotation: [0, Math.PI / 2, 0],
-      animation: 'custom', // Uses custom animation in component
+      animation: "custom", // Uses custom animation in component
       visible: true,
     },
     {
-      id: 'bird-1',
-      type: 'bird',
-      category: 'easter-egg',
-      position: [4 + Math.random() * 2, 3 + Math.random() * 1, -5 + Math.random() * 2],
+      id: "bird-1",
+      type: "bird",
+      category: "easter-egg",
+      position: [
+        4 + Math.random() * 2,
+        3 + Math.random() * 1,
+        -5 + Math.random() * 2,
+      ],
       scale: 0.15,
-      animation: 'custom', // Wing flapping requires custom logic
+      animation: "custom", // Wing flapping requires custom logic
       visible: true,
     },
     {
-      id: 'drone-1',
-      type: 'drone',
-      category: 'easter-egg',
-      position: [-3 + Math.random() * 2, 2 + Math.random() * 1, 5 + Math.random() * 2],
+      id: "drone-1",
+      type: "drone",
+      category: "easter-egg",
+      position: [
+        -3 + Math.random() * 2,
+        2 + Math.random() * 1,
+        5 + Math.random() * 2,
+      ],
       scale: 0.2,
-      animation: 'custom', // Propeller spinning requires custom logic
+      animation: "custom", // Propeller spinning requires custom logic
       visible: true,
     },
   ],
@@ -50,30 +62,42 @@ export const troposphereObjects: LayerObjects = {
 export const stratosphereObjects: LayerObjects = {
   easterEggs: [
     {
-      id: 'weather-balloon-1',
-      type: 'weather-balloon',
-      category: 'easter-egg',
-      position: [-3 + Math.random() * 1, 2 + Math.random() * 1, -12 + Math.random() * 2],
+      id: "weather-balloon-1",
+      type: "weather-balloon",
+      category: "easter-egg",
+      position: [
+        -3 + Math.random() * 1,
+        2 + Math.random() * 1,
+        -12 + Math.random() * 2,
+      ],
       scale: 0.3,
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
     {
-      id: 'spy-plane-1',
-      type: 'spy-plane',
-      category: 'easter-egg',
-      position: [4 + Math.random() * 3, -1 + Math.random() * 2, -6 + Math.random() * 3],
+      id: "spy-plane-1",
+      type: "spy-plane",
+      category: "easter-egg",
+      position: [
+        4 + Math.random() * 3,
+        -1 + Math.random() * 2,
+        -6 + Math.random() * 3,
+      ],
       scale: 0.35,
-      animation: 'custom', // Complex flight path
+      animation: "custom", // Complex flight path
       visible: true,
     },
     {
-      id: 'blimp-1',
-      type: 'blimp',
-      category: 'easter-egg',
-      position: [-4 + Math.random() * 2, -2 + Math.random() * 2, 6 + Math.random() * 3],
+      id: "blimp-1",
+      type: "blimp",
+      category: "easter-egg",
+      position: [
+        -4 + Math.random() * 2,
+        -2 + Math.random() * 2,
+        6 + Math.random() * 3,
+      ],
       scale: 0.4,
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
   ],
@@ -86,64 +110,88 @@ export const stratosphereObjects: LayerObjects = {
 export const mesosphereObjects: LayerObjects = {
   easterEggs: [
     {
-      id: 'comet-1',
-      type: 'comet',
-      category: 'easter-egg',
-      position: [-3 + Math.random() * 1, 2 + Math.random() * 1, -12 + Math.random() * 2],
+      id: "comet-1",
+      type: "comet",
+      category: "easter-egg",
+      position: [
+        -3 + Math.random() * 1,
+        2 + Math.random() * 1,
+        -12 + Math.random() * 2,
+      ],
       scale: 0.5,
       rotation: [0, 0, Math.PI / 6],
-      animation: 'custom', // Falling motion
+      animation: "custom", // Falling motion
       visible: true,
     },
     {
-      id: 'meteor-1',
-      type: 'meteor',
-      category: 'easter-egg',
-      position: [3 + Math.random() * 1, -1 + Math.random() * 1, -10 + Math.random() * 2],
+      id: "meteor-1",
+      type: "meteor",
+      category: "easter-egg",
+      position: [
+        3 + Math.random() * 1,
+        -1 + Math.random() * 1,
+        -10 + Math.random() * 2,
+      ],
       scale: 0.55,
       rotation: [0, 0, Math.PI / 4],
-      animation: 'custom', // Tumbling and burning
+      animation: "custom", // Tumbling and burning
       visible: true,
     },
     // Space debris pieces
     {
-      id: 'space-debris-1',
-      type: 'space-debris' as const,
-      category: 'easter-egg' as const,
-      position: [-2 + Math.random() * 1, 1 + Math.random() * 1, -9 + Math.random() * 1] as [number, number, number],
+      id: "space-debris-1",
+      type: "space-debris" as const,
+      category: "easter-egg" as const,
+      position: [
+        -2 + Math.random() * 1,
+        1 + Math.random() * 1,
+        -9 + Math.random() * 1,
+      ] as [number, number, number],
       scale: 0.45,
-      animation: 'custom' as const,
-      custom: { variant: 'solar-panel' as const },
+      animation: "custom" as const,
+      custom: { variant: "solar-panel" as const },
       visible: true,
     },
     {
-      id: 'space-debris-2',
-      type: 'space-debris' as const,
-      category: 'easter-egg' as const,
-      position: [1 + Math.random() * 1, -2 + Math.random() * 1, -11 + Math.random() * 1] as [number, number, number],
+      id: "space-debris-2",
+      type: "space-debris" as const,
+      category: "easter-egg" as const,
+      position: [
+        1 + Math.random() * 1,
+        -2 + Math.random() * 1,
+        -11 + Math.random() * 1,
+      ] as [number, number, number],
       scale: 0.45,
-      animation: 'custom' as const,
-      custom: { variant: 'damaged-panel' as const },
+      animation: "custom" as const,
+      custom: { variant: "damaged-panel" as const },
       visible: true,
     },
     {
-      id: 'space-debris-3',
-      type: 'space-debris' as const,
-      category: 'easter-egg' as const,
-      position: [-1 + Math.random() * 1, 0 + Math.random() * 1, -10 + Math.random() * 1] as [number, number, number],
+      id: "space-debris-3",
+      type: "space-debris" as const,
+      category: "easter-egg" as const,
+      position: [
+        -1 + Math.random() * 1,
+        0 + Math.random() * 1,
+        -10 + Math.random() * 1,
+      ] as [number, number, number],
       scale: 0.45,
-      animation: 'custom' as const,
-      custom: { variant: 'body-piece' as const },
+      animation: "custom" as const,
+      custom: { variant: "body-piece" as const },
       visible: true,
     },
     {
-      id: 'space-debris-4',
-      type: 'space-debris' as const,
-      category: 'easter-egg' as const,
-      position: [2 + Math.random() * 1, 1.5 + Math.random() * 1, -8 + Math.random() * 1] as [number, number, number],
+      id: "space-debris-4",
+      type: "space-debris" as const,
+      category: "easter-egg" as const,
+      position: [
+        2 + Math.random() * 1,
+        1.5 + Math.random() * 1,
+        -8 + Math.random() * 1,
+      ] as [number, number, number],
       scale: 0.45,
-      animation: 'custom' as const,
-      custom: { variant: 'antenna' as const },
+      animation: "custom" as const,
+      custom: { variant: "antenna" as const },
       visible: true,
     },
   ],
@@ -156,31 +204,43 @@ export const mesosphereObjects: LayerObjects = {
 export const thermosphereObjects: LayerObjects = {
   easterEggs: [
     {
-      id: 'space-shuttle-1',
-      type: 'space-shuttle',
-      category: 'easter-egg',
-      position: [-7 + Math.random() * 4, 3 + Math.random() * 3, -9 + Math.random() * 4],
+      id: "space-shuttle-1",
+      type: "space-shuttle",
+      category: "easter-egg",
+      position: [
+        -7 + Math.random() * 4,
+        3 + Math.random() * 3,
+        -9 + Math.random() * 4,
+      ],
       scale: 0.5,
       rotation: [0, Math.PI / 2, 0],
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
     {
-      id: 'astronaut-1',
-      type: 'astronaut',
-      category: 'easter-egg',
-      position: [-4 + Math.random() * 2, -2 + Math.random() * 2, 6 + Math.random() * 3],
+      id: "astronaut-1",
+      type: "astronaut",
+      category: "easter-egg",
+      position: [
+        -4 + Math.random() * 2,
+        -2 + Math.random() * 2,
+        6 + Math.random() * 3,
+      ],
       scale: 0.25,
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
     {
-      id: 'iss-1',
-      type: 'iss',
-      category: 'easter-egg',
-      position: [6 + Math.random() * 3, -1 + Math.random() * 2, -7 + Math.random() * 3],
+      id: "iss-1",
+      type: "iss",
+      category: "easter-egg",
+      position: [
+        6 + Math.random() * 3,
+        -1 + Math.random() * 2,
+        -7 + Math.random() * 3,
+      ],
       scale: 0.3,
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
   ],
@@ -193,30 +253,42 @@ export const thermosphereObjects: LayerObjects = {
 export const exosphereObjects: LayerObjects = {
   easterEggs: [
     {
-      id: 'satellite-1',
-      type: 'satellite',
-      category: 'easter-egg',
-      position: [-8 + Math.random() * 4, 2 + Math.random() * 3, -10 + Math.random() * 4],
+      id: "satellite-1",
+      type: "satellite",
+      category: "easter-egg",
+      position: [
+        -8 + Math.random() * 4,
+        2 + Math.random() * 3,
+        -10 + Math.random() * 4,
+      ],
       scale: 0.3,
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
     {
-      id: 'ufo-1',
-      type: 'ufo',
-      category: 'easter-egg',
-      position: [5 + Math.random() * 4, -2 + Math.random() * 3, -8 + Math.random() * 4],
+      id: "ufo-1",
+      type: "ufo",
+      category: "easter-egg",
+      position: [
+        5 + Math.random() * 4,
+        -2 + Math.random() * 3,
+        -8 + Math.random() * 4,
+      ],
       scale: 0.4,
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
     {
-      id: 'rocket-1',
-      type: 'rocket',
-      category: 'easter-egg',
-      position: [-6 + Math.random() * 4, -3 + Math.random() * 3, 8 + Math.random() * 4],
+      id: "rocket-1",
+      type: "rocket",
+      category: "easter-egg",
+      position: [
+        -6 + Math.random() * 4,
+        -3 + Math.random() * 3,
+        8 + Math.random() * 4,
+      ],
       scale: 0.35,
-      animation: 'custom',
+      animation: "custom",
       visible: true,
     },
   ],

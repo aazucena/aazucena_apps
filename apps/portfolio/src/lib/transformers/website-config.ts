@@ -1,5 +1,5 @@
-import type { StrapiWebsiteConfig } from '../validators/website-config';
-import { transformSeo, getMediaUrl } from './utils';
+import type { StrapiWebsiteConfig } from "../validators/website-config";
+import { transformSeo, getMediaUrl } from "./utils";
 
 export interface TechStackItem {
   name: string;
@@ -30,37 +30,40 @@ export interface WebsiteConfig {
 }
 
 export const DEFAULT_WEBSITE_CONFIG: WebsiteConfig = {
-  siteName: 'Aldrin Azucena',
-  siteUrl: 'https://aazucena.com',
-  baseUrl: '/',
+  siteName: "Aldrin Azucena",
+  siteUrl: "https://aazucena.com",
+  baseUrl: "/",
   defaultSEO: {
-    title: 'Aldrin Azucena',
-    description: 'Full Stack Software Developer',
+    title: "Aldrin Azucena",
+    description: "Full Stack Software Developer",
     keywords: undefined,
     image: undefined,
-    robots: 'index, follow',
-    viewport: 'width=device-width, initial-scale=1.0',
+    robots: "index, follow",
+    viewport: "width=device-width, initial-scale=1.0",
     canonical: undefined,
-    twitterCard: 'summary_large_image',
+    twitterCard: "summary_large_image",
     openGraph: undefined,
     structuredData: undefined,
   },
-  metaTitleTemplate: '%s — {siteName}',
+  metaTitleTemplate: "%s — {siteName}",
   robotsIndex: true,
   robotsFollow: true,
   // Footer defaults
-  footerBrandDescription: 'Architecting high-performance digital systems with a focus on logic, scale, and human-centric design.',
-  footerLocationTagline: 'Engineered with precision in Canada',
-  footerBuiltWithLabel: 'Built with',
+  footerBrandDescription:
+    "Architecting high-performance digital systems with a focus on logic, scale, and human-centric design.",
+  footerLocationTagline: "Engineered with precision in Canada",
+  footerBuiltWithLabel: "Built with",
   techStack: [
-    { name: 'Astro', iconTitle: 'Astro', sort: 0 },
-    { name: 'React', iconTitle: 'React', sort: 1 },
-    { name: 'Tailwind CSS', iconTitle: 'Tailwind CSS', sort: 2 },
-    { name: 'Vite', iconTitle: 'Vite', sort: 3 },
+    { name: "Astro", iconTitle: "Astro", sort: 0 },
+    { name: "React", iconTitle: "React", sort: 1 },
+    { name: "Tailwind CSS", iconTitle: "Tailwind CSS", sort: 2 },
+    { name: "Vite", iconTitle: "Vite", sort: 3 },
   ],
 };
 
-export function transformWebsiteConfig(data: StrapiWebsiteConfig): WebsiteConfig {
+export function transformWebsiteConfig(
+  data: StrapiWebsiteConfig,
+): WebsiteConfig {
   if (!data) return DEFAULT_WEBSITE_CONFIG;
 
   return {
@@ -78,18 +81,24 @@ export function transformWebsiteConfig(data: StrapiWebsiteConfig): WebsiteConfig
     robotsFollow: !!data.robotsFollow,
     googleSiteVerificationId: data.googleSiteVerificationId || undefined,
     // Footer configuration
-    footerBrandDescription: data.footerBrandDescription || DEFAULT_WEBSITE_CONFIG.footerBrandDescription,
-    footerLocationTagline: data.footerLocationTagline || DEFAULT_WEBSITE_CONFIG.footerLocationTagline,
-    footerBuiltWithLabel: data.footerBuiltWithLabel || DEFAULT_WEBSITE_CONFIG.footerBuiltWithLabel,
-    techStack: (data.techStack && data.techStack.length > 0)
-      ? data.techStack
-          .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-          .map(item => ({
-            name: item.name,
-            iconTitle: item.iconTitle,
-            iconUrl: item.iconUrl || undefined,
-            sort: item.sort || 0,
-          }))
-      : DEFAULT_WEBSITE_CONFIG.techStack,
+    footerBrandDescription:
+      data.footerBrandDescription ||
+      DEFAULT_WEBSITE_CONFIG.footerBrandDescription,
+    footerLocationTagline:
+      data.footerLocationTagline ||
+      DEFAULT_WEBSITE_CONFIG.footerLocationTagline,
+    footerBuiltWithLabel:
+      data.footerBuiltWithLabel || DEFAULT_WEBSITE_CONFIG.footerBuiltWithLabel,
+    techStack:
+      data.techStack && data.techStack.length > 0
+        ? data.techStack
+            .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+            .map((item) => ({
+              name: item.name,
+              iconTitle: item.iconTitle,
+              iconUrl: item.iconUrl || undefined,
+              sort: item.sort || 0,
+            }))
+        : DEFAULT_WEBSITE_CONFIG.techStack,
   };
 }

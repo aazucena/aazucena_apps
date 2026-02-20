@@ -1,7 +1,7 @@
-import type { StrapiTheme } from '~/lib/validators/theme';
+import type { StrapiTheme } from "~/lib/validators/theme";
 
 export interface ThemeData {
-  mode: 'system' | 'light' | 'dark' | 'light:only' | 'dark:only';
+  mode: "system" | "light" | "dark" | "light:only" | "dark:only";
   colors: {
     light: {
       primary: string;
@@ -30,21 +30,21 @@ export function transformTheme(strapiTheme: StrapiTheme): ThemeData {
     mode: strapiTheme.mode,
     colors: {
       light: {
-        primary: strapiTheme.primaryColor ?? '#3b82f6',
-        secondary: strapiTheme.secondaryColor ?? '#8b5cf6',
-        accent: strapiTheme.accentColor ?? '#06b6d4',
+        primary: strapiTheme.primaryColor ?? "#3b82f6",
+        secondary: strapiTheme.secondaryColor ?? "#8b5cf6",
+        accent: strapiTheme.accentColor ?? "#06b6d4",
       },
       dark: {
-        primary: strapiTheme.primaryColorDark ?? '#60a5fa',
-        secondary: strapiTheme.secondaryColorDark ?? '#a78bfa',
-        accent: strapiTheme.accentColorDark ?? '#22d3ee',
+        primary: strapiTheme.primaryColorDark ?? "#60a5fa",
+        secondary: strapiTheme.secondaryColorDark ?? "#a78bfa",
+        accent: strapiTheme.accentColorDark ?? "#22d3ee",
       },
     },
     fonts: {
-      sans: strapiTheme.fontSans ?? 'Fira Sans',
-      serif: strapiTheme.fontSerif ?? 'Fira Sans',
-      heading: strapiTheme.fontHeading ?? 'Fira Sans',
-      code: strapiTheme.fontCode ?? 'Fira Code',
+      sans: strapiTheme.fontSans ?? "Fira Sans",
+      serif: strapiTheme.fontSerif ?? "Fira Sans",
+      heading: strapiTheme.fontHeading ?? "Fira Sans",
+      code: strapiTheme.fontCode ?? "Fira Code",
     },
   };
 }
@@ -53,23 +53,23 @@ export function transformTheme(strapiTheme: StrapiTheme): ThemeData {
  * Default fallback theme
  */
 export const DEFAULT_THEME: ThemeData = {
-  mode: 'system',
+  mode: "system",
   colors: {
     light: {
-      primary: '#3b82f6',
-      secondary: '#8b5cf6',
-      accent: '#06b6d4',
+      primary: "#3b82f6",
+      secondary: "#8b5cf6",
+      accent: "#06b6d4",
     },
     dark: {
-      primary: '#60a5fa',
-      secondary: '#a78bfa',
-      accent: '#22d3ee',
+      primary: "#60a5fa",
+      secondary: "#a78bfa",
+      accent: "#22d3ee",
     },
   },
   fonts: {
-    sans: 'Fira Sans',
-    serif: 'Fira Sans',
-    heading: 'Fira Sans',
-    code: 'Fira Code',
+    sans: "Fira Sans",
+    serif: "Fira Sans",
+    heading: "Fira Sans",
+    code: "Fira Code",
   },
 };

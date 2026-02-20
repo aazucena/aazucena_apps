@@ -4,8 +4,8 @@
  * Displays project title, description, and tags with click handling
  */
 
-import type { JSX } from 'react';
-import { GlassCard, Badge } from '../common';
+import type { JSX } from "react";
+import { GlassCard, Badge } from "../common";
 
 export interface ProjectCardData {
   slug: string;
@@ -18,7 +18,7 @@ export interface ProjectCardProps {
   /** Project data to display */
   project: ProjectCardData;
   /** Click handler (receives slug) */
-  onClick: (slug: string) => void;
+  onClick: (_slug: string) => void;
   /** Maximum number of tags to show before "+N more" */
   maxTags?: number;
 }
@@ -44,7 +44,7 @@ export interface ProjectCardProps {
 export function ProjectCard({
   project,
   onClick,
-  maxTags = 3
+  maxTags = 3,
 }: ProjectCardProps): JSX.Element {
   const visibleTags = project.tags.slice(0, maxTags);
   const hiddenTagsCount = project.tags.length - maxTags;
@@ -54,11 +54,11 @@ export function ProjectCard({
       hover
       clickable
       padding="lg"
-      className="text-left w-[420px] hover:border-cyan-400/30"
+      className="w-[420px] text-left hover:border-cyan-400/30"
       onClick={() => onClick(project.slug)}
     >
-      <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
-      <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
+      <h3 className="mb-3 text-2xl font-bold text-white">{project.title}</h3>
+      <p className="mb-4 line-clamp-2 text-gray-300">{project.description}</p>
 
       <div className="flex flex-wrap gap-2">
         {visibleTags.map((tag, tagIndex) => (

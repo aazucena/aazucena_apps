@@ -3,11 +3,11 @@
  * Journey page - features complex data visualizations of skills and career progression.
  * Includes interactive graphs, timelines, and heatmaps.
  */
-import { Compass, Heart, Lamp, Rocket } from '@mynaui/icons-react';
+import { Compass, Heart, Lamp, Rocket } from "@mynaui/icons-react";
 // Journey page imports - organized by type
-import { JourneyDashboard } from '~/components/journey';
-import { CareerStats, GrowthMetrics } from '~/components/ui/journey';
-import { InteractiveTimeline } from '~/components/visualizations/journey';
+import { JourneyDashboard } from "~/components/journey";
+import { CareerStats, GrowthMetrics } from "~/components/ui/journey";
+import { InteractiveTimeline } from "~/components/visualizations/journey";
 import {
   calculateCareerStats,
   calculateSkillGrowthMetrics,
@@ -17,21 +17,21 @@ import {
   transformToSkillsNetwork,
   transformToStreamGraphData,
   transformToTimelineData,
-} from '~/lib/transformers/journey';
-import { IconRenderer } from '~/components/blocks/IconRenderer';
-import GradientAccent from '~/components/common/GradientAccent.astro';
-import WatermarkBackground from '~/components/common/WatermarkBackground.astro';
-import PageLayout from '~/layouts/PageLayout.astro';
-import { fetchEducation as getEducation } from '~/lib/api/education';
-import { getExperiences } from '~/lib/api/experiences';
-import { getJourneyPage } from '~/lib/api/journey';
-import { getProjects } from '~/lib/api/projects';
-import { getSkillCategories } from '~/lib/api/skill-categories';
-import type { Education } from '~/lib/transformers/education';
-import type { Project } from '~/lib/transformers/projects';
-import type { Experience } from '~/lib/transformers/experiences';
-import type { SkillCategoryInfo } from '~/lib/transformers/skill-category';
-import type { JourneyPageConfig } from '~/lib/transformers/journey-page';
+} from "~/lib/transformers/journey";
+import { IconRenderer } from "~/components/blocks/IconRenderer";
+import GradientAccent from "~/components/common/GradientAccent.astro";
+import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
+import PageLayout from "~/layouts/PageLayout.astro";
+import { fetchEducation as getEducation } from "~/lib/api/education";
+import { getExperiences } from "~/lib/api/experiences";
+import { getJourneyPage } from "~/lib/api/journey";
+import { getProjects } from "~/lib/api/projects";
+import { getSkillCategories } from "~/lib/api/skill-categories";
+import type { Education } from "~/lib/transformers/education";
+import type { Project } from "~/lib/transformers/projects";
+import type { Experience } from "~/lib/transformers/experiences";
+import type { SkillCategoryInfo } from "~/lib/transformers/skill-category";
+import type { JourneyPageConfig } from "~/lib/transformers/journey-page";
 
 // Fetch all experiences, education, projects, categories, and journey config
 let experiences: Experience[] = [];
@@ -41,106 +41,138 @@ let categories: SkillCategoryInfo[] = [];
 let journeyConfig: JourneyPageConfig | null = null;
 
 try {
-  [experiences, education, projects, categories, journeyConfig] = await Promise.all([
-    getExperiences(),
-    getEducation(),
-    getProjects('all'),
-    getSkillCategories(),
-    getJourneyPage(),
-  ]);
+  [experiences, education, projects, categories, journeyConfig] =
+    await Promise.all([
+      getExperiences(),
+      getEducation(),
+      getProjects("all"),
+      getSkillCategories(),
+      getJourneyPage(),
+    ]);
 } catch (error) {
-  console.error('[Journey] Error fetching data:', error);
+  console.error("[Journey] Error fetching data:", error);
 }
 
 // Transform data for visualizations
 const timelineData = transformToTimelineData(experiences, education);
-const skillsEvolutionData = transformToSkillsEvolution(experiences, education, projects);
-const skillsNetworkData = transformToSkillsNetwork(experiences, education, projects);
+const skillsEvolutionData = transformToSkillsEvolution(
+  experiences,
+  education,
+  projects,
+);
+const skillsNetworkData = transformToSkillsNetwork(
+  experiences,
+  education,
+  projects,
+);
 const sankeyData = transformToSankeyData(experiences, education, projects);
 const heatmapData = transformToHeatmapData(experiences, education, projects);
-const streamGraphData = transformToStreamGraphData(experiences, education, projects);
+const streamGraphData = transformToStreamGraphData(
+  experiences,
+  education,
+  projects,
+);
 const careerStats = calculateCareerStats(experiences);
-const growthMetrics = calculateSkillGrowthMetrics(experiences, education, projects);
+const growthMetrics = calculateSkillGrowthMetrics(
+  experiences,
+  education,
+  projects,
+);
 
-const allCategories = Array.from(new Set([
-  ...skillsNetworkData.nodes.map(n => n.category),
-  ...categories.map(c => c.label)
-])).filter(Boolean).sort();
+const allCategories = Array.from(
+  new Set([
+    ...skillsNetworkData.nodes.map((n) => n.category),
+    ...categories.map((c) => c.label),
+  ]),
+)
+  .filter(Boolean)
+  .sort();
 
 // Use CMS journey config or fallback to defaults
-const pageTitle = journeyConfig?.header?.title || 'Journey | Growth & Evolution';
-const pageDescription = journeyConfig?.header?.description || 'An interactive visualization of my professional journey, showcasing career growth, skills evolution, and key milestones.';
-const watermarkText = journeyConfig?.header?.watermark || 'JOURNEY';
+const pageTitle =
+  journeyConfig?.header?.title || "Journey | Growth & Evolution";
+const pageDescription =
+  journeyConfig?.header?.description ||
+  "An interactive visualization of my professional journey, showcasing career growth, skills evolution, and key milestones.";
+const watermarkText = journeyConfig?.header?.watermark || "JOURNEY";
 
 // Map phase badges to colors (used for badge styling)
 const phaseColors: Record<string, string> = {
-  'Phase I': 'blue',
-  'Phase II': 'purple',
-  'Phase III': 'green',
+  "Phase I": "blue",
+  "Phase II": "purple",
+  "Phase III": "green",
 };
 
 function getPhaseColor(badge?: string | null): string {
-  if (!badge) return 'blue';
+  if (!badge) return "blue";
   for (const [key, value] of Object.entries(phaseColors)) {
     if (badge.includes(key)) return value;
   }
-  return 'blue';
+  return "blue";
 }
 
 // Get CMS phases or use hardcoded fallback
-const phases = (journeyConfig?.phases && journeyConfig.phases.length > 0)
-  ? journeyConfig.phases
-  : [
-      {
-        enabled: true,
-        name: 'chronology',
-        badge: 'Phase I: Chronology',
-        title: 'The Path Traveled.',
-        description: 'Visualizing the timeline of experience and education. Every step has been a foundational milestone in Squashing bugs and architecting systems.',
-        items: [],
-      },
-      {
-        enabled: true,
-        name: 'adaptation',
-        badge: 'Phase II: Adaptation',
-        title: 'Technical DNA.',
-        description: 'Tracking the expansion of my technical toolkit through different lenses: growth momentum, network density, and monthly intensity.',
-        items: [],
-      },
-      {
-        enabled: true,
-        name: 'logic',
-        badge: 'Phase III: Logic',
-        title: 'Distilled Wisdom.',
-        description: 'The core principles derived from years of building, breaking, and improving software for real humans.',
-        items: [
-          {
-            title: 'Embrace Complexity',
-            description: "Complex problems aren't obstacles; they're opportunities for innovation. The most rewarding solutions often lie behind the most daunting challenges.",
-            icon: Lamp,
-            variant: 'blue' as const,
-          },
-          {
-            title: 'Collective Intelligence',
-            description: 'Diverse perspectives are the secret ingredient to building truly resilient systems. I prioritize team growth as much as technical excellence.',
-            icon: Heart,
-            variant: 'purple' as const,
-          },
-          {
-            title: 'Iterative Velocity',
-            description: "Perfection is the enemy of progress. I prioritize getting working software into users' hands fast, using real feedback as the driver for refinement.",
-            icon: Rocket,
-            variant: 'pink' as const,
-          },
-          {
-            title: 'Relentless Curiosity',
-            description: 'Staying static is moving backward. I treat every project as a classroom, and every bug as a vital lesson in architecture and logic.',
-            icon: Compass,
-            variant: 'green' as const,
-          },
-        ],
-      },
-    ];
+const phases =
+  journeyConfig?.phases && journeyConfig.phases.length > 0
+    ? journeyConfig.phases
+    : [
+        {
+          enabled: true,
+          name: "chronology",
+          badge: "Phase I: Chronology",
+          title: "The Path Traveled.",
+          description:
+            "Visualizing the timeline of experience and education. Every step has been a foundational milestone in Squashing bugs and architecting systems.",
+          items: [],
+        },
+        {
+          enabled: true,
+          name: "adaptation",
+          badge: "Phase II: Adaptation",
+          title: "Technical DNA.",
+          description:
+            "Tracking the expansion of my technical toolkit through different lenses: growth momentum, network density, and monthly intensity.",
+          items: [],
+        },
+        {
+          enabled: true,
+          name: "logic",
+          badge: "Phase III: Logic",
+          title: "Distilled Wisdom.",
+          description:
+            "The core principles derived from years of building, breaking, and improving software for real humans.",
+          items: [
+            {
+              title: "Embrace Complexity",
+              description:
+                "Complex problems aren't obstacles; they're opportunities for innovation. The most rewarding solutions often lie behind the most daunting challenges.",
+              icon: Lamp,
+              variant: "blue" as const,
+            },
+            {
+              title: "Collective Intelligence",
+              description:
+                "Diverse perspectives are the secret ingredient to building truly resilient systems. I prioritize team growth as much as technical excellence.",
+              icon: Heart,
+              variant: "purple" as const,
+            },
+            {
+              title: "Iterative Velocity",
+              description:
+                "Perfection is the enemy of progress. I prioritize getting working software into users' hands fast, using real feedback as the driver for refinement.",
+              icon: Rocket,
+              variant: "pink" as const,
+            },
+            {
+              title: "Relentless Curiosity",
+              description:
+                "Staying static is moving backward. I treat every project as a classroom, and every bug as a vital lesson in architecture and logic.",
+              icon: Compass,
+              variant: "green" as const,
+            },
+          ],
+        },
+      ];
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
@@ -148,17 +180,23 @@ const phases = (journeyConfig?.phases && journeyConfig.phases.length > 0)
     <GradientAccent variant="print-hidden" />
 
     <!-- Hero Header -->
-    <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 py-20 md:py-32 overflow-hidden relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center space-y-6 mb-20">
-          <h1 class="text-5xl md:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">
+    <header
+      class="relative overflow-hidden border-b border-gray-100 bg-white py-20 md:py-32 dark:border-gray-800 dark:bg-gray-900"
+    >
+      <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mb-20 space-y-6 text-center">
+          <h1
+            class="text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
+          >
             {pageTitle}<span class="text-blue-600">.</span>
           </h1>
-          {pageDescription && (
-            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-3xl mx-auto leading-relaxed">
-              {pageDescription}
-            </p>
-          )}
+          {
+            pageDescription && (
+              <p class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-600 md:text-2xl dark:text-gray-400">
+                {pageDescription}
+              </p>
+            )
+          }
         </div>
 
         <!-- Career Stats Visualization -->
@@ -171,130 +209,164 @@ const phases = (journeyConfig?.phases && journeyConfig.phases.length > 0)
     </header>
 
     <!-- Dynamic Phases from CMS -->
-    {phases.map((phase, index) => {
-      const phaseColor = getPhaseColor(phase.badge);
-      const isEven = index % 2 === 0;
-      const bgClass = isEven ? 'bg-white dark:bg-gray-950' : 'bg-gray-50/50 dark:bg-gray-900/30 border-y border-gray-100 dark:border-gray-800';
+    {
+      phases.map((phase, index) => {
+        const phaseColor = getPhaseColor(phase.badge);
+        const isEven = index % 2 === 0;
+        const bgClass = isEven
+          ? "bg-white dark:bg-gray-950"
+          : "bg-gray-50/50 dark:bg-gray-900/30 border-y border-gray-100 dark:border-gray-800";
 
-      return (
-        <section class={`py-24 ${bgClass}`}>
-          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-            {phase.badge && (
-              <div class={`inline-flex items-center gap-3 px-4 py-2 bg-${phaseColor}-50 dark:bg-${phaseColor}-900/20 rounded-full border border-${phaseColor}-100 dark:border-${phaseColor}-800 mb-8`}>
-                <div class={`w-1.5 h-1.5 rounded-full bg-${phaseColor}-500 animate-pulse`}></div>
-                <span class={`text-[10px] font-black uppercase tracking-[0.3em] text-${phaseColor}-600 dark:text-${phaseColor}-400`}>{phase.badge}</span>
+        return (
+          <section class={`py-24 ${bgClass}`}>
+            <div class="mx-auto mb-16 max-w-5xl px-4 sm:px-6 lg:px-8">
+              {phase.badge && (
+                <div
+                  class={`inline-flex items-center gap-3 px-4 py-2 bg-${phaseColor}-50 dark:bg-${phaseColor}-900/20 rounded-full border border-${phaseColor}-100 dark:border-${phaseColor}-800 mb-8`}
+                >
+                  <div
+                    class={`h-1.5 w-1.5 rounded-full bg-${phaseColor}-500 animate-pulse`}
+                  />
+                  <span
+                    class={`text-[10px] font-black tracking-[0.3em] uppercase text-${phaseColor}-600 dark:text-${phaseColor}-400`}
+                  >
+                    {phase.badge}
+                  </span>
+                </div>
+              )}
+
+              <div class="space-y-6">
+                <h2 class="text-4xl font-black tracking-tighter text-gray-900 md:text-6xl dark:text-white">
+                  {phase.title}
+                </h2>
+                <p class="max-w-3xl text-xl leading-relaxed font-medium text-gray-600 dark:text-gray-400">
+                  {phase.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Phase I: Chronology - Timeline */}
+            {phase.name === "chronology" && (
+              <div class="overflow-hidden">
+                <InteractiveTimeline
+                  data={timelineData}
+                  hideHeader={true}
+                  client:visible
+                />
               </div>
             )}
 
-            <div class="space-y-6">
-              <h2 class="text-4xl md:text-6xl font-black text-gray-900 dark:text-white tracking-tighter">
-                {phase.title}
-              </h2>
-              <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed font-medium">
-                {phase.description}
-              </p>
-            </div>
-          </div>
-
-          {/* Phase I: Chronology - Timeline */}
-          {phase.name === 'chronology' && (
-            <div class="overflow-hidden">
-              <InteractiveTimeline data={timelineData} hideHeader={true} client:visible />
-            </div>
-          )}
-
-          {/* Phase II: Adaptation - Skills Dashboard */}
-          {phase.name === 'adaptation' && (
-            <>
-              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-                <GrowthMetrics metrics={growthMetrics} client:visible />
-              </div>
-              <JourneyDashboard
-                evolutionData={skillsEvolutionData}
-                networkData={skillsNetworkData}
-                sankeyData={sankeyData}
-                heatmapData={heatmapData}
-                streamGraphData={streamGraphData}
-                experiences={experiences}
-                education={education}
-                projects={projects}
-                growthMetrics={growthMetrics}
-                careerStats={careerStats}
-                categories={allCategories}
-                hideHeader={true}
-                hideStats={true}
-                hideMetrics={true}
-                client:visible
-              />
-            </>
-          )}
-
-          {/* Phase III or custom phases - Render narrative items as cards */}
-          {phase.items && phase.items.length > 0 && (
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-              {phase.items.map(item => (
-                <div class="p-10 rounded-[2.5rem] bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-blue-500/20 transition-all duration-500 group shadow-sm hover:shadow-xl">
-                  {item.icon && (
-                    <div class={`w-14 h-14 rounded-2xl flex items-center justify-center text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 group-hover:scale-110 transition-transform duration-500`}>
-                      <IconRenderer icon={item.icon} client:load />
-                    </div>
-                  )}
-                  <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">{item.title}</h3>
-                  <p class="text-gray-600 dark:text-gray-400 leading-relaxed font-medium">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-      );
-    })}
-
-    <!-- Global CTA -->
-    {(journeyConfig?.callToAction || true) && (
-      <section class="relative py-32 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600"></div>
-        <div class="absolute inset-0 bg-black/10 backdrop-blur-3xl"></div>
-
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">
-            {journeyConfig?.callToAction?.title || 'Explore the Details.'}
-          </h2>
-          {(journeyConfig?.callToAction?.description || true) && (
-            <p class="text-xl text-white/80 mb-12 font-medium max-w-2xl mx-auto">
-              {journeyConfig?.callToAction?.description || 'Dive deeper into specific case studies, technical writings, or get in touch to discuss a collaboration.'}
-            </p>
-          )}
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            {journeyConfig?.callToAction?.buttons?.length ? (
-              journeyConfig.callToAction.buttons.map(button => (
-                <a
-                  href={button.url}
-                  target={button.openInNewTab ? '_blank' : undefined}
-                  class={`px-10 py-5 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95 ${
-                    button.variant === 'primary'
-                      ? 'bg-white text-gray-900 hover:bg-blue-50'
-                      : 'bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20'
-                  }`}
-                >
-                  {button.label}
-                </a>
-              ))
-            ) : (
+            {/* Phase II: Adaptation - Skills Dashboard */}
+            {phase.name === "adaptation" && (
               <>
-                <a href="/projects" class="px-10 py-5 bg-white text-gray-900 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-blue-50 transition-all shadow-2xl active:scale-95">
-                  Portfolio
-                </a>
-                <a href="/experiences" class="px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-white/20 transition-all shadow-2xl active:scale-95">
-                  Full History
-                </a>
-                <a href="/contact" class="px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-white/20 transition-all shadow-2xl active:scale-95">
-                  Get in Touch
-                </a>
+                <div class="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <GrowthMetrics metrics={growthMetrics} client:visible />
+                </div>
+                <JourneyDashboard
+                  evolutionData={skillsEvolutionData}
+                  networkData={skillsNetworkData}
+                  sankeyData={sankeyData}
+                  heatmapData={heatmapData}
+                  streamGraphData={streamGraphData}
+                  experiences={experiences}
+                  education={education}
+                  projects={projects}
+                  growthMetrics={growthMetrics}
+                  careerStats={careerStats}
+                  categories={allCategories}
+                  hideHeader={true}
+                  hideStats={true}
+                  hideMetrics={true}
+                  client:visible
+                />
               </>
             )}
+
+            {/* Phase III or custom phases - Render narrative items as cards */}
+            {phase.items && phase.items.length > 0 && (
+              <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
+                {phase.items.map((item) => (
+                  <div class="group rounded-[2.5rem] border border-gray-100 bg-gray-50 p-10 shadow-sm transition-all duration-500 hover:border-blue-500/20 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900">
+                    {item.icon && (
+                      <div
+                        class={`flex h-14 w-14 items-center justify-center rounded-2xl text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 transition-transform duration-500 group-hover:scale-110`}
+                      >
+                        <IconRenderer icon={item.icon} client:load />
+                      </div>
+                    )}
+                    <h3 class="mb-4 text-2xl font-black tracking-tight text-gray-900 dark:text-white">
+                      {item.title}
+                    </h3>
+                    <p class="leading-relaxed font-medium text-gray-600 dark:text-gray-400">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        );
+      })
+    }
+
+    <!-- Global CTA -->
+    {
+      (journeyConfig?.callToAction || true) && (
+        <section class="relative overflow-hidden py-32">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
+          <div class="absolute inset-0 bg-black/10 backdrop-blur-3xl" />
+
+          <div class="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+            <h2 class="mb-8 text-4xl font-black tracking-tighter text-white md:text-6xl">
+              {journeyConfig?.callToAction?.title || "Explore the Details."}
+            </h2>
+            {(journeyConfig?.callToAction?.description || true) && (
+              <p class="mx-auto mb-12 max-w-2xl text-xl font-medium text-white/80">
+                {journeyConfig?.callToAction?.description ||
+                  "Dive deeper into specific case studies, technical writings, or get in touch to discuss a collaboration."}
+              </p>
+            )}
+            <div class="flex flex-col justify-center gap-4 sm:flex-row">
+              {journeyConfig?.callToAction?.buttons?.length ? (
+                journeyConfig.callToAction.buttons.map((button) => (
+                  <a
+                    href={button.url}
+                    target={button.openInNewTab ? "_blank" : undefined}
+                    class={`rounded-[1.5rem] px-10 py-5 text-xs font-black tracking-[0.2em] uppercase shadow-2xl transition-all active:scale-95 ${
+                      button.variant === "primary"
+                        ? "bg-white text-gray-900 hover:bg-blue-50"
+                        : "border border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/20"
+                    }`}
+                  >
+                    {button.label}
+                  </a>
+                ))
+              ) : (
+                <>
+                  <a
+                    href="/projects"
+                    class="rounded-[1.5rem] bg-white px-10 py-5 text-xs font-black tracking-[0.2em] text-gray-900 uppercase shadow-2xl transition-all hover:bg-blue-50 active:scale-95"
+                  >
+                    Portfolio
+                  </a>
+                  <a
+                    href="/experiences"
+                    class="rounded-[1.5rem] border border-white/20 bg-white/10 px-10 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
+                  >
+                    Full History
+                  </a>
+                  <a
+                    href="/contact"
+                    class="rounded-[1.5rem] border border-white/20 bg-white/10 px-10 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
+                  >
+                    Get in Touch
+                  </a>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
   </main>
 </PageLayout>

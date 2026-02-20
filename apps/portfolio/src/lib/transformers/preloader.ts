@@ -1,12 +1,12 @@
-import type { StrapiPreloaderConfigValidated } from '../validators/preloader';
-import { transformCtaButton } from './utils';
-import type { LoadingStep } from '../validators/components';
-import type { PreloaderTheme } from '~/components/preloader';
-import type { TransitionType } from '../validators/enums';
+import type { StrapiPreloaderConfigValidated } from "../validators/preloader";
+import { transformCtaButton } from "./utils";
+import type { LoadingStep } from "../validators/components";
+import type { PreloaderTheme } from "~/components/preloader";
+import type { TransitionType } from "../validators/enums";
 
 export interface PreloaderConfig {
   enabled: boolean;
-  variant: 'interactive' | 'simple';
+  variant: "interactive" | "simple";
   theme: PreloaderTheme;
   title: string;
   subtitle?: string;
@@ -31,18 +31,18 @@ export interface PreloaderConfig {
 
 export const DEFAULT_PRELOADER: PreloaderConfig = {
   enabled: true,
-  variant: 'interactive',
-  theme: 'default',
-  title: 'Preparing Your Experience',
-  readyTitle: 'Ready to Explore!',
-  readySubtitle: 'Your experience is fully optimized and ready',
+  variant: "interactive",
+  theme: "default",
+  title: "Preparing Your Experience",
+  readyTitle: "Ready to Explore!",
+  readySubtitle: "Your experience is fully optimized and ready",
   continueButton: {
-    label: 'Enter Website',
-    url: '#main-content',
-    variant: 'primary',
-    size: 'md',
+    label: "Enter Website",
+    url: "#main-content",
+    variant: "primary",
+    size: "md",
     openInNewTab: false,
-    icon: undefined
+    icon: undefined,
   },
   minDisplayTime: 1500,
   maxDisplayTime: 10000,
@@ -53,13 +53,15 @@ export const DEFAULT_PRELOADER: PreloaderConfig = {
   lazyLoad: false,
   preloadAssets: false,
   enableAnimations: true,
-  transitionType: 'fade',
+  transitionType: "fade",
   showCard: false,
   loadingSteps: [],
   debug: false,
 };
 
-export function transformPreloader(data: StrapiPreloaderConfigValidated): PreloaderConfig {
+export function transformPreloader(
+  data: StrapiPreloaderConfigValidated,
+): PreloaderConfig {
   if (!data) return DEFAULT_PRELOADER;
 
   return {

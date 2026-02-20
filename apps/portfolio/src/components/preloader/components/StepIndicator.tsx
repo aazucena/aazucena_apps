@@ -1,9 +1,12 @@
-import { memo } from 'react';
-import { Badge } from '../../ui/badge';
-import { CircleNotch as LoadingCircle, CheckCircleSolid as Checkmark } from '@mynaui/icons-react';
-import { IconRenderer } from '../../blocks/IconRenderer';
-import type { LoadingStep } from '../types';
-import type { ThemeStyles } from '../hooks/useTheme';
+import { memo } from "react";
+import { Badge } from "../../ui/badge";
+import {
+  CircleNotch as LoadingCircle,
+  CheckCircleSolid as Checkmark,
+} from "@mynaui/icons-react";
+import { IconRenderer } from "../../blocks/IconRenderer";
+import type { LoadingStep } from "../types";
+import type { ThemeStyles } from "../hooks/useTheme";
 
 export interface StepIndicatorProps {
   step: LoadingStep;
@@ -41,7 +44,7 @@ export const StepIndicator = memo(function StepIndicator({
       };
     }
     return {
-      background: 'transparent',
+      background: "transparent",
       borderColor: themeStyles.config.colors.border,
     };
   };
@@ -60,7 +63,7 @@ export const StepIndicator = memo(function StepIndicator({
       };
     }
     return {
-      background: 'transparent',
+      background: "transparent",
       color: themeStyles.config.colors.mutedForeground,
       border: `1px solid ${themeStyles.config.colors.border}`,
     };
@@ -78,39 +81,42 @@ export const StepIndicator = memo(function StepIndicator({
 
   return (
     <div
-      className="flex items-center gap-3 p-3 rounded-lg border transition-all duration-300"
+      className="flex items-center gap-3 rounded-lg border p-3 transition-all duration-300"
       style={getContainerStyle()}
       role="listitem"
-      aria-current={isActive ? 'step' : undefined}
+      aria-current={isActive ? "step" : undefined}
     >
       <div
-        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-          isActive ? 'animate-pulse' : ''
+        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+          isActive ? "animate-pulse" : ""
         }`}
         style={getIconStyle()}
         aria-hidden="true"
       >
         <IconRenderer
           icon={step.icon}
-          className="w-4 h-4"
+          className="h-4 w-4"
           stroke="2.5"
           aria-hidden
         />
       </div>
 
-      <div className="flex-1 text-left min-w-0">
+      <div className="min-w-0 flex-1 text-left">
         <p
-          className="font-medium text-sm transition-colors"
+          className="text-sm font-medium transition-colors"
           style={getTextStyle()}
         >
           {step.name}
         </p>
-        <p className="text-xs truncate" style={{ color: themeStyles.config.colors.mutedForeground }}>
+        <p
+          className="truncate text-xs"
+          style={{ color: themeStyles.config.colors.mutedForeground }}
+        >
           {step.description}
         </p>
         {isActive && !stepComplete && step.check && (
           <p
-            className="text-xs mt-1 animate-pulse"
+            className="mt-1 animate-pulse text-xs"
             style={{ color: themeStyles.config.colors.accent }}
           >
             Verifying...
@@ -120,21 +126,25 @@ export const StepIndicator = memo(function StepIndicator({
 
       <div className="flex-shrink-0" aria-live="polite">
         {isActive && !stepComplete && (
-          <Badge variant="default" className="animate-pulse" style={themeStyles.getBadgeStyle()}>
+          <Badge
+            variant="default"
+            className="animate-pulse"
+            style={themeStyles.getBadgeStyle()}
+          >
             Active
           </Badge>
         )}
         {isActive && stepComplete && (
           <LoadingCircle
-            className="w-8 h-8 animate-spin animate-pulse"
+            className="h-8 w-8 animate-pulse animate-spin"
             style={themeStyles.getSpinnerStyle(false)}
             aria-label="Processing"
           />
         )}
         {!isActive && stepComplete && (
           <Checkmark
-            className="w-8 h-8"
-            style={themeStyles.getIconStyle('success')}
+            className="h-8 w-8"
+            style={themeStyles.getIconStyle("success")}
             aria-label="Completed"
           />
         )}

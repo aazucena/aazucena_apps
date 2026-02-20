@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { ChallengeTypeEnum, RewardTypeEnum } from './enums';
+import { z } from "zod";
+import { ChallengeTypeEnum, RewardTypeEnum } from "./enums";
 
 /**
  * Zod schema for Easter Egg Completion from Strapi CMS
@@ -26,4 +26,6 @@ export const StrapiEasterEggCompletionSchema = z.object({
   locale: z.string().optional(),
 });
 
-export type StrapiEasterEggCompletion = z.infer<typeof StrapiEasterEggCompletionSchema>;
+export type StrapiEasterEggCompletion = z.infer<
+  typeof StrapiEasterEggCompletionSchema
+>;

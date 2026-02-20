@@ -1,13 +1,13 @@
-import { z } from 'zod';
-import { StrapiMediaSchema } from './components';
-import { AwardTypeEnum, AwardCategoryEnum } from './enums';
+import { z } from "zod";
+import { StrapiMediaSchema } from "./components";
+import { AwardTypeEnum, AwardCategoryEnum } from "./enums";
 
 export const StrapiAwardSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
 
   // Core fields
-  type: AwardTypeEnum.default('award'),
+  type: AwardTypeEnum.default("award"),
   title: z.string().max(200),
   shortTitle: z.string().max(50).optional().nullable(),
   organization: z.string().max(150),
@@ -36,14 +36,18 @@ export const StrapiAwardSchema = z.object({
 
 export const StrapiAwardsResponseSchema = z.object({
   data: z.array(StrapiAwardSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 export type StrapiAward = z.infer<typeof StrapiAwardSchema>;

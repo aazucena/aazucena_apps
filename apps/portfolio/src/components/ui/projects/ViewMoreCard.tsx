@@ -4,7 +4,7 @@
  * Displayed on the last page of projects
  */
 
-import type { JSX } from 'react';
+import type { JSX } from "react";
 
 export interface ViewMoreCardProps {
   /** Link destination */
@@ -14,7 +14,7 @@ export interface ViewMoreCardProps {
   /** Subtitle/description text */
   subtitle: string;
   /** Click handler that respects drag state */
-  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick: (_e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 /**
@@ -37,16 +37,16 @@ export function ViewMoreCard({
   href,
   title,
   subtitle,
-  onClick
+  onClick,
 }: ViewMoreCardProps): JSX.Element {
   return (
     <a
       href={href}
-      className="bg-gradient-to-br from-cyan-400/20 to-blue-500/20 backdrop-blur-sm rounded-lg p-6 border border-cyan-400/30 text-left w-[420px] flex items-center justify-center cursor-pointer hover:from-cyan-400/30 hover:to-blue-500/30 transition-all duration-300 block no-underline"
+      className="block flex w-[420px] cursor-pointer items-center justify-center rounded-lg border border-cyan-400/30 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 p-6 text-left no-underline backdrop-blur-sm transition-all duration-300 hover:from-cyan-400/30 hover:to-blue-500/30"
       onClick={onClick}
     >
       <div className="text-center">
-        <h3 className="text-3xl font-bold text-white mb-2">{title}</h3>
+        <h3 className="mb-2 text-3xl font-bold text-white">{title}</h3>
         <p className="text-gray-300">{subtitle}</p>
       </div>
     </a>

@@ -1,17 +1,17 @@
-import { onLCP, onINP, onCLS, onFCP, onTTFB, type Metric } from 'web-vitals';
-import { sendTelemetry } from './telemetry';
+import { onLCP, onINP, onCLS, onFCP, onTTFB, type Metric } from "web-vitals";
+import { sendTelemetry } from "./telemetry";
 
 function reportWebVitals(metric: Metric) {
   sendTelemetry({
-    type: 'telemetry_event',
-    event: 'PerformanceMetric',
+    type: "telemetry_event",
+    event: "PerformanceMetric",
     data: {
       metric_name: metric.name,
       value: metric.value.toString(),
       metric_id: metric.id,
       rating: metric.rating,
-      navigation_type: metric.navigationType
-    }
+      navigation_type: metric.navigationType,
+    },
   });
 }
 

@@ -3,22 +3,22 @@
  * Manages all lighting for the ThreeJS scene based on atmospheric phase
  */
 
-import { useRef, type JSX } from 'react';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import type { AtmosphericPhase } from '~/config/animations';
+import { useRef, type JSX } from "react";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+import type { AtmosphericPhase } from "~/config/animations";
 import {
   getAmbientIntensity,
   getPointLightColor,
   getSecondaryLightColor,
-} from '~/lib/utils/scene';
+} from "~/lib/utils/scene";
 import {
   SUN_CONFIG,
   SHADOW_CONFIG,
   POINT_LIGHT_POSITIONS,
   LIGHT_INTENSITIES,
   SCENE_ANIMATION_SPEEDS,
-} from '~/config/animations';
+} from "~/config/animations";
 
 interface SceneLightingProps {
   /** Current atmospheric phase */
@@ -27,18 +27,22 @@ interface SceneLightingProps {
   intensity: number;
 }
 
-export function SceneLighting({ phase, intensity }: SceneLightingProps): JSX.Element {
+export function SceneLighting({
+  phase,
+  intensity,
+}: SceneLightingProps): JSX.Element {
   const sunLightRef = useRef<THREE.DirectionalLight>(null);
 
   // Animate sun light in troposphere
   useFrame((state) => {
-    if (sunLightRef.current && phase === 'troposphere') {
+    if (sunLightRef.current && phase === "troposphere") {
       const time = state.clock.elapsedTime;
       const sunSpeed = time * SCENE_ANIMATION_SPEEDS.sunRotation;
 
       sunLightRef.current.position.x = Math.cos(sunSpeed) * SUN_CONFIG.radius;
       sunLightRef.current.position.z = Math.sin(sunSpeed) * SUN_CONFIG.radius;
-      sunLightRef.current.position.y = SUN_CONFIG.baseY + Math.sin(sunSpeed * 0.5) * SUN_CONFIG.yVariation;
+      sunLightRef.current.position.y =
+        SUN_CONFIG.baseY + Math.sin(sunSpeed * 0.5) * SUN_CONFIG.yVariation;
     }
   });
 
@@ -62,7 +66,7 @@ export function SceneLighting({ phase, intensity }: SceneLightingProps): JSX.Ele
       />
 
       {/* Directional light for troposphere (sun) */}
-      {phase === 'troposphere' && (
+      {phase === "troposphere" && (
         <directionalLight
           ref={sunLightRef}
           position={[5, SUN_CONFIG.baseY, 5]}

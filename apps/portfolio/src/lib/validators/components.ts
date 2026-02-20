@@ -1,9 +1,9 @@
-import { z } from 'zod';
-import { 
-  ColorVariantEnum, 
-  GradientVariantEnum, 
-  CardLinkVariantEnum, 
-  ButtonVariantEnum, 
+import { z } from "zod";
+import {
+  ColorVariantEnum,
+  GradientVariantEnum,
+  CardLinkVariantEnum,
+  ButtonVariantEnum,
   ButtonSizeEnum,
   RobotsModeEnum,
   TwitterCardEnum,
@@ -11,8 +11,8 @@ import {
   MusicalScaleEnum,
   OpenGraphTypeEnum,
   SocialPlatformEnum,
-  StreamingPlatformEnum
-} from './enums';
+  StreamingPlatformEnum,
+} from "./enums";
 
 /**
  * Shared component validators for architectural consistency across the portfolio.
@@ -62,7 +62,7 @@ export const ImageElementSchema = z.object({
 export const TagSchema = z.object({
   id: z.number().optional(),
   label: z.string().max(30),
-  color: ColorVariantEnum.default('cyan'),
+  color: ColorVariantEnum.default("cyan"),
 });
 
 /**
@@ -84,8 +84,8 @@ export const CTAButtonSchema = z.object({
   id: z.number().optional(),
   label: z.string().max(50),
   url: z.string().max(255),
-  variant: ButtonVariantEnum.default('primary'),
-  size: ButtonSizeEnum.default('md'),
+  variant: ButtonVariantEnum.default("primary"),
+  size: ButtonSizeEnum.default("md"),
   openInNewTab: z.boolean().default(true),
   icon: z.any().nullable().optional(), // plugin::icons-field.icon
 });
@@ -178,7 +178,7 @@ export const NarrativeItemSchema = z.object({
   title: z.string(),
   description: z.string(),
   icon: z.any().nullable().optional(), // plugin::icons-field.icon
-  variant: ColorVariantEnum.default('blue'),
+  variant: ColorVariantEnum.default("blue"),
 });
 
 /**
@@ -202,7 +202,7 @@ export const FocusAreaSchema = z.object({
   title: z.string(),
   experience: z.string(),
   description: z.string(),
-  variant: GradientVariantEnum.default('blue-cyan'),
+  variant: GradientVariantEnum.default("blue-cyan"),
 });
 
 /**
@@ -232,7 +232,7 @@ export const WorkingStyleItemSchema = z.object({
   subtitle: z.string().max(100),
   description: z.string().max(500),
   icon: z.any().nullable().optional(), // plugin::icons-field.icon
-  variant: GradientVariantEnum.default('blue-cyan'),
+  variant: GradientVariantEnum.default("blue-cyan"),
 });
 
 // --- Meta & Special Components ---
@@ -243,7 +243,7 @@ export const WorkingStyleItemSchema = z.object({
 export const AudioMetadataSchema = z.object({
   id: z.number().optional(),
   bpm: z.number().min(20).max(300).nullable().optional(),
-  timeSignature: z.string().max(10).default('4/4'),
+  timeSignature: z.string().max(10).default("4/4"),
   musicalKey: MusicalKeyEnum.nullable().optional(),
   scale: MusicalScaleEnum.nullable().optional(),
   instrumental: z.boolean().default(true),
@@ -260,7 +260,7 @@ export const OpenGraphSchema = z.object({
   ogDescription: z.string().max(200),
   ogImage: StrapiMediaSchema.nullable().optional(),
   ogUrl: z.string().max(500).nullable().optional(),
-  ogType: OpenGraphTypeEnum.default('website'),
+  ogType: OpenGraphTypeEnum.default("website"),
 });
 
 /**
@@ -273,11 +273,14 @@ export const SeoSchema = z.object({
   metaImage: StrapiMediaSchema.nullable().optional(),
   openGraph: OpenGraphSchema.nullable().optional(),
   keywords: z.string().max(500).nullable().optional(),
-  metaRobots: RobotsModeEnum.default('index, follow'),
-  metaViewport: z.string().max(200).default('width=device-width, initial-scale=1.0'),
+  metaRobots: RobotsModeEnum.default("index, follow"),
+  metaViewport: z
+    .string()
+    .max(200)
+    .default("width=device-width, initial-scale=1.0"),
   canonicalURL: z.string().max(500).nullable().optional(),
   structuredData: z.any().nullable().optional(),
-  twitterCard: TwitterCardEnum.default('summary_large_image'),
+  twitterCard: TwitterCardEnum.default("summary_large_image"),
 });
 
 /**

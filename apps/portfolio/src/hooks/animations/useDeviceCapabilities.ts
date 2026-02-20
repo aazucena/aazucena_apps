@@ -3,22 +3,22 @@
  * Detects and manages device capabilities with localStorage persistence
  */
 
-import { useState, useEffect } from 'react';
-import type { DeviceCapabilities } from '~/config/animations';
-import { detectDeviceCapabilities } from '~/lib/utils/animations';
+import { useState, useEffect } from "react";
+import type { DeviceCapabilities } from "~/config/animations";
+import { detectDeviceCapabilities } from "~/lib/utils/animations";
 
-const STORAGE_KEY = 'portfolioSettings';
+const STORAGE_KEY = "portfolioSettings";
 
 export function useDeviceCapabilities(): {
   capabilities: DeviceCapabilities;
-  updateCapabilities: (capabilities: Partial<DeviceCapabilities>) => void;
+  updateCapabilities: (_capabilities: Partial<DeviceCapabilities>) => void;
   mounted: boolean;
 } {
   const [mounted, setMounted] = useState(false);
   const [capabilities, setCapabilities] = useState<DeviceCapabilities>({
     isMobile: false,
-    performanceTier: 'medium',
-    canUseHeavyAnimations: true
+    performanceTier: "medium",
+    canUseHeavyAnimations: true,
   });
 
   // Load settings from localStorage on mount
@@ -30,18 +30,20 @@ export function useDeviceCapabilities(): {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (parsed && typeof parsed === 'object') {
+          if (parsed && typeof parsed === "object") {
             return {
               isMobile: parsed.isMobile ?? false,
-              performanceTier: ['low', 'medium', 'high'].includes(parsed.performanceTier)
+              performanceTier: ["low", "medium", "high"].includes(
+                parsed.performanceTier,
+              )
                 ? parsed.performanceTier
-                : 'medium',
-              canUseHeavyAnimations: parsed.canUseHeavyAnimations ?? true
+                : "medium",
+              canUseHeavyAnimations: parsed.canUseHeavyAnimations ?? true,
             };
           }
         }
       } catch (error) {
-        console.error('Failed to load settings:', error);
+        console.error("Failed to load settings:", error);
       }
 
       // Detect device capabilities as fallback
@@ -57,13 +59,13 @@ export function useDeviceCapabilities(): {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(capabilities));
       } catch (error) {
-        console.error('Failed to save settings:', error);
+        console.error("Failed to save settings:", error);
       }
     }
   }, [capabilities, mounted]);
 
   const updateCapabilities = (updates: Partial<DeviceCapabilities>) => {
-    setCapabilities(prev => ({ ...prev, ...updates }));
+    setCapabilities((prev) => ({ ...prev, ...updates }));
   };
 
   return { capabilities, updateCapabilities, mounted };

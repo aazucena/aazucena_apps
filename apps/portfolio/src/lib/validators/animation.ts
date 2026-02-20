@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { PerformanceTierEnum } from './enums';
+import { z } from "zod";
+import { PerformanceTierEnum } from "./enums";
 
 /**
  * Zod schema for Animation System from Strapi CMS

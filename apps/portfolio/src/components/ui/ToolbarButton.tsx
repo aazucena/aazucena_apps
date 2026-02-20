@@ -3,7 +3,7 @@
  * Reusable toolbar button with tooltip
  */
 
-import type { JSX, ReactNode } from 'react';
+import type { JSX, ReactNode } from "react";
 
 export interface ToolbarButtonProps {
   onClick: () => void;
@@ -18,9 +18,10 @@ export function ToolbarButton({
   label,
   icon,
   isActive = false,
-  className = ''
+  className = "",
 }: ToolbarButtonProps): JSX.Element {
-  const baseClasses = "group relative w-14 h-14 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110";
+  const baseClasses =
+    "group relative w-14 h-14 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110";
   const activeClasses = isActive
     ? "bg-cyan-500/20 border border-cyan-400/40 hover:bg-cyan-500/30 hover:border-cyan-400/60"
     : "bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/40";
@@ -34,9 +35,9 @@ export function ToolbarButton({
       {icon}
 
       {/* Tooltip */}
-      <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-3 py-1.5 bg-black/80 backdrop-blur-sm text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+      <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 transform rounded-lg bg-black/80 px-3 py-1.5 text-xs whitespace-nowrap text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
         {label}
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-black/80"></div>
+        <div className="absolute top-full left-1/2 -mt-1 -translate-x-1/2 transform border-4 border-transparent border-t-black/80"></div>
       </div>
     </button>
   );

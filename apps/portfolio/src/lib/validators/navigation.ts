@@ -1,10 +1,10 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // Navigation item schema (matches Strapi navigation plugin TREE format)
 export const NavigationItemSchema: z.ZodType<NavigationItem> = z.object({
   id: z.number().optional(), // May not be present in tree format
   title: z.string(),
-  type: z.enum(['INTERNAL', 'EXTERNAL', 'WRAPPER']),
+  type: z.enum(["INTERNAL", "EXTERNAL", "WRAPPER"]),
   path: z.string().nullable(),
   externalPath: z.string().nullable().optional(),
   slug: z.string().optional(),
@@ -15,20 +15,22 @@ export const NavigationItemSchema: z.ZodType<NavigationItem> = z.object({
   related: z.any().optional(),
   audience: z.array(z.any()).optional(),
   // Custom fields are nested in additionalFields by the navigation plugin
-  additionalFields: z.object({
-    label: z.string().optional(), // Custom field - display text that overrides title
-    icon: z.string().optional(), // Custom field
-    buttonStyle: z.enum(['primary', 'secondary', 'outline']).optional(), // Render as button
-    description: z.string().optional(), // Custom field
-    cssClass: z.string().optional(), // Custom field
-  }).optional(),
+  additionalFields: z
+    .object({
+      label: z.string().optional(), // Custom field - display text that overrides title
+      icon: z.string().optional(), // Custom field
+      buttonStyle: z.enum(["primary", "secondary", "outline"]).optional(), // Render as button
+      description: z.string().optional(), // Custom field
+      cssClass: z.string().optional(), // Custom field
+    })
+    .optional(),
   items: z.lazy(() => z.array(NavigationItemSchema)).optional(), // Nested items
 });
 
 // Navigation container schema (for internal use with fallbacks)
 export const NavigationSchema = z.object({
   id: z.number().default(0),
-  name: z.string().default('Navigation'),
+  name: z.string().default("Navigation"),
   slug: z.string(),
   visible: z.boolean().default(true),
   items: z.array(NavigationItemSchema),
@@ -41,13 +43,13 @@ export const NavigationRenderResponseSchema = z.array(NavigationItemSchema);
 export type NavigationItem = {
   id?: number;
   title: string;
-  type: 'INTERNAL' | 'EXTERNAL' | 'WRAPPER';
+  type: "INTERNAL" | "EXTERNAL" | "WRAPPER";
   path: string | null;
   externalPath?: string | null;
   slug?: string;
   external?: boolean;
   uiRouterKey?: string;
-  menuAttached: boolean;
+  menuAttached?: boolean;
   order?: number;
   related?: any;
   audience?: any[];
@@ -55,7 +57,7 @@ export type NavigationItem = {
   additionalFields?: {
     label?: string; // Display text that overrides title
     icon?: string;
-    buttonStyle?: 'primary' | 'secondary' | 'outline';
+    buttonStyle?: "primary" | "secondary" | "outline";
     description?: string;
     cssClass?: string;
   };
@@ -64,7 +66,7 @@ export type NavigationItem = {
   // Flattened fields (added by transformer)
   label?: string;
   icon?: string;
-  buttonStyle?: 'primary' | 'secondary' | 'outline';
+  buttonStyle?: "primary" | "secondary" | "outline";
   description?: string;
   cssClass?: string;
 };

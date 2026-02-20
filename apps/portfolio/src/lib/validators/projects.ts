@@ -1,19 +1,19 @@
-import { z } from 'zod';
-import { 
-  ImageElementSchema, 
-  TagSchema, 
-  StatsSchema, 
-  SeoSchema, 
-  WebLinkArraySchema 
-} from './components';
-import { 
-  ProjectDisplayEnum, 
-  ProjectTypeEnum, 
-  ProjectStatusEnum 
-} from './enums';
-import { StrapiSkillSchema } from './skills';
-import { StrapiExperienceSchema } from './experiences';
-import { StrapiEducationSchema } from './education';
+import { z } from "zod";
+import {
+  ImageElementSchema,
+  TagSchema,
+  StatsSchema,
+  SeoSchema,
+  WebLinkArraySchema,
+} from "./components";
+import {
+  ProjectDisplayEnum,
+  ProjectTypeEnum,
+  ProjectStatusEnum,
+} from "./enums";
+import { StrapiSkillSchema } from "./skills";
+import { StrapiExperienceSchema } from "./experiences";
+import { StrapiEducationSchema } from "./education";
 
 /**
  * Explicit Interface for recursion
@@ -21,11 +21,11 @@ import { StrapiEducationSchema } from './education';
 export interface StrapiProject {
   id: number;
   documentId?: string;
-  title: string;
-  slug: string;
-  shortDescription: string;
-  description: any;
-  display: 'hidden' | 'unlisted' | 'standard' | 'featured' | 'home';
+  title?: string;
+  slug?: string;
+  shortDescription?: string;
+  description?: any;
+  display?: "hidden" | "unlisted" | "standard" | "featured" | "home";
   coverImage?: any | null;
   screenshots?: any[] | null;
   demoVideo?: any | null;
@@ -44,8 +44,8 @@ export interface StrapiProject {
   relatedLinks?: any[] | null;
   experience?: any | null;
   education?: any | null;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   publishedAt?: string;
   locale?: string;
 }
@@ -59,7 +59,7 @@ export const StrapiProjectSchema: z.ZodType<StrapiProject> = z.object({
   title: z.string().max(200),
   slug: z.string(),
   shortDescription: z.string().max(300),
-  description: z.any(), 
+  description: z.any(),
   display: ProjectDisplayEnum,
   coverImage: ImageElementSchema.nullable().optional(),
   screenshots: z.array(ImageElementSchema).nullable().optional(),
@@ -73,15 +73,21 @@ export const StrapiProjectSchema: z.ZodType<StrapiProject> = z.object({
   endDate: z.string().nullable().optional(),
   projectStatus: ProjectStatusEnum.nullable().optional(),
   tags: z.array(TagSchema).nullable().optional(),
-  
+
   // Relations
   techStack: z.array(z.lazy(() => StrapiSkillSchema)).optional(),
-  
+
   metrics: z.array(StatsSchema).nullable().optional(),
   seo: SeoSchema.nullable().optional(),
   relatedLinks: WebLinkArraySchema.nullable().optional(),
-  experience: z.lazy(() => StrapiExperienceSchema).nullable().optional(),
-  education: z.lazy(() => StrapiEducationSchema).nullable().optional(),
+  experience: z
+    .lazy(() => StrapiExperienceSchema)
+    .nullable()
+    .optional(),
+  education: z
+    .lazy(() => StrapiEducationSchema)
+    .nullable()
+    .optional(),
 
   // Strapi metadata
   createdAt: z.string(),
@@ -92,14 +98,20 @@ export const StrapiProjectSchema: z.ZodType<StrapiProject> = z.object({
 
 export const StrapiProjectsResponseSchema = z.object({
   data: z.array(StrapiProjectSchema),
-  meta: z.object({
-    pagination: z.object({
-      page: z.number(),
-      pageSize: z.number(),
-      pageCount: z.number(),
-      total: z.number(),
-    }).optional(),
-  }).optional(),
+  meta: z
+    .object({
+      pagination: z
+        .object({
+          page: z.number(),
+          pageSize: z.number(),
+          pageCount: z.number(),
+          total: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
-export type StrapiProjectsResponse = z.infer<typeof StrapiProjectsResponseSchema>;
+export type StrapiProjectsResponse = z.infer<
+  typeof StrapiProjectsResponseSchema
+>;

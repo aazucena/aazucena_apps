@@ -1,4 +1,4 @@
-import type { IconComponent } from './icons';
+import type { IconComponent } from "./icons";
 
 export interface MasteryItem {
   name: string;

@@ -1,10 +1,13 @@
-import { createContext, useMemo, type ReactNode } from 'react';
-import type { HomepageData } from '~/lib/transformers/homepage';
-import type { PortfolioContent } from '~/lib/transformers/portfolio';
-import type { PortfolioData } from '~/types/portfolio';
-import { useSectionRegistry, type SectionRegistry } from '~/hooks/animations/useSectionRegistry';
+import { createContext, useMemo, type ReactNode } from "react";
+import type { HomepageData } from "~/lib/transformers/homepage";
+import type { PortfolioContent } from "~/lib/transformers/portfolio";
+import type { PortfolioData } from "~/types/portfolio";
+import {
+  useSectionRegistry,
+  type SectionRegistry,
+} from "~/hooks/animations/useSectionRegistry";
 
-interface DataContextValue {
+export interface DataContextValue {
   data: PortfolioData;
   content: HomepageData;
   portfolio: PortfolioContent;
@@ -27,7 +30,12 @@ interface DataProviderProps {
  * Filters sections to only include those with both a component (in registry) and data.
  * Sorts sections by their sort field (or 0 if not specified).
  */
-export function DataProvider({ children, data, portfolio, content }: DataProviderProps) {
+export function DataProvider({
+  children,
+  data,
+  portfolio,
+  content,
+}: DataProviderProps) {
   const registry = useSectionRegistry(content);
 
   // Filter and sort sections
@@ -48,11 +56,11 @@ export function DataProvider({ children, data, portfolio, content }: DataProvide
       },
       registry,
     }),
-    [data, portfolio, content, registry, activeSections]
+    [data, portfolio, content, registry, activeSections],
   );
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
 
 // Add display name for React Fast Refresh
-DataProvider.displayName = 'DataProvider';
+DataProvider.displayName = "DataProvider";

@@ -1,5 +1,5 @@
-import type { StrapiPage } from '../validators/page';
-import { transformSeo } from './utils';
+import type { StrapiPage } from "../validators/page";
+import { transformSeo } from "./utils";
 
 export interface Page {
   id: number;
@@ -15,13 +15,13 @@ export interface Page {
 
 export const DEFAULT_PAGE: Page = {
   id: 0,
-  slug: '',
-  title: '',
+  slug: "",
+  title: "",
   content: [],
-  template: 'default',
+  template: "default",
   lastUpdated: new Date().toISOString(),
   showTableOfContents: true,
-  footerVariant: 'minimal',
+  footerVariant: "minimal",
 };
 
 export function transformPage(data: StrapiPage): Page {

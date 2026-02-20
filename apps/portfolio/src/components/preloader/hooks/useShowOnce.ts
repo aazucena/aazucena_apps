@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
-const STORAGE_KEY = 'portfolio-preloader-seen';
+const STORAGE_KEY = "portfolio-preloader-seen";
 
 /**
  * Hook to manage "show once per session" behavior using sessionStorage
@@ -19,9 +19,12 @@ export function useShowOnce(enabled: boolean = false) {
     }
 
     // Check if user has already seen the preloader in this session
-    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+    if (
+      typeof window !== "undefined" &&
+      typeof sessionStorage !== "undefined"
+    ) {
       const seen = sessionStorage.getItem(STORAGE_KEY);
-      setHasSeenBefore(seen === 'true');
+      setHasSeenBefore(seen === "true");
     }
 
     setIsChecking(false);
@@ -30,24 +33,30 @@ export function useShowOnce(enabled: boolean = false) {
   const markAsSeen = useCallback(() => {
     if (!enabled) return;
 
-    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+    if (
+      typeof window !== "undefined" &&
+      typeof sessionStorage !== "undefined"
+    ) {
       try {
-        sessionStorage.setItem(STORAGE_KEY, 'true');
+        sessionStorage.setItem(STORAGE_KEY, "true");
         setHasSeenBefore(true);
       } catch (error) {
         // SessionStorage might be disabled or full
-        console.warn('[Preloader] Failed to set sessionStorage:', error);
+        console.warn("[Preloader] Failed to set sessionStorage:", error);
       }
     }
   }, [enabled]);
 
   const resetSeen = useCallback(() => {
-    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+    if (
+      typeof window !== "undefined" &&
+      typeof sessionStorage !== "undefined"
+    ) {
       try {
         sessionStorage.removeItem(STORAGE_KEY);
         setHasSeenBefore(false);
       } catch (error) {
-        console.warn('[Preloader] Failed to clear sessionStorage:', error);
+        console.warn("[Preloader] Failed to clear sessionStorage:", error);
       }
     }
   }, []);

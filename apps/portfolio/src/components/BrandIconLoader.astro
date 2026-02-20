@@ -40,7 +40,6 @@ const {
 
 // Extend duration for CMS failures
 const animationDuration = isCmsFallback ? "2s" : "1.5s";
-const displayDuration = isCmsFallback ? "3000ms" : "1500ms";
 ---
 
 <div
@@ -60,7 +59,7 @@ const displayDuration = isCmsFallback ? "3000ms" : "1500ms";
   </div>
 </div>
 
-<style define:vars={{ animationDuration, displayDuration }}>
+<style define:vars={{ animationDuration }}>
   .brand-icon-loader {
     position: fixed;
     top: 0;

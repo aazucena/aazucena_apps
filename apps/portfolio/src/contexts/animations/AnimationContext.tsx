@@ -3,14 +3,9 @@
  * Manages: device capabilities, sound settings, and performance preferences
  */
 
-import {
-  createContext,
-  useState,
-  useEffect,
-  type ReactNode,
-} from "react";
-import type { DeviceCapabilities } from '~/config/animations';
-import { detectDeviceCapabilities } from '~/lib/utils/animations';
+import { createContext, useState, useEffect, type ReactNode } from "react";
+import type { DeviceCapabilities } from "~/config/animations";
+import { detectDeviceCapabilities } from "~/lib/utils/animations";
 
 const CAPABILITIES_STORAGE_KEY = "portfolioSettings";
 const SOUND_STORAGE_KEY = "soundMuted";
@@ -19,11 +14,11 @@ const SOUND_STORAGE_KEY = "soundMuted";
 export interface AnimationState {
   // Device Capabilities
   capabilities: DeviceCapabilities;
-  updateCapabilities: (updates: Partial<DeviceCapabilities>) => void;
+  updateCapabilities: (_updates: Partial<DeviceCapabilities>) => void;
 
   // Sound Settings
   isSoundMuted: boolean;
-  setIsSoundMuted: (muted: boolean) => void;
+  setIsSoundMuted: (_muted: boolean) => void;
   toggleSound: () => void;
 
   // Mount State
@@ -31,7 +26,9 @@ export interface AnimationState {
 }
 
 // Context
-export const AnimationContext = createContext<AnimationState | undefined>(undefined);
+export const AnimationContext = createContext<AnimationState | undefined>(
+  undefined,
+);
 
 // Provider Props
 interface AnimationProviderProps {
@@ -60,17 +57,19 @@ export function AnimationProvider({ children }: AnimationProviderProps) {
           // Validate that parsed is a plain object (not array, not null)
           if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
             // Explicitly validate each field to prevent injection
-            const isMobile = typeof parsed.isMobile === "boolean"
-              ? parsed.isMobile
-              : false;
+            const isMobile =
+              typeof parsed.isMobile === "boolean" ? parsed.isMobile : false;
 
-            const performanceTier = ["low", "medium", "high"].includes(parsed.performanceTier)
+            const performanceTier = ["low", "medium", "high"].includes(
+              parsed.performanceTier,
+            )
               ? parsed.performanceTier
               : "medium";
 
-            const canUseHeavyAnimations = typeof parsed.canUseHeavyAnimations === "boolean"
-              ? parsed.canUseHeavyAnimations
-              : true;
+            const canUseHeavyAnimations =
+              typeof parsed.canUseHeavyAnimations === "boolean"
+                ? parsed.canUseHeavyAnimations
+                : true;
 
             return { isMobile, performanceTier, canUseHeavyAnimations };
           }
@@ -160,4 +159,4 @@ export function AnimationProvider({ children }: AnimationProviderProps) {
 }
 
 // Add display name for React Fast Refresh
-AnimationProvider.displayName = 'AnimationProvider';
+AnimationProvider.displayName = "AnimationProvider";

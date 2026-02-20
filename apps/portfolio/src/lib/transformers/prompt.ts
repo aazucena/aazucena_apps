@@ -1,5 +1,5 @@
-import type { StrapiPrompt } from '../validators/prompt';
-import type { PromptType } from '../validators/enums';
+import type { StrapiPrompt } from "../validators/prompt";
+import type { PromptType } from "../validators/enums";
 
 export interface Prompt {
   id: string;
@@ -19,16 +19,16 @@ export interface Prompt {
  */
 export function transformPrompt(prompt: StrapiPrompt): Prompt {
   return {
-    id: prompt.documentId || prompt.id?.toString() || '',
+    id: prompt.documentId || prompt.id?.toString() || "",
     name: prompt.name,
     slug: prompt.slug,
     description: prompt.description || undefined,
     systemMessage: prompt.system_message,
     humanTemplate: prompt.human_template || undefined,
     type: prompt.type,
-    tags: prompt.tags?.map(t => t.label) || [],
+    tags: prompt.tags?.map((t) => t.label) || [],
     metadata: prompt.metadata || {},
-    lastUpdated: prompt.updatedAt || prompt.createdAt || '',
+    lastUpdated: prompt.updatedAt || prompt.createdAt || "",
   };
 }
 

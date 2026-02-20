@@ -1,9 +1,9 @@
-import type { StrapiAnimation } from '~/lib/validators/animation';
+import type { StrapiAnimation } from "~/lib/validators/animation";
 
 export interface AnimationConfigData {
   enabled: boolean;
   heavyAnimations: boolean;
-  defaultPerformanceTier: 'low' | 'medium' | 'high' | 'auto';
+  defaultPerformanceTier: "low" | "medium" | "high" | "auto";
   particleCounts: {
     low: number;
     medium: number;
@@ -18,7 +18,9 @@ export interface AnimationConfigData {
 /**
  * Transform Strapi animation config to frontend format
  */
-export function transformAnimation(strapiAnimation: StrapiAnimation): AnimationConfigData {
+export function transformAnimation(
+  strapiAnimation: StrapiAnimation,
+): AnimationConfigData {
   return {
     enabled: strapiAnimation.enabled,
     heavyAnimations: strapiAnimation.heavyAnimations,
@@ -41,7 +43,7 @@ export function transformAnimation(strapiAnimation: StrapiAnimation): AnimationC
 export const DEFAULT_ANIMATION_CONFIG: AnimationConfigData = {
   enabled: true,
   heavyAnimations: true,
-  defaultPerformanceTier: 'auto',
+  defaultPerformanceTier: "auto",
   particleCounts: {
     low: 50,
     medium: 100,

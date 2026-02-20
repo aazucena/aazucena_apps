@@ -4,7 +4,7 @@
  * Optimizes by only rendering visible layers (opacity > 0)
  */
 
-import { memo, type JSX } from 'react';
+import { memo, type JSX } from "react";
 import type {
   AtmosphericPhase,
   LayerOpacities,
@@ -13,16 +13,16 @@ import type {
   TreeData,
   BushData,
   RockData,
-  FlowerData
-} from '~/config/animations';
-import type { ParticleData } from '~/data/scene/particles';
+  FlowerData,
+} from "~/config/animations";
+import type { ParticleData } from "~/data/scene/particles";
 // Direct imports (not from index.ts) to avoid bundling when lazy loading is enabled
 // When ENABLE_LAYER_LAZY_LOADING=true, LazySceneLayerManager is used instead
-import { Exosphere } from './Exosphere';
-import { Thermosphere } from './Thermosphere';
-import { Mesosphere } from './Mesosphere';
-import { Stratosphere } from './Stratosphere';
-import { Troposphere } from './Troposphere';
+import { Exosphere } from "./Exosphere";
+import { Thermosphere } from "./Thermosphere";
+import { Mesosphere } from "./Mesosphere";
+import { Stratosphere } from "./Stratosphere";
+import { Troposphere } from "./Troposphere";
 
 export interface SceneLayerManagerProps {
   /** Current atmospheric phase */
@@ -73,7 +73,7 @@ function SceneLayerManagerComponent({
   trees,
   bushes,
   rocks,
-  flowers
+  flowers,
 }: SceneLayerManagerProps): JSX.Element {
   return (
     <>
@@ -128,35 +128,41 @@ export const SceneLayerManager = memo(
   SceneLayerManagerComponent,
   (prevProps, nextProps) => {
     // Check if data arrays changed (reference equality from useMemo)
-    const dataUnchanged = (
+    const dataUnchanged =
       prevProps.particles === nextProps.particles &&
       prevProps.clouds === nextProps.clouds &&
       prevProps.houses === nextProps.houses &&
       prevProps.trees === nextProps.trees &&
       prevProps.bushes === nextProps.bushes &&
       prevProps.rocks === nextProps.rocks &&
-      prevProps.flowers === nextProps.flowers
-    );
+      prevProps.flowers === nextProps.flowers;
 
     // Check if opacity values changed significantly (> 0.01)
-    const opacitiesUnchanged = (
-      Math.abs(prevProps.opacities.exosphere - nextProps.opacities.exosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.thermosphere - nextProps.opacities.thermosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.mesosphere - nextProps.opacities.mesosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.stratosphere - nextProps.opacities.stratosphere) < 0.01 &&
-      Math.abs(prevProps.opacities.troposphere - nextProps.opacities.troposphere) < 0.01
-    );
+    const opacitiesUnchanged =
+      Math.abs(prevProps.opacities.exosphere - nextProps.opacities.exosphere) <
+        0.01 &&
+      Math.abs(
+        prevProps.opacities.thermosphere - nextProps.opacities.thermosphere,
+      ) < 0.01 &&
+      Math.abs(
+        prevProps.opacities.mesosphere - nextProps.opacities.mesosphere,
+      ) < 0.01 &&
+      Math.abs(
+        prevProps.opacities.stratosphere - nextProps.opacities.stratosphere,
+      ) < 0.01 &&
+      Math.abs(
+        prevProps.opacities.troposphere - nextProps.opacities.troposphere,
+      ) < 0.01;
 
     // Check other values
-    const otherValuesUnchanged = (
+    const otherValuesUnchanged =
       prevProps.phase === nextProps.phase &&
       Math.abs(prevProps.intensity - nextProps.intensity) < 0.01 &&
       Math.abs(prevProps.progress - nextProps.progress) < 0.01 &&
-      prevProps.particleCount === nextProps.particleCount
-    );
+      prevProps.particleCount === nextProps.particleCount;
 
     return dataUnchanged && opacitiesUnchanged && otherValuesUnchanged;
-  }
+  },
 );
 
-SceneLayerManager.displayName = 'SceneLayerManager';
+SceneLayerManager.displayName = "SceneLayerManager";

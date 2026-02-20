@@ -3,17 +3,17 @@
  * Device capability detection and performance tier logic
  */
 
-import type { DeviceCapabilities } from '~/config/animations';
+import type { DeviceCapabilities } from "~/config/animations";
 
 /**
  * Detect device capabilities
  */
 export function detectDeviceCapabilities(): DeviceCapabilities {
-  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+  if (typeof window === "undefined" || typeof navigator === "undefined") {
     return {
       isMobile: false,
-      performanceTier: 'medium',
-      canUseHeavyAnimations: true
+      performanceTier: "medium",
+      canUseHeavyAnimations: true,
     };
   }
 
@@ -25,13 +25,13 @@ export function detectDeviceCapabilities(): DeviceCapabilities {
   const cores = navigator.hardwareConcurrency || 4;
 
   // Determine performance tier
-  let performanceTier: 'low' | 'medium' | 'high';
+  let performanceTier: "low" | "medium" | "high";
   if (memory >= 8 && cores >= 8) {
-    performanceTier = 'high';
+    performanceTier = "high";
   } else if (memory >= 4 && cores >= 4) {
-    performanceTier = 'medium';
+    performanceTier = "medium";
   } else {
-    performanceTier = 'low';
+    performanceTier = "low";
   }
 
   // Heavy animations for desktop with good specs
@@ -40,7 +40,7 @@ export function detectDeviceCapabilities(): DeviceCapabilities {
   return {
     isMobile,
     performanceTier,
-    canUseHeavyAnimations
+    canUseHeavyAnimations,
   };
 }
 
@@ -48,9 +48,9 @@ export function detectDeviceCapabilities(): DeviceCapabilities {
  * Check if device prefers reduced motion
  */
 export function prefersReducedMotion(): boolean {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === "undefined") return false;
 
-  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   return mediaQuery.matches;
 }
 
@@ -58,14 +58,14 @@ export function prefersReducedMotion(): boolean {
  * Get particle count based on performance tier
  */
 export function getParticleCountForDevice(
-  capabilities: DeviceCapabilities
+  capabilities: DeviceCapabilities,
 ): number {
   switch (capabilities.performanceTier) {
-    case 'high':
+    case "high":
       return 200;
-    case 'medium':
+    case "medium":
       return 100;
-    case 'low':
+    case "low":
       return 50;
     default:
       return 100;
@@ -76,15 +76,15 @@ export function getParticleCountForDevice(
  * Check if browser supports WebGL
  */
 export function supportsWebGL(): boolean {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === "undefined") return false;
 
   try {
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     return !!(
       window.WebGLRenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
     );
-  } catch (e) {
+  } catch {
     return false;
   }
 }

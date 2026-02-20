@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUp } from '@mynaui/icons-react';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUp } from "@mynaui/icons-react";
 
 export function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,13 +17,13 @@ export function BackToTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
   return (
@@ -34,12 +34,12 @@ export function BackToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-4 bg-blue-600 text-white rounded-2xl shadow-2xl hover:bg-blue-700 transition-all duration-300 group active:scale-95 ring-4 ring-blue-600/10 dark:ring-blue-400/10"
+          className="group fixed right-8 bottom-8 z-50 rounded-2xl bg-blue-600 p-4 text-white shadow-2xl ring-4 ring-blue-600/10 transition-all duration-300 hover:bg-blue-700 active:scale-95 dark:ring-blue-400/10"
           aria-label="Back to top"
         >
-          <ArrowUp 
-            size={24} 
-            className="group-hover:-translate-y-1 transition-transform duration-300" 
+          <ArrowUp
+            size={24}
+            className="transition-transform duration-300 group-hover:-translate-y-1"
           />
         </motion.button>
       )}

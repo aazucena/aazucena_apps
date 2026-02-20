@@ -1,4 +1,4 @@
-import type { MynaIconsProps as IconProps } from '@mynaui/icons-react';
+import type { MynaIconsProps as IconProps } from "@mynaui/icons-react";
 
 /**
  * Shared icon type used throughout the application
@@ -27,6 +27,6 @@ export interface CommonIconProps {
   className?: string;
   style?: React.CSSProperties;
   stroke?: string | number;
-  'aria-label'?: string;
-  'aria-hidden'?: boolean;
+  "aria-label"?: string;
+  "aria-hidden"?: boolean;
 }

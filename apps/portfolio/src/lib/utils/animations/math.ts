@@ -32,7 +32,7 @@ export function mapRange(
   inMin: number,
   inMax: number,
   outMin: number,
-  outMax: number
+  outMax: number,
 ): number {
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 }
@@ -65,7 +65,7 @@ export function distance(
   x1: number,
   y1: number,
   x2: number,
-  y2: number
+  y2: number,
 ): number {
   const dx = x2 - x1;
   const dy = y2 - y1;

@@ -9,7 +9,9 @@ interface PlausibleProps {
   /** Track clicks on outbound links. Default: false */
   outboundLinks?: boolean;
   /** Add custom properties globally. */
-  customProperties?: Record<string, any> | ((eventName: string) => Record<string, any>);
+  customProperties?:
+    | Record<string, any>
+    | ((_eventName: string) => Record<string, any>);
   /** Track form submissions. Default: false */
   formSubmissions?: boolean;
   /** Enables tracking on localhost for dev environments. Default: false */
@@ -19,7 +21,7 @@ interface PlausibleProps {
   /** Enable/disable logging done by script. Default: true */
   logging?: boolean;
   /** Modify or filter events before sending (e.g., redact PII). */
-  transformRequest?: (payload: { url: string; [key: string]: any }) => any;
+  transformRequest?: (_payload: { url: string; [key: string]: any }) => any;
 }
 
 interface Props extends PlausibleProps {
@@ -35,36 +37,35 @@ const defaultOptions: PlausibleProps = {
   customProperties: {},
   formSubmissions: false,
   // Toggle these based on your environment
-  captureOnLocalhost: import.meta.env.DEV, 
+  captureOnLocalhost: import.meta.env.DEV,
   logging: import.meta.env.DEV,
   autoCapturePageviews: true,
   // Default pass-through for the transform function
-  transformRequest: (payload) => payload,
-}
+  transformRequest: (_payload) => _payload,
+};
 const config: PlausibleProps = {
   ...opts,
   ...defaultOptions,
-}
+};
 ---
 
-{PLAUSIBLE_URL && (
-  <>
-    {/* Privacy-friendly analytics by Plausible */}
-    <script 
-      is:inline 
-      async
-      data-domain={domain}
-      src={`${PLAUSIBLE_URL}/js/pa-BJ-QCN7rPt_MdGq6P2gBN.js`}>
-    </script>
+{
+  PLAUSIBLE_URL && (
+    <>
+      {/* Privacy-friendly analytics by Plausible */}
+      <script
+        is:inline
+        async
+        data-domain={domain}
+        src={`${PLAUSIBLE_URL}/js/pa-BJ-QCN7rPt_MdGq6P2gBN.js`}
+      />
 
-    <script is:inline define:vars={{ config }}>
-      window.plausible = window.plausible || function() { 
-        (plausible.q = plausible.q || []).push(arguments) 
-      };
-      plausible.init = plausible.init || function(i) { 
-        plausible.o = i || {} 
-      };
-      plausible.init(config);
-    </script>
-  </>
-)}
+      <script is:inline define:vars={{ config }}>
+        window.plausible = window.plausible || function(){" "}
+        {(plausible.q = plausible.q || []).push(arguments)}; plausible.init =
+        plausible.init || function(i) {(plausible.o = i || {})};
+        plausible.init(config);
+      </script>
+    </>
+  )
+}

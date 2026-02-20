@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { ImageElementSchema, SocialLinkSchema } from './components';
-import { AvailabilityStatusEnum } from './enums';
+import { z } from "zod";
+import { ImageElementSchema, SocialLinkSchema } from "./components";
+import { AvailabilityStatusEnum } from "./enums";
 
 export const StrapiPortfolioSchema = z.object({
   id: z.number(),
@@ -25,7 +25,7 @@ export const StrapiPortfolioSchema = z.object({
   // Professional Information
   yearsOfExperience: z.number().nullable().optional(),
   location: z.string().max(100).nullable().optional(),
-  
+
   // Status and Context
   availabilityStatus: AvailabilityStatusEnum.default("Open to Opportunities"),
   timezone: z.string().default("America/Edmonton"),

@@ -4,17 +4,17 @@
  * Used in AboutSection for "Learn More" CTAs
  */
 
-import type { JSX } from 'react';
-import { IconRenderer } from '~/components/blocks/IconRenderer';
-import { cn } from '~/lib/utils';
-import type { IconComponent } from '~/types/icons';
+import type { JSX } from "react";
+import { IconRenderer } from "~/components/blocks/IconRenderer";
+import { cn } from "~/lib/utils";
+import type { IconComponent } from "~/types/icons";
 
 export type LearnMoreCardVariant =
-  | 'cyan-blue'
-  | 'emerald-teal'
-  | 'purple-pink'
-  | 'orange-red'
-  | 'indigo-purple';
+  | "cyan-blue"
+  | "emerald-teal"
+  | "purple-pink"
+  | "orange-red"
+  | "indigo-purple";
 
 export interface LearnMoreCardProps {
   /** Link destination */
@@ -43,35 +43,38 @@ export interface LearnMoreCardProps {
  * Variant class mappings
  * Pre-defined to work with Tailwind JIT compiler
  */
-const variantStyles: Record<LearnMoreCardVariant, {
-  card: string;
-  icon: string;
-  button: string;
-}> = {
-  'cyan-blue': {
-    card: 'bg-gradient-to-br from-cyan-500/10 to-blue-500/10 hover:from-cyan-400/20 hover:to-blue-500/20 border-cyan-400/30',
-    icon: 'bg-gradient-to-br from-cyan-400 to-blue-500',
-    button: 'text-cyan-400',
+const variantStyles: Record<
+  LearnMoreCardVariant,
+  {
+    card: string;
+    icon: string;
+    button: string;
+  }
+> = {
+  "cyan-blue": {
+    card: "bg-gradient-to-br from-cyan-500/10 to-blue-500/10 hover:from-cyan-400/20 hover:to-blue-500/20 border-cyan-400/30",
+    icon: "bg-gradient-to-br from-cyan-400 to-blue-500",
+    button: "text-cyan-400",
   },
-  'emerald-teal': {
-    card: 'bg-gradient-to-br from-emerald-500/10 to-teal-500/10 hover:from-emerald-400/20 hover:to-teal-500/20 border-emerald-400/30',
-    icon: 'bg-gradient-to-br from-emerald-400 to-teal-500',
-    button: 'text-emerald-400',
+  "emerald-teal": {
+    card: "bg-gradient-to-br from-emerald-500/10 to-teal-500/10 hover:from-emerald-400/20 hover:to-teal-500/20 border-emerald-400/30",
+    icon: "bg-gradient-to-br from-emerald-400 to-teal-500",
+    button: "text-emerald-400",
   },
-  'purple-pink': {
-    card: 'bg-gradient-to-br from-purple-500/10 to-pink-500/10 hover:from-purple-400/20 hover:to-pink-500/20 border-purple-400/30',
-    icon: 'bg-gradient-to-br from-purple-400 to-pink-500',
-    button: 'text-purple-400',
+  "purple-pink": {
+    card: "bg-gradient-to-br from-purple-500/10 to-pink-500/10 hover:from-purple-400/20 hover:to-pink-500/20 border-purple-400/30",
+    icon: "bg-gradient-to-br from-purple-400 to-pink-500",
+    button: "text-purple-400",
   },
-  'orange-red': {
-    card: 'bg-gradient-to-br from-orange-500/10 to-red-500/10 hover:from-orange-400/20 hover:to-red-500/20 border-orange-400/30',
-    icon: 'bg-gradient-to-br from-orange-400 to-red-500',
-    button: 'text-orange-400',
+  "orange-red": {
+    card: "bg-gradient-to-br from-orange-500/10 to-red-500/10 hover:from-orange-400/20 hover:to-red-500/20 border-orange-400/30",
+    icon: "bg-gradient-to-br from-orange-400 to-red-500",
+    button: "text-orange-400",
   },
-  'indigo-purple': {
-    card: 'bg-gradient-to-br from-indigo-500/10 to-purple-500/10 hover:from-indigo-400/20 hover:to-purple-500/20 border-indigo-400/30',
-    icon: 'bg-gradient-to-br from-indigo-400 to-purple-500',
-    button: 'text-indigo-400',
+  "indigo-purple": {
+    card: "bg-gradient-to-br from-indigo-500/10 to-purple-500/10 hover:from-indigo-400/20 hover:to-purple-500/20 border-indigo-400/30",
+    icon: "bg-gradient-to-br from-indigo-400 to-purple-500",
+    button: "text-indigo-400",
   },
 };
 
@@ -102,7 +105,7 @@ export function LearnMoreCard({
   className,
   iconClassName,
   buttonClassName,
-  variant = 'cyan-blue',
+  variant = "cyan-blue",
   href,
   title,
   children,
@@ -116,40 +119,38 @@ export function LearnMoreCard({
     <a
       href={href}
       className={cn(
-        'group rounded-lg p-4 border transition-all duration-300 hover:scale-105',
+        "group rounded-lg border p-4 transition-all duration-300 hover:scale-105",
         styles.card,
-        className
+        className,
       )}
     >
-      <div className="flex items-center gap-3 mb-2">
+      <div className="mb-2 flex items-center gap-3">
         <div
           className={cn(
-            'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0',
+            "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg",
             styles.icon,
-            iconClassName
+            iconClassName,
           )}
         >
-          <IconRenderer icon={icon} className="w-5 h-5 text-white" />
+          <IconRenderer icon={icon} className="h-5 w-5 text-white" />
         </div>
         <h4 className="text-base font-bold text-white">{title}</h4>
       </div>
 
-      {children && (
-        <p className="text-xs text-gray-400 mb-2">{children}</p>
-      )}
+      {children && <p className="mb-2 text-xs text-gray-400">{children}</p>}
 
       <div
         className={cn(
-          'flex items-center gap-2 text-xs font-medium',
+          "flex items-center gap-2 text-xs font-medium",
           styles.button,
-          buttonClassName
+          buttonClassName,
         )}
       >
         <span>{buttonText}</span>
         {buttonIcon && (
           <IconRenderer
             icon={buttonIcon}
-            className="w-3 h-3 transition-transform group-hover:translate-x-1"
+            className="h-3 w-3 transition-transform group-hover:translate-x-1"
           />
         )}
       </div>

@@ -4,12 +4,12 @@
  * Handles positioning, scaling, rotation, opacity, and animation
  */
 
-import type { JSX } from 'react';
-import { useRef, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
-import type { Group } from 'three';
-import { applyAnimation } from '~/lib/utils/scene';
-import type { SceneObjectProps } from './types';
+import type { JSX } from "react";
+import { useRef, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Group } from "three";
+import { applyAnimation } from "~/lib/utils/scene";
+import type { SceneObjectProps } from "./types";
 
 /**
  * SceneObject - Universal wrapper for all scene objects
@@ -44,17 +44,13 @@ export function SceneObject({
   const internalRef = useRef<Group>(null);
   const ref = objectRef || internalRef;
 
-  const {
-    position,
-    rotation = [0, 0, 0],
-    scale = 1,
-    animation,
-  } = config;
+  const { position, rotation = [0, 0, 0], scale = 1, animation } = config;
 
   // Apply scale (support both uniform and non-uniform)
-  const scaleArray: [number, number, number] = typeof scale === 'number'
-    ? [scale, scale, scale]
-    : (scale as [number, number, number]);
+  const scaleArray: [number, number, number] =
+    typeof scale === "number"
+      ? [scale, scale, scale]
+      : (scale as [number, number, number]);
 
   // Set initial position and rotation
   useEffect(() => {
@@ -67,7 +63,7 @@ export function SceneObject({
 
   // Apply animation if provided
   useFrame(({ clock }) => {
-    if (animation && animation !== 'custom' && ref.current) {
+    if (animation && animation !== "custom" && ref.current) {
       const time = clock.getElapsedTime();
       applyAnimation(ref, time, animation);
     }

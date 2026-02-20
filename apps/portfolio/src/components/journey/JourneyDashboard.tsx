@@ -6,16 +6,36 @@
  * Phase 3 Task #5: DetailsModal lazy-loaded for bundle optimization
  */
 
-import { lazy, Suspense, useState } from 'react';
-import { StreamGraph, Heatmap, SankeyDiagram, SpiderChart, ForceDirectedGraph } from '~/components/visualizations/journey';
-import { CareerStats, Toolbar, GrowthMetrics } from '~/components/ui/journey';
-import { getSkillDetails, type SkillsOverTime, type SkillsNetworkData, type SkillNode, type SankeyData, type HeatmapCell, type StreamGraphStep, type GrowthData, type CareerStat as CareerStatsType } from '~/lib/transformers/journey';
+import { lazy, Suspense, useState } from "react";
+import {
+  StreamGraph,
+  Heatmap,
+  SankeyDiagram,
+  SpiderChart,
+  ForceDirectedGraph,
+} from "~/components/visualizations/journey";
+import { CareerStats, Toolbar, GrowthMetrics } from "~/components/ui/journey";
+import {
+  getSkillDetails,
+  type SkillsOverTime,
+  type SkillsNetworkData,
+  type SkillNode,
+  type SankeyData,
+  type HeatmapCell,
+  type StreamGraphStep,
+  type GrowthData,
+  type CareerStat as CareerStatsType,
+} from "~/lib/transformers/journey";
 
 // Lazy load DetailsModal - only loads when user clicks to view skill details
-const DetailsModal = lazy(() => import('~/components/ui/journey/DetailsModal').then(m => ({ default: m.DetailsModal })));
-import type { Experience } from '~/lib/transformers/experiences';
-import type { Education } from '~/lib/transformers/education';
-import type { Project } from '~/lib/transformers/projects';
+const DetailsModal = lazy(() =>
+  import("~/components/ui/journey/DetailsModal").then((m) => ({
+    default: m.DetailsModal,
+  })),
+);
+import type { Experience } from "~/lib/transformers/experiences";
+import type { Education } from "~/lib/transformers/education";
+import type { Project } from "~/lib/transformers/projects";
 
 interface JourneyDashboardProps {
   evolutionData: SkillsOverTime[];
@@ -34,7 +54,7 @@ interface JourneyDashboardProps {
   hideMetrics?: boolean;
 }
 
-type TabType = 'evolution' | 'network' | 'flow' | 'momentum' | 'intensity';
+type TabType = "evolution" | "network" | "flow" | "momentum" | "intensity";
 
 export function JourneyDashboard({
   evolutionData,
@@ -52,8 +72,8 @@ export function JourneyDashboard({
   hideStats = false,
   hideMetrics = false,
 }: JourneyDashboardProps) {
-  const [activeTab, setActiveTab] = useState<TabType>('evolution');
-  
+  const [activeTab, setActiveTab] = useState<TabType>("evolution");
+
   // Modal state for network graph
   const [selectedSkill, setSelectedSkill] = useState<SkillNode | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,27 +83,56 @@ export function JourneyDashboard({
     setIsModalOpen(true);
   };
 
-  const skillDetails = selectedSkill 
+  const skillDetails = selectedSkill
     ? getSkillDetails(selectedSkill.name, experiences, education, projects)
     : null;
 
   const tabs = [
-    { id: 'evolution', label: 'Growth & Distribution', icon: '📊', description: 'Spider chart showing category dominance' },
-    { id: 'network', label: 'Technology Web', icon: '🕸️', description: 'Relationships between skills' },
-    { id: 'flow', label: 'Skill Impact Flow', icon: '🌊', description: 'Categories → Skills → Experiences' },
-    { id: 'momentum', label: 'Skill Momentum', icon: '📈', description: 'Continuous evolution of skill frequency' },
-    { id: 'intensity', label: 'Usage Intensity', icon: '🔥', description: 'Monthly skill usage heat-map' },
+    {
+      id: "evolution",
+      label: "Growth & Distribution",
+      icon: "📊",
+      description: "Spider chart showing category dominance",
+    },
+    {
+      id: "network",
+      label: "Technology Web",
+      icon: "🕸️",
+      description: "Relationships between skills",
+    },
+    {
+      id: "flow",
+      label: "Skill Impact Flow",
+      icon: "🌊",
+      description: "Categories → Skills → Experiences",
+    },
+    {
+      id: "momentum",
+      label: "Skill Momentum",
+      icon: "📈",
+      description: "Continuous evolution of skill frequency",
+    },
+    {
+      id: "intensity",
+      label: "Usage Intensity",
+      icon: "🔥",
+      description: "Monthly skill usage heat-map",
+    },
   ];
 
   return (
-    <div className="py-16 overflow-visible">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+    <div className="overflow-visible py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Dashboard Header */}
         {!hideHeader && (
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">Technical Expertise Deep-Dive</h2>
-            <p className="text-gray-600 dark:text-gray-400 text-center">Explore different perspectives of my technical evolution and impact</p>
+            <h2 className="mb-4 text-center text-3xl font-bold text-gray-900 dark:text-white">
+              Technical Expertise Deep-Dive
+            </h2>
+            <p className="text-center text-gray-600 dark:text-gray-400">
+              Explore different perspectives of my technical evolution and
+              impact
+            </p>
           </div>
         )}
 
@@ -101,17 +150,16 @@ export function JourneyDashboard({
           </div>
         )}
 
-
         {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {tabs.map(tab => (
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
+          {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as TabType)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${
+              className={`flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold transition-all ${
                 activeTab === tab.id
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
-                  : 'bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none"
+                  : "bg-gray-50 text-gray-500 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
               }`}
             >
               <span>{tab.icon}</span>
@@ -125,42 +173,35 @@ export function JourneyDashboard({
         </div>
 
         {/* Active Tab Content */}
-        <div className="bg-gray-200/50 rounded-3xl p-6 md:p-10 border border-gray-100 dark:border-gray-800 min-h-[600px] flex flex-col">
-          
+        <div className="flex min-h-[600px] flex-col rounded-3xl border border-gray-100 bg-gray-200/50 p-6 md:p-10 dark:border-gray-800">
           <div className="mb-8 text-center md:text-left">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center md:text-left">
-              {tabs.find(t => t.id === activeTab)?.label}
+            <h3 className="mb-2 text-center text-2xl font-bold text-gray-900 md:text-left dark:text-white">
+              {tabs.find((t) => t.id === activeTab)?.label}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-center md:text-left">
-              {tabs.find(t => t.id === activeTab)?.description}
+            <p className="text-center text-gray-600 md:text-left dark:text-gray-400">
+              {tabs.find((t) => t.id === activeTab)?.description}
             </p>
           </div>
 
           <div className="flex-1">
-            {activeTab === 'evolution' && (
-              <div className="max-w-4xl mx-auto">
+            {activeTab === "evolution" && (
+              <div className="mx-auto max-w-4xl">
                 <SpiderChart data={evolutionData} />
               </div>
             )}
 
-            {activeTab === 'network' && (
-              <ForceDirectedGraph 
-                data={networkData} 
+            {activeTab === "network" && (
+              <ForceDirectedGraph
+                data={networkData}
                 onNodeClick={handleNodeClick}
               />
             )}
 
-            {activeTab === 'flow' && (
-              <SankeyDiagram data={sankeyData} />
-            )}
+            {activeTab === "flow" && <SankeyDiagram data={sankeyData} />}
 
-            {activeTab === 'momentum' && (
-              <StreamGraph data={streamGraphData} />
-            )}
+            {activeTab === "momentum" && <StreamGraph data={streamGraphData} />}
 
-            {activeTab === 'intensity' && (
-              <Heatmap data={heatmapData} />
-            )}
+            {activeTab === "intensity" && <Heatmap data={heatmapData} />}
           </div>
         </div>
 
@@ -172,7 +213,6 @@ export function JourneyDashboard({
             skillDetails={skillDetails}
           />
         </Suspense>
-
       </div>
     </div>
   );

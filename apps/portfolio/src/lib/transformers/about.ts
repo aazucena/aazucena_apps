@@ -1,15 +1,12 @@
-import type { StrapiAbout } from '../validators/about';
-import {
-  transformStats,
-  transformCtaButton,
-} from './utils';
+import type { StrapiAbout } from "../validators/about";
+import { transformStats, transformCtaButton } from "./utils";
 import type {
   FocusArea,
   NarrativeItem,
   WorkflowItem,
   LanguageItem,
-  WorkingStyleItem
-} from '../validators/components';
+  WorkingStyleItem,
+} from "../validators/components";
 
 export interface AboutData {
   tagline: string;
@@ -23,7 +20,7 @@ export interface AboutData {
     icon?: any;
     button: ReturnType<typeof transformCtaButton>;
   }[];
-  
+
   // Managed narrative sections
   focusAreas: FocusArea[];
   roots: NarrativeItem[];
@@ -35,7 +32,7 @@ export interface AboutData {
 }
 
 export const DEFAULT_ABOUT: AboutData = {
-  tagline: 'Building Products That Drive Impact',
+  tagline: "Building Products That Drive Impact",
   descriptions: [],
   highlights: [],
   stats: [],
@@ -57,7 +54,7 @@ export function transformAbout(data: StrapiAbout): AboutData {
     descriptions: data.descriptions,
     highlights: data.highlights,
     stats: (data.stats || []).map(transformStats),
-    learnMoreCards: (data.learnMoreCards || []).map(card => ({
+    learnMoreCards: (data.learnMoreCards || []).map((card) => ({
       title: card.title,
       variant: card.variant || undefined,
       description: card.description || undefined,

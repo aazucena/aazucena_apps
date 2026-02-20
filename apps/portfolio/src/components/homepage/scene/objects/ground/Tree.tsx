@@ -3,8 +3,8 @@
  * Simple tree with trunk and foliage
  */
 
-import type { JSX } from 'react';
-import type { SceneObjectConfig } from '../types';
+import type { JSX } from "react";
+import type { SceneObjectConfig } from "../types";
 
 interface TreeProps {
   opacity: number;

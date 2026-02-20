@@ -3,9 +3,9 @@
  * Displays a list of skill badges in a flex-wrap container
  */
 
-import type { JSX } from 'react';
-import { Badge } from '../common/Badge';
-import type { BadgeVariant } from '../common/Badge';
+import type { JSX } from "react";
+import { Badge } from "../common/Badge";
+import type { BadgeVariant } from "../common/Badge";
 
 export interface Skill {
   name: string;
@@ -28,38 +28,38 @@ export interface SkillBadgeListProps {
 function mapGradientToVariant(gradient: string): BadgeVariant {
   // Extract the first color from gradient string
   const match = gradient.match(/from-(\w+)-/);
-  const color = match?.[1] || 'cyan';
+  const color = match?.[1] || "cyan";
 
   // Map to Badge variants
   const variantMap: Record<string, BadgeVariant> = {
-    cyan: 'cyan',
-    blue: 'blue',
-    purple: 'purple',
-    pink: 'pink',
-    green: 'emerald',
-    emerald: 'emerald',
-    yellow: 'yellow',
-    orange: 'orange',
-    red: 'orange', // fallback to orange
-    gray: 'gray',
+    cyan: "cyan",
+    blue: "blue",
+    purple: "purple",
+    pink: "pink",
+    green: "emerald",
+    emerald: "emerald",
+    yellow: "yellow",
+    orange: "orange",
+    red: "orange", // fallback to orange
+    gray: "gray",
   };
 
-  return variantMap[color] || 'cyan';
+  return variantMap[color] || "cyan";
 }
 
 /**
  * SkillBadgeList
  * Renders skills as badges in a centered flex-wrap layout
  */
-export function SkillBadgeList({ skills, variant, className = '' }: SkillBadgeListProps): JSX.Element {
+export function SkillBadgeList({
+  skills,
+  variant,
+  className = "",
+}: SkillBadgeListProps): JSX.Element {
   return (
-    <div className={`flex flex-wrap gap-3 justify-center ${className}`}>
+    <div className={`flex flex-wrap justify-center gap-3 ${className}`}>
       {skills.map((skill) => (
-        <Badge
-          key={skill.name}
-          variant={variant || 'cyan'}
-          size="md"
-        >
+        <Badge key={skill.name} variant={variant || "cyan"} size="md">
           {skill.name}
         </Badge>
       ))}

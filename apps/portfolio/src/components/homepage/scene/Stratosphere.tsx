@@ -7,37 +7,49 @@
  * REDUCTION: 134 lines removed (45% smaller!)
  */
 
-import type { JSX } from 'react';
-import { useRef, useMemo, useEffect, memo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Cloud } from '@react-three/drei';
-import * as THREE from 'three';
-import type { Group } from 'three';
-import type { CloudData } from '~/config/animations';
-import { SceneObjectManager } from './objects';
-import { stratosphereObjects } from '~/data/scene/objects';
+import type { JSX } from "react";
+import { useRef, useMemo, useEffect, memo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Cloud } from "@react-three/drei";
+import * as THREE from "three";
+import type { Group } from "three";
+import type { CloudData } from "~/config/animations";
+import { SceneObjectManager } from "./objects";
+import { stratosphereObjects } from "~/data/scene/objects";
 
 export interface StratosphereProps {
   clouds: CloudData[];
   opacity: number;
 }
 
-function StratosphereComponent({ clouds, opacity }: StratosphereProps): JSX.Element {
+function StratosphereComponent({
+  clouds,
+  opacity,
+}: StratosphereProps): JSX.Element {
   // Cloud refs for smooth animation
   const cloudRefs = useRef<(Group | null)[]>([]);
 
   // Cloud animation offsets (random phase for each cloud)
-  const cloudOffsets = useMemo(() =>
-    clouds.map(() => Math.random() * Math.PI * 2)
-  , [clouds]);
+  const cloudOffsets = useMemo(
+    () => clouds.map(() => Math.random() * Math.PI * 2),
+    [clouds],
+  );
 
   // Initialize cloud positions and materials
   useEffect(() => {
     cloudRefs.current.forEach((cloudRef, i) => {
       if (cloudRef && clouds[i]) {
         const cloud = clouds[i]!;
-        cloudRef.position.set(cloud.position[0], cloud.position[1], cloud.position[2]);
-        cloudRef.rotation.set(cloud.rotation[0], cloud.rotation[1], cloud.rotation[2]);
+        cloudRef.position.set(
+          cloud.position[0],
+          cloud.position[1],
+          cloud.position[2],
+        );
+        cloudRef.rotation.set(
+          cloud.rotation[0],
+          cloud.rotation[1],
+          cloud.rotation[2],
+        );
 
         // Make clouds bright and white with varying shadow amounts
         cloudRef.traverse((child) => {
@@ -73,12 +85,14 @@ function StratosphereComponent({ clouds, opacity }: StratosphereProps): JSX.Elem
 
         // Smooth horizontal drift - subtract initial offset so animation starts from base position
         const initialDriftX = Math.sin(offset) * 1.5;
-        const driftX = Math.sin(time * cloud.speed + offset) * 1.5 - initialDriftX;
+        const driftX =
+          Math.sin(time * cloud.speed + offset) * 1.5 - initialDriftX;
         cloudRef.position.x = cloud.position[0] + driftX;
 
         // Gentle vertical bobbing - subtract initial offset so animation starts from base position
         const initialBobY = Math.sin(offset) * 0.3;
-        const bobY = Math.sin(time * cloud.speed * 0.5 + offset) * 0.3 - initialBobY;
+        const bobY =
+          Math.sin(time * cloud.speed * 0.5 + offset) * 0.3 - initialBobY;
         cloudRef.position.y = cloud.position[1] + bobY;
 
         // Keep original z position (no animation)
@@ -116,7 +130,7 @@ function StratosphereComponent({ clouds, opacity }: StratosphereProps): JSX.Elem
       <SceneObjectManager
         objects={stratosphereObjects.easterEggs}
         opacity={opacity}
-        categoryFilter={['easter-egg']}
+        categoryFilter={["easter-egg"]}
       />
     </>
   );
@@ -126,12 +140,15 @@ function StratosphereComponent({ clouds, opacity }: StratosphereProps): JSX.Elem
  * Memoized Stratosphere component
  * Only re-renders when clouds data or opacity change
  */
-export const Stratosphere = memo(StratosphereComponent, (prevProps, nextProps) => {
-  // Return true if props are equal (skip re-render)
-  return (
-    prevProps.clouds === nextProps.clouds &&
-    Math.abs(prevProps.opacity - nextProps.opacity) < 0.01
-  );
-});
+export const Stratosphere = memo(
+  StratosphereComponent,
+  (prevProps, nextProps) => {
+    // Return true if props are equal (skip re-render)
+    return (
+      prevProps.clouds === nextProps.clouds &&
+      Math.abs(prevProps.opacity - nextProps.opacity) < 0.01
+    );
+  },
+);
 
-Stratosphere.displayName = 'Stratosphere';
+Stratosphere.displayName = "Stratosphere";
