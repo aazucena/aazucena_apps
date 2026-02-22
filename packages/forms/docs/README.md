@@ -1,4 +1,4 @@
-# Forms Package Documentation
+# @aazucena/forms : Input_Intelligence_System Documentation
 
 ## 📚 DOCUMENTATION_INDEX
 
@@ -16,21 +16,21 @@ Complete reference for the aazucena Input Intelligence System.
 
 ## Core Topics
 
-### Field Components
+### [Field Components] : UI_Integration
 
-Reusable form inputs with built-in validation: TextField, TextArea, SelectField, CheckboxField, RadioGroup.
+Our forms use the `@aazucena/ui` library for the visual presentation layer. The `Form` components in the UI package provide the necessary `variant` support (`default`, `glass`, `cyber`) and are fully compatible with TanStack Form.
 
-### Multi-Step Wizards
+### [Multi-Step Wizards] : Orchestration
 
-State machine-driven forms with step validation, progress tracking, and persistence.
+Managed by the `FormWizard` component in `src/components/FormWizard.tsx`. Provides step tracking, progress indicators, and built-in AI engagement challenges.
 
-### Validation Schemas
+### [Validation Schemas] : The_Guards
 
-Pre-built Zod schemas for common forms: contact, feedback, testimonial, bug report, feature request.
+Centralized Zod validation schemas for all 8 core form types (Contact, Feedback, Testimonial, etc.) located in `src/schemas/index.ts`.
 
-### Inquiry Firewall
+### [Inquiry Firewall] : The_Intelligence
 
-AI-powered scheduling gating system with context-aware filtering and alternative suggestion engine.
+AI-powered scheduling gating system with context-aware filtering via `useEasterEggChallenge.ts`.
 
 ---
 

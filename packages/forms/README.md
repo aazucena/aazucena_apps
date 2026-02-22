@@ -2,159 +2,128 @@
 
 ## SUMMARY
 
-Comprehensive form management system built on react-hook-form and Zod. Provides multi-step wizard flows, validation schemas, field components, and AI-powered intelligent inquiry firewall for gated scheduling interactions.
-
----
-
-## 🛠️ TOOLKIT_MANIFEST
-
-| System                 | Protocol        | Description                                                             |
-| :--------------------- | :-------------- | :---------------------------------------------------------------------- |
-| **Field_Components**   | Input_Standard  | TextField, TextArea, SelectField, CheckboxField, RadioGroup.            |
-| **Multi_Step_Wizard**  | State_Machine   | StepForm, WizardProgress, step validation, persistence.                 |
-| **Validation_Schemas** | Zod_Runtime     | Pre-built schemas for contact, feedback, testimonial, bug report forms. |
-| **Inquiry_Firewall**   | AI_Gating       | Intelligent scheduling system with context-aware filtering.             |
-| **Submission_Logic**   | Handler_Factory | Form submission handlers with error handling and success callbacks.     |
-| **Accessibility**      | WCAG_Compliant  | Full ARIA support, keyboard navigation, screen reader optimized.        |
+Comprehensive form management system built on **TanStack Form** and **Zod**. Provides multi-step wizard flows, validation schemas, and AI-powered intelligent inquiry firewall for gated scheduling interactions.
 
 ---
 
 ## 🏗️ SYSTEM_FACTORIES
 
-### [Field Components] : The_Primitives
-
-- **Location:** `src/components/`
-- **Logic:** Reusable form fields with built-in validation and error display.
-- **Exports:** `TextField`, `TextArea`, `SelectField`, `CheckboxField`, `RadioGroup`.
-
 ### [Multi-Step Wizard] : The_Orchestrator
 
-- **Location:** `src/wizard/`
-- **Logic:** State machine for multi-step forms with progress tracking.
-- **Exports:** `StepForm`, `WizardProvider`, `useWizard`, `WizardProgress`.
+- **Location:** `src/components/FormWizard.tsx`
+- **Logic:** State machine for multi-step forms with progress tracking and AI challenge support.
+- **Exports:** `FormWizard`.
 
 ### [Validation Schemas] : The_Guards
 
-- **Location:** `src/schemas/`
-- **Logic:** Zod validation schemas for common form types.
-- **Exports:** `contactSchema`, `feedbackSchema`, `testimonialSchema`, `bugReportSchema`.
+- **Location:** `src/schemas/index.ts`
+- **Logic:** Zod validation schemas for 8 core form types (Contact, Feedback, Testimonial, etc.).
+- **Exports:** `contactFormSchema`, `feedbackFormSchema`, `anyFormSchema`, and more.
 
 ### [Inquiry Firewall] : The_Intelligence
 
-- **Location:** `src/firewall/`
-- **Logic:** AI-powered scheduling gating with context analysis.
-- **Exports:** `InquiryFirewall`, `useInquiryGating`, `validateInquiry`.
+- **Location:** `src/hooks/useEasterEggChallenge.ts`
+- **Logic:** AI-powered engagement challenges that gated form submission until a specific interaction is completed.
+- **Exports:** `useEasterEggChallenge`.
 
 ---
 
 ## 🚦 USAGE_PROTOCOLS
 
-### Basic Form with Validation
+### Basic Form with TanStack Form
 
 ```typescript
-import { Form, TextField } from '@aazucena/forms';
-import { contactSchema } from '@aazucena/forms/schemas';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from '@tanstack/react-form';
+import { zodValidator } from '@tanstack/zod-form-adapter';
+import { Form, FormMessage } from '@aazucena/ui';
+import { ControlledInput, useStrapiFormMutation } from '@aazucena/forms';
+import { contactFormSchema } from '@aazucena/forms/schemas';
 
 function ContactForm() {
   const form = useForm({
-    resolver: zodResolver(contactSchema),
     defaultValues: { name: '', email: '', message: '' },
+    validatorAdapter: zodValidator(),
   });
 
-  const onSubmit = async (data) => {
-    await fetch('/api/contact', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  };
+  const mutation = useStrapiFormMutation('form-submissions', {
+    form,
+    onSuccess: () => alert('Sent!'),
+  });
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <TextField name="name" label="Name" placeholder="Your name" />
-        <TextField name="email" label="Email" type="email" placeholder="you@example.com" />
-        <TextField name="message" label="Message" as="textarea" rows={5} />
-        <button type="submit">Send</button>
-      </form>
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className="space-y-6"
+    >
+      <ControlledInput
+        name="name"
+        label="Name"
+        required
+        validators={{ onChange: contactFormSchema.shape.name }}
+      />
+      
+      <button type="submit" disabled={mutation.isPending}>
+        {mutation.isPending ? 'Sending...' : 'Send Message'}
+      </button>
     </Form>
   );
 }
 ```
 
-### Multi-Step Wizard
+### Multi-Step Wizard Integration
 
 ```typescript
-import { StepForm, WizardProvider, WizardProgress } from '@aazucena/forms';
+import { FormWizard } from '@aazucena/forms';
 
 function OnboardingWizard() {
+  const steps = [
+    {
+      id: 'step-1',
+      title: 'Identity',
+      component: <IdentityFields />,
+    },
+    {
+      id: 'step-2',
+      title: 'Telemetry',
+      component: <TelemetryFields />,
+    }
+  ];
+
   return (
-    <WizardProvider totalSteps={3}>
-      <WizardProgress />
-      <StepForm
-        steps={[
-          {
-            id: 'personal',
-            title: 'Personal Info',
-            component: PersonalInfoStep,
-            validation: personalInfoSchema,
-          },
-          {
-            id: 'preferences',
-            title: 'Preferences',
-            component: PreferencesStep,
-            validation: preferencesSchema,
-          },
-          {
-            id: 'confirmation',
-            title: 'Confirmation',
-            component: ConfirmationStep,
-          },
-        ]}
-        onComplete={(data) => {
-          console.log('Wizard complete:', data);
-        }}
-      />
-    </WizardProvider>
+    <FormWizard 
+      steps={steps} 
+      onComplete={async () => {
+        // Final submission logic
+      }} 
+    />
   );
 }
 ```
 
-### Inquiry Firewall (AI Gating)
+### Full-Stack Mutation Bridge
 
 ```typescript
-import { InquiryFirewall, useInquiryGating } from '@aazucena/forms';
+import { useFormMutation } from '@aazucena/forms';
 
-function SchedulingForm() {
-  const { validateInquiry, isGated, reasoning } = useInquiryGating();
-
-  const handleSubmit = async (data) => {
-    const result = await validateInquiry({
-      inquiry: data.message,
-      context: {
-        userType: 'new',
-        urgency: data.urgency,
-        category: data.category,
-      },
-    });
-
-    if (result.isGated) {
-      // Show alternative options or redirect to self-service
-      console.log('Inquiry gated:', result.reasoning);
-      return;
-    }
-
-    // Proceed with scheduling
-    await scheduleCall(data);
-  };
+function AdvancedForm() {
+  const form = useForm({ ... });
+  
+  const mutation = useFormMutation({
+    form,
+    mutationFn: (data) => api.submit(data),
+    mapServerErrors: (err) => ({
+      email: 'This email is already registered in our system.'
+    })
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField name="message" label="What would you like to discuss?" />
-      {isGated && <Alert>{reasoning}</Alert>}
-      <button type="submit">Schedule Call</button>
-    </form>
+    <Form onSubmit={() => mutation.mutate(form.state.values)}>
+      <FormErrorSummary />
+      {/* ... fields ... */}
+    </Form>
   );
 }
 ```
@@ -163,194 +132,18 @@ function SchedulingForm() {
 
 ## ✅ VERIFICATION_SUITE
 
-- **Type Safety:** Full TypeScript + Zod runtime validation.
-- **Accessibility:** WCAG AA compliant, keyboard navigation, ARIA labels.
-- **Performance:** Field-level re-renders, lazy validation, debounced inputs.
-- **Meta-Framework Agnostic:** Works with Next.js, Astro, Remix.
+- **Reactivity:** Uses TanStack Form's granular field-level re-rendering for maximum performance.
+- **Full-Stack:** Direct integration with TanStack Query mutations and server-side error mapping.
+- **Accessibility:** WCAG-compliant error summaries and ARIA-linked field components.
+- **Type Safety:** 100% TypeScript coverage with Zod runtime validation.
+- **AI Integration:** Built-in support for Easter Egg challenges to prevent automated spam.
 
 ---
 
 ## 🔗 DEPENDENCY_GRAPH
 
-**Internal:** @aazucena/ui, @aazucena/types, @aazucena/constants
-**External:** react-hook-form, zod, @hookform/resolvers
-
-**Compatible:** ✅ Next.js | ✅ Astro | ✅ Remix | ✅ Vite
-
----
-
-## 📚 TUTORIAL_GUIDE
-
-### Quick Start
-
-```bash
-# 1. Install dependencies (handled by monorepo)
-pnpm install
-
-# 2. Import form components
-import { Form, TextField } from '@aazucena/forms';
-import { contactSchema } from '@aazucena/forms/schemas';
-```
-
-### Common Patterns
-
-#### Form with Validation
-
-```typescript
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-
-const loginSchema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-});
-
-function LoginForm() {
-  const form = useForm({
-    resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
-  });
-
-  const onSubmit = async (data) => {
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      form.setError('root', { message: 'Login failed' });
-    }
-  };
-
-  return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <TextField name="email" label="Email" {...form.register('email')} />
-      <TextField name="password" label="Password" type="password" {...form.register('password')} />
-      {form.formState.errors.root && <div>{form.formState.errors.root.message}</div>}
-      <button type="submit" disabled={form.formState.isSubmitting}>
-        Log In
-      </button>
-    </form>
-  );
-}
-```
-
-#### Multi-Step Form with Persistence
-
-```typescript
-import { WizardProvider, useWizard } from '@aazucena/forms';
-
-function SignupWizard() {
-  return (
-    <WizardProvider
-      totalSteps={3}
-      persistence="localStorage"
-      persistKey="signup-wizard"
-    >
-      <WizardContent />
-    </WizardProvider>
-  );
-}
-
-function WizardContent() {
-  const {
-    currentStep,
-    nextStep,
-    previousStep,
-    canGoNext,
-    canGoPrevious,
-    formData,
-    updateFormData,
-  } = useWizard();
-
-  const steps = [
-    <AccountStep key="account" data={formData} onChange={updateFormData} />,
-    <ProfileStep key="profile" data={formData} onChange={updateFormData} />,
-    <ConfirmationStep key="confirm" data={formData} />,
-  ];
-
-  return (
-    <div>
-      <progress value={currentStep + 1} max={3} />
-      {steps[currentStep]}
-      <div>
-        <button onClick={previousStep} disabled={!canGoPrevious}>
-          Back
-        </button>
-        <button onClick={nextStep} disabled={!canGoNext}>
-          {currentStep === 2 ? 'Submit' : 'Next'}
-        </button>
-      </div>
-    </div>
-  );
-}
-```
-
-#### Dynamic Field Arrays
-
-```typescript
-import { useFieldArray } from 'react-hook-form';
-
-function ProjectForm() {
-  const form = useForm();
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: 'technologies',
-  });
-
-  return (
-    <form>
-      <div>
-        <label>Technologies</label>
-        {fields.map((field, index) => (
-          <div key={field.id}>
-            <TextField name={`technologies.${index}.name`} placeholder="Technology name" />
-            <button type="button" onClick={() => remove(index)}>
-              Remove
-            </button>
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={() => append({ name: '' })}
-        >
-          Add Technology
-        </button>
-      </div>
-    </form>
-  );
-}
-```
-
-### Troubleshooting
-
-#### Validation Not Working
-
-```typescript
-// ❌ Wrong: Missing zodResolver
-const form = useForm({
-  defaultValues: { email: '' },
-});
-
-// ✅ Correct: Add zodResolver
-import { zodResolver } from '@hookform/resolvers/zod';
-
-const form = useForm({
-  resolver: zodResolver(contactSchema),
-  defaultValues: { email: '' },
-});
-```
-
-#### Form Not Submitting
-
-```typescript
-// ❌ Wrong: Missing form.handleSubmit
-<form onSubmit={onSubmit}>
-
-// ✅ Correct: Wrap with form.handleSubmit
-<form onSubmit={form.handleSubmit(onSubmit)}>
-```
+**Internal:** @aazucena/ui, @aazucena/types, @aazucena/api, @aazucena/utils
+**External:** @tanstack/react-form, @tanstack/zod-form-adapter, zod, framer-motion
 
 ---
 
