@@ -68,16 +68,32 @@ const fields: ConditionField[] = [
 const ConditionDemo = (props: Partial<React.ComponentProps<typeof ConditionRules>>) => {
   const [value, setValue] = useState<ConditionGroup>({
     logic: 'and',
-    conditions: [{ field: 'name', operator: 'contains', value: '' }],
+    conditions: [{ field: 'name', operator: 'icontains', value: '' }],
   });
-  return <ConditionRules fields={fields} value={value} onChange={setValue} {...props} />;
+  return (
+    <div className="space-y-4">
+      <ConditionRules fields={fields} value={value} onChange={setValue} {...props} />
+      <div className="rounded-md bg-muted p-4">
+        <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">Output JSON:</p>
+        <pre className="overflow-auto text-[10px] leading-tight text-foreground">
+          {JSON.stringify(value, null, 2)}
+        </pre>
+      </div>
+    </div>
+  );
 };
 
 export const Basic: Story = {
+  args: {
+    fields,
+  },
   render: () => <ConditionDemo />,
 };
 
 export const Nested: Story = {
+  args: {
+    fields,
+  },
   render: () => {
     const [value, setValue] = useState<ConditionGroup>({
       logic: 'and',
@@ -87,40 +103,65 @@ export const Nested: Story = {
           logic: 'or',
           conditions: [
             { field: 'age', operator: 'gte', value: 18 },
-            { field: 'active', operator: 'eq', value: true },
+            {
+              logic: 'and',
+              conditions: [
+                { field: 'active', operator: 'eq', value: true },
+                { field: 'name', operator: 'istarts_with', value: 'Aldrin' },
+              ],
+            },
           ],
         },
       ],
     });
-    return <ConditionRules fields={fields} value={value} onChange={setValue} />;
+    return (
+      <div className="space-y-4">
+        <ConditionRules fields={fields} value={value} onChange={setValue} />
+        <div className="rounded-md bg-muted p-4">
+          <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">Output JSON:</p>
+          <pre className="overflow-auto text-[10px] leading-tight text-foreground">
+            {JSON.stringify(value, null, 2)}
+          </pre>
+        </div>
+      </div>
+    );
   },
 };
 
 export const Glass: Story = {
+  args: {
+    fields,
+  },
   render: () => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 shadow-xl">
       <ConditionDemo variant="glass" />
     </div>
   ),
 };
 
 export const Cyber: Story = {
+  args: {
+    fields,
+  },
   render: () => <ConditionDemo variant="cyber" />,
 };
 
 export const CustomOperators: Story = {
+  args: {
+    fields,
+  },
   render: () => (
     <ConditionDemo
       operators={[
-        { key: 'eq', label: '==' },
-        { key: 'neq', label: '!=' },
-        { key: 'regex', label: '~' },
+        { key: 'eq', label: 'Is Exactly', fields: 1, allowedTypes: ['*'] },
+        { key: 'null', label: 'Is Empty', fields: 0, allowedTypes: ['*'] },
+        { key: 'regex', label: 'Matches Pattern', fields: 1, allowedTypes: ['string'] },
       ]}
     />
   ),
 };
 
 export const MaxDepth: Story = {
-  args: { maxDepth: 1 },
+  args: { maxDepth: 1, fields },
   render: (args) => <ConditionDemo {...args} />,
 };

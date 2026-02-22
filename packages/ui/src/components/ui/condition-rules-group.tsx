@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '@aazucena/utils';
+import { X, Trash } from '@aazucena/icons';
 import {
   ConditionRulesNode,
   type ConditionRule,
@@ -37,13 +38,21 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
     };
 
     const removeCondition = (index: number) => {
-      onChange({ ...group, conditions: group.conditions.filter((_, i) => i !== index) });
+      const nextConditions = group.conditions.filter((_, i) => i !== index);
+      if (depth === 0 && nextConditions.length === 0) {
+        onChange({
+          ...group,
+          conditions: [{ field: fields[0]?.key || '', operator: 'eq', value: '' }],
+        });
+      } else {
+        onChange({ ...group, conditions: nextConditions });
+      }
     };
 
     const addRule = () => {
       onChange({
         ...group,
-        conditions: [...group.conditions, { field: '', operator: 'eq', value: '' }],
+        conditions: [...group.conditions, { field: fields[0]?.key || '', operator: 'eq', value: '' }],
       });
     };
 
@@ -52,7 +61,10 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
         ...group,
         conditions: [
           ...group.conditions,
-          { logic: 'and', conditions: [{ field: '', operator: 'eq', value: '' }] },
+          {
+            logic: 'and',
+            conditions: [{ field: fields[0]?.key || '', operator: 'eq', value: '' }],
+          },
         ],
       });
     };
@@ -61,60 +73,71 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
       <div
         ref={ref}
         className={cn(
-          'rounded-md border-l-2 pl-3',
+          'rounded-md border-l-2 py-2 px-3 transition-all',
           depth === 0 && 'border-l-0 pl-0',
-          depth > 0 && variant === 'cyber' && 'border-cyan-500/30',
-          depth > 0 && variant !== 'cyber' && 'border-primary/30',
+          depth > 0 && (variant === 'cyber' ? 'bg-cyan-500/5 border-cyan-500/30' : group.logic === 'or' ? `bg-secondary/10 border-secondary/50` : 'bg-primary/10 border-primary/50'),
+          depth > 1 && (variant === 'cyber' ? 'bg-cyan-500/10' : group.logic === 'or' ? `bg-secondary/50` : 'bg-primary/50' ),
         )}
       >
-        <div className="mb-1 flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => onChange({ ...group, logic: group.logic === 'and' ? 'or' : 'and' })}
-            className={cn(
-              'rounded-full px-3 py-0.5 text-xs font-bold tracking-wider uppercase transition-colors',
-              group.logic === 'and'
-                ? 'bg-primary/10 text-primary'
-                : 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-            )}
-          >
-            {group.logic}
-          </button>
+        <div className="mb-3 flex justify-between items-center gap-3">
+          <div className="flex items-center gap-1 rounded-lg border bg-muted/50 p-1 shadow-sm transition-all hover:border-muted-foreground/30">
+            <button
+              type="button"
+              onClick={() => onChange({ ...group, logic: 'and' })}
+              className={cn(
+                'rounded-md px-3 py-1 text-[10px] font-bold tracking-wider uppercase transition-all',
+                group.logic === 'and'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-background/50 hover:text-foreground',
+              )}
+            >
+              And
+            </button>
+            <button
+              type="button"
+              onClick={() => onChange({ ...group, logic: 'or' })}
+              className={cn(
+                'rounded-md px-3 py-1 text-[10px] font-bold tracking-wider uppercase transition-all',
+                group.logic === 'or'
+                  ? 'bg-secondary-500 text-white shadow-sm'
+                  : 'text-muted-foreground hover:bg-background/50 hover:text-foreground',
+              )}
+            >
+              Or
+            </button>
+          </div>
           {onRemove && (
             <button
               type="button"
               onClick={onRemove}
-              className="text-muted-foreground hover:text-destructive rounded p-1"
+              className="text-destructive/80 hover:text-destructive flex h-8 w-8 items-center justify-center rounded-md border border-destructive/20 bg-background shadow-sm transition-all hover:border-destructive/40 hover:bg-destructive/10"
               aria-label="Remove group"
+              title="Delete Group"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <Trash size="16" />
             </button>
           )}
         </div>
 
-        <div className="space-y-1">
-          {group.conditions.map((cond, i) =>
-            isGroup(cond) ? (
+        <div className="space-y-2">
+          {group.conditions.length === 0 && (
+            <div className="text-muted-foreground/50 py-4 text-center text-xs italic">
+              Empty group - add a rule or remove it
+            </div>
+          )}
+          {group.conditions.map((cond, i) => {
+            const isLast = group.conditions.length === 1;
+            const isEmptyGroup = isGroup(cond) && cond.conditions.length === 0;
+            const canRemove = !isLast || depth > 0 || isEmptyGroup;
+
+            return isGroup(cond) ? (
               <ConditionRulesGroup
                 key={i}
                 group={cond}
                 fields={fields}
                 operators={operators}
                 onChange={(g) => updateCondition(i, g)}
-                onRemove={() => removeCondition(i)}
+                onRemove={canRemove ? () => removeCondition(i) : undefined}
                 depth={depth + 1}
                 maxDepth={maxDepth}
                 variant={variant}
@@ -126,28 +149,28 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
                 fields={fields}
                 operators={operators}
                 onChange={(r) => updateCondition(i, r)}
-                onRemove={() => removeCondition(i)}
+                onRemove={canRemove ? () => removeCondition(i) : undefined}
                 variant={variant}
               />
-            ),
-          )}
+            );
+          })}
         </div>
 
-        <div className="mt-2 flex gap-2">
+        <div className="mt-3 flex justify-end gap-2">
           <button
             type="button"
             onClick={addRule}
-            className="text-muted-foreground hover:bg-accent hover:text-foreground rounded-md px-2 py-1 text-xs font-medium transition-colors"
+            className="bg-background hover:bg-accent hover:text-accent-foreground flex h-8 items-center gap-1.5 rounded-md border border-input px-3 py-1 text-xs font-medium shadow-sm transition-colors"
           >
-            + Rule
+            <span className="text-lg leading-none">+</span> Rule
           </button>
           {depth < maxDepth && (
             <button
               type="button"
               onClick={addGroup}
-              className="text-muted-foreground hover:bg-accent hover:text-foreground rounded-md px-2 py-1 text-xs font-medium transition-colors"
+              className="bg-background hover:bg-accent hover:text-accent-foreground flex h-8 items-center gap-1.5 rounded-md border border-input px-3 py-1 text-xs font-medium shadow-sm transition-colors"
             >
-              + Group
+              <span className="text-lg leading-none">+</span> Group
             </button>
           )}
         </div>

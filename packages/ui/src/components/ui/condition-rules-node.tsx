@@ -2,17 +2,22 @@
 
 import * as React from 'react';
 import { cn } from '@aazucena/utils';
+import { X } from '@aazucena/icons';
+
+export type ConditionalFieldType = 'string' | 'number' | 'boolean' | 'date' | 'select';
 
 export interface ConditionField {
   key: string;
   label: string;
-  type?: 'string' | 'number' | 'boolean' | 'date' | 'select';
+  type?: ConditionalFieldType;
   options?: { label: string; value: string }[];
 }
 
 export interface ConditionOperator {
   key: string;
   label: string;
+  allowedTypes?: (ConditionalFieldType | '*')[];
+  fields: 0 | 1 | 2;
 }
 
 export interface ConditionRule {
@@ -26,27 +31,36 @@ export interface ConditionRulesNodeProps {
   fields: ConditionField[];
   operators: ConditionOperator[];
   onChange: (rule: ConditionRule) => void;
-  onRemove: () => void;
+  onRemove?: () => void;
   variant?: string;
 }
 
-const selectClass =
-  'h-8 rounded-md border bg-transparent px-2 text-sm outline-none focus:ring-1 focus:ring-ring';
+const fieldClass =
+  'h-8 rounded-md border bg-transparent px-2 text-sm outline-none focus:ring-1 focus:ring-ring transition-all hover:bg-muted/50';
 
 const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodeProps>(
   ({ rule, fields, operators, onChange, onRemove, variant }, ref) => {
     const field = fields.find((f) => f.key === rule.field);
+    const availableOperators = React.useMemo(() => {
+      return operators.filter((o) =>
+        o.allowedTypes && (o.allowedTypes.includes(field?.type || '*') || o.allowedTypes.includes('*'))
+      );
+    }, [operators, field]);
+
+    const activeOperator = React.useMemo(() => {
+      return operators.find(o => o.key === rule.operator) || availableOperators[0];
+    }, [operators, rule.operator, availableOperators]);
 
     return (
       <div
         ref={ref}
         className={cn(
-          'group hover:bg-accent/30 flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors',
+          'group hover:bg-accent/40 flex items-center gap-2 rounded-md px-2 py-1.5 transition-all duration-200',
           variant === 'cyber' && 'hover:bg-cyan-500/5',
         )}
       >
         <select
-          className={cn(selectClass, 'min-w-[120px]')}
+          className={cn(fieldClass, 'min-w-[120px]')}
           value={rule.field}
           onChange={(e) => onChange({ ...rule, field: e.target.value })}
         >
@@ -59,20 +73,51 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
         </select>
 
         <select
-          className={selectClass}
+          className={cn(fieldClass, 'min-w-[100px]')}
           value={rule.operator}
-          onChange={(e) => onChange({ ...rule, operator: e.target.value })}
+          onChange={(e) => {
+            onChange({ ...rule, operator: e.target.value });
+          }}
         >
-          {operators.map((op) => (
+          {availableOperators.map((op) => (
             <option key={op.key} value={op.key}>
               {op.label}
             </option>
           ))}
         </select>
 
+        {field && activeOperator && activeOperator.fields > 0 && (
+          <ConditionRulesField field={field} rule={rule} onChange={onChange} />
+        )}
+
+        {onRemove && (
+          <button
+            type="button"
+            onClick={onRemove}
+            className="text-destructive/80 hover:text-destructive flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-destructive/20 bg-background shadow-sm transition-all hover:border-destructive/40 hover:bg-destructive/10"
+            aria-label="Remove rule"
+          >
+            <X size="16" />
+          </button>
+        )}
+      </div>
+    );
+  },
+);
+ConditionRulesNode.displayName = 'ConditionRulesNode';
+
+export interface ConditionRulesFieldProps {
+  rule: ConditionRule;
+  field: ConditionField;
+  onChange: (rule: ConditionRule) => void;
+}
+const ConditionRulesField = React.forwardRef<HTMLInputElement, ConditionRulesFieldProps>(
+  ({ rule, field, onChange }, _ref) => {
+    return (
+      <>
         {field?.type === 'select' && field.options ? (
           <select
-            className={cn(selectClass, 'flex-1')}
+            className={cn(fieldClass, 'flex-1')}
             value={String(rule.value ?? '')}
             onChange={(e) => onChange({ ...rule, value: e.target.value })}
           >
@@ -85,7 +130,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
           </select>
         ) : field?.type === 'boolean' ? (
           <select
-            className={selectClass}
+            className={fieldClass}
             value={String(rule.value ?? '')}
             onChange={(e) => onChange({ ...rule, value: e.target.value === 'true' })}
           >
@@ -95,7 +140,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
         ) : (
           <input
             type={field?.type === 'number' ? 'number' : field?.type === 'date' ? 'date' : 'text'}
-            className={cn(selectClass, 'flex-1')}
+            className={cn(fieldClass, 'flex-1')}
             value={String(rule.value ?? '')}
             onChange={(e) =>
               onChange({
@@ -106,32 +151,10 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
             placeholder="Value..."
           />
         )}
-
-        <button
-          type="button"
-          onClick={onRemove}
-          className="text-muted-foreground hover:text-destructive shrink-0 rounded p-1 opacity-0 transition-opacity group-hover:opacity-100"
-          aria-label="Remove rule"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-      </div>
+      </>
     );
   },
 );
-ConditionRulesNode.displayName = 'ConditionRulesNode';
+ConditionRulesField.displayName = 'ConditionRulesField';
 
-export { ConditionRulesNode };
+export { ConditionRulesNode, ConditionRulesField };
