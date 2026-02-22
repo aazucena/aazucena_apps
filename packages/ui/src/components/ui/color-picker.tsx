@@ -3,8 +3,12 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
+import { Popover, PopoverTrigger, PopoverContent } from './popover.js';
+import { Input } from './input.js';
+import { Label } from './label.js';
+import { Paint, Plus } from '@aazucena/icons';
 
-const colorPickerVariants = cva('inline-flex items-center', {
+const colorPickerVariants = cva('inline-flex items-center gap-2', {
   variants: {
     variant: {
       default: '',
@@ -12,39 +16,40 @@ const colorPickerVariants = cva('inline-flex items-center', {
       cyber: '',
     },
     size: {
-      sm: 'gap-1.5 text-xs',
-      md: 'gap-2 text-sm',
-      lg: 'gap-3 text-base',
+      sm: 'text-xs',
+      md: 'text-sm',
+      lg: 'text-base',
     },
   },
   defaultVariants: { variant: 'default', size: 'md' },
 });
 
-const inputStyles: Record<string, string> = {
-  default:
-    'border-input bg-background placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2',
-  glass: 'glass-m border-white/10 placeholder:text-white/40',
-  cyber:
-    'border-cyan-500/30 bg-black/50 text-cyan-50 font-mono placeholder:text-cyan-500/30 focus:border-cyan-400',
-};
-
-const sizeMap: Record<string, { swatch: string; input: string }> = {
-  sm: { swatch: 'h-8 w-8', input: 'h-8 px-2' },
-  md: { swatch: 'h-9 w-9', input: 'h-9 px-3' },
-  lg: { swatch: 'h-10 w-10', input: 'h-10 px-4' },
-};
+const swatchVariants = cva(
+  'rounded-md border shadow-sm transition-all hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  {
+    variants: {
+      size: {
+        sm: 'h-8 w-8',
+        md: 'h-9 w-9',
+        lg: 'h-10 w-10',
+      },
+      variant: {
+        default: 'border-input',
+        glass: 'glass-m border-white/20',
+        cyber: 'border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+      variant: 'default',
+    },
+  },
+);
 
 const DEFAULT_SWATCHES = [
-  '#ef4444',
-  '#f97316',
-  '#eab308',
-  '#22c55e',
-  '#06b6d4',
-  '#3b82f6',
-  '#8b5cf6',
-  '#ec4899',
-  '#000000',
-  '#ffffff',
+  '#ef4444', '#f97316', '#f59e0b', '#22c55e', '#10b981', 
+  '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef',
+  '#f43f5e', '#71717a', '#000000', '#ffffff', '#transparent'
 ];
 
 export interface ColorPickerProps
@@ -76,101 +81,106 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
     const v = variant ?? 'default';
     const s = size ?? 'md';
     const nativePickerId = React.useId();
-    const [showSwatches, setShowSwatches] = React.useState(false);
-    const wrapperRef = React.useRef<HTMLDivElement>(null);
 
-    React.useEffect(() => {
-      const handleClick = (e: MouseEvent) => {
-        if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-          setShowSwatches(false);
-        }
-      };
-      document.addEventListener('mousedown', handleClick);
-      return () => document.removeEventListener('mousedown', handleClick);
-    }, []);
+    const handleColorChange = (newColor: string) => {
+      onChange?.(newColor);
+    };
 
     return (
       <div ref={ref} className={cn(colorPickerVariants({ variant, size }), className)} {...props}>
-        <div ref={wrapperRef} className="relative">
-          <button
-            type="button"
-            onClick={() => setShowSwatches((p) => !p)}
-            disabled={disabled}
-            className={cn(
-              'rounded-md border shadow-sm transition-all',
-              sizeMap[s]?.swatch,
-              v === 'cyber' ? 'border-cyan-500/30' : 'border-input',
-              disabled && 'pointer-events-none opacity-50',
-            )}
-            style={{ backgroundColor: value }}
-            aria-label="Choose color"
-          />
-
-          {showSwatches && (
-            <div
-              className={cn(
-                'absolute top-full left-0 z-50 mt-1 grid grid-cols-5 gap-1 rounded-lg border p-2 shadow-xl',
-                v === 'glass' && 'glass',
-                v === 'cyber' ? 'border-cyan-500/30 bg-gray-950' : 'bg-popover',
-              )}
-            >
-              {swatches.map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => {
-                    onChange?.(c);
-                    setShowSwatches(false);
-                  }}
-                  className={cn(
-                    'h-6 w-6 rounded-sm border transition-all hover:scale-110',
-                    c === value ? 'ring-ring ring-2 ring-offset-2' : 'border-transparent',
-                  )}
-                  style={{ backgroundColor: c }}
-                  aria-label={c}
-                />
-              ))}
-              {/* Native picker */}
-              <label
-                htmlFor={nativePickerId}
-                className="border-muted-foreground/40 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm border border-dashed"
-              >
-                <span className="sr-only">Custom color</span>
-                <input
-                  id={nativePickerId}
-                  type="color"
-                  value={value}
-                  onChange={(e) => onChange?.(e.target.value)}
-                  className="sr-only"
-                />
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="text-muted-foreground"
+        <Popover>
+          <PopoverTrigger asChild>
+            <button
+              type="button"
+              disabled={disabled}
+              className={cn(swatchVariants({ variant: v, size: s }))}
+              style={{ backgroundColor: value === 'transparent' ? 'transparent' : value, backgroundImage: value === 'transparent' ? 'linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)' : undefined, backgroundSize: '10px 10px', backgroundPosition: '0 0, 0 5px, 5px -5px, -5px 0px' }}
+              aria-label="Choose color"
+            />
+          </PopoverTrigger>
+          <PopoverContent 
+            variant={v} 
+            className="w-64 space-y-4 p-4 bg-background"
+          >
+            <div className="space-y-2">
+              <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Presets</Label>
+              <div className="grid grid-cols-5 gap-2">
+                {swatches.map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => handleColorChange(c)}
+                    className={cn(
+                      'group relative h-8 w-8 rounded-md border transition-all hover:scale-110 active:scale-95',
+                      c === value ? 'ring-2 ring-primary ring-offset-2' : 'border-border/50 hover:border-primary/50'
+                    )}
+                    style={{ 
+                      backgroundColor: c === 'transparent' ? 'transparent' : c,
+                      backgroundImage: c === 'transparent' ? 'linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%)' : undefined,
+                      backgroundSize: '8px 8px'
+                    }}
+                    title={c}
+                  >
+                    {c === value && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className={cn("h-1.5 w-1.5 rounded-full", (c === '#ffffff' || c === 'transparent') ? 'bg-black' : 'bg-white')} />
+                      </div>
+                    )}
+                  </button>
+                ))}
+                
+                {/* Custom Color Trigger */}
+                <label
+                  htmlFor={nativePickerId}
+                  className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-dashed border-muted-foreground/40 transition-all hover:border-primary hover:bg-muted/50"
+                  title="Custom Color"
                 >
-                  <path d="M12 5v14" />
-                  <path d="M5 12h14" />
-                </svg>
-              </label>
+                  <Plus className="h-4 w-4 text-muted-foreground" />
+                  <input
+                    id={nativePickerId}
+                    type="color"
+                    value={value.startsWith('#') ? value : '#000000'}
+                    onChange={(e) => handleColorChange(e.target.value)}
+                    className="sr-only"
+                  />
+                </label>
+              </div>
             </div>
-          )}
-        </div>
+
+            <div className="space-y-2 pt-2 border-t">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="hex-input" className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">HEX Code</Label>
+                <Paint className="h-3 w-3 text-muted-foreground" />
+              </div>
+              <div className="flex gap-2">
+                <div 
+                  className="h-9 w-9 shrink-0 rounded-md border" 
+                  style={{ backgroundColor: value }} 
+                />
+                <Input
+                  id="hex-input"
+                  variant={v}
+                  value={value}
+                  onChange={(e) => handleColorChange(e.target.value)}
+                  className="h-9 font-mono text-xs uppercase"
+                  placeholder="#000000"
+                />
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
 
         {showInput && (
-          <input
-            type="text"
+          <Input
+            variant={v}
             value={value}
             disabled={disabled}
-            onChange={(e) => onChange?.(e.target.value)}
+            onChange={(e) => handleColorChange(e.target.value)}
             className={cn(
-              'w-24 rounded-md border transition-all outline-none',
-              inputStyles[v],
-              sizeMap[s]?.input,
-              disabled && 'pointer-events-none opacity-50',
+              'w-28 font-mono text-xs uppercase',
+              v === 'cyber' ? 'h-9' : '',
+              size === 'sm' && 'h-8 w-24',
+              size === 'lg' && 'h-10 w-32'
             )}
           />
         )}
