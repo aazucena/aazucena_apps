@@ -88,3 +88,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+@import './code-blocks.css';

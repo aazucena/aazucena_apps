@@ -4,6 +4,9 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getHighlighter } from '@aazucena/utils';
 import { Check, Copy } from '@aazucena/icons';
+import type { CodeOptionsMultipleThemes } from 'shiki';
+
+export type CodeBlockDualTheme = CodeOptionsMultipleThemes['themes'];
 
 const codeBlockVariants = cva('relative w-full overflow-hidden rounded-lg', {
   variants: {
@@ -26,7 +29,7 @@ export interface CodeBlockProps
   highlightLines?: number[];
   fileName?: string;
   copyable?: boolean;
-  theme?: string;
+  theme?: CodeBlockDualTheme;
 }
 
 export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
@@ -49,8 +52,18 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
     const [copied, setCopied] = React.useState(false);
     const [highlightedCode, setHighlightedCode] = React.useState<string | null>(null);
 
-    const defaultTheme = v === 'cyber' ? 'nord' : 'github-dark';
-    const activeTheme = theme || defaultTheme;
+    const getDualThemeBYVariant = (variant: VariantProps<typeof codeBlockVariants>['variant']): CodeBlockDualTheme =>  {
+      switch(variant) {
+        case 'cyber':
+          return { light: 'nord', dark: 'nord' };
+        case 'glass':
+          return { light: 'slack-ochin', dark: 'slack-dark' };
+        default:
+          return { light: 'github-light', dark: 'github-dark' };
+      }
+    };
+
+    const activeTheme = theme || getDualThemeBYVariant(variant);
 
     React.useEffect(() => {
       let isMounted = true;
@@ -59,7 +72,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
           const highlighter = await getHighlighter();
           const html = highlighter.codeToHtml(code, {
             lang: language,
-            theme: activeTheme,
+            themes: activeTheme,
           });
           if (isMounted) setHighlightedCode(html);
         } catch (error) {

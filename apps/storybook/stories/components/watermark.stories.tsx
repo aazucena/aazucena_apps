@@ -88,6 +88,9 @@ export const HugeBranding: Story = {
  * Showcase of different size presets in smaller containers.
  */
 export const SizePresets: Story = {
+  args: {
+    text: 'Watermark',
+  },
   render: () => (
     <div className="space-y-12 p-20">
       <div className="relative h-40 w-full border border-dashed rounded-2xl overflow-hidden bg-muted/5">

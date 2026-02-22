@@ -147,15 +147,6 @@ export const Glass: Story = {
     variant: 'glass',
     fileName: 'helpers.ts',
   },
-  decorators: [
-    (Story) => (
-      <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
-        <div className="w-[520px]">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
 };
 
 /**
@@ -170,9 +161,7 @@ export const Cyber: Story = {
   decorators: [
     (Story) => (
       <div className="rounded-2xl bg-black p-8">
-        <div className="w-[520px]">
-          <Story />
-        </div>
+        <Story />
       </div>
     ),
   ],
@@ -205,6 +194,9 @@ export const NoLineNumbers: Story = {
  * Multi-language showcase demonstrating JSX and CSS code blocks side by side.
  */
 export const MultiLanguage: Story = {
+  args: {
+    code: sampleJSX,
+  },
   render: () => (
     <div className="flex flex-col gap-4">
       <CodeBlock code={sampleJSX} language="tsx" fileName="App.tsx" />

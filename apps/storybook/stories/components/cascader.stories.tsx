@@ -111,6 +111,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
+  args: {
+    options: locationOptions,
+  },
   render: () => {
     const [value, setValue] = React.useState<string[]>([]);
     return (
@@ -125,6 +128,9 @@ export const Basic: Story = {
 };
 
 export const HoverExpand: Story = {
+  args: {
+    options: locationOptions,
+  },
   render: () => {
     const [value, setValue] = React.useState<string[]>([]);
     return (
@@ -139,6 +145,9 @@ export const HoverExpand: Story = {
 };
 
 export const Glass: Story = {
+  args: {
+    options: locationOptions,
+  },
   render: () => {
     const [value, setValue] = React.useState<string[]>([]);
     return (
@@ -155,6 +164,9 @@ export const Glass: Story = {
 };
 
 export const Cyber: Story = {
+  args: {
+    options: locationOptions,
+  },
   render: () => {
     const [value, setValue] = React.useState<string[]>([]);
     return (
@@ -169,6 +181,9 @@ export const Cyber: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    options: locationOptions,
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       {(['sm', 'md', 'lg'] as const).map((s) => (

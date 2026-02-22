@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ScrollArea, ScrollBar } from '@aazucena/ui';
+import { ScrollArea, ScrollBar, Badge } from '@aazucena/ui';
 import { Separator } from '@aazucena/ui';
 import { Database, Terminal, Shield, Zap, Activity } from '@aazucena/icons';
 

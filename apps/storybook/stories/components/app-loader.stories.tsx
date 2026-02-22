@@ -21,6 +21,15 @@ import { useState, useEffect } from 'react';
  * This component follows the "Atomic Composability" pattern. The root `AppLoader`
  * provides the backdrop, while sub-components handle the branding, progress, and status.
  */
+type AppLoaderStoryArgs = React.ComponentProps<typeof AppLoader> & {
+  value?: number;
+  showPercentage?: boolean;
+  progressVariant?: 'default' | 'primary' | 'cyan' | 'destructive';
+  animation?: 'pulse' | 'cyber-pulse' | 'spin' | 'glitch' | 'none';
+  status?: string;
+  title?: string;
+};
+
 const meta = {
   title: 'Components/Feedback/AppLoader',
   component: AppLoader,
@@ -71,10 +80,10 @@ const meta = {
       table: { category: 'Progress' },
     },
   },
-} satisfies Meta<typeof AppLoader>;
+} satisfies Meta<AppLoaderStoryArgs>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<AppLoaderStoryArgs>;
 
 // --- COMPONENT TEMPLATES ---
 
@@ -82,7 +91,7 @@ const StaticLoader = (args: any) => (
   <AppLoader variant={args.variant} isHidden={args.isHidden}>
     <AppLoaderContent>
       <AppLoaderIcon animation={args.animation || 'cyber-pulse'} size="md">
-        <Logo variant={args.variant === 'cyber' ? 'cyber' : 'default'} size="full" />
+        <Logo variant={args.variant === 'cyber' ? 'cyber' : 'main'} size="full" />
       </AppLoaderIcon>
 
       <div className="flex flex-col items-center gap-4">
@@ -177,6 +186,9 @@ export const Glass: Story = {
 };
 
 export const Minimal: Story = {
+  args: {
+    variant: 'default',
+  },
   render: () => (
     <AppLoader variant="default">
       <AppLoaderContent>
@@ -210,6 +222,9 @@ export const ErrorState: Story = {
  * A real-world example of how the loader handles a stateful initialization sequence.
  */
 export const LoadingSequence: Story = {
+  args: {
+    variant: 'default',
+  },
   render: () => <AnimatedSequence variant="default" />,
 };
 

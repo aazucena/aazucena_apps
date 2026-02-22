@@ -140,6 +140,9 @@ export const Minimal: Story = {
  * Side-by-side comparison of all available size presets.
  */
 export const Sizes: Story = {
+  args: {
+    value: 'pnpm dev',
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       <Clipboard size="sm" value="pnpm dev" label="Small" />
@@ -167,6 +170,9 @@ export const ApiKey: Story = {
  * Multiple clipboard items stacked, simulating an environment variables panel.
  */
 export const EnvVariables: Story = {
+  args: {
+    value: 'postgres://localhost:5432/mydb',
+  },
   render: () => (
     <div className="flex flex-col gap-2">
       <Clipboard variant="default" value="postgres://localhost:5432/mydb" label="DATABASE_URL" />

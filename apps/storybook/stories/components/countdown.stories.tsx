@@ -172,6 +172,9 @@ export const Cyber: Story = {
  * All three size presets displayed vertically for direct comparison.
  */
 export const Sizes: Story = {
+  args: {
+    target: FUTURE_24H,
+  },
   render: () => (
     <div className="flex flex-col items-center gap-8">
       <Countdown target={FUTURE_24H} size="sm" label="Small" />

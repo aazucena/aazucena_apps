@@ -126,6 +126,9 @@ export const Default: Story = {
   args: {
     contentMaxWidth: '7xl',
     contentPadding: 'lg',
+    sidebar: <SidebarSlot />,
+    header: <HeaderSlot />,
+    children: (<></>)
   },
   render: (args) => (
     <DashboardLayout {...args} sidebar={<SidebarSlot />} header={<HeaderSlot />}>
@@ -141,6 +144,9 @@ export const CollapsedSidebar: Story = {
   args: {
     contentMaxWidth: '7xl',
     contentPadding: 'lg',
+    sidebar: <SidebarSlot collapsed />,
+    header: <HeaderSlot />,
+    children: (<></>)
   },
   render: (args) => (
     <DashboardLayout {...args} sidebar={<SidebarSlot collapsed />} header={<HeaderSlot />}>
@@ -153,6 +159,13 @@ export const CollapsedSidebar: Story = {
  * Demonstrates all `contentMaxWidth` options with reduced padding.
  */
 export const WithContentMaxWidths: Story = {
+  args: {
+    contentMaxWidth: '7xl',
+    contentPadding: 'lg',
+    sidebar: <SidebarSlot />,
+    header: <HeaderSlot />,
+    children: (<></>)
+  },
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-col gap-8 p-6">

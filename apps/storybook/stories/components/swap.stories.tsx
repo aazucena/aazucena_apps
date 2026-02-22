@@ -138,6 +138,10 @@ export const Cyber: Story = {
  * Comparison of all three size presets rendered side by side.
  */
 export const Sizes: Story = {
+  args: {
+    on: <span>🌙</span>,
+    off: <span>☀️</span>,
+  },
   render: () => (
     <div className="flex items-center gap-6">
       {(['sm', 'md', 'lg'] as const).map((size) => (

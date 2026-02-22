@@ -65,6 +65,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
+  args: {
+    items,
+    targetKeys: ['3'],
+    onChange: () => {},
+  },
   render: () => {
     const [targetKeys, setTargetKeys] = React.useState<string[]>(['3']);
     return <Transfer items={items} targetKeys={targetKeys} onChange={setTargetKeys} />;
@@ -72,6 +77,11 @@ export const Basic: Story = {
 };
 
 export const Searchable: Story = {
+  args: {
+    items,
+    targetKeys: [],
+    onChange: () => {},
+  },
   render: () => {
     const [targetKeys, setTargetKeys] = React.useState<string[]>([]);
     return <Transfer items={items} targetKeys={targetKeys} onChange={setTargetKeys} searchable />;
@@ -79,6 +89,11 @@ export const Searchable: Story = {
 };
 
 export const Glass: Story = {
+  args: {
+    items,
+    targetKeys: [],
+    onChange: () => {},
+  },
   render: () => {
     const [targetKeys, setTargetKeys] = React.useState<string[]>([]);
     return (
@@ -90,6 +105,11 @@ export const Glass: Story = {
 };
 
 export const Cyber: Story = {
+  args: {
+    items,
+    targetKeys: [],
+    onChange: () => {},
+  },
   render: () => {
     const [targetKeys, setTargetKeys] = React.useState<string[]>([]);
     return (
@@ -99,6 +119,11 @@ export const Cyber: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    items,
+    targetKeys: [],
+    onChange: () => {},
+  },
   render: () => {
     const [targetKeys, setTargetKeys] = React.useState<string[]>([]);
     return (
@@ -115,5 +140,11 @@ export const Sizes: Story = {
 };
 
 export const Disabled: Story = {
+  args: {
+    items,
+    targetKeys: ['1', '2'],
+    onChange: () => {},
+    disabled: true,
+  },
   render: () => <Transfer items={items} targetKeys={['1', '2']} onChange={() => {}} disabled />,
 };

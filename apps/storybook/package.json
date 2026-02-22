@@ -35,6 +35,7 @@
     "tw-animate-css": "^1.3.8"
   },
   "devDependencies": {
+    "@aazucena/config": "workspace:*",
     "@aazucena/types": "workspace:*",
     "@chromatic-com/storybook": "^5.0.1",
     "@storybook/addon-a11y": "^10.2.8",

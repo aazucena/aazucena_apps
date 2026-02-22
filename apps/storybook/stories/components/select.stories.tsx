@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
   SelectSeparator,
+  Badge,
 } from '@aazucena/ui';
 import { Globe, Database, Shield, Zap, Activity } from '@aazucena/icons';
 

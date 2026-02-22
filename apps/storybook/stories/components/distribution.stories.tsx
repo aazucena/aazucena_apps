@@ -7,7 +7,7 @@ import {
   DistributionList,
   DistributionTag,
 } from '@aazucena/ui';
-import { Globe, Code, Shield, Activity, Zap } from '@aazucena/icons';
+import { Globe, Code, Shield, Activity, Zap, Database } from '@aazucena/icons';
 
 /**
  * ## Engineering Standards

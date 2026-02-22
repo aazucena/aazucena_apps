@@ -129,6 +129,9 @@ export const Cyber: Story = {
  * All 3 size presets rendered vertically for comparison.
  */
 export const Sizes: Story = {
+  args: {
+    label: 'Size Field',
+  },
   render: () => (
     <div className="flex flex-col gap-6">
       <FloatingLabel size="sm" label="Small Field" />
@@ -156,6 +159,9 @@ export const Multiline: Story = {
  * Realistic form layout with multiple floating label fields stacked.
  */
 export const FormLayout: Story = {
+  args: {
+    label: 'Form Field',
+  },
   render: () => (
     <div className="flex flex-col gap-6">
       <FloatingLabel label="Full Name" />

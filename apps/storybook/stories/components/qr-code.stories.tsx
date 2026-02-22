@@ -153,6 +153,9 @@ export const Cyber: Story = {
  * All three size presets rendered side-by-side.
  */
 export const Sizes: Story = {
+  args: {
+    value: 'https://example.com',
+  },
   render: () => (
     <div className="flex items-end gap-6">
       {(['sm', 'md', 'lg'] as const).map((size) => (

@@ -10,6 +10,11 @@ import { CogFour as Cog, Activity, Shield, Zap, Globe, InfoCircle as Info } from
  * - **Accessibility:** Built-in focus management and keyboard ESC to close; essential for context-specific actions.
  * - **Variants:** Supports high-fidelity `glass` and `cyber` themes.
  */
+type PopoverStoryArgs = React.ComponentProps<typeof Popover> & {
+  variant?: 'default' | 'glass' | 'cyber';
+  side?: 'top' | 'bottom' | 'left' | 'right';
+};
+
 const meta = {
   title: 'Components/Primitives/Popover',
   component: Popover,
@@ -38,10 +43,10 @@ const meta = {
       table: { category: 'Layout' },
     },
   },
-} satisfies Meta<typeof Popover>;
+} satisfies Meta<PopoverStoryArgs>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<PopoverStoryArgs>;
 
 // --- STORIES ---
 

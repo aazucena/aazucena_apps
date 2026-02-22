@@ -152,6 +152,9 @@ export const Cyber: Story = {
  * Comparison of all three size presets rendered vertically.
  */
 export const Sizes: Story = {
+  args: {
+    rules: mixedRules,
+  },
   render: () => (
     <div className="flex flex-col gap-6">
       {(['sm', 'md', 'lg'] as const).map((size) => (

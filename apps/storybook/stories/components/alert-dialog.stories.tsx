@@ -12,6 +12,7 @@ import {
   AlertDialogTrigger,
   Button,
 } from '@aazucena/ui';
+import type React from 'react';
 
 /**
  * ## Accessibility (A11y)
@@ -24,6 +25,15 @@ import {
  * - **Maturity:** `Stable`
  * - **Theme Support:** `AAZUCENA_v1`
  */
+
+type AlertDialogStoryArgs = React.ComponentProps<typeof AlertDialog> & {
+  variant?: 'default' | 'glass' | 'cyber';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
+  alignment?: 'start' | 'center' | 'end' | 'between' | 'stacked';
+  title?: string;
+  description?: string;
+};
+
 const meta = {
   title: 'Components/Overlay/AlertDialog',
   component: AlertDialog,
@@ -76,10 +86,10 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof AlertDialog>;
+} satisfies Meta<AlertDialogStoryArgs>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<AlertDialogStoryArgs>;
 
 // --- TEMPLATES ---
 

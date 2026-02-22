@@ -127,6 +127,9 @@ export const Cyber: Story = {
  * All three size presets shown vertically: small for dense lists, medium for cards, large for standalone.
  */
 export const Sizes: Story = {
+  args: {
+    src: SAMPLE_AUDIO,
+  },
   render: () => (
     <div className="flex flex-col gap-4">
       <AudioEmbed src={SAMPLE_AUDIO} size="sm" title="Small" />
@@ -153,6 +156,9 @@ export const NoTitle: Story = {
  * Multiple audio embeds stacked to simulate a playlist or feed layout.
  */
 export const Playlist: Story = {
+  args: {
+    src: SAMPLE_AUDIO,
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       <AudioEmbed src={SAMPLE_AUDIO} title="Track 01 - Overture" />

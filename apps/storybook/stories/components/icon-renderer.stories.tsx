@@ -39,7 +39,7 @@ const meta = {
       table: { category: 'Appearance' },
     },
     fallback: {
-      control: 'none',
+      control: false,
       description: 'React node to show if rendering fails',
       table: { category: 'Behavior' },
     },
@@ -88,6 +88,9 @@ export const RawSVG: Story = {
  * Demonstrates the scale and styling versatility.
  */
 export const TechnicalIcons: Story = {
+  args: {
+    icon: Activity,
+  },
   render: () => (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-12 p-8 border rounded-[2rem] bg-muted/5">
       <div className="flex flex-col items-center gap-4 group">

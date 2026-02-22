@@ -84,6 +84,9 @@ export const Cyber: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    name: 'Alex Chen',
+  },
   render: () => (
     <div className="flex flex-col gap-4">
       {(['sm', 'default', 'lg'] as const).map((s) => (
@@ -94,6 +97,9 @@ export const Sizes: Story = {
 };
 
 export const UserList: Story = {
+  args: {
+    name: 'User List',
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       <User

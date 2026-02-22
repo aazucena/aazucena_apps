@@ -76,7 +76,7 @@ export const LinkMenuGallery: Story = {
 
       <LinkMenu variant="cyber">
         <LinkMenuHeader>
-          <LinkMenuTitle variant="cyber">// EXTERNAL_NODES</LinkMenuTitle>
+          <LinkMenuTitle>// EXTERNAL_NODES</LinkMenuTitle>
         </LinkMenuHeader>
         <LinkMenuList>
           <LinkMenuItem>
@@ -165,17 +165,21 @@ export const TableOfContentsExample: Story = {
     <div className="p-20 flex gap-20 max-w-6xl mx-auto">
       <div className="w-64 shrink-0">
         <TableOfContents
-          items={[
-            { id: '1', title: 'System Architecture', level: 0 },
-            { id: '1.1', title: 'Kernel Core', level: 1 },
-            { id: '1.2', title: 'Memory Buffer', level: 1 },
-            { id: '2', title: 'Interface Fidelity', level: 0 },
-            { id: '3', title: 'Deployment Protocol', level: 0 },
-          ]}
+          containerSelector="#article-content"
+          headerSelector="h2, h3"
         />
       </div>
-      <div className="prose dark:prose-invert">
-        <p className="opacity-40 italic">Scroll context would be active here...</p>
+      <div id="article-content" className="prose dark:prose-invert">
+        <h2 id="1">System Architecture</h2>
+        <p>Overview of the core system components.</p>
+        <h3 id="1.1">Kernel Core</h3>
+        <p>Details about the kernel implementation.</p>
+        <h3 id="1.2">Memory Buffer</h3>
+        <p>Buffer management and optimization.</p>
+        <h2 id="2">Interface Fidelity</h2>
+        <p>Measuring and improving UI responsiveness.</p>
+        <h2 id="3">Deployment Protocol</h2>
+        <p>Automated rollout and rollback procedures.</p>
       </div>
     </div>
   ),

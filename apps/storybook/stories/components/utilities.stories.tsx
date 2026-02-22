@@ -179,9 +179,9 @@ export const SplitButtonGallery: Story = {
           <SplitButtonMenu>
             <SplitButtonTrigger variant="cyber" />
             <SplitButtonContent variant="cyber">
-              <SplitButtonItem variant="cyber">BYPASS_AUTH</SplitButtonItem>
-              <SplitButtonItem variant="cyber">DEBUG_MODE</SplitButtonItem>
-              <SplitButtonItem variant="cyber">CLEAR_CACHE</SplitButtonItem>
+              <SplitButtonItem>BYPASS_AUTH</SplitButtonItem>
+              <SplitButtonItem>DEBUG_MODE</SplitButtonItem>
+              <SplitButtonItem>CLEAR_CACHE</SplitButtonItem>
             </SplitButtonContent>
           </SplitButtonMenu>
         </SplitButton>

@@ -99,6 +99,9 @@ export const Cyber: Story = {
  * Comparison of the available size presets.
  */
 export const Sizes: Story = {
+  args: {
+    name: 'Aazucena',
+  },
   render: () => (
     <div className="flex items-end gap-6">
       <div className="text-center space-y-2">

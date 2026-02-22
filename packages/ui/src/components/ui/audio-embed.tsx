@@ -100,7 +100,7 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
           <div
             className={cn(
               'h-1 w-full overflow-hidden rounded-full',
-              v === 'cyber' ? 'bg-cyan-500/10' : 'bg-muted',
+              v === 'cyber' ? 'bg-cyan-500/10' : 'bg-zinc-200',
             )}
           >
             <div

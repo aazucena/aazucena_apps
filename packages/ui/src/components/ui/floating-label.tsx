@@ -97,7 +97,7 @@ const FloatingLabel = React.forwardRef<HTMLInputElement, FloatingLabelProps>(
         {multiline ? (
           <textarea
             id={id}
-            ref={ref as React.Ref<HTMLTextAreaElement>}
+            ref={ref as unknown as React.Ref<HTMLTextAreaElement>}
             placeholder=" "
             rows={rows}
             className={cn(fieldCn, 'resize-none pt-6')}

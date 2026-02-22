@@ -134,7 +134,7 @@ jobs:
     executor: node-executor
     steps:
       - attach_project
-      - run: "[TBA] Publishing packages"
+      - run: echo "[TBA] Publishing packages"
       # - run:
       #     name: Publishing packages (TBA)
       #     command: echo "[TBA] Publishing packages"

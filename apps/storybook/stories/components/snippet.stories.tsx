@@ -84,6 +84,9 @@ export const Cyber: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    children: 'pnpm install',
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       {(['sm', 'md', 'lg'] as const).map((s) => (

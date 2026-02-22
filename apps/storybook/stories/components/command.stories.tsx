@@ -188,7 +188,7 @@ export const PaletteDemo: Story = {
       {
         id: '1',
         name: 'Go to GitHub',
-        icon: Github,
+        icon: GitHub,
         category: 'Navigation',
         keywords: 'source code repo',
         href: 'https://github.com',

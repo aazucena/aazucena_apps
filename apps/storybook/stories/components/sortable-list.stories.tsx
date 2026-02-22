@@ -37,10 +37,10 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof SortableList>;
+} satisfies Meta<any>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<any>;
 
 type Item = { id: string; label: string };
 
@@ -73,14 +73,23 @@ const SortableDemo = (props: Partial<React.ComponentProps<typeof SortableList>>)
 };
 
 export const Basic: Story = {
+  args: {
+    items: initialItems,
+  },
   render: () => <SortableDemo />,
 };
 
 export const WithHandles: Story = {
+  args: {
+    items: initialItems,
+  },
   render: () => <SortableDemo />,
 };
 
 export const Glass: Story = {
+  args: {
+    items: initialItems,
+  },
   render: () => (
     <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
       <SortableDemo variant="glass" />
@@ -89,10 +98,16 @@ export const Glass: Story = {
 };
 
 export const Cyber: Story = {
+  args: {
+    items: initialItems,
+  },
   render: () => <SortableDemo variant="cyber" />,
 };
 
 export const Cards: Story = {
+  args: {
+    items: initialItems,
+  },
   render: () => {
     const [items, setItems] = useState([
       { id: '1', label: 'Frontend', desc: 'React + TypeScript' },

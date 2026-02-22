@@ -181,6 +181,9 @@ export const Cyber: Story = {
  * All three size presets rendered side-by-side for comparison.
  */
 export const Sizes: Story = {
+  args: {
+    data: fileSystemData,
+  },
   render: () => (
     <div className="flex items-start gap-4">
       {(['sm', 'md', 'lg'] as const).map((size) => (

@@ -28,6 +28,7 @@ import {
   Zap,
   Trash,
   Copy,
+  Database,
 } from '@aazucena/icons';
 import { useState } from 'react';
 

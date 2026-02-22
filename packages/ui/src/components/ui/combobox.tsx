@@ -70,6 +70,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
   ) => {
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
+    const [selected, setSelected] = React.useState<ComboboxOption>();
     const inputRef = React.useRef<HTMLInputElement>(null);
     const listboxId = React.useId();
     const v = variant ?? 'default';
@@ -77,7 +78,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
 
     const filtered = options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()));
 
-    const selected = options.find((o) => o.value === value);
+    // const selected = options.find((o) => o.value === value);
 
     return (
       <div ref={ref} className={cn(comboboxVariants({ variant, size }), className)} {...props}>
@@ -156,6 +157,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                     disabled={option.disabled}
                     onClick={() => {
                       onChange?.(option.value);
+                      setSelected(option);
                       setOpen(false);
                       setQuery('');
                     }}

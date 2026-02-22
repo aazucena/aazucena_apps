@@ -15,10 +15,13 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-02-20T01:31:38.433Z"
+    "x-generation-date": "2026-02-21T21:03:13.179Z"
   },
   "x-strapi-config": {
-    "plugins": ["upload", "users-permissions"]
+    "plugins": [
+      "upload",
+      "users-permissions"
+    ]
   },
   "servers": [
     {
@@ -100,7 +103,9 @@
             }
           }
         },
-        "tags": ["About"],
+        "tags": [
+          "About"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -270,7 +275,9 @@
             }
           }
         },
-        "tags": ["About"],
+        "tags": [
+          "About"
+        ],
         "parameters": [],
         "operationId": "put/about",
         "requestBody": {
@@ -348,7 +355,9 @@
             }
           }
         },
-        "tags": ["About"],
+        "tags": [
+          "About"
+        ],
         "parameters": [],
         "operationId": "delete/about"
       }
@@ -417,7 +426,9 @@
             }
           }
         },
-        "tags": ["Analytic"],
+        "tags": [
+          "Analytic"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -587,7 +598,9 @@
             }
           }
         },
-        "tags": ["Analytic"],
+        "tags": [
+          "Analytic"
+        ],
         "parameters": [],
         "operationId": "put/analytic",
         "requestBody": {
@@ -665,7 +678,9 @@
             }
           }
         },
-        "tags": ["Analytic"],
+        "tags": [
+          "Analytic"
+        ],
         "parameters": [],
         "operationId": "delete/analytic"
       }
@@ -734,7 +749,9 @@
             }
           }
         },
-        "tags": ["Animation"],
+        "tags": [
+          "Animation"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -904,7 +921,9 @@
             }
           }
         },
-        "tags": ["Animation"],
+        "tags": [
+          "Animation"
+        ],
         "parameters": [],
         "operationId": "put/animation",
         "requestBody": {
@@ -982,7 +1001,9 @@
             }
           }
         },
-        "tags": ["Animation"],
+        "tags": [
+          "Animation"
+        ],
         "parameters": [],
         "operationId": "delete/animation"
       }
@@ -1051,7 +1072,9 @@
             }
           }
         },
-        "tags": ["Award"],
+        "tags": [
+          "Award"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -1221,7 +1244,9 @@
             }
           }
         },
-        "tags": ["Award"],
+        "tags": [
+          "Award"
+        ],
         "parameters": [],
         "operationId": "post/awards",
         "requestBody": {
@@ -1300,7 +1325,9 @@
             }
           }
         },
-        "tags": ["Award"],
+        "tags": [
+          "Award"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1378,7 +1405,9 @@
             }
           }
         },
-        "tags": ["Award"],
+        "tags": [
+          "Award"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1467,7 +1496,9 @@
             }
           }
         },
-        "tags": ["Award"],
+        "tags": [
+          "Award"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1547,7 +1578,9 @@
             }
           }
         },
-        "tags": ["Blog"],
+        "tags": [
+          "Blog"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -1717,7 +1750,9 @@
             }
           }
         },
-        "tags": ["Blog"],
+        "tags": [
+          "Blog"
+        ],
         "parameters": [],
         "operationId": "put/blog",
         "requestBody": {
@@ -1795,7 +1830,9 @@
             }
           }
         },
-        "tags": ["Blog"],
+        "tags": [
+          "Blog"
+        ],
         "parameters": [],
         "operationId": "delete/blog"
       }
@@ -1864,7 +1901,9 @@
             }
           }
         },
-        "tags": ["Composition"],
+        "tags": [
+          "Composition"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -2034,7 +2073,9 @@
             }
           }
         },
-        "tags": ["Composition"],
+        "tags": [
+          "Composition"
+        ],
         "parameters": [],
         "operationId": "post/compositions",
         "requestBody": {
@@ -2113,7 +2154,9 @@
             }
           }
         },
-        "tags": ["Composition"],
+        "tags": [
+          "Composition"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2191,7 +2234,9 @@
             }
           }
         },
-        "tags": ["Composition"],
+        "tags": [
+          "Composition"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2280,7 +2325,9 @@
             }
           }
         },
-        "tags": ["Composition"],
+        "tags": [
+          "Composition"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2360,7 +2407,9 @@
             }
           }
         },
-        "tags": ["Contact-form"],
+        "tags": [
+          "Contact-form"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -2530,7 +2579,9 @@
             }
           }
         },
-        "tags": ["Contact-form"],
+        "tags": [
+          "Contact-form"
+        ],
         "parameters": [],
         "operationId": "put/contact-form",
         "requestBody": {
@@ -2608,7 +2659,9 @@
             }
           }
         },
-        "tags": ["Contact-form"],
+        "tags": [
+          "Contact-form"
+        ],
         "parameters": [],
         "operationId": "delete/contact-form"
       }
@@ -2677,7 +2730,9 @@
             }
           }
         },
-        "tags": ["Easter-egg-completion"],
+        "tags": [
+          "Easter-egg-completion"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -2847,7 +2902,9 @@
             }
           }
         },
-        "tags": ["Easter-egg-completion"],
+        "tags": [
+          "Easter-egg-completion"
+        ],
         "parameters": [],
         "operationId": "post/easter-egg-completions",
         "requestBody": {
@@ -2926,7 +2983,9 @@
             }
           }
         },
-        "tags": ["Easter-egg-completion"],
+        "tags": [
+          "Easter-egg-completion"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3004,7 +3063,9 @@
             }
           }
         },
-        "tags": ["Easter-egg-completion"],
+        "tags": [
+          "Easter-egg-completion"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3093,7 +3154,9 @@
             }
           }
         },
-        "tags": ["Easter-egg-completion"],
+        "tags": [
+          "Easter-egg-completion"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3173,7 +3236,9 @@
             }
           }
         },
-        "tags": ["Education"],
+        "tags": [
+          "Education"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -3343,7 +3408,9 @@
             }
           }
         },
-        "tags": ["Education"],
+        "tags": [
+          "Education"
+        ],
         "parameters": [],
         "operationId": "post/educations",
         "requestBody": {
@@ -3422,7 +3489,9 @@
             }
           }
         },
-        "tags": ["Education"],
+        "tags": [
+          "Education"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3500,7 +3569,9 @@
             }
           }
         },
-        "tags": ["Education"],
+        "tags": [
+          "Education"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3589,7 +3660,9 @@
             }
           }
         },
-        "tags": ["Education"],
+        "tags": [
+          "Education"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3669,7 +3742,9 @@
             }
           }
         },
-        "tags": ["Experience"],
+        "tags": [
+          "Experience"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -3839,7 +3914,9 @@
             }
           }
         },
-        "tags": ["Experience"],
+        "tags": [
+          "Experience"
+        ],
         "parameters": [],
         "operationId": "post/experiences",
         "requestBody": {
@@ -3918,7 +3995,9 @@
             }
           }
         },
-        "tags": ["Experience"],
+        "tags": [
+          "Experience"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3996,7 +4075,9 @@
             }
           }
         },
-        "tags": ["Experience"],
+        "tags": [
+          "Experience"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4085,7 +4166,9 @@
             }
           }
         },
-        "tags": ["Experience"],
+        "tags": [
+          "Experience"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4165,7 +4248,9 @@
             }
           }
         },
-        "tags": ["Experience-showcase"],
+        "tags": [
+          "Experience-showcase"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -4335,7 +4420,9 @@
             }
           }
         },
-        "tags": ["Experience-showcase"],
+        "tags": [
+          "Experience-showcase"
+        ],
         "parameters": [],
         "operationId": "put/experience-showcase",
         "requestBody": {
@@ -4413,7 +4500,9 @@
             }
           }
         },
-        "tags": ["Experience-showcase"],
+        "tags": [
+          "Experience-showcase"
+        ],
         "parameters": [],
         "operationId": "delete/experience-showcase"
       }
@@ -4482,7 +4571,9 @@
             }
           }
         },
-        "tags": ["Form-submission"],
+        "tags": [
+          "Form-submission"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -4652,7 +4743,9 @@
             }
           }
         },
-        "tags": ["Form-submission"],
+        "tags": [
+          "Form-submission"
+        ],
         "parameters": [],
         "operationId": "post/form-submissions",
         "requestBody": {
@@ -4731,7 +4824,9 @@
             }
           }
         },
-        "tags": ["Form-submission"],
+        "tags": [
+          "Form-submission"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4809,7 +4904,9 @@
             }
           }
         },
-        "tags": ["Form-submission"],
+        "tags": [
+          "Form-submission"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4898,7 +4995,9 @@
             }
           }
         },
-        "tags": ["Form-submission"],
+        "tags": [
+          "Form-submission"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -4978,7 +5077,9 @@
             }
           }
         },
-        "tags": ["Hero"],
+        "tags": [
+          "Hero"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -5148,7 +5249,9 @@
             }
           }
         },
-        "tags": ["Hero"],
+        "tags": [
+          "Hero"
+        ],
         "parameters": [],
         "operationId": "put/hero",
         "requestBody": {
@@ -5226,7 +5329,9 @@
             }
           }
         },
-        "tags": ["Hero"],
+        "tags": [
+          "Hero"
+        ],
         "parameters": [],
         "operationId": "delete/hero"
       }
@@ -5295,7 +5400,9 @@
             }
           }
         },
-        "tags": ["Homepage"],
+        "tags": [
+          "Homepage"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -5465,7 +5572,9 @@
             }
           }
         },
-        "tags": ["Homepage"],
+        "tags": [
+          "Homepage"
+        ],
         "parameters": [],
         "operationId": "put/homepage",
         "requestBody": {
@@ -5543,7 +5652,9 @@
             }
           }
         },
-        "tags": ["Homepage"],
+        "tags": [
+          "Homepage"
+        ],
         "parameters": [],
         "operationId": "delete/homepage"
       }
@@ -5612,7 +5723,9 @@
             }
           }
         },
-        "tags": ["Journey"],
+        "tags": [
+          "Journey"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -5782,7 +5895,9 @@
             }
           }
         },
-        "tags": ["Journey"],
+        "tags": [
+          "Journey"
+        ],
         "parameters": [],
         "operationId": "put/journey",
         "requestBody": {
@@ -5860,7 +5975,9 @@
             }
           }
         },
-        "tags": ["Journey"],
+        "tags": [
+          "Journey"
+        ],
         "parameters": [],
         "operationId": "delete/journey"
       }
@@ -5929,7 +6046,9 @@
             }
           }
         },
-        "tags": ["Knowledge-item"],
+        "tags": [
+          "Knowledge-item"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -6099,7 +6218,9 @@
             }
           }
         },
-        "tags": ["Knowledge-item"],
+        "tags": [
+          "Knowledge-item"
+        ],
         "parameters": [],
         "operationId": "post/knowledge-items",
         "requestBody": {
@@ -6178,7 +6299,9 @@
             }
           }
         },
-        "tags": ["Knowledge-item"],
+        "tags": [
+          "Knowledge-item"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6256,7 +6379,9 @@
             }
           }
         },
-        "tags": ["Knowledge-item"],
+        "tags": [
+          "Knowledge-item"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6345,7 +6470,9 @@
             }
           }
         },
-        "tags": ["Knowledge-item"],
+        "tags": [
+          "Knowledge-item"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6425,7 +6552,9 @@
             }
           }
         },
-        "tags": ["Maintenance"],
+        "tags": [
+          "Maintenance"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -6595,7 +6724,9 @@
             }
           }
         },
-        "tags": ["Maintenance"],
+        "tags": [
+          "Maintenance"
+        ],
         "parameters": [],
         "operationId": "put/maintenance",
         "requestBody": {
@@ -6673,7 +6804,9 @@
             }
           }
         },
-        "tags": ["Maintenance"],
+        "tags": [
+          "Maintenance"
+        ],
         "parameters": [],
         "operationId": "delete/maintenance"
       }
@@ -6742,7 +6875,9 @@
             }
           }
         },
-        "tags": ["Music-genre"],
+        "tags": [
+          "Music-genre"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -6912,7 +7047,9 @@
             }
           }
         },
-        "tags": ["Music-genre"],
+        "tags": [
+          "Music-genre"
+        ],
         "parameters": [],
         "operationId": "post/music-genres",
         "requestBody": {
@@ -6991,7 +7128,9 @@
             }
           }
         },
-        "tags": ["Music-genre"],
+        "tags": [
+          "Music-genre"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -7069,7 +7208,9 @@
             }
           }
         },
-        "tags": ["Music-genre"],
+        "tags": [
+          "Music-genre"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -7158,7 +7299,9 @@
             }
           }
         },
-        "tags": ["Music-genre"],
+        "tags": [
+          "Music-genre"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -7238,7 +7381,9 @@
             }
           }
         },
-        "tags": ["Page"],
+        "tags": [
+          "Page"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -7408,7 +7553,9 @@
             }
           }
         },
-        "tags": ["Page"],
+        "tags": [
+          "Page"
+        ],
         "parameters": [],
         "operationId": "post/pages",
         "requestBody": {
@@ -7487,7 +7634,9 @@
             }
           }
         },
-        "tags": ["Page"],
+        "tags": [
+          "Page"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -7565,7 +7714,9 @@
             }
           }
         },
-        "tags": ["Page"],
+        "tags": [
+          "Page"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -7654,7 +7805,9 @@
             }
           }
         },
-        "tags": ["Page"],
+        "tags": [
+          "Page"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -7734,7 +7887,9 @@
             }
           }
         },
-        "tags": ["Portfolio"],
+        "tags": [
+          "Portfolio"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -7904,7 +8059,9 @@
             }
           }
         },
-        "tags": ["Portfolio"],
+        "tags": [
+          "Portfolio"
+        ],
         "parameters": [],
         "operationId": "put/portfolio",
         "requestBody": {
@@ -7982,7 +8139,9 @@
             }
           }
         },
-        "tags": ["Portfolio"],
+        "tags": [
+          "Portfolio"
+        ],
         "parameters": [],
         "operationId": "delete/portfolio"
       }
@@ -8051,7 +8210,9 @@
             }
           }
         },
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -8221,7 +8382,9 @@
             }
           }
         },
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [],
         "operationId": "post/posts",
         "requestBody": {
@@ -8300,7 +8463,9 @@
             }
           }
         },
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -8378,7 +8543,9 @@
             }
           }
         },
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -8467,7 +8634,9 @@
             }
           }
         },
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -8547,7 +8716,9 @@
             }
           }
         },
-        "tags": ["Preloader"],
+        "tags": [
+          "Preloader"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -8717,7 +8888,9 @@
             }
           }
         },
-        "tags": ["Preloader"],
+        "tags": [
+          "Preloader"
+        ],
         "parameters": [],
         "operationId": "put/preloader",
         "requestBody": {
@@ -8795,7 +8968,9 @@
             }
           }
         },
-        "tags": ["Preloader"],
+        "tags": [
+          "Preloader"
+        ],
         "parameters": [],
         "operationId": "delete/preloader"
       }
@@ -8864,7 +9039,9 @@
             }
           }
         },
-        "tags": ["Project"],
+        "tags": [
+          "Project"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -9034,7 +9211,9 @@
             }
           }
         },
-        "tags": ["Project"],
+        "tags": [
+          "Project"
+        ],
         "parameters": [],
         "operationId": "post/projects",
         "requestBody": {
@@ -9113,7 +9292,9 @@
             }
           }
         },
-        "tags": ["Project"],
+        "tags": [
+          "Project"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -9191,7 +9372,9 @@
             }
           }
         },
-        "tags": ["Project"],
+        "tags": [
+          "Project"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -9280,7 +9463,9 @@
             }
           }
         },
-        "tags": ["Project"],
+        "tags": [
+          "Project"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -9360,7 +9545,9 @@
             }
           }
         },
-        "tags": ["Project-showcase"],
+        "tags": [
+          "Project-showcase"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -9530,7 +9717,9 @@
             }
           }
         },
-        "tags": ["Project-showcase"],
+        "tags": [
+          "Project-showcase"
+        ],
         "parameters": [],
         "operationId": "put/project-showcase",
         "requestBody": {
@@ -9608,7 +9797,9 @@
             }
           }
         },
-        "tags": ["Project-showcase"],
+        "tags": [
+          "Project-showcase"
+        ],
         "parameters": [],
         "operationId": "delete/project-showcase"
       }
@@ -9677,7 +9868,9 @@
             }
           }
         },
-        "tags": ["Prompt"],
+        "tags": [
+          "Prompt"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -9847,7 +10040,9 @@
             }
           }
         },
-        "tags": ["Prompt"],
+        "tags": [
+          "Prompt"
+        ],
         "parameters": [],
         "operationId": "post/prompts",
         "requestBody": {
@@ -9926,7 +10121,9 @@
             }
           }
         },
-        "tags": ["Prompt"],
+        "tags": [
+          "Prompt"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -10004,7 +10201,9 @@
             }
           }
         },
-        "tags": ["Prompt"],
+        "tags": [
+          "Prompt"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -10093,7 +10292,9 @@
             }
           }
         },
-        "tags": ["Prompt"],
+        "tags": [
+          "Prompt"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -10173,7 +10374,9 @@
             }
           }
         },
-        "tags": ["Skill"],
+        "tags": [
+          "Skill"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -10343,7 +10546,9 @@
             }
           }
         },
-        "tags": ["Skill"],
+        "tags": [
+          "Skill"
+        ],
         "parameters": [],
         "operationId": "post/skills",
         "requestBody": {
@@ -10422,7 +10627,9 @@
             }
           }
         },
-        "tags": ["Skill"],
+        "tags": [
+          "Skill"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -10500,7 +10707,9 @@
             }
           }
         },
-        "tags": ["Skill"],
+        "tags": [
+          "Skill"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -10589,7 +10798,9 @@
             }
           }
         },
-        "tags": ["Skill"],
+        "tags": [
+          "Skill"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -10669,7 +10880,9 @@
             }
           }
         },
-        "tags": ["Skill-category"],
+        "tags": [
+          "Skill-category"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -10839,7 +11052,9 @@
             }
           }
         },
-        "tags": ["Skill-category"],
+        "tags": [
+          "Skill-category"
+        ],
         "parameters": [],
         "operationId": "post/skill-categories",
         "requestBody": {
@@ -10918,7 +11133,9 @@
             }
           }
         },
-        "tags": ["Skill-category"],
+        "tags": [
+          "Skill-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -10996,7 +11213,9 @@
             }
           }
         },
-        "tags": ["Skill-category"],
+        "tags": [
+          "Skill-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -11085,7 +11304,9 @@
             }
           }
         },
-        "tags": ["Skill-category"],
+        "tags": [
+          "Skill-category"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -11165,7 +11386,9 @@
             }
           }
         },
-        "tags": ["Skill-showcase"],
+        "tags": [
+          "Skill-showcase"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -11335,7 +11558,9 @@
             }
           }
         },
-        "tags": ["Skill-showcase"],
+        "tags": [
+          "Skill-showcase"
+        ],
         "parameters": [],
         "operationId": "put/skill-showcase",
         "requestBody": {
@@ -11413,7 +11638,9 @@
             }
           }
         },
-        "tags": ["Skill-showcase"],
+        "tags": [
+          "Skill-showcase"
+        ],
         "parameters": [],
         "operationId": "delete/skill-showcase"
       }
@@ -11482,7 +11709,9 @@
             }
           }
         },
-        "tags": ["Testimonial"],
+        "tags": [
+          "Testimonial"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -11652,7 +11881,9 @@
             }
           }
         },
-        "tags": ["Testimonial"],
+        "tags": [
+          "Testimonial"
+        ],
         "parameters": [],
         "operationId": "post/testimonials",
         "requestBody": {
@@ -11731,7 +11962,9 @@
             }
           }
         },
-        "tags": ["Testimonial"],
+        "tags": [
+          "Testimonial"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -11809,7 +12042,9 @@
             }
           }
         },
-        "tags": ["Testimonial"],
+        "tags": [
+          "Testimonial"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -11898,7 +12133,9 @@
             }
           }
         },
-        "tags": ["Testimonial"],
+        "tags": [
+          "Testimonial"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -11978,7 +12215,9 @@
             }
           }
         },
-        "tags": ["Theme"],
+        "tags": [
+          "Theme"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -12148,7 +12387,9 @@
             }
           }
         },
-        "tags": ["Theme"],
+        "tags": [
+          "Theme"
+        ],
         "parameters": [],
         "operationId": "put/theme",
         "requestBody": {
@@ -12226,7 +12467,9 @@
             }
           }
         },
-        "tags": ["Theme"],
+        "tags": [
+          "Theme"
+        ],
         "parameters": [],
         "operationId": "delete/theme"
       }
@@ -12295,7 +12538,9 @@
             }
           }
         },
-        "tags": ["Website-configuration"],
+        "tags": [
+          "Website-configuration"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -12465,7 +12710,9 @@
             }
           }
         },
-        "tags": ["Website-configuration"],
+        "tags": [
+          "Website-configuration"
+        ],
         "parameters": [],
         "operationId": "put/website-configuration",
         "requestBody": {
@@ -12543,7 +12790,9 @@
             }
           }
         },
-        "tags": ["Website-configuration"],
+        "tags": [
+          "Website-configuration"
+        ],
         "parameters": [],
         "operationId": "delete/website-configuration"
       }
@@ -12567,14 +12816,18 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "requestBody": {
           "description": "Upload files",
           "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["files"],
+                "required": [
+                  "files"
+                ],
                 "type": "object",
                 "properties": {
                   "path": {
@@ -12637,7 +12890,9 @@
           }
         },
         "summary": "",
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "requestBody": {
           "description": "Upload files",
           "required": true,
@@ -12673,7 +12928,9 @@
     },
     "/upload/files": {
       "get": {
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "responses": {
           "200": {
             "description": "Get a list of files",
@@ -12705,7 +12962,9 @@
             }
           }
         ],
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "responses": {
           "200": {
             "description": "Get a specific file",
@@ -12732,7 +12991,9 @@
             }
           }
         ],
-        "tags": ["Upload - File"],
+        "tags": [
+          "Upload - File"
+        ],
         "responses": {
           "200": {
             "description": "Delete a file",
@@ -12761,7 +13022,9 @@
             }
           }
         ],
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Login with a provider",
         "description": "Redirects to provider login before being redirect to /auth/{provider}/callback",
         "responses": {
@@ -12783,7 +13046,9 @@
     },
     "/auth/local": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Local login",
         "description": "Returns a jwt token and user info",
         "requestBody": {
@@ -12834,7 +13099,9 @@
     },
     "/auth/local/register": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Register a user",
         "description": "Returns a jwt token and user info",
         "requestBody": {
@@ -12889,7 +13156,9 @@
     },
     "/auth/{provider}/callback": {
       "get": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Default Callback from provider auth",
         "parameters": [
           {
@@ -12928,7 +13197,9 @@
     },
     "/auth/forgot-password": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Send rest password email",
         "requestBody": {
           "required": true,
@@ -12958,7 +13229,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -12980,7 +13253,9 @@
     },
     "/auth/reset-password": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Rest user password",
         "requestBody": {
           "required": true,
@@ -13034,7 +13309,9 @@
     },
     "/auth/change-password": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Update user's own password",
         "requestBody": {
           "required": true,
@@ -13042,7 +13319,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["password", "currentPassword", "passwordConfirmation"],
+                "required": [
+                  "password",
+                  "currentPassword",
+                  "passwordConfirmation"
+                ],
                 "properties": {
                   "password": {
                     "type": "string"
@@ -13084,7 +13365,9 @@
     },
     "/auth/email-confirmation": {
       "get": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Confirm user email",
         "parameters": [
           {
@@ -13115,7 +13398,9 @@
     },
     "/auth/send-email-confirmation": {
       "post": {
-        "tags": ["Users-Permissions - Auth"],
+        "tags": [
+          "Users-Permissions - Auth"
+        ],
         "summary": "Send confirmation email",
         "requestBody": {
           "required": true,
@@ -13145,7 +13430,9 @@
                     },
                     "sent": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -13167,7 +13454,9 @@
     },
     "/users-permissions/permissions": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get default generated permissions",
         "responses": {
           "200": {
@@ -13236,7 +13525,9 @@
     },
     "/users-permissions/roles": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "List roles",
         "responses": {
           "200": {
@@ -13295,7 +13586,9 @@
         }
       },
       "post": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Create a role",
         "requestBody": {
           "$ref": "#/components/requestBodies/Users-Permissions-RoleRequest"
@@ -13310,7 +13603,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -13332,7 +13627,9 @@
     },
     "/users-permissions/roles/{id}": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get a role",
         "parameters": [
           {
@@ -13397,7 +13694,9 @@
     },
     "/users-permissions/roles/{role}": {
       "put": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Update a role",
         "parameters": [
           {
@@ -13423,7 +13722,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -13443,7 +13744,9 @@
         }
       },
       "delete": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Delete a role",
         "parameters": [
           {
@@ -13466,7 +13769,9 @@
                   "properties": {
                     "ok": {
                       "type": "string",
-                      "enum": [true]
+                      "enum": [
+                        true
+                      ]
                     }
                   }
                 }
@@ -13488,7 +13793,9 @@
     },
     "/users": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get list of users",
         "responses": {
           "200": {
@@ -13529,7 +13836,9 @@
         }
       },
       "post": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Create a user",
         "requestBody": {
           "required": true,
@@ -13537,7 +13846,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["username", "email", "password"],
+                "required": [
+                  "username",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "type": "string"
@@ -13614,7 +13927,9 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get a user",
         "parameters": [
           {
@@ -13661,7 +13976,9 @@
         }
       },
       "put": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Update a user",
         "parameters": [
           {
@@ -13680,7 +13997,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["username", "email", "password"],
+                "required": [
+                  "username",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "type": "string"
@@ -13755,7 +14076,9 @@
         }
       },
       "delete": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Delete a user",
         "parameters": [
           {
@@ -13808,7 +14131,9 @@
     },
     "/users/me": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get authenticated user info",
         "responses": {
           "200": {
@@ -13846,7 +14171,9 @@
     },
     "/users/count": {
       "get": {
-        "tags": ["Users-Permissions - Users & Roles"],
+        "tags": [
+          "Users-Permissions - Users & Roles"
+        ],
         "summary": "Get user count",
         "responses": {
           "200": {
@@ -13885,7 +14212,9 @@
     "schemas": {
       "Error": {
         "type": "object",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "data": {
             "nullable": true,
@@ -13922,10 +14251,17 @@
       },
       "AboutRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title", "tagline", "descriptions", "highlights"],
+            "required": [
+              "title",
+              "tagline",
+              "descriptions",
+              "highlights"
+            ],
             "type": "object",
             "properties": {
               "title": {
@@ -14051,7 +14387,12 @@
       },
       "About": {
         "type": "object",
-        "required": ["title", "tagline", "descriptions", "highlights"],
+        "required": [
+          "title",
+          "tagline",
+          "descriptions",
+          "highlights"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -14593,11 +14934,20 @@
           },
           "variant": {
             "type": "string",
-            "enum": ["primary", "secondary", "outline", "ghost"]
+            "enum": [
+              "primary",
+              "secondary",
+              "outline",
+              "ghost"
+            ]
           },
           "size": {
             "type": "string",
-            "enum": ["sm", "md", "lg"]
+            "enum": [
+              "sm",
+              "md",
+              "lg"
+            ]
           },
           "openInNewTab": {
             "type": "boolean"
@@ -14618,7 +14968,13 @@
           },
           "variant": {
             "type": "string",
-            "enum": ["cyan-blue", "purple-pink", "green-teal", "orange-red", "indigo-violet"]
+            "enum": [
+              "cyan-blue",
+              "purple-pink",
+              "green-teal",
+              "orange-red",
+              "indigo-violet"
+            ]
           },
           "description": {
             "type": "string"
@@ -14648,7 +15004,13 @@
           },
           "variant": {
             "type": "string",
-            "enum": ["blue-cyan", "purple-indigo", "emerald-teal", "orange-red", "pink-purple"]
+            "enum": [
+              "blue-cyan",
+              "purple-indigo",
+              "emerald-teal",
+              "orange-red",
+              "pink-purple"
+            ]
           }
         }
       },
@@ -14669,7 +15031,15 @@
           },
           "variant": {
             "type": "string",
-            "enum": ["blue", "orange", "pink", "purple", "green", "cyan", "red"]
+            "enum": [
+              "blue",
+              "orange",
+              "pink",
+              "purple",
+              "green",
+              "cyan",
+              "red"
+            ]
           }
         }
       },
@@ -14734,7 +15104,9 @@
       },
       "AnalyticRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "required": [
@@ -15254,10 +15626,16 @@
       },
       "AnimationRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["enabled", "heavyAnimations", "defaultPerformanceTier"],
+            "required": [
+              "enabled",
+              "heavyAnimations",
+              "defaultPerformanceTier"
+            ],
             "type": "object",
             "properties": {
               "enabled": {
@@ -15268,7 +15646,12 @@
               },
               "defaultPerformanceTier": {
                 "type": "string",
-                "enum": ["low", "medium", "high", "auto"]
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "auto"
+                ]
               },
               "particleCountLow": {
                 "type": "integer"
@@ -15343,7 +15726,11 @@
       },
       "Animation": {
         "type": "object",
-        "required": ["enabled", "heavyAnimations", "defaultPerformanceTier"],
+        "required": [
+          "enabled",
+          "heavyAnimations",
+          "defaultPerformanceTier"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -15359,7 +15746,12 @@
           },
           "defaultPerformanceTier": {
             "type": "string",
-            "enum": ["low", "medium", "high", "auto"]
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "auto"
+            ]
           },
           "particleCountLow": {
             "type": "integer"
@@ -15684,7 +16076,12 @@
                 },
                 "defaultPerformanceTier": {
                   "type": "string",
-                  "enum": ["low", "medium", "high", "auto"]
+                  "enum": [
+                    "low",
+                    "medium",
+                    "high",
+                    "auto"
+                  ]
                 },
                 "particleCountLow": {
                   "type": "integer"
@@ -15770,15 +16167,25 @@
       },
       "AwardRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["type", "title", "organization", "year"],
+            "required": [
+              "type",
+              "title",
+              "organization",
+              "year"
+            ],
             "type": "object",
             "properties": {
               "type": {
                 "type": "string",
-                "enum": ["certification", "award"]
+                "enum": [
+                  "certification",
+                  "award"
+                ]
               },
               "title": {
                 "type": "string"
@@ -15899,7 +16306,12 @@
       },
       "Award": {
         "type": "object",
-        "required": ["type", "title", "organization", "year"],
+        "required": [
+          "type",
+          "title",
+          "organization",
+          "year"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -15909,7 +16321,10 @@
           },
           "type": {
             "type": "string",
-            "enum": ["certification", "award"]
+            "enum": [
+              "certification",
+              "award"
+            ]
           },
           "title": {
             "type": "string"
@@ -16727,7 +17142,10 @@
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["certification", "award"]
+                  "enum": [
+                    "certification",
+                    "award"
+                  ]
                 },
                 "title": {
                   "type": "string"
@@ -17095,7 +17513,9 @@
       },
       "BlogRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "required": [
@@ -17714,10 +18134,18 @@
       },
       "CompositionRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title", "slug", "audioFile", "audioMetadata", "releaseDate"],
+            "required": [
+              "title",
+              "slug",
+              "audioFile",
+              "audioMetadata",
+              "releaseDate"
+            ],
             "type": "object",
             "properties": {
               "title": {
@@ -17852,7 +18280,13 @@
       },
       "Composition": {
         "type": "object",
-        "required": ["title", "slug", "audioFile", "audioMetadata", "releaseDate"],
+        "required": [
+          "title",
+          "slug",
+          "audioFile",
+          "audioMetadata",
+          "releaseDate"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -19164,7 +19598,20 @@
           },
           "musicalKey": {
             "type": "string",
-            "enum": ["C", "C#/D♭", "D", "D#/E♭", "E", "F", "F#/G♭", "G", "G#/A♭", "A", "A#/B♭", "B"]
+            "enum": [
+              "C",
+              "C#/D♭",
+              "D",
+              "D#/E♭",
+              "E",
+              "F",
+              "F#/G♭",
+              "G",
+              "G#/A♭",
+              "A",
+              "A#/B♭",
+              "B"
+            ]
           },
           "scale": {
             "type": "string",
@@ -19201,7 +19648,14 @@
           },
           "platform": {
             "type": "string",
-            "enum": ["Spotify", "SoundCloud", "YouTube", "Apple Music", "Bandcamp", "Tidal"]
+            "enum": [
+              "Spotify",
+              "SoundCloud",
+              "YouTube",
+              "Apple Music",
+              "Bandcamp",
+              "Tidal"
+            ]
           },
           "url": {
             "type": "string"
@@ -19353,10 +19807,17 @@
       },
       "ContactFormRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title", "formTitle", "submitButtonLabel", "successMessage"],
+            "required": [
+              "title",
+              "formTitle",
+              "submitButtonLabel",
+              "successMessage"
+            ],
             "type": "object",
             "properties": {
               "header": {
@@ -19435,7 +19896,12 @@
       },
       "ContactForm": {
         "type": "object",
-        "required": ["title", "formTitle", "submitButtonLabel", "successMessage"],
+        "required": [
+          "title",
+          "formTitle",
+          "submitButtonLabel",
+          "successMessage"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -19868,10 +20334,16 @@
       },
       "EasterEggCompletionRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["userIdentifier", "challengeType", "completedAt"],
+            "required": [
+              "userIdentifier",
+              "challengeType",
+              "completedAt"
+            ],
             "type": "object",
             "properties": {
               "userIdentifier": {
@@ -19987,7 +20459,11 @@
       },
       "EasterEggCompletion": {
         "type": "object",
-        "required": ["userIdentifier", "challengeType", "completedAt"],
+        "required": [
+          "userIdentifier",
+          "challengeType",
+          "completedAt"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -20474,10 +20950,20 @@
       },
       "EducationRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["type", "degree", "field", "slug", "institution", "startDate", "current"],
+            "required": [
+              "type",
+              "degree",
+              "field",
+              "slug",
+              "institution",
+              "startDate",
+              "current"
+            ],
             "type": "object",
             "properties": {
               "type": {
@@ -20596,7 +21082,11 @@
               },
               "display": {
                 "type": "string",
-                "enum": ["hidden", "standard", "featured"]
+                "enum": [
+                  "hidden",
+                  "standard",
+                  "featured"
+                ]
               },
               "projects": {
                 "type": "array",
@@ -20676,7 +21166,15 @@
       },
       "Education": {
         "type": "object",
-        "required": ["type", "degree", "field", "slug", "institution", "startDate", "current"],
+        "required": [
+          "type",
+          "degree",
+          "field",
+          "slug",
+          "institution",
+          "startDate",
+          "current"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -21393,7 +21891,10 @@
                     },
                     "display": {
                       "type": "string",
-                      "enum": ["hidden", "visible"]
+                      "enum": [
+                        "hidden",
+                        "visible"
+                      ]
                     },
                     "variant": {
                       "type": "string",
@@ -21479,11 +21980,21 @@
                 },
                 "display": {
                   "type": "string",
-                  "enum": ["hidden", "standard", "featured", "core"]
+                  "enum": [
+                    "hidden",
+                    "standard",
+                    "featured",
+                    "core"
+                  ]
                 },
                 "proficiency": {
                   "type": "string",
-                  "enum": ["learning", "competent", "proficient", "expert"]
+                  "enum": [
+                    "learning",
+                    "competent",
+                    "proficient",
+                    "expert"
+                  ]
                 },
                 "icon": {
                   "type": "string"
@@ -21589,7 +22100,11 @@
                       },
                       "workMode": {
                         "type": "string",
-                        "enum": ["Onsite", "Hybrid", "Remote"]
+                        "enum": [
+                          "Onsite",
+                          "Hybrid",
+                          "Remote"
+                        ]
                       },
                       "companyWebsite": {
                         "type": "string"
@@ -21642,7 +22157,13 @@
                             },
                             "display": {
                               "type": "string",
-                              "enum": ["hidden", "unlisted", "standard", "featured", "home"]
+                              "enum": [
+                                "hidden",
+                                "unlisted",
+                                "standard",
+                                "featured",
+                                "home"
+                              ]
                             },
                             "coverImage": {
                               "$ref": "#/components/schemas/UiImageElementComponent"
@@ -22246,7 +22767,11 @@
                                 },
                                 "display": {
                                   "type": "string",
-                                  "enum": ["hidden", "standard", "featured"]
+                                  "enum": [
+                                    "hidden",
+                                    "standard",
+                                    "featured"
+                                  ]
                                 },
                                 "projects": {
                                   "type": "array",
@@ -22531,7 +23056,11 @@
           },
           "display": {
             "type": "string",
-            "enum": ["hidden", "standard", "featured"]
+            "enum": [
+              "hidden",
+              "standard",
+              "featured"
+            ]
           },
           "projects": {
             "type": "array",
@@ -22804,7 +23333,17 @@
           },
           "color": {
             "type": "string",
-            "enum": ["cyan", "blue", "purple", "pink", "green", "teal", "orange", "red", "gray"]
+            "enum": [
+              "cyan",
+              "blue",
+              "purple",
+              "pink",
+              "green",
+              "teal",
+              "orange",
+              "red",
+              "gray"
+            ]
           }
         }
       },
@@ -22954,7 +23493,11 @@
           },
           "ogType": {
             "type": "string",
-            "enum": ["website", "article", "profile"]
+            "enum": [
+              "website",
+              "article",
+              "profile"
+            ]
           }
         }
       },
@@ -23107,7 +23650,12 @@
           },
           "metaRobots": {
             "type": "string",
-            "enum": ["index, follow", "noindex, follow", "index, nofollow", "noindex, nofollow"]
+            "enum": [
+              "index, follow",
+              "noindex, follow",
+              "index, nofollow",
+              "noindex, nofollow"
+            ]
           },
           "metaViewport": {
             "type": "string"
@@ -23118,16 +23666,29 @@
           "structuredData": {},
           "twitterCard": {
             "type": "string",
-            "enum": ["summary", "summary_large_image", "app", "player"]
+            "enum": [
+              "summary",
+              "summary_large_image",
+              "app",
+              "player"
+            ]
           }
         }
       },
       "ExperienceRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["slug", "company", "position", "startDate", "description"],
+            "required": [
+              "slug",
+              "company",
+              "position",
+              "startDate",
+              "description"
+            ],
             "type": "object",
             "properties": {
               "slug": {
@@ -23162,7 +23723,15 @@
               },
               "companySize": {
                 "type": "string",
-                "enum": ["startup", "small", "medium", "midsize", "large", "enterprise", "global"]
+                "enum": [
+                  "startup",
+                  "small",
+                  "medium",
+                  "midsize",
+                  "large",
+                  "enterprise",
+                  "global"
+                ]
               },
               "location": {
                 "type": "string"
@@ -23184,11 +23753,22 @@
               "responsibilities": {},
               "employmentType": {
                 "type": "string",
-                "enum": ["Full-time", "Part-time", "Contract", "Freelance", "Internship", "Co-op"]
+                "enum": [
+                  "Full-time",
+                  "Part-time",
+                  "Contract",
+                  "Freelance",
+                  "Internship",
+                  "Co-op"
+                ]
               },
               "workMode": {
                 "type": "string",
-                "enum": ["Onsite", "Hybrid", "Remote"]
+                "enum": [
+                  "Onsite",
+                  "Hybrid",
+                  "Remote"
+                ]
               },
               "companyWebsite": {
                 "type": "string"
@@ -23294,7 +23874,13 @@
       },
       "Experience": {
         "type": "object",
-        "required": ["slug", "company", "position", "startDate", "description"],
+        "required": [
+          "slug",
+          "company",
+          "position",
+          "startDate",
+          "description"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -23334,7 +23920,15 @@
           },
           "companySize": {
             "type": "string",
-            "enum": ["startup", "small", "medium", "midsize", "large", "enterprise", "global"]
+            "enum": [
+              "startup",
+              "small",
+              "medium",
+              "midsize",
+              "large",
+              "enterprise",
+              "global"
+            ]
           },
           "location": {
             "type": "string"
@@ -23356,11 +23950,22 @@
           "responsibilities": {},
           "employmentType": {
             "type": "string",
-            "enum": ["Full-time", "Part-time", "Contract", "Freelance", "Internship", "Co-op"]
+            "enum": [
+              "Full-time",
+              "Part-time",
+              "Contract",
+              "Freelance",
+              "Internship",
+              "Co-op"
+            ]
           },
           "workMode": {
             "type": "string",
-            "enum": ["Onsite", "Hybrid", "Remote"]
+            "enum": [
+              "Onsite",
+              "Hybrid",
+              "Remote"
+            ]
           },
           "companyWebsite": {
             "type": "string"
@@ -23402,7 +24007,10 @@
                     },
                     "display": {
                       "type": "string",
-                      "enum": ["hidden", "visible"]
+                      "enum": [
+                        "hidden",
+                        "visible"
+                      ]
                     },
                     "variant": {
                       "type": "string",
@@ -23488,11 +24096,21 @@
                 },
                 "display": {
                   "type": "string",
-                  "enum": ["hidden", "standard", "featured", "core"]
+                  "enum": [
+                    "hidden",
+                    "standard",
+                    "featured",
+                    "core"
+                  ]
                 },
                 "proficiency": {
                   "type": "string",
-                  "enum": ["learning", "competent", "proficient", "expert"]
+                  "enum": [
+                    "learning",
+                    "competent",
+                    "proficient",
+                    "expert"
+                  ]
                 },
                 "icon": {
                   "type": "string"
@@ -23598,7 +24216,11 @@
                       },
                       "workMode": {
                         "type": "string",
-                        "enum": ["Onsite", "Hybrid", "Remote"]
+                        "enum": [
+                          "Onsite",
+                          "Hybrid",
+                          "Remote"
+                        ]
                       },
                       "companyWebsite": {
                         "type": "string"
@@ -23651,7 +24273,13 @@
                             },
                             "display": {
                               "type": "string",
-                              "enum": ["hidden", "unlisted", "standard", "featured", "home"]
+                              "enum": [
+                                "hidden",
+                                "unlisted",
+                                "standard",
+                                "featured",
+                                "home"
+                              ]
                             },
                             "coverImage": {
                               "$ref": "#/components/schemas/UiImageElementComponent"
@@ -24255,7 +24883,11 @@
                                 },
                                 "display": {
                                   "type": "string",
-                                  "enum": ["hidden", "standard", "featured"]
+                                  "enum": [
+                                    "hidden",
+                                    "standard",
+                                    "featured"
+                                  ]
                                 },
                                 "projects": {
                                   "type": "array",
@@ -24618,10 +25250,14 @@
       },
       "ExperienceShowcaseRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title"],
+            "required": [
+              "title"
+            ],
             "type": "object",
             "properties": {
               "header": {
@@ -24694,7 +25330,9 @@
       },
       "ExperienceShowcase": {
         "type": "object",
-        "required": ["title"],
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -25095,10 +25733,16 @@
       },
       "FormSubmissionRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["formType", "rawMessage", "submittedAt"],
+            "required": [
+              "formType",
+              "rawMessage",
+              "submittedAt"
+            ],
             "type": "object",
             "properties": {
               "formType": {
@@ -25127,7 +25771,13 @@
               },
               "aiSentiment": {
                 "type": "string",
-                "enum": ["Very Positive", "Positive", "Neutral", "Negative", "Very Negative"]
+                "enum": [
+                  "Very Positive",
+                  "Positive",
+                  "Neutral",
+                  "Negative",
+                  "Very Negative"
+                ]
               },
               "aiTags": {},
               "easterEggDetected": {
@@ -25153,7 +25803,13 @@
               },
               "status": {
                 "type": "string",
-                "enum": ["New", "In Progress", "Resolved", "Closed", "Spam"]
+                "enum": [
+                  "New",
+                  "In Progress",
+                  "Resolved",
+                  "Closed",
+                  "Spam"
+                ]
               },
               "assignedTo": {
                 "type": "string"
@@ -25231,7 +25887,11 @@
       },
       "FormSubmission": {
         "type": "object",
-        "required": ["formType", "rawMessage", "submittedAt"],
+        "required": [
+          "formType",
+          "rawMessage",
+          "submittedAt"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -25265,7 +25925,13 @@
           },
           "aiSentiment": {
             "type": "string",
-            "enum": ["Very Positive", "Positive", "Neutral", "Negative", "Very Negative"]
+            "enum": [
+              "Very Positive",
+              "Positive",
+              "Neutral",
+              "Negative",
+              "Very Negative"
+            ]
           },
           "aiTags": {},
           "easterEggDetected": {
@@ -25291,7 +25957,13 @@
           },
           "status": {
             "type": "string",
-            "enum": ["New", "In Progress", "Resolved", "Closed", "Spam"]
+            "enum": [
+              "New",
+              "In Progress",
+              "Resolved",
+              "Closed",
+              "Spam"
+            ]
           },
           "assignedTo": {
             "type": "string"
@@ -25637,7 +26309,13 @@
                 },
                 "aiSentiment": {
                   "type": "string",
-                  "enum": ["Very Positive", "Positive", "Neutral", "Negative", "Very Negative"]
+                  "enum": [
+                    "Very Positive",
+                    "Positive",
+                    "Neutral",
+                    "Negative",
+                    "Very Negative"
+                  ]
                 },
                 "aiTags": {},
                 "easterEggDetected": {
@@ -25663,7 +26341,13 @@
                 },
                 "status": {
                   "type": "string",
-                  "enum": ["New", "In Progress", "Resolved", "Closed", "Spam"]
+                  "enum": [
+                    "New",
+                    "In Progress",
+                    "Resolved",
+                    "Closed",
+                    "Spam"
+                  ]
                 },
                 "assignedTo": {
                   "type": "string"
@@ -25752,10 +26436,15 @@
       },
       "HeroRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["flipWords", "taglineTemplate"],
+            "required": [
+              "flipWords",
+              "taglineTemplate"
+            ],
             "type": "object",
             "properties": {
               "flipWords": {},
@@ -25832,7 +26521,10 @@
       },
       "Hero": {
         "type": "object",
-        "required": ["flipWords", "taglineTemplate"],
+        "required": [
+          "flipWords",
+          "taglineTemplate"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -26241,10 +26933,15 @@
       },
       "HomepageRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title", "sections"],
+            "required": [
+              "title",
+              "sections"
+            ],
             "type": "object",
             "properties": {
               "title": {
@@ -26317,7 +27014,10 @@
       },
       "Homepage": {
         "type": "object",
-        "required": ["title", "sections"],
+        "required": [
+          "title",
+          "sections"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -26495,10 +27195,14 @@
       },
       "JourneyRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title"],
+            "required": [
+              "title"
+            ],
             "type": "object",
             "properties": {
               "header": {
@@ -26577,7 +27281,9 @@
       },
       "Journey": {
         "type": "object",
-        "required": ["title"],
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -27039,10 +27745,17 @@
       },
       "KnowledgeItemRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title", "slug", "content", "source"],
+            "required": [
+              "title",
+              "slug",
+              "content",
+              "source"
+            ],
             "type": "object",
             "properties": {
               "title": {
@@ -27059,7 +27772,12 @@
               },
               "type": {
                 "type": "string",
-                "enum": ["docs", "code", "user_upload", "telemetry_insight"]
+                "enum": [
+                  "docs",
+                  "code",
+                  "user_upload",
+                  "telemetry_insight"
+                ]
               },
               "tags": {
                 "type": "array",
@@ -27126,7 +27844,12 @@
       },
       "KnowledgeItem": {
         "type": "object",
-        "required": ["title", "slug", "content", "source"],
+        "required": [
+          "title",
+          "slug",
+          "content",
+          "source"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -27148,7 +27871,12 @@
           },
           "type": {
             "type": "string",
-            "enum": ["docs", "code", "user_upload", "telemetry_insight"]
+            "enum": [
+              "docs",
+              "code",
+              "user_upload",
+              "telemetry_insight"
+            ]
           },
           "tags": {
             "type": "array",
@@ -27471,7 +28199,12 @@
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["docs", "code", "user_upload", "telemetry_insight"]
+                  "enum": [
+                    "docs",
+                    "code",
+                    "user_upload",
+                    "telemetry_insight"
+                  ]
                 },
                 "tags": {
                   "type": "array",
@@ -27549,10 +28282,15 @@
       },
       "MaintenanceRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["enabled", "message"],
+            "required": [
+              "enabled",
+              "message"
+            ],
             "type": "object",
             "properties": {
               "enabled": {
@@ -27625,7 +28363,10 @@
       },
       "Maintenance": {
         "type": "object",
-        "required": ["enabled", "message"],
+        "required": [
+          "enabled",
+          "message"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -28026,10 +28767,15 @@
       },
       "MusicGenreRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name", "slug"],
+            "required": [
+              "name",
+              "slug"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -28125,7 +28871,10 @@
       },
       "MusicGenre": {
         "type": "object",
-        "required": ["name", "slug"],
+        "required": [
+          "name",
+          "slug"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -28681,10 +29430,18 @@
       },
       "PageRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["slug", "title", "content", "template", "lastUpdated"],
+            "required": [
+              "slug",
+              "title",
+              "content",
+              "template",
+              "lastUpdated"
+            ],
             "type": "object",
             "properties": {
               "slug": {
@@ -28698,7 +29455,11 @@
               },
               "template": {
                 "type": "string",
-                "enum": ["legal", "default", "landing"]
+                "enum": [
+                  "legal",
+                  "default",
+                  "landing"
+                ]
               },
               "lastUpdated": {
                 "type": "string",
@@ -28712,7 +29473,10 @@
               },
               "footerVariant": {
                 "type": "string",
-                "enum": ["default", "minimal"]
+                "enum": [
+                  "default",
+                  "minimal"
+                ]
               },
               "locale": {
                 "type": "string"
@@ -28772,7 +29536,13 @@
       },
       "Page": {
         "type": "object",
-        "required": ["slug", "title", "content", "template", "lastUpdated"],
+        "required": [
+          "slug",
+          "title",
+          "content",
+          "template",
+          "lastUpdated"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -28791,7 +29561,11 @@
           },
           "template": {
             "type": "string",
-            "enum": ["legal", "default", "landing"]
+            "enum": [
+              "legal",
+              "default",
+              "landing"
+            ]
           },
           "lastUpdated": {
             "type": "string",
@@ -28805,7 +29579,10 @@
           },
           "footerVariant": {
             "type": "string",
-            "enum": ["default", "minimal"]
+            "enum": [
+              "default",
+              "minimal"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -28866,7 +29643,11 @@
                 },
                 "template": {
                   "type": "string",
-                  "enum": ["legal", "default", "landing"]
+                  "enum": [
+                    "legal",
+                    "default",
+                    "landing"
+                  ]
                 },
                 "lastUpdated": {
                   "type": "string",
@@ -28880,7 +29661,10 @@
                 },
                 "footerVariant": {
                   "type": "string",
-                  "enum": ["default", "minimal"]
+                  "enum": [
+                    "default",
+                    "minimal"
+                  ]
                 },
                 "createdAt": {
                   "type": "string",
@@ -28951,7 +29735,9 @@
       },
       "PortfolioRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "required": [
@@ -29088,7 +29874,13 @@
       },
       "Portfolio": {
         "type": "object",
-        "required": ["fullName", "occupation", "email", "preferredContactMethod", "socialLinks"],
+        "required": [
+          "fullName",
+          "occupation",
+          "email",
+          "preferredContactMethod",
+          "socialLinks"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -29621,10 +30413,17 @@
       },
       "PostRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title", "slug", "description", "url"],
+            "required": [
+              "title",
+              "slug",
+              "description",
+              "url"
+            ],
             "type": "object",
             "properties": {
               "title": {
@@ -29641,7 +30440,12 @@
               },
               "status": {
                 "type": "string",
-                "enum": ["Planned", "In Progress", "Completed", "On Hold"]
+                "enum": [
+                  "Planned",
+                  "In Progress",
+                  "Completed",
+                  "On Hold"
+                ]
               },
               "sort": {
                 "type": "integer"
@@ -29728,7 +30532,12 @@
       },
       "Post": {
         "type": "object",
-        "required": ["title", "slug", "description", "url"],
+        "required": [
+          "title",
+          "slug",
+          "description",
+          "url"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -29750,7 +30559,12 @@
           },
           "status": {
             "type": "string",
-            "enum": ["Planned", "In Progress", "Completed", "On Hold"]
+            "enum": [
+              "Planned",
+              "In Progress",
+              "Completed",
+              "On Hold"
+            ]
           },
           "sort": {
             "type": "integer"
@@ -29841,7 +30655,12 @@
                 },
                 "status": {
                   "type": "string",
-                  "enum": ["Planned", "In Progress", "Completed", "On Hold"]
+                  "enum": [
+                    "Planned",
+                    "In Progress",
+                    "Completed",
+                    "On Hold"
+                  ]
                 },
                 "sort": {
                   "type": "integer"
@@ -29939,7 +30758,9 @@
       },
       "PreloaderRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "required": [
@@ -29959,7 +30780,10 @@
               },
               "variant": {
                 "type": "string",
-                "enum": ["interactive", "simple"]
+                "enum": [
+                  "interactive",
+                  "simple"
+                ]
               },
               "theme": {
                 "type": "string",
@@ -30021,7 +30845,12 @@
               },
               "transitionType": {
                 "type": "string",
-                "enum": ["fade", "slide", "scale", "none"]
+                "enum": [
+                  "fade",
+                  "slide",
+                  "scale",
+                  "none"
+                ]
               },
               "showCard": {
                 "type": "boolean"
@@ -30044,7 +30873,11 @@
               },
               "ariaLive": {
                 "type": "string",
-                "enum": ["off", "polite", "assertive"]
+                "enum": [
+                  "off",
+                  "polite",
+                  "assertive"
+                ]
               },
               "skipButtonAriaLabel": {
                 "type": "string"
@@ -30141,7 +30974,10 @@
           },
           "variant": {
             "type": "string",
-            "enum": ["interactive", "simple"]
+            "enum": [
+              "interactive",
+              "simple"
+            ]
           },
           "theme": {
             "type": "string",
@@ -30203,7 +31039,12 @@
           },
           "transitionType": {
             "type": "string",
-            "enum": ["fade", "slide", "scale", "none"]
+            "enum": [
+              "fade",
+              "slide",
+              "scale",
+              "none"
+            ]
           },
           "showCard": {
             "type": "boolean"
@@ -30226,7 +31067,11 @@
           },
           "ariaLive": {
             "type": "string",
-            "enum": ["off", "polite", "assertive"]
+            "enum": [
+              "off",
+              "polite",
+              "assertive"
+            ]
           },
           "skipButtonAriaLabel": {
             "type": "string"
@@ -30548,7 +31393,10 @@
                 },
                 "variant": {
                   "type": "string",
-                  "enum": ["interactive", "simple"]
+                  "enum": [
+                    "interactive",
+                    "simple"
+                  ]
                 },
                 "theme": {
                   "type": "string",
@@ -30610,7 +31458,12 @@
                 },
                 "transitionType": {
                   "type": "string",
-                  "enum": ["fade", "slide", "scale", "none"]
+                  "enum": [
+                    "fade",
+                    "slide",
+                    "scale",
+                    "none"
+                  ]
                 },
                 "showCard": {
                   "type": "boolean"
@@ -30633,7 +31486,11 @@
                 },
                 "ariaLive": {
                   "type": "string",
-                  "enum": ["off", "polite", "assertive"]
+                  "enum": [
+                    "off",
+                    "polite",
+                    "assertive"
+                  ]
                 },
                 "skipButtonAriaLabel": {
                   "type": "string"
@@ -30745,10 +31602,17 @@
       },
       "ProjectRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title", "slug", "shortDescription", "description"],
+            "required": [
+              "title",
+              "slug",
+              "shortDescription",
+              "description"
+            ],
             "type": "object",
             "properties": {
               "title": {
@@ -30765,7 +31629,13 @@
               },
               "display": {
                 "type": "string",
-                "enum": ["hidden", "unlisted", "standard", "featured", "home"]
+                "enum": [
+                  "hidden",
+                  "unlisted",
+                  "standard",
+                  "featured",
+                  "home"
+                ]
               },
               "coverImage": {
                 "$ref": "#/components/schemas/UiImageElementComponent"
@@ -30959,7 +31829,12 @@
       },
       "Project": {
         "type": "object",
-        "required": ["title", "slug", "shortDescription", "description"],
+        "required": [
+          "title",
+          "slug",
+          "shortDescription",
+          "description"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -30981,7 +31856,13 @@
           },
           "display": {
             "type": "string",
-            "enum": ["hidden", "unlisted", "standard", "featured", "home"]
+            "enum": [
+              "hidden",
+              "unlisted",
+              "standard",
+              "featured",
+              "home"
+            ]
           },
           "coverImage": {
             "$ref": "#/components/schemas/UiImageElementComponent"
@@ -31336,7 +32217,10 @@
                     },
                     "display": {
                       "type": "string",
-                      "enum": ["hidden", "visible"]
+                      "enum": [
+                        "hidden",
+                        "visible"
+                      ]
                     },
                     "variant": {
                       "type": "string",
@@ -31422,11 +32306,21 @@
                 },
                 "display": {
                   "type": "string",
-                  "enum": ["hidden", "standard", "featured", "core"]
+                  "enum": [
+                    "hidden",
+                    "standard",
+                    "featured",
+                    "core"
+                  ]
                 },
                 "proficiency": {
                   "type": "string",
-                  "enum": ["learning", "competent", "proficient", "expert"]
+                  "enum": [
+                    "learning",
+                    "competent",
+                    "proficient",
+                    "expert"
+                  ]
                 },
                 "icon": {
                   "type": "string"
@@ -31532,7 +32426,11 @@
                       },
                       "workMode": {
                         "type": "string",
-                        "enum": ["Onsite", "Hybrid", "Remote"]
+                        "enum": [
+                          "Onsite",
+                          "Hybrid",
+                          "Remote"
+                        ]
                       },
                       "companyWebsite": {
                         "type": "string"
@@ -31585,7 +32483,13 @@
                             },
                             "display": {
                               "type": "string",
-                              "enum": ["hidden", "unlisted", "standard", "featured", "home"]
+                              "enum": [
+                                "hidden",
+                                "unlisted",
+                                "standard",
+                                "featured",
+                                "home"
+                              ]
                             },
                             "coverImage": {
                               "$ref": "#/components/schemas/UiImageElementComponent"
@@ -32189,7 +33093,11 @@
                                 },
                                 "display": {
                                   "type": "string",
-                                  "enum": ["hidden", "standard", "featured"]
+                                  "enum": [
+                                    "hidden",
+                                    "standard",
+                                    "featured"
+                                  ]
                                 },
                                 "projects": {
                                   "type": "array",
@@ -32563,7 +33471,9 @@
       },
       "ProjectShowcaseRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "required": [
@@ -33099,10 +34009,16 @@
       },
       "PromptRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name", "slug", "system_message"],
+            "required": [
+              "name",
+              "slug",
+              "system_message"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -33122,7 +34038,13 @@
               },
               "type": {
                 "type": "string",
-                "enum": ["intent_analyst", "assistant", "expert", "tool", "evaluation"]
+                "enum": [
+                  "intent_analyst",
+                  "assistant",
+                  "expert",
+                  "tool",
+                  "evaluation"
+                ]
               },
               "langsmith_id": {
                 "type": "string"
@@ -33195,7 +34117,11 @@
       },
       "Prompt": {
         "type": "object",
-        "required": ["name", "slug", "system_message"],
+        "required": [
+          "name",
+          "slug",
+          "system_message"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -33220,7 +34146,13 @@
           },
           "type": {
             "type": "string",
-            "enum": ["intent_analyst", "assistant", "expert", "tool", "evaluation"]
+            "enum": [
+              "intent_analyst",
+              "assistant",
+              "expert",
+              "tool",
+              "evaluation"
+            ]
           },
           "langsmith_id": {
             "type": "string"
@@ -33552,7 +34484,13 @@
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["intent_analyst", "assistant", "expert", "tool", "evaluation"]
+                  "enum": [
+                    "intent_analyst",
+                    "assistant",
+                    "expert",
+                    "tool",
+                    "evaluation"
+                  ]
                 },
                 "langsmith_id": {
                   "type": "string"
@@ -33636,10 +34574,16 @@
       },
       "SkillRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name", "display", "proficiency"],
+            "required": [
+              "name",
+              "display",
+              "proficiency"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -33658,11 +34602,21 @@
               },
               "display": {
                 "type": "string",
-                "enum": ["hidden", "standard", "featured", "core"]
+                "enum": [
+                  "hidden",
+                  "standard",
+                  "featured",
+                  "core"
+                ]
               },
               "proficiency": {
                 "type": "string",
-                "enum": ["learning", "competent", "proficient", "expert"]
+                "enum": [
+                  "learning",
+                  "competent",
+                  "proficient",
+                  "expert"
+                ]
               },
               "icon": {
                 "type": "string"
@@ -33784,7 +34738,11 @@
       },
       "Skill": {
         "type": "object",
-        "required": ["name", "display", "proficiency"],
+        "required": [
+          "name",
+          "display",
+          "proficiency"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -33815,7 +34773,10 @@
               },
               "display": {
                 "type": "string",
-                "enum": ["hidden", "visible"]
+                "enum": [
+                  "hidden",
+                  "visible"
+                ]
               },
               "variant": {
                 "type": "string",
@@ -33859,11 +34820,21 @@
                     },
                     "display": {
                       "type": "string",
-                      "enum": ["hidden", "standard", "featured", "core"]
+                      "enum": [
+                        "hidden",
+                        "standard",
+                        "featured",
+                        "core"
+                      ]
                     },
                     "proficiency": {
                       "type": "string",
-                      "enum": ["learning", "competent", "proficient", "expert"]
+                      "enum": [
+                        "learning",
+                        "competent",
+                        "proficient",
+                        "expert"
+                      ]
                     },
                     "icon": {
                       "type": "string"
@@ -33969,7 +34940,11 @@
                           },
                           "workMode": {
                             "type": "string",
-                            "enum": ["Onsite", "Hybrid", "Remote"]
+                            "enum": [
+                              "Onsite",
+                              "Hybrid",
+                              "Remote"
+                            ]
                           },
                           "companyWebsite": {
                             "type": "string"
@@ -34022,7 +34997,13 @@
                                 },
                                 "display": {
                                   "type": "string",
-                                  "enum": ["hidden", "unlisted", "standard", "featured", "home"]
+                                  "enum": [
+                                    "hidden",
+                                    "unlisted",
+                                    "standard",
+                                    "featured",
+                                    "home"
+                                  ]
                                 },
                                 "coverImage": {
                                   "$ref": "#/components/schemas/UiImageElementComponent"
@@ -34626,7 +35607,11 @@
                                     },
                                     "display": {
                                       "type": "string",
-                                      "enum": ["hidden", "standard", "featured"]
+                                      "enum": [
+                                        "hidden",
+                                        "standard",
+                                        "featured"
+                                      ]
                                     },
                                     "projects": {
                                       "type": "array",
@@ -34952,11 +35937,21 @@
           },
           "display": {
             "type": "string",
-            "enum": ["hidden", "standard", "featured", "core"]
+            "enum": [
+              "hidden",
+              "standard",
+              "featured",
+              "core"
+            ]
           },
           "proficiency": {
             "type": "string",
-            "enum": ["learning", "competent", "proficient", "expert"]
+            "enum": [
+              "learning",
+              "competent",
+              "proficient",
+              "expert"
+            ]
           },
           "icon": {
             "type": "string"
@@ -35086,10 +36081,15 @@
       },
       "SkillCategoryRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["name", "label"],
+            "required": [
+              "name",
+              "label"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -35103,7 +36103,10 @@
               },
               "display": {
                 "type": "string",
-                "enum": ["hidden", "visible"]
+                "enum": [
+                  "hidden",
+                  "visible"
+                ]
               },
               "variant": {
                 "type": "string",
@@ -35192,7 +36195,10 @@
       },
       "SkillCategory": {
         "type": "object",
-        "required": ["name", "label"],
+        "required": [
+          "name",
+          "label"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -35211,7 +36217,10 @@
           },
           "display": {
             "type": "string",
-            "enum": ["hidden", "visible"]
+            "enum": [
+              "hidden",
+              "visible"
+            ]
           },
           "variant": {
             "type": "string",
@@ -35262,7 +36271,10 @@
                     },
                     "display": {
                       "type": "string",
-                      "enum": ["hidden", "visible"]
+                      "enum": [
+                        "hidden",
+                        "visible"
+                      ]
                     },
                     "variant": {
                       "type": "string",
@@ -35600,11 +36612,21 @@
                 },
                 "display": {
                   "type": "string",
-                  "enum": ["hidden", "standard", "featured", "core"]
+                  "enum": [
+                    "hidden",
+                    "standard",
+                    "featured",
+                    "core"
+                  ]
                 },
                 "proficiency": {
                   "type": "string",
-                  "enum": ["learning", "competent", "proficient", "expert"]
+                  "enum": [
+                    "learning",
+                    "competent",
+                    "proficient",
+                    "expert"
+                  ]
                 },
                 "icon": {
                   "type": "string"
@@ -35710,7 +36732,11 @@
                       },
                       "workMode": {
                         "type": "string",
-                        "enum": ["Onsite", "Hybrid", "Remote"]
+                        "enum": [
+                          "Onsite",
+                          "Hybrid",
+                          "Remote"
+                        ]
                       },
                       "companyWebsite": {
                         "type": "string"
@@ -35763,7 +36789,13 @@
                             },
                             "display": {
                               "type": "string",
-                              "enum": ["hidden", "unlisted", "standard", "featured", "home"]
+                              "enum": [
+                                "hidden",
+                                "unlisted",
+                                "standard",
+                                "featured",
+                                "home"
+                              ]
                             },
                             "coverImage": {
                               "$ref": "#/components/schemas/UiImageElementComponent"
@@ -36367,7 +37399,11 @@
                                 },
                                 "display": {
                                   "type": "string",
-                                  "enum": ["hidden", "standard", "featured"]
+                                  "enum": [
+                                    "hidden",
+                                    "standard",
+                                    "featured"
+                                  ]
                                 },
                                 "projects": {
                                   "type": "array",
@@ -36704,10 +37740,14 @@
       },
       "SkillShowcaseRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["title"],
+            "required": [
+              "title"
+            ],
             "type": "object",
             "properties": {
               "header": {
@@ -36786,7 +37826,9 @@
       },
       "SkillShowcase": {
         "type": "object",
-        "required": ["title"],
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -37199,10 +38241,16 @@
       },
       "TestimonialRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["author", "content", "rating"],
+            "required": [
+              "author",
+              "content",
+              "rating"
+            ],
             "type": "object",
             "properties": {
               "author": {
@@ -37240,7 +38288,11 @@
               },
               "approvalStatus": {
                 "type": "string",
-                "enum": ["Pending", "Approved", "Rejected"]
+                "enum": [
+                  "Pending",
+                  "Approved",
+                  "Rejected"
+                ]
               },
               "approvedBy": {
                 "type": "string"
@@ -37266,7 +38318,13 @@
               "contentEmbedding": {},
               "aiSentiment": {
                 "type": "string",
-                "enum": ["Very Positive", "Positive", "Neutral", "Negative", "Very Negative"]
+                "enum": [
+                  "Very Positive",
+                  "Positive",
+                  "Neutral",
+                  "Negative",
+                  "Very Negative"
+                ]
               },
               "aiTags": {},
               "locale": {
@@ -37327,7 +38385,11 @@
       },
       "Testimonial": {
         "type": "object",
-        "required": ["author", "content", "rating"],
+        "required": [
+          "author",
+          "content",
+          "rating"
+        ],
         "properties": {
           "id": {
             "type": "number"
@@ -37370,7 +38432,11 @@
           },
           "approvalStatus": {
             "type": "string",
-            "enum": ["Pending", "Approved", "Rejected"]
+            "enum": [
+              "Pending",
+              "Approved",
+              "Rejected"
+            ]
           },
           "approvedBy": {
             "type": "string"
@@ -37396,7 +38462,13 @@
           "contentEmbedding": {},
           "aiSentiment": {
             "type": "string",
-            "enum": ["Very Positive", "Positive", "Neutral", "Negative", "Very Negative"]
+            "enum": [
+              "Very Positive",
+              "Positive",
+              "Neutral",
+              "Negative",
+              "Very Negative"
+            ]
           },
           "aiTags": {},
           "createdAt": {
@@ -37482,7 +38554,11 @@
                 },
                 "approvalStatus": {
                   "type": "string",
-                  "enum": ["Pending", "Approved", "Rejected"]
+                  "enum": [
+                    "Pending",
+                    "Approved",
+                    "Rejected"
+                  ]
                 },
                 "approvedBy": {
                   "type": "string"
@@ -37508,7 +38584,13 @@
                 "contentEmbedding": {},
                 "aiSentiment": {
                   "type": "string",
-                  "enum": ["Very Positive", "Positive", "Neutral", "Negative", "Very Negative"]
+                  "enum": [
+                    "Very Positive",
+                    "Positive",
+                    "Neutral",
+                    "Negative",
+                    "Very Negative"
+                  ]
                 },
                 "aiTags": {},
                 "createdAt": {
@@ -37580,7 +38662,9 @@
       },
       "ThemeRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "required": [
@@ -37596,7 +38680,13 @@
             "properties": {
               "mode": {
                 "type": "string",
-                "enum": ["system", "light", "dark", "light:only", "dark:only"]
+                "enum": [
+                  "system",
+                  "light",
+                  "dark",
+                  "light:only",
+                  "dark:only"
+                ]
               },
               "primaryColor": {
                 "type": "string"
@@ -37704,7 +38794,13 @@
           },
           "mode": {
             "type": "string",
-            "enum": ["system", "light", "dark", "light:only", "dark:only"]
+            "enum": [
+              "system",
+              "light",
+              "dark",
+              "light:only",
+              "dark:only"
+            ]
           },
           "primaryColor": {
             "type": "string"
@@ -38038,7 +39134,13 @@
                 },
                 "mode": {
                   "type": "string",
-                  "enum": ["system", "light", "dark", "light:only", "dark:only"]
+                  "enum": [
+                    "system",
+                    "light",
+                    "dark",
+                    "light:only",
+                    "dark:only"
+                  ]
                 },
                 "primaryColor": {
                   "type": "string"
@@ -38139,10 +39241,16 @@
       },
       "WebsiteConfigurationRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["siteName", "siteUrl", "defaultSEO"],
+            "required": [
+              "siteName",
+              "siteUrl",
+              "defaultSEO"
+            ],
             "type": "object",
             "properties": {
               "siteName": {
@@ -38279,7 +39387,11 @@
       },
       "WebsiteConfiguration": {
         "type": "object",
-        "required": ["siteName", "siteUrl", "defaultSEO"],
+        "required": [
+          "siteName",
+          "siteUrl",
+          "defaultSEO"
+        ],
         "properties": {
           "id": {
             "type": "number"

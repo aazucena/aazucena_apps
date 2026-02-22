@@ -22,7 +22,7 @@ import {
 const meta = {
   title: 'Components/Actions/ToggleGroup',
   component: ToggleGroup,
-  subcomponents: { ToggleGroupItem } as any,
+  subcomponents: { ToggleGroupItem },
   parameters: {
     layout: 'centered',
     docs: {
@@ -71,7 +71,7 @@ export const MultiSelect: Story = {
   render: (args) => (
     <div className="flex flex-col items-center gap-4">
       <p className="text-[10px] font-black uppercase tracking-widest opacity-40">View_Filters</p>
-      <ToggleGroup {...args}>
+      <ToggleGroup type={args.type} {...args}>
         <ToggleGroupItem value="grid" aria-label="Toggle grid">
           <Layout />
         </ToggleGroupItem>
@@ -130,6 +130,10 @@ export const CyberTerminal: Story = {
  * Standard text formatting group implementation.
  */
 export const TypographyTools: Story = {
+  args: {
+    type: 'multiple',
+    variant: 'outline',
+  },
   render: () => (
     <ToggleGroup
       type="multiple"
@@ -153,6 +157,10 @@ export const TypographyTools: Story = {
  * Demonstrates the range of available size presets.
  */
 export const Sizes: Story = {
+  args: {
+    type: 'single',
+    variant: 'outline',
+  },
   render: () => (
     <div className="flex flex-col items-center gap-8">
       <div className="flex flex-col items-center gap-3">

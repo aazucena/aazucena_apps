@@ -140,7 +140,6 @@ export const Compact: Story = {
         {[1, 2, 3, 4, 5].map((_, i) => (
           <Step key={i} status={i === 0 ? 'completed' : i === 1 ? 'active' : 'pending'}>
             <StepIndicator
-              size="sm"
               status={i === 0 ? 'completed' : i === 1 ? 'active' : 'pending'}
               index={i}
             />

@@ -117,6 +117,9 @@ const LightboxWithTrigger = ({
  * Standard lightbox with 6 images, thumbnails, and captions. Click the button to open.
  */
 export const Default: Story = {
+  args: {
+    images: sampleImages,
+  },
   render: () => <LightboxWithTrigger />,
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
@@ -138,6 +141,10 @@ export const Default: Story = {
  * Glass overlay variant — frosted dark backdrop with translucent UI elements.
  */
 export const Glass: Story = {
+  args: {
+    images: sampleImages.slice(0, 4),
+    variant: 'glass',
+  },
   render: () => (
     <div className="p-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-700">
       <LightboxWithTrigger variant="glass" images={sampleImages.slice(0, 4)} />
@@ -149,6 +156,10 @@ export const Glass: Story = {
  * Cyber overlay with deep black background and neon-accented navigation controls.
  */
 export const Cyber: Story = {
+  args: {
+    images: sampleImages.slice(0, 4),
+    variant: 'cyber',
+  },
   render: () => (
     <div className="p-16 rounded-2xl bg-zinc-950 border border-cyan-500/10">
       <LightboxWithTrigger variant="cyber" images={sampleImages.slice(0, 4)} />
@@ -160,6 +171,9 @@ export const Cyber: Story = {
  * Single image — nav arrows and thumbnail strip are hidden; only close button is shown.
  */
 export const SingleImage: Story = {
+  args: {
+    images: [sampleImages[0]!],
+  },
   render: () => <LightboxWithTrigger images={[sampleImages[0]!]} />,
 };
 
@@ -167,6 +181,10 @@ export const SingleImage: Story = {
  * Captions overlay enabled — a text label appears over each image.
  */
 export const WithCaptions: Story = {
+  args: {
+    images: sampleImages,
+    showCaption: true,
+  },
   render: () => <LightboxWithTrigger showCaption />,
 };
 
@@ -174,5 +192,9 @@ export const WithCaptions: Story = {
  * Thumbnail strip hidden — clean minimal lightbox with only arrow navigation.
  */
 export const NoThumbnails: Story = {
+  args: {
+    images: sampleImages,
+    showThumbnails: false,
+  },
   render: () => <LightboxWithTrigger showThumbnails={false} />,
 };

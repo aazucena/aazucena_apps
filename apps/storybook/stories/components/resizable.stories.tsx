@@ -12,7 +12,7 @@ import { Terminal, Layout, Activity, Database, Globe } from '@aazucena/icons';
 const meta = {
   title: 'Components/Layout/Resizable',
   component: ResizablePanelGroup,
-  subcomponents: { ResizablePanel, ResizableHandle } as any,
+  subcomponents: { ResizablePanel, ResizableHandle },
   parameters: {
     layout: 'centered',
     docs: {
@@ -24,7 +24,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    direction: {
+    orientation: {
       control: 'radio',
       options: ['horizontal', 'vertical'],
       description: 'The primary axis of the panel group',
@@ -43,7 +43,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   args: {
-    direction: 'horizontal',
+    orientation: 'horizontal',
   },
   render: (args) => (
     <div className="h-[400px] w-[800px] rounded-[2rem] border overflow-hidden shadow-2xl bg-card">
@@ -82,9 +82,12 @@ export const Basic: Story = {
  * High-performance cyber variant for technical terminals and system monitors.
  */
 export const TechnicalIDE: Story = {
+  args: {
+    orientation: 'horizontal',
+  },
   render: () => (
     <div className="h-[500px] w-[900px] bg-black border border-cyan-500/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-      <ResizablePanelGroup direction="horizontal">
+      <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel defaultSize={20} minSize={15}>
           <div className="flex h-full flex-col p-4 border-r border-white/5">
             <span className="font-mono text-[9px] text-cyan-500 opacity-40 uppercase mb-4">
@@ -104,7 +107,7 @@ export const TechnicalIDE: Story = {
         </ResizablePanel>
         <ResizableHandle className="bg-white/5" />
         <ResizablePanel defaultSize={80}>
-          <ResizablePanelGroup direction="vertical">
+          <ResizablePanelGroup orientation="vertical">
             <ResizablePanel defaultSize={70}>
               <div className="flex h-full items-center justify-center p-6 font-mono text-cyan-400 text-xs">
                 <div className="flex items-center gap-3">
@@ -138,9 +141,12 @@ export const TechnicalIDE: Story = {
  * Demonstrates a complex three-column layout.
  */
 export const ThreeColumn: Story = {
+  args: {
+    orientation: 'horizontal',
+  },
   render: () => (
     <div className="h-[300px] w-[900px] border rounded-2xl overflow-hidden shadow-xl bg-card">
-      <ResizablePanelGroup direction="horizontal">
+      <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel defaultSize={20} className="bg-muted/30">
           <div className="flex h-full items-center justify-center p-4">
             <span className="text-[10px] font-bold uppercase opacity-40">Sidebar_L</span>

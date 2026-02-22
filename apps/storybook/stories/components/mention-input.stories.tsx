@@ -98,6 +98,9 @@ export const Cyber: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    suggestions: users,
+  },
   render: () => (
     <div className="space-y-4">
       <MentionDemo suggestions={users} size="sm" placeholder="Small (@)" />

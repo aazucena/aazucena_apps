@@ -8,15 +8,19 @@ import { Minus } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
 
 const InputOTP = React.forwardRef<
-  React.ElementRef<typeof OTPInput>,
-  React.ComponentPropsWithoutRef<typeof OTPInput>
+  React.ComponentRef<typeof OTPInput>,
+  React.ComponentPropsWithoutRef<typeof OTPInput> & {
+  containerClassName?: string,
+}
 >(({ className, containerClassName, ...props }, ref) => (
   <OTPInput
     ref={ref}
+    data-slot="input-otp"
     containerClassName={cn(
-      'flex items-center gap-2 has-[:disabled]:opacity-50',
+      "cn-input-otp flex items-center has-disabled:opacity-50",
       containerClassName,
     )}
+    spellCheck={false}
     className={cn('disabled:cursor-not-allowed', className)}
     {...props}
   />
@@ -27,12 +31,12 @@ const InputOTPGroup = React.forwardRef<
   React.ElementRef<'div'>,
   React.ComponentPropsWithoutRef<'div'>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('flex items-center', className)} {...props} />
+  <div ref={ref} data-slot="input-otp-group" className={cn('flex items-center', className)} {...props} />
 ));
 InputOTPGroup.displayName = 'InputOTPGroup';
 
 const InputOTPSlot = React.forwardRef<
-  React.ElementRef<'div'>,
+  React.ComponentRef<'div'>,
   React.ComponentPropsWithoutRef<'div'> & { index: number }
 >(({ index, className, ...props }, ref) => {
   const inputOTPContext = React.useContext(OTPInputContext);
@@ -44,6 +48,8 @@ const InputOTPSlot = React.forwardRef<
   return (
     <div
       ref={ref}
+      data-slot="input-otp-slot"
+      data-active={isActive}
       className={cn(
         'border-input relative flex h-9 w-9 items-center justify-center border-y border-r text-sm shadow-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md',
         isActive && 'ring-ring z-10 ring-1',
@@ -63,10 +69,16 @@ const InputOTPSlot = React.forwardRef<
 InputOTPSlot.displayName = 'InputOTPSlot';
 
 const InputOTPSeparator = React.forwardRef<
-  React.ElementRef<'div'>,
+  React.ComponentRef<'div'>,
   React.ComponentPropsWithoutRef<'div'>
 >(({ ...props }, ref) => (
-  <div ref={ref} role="separator" {...props}>
+  <div
+    ref={ref}
+    data-slot="input-otp-separator"
+    className="[&_svg:not([class*='size-'])]:size-4 flex items-center"
+    role="separator"
+    {...props}
+  >
     <Minus />
   </div>
 ));

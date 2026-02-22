@@ -145,6 +145,9 @@ export const Cyber: Story = {
  * All 3 size presets for the combobox trigger.
  */
 export const Sizes: Story = {
+  args: {
+    options: frameworkOptions,
+  },
   render: () => (
     <div className="flex flex-col gap-4">
       <Combobox size="sm" placeholder="Small" options={frameworkOptions} />

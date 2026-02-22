@@ -172,6 +172,10 @@ export const ConfigDiff: Story = {
  * Side-by-side comparison of default and cyber variants for the same diff.
  */
 export const VariantComparison: Story = {
+  args: {
+    original: originalCode,
+    modified: modifiedCode,
+  },
   render: () => (
     <div className="flex flex-col gap-6">
       <div>

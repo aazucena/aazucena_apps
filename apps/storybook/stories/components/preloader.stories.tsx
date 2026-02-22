@@ -107,7 +107,7 @@ export const Basic: Story = {
 export const CyberTerminal: Story = {
   args: {
     variant: 'interactive',
-    theme: 'cyber',
+    theme: 'cyberpunk',
     title: '// PROTOCOL_INITIALIZATION',
     customSteps: defaultSteps.map((s) => ({ ...s, name: s.name.toUpperCase() })),
     showOnce: false,

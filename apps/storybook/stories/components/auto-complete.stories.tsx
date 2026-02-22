@@ -75,6 +75,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
+  args: {
+    options: frameworks,
+  },
   render: () => {
     const [value, setValue] = React.useState('');
     return (
@@ -93,6 +96,9 @@ export const Loading: Story = {
 };
 
 export const FreeSolo: Story = {
+  args: {
+    options: frameworks,
+  },
   render: () => {
     const [value, setValue] = React.useState('');
     return (
@@ -108,6 +114,9 @@ export const FreeSolo: Story = {
 };
 
 export const Glass: Story = {
+  args: {
+    options: frameworks,
+  },
   render: () => {
     const [value, setValue] = React.useState('');
     return (
@@ -119,6 +128,9 @@ export const Glass: Story = {
 };
 
 export const Cyber: Story = {
+  args: {
+    options: frameworks,
+  },
   render: () => {
     const [value, setValue] = React.useState('');
     return <AutoComplete variant="cyber" options={frameworks} value={value} onChange={setValue} />;
@@ -126,6 +138,9 @@ export const Cyber: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    options: frameworks,
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       {(['sm', 'md', 'lg'] as const).map((s) => (

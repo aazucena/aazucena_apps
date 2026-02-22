@@ -45,7 +45,7 @@ const meta = {
 } satisfies Meta<typeof Calendar>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Calendar>;
 
 // --- STORIES ---
 
@@ -54,14 +54,14 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   args: {
-    mode: 'single',
     variant: 'default',
+    mode: 'single',
   },
   render: (args) => {
-    const [date, setDate] = useState<Date | undefined>(new Date());
+    const [date, setDate] = useState<Date>();
     return (
       <div className="rounded-xl border shadow-lg overflow-hidden">
-        <Calendar {...args} selected={date} onSelect={setDate} />
+        <Calendar {...args} mode='single' selected={date} onSelect={setDate} />
       </div>
     );
   },
@@ -77,7 +77,7 @@ export const Cyber: Story = {
   },
   render: (args) => {
     const [date, setDate] = useState<Date | undefined>(new Date());
-    return <Calendar {...args} selected={date} onSelect={setDate} />;
+    return <Calendar {...args} mode='single' selected={date} onSelect={setDate} />;
   },
 };
 
@@ -93,7 +93,7 @@ export const Glass: Story = {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
       <div className="p-12 bg-gradient-to-br from-zinc-900 to-black rounded-[2rem]">
-        <Calendar {...args} selected={date} onSelect={setDate} />
+        <Calendar {...args} mode='single' selected={date} onSelect={setDate} />
       </div>
     );
   },
@@ -114,7 +114,7 @@ export const RangeSelection: Story = {
 
     return (
       <div className="rounded-xl border shadow-lg overflow-hidden">
-        <Calendar {...args} selected={range} onSelect={setRange} />
+        <Calendar {...args} mode='range' selected={range} onSelect={setRange} />
       </div>
     );
   },
@@ -131,7 +131,7 @@ export const MultipleMonths: Story = {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
       <div className="rounded-xl border shadow-lg overflow-hidden">
-        <Calendar {...args} selected={date} onSelect={setDate} />
+        <Calendar {...args} mode='single' selected={date} onSelect={setDate} />
       </div>
     );
   },

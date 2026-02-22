@@ -24,6 +24,11 @@ import { Shield, Sparkles, Zap, Trash, Globe } from '@aazucena/icons';
  * - **Specialized Components:** Includes `DialogHero` and `DialogIcon` for high-fidelity branding within modals.
  * - **Accessibility:** Traps focus and supports keyboard ESC to close; semantic title and description required.
  */
+type DialogStoryArgs = React.ComponentProps<typeof Dialog> & {
+  variant?: 'default' | 'glass' | 'cyber';
+  size?: 'default' | 'sm' | 'lg' | 'xl' | 'full';
+};
+
 const meta = {
   title: 'Components/Primitives/Dialog',
   component: Dialog,
@@ -62,10 +67,10 @@ const meta = {
       table: { category: 'Appearance' },
     },
   },
-} satisfies Meta<typeof Dialog>;
+} satisfies Meta<DialogStoryArgs>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<DialogStoryArgs>;
 
 // --- STORIES ---
 
@@ -160,25 +165,25 @@ export const GlassHero: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="glass" className="bg-primary/20 text-white rounded-full px-8">
+        <Button variant="glass" className="bg-primary/20 text-zinc-800 rounded-full px-8">
           <Sparkles className="mr-2" /> Upgrade Intel
         </Button>
       </DialogTrigger>
       <DialogContent variant="glass" className="p-0 border-white/10">
         <DialogHero className="h-48 flex items-center justify-center p-0">
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800" />
-          <DialogIcon className="relative z-10 border-white/20 bg-white/10 text-white size-20">
+          <DialogIcon className="relative z-10 border-white/20 bg-white/10 text-zinc-800 size-20">
             <Zap className="size-10" />
           </DialogIcon>
         </DialogHero>
         <div className="p-8 pt-6">
           <DialogHeader className="p-0 text-center items-center">
-            <DialogTitle className="text-white text-3xl">Unlock Advanced Intel</DialogTitle>
-            <DialogDescription className="text-white/60">
+            <DialogTitle className="text-zinc-800 text-3xl">Unlock Advanced Intel</DialogTitle>
+            <DialogDescription className="text-zinc-800">
               Access real-time trajectory predictions and global node distribution.
             </DialogDescription>
           </DialogHeader>
-          <DialogBody className="p-0 py-8 text-center text-white/80">
+          <DialogBody className="p-0 py-8 text-center text-zinc-800">
             <p className="text-sm">
               Join the 14,000+ engineers leveraging high-fidelity telemetry for biometric
               optimization.
@@ -188,7 +193,7 @@ export const GlassHero: Story = {
             <Button
               variant="glass"
               size="lg"
-              className="rounded-full px-12 bg-white text-black hover:bg-white/90"
+              className="rounded-full px-12 bg-white border-zinc-800/80  text-black hover:bg-white/90"
             >
               Upgrade_Now
             </Button>

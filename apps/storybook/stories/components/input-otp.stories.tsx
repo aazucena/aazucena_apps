@@ -53,9 +53,10 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     maxLength: 6,
+    children: (<></>),
   },
   render: (args) => (
-    <InputOTP {...args}>
+    <InputOTP maxLength={args.maxLength}>
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -77,6 +78,7 @@ export const Basic: Story = {
 export const SecureEnclave: Story = {
   args: {
     maxLength: 4,
+    children: (<></>),
   },
   render: (args) => (
     <div className="p-12 border border-cyan-500/20 bg-black rounded-[2rem] text-center space-y-8">
@@ -88,7 +90,7 @@ export const SecureEnclave: Story = {
       </div>
 
       <div className="flex justify-center">
-        <InputOTP {...args}>
+        <InputOTP maxLength={args.maxLength}>
           <InputOTPGroup>
             <InputOTPSlot
               index={0}
@@ -123,11 +125,12 @@ export const SecureEnclave: Story = {
 export const LargeFormat: Story = {
   args: {
     maxLength: 4,
+    children: (<></>),
   },
   render: (args) => (
     <div className="space-y-12 text-center">
       <h2 className="text-4xl font-black tracking-tighter uppercase">Identify_Self</h2>
-      <InputOTP {...args}>
+      <InputOTP maxLength={args.maxLength}>
         <InputOTPGroup className="gap-4">
           <InputOTPSlot index={0} className="size-20 text-3xl rounded-2xl border-2" />
           <InputOTPSlot index={1} className="size-20 text-3xl rounded-2xl border-2" />
@@ -152,13 +155,14 @@ export const Disabled: Story = {
   args: {
     maxLength: 4,
     disabled: true,
+    children: (<></>),
   },
   render: (args) => (
     <div className="space-y-4 text-center">
       <Badge variant="destructive" size="xs">
         SYSTEM_LOCKED
       </Badge>
-      <InputOTP {...args}>
+      <InputOTP maxLength={args.maxLength} disabled={args.disabled}>
         <InputOTPGroup>
           <InputOTPSlot index={0} />
           <InputOTPSlot index={1} />

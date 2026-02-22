@@ -7,6 +7,7 @@ import {
   InputGroupButton,
   InputGroupTextarea,
 } from '@aazucena/ui';
+import { Button } from '@aazucena/ui';
 import { Globe, Database, Search, Copy, Refresh, Shield, Send } from '@aazucena/icons';
 
 /**

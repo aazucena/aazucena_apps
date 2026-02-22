@@ -57,6 +57,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
+  args: {
+    display: 'Click to edit',
+  },
   render: () => (
     <Inplace display={<span className="text-muted-foreground">Click to edit</span>}>
       <input
@@ -68,6 +71,9 @@ export const Basic: Story = {
 };
 
 export const Closable: Story = {
+  args: {
+    display: 'Click to edit',
+  },
   render: () => (
     <Inplace closable display={<span className="text-muted-foreground">Click to edit</span>}>
       <input
@@ -79,6 +85,9 @@ export const Closable: Story = {
 };
 
 export const Controlled: Story = {
+  args: {
+    display: 'Click to edit',
+  },
   render: () => {
     const [active, setActive] = React.useState(false);
     return (
@@ -96,6 +105,9 @@ export const Controlled: Story = {
 };
 
 export const Glass: Story = {
+  args: {
+    display: 'Click to edit',
+  },
   render: () => (
     <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
       <Inplace variant="glass" closable display={<span>Click to edit</span>}>
@@ -109,6 +121,9 @@ export const Glass: Story = {
 };
 
 export const Cyber: Story = {
+  args: {
+    display: 'CLICK_TO_EDIT',
+  },
   render: () => (
     <Inplace variant="cyber" closable display={<span>CLICK_TO_EDIT</span>}>
       <input
@@ -120,6 +135,9 @@ export const Cyber: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    display: 'Size Field',
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       {(['sm', 'md', 'lg'] as const).map((s) => (
@@ -143,6 +161,11 @@ export const Sizes: Story = {
  */
 export const InteractionTest: Story = {
   tags: ['!autodocs'],
+  args: {
+    display: 'Click to edit this text',
+    variant: 'default',
+    size: 'md',
+  },
   render: () => (
     <Inplace display={<span>Click to edit this text</span>}>
       <input

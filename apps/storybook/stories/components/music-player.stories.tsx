@@ -115,6 +115,9 @@ export const Cyber: Story = {
  * Comparison of all three size presets rendered side by side.
  */
 export const Sizes: Story = {
+  args: {
+    src: 'https://example.com/audio.mp3',
+  },
   render: () => (
     <div className="flex w-[450px] flex-col gap-6">
       {(['sm', 'md', 'lg'] as const).map((size) => (

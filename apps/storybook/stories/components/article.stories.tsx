@@ -125,13 +125,13 @@ export const Glass: Story = {
           <h1 className="text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-sky-400 mb-4">
             Atmospheric_Ingestion
           </h1>
-          <ReadingTime variant="glass">
+          <ReadingTime variant="muted">
             <ReadingTimeIcon />
             <ReadingTimeValue>15 MIN READ</ReadingTimeValue>
           </ReadingTime>
         </header>
 
-        <Prose variant="glass">
+        <Prose>
           <MarkdownRenderer content={mockMarkdown} />
         </Prose>
       </div>

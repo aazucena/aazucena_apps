@@ -137,6 +137,9 @@ export const Cyber: Story = {
  * Comparison of all three size presets rendered vertically.
  */
 export const Sizes: Story = {
+  args: {
+    href: '#',
+  },
   render: () => (
     <div className="flex flex-col items-start gap-4">
       {(['sm', 'md', 'lg'] as const).map((size) => (
@@ -167,6 +170,9 @@ export const Disabled: Story = {
  * Multiple download triggers arranged as a file list for asset management UIs.
  */
 export const FileList: Story = {
+  args: {
+    href: '#',
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       <DownloadTrigger href="#" fileName="resume-2026.pdf" fileSize="2.4 MB" />

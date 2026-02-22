@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { DataTable, type DataTableColumn } from '@aazucena/ui';
+import { DataTable, type DataTableColumn, type DataTableProps } from '@aazucena/ui';
 
 /**
  * ## Engineering Standards
@@ -39,17 +39,10 @@ const meta = {
       table: { category: 'Behavior' },
     },
   },
-  decorators: [
-    (Story) => (
-      <div className="w-[700px]">
-        <Story />
-      </div>
-    ),
-  ],
-} satisfies Meta<typeof DataTable>;
+} satisfies Meta<DataTableProps<any>>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<DataTableProps<any>>;
 
 // --- SAMPLE DATA ---
 

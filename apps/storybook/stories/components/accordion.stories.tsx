@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { within, userEvent, expect } from '@storybook/test';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@aazucena/ui';
 import { ChevronDown, Search, Cog, Plus, Minus, ArrowRight } from '@aazucena/icons';
-
+import type React from 'react';
 /**
  * ## Accessibility (A11y)
  * - **Keyboard Navigation:** Use `Tab` to navigate between triggers and `Enter` or `Space` to toggle content.
@@ -14,6 +14,21 @@ import { ChevronDown, Search, Cog, Plus, Minus, ArrowRight } from '@aazucena/ico
  * - **Maturity:** `Stable`
  * - **Theme Support:** `AAZUCENA_v1`
  */
+
+type AccordionStoryArgs = React.ComponentProps<typeof Accordion> & {
+  type: 'single' | 'multiple';
+  collapsible?: boolean;
+  defaultValue?: string;
+  variant?: 'default' | 'card' | 'glass' | 'cyber';
+  icon?: any;
+  openIcon?: any;
+  iconAnimation?: 'rotate' | 'rotate-90' | 'rotate-45' | 'flip-v' | 'flip-h' | 'none';
+  hideIcon?: boolean;
+  headerClassName?: string;
+  iconClassName?: string;
+  className?: string;
+};
+
 const meta = {
   title: 'Components/Navigation/Accordion',
   component: Accordion,
@@ -120,10 +135,10 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<any>;
+} satisfies Meta<AccordionStoryArgs>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<AccordionStoryArgs>;
 
 // --- TEMPLATES & HELPERS ---
 
@@ -232,6 +247,9 @@ export const Card: Story = {
 };
 
 export const Glass: Story = {
+  args: {
+    type: 'single',
+  },
   render: () => (
     <Accordion type="single" collapsible={true} className="w-full">
       <AccordionItem value="item-1" variant="glass">
@@ -251,6 +269,9 @@ export const Glass: Story = {
 };
 
 export const Cyber: Story = {
+  args: {
+    type: 'single',
+  },
   render: () => (
     <Accordion type="single" collapsible={true} className="w-full">
       <AccordionItem value="item-1" variant="cyber">
@@ -275,6 +296,9 @@ export const Cyber: Story = {
  * Showcasing the various animation presets available for the trigger icons.
  */
 export const Animations: Story = {
+  args: {
+    type: 'single',
+  },
   render: () => (
     <Accordion type="single" collapsible={true} className="w-full">
       <AccordionItem value="item-1">
@@ -318,6 +342,9 @@ export const Swapping: Story = {
  * Demonstrate granular styling control using Tailwind classes.
  */
 export const Styling: Story = {
+  args: {
+    type: 'single',
+  },
   render: () => (
     <Accordion type="single" collapsible={true} className="w-full">
       <AccordionItem value="item-1">
@@ -351,6 +378,9 @@ export const Styling: Story = {
  * Accordions can be nested within one another for complex data hierarchies.
  */
 export const Nested: Story = {
+  args: {
+    type: 'single',
+  },
   render: () => (
     <Accordion type="single" collapsible={true} variant="card" className="w-full">
       <AccordionItem value="parent-1" variant="card">

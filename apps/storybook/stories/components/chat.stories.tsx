@@ -241,8 +241,8 @@ export const ThreadList: Story = {
           <Message size={18} className="text-cyan-400" />
         </ChatThreadIcon>
         <ChatThreadContent>
-          <ChatThreadTitle variant="cyber">// SIGNAL_LOCK_0x7F</ChatThreadTitle>
-          <ChatThreadMeta variant="cyber">TERMINATED</ChatThreadMeta>
+          <ChatThreadTitle>// SIGNAL_LOCK_0x7F</ChatThreadTitle>
+          <ChatThreadMeta>TERMINATED</ChatThreadMeta>
         </ChatThreadContent>
         <ChatThreadAction variant="cyber">
           <Copy size={14} />
