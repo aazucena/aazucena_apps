@@ -4,70 +4,71 @@
 import * as React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
-import {
-  Controller,
-  FormProvider,
-  useFormContext,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
-} from 'react-hook-form';
+import { useForm, useField, type AnyFieldApi, type FormApi } from '@tanstack/react-form';
+import { zodValidator } from '@tanstack/zod-form-adapter';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@aazucena/utils';
 import { Label } from './label.js';
 
-const Form = FormProvider;
+/**
+ * ## Engineering Standards
+ * - **Adapter Pattern:** Bridges TanStack Form logic with Shadcn visual components.
+ * - **Reactivity:** Uses TanStack's granular field-level subscriptions.
+ * - **Visuals:** Full support for 'default', 'glass', and 'cyber' variants.
+ */
 
-type FormFieldContextValue<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> = {
-  name: TName;
+// --- CONTEXTS ---
+
+const FormInstanceContext = React.createContext<any>(null);
+
+type FormContextValue = {
+  variant?: 'default' | 'glass' | 'cyber';
 };
 
-const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFieldContextValue);
-
-const FormField = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
-  return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
-    </FormFieldContext.Provider>
-  );
-};
-
-const useFormField = () => {
-  const fieldContext = React.useContext(FormFieldContext);
-  const itemContext = React.useContext(FormItemContext);
-  const { getFieldState, formState } = useFormContext();
-
-  const fieldState = getFieldState(fieldContext.name, formState);
-
-  if (!fieldContext) {
-    throw new Error('useFormField should be used within <FormField>');
-  }
-
-  const { id } = itemContext;
-
-  return {
-    id,
-    name: fieldContext.name,
-    formItemId: `${id}-form-item`,
-    formDescriptionId: `${id}-form-item-description`,
-    formMessageId: `${id}-form-item-message`,
-    ...fieldState,
-  };
-};
+const FormContext = React.createContext<FormContextValue>({ variant: 'default' });
 
 type FormItemContextValue = {
   id: string;
 };
 
 const FormItemContext = React.createContext<FormItemContextValue>({} as FormItemContextValue);
+
+type FormFieldContextValue = {
+  name: string;
+  field: AnyFieldApi;
+};
+
+const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFieldContextValue);
+
+// --- COMPONENTS ---
+
+export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+  variant?: 'default' | 'glass' | 'cyber';
+  form?: any;
+}
+
+const Form = React.forwardRef<HTMLFormElement, FormProps>(
+  ({ className, variant = 'default', form, ...props }, ref) => {
+    const content = (
+      <FormContext.Provider value={{ variant }}>
+        <form ref={ref} className={cn('space-y-6', className)} {...props} />
+      </FormContext.Provider>
+    );
+
+    if (form) {
+      return (
+        <FormInstanceContext.Provider value={form}>
+          {content}
+        </FormInstanceContext.Provider>
+      );
+    }
+
+    return content;
+  },
+);
+Form.displayName = 'Form';
 
 const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
@@ -82,19 +83,60 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 );
 FormItem.displayName = 'FormItem';
 
+const useFormField = () => {
+  const fieldContext = React.useContext(FormFieldContext);
+  const itemContext = React.useContext(FormItemContext);
+  const { variant } = React.useContext(FormContext);
+
+  if (!fieldContext) {
+    throw new Error('useFormField should be used within <FormField>');
+  }
+
+  const { id } = itemContext;
+  const { field } = fieldContext;
+
+  return {
+    id,
+    name: fieldContext.name,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
+    variant,
+    // TanStack Field State
+    state: field.state,
+    error: field.state.meta.errors?.[0],
+    isTouched: field.state.meta.isTouched,
+    isValidating: field.state.meta.isValidating,
+  };
+};
+
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
-  const { error, formItemId } = useFormField();
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & { required?: boolean }
+>(({ className, required, ...props }, ref) => {
+  const { error, formItemId, variant } = useFormField();
 
   return (
-    <Label
-      ref={ref}
-      className={cn(error && 'text-destructive', className)}
-      htmlFor={formItemId}
-      {...props}
-    />
+    <div className="flex items-center gap-1">
+      <Label
+        ref={ref}
+        variant={variant as any}
+        className={cn(
+          error && 'text-destructive',
+          className,
+        )}
+        htmlFor={formItemId}
+        {...props}
+      />
+      {required && (
+        <span className={cn(
+          "text-xs font-bold leading-none",
+          error ? "text-destructive" : variant === 'cyber' ? "text-cyan-400" : "text-primary"
+        )}>
+          *
+        </span>
+      )}
+    </div>
   );
 });
 FormLabel.displayName = 'FormLabel';
@@ -121,13 +163,17 @@ const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
-  const { formDescriptionId } = useFormField();
+  const { formDescriptionId, variant } = useFormField();
 
   return (
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-muted-foreground text-[0.8rem]', className)}
+      className={cn(
+        'text-muted-foreground text-[0.8rem]',
+        variant === 'cyber' && 'font-mono text-[9px] uppercase text-cyan-500/40',
+        className,
+      )}
       {...props}
     />
   );
@@ -138,25 +184,65 @@ const FormMessage = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message ?? '') : children;
-
-  if (!body) {
-    return null;
-  }
+  const { error, formMessageId, variant } = useFormField();
+  const body = error ? String(error) : children;
 
   return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn('text-destructive text-[0.8rem] font-medium', className)}
-      {...props}
-    >
-      {body}
-    </p>
+    <AnimatePresence mode="wait">
+      {body && (
+        <motion.p
+          ref={ref as any}
+          id={formMessageId}
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -4 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className={cn(
+            'text-destructive text-[0.8rem] font-medium',
+            variant === 'cyber' && 'font-mono text-[9px] uppercase text-red-400',
+            className,
+          )}
+          {...(props as any)}
+        >
+          {body}
+        </motion.p>
+      )}
+    </AnimatePresence>
   );
 });
 FormMessage.displayName = 'FormMessage';
+
+/**
+ * FormField is a bridge component that connects TanStack Form's Field API
+ * to our Shadcn-style form components.
+ */
+export function FormField<TData, TName extends string>({
+  form,
+  name,
+  children,
+  ...props
+}: {
+  form?: any;
+  name: TName;
+  children: (field: AnyFieldApi) => React.ReactNode;
+} & any) {
+  const contextForm = React.useContext(FormInstanceContext);
+  const activeForm = form || contextForm;
+
+  if (!activeForm) {
+    throw new Error('FormField must be used within a Form component or provided with a form instance.');
+  }
+
+  return (
+    <activeForm.Field name={name} {...props}>
+      {(field: AnyFieldApi) => (
+        <FormFieldContext.Provider value={{ name, field }}>
+          {children(field)}
+        </FormFieldContext.Provider>
+      )}
+    </activeForm.Field>
+  );
+}
 
 export {
   useFormField,
@@ -166,5 +252,6 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
-  FormField,
+  FormInstanceContext,
+  zodValidator,
 };
