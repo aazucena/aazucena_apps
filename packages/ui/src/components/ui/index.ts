@@ -32,6 +32,7 @@ export * from './checkbox.js';
 export * from './chip.js';
 export * from './clipboard.js';
 export * from './code-block.js';
+export * from './coming-soon.js';
 export * from './consent-manager.js';
 export * from './collapsible.js';
 export * from './color-picker.js';
