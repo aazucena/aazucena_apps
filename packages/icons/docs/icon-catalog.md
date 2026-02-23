@@ -605,7 +605,7 @@ import {
   Check, // Checkmark
   CheckCircle, // Check in circle
   XCircle, // X in circle
-  AlertCircle, // Alert/warning
+  DangerCircle, // Alert/warning
   AlertTriangle, // Warning triangle
   Info, // Info icon
   Help, // Help/question
@@ -934,13 +934,13 @@ function Navigation() {
 ### Example 2: Status Indicators
 
 ```typescript
-import { CheckCircle, XCircle, AlertCircle, Info } from '@aazucena/icons';
+import { CheckCircle, XCircle, DangerCircle, Info } from '@aazucena/icons';
 
 function StatusBadge({ status }: { status: 'success' | 'error' | 'warning' | 'info' }) {
   const configs = {
     success: { Icon: CheckCircle, color: 'text-green-500', label: 'Success' },
     error: { Icon: XCircle, color: 'text-red-500', label: 'Error' },
-    warning: { Icon: AlertCircle, color: 'text-yellow-500', label: 'Warning' },
+    warning: { Icon: DangerCircle, color: 'text-yellow-500', label: 'Warning' },
     info: { Icon: Info, color: 'text-blue-500', label: 'Info' },
   };
 

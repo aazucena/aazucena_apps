@@ -23,8 +23,31 @@ export * from './Image.js';
 export * from './Vector.js';
 export * from './AwardBadge.js';
 export * from './Viewports.js';
+export * from './Lightbulb.js';
 
-// ─── Tech stack (Phase 4 additions) ───────────────────────────────────────────
+// ─── Phase 4 Additions ────────────────────────────────────────────────────────
+export * from './Robot.js';
+export * from './Bug.js';
+export * from './Gamepad.js';
+export * from './Window.js';
+export * from './PaintBrush.js';
+export * from './Cube.js';
+export * from './Webhook.js';
+export * from './Palette.js';
+export * from './WandMagic.js';
+export * from './FloppyDisk.js';
+export * from './Brush.js';
+export * from './Eraser.js';
+export * from './CompassDraft.js';
+export * from './EyeDropper.js';
+export * from './Fill.js';
+export * from './UploadCloud.js';
+export * from './GitFork.js';
+export * from './License.js';
+export * from './Braces.js';
+export * from './Type.js';
+
+// ─── Tech stack ───────────────────────────────────────────────────────────────
 export * from './TypeScript.js';
 export * from './Threejs.js';
 export * from './JavaScript.js';
