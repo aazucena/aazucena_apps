@@ -12,6 +12,7 @@ export * from './icons.js';
 export * from './api/strapi.js';
 export * from './api/clickhouse.js';
 export * from './api/responses.js';
+export * from './api/github.js';
 
 // Components
 export * from './components/props.js';
