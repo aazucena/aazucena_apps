@@ -34,10 +34,10 @@ const meta = {
     },
     device: {
       control: 'select',
-      options: ['browser', 'phone', 'tablet'],
+      options: ['browser', 'phone', 'tablet', 'laptop'], // Added 'laptop'
       table: {
         category: 'Appearance',
-        type: { summary: "'browser' | 'phone' | 'tablet'" },
+        type: { summary: "'browser' | 'phone' | 'tablet' | 'laptop'" }, // Updated summary
         defaultValue: { summary: 'browser' },
       },
     },
@@ -91,116 +91,71 @@ const SampleContent = () => (
   </div>
 );
 
-// --- BASIC USAGE ---
+const FullContent = () => (
+  <div className="flex h-full w-full items-center justify-center bg-muted/30 text-muted-foreground">
+    <p className="text-sm">Full content area</p>
+  </div>
+);
 
-/**
- * Default browser mockup with a URL bar and traffic-light dots.
- */
-export const Basic: Story = {
+// --- SPECIFIC DEVICE MOCKUPS ---
+
+export const Browser: Story = {
   args: {
-    variant: 'default',
     device: 'browser',
-    size: 'md',
-    url: 'https://azucena.dev',
-    children: <SampleContent />,
+    size: 'lg',
+    url: 'https://aazucena.dev',
+    children: <FullContent />,
   },
 };
 
-// --- VISUAL VARIANTS ---
-
-/**
- * Glass variant with translucent border styling, shown over a gradient background.
- */
-export const Glass: Story = {
+export const iPad: Story = {
   args: {
-    ...Basic.args,
-    variant: 'glass',
-  },
-  render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
-      <DeviceMockup {...args}>
-        <SampleContent />
-      </DeviceMockup>
-    </div>
-  ),
-};
-
-/**
- * Cyber variant featuring cyan accent borders, mono URL font, and a subtle glow shadow.
- */
-export const Cyber: Story = {
-  args: {
-    ...Basic.args,
-    variant: 'cyber',
-    url: 'https://sys.azucena.dev',
+    device: 'tablet',
+    size: 'lg',
+    children: <FullContent />,
   },
 };
 
-// --- DEVICE TYPES ---
-
-/**
- * All three device types rendered side by side at the small size for comparison.
- */
-export const DeviceTypes: Story = {
-  render: () => (
-    <div className="flex flex-wrap items-end gap-6">
-      <DeviceMockup device="browser" size="sm" url="https://azucena.dev">
-        <div className="flex h-32 items-center justify-center text-xs text-muted-foreground">
-          Browser
-        </div>
-      </DeviceMockup>
-      <DeviceMockup device="tablet" size="sm">
-        <div className="flex h-40 items-center justify-center text-xs text-muted-foreground">
-          Tablet
-        </div>
-      </DeviceMockup>
-      <DeviceMockup device="phone" size="sm">
-        <div className="flex h-48 items-center justify-center text-xs text-muted-foreground">
-          Phone
-        </div>
-      </DeviceMockup>
-    </div>
-  ),
-};
-
-// --- SIZE VARIANTS ---
-
-/**
- * Browser device at all three size breakpoints (sm 480px, md 640px, lg 800px).
- */
-export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col items-center gap-8">
-      {(['sm', 'md', 'lg'] as const).map((s) => (
-        <DeviceMockup key={s} device="browser" size={s} url={`size: ${s}`}>
-          <div className="flex h-24 items-center justify-center text-xs text-muted-foreground">
-            {s.toUpperCase()}
-          </div>
-        </DeviceMockup>
-      ))}
-    </div>
-  ),
-};
-
-// --- ADVANCED ---
-
-/**
- * Phone mockup in cyber variant demonstrating the notch and home-indicator chrome.
- */
-export const CyberPhone: Story = {
+export const iPhone: Story = {
   args: {
-    variant: 'cyber',
     device: 'phone',
-    size: 'md',
+    size: 'lg',
+    children: <FullContent />,
   },
-  render: (args) => (
-    <div className="rounded-2xl bg-black p-8">
-      <DeviceMockup {...args}>
-        <div className="flex h-64 flex-col items-center justify-center gap-2 bg-black/80">
-          <span className="font-mono text-xs text-cyan-400">SYS://MOBILE</span>
-          <span className="text-[10px] text-cyan-500/50">DEVICE CONNECTED</span>
-        </div>
-      </DeviceMockup>
-    </div>
-  ),
+};
+
+export const Android: Story = {
+  args: {
+    device: 'phone',
+    size: 'lg',
+    variant: 'cyber', // Differentiate with cyber variant
+    children: (
+      <div className="flex h-full w-full flex-col items-center justify-center bg-black/80 font-mono text-cyan-400">
+        <p>ANDROID_OS</p>
+        <p>INIT_COMPLETE</p>
+      </div>
+    ),
+  },
+};
+
+export const MacBookPro: Story = {
+  args: {
+    device: 'laptop',
+    size: 'lg',
+    url: 'https://dev.portal',
+    children: <FullContent />,
+  },
+};
+
+export const Safari: Story = {
+  args: {
+    device: 'browser',
+    size: 'lg',
+    url: 'https://safari.apple.com',
+    children: (
+      <div className="flex h-full w-full items-center justify-center bg-blue-500/10 text-muted-foreground">
+        <p className="text-sm">Safari Browser Content</p>
+      </div>
+    ),
+  },
 };

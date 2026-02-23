@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ResponsiveGrid } from '@aazucena/ui/components/ui/responsive-grid.js';
-import { InfiniteScroller } from '@aazucena/ui/components/ui/infinite-scroller.js';
+import { ResponsiveGrid } from '@aazucena/ui';
+import { InfiniteScroller } from '@aazucena/ui';
 import {
   ScrollDown,
   ScrollDownIcon,
   ScrollDownLabel,
-} from '@aazucena/ui/components/ui/scroll-down.js';
+} from '@aazucena/ui';
 import {
   SplitButton,
   SplitButtonPrimary,
@@ -13,15 +13,15 @@ import {
   SplitButtonContent,
   SplitButtonItem,
   SplitButtonMenu,
-} from '@aazucena/ui/components/ui/split-button.js';
+} from '@aazucena/ui';
 import {
   Spotlight,
   SpotlightVisual,
   SpotlightContent,
   SpotlightTitle,
   SpotlightDescription,
-} from '@aazucena/ui/components/ui/spotlight.js';
-import { Badge } from '@aazucena/ui/components/ui/badge.js';
+} from '@aazucena/ui';
+import { Badge } from '@aazucena/ui';
 import { Activity, Database } from '@aazucena/icons';
 
 /**

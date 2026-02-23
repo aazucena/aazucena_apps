@@ -11,10 +11,10 @@ import {
   LinkMenuLink,
   LinkMenuList,
   LinkMenuTitle,
-} from '@aazucena/ui/components/ui/link-menu.js';
-import { TableOfContents } from '@aazucena/ui/components/ui/table-of-contents.js';
-import { DetailNavigation } from '@aazucena/ui/components/ui/detail-navigation.js';
-import { ArrowLink } from '@aazucena/ui/components/ui/arrow-link.js';
+} from '@aazucena/ui';
+import { TableOfContents } from '@aazucena/ui';
+import { DetailNavigation } from '@aazucena/ui';
+import { ArrowLink } from '@aazucena/ui';
 import { GitHub as Github, Twitter } from '@aazucena/icons';
 
 /**

@@ -15,7 +15,7 @@ import {
 import {
   Activity,
   CheckCircle as ShieldCheck,
-  DangerCircle as AlertCircle,
+  DangerCircle,
   InfoCircle,
   Terminal,
   Database,
@@ -138,7 +138,7 @@ export const CriticalTerminal: Story = {
         <StatusMonitorHeader status="CRITICAL">
           <div className="flex items-center gap-4">
             <StatusMonitorIcon status="CRITICAL">
-              <AlertCircle className="size-6" />
+              <DangerCircle className="size-6" />
             </StatusMonitorIcon>
             <div>
               <StatusMonitorTitle className="text-rose-500/60">Kernel_Inference</StatusMonitorTitle>

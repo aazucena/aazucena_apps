@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Prose } from '@aazucena/ui/components/ui/prose.js';
-import { MarkdownRenderer } from '@aazucena/ui/components/ui/markdown-renderer.js';
-import { ReadingProgress } from '@aazucena/ui/components/ui/reading-progress.js';
+import { Prose } from '@aazucena/ui';
+import { MarkdownRenderer } from '@aazucena/ui';
+import { ReadingProgress } from '@aazucena/ui';
 import {
   ReadingTime,
   ReadingTimeIcon,
   ReadingTimeValue,
-} from '@aazucena/ui/components/ui/reading-time.js';
+} from '@aazucena/ui';
 
 /**
  * ## Accessibility (A11y)

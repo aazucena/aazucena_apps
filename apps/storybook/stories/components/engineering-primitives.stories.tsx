@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Trend } from '@aazucena/ui/components/ui/trend.js';
-import { ThoughtTrace, ThoughtStep } from '@aazucena/ui/components/ui/thought-trace.js';
-import { SegmentedControl, SegmentedItem } from '@aazucena/ui/components/ui/segmented-control.js';
+import { Trend } from '@aazucena/ui';
+import { ThoughtTrace, ThoughtStep } from '@aazucena/ui';
+import { SegmentedControl, SegmentedItem } from '@aazucena/ui';
 import {
   Playback,
   PlaybackCounter,
   PlaybackControls,
   PlaybackButton,
   PlaybackActions,
-} from '@aazucena/ui/components/ui/playback.js';
+} from '@aazucena/ui';
 import {
   Stepper,
   Step,
   StepIndicator,
   StepLabel,
   StepLine,
-} from '@aazucena/ui/components/ui/stepper.js';
-import { Dropzone } from '@aazucena/ui/components/ui/dropzone.js';
+} from '@aazucena/ui';
+import { Dropzone } from '@aazucena/ui';
 import {
   Play,
   Pause,
@@ -25,7 +25,7 @@ import {
   Refresh,
   CogFour as Settings,
 } from '@aazucena/icons';
-import { Button } from '@aazucena/ui/components/ui/button.js';
+import { Button } from '@aazucena/ui';
 
 /**
  * ## Accessibility (A11y)

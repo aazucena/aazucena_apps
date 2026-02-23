@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from '@storybook/test';
-import { Preloader } from '@aazucena/ui/components/preloader/index.js';
+import { Preloader } from '@aazucena/ui';
 import {
   PreloaderOverlay,
   PreloaderContent,

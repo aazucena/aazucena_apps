@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconRenderer } from '@aazucena/ui';
-import { Activity, Database, Globe, Shield, Zap, Github, Terminal } from '@aazucena/icons';
+import { Activity, Database, Globe, Shield, Zap, Github, Terminal, Lightbulb, LightbulbSolid } from '@aazucena/icons';
 
 /**
  * ## Engineering Standards
@@ -124,6 +124,22 @@ export const TechnicalIcons: Story = {
           className="text-zinc-400 transition-transform group-hover:scale-125"
         />
         <span className="text-[10px] font-black uppercase opacity-40">SOURCE_CORE</span>
+      </div>
+      <div className="flex flex-col items-center gap-4 group">
+        <IconRenderer
+          icon={Lightbulb}
+          size={40}
+          className="text-amber-400 transition-transform group-hover:scale-125"
+        />
+        <span className="text-[10px] font-black uppercase opacity-40">IDEA_OUTLINE</span>
+      </div>
+      <div className="flex flex-col items-center gap-4 group">
+        <IconRenderer
+          icon={LightbulbSolid}
+          size={40}
+          className="text-amber-500 transition-transform group-hover:scale-125"
+        />
+        <span className="text-[10px] font-black uppercase opacity-40">IDEA_SOLID</span>
       </div>
     </div>
   ),
