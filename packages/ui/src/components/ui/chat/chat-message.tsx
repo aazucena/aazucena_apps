@@ -5,6 +5,10 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Activity, Sparkles } from '@aazucena/icons';
 
+export interface ChatMessageProps {
+  role?: 'user' | 'assistant' | 'system';
+}
+
 export const chatMessageVariants = cva('flex w-full gap-4 transition-all duration-300 group/msg', {
   variants: {
     role: {
@@ -58,7 +62,7 @@ ChatAvatar.displayName = 'ChatAvatar';
 
 export const ChatContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { role?: 'user' | 'assistant' }
+  React.HTMLAttributes<HTMLDivElement> & ChatMessageProps
 >(({ className, role, ...props }, ref) => (
   <div
     ref={ref}
