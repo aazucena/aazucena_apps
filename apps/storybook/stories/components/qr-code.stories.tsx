@@ -9,7 +9,7 @@ import { QrCode } from '@aazucena/ui';
  * - **Design:** Three size presets (96/128/192px), error correction level M, optional logo overlay.
  */
 const meta = {
-  title: 'Components/Data Display/QrCode',
+  title: 'Components/Display/QrCode',
   component: QrCode,
   parameters: {
     layout: 'centered',

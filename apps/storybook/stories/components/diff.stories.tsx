@@ -37,7 +37,7 @@ const modifiedConfig = `{
  * - **Typography:** Monospace font rendering ensures pixel-accurate code alignment across all variants.
  */
 const meta = {
-  title: 'Components/Data Display/Diff',
+  title: 'Components/Display/Diff',
   component: Diff,
   parameters: {
     layout: 'centered',

@@ -5,7 +5,7 @@ import { Button } from '@aazucena/ui';
 import { MapPin, Target } from '@aazucena/icons'; // Assuming these icons are available
 
 const meta: Meta<typeof Map> = {
-  title: 'Components/UI/Map',
+  title: 'Components/Display/Map',
   component: Map,
   parameters: {
     layout: 'centered',

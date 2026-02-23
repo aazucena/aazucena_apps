@@ -9,7 +9,7 @@ import { CardStack } from '@aazucena/ui';
  * - **Performance:** Pure CSS transforms with no animation library dependency; only re-renders on active index change.
  */
 const meta = {
-  title: 'Components/Data Display/CardStack',
+  title: 'Components/Display/CardStack',
   component: CardStack,
   parameters: {
     layout: 'centered',

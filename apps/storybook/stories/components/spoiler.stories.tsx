@@ -30,7 +30,7 @@ const loremText = (
  * | Design | Smooth CSS height transition, configurable labels |
  */
 const meta = {
-  title: 'Components/Data Display/Spoiler',
+  title: 'Components/Display/Spoiler',
   component: Spoiler,
   parameters: {
     docs: {

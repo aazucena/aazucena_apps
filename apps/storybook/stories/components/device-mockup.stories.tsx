@@ -11,7 +11,7 @@ import { DeviceMockup } from '@aazucena/ui';
  * | Design | Compound variants map device + size to pixel-accurate widths; browser shows traffic-light dots + URL bar |
  */
 const meta = {
-  title: 'Components/Data Display/DeviceMockup',
+  title: 'Components/Display/DeviceMockup',
   component: DeviceMockup,
   parameters: {
     docs: {

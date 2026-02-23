@@ -10,7 +10,7 @@ import type { CommentData } from '@aazucena/ui';
  * - **Scalability:** `maxDepth` prop prevents unbounded nesting; flat rendering beyond the limit.
  */
 const meta = {
-  title: 'Components/Data Display/Comments',
+  title: 'Components/Display/Comments',
   component: Comments,
   parameters: {
     layout: 'centered',

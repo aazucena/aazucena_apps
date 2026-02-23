@@ -9,7 +9,7 @@ import { DataTable, type DataTableColumn, type DataTableProps } from '@aazucena/
  * - **Responsiveness:** Table container has overflow-auto for horizontal scroll on narrow viewports.
  */
 const meta = {
-  title: 'Components/Data Display/DataTable',
+  title: 'Components/Display/DataTable',
   component: DataTable,
   parameters: {
     layout: 'centered',

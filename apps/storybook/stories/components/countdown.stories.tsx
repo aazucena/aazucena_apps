@@ -9,7 +9,7 @@ import { Countdown } from '@aazucena/ui';
  * - **Performance:** Single `setInterval` with cleanup; segment visibility reduces DOM nodes when disabled.
  */
 const meta = {
-  title: 'Components/Data Display/Countdown',
+  title: 'Components/Display/Countdown',
   component: Countdown,
   parameters: {
     layout: 'centered',

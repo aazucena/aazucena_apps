@@ -39,7 +39,7 @@ import { Button } from '@aazucena/ui';
  * - **Theme Support:** `AAZUCENA_v1`
  */
 const meta = {
-  title: 'Components/Dashboard/EngineeringPrimitives',
+  title: 'Components/Data/EngineeringPrimitives',
   parameters: {
     layout: 'centered',
     docs: {

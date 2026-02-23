@@ -10,7 +10,7 @@ import { useState } from 'react';
  * - **Accessibility:** Items are draggable with visual feedback states for drag and drop targets.
  */
 const meta = {
-  title: 'Components/Data Display/SortableList',
+  title: 'Components/Display/SortableList',
   component: SortableList,
   parameters: {
     layout: 'centered',

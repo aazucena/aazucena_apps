@@ -9,7 +9,7 @@ import { AvatarGroup, Avatar, AvatarImage, AvatarFallback } from '@aazucena/ui';
  * - **Accessibility:** Each avatar retains its own alt text; overflow count is visible text.
  */
 const meta = {
-  title: 'Components/Data Display/AvatarGroup',
+  title: 'Components/Display/AvatarGroup',
   component: AvatarGroup,
   parameters: {
     layout: 'centered',

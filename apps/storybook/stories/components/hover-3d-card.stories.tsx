@@ -8,7 +8,7 @@ import { Hover3DCard } from '@aazucena/ui';
  * - **Performance:** GPU-accelerated transforms with `will-change: transform`; smooth ease-out reset on mouse leave.
  */
 const meta = {
-  title: 'Components/Data Display/Hover3DCard',
+  title: 'Components/Display/Hover3DCard',
   component: Hover3DCard,
   parameters: {
     layout: 'centered',

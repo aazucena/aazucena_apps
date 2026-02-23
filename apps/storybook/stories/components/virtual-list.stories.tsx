@@ -9,7 +9,7 @@ import { VirtualList } from '@aazucena/ui';
  * - **Accessibility:** Standard scroll container semantics; items are real DOM nodes.
  */
 const meta = {
-  title: 'Components/Data Display/VirtualList',
+  title: 'Components/Display/VirtualList',
   component: VirtualList,
   parameters: {
     layout: 'centered',

@@ -9,7 +9,7 @@ import { Tour, TourStep } from '@aazucena/ui';
  * - **Design:** CSS z-index layering with dynamic scroll-into-view for each step target.
  */
 const meta = {
-  title: 'Components/Overlays/Tour',
+  title: 'Components/Overlay/Tour',
   component: Tour,
   subcomponents: { TourStep },
   parameters: {

@@ -9,7 +9,7 @@ import { Gantt, type GanttTask } from '@aazucena/ui';
  * - **Accessibility:** Task bars have title tooltips with date ranges; today marker is visually distinct.
  */
 const meta = {
-  title: 'Components/Data Display/Gantt',
+  title: 'Components/Display/Gantt',
   component: Gantt,
   parameters: {
     layout: 'padded',

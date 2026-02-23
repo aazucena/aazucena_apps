@@ -36,7 +36,7 @@ const sampleCSS = `@layer base {
  * - **Design:** Shiki-powered highlighting with auto theme selection per variant (github-dark for default/glass, nord for cyber).
  */
 const meta = {
-  title: 'Components/Data Display/CodeBlock',
+  title: 'Components/Display/CodeBlock',
   component: CodeBlock,
   parameters: {
     layout: 'centered',

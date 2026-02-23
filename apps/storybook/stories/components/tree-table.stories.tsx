@@ -56,7 +56,7 @@ const columns = [
  * | Design | Composes Table styling patterns, indented child rows |
  */
 const meta = {
-  title: 'Components/Data Display/TreeTable',
+  title: 'Components/Display/TreeTable',
   component: TreeTable,
   parameters: {
     docs: {

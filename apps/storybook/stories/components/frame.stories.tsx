@@ -4,7 +4,7 @@ import { Frame } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';
 
 const meta: Meta<typeof Frame> = {
-  title: 'Components/UI/Frame',
+  title: 'Components/Layout/Frame',
   component: Frame,
   parameters: {
     layout: 'centered',

@@ -8,7 +8,7 @@ import { ListGroup, ListGroupItem } from '@aazucena/ui';
  * - **Design:** Clean bordered container with row separators. Compound component pattern (ListGroup + ListGroupItem).
  */
 const meta = {
-  title: 'Components/Data Display/ListGroup',
+  title: 'Components/Display/ListGroup',
   component: ListGroup,
   parameters: {
     layout: 'centered',

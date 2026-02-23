@@ -10,7 +10,7 @@ const tags = ['React', 'TypeScript', 'Tailwind', 'Astro', 'Next.js', 'Vite'];
  * - **Performance:** Pure CSS animation with no JS frame loops for zero main-thread cost.
  */
 const meta = {
-  title: 'Components/Data Display/Marquee',
+  title: 'Components/Display/Marquee',
   component: Marquee,
   parameters: {
     layout: 'padded',

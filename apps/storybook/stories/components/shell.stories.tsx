@@ -20,7 +20,7 @@ import {
  * - **Composition:** Fully modular parts (Sidebar, View, Header, Main, Content) for tailorable app architecture.
  */
 const meta = {
-  title: 'Components/Containers/Shell',
+  title: 'Components/Layout/Shell',
   component: Shell,
   subcomponents: {
     ShellSidebar,

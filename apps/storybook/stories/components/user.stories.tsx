@@ -11,7 +11,7 @@ import { User } from '@aazucena/ui';
  * | Design | Auto-generates initials from name when no avatar image provided |
  */
 const meta = {
-  title: 'Components/Data Display/User',
+  title: 'Components/Display/User',
   component: User,
   parameters: {
     docs: {

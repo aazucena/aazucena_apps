@@ -4,7 +4,7 @@ import { CardFlip, Card, CardContent } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';
 
 const meta: Meta<typeof CardFlip> = {
-  title: 'Components/UI/CardFlip',
+  title: 'Components/Display/CardFlip',
   component: CardFlip,
   parameters: {
     layout: 'centered',

@@ -59,7 +59,7 @@ const avatarData = {
  * | Design | Pure CSS lines (no D3/canvas), supports expand/collapse |
  */
 const meta = {
-  title: 'Components/Data Display/OrgChart',
+  title: 'Components/Display/OrgChart',
   component: OrgChart,
   parameters: {
     docs: {

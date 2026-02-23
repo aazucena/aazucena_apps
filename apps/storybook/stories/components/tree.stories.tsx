@@ -9,7 +9,7 @@ import { Tree, TreeItem } from '@aazucena/ui';
  * - **Design:** Three visual variants (default, glass, cyber) with three size presets.
  */
 const meta = {
-  title: 'Components/Data Display/Tree',
+  title: 'Components/Display/Tree',
   component: Tree,
   subcomponents: { TreeItem },
   parameters: {

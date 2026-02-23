@@ -3,7 +3,7 @@ import React from 'react';
 import { InfiniteCanvas } from '@aazucena/ui';
 
 const meta: Meta<typeof InfiniteCanvas> = {
-  title: 'Components/UI/InfiniteCanvas',
+  title: 'Components/Display/InfiniteCanvas',
   component: InfiniteCanvas,
   parameters: {
     layout: 'centered',

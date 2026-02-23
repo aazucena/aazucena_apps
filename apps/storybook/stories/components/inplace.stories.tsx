@@ -13,7 +13,7 @@ import { within, userEvent, expect } from '@storybook/test';
  * | Design | Supports controlled and uncontrolled modes, optional close button |
  */
 const meta = {
-  title: 'Components/Data Display/Inplace',
+  title: 'Components/Display/Inplace',
   component: Inplace,
   parameters: {
     docs: {

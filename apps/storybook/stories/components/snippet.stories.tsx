@@ -11,7 +11,7 @@ import { Snippet } from '@aazucena/ui';
  * | Design | Mono font code display with optional command-line symbol prefix |
  */
 const meta = {
-  title: 'Components/Data Display/Snippet',
+  title: 'Components/Display/Snippet',
   component: Snippet,
   parameters: {
     docs: {
