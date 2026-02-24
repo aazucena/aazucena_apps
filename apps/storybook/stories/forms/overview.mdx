@@ -6,7 +6,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 # Forms System
 
 The **`@aazucena/forms`** package is a fully type-safe, schema-driven form library for the portfolio monorepo.
-It pairs **TanStack Form v1** with **Zod v3** validation and ships **93 pre-composed template components** across 13
+It pairs **TanStack Form v1** with **Zod v3** validation and ships **94 pre-composed template components** across 13
 domains — from authentication ceremonies to incident post-mortems — all in three design variants.
 
 ---
@@ -77,12 +77,12 @@ The system is organized into three layers that compose cleanly together:
       <p className="text-sm font-bold text-[var(--foreground)]">Template Components</p>
       <code className="block text-[11px] font-mono opacity-60">@aazucena/forms/templates</code>
       <p className="text-xs text-[var(--muted-foreground)]">
-        93 pre-composed, drop-in form templates. Each accepts <code className="font-mono">variant</code>,
+        94 pre-composed, drop-in form templates. Each accepts <code className="font-mono">variant</code>,
         <code className="font-mono">onSuccess</code>, <code className="font-mono">onError</code>,
         and <code className="font-mono">defaultValues</code>.
       </p>
       <div className="mt-2 flex flex-wrap gap-1">
-        {['LoginForm', 'MFASetupForm', 'PaymentForm', 'SSOForm', '+ 89 more'].map(tag => (
+        {['LoginForm', 'MFASetupForm', 'PaymentForm', 'SSOForm', '+ 90 more'].map(tag => (
           <span key={tag} className="inline-block rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-mono opacity-70">{tag}</span>
         ))}
       </div>
@@ -99,7 +99,7 @@ The system is organized into three layers that compose cleanly together:
 // All schemas + type exports
 import { loginSchema, type LoginFormData } from '@aazucena/forms/schemas';
 
-// All 93 template components
+// All 94 template components
 import { LoginForm, MFASetupForm, PaymentForm } from '@aazucena/forms/templates';
 
 // Utility hooks
@@ -242,7 +242,7 @@ import { FormConditional } from '@aazucena/forms';
 
 ## ✍️ Usage Pattern
 
-Every template follows the same contract. Swap the schema and type to use any of the 55 forms:
+Every template follows the same contract. Swap the schema and type to use any of the 94 forms:
 
 ```tsx
 'use client';
@@ -268,7 +268,7 @@ export function AuthPage() {
 
 ---
 
-## 🗂️ Template Catalog — 93 Forms
+## 🗂️ Template Catalog — 94 Forms
 
 ### 🔐 Auth (14)
 
@@ -408,7 +408,7 @@ to hardware attestation.
 | `AlertConfigForm` | Metric, threshold, operator, notification channel | — |
 | `CustomReportForm` | Date range, metrics, group-by, output format | — |
 
-### 👤 Account (5)
+### 👤 Account (6)
 
 | Form | Description | Multi-step |
 |---|---|---|
@@ -417,6 +417,7 @@ to hardware attestation.
 | `PrivacySettingsForm` | Profile visibility, analytics/ads/data-sharing consents, activity status | — |
 | `ConnectedAppsForm` | Provider selector grid + permission multiselect | — |
 | `AccountDeletionForm` | Reason, confirm email, data export option, irreversible acknowledgement | — |
+| `AddressForm` | Dual-mode address entry: provider-agnostic autocomplete slot + manual fields with HTML autoComplete attributes for international support | — |
 
 ### 🚢 Platform / DevOps (7)
 
