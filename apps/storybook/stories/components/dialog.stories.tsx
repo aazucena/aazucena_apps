@@ -203,7 +203,7 @@ export const GlassHero: Story = {
     </Dialog>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 
 /**
  * Automated interaction test: open dialog via trigger, verify visible, close via ESC.
@@ -230,11 +230,14 @@ export const InteractionTest: Story = {
     const canvas = within(canvasElement);
     // Open dialog
     await userEvent.click(canvas.getByRole('button', { name: /open dialog/i }));
-    // Dialog portals to body
+    // Dialog portals to body — wait for entry animation to complete
     const dialog = await within(document.body).findByRole('dialog');
-    await expect(dialog).toBeVisible();
-    // Close via ESC
+    await waitFor(() => expect(dialog).toBeVisible(), { timeout: 2000 });
+    // Close via ESC — wait for exit animation + unmount
     await userEvent.keyboard('{Escape}');
-    await expect(within(document.body).queryByRole('dialog')).not.toBeInTheDocument();
+    await waitFor(
+      () => expect(within(document.body).queryByRole('dialog')).not.toBeInTheDocument(),
+      { timeout: 2000 },
+    );
   },
 };

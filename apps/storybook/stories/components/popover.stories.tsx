@@ -176,7 +176,7 @@ export const GlassInfo: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 
 /**
  * Automated interaction test: click trigger to open popover, verify content, close via ESC.
@@ -198,9 +198,9 @@ export const InteractionTest: Story = {
     const trigger = canvas.getByRole('button', { name: /open popover/i });
     // Open popover
     await userEvent.click(trigger);
-    // Popover portals to body
+    // Popover portals to body — wait for entry animation to complete
     const content = await within(document.body).findByText('Popover content is visible');
-    await expect(content).toBeVisible();
+    await waitFor(() => expect(content).toBeVisible(), { timeout: 2000 });
     // Close via ESC
     await userEvent.keyboard('{Escape}');
   },

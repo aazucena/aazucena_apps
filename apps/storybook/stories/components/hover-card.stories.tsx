@@ -172,7 +172,7 @@ export const InteractionTest: Story = {
   ),
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('link', { name: /@aazucena/i });
+    const trigger = canvas.getByRole('button', { name: /@aazucena/i });
     await userEvent.hover(trigger);
     const content = await within(document.body).findByText('Hover card content is visible');
     await expect(content).toBeVisible();

@@ -216,7 +216,7 @@ export const GlassFloating: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 
 /**
  * Automated interaction test: open sheet, verify visible, close via ESC.
@@ -240,9 +240,14 @@ export const InteractionTest: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: /open sheet/i }));
+    // Sheet portals to body — wait for entry animation to complete
     const sheet = await within(document.body).findByRole('dialog');
-    await expect(sheet).toBeVisible();
+    await waitFor(() => expect(sheet).toBeVisible(), { timeout: 2000 });
+    // Close via ESC — Radix plays exit animation before unmounting
     await userEvent.keyboard('{Escape}');
-    await expect(within(document.body).queryByRole('dialog')).not.toBeInTheDocument();
+    await waitFor(
+      () => expect(within(document.body).queryByRole('dialog')).not.toBeInTheDocument(),
+      { timeout: 2000 },
+    );
   },
 };

@@ -1,6 +1,7 @@
+import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TagsInput } from '@aazucena/ui';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 
 /**
  * ## Engineering Standards
@@ -189,16 +190,23 @@ export const Disabled: Story = {
 /**
  * Automated interaction test: type a tag and press Enter, verify chip appears.
  */
+// Stateful wrapper required: TagsInput is controlled-only (calls onChange but
+// never updates its own internal value). Without local state the chip never renders.
+const TagsInputWithState = () => {
+  const [tags, setTags] = React.useState<string[]>([]);
+  return <TagsInput value={tags} onChange={setTags} placeholder="Add tag..." />;
+};
+
 export const InteractionTest: Story = {
   tags: ['!autodocs'],
-  render: () => <TagsInput placeholder="Add tag..." />,
+  render: () => <TagsInputWithState />,
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox');
     // Type a tag
     await userEvent.type(input, 'newtag');
     await userEvent.keyboard('{Enter}');
-    // Tag chip should appear
-    await expect(canvas.getByText('newtag')).toBeVisible();
+    // Tag chip appears after state update + re-render
+    await waitFor(() => expect(canvas.getByText('newtag')).toBeVisible(), { timeout: 2000 });
   },
 };

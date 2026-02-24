@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -156,12 +156,11 @@ export const GuidedTour: Story = {
     // Open Dialog
     await userEvent.click(trigger);
 
-    // Verify visibility (Radix portals to body, so we check document)
+    // Wait for entry animation before asserting visibility
     const title = await within(document.body).findByText(/Interaction Verified/i);
-    await expect(title).toBeVisible();
+    await waitFor(() => expect(title).toBeVisible(), { timeout: 2000 });
 
-    // Close Dialog after delay
-    await new Promise((r) => setTimeout(r, 2000));
+    // Close Dialog
     const cancel = within(document.body).getByRole('button', { name: /Cancel/i });
     await userEvent.click(cancel);
   },

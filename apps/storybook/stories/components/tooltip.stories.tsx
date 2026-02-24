@@ -156,7 +156,7 @@ export const Positioning: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 
 /**
  * Automated interaction test: hover trigger to reveal tooltip.
@@ -180,9 +180,9 @@ export const InteractionTest: Story = {
     const trigger = canvas.getByRole('button', { name: /help/i });
     // Hover to show tooltip
     await userEvent.hover(trigger);
-    // Tooltip portals to body — wait for it to appear
-    const tip = await within(document.body).findByText('Tooltip is visible');
-    await expect(tip).toBeVisible();
+    // Use role="tooltip" to avoid matching multiple text nodes
+    const tip = await within(document.body).findByRole('tooltip');
+    await waitFor(() => expect(tip).toBeVisible(), { timeout: 2000 });
     // Move away
     await userEvent.unhover(trigger);
   },

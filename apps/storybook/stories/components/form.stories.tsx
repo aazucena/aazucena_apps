@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as z from 'zod';
 import {
   Form,
@@ -111,9 +112,8 @@ export const Basic: Story = {
           <FormButton className="w-full h-12 rounded-full font-black uppercase tracking-widest mt-4">
             Initialize_Session
           </FormButton>
+          <FormDebugger />
         </Form>
-
-        <FormDebugger />
       </div>
     );
   },
@@ -122,66 +122,75 @@ export const Basic: Story = {
 /**
  * Technical configuration form showing Cyber variant and FormErrorSummary.
  */
-export const CyberConfig: Story = {
-  render: () => {
-    const form = useForm({
-      defaultValues: { node_name: 'US_EAST_01', enable_uplink: true },
-      validatorAdapter: zodValidator(),
-    } as any);
+const cyberQueryClient = new QueryClient();
 
-    const mutation = useStrapiFormMutation('node-configs', {
-      form,
-      onSuccess: () => toast.success('Config Committed'),
-    });
+// Inner component so that useStrapiFormMutation (which calls useQueryClient())
+// executes inside the QueryClientProvider tree, not above it.
+const CyberConfigFormInner = () => {
+  const form = useForm({
+    defaultValues: { node_name: 'US_EAST_01', enable_uplink: true },
+    validatorAdapter: zodValidator(),
+  } as any);
 
-    return (
-      <div className="w-[500px] p-8 border border-cyan-500/20 bg-black rounded-xl text-white shadow-[0_0_50px_rgba(6,182,212,0.1)] relative">
-        <Toaster />
-        <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
-          <div className="flex items-center gap-3">
-            <Activity className="size-4 text-cyan-500 animate-pulse" />
-            <span className="font-mono text-xs text-cyan-500 italic uppercase tracking-tighter text-glow-cyan">
-              // NODE_CALIBRATION_v4
-            </span>
-          </div>
-          <Badge variant="cyber">SECURE</Badge>
+  useStrapiFormMutation('node-configs', {
+    form,
+    onSuccess: () => toast.success('Config Committed'),
+  });
+
+  return (
+    <div className="w-[500px] p-8 border border-cyan-500/20 bg-black rounded-xl text-white shadow-[0_0_50px_rgba(6,182,212,0.1)] relative">
+      <Toaster />
+      <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
+        <div className="flex items-center gap-3">
+          <Activity className="size-4 text-cyan-500 animate-pulse" />
+          <span className="font-mono text-xs text-cyan-500 italic uppercase tracking-tighter text-glow-cyan">
+            // NODE_CALIBRATION_v4
+          </span>
         </div>
-
-        <Form 
-          form={form}
-          variant="cyber"
-          onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
-          }}
-          className="space-y-8"
-        >
-          <FormErrorSummary title="Calibration_Faults" />
-
-          <ControlledInput
-            name="node_name"
-            label="Identifier"
-            required
-            validators={{ onChange: configSchema.shape.node_name }}
-            description="Assigned_Node_Alias"
-          />
-
-          <ControlledCheckbox
-            name="enable_uplink"
-            label="Global_Uplink"
-            description="Enable real-time sync with main cluster."
-            {...({ className: "flex flex-row items-center justify-between rounded-xl border border-cyan-500/10 p-4 bg-cyan-500/5" } as any)}
-          />
-
-          <FormButton variant="cyber" className="w-full h-12 uppercase font-black tracking-widest">
-            <Zap className="mr-2 size-4" /> COMMIT_CHANGES
-          </FormButton>
-        </Form>
-
-        <FormDebugger />
+        <Badge variant="cyber">SECURE</Badge>
       </div>
-    );
-  },
+
+      <Form
+        form={form}
+        variant="cyber"
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+        className="space-y-8"
+      >
+        <FormErrorSummary title="Calibration_Faults" />
+
+        <ControlledInput
+          name="node_name"
+          label="Identifier"
+          required
+          validators={{ onChange: configSchema.shape.node_name }}
+          description="Assigned_Node_Alias"
+        />
+
+        <ControlledCheckbox
+          name="enable_uplink"
+          label="Global_Uplink"
+          description="Enable real-time sync with main cluster."
+          {...({ className: "flex flex-row items-center justify-between rounded-xl border border-cyan-500/10 p-4 bg-cyan-500/5" } as any)}
+        />
+
+        <FormButton variant="cyber" className="w-full h-12 uppercase font-black tracking-widest">
+          <Zap className="mr-2 size-4" /> COMMIT_CHANGES
+        </FormButton>
+        <FormDebugger />
+      </Form>
+    </div>
+  );
+};
+
+export const CyberConfig: Story = {
+  render: () => (
+    <QueryClientProvider client={cyberQueryClient}>
+      <CyberConfigFormInner />
+    </QueryClientProvider>
+  ),
 };
 
 /**
@@ -236,9 +245,8 @@ export const DetailedSubmission: Story = {
               Transmit_Report <Send className="ml-2 size-5" />
             </FormButton>
           </div>
+          <FormDebugger />
         </Form>
-
-        <FormDebugger />
       </div>
     );
   },

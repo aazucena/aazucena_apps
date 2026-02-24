@@ -191,7 +191,7 @@ export const AdvancedComposition: Story = {
     </Select>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 
 /**
  * Automated interaction test: open select dropdown, select an item, verify trigger updates.
@@ -215,9 +215,9 @@ export const InteractionTest: Story = {
     const trigger = canvas.getByRole('combobox');
     // Open dropdown
     await userEvent.click(trigger);
-    // Content portals to body
+    // Content portals to body — wait for entry animation to complete
     const option = await within(document.body).findByText('Europe');
-    await expect(option).toBeVisible();
+    await waitFor(() => expect(option).toBeVisible(), { timeout: 2000 });
     // Select an option
     await userEvent.click(option);
     // Trigger should now show selected value

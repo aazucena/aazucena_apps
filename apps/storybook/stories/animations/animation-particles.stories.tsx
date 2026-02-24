@@ -19,6 +19,7 @@ const meta = {
           'High-performance 2D particle system using PixiJS. Ideal for atmospheric backgrounds like space, snow, or rain.',
       },
     },
+    chromatic: { disableSnapshot: true }, // PixiJS requires WebGL — not available in Chromatic's headless Chrome
   },
   tags: ['autodocs'],
   argTypes: {

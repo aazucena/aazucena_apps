@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from '@storybook/test';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@aazucena/ui';
 import { ChevronDown, Search, Cog, Plus, Minus, ArrowRight } from '@aazucena/icons';
 import type React from 'react';
@@ -209,15 +209,15 @@ export const GuidedTour: Story = {
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByText('Is it accessible?');
-    // Click to expand
+    // Click to expand — wait for entry animation
     await userEvent.click(trigger);
     const content = canvas.getByText(
       'Yes. It adheres to the WAI-ARIA design pattern and includes full keyboard support.',
     );
-    await expect(content).toBeVisible();
-    // Click to collapse
+    await waitFor(() => expect(content).toBeVisible(), { timeout: 2000 });
+    // Click to collapse — Radix animates height to 0 before hiding
     await userEvent.click(trigger);
-    await expect(content).not.toBeVisible();
+    await waitFor(() => expect(content).not.toBeVisible(), { timeout: 2000 });
   },
 };
 
