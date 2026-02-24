@@ -1,111 +1,38 @@
-import { z } from 'zod';
-import { FormTypeEnum } from '@aazucena/api';
-
 /**
- * Shared Base Schema for all Forms
+ * @aazucena/forms — Schema barrel
+ *
+ * All Zod schemas and TypeScript types are re-exported from this single entry
+ * point. Template files import from '../../schemas/index.js' — this path is
+ * preserved so no template needs to change.
+ *
+ * Internal structure:
+ *   base.ts        → baseFormSchema
+ *   auth.ts        → 14 auth schemas
+ *   portfolio.ts   → 15 portfolio schemas + anyFormSchema union
+ *   account.ts     → 5 account schemas
+ *   onboarding.ts  → 7 onboarding schemas
+ *   commerce.ts    → 9 commerce schemas
+ *   support.ts     → 6 support schemas
+ *   hr.ts          → 4 HR/events schemas
+ *   research.ts    → 8 research schemas
+ *   scheduling.ts  → 6 scheduling schemas
+ *   opensource.ts  → 6 open source schemas
+ *   legal.ts       → 5 legal schemas
+ *   analytics.ts   → 4 analytics schemas
+ *   platform.ts    → 7 platform/devops schemas
  */
-export const baseFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Invalid email address'),
-  subject: z.string().min(5, 'Subject must be at least 5 characters').max(200),
-  message: z.string().min(10, 'Message must be at least 10 characters').max(5000),
-});
 
-/**
- * 1. Contact Form Schema
- */
-export const contactFormSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Contact),
-});
-
-/**
- * 2. Feedback Form Schema
- */
-export const feedbackFormSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Feedback),
-  rating: z.number().min(1).max(5).optional(),
-  category: z.enum(['UI/UX', 'Performance', 'Content', 'General']).default('General'),
-});
-
-/**
- * 3. Testimonial Form Schema
- */
-export const testimonialFormSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Testimonial),
-  company: z.string().min(2).max(100).optional(),
-  jobTitle: z.string().min(2).max(100).optional(),
-  relationship: z.string().optional(),
-  linkedinUrl: z.string().url().optional().or(z.literal('')),
-});
-
-/**
- * 4. Bug Report Schema
- */
-export const bugReportSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values['Bug Report']),
-  severity: z.enum(['Low', 'Medium', 'High', 'Critical']).default('Medium'),
-  browser: z.string().optional(),
-  os: z.string().optional(),
-  url: z.string().url().optional().or(z.literal('')),
-});
-
-/**
- * 5. Feature Request Schema
- */
-export const featureRequestSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values['Feature Request']),
-  impact: z.enum(['Nice to have', 'Useful', 'Important', 'Critical']).default('Useful'),
-});
-
-/**
- * 6. Collaboration Schema
- */
-export const collaborationSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Collaboration),
-  projectType: z.string().optional(),
-  budget: z.string().optional(),
-  timeline: z.string().optional(),
-});
-
-/**
- * 7. Referral Schema
- */
-export const referralSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Referral),
-  referralName: z.string().min(2),
-  referralEmail: z.string().email(),
-});
-
-/**
- * 8. Music Feedback Schema
- */
-export const musicFeedbackSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values['Music Feedback']),
-  trackTitle: z.string().optional(),
-  elements: z.array(z.string()).optional(), // e.g. ['Mix', 'Arrangement', 'Melody']
-});
-
-/**
- * Union type for all possible forms
- */
-export const anyFormSchema = z.discriminatedUnion('formType', [
-  contactFormSchema,
-  feedbackFormSchema,
-  testimonialFormSchema,
-  bugReportSchema,
-  featureRequestSchema,
-  collaborationSchema,
-  referralSchema,
-  musicFeedbackSchema,
-]);
-
-export type ContactFormData = z.infer<typeof contactFormSchema>;
-export type FeedbackFormData = z.infer<typeof feedbackFormSchema>;
-export type TestimonialFormData = z.infer<typeof testimonialFormSchema>;
-export type BugReportFormData = z.infer<typeof bugReportSchema>;
-export type FeatureRequestFormData = z.infer<typeof featureRequestSchema>;
-export type CollaborationFormData = z.infer<typeof collaborationSchema>;
-export type ReferralFormData = z.infer<typeof referralSchema>;
-export type MusicFeedbackFormData = z.infer<typeof musicFeedbackSchema>;
-
-export type AnyFormData = z.infer<typeof anyFormSchema>;
+export * from './base.js';
+export * from './auth.js';
+export * from './portfolio.js';
+export * from './account.js';
+export * from './onboarding.js';
+export * from './commerce.js';
+export * from './support.js';
+export * from './hr.js';
+export * from './research.js';
+export * from './scheduling.js';
+export * from './opensource.js';
+export * from './legal.js';
+export * from './analytics.js';
+export * from './platform.js';
