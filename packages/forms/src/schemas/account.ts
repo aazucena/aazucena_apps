@@ -77,3 +77,39 @@ export type NotificationPrefsFormData = z.infer<typeof notificationPrefsSchema>;
 export type PrivacySettingsFormData = z.infer<typeof privacySettingsSchema>;
 export type ConnectedAppsFormData = z.infer<typeof connectedAppsSchema>;
 export type AccountDeletionFormData = z.infer<typeof accountDeletionSchema>;
+
+/**
+ * Address Schema — international postal/contact address record.
+ *
+ * postalCode and state are optional — some countries (UAE, etc.) don't use them.
+ * The template enforces country-specific requirements in the UI layer, not here.
+ */
+export const addressSchema = z.object({
+  // Contact
+  fullName:         z.string().min(2, 'Name is required').max(100),
+  phone:            z.string().max(30).optional(),
+  // Address lines
+  line1:            z.string().min(1, 'Address line 1 is required').max(200),
+  line2:            z.string().max(200).optional(),
+  // Locality
+  city:             z.string().min(1, 'City is required').max(100),
+  state:            z.string().max(100).optional(),   // Province, prefecture, county
+  postalCode:       z.string().max(20).optional(),    // ZIP, postcode, Eircode
+  country:          z.string().min(2, 'Country is required').max(100),
+  // Address-book metadata
+  type:             z.enum(['billing', 'shipping', 'home', 'work', 'other']).default('home'),
+  isDefault:        z.boolean().default(false),
+  // Geocoding provider metadata (populated in autocomplete mode)
+  placeId:          z.string().optional(),            // Google place_id / Mapbox mapbox_id
+  formattedAddress: z.string().optional(),            // Raw provider-formatted string
+  source:           z.enum(['manual', 'google', 'mapbox', 'here', 'osm', 'other']).default('manual'),
+  geojson:          z.object({
+    type:        z.literal('Point'),
+    coordinates: z.tuple([
+      z.number().min(-180).max(180),  // longitude
+      z.number().min(-90).max(90),    // latitude
+    ]),
+  }).optional(),                                      // GeoJSON Point geometry
+});
+
+export type AddressFormData = z.infer<typeof addressSchema>;
