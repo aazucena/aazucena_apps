@@ -1,0 +1,479 @@
+{/* forms/overview.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Forms/Overview" />
+
+# Forms System
+
+The **`@aazucena/forms`** package is a fully type-safe, schema-driven form library for the portfolio monorepo.
+It pairs **TanStack Form v1** with **Zod v3** validation and ships **93 pre-composed template components** across 13
+domains — from authentication ceremonies to incident post-mortems — all in three design variants.
+
+---
+
+## 🏗️ Architecture
+
+The system is organized into three layers that compose cleanly together:
+
+<div className="my-6 p-8 rounded-2xl border border-[var(--border)] bg-[var(--base)] relative overflow-hidden">
+  <div className="absolute inset-0 opacity-[0.025] pointer-events-none bg-[linear-gradient(var(--primary)_1px,transparent_1px),linear-gradient(90deg,var(--primary)_1px,transparent_1px)] [background-size:24px_24px]" />
+  <div className="flex flex-col md:flex-row items-stretch gap-4 relative z-10">
+
+    {/* Layer 1 */}
+    <div className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--primary)]/5 p-5 space-y-3">
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-mono font-bold text-[var(--primary)] tracking-[0.15em] uppercase">Layer_01</span>
+      </div>
+      <p className="text-sm font-bold text-[var(--foreground)]">Validation Engine</p>
+      <code className="block text-[11px] font-mono opacity-60">@aazucena/forms/schemas</code>
+      <p className="text-xs text-[var(--muted-foreground)]">
+        81 Zod schemas validate form data at runtime before it reaches your server.
+        Schemas are exported independently so you can use them in API routes too.
+      </p>
+      <div className="mt-2 flex flex-wrap gap-1">
+        {['loginSchema', 'mfaSetupSchema', 'paymentSchema', 'bookingSchema', '+ 77 more'].map(tag => (
+          <span key={tag} className="inline-block rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-mono opacity-70">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+    {/* Arrow */}
+    <div className="hidden md:flex items-center justify-center w-8 shrink-0">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-[var(--primary)] opacity-40">
+        <path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
+
+    {/* Layer 2 */}
+    <div className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--primary)]/5 p-5 space-y-3">
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-mono font-bold text-[var(--primary)] tracking-[0.15em] uppercase">Layer_02</span>
+      </div>
+      <p className="text-sm font-bold text-[var(--foreground)]">Form Engine</p>
+      <code className="block text-[11px] font-mono opacity-60">TanStack Form v1</code>
+      <p className="text-xs text-[var(--muted-foreground)]">
+        Headless, field-level subscriptions. <code className="font-mono">useForm()</code> manages state,
+        dirty tracking, and async submission. No re-renders outside changed fields.
+      </p>
+      <div className="mt-2 flex flex-wrap gap-1">
+        {['useForm', 'form.Field', 'form.Subscribe', 'FormWizard', 'FormConditional'].map(tag => (
+          <span key={tag} className="inline-block rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-mono opacity-70">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+    {/* Arrow */}
+    <div className="hidden md:flex items-center justify-center w-8 shrink-0">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-[var(--primary)] opacity-40">
+        <path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
+
+    {/* Layer 3 */}
+    <div className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--primary)]/5 p-5 space-y-3">
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-mono font-bold text-[var(--primary)] tracking-[0.15em] uppercase">Layer_03</span>
+      </div>
+      <p className="text-sm font-bold text-[var(--foreground)]">Template Components</p>
+      <code className="block text-[11px] font-mono opacity-60">@aazucena/forms/templates</code>
+      <p className="text-xs text-[var(--muted-foreground)]">
+        93 pre-composed, drop-in form templates. Each accepts <code className="font-mono">variant</code>,
+        <code className="font-mono">onSuccess</code>, <code className="font-mono">onError</code>,
+        and <code className="font-mono">defaultValues</code>.
+      </p>
+      <div className="mt-2 flex flex-wrap gap-1">
+        {['LoginForm', 'MFASetupForm', 'PaymentForm', 'SSOForm', '+ 89 more'].map(tag => (
+          <span key={tag} className="inline-block rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-mono opacity-70">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## 📦 Import Paths
+
+```ts
+// All schemas + type exports
+import { loginSchema, type LoginFormData } from '@aazucena/forms/schemas';
+
+// All 93 template components
+import { LoginForm, MFASetupForm, PaymentForm } from '@aazucena/forms/templates';
+
+// Utility hooks
+import { useFormPersist, useMultiStep } from '@aazucena/forms/hooks';
+
+// Everything (schemas + templates + hooks + components)
+import { ... } from '@aazucena/forms';
+```
+
+---
+
+## 🎨 The Three Variants
+
+Every template accepts a `variant` prop. The design system token layer drives all three without any extra CSS:
+
+<div className="my-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+  {/* Default */}
+  <div className="rounded-xl border border-[var(--border)] overflow-hidden">
+    <div className="bg-[var(--muted)]/40 px-4 py-2.5 border-b border-[var(--border)] flex items-center gap-2">
+      <span className="h-2.5 w-2.5 rounded-full bg-[var(--primary)]"></span>
+      <span className="text-xs font-mono font-bold tracking-wider text-[var(--foreground)]">DEFAULT</span>
+    </div>
+    <div className="p-5 space-y-3">
+      <div className="space-y-1">
+        <div className="h-3 w-12 rounded bg-[var(--muted)] opacity-60"></div>
+        <div className="h-8 w-full rounded-md border border-[var(--input)] bg-[var(--background)]"></div>
+      </div>
+      <div className="space-y-1">
+        <div className="h-3 w-16 rounded bg-[var(--muted)] opacity-60"></div>
+        <div className="h-8 w-full rounded-md border border-[var(--input)] bg-[var(--background)]"></div>
+      </div>
+      <div className="h-8 w-full rounded-md bg-[var(--primary)]"></div>
+    </div>
+    <div className="px-4 py-2.5 border-t border-[var(--border)] bg-[var(--muted)]/20">
+      <p className="text-[10px] text-[var(--muted-foreground)]">Clean surfaces. Neutral borders. Default Radix tokens.</p>
+    </div>
+  </div>
+
+  {/* Glass */}
+  <div className="rounded-xl border border-white/15 overflow-hidden bg-gradient-to-br from-[var(--primary)]/10 to-transparent backdrop-blur">
+    <div className="bg-white/5 px-4 py-2.5 border-b border-white/10 flex items-center gap-2">
+      <span className="h-2.5 w-2.5 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.4)]"></span>
+      <span className="text-xs font-mono font-bold tracking-wider text-white/80">GLASS</span>
+    </div>
+    <div className="p-5 space-y-3">
+      <div className="space-y-1">
+        <div className="h-3 w-12 rounded bg-white/20"></div>
+        <div className="h-8 w-full rounded-md border border-white/20 bg-white/5 backdrop-blur-sm"></div>
+      </div>
+      <div className="space-y-1">
+        <div className="h-3 w-16 rounded bg-white/20"></div>
+        <div className="h-8 w-full rounded-md border border-white/20 bg-white/5 backdrop-blur-sm"></div>
+      </div>
+      <div className="h-8 w-full rounded-md bg-white/20 border border-white/30"></div>
+    </div>
+    <div className="px-4 py-2.5 border-t border-white/10 bg-white/5">
+      <p className="text-[10px] text-white/50">Frosted surfaces. White borders. Renders over gradient backdrops.</p>
+    </div>
+  </div>
+
+  {/* Cyber */}
+  <div className="rounded-xl border border-cyan-500/30 overflow-hidden bg-black">
+    <div className="bg-cyan-950/40 px-4 py-2.5 border-b border-cyan-500/20 flex items-center gap-2">
+      <span className="h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.6)]"></span>
+      <span className="text-xs font-mono font-bold tracking-wider text-cyan-400">CYBER</span>
+    </div>
+    <div className="p-5 space-y-3">
+      <div className="space-y-1">
+        <div className="h-3 w-12 rounded bg-cyan-900/60"></div>
+        <div className="h-8 w-full rounded-md border border-cyan-500/30 bg-cyan-950/30"></div>
+      </div>
+      <div className="space-y-1">
+        <div className="h-3 w-16 rounded bg-cyan-900/60"></div>
+        <div className="h-8 w-full rounded-md border border-cyan-500/30 bg-cyan-950/30"></div>
+      </div>
+      <div className="h-8 w-full rounded-md bg-cyan-500/20 border border-cyan-400/40"></div>
+    </div>
+    <div className="px-4 py-2.5 border-t border-cyan-500/20 bg-cyan-950/20">
+      <p className="text-[10px] text-cyan-500/60">Dark surface. Cyan accents. High-contrast terminal aesthetic.</p>
+    </div>
+  </div>
+
+</div>
+
+```tsx
+// All templates accept the same variant contract
+<LoginForm variant="default" />   // neutral — works everywhere
+<LoginForm variant="glass" />     // over gradient / blurred backgrounds
+<LoginForm variant="cyber" />     // dark terminals, AZUCENA_LYTICS dashboards
+```
+
+---
+
+## 🧩 Special Components
+
+Beyond templates, the package exports building-block components that templates are composed from:
+
+| Component | Purpose |
+|---|---|
+| `FormWizard` | Multi-step wizard with Easter-egg challenge on the final step (`showChallenge`) |
+| `FormConditional` | Framer Motion-animated conditional reveal — subscribes to form state |
+| `FormErrorSummary` | Aggregates all field errors into a dismissible summary banner |
+| `FormButton` | Submit button that auto-disables during submission, shows spinner |
+| `FormDebugger` | Dev-only panel showing live field state, errors, and dirty map |
+| `ControlledInput` | `form.Field` wrapper for `<Input>` with label + validation wiring |
+| `ControlledTextarea` | Same as above for `<Textarea>` |
+| `ControlledCheckbox` | Same for `<Checkbox>` |
+| `ControlledSwitch` | Same for `<Switch>` |
+
+### Multi-step forms with `FormWizard`
+
+```tsx
+import { FormWizard } from '@aazucena/forms';
+
+const steps = [
+  { id: 'identity', title: 'Identity', component: <IdentityStep /> },
+  { id: 'details',  title: 'Details',  component: <DetailsStep />  },
+];
+
+<FormWizard
+  steps={steps}
+  onComplete={async () => { await form.handleSubmit(); }}
+  showChallenge={true}   // adds the Easter-egg engagement step before submit
+/>
+```
+
+### Conditional fields with `FormConditional`
+
+```tsx
+import { FormConditional } from '@aazucena/forms';
+
+// Renders with Framer Motion fade/slide when the selector returns true
+<FormConditional selector={(state: any) => state.values.role === 'admin'}>
+  <ControlledInput name="adminCode" label="Admin Access Code" />
+</FormConditional>
+```
+
+---
+
+## ✍️ Usage Pattern
+
+Every template follows the same contract. Swap the schema and type to use any of the 55 forms:
+
+```tsx
+'use client';
+
+import { MFASetupForm } from '@aazucena/forms/templates';
+import type { MFASetupFormData } from '@aazucena/forms/schemas';
+
+export function AuthPage() {
+  const handleSuccess = (data: MFASetupFormData) => {
+    console.log('MFA method selected:', data.method);
+  };
+
+  return (
+    <MFASetupForm
+      variant="glass"
+      onSuccess={handleSuccess}
+      onError={(err) => console.error(err)}
+      defaultValues={{ method: 'authenticatorApp' }}
+    />
+  );
+}
+```
+
+---
+
+## 🗂️ Template Catalog — 93 Forms
+
+### 🔐 Auth (14)
+
+The authentication ceremony layer — covers every identity proof pattern from credential entry
+to hardware attestation.
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `LoginForm` | Email + password with remember-me toggle | — |
+| `RegistrationForm` | Name, email, password + terms consent | — |
+| `PasswordRequestForm` | Forgot-password email entry | — |
+| `PasswordResetForm` | Token-gated new password entry | — |
+| `InvitationForm` | Team invite with role picker (viewer/editor/admin/owner) and expiry | — |
+| `SecurityQuestionsForm` | KBA setup — 3 select+answer pairs, blocks duplicate questions | — |
+| `OTPVerificationForm` | 6-digit OTP challenge with device trust + duration | — |
+| `MFASetupForm` | MFA method selection → verification code | ✓ 2 steps |
+| `AdaptiveAuthForm` | Risk-level badge + challenge response + device trust | — |
+| `SSOForm` | 7-provider grid; enterprise providers reveal tenant domain | — |
+| `BiometricAuthForm` | Biometric consent + preferred method + fallback | — |
+| `CertificateAuthForm` | mTLS PEM certificate + private key + passphrase | — |
+| `TokenAuthForm` | API key/JWT/Bearer with masked show-hide input | — |
+| `HardwareKeyForm` | FIDO2/WebAuthn: attachment, verification, resident key, attestation | — |
+
+### 🚀 Onboarding (7)
+
+| Form | Description |
+|---|---|
+| `WaitlistForm` | Email capture with optional referral code |
+| `SubscriptionForm` | Newsletter with frequency + content preferences |
+| `OnboardingForm` | Profile → Preferences → Integrations (3 steps) |
+| `TeamOnboardingForm` | Org setup → Invite team → Integrations (3 steps) |
+| `GoalSettingForm` | Primary goal, timeline, success metric, reminder frequency |
+| `ImportDataForm` | Source system → Field mapping + conflict resolution (2 steps) |
+| `IntegrationSetupForm` | Provider (GitHub/Slack/Jira/Notion/Linear), auth, sync config |
+
+### 💳 Commerce (9)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `DonationForm` | One-time or recurring donation with Ko-fi/Stripe preset amounts | — |
+| `PaymentForm` | Billing address + Stripe token integration | ✓ 2 steps |
+| `SponsorshipInquiryForm` | Sponsorship scope, audience, budget, deliverables | — |
+| `QuoteRequestForm` | Project scope + deliverables → timeline + contact (2 steps) | ✓ 2 steps |
+| `RefundRequestForm` | Order ID, items, reason, preferred resolution | — |
+| `SubscriptionChangeForm` | Plan selector, billing cycle, effective date | — |
+| `AffiliateApplicationForm` | Channel info → payment method + tax info (2 steps) | ✓ 2 steps |
+| `InvoiceDisputeForm` | Invoice ID, dispute type, amount, explanation | — |
+
+### 🛟 Support (7)
+
+| Form | Description |
+|---|---|
+| `CustomerSupportForm` | Category, priority, subject, description |
+| `BugReportForm` | Severity, browser, OS, reproduction URL |
+| `VulnerabilityDisclosureForm` | Responsible disclosure with CVSS score + remediation |
+| `AccessRequestForm` | Resource type + ID, access level, justification, duration |
+| `EscalationForm` | Ticket ID, severity escalation, business impact, reason |
+| `MaintenanceWindowForm` | Environment, time window, affected services, rollback plan |
+| `StatusSubscriptionForm` | Email, notify-on events, services, delivery method |
+
+### 👥 HR / Events (4)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `ClientApplicationForm` | Reverse hire — clients apply to work with Aldrin | ✓ 2 steps |
+| `HireInquiryForm` | Role type, title, compensation, work mode, start date | — |
+| `EventRegistrationForm` | Ticket type, dietary requirements, emergency contact | — |
+| `LetterOfRecommendationForm` | Relationship, context, desired tone, deadline, platform | — |
+
+### 📅 Scheduling (6)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `BookingForm` | Service type, preferred slot, contact | ✓ 2 steps |
+| `ConsultationForm` | Goals, budget, preferred date, how-found | — |
+| `AvailabilitySetupForm` | Timezone, days, hours, buffer, advance notice | — |
+| `ReschedulingForm` | Appointment ID, new date + slot, reason | — |
+| `GroupMeetingPollForm` | Proposed slots → invitees + deadline + voting method | ✓ 2 steps |
+| `RecurringSessionForm` | Session type, start, recurrence, participants | — |
+
+### 🔬 Research (6)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `SurveyForm` | Dynamic questions from config prop (text, rating, MC, checkbox) | — |
+| `QuizForm` | Scored quiz with participant info + answer map | — |
+| `NPSForm` | NPS score slider with conditional follow-up questions | — |
+| `FocusGroupForm` | Research topic, slot selection, participant type + NDA | — |
+| `UserInterviewForm` | Background → session preferences (2 steps) | ✓ 2 steps |
+| `ABTestEnrollmentForm` | Experiment ID, variant preference, consent toggles | — |
+
+### 🌍 Open Source (6)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `PrRequestForm` | Repository, branch, description, tests/docs/breaking flags | — |
+| `ContributionsForm` | Contributor info + type + scope | ✓ 2 steps |
+| `IssueReportForm` | Issue type + description → environment + labels (2 steps) | ✓ 2 steps |
+| `MaintainerApplicationForm` | Repo, motivation, contribution history, areas of focus | — |
+| `ReleaseNotesForm` | Version, type, changelog sections, publish channels | — |
+| `CommunityReportForm` | Violation type, content URL, description, requested action | — |
+
+### ⚖️ Legal (5)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `ConsentForm` | GDPR consent — analytics, marketing, functional cookies | — |
+| `TermsUpdateForm` | Changes summary, accept checkboxes, optional consents, signature | — |
+| `DataDeletionRequestForm` | Request type, data categories, identity confirmation | — |
+| `DataExportRequestForm` | Format, categories, delivery method, encryption | — |
+| `CopyrightClaimForm` | Claimant info → infringing URL + good-faith statement (2 steps) | ✓ 2 steps |
+
+### 🎨 Portfolio (13)
+
+| Form | Description |
+|---|---|
+| `ContactUsForm` | General inquiry — name, email, subject, message |
+| `FeedbackForm` | Portfolio feedback with rating + category |
+| `TestimonialForm` | Client review with company, job title, LinkedIn |
+| `CollaborationForm` | Speaking/partnership with project type and timeline |
+| `ReferralForm` | Client referral capture |
+| `MusicFeedbackForm` | Track-specific feedback with element checklist |
+| `FeatureRequestForm` | Feature idea with impact level |
+| `ProjectInquiryForm` | New project scope + timeline + budget | ✓ 2 steps |
+| `MentorshipRequestForm` | Background, goals, format, topics, commitment |
+| `GuestbookForm` | Public wall entry with mood emoji + consent |
+| `DocsFeedbackForm` | Page-level helpful/unhelpful rating with category |
+| `TutorialRequestForm` | Topic, format, skill level, urgency |
+| `TechnicalAuditRequestForm` | Project URL, stack, audit scope, pain points |
+
+### 📊 Analytics — AZUCENA_LYTICS (4)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `DemoRequestForm` | Use case, team size, current tools | — |
+| `ApiAccessForm` | Identity + use case justification + terms | ✓ 2 steps |
+| `AlertConfigForm` | Metric, threshold, operator, notification channel | — |
+| `CustomReportForm` | Date range, metrics, group-by, output format | — |
+
+### 👤 Account (5)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `ProfileForm` | Display name, avatar, bio, social links, timezone, theme | — |
+| `NotificationPreferencesForm` | Event toggles (marketing/security/product/social), frequency, channels | — |
+| `PrivacySettingsForm` | Profile visibility, analytics/ads/data-sharing consents, activity status | — |
+| `ConnectedAppsForm` | Provider selector grid + permission multiselect | — |
+| `AccountDeletionForm` | Reason, confirm email, data export option, irreversible acknowledgement | — |
+
+### 🚢 Platform / DevOps (7)
+
+| Form | Description | Multi-step |
+|---|---|---|
+| `DeploymentTriggerForm` | Environment, service, version tag, confirmation | — |
+| `OAuthScopesRequestForm` | App name/URL, redirect URIs, requested scopes, use case | — |
+| `IncidentPostMortemForm` | Incident → Analysis → Resolution | ✓ 3 steps |
+| `WebhookConfigForm` | URL, events multiselect, secret, retry policy, SSL verify | — |
+| `FeatureFlagForm` | Flag key, environment, enabled toggle, rollout %, target groups | — |
+| `ApiKeyRotationForm` | Key ID, rotation reason, grace period, confirmation | — |
+| `EnvironmentVariablesForm` | Environment selector, KEY=value textarea, sync to other envs | — |
+
+---
+
+## 🔧 Engineering Notes
+
+### Zod + TanStack Form integration
+
+The `zodValidator` adapter from `@tanstack/zod-form-adapter` is passed via the `validatorAdapter` option.
+Due to a TypeScript narrowing issue in TanStack Form's option types, templates use the `as any` cast pattern:
+
+```ts
+const form = useForm({
+  validatorAdapter: zodValidator(),
+  defaultValues: { ... } as MyFormData,
+  onSubmit: async ({ value }: { value: any }) => { ... },
+} as any);
+```
+
+### `.shape` vs `.refine()` schemas
+
+Zod's `.refine()` / `.superRefine()` methods return `ZodEffects`, not `ZodObject` — `.shape` is unavailable.
+Schemas that cross-validate fields (e.g., `registrationSchema` checking password === confirmPassword)
+cannot have their shapes accessed for field-level validators. Use standalone schemas for those fields:
+
+```ts
+// ❌ Won't compile — registrationSchema is ZodEffects
+validators={{ onChange: registrationSchema.shape.email }}
+
+// ✅ Use the unwrapped field schema directly
+const emailSchema = z.string().email();
+validators={{ onChange: emailSchema }}
+```
+
+### `form.Subscribe` selectors
+
+Always type the state parameter as `any` when using `form.Subscribe` directly in templates:
+
+```tsx
+<form.Subscribe selector={(state: any) => state.values.method}>
+  {(method) => method === 'sms' && <PhoneField />}
+</form.Subscribe>
+```
+
+---
+
+## Maintained by
+
+Aldrin Azucena — [github.com/aazucena](https://github.com/aazucena)
