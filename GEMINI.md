@@ -7,888 +7,293 @@ This file provides guidance to Gemini when working with code in this repository.
 - full context (x being the id of the session we are operation, if file doesn't exist, then create one)
 - @ROADMAP.md, @README.md should contain most of context for what we did, and overall plan. All meticulous details in the file are located at @docs, and are added/updated to.
 
+---
+
 ## Repository Overview
 
-This is a **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The primary application is an Astro-based portfolio with React integration, featuring advanced animations (GSAP, Three.js, PixiJS) and a planned Strapi CMS backend.
+**pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project.
+**Package Manager:** pnpm v10.22.0 (required) | **Node:** >=18
 
-**Package Manager:** pnpm v10.22.0 (required)
-**Node Version:** >=18
+---
 
 ## Project Structure
 
 ```
 aazucena_apps/
 ├── apps/
-│   ├── portfolio/          # Main Astro portfolio application
-│   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal
-│   └── cms/                # Strapi CMS backend
-├── packages/               # 13 specialized packages (Phase 4 - 2 exist, 11 planned)
-│   ├── design-system/      # ❌ PLANNED: Design tokens + documentation
-│   ├── ui/                 # ✅ EXISTS: Component library (20+ ShadCN components, Storybook 9.1.8)
-│   ├── hooks/              # ❌ PLANNED: React hooks library
-│   ├── utils/              # ❌ PLANNED: Pure utility functions
-│   ├── types/              # ❌ PLANNED: TypeScript type definitions
-│   ├── constants/          # ❌ PLANNED: Global constants
-│   ├── animations/         # ❌ PLANNED: Animation utilities (GSAP, Three.js, PixiJS)
-│   ├── api/                # ❌ PLANNED: API clients, validators, transformers
-│   ├── forms/              # ❌ PLANNED: Form system (react-hook-form + Zod)
-│   ├── layouts/            # ❌ PLANNED: Layout components
-│   ├── icons/              # ❌ PLANNED: Icon system
-│   ├── analytics/          # ❌ PLANNED: Tracking & telemetry
-│   ├── config/             # ⚠️  EXISTS as "shared/" - needs rename
-│   └── shared/             # ⚠️  DEPRECATED: Rename to config/ in Phase 4 Day 1
-├── turbo.json              # Turborepo task pipeline configuration
-├── pnpm-workspace.yaml     # pnpm workspace configuration
-└── package.json            # Root workspace scripts
+│   ├── portfolio/      # Astro 5 + React 19 — main portfolio
+│   ├── analytics/      # AZUCENA_LYTICS — Next.js 15 telemetry dashboard
+│   ├── cms/            # Strapi v5 CMS
+│   └── storybook/      # Standalone Storybook app (373+ stories)
+├── packages/           # 16 specialized packages (all scaffolded — Phase 4)
+│   ├── design-system/  # 7 tokens, 18 themes, 35 platform integrations
+│   ├── ui/             # 284 component files (75+ composed components)
+│   ├── forms/          # 94 templates + 48 Zod schemas
+│   ├── hooks/          # animations/, data/, device/, dom/
+│   ├── utils/          # domain utilities
+│   ├── types/          # TypeScript definitions
+│   ├── constants/      # global constants
+│   ├── animations/     # gsap/, pixi/, three/
+│   ├── api/            # API clients, transformers
+│   ├── layouts/        # AutoGrid, DashboardLayout, Grid
+│   ├── icons/          # registry + custom icons
+│   ├── analytics/      # telemetry components + services
+│   ├── config/         # ESLint, TS, Prettier, Playwright configs
+│   ├── context/        # AnimationContext, DataContext, PortfolioContext
+│   ├── stores/         # Redux slices (interactions, journey)
+│   └── visualizations/ # D3, intelligence, common
+├── turbo.json
+├── pnpm-workspace.yaml
+└── package.json
 ```
+
+**Deep architecture details:** `docs/architecture.md`
+
+---
 
 ## Essential Commands
 
-### Development
 ```bash
-# Run all workspaces in dev mode
-pnpm dev
+# Root (all workspaces)
+pnpm dev                          # all apps in dev mode
+pnpm build                        # build all
+pnpm lint && pnpm format
 
-# Run only portfolio app
-pnpm web:dev
+# Specific apps
+pnpm web:dev                      # portfolio only
+pnpm analytics:dev                # analytics only
+pnpm --filter portfolio build
+pnpm --filter storybook dev       # Storybook on :6006
 
-# Run only analytics app
-pnpm analytics:dev
+# Storybook build (needs 8GB heap — machine constraint)
+NODE_OPTIONS="--max-old-space-size=8192" pnpm --filter storybook build:storybook
 
-# Build all apps
-pnpm build
+# Chromatic (first run captures baselines)
+cd apps/storybook && pnpm chromatic
 
-# Lint all apps
-pnpm lint
+# TypeScript check (preferred quality gate over Storybook build)
+cd packages/ui && pnpm tsc --noEmit
+cd packages/forms && pnpm tsc --noEmit
 
-# Format code
-pnpm format
-```
-
-### Portfolio-Specific (from apps/portfolio/)
-```bash
-# Development server (Astro)
-pnpm dev
-
-# Production build
-pnpm build
-
-# Preview production build
-pnpm preview
-```
-
-### Analytics-Specific (from apps/analytics/)
-```bash
-# Development server (Next.js)
-pnpm dev
-
-# Production build
-pnpm build
-```
-
-### Testing
-```bash
-# E2E tests (Playwright) - from portfolio directory
+# E2E tests (from apps/portfolio/)
 pnpm dlx playwright test
-
-# Run specific test file
-pnpm dlx playwright test tests/example.spec.ts
-
-# Run tests in headed mode
 pnpm dlx playwright test --headed
-
-# View test report
-pnpm dlx playwright show-report
 ```
 
-**Note:** Vitest is installed but test configuration not yet implemented. Playwright config exists at `apps/portfolio/playwright.config.ts` with test directory at `apps/portfolio/tests/`.
+---
 
 ## Architecture Overview
 
-### Portfolio App Architecture
+**Full details:** `docs/architecture.md`
 
-**Framework Stack:**
-- **Astro 5.16.0** as the meta-framework with React integration
-- **Rendering Pattern**: Hybrid (Static by default, SSR for dynamic status pages)
-- **React 19.2** for interactive components
-- **Tailwind CSS 4** with @tailwindcss/vite plugin
-- **TypeScript** throughout
+### Portfolio (`apps/portfolio/`)
+- **Astro 5.16.0** + React 19.2 + Tailwind CSS 4 + TypeScript
+- **Rendering:** Hybrid (static default, SSR for maintenance/500 pages)
+- **Animation System:** `src/components/animations/Section.tsx` (174 lines) — orchestrates 8 sections via PortfolioContext + AnimationContext + DataContext
+- **CMS:** Strapi → 25 API clients → Zod validators → transformers → DataContext → hooks
 
-**Build Configuration:**
-- **Vercel + pnpm**: Requires `.npmrc` with `shamefully-hoist=true` and `public-hoist-pattern[]=*babel*` to resolve Babel dependency tracing issues.
-- **React 19 Polyfill**: Required workaround for `suspendOnActiveViewTransition is not a function` bug in React 19.2.x. Add to `index.astro`:
-  ```typescript
-  if (typeof window !== 'undefined' && !window.suspendOnActiveViewTransition) {
-    window.suspendOnActiveViewTransition = function() {
-      return null; // No-op until React 19.3+ fixes the bug
-    };
-  }
-  ```
+### Analytics (`apps/analytics/`)
+- **Next.js 15** (App Router) + Redux Toolkit + TanStack Query v5 + D3.js + Vercel AI SDK
+- **ClickHouse** OLAP for high-volume telemetry; Edge Runtime ingestion (<50ms)
+- Dashboards: Node Overview, Audio Intelligence, Telemetry Stream, System Integrity, AI Terminal, AI Cost Center, Trajectory Labs
 
-**Content Rendering Pattern:**
-- **MarkdownRenderer**: Used for `richtext` fields in Strapi (e.g., Post/Experience descriptions) which return strings.
-- **BlocksRenderer**: Used for `blocks` fields in Strapi (e.g., Experience responsibilities, About descriptions) which return JSON arrays.
-- **SSR Pages**: `maintenance.astro` and `500.astro` use `export const prerender = false` to support real-time status checks and error logging.
+### Critical Build Patterns
 
-**Performance Optimization Patterns (Phase 3):**
-- **Lazy Loading**: Use `React.lazy()` + `Suspense` for heavy components (Three.js, PixiJS, modals)
-- **Code Splitting**: Remove ALL static imports for modules that should be code-split. Use ONLY dynamic imports.
-- **Astro Client Directives**: Use `client:only="react"` for lazy-loaded components (not `client:load` which causes hydration mismatches)
-- **Three.js Rendering**: Use `frameloop="demand"` for on-demand rendering, call `invalidate()` to request frames
-- **Bundle Target**: Achieved 105KB gzipped initial load (74.3% reduction from 410KB baseline)
-
-**Animation Architecture (Post-Phase 1 Refactoring):**
-
-The portfolio features a complex animation system located in `apps/portfolio/src/components/animations/`. This was successfully refactored in Phase 1 (completed 2025-01-13).
-
-**Current Structure (Post-Phase 0.2.4):**
-```
-src/components/animations/
-├── Section.tsx              # Main orchestrator (174 lines - refactored)
-├── HomepageContent.tsx      # Section content renderer (replaces SectionContent)
-├── ThreeJSScene.tsx         # Three.js scene (renamed from Scene.tsx)
-├── PixiJSParticles.tsx      # PixiJS particle system (renamed from Particles.tsx)
-├── contexts/                # State management contexts
-│   ├── PortfolioContext.tsx # Portfolio state (scroll, sections)
-│   ├── AnimationContext.tsx # Animation state (layers, effects)
-│   ├── DataContext.tsx      # CMS data provider (NEW in Phase 0.2.4)
-│   ├── usePortfolio.ts      # Hook for portfolio context
-│   ├── useAnimation.ts      # Hook for animation context
-│   ├── useDataContext.ts    # Hook for CMS data (NEW)
-│   └── index.ts             # Centralized exports
-├── canvas/                  # Canvas components (extracted)
-│   ├── AnimationCanvas.tsx
-│   └── index.ts
-├── overlays/                # Overlay components (extracted)
-│   ├── UIOverlays.tsx
-│   └── index.ts
-├── config/                  # Configuration and types
-├── hooks/                   # 13 custom React hooks
-│   ├── useDeviceCapabilities.ts
-│   ├── useSectionTransition.ts
-│   ├── useAtmosphericLayer.ts
-│   ├── useModal.ts
-│   ├── useSectionRefs.ts
-│   ├── useSectionTransitions.ts
-│   ├── useGSAPEntrance.ts
-│   ├── useFlipText.ts
-│   ├── useLocalStorage.ts
-│   ├── useSectionRegistry.ts  # NEW (0.2.4): Component mapping
-│   ├── useHandlebars.ts       # NEW (0.2.4): Template rendering
-│   ├── useDataContext.ts      # NEW (0.2.4): CMS data access
-│   ├── usePortfolio.ts        # Exported from contexts/
-│   ├── useAnimation.ts        # Exported from contexts/
-│   └── index.ts
-├── particles/               # Particle system internals
-├── scene/                   # Three.js scene components
-├── sections/                # 8 portfolio sections (Hero, About, Projects, etc.)
-│   └── layouts/             # Reusable section layouts (NEW)
-│       ├── SectionLayout.tsx
-│       └── index.ts
-├── ui/                      # UI components (modals, toolbar, panels)
-└── utilities/               # Helper functions
-```
-
-**Key Animation Concepts:**
-
-1. **Atmospheric Layers:** The portfolio uses a metaphor of atmospheric layers (troposphere, stratosphere, mesosphere, exosphere) that transition based on scroll progress. Each layer has different visual effects and backgrounds.
-
-2. **Section Navigation:** 8 distinct sections (0-7) that users navigate through. Each section has dedicated content components.
-
-3. **Performance Tiers:** Device capabilities are detected and animations adapt (high/medium/low performance modes). Heavy animations (Three.js, PixiJS) are conditionally rendered.
-
-4. **State Management:** Uses centralized contexts (PortfolioContext, AnimationContext) established in Phase 1 refactoring.
-
-### AZUCENA_LYTICS: Engineering Intelligence Terminal Architecture
-
-**Framework Stack:**
-- **Next.js 15** (App Router)
-- **UI Library:** React 19.2 with TypeScript
-- **Styling:** Tailwind CSS 4
-- **Visualizations:** D3.js (Heatmaps, StreamGraphs)
-- **State Management:** Redux Toolkit
-- **Data Fetching:** TanStack Query v5
-- **Animations:** Framer Motion
-
-**Core Features:**
-1.  **Telemetry Ingestion API (`/api/ingest`):** Zod-validated POST endpoint for collecting structured telemetry data.
-    - **Runtime:** Vercel Edge Runtime (`export const runtime = 'edge'`) for <50ms response times
-    - **Geo-Enrichment:** Native Vercel headers (x-vercel-ip-country/city/latitude/longitude) - no external API calls
-    - **Optimization:** Eliminated ip-api.com dependency (30-50ms latency reduction)
-2.  **ClickHouse Integration:** OLAP database for high-volume, immutable event streams. Connection managed via singleton in `lib/clickhouse.ts`.
-3.  **Real-time Dashboards:**
-    -   **Node Overview (`/`):** Summary KPIs, system integrity.
-    -   **Audio Intelligence (`/music`):** Telemetry streams related to audio processing.
-    -   **Telemetry Stream (`/logs`):** Raw event logs, searchable and filterable.
-    -   **System Integrity (`/performance`):** Performance metrics and trend visualizations.
-4.  **Global State Management:** Redux Toolkit for global filters (`visibleCategories`, `searchQuery`), UI states (`isSidebarCollapsed`, `isLive`).
-5.  **Data Polling:** `useTelemetry` hooks (TanStack Query) for real-time data updates.
-6.  **Brand Theming:** Zinc-scale base with Cyan Blue (`--primary-500`) and Coral Orange (`--secondary-500`) accents, fully responsive to light/dark mode.
-
-**Key Components:**
--   `src/app/api/ingest/route.ts`: Secure data collector.
--   `src/app/api/stats/{summary,trends,logs}/route.ts`: Data endpoints for dashboards.
--   `src/hooks/useTelemetry.ts`: TanStack Query hooks.
--   `src/components/visualizations/{Heatmap,StreamGraph}.tsx`: D3.js powered charts.
--   `src/components/logs/{TelemetryFeed,LogDetailModal}.tsx`: Log display and detail views.
--   `src/components/common/AdminMenu.tsx`: Identity management popover.
--   `src/store/slices/dashboard.ts`: Redux slice for dashboard state.
-
-### Hooks System
-
-The animation system relies on custom hooks for encapsulation:
-- `useDeviceCapabilities` - Detects performance tier
-- `useSectionTransition` - Manages section navigation state
-- `useAtmosphericLayer` - Determines current atmospheric layer
-- `useGSAPEntrance` - GSAP animation setup
-- `useSectionTransitions` - GSAP section transitions
-- `useFlipText` - Text flipping animation
-- `useModal` - Modal state management
-- `useSectionRefs` - Manages refs for 8 sections
-
-### State Flow (Post-Phase 0.2.4)
-
-```
-Section.tsx (main orchestrator - 174 lines)
-├─ DataContext → CMS data (homepage, portfolio, sections registry)
-├─ PortfolioContext → Portfolio state (scroll, sections)
-├─ AnimationContext → Animation state (layers, effects)
-└─ Renders:
-   ├─ DynamicBackground (extracted component)
-   ├─ AtmosphericOverlays (extracted component)
-   ├─ AnimationCanvas (extracted component)
-   │   ├─ PixiJSParticles (conditional)
-   │   └─ Three.js Canvas with ThreeJSScene
-   ├─ HomepageContent (section content renderer)
-   └─ UIOverlays (extracted component)
-```
-
-### Journey Visualizations (New in Phase 0.5)
-
-Complex data visualizations for the `/journey` page, located in `src/components/journey/visualizations/`:
-- **ForceDirectedGraph**: Interactive skill dependency graph
-- **InteractiveTimeline**: Scroll-synced career progression
-- **SpiderChart**: Multi-dimensional skill profiling
-- **SankeyDiagram**: Career flow visualization
-- **StreamGraph**: Skill evolution over time
-- **Heatmap**: Activity and contribution tracking
-
-### Page Template System (New in Phase 2)
-
-**Architecture:** Clean separation between routing and presentation through dedicated template components.
-
-**Directory Structure:**
-```
-src/
-├── pages/
-│   └── [slug].astro              # Router (~73 lines of logic)
-└── templates/
-    ├── index.ts                  # Type definitions & registry
-    ├── EditorialTemplate.astro   # Default content pages
-    ├── LegalTemplate.astro       # Legal documents (privacy, terms)
-    └── LandingTemplate.astro     # Marketing pages (stub)
-```
-
-**Supported Templates:**
-1. **Legal Template** (`template: 'legal'`):
-   - Revision badge with formatted date + animated pulse
-   - Back-to-home navigation button
-   - Print-optimized styles (@media print)
-   - Used for: Privacy Policy, Terms of Service
-
-2. **Editorial Template** (`template: 'default'`):
-   - Clean, minimal layout with centered title
-   - Prose-styled content area
-   - Optional table of contents
-   - Used for: General content pages, articles, documentation
-
-3. **Landing Template** (`template: 'landing'`):
-   - Hero-style header with larger typography
-   - Optional CTA button support
-   - Wider layout (7xl vs 4xl)
-   - Stub for future marketing pages
-
-**Router Pattern:**
 ```typescript
-// Router computes SEO, breadcrumbs, JSON-LD
-const sharedProps = { title, content, seoTitle, jsonLd, ... };
+// Vercel .npmrc — required for Babel dependency tracing
+shamefully-hoist=true
+public-hoist-pattern[]=*babel*
 
-// Conditional rendering ensures type safety
-{templateType === 'legal' ? (
-  <LegalTemplate {...sharedProps} lastUpdated={page.lastUpdated} />
-) : templateType === 'landing' ? (
-  <LandingTemplate {...sharedProps} />
-) : (
-  <EditorialTemplate {...sharedProps} />
-)}
+// React 19.2 polyfill — add to index.astro (until React 19.3+)
+if (typeof window !== 'undefined' && !window.suspendOnActiveViewTransition) {
+  window.suspendOnActiveViewTransition = function() { return null; };
+}
+
+// CMS rendering
+MarkdownRenderer  // for Strapi 'richtext' fields (string)
+BlocksRenderer    // for Strapi 'blocks' fields (JSON array)
+
+// Performance: SSR pages need
+export const prerender = false  // maintenance.astro, 500.astro
+
+// Lazy loading — must use client:only="react", NOT client:load
+// Remove static imports for code-split modules; dynamic imports only
+// Three.js: frameloop="demand", call invalidate() to request frames
 ```
 
-**Adding New Templates:**
-1. Add template name to `PageTemplateEnum` in `validators/enums.ts`
-2. Create `[TemplateName]Template.astro` component
-3. Define props interface in `templates/index.ts`
-4. Add to `TEMPLATE_MAP` constant
-5. Update router conditional rendering
+---
 
-**Key Benefits:**
-- ✅ **35% code reduction**: Router logic reduced from 113 → 73 lines
-- ✅ **Type safety**: Explicit props contracts per template
-- ✅ **Maintainability**: Self-contained, testable components
-- ✅ **Extensibility**: Easy to add new templates without touching router
-- ✅ **Separation of concerns**: Router handles routing, templates handle presentation
+## Package System (Phase 4)
 
-### CMS Data Architecture (Phase 0.2.4)
+All 16 packages are scaffolded and populated. **Portfolio app does not yet import from them** — integration is the remaining Phase 4 work.
 
-**Data Flow:**
-```
-Strapi CMS (PostgreSQL + pgVector)
-   ↓
-/lib/api/homepage-data.ts → Parallel fetch (15+ endpoints)
-   ↓
-/lib/validators/* → Zod schema validation (runtime type safety)
-   ↓
-/lib/transformers/* → Data transformation (clean structures)
-   ↓
-DataContext → Provides data to all components
-   ↓
-Custom hooks → Components access data
-  ├─ useDataContext() → Full data access
-  ├─ useSectionData() → Section-specific data
-  ├─ usePortfolioData() → Portfolio metadata
-  ├─ useHomepageData() → Homepage configuration
-  └─ useRegistry() → Section component registry
+**UI component pattern:**
+```tsx
+// CVA + React.forwardRef + 3 variants + cn() from @aazucena/utils
+// Barrel: packages/ui/src/components/ui/index.ts (225+ entries)
 ```
 
-**API Layer Structure:**
-```
-src/lib/
-├── api/              # 24 specialized API clients (modular structure)
-│   ├── hero.ts             # Hero section
-│   ├── about.ts            # About section
-│   ├── projects.ts         # Projects collection
-│   ├── experiences.ts      # Work experience
-│   ├── testimonials.ts     # Testimonials
-│   ├── awards.ts           # Awards/achievements
-│   ├── education.ts        # Education history
-│   ├── posts.ts            # Blog posts
-│   ├── skills.ts           # Skills collection
-│   ├── skill-categories.ts # Skill categories
-│   ├── pages.ts            # Static pages (legal, etc.)
-│   ├── animation.ts        # Animation config
-│   ├── theme.ts            # Theme config
-│   ├── maintenance.ts      # Maintenance mode
-│   ├── website-config.ts   # Website metadata
-│   ├── blog-config.ts      # Blog configuration
-│   ├── portfolio.ts        # Portfolio metadata
-│   ├── homepage.ts         # Homepage config
-│   ├── preloader.ts        # Preloader config
-│   ├── journey.ts          # Journey page config (NEW)
-│   ├── skill-showcase.ts   # Skill showcase (NEW)
-│   ├── experience-showcase.ts # Experience showcase (NEW)
-│   ├── project-showcase.ts # Project showcase (NEW)
-│   └── contact-form.ts     # Contact form config (NEW)
-├── validators/       # 20+ Zod schemas (type-safe validation)
-├── transformers/     # 20+ data transformers (clean structures)
-├── utils/            # Helper functions (15 modular utilities - Phase 2)
-│   ├── index.ts              # Central exports
-│   ├── about.ts              # About page utilities
-│   ├── availability.ts       # Status indicator logic
-│   ├── base.ts               # Base utilities
-│   ├── blog.ts               # Blog utilities
-│   ├── contact-form.ts       # Contact form helpers
-│   ├── content.ts            # Content utilities
-│   ├── debounce.ts           # Debounce utilities
-│   ├── experiences.ts        # Experience utilities
-│   ├── icons.ts              # Icon utilities
-│   ├── projects.ts           # Project utilities
-│   ├── strapi.ts             # Strapi helpers
-│   ├── tagColors.ts          # Tag color mapping
-│   ├── text.ts               # Text utilities
-│   ├── toc.ts                # Table of contents
-│   └── url.ts                # URL utilities
-└── strapi.ts         # Base Strapi client
+**Forms pattern:**
+```tsx
+import { LoginForm } from '@aazucena/forms/templates'
+const form = useForm({ ... } as any)  // validatorAdapter not in FormOptions type
+onSubmit: async ({ value }: { value: any }) => { ... }
+// ZodEffects (.refine()/.superRefine()) returns ZodEffects not ZodObject — cannot access .shape
 ```
 
-**Context Integration:**
-```typescript
-<DataProvider data={data} content={homepage} portfolio={portfolio}>
-  <PortfolioProvider>
-    <AnimationProvider>
-      {/* All components have access to CMS data via hooks */}
-    </AnimationProvider>
-  </PortfolioProvider>
-</DataProvider>
-```
-
-**Key Benefits:**
-- ✅ Complete type safety with Zod runtime validation
-- ✅ Parallel data fetching (all 15+ endpoints in parallel)
-- ✅ Graceful fallbacks if CMS unavailable
-- ✅ No prop drilling (context hooks throughout)
-- ✅ Testable, modular API clients
-
-## Development Roadmap
-
-**CRITICAL:** Always consult `ROADMAP.md` and `docs/` before major changes.
-
-### ✅ Phase 1 - Animations Refactoring (COMPLETED - 2025-01-13)
-
-**Detailed docs:** `docs/phase-1-animations-refactoring.md`
-
-**Achievements:**
-- ✅ Reduced Section.tsx from 324 → 174 lines (46% reduction)
-- ✅ Created centralized contexts (PortfolioContext, AnimationContext)
-- ✅ Extracted 5 components (DynamicBackground, AtmosphericOverlays, AnimationCanvas, SectionContent, UIOverlays)
-- ✅ Eliminated prop drilling
-- ✅ Renamed files (Particles → PixiJSParticles, Scene → ThreeJSScene)
-- ✅ All tests passing
-
-### ✅ Phase 1.5 - Code Quality & Security Fixes (COMPLETED - 2025-12-03)
-
-**Detailed docs:** `docs/phase-1.5-code-quality-security.md`
-
-**Achievements:**
-- ✅ Fixed critical CVEs (happy-dom upgraded to >=20.0.2)
-- ✅ Eliminated memory leaks (PortfolioContext timeout cleanup)
-- ✅ Improved type safety (AwardsSection typed properly)
-- ✅ Fixed hook dependencies (exhaustive-deps violations resolved)
-- ✅ Added GSAP cleanup (prevented animation memory leaks)
-- ✅ Code quality: 7.5/10 → 8.5-9.0/10
-
-### ✅ Phase 0 - Infrastructure & Architecture (COMPLETED - 2026-01-17)
-
-**Detailed docs:** `docs/phase-0-infrastructure.md`
-
-**Goal:** Set up production-ready infrastructure with Docker Compose
-
-**Sub-phases:**
-- **0.1:** Verify monorepo structure (pnpm + Turborepo) ✅ COMPLETED
-- **0.2.1:** Docker Compose setup (Strapi + PostgreSQL 16 + pgVector) ✅ COMPLETED
-- **0.2.2:** Strapi configuration (admin panel, Cloudinary) ✅ COMPLETED
-- **0.2.3:** Content types creation (20 types implemented) ✅ COMPLETED
-- **0.2.4:** Frontend API integration (Strapi SDK) ✅ COMPLETED (2025-12-19)
-- **0.3:** Deployment strategy (Vercel + Railway) ✅ COMPLETED (2025-12-29)
-- **0.4:** Content migration from static to CMS ✅ COMPLETED (2026-01-14)
-- **0.5:** Portfolio pages implementation ✅ COMPLETED (2026-01-17)
-
-**Key Technology Decisions:**
-- ✅ Docker Compose for local development (configured and running)
-- ✅ PostgreSQL 16+ with pgVector extension (configured)
-- ✅ Strapi v5.31.0 (installed and configured)
-- ✅ 20 content types created (Skills, Projects, Posts, Testimonials, Pages, etc.)
-- ✅ 9 components implemented
-- ✅ 14 pages implemented (Projects, Experiences, About, Journey, Blog, Legal, 404, Maintenance)
-- ✅ Footer, RSS feed, Sitemap integrated
-
-**Status:** ✅ 100% complete - All infrastructure, frontend integration, deployment, content migration, and pages implemented.
-
-### ✅ Phase 2 - Component Architecture (COMPLETED - 2026-02-02)
-
-**Detailed docs:** `docs/phase-2-component-architecture.md`
-
-**Achievements:**
-- ✅ Template system (Editorial, Legal, Landing) - 3 templates operational
-- ✅ Utility refactoring - Split monolithic files into 15 specialized modules
-- ✅ Common components - 7 new reusable components
-  - `StatusBadge.tsx` - Reusable status indicators
-  - `ThemeToggle.tsx` - Dark/light theme switcher
-  - `Breadcrumbs.astro` - Navigation breadcrumbs
-  - `GradientAccent.astro` - Gradient decorations
-  - `WatermarkBackground.astro` - Branded watermarks
-  - `DetailNavigation.astro` - Back/forward navigation
-  - `telemetry/IntegrityBadge.tsx` - Real-time system health indicator (connects to AZUCENA_LYTICS)
-- ✅ Site config centralization - `config/site.ts` with types and helpers
-- ✅ Footer component - Tech stack logos (Astro, React, Tailwind, Vite)
-- ✅ **Navigation Plugin Integration** - CMS-driven header/footer navigation with custom fields
-- ✅ Homepage restructuring - animations → homepage, type-first organization
-- ✅ Journey restructuring - type-first: ui/journey, visualizations/journey
-- ✅ Scene directory flattening - depth 3 → 2
-- ✅ Component extraction - all 8 sections <120 lines
-
-**Status:** ✅ 100% complete - All component architecture tasks finished.
-
-### ✅ Phase 3 - Performance Optimization (COMPLETED - 2026-02-04)
-
-**Detailed docs:** `docs/phase-3-performance.md`
-
-**Achievement: 74.3% Bundle Reduction** 🎉
-- Initial: 410.85 KB gzipped → Final: 105.50 KB gzipped
-- Target: <150 KB (63% reduction) → **Exceeded by 11.3%**
-
-**Achievements:**
-- ✅ Fixed lazy loading conflicts (removed static exports)
-- ✅ Enabled ENABLE_LAYER_LAZY_LOADING feature flag
-- ✅ Lazy loaded AnimationCanvas (-302.61 KB, 73.7% reduction)
-- ✅ Lazy loaded modals (-2.74 KB, 3 modal chunks)
-- ✅ Conditional Three.js rendering (frameloop='demand')
-- ✅ React 19 polyfill (suspendOnActiveViewTransition workaround)
-- ✅ Progressive enhancement architecture
-
-**Performance Impact:**
-- Time to Interactive: 5-6s → 1.5-2s (67% faster)
-- Lighthouse Score: 70-75 → 85-90 (estimated +15-20 points)
-
-**Status:** ✅ 100% complete - All 6 tasks finished.
-
-### Upcoming Phases (execute in order)
-- **Phase 4:** Developer Experience (19-20 days, adjusted from 21) - 🔥 CURRENT PRIORITY
-  - 13 specialized packages (design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config)
-  - Figma Design System (40+ components)
-  - Storybook (50+ stories)
-  - Chromatic visual regression
-  - TypeScript strict mode + Git hooks
-- **Phase 5:** Testing (5-8 days) - Vitest unit tests, Playwright E2E
-
-### Planned Features (see docs/features/)
-- Music Player (Howler.js, wavesurfer.js) - 4-6 days
-- Strudel.cc Live Coding Integration - 9-13 days
-- AI-Powered Forms (LangChain + LangGraph + Claude with pgVector, embeddings, RAG) - 16-20 days comprehensive
-- Machine Learning Features (PyTorch/TensorFlow) - 10-40 days
-- Logging & Monitoring (Sentry, Vercel Analytics, Vercel Speed Insights, Pino, Redis) - 3-4 days
-- Payments (Stripe + Ko-fi) - 3-4 days
-
-## Tech Stack Reference
-
-### Core Dependencies
-- **@astrojs/react** - React integration for Astro
-- **gsap** - Animation library (includes ScrollToPlugin, ScrollTrigger)
-- **three** + **@react-three/fiber** + **@react-three/drei** - 3D graphics
-- **pixi.js** + **@pixi/react** - 2D particle system
-- **framer-motion** - Additional animations
-- **@radix-ui/** - Headless UI primitives (used by ShadCN)
-- **react-hook-form** + **zod** - Form validation
-- **@vercel/analytics** + **@vercel/speed-insights** - Analytics
-- **d3** - Data visualizations (Used in AZUCENA_LYTICS)
-- **@reduxjs/toolkit** - State management (Used in AZUCENA_LYTICS)
-- **@tanstack/react-query** - Server state management (Used in AZUCENA_LYTICS)
-
-### Development Tools
-- **Playwright** - E2E testing (configured)
-- **Vitest** - Unit testing (installed, not configured)
-- **Prettier** - Code formatting
-- **Turborepo** - Monorepo task orchestration
-
-### Backend & Infrastructure (Planned/In Progress)
-- **Strapi v5** (CMS) - Upgraded from v4 for better PostgreSQL and pgVector support
-- **ClickHouse** (OLAP Database) - For high-volume telemetry and analytics
-- **Strapi Plugins:**
-  - `strapi-plugin-icons-field` v1.1.5 - Icon picker field with @mynaui/icons support
-  - `@strapi/plugin-graphql` - GraphQL API
-  - `@strapi/plugin-documentation` - Auto-generated API documentation
-  - `@strapi/plugin-sentry` - Error tracking
-  - `@strapi/plugin-seo` - SEO management
-  - `@_sh/strapi-plugin-ckeditor` - Rich text editor
-  - `strapi-plugin-multi-select` - Multi-select field
-  - `strapi-advanced-uuid` - Advanced UUID generation
-  - `@strapi/plugin-color-picker` - Color picker field
-  - `strapi-plugin-preview-button` - Content preview
-  - `strapi-plugin-navigation` - Navigation builder
-  - `strapi-plugin-duplicate-button` - Content duplication
-  - `strapi-plugin-config-sync` - Configuration synchronization
-  - `strapi-plugin-publisher` - Publishing workflow
-  - `@strapi-community/plugin-rest-cache` - REST API caching
-  - `@strapi-community/plugin-redis` - Redis integration
-- **PostgreSQL 16+** with pgVector extension for vector similarity search
-- **Redis** - Caching
-- **Sentry** - Error tracking (frontend & backend)
-- **Pino** - Logging (backend)
-- **Railway** - Backend deployment
-- **Cloudinary** - Media storage via @strapi/provider-upload-cloudinary
-
-### AI/ML Stack (Comprehensive)
-- **LangChain** - LLM orchestration framework
-- **LangGraph** - State machine for multi-turn conversations
-- **LangSmith** - Observability, tracing, and debugging
-- **Anthropic Claude 3.5 Sonnet** - Primary language model
-- **pgVector** - PostgreSQL extension for vector similarity search
-- **Embeddings Models:**
-  - OpenAI (text-embedding-3-small, text-embedding-3-large)
-  - Cohere (embed-english-v3.0, embed-multilingual-v3.0)
-  - Anthropic Claude (via Voyage AI)
-  - Google Gemini (Vertex AI textembedding-gecko)
-  - Local Models (Sentence Transformers, all-MiniLM-L6-v2)
-- **Retrieval & Ranking:**
-  - LangChain Retrievers for semantic search
-  - Cohere Rerank API (rerank-english-v3.0)
-  - Cross-encoder models (local)
-  - ContextualCompressionRetriever
-- **PyTorch/TensorFlow** - Optional for advanced ML features
+---
 
 ## Code Patterns & Conventions
 
 ### File Naming
-- React components: PascalCase (e.g., `Section.tsx`, `HeroSection.tsx`)
-- Hooks: camelCase with `use` prefix (e.g., `useModal.ts`)
-- Utilities: camelCase (e.g., `formatDate.ts`)
-- Config: camelCase or kebab-case (e.g., `config.yaml`, `astro.config.mjs`)
+- React components: PascalCase (`Section.tsx`, `HeroSection.tsx`)
+- Hooks: `use` prefix camelCase (`useModal.ts`)
+- Utilities: camelCase (`formatDate.ts`)
 
 ### Component Structure
-- Astro components use `.astro` extension
-- React components use `.tsx` extension
-- Export React components as default: `export default function ComponentName()`
-- Type props interfaces as `ComponentNameProps`
+- Astro: `.astro` extension
+- React: `.tsx` extension, default export, `ComponentNameProps` interface
 
-### State Management Pattern
-- Use React Context for cross-component state
-- Custom hooks for encapsulated logic
-- Avoid prop drilling (refactor to contexts if needed)
+### State Management
+- React Context for cross-component state; custom hooks for encapsulation
+- Avoid prop drilling — use contexts
+- `capabilities.canUseHeavyAnimations` gates Three.js/PixiJS rendering
 
-### Animation Patterns
-- GSAP for imperative animations and scroll-triggered effects
-- Three.js for 3D scenes
-- PixiJS for performant 2D particles
-- Framer Motion for declarative React animations
-- Always check `capabilities.canUseHeavyAnimations` before rendering expensive animations
+### Utilities (Phase 2 Pattern)
+- Import from `~/lib/utils` (barrel via `index.ts`)
+- Domain-specific files: `blog.ts`, `projects.ts`, `experiences.ts`, etc.
+- Adding new: create domain file → export with JSDoc → add to `index.ts`
+
+### @aazucena/forms Type Error Patterns
+- Custom props conflicting with native HTML handlers → add to `Omit<>` list
+- `React.useRef<T>()` without initial → use `React.useRef<T>(undefined)`
+- `field.state.meta.errors` → render as `String(field.state.meta.errors[0])`
+- Generic forwardRef components need wrapper function + cast pattern
+
+---
 
 ## Important File Locations
 
-### Configuration Files
-- `apps/portfolio/astro.config.mjs` - Astro configuration
-- `apps/portfolio/tailwind.config.mjs` - Tailwind configuration
-- `apps/portfolio/tsconfig.json` - TypeScript configuration
-- `turbo.json` - Turborepo pipeline
+### Configuration
+- `apps/portfolio/astro.config.mjs` — Astro configuration
+- `apps/portfolio/tailwind.config.mjs` — Tailwind
+- `turbo.json` — Turborepo pipeline
+- `.husky/pre-commit` — lint-staged hook
 
 ### Documentation
-- `ROADMAP.md` - High-level roadmap (318 lines)
-- `docs/README.md` - Documentation index
-- `docs/phase-*.md` - Phase-specific documentation
-- `docs/features/*.md` - Feature documentation
+- `ROADMAP.md` — high-level roadmap + phase status
+- `docs/architecture.md` — deep architecture reference (animation, CMS, packages)
+- `docs/phase-*.md` — per-phase docs
+- `docs/features/*.md` — feature planning docs
 
-### Key Source Files
-- `apps/portfolio/src/pages/index.astro` - Main entry point
-- `apps/portfolio/src/pages/[slug].astro` - Dynamic page router (73 lines logic, Phase 2 refactored)
-- `apps/portfolio/src/templates/` - Page template components (Phase 2)
-  - `index.ts` - Type definitions & template registry
-  - `EditorialTemplate.astro` - Default content pages
-  - `LegalTemplate.astro` - Legal documents with revision badge
-  - `LandingTemplate.astro` - Marketing pages (stub)
-- `apps/portfolio/src/config/site.ts` - Centralized site configuration (Phase 2)
-- `apps/portfolio/src/components/common/` - Shared components (Phase 2)
-  - `StatusBadge.tsx` - Reusable status indicators
-  - `ThemeToggle.tsx` - Dark/light theme switcher
-  - `Breadcrumbs.astro` - Navigation breadcrumbs
-  - `GradientAccent.astro` - Gradient decorations
-  - `WatermarkBackground.astro` - Branded watermarks
-  - `DetailNavigation.astro` - Back/forward navigation
-- `apps/portfolio/src/components/telemetry/` - Analytics components (Phase 2)
-  - `IntegrityBadge.tsx` - Real-time system health indicator (NEW 2026-02-04)
-    - Fetches from `/api/health/public` endpoint
-    - 4 states: OPERATIONAL, DEGRADED, UNKNOWN, LOADING
-    - Embedded in Footer component
-- `apps/portfolio/src/components/animations/Section.tsx` - Main animation orchestrator (174 lines)
-- `apps/portfolio/src/components/animations/HomepageContent.tsx` - Section content renderer (replaces SectionContent.tsx ❌ deleted)
-- `apps/portfolio/src/components/animations/contexts/DataContext.tsx` - CMS data provider (NEW in 0.2.4)
-- `apps/portfolio/src/components/animations/sections/layouts/SectionLayout.tsx` - Reusable section wrapper
-- `apps/portfolio/src/components/animations/hooks/` - Custom hooks library (13 total)
-  - `useSectionRegistry.ts` - Component mapping (NEW)
-  - `useHandlebars.ts` - Template rendering (NEW)
-  - `useDataContext.ts` - CMS data access (NEW)
-- `apps/portfolio/src/lib/api/` - 25 specialized API clients (modular structure)
-  - Core: `hero.ts`, `about.ts`, `projects.ts`, `experiences.ts`, `education.ts`
-  - Content: `posts.ts`, `testimonials.ts`, `awards.ts`, `skills.ts`, `pages.ts`
-  - Config: `animation.ts`, `theme.ts`, `maintenance.ts`, `website-config.ts`, `blog-config.ts`, `portfolio.ts`, `homepage.ts`, `preloader.ts`, `skill-categories.ts`
-  - Showcase: `journey.ts`, `skill-showcase.ts`, `experience-showcase.ts`, `project-showcase.ts`, `contact-form.ts`
-  - Navigation: `navigation.ts` (NEW in Phase 2 - 2026-01-27)
-- `apps/portfolio/src/lib/validators/` - Zod validation schemas (20+ schemas)
-- `apps/portfolio/src/lib/transformers/` - Data transformation layer (20+ transformers)
-- `apps/portfolio/src/lib/utils/` - Helper utilities (15 modular files - Phase 2)
-  - See API Layer Structure section for complete list
+### Portfolio Key Files
+- `apps/portfolio/src/pages/index.astro` — entry point
+- `apps/portfolio/src/pages/[slug].astro` — dynamic page router (73 lines)
+- `apps/portfolio/src/templates/` — EditorialTemplate, LegalTemplate, LandingTemplate
+- `apps/portfolio/src/config/site.ts` — centralized site config
+- `apps/portfolio/src/components/animations/Section.tsx` — animation orchestrator (174 lines)
+- `apps/portfolio/src/components/animations/contexts/` — PortfolioContext, AnimationContext, DataContext
+- `apps/portfolio/src/lib/api/` — 25 Strapi API clients
+- `apps/portfolio/src/lib/validators/` — 20+ Zod schemas
+- `apps/portfolio/src/lib/transformers/` — 20+ data transformers
+- `apps/portfolio/src/lib/utils/` — 15 modular utility files
+
+### Storybook
+- `apps/storybook/stories/components/` — 260 component stories
+- `apps/storybook/stories/forms/` — 94 form stories (13 categories)
+- `apps/storybook/stories/design-tokens/` — MDX token docs
+- `apps/storybook/.env` — `CHROMATIC_PROJECT_TOKEN` configured
+
+---
+
+## Development Roadmap (Summary)
+
+**Full details:** `ROADMAP.md`
+
+| Phase | Status | Key Achievement |
+|-------|--------|----------------|
+| Phase 1 — Animations Refactoring | ✅ 2025-01-13 | Section.tsx 324→174 lines |
+| Phase 1.5 — Code Quality | ✅ 2025-12-03 | CVEs fixed, memory leaks patched |
+| Phase 0 — Infrastructure | ✅ 2026-01-17 | Strapi + Railway + 15 pages |
+| Phase 2 — Component Architecture | ✅ 2026-02-02 | Templates, flat structure |
+| Phase 3 — Performance | ✅ 2026-02-04 | 410KB → 105KB (74.3% reduction) |
+| Phase 4 — Developer Experience | 🚧 ~90% | 16 packages + 373+ stories |
+| Phase 5 — Testing | ⏳ next | Vitest + Playwright |
+
+**Phase 4 remaining (1-2 days):** Chromatic first baseline + CircleCI Chromatic job + portfolio importing `@aazucena/*`
+
+---
+
+## Tech Stack
+
+| Layer | Tech |
+|-------|------|
+| Portfolio | Astro 5, React 19.2, Tailwind 4, GSAP, Three.js, PixiJS, Framer Motion |
+| Analytics | Next.js 15, Redux Toolkit, TanStack Query v5, D3.js, Vercel AI SDK |
+| CMS | Strapi v5, PostgreSQL 16 + pgVector, Cloudinary, Redis |
+| Forms | react-hook-form + Zod, TanStack Form |
+| Testing | Playwright (configured), Vitest (installed, not configured) |
+| DX | Storybook, Chromatic, Husky, lint-staged, Turborepo |
+| AI/ML | LangChain, LangGraph, LangSmith, Claude 3.5 Sonnet, pgVector |
+| Deploy | Vercel (frontend), Railway (CMS), CircleCI (CI) |
+
+---
 
 ## Git & Deployment
 
-**Current Branch:** `main`
-**Status:** Clean working tree
+**Current Branch:** `phase-4/developer-experience`
+**CI/CD:** CircleCI — currently prechecks only; Railway handles Docker builds
+**Frontend:** Vercel (auto-deploy from GitHub)
+**Backend:** Railway
 
-**Deployment Strategy (future):**
-- Frontend (Astro): Vercel (auto-deploy from GitHub)
-- Backend (Strapi): Railway
-- CI/CD: CircleCI (for CMS only)
+---
 
 ## Workflow Tips
 
 ### Before Starting Work
-1. Read relevant documentation in `docs/`
-2. Check ROADMAP.md for current phase and priorities
-3. Understand the animation architecture if working with `src/components/animations/`
+1. Check `ROADMAP.md` for current priorities
+2. Check `docs/architecture.md` for architecture deep-dives
+3. Check `docs/phase-*.md` for the relevant phase
 
-### When Working with Animations
-1. Section.tsx is the main orchestrator - it's now cleaner (174 lines) after Phase 1
-2. Use PortfolioContext and AnimationContext for state management
-3. Test all 8 sections after changes
-4. Verify atmospheric layer transitions work
-5. Check modal interactions (Experience modal)
-6. Test toolbar panel toggling
-7. Ensure performance tiers still work (high/medium/low)
+### Working with Animations
+1. `Section.tsx` is the orchestrator (174 lines) — don't add more logic here
+2. Use PortfolioContext / AnimationContext / DataContext via hooks
+3. Test all 8 sections after changes; verify atmospheric layer transitions
 
-### When Adding Features
-1. Check if similar functionality exists in custom hooks
-2. Follow the contexts pattern (don't add more useState in Section.tsx)
-3. Consider device capabilities for performance-heavy features
-4. Update relevant documentation in `docs/` folder
+### Working with Page Templates
+1. Router (`[slug].astro`) = routing + SEO only; templates = presentation only
+2. Adding templates: `PageTemplateEnum` → `[Name]Template.astro` → `templates/index.ts` → router conditional
 
-### When Working with Page Templates
-1. **Router is routing only** - `[slug].astro` handles SEO, breadcrumbs, and delegates to templates
-2. **Templates are presentation only** - Each template focuses solely on layout and rendering
-3. **Adding new templates**:
-   - Add to `PageTemplateEnum` in `src/lib/validators/enums.ts`
-   - Create `[Name]Template.astro` in `src/templates/`
-   - Define props interface in `src/templates/index.ts`
-   - Update router conditional rendering
-4. **Template-specific features** - Add props to template's interface (e.g., `lastUpdated` for Legal)
-5. **Test print styles** - Legal template has print optimization, verify with Cmd/Ctrl+P
-6. **Type safety** - Use conditional rendering in router to ensure correct props per template
+### Working with Packages
+1. Type-check with `pnpm tsc --noEmit` (faster than Storybook build)
+2. Storybook stories in `apps/storybook/stories/` — Gold Standard: JSDoc + autodocs + argTypes with table.category
+3. Export name matches filename PascalCase (`datepicker.tsx` → `Datepicker`)
+4. `pnpm format` has a pre-existing analytics app failure — format UI/forms files directly
 
-### When Working with Utilities (Phase 2 Pattern)
-1. **Modular structure** - Utilities are organized by domain (blog, projects, experiences, etc.)
-2. **Single responsibility** - Each utility file has a focused purpose
-3. **Central exports** - Import from `~/lib/utils` (barrel export pattern via `index.ts`)
-4. **Type safety** - All utilities have proper TypeScript types
-5. **Deleted files** - `utils.ts`, `blogHelpers.ts`, `contentHelpers.ts`, `experienceHelpers.ts` consolidated into modular structure
-6. **Adding new utilities**:
-   - Create domain-specific file (e.g., `analytics.ts`)
-   - Export functions with JSDoc comments
-   - Add to `index.ts` barrel export
-   - Follow naming: camelCase for functions, PascalCase for types
-
-### Monorepo Commands
-- Use `pnpm` (never npm or yarn)
-- Run commands from root for cross-workspace operations
-- Use Turbo filters for specific workspaces: `pnpm dev --filter *portfolio*`
-- Turbo caches builds - use `turbo build --force` to bypass cache
-
-## AI-Powered Forms Architecture
-
-### Overview
-The portfolio implements a comprehensive AI-powered forms system with LangChain + LangGraph + Claude 3.5 Sonnet, featuring vector database integration for semantic search and RAG capabilities.
-
-### Form Types (8 Total)
-- **Contact** - General inquiries
-- **Feedback** - Portfolio feedback collection
-- **Testimonial** - Client reviews with approval workflow
-- **Bug Report** - Issue tracking with GitHub integration
-- **Feature Request** - Ideas with voting system
-- **Collaboration** - Speaking/partnership opportunities
-- **Referral** - Client referrals
-- **Music Feedback** - Track-specific reviews
-
-### Key Features
-- ✨ **Easter Egg Step** - Hidden engagement step required before submission
-
-**Framework Stack:**
-- **Astro 5.16.0** as the meta-framework with React integration
-- **Rendering Pattern**: Hybrid (Static by default, SSR for dynamic status pages)
-- **React 19.2** for interactive components
-- **Tailwind CSS 4** with @tailwindcss/vite plugin
-- **TypeScript** throughout
-
-**Build Configuration:**
-- **Vercel + pnpm**: Requires `.npmrc` with `shamefully-hoist=true` and `public-hoist-pattern[]=*babel*` to resolve Babel dependency tracing issues.
-
-**Content Rendering Pattern:**
-- **MarkdownRenderer**: Used for `richtext` fields in Strapi (e.g., Post/Experience descriptions) which return strings.
-- **BlocksRenderer**: Used for `blocks` fields in Strapi (e.g., Experience responsibilities, About descriptions) which return JSON arrays.
-- **SSR Pages**: `maintenance.astro` and `500.astro` use `export const prerender = false` to support real-time status checks and error logging.
-
-### AZUCENA_LYTICS: Engineering Intelligence Terminal Architecture
-
-**Framework Stack:**
-- **Next.js 15** (App Router)
-- **UI Library:** React 19.2 with TypeScript
-- **Styling:** Tailwind CSS 4
-- **Visualizations:** D3.js (Heatmaps, StreamGraphs)
-- **State Management:** Redux Toolkit
-- **Data Fetching:** TanStack Query v5
-- **AI Stack:** Vercel AI SDK + Vercel AI Gateway (Native Provider)
-
-**Core Features:**
-1.  **Telemetry Ingestion API (`/api/ingest`):** Central entry point for TS and Python events.
-2.  **ClickHouse Integration:** High-volume event streams stored in the `analytics` DB.
-3.  **Real-time Dashboards:**
-    -   **Node Overview (`/`):** Summary KPIs, system integrity.
-    -   **Audio Intelligence (`/music`):** Live playback telemetry from ClickHouse.
-    -   **AI Terminal (`/ai`):** Model-agnostic chat interface using Vercel AI Gateway.
-    -   **AI Cost Center (`/ai/costs`):** Real-time spend and model efficiency auditing.
-    -   **Trajectory Labs (`/ai/trajectories`):** Decision playback for RL agents.
-    -   **System Integrity (`/performance`):** Real-time heartbeat monitoring.
-
-### Intelligence Infrastructure (Microservices)
-
-**Conventions:**
-- **Health Checks:** Every service must expose a machine-readable `/health` endpoint.
-- **Status Dashboards:** Every service serves a human-readable `/status` HTML page.
-- **Inter-service Communication:** Uses internal Docker hostnames (e.g., `aazucena-websocket`) within the `aazucena-network`.
-- **Hybrid Networking:** Host-based apps (Next.js/Astro) communicate with Docker via LAN IP or `host.docker.internal`.
-
-**Service Mesh:**
-- **WebSocket Bridge:** Node/TS service broadcasting ClickHouse signals to the dashboard UI.
-- **Intel Bridge:** FastAPI service acting as an async telemetry gateway for Python agents.
-- **Intel Engine:** High-performance core for LangChain, LangGraph, and pgVector processing.
-
-### 🎯 Current Status
-
-#### Completed ✅
-- **Phase 3:** Performance Optimization (100% complete) - 2026-02-04
-  - ✅ **74.3% bundle reduction** (410KB → 105KB gzipped)
-  - ✅ Exceeded 63% target by 11.3%
-  - ✅ Lazy loading (AnimationCanvas, modals, atmospheric layers)
-  - ✅ Code splitting (6 dynamic chunks)
-  - ✅ Demand-based rendering (Three.js frameloop='demand')
-  - ✅ React 19 polyfill workaround
-  - ✅ Progressive enhancement architecture
-  - ✅ Time to Interactive: 5-6s → 1.5-2s (67% faster)
-- **AZUCENA_LYTICS v1** - Engineering Intelligence Terminal (100% Complete) - 2026-02-04
-  - ✅ **ALL 5 PHASES COMPLETE** (Ingestion, AI Observability, External Data, Advanced Features, Hardening).
-  - ✅ **Predictive Sentinel & RBAC** - Automated health watchdog and secure ClickHouse access controls.
-  - ✅ **Automated Knowledge Sync** - Internal RAG indexing project context (`ROADMAP`, `GEMINI`, `CLAUDE`) into pgVector.
-  - ✅ **Geospatial & Behavioral Intelligence** - Real-time Choropleth maps and Session Journey Explorer.
-  - ✅ **Prompt IDE & Sync** - Strapi v5 prompt management with LangSmith Hub sync.
-- **Phase 2:** Component Architecture (100% complete) - 2026-02-02
-  - ✅ Template system (Editorial, Legal, Landing)
-  - ✅ Navigation Plugin & Footer CMS Integration
-  - ✅ Homepage/Journey restructuring & component extraction (<120 lines)
-  - ✅ Scene directory flattening
-- **Phase 1:** Animations Refactoring (324 → 174 lines, 46% reduction) - 2025-01-13
-- **Phase 1.5:** Code Quality & Security Fixes (CVEs, memory leaks) - 2025-12-03
-- **Phase 0:** Infrastructure & Architecture (100% complete) - 2026-01-17
-
-#### In Progress 🚧
-- **Phase 4:** Developer Experience (19-20 days, adjusted from 21) - 🔥 CURRENT PRIORITY
-  - 13 specialized packages (design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config)
-  - @aazucena/design-system (tokens + docs)
-  - Figma library (40+ components)
-  - Storybook (50+ stories)
-  - Chromatic integration
-  - TypeScript strict mode + Git hooks
+### Monorepo
+- Always use `pnpm` (never npm/yarn)
+- `pnpm dev --filter *portfolio*` — workspace filter
+- `turbo build --force` — bypass Turbo cache
 
 ---
 
-**Last Updated:** 2026-02-04
+## Current Status
 
-**Recent Changes:**
-- ✅ **Phase 3 Complete - Performance Optimization (2026-02-04):**
-  - 74.3% bundle reduction (410KB → 105KB gzipped)
-  - Exceeded 63% target by 11.3%
-  - Lazy loading: AnimationCanvas (-302KB), Modals (-2.7KB), Atmospheric layers
-  - Demand-based rendering: Three.js frameloop='demand'
-  - React 19 polyfill: suspendOnActiveViewTransition workaround
-  - Progressive enhancement: content first, animations second
-  - Time to Interactive: 5-6s → 1.5-2s (67% faster)
-  - Files modified: 11 (index.astro, HomepageSection.tsx, AnimationCanvas.tsx, etc.)
-- ✅ **IntegrityBadge Component (2026-02-04):**
-  - Real-time system health indicator integrated into Footer.
-  - Connects to AZUCENA_LYTICS `/api/health/public` endpoint.
-  - Status states: OPERATIONAL (green pulse), DEGRADED (amber), UNKNOWN (gray), LOADING (blue pulse).
-  - Clickable link to full status dashboard.
-- ✅ **Edge Runtime Migration (2026-02-04):**
-  - Moved `/api/ingest` to Vercel Edge Runtime for <50ms response times.
-  - Native geo-enrichment via x-vercel-ip-country/city/latitude/longitude headers (no external API).
-  - Eliminated ip-api.com dependency (30-50ms latency reduction).
-- ✅ **Prompt IDE & Sync (2026-02-03):**
-  - Implemented bi-directional sync between Strapi v5 and LangSmith Hub.
-  - Added "Force_Reset" capability to ensure default technical personas are consistently seeded.
-  - Enhanced Prompt Manager UI with estimated payload costs and locale support.
-- ✅ **Phase 2 Complete - Component Architecture (2026-02-02):**
-  - Scene directory flattening (depth 3 → 2)
-  - Homepage and Journey type-first restructuring.
-  - All 8 sections now <120 lines (component extraction complete).
-  - Build verified: 35.89s, all 18 pages rendered, zero TypeScript errors.
+**Last Updated:** 2026-02-23
+
+### Completed ✅
+- Phases 0→3 (Infrastructure, Animations, Components, Performance)
+- AZUCENA_LYTICS v1 (all 5 phases: ingestion, AI observability, external data, advanced features, hardening)
+- Phase 4 core: 16 packages, 373+ Storybook stories, 94 form templates, design system
+
+### In Progress 🚧 (~90% Complete)
+- **Phase 4:** Developer Experience
+  - ✅ 16 packages scaffolded with full content
+  - ✅ 373+ Storybook stories/docs in `apps/storybook/`
+  - ✅ 94 form templates + 48 Zod schemas (`@aazucena/forms`)
+  - ✅ Design system: 7 tokens, 18 themes, 35 platform integrations
+  - ✅ TypeScript strict mode (all apps) + Git hooks (Husky)
+  - ⏳ Remaining: Chromatic first baseline + CircleCI Chromatic job + portfolio importing `@aazucena/*`
+
+### Next
+- **Phase 5:** Testing — Vitest unit tests + Playwright E2E
