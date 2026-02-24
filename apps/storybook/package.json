@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aazucena/animations": "workspace:*",
+    "@aazucena/forms": "workspace:*",
     "@aazucena/constants": "workspace:*",
     "@aazucena/context": "workspace:*",
     "@aazucena/design-system": "workspace:*",
