@@ -96,8 +96,10 @@ TabsContent.displayName = TabsPrimitive.Content.displayName;
 /**
  * Phone Dial Tabs Logic (Consolidated)
  */
-const PhoneDialTabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, children, ...props }, _ref) => {
+const PhoneDialTabsList = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.List>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
+>(({ className, children, ...props }, _ref) => {
     const [rotation, setRotation] = React.useState(0);
     const [isDragging, setIsDragging] = React.useState(false);
     const containerRef = React.useRef<HTMLDivElement>(null);
@@ -139,7 +141,7 @@ const PhoneDialTabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
     };
 
     return (
-      <div
+      <TabsPrimitive.List
         ref={containerRef}
         onMouseDown={handleMouseDown}
         className={cn(
@@ -193,7 +195,7 @@ const PhoneDialTabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
             </div>
           );
         })}
-      </div>
+      </TabsPrimitive.List>
     );
   },
 );
