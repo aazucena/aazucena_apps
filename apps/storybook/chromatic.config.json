@@ -1,0 +1,11 @@
+{
+  "storybookBuildDir": "storybook-static",
+  "storybookBaseDir": "apps/storybook",
+  "buildScriptName": "build:storybook",
+  "autoAcceptChanges": "main",
+  "exitZeroOnChanges": true,
+  "onlyChanged": true,
+  "skipUpdateCheck": true,
+  "zip": true,
+  "diagnosticsFile": true
+}
