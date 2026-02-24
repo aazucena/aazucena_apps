@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@7.0.0
-
 # Common configuration for all jobs
 executors:
   node-executor:
@@ -11,6 +8,14 @@ executors:
     environment:
       HSKY: "0" # Intentional: Not a typo
       NODE_OPTIONS: "--max_old_space_size=4096"
+      TURBO_UI: "false"
+  node-large-executor:
+    docker:
+      - image: cimg/node:22.14.0
+    resource_class: large          # 4 vCPUs / 8 GB RAM
+    environment:
+      HSKY: "0"
+      NODE_OPTIONS: "--max-old-space-size=8192"
       TURBO_UI: "false"
 
 # Reusable command to attach the workspace
@@ -34,7 +39,8 @@ jobs:
           command: |
             sudo npm install --global corepack@latest
             sudo corepack enable
-            corepack prepare pnpm@10.30.0 --activate
+            PNPM_VERSION=$(node -p "require('./package.json').packageManager.split('@')[1]")
+            corepack prepare pnpm@${PNPM_VERSION} --activate
             pnpm config set store-dir .pnpm-store
             pnpm install --frozen-lockfile
       - save_cache:
@@ -47,7 +53,7 @@ jobs:
           paths: [ . ]
 
   list_projects:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -55,7 +61,7 @@ jobs:
           command: pnpm list -r --depth -1
 
   verify_commits:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -66,7 +72,7 @@ jobs:
             fi
 
   format_packages:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -74,7 +80,7 @@ jobs:
           command: pnpm turbo format:check --filter="./packages/*"
 
   format_apps:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -82,7 +88,7 @@ jobs:
           command: pnpm turbo format:check --filter="./apps/*"
 
   lint_packages:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -90,7 +96,7 @@ jobs:
           command: pnpm turbo lint --filter="./packages/*"
 
   lint_apps:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -98,7 +104,7 @@ jobs:
           command: pnpm turbo lint --filter="./apps/*"
 
   type_check_packages:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -106,7 +112,7 @@ jobs:
           command: pnpm turbo type-check --filter="./packages/*"
 
   type_check_apps:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -114,7 +120,7 @@ jobs:
           command: pnpm turbo type-check --filter="./apps/*"
 
   build_packages:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -122,25 +128,19 @@ jobs:
           command: pnpm turbo build --filter="./packages/*"
 
   test_packages:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run: echo "[TBA] Testing Packages"
-      # - run:
-      #     name: Testing Packages (TBA)
-      #     command: echo "[TBA] Testing Packages"
 
   publish_packages:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run: echo "[TBA] Publishing packages"
-      # - run:
-      #     name: Publishing packages (TBA)
-      #     command: echo "[TBA] Publishing packages"
 
   build_portfolio:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
@@ -148,74 +148,81 @@ jobs:
           command: pnpm turbo build --filter="portfolio"
 
   test_portfolio:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run: echo "[TBA] Testing Portfolio"
-      # - run:
-      #     name: Testing Portfolio (TBA)
-      #     command: echo "[TBA] Testing Portfolio"
 
   build_storybook:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
           name: Building Storybook
           command: pnpm turbo build --filter="storybook"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - apps/storybook/storybook-static    # Required by publish_chromatic downstream
 
   test_storybook:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run: echo "[TBA] Testing Storybook"
-      # - run:
-      #     name: Testing Storybook (TBA)
-      #     command: echo "[TBA] Testing Storybook"
 
   publish_chromatic:
-    executor: node-executor
+    executor: node-executor           # Upload only — no heavy build
     steps:
       - attach_project
-      - run: echo "[TBA] Publish Storybook to Chromatic"
-      # - run:
-      #     name: Publish Storybook to Chromatic (TBA)
-      #     command: echo "[TBA] Publish Storybook to Chromatic"
+      - run:
+          name: Publish Storybook to Chromatic
+          command: |
+            pnpm --filter storybook run chromatic \
+              --project-token=$CHROMATIC_PROJECT_TOKEN \
+              --storybook-build-dir=storybook-static
+      - run:
+          name: Print Chromatic diagnostics
+          when: always
+          command: |
+            DIAG="apps/storybook/chromatic-diagnostics.json"
+            if [ -f "$DIAG" ]; then
+              echo "=== Chromatic Diagnostics ==="
+              cat "$DIAG"
+            else
+              echo "No diagnostics file found (chromatic may not have run)"
+            fi
+      - store_artifacts:
+          path: apps/storybook/chromatic-diagnostics.json
+          destination: chromatic-diagnostics.json
 
   build_analytics:
     executor: node-executor
     steps:
       - attach_project
       - run: echo "Analytics build skipped (TBA)"
-      # - run:
-      #     name: Building Analytics Dashboard (TBA)
-      #     command: echo "Analytics build skipped (TBA)"
 
   test_analytics:
     executor: node-executor
     steps:
       - attach_project
       - run: echo "[TBA] Testing Analytics Dashboard"
-      # - run:
-      #     name: Testing Analytics Dashboard (TBA)
-      #     command: echo "[TBA] Testing Analytics Dashboard"
 
   build_cms:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
-      - run: echo "[TBA] CMS build skipped"
-      # - run:
-      #     name: Building Strapi CMS (TBA)
-      #     command: echo "[TBA] CMS build skipped"
+      - run:
+          name: Building Strapi CMS
+          command: pnpm turbo build --filter="cms"
 
   verify_changesets:
-    executor: node-executor
+    executor: node-large-executor
     steps:
       - attach_project
       - run:
           name: Verify Changesets
-          command: npx changeset status
+          command: pnpm exec changeset status --since=main --verbose
 
 workflows:
   quality_gate:
