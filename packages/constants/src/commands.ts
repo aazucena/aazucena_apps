@@ -4,7 +4,7 @@ import type { CommandAction } from '@aazucena/hooks';
 /**
  * GLOBAL_COMMANDS: Actions available in every application.
  */
-export const GLOBAL_COMMANDS: CommandAction[] = [
+export const GLOBAL_COMMANDS: CommandAction<'SYSTEM'>[] = [
   {
     id: 'sys-theme',
     name: 'Toggle Theme',
@@ -24,7 +24,7 @@ export const GLOBAL_COMMANDS: CommandAction[] = [
 /**
  * INTELLIGENCE_COMMANDS: Shared AI-related actions.
  */
-export const INTELLIGENCE_COMMANDS: CommandAction[] = [
+export const INTELLIGENCE_COMMANDS: CommandAction<'AI' | 'SYSTEM'>[] = [
   {
     id: 'ai-think',
     name: 'Ask Brain...',

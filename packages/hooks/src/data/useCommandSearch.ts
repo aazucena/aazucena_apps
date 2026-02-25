@@ -7,10 +7,11 @@
 import { useEffect, useRef } from 'react';
 import { Index } from 'flexsearch';
 
-export interface CommandAction {
+// 'NAVIGATION' | 'SYSTEM' | 'AI' | 'INTEL' | string
+export interface CommandAction<C extends string> {
   id: string;
   name: string;
-  category: 'NAVIGATION' | 'SYSTEM' | 'AI' | 'INTEL' | string;
+  category: C;
   icon: any;
   href?: string;
   onSelect?: () => void;
@@ -21,7 +22,7 @@ export interface CommandAction {
  * useCommandSearch - A generic search engine for command actions.
  * @param actions - The list of actions to index and search.
  */
-export function useCommandSearch(actions: CommandAction[]) {
+export function useCommandSearch<C extends string>(actions: CommandAction<C>[]) {
   const indexRef = useRef<Index | null>(null);
 
   useEffect(() => {
