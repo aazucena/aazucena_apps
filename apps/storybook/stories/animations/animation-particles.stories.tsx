@@ -21,7 +21,7 @@ const meta = {
     },
     chromatic: { disableSnapshot: true }, // PixiJS requires WebGL — not available in Chromatic's headless Chrome
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-vitest'],
   argTypes: {
     preset: {
       control: 'select',

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@aazucena/ui';
-import { Terminal, Layout, Activity, Database, Globe } from '@aazucena/icons';
+import { Terminal, Layout, Activity, Database } from '@aazucena/icons';
 
 /**
  * ## Engineering Standards
@@ -9,7 +9,7 @@ import { Terminal, Layout, Activity, Database, Globe } from '@aazucena/icons';
  * - **Design:** Optimized for complex technical layouts like IDEs, dashboard sidebars, and analytical monitors.
  * - **Composition:** Fully modular parts (Group, Panel, Handle) for tailorable layout distribution.
  */
-const meta = {
+const meta: Meta<typeof ResizablePanelGroup> = {
   title: 'Components/Layout/Resizable',
   component: ResizablePanelGroup,
   subcomponents: { ResizablePanel, ResizableHandle },
@@ -22,7 +22,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-vitest'],
   argTypes: {
     orientation: {
       control: 'radio',
@@ -31,7 +31,7 @@ const meta = {
       table: { category: 'Layout' },
     },
   },
-} satisfies Meta<typeof ResizablePanelGroup>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

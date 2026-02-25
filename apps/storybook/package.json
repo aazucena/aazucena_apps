@@ -12,14 +12,17 @@
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "preview": "serve storybook-static",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic",
+    "test": "vitest run",
+    "test:ci": "NODE_OPTIONS='--max-old-space-size=6144' vitest run",
+    "test:storybook": "vitest --project=storybook"
   },
   "dependencies": {
     "@aazucena/animations": "workspace:*",
-    "@aazucena/forms": "workspace:*",
     "@aazucena/constants": "workspace:*",
     "@aazucena/context": "workspace:*",
     "@aazucena/design-system": "workspace:*",
+    "@aazucena/forms": "workspace:*",
     "@aazucena/hooks": "workspace:*",
     "@aazucena/icons": "workspace:*",
     "@aazucena/layouts": "workspace:*",

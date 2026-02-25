@@ -10,8 +10,8 @@ export const managerTheme = {
   base: 'dark' as const,
 
   // Brand Identity
-  brandTitle: 'AAZUCENA Design System',
-  brandUrl: 'https://aazucena.com',
+  brandTitle: 'Avra Design System',
+  brandUrl: 'https://avra.aazucena.com',
   brandTarget: '_self',
 
   // UI Colors

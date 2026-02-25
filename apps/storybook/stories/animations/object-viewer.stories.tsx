@@ -19,6 +19,7 @@ const meta: Meta<ComponentProps<typeof ObjectViewer>> = {
       },
     },
   },
+  tags: ['no-vitest'],
   argTypes: {
     objectKey: {
       name: 'Select Object',

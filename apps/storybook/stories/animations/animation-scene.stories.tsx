@@ -21,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-vitest'],
   argTypes: {
     phase: {
       control: 'select',
