@@ -22,9 +22,7 @@ const chatAgentVariants = cva(
 );
 
 export interface ChatAgentProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatAgentVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatAgentVariants> {
   name: string;
   avatarSrc?: string;
   status?: 'idle' | 'active' | 'thinking' | 'online' | 'offline';
@@ -48,35 +46,26 @@ const statusIconMap: Record<Required<ChatAgentProps>['status'], React.ElementTyp
 };
 
 const ChatAgent = React.forwardRef<HTMLDivElement, ChatAgentProps>(
-  (
-    {
-      className,
-      variant,
-      name,
-      avatarSrc,
-      status = 'idle',
-      role,
-      ...props
-    },
-    ref,
-  ) => {
-    const StatusIcon = statusIconMap[status];
+  ({ className, variant, name, avatarSrc, status = 'idle', role, ...props }, ref) => {
+    const StatusIcon = statusIconMap[status] as React.ComponentType<{ className?: string }>;
 
     return (
       <div ref={ref} className={cn(chatAgentVariants({ variant }), className)} {...props}>
-        <Avatar className="h-9 w-9 border-2 border-primary/20">
+        <Avatar className="border-primary/20 h-9 w-9 border-2">
           <AvatarImage src={avatarSrc} alt={`${name} avatar`} />
           <AvatarFallback className={cn('text-sm font-semibold', statusColorMap[status])}>
             {name.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        <div className="flex flex-col flex-grow">
+        <div className="flex flex-grow flex-col">
           <span className="font-semibold">{name}</span>
-          {role && <span className="text-xs text-muted-foreground">{role}</span>}
+          {role && <span className="text-muted-foreground text-xs">{role}</span>}
         </div>
-        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+        <div className="text-muted-foreground flex items-center gap-1 text-xs">
           {StatusIcon && <StatusIcon className={cn('h-4 w-4', statusColorMap[status])} />}
-          <span className={statusColorMap[status]}>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
+          <span className={statusColorMap[status]}>
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </span>
         </div>
       </div>
     );

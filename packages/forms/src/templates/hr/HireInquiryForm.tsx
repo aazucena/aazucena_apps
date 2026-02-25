@@ -49,16 +49,61 @@ export function HireInquiryForm({
   } as any);
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg space-y-4', className)} onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg space-y-4', className)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <FormErrorSummary />
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="company" label="Company" placeholder="Acme Corp" required validators={{ onChange: hireInquirySchema.shape.company }} />
-        <ControlledInput name="contactName" label="Your Name" placeholder="Jane Smith" required validators={{ onChange: hireInquirySchema.shape.contactName }} />
+        <ControlledInput
+          name="company"
+          label="Company"
+          placeholder="Acme Corp"
+          required
+          validators={{ onChange: hireInquirySchema.shape.company }}
+        />
+        <ControlledInput
+          name="contactName"
+          label="Your Name"
+          placeholder="Jane Smith"
+          required
+          validators={{ onChange: hireInquirySchema.shape.contactName }}
+        />
       </div>
-      <ControlledInput name="email" label="Email" type="email" placeholder="jane@acme.com" required validators={{ onChange: hireInquirySchema.shape.email }} />
-      <ControlledInput name="roleTitle" label="Role Title" placeholder="Senior Full-Stack Engineer" required validators={{ onChange: hireInquirySchema.shape.roleTitle }} />
-      <ControlledInput name="compensationRange" label="Compensation Range" placeholder="$150k-$180k or $120/hr" required validators={{ onChange: hireInquirySchema.shape.compensationRange }} />
-      <ControlledInput name="startDate" label="Expected Start Date" placeholder="March 2026 or ASAP" required validators={{ onChange: hireInquirySchema.shape.startDate }} />
+      <ControlledInput
+        name="email"
+        label="Email"
+        type="email"
+        placeholder="jane@acme.com"
+        required
+        validators={{ onChange: hireInquirySchema.shape.email }}
+      />
+      <ControlledInput
+        name="roleTitle"
+        label="Role Title"
+        placeholder="Senior Full-Stack Engineer"
+        required
+        validators={{ onChange: hireInquirySchema.shape.roleTitle }}
+      />
+      <ControlledInput
+        name="compensationRange"
+        label="Compensation Range"
+        placeholder="$150k-$180k or $120/hr"
+        required
+        validators={{ onChange: hireInquirySchema.shape.compensationRange }}
+      />
+      <ControlledInput
+        name="startDate"
+        label="Expected Start Date"
+        placeholder="March 2026 or ASAP"
+        required
+        validators={{ onChange: hireInquirySchema.shape.startDate }}
+      />
       <FormButton className="w-full">Send Inquiry</FormButton>
     </Form>
   );

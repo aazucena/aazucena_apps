@@ -14,11 +14,7 @@ export interface UseGithubRepoOptions {
  * A reusable hook to fetch metadata for a GitHub repository.
  * Returns the full repository data as defined by the GitHub REST API v3.
  */
-export function useGithubRepo(
-  owner: string,
-  repo: string,
-  options: UseGithubRepoOptions = {}
-) {
+export function useGithubRepo(owner: string, repo: string, options: UseGithubRepoOptions = {}) {
   const [data, setData] = useState<GithubRepoData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -41,13 +37,13 @@ export function useGithubRepo(
 
     try {
       const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-      
+
       if (!response.ok) {
         throw new Error(`GitHub API Error: ${response.status} ${response.statusText}`);
       }
 
       const json = (await response.json()) as GithubRepoData;
-      
+
       setData(json);
       onSuccessRef.current?.(json);
     } catch (err: any) {

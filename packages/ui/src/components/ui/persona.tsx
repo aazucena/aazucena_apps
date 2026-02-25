@@ -22,9 +22,7 @@ const personaVariants = cva(
 );
 
 export interface PersonaProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof personaVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof personaVariants> {
   name: string;
   description?: string;
   avatarSrc?: string;
@@ -32,32 +30,20 @@ export interface PersonaProps
 }
 
 const Persona = React.forwardRef<HTMLDivElement, PersonaProps>(
-  (
-    {
-      className,
-      variant,
-      name,
-      description,
-      avatarSrc,
-      icon: CustomIcon,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, variant, name, description, avatarSrc, icon: CustomIcon, ...props }, ref) => {
+    const PersonaIcon = CustomIcon as React.ComponentType<{ className?: string }> | undefined;
     return (
       <div ref={ref} className={cn(personaVariants({ variant }), className)} {...props}>
         <div className="flex items-center gap-3">
           <Avatar className="h-10 w-10">
             <AvatarImage src={avatarSrc} alt={`${name} avatar`} />
             <AvatarFallback className="text-lg font-semibold">
-              {CustomIcon ? <CustomIcon className="h-6 w-6" /> : <Robot className="h-6 w-6" />}
+              {PersonaIcon ? <PersonaIcon className="h-6 w-6" /> : <Robot className="h-6 w-6" />}
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
             <h4 className="font-semibold">{name}</h4>
-            {description && (
-              <p className="text-sm text-muted-foreground">{description}</p>
-            )}
+            {description && <p className="text-muted-foreground text-sm">{description}</p>}
           </div>
         </div>
       </div>

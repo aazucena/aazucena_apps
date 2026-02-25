@@ -54,7 +54,9 @@ export const eventRegistrationSchema = z.object({
 export const letterOfRecommendationSchema = z.object({
   requesterName: z.string().min(2, 'Name is required').max(100),
   email: z.string().email('Invalid email address'),
-  relationship: z.enum(['Employer', 'Colleague', 'Client', 'Mentee', 'Student', 'Other']).default('Colleague'),
+  relationship: z
+    .enum(['Employer', 'Colleague', 'Client', 'Mentee', 'Student', 'Other'])
+    .default('Colleague'),
   context: z.string().min(30, 'Please describe the context of your relationship').max(1000),
   desiredTone: z.enum(['Professional', 'Warm', 'Technical', 'Leadership']).default('Professional'),
   deadline: z.string().min(1, 'Deadline is required'),

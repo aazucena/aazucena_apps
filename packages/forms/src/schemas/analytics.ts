@@ -27,7 +27,9 @@ export const apiAccessSchema = z.object({
   // Step 2: Use case
   useCase: z.string().min(20, 'Please describe your use case').max(2000),
   intendedUsage: z.enum(['Personal', 'Commercial', 'Research', 'Education']).default('Personal'),
-  expectedVolume: z.enum(['< 1k req/day', '1k-100k req/day', '100k+ req/day']).default('< 1k req/day'),
+  expectedVolume: z
+    .enum(['< 1k req/day', '1k-100k req/day', '100k+ req/day'])
+    .default('< 1k req/day'),
   agreedToTerms: z.boolean().refine((val) => val === true, 'You must agree to the API terms'),
 });
 

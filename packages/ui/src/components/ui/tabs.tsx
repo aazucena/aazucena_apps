@@ -100,104 +100,103 @@ const PhoneDialTabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 >(({ className, children, ...props }, _ref) => {
-    const [rotation, setRotation] = React.useState(0);
-    const [isDragging, setIsDragging] = React.useState(false);
-    const containerRef = React.useRef<HTMLDivElement>(null);
-    const _rotationTweenRef = React.useRef<gsap.core.Tween | null>(null);
+  const [rotation, setRotation] = React.useState(0);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const _rotationTweenRef = React.useRef<gsap.core.Tween | null>(null);
 
-    const triggers = React.Children.toArray(children);
-    const totalTabs = triggers.length;
-    const radius = 200;
-    const _angleStep = 180 / (totalTabs - 1);
+  const triggers = React.Children.toArray(children);
+  const totalTabs = triggers.length;
+  const radius = 200;
+  const _angleStep = 180 / (totalTabs - 1);
 
-    const getAngleFromCenter = (clientX: number, clientY: number): number => {
-      if (!containerRef.current) return 0;
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      return Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
+  const getAngleFromCenter = (clientX: number, clientY: number): number => {
+    if (!containerRef.current) return 0;
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    return Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('button')) return;
+    setIsDragging(true);
+    const startAngle = getAngleFromCenter(e.clientX, e.clientY);
+    const startRotation = rotation;
+
+    const handleMouseMove = (me: MouseEvent) => {
+      const currentAngle = getAngleFromCenter(me.clientX, me.clientY);
+      const diff = currentAngle - startAngle;
+      setRotation(startRotation + diff * 0.6);
     };
 
-    const handleMouseDown = (e: React.MouseEvent) => {
-      if ((e.target as HTMLElement).closest('button')) return;
-      setIsDragging(true);
-      const startAngle = getAngleFromCenter(e.clientX, e.clientY);
-      const startRotation = rotation;
-
-      const handleMouseMove = (me: MouseEvent) => {
-        const currentAngle = getAngleFromCenter(me.clientX, me.clientY);
-        const diff = currentAngle - startAngle;
-        setRotation(startRotation + diff * 0.6);
-      };
-
-      const handleMouseUp = () => {
-        setIsDragging(false);
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseup', handleMouseUp);
-      };
-
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
 
-    return (
-      <TabsPrimitive.List
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        className={cn(
-          'relative mt-16 mb-8 flex h-[420px] w-full max-w-[600px] items-center justify-center overflow-visible select-none',
-          isDragging ? 'cursor-grabbing' : 'cursor-grab',
-          className,
-        )}
-        {...props}
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  };
+
+  return (
+    <TabsPrimitive.List
+      ref={containerRef}
+      onMouseDown={handleMouseDown}
+      className={cn(
+        'relative mt-16 mb-8 flex h-[420px] w-full max-w-[600px] items-center justify-center overflow-visible select-none',
+        isDragging ? 'cursor-grabbing' : 'cursor-grab',
+        className,
+      )}
+      {...props}
+    >
+      <svg
+        className="pointer-events-none absolute h-full w-full max-w-[500px]"
+        viewBox="0 0 500 400"
       >
-        <svg
-          className="pointer-events-none absolute h-full w-full max-w-[500px]"
-          viewBox="0 0 500 400"
-        >
-          <circle
-            cx="250"
-            cy="200"
-            r="200"
-            fill="none"
-            className="stroke-border opacity-20 dark:opacity-10"
-            strokeWidth="2"
-            strokeDasharray="6.28 6.28"
-          />
-          <circle
-            cx="250"
-            cy="200"
-            r="8"
-            className="fill-border stroke-border opacity-40 dark:opacity-20"
-            strokeWidth="2"
-          />
-        </svg>
+        <circle
+          cx="250"
+          cy="200"
+          r="200"
+          fill="none"
+          className="stroke-border opacity-20 dark:opacity-10"
+          strokeWidth="2"
+          strokeDasharray="6.28 6.28"
+        />
+        <circle
+          cx="250"
+          cy="200"
+          r="8"
+          className="fill-border stroke-border opacity-40 dark:opacity-20"
+          strokeWidth="2"
+        />
+      </svg>
 
-        {triggers.map((child, index) => {
-          const baseAngle = -180 + (180 * index) / (totalTabs - 1);
-          const angle = baseAngle + rotation;
-          const angleRad = (angle * Math.PI) / 180;
-          const x = Math.cos(angleRad) * radius;
-          const y = Math.sin(angleRad) * radius - 10;
+      {triggers.map((child, index) => {
+        const baseAngle = -180 + (180 * index) / (totalTabs - 1);
+        const angle = baseAngle + rotation;
+        const angleRad = (angle * Math.PI) / 180;
+        const x = Math.cos(angleRad) * radius;
+        const y = Math.sin(angleRad) * radius - 10;
 
-          return (
-            <div
-              key={index}
-              style={{
-                position: 'absolute',
-                left: `calc(50% + ${x}px)`,
-                top: `calc(50% + ${y}px)`,
-                transform: 'translate(-50%, -50%)',
-                minWidth: '100px',
-              }}
-            >
-              {child}
-            </div>
-          );
-        })}
-      </TabsPrimitive.List>
-    );
-  },
-);
+        return (
+          <div
+            key={index}
+            style={{
+              position: 'absolute',
+              left: `calc(50% + ${x}px)`,
+              top: `calc(50% + ${y}px)`,
+              transform: 'translate(-50%, -50%)',
+              minWidth: '100px',
+            }}
+          >
+            {child}
+          </div>
+        );
+      })}
+    </TabsPrimitive.List>
+  );
+});
 
 export { Tabs, TabsContent, TabsList, TabsTrigger };

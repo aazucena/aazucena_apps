@@ -104,7 +104,6 @@ export function useTimer({
       lastTickRef.current = Date.now();
       setIsRunning(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { time, isRunning, start, pause, reset, adjustTime };

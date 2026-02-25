@@ -95,13 +95,13 @@ export function IntegrationSetupForm({
                     'flex flex-col items-center rounded-md border px-2 py-3 text-center transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   <span
                     className={cn(
                       'flex h-8 w-8 items-center justify-center rounded-md text-[11px] font-bold',
-                      color
+                      color,
                     )}
                   >
                     {initials}
@@ -109,7 +109,7 @@ export function IntegrationSetupForm({
                   <span
                     className={cn(
                       'mt-1.5 text-xs font-medium',
-                      field.state.value === value && 'text-primary'
+                      field.state.value === value && 'text-primary',
                     )}
                   >
                     {label}
@@ -135,7 +135,7 @@ export function IntegrationSetupForm({
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -175,7 +175,7 @@ export function IntegrationSetupForm({
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -200,7 +200,7 @@ export function IntegrationSetupForm({
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

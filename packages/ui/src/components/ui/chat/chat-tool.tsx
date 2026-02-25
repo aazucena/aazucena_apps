@@ -31,9 +31,7 @@ export interface ToolOutput {
 }
 
 export interface ChatToolProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatToolVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatToolVariants> {
   toolName: string;
   input: ToolInput;
   output?: ToolOutput;
@@ -85,7 +83,11 @@ const ChatTool = React.forwardRef<HTMLDivElement, ChatToolProps>(
               <span>{toolName}</span>
               {status && (
                 <span className={cn('text-sm font-normal', statusColor)}>
-                  {status === 'executing' ? 'Executing...' : status === 'success' ? 'Success' : 'Failure'}
+                  {status === 'executing'
+                    ? 'Executing...'
+                    : status === 'success'
+                      ? 'Success'
+                      : 'Failure'}
                 </span>
               )}
             </div>

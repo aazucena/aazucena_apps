@@ -30,8 +30,6 @@ export function FormComputed<TDerived>({ selector, children }: FormComputedProps
   const form = useFormInstance() as any;
 
   return (
-    <form.Subscribe selector={selector}>
-      {(value: TDerived) => children(value)}
-    </form.Subscribe>
+    <form.Subscribe selector={selector}>{(value: TDerived) => children(value)}</form.Subscribe>
   );
 }

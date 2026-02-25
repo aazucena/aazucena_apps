@@ -35,7 +35,7 @@ const comingSoonVariants = cva(
   },
 );
 
-const GLITCH_CHARS = '!<>-_\/[]{}—=+*^?#________';
+const GLITCH_CHARS = '!<>-_/[]{}—=+*^?#________';
 
 /**
  * A sub-component that handles the "decryption" character swap animation.
@@ -85,13 +85,19 @@ const GlitchText = ({ text, isHovered }: { text: string; isHovered: boolean }) =
  */
 const BitStream = ({ variant, isHovered }: { variant: string; isHovered: boolean }) => {
   const columns = Array.from({ length: 15 });
-  const streamData = React.useMemo(() => 
-    Array.from({ length: 40 }, () => 
-      Math.floor(Math.random() * 255).toString(16).toUpperCase().padStart(2, '0')
-    ), []);
+  const streamData = React.useMemo(
+    () =>
+      Array.from({ length: 40 }, () =>
+        Math.floor(Math.random() * 255)
+          .toString(16)
+          .toUpperCase()
+          .padStart(2, '0'),
+      ),
+    [],
+  );
 
   return (
-    <div className="absolute inset-0 z-0 opacity-10 pointer-events-none select-none overflow-hidden flex justify-around">
+    <div className="pointer-events-none absolute inset-0 z-0 flex justify-around overflow-hidden opacity-10 select-none">
       {columns.map((_, i) => (
         <motion.div
           key={i}
@@ -116,8 +122,7 @@ const BitStream = ({ variant, isHovered }: { variant: string; isHovered: boolean
 };
 
 export interface ComingSoonProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof comingSoonVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof comingSoonVariants> {
   /** The name of the upcoming feature */
   title?: string;
   /** Brief description of what is being built */
@@ -174,15 +179,17 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
             <div className="absolute top-0 left-0 size-8 border-t-2 border-l-2 border-cyan-500/40" />
             <div className="absolute top-0 right-0 size-8 border-t-2 border-r-2 border-cyan-500/40" />
             <div className="absolute bottom-0 left-0 size-8 border-b-2 border-l-2 border-cyan-500/40" />
-            <div className="absolute bottom-0 right-0 size-8 border-b-2 border-r-2 border-cyan-500/40" />
+            <div className="absolute right-0 bottom-0 size-8 border-r-2 border-b-2 border-cyan-500/40" />
           </>
         )}
 
         {/* Top Telemetry */}
-        <div className={cn(
-          "absolute top-6 inset-x-8 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest opacity-40",
-          fullScreen && "top-10 inset-x-12"
-        )}>
+        <div
+          className={cn(
+            'absolute inset-x-8 top-6 flex items-center justify-between text-[10px] font-bold tracking-widest uppercase opacity-40',
+            fullScreen && 'inset-x-12 top-10',
+          )}
+        >
           <div className="flex items-center gap-3">
             <Activity className="size-4" />
             <span>Status: Encrypted</span>
@@ -204,48 +211,52 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
 
         {/* Center Content */}
         <div className="relative z-10 space-y-6">
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="inline-flex p-4 rounded-full bg-primary/5 border border-primary/10 mb-4"
+            className="bg-primary/5 border-primary/10 mb-4 inline-flex rounded-full border p-4"
           >
-            <Lock className={cn("size-8", v === 'cyber' && "text-cyan-400")} />
+            <Lock className={cn('size-8', v === 'cyber' && 'text-cyan-400')} />
           </motion.div>
-          
-          <h3 className={cn(
-            "text-3xl md:text-5xl font-black tracking-tighter uppercase",
-            v === 'cyber' && "text-cyan-400"
-          )}>
+
+          <h3
+            className={cn(
+              'text-3xl font-black tracking-tighter uppercase md:text-5xl',
+              v === 'cyber' && 'text-cyan-400',
+            )}
+          >
             <GlitchText text={title} isHovered={isHovered || fullScreen} />
           </h3>
-          
-          <p className="max-w-xl mx-auto text-base text-muted-foreground leading-relaxed opacity-80 px-6">
+
+          <p className="text-muted-foreground mx-auto max-w-xl px-6 text-base leading-relaxed opacity-80">
             {description}
           </p>
 
           <div className="flex items-center justify-center gap-6 pt-8">
-            <motion.div 
-              animate={{ width: (isHovered || fullScreen) ? 60 : 32 }}
-              className={cn("h-px bg-border", v === 'cyber' && "bg-cyan-500/50")} 
+            <motion.div
+              animate={{ width: isHovered || fullScreen ? 60 : 32 }}
+              className={cn('bg-border h-px', v === 'cyber' && 'bg-cyan-500/50')}
             />
-            <span className="text-xs font-black uppercase tracking-[0.4em] opacity-60">
+            <span className="text-xs font-black tracking-[0.4em] uppercase opacity-60">
               {expectedDate}
             </span>
-            <motion.div 
-              animate={{ width: (isHovered || fullScreen) ? 60 : 32 }}
-              className={cn("h-px bg-border", v === 'cyber' && "bg-cyan-500/50")} 
+            <motion.div
+              animate={{ width: isHovered || fullScreen ? 60 : 32 }}
+              className={cn('bg-border h-px', v === 'cyber' && 'bg-cyan-500/50')}
             />
           </div>
         </div>
 
         {/* Bottom Telemetry */}
-        <div className={cn(
-          "absolute bottom-6 inset-x-8 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest opacity-40",
-          fullScreen && "bottom-10 inset-x-12"
-        )}>
+        <div
+          className={cn(
+            'absolute inset-x-8 bottom-6 flex items-center justify-between text-[10px] font-bold tracking-widest uppercase opacity-40',
+            fullScreen && 'inset-x-12 bottom-10',
+          )}
+        >
           <div className="flex items-center gap-3">
             <Zap className="size-4" />
-            <span>Signal: {(isHovered || fullScreen) ? 'Strong' : 'Weak'}</span>
+            <span>Signal: {isHovered || fullScreen ? 'Strong' : 'Weak'}</span>
           </div>
           <div className="flex items-center gap-3 text-right">
             <Shield className="size-4" />
@@ -254,7 +265,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
         </div>
 
         {/* Scanline Overlay */}
-        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] z-20 opacity-30" />
+        <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] opacity-30" />
       </div>
     );
 

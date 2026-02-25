@@ -65,7 +65,10 @@ export function AccessRequestForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -81,7 +84,9 @@ export function AccessRequestForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'rounded-full border px-3 py-1.5 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -112,7 +117,9 @@ export function AccessRequestForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                    field.state.value === value ? `border-primary bg-primary/10 ${color}` : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? `border-primary bg-primary/10 ${color}`
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -143,7 +150,9 @@ export function AccessRequestForm({
                   onClick={() => field.handleChange(d)}
                   className={cn(
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium capitalize transition-all',
-                    field.state.value === d ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === d
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {d}

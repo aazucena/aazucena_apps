@@ -40,9 +40,7 @@ export interface TestSummary {
 }
 
 export interface ChatTestResultsProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatTestResultsVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatTestResultsVariants> {
   summary: TestSummary;
   testCases: TestCase[];
   title?: string;
@@ -82,7 +80,11 @@ const ChatTestResults = React.forwardRef<HTMLDivElement, ChatTestResultsProps>(
           : 'border-yellow-500/20 text-yellow-500';
 
     return (
-      <div ref={ref} className={cn(chatTestResultsVariants({ variant }), totalStatusColor, className)} {...props}>
+      <div
+        ref={ref}
+        className={cn(chatTestResultsVariants({ variant }), totalStatusColor, className)}
+        {...props}
+      >
         <div className="flex items-center gap-2">
           {summary.failed > 0 ? (
             <XCircle className="h-5 w-5" />
@@ -98,35 +100,39 @@ const ChatTestResults = React.forwardRef<HTMLDivElement, ChatTestResultsProps>(
           <Badge variant="outline" className="justify-between">
             Total: <span className="font-bold">{summary.total}</span>
           </Badge>
-          <Badge variant="outline" className="justify-between text-green-500 border-green-500/20">
+          <Badge variant="outline" className="justify-between border-green-500/20 text-green-500">
             Passed: <span className="font-bold">{summary.passed}</span>
           </Badge>
-          <Badge variant="outline" className="justify-between text-red-500 border-red-500/20">
+          <Badge variant="outline" className="justify-between border-red-500/20 text-red-500">
             Failed: <span className="font-bold">{summary.failed}</span>
           </Badge>
-          <Badge variant="outline" className="justify-between text-yellow-500 border-yellow-500/20">
+          <Badge variant="outline" className="justify-between border-yellow-500/20 text-yellow-500">
             Skipped: <span className="font-bold">{summary.skipped}</span>
           </Badge>
-          <Badge variant="outline" className="justify-between col-span-2">
+          <Badge variant="outline" className="col-span-2 justify-between">
             Duration: <span className="font-bold">{(summary.duration / 1000).toFixed(2)}s</span>
           </Badge>
         </div>
 
         {showTestCases && testCases.length > 0 && (
           <Collapsible>
-            <CollapsibleTrigger className="flex w-full items-center justify-between text-left font-semibold text-sm">
+            <CollapsibleTrigger className="flex w-full items-center justify-between text-left text-sm font-semibold">
               <span>View Details ({testCases.length})</span>
               <ChevronsUpDown className="h-4 w-4 shrink-0 transition-transform duration-200 data-[state=closed]:rotate-0 data-[state=open]:rotate-180" />
             </CollapsibleTrigger>
             <CollapsibleContent className="mt-2 space-y-1">
-              {testCases.map(testCase => {
-                const Icon = statusIconMap[testCase.status];
+              {testCases.map((testCase) => {
+                const Icon = statusIconMap[testCase.status] as React.ComponentType<{
+                  className?: string;
+                }>;
                 return (
                   <div key={testCase.id} className="flex items-center gap-2 text-xs">
                     <Icon className={cn('h-4 w-4 shrink-0', statusColorMap[testCase.status])} />
                     <span className="flex-grow">{testCase.name}</span>
                     {testCase.duration !== undefined && (
-                      <span className="text-muted-foreground">{(testCase.duration / 1000).toFixed(2)}s</span>
+                      <span className="text-muted-foreground">
+                        {(testCase.duration / 1000).toFixed(2)}s
+                      </span>
                     )}
                     {testCase.errorMessage && (
                       <>

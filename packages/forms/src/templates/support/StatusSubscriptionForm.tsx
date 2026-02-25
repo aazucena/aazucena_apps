@@ -32,7 +32,13 @@ const DELIVERY_OPTIONS = [
   { value: 'sms', label: 'SMS' },
 ] as const;
 
-export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError, className, defaultValues }: StatusSubscriptionFormProps) {
+export function StatusSubscriptionForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: StatusSubscriptionFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -44,7 +50,11 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
       ...defaultValues,
     } as StatusSubscriptionFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(statusSubscriptionSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(statusSubscriptionSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -53,7 +63,10 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -69,7 +82,10 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
       {/* Notify on — multiselect checkboxes */}
       <div className="space-y-2">
         <p className="text-sm font-medium">Notify me on</p>
-        <form.Field name="notifyOn" validators={{ onChange: statusSubscriptionSchema.shape.notifyOn }}>
+        <form.Field
+          name="notifyOn"
+          validators={{ onChange: statusSubscriptionSchema.shape.notifyOn }}
+        >
           {(field) => (
             <div className="space-y-2">
               {NOTIFY_OPTIONS.map((opt) => {
@@ -81,22 +97,24 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
                     type="button"
                     onClick={() => {
                       field.handleChange(
-                        checked
-                          ? current.filter((v) => v !== opt.value)
-                          : [...current, opt.value]
+                        checked ? current.filter((v) => v !== opt.value) : [...current, opt.value],
                       );
                     }}
                     className={cn(
                       'flex w-full items-start gap-3 rounded-md border px-3 py-2.5 text-left transition-all',
                       checked
                         ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border bg-background hover:border-primary/40'
+                        : 'border-border bg-background hover:border-primary/40',
                     )}
                   >
-                    <span className={cn(
-                      'mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border text-xs font-bold',
-                      checked ? 'border-primary bg-primary text-primary-foreground' : 'border-border'
-                    )}>
+                    <span
+                      className={cn(
+                        'mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border text-xs font-bold',
+                        checked
+                          ? 'border-primary bg-primary text-primary-foreground'
+                          : 'border-border',
+                      )}
+                    >
                       {checked ? '✓' : ''}
                     </span>
                     <span className="min-w-0">
@@ -117,7 +135,10 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
       {/* Services — tag-like button toggles */}
       <div className="space-y-2">
         <p className="text-sm font-medium">Services to monitor</p>
-        <form.Field name="services" validators={{ onChange: statusSubscriptionSchema.shape.services }}>
+        <form.Field
+          name="services"
+          validators={{ onChange: statusSubscriptionSchema.shape.services }}
+        >
           {(field) => (
             <div className="space-y-2">
               <div className="flex flex-wrap gap-2">
@@ -130,14 +151,14 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
                       type="button"
                       onClick={() => {
                         field.handleChange(
-                          active ? current.filter((s) => s !== svc) : [...current, svc]
+                          active ? current.filter((s) => s !== svc) : [...current, svc],
                         );
                       }}
                       className={cn(
                         'rounded-full border px-3 py-1 text-xs font-medium transition-all',
                         active
                           ? 'border-primary bg-primary text-primary-foreground'
-                          : 'border-border bg-background text-foreground hover:border-primary/50'
+                          : 'border-border bg-background text-foreground hover:border-primary/50',
                       )}
                     >
                       {svc}
@@ -156,7 +177,10 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
       {/* Delivery method — radio buttons */}
       <div className="space-y-2">
         <p className="text-sm font-medium">Delivery method</p>
-        <form.Field name="deliveryMethod" validators={{ onChange: statusSubscriptionSchema.shape.deliveryMethod }}>
+        <form.Field
+          name="deliveryMethod"
+          validators={{ onChange: statusSubscriptionSchema.shape.deliveryMethod }}
+        >
           {(field) => (
             <div className="flex gap-2">
               {DELIVERY_OPTIONS.map((opt) => (
@@ -168,7 +192,7 @@ export function StatusSubscriptionForm({ variant = 'default', onSuccess, onError
                     'flex-1 rounded-md border px-3 py-2 text-sm font-medium transition-all',
                     field.state.value === opt.value
                       ? 'border-primary bg-primary text-primary-foreground'
-                      : 'border-border bg-background hover:border-primary/50'
+                      : 'border-border bg-background hover:border-primary/50',
                   )}
                 >
                   {opt.label}

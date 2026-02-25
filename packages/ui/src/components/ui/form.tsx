@@ -58,11 +58,7 @@ const Form = React.forwardRef<HTMLFormElement, FormProps>(
     );
 
     if (form) {
-      return (
-        <FormInstanceContext.Provider value={form}>
-          {content}
-        </FormInstanceContext.Provider>
-      );
+      return <FormInstanceContext.Provider value={form}>{content}</FormInstanceContext.Provider>;
     }
 
     return content;
@@ -121,18 +117,17 @@ const FormLabel = React.forwardRef<
       <Label
         ref={ref}
         variant={variant as any}
-        className={cn(
-          error && 'text-destructive',
-          className,
-        )}
+        className={cn(error && 'text-destructive', className)}
         htmlFor={formItemId}
         {...props}
       />
       {required && (
-        <span className={cn(
-          "text-xs font-bold leading-none",
-          error ? "text-destructive" : variant === 'cyber' ? "text-cyan-400" : "text-primary"
-        )}>
+        <span
+          className={cn(
+            'text-xs leading-none font-bold',
+            error ? 'text-destructive' : variant === 'cyber' ? 'text-cyan-400' : 'text-primary',
+          )}
+        >
           *
         </span>
       )}
@@ -171,7 +166,7 @@ const FormDescription = React.forwardRef<
       id={formDescriptionId}
       className={cn(
         'text-muted-foreground text-[0.8rem]',
-        variant === 'cyber' && 'font-mono text-[9px] uppercase text-cyan-500/40',
+        variant === 'cyber' && 'font-mono text-[9px] text-cyan-500/40 uppercase',
         className,
       )}
       {...props}
@@ -199,7 +194,7 @@ const FormMessage = React.forwardRef<
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className={cn(
             'text-destructive text-[0.8rem] font-medium',
-            variant === 'cyber' && 'font-mono text-[9px] uppercase text-red-400',
+            variant === 'cyber' && 'font-mono text-[9px] text-red-400 uppercase',
             className,
           )}
           {...(props as any)}
@@ -230,7 +225,9 @@ export function FormField<TData, TName extends string>({
   const activeForm = form || contextForm;
 
   if (!activeForm) {
-    throw new Error('FormField must be used within a Form component or provided with a form instance.');
+    throw new Error(
+      'FormField must be used within a Form component or provided with a form instance.',
+    );
   }
 
   return (

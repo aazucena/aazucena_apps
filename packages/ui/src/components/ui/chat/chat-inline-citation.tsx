@@ -12,7 +12,8 @@ const chatInlineCitationVariants = cva(
       variant: {
         default: 'border-transparent',
         glass: 'glass border-border/20',
-        cyber: 'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_5px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber:
+          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_5px_rgba(6,182,212,0.1)] text-cyan-400',
       },
       size: {
         default: 'h-5 w-5 text-xs',
@@ -32,25 +33,13 @@ export interface CitationSource {
 }
 
 export interface ChatInlineCitationProps
-  extends
-    React.HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof chatInlineCitationVariants> {
+  extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof chatInlineCitationVariants> {
   citationKey: string | number;
   source: CitationSource;
 }
 
 const ChatInlineCitation = React.forwardRef<HTMLSpanElement, ChatInlineCitationProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      citationKey,
-      source,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, variant, size, citationKey, source, ...props }, ref) => {
     return (
       <Popover>
         <PopoverTrigger asChild>
@@ -68,17 +57,26 @@ const ChatInlineCitation = React.forwardRef<HTMLSpanElement, ChatInlineCitationP
           <div className="grid gap-2">
             <h4 className="font-semibold">{source.title}</h4>
             {source.url && (
-              <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline">
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary text-sm hover:underline"
+              >
                 {source.url.length > 50 ? source.url.substring(0, 47) + '...' : source.url}
               </a>
             )}
             {source.snippet && (
-              <p className="text-sm text-muted-foreground">
-                {source.snippet.length > 150 ? source.snippet.substring(0, 147) + '...' : source.snippet}
+              <p className="text-muted-foreground text-sm">
+                {source.snippet.length > 150
+                  ? source.snippet.substring(0, 147) + '...'
+                  : source.snippet}
               </p>
             )}
             {!source.url && !source.snippet && (
-              <p className="text-sm text-muted-foreground">No additional details available for this source.</p>
+              <p className="text-muted-foreground text-sm">
+                No additional details available for this source.
+              </p>
             )}
           </div>
         </PopoverContent>

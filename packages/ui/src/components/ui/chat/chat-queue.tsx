@@ -29,9 +29,7 @@ export interface QueueItem {
 }
 
 export interface ChatQueueProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatQueueVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatQueueVariants> {
   queue: QueueItem[];
   emptyMessage?: string;
 }
@@ -44,23 +42,12 @@ const statusMap: Record<QueueItem['status'], { text: string; color: string }> = 
 };
 
 const ChatQueue = React.forwardRef<HTMLDivElement, ChatQueueProps>(
-  (
-    {
-      className,
-      variant,
-      queue,
-      emptyMessage = 'Queue is empty.',
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, variant, queue, emptyMessage = 'Queue is empty.', ...props }, ref) => {
     return (
       <div ref={ref} className={cn(chatQueueVariants({ variant }), className)} {...props}>
-        {queue.length === 0 && (
-          <p className="text-center text-muted-foreground">{emptyMessage}</p>
-        )}
+        {queue.length === 0 && <p className="text-muted-foreground text-center">{emptyMessage}</p>}
         <AnimatePresence initial={false}>
-          {queue.map(item => (
+          {queue.map((item) => (
             <motion.div
               key={item.id}
               layout
@@ -68,7 +55,7 @@ const ChatQueue = React.forwardRef<HTMLDivElement, ChatQueueProps>(
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center justify-between rounded-md bg-muted/50 p-3 text-sm"
+              className="bg-muted/50 flex items-center justify-between rounded-md p-3 text-sm"
             >
               <span className="truncate">{item.content}</span>
               <Badge className={statusMap[item.status]?.color || 'bg-gray-500/20 text-gray-500'}>

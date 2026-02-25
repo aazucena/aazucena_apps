@@ -22,7 +22,9 @@ export const oauthScopesSchema = z.object({
   appName: z.string().min(2, 'App name is required').max(100),
   appUrl: z.string().url('Must be a valid URL'),
   redirectUris: z.string().min(1, 'At least one redirect URI is required').max(2000),
-  requestedScopes: z.array(z.enum(['read', 'write', 'admin', 'webhooks'])).min(1, 'Select at least one scope'),
+  requestedScopes: z
+    .array(z.enum(['read', 'write', 'admin', 'webhooks']))
+    .min(1, 'Select at least one scope'),
   useCase: z.string().min(20, 'Please describe your use case').max(2000),
   company: z.string().max(100).optional(),
   contactEmail: z.string().email('Invalid email address'),
@@ -73,7 +75,11 @@ export const webhookConfigSchema = z.object({
  * Feature Flag Schema
  */
 export const featureFlagSchema = z.object({
-  flagKey: z.string().min(2, 'Flag key is required').max(100).regex(/^[a-z_]+$/, 'Use lowercase letters and underscores only'),
+  flagKey: z
+    .string()
+    .min(2, 'Flag key is required')
+    .max(100)
+    .regex(/^[a-z_]+$/, 'Use lowercase letters and underscores only'),
   displayName: z.string().min(2, 'Display name is required').max(100),
   environment: z.enum(['dev', 'staging', 'prod']).default('dev'),
   enabled: z.boolean().default(false),
@@ -87,7 +93,13 @@ export const featureFlagSchema = z.object({
  */
 export const apiKeyRotationSchema = z.object({
   keyId: z.string().min(1, 'Key ID is required'),
-  rotationReason: z.enum(['routine', 'suspected_compromise', 'employee_offboarding', 'compliance', 'other']),
+  rotationReason: z.enum([
+    'routine',
+    'suspected_compromise',
+    'employee_offboarding',
+    'compliance',
+    'other',
+  ]),
   gracePeriod: z.enum(['immediate', '24h', '72h', '7d']).default('24h'),
   notifyIntegrations: z.boolean().default(true),
   confirmRotate: z.boolean().refine((v) => v === true, 'You must confirm the key rotation'),

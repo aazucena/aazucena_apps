@@ -114,7 +114,9 @@ export function GroupMeetingPollForm({
                       onClick={() => field.handleChange(value)}
                       className={cn(
                         'flex-1 rounded-md border px-2 py-2 text-xs font-medium transition-all',
-                        field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        field.state.value === value
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {label}
@@ -130,8 +132,19 @@ export function GroupMeetingPollForm({
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

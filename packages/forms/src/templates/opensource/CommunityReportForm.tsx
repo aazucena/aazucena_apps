@@ -33,7 +33,13 @@ const ACTION_OPTIONS = [
   { value: 'no_action', label: 'No Action Needed' },
 ] as const;
 
-export function CommunityReportForm({ variant = 'default', onSuccess, onError, className, defaultValues }: CommunityReportFormProps) {
+export function CommunityReportForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: CommunityReportFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -45,7 +51,11 @@ export function CommunityReportForm({ variant = 'default', onSuccess, onError, c
       ...defaultValues,
     } as CommunityReportFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(communityReportSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(communityReportSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -54,7 +64,10 @@ export function CommunityReportForm({ variant = 'default', onSuccess, onError, c
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -63,7 +76,10 @@ export function CommunityReportForm({ variant = 'default', onSuccess, onError, c
         <p className="text-sm font-medium">
           Type of violation <span className="text-destructive">*</span>
         </p>
-        <form.Field name="violationType" validators={{ onChange: communityReportSchema.shape.violationType }}>
+        <form.Field
+          name="violationType"
+          validators={{ onChange: communityReportSchema.shape.violationType }}
+        >
           {(field) => (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {VIOLATION_OPTIONS.map((opt) => (
@@ -75,7 +91,7 @@ export function CommunityReportForm({ variant = 'default', onSuccess, onError, c
                     'rounded-md border px-3 py-2 text-sm font-medium transition-all',
                     field.state.value === opt.value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border bg-background hover:border-primary/40'
+                      : 'border-border bg-background hover:border-primary/40',
                   )}
                 >
                   {opt.label}
@@ -111,7 +127,10 @@ export function CommunityReportForm({ variant = 'default', onSuccess, onError, c
       {/* Requested action */}
       <div className="space-y-2">
         <p className="text-sm font-medium">Requested action</p>
-        <form.Field name="requestedAction" validators={{ onChange: communityReportSchema.shape.requestedAction }}>
+        <form.Field
+          name="requestedAction"
+          validators={{ onChange: communityReportSchema.shape.requestedAction }}
+        >
           {(field) => (
             <div className="grid grid-cols-2 gap-2">
               {ACTION_OPTIONS.map((opt) => (
@@ -123,7 +142,7 @@ export function CommunityReportForm({ variant = 'default', onSuccess, onError, c
                     'rounded-md border px-3 py-2 text-sm font-medium transition-all',
                     field.state.value === opt.value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border bg-background hover:border-primary/40'
+                      : 'border-border bg-background hover:border-primary/40',
                   )}
                 >
                   {opt.label}

@@ -63,12 +63,17 @@ export function TermsUpdateForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
       <div className="rounded-lg border bg-muted/40 p-4 space-y-2">
-        <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">What&apos;s Changed</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
+          What&apos;s Changed
+        </p>
         <ul className="space-y-1.5">
           {changesSummary.map((change, i) => (
             <li key={i} className="flex items-start gap-2 text-xs">
@@ -85,11 +90,7 @@ export function TermsUpdateForm({
         required
       />
 
-      <ControlledCheckbox
-        name="acceptAll"
-        label="I accept the updated terms of service"
-        required
-      />
+      <ControlledCheckbox name="acceptAll" label="I accept the updated terms of service" required />
 
       <div className="space-y-2">
         <p className="text-sm font-medium text-muted-foreground">Optional Consents</p>
@@ -105,16 +106,27 @@ export function TermsUpdateForm({
                       key={value}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((c) => c !== value) : [...selected, value];
+                        const next = isSelected
+                          ? selected.filter((c) => c !== value)
+                          : [...selected, value];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'w-full flex items-center gap-3 rounded-md border px-3 py-2 text-left text-xs transition-all',
-                        isSelected ? 'border-primary/50 bg-primary/5' : 'border-border hover:border-primary/30'
+                        isSelected
+                          ? 'border-primary/50 bg-primary/5'
+                          : 'border-border hover:border-primary/30',
                       )}
                     >
-                      <div className={cn('h-4 w-4 rounded border-2 flex items-center justify-center transition-all', isSelected ? 'border-primary bg-primary' : 'border-muted-foreground')}>
-                        {isSelected && <span className="text-primary-foreground text-[10px]">✓</span>}
+                      <div
+                        className={cn(
+                          'h-4 w-4 rounded border-2 flex items-center justify-center transition-all',
+                          isSelected ? 'border-primary bg-primary' : 'border-muted-foreground',
+                        )}
+                      >
+                        {isSelected && (
+                          <span className="text-primary-foreground text-[10px]">✓</span>
+                        )}
                       </div>
                       {label}
                     </button>

@@ -53,20 +53,21 @@ export function useFormErrorFocus() {
     // Subscribe to submission attempts
     const unsubscribe = form.store.subscribe(() => {
       const state = form.state;
-      
+
       // Only trigger if a submission was attempted and failed with errors
       if (state.submissionAttempts > 0 && !state.isSubmitting && !state.isValid) {
         // 1. Find the first field with an error
         const firstErrorField = Object.keys(state.fieldMeta).find(
-          (key) => (state.fieldMeta as any)[key]?.errors.length > 0
+          (key) => (state.fieldMeta as any)[key]?.errors.length > 0,
         );
 
         if (firstErrorField) {
           // 2. Locate the element (matching the ID pattern in @aazucena/ui/form.tsx)
           // We look for the standard ID pattern used by useId() + '-form-item'
           // However, since we can't know the exact random ID, we look for the name attribute
-          const element = document.getElementsByName(firstErrorField)[0] || 
-                          document.querySelector(`[id*="${firstErrorField}"]`);
+          const element =
+            document.getElementsByName(firstErrorField)[0] ||
+            document.querySelector(`[id*="${firstErrorField}"]`);
 
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });

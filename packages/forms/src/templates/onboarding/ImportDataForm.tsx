@@ -81,7 +81,7 @@ export function ImportDataForm({
                         'rounded-md border px-3 py-2 text-xs font-medium transition-all',
                         field.state.value === value
                           ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border hover:border-primary/50'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {label}
@@ -115,7 +115,9 @@ export function ImportDataForm({
           <ControlledTextarea
             name="fieldMapping"
             label="Field Mapping"
-            placeholder={'source_column -> target_field\nname -> display_name\nemail -> contact_email'}
+            placeholder={
+              'source_column -> target_field\nname -> display_name\nemail -> contact_email'
+            }
             description="Map source columns to target fields (one mapping per line)"
           />
           <div className="space-y-2">
@@ -132,7 +134,7 @@ export function ImportDataForm({
                         'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
                         field.state.value === value
                           ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border hover:border-primary/50'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {label}
@@ -148,8 +150,19 @@ export function ImportDataForm({
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

@@ -33,7 +33,9 @@ export const vulnerabilityDisclosureSchema = z.object({
   cvssScore: z.number().min(0).max(10).optional(),
   affectedVersions: z.string().min(1, 'Affected versions are required').max(200),
   patchSuggestion: z.string().max(2000).optional(),
-  responsibleDisclosureAgreement: z.boolean().refine((val) => val === true, 'You must agree to responsible disclosure'),
+  responsibleDisclosureAgreement: z
+    .boolean()
+    .refine((val) => val === true, 'You must agree to responsible disclosure'),
 });
 
 export type VulnerabilityDisclosureFormData = z.infer<typeof vulnerabilityDisclosureSchema>;
@@ -63,7 +65,13 @@ export const escalationSchema = z.object({
   requestedSeverity: z.enum(['medium', 'high', 'critical']),
   businessImpact: z.string().min(20, 'Please describe the business impact').max(2000),
   revenueEstimate: z.string().max(100).optional(),
-  escalationReason: z.enum(['sla_breach', 'customer_at_risk', 'data_loss', 'security', 'regulatory']),
+  escalationReason: z.enum([
+    'sla_breach',
+    'customer_at_risk',
+    'data_loss',
+    'security',
+    'regulatory',
+  ]),
   executiveSponsor: z.string().max(100).optional(),
 });
 
@@ -85,7 +93,9 @@ export const maintenanceWindowSchema = z.object({
  */
 export const statusSubscriptionSchema = z.object({
   email: z.string().email('Invalid email address'),
-  notifyOn: z.array(z.enum(['incident', 'maintenance', 'resolved'])).min(1, 'Select at least one event type'),
+  notifyOn: z
+    .array(z.enum(['incident', 'maintenance', 'resolved']))
+    .min(1, 'Select at least one event type'),
   services: z.array(z.string()).min(1, 'Select at least one service'),
   deliveryMethod: z.enum(['email', 'webhook', 'sms']).default('email'),
   webhookUrl: z.string().url().optional().or(z.literal('')),

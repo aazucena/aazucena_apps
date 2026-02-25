@@ -28,9 +28,7 @@ export interface ConversationMessage extends ChatMessageProps {
 }
 
 export interface ChatConversationProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatConversationVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatConversationVariants> {
   messages: ConversationMessage[];
   onSendMessage: (message: string) => void;
   title?: string;
@@ -64,12 +62,12 @@ const ChatConversation = React.forwardRef<HTMLDivElement, ChatConversationProps>
     return (
       <div ref={ref} className={cn(chatConversationVariants({ variant }), className)} {...props}>
         {title && (
-          <div className="flex items-center justify-between border-b border-input p-4">
+          <div className="border-input flex items-center justify-between border-b p-4">
             <h3 className="text-lg font-semibold">{title}</h3>
           </div>
         )}
         <ChatFeed ref={chatFeedRef} className="flex-grow p-4">
-          {messages.map(msg => (
+          {messages.map((msg) => (
             <ChatMessage key={msg.id} role={msg.role} className="mb-4">
               {msg.content}
             </ChatMessage>
@@ -78,7 +76,7 @@ const ChatConversation = React.forwardRef<HTMLDivElement, ChatConversationProps>
         <div className="flex-shrink-0">
           {/* ChatInput will be enhanced later */}
           <ChatInput onSendMessage={onSendMessage} placeholder={placeholder} />
-          {footer && <div className="p-4 border-t border-input">{footer}</div>}
+          {footer && <div className="border-input border-t p-4">{footer}</div>}
         </div>
       </div>
     );

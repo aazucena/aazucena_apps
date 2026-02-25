@@ -19,8 +19,7 @@ const gaugeVariants = cva('relative flex items-center justify-center', {
 });
 
 export interface GaugeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof gaugeVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof gaugeVariants> {
   value: number;
   min?: number;
   max?: number;
@@ -102,7 +101,7 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
               size === 'sm' && 'text-lg',
               size === 'lg' && 'text-3xl',
               size === 'xl' && 'text-4xl',
-              variant === 'cyber' && 'text-cyan-400 font-mono',
+              variant === 'cyber' && 'font-mono text-cyan-400',
               variant === 'glass' && 'text-white',
             )}
           >
@@ -112,11 +111,11 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
           {label && (
             <span
               className={cn(
-                'text-sm text-muted-foreground',
+                'text-muted-foreground text-sm',
                 size === 'sm' && 'text-xs',
                 size === 'lg' && 'text-base',
                 size === 'xl' && 'text-lg',
-                variant === 'cyber' && 'text-cyan-500/80 font-mono',
+                variant === 'cyber' && 'font-mono text-cyan-500/80',
                 variant === 'glass' && 'text-white/70',
               )}
             >

@@ -79,7 +79,9 @@ export function GoalSettingForm({
 
       <div className="space-y-2">
         <p className="text-sm font-semibold">Primary Goal</p>
-        <p className="text-xs text-muted-foreground">What is the most important thing you want to achieve?</p>
+        <p className="text-xs text-muted-foreground">
+          What is the most important thing you want to achieve?
+        </p>
         <form.Field name="primaryGoal">
           {(field) => (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -92,14 +94,14 @@ export function GoalSettingForm({
                     'flex flex-col items-center rounded-md border px-3 py-3 text-center transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   <span className="text-xl">{icon}</span>
                   <span
                     className={cn(
                       'mt-1 text-xs font-semibold',
-                      field.state.value === value && 'text-primary'
+                      field.state.value === value && 'text-primary',
                     )}
                   >
                     {label}
@@ -125,7 +127,7 @@ export function GoalSettingForm({
                     'flex-1 rounded-md border px-2 py-2 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -147,7 +149,9 @@ export function GoalSettingForm({
 
       <div className="space-y-2">
         <p className="text-sm font-semibold">Reminder Frequency</p>
-        <p className="text-xs text-muted-foreground">How often should we check in on your progress?</p>
+        <p className="text-xs text-muted-foreground">
+          How often should we check in on your progress?
+        </p>
         <form.Field name="reminderFrequency">
           {(field) => (
             <div className="flex gap-2">
@@ -160,7 +164,7 @@ export function GoalSettingForm({
                     'flex-1 rounded-md border px-2 py-2 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

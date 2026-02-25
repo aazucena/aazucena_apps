@@ -52,7 +52,10 @@ export function DataDeletionRequestForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -61,20 +64,35 @@ export function DataDeletionRequestForm({
         <form.Field name="requestType">
           {(field) => (
             <div className="flex gap-2">
-              {([
-                { value: 'full', label: 'Full Deletion', description: 'Delete all my data' },
-                { value: 'partial', label: 'Partial Deletion', description: 'Delete selected categories' },
-              ] as const).map(({ value, label, description }) => (
+              {(
+                [
+                  { value: 'full', label: 'Full Deletion', description: 'Delete all my data' },
+                  {
+                    value: 'partial',
+                    label: 'Partial Deletion',
+                    description: 'Delete selected categories',
+                  },
+                ] as const
+              ).map(({ value, label, description }) => (
                 <button
                   key={value}
                   type="button"
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex-1 flex flex-col items-start rounded-lg border px-4 py-3 text-left transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
-                  <span className={cn('text-xs font-bold', field.state.value === value && 'text-primary')}>{label}</span>
+                  <span
+                    className={cn(
+                      'text-xs font-bold',
+                      field.state.value === value && 'text-primary',
+                    )}
+                  >
+                    {label}
+                  </span>
                   <span className="text-[11px] text-muted-foreground">{description}</span>
                 </button>
               ))}
@@ -97,12 +115,16 @@ export function DataDeletionRequestForm({
                       key={cat}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((c) => c !== cat) : [...selected, cat];
+                        const next = isSelected
+                          ? selected.filter((c) => c !== cat)
+                          : [...selected, cat];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'rounded-full border px-3 py-1 text-xs font-medium capitalize transition-all',
-                        isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        isSelected
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {cat}
@@ -136,7 +158,8 @@ export function DataDeletionRequestForm({
       />
 
       <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
-        <strong>Warning:</strong> This action may be irreversible. Your data will be scheduled for deletion within 30 days.
+        <strong>Warning:</strong> This action may be irreversible. Your data will be scheduled for
+        deletion within 30 days.
       </div>
 
       <FormButton className="w-full">Submit Deletion Request</FormButton>

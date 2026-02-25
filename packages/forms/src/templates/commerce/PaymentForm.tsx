@@ -56,12 +56,36 @@ export function PaymentForm({
       component: (
         <div className="space-y-4">
           <FormErrorSummary />
-          <ControlledInput name="billingName" label="Full Name" placeholder="Aldrin Azucena" required validators={{ onChange: paymentSchema.shape.billingName }} />
-          <ControlledInput name="billingEmail" label="Email" type="email" placeholder="you@example.com" required validators={{ onChange: paymentSchema.shape.billingEmail }} />
-          <ControlledInput name="billingAddress" label="Address" placeholder="123 Main St" required validators={{ onChange: paymentSchema.shape.billingAddress }} />
+          <ControlledInput
+            name="billingName"
+            label="Full Name"
+            placeholder="Aldrin Azucena"
+            required
+            validators={{ onChange: paymentSchema.shape.billingName }}
+          />
+          <ControlledInput
+            name="billingEmail"
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            validators={{ onChange: paymentSchema.shape.billingEmail }}
+          />
+          <ControlledInput
+            name="billingAddress"
+            label="Address"
+            placeholder="123 Main St"
+            required
+            validators={{ onChange: paymentSchema.shape.billingAddress }}
+          />
           <div className="grid grid-cols-2 gap-3">
             <ControlledInput name="billingCity" label="City" placeholder="San Francisco" required />
-            <ControlledInput name="billingPostalCode" label="Postal Code" placeholder="94105" required />
+            <ControlledInput
+              name="billingPostalCode"
+              label="Postal Code"
+              placeholder="94105"
+              required
+            />
           </div>
           <ControlledInput name="billingCountry" label="Country" placeholder="US" required />
         </div>

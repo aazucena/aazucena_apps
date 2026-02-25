@@ -28,7 +28,8 @@ export interface KeyValueEntry {
 }
 
 export interface KeyValueProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>,
     VariantProps<typeof keyValueVariants> {
   entries: KeyValueEntry[];
   onChange: (entries: KeyValueEntry[]) => void;
@@ -73,11 +74,7 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
     };
 
     const handleChange = (id: string, field: 'key' | 'value', newValue: string) => {
-      onChange(
-        entries.map((entry) =>
-          entry.id === id ? { ...entry, [field]: newValue } : entry
-        )
-      );
+      onChange(entries.map((entry) => (entry.id === id ? { ...entry, [field]: newValue } : entry)));
     };
 
     const [copiedId, setCopiedId] = React.useState<string | null>(null);
@@ -92,7 +89,7 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
       <div ref={ref} className={cn(keyValueVariants({ variant }), className)} {...props}>
         <div className="space-y-2">
           {entries.map((entry) => (
-            <div key={entry.id} className="flex items-center gap-2 group">
+            <div key={entry.id} className="group flex items-center gap-2">
               <Input
                 placeholder={keyPlaceholder}
                 value={entry.key}
@@ -100,8 +97,10 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                 disabled={disabled || entry.disabled}
                 className={cn(
                   'flex-1 font-mono text-xs',
-                  variant === 'cyber' && 'rounded-none border-cyan-500/30 bg-cyan-500/5 text-cyan-400 focus-visible:ring-cyan-500/50',
-                  variant === 'glass' && 'bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-white/30'
+                  variant === 'cyber' &&
+                    'rounded-none border-cyan-500/30 bg-cyan-500/5 text-cyan-400 focus-visible:ring-cyan-500/50',
+                  variant === 'glass' &&
+                    'border-white/10 bg-white/5 text-white placeholder:text-white/30 focus-visible:ring-white/30',
                 )}
               />
               <div className="relative flex-1">
@@ -113,8 +112,10 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                   className={cn(
                     'w-full font-mono text-xs',
                     copyable && 'pr-8',
-                    variant === 'cyber' && 'rounded-none border-cyan-500/30 bg-cyan-500/5 text-cyan-100 focus-visible:ring-cyan-500/50',
-                    variant === 'glass' && 'bg-white/5 border-white/10 text-white/90 placeholder:text-white/30 focus-visible:ring-white/30'
+                    variant === 'cyber' &&
+                      'rounded-none border-cyan-500/30 bg-cyan-500/5 text-cyan-100 focus-visible:ring-cyan-500/50',
+                    variant === 'glass' &&
+                      'border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus-visible:ring-white/30',
                   )}
                 />
                 {copyable && (
@@ -122,16 +123,16 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                     type="button"
                     onClick={() => handleCopy(entry.id, entry.value)}
                     className={cn(
-                      "absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors",
-                      variant === 'cyber' && "text-cyan-500/50 hover:text-cyan-400",
-                      variant === 'glass' && "text-white/50 hover:text-white"
+                      'text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 transition-colors',
+                      variant === 'cyber' && 'text-cyan-500/50 hover:text-cyan-400',
+                      variant === 'glass' && 'text-white/50 hover:text-white',
                     )}
                   >
                     {copiedId === entry.id ? <Check size={12} /> : <Copy size={12} />}
                   </button>
                 )}
               </div>
-              
+
               {allowRemove && !disabled && !entry.disabled && (
                 <Button
                   type="button"
@@ -139,9 +140,10 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                   size="icon"
                   onClick={() => handleRemove(entry.id)}
                   className={cn(
-                    "h-9 w-9 shrink-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10",
-                    variant === 'cyber' && "text-cyan-500/50 hover:text-red-400 hover:bg-red-500/10 rounded-none",
-                    variant === 'glass' && "text-white/50 hover:text-red-300 hover:bg-red-500/20"
+                    'text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-9 w-9 shrink-0',
+                    variant === 'cyber' &&
+                      'rounded-none text-cyan-500/50 hover:bg-red-500/10 hover:text-red-400',
+                    variant === 'glass' && 'text-white/50 hover:bg-red-500/20 hover:text-red-300',
                   )}
                 >
                   <Trash size={14} />
@@ -158,9 +160,11 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
             size="sm"
             onClick={handleAdd}
             className={cn(
-              "w-full border-dashed text-xs",
-              variant === 'cyber' && "border-cyan-500/30 text-cyan-500 hover:bg-cyan-500/10 hover:border-cyan-500/50 rounded-none",
-              variant === 'glass' && "border-white/20 text-white/70 hover:bg-white/10 hover:text-white"
+              'w-full border-dashed text-xs',
+              variant === 'cyber' &&
+                'rounded-none border-cyan-500/30 text-cyan-500 hover:border-cyan-500/50 hover:bg-cyan-500/10',
+              variant === 'glass' &&
+                'border-white/20 text-white/70 hover:bg-white/10 hover:text-white',
             )}
           >
             <Plus size={14} className="mr-2" />

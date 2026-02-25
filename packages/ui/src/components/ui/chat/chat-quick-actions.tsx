@@ -29,9 +29,7 @@ export interface ChatQuickAction {
 }
 
 export interface ChatQuickActionsProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatQuickActionsVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatQuickActionsVariants> {
   actions: ChatQuickAction[];
   onActionClick?: (actionId: string) => void;
   title?: string;
@@ -62,11 +60,13 @@ const ChatQuickActions = React.forwardRef<HTMLDivElement, ChatQuickActionsProps>
       <div ref={ref} className={cn(chatQuickActionsVariants({ variant }), className)} {...props}>
         {title && <h3 className="text-lg font-semibold">{title}</h3>}
         {actions.length === 0 && (
-          <p className="text-center text-sm text-muted-foreground">{emptyMessage}</p>
+          <p className="text-muted-foreground text-center text-sm">{emptyMessage}</p>
         )}
         <div className="flex flex-wrap gap-2">
-          {actions.map(action => {
-            const Icon = action.icon || null;
+          {actions.map((action) => {
+            const Icon = (action.icon || null) as React.ComponentType<{
+              className?: string;
+            }> | null;
             return (
               <Button
                 key={action.id}

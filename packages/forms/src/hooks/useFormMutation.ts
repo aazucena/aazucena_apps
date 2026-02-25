@@ -10,8 +10,12 @@ import { fetchStrapi } from '@aazucena/api';
  * - **Full-Stack Integrity:** Automatically maps server-side validation errors back to form fields.
  */
 
-export interface UseFormMutationOptions<TData, TError, TVariables, TContext>
-  extends UseMutationOptions<TData, TError, TVariables, TContext> {
+export interface UseFormMutationOptions<
+  TData,
+  TError,
+  TVariables,
+  TContext,
+> extends UseMutationOptions<TData, TError, TVariables, TContext> {
   form: FormApi<any, any, any, any, any, any, any, any, any, any, any, any>;
   mapServerErrors?: (error: TError) => Record<string, string>;
 }
@@ -21,7 +25,7 @@ export interface UseFormMutationOptions<TData, TError, TVariables, TContext>
  * Bridges a TanStack Form instance with a TanStack Query mutation.
  */
 export function useFormMutation<TData, TError, TVariables, TContext>(
-  options: UseFormMutationOptions<TData, TError, TVariables, TContext>
+  options: UseFormMutationOptions<TData, TError, TVariables, TContext>,
 ) {
   const { form, mapServerErrors, ...mutationOptions } = options;
 
@@ -47,7 +51,9 @@ export function useFormMutation<TData, TError, TVariables, TContext>(
  */
 export function useStrapiFormMutation<TData>(
   collection: string,
-  options: Omit<UseFormMutationOptions<any, any, TData, any>, 'mutationFn'> & { method?: 'POST' | 'PATCH' }
+  options: Omit<UseFormMutationOptions<any, any, TData, any>, 'mutationFn'> & {
+    method?: 'POST' | 'PATCH';
+  },
 ) {
   const { method = 'POST', ...rest } = options;
 

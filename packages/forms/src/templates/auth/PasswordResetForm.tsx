@@ -62,7 +62,6 @@ export function PasswordResetForm({
         type="password"
         placeholder="••••••••"
         required
-        
       />
       <ControlledInput
         name="confirmPassword"
@@ -70,7 +69,6 @@ export function PasswordResetForm({
         type="password"
         placeholder="••••••••"
         required
-        
       />
       <FormButton className="w-full">Reset Password</FormButton>
     </Form>

@@ -30,7 +30,8 @@ const holdToConfirmVariants = cva(
 );
 
 export interface HoldToConfirmProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onConfirm'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'onConfirm'>,
     VariantProps<typeof holdToConfirmVariants> {
   /** Callback triggered when the hold duration is completed. */
   onConfirm: () => void;
@@ -70,21 +71,21 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
 
     const startHold = async (e: React.MouseEvent | React.TouchEvent) => {
       if (disabled || isComplete) return;
-      
+
       setIsHolding(true);
-      
+
       // Start the fill animation using Framer Motion
       // We use linear easing for predictable feedback
       controls.start({
         width: '100%',
-        transition: { duration: duration / 1000, ease: 'linear' }
+        transition: { duration: duration / 1000, ease: 'linear' },
       });
 
       timerRef.current = setTimeout(() => {
         setIsComplete(true);
         setIsHolding(false);
         onConfirm();
-        
+
         // Reset after a brief success state
         setTimeout(() => {
           setIsComplete(false);
@@ -96,12 +97,12 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
     const reset = () => {
       if (isComplete) return;
       setIsHolding(false);
-      
+
       // Stop and reset the progress fill
       controls.stop();
       controls.start({
         width: '0%',
-        transition: { duration: 0.2, ease: 'easeOut' }
+        transition: { duration: 0.2, ease: 'easeOut' },
       });
 
       if (timerRef.current) {
@@ -111,19 +112,27 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
 
     const progressColor = React.useMemo(() => {
       switch (variant) {
-        case 'destructive': return 'bg-rose-500/20';
-        case 'cyber': return 'bg-cyan-500/30';
-        case 'glass': return 'bg-white/20';
-        default: return 'bg-primary/20';
+        case 'destructive':
+          return 'bg-rose-500/20';
+        case 'cyber':
+          return 'bg-cyan-500/30';
+        case 'glass':
+          return 'bg-white/20';
+        default:
+          return 'bg-primary/20';
       }
     }, [variant]);
 
     const successColor = React.useMemo(() => {
       switch (variant) {
-        case 'destructive': return 'bg-rose-500 text-white';
-        case 'cyber': return 'bg-cyan-500 text-black';
-        case 'glass': return 'bg-white text-blue-600';
-        default: return 'bg-emerald-500 text-white';
+        case 'destructive':
+          return 'bg-rose-500 text-white';
+        case 'cyber':
+          return 'bg-cyan-500 text-black';
+        case 'glass':
+          return 'bg-white text-blue-600';
+        default:
+          return 'bg-emerald-500 text-white';
       }
     }, [variant]);
 
@@ -132,10 +141,10 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
         ref={ref}
         className={cn(
           holdToConfirmVariants({ variant, size }),
-          isHolding && 'scale-[0.98] ring-2 ring-primary/10',
+          isHolding && 'ring-primary/10 scale-[0.98] ring-2',
           isComplete && successColor,
-          disabled && 'opacity-50 cursor-not-allowed',
-          className
+          disabled && 'cursor-not-allowed opacity-50',
+          className,
         )}
         onMouseDown={startHold}
         onMouseUp={reset}
@@ -148,12 +157,9 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
         <motion.div
           initial={{ width: '0%' }}
           animate={controls}
-          className={cn(
-            'absolute left-0 top-0 h-full z-0 pointer-events-none',
-            progressColor
-          )}
+          className={cn('pointer-events-none absolute top-0 left-0 z-0 h-full', progressColor)}
         />
-        
+
         {/* Label Layer */}
         <AnimatePresence mode="wait">
           {isComplete ? (
@@ -168,11 +174,7 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
               <span>Confirmed</span>
             </motion.div>
           ) : (
-            <motion.span
-              key="text"
-              className="relative z-10"
-              initial={{ opacity: 1 }}
-            >
+            <motion.span key="text" className="relative z-10" initial={{ opacity: 1 }}>
               {isHolding ? confirmText : text}
             </motion.span>
           )}
@@ -180,7 +182,7 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
 
         {/* Shine/Glow Effect for Cyber Variant */}
         {variant === 'cyber' && isHolding && (
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent animate-shimmer pointer-events-none" />
+          <div className="animate-shimmer pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent" />
         )}
       </div>
     );

@@ -100,7 +100,9 @@ export function SurveyForm({
                       if (q.type === 'checkbox') {
                         const current = (field.state.value as string[]) ?? [];
                         field.handleChange(
-                          current.includes(opt) ? current.filter((o) => o !== opt) : [...current, opt],
+                          current.includes(opt)
+                            ? current.filter((o) => o !== opt)
+                            : [...current, opt],
                         );
                       } else {
                         field.handleChange(opt);
@@ -108,9 +110,11 @@ export function SurveyForm({
                     }}
                     className={cn(
                       'w-full rounded-lg border px-4 py-2.5 text-left text-sm font-medium transition-all',
-                      (q.type === 'checkbox'
-                        ? ((field.state.value as string[]) ?? []).includes(opt)
-                        : field.state.value === opt)
+                      (
+                        q.type === 'checkbox'
+                          ? ((field.state.value as string[]) ?? []).includes(opt)
+                          : field.state.value === opt
+                      )
                         ? 'border-primary bg-primary/10 text-primary'
                         : 'border-border bg-background hover:border-primary/40',
                     )}
@@ -134,16 +138,36 @@ export function SurveyForm({
       component: (
         <div className="space-y-4">
           <ControlledInput name="respondentName" label="Your Name" placeholder="Optional" />
-          <ControlledInput name="respondentEmail" label="Email" type="email" placeholder="Optional" />
-          <ControlledTextarea name="openFeedback" label="Any other feedback?" placeholder="Optional open-ended thoughts…" />
+          <ControlledInput
+            name="respondentEmail"
+            label="Email"
+            type="email"
+            placeholder="Optional"
+          />
+          <ControlledTextarea
+            name="openFeedback"
+            label="Any other feedback?"
+            placeholder="Optional open-ended thoughts…"
+          />
         </div>
       ),
     },
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

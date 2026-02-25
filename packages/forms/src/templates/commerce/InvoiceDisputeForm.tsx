@@ -57,7 +57,10 @@ export function InvoiceDisputeForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -81,7 +84,9 @@ export function InvoiceDisputeForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'rounded-md border px-3 py-2 text-xs font-medium text-left transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

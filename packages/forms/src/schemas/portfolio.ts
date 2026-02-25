@@ -133,7 +133,9 @@ export const mentorshipRequestSchema = z.object({
   goals: z.string().min(20, 'Please describe your goals').max(1000),
   format: z.enum(['1:1 Video', 'Async', 'Group', 'Text-based']).default('1:1 Video'),
   topics: z.array(z.string()).min(1, 'Select at least one topic'),
-  commitmentLevel: z.enum(['1-2 hrs/month', '4-8 hrs/month', '10+ hrs/month']).default('4-8 hrs/month'),
+  commitmentLevel: z
+    .enum(['1-2 hrs/month', '4-8 hrs/month', '10+ hrs/month'])
+    .default('4-8 hrs/month'),
 });
 
 export type ProjectInquiryFormData = z.infer<typeof projectInquirySchema>;
@@ -181,7 +183,9 @@ export const tutorialRequestSchema = z.object({
 export const technicalAuditSchema = z.object({
   projectUrl: z.string().url('Must be a valid URL').min(1, 'Project URL is required'),
   techStack: z.string().min(5, 'Please describe your tech stack').max(500),
-  auditScope: z.enum(['security', 'performance', 'architecture', 'accessibility', 'all']).default('all'),
+  auditScope: z
+    .enum(['security', 'performance', 'architecture', 'accessibility', 'all'])
+    .default('all'),
   painPoints: z.string().min(20, 'Please describe your pain points').max(2000),
   timeline: z.string().min(1, 'Timeline is required').max(100),
   budget: z.string().max(100).optional(),

@@ -25,9 +25,7 @@ const FORMAT_OPTIONS = [
   { value: 'all', label: 'All Formats' },
 ] as const;
 
-const DATA_CATEGORY_OPTIONS = [
-  'profile', 'posts', 'messages', 'analytics', 'payments', 'all',
-];
+const DATA_CATEGORY_OPTIONS = ['profile', 'posts', 'messages', 'analytics', 'payments', 'all'];
 
 const DELIVERY_OPTIONS = [
   { value: 'email', label: 'Email' },
@@ -66,7 +64,10 @@ export function DataExportRequestForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -84,7 +85,7 @@ export function DataExportRequestForm({
                     'rounded-md border px-3 py-1.5 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -119,7 +120,7 @@ export function DataExportRequestForm({
                         'rounded-full border px-3 py-1 text-xs font-medium capitalize transition-all',
                         isSelected
                           ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border hover:border-primary/50'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {cat}
@@ -146,7 +147,7 @@ export function DataExportRequestForm({
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

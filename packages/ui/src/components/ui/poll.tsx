@@ -6,20 +6,17 @@ import { cn } from '@aazucena/utils';
 import { Button } from './button';
 import { Progress } from './progress';
 
-const pollVariants = cva(
-  'flex flex-col gap-4 rounded-md border p-6 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
-      },
+const pollVariants = cva('flex flex-col gap-4 rounded-md border p-6 transition-all duration-300', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber:
+        'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface PollOption {
   id: string;
@@ -28,9 +25,7 @@ export interface PollOption {
 }
 
 export interface PollProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof pollVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof pollVariants> {
   question: string;
   options: PollOption[];
   onVote?: (optionId: string) => void;
@@ -54,7 +49,7 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
   ) => {
     const [options, setOptions] = React.useState<PollOption[]>(() => {
       if (initialVotes) {
-        return initialOptions.map(opt => ({
+        return initialOptions.map((opt) => ({
           ...opt,
           votes: initialVotes[opt.id] !== undefined ? initialVotes[opt.id]! : opt.votes,
         }));
@@ -68,8 +63,8 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
 
     const handleVote = () => {
       if (selectedOption && !hasVoted) {
-        setOptions(prevOptions =>
-          prevOptions.map(opt =>
+        setOptions((prevOptions) =>
+          prevOptions.map((opt) =>
             opt.id === selectedOption ? { ...opt, votes: opt.votes + 1 } : opt,
           ),
         );
@@ -82,7 +77,7 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
       <div ref={ref} className={cn(pollVariants({ variant }), className)} {...props}>
         <h3 className="text-lg font-semibold">{question}</h3>
         <div className="flex flex-col gap-2">
-          {options.map(option => (
+          {options.map((option) => (
             <div key={option.id} className="flex flex-col gap-1">
               {!hasVoted ? (
                 <label
@@ -110,7 +105,8 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
                 <div
                   className={cn(
                     'flex flex-col gap-1 rounded-md border p-3 text-sm',
-                    selectedOption === option.id || initialHasVoted && selectedOption === option.id
+                    selectedOption === option.id ||
+                      (initialHasVoted && selectedOption === option.id)
                       ? 'border-primary bg-primary/10'
                       : 'border-input',
                   )}
@@ -120,8 +116,8 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
                     <span>
                       {totalVotes > 0
                         ? `${((option.votes / totalVotes) * 100).toFixed(1)}%`
-                        : '0.0%'} (
-                      {option.votes})
+                        : '0.0%'}{' '}
+                      ({option.votes})
                     </span>
                   </div>
                   <Progress
@@ -139,7 +135,7 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
           </Button>
         )}
         {hasVoted && (
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-center text-sm">
             You have already voted. Total votes: {totalVotes}
           </p>
         )}

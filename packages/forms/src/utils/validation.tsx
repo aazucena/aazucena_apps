@@ -20,7 +20,7 @@ export interface AsyncValidatorOptions {
  */
 export function createAsyncValidator<TValue>(
   checkFn: (value: TValue) => Promise<boolean | string | undefined>,
-  options: AsyncValidatorOptions = {}
+  options: AsyncValidatorOptions = {},
 ) {
   const { debounceMs = 500, message = 'Invalid value' } = options;
 
@@ -50,7 +50,7 @@ export function createAsyncValidator<TValue>(
  */
 export function createInputTransformer<TValue>(
   field: { handleChange: (val: TValue) => void },
-  transformFn: (value: TValue) => TValue
+  transformFn: (value: TValue) => TValue,
 ) {
   return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const rawValue = e.target.value as unknown as TValue;
@@ -65,7 +65,7 @@ export function createInputTransformer<TValue>(
 export function createComparisonValidator<TValue>(
   otherFieldName: string,
   compareFn: (value: TValue, otherValue: any) => boolean,
-  message: string
+  message: string,
 ) {
   return ({ value, fieldApi }: { value: TValue; fieldApi: any }) => {
     const otherValue = fieldApi.form.getFieldValue(otherFieldName);
@@ -81,7 +81,9 @@ export function createComparisonValidator<TValue>(
  * Iterates through the form state and returns only the fields that have been modified.
  * Essential for efficient PATCH requests to Strapi v5.
  */
-export function getFormChanges<TData>(form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>): Partial<TData> {
+export function getFormChanges<TData>(
+  form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>,
+): Partial<TData> {
   const changes: any = {};
   const { values, fieldMeta } = form.state;
 

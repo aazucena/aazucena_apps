@@ -32,7 +32,7 @@ export interface FormPersistenceOptions {
  */
 export function useFormPersistence<TData>(
   form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>,
-  options: FormPersistenceOptions
+  options: FormPersistenceOptions,
 ) {
   const { key, clearOnSubmit = true, onSave } = options;
   const isInitialMount = useRef(true);

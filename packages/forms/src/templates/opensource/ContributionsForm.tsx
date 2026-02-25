@@ -54,9 +54,28 @@ export function ContributionsForm({
       component: (
         <div className="space-y-4">
           <FormErrorSummary />
-          <ControlledInput name="name" label="Your Name" placeholder="Aldrin Azucena" required validators={{ onChange: contributionsSchema.shape.name }} />
-          <ControlledInput name="email" label="Email" type="email" placeholder="you@example.com" required validators={{ onChange: contributionsSchema.shape.email }} />
-          <ControlledInput name="githubHandle" label="GitHub Handle" placeholder="aazucena" required validators={{ onChange: contributionsSchema.shape.githubHandle }} />
+          <ControlledInput
+            name="name"
+            label="Your Name"
+            placeholder="Aldrin Azucena"
+            required
+            validators={{ onChange: contributionsSchema.shape.name }}
+          />
+          <ControlledInput
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            validators={{ onChange: contributionsSchema.shape.email }}
+          />
+          <ControlledInput
+            name="githubHandle"
+            label="GitHub Handle"
+            placeholder="aazucena"
+            required
+            validators={{ onChange: contributionsSchema.shape.githubHandle }}
+          />
         </div>
       ),
     },
@@ -65,8 +84,20 @@ export function ContributionsForm({
       title: 'Contribution',
       component: (
         <div className="space-y-4">
-          <ControlledInput name="repository" label="Repository" placeholder="owner/repo-name" required validators={{ onChange: contributionsSchema.shape.repository }} />
-          <ControlledTextarea name="scope" label="Scope" placeholder="Describe what you contributed…" required validators={{ onChange: contributionsSchema.shape.scope }} />
+          <ControlledInput
+            name="repository"
+            label="Repository"
+            placeholder="owner/repo-name"
+            required
+            validators={{ onChange: contributionsSchema.shape.repository }}
+          />
+          <ControlledTextarea
+            name="scope"
+            label="Scope"
+            placeholder="Describe what you contributed…"
+            required
+            validators={{ onChange: contributionsSchema.shape.scope }}
+          />
           <ControlledTextarea name="notes" label="Notes" placeholder="Any additional context…" />
         </div>
       ),
@@ -74,8 +105,19 @@ export function ContributionsForm({
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

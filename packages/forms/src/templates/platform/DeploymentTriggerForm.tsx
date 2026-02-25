@@ -24,7 +24,13 @@ const ENV_CONFIG = {
   production: { label: 'Production', icon: '🚀', description: 'Live — be sure!' },
 } as const;
 
-export function DeploymentTriggerForm({ variant = 'default', onSuccess, onError, className, defaultValues }: DeploymentTriggerFormProps) {
+export function DeploymentTriggerForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: DeploymentTriggerFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -36,7 +42,11 @@ export function DeploymentTriggerForm({ variant = 'default', onSuccess, onError,
       ...defaultValues,
     } as DeploymentTriggerFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(deploymentTriggerSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(deploymentTriggerSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -45,7 +55,10 @@ export function DeploymentTriggerForm({ variant = 'default', onSuccess, onError,
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
       <div className="space-y-2">
@@ -65,13 +78,19 @@ export function DeploymentTriggerForm({ variant = 'default', onSuccess, onError,
                     className={cn(
                       'flex flex-col items-center gap-1 rounded-md border px-2 py-3 text-xs font-medium transition-all',
                       isActive
-                        ? isProd ? 'border-red-500 bg-red-600 text-white' : 'border-primary bg-primary text-primary-foreground'
-                        : isProd ? 'border-red-200 text-red-600 hover:border-red-400' : 'border-border hover:border-primary/50'
+                        ? isProd
+                          ? 'border-red-500 bg-red-600 text-white'
+                          : 'border-primary bg-primary text-primary-foreground'
+                        : isProd
+                          ? 'border-red-200 text-red-600 hover:border-red-400'
+                          : 'border-border hover:border-primary/50',
                     )}
                   >
                     <span className="text-base">{config.icon}</span>
                     <span>{config.label}</span>
-                    <span className={cn('text-[10px] opacity-70', isActive && 'opacity-90')}>{config.description}</span>
+                    <span className={cn('text-[10px] opacity-70', isActive && 'opacity-90')}>
+                      {config.description}
+                    </span>
                   </button>
                 );
               })}
@@ -80,11 +99,32 @@ export function DeploymentTriggerForm({ variant = 'default', onSuccess, onError,
         </form.Field>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="service" label="Service" placeholder="portfolio-web" required validators={{ onChange: deploymentTriggerSchema.shape.service }} />
-        <ControlledInput name="versionTag" label="Version Tag" placeholder="v2.1.0 or SHA abc123" required validators={{ onChange: deploymentTriggerSchema.shape.versionTag }} />
+        <ControlledInput
+          name="service"
+          label="Service"
+          placeholder="portfolio-web"
+          required
+          validators={{ onChange: deploymentTriggerSchema.shape.service }}
+        />
+        <ControlledInput
+          name="versionTag"
+          label="Version Tag"
+          placeholder="v2.1.0 or SHA abc123"
+          required
+          validators={{ onChange: deploymentTriggerSchema.shape.versionTag }}
+        />
       </div>
-      <ControlledTextarea name="deploymentNotes" label="Deployment Notes (optional)" placeholder="What's changing? Any rollback plan?" />
-      <ControlledCheckbox name="confirmDeployment" label="I confirm this deployment is intentional and I have reviewed the changes" required validators={{ onChange: deploymentTriggerSchema.shape.confirmDeployment }} />
+      <ControlledTextarea
+        name="deploymentNotes"
+        label="Deployment Notes (optional)"
+        placeholder="What's changing? Any rollback plan?"
+      />
+      <ControlledCheckbox
+        name="confirmDeployment"
+        label="I confirm this deployment is intentional and I have reviewed the changes"
+        required
+        validators={{ onChange: deploymentTriggerSchema.shape.confirmDeployment }}
+      />
       <FormButton className="w-full">Trigger Deployment</FormButton>
     </Form>
   );

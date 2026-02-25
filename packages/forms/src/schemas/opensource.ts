@@ -27,7 +27,9 @@ export const contributionsSchema = z.object({
   email: z.string().email('Invalid email address'),
   githubHandle: z.string().min(1, 'GitHub handle is required').max(100),
   // Step 2: Contribution details
-  contributionType: z.enum(['Code', 'Documentation', 'Design', 'Translation', 'Other']).default('Code'),
+  contributionType: z
+    .enum(['Code', 'Documentation', 'Design', 'Translation', 'Other'])
+    .default('Code'),
   repository: z.string().min(2, 'Repository is required').max(200),
   scope: z.string().min(5, 'Please describe the scope of your contribution').max(500),
   notes: z.string().max(2000).optional(),
@@ -86,7 +88,9 @@ export const communityReportSchema = z.object({
   contentUrl: z.string().url('Must be a valid URL').min(1, 'Content URL is required'),
   description: z.string().min(20, 'Please describe the violation').max(2000),
   anonymous: z.boolean().default(false),
-  requestedAction: z.enum(['remove_content', 'warn_user', 'ban_user', 'no_action']).default('remove_content'),
+  requestedAction: z
+    .enum(['remove_content', 'warn_user', 'ban_user', 'no_action'])
+    .default('remove_content'),
 });
 
 export type IssueReportFormData = z.infer<typeof issueReportSchema>;

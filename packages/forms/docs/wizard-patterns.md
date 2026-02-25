@@ -127,10 +127,10 @@ import { useFormDirtyGuard, useFormErrorFocus } from '@aazucena/forms';
 
 function MyForm() {
   const form = useForm({ ... });
-  
+
   // 1. Prevents leaving page if form is dirty
   useFormDirtyGuard();
-  
+
   // 2. Automatically focuses first error on failed submit
   useFormErrorFocus();
 
@@ -156,7 +156,7 @@ import { myAnimationStore } from '@aazucena/stores';
 
 function SceneConfigForm() {
   const form = useForm({ ... });
-  
+
   // Syncs form values to a Nanostore for Three.js/PixiJS consumption
   useFormStoreSync(form, myAnimationStore);
 }
@@ -172,7 +172,7 @@ import { updateTelemetryConfig } from '@aazucena/stores';
 function AnalyticsForm() {
   const form = useForm({ ... });
   const dispatch = useDispatch();
-  
+
   // Syncs form values into Redux state on every change
   useFormReduxSync(form, dispatch, updateTelemetryConfig);
 }

@@ -124,7 +124,13 @@ export const affiliateApplicationSchema = z.object({
  */
 export const invoiceDisputeSchema = z.object({
   invoiceId: z.string().min(1, 'Invoice ID is required').max(100),
-  disputeType: z.enum(['incorrect_amount', 'duplicate', 'not_received', 'service_not_rendered', 'other']),
+  disputeType: z.enum([
+    'incorrect_amount',
+    'duplicate',
+    'not_received',
+    'service_not_rendered',
+    'other',
+  ]),
   amountDisputed: z.number().min(0, 'Amount must be non-negative').optional(),
   explanation: z.string().min(20, 'Please explain the dispute').max(2000),
 });

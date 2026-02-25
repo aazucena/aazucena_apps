@@ -5,7 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { maintainerApplicationSchema, type MaintainerApplicationFormData } from '../../schemas/index.js';
+import {
+  maintainerApplicationSchema,
+  type MaintainerApplicationFormData,
+} from '../../schemas/index.js';
 import { ControlledInput, ControlledTextarea } from '../fields.js';
 import { FormButton } from '../../components/FormButton.js';
 import { FormErrorSummary } from '../../components/FormErrorSummary.js';
@@ -18,10 +21,21 @@ export interface MaintainerApplicationFormProps {
   defaultValues?: Partial<MaintainerApplicationFormData>;
 }
 
-const FOCUS_OPTIONS = ['code_review', 'bug_fixes', 'documentation', 'testing', 'triaging', 'releases'];
+const FOCUS_OPTIONS = [
+  'code_review',
+  'bug_fixes',
+  'documentation',
+  'testing',
+  'triaging',
+  'releases',
+];
 const FOCUS_LABELS: Record<string, string> = {
-  code_review: 'Code Review', bug_fixes: 'Bug Fixes', documentation: 'Documentation',
-  testing: 'Testing', triaging: 'Triaging', releases: 'Releases',
+  code_review: 'Code Review',
+  bug_fixes: 'Bug Fixes',
+  documentation: 'Documentation',
+  testing: 'Testing',
+  triaging: 'Triaging',
+  releases: 'Releases',
 };
 
 export function MaintainerApplicationForm({
@@ -57,7 +71,10 @@ export function MaintainerApplicationForm({
       form={form}
       variant={variant}
       className={cn('max-w-lg space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -119,12 +136,16 @@ export function MaintainerApplicationForm({
                       key={f}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((x) => x !== f) : [...selected, f];
+                        const next = isSelected
+                          ? selected.filter((x) => x !== f)
+                          : [...selected, f];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'rounded-full border px-3 py-1 text-xs font-medium transition-all',
-                        isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        isSelected
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {FOCUS_LABELS[f]}

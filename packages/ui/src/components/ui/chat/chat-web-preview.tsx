@@ -34,9 +34,7 @@ export interface WebPreviewData {
 }
 
 export interface ChatWebPreviewProps
-  extends
-    React.HTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof chatWebPreviewVariants> {
+  extends React.HTMLAttributes<HTMLAnchorElement>, VariantProps<typeof chatWebPreviewVariants> {
   url: string;
   previewData?: WebPreviewData; // Pre-fetched data
   placeholder?: React.ReactNode;
@@ -51,7 +49,7 @@ const ChatWebPreview = React.forwardRef<HTMLAnchorElement, ChatWebPreviewProps>(
       url,
       previewData,
       placeholder = (
-        <div className="flex h-24 items-center justify-center text-muted-foreground">
+        <div className="text-muted-foreground flex h-24 items-center justify-center">
           Loading preview...
         </div>
       ),
@@ -75,7 +73,6 @@ const ChatWebPreview = React.forwardRef<HTMLAnchorElement, ChatWebPreviewProps>(
         {data ? (
           <>
             {data.image && (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={data.image}
                 alt={data.title}
@@ -85,11 +82,10 @@ const ChatWebPreview = React.forwardRef<HTMLAnchorElement, ChatWebPreviewProps>(
             <div className="p-3">
               <h4 className="text-base font-semibold">{data.title}</h4>
               {data.description && (
-                <p className="line-clamp-2 text-sm text-muted-foreground">{data.description}</p>
+                <p className="text-muted-foreground line-clamp-2 text-sm">{data.description}</p>
               )}
-              <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="text-muted-foreground mt-2 flex items-center gap-2 text-xs">
                 {data.favicon && (
-                  // eslint-disable-next-line @next/next/no-img-element
                   <img src={data.favicon} alt="Favicon" className="h-4 w-4 shrink-0" />
                 )}
                 <span className="truncate">{new URL(data.url).hostname}</span>

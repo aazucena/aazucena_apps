@@ -15,12 +15,14 @@ import { Form, FormInstanceContext } from '@aazucena/ui';
 /**
  * createFormTestHarness
  * A utility for Vitest/Testing-Library that provides a fully-wrapped form environment.
- * 
+ *
  * @example
  * const { wrapper } = createFormTestHarness({ defaultValues: { name: '' } });
  * render(<MyField />, { wrapper });
  */
-export function createFormTestHarness<TData>(options: Partial<FormOptions<TData, any, any, any, any, any, any, any, any, any, any>> = {}) {
+export function createFormTestHarness<TData>(
+  options: Partial<FormOptions<TData, any, any, any, any, any, any, any, any, any, any>> = {},
+) {
   const TestWrapper = ({ children }: { children: React.ReactNode }) => {
     const form = useForm({
       validatorAdapter: zodValidator(),
@@ -29,7 +31,12 @@ export function createFormTestHarness<TData>(options: Partial<FormOptions<TData,
 
     return (
       <FormInstanceContext.Provider value={form}>
-        <Form onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+        >
           {children}
         </Form>
       </FormInstanceContext.Provider>

@@ -80,13 +80,13 @@ export function TokenAuthForm({
                     'flex flex-col items-start rounded-md border px-3 py-2 text-left transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   <span
                     className={cn(
                       'text-xs font-bold',
-                      field.state.value === value && 'text-primary'
+                      field.state.value === value && 'text-primary',
                     )}
                   >
                     {label}

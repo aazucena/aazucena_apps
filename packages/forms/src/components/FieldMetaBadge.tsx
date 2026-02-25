@@ -31,7 +31,7 @@ export function FieldMetaBadge({ name, className }: FieldMetaBadgeProps) {
   const isValidating = meta.isValidating;
 
   return (
-    <div className={cn("inline-flex items-center gap-1.5", className)}>
+    <div className={cn('inline-flex items-center gap-1.5', className)}>
       <AnimatePresence>
         {isValidating ? (
           <motion.div

@@ -24,9 +24,7 @@ const chatTaskVariants = cva(
 export type TaskStatus = 'todo' | 'in-progress' | 'done' | 'cancelled';
 
 export interface ChatTaskProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatTaskVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatTaskVariants> {
   task: {
     id: string;
     description: string;
@@ -52,16 +50,8 @@ const statusIconMap: Record<TaskStatus, React.ElementType> = {
 };
 
 const ChatTask = React.forwardRef<HTMLDivElement, ChatTaskProps>(
-  (
-    {
-      className,
-      variant,
-      task,
-      ...props
-    },
-    ref,
-  ) => {
-    const StatusIcon = statusIconMap[task.status];
+  ({ className, variant, task, ...props }, ref) => {
+    const StatusIcon = statusIconMap[task.status] as React.ComponentType<{ className?: string }>;
     return (
       <div ref={ref} className={cn(chatTaskVariants({ variant }), className)} {...props}>
         <div className="flex items-center gap-2 text-lg font-semibold">
@@ -69,9 +59,7 @@ const ChatTask = React.forwardRef<HTMLDivElement, ChatTaskProps>(
           <h4>{task.description}</h4>
         </div>
         <div className="flex flex-wrap gap-2 text-sm">
-          <Badge className={statusColorMap[task.status]}>
-            {task.status.replace('-', ' ')}
-          </Badge>
+          <Badge className={statusColorMap[task.status]}>{task.status.replace('-', ' ')}</Badge>
           {task.assignedTo && <Badge variant="secondary">Assigned: {task.assignedTo}</Badge>}
           {task.dueDate && <Badge variant="secondary">Due: {task.dueDate}</Badge>}
           {task.priority && (

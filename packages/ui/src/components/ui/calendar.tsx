@@ -24,7 +24,7 @@ const calendarVariants = cva('p-4 transition-all duration-300', {
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant'];
-  variant?: VariantProps<typeof calendarVariants>['variant']
+  variant?: VariantProps<typeof calendarVariants>['variant'];
 };
 
 function Calendar({

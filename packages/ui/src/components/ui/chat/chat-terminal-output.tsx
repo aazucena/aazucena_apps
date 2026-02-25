@@ -23,9 +23,7 @@ const chatTerminalOutputVariants = cva(
 );
 
 export interface ChatTerminalOutputProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatTerminalOutputVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatTerminalOutputVariants> {
   output: string;
   title?: string;
   language?: string; // For CodeBlock highlighting
@@ -48,10 +46,13 @@ const ChatTerminalOutput = React.forwardRef<HTMLDivElement, ChatTerminalOutputPr
     return (
       <div ref={ref} className={cn(chatTerminalOutputVariants({ variant }), className)} {...props}>
         <div className="flex items-center gap-2">
-          <Terminal className="h-5 w-5 text-muted-foreground" />
+          <Terminal className="text-muted-foreground h-5 w-5" />
           <h3 className="font-semibold">{title}</h3>
         </div>
-        <ScrollArea style={{ maxHeight }} className="rounded-md border bg-black p-3 font-mono text-xs">
+        <ScrollArea
+          style={{ maxHeight }}
+          className="rounded-md border bg-black p-3 font-mono text-xs"
+        >
           <CodeBlock code={output} language={language} className="p-0 text-white" />
         </ScrollArea>
       </div>

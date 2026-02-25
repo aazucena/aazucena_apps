@@ -21,9 +21,7 @@ const chatImageVariants = cva(
 );
 
 export interface ChatImageProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatImageVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatImageVariants> {
   src: string;
   alt: string;
   caption?: string;
@@ -50,14 +48,13 @@ const ChatImage = React.forwardRef<HTMLDivElement, ChatImageProps>(
     const content = (
       <>
         {/* Next.js Image component */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt}
           className="h-auto w-full rounded-md object-cover"
           style={{ maxWidth: width, maxHeight: height }}
         />
-        {caption && <p className="text-sm text-muted-foreground">{caption}</p>}
+        {caption && <p className="text-muted-foreground text-sm">{caption}</p>}
       </>
     );
 
@@ -74,7 +71,6 @@ const ChatImage = React.forwardRef<HTMLDivElement, ChatImageProps>(
               </div>
             </DialogTrigger>
             <DialogContent className="max-w-[calc(100vw-40px)] p-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={src} alt={alt} className="max-h-[calc(100vh-40px)] object-contain" />
             </DialogContent>
           </Dialog>

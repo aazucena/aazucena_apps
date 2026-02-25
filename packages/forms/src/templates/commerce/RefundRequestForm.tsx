@@ -68,7 +68,10 @@ export function RefundRequestForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -94,12 +97,16 @@ export function RefundRequestForm({
                       key={item}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((x) => x !== item) : [...selected, item];
+                        const next = isSelected
+                          ? selected.filter((x) => x !== item)
+                          : [...selected, item];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'rounded-full border px-3 py-1 text-xs font-medium transition-all',
-                        isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        isSelected
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {item}
@@ -124,7 +131,9 @@ export function RefundRequestForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -138,7 +147,11 @@ export function RefundRequestForm({
       <form.Subscribe selector={(state: any) => state.values.reason}>
         {(reason) =>
           reason === 'other' ? (
-            <ControlledTextarea name="reasonDetail" label="Details" placeholder="Please explain the issue…" />
+            <ControlledTextarea
+              name="reasonDetail"
+              label="Details"
+              placeholder="Please explain the issue…"
+            />
           ) : null
         }
       </form.Subscribe>
@@ -155,7 +168,9 @@ export function RefundRequestForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

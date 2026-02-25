@@ -31,9 +31,7 @@ export interface Artifact {
 }
 
 export interface ChatArtifactProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatArtifactVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatArtifactVariants> {
   artifacts: Artifact[];
   title?: string;
   emptyMessage?: string;
@@ -62,11 +60,13 @@ const ChatArtifact = React.forwardRef<HTMLDivElement, ChatArtifactProps>(
       <div ref={ref} className={cn(chatArtifactVariants({ variant }), className)} {...props}>
         {title && <h3 className="text-lg font-semibold">{title}</h3>}
         {artifacts.length === 0 && (
-          <p className="text-center text-sm text-muted-foreground">{emptyMessage}</p>
+          <p className="text-muted-foreground text-center text-sm">{emptyMessage}</p>
         )}
         <ul className="flex flex-col gap-2">
-          {artifacts.map(artifact => {
-            const Icon = typeIconMap[artifact.type] || Download;
+          {artifacts.map((artifact) => {
+            const Icon = (typeIconMap[artifact.type] || Download) as React.ComponentType<{
+              className?: string;
+            }>;
             return (
               <li key={artifact.id} className="flex items-start gap-3">
                 <a
@@ -74,7 +74,7 @@ const ChatArtifact = React.forwardRef<HTMLDivElement, ChatArtifactProps>(
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    'flex items-center gap-2 rounded-md border p-2 text-sm font-medium transition-colors duration-200 hover:bg-muted/50',
+                    'hover:bg-muted/50 flex items-center gap-2 rounded-md border p-2 text-sm font-medium transition-colors duration-200',
                     variant === 'cyber' && 'border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10',
                     variant === 'glass' && 'border-input/20 hover:bg-white/10',
                   )}
@@ -83,9 +83,7 @@ const ChatArtifact = React.forwardRef<HTMLDivElement, ChatArtifactProps>(
                   <div className="flex flex-col">
                     <span className="truncate">{artifact.name}</span>
                     {artifact.description && (
-                      <span className="text-xs text-muted-foreground">
-                        {artifact.description}
-                      </span>
+                      <span className="text-muted-foreground text-xs">{artifact.description}</span>
                     )}
                   </div>
                 </a>

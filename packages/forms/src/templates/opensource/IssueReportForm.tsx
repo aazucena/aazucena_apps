@@ -34,8 +34,11 @@ const REPRODUCIBILITY_OPTIONS = [
 
 const LABEL_OPTIONS = ['bug', 'enhancement', 'documentation', 'good_first_issue', 'help_wanted'];
 const LABEL_DISPLAY: Record<string, string> = {
-  bug: 'bug', enhancement: 'enhancement', documentation: 'documentation',
-  good_first_issue: 'good first issue', help_wanted: 'help wanted',
+  bug: 'bug',
+  enhancement: 'enhancement',
+  documentation: 'documentation',
+  good_first_issue: 'good first issue',
+  help_wanted: 'help wanted',
 };
 
 export function IssueReportForm({
@@ -85,7 +88,9 @@ export function IssueReportForm({
                       onClick={() => field.handleChange(value)}
                       className={cn(
                         'rounded-full border px-3 py-1.5 text-xs font-medium transition-all',
-                        field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        field.state.value === value
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {label}
@@ -95,8 +100,20 @@ export function IssueReportForm({
               )}
             </form.Field>
           </div>
-          <ControlledInput name="title" label="Title" placeholder="Brief description of the issue" required validators={{ onChange: issueReportSchema.shape.title }} />
-          <ControlledTextarea name="description" label="Description" placeholder="Provide a clear and detailed description…" required validators={{ onChange: issueReportSchema.shape.description }} />
+          <ControlledInput
+            name="title"
+            label="Title"
+            placeholder="Brief description of the issue"
+            required
+            validators={{ onChange: issueReportSchema.shape.title }}
+          />
+          <ControlledTextarea
+            name="description"
+            label="Description"
+            placeholder="Provide a clear and detailed description…"
+            required
+            validators={{ onChange: issueReportSchema.shape.description }}
+          />
         </div>
       ),
     },
@@ -117,7 +134,9 @@ export function IssueReportForm({
                       onClick={() => field.handleChange(value)}
                       className={cn(
                         'flex-1 rounded-md border px-2 py-1.5 text-xs font-medium transition-all',
-                        field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        field.state.value === value
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {label}
@@ -147,12 +166,16 @@ export function IssueReportForm({
                           key={l}
                           type="button"
                           onClick={() => {
-                            const next = isSelected ? selected.filter((x) => x !== l) : [...selected, l];
+                            const next = isSelected
+                              ? selected.filter((x) => x !== l)
+                              : [...selected, l];
                             field.handleChange(next);
                           }}
                           className={cn(
                             'rounded-full border px-3 py-1 text-xs font-medium transition-all',
-                            isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                            isSelected
+                              ? 'border-primary bg-primary/10 text-primary'
+                              : 'border-border hover:border-primary/50',
                           )}
                         >
                           {LABEL_DISPLAY[l]}
@@ -170,8 +193,19 @@ export function IssueReportForm({
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

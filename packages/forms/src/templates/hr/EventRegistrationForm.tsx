@@ -47,13 +47,42 @@ export function EventRegistrationForm({
   } as any);
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-md space-y-4', className)} onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-md space-y-4', className)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <FormErrorSummary />
-      <ControlledInput name="name" label="Full Name" placeholder="Aldrin Azucena" required validators={{ onChange: eventRegistrationSchema.shape.name }} />
-      <ControlledInput name="email" label="Email" type="email" placeholder="you@example.com" required validators={{ onChange: eventRegistrationSchema.shape.email }} />
+      <ControlledInput
+        name="name"
+        label="Full Name"
+        placeholder="Aldrin Azucena"
+        required
+        validators={{ onChange: eventRegistrationSchema.shape.name }}
+      />
+      <ControlledInput
+        name="email"
+        label="Email"
+        type="email"
+        placeholder="you@example.com"
+        required
+        validators={{ onChange: eventRegistrationSchema.shape.email }}
+      />
       <ControlledInput name="organization" label="Organization" placeholder="Optional" />
-      <ControlledInput name="dietaryRequirements" label="Dietary Requirements" placeholder="Vegetarian, Gluten-free, etc." />
-      <ControlledInput name="emergencyContact" label="Emergency Contact" placeholder="Name and phone number" />
+      <ControlledInput
+        name="dietaryRequirements"
+        label="Dietary Requirements"
+        placeholder="Vegetarian, Gluten-free, etc."
+      />
+      <ControlledInput
+        name="emergencyContact"
+        label="Emergency Contact"
+        placeholder="Name and phone number"
+      />
       <FormButton className="w-full">Register</FormButton>
     </Form>
   );

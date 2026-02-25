@@ -3,7 +3,15 @@
 import * as React from 'react';
 import { useForm, type FormApi, type FormOptions } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
-import { FormInstanceContext, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from '@aazucena/ui';
+import {
+  FormInstanceContext,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  FormDescription,
+} from '@aazucena/ui';
 import { FormGateContext } from '../components/FormGate.js';
 
 /**
@@ -35,8 +43,14 @@ export function useFormInstance<TData = any>() {
  * createFormHook
  * Creates a pre-configured version of the useForm hook with shared defaults.
  */
-export function createFormHook<TData>(defaultOptions: Partial<FormOptions<TData, any, any, any, any, any, any, any, any, any, any>> = {}) {
-  return (options?: Partial<FormOptions<TData, any, any, any, any, any, any, any, any, any, any>>) => {
+export function createFormHook<TData>(
+  defaultOptions: Partial<
+    FormOptions<TData, any, any, any, any, any, any, any, any, any, any>
+  > = {},
+) {
+  return (
+    options?: Partial<FormOptions<TData, any, any, any, any, any, any, any, any, any, any>>,
+  ) => {
     return useForm({
       validatorAdapter: zodValidator(),
       ...defaultOptions,
@@ -50,20 +64,31 @@ export function createFormHook<TData>(defaultOptions: Partial<FormOptions<TData,
  * Creates a specialized FormProvider and useFormInstance hook for a specific data type.
  */
 export function createFormHookContexts<TData>() {
-  const Context = React.createContext<FormApi<TData, any, any, any, any, any, any, any, any, any, any, any> | null>(null);
+  const Context = React.createContext<FormApi<
+    TData,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any
+  > | null>(null);
 
-  const FormProvider = ({ 
-    form, 
-    children 
-  }: { 
-    form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>; 
-    children: React.ReactNode 
+  const FormProvider = ({
+    form,
+    children,
+  }: {
+    form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>;
+    children: React.ReactNode;
   }) => {
     return (
       <Context.Provider value={form}>
-        <FormInstanceContext.Provider value={form}>
-          {children}
-        </FormInstanceContext.Provider>
+        <FormInstanceContext.Provider value={form}>{children}</FormInstanceContext.Provider>
       </Context.Provider>
     );
   };
@@ -104,7 +129,7 @@ export function useFormRevert() {
  */
 export function useFormStoreSync<TData>(
   form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>,
-  store: { set: (val: TData) => void }
+  store: { set: (val: TData) => void },
 ) {
   React.useEffect(() => {
     const unsubscribe = form.store.subscribe(() => {
@@ -121,7 +146,7 @@ export function useFormStoreSync<TData>(
 export function useFormReduxSync<TData>(
   form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>,
   dispatch: (action: any) => void,
-  actionCreator: (values: TData) => any
+  actionCreator: (values: TData) => any,
 ) {
   React.useEffect(() => {
     const unsubscribe = form.store.subscribe(() => {
@@ -138,10 +163,13 @@ export function useFormReduxSync<TData>(
 export function useFieldDependency<TSource, TTarget>(
   sourceName: string,
   targetName: string,
-  effectFn: (sourceValue: TSource, form: FormApi<any, any, any, any, any, any, any, any, any, any, any, any>) => void
+  effectFn: (
+    sourceValue: TSource,
+    form: FormApi<any, any, any, any, any, any, any, any, any, any, any, any>,
+  ) => void,
 ) {
   const form = useFormInstance();
-  
+
   React.useEffect(() => {
     const unsubscribe = form.store.subscribe(() => {
       const sourceValue = form.getFieldValue(sourceName as any);
@@ -158,9 +186,9 @@ export function useFieldDependency<TSource, TTarget>(
  * A HOC factory that turns any UI primitive into a TanStack-controlled form component.
  * Supports path scoping via FormScope and auth gating via FormGate.
  */
-export function createControlledField<TProps extends { value: any; onChange: any; onBlur?: any; disabled?: boolean }>(
-  Component: React.ComponentType<TProps>
-) {
+export function createControlledField<
+  TProps extends { value: any; onChange: any; onBlur?: any; disabled?: boolean },
+>(Component: React.ComponentType<TProps>) {
   return function ControlledField({
     name,
     label,
@@ -211,21 +239,11 @@ export function createControlledField<TProps extends { value: any; onChange: any
  * FormScope
  * Provides a path prefix context for child fields, simplifying nested form structures.
  */
-export function FormScope({ 
-  path, 
-  children 
-}: { 
-  path: string; 
-  children: React.ReactNode 
-}) {
+export function FormScope({ path, children }: { path: string; children: React.ReactNode }) {
   const parentScope = React.useContext(FormScopeContext);
   const currentScope = parentScope ? `${parentScope}.${path}` : path;
 
-  return (
-    <FormScopeContext.Provider value={currentScope}>
-      {children}
-    </FormScopeContext.Provider>
-  );
+  return <FormScopeContext.Provider value={currentScope}>{children}</FormScopeContext.Provider>;
 }
 
 /**
@@ -236,7 +254,7 @@ export function FormScope({
 export function useFormInitialSync<TData>(
   form: FormApi<TData, any, any, any, any, any, any, any, any, any, any, any>,
   data: TData | undefined,
-  enabled = true
+  enabled = true,
 ) {
   React.useEffect(() => {
     if (!enabled || !data) return;

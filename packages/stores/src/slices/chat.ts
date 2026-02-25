@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { AI_Conversation, AI_TerminalMessage } from '@aazucena/types';
 
 interface ChatState {

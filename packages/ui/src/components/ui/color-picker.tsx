@@ -47,9 +47,21 @@ const swatchVariants = cva(
 );
 
 const DEFAULT_SWATCHES = [
-  '#ef4444', '#f97316', '#f59e0b', '#22c55e', '#10b981', 
-  '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef',
-  '#f43f5e', '#71717a', '#000000', '#ffffff', '#transparent'
+  '#ef4444',
+  '#f97316',
+  '#f59e0b',
+  '#22c55e',
+  '#10b981',
+  '#06b6d4',
+  '#3b82f6',
+  '#6366f1',
+  '#8b5cf6',
+  '#d946ef',
+  '#f43f5e',
+  '#71717a',
+  '#000000',
+  '#ffffff',
+  '#transparent',
 ];
 
 export interface ColorPickerProps
@@ -94,16 +106,23 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
               type="button"
               disabled={disabled}
               className={cn(swatchVariants({ variant: v, size: s }))}
-              style={{ backgroundColor: value === 'transparent' ? 'transparent' : value, backgroundImage: value === 'transparent' ? 'linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)' : undefined, backgroundSize: '10px 10px', backgroundPosition: '0 0, 0 5px, 5px -5px, -5px 0px' }}
+              style={{
+                backgroundColor: value === 'transparent' ? 'transparent' : value,
+                backgroundImage:
+                  value === 'transparent'
+                    ? 'linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)'
+                    : undefined,
+                backgroundSize: '10px 10px',
+                backgroundPosition: '0 0, 0 5px, 5px -5px, -5px 0px',
+              }}
               aria-label="Choose color"
             />
           </PopoverTrigger>
-          <PopoverContent 
-            variant={v} 
-            className="w-64 space-y-4 p-4 bg-background"
-          >
+          <PopoverContent variant={v} className="bg-background w-64 space-y-4 p-4">
             <div className="space-y-2">
-              <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Presets</Label>
+              <Label className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
+                Presets
+              </Label>
               <div className="grid grid-cols-5 gap-2">
                 {swatches.map((c) => (
                   <button
@@ -112,30 +131,40 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                     onClick={() => handleColorChange(c)}
                     className={cn(
                       'group relative h-8 w-8 rounded-md border transition-all hover:scale-110 active:scale-95',
-                      c === value ? 'ring-2 ring-primary ring-offset-2' : 'border-border/50 hover:border-primary/50'
+                      c === value
+                        ? 'ring-primary ring-2 ring-offset-2'
+                        : 'border-border/50 hover:border-primary/50',
                     )}
-                    style={{ 
+                    style={{
                       backgroundColor: c === 'transparent' ? 'transparent' : c,
-                      backgroundImage: c === 'transparent' ? 'linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%)' : undefined,
-                      backgroundSize: '8px 8px'
+                      backgroundImage:
+                        c === 'transparent'
+                          ? 'linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%)'
+                          : undefined,
+                      backgroundSize: '8px 8px',
                     }}
                     title={c}
                   >
                     {c === value && (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className={cn("h-1.5 w-1.5 rounded-full", (c === '#ffffff' || c === 'transparent') ? 'bg-black' : 'bg-white')} />
+                        <div
+                          className={cn(
+                            'h-1.5 w-1.5 rounded-full',
+                            c === '#ffffff' || c === 'transparent' ? 'bg-black' : 'bg-white',
+                          )}
+                        />
                       </div>
                     )}
                   </button>
                 ))}
-                
+
                 {/* Custom Color Trigger */}
                 <label
                   htmlFor={nativePickerId}
-                  className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-dashed border-muted-foreground/40 transition-all hover:border-primary hover:bg-muted/50"
+                  className="border-muted-foreground/40 hover:border-primary hover:bg-muted/50 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-dashed transition-all"
                   title="Custom Color"
                 >
-                  <Plus className="h-4 w-4 text-muted-foreground" />
+                  <Plus className="text-muted-foreground h-4 w-4" />
                   <input
                     id={nativePickerId}
                     type="color"
@@ -147,15 +176,20 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
               </div>
             </div>
 
-            <div className="space-y-2 pt-2 border-t">
+            <div className="space-y-2 border-t pt-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="hex-input" className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">HEX Code</Label>
-                <Paint className="h-3 w-3 text-muted-foreground" />
+                <Label
+                  htmlFor="hex-input"
+                  className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase"
+                >
+                  HEX Code
+                </Label>
+                <Paint className="text-muted-foreground h-3 w-3" />
               </div>
               <div className="flex gap-2">
-                <div 
-                  className="h-9 w-9 shrink-0 rounded-md border" 
-                  style={{ backgroundColor: value }} 
+                <div
+                  className="h-9 w-9 shrink-0 rounded-md border"
+                  style={{ backgroundColor: value }}
                 />
                 <Input
                   id="hex-input"
@@ -180,7 +214,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
               'w-28 font-mono text-xs uppercase',
               v === 'cyber' ? 'h-9' : '',
               size === 'sm' && 'h-8 w-24',
-              size === 'lg' && 'h-10 w-32'
+              size === 'lg' && 'h-10 w-32',
             )}
           />
         )}

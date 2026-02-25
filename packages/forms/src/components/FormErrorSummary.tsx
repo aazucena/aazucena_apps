@@ -27,9 +27,9 @@ export interface FormErrorSummaryProps {
  * A high-visibility block that aggregates all current form validation errors.
  * Best used at the top of long forms to provide immediate feedback.
  */
-export function FormErrorSummary({ 
-  className, 
-  title = 'System_Validation_Failure' 
+export function FormErrorSummary({
+  className,
+  title = 'System_Validation_Failure',
 }: FormErrorSummaryProps) {
   const form = useFormInstance() as any;
 
@@ -41,7 +41,7 @@ export function FormErrorSummary({
           .filter(([_, meta]) => (meta as any).errors.length > 0)
           .map(([name, meta]) => ({
             field: name,
-            message: (meta as any).errors[0]
+            message: (meta as any).errors[0],
           }));
       }}
     >
@@ -53,8 +53,8 @@ export function FormErrorSummary({
               animate={{ opacity: 1, height: 'auto', scale: 1 }}
               exit={{ opacity: 0, height: 0, scale: 0.95 }}
               className={cn(
-                "mb-6 overflow-hidden rounded-xl border border-destructive/20 bg-destructive/5 p-4",
-                className
+                'mb-6 overflow-hidden rounded-xl border border-destructive/20 bg-destructive/5 p-4',
+                className,
               )}
             >
               <div className="flex items-center gap-2 mb-3 text-destructive">
@@ -63,7 +63,7 @@ export function FormErrorSummary({
                   {title} ({errors.length})
                 </h4>
               </div>
-              
+
               <ul className="space-y-1.5 pl-6 list-disc">
                 {errors.map((err: any) => (
                   <li key={err.field} className="text-xs text-destructive/80 font-medium">

@@ -44,7 +44,15 @@ export function ConsentForm({
   } as any);
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-md space-y-6', className)} onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-md space-y-6', className)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <div className="space-y-4 rounded-xl border border-border p-4">
         <ControlledSwitch
           name="functionalConsent"

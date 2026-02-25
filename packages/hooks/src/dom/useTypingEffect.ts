@@ -12,10 +12,7 @@ export interface UseTypingEffectOptions {
 /**
  * A hook that simulates a typing effect for a given string.
  */
-export function useTypingEffect(
-  text: string,
-  options: UseTypingEffectOptions = {}
-): string {
+export function useTypingEffect(text: string, options: UseTypingEffectOptions = {}): string {
   const { delay = 50, enabled = true, onComplete } = options;
   const [displayedText, setDisplayedText] = useState(enabled ? '' : text);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);

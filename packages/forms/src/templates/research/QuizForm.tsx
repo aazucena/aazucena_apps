@@ -76,14 +76,27 @@ export function QuizForm({
             </form.Field>
           ))}
         </div>
-        <p className="text-xs text-muted-foreground">{q.points} pt{q.points !== 1 ? 's' : ''}</p>
+        <p className="text-xs text-muted-foreground">
+          {q.points} pt{q.points !== 1 ? 's' : ''}
+        </p>
       </div>
     ),
   }));
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

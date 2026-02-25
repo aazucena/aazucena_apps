@@ -77,7 +77,9 @@ export function PrivacySettingsForm({
 
       <div className="space-y-2">
         <p className="text-sm font-semibold">Profile Visibility</p>
-        <p className="text-xs text-muted-foreground">Control who can discover and view your profile</p>
+        <p className="text-xs text-muted-foreground">
+          Control who can discover and view your profile
+        </p>
         <form.Field name="profileVisibility">
           {(field) => (
             <div className="grid grid-cols-3 gap-2">
@@ -90,13 +92,13 @@ export function PrivacySettingsForm({
                     'flex flex-col items-start rounded-md border px-3 py-2.5 text-left transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   <span
                     className={cn(
                       'text-xs font-bold',
-                      field.state.value === value && 'text-primary'
+                      field.state.value === value && 'text-primary',
                     )}
                   >
                     {label}

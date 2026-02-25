@@ -67,7 +67,10 @@ export function RecurringSessionForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -83,7 +86,9 @@ export function RecurringSessionForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'rounded-full border px-3 py-1.5 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -95,8 +100,20 @@ export function RecurringSessionForm({
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="startDate" label="Start Date" type="date" required validators={{ onChange: recurringSessionSchema.shape.startDate }} />
-        <ControlledInput name="time" label="Time" type="time" required validators={{ onChange: recurringSessionSchema.shape.time }} />
+        <ControlledInput
+          name="startDate"
+          label="Start Date"
+          type="date"
+          required
+          validators={{ onChange: recurringSessionSchema.shape.startDate }}
+        />
+        <ControlledInput
+          name="time"
+          label="Time"
+          type="time"
+          required
+          validators={{ onChange: recurringSessionSchema.shape.time }}
+        />
       </div>
 
       <div className="space-y-2">
@@ -111,7 +128,9 @@ export function RecurringSessionForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -149,7 +168,11 @@ export function RecurringSessionForm({
         validators={{ onChange: recurringSessionSchema.shape.participants }}
       />
 
-      <ControlledTextarea name="notes" label="Notes" placeholder="Any recurring agenda items or notes…" />
+      <ControlledTextarea
+        name="notes"
+        label="Notes"
+        placeholder="Any recurring agenda items or notes…"
+      />
 
       <FormButton className="w-full">Schedule Sessions</FormButton>
     </Form>

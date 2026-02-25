@@ -25,12 +25,20 @@ function getScoreColor(score: number): string {
 }
 
 function getScoreInactiveColor(score: number): string {
-  if (score >= 9) return 'border-green-200 text-green-700 hover:border-green-400 dark:border-green-800 dark:text-green-400';
-  if (score >= 7) return 'border-yellow-200 text-yellow-700 hover:border-yellow-400 dark:border-yellow-800 dark:text-yellow-400';
+  if (score >= 9)
+    return 'border-green-200 text-green-700 hover:border-green-400 dark:border-green-800 dark:text-green-400';
+  if (score >= 7)
+    return 'border-yellow-200 text-yellow-700 hover:border-yellow-400 dark:border-yellow-800 dark:text-yellow-400';
   return 'border-red-200 text-red-700 hover:border-red-400 dark:border-red-800 dark:text-red-400';
 }
 
-export function NPSForm({ variant = 'default', onSuccess, onError, className, defaultValues }: NPSFormProps) {
+export function NPSForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: NPSFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -43,7 +51,11 @@ export function NPSForm({ variant = 'default', onSuccess, onError, className, de
       ...defaultValues,
     } as NPSFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(npsSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(npsSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -52,7 +64,10 @@ export function NPSForm({ variant = 'default', onSuccess, onError, className, de
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -60,7 +75,9 @@ export function NPSForm({ variant = 'default', onSuccess, onError, className, de
       <div className="space-y-2">
         <p className="text-sm font-medium">
           How likely are you to recommend us?{' '}
-          <span className="text-muted-foreground font-normal">(0 = Not at all, 10 = Extremely likely)</span>
+          <span className="text-muted-foreground font-normal">
+            (0 = Not at all, 10 = Extremely likely)
+          </span>
         </p>
         <form.Field name="score" validators={{ onChange: npsSchema.shape.score }}>
           {(field) => (
@@ -74,7 +91,7 @@ export function NPSForm({ variant = 'default', onSuccess, onError, className, de
                     onClick={() => field.handleChange(n)}
                     className={cn(
                       'flex-1 rounded-md border py-2 text-xs font-semibold transition-all',
-                      isActive ? getScoreColor(n) : `bg-background ${getScoreInactiveColor(n)}`
+                      isActive ? getScoreColor(n) : `bg-background ${getScoreInactiveColor(n)}`,
                     )}
                   >
                     {n}

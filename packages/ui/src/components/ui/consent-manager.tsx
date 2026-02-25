@@ -4,7 +4,14 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Button } from './button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './dialog'; // Assuming Dialog components are available
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from './dialog'; // Assuming Dialog components are available
 import { Checkbox } from './checkbox'; // Assuming Checkbox is available
 
 const consentManagerVariants = cva(
@@ -31,9 +38,7 @@ export interface ConsentCategory {
 }
 
 export interface ConsentManagerProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof consentManagerVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof consentManagerVariants> {
   appName: string;
   policyLink: string;
   categories: ConsentCategory[];
@@ -66,7 +71,7 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
         const loadedPreferences = JSON.parse(stored);
         setPreferences(loadedPreferences);
         // If consent is already given, do not open the banner
-        if (Object.values(loadedPreferences).some(val => val)) {
+        if (Object.values(loadedPreferences).some((val) => val)) {
           setIsOpen(false);
         } else {
           setIsOpen(true);
@@ -80,10 +85,10 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
     React.useEffect(() => {
       // Initialize preferences from initialCategories, prioritizing required ones
       const initialPrefs: Record<string, boolean> = {};
-      initialCategories.forEach(cat => {
+      initialCategories.forEach((cat) => {
         initialPrefs[cat.id] = cat.required || cat.checked || false;
       });
-      setPreferences(prev => ({ ...initialPrefs, ...prev }));
+      setPreferences((prev) => ({ ...initialPrefs, ...prev }));
     }, [initialCategories]);
 
     const savePreferences = (prefs: Record<string, boolean>) => {
@@ -94,7 +99,7 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
 
     const handleAcceptAll = () => {
       const allAccepted: Record<string, boolean> = {};
-      initialCategories.forEach(cat => (allAccepted[cat.id] = true));
+      initialCategories.forEach((cat) => (allAccepted[cat.id] = true));
       savePreferences(allAccepted);
       setIsOpen(false);
       setIsCustomizing(false);
@@ -102,7 +107,7 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
 
     const handleRejectAll = () => {
       const allRejected: Record<string, boolean> = {};
-      initialCategories.forEach(cat => (allRejected[cat.id] = cat.required || false)); // Keep required ones
+      initialCategories.forEach((cat) => (allRejected[cat.id] = cat.required || false)); // Keep required ones
       savePreferences(allRejected);
       setIsOpen(false);
       setIsCustomizing(false);
@@ -115,7 +120,7 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
     };
 
     const handleToggleCategory = (id: string, checked: boolean) => {
-      setPreferences(prev => ({ ...prev, [id]: checked }));
+      setPreferences((prev) => ({ ...prev, [id]: checked }));
     };
 
     if (!isOpen && !isCustomizing) return null; // Render nothing if closed and not customizing
@@ -132,8 +137,17 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
           >
             <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-between gap-4 md:flex-row">
               <p className="text-sm">
-                We use cookies and other tracking technologies to improve your browsing experience on our website, to show you personalized content and targeted ads, to analyze our website traffic, and to understand where our visitors are coming from. By browsing our website, you consent to our use of cookies and other tracking technologies. Check our{' '}
-                <a href={policyLink} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                We use cookies and other tracking technologies to improve your browsing experience
+                on our website, to show you personalized content and targeted ads, to analyze our
+                website traffic, and to understand where our visitors are coming from. By browsing
+                our website, you consent to our use of cookies and other tracking technologies.
+                Check our{' '}
+                <a
+                  href={policyLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
                   Privacy Policy
                 </a>{' '}
                 for more details.
@@ -142,7 +156,11 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
                 <Button onClick={handleAcceptAll} className="w-full md:w-auto">
                   Accept All
                 </Button>
-                <Button onClick={() => setIsCustomizing(true)} variant="outline" className="w-full md:w-auto">
+                <Button
+                  onClick={() => setIsCustomizing(true)}
+                  variant="outline"
+                  className="w-full md:w-auto"
+                >
                   Customize
                 </Button>
                 <Button onClick={handleRejectAll} variant="secondary" className="w-full md:w-auto">
@@ -159,19 +177,25 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
             <DialogHeader>
               <DialogTitle>Customize Consent</DialogTitle>
               <DialogDescription>
-                Manage your consent preferences for {appName}. You can change these settings at any time.
+                Manage your consent preferences for {appName}. You can change these settings at any
+                time.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
-              {initialCategories.map(category => (
+              {initialCategories.map((category) => (
                 <div key={category.id} className="flex items-center space-x-2">
                   <Checkbox
                     id={category.id}
                     checked={preferences[category.id]}
-                    onCheckedChange={(checked) => handleToggleCategory(category.id, checked === true)}
+                    onCheckedChange={(checked) =>
+                      handleToggleCategory(category.id, checked === true)
+                    }
                     disabled={category.required}
                   />
-                  <label htmlFor={category.id} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  <label
+                    htmlFor={category.id}
+                    className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
                     {category.name} {category.required && '(Required)'}
                   </label>
                 </div>

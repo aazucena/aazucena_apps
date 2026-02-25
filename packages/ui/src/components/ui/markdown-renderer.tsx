@@ -59,7 +59,7 @@ marked.use({
     code(token: Tokens.Code): string {
       return highlighter.codeToHtml(token.text, {
         lang: token.lang || 'text',
-        theme: 'github-dark'
+        theme: 'github-dark',
       });
     },
     codespan(token: Tokens.Codespan): string {

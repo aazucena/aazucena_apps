@@ -56,7 +56,10 @@ export function SubscriptionChangeForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -72,10 +75,19 @@ export function SubscriptionChangeForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex flex-col items-start rounded-lg border px-4 py-3 text-left transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
-                  <span className={cn('text-sm font-bold', field.state.value === value && 'text-primary')}>{label}</span>
+                  <span
+                    className={cn(
+                      'text-sm font-bold',
+                      field.state.value === value && 'text-primary',
+                    )}
+                  >
+                    {label}
+                  </span>
                   <span className="text-[11px] text-muted-foreground">{description}</span>
                 </button>
               ))}
@@ -94,7 +106,9 @@ export function SubscriptionChangeForm({
                 onClick={() => field.handleChange('monthly')}
                 className={cn(
                   'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                  field.state.value === 'monthly' ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                  field.state.value === 'monthly'
+                    ? 'border-primary bg-primary/10 text-primary'
+                    : 'border-border hover:border-primary/50',
                 )}
               >
                 Monthly
@@ -104,7 +118,9 @@ export function SubscriptionChangeForm({
                 onClick={() => field.handleChange('annual')}
                 className={cn(
                   'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                  field.state.value === 'annual' ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                  field.state.value === 'annual'
+                    ? 'border-primary bg-primary/10 text-primary'
+                    : 'border-border hover:border-primary/50',
                 )}
               >
                 Annual <span className="text-green-500 font-bold">Save 20%</span>
@@ -119,17 +135,21 @@ export function SubscriptionChangeForm({
         <form.Field name="effectiveDate">
           {(field) => (
             <div className="flex gap-2">
-              {([
-                { value: 'immediate', label: 'Immediately' },
-                { value: 'next_cycle', label: 'Next Billing Cycle' },
-              ] as const).map(({ value, label }) => (
+              {(
+                [
+                  { value: 'immediate', label: 'Immediately' },
+                  { value: 'next_cycle', label: 'Next Billing Cycle' },
+                ] as const
+              ).map(({ value, label }) => (
                 <button
                   key={value}
                   type="button"
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

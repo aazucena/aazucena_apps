@@ -21,8 +21,7 @@ const infiniteCanvasVariants = cva(
 );
 
 export interface InfiniteCanvasProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof infiniteCanvasVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof infiniteCanvasVariants> {
   width: number;
   height: number;
   minZoom?: number;
@@ -119,23 +118,26 @@ const InfiniteCanvas = React.forwardRef<HTMLDivElement, InfiniteCanvasProps>(
       isPanning.current = false;
     }, []);
 
-    const handleWheel = React.useCallback((e: React.WheelEvent) => {
-      e.preventDefault();
-      const scaleAmount = 1.1;
-      const mouseX = e.clientX - canvasRef.current!.getBoundingClientRect().left;
-      const mouseY = e.clientY - canvasRef.current!.getBoundingClientRect().top;
+    const handleWheel = React.useCallback(
+      (e: React.WheelEvent) => {
+        e.preventDefault();
+        const scaleAmount = 1.1;
+        const mouseX = e.clientX - canvasRef.current!.getBoundingClientRect().left;
+        const mouseY = e.clientY - canvasRef.current!.getBoundingClientRect().top;
 
-      const newZoom = e.deltaY < 0 ? zoom * scaleAmount : zoom / scaleAmount;
-      const clampedZoom = Math.max(minZoom, Math.min(maxZoom, newZoom));
+        const newZoom = e.deltaY < 0 ? zoom * scaleAmount : zoom / scaleAmount;
+        const clampedZoom = Math.max(minZoom, Math.min(maxZoom, newZoom));
 
-      // Calculate new pan to zoom around mouse position
-      const newPanX = mouseX - (mouseX - panX) * (clampedZoom / zoom);
-      const newPanY = mouseY - (mouseY - panY) * (clampedZoom / zoom);
+        // Calculate new pan to zoom around mouse position
+        const newPanX = mouseX - (mouseX - panX) * (clampedZoom / zoom);
+        const newPanY = mouseY - (mouseY - panY) * (clampedZoom / zoom);
 
-      setZoom(clampedZoom);
-      setPanX(newPanX);
-      setPanY(newPanY);
-    }, [zoom, panX, panY, minZoom, maxZoom]);
+        setZoom(clampedZoom);
+        setPanX(newPanX);
+        setPanY(newPanY);
+      },
+      [zoom, panX, panY, minZoom, maxZoom],
+    );
 
     return (
       <div
@@ -157,7 +159,7 @@ const InfiniteCanvas = React.forwardRef<HTMLDivElement, InfiniteCanvasProps>(
         />
         {/* Render children as overlay for interactive elements */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="pointer-events-none absolute inset-0"
           style={{
             transform: `translate(${panX}px, ${panY}px) scale(${zoom})`,
             transformOrigin: '0 0',

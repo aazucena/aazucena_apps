@@ -46,8 +46,7 @@ const meterIndicatorVariants = cva('h-full transition-all duration-300 ease-out'
 });
 
 export interface MeterProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof meterVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof meterVariants> {
   value: number;
   min?: number;
   max?: number;
@@ -85,7 +84,7 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>(
     return (
       <div ref={ref} className={cn('flex flex-col gap-2', className)} {...props}>
         {(label || showValue) && (
-          <div className="flex justify-between items-center text-sm font-medium">
+          <div className="flex items-center justify-between text-sm font-medium">
             {label && (
               <span
                 className={cn(

@@ -32,11 +32,13 @@ export function FormTelemetry({ formId }: FormTelemetryProps) {
       const state = form.state;
       // Track validation error spikes
       const currentErrors = Object.keys(state.fieldMeta).filter(
-        (key) => (state.fieldMeta as any)[key]?.errors.length > 0
+        (key) => (state.fieldMeta as any)[key]?.errors.length > 0,
       ).length;
 
       if (currentErrors > lastErrorCount.current) {
-        console.log(`[Telemetry:${formId}] Validation Error Spike detected: ${currentErrors} fields`);
+        console.log(
+          `[Telemetry:${formId}] Validation Error Spike detected: ${currentErrors} fields`,
+        );
         // TODO: Integrate with @aazucena/api ingestTelemetry
       }
       lastErrorCount.current = currentErrors;

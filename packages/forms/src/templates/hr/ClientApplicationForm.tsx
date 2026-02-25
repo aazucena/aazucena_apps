@@ -57,10 +57,35 @@ export function ClientApplicationForm({
       component: (
         <div className="space-y-4">
           <FormErrorSummary />
-          <ControlledInput name="companyName" label="Company Name" placeholder="Acme Corp" required validators={{ onChange: clientApplicationSchema.shape.companyName }} />
-          <ControlledInput name="projectTitle" label="Project Title" placeholder="Next-gen SaaS Platform" required validators={{ onChange: clientApplicationSchema.shape.projectTitle }} />
-          <ControlledInput name="contactName" label="Your Name" placeholder="Jane Smith" required validators={{ onChange: clientApplicationSchema.shape.contactName }} />
-          <ControlledInput name="email" label="Email" type="email" placeholder="jane@acme.com" required validators={{ onChange: clientApplicationSchema.shape.email }} />
+          <ControlledInput
+            name="companyName"
+            label="Company Name"
+            placeholder="Acme Corp"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.companyName }}
+          />
+          <ControlledInput
+            name="projectTitle"
+            label="Project Title"
+            placeholder="Next-gen SaaS Platform"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.projectTitle }}
+          />
+          <ControlledInput
+            name="contactName"
+            label="Your Name"
+            placeholder="Jane Smith"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.contactName }}
+          />
+          <ControlledInput
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="jane@acme.com"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.email }}
+          />
           <ControlledInput name="website" label="Company Website" placeholder="https://acme.com" />
         </div>
       ),
@@ -70,18 +95,53 @@ export function ClientApplicationForm({
       title: 'Requirements',
       component: (
         <div className="space-y-4">
-          <ControlledTextarea name="techStack" label="Tech Stack" placeholder="TypeScript, React, Node.js, PostgreSQL…" required validators={{ onChange: clientApplicationSchema.shape.techStack }} />
-          <ControlledInput name="budget" label="Budget Range" placeholder="$10k-$50k" required validators={{ onChange: clientApplicationSchema.shape.budget }} />
-          <ControlledTextarea name="teamCulture" label="Team Culture" placeholder="Describe how your team works…" required validators={{ onChange: clientApplicationSchema.shape.teamCulture }} />
-          <ControlledTextarea name="whyAldrin" label="Why Aldrin?" placeholder="Why do you want to work with Aldrin specifically?" required validators={{ onChange: clientApplicationSchema.shape.whyAldrin }} />
+          <ControlledTextarea
+            name="techStack"
+            label="Tech Stack"
+            placeholder="TypeScript, React, Node.js, PostgreSQL…"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.techStack }}
+          />
+          <ControlledInput
+            name="budget"
+            label="Budget Range"
+            placeholder="$10k-$50k"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.budget }}
+          />
+          <ControlledTextarea
+            name="teamCulture"
+            label="Team Culture"
+            placeholder="Describe how your team works…"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.teamCulture }}
+          />
+          <ControlledTextarea
+            name="whyAldrin"
+            label="Why Aldrin?"
+            placeholder="Why do you want to work with Aldrin specifically?"
+            required
+            validators={{ onChange: clientApplicationSchema.shape.whyAldrin }}
+          />
         </div>
       ),
     },
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={true} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={true}
+      />
     </Form>
   );
 }

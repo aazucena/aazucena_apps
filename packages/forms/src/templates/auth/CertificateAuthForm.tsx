@@ -89,7 +89,10 @@ export function CertificateAuthForm({
         description="Leave blank if the private key is not encrypted"
       />
 
-      <ControlledCheckbox name="rememberCertificate" label="Remember this certificate for this session" />
+      <ControlledCheckbox
+        name="rememberCertificate"
+        label="Remember this certificate for this session"
+      />
 
       <FormButton className="w-full">Authenticate with Certificate</FormButton>
     </Form>

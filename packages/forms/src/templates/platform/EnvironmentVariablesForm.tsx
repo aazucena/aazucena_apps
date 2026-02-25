@@ -5,7 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { environmentVariablesSchema, type EnvironmentVariablesFormData } from '../../schemas/index.js';
+import {
+  environmentVariablesSchema,
+  type EnvironmentVariablesFormData,
+} from '../../schemas/index.js';
 import { ControlledTextarea, ControlledCheckbox } from '../fields.js';
 import { FormButton } from '../../components/FormButton.js';
 import { FormErrorSummary } from '../../components/FormErrorSummary.js';
@@ -20,8 +23,16 @@ export interface EnvironmentVariablesFormProps {
 
 const ENV_OPTIONS = [
   { value: 'dev', label: 'Dev', activeClass: 'border-green-500/50 bg-green-500/10 text-green-600' },
-  { value: 'staging', label: 'Staging', activeClass: 'border-amber-500/50 bg-amber-500/10 text-amber-600' },
-  { value: 'prod', label: 'Production', activeClass: 'border-red-500/50 bg-red-500/10 text-red-600' },
+  {
+    value: 'staging',
+    label: 'Staging',
+    activeClass: 'border-amber-500/50 bg-amber-500/10 text-amber-600',
+  },
+  {
+    value: 'prod',
+    label: 'Production',
+    activeClass: 'border-red-500/50 bg-red-500/10 text-red-600',
+  },
 ] as const;
 
 const SYNC_OPTIONS = ['dev', 'staging', 'prod'];
@@ -57,7 +68,10 @@ export function EnvironmentVariablesForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -73,7 +87,9 @@ export function EnvironmentVariablesForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex-1 rounded-md border px-3 py-2 text-xs font-bold transition-all',
-                    field.state.value === value ? activeClass : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? activeClass
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -87,7 +103,9 @@ export function EnvironmentVariablesForm({
       <ControlledTextarea
         name="variables"
         label="Variables"
-        placeholder={'DATABASE_URL=postgres://localhost:5432/mydb\nAPI_KEY=sk_test_xxxx\nNODE_ENV=development'}
+        placeholder={
+          'DATABASE_URL=postgres://localhost:5432/mydb\nAPI_KEY=sk_test_xxxx\nNODE_ENV=development'
+        }
         description="One variable per line: KEY=value. Sensitive values will be masked after saving."
         required
         validators={{ onChange: environmentVariablesSchema.shape.variables }}
@@ -95,7 +113,9 @@ export function EnvironmentVariablesForm({
 
       <div className="space-y-2">
         <p className="text-sm font-medium text-muted-foreground">Sync To</p>
-        <p className="text-xs text-muted-foreground">Optionally propagate these variables to other environments</p>
+        <p className="text-xs text-muted-foreground">
+          Optionally propagate these variables to other environments
+        </p>
         <form.Field name="syncTo">
           {(field) => {
             const currentEnv = (form as any).state?.values?.environment || 'dev';
@@ -111,12 +131,16 @@ export function EnvironmentVariablesForm({
                       key={env}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((e) => e !== env) : [...selected, env];
+                        const next = isSelected
+                          ? selected.filter((e) => e !== env)
+                          : [...selected, env];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'flex-1 rounded-md border px-3 py-2 text-xs font-medium capitalize transition-all',
-                        isSelected && opt ? opt.activeClass : 'border-border hover:border-primary/50'
+                        isSelected && opt
+                          ? opt.activeClass
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {env}

@@ -42,13 +42,15 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
   ({ rule, fields, operators, onChange, onRemove, variant }, ref) => {
     const field = fields.find((f) => f.key === rule.field);
     const availableOperators = React.useMemo(() => {
-      return operators.filter((o) =>
-        o.allowedTypes && (o.allowedTypes.includes(field?.type || '*') || o.allowedTypes.includes('*'))
+      return operators.filter(
+        (o) =>
+          o.allowedTypes &&
+          (o.allowedTypes.includes(field?.type || '*') || o.allowedTypes.includes('*')),
       );
     }, [operators, field]);
 
     const activeOperator = React.useMemo(() => {
-      return operators.find(o => o.key === rule.operator) || availableOperators[0];
+      return operators.find((o) => o.key === rule.operator) || availableOperators[0];
     }, [operators, rule.operator, availableOperators]);
 
     return (
@@ -94,7 +96,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
           <button
             type="button"
             onClick={onRemove}
-            className="text-destructive/80 hover:text-destructive flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-destructive/20 bg-background shadow-sm transition-all hover:border-destructive/40 hover:bg-destructive/10"
+            className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border shadow-sm transition-all"
             aria-label="Remove rule"
           >
             <X size="16" />

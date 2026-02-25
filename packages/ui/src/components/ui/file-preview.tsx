@@ -42,8 +42,7 @@ export interface FilePreviewData {
 }
 
 export interface FilePreviewProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof filePreviewVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof filePreviewVariants> {
   file: FilePreviewData;
   onRemove?: (id: string) => void;
 }
@@ -67,23 +66,22 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
         ref={ref}
         className={cn(
           filePreviewVariants({ variant, size }),
-          isFailed &&
-            'border-rose-500/50 bg-rose-500/5 text-rose-300 group-hover:bg-rose-500/10',
+          isFailed && 'border-rose-500/50 bg-rose-500/5 text-rose-300 group-hover:bg-rose-500/10',
           className,
         )}
         {...props}
       >
-        <div className="flex items-center gap-3 flex-1 min-w-0">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
           {isImage ? (
             <Image
               src={file.preview!}
               alt={file.name}
-              className="size-10 rounded-md object-cover flex-shrink-0"
+              className="size-10 flex-shrink-0 rounded-md object-cover"
             />
           ) : (
             <div
               className={cn(
-                'size-10 rounded-md flex items-center justify-center flex-shrink-0',
+                'flex size-10 flex-shrink-0 items-center justify-center rounded-md',
                 variant === 'cyber'
                   ? 'bg-cyan-500/10 text-cyan-400'
                   : variant === 'glass'
@@ -94,10 +92,10 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
               <FileIcon size={18} />
             </div>
           )}
-          <div className="flex flex-col flex-1 min-w-0">
+          <div className="flex min-w-0 flex-1 flex-col">
             <span
               className={cn(
-                'font-medium truncate',
+                'truncate font-medium',
                 isFailed && 'text-rose-300',
                 variant === 'cyber' && 'font-mono text-cyan-400',
                 variant === 'glass' && 'text-white',
@@ -107,10 +105,10 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
             </span>
             <div
               className={cn(
-                'flex items-center gap-2 text-muted-foreground',
+                'text-muted-foreground flex items-center gap-2',
                 size === 'lg' && 'text-sm',
                 variant === 'glass' && 'text-white/60',
-                variant === 'cyber' && 'text-cyan-500/60 font-mono text-[10px]',
+                variant === 'cyber' && 'font-mono text-[10px] text-cyan-500/60',
               )}
             >
               <span>{formatFileSize(file.size)}</span>
@@ -118,7 +116,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
                 <span>- {file.progress}% Uploading</span>
               )}
               {isFailed && file.error && (
-                <span className="text-rose-300 font-medium">{file.error}</span>
+                <span className="font-medium text-rose-300">{file.error}</span>
               )}
             </div>
           </div>
@@ -131,7 +129,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
             size="icon"
             onClick={() => onRemove(file.id)}
             className={cn(
-              'flex-shrink-0 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100',
+              'flex-shrink-0 opacity-0 group-focus-within:opacity-100 group-hover:opacity-100',
               variant === 'glass' && 'text-white/70 hover:bg-white/10',
               variant === 'cyber' && 'text-cyan-500/60 hover:bg-cyan-500/10',
               isFailed && 'text-rose-300 hover:bg-rose-500/10',

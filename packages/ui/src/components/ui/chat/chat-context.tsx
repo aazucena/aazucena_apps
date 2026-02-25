@@ -28,9 +28,7 @@ export interface ContextItem {
 }
 
 export interface ChatContextProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatContextVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatContextVariants> {
   contextItems: ContextItem[];
   title?: string;
   emptyMessage?: string;
@@ -59,16 +57,21 @@ const ChatContext = React.forwardRef<HTMLDivElement, ChatContextProps>(
       <div ref={ref} className={cn(chatContextVariants({ variant }), className)} {...props}>
         {title && <h3 className="text-lg font-semibold">{title}</h3>}
         {contextItems.length === 0 && (
-          <p className="text-center text-sm text-muted-foreground">{emptyMessage}</p>
+          <p className="text-muted-foreground text-center text-sm">{emptyMessage}</p>
         )}
         <ul className="flex flex-col gap-2">
-          {contextItems.map(item => {
-            const ItemIcon = item.icon || defaultIconMap[item.id] || null;
+          {contextItems.map((item) => {
+            const ItemIcon = (item.icon || defaultIconMap[item.id] || null) as React.ComponentType<{
+              className?: string;
+            }> | null;
             return (
-              <li key={item.id} className="flex items-center gap-3 rounded-md bg-muted/50 p-2 text-sm">
-                {ItemIcon && <ItemIcon className="h-5 w-5 shrink-0 text-muted-foreground" />}
-                <div className="flex flex-col flex-grow">
-                  <span className="font-medium truncate">{item.label}</span>
+              <li
+                key={item.id}
+                className="bg-muted/50 flex items-center gap-3 rounded-md p-2 text-sm"
+              >
+                {ItemIcon && <ItemIcon className="text-muted-foreground h-5 w-5 shrink-0" />}
+                <div className="flex flex-grow flex-col">
+                  <span className="truncate font-medium">{item.label}</span>
                   <span className="text-muted-foreground truncate">{item.value}</span>
                 </div>
               </li>

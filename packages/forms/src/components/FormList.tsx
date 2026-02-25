@@ -78,7 +78,10 @@ export function FormList<TData, TName extends string>({
 
             <div className="space-y-3">
               {values.map((_, i) => (
-                <div key={i} className="group relative rounded-xl border bg-muted/5 p-4 transition-all hover:bg-muted/10">
+                <div
+                  key={i}
+                  className="group relative rounded-xl border bg-muted/5 p-4 transition-all hover:bg-muted/10"
+                >
                   <div className="absolute -top-2 -right-2 opacity-0 transition-opacity group-hover:opacity-100">
                     <Button
                       type="button"

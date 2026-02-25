@@ -108,10 +108,15 @@ export function HardwareKeyForm({
                     'flex flex-col items-start rounded-md border px-2.5 py-2 text-left transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
-                  <span className={cn('text-xs font-bold', field.state.value === value && 'text-primary')}>
+                  <span
+                    className={cn(
+                      'text-xs font-bold',
+                      field.state.value === value && 'text-primary',
+                    )}
+                  >
                     {label}
                   </span>
                   <span className="text-[10px] text-muted-foreground">{description}</span>
@@ -136,10 +141,15 @@ export function HardwareKeyForm({
                     'flex items-center justify-between rounded-md border px-3 py-2 text-left transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
-                  <span className={cn('text-xs font-medium', field.state.value === value && 'text-primary')}>
+                  <span
+                    className={cn(
+                      'text-xs font-medium',
+                      field.state.value === value && 'text-primary',
+                    )}
+                  >
                     {label}
                   </span>
                   <span className="text-[10px] text-muted-foreground">{description}</span>
@@ -170,7 +180,7 @@ export function HardwareKeyForm({
                     'flex-1 rounded-md border px-2 py-1.5 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

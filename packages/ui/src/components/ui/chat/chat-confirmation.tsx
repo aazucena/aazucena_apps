@@ -4,28 +4,30 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Button } from '../button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../dialog'; // Assuming Dialog components are available
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../dialog'; // Assuming Dialog components are available
 import { DangerCircle } from '@aazucena/icons';
 
-const chatConfirmationVariants = cva(
-  'rounded-md border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
-      },
+const chatConfirmationVariants = cva('rounded-md border p-4 transition-all duration-300', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber:
+        'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface ChatConfirmationProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatConfirmationVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatConfirmationVariants> {
   message: string;
   onConfirm: () => void;
   onCancel: () => void;
@@ -67,11 +69,11 @@ const ChatConfirmation = React.forwardRef<HTMLDivElement, ChatConfirmationProps>
 
     const content = (
       <div ref={ref} className={cn(chatConfirmationVariants({ variant }), className)} {...props}>
-        <div className="flex items-center gap-3 mb-4">
+        <div className="mb-4 flex items-center gap-3">
           <DangerCircle className="h-6 w-6 text-orange-500" />
           <h4 className="text-lg font-semibold">{title}</h4>
         </div>
-        <p className="text-sm text-muted-foreground mb-6">{message}</p>
+        <p className="text-muted-foreground mb-6 text-sm">{message}</p>
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={handleCancel}>
             {cancelLabel}

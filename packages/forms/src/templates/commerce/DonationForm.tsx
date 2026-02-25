@@ -92,16 +92,8 @@ export function DonationForm({
         required
         validators={{ onChange: donationSchema.shape.email }}
       />
-      <ControlledInput
-        name="name"
-        label="Name"
-        placeholder="Optional"
-      />
-      <ControlledInput
-        name="message"
-        label="Message"
-        placeholder="Leave a note (optional)"
-      />
+      <ControlledInput name="name" label="Name" placeholder="Optional" />
+      <ControlledInput name="message" label="Message" placeholder="Leave a note (optional)" />
       <ControlledCheckbox name="anonymous" label="Donate anonymously" />
       <FormButton className="w-full">Donate</FormButton>
     </Form>

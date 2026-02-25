@@ -18,7 +18,14 @@ export interface QuoteRequestFormProps {
   defaultValues?: Partial<QuoteRequestFormData>;
 }
 
-const DELIVERABLE_OPTIONS = ['design', 'development', 'consulting', 'maintenance', 'testing', 'documentation'];
+const DELIVERABLE_OPTIONS = [
+  'design',
+  'development',
+  'consulting',
+  'maintenance',
+  'testing',
+  'documentation',
+];
 const BUDGET_OPTIONS = [
   { value: '<$5k', label: '< $5k' },
   { value: '$5k-$20k', label: '$5k – $20k' },
@@ -90,12 +97,16 @@ export function QuoteRequestForm({
                           key={d}
                           type="button"
                           onClick={() => {
-                            const next = isSelected ? selected.filter((x) => x !== d) : [...selected, d];
+                            const next = isSelected
+                              ? selected.filter((x) => x !== d)
+                              : [...selected, d];
                             field.handleChange(next);
                           }}
                           className={cn(
                             'rounded-full border px-3 py-1 text-xs font-medium capitalize transition-all',
-                            isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                            isSelected
+                              ? 'border-primary bg-primary/10 text-primary'
+                              : 'border-border hover:border-primary/50',
                           )}
                         >
                           {d}
@@ -134,7 +145,9 @@ export function QuoteRequestForm({
                       onClick={() => field.handleChange(value)}
                       className={cn(
                         'rounded-md border px-3 py-2 text-xs font-medium transition-all',
-                        field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        field.state.value === value
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {label}
@@ -144,16 +157,40 @@ export function QuoteRequestForm({
               )}
             </form.Field>
           </div>
-          <ControlledInput name="name" label="Your Name" placeholder="Jane Smith" required validators={{ onChange: quoteRequestSchema.shape.name }} />
-          <ControlledInput name="email" label="Email" type="email" placeholder="jane@company.com" required validators={{ onChange: quoteRequestSchema.shape.email }} />
+          <ControlledInput
+            name="name"
+            label="Your Name"
+            placeholder="Jane Smith"
+            required
+            validators={{ onChange: quoteRequestSchema.shape.name }}
+          />
+          <ControlledInput
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="jane@company.com"
+            required
+            validators={{ onChange: quoteRequestSchema.shape.email }}
+          />
         </div>
       ),
     },
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

@@ -25,18 +25,13 @@ const chatSuggestionVariants = cva('flex flex-wrap gap-2', {
 });
 
 export interface ChatSuggestionProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatSuggestionVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatSuggestionVariants> {
   suggestions: string[];
   onSelectSuggestion?: (suggestion: string) => void;
 }
 
 const ChatSuggestion = React.forwardRef<HTMLDivElement, ChatSuggestionProps>(
-  (
-    { className, variant, size, suggestions, onSelectSuggestion, ...props },
-    ref,
-  ) => {
+  ({ className, variant, size, suggestions, onSelectSuggestion, ...props }, ref) => {
     return (
       <div
         ref={ref}

@@ -115,7 +115,7 @@ export const ChatReasoning = React.forwardRef<HTMLDivElement, React.HTMLAttribut
     <div
       ref={ref}
       className={cn(
-        'border-primary/30 glass bg-primary-100 text-muted-foreground my-3 rounded-r-lg border-l-2 py-2 px-4 text-left font-mono text-[11px] italic',
+        'border-primary/30 glass bg-primary-100 text-muted-foreground my-3 rounded-r-lg border-l-2 px-4 py-2 text-left font-mono text-[11px] italic',
         className,
       )}
       {...props}

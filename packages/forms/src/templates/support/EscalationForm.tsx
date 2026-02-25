@@ -67,7 +67,10 @@ export function EscalationForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -92,7 +95,9 @@ export function EscalationForm({
                     onClick={() => field.handleChange(value)}
                     className={cn(
                       'rounded-md border px-3 py-1.5 text-xs font-medium transition-all text-left',
-                      field.state.value === value ? `border-primary bg-primary/10 ${color}` : 'border-border hover:border-primary/50'
+                      field.state.value === value
+                        ? `border-primary bg-primary/10 ${color}`
+                        : 'border-border hover:border-primary/50',
                     )}
                   >
                     {label}
@@ -107,19 +112,23 @@ export function EscalationForm({
           <form.Field name="requestedSeverity">
             {(field) => (
               <div className="flex flex-col gap-1">
-                {SEVERITY_OPTIONS.filter((s) => s.value !== 'low').map(({ value, label, color }) => (
-                  <button
-                    key={value}
-                    type="button"
-                    onClick={() => field.handleChange(value as 'medium' | 'high' | 'critical')}
-                    className={cn(
-                      'rounded-md border px-3 py-1.5 text-xs font-medium transition-all text-left',
-                      field.state.value === value ? `border-primary bg-primary/10 ${color}` : 'border-border hover:border-primary/50'
-                    )}
-                  >
-                    {label}
-                  </button>
-                ))}
+                {SEVERITY_OPTIONS.filter((s) => s.value !== 'low').map(
+                  ({ value, label, color }) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => field.handleChange(value as 'medium' | 'high' | 'critical')}
+                      className={cn(
+                        'rounded-md border px-3 py-1.5 text-xs font-medium transition-all text-left',
+                        field.state.value === value
+                          ? `border-primary bg-primary/10 ${color}`
+                          : 'border-border hover:border-primary/50',
+                      )}
+                    >
+                      {label}
+                    </button>
+                  ),
+                )}
               </div>
             )}
           </form.Field>
@@ -138,7 +147,9 @@ export function EscalationForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'rounded-full border px-3 py-1.5 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

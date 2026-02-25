@@ -19,27 +19,71 @@ export interface TestimonialFormProps {
   defaultValues?: Partial<TestimonialFormData>;
 }
 
-export function TestimonialForm({ variant = 'default', onSuccess, onError, className, defaultValues }: TestimonialFormProps) {
+export function TestimonialForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: TestimonialFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
-    defaultValues: { formType: FormTypeEnum.Values.Testimonial, name: '', email: '', subject: 'Testimonial', message: '', company: '', jobTitle: '', relationship: '', linkedinUrl: '', ...defaultValues } as TestimonialFormData,
+    defaultValues: {
+      formType: FormTypeEnum.Values.Testimonial,
+      name: '',
+      email: '',
+      subject: 'Testimonial',
+      message: '',
+      company: '',
+      jobTitle: '',
+      relationship: '',
+      linkedinUrl: '',
+      ...defaultValues,
+    } as TestimonialFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(testimonialFormSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(testimonialFormSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg space-y-4', className)} onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg space-y-4', className)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <FormErrorSummary />
       <div className="grid grid-cols-2 gap-3">
         <ControlledInput name="name" label="Name" placeholder="Jane Smith" required />
-        <ControlledInput name="email" label="Email" type="email" placeholder="jane@company.com" required />
+        <ControlledInput
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="jane@company.com"
+          required
+        />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <ControlledInput name="company" label="Company" placeholder="Acme Corp" />
         <ControlledInput name="jobTitle" label="Job Title" placeholder="CTO" />
       </div>
-      <ControlledInput name="linkedinUrl" label="LinkedIn URL" placeholder="https://linkedin.com/in/…" />
-      <ControlledTextarea name="message" label="Testimonial" placeholder="Share your experience working with Aldrin…" required />
+      <ControlledInput
+        name="linkedinUrl"
+        label="LinkedIn URL"
+        placeholder="https://linkedin.com/in/…"
+      />
+      <ControlledTextarea
+        name="message"
+        label="Testimonial"
+        placeholder="Share your experience working with Aldrin…"
+        required
+      />
       <FormButton className="w-full">Submit Testimonial</FormButton>
     </Form>
   );

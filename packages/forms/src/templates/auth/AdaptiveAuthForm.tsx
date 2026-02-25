@@ -28,9 +28,15 @@ const TRUST_DURATION_OPTIONS = [
   { value: '30d', label: '30 days' },
 ] as const;
 
-const RISK_BADGE: Record<NonNullable<AdaptiveAuthFormProps['riskLevel']>, { label: string; className: string }> = {
+const RISK_BADGE: Record<
+  NonNullable<AdaptiveAuthFormProps['riskLevel']>,
+  { label: string; className: string }
+> = {
   low: { label: 'Low Risk', className: 'bg-green-500/10 text-green-600 border-green-500/30' },
-  medium: { label: 'Medium Risk', className: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/30' },
+  medium: {
+    label: 'Medium Risk',
+    className: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/30',
+  },
   high: { label: 'High Risk', className: 'bg-red-500/10 text-red-600 border-red-500/30' },
 };
 
@@ -86,7 +92,7 @@ export function AdaptiveAuthForm({
         <span
           className={cn(
             'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium',
-            badge.className
+            badge.className,
           )}
         >
           {badge.label}
@@ -123,7 +129,7 @@ export function AdaptiveAuthForm({
                           'flex-1 rounded-md border px-2 py-1.5 text-xs font-medium transition-all',
                           field.state.value === value
                             ? 'border-primary bg-primary/10 text-primary'
-                            : 'border-border hover:border-primary/50'
+                            : 'border-border hover:border-primary/50',
                         )}
                       >
                         {label}

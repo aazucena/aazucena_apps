@@ -56,20 +56,13 @@ export function RegistrationForm({
       }}
     >
       <FormErrorSummary />
-      <ControlledInput
-        name="name"
-        label="Full Name"
-        placeholder="Aldrin Azucena"
-        required
-        
-      />
+      <ControlledInput name="name" label="Full Name" placeholder="Aldrin Azucena" required />
       <ControlledInput
         name="email"
         label="Email"
         type="email"
         placeholder="you@example.com"
         required
-        
       />
       <ControlledInput
         name="password"
@@ -77,7 +70,6 @@ export function RegistrationForm({
         type="password"
         placeholder="••••••••"
         required
-        
       />
       <ControlledInput
         name="confirmPassword"
@@ -85,7 +77,6 @@ export function RegistrationForm({
         type="password"
         placeholder="••••••••"
         required
-        
       />
       <ControlledCheckbox
         name="acceptTerms"

@@ -44,7 +44,7 @@ function ContactForm() {
           <FormItem>
             <FormLabel required>Name</FormLabel>
             <FormControl>
-              <input 
+              <input
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -66,7 +66,7 @@ function ContactForm() {
           <FormItem>
             <FormLabel required>Email</FormLabel>
             <FormControl>
-              <input 
+              <input
                 type="email"
                 value={field.state.value}
                 onBlur={field.handleBlur}
@@ -137,9 +137,9 @@ const githubValidator = createAsyncValidator(
     const res = await fetch(`https://api.github.com/users/${username}`);
     return res.ok;
   },
-  { 
-    message: 'GitHub user not found', 
-    debounceMs: 800 
+  {
+    message: 'GitHub user not found',
+    debounceMs: 800
   }
 );
 
@@ -153,7 +153,7 @@ const githubValidator = createAsyncValidator(
     <FormItem>
       <FormLabel>GitHub Username</FormLabel>
       <FormControl>
-        <input 
+        <input
           value={field.state.value}
           onChange={(e) => field.handleChange(e.target.value)}
         />
@@ -201,7 +201,7 @@ Use `createInputTransformer` to clean or format data before it ever hits the for
 import { createInputTransformer } from '@aazucena/forms';
 
 // In your field render:
-<input 
+<input
   value={field.state.value}
   onChange={createInputTransformer(field, (val) => val.toLowerCase().replace(/\s+/g, '-'))}
   placeholder="project-slug"
@@ -220,8 +220,8 @@ import { createComparisonValidator } from '@aazucena/forms';
   name="confirmPassword"
   validators={{
     onChange: createComparisonValidator(
-      'password', 
-      (val, password) => val === password, 
+      'password',
+      (val, password) => val === password,
       'Passwords do not match'
     )
   }}
@@ -244,7 +244,7 @@ import { getFormChanges } from '@aazucena/forms';
 const onSubmit = async ({ value }) => {
   // 1. Get only what changed
   const dirtyData = getFormChanges(form);
-  
+
   // 2. Efficient PATCH request
   await mutation.mutateAsync(dirtyData);
 };

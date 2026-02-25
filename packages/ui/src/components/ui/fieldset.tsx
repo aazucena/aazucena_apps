@@ -18,8 +18,7 @@ const fieldsetVariants = cva('w-full rounded-lg border p-4', {
 });
 
 export interface FieldsetProps
-  extends React.HTMLAttributes<HTMLFieldSetElement>,
-    VariantProps<typeof fieldsetVariants> {
+  extends React.HTMLAttributes<HTMLFieldSetElement>, VariantProps<typeof fieldsetVariants> {
   legend?: React.ReactNode;
   children: React.ReactNode;
 }
@@ -35,9 +34,9 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(
         {legend && (
           <legend
             className={cn(
-              'px-2 font-semibold text-lg',
+              'px-2 text-lg font-semibold',
               variant === 'glass' && 'text-white',
-              variant === 'cyber' && 'font-mono italic text-cyan-400',
+              variant === 'cyber' && 'font-mono text-cyan-400 italic',
             )}
           >
             {legend}

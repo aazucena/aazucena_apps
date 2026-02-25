@@ -19,14 +19,14 @@ export interface SecurityQuestionsFormProps {
 }
 
 const PRESET_QUESTIONS = [
-  "What was the name of your first pet?",
-  "What city were you born in?",
+  'What was the name of your first pet?',
+  'What city were you born in?',
   "What is your mother's maiden name?",
-  "What was the name of your elementary school?",
-  "What was the make of your first car?",
+  'What was the name of your elementary school?',
+  'What was the make of your first car?',
   "What is your oldest sibling's middle name?",
-  "What street did you grow up on?",
-  "What was the name of your childhood best friend?",
+  'What street did you grow up on?',
+  'What was the name of your childhood best friend?',
 ];
 
 function QuestionSelect({
@@ -44,9 +44,7 @@ function QuestionSelect({
     <form.Field name={fieldName}>
       {(field: any) => (
         <div className="space-y-1">
-          <label className="text-sm font-medium">
-            Security Question {index}
-          </label>
+          <label className="text-sm font-medium">Security Question {index}</label>
           <select
             value={field.state.value || ''}
             onChange={(e) => field.handleChange(e.target.value)}
@@ -54,7 +52,11 @@ function QuestionSelect({
           >
             <option value="">Select a question…</option>
             {PRESET_QUESTIONS.map((q) => (
-              <option key={q} value={q} disabled={selectedValues.includes(q) && field.state.value !== q}>
+              <option
+                key={q}
+                value={q}
+                disabled={selectedValues.includes(q) && field.state.value !== q}
+              >
                 {q}
               </option>
             ))}

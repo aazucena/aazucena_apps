@@ -104,7 +104,7 @@ const DeviceMockup = React.forwardRef<HTMLDivElement, DeviceMockupProps>(
           />
         )}
         {/* Content */}
-        <div className="relative overflow-auto flex-1">{children}</div> {/* Added flex-1 */}
+        <div className="relative flex-1 overflow-auto">{children}</div> {/* Added flex-1 */}
         {/* Home indicator / Keyboard area */}
         {(isPhone || isLaptop) && (
           <div
@@ -112,7 +112,9 @@ const DeviceMockup = React.forwardRef<HTMLDivElement, DeviceMockupProps>(
               'mx-auto mt-2 mb-1.5',
               isPhone && 'h-1 w-24 rounded-full',
               isLaptop && 'h-1/4 w-full rounded-b-xl border-t-2', // Keyboard area
-              variant === 'cyber' ? 'bg-cyan-500/30 border-cyan-500/30' : 'bg-muted-foreground/30 border-border',
+              variant === 'cyber'
+                ? 'border-cyan-500/30 bg-cyan-500/30'
+                : 'bg-muted-foreground/30 border-border',
             )}
           >
             {isLaptop && (
@@ -123,8 +125,8 @@ const DeviceMockup = React.forwardRef<HTMLDivElement, DeviceMockupProps>(
                 )}
               >
                 {/* Placeholder for keyboard/trackpad */}
-                <div className="h-2/3 w-full rounded-md bg-foreground/10" />
-                <div className="mt-2 h-1/6 w-1/3 rounded-full bg-foreground/5 mx-auto" />
+                <div className="bg-foreground/10 h-2/3 w-full rounded-md" />
+                <div className="bg-foreground/5 mx-auto mt-2 h-1/6 w-1/3 rounded-full" />
               </div>
             )}
           </div>

@@ -30,9 +30,7 @@ export interface ChatSource {
 }
 
 export interface ChatSourcesProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatSourcesVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatSourcesVariants> {
   sources: ChatSource[];
   title?: string;
   emptyMessage?: string;
@@ -54,11 +52,11 @@ const ChatSources = React.forwardRef<HTMLDivElement, ChatSourcesProps>(
       <div ref={ref} className={cn(chatSourcesVariants({ variant }), className)} {...props}>
         {title && <h3 className="text-lg font-semibold">{title}</h3>}
         {sources.length === 0 && (
-          <p className="text-center text-sm text-muted-foreground">{emptyMessage}</p>
+          <p className="text-muted-foreground text-center text-sm">{emptyMessage}</p>
         )}
         <ul className="flex flex-col gap-2">
-          {sources.map(source => (
-            <li key={source.id} className="rounded-md bg-muted/50 p-3 text-sm">
+          {sources.map((source) => (
+            <li key={source.id} className="bg-muted/50 rounded-md p-3 text-sm">
               <a
                 href={source.url || '#'}
                 target={source.url ? '_blank' : '_self'}
@@ -68,9 +66,9 @@ const ChatSources = React.forwardRef<HTMLDivElement, ChatSourcesProps>(
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {source.url ? (
-                      <Link className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      <Link className="text-muted-foreground h-4 w-4 shrink-0" />
                     ) : (
-                      <FileText className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      <FileText className="text-muted-foreground h-4 w-4 shrink-0" />
                     )}
                     <span className="font-medium group-hover:underline">{source.title}</span>
                   </div>
@@ -81,7 +79,7 @@ const ChatSources = React.forwardRef<HTMLDivElement, ChatSourcesProps>(
                   )}
                 </div>
                 {source.snippet && (
-                  <p className="line-clamp-2 text-xs text-muted-foreground">{source.snippet}</p>
+                  <p className="text-muted-foreground line-clamp-2 text-xs">{source.snippet}</p>
                 )}
                 {source.url && (
                   <span className="flex items-center gap-1 text-xs text-blue-500 opacity-80 group-hover:opacity-100">

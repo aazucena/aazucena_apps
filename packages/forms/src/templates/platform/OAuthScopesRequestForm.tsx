@@ -25,7 +25,13 @@ const SCOPE_OPTIONS = [
   { value: 'webhooks', label: 'Webhooks', description: 'Subscribe to events' },
 ] as const;
 
-export function OAuthScopesRequestForm({ variant = 'default', onSuccess, onError, className, defaultValues }: OAuthScopesRequestFormProps) {
+export function OAuthScopesRequestForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: OAuthScopesRequestFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -39,7 +45,11 @@ export function OAuthScopesRequestForm({ variant = 'default', onSuccess, onError
       ...defaultValues,
     } as OAuthScopesFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(oauthScopesSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(oauthScopesSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -48,14 +58,36 @@ export function OAuthScopesRequestForm({ variant = 'default', onSuccess, onError
       form={form}
       variant={variant}
       className={cn('max-w-lg space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="appName" label="App Name" placeholder="My Integration" required validators={{ onChange: oauthScopesSchema.shape.appName }} />
-        <ControlledInput name="appUrl" label="App URL" placeholder="https://myapp.com" type="url" required validators={{ onChange: oauthScopesSchema.shape.appUrl }} />
+        <ControlledInput
+          name="appName"
+          label="App Name"
+          placeholder="My Integration"
+          required
+          validators={{ onChange: oauthScopesSchema.shape.appName }}
+        />
+        <ControlledInput
+          name="appUrl"
+          label="App URL"
+          placeholder="https://myapp.com"
+          type="url"
+          required
+          validators={{ onChange: oauthScopesSchema.shape.appUrl }}
+        />
       </div>
-      <ControlledTextarea name="redirectUris" label="Redirect URIs" placeholder="https://myapp.com/callback&#10;https://myapp.com/oauth/callback" required validators={{ onChange: oauthScopesSchema.shape.redirectUris }} />
+      <ControlledTextarea
+        name="redirectUris"
+        label="Redirect URIs"
+        placeholder="https://myapp.com/callback&#10;https://myapp.com/oauth/callback"
+        required
+        validators={{ onChange: oauthScopesSchema.shape.redirectUris }}
+      />
       <div className="space-y-2">
         <p className="text-sm font-medium">Requested Scopes</p>
         <form.Field name="requestedScopes">
@@ -71,15 +103,19 @@ export function OAuthScopesRequestForm({ variant = 'default', onSuccess, onError
                       type="button"
                       onClick={() => {
                         field.handleChange(
-                          isActive ? selected.filter((s) => s !== value) : [...selected, value]
+                          isActive ? selected.filter((s) => s !== value) : [...selected, value],
                         );
                       }}
                       className={cn(
                         'flex flex-col items-start gap-0.5 rounded-md border px-3 py-2 text-left transition-all',
-                        isActive ? 'border-primary bg-primary/10' : 'border-border hover:border-primary/50'
+                        isActive
+                          ? 'border-primary bg-primary/10'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
-                      <span className={cn('text-xs font-semibold', isActive && 'text-primary')}>{label}</span>
+                      <span className={cn('text-xs font-semibold', isActive && 'text-primary')}>
+                        {label}
+                      </span>
                       <span className="text-[11px] text-muted-foreground">{description}</span>
                     </button>
                   );
@@ -89,10 +125,23 @@ export function OAuthScopesRequestForm({ variant = 'default', onSuccess, onError
           }}
         </form.Field>
       </div>
-      <ControlledTextarea name="useCase" label="Use Case" placeholder="Describe what your app does and why it needs these permissions…" required validators={{ onChange: oauthScopesSchema.shape.useCase }} />
+      <ControlledTextarea
+        name="useCase"
+        label="Use Case"
+        placeholder="Describe what your app does and why it needs these permissions…"
+        required
+        validators={{ onChange: oauthScopesSchema.shape.useCase }}
+      />
       <div className="grid grid-cols-2 gap-3">
         <ControlledInput name="company" label="Company (optional)" placeholder="Acme Corp" />
-        <ControlledInput name="contactEmail" label="Contact Email" type="email" placeholder="dev@myapp.com" required validators={{ onChange: oauthScopesSchema.shape.contactEmail }} />
+        <ControlledInput
+          name="contactEmail"
+          label="Contact Email"
+          type="email"
+          placeholder="dev@myapp.com"
+          required
+          validators={{ onChange: oauthScopesSchema.shape.contactEmail }}
+        />
       </div>
       <FormButton className="w-full">Submit OAuth Request</FormButton>
     </Form>

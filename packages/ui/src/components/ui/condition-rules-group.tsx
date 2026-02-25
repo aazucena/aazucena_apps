@@ -52,7 +52,10 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
     const addRule = () => {
       onChange({
         ...group,
-        conditions: [...group.conditions, { field: fields[0]?.key || '', operator: 'eq', value: '' }],
+        conditions: [
+          ...group.conditions,
+          { field: fields[0]?.key || '', operator: 'eq', value: '' },
+        ],
       });
     };
 
@@ -73,14 +76,24 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
       <div
         ref={ref}
         className={cn(
-          'rounded-md border-l-2 py-2 px-3 transition-all',
+          'rounded-md border-l-2 px-3 py-2 transition-all',
           depth === 0 && 'border-l-0 pl-0',
-          depth > 0 && (variant === 'cyber' ? 'bg-cyan-500/5 border-cyan-500/30' : group.logic === 'or' ? `bg-secondary/10 border-secondary/50` : 'bg-primary/10 border-primary/50'),
-          depth > 1 && (variant === 'cyber' ? 'bg-cyan-500/10' : group.logic === 'or' ? `bg-secondary/50` : 'bg-primary/50' ),
+          depth > 0 &&
+            (variant === 'cyber'
+              ? 'border-cyan-500/30 bg-cyan-500/5'
+              : group.logic === 'or'
+                ? `bg-secondary/10 border-secondary/50`
+                : 'bg-primary/10 border-primary/50'),
+          depth > 1 &&
+            (variant === 'cyber'
+              ? 'bg-cyan-500/10'
+              : group.logic === 'or'
+                ? `bg-secondary/50`
+                : 'bg-primary/50'),
         )}
       >
-        <div className="mb-3 flex justify-between items-center gap-3">
-          <div className="flex items-center gap-1 rounded-lg border bg-muted/50 p-1 shadow-sm transition-all hover:border-muted-foreground/30">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <div className="bg-muted/50 hover:border-muted-foreground/30 flex items-center gap-1 rounded-lg border p-1 shadow-sm transition-all">
             <button
               type="button"
               onClick={() => onChange({ ...group, logic: 'and' })}
@@ -110,7 +123,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
             <button
               type="button"
               onClick={onRemove}
-              className="text-destructive/80 hover:text-destructive flex h-8 w-8 items-center justify-center rounded-md border border-destructive/20 bg-background shadow-sm transition-all hover:border-destructive/40 hover:bg-destructive/10"
+              className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 flex h-8 w-8 items-center justify-center rounded-md border shadow-sm transition-all"
               aria-label="Remove group"
               title="Delete Group"
             >
@@ -160,7 +173,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
           <button
             type="button"
             onClick={addRule}
-            className="bg-background hover:bg-accent hover:text-accent-foreground flex h-8 items-center gap-1.5 rounded-md border border-input px-3 py-1 text-xs font-medium shadow-sm transition-colors"
+            className="bg-background hover:bg-accent hover:text-accent-foreground border-input flex h-8 items-center gap-1.5 rounded-md border px-3 py-1 text-xs font-medium shadow-sm transition-colors"
           >
             <span className="text-lg leading-none">+</span> Rule
           </button>
@@ -168,7 +181,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
             <button
               type="button"
               onClick={addGroup}
-              className="bg-background hover:bg-accent hover:text-accent-foreground flex h-8 items-center gap-1.5 rounded-md border border-input px-3 py-1 text-xs font-medium shadow-sm transition-colors"
+              className="bg-background hover:bg-accent hover:text-accent-foreground border-input flex h-8 items-center gap-1.5 rounded-md border px-3 py-1 text-xs font-medium shadow-sm transition-colors"
             >
               <span className="text-lg leading-none">+</span> Group
             </button>

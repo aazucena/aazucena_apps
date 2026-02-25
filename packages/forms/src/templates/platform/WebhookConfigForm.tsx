@@ -64,7 +64,10 @@ export function WebhookConfigForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -91,12 +94,16 @@ export function WebhookConfigForm({
                       key={evt}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((e) => e !== evt) : [...selected, evt];
+                        const next = isSelected
+                          ? selected.filter((e) => e !== evt)
+                          : [...selected, evt];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'rounded-full border px-3 py-1 text-xs font-medium capitalize transition-all',
-                        isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        isSelected
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {evt}
@@ -130,7 +137,9 @@ export function WebhookConfigForm({
                     onClick={() => field.handleChange(value)}
                     className={cn(
                       'flex-1 rounded-md border py-1.5 text-xs font-medium transition-all',
-                      field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                      field.state.value === value
+                        ? 'border-primary bg-primary/10 text-primary'
+                        : 'border-border hover:border-primary/50',
                     )}
                   >
                     {label}
@@ -152,7 +161,9 @@ export function WebhookConfigForm({
                     onClick={() => field.handleChange(value)}
                     className={cn(
                       'flex-1 rounded-md border py-1.5 text-xs font-medium transition-all',
-                      field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                      field.state.value === value
+                        ? 'border-primary bg-primary/10 text-primary'
+                        : 'border-border hover:border-primary/50',
                     )}
                   >
                     {label}

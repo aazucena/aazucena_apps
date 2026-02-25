@@ -28,9 +28,7 @@ export interface PlanStep {
 }
 
 export interface ChatPlanProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatPlanVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatPlanVariants> {
   plan: PlanStep[];
   emptyMessage?: string;
 }
@@ -50,41 +48,28 @@ const statusColorMap: Record<PlanStep['status'], string> = {
 };
 
 const ChatPlan = React.forwardRef<HTMLDivElement, ChatPlanProps>(
-  (
-    {
-      className,
-      variant,
-      plan,
-      emptyMessage = 'No plan defined.',
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, variant, plan, emptyMessage = 'No plan defined.', ...props }, ref) => {
     return (
       <div ref={ref} className={cn(chatPlanVariants({ variant }), className)} {...props}>
-        {plan.length === 0 && (
-          <p className="text-center text-muted-foreground">{emptyMessage}</p>
-        )}
+        {plan.length === 0 && <p className="text-muted-foreground text-center">{emptyMessage}</p>}
         <ol className="relative border-l border-gray-200 dark:border-gray-700">
           {plan.map((step, index) => {
-            const Icon = statusIconMap[step.status];
+            const Icon = statusIconMap[step.status] as React.ComponentType<{ className?: string }>;
             return (
               <li key={step.id} className="mb-6 ml-6">
                 <span
                   className={cn(
-                    'absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-background ring-8 ring-background',
+                    'bg-background ring-background absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full ring-8',
                     statusColorMap[step.status],
                   )}
                 >
                   <Icon className="h-4 w-4" />
                 </span>
-                <h3 className="flex items-center text-lg font-semibold text-foreground">
+                <h3 className="text-foreground flex items-center text-lg font-semibold">
                   {step.description}
                 </h3>
                 {step.details && (
-                  <p className="text-sm font-normal text-muted-foreground">
-                    {step.details}
-                  </p>
+                  <p className="text-muted-foreground text-sm font-normal">{step.details}</p>
                 )}
               </li>
             );

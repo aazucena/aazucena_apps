@@ -83,7 +83,13 @@ export function BookingForm({
               ))}
             </div>
           </div>
-          <ControlledInput name="preferredDate" label="Preferred Date" type="date" required validators={{ onChange: bookingSchema.shape.preferredDate }} />
+          <ControlledInput
+            name="preferredDate"
+            label="Preferred Date"
+            type="date"
+            required
+            validators={{ onChange: bookingSchema.shape.preferredDate }}
+          />
           <div className="space-y-2">
             <p className="text-sm font-medium">Preferred Slot</p>
             <div className="flex flex-wrap gap-2">
@@ -115,17 +121,45 @@ export function BookingForm({
       title: 'Contact',
       component: (
         <div className="space-y-4">
-          <ControlledInput name="name" label="Your Name" placeholder="Aldrin Azucena" required validators={{ onChange: bookingSchema.shape.name }} />
-          <ControlledInput name="email" label="Email" type="email" placeholder="you@example.com" required validators={{ onChange: bookingSchema.shape.email }} />
-          <ControlledTextarea name="notes" label="Notes" placeholder="Anything you'd like me to know beforehand?" />
+          <ControlledInput
+            name="name"
+            label="Your Name"
+            placeholder="Aldrin Azucena"
+            required
+            validators={{ onChange: bookingSchema.shape.name }}
+          />
+          <ControlledInput
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            validators={{ onChange: bookingSchema.shape.email }}
+          />
+          <ControlledTextarea
+            name="notes"
+            label="Notes"
+            placeholder="Anything you'd like me to know beforehand?"
+          />
         </div>
       ),
     },
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

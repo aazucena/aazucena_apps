@@ -97,7 +97,10 @@ export const otpVerificationSchema = z.object({
 export const mfaSetupSchema = z.object({
   method: z.enum(['authenticatorApp', 'sms', 'email', 'hardwareKey']),
   contactDetail: z.string().optional(),
-  verificationCode: z.string().regex(/^\d{6}$/).optional(),
+  verificationCode: z
+    .string()
+    .regex(/^\d{6}$/)
+    .optional(),
 });
 
 /**
@@ -122,7 +125,9 @@ export const ssoSchema = z.object({
  * Biometric Auth Schema (WebAuthn / device biometric consent)
  */
 export const biometricAuthSchema = z.object({
-  consentGranted: z.boolean().refine((v) => v === true, { message: 'Consent is required to proceed' }),
+  consentGranted: z
+    .boolean()
+    .refine((v) => v === true, { message: 'Consent is required to proceed' }),
   preferredMethod: z.enum(['faceId', 'fingerprint', 'either']).default('either'),
   fallbackMethod: z.enum(['pin', 'password', 'none']).default('password'),
 });

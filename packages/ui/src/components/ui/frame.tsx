@@ -25,8 +25,7 @@ const frameVariants = cva('relative flex flex-col overflow-hidden rounded-lg sha
 });
 
 export interface FrameProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof frameVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof frameVariants> {
   title?: string;
   children?: React.ReactNode;
   showControls?: boolean;

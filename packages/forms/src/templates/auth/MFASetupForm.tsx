@@ -92,12 +92,17 @@ export function MFASetupForm({
                       'flex items-center gap-3 rounded-md border px-4 py-3 text-left transition-all',
                       field.state.value === value
                         ? 'border-primary bg-primary/10'
-                        : 'border-border hover:border-primary/50'
+                        : 'border-border hover:border-primary/50',
                     )}
                   >
                     <span className="text-xl">{icon}</span>
                     <div>
-                      <p className={cn('text-sm font-medium', field.state.value === value && 'text-primary')}>
+                      <p
+                        className={cn(
+                          'text-sm font-medium',
+                          field.state.value === value && 'text-primary',
+                        )}
+                      >
                         {label}
                       </p>
                       <p className="text-xs text-muted-foreground">{description}</p>
@@ -141,7 +146,10 @@ export function MFASetupForm({
           <p className="text-sm text-muted-foreground">
             Enter the 6-digit verification code to confirm your MFA setup.
           </p>
-          <form.Field name="verificationCode" validators={{ onChange: mfaSetupSchema.shape.verificationCode }}>
+          <form.Field
+            name="verificationCode"
+            validators={{ onChange: mfaSetupSchema.shape.verificationCode }}
+          >
             {(field) => (
               <div className="space-y-1">
                 <label className="text-sm font-medium">Verification Code</label>
@@ -176,7 +184,13 @@ export function MFASetupForm({
       className={cn('max-w-md', className)}
       onSubmit={(e) => e.preventDefault()}
     >
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={true} />
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={true}
+      />
     </Form>
   );
 }

@@ -81,10 +81,17 @@ export function TeamOnboardingForm({
                         'w-full flex items-center gap-3 rounded-lg border px-4 py-3 text-left transition-all',
                         field.state.value === value
                           ? 'border-primary bg-primary/10'
-                          : 'border-border hover:border-primary/50'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
-                      <div className={cn('h-3 w-3 rounded-full border-2 transition-all', field.state.value === value ? 'border-primary bg-primary' : 'border-muted-foreground')} />
+                      <div
+                        className={cn(
+                          'h-3 w-3 rounded-full border-2 transition-all',
+                          field.state.value === value
+                            ? 'border-primary bg-primary'
+                            : 'border-muted-foreground',
+                        )}
+                      />
                       <div>
                         <p className="text-sm font-semibold">{label}</p>
                         <p className="text-xs text-muted-foreground">{description}</p>
@@ -125,7 +132,7 @@ export function TeamOnboardingForm({
                         'flex-1 rounded-md border px-3 py-2 text-xs font-medium capitalize transition-all',
                         field.state.value === role
                           ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border hover:border-primary/50'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {role}
@@ -143,7 +150,9 @@ export function TeamOnboardingForm({
       title: 'Integrations',
       component: (
         <div className="space-y-4">
-          <p className="text-sm text-muted-foreground">Connect your team's communication channels</p>
+          <p className="text-sm text-muted-foreground">
+            Connect your team's communication channels
+          </p>
           <ControlledSwitch
             name="emailIntegration"
             label="Email Notifications"
@@ -165,8 +174,19 @@ export function TeamOnboardingForm({
   ];
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg', className)} onSubmit={(e) => e.preventDefault()}>
-      <FormWizard steps={steps} onComplete={async () => { await form.handleSubmit(); }} showChallenge={false} />
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg', className)}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <FormWizard
+        steps={steps}
+        onComplete={async () => {
+          await form.handleSubmit();
+        }}
+        showChallenge={false}
+      />
     </Form>
   );
 }

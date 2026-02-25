@@ -88,7 +88,9 @@ export function BiometricAuthForm({
             <label
               className={cn(
                 'flex cursor-pointer items-start gap-3 rounded-md border p-3 transition-all',
-                field.state.value ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'
+                field.state.value
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary/40',
               )}
             >
               <input
@@ -98,12 +100,16 @@ export function BiometricAuthForm({
                 className="mt-0.5 h-4 w-4 rounded border-input accent-primary"
               />
               <span className="text-sm">
-                I consent to biometric data being used for authentication on this device in accordance with the{' '}
-                <span className="text-primary underline-offset-2 hover:underline">Privacy Policy</span>.
+                I consent to biometric data being used for authentication on this device in
+                accordance with the{' '}
+                <span className="text-primary underline-offset-2 hover:underline">
+                  Privacy Policy
+                </span>
+                .
               </span>
             </label>
             {field.state.meta.errors?.length > 0 && (
-              <p className="text-xs text-destructive">{field.state.meta.errors[0]}</p>
+              <p className="text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
             )}
           </div>
         )}
@@ -124,14 +130,14 @@ export function BiometricAuthForm({
                     'flex flex-col items-center gap-1.5 rounded-md border p-3 transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   <span className="text-2xl">{emoji}</span>
                   <span
                     className={cn(
                       'text-xs font-medium',
-                      field.state.value === value ? 'text-primary' : 'text-muted-foreground'
+                      field.state.value === value ? 'text-primary' : 'text-muted-foreground',
                     )}
                   >
                     {label}
@@ -158,7 +164,7 @@ export function BiometricAuthForm({
                     'flex-1 rounded-md border px-2 py-1.5 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

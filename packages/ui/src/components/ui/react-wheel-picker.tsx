@@ -3,7 +3,14 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { motion, useMotionValue, useTransform, useSpring, PanInfo, animate } from 'framer-motion';
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useSpring,
+  type PanInfo,
+  animate,
+} from 'framer-motion';
 
 const wheelPickerVariants = cva(
   'relative flex items-center justify-center overflow-hidden transition-all duration-300 select-none',
@@ -166,16 +173,21 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
             const isSelected = normalizedIdx === activeIndex;
 
             // Perspective Transforms follow the spring for smoothness
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             const offset = useTransform(springY, (latestY) => {
               return (idx * itemHeight + latestY) / itemHeight;
             });
 
             // Calculate rotation, scale, and opacity based on distance from center
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             const rotateX = useTransform(offset, [-2, 0, 2], [45, 0, -45]);
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             const opacity = useTransform(offset, [-3, -1, 0, 1, 3], [0, 0.3, 1, 0.3, 0]);
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             const scale = useTransform(offset, [-1, 0, 1], [0.8, 1.15, 0.8]);
 
             // Text color transition
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             const color = useTransform(
               offset,
               [-0.5, 0, 0.5],

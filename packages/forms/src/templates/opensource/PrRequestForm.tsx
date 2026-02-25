@@ -49,15 +49,49 @@ export function PrRequestForm({
   } as any);
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg space-y-4', className)} onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg space-y-4', className)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <FormErrorSummary />
-      <ControlledInput name="repository" label="Repository" placeholder="owner/repo-name" required validators={{ onChange: prRequestSchema.shape.repository }} />
-      <ControlledInput name="title" label="PR Title" placeholder="feat: add dark mode support" required validators={{ onChange: prRequestSchema.shape.title }} />
-      <ControlledInput name="branch" label="Branch Name" placeholder="feature/dark-mode" required validators={{ onChange: prRequestSchema.shape.branch }} />
+      <ControlledInput
+        name="repository"
+        label="Repository"
+        placeholder="owner/repo-name"
+        required
+        validators={{ onChange: prRequestSchema.shape.repository }}
+      />
+      <ControlledInput
+        name="title"
+        label="PR Title"
+        placeholder="feat: add dark mode support"
+        required
+        validators={{ onChange: prRequestSchema.shape.title }}
+      />
+      <ControlledInput
+        name="branch"
+        label="Branch Name"
+        placeholder="feature/dark-mode"
+        required
+        validators={{ onChange: prRequestSchema.shape.branch }}
+      />
       <ControlledInput name="relatedIssues" label="Related Issues" placeholder="#42, #55" />
-      <ControlledTextarea name="description" label="Description" placeholder="Describe what this PR does and why…" required validators={{ onChange: prRequestSchema.shape.description }} />
+      <ControlledTextarea
+        name="description"
+        label="Description"
+        placeholder="Describe what this PR does and why…"
+        required
+        validators={{ onChange: prRequestSchema.shape.description }}
+      />
       <div className="space-y-2 rounded-xl border border-border p-4">
-        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Checklist</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          Checklist
+        </p>
         <ControlledCheckbox name="hasTests" label="Tests included" />
         <ControlledCheckbox name="hasDocs" label="Documentation updated" />
         <ControlledCheckbox name="isBreaking" label="Breaking change" />

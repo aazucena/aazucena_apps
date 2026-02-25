@@ -31,16 +31,30 @@ export interface CodeBlockHeaderProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderProps>(
-  ({ className, fileName, language, copyable, onCopy, copied, copyError, variant = 'default', children, ...props }, ref) => {
+  (
+    {
+      className,
+      fileName,
+      language,
+      copyable,
+      onCopy,
+      copied,
+      copyError,
+      variant = 'default',
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const v = variant ?? 'default';
-    
+
     return (
       <div
         ref={ref}
         className={cn(
-          'flex items-center justify-between border-b px-4 py-2 rounded-lg rounded-b-none',
-          v === 'cyber' ? 'border-cyan-500/20 bg-cyan-500/5' : 'border border-border bg-muted/50',
-          className
+          'flex items-center justify-between rounded-lg rounded-b-none border-b px-4 py-2',
+          v === 'cyber' ? 'border-cyan-500/20 bg-cyan-500/5' : 'border-border bg-muted/50 border',
+          className,
         )}
         {...props}
       >
@@ -74,12 +88,12 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
             type="button"
             onClick={onCopy}
             className={cn(
-              'flex items-center gap-1.5 rounded-md px-2 py-1 text-[10px] font-bold uppercase transition-all active:scale-95 min-w-[64px] justify-center',
+              'flex min-w-[64px] items-center justify-center gap-1.5 rounded-md px-2 py-1 text-[10px] font-bold uppercase transition-all active:scale-95',
               v === 'cyber'
                 ? 'text-cyan-500/60 hover:bg-cyan-500/10 hover:text-cyan-400'
                 : 'text-muted-foreground hover:bg-accent hover:text-foreground',
               copied && 'text-emerald-500',
-              copyError && 'text-rose-500'
+              copyError && 'text-rose-500',
             )}
           >
             <AnimatePresence mode="wait">
@@ -122,7 +136,7 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
         )}
       </div>
     );
-  }
+  },
 );
 CodeBlockHeader.displayName = 'CodeBlockHeader';
 
@@ -160,8 +174,10 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
     const [copied, setCopied] = React.useState(false);
     const [highlightedCode, setHighlightedCode] = React.useState<string | null>(null);
 
-    const getDualThemeBYVariant = (variant: VariantProps<typeof codeBlockVariants>['variant']): CodeBlockDualTheme =>  {
-      switch(variant) {
+    const getDualThemeBYVariant = (
+      variant: VariantProps<typeof codeBlockVariants>['variant'],
+    ): CodeBlockDualTheme => {
+      switch (variant) {
         case 'cyber':
           return { light: 'nord', dark: 'nord' };
         case 'glass':
@@ -204,21 +220,30 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
       }
     };
 
-    const hasHeader = React.useMemo(() => fileName || language || copyable, [fileName, language, copyable]);
+    const hasHeader = React.useMemo(
+      () => fileName || language || copyable,
+      [fileName, language, copyable],
+    );
 
     return (
-      <div ref={ref} className={cn(codeBlockVariants({ variant }), className, hasHeader && 'rounded-t-none')} {...props}>
+      <div
+        ref={ref}
+        className={cn(codeBlockVariants({ variant }), className, hasHeader && 'rounded-t-none')}
+        {...props}
+      >
         {/* Header */}
-        {header !== undefined ? header : hasHeader && (
-          <CodeBlockHeader
-            fileName={fileName}
-            language={language}
-            copyable={copyable}
-            onCopy={handleCopy}
-            copied={copied}
-            variant={variant}
-          />
-        )}
+        {header !== undefined
+          ? header
+          : hasHeader && (
+              <CodeBlockHeader
+                fileName={fileName}
+                language={language}
+                copyable={copyable}
+                onCopy={handleCopy}
+                copied={copied}
+                variant={variant}
+              />
+            )}
 
         {/* Code Content */}
         <div className="group/code relative">

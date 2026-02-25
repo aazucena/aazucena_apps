@@ -62,16 +62,41 @@ export function BugReportForm({
     >
       <FormErrorSummary />
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="name" label="Your Name" placeholder="Aldrin Azucena" required validators={{ onChange: bugReportSchema.shape.name }} />
-        <ControlledInput name="email" label="Email" type="email" placeholder="you@example.com" required validators={{ onChange: bugReportSchema.shape.email }} />
+        <ControlledInput
+          name="name"
+          label="Your Name"
+          placeholder="Aldrin Azucena"
+          required
+          validators={{ onChange: bugReportSchema.shape.name }}
+        />
+        <ControlledInput
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="you@example.com"
+          required
+          validators={{ onChange: bugReportSchema.shape.email }}
+        />
       </div>
-      <ControlledInput name="subject" label="Subject" placeholder="Brief summary of the bug" required validators={{ onChange: bugReportSchema.shape.subject }} />
+      <ControlledInput
+        name="subject"
+        label="Subject"
+        placeholder="Brief summary of the bug"
+        required
+        validators={{ onChange: bugReportSchema.shape.subject }}
+      />
       <div className="grid grid-cols-2 gap-3">
         <ControlledInput name="browser" label="Browser" placeholder="Chrome 120" />
         <ControlledInput name="os" label="Operating System" placeholder="macOS 15" />
       </div>
       <ControlledInput name="url" label="Page URL" placeholder="https://…" />
-      <ControlledTextarea name="message" label="Steps to Reproduce" placeholder="1. Go to…&#10;2. Click on…&#10;3. See error" required validators={{ onChange: bugReportSchema.shape.message }} />
+      <ControlledTextarea
+        name="message"
+        label="Steps to Reproduce"
+        placeholder="1. Go to…&#10;2. Click on…&#10;3. See error"
+        required
+        validators={{ onChange: bugReportSchema.shape.message }}
+      />
       <FormButton className="w-full">Report Bug</FormButton>
     </Form>
   );

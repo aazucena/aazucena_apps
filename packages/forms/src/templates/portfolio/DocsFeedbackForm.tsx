@@ -28,7 +28,14 @@ const CATEGORIES = [
   { value: 'other', label: 'Other' },
 ] as const;
 
-export function DocsFeedbackForm({ variant = 'default', onSuccess, onError, className, defaultValues, pageUrl = '' }: DocsFeedbackFormProps) {
+export function DocsFeedbackForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+  pageUrl = '',
+}: DocsFeedbackFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -39,7 +46,11 @@ export function DocsFeedbackForm({ variant = 'default', onSuccess, onError, clas
       ...defaultValues,
     } as DocsFeedbackFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(docsFeedbackSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(docsFeedbackSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -48,7 +59,10 @@ export function DocsFeedbackForm({ variant = 'default', onSuccess, onError, clas
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
       <div className="space-y-2">
@@ -63,7 +77,9 @@ export function DocsFeedbackForm({ variant = 'default', onSuccess, onError, clas
                   onClick={() => field.handleChange(v)}
                   className={cn(
                     'flex-1 rounded-md border px-4 py-2 text-sm font-medium capitalize transition-all',
-                    field.state.value === v ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-background hover:border-primary/50'
+                    field.state.value === v
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-border bg-background hover:border-primary/50',
                   )}
                 >
                   {v === 'yes' ? '👍 Yes' : '👎 No'}
@@ -85,7 +101,9 @@ export function DocsFeedbackForm({ variant = 'default', onSuccess, onError, clas
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'rounded-full border px-3 py-1 text-xs font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary text-primary-foreground' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
@@ -95,7 +113,11 @@ export function DocsFeedbackForm({ variant = 'default', onSuccess, onError, clas
           )}
         </form.Field>
       </div>
-      <ControlledTextarea name="comment" label="Additional comments (optional)" placeholder="Tell us more about what could be improved…" />
+      <ControlledTextarea
+        name="comment"
+        label="Additional comments (optional)"
+        placeholder="Tell us more about what could be improved…"
+      />
       <FormButton className="w-full">Send Feedback</FormButton>
     </Form>
   );

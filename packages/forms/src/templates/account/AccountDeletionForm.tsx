@@ -27,7 +27,13 @@ const REASON_OPTIONS = [
   { value: 'other', label: 'Other reason' },
 ] as const;
 
-export function AccountDeletionForm({ variant = 'default', onSuccess, onError, className, defaultValues }: AccountDeletionFormProps) {
+export function AccountDeletionForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: AccountDeletionFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -39,7 +45,11 @@ export function AccountDeletionForm({ variant = 'default', onSuccess, onError, c
       ...defaultValues,
     } as AccountDeletionFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(accountDeletionSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(accountDeletionSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -48,7 +58,10 @@ export function AccountDeletionForm({ variant = 'default', onSuccess, onError, c
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -77,15 +90,17 @@ export function AccountDeletionForm({ variant = 'default', onSuccess, onError, c
                     'flex w-full items-center gap-2 rounded-md border px-3 py-2.5 text-left text-sm font-medium transition-all',
                     field.state.value === opt.value
                       ? 'border-destructive bg-destructive/10 text-destructive'
-                      : 'border-border bg-background hover:border-destructive/40'
+                      : 'border-border bg-background hover:border-destructive/40',
                   )}
                 >
-                  <span className={cn(
-                    'flex h-4 w-4 shrink-0 items-center justify-center rounded-full border text-[10px]',
-                    field.state.value === opt.value
-                      ? 'border-destructive bg-destructive text-white'
-                      : 'border-muted-foreground'
-                  )}>
+                  <span
+                    className={cn(
+                      'flex h-4 w-4 shrink-0 items-center justify-center rounded-full border text-[10px]',
+                      field.state.value === opt.value
+                        ? 'border-destructive bg-destructive text-white'
+                        : 'border-muted-foreground',
+                    )}
+                  >
                     {field.state.value === opt.value ? '●' : ''}
                   </span>
                   {opt.label}
@@ -103,7 +118,10 @@ export function AccountDeletionForm({ variant = 'default', onSuccess, onError, c
       <form.Subscribe selector={(state: any) => state.values.reason}>
         {(reason) =>
           reason === 'other' ? (
-            <form.Field name="otherReason" validators={{ onChange: accountDeletionSchema.shape.otherReason }}>
+            <form.Field
+              name="otherReason"
+              validators={{ onChange: accountDeletionSchema.shape.otherReason }}
+            >
               {(field) => (
                 <div className="space-y-1">
                   <label className="text-sm font-medium">Please tell us more</label>

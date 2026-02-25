@@ -54,7 +54,10 @@ export function MaintenanceWindowForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -71,8 +74,10 @@ export function MaintenanceWindowForm({
                   className={cn(
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium capitalize transition-all',
                     field.state.value === env
-                      ? env === 'production' || env === 'all' ? 'border-destructive bg-destructive/10 text-destructive' : 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      ? env === 'production' || env === 'all'
+                        ? 'border-destructive bg-destructive/10 text-destructive'
+                        : 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {env}
@@ -84,8 +89,20 @@ export function MaintenanceWindowForm({
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="startTime" label="Start Time" type="datetime-local" required validators={{ onChange: maintenanceWindowSchema.shape.startTime }} />
-        <ControlledInput name="endTime" label="End Time" type="datetime-local" required validators={{ onChange: maintenanceWindowSchema.shape.endTime }} />
+        <ControlledInput
+          name="startTime"
+          label="Start Time"
+          type="datetime-local"
+          required
+          validators={{ onChange: maintenanceWindowSchema.shape.startTime }}
+        />
+        <ControlledInput
+          name="endTime"
+          label="End Time"
+          type="datetime-local"
+          required
+          validators={{ onChange: maintenanceWindowSchema.shape.endTime }}
+        />
       </div>
 
       <ControlledTextarea
@@ -110,12 +127,16 @@ export function MaintenanceWindowForm({
                       key={svc}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((s) => s !== svc) : [...selected, svc];
+                        const next = isSelected
+                          ? selected.filter((s) => s !== svc)
+                          : [...selected, svc];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'rounded-full border px-3 py-1 text-xs font-medium transition-all',
-                        isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        isSelected
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {svc}

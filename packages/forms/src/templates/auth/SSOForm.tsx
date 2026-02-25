@@ -81,14 +81,14 @@ export function SSOForm({
                     'flex flex-col items-center gap-1 rounded-md border px-2 py-2.5 transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   <span className="text-lg">{emoji}</span>
                   <span
                     className={cn(
                       'text-[11px] font-medium',
-                      field.state.value === value ? 'text-primary' : 'text-muted-foreground'
+                      field.state.value === value ? 'text-primary' : 'text-muted-foreground',
                     )}
                   >
                     {label}
@@ -111,8 +111,8 @@ export function SSOForm({
                 provider === 'saml'
                   ? 'Your IdP entity ID or SSO URL domain'
                   : provider === 'oidc'
-                  ? 'Your OIDC issuer domain'
-                  : 'Your Okta organization domain'
+                    ? 'Your OIDC issuer domain'
+                    : 'Your Okta organization domain'
               }
             />
           ) : null

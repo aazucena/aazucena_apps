@@ -63,7 +63,11 @@ export function OrderForm({
               Order items — inject via <code>itemsSummarySlot</code> prop
             </div>
           )}
-          <ControlledTextarea name="orderNote" label="Order Note" placeholder="Any special instructions?" />
+          <ControlledTextarea
+            name="orderNote"
+            label="Order Note"
+            placeholder="Any special instructions?"
+          />
         </div>
       ),
     },
@@ -73,11 +77,33 @@ export function OrderForm({
       component: (
         <div className="space-y-4">
           <FormErrorSummary />
-          <ControlledInput name="shippingName" label="Full Name" placeholder="Aldrin Azucena" required validators={{ onChange: orderSchema.shape.shippingName }} />
-          <ControlledInput name="shippingAddress" label="Address" placeholder="123 Main St" required validators={{ onChange: orderSchema.shape.shippingAddress }} />
+          <ControlledInput
+            name="shippingName"
+            label="Full Name"
+            placeholder="Aldrin Azucena"
+            required
+            validators={{ onChange: orderSchema.shape.shippingName }}
+          />
+          <ControlledInput
+            name="shippingAddress"
+            label="Address"
+            placeholder="123 Main St"
+            required
+            validators={{ onChange: orderSchema.shape.shippingAddress }}
+          />
           <div className="grid grid-cols-2 gap-3">
-            <ControlledInput name="shippingCity" label="City" placeholder="San Francisco" required />
-            <ControlledInput name="shippingPostalCode" label="Postal Code" placeholder="94105" required />
+            <ControlledInput
+              name="shippingCity"
+              label="City"
+              placeholder="San Francisco"
+              required
+            />
+            <ControlledInput
+              name="shippingPostalCode"
+              label="Postal Code"
+              placeholder="94105"
+              required
+            />
           </div>
           <ControlledInput name="shippingCountry" label="Country" placeholder="US" required />
         </div>
@@ -88,7 +114,14 @@ export function OrderForm({
       title: 'Payment',
       component: (
         <div className="space-y-4">
-          <ControlledInput name="billingEmail" label="Billing Email" type="email" placeholder="you@example.com" required validators={{ onChange: orderSchema.shape.billingEmail }} />
+          <ControlledInput
+            name="billingEmail"
+            label="Billing Email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            validators={{ onChange: orderSchema.shape.billingEmail }}
+          />
           {stripeSlot ?? (
             <div className="rounded-xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
               Stripe Elements slot — inject via <code>stripeSlot</code> prop

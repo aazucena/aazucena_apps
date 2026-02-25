@@ -60,7 +60,10 @@ export function ConnectedAppsForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -78,7 +81,7 @@ export function ConnectedAppsForm({
                     'flex flex-col items-center gap-1.5 rounded-lg border p-3 transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   <span className={cn('h-4 w-4 rounded-full', color)} />
@@ -114,7 +117,7 @@ export function ConnectedAppsForm({
                         'rounded-full border px-3 py-1 text-xs font-medium capitalize transition-all',
                         isSelected
                           ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border hover:border-primary/50'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {perm}

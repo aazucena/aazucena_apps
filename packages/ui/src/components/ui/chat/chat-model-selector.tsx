@@ -29,9 +29,7 @@ export interface AiModel {
 }
 
 export interface ChatModelSelectorProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatModelSelectorVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatModelSelectorVariants> {
   models: AiModel[];
   selectedModelId: string;
   onSelectModel: (modelId: string) => void;
@@ -54,20 +52,24 @@ const ChatModelSelector = React.forwardRef<HTMLDivElement, ChatModelSelectorProp
     return (
       <div ref={ref} className={cn(chatModelSelectorVariants({ variant }), className)} {...props}>
         <Select value={selectedModelId} onValueChange={onSelectModel}>
-          <SelectTrigger className={cn(
-            'flex items-center gap-2 [&>span]:line-clamp-1',
-            variant === 'cyber' && 'border-cyan-500/30 bg-cyan-500/5 text-cyan-400 font-mono',
-            variant === 'glass' && 'glass border-input/20',
-          )}>
+          <SelectTrigger
+            className={cn(
+              'flex items-center gap-2 [&>span]:line-clamp-1',
+              variant === 'cyber' && 'border-cyan-500/30 bg-cyan-500/5 font-mono text-cyan-400',
+              variant === 'glass' && 'glass border-input/20',
+            )}
+          >
             <Robot className="h-4 w-4 shrink-0" />
             <SelectValue placeholder={placeholder} />
-            <ChevronDown className="h-4 w-4 opacity-50 shrink-0" />
+            <ChevronDown className="h-4 w-4 shrink-0 opacity-50" />
           </SelectTrigger>
-          <SelectContent className={cn(
-            variant === 'cyber' && 'border-cyan-500/30 bg-black text-cyan-400 font-mono',
-            variant === 'glass' && 'glass border-input/20',
-          )}>
-            {models.map(model => (
+          <SelectContent
+            className={cn(
+              variant === 'cyber' && 'border-cyan-500/30 bg-black font-mono text-cyan-400',
+              variant === 'glass' && 'glass border-input/20',
+            )}
+          >
+            {models.map((model) => (
               <SelectItem
                 key={model.id}
                 value={model.id}

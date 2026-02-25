@@ -25,7 +25,7 @@ export const defaultMarkerIcon = createCustomIcon(
   `<div class="flex items-center justify-center bg-primary text-primary-foreground rounded-full size-6 shadow-md border-2 border-background">
      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.9a2 2 0 1 0 0-3.8c0 1.2.7 3.8 0 3.8Z"/><path d="M19.07 13.93A10 10 0 1 1 12 2a10 10 0 0 1 7.07 11.93Z"/></svg>
    </div>`,
-  'bg-transparent border-none'
+  'bg-transparent border-none',
 );
 
 const mapVariants = cva('w-full h-full rounded-lg overflow-hidden relative z-0', {
@@ -42,9 +42,10 @@ const mapVariants = cva('w-full h-full rounded-lg overflow-hidden relative z-0',
 });
 
 // Using a more specific type for MapProps to avoid conflicting definitions
-export interface MapProps extends 
-  Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'center' | 'onViewportChanged'>, 
-  VariantProps<typeof mapVariants> {
+export interface MapProps
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'center' | 'onViewportChanged'>,
+    VariantProps<typeof mapVariants> {
   center?: L.LatLngExpression;
   zoom?: number;
   scrollWheelZoom?: boolean;
@@ -56,13 +57,20 @@ export interface MapProps extends
   children?: React.ReactNode;
   onViewportChanged?: (viewport: { center: L.LatLng; zoom: number }) => void;
   interactive?: boolean;
-  containerProps?: Omit<React.ComponentPropsWithoutRef<typeof MapContainer>, 'center' | 'zoom' | 'children'>;
+  containerProps?: Omit<
+    React.ComponentPropsWithoutRef<typeof MapContainer>,
+    'center' | 'zoom' | 'children'
+  >;
 }
 
 /**
  * Event listener component for react-leaflet v5
  */
-const MapEvents = ({ onViewportChanged }: { onViewportChanged?: (viewport: { center: L.LatLng; zoom: number }) => void }) => {
+const MapEvents = ({
+  onViewportChanged,
+}: {
+  onViewportChanged?: (viewport: { center: L.LatLng; zoom: number }) => void;
+}) => {
   useMapEvents({
     moveend: (e) => {
       if (onViewportChanged) {
@@ -91,7 +99,7 @@ const MapContent = ({ interactive }: { interactive: boolean }) => {
       map.scrollWheelZoom.disable();
       map.boxZoom.disable();
       map.keyboard.disable();
-      // @ts-ignore - Leaflet tap might not exist on all platforms
+      // @ts-expect-error - Leaflet tap might not exist on all platforms
       if (map.tap) map.tap.disable();
     } else {
       map.dragging.enable();
@@ -100,7 +108,7 @@ const MapContent = ({ interactive }: { interactive: boolean }) => {
       map.scrollWheelZoom.enable();
       map.boxZoom.enable();
       map.keyboard.enable();
-      // @ts-ignore
+      // @ts-expect-error - Leaflet tap might not exist on all platforms
       if (map.tap) map.tap.enable();
     }
   }, [map, interactive]);
@@ -137,7 +145,11 @@ const Map = React.forwardRef<HTMLDivElement, MapProps>(
       return (
         <div
           ref={ref}
-          className={cn(mapVariants({ variant }), 'w-full h-full bg-muted animate-pulse', className)}
+          className={cn(
+            mapVariants({ variant }),
+            'bg-muted h-full w-full animate-pulse',
+            className,
+          )}
           {...props}
         />
       );
@@ -146,7 +158,7 @@ const Map = React.forwardRef<HTMLDivElement, MapProps>(
     return (
       <div
         ref={ref}
-        className={cn(mapVariants({ variant }), 'w-full h-full', className)}
+        className={cn(mapVariants({ variant }), 'h-full w-full', className)}
         {...props}
       >
         <MapContainer
@@ -155,7 +167,7 @@ const Map = React.forwardRef<HTMLDivElement, MapProps>(
           scrollWheelZoom={scrollWheelZoom && interactive}
           minZoom={minZoom}
           maxZoom={maxZoom}
-          className="w-full h-full"
+          className="h-full w-full"
           attributionControl={true}
           zoomControl={interactive}
           doubleClickZoom={interactive}

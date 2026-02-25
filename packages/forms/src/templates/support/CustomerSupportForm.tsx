@@ -58,11 +58,36 @@ export function CustomerSupportForm({
     >
       <FormErrorSummary />
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="name" label="Your Name" placeholder="Aldrin Azucena" required validators={{ onChange: customerSupportSchema.shape.name }} />
-        <ControlledInput name="email" label="Email" type="email" placeholder="you@example.com" required validators={{ onChange: customerSupportSchema.shape.email }} />
+        <ControlledInput
+          name="name"
+          label="Your Name"
+          placeholder="Aldrin Azucena"
+          required
+          validators={{ onChange: customerSupportSchema.shape.name }}
+        />
+        <ControlledInput
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="you@example.com"
+          required
+          validators={{ onChange: customerSupportSchema.shape.email }}
+        />
       </div>
-      <ControlledInput name="subject" label="Subject" placeholder="Brief summary of your issue" required validators={{ onChange: customerSupportSchema.shape.subject }} />
-      <ControlledTextarea name="description" label="Description" placeholder="Please describe your issue in detail…" required validators={{ onChange: customerSupportSchema.shape.description }} />
+      <ControlledInput
+        name="subject"
+        label="Subject"
+        placeholder="Brief summary of your issue"
+        required
+        validators={{ onChange: customerSupportSchema.shape.subject }}
+      />
+      <ControlledTextarea
+        name="description"
+        label="Description"
+        placeholder="Please describe your issue in detail…"
+        required
+        validators={{ onChange: customerSupportSchema.shape.description }}
+      />
       <FormButton className="w-full">Submit Ticket</FormButton>
     </Form>
   );

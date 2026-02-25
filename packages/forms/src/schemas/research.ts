@@ -75,7 +75,9 @@ export const focusGroupSchema = z.object({
   participantType: z.string().min(2, 'Please select your user persona').max(100),
   occupation: z.string().max(100).optional(),
   yearsExperience: z.string().max(50).optional(),
-  compensationAccepted: z.boolean().refine((v) => v === true, 'You must accept the compensation terms'),
+  compensationAccepted: z
+    .boolean()
+    .refine((v) => v === true, 'You must accept the compensation terms'),
   ndaAccepted: z.boolean().default(false),
 });
 
@@ -98,7 +100,9 @@ export const userInterviewSchema = z.object({
 export const abTestEnrollmentSchema = z.object({
   experimentId: z.string().min(1, 'Experiment ID is required'),
   consentToVariant: z.boolean().refine((v) => v === true, 'Consent is required to participate'),
-  variantPreference: z.enum(['control', 'variant_a', 'variant_b', 'no_preference']).default('no_preference'),
+  variantPreference: z
+    .enum(['control', 'variant_a', 'variant_b', 'no_preference'])
+    .default('no_preference'),
   dataCollectionConsent: z.boolean().default(false),
   exitSurveyOptIn: z.boolean().default(false),
 });

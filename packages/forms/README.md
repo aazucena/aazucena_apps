@@ -64,7 +64,7 @@ function ContactForm() {
         required
         validators={{ onChange: contactFormSchema.shape.name }}
       />
-      
+
       <button type="submit" disabled={mutation.isPending}>
         {mutation.isPending ? 'Sending...' : 'Send Message'}
       </button>
@@ -93,11 +93,11 @@ function OnboardingWizard() {
   ];
 
   return (
-    <FormWizard 
-      steps={steps} 
+    <FormWizard
+      steps={steps}
       onComplete={async () => {
         // Final submission logic
-      }} 
+      }}
     />
   );
 }
@@ -110,7 +110,7 @@ import { useFormMutation } from '@aazucena/forms';
 
 function AdvancedForm() {
   const form = useForm({ ... });
-  
+
   const mutation = useFormMutation({
     form,
     mutationFn: (data) => api.submit(data),

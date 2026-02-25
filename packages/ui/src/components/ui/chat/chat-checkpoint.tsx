@@ -27,9 +27,7 @@ const chatCheckpointVariants = cva(
 );
 
 export interface ChatCheckpointProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatCheckpointVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatCheckpointVariants> {
   label: string;
   status: 'success' | 'failure' | 'pending' | 'current';
   timestamp?: string; // e.g., "HH:MM:SS" or "YYYY-MM-DD HH:MM"
@@ -43,27 +41,19 @@ const statusIconMap: Record<ChatCheckpointProps['status'], React.ElementType> = 
 };
 
 const ChatCheckpoint = React.forwardRef<HTMLDivElement, ChatCheckpointProps>(
-  (
-    {
-      className,
-      variant,
-      status,
-      label,
-      timestamp,
-      ...props
-    },
-    ref,
-  ) => {
-    const Icon = statusIconMap[status];
+  ({ className, variant, status, label, timestamp, ...props }, ref) => {
+    const Icon = statusIconMap[status] as React.ComponentType<{ className?: string }>;
 
     return (
-      <div ref={ref} className={cn(chatCheckpointVariants({ variant, status }), className)} {...props}>
+      <div
+        ref={ref}
+        className={cn(chatCheckpointVariants({ variant, status }), className)}
+        {...props}
+      >
         {Icon && <Icon className="h-5 w-5 shrink-0" />}
-        <div className="flex flex-col flex-grow">
+        <div className="flex flex-grow flex-col">
           <span className="font-medium">{label}</span>
-          {timestamp && (
-            <span className="text-xs text-muted-foreground">{timestamp}</span>
-          )}
+          {timestamp && <span className="text-muted-foreground text-xs">{timestamp}</span>}
         </div>
       </div>
     );

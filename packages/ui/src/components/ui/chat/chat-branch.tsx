@@ -27,9 +27,7 @@ export interface BranchOption {
 }
 
 export interface ChatBranchProps
-  extends
-    React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatBranchVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatBranchVariants> {
   question: string;
   options: BranchOption[];
   selectedOptionId?: string; // ID of the option that was taken/selected
@@ -52,7 +50,7 @@ const ChatBranch = React.forwardRef<HTMLDivElement, ChatBranchProps>(
     return (
       <div ref={ref} className={cn(chatBranchVariants({ variant }), className)} {...props}>
         {options.length === 0 && (
-          <p className="text-center text-muted-foreground">{emptyMessage}</p>
+          <p className="text-muted-foreground text-center">{emptyMessage}</p>
         )}
         {options.length > 0 && (
           <>
@@ -61,7 +59,7 @@ const ChatBranch = React.forwardRef<HTMLDivElement, ChatBranchProps>(
               <h3>{question}</h3>
             </div>
             <ul className="ml-4 flex flex-col gap-2">
-              {options.map(option => (
+              {options.map((option) => (
                 <li
                   key={option.id}
                   className={cn(

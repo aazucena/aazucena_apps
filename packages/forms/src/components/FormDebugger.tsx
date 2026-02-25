@@ -30,13 +30,18 @@ export function FormDebugger() {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex h-8 items-center gap-2 rounded-full border px-3 text-[10px] font-bold uppercase tracking-widest transition-all shadow-lg",
-          isOpen 
-            ? "bg-cyan-500 border-cyan-400 text-black" 
-            : "bg-black/80 border-white/10 text-white/50 hover:text-white hover:border-white/20"
+          'flex h-8 items-center gap-2 rounded-full border px-3 text-[10px] font-bold uppercase tracking-widest transition-all shadow-lg',
+          isOpen
+            ? 'bg-cyan-500 border-cyan-400 text-black'
+            : 'bg-black/80 border-white/10 text-white/50 hover:text-white hover:border-white/20',
         )}
       >
-        <span className={cn("h-1.5 w-1.5 rounded-full", isOpen ? "bg-black animate-pulse" : "bg-cyan-500")} />
+        <span
+          className={cn(
+            'h-1.5 w-1.5 rounded-full',
+            isOpen ? 'bg-black animate-pulse' : 'bg-cyan-500',
+          )}
+        />
         Form_Inspect
       </button>
 
@@ -52,26 +57,36 @@ export function FormDebugger() {
               {(state: any) => (
                 <div className="space-y-6">
                   <section>
-                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-cyan-500">Values</h4>
+                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-cyan-500">
+                      Values
+                    </h4>
                     <pre className="rounded-lg bg-white/5 p-3 text-[10px] text-white/70 font-mono leading-tight">
                       {JSON.stringify(state.values, null, 2)}
                     </pre>
                   </section>
 
                   <section>
-                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-amber-500">Global_State</h4>
+                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-amber-500">
+                      Global_State
+                    </h4>
                     <div className="grid grid-cols-2 gap-2 text-[9px] font-mono uppercase">
                       <div className="rounded border border-white/5 p-2 bg-white/5">
                         <span className="text-white/30 block mb-1">isDirty</span>
-                        <span className={state.isDirty ? "text-amber-400" : "text-white/50"}>{String(state.isDirty)}</span>
+                        <span className={state.isDirty ? 'text-amber-400' : 'text-white/50'}>
+                          {String(state.isDirty)}
+                        </span>
                       </div>
                       <div className="rounded border border-white/5 p-2 bg-white/5">
                         <span className="text-white/30 block mb-1">isValid</span>
-                        <span className={state.isValid ? "text-emerald-400" : "text-white/50"}>{String(state.isValid)}</span>
+                        <span className={state.isValid ? 'text-emerald-400' : 'text-white/50'}>
+                          {String(state.isValid)}
+                        </span>
                       </div>
                       <div className="rounded border border-white/5 p-2 bg-white/5">
                         <span className="text-white/30 block mb-1">isSubmitting</span>
-                        <span className={state.isSubmitting ? "text-cyan-400" : "text-white/50"}>{String(state.isSubmitting)}</span>
+                        <span className={state.isSubmitting ? 'text-cyan-400' : 'text-white/50'}>
+                          {String(state.isSubmitting)}
+                        </span>
                       </div>
                       <div className="rounded border border-white/5 p-2 bg-white/5">
                         <span className="text-white/30 block mb-1">Attempts</span>
@@ -81,25 +96,32 @@ export function FormDebugger() {
                   </section>
 
                   <section>
-                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-red-500">Field_Meta</h4>
+                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-red-500">
+                      Field_Meta
+                    </h4>
                     <div className="space-y-2">
                       {Object.entries(state.fieldMeta).map(([name, meta]: [string, any]) => (
-                        <div key={name} className="rounded border border-white/5 bg-white/5 p-2 text-[9px] font-mono">
+                        <div
+                          key={name}
+                          className="rounded border border-white/5 bg-white/5 p-2 text-[9px] font-mono"
+                        >
                           <div className="flex justify-between mb-1">
                             <span className="text-white font-bold">{name}</span>
-                            {meta.isValidating && <span className="text-cyan-400 animate-pulse">VALIDATING...</span>}
+                            {meta.isValidating && (
+                              <span className="text-cyan-400 animate-pulse">VALIDATING...</span>
+                            )}
                           </div>
                           <div className="grid grid-cols-3 gap-1 opacity-50 uppercase text-[8px]">
                             <span>Touched: {String(meta.isTouched)}</span>
                             <span>Dirty: {String(!meta.isPristine)}</span>
-                            <span className={meta.errors.length > 0 ? "text-red-400 font-bold" : ""}>
+                            <span
+                              className={meta.errors.length > 0 ? 'text-red-400 font-bold' : ''}
+                            >
                               Errors: {meta.errors.length}
                             </span>
                           </div>
                           {meta.errors.length > 0 && (
-                            <div className="mt-1 text-red-400 italic">
-                              ↳ {meta.errors[0]}
-                            </div>
+                            <div className="mt-1 text-red-400 italic">↳ {meta.errors[0]}</div>
                           )}
                         </div>
                       ))}

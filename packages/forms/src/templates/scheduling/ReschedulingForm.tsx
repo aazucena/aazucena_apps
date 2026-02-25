@@ -27,7 +27,13 @@ const REASON_OPTIONS = [
   { value: 'other', label: 'Other' },
 ] as const;
 
-export function ReschedulingForm({ variant = 'default', onSuccess, onError, className, defaultValues }: ReschedulingFormProps) {
+export function ReschedulingForm({
+  variant = 'default',
+  onSuccess,
+  onError,
+  className,
+  defaultValues,
+}: ReschedulingFormProps) {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -40,7 +46,11 @@ export function ReschedulingForm({ variant = 'default', onSuccess, onError, clas
       ...defaultValues,
     } as ReschedulingFormData,
     onSubmit: async ({ value }: { value: any }) => {
-      try { onSuccess?.(reschedulingSchema.parse(value)); } catch (error) { onError?.(error); }
+      try {
+        onSuccess?.(reschedulingSchema.parse(value));
+      } catch (error) {
+        onError?.(error);
+      }
     },
   } as any);
 
@@ -49,7 +59,10 @@ export function ReschedulingForm({ variant = 'default', onSuccess, onError, clas
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -95,14 +108,16 @@ export function ReschedulingForm({ variant = 'default', onSuccess, onError, clas
                     'rounded-md border px-3 py-2 text-left text-sm font-medium transition-all',
                     field.state.value === opt.value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border bg-background hover:border-primary/40'
+                      : 'border-border bg-background hover:border-primary/40',
                   )}
                 >
                   {opt.label}
                 </button>
               ))}
               {field.state.meta.errors.length > 0 && (
-                <p className="col-span-2 text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
+                <p className="col-span-2 text-xs text-destructive">
+                  {String(field.state.meta.errors[0])}
+                </p>
               )}
             </div>
           )}

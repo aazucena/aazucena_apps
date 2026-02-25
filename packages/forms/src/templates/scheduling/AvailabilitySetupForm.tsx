@@ -61,7 +61,10 @@ export function AvailabilitySetupForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-4', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -88,12 +91,16 @@ export function AvailabilitySetupForm({
                       key={day}
                       type="button"
                       onClick={() => {
-                        const next = isSelected ? selected.filter((d) => d !== day) : [...selected, day];
+                        const next = isSelected
+                          ? selected.filter((d) => d !== day)
+                          : [...selected, day];
                         field.handleChange(next);
                       }}
                       className={cn(
                         'flex-1 rounded-md border py-2 text-[11px] font-medium transition-all',
-                        isSelected ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                        isSelected
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50',
                       )}
                     >
                       {day}
@@ -107,8 +114,20 @@ export function AvailabilitySetupForm({
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="startTime" label="Start Time" type="time" required validators={{ onChange: availabilitySetupSchema.shape.startTime }} />
-        <ControlledInput name="endTime" label="End Time" type="time" required validators={{ onChange: availabilitySetupSchema.shape.endTime }} />
+        <ControlledInput
+          name="startTime"
+          label="Start Time"
+          type="time"
+          required
+          validators={{ onChange: availabilitySetupSchema.shape.startTime }}
+        />
+        <ControlledInput
+          name="endTime"
+          label="End Time"
+          type="time"
+          required
+          validators={{ onChange: availabilitySetupSchema.shape.endTime }}
+        />
       </div>
 
       <div className="space-y-2">
@@ -123,7 +142,9 @@ export function AvailabilitySetupForm({
                   onClick={() => field.handleChange(value)}
                   className={cn(
                     'flex-1 rounded-md border py-1.5 text-[11px] font-medium transition-all',
-                    field.state.value === value ? 'border-primary bg-primary/10 text-primary' : 'border-border hover:border-primary/50'
+                    field.state.value === value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}

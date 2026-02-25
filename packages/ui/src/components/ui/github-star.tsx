@@ -30,8 +30,7 @@ const githubStarVariants = cva(
 );
 
 export interface GithubStarProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof githubStarVariants> {
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof githubStarVariants> {
   owner: string;
   repo: string;
   showCount?: boolean;
@@ -77,25 +76,40 @@ const GithubStar = React.forwardRef<HTMLAnchorElement, GithubStarProps>(
         {...props}
       >
         {/* Left Side: Icon & Label */}
-        <div className={cn(
-          "flex items-center gap-1.5 px-2.5 transition-colors",
-          variant === 'default' ? "bg-background border-r" : "bg-transparent",
-          isCyber && "border-r border-cyan-500/20 bg-cyan-500/5",
-          isGlass && "border-r border-white/10 bg-white/5"
-        )}>
-          {showBranding && <GitHubIcon className={cn("size-3.5", size === 'sm' && "size-3", size === 'lg' && "size-4")} />}
+        <div
+          className={cn(
+            'flex items-center gap-1.5 px-2.5 transition-colors',
+            variant === 'default' ? 'bg-background border-r' : 'bg-transparent',
+            isCyber && 'border-r border-cyan-500/20 bg-cyan-500/5',
+            isGlass && 'border-r border-white/10 bg-white/5',
+          )}
+        >
+          {showBranding && (
+            <GitHubIcon
+              className={cn('size-3.5', size === 'sm' && 'size-3', size === 'lg' && 'size-4')}
+            />
+          )}
           <span className="font-bolt">Star</span>
-          <Star className={cn("size-3.5", size === 'sm' && "size-3", size === 'lg' && "size-4", isLoading && "animate-pulse")} />
+          <Star
+            className={cn(
+              'size-3.5',
+              size === 'sm' && 'size-3',
+              size === 'lg' && 'size-4',
+              isLoading && 'animate-pulse',
+            )}
+          />
         </div>
 
         {/* Right Side: Count or Status */}
         {showCount && (
-          <div className={cn(
-            "flex items-center px-2.5 font-mono font-medium",
-            variant === 'default' ? "bg-muted/30" : "bg-transparent",
-            isCyber && "text-cyan-300 bg-black/40",
-            error && "text-rose-500 opacity-70 italic text-[9px]"
-          )}>
+          <div
+            className={cn(
+              'flex items-center px-2.5 font-mono font-medium',
+              variant === 'default' ? 'bg-muted/30' : 'bg-transparent',
+              isCyber && 'bg-black/40 text-cyan-300',
+              error && 'text-[9px] text-rose-500 italic opacity-70',
+            )}
+          >
             {isLoading ? (
               <span className="animate-pulse">...</span>
             ) : error ? (

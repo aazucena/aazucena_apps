@@ -26,12 +26,7 @@ const PARTICIPANT_TYPES = [
   { value: 'other', label: 'Other' },
 ] as const;
 
-const AVAILABLE_SLOTS = [
-  'Mon 2pm EST',
-  'Tue 10am EST',
-  'Wed 3pm EST',
-  'Thu 11am EST',
-] as const;
+const AVAILABLE_SLOTS = ['Mon 2pm EST', 'Tue 10am EST', 'Wed 3pm EST', 'Thu 11am EST'] as const;
 
 export function FocusGroupForm({
   variant = 'default',
@@ -67,7 +62,10 @@ export function FocusGroupForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -79,7 +77,9 @@ export function FocusGroupForm({
       />
 
       <div className="space-y-2">
-        <p className="text-sm font-medium">Available Time Slot <span className="text-destructive">*</span></p>
+        <p className="text-sm font-medium">
+          Available Time Slot <span className="text-destructive">*</span>
+        </p>
         <form.Field name="availableSlot">
           {(field) => (
             <div className="grid grid-cols-2 gap-2">
@@ -99,7 +99,9 @@ export function FocusGroupForm({
                 </button>
               ))}
               {field.state.meta.errors.length > 0 && (
-                <p className="col-span-2 text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
+                <p className="col-span-2 text-xs text-destructive">
+                  {String(field.state.meta.errors[0])}
+                </p>
               )}
             </div>
           )}
@@ -107,7 +109,9 @@ export function FocusGroupForm({
       </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-medium">Participant Type <span className="text-destructive">*</span></p>
+        <p className="text-sm font-medium">
+          Participant Type <span className="text-destructive">*</span>
+        </p>
         <form.Field name="participantType">
           {(field) => (
             <div className="flex flex-wrap gap-2">
@@ -127,7 +131,9 @@ export function FocusGroupForm({
                 </button>
               ))}
               {field.state.meta.errors.length > 0 && (
-                <p className="w-full text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
+                <p className="w-full text-xs text-destructive">
+                  {String(field.state.meta.errors[0])}
+                </p>
               )}
             </div>
           )}
@@ -140,11 +146,7 @@ export function FocusGroupForm({
           label="Occupation"
           placeholder="e.g. Software Engineer"
         />
-        <ControlledInput
-          name="yearsExperience"
-          label="Years of Experience"
-          placeholder="e.g. 5"
-        />
+        <ControlledInput name="yearsExperience" label="Years of Experience" placeholder="e.g. 5" />
       </div>
 
       <div className="space-y-3 rounded-xl border border-border p-4">

@@ -22,8 +22,7 @@ const purchaseCardVariants = cva('w-full', {
 });
 
 export interface PurchaseCardProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof purchaseCardVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof purchaseCardVariants> {
   title: string;
   description: string;
   price: string;
@@ -59,8 +58,8 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
         className={cn(
           purchaseCardVariants({ variant }),
           'flex flex-col overflow-hidden',
-          variant === 'glass' && 'bg-white/5 border-white/10 text-white',
-          variant === 'cyber' && 'bg-black border-cyan-500/20 text-cyan-50',
+          variant === 'glass' && 'border-white/10 bg-white/5 text-white',
+          variant === 'cyber' && 'border-cyan-500/20 bg-black text-cyan-50',
           className,
         )}
         variant={variant === 'glass' || variant === 'cyber' ? variant : 'default'}
@@ -71,11 +70,7 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
         )}
         <CardHeader className="flex-grow">
           <div className="flex items-center justify-between">
-            <CardTitle
-              className={cn(
-                variant === 'cyber' && 'font-mono italic text-cyan-400',
-              )}
-            >
+            <CardTitle className={cn(variant === 'cyber' && 'font-mono text-cyan-400 italic')}>
               {title}
             </CardTitle>
             {badgeText && (
@@ -99,8 +94,8 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
           {features && (
             <ul
               className={cn(
-                'text-sm list-inside list-disc space-y-1',
-                variant === 'cyber' && 'font-mono text-cyan-500/80 list-[">"]',
+                'list-inside list-disc space-y-1 text-sm',
+                variant === 'cyber' && 'list-[">"] font-mono text-cyan-500/80',
               )}
             >
               {features.map((feature, index) => (

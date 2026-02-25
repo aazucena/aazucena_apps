@@ -57,7 +57,10 @@ export function ABTestEnrollmentForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -82,10 +85,16 @@ export function ABTestEnrollmentForm({
                   onClick={() => field.handleChange(v)}
                   className={cn(
                     'flex flex-col items-start rounded-lg border p-3 text-left transition-all',
-                    field.state.value === v ? 'border-primary bg-primary/10' : 'border-border hover:border-primary/50'
+                    field.state.value === v
+                      ? 'border-primary bg-primary/10'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
-                  <span className={cn('text-xs font-bold', field.state.value === v && 'text-primary')}>{label}</span>
+                  <span
+                    className={cn('text-xs font-bold', field.state.value === v && 'text-primary')}
+                  >
+                    {label}
+                  </span>
                   <span className="text-[11px] text-muted-foreground">{description}</span>
                 </button>
               ))}

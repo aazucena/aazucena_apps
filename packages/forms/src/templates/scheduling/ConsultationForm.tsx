@@ -48,19 +48,62 @@ export function ConsultationForm({
   } as any);
 
   return (
-    <Form form={form} variant={variant} className={cn('max-w-lg space-y-4', className)} onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+    <Form
+      form={form}
+      variant={variant}
+      className={cn('max-w-lg space-y-4', className)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <FormErrorSummary />
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="name" label="Your Name" placeholder="Aldrin Azucena" required validators={{ onChange: consultationSchema.shape.name }} />
-        <ControlledInput name="email" label="Email" type="email" placeholder="you@example.com" required validators={{ onChange: consultationSchema.shape.email }} />
+        <ControlledInput
+          name="name"
+          label="Your Name"
+          placeholder="Aldrin Azucena"
+          required
+          validators={{ onChange: consultationSchema.shape.name }}
+        />
+        <ControlledInput
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="you@example.com"
+          required
+          validators={{ onChange: consultationSchema.shape.email }}
+        />
       </div>
       <ControlledInput name="company" label="Company" placeholder="Optional" />
-      <ControlledTextarea name="goals" label="Goals & Context" placeholder="What are you hoping to achieve?" required validators={{ onChange: consultationSchema.shape.goals }} />
+      <ControlledTextarea
+        name="goals"
+        label="Goals & Context"
+        placeholder="What are you hoping to achieve?"
+        required
+        validators={{ onChange: consultationSchema.shape.goals }}
+      />
       <div className="grid grid-cols-2 gap-3">
-        <ControlledInput name="budget" label="Budget Range" placeholder="$500-$2k" required validators={{ onChange: consultationSchema.shape.budget }} />
-        <ControlledInput name="preferredDate" label="Preferred Date/Time" placeholder="Tues or Thurs, 2-4 PM PST" required validators={{ onChange: consultationSchema.shape.preferredDate }} />
+        <ControlledInput
+          name="budget"
+          label="Budget Range"
+          placeholder="$500-$2k"
+          required
+          validators={{ onChange: consultationSchema.shape.budget }}
+        />
+        <ControlledInput
+          name="preferredDate"
+          label="Preferred Date/Time"
+          placeholder="Tues or Thurs, 2-4 PM PST"
+          required
+          validators={{ onChange: consultationSchema.shape.preferredDate }}
+        />
       </div>
-      <ControlledInput name="howFound" label="How did you find me?" placeholder="Twitter, GitHub, referral…" />
+      <ControlledInput
+        name="howFound"
+        label="How did you find me?"
+        placeholder="Twitter, GitHub, referral…"
+      />
       <FormButton className="w-full">Request Consultation</FormButton>
     </Form>
   );

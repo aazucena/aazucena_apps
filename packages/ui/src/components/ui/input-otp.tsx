@@ -10,14 +10,14 @@ import { cn } from '@aazucena/utils';
 const InputOTP = React.forwardRef<
   React.ComponentRef<typeof OTPInput>,
   React.ComponentPropsWithoutRef<typeof OTPInput> & {
-  containerClassName?: string,
-}
+    containerClassName?: string;
+  }
 >(({ className, containerClassName, ...props }, ref) => (
   <OTPInput
     ref={ref}
     data-slot="input-otp"
     containerClassName={cn(
-      "cn-input-otp flex items-center has-disabled:opacity-50",
+      'cn-input-otp flex items-center has-disabled:opacity-50',
       containerClassName,
     )}
     spellCheck={false}
@@ -31,7 +31,12 @@ const InputOTPGroup = React.forwardRef<
   React.ElementRef<'div'>,
   React.ComponentPropsWithoutRef<'div'>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} data-slot="input-otp-group" className={cn('flex items-center', className)} {...props} />
+  <div
+    ref={ref}
+    data-slot="input-otp-group"
+    className={cn('flex items-center', className)}
+    {...props}
+  />
 ));
 InputOTPGroup.displayName = 'InputOTPGroup';
 
@@ -75,7 +80,7 @@ const InputOTPSeparator = React.forwardRef<
   <div
     ref={ref}
     data-slot="input-otp-separator"
-    className="[&_svg:not([class*='size-'])]:size-4 flex items-center"
+    className="flex items-center [&_svg:not([class*='size-'])]:size-4"
     role="separator"
     {...props}
   >

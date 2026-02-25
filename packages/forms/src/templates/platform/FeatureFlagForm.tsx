@@ -19,9 +19,21 @@ export interface FeatureFlagFormProps {
 }
 
 const ENV_CONFIG = {
-  dev: { label: 'Dev', activeClass: 'border-green-500 bg-green-600 text-white', hoverClass: 'border-green-200 text-green-700 hover:border-green-400' },
-  staging: { label: 'Staging', activeClass: 'border-amber-500 bg-amber-500 text-white', hoverClass: 'border-amber-200 text-amber-700 hover:border-amber-400' },
-  prod: { label: 'Prod', activeClass: 'border-red-500 bg-red-600 text-white', hoverClass: 'border-red-200 text-red-600 hover:border-red-400' },
+  dev: {
+    label: 'Dev',
+    activeClass: 'border-green-500 bg-green-600 text-white',
+    hoverClass: 'border-green-200 text-green-700 hover:border-green-400',
+  },
+  staging: {
+    label: 'Staging',
+    activeClass: 'border-amber-500 bg-amber-500 text-white',
+    hoverClass: 'border-amber-200 text-amber-700 hover:border-amber-400',
+  },
+  prod: {
+    label: 'Prod',
+    activeClass: 'border-red-500 bg-red-600 text-white',
+    hoverClass: 'border-red-200 text-red-600 hover:border-red-400',
+  },
 } as const;
 
 const TARGET_GROUPS = [
@@ -65,7 +77,10 @@ export function FeatureFlagForm({
       form={form}
       variant={variant}
       className={cn('max-w-md space-y-5', className)}
-      onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <FormErrorSummary />
 
@@ -133,7 +148,7 @@ export function FeatureFlagForm({
               min={0}
               max={100}
               step={5}
-              value={field.state.value as number ?? 0}
+              value={(field.state.value as number) ?? 0}
               onChange={(e) => field.handleChange(Number(e.target.value))}
               className="w-full accent-primary"
             />
@@ -179,11 +194,7 @@ export function FeatureFlagForm({
         </form.Field>
       </div>
 
-      <ControlledInput
-        name="expiresAt"
-        label="Expires At (optional)"
-        type="date"
-      />
+      <ControlledInput name="expiresAt" label="Expires At (optional)" type="date" />
 
       <FormButton className="w-full">Save Feature Flag</FormButton>
     </Form>

@@ -110,7 +110,7 @@ export function NotificationPreferencesForm({
                     'flex-1 rounded-md border px-3 py-2 text-xs font-medium transition-all',
                     field.state.value === value
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      : 'border-border hover:border-primary/50',
                   )}
                 >
                   {label}
