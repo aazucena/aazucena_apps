@@ -159,7 +159,7 @@ CommandShortcut.displayName = 'CommandShortcut';
  * High-level component that provides a searchable command menu with categories and keyboard shortcut.
  */
 export interface CommandPaletteProps extends React.HTMLAttributes<HTMLDivElement> {
-  actions: CommandAction[];
+  actions: CommandAction<string>[];
   onNavigate?: (href: string) => void;
   onAction?: (actionId: string) => void;
   variant?: VariantProps<typeof commandVariants>['variant'];
@@ -183,7 +183,7 @@ const CommandPalette = React.forwardRef<HTMLDivElement, CommandPaletteProps>(
     }, []);
 
     const handleSelect = React.useCallback(
-      (action: CommandAction) => {
+      (action: CommandAction<string>) => {
         setOpen(false);
         if (action.href && onNavigate) {
           onNavigate(action.href);

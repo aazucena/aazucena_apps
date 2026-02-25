@@ -1,11 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTelemetryConfig } from '@aazucena/context';
 
+export interface UsePerformanceOptions {
+  isLive?: boolean;
+  pollingInterval?: number;
+}
+
 /**
  * Hook to fetch Core Web Vitals and general performance metrics
  */
-export function usePerformanceStats(isLive = false) {
-  const { baseUrl, secretKey } = useTelemetryConfig();
+export function usePerformanceStats(options: UsePerformanceOptions = {}) {
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 15000;
 
   return useQuery({
     queryKey: ['performance-stats', baseUrl],
@@ -13,20 +20,23 @@ export function usePerformanceStats(isLive = false) {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/performance`, { headers });
+      const url = `${baseUrl}${endpoints?.performance ?? '/api/stats/performance'}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_PERFORMANCE_FETCH');
       const json = await res.json();
       return json.data;
     },
-    refetchInterval: isLive ? 10000 : false,
+    refetchInterval: isLive ? interval : false,
   });
 }
 
 /**
  * Hook to fetch traffic statistics
  */
-export function useTrafficStats(isLive = false) {
-  const { baseUrl, secretKey } = useTelemetryConfig();
+export function useTrafficStats(options: UsePerformanceOptions = {}) {
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 15000;
 
   return useQuery({
     queryKey: ['traffic-stats', baseUrl],
@@ -34,20 +44,23 @@ export function useTrafficStats(isLive = false) {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/traffic`, { headers });
+      const url = `${baseUrl}${endpoints?.traffic ?? '/api/stats/traffic'}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_TRAFFIC_FETCH');
       const json = await res.json();
       return json.data;
     },
-    refetchInterval: isLive ? 30000 : false,
+    refetchInterval: isLive ? interval : false,
   });
 }
 
 /**
  * Hook to fetch music playback statistics
  */
-export function useMusicStats(isLive = false) {
-  const { baseUrl, secretKey } = useTelemetryConfig();
+export function useMusicStats(options: UsePerformanceOptions = {}) {
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 15000;
 
   return useQuery({
     queryKey: ['music-stats', baseUrl],
@@ -55,11 +68,12 @@ export function useMusicStats(isLive = false) {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/music`, { headers });
+      const url = `${baseUrl}${endpoints?.music ?? '/api/stats/music'}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_MUSIC_FETCH');
       const json = await res.json();
       return json.data;
     },
-    refetchInterval: isLive ? 15000 : false,
+    refetchInterval: isLive ? interval : false,
   });
 }

@@ -21,6 +21,11 @@ export interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   description?: string;
   height?: number;
   colorMap?: Record<string, string>;
+  /**
+   * Pixels reserved for header + footer (legend).
+   * Subtracted from SVG draw height. @default 120
+   */
+  headerOffset?: number;
   exportFileName?: string;
 }
 
@@ -32,6 +37,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
       description,
       height = 400,
       colorMap = {},
+      headerOffset = 120,
       exportFileName = 'line-chart',
       className,
       ...props
@@ -69,7 +75,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
 
     useLineChart(svgRef, data, {
       width,
-      height: height - 120, // Adjusted for header/footer
+      height: height - headerOffset,
       visibleKeys,
       scaleType,
       showGrid,

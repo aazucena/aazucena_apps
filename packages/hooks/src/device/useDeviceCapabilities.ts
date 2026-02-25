@@ -6,8 +6,9 @@
 import { useState, useEffect } from 'react';
 import type { DeviceCapabilities } from '@aazucena/types';
 import { detectDeviceCapabilities } from '@aazucena/utils';
+import { STORAGE_KEYS } from '@aazucena/constants';
 
-const STORAGE_KEY = 'portfolioSettings';
+const STORAGE_KEY = STORAGE_KEYS.USER_PREFERENCES;
 
 export function useDeviceCapabilities(): {
   capabilities: DeviceCapabilities;

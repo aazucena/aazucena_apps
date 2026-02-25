@@ -63,8 +63,9 @@ export interface UseFinancialOptions {
  * ```
  */
 export function useFinancial(options: UseFinancialOptions = {}): UseQueryResult<FinancialStats> {
-  const { baseUrl, secretKey } = useTelemetryConfig();
-  const { isLive = false, pollingInterval = 30000, enabled = true } = options;
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval, enabled = true } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 30000;
 
   return useQuery({
     queryKey: ['financial-stats', baseUrl],
@@ -72,12 +73,13 @@ export function useFinancial(options: UseFinancialOptions = {}): UseQueryResult<
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/finance`, { headers });
+      const url = `${baseUrl}${endpoints?.finance ?? '/api/stats/finance'}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_FINANCE_FETCH');
       const json = await res.json();
       return json.data as FinancialStats;
     },
-    refetchInterval: isLive ? pollingInterval : false,
+    refetchInterval: isLive ? interval : false,
     enabled,
   });
 }

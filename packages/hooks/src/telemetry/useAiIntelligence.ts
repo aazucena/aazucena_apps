@@ -63,8 +63,9 @@ export interface UseAiIntelligenceOptions {
 export function useAiIntelligence(
   options: UseAiIntelligenceOptions = {},
 ): UseQueryResult<AiIntelligenceStats> {
-  const { baseUrl, secretKey } = useTelemetryConfig();
-  const { isLive = false, pollingInterval = 15000, enabled = true } = options;
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval, enabled = true } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 15000;
 
   return useQuery({
     queryKey: ['ai-intelligence-stats', baseUrl],
@@ -72,12 +73,13 @@ export function useAiIntelligence(
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/ai`, { headers });
+      const url = `${baseUrl}${endpoints?.ai ?? '/api/stats/ai'}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_AI_STATS_FETCH');
       const json = await res.json();
       return json.data as AiIntelligenceStats;
     },
-    refetchInterval: isLive ? pollingInterval : false,
+    refetchInterval: isLive ? interval : false,
     enabled,
   });
 }

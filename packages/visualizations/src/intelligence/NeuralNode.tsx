@@ -58,6 +58,37 @@ const labelVariants = cva(
   },
 );
 
+/**
+ * Default icon mapping keyed by lowercase node type substrings.
+ * Export this to extend or replace in your own app.
+ */
+export const DEFAULT_NEURAL_ICON_MAP: Record<
+  string,
+  React.ComponentType<{ size?: number; className?: string }>
+> = {
+  intent: Component,
+  shades: Database,
+  librarian: Database,
+  insights: Activity,
+  sage: Activity,
+  architect: Terminal,
+  chronicler: Calendar,
+  history: Calendar,
+  auditor: HardDrive,
+  codebase: HardDrive,
+  fiscal: CreditCard,
+  spend: CreditCard,
+  navigator: Globe,
+  route: Globe,
+  dispatcher: Globe,
+  retrieve: Search,
+  knowledge: Search,
+  generate: Message,
+  response: Message,
+  validate: CheckCircle,
+  check: CheckCircle,
+};
+
 export interface NeuralNodeProps
   extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof nodeVariants> {
   type: string;
@@ -65,26 +96,26 @@ export interface NeuralNodeProps
   isActive?: boolean;
   isCompleted?: boolean;
   isFailed?: boolean;
+  /**
+   * Override or extend the default icon mapping.
+   * Keys are lowercase substrings matched against the node `type`.
+   * Provide your own map to add domain-specific node types.
+   */
+  iconMap?: Record<string, React.ComponentType<{ size?: number; className?: string }>>;
 }
 
 export const NeuralNode = forwardRef<HTMLDivElement, NeuralNodeProps>(
-  ({ type, label, isActive, isCompleted, isFailed, className, ...props }, ref) => {
+  ({ type, label, isActive, isCompleted, isFailed, iconMap, className, ...props }, ref) => {
     // Determine state for CVA
     const state = isFailed ? 'failed' : isActive ? 'active' : isCompleted ? 'completed' : 'default';
 
-    const getIcon = () => {
+    const resolvedMap = iconMap ?? DEFAULT_NEURAL_ICON_MAP;
+
+    const getIcon = (): React.ComponentType<{ size?: number; className?: string }> => {
       const t = type.toLowerCase();
-      if (t.includes('intent')) return Component;
-      if (t.includes('shades') || t.includes('librarian')) return Database;
-      if (t.includes('insights') || t.includes('sage')) return Activity;
-      if (t.includes('architect')) return Terminal;
-      if (t.includes('chronicler') || t.includes('history')) return Calendar;
-      if (t.includes('auditor') || t.includes('codebase')) return HardDrive;
-      if (t.includes('fiscal') || t.includes('spend')) return CreditCard;
-      if (t.includes('navigator') || t.includes('route') || t.includes('dispatcher')) return Globe;
-      if (t.includes('retrieve') || t.includes('knowledge')) return Search;
-      if (t.includes('generate') || t.includes('response')) return Message;
-      if (t.includes('validate') || t.includes('check')) return CheckCircle;
+      for (const [key, Icon] of Object.entries(resolvedMap)) {
+        if (t.includes(key)) return Icon;
+      }
       return Sparkles;
     };
 

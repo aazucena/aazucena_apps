@@ -17,6 +17,8 @@ export interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: number;
   color?: string;
   fillOpacity?: number;
+  /** Pixels reserved for the chart header. Subtracted from SVG draw height. @default 80 */
+  headerOffset?: number;
   exportFileName?: string;
 }
 
@@ -29,6 +31,7 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
       height = 400,
       color = 'var(--color-primary, #3b82f6)',
       fillOpacity = 0.3,
+      headerOffset = 80,
       exportFileName = 'area-chart',
       className,
       ...props
@@ -50,7 +53,7 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
 
     useAreaChart(svgRef, data, {
       width,
-      height: height - 80, // Adjusted for header
+      height: height - headerOffset,
       color,
       fillOpacity,
     });

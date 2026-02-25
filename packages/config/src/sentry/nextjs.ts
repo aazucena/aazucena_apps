@@ -19,12 +19,30 @@ export const sharedSentryConfig = {
   replaysSessionSampleRate: 0.1,
 };
 
-export const sentryNextConfigOptions = {
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-javascript/blob/master/packages/nextjs/src/config/types.ts
+export interface SentryNextOptions {
+  /** Sentry organization slug */
+  org: string;
+  /** Sentry project slug */
+  project: string;
+  /** Override DSN (falls back to NEXT_PUBLIC_SENTRY_DSN env var) */
+  dsn?: string;
+}
 
-  // Suppresses source map uploading logs during bundling
+/**
+ * sentryNextConfigOptions - Returns Sentry Next.js build-time options.
+ * Pass org and project explicitly to avoid hardcoding them in the package.
+ *
+ * @example
+ * // sentry.config.ts
+ * import { sentryNextConfigOptions } from '@aazucena/config/sentry/nextjs';
+ * export default sentryNextConfigOptions({
+ *   org: process.env.SENTRY_ORG!,
+ *   project: process.env.SENTRY_PROJECT!,
+ * });
+ */
+export const sentryNextConfigOptions = (opts: SentryNextOptions) => ({
   silent: true,
-  org: 'aazucena',
-  project: 'analytics',
-};
+  org: opts.org,
+  project: opts.project,
+  ...(opts.dsn ? { dsn: opts.dsn } : {}),
+});

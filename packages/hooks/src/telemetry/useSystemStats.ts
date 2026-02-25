@@ -1,11 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTelemetryConfig } from '@aazucena/context';
 
+export interface UseSystemStatsOptions {
+  isLive?: boolean;
+  pollingInterval?: number;
+}
+
 /**
  * Hook to fetch high-level system metrics (KPIs)
  */
-export function useSystemSummary(isLive = false) {
-  const { baseUrl, secretKey } = useTelemetryConfig();
+export function useSystemSummary(options: UseSystemStatsOptions = {}) {
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 15000;
 
   return useQuery({
     queryKey: ['system-summary', baseUrl],
@@ -13,20 +20,24 @@ export function useSystemSummary(isLive = false) {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/summary`, { headers });
+      const url = `${baseUrl}${endpoints?.summary ?? '/api/stats/summary'}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_SUMMARY_FETCH');
       const json = await res.json();
       return json.data;
     },
-    refetchInterval: isLive ? 10000 : false,
+    refetchInterval: isLive ? interval : false,
   });
 }
 
 /**
- * Hook to fetch time-series trend data for D3 charts
+ * Hook to fetch time-series trend data for D3 charts.
+ * Returns raw data — consumers are responsible for any field-level transformation.
  */
-export function useTrendAnalysis(timeRange = '24h', isLive = false) {
-  const { baseUrl, secretKey } = useTelemetryConfig();
+export function useTrendAnalysis(timeRange = '24h', options: UseSystemStatsOptions = {}) {
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 15000;
 
   return useQuery({
     queryKey: ['system-trends', timeRange, baseUrl],
@@ -34,33 +45,23 @@ export function useTrendAnalysis(timeRange = '24h', isLive = false) {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/trends?range=${timeRange}`, {
-        headers,
-      });
+      const url = `${baseUrl}${endpoints?.trends ?? '/api/stats/trends'}?range=${timeRange}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_TRENDS_FETCH');
       const json = await res.json();
-
-      // Normalize dates for D3 immediately
-      return {
-        stream: (json.data.stream || []).map((d: any) => ({
-          ...d,
-          date: new Date(d.date),
-        })),
-        heatmap: (json.data.heatmap || []).map((d: any) => ({
-          ...d,
-          date: new Date(d.date),
-        })),
-      };
+      return json.data;
     },
-    refetchInterval: isLive ? 30000 : false,
+    refetchInterval: isLive ? interval : false,
   });
 }
 
 /**
  * Hook to fetch the raw telemetry log stream
  */
-export function useTelemetryStream(isLive = false) {
-  const { baseUrl, secretKey } = useTelemetryConfig();
+export function useTelemetryStream(options: UseSystemStatsOptions = {}) {
+  const { baseUrl, secretKey, endpoints, defaultPollingInterval } = useTelemetryConfig();
+  const { isLive = false, pollingInterval } = options;
+  const interval = pollingInterval ?? defaultPollingInterval ?? 15000;
 
   return useQuery({
     queryKey: ['telemetry-stream', baseUrl],
@@ -68,11 +69,12 @@ export function useTelemetryStream(isLive = false) {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const res = await fetch(`${baseUrl}/api/stats/logs`, { headers });
+      const url = `${baseUrl}${endpoints?.logs ?? '/api/stats/logs'}`;
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error('FAILED_LOGS_FETCH');
       const json = await res.json();
       return json.data || [];
     },
-    refetchInterval: isLive ? 5000 : false,
+    refetchInterval: isLive ? interval : false,
   });
 }

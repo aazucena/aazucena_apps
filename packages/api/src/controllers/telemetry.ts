@@ -1,3 +1,5 @@
+import { STORAGE_KEYS } from '@aazucena/constants';
+
 // Define a type for the telemetry event payload, matching the server-side schema
 // This should ideally be shared or derived from a shared package for type safety.
 // For now, we'll define a basic shape that aligns with `TelemetryEventPayload` in ingest.t
@@ -10,12 +12,22 @@ interface TelemetryPayload {
   // ... other fields for ai_event, music_playback, system_integrity types as needed
 }
 
-const SESSION_ID_KEY = 'az_analytics_session_id';
+const SESSION_ID_KEY = STORAGE_KEYS.ANALYTICS_SESSION_ID;
 
 const {
   PUBLIC_ANALYTICS_API_URL: ANALYTICS_API_URL,
   PUBLIC_INGESTION_SECRET_KEY: INGESTION_SECRET_KEY,
 } = process.env;
+
+let _ingestPath = '/api/ingest';
+
+/**
+ * configureTelemetry - Override the ingest endpoint path at runtime.
+ * Call this once during app initialization if your backend uses a non-default path.
+ */
+export function configureTelemetry(opts: { ingestPath?: string }) {
+  if (opts.ingestPath !== undefined) _ingestPath = opts.ingestPath;
+}
 
 /**
  * Retrieves or generates a unique session ID for the user.
@@ -68,7 +80,7 @@ export async function sendTelemetry(payload: TelemetryPayload): Promise<void> {
   };
 
   try {
-    const response = await fetch(`${ANALYTICS_API_URL}/api/ingest`, {
+    const response = await fetch(`${ANALYTICS_API_URL}${_ingestPath}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

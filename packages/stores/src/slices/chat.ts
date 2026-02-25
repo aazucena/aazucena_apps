@@ -6,108 +6,140 @@ interface ChatState {
   activeConversationId: string | null;
 }
 
-const isClient = typeof window !== 'undefined';
-const savedState = isClient ? localStorage.getItem('aazucena_chat_state_v2') : null;
+export interface ChatSliceConfig {
+  /** localStorage key for persisting chat state */
+  storageKey?: string;
+  /** Title assigned to newly created conversations */
+  defaultConversationTitle?: string;
+}
 
-const initialState: ChatState = savedState
-  ? JSON.parse(savedState)
-  : {
-      conversations: {},
-      activeConversationId: null,
-    };
+/**
+ * createChatSlice - Factory for the chat Redux slice.
+ * Allows configuring the storage key and default conversation title
+ * so multiple apps can share the slice without key collisions.
+ *
+ * @example
+ * // Zero-config (analytics app defaults)
+ * const slice = createChatSlice();
+ *
+ * // Custom app
+ * const slice = createChatSlice({
+ *   storageKey: 'my_app_chat_v1',
+ *   defaultConversationTitle: 'New Chat',
+ * });
+ */
+export function createChatSlice(config?: ChatSliceConfig) {
+  const STORAGE_KEY = config?.storageKey ?? 'az_chat_state_v2';
+  const DEFAULT_TITLE = config?.defaultConversationTitle ?? 'New Conversation';
 
-export const chatSlice = createSlice({
-  name: 'chat',
-  initialState,
-  reducers: {
-    createNewChat: (state) => {
-      // 1. Find all empty conversations
-      const emptyConvs = Object.values(state.conversations).filter(
-        (conv) => Object.keys(conv.messages).length === 0,
-      );
+  const isClient = typeof window !== 'undefined';
+  const savedState = isClient ? localStorage.getItem(STORAGE_KEY) : null;
 
-      if (emptyConvs.length > 0) {
-        // 2. If multiple somehow exist, delete all but the first one
-        emptyConvs.slice(1).forEach((c) => delete state.conversations[c.id]);
-        // 3. Switch to the first one
-        state.activeConversationId = emptyConvs[0]!.id;
-      } else {
-        // 4. Create a truly new one if none exist
-        const id = crypto.randomUUID();
-        state.conversations[id] = {
-          id,
-          title: 'New Conversation',
-          messages: {},
-          activeNodeId: null,
-          updatedAt: Date.now(),
-        };
-        state.activeConversationId = id;
-      }
+  const initialState: ChatState = savedState
+    ? JSON.parse(savedState)
+    : {
+        conversations: {},
+        activeConversationId: null,
+      };
 
-      if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
-    },
+  const slice = createSlice({
+    name: 'chat',
+    initialState,
+    reducers: {
+      createNewChat: (state) => {
+        // 1. Find all empty conversations
+        const emptyConvs = Object.values(state.conversations).filter(
+          (conv) => Object.keys(conv.messages).length === 0,
+        );
 
-    addMessage: (
-      state,
-      action: PayloadAction<{
-        conversationId: string;
-        message: AI_TerminalMessage;
-      }>,
-    ) => {
-      const { conversationId, message } = action.payload;
-      const conv = state.conversations[conversationId];
-      if (conv) {
-        conv.messages[message.id] = message;
-        conv.activeNodeId = message.id;
-        conv.updatedAt = Date.now();
-
-        // Auto-title if it's the first user message
-        if (message.role === 'user' && Object.keys(conv.messages).length === 1) {
-          conv.title =
-            message.parts[0]?.text.substring(0, 40) +
-            (message.parts[0]!.text.length > 40 ? '...' : '');
+        if (emptyConvs.length > 0) {
+          // 2. If multiple somehow exist, delete all but the first one
+          emptyConvs.slice(1).forEach((c) => delete state.conversations[c.id]);
+          // 3. Switch to the first one
+          state.activeConversationId = emptyConvs[0]!.id;
+        } else {
+          // 4. Create a truly new one if none exist
+          const id = crypto.randomUUID();
+          state.conversations[id] = {
+            id,
+            title: DEFAULT_TITLE,
+            messages: {},
+            activeNodeId: null,
+            updatedAt: Date.now(),
+          };
+          state.activeConversationId = id;
         }
-      }
-      if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
-    },
 
-    setActiveNode: (state, action: PayloadAction<{ conversationId: string; nodeId: string }>) => {
-      const { conversationId, nodeId } = action.payload;
-      if (state.conversations[conversationId]) {
-        state.conversations[conversationId]!.activeNodeId = nodeId;
-      }
-      if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
-    },
+        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      },
 
-    switchConversation: (state, action: PayloadAction<string>) => {
-      state.activeConversationId = action.payload;
-      if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
-    },
+      addMessage: (
+        state,
+        action: PayloadAction<{
+          conversationId: string;
+          message: AI_TerminalMessage;
+        }>,
+      ) => {
+        const { conversationId, message } = action.payload;
+        const conv = state.conversations[conversationId];
+        if (conv) {
+          conv.messages[message.id] = message;
+          conv.activeNodeId = message.id;
+          conv.updatedAt = Date.now();
 
-    deleteConversation: (state, action: PayloadAction<string>) => {
-      delete state.conversations[action.payload];
-      if (state.activeConversationId === action.payload) {
-        const remaining = Object.keys(state.conversations);
-        state.activeConversationId = remaining.length > 0 ? remaining[0]! : null;
-      }
-      if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
-    },
+          // Auto-title if it's the first user message
+          if (message.role === 'user' && Object.keys(conv.messages).length === 1) {
+            conv.title =
+              message.parts[0]?.text.substring(0, 40) +
+              (message.parts[0]!.text.length > 40 ? '...' : '');
+          }
+        }
+        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      },
 
-    updateConversationTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
-      const conv = state.conversations[action.payload.id];
-      if (conv) {
-        conv.title = action.payload.title;
-      }
-      if (isClient) localStorage.setItem('aazucena_chat_state_v2', JSON.stringify(state));
-    },
+      setActiveNode: (state, action: PayloadAction<{ conversationId: string; nodeId: string }>) => {
+        const { conversationId, nodeId } = action.payload;
+        if (state.conversations[conversationId]) {
+          state.conversations[conversationId]!.activeNodeId = nodeId;
+        }
+        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      },
 
-    clearAllHistory: (state) => {
-      state.conversations = {};
-      state.activeConversationId = null;
-      if (isClient) localStorage.removeItem('aazucena_chat_state_v2');
+      switchConversation: (state, action: PayloadAction<string>) => {
+        state.activeConversationId = action.payload;
+        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      },
+
+      deleteConversation: (state, action: PayloadAction<string>) => {
+        delete state.conversations[action.payload];
+        if (state.activeConversationId === action.payload) {
+          const remaining = Object.keys(state.conversations);
+          state.activeConversationId = remaining.length > 0 ? remaining[0]! : null;
+        }
+        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      },
+
+      updateConversationTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
+        const conv = state.conversations[action.payload.id];
+        if (conv) {
+          conv.title = action.payload.title;
+        }
+        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      },
+
+      clearAllHistory: (state) => {
+        state.conversations = {};
+        state.activeConversationId = null;
+        if (isClient) localStorage.removeItem(STORAGE_KEY);
+      },
     },
-  },
-});
+  });
+
+  return slice;
+}
+
+// Default export — zero-config for backwards compatibility
+export const chatSlice = createChatSlice();
 
 export const {
   createNewChat,
@@ -124,7 +156,9 @@ export default chatSlice.reducer;
 /**
  * SELECTOR: Reconstructs the linear thread for the active conversation.
  */
-export const selectActiveThread = (state: { chat: ChatState }) => {
+export const selectActiveThread = (state: {
+  chat: { conversations: Record<string, AI_Conversation>; activeConversationId: string | null };
+}) => {
   const activeId = state.chat.activeConversationId;
   if (!activeId) return [];
 

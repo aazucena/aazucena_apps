@@ -2,7 +2,6 @@
 
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import type { FormApi } from '@tanstack/react-form';
-import { fetchStrapi } from '@aazucena/api';
 
 /**
  * ## Engineering Standards
@@ -23,6 +22,7 @@ export interface UseFormMutationOptions<
 /**
  * useFormMutation
  * Bridges a TanStack Form instance with a TanStack Query mutation.
+ * Accepts any `mutationFn` — pass your own fetch call (Strapi, REST, GraphQL, etc.).
  */
 export function useFormMutation<TData, TError, TVariables, TContext>(
   options: UseFormMutationOptions<TData, TError, TVariables, TContext>,
@@ -42,29 +42,5 @@ export function useFormMutation<TData, TError, TVariables, TContext>(
         (mutationOptions.onError as any)(err, variables, context);
       }
     },
-  });
-}
-
-/**
- * useStrapiFormMutation
- * A pre-configured mutation hook specifically for Strapi v5 submissions.
- */
-export function useStrapiFormMutation<TData>(
-  collection: string,
-  options: Omit<UseFormMutationOptions<any, any, TData, any>, 'mutationFn'> & {
-    method?: 'POST' | 'PATCH';
-  },
-) {
-  const { method = 'POST', ...rest } = options;
-
-  return useFormMutation({
-    ...rest,
-    mutationFn: async (payload: TData) => {
-      return fetchStrapi(collection, {
-        method,
-        body: JSON.stringify({ data: payload }),
-      });
-    },
-    // Default Strapi error mapper can be added here
   });
 }

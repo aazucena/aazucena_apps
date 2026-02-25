@@ -9,4 +9,5 @@ export const STORAGE_KEYS = {
   USER_PREFERENCES: 'aazucena-prefs',
   COOKIE_CONSENT: 'aazucena-cookie-consent',
   TERMINAL_HISTORY: 'aazucena-terminal-history',
+  ANALYTICS_SESSION_ID: 'az_analytics_session_id',
 } as const;

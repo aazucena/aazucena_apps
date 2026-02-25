@@ -160,7 +160,7 @@ export interface Dashboard_State {
   };
   ui: {
     isSidebarCollapsed: boolean;
-    navMode: 'SYSTEM' | 'INTELLIGENCE';
+    navMode: string;
     activeTab: string;
     refreshInterval: number;
   };

@@ -16,6 +16,8 @@ export interface StreamGraphProps extends React.HTMLAttributes<HTMLDivElement> {
   description?: string;
   colorMap?: Record<string, string>;
   height?: number;
+  /** Pixels reserved for the chart header. Subtracted from SVG draw height. @default 80 */
+  headerOffset?: number;
   exportFileName?: string;
   onLayerClick?: (key: string) => void;
 }
@@ -28,6 +30,7 @@ export const StreamGraph = forwardRef<HTMLDivElement, StreamGraphProps>(
       description,
       colorMap = {},
       height = 400,
+      headerOffset = 80,
       exportFileName = 'stream-graph',
       onLayerClick,
       className,
@@ -50,7 +53,7 @@ export const StreamGraph = forwardRef<HTMLDivElement, StreamGraphProps>(
 
     useStreamGraph(svgRef, data, {
       width,
-      height: height - 80, // Adjusted for header
+      height: height - headerOffset,
       colorMap,
       onLayerClick,
     });

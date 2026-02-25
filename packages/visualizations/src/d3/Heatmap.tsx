@@ -17,6 +17,8 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   colorMap?: Record<string, string>;
   baseColor?: string;
   height?: number;
+  /** Pixels reserved for the chart header. Subtracted from SVG draw height. @default 80 */
+  headerOffset?: number;
   exportFileName?: string;
   onCellClick?: (cell: GenericHeatmapCell) => void;
 }
@@ -30,6 +32,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       colorMap = {},
       baseColor = '#3b82f6',
       height = 200,
+      headerOffset = 80,
       exportFileName = 'activity-heatmap',
       onCellClick,
       className,
@@ -52,7 +55,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
 
     useHeatmap(svgRef, data, {
       width,
-      height: height - 80, // Adjusted for header
+      height: height - headerOffset,
       colorMap,
       baseColor,
       onCellClick,

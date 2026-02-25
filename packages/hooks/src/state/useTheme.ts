@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { STORAGE_KEYS } from '@aazucena/constants';
 
 /**
  * useTheme Hook
@@ -13,7 +14,7 @@ export function useTheme() {
     if (typeof window === 'undefined') return;
 
     const isDark = document.documentElement.classList.contains('dark');
-    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const saved = localStorage.getItem(STORAGE_KEYS.THEME) as 'light' | 'dark' | null;
 
     if (saved) {
       setTheme(saved);
@@ -35,10 +36,10 @@ export function useTheme() {
     if (typeof window !== 'undefined') {
       if (newTheme === 'dark') {
         document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
       } else {
         document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem(STORAGE_KEYS.THEME, 'light');
       }
     }
   }, [theme]);

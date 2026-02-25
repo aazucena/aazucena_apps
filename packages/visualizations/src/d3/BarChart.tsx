@@ -20,6 +20,8 @@ export interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
   horizontal?: boolean;
   racing?: boolean;
+  /** Pixels reserved for the chart header. Subtracted from SVG draw height. @default 80 */
+  headerOffset?: number;
   exportFileName?: string;
   onBarClick?: (item: BarChartData) => void;
 }
@@ -34,6 +36,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
       color = 'var(--color-primary, #3b82f6)',
       horizontal: initialHorizontal = false,
       racing: initialRacing = false,
+      headerOffset = 80,
       exportFileName = 'bar-chart',
       onBarClick,
       className,
@@ -69,7 +72,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
 
     useBarChart(svgRef, data, {
       width,
-      height: height - 80, // Adjusted for header
+      height: height - headerOffset,
       horizontal,
       racing,
       color,
