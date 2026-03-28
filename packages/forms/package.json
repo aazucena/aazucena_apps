@@ -23,8 +23,8 @@
     "@aazucena/ui": "workspace:*",
     "@aazucena/utils": "workspace:*",
     "@nanostores/react": "^0.8.4",
-    "@tanstack/react-form": "^1.28.3",
-    "@tanstack/react-query": "^5.90.20",
+    "@tanstack/react-form": "^1.28.5",
+    "@tanstack/react-query": "^5.95.2",
     "@tanstack/zod-form-adapter": "^0.42.1",
     "framer-motion": "^11.15.0",
     "zod": "^3.25.76"
@@ -34,8 +34,8 @@
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
     "react": "^19.2.3",
-    "react-redux": "^9.2.0",
-    "@reduxjs/toolkit": "^2.11.2"
+    "react-redux": "^9.2.0"
   }
 }

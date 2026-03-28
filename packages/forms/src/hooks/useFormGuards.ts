@@ -51,7 +51,7 @@ export function useFormErrorFocus() {
 
   useEffect(() => {
     // Subscribe to submission attempts
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       const state = form.state;
 
       // Only trigger if a submission was attempted and failed with errors
@@ -80,6 +80,6 @@ export function useFormErrorFocus() {
       }
     });
 
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [form]);
 }

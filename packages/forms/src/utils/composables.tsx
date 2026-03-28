@@ -132,10 +132,10 @@ export function useFormStoreSync<TData>(
   store: { set: (val: TData) => void },
 ) {
   React.useEffect(() => {
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       store.set(form.state.values);
     });
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [form, store]);
 }
 
@@ -149,10 +149,10 @@ export function useFormReduxSync<TData>(
   actionCreator: (values: TData) => any,
 ) {
   React.useEffect(() => {
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       dispatch(actionCreator(form.state.values));
     });
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [form, dispatch, actionCreator]);
 }
 
@@ -171,11 +171,11 @@ export function useFieldDependency<TSource, TTarget>(
   const form = useFormInstance();
 
   React.useEffect(() => {
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       const sourceValue = form.getFieldValue(sourceName as any);
       effectFn(sourceValue, form);
     });
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [form, sourceName, targetName, effectFn]);
 }
 

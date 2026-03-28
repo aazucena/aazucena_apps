@@ -56,23 +56,23 @@ export function useFormPersistence<TData>(
   // 2. Subscribe to changes and save to storage
   useEffect(() => {
     // Subscribe to form store changes
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       const values = onSave ? onSave(form.state.values) : form.state.values;
       localStorage.setItem(key, JSON.stringify(values));
     });
 
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [form, key, onSave]);
 
   // 3. Optional: Cleanup on successful submission
   useEffect(() => {
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       const state = form.state;
       if (clearOnSubmit && state.isSubmitted && !state.isSubmitting) {
         localStorage.removeItem(key);
       }
     });
 
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [form, key, clearOnSubmit]);
 }

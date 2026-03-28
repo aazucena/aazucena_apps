@@ -33,7 +33,7 @@ export function FormAutoSave({ onSave, debounceMs = 2000 }: FormAutoSaveProps) {
 
   React.useEffect(() => {
     // Subscribe to form state changes
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       const state = form.state;
 
       // Only auto-save if the form is modified and currently valid
@@ -53,7 +53,7 @@ export function FormAutoSave({ onSave, debounceMs = 2000 }: FormAutoSaveProps) {
     });
 
     return () => {
-      unsubscribe();
+      subscription.unsubscribe();
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [form, onSave, debounceMs]);

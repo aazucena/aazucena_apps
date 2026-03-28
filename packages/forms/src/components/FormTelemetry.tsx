@@ -28,7 +28,7 @@ export function FormTelemetry({ formId }: FormTelemetryProps) {
 
   React.useEffect(() => {
     // 1. Subscribe to form state changes
-    const unsubscribe = form.store.subscribe(() => {
+    const subscription = form.store.subscribe(() => {
       const state = form.state;
       // Track validation error spikes
       const currentErrors = Object.keys(state.fieldMeta).filter(
@@ -49,7 +49,7 @@ export function FormTelemetry({ formId }: FormTelemetryProps) {
       }
     });
 
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [form, formId]);
 
   return null; // This component is logic-only
