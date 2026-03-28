@@ -4013,7 +4013,7 @@ export interface PluginNavigationNavigationItem extends Struct.CollectionTypeSch
     parent: Schema.Attribute.Relation<'oneToOne', 'plugin::navigation.navigation-item'>;
     path: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
-    related: Schema.Attribute.Relation<'morphToMany'> & Schema.Attribute.Required;
+    related: Schema.Attribute.Relation<'morphToMany'>;
     title: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -4170,6 +4170,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &

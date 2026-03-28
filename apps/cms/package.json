@@ -32,15 +32,14 @@
     "@strapi-community/plugin-redis": "^2.0.0",
     "@strapi-community/plugin-rest-cache": "^5.0.1",
     "@strapi-community/provider-rest-cache-redis": "^5.0.0",
-    "@strapi/plugin-cloud": "5.33.2",
+    "@strapi/plugin-cloud": "5.40.0",
     "@strapi/plugin-color-picker": "^5.31.0",
     "@strapi/plugin-documentation": "^5.31.0",
     "@strapi/plugin-graphql": "^5.31.0",
     "@strapi/plugin-sentry": "^5.31.0",
-    "@strapi/plugin-seo": "^2.0.8",
-    "@strapi/plugin-users-permissions": "5.33.2",
+    "@strapi/plugin-users-permissions": "5.40.0",
     "@strapi/provider-upload-cloudinary": "^5.31.0",
-    "@strapi/strapi": "5.33.2",
+    "@strapi/strapi": "5.40.0",
     "@webbycrown/advanced-fields": "^1.0.3",
     "monaco-editor": "^0.55.1",
     "pg": "8.8.0",
@@ -87,6 +86,11 @@
   "engines": {
     "node": ">=20.0.0 <=24.x.x",
     "npm": ">=6.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@strapi/design-system": "2.2.0"
+    }
   },
   "strapi": {
     "uuid": "cf897ca4-7212-401c-af40-2a7c4911c4f6",

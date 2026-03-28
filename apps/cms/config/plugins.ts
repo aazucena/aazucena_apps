@@ -88,7 +88,7 @@ export default ({ env }: ConfigContext) => ({
   // SEO & Metadata Plugins
   // ========================================
   seo: {
-    enabled: true,
+    enabled: false,
   },
 
   // ========================================
