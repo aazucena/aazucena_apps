@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "@types/react": "^19.2.0",
+    "@types/react": "^19.2.14",
     "react": "^19.2.3",
     "typescript": "^5.6.3"
   }

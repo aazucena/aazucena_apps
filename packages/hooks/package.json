@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "@types/react": "^19.2.0",
+    "@types/react": "^19.2.14",
     "@types/three": "^0.173.0",
     "@types/use-sync-external-store": "^1.5.0",
     "react": "^19.2.3",

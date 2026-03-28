@@ -15,7 +15,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@icons-pack/react-simple-icons": "^13.11.2",
+    "@icons-pack/react-simple-icons": "^13.13.0",
     "@mynaui/icons-react": "^0.4.2"
   },
   "devDependencies": {

@@ -19,7 +19,7 @@
     "@aazucena/types": "workspace:*",
     "@reduxjs/toolkit": "^2.11.2",
     "@sentry/nextjs": "^10.38.0",
-    "@tanstack/react-query": "^5.90.20",
+    "@tanstack/react-query": "^5.95.2",
     "@tanstack/react-query-devtools": "^5.91.2",
     "react": "^19.2.3",
     "react-redux": "^9.2.0",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "@types/react": "^19.2.0",
+    "@types/react": "^19.2.14",
     "typescript": "^5.9.3"
   }
 }

@@ -23,8 +23,8 @@
     "@aazucena/hooks": "workspace:*",
     "@aazucena/icons": "workspace:*",
     "@aazucena/stores": "workspace:*",
-    "@aazucena/ui": "workspace:*",
     "@aazucena/types": "workspace:*",
+    "@aazucena/ui": "workspace:*",
     "@aazucena/utils": "workspace:*",
     "@gsap/react": "^2.1.2",
     "@nanostores/react": "^0.8.4",
@@ -40,8 +40,8 @@
   "devDependencies": {
     "@aazucena/config": "workspace:*",
     "@aazucena/constants": "workspace:*",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@types/three": "^0.180.0",
     "typescript": "^5.9.3"
   }
