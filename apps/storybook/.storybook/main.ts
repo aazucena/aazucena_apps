@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import tailwindcss from '@tailwindcss/vite';
@@ -9,13 +11,13 @@ const config: StorybookConfig = {
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   framework: {
-    name: '@storybook/react-vite',
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {},
   },
   addons: [
-    '@storybook/addon-a11y',
+    getAbsolutePath('@storybook/addon-a11y'),
     {
-      name: '@storybook/addon-docs',
+      name: getAbsolutePath('@storybook/addon-docs'),
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
@@ -24,10 +26,10 @@ const config: StorybookConfig = {
         },
       },
     },
-    '@storybook/addon-themes',
-    '@storybook/addon-designs',
-    '@chromatic-com/storybook',
-    '@storybook/addon-vitest',
+    getAbsolutePath('@storybook/addon-themes'),
+    getAbsolutePath('@storybook/addon-designs'),
+    getAbsolutePath('@chromatic-com/storybook'),
+    getAbsolutePath('@storybook/addon-vitest'),
   ],
   async viteFinal(config) {
     config.plugins = config.plugins || [];
@@ -45,3 +47,7 @@ const config: StorybookConfig = {
 };
 
 export default config;
+
+function getAbsolutePath(value: string): any {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}
