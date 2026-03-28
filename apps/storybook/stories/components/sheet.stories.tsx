@@ -216,7 +216,7 @@ export const GlassFloating: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect, waitFor } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 
 /**
  * Automated interaction test: open sheet, verify visible, close via ESC.

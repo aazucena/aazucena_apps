@@ -9,7 +9,7 @@ import {
   TypeBold as Bold,
   TypeItalic as Italic,
 } from '@aazucena/icons';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards

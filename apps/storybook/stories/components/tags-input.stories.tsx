@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TagsInput } from '@aazucena/ui';
-import { within, userEvent, expect, waitFor } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 
 /**
  * ## Engineering Standards

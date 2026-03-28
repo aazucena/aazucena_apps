@@ -176,7 +176,7 @@ export const GlassInfo: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect, waitFor } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 
 /**
  * Automated interaction test: click trigger to open popover, verify content, close via ESC.

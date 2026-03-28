@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, expect } from '@storybook/test';
+import { within, expect } from 'storybook/test';
 import {
   FloatingLabel,
   Button,

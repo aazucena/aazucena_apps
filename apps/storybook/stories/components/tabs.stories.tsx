@@ -221,7 +221,7 @@ export const PhoneDial: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * Automated interaction test: click tab, verify correct panel active.

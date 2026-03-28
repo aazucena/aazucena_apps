@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@aazucena/ui';
 import { Button, Avatar, AvatarImage, AvatarFallback, Badge } from '@aazucena/ui';
 import { Calendar, Shield, Activity, Globe } from '@aazucena/icons';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { PasswordResetForm } from '@aazucena/forms/templates';
 
 const meta = {
@@ -8,7 +8,11 @@ const meta = {
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'select', options: ['default', 'glass', 'cyber'], table: { category: 'Appearance' } },
+    variant: {
+      control: 'select',
+      options: ['default', 'glass', 'cyber'],
+      table: { category: 'Appearance' },
+    },
     token: { control: 'text', table: { category: 'Props' } },
   },
   args: { onSuccess: fn(), onError: fn(), token: 'mock-reset-token-abc123' },

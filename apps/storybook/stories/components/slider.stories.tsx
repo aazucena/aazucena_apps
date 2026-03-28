@@ -154,7 +154,7 @@ export const Disabled: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * Automated interaction test: focus slider, press ArrowRight to increment value.

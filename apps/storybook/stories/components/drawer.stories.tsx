@@ -177,7 +177,7 @@ export const LiveMonitor: Story = {
     </Drawer>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * Automated interaction test: open drawer, verify visible, close via ESC.

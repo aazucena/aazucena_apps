@@ -1,12 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { DocsFeedbackForm } from '@aazucena/forms/templates';
 const meta = {
   title: 'Forms/Portfolio/DocsFeedbackForm',
   component: DocsFeedbackForm,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
-  argTypes: { variant: { control: 'select', options: ['default', 'glass', 'cyber'], table: { category: 'Appearance' } } },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'glass', 'cyber'],
+      table: { category: 'Appearance' },
+    },
+  },
   args: { onSuccess: fn(), onError: fn(), pageUrl: 'https://aazucena.dev/docs/getting-started' },
 } satisfies Meta<typeof DocsFeedbackForm>;
 export default meta;

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Switch } from '@aazucena/ui';
 import { Label, Badge } from '@aazucena/ui';
 import { Shield, Zap, Activity, Globe } from '@aazucena/icons';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards

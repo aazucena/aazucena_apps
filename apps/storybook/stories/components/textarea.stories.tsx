@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Textarea } from '@aazucena/ui';
 import { Label, Badge, Button } from '@aazucena/ui';
 import { Terminal, Shield, Zap, Activity } from '@aazucena/icons';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards

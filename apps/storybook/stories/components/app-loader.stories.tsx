@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, expect, userEvent } from '@storybook/test';
+import { within, expect, userEvent } from 'storybook/test';
 import {
   AppLoader,
   AppLoaderContent,

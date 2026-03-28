@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, userEvent, expect, waitFor } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@aazucena/ui';
 import { ChevronDown, Search, Cog, Plus, Minus, ArrowRight } from '@aazucena/icons';
 import type React from 'react';

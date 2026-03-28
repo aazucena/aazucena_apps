@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ActionBar } from '@aazucena/ui';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 
 /**
  * ## Engineering Standards

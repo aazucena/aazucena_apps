@@ -191,7 +191,7 @@ export const AdvancedComposition: Story = {
     </Select>
   ),
 };
-import { within, userEvent, expect, waitFor } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 
 /**
  * Automated interaction test: open select dropdown, select an item, verify trigger updates.

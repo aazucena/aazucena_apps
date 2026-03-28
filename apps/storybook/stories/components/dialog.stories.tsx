@@ -203,7 +203,7 @@ export const GlassHero: Story = {
     </Dialog>
   ),
 };
-import { within, userEvent, expect, waitFor } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 
 /**
  * Automated interaction test: open dialog via trigger, verify visible, close via ESC.

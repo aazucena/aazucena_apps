@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { AddressForm } from '@aazucena/forms/templates';
 
 const meta = {
@@ -56,8 +56,7 @@ export const WithAutocompleteSlot: Story = {
               postalCode: '94043',
               country: 'United States',
               placeId: 'ChIJj61dQgK6j4AR4GeTYWZsKWw',
-              formattedAddress:
-                '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA',
+              formattedAddress: '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA',
               source: 'google',
               geojson: {
                 type: 'Point',

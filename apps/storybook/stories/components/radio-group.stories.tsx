@@ -150,7 +150,7 @@ export const Disabled: Story = {
     </RadioGroup>
   ),
 };
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * Automated interaction test: click option, verify aria-checked updates.

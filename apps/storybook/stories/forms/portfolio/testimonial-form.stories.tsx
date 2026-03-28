@@ -1,12 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { TestimonialForm } from '@aazucena/forms/templates';
 const meta = {
   title: 'Forms/Portfolio/TestimonialForm',
   component: TestimonialForm,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
-  argTypes: { variant: { control: 'select', options: ['default', 'glass', 'cyber'], table: { category: 'Appearance' } } },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'glass', 'cyber'],
+      table: { category: 'Appearance' },
+    },
+  },
   args: { onSuccess: fn(), onError: fn() },
 } satisfies Meta<typeof TestimonialForm>;
 export default meta;

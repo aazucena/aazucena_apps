@@ -156,7 +156,7 @@ export const Positioning: Story = {
     </div>
   ),
 };
-import { within, userEvent, expect, waitFor } from '@storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 
 /**
  * Automated interaction test: hover trigger to reveal tooltip.

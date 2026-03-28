@@ -3,7 +3,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@aazucena/u
 import { Button } from '@aazucena/ui';
 import { ChevronDown, CogFour as Cog, InfoCircle as Info } from '@aazucena/icons';
 import { useState } from 'react';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, userEvent } from '@storybook/test';
+import { within, userEvent } from 'storybook/test';
 import { Button } from '@aazucena/ui';
 import { Play, Download, Trash, PlusCircle as Plus, ChevronRight, Activity } from '@aazucena/icons';
 

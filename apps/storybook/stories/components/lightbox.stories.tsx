@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 import { useState } from 'react';
 import { Lightbox } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';

@@ -1,12 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { OAuthScopesRequestForm } from '@aazucena/forms/templates';
 const meta = {
   title: 'Forms/Platform/OAuthScopesRequestForm',
   component: OAuthScopesRequestForm,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
-  argTypes: { variant: { control: 'select', options: ['default', 'glass', 'cyber'], table: { category: 'Appearance' } } },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'glass', 'cyber'],
+      table: { category: 'Appearance' },
+    },
+  },
   args: { onSuccess: fn(), onError: fn() },
 } satisfies Meta<typeof OAuthScopesRequestForm>;
 export default meta;
