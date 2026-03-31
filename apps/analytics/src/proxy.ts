@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const ALWAYS_PUBLIC = ['/_next', '/favicon.ico', '/api/auth', '/api/ingest', '/api/health'];
+const ALWAYS_PUBLIC = [
+  '/_next',
+  '/favicon.ico',
+  '/api/auth',
+  '/api/ingest',
+  '/api/health',
+  '/status',
+];
 
 export function proxy(req: NextRequest) {
   console.log('🚀 ~ proxy ~ req:', req);
