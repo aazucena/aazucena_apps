@@ -25,7 +25,7 @@ const meta = {
     variant: {
       control: 'select',
       options: [
-        'default',
+        'primary',
         'secondary',
         'destructive',
         'outline',

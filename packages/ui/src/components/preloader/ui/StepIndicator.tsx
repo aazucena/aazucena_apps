@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Badge } from '../../ui/badge.js';
+import { Badge } from '../../ui/badge';
 import { CircleNotch as LoadingCircle, CheckCircleSolid as Checkmark } from '@aazucena/icons';
-import { IconRenderer } from '../../ui/icon-renderer.js';
+import { IconRenderer } from '../../ui/icon-renderer';
 import type { LoadingStep } from '@aazucena/types';
 import type { ThemeStyles } from '@aazucena/hooks';
 
@@ -115,7 +115,7 @@ export const StepIndicator = memo(function StepIndicator({
 
       <div className="flex-shrink-0" aria-live="polite">
         {isActive && !stepComplete && (
-          <Badge variant="default" className="animate-pulse" style={themeStyles.getBadgeStyle()}>
+          <Badge variant="primary" className="animate-pulse" style={themeStyles.getBadgeStyle()}>
             Active
           </Badge>
         )}
