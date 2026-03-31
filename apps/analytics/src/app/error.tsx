@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { Refresh, Home, DangerCircle, Terminal, Activity } from '@mynaui/icons-react';
+import { Refresh, Home, DangerCircle, Terminal, Activity } from '@aazucena/icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 

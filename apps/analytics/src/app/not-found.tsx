@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Compass, Home, DangerTriangle } from '@mynaui/icons-react';
+import { ArrowLeft, Compass, Home, DangerTriangle } from '@aazucena/icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 

@@ -1,6 +1,6 @@
 import { mainClickhouseClient as clickhouse } from '@/lib/services';
 import { NextResponse } from 'next/server';
-import { SENTINEL_THRESHOLDS, SentinelAlert } from '@/config/sentinel';
+import { SENTINEL_THRESHOLDS, SentinelAlert } from '@aazucena/constants';
 
 export const dynamic = 'force-dynamic';
 

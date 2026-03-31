@@ -8,6 +8,7 @@ export async function GET() {
 
     const res = await fetch(`${INTEL_ENGINE_URL}/brain/schema`, {
       cache: 'no-store',
+      signal: AbortSignal.timeout(3000),
     });
 
     if (!res.ok) {
@@ -17,7 +18,14 @@ export async function GET() {
     const data = await res.json();
     return NextResponse.json(data);
   } catch (error) {
-    console.error('[Brain-Schema-API] Error:', error);
+    const isUnavailable =
+      error instanceof TypeError ||
+      (error instanceof DOMException && error.name === 'TimeoutError');
+    if (isUnavailable) {
+      console.warn('[Brain-Schema-API] Intel Engine unavailable — using fallback schema');
+    } else {
+      console.error('[Brain-Schema-API] Unexpected error:', error);
+    }
     // Fallback to static schema if service is down
     return NextResponse.json({
       nodes: [

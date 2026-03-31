@@ -1,166 +1,110 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, updateLastSync } from '@/store';
 import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import {
+  useSystemSummary as _useSystemSummary,
+  useTrendAnalysis as _useTrendAnalysis,
+  useTelemetryStream as _useTelemetryStream,
+  useMusicStats as _useMusicStats,
+  useSentinel as _useSentinel,
+} from '@aazucena/hooks';
 
-/**
- * Hook to fetch high-level system metrics (KPIs)
- */
 export function useSystemSummary() {
   const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
   const dispatch = useDispatch();
-
-  const query = useQuery({
-    queryKey: ['system-summary'],
-    queryFn: async () => {
-      const res = await fetch('/api/stats/summary');
-      if (!res.ok) throw new Error('FAILED_SUMMARY_FETCH');
-      const json = await res.json();
-      return json.data;
-    },
-    refetchInterval: isLive ? 10000 : false, // Poll every 10s if live
-  });
-
-  // Track the last sync time in Redux
+  const query = _useSystemSummary({ isLive });
   useEffect(() => {
     if (query.data) dispatch(updateLastSync());
   }, [query.data, dispatch]);
-
   return query;
 }
 
-/**
- * Hook to fetch time-series trend data for D3 charts
- */
 export function useTrendAnalysis() {
   const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
   const timeRange = useSelector((state: RootState) => state.dashboard.filters.timeRange);
+  const query = _useTrendAnalysis(timeRange, { isLive });
 
-  return useQuery({
-    queryKey: ['system-trends', timeRange],
-    queryFn: async () => {
-      const res = await fetch(`/api/stats/trends?range=${timeRange}`);
-      if (!res.ok) throw new Error('FAILED_TRENDS_FETCH');
-      const json = await res.json();
-
-      // Normalize dates for D3 immediately
-      return {
-        stream: json.data.stream.map((d: any) => ({ ...d, date: new Date(d.date) })),
-        heatmap: json.data.heatmap.map((d: any) => ({ ...d, date: new Date(d.date) })),
-      };
-    },
-    refetchInterval: isLive ? 30000 : false, // Poll every 30s for heavy charts
-  });
+  // Transform to @aazucena/types package formats (GenericTimeSeriesStep / GenericHeatmapCell)
+  if (query.data) {
+    return {
+      ...query,
+      data: {
+        stream:
+          (query.data as any).stream?.map((d: any) => {
+            const { date, ...rest } = d;
+            return { timestamp: new Date(date), values: rest as Record<string, number> };
+          }) ?? [],
+        heatmap:
+          (query.data as any).heatmap?.map((d: any) => ({
+            date: new Date(d.date),
+            value: d.count ?? d.value ?? 0,
+            category: d.category,
+          })) ?? [],
+      },
+    };
+  }
+  return query;
 }
 
-/**
- * Hook to fetch the raw telemetry log stream
- */
 export function useTelemetryStream() {
   const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
-
-  return useQuery({
-    queryKey: ['telemetry-stream'],
-    queryFn: async () => {
-      const res = await fetch('/api/stats/logs');
-      if (!res.ok) throw new Error('FAILED_LOGS_FETCH');
-      const json = await res.json();
-      return json.data;
-    },
-    refetchInterval: isLive ? 5000 : false, // Poll every 5s for the live feed
-  });
+  return _useTelemetryStream({ isLive });
 }
 
-/**
- * Hook to fetch music playback statistics
- */
 export function useMusicStats() {
   const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
-
-  return useQuery({
-    queryKey: ['music-stats'],
-    queryFn: async () => {
-      const res = await fetch('/api/stats/music');
-      if (!res.ok) throw new Error('FAILED_MUSIC_FETCH');
-      const json = await res.json();
-      return json.data;
-    },
-    refetchInterval: isLive ? 15000 : false, // Poll every 15s
-  });
+  return _useMusicStats({ isLive });
 }
 
-/**
- * Hook to fetch Plausible Analytics traffic stats
- */
+export function useSentinel() {
+  const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
+  return _useSentinel({ isLive });
+}
+
+// Journey and Plausible hooks — not yet in @aazucena/hooks, kept local
+
 export function usePlausibleStats() {
   const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
 
   return useQuery({
     queryKey: ['plausible-stats'],
-    queryFn: async () => {
-      const res = await fetch('/api/stats/plausible');
+    queryFn: async ({ signal }) => {
+      const res = await fetch('/api/stats/plausible', { signal });
       if (!res.ok) throw new Error('FAILED_PLAUSIBLE_FETCH');
       const json = await res.json();
-
-      // Normalize dates
-      return json.data.map((d: any) => ({
-        ...d,
-        date: new Date(d.date),
-      }));
+      return json.data.map((d: any) => ({ ...d, date: new Date(d.date) }));
     },
-    refetchInterval: isLive ? 60000 : false, // Poll every 60s (traffic updates slower)
+    refetchInterval: isLive ? 60000 : false,
   });
 }
 
-/**
- * Hook to fetch the list of recent user journeys
- */
 export function useJourneys() {
   return useQuery({
     queryKey: ['user-journeys'],
-    queryFn: async () => {
-      const res = await fetch('/api/stats/journeys');
+    queryFn: async ({ signal }) => {
+      const res = await fetch('/api/stats/journeys', { signal });
       if (!res.ok) throw new Error('FAILED_JOURNEYS_FETCH');
       const json = await res.json();
       return json.data;
     },
-    refetchInterval: 30000, // Refresh every 30s
+    refetchInterval: 60000,
   });
 }
 
-/**
- * Hook to fetch details for a specific user journey
- */
 export function useJourneyDetail(sessionId: string | null) {
   return useQuery({
     queryKey: ['user-journey-detail', sessionId],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       if (!sessionId) return null;
-      const res = await fetch(`/api/stats/journeys?sessionId=${sessionId}`);
+      const res = await fetch(`/api/stats/journeys?sessionId=${sessionId}`, { signal });
       if (!res.ok) throw new Error('FAILED_JOURNEY_DETAIL_FETCH');
       const json = await res.json();
       return json.data;
     },
     enabled: !!sessionId,
-  });
-}
-
-/**
- * Hook to fetch the Sentinel health status and active alerts
- */
-export function useSentinel() {
-  const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
-
-  return useQuery({
-    queryKey: ['sentinel-status'],
-    queryFn: async () => {
-      const res = await fetch('/api/stats/sentinel');
-      if (!res.ok) throw new Error('FAILED_SENTINEL_FETCH');
-      const json = await res.json();
-      return json;
-    },
-    refetchInterval: isLive ? 15000 : false, // Check health every 15s if live
+    refetchInterval: false,
   });
 }

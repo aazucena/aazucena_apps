@@ -1,6 +1,6 @@
 import React, { useState, type ElementType } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from '@mynaui/icons-react';
+import { ChevronDown } from '@aazucena/icons';
 
 interface LogDetailsProps {
   title: string;

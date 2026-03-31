@@ -13,8 +13,8 @@ import {
   Copy,
   CheckCircle,
   Refresh,
-} from '@mynaui/icons-react';
-import { NeuralMap } from '@/components/visualizations/NeuralMap';
+} from '@aazucena/icons';
+import { NeuralMap } from '@aazucena/visualizations';
 import { cn } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/common/MarkdownRenderer';
 

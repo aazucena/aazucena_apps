@@ -16,7 +16,7 @@ import {
   Music,
   Eye,
   DangerTriangle,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 import { useJourneys, useJourneyDetail } from '@/hooks/useTelemetry';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';

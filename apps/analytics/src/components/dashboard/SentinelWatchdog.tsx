@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useSentinel } from '@/hooks/useTelemetry';
-import { Shield, DangerTriangle, XCircle, CheckCircle, Info } from '@mynaui/icons-react';
+import { Shield, DangerTriangle, XCircle, CheckCircle, Info } from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 

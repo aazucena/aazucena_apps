@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, setCategoryPreset } from '@/store';
+import type { GenericTimeSeriesStep } from '@aazucena/types';
 
 // 1. Core Layout Components
 import { DashboardFilters } from '@/components/dashboard/DashboardFilters';
@@ -10,9 +11,8 @@ import { SentinelWatchdog } from '@/components/dashboard/SentinelWatchdog';
 import { MetricCard } from '@/components/widgets/MetricCard';
 import { TelemetryFeed } from '@/components/logs/TelemetryFeed';
 
-// 2. D3 Visualizations
-import { Heatmap } from '@/components/visualizations/Heatmap';
-import { StreamGraph } from '@/components/visualizations/StreamGraph';
+// 2. D3 Visualizations — from @aazucena/visualizations
+import { Heatmap, StreamGraph } from '@aazucena/visualizations';
 
 // 3. Icons (Using MyNaui)
 import {
@@ -22,14 +22,16 @@ import {
   DangerTriangle as Bug,
   TrendingUp,
   ClockCircle as History,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 
 // 4. Telemetry Hooks
 import { useSystemSummary, useTrendAnalysis, useTelemetryStream } from '@/hooks/useTelemetry';
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
-  const { searchQuery } = useSelector((state: RootState) => state.dashboard.filters);
+  const { searchQuery, visibleCategories } = useSelector(
+    (state: RootState) => state.dashboard.filters,
+  );
 
   // Initialize Hooks
   const { data: summary, isLoading: _summaryLoading } = useSystemSummary();
@@ -41,6 +43,18 @@ export default function DashboardPage() {
   }, [dispatch]);
 
   const categories = ['Page View', 'Music Play', 'Interaction', 'Form Submit', 'Error'];
+
+  // Filter stream by visibleCategories — package StreamGraph is framework-agnostic (no Redux reads)
+  const filteredStream = useMemo((): GenericTimeSeriesStep[] => {
+    const stream = (trends?.stream as GenericTimeSeriesStep[] | undefined) ?? [];
+    if (!visibleCategories?.length) return stream;
+    return stream.map((step) => ({
+      ...step,
+      values: Object.fromEntries(
+        Object.entries(step.values).filter(([k]) => visibleCategories.includes(k)),
+      ),
+    }));
+  }, [trends?.stream, visibleCategories]);
 
   return (
     <div className="space-y-10 pb-20">
@@ -107,7 +121,7 @@ export default function DashboardPage() {
             </span>
           </div>
           <div className="min-h-[450px]">
-            <StreamGraph data={trends?.stream || []} />
+            <StreamGraph data={filteredStream} />
           </div>
         </div>
 
@@ -126,7 +140,7 @@ export default function DashboardPage() {
             </span>
           </div>
           <div className="min-h-[400px]">
-            <Heatmap data={trends?.heatmap || []} />
+            <Heatmap data={(trends?.heatmap as any) || []} height={360} />
           </div>
         </div>
       </div>

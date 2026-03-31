@@ -12,7 +12,7 @@ import {
   Zap,
   Message,
   XCircle,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 import { usePrompts, useUpdatePrompt } from '@/hooks/usePrompts';
 

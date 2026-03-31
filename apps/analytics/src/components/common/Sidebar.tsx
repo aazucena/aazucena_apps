@@ -20,7 +20,7 @@ import {
   Globe,
   CreditCard,
   Compass,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 import { navModeStore } from '@/store/navModeStore';
 import { IntegrityBadge } from './IntegrityBadge';

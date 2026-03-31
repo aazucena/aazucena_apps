@@ -18,23 +18,24 @@ import {
   Check,
   Plus,
   Puzzle,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/common/MarkdownRenderer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '@/store';
 import {
   addMessage,
   clearAllHistory,
-  TerminalMessage,
+  type TerminalMessage,
   setActiveNode,
   selectActiveThread,
+  selectActiveMessages,
   createNewChat,
   switchConversation,
   deleteConversation,
-  Conversation,
+  type Conversation,
   updateConversationTitle,
-} from '@/store/slices/chat';
+} from '@/store';
 
 const AVAILABLE_MODELS = [
   { id: 'local/brain', name: 'Local Brain', provider: 'IntelEngine' },
@@ -54,10 +55,8 @@ function AiTerminalContent() {
   // Redux Selectors
   const conversations = useSelector((state: RootState) => state.chat.conversations);
   const activeConversationId = useSelector((state: RootState) => state.chat.activeConversationId);
-  const activeThread = useSelector(selectActiveThread);
-  const allMessagesMap = useSelector(
-    (state: RootState) => state.chat.conversations[activeConversationId || '']?.messages || {},
-  );
+  const activeThread = useSelector(selectActiveThread, shallowEqual);
+  const allMessagesMap = useSelector(selectActiveMessages);
 
   const activeConv = activeConversationId ? conversations[activeConversationId] : null;
 
@@ -323,50 +322,51 @@ function AiTerminalContent() {
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin">
-          {sortedConvs.map((conv: Conversation) => (
-            <div key={conv.id} className="relative group">
-              <button
-                onClick={() => dispatch(switchConversation(conv.id))}
-                className={cn(
-                  'w-full p-4 pr-12 rounded-2xl text-left transition-all border flex items-start gap-3',
-                  activeConversationId === conv.id
-                    ? 'bg-primary-500/5 border-primary-500/30 text-primary-500'
-                    : 'bg-transparent border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100',
-                )}
-              >
-                <Puzzle size={14} className="mt-0.5 shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] font-bold truncate leading-tight">{conv.title}</p>
-                  <p className="text-[8px] font-mono opacity-50 mt-1 uppercase">
-                    {new Date(conv.updatedAt).toLocaleDateString()}
-                  </p>
-                </div>
-              </button>
+          {isMounted &&
+            sortedConvs.map((conv: Conversation) => (
+              <div key={conv.id} className="relative group">
+                <button
+                  onClick={() => dispatch(switchConversation(conv.id))}
+                  className={cn(
+                    'w-full p-4 pr-12 rounded-2xl text-left transition-all border flex items-start gap-3',
+                    activeConversationId === conv.id
+                      ? 'bg-primary-500/5 border-primary-500/30 text-primary-500'
+                      : 'bg-transparent border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100',
+                  )}
+                >
+                  <Puzzle size={14} className="mt-0.5 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[11px] font-bold truncate leading-tight">{conv.title}</p>
+                    <p className="text-[8px] font-mono opacity-50 mt-1 uppercase">
+                      {new Date(conv.updatedAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </button>
 
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (confirm(`Delete conversation "${conv.title}"?`)) {
-                    setDeletingId(conv.id);
-                    setTimeout(() => {
-                      dispatch(deleteConversation(conv.id));
-                      setDeletingId(null);
-                    }, 1000);
-                  }
-                }}
-                className={cn(
-                  'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-all z-20 shadow-sm border',
-                  deletingId === conv.id
-                    ? 'bg-emerald-500 text-white border-emerald-600 opacity-100 scale-110 shadow-emerald-500/20'
-                    : 'opacity-60 hover:opacity-100 bg-rose-500/10 dark:bg-rose-500/20 border-rose-500/20 hover:border-rose-500/50 text-rose-600 dark:text-rose-400 hover:bg-rose-500 hover:text-white hover:scale-110',
-                )}
-                title="Delete Chat"
-                disabled={deletingId === conv.id}
-              >
-                {deletingId === conv.id ? <Check size={16} /> : <Trash size={16} />}
-              </button>
-            </div>
-          ))}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (confirm(`Delete conversation "${conv.title}"?`)) {
+                      setDeletingId(conv.id);
+                      setTimeout(() => {
+                        dispatch(deleteConversation(conv.id));
+                        setDeletingId(null);
+                      }, 1000);
+                    }
+                  }}
+                  className={cn(
+                    'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-all z-20 shadow-sm border',
+                    deletingId === conv.id
+                      ? 'bg-emerald-500 text-white border-emerald-600 opacity-100 scale-110 shadow-emerald-500/20'
+                      : 'opacity-60 hover:opacity-100 bg-rose-500/10 dark:bg-rose-500/20 border-rose-500/20 hover:border-rose-500/50 text-rose-600 dark:text-rose-400 hover:bg-rose-500 hover:text-white hover:scale-110',
+                  )}
+                  title="Delete Chat"
+                  disabled={deletingId === conv.id}
+                >
+                  {deletingId === conv.id ? <Check size={16} /> : <Trash size={16} />}
+                </button>
+              </div>
+            ))}
         </div>
 
         <div className="p-4 border-t border-zinc-200 dark:border-zinc-800">
@@ -429,7 +429,9 @@ function AiTerminalContent() {
               {/* Conversation Title (Now on the Left) */}
               <div className="relative flex-1 min-w-0">
                 <p className="text-zinc-900 dark:text-zinc-100 text-[11px] font-black uppercase tracking-widest truncate">
-                  {activeConv?.title || 'Initializing Neural Core...'}
+                  {isMounted
+                    ? activeConv?.title || 'Initializing Neural Core...'
+                    : 'Initializing Neural Core...'}
                 </p>
                 {/* Full Title Reveal on Hover */}
                 <div className="absolute top-full left-0 mt-3 opacity-0 group-hover/title:opacity-100 pointer-events-none transition-all duration-200 z-50 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 rounded-2xl shadow-2xl min-w-[300px] max-w-[600px] border-t-4 border-t-primary-500">
@@ -440,7 +442,9 @@ function AiTerminalContent() {
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   </div>
                   <p className="text-zinc-900 dark:text-zinc-100 text-[12px] font-mono uppercase font-black tracking-wider break-words leading-relaxed">
-                    {activeConv?.title || 'System Initializing...'}
+                    {isMounted
+                      ? activeConv?.title || 'System Initializing...'
+                      : 'System Initializing...'}
                   </p>
                 </div>
               </div>
@@ -682,14 +686,14 @@ function AiTerminalContent() {
                     }
                   }}
                   placeholder="ENTER_COMMAND_FOR_BRAIN_ANALYSIS..."
-                  disabled={isLoading || !activeConversationId}
+                  disabled={isLoading || (isMounted && !activeConversationId)}
                   rows={Math.min(5, input.split('\n').length || 1)}
                   className="w-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl pl-6 pr-14 py-4 text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500/50 transition-all shadow-inner resize-none min-h-[56px] scrollbar-none"
                 />
                 <div className="absolute right-3 bottom-3">
                   <button
                     type="submit"
-                    disabled={isLoading || !input.trim() || !activeConversationId}
+                    disabled={isLoading || !input.trim() || (isMounted && !activeConversationId)}
                     className="w-10 h-10 rounded-xl bg-primary-500 text-white flex items-center justify-center hover:bg-primary-600 transition-all disabled:opacity-50 shadow-lg shadow-primary-500/20"
                   >
                     <Send size={18} />

@@ -1,5 +1,4 @@
-import type { StrapiPrompt } from '../validators/prompt';
-import type { PromptType } from '../validators/enums';
+import type { StrapiPrompt, PromptType } from '@aazucena/api';
 
 export interface Prompt {
   id: string;

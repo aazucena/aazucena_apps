@@ -20,7 +20,7 @@ import {
   Zap,
   Refresh,
   Message,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 
 export interface CommandAction {
   id: string;

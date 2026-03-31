@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import { Music, Play, HardDrive as Disc, Headphones, Download } from '@mynaui/icons-react';
+import { Music, Play, HardDrive as Disc, Headphones, Download } from '@aazucena/icons';
 import { useMusicStats } from '@/hooks/useTelemetry';
 
 export default function MusicPage() {

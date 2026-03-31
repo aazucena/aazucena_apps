@@ -5,9 +5,10 @@ import React, { useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import { StreamGraph } from '@/components/visualizations/StreamGraph';
+import { StreamGraph } from '@aazucena/visualizations';
+import type { GenericTimeSeriesStep } from '@aazucena/types';
 import { useFinanceStats } from '@/hooks/useFinance';
-import { Database, CreditCard, Dollar, TrendingUp } from '@mynaui/icons-react';
+import { Database, CreditCard, Dollar, TrendingUp } from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 
 export default function FinancePage() {
@@ -18,13 +19,18 @@ export default function FinancePage() {
     dispatch(setCategoryPreset('INTELLIGENCE'));
   }, [dispatch]);
 
-  const chartData = useMemo(() => {
+  // Group by date → GenericTimeSeriesStep[] (provider as category key)
+  const chartData = useMemo((): GenericTimeSeriesStep[] => {
     if (!stats?.trends) return [];
-
-    return stats.trends.map((d) => ({
-      date: new Date(d.date),
-      value: d.revenue,
-      category: d.provider, // e.g. 'STRIPE', 'KOFI'
+    const map = new Map<string, Record<string, number>>();
+    (stats.trends as any[]).forEach((d) => {
+      const key = new Date(d.date).toISOString();
+      if (!map.has(key)) map.set(key, {});
+      map.get(key)![d.provider] = d.revenue ?? 0;
+    });
+    return Array.from(map.entries()).map(([date, values]) => ({
+      timestamp: new Date(date),
+      values,
     }));
   }, [stats]);
 

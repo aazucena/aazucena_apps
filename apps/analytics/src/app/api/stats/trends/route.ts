@@ -37,16 +37,24 @@ export async function GET(request: Request) {
 
     const streamData = Array.from(pivotedMap.values());
 
-    // 3. Prepare Heatmap specific data (Total counts per month)
-    const heatmapData = streamData.map((d) => {
-      const { date, ...events } = d;
-      const total = Object.values(events).reduce((sum: number, val: any) => sum + val, 0);
-      return {
-        date,
-        count: total,
-        categoryDistribution: events,
-      };
+    // 3. Fetch daily totals for the heatmap (last 365 days)
+    const dailyResult = await clickhouse.query({
+      query: `
+        SELECT
+          toDate(timestamp) as date,
+          count() as count
+        FROM telemetry_events
+        WHERE timestamp >= now() - INTERVAL 365 DAY
+        GROUP BY date
+        ORDER BY date ASC
+      `,
+      format: 'JSONEachRow',
     });
+    const dailyRows = (await dailyResult.json()) as Array<{ date: string; count: string }>;
+    const heatmapData = dailyRows.map((r) => ({
+      date: r.date,
+      count: Number(r.count),
+    }));
 
     return NextResponse.json({
       success: true,

@@ -1,7 +1,11 @@
 // apps/analytics/src/lib/strapi.ts
-import { validateStrapiToken } from './utils/strapi';
+// Initializes the shared Strapi client with Next.js process.env config.
+import { setStrapiConfig } from '@aazucena/api';
 
-const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
-validateStrapiToken(STRAPI_TOKEN);
+setStrapiConfig({
+  url: process.env.STRAPI_URL || 'http://localhost:1337',
+  apiEndpoint: process.env.STRAPI_API_ENDPOINT || '/api',
+  token: process.env.STRAPI_API_TOKEN || '',
+});
 
-export * from './utils/strapi';
+export * from '@aazucena/api';

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8080 -H 0.0.0.0",
+    "dev": "NODE_OPTIONS='--max-old-space-size=2048' next dev -p 8080 -H 0.0.0.0",
     "build": "next build",
     "start": "next start -p 8080 -H 0.0.0.0",
     "type-check": "tsc --noEmit",
@@ -13,11 +13,24 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
+    "@aazucena/analytics": "workspace:*",
+    "@aazucena/animations": "workspace:*",
+    "@aazucena/api": "workspace:*",
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/context": "workspace:*",
+    "@aazucena/design-system": "workspace:*",
+    "@aazucena/forms": "workspace:*",
+    "@aazucena/hooks": "workspace:*",
+    "@aazucena/icons": "workspace:*",
+    "@aazucena/layouts": "workspace:*",
+    "@aazucena/stores": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/ui": "workspace:*",
+    "@aazucena/visualizations": "workspace:*",
     "@ai-sdk/gateway": "^3.0.83",
     "@ai-sdk/react": "^3.0.143",
     "@clickhouse/client": "^1.18.2",
     "@clickhouse/client-web": "^1.18.2",
-    "@mynaui/icons-react": "^0.3.9",
     "@radix-ui/react-dialog": "^1.1.15",
     "@reduxjs/toolkit": "^2.11.2",
     "@sentry/nextjs": "^10.46.0",
@@ -57,6 +70,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@aazucena/config": "workspace:*",
     "@playwright/test": "^1.58.0",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/d3": "^7.4.3",

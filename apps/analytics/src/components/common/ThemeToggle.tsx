@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Sun, Moon } from '@mynaui/icons-react';
+import { Sun, Moon } from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 
 // Define the available sizes

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Shield, CheckCircle, Activity, Globe, Zap, Terminal } from '@mynaui/icons-react';
+import { Shield, CheckCircle, Activity, Globe, Zap, Terminal } from '@aazucena/icons';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 

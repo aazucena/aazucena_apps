@@ -5,7 +5,8 @@ import React, { useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import { StreamGraph } from '@/components/visualizations/StreamGraph';
+import { StreamGraph } from '@aazucena/visualizations';
+import type { GenericTimeSeriesStep } from '@aazucena/types';
 // Corrected icon imports: Bug -> Activity, AlertTriangle -> DangerTriangle
 import {
   Activity,
@@ -15,7 +16,7 @@ import {
   DangerTriangle,
   XCircle,
   ExternalLink,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 import { usePerformanceStats } from '@/hooks/usePerformance';
 import Link from 'next/link';
 import { cn } from '@/lib/utils'; // cn imported from lib/utils
@@ -28,13 +29,18 @@ export default function PerformancePage() {
     dispatch(setCategoryPreset('PERFORMANCE'));
   }, [dispatch]);
 
-  const latencyData = useMemo(() => {
+  // Group by timestamp → GenericTimeSeriesStep[] (metric name as category key)
+  const latencyData = useMemo((): GenericTimeSeriesStep[] => {
     if (!stats?.history) return [];
-    return stats.history.map((d: any) => ({
-      ...d,
-      date: new Date(d.date),
-      // Map metric names to categories for the StreamGraph
-      category: d.metric,
+    const map = new Map<string, Record<string, number>>();
+    (stats.history as any[]).forEach((d) => {
+      const key = new Date(d.date).toISOString();
+      if (!map.has(key)) map.set(key, {});
+      map.get(key)![d.metric] = d.value ?? d.p75 ?? 0;
+    });
+    return Array.from(map.entries()).map(([date, values]) => ({
+      timestamp: new Date(date),
+      values,
     }));
   }, [stats]);
 

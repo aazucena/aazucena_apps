@@ -2,7 +2,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, toggleLiveMode } from '@/store';
-import { Search, ClockCircle } from '@mynaui/icons-react';
+import { Search, ClockCircle } from '@aazucena/icons';
 import { ThemeToggle } from './ThemeToggle';
 import { AdminMenu } from './AdminMenu';
 

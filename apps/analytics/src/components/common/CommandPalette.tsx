@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { toggleLiveMode } from '@/store';
 import { useCommandSearch, CommandAction } from '@/hooks/useCommandSearch';
 import { cn } from '@/lib/utils';
-import { Search, Command as CommandIcon, Message, Zap } from '@mynaui/icons-react';
+import { Search, Command as CommandIcon, Message, Zap } from '@aazucena/icons';
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);

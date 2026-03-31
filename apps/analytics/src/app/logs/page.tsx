@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, setCategoryPreset } from '@/store';
 import { TelemetryFeed } from '@/components/logs/TelemetryFeed';
-import { Terminal, Hand as Fingerprint, Globe, ClockCircle } from '@mynaui/icons-react';
+import { Terminal, Hand as Fingerprint, Globe, ClockCircle } from '@aazucena/icons';
 import { useTelemetryStream, useSystemSummary } from '@/hooks/useTelemetry';
 
 export default function LogsPage() {

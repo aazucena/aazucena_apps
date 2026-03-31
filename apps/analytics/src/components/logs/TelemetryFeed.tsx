@@ -16,7 +16,7 @@ import {
   DangerTriangle,
   ChevronRight,
   Globe,
-} from '@mynaui/icons-react';
+} from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 import { LogDetailModal } from './LogDetailModal';
 

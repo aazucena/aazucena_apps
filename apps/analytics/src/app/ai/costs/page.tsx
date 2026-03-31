@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import { StreamGraph } from '@/components/visualizations/StreamGraph';
-import { CreditCard, Zap, Activity, Chip, Database, TrendingUp } from '@mynaui/icons-react';
+import { StreamGraph } from '@aazucena/visualizations';
+import { CreditCard, Zap, Activity, Chip, Database, TrendingUp } from '@aazucena/icons';
 import { useAiStats } from '@/hooks/useAiStats';
+import type { GenericTimeSeriesStep } from '@aazucena/types';
 
 export default function AiCostCenterPage() {
   const dispatch = useDispatch();
@@ -16,11 +17,11 @@ export default function AiCostCenterPage() {
     dispatch(setCategoryPreset('PERFORMANCE')); // Use high-integrity preset
   }, [dispatch]);
 
-  const totalSpendNum = stats?.summary?.total_spend || 0;
+  // AiIntelligenceStats field names (package type)
+  const totalSpendNum = stats?.summary?.total_cost_usd || (stats as any)?.summary?.total_spend || 0;
   const totalSpend = totalSpendNum.toFixed(4);
-  const totalSavingsNum = stats?.summary?.total_savings || 0;
+  const totalSavingsNum = (stats as any)?.summary?.total_savings || 0;
   const totalSavings = totalSavingsNum.toFixed(4);
-  const _avgLatency = stats?.summary?.avg_latency?.toFixed(0) || '0';
   const totalTokens = stats?.summary?.total_tokens?.toLocaleString() || '0';
 
   // Calculate Monthly Projection (24h burn * 30)
@@ -31,6 +32,24 @@ export default function AiCostCenterPage() {
     totalSpendNum + totalSavingsNum > 0
       ? ((totalSavingsNum / (totalSpendNum + totalSavingsNum)) * 100).toFixed(1)
       : '0';
+
+  // Group trends by date → GenericTimeSeriesStep[] (cost by model over time)
+  const statsTrends = stats?.trends;
+  const statsHistory = (stats as any)?.history;
+  const streamData = useMemo((): GenericTimeSeriesStep[] => {
+    const trends = statsTrends ?? statsHistory;
+    if (!trends) return [];
+    const map = new Map<string, Record<string, number>>();
+    (trends as any[]).forEach((d) => {
+      const key = String(d.date);
+      if (!map.has(key)) map.set(key, {});
+      map.get(key)![d.model ?? 'spend'] = d.cost ?? d.value ?? 0;
+    });
+    return Array.from(map.entries()).map(([date, values]) => ({
+      timestamp: new Date(date),
+      values,
+    }));
+  }, [statsTrends, statsHistory]);
 
   return (
     <div className="space-y-10 pb-20">
@@ -104,7 +123,7 @@ export default function AiCostCenterPage() {
           </span>
         </div>
         <div className="min-h-[400px]">
-          <StreamGraph data={stats?.history || []} />
+          <StreamGraph data={streamData} />
         </div>
       </div>
 
@@ -140,7 +159,7 @@ export default function AiCostCenterPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
-                {(stats?.distribution || []).map((model: any) => (
+                {(stats?.models ?? (stats as any)?.distribution ?? []).map((model: any) => (
                   <tr
                     key={model.model}
                     className="group hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
@@ -177,7 +196,7 @@ export default function AiCostCenterPage() {
                           <div
                             className="h-full bg-emerald-500"
                             style={{
-                              width: `${Math.min(((model.savings || 0) / (stats.summary.total_savings || 1)) * 100, 100)}%`,
+                              width: `${Math.min(((model.savings || 0) / ((stats as any)?.summary?.total_savings || 1)) * 100, 100)}%`,
                             }}
                           />
                         </div>
@@ -185,7 +204,8 @@ export default function AiCostCenterPage() {
                     </td>
                   </tr>
                 ))}
-                {(!stats?.distribution || stats.distribution.length === 0) && (
+                {(!(stats?.models ?? (stats as any)?.distribution) ||
+                  (stats?.models ?? (stats as any)?.distribution ?? []).length === 0) && (
                   <tr>
                     <td
                       colSpan={3}
@@ -227,7 +247,7 @@ export default function AiCostCenterPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
-                {(stats?.agents || []).map((agent: any) => (
+                {((stats as any)?.agents || []).map((agent: any) => (
                   <tr
                     key={agent.agent_name}
                     className="group hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
@@ -259,7 +279,7 @@ export default function AiCostCenterPage() {
                           <div
                             className="h-full bg-secondary-500"
                             style={{
-                              width: `${Math.min((agent.spend / (stats.summary.total_spend || 1)) * 100, 100)}%`,
+                              width: `${Math.min((agent.spend / (totalSpendNum || 1)) * 100, 100)}%`,
                             }}
                           />
                         </div>
@@ -267,7 +287,7 @@ export default function AiCostCenterPage() {
                     </td>
                   </tr>
                 ))}
-                {(!stats?.agents || stats.agents.length === 0) && (
+                {(!(stats as any)?.agents || (stats as any).agents.length === 0) && (
                   <tr>
                     <td
                       colSpan={3}

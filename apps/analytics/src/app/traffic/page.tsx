@@ -1,40 +1,93 @@
 // apps/analytics/src/app/traffic/page.tsx
 'use client';
 
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
+import * as topojson from 'topojson-client';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import { StreamGraph } from '@/components/visualizations/StreamGraph';
+import { StreamGraph, ChoroplethMap } from '@aazucena/visualizations';
 import { useTrafficStats } from '@/hooks/useTraffic';
-import { Globe, Users, Eye, ArrowUpRight } from '@mynaui/icons-react';
-import { ChoroplethMap } from '@/components/visualizations/ChoroplethMap';
+import { Globe, Users, Eye, ArrowUpRight } from '@aazucena/icons';
+import type { GenericTimeSeriesStep, MapRegion } from '@aazucena/types';
+
+// Top countries by web traffic: ISO 2-letter → natural earth name
+const ISO2_TO_NAME: Record<string, string> = {
+  US: 'United States of America',
+  GB: 'United Kingdom',
+  CA: 'Canada',
+  DE: 'Germany',
+  FR: 'France',
+  JP: 'Japan',
+  AU: 'Australia',
+  IN: 'India',
+  BR: 'Brazil',
+  MX: 'Mexico',
+  NL: 'Netherlands',
+  SE: 'Sweden',
+  CH: 'Switzerland',
+  SG: 'Singapore',
+  NO: 'Norway',
+  DK: 'Denmark',
+  FI: 'Finland',
+  NZ: 'New Zealand',
+  IT: 'Italy',
+  ES: 'Spain',
+  PL: 'Poland',
+  RU: 'Russia',
+  CN: 'China',
+  KR: 'South Korea',
+  UA: 'Ukraine',
+  IE: 'Ireland',
+  PT: 'Portugal',
+  AT: 'Austria',
+  BE: 'Belgium',
+  CZ: 'Czech Republic',
+  AR: 'Argentina',
+};
 
 export default function TrafficPage() {
   const dispatch = useDispatch();
   const { data: stats, isLoading } = useTrafficStats();
+  const [geoJson, setGeoJson] = useState<any>(null);
 
   useEffect(() => {
     dispatch(setCategoryPreset('SYSTEM'));
   }, [dispatch]);
 
-  const chartData = useMemo(() => {
-    if (!stats?.trends) return [];
+  // Fetch world atlas and convert TopoJSON → GeoJSON with name-based IDs for lookup
+  useEffect(() => {
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then((r) => r.json())
+      .then((topo) => {
+        const geo = topojson.feature(topo, topo.objects.countries) as any;
+        setGeoJson({
+          ...geo,
+          features: geo.features.map((f: any) => ({ ...f, id: f.properties?.name ?? f.id })),
+        });
+      });
+  }, []);
 
-    const normalized: any[] = [];
-    stats.trends.forEach((d) => {
-      normalized.push({
-        date: new Date(d.date),
-        value: d.visitors,
-        category: 'Unique Visitors',
-      });
-      normalized.push({
-        date: new Date(d.date),
-        value: d.pageviews,
-        category: 'Total Pageviews',
-      });
-    });
-    return normalized;
+  // Wide-format GenericTimeSeriesStep[] for StreamGraph
+  const chartData = useMemo((): GenericTimeSeriesStep[] => {
+    if (!stats?.trends) return [];
+    return (stats.trends as any[]).map((d) => ({
+      timestamp: new Date(d.date),
+      values: {
+        'Unique Visitors': d.visitors ?? 0,
+        'Total Pageviews': d.pageviews ?? 0,
+      },
+    }));
+  }, [stats]);
+
+  // MapRegion[] for ChoroplethMap — match by country name via ISO2_TO_NAME lookup
+  const mapData = useMemo((): MapRegion[] => {
+    if (!stats?.geo) return [];
+    return (stats.geo as any[]).map((d) => ({
+      id: ISO2_TO_NAME[d.country] ?? d.country,
+      value: d.visitors ?? 0,
+      name: d.country,
+    }));
   }, [stats]);
 
   return (
@@ -95,7 +148,14 @@ export default function TrafficPage() {
       </div>
 
       {/* GEOSPATIAL MAP */}
-      <ChoroplethMap data={stats?.geo || []} />
+      {geoJson && (
+        <ChoroplethMap
+          data={mapData}
+          geoJson={geoJson}
+          title="Geospatial_Identity_Map"
+          description="Global Reach Intelligence"
+        />
+      )}
 
       {/* GEOSPATIAL TABLE (Simplified) */}
       <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 backdrop-blur-md">
@@ -103,7 +163,7 @@ export default function TrafficPage() {
           Global Distribution (Top 10)
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          {stats?.geo?.map((g, idx) => (
+          {(stats?.geo as any[])?.map((g, idx) => (
             <div
               key={g.country || idx}
               className="p-4 bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl flex items-center justify-between"
@@ -116,7 +176,7 @@ export default function TrafficPage() {
               </span>
             </div>
           ))}
-          {(!stats?.geo || stats.geo.length === 0) && (
+          {(!stats?.geo || (stats.geo as any[]).length === 0) && (
             <div className="col-span-full py-10 text-center text-zinc-500 font-mono text-xs uppercase">
               No geographic data ingested yet.
             </div>
