@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Map, Marker, Popup, defaultMarkerIcon } from '@aazucena/ui';
+import { Map, Marker, Popup } from '@aazucena/ui';
+import { defaultMarkerIcon } from '@aazucena/ui/components/ui/map.impl';
 import { Button } from '@aazucena/ui';
 import { MapPin, Target } from '@aazucena/icons'; // Assuming these icons are available
 
@@ -69,13 +70,18 @@ export const Default: Story = {
     zoom: 13,
     className: 'h-[400px] w-[600px]',
   },
-  render: (args) => (
-    <Map {...args}>
-      <Marker position={[51.505, -0.09]} icon={defaultMarkerIcon}>
-        <Popup>A pretty CSS3 popup. <br /> Easily customizable.</Popup>
-      </Marker>
-    </Map>
-  ),
+  render: (args) => {
+    const icon = defaultMarkerIcon();
+    return (
+      <Map {...args}>
+        <Marker position={[51.505, -0.09]} icon={icon}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </Map>
+    );
+  },
 };
 
 export const CustomCenterAndZoom: Story = {
@@ -84,13 +90,16 @@ export const CustomCenterAndZoom: Story = {
     zoom: 10,
     className: 'h-[400px] w-[600px]',
   },
-  render: (args) => (
-    <Map {...args}>
-      <Marker position={[34.052235, -118.243683]} icon={defaultMarkerIcon}>
-        <Popup>Los Angeles</Popup>
-      </Marker>
-    </Map>
-  ),
+  render: (args) => {
+    const icon = defaultMarkerIcon();
+    return (
+      <Map {...args}>
+        <Marker position={[34.052235, -118.243683]} icon={icon}>
+          <Popup>Los Angeles</Popup>
+        </Marker>
+      </Map>
+    );
+  },
 };
 
 export const MultipleMarkers: Story = {
@@ -99,19 +108,22 @@ export const MultipleMarkers: Story = {
     zoom: 4,
     className: 'h-[400px] w-[800px]',
   },
-  render: (args) => (
-    <Map {...args}>
-      <Marker position={[40.7128, -74.0060]} icon={defaultMarkerIcon}>
-        <Popup>New York</Popup>
-      </Marker>
-      <Marker position={[34.052235, -118.243683]} icon={defaultMarkerIcon}>
-        <Popup>Los Angeles</Popup>
-      </Marker>
-      <Marker position={[41.8781, -87.6298]} icon={defaultMarkerIcon}>
-        <Popup>Chicago</Popup>
-      </Marker>
-    </Map>
-  ),
+  render: (args) => {
+    const icon = defaultMarkerIcon();
+    return (
+      <Map {...args}>
+        <Marker position={[40.7128, -74.006]} icon={icon}>
+          <Popup>New York</Popup>
+        </Marker>
+        <Marker position={[34.052235, -118.243683]} icon={icon}>
+          <Popup>Los Angeles</Popup>
+        </Marker>
+        <Marker position={[41.8781, -87.6298]} icon={icon}>
+          <Popup>Chicago</Popup>
+        </Marker>
+      </Map>
+    );
+  },
 };
 
 export const CyberVariant: Story = {
@@ -121,13 +133,16 @@ export const CyberVariant: Story = {
     variant: 'cyber',
     className: 'h-[500px] w-[700px] bg-black',
   },
-  render: (args) => (
-    <Map {...args}>
-      <Marker position={[48.8584, 2.2945]} icon={defaultMarkerIcon}>
-        <Popup>Eiffel Tower</Popup>
-      </Marker>
-    </Map>
-  ),
+  render: (args) => {
+    const icon = defaultMarkerIcon();
+    return (
+      <Map {...args}>
+        <Marker position={[48.8584, 2.2945]} icon={icon}>
+          <Popup>Eiffel Tower</Popup>
+        </Marker>
+      </Map>
+    );
+  },
 };
 
 export const GlassVariant: Story = {
@@ -137,13 +152,16 @@ export const GlassVariant: Story = {
     variant: 'glass',
     className: 'h-[500px] w-[700px] bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800',
   },
-  render: (args) => (
-    <Map {...args}>
-      <Marker position={[35.6580, 139.7414]} icon={defaultMarkerIcon}>
-        <Popup>Tokyo Tower</Popup>
-      </Marker>
-    </Map>
-  ),
+  render: (args) => {
+    const icon = defaultMarkerIcon();
+    return (
+      <Map {...args}>
+        <Marker position={[35.658, 139.7414]} icon={icon}>
+          <Popup>Tokyo Tower</Popup>
+        </Marker>
+      </Map>
+    );
+  },
 };
 
 export const StaticMap: Story = {
@@ -153,13 +171,16 @@ export const StaticMap: Story = {
     interactive: false,
     className: 'h-[400px] w-[600px]',
   },
-  render: (args) => (
-    <Map {...args}>
-      <Marker position={[51.505, -0.09]} icon={defaultMarkerIcon}>
-        <Popup>Static Location</Popup>
-      </Marker>
-    </Map>
-  ),
+  render: (args) => {
+    const icon = defaultMarkerIcon();
+    return (
+      <Map {...args}>
+        <Marker position={[51.505, -0.09]} icon={icon}>
+          <Popup>Static Location</Popup>
+        </Marker>
+      </Map>
+    );
+  },
 };
 
 export const MapWithButtonTrigger: Story = {
@@ -170,14 +191,13 @@ export const MapWithButtonTrigger: Story = {
   },
   render: (args) => {
     const [showMap, setShowMap] = React.useState(false);
+    const icon = defaultMarkerIcon();
     return (
       <div className="flex flex-col items-center gap-4">
-        <Button onClick={() => setShowMap(!showMap)}>
-          {showMap ? 'Hide Map' : 'Show Map'}
-        </Button>
+        <Button onClick={() => setShowMap(!showMap)}>{showMap ? 'Hide Map' : 'Show Map'}</Button>
         {showMap && (
           <Map {...args}>
-            <Marker position={[51.505, -0.09]} icon={defaultMarkerIcon}>
+            <Marker position={[51.505, -0.09]} icon={icon}>
               <Popup>Dynamic Map</Popup>
             </Marker>
           </Map>
