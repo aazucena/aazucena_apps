@@ -11,6 +11,26 @@ import { useTrafficStats } from '@/hooks/useTraffic';
 import { Globe, Users, Eye, ArrowUpRight } from '@aazucena/icons';
 import type { GenericTimeSeriesStep, MapRegion } from '@aazucena/types';
 
+// Module-level singleton — parsed once per app lifetime, survives navigations
+let cachedGeoJson: any = null;
+let geoJsonPromise: Promise<any> | null = null;
+
+function loadGeoJson(): Promise<any> {
+  if (cachedGeoJson) return Promise.resolve(cachedGeoJson);
+  if (geoJsonPromise) return geoJsonPromise;
+  geoJsonPromise = fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then((r) => r.json())
+    .then((topo) => {
+      const geo = topojson.feature(topo, topo.objects.countries) as any;
+      cachedGeoJson = {
+        ...geo,
+        features: geo.features.map((f: any) => ({ ...f, id: f.properties?.name ?? f.id })),
+      };
+      return cachedGeoJson;
+    });
+  return geoJsonPromise;
+}
+
 // Top countries by web traffic: ISO 2-letter → natural earth name
 const ISO2_TO_NAME: Record<string, string> = {
   US: 'United States of America',
@@ -55,17 +75,9 @@ export default function TrafficPage() {
     dispatch(setCategoryPreset('SYSTEM'));
   }, [dispatch]);
 
-  // Fetch world atlas and convert TopoJSON → GeoJSON with name-based IDs for lookup
+  // Use module-level cache — fetch + parse runs only once per app lifetime
   useEffect(() => {
-    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-      .then((r) => r.json())
-      .then((topo) => {
-        const geo = topojson.feature(topo, topo.objects.countries) as any;
-        setGeoJson({
-          ...geo,
-          features: geo.features.map((f: any) => ({ ...f, id: f.properties?.name ?? f.id })),
-        });
-      });
+    loadGeoJson().then(setGeoJson);
   }, []);
 
   // Wide-format GenericTimeSeriesStep[] for StreamGraph

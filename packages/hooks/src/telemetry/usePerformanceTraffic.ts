@@ -26,6 +26,7 @@ export function usePerformanceStats(options: UsePerformanceOptions = {}) {
       const json = await res.json();
       return json.data;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
   });
 }
@@ -50,6 +51,7 @@ export function useTrafficStats(options: UsePerformanceOptions = {}) {
       const json = await res.json();
       return json.data;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
   });
 }
@@ -74,6 +76,7 @@ export function useMusicStats(options: UsePerformanceOptions = {}) {
       const json = await res.json();
       return json.data;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
   });
 }

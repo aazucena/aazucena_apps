@@ -26,6 +26,7 @@ export function useSentinel(options: UseSentinelOptions = {}) {
       const json = await res.json();
       return json;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
   });
 }

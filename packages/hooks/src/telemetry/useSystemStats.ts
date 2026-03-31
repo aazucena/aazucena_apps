@@ -26,6 +26,7 @@ export function useSystemSummary(options: UseSystemStatsOptions = {}) {
       const json = await res.json();
       return json.data;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
   });
 }
@@ -51,6 +52,7 @@ export function useTrendAnalysis(timeRange = '24h', options: UseSystemStatsOptio
       const json = await res.json();
       return json.data;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
   });
 }
@@ -75,6 +77,7 @@ export function useTelemetryStream(options: UseSystemStatsOptions = {}) {
       const json = await res.json();
       return json.data || [];
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
   });
 }

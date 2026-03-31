@@ -59,12 +59,19 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     useEffect(() => {
       const el = svgContainerRef.current;
       if (!el) return;
+      let timer: ReturnType<typeof setTimeout>;
       const ro = new ResizeObserver(() => {
-        setDimensions({ width: el.clientWidth, height: el.clientHeight });
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          setDimensions({ width: el.clientWidth, height: el.clientHeight });
+        }, 150);
       });
       ro.observe(el);
       setDimensions({ width: el.clientWidth, height: el.clientHeight });
-      return () => ro.disconnect();
+      return () => {
+        clearTimeout(timer);
+        ro.disconnect();
+      };
     }, []);
 
     useHeatmap(svgRef, data, {

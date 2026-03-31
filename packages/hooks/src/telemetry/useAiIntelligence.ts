@@ -79,6 +79,7 @@ export function useAiIntelligence(
       const json = await res.json();
       return json.data as AiIntelligenceStats;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
     enabled,
   });

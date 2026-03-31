@@ -79,6 +79,7 @@ export function useFinancial(options: UseFinancialOptions = {}): UseQueryResult<
       const json = await res.json();
       return json.data as FinancialStats;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? interval : false,
     enabled,
   });

@@ -77,6 +77,7 @@ export function usePlausibleStats() {
       const json = await res.json();
       return json.data.map((d: any) => ({ ...d, date: new Date(d.date) }));
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: isLive ? 60000 : false,
   });
 }
@@ -90,6 +91,7 @@ export function useJourneys() {
       const json = await res.json();
       return json.data;
     },
+    staleTime: 5 * 60 * 1000,
     refetchInterval: 60000,
   });
 }
@@ -105,6 +107,7 @@ export function useJourneyDetail(sessionId: string | null) {
       return json.data;
     },
     enabled: !!sessionId,
+    staleTime: 5 * 60 * 1000,
     refetchInterval: false,
   });
 }

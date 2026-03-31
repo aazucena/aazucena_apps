@@ -42,12 +42,19 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
     const [width, setWidth] = useState(0);
 
     useEffect(() => {
+      let timer: ReturnType<typeof setTimeout>;
       const handleResize = () => {
-        if (containerRef.current) setWidth(containerRef.current.clientWidth);
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          if (containerRef.current) setWidth(containerRef.current.clientWidth);
+        }, 150);
       };
       handleResize();
       window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('resize', handleResize);
+      };
     }, []);
 
     useChoroplethMap(svgRef, data, geoJson, {
