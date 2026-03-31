@@ -27,6 +27,11 @@ services:
       start_period: 1m
 
   plausible-clickhouse:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     container_name: aazucena-plausible-clickhouse
     image: clickhouse/clickhouse-server:24.12-alpine
     restart: always
