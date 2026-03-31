@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { onboardingSchema, type OnboardingFormData } from '../../schemas/index.js';
-import { ControlledInput, ControlledTextarea, ControlledSwitch } from '../fields.js';
-import { FormWizard } from '../../components/FormWizard.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { onboardingSchema, type OnboardingFormData } from '../../schemas/index';
+import { ControlledInput, ControlledTextarea, ControlledSwitch } from '../fields';
+import { FormWizard } from '../../components/FormWizard';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface OnboardingFormProps {
   variant?: 'default' | 'glass' | 'cyber';

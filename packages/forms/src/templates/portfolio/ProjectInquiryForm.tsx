@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { projectInquirySchema, type ProjectInquiryFormData } from '../../schemas/index.js';
-import { ControlledInput, ControlledTextarea } from '../fields.js';
-import { FormWizard } from '../../components/FormWizard.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { projectInquirySchema, type ProjectInquiryFormData } from '../../schemas/index';
+import { ControlledInput, ControlledTextarea } from '../fields';
+import { FormWizard } from '../../components/FormWizard';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface ProjectInquiryFormProps {
   variant?: 'default' | 'glass' | 'cyber';

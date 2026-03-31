@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip.js';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
 const toolbarVariants = cva('fixed flex items-center transition-all duration-300 z-50', {
   variants: {

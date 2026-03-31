@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PageHeaderSchema } from './components.js';
+import { PageHeaderSchema } from './components';
 
 /**
  * Zod schema for Skill Showcase Configuration from Strapi CMS

@@ -3,10 +3,10 @@
  */
 
 import type { ComponentType, CSSProperties } from 'react';
-import type { IconComponent } from '../icons.js';
-import type { PreloaderTheme, PreloaderVariant, TransitionType } from '../enums.js';
-import type { TransformedCtaButton } from './content.js';
-import type { SystemThemeConfig } from '../config.js';
+import type { IconComponent } from '../icons';
+import type { PreloaderTheme, PreloaderVariant, TransitionType } from '../enums';
+import type { TransformedCtaButton } from './content';
+import type { SystemThemeConfig } from '../config';
 
 // Loading step definition
 export interface LoadingStep {

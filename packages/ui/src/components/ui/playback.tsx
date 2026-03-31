@@ -3,7 +3,7 @@
 import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { Button } from './button.js';
+import { Button } from './button';
 
 const playbackVariants = cva(
   'flex items-center gap-6 px-8 py-4 border-b transition-all duration-300',

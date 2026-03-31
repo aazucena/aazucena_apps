@@ -96,7 +96,7 @@ const StepLabel = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpa
 StepLabel.displayName = 'StepLabel';
 
 const stepLineVariants = cva(
-  'absolute top-4 left-[50%] w-full h-[2px] -z-0 transition-colors duration-500',
+  'absolute top-4 left-1/2 w-full h-[2px] -z-0 transition-colors duration-500',
   {
     variants: {
       status: {

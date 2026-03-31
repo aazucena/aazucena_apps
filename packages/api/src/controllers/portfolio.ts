@@ -3,7 +3,7 @@
  * Specialized high-level functions for extracting portfolio DNA from Strapi.
  */
 
-import { fetchStrapi } from '../services/strapi.js';
+import { fetchStrapi } from '../services/strapi';
 import type { Domain_Project, Domain_Experience, Domain_Skill } from '@aazucena/types';
 
 export async function getPortfolioProjects() {

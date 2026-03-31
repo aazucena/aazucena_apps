@@ -1,4 +1,4 @@
-import type { StrapiPortfolio } from '../validators/portfolio.js';
+import type { StrapiPortfolio } from '../validators/portfolio';
 import { transformImage, transformSocialLink } from '@aazucena/utils';
 import type { PortfolioData } from '@aazucena/types';
 

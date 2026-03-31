@@ -8,7 +8,7 @@ import {
   type ConditionRule,
   type ConditionField,
   type ConditionOperator,
-} from './condition-rules-node.js';
+} from './condition-rules-node';
 
 export interface ConditionGroup {
   logic: 'and' | 'or';

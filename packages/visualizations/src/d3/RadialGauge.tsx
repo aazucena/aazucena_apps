@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef } from 'react';
 import { cn } from '@aazucena/utils';
-import { useRadialGauge } from '../hooks/useRadialGauge.js';
+import { useRadialGauge } from '../hooks/useRadialGauge';
 
 export interface RadialGaugeProps extends React.SVGAttributes<SVGSVGElement> {
   /** Current value (0 to max) */

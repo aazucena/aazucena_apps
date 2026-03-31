@@ -9,11 +9,11 @@
 import { lazy, type ComponentType } from 'react';
 
 // Re-export prop types to satisfy TypeScript's module resolution
-export type { ExosphereProps } from './Exosphere.js';
-export type { ThermosphereProps } from './Thermosphere.js';
-export type { MesosphereProps } from './Mesosphere.js';
-export type { StratosphereProps } from './Stratosphere.js';
-export type { TroposphereProps } from './Troposphere.js';
+export type { ExosphereProps } from './Exosphere';
+export type { ThermosphereProps } from './Thermosphere';
+export type { MesosphereProps } from './Mesosphere';
+export type { StratosphereProps } from './Stratosphere';
+export type { TroposphereProps } from './Troposphere';
 
 /**
  * Exosphere - Outermost space layer with Milky Way and particles

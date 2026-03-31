@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Button } from '../../ui/button.js';
-import { CardTitle } from '../../ui/card.js';
-import { Badge } from '../../ui/badge.js';
+import { Button } from '../../ui/button';
+import { CardTitle } from '../../ui/card';
+import { Badge } from '../../ui/badge';
 import { X, ClockHand as Retry } from '@aazucena/icons';
 import type { ThemeStyles } from '@aazucena/hooks';
 

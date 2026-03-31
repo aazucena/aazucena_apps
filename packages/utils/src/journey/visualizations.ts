@@ -14,7 +14,7 @@ import type {
   HeatmapCell,
   StreamGraphStep,
 } from '@aazucena/types';
-import { getSafeSkillInfo } from './base.js';
+import { getSafeSkillInfo } from './base';
 
 export function transformToSankeyData(
   experiences: Experience[],

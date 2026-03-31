@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiPostsResponseSchema } from '../validators/posts.js';
-import { transformPosts, DEFAULT_POSTS } from '../transformers/posts.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiPostsResponseSchema } from '../validators/posts';
+import { transformPosts, DEFAULT_POSTS } from '../transformers/posts';
 import type { BlogPost } from '@aazucena/types';
 
 /**

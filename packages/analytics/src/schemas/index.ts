@@ -4,9 +4,9 @@
  */
 
 // Telemetry ingestion schemas
-export * from './ingest.js';
+export * from './ingest';
 
 // Webhook schemas
-export * from './sentryWebhook.js';
-export * from './vercelAnalyticsWebhook.js';
-export * from './financialWebhooks.js';
+export * from './sentryWebhook';
+export * from './vercelAnalyticsWebhook';
+export * from './financialWebhooks';

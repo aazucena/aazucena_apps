@@ -5,9 +5,9 @@
 
 import * as PIXI from 'pixi.js';
 import type { ParticleSystemConfig, ParticleEmitterConfig } from '@aazucena/types';
-import { ParticlesController } from './ParticlesController.js';
-import { ParticleRenderer } from './ParticleRenderer.js';
-import { ParticleEmitter } from './ParticleEmitter.js';
+import { ParticlesController } from './ParticlesController';
+import { ParticleRenderer } from './ParticleRenderer';
+import { ParticleEmitter } from './ParticleEmitter';
 
 export class ParticleSystem {
   private app: PIXI.Application | null = null;

@@ -1,7 +1,7 @@
 'use client';
 
 import { fetchStrapi } from '@aazucena/api';
-import { useFormMutation, type UseFormMutationOptions } from './useFormMutation.js';
+import { useFormMutation, type UseFormMutationOptions } from './useFormMutation';
 
 /**
  * useStrapiFormMutation

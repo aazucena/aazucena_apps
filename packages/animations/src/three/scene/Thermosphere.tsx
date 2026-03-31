@@ -13,9 +13,9 @@ import { useFrame } from '@react-three/fiber';
 import { Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import type { ShaderMaterial } from 'three';
-import { createAuroraMaterial, updateShaderTime } from '../materials.js';
-import { SceneObjectManager } from '../objects/index.js';
-import { thermosphereObjects } from '../data/objects.js';
+import { createAuroraMaterial, updateShaderTime } from '../materials';
+import { SceneObjectManager } from '../objects/index';
+import { thermosphereObjects } from '../data/objects';
 
 export interface ThermosphereProps {
   opacity: number;

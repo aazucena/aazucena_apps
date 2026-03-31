@@ -3,11 +3,11 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { ConditionRulesGroup, type ConditionGroup } from './condition-rules-group.js';
-import type { ConditionField, ConditionOperator } from './condition-rules-node.js';
+import { ConditionRulesGroup, type ConditionGroup } from './condition-rules-group';
+import type { ConditionField, ConditionOperator } from './condition-rules-node';
 
-export * from './condition-rules-node.js';
-export * from './condition-rules-group.js';
+export * from './condition-rules-node';
+export * from './condition-rules-group';
 
 const conditionRulesVariants = cva('rounded-md border p-4 transition-all duration-300', {
   variants: {

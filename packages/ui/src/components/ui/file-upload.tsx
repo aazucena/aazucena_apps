@@ -5,7 +5,7 @@ import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-import { Dropzone } from './dropzone.js';
+import { Dropzone } from './dropzone';
 
 const fileUploadVariants = cva('w-full space-y-4', {
   variants: {

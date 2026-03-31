@@ -1,5 +1,5 @@
-import { colors } from '../../tokens/colors.js';
-import { toHex } from '../../utils/color-converter.js';
+import { colors } from '../../tokens/colors';
+import { toHex } from '../../utils/color-converter';
 
 /**
  * Postman Public API Documentation Branding

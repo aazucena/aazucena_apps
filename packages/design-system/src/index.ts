@@ -1,36 +1,36 @@
 // Themes & Vibes
-export * from './themes/registry.js';
-export * from './themes/default.js';
-export * from './themes/minimal.js';
-export * from './themes/nature.js';
-export * from './themes/cyberpunk.js';
-export * from './themes/hoyoverse.js';
-export * from './themes/glass.js';
-export * from './themes/canada-day.js';
-export * from './themes/autumn.js';
-export * from './themes/northern-lights.js';
-export * from './themes/valentines.js';
-export * from './themes/halloween.js';
-export * from './themes/st-patricks.js';
-export * from './themes/easter.js';
-export * from './themes/christmas.js';
-export * from './themes/birthday.js';
-export * from './themes/new-years.js';
-export * from './themes/lunar-new-year.js';
+export * from './themes/registry';
+export * from './themes/default';
+export * from './themes/minimal';
+export * from './themes/nature';
+export * from './themes/cyberpunk';
+export * from './themes/hoyoverse';
+export * from './themes/glass';
+export * from './themes/canada-day';
+export * from './themes/autumn';
+export * from './themes/northern-lights';
+export * from './themes/valentines';
+export * from './themes/halloween';
+export * from './themes/st-patricks';
+export * from './themes/easter';
+export * from './themes/christmas';
+export * from './themes/birthday';
+export * from './themes/new-years';
+export * from './themes/lunar-new-year';
 
 // Tokens
-export * from './tokens/index.js';
+export * from './tokens/index';
 
 // Assets
-export * from './assets/index.js';
+export * from './assets/index';
 
 // Tailwind Integration
-export { default as tailwindPreset } from './tailwind.js';
+export { default as tailwindPreset } from './tailwind';
 
 // Runtime Theme Switching
-export { applyVibe, resetVibe, getActiveVibe, isValidVibe } from './utils/apply-theme.js';
-export { ThemeManager, type VibeChangeCallback } from './utils/theme-manager.js';
-export { toHex } from './utils/color-converter.js';
+export { applyVibe, resetVibe, getActiveVibe, isValidVibe } from './utils/apply-theme';
+export { ThemeManager, type VibeChangeCallback } from './utils/theme-manager';
+export { toHex } from './utils/color-converter';
 
 // Platform Integrations
-export * from './integrations/index.js';
+export * from './integrations/index';

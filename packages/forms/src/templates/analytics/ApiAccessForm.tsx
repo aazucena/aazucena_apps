@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { apiAccessSchema, type ApiAccessFormData } from '../../schemas/index.js';
-import { ControlledInput, ControlledTextarea, ControlledCheckbox } from '../fields.js';
-import { FormWizard } from '../../components/FormWizard.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { apiAccessSchema, type ApiAccessFormData } from '../../schemas/index';
+import { ControlledInput, ControlledTextarea, ControlledCheckbox } from '../fields';
+import { FormWizard } from '../../components/FormWizard';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface ApiAccessFormProps {
   variant?: 'default' | 'glass' | 'cyber';

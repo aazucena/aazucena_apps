@@ -1,4 +1,4 @@
-import type { StrapiSkillCategory } from '../validators/skill-category.js';
+import type { StrapiSkillCategory } from '../validators/skill-category';
 import type { SkillCategoryInfo } from '@aazucena/types';
 
 /**

@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Popover, PopoverTrigger, PopoverContent } from './popover.js';
-import { Input } from './input.js';
-import { Label } from './label.js';
+import { Popover, PopoverTrigger, PopoverContent } from './popover';
+import { Input } from './input';
+import { Label } from './label';
 import { Paint, Plus } from '@aazucena/icons';
 
 const colorPickerVariants = cva('inline-flex items-center gap-2', {

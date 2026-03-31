@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '@aazucena/utils';
-import { Skeleton } from './skeleton.js';
+import { Skeleton } from './skeleton';
 
 export const SidebarMenu = React.forwardRef<HTMLUListElement, React.ComponentProps<'ul'>>(
   ({ className, ...props }, ref) => (
@@ -104,4 +104,4 @@ export const SidebarMenuSubItem = React.forwardRef<HTMLLIElement, React.Componen
 );
 SidebarMenuSubItem.displayName = 'SidebarMenuSubItem';
 
-export * from './sidebar-menu-button.js';
+export * from './sidebar-menu-button';

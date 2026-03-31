@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { StrapiMediaSchema } from './components.js';
+import { StrapiMediaSchema } from './components';
 import { AwardTypeEnum, AwardCategoryEnum } from '@aazucena/types';
 
 export const StrapiAwardSchema = z.object({

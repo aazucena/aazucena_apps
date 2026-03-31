@@ -1,4 +1,4 @@
-import type { StrapiJourney } from '../validators/journey.js';
+import type { StrapiJourney } from '../validators/journey';
 import { transformPageHeader, transformCtaButton } from '@aazucena/utils';
 import type { JourneyPageConfig } from '@aazucena/types';
 

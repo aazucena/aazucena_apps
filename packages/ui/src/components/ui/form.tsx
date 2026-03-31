@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@aazucena/utils';
-import { Label } from './label.js';
+import { Label } from './label';
 
 /**
  * ## Engineering Standards

@@ -1,3 +1,3 @@
-export * from './presets.js';
-export * from './scrollTrigger.js';
-export * from './timeline.js';
+export * from './presets';
+export * from './scrollTrigger';
+export * from './timeline';

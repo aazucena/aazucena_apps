@@ -4,7 +4,7 @@
  */
 
 import { onLCP, onINP, onCLS, onFCP, onTTFB, type Metric } from 'web-vitals';
-import { sendTelemetry } from './telemetry.js';
+import { sendTelemetry } from './telemetry';
 
 function reportWebVitals(metric: Metric) {
   sendTelemetry({

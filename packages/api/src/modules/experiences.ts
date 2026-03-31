@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiExperiencesResponseSchema } from '../validators/experiences.js';
-import { transformExperiences, DEFAULT_EXPERIENCES } from '../transformers/experiences.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiExperiencesResponseSchema } from '../validators/experiences';
+import { transformExperiences, DEFAULT_EXPERIENCES } from '../transformers/experiences';
 import type { Experience } from '@aazucena/types';
 
 /**

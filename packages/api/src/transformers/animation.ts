@@ -1,4 +1,4 @@
-import type { StrapiAnimation } from '../validators/animation.js';
+import type { StrapiAnimation } from '../validators/animation';
 import type { AnimationConfigData } from '@aazucena/types';
 
 /**

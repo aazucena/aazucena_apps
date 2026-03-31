@@ -1,4 +1,4 @@
-import type { MynaIconsProps } from '../types.js';
+import type { MynaIconsProps } from '../types';
 
 // Multi-SVG composition in a <div> wrapper — kept as JSX, incompatible with createReactComponent
 export const ScrollDown = ({

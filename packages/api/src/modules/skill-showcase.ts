@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiSkillShowcaseSchema } from '../validators/skill-showcase.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiSkillShowcaseSchema } from '../validators/skill-showcase';
 import {
   transformSkillShowcase,
   DEFAULT_SKILL_SHOWCASE,
   type SkillShowcaseConfig,
-} from '../transformers/skill-showcase.js';
+} from '../transformers/skill-showcase';
 
 /**
  * Fetch skill showcase configuration

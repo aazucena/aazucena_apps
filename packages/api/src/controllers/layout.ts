@@ -1,6 +1,6 @@
-import { getPreloaderConfig } from '../modules/preloader.js';
-import { getMaintenance } from '../modules/maintenance.js';
-import { getWebsiteConfig } from '../modules/website-config.js';
+import { getPreloaderConfig } from '../modules/preloader';
+import { getMaintenance } from '../modules/maintenance';
+import { getWebsiteConfig } from '../modules/website-config';
 import { SITE_CONFIG } from '@aazucena/constants';
 
 export interface LayoutDataResponse {

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Avatar, AvatarImage, AvatarFallback } from './avatar.js';
+import { Avatar, AvatarImage, AvatarFallback } from './avatar';
 
 const userVariants = cva('inline-flex items-center gap-2.5 transition-all', {
   variants: {

@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useStreamGraph } from '../hooks/useStreamGraph.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useStreamGraph } from '../hooks/useStreamGraph';
 
 export interface StreamGraphProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GenericTimeSeriesStep[];

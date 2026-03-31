@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiHomepageSchema } from '../validators/homepage.js';
-import { transformHomepage, DEFAULT_HOMEPAGE } from '../transformers/homepage.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiHomepageSchema } from '../validators/homepage';
+import { transformHomepage, DEFAULT_HOMEPAGE } from '../transformers/homepage';
 import type { HomepageData } from '@aazucena/types';
 
 /**

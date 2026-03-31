@@ -130,13 +130,6 @@ export const NeuralNode = forwardRef<HTMLDivElement, NeuralNodeProps>(
         <motion.div
           animate={{
             scale: isActive ? 1.1 : 1,
-            borderColor: isActive
-              ? 'var(--primary-500)'
-              : isFailed
-                ? 'var(--color-rose-500)'
-                : isCompleted
-                  ? 'var(--color-emerald-500)'
-                  : 'currentColor',
           }}
           className={cn(nodeVariants({ state }))}
         >

@@ -7,9 +7,9 @@ import {
   WorkflowItemSchema,
   LanguageItemSchema,
   WorkingStyleItemSchema,
-} from './components.js';
+} from './components';
 
-export type { Stats, CardLink } from './components.js';
+export type { Stats, CardLink } from './components';
 
 /**
  * Zod schema for About Section from Strapi CMS

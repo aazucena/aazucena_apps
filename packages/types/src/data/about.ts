@@ -2,7 +2,7 @@
  * [Types] : About_Page_Specific_Interfaces
  */
 
-import type { IconComponent } from '../icons.js';
+import type { IconComponent } from '../icons';
 
 export interface MasteryItem {
   name: string;

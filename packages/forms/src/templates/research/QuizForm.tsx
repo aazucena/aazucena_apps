@@ -5,8 +5,8 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { quizSchema, type QuizFormData, type QuizQuestion } from '../../schemas/index.js';
-import { FormWizard } from '../../components/FormWizard.js';
+import { quizSchema, type QuizFormData, type QuizQuestion } from '../../schemas/index';
+import { FormWizard } from '../../components/FormWizard';
 
 export interface QuizFormProps {
   variant?: 'default' | 'glass' | 'cyber';

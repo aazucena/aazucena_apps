@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useAreaChart } from '../hooks/useAreaChart.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useAreaChart } from '../hooks/useAreaChart';
 
 export interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: AreaChartPoint[];

@@ -1,6 +1,6 @@
-import { colors } from '../tokens/colors.js';
-import { spacing } from '../tokens/spacing.js';
-import { fontSizes, fontWeights, lineHeights } from '../tokens/typography.js';
+import { colors } from '../tokens/colors';
+import { spacing } from '../tokens/spacing';
+import { fontSizes, fontWeights, lineHeights } from '../tokens/typography';
 
 /**
  * Generates a JSON string for Figma/Style Dictionary consumption.

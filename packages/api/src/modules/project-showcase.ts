@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiShowcaseSchema } from '../validators/project-showcase.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiShowcaseSchema } from '../validators/project-showcase';
 import {
   transformProjectShowcase,
   DEFAULT_PROJECT_SHOWCASE_CONFIG,
-} from '../transformers/project-showcase.js';
+} from '../transformers/project-showcase';
 import type { ProjectShowcaseConfig } from '@aazucena/types';
 
 /**

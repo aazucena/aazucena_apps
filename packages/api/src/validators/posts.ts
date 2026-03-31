@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ImageElementSchema, TagSchema, SeoSchema, WebLinkArraySchema } from './components.js';
+import { ImageElementSchema, TagSchema, SeoSchema, WebLinkArraySchema } from './components';
 import { PostStatusEnum } from '@aazucena/types';
 
 export const StrapiPostSchema = z.object({

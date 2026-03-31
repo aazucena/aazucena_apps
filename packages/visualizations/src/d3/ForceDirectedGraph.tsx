@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useForceDirectedGraph } from '../hooks/useForceDirectedGraph.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useForceDirectedGraph } from '../hooks/useForceDirectedGraph';
 
 export interface ForceDirectedGraphProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GenericNetworkData<BaseNode, BaseLink<string>>;

@@ -3,8 +3,8 @@ import { ArrowRight } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
 import { useTelemetryConfig } from '@aazucena/context';
 import { NEURAL_MAP_FALLBACK_NODES } from '@aazucena/constants';
-import { NeuralNode } from './NeuralNode.js';
-import { useNeuralSchema } from '../hooks/useNeuralSchema.js';
+import { NeuralNode } from './NeuralNode';
+import { useNeuralSchema } from '../hooks/useNeuralSchema';
 
 export interface NeuralMapProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Array of trajectory steps with rewards */

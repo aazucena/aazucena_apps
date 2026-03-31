@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useChoroplethMap } from '../hooks/useChoroplethMap.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useChoroplethMap } from '../hooks/useChoroplethMap';
 
 export interface ChoroplethMapProps extends React.HTMLAttributes<HTMLDivElement> {
   data: MapRegion[];

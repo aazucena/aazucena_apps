@@ -154,4 +154,4 @@ export const StatIcon = React.forwardRef<
 ));
 StatIcon.displayName = 'StatIcon';
 
-export * from './stat-board.js';
+export * from './stat-board';

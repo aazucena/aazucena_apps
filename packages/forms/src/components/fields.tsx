@@ -1,7 +1,7 @@
 'use client';
 
 import { Input, Textarea, Checkbox, Switch } from '@aazucena/ui';
-import { createControlledField } from '../utils/composables.js';
+import { createControlledField } from '../utils/composables';
 
 /**
  * ## Engineering Standards

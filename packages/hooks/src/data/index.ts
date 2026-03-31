@@ -1,3 +1,3 @@
-export * from './useCommandSearch.js';
-export * from './useGithubRepo.js';
-export * from './useHandlebars.js';
+export * from './useCommandSearch';
+export * from './useGithubRepo';
+export * from './useHandlebars';

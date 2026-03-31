@@ -1,4 +1,4 @@
-import type { Navigation } from '../validators/navigation.js';
+import type { Navigation } from '../validators/navigation';
 import type { NavigationItem } from '@aazucena/types';
 
 /**

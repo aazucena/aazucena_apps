@@ -142,4 +142,4 @@ export const StatusLabel = React.forwardRef<
 ));
 StatusLabel.displayName = 'StatusLabel';
 
-export * from './heartbeat.js';
+export * from './heartbeat';

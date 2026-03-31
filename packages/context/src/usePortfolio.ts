@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { PortfolioContext, type PortfolioState } from './PortfolioContext.js';
+import { PortfolioContext, type PortfolioState } from './PortfolioContext';
 
 // Custom Hook
 export function usePortfolio(): PortfolioState {

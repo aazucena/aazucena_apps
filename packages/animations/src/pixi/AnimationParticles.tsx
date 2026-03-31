@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
-import { ParticleSystem } from './particles/index.js';
+import { ParticleSystem } from './particles/index';
 
 export interface AnimationParticlesHandle {
   emitAt: (x: number, y: number, count?: number) => void;

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { SubmitButton } from '@aazucena/ui';
-import { useFormInstance } from '../utils/composables.js';
+import { useFormInstance } from '../utils/composables';
 
 /**
  * ## Engineering Standards

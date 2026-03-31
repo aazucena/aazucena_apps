@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiThemeSchema } from '../validators/theme.js';
-import { transformTheme, DEFAULT_THEME } from '../transformers/theme.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiThemeSchema } from '../validators/theme';
+import { transformTheme, DEFAULT_THEME } from '../transformers/theme';
 import type { ThemeData } from '@aazucena/types';
 
 /**

@@ -1,4 +1,4 @@
-import type { StrapiPost } from '../validators/posts.js';
+import type { StrapiPost } from '../validators/posts';
 import { transformImage, transformTag, transformSeo, transformWebLink } from '@aazucena/utils';
 import type { BlogPost } from '@aazucena/types';
 

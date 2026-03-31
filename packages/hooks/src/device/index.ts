@@ -1,2 +1,2 @@
-export * from './useDeviceCapabilities.js';
-export * from './useIsMobile.js';
+export * from './useDeviceCapabilities';
+export * from './useIsMobile';

@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { PageSchema } from '../validators/page.js';
-import { transformPage } from '../transformers/page.js';
+import { fetchStrapi } from '../services/strapi';
+import { PageSchema } from '../validators/page';
+import { transformPage } from '../transformers/page';
 import type { Page } from '@aazucena/types';
 
 /**

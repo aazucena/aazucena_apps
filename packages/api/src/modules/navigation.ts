@@ -1,7 +1,7 @@
-import { fetchStrapi } from '../services/strapi.js';
-import { validateNavigationRender } from '../validators/navigation.js';
-import { transformNavigationRender, getDefaultNavigation } from '../transformers/navigation.js';
-import type { Navigation } from '../validators/navigation.js';
+import { fetchStrapi } from '../services/strapi';
+import { validateNavigationRender } from '../validators/navigation';
+import { transformNavigationRender, getDefaultNavigation } from '../transformers/navigation';
+import type { Navigation } from '../validators/navigation';
 
 /**
  * Fetch navigation by slug from Strapi

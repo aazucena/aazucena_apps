@@ -16,12 +16,12 @@ export function useSystemSummary(options: UseSystemStatsOptions = {}) {
 
   return useQuery({
     queryKey: ['system-summary', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.summary ?? '/api/stats/summary'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_SUMMARY_FETCH');
       const json = await res.json();
       return json.data;
@@ -41,12 +41,12 @@ export function useTrendAnalysis(timeRange = '24h', options: UseSystemStatsOptio
 
   return useQuery({
     queryKey: ['system-trends', timeRange, baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.trends ?? '/api/stats/trends'}?range=${timeRange}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_TRENDS_FETCH');
       const json = await res.json();
       return json.data;
@@ -65,12 +65,12 @@ export function useTelemetryStream(options: UseSystemStatsOptions = {}) {
 
   return useQuery({
     queryKey: ['telemetry-stream', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.logs ?? '/api/stats/logs'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_LOGS_FETCH');
       const json = await res.json();
       return json.data || [];

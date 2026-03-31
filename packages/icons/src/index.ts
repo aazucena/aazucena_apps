@@ -44,12 +44,23 @@ export {
   EyeOff,
 } from '@mynaui/icons-react';
 
+// ─── v0.3.9 → v0.4.2 backwards-compat aliases ────────────────────────────────
+// Icons renamed between minor versions; keep old names so call sites don't break.
+export { Microchip as Chip, MicrochipSolid as ChipSolid } from '@mynaui/icons-react';
+export {
+  Mail as Envelope,
+  MailSolid as EnvelopeSolid,
+  MailOpen as EnvelopeOpen,
+  MailOpenSolid as EnvelopeOpenSolid,
+} from '@mynaui/icons-react';
+export { Grid as Components, GridSolid as ComponentsSolid } from '@mynaui/icons-react';
+
 // ─── 2. SimpleIcons (Si* prefix) — pixel-perfect brand logos ─────────────────
 // e.g. SiGithub, SiGithubHex, SiVercel, SiVercelHex, SiTypescript
 export * from '@icons-pack/react-simple-icons';
 
 // ─── 3. Registry utilities ────────────────────────────────────────────────────
-export * from './registry.js';
+export * from './registry';
 
 // ─── 4. Clean-named aliases & custom icons ───────────────────────────────────
 // Better casing over SimpleIcons' lowercase convention, plus icons that have
@@ -196,4 +207,4 @@ export {
   Tidalcycles, // TidalCycles (not in SimpleIcons)
   Phaser, // Phaser.io game framework (not in SimpleIcons)
   Catppuccin, // Catppuccin theme (not in SimpleIcons)
-} from './custom/index.js';
+} from './custom/index';

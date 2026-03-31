@@ -4,91 +4,91 @@
  */
 
 // Core components
-export * from './SceneObject.js';
-export * from './SceneObjectManager.js';
+export * from './SceneObject';
+export * from './SceneObjectManager';
 
 // Registry and utilities
-export * from './registry.js';
-export { ANIMATION_OBJECT_REGISTRY, objectRegistry } from './registry.js';
+export * from './registry';
+export { ANIMATION_OBJECT_REGISTRY, objectRegistry } from './registry';
 
 // Ground Objects
-export { House } from './House.js';
-export { Tree } from './Tree.js';
-export { Bush } from './Bush.js';
-export { Rock } from './Rock.js';
-export { Flower } from './Flower.js';
-export { Ground } from './Ground.js';
-export { WindTurbine } from './WindTurbine.js';
-export { UtilityPylon } from './UtilityPylon.js';
-export { Skyscraper } from './Skyscraper.js';
-export { Lighthouse } from './Lighthouse.js';
+export { House } from './House';
+export { Tree } from './Tree';
+export { Bush } from './Bush';
+export { Rock } from './Rock';
+export { Flower } from './Flower';
+export { Ground } from './Ground';
+export { WindTurbine } from './WindTurbine';
+export { UtilityPylon } from './UtilityPylon';
+export { Skyscraper } from './Skyscraper';
+export { Lighthouse } from './Lighthouse';
 
 // Easter Eggs
 // Troposphere
-export { Airplane } from './Airplane.js';
-export { Bird } from './Bird.js';
-export { BirdFlock } from './BirdFlock.js';
-export { Drone } from './Drone.js';
-export { Helicopter } from './Helicopter.js';
-export { HotAirBalloon } from './HotAirBalloon.js';
-export { LawnChairBalloon } from './LawnChairBalloon.js';
-export { GiantDuck } from './GiantDuck.js';
-export { SantaSleigh } from './SantaSleigh.js';
-export { GiantPaperPlane } from './GiantPaperPlane.js';
-export { Superman } from './Superman.js';
+export { Airplane } from './Airplane';
+export { Bird } from './Bird';
+export { BirdFlock } from './BirdFlock';
+export { Drone } from './Drone';
+export { Helicopter } from './Helicopter';
+export { HotAirBalloon } from './HotAirBalloon';
+export { LawnChairBalloon } from './LawnChairBalloon';
+export { GiantDuck } from './GiantDuck';
+export { SantaSleigh } from './SantaSleigh';
+export { GiantPaperPlane } from './GiantPaperPlane';
+export { Superman } from './Superman';
 
 // Stratosphere
-export { WeatherBalloon } from './WeatherBalloon.js';
-export { SpyPlane } from './SpyPlane.js';
-export { Blimp } from './Blimp.js';
-export { RedSprite } from './RedSprite.js';
-export { SolarPlane } from './SolarPlane.js';
-export { SupersonicTransport } from './SupersonicTransport.js';
-export { ScientificGondola } from './ScientificGondola.js';
-export { BlueJet } from './BlueJet.js';
-export { UpHouse } from './UpHouse.js';
-export { FallingWhale } from './FallingWhale.js';
-export { MaryPoppins } from './MaryPoppins.js';
-export { FlyingCow } from './FlyingCow.js';
-export { ETBike } from './ETBike.js';
+export { WeatherBalloon } from './WeatherBalloon';
+export { SpyPlane } from './SpyPlane';
+export { Blimp } from './Blimp';
+export { RedSprite } from './RedSprite';
+export { SolarPlane } from './SolarPlane';
+export { SupersonicTransport } from './SupersonicTransport';
+export { ScientificGondola } from './ScientificGondola';
+export { BlueJet } from './BlueJet';
+export { UpHouse } from './UpHouse';
+export { FallingWhale } from './FallingWhale';
+export { MaryPoppins } from './MaryPoppins';
+export { FlyingCow } from './FlyingCow';
+export { ETBike } from './ETBike';
 
 // Mesosphere
-export { Comet } from './Comet.js';
-export { Meteor } from './Meteor.js';
-export { SpaceDebris } from './SpaceDebris.js';
-export { SoundingRocket } from './SoundingRocket.js';
-export { NoctilucentCloud } from './NoctilucentCloud.js';
-export { ELVES } from './ELVES.js';
-export { MeteorSmokeTrail } from './MeteorSmokeTrail.js';
-export { SpriteGhost } from './SpriteGhost.js';
-export { NyanCat } from './NyanCat.js';
-export { SpaceInvader } from './SpaceInvader.js';
-export { ThorsHammer } from './ThorsHammer.js';
-export { FloatingTeapot } from './FloatingTeapot.js';
+export { Comet } from './Comet';
+export { Meteor } from './Meteor';
+export { SpaceDebris } from './SpaceDebris';
+export { SoundingRocket } from './SoundingRocket';
+export { NoctilucentCloud } from './NoctilucentCloud';
+export { ELVES } from './ELVES';
+export { MeteorSmokeTrail } from './MeteorSmokeTrail';
+export { SpriteGhost } from './SpriteGhost';
+export { NyanCat } from './NyanCat';
+export { SpaceInvader } from './SpaceInvader';
+export { ThorsHammer } from './ThorsHammer';
+export { FloatingTeapot } from './FloatingTeapot';
 
 // Thermosphere
-export { SpaceShuttle } from './SpaceShuttle.js';
-export { ISS } from './ISS.js';
-export { Astronaut } from './Astronaut.js';
-export { Hubble } from './Hubble.js';
-export { AuroraRibbon } from './AuroraRibbon.js';
-export { CubeSat } from './CubeSat.js';
-export { SoyuzCapsule } from './SoyuzCapsule.js';
-export { StarlinkSatellite } from './StarlinkSatellite.js';
-export { Tardis } from './Tardis.js';
-export { DeathStar } from './DeathStar.js';
-export { TeslaRoadster } from './TeslaRoadster.js';
+export { SpaceShuttle } from './SpaceShuttle';
+export { ISS } from './ISS';
+export { Astronaut } from './Astronaut';
+export { Hubble } from './Hubble';
+export { AuroraRibbon } from './AuroraRibbon';
+export { CubeSat } from './CubeSat';
+export { SoyuzCapsule } from './SoyuzCapsule';
+export { StarlinkSatellite } from './StarlinkSatellite';
+export { Tardis } from './Tardis';
+export { DeathStar } from './DeathStar';
+export { TeslaRoadster } from './TeslaRoadster';
 
 // Exosphere
-export { Satellite } from './Satellite.js';
-export { UFO } from './UFO.js';
-export { Rocket } from './Rocket.js';
-export { StarlinkTrain } from './StarlinkTrain.js';
-export { JamesWebb } from './JamesWebb.js';
-export { Voyager } from './Voyager.js';
-export { GPSSatellite } from './GPSSatellite.js';
-export { Sputnik } from './Sputnik.js';
-export { Monolith } from './Monolith.js';
-export { PlanetExpress } from './PlanetExpress.js';
-export { BlackHole } from './BlackHole.js';
-export { FlatEarth } from './FlatEarth.js';
+export { Satellite } from './Satellite';
+export { UFO } from './UFO';
+export { Rocket } from './Rocket';
+export { StarlinkTrain } from './StarlinkTrain';
+export { JamesWebb } from './JamesWebb';
+export { Voyager } from './Voyager';
+export { GPSSatellite } from './GPSSatellite';
+export { Sputnik } from './Sputnik';
+export { Monolith } from './Monolith';
+export { PlanetExpress } from './PlanetExpress';
+export { BlackHole } from './BlackHole';
+export { FlatEarth } from './FlatEarth';

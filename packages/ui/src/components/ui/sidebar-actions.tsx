@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { PanelLeft } from '@aazucena/icons';
-import { Button } from './button.js';
+import { Button } from './button';
 import { cn } from '@aazucena/utils';
-import { useSidebar } from './sidebar-context.js';
+import { useSidebar } from './sidebar-context';
 
 /**
  * Sidebar Action Components

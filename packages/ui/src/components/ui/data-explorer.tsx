@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Activity, Database } from '@aazucena/icons';
-import { MarkdownRenderer } from './markdown-renderer.js';
+import { MarkdownRenderer } from './markdown-renderer';
 
 const dataExplorerVariants = cva('w-full transition-all duration-300 font-mono text-xs', {
   variants: {

@@ -1,4 +1,4 @@
-import type { StrapiMaintenance } from '../validators/maintenance.js';
+import type { StrapiMaintenance } from '../validators/maintenance';
 import type { MaintenanceConfig } from '@aazucena/types';
 
 // Backward compatibility alias

@@ -6,9 +6,22 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useHeatmap } from '../hooks/useHeatmap.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useHeatmap } from '../hooks/useHeatmap';
+
+const toInputValue = (d: Date) => d.toISOString().slice(0, 10);
+
+const parseInputDate = (value: string): Date => {
+  const parts = value.split('-').map(Number);
+  return new Date(parts[0]!, parts[1]! - 1, parts[2]);
+};
+
+const threeMonthsAgo = (): Date => {
+  const d = new Date();
+  d.setMonth(d.getMonth() - 3);
+  return d;
+};
 
 export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GenericHeatmapCell[];
@@ -17,8 +30,6 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   colorMap?: Record<string, string>;
   baseColor?: string;
   height?: number;
-  /** Pixels reserved for the chart header. Subtracted from SVG draw height. @default 80 */
-  headerOffset?: number;
   exportFileName?: string;
   onCellClick?: (cell: GenericHeatmapCell) => void;
 }
@@ -31,8 +42,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       description,
       colorMap = {},
       baseColor = '#3b82f6',
-      height = 200,
-      headerOffset = 80,
+      height = 320,
       exportFileName = 'activity-heatmap',
       onCellClick,
       className,
@@ -41,44 +51,71 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     ref,
   ) => {
     const svgRef = useRef<SVGSVGElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [width, setWidth] = useState(0);
+    const svgContainerRef = useRef<HTMLDivElement>(null);
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [startDate, setStartDate] = useState<Date>(threeMonthsAgo);
+    const [endDate, setEndDate] = useState<Date>(() => new Date());
 
     useEffect(() => {
-      const handleResize = () => {
-        if (containerRef.current) setWidth(containerRef.current.clientWidth);
-      };
-      handleResize();
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+      const el = svgContainerRef.current;
+      if (!el) return;
+      const ro = new ResizeObserver(() => {
+        setDimensions({ width: el.clientWidth, height: el.clientHeight });
+      });
+      ro.observe(el);
+      setDimensions({ width: el.clientWidth, height: el.clientHeight });
+      return () => ro.disconnect();
     }, []);
 
     useHeatmap(svgRef, data, {
-      width,
-      height: height - headerOffset,
+      width: dimensions.width,
+      height: dimensions.height,
       colorMap,
       baseColor,
+      startDate,
+      endDate,
       onCellClick,
     });
 
+    const today = toInputValue(new Date());
+
     return (
       <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
-        <div ref={containerRef} className="flex flex-col h-full">
+        <div className="flex flex-col h-full">
           <ChartHeader>
             <div>
               <ChartTitle>{title}</ChartTitle>
               {description && <ChartDescription>{description}</ChartDescription>}
             </div>
-            <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName} />
+            <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName}>
+              <input
+                type="date"
+                value={toInputValue(startDate)}
+                max={toInputValue(endDate)}
+                onChange={(e) => e.target.value && setStartDate(parseInputDate(e.target.value))}
+                className="text-[10px] font-mono bg-transparent border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1 text-zinc-600 dark:text-zinc-400 focus:outline-none focus:border-primary-500/50 cursor-pointer"
+              />
+              <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600">→</span>
+              <input
+                type="date"
+                value={toInputValue(endDate)}
+                min={toInputValue(startDate)}
+                max={today}
+                onChange={(e) => e.target.value && setEndDate(parseInputDate(e.target.value))}
+                className="text-[10px] font-mono bg-transparent border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1 text-zinc-600 dark:text-zinc-400 focus:outline-none focus:border-primary-500/50 cursor-pointer"
+              />
+            </ChartToolbar>
           </ChartHeader>
 
           <ChartContent>
-            <svg
-              ref={svgRef}
-              width={width}
-              height="100%"
-              className="w-full h-full text-foreground"
-            />
+            <div ref={svgContainerRef} className="w-full h-full">
+              <svg
+                ref={svgRef}
+                width={dimensions.width}
+                height={dimensions.height}
+                className="text-foreground"
+              />
+            </div>
           </ChartContent>
         </div>
       </ChartContainer>

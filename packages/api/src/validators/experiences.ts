@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { ImageElementSchema, AchievementSchema, WebLinkArraySchema } from './components.js';
+import { ImageElementSchema, AchievementSchema, WebLinkArraySchema } from './components';
 import { IndustryEnum, CompanySizeEnum, EmploymentTypeEnum, WorkModeEnum } from '@aazucena/types';
-import { StrapiSkillSchema } from './skills.js';
-import { StrapiProjectSchema } from './projects.js';
+import { StrapiSkillSchema } from './skills';
+import { StrapiProjectSchema } from './projects';
 import type { StrapiExperience } from '@aazucena/types';
 
 export const StrapiExperienceSchema: z.ZodType<StrapiExperience> = z.object({

@@ -7,7 +7,7 @@ import { Command as CommandPrimitive } from 'cmdk';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Search } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
-import { Dialog, DialogContent } from './dialog.js';
+import { Dialog, DialogContent } from './dialog';
 import { useCommandSearch, type CommandAction } from '@aazucena/hooks';
 
 const commandVariants = cva('flex h-full w-full flex-col overflow-hidden rounded-md', {

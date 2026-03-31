@@ -2,7 +2,7 @@
  * @aazucena/forms — Schema barrel
  *
  * All Zod schemas and TypeScript types are re-exported from this single entry
- * point. Template files import from '../../schemas/index.js' — this path is
+ * point. Template files import from '../../schemas/index' — this path is
  * preserved so no template needs to change.
  *
  * Internal structure:
@@ -22,17 +22,17 @@
  *   platform.ts    → 7 platform/devops schemas
  */
 
-export * from './base.js';
-export * from './auth.js';
-export * from './portfolio.js';
-export * from './account.js';
-export * from './onboarding.js';
-export * from './commerce.js';
-export * from './support.js';
-export * from './hr.js';
-export * from './research.js';
-export * from './scheduling.js';
-export * from './opensource.js';
-export * from './legal.js';
-export * from './analytics.js';
-export * from './platform.js';
+export * from './base';
+export * from './auth';
+export * from './portfolio';
+export * from './account';
+export * from './onboarding';
+export * from './commerce';
+export * from './support';
+export * from './hr';
+export * from './research';
+export * from './scheduling';
+export * from './opensource';
+export * from './legal';
+export * from './analytics';
+export * from './platform';

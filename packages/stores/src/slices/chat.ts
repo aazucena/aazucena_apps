@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createSelector, type PayloadAction } from '@reduxjs/toolkit';
 import type { AI_Conversation, AI_TerminalMessage } from '@aazucena/types';
 
 interface ChatState {
@@ -28,24 +28,28 @@ export interface ChatSliceConfig {
  *   defaultConversationTitle: 'New Chat',
  * });
  */
+export const CHAT_STORAGE_KEY = 'az_chat_state_v2';
+
 export function createChatSlice(config?: ChatSliceConfig) {
-  const STORAGE_KEY = config?.storageKey ?? 'az_chat_state_v2';
+  const STORAGE_KEY = config?.storageKey ?? CHAT_STORAGE_KEY;
   const DEFAULT_TITLE = config?.defaultConversationTitle ?? 'New Conversation';
 
-  const isClient = typeof window !== 'undefined';
-  const savedState = isClient ? localStorage.getItem(STORAGE_KEY) : null;
-
-  const initialState: ChatState = savedState
-    ? JSON.parse(savedState)
-    : {
-        conversations: {},
-        activeConversationId: null,
-      };
+  // Always start empty — SSR-safe. Consumers dispatch hydrateFromStorage in useEffect after mount.
+  const initialState: ChatState = {
+    conversations: {},
+    activeConversationId: null,
+  };
 
   const slice = createSlice({
     name: 'chat',
     initialState,
     reducers: {
+      // Hydrate from localStorage after client mount — call in useEffect to avoid SSR mismatch
+      hydrateFromStorage: (state, action: PayloadAction<ChatState>) => {
+        state.conversations = action.payload.conversations;
+        state.activeConversationId = action.payload.activeConversationId;
+      },
+
       createNewChat: (state) => {
         // 1. Find all empty conversations
         const emptyConvs = Object.values(state.conversations).filter(
@@ -70,7 +74,7 @@ export function createChatSlice(config?: ChatSliceConfig) {
           state.activeConversationId = id;
         }
 
-        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       },
 
       addMessage: (
@@ -94,7 +98,7 @@ export function createChatSlice(config?: ChatSliceConfig) {
               (message.parts[0]!.text.length > 40 ? '...' : '');
           }
         }
-        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       },
 
       setActiveNode: (state, action: PayloadAction<{ conversationId: string; nodeId: string }>) => {
@@ -102,12 +106,12 @@ export function createChatSlice(config?: ChatSliceConfig) {
         if (state.conversations[conversationId]) {
           state.conversations[conversationId]!.activeNodeId = nodeId;
         }
-        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       },
 
       switchConversation: (state, action: PayloadAction<string>) => {
         state.activeConversationId = action.payload;
-        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       },
 
       deleteConversation: (state, action: PayloadAction<string>) => {
@@ -116,7 +120,7 @@ export function createChatSlice(config?: ChatSliceConfig) {
           const remaining = Object.keys(state.conversations);
           state.activeConversationId = remaining.length > 0 ? remaining[0]! : null;
         }
-        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       },
 
       updateConversationTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
@@ -124,13 +128,13 @@ export function createChatSlice(config?: ChatSliceConfig) {
         if (conv) {
           conv.title = action.payload.title;
         }
-        if (isClient) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       },
 
       clearAllHistory: (state) => {
         state.conversations = {};
         state.activeConversationId = null;
-        if (isClient) localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY);
       },
     },
   });
@@ -142,6 +146,7 @@ export function createChatSlice(config?: ChatSliceConfig) {
 export const chatSlice = createChatSlice();
 
 export const {
+  hydrateFromStorage,
   createNewChat,
   addMessage,
   setActiveNode,
@@ -153,27 +158,51 @@ export const {
 
 export default chatSlice.reducer;
 
+type ChatRootState = {
+  chat: { conversations: Record<string, AI_Conversation>; activeConversationId: string | null };
+};
+
+const EMPTY_THREAD: AI_TerminalMessage[] = [];
+const EMPTY_MESSAGES: Record<string, AI_TerminalMessage> = {};
+
 /**
  * SELECTOR: Reconstructs the linear thread for the active conversation.
+ * Memoized with createSelector so the same array reference is returned
+ * when the active conversation's messages and activeNodeId haven't changed.
  */
-export const selectActiveThread = (state: {
-  chat: { conversations: Record<string, AI_Conversation>; activeConversationId: string | null };
-}) => {
-  const activeId = state.chat.activeConversationId;
-  if (!activeId) return [];
+export const selectActiveThread = createSelector(
+  (state: ChatRootState) => state.chat.activeConversationId,
+  (state: ChatRootState) => state.chat.conversations,
+  (activeId, conversations) => {
+    if (!activeId) return EMPTY_THREAD;
 
-  const conv = state.chat.conversations[activeId];
-  if (!conv) return [];
+    const conv = conversations[activeId];
+    if (!conv) return EMPTY_THREAD;
 
-  const { messages, activeNodeId } = conv;
-  const thread: AI_TerminalMessage[] = [];
-  let currentId = activeNodeId;
+    const { messages, activeNodeId } = conv;
+    const thread: AI_TerminalMessage[] = [];
+    let currentId = activeNodeId;
 
-  while (currentId && messages[currentId]) {
-    const msg = messages[currentId]!;
-    thread.push(msg);
-    currentId = msg.parentId;
-  }
+    while (currentId && messages[currentId]) {
+      const msg = messages[currentId]!;
+      thread.push(msg);
+      currentId = msg.parentId;
+    }
 
-  return thread.reverse();
-};
+    return thread.reverse();
+  },
+);
+
+/**
+ * SELECTOR: Returns the messages map for the active conversation.
+ * Stable EMPTY_MESSAGES reference prevents the "Selector unknown returned a
+ * different result" warning that occurs when using `|| {}` inline.
+ */
+export const selectActiveMessages = createSelector(
+  (state: ChatRootState) => state.chat.activeConversationId,
+  (state: ChatRootState) => state.chat.conversations,
+  (activeId, conversations) => {
+    if (!activeId) return EMPTY_MESSAGES;
+    return conversations[activeId]?.messages ?? EMPTY_MESSAGES;
+  },
+);

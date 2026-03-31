@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormInstance } from '../utils/composables.js';
+import { useFormInstance } from '../utils/composables';
 
 /**
  * ## Engineering Standards

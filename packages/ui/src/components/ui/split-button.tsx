@@ -3,14 +3,14 @@
 import * as React from 'react';
 import { cn } from '@aazucena/utils';
 import { ChevronDown } from '@aazucena/icons';
-import { Button } from './button.js';
-import { ButtonGroup } from './button-group.js';
+import { Button } from './button';
+import { ButtonGroup } from './button-group';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from './dropdown-menu.js';
+} from './dropdown-menu';
 
 /**
  * SplitButton

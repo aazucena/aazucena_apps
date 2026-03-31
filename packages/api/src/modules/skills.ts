@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiSkillsResponseSchema } from '../validators/skills.js';
-import { groupSkillsByCategory } from '../transformers/skills.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiSkillsResponseSchema } from '../validators/skills';
+import { groupSkillsByCategory } from '../transformers/skills';
 
 /**
  * Fetch skills from Strapi CMS

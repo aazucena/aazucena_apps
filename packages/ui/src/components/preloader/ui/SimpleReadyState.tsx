@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Button } from '../../ui/button.js';
+import { Button } from '../../ui/button';
 import { CheckCircle, Rocket as RocketLaunch } from '@aazucena/icons';
 import type { ThemeStyles } from '@aazucena/hooks';
 

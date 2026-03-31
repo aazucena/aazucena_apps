@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiTestimonialsResponseSchema } from '../validators/testimonials.js';
-import { transformTestimonials, DEFAULT_TESTIMONIALS } from '../transformers/testimonials.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiTestimonialsResponseSchema } from '../validators/testimonials';
+import { transformTestimonials, DEFAULT_TESTIMONIALS } from '../transformers/testimonials';
 import type { Testimonial } from '@aazucena/types';
 
 /**

@@ -1,3 +1,3 @@
-export * from './composables.js';
-export * from './validation.js';
-export * from './testing.js';
+export * from './composables';
+export * from './validation';
+export * from './testing';

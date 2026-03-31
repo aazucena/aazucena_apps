@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Progress } from './progress.js';
+import { Progress } from './progress';
 
 export const dataListVariants = cva('w-full transition-all duration-500 overflow-hidden', {
   variants: {
@@ -77,5 +77,5 @@ export const DataListProgress = React.forwardRef<
 ));
 DataListProgress.displayName = 'DataListProgress';
 
-export * from './data-list-table.js';
-export * from './data-list-grid.js';
+export * from './data-list-table';
+export * from './data-list-grid';

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useDropzone, type DropzoneState } from 'react-dropzone';
-import type { ImportFileData, ImportStatus } from '../components/ui/import.js';
+import type { ImportFileData, ImportStatus } from '../components/ui/import';
 
 export interface UseImportOptions {
   onFileImport?: (data: ImportFileData) => void;

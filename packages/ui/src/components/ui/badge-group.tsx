@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Badge } from './badge.js';
+import { Badge } from './badge';
 
 const badgeGroupVariants = cva('flex flex-wrap gap-2 transition-all duration-300', {
   variants: {

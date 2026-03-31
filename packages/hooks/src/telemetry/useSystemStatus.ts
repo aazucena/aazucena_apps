@@ -14,8 +14,11 @@ export function useSystemStatus() {
   const { baseUrl } = useTelemetryConfig();
 
   useEffect(() => {
-    // Fetch Public Health Status
-    fetch(`${baseUrl}/api/health/public`)
+    const controller = new AbortController();
+
+    fetch(`${baseUrl}/api/health/public`, {
+      signal: AbortSignal.any([controller.signal, AbortSignal.timeout(5000)]),
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.success && json.system) {
@@ -24,7 +27,11 @@ export function useSystemStatus() {
           setStatus('UNKNOWN');
         }
       })
-      .catch(() => setStatus('UNKNOWN'));
+      .catch((err) => {
+        if (err.name !== 'AbortError') setStatus('UNKNOWN');
+      });
+
+    return () => controller.abort();
   }, [baseUrl]);
 
   return { status, baseUrl };

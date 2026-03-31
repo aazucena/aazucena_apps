@@ -12,9 +12,9 @@ import { useRef, useMemo, memo } from 'react';
 import { Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import type { Points, BufferGeometry, Material } from 'three';
-import type { SceneParticleData } from '../data/particles.js';
-import { SceneObjectManager } from '../objects/index.js';
-import { exosphereObjects } from '../data/objects.js';
+import type { SceneParticleData } from '../data/particles';
+import { SceneObjectManager } from '../objects/index';
+import { exosphereObjects } from '../data/objects';
 
 export interface ExosphereProps {
   particles: SceneParticleData;

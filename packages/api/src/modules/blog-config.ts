@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiBlogConfigSchema } from '../validators/blog-config.js';
-import { transformBlogConfig, DEFAULT_BLOG_CONFIG } from '../transformers/blog-config.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiBlogConfigSchema } from '../validators/blog-config';
+import { transformBlogConfig, DEFAULT_BLOG_CONFIG } from '../transformers/blog-config';
 import type { BlogConfigData } from '@aazucena/types';
 
 /**

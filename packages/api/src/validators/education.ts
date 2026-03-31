@@ -4,9 +4,9 @@
 
 import { z } from 'zod';
 import { EducationDisplayEnum, EducationTypeEnum } from '@aazucena/types';
-import { StrapiProjectSchema } from './projects.js';
-import { AchievementSchema, StrapiMediaSchema, WebLinkArraySchema } from './components.js';
-import { StrapiSkillSchema } from './skills.js';
+import { StrapiProjectSchema } from './projects';
+import { AchievementSchema, StrapiMediaSchema, WebLinkArraySchema } from './components';
+import { StrapiSkillSchema } from './skills';
 import type { StrapiEducation } from '@aazucena/types';
 
 // Export Education type for backward compatibility

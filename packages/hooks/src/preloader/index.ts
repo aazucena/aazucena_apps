@@ -1,6 +1,6 @@
-export * from './useLoadingProgress.js';
-export * from './usePreloaderVisibility.js';
-export * from './usePreloaderLifecycle.js';
-export * from './useKeyboardNavigation.js';
-export { usePreloaderTheme, type ThemeStyles, type UseThemeOptions } from './usePreloaderTheme.js';
-export * from './useShowOnce.js';
+export * from './useLoadingProgress';
+export * from './usePreloaderVisibility';
+export * from './usePreloaderLifecycle';
+export * from './useKeyboardNavigation';
+export { usePreloaderTheme, type ThemeStyles, type UseThemeOptions } from './usePreloaderTheme';
+export * from './useShowOnce';

@@ -1,6 +1,6 @@
 import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
-import { getColor } from '../tokens/colors.js';
-import { defaultVibe } from './default.js';
+import { getColor } from '../tokens/colors';
+import { defaultVibe } from './default';
 
 const light: SystemThemeConfig = {
   colors: {

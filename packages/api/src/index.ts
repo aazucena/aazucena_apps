@@ -3,43 +3,45 @@
  */
 
 // Services
-export * from './services/strapi.js';
-export * from './services/clickhouse.js';
+export * from './services/strapi';
+export * from './services/clickhouse';
 
 // Validators
-export * from './validators/enums.js';
+export * from './validators/enums';
+export * from './validators/components';
+export * from './validators/prompt';
 
 // Controllers
-export * from './controllers/homepage.js';
-export * from './controllers/layout.js';
-export * from './controllers/performance.js';
-export * from './controllers/portfolio.js';
-export * from './controllers/telemetry.js';
+export * from './controllers/homepage';
+export * from './controllers/layout';
+export * from './controllers/performance';
+export * from './controllers/portfolio';
+export * from './controllers/telemetry';
 
 // Modules
-export * from './modules/about.js';
-export * from './modules/animation.js';
-export * from './modules/awards.js';
-export * from './modules/blog-config.js';
-export * from './modules/contact-form.js';
-export * from './modules/education.js';
-export * from './modules/experience-showcase.js';
-export * from './modules/experiences.js';
-export * from './modules/hero.js';
-export * from './modules/homepage.js';
-export * from './modules/journey.js';
-export * from './modules/maintenance.js';
-export * from './modules/navigation.js';
-export * from './modules/pages.js';
-export * from './modules/portfolio.js';
-export * from './modules/posts.js';
-export * from './modules/preloader.js';
-export * from './modules/project-showcase.js';
-export * from './modules/projects.js';
-export * from './modules/prompts.js';
-export * from './modules/skill-categories.js';
-export * from './modules/skill-showcase.js';
-export * from './modules/skills.js';
-export * from './modules/testimonials.js';
-export * from './modules/theme.js';
-export * from './modules/website-config.js';
+export * from './modules/about';
+export * from './modules/animation';
+export * from './modules/awards';
+export * from './modules/blog-config';
+export * from './modules/contact-form';
+export * from './modules/education';
+export * from './modules/experience-showcase';
+export * from './modules/experiences';
+export * from './modules/hero';
+export * from './modules/homepage';
+export * from './modules/journey';
+export * from './modules/maintenance';
+export * from './modules/navigation';
+export * from './modules/pages';
+export * from './modules/portfolio';
+export * from './modules/posts';
+export * from './modules/preloader';
+export * from './modules/project-showcase';
+export * from './modules/projects';
+export * from './modules/prompts';
+export * from './modules/skill-categories';
+export * from './modules/skill-showcase';
+export * from './modules/skills';
+export * from './modules/testimonials';
+export * from './modules/theme';
+export * from './modules/website-config';

@@ -19,9 +19,9 @@ import {
   FLOAT_CONFIG,
   SHAPE_MATERIAL,
 } from '@aazucena/constants';
-import { LazySceneLayerManager as SceneLayerManager, SceneLighting } from './scene/index.js';
+import { LazySceneLayerManager as SceneLayerManager, SceneLighting } from './scene/index';
 import { calculateLayerOpacities } from '@aazucena/utils';
-import { createBasicGeometries } from './geometries.js';
+import { createBasicGeometries } from './geometries';
 import {
   generateParticleData,
   generateShapeData,
@@ -31,7 +31,7 @@ import {
   generateBushData,
   generateRockData,
   generateFlowerData,
-} from './data/index.js';
+} from './data/index';
 
 interface AnimationSceneProps {
   intensity?: number;

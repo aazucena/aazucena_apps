@@ -1,13 +1,13 @@
 // Convenience wrappers (simple, opinionated zero-config defaults)
-export * from './MainContainer.js';
-export * from './ProseContainer.js';
-export * from './Section.js';
+export * from './MainContainer';
+export * from './ProseContainer';
+export * from './Section';
 
 // Unique utilities
-export * from './PageTransition.js';
+export * from './PageTransition';
 
 // Templates (structural composites)
-export * from './DashboardLayout.js';
-export * from './Grid.js';
-export * from './AutoGrid.js';
-export * from './SectionLayout.js';
+export * from './DashboardLayout';
+export * from './Grid';
+export * from './AutoGrid';
+export * from './SectionLayout';

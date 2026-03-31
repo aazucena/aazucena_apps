@@ -3,7 +3,7 @@
  * Barrel export for all particle system components
  */
 
-export { ParticlesController } from './ParticlesController.js';
-export { ParticleSystem } from './ParticleSystem.js';
-export { ParticleEmitter } from './ParticleEmitter.js';
-export { ParticleRenderer } from './ParticleRenderer.js';
+export { ParticlesController } from './ParticlesController';
+export { ParticleSystem } from './ParticleSystem';
+export { ParticleEmitter } from './ParticleEmitter';
+export { ParticleRenderer } from './ParticleRenderer';

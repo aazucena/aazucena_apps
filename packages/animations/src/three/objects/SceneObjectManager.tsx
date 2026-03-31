@@ -5,9 +5,9 @@
 
 import type { JSX } from 'react';
 import { useMemo } from 'react';
-import { SceneObject } from './SceneObject.js';
+import { SceneObject } from './SceneObject';
 import type { SceneObjectManagerProps, SceneObjectConfig } from '@aazucena/types';
-import { objectRegistry } from './registry.js';
+import { objectRegistry } from './registry';
 
 /**
  * SceneObjectManager - Renders and manages multiple scene objects

@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiHeroSchema } from '../validators/hero.js';
-import { transformHero, DEFAULT_HERO } from '../transformers/hero.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiHeroSchema } from '../validators/hero';
+import { transformHero, DEFAULT_HERO } from '../transformers/hero';
 import type { HeroData } from '@aazucena/types';
 
 /**

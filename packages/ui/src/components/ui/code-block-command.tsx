@@ -7,7 +7,7 @@ import { CodeBlock, CodeBlockHeader } from './code-block';
 import { Terminal, Activity, Code as CodeIcon } from '@aazucena/icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 import { SegmentedControl, SegmentedItem } from './segmented-control';
-import { useCodeBlockCommand } from '../../hooks/use-code-block-command.js';
+import { useCodeBlockCommand } from '../../hooks/use-code-block-command';
 
 const codeBlockCommandVariants = cva('w-full', {
   variants: {

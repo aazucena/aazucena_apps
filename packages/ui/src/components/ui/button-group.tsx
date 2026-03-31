@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Separator } from './separator.js';
+import { Separator } from './separator';
 
 const buttonGroupVariants = cva('flex items-center transition-all duration-300', {
   variants: {

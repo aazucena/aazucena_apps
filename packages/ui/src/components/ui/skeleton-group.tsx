@@ -4,7 +4,7 @@ import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-import { Skeleton } from './skeleton.js';
+import { Skeleton } from './skeleton';
 
 const skeletonGroupVariants = cva('w-full', {
   variants: {

@@ -5,7 +5,7 @@
 
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
-import type { SectionRef } from './useSectionRefs.js';
+import type { SectionRef } from './useSectionRefs';
 
 export function useSectionTransitions(currentSection: number, refs: SectionRef[]): void {
   useEffect(() => {

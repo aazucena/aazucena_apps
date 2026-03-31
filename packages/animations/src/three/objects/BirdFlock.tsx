@@ -7,7 +7,7 @@ import type { JSX } from 'react';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import type { Group } from 'three';
-import { Bird } from './Bird.js';
+import { Bird } from './Bird';
 
 interface BirdFlockProps {
   opacity: number;

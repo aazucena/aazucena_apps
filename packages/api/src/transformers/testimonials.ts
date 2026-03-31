@@ -1,4 +1,4 @@
-import type { StrapiTestimonial } from '../validators/testimonials.js';
+import type { StrapiTestimonial } from '../validators/testimonials';
 import type { Testimonial } from '@aazucena/types';
 
 /**

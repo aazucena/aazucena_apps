@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useFormInstance } from '../utils/composables.js';
+import { useFormInstance } from '../utils/composables';
 
 /**
  * ## Engineering Standards

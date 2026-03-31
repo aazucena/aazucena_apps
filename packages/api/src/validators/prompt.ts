@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { PromptTypeEnum } from '@aazucena/types';
-import { TagSchema } from './components.js';
+import { TagSchema } from './components';
 
 /**
  * Zod validation schema for Strapi Prompt content type

@@ -5,7 +5,7 @@ import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@aazucena/utils';
-import { Button, buttonVariants } from './button.js';
+import { Button, buttonVariants } from './button';
 
 const calendarVariants = cva('p-4 transition-all duration-300', {
   variants: {

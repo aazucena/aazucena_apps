@@ -7,9 +7,9 @@ import {
   ChartDescription,
   ChartContent,
   ChartFooter,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useSankeyDiagram } from '../hooks/useSankeyDiagram.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useSankeyDiagram } from '../hooks/useSankeyDiagram';
 
 export interface SankeyDiagramProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GenericNetworkData<BaseNode, BaseLink<string>>;

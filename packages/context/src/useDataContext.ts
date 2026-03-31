@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { DataContext } from './DataContext.js';
+import { DataContext } from './DataContext';
 
 // Custom hook with error handling
 export function useDataContext() {

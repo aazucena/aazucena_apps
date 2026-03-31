@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { cn } from '@aazucena/utils';
-import { Button, type buttonVariants } from './button.js';
-import { Spinner } from './spinner.js';
+import { Button, type buttonVariants } from './button';
+import { Spinner } from './spinner';
 import type { VariantProps } from 'class-variance-authority';
 
 export interface SubmitButtonProps

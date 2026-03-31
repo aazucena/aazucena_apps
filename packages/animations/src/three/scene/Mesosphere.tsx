@@ -10,8 +10,8 @@
 import type { JSX } from 'react';
 import { memo } from 'react';
 import { Sparkles } from '@react-three/drei';
-import { SceneObjectManager } from '../objects/index.js';
-import { mesosphereObjects } from '../data/objects.js';
+import { SceneObjectManager } from '../objects/index';
+import { mesosphereObjects } from '../data/objects';
 
 export interface MesosphereProps {
   opacity: number;

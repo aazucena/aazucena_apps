@@ -1,2 +1,2 @@
-export * from './gateway.js';
-export * from './pricing.js';
+export * from './gateway';
+export * from './pricing';

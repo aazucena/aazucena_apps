@@ -78,7 +78,7 @@ import {
   BracesSolid,
   Type,
   TypeSolid,
-} from './custom/index.js';
+} from './custom/index';
 import type { IconComponent } from '@aazucena/types';
 /**
  * Maps icon name string to @mynaui/icons-react component

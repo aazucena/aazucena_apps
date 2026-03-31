@@ -2,13 +2,13 @@
  * [@aazucena/stores] : Global_State_Registry
  */
 
-export * from './interactions/index.js';
-export * from './journey/index.js';
-export * from './ui/index.js';
+export * from './interactions/index';
+export * from './journey/index';
+export * from './ui/index';
 
 // Redux Slices
-export * from './slices/dashboard.js';
-export * from './slices/chat.js';
+export * from './slices/dashboard';
+export * from './slices/chat';
 
 // Providers (also available via @aazucena/stores/providers)
-export * from './providers/index.js';
+export * from './providers/index';

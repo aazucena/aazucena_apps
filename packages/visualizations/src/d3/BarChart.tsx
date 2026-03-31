@@ -7,9 +7,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useBarChart } from '../hooks/useBarChart.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useBarChart } from '../hooks/useBarChart';
 import { Zap } from '@aazucena/icons';
 
 export interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {

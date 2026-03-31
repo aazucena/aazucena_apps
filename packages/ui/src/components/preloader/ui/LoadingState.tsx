@@ -1,10 +1,10 @@
 import { CircleNotch as LoadingCircle } from '@aazucena/icons';
 import { memo } from 'react';
-import { CardTitle } from '../../ui/card.js';
-import { Progress } from '../../ui/progress.js';
+import { CardTitle } from '../../ui/card';
+import { Progress } from '../../ui/progress';
 import type { ThemeStyles } from '@aazucena/hooks';
 import type { CustomSpinnerProps, LoadingStep } from '@aazucena/types';
-import { StepIndicator } from './StepIndicator.js';
+import { StepIndicator } from './StepIndicator';
 import type { ComponentType } from 'react';
 
 export interface LoadingStateProps {

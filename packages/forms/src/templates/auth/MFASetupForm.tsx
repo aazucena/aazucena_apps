@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { mfaSetupSchema, type MFASetupFormData } from '../../schemas/index.js';
-import { ControlledInput } from '../fields.js';
-import { FormWizard } from '../../components/FormWizard.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { mfaSetupSchema, type MFASetupFormData } from '../../schemas/index';
+import { ControlledInput } from '../fields';
+import { FormWizard } from '../../components/FormWizard';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface MFASetupFormProps {
   variant?: 'default' | 'glass' | 'cyber';

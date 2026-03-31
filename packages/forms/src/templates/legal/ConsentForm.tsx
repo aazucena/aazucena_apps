@@ -5,9 +5,9 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { consentSchema, type ConsentFormData } from '../../schemas/index.js';
-import { ControlledSwitch } from '../fields.js';
-import { FormButton } from '../../components/FormButton.js';
+import { consentSchema, type ConsentFormData } from '../../schemas/index';
+import { ControlledSwitch } from '../fields';
+import { FormButton } from '../../components/FormButton';
 
 export interface ConsentFormProps {
   variant?: 'default' | 'glass' | 'cyber';

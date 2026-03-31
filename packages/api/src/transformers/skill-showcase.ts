@@ -1,4 +1,4 @@
-import type { StrapiSkillShowcase } from '../validators/skill-showcase.js';
+import type { StrapiSkillShowcase } from '../validators/skill-showcase';
 import { transformPageHeader } from '@aazucena/utils';
 
 export interface SkillShowcaseConfig {

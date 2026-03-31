@@ -9,7 +9,7 @@ import { MicSelector } from '../mic-selector';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
 import type { Attachment } from './chat-attachments';
 import { ChatAttachments } from './chat-attachments';
-import { useChatInput } from '../../../hooks/use-chat-input.js';
+import { useChatInput } from '../../../hooks/use-chat-input';
 
 // --- Internal Sub-components ---
 

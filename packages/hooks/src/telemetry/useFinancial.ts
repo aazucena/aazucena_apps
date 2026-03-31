@@ -69,12 +69,12 @@ export function useFinancial(options: UseFinancialOptions = {}): UseQueryResult<
 
   return useQuery({
     queryKey: ['financial-stats', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.finance ?? '/api/stats/finance'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_FINANCE_FETCH');
       const json = await res.json();
       return json.data as FinancialStats;

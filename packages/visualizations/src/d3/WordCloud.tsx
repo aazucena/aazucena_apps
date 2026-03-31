@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useWordCloud } from '../hooks/useWordCloud.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useWordCloud } from '../hooks/useWordCloud';
 
 export interface WordCloudProps extends React.HTMLAttributes<HTMLDivElement> {
   data: WordCloudData[];

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import type { SchemaProperty } from '../components/ui/schema-display.js';
+import type { SchemaProperty } from '../components/ui/schema-display';
 
 export interface UseSchemaDisplayReturn {
   isExpanded: (name: string, isObject: boolean) => boolean;

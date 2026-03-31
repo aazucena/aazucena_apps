@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import InteractivePreloader from './InteractivePreloader.js';
-import SimplePreloader from './SimplePreloader.js';
+import InteractivePreloader from './InteractivePreloader';
+import SimplePreloader from './SimplePreloader';
 import type { PreloaderVariant, PreloaderPropsWithTheme } from '@aazucena/types';
 
 export interface UnifiedPreloaderPropsWithTheme extends PreloaderPropsWithTheme {

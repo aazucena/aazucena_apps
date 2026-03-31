@@ -14,8 +14,8 @@ import { Cloud } from '@react-three/drei';
 import * as THREE from 'three';
 import type { Group } from 'three';
 import type { CloudData } from '@aazucena/types';
-import { SceneObjectManager } from '../objects/index.js';
-import { stratosphereObjects } from '../data/objects.js';
+import { SceneObjectManager } from '../objects/index';
+import { stratosphereObjects } from '../data/objects';
 
 export interface StratosphereProps {
   clouds: CloudData[];

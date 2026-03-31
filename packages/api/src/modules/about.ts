@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiAboutSchema } from '../validators/about.js';
-import { transformAbout, DEFAULT_ABOUT } from '../transformers/about.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiAboutSchema } from '../validators/about';
+import { transformAbout, DEFAULT_ABOUT } from '../transformers/about';
 import type { AboutData } from '@aazucena/types';
 
 /**

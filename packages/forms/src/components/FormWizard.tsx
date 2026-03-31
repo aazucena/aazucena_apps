@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@aazucena/utils';
 import { Button } from '@aazucena/ui';
-import { useEasterEggChallenge } from '../hooks/useEasterEggChallenge.js';
+import { useEasterEggChallenge } from '../hooks/useEasterEggChallenge';
 
 export interface FormStep {
   id: string;
@@ -71,7 +71,7 @@ export function FormWizard({
             {idx < steps.length - 1 && (
               <div
                 className={cn(
-                  'absolute top-4 left-[50%] w-full h-[2px] -z-0 transition-all duration-500',
+                  'absolute top-4 left-1/2 w-full h-[2px] -z-0 transition-all duration-500',
                   idx < currentStepIndex ? 'bg-primary' : 'bg-muted',
                 )}
               />

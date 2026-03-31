@@ -6,8 +6,8 @@ import { useMemo } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@aazucena/utils';
-import { Label } from './label.js';
-import { Separator } from './separator.js';
+import { Label } from './label';
+import { Separator } from './separator';
 
 export const fieldVariants = cva(
   'group/field data-[invalid=true]:text-destructive flex w-full gap-3',
@@ -176,5 +176,5 @@ export function FieldError({
   );
 }
 
-export * from './field-control.js';
-export * from './field-group.js';
+export * from './field-control';
+export * from './field-group';

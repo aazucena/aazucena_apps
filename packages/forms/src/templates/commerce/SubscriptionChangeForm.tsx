@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { subscriptionChangeSchema, type SubscriptionChangeFormData } from '../../schemas/index.js';
-import { ControlledTextarea } from '../fields.js';
-import { FormButton } from '../../components/FormButton.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { subscriptionChangeSchema, type SubscriptionChangeFormData } from '../../schemas/index';
+import { ControlledTextarea } from '../fields';
+import { FormButton } from '../../components/FormButton';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface SubscriptionChangeFormProps {
   variant?: 'default' | 'glass' | 'cyber';

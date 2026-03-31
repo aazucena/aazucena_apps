@@ -9,10 +9,10 @@
 
 import type { JSX } from 'react';
 import { memo } from 'react';
-import { Ground, House, Tree, Bush, Rock, Flower } from '../objects/index.js';
+import { Ground, House, Tree, Bush, Rock, Flower } from '../objects/index';
 import type { HouseData, TreeData, BushData, RockData, FlowerData } from '@aazucena/types';
-import { SceneObjectManager } from '../objects/index.js';
-import { troposphereObjects } from '../data/objects.js';
+import { SceneObjectManager } from '../objects/index';
+import { troposphereObjects } from '../data/objects';
 
 export interface TroposphereProps {
   houses: HouseData[];

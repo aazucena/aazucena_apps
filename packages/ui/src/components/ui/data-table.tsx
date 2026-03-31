@@ -5,11 +5,11 @@ import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-import { DataTablePagination } from './data-table-pagination.js';
-import { Input } from './input.js';
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from './table.js';
+import { DataTablePagination } from './data-table-pagination';
+import { Input } from './input';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from './table';
 
-export * from './data-table-pagination.js';
+export * from './data-table-pagination';
 
 const dataTableVariants = cva('w-full space-y-3', {
   variants: {

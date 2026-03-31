@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Progress } from './progress.js';
+import { Progress } from './progress';
 
 const distributionVariants = cva('w-full space-y-8 transition-all duration-300', {
   variants: {

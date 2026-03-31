@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useTreemap } from '../hooks/useTreemap.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useTreemap } from '../hooks/useTreemap';
 
 export interface TreemapProps extends React.HTMLAttributes<HTMLDivElement> {
   data: TreemapNode;

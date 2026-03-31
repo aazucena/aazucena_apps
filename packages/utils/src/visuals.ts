@@ -2,7 +2,7 @@
  * Visual-related utility functions
  */
 
-export * from './scene.js';
+export * from './scene';
 
 /**
  * Gets CSS classes for badges based on a color theme

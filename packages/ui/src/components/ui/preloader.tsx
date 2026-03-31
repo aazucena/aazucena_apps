@@ -3,7 +3,7 @@
 /** @shadcn standard component */
 import * as React from 'react';
 import { cn } from '@aazucena/utils';
-import { Progress } from './progress.js';
+import { Progress } from './progress';
 
 export const PreloaderTitle = React.forwardRef<
   HTMLHeadingElement,
@@ -31,5 +31,5 @@ export const PreloaderProgress = React.forwardRef<
 ));
 PreloaderProgress.displayName = 'PreloaderProgress';
 
-export * from './preloader-overlay.js';
-export * from './preloader-step.js';
+export * from './preloader-overlay';
+export * from './preloader-step';

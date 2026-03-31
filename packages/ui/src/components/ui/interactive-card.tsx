@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@aazucena/utils';
 import { ChevronDown } from '@aazucena/icons';
-import { Card } from './card.js';
+import { Card } from './card';
 
 const interactiveCardVariants = cva(
   'group rounded-3xl transition-all duration-500 overflow-hidden',

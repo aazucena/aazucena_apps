@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { LoadingStepSchema, CTAButtonSchema } from './components.js';
+import { LoadingStepSchema, CTAButtonSchema } from './components';
 import {
   PreloaderThemeEnum,
   PreloaderVariantEnum,
@@ -7,7 +7,7 @@ import {
   AriaLiveEnum,
 } from '@aazucena/types';
 
-export type { LoadingStep } from './components.js';
+export type { LoadingStep } from './components';
 
 const StrapiThemeOverridesSchema = z
   .object({

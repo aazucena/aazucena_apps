@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiProjectsResponseSchema } from '../validators/projects.js';
-import { transformProjects, DEFAULT_PROJECTS } from '../transformers/projects.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiProjectsResponseSchema } from '../validators/projects';
+import { transformProjects, DEFAULT_PROJECTS } from '../transformers/projects';
 import type { Project } from '@aazucena/types';
 
 /**

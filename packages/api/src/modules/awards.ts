@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiAwardsResponseSchema } from '../validators/awards.js';
-import { transformAwards, DEFAULT_AWARDS } from '../transformers/awards.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiAwardsResponseSchema } from '../validators/awards';
+import { transformAwards, DEFAULT_AWARDS } from '../transformers/awards';
 import type { Award } from '@aazucena/types';
 
 /**

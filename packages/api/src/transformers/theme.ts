@@ -1,4 +1,4 @@
-import type { StrapiTheme } from '../validators/theme.js';
+import type { StrapiTheme } from '../validators/theme';
 import type { ThemeData } from '@aazucena/types';
 
 /**

@@ -6,7 +6,7 @@
 import React, { forwardRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@aazucena/utils';
-import { ChartExportControl } from './ChartExportControl.js';
+import { ChartExportControl } from './ChartExportControl';
 
 export interface ChartToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Reference to the SVG for exporting */

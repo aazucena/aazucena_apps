@@ -13,11 +13,11 @@ import { OrbitControls, PerspectiveCamera, Stats } from '@react-three/drei';
 import { TooltipProvider, Section } from '@aazucena/ui';
 
 // Import modular components
-import { ObjectViewerProvider, useObjectViewer } from './context.js';
-import { ObjectViewerHUD } from './ObjectViewerHUD.js';
-import { ObjectViewerControls } from './ObjectViewerControls.js';
-import { ObjectViewerStage } from './ObjectViewerStage.js';
-import { ObjectViewerLoading } from './ObjectViewerLoading.js';
+import { ObjectViewerProvider, useObjectViewer } from './context';
+import { ObjectViewerHUD } from './ObjectViewerHUD';
+import { ObjectViewerControls } from './ObjectViewerControls';
+import { ObjectViewerStage } from './ObjectViewerStage';
+import { ObjectViewerLoading } from './ObjectViewerLoading';
 
 import type { SceneObjectType } from '@aazucena/types';
 

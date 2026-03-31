@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Progress } from '../../ui/progress.js';
+import { Progress } from '../../ui/progress';
 import { CircleNotch as LoadingCircle } from '@aazucena/icons';
 import type { CustomSpinnerProps, LoadingStep } from '@aazucena/types';
 import type { ThemeStyles } from '@aazucena/hooks';

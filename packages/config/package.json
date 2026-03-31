@@ -12,12 +12,19 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\""
   },
   "exports": {
-    "./eslint/*": "./src/eslint/*",
+    "./eslint/base.js": "./src/eslint/base.js",
+    "./eslint/next.js": "./src/eslint/next.js",
+    "./eslint/nextjs.js": "./src/eslint/nextjs.js",
+    "./eslint/react.js": "./src/eslint/react.js",
+    "./eslint/library.js": "./src/eslint/library.js",
+    "./eslint/astro.js": "./src/eslint/astro.js",
     "./prettier/*": "./src/prettier/*",
     "./tsconfig/*": "./src/tsconfig/*",
     "./playwright/*": "./src/playwright/*",
     "./postcss/*": "./src/postcss/*",
-    "./sentry/*": "./src/sentry/*",
+    "./sentry/client": "./src/sentry/client.ts",
+    "./sentry/server": "./src/sentry/server.ts",
+    "./sentry/nextjs": "./src/sentry/nextjs.ts",
     "./vercel/*": "./src/vercel/*"
   },
   "devDependencies": {

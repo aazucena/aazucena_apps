@@ -4,8 +4,8 @@
  */
 
 import type { SkillWithCategory, Education, Experience, TimelineNode } from '@aazucena/types';
-import { calculateMonthsDuration } from '../datetime.js';
-import { getCompanyLogoGradient } from '../experiences.js';
+import { calculateMonthsDuration } from '../datetime';
+import { getCompanyLogoGradient } from '../experiences';
 
 export function transformExperiencesToTimeline(experiences: Experience[]): TimelineNode[] {
   return experiences.map((exp, index) => {

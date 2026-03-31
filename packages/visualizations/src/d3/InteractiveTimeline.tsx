@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useInteractiveTimeline } from '../hooks/useInteractiveTimeline.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useInteractiveTimeline } from '../hooks/useInteractiveTimeline';
 
 export interface TimelineEvent extends BaseNode {
   date: Date | string;

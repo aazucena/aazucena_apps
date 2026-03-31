@@ -1,4 +1,4 @@
-import type { StrapiBlogConfig } from '../validators/blog-config.js';
+import type { StrapiBlogConfig } from '../validators/blog-config';
 import type { BlogConfigData } from '@aazucena/types';
 
 /**

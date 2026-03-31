@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { otpVerificationSchema, type OTPVerificationFormData } from '../../schemas/index.js';
-import { ControlledCheckbox } from '../fields.js';
-import { FormButton } from '../../components/FormButton.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { otpVerificationSchema, type OTPVerificationFormData } from '../../schemas/index';
+import { ControlledCheckbox } from '../fields';
+import { FormButton } from '../../components/FormButton';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface OTPVerificationFormProps {
   variant?: 'default' | 'glass' | 'cyber';

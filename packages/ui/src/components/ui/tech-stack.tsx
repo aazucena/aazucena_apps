@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { IconRenderer } from './icon-renderer.js';
+import { IconRenderer } from './icon-renderer';
 import { Astro, React as ReactIcon, Tailwind, Vite } from '@aazucena/icons';
 
 const techStackVariants = cva('flex items-center gap-6 transition-all duration-300', {

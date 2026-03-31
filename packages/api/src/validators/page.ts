@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { SeoSchema } from './components.js';
+import { SeoSchema } from './components';
 import { PageTemplateEnum, FooterVariantEnum } from '@aazucena/types';
 
 export const PageSchema = z.object({

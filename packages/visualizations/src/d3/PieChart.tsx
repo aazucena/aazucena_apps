@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { usePieChart } from '../hooks/usePieChart.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { usePieChart } from '../hooks/usePieChart';
 
 export interface PieChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: PieChartData[];

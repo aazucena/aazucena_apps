@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { Badge, Status, StatusDot } from '@aazucena/ui';
-import { useObjectViewer } from './context.js';
-import { ANIMATION_OBJECT_REGISTRY } from '../objects/registry.js';
+import { useObjectViewer } from './context';
+import { ANIMATION_OBJECT_REGISTRY } from '../objects/registry';
 
 /**
  * ObjectViewerHUD - Top-left metadata and bottom-left status info

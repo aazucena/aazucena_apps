@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiExperienceShowcaseSchema } from '../validators/experience-showcase.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiExperienceShowcaseSchema } from '../validators/experience-showcase';
 import {
   transformExperienceShowcase,
   DEFAULT_EXPERIENCE_SHOWCASE,
-} from '../transformers/experience-showcase.js';
+} from '../transformers/experience-showcase';
 import type { ExperienceShowcaseConfig } from '@aazucena/types';
 
 /**

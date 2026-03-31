@@ -8,10 +8,10 @@ import { cn } from '@aazucena/utils';
 import {
   letterOfRecommendationSchema,
   type LetterOfRecommendationFormData,
-} from '../../schemas/index.js';
-import { ControlledInput, ControlledTextarea } from '../fields.js';
-import { FormButton } from '../../components/FormButton.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+} from '../../schemas/index';
+import { ControlledInput, ControlledTextarea } from '../fields';
+import { FormButton } from '../../components/FormButton';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface LetterOfRecommendationFormProps {
   variant?: 'default' | 'glass' | 'cyber';

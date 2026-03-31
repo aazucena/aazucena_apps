@@ -6,9 +6,9 @@ import { zodValidator } from '@tanstack/zod-form-adapter';
 import { z } from 'zod';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { biometricAuthSchema, type BiometricAuthFormData } from '../../schemas/index.js';
-import { FormButton } from '../../components/FormButton.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { biometricAuthSchema, type BiometricAuthFormData } from '../../schemas/index';
+import { FormButton } from '../../components/FormButton';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface BiometricAuthFormProps {
   variant?: 'default' | 'glass' | 'cyber';

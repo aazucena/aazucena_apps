@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Lightbox } from './lightbox.js';
+import { Lightbox } from './lightbox';
 
 const galleryVariants = cva('w-full', {
   variants: {

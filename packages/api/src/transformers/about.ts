@@ -1,4 +1,4 @@
-import type { StrapiAbout } from '../validators/about.js';
+import type { StrapiAbout } from '../validators/about';
 import { transformStats, transformCtaButton } from '@aazucena/utils';
 import type {
   AboutData,

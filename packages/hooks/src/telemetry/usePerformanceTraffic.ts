@@ -16,12 +16,12 @@ export function usePerformanceStats(options: UsePerformanceOptions = {}) {
 
   return useQuery({
     queryKey: ['performance-stats', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.performance ?? '/api/stats/performance'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_PERFORMANCE_FETCH');
       const json = await res.json();
       return json.data;
@@ -40,12 +40,12 @@ export function useTrafficStats(options: UsePerformanceOptions = {}) {
 
   return useQuery({
     queryKey: ['traffic-stats', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.traffic ?? '/api/stats/traffic'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_TRAFFIC_FETCH');
       const json = await res.json();
       return json.data;
@@ -64,12 +64,12 @@ export function useMusicStats(options: UsePerformanceOptions = {}) {
 
   return useQuery({
     queryKey: ['music-stats', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.music ?? '/api/stats/music'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_MUSIC_FETCH');
       const json = await res.json();
       return json.data;

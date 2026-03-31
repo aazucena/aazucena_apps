@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiWebsiteConfigSchema } from '../validators/website-config.js';
-import { transformWebsiteConfig, DEFAULT_WEBSITE_CONFIG } from '../transformers/website-config.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiWebsiteConfigSchema } from '../validators/website-config';
+import { transformWebsiteConfig, DEFAULT_WEBSITE_CONFIG } from '../transformers/website-config';
 import type { WebsiteConfig } from '@aazucena/types';
 
 /**

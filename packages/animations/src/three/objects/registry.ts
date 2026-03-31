@@ -74,7 +74,7 @@ import {
   UtilityPylon,
   Skyscraper,
   Lighthouse,
-} from './index.js';
+} from './index';
 
 /**
  * Object Registry

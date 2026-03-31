@@ -3,7 +3,7 @@
  * Converts Strapi API response to clean WebLink type
  */
 
-import type { WebLink } from '../validators/web-link.js';
+import type { WebLink } from '../validators/web-link';
 
 /**
  * Transform a single web link from Strapi format to clean structure

@@ -3,8 +3,8 @@
 import * as React from 'react';
 import * as THREE from 'three';
 import { Center, Environment, ContactShadows, useHelper } from '@react-three/drei';
-import { ANIMATION_OBJECT_REGISTRY } from '../objects/registry.js';
-import { useObjectViewer } from './context.js';
+import { ANIMATION_OBJECT_REGISTRY } from '../objects/registry';
+import { useObjectViewer } from './context';
 
 /**
  * ObjectViewerStage - The 3D scene content

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Separator } from './separator.js';
+import { Separator } from './separator';
 
 /**
  * Sidebar Layout Components

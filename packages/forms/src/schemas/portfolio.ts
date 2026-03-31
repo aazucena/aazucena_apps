@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { FormTypeEnum } from '@aazucena/api';
-import { baseFormSchema } from './base.js';
+import { baseFormSchema } from './base';
 
 /**
  * 1. Contact Form Schema

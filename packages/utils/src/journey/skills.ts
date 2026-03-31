@@ -13,7 +13,7 @@ import type {
   SkillsNetworkData,
   SkillDetails,
 } from '@aazucena/types';
-import { getSafeSkillInfo } from './base.js';
+import { getSafeSkillInfo } from './base';
 
 export function transformToSkillsEvolution(
   experiences: Experience[],

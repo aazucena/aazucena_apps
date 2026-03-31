@@ -1,6 +1,6 @@
-import { fetchStrapi, updateStrapiEntry } from '../services/strapi.js';
-import { StrapiPromptsResponseSchema } from '../validators/prompt.js';
-import { transformPrompts, transformPrompt, type Prompt } from '../transformers/prompt.js';
+import { fetchStrapi, updateStrapiEntry } from '../services/strapi';
+import { StrapiPromptsResponseSchema } from '../validators/prompt';
+import { transformPrompts, transformPrompt, type Prompt } from '../transformers/prompt';
 
 /**
  * Fetches all AI prompts from Strapi

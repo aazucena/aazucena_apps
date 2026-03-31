@@ -2,7 +2,7 @@
 
 import { cn } from '@aazucena/utils';
 import * as React from 'react';
-import { Card } from './card.js';
+import { Card } from './card';
 
 const SidebarBlock = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof Card>>(
   ({ className, variant = 'default', padding = 'lg', radius = 'lg', ...props }, ref) => (

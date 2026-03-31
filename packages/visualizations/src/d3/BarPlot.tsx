@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useBarPlot } from '../hooks/useBarPlot.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useBarPlot } from '../hooks/useBarPlot';
 
 export interface BarPlotProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GenericPoint[];

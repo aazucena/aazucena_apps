@@ -4,18 +4,18 @@
  */
 
 // GSAP
-export * from './gsap/presets.js';
-export * from './gsap/scrollTrigger.js';
-export * from './gsap/timeline.js';
+export * from './gsap/presets';
+export * from './gsap/scrollTrigger';
+export * from './gsap/timeline';
 
 // Three.js
-export * from './three/geometries.js';
-export * from './three/materials.js';
-export * from './three/objects/index.js';
-export { AnimationCanvas } from './three/AnimationCanvas.js';
-export { AnimationScene } from './three/AnimationScene.js';
-export * from './three/viewer/index.js';
+export * from './three/geometries';
+export * from './three/materials';
+export * from './three/objects/index';
+export { AnimationCanvas } from './three/AnimationCanvas';
+export { AnimationScene } from './three/AnimationScene';
+export * from './three/viewer/index';
 
 // PixiJS
-export * from './pixi/particles.js';
-export { AnimationParticles } from './pixi/AnimationParticles.js';
+export * from './pixi/particles';
+export { AnimationParticles } from './pixi/AnimationParticles';

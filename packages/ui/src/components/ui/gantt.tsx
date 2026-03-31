@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { GanttBar, type GanttTask } from './gantt-bar.js';
+import { GanttBar, type GanttTask } from './gantt-bar';
 
-export * from './gantt-bar.js';
+export * from './gantt-bar';
 
 const ganttVariants = cva('overflow-x-auto rounded-md border transition-all duration-300', {
   variants: {

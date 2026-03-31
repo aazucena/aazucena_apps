@@ -15,14 +15,14 @@ import type {
   RockData,
   FlowerData,
 } from '@aazucena/types';
-import type { SceneParticleData } from '../data/particles.js';
+import type { SceneParticleData } from '../data/particles';
 // Direct imports (not from index.ts) to avoid bundling when lazy loading is enabled
 // When ENABLE_LAYER_LAZY_LOADING=true, LazySceneLayerManager is used instead
-import { Exosphere } from './Exosphere.js';
-import { Thermosphere } from './Thermosphere.js';
-import { Mesosphere } from './Mesosphere.js';
-import { Stratosphere } from './Stratosphere.js';
-import { Troposphere } from './Troposphere.js';
+import { Exosphere } from './Exosphere';
+import { Thermosphere } from './Thermosphere';
+import { Mesosphere } from './Mesosphere';
+import { Stratosphere } from './Stratosphere';
+import { Troposphere } from './Troposphere';
 
 export interface SceneLayerManagerProps {
   /** Current atmospheric phase */

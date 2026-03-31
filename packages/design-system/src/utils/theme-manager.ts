@@ -1,5 +1,5 @@
-import { type ThemeVibeRegistry, vibes } from '../themes/registry.js';
-import { resolveVibeId, writeThemeConfig } from './_theme-core.js';
+import { type ThemeVibeRegistry, vibes } from '../themes/registry';
+import { resolveVibeId, writeThemeConfig } from './_theme-core';
 
 export type VibeChangeCallback = (vibeId: string, mode: 'light' | 'dark') => void;
 

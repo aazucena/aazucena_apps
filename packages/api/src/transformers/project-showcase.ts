@@ -1,4 +1,4 @@
-import type { StrapiShowcase } from '../validators/project-showcase.js';
+import type { StrapiShowcase } from '../validators/project-showcase';
 import { transformPageHeader } from '@aazucena/utils';
 import type { ProjectShowcaseConfig } from '@aazucena/types';
 

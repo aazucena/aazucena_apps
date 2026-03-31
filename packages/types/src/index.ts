@@ -3,29 +3,29 @@
  */
 
 // Core
-export * from './animations.js';
-export * from './config.js';
-export * from './enums.js';
-export * from './icons.js';
+export * from './animations';
+export * from './config';
+export * from './enums';
+export * from './icons';
 
 // API
-export * from './api/strapi.js';
-export * from './api/clickhouse.js';
-export * from './api/responses.js';
-export * from './api/github.js';
+export * from './api/strapi';
+export * from './api/clickhouse';
+export * from './api/responses';
+export * from './api/github';
 
 // Components
-export * from './components/props.js';
+export * from './components/props';
 
 // Data
-export * from './data/content.js';
-export * from './data/agentic.js';
-export * from './data/ai.js';
-export * from './data/analytics.js';
-export * from './data/about.js';
-export * from './data/journey.js';
-export * from './data/navigation.js';
-export * from './data/rich-text.js';
-export * from './data/preloader.js';
-export * from './data/domain.js';
-export * from './data/visualizations.js';
+export * from './data/content';
+export * from './data/agentic';
+export * from './data/ai';
+export * from './data/analytics';
+export * from './data/about';
+export * from './data/journey';
+export * from './data/navigation';
+export * from './data/rich-text';
+export * from './data/preloader';
+export * from './data/domain';
+export * from './data/visualizations';

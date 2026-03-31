@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { StrapiSkillCategorySchema } from './skill-category.js';
+import { StrapiSkillCategorySchema } from './skill-category';
 import { SkillDisplayEnum, SkillProficiencyEnum } from '@aazucena/types';
 
 // Import related schemas for reference in z.lazy()
-import { StrapiExperienceSchema } from './experiences.js';
-import { StrapiProjectSchema } from './projects.js';
-import { StrapiEducationSchema } from './education.js';
+import { StrapiExperienceSchema } from './experiences';
+import { StrapiProjectSchema } from './projects';
+import { StrapiEducationSchema } from './education';
 import type { StrapiSkill } from '@aazucena/types';
 
 /**

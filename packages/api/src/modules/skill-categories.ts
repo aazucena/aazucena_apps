@@ -1,10 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiSkillCategoriesResponseSchema } from '../validators/skill-category.js';
-import {
-  transformSkillCategories,
-  DEFAULT_SKILL_CATEGORIES,
-} from '../transformers/skill-category.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiSkillCategoriesResponseSchema } from '../validators/skill-category';
+import { transformSkillCategories, DEFAULT_SKILL_CATEGORIES } from '../transformers/skill-category';
 import type { SkillCategoryInfo } from '@aazucena/types';
 
 /**

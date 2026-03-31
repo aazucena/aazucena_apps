@@ -5,7 +5,7 @@ import * as React from 'react';
 import { ChevronLeft, ChevronRight, Dots as MoreHorizontal } from '@aazucena/icons';
 
 import { cn } from '@aazucena/utils';
-import { buttonVariants } from './button.js';
+import { buttonVariants } from './button';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -108,4 +108,4 @@ export {
   PaginationEllipsis,
 };
 
-export * from './pagination-dots.js';
+export * from './pagination-dots';

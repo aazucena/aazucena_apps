@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { TreeItem, type TreeNode } from './tree-item.js';
+import { TreeItem, type TreeNode } from './tree-item';
 
 const treeVariants = cva('w-full select-none', {
   variants: {

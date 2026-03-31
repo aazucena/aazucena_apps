@@ -1,4 +1,4 @@
-import type { StrapiAward } from '../validators/awards.js';
+import type { StrapiAward } from '../validators/awards';
 import { getMediaUrl } from '@aazucena/utils';
 import type { Award } from '@aazucena/types';
 

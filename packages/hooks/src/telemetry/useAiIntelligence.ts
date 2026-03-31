@@ -69,12 +69,12 @@ export function useAiIntelligence(
 
   return useQuery({
     queryKey: ['ai-intelligence-stats', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.ai ?? '/api/stats/ai'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_AI_STATS_FETCH');
       const json = await res.json();
       return json.data as AiIntelligenceStats;

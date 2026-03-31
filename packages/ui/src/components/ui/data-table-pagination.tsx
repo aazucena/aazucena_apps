@@ -3,7 +3,7 @@
 import { cn } from '@aazucena/utils';
 import * as React from 'react';
 
-import { Button } from './button.js';
+import { Button } from './button';
 
 export interface DataTablePaginationProps {
   currentPage: number;

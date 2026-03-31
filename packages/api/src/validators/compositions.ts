@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { AudioMetadataSchema, StrapiMediaSchema, StreamingLinkSchema } from './components.js';
-import { StrapiMusicGenreSchema } from './music-genre.js';
+import { AudioMetadataSchema, StrapiMediaSchema, StreamingLinkSchema } from './components';
+import { StrapiMusicGenreSchema } from './music-genre';
 
 /**
  * Zod validation schema for Strapi Composition content type

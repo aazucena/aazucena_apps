@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiContactFormSchema } from '../validators/contact-form.js';
-import { transformContactForm, DEFAULT_CONTACT_FORM } from '../transformers/contact-form.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiContactFormSchema } from '../validators/contact-form';
+import { transformContactForm, DEFAULT_CONTACT_FORM } from '../transformers/contact-form';
 import type { ContactFormConfig } from '@aazucena/types';
 
 /**

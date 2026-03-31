@@ -5,14 +5,14 @@
  */
 
 import { Suspense, memo, type JSX } from 'react';
-import type { SceneLayerManagerProps } from './SceneLayerManager.js';
+import type { SceneLayerManagerProps } from './SceneLayerManager';
 import {
   ExosphereLazy,
   ThermosphereLazy,
   MesosphereLazy,
   StratosphereLazy,
   TroposphereLazy,
-} from './index.lazy.js';
+} from './index.lazy';
 
 // Re-export props type for consistency
 export type { SceneLayerManagerProps };

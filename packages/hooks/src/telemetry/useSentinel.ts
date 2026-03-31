@@ -16,12 +16,12 @@ export function useSentinel(options: UseSentinelOptions = {}) {
 
   return useQuery({
     queryKey: ['sentinel-status', baseUrl],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
       const url = `${baseUrl}${endpoints?.sentinel ?? '/api/stats/sentinel'}`;
-      const res = await fetch(url, { headers });
+      const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_SENTINEL_FETCH');
       const json = await res.json();
       return json;

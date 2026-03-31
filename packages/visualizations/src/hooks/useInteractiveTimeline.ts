@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
-import type { TimelineEvent } from '../d3/InteractiveTimeline.js';
+import type { TimelineEvent } from '../d3/InteractiveTimeline';
 
 export interface UseInteractiveTimelineOptions {
   width: number;

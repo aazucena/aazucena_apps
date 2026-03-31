@@ -1,6 +1,6 @@
-import type { StrapiPreloaderConfigValidated } from '../validators/preloader.js';
+import type { StrapiPreloaderConfigValidated } from '../validators/preloader';
 import { transformCtaButton } from '@aazucena/utils';
-import type { LoadingStep } from '../validators/components.js';
+import type { LoadingStep } from '../validators/components';
 import type { PreloaderConfig } from '@aazucena/types';
 
 export const DEFAULT_PRELOADER: PreloaderConfig = {

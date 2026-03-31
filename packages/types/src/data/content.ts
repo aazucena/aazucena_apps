@@ -3,7 +3,7 @@
  */
 
 import type { ComponentType } from 'react';
-import type { IconComponent } from '../icons.js';
+import type { IconComponent } from '../icons';
 
 // --- Shared Utility Shapes ---
 
@@ -572,7 +572,7 @@ export interface AnimationConfigData {
   };
 }
 
-import type { PreloaderConfig } from './preloader.js';
+import type { PreloaderConfig } from './preloader';
 
 export interface LayoutDataResponse {
   siteConfig: unknown; // We can use more specific type if needed, but SITE_CONFIG is complex

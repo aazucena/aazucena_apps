@@ -7,7 +7,7 @@ import { Input } from './input';
 import { Button } from './button';
 import { Label } from './label';
 import { Plus, Minus } from '@aazucena/icons';
-import { useNumberField } from '../../hooks/use-number-field.js';
+import { useNumberField } from '../../hooks/use-number-field';
 
 const numberFieldVariants = cva('flex flex-col gap-2', {
   variants: {

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ImageElementSchema, SocialLinkSchema } from './components.js';
+import { ImageElementSchema, SocialLinkSchema } from './components';
 import { AvailabilityStatusEnum } from '@aazucena/types';
 
 export const StrapiPortfolioSchema = z.object({

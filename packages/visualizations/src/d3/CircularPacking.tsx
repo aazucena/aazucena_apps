@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useCircularPacking } from '../hooks/useCircularPacking.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useCircularPacking } from '../hooks/useCircularPacking';
 
 export interface CircularPackingProps extends React.HTMLAttributes<HTMLDivElement> {
   data: CircularPackingNode;

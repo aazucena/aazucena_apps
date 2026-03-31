@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Menu, X } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
-import { Button } from './button.js';
+import { Button } from './button';
 
 const navbarVariants = cva(
   'fixed top-0 right-0 left-0 z-[100] border-b transition-all duration-500',

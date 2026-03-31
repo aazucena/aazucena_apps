@@ -61,7 +61,7 @@ export const ImageElementSchema = z.object({
  */
 export const TagSchema = z.object({
   id: z.number().optional(),
-  label: z.string().max(30),
+  label: z.string().max(100),
   color: ColorVariantEnum.default('cyan'),
 });
 
@@ -322,6 +322,18 @@ export const SkillWithCategorySchema = z.object({
   name: z.string(),
   category: z.string(),
 });
+
+/**
+ * Strapi tag component schema (ui.tag — analytics variant)
+ * Uses max(100) to match Strapi's actual field configuration.
+ */
+export const StrapiTagSchema = z.object({
+  id: z.number().nullable().optional(),
+  label: z.string().max(100),
+  color: z.string().optional().nullable(),
+});
+
+export type StrapiTag = z.infer<typeof StrapiTagSchema>;
 
 // --- Type Exports ---
 

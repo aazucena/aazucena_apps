@@ -1,4 +1,4 @@
-import type { StrapiHomepage } from '../validators/homepage.js';
+import type { StrapiHomepage } from '../validators/homepage';
 import { transformSeo } from '@aazucena/utils';
 import type { HomepageData } from '@aazucena/types';
 

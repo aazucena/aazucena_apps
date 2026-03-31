@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ImageElementSchema } from './components.js';
+import { ImageElementSchema } from './components';
 import { RelationshipEnum, ApprovalStatusEnum, SentimentEnum } from '@aazucena/types';
 
 export const StrapiTestimonialSchema = z.object({

@@ -12,7 +12,7 @@ import {
   FormMessage,
   FormDescription,
 } from '@aazucena/ui';
-import { FormGateContext } from '../components/FormGate.js';
+import { FormGateContext } from '../components/FormGate';
 
 /**
  * ## Engineering Standards

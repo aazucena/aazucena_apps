@@ -3,12 +3,12 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Popover, PopoverTrigger, PopoverContent } from './popover.js';
-import { ScrollArea } from './scroll-area.js';
-import { Badge } from './badge.js';
-import { NotificationItem, type NotificationItemData } from './notification-item.js';
+import { Popover, PopoverTrigger, PopoverContent } from './popover';
+import { ScrollArea } from './scroll-area';
+import { Badge } from './badge';
+import { NotificationItem, type NotificationItemData } from './notification-item';
 
-export * from './notification-item.js';
+export * from './notification-item';
 
 const notificationCenterVariants = cva('', {
   variants: {

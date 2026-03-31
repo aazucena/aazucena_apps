@@ -4,8 +4,8 @@
  */
 
 import { kebabCase, forEach } from 'lodash-es';
-import { fontFamilies } from '../tokens/typography.js';
-import { vibes } from '../themes/registry.js';
+import { fontFamilies } from '../tokens/typography';
+import { vibes } from '../themes/registry';
 import type { SystemThemeConfig } from '@aazucena/types';
 
 // ---------------------------------------------------------------------------

@@ -128,6 +128,43 @@ export async function fetchStrapi<T>(
   return data;
 }
 
+export async function fetchStrapiById<T>(
+  endpoint: string,
+  id: string | number,
+  options?: {
+    query?: unknown;
+    cache?: RequestCache;
+    config?: StrapiConfig;
+  },
+): Promise<{ data: T; meta?: unknown }> {
+  return fetchStrapi(`${endpoint}/${id}`, options);
+}
+
+export async function createStrapiEntry<T>(
+  endpoint: string,
+  data: unknown,
+  config?: StrapiConfig,
+): Promise<{ data: T }> {
+  const activeConfig = config || globalConfig;
+  if (!validateConfig(activeConfig)) {
+    throw new Error('Strapi configuration is invalid');
+  }
+
+  const url = `${activeConfig.url}${activeConfig.apiEndpoint}/${endpoint}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${activeConfig.token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ data }),
+  });
+
+  const responseData = await res.json();
+  if (!res.ok) throw new Error(`STRAPI_CREATE_FAILED: ${res.status}`);
+  return responseData;
+}
+
 export async function updateStrapiEntry<T>(
   endpoint: string,
   id: string | number,
@@ -152,4 +189,47 @@ export async function updateStrapiEntry<T>(
   const responseData = await res.json();
   if (!res.ok) throw new Error(`STRAPI_UPDATE_FAILED: ${res.status}`);
   return responseData;
+}
+
+export async function deleteStrapiEntry<T>(
+  endpoint: string,
+  id: string | number,
+  config?: StrapiConfig,
+): Promise<{ data: T }> {
+  const activeConfig = config || globalConfig;
+  if (!validateConfig(activeConfig)) {
+    throw new Error('Strapi configuration is invalid');
+  }
+
+  const url = `${activeConfig.url}${activeConfig.apiEndpoint}/${endpoint}/${id}`;
+  const res = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${activeConfig.token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(`STRAPI_DELETE_FAILED: ${res.status}`);
+  return data;
+}
+
+export function getStrapiMediaUrl(path?: string, config?: StrapiConfig): string {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  const activeConfig = config || globalConfig;
+  if (!activeConfig) return path;
+  return `${activeConfig.url}${path}`;
+}
+
+export async function checkStrapiHealth(config?: StrapiConfig): Promise<boolean> {
+  const activeConfig = config || globalConfig;
+  if (!activeConfig) return false;
+  try {
+    const res = await fetch(`${activeConfig.url}/_health`, { cache: 'no-store' });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }

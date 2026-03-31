@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { SeoSchema, StrapiMediaSchema } from './components.js';
+import { SeoSchema, StrapiMediaSchema } from './components';
 
 /**
  * Zod schema for Tech Stack item

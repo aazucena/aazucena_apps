@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiPortfolioSchema } from '../validators/portfolio.js';
-import { transformPortfolio, DEFAULT_PORTFOLIO } from '../transformers/portfolio.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiPortfolioSchema } from '../validators/portfolio';
+import { transformPortfolio, DEFAULT_PORTFOLIO } from '../transformers/portfolio';
 import type { PortfolioData } from '@aazucena/types';
 
 /**

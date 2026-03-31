@@ -1,5 +1,5 @@
 import { defineConfig, type PlaywrightTestConfig } from '@playwright/test';
-import { baseConfig } from './base.js';
+import { baseConfig } from './base';
 
 /**
  * Playwright Config Factory

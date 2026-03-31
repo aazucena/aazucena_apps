@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useScatterPlot } from '../hooks/useScatterPlot.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useScatterPlot } from '../hooks/useScatterPlot';
 
 export interface ScatterPlotProps extends React.HTMLAttributes<HTMLDivElement> {
   data: ScatterPlotPoint[];

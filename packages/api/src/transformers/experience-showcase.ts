@@ -1,4 +1,4 @@
-import type { StrapiExperienceShowcase } from '../validators/experience-showcase.js';
+import type { StrapiExperienceShowcase } from '../validators/experience-showcase';
 import { transformPageHeader } from '@aazucena/utils';
 import type { ExperienceShowcaseConfig } from '@aazucena/types';
 

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PageHeaderSchema, PhaseItemSchema, CtaSectionSchema } from './components.js';
+import { PageHeaderSchema, PhaseItemSchema, CtaSectionSchema } from './components';
 
 /**
  * Zod schema for Journey Page Configuration from Strapi CMS

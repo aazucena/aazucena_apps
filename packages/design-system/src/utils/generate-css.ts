@@ -1,12 +1,12 @@
 import { kebabCase } from 'lodash-es';
-import { colors } from '../tokens/colors.js';
-import { spacing, layout } from '../tokens/spacing.js';
-import { zIndex } from '../tokens/z-index.js';
-import { shadows } from '../tokens/shadows.js';
-import { vibes } from '../themes/registry.js';
-import { fontFamilies } from '../tokens/typography.js';
-import { breakpoints } from '../tokens/breakpoints.js';
-import { transitions } from '../tokens/motion.js';
+import { colors } from '../tokens/colors';
+import { spacing, layout } from '../tokens/spacing';
+import { zIndex } from '../tokens/z-index';
+import { shadows } from '../tokens/shadows';
+import { vibes } from '../themes/registry';
+import { fontFamilies } from '../tokens/typography';
+import { breakpoints } from '../tokens/breakpoints';
+import { transitions } from '../tokens/motion';
 import type { SystemThemeConfig } from '@aazucena/types';
 
 const toKebabCase = kebabCase;

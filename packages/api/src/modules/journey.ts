@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiJourneySchema } from '../validators/journey.js';
-import { transformJourney, DEFAULT_JOURNEY } from '../transformers/journey-page.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiJourneySchema } from '../validators/journey';
+import { transformJourney, DEFAULT_JOURNEY } from '../transformers/journey-page';
 import type { JourneyPageConfig } from '@aazucena/types';
 
 /**

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import type { DateRange } from 'react-day-picker';
-import { RangeCalendar } from './range-calendar.js';
+import { RangeCalendar } from './range-calendar';
 
 const dateRangePickerVariants = cva('relative w-full', {
   variants: {

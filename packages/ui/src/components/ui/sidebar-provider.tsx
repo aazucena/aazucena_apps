@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { useIsMobile } from '@aazucena/hooks/use-mobile';
 import { cn } from '@aazucena/utils';
-import { TooltipProvider } from './tooltip.js';
-import { SidebarContext, type SidebarContextProps } from './sidebar-context.js';
+import { TooltipProvider } from './tooltip';
+import { SidebarContext, type SidebarContextProps } from './sidebar-context';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 export const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

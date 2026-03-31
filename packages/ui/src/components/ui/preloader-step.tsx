@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { CircleNotch, CheckCircleSolid } from '@aazucena/icons';
-import { Badge } from './badge.js';
+import { Badge } from './badge';
 
 /**
  * Preloader Progress & Step Components

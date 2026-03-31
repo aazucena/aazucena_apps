@@ -9,10 +9,10 @@ import {
   ChartDescription,
   ChartContent,
   ChartFooter,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useChartState } from '../hooks/useChartState.js';
-import { useLineChart } from '../hooks/useLineChart.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useChartState } from '../hooks/useChartState';
+import { useLineChart } from '../hooks/useLineChart';
 import { Refresh, Dots, Activity } from '@aazucena/icons';
 
 export interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {

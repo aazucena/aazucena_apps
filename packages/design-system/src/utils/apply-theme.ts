@@ -1,5 +1,5 @@
-import { type ThemeVibeRegistry, vibes } from '../themes/registry.js';
-import { isBrowser, resolveVibeId, writeThemeConfig } from './_theme-core.js';
+import { type ThemeVibeRegistry, vibes } from '../themes/registry';
+import { isBrowser, resolveVibeId, writeThemeConfig } from './_theme-core';
 
 // ---------------------------------------------------------------------------
 // Tracked properties — so resetVibe only removes what it set

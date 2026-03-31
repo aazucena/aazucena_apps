@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiEducationResponseSchema } from '../validators/education.js';
-import { transformEducation, transformEducationList } from '../transformers/education.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiEducationResponseSchema } from '../validators/education';
+import { transformEducation, transformEducationList } from '../transformers/education';
 import type { Education } from '@aazucena/types';
 
 /**

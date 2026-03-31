@@ -1,22 +1,22 @@
 import type { SystemThemeConfig, ThemeVibe, PreloaderTheme } from '@aazucena/types';
 
-import { defaultVibe } from './default.js';
-import { minimalVibe } from './minimal.js';
-import { natureVibe } from './nature.js';
-import { cyberpunkVibe } from './cyberpunk.js';
-import { hoyoverseVibe } from './hoyoverse.js';
-import { glassVibe } from './glass.js';
-import { canadaDayVibe } from './canada-day.js';
-import { autumnVibe } from './autumn.js';
-import { northernLightsVibe } from './northern-lights.js';
-import { valentinesVibe } from './valentines.js';
-import { halloweenVibe } from './halloween.js';
-import { stPatricksVibe } from './st-patricks.js';
-import { easterVibe } from './easter.js';
-import { christmasVibe } from './christmas.js';
-import { birthdayVibe } from './birthday.js';
-import { newYearsVibe } from './new-years.js';
-import { lunarNewYearVibe } from './lunar-new-year.js';
+import { defaultVibe } from './default';
+import { minimalVibe } from './minimal';
+import { natureVibe } from './nature';
+import { cyberpunkVibe } from './cyberpunk';
+import { hoyoverseVibe } from './hoyoverse';
+import { glassVibe } from './glass';
+import { canadaDayVibe } from './canada-day';
+import { autumnVibe } from './autumn';
+import { northernLightsVibe } from './northern-lights';
+import { valentinesVibe } from './valentines';
+import { halloweenVibe } from './halloween';
+import { stPatricksVibe } from './st-patricks';
+import { easterVibe } from './easter';
+import { christmasVibe } from './christmas';
+import { birthdayVibe } from './birthday';
+import { newYearsVibe } from './new-years';
+import { lunarNewYearVibe } from './lunar-new-year';
 
 /**
  * Registry of all available visual "Vibes".

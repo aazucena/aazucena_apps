@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useFormFieldMeta } from '../hooks/useFieldHooks.js';
+import { useFormFieldMeta } from '../hooks/useFieldHooks';
 import { cn } from '@aazucena/utils';
 
 /**

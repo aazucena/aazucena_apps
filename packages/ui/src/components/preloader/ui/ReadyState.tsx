@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Button } from '../../ui/button.js';
-import { Badge } from '../../ui/badge.js';
-import { CardTitle } from '../../ui/card.js';
+import { Button } from '../../ui/button';
+import { Badge } from '../../ui/badge';
+import { CardTitle } from '../../ui/card';
 import {
   Check,
   SparklesSolid as Sparkle,

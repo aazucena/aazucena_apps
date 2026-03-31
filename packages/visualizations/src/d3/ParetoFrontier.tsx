@@ -6,9 +6,9 @@ import {
   ChartTitle,
   ChartDescription,
   ChartContent,
-} from '../common/ChartContainer.js';
-import { ChartToolbar } from '../common/ChartToolbar.js';
-import { useParetoFrontier } from '../hooks/useParetoFrontier.js';
+} from '../common/ChartContainer';
+import { ChartToolbar } from '../common/ChartToolbar';
+import { useParetoFrontier } from '../hooks/useParetoFrontier';
 
 export interface ParetoFrontierProps extends React.HTMLAttributes<HTMLDivElement> {
   data: ParetoData<GenericPoint>;

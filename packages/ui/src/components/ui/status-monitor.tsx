@@ -137,5 +137,5 @@ export const StatusMonitorFooter = React.forwardRef<
 ));
 StatusMonitorFooter.displayName = 'StatusMonitorFooter';
 
-export * from './status-monitor-log.js';
-export * from './status-monitor-alert.js';
+export * from './status-monitor-log';
+export * from './status-monitor-alert';

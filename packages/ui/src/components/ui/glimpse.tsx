@@ -7,7 +7,7 @@ import { FloatingPortal } from '@floating-ui/react';
 import { Globe, Link as LinkIcon } from '@aazucena/icons';
 import { Image } from './image';
 import { Skeleton } from './skeleton';
-import { useGlimpse } from '../../hooks/use-glimpse.js';
+import { useGlimpse } from '../../hooks/use-glimpse';
 
 const glimpsePreviewVariants = cva(
   'absolute z-50 overflow-hidden rounded-xl border bg-popover shadow-2xl transition-all duration-300',

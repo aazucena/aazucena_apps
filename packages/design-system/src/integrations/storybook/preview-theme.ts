@@ -1,6 +1,6 @@
-import { colors } from '../../tokens/colors.js';
-import { toHex } from '../../utils/color-converter.js';
-import { managerTheme } from './manager-theme.js'; // Import manager theme
+import { colors } from '../../tokens/colors';
+import { toHex } from '../../utils/color-converter';
+import { managerTheme } from './manager-theme'; // Import manager theme
 
 /**
  * Storybook Docs (Preview) Theme

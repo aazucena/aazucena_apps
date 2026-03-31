@@ -1,4 +1,4 @@
-import type { StrapiPrompt } from '../validators/prompt.js';
+import type { StrapiPrompt } from '../validators/prompt';
 import type { PromptType } from '@aazucena/types';
 
 export interface Prompt {

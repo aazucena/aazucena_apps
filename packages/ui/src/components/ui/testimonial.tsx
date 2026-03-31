@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Card } from './card.js';
+import { Card } from './card';
 
 const testimonialVariants = cva(
   'w-full max-w-lg rounded-[2rem] border transition-all duration-500 overflow-hidden flex flex-col min-h-[280px]',

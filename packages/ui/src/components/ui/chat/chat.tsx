@@ -29,6 +29,6 @@ ChatFeed.displayName = 'ChatFeed';
 
 export { Chat, ChatFeed };
 
-export * from './chat-message.js';
-export * from './chat-thread.js';
-export * from './chat-input.js';
+export * from './chat-message';
+export * from './chat-thread';
+export * from './chat-input';

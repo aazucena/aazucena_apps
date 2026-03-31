@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiPreloaderConfigSchema } from '../validators/preloader.js';
-import { transformPreloader, DEFAULT_PRELOADER } from '../transformers/preloader.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiPreloaderConfigSchema } from '../validators/preloader';
+import { transformPreloader, DEFAULT_PRELOADER } from '../transformers/preloader';
 import type { PreloaderConfig } from '@aazucena/types';
 
 /**

@@ -4,11 +4,11 @@
  */
 
 // Components
-export * from './components/PageViewTracker.js';
+export * from './components/PageViewTracker';
 
 // Services
-export * from './services/telemetry.js';
-export * from './services/performance.js';
+export * from './services/telemetry';
+export * from './services/performance';
 
 // Schemas
-export * from './schemas/index.js';
+export * from './schemas/index';

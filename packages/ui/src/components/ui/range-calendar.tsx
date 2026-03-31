@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import type { DateRange } from 'react-day-picker';
-import { Calendar, type CalendarProps } from './calendar.js';
+import { Calendar, type CalendarProps } from './calendar';
 
 export type { DateRange };
 

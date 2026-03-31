@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { featureFlagSchema, type FeatureFlagFormData } from '../../schemas/index.js';
-import { ControlledInput, ControlledSwitch } from '../fields.js';
-import { FormButton } from '../../components/FormButton.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { featureFlagSchema, type FeatureFlagFormData } from '../../schemas/index';
+import { ControlledInput, ControlledSwitch } from '../fields';
+import { FormButton } from '../../components/FormButton';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface FeatureFlagFormProps {
   variant?: 'default' | 'glass' | 'cyber';

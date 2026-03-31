@@ -1,4 +1,4 @@
-import type { StrapiWebsiteConfig } from '../validators/website-config.js';
+import type { StrapiWebsiteConfig } from '../validators/website-config';
 import { transformSeo, getMediaUrl } from '@aazucena/utils';
 import type { WebsiteConfig } from '@aazucena/types';
 

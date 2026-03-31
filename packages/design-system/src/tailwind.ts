@@ -13,7 +13,7 @@ import {
   breakpoints,
   transitions,
   layout,
-} from './tokens/index.js';
+} from './tokens/index';
 
 const tailwindPreset: Config = {
   content: [],

@@ -11,7 +11,7 @@ import type {
   CareerStat,
   GrowthData,
 } from '@aazucena/types';
-import { getSafeSkillInfo } from './base.js';
+import { getSafeSkillInfo } from './base';
 
 export function calculateCareerStats(experiences: Experience[]): CareerStat {
   if (experiences.length === 0) {

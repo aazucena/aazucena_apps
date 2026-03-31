@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Search } from '@aazucena/icons';
-import { Input } from './input.js';
+import { Input } from './input';
 
 const filterBarVariants = cva('w-full transition-all duration-500 rounded-[2rem] border p-8', {
   variants: {

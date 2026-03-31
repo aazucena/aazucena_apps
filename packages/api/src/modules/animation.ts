@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiAnimationSchema } from '../validators/animation.js';
-import { transformAnimation, DEFAULT_ANIMATION_CONFIG } from '../transformers/animation.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiAnimationSchema } from '../validators/animation';
+import { transformAnimation, DEFAULT_ANIMATION_CONFIG } from '../transformers/animation';
 import type { AnimationConfigData } from '@aazucena/types';
 
 /**

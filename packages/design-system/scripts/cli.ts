@@ -10,10 +10,10 @@ import pngToIco from 'png-to-ico';
 import { formatHex, parse } from 'culori';
 
 // Import our internal generators and data
-import { generateCssVariables } from '../src/utils/generate-css.js';
-import { generateFigmaTokens } from '../src/utils/generate-figma.js';
-import { vibes, getThemeConfig } from '../src/themes/registry.js';
-import * as assets from '../src/assets/index.js';
+import { generateCssVariables } from '../src/utils/generate-css';
+import { generateFigmaTokens } from '../src/utils/generate-figma';
+import { vibes, getThemeConfig } from '../src/themes/registry';
+import * as assets from '../src/assets/index';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

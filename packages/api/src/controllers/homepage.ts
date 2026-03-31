@@ -1,19 +1,19 @@
-import { getPortfolio } from '../modules/portfolio.js';
-import { getAbout } from '../modules/about.js';
-import { getHero } from '../modules/hero.js';
-import { getProjects } from '../modules/projects.js';
-import { getExperiences } from '../modules/experiences.js';
-import { getPosts } from '../modules/posts.js';
-import { getTestimonials } from '../modules/testimonials.js';
-import { getAwards } from '../modules/awards.js';
-import { getSkills } from '../modules/skills.js';
-import { getHomepage } from '../modules/homepage.js';
-import { getProjectShowcaseConfig } from '../modules/project-showcase.js';
-import { getExperienceShowcase } from '../modules/experience-showcase.js';
-import { getSkillShowcase } from '../modules/skill-showcase.js';
-import { getWebsiteConfig } from '../modules/website-config.js';
-import { getAnimationConfig } from '../modules/animation.js';
-import { getBlogConfig } from '../modules/blog-config.js';
+import { getPortfolio } from '../modules/portfolio';
+import { getAbout } from '../modules/about';
+import { getHero } from '../modules/hero';
+import { getProjects } from '../modules/projects';
+import { getExperiences } from '../modules/experiences';
+import { getPosts } from '../modules/posts';
+import { getTestimonials } from '../modules/testimonials';
+import { getAwards } from '../modules/awards';
+import { getSkills } from '../modules/skills';
+import { getHomepage } from '../modules/homepage';
+import { getProjectShowcaseConfig } from '../modules/project-showcase';
+import { getExperienceShowcase } from '../modules/experience-showcase';
+import { getSkillShowcase } from '../modules/skill-showcase';
+import { getWebsiteConfig } from '../modules/website-config';
+import { getAnimationConfig } from '../modules/animation';
+import { getBlogConfig } from '../modules/blog-config';
 import type {
   HeroData,
   AboutData,

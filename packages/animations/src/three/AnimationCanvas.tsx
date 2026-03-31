@@ -9,8 +9,8 @@
 
 import type { JSX } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { AnimationParticles } from '../pixi/index.js';
-import { AnimationScene } from './AnimationScene.js';
+import { AnimationParticles } from '../pixi/index';
+import { AnimationScene } from './AnimationScene';
 import type { AtmosphericPhase } from '@aazucena/types';
 import { useAnimation, usePortfolio } from '@aazucena/context';
 

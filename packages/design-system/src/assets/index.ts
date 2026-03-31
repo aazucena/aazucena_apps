@@ -1,3 +1,3 @@
-export * from './logos.js';
-export * from './favicons.js';
-export * from './constants.js';
+export * from './logos';
+export * from './favicons';
+export * from './constants';

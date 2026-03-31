@@ -5,11 +5,11 @@ import {
   StatsSchema,
   SeoSchema,
   WebLinkArraySchema,
-} from './components.js';
+} from './components';
 import { ProjectDisplayEnum, ProjectTypeEnum, ProjectStatusEnum } from '@aazucena/types';
-import { StrapiSkillSchema } from './skills.js';
-import { StrapiExperienceSchema } from './experiences.js';
-import { StrapiEducationSchema } from './education.js';
+import { StrapiSkillSchema } from './skills';
+import { StrapiExperienceSchema } from './experiences';
+import { StrapiEducationSchema } from './education';
 import type { StrapiProject } from '@aazucena/types';
 
 /**

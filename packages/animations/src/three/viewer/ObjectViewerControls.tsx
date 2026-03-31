@@ -22,7 +22,7 @@ import {
   DropdownMenuSeparator,
 } from '@aazucena/ui';
 import * as Icons from '@aazucena/icons';
-import { useObjectViewer } from './context.js';
+import { useObjectViewer } from './context';
 import type { PresetsType } from '@react-three/drei/helpers/environment-assets.js';
 
 const ENV_PRESETS = ['city', 'night', 'warehouse', 'forest', 'sunset'] as PresetsType[];

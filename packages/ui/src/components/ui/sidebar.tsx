@@ -4,10 +4,10 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Input } from './input.js';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from './sheet.js';
-import { useSidebar } from './sidebar-context.js';
-import { SIDEBAR_WIDTH_MOBILE } from './sidebar-provider.js';
+import { Input } from './input';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from './sheet';
+import { useSidebar } from './sidebar-context';
+import { SIDEBAR_WIDTH_MOBILE } from './sidebar-provider';
 
 export const sidebarVariants = cva('flex h-full flex-col transition-all duration-300', {
   variants: {
@@ -144,10 +144,10 @@ export const SidebarInput = React.forwardRef<
 ));
 SidebarInput.displayName = 'SidebarInput';
 
-export * from './sidebar-context.js';
-export * from './sidebar-provider.js';
-export * from './sidebar-menu.js';
-export * from './sidebar-group.js';
-export * from './sidebar-actions.js';
-export * from './sidebar-layout.js';
-export * from './sidebar-block.js';
+export * from './sidebar-context';
+export * from './sidebar-provider';
+export * from './sidebar-menu';
+export * from './sidebar-group';
+export * from './sidebar-actions';
+export * from './sidebar-layout';
+export * from './sidebar-block';

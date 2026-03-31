@@ -1,2 +1,2 @@
-export * from './particles.js';
-export { AnimationParticles } from './AnimationParticles.js';
+export * from './particles';
+export { AnimationParticles } from './AnimationParticles';

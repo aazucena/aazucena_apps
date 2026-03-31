@@ -1,5 +1,5 @@
-import { Button } from '../ui/button.js';
-import { Card, CardContent } from '../ui/card.js';
+import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
 import { X } from '@aazucena/icons';
 import { useEffect } from 'react';
 import {
@@ -10,7 +10,7 @@ import {
   usePreloaderTheme,
   useShowOnce,
 } from '@aazucena/hooks';
-import { LoadingState, ReadyState, ErrorState } from './ui/index.js';
+import { LoadingState, ReadyState, ErrorState } from './ui/index';
 import type { PreloaderPropsWithTheme } from '@aazucena/types';
 import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
 

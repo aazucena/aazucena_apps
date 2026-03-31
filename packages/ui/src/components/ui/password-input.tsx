@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { cn } from '@aazucena/utils';
-import { Input, type InputProps } from './input.js';
-import { Validator, type ValidatorRule } from './validator.js';
+import { Input, type InputProps } from './input';
+import { Validator, type ValidatorRule } from './validator';
 
 export interface PasswordStrengthRule {
   label: string;

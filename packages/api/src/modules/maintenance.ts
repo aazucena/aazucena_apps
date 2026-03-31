@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { fetchStrapi } from '../services/strapi.js';
-import { StrapiMaintenanceSchema } from '../validators/maintenance.js';
+import { fetchStrapi } from '../services/strapi';
+import { StrapiMaintenanceSchema } from '../validators/maintenance';
 import {
   transformMaintenance,
   DEFAULT_MAINTENANCE,
   type MaintenanceData,
-} from '../transformers/maintenance.js';
+} from '../transformers/maintenance';
 
 /**
  * Fetch maintenance mode configuration

@@ -1,4 +1,4 @@
-import type { StrapiPage } from '../validators/page.js';
+import type { StrapiPage } from '../validators/page';
 import { transformSeo } from '@aazucena/utils';
 import type { Page } from '@aazucena/types';
 

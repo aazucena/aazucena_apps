@@ -8,8 +8,8 @@ import {
   sendPageViewTelemetry,
   sendClientErrorTelemetry,
   sendInteractionTelemetry,
-} from '../services/telemetry.js';
-import { initPerformanceTracking } from '../services/performance.js';
+} from '../services/telemetry';
+import { initPerformanceTracking } from '../services/performance';
 
 export function PageViewTracker(): JSX.Element | null {
   useEffect(() => {

@@ -16,7 +16,7 @@ import {
   ControlledTextarea as _ControlledTextarea,
   ControlledCheckbox as _ControlledCheckbox,
   ControlledSwitch as _ControlledSwitch,
-} from '../components/fields.js';
+} from '../components/fields';
 
 type TemplateFieldProps = {
   name: string;

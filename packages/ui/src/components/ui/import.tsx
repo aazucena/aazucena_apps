@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './dialog';
-import { useImport } from '../../hooks/use-import.js';
+import { useImport } from '../../hooks/use-import';
 
 const importVariants = cva(
   'flex flex-col gap-6 rounded-xl border p-6 transition-all duration-300',

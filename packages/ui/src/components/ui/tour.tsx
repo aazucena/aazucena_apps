@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { TourStep, type TourStepData } from './tour-step.js';
+import { TourStep, type TourStepData } from './tour-step';
 
 const tourVariants = cva('', {
   variants: {

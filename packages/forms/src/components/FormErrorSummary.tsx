@@ -4,7 +4,7 @@ import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
-import { useFormInstance } from '../utils/composables.js';
+import { useFormInstance } from '../utils/composables';
 
 /**
  * ## Engineering Standards

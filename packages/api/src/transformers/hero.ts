@@ -1,4 +1,4 @@
-import type { StrapiHero } from '../validators/hero.js';
+import type { StrapiHero } from '../validators/hero';
 import type { HeroData } from '@aazucena/types';
 
 export const DEFAULT_HERO: HeroData = {

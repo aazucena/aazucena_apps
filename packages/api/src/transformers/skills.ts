@@ -1,6 +1,6 @@
 import type { StrapiSkill } from '@aazucena/types';
 import type { GradientVariant } from '@aazucena/types';
-import type { StrapiSkillCategory } from '../validators/skill-category.js';
+import type { StrapiSkillCategory } from '../validators/skill-category';
 import type { Skill, SkillCategory } from '@aazucena/types';
 
 /**

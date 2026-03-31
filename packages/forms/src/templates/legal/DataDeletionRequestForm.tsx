@@ -5,10 +5,10 @@ import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
 import { cn } from '@aazucena/utils';
-import { dataDeletionSchema, type DataDeletionFormData } from '../../schemas/index.js';
-import { ControlledTextarea, ControlledCheckbox } from '../fields.js';
-import { FormButton } from '../../components/FormButton.js';
-import { FormErrorSummary } from '../../components/FormErrorSummary.js';
+import { dataDeletionSchema, type DataDeletionFormData } from '../../schemas/index';
+import { ControlledTextarea, ControlledCheckbox } from '../fields';
+import { FormButton } from '../../components/FormButton';
+import { FormErrorSummary } from '../../components/FormErrorSummary';
 
 export interface DataDeletionRequestFormProps {
   variant?: 'default' | 'glass' | 'cyber';

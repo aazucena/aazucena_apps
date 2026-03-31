@@ -1,4 +1,4 @@
-import type { StrapiContactForm } from '../validators/contact-form.js';
+import type { StrapiContactForm } from '../validators/contact-form';
 import { transformPageHeader } from '@aazucena/utils';
 import type { ContactFormConfig } from '@aazucena/types';
 
