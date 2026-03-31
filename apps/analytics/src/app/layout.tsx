@@ -9,6 +9,7 @@ import { RootProvider } from '@/providers/RootProvider';
 import { Sidebar } from '@/components/common/Sidebar';
 import { Header } from '@/components/common/Header';
 import { CommandPalette } from '@/components/common/CommandPalette';
+import { AuthGate } from '@/components/common/AuthGate';
 
 // 3. Fonts: Inter for UI, JetBrains Mono for Data/Telemetry
 const inter = Inter({
@@ -40,6 +41,7 @@ export default function RootLayout({
         className={`${inter.variable} ${mono.variable} font-sans bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased`}
       >
         <RootProvider>
+          <AuthGate />
           <CommandPalette />
           <div className="flex h-screen w-full overflow-hidden">
             {/* LEFT: Fixed Sidebar Navigation */}

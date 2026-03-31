@@ -1,7 +1,33 @@
 import type { NextConfig } from 'next';
+import { withSentryConfig } from '@sentry/nextjs';
+import { sentryNextConfigOptions } from '@aazucena/config/sentry/nextjs';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { version } = require('./package.json') as { version: string };
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  webpack(config) {
+    // Mirror Turbopack's resolveExtensions for webpack dev mode:
+    // allows workspace packages that export .js paths to be resolved to .ts/.tsx source.
+    config.resolve.extensionAlias = {
+      '.js': ['.ts', '.tsx', '.js'],
+      '.jsx': ['.tsx', '.jsx'],
+      '.mjs': ['.mts', '.mjs'],
+    };
+    return config;
+  },
+  transpilePackages: [
+    '@aazucena/analytics',
+    '@aazucena/api',
+    '@aazucena/constants',
+    '@aazucena/context',
+    '@aazucena/hooks',
+    '@aazucena/icons',
+    '@aazucena/stores',
+    '@aazucena/types',
+    '@aazucena/ui',
+    '@aazucena/utils',
+    '@aazucena/visualizations',
+  ],
   async headers() {
     return [
       {
@@ -21,9 +47,15 @@ const nextConfig: NextConfig = {
     ];
   },
   env: {
-    // This makes process.env.NEXT_PUBLIC_PORT available in the browser
     NEXT_PUBLIC_PORT: process.env.PORT || '3001',
+    NEXT_PUBLIC_APP_VERSION: version,
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(
+  nextConfig,
+  sentryNextConfigOptions({
+    org: process.env.SENTRY_ORG!,
+    project: process.env.SENTRY_PROJECT ?? 'analytics',
+  }),
+);
