@@ -14,7 +14,19 @@ import {
   CheckCircle,
   Refresh,
 } from '@aazucena/icons';
-import { NeuralMap } from '@aazucena/visualizations';
+import dynamic from 'next/dynamic';
+const NeuralMap = dynamic(
+  () =>
+    import('@aazucena/visualizations/src/intelligence/NeuralMap').then((m) => ({
+      default: m.NeuralMap,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[200px] animate-pulse bg-zinc-100 dark:bg-zinc-900 rounded-3xl" />
+    ),
+  },
+);
 import { cn } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/common/MarkdownRenderer';
 

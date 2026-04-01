@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, setCategoryPreset } from '@/store';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
@@ -11,8 +12,26 @@ import { SentinelWatchdog } from '@/components/dashboard/SentinelWatchdog';
 import { MetricCard } from '@/components/widgets/MetricCard';
 import { TelemetryFeed } from '@/components/logs/TelemetryFeed';
 
-// 2. D3 Visualizations — from @aazucena/visualizations
-import { Heatmap, StreamGraph } from '@aazucena/visualizations';
+// 2. D3 Visualizations — lazy chunks, excluded from initial page compilation
+const Heatmap = dynamic(
+  () => import('@aazucena/visualizations/src/d3/Heatmap').then((m) => ({ default: m.Heatmap })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[320px] animate-pulse bg-zinc-100 dark:bg-zinc-900 rounded-3xl" />
+    ),
+  },
+);
+const StreamGraph = dynamic(
+  () =>
+    import('@aazucena/visualizations/src/d3/StreamGraph').then((m) => ({ default: m.StreamGraph })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] animate-pulse bg-zinc-100 dark:bg-zinc-900 rounded-3xl" />
+    ),
+  },
+);
 
 // 3. Icons (Using MyNaui)
 import {

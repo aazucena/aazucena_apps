@@ -6,7 +6,29 @@ import * as topojson from 'topojson-client';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import { StreamGraph, ChoroplethMap } from '@aazucena/visualizations';
+import dynamic from 'next/dynamic';
+const StreamGraph = dynamic(
+  () =>
+    import('@aazucena/visualizations/src/d3/StreamGraph').then((m) => ({ default: m.StreamGraph })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[450px] animate-pulse bg-zinc-100 dark:bg-zinc-900 rounded-3xl" />
+    ),
+  },
+);
+const ChoroplethMap = dynamic(
+  () =>
+    import('@aazucena/visualizations/src/d3/ChoroplethMap').then((m) => ({
+      default: m.ChoroplethMap,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[500px] animate-pulse bg-zinc-100 dark:bg-zinc-900 rounded-3xl" />
+    ),
+  },
+);
 import { useTrafficStats } from '@/hooks/useTraffic';
 import { Globe, Users, Eye, ArrowUpRight } from '@aazucena/icons';
 import type { GenericTimeSeriesStep, MapRegion } from '@aazucena/types';
