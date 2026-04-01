@@ -4,6 +4,8 @@ import { sentryNextConfigOptions } from '@aazucena/config/sentry/nextjs';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { version } = require('./package.json') as { version: string };
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const nextConfig: NextConfig = {
   webpack(config) {
     // Mirror Turbopack's resolveExtensions for webpack dev mode:
@@ -15,19 +17,27 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
-  transpilePackages: [
-    '@aazucena/analytics',
-    '@aazucena/api',
-    '@aazucena/constants',
-    '@aazucena/context',
-    '@aazucena/hooks',
-    '@aazucena/icons',
-    '@aazucena/stores',
-    '@aazucena/types',
-    '@aazucena/ui',
-    '@aazucena/utils',
-    '@aazucena/visualizations',
-  ],
+  // Turbopack resolves workspace TypeScript packages natively — transpilePackages
+  // is only needed for webpack (production builds). Keeping it in dev forces every
+  // workspace package through Next.js's full compilation pipeline on cold start,
+  // multiplying Turbopack's first-compile time significantly.
+  ...(isDev
+    ? {}
+    : {
+        transpilePackages: [
+          '@aazucena/analytics',
+          '@aazucena/api',
+          '@aazucena/constants',
+          '@aazucena/context',
+          '@aazucena/hooks',
+          '@aazucena/icons',
+          '@aazucena/stores',
+          '@aazucena/types',
+          '@aazucena/ui',
+          '@aazucena/utils',
+          '@aazucena/visualizations',
+        ],
+      }),
   async headers() {
     return [
       {
@@ -52,10 +62,15 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(
-  nextConfig,
-  sentryNextConfigOptions({
-    org: process.env.SENTRY_ORG!,
-    project: process.env.SENTRY_PROJECT ?? 'analytics',
-  }),
-);
+// Skip Sentry instrumentation in dev — it wraps every module compilation with
+// source-map generation and SDK injection, adding seconds to each cold-start.
+// Sentry events are not sent in dev anyway (no DSN in local .env).
+export default isDev
+  ? nextConfig
+  : withSentryConfig(
+      nextConfig,
+      sentryNextConfigOptions({
+        org: process.env.SENTRY_ORG!,
+        project: process.env.SENTRY_PROJECT ?? 'analytics',
+      }),
+    );
