@@ -10,7 +10,6 @@ const ALWAYS_PUBLIC = [
 ];
 
 export function proxy(req: NextRequest) {
-  console.log('🚀 ~ proxy ~ req:', req);
   const { pathname } = req.nextUrl;
 
   if (ALWAYS_PUBLIC.some((p) => pathname.startsWith(p))) {
