@@ -7,13 +7,9 @@ const { version } = require('./package.json') as { version: string };
 const isDev = process.env.NODE_ENV === 'development';
 
 const nextConfig: NextConfig = {
-  // Turbopack is the default dev compiler in Next.js 16+.
-  // extensionAlias (.js → .ts/.tsx) is handled natively by Turbopack's
-  // TypeScript resolver — no config needed here.
-  turbopack: {},
   webpack(config) {
-    // Production builds still use webpack — mirror Turbopack's extension
-    // resolution so workspace .js imports resolve to .ts/.tsx source.
+    // Mirror Turbopack's resolveExtensions for webpack dev mode:
+    // allows workspace packages that export .js paths to be resolved to .ts/.tsx source.
     config.resolve.extensionAlias = {
       '.js': ['.ts', '.tsx', '.js'],
       '.jsx': ['.tsx', '.jsx'],
