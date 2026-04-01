@@ -1,7 +1,7 @@
 import { mainClickhouseClient as clickhouse } from '@/lib/services';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. Execute summary query from pre-aggregated daily table
     const resultSet = await clickhouse.query({
@@ -15,6 +15,7 @@ export async function GET() {
         FROM analytics.daily_event_summary
       `,
       format: 'JSONEachRow',
+      abort_signal: req.signal,
     });
 
     const [data] = (await resultSet.json()) as any[];

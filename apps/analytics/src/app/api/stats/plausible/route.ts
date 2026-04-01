@@ -4,7 +4,7 @@ import { plausibleClickhouseClient } from '@/lib/services/clickhouse';
 
 export const dynamic = 'force-dynamic'; // Ensure no caching for real-time stats
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // Query for daily aggregate stats from Plausible
     // We aggregate from the 'events' table for the last 30 days.
@@ -26,6 +26,7 @@ export async function GET() {
     const result = await plausibleClickhouseClient.query({
       query: query,
       format: 'JSONEachRow',
+      abort_signal: req.signal,
     });
 
     const data = await result.json();

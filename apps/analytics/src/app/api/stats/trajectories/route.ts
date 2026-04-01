@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { mainClickhouseClient } from '@/lib/services';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. Get List of trajectories (Unique sessions/ids)
     const listQuery = `
@@ -39,8 +39,16 @@ export async function GET() {
     `;
 
     const [listRes, stepsRes] = await Promise.all([
-      mainClickhouseClient.query({ query: listQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: stepsQuery, format: 'JSONEachRow' }),
+      mainClickhouseClient.query({
+        query: listQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: stepsQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
     ]);
 
     const list = (await listRes.json()) as any[];

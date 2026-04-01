@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { mainClickhouseClient } from '@/lib/services';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. Fetch Top Tracks (All time) from Daily MV
     const tracksQuery = `
@@ -37,9 +37,21 @@ export async function GET() {
     `;
 
     const [tracksRes, genreRes, statsRes] = await Promise.all([
-      mainClickhouseClient.query({ query: tracksQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: genreQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: statsQuery, format: 'JSONEachRow' }),
+      mainClickhouseClient.query({
+        query: tracksQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: genreQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: statsQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
     ]);
 
     const tracks = await tracksRes.json();

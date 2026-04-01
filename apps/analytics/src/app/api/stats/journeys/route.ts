@@ -27,6 +27,7 @@ export async function GET(req: NextRequest) {
         `,
         query_params: { sid: sessionId },
         format: 'JSONEachRow',
+        abort_signal: req.signal,
       });
 
       const rawEvents = (await resultSet.json()) as any[];
@@ -62,6 +63,7 @@ export async function GET(req: NextRequest) {
         LIMIT 50
       `,
       format: 'JSONEachRow',
+      abort_signal: req.signal,
     });
 
     const journeys = (await resultSet.json()) as any[];

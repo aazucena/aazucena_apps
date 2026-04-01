@@ -4,7 +4,7 @@ import { SENTINEL_THRESHOLDS, SentinelAlert } from '@aazucena/constants';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. Fetch current health data from MVs and Integrity tables
     const healthQuery = `
@@ -28,7 +28,11 @@ export async function GET() {
         (SELECT count() / 7 FROM analytics.telemetry_events WHERE toDate(timestamp) >= subtractDays(today(), 7) AND toDate(timestamp) < today()) as avg_volume
     `;
 
-    const resultSet = await clickhouse.query({ query: healthQuery, format: 'JSONEachRow' });
+    const resultSet = await clickhouse.query({
+      query: healthQuery,
+      format: 'JSONEachRow',
+      abort_signal: req.signal,
+    });
     const [stats] = (await resultSet.json()) as any[];
 
     const alerts: SentinelAlert[] = [];

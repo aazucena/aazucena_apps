@@ -19,6 +19,7 @@ export async function GET(request: Request) {
         ORDER BY date ASC
       `,
       format: 'JSONEachRow',
+      abort_signal: request.signal,
     });
 
     const rawRows = (await resultSet.json()) as any[];
@@ -49,6 +50,7 @@ export async function GET(request: Request) {
         ORDER BY date ASC
       `,
       format: 'JSONEachRow',
+      abort_signal: request.signal,
     });
     const dailyRows = (await dailyResult.json()) as Array<{ date: string; count: string }>;
     const heatmapData = dailyRows.map((r) => ({

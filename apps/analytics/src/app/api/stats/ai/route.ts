@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { mainClickhouseClient } from '@/lib/services';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. KPI Summary (Last 24 hours) from Daily MV
     const summaryQuery = `
@@ -65,10 +65,26 @@ export async function GET() {
     `;
 
     const [summaryRes, distRes, agentRes, historyRes] = await Promise.all([
-      mainClickhouseClient.query({ query: summaryQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: modelDistributionQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: agentDistributionQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: spendHistoryQuery, format: 'JSONEachRow' }),
+      mainClickhouseClient.query({
+        query: summaryQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: modelDistributionQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: agentDistributionQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: spendHistoryQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
     ]);
 
     const summary = await summaryRes.json();

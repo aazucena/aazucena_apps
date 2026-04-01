@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import { mainClickhouseClient } from '@/lib/services';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. Fetch KPI Summary (Last 24 hours) from Daily MVs
     const summaryQuery = `
@@ -56,10 +56,26 @@ export async function GET() {
 
     // Execute all queries in parallel
     const [summaryResult, historyResult, errorSummaryResult, topErrorsResult] = await Promise.all([
-      mainClickhouseClient.query({ query: summaryQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: historyQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: errorSummaryQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: topErrorsQuery, format: 'JSONEachRow' }),
+      mainClickhouseClient.query({
+        query: summaryQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: historyQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: errorSummaryQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: topErrorsQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
     ]);
 
     const summaryData = await summaryResult.json();
@@ -81,6 +97,7 @@ export async function GET() {
     const integrityResult = await mainClickhouseClient.query({
       query: integrityQuery,
       format: 'JSONEachRow',
+      abort_signal: req.signal,
     });
     const integrityData = await integrityResult.json();
 

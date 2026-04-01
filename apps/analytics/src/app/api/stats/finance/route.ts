@@ -4,7 +4,7 @@ import { mainClickhouseClient } from '@/lib/services';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. Aggregated KPIs
     const summaryQuery = `
@@ -45,9 +45,21 @@ export async function GET() {
     `;
 
     const [summaryRes, trendsRes, historyRes] = await Promise.all([
-      mainClickhouseClient.query({ query: summaryQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: trendsQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: historyQuery, format: 'JSONEachRow' }),
+      mainClickhouseClient.query({
+        query: summaryQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: trendsQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: historyQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
     ]);
 
     const summaryData = await summaryRes.json();

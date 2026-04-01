@@ -1,7 +1,7 @@
 import { mainClickhouseClient as clickhouse } from '@/lib/services';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const resultSet = await clickhouse.query({
       query: `
@@ -18,6 +18,7 @@ export async function GET() {
         LIMIT 100
       `,
       format: 'JSONEachRow',
+      abort_signal: req.signal,
     });
 
     const rawLogs = (await resultSet.json()) as any[];
