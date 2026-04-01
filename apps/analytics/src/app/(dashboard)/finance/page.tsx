@@ -5,17 +5,7 @@ import React, { useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import dynamic from 'next/dynamic';
-const StreamGraph = dynamic(
-  () =>
-    import('@aazucena/visualizations/src/d3/StreamGraph').then((m) => ({ default: m.StreamGraph })),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-[400px] animate-pulse bg-zinc-100 dark:bg-zinc-900 rounded-3xl" />
-    ),
-  },
-);
+import { StreamGraph } from '@aazucena/visualizations';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
 import { useFinanceStats } from '@/hooks/useFinance';
 import { Database, CreditCard, Dollar, TrendingUp } from '@aazucena/icons';

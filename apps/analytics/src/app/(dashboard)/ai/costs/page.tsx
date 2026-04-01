@@ -4,17 +4,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import dynamic from 'next/dynamic';
-const StreamGraph = dynamic(
-  () =>
-    import('@aazucena/visualizations/src/d3/StreamGraph').then((m) => ({ default: m.StreamGraph })),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-[400px] animate-pulse bg-zinc-100 dark:bg-zinc-900 rounded-3xl" />
-    ),
-  },
-);
+import { StreamGraph } from '@aazucena/visualizations';
 import { CreditCard, Zap, Activity, Chip, Database, TrendingUp } from '@aazucena/icons';
 import { useAiStats } from '@/hooks/useAiStats';
 import type { GenericTimeSeriesStep } from '@aazucena/types';

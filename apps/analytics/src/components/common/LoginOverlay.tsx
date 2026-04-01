@@ -3,16 +3,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Shield, Eye, EyeOff, Danger } from '@aazucena/icons';
-// Deep imports — bypass the 225-entry barrel so Turbopack only compiles 2 files
-import { Input } from '@aazucena/ui/src/components/ui/input';
 import {
+  Input,
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
   CardFooter,
-} from '@aazucena/ui/src/components/ui/card';
+} from '@aazucena/ui';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
 import { IntegrityBadge } from './IntegrityBadge';
