@@ -1,0 +1,66 @@
+# ==============================================================================
+# AAZUCENA APPS // MASTER ORCHESTRATOR
+# ==============================================================================
+# This orchestrates all backend services, intelligence nodes, and content apps.
+# ==============================================================================
+
+name: cms
+
+include:
+  - services/clickhouse/compose.yml
+  - services/plausible/compose.yml
+  - services/websocket/compose.yml
+  - services/intel-bridge/compose.yml
+  - services/intel-engine/compose.yml
+  - services/ollama/compose.yml
+  - apps/cms/compose.yml
+
+services:
+  # --- Network & Volume Injection ---
+  # Ensures all microservices share the same bridge network for discovery.
+
+  clickhouse:
+    networks:
+      - aazucena-network
+    env_file: apps/cms/.env
+
+  plausible:
+    networks:
+      - aazucena-network
+    env_file: apps/cms/.env
+      
+  plausible-clickhouse:
+    networks:
+      - aazucena-network
+    env_file: apps/cms/.env
+      
+  websocket:
+    networks:
+      - aazucena-network
+    env_file: apps/cms/.env
+      
+  intel-bridge:
+    networks:
+      - aazucena-network
+    env_file: apps/cms/.env
+      
+  intel-engine:
+    networks:
+      - aazucena-network
+    env_file: apps/cms/.env
+    volumes:
+      - ./docs:/app/data/docs:ro
+      - ./ROADMAP.md:/app/data/context/ROADMAP.md:ro
+      - ./GEMINI.md:/app/data/context/GEMINI.md:ro
+      - ./CLAUDE.md:/app/data/context/CLAUDE.md:ro
+      - ./README.md:/app/data/context/README.md:ro
+
+  ollama:
+    networks:
+      - aazucena-network
+
+networks:
+  aazucena-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: "1400"

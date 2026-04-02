@@ -55,7 +55,6 @@ services:
     environment:
       - CLICKHOUSE_SKIP_USER_SETUP=1
       - CLICKHOUSE_USER=${PLAUSIBLE_CLICKHOUSE_USER:-default}
-      - CLICKHOUSE_PASSWORD=${PLAUSIBLE_CLICKHOUSE_PASSWORD}
       - CLICKHOUSE_DB=${PLAUSIBLE_CLICKHOUSE_DB:-plausible_events_db}
     healthcheck:
       test:
@@ -88,8 +87,8 @@ services:
     environment:
       - TMPDIR=/var/lib/plausible/tmp
       # required: https://github.com/plausible/community-edition/wiki/configuration#required
-      - BASE_URL=${PLAUSIBLE_BASE_URL}
-      - SECRET_KEY_BASE=${PLAUSIBLE_SECRET_KEY_BASE}
+      - BASE_URL=${PLAUSIBLE_BASE_URL:-http://localhost:8000}
+      - SECRET_KEY_BASE=${PLAUSIBLE_SECRET_KEY_BASE:-NjZdsV53VV6NedjSIXyVMscHe2pfnm+ng2bMi4IBjsG7Kt1dguX8Hnc/1LXt6KDD}
       # optional: https://github.com/plausible/community-edition/wiki/configuration#optional
       # registration: https://github.com/plausible/community-edition/wiki/configuration#registration
       - TOTP_VAULT_KEY

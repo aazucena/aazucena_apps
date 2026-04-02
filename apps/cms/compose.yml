@@ -1,14 +1,10 @@
 # ==============================================================================
-# Docker Compose Configuration for LOCAL DEVELOPMENT ONLY
+# AAZUCENA APPS // CMS (STRAPI)
 # ==============================================================================
-include:
-  - services/clickhouse/compose.yml
-  - services/plausible/compose.yml
-  - services/websocket/compose.yml
-  - services/intel-bridge/compose.yml
-  - services/intel-engine/compose.yml
-  - services/ollama/compose.yml
-  
+# This orchestrates only the CMS, Database, and Cache.
+# Master orchestration is handled in the project root.
+# ==============================================================================
+
 services:
   strapi:
     container_name: aazucena-cms
@@ -73,55 +69,12 @@ services:
       retries: 5
     restart: unless-stopped
 
-  # Microservice Network Injection
-  clickhouse:
-    networks:
-      - aazucena-network
-
-  plausible:
-    networks:
-      - aazucena-network
-      
-  plausible-clickhouse:
-    networks:
-      - aazucena-network
-      
-  websocket:
-    networks:
-      - aazucena-network
-      
-  intel-bridge:
-    networks:
-      - aazucena-network
-      
-  intel-engine:
-    networks:
-      - aazucena-network
-    volumes:
-      - /home/aazucena/Projects/aazucena_apps/docs:/app/data/docs:ro
-      - /home/aazucena/Projects/aazucena_apps/ROADMAP.md:/app/data/context/ROADMAP.md:ro
-      - /home/aazucena/Projects/aazucena_apps/GEMINI.md:/app/data/context/GEMINI.md:ro
-      - /home/aazucena/Projects/aazucena_apps/CLAUDE.md:/app/data/context/CLAUDE.md:ro
-      - /home/aazucena/Projects/aazucena_apps/README.md:/app/data/context/README.md:ro
-
-  ollama:
-    networks:
-      - aazucena-network
-      
 volumes:
   postgres-data:
     driver: local
   redis-data:
     driver: local
-  clickhouse-logs:    
-    driver: local
-  clickhouse-data:
-    driver: local
-  clickhouse-backups:
-    driver: local
 
 networks:
   aazucena-network:
     driver: bridge
-    driver_opts:
-      com.docker.network.driver.mtu: "1400"

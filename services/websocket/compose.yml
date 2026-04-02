@@ -12,6 +12,5 @@ services:
     environment:
       - WS_PORT=3001
       - WS_INTERNAL_SECRET=${WS_INTERNAL_SECRET:-dev-secret-123}
-      - INGESTION_SECRET_KEY=${INGESTION_SECRET_KEY}
       - INTERNAL_INGEST_URL=http://host.docker.internal:8080/api/ingest
     restart: unless-stopped

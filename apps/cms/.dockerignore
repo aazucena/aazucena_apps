@@ -55,4 +55,3 @@ Dockerfile
 docker-compose*.yml
 *compose.yml
 *compose.override.yml
-./services

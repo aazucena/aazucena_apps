@@ -54,3 +54,5 @@ volumes:
     driver: local
   clickhouse-data:
     driver: local
+  clickhouse-backups:
+    driver: local
