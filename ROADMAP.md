@@ -3,6 +3,7 @@
 ## ⚡ CURRENT PRIORITY: Phase 4 - Developer Experience
 
 **Recent Completions:**
+
 - ✅ **Phase 3 - Performance Optimization** (2026-02-04) - 74.3% bundle reduction (410.85 KB → 105.50 KB gzipped), exceeded 63% target by 11.3%
 - ✅ **AZUCENA_LYTICS v1** (2026-02-04) - Engineering Intelligence Terminal (100% Complete). **ALL 5 PHASES FINISHED** (Ingestion, AI Observability, External Data, Advanced Features, Production Hardening).
 - ✅ **Data Integrity & Security** (2026-02-04) - Tiered ClickHouse TTL (14d-2y), Native Backups (backup.sh), and RBAC Security Controls.
@@ -16,6 +17,7 @@
 - ✅ **Phase 0** - Infrastructure & Architecture (2026-01-17)
 
 **Phase 2 Completed:** ✅ Component Architecture & Animations Restructuring - 100% Complete (2026-02-02)
+
 - ✅ Template system (3 templates: Editorial, Legal, Landing)
 - ✅ Utility refactoring (monolithic → modular: 15 specialized utilities)
 - ✅ Common components (6 new: StatusBadge, ThemeToggle, Breadcrumbs, GradientAccent, WatermarkBackground, DetailNavigation)
@@ -46,6 +48,7 @@
 ## Tech Stack
 
 ### Frontend
+
 - **Framework:** Astro v5.16.0 (with React integration)
 - **Build Tool:** Vite
 - **UI Library:** React 19.2 with TypeScript
@@ -60,6 +63,7 @@
 - **State Management:** React Context API + Custom Hooks
 
 ### Backend & Infrastructure
+
 - **CMS:** Strapi v5 with 15+ plugins
   - Core: `strapi-plugin-icons-field` v1.1.5, GraphQL, Documentation, Sentry, SEO
   - Editor: CKEditor, Multi-select, Color picker
@@ -74,11 +78,13 @@
 - **CI/CD:** CircleCI (future - prechecks only, currently stashed)
 
 ### Monitoring & Logging
+
 - **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights, Plausible (self-hosted)
 - **Backend:** Pino, Sentry
 - **Caching:** Redis
 
 ### Development Tools
+
 - **Design:** Figma
 - **Component Dev:** Storybook
 - **Visual Testing:** Chromatic
@@ -86,6 +92,7 @@
 - **API Testing:** Postman
 
 ### AI/ML
+
 - **LLM Orchestration:** LangChain, LangGraph
 - **Observability:** LangSmith
 - **Primary LLM:** Anthropic Claude 3.5 Sonnet
@@ -100,6 +107,7 @@
 - **ML Frameworks:** PyTorch/TensorFlow (optional, for advanced features)
 
 ### API Integrations
+
 - YouTube, LinkedIn, Spotify, SoundCloud, Weather, WakaTime, SendGrid/Resend, Ko-fi, reCAPTCHA v3
 
 ---
@@ -107,11 +115,13 @@
 ## 📋 Development Phases
 
 ### 🔥 Phase 1: Animations Refactoring (9-11 days) - **COMPLETED** ✅
+
 **[Full Documentation →](/docs/phase-1-animations-refactoring.md)**
 
 Refactor the animations folder to improve maintainability and reduce complexity.
 
 **Key Tasks:**
+
 - ✅ Create centralized state management (PortfolioContext, AnimationContext)
 - ✅ Break down Section.tsx from 324 → 174 lines (46% reduction)
 - ✅ Extract components (AtmosphericOverlays, DynamicBackground, AnimationCanvas, SectionContent, UIOverlays)
@@ -124,11 +134,13 @@ Refactor the animations folder to improve maintainability and reduce complexity.
 ---
 
 ### Phase 1.5: Code Quality & Security Fixes (0.5-1 day) - **COMPLETED** ✅
+
 **[Full Documentation →](/docs/phase-1.5-code-quality-security.md)**
 
 Address critical security vulnerabilities and code quality issues identified in post-Phase 1 code review.
 
 **Key Tasks:**
+
 - ✅ Fix critical dependency vulnerability (happy-dom CVEs)
 - ✅ Fix memory leak in scroll handler (PortfolioContext timeout)
 - ✅ Add missing hook dependencies (useDeviceCapabilities, AnimationContext)
@@ -139,6 +151,7 @@ Address critical security vulnerabilities and code quality issues identified in 
 **Achievement:** Code quality improved from 7.5/10 → 8.5-9.0/10
 
 **Completed Fixes:**
+
 - ✅ Upgraded happy-dom to >=20.0.2 (eliminated 2 critical CVEs)
 - ✅ Added timeout cleanup to PortfolioContext (prevented memory leak)
 - ✅ Typed AwardsSection award prop (improved type safety)
@@ -148,11 +161,13 @@ Address critical security vulnerabilities and code quality issues identified in 
 ---
 
 ### Phase 0: Infrastructure & Architecture (16-20 days) - **COMPLETED** ✅
+
 **[Full Documentation →](/docs/phase-0-infrastructure.md)**
 
 Set up Docker Compose for local development, integrate Strapi CMS v5, and establish deployment pipeline.
 
 **Sub-phases Progress:**
+
 - ✅ 0.1: Monorepo verification (complete)
 - ✅ 0.2.1: Docker Compose setup (Strapi v5.31.0 + PostgreSQL 16 + pgVector configured)
 - ✅ 0.2.2: Strapi configuration (admin panel, Cloudinary)
@@ -163,6 +178,7 @@ Set up Docker Compose for local development, integrate Strapi CMS v5, and establ
 - ✅ 0.5: Portfolio pages implementation - **COMPLETED** (2026-01-17)
 
 **Phase 0.5 Deliverables:**
+
 - 15 pages implemented: Homepage, Projects (list + detail), Experiences (list + detail), About, Journey, Skills, Blog (list + detail), Legal pages (privacy, terms, contact via catch-all), Contact, 404, 500, Maintenance
 - Footer component with CMS-driven social links (platform-based rendering)
 - RSS feed for blog posts (filters external posts)
@@ -178,11 +194,13 @@ Set up Docker Compose for local development, integrate Strapi CMS v5, and establ
 ---
 
 ### Phase 2: Component Architecture (6-8 days) - ✅ **COMPLETED (2026-02-02)**
+
 **[Full Documentation →](/docs/phase-2-component-architecture.md)**
 
 Further component optimization and standardization.
 
 **Completed Tasks:** (100% complete)
+
 - ✅ Template system (Editorial, Legal, Landing)
 - ✅ Utility refactoring (15 specialized modules)
 - ✅ Common components (6 new reusable components)
@@ -208,10 +226,12 @@ Further component optimization and standardization.
   - Added dynamic tech stack component (`ui.tech-stack-item`)
 
 **Key Accomplishments:**
+
 - Footer content moved to CMS with zero API overhead
 - Clean separation: siteConfig (theme) vs websiteConfig (content)
 
 **Key Deliverables:**
+
 - **Utilities:** `about.ts`, `blog.ts`, `contact-form.ts`, `projects.ts`, `base.ts`, `strapi.ts`, `availability.ts`, `text.ts`, `url.ts`, `icons.ts`, `tagColors.ts`, `toc.ts`, `debounce.ts`, `content.ts`, `experiences.ts`
 - **Common Components:** `StatusBadge`, `ThemeToggle`, `Breadcrumbs`, `GradientAccent`, `WatermarkBackground`, `DetailNavigation`
 - **Config:** Centralized site configuration with types and helpers
@@ -219,15 +239,18 @@ Further component optimization and standardization.
 ---
 
 ### Phase 3: Performance Optimization (4-6 days) - ✅ **COMPLETED (2026-02-04)**
+
 **[Full Documentation →](/docs/phase-3-performance.md)**
 
 Optimize bundle size, code splitting, and animation performance.
 
 **Achievement: 74.3% Bundle Reduction** 🎉
+
 - Initial: 410.85 KB gzipped → Final: 105.50 KB gzipped
 - Target: <150 KB (63% reduction) → **Exceeded by 11.3%**
 
 **Completed Tasks:** (6/6 complete)
+
 - ✅ **Task #1:** Fixed lazy loading conflicts (removed static exports)
 - ✅ **Task #2:** Enabled ENABLE_LAYER_LAZY_LOADING feature flag
 - ✅ **Task #3:** Rebuilt and measured impact (5 layer chunks)
@@ -236,6 +259,7 @@ Optimize bundle size, code splitting, and animation performance.
 - ✅ **Task #6:** Conditional Three.js rendering (frameloop='demand')
 
 **Key Optimizations:**
+
 - React.lazy() + Suspense for Three.js/PixiJS
 - Modal code splitting (user-triggered)
 - 5 atmospheric layer chunks (on-demand)
@@ -243,6 +267,7 @@ Optimize bundle size, code splitting, and animation performance.
 - React 19 polyfill (suspendOnActiveViewTransition workaround)
 
 **Performance Impact:**
+
 - Time to Interactive: 5-6s → 1.5-2s (67% faster)
 - Lighthouse Score: 70-75 → 85-90 (estimated +15-20 points)
 - Progressive enhancement: content first, animations second
@@ -252,11 +277,13 @@ Optimize bundle size, code splitting, and animation performance.
 ---
 
 ### Phase 4: Developer Experience (21 days) - 🚧 ~90% Complete
+
 **[Full Documentation →](/docs/phase-4-developer-experience.md)**
 
 Transform monorepo into production-grade design system with comprehensive developer tooling.
 
 **Key Deliverables:**
+
 - ✅ **16 specialized packages** - analytics, animations, api, config, constants, context, design-system, forms, hooks, icons, layouts, stores, types, ui, utils, visualizations
 - ✅ **@aazucena/design-system** - 7 token files, 18 themes, 35 platform integrations
 - ✅ **Storybook** (`apps/storybook/`) - 373+ stories/docs (260 component, 94 form, + MDX docs)
@@ -271,17 +298,20 @@ Transform monorepo into production-grade design system with comprehensive develo
 ---
 
 ### Phase 5: Testing & Quality (5-8 days)
+
 **[Full Documentation →](/docs/phase-5-testing.md)**
 
 Comprehensive testing strategy.
 
 **Key Tasks:**
+
 - Unit tests (hooks, utilities)
 - Integration tests (user flows)
 - E2E tests with Playwright
 - Visual regression with Chromatic
 
 **Coverage Targets:**
+
 - Unit: 70-80%
 - Critical user flows: 100%
 
@@ -292,11 +322,13 @@ Comprehensive testing strategy.
 ### Engineering Intelligence
 
 #### AZUCENA_LYTICS // Core_Terminal (V1 Production Hardened)
+
 **[Full Documentation →](/docs/features/azucena-lytics-plan.md)**
 
 A high-fidelity telemetry dashboard and engineering intelligence terminal built with Next.js 15, ClickHouse, and D3.js. **100% Roadmap Complete.**
 
 **Key Features:**
+
 - 📊 **Predictive Sentinel:** Real-time health watchdog with automated threshold alerts and anomaly detection.
 - 🕵️ **Identity Stitching:** Session Journey Explorer for full-funnel behavioral mapping.
 - 🗺️ **Geospatial Intelligence:** Zoomable D3 world map for regional engagement density.
@@ -305,17 +337,20 @@ A high-fidelity telemetry dashboard and engineering intelligence terminal built 
 - 🔒 **RBAC Security:** Granular access controls for restricted ingestion and viewer identities.
 
 ### Music & Compositions
+
 - **[Music Player](/docs/features/music-player.md)** (4-6 days) - Howler.js, waveform visualization
 - **[Strudel.cc Live Coding](/docs/features/strudel-integration.md)** (9-13 days) - Interactive TidalCycles patterns
 
 ### AI & Intelligence
 
 #### AI-Powered Forms (16-20 days comprehensive, 7-9 days basic)
+
 **[Full Documentation →](/docs/features/ai-forms.md)**
 
 Transform static forms into intelligent, conversational experiences using LangChain + LangGraph + Claude.
 
 **Form Types:**
+
 - **Contact** - General inquiries
 - **Feedback** - Portfolio feedback collection
 - **Testimonial** - Client reviews with approval workflow
@@ -326,6 +361,7 @@ Transform static forms into intelligent, conversational experiences using LangCh
 - **Music Feedback** - Track-specific reviews
 
 **Key Features:**
+
 - ✨ **Easter Egg Step** - Hidden step required before submission (fun engagement)
 - 🤖 **AI Intent Classification** - Routes inquiries automatically
 - 🔍 **Smart Field Extraction** - Pulls structured data from casual messages
@@ -336,6 +372,7 @@ Transform static forms into intelligent, conversational experiences using LangCh
 - ✅ **Auto-Response** - Optional personalized replies
 
 **Vector Database & Semantic Search:**
+
 - **pgVector** - PostgreSQL extension for vector similarity search
 - **Embeddings Storage** - Store embeddings of `rawMessage`, `rawFeedback`, `testimonialText`, `rawDescription`, and `aiSummary`
 - **Metadata Indexing** - `formType`, `sentiment`, `tags`, `submissionDate`, `langSmithId`
@@ -346,6 +383,7 @@ Transform static forms into intelligent, conversational experiences using LangCh
   - Duplicate detection for bug reports/feature requests
 
 **Embeddings Models:**
+
 - OpenAI (text-embedding-3-small: 1536 dims, fast, cheap)
 - Cohere (embed-english-v3.0: 1024 dims, multilingual)
 - Voyage AI (voyage-2: 1024 dims, Claude-optimized)
@@ -353,12 +391,14 @@ Transform static forms into intelligent, conversational experiences using LangCh
 - Local Models (all-MiniLM-L6-v2: 384 dims, offline)
 
 **Retrieval & Ranking:**
+
 - LangChain Retrievers for semantic search
 - Cohere Rerank API (rerank-english-v3.0)
 - Cross-encoder models (local)
 - ContextualCompressionRetriever for result refinement
 
 **AI Pipeline Flow:**
+
 ```
 Frontend (Astro/React)
    ↓
@@ -395,26 +435,30 @@ Retrieval & Ranking (Query Time)
 This section details the integration of the **Vercel AI SDK** to provide a robust, streaming user interface for the AI Portfolio Assistant, Case Study Explorer, Code Insight Layer, and Resume Alignment Tool. It acts as the high-performance bridge between the React frontend and the backend LangGraph orchestration, ensuring low-latency responses and a modern chat experience.
 
 **Benefits:**
+
 - **Perceived Latency:** Streaming text reduces "Time to First Token" (TTFT), making the AI feel instant even during complex LangGraph reasoning steps.
 - **Edge Friendliness:** Designed for Vercel's edge and serverless functions, preventing timeout issues common with long-running LLM chains.
 - **Client SDK Primitives:** The `ai/react` library provides ready-to-use hooks (`useChat`) that handle message state, optimistic updates, and error handling automatically.
 - **Simpler Bridging:** Built-in adapters easily bridge LangChain streams to the client without manual WebSocket management.
 
 **Integration Points:**
+
 - **AI Portfolio Assistant (Global Chat):** Uses `useChat` with global scope to answer general questions.
 - **AI Case Study Explorer:** Uses `useChat` with `scope: 'case_study'`, passing the current project ID in the body to restrict vector retrieval.
 - **AI Code Insight Layer:** Uses `useChat` with `scope: 'code_insight'`, accepting repository links or file snippets as context.
 - **AI Resume Alignment Tool:** Uses `useChat` with `scope: 'resume_alignment'`, allowing users to paste Job Descriptions (JDs) to receive tailored content strategy suggestions.
 
 **Security & Privacy:**
+
 - **API Keys:** Store `ANTHROPIC_API_KEY` only in server-side environment variables (`.env.local`).
 - **PII Redaction:** Use a PII scrubbing layer (middleware or LangChain runnable) before sending user input to vector storage or LLMs.
 - **Rate Limiting:** Implement rate limiting (e.g., Upstash Redis) on the `/api/chat` route (e.g., 10 requests/minute/IP).
 
 **Embeddings & Retrieval Reminder:**
-This integration relies on the existing **Strapi → Chunking → Embed → pgVector** pipeline. The Vercel AI SDK layer is purely for *transport and UI*. Ensure `pgVector` queries strictly respect the `scope` passed from the frontend to prevent "hallucinating" features from one project into another.
+This integration relies on the existing **Strapi → Chunking → Embed → pgVector** pipeline. The Vercel AI SDK layer is purely for _transport and UI_. Ensure `pgVector` queries strictly respect the `scope` passed from the frontend to prevent "hallucinating" features from one project into another.
 
 **Timeline:**
+
 - Phase A (Basic Forms): 3-4 days
 - Phase B (AI Integration): 12-16 days
   - LangGraph state machine (3 days)
@@ -428,11 +472,13 @@ This integration relies on the existing **Strapi → Chunking → Embed → pgVe
 **Updated Total (Phase 3.1):** 10-13 Days (core) / 19-24 Days (comprehensive)
 
 **Success Metrics (Vercel Specific):**
+
 - **Time-to-First-Token (TTFT):** < 800ms on 4G networks.
 - **Streaming Reliability:** < 1% connection drop rate.
 - **Chat Engagement:** Average session duration > 2 minutes.
 
 **Acceptance Criteria:**
+
 - [ ] `PortfolioAssistant` component renders and accepts user input.
 - [ ] Messages stream character-by-character in the UI.
 - [ ] `scope` parameter correctly alters the backend retrieval strategy (verified via logs).
@@ -443,6 +489,7 @@ This integration relies on the existing **Strapi → Chunking → Embed → pgVe
 ---
 
 #### Machine Learning Features (10-40 days)
+
 **[Full Documentation →](/docs/features/machine-learning.md)**
 
 - Content analysis and recommendation
@@ -453,17 +500,20 @@ This integration relies on the existing **Strapi → Chunking → Embed → pgVe
 ---
 
 #### Strapi Plugin Icons Field v2.0 (35-48 days)
+
 **[Full Documentation →](/docs/features/strapi-plugin-icons-field/README.md)**
 
 Transform the `strapi-plugin-icons-field` from a basic icon selector into a production-grade, enterprise-ready Strapi v5 plugin.
 
 **Current State (v1.1.5):**
+
 - Basic icon selection from `/public/icons` folder
 - Simple SVG rendering in Strapi admin
 - Subfolder organization support
 - Manual configuration via `config/plugins.js`
 
 **Target State (v2.0.0):**
+
 - Production-grade icon management system
 - Advanced search and filtering
 - Comprehensive testing suite
@@ -473,12 +523,14 @@ Transform the `strapi-plugin-icons-field` from a basic icon selector into a prod
 **Implementation Phases:**
 
 **Phase A: Critical Fixes & Performance (5-7 days)**
+
 - Icon caching system with manifest generation (<500ms for 1000 icons)
 - SVG sanitization & security (DOMPurify, XSS protection)
 - TypeScript strict mode with Zod schemas
 - Performance testing & benchmarking
 
 **Phase B: Advanced Features (8-10 days)**
+
 - Fuzzy search with Fuse.js, category filtering, favorites
 - Batch operations (bulk upload via ZIP, auto-categorization)
 - Icon analytics & usage tracking across content types
@@ -486,6 +538,7 @@ Transform the `strapi-plugin-icons-field` from a basic icon selector into a prod
 - Internationalization (en, fr, es, de, ja)
 
 **Phase C: Developer Experience (6-8 days)**
+
 - Comprehensive testing suite (85%+ coverage)
   - Unit tests (Vitest)
   - Integration tests
@@ -494,17 +547,20 @@ Transform the `strapi-plugin-icons-field` from a basic icon selector into a prod
 - Developer documentation & API reference
 
 **Phase D: Enterprise Features (5-7 days)**
+
 - Icon versioning & history tracking
 - CDN integration (Cloudinary) with automatic optimization
 - Advanced permissions & RBAC
 - Icon presets & templates
 
 **Phase E: Documentation & Distribution (3-5 days)**
+
 - Complete documentation (README, API reference, migration guides)
 - npm package publishing (v2.0.0)
 - Community & marketing (Strapi marketplace, blog post)
 
 **Key Improvements:**
+
 - ✅ **Performance:** 95%+ faster icon loading with caching
 - ✅ **Security:** XSS protection, SVG sanitization, file size limits
 - ✅ **Type Safety:** Strict TypeScript, Zod validation, runtime checks
@@ -513,6 +569,7 @@ Transform the `strapi-plugin-icons-field` from a basic icon selector into a prod
 - ✅ **DX:** Storybook, comprehensive docs, migration scripts
 
 **Success Metrics:**
+
 - GitHub Stars: 500+ in first 3 months
 - npm Downloads: 10,000+ in first year
 - Code Coverage: 85%+ (unit), 70%+ (integration)
@@ -520,12 +577,14 @@ Transform the `strapi-plugin-icons-field` from a basic icon selector into a prod
 - Zero Critical Security Vulnerabilities
 
 **Migration Path:**
+
 - Backward compatibility layer for v1 icon format
 - Automated migration script provided
 - Zero downtime migration strategy
 - Comprehensive migration guide
 
 **Strategic Value:**
+
 - Showcase advanced Strapi plugin development expertise
 - Create reusable architecture for future plugins
 - Demonstrate open source contribution commitment
@@ -534,10 +593,12 @@ Transform the `strapi-plugin-icons-field` from a basic icon selector into a prod
 ---
 
 ### Infrastructure
+
 - **[Logging & Monitoring](/docs/features/logging-monitoring.md)** (3-4 days) - Sentry, Vercel Analytics, Pino, Redis
 - **[Plausible Analytics](/docs/features/plausible-analytics.md)** (2-3 days) - Self-hosted privacy-friendly traffic analytics
 
 ### Monetization
+
 - **[Payments](/docs/features/payments.md)** (3-4 days) - Stripe + Ko-fi integration
 
 ---
@@ -568,37 +629,41 @@ Features (as needed) → 3-40 days each
 
 ### Weekly Breakdown
 
-| Week | Phase | Focus |
-|------|-------|-------|
-| 1-2 | Phase 1 | Animations refactoring ✅ |
-| 2 | Phase 1.5 | Code quality & security fixes ✅ |
-| 3-5 | Phase 0 | Infrastructure & CMS ✅ |
-| 6-7 | Phase 2-3 | Components & performance ✅ |
-| 8-11 | Phase 4 | DX & design system 🔥 CURRENT |
-| 12 | Phase 5 | Testing |
-| 13+ | Features | Music, AI, logging, payments |
+| Week | Phase     | Focus                            |
+| ---- | --------- | -------------------------------- |
+| 1-2  | Phase 1   | Animations refactoring ✅        |
+| 2    | Phase 1.5 | Code quality & security fixes ✅ |
+| 3-5  | Phase 0   | Infrastructure & CMS ✅          |
+| 6-7  | Phase 2-3 | Components & performance ✅      |
+| 8-11 | Phase 4   | DX & design system 🔥 CURRENT    |
+| 12   | Phase 5   | Testing                          |
+| 13+  | Features  | Music, AI, logging, payments     |
 
 ---
 
 ## 📊 Success Metrics
 
 ### Code Quality
+
 - Average component size: -30%
 - Type coverage: 80%+
 - ESLint errors: 0
 
 ### Performance
+
 - Lighthouse: 90+
 - FCP: <1.5s
 - TTI: <3.5s
 - Bundle size: <350KB (gzipped)
 
 ### Developer Experience
+
 - PR review time: -40%
 - Component development: faster with Storybook
 - Visual regression: automated with Chromatic
 
 ### AI Forms & Intelligence
+
 - **Conversion Rate:** AI chat vs traditional form (+30% target)
 - **Field Completion:** Fully completed forms (>85% target)
 - **Intent Classification Accuracy:** AI classifier performance (>95% target)
@@ -608,6 +673,7 @@ Features (as needed) → 3-40 days each
 - **Response Time:** AI agent response latency (<2s target)
 
 ### Form-Specific Metrics
+
 - **Testimonials:** Approval rate, average rating, publication rate
 - **Feedback:** Response rate, implementation rate of suggestions
 - **Bug Reports:** Time to resolution, severity distribution, GitHub sync rate
@@ -619,6 +685,7 @@ Features (as needed) → 3-40 days each
 ## 🚀 Current Status
 
 ### Completed ✅
+
 - Icons switched to @mynaui/icons-react v0.3.9
 - Scroll indicators with animations
 - Toolbar panels with backdrop
@@ -640,6 +707,7 @@ Features (as needed) → 3-40 days each
   - Exceeded target by 11.3%
 
 ### In Progress 🚧 (~90% Complete)
+
 - **Phase 4: Developer Experience** 🔥 CURRENT PRIORITY
   - ✅ 16 packages scaffolded with full content
   - ✅ 373+ Storybook stories/docs in `apps/storybook/`
@@ -649,6 +717,7 @@ Features (as needed) → 3-40 days each
   - ⏳ **Remaining (1-2 days):** Chromatic first baseline + CircleCI Chromatic job + portfolio app importing `@aazucena/*` packages
 
 ### Up Next ⏳
+
 - **Phase 5:** Testing & Quality (5-8 days)
 
 ---
@@ -658,6 +727,7 @@ Features (as needed) → 3-40 days each
 All detailed implementation guides, code examples, and specifications are in the **[`/docs`](/docs/)** folder:
 
 ### Phase Documentation
+
 - [Phase 0: Infrastructure](/docs/phase-0-infrastructure.md)
   - [Strapi Content Types Guide (v2.0 - Enhanced)](/docs/strapi-content-types-guide.md) - 14 production-ready content types with pgVector, semantic search, AI forms support
 - [Phase 1: Animations Refactoring](/docs/phase-1-animations-refactoring.md) ⚡ ✅
@@ -668,6 +738,7 @@ All detailed implementation guides, code examples, and specifications are in the
 - [Phase 5: Testing](/docs/phase-5-testing.md)
 
 ### Feature Documentation
+
 - [Music Player & Compositions](/docs/features/music-player.md)
 - [Strudel.cc Live Coding](/docs/features/strudel-integration.md)
 - [AI-Powered Forms](/docs/features/ai-forms.md)
@@ -677,6 +748,7 @@ All detailed implementation guides, code examples, and specifications are in the
 - [Payment Integration](/docs/features/payments.md)
 
 ### Main Documentation Hub
+
 - **[Documentation Index](/docs/README.md)** - Complete overview with quick start guide
 
 ---
@@ -684,12 +756,14 @@ All detailed implementation guides, code examples, and specifications are in the
 ## 🎯 Why This Order?
 
 ### Phase 1 First (Animations Refactoring)
+
 - ✅ Clean foundation before infrastructure complexity
 - ✅ Easier to test components in isolation
 - ✅ Better understanding of state management needs
 - ✅ Prevents refactoring in monorepo (harder)
 
 ### Phase 1.5 Before Infrastructure (Code Quality & Security)
+
 - ✅ Fix critical security vulnerabilities (happy-dom CVEs)
 - ✅ Eliminate memory leaks before complexity increases
 - ✅ Quick wins (0.5-1 day) with high impact
@@ -697,12 +771,14 @@ All detailed implementation guides, code examples, and specifications are in the
 - ✅ Prevents cascading issues in infrastructure setup
 
 ### Infrastructure After Quality Fixes
+
 - ✅ CMS integration with clean, secure components
 - ✅ Easier content migration without bugs
 - ✅ Better monorepo package extraction
 - ✅ Confidence in codebase stability
 
 ### Performance & Testing Last
+
 - ✅ Optimize after architecture is stable
 - ✅ Test after all components are refactored
 - ✅ Measure improvements accurately
@@ -741,6 +817,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 **Current Priority:** Phase 4 - Developer Experience 🔥
 
 **Phase 4 Progress (~90% Complete):**
+
 - ✅ Day 1 Scaffolding (2026-02-05) - 16 packages scaffolded, Git hooks (Husky), TypeScript strict mode
 - ✅ Documentation Expansion (2026-02-11) - 23 Intelligence-themed docs (~19,050 lines) across all packages
 - ✅ Design System (2026-02-xx) - 7 tokens, 18 themes, 35 platform integrations
@@ -754,6 +831,7 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 ---
 
 ## 🏛️ Ecosystem Expansion: The Utilitarian Nodes
+
 **[Ecosystem Overview & Documentation →](/docs/ecosystem/README.md)**
 
 A suite of high-utility applications and microsites designed to extend the "aazucena" digital identity beyond the main portfolio. **Note:** Implementation is contingent upon 100% polish of the core stack.
@@ -764,12 +842,12 @@ A suite of high-utility applications and microsites designed to extend the "aazu
 - 🎹 **AAZUCENA_DIO (`studio.aazucena.com`):** Interactive live-coding studio and data-modulated radio.
 - 🎮 **AAZUCENA_SIM (`play.aazucena.com`):** Playable technical mission with agentic NPC companions.
 - 🔮 **AAZUCENA_CLE (`cli.aazucena.com`):** CLI-first RAG interaction terminal for the digital twin.
+- 🎓 **AAZUCENA_SCHOLAR (`scholar.aazucena.com`):** Research hub for HCI, Recommender Systems, SE Education, and People-Centric Computing.
 
 ---
 
-
-
 **Recent Completions (Updated 2026-02-11):**
+
 - **Phase 4 Documentation Expansion** ✅ (2026-02-11) - 23 Intelligence-themed docs (~19,050 lines) across all 14 monorepo packages (Hooks, Forms, Layouts, Icons, Constants, Config, Stores, Visualizations)
 - **Phase 4 Day 1 Scaffolding** ✅ (2026-02-05) - 13 packages scaffolded, Git hooks (Husky + lint-staged), CMS strict mode, workspace linking verified
 - **Phase 3 - Performance Optimization** ✅ (2026-02-04) - 100% Complete - 74.3% bundle reduction (410KB → 105KB gzipped), lazy loading, code splitting, demand-based rendering, exceeded target by 11.3%
