@@ -25,9 +25,25 @@ The primary intelligence orchestrator for the portfolio, using LangGraph and RAG
 ## 📡 Endpoints
 
 - `POST /brain/think`: Streaming SSE (Server-Sent Events) for AI reasoning.
-- `POST /knowledge/sync`: Triggers re-indexing of `/docs`.
+- `POST /knowledge/sync`: Triggers re-indexing of `/app/data`. Supports `?force=true` for full re-sync.
 - `POST /brain/sync`: Syncs local default prompts to LangSmith Hub.
 - `GET /status`: Cognitive state and knowledge inventory UI.
+
+## ⚙️ Configuration (`intel.config.json`)
+
+You can control the scope of the Knowledge Base Indexing (KBI) using `intel.config.json`:
+
+```json
+{
+  "indexing": {
+    "include": ["docs/**/*.md", "context/*.md"],
+    "exclude": ["**/temp-**", "**/ARCHIVE/**"]
+  }
+}
+```
+
+- **Differential Sync:** The engine uses MD5 hashing to skip unchanged files, significantly reducing startup overhead.
+- **Support:** Markdown (`.md`) and PDF (`.pdf`) files are supported for indexing.
 
 ## 🔗 Integration
 

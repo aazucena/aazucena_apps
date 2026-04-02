@@ -50,6 +50,9 @@ services:
     env_file: apps/cms/.env
     volumes:
       - ./docs:/app/data/docs:ro
+      - ./apps:/app/data/apps:ro
+      - ./services:/app/data/services:ro
+      - ./packages:/app/data/packages:ro
       - ./ROADMAP.md:/app/data/context/ROADMAP.md:ro
       - ./GEMINI.md:/app/data/context/GEMINI.md:ro
       - ./CLAUDE.md:/app/data/context/CLAUDE.md:ro

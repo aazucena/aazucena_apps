@@ -56,6 +56,7 @@ class KnowledgeChunk(Base):
     type = Column(String, default="docs")
     extra_metadata = Column(JSON, name="metadata") 
     embedding = Column(Vector(768)) # Matches nomic-embed-text
+    file_hash = Column(String(64), nullable=True) # MD5/SHA hash of the original file
     
     # Strapi v5 Audit & Localization
     locale = Column(String(255), default="en")

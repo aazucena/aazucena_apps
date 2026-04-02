@@ -12,8 +12,8 @@ async def search_knowledge(request: KnowledgeSearchRequest):
     return {"query": request.query, "results": results}
 
 @router.post("/sync", response_model=KnowledgeSyncResponse)
-async def sync_knowledge(background_tasks: BackgroundTasks):
-    """Triggers the scan of /app/data/docs/ and indexing into pgVector."""
-    docs_path = "/app/data/docs"
-    background_tasks.add_task(indexer.index_docs_folder, docs_path)
+async def sync_knowledge(background_tasks: BackgroundTasks, force: bool = False):
+    """Triggers the scan of /app/data and indexing into pgVector."""
+    docs_path = "/app/data"
+    background_tasks.add_task(indexer.index_docs_folder, docs_path, force=force)
     return {"status": "indexing_queued", "target": docs_path}
