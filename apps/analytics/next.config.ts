@@ -5,6 +5,12 @@ import { sentryNextConfigOptions } from '@aazucena/config/sentry/nextjs';
 const { version } = require('./package.json') as { version: string };
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Persist the Turbopack module graph to disk — routes only compile once
+    // across restarts. Without this, all 14 transpilePackages are re-traversed
+    // on every `pnpm dev`, causing the 57s cold-compile spike on first request.
+    turbopackFileSystemCacheForDev: true,
+  },
   webpack(config) {
     // Mirror Turbopack's resolveExtensions for webpack dev mode:
     // allows workspace packages that export .js paths to be resolved to .ts/.tsx source.
