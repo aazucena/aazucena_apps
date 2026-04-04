@@ -41,6 +41,7 @@
     "@strapi/provider-upload-cloudinary": "^5.31.0",
     "@strapi/strapi": "5.40.0",
     "@webbycrown/advanced-fields": "^1.0.3",
+    "axios": "^1.14.0",
     "monaco-editor": "^0.55.1",
     "pg": "8.8.0",
     "react": "^18.0.0",

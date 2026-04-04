@@ -43,6 +43,11 @@ services:
     networks:
       - aazucena-network
     env_file: apps/cms/.env
+    environment:
+      - CLICKHOUSE_HOST=aazucena-clickhouse
+      - CLICKHOUSE_USER=${CLICKHOUSE_USER:-admin}
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD:-password}
+      - REDIS_HOST=aazucena-redis
       
   intel-engine:
     networks:

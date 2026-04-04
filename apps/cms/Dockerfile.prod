@@ -16,7 +16,7 @@ FROM node:22-alpine AS dependencies
 LABEL maintainer="Aldrin Azucena"
 LABEL description="Strapi v5 CMS - Dependencies Stage"
 
-# Install build dependencies for native modules (sharp, better-sqlite3, etc.)
+# Install build dependencies as root
 RUN apk update && apk add --no-cache \
     build-base \
     gcc \
@@ -28,15 +28,19 @@ RUN apk update && apk add --no-cache \
     git \
     python3
 
-WORKDIR /app
-
-# Copy package files for dependency installation
-COPY package.json pnpm-lock.yaml ./
-
 # Install pnpm globally
 RUN npm install -g pnpm node-gyp
 
-# Install ALL dependencies (including devDependencies needed for build)
+WORKDIR /app
+RUN chown node:node /app
+
+# Switch to non-root user
+USER node
+
+# Copy package files with correct ownership
+COPY --chown=node:node package.json pnpm-lock.yaml ./
+
+# Install ALL dependencies as node user
 RUN pnpm config set fetch-retry-maxtimeout 600000 && \
     pnpm install --frozen-lockfile
 
@@ -49,22 +53,23 @@ FROM node:22-alpine AS builder
 
 LABEL description="Strapi v5 CMS - Build Stage"
 
-# Install only runtime dependencies needed for build
+# Install runtime dependencies needed for build
 RUN apk update && apk add --no-cache vips-dev
-
-WORKDIR /app
-
-# Copy dependencies from previous stage
-COPY --from=dependencies /app/node_modules ./node_modules
-
-# Copy application source
-COPY . .
 
 # Install pnpm for build command
 RUN npm install -g pnpm
 
+WORKDIR /app
+RUN chown node:node /app
+
+# Switch to node user
+USER node
+
+# Copy dependencies and source with correct ownership
+COPY --chown=node:node --from=dependencies /app/node_modules ./node_modules
+COPY --chown=node:node . .
+
 # Build Strapi admin panel
-# This pre-compiles the admin UI for production
 ENV NODE_ENV=production
 ENV NODE_OPTIONS=--max_old_space_size=4096
 RUN pnpm build
@@ -75,63 +80,57 @@ RUN pnpm build
 FROM node:22-alpine AS production
 
 LABEL description="Strapi v5 CMS - Production Runtime"
-LABEL version="5.31.0"
+LABEL version="5.40.0"
 
-# Install only runtime dependencies (no build tools)
+# Install runtime dependencies (no build tools)
 RUN apk update && apk add --no-cache \
     vips \
     vips-cpp \
     dumb-init
 
-# Create app directory
-WORKDIR /app
-
-# Install pnpm
+# Install pnpm globally
 RUN npm install -g pnpm
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
+WORKDIR /app
+RUN chown node:node /app
 
-# Install ONLY production dependencies (excludes devDependencies)
+# Copy package files
+COPY --chown=node:node package.json pnpm-lock.yaml ./
+
+# Switch to node user for installation and runtime
+USER node
+
+# Install ONLY production dependencies
 RUN pnpm config set fetch-retry-maxtimeout 600000 && \
     pnpm install --prod --frozen-lockfile
 
 # Copy built application from builder stage
-# Note: Strapi v5 'strapi build' only creates .strapi/ directory (built admin panel)
-# The 'build' directory doesn't exist in Strapi v5 - it was removed in the migration from v4
-COPY --from=builder /app/.strapi ./.strapi
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/favicon.png ./favicon.png
+COPY --chown=node:node --from=builder /app/.strapi ./.strapi
+COPY --chown=node:node --from=builder /app/public ./public
+COPY --chown=node:node --from=builder /app/favicon.png ./favicon.png
 
-# Copy COMPILED JavaScript files from dist/ (not TypeScript source files)
-# Strapi in production cannot load .ts files - only .js files
-COPY --from=builder /app/dist/config ./config
-COPY --from=builder /app/dist/src ./src
+# Copy COMPILED JavaScript files from dist/
+COPY --chown=node:node --from=builder /app/dist/config ./config
+COPY --chown=node:node --from=builder /app/dist/src ./src
 
-# Copy database directory (migrations, seeds) if it exists
-COPY --from=builder /app/database ./database
+# Copy database directory
+COPY --chown=node:node --from=builder /app/database ./database
 
-# Create uploads directory (Cloudinary handles storage, but Strapi needs this for temp files)
+# Create uploads directory (now as node user)
 RUN mkdir -p public/uploads
-
-# Set ownership to non-root user for security
-RUN chown -R node:node /app
-
-# Switch to non-root user
-USER node
 
 # Environment variables
 ENV NODE_ENV=production
 ENV NODE_OPTIONS=--max_old_space_size=4096
 
-# Expose Strapi port (Railway will map this to public URL)
+# Expose Strapi port
 EXPOSE 1337
 
 # Health check endpoint
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD node -e "require('http').get('http://localhost:1337/_health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-# Use dumb-init to handle signals properly
+# Use dumb-init
 ENTRYPOINT ["dumb-init", "--"]
 
 # Start Strapi in production mode
