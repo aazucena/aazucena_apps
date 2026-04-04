@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReduxStoreProvider } from '@/store';
 import { SocketProvider } from './SocketProvider';
+import { ConfirmationProvider } from './ConfirmationProvider';
 import { useSocketListener } from '@/hooks/useSocketListener';
 import { TelemetryProvider } from '@aazucena/context/telemetry';
 
@@ -26,6 +27,7 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
         defaultOptions: {
           queries: {
             staleTime: 30000,
+            gcTime: 60 * 1000, // evict unused query data 60s after unmount (default is 5min)
             refetchInterval: false,
             retry: 1,
           },
@@ -38,8 +40,10 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
       <ReduxStoreProvider>
         <QueryClientProvider client={queryClient}>
           <SocketProvider>
-            <SocketListener />
-            {children}
+            <ConfirmationProvider>
+              <SocketListener />
+              {children}
+            </ConfirmationProvider>
           </SocketProvider>
           {/* DevTools: only bundled and rendered in development */}
           {process.env.NODE_ENV === 'development' && (
