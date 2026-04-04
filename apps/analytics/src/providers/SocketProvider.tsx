@@ -6,7 +6,8 @@ const SocketContext = createContext<Socket | null>(null);
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   useEffect(() => {
-    const WS_SERVER = process.env.NEXT_PUBLIC_WS_SERVER || 'http://localhost:3001';
+    const WS_SERVER = process.env.NEXT_PUBLIC_WS_SERVER;
+    if (!WS_SERVER) return; // Skip connection if WS server is not configured
     const s = io(WS_SERVER, {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,

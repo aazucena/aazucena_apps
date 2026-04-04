@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useTelemetryConfig } from '@aazucena/context';
+import { useTelemetryConfig } from '@aazucena/context/telemetry';
 
 export interface UseSystemStatsOptions {
   isLive?: boolean;
@@ -71,7 +71,7 @@ export function useTelemetryStream(options: UseSystemStatsOptions = {}) {
       const headers: Record<string, string> = {};
       if (secretKey) headers['x-secret-key'] = secretKey;
 
-      const url = `${baseUrl}${endpoints?.logs ?? '/api/stats/logs'}`;
+      const url = `${baseUrl}${endpoints?.logs ?? '/api/stats/logs'}?limit=100`;
       const res = await fetch(url, { headers, signal });
       if (!res.ok) throw new Error('FAILED_LOGS_FETCH');
       const json = await res.json();

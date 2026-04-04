@@ -3,7 +3,7 @@
 import React from 'react';
 import { Shield } from '@aazucena/icons';
 import { Badge } from '@aazucena/ui/components/ui/badge';
-import { useSystemStatus } from '@aazucena/hooks';
+import { useSystemStatus } from '@aazucena/hooks/telemetry';
 import { cn } from '@/lib/utils';
 
 interface IntegrityBadgeProps {

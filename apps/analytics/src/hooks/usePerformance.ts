@@ -3,7 +3,7 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { usePerformanceStats as _usePerformanceStats } from '@aazucena/hooks';
+import { usePerformanceStats as _usePerformanceStats } from '@aazucena/hooks/telemetry';
 
 interface PerformanceStatsData {
   summary: {

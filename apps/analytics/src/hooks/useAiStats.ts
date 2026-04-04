@@ -2,7 +2,7 @@
 
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { useAiIntelligence } from '@aazucena/hooks';
+import { useAiIntelligence } from '@aazucena/hooks/telemetry';
 
 /**
  * Hook to fetch AI Intelligence metrics (Spend, Tokens, Latency) from ClickHouse

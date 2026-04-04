@@ -57,7 +57,7 @@ export function createDashboardSlice(config?: DashboardSliceConfig) {
       refreshInterval: config?.defaultRefreshInterval ?? 5000,
     },
     status: {
-      isLive: true,
+      isLive: false,
       lastUpdated: null,
     },
   };

@@ -3,7 +3,7 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { useTrafficStats as _useTrafficStats } from '@aazucena/hooks';
+import { useTrafficStats as _useTrafficStats } from '@aazucena/hooks/telemetry';
 
 interface TrafficStatsData {
   summary: {

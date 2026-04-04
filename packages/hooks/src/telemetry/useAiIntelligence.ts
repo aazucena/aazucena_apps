@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
-import { useTelemetryConfig } from '@aazucena/context';
+import { useTelemetryConfig } from '@aazucena/context/telemetry';
 
 /**
  * AI Intelligence Stats Data Structure

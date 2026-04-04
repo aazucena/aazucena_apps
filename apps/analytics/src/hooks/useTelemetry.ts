@@ -10,7 +10,7 @@ import {
   useTelemetryStream as _useTelemetryStream,
   useMusicStats as _useMusicStats,
   useSentinel as _useSentinel,
-} from '@aazucena/hooks';
+} from '@aazucena/hooks/telemetry';
 
 export function useSystemSummary() {
   const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
@@ -83,6 +83,7 @@ export function usePlausibleStats() {
 }
 
 export function useJourneys() {
+  const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
   return useQuery({
     queryKey: ['user-journeys'],
     queryFn: async ({ signal }) => {
@@ -92,7 +93,7 @@ export function useJourneys() {
       return json.data;
     },
     staleTime: 5 * 60 * 1000,
-    refetchInterval: 60000,
+    refetchInterval: isLive ? 60000 : false,
   });
 }
 

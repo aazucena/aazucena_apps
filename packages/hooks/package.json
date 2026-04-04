@@ -12,7 +12,8 @@
     "./animations": "./src/animations/index.ts",
     "./data": "./src/data/index.ts",
     "./dom": "./src/dom/index.ts",
-    "./preloader": "./src/preloader/index.ts"
+    "./preloader": "./src/preloader/index.ts",
+    "./telemetry": "./src/telemetry/index.ts"
   },
   "scripts": {
     "lint": "eslint .",

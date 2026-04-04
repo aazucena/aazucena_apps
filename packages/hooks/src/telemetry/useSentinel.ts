@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useTelemetryConfig } from '@aazucena/context';
+import { useTelemetryConfig } from '@aazucena/context/telemetry';
 
 export interface UseSentinelOptions {
   isLive?: boolean;

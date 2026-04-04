@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useTelemetryConfig } from '@aazucena/context';
+import { useTelemetryConfig } from '@aazucena/context/telemetry';
 import type { SystemStatus } from '@aazucena/types';
 
 /**
