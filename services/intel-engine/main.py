@@ -1,5 +1,7 @@
 import os
 import time
+import asyncio
+import requests
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, RedirectResponse
 from contextlib import asynccontextmanager
@@ -8,9 +10,31 @@ from app.services.indexer import indexer
 from app.core.brain import brain
 from app.api.router import api_router
 
+INTEL_BRIDGE_URL = os.getenv("INTEL_BRIDGE_URL", "http://aazucena-intel-bridge:3001")
+
+async def start_heartbeat():
+    """Periodic pulse to the Intel Bridge for the Analytics Dashboard."""
+    print("💓 [Intel-Engine] Starting periodic heartbeat (60s)...")
+    while True:
+        try:
+            payload = {
+                "service": "intel-engine",
+                "status": "UP",
+                "latency_ms": 0,
+                "message": "Neural engine operational"
+            }
+            requests.post(f"{INTEL_BRIDGE_URL}/pulse/health", json=payload, timeout=5)
+        except Exception as e:
+            print(f"❌ [Intel-Engine] Heartbeat pulse failed: {e}")
+        
+        await asyncio.sleep(60)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("🧠 [Intel-Engine] INITIALIZING COGNITIVE SERVICES...")
+    # Start heartbeat task
+    heartbeat_task = asyncio.create_task(start_heartbeat())
+    
     try:
         # 1. Initialize DB and pgVector extension
         print("🔗 [Database] Connecting to Postgres and ensuring pgvector...")
@@ -30,7 +54,10 @@ async def lifespan(app: FastAPI):
         print("✅ [Vector Store] Handshake Complete.")
     except Exception as e:
         print(f"❌ [Vector Store] FATAL INITIALIZATION ERROR: {e}")
+    
     yield
+    # Cleanup
+    heartbeat_task.cancel()
     print("🧠 [Intel-Engine] Shutting down...")
 
 app = FastAPI(title="AAZUCENA_INTEL_ENGINE", lifespan=lifespan)
@@ -54,7 +81,7 @@ async def status_ui():
             <title>Intel Engine Status</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <script>
-                async function triggerSync(endpoint, label) {{
+                async function triggerSync(event, endpoint, label) {{
                     const btn = event.target;
                     const originalText = btn.innerText;
                     
@@ -131,13 +158,13 @@ async def status_ui():
                         <p class="text-zinc-500 text-[9px] uppercase font-black tracking-widest mb-4">Knowledge_Inventory</p>
                         <div class="grid grid-cols-2 gap-4">
                             <button 
-                                onclick="triggerSync('/knowledge/sync')"
+                                onclick="triggerSync(event, '/knowledge/sync')"
                                 class="py-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-[10px] font-black uppercase text-rose-500 hover:bg-rose-500/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Sync_Docs
                             </button>
                             <button 
-                                onclick="triggerSync('/brain/sync')"
+                                onclick="triggerSync(event, '/brain/sync')"
                                 class="py-3 bg-blue-500/10 border border-blue-500/20 rounded-xl text-[10px] font-black uppercase text-blue-500 hover:bg-blue-500/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Sync_Prompts
