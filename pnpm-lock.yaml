@@ -586,8 +586,8 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.72.0(react@19.2.4))
       '@mynaui/icons-react':
-        specifier: ^0.3.9
-        version: 0.3.9(react@19.2.4)
+        specifier: ^0.4.2
+        version: 0.4.2(react@19.2.4)
       '@nanostores/react':
         specifier: ^0.8.4
         version: 0.8.4(nanostores@0.11.4)(react@19.2.4)
@@ -20529,8 +20529,6 @@ snapshots:
       '@ckeditor/ckeditor5-utils': 47.6.1
       '@ckeditor/ckeditor5-widget': 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-cloud-services@47.6.1':
     dependencies:
@@ -20560,8 +20558,6 @@ snapshots:
       '@ckeditor/ckeditor5-utils': 47.6.1
       '@ckeditor/ckeditor5-watchdog': 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-easy-image@47.6.1':
     dependencies:
@@ -20646,16 +20642,12 @@ snapshots:
     dependencies:
       '@ckeditor/ckeditor5-utils': 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-enter@47.6.1':
     dependencies:
       '@ckeditor/ckeditor5-core': 47.6.1
       '@ckeditor/ckeditor5-engine': 47.6.1
       '@ckeditor/ckeditor5-utils': 47.6.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-essentials@47.6.1':
     dependencies:
@@ -20809,8 +20801,6 @@ snapshots:
       '@ckeditor/ckeditor5-ui': 47.6.1
       '@ckeditor/ckeditor5-utils': 47.6.1
       ckeditor5: 47.6.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-link@47.6.1':
     dependencies:
@@ -20825,8 +20815,6 @@ snapshots:
       '@ckeditor/ckeditor5-widget': 47.6.1
       ckeditor5: 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-list@47.6.1':
     dependencies:
@@ -20841,8 +20829,6 @@ snapshots:
       '@ckeditor/ckeditor5-utils': 47.6.1
       ckeditor5: 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-markdown-gfm@47.6.1':
     dependencies:
@@ -20880,8 +20866,6 @@ snapshots:
       '@ckeditor/ckeditor5-utils': 47.6.1
       '@ckeditor/ckeditor5-widget': 47.6.1
       ckeditor5: 47.6.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-mention@47.6.1':
     dependencies:
@@ -20891,8 +20875,6 @@ snapshots:
       '@ckeditor/ckeditor5-utils': 47.6.1
       ckeditor5: 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-minimap@47.6.1':
     dependencies:
@@ -20901,8 +20883,6 @@ snapshots:
       '@ckeditor/ckeditor5-ui': 47.6.1
       '@ckeditor/ckeditor5-utils': 47.6.1
       ckeditor5: 47.6.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-page-break@47.6.1':
     dependencies:
@@ -20912,8 +20892,6 @@ snapshots:
       '@ckeditor/ckeditor5-utils': 47.6.1
       '@ckeditor/ckeditor5-widget': 47.6.1
       ckeditor5: 47.6.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-paragraph@47.6.1':
     dependencies:
@@ -20922,8 +20900,6 @@ snapshots:
       '@ckeditor/ckeditor5-icons': 47.6.1
       '@ckeditor/ckeditor5-ui': 47.6.1
       '@ckeditor/ckeditor5-utils': 47.6.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-paste-from-office@47.6.1':
     dependencies:
@@ -21036,8 +21012,6 @@ snapshots:
       color-parse: 2.0.2
       es-toolkit: 1.39.5
       vanilla-colorful: 0.7.2
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-undo@47.6.1':
     dependencies:
@@ -21056,8 +21030,6 @@ snapshots:
     dependencies:
       '@ckeditor/ckeditor5-ui': 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-watchdog@47.6.1':
     dependencies:
@@ -21066,8 +21038,6 @@ snapshots:
       '@ckeditor/ckeditor5-engine': 47.6.1
       '@ckeditor/ckeditor5-utils': 47.6.1
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
 
   '@ckeditor/ckeditor5-widget@47.6.1':
     dependencies:
@@ -25486,14 +25456,14 @@ snapshots:
       '@babel/eslint-parser': 7.25.9(@babel/core@7.29.0)(eslint@9.39.4(jiti@2.6.1))
       '@babel/preset-react': 7.28.5(@babel/core@7.29.0)
       eslint: 9.39.4(jiti@2.6.1)
-      eslint-config-airbnb: 19.0.4(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react-hooks@4.6.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react@7.37.2(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1))
-      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-config-airbnb: 19.0.4(eslint-plugin-import@2.32.0)(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react-hooks@4.6.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react@7.37.2(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.6.1))
       eslint-config-prettier: 8.10.2(eslint@9.39.4(jiti@2.6.1))
-      eslint-config-react-app: 7.0.1(@babel/plugin-syntax-flow@7.27.1(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
-      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4))
+      eslint-config-react-app: 7.0.1(@babel/plugin-syntax-flow@7.27.1(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.32.0)(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4))
       eslint-loader: 4.0.2(eslint@9.39.4(jiti@2.6.1))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4))
       eslint-plugin-babel: 5.3.1(eslint@9.39.4(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-jsdoc: 39.9.1(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-jsonc: 2.21.1(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.4(jiti@2.6.1))
@@ -31311,20 +31281,20 @@ snapshots:
       eslint: 9.39.4(jiti@2.6.1)
       semver: 7.7.4
 
-  eslint-config-airbnb-base@15.0.0(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1)):
+  eslint-config-airbnb-base@15.0.0(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.6.1)):
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 9.39.4(jiti@2.6.1)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))
       object.assign: 4.1.7
       object.entries: 1.1.8
       semver: 6.3.1
 
-  eslint-config-airbnb@19.0.4(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react-hooks@4.6.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react@7.37.2(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1)):
+  eslint-config-airbnb@19.0.4(eslint-plugin-import@2.32.0)(eslint-plugin-jsx-a11y@6.10.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react-hooks@4.6.2(eslint@9.39.4(jiti@2.6.1)))(eslint-plugin-react@7.37.2(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1)):
     dependencies:
       eslint: 9.39.4(jiti@2.6.1)
-      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-react: 7.37.2(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-react-hooks: 4.6.2(eslint@9.39.4(jiti@2.6.1))
@@ -31359,7 +31329,7 @@ snapshots:
     dependencies:
       eslint: 9.39.4(jiti@2.6.1)
 
-  eslint-config-react-app@7.0.1(@babel/plugin-syntax-flow@7.27.1(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3):
+  eslint-config-react-app@7.0.1(@babel/plugin-syntax-flow@7.27.1(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
       '@babel/core': 7.29.0
       '@babel/eslint-parser': 7.25.9(@babel/core@7.29.0)(eslint@9.39.4(jiti@2.6.1))
@@ -31370,7 +31340,7 @@ snapshots:
       confusing-browser-globals: 1.0.11
       eslint: 9.39.4(jiti@2.6.1)
       eslint-plugin-flowtype: 8.0.3(@babel/plugin-syntax-flow@7.27.1(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(eslint@9.39.4(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-jest: 25.7.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-react: 7.37.2(eslint@9.39.4(jiti@2.6.1))
@@ -31442,11 +31412,11 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)):
+  eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0)(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)):
     dependencies:
       debug: 3.2.7
       enhanced-resolve: 0.9.1
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))
       find-root: 1.1.0
       hasown: 2.0.2
       interpret: 1.4.0
@@ -31475,14 +31445,14 @@ snapshots:
       schema-utils: 2.7.1
       webpack: 5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)
 
-  eslint-module-utils@2.12.1(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1)):
+  eslint-module-utils@2.12.1(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.4(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4))
+      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.32.0)(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4))
     transitivePeerDependencies:
       - supports-color
 
@@ -31556,7 +31526,7 @@ snapshots:
       lodash: 4.17.23
       string-natural-compare: 3.0.1
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -31567,7 +31537,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.39.4(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.1(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(webpack@5.105.4(@swc/core@1.15.21(@swc/helpers@0.5.17))(esbuild@0.27.4)))(eslint@9.39.4(jiti@2.6.1))
+      eslint-module-utils: 2.12.1(@typescript-eslint/parser@5.62.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-webpack@0.13.10)(eslint@9.39.4(jiti@2.6.1))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3

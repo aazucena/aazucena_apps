@@ -42,7 +42,7 @@
     "@fontsource/fira-sans": "^5.2.7",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.2",
-    "@mynaui/icons-react": "^0.3.9",
+    "@mynaui/icons-react": "^0.4.2",
     "@nanostores/react": "^0.8.4",
     "@pixi/constants": "^7.4.3",
     "@pixi/react": "8.1.0-alpha.1",
