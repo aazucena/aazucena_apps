@@ -12,7 +12,7 @@ import { Canvas } from "@react-three/fiber";
 import PixiJSParticles from "~/components/animations/PixiJSParticles";
 import HomepageScene from "../HomepageScene";
 import type { AtmosphericPhase } from "~/config/animations";
-import { useAnimation, usePortfolio } from "~/contexts/animations";
+import { useAnimation, usePortfolio } from "@aazucena/context";
 
 interface AnimationCanvasProps {
   // Only atmospheric layer remains as prop (not in context)

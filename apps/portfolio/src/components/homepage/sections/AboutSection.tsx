@@ -6,7 +6,7 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import type { JSX } from "react";
 import { darkBlockRenderers } from "~/components/blocks/BlockRenderers";
-import { toTitleCase } from "~/lib/utils/text";
+import { toTitleCase } from "@aazucena/utils";
 import { useSectionData } from "~/contexts/animations";
 import {
   StatCard,

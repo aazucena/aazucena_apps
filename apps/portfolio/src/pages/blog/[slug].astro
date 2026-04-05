@@ -9,12 +9,9 @@ import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getPosts } from "~/lib/api/posts";
-import {
-  calculateReadTime,
-  formatPostDate,
-  getPostDateTime,
-} from "~/lib/utils/blog";
-import { getTagColorClasses } from "~/lib/utils/tagColors";
+import { calculateReadTime, formatPostDate } from "@aazucena/utils";
+import { getTagColorClasses } from "@aazucena/utils";
+import { getPostDateTime } from "~/lib/utils/blog";
 
 export async function getStaticPaths() {
   try {

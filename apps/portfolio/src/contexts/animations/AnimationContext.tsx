@@ -5,7 +5,7 @@
 
 import { createContext, useState, useEffect, type ReactNode } from "react";
 import type { DeviceCapabilities } from "~/config/animations";
-import { detectDeviceCapabilities } from "~/lib/utils/animations";
+import { detectDeviceCapabilities } from "@aazucena/utils";
 
 const CAPABILITIES_STORAGE_KEY = "portfolioSettings";
 const SOUND_STORAGE_KEY = "soundMuted";

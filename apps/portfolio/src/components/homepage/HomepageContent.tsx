@@ -6,13 +6,10 @@
  */
 
 import { type JSX } from "react";
-import {
-  useDataContext,
-  useRegistry,
-  usePortfolio,
-} from "~/contexts/animations";
-import { type SectionRef } from "~/hooks/animations/useSectionRefs";
-import { type SectionComponent } from "~/hooks/animations/useSectionRegistry";
+import { usePortfolio } from "@aazucena/context";
+import { useDataContext, useRegistry } from "~/contexts/animations";
+import { type SectionRef } from "@aazucena/hooks";
+import { type SectionComponent } from "@aazucena/hooks";
 
 interface HomepageContentProps {
   // Only refs remain as prop (created in parent with useSectionRefs)

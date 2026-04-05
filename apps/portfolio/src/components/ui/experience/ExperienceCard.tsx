@@ -7,7 +7,7 @@ import type { JSX } from "react";
 import { Location, Briefcase } from "@mynaui/icons-react";
 import { GlassCard } from "../common/GlassCard";
 import { CompanyLogo } from "./CompanyLogo";
-import { formatDate } from "~/lib/utils/content";
+import { formatDate } from "@aazucena/utils";
 import type { Experience } from "~/lib/transformers/experiences";
 
 export interface ExperienceCardProps {
@@ -65,7 +65,9 @@ export function ExperienceCard({
           <span className="text-sm text-cyan-400">{experience.company}</span>
           <p className="text-xs whitespace-nowrap text-gray-300">
             {formatDate(experience.startDate)} -{" "}
-            {formatDate(experience.endDate, experience.isCurrent)}
+            {experience.isCurrent
+              ? "Present"
+              : formatDate(experience.endDate ?? "")}
           </p>
 
           {/* Metadata: Location & Employment Type */}

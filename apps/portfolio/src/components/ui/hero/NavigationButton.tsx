@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { IconRenderer } from "~/components/blocks/IconRenderer";
 import type { IconComponent } from "~/types/icons";
-import { usePortfolio } from "~/contexts/animations";
+import { usePortfolio } from "@aazucena/context";
 
 export interface NavigationDropdownOption {
   label: string;

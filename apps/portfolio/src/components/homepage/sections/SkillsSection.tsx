@@ -5,12 +5,13 @@
 
 import { PhoneDialTabs } from "@/components/ui/phone-dial-tabs";
 import type { JSX } from "react";
-import { useAnimation, useSectionData } from "~/contexts/animations";
+import { useAnimation } from "@aazucena/context";
+import { useSectionData } from "~/contexts/animations";
 import { SkillBadgeList, mapGradientToVariant } from "~/components/ui/skills";
 import { SectionLayout } from "./layouts";
 import type { SectionProps } from "./types";
 import { IconRenderer } from "~/components/blocks/IconRenderer";
-import { getGradientClass } from "~/lib/utils";
+import { getGradientClass } from "@aazucena/utils";
 
 export interface SkillsSectionProps extends SectionProps {}
 

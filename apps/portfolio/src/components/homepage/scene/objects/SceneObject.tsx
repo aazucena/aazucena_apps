@@ -8,7 +8,7 @@ import type { JSX } from "react";
 import { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import type { Group } from "three";
-import { applyAnimation } from "~/lib/utils/scene";
+import { applyAnimation } from "@aazucena/utils";
 import type { SceneObjectProps } from "./types";
 
 /**

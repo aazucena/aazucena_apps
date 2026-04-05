@@ -19,11 +19,8 @@ import {
 } from "~/components/ui";
 import { Popover } from "~/components/ui/common";
 import type { AtmosphericPhase } from "~/config/animations";
-import {
-  usePortfolio,
-  useAnimation,
-  usePortfolioData,
-} from "~/contexts/animations";
+import { usePortfolio, useAnimation } from "@aazucena/context";
+import { usePortfolioData } from "~/contexts/animations";
 
 export interface NavigationToolbarProps {
   /** Current atmospheric phase for Info panel */

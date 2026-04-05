@@ -5,8 +5,8 @@
 
 import type { JSX } from "react";
 import { GlassCard } from "../common/GlassCard";
-import { getTagClasses } from "~/lib/utils/animations/colors";
-import { formatPostDate, calculateReadTime } from "~/lib/utils/blog";
+import { getTagClasses } from "@aazucena/utils";
+import { formatPostDate, calculateReadTime } from "@aazucena/utils";
 import type { BlogPost } from "~/lib/transformers/posts";
 import type { BlogConfigData } from "~/lib/transformers/blog-config";
 
@@ -79,7 +79,9 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
       {(displayConfig.showDate || displayConfig.showReadTime) && (
         <div className="mb-3 flex items-center gap-3">
           {displayConfig.showDate && (
-            <p className="text-sm text-gray-400">{formatPostDate(post)}</p>
+            <p className="text-sm text-gray-400">
+              {formatPostDate(post as { publishedAt: string })}
+            </p>
           )}
           {displayConfig.showDate && displayConfig.showReadTime && (
             <span className="text-gray-500">•</span>

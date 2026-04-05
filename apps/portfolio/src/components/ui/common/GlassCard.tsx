@@ -5,7 +5,7 @@
  */
 
 import type { JSX, ElementType, ComponentPropsWithoutRef } from "react";
-import { cn } from "~/lib/utils";
+import { cn } from "@aazucena/utils";
 
 export interface GlassCardProps<T extends ElementType = "div"> {
   /** HTML element to render as (div, article, section, etc.) */

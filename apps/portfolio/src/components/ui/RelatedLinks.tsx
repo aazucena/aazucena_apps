@@ -4,7 +4,7 @@
  */
 
 import { ExternalLink } from "@mynaui/icons-react";
-import { getIconComponent } from "~/lib/utils/icons";
+import { getIconComponent } from "@aazucena/utils";
 import type { WebLink } from "~/lib/validators/web-link";
 import type { JSX } from "react";
 
@@ -33,9 +33,9 @@ export function RelatedLinks({
       <ul className="space-y-3">
         {links.map((link, index) => {
           // Determine icon: Use CMS icon if provided, otherwise fallback to ExternalLink
-          const Icon = link.icon?.name
-            ? getIconComponent(link.icon.name)
-            : ExternalLink;
+          const Icon = (
+            link.icon?.name ? getIconComponent(link.icon.name) : ExternalLink
+          ) as React.ElementType | string;
 
           return (
             <li key={index}>

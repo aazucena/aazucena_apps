@@ -7,8 +7,8 @@ import { getExperiences } from "~/lib/api/experiences";
 import { getProjects } from "~/lib/api/projects";
 import { getSkills } from "~/lib/api/skills";
 import type { SkillCategory } from "~/lib/transformers/skills";
-// import { cn } from '~/lib/utils';
-import { getGradientClass } from "~/lib/utils/about";
+// import { cn } from '@aazucena/utils';
+import { getGradientClass } from "@aazucena/utils";
 
 // Fetch skills, projects, experiences, and education to calculate usage
 const [skillCategories, projects, experiences, education] = await Promise.all([

@@ -5,8 +5,8 @@
 
 import { useEffect, type JSX, type RefObject } from "react";
 import type { Award } from "~/lib/transformers/awards";
-import { toTitleCase } from "~/lib/utils/text";
-import { getCompanyLogoGradient } from "~/lib/utils/experiences";
+import { toTitleCase } from "@aazucena/utils";
+import { getCompanyLogoGradient } from "@aazucena/utils";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { darkBlockRenderers } from "~/components/blocks/BlockRenderers";
 

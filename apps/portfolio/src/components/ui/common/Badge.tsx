@@ -5,7 +5,7 @@
  */
 
 import type { JSX } from "react";
-import { cn } from "~/lib/utils";
+import { cn } from "@aazucena/utils";
 
 export type BadgeVariant =
   | "cyan"

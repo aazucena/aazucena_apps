@@ -7,7 +7,7 @@ import type { JSX } from "react";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import type { Group } from "three";
-import { applyAnimation, applyCircularMotion } from "~/lib/utils/scene";
+import { applyAnimation, applyCircularMotion } from "@aazucena/utils";
 import type { SceneObjectConfig } from "../types";
 
 interface SpaceDebrisProps {

@@ -11,7 +11,7 @@ import {
   getAmbientIntensity,
   getPointLightColor,
   getSecondaryLightColor,
-} from "~/lib/utils/scene";
+} from "@aazucena/utils";
 import {
   SUN_CONFIG,
   SHADOW_CONFIG,

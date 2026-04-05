@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/timeline";
 import type { JSX } from "react";
 import { useState } from "react";
-import { usePortfolio, useSectionData } from "~/contexts/animations";
+import { usePortfolio } from "@aazucena/context";
+import { useSectionData } from "~/contexts/animations";
 import { ExperienceCard, ExperienceActions } from "~/components/ui/experience";
 import { SectionLayout } from "./layouts";
 import type { SectionProps } from "./types";

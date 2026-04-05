@@ -6,7 +6,7 @@ import {
   resetCategories,
   skillSearchQueryStore,
 } from "~/store/journey";
-import { toTitleCase } from "~/lib/utils/text";
+import { toTitleCase } from "@aazucena/utils";
 
 interface ToolbarProps {
   categories: string[];

@@ -2,7 +2,7 @@
 import PageLayout from "./PageLayout.astro";
 import GradientAccent from "~/components/common/GradientAccent.astro";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
-import { pluralize } from "~/lib/utils/text";
+import { pluralize } from "@aazucena/utils";
 
 export interface FilterConfig {
   id: string;
@@ -207,7 +207,7 @@ const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
   </div>
 
   <script>
-    import { updateURL } from "~/lib/utils/url";
+    import { updateURL } from "@aazucena/utils";
     import { en } from "make-plural/plurals";
 
     const plurals = en;

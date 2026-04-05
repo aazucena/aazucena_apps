@@ -6,7 +6,7 @@
 import { ArrowLeftRight as ArrowsHorizontal } from "@mynaui/icons-react";
 import type { JSX } from "react";
 import { useSectionData } from "~/contexts/animations";
-import { useDragToSwipe } from "~/hooks/animations";
+import { useDragToSwipe } from "@aazucena/hooks";
 import { ProjectCard, ViewMoreCard, PageIndicators } from "~/components/ui";
 import { SectionLayout } from "./layouts";
 import type { SectionProps } from "./types";

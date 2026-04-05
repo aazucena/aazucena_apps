@@ -19,7 +19,7 @@ import {
   usePortfolioData,
   useSectionData,
 } from "~/contexts/animations";
-import { useGSAPEntrance } from "~/hooks/animations";
+import { useGSAPEntrance } from "@aazucena/hooks";
 import {
   FlipWordsTagline,
   NavigationButton,

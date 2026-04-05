@@ -6,13 +6,13 @@
 
 import { useEffect, type JSX, type RefObject } from "react";
 import type { Experience } from "~/lib/transformers/experiences";
-import { getBadgeClasses } from "~/lib/utils/animations/colors";
+import { getBadgeClasses } from "@aazucena/utils";
 import {
   calculateDuration,
   formatCompanySize,
   getCompanyLogoGradient,
-} from "~/lib/utils/experiences";
-import { toTitleCase } from "~/lib/utils/text";
+} from "@aazucena/utils";
+import { toTitleCase } from "@aazucena/utils";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { darkBlockRenderers } from "~/components/blocks/BlockRenderers";
 import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";

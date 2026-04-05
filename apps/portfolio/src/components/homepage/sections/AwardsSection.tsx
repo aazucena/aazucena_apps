@@ -6,7 +6,7 @@
 
 import { lazy, Suspense, type JSX } from "react";
 import { useSectionData } from "~/contexts/animations";
-import { useModal } from "~/hooks/animations";
+import { useModal } from "@aazucena/hooks";
 import { HexagonCard, SectionLabel } from "~/components/ui/awards";
 import { SectionLayout } from "./layouts";
 import type { SectionProps } from "./types";

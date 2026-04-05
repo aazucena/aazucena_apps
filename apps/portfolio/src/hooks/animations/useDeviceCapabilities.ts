@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from "react";
 import type { DeviceCapabilities } from "~/config/animations";
-import { detectDeviceCapabilities } from "~/lib/utils/animations";
+import { detectDeviceCapabilities } from "@aazucena/utils";
 
 const STORAGE_KEY = "portfolioSettings";
 

@@ -1,6 +1,6 @@
 import type { StrapiSkillCategory } from "~/lib/validators/skill-category";
 import type { IconComponent } from "~/types/icons";
-import { getIconComponent } from "~/lib/utils/icons";
+import { getIconComponent } from "@aazucena/utils";
 
 /**
  * Maps color variant to Tailwind gradient classes
@@ -43,7 +43,7 @@ export function transformSkillCategory(
     label: strapiCategory.label,
     // Convert icon name/SVG string to IconComponent using shared utility
     icon: strapiCategory.icon
-      ? getIconComponent(strapiCategory.icon)
+      ? (getIconComponent(strapiCategory.icon) as IconComponent)
       : undefined,
     // Convert variant to Tailwind gradient classes
     gradient: strapiCategory.variant

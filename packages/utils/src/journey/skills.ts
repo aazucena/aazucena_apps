@@ -164,7 +164,7 @@ export function transformToSkillsNetwork(
 export function getSkillDetails(
   skillName: string,
   experiences: Experience[],
-  education: Education[],
+  _education: Education[],
   projects: Project[],
 ): SkillDetails {
   const occurrences: { date: Date; source: string }[] = [];

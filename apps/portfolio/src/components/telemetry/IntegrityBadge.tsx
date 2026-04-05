@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Shield } from "@mynaui/icons-react";
-import { cn } from "~/lib/utils";
+import { cn } from "@aazucena/utils";
 
 interface IntegrityBadgeProps {
   className?: string;

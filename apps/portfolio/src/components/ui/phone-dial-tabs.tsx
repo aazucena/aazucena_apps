@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "~/lib/utils";
+import { cn } from "@aazucena/utils";
 
 export interface PhoneDialTab {
   id: string;

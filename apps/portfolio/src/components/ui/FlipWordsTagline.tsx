@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useFlipText, type FlipTextOptions } from "~/hooks/animations";
+import { useFlipText, type FlipTextOptions } from "@aazucena/hooks";
 
 export interface FlipWordsTaglineProps extends FlipTextOptions {
   ref?: React.RefObject<HTMLParagraphElement | null>;

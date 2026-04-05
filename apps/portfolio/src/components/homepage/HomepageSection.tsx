@@ -18,18 +18,17 @@ import DynamicBackground from "./background/DynamicBackground";
 // Lazy load AnimationCanvas to defer Three.js (~600KB) + PixiJS (~400KB)
 const AnimationCanvas = lazy(() => import("./canvas/AnimationCanvas"));
 import {
-  DataProvider,
-  useDataContext,
   AnimationProvider,
   PortfolioProvider,
   usePortfolio,
-} from "~/contexts/animations";
+} from "@aazucena/context";
+import { DataProvider, useDataContext } from "~/contexts/animations";
 import HomepageContent from "./HomepageContent";
 import {
   useAtmosphericLayer,
   useSectionRefs,
   useSectionTransitions,
-} from "~/hooks/animations";
+} from "@aazucena/hooks";
 import AtmosphericOverlays from "./overlays/AtmosphericOverlays";
 import UIOverlays from "./overlays/UIOverlays";
 

@@ -5,10 +5,7 @@
  */
 
 import type { JSX } from "react";
-import {
-  getCompanyLogoGradient,
-  getCompanyInitials,
-} from "~/lib/utils/experiences";
+import { getCompanyLogoGradient, getCompanyInitials } from "@aazucena/utils";
 
 export interface CompanyLogoProps {
   /** Company name */

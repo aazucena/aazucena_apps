@@ -4,7 +4,7 @@
  */
 
 import * as THREE from "three";
-import { generatePhaseColor } from "~/lib/utils/scene/phaseColors";
+import { generatePhaseColor } from "@aazucena/utils";
 import type { AtmosphericPhase } from "~/config/animations";
 
 export interface ParticleData {

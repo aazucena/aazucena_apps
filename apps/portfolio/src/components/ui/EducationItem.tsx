@@ -11,7 +11,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
-import { calculateDuration } from "~/lib/utils/experiences";
+import { calculateDuration } from "@aazucena/utils";
 
 interface EducationItemProps {
   edu: {

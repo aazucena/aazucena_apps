@@ -6,7 +6,7 @@
 
 import type { JSX } from "react";
 import { IconRenderer } from "~/components/blocks/IconRenderer";
-import { cn } from "~/lib/utils";
+import { cn } from "@aazucena/utils";
 import type { IconComponent } from "~/types/icons";
 
 export type LearnMoreCardVariant =

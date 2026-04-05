@@ -8,8 +8,8 @@ import * as d3 from "d3";
 import type { TimelineNode } from "~/lib/transformers/journey";
 import { ExportControls } from "~/components/ui/journey";
 import { calculateDetailedDuration } from "~/lib/transformers/journey";
-import { getCompanyInitials } from "~/lib/utils/experiences";
-import { toTitleCase } from "~/lib/utils/text";
+import { getCompanyInitials } from "@aazucena/utils";
+import { toTitleCase } from "@aazucena/utils";
 interface InteractiveTimelineProps {
   data: TimelineNode[];
   hideHeader?: boolean;

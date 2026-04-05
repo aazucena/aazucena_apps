@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "@mynaui/icons-react";
 import { ThemeToggle } from "./ThemeToggle";
-import { toTitleCase } from "~/lib/utils/text";
+import { toTitleCase } from "@aazucena/utils";
 import { getNavigationIcon } from "~/lib/utils/icons";
 import type { NavigationItem } from "~/lib/validators/navigation";
 

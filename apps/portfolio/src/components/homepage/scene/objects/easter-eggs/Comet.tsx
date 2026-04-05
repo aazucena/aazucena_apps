@@ -8,7 +8,7 @@ import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import type { Group } from "three";
-import { applyAnimation } from "~/lib/utils/scene";
+import { applyAnimation } from "@aazucena/utils";
 import type { SceneObjectConfig } from "../types";
 
 interface CometProps {

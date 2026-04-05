@@ -4,7 +4,7 @@
  */
 
 import type { JSX } from "react";
-import { getGradientColors } from "~/lib/utils/animations/colors";
+import { getGradientColors } from "@aazucena/utils";
 import type { Award } from "~/lib/transformers/awards";
 
 export interface HexagonCardProps {

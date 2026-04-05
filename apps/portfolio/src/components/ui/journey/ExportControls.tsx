@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react";
-import { downloadSVG, downloadPNG } from "~/lib/utils/journey/export";
+import { downloadSVG, downloadPNG } from "@aazucena/utils";
 
 interface ExportControlsProps {
   svgRef: React.RefObject<SVGSVGElement | null>;

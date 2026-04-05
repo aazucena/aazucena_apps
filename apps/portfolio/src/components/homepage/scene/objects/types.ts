@@ -5,7 +5,7 @@
 
 import type { RefObject } from "react";
 import type { Group } from "three";
-import type { AnimationConfig } from "~/lib/utils/scene";
+import type { SceneAnimationConfig as AnimationConfig } from "@aazucena/types";
 
 /**
  * Object Categories

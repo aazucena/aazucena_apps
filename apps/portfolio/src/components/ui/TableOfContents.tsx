@@ -5,10 +5,10 @@
  */
 
 import { useEffect, useState, useMemo } from "react";
-import { cn } from "~/lib/utils";
+import { cn } from "@aazucena/utils";
 import { List, ChevronDown } from "@mynaui/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toTitleCase } from "~/lib/utils/text";
+import { toTitleCase } from "@aazucena/utils";
 import type { JSX } from "react";
 
 interface ToCItem {

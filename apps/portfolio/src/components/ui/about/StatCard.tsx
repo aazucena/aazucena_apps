@@ -5,7 +5,7 @@
  */
 
 import type { JSX } from "react";
-import { toTitleCase } from "~/lib/utils/text";
+import { toTitleCase } from "@aazucena/utils";
 import { GlassCard } from "../common/GlassCard";
 
 export interface StatCardProps {

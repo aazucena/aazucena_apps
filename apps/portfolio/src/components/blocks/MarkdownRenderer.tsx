@@ -6,7 +6,7 @@
 import { marked } from "marked";
 import type { Tokens } from "marked";
 import type { JSX } from "react";
-import { cn } from "~/lib/utils";
+import { cn } from "@aazucena/utils";
 
 interface MarkdownRendererProps {
   content: string;

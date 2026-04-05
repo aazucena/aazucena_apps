@@ -7,7 +7,7 @@ import type { SkillWithCategory } from "~/lib/validators/components";
 import type { Education } from "~/lib/transformers/education";
 import type { Experience } from "~/lib/transformers/experiences";
 import { calculateMonthsDuration } from "./base";
-import { getCompanyLogoGradient } from "~/lib/utils/experiences";
+import { getCompanyLogoGradient } from "@aazucena/utils";
 
 export interface TimelineNode {
   date: Date;

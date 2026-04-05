@@ -5,7 +5,7 @@
 
 import { useMemo } from "react";
 import type { AtmosphericPhase } from "~/config/animations";
-import { getAtmosphericPhase, getBackgroundGradient } from "~/lib/utils/scene";
+import { getAtmosphericPhase, getBackgroundGradient } from "@aazucena/utils";
 
 export interface AtmosphericLayerResult {
   phase: AtmosphericPhase;

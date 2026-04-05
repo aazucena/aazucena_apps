@@ -13,7 +13,7 @@ import { useFrame } from "@react-three/fiber";
 import { Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 import type { ShaderMaterial } from "three";
-import { createAuroraMaterial, updateShaderTime } from "~/lib/utils/scene";
+import { createAuroraMaterial, updateShaderTime } from "@aazucena/utils";
 import { SceneObjectManager } from "./objects";
 import { thermosphereObjects } from "~/data/scene/objects";
 

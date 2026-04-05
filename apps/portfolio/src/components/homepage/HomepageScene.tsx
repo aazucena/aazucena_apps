@@ -10,7 +10,7 @@ import { useRef, useMemo, useEffect, type JSX } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Float, OrbitControls } from "@react-three/drei";
 import type { Group } from "three";
-import { useShapeRefs } from "~/hooks/animations";
+import { useShapeRefs } from "@aazucena/hooks";
 import type { AtmosphericPhase } from "~/config/animations";
 import {
   SCENE_ELEMENT_COUNTS,
@@ -23,7 +23,7 @@ import {
   LazySceneLayerManager as SceneLayerManager,
   SceneLighting,
 } from "./scene";
-import { calculateLayerOpacities } from "~/lib/utils/scene";
+import { calculateLayerOpacities } from "@aazucena/utils";
 import {
   generateParticleData,
   createBasicGeometries,

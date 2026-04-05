@@ -10,12 +10,9 @@ import { lazy, Suspense, type JSX } from "react";
 import { ScrollIndicators, ScrollDownIndicator } from "~/components/ui";
 import { NavigationToolbar } from "./NavigationToolbar";
 import type { AtmosphericPhase } from "~/config/animations";
-import {
-  useSectionData,
-  usePortfolio,
-  useDataContext,
-} from "~/contexts/animations";
-import { useModal } from "~/hooks/animations";
+import { usePortfolio } from "@aazucena/context";
+import { useSectionData, useDataContext } from "~/contexts/animations";
+import { useModal } from "@aazucena/hooks";
 
 // Lazy load ExperienceModal - only loads when user clicks to view experience
 const ExperienceModal = lazy(() =>

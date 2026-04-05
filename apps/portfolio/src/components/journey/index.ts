@@ -17,5 +17,4 @@ export { JourneyDashboard } from "./JourneyDashboard";
 export * from "~/components/ui/journey";
 export * from "~/components/visualizations/journey";
 export * from "~/lib/transformers/journey";
-export * from "~/lib/utils/journey";
 export * from "~/store/journey";

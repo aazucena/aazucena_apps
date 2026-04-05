@@ -11,10 +11,7 @@ import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
 import { StatusBadge } from "~/components/ui/StatusBadge";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getProjects } from "~/lib/api/projects";
-import {
-  getProjectStatusVariant,
-  formatProjectDate,
-} from "~/lib/utils/projects";
+import { getProjectStatusVariant, formatProjectDate } from "@aazucena/utils";
 
 // Generate static paths for all projects
 export async function getStaticPaths() {

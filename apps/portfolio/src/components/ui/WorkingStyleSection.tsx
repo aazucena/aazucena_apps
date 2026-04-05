@@ -1,7 +1,7 @@
 import { Users, Zap, Message } from "@mynaui/icons-react";
 import { InteractiveCard } from "./InteractiveCard";
 import { IconRenderer } from "~/components/blocks/IconRenderer";
-import { getWorkingStyleColor } from "~/lib/utils/about";
+import { getWorkingStyleColor } from "@aazucena/utils";
 import type { WorkingStyleItem } from "~/lib/validators/components";
 
 interface WorkingStyleSectionProps {

@@ -7,16 +7,10 @@ import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig } from "~/layouts/ListLayout.astro";
 import { getProjects } from "~/lib/api/projects";
 import type { Project } from "~/lib/transformers/projects";
-import { getTagColorClasses } from "~/lib/utils/tagColors";
-import { toTitleCase } from "~/lib/utils/text";
-import {
-  getCompanyLogoGradient,
-  getCompanyInitials,
-} from "~/lib/utils/experiences";
-import {
-  getProjectStatusVariant,
-  formatProjectDate,
-} from "~/lib/utils/projects";
+import { getTagColorClasses } from "@aazucena/utils";
+import { toTitleCase } from "@aazucena/utils";
+import { getCompanyLogoGradient, getCompanyInitials } from "@aazucena/utils";
+import { getProjectStatusVariant, formatProjectDate } from "@aazucena/utils";
 import { StatusBadge } from "~/components/ui/StatusBadge";
 import { Star, Calendar, ArrowRight } from "@mynaui/icons-react";
 
