@@ -61,7 +61,7 @@ export const SITE_CONFIG: SiteConfig = {
     social: {
       twitter: "@azucena",
     },
-    googleSiteVerificationId: process.env.GOOGLE_SITE_VERIFICATION_ID,
+    googleSiteVerificationId: import.meta.env.GOOGLE_SITE_VERIFICATION_ID,
     robotsIndex: true,
     robotsFollow: true,
   },

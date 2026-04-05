@@ -72,7 +72,7 @@ export const IconRenderer = memo(function IconRenderer({
 }: IconRendererProps) {
   // Handle null/undefined icons
   if (!icon) {
-    if (process.env.NODE_ENV === "development") {
+    if (import.meta.env.DEV) {
       console.warn("[IconRenderer] No icon provided");
     }
     return <>{fallback}</>;
@@ -97,7 +97,7 @@ export const IconRenderer = memo(function IconRenderer({
     if (!icon.trim().startsWith("<svg")) {
       const error = new Error(`Invalid SVG string: must start with '<svg'`);
 
-      if (process.env.NODE_ENV === "development") {
+      if (import.meta.env.DEV) {
         console.error("[IconRenderer]", error.message, { icon });
       }
 
@@ -123,7 +123,7 @@ export const IconRenderer = memo(function IconRenderer({
           aria-label={ariaLabel}
           aria-hidden={ariaHidden}
           onError={(_error) => {
-            if (process.env.NODE_ENV === "development") {
+            if (import.meta.env.DEV) {
               console.error(
                 "[IconRenderer] Failed to render SVG string",
                 _error,
@@ -134,7 +134,7 @@ export const IconRenderer = memo(function IconRenderer({
         />
       );
     } catch (_error) {
-      if (process.env.NODE_ENV === "development") {
+      if (import.meta.env.DEV) {
         console.error("[IconRenderer] Failed to encode SVG string", _error);
       }
 
@@ -157,7 +157,7 @@ export const IconRenderer = memo(function IconRenderer({
       />
     );
   } catch (_error) {
-    if (process.env.NODE_ENV === "development") {
+    if (import.meta.env.DEV) {
       console.error("[IconRenderer] Failed to render icon component", _error);
     }
 

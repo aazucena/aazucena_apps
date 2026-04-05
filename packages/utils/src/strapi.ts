@@ -11,7 +11,8 @@ import type {
   TransformedPageHeader,
 } from '@aazucena/types';
 
-const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL =
+  (typeof process !== 'undefined' ? process.env.STRAPI_URL : undefined) || 'http://localhost:1337';
 
 /**
  * Get full URL for Strapi media
