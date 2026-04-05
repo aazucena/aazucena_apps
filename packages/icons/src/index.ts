@@ -47,6 +47,12 @@ export {
 // ─── v0.3.9 → v0.4.2 backwards-compat aliases ────────────────────────────────
 // Icons renamed between minor versions; keep old names so call sites don't break.
 export { Microchip as Chip, MicrochipSolid as ChipSolid } from '@mynaui/icons-react';
+export { MapPin as Location, MapPinSolid as LocationSolid } from '@mynaui/icons-react';
+export {
+  Linkedin as BrandLinkedin,
+  LinkedinSolid as BrandLinkedinSolid,
+} from '@mynaui/icons-react';
+export { Github as BrandGithub, GithubSolid as BrandGithubSolid } from '@mynaui/icons-react';
 export {
   Mail as Envelope,
   MailSolid as EnvelopeSolid,
