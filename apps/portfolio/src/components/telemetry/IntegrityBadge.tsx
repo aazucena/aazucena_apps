@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Shield } from "@mynaui/icons-react";
+import { Shield } from "@aazucena/icons";
 import { cn } from "@aazucena/utils";
 
 interface IntegrityBadgeProps {

@@ -25,7 +25,7 @@ import {
   BrandLinkedin,
   Badge,
   ArrowRight,
-} from "@mynaui/icons-react";
+} from "@aazucena/icons";
 
 export interface ExperienceModalProps {
   experience: Experience;

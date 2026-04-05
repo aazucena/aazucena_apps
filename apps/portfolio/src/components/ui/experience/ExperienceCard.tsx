@@ -4,7 +4,7 @@
  */
 
 import type { JSX } from "react";
-import { Location, Briefcase } from "@mynaui/icons-react";
+import { Location, Briefcase } from "@aazucena/icons";
 import { GlassCard } from "../common/GlassCard";
 import { CompanyLogo } from "./CompanyLogo";
 import { formatDate } from "@aazucena/utils";

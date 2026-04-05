@@ -3,7 +3,7 @@
  * Featured projects horizontal grid with draggable slider
  */
 
-import { ArrowLeftRight as ArrowsHorizontal } from "@mynaui/icons-react";
+import { ArrowLeftRight as ArrowsHorizontal } from "@aazucena/icons";
 import type { JSX } from "react";
 import { useSectionData } from "~/contexts/animations";
 import { useDragToSwipe } from "@aazucena/hooks";

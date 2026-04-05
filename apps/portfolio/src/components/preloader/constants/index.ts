@@ -7,7 +7,7 @@ import {
   Shield,
   Users,
   CogFour as Settings,
-} from "@mynaui/icons-react";
+} from "@aazucena/icons";
 import type { LoadingStep } from "../types";
 
 // Default steps that can be extended or overridden

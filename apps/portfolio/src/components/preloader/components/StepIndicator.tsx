@@ -3,7 +3,7 @@ import { Badge } from "../../ui/badge";
 import {
   CircleNotch as LoadingCircle,
   CheckCircleSolid as Checkmark,
-} from "@mynaui/icons-react";
+} from "@aazucena/icons";
 import { IconRenderer } from "../../blocks/IconRenderer";
 import type { LoadingStep } from "../types";
 import type { ThemeStyles } from "../hooks/useTheme";

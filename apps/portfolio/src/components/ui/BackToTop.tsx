@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUp } from "@mynaui/icons-react";
+import { ArrowUp } from "@aazucena/icons";
 
 export function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);

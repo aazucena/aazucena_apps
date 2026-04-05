@@ -7,7 +7,7 @@ import {
   SparklesSolid as Sparkle,
   Rocket as RocketLaunch,
   ClockCircle as Clock,
-} from "@mynaui/icons-react";
+} from "@aazucena/icons";
 import type { ThemeStyles } from "../hooks/useTheme";
 
 export interface ReadyStateProps {

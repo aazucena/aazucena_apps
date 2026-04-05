@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import { X } from "@mynaui/icons-react";
+import { X } from "@aazucena/icons";
 import { useEffect } from "react";
 import {
   useLoadingProgress,

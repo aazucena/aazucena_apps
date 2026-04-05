@@ -2,7 +2,7 @@ import { memo } from "react";
 import { Button } from "../../ui/button";
 import { CardTitle } from "../../ui/card";
 import { Badge } from "../../ui/badge";
-import { X, ClockHand as Retry } from "@mynaui/icons-react";
+import { X, ClockHand as Retry } from "@aazucena/icons";
 import type { ThemeStyles } from "../hooks/useTheme";
 
 export interface ErrorStateProps {

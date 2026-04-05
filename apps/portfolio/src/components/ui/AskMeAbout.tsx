@@ -4,7 +4,7 @@
  * Designed to look like a direct message or tip from the candidate.
  */
 
-import { MessageDots } from "@mynaui/icons-react";
+import { MessageDots } from "@aazucena/icons";
 import type { JSX } from "react";
 
 interface AskMeAboutProps {

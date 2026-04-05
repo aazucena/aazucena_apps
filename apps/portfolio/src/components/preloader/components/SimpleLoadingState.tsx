@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Progress } from "../../ui/progress";
-import { CircleNotch as LoadingCircle } from "@mynaui/icons-react";
+import { CircleNotch as LoadingCircle } from "@aazucena/icons";
 import type { CustomSpinnerProps, LoadingStep } from "../types";
 import type { ThemeStyles } from "../hooks/useTheme";
 import type { ComponentType } from "react";

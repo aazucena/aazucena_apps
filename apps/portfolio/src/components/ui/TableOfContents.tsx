@@ -6,7 +6,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { cn } from "@aazucena/utils";
-import { List, ChevronDown } from "@mynaui/icons-react";
+import { List, ChevronDown } from "@aazucena/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { toTitleCase } from "@aazucena/utils";
 import type { JSX } from "react";

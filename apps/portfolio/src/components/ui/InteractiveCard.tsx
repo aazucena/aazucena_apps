@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "@mynaui/icons-react";
+import { ChevronDown } from "@aazucena/icons";
 
 interface InteractiveCardProps {
   title: string;

@@ -1,4 +1,4 @@
-import { Users, Zap, Message } from "@mynaui/icons-react";
+import { Users, Zap, Message } from "@aazucena/icons";
 import { InteractiveCard } from "./InteractiveCard";
 import { IconRenderer } from "~/components/blocks/IconRenderer";
 import { getWorkingStyleColor } from "@aazucena/utils";

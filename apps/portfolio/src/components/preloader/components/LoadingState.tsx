@@ -1,4 +1,4 @@
-import { CircleNotch as LoadingCircle } from "@mynaui/icons-react";
+import { CircleNotch as LoadingCircle } from "@aazucena/icons";
 import { memo } from "react";
 import { CardTitle } from "../../ui/card";
 import { Progress } from "../../ui/progress";

@@ -3,11 +3,7 @@
  * An expandable education card showing degree, institution, and detailed description.
  */
 
-import {
-  Calendar,
-  ChevronDown,
-  ClockCircle as Clock,
-} from "@mynaui/icons-react";
+import { Calendar, ChevronDown, ClockCircle as Clock } from "@aazucena/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";

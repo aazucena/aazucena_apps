@@ -1,4 +1,4 @@
-import * as Icons from "@mynaui/icons-react";
+import * as Icons from "@aazucena/icons";
 import {
   Briefcase,
   ClockCircle,
@@ -10,11 +10,11 @@ import {
   Map,
   GitBranch,
   Send,
-} from "@mynaui/icons-react";
+} from "@aazucena/icons";
 import type { IconComponent } from "~/types/icons";
 
 /**
- * Maps icon name string to @mynaui/icons-react component
+ * Maps icon name string to @aazucena/icons component
  * Also handles SVG strings from strapi-plugin-icons-field
  *
  * @param iconName - Icon name (e.g., "Code", "Database") or SVG string
@@ -49,7 +49,7 @@ export function getIconComponent(
     return iconName;
   }
 
-  // Map icon names to @mynaui/icons-react exports
+  // Map icon names to @aazucena/icons exports
   // This handles common naming variations and provides fallbacks
   const iconMap: Record<string, keyof typeof Icons> = {
     // Development & Code

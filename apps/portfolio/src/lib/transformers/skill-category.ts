@@ -27,7 +27,7 @@ export interface SkillCategoryInfo {
   id: number;
   name: string; // kebab-case identifier (e.g., "frontend")
   label: string; // Display label (e.g., "Frontend Development")
-  icon?: IconComponent; // Icon component from @mynaui/icons-react or SVG string
+  icon?: IconComponent; // Icon component from @aazucena/icons or SVG string
   gradient?: string; // Tailwind gradient classes (e.g., "from-cyan-400 to-blue-500")
 }
 

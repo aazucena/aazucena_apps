@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "@mynaui/icons-react";
+import { Menu, X } from "@aazucena/icons";
 import { ThemeToggle } from "./ThemeToggle";
 import { toTitleCase } from "@aazucena/utils";
 import { getNavigationIcon } from "~/lib/utils/icons";

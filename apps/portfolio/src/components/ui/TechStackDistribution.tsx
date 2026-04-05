@@ -14,7 +14,7 @@ import {
   Servers,
   Terminal,
   Wrench,
-} from "@mynaui/icons-react";
+} from "@aazucena/icons";
 import type { JSX } from "react";
 import { Progress } from "~/components/ui/progress";
 

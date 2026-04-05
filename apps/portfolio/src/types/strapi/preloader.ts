@@ -16,7 +16,7 @@ export interface StrapiLoadingStep {
   stepId: number;
   name: string;
   description: string;
-  icon: string; // Icon name from @mynaui/icons-react
+  icon: string; // Icon name from @aazucena/icons
   weight: number;
   enabled: boolean;
 }

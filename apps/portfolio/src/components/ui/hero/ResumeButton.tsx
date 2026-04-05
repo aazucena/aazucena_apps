@@ -4,7 +4,7 @@
  * Used in HeroSection for secondary CTA
  */
 
-import { Download } from "@mynaui/icons-react";
+import { Download } from "@aazucena/icons";
 import type { JSX } from "react";
 import { RESUME_OPEN_DELAY } from "~/config/animations/constants";
 

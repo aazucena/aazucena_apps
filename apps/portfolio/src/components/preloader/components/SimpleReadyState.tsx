@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Button } from "../../ui/button";
-import { CheckCircle, Rocket as RocketLaunch } from "@mynaui/icons-react";
+import { CheckCircle, Rocket as RocketLaunch } from "@aazucena/icons";
 import type { ThemeStyles } from "../hooks/useTheme";
 
 export interface SimpleReadyStateProps {

@@ -1,6 +1,6 @@
 import { memo } from "react";
 import SVG from "react-inlinesvg";
-import type { MynaIconsProps as IconProps } from "@mynaui/icons-react";
+import type { MynaIconsProps as IconProps } from "@aazucena/icons";
 
 /**
  * IconComponent type - can be a React component or an SVG string
@@ -35,13 +35,13 @@ export interface IconRendererProps {
  * Global IconRenderer component
  *
  * Handles rendering icons from multiple sources:
- * - React components (e.g., @mynaui/icons-react)
+ * - React components (e.g., @aazucena/icons)
  * - SVG strings (e.g., from CMS)
  * - Null/undefined (renders nothing or fallback)
  *
  * @example
  * // With React component
- * import { Code } from '@mynaui/icons-react';
+ * import { Code } from '@aazucena/icons';
  * <IconRenderer icon={Code} className="w-6 h-6" stroke="2" />
  *
  * @example

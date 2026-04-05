@@ -3,7 +3,7 @@
  * Displays a list of related links (WebLink objects) with icons.
  */
 
-import { ExternalLink } from "@mynaui/icons-react";
+import { ExternalLink } from "@aazucena/icons";
 import { getIconComponent } from "@aazucena/utils";
 import type { WebLink } from "~/lib/validators/web-link";
 import type { JSX } from "react";

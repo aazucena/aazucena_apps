@@ -1,8 +1,8 @@
-import type { MynaIconsProps as IconProps } from "@mynaui/icons-react";
+import type { MynaIconsProps as IconProps } from "@aazucena/icons";
 
 /**
  * Shared icon type used throughout the application
- * Can be a React component from @mynaui/icons-react or an SVG string from CMS
+ * Can be a React component from @aazucena/icons or an SVG string from CMS
  */
 export type IconComponent = React.ComponentType<IconProps> | string;
 
