@@ -32,7 +32,14 @@ export function useSpiderChart<T extends SpiderChartData>(
     const totalAxes = allAxes.length;
     const angleSlice = (Math.PI * 2) / totalAxes;
 
-    const rScale = d3.scaleLinear().range([0, radius]).domain([0, maxValue]);
+    // Auto-compute maxValue from data when using the default 100 — journey data
+    // uses raw skill counts (~2–40), not percentages, so 100 makes blobs cluster at center.
+    const computedMax =
+      maxValue === 100
+        ? Math.ceil(Math.max(...data.flatMap((d) => d.axes.map((a) => a.value))) * 1.15)
+        : maxValue;
+
+    const rScale = d3.scaleLinear().range([0, radius]).domain([0, computedMax]);
 
     // Draw grid
     const axisGrid = g.append('g').attr('class', 'axisWrapper');
@@ -58,8 +65,8 @@ export function useSpiderChart<T extends SpiderChartData>(
       .append('line')
       .attr('x1', 0)
       .attr('y1', 0)
-      .attr('x2', (_d, i) => rScale(maxValue) * Math.cos(angleSlice * i - Math.PI / 2))
-      .attr('y2', (_d, i) => rScale(maxValue) * Math.sin(angleSlice * i - Math.PI / 2))
+      .attr('x2', (_d, i) => rScale(computedMax) * Math.cos(angleSlice * i - Math.PI / 2))
+      .attr('y2', (_d, i) => rScale(computedMax) * Math.sin(angleSlice * i - Math.PI / 2))
       .attr('stroke', 'currentColor')
       .attr('stroke-opacity', 0.2);
 
@@ -67,8 +74,8 @@ export function useSpiderChart<T extends SpiderChartData>(
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
-      .attr('x', (_d, i) => rScale(maxValue * 1.1) * Math.cos(angleSlice * i - Math.PI / 2))
-      .attr('y', (_d, i) => rScale(maxValue * 1.1) * Math.sin(angleSlice * i - Math.PI / 2))
+      .attr('x', (_d, i) => rScale(computedMax * 1.1) * Math.cos(angleSlice * i - Math.PI / 2))
+      .attr('y', (_d, i) => rScale(computedMax * 1.1) * Math.sin(angleSlice * i - Math.PI / 2))
       .attr('fill', 'currentColor')
       .style('font-size', '10px')
       .text((d) => d);
@@ -100,5 +107,24 @@ export function useSpiderChart<T extends SpiderChartData>(
       .on('click', (_event, d) => {
         if (onBlobClick) onBlobClick(d);
       });
+
+    // Series legend — bottom-left, one coloured dot + name per blob
+    const legend = g.append('g').attr('transform', `translate(${-radius}, ${radius - 20})`);
+    data.forEach((d, i) => {
+      const color = colorMap[d.name] || defaultColors(d.name);
+      legend
+        .append('circle')
+        .attr('cx', 0)
+        .attr('cy', i * 16)
+        .attr('r', 5)
+        .attr('fill', color);
+      legend
+        .append('text')
+        .attr('x', 10)
+        .attr('y', i * 16 + 4)
+        .attr('font-size', '9px')
+        .attr('fill', 'currentColor')
+        .text(d.name);
+    });
   }, [svgRef, data, width, height, maxValue, colorMap, onBlobClick]);
 }

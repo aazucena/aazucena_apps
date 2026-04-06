@@ -3,3 +3,6 @@ export * from "./ExportControls";
 export * from "./GrowthMetrics";
 export * from "./DetailsModal";
 export * from "./Toolbar";
+export * from "./SankeyWithSemantics";
+export * from "./TimelineEventTooltip";
+export * from "./HeatmapInfoPanel";

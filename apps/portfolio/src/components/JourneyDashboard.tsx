@@ -8,13 +8,18 @@
 
 import { lazy, Suspense, useState } from "react";
 import {
-  StreamGraph,
-  Heatmap,
-  SankeyDiagram,
   SpiderChart,
   ForceDirectedGraph,
+  StreamGraph,
+  Heatmap,
 } from "@aazucena/visualizations";
-import { CareerStats, Toolbar, GrowthMetrics } from "~/components/ui/journey";
+import {
+  CareerStats,
+  Toolbar,
+  GrowthMetrics,
+  SankeyWithSemantics,
+  HeatmapInfoPanel,
+} from "~/components/ui/journey";
 import { getSkillDetails } from "~/lib/transformers";
 import type {
   SpiderChartData,
@@ -186,7 +191,12 @@ export function JourneyDashboard({
           <div className="flex-1">
             {activeTab === "evolution" && (
               <div className="mx-auto max-w-4xl">
-                <SpiderChart data={evolutionData as any} />
+                <SpiderChart
+                  data={evolutionData as any}
+                  hideHeader
+                  showYearControls
+                  height={480}
+                />
               </div>
             )}
 
@@ -194,14 +204,28 @@ export function JourneyDashboard({
               <ForceDirectedGraph
                 data={networkData}
                 onNodeClick={handleNodeClick}
+                hideHeader
+                showPhysicsControls
+                height={560}
               />
             )}
 
-            {activeTab === "flow" && <SankeyDiagram data={sankeyData} />}
+            {activeTab === "flow" && (
+              <SankeyWithSemantics data={sankeyData} height={560} />
+            )}
 
-            {activeTab === "momentum" && <StreamGraph data={streamGraphData} />}
+            {activeTab === "momentum" && (
+              <StreamGraph data={streamGraphData} hideHeader height={560} />
+            )}
 
-            {activeTab === "intensity" && <Heatmap data={heatmapData} />}
+            {activeTab === "intensity" && (
+              <Heatmap
+                data={heatmapData}
+                hideHeader
+                height={500}
+                infoPanel={(cell) => <HeatmapInfoPanel cell={cell} />}
+              />
+            )}
           </div>
         </div>
 

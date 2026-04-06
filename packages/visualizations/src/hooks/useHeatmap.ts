@@ -10,6 +10,7 @@ export interface UseHeatmapOptions {
   startDate?: Date;
   endDate?: Date;
   onCellClick?: (cell: any) => void;
+  onCellHover?: (cell: GenericHeatmapCell | null) => void;
 }
 
 interface CalendarDay {
@@ -23,7 +24,16 @@ interface CalendarDay {
 export function useHeatmap<T extends GenericHeatmapCell>(
   svgRef: React.RefObject<SVGSVGElement | null>,
   data: T[],
-  { width, height, colorMap, baseColor, startDate, endDate, onCellClick }: UseHeatmapOptions,
+  {
+    width,
+    height,
+    colorMap,
+    baseColor,
+    startDate,
+    endDate,
+    onCellClick,
+    onCellHover,
+  }: UseHeatmapOptions,
 ) {
   useEffect(() => {
     if (!svgRef.current || width === 0 || height === 0) return;
@@ -134,11 +144,43 @@ export function useHeatmap<T extends GenericHeatmapCell>(
           `${d.date.toLocaleDateString('default', { month: 'short', day: 'numeric', year: 'numeric' })}: ${d.value} events`,
       );
 
-    if (onCellClick) {
-      g.selectAll<SVGRectElement, CalendarDay>('rect').on('click', (_event, d) => {
-        const original = dataMap.get(d.date.toISOString().slice(0, 10));
-        if (original) onCellClick(original);
-      });
+    if (onCellClick || onCellHover) {
+      g.selectAll<SVGRectElement, CalendarDay>('rect')
+        .on('click', (_event, d) => {
+          if (onCellClick) {
+            const original = dataMap.get(d.date.toISOString().slice(0, 10));
+            if (original) onCellClick(original);
+          }
+        })
+        .on('mouseenter', (_event, d) => {
+          if (onCellHover) {
+            const original = dataMap.get(d.date.toISOString().slice(0, 10));
+            onCellHover(original ?? null);
+          }
+          // Highlight hovered cell
+          d3.select(_event.currentTarget as SVGRectElement)
+            .attr('stroke', 'currentColor')
+            .attr('stroke-width', 1.5)
+            .attr('stroke-opacity', 0.8);
+        })
+        .on('mouseleave', (_event) => {
+          if (onCellHover) onCellHover(null);
+          d3.select(_event.currentTarget as SVGRectElement)
+            .attr('stroke', null)
+            .attr('stroke-width', null)
+            .attr('stroke-opacity', null);
+        });
     }
-  }, [svgRef, data, width, height, colorMap, baseColor, startDate, endDate, onCellClick]);
+  }, [
+    svgRef,
+    data,
+    width,
+    height,
+    colorMap,
+    baseColor,
+    startDate,
+    endDate,
+    onCellClick,
+    onCellHover,
+  ]);
 }

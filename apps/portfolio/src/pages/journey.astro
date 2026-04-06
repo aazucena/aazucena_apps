@@ -6,7 +6,11 @@
 import { Compass, Heart, Lamp, Rocket } from "@aazucena/icons";
 // Journey page imports - organized by type
 import { JourneyDashboard } from "~/components/JourneyDashboard";
-import { CareerStats, GrowthMetrics } from "~/components/ui/journey";
+import {
+  CareerStats,
+  GrowthMetrics,
+  TimelineEventTooltip,
+} from "~/components/ui/journey";
 import { InteractiveTimeline } from "@aazucena/visualizations";
 import {
   calculateCareerStats,
@@ -249,7 +253,17 @@ const phases =
             {/* Phase I: Chronology - Timeline */}
             {phase.name === "chronology" && (
               <div class="overflow-hidden">
-                <InteractiveTimeline data={timelineData} client:visible />
+                <InteractiveTimeline
+                  data={timelineData}
+                  laneKey="type"
+                  colorMap={{ experience: "#3b82f6", education: "#8b5cf6" }}
+                  hideHeader
+                  height={420}
+                  hoverPopup={(event, pos) => (
+                    <TimelineEventTooltip event={event} pos={pos} />
+                  )}
+                  client:visible
+                />
               </div>
             )}
 

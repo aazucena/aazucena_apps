@@ -22,6 +22,8 @@ export interface SankeyDiagramProps extends React.HTMLAttributes<HTMLDivElement>
   height?: number;
   exportFileName?: string;
   onNodeClick?: (node: any) => void;
+  /** Suppress the ChartHeader — recovers ~120px of canvas height */
+  hideHeader?: boolean;
 }
 
 export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
@@ -37,6 +39,7 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
       height = 600,
       exportFileName = 'data-flow',
       onNodeClick,
+      hideHeader = false,
       className,
       ...props
     },
@@ -73,7 +76,7 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
 
     useSankeyDiagram(svgRef, filteredData, {
       width,
-      height: height - 120, // Adjusted for header/footer
+      height: hideHeader ? height - 40 : height - 120, // Adjusted for header/footer
       groupKey,
       colorMap,
       onNodeClick,
@@ -82,13 +85,15 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
     return (
       <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
         <div ref={containerRef} className="flex flex-col h-full">
-          <ChartHeader>
-            <div>
-              <ChartTitle>{title}</ChartTitle>
-              {description && <ChartDescription>{description}</ChartDescription>}
-            </div>
-            <ChartToolbar svgRef={svgRef} data={filteredData.links} fileName={exportFileName} />
-          </ChartHeader>
+          {!hideHeader && (
+            <ChartHeader>
+              <div>
+                <ChartTitle>{title}</ChartTitle>
+                {description && <ChartDescription>{description}</ChartDescription>}
+              </div>
+              <ChartToolbar svgRef={svgRef} data={filteredData.links} fileName={exportFileName} />
+            </ChartHeader>
+          )}
 
           <ChartContent>
             <svg

@@ -20,6 +20,8 @@ export interface StreamGraphProps extends React.HTMLAttributes<HTMLDivElement> {
   headerOffset?: number;
   exportFileName?: string;
   onLayerClick?: (key: string) => void;
+  /** Suppress the ChartHeader — recovers ~80px of canvas height */
+  hideHeader?: boolean;
 }
 
 export const StreamGraph = forwardRef<HTMLDivElement, StreamGraphProps>(
@@ -33,6 +35,7 @@ export const StreamGraph = forwardRef<HTMLDivElement, StreamGraphProps>(
       headerOffset = 80,
       exportFileName = 'stream-graph',
       onLayerClick,
+      hideHeader = false,
       className,
       ...props
     },
@@ -58,9 +61,11 @@ export const StreamGraph = forwardRef<HTMLDivElement, StreamGraphProps>(
       };
     }, []);
 
+    const effectiveOffset = hideHeader ? 0 : headerOffset;
+
     useStreamGraph(svgRef, data, {
       width,
-      height: height - headerOffset,
+      height: height - effectiveOffset,
       colorMap,
       onLayerClick,
     });
@@ -68,13 +73,15 @@ export const StreamGraph = forwardRef<HTMLDivElement, StreamGraphProps>(
     return (
       <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
         <div ref={containerRef} className="flex flex-col h-full">
-          <ChartHeader>
-            <div>
-              <ChartTitle>{title}</ChartTitle>
-              {description && <ChartDescription>{description}</ChartDescription>}
-            </div>
-            <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName} />
-          </ChartHeader>
+          {!hideHeader && (
+            <ChartHeader>
+              <div>
+                <ChartTitle>{title}</ChartTitle>
+                {description && <ChartDescription>{description}</ChartDescription>}
+              </div>
+              <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName} />
+            </ChartHeader>
+          )}
 
           <ChartContent>
             <svg

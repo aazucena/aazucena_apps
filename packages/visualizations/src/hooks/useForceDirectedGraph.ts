@@ -17,12 +17,27 @@ export interface UseForceDirectedGraphOptions {
   groupKey: string;
   colorMap: Record<string, string>;
   onNodeClick?: (node: any) => void;
+  /** D3 forceManyBody strength — more negative = stronger repulsion. @default -150 */
+  chargeStrength?: number;
+  /** Preferred link length in pixels. @default 80 */
+  linkDistance?: number;
+  /** Collision avoidance radius. @default 20 */
+  collisionRadius?: number;
 }
 
 export function useForceDirectedGraph<TNode extends BaseNode, TLink extends BaseLink<string>>(
   svgRef: React.RefObject<SVGSVGElement | null>,
   data: { nodes: TNode[]; links: TLink[] },
-  { width, height, groupKey, colorMap, onNodeClick }: UseForceDirectedGraphOptions,
+  {
+    width,
+    height,
+    groupKey,
+    colorMap,
+    onNodeClick,
+    chargeStrength = -150,
+    linkDistance = 80,
+    collisionRadius = 20,
+  }: UseForceDirectedGraphOptions,
 ) {
   useEffect(() => {
     if (!svgRef.current || width === 0 || !data.nodes.length) return;
@@ -42,11 +57,14 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
       .forceSimulation<SimulationNode<TNode>>(nodes)
       .force(
         'link',
-        d3.forceLink<SimulationNode<TNode>, SimulationLink<TNode, TLink>>(links).id((d) => d.id),
+        d3
+          .forceLink<SimulationNode<TNode>, SimulationLink<TNode, TLink>>(links)
+          .id((d) => d.id)
+          .distance(linkDistance),
       )
-      .force('charge', d3.forceManyBody().strength(-150))
+      .force('charge', d3.forceManyBody().strength(chargeStrength))
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide().radius(20));
+      .force('collision', d3.forceCollide().radius(collisionRadius));
 
     const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
     const getColor = (d: TNode) => {
@@ -95,6 +113,19 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
 
     node.append('title').text((d) => d.name);
 
+    // Visible text labels that tick with the simulation — truncated at 12 chars
+    const label = g
+      .append('g')
+      .attr('pointer-events', 'none')
+      .selectAll('text')
+      .data(nodes)
+      .join('text')
+      .attr('font-size', '9px')
+      .attr('fill', 'currentColor')
+      .attr('dy', '-0.5em')
+      .attr('text-anchor', 'middle')
+      .text((d) => (d.name.length > 12 ? d.name.slice(0, 11) + '…' : d.name));
+
     simulation.on('tick', () => {
       link
         .attr('x1', (d: any) => d.source.x)
@@ -103,10 +134,23 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
         .attr('y2', (d: any) => d.target.y);
 
       node.attr('cx', (d) => d.x || 0).attr('cy', (d) => d.y || 0);
+
+      label.attr('x', (d) => d.x || 0).attr('y', (d) => d.y || 0);
     });
 
     return () => {
       simulation.stop();
     };
-  }, [svgRef, data, width, height, groupKey, colorMap, onNodeClick]);
+  }, [
+    svgRef,
+    data,
+    width,
+    height,
+    groupKey,
+    colorMap,
+    onNodeClick,
+    chargeStrength,
+    linkDistance,
+    collisionRadius,
+  ]);
 }
