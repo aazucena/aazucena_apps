@@ -78,7 +78,7 @@ export function useSankeyDiagram<TNode extends BaseNode, TLink extends BaseLink<
 
     g.append('g')
       .attr('fill', 'none')
-      .attr('stroke-opacity', 0.15)
+      .attr('stroke-opacity', 0.25)
       .selectAll('path')
       .data(layoutLinks)
       .enter()
@@ -86,18 +86,19 @@ export function useSankeyDiagram<TNode extends BaseNode, TLink extends BaseLink<
       .attr('d', sankeyLinkHorizontal())
       .attr('stroke', (d: any) => getColor(d.source))
       .attr('stroke-width', (d: any) => Math.max(1, d.width || 0))
+      .style('mix-blend-mode', 'multiply')
       .on('mouseenter', function (event, d: any) {
         d3.select(this).attr('stroke-opacity', 0.5);
         tooltip
           .style('opacity', 1)
           .html(
-            `<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Value: ${d.value}`,
+            `<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Usage count: ${d.value}`,
           )
           .style('left', event.pageX + 10 + 'px')
           .style('top', event.pageY - 28 + 'px');
       })
       .on('mouseleave', function () {
-        d3.select(this).attr('stroke-opacity', 0.15);
+        d3.select(this).attr('stroke-opacity', 0.25);
         tooltip.style('opacity', 0);
       });
 
@@ -132,10 +133,24 @@ export function useSankeyDiagram<TNode extends BaseNode, TLink extends BaseLink<
       .attr('y', (d: any) => (d.y1 + d.y0) / 2)
       .attr('dy', '0.35em')
       .attr('text-anchor', (d: any) => (d.x0 < innerWidth / 2 ? 'start' : 'end'))
-      .attr('font-size', '10px')
-      .attr('font-weight', '600')
+      .attr('font-size', '12px')
+      .attr('font-weight', (d: any) => {
+        const id = String(d.id || '');
+        return id.startsWith('cat_') ||
+          id.startsWith('exp_') ||
+          id.startsWith('prj_') ||
+          id.startsWith('edu_')
+          ? '700'
+          : '400';
+      })
       .attr('fill', 'currentColor')
-      .text((d: any) => d.name);
+      .text((d: any) => d.name)
+      .each(function (d: any) {
+        // Fade very small skill labels to reduce clutter
+        if (String(d.id || '').startsWith('skill_') && d.y1 - d.y0 < 12) {
+          d3.select(this).style('opacity', 0.3).attr('font-size', '10px');
+        }
+      });
 
     return () => {
       d3.selectAll('.viz-tooltip').remove();

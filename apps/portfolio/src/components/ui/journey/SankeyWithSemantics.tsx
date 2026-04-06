@@ -43,11 +43,12 @@ export function SankeyWithSemantics({
 }: SankeyWithSemanticsProps) {
   const visibleCategories = useStore(visibleCategoriesStore);
 
-  // Build color map from node ids
+  // Build color map keyed by node.id so groupKey="id" resolves correctly.
   const colorMap = useMemo(() => {
     const categoryColor = d3.scaleOrdinal(d3.schemeTableau10);
     const map: Record<string, string> = {};
 
+    // Pass 1 — assign category and entity colors
     for (const node of data.nodes) {
       if (node.id.startsWith("cat_")) {
         map[node.id] = categoryColor(node.name);
@@ -58,10 +59,23 @@ export function SankeyWithSemantics({
       } else if (node.id.startsWith("edu_")) {
         map[node.id] = ENTITY_COLORS.edu;
       }
-      // skill_* and group_* inherit from the source cat_ link — no explicit entry needed
     }
+
+    // Pass 2 — inherit category color for skill_* / group_* via their source link.
+    // Links are stable before layout, so we don't need post-layout resolution.
+    for (const link of data.links) {
+      const src = String(link.source);
+      const tgt = String(link.target);
+      if (
+        src.startsWith("cat_") &&
+        (tgt.startsWith("skill_") || tgt.startsWith("group_"))
+      ) {
+        if (!map[tgt]) map[tgt] = map[src]!;
+      }
+    }
+
     return map;
-  }, [data.nodes]);
+  }, [data.nodes, data.links]);
 
   // ID-prefix-aware filtering — the package's groupKey='type' approach doesn't work
   // because Sankey nodes have no `type` field; semantic type lives in the id prefix.
@@ -102,6 +116,7 @@ export function SankeyWithSemantics({
     <SankeyDiagram
       data={filteredData as any}
       colorMap={colorMap}
+      groupKey="id"
       legend={ENTITY_LEGEND}
       hideHeader
       height={height}
