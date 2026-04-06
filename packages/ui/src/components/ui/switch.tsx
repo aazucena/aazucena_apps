@@ -8,12 +8,13 @@ const switchVariants = cva(
   {
     variants: {
       variant: {
-        default: 'h-5 w-9 data-checked:bg-primary data-unchecked:bg-input shadow-sm',
+        default:
+          'h-5 w-9 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input shadow-sm',
         // Logic variant absorbed from Prompt IDE (Force Reset style)
         logic:
-          'h-4 w-7 data-checked:bg-rose-500/20 data-unchecked:bg-zinc-200 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-700 data-checked:border-rose-500/40',
+          'h-4 w-7 data-[state=checked]:bg-rose-500/20 data-[state=unchecked]:bg-zinc-200 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-700 data-[state=checked]:border-rose-500/40',
         cyber:
-          'h-5 w-9 data-checked:bg-primary/20 dark:data-checked:bg-cyan-500/20 data-unchecked:bg-muted dark:data-unchecked:bg-black border-border dark:border-cyan-500/30 data-checked:border-primary dark:data-checked:border-cyan-400',
+          'h-5 w-9 data-[state=checked]:bg-cyan-500/20 data-[state=unchecked]:bg-white/10 border border-white/20 data-[state=checked]:border-cyan-400/60',
       },
     },
     defaultVariants: {
@@ -27,11 +28,11 @@ const switchThumbVariants = cva(
   {
     variants: {
       variant: {
-        default: 'h-4 w-4 data-checked:translate-x-4 data-unchecked:translate-x-0',
+        default: 'h-4 w-4 data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0',
         logic:
-          'h-2.5 w-2.5 data-checked:translate-x-3 data-unchecked:translate-x-0.5 data-checked:bg-rose-500 data-checked:shadow-[0_0_8px_#f43f5e] data-unchecked:bg-zinc-400 dark:bg-zinc-500',
+          'h-2.5 w-2.5 data-[state=checked]:translate-x-3 data-[state=unchecked]:translate-x-0.5 data-[state=checked]:bg-rose-500 data-[state=checked]:shadow-[0_0_8px_#f43f5e] data-[state=unchecked]:bg-zinc-400 dark:bg-zinc-500',
         cyber:
-          'h-4 w-4 data-checked:translate-x-4 data-unchecked:translate-x-0 data-checked:bg-cyan-400 data-checked:shadow-[0_0_10px_#22d3ee]',
+          'h-4 w-4 data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0 data-[state=unchecked]:bg-white/50 data-[state=checked]:bg-cyan-400 data-[state=checked]:shadow-[0_0_10px_#22d3ee]',
       },
     },
     defaultVariants: {
