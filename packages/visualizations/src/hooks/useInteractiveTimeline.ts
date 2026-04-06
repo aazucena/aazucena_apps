@@ -21,15 +21,6 @@ const LABEL_BUFFER_LEFT = 50;
 const NODE_GAP = 40;
 const LANE_STEP = 110;
 
-function getInitials(name: string): string {
-  return name
-    .split(/\s+/)
-    .map((w) => w[0] || '')
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
-}
-
 export function useInteractiveTimeline<T extends TimelineEvent>(
   svgRef: React.RefObject<SVGSVGElement | null>,
   data: T[],
@@ -228,45 +219,59 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
       .attr('stroke', '#ffffff')
       .attr('stroke-width', 4);
 
-    // Avatar: image or initials in a foreignObject below/above the circle
+    // ── Avatar: logo image (44×44 circle) ────────────────────────────────────
     const AVATAR_SIZE = 44;
-    const fo = nodes
+    const hasImageFn = (d: (typeof processedData)[number]) =>
+      !!(d.avatarUrl && (d.avatarUrl.startsWith('http') || d.avatarUrl.startsWith('/')));
+
+    nodes
+      .filter((d) => hasImageFn(d))
       .append('foreignObject')
       .attr('x', -AVATAR_SIZE / 2)
       .attr('y', (d) => (d.yOffset >= 0 ? 30 : -30 - AVATAR_SIZE))
       .attr('width', AVATAR_SIZE)
-      .attr('height', AVATAR_SIZE);
-
-    fo.each(function (d) {
-      const container = d3.select(this);
-      const color = getColor(d as T);
-      const hasImage =
-        d.avatarUrl && (d.avatarUrl.startsWith('http') || d.avatarUrl.startsWith('/'));
-      const initials = getInitials(d.name);
-
-      if (hasImage) {
-        container
+      .attr('height', AVATAR_SIZE)
+      .each(function (d) {
+        d3.select(this)
           .append('xhtml:div')
           .attr(
             'class',
             'w-full h-full rounded-full flex items-center justify-center overflow-hidden border-2 border-white shadow-md',
           )
-          .style('background-color', color + '22')
+          .style('background-color', getColor(d as T) + '22')
           .append('xhtml:img')
           .attr('src', d.avatarUrl!)
           .attr('alt', d.avatarAlt || d.name)
           .attr('class', 'w-full h-full object-cover rounded-full');
-      } else {
-        container
+      });
+
+    // ── Avatar: text badge fallback (company / institution name) ─────────────
+    // Wider pill so the full title fits — no initials abbreviation.
+    const BADGE_W = 96;
+    const BADGE_H = 40;
+
+    nodes
+      .filter((d) => !hasImageFn(d))
+      .append('foreignObject')
+      .attr('x', -BADGE_W / 2)
+      .attr('y', (d) => (d.yOffset >= 0 ? 28 : -28 - BADGE_H))
+      .attr('width', BADGE_W)
+      .attr('height', BADGE_H)
+      .each(function (d) {
+        const label = d.avatarAlt || d.name;
+        d3.select(this)
           .append('xhtml:div')
           .attr(
             'class',
-            'w-full h-full rounded-full flex items-center justify-center border-2 border-white shadow-md font-bold text-sm text-white',
+            'w-full h-full rounded-xl flex items-center justify-center border-2 border-white shadow-md text-white text-center leading-tight',
           )
-          .style('background-color', color)
-          .text(initials);
-      }
-    });
+          .style('background-color', getColor(d as T))
+          .style('font-size', '9px')
+          .style('font-weight', '700')
+          .style('padding', '2px 4px')
+          .style('word-break', 'break-word')
+          .text(label);
+      });
 
     // Subtitle label (company / institution)
     nodes
