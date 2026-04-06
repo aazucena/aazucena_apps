@@ -245,32 +245,29 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
           .attr('class', 'w-full h-full object-cover rounded-full');
       });
 
-    // ── Avatar: text badge fallback (company / institution name) ─────────────
-    // Wider pill so the full title fits — no initials abbreviation.
-    const BADGE_W = 96;
-    const BADGE_H = 40;
-
+    // ── Avatar: initials fallback (from company / institution name) ──────────
     nodes
       .filter((d) => !hasImageFn(d))
       .append('foreignObject')
-      .attr('x', -BADGE_W / 2)
-      .attr('y', (d) => (d.yOffset >= 0 ? 28 : -28 - BADGE_H))
-      .attr('width', BADGE_W)
-      .attr('height', BADGE_H)
+      .attr('x', -AVATAR_SIZE / 2)
+      .attr('y', (d) => (d.yOffset >= 0 ? 30 : -30 - AVATAR_SIZE))
+      .attr('width', AVATAR_SIZE)
+      .attr('height', AVATAR_SIZE)
       .each(function (d) {
-        const label = d.avatarAlt || d.name;
+        const initials = (d.avatarAlt || d.name)
+          .split(/\s+/)
+          .map((w: string) => w[0] || '')
+          .slice(0, 2)
+          .join('')
+          .toUpperCase();
         d3.select(this)
           .append('xhtml:div')
           .attr(
             'class',
-            'w-full h-full rounded-xl flex items-center justify-center border-2 border-white shadow-md text-white text-center leading-tight',
+            'w-full h-full rounded-full flex items-center justify-center border-2 border-white shadow-md font-bold text-sm text-white',
           )
           .style('background-color', getColor(d as T))
-          .style('font-size', '9px')
-          .style('font-weight', '700')
-          .style('padding', '2px 4px')
-          .style('word-break', 'break-word')
-          .text(label);
+          .text(initials);
       });
 
     // Subtitle label (company / institution)
