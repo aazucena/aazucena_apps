@@ -1,7 +1,7 @@
 /**
  * CompanyLogo Component
  * Company logo or initials with gradient background
- * Reusable in ExperienceSection and ExperienceModal
+ * Reusable in ExperienceSection and experience detail pages
  */
 
 import type { JSX } from "react";

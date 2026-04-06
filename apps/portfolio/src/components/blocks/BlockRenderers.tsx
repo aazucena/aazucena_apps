@@ -131,7 +131,7 @@ export const defaultBlockRenderers: Parameters<
 /**
  * Dark-only block renderers (for homepage immersive sections)
  * Always uses light text on dark backgrounds regardless of theme
- * Used in: AboutSection, ExperienceModal, and other homepage components
+ * Used in: AboutSection and other homepage components
  */
 export const darkBlockRenderers: Parameters<
   typeof BlocksRendererType

@@ -1,25 +1,14 @@
 /**
  * UIOverlays Component
- * Renders all UI overlays: navigation toolbar, modals, and scroll indicators
- *
- * Simplified architecture with encapsulated NavigationToolbar component
- * Phase 3 Task #5: ExperienceModal lazy-loaded for bundle optimization
+ * Renders all UI overlays: navigation toolbar and scroll indicators
  */
 
-import { lazy, Suspense, type JSX } from "react";
+import { type JSX } from "react";
 import { ScrollIndicators, ScrollDownIndicator } from "~/components/ui";
 import { NavigationToolbar } from "./NavigationToolbar";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";
-import { useSectionData, useDataContext } from "~/contexts";
-import { useModal } from "@aazucena/hooks";
-
-// Lazy load ExperienceModal - only loads when user clicks to view experience
-const ExperienceModal = lazy(() =>
-  import("~/components/ui/ExperienceModal").then((m) => ({
-    default: m.ExperienceModal,
-  })),
-);
+import { useDataContext } from "~/contexts";
 
 interface UIOverlaysProps {
   // Atmospheric layer (not in contexts yet)
@@ -30,38 +19,15 @@ export default function UIOverlays({
   currentPhase,
 }: UIOverlaysProps): JSX.Element {
   // Get data from contexts
-  const { experiences } = useSectionData();
   const { content } = useDataContext();
 
-  // Portfolio context - navigation and modal state
-  const {
-    currentSection,
-    navigateToSection,
-    isExperienceModalOpen,
-    selectedExperienceIndex,
-    closeExperienceModal,
-  } = usePortfolio();
-
-  // Modal ref
-  const { modalRef } = useModal({ closeOnEscape: false });
+  // Portfolio context - navigation state
+  const { currentSection, navigateToSection } = usePortfolio();
 
   // Extract section names from CMS data
   const sectionNames = content.sections.map((section) => section.name);
   return (
     <>
-      {/* Experience Modal - Lazy loaded */}
-      {isExperienceModalOpen &&
-        selectedExperienceIndex !== null &&
-        experiences[selectedExperienceIndex] && (
-          <Suspense fallback={<div className="sr-only">Loading...</div>}>
-            <ExperienceModal
-              experience={experiences[selectedExperienceIndex]}
-              onClose={closeExperienceModal}
-              modalRef={modalRef}
-            />
-          </Suspense>
-        )}
-
       {/* Navigation toolbar with integrated panels (Info, Settings, Social) */}
       <NavigationToolbar currentPhase={currentPhase} />
 

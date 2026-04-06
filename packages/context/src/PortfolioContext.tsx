@@ -29,12 +29,6 @@ export interface PortfolioState {
   setCurrentSection: Dispatch<SetStateAction<number>>;
   setScrollProgress: Dispatch<SetStateAction<number>>;
 
-  // Modal State
-  isExperienceModalOpen: boolean;
-  selectedExperienceIndex: number | null;
-  openExperienceModal: (index: number) => void;
-  closeExperienceModal: () => void;
-
   // Panel State
   showInfoPanel: boolean;
   showSettingsPanel: boolean;
@@ -69,10 +63,6 @@ export function PortfolioProvider({
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const isScrollingRef = useRef<boolean>(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Modal State
-  const [isExperienceModalOpen, setIsExperienceModalOpen] = useState<boolean>(false);
-  const [selectedExperienceIndex, setSelectedExperienceIndex] = useState<number | null>(null);
 
   // Panel State
   const [showInfoPanel, setShowInfoPanel] = useState<boolean>(false);
@@ -143,17 +133,6 @@ export function PortfolioProvider({
     };
   }, [currentSection, scrollProgress, totalSections]);
 
-  // Modal Handlers
-  const openExperienceModal = (index: number): void => {
-    setSelectedExperienceIndex(index);
-    setIsExperienceModalOpen(true);
-  };
-
-  const closeExperienceModal = (): void => {
-    setIsExperienceModalOpen(false);
-    setSelectedExperienceIndex(null);
-  };
-
   // Utility: Navigate to section (resets scroll progress)
   const navigateToSection = (index: number): void => {
     setCurrentSection(index);
@@ -187,12 +166,6 @@ export function PortfolioProvider({
     scrollProgress,
     setCurrentSection,
     setScrollProgress,
-
-    // Modal State
-    isExperienceModalOpen,
-    selectedExperienceIndex,
-    openExperienceModal,
-    closeExperienceModal,
 
     // Panel State
     showInfoPanel,

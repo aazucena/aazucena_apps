@@ -13,20 +13,25 @@ import type { Experience } from "@aazucena/types";
 export interface ExperienceCardProps {
   /** Experience data */
   experience: Experience;
-  /** Click handler */
-  onClick: () => void;
 }
 
 /**
  * ExperienceCard
- * Displays work experience in a timeline card with hover effects
+ * Displays work experience in a timeline card with hover effects.
+ * Renders as an <a> link that navigates to the experience detail page.
  */
 export function ExperienceCard({
   experience,
-  onClick,
 }: ExperienceCardProps): JSX.Element {
   return (
-    <GlassCard hover clickable padding="md" onClick={onClick}>
+    <GlassCard
+      as="a"
+      href={`/experiences/${experience.slug}`}
+      hover
+      clickable
+      padding="md"
+      className="block text-inherit no-underline"
+    >
       <div className="flex items-center gap-4">
         {/* Company Logo */}
         <CompanyLogo

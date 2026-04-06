@@ -12,7 +12,6 @@ import {
 } from "@aazucena/ui";
 import type { JSX } from "react";
 import { useState } from "react";
-import { usePortfolio } from "@aazucena/context";
 import { useSectionData } from "~/contexts";
 import { ExperienceCard, ExperienceActions } from "~/components/ui/experience";
 import { SectionLayout } from "./SectionLayout";
@@ -27,12 +26,7 @@ export function ExperienceSection({
   subtitle = "Building Excellence Over Time",
 }: ExperienceSectionProps): JSX.Element {
   const { experiences: data, experienceShowcase: showcase } = useSectionData();
-  const { openExperienceModal } = usePortfolio();
   const [showAll, setShowAll] = useState(false);
-
-  const handleOpen = (index: number) => {
-    openExperienceModal(index);
-  };
 
   // Show only most recent 5 experiences unless "View All" is clicked
   const displayedExperiences = showAll
@@ -60,10 +54,7 @@ export function ExperienceSection({
                 <TimelineDot variant="primary" />
                 {index < displayedExperiences.length - 1 && <TimelineLine />}
                 <TimelineContent>
-                  <ExperienceCard
-                    experience={exp}
-                    onClick={() => handleOpen(index)}
-                  />
+                  <ExperienceCard experience={exp} />
                 </TimelineContent>
               </TimelineItem>
             ))}

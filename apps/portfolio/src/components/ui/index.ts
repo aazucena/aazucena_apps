@@ -7,7 +7,6 @@ export { ToolbarButton, type ToolbarButtonProps } from "@aazucena/ui";
 export * from "./SocialMenu";
 export * from "./SettingsPanel";
 export * from "./InfoPanel";
-export * from "./ExperienceModal";
 export * from "./AwardModal";
 export * from "./ScrollIndicators";
 export {
