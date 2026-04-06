@@ -3,7 +3,7 @@
  * Centralizes MynaUI icon mapping and SVG handling.
  */
 
-import * as Icons from '@mynaui/icons-react';
+import * as Icons from '@aazucena/icons';
 
 /**
  * Maps icon name string to @mynaui/icons-react component
@@ -16,7 +16,7 @@ export function getIconComponent(iconName: string | null | undefined): unknown {
   const iconMap: Record<string, keyof typeof Icons> = {
     Code: 'Code',
     Terminal: 'Terminal',
-    BrandGithub: 'BrandGithub',
+    BrandGithub: 'Github',
     Database: 'Database',
     Server: 'Servers',
     Globe: 'Globe',
@@ -25,7 +25,7 @@ export function getIconComponent(iconName: string | null | undefined): unknown {
     Music: 'Music',
     User: 'User',
     Shield: 'Shield',
-    Chip: 'Chip',
+    Chip: 'Microchip',
     Settings: 'CogFour',
   };
 
