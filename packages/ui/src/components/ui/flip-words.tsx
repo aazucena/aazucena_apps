@@ -47,10 +47,19 @@ const FlipWords = React.forwardRef<HTMLParagraphElement, FlipWordsProps>(
     });
 
     const parts = React.useMemo(() => {
+      if (!content) return [''];
       // eslint-disable-next-line security/detect-non-literal-regexp
       const tagPattern = new RegExp(`{{\\s*${tag}\\s*}}`, 'g');
       return content.split(tagPattern);
     }, [content, tag]);
+
+    // If the template has no {{flipWord}} placeholder, the flip span is never
+    // inserted — warn in dev so the CMS field is easy to spot.
+    if (process.env.NODE_ENV !== 'production' && parts.length === 1 && content) {
+      console.warn(
+        `[FlipWords] content "${content}" has no {{${tag}}} placeholder — flip animation will not render.`,
+      );
+    }
 
     return (
       <p ref={ref} className={cn(taglineVariants({ variant }), className)} {...props}>

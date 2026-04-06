@@ -13,7 +13,7 @@ export function transformHero(data: StrapiHero): HeroData {
 
   return {
     flipWords: data.flipWords || DEFAULT_HERO.flipWords,
-    taglineTemplate: data.taglineTemplate,
+    taglineTemplate: data.taglineTemplate || DEFAULT_HERO.taglineTemplate,
     primaryButtonText: data.primaryButtonText || undefined,
     showDropdown: !!data.showDropdown,
     secondaryButtonText: data.secondaryButtonText || undefined,
