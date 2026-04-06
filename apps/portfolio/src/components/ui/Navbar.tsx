@@ -50,8 +50,8 @@ export function Navbar({
     <nav
       className={`fixed top-0 right-0 left-0 z-[100] border-b transition-all duration-500 ${
         isScrolled
-          ? "border-gray-200/50 bg-white/90 py-4 shadow-sm backdrop-blur-xl dark:border-gray-800/50 dark:bg-gray-950/90"
-          : "border-transparent bg-white/80 py-6 backdrop-blur-lg dark:bg-gray-950/80"
+          ? "bg-background/90 border-gray-200/50 py-4 shadow-sm backdrop-blur-xl dark:border-gray-800/50"
+          : "bg-background/80 border-transparent py-6 backdrop-blur-lg"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -76,7 +76,7 @@ export function Navbar({
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-1 rounded-full border border-gray-100 bg-gray-50/50 p-1.5 backdrop-blur-md md:flex dark:border-gray-800 dark:bg-gray-900/50">
+          <div className="dark:bg-background/50 hidden items-center gap-1 rounded-full border border-gray-100 bg-gray-50/50 p-1.5 backdrop-blur-md md:flex dark:border-gray-800">
             {regularNavItems.map((item) => {
               const isActive = currentPath.startsWith(item.path || "");
               const Icon = item.iconComponent;
@@ -87,7 +87,7 @@ export function Navbar({
                   href={item.path || undefined}
                   className={`relative flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold transition-all duration-300 ${
                     isActive
-                      ? "bg-white text-blue-600 shadow-sm dark:bg-gray-800 dark:text-blue-400"
+                      ? "dark:bg-background bg-white text-blue-600 shadow-sm dark:text-blue-400"
                       : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   } `}
                   target={item.type === "EXTERNAL" ? "_blank" : undefined}
@@ -162,7 +162,7 @@ export function Navbar({
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="rounded-2xl border border-gray-100 bg-gray-50 p-3 text-gray-600 transition-colors hover:text-blue-600 md:hidden dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400"
+              className="dark:bg-background rounded-2xl border border-gray-100 bg-gray-50 p-3 text-gray-600 transition-colors hover:text-blue-600 md:hidden dark:border-gray-800 dark:text-gray-400"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -187,7 +187,7 @@ export function Navbar({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 z-[105] flex w-full max-w-[300px] flex-col gap-8 border-l border-gray-100 bg-white p-8 pt-24 shadow-2xl md:hidden dark:border-gray-800 dark:bg-gray-900"
+              className="bg-background fixed top-0 right-0 bottom-0 z-[105] flex w-full max-w-[300px] flex-col gap-8 border-l border-gray-100 p-8 pt-24 shadow-2xl md:hidden dark:border-gray-800"
             >
               <div className="flex flex-col gap-2">
                 <div className="mb-2 flex items-center justify-between">
