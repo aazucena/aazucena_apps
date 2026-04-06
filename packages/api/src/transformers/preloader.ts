@@ -23,7 +23,7 @@ export const DEFAULT_PRELOADER: PreloaderConfig = {
   animationDuration: 600,
   autoStart: true,
   enableSkip: false,
-  showOnce: false,
+  showOnce: true,
   lazyLoad: false,
   preloadAssets: false,
   enableAnimations: true,

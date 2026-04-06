@@ -75,14 +75,8 @@ export default function InteractivePreloader({
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS (Rules of Hooks)
   // ============================================================================
 
-  // Determine effective showOnce behavior:
-  // - Homepage ('/'): Always show preloader (showOnce = false)
-  // - Other pages: Use the configured showOnce value
-  const isHomepage = currentPath === '/';
-  const effectiveShowOnce = isHomepage ? false : showOnce;
-
   // Handle show-once behavior with sessionStorage
-  const { hasSeenBefore, markAsSeen, isChecking } = useShowOnce(effectiveShowOnce);
+  const { hasSeenBefore, markAsSeen, isChecking } = useShowOnce(showOnce);
 
   const {
     progress,
@@ -112,7 +106,7 @@ export default function InteractivePreloader({
 
   // Wrap handleContinue to mark as seen when show-once is enabled
   const handleContinue = () => {
-    if (effectiveShowOnce) {
+    if (showOnce) {
       markAsSeen();
     }
     originalHandleContinue();
@@ -151,7 +145,7 @@ export default function InteractivePreloader({
 
   // If user has seen preloader before and showOnce is enabled, skip it
   useEffect(() => {
-    if (effectiveShowOnce && hasSeenBefore && !isChecking) {
+    if (showOnce && hasSeenBefore && !isChecking) {
       // Immediately dispatch completion events
       const brandEvent = new CustomEvent('preloader-mounted');
       const completeEvent = new CustomEvent('preloader-complete');
@@ -162,16 +156,7 @@ export default function InteractivePreloader({
       // Call onComplete callback if provided
       onComplete?.();
     }
-  }, [
-    currentPath,
-    isHomepage,
-    showOnce,
-    effectiveShowOnce,
-    hasSeenBefore,
-    isChecking,
-    onComplete,
-    debug,
-  ]);
+  }, [currentPath, showOnce, hasSeenBefore, isChecking, onComplete, debug]);
 
   // Emit 'preloader-mounted' event when component mounts.
   // useEffect already fires after paint, but we use rAF to be certain the
@@ -207,8 +192,7 @@ export default function InteractivePreloader({
 
   // If show-once is enabled and user has seen it, render hidden element
   // (this allows all hooks and effects to run while remaining invisible)
-  // Note: Homepage always shows preloader, so this only applies to other pages
-  if (effectiveShowOnce && hasSeenBefore && !isChecking) {
+  if (showOnce && hasSeenBefore && !isChecking) {
     return <div style={{ display: 'none' }} aria-hidden="true" data-preloader-skipped="true" />;
   }
 
