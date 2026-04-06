@@ -105,8 +105,16 @@ export const InteractiveTimeline = forwardRef<HTMLDivElement, InteractiveTimelin
         ? data
         : data.filter((d) => String((d as any)[laneKey]) === activeFilter);
 
-    // Height adjustment callback from hook
-    const onHeightChange = useCallback((h: number) => setHeight(h), []);
+    // UI chrome heights (filter pills + legend) that sit outside the SVG drawing area
+    const pillsVisible = showFilter && laneValues.length > 1;
+    const legendVisible = laneValues.length > 0;
+    const uiOverhead = (pillsVisible ? 56 : 0) + (legendVisible ? 48 : 0);
+
+    // The hook draws at svgHeight; the container is svgHeight + uiOverhead
+    const svgHeight = Math.max(300, height - uiOverhead);
+
+    // When hook reports required SVG height, store total container height in state
+    const onHeightChange = useCallback((h: number) => setHeight(h + uiOverhead), [uiOverhead]);
 
     // Hover state
     const handleEventHover = useCallback(
@@ -129,7 +137,7 @@ export const InteractiveTimeline = forwardRef<HTMLDivElement, InteractiveTimelin
 
     useInteractiveTimeline(svgRef, filteredData, {
       width,
-      height,
+      height: svgHeight,
       colorMap,
       laneKey,
       onEventClick,
@@ -193,7 +201,7 @@ export const InteractiveTimeline = forwardRef<HTMLDivElement, InteractiveTimelin
             <svg
               ref={svgRef}
               width={width}
-              height={height}
+              height={svgHeight}
               className="w-full touch-none text-foreground"
               style={{ overflow: 'visible' }}
             />

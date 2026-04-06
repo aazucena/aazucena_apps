@@ -1,32 +1,38 @@
 import { createHighlighter, type Highlighter, bundledLanguages } from 'shiki';
 
-let highlighter: Highlighter | null = null;
+// Symbol.for() uses Node's global symbol registry — survives Vite's per-request
+// module re-evaluation in SSR isolation contexts (unlike module-level `let`).
+const SHIKI_KEY = Symbol.for('aazucena.shiki.highlighter');
+type GlobalWithShiki = typeof globalThis & {
+  [SHIKI_KEY]?: Promise<Highlighter>;
+};
 
 /**
- * Get or create a singleton shiki highlighter instance
+ * Get or create a singleton shiki highlighter instance.
+ * Safe across Vite SSR module isolation — uses the global symbol registry.
  */
-export async function getHighlighter() {
-  if (highlighter) return highlighter;
-
-  highlighter = await createHighlighter({
-    themes: [
-      'andromeeda',
-      'catppuccin-latte',
-      'catppuccin-frappe',
-      'github-light',
-      'github-dark',
-      'slack-ochin',
-      'slack-dark',
-      'snazzy-light',
-      'nord',
-      'one-light',
-      'light-plus',
-      'one-dark-pro',
-      'material-theme',
-      'material-theme-lighter',
-    ],
-    langs: Object.keys(bundledLanguages),
-  });
-
-  return highlighter;
+export function getHighlighter(): Promise<Highlighter> {
+  const g = globalThis as GlobalWithShiki;
+  if (!g[SHIKI_KEY]) {
+    g[SHIKI_KEY] = createHighlighter({
+      themes: [
+        'andromeeda',
+        'catppuccin-latte',
+        'catppuccin-frappe',
+        'github-light',
+        'github-dark',
+        'slack-ochin',
+        'slack-dark',
+        'snazzy-light',
+        'nord',
+        'one-light',
+        'light-plus',
+        'one-dark-pro',
+        'material-theme',
+        'material-theme-lighter',
+      ],
+      langs: Object.keys(bundledLanguages),
+    });
+  }
+  return g[SHIKI_KEY]!;
 }

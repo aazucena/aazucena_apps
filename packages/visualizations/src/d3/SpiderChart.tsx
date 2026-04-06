@@ -101,6 +101,9 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
     }, []);
 
     const svgHeight = hideHeader ? height : height - 80;
+    // Extra room for the year controls row so it isn't clipped by overflow-hidden
+    const controlsVisible = showYearControls && allYears.length > 1;
+    const containerHeight = height + (controlsVisible ? 56 : 0);
 
     useSpiderChart(svgRef, displayData, {
       width,
@@ -121,7 +124,12 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
     );
 
     return (
-      <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
+      <ChartContainer
+        ref={ref}
+        className={className}
+        style={{ height: containerHeight }}
+        {...props}
+      >
         <div ref={containerRef} className="flex flex-col h-full">
           {header}
 
