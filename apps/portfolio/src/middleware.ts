@@ -1,5 +1,13 @@
 import { defineMiddleware } from "astro:middleware";
-import { getMaintenance } from "./lib/api/maintenance";
+import { setStrapiConfig } from "@aazucena/api";
+import { getMaintenance } from "@aazucena/api";
+
+// Initialize Strapi config once per process (module-level singleton)
+setStrapiConfig({
+  url: import.meta.env.STRAPI_URL || "http://localhost:1337",
+  apiEndpoint: import.meta.env.STRAPI_API_ENDPOINT || "/api",
+  token: import.meta.env.STRAPI_TOKEN || "",
+});
 
 /**
  * Global Middleware for Maintenance Mode

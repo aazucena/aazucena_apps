@@ -1,6 +1,6 @@
-import { getPreloaderConfig } from "../api/preloader";
-import { getMaintenance } from "../api/maintenance";
-import { getWebsiteConfig } from "../api/website-config";
+import { getPreloaderConfig } from "@aazucena/api";
+import { getMaintenance } from "@aazucena/api";
+import { getWebsiteConfig } from "@aazucena/api";
 import { SITE_CONFIG } from "~/config/site";
 
 export interface LayoutDataResponse {
