@@ -8,11 +8,22 @@ import {
   sendPageViewTelemetry,
   sendClientErrorTelemetry,
   sendInteractionTelemetry,
+  setTelemetryConfig,
 } from '../services/telemetry';
 import { initPerformanceTracking } from '../services/performance';
 
-export function PageViewTracker(): JSX.Element | null {
+interface PageViewTrackerProps {
+  apiUrl?: string;
+  secretKey?: string;
+}
+
+export function PageViewTracker({ apiUrl, secretKey }: PageViewTrackerProps): JSX.Element | null {
   useEffect(() => {
+    // 0. Initialize telemetry config if provided via props
+    if (apiUrl && secretKey) {
+      setTelemetryConfig({ apiUrl, secretKey });
+    }
+
     // 1. Send Initial Page View Telemetry
     sendPageViewTelemetry();
     initPerformanceTracking();
