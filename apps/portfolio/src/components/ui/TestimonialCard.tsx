@@ -4,7 +4,7 @@
  */
 
 import type { JSX } from "react";
-import { GlassCard } from "../common/GlassCard";
+import { GlassCard } from "./common/GlassCard";
 
 export interface TestimonialCardProps {
   /** Testimonial quote text */

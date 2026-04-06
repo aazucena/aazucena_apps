@@ -9,9 +9,9 @@
 
 import type { JSX } from "react";
 import { Canvas } from "@react-three/fiber";
-import PixiJSParticles from "~/components/animations/PixiJSParticles";
-import HomepageScene from "../HomepageScene";
-import type { AtmosphericPhase } from "~/config/animations";
+import { AnimationParticles } from "@aazucena/animations";
+import HomepageScene from "./HomepageScene";
+import type { AtmosphericPhase } from "@aazucena/types";
 import { useAnimation, usePortfolio } from "@aazucena/context";
 
 interface AnimationCanvasProps {
@@ -42,7 +42,7 @@ export default function AnimationCanvas({
             className="fixed inset-0 transition-opacity duration-1000"
             style={{ opacity: 1 }}
           >
-            <PixiJSParticles
+            <AnimationParticles
               width={window.innerWidth}
               height={window.innerHeight}
             />

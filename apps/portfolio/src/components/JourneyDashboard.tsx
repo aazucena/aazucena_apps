@@ -13,19 +13,19 @@ import {
   SankeyDiagram,
   SpiderChart,
   ForceDirectedGraph,
-} from "~/components/visualizations/journey";
+} from "@aazucena/visualizations";
 import { CareerStats, Toolbar, GrowthMetrics } from "~/components/ui/journey";
-import {
-  getSkillDetails,
-  type SkillsOverTime,
-  type SkillsNetworkData,
-  type SkillNode,
-  type SankeyData,
-  type HeatmapCell,
-  type StreamGraphStep,
-  type GrowthData,
-  type CareerStat as CareerStatsType,
-} from "~/lib/transformers/journey";
+import { getSkillDetails } from "~/lib/transformers";
+import type {
+  SpiderChartData,
+  SkillsNetworkData,
+  SkillNode,
+  SankeyData,
+  GenericHeatmapCell as HeatmapCell,
+  GenericTimeSeriesStep as StreamGraphStep,
+  GrowthData,
+  CareerStat as CareerStatsType,
+} from "@aazucena/types";
 
 // Lazy load DetailsModal - only loads when user clicks to view skill details
 const DetailsModal = lazy(() =>
@@ -33,12 +33,12 @@ const DetailsModal = lazy(() =>
     default: m.DetailsModal,
   })),
 );
-import type { Experience } from "~/lib/transformers/experiences";
-import type { Education } from "~/lib/transformers/education";
-import type { Project } from "~/lib/transformers/projects";
+import type { Experience } from "@aazucena/types";
+import type { Education } from "@aazucena/types";
+import type { Project } from "@aazucena/types";
 
 interface JourneyDashboardProps {
-  evolutionData: SkillsOverTime[];
+  evolutionData: SpiderChartData[];
   networkData: SkillsNetworkData;
   sankeyData: SankeyData;
   heatmapData: HeatmapCell[];
@@ -186,7 +186,7 @@ export function JourneyDashboard({
           <div className="flex-1">
             {activeTab === "evolution" && (
               <div className="mx-auto max-w-4xl">
-                <SpiderChart data={evolutionData} />
+                <SpiderChart data={evolutionData as any} />
               </div>
             )}
 

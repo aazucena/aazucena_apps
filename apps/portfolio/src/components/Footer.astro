@@ -2,33 +2,22 @@
 import {
   ArrowUpRight,
   BrandGithub,
-  BrandInstagram,
   BrandLinkedin,
-  BrandTwitter,
-  BrandYoutube,
+  Instagram,
+  Twitter,
+  Youtube,
   Envelope,
   Globe,
 } from "@aazucena/icons";
 
 import { getAvailabilityIndicator } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
-import type { NavigationItem } from "~/lib/validators/navigation";
-import { IntegrityBadge } from "./telemetry/IntegrityBadge";
-
-interface SocialLink {
-  platform: string;
-  url: string;
-  icon?: string;
-  text?: string;
-  openInNewTab: boolean;
-}
-
-interface TechStackItem {
-  name: string;
-  iconTitle: string;
-  iconUrl?: string;
-  sort: number;
-}
+import type {
+  NavigationItem,
+  SocialLink,
+  TechStackItem,
+} from "@aazucena/types";
+import { IntegrityBadge } from "./IntegrityBadge";
 
 interface Props {
   siteName: string;
@@ -72,11 +61,11 @@ const getPlatformIcon = (platform: string) => {
     case "LinkedIn":
       return BrandLinkedin;
     case "Twitter":
-      return BrandTwitter;
+      return Twitter;
     case "Instagram":
-      return BrandInstagram;
+      return Instagram;
     case "YouTube":
-      return BrandYoutube;
+      return Youtube;
     default:
       return Globe;
   }

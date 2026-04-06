@@ -3,7 +3,7 @@
  * Barrel export for all section components
  */
 export * from "./types";
-export * from "./layouts";
+export * from "./SectionLayout";
 export * from "./HeroSection";
 export * from "./AboutSection";
 export * from "./ProjectsSection";

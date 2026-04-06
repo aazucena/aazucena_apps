@@ -4,8 +4,8 @@
  */
 
 import type { JSX } from "react";
-import { Badge } from "../common/Badge";
-import type { BadgeVariant } from "../common/Badge";
+import { Badge } from "./common/Badge";
+import type { BadgeVariant } from "./common/Badge";
 
 export interface Skill {
   name: string;
