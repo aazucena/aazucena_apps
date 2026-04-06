@@ -3,11 +3,11 @@
  * Quantitative metrics calculation for career summary
  */
 
-import type { Experience } from "~/lib/transformers/experiences";
-import type { Education } from "~/lib/transformers/education";
-import type { Project } from "~/lib/transformers/projects";
+import type { Experience } from "@aazucena/types";
+import type { Education } from "@aazucena/types";
+import type { Project } from "@aazucena/types";
 import { getSafeSkillInfo } from "./base";
-import type { SkillWithCategory } from "~/lib/validators/components";
+import type { SkillWithCategory } from "@aazucena/api";
 
 export interface CareerStat {
   totalYears: number;

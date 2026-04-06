@@ -3,13 +3,14 @@
  * Converts experience and education into timeline nodes
  */
 
-import type { SkillWithCategory } from "~/lib/validators/components";
-import type { Education } from "~/lib/transformers/education";
-import type { Experience } from "~/lib/transformers/experiences";
+import type { SkillWithCategory } from "@aazucena/api";
+import type { Education } from "@aazucena/types";
+import type { Experience } from "@aazucena/types";
+import type { TimelineEvent } from "@aazucena/visualizations";
 import { calculateMonthsDuration } from "./base";
 import { getCompanyLogoGradient } from "@aazucena/utils";
 
-export interface TimelineNode {
+export interface TimelineNode extends TimelineEvent {
   date: Date;
   endDate: Date;
   type: "experience" | "education";
@@ -51,6 +52,8 @@ export function transformExperiencesToTimeline(
     }
 
     return {
+      id: exp.slug || `exp-${index}`,
+      name: exp.position,
       type: "experience",
       date: validStartDate,
       endDate: endDate,
@@ -100,12 +103,17 @@ export function transformEducationToTimeline(
     };
 
     const degreeIcon: string = DEGREE_ICONS[edu.type] || "🎓";
+    const degreeTitle = `${degreeIcon} ${edu.degree}`;
 
     return {
+      id: edu.institution
+        ? `edu-${edu.institution.toLowerCase().replace(/\s+/g, "-")}-${index}`
+        : `edu-${index}`,
+      name: degreeTitle,
       type: "education",
       date: validStartDate,
       endDate: endDate,
-      title: `${degreeIcon} ${edu.degree}`,
+      title: degreeTitle,
       subtitle: edu.institution,
       institution: edu.institution,
       degree: edu.degree,

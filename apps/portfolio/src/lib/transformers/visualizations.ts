@@ -3,10 +3,10 @@
  * Sankey, Heatmap, and Stream Graph
  */
 
-import type { SkillWithCategory } from "~/lib/validators/components";
-import type { Experience } from "~/lib/transformers/experiences";
-import type { Education } from "~/lib/transformers/education";
-import type { Project } from "~/lib/transformers/projects";
+import type { SkillWithCategory } from "@aazucena/api";
+import type { Experience } from "@aazucena/types";
+import type { Education } from "@aazucena/types";
+import type { Project } from "@aazucena/types";
 import { getSafeSkillInfo } from "./base";
 
 export interface SankeyNode {
@@ -27,14 +27,18 @@ export interface SankeyData {
 
 export interface HeatmapCell {
   date: Date;
+  /** Alias for count — required by GenericHeatmapCell */
+  value: number;
   count: number;
   category?: string;
   categoryDistribution?: Record<string, number>;
 }
 
 export interface StreamGraphStep {
-  date: Date;
-  [category: string]: any;
+  /** Required by GenericTimeSeriesStep */
+  timestamp: Date;
+  values: Record<string, number>;
+  metadata?: Record<string, unknown>;
 }
 
 export function transformToSankeyData(
@@ -210,6 +214,7 @@ export function transformToHeatmapData(
     heatmap.push({
       date: new Date(current),
       count: monthSkills.size,
+      value: monthSkills.size,
       category: monthSkills.size > 0 ? dominantCategory : undefined,
       categoryDistribution: monthSkills.size > 0 ? distribution : undefined,
     });
@@ -246,9 +251,9 @@ export function transformToStreamGraphData(
 
   let current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
   while (current <= now) {
-    const step: StreamGraphStep = { date: new Date(current) };
+    const values: Record<string, number> = {};
     allCategories.forEach((cat) => {
-      step[cat] = 0;
+      values[cat] = 0;
     });
     const monthStart = current;
     const monthEnd = new Date(current.getFullYear(), current.getMonth() + 1, 0);
@@ -257,7 +262,7 @@ export function transformToStreamGraphData(
       if (start <= monthEnd && end >= monthStart) {
         skills.forEach((skill) => {
           const { category } = getSafeSkillInfo(skill);
-          step[category] = (step[category] || 0) + 1;
+          values[category] = (values[category] || 0) + 1;
         });
       }
     };
@@ -284,7 +289,7 @@ export function transformToStreamGraphData(
       ),
     );
 
-    data.push(step);
+    data.push({ timestamp: new Date(current), values });
     current = new Date(current.getFullYear(), current.getMonth() + 1, 1);
   }
   return data;

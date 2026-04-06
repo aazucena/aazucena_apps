@@ -9,7 +9,7 @@ import {
   BlogSection,
   AwardsSection,
 } from "~/components/homepage/sections";
-import type { HomepageData } from "~/lib/transformers/homepage";
+import type { HomepageData } from "@aazucena/types";
 
 /**
  * A section component - generic to support different prop types

@@ -1,11 +1,11 @@
 import { createContext, useMemo, type ReactNode } from "react";
-import type { HomepageData } from "~/lib/transformers/homepage";
-import type { PortfolioContent } from "~/lib/transformers/portfolio";
-import type { PortfolioData } from "~/types/portfolio";
+import type { HomepageData } from "@aazucena/types";
+import type { PortfolioContent } from "@aazucena/types";
+import type { PortfolioData } from "~/types";
 import {
   useSectionRegistry,
   type SectionRegistry,
-} from "~/hooks/animations/useSectionRegistry";
+} from "~/hooks/useSectionRegistry";
 
 export interface DataContextValue {
   data: PortfolioData;
