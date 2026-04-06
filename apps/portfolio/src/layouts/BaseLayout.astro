@@ -4,13 +4,14 @@ import SEO from "~/components/SEO.astro";
 import Favicon from "~/components/Favicon.astro";
 import ResourceHints from "~/components/ResourceHints.astro";
 import AnalyticsScripts from "~/components/AnalyticsScripts.astro";
-import Preloader, { type PreloaderTheme } from "@/components/preloader";
+import { Preloader } from "@aazucena/ui";
+import type { PreloaderTheme } from "@aazucena/types";
 import BrandIconLoader from "@/components/BrandIconLoader.astro";
-import { getTheme as getPreloaderTheme } from "@/components/preloader/themes/registry";
+import { getTheme as getPreloaderTheme } from "@aazucena/design-system";
 import { getLayoutData } from "~/lib/services/layout";
 import { formatPageTitle } from "~/config/site";
 import PlausibleScript from "~/components/common/PlausibleScript.astro";
-import PageViewTracker from "~/components/telemetry/PageViewTracker";
+import { PageViewTracker } from "@aazucena/analytics";
 
 export interface Props {
   title?: string;
@@ -40,7 +41,7 @@ const pageDescription = description || websiteConfig.defaultSEO?.description;
 // Detect page type for transition styles
 const path = Astro.url.pathname;
 const isHomepage = path === "/";
-const isDetailPage = path.includes("[slug]") || /\/[^\/]+\/[^\/]+/.test(path); // e.g., /projects/foo, /blog/bar
+const isDetailPage = path.includes("[slug]") || /\/[^/]+\/[^/]+/.test(path); // e.g., /projects/foo, /blog/bar
 const pageType = isHomepage ? "homepage" : isDetailPage ? "detail" : "list";
 
 const themeStyles = {
