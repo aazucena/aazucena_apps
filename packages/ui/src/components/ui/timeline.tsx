@@ -30,7 +30,7 @@ const timelineItemVariants = cva('group relative pb-8 last:pb-0 md:pb-12 flex fl
     side: {
       left: 'md:flex-row md:items-center',
       right: 'md:flex-row-reverse md:items-center',
-      default: 'ml-12 md:ml-16',
+      default: '',
     },
   },
   defaultVariants: {
@@ -127,7 +127,7 @@ const timelineContentVariants = cva('transition-all duration-500', {
     side: {
       left: 'w-full md:w-1/2 ml-8 md:ml-0 md:mr-auto md:pr-16',
       right: 'w-full md:w-1/2 ml-8 md:ml-0 md:ml-auto md:pl-16',
-      default: 'ml-12 md:ml-16 w-full',
+      default: 'ml-12 md:ml-16 min-w-0',
     },
   },
   defaultVariants: {
