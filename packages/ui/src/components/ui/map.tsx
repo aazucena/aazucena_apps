@@ -44,5 +44,5 @@ export const Map = React.forwardRef<
 ));
 Map.displayName = 'Map';
 
-// createCustomIcon, defaultMarkerIcon, Marker, Popup — import directly from
+// createCustomIcon, DefaultMarkerIcon, Marker, Popup — import directly from
 // './map.impl' at call sites; they depend on leaflet and cannot be re-exported here.

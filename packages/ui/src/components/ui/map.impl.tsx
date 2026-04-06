@@ -38,7 +38,7 @@ export function useDivIcon({ html, className = '' }: UseCustomIconProps) {
   return icon;
 }
 
-export const defaultMarkerIcon = () => {
+export const DefaultMarkerIcon = () => {
   const html = `<div class="flex items-center justify-center bg-primary text-primary-foreground rounded-full size-6 shadow-md border-2 border-background">
      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.9a2 2 0 1 0 0-3.8c0 1.2.7 3.8 0 3.8Z"/><path d="M19.07 13.93A10 10 0 1 1 12 2a10 10 0 0 1 7.07 11.93Z"/></svg>
    </div>`;

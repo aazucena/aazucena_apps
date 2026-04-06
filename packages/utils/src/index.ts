@@ -11,7 +11,6 @@ export * from './env';
 export * from './experiences';
 export * from './export';
 export * from './function';
-export * from './icons';
 export * from './journey/index';
 export * from './math';
 export * from './number';

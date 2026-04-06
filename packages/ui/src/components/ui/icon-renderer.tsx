@@ -2,7 +2,8 @@
 
 import type { MynaIconsProps as IconProps } from '@aazucena/icons';
 import type { IconComponent } from '@aazucena/types';
-import { cn, getIconComponent } from '@aazucena/utils';
+import { getIconComponent } from '@aazucena/icons';
+import { cn } from '@aazucena/utils';
 import React, { memo } from 'react';
 import SVG from 'react-inlinesvg';
 
