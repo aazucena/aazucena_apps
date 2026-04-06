@@ -50,7 +50,11 @@ export function TimelineEventTooltip({
   const type = String((event as any).type || "");
   const company = (event as any).company as string | undefined;
   const institution = (event as any).institution as string | undefined;
-  const skills = (event as any).skills as string[] | undefined;
+  // skills can be string[] or SkillWithCategory[] — normalise to plain strings
+  const rawSkills = (event as any).skills as
+    | (string | { name: string })[]
+    | undefined;
+  const skills = rawSkills?.map((s) => (typeof s === "string" ? s : s.name));
   const subtitle = company || institution || "";
   const badgeClass =
     TYPE_BADGE[type] ??
