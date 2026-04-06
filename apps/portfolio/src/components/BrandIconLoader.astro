@@ -149,6 +149,17 @@ const animationDuration = isCmsFallback ? "2s" : "1.5s";
       loader.classList.add("hidden");
       unlockScroll();
 
+      // BrandIconLoader is the single gate for content visibility.
+      // Reveal <main> here regardless of whether the Preloader React
+      // component has hydrated — if it has, Preloader sits on top and
+      // plays its animation before fading; if not (slow dev hydration),
+      // the user sees the SSR content directly without a blank page.
+      var mainContent = document.querySelector("main[data-critical]");
+      if (mainContent) {
+        mainContent.style.opacity = "1";
+        document.body.style.background = "";
+      }
+
       // Remove from DOM after transition to keep it clean
       setTimeout(() => {
         if (loader && loader.parentElement) {
@@ -160,6 +171,19 @@ const animationDuration = isCmsFallback ? "2s" : "1.5s";
     function initLoader() {
       const loader = document.getElementById("brand-icon-loader");
       if (!loader) return;
+
+      // Return visitors: skip the loader entirely — they already saw the
+      // full preloader experience. The same sessionStorage key is used by
+      // useShowOnce so this check is always in sync.
+      try {
+        if (sessionStorage.getItem("portfolio-preloader-seen") === "true") {
+          loader.style.display = "none";
+          unlockScroll();
+          return;
+        }
+      } catch (_) {
+        // sessionStorage unavailable (private browsing edge case) — continue normally
+      }
 
       // Check if preloader already signaled completion or was skipped
       const isSkipped = document.querySelector(

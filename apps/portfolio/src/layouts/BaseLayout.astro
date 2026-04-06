@@ -153,7 +153,7 @@ const themeStyles = {
     </style>
   </head>
 
-  <body style={{ backgroundColor: preloaderBackground }}>
+  <body style={`background: ${preloaderBackground};`}>
     <!-- Skip to main content (accessibility) -->
     <a href="#main-content" class="skip-to-main"> Skip to main content </a>
     <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
@@ -187,26 +187,38 @@ const themeStyles = {
     <AnalyticsScripts />
 
     <script is:inline>
-      // Show main content when preloader completes
-      document.addEventListener("preloader-complete", function () {
-        const mainContent = document.querySelector("main[data-critical]");
-        if (mainContent) {
-          mainContent.style.opacity = "1";
-          // Reset body background to allow CSS themes to take over
-          document.body.style.background = "";
+      (function () {
+        function revealContent() {
+          var mainContent = document.querySelector("main[data-critical]");
+          if (mainContent) {
+            mainContent.style.opacity = "1";
+            document.body.style.background = "";
+          }
         }
-      });
 
-      // Fallback: if preloader doesn't complete within 10s, show content anyway
-      setTimeout(function () {
-        const mainContent = document.querySelector("main[data-critical]");
-        if (mainContent && mainContent.style.opacity === "0") {
-          console.warn(
-            "[BaseLayout] Preloader timeout - forcing content display",
-          );
-          mainContent.style.opacity = "1";
-        }
-      }, 10000);
+        // Return visitors: reveal content immediately — BrandIconLoader already
+        // set display:none for itself, so nothing covers <main>.
+        try {
+          if (sessionStorage.getItem("portfolio-preloader-seen") === "true") {
+            revealContent();
+            return;
+          }
+        } catch (_) {}
+
+        // First-time visitors: BrandIconLoader is the primary gate and reveals
+        // <main> when it hides (see BrandIconLoader.astro hideBrandLoader).
+        // This listener is a secondary safety net for edge cases where the
+        // Preloader React component fires preloader-complete after BrandIconLoader
+        // already removed itself from the DOM (e.g. slow navigations).
+        document.addEventListener("preloader-complete", revealContent);
+
+        // Hard fallback: if nothing has revealed content after 15s (e.g. JS
+        // completely disabled), force-show it. This is longer than
+        // BrandIconLoader's 8s maxTimeout so that path fires first.
+        setTimeout(function () {
+          revealContent();
+        }, 15000);
+      })();
     </script>
   </body>
 </html>
