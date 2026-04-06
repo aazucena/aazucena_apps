@@ -204,6 +204,7 @@ export function JourneyDashboard({
               <ForceDirectedGraph
                 data={networkData}
                 onNodeClick={handleNodeClick}
+                groupKey="category"
                 hideHeader
                 showPhysicsControls
                 height={560}

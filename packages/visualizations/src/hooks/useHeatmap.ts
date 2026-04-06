@@ -38,6 +38,17 @@ export function useHeatmap<T extends GenericHeatmapCell>(
   useEffect(() => {
     if (!svgRef.current || width === 0 || height === 0) return;
 
+    // Auto-generate category colours when the caller passes an empty map.
+    // Extracts unique category values from the data and maps them to Tableau10.
+    const effectiveColorMap: Record<string, string> =
+      Object.keys(colorMap).length > 0
+        ? colorMap
+        : (() => {
+            const cats = [...new Set(data.map((d) => d.category).filter(Boolean))] as string[];
+            const scale = d3.scaleOrdinal(d3.schemeTableau10);
+            return Object.fromEntries(cats.map((cat) => [cat, scale(cat)]));
+          })();
+
     // Build a lookup map keyed by ISO date string (YYYY-MM-DD)
     const dataMap = new Map<string, T>();
     data.forEach((d) => {
@@ -134,7 +145,7 @@ export function useHeatmap<T extends GenericHeatmapCell>(
       .attr('x', (d) => d.weekIndex * cellSize)
       .attr('y', (d) => d.dayOfWeek * cellSize)
       .attr('fill', (d) =>
-        d.category ? colorMap[d.category] || colorScale(d.value) : colorScale(d.value),
+        d.category ? effectiveColorMap[d.category] || colorScale(d.value) : colorScale(d.value),
       )
       .attr('rx', Math.max(1, cellSize * 0.15))
       .style('cursor', onCellClick ? 'pointer' : 'default')

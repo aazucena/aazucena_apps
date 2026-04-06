@@ -127,6 +127,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       </ChartToolbar>
     );
 
+    // Shared SVG element used by both branches (non-infoPanel path)
     const svgElement = (
       <div ref={svgContainerRef} className="w-full h-full">
         <svg
@@ -138,8 +139,10 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       </div>
     );
 
-    // When infoPanel is provided, wrap in a 4-column grid (3 chart + 1 panel)
+    // When infoPanel is provided, wrap in a flex layout with an explicit chart area height.
+    // CSS Grid with h-full is unreliable for ResizeObserver — flex with explicit heights is stable.
     if (infoPanel) {
+      const chartAreaHeight = hideHeader ? height : height - 60;
       return (
         <div ref={ref} className={className} style={{ height }} {...props}>
           {!hideHeader && (
@@ -152,11 +155,24 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
             </ChartHeader>
           )}
           <div
-            className="grid gap-1 rounded-3xl bg-accent/5 lg:grid-cols-4"
-            style={{ height: hideHeader ? height : height - 60 }}
+            className="flex rounded-3xl bg-accent/5 overflow-hidden"
+            style={{ height: chartAreaHeight }}
           >
-            <div className="lg:col-span-3 overflow-hidden">{svgElement}</div>
-            <div className="lg:col-span-1 overflow-y-auto p-4">{infoPanel(hoveredCell)}</div>
+            <div
+              ref={svgContainerRef}
+              className="flex-1 overflow-hidden"
+              style={{ height: chartAreaHeight }}
+            >
+              <svg
+                ref={svgRef}
+                width={dimensions.width}
+                height={dimensions.height}
+                className="text-foreground"
+              />
+            </div>
+            <div className="w-48 shrink-0 overflow-y-auto border-l border-border/10 p-4">
+              {infoPanel(hoveredCell)}
+            </div>
           </div>
         </div>
       );
