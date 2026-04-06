@@ -485,7 +485,13 @@ export function generatePhaseColor(phase: AtmosphericPhase): string {
  * Creates an aurora shader material with gradient fading and flickering effects
  */
 export function createAuroraMaterial(config: AuroraShaderConfig): THREE.ShaderMaterial {
-  const { color, baseOpacity } = config;
+  const {
+    color,
+    baseOpacity,
+    verticalFadeRange = 0.3,
+    edgeSoftness = 0.15,
+    flickerIntensity = 0.1,
+  } = config;
 
   return new THREE.ShaderMaterial({
     uniforms: {
@@ -513,12 +519,12 @@ export function createAuroraMaterial(config: AuroraShaderConfig): THREE.ShaderMa
       varying vec3 vPosition;
 
       void main() {
-        float verticalGradient = smoothstep(0.0, \${verticalFadeRange.toFixed(2)}, vUv.y);
-        float edgeSoftnessX = smoothstep(0.0, \${edgeSoftness.toFixed(2)}, vUv.x) * smoothstep(1.0, \${(1.0 - edgeSoftness).toFixed(2)}, vUv.x);
+        float verticalGradient = smoothstep(0.0, ${verticalFadeRange.toFixed(2)}, vUv.y);
+        float edgeSoftnessX = smoothstep(0.0, ${edgeSoftness.toFixed(2)}, vUv.x) * smoothstep(1.0, ${(1.0 - edgeSoftness).toFixed(2)}, vUv.x);
         float topEdgeSoftness = smoothstep(1.0, 0.75, vUv.y);
         float horizontalVariation = sin(vUv.x * 3.14159 * 4.0) * 0.15 + 0.85;
         float finalAlpha = verticalGradient * edgeSoftnessX * topEdgeSoftness * horizontalVariation * uOpacity;
-        float flicker = sin(uTime * 2.0 + vUv.y * 10.0) * \${flickerIntensity.toFixed(2)} + \${(1.0 - flickerIntensity).toFixed(2)};
+        float flicker = sin(uTime * 2.0 + vUv.y * 10.0) * ${flickerIntensity.toFixed(2)} + ${(1.0 - flickerIntensity).toFixed(2)};
         finalAlpha *= flicker;
 
         gl_FragColor = vec4(uColor, finalAlpha);

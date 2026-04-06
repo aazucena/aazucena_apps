@@ -21,21 +21,28 @@ export function detectDeviceCapabilities(): DeviceCapabilities {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   // Get hardware info
-  const memory = (navigator as any).deviceMemory || 4; // in GB
+  // deviceMemory is Chrome-only; Firefox returns undefined — use cores as tiebreaker
+  const memory = (navigator as any).deviceMemory; // undefined on Firefox/Safari
   const cores = navigator.hardwareConcurrency || 4;
 
   // Determine performance tier
+  // When deviceMemory is unavailable, fall back to cores-only heuristic
   let performanceTier: 'low' | 'medium' | 'high';
-  if (memory >= 8 && cores >= 8) {
+  if ((memory === undefined ? cores >= 8 : memory >= 8) && cores >= 8) {
     performanceTier = 'high';
-  } else if (memory >= 4 && cores >= 4) {
+  } else if ((memory === undefined ? cores >= 4 : memory >= 4) && cores >= 4) {
     performanceTier = 'medium';
   } else {
     performanceTier = 'low';
   }
 
-  // Heavy animations for desktop with good specs
-  const canUseHeavyAnimations = !isMobile && memory >= 4;
+  // Respect prefers-reduced-motion (accessibility + battery/performance)
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Heavy animations: desktop only, sufficient memory (or unknown memory with enough cores),
+  // and user has not requested reduced motion
+  const hasEnoughMemory = memory !== undefined ? memory >= 4 : cores >= 4;
+  const canUseHeavyAnimations = !isMobile && hasEnoughMemory && !reducedMotion;
 
   return {
     isMobile,
