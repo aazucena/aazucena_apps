@@ -20,6 +20,7 @@ export async function fetchEducation(): Promise<Education[]> {
         ],
         sort: ['sort:asc', 'startDate:desc'],
       },
+      cache: 'force-cache',
     });
 
     const validated = StrapiEducationResponseSchema.parse(response);

@@ -32,6 +32,7 @@ export async function getProjects(
         sort: ['sort:asc'],
         pagination: { pageSize: 100 },
       },
+      cache: 'force-cache',
     });
 
     const validated = StrapiProjectsResponseSchema.parse(response);

@@ -9,6 +9,24 @@
 import qs from 'qs';
 import { sanitizeStrapiData } from '@aazucena/utils';
 
+// ---------------------------------------------------------------------------
+// In-process response cache — survives Vite's per-request SSR module
+// re-evaluation (Symbol.for is written to Node's global symbol registry,
+// not to the module scope that Vite resets).
+// Activated only when the caller passes cache: 'force-cache'.
+// ---------------------------------------------------------------------------
+const CACHE_SYM = Symbol.for('aazucena.strapi.fetch_cache');
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+type CacheEntry = { data: unknown; expiry: number };
+type GlobalWithCache = typeof globalThis & { [CACHE_SYM]?: Map<string, CacheEntry> };
+
+function getInternalCache(): Map<string, CacheEntry> {
+  const g = globalThis as GlobalWithCache;
+  if (!g[CACHE_SYM]) g[CACHE_SYM] = new Map();
+  return g[CACHE_SYM];
+}
+
 /**
  * Strapi Configuration Interface
  * Must be provided by the consuming application (Next.js, Astro, etc.)
@@ -108,6 +126,17 @@ export async function fetchStrapi<T>(
   const queryString = options?.query ? qs.stringify(options.query, { encodeValuesOnly: true }) : '';
   const url = `${activeConfig.url}${activeConfig.apiEndpoint}/${endpoint}${queryString ? `?${queryString}` : ''}`;
 
+  // In-process cache: skip the network when a valid entry exists
+  const useCache = (options?.cache || 'no-store') === 'force-cache';
+  if (useCache) {
+    const cacheKey = `${options?.method || 'GET'}:${url}`;
+    const cache = getInternalCache();
+    const entry = cache.get(cacheKey);
+    if (entry && Date.now() < entry.expiry) {
+      return entry.data as { data: T; meta?: unknown };
+    }
+  }
+
   const res = await fetch(url, {
     method: options?.method || 'GET',
     headers: {
@@ -123,6 +152,12 @@ export async function fetchStrapi<T>(
 
   if (!res.ok) {
     throw new Error(`STRAPI_REQUEST_FAILED: ${res.status}`);
+  }
+
+  // Populate the in-process cache for the next request
+  if (useCache) {
+    const cacheKey = `${options?.method || 'GET'}:${url}`;
+    getInternalCache().set(cacheKey, { data, expiry: Date.now() + CACHE_TTL_MS });
   }
 
   return data;

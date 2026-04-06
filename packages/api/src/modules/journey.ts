@@ -11,6 +11,7 @@ export async function getJourneyPage(): Promise<JourneyPageConfig> {
   try {
     const response = await fetchStrapi('journey', {
       query: { populate: ['header', 'phases.items', 'callToAction.buttons'] },
+      cache: 'force-cache',
     });
 
     const validated = StrapiJourneySchema.parse(response.data);
