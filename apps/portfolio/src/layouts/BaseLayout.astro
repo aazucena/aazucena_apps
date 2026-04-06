@@ -7,11 +7,14 @@ import AnalyticsScripts from "~/components/AnalyticsScripts.astro";
 import { Preloader } from "@aazucena/ui";
 import type { PreloaderTheme } from "@aazucena/types";
 import BrandIconLoader from "@/components/BrandIconLoader.astro";
-import { getTheme as getPreloaderTheme } from "@aazucena/design-system";
+import {
+  getThemeConfig as getPreloaderTheme,
+  toHex,
+} from "@aazucena/design-system";
 import { getLayoutData } from "~/lib/services/layout";
 import { formatPageTitle } from "~/config/site";
 import PlausibleScript from "~/components/common/PlausibleScript.astro";
-import { PageViewTracker } from "@aazucena/analytics";
+// import { PageViewTracker } from "@aazucena/analytics";
 
 export interface Props {
   title?: string;
@@ -27,8 +30,8 @@ const isCmsFallback = false;
 
 // Get the preloader theme background to prevent white flash
 const preloaderTheme: PreloaderTheme = preloaderConfig.theme || "default";
-const preloaderThemeConfig = getPreloaderTheme(preloaderTheme);
-const preloaderBackground = preloaderThemeConfig.colors.background;
+const preloaderThemeConfig = getPreloaderTheme(preloaderTheme, "dark");
+const preloaderBackground = toHex(preloaderThemeConfig.colors.background);
 
 // Extract brand logo URL (use CMS siteLogo if available, otherwise default to /icon.svg)
 const brandLogoUrl = websiteConfig.siteLogoUrl || "/icon.svg";
@@ -45,12 +48,12 @@ const isDetailPage = path.includes("[slug]") || /\/[^/]+\/[^/]+/.test(path); // 
 const pageType = isHomepage ? "homepage" : isDetailPage ? "detail" : "list";
 
 const themeStyles = {
-  colorPrimaryLight: siteConfig.theme.colors.light.primary,
-  colorSecondaryLight: siteConfig.theme.colors.light.secondary,
-  colorAccentLight: siteConfig.theme.colors.light.accent,
-  colorPrimaryDark: siteConfig.theme.colors.dark.primary,
-  colorSecondaryDark: siteConfig.theme.colors.dark.secondary,
-  colorAccentDark: siteConfig.theme.colors.dark.accent,
+  colorPrimaryLight: toHex(siteConfig.theme.colors.light.primary),
+  colorSecondaryLight: toHex(siteConfig.theme.colors.light.secondary),
+  colorAccentLight: toHex(siteConfig.theme.colors.light.accent),
+  colorPrimaryDark: toHex(siteConfig.theme.colors.dark.primary),
+  colorSecondaryDark: toHex(siteConfig.theme.colors.dark.secondary),
+  colorAccentDark: toHex(siteConfig.theme.colors.dark.accent),
   fontSans: siteConfig.theme.fonts.sans,
   fontSerif: siteConfig.theme.fonts.serif,
   fontHeading: siteConfig.theme.fonts.heading,
@@ -86,7 +89,11 @@ const themeStyles = {
       googleSiteVerificationId={websiteConfig.googleSiteVerificationId}
     />
     <PlausibleScript domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} />
-    <PageViewTracker client:load />
+    <!-- <PageViewTracker
+      apiUrl={import.meta.env.PUBLIC_ANALYTICS_API_URL}
+      secretKey={import.meta.env.PUBLIC_INGESTION_SECRET_KEY}
+      client:load
+    /> -->
 
     {/* Theme Stylesheet - Static styles referencing dynamic CMS variables */}
     <link rel="stylesheet" href="/styles/theme.css" />
@@ -138,7 +145,7 @@ const themeStyles = {
     </style>
   </head>
 
-  <body style={{ background: preloaderBackground }}>
+  <body style={{ backgroundColor: preloaderBackground }}>
     <!-- Skip to main content (accessibility) -->
     <a href="#main-content" class="skip-to-main"> Skip to main content </a>
     <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
