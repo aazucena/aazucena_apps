@@ -48,7 +48,7 @@ export type ThemeVibeRegistry = typeof vibes;
  */
 export function getThemeConfig(
   vibeName: string = 'default',
-  mode: 'light' | 'dark' = 'dark',
+  mode: 'dark' | 'light' = 'dark',
 ): SystemThemeConfig {
   const vibe = vibes[vibeName] || vibes['default'] || defaultVibe;
   return vibe[mode];

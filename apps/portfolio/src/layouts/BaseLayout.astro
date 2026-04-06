@@ -30,7 +30,9 @@ const isCmsFallback = false;
 
 // Get the preloader theme background to prevent white flash
 const preloaderTheme: PreloaderTheme = preloaderConfig.theme || "default";
-const preloaderThemeConfig = getPreloaderTheme(preloaderTheme, "dark");
+const mode =
+  siteConfig.theme.mode === "system" ? "light" : siteConfig.theme.mode;
+const preloaderThemeConfig = getPreloaderTheme(preloaderTheme, mode);
 const preloaderBackground = toHex(preloaderThemeConfig.colors.background);
 
 // Extract brand logo URL (use CMS siteLogo if available, otherwise default to /icon.svg)
