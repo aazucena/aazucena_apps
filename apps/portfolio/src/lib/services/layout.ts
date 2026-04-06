@@ -1,7 +1,19 @@
-import { getPreloaderConfig } from "@aazucena/api";
-import { getMaintenance } from "@aazucena/api";
-import { getWebsiteConfig } from "@aazucena/api";
+import {
+  getPreloaderConfig,
+  getMaintenance,
+  getWebsiteConfig,
+  setStrapiConfig,
+} from "@aazucena/api";
 import { SITE_CONFIG } from "~/config/site";
+
+// Initialize Strapi at module load time so all API calls in any page frontmatter
+// share the same config. In Vite dev, static imports are evaluated before frontmatter
+// code executes, making this the earliest reliable initialization point.
+setStrapiConfig({
+  url: import.meta.env.STRAPI_URL || "http://localhost:1337",
+  apiEndpoint: import.meta.env.STRAPI_API_ENDPOINT || "/api",
+  token: import.meta.env.STRAPI_TOKEN || "",
+});
 
 export interface LayoutDataResponse {
   siteConfig: typeof SITE_CONFIG;

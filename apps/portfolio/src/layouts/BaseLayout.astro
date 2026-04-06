@@ -22,16 +22,24 @@ export interface Props {
 }
 const { title, description }: Props = Astro.props;
 
-// Fetch all layout configuration from Strapi CMS in parallel
+// Fetch all layout configuration from Strapi CMS in parallel.
+// setStrapiConfig is called at module-level in layout.ts so it runs before
+// any API call — including page-level calls that run before this component.
 const { siteConfig, websiteConfig, preloaderConfig } = await getLayoutData();
 
 // Detect if we're using CMS fallback configs (indicates CMS fetch failure)
 const isCmsFallback = false;
+const path = Astro.url.pathname;
+const isHomepage = path === "/";
 
 // Get the preloader theme background to prevent white flash
 const preloaderTheme: PreloaderTheme = preloaderConfig.theme || "default";
 const mode =
-  siteConfig.theme.mode === "system" ? "light" : siteConfig.theme.mode;
+  siteConfig.theme.mode === "system"
+    ? isHomepage
+      ? "dark"
+      : "light"
+    : siteConfig.theme.mode;
 const preloaderThemeConfig = getPreloaderTheme(preloaderTheme, mode);
 const preloaderBackground = toHex(preloaderThemeConfig.colors.background);
 
@@ -44,8 +52,6 @@ const pageTitle = formatPageTitle(title);
 const pageDescription = description || websiteConfig.defaultSEO?.description;
 
 // Detect page type for transition styles
-const path = Astro.url.pathname;
-const isHomepage = path === "/";
 const isDetailPage = path.includes("[slug]") || /\/[^/]+\/[^/]+/.test(path); // e.g., /projects/foo, /blog/bar
 const pageType = isHomepage ? "homepage" : isDetailPage ? "detail" : "list";
 
