@@ -6,3 +6,4 @@ export * from "./Toolbar";
 export * from "./SankeyWithSemantics";
 export * from "./TimelineEventTooltip";
 export * from "./HeatmapInfoPanel";
+export * from "./ChronologyTimeline";

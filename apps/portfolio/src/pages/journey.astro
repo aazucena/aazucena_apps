@@ -9,9 +9,8 @@ import { JourneyDashboard } from "~/components/JourneyDashboard";
 import {
   CareerStats,
   GrowthMetrics,
-  TimelineEventTooltip,
+  ChronologyTimeline,
 } from "~/components/ui/journey";
-import { InteractiveTimeline } from "@aazucena/visualizations";
 import {
   calculateCareerStats,
   calculateSkillGrowthMetrics,
@@ -253,17 +252,7 @@ const phases =
             {/* Phase I: Chronology - Timeline */}
             {phase.name === "chronology" && (
               <div class="overflow-hidden">
-                <InteractiveTimeline
-                  data={timelineData}
-                  laneKey="type"
-                  colorMap={{ experience: "#3b82f6", education: "#8b5cf6" }}
-                  hideHeader
-                  height={420}
-                  hoverPopup={(event, pos) => (
-                    <TimelineEventTooltip event={event} pos={pos} />
-                  )}
-                  client:visible
-                />
+                <ChronologyTimeline data={timelineData} client:visible />
               </div>
             )}
 
