@@ -49,6 +49,7 @@ export function usePreloaderVisibility({
     setIsVisible(false);
     onSkip?.();
     onComplete?.();
+    document.dispatchEvent(new CustomEvent('preloader-complete'));
   };
 
   const handleContinue = () => {

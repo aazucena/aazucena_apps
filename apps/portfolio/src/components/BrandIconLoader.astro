@@ -175,7 +175,10 @@ const animationDuration = isCmsFallback ? "2s" : "1.5s";
 
       // Check if this is a CMS fallback (longer timeout)
       const isCmsFallback = loader.getAttribute("data-cms-fallback") === "true";
-      const maxTimeout = isCmsFallback ? 3000 : 1500;
+      // Safety-net timeout: only fires if React completely fails to hydrate.
+      // Must be much larger than minDisplayTime (1500ms) — this is NOT a UX timer.
+      // In dev mode, JS bundle parsing alone can exceed 1500ms.
+      const maxTimeout = isCmsFallback ? 12000 : 8000;
 
       // Listen for preloader events
       const handleReady = () => hideBrandLoader(loader);

@@ -173,28 +173,33 @@ export default function InteractivePreloader({
     debug,
   ]);
 
-  // Emit 'preloader-mounted' event when component mounts
-  // This signals BrandIconLoader to hide and allows preloader to take over
+  // Emit 'preloader-mounted' event when component mounts.
+  // useEffect already fires after paint, but we use rAF to be certain the
+  // Preloader is composited and visible before BrandIconLoader starts fading.
+  // Without this, there can be a one-frame gap between BrandIconLoader hiding
+  // and the Preloader becoming visually solid.
   useEffect(() => {
-    const event = new CustomEvent('preloader-mounted');
-    document.dispatchEvent(event);
+    const rafId = requestAnimationFrame(() => {
+      document.dispatchEvent(new CustomEvent('preloader-mounted'));
+    });
+    return () => cancelAnimationFrame(rafId);
   }, []); // Empty deps - run only on mount
 
-  // Sync body background with preloader theme
+  // Sync body background with preloader theme to prevent flash during hydration
   useEffect(() => {
     const body = document.body;
-    const overlayBackground = themeStyles.overlayStyle.background as string;
+    const themeBackground = themeStyles.backgroundStyle.background as string;
 
-    if (body && overlayBackground) {
+    if (body && themeBackground) {
       const originalBackground = body.style.background;
-      body.style.background = originalBackground;
+      body.style.background = themeBackground;
 
       // Restore original background when component unmounts
       return () => {
         body.style.background = originalBackground;
       };
     }
-  }, [themeStyles.overlayStyle.background]);
+  }, [themeStyles.backgroundStyle.background]);
 
   // ============================================================================
   // CONDITIONAL RENDERING (after all hooks and effects)
