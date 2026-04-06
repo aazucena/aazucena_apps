@@ -9,9 +9,9 @@
 import { lazy, Suspense, type JSX } from "react";
 import { ScrollIndicators, ScrollDownIndicator } from "~/components/ui";
 import { NavigationToolbar } from "./NavigationToolbar";
-import type { AtmosphericPhase } from "~/config/animations";
+import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";
-import { useSectionData, useDataContext } from "~/contexts/animations";
+import { useSectionData, useDataContext } from "~/contexts";
 import { useModal } from "@aazucena/hooks";
 
 // Lazy load ExperienceModal - only loads when user clicks to view experience

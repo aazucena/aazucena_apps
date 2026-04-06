@@ -1,12 +1,12 @@
 ---
 import { BookOpen, Briefcase, Star } from "@aazucena/icons";
-import { IconRenderer } from "~/components/blocks/IconRenderer";
+import { IconRenderer } from "@aazucena/ui";
 import ListLayout from "~/layouts/ListLayout.astro";
-import { fetchEducation } from "~/lib/api/education";
-import { getExperiences } from "~/lib/api/experiences";
-import { getProjects } from "~/lib/api/projects";
-import { getSkills } from "~/lib/api/skills";
-import type { SkillCategory } from "~/lib/transformers/skills";
+import { fetchEducation } from "@aazucena/api";
+import { getExperiences } from "@aazucena/api";
+import { getProjects } from "@aazucena/api";
+import { getSkills } from "@aazucena/api";
+import type { SkillCategory } from "@aazucena/types";
 // import { cn } from '@aazucena/utils';
 import { getGradientClass } from "@aazucena/utils";
 
@@ -109,7 +109,15 @@ const filters = [
                   <div
                     class={`h-12 w-12 rounded-2xl bg-gradient-to-br ${getGradientClass(category.gradient)} flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110`}
                   >
-                    <IconRenderer icon={category.icon} client:load />
+                    <IconRenderer
+                      icon={
+                        category.icon as
+                          | import("@aazucena/types").IconComponent
+                          | null
+                          | undefined
+                      }
+                      client:load
+                    />
                   </div>
                   <div class="flex-1">
                     <h2 class="text-xl font-black tracking-tight text-gray-900 dark:text-white">

@@ -18,9 +18,9 @@ import {
   ToolbarButton,
 } from "~/components/ui";
 import { Popover } from "~/components/ui/common";
-import type { AtmosphericPhase } from "~/config/animations";
+import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio, useAnimation } from "@aazucena/context";
-import { usePortfolioData } from "~/contexts/animations";
+import { usePortfolioData } from "~/contexts";
 
 export interface NavigationToolbarProps {
   /** Current atmospheric phase for Info panel */

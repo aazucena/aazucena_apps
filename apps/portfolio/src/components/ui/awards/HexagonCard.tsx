@@ -3,9 +3,9 @@
  * Specialized hexagonal award/certification card with SVG gradients and hover effects
  */
 
-import type { JSX } from "react";
+import React, { type JSX } from "react";
 import { getGradientColors } from "@aazucena/utils";
-import type { Award } from "~/lib/transformers/awards";
+import type { Award } from "@aazucena/types";
 
 export interface HexagonCardProps {
   /** Award data */
@@ -157,7 +157,9 @@ export function HexagonCard({
         <p className="mb-2 text-xs" style={{ color: colors.from }}>
           {award.organization} • {award.year}
         </p>
-        <p className="text-xs text-gray-300">{award.description}</p>
+        <p className="text-xs text-gray-300">
+          {award.description as React.ReactNode}
+        </p>
       </div>
     </div>
   );

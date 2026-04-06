@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
-import type { GrowthData } from "~/lib/transformers/journey";
+import type { GrowthData } from "@aazucena/types";
 
 interface GrowthMetricsProps {
   metrics: GrowthData;

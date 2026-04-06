@@ -5,9 +5,9 @@
  */
 import { Compass, Heart, Lamp, Rocket } from "@aazucena/icons";
 // Journey page imports - organized by type
-import { JourneyDashboard } from "~/components/journey";
+import { JourneyDashboard } from "~/components/JourneyDashboard";
 import { CareerStats, GrowthMetrics } from "~/components/ui/journey";
-import { InteractiveTimeline } from "~/components/visualizations/journey";
+import { InteractiveTimeline } from "@aazucena/visualizations";
 import {
   calculateCareerStats,
   calculateSkillGrowthMetrics,
@@ -17,21 +17,22 @@ import {
   transformToSkillsNetwork,
   transformToStreamGraphData,
   transformToTimelineData,
-} from "~/lib/transformers/journey";
-import { IconRenderer } from "~/components/blocks/IconRenderer";
+  type SkillNode,
+} from "~/lib/transformers";
+import { IconRenderer } from "@aazucena/ui";
 import GradientAccent from "~/components/common/GradientAccent.astro";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
-import { fetchEducation as getEducation } from "~/lib/api/education";
-import { getExperiences } from "~/lib/api/experiences";
-import { getJourneyPage } from "~/lib/api/journey";
-import { getProjects } from "~/lib/api/projects";
-import { getSkillCategories } from "~/lib/api/skill-categories";
-import type { Education } from "~/lib/transformers/education";
-import type { Project } from "~/lib/transformers/projects";
-import type { Experience } from "~/lib/transformers/experiences";
-import type { SkillCategoryInfo } from "~/lib/transformers/skill-category";
-import type { JourneyPageConfig } from "~/lib/transformers/journey-page";
+import { fetchEducation as getEducation } from "@aazucena/api";
+import { getExperiences } from "@aazucena/api";
+import { getJourneyPage } from "@aazucena/api";
+import { getProjects } from "@aazucena/api";
+import { getSkillCategories } from "@aazucena/api";
+import type { Education } from "@aazucena/types";
+import type { Project } from "@aazucena/types";
+import type { Experience } from "@aazucena/types";
+import type { SkillCategoryInfo } from "@aazucena/types";
+import type { JourneyPageConfig } from "@aazucena/types";
 
 // Fetch all experiences, education, projects, categories, and journey config
 let experiences: Experience[] = [];
@@ -81,7 +82,7 @@ const growthMetrics = calculateSkillGrowthMetrics(
 
 const allCategories = Array.from(
   new Set([
-    ...skillsNetworkData.nodes.map((n) => n.category),
+    ...skillsNetworkData.nodes.map((n: SkillNode) => n.category),
     ...categories.map((c) => c.label),
   ]),
 )
@@ -248,11 +249,7 @@ const phases =
             {/* Phase I: Chronology - Timeline */}
             {phase.name === "chronology" && (
               <div class="overflow-hidden">
-                <InteractiveTimeline
-                  data={timelineData}
-                  hideHeader={true}
-                  client:visible
-                />
+                <InteractiveTimeline data={timelineData} client:visible />
               </div>
             )}
 
@@ -291,7 +288,15 @@ const phases =
                       <div
                         class={`flex h-14 w-14 items-center justify-center rounded-2xl text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 transition-transform duration-500 group-hover:scale-110`}
                       >
-                        <IconRenderer icon={item.icon} client:load />
+                        <IconRenderer
+                          icon={
+                            item.icon as
+                              | import("@aazucena/types").IconComponent
+                              | null
+                              | undefined
+                          }
+                          client:load
+                        />
                       </div>
                     )}
                     <h3 class="mb-4 text-2xl font-black tracking-tight text-gray-900 dark:text-white">
@@ -311,7 +316,7 @@ const phases =
 
     <!-- Global CTA -->
     {
-      (journeyConfig?.callToAction || true) && (
+      (
         <section class="relative overflow-hidden py-32">
           <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
           <div class="absolute inset-0 bg-black/10 backdrop-blur-3xl" />
@@ -320,12 +325,12 @@ const phases =
             <h2 class="mb-8 text-4xl font-black tracking-tighter text-white md:text-6xl">
               {journeyConfig?.callToAction?.title || "Explore the Details."}
             </h2>
-            {(journeyConfig?.callToAction?.description || true) && (
+            {
               <p class="mx-auto mb-12 max-w-2xl text-xl font-medium text-white/80">
                 {journeyConfig?.callToAction?.description ||
                   "Dive deeper into specific case studies, technical writings, or get in touch to discuss a collaboration."}
               </p>
-            )}
+            }
             <div class="flex flex-col justify-center gap-4 sm:flex-row">
               {journeyConfig?.callToAction?.buttons?.length ? (
                 journeyConfig.callToAction.buttons.map((button) => (

@@ -4,10 +4,10 @@
  */
 
 import type { JSX } from "react";
-import { useSectionData } from "~/contexts/animations";
+import { useSectionData } from "~/contexts";
 import { ResponsiveGrid } from "~/components/ui/common";
 import { BlogCard, ViewAllButton } from "~/components/ui/blog";
-import { SectionLayout } from "./layouts";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 
 export interface BlogSectionProps extends SectionProps {}

@@ -9,13 +9,13 @@ import {
   TimelineDot,
   TimelineItem,
   TimelineLine,
-} from "@/components/ui/timeline";
+} from "@aazucena/ui";
 import type { JSX } from "react";
 import { useState } from "react";
 import { usePortfolio } from "@aazucena/context";
-import { useSectionData } from "~/contexts/animations";
+import { useSectionData } from "~/contexts";
 import { ExperienceCard, ExperienceActions } from "~/components/ui/experience";
-import { SectionLayout } from "./layouts";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 
 export interface ExperienceSectionProps extends SectionProps {}

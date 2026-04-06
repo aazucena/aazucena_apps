@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
-import type { CareerStat as CareerStatsType } from "~/lib/transformers/journey";
+import type { CareerStat as CareerStatsType } from "@aazucena/types";
 
 interface CareerStatsProps {
   stats: CareerStatsType;

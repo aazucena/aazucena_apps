@@ -11,18 +11,18 @@ import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { lazy, Suspense, type JSX } from "react";
-import type { HomepageData } from "~/lib/transformers/homepage";
-import type { PortfolioContent } from "~/lib/transformers/portfolio";
-import type { PortfolioData } from "~/types/portfolio";
-import DynamicBackground from "./background/DynamicBackground";
+import type { HomepageData } from "@aazucena/types";
+import type { PortfolioContent } from "@aazucena/types";
+import type { PortfolioData } from "~/types";
+import DynamicBackground from "./DynamicBackground";
 // Lazy load AnimationCanvas to defer Three.js (~600KB) + PixiJS (~400KB)
-const AnimationCanvas = lazy(() => import("./canvas/AnimationCanvas"));
+const AnimationCanvas = lazy(() => import("./AnimationCanvas"));
 import {
   AnimationProvider,
   PortfolioProvider,
   usePortfolio,
 } from "@aazucena/context";
-import { DataProvider, useDataContext } from "~/contexts/animations";
+import { DataProvider, useDataContext } from "~/contexts";
 import HomepageContent from "./HomepageContent";
 import {
   useAtmosphericLayer,

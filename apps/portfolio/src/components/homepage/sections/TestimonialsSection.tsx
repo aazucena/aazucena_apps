@@ -3,10 +3,10 @@
  * Testimonials carousel
  */
 
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { InfiniteMovingCards } from "@/components/ui/InfiniteMovingCards";
 import type { JSX } from "react";
-import { useSectionData } from "~/contexts/animations";
-import { SectionLayout } from "./layouts";
+import { useSectionData } from "~/contexts";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 
 export interface TestimonialsSectionProps extends SectionProps {}

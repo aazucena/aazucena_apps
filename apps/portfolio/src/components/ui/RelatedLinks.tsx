@@ -5,7 +5,7 @@
 
 import { ExternalLink } from "@aazucena/icons";
 import { getIconComponent } from "@aazucena/utils";
-import type { WebLink } from "~/lib/validators/web-link";
+import type { WebLink } from "@aazucena/types";
 import type { JSX } from "react";
 
 interface RelatedLinksProps {
@@ -34,7 +34,9 @@ export function RelatedLinks({
         {links.map((link, index) => {
           // Determine icon: Use CMS icon if provided, otherwise fallback to ExternalLink
           const Icon = (
-            link.icon?.name ? getIconComponent(link.icon.name) : ExternalLink
+            (link.icon as { name?: string } | null | undefined)?.name
+              ? getIconComponent((link.icon as { name: string }).name)
+              : ExternalLink
           ) as React.ElementType | string;
 
           return (

@@ -2,14 +2,14 @@
 import { ArrowRight, Briefcase, Location, Zap } from "@aazucena/icons";
 import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig } from "~/layouts/ListLayout.astro";
-import { getExperiences } from "~/lib/api/experiences";
+import { getExperiences } from "@aazucena/api";
 import {
   calculateDuration,
   getCompanyLogoGradient,
   getCompanyInitials,
 } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
-import type { Experience } from "~/lib/transformers/experiences";
+import type { Experience } from "@aazucena/types";
 
 // Fetch all experiences
 let experiences: Experience[] = [];
@@ -33,10 +33,10 @@ const filters: FilterConfig[] = [
 // Helper to extract the first metric found in achievements
 function getTopMetric(experience: Experience) {
   const metric = (experience.achievements || []).find((a) =>
-    /([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/.test(a.title),
+    /([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/.test(a.title),
   );
   if (!metric) return null;
-  const match = metric.title.match(/([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/);
+  const match = metric.title.match(/([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/);
   return match
     ? { value: match[0], label: metric.title.replace(match[0], "").trim() }
     : null;

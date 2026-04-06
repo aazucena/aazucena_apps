@@ -3,39 +3,17 @@
  * Individual blog post card with tags, metadata, and external link indicator
  */
 
-import type { JSX } from "react";
+import React, { type JSX } from "react";
+import { ExternalLink } from "@aazucena/icons";
 import { GlassCard } from "../common/GlassCard";
 import { getTagClasses } from "@aazucena/utils";
 import { formatPostDate, calculateReadTime } from "@aazucena/utils";
-import type { BlogPost } from "~/lib/transformers/posts";
-import type { BlogConfigData } from "~/lib/transformers/blog-config";
+import type { BlogPost } from "@aazucena/types";
+import type { BlogConfigData } from "@aazucena/types";
 
 export interface BlogCardProps {
   post: BlogPost;
   displayConfig: BlogConfigData["display"];
-}
-
-/**
- * External Link Icon
- * SVG icon indicating external links
- */
-function ExternalLinkIcon(): JSX.Element {
-  return (
-    <svg
-      className="mt-1 h-5 w-5 flex-shrink-0 text-gray-400 transition-colors group-hover:text-cyan-400"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-      />
-    </svg>
-  );
 }
 
 /**
@@ -72,7 +50,12 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
         <h3 className="text-xl font-bold text-white transition-colors group-hover:text-cyan-400">
           {post.title}
         </h3>
-        {post.isExternal && <ExternalLinkIcon />}
+        {post.isExternal && (
+          <ExternalLink
+            className="mt-1 h-5 w-5 flex-shrink-0 text-gray-400 transition-colors group-hover:text-cyan-400"
+            aria-hidden="true"
+          />
+        )}
       </div>
 
       {/* Date and Read Time - Conditionally shown based on CMS config */}
@@ -96,7 +79,7 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
 
       {/* Description */}
       <p className="text-sm leading-relaxed text-gray-300">
-        {post.description}
+        {post.description as React.ReactNode}
       </p>
     </GlassCard>
   );

@@ -8,12 +8,12 @@ import {
 } from "@aazucena/icons";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
-import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
+import { MarkdownRenderer } from "@aazucena/ui";
 import { MetricCard } from "~/components/ui/MetricCard";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
 import DetailLayout from "~/layouts/DetailLayout.astro";
-import { getExperiences } from "~/lib/api/experiences";
+import { getExperiences } from "@aazucena/api";
 import {
   calculateDuration,
   getCompanyInitials,
@@ -54,10 +54,10 @@ if (!experience) {
 // Extract Impact Metrics
 const extractedMetrics = (experience.achievements || [])
   .filter((achievement) =>
-    /([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/.test(achievement.title),
+    /([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/.test(achievement.title),
   )
   .map((achievement) => {
-    const match = achievement.title.match(/([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/);
+    const match = achievement.title.match(/([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/);
     if (!match) return null;
     const value = match[0];
     let label = achievement.title.replace(value, "").trim();
@@ -100,7 +100,7 @@ const breadcrumbs = [
 
 <DetailLayout
   title={`${experience.position} | ${experience.company}`}
-  description={experience.description}
+  description={experience.description as string}
   jsonLd={jsonLd}
   breadcrumbs={breadcrumbs}
   watermarkText="EXPERIENCE"
@@ -199,7 +199,7 @@ const breadcrumbs = [
       <article
         class="prose prose-lg dark:prose-invert prose-p:leading-relaxed max-w-none"
       >
-        <MarkdownRenderer content={experience.description} />
+        <MarkdownRenderer content={experience.description as string} />
       </article>
     </section>
 
@@ -228,7 +228,9 @@ const breadcrumbs = [
           </h2>
           <div class="prose prose-md dark:prose-invert max-w-none rounded-[2.5rem] border border-gray-100 bg-gray-50 p-10 dark:border-gray-800 dark:bg-gray-900/30">
             <BlocksRenderer
-              content={experience.responsibilities}
+              content={
+                experience.responsibilities as import("@strapi/blocks-react-renderer").BlocksContent
+              }
               blocks={defaultBlockRenderers}
             />
           </div>

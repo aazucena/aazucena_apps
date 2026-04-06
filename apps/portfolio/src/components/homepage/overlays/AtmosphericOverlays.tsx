@@ -4,7 +4,7 @@
  */
 
 import type { JSX } from "react";
-import type { AtmosphericPhase } from "~/config/animations";
+import type { AtmosphericPhase } from "@aazucena/types";
 
 interface AtmosphericOverlaysProps {
   atmosphericLayer: AtmosphericPhase;

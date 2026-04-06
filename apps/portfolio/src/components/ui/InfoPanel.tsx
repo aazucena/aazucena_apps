@@ -4,7 +4,8 @@
  */
 
 import type { JSX } from "react";
-import type { AtmosphericPhase } from "~/config/animations";
+import type { AtmosphericPhase } from "@aazucena/types";
+import { X } from "@aazucena/icons";
 
 export interface InfoPanelProps {
   onClose: () => void;
@@ -64,19 +65,7 @@ export function InfoPanel({
           className="text-white/60 transition-colors hover:text-white"
           aria-label="Close info panel"
         >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <X className="h-5 w-5" />
         </button>
       </div>
 

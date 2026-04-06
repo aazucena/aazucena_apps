@@ -7,7 +7,8 @@
  */
 
 import type { JSX } from "react";
-import type { SocialLink } from "~/lib/validators/components";
+import type { SocialLink } from "@aazucena/types";
+import { X } from "@aazucena/icons";
 
 export interface SocialMenuProps {
   /** Callback when menu should close */
@@ -218,19 +219,7 @@ export function SocialMenu({
           className="text-white/60 transition-colors hover:text-white"
           aria-label="Close social menu"
         >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <X className="h-5 w-5" />
         </button>
       </div>
 

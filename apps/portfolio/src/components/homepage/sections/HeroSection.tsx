@@ -13,20 +13,14 @@ import {
   RESUME_BUTTON_COLOR,
   RESUME_BUTTON_DURATION,
   RESUME_BUTTON_SCALE,
-} from "~/config/animations/constants";
-import {
-  useHomepageData,
-  usePortfolioData,
-  useSectionData,
-} from "~/contexts/animations";
+} from "~/config/animations";
+import { useHomepageData, usePortfolioData, useSectionData } from "~/contexts";
 import { useGSAPEntrance } from "@aazucena/hooks";
-import {
-  FlipWordsTagline,
-  NavigationButton,
-  ResumeButton,
-} from "~/components/ui";
+import { FlipWords } from "@aazucena/ui";
+import { NavigationButton, ResumeButton } from "~/components/ui";
 import type { NavigationDropdownOption } from "~/components/ui/hero/NavigationButton";
-import { SectionLayout } from "./layouts";
+import type { IconComponent } from "@aazucena/types";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 
 export interface HeroSectionProps extends SectionProps {}
@@ -48,7 +42,7 @@ export function HeroSection({
     .map((section, index) => ({
       label: section?.buttonLabel ?? section.title,
       index: section?.sort ?? index,
-      icon: section.icon,
+      icon: section.icon as IconComponent | undefined,
     }));
 
   const onNavigate = () => {
@@ -90,7 +84,7 @@ export function HeroSection({
       titleClassName="block text-6xl md:text-7xl mb-4 text-white"
       subtitleClassName="block text-4xl md:text-5xl bg-gradient-to-r from-secondary-400 to-secondary-500 bg-clip-text text-transparent"
     >
-      <FlipWordsTagline
+      <FlipWords
         words={hero.flipWords}
         ref={subtitleRef}
         content={hero.taglineTemplate}

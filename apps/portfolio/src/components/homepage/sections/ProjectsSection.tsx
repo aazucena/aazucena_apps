@@ -5,10 +5,10 @@
 
 import { ArrowLeftRight as ArrowsHorizontal } from "@aazucena/icons";
 import type { JSX } from "react";
-import { useSectionData } from "~/contexts/animations";
+import { useSectionData } from "~/contexts";
 import { useDragToSwipe } from "@aazucena/hooks";
 import { ProjectCard, ViewMoreCard, PageIndicators } from "~/components/ui";
-import { SectionLayout } from "./layouts";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 
 export interface ProjectsSectionProps extends SectionProps {}
@@ -83,7 +83,9 @@ export function ProjectsSection({
                   {pageProjects.map((project, index) => (
                     <ProjectCard
                       key={index}
-                      project={project}
+                      project={
+                        project as import("~/components/ui/projects/ProjectCard").ProjectCardData
+                      }
                       onClick={(slug) =>
                         handleItemClick(() => {
                           window.location.href = `/projects/${slug}`;

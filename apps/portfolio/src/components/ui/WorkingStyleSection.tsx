@@ -1,8 +1,8 @@
 import { Users, Zap, Message } from "@aazucena/icons";
 import { InteractiveCard } from "./InteractiveCard";
-import { IconRenderer } from "~/components/blocks/IconRenderer";
+import { IconRenderer } from "@aazucena/ui";
 import { getWorkingStyleColor } from "@aazucena/utils";
-import type { WorkingStyleItem } from "~/lib/validators/components";
+import type { WorkingStyleItem } from "@aazucena/types";
 
 interface WorkingStyleSectionProps {
   workingStyle?: WorkingStyleItem[];
@@ -61,7 +61,7 @@ export function WorkingStyleSection({
           title: style.title,
           subtitle: style.subtitle,
           description: style.description,
-          icon: getIconComponent(style.icon),
+          icon: getIconComponent(style.icon as string | null | undefined),
           color: getWorkingStyleColor(style.variant || "blue-cyan"),
         }))
       : defaultWorkingStyle;

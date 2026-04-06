@@ -5,9 +5,9 @@
  */
 
 import type { JSX } from "react";
-import { IconRenderer } from "~/components/blocks/IconRenderer";
+import { IconRenderer } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
-import type { IconComponent } from "~/types/icons";
+import type { IconComponent } from "@aazucena/types";
 
 export type LearnMoreCardVariant =
   | "cyan-blue"

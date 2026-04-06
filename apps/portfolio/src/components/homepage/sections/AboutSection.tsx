@@ -7,7 +7,7 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import type { JSX } from "react";
 import { darkBlockRenderers } from "~/components/blocks/BlockRenderers";
 import { toTitleCase } from "@aazucena/utils";
-import { useSectionData } from "~/contexts/animations";
+import { useSectionData } from "~/contexts";
 import {
   StatCard,
   LearnMoreCard,
@@ -15,7 +15,7 @@ import {
   ResponsiveGrid,
 } from "~/components/ui";
 import type { LearnMoreCardVariant } from "~/components/ui/about/LearnMoreCard";
-import { SectionLayout } from "./layouts";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 
 export interface AboutSectionProps extends SectionProps {}
@@ -35,7 +35,9 @@ export function AboutSection({
       <div className="space-y-6 text-center text-lg md:text-xl">
         {/* Description */}
         <BlocksRenderer
-          content={about.descriptions}
+          content={
+            about.descriptions as import("@strapi/blocks-react-renderer").BlocksContent
+          }
           blocks={darkBlockRenderers}
         />
 
@@ -57,9 +59,13 @@ export function AboutSection({
               href={card.button.url}
               title={toTitleCase(card.title)}
               variant={card.variant as LearnMoreCardVariant}
-              icon={card.icon}
+              icon={card.icon as import("@aazucena/types").IconComponent}
               buttonText={card.button.label}
-              buttonIcon={card.button.icon}
+              buttonIcon={
+                card.button.icon as
+                  | import("@aazucena/types").IconComponent
+                  | undefined
+              }
             >
               {card.description}
             </LearnMoreCard>

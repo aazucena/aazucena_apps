@@ -7,7 +7,7 @@
 
 import { type JSX } from "react";
 import { usePortfolio } from "@aazucena/context";
-import { useDataContext, useRegistry } from "~/contexts/animations";
+import { useDataContext, useRegistry } from "~/contexts";
 import { type SectionRef } from "@aazucena/hooks";
 import { type SectionComponent } from "@aazucena/hooks";
 

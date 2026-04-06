@@ -14,7 +14,7 @@
  * @route /[slug]
  */
 
-import { getPages } from "~/lib/api/pages";
+import { getPages } from "@aazucena/api";
 import EditorialTemplate from "~/templates/EditorialTemplate.astro";
 import LandingTemplate from "~/templates/LandingTemplate.astro";
 import LegalTemplate from "~/templates/LegalTemplate.astro";
@@ -88,7 +88,7 @@ if (templateType !== page.template) {
 // Build shared props for all templates
 const sharedProps = {
   title: page.title,
-  content: page.content,
+  content: page.content as string,
   seoTitle,
   seoDescription,
   jsonLd,

@@ -16,7 +16,7 @@ import {
   Wrench,
 } from "@aazucena/icons";
 import type { JSX } from "react";
-import { Progress } from "~/components/ui/progress";
+import { Progress } from "@aazucena/ui";
 
 interface Skill {
   name: string;
@@ -121,10 +121,6 @@ export function TechStackDistribution({
               <Progress
                 value={item.percentage}
                 className="h-1.5 bg-gray-100 dark:bg-gray-700"
-                progressStyle={{
-                  backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))`,
-                  // We need to construct the gradient class string manually or pass colors
-                }}
               />
               {/* Custom colored progress bar hack since Progress component usually takes primary color */}
               <div className="relative -mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100 opacity-90 dark:bg-gray-700">

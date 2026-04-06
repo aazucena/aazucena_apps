@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Scan @aazucena/* workspace packages for dynamically-generated Tailwind classes */
+@source "../../../../packages/utils/src";
+@source "../../../../packages/ui/src";
+
 @plugin "tailwindcss-animate";
 
 @plugin "@tailwindcss/typography";

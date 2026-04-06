@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
-import { getPosts } from "~/lib/api/posts";
+import { getPosts } from "@aazucena/api";
 
 /**
  * Convert Strapi Blocks content to plain text for RSS

@@ -5,8 +5,8 @@
  */
 import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig } from "~/layouts/ListLayout.astro";
-import { getProjects } from "~/lib/api/projects";
-import type { Project } from "~/lib/transformers/projects";
+import { getProjects } from "@aazucena/api";
+import type { Project } from "@aazucena/types";
 import { getTagColorClasses } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
 import { getCompanyLogoGradient, getCompanyInitials } from "@aazucena/utils";

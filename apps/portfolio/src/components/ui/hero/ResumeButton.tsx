@@ -6,7 +6,7 @@
 
 import { Download } from "@aazucena/icons";
 import type { JSX } from "react";
-import { RESUME_OPEN_DELAY } from "~/config/animations/constants";
+import { RESUME_OPEN_DELAY } from "~/config/animations";
 
 export interface ResumeButtonProps {
   /** Resume PDF URL */

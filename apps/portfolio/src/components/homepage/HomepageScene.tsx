@@ -11,20 +11,17 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Float, OrbitControls } from "@react-three/drei";
 import type { Group } from "three";
 import { useShapeRefs } from "@aazucena/hooks";
-import type { AtmosphericPhase } from "~/config/animations";
+import type { AtmosphericPhase } from "@aazucena/types";
 import {
   SCENE_ELEMENT_COUNTS,
   SCENE_ANIMATION_SPEEDS,
   SHAPE_ROTATION,
   FLOAT_CONFIG,
   SHAPE_MATERIAL,
-} from "~/config/animations";
+} from "@aazucena/constants";
 import {
   LazySceneLayerManager as SceneLayerManager,
   SceneLighting,
-} from "./scene";
-import { calculateLayerOpacities } from "@aazucena/utils";
-import {
   generateParticleData,
   createBasicGeometries,
   generateShapeData,
@@ -34,7 +31,8 @@ import {
   generateBushData,
   generateRockData,
   generateFlowerData,
-} from "~/data/scene";
+} from "@aazucena/animations/three";
+import { calculateLayerOpacities } from "@aazucena/utils";
 
 interface HomepageSceneProps {
   intensity?: number;

@@ -3,14 +3,17 @@
  * Skills and technologies with tabbed interface
  */
 
-import { PhoneDialTabs } from "@/components/ui/phone-dial-tabs";
+import { PhoneDialTabs } from "@/components/ui/PhoneDialTabs";
 import type { JSX } from "react";
 import { useAnimation } from "@aazucena/context";
-import { useSectionData } from "~/contexts/animations";
-import { SkillBadgeList, mapGradientToVariant } from "~/components/ui/skills";
-import { SectionLayout } from "./layouts";
+import { useSectionData } from "~/contexts";
+import {
+  SkillBadgeList,
+  mapGradientToVariant,
+} from "~/components/ui/SkillBadgeList";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
-import { IconRenderer } from "~/components/blocks/IconRenderer";
+import { IconRenderer } from "@aazucena/ui";
 import { getGradientClass } from "@aazucena/utils";
 
 export interface SkillsSectionProps extends SectionProps {}
@@ -29,7 +32,16 @@ export function SkillsSection({
     name: category.name,
     label: category.label,
     gradient: getGradientClass(category.gradient),
-    icon: <IconRenderer icon={category.icon} />,
+    icon: (
+      <IconRenderer
+        icon={
+          category.icon as
+            | import("@aazucena/types").IconComponent
+            | null
+            | undefined
+        }
+      />
+    ),
     content: (
       <SkillBadgeList
         skills={category.skills}

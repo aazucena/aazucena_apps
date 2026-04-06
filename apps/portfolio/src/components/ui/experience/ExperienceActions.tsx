@@ -4,6 +4,7 @@
  */
 
 import type { JSX } from "react";
+import { ArrowRight } from "@aazucena/icons";
 
 export interface ExperienceActionsProps {
   /** Whether to show the "View All" toggle button */
@@ -16,28 +17,6 @@ export interface ExperienceActionsProps {
   onToggle: () => void;
   /** Full timeline page URL */
   timelineUrl: string;
-}
-
-/**
- * ArrowRightIcon
- * Icon for external link button
- */
-function ArrowRightIcon(): JSX.Element {
-  return (
-    <svg
-      className="h-4 w-4"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M13 7l5 5m0 0l-5 5m5-5H6"
-      />
-    </svg>
-  );
 }
 
 /**
@@ -69,7 +48,7 @@ export function ExperienceActions({
         className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20"
       >
         View Full Timeline
-        <ArrowRightIcon />
+        <ArrowRight className="h-4 w-4" />
       </a>
     </div>
   );

@@ -2,13 +2,13 @@
 import {
   BookOpen,
   BrandLinkedin,
-  BrandTwitter,
+  Twitter,
   ClockCircle as Clock,
 } from "@aazucena/icons";
-import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
+import { MarkdownRenderer } from "@aazucena/ui";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import DetailLayout from "~/layouts/DetailLayout.astro";
-import { getPosts } from "~/lib/api/posts";
+import { getPosts } from "@aazucena/api";
 import { calculateReadTime, formatPostDate } from "@aazucena/utils";
 import { getTagColorClasses } from "@aazucena/utils";
 import { getPostDateTime } from "~/lib/utils/blog";
@@ -34,7 +34,7 @@ export async function getStaticPaths() {
 
 const { post, nextPost, prevPost } = Astro.props;
 const seoTitle = post.seo?.title || post.title;
-const seoDescription = post.seo?.description || post.description;
+const seoDescription = (post.seo?.description || post.description) as string;
 const siteOrigin = "https://aazucena.com";
 const postUrl = `${siteOrigin}/blog/${post.slug}`;
 
@@ -100,7 +100,7 @@ const jsonLd = {
     >
       <time datetime={getPostDateTime(post)} class="flex items-center gap-2">
         <Clock size={14} className="text-blue-500" />
-        {formatPostDate(post)}
+        {formatPostDate(post as { publishedAt: string })}
       </time>
       <span class="h-1 w-1 rounded-full bg-gray-200 dark:bg-gray-800"></span>
       <span class="flex items-center gap-2">
@@ -128,7 +128,7 @@ const jsonLd = {
       id="article-content"
       class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 max-w-none"
     >
-      <MarkdownRenderer content={post.description} />
+      <MarkdownRenderer content={post.description as string} />
     </article>
 
     {
@@ -157,7 +157,7 @@ const jsonLd = {
               target="_blank"
               class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-50 text-gray-400 transition-all hover:bg-blue-500 hover:text-white dark:bg-gray-900"
             >
-              <BrandTwitter size={20} />
+              <Twitter size={20} />
             </a>
             <a
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`}

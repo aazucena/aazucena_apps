@@ -14,14 +14,14 @@ import {
 } from "@aazucena/icons";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
-import { IconRenderer } from "~/components/blocks/IconRenderer";
-import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
+import { IconRenderer } from "@aazucena/ui";
+import { MarkdownRenderer } from "@aazucena/ui";
 import { EducationItem } from "~/components/ui/EducationItem";
 import { WorkingStyleSection } from "~/components/ui/WorkingStyleSection";
 import DetailLayout from "~/layouts/DetailLayout.astro";
-import { getAbout } from "~/lib/api/about";
-import { fetchEducation } from "~/lib/api/education";
-import { getPortfolio } from "~/lib/api/portfolio";
+import { getAbout } from "@aazucena/api";
+import { fetchEducation } from "@aazucena/api";
+import { getPortfolio } from "@aazucena/api";
 import { cn } from "@aazucena/utils";
 import { getColorClass, getGradientClass } from "@aazucena/utils";
 import { getAvailabilityIndicator } from "@aazucena/utils";
@@ -31,7 +31,7 @@ import type {
   MasteryItem,
   RootItem,
   WorkflowTool,
-} from "~/types/about";
+} from "@aazucena/types";
 
 // Fetch data in parallel
 let about = null;
@@ -65,32 +65,32 @@ const sortedEducation = [...education].sort((a, b) => {
 });
 
 // Map CMS data using utility helpers
-const mastery: MasteryItem[] = (about.focusAreas || []).map((item) => ({
+const mastery: MasteryItem[] = (about.focusAreas || []).map((item: any) => ({
   name: item.title,
   exp: item.experience,
   description: item.description,
   color: getGradientClass(item.variant),
 }));
 
-const roots: RootItem[] = (about.roots || []).map((item) => ({
+const roots: RootItem[] = (about.roots || []).map((item: any) => ({
   title: item.title,
   desc: item.description,
   icon: item.icon,
 }));
 
-const interests: InterestItem[] = (about.interests || []).map((item) => ({
+const interests: InterestItem[] = (about.interests || []).map((item: any) => ({
   title: item.title,
   desc: item.description,
   icon: item.icon,
   color: getColorClass(item.variant),
 }));
 
-const workflow: WorkflowTool[] = (about.workflow || []).map((item) => ({
+const workflow: WorkflowTool[] = (about.workflow || []).map((item: any) => ({
   name: item.name,
   detail: item.detail,
 }));
 
-const languages: Language[] = (about.languages || []).map((item) => ({
+const languages: Language[] = (about.languages || []).map((item: any) => ({
   name: item.name,
   level: item.level,
 }));
@@ -185,10 +185,12 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
       >
         {
           portfolio.bio ? (
-            <MarkdownRenderer content={portfolio.bio} />
+            <MarkdownRenderer content={portfolio.bio as string} />
           ) : (
             <BlocksRenderer
-              content={about.descriptions}
+              content={
+                about.descriptions as import("@strapi/blocks-react-renderer").BlocksContent
+              }
               blocks={defaultBlockRenderers}
             />
           )

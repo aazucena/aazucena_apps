@@ -4,39 +4,17 @@
  */
 
 import type { JSX } from "react";
-import { Location, Briefcase } from "@aazucena/icons";
+import { Location, Briefcase, ChevronRight } from "@aazucena/icons";
 import { GlassCard } from "../common/GlassCard";
 import { CompanyLogo } from "./CompanyLogo";
 import { formatDate } from "@aazucena/utils";
-import type { Experience } from "~/lib/transformers/experiences";
+import type { Experience } from "@aazucena/types";
 
 export interface ExperienceCardProps {
   /** Experience data */
   experience: Experience;
   /** Click handler */
   onClick: () => void;
-}
-
-/**
- * ChevronRightIcon
- * Click indicator icon
- */
-function ChevronRightIcon(): JSX.Element {
-  return (
-    <svg
-      className="h-5 w-5 text-cyan-400"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M9 5l7 7-7 7"
-      />
-    </svg>
-  );
 }
 
 /**
@@ -91,7 +69,7 @@ export function ExperienceCard({
 
         {/* Click Indicator */}
         <div className="flex-shrink-0">
-          <ChevronRightIcon />
+          <ChevronRight className="h-5 w-5 text-cyan-400" />
         </div>
       </div>
     </GlassCard>

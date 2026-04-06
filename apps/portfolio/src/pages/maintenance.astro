@@ -1,7 +1,7 @@
 ---
 import PageLayout from "~/layouts/PageLayout.astro";
-import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
-import { getMaintenance } from "~/lib/api/maintenance";
+import { MarkdownRenderer } from "@aazucena/ui";
+import { getMaintenance } from "@aazucena/api";
 import {
   Wrench,
   Refresh,
@@ -82,7 +82,7 @@ const pageDescription = maintenance.message;
         >
           {
             maintenance.message ? (
-              <MarkdownRenderer content={maintenance.message} />
+              <MarkdownRenderer content={maintenance.message as string} />
             ) : (
               <p>
                 I'm currently updating my portfolio to bring you something

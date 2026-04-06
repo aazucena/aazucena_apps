@@ -5,7 +5,11 @@
  */
 
 import type { JSX } from "react";
-import { getCompanyLogoGradient, getCompanyInitials } from "@aazucena/utils";
+import {
+  getCompanyLogoGradient,
+  getCompanyInitials,
+  getGradientColors,
+} from "@aazucena/utils";
 
 export interface CompanyLogoProps {
   /** Company name */
@@ -41,12 +45,14 @@ export function CompanyLogo({
   className = "",
 }: CompanyLogoProps): JSX.Element {
   const gradient = getCompanyLogoGradient(company);
+  const { from, to } = getGradientColors(gradient);
   const initials = getCompanyInitials(company);
   const sizeClass = sizeVariants[size];
 
   return (
     <div
-      className={`flex-shrink-0 bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden rounded-lg font-bold text-white shadow-lg ${sizeClass} ${className}`}
+      className={`flex flex-shrink-0 items-center justify-center overflow-hidden rounded-lg font-bold text-white shadow-lg ${sizeClass} ${className}`}
+      style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}
     >
       {companyLogo?.url ? (
         <img

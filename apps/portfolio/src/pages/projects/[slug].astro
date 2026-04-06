@@ -4,13 +4,13 @@
  * Includes metrics, screenshots, tech stack, and navigation.
  */
 import { BrandGithub, Briefcase, ExternalLink } from "@aazucena/icons";
-import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
+import { MarkdownRenderer } from "@aazucena/ui";
 import { MetricCard } from "~/components/ui/MetricCard";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
 import { StatusBadge } from "~/components/ui/StatusBadge";
 import DetailLayout from "~/layouts/DetailLayout.astro";
-import { getProjects } from "~/lib/api/projects";
+import { getProjects } from "@aazucena/api";
 import { getProjectStatusVariant, formatProjectDate } from "@aazucena/utils";
 
 // Generate static paths for all projects
@@ -164,7 +164,7 @@ const seoDescription = project.seo?.description || project.shortDescription;
       <article
         class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black max-w-none"
       >
-        <MarkdownRenderer content={project.description} />
+        <MarkdownRenderer content={project.description as string} />
       </article>
     </section>
 

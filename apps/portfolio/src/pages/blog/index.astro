@@ -9,12 +9,12 @@ import {
 } from "@aazucena/icons";
 import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig } from "~/layouts/ListLayout.astro";
-import { getPosts } from "~/lib/api/posts";
+import { getPosts } from "@aazucena/api";
 import { calculateReadTime, formatPostDate } from "@aazucena/utils";
 import { getPostDateTime } from "~/lib/utils/blog";
 import { getTagColorClasses } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
-import type { BlogPost } from "~/lib/transformers/posts";
+import type { BlogPost } from "@aazucena/types";
 
 // Fetch all posts
 let posts: BlogPost[] = [];
@@ -96,7 +96,7 @@ const filters: FilterConfig[] = [{ id: "tag", label: "Tag", options: allTags }];
               class="flex items-center gap-1.5"
             >
               <Clock size={14} className="text-blue-500/50" />
-              {formatPostDate(post)}
+              {formatPostDate(post as { publishedAt: string })}
             </time>
             <span class="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-700" />
             <span class="flex items-center gap-1.5">

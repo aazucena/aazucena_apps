@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "@aazucena/icons";
-import { ThemeToggle } from "./ThemeToggle";
+import { ThemeToggle } from "@aazucena/ui";
 import { toTitleCase } from "@aazucena/utils";
 import { getNavigationIcon } from "~/lib/utils/icons";
-import type { NavigationItem } from "~/lib/validators/navigation";
+import type { NavigationItem } from "@aazucena/types";
 
 interface NavbarProps {
   siteName: string;

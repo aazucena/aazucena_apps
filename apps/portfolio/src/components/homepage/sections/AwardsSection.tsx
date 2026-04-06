@@ -5,12 +5,12 @@
  */
 
 import { lazy, Suspense, type JSX } from "react";
-import { useSectionData } from "~/contexts/animations";
+import { useSectionData } from "~/contexts";
 import { useModal } from "@aazucena/hooks";
 import { HexagonCard, SectionLabel } from "~/components/ui/awards";
-import { SectionLayout } from "./layouts";
+import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
-import type { Award } from "~/lib/transformers/awards";
+import type { Award } from "@aazucena/types";
 
 // Lazy load AwardModal - only loads when user clicks to view award details
 const AwardModal = lazy(() =>

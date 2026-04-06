@@ -4,7 +4,9 @@
  */
 
 import type { JSX } from "react";
-import type { DeviceCapabilities } from "~/config/animations";
+import type { DeviceCapabilities } from "@aazucena/types";
+import { Switch } from "@aazucena/ui";
+import { X } from "@aazucena/icons";
 
 export interface SettingsPanelProps {
   onClose: () => void;
@@ -26,19 +28,7 @@ export function SettingsPanel({
           className="text-white/60 transition-colors hover:text-white"
           aria-label="Close settings panel"
         >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <X className="h-5 w-5" />
         </button>
       </div>
 
@@ -53,24 +43,13 @@ export function SettingsPanel({
               Enable 3D effects and particles
             </div>
           </div>
-          <button
-            onClick={() =>
-              onUpdateCapabilities({
-                canUseHeavyAnimations: !capabilities.canUseHeavyAnimations,
-              })
+          <Switch
+            variant="cyber"
+            checked={capabilities.canUseHeavyAnimations}
+            onCheckedChange={(checked) =>
+              onUpdateCapabilities({ canUseHeavyAnimations: checked })
             }
-            className={`relative h-6 w-12 rounded-full transition-colors duration-300 ${
-              capabilities.canUseHeavyAnimations ? "bg-cyan-500" : "bg-white/20"
-            }`}
-          >
-            <div
-              className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform duration-300 ${
-                capabilities.canUseHeavyAnimations
-                  ? "translate-x-6"
-                  : "translate-x-0"
-              }`}
-            />
-          </button>
+          />
         </div>
 
         {/* Performance Tier */}

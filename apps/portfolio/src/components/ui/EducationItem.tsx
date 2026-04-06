@@ -6,7 +6,7 @@
 import { Calendar, ChevronDown, ClockCircle as Clock } from "@aazucena/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { MarkdownRenderer } from "~/components/blocks/MarkdownRenderer";
+import { MarkdownRenderer } from "@aazucena/ui";
 import { calculateDuration } from "@aazucena/utils";
 
 interface EducationItemProps {

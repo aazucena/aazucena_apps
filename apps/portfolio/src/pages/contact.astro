@@ -7,14 +7,14 @@ import {
   Envelope,
   BrandLinkedin,
   BrandGithub,
-  BrandTwitter,
+  Twitter,
   Send,
   Location,
   Globe,
   MessageDots,
 } from "@aazucena/icons";
 import DetailLayout from "~/layouts/DetailLayout.astro";
-import { getPortfolio } from "~/lib/api/portfolio";
+import { getPortfolio } from "@aazucena/api";
 import { getAvailabilityIndicator } from "@aazucena/utils";
 
 // Fetch contact info from Portfolio single type
@@ -92,60 +92,60 @@ const jsonLd = {
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div class="space-y-2">
             <label
-              for="name"
               class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
-              >Full Name</label
             >
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="John Doe"
-              class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-            />
+              Full Name
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="John Doe"
+                class="mt-2 w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+              />
+            </label>
           </div>
           <div class="space-y-2">
             <label
-              for="email"
               class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
-              >Email Address</label
             >
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="john@example.com"
-              class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-            />
+              Email Address
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="john@example.com"
+                class="mt-2 w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+              />
+            </label>
           </div>
         </div>
         <div class="space-y-2">
           <label
-            for="subject"
             class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
-            >Subject</label
           >
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            placeholder="How can I help?"
-            class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-          />
+            Subject
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              placeholder="How can I help?"
+              class="mt-2 w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+            />
+          </label>
         </div>
         <div class="space-y-2">
           <label
-            for="message"
             class="ml-4 text-[10px] font-black tracking-widest text-gray-400 uppercase"
-            >Message</label
           >
-          <textarea
-            id="message"
-            name="message"
-            rows="6"
-            placeholder="Tell me about your project..."
-            class="w-full resize-none rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-          ></textarea>
+            Message
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="Tell me about your project..."
+              class="mt-2 w-full resize-none rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+            ></textarea>
+          </label>
         </div>
 
         <button
@@ -282,7 +282,7 @@ const jsonLd = {
               <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 group-hover:text-blue-600 dark:bg-gray-800 dark:text-gray-400">
                 {link.platform === "LinkedIn" && <BrandLinkedin size={20} />}
                 {link.platform === "GitHub" && <BrandGithub size={20} />}
-                {link.platform === "Twitter" && <BrandTwitter size={20} />}
+                {link.platform === "Twitter" && <Twitter size={20} />}
                 {!["LinkedIn", "GitHub", "Twitter"].includes(link.platform) && (
                   <Globe size={20} />
                 )}

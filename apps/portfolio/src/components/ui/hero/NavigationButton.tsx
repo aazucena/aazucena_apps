@@ -7,8 +7,8 @@
 import type { JSX } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { IconRenderer } from "~/components/blocks/IconRenderer";
-import type { IconComponent } from "~/types/icons";
+import { IconRenderer } from "@aazucena/ui";
+import type { IconComponent } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";
 
 export interface NavigationDropdownOption {
@@ -60,18 +60,6 @@ export function NavigationButton({
     setShowDropdown(false);
   };
 
-  // Guard against empty options array
-  if (!options || options.length === 0) {
-    return <></>;
-  }
-
-  const firstOptionIndex = options[0]!.index;
-  const otherOptions = options.slice(1);
-
-  // Auto-enable dropdown if there are multiple options, unless explicitly disabled
-  const shouldShowDropdown = dropdown !== false && otherOptions.length > 0;
-  const hasDropdownItems = shouldShowDropdown;
-
   // Update dropdown position on scroll/resize
   useEffect(() => {
     if (!showDropdown || !buttonRef.current) return;
@@ -98,6 +86,18 @@ export function NavigationButton({
       window.removeEventListener("resize", updatePosition);
     };
   }, [showDropdown]);
+
+  // Guard against empty options array
+  if (!options || options.length === 0) {
+    return <></>;
+  }
+
+  const firstOptionIndex = options[0]!.index;
+  const otherOptions = options.slice(1);
+
+  // Auto-enable dropdown if there are multiple options, unless explicitly disabled
+  const shouldShowDropdown = dropdown !== false && otherOptions.length > 0;
+  const hasDropdownItems = shouldShowDropdown;
 
   return (
     <div ref={buttonRef} className="relative w-full sm:w-auto">
