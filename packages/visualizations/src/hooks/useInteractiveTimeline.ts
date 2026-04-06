@@ -6,11 +6,28 @@ export interface UseInteractiveTimelineOptions {
   width: number;
   height: number;
   colorMap: Record<string, string>;
-  /** Field name to use as the swim-lane group key. @default 'type' */
   laneKey?: string;
   onEventClick?: (event: any) => void;
-  /** Called on bar mouseenter/mouseleave with the event and SVG-relative position */
   onEventHover?: (event: any | null, pos: { x: number; y: number } | null) => void;
+  /** Called when the dynamic height changes due to lane count */
+  onHeightChange?: (height: number) => void;
+  /** Ref to store the D3 zoom behavior so the parent can call zoom in/out/reset */
+  zoomRef?: React.MutableRefObject<d3.ZoomBehavior<SVGSVGElement, unknown> | null>;
+}
+
+// Lane-packing constants
+const LABEL_BUFFER_RIGHT = 60;
+const LABEL_BUFFER_LEFT = 50;
+const NODE_GAP = 40;
+const LANE_STEP = 110;
+
+function getInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .map((w) => w[0] || '')
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
 }
 
 export function useInteractiveTimeline<T extends TimelineEvent>(
@@ -23,6 +40,8 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
     laneKey = 'type',
     onEventClick,
     onEventHover,
+    onHeightChange,
+    zoomRef,
   }: UseInteractiveTimelineOptions,
 ) {
   useEffect(() => {
@@ -31,118 +50,279 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
 
-    const margin = { top: 40, right: 40, bottom: 40, left: 80 };
+    const margin = { top: 80, right: 60, bottom: 60, left: 60 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const getColor = (d: T) => {
+      const lane = String((d as any)[laneKey] || '');
+      return colorMap[lane] || defaultColors(lane);
+    };
 
-    const parsedData = data
+    // Parse and sort data
+    const parsedData = [...data]
       .map((d) => ({
         ...d,
         _date: new Date(d.date),
-        _endDate: d.endDate ? new Date(d.endDate) : new Date(d.date),
-        _lane: String((d as any)[laneKey] || 'default'),
+        _endDate: d.endDate ? new Date(d.endDate) : new Date(),
+        _lane: String((d as any)[laneKey] || ''),
       }))
       .sort((a, b) => a._date.getTime() - b._date.getTime());
 
     // Time scale
     const x = d3
       .scaleTime()
-      .domain([
-        d3.min(parsedData, (d) => d._date) || new Date(),
-        d3.max(parsedData, (d) => d._endDate) || new Date(),
-      ])
+      .domain([d3.min(parsedData, (d) => d._date) || new Date(), new Date()])
       .range([0, innerWidth]);
 
-    // Swim-lane scale — one band per unique laneKey value
-    const laneNames = [...new Set(parsedData.map((d) => d._lane))];
-    const yScale = d3.scaleBand().domain(laneNames).range([0, innerHeight]).paddingInner(0.3);
+    // ── Lane-packing collision avoidance ──────────────────────────────────────
+    // Each entry gets assigned the lowest lane where its left edge clears
+    // the previous node's visual right edge (label included).
+    const lanes: number[] = [];
+    let maxLane = 0;
 
-    // Lane background stripes + left labels
-    laneNames.forEach((lane) => {
-      const laneY = yScale(lane) ?? 0;
-      const bandH = yScale.bandwidth();
+    const processedData = parsedData.map((d) => {
+      const startX = x(d._date);
+      const barWidth = Math.max(x(d._endDate) - startX, 28);
+      const visualRight = startX + Math.max(barWidth, LABEL_BUFFER_RIGHT);
 
-      g.append('rect')
-        .attr('x', 0)
-        .attr('y', laneY)
-        .attr('width', innerWidth)
-        .attr('height', bandH)
-        .attr('fill', 'currentColor')
-        .attr('opacity', 0.03)
-        .attr('rx', 4);
+      let lane = 0;
+      while (true) {
+        const prevRight = lanes[lane];
+        if (prevRight === undefined || startX - LABEL_BUFFER_LEFT > prevRight + NODE_GAP) {
+          lanes[lane] = visualRight;
+          break;
+        }
+        lane++;
+      }
+      if (lane > maxLane) maxLane = lane;
 
-      g.append('text')
-        .attr('x', -8)
-        .attr('y', laneY + bandH / 2)
-        .attr('text-anchor', 'end')
-        .attr('dominant-baseline', 'middle')
-        .attr('font-size', '10px')
-        .attr('font-weight', '600')
-        .attr('fill', 'currentColor')
-        .attr('opacity', 0.6)
-        .text(lane.charAt(0).toUpperCase() + lane.slice(1));
+      // Alternate above/below: lane 0 = center, lane 1 = -LANE_STEP, lane 2 = +LANE_STEP, …
+      let yOffset = 0;
+      if (lane > 0) {
+        const level = Math.ceil(lane / 2);
+        const sign = lane % 2 === 1 ? -1 : 1;
+        yOffset = level * sign * LANE_STEP;
+      }
+
+      return { ...d, yOffset };
     });
 
-    // X-axis
-    g.append('g')
+    // Dynamic height based on lanes
+    const requiredHeight = Math.max(
+      400,
+      (Math.ceil(maxLane / 2) + 1) * 220 + margin.top + margin.bottom,
+    );
+    if (requiredHeight !== height) {
+      onHeightChange?.(requiredHeight);
+      return; // Re-render with corrected height
+    }
+
+    // ── SVG setup ─────────────────────────────────────────────────────────────
+    // Define gradient for the center line
+    const defs = svg.append('defs');
+    const grad = defs
+      .append('linearGradient')
+      .attr('id', 'timeline-line-gradient')
+      .attr('x1', '0%')
+      .attr('x2', '100%');
+    grad.append('stop').attr('offset', '0%').attr('stop-color', '#3b82f6');
+    grad.append('stop').attr('offset', '50%').attr('stop-color', '#a855f7');
+    grad.append('stop').attr('offset', '100%').attr('stop-color', '#ec4899');
+
+    const mainGroup = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const centerY = innerHeight / 2;
+
+    // ── Axes ──────────────────────────────────────────────────────────────────
+    mainGroup
+      .append('g')
       .attr('transform', `translate(0,${innerHeight})`)
-      .attr('class', 'text-[10px] text-muted-foreground')
-      .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0));
+      .call(
+        d3
+          .axisBottom(x)
+          .ticks(Math.min(parsedData.length, 10))
+          .tickFormat((d) => d3.timeFormat('%Y')(d as Date))
+          .tickSizeOuter(0),
+      )
+      .call((g) => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('fill', '#94a3b8')
+      .attr('font-size', '11px')
+      .attr('font-weight', '600');
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
-    const getColor = (d: (typeof parsedData)[0]) => colorMap[d._lane] || defaultColors(d._lane);
+    // ── TODAY marker ──────────────────────────────────────────────────────────
+    const todayX = x(new Date());
+    if (todayX >= 0 && todayX <= innerWidth) {
+      mainGroup
+        .append('line')
+        .attr('x1', todayX)
+        .attr('y1', 0)
+        .attr('x2', todayX)
+        .attr('y2', innerHeight)
+        .attr('stroke', '#94a3b8')
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', '4 4');
+      mainGroup
+        .append('text')
+        .attr('x', todayX)
+        .attr('y', -10)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#94a3b8')
+        .attr('font-size', '10px')
+        .attr('font-weight', 'bold')
+        .text('TODAY');
+    }
 
-    const bars = g
-      .selectAll('rect.event')
-      .data(parsedData)
-      .join('rect')
-      .attr('class', 'event')
-      .attr('x', (d) => x(d._date))
-      .attr('y', (d) => yScale(d._lane) ?? 0)
-      .attr('width', (d) => Math.max(x(d._endDate) - x(d._date), 10))
-      .attr('height', yScale.bandwidth())
-      .attr('fill', getColor)
-      .attr('rx', 4)
+    // ── Center timeline line ──────────────────────────────────────────────────
+    mainGroup
+      .append('line')
+      .attr('x1', 0)
+      .attr('y1', centerY)
+      .attr('x2', innerWidth)
+      .attr('y2', centerY)
+      .attr('stroke', 'url(#timeline-line-gradient)')
+      .attr('stroke-width', 4)
+      .attr('stroke-linecap', 'round');
+
+    // ── Nodes ─────────────────────────────────────────────────────────────────
+    const nodes = mainGroup
+      .selectAll('.tl-node')
+      .data(processedData)
+      .enter()
+      .append('g')
+      .attr('class', 'tl-node')
+      .attr('transform', (d) => `translate(${x(d._date)},${centerY + d.yOffset})`)
       .style('cursor', onEventClick || onEventHover ? 'pointer' : 'default');
 
-    bars.append('title').text((d) => `${d.name}: ${d._date.toLocaleDateString()}`);
+    // Duration bar (semi-transparent rect)
+    nodes
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', -10)
+      .attr('width', (d) => Math.max(x(d._endDate) - x(d._date), 28))
+      .attr('height', 20)
+      .attr('rx', 10)
+      .attr('fill', (d) => getColor(d as T))
+      .attr('opacity', 0.2);
 
-    // Event name labels inside bars — hidden when bar too narrow
-    g.selectAll('text.event-label')
-      .data(parsedData)
-      .join('text')
-      .attr('class', 'event-label')
-      .attr('x', (d) => x(d._date) + 6)
-      .attr('y', (d) => (yScale(d._lane) ?? 0) + yScale.bandwidth() / 2)
-      .attr('dominant-baseline', 'middle')
-      .attr('font-size', '9px')
-      .attr('fill', '#fff')
-      .attr('pointer-events', 'none')
-      .text((d) => {
-        const barW = Math.max(x(d._endDate) - x(d._date), 0);
-        if (barW < 40) return '';
-        const maxChars = Math.floor(barW / 6);
-        return d.name.length > maxChars ? d.name.slice(0, maxChars - 1) + '…' : d.name;
-      });
+    // Connecting dashed line from node to center
+    nodes
+      .filter((d) => d.yOffset !== 0)
+      .append('line')
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', 0)
+      .attr('y2', (d) => -d.yOffset)
+      .attr('stroke', 'currentColor')
+      .attr('stroke-opacity', 0.25)
+      .attr('stroke-width', 2)
+      .attr('stroke-dasharray', '4 4');
 
-    if (onEventClick) {
-      bars.on('click', (_event, d) => onEventClick(d as any));
-    }
+    // Circle node
+    nodes
+      .append('circle')
+      .attr('r', 14)
+      .attr('fill', (d) => getColor(d as T))
+      .attr('stroke', '#ffffff')
+      .attr('stroke-width', 4);
 
+    // Avatar: image or initials in a foreignObject below/above the circle
+    const AVATAR_SIZE = 44;
+    const fo = nodes
+      .append('foreignObject')
+      .attr('x', -AVATAR_SIZE / 2)
+      .attr('y', (d) => (d.yOffset >= 0 ? 30 : -30 - AVATAR_SIZE))
+      .attr('width', AVATAR_SIZE)
+      .attr('height', AVATAR_SIZE);
+
+    fo.each(function (d) {
+      const container = d3.select(this);
+      const color = getColor(d as T);
+      const hasImage =
+        d.avatarUrl && (d.avatarUrl.startsWith('http') || d.avatarUrl.startsWith('/'));
+      const initials = getInitials(d.name);
+
+      if (hasImage) {
+        container
+          .append('xhtml:div')
+          .attr(
+            'class',
+            'w-full h-full rounded-full flex items-center justify-center overflow-hidden border-2 border-white shadow-md',
+          )
+          .style('background-color', color + '22')
+          .append('xhtml:img')
+          .attr('src', d.avatarUrl!)
+          .attr('alt', d.avatarAlt || d.name)
+          .attr('class', 'w-full h-full object-cover rounded-full');
+      } else {
+        container
+          .append('xhtml:div')
+          .attr(
+            'class',
+            'w-full h-full rounded-full flex items-center justify-center border-2 border-white shadow-md font-bold text-sm text-white',
+          )
+          .style('background-color', color)
+          .text(initials);
+      }
+    });
+
+    // Subtitle label (company / institution)
+    nodes
+      .filter((d) => !!d.subtitle)
+      .append('text')
+      .attr('y', (d) => (d.yOffset >= 0 ? 95 : -95))
+      .attr('text-anchor', 'middle')
+      .attr('fill', '#94a3b8')
+      .attr('font-size', '11px')
+      .attr('font-weight', '700')
+      .text((d) => d.subtitle!);
+
+    // ── Hover interactions ────────────────────────────────────────────────────
     if (onEventHover && svgRef.current) {
       const svgEl = svgRef.current;
-      bars
+      nodes
         .on('mouseenter', function (e, d) {
-          const cr = svgEl.getBoundingClientRect();
-          const er = (e.currentTarget as SVGRectElement).getBoundingClientRect();
-          onEventHover(d as any, {
-            x: er.left - cr.left + er.width / 2,
-            y: er.top - cr.top,
-          });
+          d3.select(this).select('circle').transition().attr('r', 18);
+          d3.select(this).select('rect').transition().attr('height', 24).attr('y', -12);
+
+          if (onEventHover) {
+            const cr = svgEl.getBoundingClientRect();
+            const er = (e.currentTarget as SVGGElement).getBoundingClientRect();
+            onEventHover(d as any, {
+              x: er.left - cr.left + er.width / 2,
+              y: er.top - cr.top,
+            });
+          }
         })
-        .on('mouseleave', () => onEventHover(null, null));
+        .on('mouseleave', function () {
+          d3.select(this).select('circle').transition().attr('r', 14);
+          d3.select(this).select('rect').transition().attr('height', 20).attr('y', -10);
+          onEventHover?.(null, null);
+        });
     }
-  }, [svgRef, data, width, height, colorMap, laneKey, onEventClick, onEventHover]);
+
+    if (onEventClick) {
+      nodes.on('click', (_e, d) => onEventClick(d as any));
+    }
+
+    // ── Zoom ──────────────────────────────────────────────────────────────────
+    const zoom = d3
+      .zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.4, 6])
+      .on('zoom', (event) => {
+        mainGroup.attr(
+          'transform',
+          `translate(${event.transform.x + margin.left},${event.transform.y + margin.top}) scale(${event.transform.k})`,
+        );
+      });
+
+    svg.call(zoom);
+    if (zoomRef) zoomRef.current = zoom;
+
+    return () => {
+      svg.on('.zoom', null);
+    };
+  }, [svgRef, data, width, height, colorMap, laneKey, onEventClick, onEventHover, onHeightChange]);
 }
