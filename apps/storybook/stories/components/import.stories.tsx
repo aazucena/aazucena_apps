@@ -45,14 +45,6 @@ const meta: Meta<typeof Import> = {
         defaultValue: { summary: 'true' },
       },
     },
-    enableFileUpload: {
-      control: 'boolean',
-      table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
     enableUrlImport: {
       control: 'boolean',
       table: {
@@ -63,7 +55,8 @@ const meta: Meta<typeof Import> = {
     },
     onFileImport: {
       action: 'fileImported',
-      description: 'Callback triggered when a file is successfully imported (provides ImportFileData).',
+      description:
+        'Callback triggered when a file is successfully imported (provides ImportFileData).',
       table: {
         category: 'Behavior',
         type: { summary: '() => void' },
@@ -165,7 +158,6 @@ export const OnlyFileImport: Story = {
 export const OnlyUrlImport: Story = {
   args: {
     enableDragAndDrop: false,
-    enableFileUpload: false,
   },
   render: (args) => (
     <div className="w-[500px]">

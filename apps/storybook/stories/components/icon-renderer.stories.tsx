@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconRenderer } from '@aazucena/ui';
-import { Activity, Database, Globe, Shield, Zap, Github, Terminal, Lightbulb, LightbulbSolid } from '@aazucena/icons';
+import {
+  Activity,
+  Database,
+  Globe,
+  Shield,
+  Zap,
+  Github,
+  Terminal,
+  Lightbulb,
+  LightbulbSolid,
+} from '@aazucena/icons';
 
 /**
  * ## Engineering Standards

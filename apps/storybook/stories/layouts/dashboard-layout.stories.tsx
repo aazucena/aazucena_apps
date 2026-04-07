@@ -128,7 +128,7 @@ export const Default: Story = {
     contentPadding: 'lg',
     sidebar: <SidebarSlot />,
     header: <HeaderSlot />,
-    children: (<></>)
+    children: <></>,
   },
   render: (args) => (
     <DashboardLayout {...args} sidebar={<SidebarSlot />} header={<HeaderSlot />}>
@@ -146,7 +146,7 @@ export const CollapsedSidebar: Story = {
     contentPadding: 'lg',
     sidebar: <SidebarSlot collapsed />,
     header: <HeaderSlot />,
-    children: (<></>)
+    children: <></>,
   },
   render: (args) => (
     <DashboardLayout {...args} sidebar={<SidebarSlot collapsed />} header={<HeaderSlot />}>
@@ -164,7 +164,7 @@ export const WithContentMaxWidths: Story = {
     contentPadding: 'lg',
     sidebar: <SidebarSlot />,
     header: <HeaderSlot />,
-    children: (<></>)
+    children: <></>,
   },
   parameters: { controls: { disable: true } },
   render: () => (

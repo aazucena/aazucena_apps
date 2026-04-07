@@ -23,7 +23,7 @@ const meta: Meta<typeof Persona> = {
     },
     avatarSrc: {
       control: 'text',
-      description: 'URL for the persona\'s avatar image.',
+      description: "URL for the persona's avatar image.",
       table: { category: 'Content', type: { summary: 'string' } },
     },
     icon: {

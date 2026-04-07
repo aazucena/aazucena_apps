@@ -2,11 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Prose } from '@aazucena/ui';
 import { MarkdownRenderer } from '@aazucena/ui';
 import { ReadingProgress } from '@aazucena/ui';
-import {
-  ReadingTime,
-  ReadingTimeIcon,
-  ReadingTimeValue,
-} from '@aazucena/ui';
+import { ReadingTime, ReadingTimeIcon, ReadingTimeValue } from '@aazucena/ui';
 
 /**
  * ## Accessibility (A11y)

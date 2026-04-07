@@ -64,7 +64,7 @@ const defaultEntries: KeyValueEntry[] = [
 
 const InteractiveKeyValue = (args: any) => {
   const [entries, setEntries] = React.useState<KeyValueEntry[]>(args.entries || []);
-  
+
   // Update local state if args change
   React.useEffect(() => {
     setEntries(args.entries || []);

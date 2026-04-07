@@ -126,7 +126,13 @@ export const ControlledFlip: Story = {
     const [flipped, setFlipped] = React.useState(false);
     return (
       <div className="flex flex-col items-center gap-4">
-        <CardFlip {...args} front={<FrontContent />} back={<BackContent />} flipped={flipped} onFlip={setFlipped} />
+        <CardFlip
+          {...args}
+          front={<FrontContent />}
+          back={<BackContent />}
+          flipped={flipped}
+          onFlip={setFlipped}
+        />
         <Button onClick={() => setFlipped(!flipped)}>
           {flipped ? 'Flip to Front' : 'Flip to Back'}
         </Button>

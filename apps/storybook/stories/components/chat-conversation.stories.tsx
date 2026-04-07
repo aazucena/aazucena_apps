@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { ChatConversation, ChatMessage, ChatBubble, ChatInputArea, ChatInputSubmit, ChatAgent, ChatQuickActions, ChatCheckpoint, type ConversationMessage } from '@aazucena/ui';
+import {
+  ChatConversation,
+  ChatMessage,
+  ChatBubble,
+  ChatInputArea,
+  ChatInputSubmit,
+  ChatAgent,
+  ChatQuickActions,
+  ChatCheckpoint,
+  type ConversationMessage,
+} from '@aazucena/ui';
 
 const meta: Meta<typeof ChatConversation> = {
   title: 'Components/Chat/ChatConversation',
@@ -72,9 +82,7 @@ const sampleMessages: ConversationMessage[] = [
   {
     id: '1',
     role: 'system',
-    content: (
-      <ChatCheckpoint status="success" label="Session initialized" timestamp="10:00:00" />
-    ),
+    content: <ChatCheckpoint status="success" label="Session initialized" timestamp="10:00:00" />,
   },
   {
     id: '2',
@@ -106,9 +114,7 @@ const sampleMessages: ConversationMessage[] = [
     content: (
       <ChatBubble role="assistant">
         The capital of France is Paris.
-        <ChatQuickActions
-          actions={[{ id: 'more_info', label: 'More about Paris' }]}
-        />
+        <ChatQuickActions actions={[{ id: 'more_info', label: 'More about Paris' }]} />
       </ChatBubble>
     ),
   },

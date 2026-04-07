@@ -18,12 +18,20 @@ const meta: Meta<typeof SchemaDisplay> = {
     title: {
       control: 'text',
       description: 'Optional title for the schema display.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Data Schema' } },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Data Schema' },
+      },
     },
     defaultExpanded: {
       control: 'boolean',
       description: 'Whether object/array properties should be expanded by default.',
-      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     variant: {
       control: 'select',
@@ -56,17 +64,33 @@ const userSchema: SchemaProperty = {
   type: 'object',
   properties: [
     { name: 'id', type: 'string', required: true, description: 'Unique user identifier' },
-    { name: 'username', type: 'string', required: true, description: 'User login name', pattern: '^[a-z0-9_]+$' },
-    { name: 'email', type: 'string', required: true, description: 'User email address', pattern: '^[^\s@]+@[^\s@]+\.[^\s@]+$' },
+    {
+      name: 'username',
+      type: 'string',
+      required: true,
+      description: 'User login name',
+      pattern: '^[a-z0-9_]+$',
+    },
+    {
+      name: 'email',
+      type: 'string',
+      required: true,
+      description: 'User email address',
+      pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
+    },
     { name: 'age', type: 'number', minimum: 18, maximum: 99 },
-    { name: 'roles', type: 'array', items: { name: 'role', type: 'string', enum: ['admin', 'editor', 'viewer'] } },
+    {
+      name: 'roles',
+      type: 'array',
+      items: { name: 'role', type: 'string', enum: ['admin', 'editor', 'viewer'] },
+    },
     {
       name: 'address',
       type: 'object',
       properties: [
         { name: 'street', type: 'string' },
         { name: 'city', type: 'string' },
-        { name: 'zipCode', type: 'string', pattern: '^\d{5}(-\d{4})?$' },
+        { name: 'zipCode', type: 'string', pattern: '^\\d{5}(-\\d{4})?$' },
       ],
     },
   ],

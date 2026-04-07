@@ -86,7 +86,7 @@ export const HexColor: Story = {
   args: {
     mask: '#######',
     definitions: {
-      '#': { pattern: /[0-9a-fA-F]/, transform: (c) => c.toUpperCase() }
+      '#': { pattern: /[0-9a-fA-F]/, transform: (c) => c.toUpperCase() },
     },
     placeholder: '#FFFFFF',
   },
@@ -96,7 +96,7 @@ export const CustomRegex: Story = {
   args: {
     mask: 'binary: BBBBBBBB',
     definitions: {
-      'B': { pattern: /[01]/ }
+      B: { pattern: /[01]/ },
     },
     placeholder: 'binary: 10101010',
   },

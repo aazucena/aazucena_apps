@@ -93,7 +93,12 @@ export const GlassVariant: Story = {
 export const CustomIconsAndValues: Story = {
   args: {
     contextItems: [
-      { id: 'status', label: 'System Status', value: <span className="text-green-500">Online</span>, icon: Robot },
+      {
+        id: 'status',
+        label: 'System Status',
+        value: <span className="text-green-500">Online</span>,
+        icon: Robot,
+      },
       { id: 'uptime', label: 'Uptime', value: '3d 12h 45m', icon: FileText },
     ],
   },

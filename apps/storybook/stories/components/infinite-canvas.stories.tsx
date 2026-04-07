@@ -97,7 +97,12 @@ const meta: Meta<typeof InfiniteCanvas> = {
 export default meta;
 type Story = StoryObj<typeof InfiniteCanvas>;
 
-const renderSimpleShapes = (ctx: CanvasRenderingContext2D, zoom: number, panX: number, panY: number) => {
+const renderSimpleShapes = (
+  ctx: CanvasRenderingContext2D,
+  zoom: number,
+  panX: number,
+  panY: number,
+) => {
   ctx.fillStyle = '#3b82f6'; // blue-500
   ctx.fillRect(50, 50, 100, 100);
 
@@ -140,7 +145,7 @@ const renderNodes = (ctx: CanvasRenderingContext2D, zoom: number, panX: number, 
     { id: 'C', x: 200, y: 300, color: '#f59e0b' },
   ];
 
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     ctx.fillStyle = node.color;
     ctx.beginPath();
     ctx.arc(node.x, node.y, 20, 0, 2 * Math.PI);

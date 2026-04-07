@@ -13,7 +13,8 @@ const meta: Meta<typeof ChatQuickActions> = {
   argTypes: {
     actions: {
       control: 'object',
-      description: 'An array of action objects, each with an id, label, optional icon, and disabled state.',
+      description:
+        'An array of action objects, each with an id, label, optional icon, and disabled state.',
       table: {
         category: 'Content',
         type: { summary: 'object' },
@@ -106,8 +107,49 @@ export const GlassVariant: Story = {
 export const CustomIcons: Story = {
   args: {
     actions: [
-      { id: 'play', label: 'Play', icon: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-play" {...props}><polygon points="5 3 19 12 5 21 5 3"/></svg> },
-      { id: 'pause', label: 'Pause', icon: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pause" {...props}><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> },
+      {
+        id: 'play',
+        label: 'Play',
+        icon: (props: any) => (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-play"
+            {...props}
+          >
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+        ),
+      },
+      {
+        id: 'pause',
+        label: 'Pause',
+        icon: (props: any) => (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-pause"
+            {...props}
+          >
+            <rect x="6" y="4" width="4" height="16" />
+            <rect x="14" y="4" width="4" height="16" />
+          </svg>
+        ),
+      },
     ],
     title: 'Media Controls',
   },

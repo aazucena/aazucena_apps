@@ -28,17 +28,29 @@ const meta: Meta<typeof ReactWheelPicker> = {
     itemHeight: {
       control: { type: 'number', min: 20, max: 60, step: 2 },
       description: 'Height of each individual option item in pixels.',
-      table: { category: 'Appearance', type: { summary: 'number' }, defaultValue: { summary: '40' } },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'number' },
+        defaultValue: { summary: '40' },
+      },
     },
     visibleCount: {
       control: { type: 'number', min: 1, max: 5, step: 1 },
       description: 'Number of items to show above and below the center.',
-      table: { category: 'Appearance', type: { summary: 'number' }, defaultValue: { summary: '3' } },
+      table: {
+        category: 'Appearance',
+        type: { summary: 'number' },
+        defaultValue: { summary: '3' },
+      },
     },
     loop: {
       control: 'boolean',
       description: 'Enable infinite looping of items.',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'true' } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
     },
     variant: {
       control: 'select',
@@ -84,41 +96,44 @@ export const Default: Story = {
  */
 export const TimePickerGroup: Story = {
   render: (args) => {
-    const [hour, setHour] = React.useState("12");
-    const [minute, setMinute] = React.useState("30");
-    const [meridiem, setMeridiem] = React.useState("PM");
+    const [hour, setHour] = React.useState('12');
+    const [minute, setMinute] = React.useState('30');
+    const [meridiem, setMeridiem] = React.useState('PM');
 
     return (
       <div className="flex flex-col items-center gap-6">
         <ReactWheelPickerGroup>
-          <ReactWheelPicker 
-            {...args} 
-            options={hours.slice(1, 13)} 
-            value={hour} 
-            onChange={setHour} 
+          <ReactWheelPicker
+            {...args}
+            options={hours.slice(1, 13)}
+            value={hour}
+            onChange={setHour}
             size="md"
           />
           <span className="text-2xl font-black opacity-40 px-1">:</span>
-          <ReactWheelPicker 
-            {...args} 
-            options={minutes} 
-            value={minute} 
-            onChange={setMinute} 
+          <ReactWheelPicker
+            {...args}
+            options={minutes}
+            value={minute}
+            onChange={setMinute}
             size="md"
           />
           <div className="w-4" />
-          <ReactWheelPicker 
-            {...args} 
-            options={["AM", "PM"]} 
-            value={meridiem} 
-            onChange={setMeridiem} 
+          <ReactWheelPicker
+            {...args}
+            options={['AM', 'PM']}
+            value={meridiem}
+            onChange={setMeridiem}
             size="sm"
             loop={false}
           />
         </ReactWheelPickerGroup>
-        
+
         <div className="text-center font-mono text-sm border p-2 rounded-lg bg-muted/20">
-          SELECTED_TIME: <span className="text-primary font-bold">{hour}:{minute} {meridiem}</span>
+          SELECTED_TIME:{' '}
+          <span className="text-primary font-bold">
+            {hour}:{minute} {meridiem}
+          </span>
         </div>
       </div>
     );
@@ -136,22 +151,22 @@ export const CyberDate: Story = {
     return (
       <div className="bg-black p-12 rounded-[2rem] border border-cyan-500/20">
         <ReactWheelPickerGroup className="bg-cyan-500/5 border-cyan-500/20">
-          <ReactWheelPicker 
-            {...args} 
-            options={["2024", "2025", "2026", "2027"]} 
-            value="2026" 
+          <ReactWheelPicker
+            {...args}
+            options={['2024', '2025', '2026', '2027']}
+            value="2026"
             variant="cyber"
           />
-          <ReactWheelPicker 
-            {...args} 
-            options={["JAN", "FEB", "MAR", "APR", "MAY", "JUN"]} 
-            value="FEB" 
+          <ReactWheelPicker
+            {...args}
+            options={['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN']}
+            value="FEB"
             variant="cyber"
           />
-          <ReactWheelPicker 
-            {...args} 
-            options={Array.from({length: 31}, (_, i) => String(i+1).padStart(2, '0'))} 
-            value="22" 
+          <ReactWheelPicker
+            {...args}
+            options={Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'))}
+            value="22"
             variant="cyber"
           />
         </ReactWheelPickerGroup>

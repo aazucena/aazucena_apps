@@ -119,7 +119,8 @@ export const ErrorState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Simulates an error state (e.g., repository not found or API rate limited). Displays a friendly "Unavailable" message.',
+        story:
+          'Simulates an error state (e.g., repository not found or API rate limited). Displays a friendly "Unavailable" message.',
       },
     },
   },

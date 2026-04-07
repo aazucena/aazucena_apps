@@ -64,7 +64,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     children: 'STABLE_VERSION',
-    variant: 'default',
+    variant: 'primary',
     size: 'sm',
   },
 };

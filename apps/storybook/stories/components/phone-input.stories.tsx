@@ -8,7 +8,7 @@ import { PhoneInput } from '@aazucena/ui';
  * - **Accessibility:** Country select has aria-label "Country code"; tel input type for mobile keyboards.
  * - **Data:** Ships with 10 common countries; accepts custom country list via `countries` prop.
  */
-const meta = {
+const meta: Meta<typeof PhoneInput> = {
   title: 'Components/Forms/PhoneInput',
   component: PhoneInput,
   parameters: {

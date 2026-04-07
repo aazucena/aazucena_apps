@@ -8,7 +8,7 @@ import { DataExplorer } from '@aazucena/ui';
  * - **Logic:** Automatically detects "Knowledge Sources" and "Audit Failures" to apply conditional styling.
  * - **Variants:** Supports `glass` and `cyber` themes for integration into analytical terminals.
  */
-const meta = {
+const meta: Meta<typeof DataExplorer> = {
   title: 'Components/Data/DataExplorer',
   component: DataExplorer,
   parameters: {

@@ -28,7 +28,11 @@ const meta: Meta<typeof Poll> = {
     hasVoted: {
       control: 'boolean',
       description: 'Simulates whether the user has already voted.',
-      table: { category: 'State', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      table: {
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     variant: {
       control: 'select',
@@ -42,7 +46,8 @@ const meta: Meta<typeof Poll> = {
     },
     initialVotes: {
       control: 'object',
-      description: 'Override initial vote counts for options (e.g., { "option1": 10, "option2": 5 }).',
+      description:
+        'Override initial vote counts for options (e.g., { "option1": 10, "option2": 5 }).',
       table: { category: 'Content', type: { summary: 'object' } },
     },
   },

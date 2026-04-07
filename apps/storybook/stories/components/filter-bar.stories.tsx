@@ -83,7 +83,7 @@ export const Basic: Story = {
               Sort_Order
             </label>
             <div className="flex gap-2">
-              <Badge variant="default" className="cursor-pointer">
+              <Badge variant="primary" className="cursor-pointer">
                 LATEST
               </Badge>
               <Badge variant="outline" className="cursor-pointer">
@@ -168,7 +168,7 @@ export const GlassOverlay: Story = {
               <Badge variant="outline" className="bg-white/10 border-white/20 text-white">
                 NEAR
               </Badge>
-              <Badge variant="default" className="bg-white text-black hover:bg-white/90">
+              <Badge variant="primary" className="bg-white text-black hover:bg-white/90">
                 ORBITAL
               </Badge>
               <Badge variant="outline" className="bg-white/10 border-white/20 text-white">

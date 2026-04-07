@@ -12,7 +12,8 @@ const meta: Meta<typeof ChatSources> = {
   argTypes: {
     sources: {
       control: 'object',
-      description: 'An array of source objects, each with id, title, optional url, snippet, and relevanceScore.',
+      description:
+        'An array of source objects, each with id, title, optional url, snippet, and relevanceScore.',
       table: {
         category: 'Content',
         type: { summary: 'object' },
@@ -57,20 +58,23 @@ const sampleSources: ChatSource[] = [
     id: 'doc1',
     title: 'Research Paper on Quantum AI',
     url: 'https://example.com/quantum-ai.pdf',
-    snippet: 'This paper explores the theoretical underpinnings and practical applications of quantum artificial intelligence...',
+    snippet:
+      'This paper explores the theoretical underpinnings and practical applications of quantum artificial intelligence...',
     relevanceScore: 92,
   },
   {
     id: 'web1',
     title: 'Blog Post: Future of LLMs',
     url: 'https://blog.example.com/future-llms',
-    snippet: 'A discussion on the evolving landscape of Large Language Models and their impact on various industries...',
+    snippet:
+      'A discussion on the evolving landscape of Large Language Models and their impact on various industries...',
     relevanceScore: 85,
   },
   {
     id: 'kb1',
     title: 'Internal Knowledge Base Article: Agentic Workflows',
-    snippet: 'Guide to designing and implementing multi-agent systems for complex problem-solving...',
+    snippet:
+      'Guide to designing and implementing multi-agent systems for complex problem-solving...',
     relevanceScore: 78,
   },
   {

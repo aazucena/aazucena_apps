@@ -75,7 +75,14 @@ export const Default: Story = {
   args: {
     onConfirm: () => toast.success('Action Confirmed!'),
   },
-  decorators: [(Story) => <><Story /><Toaster /></>],
+  decorators: [
+    (Story) => (
+      <>
+        <Story />
+        <Toaster />
+      </>
+    ),
+  ],
 };
 
 export const DestructiveAction: Story = {
@@ -86,7 +93,14 @@ export const DestructiveAction: Story = {
     variant: 'destructive',
     onConfirm: () => toast.error('Item Deleted!'),
   },
-  decorators: [(Story) => <><Story /><Toaster /></>],
+  decorators: [
+    (Story) => (
+      <>
+        <Story />
+        <Toaster />
+      </>
+    ),
+  ],
 };
 
 export const CyberVariant: Story = {
@@ -95,7 +109,8 @@ export const CyberVariant: Story = {
     confirmText: 'INITIATING_SEQUENCE...',
     duration: 1500,
     variant: 'cyber',
-    onConfirm: () => toast.info('Protocol Activated!', { style: { background: 'black', color: '#06b6d4' } }),
+    onConfirm: () =>
+      toast.info('Protocol Activated!', { style: { background: 'black', color: '#06b6d4' } }),
   },
   decorators: [
     (Story) => (
@@ -113,7 +128,10 @@ export const GlassVariant: Story = {
     confirmText: 'Revealing Data...',
     duration: 2500,
     variant: 'glass',
-    onConfirm: () => toast.info('Data Revealed!', { style: { background: 'rgba(255,255,255,0.1)', color: 'white' } }),
+    onConfirm: () =>
+      toast.info('Data Revealed!', {
+        style: { background: 'rgba(255,255,255,0.1)', color: 'white' },
+      }),
   },
   decorators: [
     (Story) => (
@@ -132,7 +150,14 @@ export const QuickConfirm: Story = {
     duration: 500,
     onConfirm: () => toast.success('Quick Action Complete!'),
   },
-  decorators: [(Story) => <><Story /><Toaster /></>],
+  decorators: [
+    (Story) => (
+      <>
+        <Story />
+        <Toaster />
+      </>
+    ),
+  ],
 };
 
 export const Disabled: Story = {

@@ -16,7 +16,7 @@ import { Badge } from '@aazucena/ui';
  * - **Accessibility:** Uses `role="region"` and `aria-roledescription="carousel"` for semantic clarity.
  * - **Responsive:** Leverages Tailwind's `basis-*` classes for dynamic slide counts across breakpoints.
  */
-const meta = {
+const meta: Meta<typeof Carousel> = {
   title: 'Components/Layout/Carousel',
   component: Carousel,
   subcomponents: {

@@ -115,22 +115,36 @@ const TableOfContents = ({ activeHeadingId }: { activeHeadingId: string | null }
   <nav className="sticky top-20 right-0 w-64 p-4 space-y-2 text-sm">
     <h3 className="font-semibold mb-2">Table of Contents</h3>
     <ul>
-      {['introduction', 'principles', 'core-components', 'buttons', 'inputs', 'advanced-patterns', 'data-tables', 'modals', 'conclusion'].map(
-        (id) => (
-          <li key={id} className="ml-2">
-            <a
-              href={`#${id}`}
-              className={cn(
-                'block py-1 transition-colors hover:text-primary',
-                activeHeadingId === id ? 'text-primary font-medium' : 'text-muted-foreground',
-                id.startsWith('principles') || id.startsWith('buttons') || id.startsWith('inputs') || id.startsWith('data-tables') || id.startsWith('modals') ? 'ml-4' : ''
-              )}
-            >
-              {id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-            </a>
-          </li>
-        ),
-      )}
+      {[
+        'introduction',
+        'principles',
+        'core-components',
+        'buttons',
+        'inputs',
+        'advanced-patterns',
+        'data-tables',
+        'modals',
+        'conclusion',
+      ].map((id) => (
+        <li key={id} className="ml-2">
+          <a
+            href={`#${id}`}
+            className={cn(
+              'block py-1 transition-colors hover:text-primary',
+              activeHeadingId === id ? 'text-primary font-medium' : 'text-muted-foreground',
+              id.startsWith('principles') ||
+                id.startsWith('buttons') ||
+                id.startsWith('inputs') ||
+                id.startsWith('data-tables') ||
+                id.startsWith('modals')
+                ? 'ml-4'
+                : '',
+            )}
+          >
+            {id.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
 );
@@ -149,7 +163,9 @@ export const Default: Story = {
           <h1 className="text-xl font-bold">App Header</h1>
         </header>
 
-        <div className="flex flex-grow mt-16"> {/* Adjust content to be below fixed header */}
+        <div className="flex flex-grow mt-16">
+          {' '}
+          {/* Adjust content to be below fixed header */}
           <ScrollSpy {...args}>
             {(activeHeadingId) => (
               <div className="flex-shrink-0 w-64 pt-4 hidden md:block">
@@ -180,7 +196,9 @@ export const CustomOffset: Story = {
           <h1 className="text-2xl font-bold text-primary">Large Fixed Header</h1>
         </header>
 
-        <div className="flex flex-grow mt-24"> {/* Adjust content to be below fixed header */}
+        <div className="flex flex-grow mt-24">
+          {' '}
+          {/* Adjust content to be below fixed header */}
           <ScrollSpy {...args}>
             {(activeHeadingId) => (
               <div className="flex-shrink-0 w-64 pt-4 hidden md:block">

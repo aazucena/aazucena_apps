@@ -61,11 +61,32 @@ export default meta;
 type Story = StoryObj<typeof ChatTestResults>;
 
 const sampleTestCases: TestCase[] = [
-  { id: '1', name: 'AuthenticationService.login returns valid token', status: 'passed', duration: 120 },
-  { id: '2', name: 'UserService.createUser handles duplicate email', status: 'failed', errorMessage: 'Expected 409, got 200', duration: 350 },
-  { id: '3', name: 'ProductService.getProductDetails fetches data', status: 'passed', duration: 80 },
+  {
+    id: '1',
+    name: 'AuthenticationService.login returns valid token',
+    status: 'passed',
+    duration: 120,
+  },
+  {
+    id: '2',
+    name: 'UserService.createUser handles duplicate email',
+    status: 'failed',
+    errorMessage: 'Expected 409, got 200',
+    duration: 350,
+  },
+  {
+    id: '3',
+    name: 'ProductService.getProductDetails fetches data',
+    status: 'passed',
+    duration: 80,
+  },
   { id: '4', name: 'OrderService.submitOrder processes correctly', status: 'skipped', duration: 0 },
-  { id: '5', name: 'PaymentGateway.processPayment handles invalid card', status: 'passed', duration: 200 },
+  {
+    id: '5',
+    name: 'PaymentGateway.processPayment handles invalid card',
+    status: 'passed',
+    duration: 200,
+  },
 ];
 
 const calculateSummary = (cases: TestCase[]): TestSummary => {
@@ -74,7 +95,7 @@ const calculateSummary = (cases: TestCase[]): TestSummary => {
   let skipped = 0;
   let duration = 0;
 
-  cases.forEach(c => {
+  cases.forEach((c) => {
     if (c.status === 'passed') passed++;
     if (c.status === 'failed') failed++;
     if (c.status === 'skipped') skipped++;
@@ -92,8 +113,8 @@ const calculateSummary = (cases: TestCase[]): TestSummary => {
 
 export const AllPassed: Story = {
   args: {
-    summary: calculateSummary(sampleTestCases.filter(c => c.status === 'passed')),
-    testCases: sampleTestCases.filter(c => c.status === 'passed'),
+    summary: calculateSummary(sampleTestCases.filter((c) => c.status === 'passed')),
+    testCases: sampleTestCases.filter((c) => c.status === 'passed'),
   },
 };
 
@@ -106,8 +127,8 @@ export const WithFailures: Story = {
 
 export const AllSkipped: Story = {
   args: {
-    summary: calculateSummary(sampleTestCases.filter(c => c.status === 'skipped')),
-    testCases: sampleTestCases.filter(c => c.status === 'skipped'),
+    summary: calculateSummary(sampleTestCases.filter((c) => c.status === 'skipped')),
+    testCases: sampleTestCases.filter((c) => c.status === 'skipped'),
   },
 };
 

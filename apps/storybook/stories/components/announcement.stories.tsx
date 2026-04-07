@@ -116,7 +116,10 @@ export const WithDetails: Story = {
     details: (
       <div className="space-y-2">
         <p className="font-bold">Security Bulletin X-2026</p>
-        <p>A critical patch has been released to address zero-day vulnerabilities in the authentication layer.</p>
+        <p>
+          A critical patch has been released to address zero-day vulnerabilities in the
+          authentication layer.
+        </p>
         <ul className="list-disc list-inside">
           <li>Patch ID: Auth-99</li>
           <li>Severity: Critical</li>

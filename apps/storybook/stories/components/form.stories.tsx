@@ -11,16 +11,16 @@ import {
   FormMessage,
   Toaster,
   Badge,
-  toast
+  toast,
 } from '@aazucena/ui';
-import { 
-  ControlledInput, 
-  ControlledTextarea, 
+import {
+  ControlledInput,
+  ControlledTextarea,
   ControlledCheckbox,
-  FormButton, 
-  FormErrorSummary, 
+  FormButton,
+  FormErrorSummary,
   FormDebugger,
-  useStrapiFormMutation
+  useStrapiFormMutation,
 } from '@aazucena/forms';
 import { Shield, Zap, Activity, Send } from '@aazucena/icons';
 
@@ -84,8 +84,8 @@ export const Basic: Story = {
           </div>
           <h3 className="font-black tracking-tighter uppercase text-xl">Identity_Auth</h3>
         </div>
-        
-        <Form 
+
+        <Form
           form={form}
           onSubmit={(e) => {
             e.preventDefault();
@@ -98,17 +98,17 @@ export const Basic: Story = {
             label="Username"
             required
             validators={{ onChange: loginSchema.shape.username }}
-            {...({ placeholder: "aazucena" } as any)}
+            {...({ placeholder: 'aazucena' } as any)}
           />
-          
+
           <ControlledInput
             name="password"
             label="Access_Token"
             required
             validators={{ onChange: loginSchema.shape.password }}
-            {...({ type: "password" } as any)}
+            {...({ type: 'password' } as any)}
           />
-          
+
           <FormButton className="w-full h-12 rounded-full font-black uppercase tracking-widest mt-4">
             Initialize_Session
           </FormButton>
@@ -173,7 +173,10 @@ const CyberConfigFormInner = () => {
           name="enable_uplink"
           label="Global_Uplink"
           description="Enable real-time sync with main cluster."
-          {...({ className: "flex flex-row items-center justify-between rounded-xl border border-cyan-500/10 p-4 bg-cyan-500/5" } as any)}
+          {...({
+            className:
+              'flex flex-row items-center justify-between rounded-xl border border-cyan-500/10 p-4 bg-cyan-500/5',
+          } as any)}
         />
 
         <FormButton variant="cyber" className="w-full h-12 uppercase font-black tracking-widest">
@@ -214,7 +217,7 @@ export const DetailedSubmission: Story = {
     return (
       <div className="w-[600px] relative">
         <Toaster />
-        <Form 
+        <Form
           form={form}
           onSubmit={(e) => {
             e.preventDefault();
@@ -227,9 +230,9 @@ export const DetailedSubmission: Story = {
             label="Incident_Subject"
             required
             validators={{ onChange: schema.shape.subject }}
-            {...({ placeholder: "Brief description of the anomaly..." } as any)}
+            {...({ placeholder: 'Brief description of the anomaly...' } as any)}
           />
-          
+
           <ControlledTextarea
             name="message"
             label="Full_Telemetry_Report"
@@ -237,9 +240,9 @@ export const DetailedSubmission: Story = {
             className="min-h-[200px] rounded-2xl"
             validators={{ onChange: schema.shape.message }}
             description="Minimum 20 characters for technical analysis."
-            {...({ placeholder: "Paste stack traces or detailed logs here..." } as any)}
+            {...({ placeholder: 'Paste stack traces or detailed logs here...' } as any)}
           />
-          
+
           <div className="flex justify-end pt-4">
             <FormButton size="lg" className="rounded-full px-12 h-14 font-black tracking-widest">
               Transmit_Report <Send className="ml-2 size-5" />

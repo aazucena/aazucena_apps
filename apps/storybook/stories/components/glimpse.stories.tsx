@@ -43,10 +43,12 @@ type Story = StoryObj<typeof Glimpse>;
 
 const mockMetadata: GlimpseData = {
   title: 'Aldrin Azucena — Engineering High-Fidelity Interfaces',
-  description: 'A portfolio of advanced UI components, technical architecture, and interactive engineering experiences built with Astro, React, and GSAP.',
-  image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop',
+  description:
+    'A portfolio of advanced UI components, technical architecture, and interactive engineering experiences built with Astro, React, and GSAP.',
+  image:
+    'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop',
   siteName: 'AAZUCENA',
-  favicon: 'https://aazucena.me/favicon.ico'
+  favicon: 'https://aazucena.me/favicon.ico',
 };
 
 export const Default: Story = {
@@ -64,10 +66,12 @@ export const CyberVariant: Story = {
     variant: 'cyber',
     data: {
       title: 'aazucena/core-engine',
-      description: 'Standardized utility library for distributed telemetry ingestion and high-volume event streams.',
-      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
+      description:
+        'Standardized utility library for distributed telemetry ingestion and high-volume event streams.',
+      image:
+        'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
       siteName: 'GITHUB',
-    }
+    },
   },
   decorators: [
     (Story) => (
@@ -85,10 +89,12 @@ export const GlassVariant: Story = {
     variant: 'glass',
     data: {
       title: 'Atmospheric Data Layers',
-      description: 'An exploration of the troposphere through interactive 3D visualizations and real-time telemetry.',
-      image: 'https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2070&auto=format&fit=crop',
+      description:
+        'An exploration of the troposphere through interactive 3D visualizations and real-time telemetry.',
+      image:
+        'https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2070&auto=format&fit=crop',
       siteName: 'AAZUCENA_LABS',
-    }
+    },
   },
   decorators: [
     (Story) => (
@@ -113,8 +119,9 @@ export const NoImage: Story = {
     url: 'https://docs.aazucena.me',
     data: {
       title: 'Technical Documentation',
-      description: 'Comprehensive guides on integrating the design system and using the API clients.',
+      description:
+        'Comprehensive guides on integrating the design system and using the API clients.',
       siteName: 'AAZUCENA_DOCS',
-    }
+    },
   },
 };

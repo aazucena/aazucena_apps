@@ -53,7 +53,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     maxLength: 6,
-    children: (<></>),
+    children: <></>,
   },
   render: (args) => (
     <InputOTP maxLength={args.maxLength}>
@@ -78,7 +78,7 @@ export const Basic: Story = {
 export const SecureEnclave: Story = {
   args: {
     maxLength: 4,
-    children: (<></>),
+    children: <></>,
   },
   render: (args) => (
     <div className="p-12 border border-cyan-500/20 bg-black rounded-[2rem] text-center space-y-8">
@@ -125,7 +125,7 @@ export const SecureEnclave: Story = {
 export const LargeFormat: Story = {
   args: {
     maxLength: 4,
-    children: (<></>),
+    children: <></>,
   },
   render: (args) => (
     <div className="space-y-12 text-center">
@@ -155,7 +155,7 @@ export const Disabled: Story = {
   args: {
     maxLength: 4,
     disabled: true,
-    children: (<></>),
+    children: <></>,
   },
   render: (args) => (
     <div className="space-y-4 text-center">

@@ -164,10 +164,7 @@ export const TableOfContentsExample: Story = {
   render: () => (
     <div className="p-20 flex gap-20 max-w-6xl mx-auto">
       <div className="w-64 shrink-0">
-        <TableOfContents
-          containerSelector="#article-content"
-          headerSelector="h2, h3"
-        />
+        <TableOfContents containerSelector="#article-content" headerSelector="h2, h3" />
       </div>
       <div id="article-content" className="prose dark:prose-invert">
         <h2 id="1">System Architecture</h2>

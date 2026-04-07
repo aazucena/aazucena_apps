@@ -62,9 +62,21 @@ export default meta;
 type Story = StoryObj<typeof ChatBranch>;
 
 const defaultOptions: BranchOption[] = [
-  { id: 'search_db', label: 'Search Internal Database', description: 'Query the knowledge base for relevant documents.' },
-  { id: 'call_api', label: 'Call External API', description: 'Fetch real-time data from a third-party service.' },
-  { id: 'ask_user', label: 'Ask User for Clarification', description: 'Request more information from the user.' },
+  {
+    id: 'search_db',
+    label: 'Search Internal Database',
+    description: 'Query the knowledge base for relevant documents.',
+  },
+  {
+    id: 'call_api',
+    label: 'Call External API',
+    description: 'Fetch real-time data from a third-party service.',
+  },
+  {
+    id: 'ask_user',
+    label: 'Ask User for Clarification',
+    description: 'Request more information from the user.',
+  },
 ];
 
 export const Default: Story = {
@@ -86,7 +98,11 @@ export const CyberVariant: Story = {
   args: {
     question: 'Choose your action:',
     options: [
-      { id: 'attack', label: 'Launch Cyber Attack', description: 'Initiate protocol "Red Dragon".' },
+      {
+        id: 'attack',
+        label: 'Launch Cyber Attack',
+        description: 'Initiate protocol "Red Dragon".',
+      },
       { id: 'defend', label: 'Activate Shields', description: 'Deploy defensive subroutines.' },
     ],
     selectedOptionId: 'defend',
@@ -99,7 +115,11 @@ export const GlassVariant: Story = {
     question: 'Decision point:',
     options: [
       { id: 'path_a', label: 'Follow Path A', description: 'A more conservative approach.' },
-      { id: 'path_b', label: 'Explore Path B', description: 'A riskier but potentially higher reward option.' },
+      {
+        id: 'path_b',
+        label: 'Explore Path B',
+        description: 'A riskier but potentially higher reward option.',
+      },
     ],
     selectedOptionId: 'path_a',
     variant: 'glass',

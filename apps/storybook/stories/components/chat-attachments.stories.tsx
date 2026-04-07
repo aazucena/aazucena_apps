@@ -12,7 +12,8 @@ const meta: Meta<typeof ChatAttachments> = {
   argTypes: {
     attachments: {
       control: 'object',
-      description: 'An array of attachment objects, each with id, name, type, url, preview, status, progress, and error.',
+      description:
+        'An array of attachment objects, each with id, name, type, url, preview, status, progress, and error.',
       table: {
         category: 'Content',
         type: { summary: 'object' },

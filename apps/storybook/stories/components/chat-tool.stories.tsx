@@ -28,7 +28,7 @@ const meta: Meta<typeof ChatTool> = {
     },
     output: {
       control: 'object',
-      description: 'The output or result from the tool\'s execution.',
+      description: "The output or result from the tool's execution.",
       table: {
         category: 'Content',
         type: { summary: 'object' },
@@ -127,8 +127,20 @@ export const GlassVariant: Story = {
 export const CustomInputOutput: Story = {
   args: {
     toolName: 'CustomProcessor',
-    input: { data: [{ id: 1, value: 'A' }, { id: 2, value: 'B' }], config: { transform: true } },
-    output: { processed: true, items: [{ id: 1, value: 'A_processed' }, { id: 2, value: 'B_processed' }] },
+    input: {
+      data: [
+        { id: 1, value: 'A' },
+        { id: 2, value: 'B' },
+      ],
+      config: { transform: true },
+    },
+    output: {
+      processed: true,
+      items: [
+        { id: 1, value: 'A_processed' },
+        { id: 2, value: 'B_processed' },
+      ],
+    },
     status: 'success',
     isExpanded: false,
   },
@@ -140,7 +152,8 @@ export const LongOutput: Story = {
     input: { reportType: 'full_annual_summary', year: 2023 },
     output: {
       reportId: 'rep-2023-001',
-      summary: 'This is a very long summary of the annual report for the year 2023, detailing all key performance indicators, financial statements, and strategic initiatives. The report covers a wide range of topics including market share, customer acquisition costs, operational efficiencies, and future growth projections across all business units. It also includes an in-depth analysis of competitive landscapes and emerging market trends. This section is just a snippet of the full report content which spans over 50 pages of detailed data and graphs.',
+      summary:
+        'This is a very long summary of the annual report for the year 2023, detailing all key performance indicators, financial statements, and strategic initiatives. The report covers a wide range of topics including market share, customer acquisition costs, operational efficiencies, and future growth projections across all business units. It also includes an in-depth analysis of competitive landscapes and emerging market trends. This section is just a snippet of the full report content which spans over 50 pages of detailed data and graphs.',
       status: 'generated',
     },
     status: 'success',

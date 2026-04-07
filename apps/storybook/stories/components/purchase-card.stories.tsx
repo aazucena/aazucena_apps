@@ -32,7 +32,11 @@ const meta: Meta<typeof PurchaseCard> = {
     buttonText: {
       control: 'text',
       description: 'Text for the purchase button.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Purchase' } },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Purchase' },
+      },
     },
     onPurchase: {
       action: 'purchased',
@@ -52,7 +56,11 @@ const meta: Meta<typeof PurchaseCard> = {
     disabled: {
       control: 'boolean',
       description: 'If true, the purchase button is disabled.',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
   },
 };
@@ -75,7 +83,8 @@ export const WithImage: Story = {
     title: 'Pro Access',
     description: 'Unlock advanced features and priority support.',
     price: '$49.99/year',
-    imageUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
+    imageUrl:
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
     buttonText: 'Upgrade Now',
     features: ['Unlimited Storage', '10 Users', 'Advanced Analytics', '24/7 Support'],
     badgeText: 'Popular',
@@ -87,7 +96,8 @@ export const CyberVariant: Story = {
     title: 'Enterprise_Node',
     description: 'Custom solutions for large organizations.',
     price: 'Contact for pricing',
-    imageUrl: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
+    imageUrl:
+      'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
     buttonText: 'REQUEST_DEMO',
     features: ['Dedicated Servers', 'Custom Integrations', 'On-Premise Deployment'],
     badgeText: 'Cyber',
@@ -107,7 +117,8 @@ export const GlassVariant: Story = {
     title: 'Glass Tier',
     description: 'Experience the clarity of transparent data streams.',
     price: '$29.99/month',
-    imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
+    imageUrl:
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
     buttonText: 'Activate Glass',
     features: ['Frosted UI', 'Blended Analytics', 'Atmospheric Themes'],
     badgeText: 'New',

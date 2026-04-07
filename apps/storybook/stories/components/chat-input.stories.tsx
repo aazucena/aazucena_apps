@@ -185,7 +185,8 @@ const sampleModels = [
 
 export const Default: Story = {
   args: {
-    onSendMessage: (msg, attachments) => toast.success(`Sent: "${msg}" with ${attachments?.length || 0} attachments`),
+    onSendMessage: (msg, attachments) =>
+      toast.success(`Sent: "${msg}" with ${attachments?.length || 0} attachments`),
     availableModels: sampleModels,
     selectedModelId: 'gpt4',
   },
@@ -199,7 +200,8 @@ export const Default: Story = {
 
 export const WithAttachments: Story = {
   args: {
-    onSendMessage: (msg, attachments) => toast.success(`Sent: "${msg}" with ${attachments?.map(a => a.name).join(', ')}`),
+    onSendMessage: (msg, attachments) =>
+      toast.success(`Sent: "${msg}" with ${attachments?.map((a) => a.name).join(', ')}`),
     showAttachmentButton: true,
     acceptedFileTypes: ['image/*', 'application/pdf', '.txt'],
     maxFiles: 3,
@@ -217,7 +219,7 @@ export const SendingState: Story = {
   args: {
     onSendMessage: (msg) => {
       toast.success(`Sent: "${msg}"`);
-      return new Promise(resolve => setTimeout(resolve, 2000)); // Simulate async send
+      return new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate async send
     },
     isSending: true,
   },
@@ -231,7 +233,8 @@ export const SendingState: Story = {
 
 export const FullFeatured: Story = {
   args: {
-    onSendMessage: (msg, attachments) => toast.success(`Sent: "${msg}" (Model: claude3) with ${attachments?.length || 0} files`),
+    onSendMessage: (msg, attachments) =>
+      toast.success(`Sent: "${msg}" (Model: claude3) with ${attachments?.length || 0} files`),
     showToolbar: true,
     showModelSelector: true,
     showSpeechInput: true,
@@ -247,7 +250,8 @@ export const FullFeatured: Story = {
     <div className="w-[600px] h-[400px] border rounded-lg bg-background p-4 flex flex-col justify-end">
       <Toaster />
       <p className="flex-grow text-sm text-muted-foreground p-2">
-        Try typing, using speech input, attaching files (drag/drop or button), or changing the model.
+        Try typing, using speech input, attaching files (drag/drop or button), or changing the
+        model.
       </p>
       <ChatInput {...args} />
     </div>

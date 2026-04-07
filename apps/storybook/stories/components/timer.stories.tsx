@@ -93,10 +93,7 @@ export const interactiveTest: Story = {
     return (
       <div className="flex flex-col gap-4 items-center w-[400px]">
         <Toaster />
-        <Timer 
-          {...args} 
-          onComplete={() => toast.success('Countdown Finished!')}
-        />
+        <Timer {...args} onComplete={() => toast.success('Countdown Finished!')} />
         <p className="text-xs text-muted-foreground text-center">
           Try adjusting the time using the buttons above, then press play.
         </p>

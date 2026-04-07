@@ -60,10 +60,30 @@ export default meta;
 type Story = StoryObj<typeof ChatModelSelector>;
 
 const sampleModels: AiModel[] = [
-  { id: 'gpt4o', name: 'GPT-4o', provider: 'OpenAI', description: 'Latest flagship model from OpenAI.' },
-  { id: 'claude35', name: 'Claude 3.5 Sonnet', provider: 'Anthropic', description: 'Fast, intelligent, and cost-effective model.' },
-  { id: 'geminipro', name: 'Gemini Pro', provider: 'Google', description: 'Google\'s multimodal model.' },
-  { id: 'llama3', name: 'Llama 3 70B', provider: 'Meta', description: 'Open-source model from Meta.' },
+  {
+    id: 'gpt4o',
+    name: 'GPT-4o',
+    provider: 'OpenAI',
+    description: 'Latest flagship model from OpenAI.',
+  },
+  {
+    id: 'claude35',
+    name: 'Claude 3.5 Sonnet',
+    provider: 'Anthropic',
+    description: 'Fast, intelligent, and cost-effective model.',
+  },
+  {
+    id: 'geminipro',
+    name: 'Gemini Pro',
+    provider: 'Google',
+    description: "Google's multimodal model.",
+  },
+  {
+    id: 'llama3',
+    name: 'Llama 3 70B',
+    provider: 'Meta',
+    description: 'Open-source model from Meta.',
+  },
 ];
 
 export const Default: Story = {

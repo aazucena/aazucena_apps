@@ -73,7 +73,12 @@ export const CyberVariant: Story = {
           <Label htmlFor="username_cyber" className="font-mono text-cyan-400">
             USERNAME
           </Label>
-          <Input id="username_cyber" placeholder="GUEST_0x7F" variant="cyber" className="font-mono" />
+          <Input
+            id="username_cyber"
+            placeholder="GUEST_0x7F"
+            variant="cyber"
+            className="font-mono"
+          />
         </div>
         <div>
           <Label htmlFor="password_cyber" className="font-mono text-cyan-400">
@@ -83,13 +88,21 @@ export const CyberVariant: Story = {
         </div>
         <RadioGroup defaultValue="protocol_tcp">
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="protocol_tcp" id="protocol_tcp" className="text-cyan-400 border-cyan-500/50" />
+            <RadioGroupItem
+              value="protocol_tcp"
+              id="protocol_tcp"
+              className="text-cyan-400 border-cyan-500/50"
+            />
             <Label htmlFor="protocol_tcp" className="font-mono text-cyan-500/80">
               PROTOCOL_TCP
             </Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="protocol_udp" id="protocol_udp" className="text-cyan-400 border-cyan-500/50" />
+            <RadioGroupItem
+              value="protocol_udp"
+              id="protocol_udp"
+              className="text-cyan-400 border-cyan-500/50"
+            />
             <Label htmlFor="protocol_udp" className="font-mono text-cyan-500/80">
               PROTOCOL_UDP
             </Label>
@@ -118,10 +131,18 @@ export const GlassVariant: Story = {
           <Label htmlFor="theme_glass" className="text-white">
             Theme
           </Label>
-          <Input id="theme_glass" placeholder="Transparent" variant="glass" className="text-white placeholder:text-white/70" />
+          <Input
+            id="theme_glass"
+            placeholder="Transparent"
+            variant="glass"
+            className="text-white placeholder:text-white/70"
+          />
         </div>
         <div className="flex items-center space-x-2">
-          <Checkbox id="animations_glass" className="border-white/50 data-[state=checked]:bg-white data-[state=checked]:text-blue-500" />
+          <Checkbox
+            id="animations_glass"
+            className="border-white/50 data-[state=checked]:bg-white data-[state=checked]:text-blue-500"
+          />
           <Label htmlFor="animations_glass" className="text-white/90">
             Enable Glass Animations
           </Label>

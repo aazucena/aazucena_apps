@@ -49,7 +49,8 @@ type Story = StoryObj<typeof ComingSoon>;
 export const Default: Story = {
   args: {
     title: 'AI_ANALYTICS_V2',
-    description: 'A complete overhaul of the predictive modeling engine with real-time vector search integration.',
+    description:
+      'A complete overhaul of the predictive modeling engine with real-time vector search integration.',
     expectedDate: 'Q3_2026',
   },
   render: (args) => (
@@ -63,7 +64,8 @@ export const CyberMode: Story = {
   args: {
     variant: 'cyber',
     title: 'PROJECT_NEBULA',
-    description: 'Direct link established. Decrypting core architectural schematics for distributed neural nodes.',
+    description:
+      'Direct link established. Decrypting core architectural schematics for distributed neural nodes.',
     expectedDate: 'FALL_2026',
     packetId: '0xBB-99',
   },
@@ -78,7 +80,8 @@ export const GlassVariant: Story = {
   args: {
     variant: 'glass',
     title: 'Visualizer_Studio',
-    description: 'A high-fidelity immersive environment for real-time audio telemetry and synthesis.',
+    description:
+      'A high-fidelity immersive environment for real-time audio telemetry and synthesis.',
     expectedDate: 'JUNE_2026',
   },
   render: (args) => (
@@ -93,7 +96,8 @@ export const FullScreenOverlay: Story = {
     fullScreen: true,
     variant: 'cyber',
     title: 'SECURE_UPLINK_STABILIZING',
-    description: 'The global neural network is undergoing maintenance. All non-essential protocols are suspended until decryption is complete.',
+    description:
+      'The global neural network is undergoing maintenance. All non-essential protocols are suspended until decryption is complete.',
     expectedDate: 'EST_RECOVERY_04:00_UTC',
   },
   render: (args) => {
@@ -101,12 +105,7 @@ export const FullScreenOverlay: Story = {
     return (
       <div className="flex flex-col items-center gap-4">
         <Button onClick={() => setIsOpen(true)}>Launch FullScreen Teaser</Button>
-        {isOpen && (
-          <ComingSoon 
-            {...args} 
-            onClose={() => setIsOpen(false)} 
-          />
-        )}
+        {isOpen && <ComingSoon {...args} onClose={() => setIsOpen(false)} />}
       </div>
     );
   },
@@ -126,7 +125,8 @@ export const LargeHero: Story = {
     size: 'lg',
     variant: 'cyber',
     title: 'ENGINEERING_INTEL_TERMINAL',
-    description: 'The ultimate interface for monitoring workspace integrity, deployment pipelines, and agentic telemetry across the monorepo ecosystem.',
+    description:
+      'The ultimate interface for monitoring workspace integrity, deployment pipelines, and agentic telemetry across the monorepo ecosystem.',
     expectedDate: 'PROJECTED_AUGUST_2026',
   },
   render: (args) => (

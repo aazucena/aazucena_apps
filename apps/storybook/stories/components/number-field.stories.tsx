@@ -48,12 +48,20 @@ const meta: Meta<typeof NumberField> = {
     scrubArea: {
       control: 'boolean',
       description: 'Enable horizontal mouse drag (scrub) to change value.',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     disabled: {
       control: 'boolean',
       description: 'If true, the input and buttons are disabled.',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     variant: {
       control: 'select',

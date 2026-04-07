@@ -28,7 +28,7 @@ const meta: Meta<typeof CodeBlockCommand> = {
     },
     storageKey: {
       control: 'text',
-      description: 'Key for storing the user\'s preferred method in localStorage.',
+      description: "Key for storing the user's preferred method in localStorage.",
       table: {
         category: 'Behavior',
         type: { summary: 'string' },
@@ -157,7 +157,8 @@ export const PersistenceTest: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Change the method and refresh the page (or switch stories). Your choice will be remembered.',
+        story:
+          'Change the method and refresh the page (or switch stories). Your choice will be remembered.',
       },
     },
   },

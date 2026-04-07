@@ -29,7 +29,8 @@ const meta: Meta<typeof ChatTerminalOutput> = {
     },
     language: {
       control: 'text',
-      description: 'Programming language for syntax highlighting (e.g., "bash", "json", "typescript").',
+      description:
+        'Programming language for syntax highlighting (e.g., "bash", "json", "typescript").',
       table: {
         category: 'Appearance',
         type: { summary: 'string' },
@@ -138,7 +139,10 @@ export const LongOutput: Story = {
   args: {
     output: Array(50)
       .fill(null)
-      .map((_, i) => `[${i.toString().padStart(3, '0')}] Processing data chunk ${i + 1} of 50. Status: OK.`)
+      .map(
+        (_, i) =>
+          `[${i.toString().padStart(3, '0')}] Processing data chunk ${i + 1} of 50. Status: OK.`,
+      )
       .join(''),
     title: 'Data Processing Stream',
   },

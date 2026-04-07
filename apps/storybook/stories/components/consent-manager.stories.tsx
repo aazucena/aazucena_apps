@@ -79,9 +79,24 @@ export default meta;
 type Story = StoryObj<typeof ConsentManager>;
 
 const defaultCategories = [
-  { id: 'essential', name: 'Essential Cookies', description: 'Required for basic site functionality.', required: true },
-  { id: 'analytics', name: 'Analytics Cookies', description: 'Helps us understand how visitors interact with the website.', required: false },
-  { id: 'marketing', name: 'Marketing Cookies', description: 'Used to track visitors across websites to display relevant ads.', required: false },
+  {
+    id: 'essential',
+    name: 'Essential Cookies',
+    description: 'Required for basic site functionality.',
+    required: true,
+  },
+  {
+    id: 'analytics',
+    name: 'Analytics Cookies',
+    description: 'Helps us understand how visitors interact with the website.',
+    required: false,
+  },
+  {
+    id: 'marketing',
+    name: 'Marketing Cookies',
+    description: 'Used to track visitors across websites to display relevant ads.',
+    required: false,
+  },
 ];
 
 export const Default: Story = {
@@ -97,9 +112,26 @@ export const CustomInitialState: Story = {
     appName: 'aazucena.me',
     policyLink: '/privacy-policy',
     categories: [
-      { id: 'essential', name: 'Essential', description: 'Required for basic site functionality.', required: true },
-      { id: 'analytics', name: 'Analytics', description: 'Optional analytics.', required: false, checked: true },
-      { id: 'marketing', name: 'Marketing', description: 'Optional marketing.', required: false, checked: false },
+      {
+        id: 'essential',
+        name: 'Essential',
+        description: 'Required for basic site functionality.',
+        required: true,
+      },
+      {
+        id: 'analytics',
+        name: 'Analytics',
+        description: 'Optional analytics.',
+        required: false,
+        checked: true,
+      },
+      {
+        id: 'marketing',
+        name: 'Marketing',
+        description: 'Optional marketing.',
+        required: false,
+        checked: false,
+      },
     ],
   },
 };
@@ -128,8 +160,18 @@ export const WithMoreCategories: Story = {
     policyLink: '/privacy-policy',
     categories: [
       ...defaultCategories,
-      { id: 'social', name: 'Social Media', description: 'Enables social media features.', required: false },
-      { id: 'personalization', name: 'Personalization', description: 'Customizes your experience.', required: false },
+      {
+        id: 'social',
+        name: 'Social Media',
+        description: 'Enables social media features.',
+        required: false,
+      },
+      {
+        id: 'personalization',
+        name: 'Personalization',
+        description: 'Customizes your experience.',
+        required: false,
+      },
     ],
   },
 };

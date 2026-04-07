@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { ChatChainOfThought } from '@aazucena/ui';
-import type { ChainOfThoughtStep } from '@aazucena/ui/components/ui/chat/chat-chain-of-thought.js';
+import type { ChainOfThoughtStep } from '@aazucena/ui';
 
 const meta: Meta<typeof ChatChainOfThought> = {
   title: 'Components/Chat/ChatChainOfThought',

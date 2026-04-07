@@ -9,13 +9,7 @@ import {
   PlaybackButton,
   PlaybackActions,
 } from '@aazucena/ui';
-import {
-  Stepper,
-  Step,
-  StepIndicator,
-  StepLabel,
-  StepLine,
-} from '@aazucena/ui';
+import { Stepper, Step, StepIndicator, StepLabel, StepLine } from '@aazucena/ui';
 import { Dropzone } from '@aazucena/ui';
 import {
   Play,

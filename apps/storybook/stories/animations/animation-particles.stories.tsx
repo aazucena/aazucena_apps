@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
  * - **Visuals:** Supports different presets (space, snow, rain, floating) and effects (glow, blur).
  * - **Interactivity:** Can emit particles at specific positions or in bursts.
  */
-const meta = {
+const meta: Meta<typeof AnimationParticles> = {
   title: 'Animations/PixiJS/Particles',
   component: AnimationParticles,
   parameters: {

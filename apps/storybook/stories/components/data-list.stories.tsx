@@ -89,18 +89,10 @@ export const LeaderboardTable: Story = {
       <DataListTable>
         <thead>
           <DataListRow className="bg-transparent hover:bg-transparent">
-            <DataListCell type="rank">
-              ID
-            </DataListCell>
-            <DataListCell type="detail">
-              Component
-            </DataListCell>
-            <DataListCell type="metric">
-              Origin_Node
-            </DataListCell>
-            <DataListCell type="visual">
-              Buffer_Load
-            </DataListCell>
+            <DataListCell type="rank">ID</DataListCell>
+            <DataListCell type="detail">Component</DataListCell>
+            <DataListCell type="metric">Origin_Node</DataListCell>
+            <DataListCell type="visual">Buffer_Load</DataListCell>
           </DataListRow>
         </thead>
         <tbody>

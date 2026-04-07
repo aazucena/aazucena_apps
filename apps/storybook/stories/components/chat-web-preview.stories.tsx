@@ -61,8 +61,9 @@ export default meta;
 type Story = StoryObj<typeof ChatWebPreview>;
 
 const examplePreviewData = {
-  title: 'Google - Search the world\'s information',
-  description: 'Search the world\'s information, including webpages, images, videos and more. Google has many special features to help you find exactly what you\'re looking for.',
+  title: "Google - Search the world's information",
+  description:
+    "Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.",
   image: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
   favicon: 'https://www.google.com/favicon.ico',
   url: 'https://www.google.com',
@@ -70,7 +71,8 @@ const examplePreviewData = {
 
 const examplePreviewData2 = {
   title: 'GitHub: Where the world builds software',
-  description: 'GitHub is where over 100 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code, and more.',
+  description:
+    'GitHub is where over 100 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code, and more.',
   image: 'https://github.githubassets.com/images/modules/site/social-cards/github-social-card.png',
   favicon: 'https://github.githubassets.com/favicons/favicon.svg',
   url: 'https://github.com',
@@ -97,7 +99,8 @@ export const GlassVariant: Story = {
     url: 'https://vercel.com',
     previewData: {
       title: 'Vercel: Develop. Preview. Ship.',
-      description: 'Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.',
+      description:
+        'Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.',
       image: 'https://assets.vercel.com/image/upload/front/vercel/twitter-card.png',
       favicon: 'https://assets.vercel.com/image/upload/front/favicon/vercel/57x57.png',
       url: 'https://vercel.com',
@@ -112,7 +115,8 @@ export const NoImage: Story = {
     url: 'https://example.com',
     previewData: {
       title: 'Example Domain',
-      description: 'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
+      description:
+        'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
       favicon: 'https://example.com/favicon.ico',
       url: 'https://example.com',
     },
@@ -122,7 +126,9 @@ export const NoImage: Story = {
 export const WithCustomPlaceholder: Story = {
   args: {
     url: 'https://loading-example.com',
-    placeholder: <div className="flex h-24 items-center justify-center text-orange-500">Custom Loading...</div>,
+    placeholder: (
+      <div className="flex h-24 items-center justify-center text-orange-500">Custom Loading...</div>
+    ),
   },
 };
 

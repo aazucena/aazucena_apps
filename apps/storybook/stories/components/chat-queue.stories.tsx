@@ -69,11 +69,31 @@ export const EmptyQueue: Story = {
 export const MixedStatuses: Story = {
   args: {
     queue: [
-      { id: 't1', content: 'User query about product features.', status: 'pending', timestamp: new Date() },
-      { id: 't2', content: 'Generate report for Q3 sales data.', status: 'processing', timestamp: new Date() },
-      { id: 't3', content: 'Send personalized email campaign.', status: 'completed', timestamp: new Date() },
+      {
+        id: 't1',
+        content: 'User query about product features.',
+        status: 'pending',
+        timestamp: new Date(),
+      },
+      {
+        id: 't2',
+        content: 'Generate report for Q3 sales data.',
+        status: 'processing',
+        timestamp: new Date(),
+      },
+      {
+        id: 't3',
+        content: 'Send personalized email campaign.',
+        status: 'completed',
+        timestamp: new Date(),
+      },
       { id: 't4', content: 'Update database schema.', status: 'failed', timestamp: new Date() },
-      { id: 't5', content: 'Fetch latest news articles.', status: 'pending', timestamp: new Date() },
+      {
+        id: 't5',
+        content: 'Fetch latest news articles.',
+        status: 'pending',
+        timestamp: new Date(),
+      },
     ],
   },
 };
@@ -95,8 +115,19 @@ export const GlassVariant: Story = {
 export const LongContent: Story = {
   args: {
     queue: [
-      { id: 't1', content: 'This is a very long task description that should ideally be truncated or handled gracefully within the UI component to prevent overflow issues.', status: 'processing', timestamp: new Date() },
-      { id: 't2', content: 'Another long item with pending status.', status: 'pending', timestamp: new Date() },
+      {
+        id: 't1',
+        content:
+          'This is a very long task description that should ideally be truncated or handled gracefully within the UI component to prevent overflow issues.',
+        status: 'processing',
+        timestamp: new Date(),
+      },
+      {
+        id: 't2',
+        content: 'Another long item with pending status.',
+        status: 'pending',
+        timestamp: new Date(),
+      },
     ],
   },
 };

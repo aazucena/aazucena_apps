@@ -20,7 +20,7 @@ const meta: Meta<typeof ChatAgent> = {
     },
     avatarSrc: {
       control: 'text',
-      description: 'URL for the agent\'s avatar image.',
+      description: "URL for the agent's avatar image.",
       table: {
         category: 'Content',
         type: { summary: 'string' },

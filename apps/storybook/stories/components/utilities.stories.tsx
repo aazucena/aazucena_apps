@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ResponsiveGrid } from '@aazucena/ui';
 import { InfiniteScroller } from '@aazucena/ui';
-import {
-  ScrollDown,
-  ScrollDownIcon,
-  ScrollDownLabel,
-} from '@aazucena/ui';
+import { ScrollDown, ScrollDownIcon, ScrollDownLabel } from '@aazucena/ui';
 import {
   SplitButton,
   SplitButtonPrimary,

@@ -44,8 +44,13 @@ export default meta;
 type Story = StoryObj<typeof ChatPlan>;
 
 const defaultPlan: PlanStep[] = [
-  { id: '1', description: 'Understand the user\'s query', status: 'completed' },
-  { id: '2', description: 'Search relevant documentation', status: 'active', details: 'Searching across 5 data sources.' },
+  { id: '1', description: "Understand the user's query", status: 'completed' },
+  {
+    id: '2',
+    description: 'Search relevant documentation',
+    status: 'active',
+    details: 'Searching across 5 data sources.',
+  },
   { id: '3', description: 'Synthesize findings', status: 'pending' },
   { id: '4', description: 'Formulate a comprehensive response', status: 'pending' },
 ];
@@ -67,9 +72,19 @@ export const PlanWithAllStatuses: Story = {
   args: {
     plan: [
       { id: 'a', description: 'Initialize environment', status: 'completed' },
-      { id: 'b', description: 'Fetch latest data', status: 'active', details: 'Connecting to external API...' },
+      {
+        id: 'b',
+        description: 'Fetch latest data',
+        status: 'active',
+        details: 'Connecting to external API...',
+      },
       { id: 'c', description: 'Process data for analysis', status: 'pending' },
-      { id: 'd', description: 'Generate visual report', status: 'failed', details: 'Data validation error: missing fields.' },
+      {
+        id: 'd',
+        description: 'Generate visual report',
+        status: 'failed',
+        details: 'Data validation error: missing fields.',
+      },
       { id: 'e', description: 'Notify stakeholders', status: 'pending' },
     ],
   },

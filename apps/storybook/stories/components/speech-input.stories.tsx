@@ -19,22 +19,38 @@ const meta: Meta<typeof SpeechInput> = {
     lang: {
       control: 'text',
       description: 'Language for speech recognition (e.g., "en-US", "es-ES").',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'en-US' } },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'en-US' },
+      },
     },
     continuous: {
       control: 'boolean',
       description: 'If true, keeps listening even if the user pauses speaking.',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     interimResults: {
       control: 'boolean',
       description: 'If true, emits interim results as speech is being recognized.',
-      table: { category: 'Behavior', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      table: {
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     placeholder: {
       control: 'text',
       description: 'Placeholder text displayed when not listening or no transcript.',
-      table: { category: 'Content', type: { summary: 'string' }, defaultValue: { summary: 'Start speaking...' } },
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Start speaking...' },
+      },
     },
     variant: {
       control: 'select',
@@ -63,10 +79,14 @@ const SpeechInputDemo = (args: Story['args']) => {
     <div className="flex flex-col gap-4 w-96">
       <Toaster />
       <SpeechInput {...args} onResult={handleResult} />
-      {lastResult && <p className="text-sm">Last Recognized: <strong>{lastResult}</strong></p>}
+      {lastResult && (
+        <p className="text-sm">
+          Last Recognized: <strong>{lastResult}</strong>
+        </p>
+      )}
       <p className="text-xs text-muted-foreground">
-        Note: Speech Recognition requires browser support and microphone access.
-        You might be prompted for microphone permission.
+        Note: Speech Recognition requires browser support and microphone access. You might be
+        prompted for microphone permission.
       </p>
     </div>
   );

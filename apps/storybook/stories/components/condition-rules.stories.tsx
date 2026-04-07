@@ -74,7 +74,9 @@ const ConditionDemo = (props: Partial<React.ComponentProps<typeof ConditionRules
     <div className="space-y-4">
       <ConditionRules fields={fields} value={value} onChange={setValue} {...props} />
       <div className="rounded-md bg-muted p-4">
-        <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">Output JSON:</p>
+        <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">
+          Output JSON:
+        </p>
         <pre className="overflow-auto text-[10px] leading-tight text-foreground">
           {JSON.stringify(value, null, 2)}
         </pre>
@@ -118,7 +120,9 @@ export const Nested: Story = {
       <div className="space-y-4">
         <ConditionRules fields={fields} value={value} onChange={setValue} />
         <div className="rounded-md bg-muted p-4">
-          <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">Output JSON:</p>
+          <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">
+            Output JSON:
+          </p>
           <pre className="overflow-auto text-[10px] leading-tight text-foreground">
             {JSON.stringify(value, null, 2)}
           </pre>
