@@ -294,3 +294,6 @@ workflows:
           requires: [ build_packages ]
       - verify_changesets:
           requires: [ setup ]
+          filters:
+            branches:
+              only: main
