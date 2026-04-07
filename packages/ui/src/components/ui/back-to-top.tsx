@@ -24,7 +24,7 @@ const backToTopVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'glass',
+      variant: 'default',
       size: 'default',
     },
   },
