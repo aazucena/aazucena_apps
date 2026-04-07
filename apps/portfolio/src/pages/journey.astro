@@ -205,7 +205,7 @@ const phases =
 
         <!-- Career Stats Visualization -->
         <div class="relative z-20">
-          <CareerStats stats={careerStats} client:load />
+          <CareerStats stats={careerStats} client:only="react" />
         </div>
       </div>
 
@@ -252,7 +252,7 @@ const phases =
             {/* Phase I: Chronology - Timeline */}
             {phase.name === "chronology" && (
               <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <ChronologyTimeline data={timelineData} client:visible />
+                <ChronologyTimeline data={timelineData} client:only="react" />
               </div>
             )}
 
@@ -260,7 +260,7 @@ const phases =
             {phase.name === "adaptation" && (
               <>
                 <div class="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <GrowthMetrics metrics={growthMetrics} client:visible />
+                  <GrowthMetrics metrics={growthMetrics} client:only="react" />
                 </div>
                 <JourneyDashboard
                   evolutionData={skillsEvolutionData}
@@ -277,7 +277,7 @@ const phases =
                   hideHeader={true}
                   hideStats={true}
                   hideMetrics={true}
-                  client:visible
+                  client:only="react"
                 />
               </>
             )}
@@ -298,7 +298,7 @@ const phases =
                               | null
                               | undefined
                           }
-                          client:load
+                          client:only="react"
                         />
                       </div>
                     )}
