@@ -107,15 +107,15 @@ const breadcrumbs = [
   watermarkSize="medium"
   maxWidth="5xl"
   hasSidebar={true}
-  prevItem={nextExperience
-    ? { slug: nextExperience.slug, title: nextExperience.position }
-    : null}
-  nextItem={prevExperience
+  prevItem={prevExperience
     ? { slug: prevExperience.slug, title: prevExperience.position }
     : null}
+  nextItem={nextExperience
+    ? { slug: nextExperience.slug, title: nextExperience.position }
+    : null}
   basePath="/experiences"
-  prevLabel="Next Role"
-  nextLabel="Previous Role"
+  prevLabel="Previous Role"
+  nextLabel="Next Role"
   tocSelector="#case-study-content"
 >
   <!-- Header slot: company logo, position, meta summary grid -->
