@@ -10,7 +10,7 @@
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { lazy, Suspense, type JSX } from "react";
+import { lazy, Suspense, useEffect, type JSX } from "react";
 import type { HomepageData } from "@aazucena/types";
 import type { PortfolioContent } from "@aazucena/types";
 import type { PortfolioData } from "~/types";
@@ -43,14 +43,29 @@ function HomepageSectionInner(): JSX.Element {
   const sections = content.sections;
   const refs = useSectionRefs(sections);
 
+  // Return visitors skip the preloader animation, so preloader-complete never fires.
+  // In that case, release BrandIconLoader here once animations are mounted.
+  // First-time visitors: preloader-complete → BaseLayout → brand-loader-complete handles it.
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem("portfolio-preloader-seen") === "true") {
+        document.dispatchEvent(new CustomEvent("brand-loader-complete"));
+      }
+    } catch (_) {
+      // sessionStorage unavailable — dispatch anyway as fallback
+      document.dispatchEvent(new CustomEvent("brand-loader-complete"));
+    }
+  }, []);
+
   // Get only the state needed for this component
   // (Most state is now consumed directly by child components via contexts)
   const { currentSection, scrollProgress } = usePortfolio();
 
-  // Calculate atmospheric layer and background style
+  // Calculate atmospheric layer and background style, scaled to actual section count
   const { phase: atmosphericLayer, backgroundStyle } = useAtmosphericLayer(
     currentSection,
     scrollProgress,
+    sections.length,
   );
 
   // Apply section transition animations

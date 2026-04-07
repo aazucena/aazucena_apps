@@ -41,6 +41,10 @@ export default function HomepageContent({
             className="absolute top-0 right-0 left-0 z-30 flex min-h-screen w-full items-center px-6"
             style={{
               pointerEvents: currentSection === index ? "auto" : "none",
+              // Set initial visibility so sections don't flash stacked before
+              // GSAP's useSectionTransitions runs on mount.
+              opacity: index === 0 ? 1 : 0,
+              transform: index === 0 ? "none" : "translateY(150px) scale(0.95)",
             }}
           >
             <Component title={section.title} subtitle={section.subtitle} />
