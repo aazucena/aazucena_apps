@@ -26,6 +26,7 @@ src/components/animations/
 ```
 
 ### Custom Hooks (13 total)
+
 - `useDeviceCapabilities` — detects performance tier (high/medium/low)
 - `useSectionTransition` — section navigation state
 - `useAtmosphericLayer` — current atmospheric layer (troposphere→exosphere)
@@ -38,6 +39,7 @@ src/components/animations/
 - `useDataContext` — CMS data access (Phase 0.2.4)
 
 ### State Flow
+
 ```
 Section.tsx (orchestrator)
 ├─ DataContext → CMS data (homepage, portfolio, sections registry)
@@ -47,10 +49,12 @@ Section.tsx (orchestrator)
 ```
 
 ### Key Concepts
+
 - **Atmospheric Layers:** troposphere→stratosphere→mesosphere→exosphere — transition based on scroll
 - **Section Navigation:** 8 distinct sections (0-7), each with dedicated content components
 - **Performance Tiers:** `capabilities.canUseHeavyAnimations` gates Three.js/PixiJS rendering
-- **Client directives:** Use `client:only="react"` for lazy-loaded components (not `client:load`)
+- **Client directives:** Use `client:only="react"` for D3/visualization components (not `client:load`
+  or `client:visible`). SSR'd components give D3 width=0 on first mount → charts render empty.
 - **frameloop="demand"** on Three.js canvas — call `invalidate()` to request frames
 
 ---
@@ -58,6 +62,7 @@ Section.tsx (orchestrator)
 ## Portfolio App — CMS Data Architecture
 
 **Data Flow:**
+
 ```
 Strapi CMS (PostgreSQL + pgVector)
   → /lib/api/homepage-data.ts (parallel fetch, 15+ endpoints)
@@ -68,6 +73,7 @@ Strapi CMS (PostgreSQL + pgVector)
 ```
 
 **API Clients** (`apps/portfolio/src/lib/api/` — 25 files):
+
 - Core: `hero`, `about`, `projects`, `experiences`, `education`
 - Content: `posts`, `testimonials`, `awards`, `skills`, `pages`
 - Config: `animation`, `theme`, `maintenance`, `website-config`, `blog-config`, `portfolio`, `homepage`, `preloader`, `skill-categories`
@@ -75,6 +81,7 @@ Strapi CMS (PostgreSQL + pgVector)
 - Navigation: `navigation` (Phase 2)
 
 **Context Integration:**
+
 ```tsx
 <DataProvider data={data} content={homepage} portfolio={portfolio}>
   <PortfolioProvider>
@@ -102,6 +109,7 @@ src/
 ```
 
 **Adding a new template:**
+
 1. Add to `PageTemplateEnum` in `src/lib/validators/enums.ts`
 2. Create `[Name]Template.astro` in `src/templates/`
 3. Define props interface in `src/templates/index.ts`
@@ -109,15 +117,34 @@ src/
 
 ---
 
-## Portfolio App — Journey Visualizations (Phase 0.5)
+## Portfolio App — Journey Visualizations (Phase 0.5 → Phase 4)
 
-Located in `src/components/journey/visualizations/`:
+Visualization components live in **`@aazucena/visualizations`** package (migrated Phase 4).
+Journey UI components (wrappers, panels, stats) live in `src/components/ui/journey/`.
+
+**Package components** (`packages/visualizations/src/d3/`):
+
 - `ForceDirectedGraph` — interactive skill dependency graph
-- `InteractiveTimeline` — scroll-synced career progression
-- `SpiderChart` — multi-dimensional skill profiling
+- `InteractiveTimeline` — scroll-synced career timeline (swim-lane layout by `laneKey`)
+- `SpiderChart` — multi-dimensional skill profiling (year controls, compare mode)
 - `SankeyDiagram` — career flow visualization
 - `StreamGraph` — skill evolution over time
-- `Heatmap` — activity and contribution tracking
+- `Heatmap` — activity tracking (supports `infoPanel` render prop for right-side panel)
+
+**Portfolio UI wrappers** (`src/components/ui/journey/`):
+
+- `CareerStats` — animated CountUp stat cards (IntersectionObserver-gated)
+- `GrowthMetrics` — skill growth trend metrics
+- `ChronologyTimeline` — timeline of career events using InteractiveTimeline
+- `SankeyWithSemantics` — Sankey with ID-prefix coloring + category filtering
+- `HeatmapInfoPanel` — hover info panel content for the Heatmap infoPanel prop
+- `Toolbar` — category filter + search for the dashboard
+- `DetailsModal` — lazy-loaded skill details modal
+
+**`JourneyDashboard`** (`src/components/JourneyDashboard.tsx`) — tabbed orchestrator
+that combines all visualizations. All journey page components must use
+`client:only="react"` (not `client:visible` or `client:load`) — D3 reads DOM
+dimensions on first mount and gets width=0 if SSR'd.
 
 ---
 
@@ -126,6 +153,7 @@ Located in `src/components/journey/visualizations/`:
 **Stack:** Next.js 15 (App Router) + React 19.2 + Tailwind 4 + D3.js + Redux Toolkit + TanStack Query v5 + Vercel AI SDK + ClickHouse
 
 **Dashboards:**
+
 - `/` — Node Overview: Summary KPIs, system integrity
 - `/music` — Audio Intelligence: Live playback telemetry
 - `/logs` — Telemetry Stream: Raw searchable event logs
@@ -135,6 +163,7 @@ Located in `src/components/journey/visualizations/`:
 - `/ai/trajectories` — Trajectory Labs: RL agent decision playback
 
 **Key files:**
+
 - `src/app/api/ingest/route.ts` — Edge Runtime ingestion (<50ms, native Vercel geo headers)
 - `src/app/api/stats/{summary,trends,logs}/route.ts` — dashboard data endpoints
 - `src/hooks/useTelemetry.ts` — TanStack Query polling hooks
@@ -142,6 +171,7 @@ Located in `src/components/journey/visualizations/`:
 - `src/store/slices/dashboard.ts` — Redux slice
 
 **Intelligence Infrastructure (Docker microservices):**
+
 - **WebSocket Bridge** (`aazucena-websocket`) — broadcasts ClickHouse signals to dashboard UI
 - **Intel Bridge** (FastAPI) — async telemetry gateway for Python agents
 - **Intel Engine** — LangChain + LangGraph + pgVector processing core
@@ -154,31 +184,33 @@ Located in `src/components/journey/visualizations/`:
 
 16 packages in `packages/`:
 
-| Package | Content |
-|---------|---------|
-| `design-system` | 7 token files, 18 seasonal/branded themes, 35 platform integrations, Tailwind preset |
-| `ui` | 284 component files (75+ composed components), CVA + 3 variants pattern |
-| `forms` | 94 form templates + 48 Zod schemas across 13 categories |
-| `hooks` | Categorized: animations/, data/, device/, dom/ |
-| `utils` | Domain modules: about, animations, blog, contact, content, ... |
-| `types` | api/, components/, data/ type definitions |
-| `constants` | ai, animations, colors, commands, domain |
-| `animations` | gsap/, pixi/, three/ utilities |
-| `api` | controllers, modules, services, transformers |
-| `layouts` | AutoGrid, DashboardLayout, Grid, MainContainer |
-| `icons` | registry, custom icons, types |
-| `analytics` | components, providers, schemas, services |
-| `config` | eslint, playwright, postcss, prettier, sentry configs |
-| `context` | AnimationContext, DataContext, FormContext, PortfolioContext |
-| `stores` | Redux: interactions, journey slices + providers |
-| `visualizations` | d3/, intelligence/, common/ visualization components |
+| Package          | Content                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `design-system`  | 7 token files, 18 seasonal/branded themes, 35 platform integrations, Tailwind preset |
+| `ui`             | 284 component files (75+ composed components), CVA + 3 variants pattern              |
+| `forms`          | 94 form templates + 48 Zod schemas across 13 categories                              |
+| `hooks`          | Categorized: animations/, data/, device/, dom/                                       |
+| `utils`          | Domain modules: about, animations, blog, contact, content, ...                       |
+| `types`          | api/, components/, data/ type definitions                                            |
+| `constants`      | ai, animations, colors, commands, domain                                             |
+| `animations`     | gsap/, pixi/, three/ utilities                                                       |
+| `api`            | controllers, modules, services, transformers                                         |
+| `layouts`        | AutoGrid, DashboardLayout, Grid, MainContainer                                       |
+| `icons`          | registry, custom icons, types                                                        |
+| `analytics`      | components, providers, schemas, services                                             |
+| `config`         | eslint, playwright, postcss, prettier, sentry configs                                |
+| `context`        | AnimationContext, DataContext, FormContext, PortfolioContext                         |
+| `stores`         | Redux: interactions, journey slices + providers                                      |
+| `visualizations` | d3/, intelligence/, common/ visualization components                                 |
 
 **Storybook** (`apps/storybook/`): 373+ stories/docs
+
 - 260 component stories, 94 form stories, 5 animation, 6 chart, 2 layout, 6 recipe
 - Design token MDX (9 docs + 17 theme pages), Documentation MDX (9 pages)
 - Chromatic token: `apps/storybook/.env` — first baseline run pending
 
 **Forms pattern:**
+
 ```tsx
 const form = useForm({ ... } as any)  // validatorAdapter not in FormOptions type
 onSubmit: async ({ value }: { value: any }) => { ... }
@@ -199,6 +231,7 @@ Use `pnpm tsc --noEmit` as the primary quality gate (Storybook OOM is a machine 
 8 form types: Contact, Feedback, Testimonial, Bug Report, Feature Request, Collaboration, Referral, Music Feedback. Each has an Easter Egg hidden step required before submission.
 
 **AI Pipeline:**
+
 ```
 Frontend → reCAPTCHA v3 + Rate Limit
   → LangGraph State Machine
@@ -217,4 +250,4 @@ Frontend → reCAPTCHA v3 + Rate Limit
 
 ## Strapi CMS — 16 Active Plugins
 
-strapi-plugin-icons-field v1.1.5, @strapi/plugin-graphql, @strapi/plugin-documentation, @strapi/plugin-sentry, @strapi/plugin-seo, @_sh/strapi-plugin-ckeditor, strapi-plugin-multi-select, strapi-advanced-uuid, @strapi/plugin-color-picker, strapi-plugin-preview-button, strapi-plugin-navigation, strapi-plugin-duplicate-button, strapi-plugin-config-sync, strapi-plugin-publisher, @strapi-community/plugin-rest-cache, @strapi-community/plugin-redis
+strapi-plugin-icons-field v1.1.5, @strapi/plugin-graphql, @strapi/plugin-documentation, @strapi/plugin-sentry, @strapi/plugin-seo, @\_sh/strapi-plugin-ckeditor, strapi-plugin-multi-select, strapi-advanced-uuid, @strapi/plugin-color-picker, strapi-plugin-preview-button, strapi-plugin-navigation, strapi-plugin-duplicate-button, strapi-plugin-config-sync, strapi-plugin-publisher, @strapi-community/plugin-rest-cache, @strapi-community/plugin-redis

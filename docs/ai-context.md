@@ -111,9 +111,19 @@ BlocksRenderer    // for Strapi 'blocks' fields (JSON array)
 // Performance: SSR pages need
 export const prerender = false  // maintenance.astro, 500.astro
 
-// Lazy loading — must use client:only="react", NOT client:load
+// Lazy loading — must use client:only="react", NOT client:load or client:visible
+// Reason: client:load/visible SSR the component → D3 reads width=0 on first mount
+//         → charts render empty; client:only skips SSR so real DOM dimensions are
+//         available immediately. All journey page components require client:only.
 // Remove static imports for code-split modules; dynamic imports only
 // Three.js: frameloop="demand", call invalidate() to request frames
+
+// Tailwind dark-mode + scroll animations — avoid transition-all on themed elements
+// transition-all animates every CSS property including color/background-color, causing
+// a visible delay (~300ms) when the dark-mode class toggles. Scope to specific props:
+//   nav scroll state → transition-[padding,box-shadow,backdrop-filter]
+//   link hover state → transition-[box-shadow]
+//   interactive tap  → transition-transform
 ```
 
 ---
