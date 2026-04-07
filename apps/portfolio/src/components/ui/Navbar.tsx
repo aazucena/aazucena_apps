@@ -48,7 +48,7 @@ export function Navbar({
 
   return (
     <nav
-      className={`fixed top-0 right-0 left-0 z-[100] border-b transition-all duration-500 ${
+      className={`fixed top-0 right-0 left-0 z-[100] border-b transition-[padding,box-shadow,backdrop-filter] duration-300 ${
         isScrolled
           ? "bg-background/90 border-gray-200/50 py-4 shadow-sm backdrop-blur-xl dark:border-gray-800/50"
           : "bg-background/80 border-transparent py-6 backdrop-blur-lg"
@@ -85,7 +85,7 @@ export function Navbar({
                 <a
                   key={item.id}
                   href={item.path || undefined}
-                  className={`relative flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold transition-all duration-300 ${
+                  className={`relative flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold transition-[box-shadow] duration-300 ${
                     isActive
                       ? "dark:bg-background bg-white text-blue-600 shadow-sm dark:text-blue-400"
                       : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
@@ -140,7 +140,7 @@ export function Navbar({
                 <a
                   key={button.id}
                   href={button.path || undefined}
-                  className={`group hidden items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold shadow-lg transition-all active:scale-95 sm:flex ${buttonClasses[button.buttonStyle || "primary"]}`}
+                  className={`group hidden items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold shadow-lg transition-transform active:scale-95 sm:flex ${buttonClasses[button.buttonStyle || "primary"]}`}
                   target={button.type === "EXTERNAL" ? "_blank" : undefined}
                   rel={
                     button.type === "EXTERNAL"
@@ -204,7 +204,7 @@ export function Navbar({
                     <a
                       key={item.id}
                       href={item.path || undefined}
-                      className={`flex items-center gap-4 rounded-2xl p-4 text-base font-bold transition-all ${
+                      className={`flex items-center gap-4 rounded-2xl p-4 text-base font-bold ${
                         isActive
                           ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
                           : "text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800"
