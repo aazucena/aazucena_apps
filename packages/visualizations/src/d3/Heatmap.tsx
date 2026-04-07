@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState, useEffect } from 'react';
+import React, { forwardRef, useRef, useState, useEffect, useCallback } from 'react';
 import type { GenericHeatmapCell } from '@aazucena/types';
 import {
   ChartContainer,
@@ -8,27 +8,13 @@ import {
   ChartContent,
 } from '../common/ChartContainer';
 import { ChartToolbar } from '../common/ChartToolbar';
-import { useHeatmap } from '../hooks/useHeatmap';
-
-const toInputValue = (d: Date) => d.toISOString().slice(0, 10);
-
-const parseInputDate = (value: string): Date => {
-  const parts = value.split('-').map(Number);
-  return new Date(parts[0]!, parts[1]! - 1, parts[2]);
-};
-
-const threeMonthsAgo = (): Date => {
-  const d = new Date();
-  d.setMonth(d.getMonth() - 3);
-  return d;
-};
+import { useHeatmap, heatmapCellSize, heatmapHeight } from '../hooks/useHeatmap';
 
 export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GenericHeatmapCell[];
   title?: string;
   description?: string;
   colorMap?: Record<string, string>;
-  baseColor?: string;
   height?: number;
   exportFileName?: string;
   onCellClick?: (cell: GenericHeatmapCell) => void;
@@ -48,12 +34,11 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
   (
     {
       data,
-      title = 'Activity Heatmap',
+      title = 'Skill Usage Heatmap',
       description,
       colorMap = {},
-      baseColor = '#3b82f6',
-      height = 320,
-      exportFileName = 'activity-heatmap',
+      height: heightProp = 500,
+      exportFileName = 'skill-heatmap',
       onCellClick,
       onCellHover,
       hideHeader = false,
@@ -64,114 +49,71 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     ref,
   ) => {
     const svgRef = useRef<SVGSVGElement>(null);
-    const svgContainerRef = useRef<HTMLDivElement>(null);
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-    const [startDate, setStartDate] = useState<Date>(threeMonthsAgo);
-    const [endDate, setEndDate] = useState<Date>(() => new Date());
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(0);
+    const [svgHeight, setSvgHeight] = useState(300);
     const [hoveredCell, setHoveredCell] = useState<GenericHeatmapCell | null>(null);
 
+    // Track container width only — height is dynamic from the hook
     useEffect(() => {
-      const el = svgContainerRef.current;
+      const el = containerRef.current;
       if (!el) return;
-      let timer: ReturnType<typeof setTimeout>;
-      const ro = new ResizeObserver(() => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          setDimensions({ width: el.clientWidth, height: el.clientHeight });
-        }, 150);
-      });
+      const ro = new ResizeObserver(() => setWidth(el.clientWidth));
       ro.observe(el);
-      setDimensions({ width: el.clientWidth, height: el.clientHeight });
-      return () => {
-        clearTimeout(timer);
-        ro.disconnect();
-      };
+      setWidth(el.clientWidth);
+      return () => ro.disconnect();
     }, []);
 
-    const handleCellHover = (cell: GenericHeatmapCell | null) => {
-      setHoveredCell(cell);
-      onCellHover?.(cell);
-    };
+    const handleHeightChange = useCallback((h: number) => {
+      setSvgHeight(h);
+    }, []);
+
+    const handleCellHover = useCallback(
+      (cell: GenericHeatmapCell | null) => {
+        setHoveredCell(cell);
+        onCellHover?.(cell);
+      },
+      [onCellHover],
+    );
 
     useHeatmap(svgRef, data, {
-      width: dimensions.width,
-      height: dimensions.height,
+      width,
       colorMap,
-      baseColor,
-      startDate,
-      endDate,
       onCellClick,
       onCellHover: infoPanel || onCellHover ? handleCellHover : undefined,
+      onHeightChange: handleHeightChange,
     });
 
-    const today = toInputValue(new Date());
-
-    const dateControls = (
-      <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName}>
-        <input
-          type="date"
-          value={toInputValue(startDate)}
-          max={toInputValue(endDate)}
-          onChange={(e) => e.target.value && setStartDate(parseInputDate(e.target.value))}
-          className="text-[10px] font-mono bg-transparent border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1 text-zinc-600 dark:text-zinc-400 focus:outline-none focus:border-primary-500/50 cursor-pointer"
-        />
-        <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600">→</span>
-        <input
-          type="date"
-          value={toInputValue(endDate)}
-          min={toInputValue(startDate)}
-          max={today}
-          onChange={(e) => e.target.value && setEndDate(parseInputDate(e.target.value))}
-          className="text-[10px] font-mono bg-transparent border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1 text-zinc-600 dark:text-zinc-400 focus:outline-none focus:border-primary-500/50 cursor-pointer"
-        />
-      </ChartToolbar>
+    const header = !hideHeader && (
+      <ChartHeader>
+        <div>
+          <ChartTitle>{title}</ChartTitle>
+          {description && <ChartDescription>{description}</ChartDescription>}
+        </div>
+        <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName} />
+      </ChartHeader>
     );
 
-    // Shared SVG element used by both branches (non-infoPanel path)
-    const svgElement = (
-      <div ref={svgContainerRef} className="w-full h-full">
-        <svg
-          ref={svgRef}
-          width={dimensions.width}
-          height={dimensions.height}
-          className="text-foreground"
-        />
-      </div>
-    );
-
-    // When infoPanel is provided, wrap in a flex layout with an explicit chart area height.
-    // CSS Grid with h-full is unreliable for ResizeObserver — flex with explicit heights is stable.
     if (infoPanel) {
-      const chartAreaHeight = hideHeader ? height : height - 60;
       return (
-        <div ref={ref} className={className} style={{ height }} {...props}>
-          {!hideHeader && (
-            <ChartHeader>
-              <div>
-                <ChartTitle>{title}</ChartTitle>
-                {description && <ChartDescription>{description}</ChartDescription>}
-              </div>
-              {dateControls}
-            </ChartHeader>
-          )}
-          <div
-            className="flex rounded-3xl bg-accent/5 overflow-hidden"
-            style={{ height: chartAreaHeight }}
-          >
-            <div
-              ref={svgContainerRef}
-              className="flex-1 overflow-hidden"
-              style={{ height: chartAreaHeight }}
-            >
+        <div ref={ref} className={className} {...props}>
+          {header}
+          <div className="grid grid-cols-1 gap-1 rounded-3xl bg-gray-50 lg:grid-cols-4 dark:bg-gray-900">
+            {/* Heatmap — 3/4 width */}
+            <div ref={containerRef} className="relative p-4 lg:col-span-3">
               <svg
                 ref={svgRef}
-                width={dimensions.width}
-                height={dimensions.height}
-                className="text-foreground"
+                width={width}
+                height={svgHeight}
+                className="w-full text-gray-900 dark:text-gray-100"
               />
             </div>
-            <div className="w-48 shrink-0 overflow-y-auto border-l border-border/10 p-4">
-              {infoPanel(hoveredCell)}
+
+            {/* Info panel — 1/4 width */}
+            <div className="flex h-full flex-col lg:col-span-1">
+              <div className="flex h-full flex-col rounded-3xl border border-gray-100 bg-white/50 p-6 shadow-sm dark:border-gray-800">
+                {infoPanel(hoveredCell)}
+              </div>
             </div>
           </div>
         </div>
@@ -179,19 +121,19 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     }
 
     return (
-      <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
+      <ChartContainer ref={ref} className={className} {...props}>
         <div className="flex flex-col h-full">
-          {!hideHeader && (
-            <ChartHeader>
-              <div>
-                <ChartTitle>{title}</ChartTitle>
-                {description && <ChartDescription>{description}</ChartDescription>}
-              </div>
-              {dateControls}
-            </ChartHeader>
-          )}
-
-          <ChartContent>{svgElement}</ChartContent>
+          {header}
+          <ChartContent>
+            <div ref={containerRef} className="w-full">
+              <svg
+                ref={svgRef}
+                width={width}
+                height={svgHeight}
+                className="w-full text-foreground"
+              />
+            </div>
+          </ChartContent>
         </div>
       </ChartContainer>
     );

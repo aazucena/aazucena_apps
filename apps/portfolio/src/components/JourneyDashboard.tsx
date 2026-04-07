@@ -94,7 +94,7 @@ export function JourneyDashboard({
     );
   }, [searchQuery, networkData.nodes]);
 
-  // Filter stream graph data by visible categories (matches old StreamGraph behaviour)
+  // Filter stream graph data by visible categories
   const filteredStreamData = useMemo(() => {
     if (!visibleCategories || !streamGraphData.length) return streamGraphData;
     return streamGraphData.map((step) => ({
@@ -106,6 +106,24 @@ export function JourneyDashboard({
       ),
     }));
   }, [streamGraphData, visibleCategories]);
+
+  // Filter heatmap data — zero out months whose dominant category is hidden
+  const filteredHeatmapData = useMemo(() => {
+    if (!visibleCategories || !heatmapData.length) return heatmapData;
+    return heatmapData.map((cell) => {
+      if (!cell.category || visibleCategories.has(cell.category)) return cell;
+      return { ...cell, value: 0, count: 0, category: undefined };
+    });
+  }, [heatmapData, visibleCategories]);
+
+  // Derive year range for the info panel timeline footer
+  const heatmapYears = useMemo(
+    () =>
+      Array.from(
+        new Set(heatmapData.map((c) => new Date(c.date).getFullYear())),
+      ).sort((a, b) => a - b),
+    [heatmapData],
+  );
 
   // Modal state for network graph
   const [selectedSkill, setSelectedSkill] = useState<SkillNode | null>(null);
@@ -250,10 +268,11 @@ export function JourneyDashboard({
 
             {activeTab === "intensity" && (
               <Heatmap
-                data={heatmapData}
+                data={filteredHeatmapData as any}
                 hideHeader
-                height={500}
-                infoPanel={(cell) => <HeatmapInfoPanel cell={cell} />}
+                infoPanel={(cell) => (
+                  <HeatmapInfoPanel cell={cell} years={heatmapYears} />
+                )}
               />
             )}
           </div>
