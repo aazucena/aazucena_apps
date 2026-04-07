@@ -159,7 +159,7 @@ jobs:
       - attach_project
       - run:
           name: Building Storybook
-          command: pnpm turbo build --filter="storybook"
+          command: pnpm turbo build --filter="@aazucena/storybook"
       - persist_to_workspace:
           root: .
           paths:
@@ -171,10 +171,10 @@ jobs:
       - attach_project
       - run:
           name: Install Playwright browser binaries
-          command: pnpm --filter storybook exec playwright install chromium --with-deps
+          command: pnpm --filter @aazucena/storybook exec playwright install chromium --with-deps
       - run:
           name: Run Avra Design System component tests (vitest)
-          command: pnpm --filter storybook test:ci
+          command: pnpm --filter @aazucena/storybook test:ci
 
   deploy_storybook:
     executor: node-executor           # Upload only — no heavy build
@@ -201,7 +201,7 @@ jobs:
       - run:
           name: Publish Storybook to Chromatic
           command: |
-            pnpm --filter storybook run chromatic \
+            pnpm --filter @aazucena/storybook run chromatic \
               --project-token=$CHROMATIC_PROJECT_TOKEN \
               --storybook-build-dir=storybook-static
       - run:
