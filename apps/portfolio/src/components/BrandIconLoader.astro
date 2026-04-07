@@ -172,51 +172,25 @@ const animationDuration = isCmsFallback ? "2s" : "1.5s";
       const loader = document.getElementById("brand-icon-loader");
       if (!loader) return;
 
-      // Return visitors: skip the loader entirely — they already saw the
-      // full preloader experience. The same sessionStorage key is used by
-      // useShowOnce so this check is always in sync.
-      try {
-        if (sessionStorage.getItem("portfolio-preloader-seen") === "true") {
-          loader.style.display = "none";
-          unlockScroll();
-          return;
-        }
-      } catch (_) {
-        // sessionStorage unavailable (private browsing edge case) — continue normally
-      }
-
-      // Check if preloader already signaled completion or was skipped
-      const isSkipped = document.querySelector(
-        '[data-preloader-skipped="true"]',
-      );
-      if (isSkipped) {
-        hideBrandLoader(loader);
-        return;
-      }
-
       // Lock scroll while loader is active
       lockScroll();
 
-      // Check if this is a CMS fallback (longer timeout)
+      // BrandIconLoader stays up until any code dispatches "brand-loader-complete".
+      // Pages with async content (e.g. Journey charts) dispatch this themselves
+      // when ready. Pages with no async content get it from the preloader flow below.
+      document.addEventListener(
+        "brand-loader-complete",
+        () => hideBrandLoader(loader),
+        {
+          once: true,
+        },
+      );
+
+      // Safety-net: fire the event automatically if nothing else does within timeout.
       const isCmsFallback = loader.getAttribute("data-cms-fallback") === "true";
-      // Safety-net timeout: only fires if React completely fails to hydrate.
-      // Must be much larger than minDisplayTime (1500ms) — this is NOT a UX timer.
-      // In dev mode, JS bundle parsing alone can exceed 1500ms.
       const maxTimeout = isCmsFallback ? 12000 : 8000;
-
-      // Listen for preloader events
-      const handleReady = () => hideBrandLoader(loader);
-
-      document.addEventListener("preloader-mounted", handleReady, {
-        once: true,
-      });
-      document.addEventListener("preloader-complete", handleReady, {
-        once: true,
-      });
-
-      // Fallback timeout
       setTimeout(() => {
-        hideBrandLoader(loader);
+        document.dispatchEvent(new CustomEvent("brand-loader-complete"));
       }, maxTimeout);
     }
 

@@ -153,7 +153,7 @@ const themeStyles = {
     </style>
   </head>
 
-  <body style={`background: ${preloaderBackground};`}>
+  <body style={`background: var(--background);`}>
     <!-- Skip to main content (accessibility) -->
     <a href="#main-content" class="skip-to-main"> Skip to main content </a>
     <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
@@ -211,6 +211,12 @@ const themeStyles = {
         // This listener is a secondary safety net for edge cases where the
         // Preloader React component fires preloader-complete after BrandIconLoader
         // already removed itself from the DOM (e.g. slow navigations).
+        // Forward preloader-complete → brand-loader-complete so BrandIconLoader
+        // exits on non-Journey pages (which don't dispatch it themselves).
+        document.addEventListener("preloader-complete", function () {
+          document.dispatchEvent(new CustomEvent("brand-loader-complete"));
+        });
+
         document.addEventListener("preloader-complete", revealContent);
 
         // Hard fallback: if nothing has revealed content after 15s (e.g. JS
