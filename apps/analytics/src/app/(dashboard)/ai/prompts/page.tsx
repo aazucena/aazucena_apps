@@ -303,7 +303,10 @@ export default function PromptManagerPage() {
                     {/* System Message */}
                     <div className="space-y-3 flex flex-col h-[450px]">
                       <div className="flex justify-between items-center shrink-0">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+                        <label
+                          htmlFor="system-persona"
+                          className="text-[10px] font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2"
+                        >
                           <Sparkles size={12} /> System_Persona
                         </label>
                         <span className="text-[8px] font-mono text-zinc-500 uppercase">
@@ -311,6 +314,7 @@ export default function PromptManagerPage() {
                         </span>
                       </div>
                       <textarea
+                        id="system-persona"
                         value={systemMsg}
                         onChange={(e) => setSystemMsg(e.target.value)}
                         className="flex-1 w-full bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 text-sm font-mono text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-none shadow-inner leading-relaxed"
@@ -320,7 +324,10 @@ export default function PromptManagerPage() {
                     {/* Human Template */}
                     <div className="space-y-3 flex flex-col h-[450px]">
                       <div className="flex justify-between items-center shrink-0">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+                        <label
+                          htmlFor="interaction-template"
+                          className="text-[10px] font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2"
+                        >
                           <Message size={12} /> Interaction_Template
                         </label>
                         <span className="text-[8px] font-mono text-zinc-500 uppercase">
@@ -328,6 +335,7 @@ export default function PromptManagerPage() {
                         </span>
                       </div>
                       <textarea
+                        id="interaction-template"
                         value={humanTmpl}
                         onChange={(e) => setHumanTemplate(e.target.value)}
                         className="flex-1 w-full bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 text-sm font-mono text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-none shadow-inner leading-relaxed"

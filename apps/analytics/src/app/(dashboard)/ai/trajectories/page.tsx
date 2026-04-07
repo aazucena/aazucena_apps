@@ -238,10 +238,12 @@ export default function TrajectoryLabsPage() {
         const possibleJson = obs.substring(jsonStart).trim();
         try {
           return { _info: prefix, ...JSON.parse(possibleJson) };
-        } catch {}
+        } catch (_e) {
+          /* ignore malformed JSON */
+        }
       }
       return obs;
-    } catch {
+    } catch (_e) {
       return obs;
     }
   }, [currentStep]);

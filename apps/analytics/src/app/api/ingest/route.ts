@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
   // 4. Insert into ClickHouse (Non-blocking)
   try {
     switch (payload.type) {
-      case 'telemetry_event':
+      case 'telemetry_event': {
         const telemetryPayload: TelemetryEventPayload = payload;
         await ingestClickhouseClient.insert({
           table: 'analytics.telemetry_events_buffer', // Insert into buffer table for efficienc
@@ -104,7 +104,8 @@ export async function POST(req: NextRequest) {
           format: 'JSONEachRow',
         });
         break;
-      case 'ai_event':
+      }
+      case 'ai_event': {
         const aiPayload: AiEventPayload = payload;
         // Calculate cost server-side if not provided (allows for centralized pricing)
         const computedCost =
@@ -137,7 +138,8 @@ export async function POST(req: NextRequest) {
           format: 'JSONEachRow',
         });
         break;
-      case 'music_playback':
+      }
+      case 'music_playback': {
         const musicPayload: MusicPlaybackPayload = payload;
         await ingestClickhouseClient.insert({
           table: 'analytics.music_playback',
@@ -155,8 +157,8 @@ export async function POST(req: NextRequest) {
           format: 'JSONEachRow',
         });
         break;
-
-      case 'system_integrity':
+      }
+      case 'system_integrity': {
         const integrityPayload: SystemIntegrityPayload = payload;
         await ingestClickhouseClient.insert({
           table: 'analytics.system_integrity',
@@ -174,8 +176,8 @@ export async function POST(req: NextRequest) {
           format: 'JSONEachRow',
         });
         break;
-
-      case 'ai_trajectory':
+      }
+      case 'ai_trajectory': {
         const trajectoryPayload: AiTrajectoryPayload = payload;
 
         // Merge observation into state if present (Schema workaround)
@@ -200,6 +202,7 @@ export async function POST(req: NextRequest) {
           format: 'JSONEachRow',
         });
         break;
+      }
 
       default:
         // This case should ideally not be reached due to Zod's discriminatedUnion,

@@ -554,7 +554,6 @@ function AiTerminalContent() {
                             value={editingValue}
                             onChange={(e) => setEditingValue(e.target.value)}
                             className="w-full bg-transparent border-none focus:ring-0 p-0 text-sm font-mono resize-none min-h-[60px]"
-                            autoFocus
                           />
                           <div className="flex items-center gap-2 pt-2 border-t border-zinc-200/50 dark:border-zinc-800/50">
                             <button

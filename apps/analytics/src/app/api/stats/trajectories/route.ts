@@ -63,7 +63,9 @@ export async function GET(req: Request) {
           let parsedState = {} as any;
           try {
             parsedState = JSON.parse(s.observation || '{}');
-          } catch {}
+          } catch (_e) {
+            /* ignore malformed JSON */
+          }
 
           // Extract the rich 'observation' field if we injected it during ingestion
           // Otherwise fallback to the full state object

@@ -131,11 +131,15 @@ export function LoginOverlay() {
           <form onSubmit={handleSubmit} className="px-6 py-2 space-y-4">
             {/* Password */}
             <div className="space-y-1.5">
-              <label className="text-[9px] font-black text-zinc-400 uppercase tracking-[0.3em] flex items-center gap-1.5">
+              <label
+                htmlFor="auth-key"
+                className="text-[9px] font-black text-zinc-400 uppercase tracking-[0.3em] flex items-center gap-1.5"
+              >
                 <Shield size={10} /> Auth Key
               </label>
               <div className="relative">
                 <Input
+                  id="auth-key"
                   ref={passwordRef}
                   type={showPassword ? 'text' : 'password'}
                   value={password}
@@ -143,7 +147,6 @@ export function LoginOverlay() {
                   onKeyDown={handleCapsLock}
                   onKeyUp={handleCapsLock}
                   autoComplete="current-password"
-                  autoFocus
                   required
                   placeholder="••••••••••••"
                   className="px-4 py-3 pr-11 text-xs w-full bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm font-mono text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 shadow-inner leading-relaxed transition-all"
