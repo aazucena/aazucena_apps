@@ -45,6 +45,7 @@ aazucena_apps/
 ## 🚀 Essential Commands
 
 ### Development
+
 ```bash
 # Run all workspaces in dev mode
 pnpm dev
@@ -66,7 +67,9 @@ pnpm format
 ```
 
 ### Portfolio-Specific Commands
+
 From `apps/portfolio/`:
+
 ```bash
 # Development server (Astro)
 pnpm dev
@@ -79,7 +82,9 @@ pnpm preview
 ```
 
 ### Analytics-Specific Commands
+
 From `apps/analytics/`:
+
 ```bash
 # Development server (Next.js)
 pnpm dev
@@ -89,6 +94,7 @@ pnpm build
 ```
 
 ### Testing
+
 ```bash
 # E2E tests (Playwright) - from portfolio directory
 pnpm dlx playwright test
@@ -110,6 +116,7 @@ pnpm dlx playwright show-report
 ## 🛠️ Tech Stack
 
 ### Frontend & Analytics
+
 - **Frameworks:** Astro (Portfolio), Next.js 15 (Analytics)
 - **Build Tool:** Vite, Turbo
 - **UI Library:** React 19 with TypeScript
@@ -125,8 +132,9 @@ pnpm dlx playwright show-report
 - **State Management:** Redux Toolkit (Analytics), React Context API + Custom Hooks (Portfolio)
 
 ### Backend & Infrastructure
+
 - **CMS:** Strapi v5
-- **Databases:** 
+- **Databases:**
   - PostgreSQL 16+ with pgVector extension (App Data)
   - ClickHouse (OLAP Analytics Data)
 - **Storage:** Cloudinary
@@ -137,11 +145,13 @@ pnpm dlx playwright show-report
 - **CI/CD:** CircleCI (CMS only)
 
 ### Monitoring & Logging
+
 - **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights
 - **Backend:** Pino, Sentry
 - **Caching:** Redis
 
 ### Development Tools
+
 - **Design:** Figma
 - **Component Dev:** Storybook
 - **Visual Testing:** Chromatic
@@ -149,6 +159,7 @@ pnpm dlx playwright show-report
 - **API Testing:** Postman
 
 ### AI/ML
+
 - **LLM Orchestration:** LangChain, LangGraph
 - **Observability:** LangSmith
 - **Primary LLM:** Anthropic Claude 3.5 Sonnet
@@ -163,6 +174,7 @@ pnpm dlx playwright show-report
 - **ML Frameworks:** PyTorch/TensorFlow (optional, for advanced features)
 
 ### API Integrations
+
 - YouTube, LinkedIn, Spotify, SoundCloud, Weather, WakaTime, SendGrid/Resend, Ko-fi, reCAPTCHA v3
 
 ---
@@ -172,6 +184,7 @@ pnpm dlx playwright show-report
 All detailed implementation guides, code examples, and specifications are in the **[`docs/`](./docs/)** folder:
 
 ### Phase Documentation
+
 - [Phase 0: Infrastructure](./docs/phase-0-infrastructure.md) ✅ COMPLETED
 - [Phase 1: Animations Refactoring](./docs/phase-1-animations-refactoring.md) ✅ COMPLETED
 - [Phase 2: Component Architecture](./docs/phase-2-component-architecture.md) ✅ COMPLETED
@@ -180,6 +193,7 @@ All detailed implementation guides, code examples, and specifications are in the
 - [Phase 5: Testing](./docs/phase-5-testing.md)
 
 ### Feature Documentation
+
 - [Music Player & Compositions](./docs/features/music-player.md)
 - [Strudel.cc Live Coding](./docs/features/strudel-integration.md)
 - [AI-Powered Forms](./docs/features/ai-forms.md) - Comprehensive with vector search
@@ -216,6 +230,7 @@ Features (as needed) → 3-40 days each
 ## 🎯 Current Status
 
 ### Completed ✅
+
 - **Phase 3:** Performance Optimization (100% complete) - 2026-02-04
   - ✅ 74.3% bundle reduction (410KB → 105KB gzipped)
   - ✅ Exceeded 63% target by 11.3%
@@ -243,18 +258,22 @@ Features (as needed) → 3-40 days each
   - 24 modular API clients, Footer, RSS, Sitemap, 500 error page
   - Fixed rich text rendering and Vercel build configuration
 
-### In Progress 🚧
-- **Phase 4:** Developer Experience (19-20 days, adjusted from 21) - 🔥 CURRENT PRIORITY
-  - 13 specialized packages (design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config)
-  - @aazucena/design-system - Tokens + comprehensive docs
-  - Figma Design System (40+ components)
-  - Storybook (50+ stories)
-  - Chromatic integration
-  - TypeScript strict mode + Git hooks
-  - Zero code duplication (565 lines eliminated)
+### In Progress 🚧 (~95% Complete)
+
+- **Phase 4:** Developer Experience - 🔥 CURRENT PRIORITY
+  - ✅ 16 packages scaffolded with full content
+  - ✅ 373+ Storybook stories/docs (260 component, 94 form, charts, animations, MDX)
+  - ✅ 94 form templates + 48 Zod schemas (`@aazucena/forms`)
+  - ✅ Design system: 7 tokens, 18 themes, 35 platform integrations
+  - ✅ TypeScript strict mode (all apps) + Git hooks (Husky + lint-staged)
+  - ✅ All 13 `@aazucena/*` packages integrated into `apps/portfolio/`
+  - ✅ Storybook stories synced with latest package props
+  - ⏳ Chromatic — skipped (paid plan required); visual regression deferred to Phase 5
+  - ⏳ Figma Design System — deferred post-Phase 4
 
 ### Next Up ⏳
-- **Phase 5:** Testing & Quality (Vitest, Playwright)
+
+- **Phase 5:** Testing & Quality (Vitest unit tests + Playwright E2E)
 
 ---
 
@@ -305,9 +324,18 @@ This is a personal portfolio project. For major changes or suggestions:
 
 ---
 
-**Last Updated:** 2026-02-04
+**Last Updated:** 2026-04-06
 
 **Recent Changes:**
+
+- ✅ **Phase 4 ~95% Complete (2026-04-06):**
+  - All 13 `@aazucena/*` packages integrated into portfolio
+  - Journey page: all interactive components switched to `client:only="react"` (fixes D3 width=0)
+  - Navbar: scoped CSS transitions to prevent dark-mode toggle delay
+  - BackToTop: default variant changed `glass` → `default` for visibility on portfolio backgrounds
+  - Storybook stories updated with new visualization props (hideHeader, infoPanel,
+    showYearControls, showPhysicsControls, highlightIds, laneKey, hoverPopup)
+  - Chromatic skipped — requires paid plan; visual regression deferred to Phase 5
 - ✅ **Phase 4 Documentation Updated (2026-02-04):**
   - Enhanced architecture plan: 4 → 13 specialized packages
   - Renamed @aazucena/design-tokens → @aazucena/design-system (expanded scope)

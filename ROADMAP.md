@@ -290,9 +290,10 @@ Transform monorepo into production-grade design system with comprehensive develo
 - ✅ **TypeScript strict mode** - `strict: true` in all apps (portfolio, analytics, cms)
 - ✅ **Git hooks** (Husky + lint-staged) - pre-commit + commit-msg
 - ✅ **94 form templates** + 48 Zod schemas in `@aazucena/forms`
-- ⏳ **Chromatic baselines** - token configured, first run pending
-- ⏳ **Portfolio integration** - packages built but not yet imported in `apps/portfolio/`
-- ⏳ **CircleCI Chromatic job** - not yet added to `.circleci/config.yml`
+- ✅ **Portfolio integration** - all 13 `@aazucena/*` packages imported in `apps/portfolio/`
+- ✅ **Storybook stories synced** - all chart/visualization stories updated with new props
+- ⏳ **Chromatic** - skipped; requires paid plan. Visual regression deferred to Phase 5.
+- ⏳ **CircleCI Chromatic job** - skipped alongside Chromatic decision
 - ⏳ **Figma Design System** - 40+ components deferred post-Phase 4
 
 ---
@@ -706,15 +707,17 @@ Features (as needed) → 3-40 days each
   - Lazy loading, code splitting, demand-based rendering
   - Exceeded target by 11.3%
 
-### In Progress 🚧 (~90% Complete)
+### In Progress 🚧 (~95% Complete)
 
 - **Phase 4: Developer Experience** 🔥 CURRENT PRIORITY
   - ✅ 16 packages scaffolded with full content
-  - ✅ 373+ Storybook stories/docs in `apps/storybook/`
+  - ✅ 373+ Storybook stories/docs in `apps/storybook/` (synced with latest package props)
   - ✅ 94 form templates + 48 Zod schemas in `@aazucena/forms`
   - ✅ Design system: 7 tokens, 18 themes, 35 integrations
   - ✅ TypeScript strict mode (all apps), Git hooks (Husky)
-  - ⏳ **Remaining (1-2 days):** Chromatic first baseline + CircleCI Chromatic job + portfolio app importing `@aazucena/*` packages
+  - ✅ All `@aazucena/*` packages imported in `apps/portfolio/`
+  - ⏳ **Chromatic** — skipped (requires paid plan); visual regression deferred to Phase 5
+  - ⏳ **Remaining:** Figma Design System (deferred post-Phase 4)
 
 ### Up Next ⏳
 
@@ -812,21 +815,25 @@ This is a personal portfolio project, but if you'd like to suggest improvements:
 
 ---
 
-**Last Updated:** 2026-02-11
+**Last Updated:** 2026-04-06
 
-**Current Priority:** Phase 4 - Developer Experience 🔥
+**Current Priority:** Phase 4 → Phase 5 transition 🔥
 
-**Phase 4 Progress (~90% Complete):**
+**Phase 4 Progress (~95% Complete):**
 
 - ✅ Day 1 Scaffolding (2026-02-05) - 16 packages scaffolded, Git hooks (Husky), TypeScript strict mode
 - ✅ Documentation Expansion (2026-02-11) - 23 Intelligence-themed docs (~19,050 lines) across all packages
-- ✅ Design System (2026-02-xx) - 7 tokens, 18 themes, 35 platform integrations
-- ✅ UI Library (2026-02-xx) - 284 component files (75+ composed components, 7 batches)
-- ✅ Forms Library (2026-02-xx) - 94 templates + 48 Zod schemas across 13 categories
+- ✅ Design System - 7 tokens, 18 themes, 35 platform integrations
+- ✅ UI Library - 284 component files (75+ composed components, 7 batches)
+- ✅ Forms Library - 94 templates + 48 Zod schemas across 13 categories
 - ✅ Storybook (2026-02-23) - 373+ stories/docs: 260 component, 94 form, charts, animations, MDX
-- ⏳ Remaining: Chromatic baseline, CircleCI Chromatic job, portfolio app integration
+- ✅ Portfolio integration (2026-04-06) - all 13 `@aazucena/*` packages imported in `apps/portfolio/`
+- ✅ Storybook sync (2026-04-06) - chart stories updated with new props (hideHeader, infoPanel,
+  showYearControls, showPhysicsControls, highlightIds, laneKey, hoverPopup)
+- ⏳ Chromatic — skipped (paid plan required); visual regression deferred to Phase 5
+- ⏳ Figma Design System — deferred post-Phase 4
 
-**Next Milestone:** Complete Phase 4 (Developer Experience) → Begin Phase 5 (Testing) → **Ecosystem Expansion (The 6 Nodes)**
+**Next Milestone:** Begin Phase 5 (Testing) → **Ecosystem Expansion (The 6 Nodes)**
 
 ---
 
@@ -846,8 +853,11 @@ A suite of high-utility applications and microsites designed to extend the "aazu
 
 ---
 
-**Recent Completions (Updated 2026-02-11):**
+**Recent Completions (Updated 2026-04-06):**
 
+- **Phase 4 Portfolio Integration** ✅ (2026-04-06) - All 13 `@aazucena/*` packages imported in `apps/portfolio/`; journey page migrated to `client:only="react"` fixing D3 empty-state on load
+- **Phase 4 DX Bug Fixes** ✅ (2026-04-06) - Navbar `transition-all` → scoped transitions (eliminates dark-mode toggle delay); BackToTop default variant changed glass → default for visibility
+- **Phase 4 Storybook Sync** ✅ (2026-04-06) - Chart stories updated: hideHeader, infoPanel, showYearControls, showPhysicsControls, highlightIds, laneKey, hoverPopup; yearlySpiderData mock added
 - **Phase 4 Documentation Expansion** ✅ (2026-02-11) - 23 Intelligence-themed docs (~19,050 lines) across all 14 monorepo packages (Hooks, Forms, Layouts, Icons, Constants, Config, Stores, Visualizations)
 - **Phase 4 Day 1 Scaffolding** ✅ (2026-02-05) - 13 packages scaffolded, Git hooks (Husky + lint-staged), CMS strict mode, workspace linking verified
 - **Phase 3 - Performance Optimization** ✅ (2026-02-04) - 100% Complete - 74.3% bundle reduction (410KB → 105KB gzipped), lazy loading, code splitting, demand-based rendering, exceeded target by 11.3%
