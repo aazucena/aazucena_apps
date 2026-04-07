@@ -1,15 +1,17 @@
 # Aldrin Azucena Portfolio Monorepo
 
+![Status](https://img.shields.io/badge/status-active_development-orange) ![Phase](https://img.shields.io/badge/phase-4_%E2%80%94_developer_experience-blue)
+
 A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The primary application is an Astro-based portfolio with React integration, featuring advanced animations (GSAP, Three.js, PixiJS) and a planned Strapi CMS backend.
 
-**Package Manager:** pnpm v10.21.0 (required)
+**Package Manager:** pnpm v10.33.0 (required)
 **Node Version:** >=18
 
 ## 🎯 Quick Links
 
 - **[Full ROADMAP](./ROADMAP.md)** - Complete development roadmap with phases and features
 - **[Documentation Hub](./docs/README.md)** - Detailed implementation guides
-- **[Phase 2 (Current Priority)](./docs/phase-2-component-architecture.md)** - Component Architecture
+- **[Phase 4 (Current Priority)](./docs/phase-4-developer-experience.md)** - Developer Experience
 
 ---
 
