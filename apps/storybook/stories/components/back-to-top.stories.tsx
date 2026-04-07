@@ -7,7 +7,9 @@ import { BackToTop } from '@aazucena/ui';
  * - **UX:** Provides a frictionless way to return to the top of long-form content.
  * - **Logic:** Uses an intersection-style threshold (default 300px) to trigger visibility.
  * - **Animation:** Orchestrated with Framer Motion `AnimatePresence` for smooth entry/exit.
- * - **Variants:** Supports `glass` (default) and high-fidelity `cyber` styles.
+ * - **Variants:** `default` (opaque, high-contrast — production default), `glass` (10% opacity,
+ *   subtle), `cyber` (neon borders + glow). Default changed from `glass` → `default` for
+ *   visibility on portfolio page backgrounds.
  */
 const meta = {
   title: 'Components/Navigation/BackToTop',
@@ -54,13 +56,25 @@ type Story = StoryObj<typeof meta>;
 // --- STORIES ---
 
 /**
- * The default glass variant, designed to be subtle and non-distracting.
+ * Default variant — opaque `bg-primary` fill. High-contrast and visible on all page backgrounds.
+ * This is the production default used across the portfolio.
  */
 export const Basic: Story = {
   args: {
-    variant: 'glass',
+    variant: 'default',
     size: 'default',
     forceVisible: true,
+  },
+};
+
+/**
+ * Glass variant — `bg-background/10` (10% opacity). Subtle and non-distracting, but may
+ * camouflage against light page backgrounds. Use only when the surrounding contrast is high.
+ */
+export const Glass: Story = {
+  args: {
+    ...Basic.args,
+    variant: 'glass',
   },
 };
 

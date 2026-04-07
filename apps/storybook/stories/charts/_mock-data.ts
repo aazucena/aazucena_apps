@@ -147,6 +147,54 @@ export const spiderChartData: SpiderChartData[] = [
   },
 ];
 
+/** Year-indexed data for showYearControls stories — name must be parseable as a year number. */
+export const yearlySpiderData: SpiderChartData[] = [
+  {
+    name: '2022',
+    axes: [
+      { axis: 'Frontend', value: 60 },
+      { axis: 'Backend', value: 50 },
+      { axis: 'DevOps', value: 35 },
+      { axis: 'Design', value: 45 },
+      { axis: 'ML/AI', value: 20 },
+      { axis: 'Architecture', value: 40 },
+    ],
+  },
+  {
+    name: '2023',
+    axes: [
+      { axis: 'Frontend', value: 75 },
+      { axis: 'Backend', value: 62 },
+      { axis: 'DevOps', value: 48 },
+      { axis: 'Design', value: 55 },
+      { axis: 'ML/AI', value: 38 },
+      { axis: 'Architecture', value: 60 },
+    ],
+  },
+  {
+    name: '2024',
+    axes: [
+      { axis: 'Frontend', value: 88 },
+      { axis: 'Backend', value: 74 },
+      { axis: 'DevOps', value: 60 },
+      { axis: 'Design', value: 65 },
+      { axis: 'ML/AI', value: 52 },
+      { axis: 'Architecture', value: 76 },
+    ],
+  },
+  {
+    name: '2025',
+    axes: [
+      { axis: 'Frontend', value: 92 },
+      { axis: 'Backend', value: 78 },
+      { axis: 'DevOps', value: 65 },
+      { axis: 'Design', value: 70 },
+      { axis: 'ML/AI', value: 55 },
+      { axis: 'Architecture', value: 82 },
+    ],
+  },
+];
+
 export const treemapData: TreemapNode = {
   id: 'root',
   name: 'Portfolio',

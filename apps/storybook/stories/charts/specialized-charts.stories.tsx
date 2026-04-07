@@ -6,7 +6,16 @@ import { timelineData, paretoData, choroplethData } from './_mock-data';
 
 /**
  * ## Engineering Standards
- * - **InteractiveTimeline:** `TimelineEvent` extends `BaseNode` + `date` + optional `endDate` for spans.
+ * - **InteractiveTimeline:** `TimelineEvent` extends `BaseNode` + `date` + optional `endDate` for
+ *   spans. Key props:
+ *   - `laneKey` (default `'type'`) — field name used for swim-lane grouping and filter pills.
+ *     Each unique value in `data[laneKey]` becomes its own horizontal swim lane + a filter button.
+ *   - `colorMap` — maps `laneKey` values to colors (bars, legend dots, filter active state).
+ *   - `hideHeader` — suppresses the built-in title/description row; passes full height to SVG.
+ *   - `hoverPopup` — render prop `(event, pos) => ReactNode`. Package owns absolute positioning;
+ *     caller owns content. The popup div is `pointer-events-none` so it never blocks interactions.
+ *   - `showFilter` (default `true`) — show/hide the filter pill row above the chart.
+ *   - Zoom controls (+, −, ↺) are always visible top-right.
  * - **ParetoFrontier:** Takes a `ParetoData` wrapper object (not an array) with axis labels on the data.
  * - **ChoroplethMap:** Requires a `geoJson` FeatureCollection as a second mandatory prop.
  *   Region IDs must match GeoJSON feature IDs. Uses `world-atlas@2` Natural Earth 110m
@@ -39,11 +48,90 @@ export default meta;
 // InteractiveTimeline
 // ---------------------------------------------------------------------------
 
+/**
+ * Basic timeline — single color map across all events, no swim-lane grouping.
+ */
 export const Timeline: StoryObj<typeof InteractiveTimeline> = {
+  name: 'InteractiveTimeline — Basic',
   render: () => (
     <InteractiveTimeline
       data={timelineData}
       title="Career Journey"
+      colorMap={{
+        career: '#3b82f6',
+        milestone: '#10b981',
+        project: '#f59e0b',
+      }}
+    />
+  ),
+};
+
+/**
+ * `laneKey="type"` groups events into horizontal swim lanes by their `type` field.
+ * Each lane gets a labeled stripe + a filter pill above the chart. Bars are colored by lane.
+ * This is the configuration used by the portfolio journey page (`ChronologyTimeline`).
+ */
+export const TimelineSwimLanes: StoryObj<typeof InteractiveTimeline> = {
+  name: 'InteractiveTimeline — Swim Lanes',
+  render: () => (
+    <InteractiveTimeline
+      data={timelineData}
+      title="Career by Type"
+      laneKey="type"
+      colorMap={{
+        career: '#3b82f6',
+        milestone: '#10b981',
+        project: '#f59e0b',
+      }}
+    />
+  ),
+};
+
+/**
+ * `hoverPopup` render prop — package handles absolute positioning, caller handles content.
+ * The popup is `pointer-events-none` and positioned relative to the SVG container.
+ */
+export const TimelineWithPopup: StoryObj<typeof InteractiveTimeline> = {
+  name: 'InteractiveTimeline — Hover Popup',
+  render: () => (
+    <InteractiveTimeline
+      data={timelineData}
+      title="Career Journey"
+      laneKey="type"
+      colorMap={{
+        career: '#3b82f6',
+        milestone: '#10b981',
+        project: '#f59e0b',
+      }}
+      hoverPopup={(event, pos) =>
+        event && pos ? (
+          <div
+            className="absolute z-50 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-xl dark:border-gray-700 dark:bg-gray-900"
+            style={{ left: pos.x + 8, top: pos.y - 8 }}
+          >
+            <p className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+              {(event as any).type}
+            </p>
+            <p className="mt-1 text-sm font-bold text-gray-900 dark:text-white">{event.name}</p>
+            <p className="text-xs text-gray-500">{String(event.date)}</p>
+          </div>
+        ) : null
+      }
+    />
+  ),
+};
+
+/**
+ * `hideHeader` suppresses the built-in title/description row, giving the SVG full height.
+ * Use when embedding inside a parent container that provides its own heading.
+ */
+export const TimelineNoHeader: StoryObj<typeof InteractiveTimeline> = {
+  name: 'InteractiveTimeline — No Header',
+  render: () => (
+    <InteractiveTimeline
+      data={timelineData}
+      hideHeader
+      laneKey="type"
       colorMap={{
         career: '#3b82f6',
         milestone: '#10b981',
