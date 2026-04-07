@@ -85,7 +85,7 @@ DialogHeader.displayName = 'DialogHeader';
 const DialogHero = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { variant?: 'default' | 'cyber' }
->(({ className, variant, ...props }, ref) => (
+>(({ className, variant, children, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
@@ -98,6 +98,7 @@ const DialogHero = React.forwardRef<
     {...props}
   >
     <div className="bg-grid-white/[0.02] absolute inset-0 [mask-image:linear-gradient(to_bottom,white,transparent)]" />
+    {children}
   </div>
 ));
 DialogHero.displayName = 'DialogHero';
