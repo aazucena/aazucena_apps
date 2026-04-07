@@ -8,7 +8,7 @@
 
 import { lazy, Suspense, useState, useMemo } from "react";
 import { useStore } from "@nanostores/react";
-import { visibleCategoriesStore } from "~/store/journey";
+import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
   SpiderChart,
   ForceDirectedGraph,
@@ -81,6 +81,18 @@ export function JourneyDashboard({
 }: JourneyDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>("evolution");
   const visibleCategories = useStore(visibleCategoriesStore);
+  const searchQuery = useStore(skillSearchQueryStore);
+
+  // Derive highlight IDs for the network graph from the search query
+  const networkHighlightIds = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return null;
+    return new Set(
+      networkData.nodes
+        .filter((n) => n.name.toLowerCase().includes(q))
+        .map((n) => n.id),
+    );
+  }, [searchQuery, networkData.nodes]);
 
   // Filter stream graph data by visible categories (matches old StreamGraph behaviour)
   const filteredStreamData = useMemo(() => {
@@ -224,6 +236,7 @@ export function JourneyDashboard({
                 hideHeader
                 showPhysicsControls
                 height={560}
+                highlightIds={networkHighlightIds}
               />
             )}
 

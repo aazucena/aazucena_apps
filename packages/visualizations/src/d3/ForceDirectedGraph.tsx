@@ -55,9 +55,11 @@ export interface ForceDirectedGraphProps extends React.HTMLAttributes<HTMLDivEle
   chargeStrength?: number;
   linkDistance?: number;
   collisionRadius?: number;
+  /** When set, dims nodes whose id is NOT in this Set */
+  highlightIds?: Set<string> | null;
 }
 
-const DEFAULTS = { chargeStrength: -150, linkDistance: 80, collisionRadius: 20 };
+const DEFAULTS = { chargeStrength: -400, linkDistance: 120, collisionRadius: 12 };
 
 export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphProps>(
   (
@@ -75,6 +77,7 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
       chargeStrength: chargeStrengthProp,
       linkDistance: linkDistanceProp,
       collisionRadius: collisionRadiusProp,
+      highlightIds,
       className,
       ...props
     },
@@ -114,7 +117,40 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
       chargeStrength,
       linkDistance,
       collisionRadius,
+      highlightIds,
     });
+
+    // Derive category legend from unique groupKey values
+    const legendEntries = React.useMemo(() => {
+      const seen = new Set<string>();
+      const entries: { label: string; color: string }[] = [];
+      const defaultColors = (label: string) => {
+        // Deterministic color from schemeTableau10
+        const palette = [
+          '#4e79a7',
+          '#f28e2b',
+          '#e15759',
+          '#76b7b2',
+          '#59a14f',
+          '#edc948',
+          '#b07aa1',
+          '#ff9da7',
+          '#9c755f',
+          '#bab0ac',
+        ];
+        const all = data.nodes.map((n) => String(n[groupKey as keyof BaseNode] || ''));
+        const unique = [...new Set(all)];
+        const idx = unique.indexOf(label);
+        return palette[idx % palette.length] ?? '#94a3b8';
+      };
+      for (const node of data.nodes) {
+        const group = String(node[groupKey as keyof BaseNode] || '');
+        if (!group || seen.has(group)) continue;
+        seen.add(group);
+        entries.push({ label: group, color: colorMap[group] || defaultColors(group) });
+      }
+      return entries;
+    }, [data.nodes, groupKey, colorMap]);
 
     const header = !hideHeader && (
       <ChartHeader>
@@ -146,7 +182,23 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
                   title="Physics controls"
                   className="absolute top-3 left-3 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 text-base shadow-md transition hover:bg-white dark:bg-gray-900/90 dark:hover:bg-gray-900"
                 >
-                  ⚙️
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={
+                      showControls ? 'rotate-90 transition-transform' : 'transition-transform'
+                    }
+                  >
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
                 </button>
 
                 {showControls && (
@@ -194,6 +246,23 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
               </>
             )}
           </ChartContent>
+
+          {/* Category legend */}
+          {legendEntries.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 px-4 pt-3 pb-1">
+              {legendEntries.map(({ label, color }) => (
+                <div key={label} className="flex items-center gap-1.5">
+                  <div
+                    className="h-2.5 w-2.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: color }}
+                  />
+                  <span className="text-[11px] font-medium text-gray-600 dark:text-gray-400">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </ChartContainer>
     );
