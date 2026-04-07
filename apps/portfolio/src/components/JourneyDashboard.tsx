@@ -6,7 +6,7 @@
  * Phase 3 Task #5: DetailsModal lazy-loaded for bundle optimization
  */
 
-import { lazy, Suspense, useState, useMemo } from "react";
+import { lazy, Suspense, useState, useMemo, useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
@@ -82,6 +82,13 @@ export function JourneyDashboard({
   const [activeTab, setActiveTab] = useState<TabType>("evolution");
   const visibleCategories = useStore(visibleCategoriesStore);
   const searchQuery = useStore(skillSearchQueryStore);
+
+  // Signal BrandIconLoader to hide once this component mounts.
+  // All data is already available (server-fetched props), so the charts
+  // are ready to render. Dispatching brand-loader-complete releases the overlay.
+  useEffect(() => {
+    document.dispatchEvent(new CustomEvent("brand-loader-complete"));
+  }, []);
 
   // Derive highlight IDs for the network graph from the search query
   const networkHighlightIds = useMemo(() => {
