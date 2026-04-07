@@ -57,15 +57,6 @@ export function Toolbar({ categories }: ToolbarProps) {
             <line x1="11" y1="18" x2="13" y2="18" />
           </svg>
           <span className="text-gray-700 dark:text-gray-300">Filters</span>
-          <span
-            className={`rounded-md px-1.5 py-0.5 text-[10px] font-black tabular-nums ${
-              allSelected
-                ? "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-                : "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
-            }`}
-          >
-            {activeCount}/{totalCount}
-          </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="12"
@@ -129,25 +120,6 @@ export function Toolbar({ categories }: ToolbarProps) {
             </svg>
           </div>
         </div>
-
-        {/* Desktop-only: Select All / Clear actions inline with search */}
-        <div className="hidden shrink-0 items-center gap-3 lg:flex">
-          <span className="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
-            {activeCount}/{totalCount}
-          </span>
-          <button
-            onClick={() => resetCategories(categories)}
-            className="text-[11px] font-bold text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400"
-          >
-            All
-          </button>
-          <button
-            onClick={() => visibleCategoriesStore.set(new Set())}
-            className="text-[11px] font-bold text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500"
-          >
-            None
-          </button>
-        </div>
       </div>
 
       {/* ── Filter pills ─────────────────────────────────────────────────── */}
@@ -159,11 +131,22 @@ export function Toolbar({ categories }: ToolbarProps) {
         className={`border-t border-gray-100 lg:block dark:border-gray-800 ${filtersOpen ? "block" : "hidden"}`}
       >
         <div className="p-4 pt-3">
-          {/* Mobile: Select All / Clear inside the panel */}
-          <div className="mb-3 flex items-center justify-between lg:hidden">
-            <span className="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
-              Domain Filter
-            </span>
+          {/* Filter header — always visible inside the pills panel */}
+          <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
+                Domain Filter
+              </span>
+              <span
+                className={`rounded-md px-1.5 py-0.5 text-[10px] font-black tabular-nums ${
+                  allSelected
+                    ? "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                    : "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
+                }`}
+              >
+                {activeCount}/{totalCount}
+              </span>
+            </div>
             <div className="flex gap-4">
               <button
                 onClick={() => resetCategories(categories)}
