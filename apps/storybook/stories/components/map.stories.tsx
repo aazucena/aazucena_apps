@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Map, Marker, Popup } from '@aazucena/ui';
-import { defaultMarkerIcon } from '@aazucena/ui/components/ui/map.impl';
+import { DefaultMarkerIcon as defaultMarkerIcon } from '@aazucena/ui/components/ui/map.impl';
 import { Button } from '@aazucena/ui';
 import { MapPin, Target } from '@aazucena/icons'; // Assuming these icons are available
 
