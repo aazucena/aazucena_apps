@@ -202,4 +202,5 @@ export interface PreloaderPropsWithTheme extends PreloaderProps {
   theme?: PreloaderTheme;
   customTheme?: Partial<SystemThemeConfig>;
   currentPath?: string;
+  mode?: 'light' | 'dark';
 }

@@ -67,6 +67,7 @@ export default function InteractivePreloader({
   // Theme
   theme = 'default',
   customTheme,
+  mode = 'dark',
   currentPath = '/',
 }: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
@@ -137,7 +138,7 @@ export default function InteractivePreloader({
     onContinue: handleContinue,
   });
 
-  const themeStyles = usePreloaderTheme({ theme, customTheme });
+  const themeStyles = usePreloaderTheme({ theme, customTheme, mode });
 
   // ============================================================================
   // EFFECTS (after all hooks)

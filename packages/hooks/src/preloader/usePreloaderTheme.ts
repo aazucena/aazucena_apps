@@ -5,6 +5,7 @@ import { mergeTheme, getThemeConfig } from '@aazucena/design-system';
 export interface UseThemeOptions {
   theme?: PreloaderTheme;
   customTheme?: Partial<SystemThemeConfig>;
+  mode?: 'light' | 'dark';
 }
 
 export interface ThemeStyles {
@@ -32,10 +33,11 @@ export interface ThemeStyles {
 export function usePreloaderTheme({
   theme = 'default',
   customTheme,
+  mode = 'dark',
 }: UseThemeOptions = {}): ThemeStyles {
   const config = useMemo(
-    () => mergeTheme(getThemeConfig(theme, 'dark'), customTheme),
-    [theme, customTheme],
+    () => mergeTheme(getThemeConfig(theme, mode), customTheme),
+    [theme, customTheme, mode],
   );
 
   const styles = useMemo(() => {

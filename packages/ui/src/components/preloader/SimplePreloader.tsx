@@ -63,6 +63,7 @@ export default function SimplePreloader({
   // Theme
   theme = 'default',
   customTheme,
+  mode = 'dark',
   currentPath: _unusedCurrentPath = '/', // Accepted for prop consistency but not used in simple variant
 }: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
@@ -102,7 +103,7 @@ export default function SimplePreloader({
     onContinue: handleContinue,
   });
 
-  const themeStyles = usePreloaderTheme({ theme, customTheme });
+  const themeStyles = usePreloaderTheme({ theme, customTheme, mode });
 
   // Emit 'preloader-mounted' event when component mounts.
   // rAF ensures the Preloader is composited before BrandIconLoader starts fading.
