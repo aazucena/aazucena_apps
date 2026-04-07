@@ -101,9 +101,9 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
     }, []);
 
     const svgHeight = hideHeader ? height : height - 80;
-    // Extra room for the year controls row so it isn't clipped by overflow-hidden
+    // Extra room for the year controls section so it isn't clipped by ChartContainer overflow-hidden
     const controlsVisible = showYearControls && allYears.length > 1;
-    const containerHeight = height + (controlsVisible ? 56 : 0);
+    const containerHeight = height + (controlsVisible ? 100 : 0);
 
     useSpiderChart(svgRef, displayData, {
       width,
@@ -143,35 +143,109 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
           </ChartContent>
 
           {showYearControls && allYears.length > 1 && (
-            <div className="flex flex-wrap items-center gap-3 px-4 pb-4 pt-2">
-              <button
-                onClick={animateYears}
-                className="rounded-lg bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 transition hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50"
+            <div className="my-4 flex flex-col items-center gap-4 px-4 pb-2 sm:flex-row">
+              {/* Action buttons */}
+              <div className="flex gap-2">
+                <button
+                  onClick={animateYears}
+                  disabled={isAnimating && false /* toggle allowed */}
+                  className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-all ${
+                    isAnimating
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'bg-blue-600 text-white shadow-md hover:bg-blue-700 hover:shadow-lg active:scale-95'
+                  }`}
+                >
+                  {isAnimating ? (
+                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                  )}
+                  {isAnimating ? 'Playing…' : 'Animate'}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setShowComparison((v) => !v);
+                    setIsAnimating(false);
+                  }}
+                  disabled={isAnimating}
+                  className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all ${
+                    showComparison
+                      ? 'border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                      : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                    <line x1="3" y1="9" x2="21" y2="9" />
+                    <line x1="9" y1="21" x2="9" y2="9" />
+                  </svg>
+                  {showComparison ? 'Individual' : 'Compare'}
+                </button>
+              </div>
+
+              {/* Slider row — fades when compare is active */}
+              <div
+                className={`flex w-full flex-1 items-center gap-3 transition-opacity duration-300 sm:w-auto ${
+                  showComparison ? 'pointer-events-none opacity-30' : 'opacity-100'
+                }`}
               >
-                {isAnimating ? 'Stop' : 'Animate'}
-              </button>
-              <button
-                onClick={() => {
-                  setShowComparison((v) => !v);
-                  setIsAnimating(false);
-                }}
-                className="rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-600 transition hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-              >
-                {showComparison ? 'Individual' : 'Compare All'}
-              </button>
-              <input
-                type="range"
-                min={allYears[0]}
-                max={allYears.at(-1)}
-                step={1}
-                value={currentYear}
-                disabled={isAnimating || showComparison}
-                onChange={(e) => setCurrentYear(Number(e.target.value))}
-                className="flex-1 accent-blue-600 disabled:opacity-40"
-              />
-              <span className="rounded-md bg-blue-50 px-3 py-1 text-sm font-bold text-blue-600 dark:bg-blue-900/30 dark:text-blue-300">
-                {currentYear}
-              </span>
+                <span className="w-10 text-right text-[10px] font-bold text-gray-400">
+                  {allYears[0]}
+                </span>
+                <input
+                  type="range"
+                  min={allYears[0]}
+                  max={allYears.at(-1)}
+                  step={1}
+                  value={currentYear}
+                  disabled={isAnimating || showComparison}
+                  onChange={(e) => setCurrentYear(Number(e.target.value))}
+                  className="h-1.5 flex-1 cursor-pointer appearance-none rounded-lg bg-gray-200 accent-blue-600 dark:bg-gray-700"
+                />
+                <span className="w-10 text-[10px] font-bold text-gray-400">{allYears.at(-1)}</span>
+              </div>
+
+              {/* Current year badge — hidden in compare mode */}
+              {!showComparison && (
+                <div className="rounded-md border border-blue-100 bg-blue-50 px-3 py-1 dark:border-blue-800 dark:bg-blue-900/30">
+                  <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                    {currentYear}
+                  </span>
+                </div>
+              )}
             </div>
           )}
         </div>
