@@ -1,6 +1,7 @@
 import { createNextConfig } from '@aazucena/config/eslint/nextjs.js';
 
 export default [
+  { ignores: ['eslint.config.mjs', 'postcss.config.mjs', 'scripts/**'] },
   ...createNextConfig(),
   {
     rules: {
