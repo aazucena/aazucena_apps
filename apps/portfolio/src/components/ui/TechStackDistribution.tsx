@@ -52,15 +52,6 @@ const CATEGORY_COLORS: Record<string, string> = {
   Other: "from-indigo-400 to-violet-500",
 };
 
-// Helper to determine skill "weight" (Core, Tool, Occasional)
-// In a real app, this could come from Strapi "proficiency" or "usage" field
-// Here we infer it or randomize slightly for visual variety if not provided
-const getSkillWeight = (category: string, index: number) => {
-  if (["Frontend", "Backend"].includes(category) && index < 3) return "core";
-  if (["Tools", "DevOps"].includes(category)) return "tool";
-  return "occasional";
-};
-
 export function TechStackDistribution({
   skills,
 }: TechStackDistributionProps): JSX.Element {
@@ -150,26 +141,14 @@ export function TechStackDistribution({
                 {category}
               </div>
               <div className="flex flex-wrap gap-2">
-                {items.map((skill, idx) => {
-                  const weight = getSkillWeight(category, idx);
-
-                  // Visual styles based on weight
-                  const baseStyles =
-                    "inline-flex items-center rounded-md border transition-colors cursor-default";
-                  const weightStyles =
-                    weight === "tool"
-                      ? "px-2.5 py-1 text-xs font-medium bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700"
-                      : "px-2 py-0.5 text-[10px] text-gray-500 dark:text-gray-500 border-transparent bg-gray-50 dark:bg-gray-800/50"; // Occasional
-
-                  return (
-                    <span
-                      key={skill}
-                      className={`${baseStyles} ${weightStyles}`}
-                    >
-                      {skill}
-                    </span>
-                  );
-                })}
+                {items.map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex cursor-default items-center rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 transition-colors dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
             </div>
           ))}
