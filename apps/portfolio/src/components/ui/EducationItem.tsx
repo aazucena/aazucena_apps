@@ -59,14 +59,14 @@ export function EducationItem({ edu }: EducationItemProps) {
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <div className="flex items-center gap-1.5 rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-[10px] font-black tracking-widest text-gray-500 uppercase dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
+              <div className="flex items-center gap-1.5 rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-[10px] font-black tracking-widest text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
                 <Calendar size={12} />
                 {formatEduDate(edu.startDate)} —{" "}
                 {edu.graduationDate
                   ? formatEduDate(edu.graduationDate)
                   : "Present"}
               </div>
-              <div className="flex items-center gap-1.5 rounded-full border border-blue-100/50 bg-blue-50/50 px-3 py-1 text-[10px] font-black tracking-widest text-blue-600 uppercase dark:border-blue-800/50 dark:bg-blue-900/20 dark:text-blue-400">
+              <div className="flex items-center gap-1.5 rounded-full border border-blue-100/50 bg-blue-50/50 px-3 py-1 text-[10px] font-black tracking-widest text-blue-600 dark:border-blue-800/50 dark:bg-blue-900/20 dark:text-blue-400">
                 <Clock size={12} />
                 {duration}
               </div>
