@@ -6,7 +6,9 @@
  * Phase 3 Task #5: DetailsModal lazy-loaded for bundle optimization
  */
 
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useState, useMemo } from "react";
+import { useStore } from "@nanostores/react";
+import { visibleCategoriesStore } from "~/store/journey";
 import {
   SpiderChart,
   ForceDirectedGraph,
@@ -78,6 +80,20 @@ export function JourneyDashboard({
   hideMetrics = false,
 }: JourneyDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>("evolution");
+  const visibleCategories = useStore(visibleCategoriesStore);
+
+  // Filter stream graph data by visible categories (matches old StreamGraph behaviour)
+  const filteredStreamData = useMemo(() => {
+    if (!visibleCategories || !streamGraphData.length) return streamGraphData;
+    return streamGraphData.map((step) => ({
+      ...step,
+      values: Object.fromEntries(
+        Object.entries(step.values).filter(([key]) =>
+          visibleCategories.has(key),
+        ),
+      ),
+    }));
+  }, [streamGraphData, visibleCategories]);
 
   // Modal state for network graph
   const [selectedSkill, setSelectedSkill] = useState<SkillNode | null>(null);
@@ -216,7 +232,7 @@ export function JourneyDashboard({
             )}
 
             {activeTab === "momentum" && (
-              <StreamGraph data={streamGraphData} hideHeader height={560} />
+              <StreamGraph data={filteredStreamData} hideHeader height={560} />
             )}
 
             {activeTab === "intensity" && (
