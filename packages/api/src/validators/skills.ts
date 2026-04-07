@@ -12,7 +12,7 @@ import type { StrapiSkill } from '@aazucena/types';
  * Zod validation schema for Strapi Skill content type
  * Uses explicit type annotation to handle recursion via z.lazy()
  */
-export const StrapiSkillSchema: z.ZodType<StrapiSkill> = z.object({
+export const StrapiSkillSchema: z.ZodTypeAny = z.object({
   id: z.number().nullable().optional(),
   documentId: z.string().nullable().optional(),
   name: z.string().max(100),

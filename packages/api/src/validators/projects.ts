@@ -15,7 +15,7 @@ import type { StrapiProject } from '@aazucena/types';
 /**
  * Zod validation schema for Strapi Project content type
  */
-export const StrapiProjectSchema: z.ZodType<StrapiProject> = z.object({
+export const StrapiProjectSchema: z.ZodTypeAny = z.object({
   id: z.number(),
   documentId: z.string().optional(),
   title: z.string().max(200),

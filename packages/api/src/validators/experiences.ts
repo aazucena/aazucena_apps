@@ -5,7 +5,7 @@ import { StrapiSkillSchema } from './skills';
 import { StrapiProjectSchema } from './projects';
 import type { StrapiExperience } from '@aazucena/types';
 
-export const StrapiExperienceSchema: z.ZodType<StrapiExperience> = z.object({
+export const StrapiExperienceSchema: z.ZodTypeAny = z.object({
   id: z.number(),
   documentId: z.string().optional(),
   slug: z

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { fetchStrapi } from '../services/strapi';
 import { StrapiEducationResponseSchema } from '../validators/education';
 import { transformEducation, transformEducationList } from '../transformers/education';
-import type { Education } from '@aazucena/types';
+import type { Education, StrapiEducation } from '@aazucena/types';
 
 /**
  * Fetch all education entries
@@ -24,7 +24,7 @@ export async function fetchEducation(): Promise<Education[]> {
     });
 
     const validated = StrapiEducationResponseSchema.parse(response);
-    return transformEducationList(validated.data);
+    return transformEducationList(validated.data as StrapiEducation[]);
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.error('[Education API] Invalid CMS data:', error.issues);
@@ -54,7 +54,7 @@ export async function getEducationBySlug(slug: string): Promise<Education | null
     });
 
     const validated = StrapiEducationResponseSchema.parse(response);
-    const entry = validated.data[0];
+    const entry = validated.data[0] as StrapiEducation | undefined;
     if (!entry) return null;
     return transformEducation(entry);
   } catch (error) {

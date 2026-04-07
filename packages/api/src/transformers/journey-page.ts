@@ -1,6 +1,6 @@
 import type { StrapiJourney } from '../validators/journey';
 import { transformPageHeader, transformCtaButton } from '@aazucena/utils';
-import type { JourneyPageConfig } from '@aazucena/types';
+import type { JourneyPageConfig, PhaseItem } from '@aazucena/types';
 
 export const DEFAULT_JOURNEY: JourneyPageConfig = {
   phases: [],
@@ -11,7 +11,7 @@ export function transformJourney(data: StrapiJourney): JourneyPageConfig {
 
   return {
     header: transformPageHeader(data.header),
-    phases: (data.phases || []).filter((p) => !!p.enabled),
+    phases: (data.phases || []).filter((p) => !!p.enabled) as PhaseItem[],
     callToAction: data.callToAction
       ? {
           title: data.callToAction.title,

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { NavigationItem } from '@aazucena/types';
 
 // Navigation item schema (matches Strapi navigation plugin TREE format)
-export const NavigationItemSchema: z.ZodType<NavigationItem> = z.object({
+export const NavigationItemSchema: z.ZodTypeAny = z.object({
   id: z.number().optional(), // May not be present in tree format
   title: z.string(),
   type: z.enum(['INTERNAL', 'EXTERNAL', 'WRAPPER']),

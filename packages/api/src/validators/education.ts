@@ -15,7 +15,7 @@ export type Education = StrapiEducation;
 /**
  * Single education entry schema
  */
-export const StrapiEducationSchema: z.ZodType<StrapiEducation> = z.object({
+export const StrapiEducationSchema = z.object({
   id: z.number(),
   documentId: z.string().optional(),
   type: EducationTypeEnum,
