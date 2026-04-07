@@ -16,7 +16,7 @@ import { neuralSteps, neuralStepsFailed } from './_mock-data';
 const meta = {
   title: 'Charts & Graphs/Intelligence',
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
     docs: {
       description: {
         component:
@@ -28,7 +28,7 @@ const meta = {
   decorators: [
     (Story) => (
       <TelemetryProvider config={{ baseUrl: '' }}>
-        <div className="w-full max-w-3xl">
+        <div className="w-full">
           <Story />
         </div>
       </TelemetryProvider>

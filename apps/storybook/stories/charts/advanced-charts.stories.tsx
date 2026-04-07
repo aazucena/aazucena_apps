@@ -27,7 +27,7 @@ import {
 const meta = {
   title: 'Charts & Graphs/Advanced',
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
     docs: {
       description: {
         component:
@@ -38,7 +38,7 @@ const meta = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div className="w-full max-w-3xl">
+      <div className="w-full">
         <Story />
       </div>
     ),
