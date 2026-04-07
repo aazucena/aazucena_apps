@@ -111,8 +111,11 @@ export function PortfolioProvider({
       } else if (newProgress <= SCROLL_PROGRESS_MIN && isScrollingUp && canScrollUp) {
         // Scrolling up - move to previous section
         isScrollingRef.current = true;
-        setCurrentSection(currentSection - 1);
-        setScrollProgress(SCROLL_PROGRESS_RETURN); // Start at high progress when going back
+        const prevSection = currentSection - 1;
+        setCurrentSection(prevSection);
+        // Section 0 has no prior section to scroll into, so snap to 0 to avoid
+        // getting stuck at SCROLL_PROGRESS_RETURN with no way to reduce it further.
+        setScrollProgress(prevSection === 0 ? 0 : SCROLL_PROGRESS_RETURN);
         if (scrollTimeoutRef.current) {
           clearTimeout(scrollTimeoutRef.current);
         }
