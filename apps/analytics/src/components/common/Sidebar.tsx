@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, toggleSidebar, setNavMode } from '@/store';
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import {
   Grid,
   Music,
@@ -49,7 +49,11 @@ export function Sidebar() {
   const isCollapsed = useSelector((state: RootState) => state.dashboard.ui.isSidebarCollapsed);
   const reduxNavMode = useSelector((state: RootState) => state.dashboard.ui.navMode);
 
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   // Sync with localStorage store using useSyncExternalStore
   const clientNavMode = useSyncExternalStore(
@@ -58,10 +62,8 @@ export function Sidebar() {
     navModeStore.getServerSnapshot,
   );
 
-  // Handle client-side mount and initial sync
+  // Keep Redux in sync with localStorage on mount
   useEffect(() => {
-    setIsMounted(true);
-    // Keep Redux in sync with localStorage on mount
     if (clientNavMode !== reduxNavMode) {
       dispatch(setNavMode(clientNavMode));
     }

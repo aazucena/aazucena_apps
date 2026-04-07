@@ -12,9 +12,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
     });
-    s.on('connect', () => console.log('[Socket] Connected to Live Terminal'));
+    s.on('connect', () => {
+      console.log('[Socket] Connected to Live Terminal');
+      setSocket(s);
+    });
     s.on('connect_error', (err) => console.warn('[Socket] Connection failed:', err.message));
-    setSocket(s);
     return () => {
       s.disconnect();
     };

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useSyncExternalStore, useState } from 'react';
 import {
   Timeline,
   TimelineContent,
@@ -49,12 +49,12 @@ const EVENT_CONFIG: Record<
 
 export function TelemetryFeed({ logs, filter = '', scrollable = true }: TelemetryFeedProps) {
   const [showAll, setShowAll] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const [selectedLog, setSelectedLog] = useState<LogEntry | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const filteredLogs = logs.filter(
     (log) =>

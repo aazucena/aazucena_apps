@@ -1,28 +1,23 @@
 'use client';
-import { useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { makeStore, AppStore } from '@/store';
 import { CHAT_STORAGE_KEY, hydrateFromStorage } from '@aazucena/stores';
 
 export default function ReduxStoreProvider({ children }: { children: React.ReactNode }) {
-  const storeRef = useRef<AppStore>(undefined);
-
-  if (!storeRef.current) {
-    // Create the store instance the first time this renders
-    storeRef.current = makeStore();
-  }
+  const [store] = useState<AppStore>(() => makeStore());
 
   useEffect(() => {
     // Hydrate chat state from localStorage after mount — runs client-only, after hydration
     const saved = localStorage.getItem(CHAT_STORAGE_KEY);
-    if (saved && storeRef.current) {
+    if (saved) {
       try {
-        storeRef.current.dispatch(hydrateFromStorage(JSON.parse(saved)));
+        store.dispatch(hydrateFromStorage(JSON.parse(saved)));
       } catch {
         // Ignore corrupted storage
       }
     }
-  }, []);
+  }, [store]);
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return <Provider store={store}>{children}</Provider>;
 }
