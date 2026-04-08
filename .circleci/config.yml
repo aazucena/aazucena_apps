@@ -159,7 +159,7 @@ jobs:
       - attach_project
       - run:
           name: Building Storybook
-          command: pnpm turbo build --filter="@aazucena/storybook"
+          command: pnpm turbo build:storybook --filter="@aazucena/storybook"
       - persist_to_workspace:
           root: .
           paths:
