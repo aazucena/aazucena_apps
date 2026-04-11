@@ -7,6 +7,53 @@ A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The prim
 **Package Manager:** pnpm v10.33.0 (required)
 **Node Version:** >=18
 
+---
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+- **Node.js >=18** — [nodejs.org/en/download](https://nodejs.org/en/download) (verify: `node --version`)
+- **pnpm 10.33.0** — install via npm:
+
+```bash
+npm install -g pnpm@10.33.0
+```
+
+> **Why pnpm?** This monorepo uses pnpm workspaces. The `package.json` pins the exact version (`10.33.0`) via the `packageManager` field — using a different version may cause a silent install failure. Always install the pinned version.
+
+### Install & Run
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/aazucena/aazucena_apps.git
+cd aazucena_apps
+
+# 2. Install all workspace dependencies
+pnpm install
+
+# 3. Copy the environment file for the portfolio
+cp apps/portfolio/.env.example apps/portfolio/.env
+
+# 4. Start the portfolio
+pnpm web:dev
+```
+
+The portfolio will be available at `http://localhost:4321`.
+
+> **No CMS required to run locally.** Every API call falls back to built-in default content if the CMS is unreachable, so the portfolio renders fully — animations, components, and layout — without needing a running Strapi instance. Your own project data (posts, skills, etc.) won't appear until the CMS is connected, but the full frontend experience is visible.
+
+| App                 | Requires         | Command              | URL                   |
+| ------------------- | ---------------- | -------------------- | --------------------- |
+| Portfolio (Astro)   | `.env` copy only | `pnpm web:dev`       | http://localhost:4321 |
+| Storybook           | Nothing          | `pnpm storybook:dev` | http://localhost:6006 |
+| Analytics (Next.js) | ClickHouse + DB  | `pnpm analytics:dev` | http://localhost:3000 |
+| CMS (Strapi)        | PostgreSQL       | `pnpm cms:dev`       | http://localhost:1337 |
+
+> **Note:** Running all apps simultaneously (`pnpm dev`) requires significant RAM (~8GB free). Start with `pnpm web:dev` for the portfolio or `pnpm storybook:dev` for the component library.
+
+---
+
 ## 🎯 Quick Links
 
 - **[Full ROADMAP](./ROADMAP.md)** - Complete development roadmap with phases and features
