@@ -54,13 +54,6 @@ export default defineConfig({
       // (Astro/Vite equivalent of Next.js transpilePackages)
       noExternal: [/@aazucena\//],
     },
-    build: {
-      // Force Rollup's commonjs plugin to transform these CJS/UMD packages in production builds.
-      // optimizeDeps.include only applies in dev mode; this covers the production Rollup pass.
-      commonjsOptions: {
-        include: [/react-countup/, /countup\.js/, /leaflet/],
-      },
-    },
     plugins: [
       // Restore Vite 7's @vite/env resolution lost in Astro's config merge
       {
