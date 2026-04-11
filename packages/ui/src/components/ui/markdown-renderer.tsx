@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { marked, type Tokens } from 'marked';
 import { cn, getHighlighter } from '@aazucena/utils';
-import type { Highlighter } from 'shiki/bundle/web';
+import type { Highlighter } from 'shiki';
 
 export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   content: string;
