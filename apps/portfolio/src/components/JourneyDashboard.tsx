@@ -11,7 +11,7 @@
  * function body causes esbuild parse error "Expected ':' but found ')'".
  */
 
-import { lazy, Suspense, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
@@ -21,23 +21,17 @@ import {
   HeatmapInfoPanel,
 } from "~/components/ui/journey";
 
-// Wrapper files re-export each component as default — avoids reserved-word issue
-const SpiderChart = lazy(
-  () => import("~/components/ui/journey/lazy/SpiderChart"),
-);
-const ForceDirectedGraph = lazy(
-  () => import("~/components/ui/journey/lazy/ForceDirectedGraph"),
-);
-const StreamGraph = lazy(
-  () => import("~/components/ui/journey/lazy/StreamGraph"),
-);
-const Heatmap = lazy(() => import("~/components/ui/journey/lazy/Heatmap"));
-const SankeyWithSemantics = lazy(
-  () => import("~/components/ui/journey/lazy/SankeyWithSemantics"),
-);
-const DetailsModal = lazy(
-  () => import("~/components/ui/journey/lazy/DetailsModal"),
-);
+// Static imports — component is already deferred by client:only="react" in the
+// Astro page; dynamic import() inside a client island adds no extra deferral
+// and triggers an esbuild parse error in the generated Rollup chunk.
+import {
+  SpiderChart,
+  ForceDirectedGraph,
+  StreamGraph,
+  Heatmap,
+} from "@aazucena/visualizations";
+import { SankeyWithSemantics } from "~/components/ui/journey/SankeyWithSemantics";
+import { DetailsModal } from "~/components/ui/journey/DetailsModal";
 
 import { getSkillDetails } from "~/lib/transformers";
 import type {
@@ -239,89 +233,57 @@ export function JourneyDashboard({
 
           <div className="flex-1">
             {activeTab === "evolution" && (
-              <Suspense
-                fallback={
-                  <div className="mx-auto h-[480px] max-w-4xl animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
-                }
-              >
-                <div className="mx-auto max-w-4xl">
-                  <SpiderChart
-                    data={evolutionData}
-                    hideHeader
-                    showYearControls
-                    height={480}
-                  />
-                </div>
-              </Suspense>
+              <div className="mx-auto max-w-4xl">
+                <SpiderChart
+                  data={evolutionData}
+                  hideHeader
+                  showYearControls
+                  height={480}
+                />
+              </div>
             )}
 
             {activeTab === "network" && (
-              <Suspense
-                fallback={
-                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
-                }
-              >
-                <ForceDirectedGraph
-                  data={networkData}
-                  onNodeClick={handleNodeClick}
-                  groupKey="category"
-                  hideHeader
-                  showPhysicsControls
-                  height={560}
-                  highlightIds={networkHighlightIds}
-                />
-              </Suspense>
+              <ForceDirectedGraph
+                data={networkData}
+                onNodeClick={handleNodeClick}
+                groupKey="category"
+                hideHeader
+                showPhysicsControls
+                height={560}
+                highlightIds={networkHighlightIds}
+              />
             )}
 
             {activeTab === "flow" && (
-              <Suspense
-                fallback={
-                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
-                }
-              >
-                <SankeyWithSemantics data={sankeyData} height={560} />
-              </Suspense>
+              <SankeyWithSemantics data={sankeyData} height={560} />
             )}
 
             {activeTab === "momentum" && (
-              <Suspense
-                fallback={
-                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
-                }
-              >
-                <StreamGraph
-                  data={filteredStreamData}
-                  hideHeader
-                  height={560}
-                />
-              </Suspense>
+              <StreamGraph
+                data={filteredStreamData}
+                hideHeader
+                height={560}
+              />
             )}
 
             {activeTab === "intensity" && (
-              <Suspense
-                fallback={
-                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
-                }
-              >
-                <Heatmap
-                  data={filteredHeatmapData}
-                  hideHeader
-                  infoPanel={(cell) => (
-                    <HeatmapInfoPanel cell={cell} years={heatmapYears} />
-                  )}
-                />
-              </Suspense>
+              <Heatmap
+                data={filteredHeatmapData}
+                hideHeader
+                infoPanel={(cell) => (
+                  <HeatmapInfoPanel cell={cell} years={heatmapYears} />
+                )}
+              />
             )}
           </div>
         </div>
 
-        <Suspense fallback={<div className="sr-only">Loading...</div>}>
-          <DetailsModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            skillDetails={skillDetails}
-          />
-        </Suspense>
+        <DetailsModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          skillDetails={skillDetails}
+        />
       </div>
     </div>
   );
