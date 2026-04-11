@@ -10,17 +10,28 @@ import { lazy, Suspense, useState, useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
-  SpiderChart,
-  ForceDirectedGraph,
-  StreamGraph,
-  Heatmap,
-} from "@aazucena/visualizations";
-import {
   CareerStats,
   Toolbar,
   GrowthMetrics,
   HeatmapInfoPanel,
 } from "~/components/ui/journey";
+
+// Lazy load all @aazucena/visualizations — bisecting bundler parse error at 11389:107
+// Isolates whether d3/luxon/framer-motion in visualizations package is the cause
+const SpiderChart = lazy(() =>
+  import("@aazucena/visualizations").then((m) => ({ default: m.SpiderChart })),
+);
+const ForceDirectedGraph = lazy(() =>
+  import("@aazucena/visualizations").then((m) => ({
+    default: m.ForceDirectedGraph,
+  })),
+);
+const StreamGraph = lazy(() =>
+  import("@aazucena/visualizations").then((m) => ({ default: m.StreamGraph })),
+);
+const Heatmap = lazy(() =>
+  import("@aazucena/visualizations").then((m) => ({ default: m.Heatmap })),
+);
 
 // Lazy load SankeyWithSemantics — removes d3-sankey (and d3-array@2/internmap)
 // from the static chunk to isolate a bundler parse error at 11389:100
@@ -246,26 +257,38 @@ export function JourneyDashboard({
 
           <div className="flex-1">
             {activeTab === "evolution" && (
-              <div className="mx-auto max-w-4xl">
-                <SpiderChart
-                  data={evolutionData}
-                  hideHeader
-                  showYearControls
-                  height={480}
-                />
-              </div>
+              <Suspense
+                fallback={
+                  <div className="mx-auto h-[480px] max-w-4xl animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
+                }
+              >
+                <div className="mx-auto max-w-4xl">
+                  <SpiderChart
+                    data={evolutionData}
+                    hideHeader
+                    showYearControls
+                    height={480}
+                  />
+                </div>
+              </Suspense>
             )}
 
             {activeTab === "network" && (
-              <ForceDirectedGraph
-                data={networkData}
-                onNodeClick={handleNodeClick}
-                groupKey="category"
-                hideHeader
-                showPhysicsControls
-                height={560}
-                highlightIds={networkHighlightIds}
-              />
+              <Suspense
+                fallback={
+                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
+                }
+              >
+                <ForceDirectedGraph
+                  data={networkData}
+                  onNodeClick={handleNodeClick}
+                  groupKey="category"
+                  hideHeader
+                  showPhysicsControls
+                  height={560}
+                  highlightIds={networkHighlightIds}
+                />
+              </Suspense>
             )}
 
             {activeTab === "flow" && (
@@ -279,17 +302,33 @@ export function JourneyDashboard({
             )}
 
             {activeTab === "momentum" && (
-              <StreamGraph data={filteredStreamData} hideHeader height={560} />
+              <Suspense
+                fallback={
+                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
+                }
+              >
+                <StreamGraph
+                  data={filteredStreamData}
+                  hideHeader
+                  height={560}
+                />
+              </Suspense>
             )}
 
             {activeTab === "intensity" && (
-              <Heatmap
-                data={filteredHeatmapData}
-                hideHeader
-                infoPanel={(cell) => (
-                  <HeatmapInfoPanel cell={cell} years={heatmapYears} />
-                )}
-              />
+              <Suspense
+                fallback={
+                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
+                }
+              >
+                <Heatmap
+                  data={filteredHeatmapData}
+                  hideHeader
+                  infoPanel={(cell) => (
+                    <HeatmapInfoPanel cell={cell} years={heatmapYears} />
+                  )}
+                />
+              </Suspense>
             )}
           </div>
         </div>
