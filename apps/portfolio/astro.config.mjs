@@ -39,6 +39,8 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
+      // Pre-bundle CJS/UMD packages to ESM so Rollup never sees raw require() in client chunks
+      include: ["d3-cloud", "leaflet"],
       exclude: [
         "astro/toolbar",
         "astro:toolbar:internal",
