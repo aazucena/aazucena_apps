@@ -7,13 +7,13 @@
  */
 
 import { lazy, Suspense, useState, useMemo } from "react";
-import { useStore } from "@nanostores/react";
-import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
+// DEBUG: comment out @nanostores/react + Toolbar to bisect esbuild error at 92:93
+// import { useStore } from "@nanostores/react";
+// import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
   CareerStats,
-  Toolbar,
+  // Toolbar,
   GrowthMetrics,
-  // DEBUG: comment out HeatmapInfoPanel to bisect esbuild error at 92:93
   // HeatmapInfoPanel,
 } from "~/components/ui/journey";
 
@@ -99,8 +99,11 @@ export function JourneyDashboard({
   hideMetrics = false,
 }: JourneyDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>("evolution");
-  const visibleCategories = useStore(visibleCategoriesStore);
-  const searchQuery = useStore(skillSearchQueryStore);
+  // DEBUG: stub out nanostores to bisect esbuild error at 92:93
+  // const visibleCategories = useStore(visibleCategoriesStore);
+  // const searchQuery = useStore(skillSearchQueryStore);
+  const visibleCategories: Set<string> | null = null;
+  const searchQuery = "";
 
   // Derive highlight IDs for the network graph from the search query
   const networkHighlightIds = useMemo(() => {
@@ -242,7 +245,7 @@ export function JourneyDashboard({
         </div>
         {/* Global Toolbar (Sticky within dashboard section) */}
         <div className="mb-2">
-          <Toolbar categories={categories} />
+          {/* DEBUG: <Toolbar categories={categories} /> */}
         </div>
 
         {/* Active Tab Content */}
