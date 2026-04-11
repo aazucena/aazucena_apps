@@ -195,7 +195,7 @@ export const Basic: Story = {
     variant: 'default',
     iconAnimation: 'rotate',
   },
-  render: (args) => <AccordionTemplate {...args} />,
+  render: (args: AccordionStoryArgs) => <AccordionTemplate {...args} />,
 };
 
 /**
@@ -205,7 +205,7 @@ export const GuidedTour: Story = {
   args: {
     ...Basic.args,
   },
-  render: (args) => <AccordionTemplate {...args} />,
+  render: (args: AccordionStoryArgs) => <AccordionTemplate {...args} />,
   play: async ({ canvasElement }: any) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByText('Is it accessible?');
@@ -229,7 +229,7 @@ export const Multiple: Story = {
     type: 'multiple',
     variant: 'default',
   },
-  render: (args) => <AccordionTemplate {...args} />,
+  render: (args: AccordionStoryArgs) => <AccordionTemplate {...args} />,
 };
 
 // --- VISUAL VARIANTS ---
@@ -243,7 +243,7 @@ export const Card: Story = {
     type: 'single',
     collapsible: true,
   },
-  render: (args) => <AccordionTemplate {...args} />,
+  render: (args: AccordionStoryArgs) => <AccordionTemplate {...args} />,
 };
 
 export const Glass: Story = {
@@ -333,7 +333,7 @@ export const Swapping: Story = {
     type: 'single',
     collapsible: true,
   },
-  render: (args) => <AccordionTemplate {...args} />,
+  render: (args: AccordionStoryArgs) => <AccordionTemplate {...args} />,
 };
 
 // --- ADVANCED ---

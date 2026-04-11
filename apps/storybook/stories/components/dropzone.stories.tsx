@@ -83,7 +83,9 @@ export const CyberTerminal: Story = {
       </div>
       <Dropzone
         {...args}
-        onFilesSelected={(files) => toast.info(`PARSING_PAYLOAD: Found ${files[0].name}`)}
+        onFilesSelected={(files) =>
+          toast.info(`PARSING_PAYLOAD: Found ${files[0]?.name ?? 'unknown'}`)
+        }
       />
       <p className="mt-6 text-center text-[9px] font-mono text-cyan-500/20 uppercase tracking-widest italic">
         Awaiting_Secure_Packet_Stream

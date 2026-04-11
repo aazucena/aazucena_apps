@@ -59,9 +59,10 @@ export const Basic: Story = {
     items: makeItems(100),
     itemHeight: 40,
     height: 300,
-    renderItem: (item: { id: number; label: string }) => (
-      <div className="flex h-full items-center border-b px-4 text-sm">{item.label}</div>
-    ),
+    renderItem: (item: unknown) => {
+      const i = item as { id: number; label: string };
+      return <div className="flex h-full items-center border-b px-4 text-sm">{i.label}</div>;
+    },
   },
 };
 
@@ -90,11 +91,14 @@ export const VariableContent: Story = {
     items: makeItems(200),
     itemHeight: 60,
     height: 400,
-    renderItem: (item: { id: number; label: string }, index: number) => (
-      <div className="flex h-full flex-col justify-center border-b px-4">
-        <span className="text-sm font-medium">{item.label}</span>
-        <span className="text-xs text-muted-foreground">Row {index + 1} of 200</span>
-      </div>
-    ),
+    renderItem: (item: unknown, index: number) => {
+      const i = item as { id: number; label: string };
+      return (
+        <div className="flex h-full flex-col justify-center border-b px-4">
+          <span className="text-sm font-medium">{i.label}</span>
+          <span className="text-xs text-muted-foreground">Row {index + 1} of 200</span>
+        </div>
+      );
+    },
   },
 };

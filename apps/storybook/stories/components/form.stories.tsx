@@ -70,7 +70,7 @@ export const Basic: Story = {
     const form = useForm({
       defaultValues: { username: '', password: '' },
       validatorAdapter: zodValidator(),
-      onSubmit: async ({ value }) => {
+      onSubmit: async ({ value }: { value: { username: string; password: string } }) => {
         toast.success(`Access Granted: ${value.username}`);
       },
     } as any);

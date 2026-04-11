@@ -102,7 +102,7 @@ export const CyberTerminal: Story = {
           </div>
           <span className="text-xl font-black text-cyan-400 leading-none">{val}%</span>
         </div>
-        <Slider {...args} onValueChange={([v]) => setVal(v)} />
+        <Slider {...args} onValueChange={([v = 0]) => setVal(v)} />
         <p className="text-[9px] font-mono text-cyan-500/20 uppercase text-center italic">
           Awaiting_Manual_Override
         </p>

@@ -204,9 +204,9 @@ export const InteractionTest: Story = {
           b.getAttribute('aria-label')?.toLowerCase().includes('decrement') ||
           b.textContent?.includes('-'),
       ) ?? buttons[0];
-    await userEvent.click(incrementBtn);
+    await userEvent.click(incrementBtn as HTMLElement);
     await expect(input).toHaveValue(6);
-    await userEvent.click(decrementBtn);
+    await userEvent.click(decrementBtn as HTMLElement);
     await expect(input).toHaveValue(5);
   },
 };

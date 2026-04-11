@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type React from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@aazucena/ui';
 import { Button } from '@aazucena/ui';
 import { ChevronDown, CogFour as Cog, InfoCircle as Info } from '@aazucena/icons';
@@ -38,7 +39,7 @@ const meta = {
       table: { category: 'State' },
     },
   },
-} satisfies Meta<typeof meta>;
+} satisfies Meta<React.ComponentPropsWithoutRef<typeof Collapsible>>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

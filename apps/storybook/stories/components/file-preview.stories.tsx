@@ -161,9 +161,9 @@ export const WithoutRemoveButton: Story = {
 export const DifferentSizes: Story = {
   render: () => (
     <div className="space-y-4 w-64">
-      <FilePreview file={sampleFiles[0]} size="sm" />
-      <FilePreview file={sampleFiles[1]} size="default" />
-      <FilePreview file={sampleFiles[2]} size="lg" />
+      <FilePreview file={sampleFiles[0]!} size="sm" />
+      <FilePreview file={sampleFiles[1]!} size="default" />
+      <FilePreview file={sampleFiles[2]!} size="lg" />
     </div>
   ),
 };
