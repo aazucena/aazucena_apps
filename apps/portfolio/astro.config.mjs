@@ -30,6 +30,10 @@ export default defineConfig({
       // generates for CJS modules. Terser's parser handles these edge cases
       // correctly and produces an equivalent minified output.
       minify: "terser",
+      // Disable modulePreload polyfill injection — the __vitePreload function
+      // contains ternary operators that @rollup/plugin-commonjs mangles into
+      // invalid JS, causing esbuild parse errors on chunks with dynamic imports.
+      modulePreload: false,
     },
     resolve: {
       alias: {
