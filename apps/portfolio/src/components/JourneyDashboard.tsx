@@ -13,7 +13,8 @@ import {
   CareerStats,
   Toolbar,
   GrowthMetrics,
-  HeatmapInfoPanel,
+  // DEBUG: comment out HeatmapInfoPanel to bisect esbuild error at 92:93
+  // HeatmapInfoPanel,
 } from "~/components/ui/journey";
 
 // Lazy load all @aazucena/visualizations — bisecting bundler parse error at 11389:107
@@ -324,9 +325,10 @@ export function JourneyDashboard({
                 <Heatmap
                   data={filteredHeatmapData}
                   hideHeader
-                  infoPanel={(cell) => (
-                    <HeatmapInfoPanel cell={cell} years={heatmapYears} />
-                  )}
+                  // DEBUG: infoPanel removed to bisect esbuild error at 92:93
+                  // infoPanel={(cell) => (
+                  //   <HeatmapInfoPanel cell={cell} years={heatmapYears} />
+                  // )}
                 />
               </Suspense>
             )}
