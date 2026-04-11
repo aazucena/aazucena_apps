@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import CountUp from "react-countup";
+import { CountUp } from "./CountUp";
 import type { CareerStat as CareerStatsType } from "@aazucena/types";
 
 interface CareerStatsProps {
