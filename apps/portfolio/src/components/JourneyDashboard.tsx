@@ -19,9 +19,16 @@ import {
   CareerStats,
   Toolbar,
   GrowthMetrics,
-  SankeyWithSemantics,
   HeatmapInfoPanel,
 } from "~/components/ui/journey";
+
+// Lazy load SankeyWithSemantics — removes d3-sankey (and d3-array@2/internmap)
+// from the static chunk to isolate a bundler parse error at 11389:100
+const SankeyWithSemantics = lazy(() =>
+  import("~/components/ui/journey/SankeyWithSemantics").then((m) => ({
+    default: m.SankeyWithSemantics,
+  })),
+);
 import { getSkillDetails } from "~/lib/transformers";
 import type {
   SpiderChartData,
@@ -32,7 +39,9 @@ import type {
   GenericTimeSeriesStep as StreamGraphStep,
   GrowthData,
   CareerStat as CareerStatsType,
-  Experience, Education, Project,
+  Experience,
+  Education,
+  Project,
 } from "@aazucena/types";
 
 // Lazy load DetailsModal - only loads when user clicks to view skill details
@@ -260,7 +269,13 @@ export function JourneyDashboard({
             )}
 
             {activeTab === "flow" && (
-              <SankeyWithSemantics data={sankeyData} height={560} />
+              <Suspense
+                fallback={
+                  <div className="h-[560px] animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
+                }
+              >
+                <SankeyWithSemantics data={sankeyData} height={560} />
+              </Suspense>
             )}
 
             {activeTab === "momentum" && (
