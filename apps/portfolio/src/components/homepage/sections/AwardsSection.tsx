@@ -12,10 +12,9 @@ import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 import type { Award } from "@aazucena/types";
 
-// Lazy load AwardModal - only loads when user clicks to view award details
-const AwardModal = lazy(() =>
-  import("~/components/ui/AwardModal").then((m) => ({ default: m.AwardModal })),
-);
+// Lazy load AwardModal — wrapper file avoids .then(({default:m.X})) reserved-word issue
+const AwardModal = lazy(() => import("~/components/ui/AwardModal.lazy"));
+
 
 export interface AwardsSectionProps extends SectionProps {}
 
