@@ -24,11 +24,12 @@ export default defineConfig({
 
   vite: {
     build: {
-      // Use esnext target so esbuild only minifies — no syntax downcompilation.
-      // Without this, esbuild tries to lower ES2021+ patterns from
-      // @rollup/plugin-commonjs wrappers to the default es2020 target,
-      // producing an invalid AST and "Expected ':' but found ')'" parse error.
-      target: "esnext",
+      // Use terser instead of esbuild for chunk minification.
+      // esbuild fails with "Expected ':' but found ')'" on the JourneyDashboard
+      // chunk — a parse error triggered by code patterns @rollup/plugin-commonjs
+      // generates for CJS modules. Terser's parser handles these edge cases
+      // correctly and produces an equivalent minified output.
+      minify: "terser",
     },
     resolve: {
       alias: {

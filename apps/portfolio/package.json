@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@aazucena/analytics": "workspace:*",
-    "@aazucena/api": "workspace:*",
     "@aazucena/animations": "workspace:*",
+    "@aazucena/api": "workspace:*",
     "@aazucena/config": "workspace:*",
     "@aazucena/constants": "workspace:*",
     "@aazucena/context": "workspace:*",
@@ -145,6 +145,7 @@
     "prettier-plugin-tailwindcss": "^0.7.2",
     "rollup-plugin-visualizer": "^7.0.1",
     "tailwindcss-animate": "^1.0.7",
+    "terser": "^5.46.1",
     "tsx": "^4.21.0",
     "vitest": "^3.2.4"
   }
