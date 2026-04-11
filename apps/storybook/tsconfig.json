@@ -14,12 +14,11 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "noImplicitAny": false
+    "verbatimModuleSyntax": true
   },
   "include": ["stories/**/*", ".storybook/**/*"],
   "exclude": ["node_modules", "storybook-static"]
