@@ -23,6 +23,13 @@ export default defineConfig({
   site: process.env.PUBLIC_SITE_URL || "https://aazucena.com",
 
   vite: {
+    build: {
+      // Use esnext target so esbuild only minifies — no syntax downcompilation.
+      // Without this, esbuild tries to lower ES2021+ patterns from
+      // @rollup/plugin-commonjs wrappers to the default es2020 target,
+      // producing an invalid AST and "Expected ':' but found ')'" parse error.
+      target: "esnext",
+    },
     resolve: {
       alias: {
         "@lib": resolve(__dirname, "src/lib"),
