@@ -32,6 +32,7 @@ import type {
   GenericTimeSeriesStep as StreamGraphStep,
   GrowthData,
   CareerStat as CareerStatsType,
+  Experience, Education, Project,
 } from "@aazucena/types";
 
 // Lazy load DetailsModal - only loads when user clicks to view skill details
@@ -40,9 +41,6 @@ const DetailsModal = lazy(() =>
     default: m.DetailsModal,
   })),
 );
-import type { Experience } from "@aazucena/types";
-import type { Education } from "@aazucena/types";
-import type { Project } from "@aazucena/types";
 
 interface JourneyDashboardProps {
   evolutionData: SpiderChartData[];
@@ -206,7 +204,10 @@ export function JourneyDashboard({
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as TabType)}
+              onClick={() => {
+                const tabId = tab.id as TabType;
+                setActiveTab(tabId);
+              }}
               className={`flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold transition-all ${
                 activeTab === tab.id
                   ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none"
@@ -238,7 +239,7 @@ export function JourneyDashboard({
             {activeTab === "evolution" && (
               <div className="mx-auto max-w-4xl">
                 <SpiderChart
-                  data={evolutionData as any}
+                  data={evolutionData}
                   hideHeader
                   showYearControls
                   height={480}
@@ -268,7 +269,7 @@ export function JourneyDashboard({
 
             {activeTab === "intensity" && (
               <Heatmap
-                data={filteredHeatmapData as any}
+                data={filteredHeatmapData}
                 hideHeader
                 infoPanel={(cell) => (
                   <HeatmapInfoPanel cell={cell} years={heatmapYears} />
