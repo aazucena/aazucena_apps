@@ -91,12 +91,25 @@ export default defineConfig({
       // render-chunk plugin can't parse. Intercept here with resolveId (runs
       // before @rollup/plugin-commonjs) and redirect to an ESM no-op shim.
       // resolve.alias is not reliable for node_modules imports in this pipeline.
+      // prop-types is pure CJS. resolveId doesn't intercept it reliably in
+      // Astro's client build pipeline. Use transform instead — it rewrites
+      // the import directly in createReactComponent.js before @rollup/plugin-commonjs
+      // ever resolves 'prop-types', so no CJS interop code is generated.
       {
         name: "prop-types-shim",
         enforce: "pre",
-        resolveId(id) {
-          if (id === "prop-types") {
-            return resolve(__dirname, "src/lib/prop-types-shim.mjs");
+        transform(code, id) {
+          if (
+            id.includes("createReactComponent") &&
+            code.includes("prop-types")
+          ) {
+            return {
+              code: code.replace(
+                /import PropTypes from ['"]prop-types['"]/,
+                `const PropTypes = { string: () => null, number: () => null, bool: () => null, func: () => null, node: () => null, element: () => null, any: () => null, oneOfType: () => () => null, arrayOf: () => null, objectOf: () => null, shape: () => null, instanceOf: () => null };`,
+              ),
+              map: null,
+            };
           }
         },
       },
