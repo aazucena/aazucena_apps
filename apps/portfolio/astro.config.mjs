@@ -37,6 +37,11 @@ export default defineConfig({
     },
     resolve: {
       alias: {
+        // prop-types is pure CJS (no ESM build). @rollup/plugin-commonjs converts
+        // it and generates default-export interop patterns that esbuild's
+        // render-chunk plugin can't parse. Replace with a no-op ESM shim —
+        // React ignores component.propTypes in production builds entirely.
+        "prop-types": resolve(__dirname, "src/lib/prop-types-shim.mjs"),
         "@lib": resolve(__dirname, "src/lib"),
         "@config": resolve(__dirname, "src/config"),
         "@data": resolve(__dirname, "src/data"),
