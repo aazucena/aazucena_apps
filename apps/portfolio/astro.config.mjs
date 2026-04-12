@@ -24,12 +24,11 @@ export default defineConfig({
 
   vite: {
     build: {
-      // Use terser instead of esbuild for chunk minification.
-      // esbuild fails with "Expected ':' but found ')'" on the JourneyDashboard
-      // chunk — a parse error triggered by code patterns @rollup/plugin-commonjs
-      // generates for CJS modules. Terser's parser handles these edge cases
-      // correctly and produces an equivalent minified output.
-      minify: "terser",
+      // [DISABLED] Terser was added to work around esbuild parse errors from
+      // @rollup/plugin-commonjs CJS interop patterns. The root cause (prop-types
+      // being pulled into client chunks via IconRenderer) is now fixed — reverting
+      // to esbuild's default for faster builds.
+      // minify: "terser",
       // Disable modulePreload polyfill injection — the __vitePreload function
       // contains ternary operators that @rollup/plugin-commonjs mangles into
       // invalid JS, causing esbuild parse errors on chunks with dynamic imports.
@@ -86,33 +85,25 @@ export default defineConfig({
           }
         },
       },
-      // prop-types is a pure CJS package (no ESM build). @rollup/plugin-commonjs
-      // converts it and generates { default: X } patterns that esbuild's
-      // render-chunk plugin can't parse. Intercept here with resolveId (runs
-      // before @rollup/plugin-commonjs) and redirect to an ESM no-op shim.
-      // resolve.alias is not reliable for node_modules imports in this pipeline.
-      // prop-types is pure CJS. resolveId doesn't intercept it reliably in
-      // Astro's client build pipeline. Use transform instead — it rewrites
-      // the import directly in createReactComponent.js before @rollup/plugin-commonjs
-      // ever resolves 'prop-types', so no CJS interop code is generated.
-      {
-        name: "prop-types-shim",
-        enforce: "pre",
-        transform(code, id) {
-          if (
-            id.includes("createReactComponent") &&
-            code.includes("prop-types")
-          ) {
-            return {
-              code: code.replace(
-                /import PropTypes from ['"]prop-types['"]/,
-                `const PropTypes = { string: () => null, number: () => null, bool: () => null, func: () => null, node: () => null, element: () => null, any: () => null, oneOfType: () => () => null, arrayOf: () => null, objectOf: () => null, shape: () => null, instanceOf: () => null };`,
-              ),
-              map: null,
-            };
-          }
-        },
-      },
+      // [DISABLED] prop-types shim — was needed when IconRenderer with client:load
+      // dragged prop-types (CJS) into client chunks, causing esbuild parse errors.
+      // Root cause fixed (removed client directives from static IconRenderer usages).
+      // Leaving commented out to restore React dev-mode prop warnings from @mynaui.
+      // {
+      //   name: "prop-types-shim",
+      //   enforce: "pre",
+      //   transform(code, id) {
+      //     if (id.includes("createReactComponent") && code.includes("prop-types")) {
+      //       return {
+      //         code: code.replace(
+      //           /import PropTypes from ['"]prop-types['"]/,
+      //           `const PropTypes = { string: () => null, ... };`,
+      //         ),
+      //         map: null,
+      //       };
+      //     }
+      //   },
+      // },
       // @ts-ignore: Astro v6 is expected to ship with a compatible version of tailwindcss/vite
       tailwindcss(),
       ,
