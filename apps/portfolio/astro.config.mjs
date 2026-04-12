@@ -113,12 +113,18 @@ export default defineConfig({
       //
       // Virtual module convention: '\0' prefix signals to other plugins (e.g. commonjs)
       // that this is a virtual module and should not be treated as a file path.
+      //
+      // Importer scoping: resolveId receives (id, importer) — we use this to scope
+      // the leaflet stub only to map.impl.tsx. @react-leaflet/core also imports
+      // from 'leaflet' and needs real named exports (DomUtil, LatLngBounds, etc).
       {
         name: "cjs-virtual-stubs",
         enforce: "pre",
-        resolveId(id) {
+        resolveId(id, importer) {
           if (id === "handlebars") return "\0handlebars-stub";
-          if (id === "leaflet") return "\0leaflet-stub";
+          // Scope leaflet stub to map.impl only — @react-leaflet/core needs real leaflet
+          if (id === "leaflet" && importer?.includes("map.impl"))
+            return "\0leaflet-stub";
           if (id === "d3-cloud") return "\0d3-cloud-stub";
         },
         load(id) {
