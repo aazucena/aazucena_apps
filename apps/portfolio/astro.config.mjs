@@ -57,10 +57,13 @@ export default defineConfig({
       // interop patterns that esbuild's render-chunk plugin can't parse).
       include: [
         "@mynaui/icons-react",
-        // handlebars is pure CJS (no type:module, no exports map). Pulled into
-        // client chunks via @aazucena/hooks barrel → useHandlebars. Pre-bundling
-        // converts it to ESM before Rollup runs, preventing the esbuild parse error.
+        // handlebars: pure CJS. Pulled via @aazucena/hooks barrel → useHandlebars.
         "handlebars",
+        // leaflet: pure CJS (no type:module, no exports map). Pulled via
+        // @aazucena/ui barrel → map.impl.tsx.
+        "leaflet",
+        // d3-cloud: pure CJS. Pulled via @aazucena/ui barrel → D3 visualizations.
+        "d3-cloud",
       ],
       exclude: [
         "astro/toolbar",
