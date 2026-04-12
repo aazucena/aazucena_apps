@@ -114,17 +114,17 @@ export default defineConfig({
       // Virtual module convention: '\0' prefix signals to other plugins (e.g. commonjs)
       // that this is a virtual module and should not be treated as a file path.
       //
-      // Importer scoping: resolveId receives (id, importer) — we use this to scope
-      // the leaflet stub only to map.impl.tsx. @react-leaflet/core also imports
-      // from 'leaflet' and needs real named exports (DomUtil, LatLngBounds, etc).
+      // Global stubs — leaflet is stubbed globally because @react-leaflet/core also
+      // imports it (it's in the shared React island bundle, not just map.impl.tsx).
+      // The stub exports the named symbols @react-leaflet/core needs at runtime:
+      // DomUtil (dom.js) and LatLngBounds (media-overlay.js). All other leaflet
+      // imports in react-leaflet are `import type` — erased at TypeScript compile.
       {
         name: "cjs-virtual-stubs",
         enforce: "pre",
-        resolveId(id, importer) {
+        resolveId(id) {
           if (id === "handlebars") return "\0handlebars-stub";
-          // Scope leaflet stub to map.impl only — @react-leaflet/core needs real leaflet
-          if (id === "leaflet" && importer?.includes("map.impl"))
-            return "\0leaflet-stub";
+          if (id === "leaflet") return "\0leaflet-stub";
           if (id === "d3-cloud") return "\0d3-cloud-stub";
         },
         load(id) {
@@ -133,7 +133,30 @@ export default defineConfig({
           }
           if (id === "\0leaflet-stub") {
             return `
+const noop = () => {};
+// Named exports used by @react-leaflet/core at runtime (all others are import type)
+export const DomUtil = {
+  addClass: noop, removeClass: noop, hasClass: () => false,
+  create: () => (typeof document !== 'undefined' ? document.createElement('div') : {}),
+  remove: noop, empty: noop, toFront: noop, toBack: noop,
+  setOpacity: noop, getStyle: () => null, testProp: () => null,
+  TRANSFORM: '', TRANSITION: '', TRANSITION_END: '',
+};
+export class LatLngBounds {
+  constructor() {}
+  isValid() { return false; }
+  getCenter() { return { lat: 0, lng: 0 }; }
+  getSouthWest() { return { lat: 0, lng: 0 }; }
+  getNorthEast() { return { lat: 0, lng: 0 }; }
+  contains() { return false; }
+  intersects() { return false; }
+  toBBoxString() { return ''; }
+  equals() { return false; }
+  extend() { return this; }
+}
 const L = {
+  DomUtil,
+  LatLngBounds,
   DivIcon: class DivIcon { constructor() {} },
   divIcon: () => ({}),
   icon: () => ({}),
