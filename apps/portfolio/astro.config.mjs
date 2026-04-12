@@ -29,11 +29,12 @@ export default defineConfig({
       // @rollup/plugin-commonjs for packages without ESM builds (handlebars,
       // leaflet, d3-cloud) pulled in via @aazucena/* barrel exports.
       minify: "terser",
-      // [DISABLED] modulePreload was turned off because __vitePreload ternary
-      // operators were mangled by @rollup/plugin-commonjs (CJS interop). Now that
-      // prop-types no longer enters client chunks, CJS interop is gone — reverting
-      // to default to restore browser parallel module prefetching.
-      // modulePreload: false,
+      // Disable modulePreload polyfill injection — Vite's __vitePreload function
+      // contains ternary operators that esbuild misparses in a post-Rollup pass
+      // when CJS interop code (handlebars, leaflet, d3-cloud) is present in the
+      // same chunk. Required alongside minify:"terser" when any CJS package is
+      // reachable from a client:only island via @aazucena/* barrel exports.
+      modulePreload: false,
     },
     resolve: {
       alias: {
