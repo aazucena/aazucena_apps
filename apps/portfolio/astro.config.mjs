@@ -51,6 +51,11 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
+      // Pre-bundle with esbuild before Rollup runs — produces clean ESM so
+      // @rollup/plugin-commonjs never processes the individual .js icon sub-files
+      // (which lack type:module and would otherwise generate invalid default-export
+      // interop patterns that esbuild's render-chunk plugin can't parse).
+      include: ["@mynaui/icons-react"],
       exclude: [
         "astro/toolbar",
         "astro:toolbar:internal",
