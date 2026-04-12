@@ -210,7 +210,7 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
           roots.map((root) => (
             <div class="space-y-4">
               <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-100 bg-gray-50 text-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-600">
-                <IconRenderer icon={root.icon} client:load />
+                {/* DEBUG: <IconRenderer icon={root.icon} client:load /> */}
               </div>
               <div>
                 <h3 class="mb-1 text-sm font-bold text-gray-900 dark:text-white">
@@ -302,7 +302,7 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
                 <div
                   class={`flex h-10 w-10 items-center justify-center rounded-xl ${interest.color}`}
                 >
-                  <IconRenderer icon={interest.icon} client:load />
+                  {/* DEBUG: <IconRenderer icon={interest.icon} client:load /> */}
                 </div>
                 <div>
                   <h3 class="mb-1 text-sm font-bold text-gray-900 dark:text-white">
