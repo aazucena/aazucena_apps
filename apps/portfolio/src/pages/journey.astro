@@ -288,12 +288,7 @@ const phases =
                         class={`flex h-14 w-14 items-center justify-center rounded-2xl text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 transition-transform duration-500 group-hover:scale-110`}
                       >
                         <IconRenderer
-                          icon={
-                            item.icon as
-                              | import("@aazucena/types").IconComponent
-                              | null
-                              | undefined
-                          }
+                          icon={item.icon as any}
                           client:only="react"
                         />
                       </div>

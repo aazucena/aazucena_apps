@@ -109,15 +109,7 @@ const filters = [
                   <div
                     class={`h-12 w-12 rounded-2xl bg-gradient-to-br ${getGradientClass(category.gradient)} flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110`}
                   >
-                    <IconRenderer
-                      icon={
-                        category.icon as
-                          | import("@aazucena/types").IconComponent
-                          | null
-                          | undefined
-                      }
-                      client:load
-                    />
+                    <IconRenderer icon={category.icon as any} client:load />
                   </div>
                   <div class="flex-1">
                     <h2 class="text-xl font-black tracking-tight text-gray-900 dark:text-white">
