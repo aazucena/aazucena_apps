@@ -18,7 +18,7 @@ import {
   transformToTimelineData,
   type SkillNode,
 } from "~/lib/transformers";
-// DEBUG: import { IconRenderer } from "@aazucena/ui";
+import { IconRenderer } from "@aazucena/ui";
 import GradientAccent from "~/components/common/GradientAccent.astro";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
@@ -287,7 +287,15 @@ const phases =
                       <div
                         class={`flex h-14 w-14 items-center justify-center rounded-2xl text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 transition-transform duration-500 group-hover:scale-110`}
                       >
-                        {/* DEBUG: <IconRenderer icon={item.icon as any} client:only="react" /> */}
+                        <IconRenderer
+                          icon={
+                            item.icon as
+                              | import("@aazucena/types").IconComponent
+                              | null
+                              | undefined
+                          }
+                          client:only="react"
+                        />
                       </div>
                     )}
                     <h3 class="mb-4 text-2xl font-black tracking-tight text-gray-900 dark:text-white">
