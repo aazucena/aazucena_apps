@@ -3,8 +3,7 @@
  * Displays animated statistics about career progression
  */
 
-import { useEffect, useRef, useState } from "react";
-import { CountUp } from "./CountUp";
+import CountUp from "react-countup";
 import type { CareerStat as CareerStatsType } from "@aazucena/types";
 
 interface CareerStatsProps {
@@ -16,33 +15,6 @@ export function CareerStats({
   stats,
   isDashboardVariant = false,
 }: CareerStatsProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const statsRef = useRef<HTMLDivElement>(null);
-
-  // Trigger animation when component comes into view
-  useEffect(() => {
-    const currentRef = statsRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry!.isIntersecting) {
-          setIsVisible(true);
-          // Only animate once for better UX
-          if (currentRef) observer.unobserve(currentRef);
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
 
   const statsData = [
     {
@@ -118,7 +90,7 @@ export function CareerStats({
 
   if (isDashboardVariant) {
     return (
-      <div ref={statsRef} className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {statsData.map((stat, index) => (
           <div
             key={index}
@@ -131,17 +103,15 @@ export function CareerStats({
             </div>
             <div>
               <div className="mb-1 text-3xl leading-none font-black text-gray-900 dark:text-white">
-                {isVisible ? (
-                  <CountUp
-                    start={0}
-                    end={stat.value}
-                    decimals={stat.decimals}
-                    duration={2}
-                    suffix={stat.suffix}
-                  />
-                ) : (
-                  "0"
-                )}
+                <CountUp
+                  start={0}
+                  end={stat.value}
+                  decimals={stat.decimals}
+                  duration={2}
+                  suffix={stat.suffix}
+                  enableScrollSpy
+                  scrollSpyOnce
+                />
               </div>
               <div className="text-[11px] font-bold tracking-widest text-gray-400 uppercase dark:text-gray-500">
                 {stat.label}
@@ -155,7 +125,6 @@ export function CareerStats({
 
   return (
     <div
-      ref={statsRef}
       className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/20 bg-gray-400/10 p-20 text-center shadow-2xl backdrop-blur-md"
     >
       <div className="mb-10 flex flex-col items-center justify-between gap-6 md:flex-row">
@@ -189,17 +158,15 @@ export function CareerStats({
               {stat.icon}
             </div>
             <div className="mb-2 text-6xl font-black tracking-tighter text-gray-950">
-              {isVisible ? (
-                <CountUp
-                  start={0}
-                  end={stat.value}
-                  decimals={stat.decimals}
-                  duration={2.5}
-                  suffix={stat.suffix}
-                />
-              ) : (
-                "0"
-              )}
+              <CountUp
+                start={0}
+                end={stat.value}
+                decimals={stat.decimals}
+                duration={2.5}
+                suffix={stat.suffix}
+                enableScrollSpy
+                scrollSpyOnce
+              />
             </div>
             <div
               className={`text-sm font-bold tracking-widest text-gray-700 uppercase`}
