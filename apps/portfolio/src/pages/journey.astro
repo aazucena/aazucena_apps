@@ -5,12 +5,8 @@
  */
 import { Compass, Heart, Lamp, Rocket } from "@aazucena/icons";
 // Journey page imports - organized by type
-import { JourneyDashboard } from "~/components/JourneyDashboard";
-import {
-  CareerStats,
-  GrowthMetrics,
-  ChronologyTimeline,
-} from "~/components/ui/journey";
+// DEBUG: import { JourneyDashboard } from "~/components/JourneyDashboard";
+// DEBUG: import { CareerStats, GrowthMetrics, ChronologyTimeline } from "~/components/ui/journey";
 import {
   calculateCareerStats,
   calculateSkillGrowthMetrics,
@@ -22,7 +18,7 @@ import {
   transformToTimelineData,
   type SkillNode,
 } from "~/lib/transformers";
-import { IconRenderer } from "@aazucena/ui";
+// DEBUG: import { IconRenderer } from "@aazucena/ui";
 import GradientAccent from "~/components/common/GradientAccent.astro";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
@@ -205,7 +201,7 @@ const phases =
 
         <!-- Career Stats Visualization -->
         <div class="relative z-20">
-          <CareerStats stats={careerStats} client:only="react" />
+          {/* DEBUG: <CareerStats stats={careerStats} client:only="react" /> */}
         </div>
       </div>
 
@@ -252,7 +248,7 @@ const phases =
             {/* Phase I: Chronology - Timeline */}
             {phase.name === "chronology" && (
               <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <ChronologyTimeline data={timelineData} client:only="react" />
+                {/* DEBUG: <ChronologyTimeline data={timelineData} client:only="react" /> */}
               </div>
             )}
 
@@ -260,9 +256,9 @@ const phases =
             {phase.name === "adaptation" && (
               <>
                 <div class="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <GrowthMetrics metrics={growthMetrics} client:only="react" />
+                  {/* DEBUG: <GrowthMetrics metrics={growthMetrics} client:only="react" /> */}
                 </div>
-                <JourneyDashboard
+                {/* DEBUG: <JourneyDashboard
                   evolutionData={skillsEvolutionData}
                   networkData={skillsNetworkData}
                   sankeyData={sankeyData}
@@ -278,7 +274,7 @@ const phases =
                   hideStats={true}
                   hideMetrics={true}
                   client:only="react"
-                />
+                /> */}
               </>
             )}
 
@@ -291,15 +287,7 @@ const phases =
                       <div
                         class={`flex h-14 w-14 items-center justify-center rounded-2xl text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 transition-transform duration-500 group-hover:scale-110`}
                       >
-                        <IconRenderer
-                          icon={
-                            item.icon as
-                              | import("@aazucena/types").IconComponent
-                              | null
-                              | undefined
-                          }
-                          client:only="react"
-                        />
+                        {/* DEBUG: <IconRenderer icon={item.icon as any} client:only="react" /> */}
                       </div>
                     )}
                     <h3 class="mb-4 text-2xl font-black tracking-tight text-gray-900 dark:text-white">

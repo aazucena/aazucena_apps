@@ -10,8 +10,8 @@
  * 4. Main content area with optional sidebar
  * 5. Detail navigation (prev/next)
  */
-import { ReadingProgress } from "@aazucena/ui";
-import { TableOfContents } from "@aazucena/ui";
+// DEBUG: import { ReadingProgress } from "@aazucena/ui";
+// DEBUG: import { TableOfContents } from "@aazucena/ui";
 import Breadcrumbs from "~/components/common/Breadcrumbs.astro";
 import GradientAccent from "~/components/common/GradientAccent.astro";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
@@ -81,7 +81,7 @@ const maxWidthClass = containerClasses[maxWidth];
     set:html={JSON.stringify(jsonLd)}
     is:inline
   />
-  {showReadingProgress && <ReadingProgress client:load />}
+  {/* DEBUG: {showReadingProgress && <ReadingProgress client:load />} */}
 
   <main class="min-h-screen bg-white dark:bg-gray-950">
     <GradientAccent variant="print-hidden" />
@@ -103,9 +103,10 @@ const maxWidthClass = containerClasses[maxWidth];
     </header>
 
     {
-      showTableOfContents && (
-        <TableOfContents containerSelector={tocSelector} client:idle />
-      )
+      showTableOfContents &&
+        {
+          /* DEBUG: <TableOfContents containerSelector={tocSelector} client:idle /> */
+        }
     }
 
     <!-- Main Content Area -->
