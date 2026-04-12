@@ -114,11 +114,10 @@ export default defineConfig({
       // Virtual module convention: '\0' prefix signals to other plugins (e.g. commonjs)
       // that this is a virtual module and should not be treated as a file path.
       //
-      // Global stubs — leaflet is stubbed globally because @react-leaflet/core also
-      // imports it (it's in the shared React island bundle, not just map.impl.tsx).
-      // The stub exports the named symbols @react-leaflet/core needs at runtime:
-      // DomUtil (dom.js) and LatLngBounds (media-overlay.js). All other leaflet
-      // imports in react-leaflet are `import type` — erased at TypeScript compile.
+      // Global stubs — leaflet is stubbed globally because react-leaflet and
+      // @react-leaflet/core are in the shared React island bundle and import
+      // from 'leaflet' at runtime. All named exports used across both packages
+      // are listed here (identified by grepping compiled lib/*.js output).
       {
         name: "cjs-virtual-stubs",
         enforce: "pre",
@@ -134,7 +133,49 @@ export default defineConfig({
           if (id === "\0leaflet-stub") {
             return `
 const noop = () => {};
-// Named exports used by @react-leaflet/core at runtime (all others are import type)
+// Base stub class — all Leaflet layer/control classes extend this
+class S {
+  constructor() {}
+  on() { return this; } off() { return this; } once() { return this; }
+  addTo() { return this; } remove() {} fire() { return this; }
+  setZIndex() { return this; } setOpacity() { return this; }
+  setLatLng() { return this; } setIcon() { return this; }
+  bindPopup() { return this; } bindTooltip() { return this; }
+  openPopup() { return this; } closePopup() { return this; }
+  setContent() { return this; }
+}
+export class Circle extends S {}
+export class CircleMarker extends S {}
+export class FeatureGroup extends S {}
+export class GeoJSON extends S {}
+export class ImageOverlay extends S {}
+export class LayerGroup extends S {}
+export class Marker extends S {}
+export class Polygon extends S {}
+export class Polyline extends S {}
+export class Popup extends S {}
+export class Rectangle extends S {}
+export class SVGOverlay extends S {}
+export class Tooltip extends S {}
+export class VideoOverlay extends S {}
+export class Map extends S {
+  setView() { return this; } fitBounds() { return this; }
+  getCenter() { return { lat: 0, lng: 0 }; }
+  getZoom() { return 0; } getBounds() { return new LatLngBounds(); }
+  getSize() { return { x: 0, y: 0 }; } getPixelBounds() { return {}; }
+  latLngToContainerPoint() { return { x: 0, y: 0 }; }
+  containerPointToLatLng() { return { lat: 0, lng: 0 }; }
+}
+export class TileLayer extends S {
+  static WMS = class extends S {}
+}
+// Control is an object with sub-classes, not a plain constructor
+export const Control = Object.assign(class Control extends S {}, {
+  Attribution: class extends S {},
+  Zoom: class extends S {},
+  Scale: class extends S {},
+  Layers: class extends S {},
+});
 export const DomUtil = {
   addClass: noop, removeClass: noop, hasClass: () => false,
   create: () => (typeof document !== 'undefined' ? document.createElement('div') : {}),
@@ -144,25 +185,20 @@ export const DomUtil = {
 };
 export class LatLngBounds {
   constructor() {}
-  isValid() { return false; }
+  isValid() { return false; } equals() { return false; }
+  contains() { return false; } intersects() { return false; }
   getCenter() { return { lat: 0, lng: 0 }; }
   getSouthWest() { return { lat: 0, lng: 0 }; }
   getNorthEast() { return { lat: 0, lng: 0 }; }
-  contains() { return false; }
-  intersects() { return false; }
-  toBBoxString() { return ''; }
-  equals() { return false; }
-  extend() { return this; }
+  toBBoxString() { return ''; } extend() { return this; } pad() { return this; }
 }
 const L = {
-  DomUtil,
-  LatLngBounds,
-  DivIcon: class DivIcon { constructor() {} },
-  divIcon: () => ({}),
-  icon: () => ({}),
-  marker: () => ({}),
-  map: () => ({}),
-  tileLayer: () => ({}),
+  Circle, CircleMarker, Control, DomUtil, FeatureGroup, GeoJSON,
+  ImageOverlay, LatLngBounds, LayerGroup, Map, Marker, Polygon,
+  Polyline, Popup, Rectangle, SVGOverlay, TileLayer, Tooltip, VideoOverlay,
+  DivIcon: class DivIcon extends S {},
+  divIcon: () => ({}), icon: () => ({}), marker: () => ({}),
+  map: () => ({}), tileLayer: () => ({}),
 };
 export default L;
 `;
