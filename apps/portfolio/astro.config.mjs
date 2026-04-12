@@ -24,16 +24,14 @@ export default defineConfig({
 
   vite: {
     build: {
-      // Terser replaces esbuild's render-chunk minification step.
-      minify: "terser",
-      // target:esnext disables Vite's vite:esbuild-transpile render-chunk plugin,
-      // which runs a SEPARATE esbuild pass for build.target syntax lowering even
-      // when minify:"terser" is set. That pass chokes on @rollup/plugin-commonjs
-      // CJS interop patterns (handlebars, leaflet, d3-cloud) from @aazucena/*
-      // barrel exports. esnext = no syntax lowering needed = esbuild is a no-op.
+      // minify:"terser" caused esbuild to run a SECOND render-chunk pass (DCE/validate)
+      // on the already-Rollup-bundled output. That second pass fails at position
+      // 120275:111 with "Expected ':' but found ')'" — a syntax esbuild 0.25.0 can't
+      // handle in the bundled output. With minify omitted, esbuild handles everything
+      // in a single unified pass and avoids the re-parse failure.
+      // target:esnext — no syntax lowering needed (modern browsers).
+      // modulePreload:false — __vitePreload ternary patterns trigger the same error.
       target: "esnext",
-      // Disable modulePreload — __vitePreload ternary patterns trigger the same
-      // esbuild parse error when any CJS interop is present in the chunk.
       modulePreload: false,
     },
     resolve: {
