@@ -4,7 +4,7 @@ import SEO from "~/components/SEO.astro";
 import Favicon from "~/components/Favicon.astro";
 import ResourceHints from "~/components/ResourceHints.astro";
 import AnalyticsScripts from "~/components/AnalyticsScripts.astro";
-import { Preloader } from "@aazucena/ui";
+// DEBUG: import { Preloader } from "@aazucena/ui";
 import type { PreloaderTheme } from "@aazucena/types";
 import BrandIconLoader from "@/components/BrandIconLoader.astro";
 import {
@@ -168,12 +168,14 @@ const themeStyles = {
     <!-- Preloader - Hydrates with React (client:only) -->
     <!-- Pass current path to enable homepage-specific behavior -->
     <!-- Preloader re-renders on navigation to check currentPath and apply show-once logic -->
-    <Preloader
+    {
+      /* DEBUG: <Preloader
       {...preloaderConfig}
       currentPath={Astro.url.pathname}
       mode={mode}
       client:only="react"
-    />
+    /> */
+    }
 
     <!-- Main content - hidden until preloader completes -->
     <main
