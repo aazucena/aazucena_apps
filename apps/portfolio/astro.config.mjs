@@ -55,7 +55,13 @@ export default defineConfig({
       // @rollup/plugin-commonjs never processes the individual .js icon sub-files
       // (which lack type:module and would otherwise generate invalid default-export
       // interop patterns that esbuild's render-chunk plugin can't parse).
-      include: ["@mynaui/icons-react"],
+      include: [
+        "@mynaui/icons-react",
+        // handlebars is pure CJS (no type:module, no exports map). Pulled into
+        // client chunks via @aazucena/hooks barrel → useHandlebars. Pre-bundling
+        // converts it to ESM before Rollup runs, preventing the esbuild parse error.
+        "handlebars",
+      ],
       exclude: [
         "astro/toolbar",
         "astro:toolbar:internal",
