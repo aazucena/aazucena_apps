@@ -29,10 +29,11 @@ export default defineConfig({
       // being pulled into client chunks via IconRenderer) is now fixed — reverting
       // to esbuild's default for faster builds.
       // minify: "terser",
-      // Disable modulePreload polyfill injection — the __vitePreload function
-      // contains ternary operators that @rollup/plugin-commonjs mangles into
-      // invalid JS, causing esbuild parse errors on chunks with dynamic imports.
-      modulePreload: false,
+      // [DISABLED] modulePreload was turned off because __vitePreload ternary
+      // operators were mangled by @rollup/plugin-commonjs (CJS interop). Now that
+      // prop-types no longer enters client chunks, CJS interop is gone — reverting
+      // to default to restore browser parallel module prefetching.
+      // modulePreload: false,
     },
     resolve: {
       alias: {
