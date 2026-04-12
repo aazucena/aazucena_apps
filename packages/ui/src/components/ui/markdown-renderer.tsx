@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { marked, type Tokens } from 'marked';
 import { cn, getHighlighter } from '@aazucena/utils';
-import type { Highlighter } from 'shiki';
+import type { Highlighter } from 'shiki/bundle/web';
 
 export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   content: string;
@@ -64,11 +64,15 @@ marked.use({
       return `<blockquote class="border-l-4 border-primary px-4 py-6 mb-4 italic text-muted-foreground glass bg-primary-100 rounded-r-lg [&_p]:!mt-0">${content}</blockquote>`;
     },
     code(token: Tokens.Code): string {
-      if (_highlighter) {
-        return _highlighter.codeToHtml(token.text, {
-          lang: token.lang || 'text',
-          theme: 'github-dark',
-        });
+      if (_highlighter && token.lang) {
+        try {
+          return _highlighter.codeToHtml(token.text, {
+            lang: token.lang,
+            theme: 'github-dark',
+          });
+        } catch {
+          // fall through to plain HTML if lang isn't loaded in the web bundle
+        }
       }
       return `<pre class="bg-muted rounded-lg p-4 overflow-x-auto mb-4"><code class="font-mono text-sm language-${token.lang || 'text'}">${token.text}</code></pre>`;
     },

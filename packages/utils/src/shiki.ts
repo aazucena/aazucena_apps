@@ -1,4 +1,4 @@
-import { createHighlighter, type Highlighter } from 'shiki';
+import { createHighlighter, type Highlighter } from 'shiki/bundle/web';
 
 // Symbol.for() uses Node's global symbol registry — survives Vite's per-request
 // module re-evaluation in SSR isolation contexts (unlike module-level `let`).
@@ -43,12 +43,8 @@ export function getHighlighter(): Promise<Highlighter> {
         'bash',
         'sh',
         'python',
-        'rust',
-        'go',
         'yaml',
-        'toml',
         'sql',
-        'text',
       ],
     });
   }
