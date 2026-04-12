@@ -93,7 +93,7 @@ export interface SocialLink {
 export interface NarrativeItem {
   title: string;
   description: string;
-  icon?: unknown;
+  icon?: string;
   variant?: string;
 }
 
@@ -274,7 +274,7 @@ export interface SkillCategory {
   label: string;
   display: string;
   gradient: string;
-  icon?: unknown;
+  icon?: string;
   skills: Skill[];
 }
 

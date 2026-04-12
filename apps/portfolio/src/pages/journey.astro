@@ -3,7 +3,6 @@
  * Journey page - features complex data visualizations of skills and career progression.
  * Includes interactive graphs, timelines, and heatmaps.
  */
-import { Compass, Heart, Lamp, Rocket } from "@aazucena/icons";
 // Journey page imports - organized by type
 // DEBUG: import { JourneyDashboard } from "~/components/JourneyDashboard";
 // DEBUG: import { CareerStats, GrowthMetrics, ChronologyTimeline } from "~/components/ui/journey";
@@ -146,28 +145,28 @@ const phases =
               title: "Embrace Complexity",
               description:
                 "Complex problems aren't obstacles; they're opportunities for innovation. The most rewarding solutions often lie behind the most daunting challenges.",
-              icon: Lamp,
+              icon: "Lamp",
               variant: "blue" as const,
             },
             {
               title: "Collective Intelligence",
               description:
                 "Diverse perspectives are the secret ingredient to building truly resilient systems. I prioritize team growth as much as technical excellence.",
-              icon: Heart,
+              icon: "Heart",
               variant: "purple" as const,
             },
             {
               title: "Iterative Velocity",
               description:
                 "Perfection is the enemy of progress. I prioritize getting working software into users' hands fast, using real feedback as the driver for refinement.",
-              icon: Rocket,
+              icon: "Rocket",
               variant: "pink" as const,
             },
             {
               title: "Relentless Curiosity",
               description:
                 "Staying static is moving backward. I treat every project as a classroom, and every bug as a vital lesson in architecture and logic.",
-              icon: Compass,
+              icon: "Compass",
               variant: "green" as const,
             },
           ],
@@ -287,10 +286,7 @@ const phases =
                       <div
                         class={`flex h-14 w-14 items-center justify-center rounded-2xl text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 transition-transform duration-500 group-hover:scale-110`}
                       >
-                        <IconRenderer
-                          icon={item.icon as any}
-                          client:only="react"
-                        />
+                        <IconRenderer icon={item.icon} client:only="react" />
                       </div>
                     )}
                     <h3 class="mb-4 text-2xl font-black tracking-tight text-gray-900 dark:text-white">
