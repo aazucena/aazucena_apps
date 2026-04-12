@@ -105,52 +105,46 @@ export default defineConfig({
       //   ...
       // },
 
-      // CJS shims — intercept pure-CJS package imports before @rollup/plugin-commonjs
-      // generates interop wrappers that esbuild can't parse. Each shim targets the
-      // exact source file that imports the CJS package, replacing it with an ESM
-      // no-op or minimal stub so the module graph resolves without CJS interop code.
+      // CJS virtual stubs — intercept pure-CJS package imports at the resolveId level,
+      // before @rollup/plugin-commonjs ever loads them. The transform approach (replacing
+      // import statements) runs AFTER Rollup's resolution phase, so CJS packages were
+      // already included in the module graph. Using resolveId + load intercepts at
+      // resolution time: Rollup never loads the real CJS package.
+      //
+      // Virtual module convention: '\0' prefix signals to other plugins (e.g. commonjs)
+      // that this is a virtual module and should not be treated as a file path.
       {
-        name: "handlebars-shim",
+        name: "cjs-virtual-stubs",
         enforce: "pre",
-        transform(code, id) {
-          if (id.includes("useHandlebars") && code.includes("'handlebars'")) {
-            return {
-              code: code.replace(
-                /import Handlebars from ['"]handlebars['"]/,
-                `const Handlebars = { compile: () => () => '', registerHelper: () => {}, registerPartial: () => {} }`,
-              ),
-              map: null,
-            };
-          }
+        resolveId(id) {
+          if (id === "handlebars") return "\0handlebars-stub";
+          if (id === "leaflet") return "\0leaflet-stub";
+          if (id === "d3-cloud") return "\0d3-cloud-stub";
         },
-      },
-      {
-        name: "leaflet-shim",
-        enforce: "pre",
-        transform(code, id) {
-          if (id.includes("map.impl") && code.includes("'leaflet'")) {
-            return {
-              code: code.replace(
-                /import L from ['"]leaflet['"]/,
-                `const L = {}`,
-              ),
-              map: null,
-            };
+        load(id) {
+          if (id === "\0handlebars-stub") {
+            return `const Handlebars = { compile: () => () => '', registerHelper: () => {}, registerPartial: () => {} }; export default Handlebars;`;
           }
-        },
-      },
-      {
-        name: "d3-cloud-shim",
-        enforce: "pre",
-        transform(code, id) {
-          if (id.includes("useWordCloud") && code.includes("'d3-cloud'")) {
-            return {
-              code: code.replace(
-                /import cloud from ['"]d3-cloud['"]/,
-                `const cloud = () => ({ size: () => ({}), words: () => ({}), padding: () => ({}), rotate: () => ({}), font: () => ({}), fontSize: () => ({}), on: () => ({}), start: () => ({}) })`,
-              ),
-              map: null,
-            };
+          if (id === "\0leaflet-stub") {
+            return `
+const L = {
+  DivIcon: class DivIcon { constructor() {} },
+  divIcon: () => ({}),
+  icon: () => ({}),
+  marker: () => ({}),
+  map: () => ({}),
+  tileLayer: () => ({}),
+};
+export default L;
+`;
+          }
+          if (id === "\0d3-cloud-stub") {
+            return `
+const noop = () => api;
+const api = { size: noop, words: noop, padding: noop, rotate: noop, font: noop, fontSize: noop, on: noop, start: noop };
+const cloud = () => api;
+export default cloud;
+`;
           }
         },
       },
