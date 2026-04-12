@@ -1,4 +1,4 @@
-import { createHighlighter, type Highlighter } from 'shiki/bundle/web';
+import { createHighlighter, bundledLanguages, type Highlighter } from 'shiki/bundle/web';
 
 // Symbol.for() uses Node's global symbol registry — survives Vite's per-request
 // module re-evaluation in SSR isolation contexts (unlike module-level `let`).
@@ -31,21 +31,7 @@ export function getHighlighter(): Promise<Highlighter> {
         'material-theme',
         'material-theme-lighter',
       ],
-      langs: [
-        'javascript',
-        'typescript',
-        'jsx',
-        'tsx',
-        'html',
-        'css',
-        'json',
-        'markdown',
-        'bash',
-        'sh',
-        'python',
-        'yaml',
-        'sql',
-      ],
+      langs: Object.keys(bundledLanguages),
     });
   }
   return g[SHIKI_KEY]!;
