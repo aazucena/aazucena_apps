@@ -102,19 +102,58 @@ export default defineConfig({
       // Leaving commented out to restore React dev-mode prop warnings from @mynaui.
       // {
       //   name: "prop-types-shim",
-      //   enforce: "pre",
-      //   transform(code, id) {
-      //     if (id.includes("createReactComponent") && code.includes("prop-types")) {
-      //       return {
-      //         code: code.replace(
-      //           /import PropTypes from ['"]prop-types['"]/,
-      //           `const PropTypes = { string: () => null, ... };`,
-      //         ),
-      //         map: null,
-      //       };
-      //     }
-      //   },
+      //   ...
       // },
+
+      // CJS shims — intercept pure-CJS package imports before @rollup/plugin-commonjs
+      // generates interop wrappers that esbuild can't parse. Each shim targets the
+      // exact source file that imports the CJS package, replacing it with an ESM
+      // no-op or minimal stub so the module graph resolves without CJS interop code.
+      {
+        name: "handlebars-shim",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.includes("useHandlebars") && code.includes("'handlebars'")) {
+            return {
+              code: code.replace(
+                /import Handlebars from ['"]handlebars['"]/,
+                `const Handlebars = { compile: () => () => '', registerHelper: () => {}, registerPartial: () => {} }`,
+              ),
+              map: null,
+            };
+          }
+        },
+      },
+      {
+        name: "leaflet-shim",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.includes("map.impl") && code.includes("'leaflet'")) {
+            return {
+              code: code.replace(
+                /import L from ['"]leaflet['"]/,
+                `const L = {}`,
+              ),
+              map: null,
+            };
+          }
+        },
+      },
+      {
+        name: "d3-cloud-shim",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.includes("useWordCloud") && code.includes("'d3-cloud'")) {
+            return {
+              code: code.replace(
+                /import cloud from ['"]d3-cloud['"]/,
+                `const cloud = () => ({ size: () => ({}), words: () => ({}), padding: () => ({}), rotate: () => ({}), font: () => ({}), fontSize: () => ({}), on: () => ({}), start: () => ({}) })`,
+              ),
+              map: null,
+            };
+          }
+        },
+      },
       // @ts-ignore: Astro v6 is expected to ship with a compatible version of tailwindcss/vite
       tailwindcss(),
       ,
