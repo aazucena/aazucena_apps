@@ -1,4 +1,3 @@
-import * as Icons from '@mynaui/icons-react';
 import {
   Briefcase,
   ClockCircle,
@@ -10,6 +9,29 @@ import {
   Map,
   GitBranch,
   Send,
+  Terminal,
+  Github,
+  GitCircle,
+  Database,
+  Servers,
+  Cloud,
+  Globe,
+  Link,
+  Wifi,
+  Layout,
+  Wrench,
+  CogFour,
+  Zap,
+  Rocket,
+  ArrowRight,
+  Music,
+  Video,
+  Users,
+  CheckCircle,
+  Mobile,
+  Microchip,
+  Headphones,
+  Microphone,
 } from '@mynaui/icons-react';
 import {
   Astro,
@@ -87,7 +109,7 @@ import type { IconComponent } from '@aazucena/types';
 export function getIconComponent(iconName: string | null | undefined): IconComponent {
   // Handle null/undefined/empty icon names - return fallback
   if (!iconName || iconName.trim() === '') {
-    return Icons.Code as IconComponent;
+    return Code as IconComponent;
   }
 
   // Check if iconName is an SVG string (from strapi-plugin-icons-field)
@@ -107,7 +129,7 @@ export function getIconComponent(iconName: string | null | undefined): IconCompo
     ScrollDown: ScrollDown as IconComponent,
     Empty: Empty as IconComponent,
     AwardBadge: AwardBadge as IconComponent,
-    Download: Icons.Download as IconComponent,
+    Download: Download as IconComponent,
     DownloadAlt: Download as IconComponent,
     Vector: Vector as IconComponent,
     Viewports: Viewports as IconComponent,
@@ -169,40 +191,38 @@ export function getIconComponent(iconName: string | null | undefined): IconCompo
     EmailAlt: Email as IconComponent,
 
     // Library Icons
-    Code: Icons.Code as IconComponent,
-    Terminal: Icons.Terminal as IconComponent,
-    Github: Icons.Github as IconComponent,
-    Git: Icons.GitCircle as IconComponent,
-    Database: Icons.Database as IconComponent,
-    Server: Icons.Servers as IconComponent,
-    Cloud: Icons.Cloud as IconComponent,
-    Globe: Icons.Globe as IconComponent,
-    Link: Icons.Link as IconComponent,
-    Wifi: Icons.Wifi as IconComponent,
-    Layout: Icons.Layout as IconComponent,
-    Wrench: Icons.Wrench as IconComponent,
-    CogFour: Icons.CogFour as IconComponent,
-    Settings: Icons.CogFour as IconComponent,
-    Zap: Icons.Zap as IconComponent,
-    Bolt: Icons.Zap as IconComponent,
-    Rocket: Icons.Rocket as IconComponent,
-    ArrowRight: Icons.ArrowRight as IconComponent,
+    Code: Code as IconComponent,
+    Terminal: Terminal as IconComponent,
+    Github: Github as IconComponent,
+    Git: GitCircle as IconComponent,
+    Database: Database as IconComponent,
+    Server: Servers as IconComponent,
+    Cloud: Cloud as IconComponent,
+    Globe: Globe as IconComponent,
+    Link: Link as IconComponent,
+    Wifi: Wifi as IconComponent,
+    Layout: Layout as IconComponent,
+    Wrench: Wrench as IconComponent,
+    CogFour: CogFour as IconComponent,
+    Settings: CogFour as IconComponent,
+    Zap: Zap as IconComponent,
+    Bolt: Zap as IconComponent,
+    Rocket: Rocket as IconComponent,
+    ArrowRight: ArrowRight as IconComponent,
     Image: Image as IconComponent,
-    Music: Icons.Music as IconComponent,
-    Video: Icons.Video as IconComponent,
-    Users: Icons.Users as IconComponent,
-    User: Icons.User as IconComponent,
-    CheckCircle: Icons.CheckCircle as IconComponent,
-    Shield: Icons.Shield as IconComponent,
-    DeviceMobile: Icons.Mobile as IconComponent,
-    Chip: Icons.Microchip as IconComponent,
-    Headphones: Icons.Headphones as IconComponent,
-    Microphone: Icons.Microphone as IconComponent,
+    Music: Music as IconComponent,
+    Video: Video as IconComponent,
+    Users: Users as IconComponent,
+    User: User as IconComponent,
+    CheckCircle: CheckCircle as IconComponent,
+    Shield: Shield as IconComponent,
+    DeviceMobile: Mobile as IconComponent,
+    Chip: Microchip as IconComponent,
+    Headphones: Headphones as IconComponent,
+    Microphone: Microphone as IconComponent,
   };
 
-  return (
-    iconMap[iconName] || (Icons as unknown as Record<string, IconComponent>)[iconName] || Icons.Code
-  );
+  return iconMap[iconName] || (Code as IconComponent);
 }
 
 /**
@@ -273,7 +293,14 @@ export function isValidIconName(iconName: string): boolean {
     'Type',
     'TypeSolid',
   ];
-  return iconName in Icons || iconName.startsWith('<svg') || customIcons.includes(iconName);
+  const libraryIcons = [
+    'Code', 'Terminal', 'Github', 'Git', 'Database', 'Server', 'Cloud', 'Globe',
+    'Link', 'Wifi', 'Layout', 'Wrench', 'CogFour', 'Settings', 'Zap', 'Bolt',
+    'Rocket', 'ArrowRight', 'Image', 'Music', 'Video', 'Users', 'User',
+    'CheckCircle', 'Shield', 'DeviceMobile', 'Chip', 'Headphones', 'Microphone',
+    'Download', 'DownloadAlt',
+  ];
+  return libraryIcons.includes(iconName) || iconName.startsWith('<svg') || customIcons.includes(iconName);
 }
 
 /**
