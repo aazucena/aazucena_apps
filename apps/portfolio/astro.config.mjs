@@ -39,13 +39,6 @@ export default defineConfig({
       target: "esnext",
       modulePreload: false,
       minify: false,
-      // Diagnostic: disable @rollup/plugin-commonjs entirely to force a clear
-      // error message revealing which CJS package is still not stubbed.
-      // If build passes → issue was from commonjs wrappers for a missed package.
-      // If build fails with "require is not defined" → points to specific module.
-      commonjsOptions: {
-        include: [],
-      },
     },
     resolve: {
       alias: {
@@ -136,6 +129,15 @@ export default defineConfig({
           if (id === "handlebars") return "\0handlebars-stub";
           if (id === "leaflet") return "\0leaflet-stub";
           if (id === "d3-cloud") return "\0d3-cloud-stub";
+          // tailwindcss-animate + @tailwindcss/typography are pure CJS Tailwind plugins
+          // (build-time only). They end up in client chunks via the barrel:
+          //   @aazucena/hooks → usePreloaderTheme → @aazucena/design-system → tailwind.ts
+          // Both have no type:module / no exports map — @rollup/plugin-commonjs wraps them
+          // with async-module patterns that esbuild@0.25.0 cannot parse.
+          // Stub to ESM no-ops: they have zero meaningful runtime behaviour.
+          if (id === "tailwindcss-animate") return "\0tailwindcss-animate-stub";
+          if (id === "@tailwindcss/typography")
+            return "\0tailwindcss-typography-stub";
         },
         load(id) {
           if (id === "\0handlebars-stub") {
@@ -221,6 +223,16 @@ const api = { size: noop, words: noop, padding: noop, rotate: noop, font: noop, 
 const cloud = () => api;
 export default cloud;
 `;
+          }
+          if (id === "\0tailwindcss-animate-stub") {
+            // tailwindcss-animate is a Tailwind CSS plugin (build-time only).
+            // No runtime behaviour — stub as a no-op function.
+            return `export default function tailwindcssAnimate() {}`;
+          }
+          if (id === "\0tailwindcss-typography-stub") {
+            // @tailwindcss/typography is a Tailwind CSS plugin (build-time only).
+            // No runtime behaviour — stub as a no-op function.
+            return `export default function typographyPlugin() {}`;
           }
         },
       },
