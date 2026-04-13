@@ -39,6 +39,13 @@ export default defineConfig({
       target: "esnext",
       modulePreload: false,
       minify: false,
+      // Diagnostic: disable @rollup/plugin-commonjs entirely to force a clear
+      // error message revealing which CJS package is still not stubbed.
+      // If build passes → issue was from commonjs wrappers for a missed package.
+      // If build fails with "require is not defined" → points to specific module.
+      commonjsOptions: {
+        include: [],
+      },
     },
     resolve: {
       alias: {
