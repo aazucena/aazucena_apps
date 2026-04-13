@@ -24,15 +24,21 @@ export default defineConfig({
 
   vite: {
     build: {
-      // minify:"terser" caused esbuild to run a SECOND render-chunk pass (DCE/validate)
-      // on the already-Rollup-bundled output. That second pass fails at position
-      // 120275:111 with "Expected ':' but found ')'" — a syntax esbuild 0.25.0 can't
-      // handle in the bundled output. With minify omitted, esbuild handles everything
-      // in a single unified pass and avoids the re-parse failure.
-      // target:esnext — no syntax lowering needed (modern browsers).
-      // modulePreload:false — __vitePreload ternary patterns trigger the same error.
+      // esbuild@0.25.0 (pinned) cannot parse the async-module wrapper patterns that
+      // @rollup/plugin-commonjs@28 generates for CJS packages (handlebars, leaflet,
+      // d3-cloud). The vite:esbuild-transpile render-chunk plugin fails with
+      // "Expected ':' but found ')'" at position 120275:111 in the shared island chunk.
+      //
+      // Fix: target:esnext + minify:false → Vite detects no syntax lowering is needed
+      // AND no minification is requested, so it skips the esbuild render-chunk pass
+      // entirely. The CJS stubs (resolveId+load virtual modules) replace the real CJS
+      // packages with pure ESM, so runtime behaviour is correct.
+      //
+      // modulePreload:false — __vitePreload ternary patterns trigger the same error
+      // if minify were ever re-enabled.
       target: "esnext",
       modulePreload: false,
+      minify: false,
     },
     resolve: {
       alias: {
