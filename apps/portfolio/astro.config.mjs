@@ -138,6 +138,11 @@ export default defineConfig({
           if (id === "tailwindcss-animate") return "\0tailwindcss-animate-stub";
           if (id === "@tailwindcss/typography")
             return "\0tailwindcss-typography-stub";
+          // tailwindcss/colors.js uses an explicit .js extension which bypasses
+          // the exports map, hitting the CJS dist/colors.js directly.
+          // Redirect to a virtual ESM proxy so @rollup/plugin-commonjs never sees it.
+          if (id === "tailwindcss/colors.js")
+            return "\0tailwindcss-colors-redirect";
         },
         load(id) {
           if (id === "\0handlebars-stub") {
@@ -233,6 +238,13 @@ export default cloud;
             // @tailwindcss/typography is a Tailwind CSS plugin (build-time only).
             // No runtime behaviour — stub as a no-op function.
             return `export default function typographyPlugin() {}`;
+          }
+          if (id === "\0tailwindcss-colors-redirect") {
+            // Redirect explicit tailwindcss/colors.js (CJS) to the ESM version via
+            // the exports map. The explicit .js extension bypasses the exports map,
+            // causing @rollup/plugin-commonjs to wrap the CJS file. This re-export
+            // ensures Vite resolves via the exports map (import → dist/colors.mjs).
+            return `export { default } from 'tailwindcss/colors';`;
           }
         },
       },
