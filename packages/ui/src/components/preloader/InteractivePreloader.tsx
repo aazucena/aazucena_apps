@@ -1,83 +1,18 @@
-// TEST 5: button and card commented out
-// import { Button } from '../ui/button';
-// import { Card, CardContent } from '../ui/card';
-const Button = ({ children, onClick, className, ...p }: any) => (
-  <button onClick={onClick} className={className}>
-    {children}
-  </button>
-);
-const Card = ({ children, className, style }: any) => (
-  <div className={className} style={style}>
-    {children}
-  </div>
-);
-const CardContent = ({ children, className }: any) => <div className={className}>{children}</div>;
-// TEST 3: @aazucena/icons commented out
-// import { X } from '@aazucena/icons';
-const X = () => null;
+import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
+import { X } from '@aazucena/icons';
 import { useEffect } from 'react';
-// TEST 2: @aazucena/hooks commented out — stubs below to isolate CJS source
-// import {
-//   useLoadingProgress,
-//   usePreloaderVisibility,
-//   usePreloaderLifecycle,
-//   useKeyboardNavigation,
-//   usePreloaderTheme,
-//   useShowOnce,
-// } from '@aazucena/hooks';
-
-const useShowOnce = (_: boolean) => ({
-  hasSeenBefore: false,
-  markAsSeen: () => {},
-  isChecking: false,
-});
-const useLoadingProgress = (_min: number, steps: any[], _onStep: any, _dur: number) => ({
-  progress: 100,
-  currentStep: steps[0],
-  isReady: true,
-  loadTime: 0,
-  stepStatus: {} as Record<string, boolean>,
-  hasReached100: true,
-  startLoading: () => {},
-  isLoading: false,
-  error: null,
-  resetLoading: () => {},
-});
-const usePreloaderVisibility = (_: any) => ({
-  isVisible: true,
-  isInViewport: true,
-  userSkipped: false,
-  containerRef: { current: null } as React.RefObject<HTMLDivElement | null>,
-  handleSkip: () => {},
-  handleContinue: () => {},
-});
-const usePreloaderLifecycle = (_: any) => {};
-const useKeyboardNavigation = (_: any) => {};
-const usePreloaderTheme = (_: any) => ({
-  backgroundStyle: {} as React.CSSProperties,
-  overlayStyle: {} as React.CSSProperties,
-  cardStyle: {} as React.CSSProperties,
-  cardClasses: '',
-  overlayClasses: '',
-  titleStyle: {} as React.CSSProperties,
-  subtitleStyle: {} as React.CSSProperties,
-  getProgressStyle: () => ({}) as React.CSSProperties,
-  getButtonStyle: () => ({}) as React.CSSProperties,
-  getBadgeStyle: () => ({}) as React.CSSProperties,
-  getSpinnerStyle: () => ({}) as React.CSSProperties,
-  getIconStyle: () => ({}) as React.CSSProperties,
-  config: {} as any,
-});
-// TEST 3: sub-components commented out — they also import @aazucena/icons
-// import { LoadingState, ReadyState, ErrorState } from './ui/index';
-const LoadingState = () => <div>loading...</div>;
-const ReadyState = () => <div>ready</div>;
-const ErrorState = () => <div>error</div>;
+import {
+  useLoadingProgress,
+  usePreloaderVisibility,
+  usePreloaderLifecycle,
+  useKeyboardNavigation,
+  usePreloaderTheme,
+  useShowOnce,
+} from '@aazucena/hooks';
+import { LoadingState, ReadyState, ErrorState } from './ui/index';
 import type { PreloaderPropsWithTheme } from '@aazucena/types';
-// TEST 4: @aazucena/utils commented out
-// import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
-const getTransitionClass = (_: any) => '';
-const getLoadingSteps = (steps: any) => steps ?? [];
+import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
 
 export default function InteractivePreloader({
   // Timing & Behavior
