@@ -1,6 +1,8 @@
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { X } from '@aazucena/icons';
+// TEST 3: @aazucena/icons commented out
+// import { X } from '@aazucena/icons';
+const X = () => null;
 import { useEffect } from 'react';
 // TEST 2: @aazucena/hooks commented out — stubs below to isolate CJS source
 // import {
@@ -54,7 +56,11 @@ const usePreloaderTheme = (_: any) => ({
   getIconStyle: () => ({}) as React.CSSProperties,
   config: {} as any,
 });
-import { LoadingState, ReadyState, ErrorState } from './ui/index';
+// TEST 3: sub-components commented out — they also import @aazucena/icons
+// import { LoadingState, ReadyState, ErrorState } from './ui/index';
+const LoadingState = () => <div>loading...</div>;
+const ReadyState = () => <div>ready</div>;
+const ErrorState = () => <div>error</div>;
 import type { PreloaderPropsWithTheme } from '@aazucena/types';
 import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
 

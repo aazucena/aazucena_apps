@@ -41,11 +41,25 @@ esbuild@0.27.7
 
 ---
 
-### Next step — TEST 2
+---
 
-**Question:** Which of Preloader's deps is CJS?
+### Step 3 — @aazucena/hooks isolated
 
-**Plan:** Re-enable the `<Preloader client:only="react">` island. Inside `InteractivePreloader.tsx`, comment out the `@aazucena/hooks` import block and replace hook calls with hardcoded stubs.
+**Change:** Preloader island re-enabled. `@aazucena/hooks` import commented out in `InteractivePreloader.tsx`, replaced with inline stubs.
+**Result:** Build FAILS ❌
 
-- **PASS** → `@aazucena/hooks` (or its dep `@aazucena/design-system`) is pulling in CJS
-- **FAIL** → the CJS package is somewhere else in the Preloader tree
+**Conclusion:** `@aazucena/hooks` is NOT the CJS source. The culprit is in one of the remaining imports:
+
+- `@aazucena/icons` (X icon)
+- `@aazucena/utils` (getTransitionClass, getLoadingSteps)
+- `../ui/button`, `../ui/card` (local UI components)
+- `./ui/index` → LoadingState, ReadyState, ErrorState sub-components (which themselves import `@aazucena/icons`)
+
+---
+
+### Next step — TEST 3
+
+**Plan:** Comment out `@aazucena/icons` in `InteractivePreloader.tsx` (replace `X` icon with null). The sub-components in `./ui/index` also import `@aazucena/icons` — comment those out too and replace with `<div>` stubs.
+
+- **PASS** → `@aazucena/icons` is the CJS source
+- **FAIL** → CJS is in `@aazucena/utils`, or the local `button`/`card` components
