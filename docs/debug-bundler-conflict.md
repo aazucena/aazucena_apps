@@ -134,3 +134,21 @@ Only remaining suspect: `SimplePreloader` — statically imported by `Preloader.
 
 - **PASS** → `SimplePreloader` (or its deps) is the CJS source
 - **FAIL** → CJS is coming from somewhere else entirely (e.g. the @aazucena/ui barrel pulling in other components)
+
+---
+
+### Step 7 — SimplePreloader isolated
+
+**Change:** `SimplePreloader` import stubbed in `Preloader.tsx`.
+**Result:** Build FAILS ❌
+
+**Conclusion:** `SimplePreloader` is NOT the source. The entire Preloader component tree is now stubbed and the error persists. The CJS package is being pulled in from the `@aazucena/ui` barrel (`packages/ui/src/index.ts`) — specifically from the 225-component `export * from './components/ui/index'` which Vite cannot fully tree-shake.
+
+---
+
+### Next step — TEST 7
+
+**Plan:** In `packages/ui/src/index.ts`, comment out `export * from './components/ui/index'` (the 225-component barrel). Keep only the preloader exports.
+
+- **PASS** → one of the 225 UI components has a CJS dep leaking through imperfect tree-shaking
+- **FAIL** → CJS is in something else (preloader-specific exports or another part of the barrel)
