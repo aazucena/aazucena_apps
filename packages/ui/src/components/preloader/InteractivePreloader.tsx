@@ -62,7 +62,10 @@ const LoadingState = () => <div>loading...</div>;
 const ReadyState = () => <div>ready</div>;
 const ErrorState = () => <div>error</div>;
 import type { PreloaderPropsWithTheme } from '@aazucena/types';
-import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
+// TEST 4: @aazucena/utils commented out
+// import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
+const getTransitionClass = (_: any) => '';
+const getLoadingSteps = (steps: any) => steps ?? [];
 
 export default function InteractivePreloader({
   // Timing & Behavior

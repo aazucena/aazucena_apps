@@ -63,3 +63,25 @@ esbuild@0.27.7
 
 - **PASS** → `@aazucena/icons` is the CJS source
 - **FAIL** → CJS is in `@aazucena/utils`, or the local `button`/`card` components
+
+---
+
+### Step 4 — @aazucena/icons isolated
+
+**Change:** `@aazucena/icons` commented out. `LoadingState`/`ReadyState`/`ErrorState` sub-components replaced with `<div>` stubs.
+**Result:** Build FAILS ❌
+
+**Conclusion:** `@aazucena/icons` is NOT the CJS source. Remaining suspects:
+
+- `@aazucena/utils` (getTransitionClass, getLoadingSteps)
+- `../ui/button` (Button)
+- `../ui/card` (Card, CardContent)
+
+---
+
+### Next step — TEST 4
+
+**Plan:** Comment out `@aazucena/utils` import, stub `getTransitionClass` and `getLoadingSteps` inline.
+
+- **PASS** → `@aazucena/utils` is the CJS source
+- **FAIL** → CJS is in local `button` or `card` UI components
