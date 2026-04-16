@@ -135,8 +135,6 @@ export function GrowthMetrics({ metrics }: GrowthMetricsProps) {
                 decimals={0}
                 duration={2.5}
                 suffix={card.suffix}
-                enableScrollSpy
-                scrollSpyOnce
               />
             ) : (
               card.value

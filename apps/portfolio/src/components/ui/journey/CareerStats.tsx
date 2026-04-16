@@ -155,13 +155,10 @@ export function CareerStats({
             <div>
               <div className="mb-1 text-3xl leading-none font-black text-gray-900 dark:text-white">
                 <CountUp
-                  start={0}
                   end={stat.value}
                   decimals={stat.decimals}
                   duration={2}
                   suffix={stat.suffix}
-                  enableScrollSpy
-                  scrollSpyOnce
                 />
               </div>
               <div className="text-[11px] font-bold tracking-widest text-gray-400 uppercase dark:text-gray-500">
@@ -208,13 +205,10 @@ export function CareerStats({
             </div>
             <div className="mb-2 text-6xl font-black tracking-tighter text-gray-950">
               <CountUp
-                start={0}
                 end={stat.value}
                 decimals={stat.decimals}
                 duration={2.5}
                 suffix={stat.suffix}
-                enableScrollSpy
-                scrollSpyOnce
               />
             </div>
             <div
