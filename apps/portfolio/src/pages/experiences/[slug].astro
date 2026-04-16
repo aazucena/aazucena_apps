@@ -8,10 +8,10 @@ import {
 } from "@aazucena/icons";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
-// DEBUG: import { MarkdownRenderer } from "@aazucena/ui";
+import { MarkdownRenderer } from "@aazucena/ui";
 import MetricCard from "~/components/ui/MetricCard.astro";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
-// DEBUG: import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
+import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getExperiences } from "@aazucena/api";
 import {
@@ -199,9 +199,7 @@ const breadcrumbs = [
       <article
         class="prose prose-lg dark:prose-invert prose-p:leading-relaxed max-w-none"
       >
-        {
-          /* DEBUG: <MarkdownRenderer content={experience.description as string} /> */
-        }
+        <MarkdownRenderer content={experience.description as string} />
       </article>
     </section>
 
@@ -288,9 +286,7 @@ const breadcrumbs = [
       >
         Technology DNA
       </h2>
-      {
-        /* DEBUG: <TechStackDistribution skills={experience.skills} client:visible /> */
-      }
+      <TechStackDistribution skills={experience.skills} client:visible />
     </div>
 
     <!-- Company Info -->

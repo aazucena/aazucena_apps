@@ -15,9 +15,9 @@ import {
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
 import { IconRenderer } from "@aazucena/ui";
-// DEBUG: import { MarkdownRenderer } from "@aazucena/ui";
-// DEBUG: import { EducationItem } from "~/components/ui/EducationItem";
-// DEBUG: import { WorkingStyleSection } from "~/components/ui/WorkingStyleSection";
+import { MarkdownRenderer } from "@aazucena/ui";
+import { EducationItem } from "~/components/ui/EducationItem";
+import { WorkingStyleSection } from "~/components/ui/WorkingStyleSection";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getAbout } from "@aazucena/api";
 import { fetchEducation } from "@aazucena/api";
@@ -270,12 +270,10 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
       >
         How I Think
       </h2>
-      {
-        /* DEBUG: <WorkingStyleSection
+      <WorkingStyleSection
         client:only="react"
         workingStyle={about.workingStyle}
-      /> */
-      }
+      />
     </section>
 
     <!-- 4. Beyond the Screen -->
@@ -328,9 +326,9 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
             Academic Background
           </h2>
           <div class="flex flex-col gap-6 px-3">
-            {sortedEducation.map((edu) => ({
-              /* DEBUG: <EducationItem edu={edu} client:visible /> */
-            }))}
+            {sortedEducation.map((edu) => (
+              <EducationItem edu={edu} client:visible />
+            ))}
           </div>
         </section>
       )

@@ -181,3 +181,39 @@ UI barrel restored to normal.
 
 - **PASS** → barrel was the source; direct import avoids the CJS leak entirely
 - **FAIL** → CJS is coming from something else in the client chunk
+
+---
+
+## ✅ RESOLVED — Root Cause & Fix
+
+### Root Cause
+
+`BaseLayout.astro` imported Preloader via the full `@aazucena/ui` barrel:
+
+```ts
+import { Preloader } from '@aazucena/ui'; // ← barrel entry: packages/ui/src/index.ts
+```
+
+When Astro bundles this as a `client:only="react"` island, Vite starts from the barrel's entry point (`src/index.ts`) which re-exports 225+ UI components. Even with `"sideEffects": false`, Vite's tree-shaking cannot fully eliminate all transitive deps from a `export *` barrel this large. One or more of the 225 components import CJS packages (e.g. `react-countup`, `leaflet`, `handlebars`) which rollup's commonjs plugin wraps in async-module syntax (`export default await (async () => {...})()`). esbuild then chokes on that syntax during the render-chunk minification pass, producing: `Expected ":" but found ")"`.
+
+### Fix
+
+Added a dedicated `preloader` subpath export to `packages/ui/package.json`:
+
+```json
+"./preloader": "./src/components/preloader/index.ts"
+```
+
+Changed `BaseLayout.astro` import to bypass the barrel:
+
+```ts
+import { Preloader } from '@aazucena/ui/preloader'; // ← direct subpath, clean dep tree
+```
+
+This gives Vite a small, clean entry point (only the preloader's actual deps) instead of the 225-component barrel. Tree-shaking works correctly and no CJS packages leak into the client chunk.
+
+### Key Lessons
+
+1. `export *` barrels + `client:only` islands = imperfect tree-shaking even with `"sideEffects": false`
+2. Any `@aazucena/ui` import used as a React island should use a direct subpath, not the barrel
+3. The error (`Expected ":" but found ")"`) is esbuild failing to parse rollup's CJS-wrapped async module output — always indicates a CJS package in the client bundle

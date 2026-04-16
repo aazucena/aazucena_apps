@@ -42,12 +42,10 @@ const { data, homepage, portfolio, animationConfig } = await getHomepageData();
     This prevents hydration mismatches and improves performance.
   */
   }
-  {
-    /* DEBUG: <Homepage
+  <Homepage
     client:only="react"
     data={data}
     portfolio={portfolio}
     content={homepage}
-  /> */
-  }
+  />
 </Layout>

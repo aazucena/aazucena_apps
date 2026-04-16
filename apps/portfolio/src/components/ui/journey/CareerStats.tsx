@@ -3,7 +3,59 @@
  * Displays animated statistics about career progression
  */
 
-import CountUp from "react-countup";
+import { useState, useEffect, useRef } from "react";
+
+function CountUp({
+  end,
+  decimals = 0,
+  duration = 2,
+  suffix = "",
+}: {
+  end: number;
+  decimals?: number;
+  duration?: number;
+  suffix?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [value, setValue] = useState(0);
+  const [triggered, setTriggered] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTriggered(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!triggered) return;
+    let startTime: number | null = null;
+    const step = (ts: number) => {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setValue(parseFloat((eased * end).toFixed(decimals)));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [triggered, end, duration, decimals]);
+
+  return (
+    <span ref={ref}>
+      {value.toFixed(decimals)}
+      {suffix}
+    </span>
+  );
+}
 import type { CareerStat as CareerStatsType } from "@aazucena/types";
 
 interface CareerStatsProps {
@@ -15,7 +67,6 @@ export function CareerStats({
   stats,
   isDashboardVariant = false,
 }: CareerStatsProps) {
-
   const statsData = [
     {
       value: stats.totalYears,
@@ -124,9 +175,7 @@ export function CareerStats({
   }
 
   return (
-    <div
-      className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/20 bg-gray-400/10 p-20 text-center shadow-2xl backdrop-blur-md"
-    >
+    <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/20 bg-gray-400/10 p-20 text-center shadow-2xl backdrop-blur-md">
       <div className="mb-10 flex flex-col items-center justify-between gap-6 md:flex-row">
         <h2 className="text-4xl font-black tracking-tight text-gray-900 dark:text-white">
           Career at a Glance

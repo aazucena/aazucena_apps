@@ -4,10 +4,10 @@
  * Includes metrics, screenshots, tech stack, and navigation.
  */
 import { BrandGithub, Briefcase, ExternalLink } from "@aazucena/icons";
-// DEBUG: import { MarkdownRenderer } from "@aazucena/ui";
+import { MarkdownRenderer } from "@aazucena/ui";
 import MetricCard from "~/components/ui/MetricCard.astro";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
-// DEBUG: import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
+import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
 import StatusBadge from "~/components/ui/StatusBadge.astro";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getProjects } from "@aazucena/api";
@@ -164,9 +164,7 @@ const seoDescription = project.seo?.description || project.shortDescription;
       <article
         class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black max-w-none"
       >
-        {
-          /* DEBUG: <MarkdownRenderer content={project.description as string} /> */
-        }
+        <MarkdownRenderer content={project.description as string} />
       </article>
     </section>
 
@@ -231,9 +229,7 @@ const seoDescription = project.seo?.description || project.shortDescription;
       >
         Development Stack
       </h2>
-      {
-        /* DEBUG: <TechStackDistribution skills={project.techStack} client:visible /> */
-      }
+      <TechStackDistribution skills={project.techStack} client:visible />
     </div>
 
     <!-- Metadata -->
