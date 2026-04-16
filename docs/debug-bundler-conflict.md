@@ -229,6 +229,26 @@ import { AnimationParticles } from '@aazucena/animations/pixi'; // direct subpat
 
 Push and wait for Vercel result.
 
+**Result:** Build FAILS ❌ at line 26613 (was 27942 — chunk shrank by ~1329 lines)
+
+**Conclusion:** Viewer→barrel removal confirmed (chunk is smaller) but NOT the sole CJS source. Something else remaining in the AnimationCanvas chunk is still triggering the error.
+
+Remaining suspects in the chunk:
+
+- `HomepageScene` (imports `@aazucena/animations/three`, `@react-three/drei`, `@aazucena/hooks`, `@aazucena/constants`)
+- `@react-three/fiber` (Canvas component)
+- `AnimationParticles` via `@aazucena/animations/pixi` (pixi.js particle system)
+- `@aazucena/context`
+
+---
+
+### Next step — TEST 10
+
+**Plan:** Comment out `HomepageScene` import in `apps/portfolio/src/components/homepage/AnimationCanvas.tsx`, replace with `<div>` stub.
+
+- **PASS** → HomepageScene (or one of its deps: @aazucena/animations/three, @react-three/drei, @aazucena/hooks, @aazucena/constants) is the CJS source
+- **FAIL** → CJS is in `@react-three/fiber`, `AnimationParticles/pixi.js`, or `@aazucena/context`
+
 ---
 
 ## ✅ RESOLVED — Root Cause & Fix

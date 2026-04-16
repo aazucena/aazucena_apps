@@ -10,7 +10,8 @@
 import type { JSX } from "react";
 import { Canvas } from "@react-three/fiber";
 import { AnimationParticles } from "@aazucena/animations/pixi";
-import HomepageScene from "./HomepageScene";
+// TEST 10: comment out HomepageScene to isolate its deps as CJS source
+// import HomepageScene from "./HomepageScene";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { useAnimation, usePortfolio } from "@aazucena/context";
 
@@ -26,7 +27,9 @@ export default function AnimationCanvas({
   const { capabilities, mounted } = useAnimation();
 
   // Get portfolio state from context
-  const { currentSection, scrollProgress } = usePortfolio();
+  // TEST 10: currentSection/scrollProgress unused while HomepageScene is stubbed
+  // const { currentSection, scrollProgress } = usePortfolio();
+  usePortfolio();
   // Don't render heavy animations if not capable
   if (!capabilities.canUseHeavyAnimations) {
     return null;
@@ -61,12 +64,8 @@ export default function AnimationCanvas({
           }}
           shadows
         >
-          <HomepageScene
-            intensity={capabilities.performanceTier === "high" ? 1 : 0.7}
-            phase={atmosphericLayer}
-            currentSection={currentSection}
-            scrollProgress={scrollProgress}
-          />
+          {/* TEST 10 stub — HomepageScene commented out */}
+          <mesh />
         </Canvas>
       </div>
     </>
