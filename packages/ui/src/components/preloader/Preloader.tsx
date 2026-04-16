@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import InteractivePreloader from './InteractivePreloader';
-import SimplePreloader from './SimplePreloader';
+// TEST 6: SimplePreloader commented out — is it pulling in CJS?
+// import SimplePreloader from './SimplePreloader';
+const SimplePreloader = () => <div>simple-stub</div>;
 import type { PreloaderVariant, PreloaderPropsWithTheme } from '@aazucena/types';
 
 export interface UnifiedPreloaderPropsWithTheme extends PreloaderPropsWithTheme {

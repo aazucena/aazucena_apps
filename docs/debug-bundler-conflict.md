@@ -107,3 +107,30 @@ esbuild@0.27.7
 
 - **PASS** → `button` or `card` (or their deps) is the CJS source
 - **FAIL** → CJS is in `SimplePreloader` or its deps
+
+---
+
+### Step 6 — button/card isolated
+
+**Change:** `../ui/button` and `../ui/card` stubbed in `InteractivePreloader.tsx`.
+**Result:** Build FAILS ❌
+
+**Conclusion:** All direct imports of `InteractivePreloader` are now ruled out:
+
+- ~~@aazucena/hooks~~ ❌
+- ~~@aazucena/icons~~ ❌
+- ~~@aazucena/utils~~ ❌
+- ~~./ui/index (sub-components)~~ ❌
+- ~~../ui/button~~ ❌
+- ~~../ui/card~~ ❌
+
+Only remaining suspect: `SimplePreloader` — statically imported by `Preloader.tsx` so it gets bundled even when the interactive variant renders.
+
+---
+
+### Next step — TEST 6
+
+**Plan:** Comment out `SimplePreloader` import in `Preloader.tsx`, replace with a `<div>` stub.
+
+- **PASS** → `SimplePreloader` (or its deps) is the CJS source
+- **FAIL** → CJS is coming from somewhere else entirely (e.g. the @aazucena/ui barrel pulling in other components)
