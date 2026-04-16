@@ -152,3 +152,32 @@ Only remaining suspect: `SimplePreloader` — statically imported by `Preloader.
 
 - **PASS** → one of the 225 UI components has a CJS dep leaking through imperfect tree-shaking
 - **FAIL** → CJS is in something else (preloader-specific exports or another part of the barrel)
+
+---
+
+### Step 8 — UI barrel confirmed as leak source
+
+**Change:** Commented out `export * from './components/ui/index'` in `packages/ui/src/index.ts`.
+**Result:** Build FAILS at 1.49s (import resolution) — `IconRenderer` not found in `about.astro`.
+
+**Conclusion:** Destructive test — other portfolio pages import UI components from the barrel so it can't be removed. BUT: the CJS esbuild error did not appear (build died earlier). This confirms the UI barrel is involved.
+
+**User insight:** Change the Preloader import in BaseLayout to bypass the barrel entirely — import directly from the preloader subpath instead of `@aazucena/ui`.
+
+`@aazucena/ui` already has `"./components/*": "./src/components/*"` in its exports map.
+
+---
+
+### Next step — TEST 8
+
+**Plan:** In `BaseLayout.astro`, change:
+
+```
+import { Preloader } from "@aazucena/ui"             // pulls entire barrel into client chunk
+import { Preloader } from "@aazucena/ui/components/preloader"  // direct path, bypasses barrel
+```
+
+UI barrel restored to normal.
+
+- **PASS** → barrel was the source; direct import avoids the CJS leak entirely
+- **FAIL** → CJS is coming from something else in the client chunk
