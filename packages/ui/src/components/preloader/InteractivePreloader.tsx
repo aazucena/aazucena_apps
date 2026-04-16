@@ -1,5 +1,17 @@
-import { Button } from '../ui/button';
-import { Card, CardContent } from '../ui/card';
+// TEST 5: button and card commented out
+// import { Button } from '../ui/button';
+// import { Card, CardContent } from '../ui/card';
+const Button = ({ children, onClick, className, ...p }: any) => (
+  <button onClick={onClick} className={className}>
+    {children}
+  </button>
+);
+const Card = ({ children, className, style }: any) => (
+  <div className={className} style={style}>
+    {children}
+  </div>
+);
+const CardContent = ({ children, className }: any) => <div className={className}>{children}</div>;
 // TEST 3: @aazucena/icons commented out
 // import { X } from '@aazucena/icons';
 const X = () => null;

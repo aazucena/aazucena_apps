@@ -85,3 +85,25 @@ esbuild@0.27.7
 
 - **PASS** → `@aazucena/utils` is the CJS source
 - **FAIL** → CJS is in local `button` or `card` UI components
+
+---
+
+### Step 5 — @aazucena/utils isolated
+
+**Change:** `@aazucena/utils` commented out in `InteractivePreloader.tsx`, stubs inline.
+**Result:** Build FAILS ❌
+
+**Conclusion:** `@aazucena/utils` is NOT the CJS source. Remaining suspects:
+
+- `../ui/button` (Button)
+- `../ui/card` (Card, CardContent)
+- `SimplePreloader` (imported by `Preloader.tsx` alongside InteractivePreloader — not yet touched)
+
+---
+
+### Next step — TEST 5
+
+**Plan:** Comment out `../ui/button` and `../ui/card` in `InteractivePreloader.tsx`, replace with `<div>` stubs.
+
+- **PASS** → `button` or `card` (or their deps) is the CJS source
+- **FAIL** → CJS is in `SimplePreloader` or its deps
