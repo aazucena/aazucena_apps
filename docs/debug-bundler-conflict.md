@@ -184,6 +184,53 @@ UI barrel restored to normal.
 
 ---
 
+---
+
+## Session 2 — Restored all debug-commented components → new chunk fails
+
+**Context:** After confirming preloader fix (TEST 8 PASS), all other components that had been commented out for debugging were restored. Vercel build then failed on a NEW chunk.
+
+**New error:**
+
+```
+Expected ":" but found ")"
+_astro/AnimationCanvas.!~{00F}~.js:27942:100
+esbuild@0.27.7
+```
+
+**Conclusion:** The preloader barrel fix resolved the shared `index` chunk, but the `AnimationCanvas` chunk now fails with the identical error. Same root cause — a client island is pulling the `@aazucena/ui` barrel into its bundle.
+
+---
+
+### Step 9 — AnimationCanvas import isolated
+
+**Change:** In `apps/portfolio/src/components/homepage/AnimationCanvas.tsx`, changed:
+
+```ts
+import { AnimationParticles } from '@aazucena/animations'; // root barrel
+```
+
+to:
+
+```ts
+import { AnimationParticles } from '@aazucena/animations/pixi'; // direct subpath
+```
+
+**Why:** The root `@aazucena/animations` barrel (`packages/animations/src/index.ts`) re-exports `./three/viewer/index`, which contains `ObjectViewer`, `ObjectViewerHUD`, `ObjectViewerControls`, `ObjectViewerLoading`. Those four viewer components each import from `@aazucena/ui` barrel, pulling all 225 components into the AnimationCanvas chunk. The `@aazucena/animations/pixi` subpath only exports the PixiJS particle system — no viewer, no `@aazucena/ui`.
+
+**Prediction:**
+
+- **PASS** → `@aazucena/animations` root barrel via viewer was the source; direct pixi subpath avoids the leak
+- **FAIL** → CJS is coming from something else in the AnimationCanvas chunk (e.g. `@react-three/fiber`, `HomepageScene` deps, or `@aazucena/context`)
+
+---
+
+### Next step — TEST 9
+
+Push and wait for Vercel result.
+
+---
+
 ## ✅ RESOLVED — Root Cause & Fix
 
 ### Root Cause

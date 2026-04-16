@@ -9,7 +9,7 @@
 
 import type { JSX } from "react";
 import { Canvas } from "@react-three/fiber";
-import { AnimationParticles } from "@aazucena/animations";
+import { AnimationParticles } from "@aazucena/animations/pixi";
 import HomepageScene from "./HomepageScene";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { useAnimation, usePortfolio } from "@aazucena/context";
