@@ -30,10 +30,22 @@ esbuild@0.27.7
 
 ---
 
-### Next step
+---
 
-Binary search inside Preloader's dependency tree.
+### Step 2 — Island vs import
 
-**Hypothesis to test:** Comment out the Preloader import/usage, replace with a `<div>` placeholder → does the build pass?
-If yes → the Preloader's transitive deps are the cause.
-Next: comment out one dep at a time inside the Preloader component tree.
+**Change:** Keep `import { Preloader } from "@aazucena/ui"` in frontmatter, comment out `<Preloader client:only="react" />` usage only
+**Result:** Build PASSES ✅
+
+**Conclusion:** The frontmatter import (server-side) is fine. The error only occurs when Preloader is bundled as a React island via `client:only="react"`. Something in Preloader's transitive deps is CJS and only hits esbuild when bundled for the client.
+
+---
+
+### Next step — TEST 2
+
+**Question:** Which of Preloader's deps is CJS?
+
+**Plan:** Re-enable the `<Preloader client:only="react">` island. Inside `InteractivePreloader.tsx`, comment out the `@aazucena/hooks` import block and replace hook calls with hardcoded stubs.
+
+- **PASS** → `@aazucena/hooks` (or its dep `@aazucena/design-system`) is pulling in CJS
+- **FAIL** → the CJS package is somewhere else in the Preloader tree

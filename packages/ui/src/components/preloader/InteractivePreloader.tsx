@@ -2,14 +2,58 @@ import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { X } from '@aazucena/icons';
 import { useEffect } from 'react';
-import {
-  useLoadingProgress,
-  usePreloaderVisibility,
-  usePreloaderLifecycle,
-  useKeyboardNavigation,
-  usePreloaderTheme,
-  useShowOnce,
-} from '@aazucena/hooks';
+// TEST 2: @aazucena/hooks commented out — stubs below to isolate CJS source
+// import {
+//   useLoadingProgress,
+//   usePreloaderVisibility,
+//   usePreloaderLifecycle,
+//   useKeyboardNavigation,
+//   usePreloaderTheme,
+//   useShowOnce,
+// } from '@aazucena/hooks';
+
+const useShowOnce = (_: boolean) => ({
+  hasSeenBefore: false,
+  markAsSeen: () => {},
+  isChecking: false,
+});
+const useLoadingProgress = (_min: number, steps: any[], _onStep: any, _dur: number) => ({
+  progress: 100,
+  currentStep: steps[0],
+  isReady: true,
+  loadTime: 0,
+  stepStatus: {} as Record<string, boolean>,
+  hasReached100: true,
+  startLoading: () => {},
+  isLoading: false,
+  error: null,
+  resetLoading: () => {},
+});
+const usePreloaderVisibility = (_: any) => ({
+  isVisible: true,
+  isInViewport: true,
+  userSkipped: false,
+  containerRef: { current: null } as React.RefObject<HTMLDivElement | null>,
+  handleSkip: () => {},
+  handleContinue: () => {},
+});
+const usePreloaderLifecycle = (_: any) => {};
+const useKeyboardNavigation = (_: any) => {};
+const usePreloaderTheme = (_: any) => ({
+  backgroundStyle: {} as React.CSSProperties,
+  overlayStyle: {} as React.CSSProperties,
+  cardStyle: {} as React.CSSProperties,
+  cardClasses: '',
+  overlayClasses: '',
+  titleStyle: {} as React.CSSProperties,
+  subtitleStyle: {} as React.CSSProperties,
+  getProgressStyle: () => ({}) as React.CSSProperties,
+  getButtonStyle: () => ({}) as React.CSSProperties,
+  getBadgeStyle: () => ({}) as React.CSSProperties,
+  getSpinnerStyle: () => ({}) as React.CSSProperties,
+  getIconStyle: () => ({}) as React.CSSProperties,
+  config: {} as any,
+});
 import { LoadingState, ReadyState, ErrorState } from './ui/index';
 import type { PreloaderPropsWithTheme } from '@aazucena/types';
 import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
