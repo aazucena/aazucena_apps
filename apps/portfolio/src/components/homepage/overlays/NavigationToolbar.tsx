@@ -15,10 +15,16 @@ import React from "react";
 import { SocialMenu, SettingsPanel, InfoPanel } from "~/components/ui";
 // TEST 12b: stub @aazucena/ui barrel import (ToolbarButton was re-exported via ui/index.ts)
 // import { ToolbarButton } from "~/components/ui";
+import { Popover } from "~/components/ui/common";
+import type { AtmosphericPhase } from "@aazucena/types";
+import { usePortfolio, useAnimation } from "@aazucena/context";
+import { usePortfolioData } from "~/contexts";
+
+// TEST 12b: inline stub — must come AFTER all imports (ESM ordering requirement)
 const ToolbarButton = ({
   onClick,
   label,
-  isActive,
+  isActive: _isActive,
   className,
   icon,
 }: {
@@ -32,10 +38,6 @@ const ToolbarButton = ({
     {icon}
   </button>
 );
-import { Popover } from "~/components/ui/common";
-import type { AtmosphericPhase } from "@aazucena/types";
-import { usePortfolio, useAnimation } from "@aazucena/context";
-import { usePortfolioData } from "~/contexts";
 
 export interface NavigationToolbarProps {
   /** Current atmospheric phase for Info panel */
