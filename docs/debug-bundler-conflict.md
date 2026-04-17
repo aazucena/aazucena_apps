@@ -324,16 +324,37 @@ Chunk: 13280 → 13283 (+3 lines — stub code added, no barrel removed). None o
 
 ---
 
-### Next step — TEST 14
+### Step 14 — tailwindPreset isolated
 
-**Plan:** Comment out `tailwindPreset` from `@aazucena/design-system/src/index.ts`.
+**Change:** Commented out `export { default as tailwindPreset } from './tailwind'` in `packages/design-system/src/index.ts`.
+**Result:** Build FAILS ❌ — esbuild error at `HomepageSection.!~{00D}~.js:13283:138`
 
-Chain: `@aazucena/hooks` barrel → `preloader/usePreloaderTheme` → `@aazucena/design-system` barrel → `tailwind.ts` → `tailwindcss-animate` + `@tailwindcss/typography` (CJS, even if stubbed).
+Chunk size: **identical** to TEST 13 (13283 lines — zero change).
 
-`mergeTheme`/`getThemeConfig` are in `themes/registry.ts` — they don't need `tailwind.ts`. The barrel forces `tailwind.ts` into the module graph even though it's a build-time-only config.
+**Conclusion:** `tailwindPreset` removal had ZERO effect. The virtual stubs for `tailwindcss-animate` and `@tailwindcss/typography` in `astro.config.mjs` were already intercepting those CJS packages before `@rollup/plugin-commonjs` could process them. Removing `tailwindPreset` was redundant — the CJS source is elsewhere.
 
-- **PASS (chunk shrinks)** → `tailwind.ts` → CJS chain is the source; fix is to remove `tailwindPreset` from the client-side barrel
-- **FAIL (same size)** → CJS is coming from somewhere else entirely
+Post-mortem analysis revealed: ALL stubs in `astro.config.mjs` return proper ESM (`export default`, named `export`), so they are NOT the source. A scan of all `from "@aazucena/ui"` imports in the portfolio app found one remaining **un-stubbed** live import:
+
+```
+apps/portfolio/src/components/ui/Navbar.tsx:4
+import { ThemeToggle } from "@aazucena/ui";
+```
+
+`Navbar.tsx` is mounted with `client:load` in `PageLayout.astro`. Even though it's a separate island from HomepageSection, Rollup's shared chunk deduplication places common `@aazucena/ui` modules into the HomepageSection chunk (the largest consumer). This single un-stubbed import still pulls the full 225-component barrel.
+
+---
+
+### Next step — TEST 15
+
+**Plan:** Stub `ThemeToggle` in `Navbar.tsx`:
+
+```tsx
+// import { ThemeToggle } from "@aazucena/ui";
+const ThemeToggle = () => <button aria-label="Toggle theme" />;
+```
+
+- **PASS (error gone or chunk shrinks)** → `ThemeToggle` barrel import was the last remaining CJS source
+- **FAIL (same size)** → CJS is from something else: next suspect is `@aazucena/utils` exporting `shiki.ts` (line 19 of `packages/utils/src/index.ts`) → `shiki/bundle/web`
 
 ---
 
