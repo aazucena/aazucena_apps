@@ -253,16 +253,31 @@ New failing chunk is `HomepageSection` — the parent `Section.tsx` island. Its 
 
 ---
 
-### Next step — TEST 11
+### Step 11 — HomepageSection: three section components stubbed
 
-**Plan:** Comment out ALL `@aazucena/ui` barrel imports in the three HomepageSection child components:
+**Change:** `HeroSection.tsx` (FlipWords), `SkillsSection.tsx` (IconRenderer), `ExperienceSection.tsx` (Timeline components) barrel imports replaced with inline stubs.
+**Result:** Build FAILS ❌ at line 14169 (was 14384 — only 215 lines less)
 
-- `HeroSection.tsx` → FlipWords stubbed inline
-- `SkillsSection.tsx` → IconRenderer stubbed inline
-- `ExperienceSection.tsx` → Timeline/TimelineContent/TimelineDot/TimelineItem/TimelineLine stubbed inline
+**Conclusion:** The three section components were NOT the primary barrel source. The barrel is still being pulled into HomepageSection from remaining components:
 
-- **PASS** → `@aazucena/ui` barrel pulled through section components is the CJS source in HomepageSection
-- **FAIL** → CJS is in something else in the HomepageSection chunk (AwardModal, SettingsPanel, NavigationButton, or HomepageSection's other deps)
+- `AwardModal.tsx` → `Dialog, DialogContent, DialogBody from "@aazucena/ui"`
+- `SettingsPanel.tsx` → `Switch from "@aazucena/ui"`
+- `NavigationButton.tsx` → `IconRenderer from "@aazucena/ui"`
+- `apps/portfolio/src/components/ui/index.ts` → re-exports `ToolbarButton` and `ScrollDown` from `@aazucena/ui`
+
+---
+
+### Next step — TEST 12
+
+**Plan:** Comment out ALL remaining `@aazucena/ui` barrel imports in the HomepageSection island tree:
+
+- `AwardModal.tsx` → stub Dialog with `<div>`
+- `SettingsPanel.tsx` → stub Switch with `<div>`
+- `hero/NavigationButton.tsx` → stub IconRenderer with `<span>`
+- `apps/portfolio/src/components/ui/index.ts` → comment out ToolbarButton and ScrollDown re-exports
+
+- **PASS** → these remaining barrel imports are the CJS source in HomepageSection
+- **FAIL** → CJS is in gsap, @aazucena/context, or another non-UI dep in this island
 
 ---
 

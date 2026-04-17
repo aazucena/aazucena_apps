@@ -7,7 +7,9 @@
 import type { JSX } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { IconRenderer } from "@aazucena/ui";
+// TEST 12: stub @aazucena/ui barrel import
+// import { IconRenderer } from "@aazucena/ui";
+const IconRenderer = ({ icon }: { icon: string }) => <span>{icon}</span>;
 import type { IconComponent } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";
 

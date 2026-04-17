@@ -3,16 +3,15 @@
  * Barrel export for all UI components
  */
 
-export { ToolbarButton, type ToolbarButtonProps } from "@aazucena/ui";
+// TEST 12: stub @aazucena/ui barrel re-exports
+// export { ToolbarButton, type ToolbarButtonProps } from "@aazucena/ui";
 export * from "./SocialMenu";
 export * from "./SettingsPanel";
 export * from "./InfoPanel";
 export * from "./AwardModal";
 export * from "./ScrollIndicators";
-export {
-  ScrollDown as ScrollDownIndicator,
-  type ScrollDownProps as ScrollDownIndicatorProps,
-} from "@aazucena/ui";
+// TEST 12: stub @aazucena/ui barrel re-exports
+// export { ScrollDown as ScrollDownIndicator, type ScrollDownProps as ScrollDownIndicatorProps } from "@aazucena/ui";
 export * from "./common";
 export * from "./hero";
 export * from "./projects";

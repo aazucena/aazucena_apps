@@ -5,7 +5,21 @@
 
 import type { JSX } from "react";
 import type { DeviceCapabilities } from "@aazucena/types";
-import { Switch } from "@aazucena/ui";
+// TEST 12: stub @aazucena/ui barrel import
+// import { Switch } from "@aazucena/ui";
+const Switch = ({
+  checked,
+  onCheckedChange,
+}: {
+  checked?: boolean;
+  onCheckedChange?: (v: boolean) => void;
+}) => (
+  <input
+    type="checkbox"
+    checked={checked}
+    onChange={(e) => onCheckedChange?.(e.target.checked)}
+  />
+);
 import { X } from "@aazucena/icons";
 
 export interface SettingsPanelProps {

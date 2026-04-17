@@ -9,7 +9,21 @@ import { toTitleCase } from "@aazucena/utils";
 import { getCompanyLogoGradient, getGradientColors } from "@aazucena/utils";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { darkBlockRenderers } from "~/components/blocks/BlockRenderers";
-import { Dialog, DialogContent, DialogBody } from "@aazucena/ui";
+// TEST 12: stub @aazucena/ui barrel import
+// import { Dialog, DialogContent, DialogBody } from "@aazucena/ui";
+const Dialog = ({
+  children,
+}: {
+  children: React.ReactNode;
+  open?: boolean;
+}) => <div>{children}</div>;
+const DialogContent = ({ children }: { children: React.ReactNode }) => (
+  <div>{children}</div>
+);
+const DialogBody = ({ children }: { children: React.ReactNode }) => (
+  <div>{children}</div>
+);
+import React from "react";
 
 export interface AwardModalProps {
   award: Award;
