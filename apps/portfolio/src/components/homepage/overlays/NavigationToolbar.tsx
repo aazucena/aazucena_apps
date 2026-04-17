@@ -12,32 +12,16 @@
 
 import type { JSX } from "react";
 import React from "react";
-import { SocialMenu, SettingsPanel, InfoPanel } from "~/components/ui";
-// TEST 12b: stub @aazucena/ui barrel import (ToolbarButton was re-exported via ui/index.ts)
-// import { ToolbarButton } from "~/components/ui";
+import {
+  SocialMenu,
+  SettingsPanel,
+  InfoPanel,
+  ToolbarButton,
+} from "~/components/ui";
 import { Popover } from "~/components/ui/common";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio, useAnimation } from "@aazucena/context";
 import { usePortfolioData } from "~/contexts";
-
-// TEST 12b: inline stub — must come AFTER all imports (ESM ordering requirement)
-const ToolbarButton = ({
-  onClick,
-  label,
-  isActive: _isActive,
-  className,
-  icon,
-}: {
-  onClick?: () => void;
-  label?: string;
-  isActive?: boolean;
-  className?: string;
-  icon?: React.ReactNode;
-}) => (
-  <button onClick={onClick} aria-label={label} className={className}>
-    {icon}
-  </button>
-);
 
 export interface NavigationToolbarProps {
   /** Current atmospheric phase for Info panel */
