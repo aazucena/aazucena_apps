@@ -1,4 +1,4 @@
-import { createHighlighter, bundledLanguages, type Highlighter } from 'shiki/bundle/web';
+import { createHighlighter, bundledLanguages, type Highlighter } from 'shiki';
 
 // Symbol.for() uses Node's global symbol registry — survives Vite's per-request
 // module re-evaluation in SSR isolation contexts (unlike module-level `let`).
