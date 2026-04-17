@@ -3,19 +3,13 @@
  * Timeline of work experiences
  */
 
-// TEST 11: comment out @aazucena/ui barrel import to isolate CJS source
-// import { Timeline, TimelineContent, TimelineDot, TimelineItem, TimelineLine } from "@aazucena/ui";
-const Timeline = ({ children }: { children: React.ReactNode }) => (
-  <div>{children}</div>
-);
-const TimelineContent = ({ children }: { children: React.ReactNode }) => (
-  <div>{children}</div>
-);
-const TimelineDot = () => <div />;
-const TimelineItem = ({ children }: { children: React.ReactNode }) => (
-  <div>{children}</div>
-);
-const TimelineLine = () => <div />;
+import {
+  Timeline,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineLine,
+} from "@aazucena/ui";
 import type { JSX } from "react";
 import { useState } from "react";
 import React from "react";
