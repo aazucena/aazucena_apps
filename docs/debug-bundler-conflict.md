@@ -297,12 +297,29 @@ Build died too early to observe the esbuild error — test is incomplete, not in
 
 ---
 
-### Next step — TEST 12b
+### Step 12b — TEST 12b result
 
-**Plan:** Also stub `ToolbarButton` in `NavigationToolbar.tsx` directly (same pattern as other components). Keep `ui/index.ts` with ToolbarButton commented out.
+**Changes:**
 
-- **PASS** → ALL `@aazucena/ui` barrel imports are now stubbed; these were the CJS source
-- **FAIL** → CJS is in gsap, @aazucena/context, DynamicBackground, or another non-UI dep
+- `NavigationToolbar.tsx`: inline `ToolbarButton` stub after all imports (ESM ordering fix)
+- `UIOverlays.tsx`: inline `ScrollDownIndicator` stub (was missing from `ui/index.ts` re-exports)
+
+**Result:** Build FAILS ❌ — esbuild error at `HomepageSection.!~{00B}~.js:13280:138`
+
+Chunk shrank from 14169 → 13280 lines (~889 lines removed). Our stubs DID remove some barrel content but did NOT eliminate all of it.
+
+**Conclusion:** More `@aazucena/ui` barrel imports exist in the HomepageSection island tree that we have not yet stubbed. The remaining sub-barrels (`~/components/ui/common`, `~/components/ui/projects`, `~/components/ui/about`, `~/components/ui/blog`, `~/components/ui/experience`) may themselves import from `@aazucena/ui`. Other section components (ProjectsSection, AboutSection, BlogSection, AwardsSection) not yet checked.
+
+---
+
+### Next step — TEST 13
+
+**Plan:** Grep ALL `@aazucena/ui` barrel imports remaining in the HomepageSection island tree. Stub every one found.
+
+Files to check:
+
+- All section components not yet inspected
+- `~/components/ui/common`, `~/components/ui/projects`, `~/components/ui/about`, `~/components/ui/blog`, `~/components/ui/awards`, `~/components/ui/experience`
 
 ---
 

@@ -1,6 +1,13 @@
 import { Users, Zap, Message } from "@aazucena/icons";
 import { InteractiveCard } from "./InteractiveCard";
-import { IconRenderer } from "@aazucena/ui";
+// TEST 13: stub @aazucena/ui barrel import
+// import { IconRenderer } from "@aazucena/ui";
+const IconRenderer = ({
+  icon: _icon,
+}: {
+  icon?: unknown;
+  className?: string;
+}) => null;
 import { getWorkingStyleColor } from "@aazucena/utils";
 import type { WorkingStyleItem } from "@aazucena/types";
 

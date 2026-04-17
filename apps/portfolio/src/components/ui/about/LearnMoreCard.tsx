@@ -5,7 +5,14 @@
  */
 
 import type { JSX } from "react";
-import { IconRenderer } from "@aazucena/ui";
+// TEST 13: stub @aazucena/ui barrel import
+// import { IconRenderer } from "@aazucena/ui";
+const IconRenderer = ({
+  icon: _icon,
+}: {
+  icon?: unknown;
+  className?: string;
+}) => null;
 import { cn } from "@aazucena/utils";
 import type { IconComponent } from "@aazucena/types";
 
