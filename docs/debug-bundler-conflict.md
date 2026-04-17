@@ -419,3 +419,44 @@ This gives Vite a small, clean entry point (only the preloader's actual deps) in
 1. `export *` barrels + `client:only` islands = imperfect tree-shaking even with `"sideEffects": false`
 2. Any `@aazucena/ui` import used as a React island should use a direct subpath, not the barrel
 3. The error (`Expected ":" but found ")"`) is esbuild failing to parse rollup's CJS-wrapped async module output — always indicates a CJS package in the client bundle
+
+---
+
+## TEST 17 — Root Cause: Astro 6 Environments Override `minify:false`
+
+**Date:** 2026-04-17
+**Hypothesis:** The root cause of ALL persistent esbuild errors is that `vite.build.minify: false` only applies to the legacy root Vite config. Astro 6 uses Vite's Environments API (`vite.environments.client.build`) and **hardcodes `minify: true` for the client environment** in `astro/dist/core/build/static-build.js:284`, completely bypassing our root-level `minify: false`. esbuild's render-chunk pass therefore runs on all client chunks.
+
+**Root Cause Trace:**
+
+1. `astro/dist/core/build/static-build.js:284`: `minify: true` hardcoded for `environments.client`
+2. `vite/dist/node/chunks/dep-*.js:19353`: `const minify = config.build.minify === "esbuild"`
+3. With `minify: true` (→ `"esbuild"`), `resolveEsbuildTranspileOptions` does NOT return `null`
+4. The `vite:esbuild-transpile` render-chunk plugin RUNS on every client chunk
+5. esbuild@0.27.7 encounters `@rollup/plugin-commonjs` async-module wrappers → `Expected ":" but found ")"`
+
+**Why tests 12b–16 all showed the same error at the same line (13283:138):**
+The binary search was removing portfolio-level `@aazucena/ui` imports (journey/ExportControls, etc.) — those were in DIFFERENT chunks, not in the stable HomepageSection chunk. The HomepageSection chunk's core (hooks → utils → design-system → CJS deps) was untouched by every test, and esbuild was always running because of the environment override.
+
+**Fix Applied:** Added `astro-no-client-minify` integration to `apps/portfolio/astro.config.mjs`:
+
+```js
+{
+  name: "astro-no-client-minify",
+  hooks: {
+    "astro:build:setup": ({ updateConfig }) => {
+      updateConfig({
+        environments: {
+          client: { build: { minify: false } }
+        },
+      });
+    },
+  },
+}
+```
+
+`astro:build:setup` fires after Astro assembles the environments config. `updateConfig` calls Vite's `mergeConfig` — primitive values in the second arg overwrite the first, so `minify: false` replaces `minify: true`. This re-enables the `(target === "esnext") && !minify` skip path in `resolveEsbuildTranspileOptions`, preventing esbuild from processing client chunks.
+
+**Changed Files:**
+
+- `apps/portfolio/astro.config.mjs` — added `astro-no-client-minify` integration + updated comment on `build.minify: false`

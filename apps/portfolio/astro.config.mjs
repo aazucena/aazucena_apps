@@ -24,15 +24,20 @@ export default defineConfig({
 
   vite: {
     build: {
-      // esbuild@0.25.0 (pinned) cannot parse the async-module wrapper patterns that
-      // @rollup/plugin-commonjs@28 generates for CJS packages (handlebars, leaflet,
+      // esbuild cannot parse the async-module wrapper patterns that
+      // @rollup/plugin-commonjs generates for CJS packages (handlebars, leaflet,
       // d3-cloud). The vite:esbuild-transpile render-chunk plugin fails with
-      // "Expected ':' but found ')'" at position 120275:111 in the shared island chunk.
+      // "Expected ':' but found ')'" in the shared island chunk.
       //
-      // Fix: target:esnext + minify:false → Vite detects no syntax lowering is needed
-      // AND no minification is requested, so it skips the esbuild render-chunk pass
-      // entirely. The CJS stubs (resolveId+load virtual modules) replace the real CJS
+      // Fix: target:esnext + minify:false → Vite's resolveEsbuildTranspileOptions
+      // returns null (skips esbuild) when target==="esnext" && !minify.
+      // The CJS stubs (resolveId+load virtual modules) replace the real CJS
       // packages with pure ESM, so runtime behaviour is correct.
+      //
+      // NOTE: This only affects the root/legacy Vite config. Astro 6 uses Vite
+      // Environments API and hardcodes minify:true for the client environment in
+      // astro/dist/core/build/static-build.js. The astro-no-client-minify integration
+      // below overrides that via astro:build:setup → updateConfig.
       //
       // modulePreload:false — __vitePreload ternary patterns trigger the same error
       // if minify were ever re-enabled.
@@ -256,6 +261,31 @@ export default cloud;
   },
 
   integrations: [
+    // Astro 6 uses Vite Environments API and hardcodes minify:true for the client
+    // environment (astro/dist/core/build/static-build.js:284). This overrides the
+    // root-level vite.build.minify:false above and causes esbuild to run on client
+    // chunks — where @rollup/plugin-commonjs async-module wrappers fail to parse.
+    //
+    // The astro:build:setup hook runs after Astro assembles the environments config
+    // and calls updateConfig (Vite's mergeConfig) to override minify:false, which
+    // re-enables the (target==="esnext" && !minify) skip path in Vite's
+    // resolveEsbuildTranspileOptions, preventing esbuild from processing client chunks.
+    {
+      name: "astro-no-client-minify",
+      hooks: {
+        "astro:build:setup": ({ updateConfig }) => {
+          updateConfig({
+            environments: {
+              client: {
+                build: {
+                  minify: false,
+                },
+              },
+            },
+          });
+        },
+      },
+    },
     react(),
     sitemap({
       // Exclude admin routes, API routes, and draft content
