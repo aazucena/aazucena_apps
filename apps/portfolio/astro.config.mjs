@@ -60,11 +60,7 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
-      include: [
-        // leaflet: pure CJS (no type:module, no exports map). Pulled via
-        // @aazucena/ui barrel → map.impl.tsx.
-        "leaflet",
-      ],
+      include: [],
       exclude: [
         "astro/toolbar",
         "astro:toolbar:internal",
@@ -90,101 +86,6 @@ export default defineConfig({
       //   ...
       // },
 
-      // CJS virtual stubs — intercept pure-CJS package imports at the resolveId level,
-      // before @rollup/plugin-commonjs ever loads them. The transform approach (replacing
-      // import statements) runs AFTER Rollup's resolution phase, so CJS packages were
-      // already included in the module graph. Using resolveId + load intercepts at
-      // resolution time: Rollup never loads the real CJS package.
-      //
-      // Virtual module convention: '\0' prefix signals to other plugins (e.g. commonjs)
-      // that this is a virtual module and should not be treated as a file path.
-      //
-      // Global stubs — leaflet is stubbed globally because react-leaflet and
-      // @react-leaflet/core are in the shared React island bundle and import
-      // from 'leaflet' at runtime. All named exports used across both packages
-      // are listed here (identified by grepping compiled lib/*.js output).
-      {
-        name: "cjs-virtual-stubs",
-        enforce: "pre",
-        resolveId(id) {
-          if (id === "leaflet") return "\0leaflet-stub";
-        },
-        load(id) {
-          if (id === "\0leaflet-stub") {
-            return `
-const noop = () => {};
-// Base stub class — all Leaflet layer/control classes extend this
-class S {
-  constructor() {}
-  on() { return this; } off() { return this; } once() { return this; }
-  addTo() { return this; } remove() {} fire() { return this; }
-  setZIndex() { return this; } setOpacity() { return this; }
-  setLatLng() { return this; } setIcon() { return this; }
-  bindPopup() { return this; } bindTooltip() { return this; }
-  openPopup() { return this; } closePopup() { return this; }
-  setContent() { return this; }
-}
-export class Circle extends S {}
-export class CircleMarker extends S {}
-export class FeatureGroup extends S {}
-export class GeoJSON extends S {}
-export class ImageOverlay extends S {}
-export class LayerGroup extends S {}
-export class Marker extends S {}
-export class Polygon extends S {}
-export class Polyline extends S {}
-export class Popup extends S {}
-export class Rectangle extends S {}
-export class SVGOverlay extends S {}
-export class Tooltip extends S {}
-export class VideoOverlay extends S {}
-export class Map extends S {
-  setView() { return this; } fitBounds() { return this; }
-  getCenter() { return { lat: 0, lng: 0 }; }
-  getZoom() { return 0; } getBounds() { return new LatLngBounds(); }
-  getSize() { return { x: 0, y: 0 }; } getPixelBounds() { return {}; }
-  latLngToContainerPoint() { return { x: 0, y: 0 }; }
-  containerPointToLatLng() { return { lat: 0, lng: 0 }; }
-}
-export class TileLayer extends S {
-  static WMS = class extends S {}
-}
-// Control is an object with sub-classes, not a plain constructor
-export const Control = Object.assign(class Control extends S {}, {
-  Attribution: class extends S {},
-  Zoom: class extends S {},
-  Scale: class extends S {},
-  Layers: class extends S {},
-});
-export const DomUtil = {
-  addClass: noop, removeClass: noop, hasClass: () => false,
-  create: () => (typeof document !== 'undefined' ? document.createElement('div') : {}),
-  remove: noop, empty: noop, toFront: noop, toBack: noop,
-  setOpacity: noop, getStyle: () => null, testProp: () => null,
-  TRANSFORM: '', TRANSITION: '', TRANSITION_END: '',
-};
-export class LatLngBounds {
-  constructor() {}
-  isValid() { return false; } equals() { return false; }
-  contains() { return false; } intersects() { return false; }
-  getCenter() { return { lat: 0, lng: 0 }; }
-  getSouthWest() { return { lat: 0, lng: 0 }; }
-  getNorthEast() { return { lat: 0, lng: 0 }; }
-  toBBoxString() { return ''; } extend() { return this; } pad() { return this; }
-}
-const L = {
-  Circle, CircleMarker, Control, DomUtil, FeatureGroup, GeoJSON,
-  ImageOverlay, LatLngBounds, LayerGroup, Map, Marker, Polygon,
-  Polyline, Popup, Rectangle, SVGOverlay, TileLayer, Tooltip, VideoOverlay,
-  DivIcon: class DivIcon extends S {},
-  divIcon: () => ({}), icon: () => ({}), marker: () => ({}),
-  map: () => ({}), tileLayer: () => ({}),
-};
-export default L;
-`;
-          }
-        },
-      },
       // @ts-ignore: Astro v6 is expected to ship with a compatible version of tailwindcss/vite
       tailwindcss(),
       ,
