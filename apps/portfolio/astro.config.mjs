@@ -133,11 +133,6 @@ export default defineConfig({
           if (id === "handlebars") return "\0handlebars-stub";
           if (id === "leaflet") return "\0leaflet-stub";
           if (id === "d3-cloud") return "\0d3-cloud-stub";
-          // tailwindcss/colors.js uses an explicit .js extension which bypasses
-          // the exports map, hitting the CJS dist/colors.js directly.
-          // Redirect to a virtual ESM proxy so @rollup/plugin-commonjs never sees it.
-          if (id === "tailwindcss/colors.js")
-            return "\0tailwindcss-colors-redirect";
         },
         load(id) {
           if (id === "\0handlebars-stub") {
@@ -223,13 +218,6 @@ const api = { size: noop, words: noop, padding: noop, rotate: noop, font: noop, 
 const cloud = () => api;
 export default cloud;
 `;
-          }
-          if (id === "\0tailwindcss-colors-redirect") {
-            // Redirect explicit tailwindcss/colors.js (CJS) to the ESM version via
-            // the exports map. The explicit .js extension bypasses the exports map,
-            // causing @rollup/plugin-commonjs to wrap the CJS file. This re-export
-            // ensures Vite resolves via the exports map (import → dist/colors.mjs).
-            return `export { default } from 'tailwindcss/colors';`;
           }
         },
       },
