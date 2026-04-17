@@ -66,8 +66,6 @@ export default defineConfig({
         // leaflet: pure CJS (no type:module, no exports map). Pulled via
         // @aazucena/ui barrel → map.impl.tsx.
         "leaflet",
-        // d3-cloud: pure CJS. Pulled via @aazucena/ui barrel → D3 visualizations.
-        "d3-cloud",
       ],
       exclude: [
         "astro/toolbar",
@@ -113,7 +111,6 @@ export default defineConfig({
         resolveId(id) {
           if (id === "handlebars") return "\0handlebars-stub";
           if (id === "leaflet") return "\0leaflet-stub";
-          if (id === "d3-cloud") return "\0d3-cloud-stub";
         },
         load(id) {
           if (id === "\0handlebars-stub") {
@@ -190,14 +187,6 @@ const L = {
   map: () => ({}), tileLayer: () => ({}),
 };
 export default L;
-`;
-          }
-          if (id === "\0d3-cloud-stub") {
-            return `
-const noop = () => api;
-const api = { size: noop, words: noop, padding: noop, rotate: noop, font: noop, fontSize: noop, on: noop, start: noop };
-const cloud = () => api;
-export default cloud;
 `;
           }
         },
