@@ -169,9 +169,6 @@ const themeStyles = {
     <!-- Preloader - Hydrates with React (client:only) -->
     <!-- Pass current path to enable homepage-specific behavior -->
     <!-- Preloader re-renders on navigation to check currentPath and apply show-once logic -->
-    {
-      /* TEST 2: Preloader island re-enabled — hooks commented out inside component */
-    }
     <Preloader
       {...preloaderConfig}
       currentPath={Astro.url.pathname}
