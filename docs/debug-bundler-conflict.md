@@ -312,14 +312,28 @@ Chunk shrank from 14169 → 13280 lines (~889 lines removed). Our stubs DID remo
 
 ---
 
-### Next step — TEST 13
+### Step 13 — TEST 13 result
 
-**Plan:** Grep ALL `@aazucena/ui` barrel imports remaining in the HomepageSection island tree. Stub every one found.
+**Changes:** Stubbed Progress (TechStackDistribution), IconRenderer (LearnMoreCard, WorkingStyleSection), MarkdownRenderer (EducationItem).
 
-Files to check:
+**Result:** Build FAILS ❌ — esbuild error at `HomepageSection.!~{00D}~.js:13283:138`
 
-- All section components not yet inspected
-- `~/components/ui/common`, `~/components/ui/projects`, `~/components/ui/about`, `~/components/ui/blog`, `~/components/ui/awards`, `~/components/ui/experience`
+Chunk: 13280 → 13283 (+3 lines — stub code added, no barrel removed). None of the 4 components are in the HomepageSection island tree.
+
+**Conclusion:** All direct `from "@aazucena/ui"` imports in TSX files are now stubbed. CJS source is NOT from a direct barrel import. Must be indirect — local sub-barrels (`~/components/ui/common`, etc.) or Navbar.tsx may import from `@aazucena/ui`.
+
+---
+
+### Next step — TEST 14
+
+**Plan:** Comment out `tailwindPreset` from `@aazucena/design-system/src/index.ts`.
+
+Chain: `@aazucena/hooks` barrel → `preloader/usePreloaderTheme` → `@aazucena/design-system` barrel → `tailwind.ts` → `tailwindcss-animate` + `@tailwindcss/typography` (CJS, even if stubbed).
+
+`mergeTheme`/`getThemeConfig` are in `themes/registry.ts` — they don't need `tailwind.ts`. The barrel forces `tailwind.ts` into the module graph even though it's a build-time-only config.
+
+- **PASS (chunk shrinks)** → `tailwind.ts` → CJS chain is the source; fix is to remove `tailwindPreset` from the client-side barrel
+- **FAIL (same size)** → CJS is coming from somewhere else entirely
 
 ---
 
