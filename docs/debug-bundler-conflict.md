@@ -281,6 +281,31 @@ New failing chunk is `HomepageSection` — the parent `Section.tsx` island. Its 
 
 ---
 
+### Step 12 — TEST 12 result
+
+**Change:** AwardModal, SettingsPanel, NavigationButton stubs + ToolbarButton and ScrollDown re-exports commented out in `ui/index.ts`.
+**Result:** Build FAILS ❌ at Rollup resolution (10.18s) — NOT the esbuild error.
+
+```
+"ToolbarButton" is not exported by "src/components/ui/index.ts"
+imported by "src/components/homepage/overlays/NavigationToolbar.tsx"
+```
+
+**Conclusion:** `ToolbarButton` was missed in the TEST 12 plan. `NavigationToolbar.tsx` imports `ToolbarButton` from `~/components/ui` (which re-exported it from `@aazucena/ui`). Removing the re-export without stubbing it broke Rollup module resolution before esbuild could run. `ToolbarButton` is another `@aazucena/ui` barrel consumer.
+
+Build died too early to observe the esbuild error — test is incomplete, not invalid.
+
+---
+
+### Next step — TEST 12b
+
+**Plan:** Also stub `ToolbarButton` in `NavigationToolbar.tsx` directly (same pattern as other components). Keep `ui/index.ts` with ToolbarButton commented out.
+
+- **PASS** → ALL `@aazucena/ui` barrel imports are now stubbed; these were the CJS source
+- **FAIL** → CJS is in gsap, @aazucena/context, DynamicBackground, or another non-UI dep
+
+---
+
 ## ✅ RESOLVED — Root Cause & Fix
 
 ### Root Cause

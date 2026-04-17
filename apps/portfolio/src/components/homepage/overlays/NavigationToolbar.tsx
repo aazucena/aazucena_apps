@@ -11,12 +11,27 @@
  */
 
 import type { JSX } from "react";
-import {
-  SocialMenu,
-  SettingsPanel,
-  InfoPanel,
-  ToolbarButton,
-} from "~/components/ui";
+import React from "react";
+import { SocialMenu, SettingsPanel, InfoPanel } from "~/components/ui";
+// TEST 12b: stub @aazucena/ui barrel import (ToolbarButton was re-exported via ui/index.ts)
+// import { ToolbarButton } from "~/components/ui";
+const ToolbarButton = ({
+  onClick,
+  label,
+  isActive,
+  className,
+  icon,
+}: {
+  onClick?: () => void;
+  label?: string;
+  isActive?: boolean;
+  className?: string;
+  icon?: React.ReactNode;
+}) => (
+  <button onClick={onClick} aria-label={label} className={className}>
+    {icon}
+  </button>
+);
 import { Popover } from "~/components/ui/common";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio, useAnimation } from "@aazucena/context";
