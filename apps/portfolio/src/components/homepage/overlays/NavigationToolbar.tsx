@@ -12,12 +12,8 @@
 
 import type { JSX } from "react";
 import React from "react";
-import {
-  SocialMenu,
-  SettingsPanel,
-  InfoPanel,
-  ToolbarButton,
-} from "~/components/ui";
+import { SocialMenu, SettingsPanel, InfoPanel } from "~/components/ui";
+import { ToolbarButton } from "@aazucena/ui";
 import { Popover } from "~/components/ui/common";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio, useAnimation } from "@aazucena/context";
