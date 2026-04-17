@@ -85,20 +85,6 @@ export default defineConfig({
       noExternal: [/@aazucena\//],
     },
     plugins: [
-      // Restore Vite 7's @vite/env resolution lost in Astro's config merge
-      {
-        name: "vite-env-resolve",
-        enforce: "pre",
-        resolveId(id) {
-          if (id === "@vite/env")
-            return _require.resolve("vite/dist/client/env.mjs");
-        },
-        transform(code, id) {
-          if (id.endsWith("env.mjs") && code.includes("__DEFINES__")) {
-            return { code: code.replace(/__DEFINES__/g, "{}"), map: null };
-          }
-        },
-      },
       // [DISABLED] prop-types shim — was needed when IconRenderer with client:load
       // dragged prop-types (CJS) into client chunks, causing esbuild parse errors.
       // Root cause fixed (removed client directives from static IconRenderer usages).
