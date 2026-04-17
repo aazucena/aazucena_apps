@@ -5,17 +5,9 @@
  */
 
 import type { JSX } from "react";
-// TEST 13: stub @aazucena/ui barrel import
-// import { IconRenderer } from "@aazucena/ui";
+import { IconRenderer } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 import type { IconComponent } from "@aazucena/types";
-
-const IconRenderer = ({
-  icon: _icon,
-}: {
-  icon?: unknown;
-  className?: string;
-}) => null;
 
 export type LearnMoreCardVariant =
   | "cyan-blue"
