@@ -6,20 +6,8 @@
 import { type JSX } from "react";
 import React from "react";
 import { ScrollIndicators } from "~/components/ui";
-// TEST 12b: stub @aazucena/ui barrel re-export (ScrollDown was re-exported as ScrollDownIndicator)
-// import { ScrollDownIndicator } from "~/components/ui";
+import { ScrollDown as ScrollDownIndicator } from "@aazucena/ui";
 import { NavigationToolbar } from "./NavigationToolbar";
-
-// TEST 12b: stub must come after all imports (ESM ordering)
-const ScrollDownIndicator = ({
-  timeout: _timeout,
-  visible: _visible,
-  onClick,
-}: {
-  timeout?: number;
-  visible?: boolean;
-  onClick?: () => void;
-}) => <button onClick={onClick} />;
 import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";
 import { useDataContext } from "~/contexts";
