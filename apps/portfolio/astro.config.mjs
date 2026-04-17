@@ -42,7 +42,6 @@ export default defineConfig({
       // modulePreload:false — __vitePreload ternary patterns trigger the same error
       // if minify were ever re-enabled.
       target: "esnext",
-      modulePreload: false,
       minify: false,
     },
     resolve: {
