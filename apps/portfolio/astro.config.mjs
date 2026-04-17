@@ -23,27 +23,6 @@ export default defineConfig({
   site: process.env.PUBLIC_SITE_URL || "https://aazucena.com",
 
   vite: {
-    build: {
-      // esbuild cannot parse the async-module wrapper patterns that
-      // @rollup/plugin-commonjs generates for CJS packages (handlebars, leaflet,
-      // d3-cloud). The vite:esbuild-transpile render-chunk plugin fails with
-      // "Expected ':' but found ')'" in the shared island chunk.
-      //
-      // Fix: target:esnext + minify:false → Vite's resolveEsbuildTranspileOptions
-      // returns null (skips esbuild) when target==="esnext" && !minify.
-      // The CJS stubs (resolveId+load virtual modules) replace the real CJS
-      // packages with pure ESM, so runtime behaviour is correct.
-      //
-      // NOTE: This only affects the root/legacy Vite config. Astro 6 uses Vite
-      // Environments API and hardcodes minify:true for the client environment in
-      // astro/dist/core/build/static-build.js. The astro-no-client-minify integration
-      // below overrides that via astro:build:setup → updateConfig.
-      //
-      // modulePreload:false — __vitePreload ternary patterns trigger the same error
-      // if minify were ever re-enabled.
-      target: "esnext",
-      minify: false,
-    },
     resolve: {
       alias: {
         "@lib": resolve(__dirname, "src/lib"),
