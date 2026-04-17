@@ -61,8 +61,6 @@ export default defineConfig({
     },
     optimizeDeps: {
       include: [
-        // handlebars: pure CJS. Pulled via @aazucena/hooks barrel → useHandlebars.
-        "handlebars",
         // leaflet: pure CJS (no type:module, no exports map). Pulled via
         // @aazucena/ui barrel → map.impl.tsx.
         "leaflet",
@@ -109,13 +107,9 @@ export default defineConfig({
         name: "cjs-virtual-stubs",
         enforce: "pre",
         resolveId(id) {
-          if (id === "handlebars") return "\0handlebars-stub";
           if (id === "leaflet") return "\0leaflet-stub";
         },
         load(id) {
-          if (id === "\0handlebars-stub") {
-            return `const Handlebars = { compile: () => () => '', registerHelper: () => {}, registerPartial: () => {} }; export default Handlebars;`;
-          }
           if (id === "\0leaflet-stub") {
             return `
 const noop = () => {};
