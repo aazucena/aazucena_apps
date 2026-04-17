@@ -3,59 +3,7 @@
  * Displays quantitative insights about technical evolution
  */
 
-import { useState, useEffect, useRef } from "react";
-
-function CountUp({
-  end,
-  decimals = 0,
-  duration = 2.5,
-  suffix = "",
-}: {
-  end: number;
-  decimals?: number;
-  duration?: number;
-  suffix?: string;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [value, setValue] = useState(0);
-  const [triggered, setTriggered] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTriggered(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!triggered) return;
-    let startTime: number | null = null;
-    const step = (ts: number) => {
-      if (!startTime) startTime = ts;
-      const progress = Math.min((ts - startTime) / (duration * 1000), 1);
-      const eased = 1 - Math.pow(1 - progress, 4);
-      setValue(parseFloat((eased * end).toFixed(decimals)));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [triggered, end, duration, decimals]);
-
-  return (
-    <span ref={ref}>
-      {value.toFixed(decimals)}
-      {suffix}
-    </span>
-  );
-}
+import CountUp from "react-countup";
 import type { GrowthData } from "@aazucena/types";
 
 interface GrowthMetricsProps {
