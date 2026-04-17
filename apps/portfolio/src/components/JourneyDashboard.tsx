@@ -4,7 +4,7 @@
  * Scoped to /journey page - not a general-purpose dashboard
  */
 
-import { useState, useMemo, lazy, Suspense } from "react";
+import { useState, useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
@@ -13,23 +13,14 @@ import {
   GrowthMetrics,
   HeatmapInfoPanel,
 } from "~/components/ui/journey";
-
-const SpiderChart = lazy(
-  () => import("~/components/ui/journey/lazy/SpiderChart"),
-);
-const ForceDirectedGraph = lazy(
-  () => import("~/components/ui/journey/lazy/ForceDirectedGraph"),
-);
-const StreamGraph = lazy(
-  () => import("~/components/ui/journey/lazy/StreamGraph"),
-);
-const Heatmap = lazy(() => import("~/components/ui/journey/lazy/Heatmap"));
-const SankeyWithSemantics = lazy(
-  () => import("~/components/ui/journey/lazy/SankeyWithSemantics"),
-);
-const DetailsModal = lazy(
-  () => import("~/components/ui/journey/lazy/DetailsModal"),
-);
+import {
+  SpiderChart,
+  ForceDirectedGraph,
+  StreamGraph,
+  Heatmap,
+} from "@aazucena/visualizations";
+import { SankeyWithSemantics } from "~/components/ui/journey/SankeyWithSemantics";
+import { DetailsModal } from "~/components/ui/journey/DetailsModal";
 
 import { getSkillDetails } from "~/lib/transformers";
 import type {
@@ -229,69 +220,55 @@ export function JourneyDashboard({
             </p>
           </div>
 
-          <Suspense
-            fallback={
-              <div className="flex min-h-[400px] items-center justify-center text-gray-400">
-                Loading…
+          <div className="flex-1">
+            {activeTab === "evolution" && (
+              <div className="mx-auto max-w-4xl">
+                <SpiderChart
+                  data={evolutionData}
+                  hideHeader
+                  showYearControls
+                  height={480}
+                />
               </div>
-            }
-          >
-            <div className="flex-1">
-              {activeTab === "evolution" && (
-                <div className="mx-auto max-w-4xl">
-                  <SpiderChart
-                    data={evolutionData}
-                    hideHeader
-                    showYearControls
-                    height={480}
-                  />
-                </div>
-              )}
+            )}
 
-              {activeTab === "network" && (
-                <ForceDirectedGraph
-                  data={networkData}
-                  onNodeClick={handleNodeClick}
-                  groupKey="category"
-                  hideHeader
-                  showPhysicsControls
-                  height={560}
-                  highlightIds={networkHighlightIds}
-                />
-              )}
+            {activeTab === "network" && (
+              <ForceDirectedGraph
+                data={networkData}
+                onNodeClick={handleNodeClick}
+                groupKey="category"
+                hideHeader
+                showPhysicsControls
+                height={560}
+                highlightIds={networkHighlightIds}
+              />
+            )}
 
-              {activeTab === "flow" && (
-                <SankeyWithSemantics data={sankeyData} height={560} />
-              )}
+            {activeTab === "flow" && (
+              <SankeyWithSemantics data={sankeyData} height={560} />
+            )}
 
-              {activeTab === "momentum" && (
-                <StreamGraph
-                  data={filteredStreamData}
-                  hideHeader
-                  height={560}
-                />
-              )}
+            {activeTab === "momentum" && (
+              <StreamGraph data={filteredStreamData} hideHeader height={560} />
+            )}
 
-              {activeTab === "intensity" && (
-                <Heatmap
-                  data={filteredHeatmapData}
-                  hideHeader
-                  infoPanel={(cell) => (
-                    <HeatmapInfoPanel cell={cell} years={heatmapYears} />
-                  )}
-                />
-              )}
-            </div>
-          </Suspense>
+            {activeTab === "intensity" && (
+              <Heatmap
+                data={filteredHeatmapData}
+                hideHeader
+                infoPanel={(cell) => (
+                  <HeatmapInfoPanel cell={cell} years={heatmapYears} />
+                )}
+              />
+            )}
+          </div>
         </div>
 
-        <Suspense>
-          <DetailsModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            skillDetails={skillDetails}
-          />
-        </Suspense>
+        <DetailsModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          skillDetails={skillDetails}
+        />
       </div>
     </div>
   );
