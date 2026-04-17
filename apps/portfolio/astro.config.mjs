@@ -60,12 +60,7 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
-      // Pre-bundle with esbuild before Rollup runs — produces clean ESM so
-      // @rollup/plugin-commonjs never processes the individual .js icon sub-files
-      // (which lack type:module and would otherwise generate invalid default-export
-      // interop patterns that esbuild's render-chunk plugin can't parse).
       include: [
-        "@mynaui/icons-react",
         // handlebars: pure CJS. Pulled via @aazucena/hooks barrel → useHandlebars.
         "handlebars",
         // leaflet: pure CJS (no type:module, no exports map). Pulled via
