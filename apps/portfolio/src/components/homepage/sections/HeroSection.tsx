@@ -16,7 +16,9 @@ import {
 } from "~/config/animations";
 import { useHomepageData, usePortfolioData, useSectionData } from "~/contexts";
 import { useGSAPEntrance } from "@aazucena/hooks";
-import { FlipWords } from "@aazucena/ui";
+// TEST 11: comment out @aazucena/ui barrel import to isolate CJS source
+// import { FlipWords } from "@aazucena/ui";
+const FlipWords = ({ words }: { words: string[] }) => <span>{words[0]}</span>;
 import { NavigationButton, ResumeButton } from "~/components/ui";
 import type { NavigationDropdownOption } from "~/components/ui/hero/NavigationButton";
 import type { IconComponent } from "@aazucena/types";

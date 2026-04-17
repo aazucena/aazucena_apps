@@ -13,7 +13,9 @@ import {
 } from "~/components/ui/SkillBadgeList";
 import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
-import { IconRenderer } from "@aazucena/ui";
+// TEST 11: comment out @aazucena/ui barrel import to isolate CJS source
+// import { IconRenderer } from "@aazucena/ui";
+const IconRenderer = ({ icon }: { icon: string }) => <span>{icon}</span>;
 import { getGradientClass } from "@aazucena/utils";
 
 export interface SkillsSectionProps extends SectionProps {}

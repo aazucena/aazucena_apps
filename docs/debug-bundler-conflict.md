@@ -242,12 +242,27 @@ Remaining suspects in the chunk:
 
 ---
 
-### Next step — TEST 10
+### Step 10 — HomepageScene stubbed in AnimationCanvas
 
-**Plan:** Comment out `HomepageScene` import in `apps/portfolio/src/components/homepage/AnimationCanvas.tsx`, replace with `<div>` stub.
+**Change:** `HomepageScene` import commented out in `AnimationCanvas.tsx`, `<Canvas>` child replaced with `<mesh />` stub.
+**Result:** AnimationCanvas chunk PASSES ✅ — error moved to NEW chunk: `_astro/HomepageSection.!~{00B}~.js:14384:138`
 
-- **PASS** → HomepageScene (or one of its deps: @aazucena/animations/three, @react-three/drei, @aazucena/hooks, @aazucena/constants) is the CJS source
-- **FAIL** → CJS is in `@react-three/fiber`, `AnimationParticles/pixi.js`, or `@aazucena/context`
+**Conclusion:** `HomepageScene` (or its deps) was the CJS source in the AnimationCanvas chunk. `@react-three/fiber` + `AnimationParticles/pixi` + `@aazucena/context` are clean.
+
+New failing chunk is `HomepageSection` — the parent `Section.tsx` island. Its child section components all import from `@aazucena/ui` barrel (HeroSection → FlipWords, SkillsSection → IconRenderer, ExperienceSection → multiple components, SettingsPanel → Switch, AwardModal → Dialog, NavigationButton → IconRenderer).
+
+---
+
+### Next step — TEST 11
+
+**Plan:** Comment out ALL `@aazucena/ui` barrel imports in the three HomepageSection child components:
+
+- `HeroSection.tsx` → FlipWords stubbed inline
+- `SkillsSection.tsx` → IconRenderer stubbed inline
+- `ExperienceSection.tsx` → Timeline/TimelineContent/TimelineDot/TimelineItem/TimelineLine stubbed inline
+
+- **PASS** → `@aazucena/ui` barrel pulled through section components is the CJS source in HomepageSection
+- **FAIL** → CJS is in something else in the HomepageSection chunk (AwardModal, SettingsPanel, NavigationButton, or HomepageSection's other deps)
 
 ---
 
