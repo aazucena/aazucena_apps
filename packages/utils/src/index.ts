@@ -16,7 +16,8 @@ export * from './math';
 export * from './number';
 export * from './preloader';
 export * from './projects';
-export * from './shiki';
+// TEST 16: comment out shiki export to check if @shikijs/core has CJS/async-module patterns
+// export * from './shiki';
 export * from './strapi';
 export * from './string';
 export * from './tags';

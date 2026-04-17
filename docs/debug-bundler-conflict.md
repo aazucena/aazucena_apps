@@ -344,9 +344,37 @@ import { ThemeToggle } from "@aazucena/ui";
 
 ---
 
-### Next step — TEST 15
+### Step 15 — ThemeToggle isolated
 
-**Plan:** Stub `ThemeToggle` in `Navbar.tsx`:
+**Change:** Stubbed `ThemeToggle` in `Navbar.tsx` — last remaining un-stubbed `@aazucena/ui` barrel import.
+**Result:** Build FAILS ❌ — esbuild error at `HomepageSection.!~{00D}~.js:13283:138`
+
+Chunk: **identical** to TEST 14 (13283 lines — zero change).
+
+**Conclusion:** ThemeToggle was NOT in the HomepageSection chunk. The `@aazucena/ui` barrel was already fully excluded by tree-shaking from previous stubs. All 13283 lines are the stable core of HomepageSection WITHOUT any barrel content. CJS source is in a direct npm package dependency of the section components or workspace packages.
+
+Full scan of external npm packages in the dependency tree:
+
+- `gsap`, `@gsap/react` (ESM via `module` field) ✓
+- `@strapi/blocks-react-renderer` (ESM via `import` conditional export) ✓
+- `@tanstack/react-query` (`type:module`) ✓
+- `flexsearch` (ESM via `import` conditional export) ✓
+- `framer-motion`, `clsx`, `luxon`, `tailwind-merge`, `react-hook-form`, `culori`, `lodash-es` (all ESM via conditional exports) ✓
+- `shiki/bundle/web` (ESM `.mjs`) ✓
+- `tailwindcss/colors` (ESM via exports map `import` field) ✓
+
+No obvious CJS source found. Next suspect: `shiki/bundle/web` is 366 lines and imports `@shikijs/core` which is larger. Even though the main entry is ESM, internal deps may have CJS patterns. Also: `@aazucena/utils` barrel line 19 re-exports `./shiki` — every section component importing utils pulls in shiki.
+
+---
+
+### Next step — TEST 16
+
+**Plan:** Comment out `export * from './shiki'` from `packages/utils/src/index.ts`.
+
+- **PASS / chunk shrinks** → shiki (or `@shikijs/core`) contains CJS/async-module patterns
+- **FAIL / same size** → CJS is from something else entirely; next suspects are workspace barrel tree-shaking failures
+
+---
 
 ```tsx
 // import { ThemeToggle } from "@aazucena/ui";
