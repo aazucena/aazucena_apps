@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "@aazucena/icons";
-// TEST 15: stub @aazucena/ui barrel import (last remaining un-stubbed barrel import)
-// import { ThemeToggle } from "@aazucena/ui";
+import { ThemeToggle } from "@aazucena/ui";
 import { toTitleCase } from "@aazucena/utils";
 import { getNavigationIcon } from "~/lib/utils/icons";
 import type { NavigationItem } from "@aazucena/types";
-
-// TEST 15: inline stub — must come AFTER all imports (ESM ordering requirement)
-const ThemeToggle = () => <button aria-label="Toggle theme" />;
 
 interface NavbarProps {
   siteName: string;
