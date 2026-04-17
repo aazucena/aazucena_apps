@@ -16,11 +16,7 @@ import {
   Wrench,
 } from "@aazucena/icons";
 import type { JSX } from "react";
-// TEST 13: stub @aazucena/ui barrel import
-// import { Progress } from "@aazucena/ui";
-const Progress = ({ value }: { value?: number; className?: string }) => (
-  <div style={{ width: `${value ?? 0}%` }} />
-);
+import { Progress } from "@aazucena/ui";
 
 interface Skill {
   name: string;
