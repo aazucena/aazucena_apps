@@ -1,17 +1,10 @@
 /**
  * Journey Dashboard Component
  * Tabbed interface combining all technical visualizations for the journey page
- *
  * Scoped to /journey page - not a general-purpose dashboard
- * Phase 3 Task #5: DetailsModal lazy-loaded for bundle optimization
- *
- * Lazy import pattern: use thin wrapper files (lazy/X.ts) that re-export as default.
- * Avoids .then((m) => ({ default: m.X })) which generates invalid JS via
- * @rollup/plugin-commonjs — reserved word 'default' as object key in arrow
- * function body causes esbuild parse error "Expected ':' but found ')'".
  */
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import { useStore } from "@nanostores/react";
 import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
@@ -21,17 +14,22 @@ import {
   HeatmapInfoPanel,
 } from "~/components/ui/journey";
 
-// Static imports — component is already deferred by client:only="react" in the
-// Astro page; dynamic import() inside a client island adds no extra deferral
-// and triggers an esbuild parse error in the generated Rollup chunk.
-import {
-  SpiderChart,
-  ForceDirectedGraph,
-  StreamGraph,
-  Heatmap,
-} from "@aazucena/visualizations";
-import { SankeyWithSemantics } from "~/components/ui/journey/SankeyWithSemantics";
-import { DetailsModal } from "~/components/ui/journey/DetailsModal";
+const SpiderChart = lazy(
+  () => import("~/components/ui/journey/lazy/SpiderChart"),
+);
+const ForceDirectedGraph = lazy(
+  () => import("~/components/ui/journey/lazy/ForceDirectedGraph"),
+);
+const StreamGraph = lazy(
+  () => import("~/components/ui/journey/lazy/StreamGraph"),
+);
+const Heatmap = lazy(() => import("~/components/ui/journey/lazy/Heatmap"));
+const SankeyWithSemantics = lazy(
+  () => import("~/components/ui/journey/lazy/SankeyWithSemantics"),
+);
+const DetailsModal = lazy(
+  () => import("~/components/ui/journey/lazy/DetailsModal"),
+);
 
 import { getSkillDetails } from "~/lib/transformers";
 import type {
@@ -231,59 +229,69 @@ export function JourneyDashboard({
             </p>
           </div>
 
-          <div className="flex-1">
-            {activeTab === "evolution" && (
-              <div className="mx-auto max-w-4xl">
-                <SpiderChart
-                  data={evolutionData}
-                  hideHeader
-                  showYearControls
-                  height={480}
-                />
+          <Suspense
+            fallback={
+              <div className="flex min-h-[400px] items-center justify-center text-gray-400">
+                Loading…
               </div>
-            )}
+            }
+          >
+            <div className="flex-1">
+              {activeTab === "evolution" && (
+                <div className="mx-auto max-w-4xl">
+                  <SpiderChart
+                    data={evolutionData}
+                    hideHeader
+                    showYearControls
+                    height={480}
+                  />
+                </div>
+              )}
 
-            {activeTab === "network" && (
-              <ForceDirectedGraph
-                data={networkData}
-                onNodeClick={handleNodeClick}
-                groupKey="category"
-                hideHeader
-                showPhysicsControls
-                height={560}
-                highlightIds={networkHighlightIds}
-              />
-            )}
+              {activeTab === "network" && (
+                <ForceDirectedGraph
+                  data={networkData}
+                  onNodeClick={handleNodeClick}
+                  groupKey="category"
+                  hideHeader
+                  showPhysicsControls
+                  height={560}
+                  highlightIds={networkHighlightIds}
+                />
+              )}
 
-            {activeTab === "flow" && (
-              <SankeyWithSemantics data={sankeyData} height={560} />
-            )}
+              {activeTab === "flow" && (
+                <SankeyWithSemantics data={sankeyData} height={560} />
+              )}
 
-            {activeTab === "momentum" && (
-              <StreamGraph
-                data={filteredStreamData}
-                hideHeader
-                height={560}
-              />
-            )}
+              {activeTab === "momentum" && (
+                <StreamGraph
+                  data={filteredStreamData}
+                  hideHeader
+                  height={560}
+                />
+              )}
 
-            {activeTab === "intensity" && (
-              <Heatmap
-                data={filteredHeatmapData}
-                hideHeader
-                infoPanel={(cell) => (
-                  <HeatmapInfoPanel cell={cell} years={heatmapYears} />
-                )}
-              />
-            )}
-          </div>
+              {activeTab === "intensity" && (
+                <Heatmap
+                  data={filteredHeatmapData}
+                  hideHeader
+                  infoPanel={(cell) => (
+                    <HeatmapInfoPanel cell={cell} years={heatmapYears} />
+                  )}
+                />
+              )}
+            </div>
+          </Suspense>
         </div>
 
-        <DetailsModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          skillDetails={skillDetails}
-        />
+        <Suspense>
+          <DetailsModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            skillDetails={skillDetails}
+          />
+        </Suspense>
       </div>
     </div>
   );
