@@ -6,9 +6,7 @@ import { cn, getHighlighter } from '@aazucena/utils';
 import type { Highlighter } from 'shiki';
 
 let _highlighter: Highlighter | null = null;
-getHighlighter().then((h) => {
-  _highlighter = h;
-});
+let _highlighterInit = false;
 
 export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   content: string;
@@ -63,6 +61,12 @@ marked.use({
       return `<blockquote class="border-l-4 border-primary px-4 py-6 mb-4 italic text-muted-foreground glass bg-primary-100 rounded-r-lg [&_p]:!mt-0">${content}</blockquote>`;
     },
     code(token: Tokens.Code): string {
+      if (!_highlighterInit) {
+        _highlighterInit = true;
+        getHighlighter().then((h) => {
+          _highlighter = h;
+        });
+      }
       if (_highlighter) {
         return _highlighter.codeToHtml(token.text, {
           lang: token.lang || 'text',
