@@ -9,9 +9,6 @@
   "exports": {
     ".": "./src/index.ts",
     "./preloader": "./src/components/preloader/index.ts",
-    "./back-to-top": "./src/components/ui/back-to-top.tsx",
-    "./reading-progress": "./src/components/ui/reading-progress.tsx",
-    "./table-of-contents": "./src/components/ui/table-of-contents.tsx",
     "./components/*": "./src/components/*",
     "./components/ui/*": "./src/components/ui/*.tsx",
     "./utils/*": "./src/utils/*",
