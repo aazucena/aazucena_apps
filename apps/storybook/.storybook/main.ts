@@ -42,6 +42,18 @@ const config: StorybookConfig = {
     );
     config.define['process.env.NODE_ENV'] = JSON.stringify(process.env.NODE_ENV || 'development');
 
+    // Vite 7 promotes MODULE_LEVEL_DIRECTIVE to a build error. Suppress it so
+    // 'use client' in @aazucena/ui components and upstream libs (radix-ui,
+    // tanstack/react-query) don't break the Storybook build.
+    config.build = config.build ?? {};
+    config.build.rollupOptions = config.build.rollupOptions ?? {};
+    const existingOnwarn = config.build.rollupOptions.onwarn;
+    config.build.rollupOptions.onwarn = (warning, warn) => {
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+      if (existingOnwarn) existingOnwarn(warning, warn);
+      else warn(warning);
+    };
+
     return config;
   },
 };
