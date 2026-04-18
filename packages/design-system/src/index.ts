@@ -25,8 +25,7 @@ export * from './tokens/index';
 export * from './assets/index';
 
 // Tailwind Integration
-// TEST 14: comment out tailwindPreset to test if tailwind.ts → CJS chain is the HomepageSection source
-// export { default as tailwindPreset } from './tailwind';
+export { default as tailwindPreset } from './tailwind';
 
 // Runtime Theme Switching
 export { applyVibe, resetVibe, getActiveVibe, isValidVibe } from './utils/apply-theme';
