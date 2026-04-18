@@ -199,6 +199,8 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 - `docs/architecture.md` — deep architecture reference (animation, CMS, packages)
 - `docs/phase-*.md` — per-phase docs
 - `docs/features/*.md` — feature planning docs
+- `docs/incidents/README.md` — incident documentation standard (structure, severity threshold)
+- `docs/incidents/YYYY-MM-DD-*/` — per-incident directories: `README.md` + `debug-log.md` + `post-incident.md`
 
 ### Portfolio Key Files
 
