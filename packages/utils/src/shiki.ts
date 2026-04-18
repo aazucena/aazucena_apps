@@ -12,13 +12,28 @@ type GlobalWithShiki = typeof globalThis & {
 // OOM crashes in headless vitest runs. Extend this list as new languages appear
 // in CMS content.
 const SUPPORTED_LANGS = [
-  'typescript', 'tsx', 'javascript', 'jsx',
-  'css', 'scss', 'html',
-  'json', 'jsonc', 'yaml', 'toml',
-  'bash', 'sh', 'shell',
-  'python', 'rust', 'go', 'sql',
-  'markdown', 'mdx',
-  'diff', 'text',
+  'typescript',
+  'tsx',
+  'javascript',
+  'jsx',
+  'css',
+  'scss',
+  'html',
+  'json',
+  'jsonc',
+  'yaml',
+  'toml',
+  'bash',
+  'sh',
+  'shell',
+  'python',
+  'rust',
+  'go',
+  'sql',
+  'markdown',
+  'mdx',
+  'diff',
+  'text',
 ] as const;
 
 /**
