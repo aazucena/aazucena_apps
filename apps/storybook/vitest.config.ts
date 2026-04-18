@@ -66,7 +66,10 @@ export default defineConfig({
             // 2 Chrome processes in parallel: each handles ~half the story files
             // sequentially, keeping per-process memory accumulation below OOM threshold.
             // Single process was OOM-killing after ~20 min on the 8 GB CI node-large executor.
-            instances: [{ browser: 'chromium' }, { browser: 'chromium' }],
+            instances: [
+              { browser: 'chromium', name: 'chromium-0' },
+              { browser: 'chromium', name: 'chromium-1' },
+            ],
           },
           setupFiles: ['.storybook/vitest.setup.ts'],
         },
