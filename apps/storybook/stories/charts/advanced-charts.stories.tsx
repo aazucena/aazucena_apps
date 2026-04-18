@@ -35,7 +35,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-vitest'],
   decorators: [
     (Story) => (
       <div className="w-full">

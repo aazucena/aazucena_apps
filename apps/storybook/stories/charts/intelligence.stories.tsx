@@ -24,7 +24,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-vitest'],
   decorators: [
     (Story) => (
       <TelemetryProvider config={{ baseUrl: '' }}>

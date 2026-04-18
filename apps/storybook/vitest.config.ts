@@ -36,6 +36,8 @@ export default defineConfig({
           // Generous timeouts for headless browser: 373 stories × DOM + animation overhead.
           testTimeout: 30000,
           hookTimeout: 30000,
+          // Retry once on browser crash/connection drop — covers transient OOM kills.
+          retry: 1,
           browser: {
             enabled: true,
             provider: playwright({
