@@ -30,8 +30,10 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
-          // Run story files sequentially — 373 concurrent pages exceed Chrome's
-          // per-process resource limits, causing exactly 1 random page crash per run.
+          // Do NOT set fileParallelism: false globally — that forces all 300+ stories
+          // through a single Chrome process, accumulating memory until OOM (~20 min).
+          // Instead, split across 2 instances below (each handles ~half the stories).
+          // Within each instance, story files run sequentially (vitest default).
           fileParallelism: false,
           // Generous timeouts for headless browser: 373 stories × DOM + animation overhead.
           testTimeout: 30000,
@@ -61,7 +63,10 @@ export default defineConfig({
               },
             }),
             headless: true,
-            instances: [{ browser: 'chromium' }],
+            // 2 Chrome processes in parallel: each handles ~half the story files
+            // sequentially, keeping per-process memory accumulation below OOM threshold.
+            // Single process was OOM-killing after ~20 min on the 8 GB CI node-large executor.
+            instances: [{ browser: 'chromium' }, { browser: 'chromium' }],
           },
           setupFiles: ['.storybook/vitest.setup.ts'],
         },
