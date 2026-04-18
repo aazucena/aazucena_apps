@@ -60,7 +60,6 @@ export default defineConfig({
   },
 
   integrations: [
-    // [SANITY CHECK] astro-no-client-minify commented out to verify if permanent fix or band-aid.
     // Astro 6 uses Vite Environments API and hardcodes minify:true for the client
     // environment (astro/dist/core/build/static-build.js:284). This overrides the
     // root-level vite.build.minify:false above and causes esbuild to run on client
@@ -70,22 +69,26 @@ export default defineConfig({
     // and calls updateConfig (Vite's mergeConfig) to override minify:false, which
     // re-enables the (target==="esnext" && !minify) skip path in Vite's
     // resolveEsbuildTranspileOptions, preventing esbuild from processing client chunks.
-    // {
-    //   name: "astro-no-client-minify",
-    //   hooks: {
-    //     "astro:build:setup": ({ updateConfig }) => {
-    //       updateConfig({
-    //         environments: {
-    //           client: {
-    //             build: {
-    //               minify: false,
-    //             },
-    //           },
-    //         },
-    //       });
-    //     },
-    //   },
-    // },
+    //
+    // CONFIRMED PERMANENT FIX (2026-04-17): sanity-check deployment without this
+    // integration failed with the same "Expected ':' but found ')'" esbuild error.
+    // See docs/incidents/2026-04-07-eslint-flat-config-build-failure/debug-log.md
+    {
+      name: "astro-no-client-minify",
+      hooks: {
+        "astro:build:setup": ({ updateConfig }) => {
+          updateConfig({
+            environments: {
+              client: {
+                build: {
+                  minify: false,
+                },
+              },
+            },
+          });
+        },
+      },
+    },
     react(),
     sitemap({
       // Exclude admin routes, API routes, and draft content
