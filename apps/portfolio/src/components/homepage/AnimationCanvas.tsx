@@ -62,6 +62,8 @@ export default function AnimationCanvas({
           shadows
         >
           <HomepageScene
+            intensity={capabilities.performanceTier === "high" ? 1 : 0.7}
+            phase={atmosphericLayer}
             currentSection={currentSection}
             scrollProgress={scrollProgress}
           />
