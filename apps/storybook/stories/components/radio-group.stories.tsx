@@ -23,7 +23,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
 } satisfies Meta<typeof RadioGroup>;
 
 export default meta;

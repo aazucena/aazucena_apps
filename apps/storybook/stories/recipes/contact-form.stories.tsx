@@ -34,7 +34,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
 } satisfies Meta;
 
 export default meta;

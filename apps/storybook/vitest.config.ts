@@ -22,16 +22,18 @@ export default defineConfig({
         plugins: [
           storybookTest({
             configDir: path.join(dirname, '.storybook'),
-            // Skip stories tagged 'no-vitest' — GPU-dependent (Three.js, PixiJS)
-            // stories that require WebGL crash headless Chromium. Visual correctness
-            // for these is covered by Chromatic on-demand, not vitest.
-            tags: { exclude: ['no-vitest'] },
+            // Only run stories tagged 'interaction-test' — stories with play()
+            // functions that verify DOM interaction. Pure render stories (the majority)
+            // belong in Chromatic for visual regression, not in vitest which runs a
+            // single sequential Chrome process (fileParallelism:false) that OOMs when
+            // asked to render 260+ story files.
+            tags: { include: ['interaction-test'], exclude: ['no-vitest'] },
           }),
         ],
         test: {
           name: 'storybook',
           fileParallelism: false,
-          // Generous timeouts for headless browser: 373 stories × DOM + animation overhead.
+          // Generous timeouts for headless browser: 34 interaction-test stories × DOM + animation overhead.
           testTimeout: 30000,
           hookTimeout: 30000,
           // Retry once on browser crash/connection drop — covers transient OOM kills.

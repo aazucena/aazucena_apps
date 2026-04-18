@@ -23,7 +23,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',

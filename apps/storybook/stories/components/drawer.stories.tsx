@@ -40,7 +40,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
 } satisfies Meta<typeof Drawer>;
 
 export default meta;
