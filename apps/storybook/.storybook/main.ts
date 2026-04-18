@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import tailwindcss from '@tailwindcss/vite';
 
-// When running under vitest (process.env.VITEST is set), restrict stories to only
+// When running under vitest (STORYBOOK_VITEST=1 set explicitly in test:ci script),
 // the 34 files with play() interaction tests. storybookTest plugin reads this list
 // directly and passes it to vitest as the file include — it ignores vitest's own
 // test.include config (cleared at plugin init). All other stories run in Storybook
@@ -47,7 +47,7 @@ const INTERACTION_TEST_STORIES = [
 ];
 
 const config: StorybookConfig = {
-  stories: process.env.VITEST
+  stories: process.env.STORYBOOK_VITEST
     ? INTERACTION_TEST_STORIES
     : [
         '../stories/docs/**/*.mdx',

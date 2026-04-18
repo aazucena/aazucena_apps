@@ -14,7 +14,7 @@
     "preview": "serve storybook-static",
     "chromatic": "chromatic",
     "test": "vitest run",
-    "test:ci": "NODE_OPTIONS='--max-old-space-size=6144' vitest run",
+    "test:ci": "STORYBOOK_VITEST=1 NODE_OPTIONS='--max-old-space-size=6144' vitest run",
     "test:storybook": "vitest --project=storybook"
   },
   "peerDependencies": {
