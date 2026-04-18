@@ -3,9 +3,6 @@
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "url";
 import { resolve, dirname } from "path";
-import { createRequire } from "module";
-
-const _require = createRequire(import.meta.url);
 
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
@@ -56,18 +53,8 @@ export default defineConfig({
       noExternal: [/@aazucena\//],
     },
     plugins: [
-      // [DISABLED] prop-types shim — was needed when IconRenderer with client:load
-      // dragged prop-types (CJS) into client chunks, causing esbuild parse errors.
-      // Root cause fixed (removed client directives from static IconRenderer usages).
-      // Leaving commented out to restore React dev-mode prop warnings from @mynaui.
-      // {
-      //   name: "prop-types-shim",
-      //   ...
-      // },
-
       // @ts-ignore: Astro v6 is expected to ship with a compatible version of tailwindcss/vite
       tailwindcss(),
-      ,
       visualizer({ open: false, filename: "dist/stats.html", gzipSize: true }),
     ],
   },
