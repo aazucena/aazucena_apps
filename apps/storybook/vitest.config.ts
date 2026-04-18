@@ -33,6 +33,9 @@ export default defineConfig({
           // Run story files sequentially — 373 concurrent pages exceed Chrome's
           // per-process resource limits, causing exactly 1 random page crash per run.
           fileParallelism: false,
+          // Generous timeouts for headless browser: 373 stories × DOM + animation overhead.
+          testTimeout: 30000,
+          hookTimeout: 30000,
           browser: {
             enabled: true,
             provider: playwright({
@@ -41,13 +44,15 @@ export default defineConfig({
                 // single Chrome process. These flags reduce the footprint:
                 //  --disable-dev-shm-usage  → use /tmp instead of capped /dev/shm
                 //  --disable-gpu            → skip GPU compositing (headless anyway)
-                //  --single-process         → no separate renderer/GPU processes
                 //  --disable-extensions     → skip extension subsystem
                 //  --no-sandbox             → avoid sandbox overhead (CI containers)
+                // NOTE: --single-process intentionally omitted — it disables Chrome's
+                // multi-process renderer isolation, causing the entire browser to crash
+                // if any story accumulates enough memory. Without it, individual
+                // renderer frames crash in isolation while the host process survives.
                 args: [
                   '--disable-dev-shm-usage',
                   '--disable-gpu',
-                  '--single-process',
                   '--disable-extensions',
                   '--no-sandbox',
                 ],
