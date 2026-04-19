@@ -26,16 +26,20 @@ const tocVariants = cva('fixed z-40 hidden xl:block transition-all duration-300'
 });
 
 const tocItemVariants = cva(
-  'flex-1 truncate rounded-xl px-3 py-1.5 text-sm transition-all duration-300',
+  'block w-full break-words rounded-xl px-3 py-1.5 text-sm transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-        glass: 'text-foreground/60 hover:bg-background/10 dark:bg-white/10 hover:text-white',
+        glass: 'text-foreground/60 hover:bg-white/10 hover:text-white',
         cyber:
-          'text-foreground0/60 hover:bg-cyan-500/10 hover:text-cyan-400 font-black uppercase tracking-widest italic text-[10px]',
+          'text-foreground/60 hover:bg-cyan-500/10 hover:text-cyan-400 font-black uppercase tracking-widest italic text-[10px]',
       },
       isActive: {
+        true: '',
+        false: '',
+      },
+      isNested: {
         true: '',
         false: '',
       },
@@ -44,22 +48,44 @@ const tocItemVariants = cva(
       {
         variant: 'default',
         isActive: true,
+        isNested: false,
         className: 'bg-primary text-primary-foreground shadow-lg font-bold',
       },
       {
         variant: 'glass',
         isActive: true,
+        isNested: false,
         className: 'bg-white/20 text-foreground font-bold shadow-lg',
       },
       {
         variant: 'cyber',
         isActive: true,
+        isNested: false,
         className: 'bg-cyan-500/20 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.2)]',
+      },
+      {
+        variant: 'default',
+        isActive: true,
+        isNested: true,
+        className: 'bg-primary/30 text-primary-foreground font-semibold',
+      },
+      {
+        variant: 'glass',
+        isActive: true,
+        isNested: true,
+        className: 'bg-white/10 text-foreground font-semibold',
+      },
+      {
+        variant: 'cyber',
+        isActive: true,
+        isNested: true,
+        className: 'bg-cyan-500/10 text-cyan-400 font-semibold',
       },
     ],
     defaultVariants: {
       variant: 'default',
       isActive: false,
+      isNested: false,
     },
   },
 );
@@ -141,12 +167,20 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
 
       setSections(scannedSections);
 
+      const visibleIds = new Set<string>();
       const observer = new IntersectionObserver(
         (entries) => {
-          const intersecting = entries.find((e) => e.isIntersecting);
-          if (intersecting) setActiveId(intersecting.target.id);
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              visibleIds.add(entry.target.id);
+            } else {
+              visibleIds.delete(entry.target.id);
+            }
+          });
+          const topmost = scannedSections.find(({ id }) => visibleIds.has(id));
+          if (topmost) setActiveId(topmost.id);
         },
-        { rootMargin: '-100px 0px -66% 0px', threshold: 0 },
+        { rootMargin: '0px 0px -66% 0px', threshold: 0 },
       );
 
       scannedSections.forEach(({ id }) => {
@@ -175,13 +209,17 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
                   {toTitleCase(node.label)}
                 </a>
                 {node.children.length > 0 && isActive && (
-                  <ul className="ml-4 space-y-1 border-l border-current/10 pl-2">
+                  <ul className="mt-1 ml-3 space-y-0.5 border-l border-current/20 pl-2">
                     {node.children.map((child) => (
                       <li key={child.id}>
                         <a
                           href={`#${child.id}`}
                           className={cn(
-                            tocItemVariants({ variant, isActive: activeId === child.id }),
+                            tocItemVariants({
+                              variant,
+                              isActive: activeId === child.id,
+                              isNested: true,
+                            }),
                             'py-1 text-xs',
                           )}
                         >
