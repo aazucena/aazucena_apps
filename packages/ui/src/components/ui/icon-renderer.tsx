@@ -61,7 +61,7 @@ export const IconRenderer = memo(function IconRenderer({
 
     let dataUrl = '';
     try {
-      const encodedSVG = btoa(unescape(encodeURIComponent(icon)));
+      const encodedSVG = btoa(decodeURIComponent(encodeURIComponent(icon)));
       dataUrl = `data:image/svg+xml;base64,${encodedSVG}`;
     } catch (error) {
       onError?.(error as Error);
