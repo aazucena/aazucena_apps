@@ -12,6 +12,7 @@ import {
 } from "@aazucena/ui";
 import type { JSX } from "react";
 import { useState } from "react";
+import React from "react";
 import { useSectionData } from "~/contexts";
 import { ExperienceCard, ExperienceActions } from "~/components/ui/experience";
 import { SectionLayout } from "./SectionLayout";

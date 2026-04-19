@@ -1,27 +1,27 @@
 /**
  * Journey Dashboard Component
  * Tabbed interface combining all technical visualizations for the journey page
- *
  * Scoped to /journey page - not a general-purpose dashboard
- * Phase 3 Task #5: DetailsModal lazy-loaded for bundle optimization
  */
 
-import { lazy, Suspense, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
+import {
+  CareerStats,
+  Toolbar,
+  GrowthMetrics,
+  HeatmapInfoPanel,
+} from "~/components/ui/journey";
 import {
   SpiderChart,
   ForceDirectedGraph,
   StreamGraph,
   Heatmap,
 } from "@aazucena/visualizations";
-import {
-  CareerStats,
-  Toolbar,
-  GrowthMetrics,
-  SankeyWithSemantics,
-  HeatmapInfoPanel,
-} from "~/components/ui/journey";
+import { SankeyWithSemantics } from "~/components/ui/journey/SankeyWithSemantics";
+import { DetailsModal } from "~/components/ui/journey/DetailsModal";
+
 import { getSkillDetails } from "~/lib/transformers";
 import type {
   SpiderChartData,
@@ -32,17 +32,10 @@ import type {
   GenericTimeSeriesStep as StreamGraphStep,
   GrowthData,
   CareerStat as CareerStatsType,
+  Experience,
+  Education,
+  Project,
 } from "@aazucena/types";
-
-// Lazy load DetailsModal - only loads when user clicks to view skill details
-const DetailsModal = lazy(() =>
-  import("~/components/ui/journey/DetailsModal").then((m) => ({
-    default: m.DetailsModal,
-  })),
-);
-import type { Experience } from "@aazucena/types";
-import type { Education } from "@aazucena/types";
-import type { Project } from "@aazucena/types";
 
 interface JourneyDashboardProps {
   evolutionData: SpiderChartData[];
@@ -83,7 +76,6 @@ export function JourneyDashboard({
   const visibleCategories = useStore(visibleCategoriesStore);
   const searchQuery = useStore(skillSearchQueryStore);
 
-  // Derive highlight IDs for the network graph from the search query
   const networkHighlightIds = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
     if (!q) return null;
@@ -94,7 +86,6 @@ export function JourneyDashboard({
     );
   }, [searchQuery, networkData.nodes]);
 
-  // Filter stream graph data by visible categories
   const filteredStreamData = useMemo(() => {
     if (!visibleCategories || !streamGraphData.length) return streamGraphData;
     return streamGraphData.map((step) => ({
@@ -107,7 +98,6 @@ export function JourneyDashboard({
     }));
   }, [streamGraphData, visibleCategories]);
 
-  // Filter heatmap data — zero out months whose dominant category is hidden
   const filteredHeatmapData = useMemo(() => {
     if (!visibleCategories || !heatmapData.length) return heatmapData;
     return heatmapData.map((cell) => {
@@ -116,7 +106,6 @@ export function JourneyDashboard({
     });
   }, [heatmapData, visibleCategories]);
 
-  // Derive year range for the info panel timeline footer
   const heatmapYears = useMemo(
     () =>
       Array.from(
@@ -125,7 +114,6 @@ export function JourneyDashboard({
     [heatmapData],
   );
 
-  // Modal state for network graph
   const [selectedSkill, setSelectedSkill] = useState<SkillNode | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -174,7 +162,6 @@ export function JourneyDashboard({
   return (
     <div className="overflow-visible py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Dashboard Header */}
         {!hideHeader && (
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-center text-3xl font-bold text-gray-900 dark:text-white">
@@ -187,26 +174,26 @@ export function JourneyDashboard({
           </div>
         )}
 
-        {/* Career Stats Summary */}
         {!hideStats && (
           <div className="mb-12">
             <CareerStats stats={careerStats} isDashboardVariant={true} />
           </div>
         )}
 
-        {/* Growth Metrics Summary */}
         {!hideMetrics && (
           <div className="mb-12">
             <GrowthMetrics metrics={growthMetrics} />
           </div>
         )}
 
-        {/* Tab Navigation */}
         <div className="mb-8 flex flex-wrap justify-center gap-2">
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as TabType)}
+              onClick={() => {
+                const tabId = tab.id as TabType;
+                setActiveTab(tabId);
+              }}
               className={`flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold transition-all ${
                 activeTab === tab.id
                   ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none"
@@ -218,12 +205,11 @@ export function JourneyDashboard({
             </button>
           ))}
         </div>
-        {/* Global Toolbar (Sticky within dashboard section) */}
+
         <div className="mb-2">
           <Toolbar categories={categories} />
         </div>
 
-        {/* Active Tab Content */}
         <div className="flex min-h-[600px] flex-col rounded-3xl border border-gray-100 bg-gray-200/50 p-6 md:p-10 dark:border-gray-800">
           <div className="mb-8 text-center md:text-left">
             <h3 className="mb-2 text-center text-2xl font-bold text-gray-900 md:text-left dark:text-white">
@@ -238,7 +224,7 @@ export function JourneyDashboard({
             {activeTab === "evolution" && (
               <div className="mx-auto max-w-4xl">
                 <SpiderChart
-                  data={evolutionData as any}
+                  data={evolutionData}
                   hideHeader
                   showYearControls
                   height={480}
@@ -268,7 +254,7 @@ export function JourneyDashboard({
 
             {activeTab === "intensity" && (
               <Heatmap
-                data={filteredHeatmapData as any}
+                data={filteredHeatmapData}
                 hideHeader
                 infoPanel={(cell) => (
                   <HeatmapInfoPanel cell={cell} years={heatmapYears} />
@@ -278,14 +264,11 @@ export function JourneyDashboard({
           </div>
         </div>
 
-        {/* DetailsModal - Lazy loaded */}
-        <Suspense fallback={<div className="sr-only">Loading...</div>}>
-          <DetailsModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            skillDetails={skillDetails}
-          />
-        </Suspense>
+        <DetailsModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          skillDetails={skillDetails}
+        />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@
  * Displays quantitative insights about technical evolution
  */
 
-import { useEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
 import type { GrowthData } from "@aazucena/types";
 
@@ -12,29 +11,6 @@ interface GrowthMetricsProps {
 }
 
 export function GrowthMetrics({ metrics }: GrowthMetricsProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const metricsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry!.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    if (metricsRef.current) {
-      observer.observe(metricsRef.current);
-    }
-
-    return () => {
-      if (metricsRef.current) {
-        observer.unobserve(metricsRef.current);
-      }
-    };
-  }, []);
   const cards = [
     {
       label: "Primary Domain",
@@ -68,10 +44,7 @@ export function GrowthMetrics({ metrics }: GrowthMetricsProps) {
     },
   ];
   return (
-    <div
-      ref={metricsRef}
-      className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
-    >
+    <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cards.map((card, idx) => (
         <div
           key={idx}
@@ -104,7 +77,7 @@ export function GrowthMetrics({ metrics }: GrowthMetricsProps) {
           </span>
 
           <div className="mb-1 truncate text-xl font-bold text-gray-900 dark:text-white">
-            {isVisible && typeof card.value === "number" ? (
+            {typeof card.value === "number" ? (
               <CountUp
                 end={card.value}
                 decimals={0}

@@ -56,7 +56,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'stable', 'a11y-verified'],
+  tags: ['autodocs', 'stable', 'a11y-verified', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',

@@ -3,7 +3,7 @@
  * Merges Tailwind CSS default colors with custom brand OKLCH scales.
  */
 
-import tailwindColors from 'tailwindcss/colors.js';
+import tailwindColors from 'tailwindcss/colors';
 
 export const colors = {
   // --- Tailwind Default Colors (Merged) ---

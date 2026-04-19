@@ -4,7 +4,9 @@
  */
 
 import { type JSX } from "react";
-import { ScrollIndicators, ScrollDownIndicator } from "~/components/ui";
+import React from "react";
+import { ScrollIndicators } from "~/components/ui";
+import { ScrollDown as ScrollDownIndicator } from "@aazucena/ui";
 import { NavigationToolbar } from "./NavigationToolbar";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";

@@ -13,10 +13,7 @@ interface UseCustomIconProps {
 }
 
 const getDivIcon = async (html: string, className?: string) => {
-  if (typeof window === 'undefined') return null; // Too late!
-  const _L = (await import('leaflet')).default;
-
-  return new _L.DivIcon({
+  return new L.DivIcon({
     html,
     className: cn('bg-transparent border-none', className),
     iconSize: [24, 24],

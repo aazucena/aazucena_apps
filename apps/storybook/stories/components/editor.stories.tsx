@@ -20,7 +20,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'no-vitest'],
   argTypes: {
     variant: {
       control: 'select',

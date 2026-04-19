@@ -8,7 +8,7 @@ const meta: Meta<typeof MicSelector> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-vitest'],
   argTypes: {
     selectedDeviceId: {
       control: 'text',

@@ -8,6 +8,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./preloader": "./src/components/preloader/index.ts",
     "./components/*": "./src/components/*",
     "./components/ui/*": "./src/components/ui/*.tsx",
     "./utils/*": "./src/utils/*",
@@ -144,5 +145,6 @@
     "tw-animate-css": "^1.3.8",
     "vaul": "^1.1.2",
     "zod": "^3.25.76"
-  }
+  },
+  "sideEffects": false
 }

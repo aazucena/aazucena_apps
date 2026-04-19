@@ -38,7 +38,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     // Sheet root is a controlled primitive
   },

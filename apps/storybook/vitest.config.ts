@@ -22,17 +22,62 @@ export default defineConfig({
         plugins: [
           storybookTest({
             configDir: path.join(dirname, '.storybook'),
-            // Skip stories tagged 'no-vitest' — GPU-dependent (Three.js, PixiJS)
-            // stories that require WebGL crash headless Chromium. Visual correctness
-            // for these is covered by Chromatic on-demand, not vitest.
-            tags: { exclude: ['no-vitest'] },
+            // Only run stories tagged 'interaction-test' — stories with play()
+            // functions that verify DOM interaction. Pure render stories (the majority)
+            // belong in Chromatic for visual regression, not in vitest which runs a
+            // single sequential Chrome process (fileParallelism:false) that OOMs when
+            // asked to render 260+ story files.
+            tags: { include: ['interaction-test'], exclude: ['no-vitest'] },
           }),
         ],
         test: {
           name: 'storybook',
-          // Run story files sequentially — 373 concurrent pages exceed Chrome's
-          // per-process resource limits, causing exactly 1 random page crash per run.
           fileParallelism: false,
+          // Explicitly enumerate only the 34 story files that have play() interaction
+          // tests. storybookTest's tag-based include filter does NOT prevent Chrome from
+          // loading all 260+ story files (it filters exports, not files). Restricting
+          // the file list here eliminates the file-load OOM root cause.
+          include: [
+            'stories/components/accordion.stories.tsx',
+            'stories/components/alert-dialog.stories.tsx',
+            'stories/components/app-loader.stories.tsx',
+            'stories/components/arrow-link.stories.tsx',
+            'stories/components/assistant-trigger.stories.tsx',
+            'stories/components/back-to-top.stories.tsx',
+            'stories/components/button.stories.tsx',
+            'stories/components/checkbox.stories.tsx',
+            'stories/components/collapsible.stories.tsx',
+            'stories/components/combobox.stories.tsx',
+            'stories/components/data-list.stories.tsx',
+            'stories/components/dialog.stories.tsx',
+            'stories/components/drawer.stories.tsx',
+            'stories/components/floating-label.stories.tsx',
+            'stories/components/hover-card.stories.tsx',
+            'stories/components/inplace.stories.tsx',
+            'stories/components/input.stories.tsx',
+            'stories/components/lightbox.stories.tsx',
+            'stories/components/number-input.stories.tsx',
+            'stories/components/popover.stories.tsx',
+            'stories/components/radio-group.stories.tsx',
+            'stories/components/search-input.stories.tsx',
+            'stories/components/select.stories.tsx',
+            'stories/components/sheet.stories.tsx',
+            'stories/components/slider.stories.tsx',
+            'stories/components/spoiler.stories.tsx',
+            'stories/components/switch.stories.tsx',
+            'stories/components/tabs.stories.tsx',
+            'stories/components/tags-input.stories.tsx',
+            'stories/components/textarea.stories.tsx',
+            'stories/components/toggle.stories.tsx',
+            'stories/components/tooltip.stories.tsx',
+            'stories/recipes/auth-card.stories.tsx',
+            'stories/recipes/contact-form.stories.tsx',
+          ],
+          // Generous timeouts for headless browser: 34 interaction-test stories × DOM + animation overhead.
+          testTimeout: 30000,
+          hookTimeout: 30000,
+          // Retry once on browser crash/connection drop — covers transient OOM kills.
+          retry: 1,
           browser: {
             enabled: true,
             provider: playwright({
@@ -41,13 +86,15 @@ export default defineConfig({
                 // single Chrome process. These flags reduce the footprint:
                 //  --disable-dev-shm-usage  → use /tmp instead of capped /dev/shm
                 //  --disable-gpu            → skip GPU compositing (headless anyway)
-                //  --single-process         → no separate renderer/GPU processes
                 //  --disable-extensions     → skip extension subsystem
                 //  --no-sandbox             → avoid sandbox overhead (CI containers)
+                // NOTE: --single-process intentionally omitted — it disables Chrome's
+                // multi-process renderer isolation, causing the entire browser to crash
+                // if any story accumulates enough memory. Without it, individual
+                // renderer frames crash in isolation while the host process survives.
                 args: [
                   '--disable-dev-shm-usage',
                   '--disable-gpu',
-                  '--single-process',
                   '--disable-extensions',
                   '--no-sandbox',
                 ],

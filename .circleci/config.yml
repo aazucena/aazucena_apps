@@ -164,6 +164,7 @@ jobs:
           root: .
           paths:
             - apps/storybook/storybook-static    # Required by test_storybook + deploy_storybook downstream
+            - packages/design-system/dist        # Required by test_storybook (vitest re-runs Vite, needs css-vars.css)
 
   test_storybook:
     executor: node-large-executor

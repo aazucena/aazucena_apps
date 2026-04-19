@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@aazucena/ui';
 import { Button, Avatar, AvatarImage, AvatarFallback, Badge } from '@aazucena/ui';
 import { Calendar, Shield, Activity, Globe } from '@aazucena/icons';
-import { within, userEvent, expect } from 'storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 
 /**
  * ## Engineering Standards
@@ -24,7 +24,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     openDelay: {
       control: 'number',
@@ -174,8 +174,10 @@ export const InteractionTest: Story = {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: /@aazucena/i });
     await userEvent.hover(trigger);
+    // findByText retries until the portal renders; waitFor then retries the
+    // visibility assertion while Radix's open animation transitions opacity 0→1.
     const content = await within(document.body).findByText('Hover card content is visible');
-    await expect(content).toBeVisible();
+    await waitFor(() => expect(content).toBeVisible(), { timeout: 3000 });
     await userEvent.unhover(trigger);
   },
 };

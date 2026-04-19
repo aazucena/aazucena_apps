@@ -3,11 +3,15 @@
 import * as React from 'react';
 import { marked, type Tokens } from 'marked';
 import { cn, getHighlighter } from '@aazucena/utils';
+import type { Highlighter } from 'shiki';
+
+let _highlighter: Highlighter | null = null;
+let _highlighterInit = false;
 
 export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   content: string;
 }
-const highlighter = await getHighlighter();
+
 marked.use({
   renderer: {
     paragraph(token: Tokens.Paragraph): string {
@@ -57,10 +61,19 @@ marked.use({
       return `<blockquote class="border-l-4 border-primary px-4 py-6 mb-4 italic text-muted-foreground glass bg-primary-100 rounded-r-lg [&_p]:!mt-0">${content}</blockquote>`;
     },
     code(token: Tokens.Code): string {
-      return highlighter.codeToHtml(token.text, {
-        lang: token.lang || 'text',
-        theme: 'github-dark',
-      });
+      if (!_highlighterInit) {
+        _highlighterInit = true;
+        getHighlighter().then((h) => {
+          _highlighter = h;
+        });
+      }
+      if (_highlighter) {
+        return _highlighter.codeToHtml(token.text, {
+          lang: token.lang || 'text',
+          theme: 'github-dark',
+        });
+      }
+      return `<pre class="bg-muted rounded-lg p-4 overflow-x-auto mb-4"><code class="font-mono text-sm language-${token.lang || 'text'}">${token.text}</code></pre>`;
     },
     codespan(token: Tokens.Codespan): string {
       return `<code class="bg-muted border border-border rounded px-1.5 py-0.5 text-sm font-mono">${token.text}</code>`;

@@ -1,4 +1,4 @@
-import { createHighlighter, type Highlighter, bundledLanguages } from 'shiki';
+import { createHighlighter, type Highlighter } from 'shiki';
 
 // Symbol.for() uses Node's global symbol registry — survives Vite's per-request
 // module re-evaluation in SSR isolation contexts (unlike module-level `let`).
@@ -6,6 +6,35 @@ const SHIKI_KEY = Symbol.for('aazucena.shiki.highlighter');
 type GlobalWithShiki = typeof globalThis & {
   [SHIKI_KEY]?: Promise<Highlighter>;
 };
+
+// Curated language list — avoids loading all 200+ bundledLanguages grammars.
+// Each grammar is 50-500 KB; the full set consumes 100 MB+ in Chrome, causing
+// OOM crashes in headless vitest runs. Extend this list as new languages appear
+// in CMS content.
+const SUPPORTED_LANGS = [
+  'typescript',
+  'tsx',
+  'javascript',
+  'jsx',
+  'css',
+  'scss',
+  'html',
+  'json',
+  'jsonc',
+  'yaml',
+  'toml',
+  'bash',
+  'sh',
+  'shell',
+  'python',
+  'rust',
+  'go',
+  'sql',
+  'markdown',
+  'mdx',
+  'diff',
+  'text',
+] as const;
 
 /**
  * Get or create a singleton shiki highlighter instance.
@@ -31,7 +60,7 @@ export function getHighlighter(): Promise<Highlighter> {
         'material-theme',
         'material-theme-lighter',
       ],
-      langs: Object.keys(bundledLanguages),
+      langs: [...SUPPORTED_LANGS],
     });
   }
   return g[SHIKI_KEY]!;

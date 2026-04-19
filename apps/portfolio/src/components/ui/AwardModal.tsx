@@ -10,6 +10,7 @@ import { getCompanyLogoGradient, getGradientColors } from "@aazucena/utils";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { darkBlockRenderers } from "~/components/blocks/BlockRenderers";
 import { Dialog, DialogContent, DialogBody } from "@aazucena/ui";
+import React from "react";
 
 export interface AwardModalProps {
   award: Award;

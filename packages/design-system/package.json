@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "publishConfig": {
     "access": "public"
   },
@@ -16,7 +17,7 @@
     "./figma.json": "./figma.json"
   },
   "scripts": {
-    "build": "tsup ./scripts/cli.ts --format esm --outDir ./dist",
+    "build": "tsup ./scripts/cli.ts --format esm --outDir ./dist && tsx scripts/cli.ts css default FAVICON_MAIN ./dist",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

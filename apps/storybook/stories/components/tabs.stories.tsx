@@ -24,7 +24,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     // Tabs root is a controlled primitive
   },

@@ -1,303 +1,93 @@
-import * as Icons from '@mynaui/icons-react';
-import {
-  Briefcase,
-  ClockCircle,
-  Code,
-  FileText,
-  User,
-  Shield,
-  Rss as RssNav,
-  Map,
-  GitBranch,
-  Send,
-} from '@mynaui/icons-react';
-import {
-  Astro,
-  React,
-  Tailwind,
-  Vite,
-  Rss,
-  Brand,
-  GitHub,
-  LinkedIn,
-  Twitter,
-  Youtube,
-  Instagram,
-  Facebook,
-  Tiktok,
-  Discord,
-  Twitch,
-  Mastodon,
-  Email,
-  Download,
-  Image,
-  Vector,
-  ScrollDown,
-  Empty,
-  AwardBadge,
-  Viewports,
-  Lightbulb,
-  LightbulbSolid,
-  Robot,
-  RobotSolid,
-  Bug,
-  BugSolid,
-  Gamepad,
-  GamepadSolid,
-  Window,
-  WindowSolid,
-  PaintBrush,
-  PaintBrushSolid,
-  Cube,
-  CubeSolid,
-  Webhook,
-  WebhookSolid,
-  Palette,
-  PaletteSolid,
-  WandMagic,
-  WandMagicSolid,
-  FloppyDisk,
-  FloppyDiskSolid,
-  Brush,
-  BrushSolid,
-  Eraser,
-  EraserSolid,
-  CompassDraft,
-  CompassDraftSolid,
-  EyeDropper,
-  EyeDropperSolid,
-  Fill,
-  FillSolid,
-  UploadCloud,
-  UploadCloudSolid,
-  GitFork,
-  GitForkSolid,
-  License,
-  LicenseSolid,
-  Braces,
-  BracesSolid,
-  Type,
-  TypeSolid,
-} from './custom/index';
+import * as MynaIcons from '@mynaui/icons-react';
+import * as SimpleIcons from '@icons-pack/react-simple-icons';
+import * as CustomIcons from './custom/index';
 import type { IconComponent } from '@aazucena/types';
-/**
- * Maps icon name string to @mynaui/icons-react component
- * Also handles SVG strings from strapi-plugin-icons-field
- */
-export function getIconComponent(iconName: string | null | undefined): IconComponent {
-  // Handle null/undefined/empty icon names - return fallback
-  if (!iconName || iconName.trim() === '') {
-    return Icons.Code as IconComponent;
-  }
 
-  // Check if iconName is an SVG string (from strapi-plugin-icons-field)
-  if (iconName.startsWith('<svg')) {
-    return iconName;
-  }
+// Fallback icon when a name cannot be resolved
+const FallbackIcon = MynaIcons.Code as IconComponent;
 
-  // Map icon names to components
-  const iconMap: Record<string, IconComponent> = {
-    // Custom Icons
-    Astro: Astro as IconComponent,
-    React: React as IconComponent,
-    Tailwind: Tailwind as IconComponent,
-    Vite: Vite as IconComponent,
-    Rss: Rss as IconComponent,
-    BrandLogo: Brand as IconComponent,
-    ScrollDown: ScrollDown as IconComponent,
-    Empty: Empty as IconComponent,
-    AwardBadge: AwardBadge as IconComponent,
-    Download: Icons.Download as IconComponent,
-    DownloadAlt: Download as IconComponent,
-    Vector: Vector as IconComponent,
-    Viewports: Viewports as IconComponent,
-    Lightbulb: Lightbulb as IconComponent,
-    LightbulbSolid: LightbulbSolid as IconComponent,
-    Robot: Robot as IconComponent,
-    RobotSolid: RobotSolid as IconComponent,
-    Bug: Bug as IconComponent,
-    BugSolid: BugSolid as IconComponent,
-    Gamepad: Gamepad as IconComponent,
-    GamepadSolid: GamepadSolid as IconComponent,
-    Window: Window as IconComponent,
-    WindowSolid: WindowSolid as IconComponent,
-    PaintBrush: PaintBrush as IconComponent,
-    PaintBrushSolid: PaintBrushSolid as IconComponent,
-    Cube: Cube as IconComponent,
-    CubeSolid: CubeSolid as IconComponent,
-    Webhook: Webhook as IconComponent,
-    WebhookSolid: WebhookSolid as IconComponent,
-    Palette: Palette as IconComponent,
-    PaletteSolid: PaletteSolid as IconComponent,
-    WandMagic: WandMagic as IconComponent,
-    WandMagicSolid: WandMagicSolid as IconComponent,
-    FloppyDisk: FloppyDisk as IconComponent,
-    FloppyDiskSolid: FloppyDiskSolid as IconComponent,
-    Brush: Brush as IconComponent,
-    BrushSolid: BrushSolid as IconComponent,
-    Eraser: Eraser as IconComponent,
-    EraserSolid: EraserSolid as IconComponent,
-    CompassDraft: CompassDraft as IconComponent,
-    CompassDraftSolid: CompassDraftSolid as IconComponent,
-    EyeDropper: EyeDropper as IconComponent,
-    EyeDropperSolid: EyeDropperSolid as IconComponent,
-    Fill: Fill as IconComponent,
-    FillSolid: FillSolid as IconComponent,
-    UploadCloud: UploadCloud as IconComponent,
-    UploadCloudSolid: UploadCloudSolid as IconComponent,
-    GitFork: GitFork as IconComponent,
-    GitForkSolid: GitForkSolid as IconComponent,
-    License: License as IconComponent,
-    LicenseSolid: LicenseSolid as IconComponent,
-    Braces: Braces as IconComponent,
-    BracesSolid: BracesSolid as IconComponent,
-    Type: Type as IconComponent,
-    TypeSolid: TypeSolid as IconComponent,
+// Aliases: map legacy / convenience names to the correct export name in one of the namespaces.
+// Only add an entry here when the desired name differs from the actual export name.
+const ALIASES: Record<string, IconComponent> = {
+  // Custom-icon aliases (CMS sends these names; map to the actual custom component)
+  BrandLogo: CustomIcons.Brand as IconComponent,
+  GitHubAlt: CustomIcons.GitHub as IconComponent,
+  LinkedIn: CustomIcons.LinkedIn as IconComponent,
+  Twitter: CustomIcons.Twitter as IconComponent,
+  X: CustomIcons.Twitter as IconComponent,
+  YouTube: CustomIcons.Youtube as IconComponent,
+  Instagram: CustomIcons.Instagram as IconComponent,
+  Facebook: CustomIcons.Facebook as IconComponent,
+  TikTok: CustomIcons.Tiktok as IconComponent,
+  Discord: CustomIcons.Discord as IconComponent,
+  Twitch: CustomIcons.Twitch as IconComponent,
+  Mastodon: CustomIcons.Mastodon as IconComponent,
+  EmailAlt: CustomIcons.Email as IconComponent,
+  DownloadAlt: CustomIcons.Download as IconComponent,
 
-    // Official Social Logos
-    GitHubAlt: GitHub as IconComponent,
-    LinkedIn: LinkedIn as IconComponent,
-    Twitter: Twitter as IconComponent,
-    X: Twitter as IconComponent,
-    YouTube: Youtube as IconComponent,
-    Instagram: Instagram as IconComponent,
-    Facebook: Facebook as IconComponent,
-    TikTok: Tiktok as IconComponent,
-    Discord: Discord as IconComponent,
-    Twitch: Twitch as IconComponent,
-    Mastodon: Mastodon as IconComponent,
-    EmailAlt: Email as IconComponent,
-
-    // Library Icons
-    Code: Icons.Code as IconComponent,
-    Terminal: Icons.Terminal as IconComponent,
-    Github: Icons.Github as IconComponent,
-    Git: Icons.GitCircle as IconComponent,
-    Database: Icons.Database as IconComponent,
-    Server: Icons.Servers as IconComponent,
-    Cloud: Icons.Cloud as IconComponent,
-    Globe: Icons.Globe as IconComponent,
-    Link: Icons.Link as IconComponent,
-    Wifi: Icons.Wifi as IconComponent,
-    Layout: Icons.Layout as IconComponent,
-    Wrench: Icons.Wrench as IconComponent,
-    CogFour: Icons.CogFour as IconComponent,
-    Settings: Icons.CogFour as IconComponent,
-    Zap: Icons.Zap as IconComponent,
-    Bolt: Icons.Zap as IconComponent,
-    Rocket: Icons.Rocket as IconComponent,
-    ArrowRight: Icons.ArrowRight as IconComponent,
-    Image: Image as IconComponent,
-    Music: Icons.Music as IconComponent,
-    Video: Icons.Video as IconComponent,
-    Users: Icons.Users as IconComponent,
-    User: Icons.User as IconComponent,
-    CheckCircle: Icons.CheckCircle as IconComponent,
-    Shield: Icons.Shield as IconComponent,
-    DeviceMobile: Icons.Mobile as IconComponent,
-    Chip: Icons.Microchip as IconComponent,
-    Headphones: Icons.Headphones as IconComponent,
-    Microphone: Icons.Microphone as IconComponent,
-  };
-
-  return (
-    iconMap[iconName] || (Icons as unknown as Record<string, IconComponent>)[iconName] || Icons.Code
-  );
-}
-
-/**
- * Checks if an icon name is valid and exists in the icon map
- */
-export function isValidIconName(iconName: string): boolean {
-  const customIcons = [
-    'Astro',
-    'React',
-    'Tailwind',
-    'Vite',
-    'Rss',
-    'BrandLogo',
-    'ScrollDown',
-    'Empty',
-    'GitHub',
-    'LinkedIn',
-    'Twitter',
-    'X',
-    'YouTube',
-    'Instagram',
-    'Facebook',
-    'TikTok',
-    'Discord',
-    'Twitch',
-    'Mastodon',
-    'Email',
-    'Lightbulb',
-    'LightbulbSolid',
-    'Robot',
-    'RobotSolid',
-    'Bug',
-    'BugSolid',
-    'Gamepad',
-    'GamepadSolid',
-    'Window',
-    'WindowSolid',
-    'PaintBrush',
-    'PaintBrushSolid',
-    'Cube',
-    'CubeSolid',
-    'Webhook',
-    'WebhookSolid',
-    'Palette',
-    'PaletteSolid',
-    'WandMagic',
-    'WandMagicSolid',
-    'FloppyDisk',
-    'FloppyDiskSolid',
-    'Brush',
-    'BrushSolid',
-    'Eraser',
-    'EraserSolid',
-    'CompassDraft',
-    'CompassDraftSolid',
-    'EyeDropper',
-    'EyeDropperSolid',
-    'Fill',
-    'FillSolid',
-    'UploadCloud',
-    'UploadCloudSolid',
-    'GitFork',
-    'GitForkSolid',
-    'License',
-    'LicenseSolid',
-    'Braces',
-    'BracesSolid',
-    'Type',
-    'TypeSolid',
-  ];
-  return iconName in Icons || iconName.startsWith('<svg') || customIcons.includes(iconName);
-}
-
-/**
- * Navigation-specific icon mapping
- */
-export const navigationIcons = {
-  briefcase: Briefcase,
-  'clock-circle': ClockCircle,
-  code: Code,
-  'file-text': FileText,
-  user: User,
-  shield: Shield,
-  rss: RssNav,
-  map: Map,
-  'git-branch': GitBranch,
-  send: Send,
+  // MynaUI aliases (short / conventional names → actual mynaui export names)
+  Git: MynaIcons.GitCircle as IconComponent,
+  Server: MynaIcons.Servers as IconComponent,
+  Settings: MynaIcons.CogFour as IconComponent,
+  Bolt: MynaIcons.Zap as IconComponent,
+  DeviceMobile: MynaIcons.Mobile as IconComponent,
+  Chip: MynaIcons.Microchip as IconComponent,
 };
 
 /**
- * Get navigation icon component by name
+ * Resolves an icon name string to its React component.
+ *
+ * Resolution order:
+ *   1. Inline SVG strings (from strapi-plugin-icons-field) — returned as-is
+ *   2. Explicit aliases (legacy names, cross-namespace renames)
+ *   3. Custom icons  (@aazucena/icons/custom — overrides library names where needed)
+ *   4. MynaUI icons  (@mynaui/icons-react — any icon by its exact export name)
+ *   5. SimpleIcons   (@icons-pack/react-simple-icons — Si-prefixed brand logos)
+ *   6. Fallback: Code icon
  */
-export function getNavigationIcon(iconName?: string) {
+export function getIconComponent(iconName: string | null | undefined): IconComponent {
+  if (!iconName?.trim()) return FallbackIcon;
+
+  // 1. SVG string (from Strapi icons field)
+  if (iconName.startsWith('<svg')) return iconName as unknown as IconComponent;
+
+  // 2. Explicit aliases
+  if (iconName in ALIASES) return ALIASES[iconName]!;
+
+  // 3. Custom icons (brand logos, hand-crafted SVGs — checked before mynaui so custom wins)
+  const custom = (CustomIcons as Record<string, unknown>)[iconName];
+  if (typeof custom === 'function') return custom as IconComponent;
+
+  // 4. MynaUI (any stroke-style icon by its exact export name, e.g. "Lamp", "Heart", "Compass")
+  const myna = (MynaIcons as Record<string, unknown>)[iconName];
+  if (typeof myna === 'function') return myna as IconComponent;
+
+  // 5. SimpleIcons (Si-prefixed brand logos, e.g. "SiGithub", "SiVercel")
+  const si = (SimpleIcons as Record<string, unknown>)[iconName];
+  if (typeof si === 'function') return si as IconComponent;
+
+  return FallbackIcon;
+}
+
+/**
+ * Checks if an icon name resolves to a known component.
+ */
+export function isValidIconName(iconName: string): boolean {
+  if (!iconName) return false;
+  if (iconName.startsWith('<svg')) return true;
+  if (iconName in ALIASES) return true;
+  if (typeof (CustomIcons as Record<string, unknown>)[iconName] === 'function') return true;
+  if (typeof (MynaIcons as Record<string, unknown>)[iconName] === 'function') return true;
+  if (typeof (SimpleIcons as Record<string, unknown>)[iconName] === 'function') return true;
+  return false;
+}
+
+/**
+ * Navigation-specific icon mapping (kebab-case names used by the CMS navigation plugin).
+ * Uses getIconComponent so any valid icon name works automatically.
+ */
+export function getNavigationIcon(iconName?: string): import('react').ElementType | null {
   if (!iconName) return null;
-  return (
-    (navigationIcons as unknown as Record<string, import('react').ElementType>)[iconName] || null
-  );
+  const component = getIconComponent(iconName);
+  return component !== FallbackIcon ? (component as import('react').ElementType) : null;
 }

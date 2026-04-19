@@ -3,9 +3,6 @@
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "url";
 import { resolve, dirname } from "path";
-import { createRequire } from "module";
-
-const _require = createRequire(import.meta.url);
 
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
@@ -39,6 +36,7 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
+      include: [],
       exclude: [
         "astro/toolbar",
         "astro:toolbar:internal",
@@ -55,28 +53,42 @@ export default defineConfig({
       noExternal: [/@aazucena\//],
     },
     plugins: [
-      // Restore Vite 7's @vite/env resolution lost in Astro's config merge
-      {
-        name: "vite-env-resolve",
-        enforce: "pre",
-        resolveId(id) {
-          if (id === "@vite/env")
-            return _require.resolve("vite/dist/client/env.mjs");
-        },
-        transform(code, id) {
-          if (id.endsWith("env.mjs") && code.includes("__DEFINES__")) {
-            return { code: code.replace(/__DEFINES__/g, "{}"), map: null };
-          }
-        },
-      },
       // @ts-ignore: Astro v6 is expected to ship with a compatible version of tailwindcss/vite
       tailwindcss(),
-      ,
       visualizer({ open: false, filename: "dist/stats.html", gzipSize: true }),
     ],
   },
 
   integrations: [
+    // Astro 6 uses Vite Environments API and hardcodes minify:true for the client
+    // environment (astro/dist/core/build/static-build.js:284). This overrides the
+    // root-level vite.build.minify:false above and causes esbuild to run on client
+    // chunks — where @rollup/plugin-commonjs async-module wrappers fail to parse.
+    //
+    // The astro:build:setup hook runs after Astro assembles the environments config
+    // and calls updateConfig (Vite's mergeConfig) to override minify:false, which
+    // re-enables the (target==="esnext" && !minify) skip path in Vite's
+    // resolveEsbuildTranspileOptions, preventing esbuild from processing client chunks.
+    //
+    // CONFIRMED PERMANENT FIX (2026-04-17): sanity-check deployment without this
+    // integration failed with the same "Expected ':' but found ')'" esbuild error.
+    // See docs/incidents/2026-04-07-eslint-flat-config-build-failure/debug-log.md
+    {
+      name: "astro-no-client-minify",
+      hooks: {
+        "astro:build:setup": ({ updateConfig }) => {
+          updateConfig({
+            environments: {
+              client: {
+                build: {
+                  minify: false,
+                },
+              },
+            },
+          });
+        },
+      },
+    },
     react(),
     sitemap({
       // Exclude admin routes, API routes, and draft content

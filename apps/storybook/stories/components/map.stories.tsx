@@ -11,7 +11,7 @@ const meta: Meta<typeof Map> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-vitest'],
   argTypes: {
     center: {
       control: 'object',

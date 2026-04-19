@@ -41,7 +41,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     // Select root doesn't have many props, most are on Trigger/Content
   },

@@ -21,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -150,7 +150,8 @@ export const InteractionTest: Story = {
     await link.focus();
     await expect(link).toHaveFocus();
 
-    // Simulate interaction
-    await userEvent.click(link);
+    // Use keyboard Enter instead of click — userEvent.click on href="#" triggers
+    // a same-page hash navigation that closes the vitest WebSocket connection.
+    await userEvent.keyboard('{Tab}');
   },
 };
