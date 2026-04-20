@@ -86,11 +86,11 @@ const getPlatformIcon = (platform: string) => {
   </div>
 
   <div class="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-    <div
-      class="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-12"
-    >
+    <div class="grid grid-cols-2 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
       <!-- Brand Section -->
-      <div class="col-span-1 space-y-8 lg:col-span-1">
+      <div
+        class="col-span-2 space-y-8 text-center md:col-span-1 md:text-left lg:col-span-1"
+      >
         <div>
           <h3
             class="text-3xl font-black tracking-tighter text-gray-900 dark:text-white"
@@ -99,7 +99,7 @@ const getPlatformIcon = (platform: string) => {
           </h3>
           {
             footerBrandDescription && (
-              <p class="mt-6 max-w-xs text-sm leading-relaxed font-medium text-gray-500 dark:text-gray-400">
+              <p class="mx-auto mt-6 max-w-xs text-sm leading-relaxed font-medium text-gray-500 md:mx-0 dark:text-gray-400">
                 {footerBrandDescription}
               </p>
             )
@@ -107,35 +107,37 @@ const getPlatformIcon = (platform: string) => {
         </div>
 
         <!-- Status Indicator -->
-        <div
-          class="inline-flex items-center gap-3 rounded-full border border-gray-100 bg-gray-50 px-4 py-2 shadow-sm dark:border-gray-800 dark:bg-gray-900/50"
-        >
-          <div class="relative flex h-2 w-2">
-            {
-              indicator.pulse && (
-                <span
-                  class={`absolute inline-flex h-full w-full animate-ping rounded-full ${indicator.color} opacity-75`}
-                />
-              )
-            }
-            <span
-              class={`relative inline-flex rounded-full h-2 w-2 ${indicator.color}`}
-            ></span>
-          </div>
-          <span class="text-xs font-bold text-gray-500 dark:text-gray-400"
-            >{toTitleCase(availabilityStatus)}</span
+        <div class="flex justify-center md:justify-start">
+          <div
+            class="inline-flex items-center gap-3 rounded-full border border-gray-100 bg-gray-50 px-4 py-2 shadow-sm dark:border-gray-800 dark:bg-gray-900/50"
           >
+            <div class="relative flex h-2 w-2">
+              {
+                indicator.pulse && (
+                  <span
+                    class={`absolute inline-flex h-full w-full animate-ping rounded-full ${indicator.color} opacity-75`}
+                  />
+                )
+              }
+              <span
+                class={`relative inline-flex rounded-full h-2 w-2 ${indicator.color}`}
+              ></span>
+            </div>
+            <span class="text-xs font-bold text-gray-500 dark:text-gray-400"
+              >{toTitleCase(availabilityStatus)}</span
+            >
+          </div>
         </div>
       </div>
 
       <!-- Dynamic Navigation Sections (from WRAPPER items) -->
       {
         footerSections.map((section) => (
-          <div class="space-y-8">
+          <div class="space-y-6">
             <h4 class="text-sm font-bold text-gray-900 dark:text-white">
               {toTitleCase(section.title)}
             </h4>
-            <nav class="flex flex-col space-y-4">
+            <nav class="flex flex-col items-start space-y-4">
               {section.items?.map((link) => {
                 const isRss = link.path?.includes("rss.xml");
                 return (
@@ -173,11 +175,11 @@ const getPlatformIcon = (platform: string) => {
       }
 
       <!-- Social Links -->
-      <div class="space-y-8">
+      <div class="col-span-2 space-y-8 text-center md:col-span-1 md:text-left">
         <h4 class="text-sm font-bold text-gray-900 dark:text-white">
           {toTitleCase("Connect")}
         </h4>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap justify-center gap-3 md:justify-start">
           {
             socialLinks.map((link) => {
               const Icon = getPlatformIcon(link.platform);
