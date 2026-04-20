@@ -120,9 +120,9 @@ export function CareerStats({
   }
 
   return (
-    <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/20 bg-gray-400/10 p-20 text-center shadow-2xl backdrop-blur-md">
+    <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/20 bg-gray-400/10 p-8 text-center shadow-2xl backdrop-blur-md sm:p-12 md:p-20">
       <div className="mb-10 flex flex-col items-center justify-between gap-6 md:flex-row">
-        <h2 className="text-4xl font-black tracking-tight text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-black tracking-tight text-gray-900 md:text-4xl dark:text-white">
           Career at a Glance
         </h2>
         <div className="inline-flex items-center gap-4 text-xs">
@@ -140,18 +140,18 @@ export function CareerStats({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+      <div className="grid grid-cols-3 gap-3 md:gap-8">
         {statsData.map((stat, index) => (
           <div
             key={index}
-            className={`group ${stat.bgColor} rounded-3xl border border-white/20 p-10 shadow-2xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2`}
+            className={`group flex flex-col items-center ${stat.bgColor} rounded-2xl border border-white/20 p-4 shadow-2xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2 md:items-start md:rounded-3xl md:p-10`}
           >
             <div
-              className={`inline-flex rounded-2xl p-4 *:h-12 *:w-12 ${stat.color} mb-2 transition-transform group-hover:scale-110`}
+              className={`inline-flex rounded-xl p-2 *:h-5 *:w-5 ${stat.color} mb-2 transition-transform group-hover:scale-110 md:rounded-2xl md:p-4 md:*:h-12 md:*:w-12`}
             >
               {stat.icon}
             </div>
-            <div className="mb-2 text-6xl font-black tracking-tighter text-gray-950">
+            <div className="mb-1 text-2xl font-black tracking-tighter text-gray-950 md:mb-2 md:text-6xl">
               <CountUp
                 end={stat.value}
                 decimals={stat.decimals}
@@ -159,9 +159,7 @@ export function CareerStats({
                 suffix={stat.suffix}
               />
             </div>
-            <div
-              className={`text-sm font-bold tracking-widest text-gray-700 uppercase`}
-            >
+            <div className="text-center text-[9px] font-bold tracking-widest text-gray-700 uppercase md:text-sm">
               {stat.label}
             </div>
           </div>

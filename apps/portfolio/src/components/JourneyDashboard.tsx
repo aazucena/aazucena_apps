@@ -4,7 +4,7 @@
  * Scoped to /journey page - not a general-purpose dashboard
  */
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import { visibleCategoriesStore, skillSearchQueryStore } from "~/store/journey";
 import {
@@ -73,8 +73,19 @@ export function JourneyDashboard({
   hideMetrics = false,
 }: JourneyDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>("evolution");
+  const [chartHeight, setChartHeight] = useState(480);
   const visibleCategories = useStore(visibleCategoriesStore);
   const searchQuery = useStore(skillSearchQueryStore);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setChartHeight(w < 640 ? 300 : w < 1024 ? 400 : 480);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const networkHighlightIds = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -194,14 +205,14 @@ export function JourneyDashboard({
                 const tabId = tab.id as TabType;
                 setActiveTab(tabId);
               }}
-              className={`flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition-all sm:px-6 ${
                 activeTab === tab.id
                   ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none"
                   : "bg-gray-50 text-gray-500 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
               }`}
             >
               <span>{tab.icon}</span>
-              {tab.label}
+              <span className="hidden sm:inline">{tab.label}</span>
             </button>
           ))}
         </div>
@@ -227,7 +238,7 @@ export function JourneyDashboard({
                   data={evolutionData}
                   hideHeader
                   showYearControls
-                  height={480}
+                  height={chartHeight}
                 />
               </div>
             )}
@@ -239,17 +250,24 @@ export function JourneyDashboard({
                 groupKey="category"
                 hideHeader
                 showPhysicsControls
-                height={560}
+                height={chartHeight + 80}
                 highlightIds={networkHighlightIds}
               />
             )}
 
             {activeTab === "flow" && (
-              <SankeyWithSemantics data={sankeyData} height={560} />
+              <SankeyWithSemantics
+                data={sankeyData}
+                height={chartHeight + 80}
+              />
             )}
 
             {activeTab === "momentum" && (
-              <StreamGraph data={filteredStreamData} hideHeader height={560} />
+              <StreamGraph
+                data={filteredStreamData}
+                hideHeader
+                height={chartHeight + 80}
+              />
             )}
 
             {activeTab === "intensity" && (
