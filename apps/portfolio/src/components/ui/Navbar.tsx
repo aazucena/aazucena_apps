@@ -187,7 +187,7 @@ export function Navbar({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="bg-background fixed top-0 right-0 bottom-0 z-[105] flex w-full max-w-[300px] flex-col gap-8 border-l border-gray-100 p-8 pt-24 shadow-2xl md:hidden dark:border-gray-800"
+              className="bg-background fixed top-0 right-0 z-[105] flex h-dvh w-full max-w-[300px] flex-col gap-8 border-l border-gray-100 p-8 pt-24 pb-[max(2rem,env(safe-area-inset-bottom))] shadow-2xl md:hidden dark:border-gray-800"
             >
               <div className="flex flex-col gap-2">
                 <div className="mb-2 flex items-center justify-between">

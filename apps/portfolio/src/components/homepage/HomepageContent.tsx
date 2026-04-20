@@ -38,7 +38,7 @@ export default function HomepageContent({
           <div
             key={section.name}
             ref={refs[index]}
-            className="absolute top-0 right-0 left-0 z-30 flex min-h-screen w-full items-center px-6"
+            className="absolute top-0 right-0 left-0 z-30 flex min-h-[100dvh] w-full items-center px-6"
             style={{
               pointerEvents: currentSection === index ? "auto" : "none",
               // Set initial visibility so sections don't flash stacked before

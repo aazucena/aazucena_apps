@@ -21,6 +21,7 @@ import {
   AnimationProvider,
   PortfolioProvider,
   usePortfolio,
+  useAnimation,
 } from "@aazucena/context";
 import { DataProvider, useDataContext } from "~/contexts";
 import HomepageContent from "./HomepageContent";
@@ -60,6 +61,7 @@ function HomepageSectionInner(): JSX.Element {
   // Get only the state needed for this component
   // (Most state is now consumed directly by child components via contexts)
   const { currentSection, scrollProgress } = usePortfolio();
+  const { capabilities } = useAnimation();
 
   // Calculate atmospheric layer and background style, scaled to actual section count
   const { phase: atmosphericLayer, backgroundStyle } = useAtmosphericLayer(
@@ -79,21 +81,23 @@ function HomepageSectionInner(): JSX.Element {
       {/* Atmospheric Overlays */}
       <AtmosphericOverlays atmosphericLayer={atmosphericLayer} />
 
-      {/* Animation Canvas - Lazy loaded to defer Three.js + PixiJS (~1MB) */}
-      <Suspense
-        fallback={
-          <div
-            className="fixed inset-0 z-20 transition-opacity duration-1000"
-            style={backgroundStyle}
-            aria-label="Loading 3D animations"
-          />
-        }
-      >
-        <AnimationCanvas atmosphericLayer={atmosphericLayer} />
-      </Suspense>
+      {/* Animation Canvas - Skipped on mobile (saves ~1MB GPU load) */}
+      {!capabilities.isMobile && (
+        <Suspense
+          fallback={
+            <div
+              className="fixed inset-0 z-20 transition-opacity duration-1000"
+              style={backgroundStyle}
+              aria-label="Loading 3D animations"
+            />
+          }
+        >
+          <AnimationCanvas atmosphericLayer={atmosphericLayer} />
+        </Suspense>
+      )}
 
       {/* Main Content Section */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section className="relative h-[100dvh] w-full overflow-hidden">
         {/* Section Content - Uses contexts directly, only needs refs */}
         <HomepageContent refs={refs} />
 
