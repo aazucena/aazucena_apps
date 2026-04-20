@@ -134,6 +134,7 @@ export default function InteractivePreloader({
   useKeyboardNavigation({
     enableSkip,
     isReady,
+    isVisible,
     onSkip: handleSkip,
     onContinue: handleContinue,
   });

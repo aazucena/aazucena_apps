@@ -99,6 +99,7 @@ export default function SimplePreloader({
   useKeyboardNavigation({
     enableSkip,
     isReady,
+    isVisible,
     onSkip: handleSkip,
     onContinue: handleContinue,
   });
