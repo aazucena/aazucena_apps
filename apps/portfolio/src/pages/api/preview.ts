@@ -1,10 +1,11 @@
 import type { APIRoute } from "astro";
 
+export const prerender = false;
+
 const COOKIE_NAME = "preview_token";
 const COOKIE_MAX_AGE = 60 * 60 * 24; // 24 hours
 
-export const GET: APIRoute = ({ request, cookies, redirect }) => {
-  const url = new URL(request.url);
+export const GET: APIRoute = ({ url, cookies, redirect }) => {
   const token = url.searchParams.get("token");
   const redirectTo = url.searchParams.get("redirect") || "/";
 
