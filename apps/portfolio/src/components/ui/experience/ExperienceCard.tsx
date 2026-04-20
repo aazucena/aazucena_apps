@@ -42,11 +42,11 @@ export function ExperienceCard({
 
         {/* Experience Info */}
         <div className="flex flex-grow flex-col gap-1">
-          <h3 className="text-lg font-bold text-white">
+          <h3 className="text-base font-bold text-white md:text-lg">
             {experience.position}
           </h3>
           <span className="text-sm text-cyan-400">{experience.company}</span>
-          <p className="text-xs whitespace-nowrap text-gray-300">
+          <p className="text-xs text-gray-300 md:whitespace-nowrap">
             {formatDate(experience.startDate)} -{" "}
             {experience.isCurrent
               ? "Present"
@@ -55,7 +55,7 @@ export function ExperienceCard({
 
           {/* Metadata: Location & Employment Type */}
           {(experience.location || experience.employmentType) && (
-            <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
+            <div className="hidden flex-wrap items-center gap-2 text-xs text-gray-400 md:flex">
               {experience.employmentType && (
                 <div className="flex items-center gap-1">
                   <Briefcase className="h-3 w-3" />

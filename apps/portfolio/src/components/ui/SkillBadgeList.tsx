@@ -5,7 +5,7 @@
 
 import type { JSX } from "react";
 import { Badge } from "./common/Badge";
-import type { BadgeVariant } from "./common/Badge";
+import type { BadgeVariant, BadgeSize } from "./common/Badge";
 
 export interface Skill {
   name: string;
@@ -17,6 +17,8 @@ export interface SkillBadgeListProps {
   skills: Skill[];
   /** Badge color variant */
   variant?: BadgeVariant;
+  /** Badge size */
+  size?: BadgeSize;
   /** Additional className for the container */
   className?: string;
 }
@@ -54,12 +56,13 @@ function mapGradientToVariant(gradient: string): BadgeVariant {
 export function SkillBadgeList({
   skills,
   variant,
+  size = "md",
   className = "",
 }: SkillBadgeListProps): JSX.Element {
   return (
     <div className={`flex flex-wrap justify-center gap-3 ${className}`}>
       {skills.map((skill) => (
-        <Badge key={skill.name} variant={variant || "cyan"} size="md">
+        <Badge key={skill.name} variant={variant || "cyan"} size={size}>
           {skill.name}
         </Badge>
       ))}

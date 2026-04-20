@@ -32,7 +32,9 @@ export interface StatCardProps {
 export function StatCard({ value, label }: StatCardProps): JSX.Element {
   return (
     <GlassCard padding="md">
-      <div className="mb-2 text-3xl font-bold text-cyan-400">{value}</div>
+      <div className="mb-1 text-2xl font-bold text-cyan-400 md:mb-2 md:text-3xl">
+        {value}
+      </div>
       <div className="text-sm text-gray-400">{toTitleCase(label)}</div>
     </GlassCard>
   );

@@ -6,6 +6,7 @@
 
 import type { JSX } from "react";
 import { IconRenderer } from "@aazucena/ui";
+import { ArrowRight } from "@aazucena/icons";
 import { cn } from "@aazucena/utils";
 import type { IconComponent } from "@aazucena/types";
 
@@ -119,39 +120,54 @@ export function LearnMoreCard({
     <a
       href={href}
       className={cn(
-        "group rounded-lg border p-4 transition-all duration-300 hover:scale-105",
+        "group rounded-lg border p-4 transition-all duration-300 hover:scale-105 active:scale-95",
         styles.card,
         className,
       )}
     >
-      <div className="mb-2 flex items-center gap-3">
-        <div
-          className={cn(
-            "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg",
-            styles.icon,
-            iconClassName,
-          )}
-        >
-          <IconRenderer icon={icon} className="h-5 w-5 text-white" />
+      {/* Header row — icon + title, arrow inline on mobile */}
+      <div className="flex items-center justify-between gap-3 md:mb-2 md:justify-start">
+        <div className="flex items-center gap-3">
+          <div
+            className={cn(
+              "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg",
+              styles.icon,
+              iconClassName,
+            )}
+          >
+            <IconRenderer icon={icon} className="h-5 w-5 text-white" />
+          </div>
+          <h4 className="text-base font-bold text-white">{title}</h4>
         </div>
-        <h4 className="text-base font-bold text-white">{title}</h4>
+        <ArrowRight
+          className={cn(
+            "h-4 w-4 flex-shrink-0 transition-transform group-hover:translate-x-1 group-active:translate-x-1 md:hidden",
+            styles.button,
+          )}
+        />
       </div>
 
-      {children && <p className="mb-2 text-xs text-gray-400">{children}</p>}
+      {/* Description — desktop only */}
+      {children && (
+        <p className="mb-2 hidden text-xs text-gray-400 md:block">{children}</p>
+      )}
 
+      {/* Button row — desktop only */}
       <div
         className={cn(
-          "flex items-center gap-2 text-xs font-medium",
+          "hidden items-center gap-2 text-xs font-medium md:flex",
           styles.button,
           buttonClassName,
         )}
       >
         <span>{buttonText}</span>
-        {buttonIcon && (
+        {buttonIcon ? (
           <IconRenderer
             icon={buttonIcon}
-            className="h-3 w-3 transition-transform group-hover:translate-x-1"
+            className="h-3 w-3 transition-transform group-hover:translate-x-1 group-active:translate-x-1"
           />
+        ) : (
+          <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1 group-active:translate-x-1" />
         )}
       </div>
     </a>

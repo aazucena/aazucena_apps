@@ -42,7 +42,7 @@ export function ViewMoreCard({
   return (
     <a
       href={href}
-      className="block flex w-[420px] cursor-pointer items-center justify-center rounded-lg border border-cyan-400/30 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 p-6 text-left no-underline backdrop-blur-sm transition-all duration-300 hover:from-cyan-400/30 hover:to-blue-500/30"
+      className="block flex w-[min(85vw,320px)] cursor-pointer items-center justify-center rounded-lg border border-cyan-400/30 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 p-6 text-left no-underline backdrop-blur-sm transition-all duration-300 hover:from-cyan-400/30 hover:to-blue-500/30 md:w-[420px]"
       onClick={onClick}
     >
       <div className="text-center">
