@@ -69,6 +69,31 @@ export function PortfolioProvider({
   const [showSettingsPanel, setShowSettingsPanel] = useState<boolean>(false);
   const [showSocialMenu, setShowSocialMenu] = useState<boolean>(false);
 
+  // Touch Navigation Handler (mobile swipe up/down = next/prev section)
+  const touchStartYRef = useRef<number>(0);
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartYRef.current = e.touches[0]?.clientY ?? 0;
+    };
+    const handleTouchEnd = (e: TouchEvent) => {
+      const endY = e.changedTouches[0]?.clientY ?? 0;
+      const delta = touchStartYRef.current - endY;
+      const SWIPE_THRESHOLD = 50;
+      if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+      if (delta > 0 && currentSection < totalSections - 1) {
+        navigateToSection(currentSection + 1);
+      } else if (delta < 0 && currentSection > 0) {
+        navigateToSection(currentSection - 1);
+      }
+    };
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [currentSection, totalSections]);
+
   // Scroll Navigation Handler
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
