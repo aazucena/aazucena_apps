@@ -2,12 +2,15 @@ import { defineMiddleware } from "astro:middleware";
 import { setStrapiConfig } from "@aazucena/api";
 import { getMaintenance } from "@aazucena/api";
 
+const PREVIEW_COOKIE = "preview_token";
+
 /**
  * Global Middleware for Maintenance Mode
  * If maintenance mode is enabled in the CMS, redirects all visitors to /maintenance.
+ * Requests with a valid preview token cookie bypass this check entirely.
  */
 export const onRequest = defineMiddleware(async (context, next) => {
-  const { url, redirect } = context;
+  const { url, redirect, cookies } = context;
 
   // Initialize Strapi config on every request so it is set in the same module
   // scope as the page rendering code. Module-level initialization does not work
@@ -35,18 +38,23 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
+  // 3. Preview token bypass — set via /api/preview?token=...
+  const previewToken = import.meta.env.PREVIEW_TOKEN;
+  const previewCookie = cookies.get(PREVIEW_COOKIE);
+  if (previewToken && previewCookie?.value === previewToken) {
+    return next();
+  }
+
   try {
-    // 2. Fetch maintenance status from CMS
-    // Since this is a portfolio, real-time check is preferred
+    // 4. Fetch maintenance status from CMS
     const maintenance = await getMaintenance();
 
-    // 3. If enabled, force redirect to maintenance page
     if (maintenance.enabled) {
       return redirect("/maintenance");
     }
   } catch (error) {
     console.error("[Middleware] Maintenance check failed:", error);
-    // If CMS is down, we allow the request to proceed to avoid complete lockout
+    // If CMS is down, allow the request to proceed to avoid complete lockout
   }
 
   return next();
