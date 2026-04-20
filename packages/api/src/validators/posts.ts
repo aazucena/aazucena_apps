@@ -15,7 +15,7 @@ export const StrapiPostSchema = z.object({
   coverImage: ImageElementSchema.nullable().optional(),
 
   // Status & Display
-  status: PostStatusEnum.optional(),
+  postStatus: PostStatusEnum.optional(),
   sort: z.number().min(0).optional(),
   featured: z.boolean().default(false),
 

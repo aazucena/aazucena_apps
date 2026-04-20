@@ -55,19 +55,14 @@
       "component": "ui.image-element",
       "repeatable": false
     },
-    "status": {
+    "postStatus": {
       "type": "enumeration",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "enum": [
-        "Planned",
-        "In Progress",
-        "Completed",
-        "On Hold"
-      ]
+      "enum": ["Planned", "In Progress", "Completed", "On Hold"]
     },
     "sort": {
       "type": "integer",
@@ -96,7 +91,7 @@
         }
       },
       "maxLength": 255,
-      "required": true
+      "required": false
     },
     "isExternal": {
       "type": "boolean",

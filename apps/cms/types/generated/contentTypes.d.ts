@@ -2447,6 +2447,12 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
+    postStatus: Schema.Attribute.Enumeration<['Planned', 'In Progress', 'Completed', 'On Hold']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     relatedLinks: Schema.Attribute.Component<'shared.web-link', true> &
       Schema.Attribute.SetPluginOptions<{
@@ -2480,12 +2486,6 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<0>;
-    status: Schema.Attribute.Enumeration<['Planned', 'In Progress', 'Completed', 'On Hold']> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
     tags: Schema.Attribute.Component<'ui.tag', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2505,7 +2505,6 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     url: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
