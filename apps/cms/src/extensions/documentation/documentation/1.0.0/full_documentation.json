@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-18T06:22:24.855Z"
+    "x-generation-date": "2026-04-20T23:32:02.827Z"
   },
   "x-strapi-config": {
     "plugins": ["upload", "users-permissions"]
@@ -33787,7 +33787,7 @@
         "required": ["data"],
         "properties": {
           "data": {
-            "required": ["title", "slug", "description", "url"],
+            "required": ["title", "slug", "description"],
             "type": "object",
             "properties": {
               "title": {
@@ -33802,7 +33802,7 @@
               "coverImage": {
                 "$ref": "#/components/schemas/UiImageElementComponent"
               },
-              "status": {
+              "postStatus": {
                 "type": "string",
                 "enum": ["Planned", "In Progress", "Completed", "On Hold"]
               },
@@ -33891,7 +33891,7 @@
       },
       "Post": {
         "type": "object",
-        "required": ["title", "slug", "description", "url"],
+        "required": ["title", "slug", "description"],
         "properties": {
           "id": {
             "oneOf": [
@@ -33918,7 +33918,7 @@
           "coverImage": {
             "$ref": "#/components/schemas/UiImageElementComponent"
           },
-          "status": {
+          "postStatus": {
             "type": "string",
             "enum": ["Planned", "In Progress", "Completed", "On Hold"]
           },
@@ -34030,7 +34030,7 @@
                 "coverImage": {
                   "$ref": "#/components/schemas/UiImageElementComponent"
                 },
-                "status": {
+                "postStatus": {
                   "type": "string",
                   "enum": ["Planned", "In Progress", "Completed", "On Hold"]
                 },
