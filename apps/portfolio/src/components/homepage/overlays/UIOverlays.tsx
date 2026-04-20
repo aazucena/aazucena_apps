@@ -6,7 +6,12 @@
 import { type JSX } from "react";
 import React from "react";
 import { ScrollIndicators } from "~/components/ui";
-import { ScrollDown as ScrollDownIndicator } from "@aazucena/ui";
+import {
+  ScrollDown as ScrollDownIndicator,
+  ScrollDownIcon,
+  ScrollDownLabel,
+} from "@aazucena/ui";
+import { useIsMobile } from "@aazucena/hooks";
 import { NavigationToolbar } from "./NavigationToolbar";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";
@@ -26,6 +31,8 @@ export default function UIOverlays({
   // Portfolio context - navigation state
   const { currentSection, navigateToSection } = usePortfolio();
 
+  const isMobile = useIsMobile();
+
   // Extract section names from CMS data
   const sectionNames = content.sections.map((section) => section.name);
   return (
@@ -41,12 +48,18 @@ export default function UIOverlays({
         sectionNames={sectionNames}
       />
 
-      {/* Scroll Down Indicator */}
+      {/* Scroll/Swipe Indicator */}
       <ScrollDownIndicator
         timeout={15 * 1000}
         visible={currentSection === 0}
         onClick={() => navigateToSection(1)}
-      />
+        className="text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+      >
+        <ScrollDownIcon />
+        <ScrollDownLabel className="opacity-90">
+          {isMobile ? "Swipe Up" : "Scroll Down"}
+        </ScrollDownLabel>
+      </ScrollDownIndicator>
     </>
   );
 }
