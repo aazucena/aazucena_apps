@@ -39,7 +39,7 @@ export function ExperienceSection({
   return (
     <SectionLayout title={title} subtitle={subtitle} contentWidth="medium">
       {/* Scrollable Timeline Container with gradient indicators */}
-      <div className="relative mx-auto mt-8 max-w-4xl">
+      <div className="relative mx-auto mt-4 max-w-4xl md:mt-8">
         {/* Top gradient fade indicator */}
         {showAll && (
           <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-8 bg-gradient-to-b from-[#0a0a1a] to-transparent" />
@@ -47,7 +47,7 @@ export function ExperienceSection({
 
         {/* Scrollable area */}
         <div
-          className={`overflow-y-auto ${showAll ? "max-h-[600px]" : ""} scrollbar-thin scrollbar-thumb-cyan-400/50 scrollbar-track-white/10`}
+          className={`overflow-y-auto ${showAll ? "max-h-[280px] md:max-h-[600px]" : ""} scrollbar-thin scrollbar-thumb-cyan-400/50 scrollbar-track-white/10`}
         >
           <Timeline className="text-left">
             {displayedExperiences.map((exp, index) => (

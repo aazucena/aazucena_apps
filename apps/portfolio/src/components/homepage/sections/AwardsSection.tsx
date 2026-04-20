@@ -34,11 +34,15 @@ export function AwardsSection({
     <>
       <SectionLayout title={title} subtitle={subtitle} contentWidth="medium">
         {/* Hexagonal Grid Layout */}
-        <div className="relative mt-16 flex min-h-[600px] items-center justify-center">
+        <div className="relative mt-4 flex min-h-0 items-start justify-center md:mt-16 md:min-h-[600px] md:items-center">
           <div className="relative w-full max-w-4xl">
             {/* Certifications Section */}
-            <SectionLabel text="Certifications" color="cyan" className="mb-8" />
-            <div className="mb-[-30px] flex justify-center gap-4">
+            <SectionLabel
+              text="Certifications"
+              color="cyan"
+              className="mb-4 md:mb-8"
+            />
+            <div className="mb-[-30px] flex flex-wrap justify-center gap-3">
               {certifications.map((cert) => (
                 <HexagonCard
                   key={cert.id}
@@ -49,8 +53,12 @@ export function AwardsSection({
             </div>
 
             {/* Awards Section */}
-            <SectionLabel text="Awards" color="yellow" className="mt-12 mb-8" />
-            <div className="flex justify-center gap-4">
+            <SectionLabel
+              text="Awards"
+              color="yellow"
+              className="mt-6 mb-4 md:mt-12 md:mb-8"
+            />
+            <div className="flex flex-wrap justify-center gap-3">
               {achievementAwards.map((award) => (
                 <HexagonCard
                   key={award.id}

@@ -21,7 +21,7 @@ export function ScrollIndicators({
   if (!visible) return <></>;
 
   return (
-    <div className="fixed top-1/2 right-8 z-40 flex -translate-y-1/2 flex-col gap-4">
+    <div className="fixed bottom-8 left-1/2 z-40 flex -translate-x-1/2 flex-row gap-4 md:top-1/2 md:right-8 md:bottom-auto md:left-auto md:translate-x-0 md:-translate-y-1/2 md:flex-col">
       {sectionNames.map((section, index) => (
         <button
           key={section}

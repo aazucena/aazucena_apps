@@ -64,7 +64,7 @@ export function SectionLayout({
         <Heading
           ref={headerRef}
           className={cn(
-            "mb-8 text-5xl leading-tight font-bold text-white md:text-6xl",
+            "mb-4 text-3xl leading-tight font-bold text-white sm:text-4xl md:mb-8 md:text-6xl",
             headingClassName,
           )}
         >
@@ -72,7 +72,7 @@ export function SectionLayout({
           {subtitle && (
             <span
               className={cn(
-                "mt-4 block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-3xl text-transparent md:text-4xl",
+                "mt-2 block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-lg text-transparent sm:text-xl md:mt-4 md:text-4xl",
                 subtitleClassName,
               )}
             >
