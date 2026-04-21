@@ -1,9 +1,10 @@
 /**
  * NewspaperStack Component
- * Stacked newspaper card effect for the homepage blog section
+ * Stacked newspaper card effect for the homepage blog section.
+ * Clicking the card cycles through posts; the "Read Article" link navigates.
  */
 
-import { useRef, useEffect, type JSX } from "react";
+import { useState, useRef, useEffect, type JSX } from "react";
 import { gsap } from "gsap";
 import type { BlogPost } from "@aazucena/types";
 import type { BlogConfigData } from "@aazucena/types";
@@ -40,9 +41,16 @@ export function NewspaperStack({
 }: NewspaperStackProps): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const [frontIndex, setFrontIndex] = useState(0);
+  const isCycling = useRef(false);
 
-  const frontPost = posts[0] ?? null;
+  // Cap the stack at 3 posts
+  const displayPosts = posts.slice(0, 3);
+  const count = displayPosts.length;
+  const canCycle = count > 1;
+  const frontPost = displayPosts[frontIndex] ?? null;
 
+  // Hover: fan out / collapse back
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -81,46 +89,124 @@ export function NewspaperStack({
     };
   }, []);
 
-  return (
-    <div
-      ref={containerRef}
-      className="group relative mx-auto w-full max-w-lg cursor-pointer"
-    >
-      {/* Back decorative cards — absolute, peek behind the front */}
-      {[2, 1].map((i) => (
-        <div
-          key={i}
-          ref={(el) => {
-            cardRefs.current[i] = el;
-          }}
-          className="absolute inset-0 rounded-3xl border border-gray-200/80 bg-[#f0ede6] dark:border-white/8 dark:bg-[#1e1d19]"
-          style={{
-            transform: `rotate(${REST[i]!.rotate}deg)`,
-            zIndex: i === 1 ? 10 : 5,
-          }}
-          aria-hidden="true"
-        >
-          <DecorativeLines />
-        </div>
-      ))}
+  // Animate the new front card in every time frontIndex changes
+  useEffect(() => {
+    const front = cardRefs.current[0];
+    if (!front) return;
+    gsap.fromTo(
+      front,
+      { y: -16, opacity: 0, scale: 0.97 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" },
+    );
+  }, [frontIndex]);
 
-      {/* Front card — in document flow to set container height */}
-      <a
-        ref={(el) => {
-          cardRefs.current[0] = el;
-        }}
-        href={frontPost?.url ?? "/blog"}
-        target={frontPost?.isExternal ? "_blank" : "_self"}
-        rel={frontPost?.isExternal ? "noopener noreferrer" : undefined}
-        className="relative z-20 block overflow-hidden rounded-3xl border border-gray-200 bg-[#faf8f3] shadow-2xl dark:border-white/10 dark:bg-[#1e1d19]"
-        style={{ transform: `rotate(${REST[0]!.rotate}deg)` }}
+  const cycle = () => {
+    if (!canCycle || isCycling.current) return;
+    isCycling.current = true;
+
+    const front = cardRefs.current[0];
+    if (!front) {
+      isCycling.current = false;
+      return;
+    }
+
+    gsap.to(front, {
+      y: 24,
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.22,
+      ease: "power2.in",
+      onComplete: () => {
+        setFrontIndex((prev) => (prev + 1) % count);
+        gsap.set(front, { y: 0, opacity: 1, scale: 1 });
+        isCycling.current = false;
+      },
+    });
+  };
+
+  return (
+    <div className="flex flex-col items-center gap-4 md:gap-6">
+      <div
+        ref={containerRef}
+        className="group relative mx-auto w-full max-w-lg pb-4 md:pb-6"
+        onClick={canCycle ? cycle : undefined}
+        style={{ cursor: canCycle ? "pointer" : "default" }}
       >
-        {frontPost ? (
-          <PostContent post={frontPost} displayConfig={displayConfig} />
-        ) : (
-          <EmptyContent />
-        )}
-      </a>
+        {/* Back decorative cards — absolute, peek behind the front */}
+        {[2, 1].map((i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              cardRefs.current[i] = el;
+            }}
+            className="absolute inset-0 rounded-3xl border border-gray-200/80 bg-[#f0ede6] dark:border-white/8 dark:bg-[#1e1d19]"
+            style={{
+              transform: `rotate(${REST[i]!.rotate}deg)`,
+              zIndex: i === 1 ? 10 : 5,
+            }}
+            aria-hidden="true"
+          >
+            <DecorativeLines />
+          </div>
+        ))}
+
+        {/* Front card — in document flow to set container height */}
+        <div
+          ref={(el) => {
+            cardRefs.current[0] = el;
+          }}
+          className="relative z-20 overflow-hidden rounded-3xl border border-gray-200 bg-[#faf8f3] shadow-2xl dark:border-white/10 dark:bg-[#1e1d19]"
+          style={{ transform: `rotate(${REST[0]!.rotate}deg)` }}
+        >
+          {frontPost ? (
+            <PostContent post={frontPost} displayConfig={displayConfig} />
+          ) : (
+            <EmptyContent />
+          )}
+        </div>
+      </div>
+
+      {/* Dot indicators + cycle hint — only shown when there are multiple posts */}
+      {canCycle && (
+        <div className="mt-2 flex items-center gap-3">
+          {displayPosts.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (i === frontIndex || isCycling.current) return;
+                isCycling.current = true;
+                const front = cardRefs.current[0];
+                if (!front) {
+                  isCycling.current = false;
+                  return;
+                }
+                gsap.to(front, {
+                  y: 24,
+                  opacity: 0,
+                  scale: 0.95,
+                  duration: 0.22,
+                  ease: "power2.in",
+                  onComplete: () => {
+                    setFrontIndex(i);
+                    gsap.set(front, { y: 0, opacity: 1, scale: 1 });
+                    isCycling.current = false;
+                  },
+                });
+              }}
+              aria-label={`Show post ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === frontIndex
+                  ? "w-6 bg-blue-500"
+                  : "w-1.5 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-500"
+              }`}
+            />
+          ))}
+          <span className="ml-1 text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-600">
+            Tap to browse
+          </span>
+        </div>
+      )}
     </div>
   );
 }
@@ -187,8 +273,14 @@ function PostContent({
         {getPostExcerpt(post.description)}
       </p>
 
-      {/* Read link */}
-      <div className="mt-6 flex items-center gap-1.5 text-[11px] font-black tracking-[0.2em] text-blue-600 uppercase transition-colors group-hover:text-blue-500 dark:text-blue-400 dark:group-hover:text-blue-300">
+      {/* Read link — stopPropagation so clicking it doesn't also trigger cycle */}
+      <a
+        href={post.url}
+        target={post.isExternal ? "_blank" : "_self"}
+        rel={post.isExternal ? "noopener noreferrer" : undefined}
+        onClick={(e) => e.stopPropagation()}
+        className="mt-6 inline-flex items-center gap-1.5 text-[11px] font-black tracking-[0.2em] text-blue-600 uppercase transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+      >
         Read Article
         <svg
           className="h-3 w-3 transition-transform group-hover:translate-x-1"
@@ -204,7 +296,7 @@ function PostContent({
             d="M9 5l7 7-7 7"
           />
         </svg>
-      </div>
+      </a>
     </div>
   );
 }
