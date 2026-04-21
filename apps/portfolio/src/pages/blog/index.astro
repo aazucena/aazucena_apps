@@ -8,9 +8,13 @@ import {
   Star,
 } from "@aazucena/icons";
 import ListLayout from "~/layouts/ListLayout.astro";
-import type { FilterConfig } from "~/layouts/ListLayout.astro";
+import type { FilterConfig, SortConfig } from "~/layouts/ListLayout.astro";
 import { getPosts } from "@aazucena/api";
-import { calculateReadTime, formatPostDate } from "@aazucena/utils";
+import {
+  calculateReadTime,
+  formatPostDate,
+  getPostExcerpt,
+} from "@aazucena/utils";
 import { getPostDateTime } from "~/lib/utils/blog";
 import { getTagColorClasses } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
@@ -30,6 +34,19 @@ const allTags = [
 ].sort();
 
 const filters: FilterConfig[] = [{ id: "tag", label: "Tag", options: allTags }];
+
+const sortOptions: SortConfig[] = [
+  {
+    id: "order",
+    label: "Sort By",
+    options: [
+      { value: "date-desc", label: "Newest First" },
+      { value: "date-asc", label: "Oldest First" },
+      { value: "title-asc", label: "Title A → Z" },
+      { value: "title-desc", label: "Title Z → A" },
+    ],
+  },
+];
 ---
 
 <ListLayout
@@ -37,6 +54,7 @@ const filters: FilterConfig[] = [{ id: "tag", label: "Tag", options: allTags }];
   description={`A collection of ${posts.length} articles, tutorials, and deep dives into software engineering, architecture, and creative coding.`}
   watermark="JOURNAL"
   filters={filters}
+  sortOptions={sortOptions}
   searchPlaceholder="Search articles by title or tag..."
   layout="grid"
   maxWidth="7xl"
@@ -47,7 +65,9 @@ const filters: FilterConfig[] = [{ id: "tag", label: "Tag", options: allTags }];
       <article
         class="item-card group relative flex flex-col overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-blue-500/20 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900"
         data-filter-tag={post.tags.map((t: any) => t.label).join(",")}
-        data-search={`${post.title} ${post.description} ${post.tags.map((t) => t.label).join(" ")}`.toLowerCase()}
+        data-sort-title={post.title.toLowerCase()}
+        data-sort-date={getPostDateTime(post)}
+        data-search={`${post.title} ${getPostExcerpt(post.description, 500)} ${post.tags.map((t) => t.label).join(" ")}`.toLowerCase()}
       >
         {/* Featured/External Glow */}
         {post.featured && (
@@ -110,7 +130,7 @@ const filters: FilterConfig[] = [{ id: "tag", label: "Tag", options: allTags }];
           </h3>
 
           <p class="mb-8 line-clamp-3 text-sm leading-relaxed font-medium text-gray-600 dark:text-gray-400">
-            {post.description}
+            {getPostExcerpt(post.description, 300)}
           </p>
 
           <div class="mt-auto space-y-6">

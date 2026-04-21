@@ -10,11 +10,23 @@ export interface FilterConfig {
   options: string[];
 }
 
+export interface SortOption {
+  value: string;
+  label: string;
+}
+
+export interface SortConfig {
+  id: string;
+  label: string;
+  options: SortOption[];
+}
+
 interface Props {
   title: string;
   description: string;
-  watermark?: string; // NEW: Background watermark text
+  watermark?: string;
   filters?: FilterConfig[];
+  sortOptions?: SortConfig[];
   searchPlaceholder?: string;
   maxWidth?: "5xl" | "7xl" | "full";
   ignoreMaxWidth?: boolean;
@@ -28,6 +40,7 @@ const {
   description,
   watermark,
   filters = [],
+  sortOptions = [],
   searchPlaceholder = "Search...",
   maxWidth = "5xl",
   layout = "none",
@@ -43,6 +56,14 @@ const containerClasses = {
 };
 
 const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
+
+const totalSelects = filters.length + sortOptions.length;
+const searchColSpan =
+  totalSelects === 0
+    ? "md:col-span-2 lg:col-span-3"
+    : totalSelects === 1
+      ? "md:col-span-1 lg:col-span-2"
+      : "";
 ---
 
 <PageLayout title={title} description={description}>
@@ -113,16 +134,29 @@ const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
                   </div>
                 ))}
 
+                {sortOptions.map((sort) => (
+                  <div>
+                    <label
+                      for={`${sort.id}-sort`}
+                      class="mb-3 ml-2 block text-[10px] font-black tracking-widest text-gray-400 uppercase"
+                    >
+                      {sort.label}
+                    </label>
+                    <select
+                      id={`${sort.id}-sort`}
+                      data-sort-id={sort.id}
+                      class="list-sort-select w-full cursor-pointer rounded-2xl border border-gray-100 bg-gray-50 px-5 py-3 text-gray-900 shadow-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+                    >
+                      <option value="">Default</option>
+                      {sort.options.map((opt) => (
+                        <option value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+
                 {/* Search Input */}
-                <div
-                  class={
-                    filters.length === 0
-                      ? "md:col-span-2 lg:col-span-3"
-                      : filters.length === 1
-                        ? "md:col-span-1 lg:col-span-2"
-                        : ""
-                  }
-                >
+                <div class={searchColSpan}>
                   <label class="mb-3 ml-2 block text-[10px] font-black tracking-widest text-gray-400 uppercase">
                     Keywords
                     <input
@@ -222,6 +256,9 @@ const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
       const filterSelects = document.querySelectorAll(
         ".list-filter-select",
       ) as NodeListOf<HTMLSelectElement>;
+      const sortSelects = document.querySelectorAll(
+        ".list-sort-select",
+      ) as NodeListOf<HTMLSelectElement>;
       const searchInput = document.getElementById(
         "search-input",
       ) as HTMLInputElement;
@@ -238,12 +275,61 @@ const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
 
       if (!listItems.length && !filterSelects.length && !searchInput) return;
 
+      // Record original DOM order so "Default" sort can restore it
+      listItems.forEach((item, i) => {
+        item.dataset.originalIndex = String(i);
+      });
+
       function updateResultsCount(count: number) {
         if (!resultsCountDisplay) return;
 
         const category = plurals(count);
         const label = category === "one" ? "Entry" : "Entries";
         resultsCountDisplay.textContent = `Displaying ${count} ${label}`;
+      }
+
+      function sortList() {
+        if (!listContainer) return;
+
+        let sortValue = "";
+        sortSelects.forEach((s) => {
+          if (s.value) sortValue = s.value;
+        });
+
+        const items = Array.from(
+          listContainer.querySelectorAll(".item-card"),
+        ) as HTMLElement[];
+
+        items.sort((a, b) => {
+          switch (sortValue) {
+            case "title-asc":
+              return (a.dataset.sortTitle || "").localeCompare(
+                b.dataset.sortTitle || "",
+              );
+            case "title-desc":
+              return (b.dataset.sortTitle || "").localeCompare(
+                a.dataset.sortTitle || "",
+              );
+            case "date-asc":
+              return (
+                new Date(a.dataset.sortDate || "").getTime() -
+                new Date(b.dataset.sortDate || "").getTime()
+              );
+            case "date-desc":
+              return (
+                new Date(b.dataset.sortDate || "").getTime() -
+                new Date(a.dataset.sortDate || "").getTime()
+              );
+            default:
+              return (
+                parseInt(a.dataset.originalIndex || "0") -
+                parseInt(b.dataset.originalIndex || "0")
+              );
+          }
+        });
+
+        items.forEach((item) => listContainer!.appendChild(item));
+        filterList();
       }
 
       function filterList(updateQuery = true) {
@@ -253,6 +339,9 @@ const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
           const params: Record<string, string> = {};
           filterSelects.forEach((select) => {
             params[select.dataset.filterId!] = select.value;
+          });
+          sortSelects.forEach((select) => {
+            params[`sort_${select.dataset.sortId}`] = select.value;
           });
           if (searchInput) params.search = searchInput.value;
           updateURL(params);
@@ -331,17 +420,27 @@ const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
           if (value) select.value = value;
         });
 
+        sortSelects.forEach((select) => {
+          const value = params.get(`sort_${select.dataset.sortId}`);
+          if (value) select.value = value;
+        });
+
         if (searchInput) {
           const search = params.get("search");
           if (search) searchInput.value = search;
         }
 
-        filterList(false);
+        if (sortSelects.length) sortList();
+        else filterList(false);
       }
 
       // Event Listeners
       filterSelects.forEach((select) => {
         select.addEventListener("change", () => filterList());
+      });
+
+      sortSelects.forEach((select) => {
+        select.addEventListener("change", () => sortList());
       });
 
       if (searchInput) {
@@ -353,8 +452,9 @@ const maxWidthClass = containerClasses[maxWidth] || "max-w-5xl";
 
       clearFiltersBtn?.addEventListener("click", () => {
         filterSelects.forEach((select) => (select.value = ""));
+        sortSelects.forEach((select) => (select.value = ""));
         if (searchInput) searchInput.value = "";
-        filterList();
+        sortList();
       });
 
       initFiltersFromURL();
