@@ -19,18 +19,18 @@ export const StrapiPostSchema = z.object({
   sort: z.number().min(0).optional(),
   featured: z.boolean().default(false),
 
-  // URLs
-  url: z.string().max(255),
+  // URLs — null for internal posts (URL derived from slug in transformer)
+  url: z.string().max(255).nullable().optional(),
   isExternal: z.boolean().default(false),
 
   // Taxonomy
   tags: z.array(TagSchema).optional(),
 
-  // SEO
-  seo: SeoSchema,
+  // SEO — optional if not configured in CMS
+  seo: SeoSchema.nullable().optional(),
 
-  // Relations
-  relatedLinks: WebLinkArraySchema,
+  // Relations — optional if not configured in CMS
+  relatedLinks: WebLinkArraySchema.nullable().optional(),
 
   // Strapi metadata
   createdAt: z.string(),
