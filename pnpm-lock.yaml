@@ -1931,6 +1931,9 @@ importers:
       '@aazucena/types':
         specifier: workspace:*
         version: link:../types
+      '@types/remove-markdown':
+        specifier: ^0.3.4
+        version: 0.3.4
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1946,6 +1949,9 @@ importers:
       make-plural:
         specifier: ^8.1.0
         version: 8.1.0
+      remove-markdown:
+        specifier: ^0.6.3
+        version: 0.6.3
       shiki:
         specifier: ^3.23.0
         version: 3.23.0
@@ -8203,6 +8209,9 @@ packages:
 
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
+
+  '@types/remove-markdown@0.3.4':
+    resolution: {integrity: sha512-i753EH/p02bw7bLlpfS/4CV1rdikbGiLabWyVsAvsFid3cA5RNU1frG7JycgY+NSnFwtoGlElvZVceCytecTDA==}
 
   '@types/resolve@1.20.6':
     resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
@@ -15419,6 +15428,9 @@ packages:
 
   remove-accents@0.5.0:
     resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
+
+  remove-markdown@0.6.3:
+    resolution: {integrity: sha512-Qvp2p0Q1irE7AaJO7QemJe04HdObHylJrG+q4hszvPlYp7q4EvfINpEIaIEFdB+3XTDp1h6fiyT60ae00gmRow==}
 
   renderkid@3.0.0:
     resolution: {integrity: sha512-q/7VIQA8lmM1hF+jn+sFSPWGlMkSAeNYcPLmDQx2zzuiDfaLrOmumR8iaUKlenFgh0XRPIUeSPlH3A+AW3Z5pg==}
@@ -26500,6 +26512,8 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
+  '@types/remove-markdown@0.3.4': {}
+
   '@types/resolve@1.20.6': {}
 
   '@types/responselike@1.0.3':
@@ -35157,6 +35171,8 @@ snapshots:
       unified: 11.0.5
 
   remove-accents@0.5.0: {}
+
+  remove-markdown@0.6.3: {}
 
   renderkid@3.0.0:
     dependencies:
