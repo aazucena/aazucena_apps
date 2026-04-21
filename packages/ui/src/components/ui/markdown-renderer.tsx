@@ -12,6 +12,15 @@ export interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivEleme
   content: string;
 }
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 marked.use({
   renderer: {
     paragraph(token: Tokens.Paragraph): string {
@@ -73,10 +82,10 @@ marked.use({
           theme: 'github-dark',
         });
       }
-      return `<pre class="bg-muted rounded-lg p-4 overflow-x-auto mb-4"><code class="font-mono text-sm language-${token.lang || 'text'}">${token.text}</code></pre>`;
+      return `<pre class="bg-muted rounded-lg p-4 overflow-x-auto mb-4"><code class="font-mono text-sm language-${token.lang || 'text'}">${escapeHtml(token.text)}</code></pre>`;
     },
     codespan(token: Tokens.Codespan): string {
-      return `<code class="bg-muted border border-border rounded px-1.5 py-0.5 text-sm font-mono">${token.text}</code>`;
+      return `<code class="bg-muted border border-border rounded px-1.5 py-0.5 text-sm font-mono">${escapeHtml(token.text)}</code>`;
     },
     strong(token: Tokens.Strong): string {
       return `<strong class="font-semibold text-foreground">${this.parser.parseInline(token.tokens)}</strong>`;
