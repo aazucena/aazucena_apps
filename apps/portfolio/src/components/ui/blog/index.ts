@@ -8,3 +8,6 @@ export type { BlogCardProps } from "./BlogCard";
 
 export { ViewAllButton } from "./ViewAllButton";
 export type { ViewAllButtonProps } from "./ViewAllButton";
+
+export { NewspaperStack } from "./NewspaperStack";
+export type { NewspaperStackProps } from "./NewspaperStack";

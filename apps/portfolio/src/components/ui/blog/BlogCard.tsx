@@ -7,7 +7,11 @@ import React, { type JSX } from "react";
 import { ExternalLink } from "@aazucena/icons";
 import { GlassCard } from "../common/GlassCard";
 import { getTagClasses } from "@aazucena/utils";
-import { formatPostDate, calculateReadTime } from "@aazucena/utils";
+import {
+  formatPostDate,
+  calculateReadTime,
+  getPostExcerpt,
+} from "@aazucena/utils";
 import type { BlogPost } from "@aazucena/types";
 import type { BlogConfigData } from "@aazucena/types";
 
@@ -79,7 +83,7 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
 
       {/* Description */}
       <p className="text-sm leading-relaxed text-gray-300">
-        {post.description as React.ReactNode}
+        {getPostExcerpt(post.description)}
       </p>
     </GlassCard>
   );
