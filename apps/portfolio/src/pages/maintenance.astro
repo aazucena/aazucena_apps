@@ -15,8 +15,10 @@ export const prerender = false;
 // Fetch maintenance configuration
 const maintenance = await getMaintenance();
 
-// If maintenance is NOT enabled, redirect users away from this page
-if (!maintenance.enabled && !import.meta.env.DEV) {
+const envMaintenanceMode = import.meta.env.MAINTENANCE_MODE === "true";
+
+// If maintenance is NOT enabled (via env var or CMS), redirect users away from this page
+if (!maintenance.enabled && !envMaintenanceMode && !import.meta.env.DEV) {
   // Avoid redirect loops if the referer is the maintenance page itself
   return Astro.redirect(
     Astro.request.headers.get("referer") &&

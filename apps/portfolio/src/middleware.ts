@@ -45,8 +45,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
+  // 4. Env-var override — takes precedence over CMS, no network round-trip needed
+  if (import.meta.env.MAINTENANCE_MODE === "true") {
+    return redirect("/maintenance");
+  }
+
   try {
-    // 4. Fetch maintenance status from CMS
+    // 5. Fetch maintenance status from CMS
     const maintenance = await getMaintenance();
 
     if (maintenance.enabled) {
