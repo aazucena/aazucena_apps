@@ -3,6 +3,7 @@ import { dirname } from 'node:path';
 import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import tailwindcss from '@tailwindcss/vite';
+import { FAVICON_MAIN } from '@aazucena/design-system';
 
 // When running under vitest (STORYBOOK_VITEST=1 set explicitly in test:ci script),
 // the 34 files with play() interaction tests. storybookTest plugin reads this list
@@ -45,6 +46,9 @@ const INTERACTION_TEST_STORIES = [
   '../stories/recipes/auth-card.stories.tsx',
   '../stories/recipes/contact-form.stories.tsx',
 ];
+
+const faviconDataUri = `data:image/svg+xml;base64,${Buffer.from(FAVICON_MAIN).toString('base64')}`;
+const faviconLink = `<link rel="icon" type="image/svg+xml" href="${faviconDataUri}">`;
 
 const config: StorybookConfig = {
   stories: process.env.STORYBOOK_VITEST
@@ -100,6 +104,9 @@ const config: StorybookConfig = {
 
     return config;
   },
+
+  managerHead: (head) => `${head}${faviconLink}`,
+  previewHead: (head) => `${head}${faviconLink}`,
 };
 
 export default config;
