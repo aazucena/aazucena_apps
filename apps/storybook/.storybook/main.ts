@@ -101,8 +101,6 @@ const config: StorybookConfig = {
   },
 
   staticDirs: ['../public'],
-  managerHead: '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
-  previewHead: (head) => `${head}<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
 };
 
 export default config;
