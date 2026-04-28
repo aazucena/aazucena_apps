@@ -14,6 +14,7 @@ import {
 import { getLayoutData } from "~/lib/services/layout";
 import { formatPageTitle } from "~/config/site";
 import PlausibleScript from "~/components/common/PlausibleScript.astro";
+import AssistantChat from "~/components/assistant/AssistantChat";
 // import { PageViewTracker } from "@aazucena/analytics";
 
 export interface Props {
@@ -183,6 +184,9 @@ const themeStyles = {
     >
       <slot />
     </main>
+
+    <!-- AI Assistant - Rin (global, client-only to access window.location) -->
+    <AssistantChat client:only="react" />
 
     <!-- Analytics - Vercel Analytics + Speed Insights -->
     <AnalyticsScripts />
