@@ -65,8 +65,8 @@ const alertDialogContentVariants = cva(
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content> &
-    VariantProps<typeof alertDialogContentVariants>
->(({ className, variant, size, ...props }, ref) => {
+    VariantProps<typeof alertDialogContentVariants> & { overlayClassName?: string }
+>(({ className, overlayClassName, variant, size, ...props }, ref) => {
   const [shake, setShake] = React.useState(false);
 
   const handleInteractOutside = React.useCallback(() => {
@@ -76,7 +76,7 @@ const AlertDialogContent = React.forwardRef<
 
   return (
     <AlertDialogPortal>
-      <AlertDialogOverlay onPointerDown={handleInteractOutside} />
+      <AlertDialogOverlay className={overlayClassName} onPointerDown={handleInteractOutside} />
       <AlertDialogPrimitive.Content
         ref={ref}
         onEscapeKeyDown={handleInteractOutside}

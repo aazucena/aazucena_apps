@@ -42,12 +42,30 @@ export interface AssistantTriggerProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof assistantTriggerVariants> {
   hasNotification?: boolean;
+  icon?: React.ReactNode;
   label?: string;
+  closeLabel?: string;
   tooltip?: string;
+  tooltipSide?: 'top' | 'right' | 'bottom' | 'left';
 }
 
 const AssistantTrigger = React.forwardRef<HTMLButtonElement, AssistantTriggerProps>(
-  ({ className, variant, size, isOpen, hasNotification, label, tooltip, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      isOpen,
+      hasNotification,
+      icon,
+      label,
+      closeLabel,
+      tooltip,
+      tooltipSide = 'left',
+      ...props
+    },
+    ref,
+  ) => {
     const button = (
       <button
         ref={ref}
@@ -77,8 +95,14 @@ const AssistantTrigger = React.forwardRef<HTMLButtonElement, AssistantTriggerPro
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.5 }}
+                className="flex items-center gap-2"
               >
                 <X size={24} strokeWidth={2.5} />
+                {closeLabel && (
+                  <span className="pr-2 text-xs font-black tracking-widest uppercase">
+                    {closeLabel}
+                  </span>
+                )}
               </motion.div>
             ) : (
               <motion.div
@@ -88,11 +112,9 @@ const AssistantTrigger = React.forwardRef<HTMLButtonElement, AssistantTriggerPro
                 exit={{ opacity: 0, scale: 0.5 }}
                 className="flex items-center gap-2"
               >
-                <Sparkles size={24} />
+                {icon ?? <Sparkles size={24} />}
                 {label && (
-                  <span className="hidden pr-2 text-xs font-black tracking-widest uppercase md:block">
-                    {label}
-                  </span>
+                  <span className="pr-2 text-xs font-black tracking-widest uppercase">{label}</span>
                 )}
               </motion.div>
             )}
@@ -107,7 +129,7 @@ const AssistantTrigger = React.forwardRef<HTMLButtonElement, AssistantTriggerPro
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>{button}</TooltipTrigger>
-          <TooltipContent side="left" className="mr-4">
+          <TooltipContent side={tooltipSide} className={tooltipSide === 'right' ? 'ml-4' : 'mr-4'}>
             {tooltip}
           </TooltipContent>
         </Tooltip>
