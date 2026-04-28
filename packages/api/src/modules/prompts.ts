@@ -55,7 +55,11 @@ export async function getPromptBySlug(slug: string): Promise<Prompt | null> {
     const prompts = transformPrompts(validated.data);
     return prompts[0] || null;
   } catch (error) {
-    console.error(`Error fetching prompt with slug ${slug}:`, error);
+    // 403 = collection not yet permissioned in Strapi — expected fallback, not an error
+    const msg = error instanceof Error ? error.message : String(error);
+    if (!msg.includes('403')) {
+      console.error(`Error fetching prompt with slug ${slug}:`, error);
+    }
     return null;
   }
 }
