@@ -1,9 +1,9 @@
 "use client";
 
-import { Shield } from "@aazucena/icons";
-import { TelemetryProvider, useTelemetryConfig } from "@aazucena/context";
-import { useSystemStatus } from "@aazucena/hooks";
 import { SYSTEM_STATUS_METADATA } from "@aazucena/constants";
+import { TelemetryProvider } from "@aazucena/context";
+import { useSystemStatus } from "@aazucena/hooks";
+import { Shield } from "@aazucena/icons";
 import { cn } from "@aazucena/utils";
 
 interface IntegrityBadgeProps {
