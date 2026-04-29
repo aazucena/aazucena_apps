@@ -51,5 +51,11 @@ export default [
         extraFileExtensions: ['.astro'],
       },
     },
+    rules: {
+      // Astro templates use native HTML `for` (not React's `htmlFor`).
+      // LabelHTMLAttributes in Astro's type system has no `htmlFor` property,
+      // so this rule and the TS checker are in direct conflict on .astro files.
+      'jsx-a11y/label-has-associated-control': 'off',
+    },
   },
 ];
