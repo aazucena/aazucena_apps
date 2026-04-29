@@ -61,10 +61,11 @@ const extractedMetrics = (experience.achievements || [])
     if (!match) return null;
     const value = match[0];
     let label = achievement.title.replace(value, "").trim();
-    label = label.replace(
-      /^(increase(d)?|decrease(d)?|reduction|growth|boost(ed)?)(\s+(by|in|of))?\s*/i,
-      "",
-    );
+    // Anchored at ^ so no backtracking risk; safe-regex flags it as a false positive
+    // eslint-disable-next-line security/detect-unsafe-regex
+    const labelPrefixRe =
+      /^(?:increased?|decreased?|reduction|growth|boosted?)(?:\s+(?:by|in|of))?\s*/i;
+    label = label.replace(labelPrefixRe, "");
     if (label.length < 2) label = achievement.title;
 
     return {
