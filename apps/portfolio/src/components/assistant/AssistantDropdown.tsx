@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Dots, Info, Maximize, Minimize, Trash } from "@aazucena/icons";
+import { Dots, Info, ShieldCheck, Trash } from "@aazucena/icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,22 +10,18 @@ import {
   DropdownMenuTrigger,
 } from "@aazucena/ui";
 
+export type AssistantMenuAction = "lore" | "transparency" | "expand" | "clear";
+
 interface AssistantDropdownProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  isExpanded: boolean;
-  onToggleExpand: () => void;
-  onOpenLore: () => void;
-  onOpenClear: () => void;
+  onAction: (action: AssistantMenuAction) => void;
 }
 
 export function AssistantDropdown({
   open,
   onOpenChange,
-  isExpanded,
-  onToggleExpand,
-  onOpenLore,
-  onOpenClear,
+  onAction,
 }: AssistantDropdownProps) {
   return (
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
@@ -45,7 +41,7 @@ export function AssistantDropdown({
         <DropdownMenuItem
           onSelect={() => {
             onOpenChange(false);
-            onOpenLore();
+            onAction("lore");
           }}
           className="cursor-pointer gap-2 text-xs"
         >
@@ -54,21 +50,20 @@ export function AssistantDropdown({
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onSelect={onToggleExpand}
+          onSelect={() => {
+            onOpenChange(false);
+            onAction("transparency");
+          }}
           className="cursor-pointer gap-2 text-xs"
         >
-          {isExpanded ? (
-            <Minimize size={13} className="shrink-0" />
-          ) : (
-            <Maximize size={13} className="shrink-0" />
-          )}
-          {isExpanded ? "Collapse chat" : "Expand chat"}
+          <ShieldCheck size={13} className="shrink-0" />
+          Transparency
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onSelect={() => {
             onOpenChange(false);
-            onOpenClear();
+            onAction("clear");
           }}
           className="text-destructive focus:text-destructive cursor-pointer gap-2 text-xs"
         >
