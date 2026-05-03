@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "@aazucena/utils";
 import {
   ChatInputContainer,
   ChatInputWrapper,
   ChatInputArea,
   ChatInputSubmit,
 } from "@aazucena/ui";
+import { MAX_INPUT_WORDS } from "./constants";
 
 interface AssistantInputProps {
   value: string;
@@ -14,6 +16,8 @@ interface AssistantInputProps {
   onSend: () => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   isLoading: boolean;
+  wordCount: number;
+  isOverWordLimit: boolean;
 }
 
 export function AssistantInput({
@@ -22,6 +26,8 @@ export function AssistantInput({
   onSend,
   onKeyDown,
   isLoading,
+  wordCount,
+  isOverWordLimit,
 }: AssistantInputProps) {
   return (
     <ChatInputContainer className="px-3 pt-2 pb-3">
@@ -34,12 +40,24 @@ export function AssistantInput({
           minRows={1}
           maxRows={4}
           disabled={isLoading}
-          className="pr-12 text-xs"
+          className="pb-10 text-xs"
         />
+        <span
+          className={cn(
+            "pointer-events-none absolute right-4 bottom-2 font-mono text-[9px]",
+            isOverWordLimit
+              ? "text-rose-500"
+              : wordCount >= MAX_INPUT_WORDS * 0.8
+                ? "text-amber-500"
+                : "text-muted-foreground/40",
+          )}
+        >
+          {wordCount}/{MAX_INPUT_WORDS}
+        </span>
         <ChatInputSubmit
           type="button"
           onClick={onSend}
-          disabled={isLoading || !value.trim()}
+          disabled={isLoading || !value.trim() || isOverWordLimit}
           className="h-8 w-8"
         />
       </ChatInputWrapper>
