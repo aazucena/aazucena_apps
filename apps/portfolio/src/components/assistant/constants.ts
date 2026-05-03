@@ -11,6 +11,14 @@ export const LOADING_STATUSES = [
   "Almost there…",
 ];
 
+export const POPOVER_SHOWN_KEY = "rin_popover_shown";
+export const TRANSPARENCY_KEY = "rin_transparency_v1";
+export const MAX_INPUT_WORDS = 200;
+
+export function countWords(text: string): number {
+  return text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+}
+
 export function getSuggestions(pathname: string): string[] {
   if (pathname.startsWith("/projects"))
     return [

@@ -3,17 +3,33 @@
 import * as React from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { STORAGE_KEY, LOADING_STATUSES } from "./constants";
+import {
+  STORAGE_KEY,
+  LOADING_STATUSES,
+  POPOVER_SHOWN_KEY,
+  TRANSPARENCY_KEY,
+  MAX_INPUT_WORDS,
+  countWords,
+} from "./constants";
 import { loadPersistedMessages } from "./utils";
+
+export type ChatMode = "floating" | "offcanvas" | "fullscreen";
 
 export function useAssistantChat() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isExpanded, setIsExpanded] = React.useState(false);
+  const [chatMode, setChatMode] = React.useState<ChatMode>("floating");
   const [input, setInput] = React.useState("");
   const [clearDialogOpen, setClearDialogOpen] = React.useState(false);
   const [loreDialogOpen, setLoreDialogOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [loadingStatusIdx, setLoadingStatusIdx] = React.useState(0);
+  const [transparencyOpen, setTransparencyOpen] = React.useState<boolean>(
+    () => {
+      if (typeof window === "undefined") return false;
+      return localStorage.getItem(TRANSPARENCY_KEY) !== "true";
+    },
+  );
+  const [popoverVisible, setPopoverVisible] = React.useState(false);
   const feedRef = React.useRef<HTMLDivElement | null>(null);
 
   const pathname =
@@ -28,6 +44,10 @@ export function useAssistantChat() {
   });
 
   const isLoading = status === "streaming" || status === "submitted";
+
+  const deferredInput = React.useDeferredValue(input);
+  const wordCount = countWords(deferredInput);
+  const isOverWordLimit = wordCount > MAX_INPUT_WORDS;
 
   React.useEffect(() => {
     try {
@@ -54,6 +74,31 @@ export function useAssistantChat() {
     return () => clearInterval(id);
   }, [isLoading]);
 
+  // Reset to floating mode whenever the chat is closed
+  React.useEffect(() => {
+    if (!isOpen) setChatMode("floating");
+  }, [isOpen]);
+
+  // Show popover once, 3s after first visit; auto-dismiss after 8s
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (localStorage.getItem(POPOVER_SHOWN_KEY) === "true") return;
+    let dismissTimer: ReturnType<typeof setTimeout>;
+    const showTimer = setTimeout(() => {
+      setPopoverVisible(true);
+      try {
+        localStorage.setItem(POPOVER_SHOWN_KEY, "true");
+      } catch {
+        // ignore
+      }
+      dismissTimer = setTimeout(() => setPopoverVisible(false), 8000 * 8);
+    }, 3000);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(dismissTimer!);
+    };
+  }, []);
+
   function handleClear() {
     setMessages([]);
     setClearDialogOpen(false);
@@ -66,7 +111,7 @@ export function useAssistantChat() {
 
   function handleSend() {
     const text = input.trim();
-    if (!text || isLoading) return;
+    if (!text || isLoading || isOverWordLimit) return;
     setInput("");
     sendMessage({ text });
   }
@@ -78,11 +123,24 @@ export function useAssistantChat() {
     }
   }
 
+  function handleTriggerClick() {
+    setPopoverVisible(false);
+    setIsOpen((o) => !o);
+  }
+
+  function handleCycleMode() {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+    setChatMode((m) => {
+      if (m === "floating") return isMobile ? "fullscreen" : "offcanvas";
+      if (m === "offcanvas") return "fullscreen";
+      return "floating";
+    });
+  }
+
   return {
     isOpen,
     setIsOpen,
-    isExpanded,
-    setIsExpanded,
+    chatMode,
     input,
     setInput,
     clearDialogOpen,
@@ -97,6 +155,14 @@ export function useAssistantChat() {
     messages,
     sendMessage,
     isLoading,
+    wordCount,
+    isOverWordLimit,
+    transparencyOpen,
+    setTransparencyOpen,
+    popoverVisible,
+    setPopoverVisible,
+    handleTriggerClick,
+    handleCycleMode,
     handleClear,
     handleSend,
     handleKeyDown,
