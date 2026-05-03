@@ -63,7 +63,7 @@ export const ChatInputSubmit = React.forwardRef<
   HTMLButtonElement,
   React.ComponentPropsWithoutRef<typeof Button>
 >(({ className, ...props }, ref) => (
-  <div className="absolute right-3 bottom-3">
+  <div className="absolute top-3 right-3">
     <Button
       ref={ref}
       size="icon"
