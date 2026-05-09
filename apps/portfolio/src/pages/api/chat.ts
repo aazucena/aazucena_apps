@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { streamText, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages, stepCountIs } from "ai";
 import { setStrapiConfig } from "@aazucena/api";
 import { gateway } from "@aazucena/api/services/ai/gateway";
 import { fetchChatContext } from "~/lib/utils/chat-context";
@@ -47,6 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
     system: systemPrompt,
     messages: await convertToModelMessages(last10Messages),
     maxOutputTokens: 1024,
+    stopWhen: stepCountIs(3),
     tools: createChatTools(pathname),
   });
 
