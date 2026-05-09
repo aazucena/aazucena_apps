@@ -16,6 +16,14 @@ export function AssistantMessageList({ messages }: AssistantMessageListProps) {
       {messages.map((msg) => {
         const isUser = msg.role === "user";
         const parts = msg.parts ?? [];
+        const hasVisibleParts = parts.some(
+          (p: any) =>
+            p.type === "text" ||
+            (p.type === "tool-submit_contact_form" &&
+              p.state === "result" &&
+              p.output?.success === true),
+        );
+        if (!hasVisibleParts) return null;
         return (
           <ChatMessage key={msg.id} role={msg.role as "user" | "assistant"}>
             {!isUser && <ChatAvatar variant="ai" icon={rinAvatarIcon} />}
