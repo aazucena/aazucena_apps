@@ -86,3 +86,6 @@ export * from './Phaser';
 // ─── Themes & analytics ───────────────────────────────────────────────────────
 export * from './Catppuccin';
 export * from './Plausible';
+
+// ─── UI icons ─────────────────────────────────────────────────────────────────
+export * from './DotGrid';

@@ -113,6 +113,7 @@ export {
   Brand, // personal brand logo
   ScrollDown, // UI scroll indicator (div wrapper)
   Empty, // empty state icon
+  DotGrid, // 2×3 dot grid for section navigation FAB
   AwardBadge, // custom award icon
   Vector, // custom vector icon
   Viewports, // custom viewports (12×12 coordinate space)
