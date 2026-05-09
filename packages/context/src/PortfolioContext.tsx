@@ -71,15 +71,40 @@ export function PortfolioProvider({
 
   // Touch Navigation Handler (mobile swipe up/down = next/prev section)
   const touchStartYRef = useRef<number>(0);
+  const touchScrollableRef = useRef<{ el: HTMLElement; scrollTop: number } | null>(null);
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
       touchStartYRef.current = e.touches[0]?.clientY ?? 0;
+      touchScrollableRef.current = null;
+      // Snapshot the nearest scrollable ancestor and its scroll position at gesture start
+      const path = e.composedPath();
+      for (const node of path) {
+        if (node === document || node === window) break;
+        const el = node as HTMLElement;
+        if (!el.scrollHeight) continue;
+        const { overflowY } = window.getComputedStyle(el);
+        const isScrollable = overflowY === 'auto' || overflowY === 'scroll';
+        const hasScrollableContent = el.scrollHeight > el.clientHeight;
+        if (isScrollable && hasScrollableContent) {
+          touchScrollableRef.current = { el, scrollTop: el.scrollTop };
+          break;
+        }
+      }
     };
     const handleTouchEnd = (e: TouchEvent) => {
       const endY = e.changedTouches[0]?.clientY ?? 0;
       const delta = touchStartYRef.current - endY;
       const SWIPE_THRESHOLD = 50;
       if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+      // Use the snapshotted scroll position to check if the container could absorb this swipe
+      if (touchScrollableRef.current) {
+        const { el, scrollTop } = touchScrollableRef.current;
+        const swipingDown = delta > 0;
+        const atTop = scrollTop === 0;
+        const atBottom = scrollTop + el.clientHeight >= el.scrollHeight - 1;
+        if (swipingDown && !atBottom) return;
+        if (!swipingDown && !atTop) return;
+      }
       if (delta > 0 && currentSection < totalSections - 1) {
         navigateToSection(currentSection + 1);
       } else if (delta < 0 && currentSection > 0) {
@@ -96,10 +121,32 @@ export function PortfolioProvider({
 
   // Scroll Navigation Handler
   useEffect(() => {
+    const isInsideScrollableContainer = (e: WheelEvent): boolean => {
+      const path = e.composedPath();
+      for (const node of path) {
+        if (node === document || node === window) break;
+        const el = node as HTMLElement;
+        if (!el.scrollHeight) continue;
+        const { overflowY } = window.getComputedStyle(el);
+        const isScrollable = overflowY === 'auto' || overflowY === 'scroll';
+        const hasScrollableContent = el.scrollHeight > el.clientHeight;
+        if (!isScrollable || !hasScrollableContent) continue;
+        const scrollingDown = e.deltaY > 0;
+        const atTop = el.scrollTop === 0;
+        const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+        if (scrollingDown && !atBottom) return true;
+        if (!scrollingDown && !atTop) return true;
+      }
+      return false;
+    };
+
     const handleWheel = (e: WheelEvent) => {
       // Don't handle scroll when modal is open (check body overflow to support any modal)
       const isModalOpen = document.body.style.overflow === 'hidden';
       if (isScrollingRef.current || isModalOpen) return;
+
+      // Let scrollable containers (e.g. chat feed) absorb their own scroll
+      if (isInsideScrollableContainer(e)) return;
 
       const delta = e.deltaY;
 
