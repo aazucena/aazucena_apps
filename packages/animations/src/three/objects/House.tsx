@@ -7,6 +7,10 @@ import type { JSX } from 'react';
 import type { SceneObjectConfig } from '@aazucena/types';
 
 interface HouseProps {
+  position?: [number, number, number];
+  rotation?: number;
+  scale?: number;
+  color?: string;
   opacity: number;
   config?: SceneObjectConfig;
 }
@@ -15,17 +19,23 @@ interface HouseProps {
  * House Component
  * Simple house with walls, roof, door, and windows
  */
-export function House({ opacity, config }: HouseProps): JSX.Element {
-  // Use color from config or default
-  const color = (config?.custom?.color as string) || '#8B4513';
+export function House({
+  position = [0, 0, 0],
+  rotation = 0,
+  scale = 1,
+  color,
+  opacity,
+  config,
+}: HouseProps): JSX.Element {
+  const wallColor = color || (config?.custom?.color as string) || '#8B4513';
   const roofColor = (config?.custom?.roofColor as string) || '#654321';
 
   return (
-    <group>
+    <group position={position} rotation={[0, rotation, 0]} scale={scale}>
       {/* Walls */}
       <mesh position={[0, 0.5, 0]}>
         <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={color} roughness={0.8} transparent opacity={opacity} />
+        <meshStandardMaterial color={wallColor} roughness={0.8} transparent opacity={opacity} />
       </mesh>
 
       {/* Roof */}

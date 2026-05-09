@@ -7,6 +7,9 @@ import type { JSX } from 'react';
 import type { SceneObjectConfig } from '@aazucena/types';
 
 interface RockProps {
+  position?: [number, number, number];
+  scale?: number;
+  rotation?: [number, number, number];
   opacity: number;
   config?: SceneObjectConfig;
 }
@@ -15,9 +18,14 @@ interface RockProps {
  * Rock Component
  * Renders an irregular rock shape
  */
-export function Rock({ opacity }: RockProps): JSX.Element {
+export function Rock({
+  position = [0, 0, 0],
+  scale = 1,
+  rotation = [0, 0, 0],
+  opacity,
+}: RockProps): JSX.Element {
   return (
-    <mesh castShadow receiveShadow>
+    <mesh position={position} scale={scale} rotation={rotation} castShadow receiveShadow>
       <dodecahedronGeometry args={[1, 0]} />
       <meshStandardMaterial
         color="#808080"

@@ -7,6 +7,8 @@ import type { JSX } from 'react';
 import type { SceneObjectConfig } from '@aazucena/types';
 
 interface TreeProps {
+  position?: [number, number, number];
+  scale?: number;
   opacity: number;
   config?: SceneObjectConfig;
 }
@@ -15,9 +17,9 @@ interface TreeProps {
  * Tree Component
  * Renders a simple tree with brown trunk and green foliage
  */
-export function Tree({ opacity }: TreeProps): JSX.Element {
+export function Tree({ position = [0, 0, 0], scale = 1, opacity }: TreeProps): JSX.Element {
   return (
-    <group>
+    <group position={position} scale={scale}>
       {/* Tree trunk */}
       <mesh position={[0, 0.5, 0]} castShadow>
         <cylinderGeometry args={[0.1, 0.15, 1, 8]} />
