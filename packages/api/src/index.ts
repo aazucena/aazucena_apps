@@ -41,6 +41,7 @@ export * from './modules/projects';
 export * from './modules/prompts';
 export * from './modules/skill-categories';
 export * from './modules/skill-showcase';
+export * from './modules/services';
 export * from './modules/skills';
 export * from './modules/testimonials';
 export * from './modules/theme';
