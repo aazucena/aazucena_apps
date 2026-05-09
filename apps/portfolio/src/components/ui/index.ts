@@ -9,6 +9,7 @@ export * from "./SettingsPanel";
 export * from "./InfoPanel";
 export * from "./AwardModal";
 export * from "./ScrollIndicators";
+export * from "./SectionNavFAB";
 export {
   ScrollDown as ScrollDownIndicator,
   type ScrollDownProps as ScrollDownIndicatorProps,

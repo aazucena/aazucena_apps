@@ -5,7 +5,7 @@
 
 import { type JSX } from "react";
 import React from "react";
-import { ScrollIndicators } from "~/components/ui";
+import { ScrollIndicators, SectionNavFAB } from "~/components/ui";
 import {
   ScrollDown as ScrollDownIndicator,
   ScrollDownIcon,
@@ -40,13 +40,22 @@ export default function UIOverlays({
       {/* Navigation toolbar with integrated panels (Info, Settings, Social) */}
       <NavigationToolbar currentPhase={currentPhase} />
 
-      {/* Scroll Indicators */}
+      {/* Scroll Indicators — desktop only (right-side column) */}
       <ScrollIndicators
         visible={currentSection !== 0}
         currentSection={currentSection}
         onSectionClick={navigateToSection}
         sectionNames={sectionNames}
       />
+
+      {/* Section Nav FAB — mobile only (bottom-right, replaces dots) */}
+      {currentSection !== 0 && (
+        <SectionNavFAB
+          currentSection={currentSection}
+          sectionNames={sectionNames}
+          onSectionClick={navigateToSection}
+        />
+      )}
 
       {/* Scroll/Swipe Indicator */}
       <ScrollDownIndicator
