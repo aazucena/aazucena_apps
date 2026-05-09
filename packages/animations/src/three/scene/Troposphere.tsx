@@ -8,7 +8,9 @@
  */
 
 import type { JSX } from 'react';
-import { memo } from 'react';
+import { memo, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import type { Group } from 'three';
 import { Ground, House, Tree, Bush, Rock, Flower } from '../objects/index';
 import type { HouseData, TreeData, BushData, RockData, FlowerData } from '@aazucena/types';
 import { SceneObjectManager } from '../objects/index';
@@ -23,6 +25,8 @@ export interface TroposphereProps {
   opacity: number;
 }
 
+const DRIFT_SPEED = 0.007;
+
 function TroposphereComponent({
   houses,
   trees,
@@ -31,8 +35,16 @@ function TroposphereComponent({
   flowers,
   opacity,
 }: TroposphereProps): JSX.Element {
+  const sceneRef = useRef<Group>(null);
+
+  useFrame((_, delta) => {
+    if (!sceneRef.current) return;
+    sceneRef.current.rotation.y += delta * DRIFT_SPEED;
+    sceneRef.current.rotation.y %= Math.PI * 2;
+  });
+
   return (
-    <group>
+    <group ref={sceneRef}>
       {/* Ground plane */}
       <Ground opacity={opacity} />
 
