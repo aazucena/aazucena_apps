@@ -16,7 +16,16 @@ export default function AtmosphericOverlays({
   switch (atmosphericLayer) {
     case "troposphere":
       return (
-        <div className="fixed inset-0 z-10 bg-black/40 transition-opacity duration-1000" />
+        <>
+          <div className="fixed inset-0 z-10 bg-black/50 transition-opacity duration-1000" />
+          <div
+            className="fixed inset-0 z-30 transition-opacity duration-1000 ease-in-out"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 95%, transparent 100%)",
+            }}
+          />
+        </>
       );
 
     case "stratosphere":
