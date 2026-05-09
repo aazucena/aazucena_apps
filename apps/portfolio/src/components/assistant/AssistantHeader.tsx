@@ -21,6 +21,7 @@ interface AssistantHeaderProps {
   onDropdownOpenChange: (open: boolean) => void;
   onAction: (action: AssistantMenuAction) => void;
   onClose: () => void;
+  messagesCount: number;
 }
 
 export function AssistantHeader({
@@ -29,6 +30,7 @@ export function AssistantHeader({
   onDropdownOpenChange,
   onAction,
   onClose,
+  messagesCount,
 }: AssistantHeaderProps) {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
   const ExpandIcon = chatMode === "fullscreen" ? Minimize : Maximize;
@@ -70,6 +72,7 @@ export function AssistantHeader({
           open={dropdownOpen}
           onOpenChange={onDropdownOpenChange}
           onAction={onAction}
+          messagesCount={messagesCount}
         />
         <button
           onClick={onClose}

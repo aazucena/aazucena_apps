@@ -13,6 +13,7 @@ import { AssistantMessageList } from "./AssistantMessageList";
 import { AssistantTriggerPopover } from "./AssistantTriggerPopover";
 import { useAssistantChat } from "./useAssistantChat";
 import { TRANSPARENCY_KEY } from "./constants";
+import { exportTranscript } from "./utils";
 import { outerVariants, innerVariants } from "./variants";
 
 export default function AssistantChat() {
@@ -72,6 +73,7 @@ export default function AssistantChat() {
             chatMode={chatMode}
             dropdownOpen={dropdownOpen}
             onDropdownOpenChange={setDropdownOpen}
+            messagesCount={messages.length}
             onAction={(action) => {
               switch (action) {
                 case "lore":
@@ -82,6 +84,9 @@ export default function AssistantChat() {
                   break;
                 case "expand":
                   handleCycleMode();
+                  break;
+                case "export":
+                  exportTranscript(messages);
                   break;
                 case "clear":
                   setClearDialogOpen(true);

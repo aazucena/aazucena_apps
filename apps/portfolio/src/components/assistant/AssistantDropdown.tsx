@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Dots, Info, ShieldCheck, Trash } from "@aazucena/icons";
+import { Download, Dots, Info, ShieldCheck, Trash } from "@aazucena/icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,18 +10,25 @@ import {
   DropdownMenuTrigger,
 } from "@aazucena/ui";
 
-export type AssistantMenuAction = "lore" | "transparency" | "expand" | "clear";
+export type AssistantMenuAction =
+  | "lore"
+  | "transparency"
+  | "expand"
+  | "export"
+  | "clear";
 
 interface AssistantDropdownProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAction: (action: AssistantMenuAction) => void;
+  messagesCount: number;
 }
 
 export function AssistantDropdown({
   open,
   onOpenChange,
   onAction,
+  messagesCount,
 }: AssistantDropdownProps) {
   return (
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
@@ -58,6 +65,18 @@ export function AssistantDropdown({
         >
           <ShieldCheck size={13} className="shrink-0" />
           Transparency
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onSelect={() => {
+            onOpenChange(false);
+            onAction("export");
+          }}
+          disabled={messagesCount === 0}
+          className="cursor-pointer gap-2 text-xs"
+        >
+          <Download size={13} className="shrink-0" />
+          Export transcript
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
