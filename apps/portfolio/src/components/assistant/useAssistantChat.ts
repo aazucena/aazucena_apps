@@ -12,7 +12,7 @@ import {
   countWords,
 } from "./constants";
 import { loadPersistedMessages } from "./utils";
-import type { RinEmotion } from "~/lib/utils/chat-tools/set-emotion";
+import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
 
 export type { RinEmotion };
 export type ChatMode = "floating" | "offcanvas" | "fullscreen";

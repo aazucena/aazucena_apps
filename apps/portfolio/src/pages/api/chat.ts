@@ -2,8 +2,8 @@ import type { APIRoute } from "astro";
 import { streamText, convertToModelMessages, stepCountIs } from "ai";
 import { setStrapiConfig } from "@aazucena/api";
 import { gateway } from "@aazucena/api/services/ai/gateway";
-import { fetchChatContext } from "~/lib/utils/chat-context";
-import { createChatTools } from "~/lib/utils/chat-tools";
+import { fetchChatContext } from "~/lib/utils/chat/context";
+import { createChatTools } from "~/lib/utils/chat/tools";
 
 export const prerender = false;
 
