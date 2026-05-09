@@ -11,7 +11,7 @@ export const StrapiHomepageSchema = z.object({
   documentId: z.string().optional(),
 
   title: z.string().max(100),
-  sections: z.array(SectionSchema).min(1).max(8),
+  sections: z.array(SectionSchema).min(1).max(9),
   seo: SeoSchema,
 
   // Strapi metadata
