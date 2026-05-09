@@ -8,6 +8,7 @@ import {
   TestimonialsSection,
   BlogSection,
   AwardsSection,
+  ServicesSection,
 } from "~/components/homepage/sections";
 import type { HomepageData } from "@aazucena/types";
 
@@ -33,6 +34,7 @@ const BASE_REGISTRY = {
   testimonials: TestimonialsSection,
   blog: BlogSection,
   awards: AwardsSection,
+  services: ServicesSection,
 } as const;
 
 export const BASE_SECTIONS_REGISTRY: SectionRegistry = BASE_REGISTRY;

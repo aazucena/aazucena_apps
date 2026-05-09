@@ -14,6 +14,7 @@ import { getSkillShowcase } from "@aazucena/api";
 import { getWebsiteConfig } from "@aazucena/api";
 import { getAnimationConfig } from "@aazucena/api";
 import { getBlogConfig } from "@aazucena/api";
+import { getServices } from "@aazucena/api";
 import type { HeroData } from "@aazucena/types";
 import type { AboutData } from "@aazucena/types";
 import type { Project } from "@aazucena/types";
@@ -26,6 +27,7 @@ import type { ProjectShowcaseConfig } from "@aazucena/types";
 import type { ExperienceShowcaseConfig } from "@aazucena/types";
 import type { SkillShowcaseConfig } from "@aazucena/types";
 import type { BlogConfigData } from "@aazucena/types";
+import type { ServicesData } from "@aazucena/types";
 
 export interface PortfolioData {
   hero: HeroData;
@@ -40,6 +42,7 @@ export interface PortfolioData {
   projectShowcase: ProjectShowcaseConfig;
   experienceShowcase: ExperienceShowcaseConfig;
   skillShowcase: SkillShowcaseConfig;
+  services: ServicesData;
 }
 
 /**
@@ -65,6 +68,7 @@ export async function getHomepageData() {
       skillShowcase,
       websiteConfig,
       animationConfig,
+      services,
     ] = await Promise.all([
       getPortfolio(),
       getAbout(),
@@ -82,6 +86,7 @@ export async function getHomepageData() {
       getSkillShowcase(),
       getWebsiteConfig(),
       getAnimationConfig(),
+      getServices(),
     ]);
 
     const portfolioData: PortfolioData = {
@@ -97,6 +102,7 @@ export async function getHomepageData() {
       projectShowcase,
       experienceShowcase,
       skillShowcase,
+      services,
     };
 
     return {

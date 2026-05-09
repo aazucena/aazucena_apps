@@ -12,3 +12,4 @@ export * from "./SkillsSection";
 export * from "./TestimonialsSection";
 export * from "./BlogSection";
 export * from "./AwardsSection";
+export * from "./ServicesSection";

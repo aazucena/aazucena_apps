@@ -20,6 +20,7 @@ import type { ProjectShowcaseConfig } from "@aazucena/types";
 import type { ExperienceShowcaseConfig } from "@aazucena/types";
 import type { SkillShowcaseConfig } from "@aazucena/types";
 import type { BlogConfigData } from "@aazucena/types";
+import type { ServicesData } from "@aazucena/types";
 
 // ============================================================================
 // Complete Portfolio Data
@@ -44,6 +45,7 @@ export interface PortfolioData {
   projectShowcase: ProjectShowcaseConfig;
   experienceShowcase: ExperienceShowcaseConfig;
   skillShowcase: SkillShowcaseConfig;
+  services: ServicesData;
 }
 
 /**
