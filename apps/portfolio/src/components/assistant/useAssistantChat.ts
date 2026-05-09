@@ -12,7 +12,9 @@ import {
   countWords,
 } from "./constants";
 import { loadPersistedMessages } from "./utils";
+import type { RinEmotion } from "~/lib/utils/chat-tools/set-emotion";
 
+export type { RinEmotion };
 export type ChatMode = "floating" | "offcanvas" | "fullscreen";
 
 export function useAssistantChat() {
@@ -45,6 +47,22 @@ export function useAssistantChat() {
 
   const isLoading = status === "streaming" || status === "submitted";
 
+  const [isTalking, setIsTalking] = React.useState(false);
+
+  // Derive current emotion from the last assistant message's set_emotion tool result.
+  // Forces "thinking" while streaming so the emote updates before text arrives.
+  const currentEmotion = React.useMemo((): RinEmotion => {
+    if (isLoading) return "thinking";
+    const lastAssistant = [...messages]
+      .reverse()
+      .find((m) => m.role === "assistant");
+    if (!lastAssistant) return "idle";
+    const emotionPart = (lastAssistant.parts ?? []).find(
+      (p: any) => p.type === "tool-set_emotion" && p.state === "result",
+    );
+    return (emotionPart as any)?.output?.emotion ?? "idle";
+  }, [messages, isLoading]);
+
   const deferredInput = React.useDeferredValue(input);
   const wordCount = countWords(deferredInput);
   const isOverWordLimit = wordCount > MAX_INPUT_WORDS;
@@ -72,6 +90,16 @@ export function useAssistantChat() {
       setLoadingStatusIdx((s) => (s + 1) % LOADING_STATUSES.length);
     }, 2000);
     return () => clearInterval(id);
+  }, [isLoading]);
+
+  // 300ms tail keeps the mouth animation running until the last token renders
+  React.useEffect(() => {
+    if (isLoading) {
+      setIsTalking(true);
+    } else {
+      const t = setTimeout(() => setIsTalking(false), 300);
+      return () => clearTimeout(t);
+    }
   }, [isLoading]);
 
   // Reset to floating mode whenever the chat is closed
@@ -155,6 +183,8 @@ export function useAssistantChat() {
     messages,
     sendMessage,
     isLoading,
+    isTalking,
+    currentEmotion,
     wordCount,
     isOverWordLimit,
     transparencyOpen,

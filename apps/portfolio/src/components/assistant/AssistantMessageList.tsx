@@ -21,6 +21,9 @@ export function AssistantMessageList({ messages }: AssistantMessageListProps) {
             {!isUser && <ChatAvatar variant="ai" icon={rinAvatarIcon} />}
             <ChatContent role={msg.role as "user" | "assistant"}>
               {parts.map((part: any, i: number) => {
+                if (part.type === "tool-set_emotion") {
+                  return null;
+                }
                 if (part.type === "text") {
                   return (
                     <ChatBubble
