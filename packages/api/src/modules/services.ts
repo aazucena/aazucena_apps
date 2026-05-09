@@ -16,7 +16,7 @@ export async function getServices(): Promise<ServicesData> {
 
     const validated = StrapiServicesResponseSchema.parse(response);
     const services = transformServices(validated.data);
-    if (services.length <= 0) return DEFAULT_SERVICES;
+    // if (services.length <= 0) return DEFAULT_SERVICES;
     return { services };
   } catch (error) {
     if (error instanceof z.ZodError) {

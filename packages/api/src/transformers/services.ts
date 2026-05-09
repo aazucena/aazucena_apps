@@ -69,28 +69,6 @@ export const DEFAULT_SERVICES: ServicesData = {
       },
       sort: 3,
     },
-    {
-      id: 3,
-      title: 'AI / ML Integration',
-      shortDescription: 'LLM-powered features, RAG pipelines, and AI-assisted workflows.',
-      description:
-        'I design and build production AI integrations using Claude, LangChain, pgVector, and the Vercel AI SDK — from chatbots to semantic search.',
-      category: 'ai',
-      features: [
-        'Claude / GPT integration',
-        'RAG & vector search (pgVector)',
-        'AI observability with LangSmith',
-        'Streaming chat interfaces',
-      ],
-      cta: {
-        label: 'View projects',
-        url: '/projects',
-        variant: 'outline',
-        size: 'md',
-        openInNewTab: false,
-      },
-      sort: 4,
-    },
   ],
 };
 
