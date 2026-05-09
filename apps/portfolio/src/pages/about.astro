@@ -17,11 +17,13 @@ import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
 import { IconRenderer } from "@aazucena/ui";
 import { MarkdownRenderer } from "@aazucena/ui";
 import { EducationItem } from "~/components/ui/EducationItem";
+import { ServiceTabs } from "~/components/ui/ServiceTabs";
 import { WorkingStyleSection } from "~/components/ui/WorkingStyleSection";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getAbout } from "@aazucena/api";
 import { fetchEducation } from "@aazucena/api";
 import { getPortfolio } from "@aazucena/api";
+import { getServices } from "@aazucena/api";
 import { cn } from "@aazucena/utils";
 import { getColorClass, getGradientClass } from "@aazucena/utils";
 import { getAvailabilityIndicator } from "@aazucena/utils";
@@ -30,6 +32,7 @@ import type {
   Language,
   MasteryItem,
   RootItem,
+  ServicesData,
   WorkflowTool,
 } from "@aazucena/types";
 
@@ -37,12 +40,14 @@ import type {
 let about = null;
 let portfolio = null;
 let education = [];
+let servicesData: ServicesData = { services: [] };
 
 try {
-  [about, portfolio, education] = await Promise.all([
+  [about, portfolio, education, servicesData] = await Promise.all([
     getAbout(),
     getPortfolio(),
     fetchEducation(),
+    getServices(),
   ]);
 } catch (error) {
   console.error("Error fetching data for about page:", error);
@@ -262,7 +267,20 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
       </div>
     </section>
 
-    <!-- 3. Working Style -->
+    <!-- 3. Services -->
+    {
+      servicesData.services.length > 0 && (
+        <section id="services" class="space-y-10">
+          <h2 class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
+            <Wrench size={24} className="text-cyan-600" />
+            What I Offer
+          </h2>
+          <ServiceTabs services={servicesData.services} client:visible />
+        </section>
+      )
+    }
+
+    <!-- 4. Working Style -->
     <section id="working-style" class="space-y-12">
       <h2
         class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
@@ -275,7 +293,7 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
       />
     </section>
 
-    <!-- 4. Beyond the Screen -->
+    <!-- 5. Beyond the Screen -->
     <section id="interests" class="space-y-10">
       <h2
         class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
@@ -316,7 +334,7 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
       </div>
     </section>
 
-    <!-- 5. Education -->
+    <!-- 6. Education -->
     {
       sortedEducation && sortedEducation.length > 0 && (
         <section id="education" class="space-y-10">
