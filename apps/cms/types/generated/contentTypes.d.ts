@@ -1894,7 +1894,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
         {
-          max: 8;
+          max: 9;
           min: 1;
         },
         number
@@ -3198,6 +3198,54 @@ export interface ApiPromptPrompt extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiServiceService extends Struct.CollectionTypeSchema {
+  collectionName: 'services';
+  info: {
+    displayName: 'Service';
+    pluralName: 'services';
+    singularName: 'service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['engineering', 'consulting', 'design', 'ai', 'analytics', 'tutoring', 'devops', 'creative']
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'ui.cta-button', false>;
+    description: Schema.Attribute.RichText;
+    features: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<'plugin::strapi-plugin-sortable-list.sortable-list'>;
+    icon: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::icons-field.icon',
+        {
+          outputFormat: 'svg';
+        }
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::service.service'> &
+      Schema.Attribute.Private;
+    price: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    shortDescription: Schema.Attribute.Text;
+    sort: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSkillCategorySkillCategory extends Struct.CollectionTypeSchema {
   collectionName: 'skill_categories';
   info: {
@@ -4400,6 +4448,7 @@ declare module '@strapi/strapi' {
       'api::project-showcase.project-showcase': ApiProjectShowcaseProjectShowcase;
       'api::project.project': ApiProjectProject;
       'api::prompt.prompt': ApiPromptPrompt;
+      'api::service.service': ApiServiceService;
       'api::skill-category.skill-category': ApiSkillCategorySkillCategory;
       'api::skill-showcase.skill-showcase': ApiSkillShowcaseSkillShowcase;
       'api::skill.skill': ApiSkillSkill;
