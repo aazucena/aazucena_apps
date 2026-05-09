@@ -347,6 +347,21 @@ export type SubmissionStatus = z.infer<typeof SubmissionStatusEnum>;
 export type ChallengeType = z.infer<typeof ChallengeTypeEnum>;
 export type RewardType = z.infer<typeof RewardTypeEnum>;
 
+// --- Services Enums ---
+
+export const ServiceCategoryEnum = z.enum([
+  'engineering',
+  'consulting',
+  'design',
+  'ai',
+  'analytics',
+  'tutoring',
+  'devops',
+  'creative',
+]);
+
+export type ServiceCategory = z.infer<typeof ServiceCategoryEnum>;
+
 // --- AI & Intelligence Enums ---
 
 export const PromptTypeEnum = z.enum([

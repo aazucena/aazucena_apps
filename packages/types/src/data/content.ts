@@ -581,6 +581,35 @@ export interface LayoutDataResponse {
   maintenance: MaintenanceConfig;
 }
 
+// --- Services ---
+
+export interface ServiceCta {
+  label: string;
+  url: string;
+  variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size: 'sm' | 'md' | 'lg';
+  openInNewTab: boolean;
+  icon?: unknown;
+}
+
+export interface Service {
+  id: number;
+  title: string;
+  shortDescription: string;
+  description: string;
+  icon?: unknown;
+  category: string;
+  features: string[];
+  price?: string;
+  cta?: ServiceCta;
+  sort: number;
+}
+
+export interface ServicesData {
+  headline?: string;
+  services: Service[];
+}
+
 // Complete Homepage Aggregate
 export interface AggregateHomepageData {
   hero: HeroData;
@@ -595,4 +624,5 @@ export interface AggregateHomepageData {
   projectShowcase: ProjectShowcaseConfig;
   experienceShowcase: ExperienceShowcaseConfig;
   skillShowcase: SkillShowcaseConfig;
+  services: ServicesData;
 }
