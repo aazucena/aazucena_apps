@@ -2,9 +2,15 @@
 
 ![Status](https://img.shields.io/badge/status-active_development-orange) ![Phase](https://img.shields.io/badge/phase-4_%E2%80%94_developer_experience-blue)
 
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=nodedotjs&logoColor=white) ![pnpm](https://img.shields.io/badge/pnpm-10.33.4-F69220?logo=pnpm&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white) ![Turborepo](https://img.shields.io/badge/Turborepo-monorepo-EF4444?logo=turborepo&logoColor=white)
+
+![Astro](https://img.shields.io/badge/Astro-5.x-FF5D01?logo=astro&logoColor=white) ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black) ![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=nextdotjs&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+
+![Storybook](https://img.shields.io/badge/Storybook-373%2B_stories-FF4785?logo=storybook&logoColor=white) ![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white) ![Railway](https://img.shields.io/badge/Backend-Railway-0B0D0E?logo=railway&logoColor=white) ![CircleCI](https://img.shields.io/badge/CI-CircleCI-343434?logo=circleci&logoColor=white)
+
 A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The primary application is an Astro-based portfolio with React integration, featuring advanced animations (GSAP, Three.js, PixiJS) and a planned Strapi CMS backend.
 
-**Package Manager:** pnpm v10.33.0 (required)
+**Package Manager:** pnpm v10.33.4 (required)
 **Node Version:** >=18
 
 ---
@@ -14,13 +20,13 @@ A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The prim
 ### Prerequisites
 
 - **Node.js >=18** — [nodejs.org/en/download](https://nodejs.org/en/download) (verify: `node --version`)
-- **pnpm 10.33.0** — install via npm:
+- **pnpm 10.33.4** — install via npm:
 
 ```bash
-npm install -g pnpm@10.33.0
+npm install -g pnpm@10.33.4
 ```
 
-> **Why pnpm?** This monorepo uses pnpm workspaces. The `package.json` pins the exact version (`10.33.0`) via the `packageManager` field — using a different version may cause a silent install failure. Always install the pinned version.
+> **Why pnpm?** This monorepo uses pnpm workspaces. The `package.json` pins the exact version (`10.33.4`) via the `packageManager` field — using a different version may cause a silent install failure. Always install the pinned version.
 
 ### Install & Run
 
