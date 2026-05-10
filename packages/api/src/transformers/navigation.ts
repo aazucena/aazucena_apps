@@ -216,7 +216,7 @@ export function getDefaultNavigation(slug: string): Navigation {
               id: 24,
               title: 'Sitemap',
               type: 'WRAPPER',
-              path: '/sitemap-index.xml',
+              path: '/sitemap.xml',
               icon: 'map',
               order: 4,
               menuAttached: true,
