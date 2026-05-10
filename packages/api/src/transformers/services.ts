@@ -150,5 +150,8 @@ export function transformService(data: StrapiService): Service {
 }
 
 export function transformServices(items: StrapiService[]): Service[] {
-  return [...items].sort((a, b) => a.sort - b.sort).map(transformService);
+  return [...items]
+    .filter((item) => item.enable !== false)
+    .sort((a, b) => a.sort - b.sort)
+    .map(transformService);
 }

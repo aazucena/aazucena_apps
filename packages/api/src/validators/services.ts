@@ -26,6 +26,7 @@ export const StrapiServiceSchema = z.object({
   cta: StrapiCtaButtonSchema.nullable().optional(),
 
   sort: z.number().int().default(1),
+  enable: z.boolean().nullable().default(true),
 
   // Strapi metadata
   createdAt: z.string(),

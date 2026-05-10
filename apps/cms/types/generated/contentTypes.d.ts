@@ -3227,6 +3227,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     cta: Schema.Attribute.Component<'ui.cta-button', false>;
     description: Schema.Attribute.RichText;
+    enable: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     features: Schema.Attribute.JSON &
       Schema.Attribute.CustomField<'plugin::strapi-plugin-sortable-list.sortable-list'>;
     icon: Schema.Attribute.Text &
