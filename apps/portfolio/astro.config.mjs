@@ -97,7 +97,7 @@ export default defineConfig({
         !page.includes("/api/") &&
         !page.includes("/draft"),
       // Customize sitemap entries
-      customPages: [],
+      customPages: ["https://aazucena.com/support/"],
       // Change frequency hints for search engines
       changefreq: "weekly",
       priority: 0.7,
