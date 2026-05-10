@@ -239,11 +239,6 @@ workflows:
           requires: [ build_packages ]
       - test_storybook:
           requires: [ build_storybook ]
-      - deploy_storybook:
-          requires: [ build_storybook ]
-          filters:
-            branches:
-              only: main
       - build_analytics:
           requires: [ build_packages ]
       - test_analytics:
