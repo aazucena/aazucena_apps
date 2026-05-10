@@ -13,7 +13,7 @@
           (function () {
             function applyTheme() {
               var stored = null;
-              try { stored = localStorage.getItem("portfolio-theme"); } catch (e) {}
+              try { stored = localStorage.getItem("aazucena-theme"); } catch (e) {}
               var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
               if (stored === "dark" || (!stored &amp;&amp; prefersDark)) {
                 document.documentElement.classList.add("dark");
@@ -24,7 +24,7 @@
             applyTheme();
             // Re-apply when OS preference changes (no stored preference)
             window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
-              try { if (localStorage.getItem("portfolio-theme")) return; } catch (e) {}
+              try { if (localStorage.getItem("aazucena-theme")) return; } catch (e) {}
               applyTheme();
             });
           })();

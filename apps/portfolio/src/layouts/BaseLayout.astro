@@ -79,6 +79,27 @@ const themeStyles = {
   <head>
     <meta charset="utf-8" />
 
+    {
+      /* Blocking theme script — runs synchronously before first paint to prevent dark/light flash.
+        Reads the same localStorage key used by useTheme (STORAGE_KEYS.THEME = 'aazucena-theme'),
+        falls back to OS preference when no stored value exists. */
+    }
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("aazucena-theme");
+          if (stored === "dark") {
+            document.documentElement.classList.add("dark");
+            return;
+          }
+          if (stored === "light") return;
+        } catch (_) {}
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
     {/* Resource Hints - DNS prefetch, preconnect, preload for performance */}
     <ResourceHints />
 
