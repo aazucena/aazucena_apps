@@ -23,7 +23,7 @@ ENV NODE_ENV=${NODE_ENV}
 ENV NODE_OPTIONS=--max_old_space_size=4096
 
 # Install pnpm globally and node-gyp as root.
-RUN npm install -g pnpm node-gyp
+RUN npm install -g pnpm@10.33.4 node-gyp
 
 # Set application working directory and ensure ownership for the node user.
 WORKDIR /srv/app
@@ -35,11 +35,8 @@ USER node
 # Copy essential package files with correct ownership.
 COPY --chown=node:node pnpm-lock.yaml package.json ./
 
-# Configure pnpm and install dependencies as the node user.
-RUN pnpm config --global set fetch-retry-maxtimeout 600000 && pnpm install --frozen-lockfile
-
-# Update pnpm executable to latest version.
-RUN pnpm self-update
+# Install dependencies with extended fetch timeout for slow CI/Railway networks.
+RUN pnpm install --frozen-lockfile --fetch-retry-maxtimeout=600000
 
 ENV PATH=/srv/app/node_modules/.bin:$PATH
 
