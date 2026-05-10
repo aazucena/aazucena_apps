@@ -56,7 +56,7 @@
     "luxon": "^3.7.2",
     "make-plural": "^8.1.0",
     "marked": "^17.0.5",
-    "next": "16.2.1",
+    "next": "16.2.6",
     "qs": "^6.15.0",
     "react": "19.2.4",
     "react-countup": "^6.5.3",
@@ -90,7 +90,7 @@
     "@types/react-dom": "19.2.3",
     "@types/topojson-client": "^3.1.5",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.1",
+    "eslint-config-next": "16.2.6",
     "tailwindcss": "^4.2.2",
     "typescript": "^5"
   },
