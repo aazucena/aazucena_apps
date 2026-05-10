@@ -3,7 +3,8 @@
  * Adaptive tabs layout: horizontal for ≤3 services, vertical sidebar for >3.
  */
 
-import { type JSX, useState } from "react";
+import { type JSX, useState, useCallback } from "react";
+import { ArrowLeftRight as ArrowsHorizontal } from "@aazucena/icons";
 import { useSectionData } from "~/contexts";
 import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
@@ -39,26 +40,39 @@ function getCategoryGradient(category: string): string {
   return CATEGORY_COLORS[category] ?? "from-cyan-400 to-blue-500";
 }
 
+const FEATURES_CAP = 6;
+
 function ServicePanel({ service }: { service: Service }): JSX.Element {
   const gradient = getCategoryGradient(service.category);
   const categoryLabel = CATEGORY_LABELS[service.category] ?? service.category;
+  const [featuresExpanded, setFeaturesExpanded] = useState(false);
+  const hasMore = service.features.length > FEATURES_CAP;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const visibleFeatures =
+    featuresExpanded || !isMobile
+      ? service.features
+      : service.features.slice(0, FEATURES_CAP);
+  const toggleFeatures = useCallback(
+    () => setFeaturesExpanded((prev) => !prev),
+    [],
+  );
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-3 text-left sm:gap-5">
       {/* Header: icon + title + category badge */}
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3">
         {!!service.icon && (
           <div
             className={cn(
-              "flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white",
+              "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white sm:h-12 sm:w-12",
               gradient,
             )}
           >
-            <IconRenderer icon={service.icon as string} size={24} aria-hidden />
+            <IconRenderer icon={service.icon as string} size={20} aria-hidden />
           </div>
         )}
-        <div className="flex flex-col gap-1">
-          <h3 className="text-lg font-bold text-white md:text-xl">
+        <div className="flex min-w-0 flex-col gap-1">
+          <h3 className="text-base font-bold text-white sm:text-lg md:text-xl">
             {service.title}
           </h3>
           <span
@@ -79,33 +93,50 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
 
       {/* Description */}
       {service.description ? (
-        <div className="prose prose-sm prose-invert max-w-none text-gray-300">
-          <MarkdownRenderer content={service.description} />
-        </div>
+        <MarkdownRenderer
+          content={service.description}
+          className="text-gray-300 [&_li]:text-[11px] sm:[&_li]:text-xs md:[&_li]:text-sm [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm"
+        />
       ) : (
-        <p className="text-sm leading-relaxed text-gray-400">
+        <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs md:text-sm">
           {service.shortDescription}
         </p>
       )}
 
       {/* Feature bullets */}
       {service.features.length > 0 && (
-        <ul className="flex flex-col gap-2">
-          {service.features.map((feature, i) => (
-            <li
-              key={i}
-              className="flex items-center gap-2.5 text-sm text-gray-300"
+        <div className="flex flex-col gap-1.5">
+          <ul className="flex flex-col gap-1.5">
+            {visibleFeatures.map((feature, i) => (
+              <li
+                key={i}
+                className="flex items-center gap-2 text-xs text-gray-300 sm:text-sm"
+              >
+                <span
+                  className={cn(
+                    "h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-r",
+                    gradient,
+                  )}
+                />
+                {feature}
+              </li>
+            ))}
+          </ul>
+          {hasMore && (
+            <button
+              onClick={toggleFeatures}
+              className={cn(
+                "mt-1 flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 py-2 text-xs font-medium transition-all hover:border-white/20 hover:bg-white/5 active:scale-[0.98] md:hidden",
+                "bg-gradient-to-r bg-clip-text text-transparent",
+                gradient,
+              )}
             >
-              <span
-                className={cn(
-                  "h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-r",
-                  gradient,
-                )}
-              />
-              {feature}
-            </li>
-          ))}
-        </ul>
+              {featuresExpanded
+                ? "Show less"
+                : `Show all ${service.features.length} features`}
+            </button>
+          )}
+        </div>
       )}
 
       {/* CTA */}
@@ -116,7 +147,7 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
             target={service.cta.openInNewTab ? "_blank" : undefined}
             rel={service.cta.openInNewTab ? "noopener noreferrer" : undefined}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold transition-opacity duration-200 hover:opacity-90",
+              "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-opacity duration-200 hover:opacity-90 sm:px-4 sm:py-2",
               service.cta.variant === "primary" ||
                 service.cta.variant === "secondary"
                 ? cn("bg-gradient-to-r text-white", gradient)
@@ -160,11 +191,21 @@ export function ServicesSection({
           isVertical && "md:flex-row md:gap-6",
         )}
       >
-        {/* Tab buttons */}
+        {/* Scroll hint — mobile only */}
+        <div className="mb-2 text-center md:hidden">
+          <p className="flex animate-pulse items-center justify-center gap-2 text-sm text-gray-400">
+            <ArrowsHorizontal className="h-4 w-4" />
+            Swipe to explore services
+          </p>
+        </div>
+
+        {/* Tab buttons — horizontal scroll strip on mobile, vertical sidebar on md+ */}
         <div
           className={cn(
-            "flex flex-wrap justify-center gap-2",
-            isVertical && "md:min-w-[160px] md:flex-col md:justify-start",
+            "-mx-4 flex gap-2 overflow-x-auto px-4 pb-1",
+            isVertical
+              ? "md:mx-0 md:min-w-[160px] md:flex-col md:overflow-x-visible md:px-0 md:pb-0"
+              : "flex-wrap justify-center overflow-x-visible",
           )}
         >
           {services.map((service) => {
@@ -175,10 +216,10 @@ export function ServicesSection({
                 key={service.id}
                 onClick={() => setActiveId(service.id)}
                 className={cn(
-                  "flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition-all sm:px-5",
+                  "flex flex-shrink-0 items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold transition-all",
                   isVertical
-                    ? "justify-center md:w-full md:justify-start"
-                    : "justify-center",
+                    ? "justify-start md:w-full"
+                    : "justify-center px-5",
                   isActive
                     ? cn(
                         "bg-gradient-to-r text-white shadow-lg dark:shadow-none",
@@ -194,10 +235,7 @@ export function ServicesSection({
                     aria-hidden
                   />
                 )}
-                <span className="hidden sm:inline">{service.title}</span>
-                <span className="text-xs sm:hidden">
-                  {CATEGORY_LABELS[service.category] ?? service.category}
-                </span>
+                <span>{service.title}</span>
               </button>
             );
           })}
@@ -207,7 +245,7 @@ export function ServicesSection({
         {activeService && (
           <div
             className={cn(
-              "rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm",
+              "rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm sm:p-6",
               isVertical && "md:flex-1",
             )}
           >
