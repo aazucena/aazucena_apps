@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-05-10T09:07:17.607Z"
+    "x-generation-date": "2026-05-10T16:52:05.119Z"
   },
   "x-strapi-config": {
     "plugins": ["upload", "users-permissions"]
@@ -33152,13 +33152,13 @@
         "required": ["data"],
         "properties": {
           "data": {
-            "required": ["slug", "title", "content", "template", "lastUpdated"],
+            "required": ["title", "slug", "content", "template", "lastUpdated"],
             "type": "object",
             "properties": {
-              "slug": {
+              "title": {
                 "type": "string"
               },
-              "title": {
+              "slug": {
                 "type": "string"
               },
               "content": {
@@ -33240,7 +33240,7 @@
       },
       "Page": {
         "type": "object",
-        "required": ["slug", "title", "content", "template", "lastUpdated"],
+        "required": ["title", "slug", "content", "template", "lastUpdated"],
         "properties": {
           "id": {
             "oneOf": [
@@ -33255,10 +33255,10 @@
           "documentId": {
             "type": "string"
           },
-          "slug": {
+          "title": {
             "type": "string"
           },
-          "title": {
+          "slug": {
             "type": "string"
           },
           "content": {
@@ -33351,10 +33351,10 @@
                 "documentId": {
                   "type": "string"
                 },
-                "slug": {
+                "title": {
                   "type": "string"
                 },
-                "title": {
+                "slug": {
                   "type": "string"
                 },
                 "content": {
@@ -34258,7 +34258,8 @@
               "TikTok",
               "Discord",
               "Twitch",
-              "Mastodon"
+              "Mastodon",
+              "Ko-fi"
             ]
           },
           "url": {
