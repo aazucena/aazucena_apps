@@ -24,12 +24,14 @@ RUN apk update && apk add --no-cache \
     automake \
     zlib-dev \
     libpng-dev \
+    nasm \
+    bash \
     vips-dev \
     git \
     python3
 
-# Install pnpm globally
-RUN npm install -g pnpm node-gyp
+# Install pnpm globally (pinned to match packageManager field)
+RUN npm install -g pnpm@10.33.4 node-gyp
 
 WORKDIR /app
 RUN chown node:node /app
@@ -44,8 +46,6 @@ COPY --chown=node:node package.json pnpm-lock.yaml ./
 RUN pnpm config set fetch-retry-maxtimeout 600000 && \
     pnpm install --frozen-lockfile
 
-RUN pnpm self-update
-
 # ==============================================================================
 # Stage 2: Builder
 # ==============================================================================
@@ -56,8 +56,8 @@ LABEL description="Strapi v5 CMS - Build Stage"
 # Install runtime dependencies needed for build
 RUN apk update && apk add --no-cache vips-dev
 
-# Install pnpm for build command
-RUN npm install -g pnpm
+# Install pnpm for build command (pinned)
+RUN npm install -g pnpm@10.33.4
 
 WORKDIR /app
 RUN chown node:node /app
@@ -80,7 +80,7 @@ RUN pnpm build
 FROM node:22-alpine AS production
 
 LABEL description="Strapi v5 CMS - Production Runtime"
-LABEL version="5.40.0"
+LABEL version="5.45.0"
 
 # Install runtime dependencies (no build tools)
 RUN apk update && apk add --no-cache \
@@ -88,21 +88,25 @@ RUN apk update && apk add --no-cache \
     vips-cpp \
     dumb-init
 
-# Install pnpm globally
-RUN npm install -g pnpm
+# Install pnpm globally (pinned)
+RUN npm install -g pnpm@10.33.4
 
 WORKDIR /app
 RUN chown node:node /app
 
-# Copy package files
-COPY --chown=node:node package.json pnpm-lock.yaml ./
-
 # Switch to node user for installation and runtime
 USER node
 
-# Install ONLY production dependencies
-RUN pnpm config set fetch-retry-maxtimeout 600000 && \
-    pnpm install --prod --frozen-lockfile
+# Copy package metadata (needed by pnpm prune)
+COPY --chown=node:node package.json pnpm-lock.yaml ./
+
+# Copy already-compiled node_modules from Stage 1 — avoids recompiling native
+# modules (sharp, vips bindings) without build tools in this minimal stage.
+# .pnpm/ virtual store lives inside node_modules, so pnpm prune works in-place.
+COPY --chown=node:node --from=dependencies /app/node_modules ./node_modules
+
+# Strip dev dependencies without recompiling (directory removal only)
+RUN pnpm prune --prod
 
 # Copy built application from builder stage
 COPY --chown=node:node --from=builder /app/.strapi ./.strapi
