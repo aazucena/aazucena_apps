@@ -6,7 +6,7 @@ export const DEFAULT_PAGE: Page = {
   id: 0,
   slug: '',
   title: '',
-  content: [],
+  content: '',
   template: 'default',
   lastUpdated: new Date().toISOString(),
   showTableOfContents: true,
