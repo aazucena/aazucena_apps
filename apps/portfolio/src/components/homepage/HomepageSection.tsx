@@ -10,7 +10,7 @@
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { lazy, Suspense, useEffect, type JSX } from "react";
+import { lazy, Suspense, useContext, useEffect, type JSX } from "react";
 import type { HomepageData } from "@aazucena/types";
 import type { PortfolioContent } from "@aazucena/types";
 import type { PortfolioData } from "~/types";
@@ -23,7 +23,8 @@ import {
   usePortfolio,
   useAnimation,
 } from "@aazucena/context";
-import { DataProvider, useDataContext } from "~/contexts";
+import { DataContext } from "~/contexts/DataContext";
+import { DataProvider } from "~/contexts";
 import HomepageContent from "./HomepageContent";
 import {
   useAtmosphericLayer,
@@ -39,15 +40,18 @@ if (typeof window !== "undefined") {
 }
 
 // Inner component that uses contexts
-function HomepageSectionInner(): JSX.Element {
-  const { content } = useDataContext();
-  const sections = content.sections;
+function HomepageSectionInner(): JSX.Element | null {
+  // Use raw useContext (returns null) instead of useDataContext (throws) — all hooks
+  // must run before any early return, so we guard after they've all been called.
+  const dataCtx = useContext(DataContext);
+  const sections = dataCtx?.content.sections ?? [];
   const refs = useSectionRefs(sections);
 
   // Return visitors skip the preloader animation, so preloader-complete never fires.
   // In that case, release BrandIconLoader here once animations are mounted.
   // First-time visitors: preloader-complete → BaseLayout → brand-loader-complete handles it.
   useEffect(() => {
+    if (!dataCtx) return;
     try {
       if (sessionStorage.getItem("portfolio-preloader-seen") === "true") {
         document.dispatchEvent(new CustomEvent("brand-loader-complete"));
@@ -56,7 +60,7 @@ function HomepageSectionInner(): JSX.Element {
       // sessionStorage unavailable — dispatch anyway as fallback
       document.dispatchEvent(new CustomEvent("brand-loader-complete"));
     }
-  }, []);
+  }, [dataCtx]);
 
   // Get only the state needed for this component
   // (Most state is now consumed directly by child components via contexts)
@@ -72,6 +76,10 @@ function HomepageSectionInner(): JSX.Element {
 
   // Apply section transition animations
   useSectionTransitions(currentSection, refs);
+
+  // HMR guard: DataContext may be momentarily null during React Fast Refresh cycle
+  // when this component is refreshed before its parent providers re-initialize.
+  if (!dataCtx) return null;
 
   return (
     <>
