@@ -23,6 +23,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   tutoring: "Tutoring",
   devops: "DevOps",
   creative: "Creative",
+  research: "Research",
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -34,6 +35,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   tutoring: "from-amber-400 to-orange-500",
   devops: "from-slate-400 to-blue-600",
   creative: "from-fuchsia-400 to-pink-500",
+  research: "from-sky-400 to-cyan-600",
 };
 
 function getCategoryGradient(category: string): string {

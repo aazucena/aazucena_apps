@@ -69,6 +69,50 @@ export const DEFAULT_SERVICES: ServicesData = {
       },
       sort: 3,
     },
+    {
+      id: 3,
+      title: 'Research & Discovery',
+      shortDescription: 'User research, competitive analysis, and technical investigations.',
+      description:
+        'I conduct structured research to inform better product decisions — from user interviews and usability audits to deep technical investigations and feasibility studies.',
+      category: 'research',
+      features: [
+        'User interviews & usability testing',
+        'Competitive & market analysis',
+        'Technical feasibility studies',
+        'Research synthesis & recommendations',
+      ],
+      cta: {
+        label: 'Learn more',
+        url: '/about',
+        variant: 'outline',
+        size: 'md',
+        openInNewTab: false,
+      },
+      sort: 4,
+    },
+    {
+      id: 4,
+      title: 'Creative Direction',
+      shortDescription: 'Brand identity, visual storytelling, and design leadership.',
+      description:
+        'I bring a creative eye to digital products — from establishing visual languages and motion design to art-directing campaigns and interactive experiences.',
+      category: 'creative',
+      features: [
+        'Brand identity & visual systems',
+        'Motion design & micro-interactions',
+        'Art direction for web & media',
+        'Interactive storytelling',
+      ],
+      cta: {
+        label: "Let's create",
+        url: '/contact',
+        variant: 'primary',
+        size: 'md',
+        openInNewTab: false,
+      },
+      sort: 5,
+    },
   ],
 };
 
