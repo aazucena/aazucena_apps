@@ -384,6 +384,7 @@ export interface SharedSocialLinks extends Struct.ComponentSchema {
         'Discord',
         'Twitch',
         'Mastodon',
+        'Ko-fi',
       ]
     > &
       Schema.Attribute.Required;
