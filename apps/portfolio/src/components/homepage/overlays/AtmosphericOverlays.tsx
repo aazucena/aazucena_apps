@@ -22,7 +22,7 @@ export default function AtmosphericOverlays({
             className="fixed inset-0 z-30 transition-opacity duration-1000 ease-in-out"
             style={{
               background:
-                "radial-gradient(ellipse at center, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 95%, transparent 100%)",
+                "radial-gradient(ellipse at center, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%)",
             }}
           />
         </>
@@ -36,7 +36,7 @@ export default function AtmosphericOverlays({
             className="fixed inset-0 z-30 transition-opacity duration-1000 ease-in-out"
             style={{
               background:
-                "radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 95%, transparent 100%)",
+                "radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 100%)",
             }}
           />
         </>
