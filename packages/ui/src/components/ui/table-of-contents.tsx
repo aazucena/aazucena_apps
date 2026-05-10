@@ -104,6 +104,7 @@ export interface TableOfContentsProps
   extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof tocVariants> {
   containerSelector?: string;
   headerSelector?: string;
+  excludeSelector?: string;
 }
 
 const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
@@ -114,6 +115,7 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
       position,
       containerSelector = 'main',
       headerSelector = 'h2, h3',
+      excludeSelector = '[data-toc-exclude]',
       ...props
     },
     ref,
@@ -142,7 +144,9 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
       const container = document.querySelector(containerSelector);
       if (!container) return;
 
-      const elements = Array.from(container.querySelectorAll(headerSelector));
+      const elements = Array.from(container.querySelectorAll(headerSelector)).filter(
+        (el) => !excludeSelector || !el.closest(excludeSelector),
+      );
       const scannedSections: ToCItem[] = [];
 
       elements.forEach((element, index) => {
@@ -189,7 +193,7 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
       });
 
       return () => observer.disconnect();
-    }, [containerSelector, headerSelector]);
+    }, [containerSelector, headerSelector, excludeSelector]);
 
     if (sections.length === 0) return null;
 
