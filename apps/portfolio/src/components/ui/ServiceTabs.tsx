@@ -47,10 +47,7 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
             <IconRenderer icon={service.icon as string} size={20} aria-hidden />
           </div>
         )}
-        <div className="flex min-w-0 flex-col gap-1">
-          <h3 className="text-base font-bold text-gray-900 sm:text-lg dark:text-white">
-            {service.title}
-          </h3>
+        <div className="flex min-w-0 flex-col gap-1.5">
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={cn(
@@ -66,21 +63,21 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
               </span>
             )}
           </div>
+          {service.shortDescription && (
+            <h3 className="text-lg font-black tracking-tight text-gray-900 sm:text-xl dark:text-white">
+              {service.shortDescription}
+            </h3>
+          )}
+          {/* Description sits tight under the short description */}
+          {service.description ? (
+            <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-400 [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm">
+              <MarkdownRenderer content={service.description} />
+            </div>
+          ) : null}
         </div>
       </div>
 
-      {/* Description */}
-      {service.description ? (
-        <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-400 [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm">
-          <MarkdownRenderer content={service.description} />
-        </div>
-      ) : (
-        <p className="text-[11px] leading-relaxed text-gray-600 sm:text-xs md:text-sm dark:text-gray-400">
-          {service.shortDescription}
-        </p>
-      )}
-
-      {/* Feature list */}
+      {/* Features */}
       {service.features.length > 0 && (
         <ul className="flex flex-col gap-1.5">
           {service.features.map((feature, i) => (
