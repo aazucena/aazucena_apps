@@ -11,6 +11,8 @@ import { calculateDuration } from "@aazucena/utils";
 
 interface EducationItemProps {
   edu: {
+    id?: number;
+    slug?: string;
     startDate: string;
     graduationDate?: string | null;
     current: boolean;
@@ -47,7 +49,10 @@ export function EducationItem({ edu }: EducationItemProps) {
       >
         <div className="mb-2 flex flex-col justify-between gap-4 md:flex-row md:items-start">
           <div className="space-y-1">
-            <h3 className="flex items-center gap-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+            <h3
+              id={edu.slug}
+              className="flex items-center gap-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400"
+            >
               {edu.degree}
               <ChevronDown
                 size={18}

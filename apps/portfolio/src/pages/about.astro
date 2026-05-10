@@ -271,7 +271,10 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
     {
       servicesData.services.length > 0 && (
         <section id="services" class="space-y-10">
-          <h2 class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
+          <h2
+            data-toc-label="WHAT I OFFER"
+            class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
+          >
             <Wrench size={24} className="text-cyan-600" />
             What I Offer
             <span class="rounded-full bg-cyan-500/10 px-3 py-1 text-sm font-bold tracking-normal text-cyan-600 normal-case dark:bg-cyan-500/20 dark:text-cyan-400">
