@@ -15,7 +15,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-05-09T18:32:44.560Z"
+    "x-generation-date": "2026-05-10T00:42:26.542Z"
   },
   "x-strapi-config": {
     "plugins": ["upload", "users-permissions"]
@@ -39243,7 +39243,8 @@
                   "analytics",
                   "tutoring",
                   "devops",
-                  "creative"
+                  "creative",
+                  "research"
                 ]
               },
               "shortDescription": {
@@ -39351,7 +39352,8 @@
               "analytics",
               "tutoring",
               "devops",
-              "creative"
+              "creative",
+              "research"
             ]
           },
           "shortDescription": {
@@ -39798,7 +39800,8 @@
                     "analytics",
                     "tutoring",
                     "devops",
-                    "creative"
+                    "creative",
+                    "research"
                   ]
                 },
                 "shortDescription": {

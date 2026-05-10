@@ -3210,7 +3210,17 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
   };
   attributes: {
     category: Schema.Attribute.Enumeration<
-      ['engineering', 'consulting', 'design', 'ai', 'analytics', 'tutoring', 'devops', 'creative']
+      [
+        'engineering',
+        'consulting',
+        'design',
+        'ai',
+        'analytics',
+        'tutoring',
+        'devops',
+        'creative',
+        'research',
+      ]
     > &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
