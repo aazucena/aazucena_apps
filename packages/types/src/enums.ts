@@ -358,6 +358,7 @@ export const ServiceCategoryEnum = z.enum([
   'tutoring',
   'devops',
   'creative',
+  'research',
 ]);
 
 export type ServiceCategory = z.infer<typeof ServiceCategoryEnum>;
