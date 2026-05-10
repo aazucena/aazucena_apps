@@ -1,0 +1,93 @@
+---
+/**
+ * Support page - Ko-fi donation embed.
+ * SSR: page title and SEO come from the Strapi Web Pages entry for "support".
+ * Ko-fi URL comes from the portfolio social links.
+ */
+export const prerender = false;
+import DetailLayout from "~/layouts/DetailLayout.astro";
+import { getPageBySlug, getPortfolio } from "@aazucena/api";
+import { MarkdownRenderer } from "@aazucena/ui";
+
+const [page, portfolio] = await Promise.all([
+  getPageBySlug("support"),
+  getPortfolio(),
+]);
+
+const kofiLink = portfolio.socialLinks.find((l) => l.platform === "Ko-fi");
+const kofiEmbedUrl = kofiLink?.url
+  ? `${kofiLink.url}?hidefeed=true&widget=true&embed=true&preview=true`
+  : null;
+
+const title = page?.title || "Support";
+const slug = page?.slug || "support";
+const pageTitle = page?.seo?.title || page?.title || "Support";
+const pageDescription =
+  page?.seo?.description || "Support Aldrin's work on Ko-fi.";
+const content =
+  page?.content ||
+  "Everything here is free: the code, the music, the tools.\n\nKo-fi is how you can support it. A tip, a membership, or just a note if something landed.";
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: page?.title || "Support" },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: page?.title || "Support",
+  description: pageDescription,
+  url: "https://aazucena.com/support",
+};
+---
+
+<DetailLayout
+  title={pageTitle}
+  description={pageDescription}
+  jsonLd={jsonLd}
+  breadcrumbs={breadcrumbs}
+  watermarkText={slug.split("-")[0]!.toUpperCase()}
+  watermarkSize="small"
+  maxWidth="5xl"
+  hasSidebar={false}
+  showReadingProgress={false}
+  basePath="/"
+  showTableOfContents={false}
+>
+  <!-- Hero Header -->
+  <div slot="header" class="space-y-8 text-left">
+    <h1
+      class="mb-8 text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
+    >
+      {title}<span class="text-blue-600">.</span>
+    </h1>
+  </div>
+
+  <!-- Ko-fi Embed -->
+  <Fragment slot="content">
+    <div class="space-y-6">
+      <article
+        id="dynamic-content"
+        class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 max-w-none"
+      >
+        <MarkdownRenderer content={content} />
+      </article>
+      {
+        kofiEmbedUrl && (
+          <div class="rounded-2xl">
+            <iframe
+              id="kofiframe"
+              src={kofiEmbedUrl}
+              style="box-shadow: 0 0 #0000 !important;border:none;width:100%;padding:4px;background:#ffffff;"
+              height="712"
+              title="aazucena"
+              loading="lazy"
+              allow="payment; autoplay; fullscreen"
+            />
+          </div>
+        )
+      }
+    </div>
+  </Fragment>
+</DetailLayout>
