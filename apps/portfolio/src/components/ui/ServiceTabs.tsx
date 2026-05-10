@@ -1,4 +1,5 @@
 import { type JSX, useState } from "react";
+import { ChevronDown } from "@aazucena/icons";
 import { IconRenderer, MarkdownRenderer } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 import type { Service } from "@aazucena/types";
@@ -12,6 +13,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   tutoring: "Tutoring",
   devops: "DevOps",
   creative: "Creative",
+  research: "Research",
 };
 
 const CATEGORY_GRADIENTS: Record<string, string> = {
@@ -23,6 +25,7 @@ const CATEGORY_GRADIENTS: Record<string, string> = {
   tutoring: "from-amber-400 to-orange-500",
   devops: "from-slate-400 to-blue-600",
   creative: "from-fuchsia-400 to-pink-500",
+  research: "from-sky-400 to-cyan-600",
 };
 
 function ServicePanel({ service }: { service: Service }): JSX.Element {
@@ -31,21 +34,21 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
   const categoryLabel = CATEGORY_LABELS[service.category] ?? service.category;
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-3 sm:gap-5">
       {/* Header: icon + title + badge */}
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3">
         {!!service.icon && (
           <div
             className={cn(
-              "flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white",
+              "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white sm:h-12 sm:w-12",
               gradient,
             )}
           >
-            <IconRenderer icon={service.icon as string} size={22} aria-hidden />
+            <IconRenderer icon={service.icon as string} size={20} aria-hidden />
           </div>
         )}
-        <div className="flex flex-col gap-1.5">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+        <div className="flex min-w-0 flex-col gap-1">
+          <h3 className="text-base font-bold text-gray-900 sm:text-lg dark:text-white">
             {service.title}
           </h3>
           <div className="flex flex-wrap items-center gap-2">
@@ -68,11 +71,11 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
 
       {/* Description */}
       {service.description ? (
-        <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-400">
+        <div className="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-gray-400 [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm">
           <MarkdownRenderer content={service.description} />
         </div>
       ) : (
-        <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+        <p className="text-[11px] leading-relaxed text-gray-600 sm:text-xs md:text-sm dark:text-gray-400">
           {service.shortDescription}
         </p>
       )}
@@ -83,7 +86,7 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
           {service.features.map((feature, i) => (
             <li
               key={i}
-              className="flex items-center gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+              className="flex items-center gap-2 text-xs text-gray-600 sm:text-sm dark:text-gray-400"
             >
               <span
                 className={cn(
@@ -99,13 +102,13 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
 
       {/* CTA */}
       {service.cta && (
-        <div className="mt-auto pt-1">
+        <div className="mt-auto pt-2">
           <a
             href={service.cta.url}
             target={service.cta.openInNewTab ? "_blank" : undefined}
             rel={service.cta.openInNewTab ? "noopener noreferrer" : undefined}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold transition-opacity hover:opacity-90",
+              "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-opacity hover:opacity-90 sm:px-4 sm:py-2",
               service.cta.variant === "primary" ||
                 service.cta.variant === "secondary"
                 ? cn("bg-gradient-to-r text-white", gradient)
@@ -136,45 +139,29 @@ export function ServiceTabs({ services }: ServiceTabsProps): JSX.Element {
   const activeService = services.find((s) => s.id === activeTab) ?? services[0];
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Tab buttons — same pattern as JourneyDashboard */}
-      <div className="flex flex-wrap justify-center gap-2">
-        {services.map((service) => {
-          const gradient =
-            CATEGORY_GRADIENTS[service.category] ?? "from-cyan-400 to-blue-500";
-          return (
-            <button
-              key={service.id}
-              onClick={() => setActiveTab(service.id)}
-              className={cn(
-                "flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition-all sm:px-6",
-                activeTab === service.id
-                  ? cn(
-                      "bg-gradient-to-r text-white shadow-lg dark:shadow-none",
-                      gradient,
-                    )
-                  : "bg-gray-50 text-gray-500 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700",
-              )}
-            >
-              {!!service.icon && (
-                <IconRenderer
-                  icon={service.icon as string}
-                  size={16}
-                  aria-hidden
-                />
-              )}
-              <span className="hidden sm:inline">{service.title}</span>
-              <span className="sm:hidden">
-                {CATEGORY_LABELS[service.category] ?? service.category}
-              </span>
-            </button>
-          );
-        })}
+    <div className="flex w-full flex-col gap-4" data-toc-exclude>
+      {/* Service selector dropdown — all screen sizes */}
+      <div className="relative w-full">
+        <select
+          value={activeTab}
+          onChange={(e) => setActiveTab(Number(e.target.value))}
+          className="w-full appearance-none rounded-xl border-2 border-gray-200 bg-white py-3 pr-10 pl-4 text-sm font-semibold text-gray-900 shadow-sm transition-colors focus:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-gray-400 [&>option]:bg-white [&>option]:text-gray-900 dark:[&>option]:bg-gray-900 dark:[&>option]:text-white"
+        >
+          {services.map((service) => (
+            <option key={service.id} value={service.id}>
+              {service.title}
+            </option>
+          ))}
+        </select>
+        <ChevronDown
+          className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400"
+          aria-hidden
+        />
       </div>
 
       {/* Active panel */}
       {activeService && (
-        <div className="rounded-3xl border border-gray-100 bg-gray-50/50 p-8 dark:border-gray-800 dark:bg-gray-900/30">
+        <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-4 sm:p-6 dark:border-gray-800 dark:bg-gray-900/30">
           <ServicePanel service={activeService} />
         </div>
       )}
