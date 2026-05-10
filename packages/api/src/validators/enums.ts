@@ -263,6 +263,7 @@ export const SocialPlatformEnum = z.enum([
   'Discord',
   'Twitch',
   'Mastodon',
+  'Ko-fi',
 ]);
 
 export const StreamingPlatformEnum = z.enum([

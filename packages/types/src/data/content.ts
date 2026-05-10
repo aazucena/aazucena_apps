@@ -493,7 +493,7 @@ export interface Page {
   id: number;
   slug: string;
   title: string;
-  content: unknown;
+  content: string;
   template: string;
   lastUpdated: string;
   seo?: TransformedSeo;
