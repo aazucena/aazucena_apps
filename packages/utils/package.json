@@ -28,7 +28,8 @@
     "make-plural": "^8.1.0",
     "remove-markdown": "^0.6.3",
     "shiki": "^3.23.0",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
