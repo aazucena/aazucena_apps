@@ -37,9 +37,9 @@ export function AboutSection({
       contentWidth="narrow"
     >
       <div className="flex flex-col gap-3 text-center text-sm md:gap-6 md:text-xl">
-        {/* Stats — order-2 mobile, order-3 desktop | 2-col → 3-col grid */}
+        {/* Stats — order-2 mobile, order-3 desktop | 2-col mobile, dynamic desktop */}
         <ResponsiveGrid
-          cols={{ sm: 2, md: 3 }}
+          cols={{ sm: 2, md: Math.min(about.stats.length, 4) as 1 | 2 | 3 | 4 }}
           gap="md"
           className="order-2 md:order-3"
         >
