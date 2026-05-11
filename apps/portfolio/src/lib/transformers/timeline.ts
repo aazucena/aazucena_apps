@@ -119,6 +119,7 @@ export function transformEducationToTimeline(
       degree: edu.degree,
       field: edu.field,
       educationType: edu.type,
+      logo: edu.institutionLogoUrl,
       gpa: edu.gpa,
       honors: edu.honors || null,
       skills: (edu.skills as SkillWithCategory[]) || [],

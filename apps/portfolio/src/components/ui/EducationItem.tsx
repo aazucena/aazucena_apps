@@ -18,8 +18,18 @@ interface EducationItemProps {
     current: boolean;
     degree: string;
     institution: string;
+    institutionLogoUrl?: string;
     description?: string | null;
   };
+}
+
+function getInstitutionInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
 }
 
 export function EducationItem({ edu }: EducationItemProps) {
@@ -47,33 +57,50 @@ export function EducationItem({ edu }: EducationItemProps) {
         className="group cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <div className="mb-2 flex flex-col justify-between gap-4 md:flex-row md:items-start">
-          <div className="space-y-1">
-            <h3
-              id={edu.slug}
-              className="flex items-center gap-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400"
-            >
-              {edu.degree}
-              <ChevronDown
-                size={18}
-                className={`text-gray-400 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+        <div className="mb-2 flex items-start gap-4">
+          {/* Institution Logo */}
+          <div
+            className={`flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl font-bold shadow-sm ${edu.institutionLogoUrl ? "bg-white" : "bg-gradient-to-br from-emerald-400 to-teal-500 text-sm text-white"}`}
+          >
+            {edu.institutionLogoUrl ? (
+              <img
+                src={edu.institutionLogoUrl}
+                alt={edu.institution}
+                className="h-full w-full object-contain p-1.5"
               />
-            </h3>
-            <p className="text-sm font-bold text-blue-600 dark:text-blue-400">
-              {edu.institution}
-            </p>
+            ) : (
+              getInstitutionInitials(edu.institution)
+            )}
+          </div>
 
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              <div className="flex items-center gap-1.5 rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-[10px] font-black tracking-widest text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
-                <Calendar size={12} />
-                {formatEduDate(edu.startDate)} —{" "}
-                {edu.graduationDate
-                  ? formatEduDate(edu.graduationDate)
-                  : "Present"}
-              </div>
-              <div className="flex items-center gap-1.5 rounded-full border border-blue-100/50 bg-blue-50/50 px-3 py-1 text-[10px] font-black tracking-widest text-blue-600 dark:border-blue-800/50 dark:bg-blue-900/20 dark:text-blue-400">
-                <Clock size={12} />
-                {duration}
+          <div className="flex flex-1 flex-col justify-between gap-4 md:flex-row md:items-start">
+            <div className="space-y-1">
+              <h3
+                id={edu.slug}
+                className="flex items-center gap-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400"
+              >
+                {edu.degree}
+                <ChevronDown
+                  size={18}
+                  className={`text-gray-400 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                />
+              </h3>
+              <p className="text-sm font-bold text-blue-600 dark:text-blue-400">
+                {edu.institution}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <div className="flex items-center gap-1.5 rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-[10px] font-black tracking-widest text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
+                  <Calendar size={12} />
+                  {formatEduDate(edu.startDate)} —{" "}
+                  {edu.graduationDate
+                    ? formatEduDate(edu.graduationDate)
+                    : "Present"}
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full border border-blue-100/50 bg-blue-50/50 px-3 py-1 text-[10px] font-black tracking-widest text-blue-600 dark:border-blue-800/50 dark:bg-blue-900/20 dark:text-blue-400">
+                  <Clock size={12} />
+                  {duration}
+                </div>
               </div>
             </div>
           </div>
