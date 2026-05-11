@@ -22,6 +22,7 @@ export async function getProjects(
         populate: [
           'coverImage.src',
           'screenshots.src',
+          'gallery',
           'tags',
           'techStack.category',
           'metrics',

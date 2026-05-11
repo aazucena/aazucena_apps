@@ -111,7 +111,7 @@ export interface StrapiProject {
   coverImage?: StrapiImageElement | null;
   screenshots?: StrapiImageElement[] | null;
   demoVideo?: unknown | null;
-  gallery?: unknown[] | null;
+  gallery?: StrapiMedia[] | null;
   repositoryUrl?: string | null;
   liveDemoUrl?: string | null;
   projectType?: string | null;

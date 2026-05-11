@@ -183,6 +183,7 @@ export interface Project {
   sort: number;
   coverImage?: TransformedImage;
   screenshots?: TransformedImage[];
+  gallery?: TransformedImage[];
   demoVideoUrl?: string;
   tags: TransformedTag[];
   techStack: { name: string; category: string }[];

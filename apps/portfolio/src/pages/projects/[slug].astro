@@ -4,7 +4,7 @@
  * Includes metrics, screenshots, tech stack, and navigation.
  */
 import { BrandGithub, Briefcase, ExternalLink } from "@aazucena/icons";
-import { MarkdownRenderer } from "@aazucena/ui";
+import { MarkdownRenderer, Gallery } from "@aazucena/ui";
 import MetricCard from "~/components/ui/MetricCard.astro";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
@@ -213,6 +213,23 @@ const seoDescription = project.seo?.description || project.shortDescription;
                 ),
             )}
           </div>
+        </section>
+      )
+    }
+    <!-- Project Gallery -->
+    {
+      project.gallery && project.gallery.length > 0 && (
+        <section id="project-gallery" class="space-y-8">
+          <h2 class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
+            Project Gallery
+          </h2>
+          <Gallery
+            client:load
+            items={project.gallery.map((img) => ({
+              src: img.url!,
+              alt: img.alt || project.title,
+            }))}
+          />
         </section>
       )
     }

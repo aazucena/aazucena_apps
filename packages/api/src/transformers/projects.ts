@@ -1,6 +1,7 @@
 import type { StrapiProject } from '@aazucena/types';
 import {
   transformImage,
+  getMediaUrl,
   transformTag,
   transformStats,
   transformSeo,
@@ -35,6 +36,13 @@ export function transformProject(data: StrapiProject): Project {
     screenshots: (data.screenshots || [])
       .map((s) => transformImage(s))
       .filter((s): s is Exclude<typeof s, undefined> => !!s),
+    gallery: (data.gallery || [])
+      .map((img: any) => {
+        const url = getMediaUrl(img);
+        if (!url) return undefined;
+        return { url, alt: img.alternativeText || undefined, width: img.width, height: img.height };
+      })
+      .filter((img): img is Exclude<typeof img, undefined> => !!img),
 
     tags: (data.tags || []).map(transformTag),
     techStack,
