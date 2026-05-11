@@ -89,13 +89,13 @@ function getTopMetric(experience: Experience) {
               {/* Company Info */}
               <div class="mb-4 flex items-start gap-3 md:mb-8 md:gap-5">
                 <div
-                  class={`h-12 w-12 flex-shrink-0 rounded-xl bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} flex items-center justify-center text-base font-black text-white shadow-xl transition-transform duration-700 group-hover/card:scale-110 md:h-16 md:w-16 md:rounded-2xl md:text-xl`}
+                  class={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-base font-black shadow-xl transition-transform duration-700 group-hover/card:scale-110 md:h-16 md:w-16 md:rounded-2xl md:text-xl ${experience.companyLogo?.url ? "bg-white" : `bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} text-white`}`}
                 >
                   {experience.companyLogo?.url ? (
                     <img
                       src={experience.companyLogo.url}
                       alt={experience.company}
-                      class="h-full w-full rounded-xl object-cover md:rounded-2xl"
+                      class="h-full w-full rounded-xl object-contain p-1.5 md:rounded-2xl"
                     />
                   ) : (
                     getCompanyInitials(experience.company)

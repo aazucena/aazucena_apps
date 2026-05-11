@@ -49,10 +49,16 @@ export function CompanyLogo({
   const initials = getCompanyInitials(company);
   const sizeClass = sizeVariants[size];
 
+  const hasLogo = Boolean(companyLogo?.url);
+
   return (
     <div
-      className={`flex flex-shrink-0 items-center justify-center overflow-hidden rounded-lg font-bold text-white shadow-lg ${sizeClass} ${className}`}
-      style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}
+      className={`flex flex-shrink-0 items-center justify-center overflow-hidden rounded-lg font-bold shadow-lg ${hasLogo ? "bg-white" : "text-white"} ${sizeClass} ${className}`}
+      style={
+        hasLogo
+          ? undefined
+          : { background: `linear-gradient(135deg, ${from}, ${to})` }
+      }
     >
       {companyLogo?.url ? (
         <img
