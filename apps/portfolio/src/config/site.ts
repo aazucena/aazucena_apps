@@ -83,6 +83,7 @@ export const SITE_CONFIG: SiteConfig = {
 // Helper functions
 export function formatPageTitle(title?: string): string {
   if (!title) return SITE_CONFIG.metadata.defaultSEO.title;
+  if (title === SITE_CONFIG.metadata.siteName) return title;
   return SITE_CONFIG.metadata.metaTitleTemplate
     .replace("%s", title)
     .replace("{siteName}", SITE_CONFIG.metadata.siteName);
