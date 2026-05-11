@@ -50,7 +50,7 @@ export default defineConfig({
     ssr: {
       // Process @aazucena/* workspace packages from TypeScript source
       // (Astro/Vite equivalent of Next.js transpilePackages)
-      noExternal: [/@aazucena\//],
+      noExternal: [/@aazucena\//, "@mynaui/icons-react"],
     },
     plugins: [
       // @ts-ignore: Astro v6 is expected to ship with a compatible version of tailwindcss/vite
