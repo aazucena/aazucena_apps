@@ -228,17 +228,15 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 **Full details:** `ROADMAP.md`
 
-| Phase                            | Status        | Key Achievement                  |
-| -------------------------------- | ------------- | -------------------------------- |
-| Phase 1 — Animations Refactoring | ✅ 2025-01-13 | Section.tsx 324→174 lines        |
-| Phase 1.5 — Code Quality         | ✅ 2025-12-03 | CVEs fixed, memory leaks patched |
-| Phase 0 — Infrastructure         | ✅ 2026-01-17 | Strapi + Railway + 15 pages      |
-| Phase 2 — Component Architecture | ✅ 2026-02-02 | Templates, flat structure        |
-| Phase 3 — Performance            | ✅ 2026-02-04 | 410KB → 105KB (74.3% reduction)  |
-| Phase 4 — Developer Experience   | 🚧 ~90%       | 16 packages + 373+ stories       |
-| Phase 5 — Testing                | ⏳ next       | Vitest + Playwright              |
-
-**Phase 4 remaining (1-2 days):** Chromatic first baseline + CircleCI Chromatic job + portfolio importing `@aazucena/*`
+| Phase                            | Status        | Key Achievement                               |
+| -------------------------------- | ------------- | --------------------------------------------- |
+| Phase 1 — Animations Refactoring | ✅ 2025-01-13 | Section.tsx 324→174 lines                     |
+| Phase 1.5 — Code Quality         | ✅ 2025-12-03 | CVEs fixed, memory leaks patched              |
+| Phase 0 — Infrastructure         | ✅ 2026-01-17 | Strapi + Railway + 15 pages                   |
+| Phase 2 — Component Architecture | ✅ 2026-02-02 | Templates, flat structure                     |
+| Phase 3 — Performance            | ✅ 2026-02-04 | 410KB → 105KB (74.3% reduction)               |
+| Phase 4 — Developer Experience   | ✅ 2026-05-11 | 16 packages + 373+ stories + public Storybook |
+| Phase 5 — Testing                | 🔥 current    | Vitest + Playwright                           |
 
 ---
 
@@ -259,7 +257,7 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 ## Git & Deployment
 
-**Current Branch:** `phase-4/developer-experience`
+**Current Branch:** `phase-5/testing` (create on Phase 5 start)
 **CI/CD:** CircleCI — currently prechecks only; Railway handles Docker builds
 **Frontend:** Vercel (auto-deploy from GitHub)
 **Backend:** Railway
@@ -302,24 +300,17 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 ## Current Status
 
-**Last Updated:** 2026-04-06
+**Last Updated:** 2026-05-11
 
 ### Completed ✅
 
 - Phases 0→3 (Infrastructure, Animations, Components, Performance)
 - AZUCENA_LYTICS v1 (all 5 phases: ingestion, AI observability, external data, advanced features, hardening)
-- Phase 4 core: 16 packages, 373+ Storybook stories, 94 form templates, design system
+- **Phase 4:** Developer Experience — 16 packages + 373+ Storybook stories + public Storybook hosting + portfolio/CMS upgrades
 
-### In Progress 🚧 (~90% Complete)
+### In Progress 🔥
 
-- **Phase 4:** Developer Experience
-  - ✅ 16 packages scaffolded with full content
-  - ✅ 373+ Storybook stories/docs in `apps/storybook/`
-  - ✅ 94 form templates + 48 Zod schemas (`@aazucena/forms`)
-  - ✅ Design system: 7 tokens, 18 themes, 35 platform integrations
-  - ✅ TypeScript strict mode (all apps) + Git hooks (Husky)
-  - ⏳ Remaining: Chromatic first baseline + CircleCI Chromatic job + portfolio importing `@aazucena/*`
-
-### Next
-
-- **Phase 5:** Testing — Vitest unit tests + Playwright E2E
+- **Phase 5:** Testing & Quality
+  - ⏳ Vitest unit tests (hooks, utilities — 70–80% coverage target)
+  - ⏳ Playwright E2E (critical user flows — 100% coverage target)
+  - ⏳ 10 Playwright smoke tests (carried over from Phase 4)

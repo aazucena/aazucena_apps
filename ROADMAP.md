@@ -1,6 +1,6 @@
 # Portfolio Development Roadmap
 
-## ⚡ Current Priority: Phase 4 → Phase 5 transition
+## ⚡ Current Priority: Phase 5 — Testing & Quality
 
 See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestones.
 
@@ -9,7 +9,7 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 ## 🎯 Quick Navigation
 
 - **[Documentation Hub](./docs/README.md)** — Full project documentation
-- **[Phase 4: Developer Experience](./docs/phase-4-developer-experience.md)** 🔥
+- **[Phase 5: Testing & Quality](./docs/phase-5-testing.md)** 🔥
 - **[Architecture Deep-Dive](./docs/architecture.md)**
 - **[CHANGELOG](./CHANGELOG.md)** — What shipped and when
 
@@ -68,22 +68,24 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 
 ---
 
-### Phase 4 — Developer Experience 🚧 ~95% Complete
+### Phase 4 — Developer Experience ✅ (2026-05-11)
 
 **[Full doc →](./docs/phase-4-developer-experience.md)**
 
-- ✅ 16 specialized packages (`@aazucena/*`) — all scaffolded and integrated into `apps/portfolio/`
-- ✅ 373+ Storybook stories (260 component, 94 form, MDX docs)
+- ✅ 16 specialized packages (`@aazucena/*`) — scaffolded and integrated into `apps/portfolio/`
+- ✅ 373+ Storybook stories (260 component, 94 form, MDX docs) — publicly hosted
 - ✅ Design system: 7 tokens, 18 themes, 35 platform integrations
 - ✅ 94 form templates + 48 Zod schemas (`@aazucena/forms`)
 - ✅ TypeScript strict mode (all apps) + Git hooks (Husky + lint-staged)
 - ✅ CI: `type_check_packages`, `type_check_apps`, `build_storybook`, `test_storybook` all green
-- ⏳ Chromatic — deferred to Phase 5 (requires paid plan)
-- ⏳ Figma Design System — deferred post-Phase 4
+- ✅ Portfolio & CMS version upgrades complete
+- ✅ Public Storybook hosting live
+- ⏳ Chromatic — deferred (requires paid plan)
+- ⏳ Figma Design System — deferred
 
 ---
 
-### Phase 5 — Testing & Quality ⏳ (next)
+### Phase 5 — Testing & Quality 🔥 (current)
 
 **[Full doc →](./docs/phase-5-testing.md)**
 
