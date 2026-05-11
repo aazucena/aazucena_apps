@@ -32,6 +32,7 @@ const SUPPORTED_LANGS = [
   'sql',
   'markdown',
   'mdx',
+  'astro',
   'diff',
   'text',
 ] as const;

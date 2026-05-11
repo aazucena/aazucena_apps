@@ -8,7 +8,7 @@ import { cn } from '@aazucena/utils';
 // Variants
 // ---------------------------------------------------------------------------
 
-const lightboxOverlayVariants = cva('fixed inset-0 z-50 flex items-center justify-center', {
+const lightboxOverlayVariants = cva('fixed inset-0 z-[200] flex items-center justify-center', {
   variants: {
     variant: {
       default: 'bg-black/80 backdrop-blur-sm',

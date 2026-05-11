@@ -77,10 +77,11 @@ marked.use({
         });
       }
       if (_highlighter) {
-        return _highlighter.codeToHtml(token.text, {
-          lang: token.lang || 'text',
-          theme: 'github-dark',
-        });
+        const lang =
+          token.lang && _highlighter.getLoadedLanguages().includes(token.lang as never)
+            ? token.lang
+            : 'text';
+        return _highlighter.codeToHtml(token.text, { lang, theme: 'github-dark' });
       }
       return `<pre class="bg-muted rounded-lg p-4 overflow-x-auto mb-4"><code class="font-mono text-sm language-${token.lang || 'text'}">${escapeHtml(token.text)}</code></pre>`;
     },
