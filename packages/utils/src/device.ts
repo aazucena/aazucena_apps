@@ -42,7 +42,7 @@ export function detectDeviceCapabilities(): DeviceCapabilities {
   // Heavy animations: desktop only, sufficient memory (or unknown memory with enough cores),
   // and user has not requested reduced motion
   const hasEnoughMemory = memory !== undefined ? memory >= 4 : cores >= 4;
-  const canUseHeavyAnimations = !isMobile && hasEnoughMemory && !reducedMotion;
+  const canUseHeavyAnimations = !isMobile && hasEnoughMemory && !reducedMotion && supportsWebGL();
 
   return {
     isMobile,

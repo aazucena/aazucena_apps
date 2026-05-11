@@ -5,7 +5,7 @@
 
 import { createContext, useState, useEffect, type ReactNode } from 'react';
 import type { DeviceCapabilities } from '@aazucena/types';
-import { detectDeviceCapabilities } from '@aazucena/utils';
+import { detectDeviceCapabilities, supportsWebGL } from '@aazucena/utils';
 
 const CAPABILITIES_STORAGE_KEY = 'portfolioSettings';
 const SOUND_STORAGE_KEY = 'soundMuted';
@@ -62,9 +62,9 @@ export function AnimationProvider({ children }: AnimationProviderProps) {
               : 'medium';
 
             const canUseHeavyAnimations =
-              typeof parsed.canUseHeavyAnimations === 'boolean'
+              (typeof parsed.canUseHeavyAnimations === 'boolean'
                 ? parsed.canUseHeavyAnimations
-                : true;
+                : true) && supportsWebGL();
 
             return { isMobile, performanceTier, canUseHeavyAnimations };
           }
