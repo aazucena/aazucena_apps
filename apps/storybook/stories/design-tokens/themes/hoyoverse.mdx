@@ -1,0 +1,74 @@
+{/* design-tokens/themes/hoyoverse.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Hoyoverse" />
+
+# Hoyoverse Vibe
+
+Inspired by modern game interfaces. Features vibrant ambers, soft blurs, and playful serif typography. High energy and premium depth.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Amber 600" colors={{ primary: '#d97706' }} />
+  <ColorItem title="Secondary" subtitle="Violet 600" colors={{ secondary: '#7c3aed' }} />
+  <ColorItem title="Background" subtitle="Amber 50" colors={{ background: '#fffbeb' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Amber 500" colors={{ primary: '#f59e0b' }} />
+  <ColorItem title="Secondary" subtitle="Violet 500" colors={{ secondary: '#8b5cf6' }} />
+  <ColorItem title="Background" subtitle="Indigo 950" colors={{ background: '#020617' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Amber (Playful Primary)
+<ColorPalette>
+  <ColorItem
+    title="Amber Scale"
+    subtitle="Game UI base"
+    colors={{
+      50: '#fffbeb',
+      100: '#fef3c7',
+      200: '#fde68a',
+      300: '#fcd34d',
+      400: '#fbbf24',
+      500: '#f59e0b',
+      600: '#d97706',
+      700: '#b45309',
+      800: '#92400e',
+      900: '#78350f',
+      950: '#451a03',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `16px` |
+| Card Blur | `20px` |
+| Card Radius | `1rem` |
+| Animation Speed | `1.2` (Bouncy) |
+| Animation Easing | `Spring` |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Body Font | `sans` |
+| Title Weight | `800` |
+| Custom Class | `font-serif` |

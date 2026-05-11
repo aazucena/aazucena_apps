@@ -1,0 +1,14 @@
+# ClickHouse runtime data — owned by container process, never commit
+data/*
+!data/.gitkeep
+
+# Stale container artifact from misconfigured volume mount
+services/
+
+# Runtime logs
+logs/*
+!logs/.gitkeep
+
+# Backups — generated at runtime
+backups/*
+!backups/.gitkeep

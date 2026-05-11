@@ -41,8 +41,8 @@ const SCRIPTS_DIR = __dirname;
 function discoverSeedScripts() {
   const files = fs.readdirSync(SCRIPTS_DIR);
   const seedScripts = files
-    .filter(file => file.startsWith('seed-') && file.endsWith('.js'))
-    .map(file => {
+    .filter((file) => file.startsWith('seed-') && file.endsWith('.js'))
+    .map((file) => {
       const name = file.replace('seed-', '').replace('.js', '');
       return { name, file: path.join(SCRIPTS_DIR, file) };
     })
@@ -75,7 +75,7 @@ async function runSeedScript(scriptPath, scriptName) {
     return {
       success: false,
       name: scriptName,
-      error: error instanceof Error ? error : new Error(String(error))
+      error: error instanceof Error ? error : new Error(String(error)),
     };
   }
 }
@@ -135,7 +135,7 @@ async function main() {
   // List mode
   if (args.includes('--list') || args.includes('-l')) {
     console.log('\n📋 Available seed scripts:\n');
-    seedScripts.forEach(script => {
+    seedScripts.forEach((script) => {
       console.log(`  • ${script.name}`);
     });
     console.log(`\n📝 Usage:`);
@@ -154,7 +154,7 @@ async function main() {
     if (choice === 'all') {
       scriptsToRun = seedScripts;
     } else {
-      scriptsToRun = seedScripts.filter(s => s.name === choice);
+      scriptsToRun = seedScripts.filter((s) => s.name === choice);
     }
   }
   // Run all
@@ -163,11 +163,11 @@ async function main() {
   }
   // Run specific scripts
   else {
-    scriptsToRun = seedScripts.filter(s => args.includes(s.name));
+    scriptsToRun = seedScripts.filter((s) => args.includes(s.name));
 
     // Check for invalid script names
-    const validNames = seedScripts.map(s => s.name);
-    const invalidNames = args.filter(arg => !validNames.includes(arg) && arg !== 'all');
+    const validNames = seedScripts.map((s) => s.name);
+    const invalidNames = args.filter((arg) => !validNames.includes(arg) && arg !== 'all');
     if (invalidNames.length > 0) {
       console.error(`❌ Unknown seed script(s): ${invalidNames.join(', ')}`);
       console.error(`\n📋 Available: ${validNames.join(', ')}`);
@@ -196,15 +196,15 @@ async function main() {
   console.log('📊 Seeding Summary');
   console.log(`${'='.repeat(60)}\n`);
 
-  const successful = results.filter(r => r.success);
-  const failed = results.filter(r => !r.success);
+  const successful = results.filter((r) => r.success);
+  const failed = results.filter((r) => !r.success);
 
   console.log(`✅ Successful: ${successful.length}`);
-  successful.forEach(r => console.log(`   • ${r.name}`));
+  successful.forEach((r) => console.log(`   • ${r.name}`));
 
   if (failed.length > 0) {
     console.log(`\n❌ Failed: ${failed.length}`);
-    failed.forEach(r => console.log(`   • ${r.name}`));
+    failed.forEach((r) => console.log(`   • ${r.name}`));
     console.log('');
     process.exit(1);
   }
@@ -212,7 +212,7 @@ async function main() {
   console.log('\n✅ All seeds completed successfully!\n');
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error('❌ Fatal error:', error);
   process.exit(1);
 });

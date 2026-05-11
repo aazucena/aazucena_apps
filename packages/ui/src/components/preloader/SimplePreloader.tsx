@@ -1,17 +1,17 @@
-import { useState, useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
-import { Progress } from '../ui/progress';
 import { Card, CardContent } from '../ui/card';
+import { X } from '@aazucena/icons';
+import { useEffect } from 'react';
 import {
-  CircleNotch as LoadingCircle,
-  CheckCircle,
-  Rocket as RocketLaunch,
-  X
-} from '@mynaui/icons-react';
-import { useLoadingProgress } from './hooks';
-import { getLoadingSteps } from './constants';
-import type { PreloaderProps } from './types';
-import { getTransitionClass } from './utils';
+  useLoadingProgress,
+  usePreloaderVisibility,
+  usePreloaderLifecycle,
+  useKeyboardNavigation,
+  usePreloaderTheme,
+} from '@aazucena/hooks';
+import { SimpleLoadingState, SimpleReadyState, ErrorState } from './ui/index';
+import type { PreloaderPropsWithTheme } from '@aazucena/types';
+import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
 
 export default function SimplePreloader({
   // Timing & Behavior
@@ -19,23 +19,23 @@ export default function SimplePreloader({
   maxDisplayTime = 10000,
   autoStart = true,
   enableSkip = false,
+  animationDuration = 600,
 
   // Content & Text
-  title = "Loading",
+  title = 'Loading',
   subtitle,
-  readyTitle = "Ready!",
-  readySubtitle = "All set to go",
-  continueButtonText = "Continue",
+  readyTitle = 'Ready!',
+  readySubtitle = 'All set to go',
+  continueButtonText = 'Continue',
   continueButton = true,
 
   // Styling & Theming
-  className = "",
   style,
-  overlayClassName = "",
-  cardClassName = "",
+  overlayClassName = '',
+  cardClassName = '',
+  showCard = false,
 
   // Animation & Transitions
-  animationDuration = 600,
   enableAnimations = true,
   transitionType = 'fade',
 
@@ -53,57 +53,83 @@ export default function SimplePreloader({
   onError,
 
   // Accessibility
-  ariaLabel = "Loading progress",
-  ariaLive = "polite",
-  skipButtonAriaLabel = "Skip loading",
+  ariaLabel = 'Loading progress',
+  ariaLive = 'polite',
+  skipButtonAriaLabel = 'Skip loading',
 
   // Performance
   lazyLoad = false,
-  preloadAssets = false,
-}: PreloaderProps) {
-  const [isVisible, setIsVisible] = useState(!lazyLoad);
-  const [isInViewport, setIsInViewport] = useState(!lazyLoad);
-  const [userSkipped, setUserSkipped] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Theme
+  theme = 'default',
+  customTheme,
+  mode = 'dark',
+  currentPath: _unusedCurrentPath = '/', // Accepted for prop consistency but not used in simple variant
+}: PreloaderPropsWithTheme) {
   const steps = getLoadingSteps(customSteps);
 
-  const {
-    progress,
-    currentStep,
-    isReady,
-    loadTime,
-    stepStatus,
-    startLoading,
+  const { progress, isReady, loadTime, stepStatus, startLoading, isLoading, error, resetLoading } =
+    useLoadingProgress(minDisplayTime, steps, onStepComplete, animationDuration);
+
+  const { isVisible, isInViewport, userSkipped, containerRef, handleSkip, handleContinue } =
+    usePreloaderVisibility({
+      lazyLoad,
+      onSkip,
+      onComplete,
+    });
+
+  usePreloaderLifecycle({
+    autoStart,
+    maxDisplayTime,
+    isInViewport,
     isLoading,
+    isReady,
+    userSkipped,
+    continueButton,
+    progress,
+    currentStep: 0,
     error,
-  } = useLoadingProgress(
-    minDisplayTime,
-    steps,
-    onStepComplete,
-    animationDuration
-  );
+    onLoadingStart,
+    onLoadingProgress,
+    onError,
+    handleSkip,
+    startLoading,
+  });
 
-  // Auto-start loading when conditions are met
+  useKeyboardNavigation({
+    enableSkip,
+    isReady,
+    isVisible,
+    onSkip: handleSkip,
+    onContinue: handleContinue,
+  });
+
+  const themeStyles = usePreloaderTheme({ theme, customTheme, mode });
+
+  // Emit 'preloader-mounted' event when component mounts.
+  // rAF ensures the Preloader is composited before BrandIconLoader starts fading.
   useEffect(() => {
-    if (autoStart && isInViewport && !isLoading && !isReady && !userSkipped) {
-      onLoadingStart?.();
-      startLoading();
+    const rafId = requestAnimationFrame(() => {
+      document.dispatchEvent(new CustomEvent('preloader-mounted'));
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, []); // Empty deps - run only on mount
+
+  // Sync body background with preloader theme to prevent flash during hydration
+  useEffect(() => {
+    const body = document.body;
+    const themeBackground = themeStyles.backgroundStyle.background as string;
+
+    if (body && themeBackground) {
+      const originalBackground = body.style.background;
+      body.style.background = themeBackground;
+
+      // Restore original background when component unmounts
+      return () => {
+        body.style.background = originalBackground;
+      };
     }
-  }, [autoStart, isInViewport, isLoading, isReady, userSkipped, startLoading, onLoadingStart]);
-
-
-  const handleContinue = () => {
-    setIsVisible(false);
-    onComplete?.();
-  };
-
-  const handleSkip = () => {
-    setUserSkipped(true);
-    setIsVisible(false);
-    onSkip?.();
-    onComplete?.();
-  };
+  }, [themeStyles.backgroundStyle.background]);
 
   // Don't render if lazy loading and not in viewport
   if (lazyLoad && !isInViewport) {
@@ -112,84 +138,91 @@ export default function SimplePreloader({
 
   if (!isVisible) return null;
 
-  const transitionClass = getTransitionClass(transitionType);
+  const transitionClass = getTransitionClass(isReady ? transitionType : isReady);
+  const completedSteps = Object.values(stepStatus).filter(Boolean).length;
+
+  // Content wrapper - shared between card and non-card modes
+  const contentWrapperClasses = showCard
+    ? 'p-6 space-y-4 text-center relative'
+    : 'w-full max-w-sm p-6 space-y-4 text-center relative';
+
+  const cardWrapperClasses = `
+    w-full max-w-sm border
+    ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
+    ${cardClassName}
+    ${themeStyles.cardClasses}
+  `;
+
+  const content = (
+    <>
+      {/* Skip Button */}
+      {enableSkip && !isReady && !error && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSkip}
+          className="absolute top-2 right-2 z-10"
+          aria-label={skipButtonAriaLabel}
+        >
+          <X className="h-3 w-3" />
+        </Button>
+      )}
+
+      {error ? (
+        <ErrorState
+          error={error}
+          onRetry={resetLoading}
+          onDismiss={handleContinue}
+          themeStyles={themeStyles}
+        />
+      ) : !isReady ? (
+        <SimpleLoadingState
+          progress={progress}
+          title={title}
+          subtitle={subtitle}
+          steps={steps}
+          customSpinner={CustomSpinner}
+          themeStyles={themeStyles}
+        />
+      ) : CustomReadyComponent ? (
+        <CustomReadyComponent
+          loadTime={loadTime}
+          continueButton={continueButton}
+          onContinue={handleContinue}
+          totalSteps={steps.length}
+          completedSteps={completedSteps}
+        />
+      ) : continueButton ? (
+        <SimpleReadyState
+          readyTitle={readyTitle}
+          readySubtitle={readySubtitle}
+          continueButtonText={continueButtonText}
+          onContinue={handleContinue}
+          themeStyles={themeStyles}
+        />
+      ) : null}
+    </>
+  );
 
   return (
     <div
       ref={containerRef}
-      className={`
-        fixed inset-0 z-50 bg-background flex items-center justify-center p-4
-        ${transitionClass}
-        ${overlayClassName}
-      `}
-      style={style}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center p-4 ${transitionClass} ${overlayClassName} ${themeStyles.overlayClasses} `}
+      style={{ ...themeStyles.overlayStyle, ...style }}
       aria-label={ariaLabel}
       aria-live={ariaLive}
       role="status"
+      tabIndex={-1}
     >
-      <Card className={`
-        w-full max-w-sm
-        ${enableAnimations ? 'animate-in fade-in-0 zoom-in-95' : ''}
-        ${cardClassName}
-      `}>
-        <CardContent className="p-6 space-y-4 text-center relative">
-          {/* Skip Button */}
-          {enableSkip && !isReady && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleSkip}
-              className="absolute top-2 right-2 z-10"
-              aria-label={skipButtonAriaLabel}
-            >
-              <X className="w-3 h-3" />
-            </Button>
-          )}
-
-          {!isReady ? (
-            <>
-              {CustomSpinner ? (
-                <CustomSpinner />
-              ) : (
-                <LoadingCircle className="w-8 h-8 animate-spin mx-auto text-primary" />
-              )}
-              <div className="space-y-2">
-                <h3 className="font-semibold">{title}</h3>
-                <Progress value={progress} />
-                <p className="text-sm text-muted-foreground text-center">{Math.round(progress)}%</p>
-                {steps.length > 0 && (
-                  <p className="text-xs text-muted-foreground text-center">
-                    {steps[Math.min(Math.floor(progress / (100 / steps.length)), steps.length - 1)]?.name}
-                  </p>
-                )}
-                {subtitle && (
-                  <p className="text-xs text-muted-foreground">{subtitle}</p>
-                )}
-              </div>
-            </>
-          ) : CustomReadyComponent ? (
-            <CustomReadyComponent
-              loadTime={loadTime}
-              continueButton={continueButton}
-              onContinue={handleContinue}
-              totalSteps={steps.length}
-              completedSteps={Object.values(stepStatus).filter(Boolean).length}
-            />
-          ) : continueButton &&(
-            <>
-              <CheckCircle className="w-12 h-12 text-green-500 mx-auto" />
-              <div className="space-y-2">
-                <h3 className="font-semibold">{readyTitle}</h3>
-                <p className="text-sm text-muted-foreground text-center">{readySubtitle}</p>
-              </div>
-              <Button onClick={handleContinue} className="w-full">
-                <RocketLaunch className="w-4 h-4 mr-2" />
-                {continueButtonText}
-              </Button>
-            </>
-          )}
-        </CardContent>
-      </Card>
+      {showCard ? (
+        <Card className={cardWrapperClasses} style={themeStyles.cardStyle}>
+          <CardContent className={contentWrapperClasses}>{content}</CardContent>
+        </Card>
+      ) : (
+        <div className={contentWrapperClasses} style={themeStyles.cardStyle}>
+          {content}
+        </div>
+      )}
     </div>
   );
 }

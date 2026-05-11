@@ -4,7 +4,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const INTEL_ENGINE_URL = process.env.INTEL_ENGINE_URL || 'http://localhost:3003';
-    
+
     console.log(`📡 Proxying Brain Query to: ${INTEL_ENGINE_URL}`);
 
     const res = await fetch(`${INTEL_ENGINE_URL}/brain/think`, {
@@ -12,11 +12,15 @@ export async function POST(req: Request) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
       cache: 'no-store',
+      signal: AbortSignal.timeout(30000),
     });
-    
+
     if (!res.ok) {
       const errorText = await res.text();
-      return NextResponse.json({ error: `Backend returned ${res.status}: ${errorText}` }, { status: res.status });
+      return NextResponse.json(
+        { error: `Backend returned ${res.status}: ${errorText}` },
+        { status: res.status },
+      );
     }
 
     // Use a TransformStream to ensure chunks are pushed immediately
@@ -42,12 +46,15 @@ export async function POST(req: Request) {
       headers: {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache, no-transform',
-        'Connection': 'keep-alive',
+        Connection: 'keep-alive',
         'X-Accel-Buffering': 'no', // Disable Nginx buffering
       },
     });
   } catch (error: any) {
     console.error('[Brain-Think-API] Proxy Error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to connect to Intel Engine' }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || 'Failed to connect to Intel Engine' },
+      { status: 500 },
+    );
   }
 }

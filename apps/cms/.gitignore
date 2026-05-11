@@ -140,3 +140,8 @@ build
 
 !**/clickhouse/scripts/*
 !**/clickhouse/scripts/.gitkeep
+
+# Generated seed data scripts (created by scripts/generate-seed.js)
+# Contain personal portfolio content — CMS is source of truth
+scripts/seed-*.js
+!scripts/seed-all.js

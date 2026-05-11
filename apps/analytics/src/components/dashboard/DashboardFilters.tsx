@@ -9,11 +9,13 @@ interface ToolbarProps {
 }
 
 export function DashboardFilters({ categories }: ToolbarProps) {
-  const visibleCategories = useSelector((state: RootState) => state.dashboard.filters.visibleCategories);
+  const visibleCategories = useSelector(
+    (state: RootState) => state.dashboard.filters.visibleCategories,
+  );
   const searchQuery = useSelector((state: RootState) => state.dashboard.filters.searchQuery);
   const dispatch = useDispatch();
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   const CATEGORY_THRESHOLD = 12;
   const hasManyCategories = categories.length > CATEGORY_THRESHOLD;
   const displayedCategories = isExpanded ? categories : categories.slice(0, CATEGORY_THRESHOLD);
@@ -30,7 +32,6 @@ export function DashboardFilters({ categories }: ToolbarProps) {
   return (
     <div className="bg-white/50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-3xl backdrop-blur-md p-6 shadow-sm dark:shadow-none transition-all duration-300">
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-        
         {/* Category Toggles */}
         <div className="flex-1 w-full">
           <div className="flex items-center justify-between gap-8 mb-4">
@@ -43,13 +44,13 @@ export function DashboardFilters({ categories }: ToolbarProps) {
               </span>
             </div>
             <div className="flex gap-4">
-              <button 
+              <button
                 onClick={() => dispatch(resetCategories(categories))}
                 className="text-[10px] font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 transition-colors uppercase tracking-widest"
               >
                 Select All
               </button>
-              <button 
+              <button
                 onClick={() => dispatch(resetCategories([]))}
                 className="text-[10px] font-bold text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 transition-colors uppercase tracking-widest"
               >
@@ -59,25 +60,27 @@ export function DashboardFilters({ categories }: ToolbarProps) {
           </div>
 
           <div className="relative">
-            <div className={cn(
-              "flex flex-wrap gap-2 transition-all duration-500",
-              !isExpanded && "max-h-[80px] overflow-hidden"
-            )}>
-              {displayedCategories.map(cat => (
+            <div
+              className={cn(
+                'flex flex-wrap gap-2 transition-all duration-500',
+                !isExpanded && 'max-h-[80px] overflow-hidden',
+              )}
+            >
+              {displayedCategories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => dispatch(toggleCategory(cat))}
                   className={cn(
-                    "px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all border uppercase tracking-wider",
+                    'px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all border uppercase tracking-wider',
                     visibleCategories.includes(cat)
-                      ? "bg-primary-500 text-white border-primary-500 shadow-md shadow-primary-500/20"
-                      : "bg-white dark:bg-zinc-950 text-zinc-500 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-200"
+                      ? 'bg-primary-500 text-white border-primary-500 shadow-md shadow-primary-500/20'
+                      : 'bg-white dark:bg-zinc-950 text-zinc-500 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-200',
                   )}
                 >
                   {toTitleCase(cat)}
                 </button>
               ))}
-              
+
               {hasManyCategories && !isExpanded && (
                 <button
                   onClick={() => setIsExpanded(true)}
@@ -105,7 +108,7 @@ export function DashboardFilters({ categories }: ToolbarProps) {
             Telemetry Search
           </span>
           <div className="relative group">
-            <input 
+            <input
               type="text"
               placeholder="Filter by event or ID..."
               value={searchQuery}
@@ -114,28 +117,46 @@ export function DashboardFilters({ categories }: ToolbarProps) {
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
               {searchQuery && (
-                <button 
+                <button
                   onClick={() => dispatch(setSearchQuery(''))}
                   className="p-1 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-full transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-400"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-zinc-400"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
                 </button>
               )}
-              <svg 
+              <svg
                 className={cn(
-                  "h-4 w-4 transition-colors",
-                  searchQuery ? "text-primary-500" : "text-zinc-400 dark:text-zinc-600"
+                  'h-4 w-4 transition-colors',
+                  searchQuery ? 'text-primary-500' : 'text-zinc-400 dark:text-zinc-600',
                 )}
-                fill="none" 
-                stroke="currentColor" 
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.5"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

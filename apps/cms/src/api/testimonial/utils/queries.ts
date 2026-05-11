@@ -15,11 +15,11 @@ export async function getPublicTestimonials(strapi: Core.Strapi, options = {}) {
     where: {
       approvalStatus: 'Approved',
       publishedAt: {
-        $notNull: true
-      }
+        $notNull: true,
+      },
     },
     orderBy: { publishedAt: 'desc' },
-    ...options
+    ...options,
   });
 }
 
@@ -30,10 +30,10 @@ export async function getPublicTestimonials(strapi: Core.Strapi, options = {}) {
 export async function getPendingTestimonials(strapi: Core.Strapi, options = {}) {
   return await strapi.db.query('api::testimonial.testimonial').findMany({
     where: {
-      approvalStatus: 'Pending'
+      approvalStatus: 'Pending',
     },
     orderBy: { submittedAt: 'desc' },
-    ...options
+    ...options,
   });
 }
 
@@ -44,10 +44,10 @@ export async function getPendingTestimonials(strapi: Core.Strapi, options = {}) 
 export async function getApprovedTestimonials(strapi: Core.Strapi, options = {}) {
   return await strapi.db.query('api::testimonial.testimonial').findMany({
     where: {
-      approvalStatus: 'Approved'
+      approvalStatus: 'Approved',
     },
     orderBy: { approvedAt: 'desc' },
-    ...options
+    ...options,
   });
 }
 
@@ -58,10 +58,10 @@ export async function getApprovedTestimonials(strapi: Core.Strapi, options = {})
 export async function getRejectedTestimonials(strapi: Core.Strapi, options = {}) {
   return await strapi.db.query('api::testimonial.testimonial').findMany({
     where: {
-      approvalStatus: 'Rejected'
+      approvalStatus: 'Rejected',
     },
     orderBy: { approvedAt: 'desc' },
-    ...options
+    ...options,
   });
 }
 
@@ -74,11 +74,11 @@ export async function getTestimonialsBeingEdited(strapi: Core.Strapi, options = 
     where: {
       approvalStatus: 'Approved',
       publishedAt: {
-        $null: true
-      }
+        $null: true,
+      },
     },
     orderBy: { approvedAt: 'desc' },
-    ...options
+    ...options,
   });
 }
 
@@ -90,21 +90,21 @@ export async function getApprovalStatistics(strapi: Core.Strapi) {
   const [total, pending, approved, rejected] = await Promise.all([
     strapi.db.query('api::testimonial.testimonial').count(),
     strapi.db.query('api::testimonial.testimonial').count({
-      where: { approvalStatus: 'Pending' }
+      where: { approvalStatus: 'Pending' },
     }),
     strapi.db.query('api::testimonial.testimonial').count({
-      where: { approvalStatus: 'Approved' }
+      where: { approvalStatus: 'Approved' },
     }),
     strapi.db.query('api::testimonial.testimonial').count({
-      where: { approvalStatus: 'Rejected' }
-    })
+      where: { approvalStatus: 'Rejected' },
+    }),
   ]);
 
   const published = await strapi.db.query('api::testimonial.testimonial').count({
     where: {
       approvalStatus: 'Approved',
-      publishedAt: { $notNull: true }
-    }
+      publishedAt: { $notNull: true },
+    },
   });
 
   return {
@@ -114,7 +114,7 @@ export async function getApprovalStatistics(strapi: Core.Strapi) {
     rejected,
     published,
     beingEdited: approved - published,
-    approvalRate: total > 0 ? ((approved / total) * 100).toFixed(2) : '0.00'
+    approvalRate: total > 0 ? ((approved / total) * 100).toFixed(2) : '0.00',
   };
 }
 
@@ -132,8 +132,8 @@ export async function approveTestimonial(
     data: {
       approvalStatus: 'Approved',
       approvedBy,
-      approvedAt: new Date()
-    }
+      approvedAt: new Date(),
+    },
   });
 }
 
@@ -153,9 +153,9 @@ export async function rejectTestimonial(
       approvalStatus: 'Rejected',
       rejectionReason,
       approvedBy: rejectedBy, // Track who rejected it
-      approvedAt: new Date(),  // Track when rejected
-      publishedAt: null        // Auto-unpublish
-    }
+      approvedAt: new Date(), // Track when rejected
+      publishedAt: null, // Auto-unpublish
+    },
   });
 }
 
@@ -163,14 +163,11 @@ export async function rejectTestimonial(
  * Publish an approved testimonial
  * Only works if testimonial is already approved
  */
-export async function publishTestimonial(
-  strapi: Core.Strapi,
-  testimonialId: number | string
-) {
+export async function publishTestimonial(strapi: Core.Strapi, testimonialId: number | string) {
   // Verify it's approved first
   const testimonial = await strapi.db.query('api::testimonial.testimonial').findOne({
     where: { id: testimonialId },
-    select: ['approvalStatus']
+    select: ['approvalStatus'],
   });
 
   if (!testimonial) {
@@ -180,15 +177,15 @@ export async function publishTestimonial(
   if (testimonial.approvalStatus !== 'Approved') {
     throw new Error(
       `Cannot publish testimonial #${testimonialId}. ` +
-      `Status is "${testimonial.approvalStatus}" but must be "Approved"`
+        `Status is "${testimonial.approvalStatus}" but must be "Approved"`
     );
   }
 
   return await strapi.db.query('api::testimonial.testimonial').update({
     where: { id: testimonialId },
     data: {
-      publishedAt: new Date()
-    }
+      publishedAt: new Date(),
+    },
   });
 }
 
@@ -196,14 +193,11 @@ export async function publishTestimonial(
  * Unpublish a testimonial (for editing)
  * Keeps approval status unchanged
  */
-export async function unpublishTestimonial(
-  strapi: Core.Strapi,
-  testimonialId: number | string
-) {
+export async function unpublishTestimonial(strapi: Core.Strapi, testimonialId: number | string) {
   return await strapi.db.query('api::testimonial.testimonial').update({
     where: { id: testimonialId },
     data: {
-      publishedAt: null
-    }
+      publishedAt: null,
+    },
   });
 }

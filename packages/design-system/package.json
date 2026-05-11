@@ -1,0 +1,53 @@
+{
+  "name": "@aazucena/design-system",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "azds": "./dist/cli.js"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens/*": "./src/tokens/*.ts",
+    "./integrations/strapi": "./src/integrations/strapi/index.ts",
+    "./css-vars.css": "./dist/css-vars.css",
+    "./figma.json": "./figma.json"
+  },
+  "scripts": {
+    "build": "tsup ./scripts/cli.ts --format esm --outDir ./dist && tsx scripts/cli.ts css default FAVICON_MAIN ./dist",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "ds": "tsx scripts/cli.ts",
+    "ds:help": "tsx scripts/cli.ts --help",
+    "ds:sync": "tsx scripts/cli.ts all default FAVICON_MAIN ./dist",
+    "ds:css": "tsx scripts/cli.ts css default FAVICON_MAIN ./dist",
+    "ds:figma": "tsx scripts/cli.ts figma default FAVICON_MAIN ./dist"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "@clack/prompts": "^1.0.0",
+    "@types/culori": "^4.0.1",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^25.5.0",
+    "picocolors": "^1.1.1",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.5",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@aazucena/utils": "workspace:*",
+    "@tailwindcss/typography": "^0.5.19",
+    "culori": "^4.0.2",
+    "lodash-es": "^4.17.23",
+    "tailwindcss": "^4.1.13",
+    "tailwindcss-animate": "^1.0.7",
+    "tsup": "^8.5.1"
+  }
+}

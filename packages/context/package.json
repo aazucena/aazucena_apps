@@ -1,0 +1,29 @@
+{
+  "name": "@aazucena/context",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./telemetry": "./src/TelemetryContext.tsx"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "react": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "typescript": "^5.7.3"
+  }
+}

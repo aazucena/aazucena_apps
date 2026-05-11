@@ -1,11 +1,15 @@
 /**
  * CompanyLogo Component
  * Company logo or initials with gradient background
- * Reusable in ExperienceSection and ExperienceModal
+ * Reusable in ExperienceSection and experience detail pages
  */
 
-import type { JSX } from 'react';
-import { getCompanyLogoGradient, getCompanyInitials } from '~/lib/utils/experiences';
+import type { JSX } from "react";
+import {
+  getCompanyLogoGradient,
+  getCompanyInitials,
+  getGradientColors,
+} from "@aazucena/utils";
 
 export interface CompanyLogoProps {
   /** Company name */
@@ -16,7 +20,7 @@ export interface CompanyLogoProps {
     alt?: string;
   } | null;
   /** Size variant */
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   /** Additional className */
   className?: string;
 }
@@ -25,9 +29,9 @@ export interface CompanyLogoProps {
  * Size variant styles
  */
 const sizeVariants = {
-  sm: 'w-10 h-10 text-base',
-  md: 'w-12 h-12 text-lg',
-  lg: 'w-16 h-16 text-2xl',
+  sm: "w-10 h-10 text-base",
+  md: "w-12 h-12 text-lg",
+  lg: "w-16 h-16 text-2xl",
 } as const;
 
 /**
@@ -37,22 +41,30 @@ const sizeVariants = {
 export function CompanyLogo({
   company,
   companyLogo,
-  size = 'md',
-  className = '',
+  size = "md",
+  className = "",
 }: CompanyLogoProps): JSX.Element {
   const gradient = getCompanyLogoGradient(company);
+  const { from, to } = getGradientColors(gradient);
   const initials = getCompanyInitials(company);
   const sizeClass = sizeVariants[size];
 
+  const hasLogo = Boolean(companyLogo?.url);
+
   return (
     <div
-      className={`flex-shrink-0 bg-gradient-to-br ${gradient} rounded-lg flex items-center justify-center text-white font-bold shadow-lg overflow-hidden ${sizeClass} ${className}`}
+      className={`flex flex-shrink-0 items-center justify-center overflow-hidden rounded-lg font-bold shadow-lg ${hasLogo ? "bg-white" : "text-white"} ${sizeClass} ${className}`}
+      style={
+        hasLogo
+          ? undefined
+          : { background: `linear-gradient(135deg, ${from}, ${to})` }
+      }
     >
       {companyLogo?.url ? (
         <img
           src={companyLogo.url}
           alt={companyLogo.alt || `${company} logo`}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
       ) : (
         initials

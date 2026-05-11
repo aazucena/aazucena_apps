@@ -23,43 +23,52 @@ export async function GET() {
     `;
 
     const resultSet = await clickhouse.query({ query: healthQuery, format: 'JSONEachRow' });
-    const rawData = await resultSet.json() as any[];
+    const rawData = (await resultSet.json()) as any[];
 
     // Sanitize and group by service (show only latest status per service)
     const services: Record<string, any> = {};
-    rawData.forEach(item => {
+    rawData.forEach((item) => {
       if (!services[item.service]) {
         services[item.service] = {
           status: item.status,
           latency: item.latency_ms,
-          last_pulse: item.timestamp
+          last_pulse: item.timestamp,
         };
       }
     });
 
     // Calculate overall status
-    const allUp = Object.values(services).every(s => s.status === 'UP');
-    const someDown = Object.values(services).some(s => s.status === 'DOWN');
+    const allUp = Object.values(services).every((s) => s.status === 'UP');
+    const someDown = Object.values(services).some((s) => s.status === 'DOWN');
 
-    return NextResponse.json({
-      success: true,
-      system: {
-        overall: someDown ? 'DEGRADED' : allUp ? 'OPERATIONAL' : 'MAINTENANCE',
-        label: someDown ? 'Partial Outage' : allUp ? 'All Systems Functional' : 'Under Observation',
-        timestamp: new Date().toISOString()
+    return NextResponse.json(
+      {
+        success: true,
+        system: {
+          overall: someDown ? 'DEGRADED' : allUp ? 'OPERATIONAL' : 'MAINTENANCE',
+          label: someDown
+            ? 'Partial Outage'
+            : allUp
+              ? 'All Systems Functional'
+              : 'Under Observation',
+          timestamp: new Date().toISOString(),
+        },
+        services,
       },
-      services
-    }, {
-      headers: {
-        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30'
-      }
-    });
-
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30',
+        },
+      },
+    );
   } catch (error) {
     console.error('[PUBLIC_HEALTH_ERROR]', error);
-    return NextResponse.json({ 
-      success: false, 
-      system: { overall: 'UNKNOWN', label: 'Health Check Unavailable' } 
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: false,
+        system: { overall: 'UNKNOWN', label: 'Health Check Unavailable' },
+      },
+      { status: 500 },
+    );
   }
 }

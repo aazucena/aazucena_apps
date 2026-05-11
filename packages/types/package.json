@@ -1,0 +1,30 @@
+{
+  "name": "@aazucena/types",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "@types/react": "^19.2.14",
+    "react": "^19.2.3",
+    "typescript": "^5.6.3"
+  },
+  "sideEffects": false
+}

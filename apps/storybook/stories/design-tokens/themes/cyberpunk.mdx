@@ -1,0 +1,95 @@
+{/* design-tokens/themes/cyberpunk.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Cyberpunk" />
+
+# Cyberpunk Vibe
+
+High-density, high-saturation, and high-energy. Features neon glows, monospaced fonts, and aggressive tracking.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Cyan 600" colors={{ primary: '#0891b2' }} />
+  <ColorItem title="Secondary" subtitle="Pink 600" colors={{ secondary: '#db2777' }} />
+  <ColorItem title="Background" subtitle="Zinc 50" colors={{ background: '#fafafa' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Cyan 400" colors={{ primary: '#22d3ee' }} />
+  <ColorItem title="Secondary" subtitle="Pink 500" colors={{ secondary: '#ec4899' }} />
+  <ColorItem title="Foreground" subtitle="Emerald 50" colors={{ foreground: '#ecfdf5' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: '#09090b' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Cyan)
+<ColorPalette>
+  <ColorItem
+    title="Cyan Scale"
+    subtitle="Neon Primary base"
+    colors={{
+      50:  '#ecfeff',
+      100: '#cffafe',
+      200: '#a5f3fc',
+      300: '#67e8f9',
+      400: '#22d3ee',
+      500: '#06b6d4',
+      600: '#0891b2',
+      700: '#0e7490',
+      800: '#155e75',
+      900: '#164e63',
+      950: '#083344',
+    }}
+  />
+</ColorPalette>
+
+### Secondary (Pink)
+<ColorPalette>
+  <ColorItem
+    title="Pink Scale"
+    subtitle="Neon Secondary base"
+    colors={{
+      50:  '#fdf2f8',
+      100: '#fce7f3',
+      200: '#fbcfe8',
+      300: '#f9a8d4',
+      400: '#f472b6',
+      500: '#ec4899',
+      600: '#db2777',
+      700: '#be185d',
+      800: '#9d174d',
+      900: '#831843',
+      950: '#500724',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `12px` |
+| Card Radius | `0.25rem` (Sharp) |
+| Glow Color | `Cyan 500` |
+| Shadow | `Neon Dual Glow` |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `mono` |
+| Body Font | `sans` |
+| Title Weight | `900` |
+| Custom Class | `uppercase tracking-wider` |

@@ -1,0 +1,119 @@
+{/* design-tokens/theme-system.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Theme System" />
+
+# Theme System
+
+The **@aazucena** design system uses **"Vibes"** to manage high-level visual identities. A Vibe is a master orchestrator that redefines the entire visual and behavioral personality of the application in one unified protocol.
+
+---
+
+## 🏗️ Implementation Demo: The Visual Identity Protocol
+
+This dashboard demonstrates the full orchestration capability of our Vibe engine. When you change the **Vibe** in the toolbar, every property—from the mathematical sharpness of the corners to the "Editorial Voice" of the typography—is re-mapped in real-time.
+
+<div className="p-12 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-700 space-y-12 relative overflow-hidden group">
+  {/* Atmospheric Background Pulse */}
+  <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)]" />
+  
+  <div className="flex flex-col lg:flex-row gap-8 relative z-10">
+    
+    {/* Column 1: Identity & Voice */}
+    <div className="flex-1 space-y-6">
+      <div className="p-8 rounded-[var(--radius-xl)] bg-[var(--elevated)] border border-[var(--border)] shadow-[var(--shadow-lg)] backdrop-blur-[var(--backdrop-blur)] space-y-6">
+        <div className="space-y-2">
+          <div className="text-[var(--primary)] text-[10px] font-mono tracking-[0.4em] uppercase">Identity_Voice // 01</div>
+          <h2 className="text-3xl font-[var(--font-title-weight)] font-[var(--font-heading)] text-[var(--foreground)] tracking-tight">System Identity</h2>
+          <p className="text-sm font-[var(--font-body)] text-[var(--muted-foreground)] leading-relaxed italic">
+            "Design is the silent ambassador of your brand."
+          </p>
+        </div>
+        
+        <div className="pt-6 border-t border-[var(--border)]">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-mono uppercase text-[var(--muted-foreground)]">Processing_Power</span>
+            <span className="text-[10px] font-mono text-[var(--primary)] font-bold">OPTIMIZED</span>
+          </div>
+          <div className="h-1 w-full bg-[var(--base)] rounded-full overflow-hidden">
+            <div className="h-full bg-[var(--primary)] w-[85%] animate-pulse" />
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6 rounded-[var(--radius-lg)] bg-[var(--primary)] text-[var(--primary-foreground)] shadow-[var(--shadow-xl)] group/btn relative overflow-hidden transition-transform active:scale-95 cursor-pointer">
+        <div className="relative z-10 flex items-center justify-between font-bold uppercase tracking-[0.2em] text-xs">
+          <span>Initialize Protocol</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
+      </div>
+    </div>
+
+    {/* Column 2: Material & Technical Logic */}
+    <div className="flex-1 space-y-6">
+      <div className="p-8 rounded-[var(--radius-xl)] bg-black/5 dark:bg-black/40 border border-[var(--border)] space-y-8">
+        
+        {/* Corner Geometry Visualizer */}
+        <div className="space-y-4">
+          <h4 className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-foreground)]">Corner_Geometry</h4>
+          <div className="flex gap-4">
+            <div className="w-12 h-12 bg-[var(--secondary)] rounded-[var(--radius-sm)] shadow-[var(--shadow-sm)]" />
+            <div className="w-12 h-12 bg-[var(--secondary)] rounded-[var(--radius-md)] shadow-[var(--shadow-md)] opacity-70" />
+            <div className="w-12 h-12 bg-[var(--secondary)] rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] opacity-40" />
+          </div>
+        </div>
+
+        {/* State Logic Simulation */}
+        <div className="space-y-4">
+          <h4 className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-foreground)]">State_Logic</h4>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3 p-3 rounded-[var(--radius-md)] bg-[var(--base)] border border-[var(--border)]">
+              <div className="w-2 h-2 rounded-full bg-[var(--success)] shadow-[0_0_10px_var(--success)]" />
+              <span className="text-[10px] font-mono text-[var(--foreground)]">Node_01: <span className="font-bold">OPERATIONAL</span></span>
+            </div>
+            <div className="flex items-center gap-3 p-3 rounded-[var(--radius-md)] bg-[var(--base)] border border-[var(--border)]">
+              <div className="w-2 h-2 rounded-full bg-[var(--destructive)] shadow-[0_0_10px_var(--destructive)] animate-pulse" />
+              <span className="text-[10px] font-mono text-[var(--foreground)]">Node_02: <span className="font-bold">CRITICAL_ERR</span></span>
+            </div>
+          </div>
+        </div>
+
+        {/* Custom Class Callout */}
+        <div className="pt-4 border-t border-[var(--border)]">
+          <div className="p-3 rounded bg-[var(--base)] border border-dashed border-[var(--border)] text-center">
+            <code className="text-[10px] font-mono text-[var(--primary)] uppercase tracking-widest">Active_Class: var(--custom-class)</code>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## Technical Architecture
+
+The Theme System operates on a **Constraint-Based Injection** model. Unlike traditional theme engines that rely on global body classes, our system allows for scoped encapsulation.
+
+### Independent Mode Logic
+Every Vibe provides independent configurations for both `light` and `dark` modes. This allows the system to maintain visual integrity even when the user forces a specific system-level mode.
+
+| Component | Responsibility |
+|---|---|
+| **ThemeManager** | The core class that handles the injection of CSS custom properties into a target element. |
+| **_theme-core** | Sanitizes values and ensures that only valid tokens are committed to the DOM. |
+| **Vibe Registry** | A centralized catalog of all 17 available visual protocols. |
+
+---
+
+## Technical Specifications
+
+| Property | Implementation |
+|---|---|
+| **Encapsulation** | Scoped via container-level CSS variables (Isolated). |
+| **Performance** | Native CSS variable injection (Zero-runtime overhead). |
+| **Extensibility** | Atomic Vibe definitions in `packages/design-system/src/themes/`. |
+| **Precision** | All color values strictly mapped to the OKLCH brand scales. |

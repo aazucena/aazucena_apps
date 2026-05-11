@@ -1,0 +1,49 @@
+{
+  "name": "@aazucena/hooks",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./device": "./src/device/index.ts",
+    "./use-mobile": "./src/device/useIsMobile.ts",
+    "./state": "./src/state/index.ts",
+    "./animations": "./src/animations/index.ts",
+    "./data": "./src/data/index.ts",
+    "./dom": "./src/dom/index.ts",
+    "./preloader": "./src/preloader/index.ts",
+    "./telemetry": "./src/telemetry/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/context": "workspace:*",
+    "@aazucena/design-system": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "@gsap/react": "^2.1.1",
+    "gsap": "^3.12.5",
+    "handlebars": "^4.7.8",
+    "three": "^0.173.0",
+    "use-sync-external-store": "^1.6.0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "@types/react": "^19.2.14",
+    "@types/three": "^0.173.0",
+    "@types/use-sync-external-store": "^1.5.0",
+    "react": "^19.2.3",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3"
+  },
+  "sideEffects": false
+}

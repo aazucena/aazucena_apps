@@ -1,6 +1,6 @@
 // apps/analytics/src/lib/api/prompts.ts
 import { fetchStrapi, updateStrapiEntry } from '../strapi';
-import { StrapiPromptsResponseSchema } from '../validators/prompt';
+import { StrapiPromptsResponseSchema } from '@aazucena/api';
 import { transformPrompts, transformPrompt, type Prompt } from '../transformers/prompt';
 
 /**

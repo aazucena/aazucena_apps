@@ -1,0 +1,101 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('red', 600),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('zinc', 50),
+    secondaryForeground: getColor('red', 600),
+    success: getColor('emerald', 600),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('red', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 50),
+    base: getColor('zinc', 50),
+    elevated: getColor('zinc', 100),
+    floating: getColor('zinc', 50, 0.95),
+    cardBackground: getColor('zinc', 100),
+    overlayBackground: getColor('zinc', 50, 0.95),
+    foreground: getColor('zinc', 900),
+    mutedForeground: getColor('zinc', 500),
+    accent: getColor('red', 600),
+    accentForeground: getColor('zinc', 50),
+    border: getColor('zinc', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(8px)',
+    shadow: `0 4px 6px -1px ${getColor('red', 600, 0.1)}, 0 2px 4px -1px ${getColor('zinc', 950, 0.06)}`,
+    borderRadius: {
+      card: '0.5rem',
+      button: '0.375rem',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1,
+    animationEasing: 'ease-out',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '800',
+    subtitleSize: '0.875rem',
+    headingFont: 'sans',
+    bodyFont: 'sans',
+  },
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('red', 500),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('zinc', 900),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('cyan', 400),
+    successForeground: getColor('zinc', 950),
+    destructive: getColor('orange', 500),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('orange', 500),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('red', 950),
+    base: getColor('red', 950),
+    elevated: getColor('red', 900),
+    floating: getColor('red', 950, 0.95),
+    cardBackground: getColor('red', 900),
+    overlayBackground: getColor('red', 950, 0.95),
+    foreground: getColor('red', 50),
+    mutedForeground: getColor('red', 200),
+    accent: getColor('zinc', 50),
+    accentForeground: getColor('red', 600),
+    border: getColor('red', 500, 0.3),
+  },
+  effects: {
+    backdropBlur: 'blur(12px)',
+    shadow: `0 0 20px ${getColor('red', 600, 0.3)}`,
+    glowColor: getColor('red', 600, 0.5),
+    borderRadius: {
+      card: '0.5rem',
+      button: '0.375rem',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 0.9,
+    animationEasing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+  },
+  typography: {
+    titleSize: '1.625rem',
+    titleWeight: '900',
+    subtitleSize: '0.875rem',
+    headingFont: 'sans',
+    bodyFont: 'sans',
+  },
+};
+
+export const canadaDayVibe: ThemeVibe = {
+  id: 'canada-day',
+  name: 'Canada Day',
+  type: 'holiday',
+  light,
+  dark,
+};

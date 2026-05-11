@@ -1,31 +1,33 @@
-import { getPortfolio } from '../api/portfolio';
-import { getAbout } from '../api/about';
-import { getHero } from '../api/hero';
-import { getProjects } from '../api/projects';
-import { getExperiences } from '../api/experiences';
-import { getPosts } from '../api/posts';
-import { getTestimonials } from '../api/testimonials';
-import { getAwards } from '../api/awards';
-import { getSkills } from '../api/skills';
-import { getHomepage } from '../api/homepage';
-import { getProjectShowcaseConfig } from '../api/project-showcase';
-import { getExperienceShowcase } from '../api/experience-showcase';
-import { getSkillShowcase } from '../api/skill-showcase';
-import { getWebsiteConfig } from '../api/website-config';
-import { getAnimationConfig } from '../api/animation';
-import { getBlogConfig } from '../api/blog-config';
-import type { HeroData } from '../transformers/hero';
-import type { AboutData } from '../transformers/about';
-import type { Project } from '../transformers/projects';
-import type { Experience } from '../transformers/experiences';
-import type { BlogPost } from '../transformers/posts';
-import type { Testimonial } from '~/components/ui/infinite-moving-cards';
-import type { Award } from '../transformers/awards';
-import type { SkillCategory } from '../transformers/skills';
-import type { ProjectShowcaseConfig } from '../transformers/project-showcase';
-import type { ExperienceShowcaseConfig } from '../transformers/experience-showcase';
-import type { SkillShowcaseConfig } from '../transformers/skill-showcase';
-import type { BlogConfigData } from '../transformers/blog-config';
+import { getPortfolio } from "@aazucena/api";
+import { getAbout } from "@aazucena/api";
+import { getHero } from "@aazucena/api";
+import { getProjects } from "@aazucena/api";
+import { getExperiences } from "@aazucena/api";
+import { getPosts } from "@aazucena/api";
+import { getTestimonials } from "@aazucena/api";
+import { getAwards } from "@aazucena/api";
+import { getSkills } from "@aazucena/api";
+import { getHomepage } from "@aazucena/api";
+import { getProjectShowcaseConfig } from "@aazucena/api";
+import { getExperienceShowcase } from "@aazucena/api";
+import { getSkillShowcase } from "@aazucena/api";
+import { getWebsiteConfig } from "@aazucena/api";
+import { getAnimationConfig } from "@aazucena/api";
+import { getBlogConfig } from "@aazucena/api";
+import { getServices } from "@aazucena/api";
+import type { HeroData } from "@aazucena/types";
+import type { AboutData } from "@aazucena/types";
+import type { Project } from "@aazucena/types";
+import type { Experience } from "@aazucena/types";
+import type { BlogPost } from "@aazucena/types";
+import type { Testimonial } from "~/components/ui/InfiniteMovingCards";
+import type { Award } from "@aazucena/types";
+import type { SkillCategory } from "@aazucena/types";
+import type { ProjectShowcaseConfig } from "@aazucena/types";
+import type { ExperienceShowcaseConfig } from "@aazucena/types";
+import type { SkillShowcaseConfig } from "@aazucena/types";
+import type { BlogConfigData } from "@aazucena/types";
+import type { ServicesData } from "@aazucena/types";
 
 export interface PortfolioData {
   hero: HeroData;
@@ -40,6 +42,7 @@ export interface PortfolioData {
   projectShowcase: ProjectShowcaseConfig;
   experienceShowcase: ExperienceShowcaseConfig;
   skillShowcase: SkillShowcaseConfig;
+  services: ServicesData;
 }
 
 /**
@@ -65,23 +68,25 @@ export async function getHomepageData() {
       skillShowcase,
       websiteConfig,
       animationConfig,
+      services,
     ] = await Promise.all([
       getPortfolio(),
       getAbout(),
       getHero(),
-      getProjects('home'),
+      getProjects("home"),
       getExperiences(),
       getBlogConfig(),
       getPosts(true, 3), // Featured only, limit 3
       getTestimonials(),
       getAwards(),
-      getSkills('featured'),
+      getSkills("featured"),
       getHomepage(),
       getProjectShowcaseConfig(),
       getExperienceShowcase(),
       getSkillShowcase(),
       getWebsiteConfig(),
       getAnimationConfig(),
+      getServices(),
     ]);
 
     const portfolioData: PortfolioData = {
@@ -97,6 +102,7 @@ export async function getHomepageData() {
       projectShowcase,
       experienceShowcase,
       skillShowcase,
+      services,
     };
 
     return {
@@ -107,7 +113,7 @@ export async function getHomepageData() {
       animationConfig,
     };
   } catch (error) {
-    console.error('[HomepageData] Failed to fetch aggregate data:', error);
+    console.error("[HomepageData] Failed to fetch aggregate data:", error);
     throw error;
   }
 }

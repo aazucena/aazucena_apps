@@ -13,7 +13,7 @@ import slugify from 'slugify';
 
 interface SlugConfig {
   from: string; // Source field (title, name, etc.)
-  to: string;   // Target slug field (slug)
+  to: string; // Target slug field (slug)
 }
 
 interface AttributeConfig {

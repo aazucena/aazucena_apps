@@ -14,10 +14,10 @@
  * @route /[slug]
  */
 
-import { getPages } from '~/lib/api/pages';
-import EditorialTemplate from '~/templates/EditorialTemplate.astro';
-import LandingTemplate from '~/templates/LandingTemplate.astro';
-import LegalTemplate from '~/templates/LegalTemplate.astro';
+import { getPages } from "@aazucena/api";
+import EditorialTemplate from "~/templates/EditorialTemplate.astro";
+import LandingTemplate from "~/templates/LandingTemplate.astro";
+import LegalTemplate from "~/templates/LegalTemplate.astro";
 
 /**
  * Generate static paths for all CMS-driven pages
@@ -27,14 +27,15 @@ export async function getStaticPaths() {
 
   // Filter out reserved static routes to prevent conflicts
   const reservedSlugs = [
-    'projects',
-    'blog',
-    'experiences',
-    'about',
-    'contact',
-    'skills',
-    'journey',
-    'maintenance',
+    "projects",
+    "blog",
+    "experiences",
+    "about",
+    "contact",
+    "skills",
+    "journey",
+    "maintenance",
+    "support",
   ];
   const filteredPages = pages.filter((p) => !reservedSlugs.includes(p.slug));
 
@@ -48,7 +49,7 @@ const { page } = Astro.props;
 
 // 404 fallback if page doesn't exist
 if (!page) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 // Compute SEO metadata
@@ -56,12 +57,12 @@ const seoTitle = page.seo?.title || page.title;
 const seoDescription = page.seo?.description!;
 
 // Build JSON-LD schema for SEO
-const siteOrigin = 'https://aazucena.com';
+const siteOrigin = "https://aazucena.com";
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      '@type': 'WebPage',
+      "@type": "WebPage",
       name: page.title,
       description: seoDescription,
       url: `${siteOrigin}/${page.slug}`,
@@ -71,41 +72,40 @@ const jsonLd = {
 };
 
 // Build breadcrumb navigation
-const breadcrumbs = [{ label: 'Home', href: '/' }, { label: page.title }];
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: page.title }];
 
 // Normalize template type (handle unknown templates)
-const templateType = ['legal', 'default', 'landing'].includes(page.template)
+const templateType = ["legal", "default", "landing"].includes(page.template)
   ? page.template
-  : 'default';
+  : "default";
 
 // Warn about unknown templates
 if (templateType !== page.template) {
   console.warn(
-    `Unknown template: "${page.template}" for page "${page.slug}". Falling back to editorial template.`
+    `Unknown template: "${page.template}" for page "${page.slug}". Falling back to editorial template.`,
   );
 }
 
 // Build shared props for all templates
 const sharedProps = {
   title: page.title,
-  content: page.content,
+  content: page.content as string,
   seoTitle,
   seoDescription,
   jsonLd,
   breadcrumbs,
-  watermarkText: page.slug.split('-')[0]!.toUpperCase(),
-  watermarkSize: 'small' as const,
+  watermarkText: page.slug.split("-")[0]!.toUpperCase(),
+  watermarkSize: "small" as const,
   showTableOfContents: page.showTableOfContents,
-  tocSelector: '#dynamic-content',
+  tocSelector: "#dynamic-content",
   slug: page.slug,
 };
 ---
 
-<!-- Render the appropriate template component -->
-{
-  templateType === 'legal' ? (
+<!-- Render the appropriate template component -->{
+  templateType === "legal" ? (
     <LegalTemplate {...sharedProps} lastUpdated={page.lastUpdated} />
-  ) : templateType === 'landing' ? (
+  ) : templateType === "landing" ? (
     <LandingTemplate {...sharedProps} />
   ) : (
     <EditorialTemplate {...sharedProps} />

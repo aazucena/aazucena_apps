@@ -1,0 +1,103 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('orange', 700),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('emerald', 900),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('amber', 600),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('red', 800),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 800),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('amber', 50),
+    base: getColor('amber', 50),
+    elevated: getColor('zinc', 50),
+    floating: getColor('amber', 50, 0.9),
+    cardBackground: getColor('zinc', 50),
+    overlayBackground: getColor('amber', 50, 0.9),
+    foreground: getColor('orange', 950),
+    mutedForeground: getColor('orange', 700),
+    accent: getColor('amber', 700),
+    accentForeground: getColor('zinc', 50),
+    border: getColor('zinc', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(6px)',
+    shadow: `0 4px 20px ${getColor('orange', 950, 0.1)}`,
+    borderRadius: {
+      card: '1rem',
+      button: '0.5rem',
+      badge: '0.25rem',
+      progress: '9999px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'ease-in-out',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '700',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('orange', 500),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('orange', 950),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('emerald', 600),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('red', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 950),
+    base: getColor('zinc', 950),
+    elevated: getColor('orange', 950),
+    floating: getColor('zinc', 950, 0.95),
+    cardBackground: getColor('orange', 950),
+    overlayBackground: getColor('zinc', 950, 0.95),
+    foreground: getColor('orange', 200),
+    mutedForeground: getColor('orange', 400),
+    accent: getColor('amber', 500),
+    accentForeground: getColor('orange', 950),
+    border: getColor('orange', 500, 0.2),
+  },
+  effects: {
+    backdropBlur: 'blur(10px)',
+    shadow: `0 10px 30px ${getColor('zinc', 950, 0.5)}`,
+    glowColor: getColor('orange', 500, 0.3),
+    borderRadius: {
+      card: '1rem',
+      button: '0.5rem',
+      badge: '0.25rem',
+      progress: '9999px',
+    },
+    animationSpeed: 1.1,
+    animationEasing: 'ease-out',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '700',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+};
+
+export const autumnVibe: ThemeVibe = {
+  id: 'autumn',
+  name: 'Autumn Leaf',
+  type: 'holiday',
+  light,
+  dark,
+};

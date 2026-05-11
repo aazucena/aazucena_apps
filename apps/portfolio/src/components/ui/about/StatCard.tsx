@@ -4,9 +4,9 @@
  * Used in AboutSection to showcase achievements/metrics
  */
 
-import type { JSX } from 'react';
-import { toTitleCase } from '~/lib/utils/text';
-import { GlassCard } from '../common/GlassCard';
+import type { JSX } from "react";
+import { toTitleCase } from "@aazucena/utils";
+import { GlassCard } from "../common/GlassCard";
 
 export interface StatCardProps {
   /** Large numeric/text value to display */
@@ -29,18 +29,13 @@ export interface StatCardProps {
  * <StatCard value="50+" label="Projects Delivered" />
  * ```
  */
-export function StatCard({
-  value,
-  label,
-}: StatCardProps): JSX.Element {
+export function StatCard({ value, label }: StatCardProps): JSX.Element {
   return (
     <GlassCard padding="md">
-      <div className="text-3xl font-bold text-cyan-400 mb-2">
+      <div className="mb-1 text-2xl font-bold text-cyan-400 md:mb-2 md:text-3xl">
         {value}
       </div>
-      <div className="text-sm text-gray-400">
-        {toTitleCase(label)}
-      </div>
+      <div className="text-sm text-gray-400">{toTitleCase(label)}</div>
     </GlassCard>
   );
 }

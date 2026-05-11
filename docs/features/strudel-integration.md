@@ -53,7 +53,7 @@ import { useEffect, useRef, useState } from 'react';
 import { evaluate } from '@strudel/core';
 import { getAudioContext, webaudioOutput } from '@strudel/webaudio';
 import { StrudelMirror } from '@strudel/codemirror';
-import { Play, Pause, RotateCcw } from '@mynaui/icons-react';
+import { Play, Pause, RefreshAlt } from '@mynaui/icons-react';
 
 interface StrudelPlayerProps {
   pattern: string;
@@ -149,7 +149,7 @@ export function StrudelPlayer({
                 onClick={resetPattern}
                 className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center gap-2"
               >
-                <RotateCcw className="w-4 h-4" /> Reset
+                <RefreshAlt className="w-4 h-4" /> Reset
               </button>
             )}
           </div>

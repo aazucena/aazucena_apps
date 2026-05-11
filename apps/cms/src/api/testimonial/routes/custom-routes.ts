@@ -13,8 +13,8 @@ export default {
       handler: 'testimonial-actions.findPending',
       config: {
         policies: [],
-        middlewares: []
-      }
+        middlewares: [],
+      },
     },
     {
       method: 'GET',
@@ -22,8 +22,8 @@ export default {
       handler: 'testimonial-actions.getStatistics',
       config: {
         policies: [],
-        middlewares: []
-      }
+        middlewares: [],
+      },
     },
     {
       method: 'POST',
@@ -31,8 +31,8 @@ export default {
       handler: 'testimonial-actions.approve',
       config: {
         policies: [],
-        middlewares: []
-      }
+        middlewares: [],
+      },
     },
     {
       method: 'POST',
@@ -40,8 +40,8 @@ export default {
       handler: 'testimonial-actions.reject',
       config: {
         policies: [],
-        middlewares: []
-      }
+        middlewares: [],
+      },
     },
     {
       method: 'POST',
@@ -49,8 +49,8 @@ export default {
       handler: 'testimonial-actions.publish',
       config: {
         policies: [],
-        middlewares: []
-      }
+        middlewares: [],
+      },
     },
     {
       method: 'POST',
@@ -58,8 +58,8 @@ export default {
       handler: 'testimonial-actions.unpublish',
       config: {
         policies: [],
-        middlewares: []
-      }
-    }
-  ]
+        middlewares: [],
+      },
+    },
+  ],
 };

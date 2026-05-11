@@ -1,17 +1,21 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    "**/.env.*local"
-  ],
+  "globalDependencies": ["**/.env.*local"],
   "tasks": {
+    "release": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
     "e2e": {
       "passThroughEnv": ["PLAYWRIGHT_*"],
       "dependsOn": ["^build"]
     },
+    "build:storybook": {
+      "dependsOn": ["^build", "^build:storybook"],
+      "outputs": ["storybook-static/**"]
+    },
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "outputs": [
         "**/*",
         "!test/**/*",
@@ -20,20 +24,24 @@
         "!.astro/**/*",
         "!.cache/**/*",
         "!mod.js",
-        "!mod.js.map",
-        "storybook-static/**"
+        "!mod.js.map"
       ],
-      "passThroughEnv": [
-        "STRAPI_API_ENDPOINT",
-        "STRAPI_URL",
-        "STRAPI_TOKEN",
-        "SENTRY_AUTH_TOKEN"
-      ]
+      "passThroughEnv": ["STRAPI_API_ENDPOINT", "STRAPI_URL", "STRAPI_TOKEN", "SENTRY_AUTH_TOKEN"]
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
+      "dependsOn": ["^lint"]
+    },
+    "lint:fix": {
+      "cache": false
+    },
+    "format": {
+      "cache": true
+    },
+    "format:check": {
+      "cache": true
+    },
+    "type-check": {
+      "dependsOn": ["^type-check"]
     },
     "dev": {
       "cache": false,

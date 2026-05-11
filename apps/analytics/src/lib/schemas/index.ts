@@ -1,1 +1,1 @@
-export * from './ingest'
+export * from '@aazucena/analytics/schemas';

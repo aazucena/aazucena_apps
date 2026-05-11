@@ -32,18 +32,20 @@ function getSnapshot(): NavMode {
  */
 function subscribe(callback: () => void) {
   listeners = [...listeners, callback];
-  
-  // Also listen for storage changes from other tabs/windows
+
+  // Store the handler reference so it can be removed with the exact same identity
+  const storageHandler = (e: StorageEvent) => {
+    if (e.key === NAV_MODE_STORAGE_KEY) callback();
+  };
+
   if (typeof window !== 'undefined') {
-    window.addEventListener('storage', (e) => {
-      if (e.key === NAV_MODE_STORAGE_KEY) callback();
-    });
+    window.addEventListener('storage', storageHandler);
   }
-  
+
   return () => {
-    listeners = listeners.filter(l => l !== callback);
+    listeners = listeners.filter((l) => l !== callback);
     if (typeof window !== 'undefined') {
-      window.removeEventListener('storage', callback);
+      window.removeEventListener('storage', storageHandler);
     }
   };
 }
@@ -56,7 +58,7 @@ function set(mode: NavMode) {
     try {
       localStorage.setItem(NAV_MODE_STORAGE_KEY, mode);
       // Notify all subscribers (trigger re-render in components using useSyncExternalStore)
-      listeners.forEach(l => l());
+      listeners.forEach((l) => l());
     } catch (e) {
       console.error('[navModeStore] Failed to write to localStorage', e);
     }

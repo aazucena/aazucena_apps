@@ -1,0 +1,103 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('pink', 500),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('blue', 500),
+    secondaryForeground: getColor('zinc', 50),
+    success: getColor('emerald', 600),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('red', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 50),
+    base: getColor('zinc', 50),
+    elevated: getColor('zinc', 100),
+    floating: getColor('zinc', 50, 0.9),
+    cardBackground: getColor('zinc', 100),
+    overlayBackground: getColor('zinc', 50, 0.9),
+    foreground: getColor('zinc', 900),
+    mutedForeground: getColor('zinc', 500),
+    accent: getColor('amber', 400),
+    accentForeground: getColor('zinc', 900),
+    border: getColor('zinc', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(8px)',
+    shadow: `0 10px 30px ${getColor('pink', 500, 0.1)}`,
+    borderRadius: {
+      card: '1.5rem',
+      button: '9999px',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.5,
+    animationEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  },
+  typography: {
+    titleSize: '1.75rem',
+    titleWeight: '900',
+    subtitleSize: '0.9375rem',
+    headingFont: 'sans',
+    bodyFont: 'sans',
+  },
+  customClass: 'birthday-confetti',
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('pink', 400),
+    primaryForeground: getColor('rose', 950),
+    secondary: getColor('blue', 400),
+    secondaryForeground: getColor('blue', 950),
+    success: getColor('emerald', 400),
+    successForeground: getColor('zinc', 950),
+    destructive: getColor('rose', 400),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('rose', 400),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 950),
+    base: getColor('zinc', 950),
+    elevated: getColor('zinc', 900, 0.8),
+    floating: getColor('zinc', 950, 0.95),
+    cardBackground: getColor('zinc', 900, 0.8),
+    overlayBackground: getColor('zinc', 950, 0.95),
+    foreground: getColor('zinc', 50),
+    mutedForeground: getColor('zinc', 400),
+    accent: getColor('amber', 300),
+    accentForeground: getColor('amber', 950),
+    border: getColor('pink', 400, 0.3),
+  },
+  effects: {
+    backdropBlur: 'blur(16px)',
+    shadow: `0 0 40px ${getColor('pink', 400, 0.2)}`,
+    glowColor: getColor('pink', 400, 0.5),
+    borderRadius: {
+      card: '1.5rem',
+      button: '9999px',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.5,
+    animationEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  },
+  typography: {
+    titleSize: '1.875rem',
+    titleWeight: '900',
+    subtitleSize: '1rem',
+    headingFont: 'sans',
+    bodyFont: 'sans',
+  },
+  customClass: 'birthday-glow',
+};
+
+export const birthdayVibe: ThemeVibe = {
+  id: 'birthday',
+  name: 'Birthday',
+  type: 'special',
+  light,
+  dark,
+};

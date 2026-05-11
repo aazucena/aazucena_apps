@@ -48,7 +48,7 @@ export default {
     // Note: 'strapi' global instance is available in Strapi v5 lifecycles
     const current = await strapi.db.query('api::testimonial.testimonial').findOne({
       where: { id: where.id },
-      select: ['approvalStatus', 'publishedAt']
+      select: ['approvalStatus', 'publishedAt'],
     });
 
     if (!current) {
@@ -108,7 +108,7 @@ export default {
     if (params.data.approvalStatus) {
       strapi.log.info(
         `Testimonial #${result.id} approval status changed to: ${result.approvalStatus}` +
-        (result.approvedBy ? ` by ${result.approvedBy}` : '')
+          (result.approvedBy ? ` by ${result.approvedBy}` : '')
       );
     }
 
@@ -128,7 +128,7 @@ export default {
 
     const testimonial = await strapi.db.query('api::testimonial.testimonial').findOne({
       where: { id: where.id },
-      select: ['approvalStatus', 'author']
+      select: ['approvalStatus', 'author'],
     });
 
     if (!testimonial) {
@@ -139,8 +139,8 @@ export default {
     if (testimonial.approvalStatus === 'Approved') {
       strapi.log.warn(
         `Deleting approved testimonial #${where.id} from ${testimonial.author}. ` +
-        `Consider using "Rejected" status instead for audit trail.`
+          `Consider using "Rejected" status instead for audit trail.`
       );
     }
-  }
+  },
 };

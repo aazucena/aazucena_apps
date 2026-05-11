@@ -2,14 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { 
-  ArrowLeft, 
-  Compass, 
-  Home, 
-  Activity, 
-  DangerTriangle 
-} from '@mynaui/icons-react';
-import { motion } from 'framer-motion';
+import { ArrowLeft, Compass, Home, DangerTriangle } from '@aazucena/icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
@@ -18,21 +11,23 @@ export default function NotFound() {
   return (
     <>
       {/* 1. ATMOSPHERIC DECORATION */}
-      <div className={`absolute mx-auto inset-0 z-0 overflow-hidden pointer-events-none opacity-50 max-w-7xl right-0 ${isCollapsed ? 'left-16' : 'left-64'}`}>
+      <div
+        className={`absolute mx-auto inset-0 z-0 overflow-hidden pointer-events-none opacity-50 max-w-7xl right-0 ${isCollapsed ? 'left-16' : 'left-64'}`}
+      >
         {/* Background Watermark */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.02] dark:opacity-[0.05] whitespace-nowrap">
-          <span className="text-[25rem] font-black uppercase tracking-tighter italic font-mono">LOST</span>
+          <span className="text-[25rem] font-black uppercase tracking-tighter italic font-mono">
+            LOST
+          </span>
         </div>
       </div>
       <main className="max-h-[80vh] flex flex-col items-center justify-center relative overflow-hidden transition-colors duration-500">
-
         {/* 2. CONTENT CONTAINER */}
         <div className="max-w-3xl mx-auto px-6 py-16 text-center relative z-10">
-          
           {/* 404 Visual Indicator */}
           <div className="mb-12 relative inline-block group">
             <div className="absolute inset-0 bg-primary-500/20 blur-[80px] rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            
+
             <div className="relative">
               <h1 className="text-[10rem] md:text-[15rem] font-black leading-none tracking-tighter text-zinc-900 dark:text-zinc-100 drop-shadow-2xl font-mono">
                 404
@@ -47,11 +42,14 @@ export default function NotFound() {
           {/* Error Message */}
           <div className="space-y-6 mb-12">
             <h2 className="text-3xl md:text-5xl font-black text-zinc-900 dark:text-zinc-100 tracking-tight uppercase">
-              Trace_Lost: <br className="hidden md:block"/>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">Node Not Found</span>
+              Trace_Lost: <br className="hidden md:block" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">
+                Node Not Found
+              </span>
             </h2>
             <p className="text-sm md:text-base text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto leading-relaxed font-mono uppercase tracking-wider">
-              The requested telemetry node has drifted into deep space. Re-establish connection to mission control.
+              The requested telemetry node has drifted into deep space. Re-establish connection to
+              mission control.
             </p>
           </div>
 
@@ -86,11 +84,11 @@ export default function NotFound() {
                 { label: 'Overview', href: '/' },
                 { label: 'Audio', href: '/music' },
                 { label: 'Telemetry', href: '/logs' },
-                { label: 'Integrity', href: '/performance' }
-              ].map(link => (
-                <Link 
+                { label: 'Integrity', href: '/performance' },
+              ].map((link) => (
+                <Link
                   key={link.label}
-                  href={link.href} 
+                  href={link.href}
                   className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-500 hover:text-primary-500 dark:hover:text-primary-400 transition-colors relative group font-mono"
                 >
                   {link.label}

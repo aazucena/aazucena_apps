@@ -3,5 +3,5 @@
  * Barrel export for HeroSection-specific components
  */
 
-export * from './NavigationButton';
-export * from './ResumeButton';
+export * from "./NavigationButton";
+export * from "./ResumeButton";

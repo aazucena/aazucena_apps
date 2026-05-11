@@ -10,8 +10,8 @@ import type { Prompt } from '@/lib/transformers/prompt';
 export function usePrompts() {
   return useQuery<Prompt[]>({
     queryKey: ['prompts'],
-    queryFn: async () => {
-      const res = await fetch('/api/prompts');
+    queryFn: async ({ signal }) => {
+      const res = await fetch('/api/prompts', { signal });
       if (!res.ok) throw new Error('FAILED_PROMPTS_FETCH');
       const json = await res.json();
       return json.data;

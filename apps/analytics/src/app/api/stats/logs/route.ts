@@ -1,7 +1,7 @@
 import { mainClickhouseClient as clickhouse } from '@/lib/services';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const resultSet = await clickhouse.query({
       query: `
@@ -18,23 +18,26 @@ export async function GET() {
         LIMIT 100
       `,
       format: 'JSONEachRow',
+      abort_signal: req.signal,
     });
 
-    const rawLogs = await resultSet.json() as any[];
+    const rawLogs = (await resultSet.json()) as any[];
 
     // Parse the 'data' string back into JSON objects
-    const logs = rawLogs.map(log => ({
+    const logs = rawLogs.map((log) => ({
       ...log,
-      data: log.data && typeof log.data == 'string' ? JSON.parse(log.data) : {
-        ...log?.data ?? {}
-      }
+      data:
+        log.data && typeof log.data == 'string'
+          ? JSON.parse(log.data)
+          : {
+              ...(log?.data ?? {}),
+            },
     }));
 
     return NextResponse.json({
       success: true,
-      data: logs
+      data: logs,
     });
-
   } catch (error) {
     console.error('[STATS_LOGS_ERROR]', error);
     return NextResponse.json({ error: 'FAILED_TO_FETCH_LOGS' }, { status: 500 });

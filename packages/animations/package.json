@@ -1,0 +1,48 @@
+{
+  "name": "@aazucena/animations",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./gsap": "./src/gsap/index.ts",
+    "./three": "./src/three/index.ts",
+    "./pixi": "./src/pixi/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/context": "workspace:*",
+    "@aazucena/hooks": "workspace:*",
+    "@aazucena/icons": "workspace:*",
+    "@aazucena/stores": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/ui": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "@gsap/react": "^2.1.2",
+    "@nanostores/react": "^0.8.4",
+    "@pixi/react": "8.1.0-alpha.1",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "gsap": "^3.13.0",
+    "pixi.js": "^8.2.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "@aazucena/constants": "workspace:*",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.180.0",
+    "typescript": "^5.9.3"
+  }
+}

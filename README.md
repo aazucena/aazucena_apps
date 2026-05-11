@@ -1,15 +1,70 @@
 # Aldrin Azucena Portfolio Monorepo
 
+![Status](https://img.shields.io/badge/status-active_development-orange) ![Phase](https://img.shields.io/badge/phase-5_%E2%80%94_testing_%26_quality-blue)
+
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=nodedotjs&logoColor=white) ![pnpm](https://img.shields.io/badge/pnpm-10.33.4-F69220?logo=pnpm&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white) ![Turborepo](https://img.shields.io/badge/Turborepo-monorepo-EF4444?logo=turborepo&logoColor=white)
+
+![Astro](https://img.shields.io/badge/Astro-5.x-FF5D01?logo=astro&logoColor=white) ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black) ![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=nextdotjs&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+
+![Storybook](https://img.shields.io/badge/Storybook-373%2B_stories-FF4785?logo=storybook&logoColor=white) ![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white) ![Railway](https://img.shields.io/badge/Backend-Railway-0B0D0E?logo=railway&logoColor=white) ![CircleCI](https://img.shields.io/badge/CI-CircleCI-343434?logo=circleci&logoColor=white)
+
 A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The primary application is an Astro-based portfolio with React integration, featuring advanced animations (GSAP, Three.js, PixiJS) and a planned Strapi CMS backend.
 
-**Package Manager:** pnpm v10.21.0 (required)
+**Package Manager:** pnpm v10.33.4 (required)
 **Node Version:** >=18
+
+---
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+- **Node.js >=18** — [nodejs.org/en/download](https://nodejs.org/en/download) (verify: `node --version`)
+- **pnpm 10.33.4** — install via npm:
+
+```bash
+npm install -g pnpm@10.33.4
+```
+
+> **Why pnpm?** This monorepo uses pnpm workspaces. The `package.json` pins the exact version (`10.33.4`) via the `packageManager` field — using a different version may cause a silent install failure. Always install the pinned version.
+
+### Install & Run
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/aazucena/aazucena_apps.git
+cd aazucena_apps
+
+# 2. Install all workspace dependencies
+pnpm install
+
+# 3. Copy the environment file for the portfolio
+cp apps/portfolio/.env.example apps/portfolio/.env
+
+# 4. Start the portfolio
+pnpm web:dev
+```
+
+The portfolio will be available at `http://localhost:4321`.
+
+> **No CMS required to run locally.** Every API call falls back to built-in default content if the CMS is unreachable, so the portfolio renders fully — animations, components, and layout — without needing a running Strapi instance. Your own project data (posts, skills, etc.) won't appear until the CMS is connected, but the full frontend experience is visible.
+
+| App                 | Requires         | Command              | URL                   |
+| ------------------- | ---------------- | -------------------- | --------------------- |
+| Portfolio (Astro)   | `.env` copy only | `pnpm web:dev`       | http://localhost:4321 |
+| Storybook           | Nothing          | `pnpm storybook:dev` | http://localhost:6006 |
+| Analytics (Next.js) | ClickHouse + DB  | `pnpm analytics:dev` | http://localhost:3000 |
+| CMS (Strapi)        | PostgreSQL       | `pnpm cms:dev`       | http://localhost:1337 |
+
+> **Note:** Running all apps simultaneously (`pnpm dev`) requires significant RAM (~8GB free). Start with `pnpm web:dev` for the portfolio or `pnpm storybook:dev` for the component library.
+
+---
 
 ## 🎯 Quick Links
 
 - **[Full ROADMAP](./ROADMAP.md)** - Complete development roadmap with phases and features
 - **[Documentation Hub](./docs/README.md)** - Detailed implementation guides
-- **[Phase 2 (Current Priority)](./docs/phase-2-component-architecture.md)** - Component Architecture
+- **[Phase 5 (Current Priority)](./docs/phase-5-testing.md)** - Testing & Quality
 
 ---
 
@@ -22,7 +77,7 @@ aazucena_apps/
 │   ├── analytics/          # AZUCENA_LYTICS: Engineering Intelligence Terminal (Next.js)
 │   └── cms/                # Strapi CMS backend
 ├── packages/               # 13 specialized packages (Phase 4)
-│   ├── design-system/      # Design tokens + documentation
+│   ├── design-system/      # Design tokens + 35 platform integrations + docs
 │   ├── ui/                 # Component library (ShadCN + composed)
 │   ├── hooks/              # React hooks library
 │   ├── utils/              # Pure utility functions
@@ -45,6 +100,7 @@ aazucena_apps/
 ## 🚀 Essential Commands
 
 ### Development
+
 ```bash
 # Run all workspaces in dev mode
 pnpm dev
@@ -66,7 +122,9 @@ pnpm format
 ```
 
 ### Portfolio-Specific Commands
+
 From `apps/portfolio/`:
+
 ```bash
 # Development server (Astro)
 pnpm dev
@@ -79,7 +137,9 @@ pnpm preview
 ```
 
 ### Analytics-Specific Commands
+
 From `apps/analytics/`:
+
 ```bash
 # Development server (Next.js)
 pnpm dev
@@ -89,6 +149,7 @@ pnpm build
 ```
 
 ### Testing
+
 ```bash
 # E2E tests (Playwright) - from portfolio directory
 pnpm dlx playwright test
@@ -110,6 +171,7 @@ pnpm dlx playwright show-report
 ## 🛠️ Tech Stack
 
 ### Frontend & Analytics
+
 - **Frameworks:** Astro (Portfolio), Next.js 15 (Analytics)
 - **Build Tool:** Vite, Turbo
 - **UI Library:** React 19 with TypeScript
@@ -125,8 +187,9 @@ pnpm dlx playwright show-report
 - **State Management:** Redux Toolkit (Analytics), React Context API + Custom Hooks (Portfolio)
 
 ### Backend & Infrastructure
+
 - **CMS:** Strapi v5
-- **Databases:** 
+- **Databases:**
   - PostgreSQL 16+ with pgVector extension (App Data)
   - ClickHouse (OLAP Analytics Data)
 - **Storage:** Cloudinary
@@ -137,11 +200,13 @@ pnpm dlx playwright show-report
 - **CI/CD:** CircleCI (CMS only)
 
 ### Monitoring & Logging
+
 - **Frontend:** Sentry, Vercel Analytics, Vercel Speed Insights
 - **Backend:** Pino, Sentry
 - **Caching:** Redis
 
 ### Development Tools
+
 - **Design:** Figma
 - **Component Dev:** Storybook
 - **Visual Testing:** Chromatic
@@ -149,6 +214,7 @@ pnpm dlx playwright show-report
 - **API Testing:** Postman
 
 ### AI/ML
+
 - **LLM Orchestration:** LangChain, LangGraph
 - **Observability:** LangSmith
 - **Primary LLM:** Anthropic Claude 3.5 Sonnet
@@ -163,6 +229,7 @@ pnpm dlx playwright show-report
 - **ML Frameworks:** PyTorch/TensorFlow (optional, for advanced features)
 
 ### API Integrations
+
 - YouTube, LinkedIn, Spotify, SoundCloud, Weather, WakaTime, SendGrid/Resend, Ko-fi, reCAPTCHA v3
 
 ---
@@ -172,14 +239,16 @@ pnpm dlx playwright show-report
 All detailed implementation guides, code examples, and specifications are in the **[`docs/`](./docs/)** folder:
 
 ### Phase Documentation
+
 - [Phase 0: Infrastructure](./docs/phase-0-infrastructure.md) ✅ COMPLETED
 - [Phase 1: Animations Refactoring](./docs/phase-1-animations-refactoring.md) ✅ COMPLETED
 - [Phase 2: Component Architecture](./docs/phase-2-component-architecture.md) ✅ COMPLETED
-- [Phase 3: Performance](./docs/phase-3-performance.md) 🔥 **CURRENT PRIORITY**
-- [Phase 4: Developer Experience](./docs/phase-4-developer-experience.md)
-- [Phase 5: Testing](./docs/phase-5-testing.md)
+- [Phase 3: Performance](./docs/phase-3-performance.md) ✅ COMPLETED
+- [Phase 4: Developer Experience](./docs/phase-4-developer-experience.md) ✅ COMPLETED
+- [Phase 5: Testing](./docs/phase-5-testing.md) 🔥 **CURRENT PRIORITY**
 
 ### Feature Documentation
+
 - [Music Player & Compositions](./docs/features/music-player.md)
 - [Strudel.cc Live Coding](./docs/features/strudel-integration.md)
 - [AI-Powered Forms](./docs/features/ai-forms.md) - Comprehensive with vector search
@@ -216,6 +285,7 @@ Features (as needed) → 3-40 days each
 ## 🎯 Current Status
 
 ### Completed ✅
+
 - **Phase 3:** Performance Optimization (100% complete) - 2026-02-04
   - ✅ 74.3% bundle reduction (410KB → 105KB gzipped)
   - ✅ Exceeded 63% target by 11.3%
@@ -243,18 +313,23 @@ Features (as needed) → 3-40 days each
   - 24 modular API clients, Footer, RSS, Sitemap, 500 error page
   - Fixed rich text rendering and Vercel build configuration
 
-### In Progress 🚧
-- **Phase 4:** Developer Experience (19-20 days, adjusted from 21) - 🔥 CURRENT PRIORITY
-  - 13 specialized packages (design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config)
-  - @aazucena/design-system - Tokens + comprehensive docs
-  - Figma Design System (40+ components)
-  - Storybook (50+ stories)
-  - Chromatic integration
-  - TypeScript strict mode + Git hooks
-  - Zero code duplication (565 lines eliminated)
+- **Phase 4:** Developer Experience (100% complete) - 2026-05-11
+  - ✅ 16 packages scaffolded with full content
+  - ✅ 373+ Storybook stories/docs (260 component, 94 form, charts, animations, MDX)
+  - ✅ 94 form templates + 48 Zod schemas (`@aazucena/forms`)
+  - ✅ Design system: 7 tokens, 18 themes, 35 platform integrations
+  - ✅ TypeScript strict mode (all apps) + Git hooks (Husky + lint-staged)
+  - ✅ All 16 `@aazucena/*` packages integrated into `apps/portfolio/`
+  - ✅ Public Storybook hosting live
+  - ✅ Portfolio & CMS version upgrades complete
+  - ⏳ Chromatic — deferred (paid plan required)
+  - ⏳ Figma Design System — deferred
 
-### Next Up ⏳
-- **Phase 5:** Testing & Quality (Vitest, Playwright)
+### In Progress 🔥
+
+- **Phase 5:** Testing & Quality — CURRENT PRIORITY
+  - ⏳ Vitest unit tests (hooks, utilities — 70–80% coverage target)
+  - ⏳ Playwright E2E (critical user flows — 100% coverage target)
 
 ---
 
@@ -287,8 +362,9 @@ turbo prune
 
 - **Always use pnpm** (never npm or yarn) for consistency
 - **Turborepo caches builds** - use `turbo build --force` to bypass cache
-- **Current Priority:** Phase 4 - Developer Experience (19-20 days, 13 packages, 2 existing) 🔥
-- **Phase 3 Complete:** Performance Optimization - 74.3% bundle reduction (410KB → 105KB)
+- **Current Priority:** Phase 5 - Testing & Quality 🔥
+- **Phase 4 Complete:** Developer Experience — 16 packages, 373+ Storybook stories, public hosting
+- **Phase 3 Complete:** Performance Optimization — 74.3% bundle reduction (410KB → 105KB)
 - **Phase 2 Complete:** Component Architecture - Flat structure (max depth 2), all sections <120 lines
 - **AI Forms:** Comprehensive implementation with pgVector for semantic search, embeddings, and RAG capabilities
 - **Strapi v5:** Upgraded for better PostgreSQL integration and pgVector support
@@ -305,51 +381,8 @@ This is a personal portfolio project. For major changes or suggestions:
 
 ---
 
-**Last Updated:** 2026-02-04
+**Last Updated:** 2026-05-11
 
-**Recent Changes:**
-- ✅ **Phase 4 Documentation Updated (2026-02-04):**
-  - Enhanced architecture plan: 4 → 13 specialized packages
-  - Renamed @aazucena/design-tokens → @aazucena/design-system (expanded scope)
-  - Renamed @aazucena/data → @aazucena/api (more descriptive)
-  - Timeline refined: 16-22 days → 21 days
-  - Package breakdown: design-system, ui, hooks, utils, types, constants, animations, api, forms, layouts, icons, analytics, config
-  - Complete responsibility matrix with sizes and priorities
-  - All docs synchronized (ROADMAP.md, CLAUDE.md, README.md, GEMINI.md)
-- ✅ **Phase 3 Complete - Performance Optimization (2026-02-04):**
-  - 74.3% bundle reduction (410KB → 105KB gzipped)
-  - Exceeded 63% target by 11.3%
-  - Lazy loading: AnimationCanvas (-302KB), Modals (-2.7KB), Atmospheric layers
-  - Demand-based rendering: Three.js frameloop='demand'
-  - React 19 polyfill: suspendOnActiveViewTransition workaround
-  - Progressive enhancement: content first, animations second
-  - Time to Interactive: 5-6s → 1.5-2s (67% faster)
-- ✅ **IntegrityBadge Component (2026-02-04):**
-  - Real-time system health indicator in Footer
-  - 4 states: OPERATIONAL (green pulse), DEGRADED (amber), UNKNOWN (gray), LOADING (blue pulse)
-  - Links to AZUCENA_LYTICS status dashboard
-- ✅ **Edge Runtime Ingestion (2026-02-04):**
-  - Vercel Edge Runtime for <50ms response times
-  - Native geo-headers (x-vercel-ip-country/city/lat/lon) - eliminated ip-api.com dependency
-- ✅ **Phase 2 Complete - Component Architecture (2026-02-02):**
-  - Scene directory flattening (depth 3 → 2)
-  - Deleted 24 legacy files (ground/, .BACKUP.tsx files, utilities redirect)
-  - Moved 7 layer files from scene/layers/ → scene/
-  - Updated 7 files with new import paths
-  - Homepage restructuring (animations → homepage)
-  - Journey restructuring (type-first: ui/journey, visualizations/journey)
-  - All 8 sections now <120 lines (component extraction complete)
-  - Template system (3 templates)
-  - Utility refactoring (15 specialized modules)
-  - Common components (6 new reusable components)
-  - Site config centralization
-  - CMS integration (Navigation Plugin, Footer)
-  - Build verified: 35.89s, all 18 pages rendered, zero TypeScript errors
-- ✅ **Footer CMS Implementation (2026-01-27):**
-  - Extended `website-configuration` with footer fields
-  - Dynamic tech stack with `ui.tech-stack-item` component
-- ✅ **Navigation Plugin Integration (2026-01-27):**
-  - CMS-driven navigation with custom fields
-  - Performance: API calls reduced 3→2 (33% faster)
+See **[CHANGELOG.md](./CHANGELOG.md)** for the full history of changes.
 
-**Current Priority:** Phase 4 - Developer Experience 🔥
+**Current Priority:** Phase 5 - Testing & Quality 🔥

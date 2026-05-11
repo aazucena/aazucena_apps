@@ -1,20 +1,24 @@
 ---
 import {
-ArrowRight,
-Briefcase,
-Calendar,
-Globe,
-Location
-} from '@mynaui/icons-react';
-import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
-import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
-import { MetricCard } from '~/components/ui/MetricCard';
-import { RelatedLinks } from '~/components/ui/RelatedLinks';
-import { TechStackDistribution } from '~/components/ui/TechStackDistribution';
-import DetailLayout from '~/layouts/DetailLayout.astro';
-import { getExperiences } from '~/lib/api/experiences';
-import { calculateDuration, getCompanyInitials, getCompanyLogoGradient } from '~/lib/utils/experiences';
+  ArrowRight,
+  Briefcase,
+  Calendar,
+  Globe,
+  Location,
+} from "@aazucena/icons";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
+import { MarkdownRenderer } from "@aazucena/ui";
+import MetricCard from "~/components/ui/MetricCard.astro";
+import { RelatedLinks } from "~/components/ui/RelatedLinks";
+import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
+import DetailLayout from "~/layouts/DetailLayout.astro";
+import { getExperiences } from "@aazucena/api";
+import {
+  calculateDuration,
+  getCompanyInitials,
+  getCompanyLogoGradient,
+} from "@aazucena/utils";
 
 // Generate static paths for all experiences and pass data via props
 export async function getStaticPaths() {
@@ -23,19 +27,20 @@ export async function getStaticPaths() {
 
     return experiences.map((experience, index) => {
       const nextExperience = index > 0 ? experiences[index - 1] : null;
-      const prevExperience = index < experiences.length - 1 ? experiences[index + 1] : null;
+      const prevExperience =
+        index < experiences.length - 1 ? experiences[index + 1] : null;
 
       return {
         params: { slug: experience.slug },
         props: {
           experience,
           nextExperience,
-          prevExperience
+          prevExperience,
         },
       };
     });
   } catch (error) {
-    console.error('Error generating experience paths:', error);
+    console.error("Error generating experience paths:", error);
     return [];
   }
 }
@@ -43,25 +48,31 @@ export async function getStaticPaths() {
 const { experience, nextExperience, prevExperience } = Astro.props;
 
 if (!experience) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 // Extract Impact Metrics
 const extractedMetrics = (experience.achievements || [])
-  .filter(achievement => /([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/.test(achievement.title))
-  .map(achievement => {
-    const match = achievement.title.match(/([$+]?[\d\.,]+(?:%|\+|x|k|M|B)?)/);
+  .filter((achievement) =>
+    /([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/.test(achievement.title),
+  )
+  .map((achievement) => {
+    const match = achievement.title.match(/([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/);
     if (!match) return null;
     const value = match[0];
-    let label = achievement.title.replace(value, '').trim();
-    label = label.replace(/^(increase(d)?|decrease(d)?|reduction|growth|boost(ed)?)(\s+(by|in|of))?\s*/i, '');
+    let label = achievement.title.replace(value, "").trim();
+    // Anchored at ^ so no backtracking risk; safe-regex flags it as a false positive
+    // eslint-disable-next-line security/detect-unsafe-regex
+    const labelPrefixRe =
+      /^(?:increased?|decreased?|reduction|growth|boosted?)(?:\s+(?:by|in|of))?\s*/i;
+    label = label.replace(labelPrefixRe, "");
     if (label.length < 2) label = achievement.title;
 
     return {
       value,
       label,
       description: achievement.description,
-      icon: achievement.icon
+      icon: achievement.icon,
     };
   })
   .filter(Boolean)
@@ -72,74 +83,108 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Person",
-      "name": "Aldrin Azucena",
-      "worksFor": { "@type": "Organization", "name": experience.company },
-      "jobTitle": experience.position,
-      "startDate": experience.startDate,
-      "endDate": experience.endDate || undefined
-    }
-  ]
+      name: "Aldrin Azucena",
+      worksFor: { "@type": "Organization", name: experience.company },
+      jobTitle: experience.position,
+      startDate: experience.startDate,
+      endDate: experience.endDate || undefined,
+    },
+  ],
 };
 
 const breadcrumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Journey', href: '/experiences' },
-  { label: experience.company }
+  { label: "Home", href: "/" },
+  { label: "Journey", href: "/experiences" },
+  { label: experience.company },
 ];
 ---
 
 <DetailLayout
   title={`${experience.position} | ${experience.company}`}
-  description={experience.description}
+  description={experience.description as string}
   jsonLd={jsonLd}
   breadcrumbs={breadcrumbs}
   watermarkText="EXPERIENCE"
   watermarkSize="medium"
   maxWidth="5xl"
   hasSidebar={true}
-  prevItem={nextExperience ? { slug: nextExperience.slug, title: nextExperience.position } : null}
-  nextItem={prevExperience ? { slug: prevExperience.slug, title: prevExperience.position } : null}
+  prevItem={prevExperience
+    ? { slug: prevExperience.slug, title: prevExperience.position }
+    : null}
+  nextItem={nextExperience
+    ? { slug: nextExperience.slug, title: nextExperience.position }
+    : null}
   basePath="/experiences"
-  prevLabel="Next Role"
-  nextLabel="Previous Role"
+  prevLabel="Previous Role"
+  nextLabel="Next Role"
   tocSelector="#case-study-content"
 >
   <!-- Header slot: company logo, position, meta summary grid -->
   <Fragment slot="header">
-    <div class="flex flex-col md:flex-row md:items-start gap-8">
-      <div class={`flex-shrink-0 w-24 h-24 rounded-[2rem] bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} flex items-center justify-center text-white font-black text-3xl shadow-2xl overflow-hidden`}>
-        {experience.companyLogo?.url ? (
-          <img src={experience.companyLogo.url} alt={experience.company} class="w-full h-full object-cover" />
-        ) : (
-          getCompanyInitials(experience.company)
-        )}
+    <div class="flex flex-col gap-8 md:flex-row md:items-start">
+      <div
+        class={`flex-shrink-0 w-24 h-24 rounded-[2rem] flex items-center justify-center font-black text-3xl shadow-2xl overflow-hidden ${experience.companyLogo?.url ? "bg-white" : `bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} text-white`}`}
+      >
+        {
+          experience.companyLogo?.url ? (
+            <img
+              src={experience.companyLogo.url}
+              alt={experience.company}
+              class="h-full w-full object-contain p-2"
+            />
+          ) : (
+            getCompanyInitials(experience.company)
+          )
+        }
       </div>
       <div class="flex-1 space-y-4 text-center md:text-left">
-        <h1 class="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-none tracking-tighter">
+        <h1
+          class="text-4xl leading-none font-black tracking-tighter text-gray-900 md:text-6xl dark:text-white"
+        >
           {experience.position}<span class="text-blue-600">.</span>
         </h1>
-        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400 tracking-tight">
+        <div
+          class="text-2xl font-bold tracking-tight text-blue-600 dark:text-blue-400"
+        >
           {experience.company}
         </div>
       </div>
     </div>
 
     <!-- Meta Summary Grid -->
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-gray-50 dark:bg-gray-900/50 rounded-[2rem] border border-gray-100 dark:border-gray-800">
-      {[
-        { label: 'Duration', value: calculateDuration(experience.startDate, experience.endDate, !experience.endDate), icon: Calendar },
-        { label: 'Location', value: experience.location, icon: Location },
-        { label: 'Engagement', value: experience.employmentType, icon: Briefcase },
-        { label: 'Environment', value: experience.workMode, icon: Globe }
-      ].map(stat => (
-        <div class="space-y-1">
-          <div class="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-gray-400">
-            <stat.icon size={12} className="text-blue-500" />
-            {stat.label}
+    <div
+      class="mt-12 grid grid-cols-2 gap-6 rounded-[2rem] border border-gray-100 bg-gray-50 p-8 md:grid-cols-4 dark:border-gray-800 dark:bg-gray-900/50"
+    >
+      {
+        [
+          {
+            label: "Duration",
+            value: calculateDuration(
+              experience.startDate,
+              experience.endDate,
+              !experience.endDate,
+            ),
+            icon: Calendar,
+          },
+          { label: "Location", value: experience.location, icon: Location },
+          {
+            label: "Engagement",
+            value: experience.employmentType,
+            icon: Briefcase,
+          },
+          { label: "Environment", value: experience.workMode, icon: Globe },
+        ].map((stat) => (
+          <div class="space-y-1">
+            <div class="flex items-center gap-2 text-[9px] font-black tracking-widest text-gray-400 uppercase">
+              <stat.icon size={12} className="text-blue-500" />
+              {stat.label}
+            </div>
+            <div class="text-sm font-bold text-gray-900 dark:text-white">
+              {stat.value}
+            </div>
           </div>
-          <div class="text-sm font-bold text-gray-900 dark:text-white">{stat.value}</div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </Fragment>
 
@@ -147,89 +192,152 @@ const breadcrumbs = [
   <Fragment slot="content">
     <!-- Overview -->
     <section id="overview" class="space-y-8">
-      <h2 class="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">Mission Overview</h2>
-      <article class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed">
-        <MarkdownRenderer content={experience.description} />
+      <h2
+        class="text-3xl font-black tracking-tighter text-gray-900 dark:text-white"
+      >
+        Mission Overview
+      </h2>
+      <article
+        class="prose prose-lg dark:prose-invert prose-p:leading-relaxed max-w-none"
+      >
+        <MarkdownRenderer content={experience.description as string} />
       </article>
     </section>
 
     <!-- Impact -->
-    {extractedMetrics.length > 0 && (
-      <section id="impact" class="space-y-10">
-        <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">Core Impact</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {extractedMetrics.map(metric => (
-            <MetricCard client:visible {...metric} />
-          ))}
-        </div>
-      </section>
-    )}
+    {
+      extractedMetrics.length > 0 && (
+        <section id="impact" class="space-y-10">
+          <h2 class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
+            Core Impact
+          </h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {extractedMetrics.map((metric) => (
+              <MetricCard {...metric} />
+            ))}
+          </div>
+        </section>
+      )
+    }
 
     <!-- Responsibilities -->
-    {experience.responsibilities && (
-      <section id="responsibilities" class="space-y-10">
-        <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">Architecture & Responsibilities</h2>
-        <div class="p-10 bg-gray-50 dark:bg-gray-900/30 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 prose prose-md dark:prose-invert max-w-none">
-          <BlocksRenderer content={experience.responsibilities} blocks={defaultBlockRenderers} />
-        </div>
-      </section>
-    )}
+    {
+      experience.responsibilities && (
+        <section id="responsibilities" class="space-y-10">
+          <h2 class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
+            Architecture & Responsibilities
+          </h2>
+          <div class="prose prose-md dark:prose-invert max-w-none rounded-[2.5rem] border border-gray-100 bg-gray-50 p-10 dark:border-gray-800 dark:bg-gray-900/30">
+            <BlocksRenderer
+              content={
+                experience.responsibilities as import("@strapi/blocks-react-renderer").BlocksContent
+              }
+              blocks={defaultBlockRenderers}
+            />
+          </div>
+        </section>
+      )
+    }
 
     <!-- Projects -->
-    {experience.projects && experience.projects.length > 0 && (
-      <section id="projects" class="space-y-10">
-        <div class="flex items-center gap-4">
-          <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">Featured Work</h2>
-          <div class="flex-grow h-px bg-gray-100 dark:bg-gray-800"></div>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {experience.projects.map(project => (
-            <a href={`/projects/${project.slug}`} class="group p-8 rounded-[2rem] bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:border-blue-500/20 transition-all duration-500 flex flex-col h-full">
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">{project.title}</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 flex-grow mb-6">{project.shortDescription}</p>
-              <div class="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
-                View Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
+    {
+      experience.projects && experience.projects.length > 0 && (
+        <section id="projects" class="space-y-10">
+          <div class="flex items-center gap-4">
+            <h2 class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
+              Featured Work
+            </h2>
+            <div class="h-px flex-grow bg-gray-100 dark:bg-gray-800" />
+          </div>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {experience.projects.map((project) => (
+              <a
+                href={`/projects/${project.slug}`}
+                class="group flex h-full flex-col rounded-[2rem] border border-gray-100 bg-white p-8 transition-all duration-500 hover:border-blue-500/20 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900"
+              >
+                <h3 class="mb-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white">
+                  {project.title}
+                </h3>
+                <p class="mb-6 line-clamp-2 flex-grow text-sm text-gray-500 dark:text-gray-400">
+                  {project.shortDescription}
+                </p>
+                <div class="flex items-center gap-2 text-xs font-black tracking-widest text-blue-600 uppercase dark:text-blue-400">
+                  View Study{" "}
+                  <ArrowRight
+                    size={14}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
   </Fragment>
 
   <!-- Sidebar slot: tech distribution, company info, related links -->
   <Fragment slot="sidebar">
     <!-- Tech Distribution -->
-    <div class="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
-      <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+    <div
+      class="space-y-8 rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <h2
+        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
+      >
         Technology DNA
       </h2>
       <TechStackDistribution skills={experience.skills} client:visible />
     </div>
 
     <!-- Company Info -->
-    <div class="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
-      <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+    <div
+      class="space-y-8 rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <h2
+        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
+      >
         The Organization
       </h2>
       <div class="space-y-6">
-        {[
-          { label: 'Industry', value: experience.industry },
-          { label: 'Company Size', value: experience.companySize },
-          { label: 'Website', value: experience.companyWebsite, isLink: true },
-          { label: 'LinkedIn', value: experience.companyLinkedIn, isLink: true }
-        ].map(item => item.value && (
-          <div>
-            <div class="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">{item.label}</div>
-            {item.isLink ? (
-              <a href={item.value} target="_blank" class="text-sm font-bold text-blue-600 hover:underline flex items-center gap-1.5 truncate">
-                {new URL(item.value).hostname} <ArrowRight size={12} />
-              </a>
-            ) : (
-              <div class="text-sm font-bold text-gray-900 dark:text-white capitalize">{item.value}</div>
-            )}
-          </div>
-        ))}
+        {
+          [
+            { label: "Industry", value: experience.industry },
+            { label: "Company Size", value: experience.companySize },
+            {
+              label: "Website",
+              value: experience.companyWebsite,
+              isLink: true,
+            },
+            {
+              label: "LinkedIn",
+              value: experience.companyLinkedIn,
+              isLink: true,
+            },
+          ].map(
+            (item) =>
+              item.value && (
+                <div>
+                  <div class="mb-1 text-[9px] font-black tracking-widest text-gray-400 uppercase">
+                    {item.label}
+                  </div>
+                  {item.isLink ? (
+                    <a
+                      href={item.value}
+                      target="_blank"
+                      class="flex items-center gap-1.5 truncate text-sm font-bold text-blue-600 hover:underline"
+                    >
+                      {new URL(item.value).hostname} <ArrowRight size={12} />
+                    </a>
+                  ) : (
+                    <div class="text-sm font-bold text-gray-900 capitalize dark:text-white">
+                      {item.value}
+                    </div>
+                  )}
+                </div>
+              ),
+          )
+        }
       </div>
     </div>
 

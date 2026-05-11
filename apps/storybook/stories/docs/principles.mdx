@@ -1,0 +1,42 @@
+{/* docs/principles.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Principles" />
+
+# Design & Engineering Principles
+
+The **@aazucena** design system is guided by a set of core principles that balance technical rigor with human-centric design. These principles ensure consistency and quality across every node in the ecosystem.
+
+---
+
+## 1. Mathematical Precision
+Every visual element is anchored to a mathematical protocol. We use a **4px baseline grid**, perceptually uniform **OKLCH color scales**, and standardized **Z-index hierarchies**.
+*   *Action:* If a spacing value or color feels "off," check it against the tokens. Avoid "magic numbers" in CSS.
+
+## 2. Technical Authenticity
+We embrace the "Machine" in our design. Code is not just a tool; it's an aesthetic. We use **Monospace typography** for technical data, high-fidelity **Syntax Highlighting**, and **Terminal-inspired** UI components.
+*   *Action:* Show the "Work." Don't hide complexity where it adds value or technical trust.
+
+## 3. Intelligence-First Architecture
+Designed for agentic workflows and telemetry-rich environments. The UI should prioritize **Data Density** and **Real-time State Signaling** without overwhelming the user.
+*   *Action:* Use `IntegrityBadge` and status indicators to keep the user informed of the system's "Mental State."
+
+## 4. Progressive Enhancement
+Core content must be accessible and performant on all devices. Advanced animations (Three.js, PixiJS) are treated as "Atmospheric Layers" that enhance the experience on high-capability hardware.
+*   *Action:* Always check `capabilities.canUseHeavyAnimations` before initializing expensive canvas layers.
+
+## 5. Content-Driven Logic
+Design follows content. We use real data from the **Strapi CMS** early in the development cycle to ensure the interface handles variable lengths and complex edge cases.
+*   *Action:* Avoid `Lorem Ipsum`. Test with actual technical dossiers and intelligence logs.
+
+## 6. Mechanical Fidelity
+3D objects and animations must respect physical or canon-logical rules. We use **Inverse Kinematics** for realistic character motion and strictly follow **Canon Landmarks** for pop-culture recreations.
+*   *Action:* Ensure legs stay on pedals and wings flap from shoulder joints. Authenticity breeds technical trust.
+
+---
+
+## Technical Verification
+These principles are not just guidelines; they are enforced through our **Verification Suite**:
+- **Linting:** Standardized coding styles.
+- **Visual Regression:** Captured via Chromatic.
+- **Type Safety:** Enforced via TypeScript Strict Mode.

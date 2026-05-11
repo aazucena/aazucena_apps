@@ -1,0 +1,42 @@
+{
+  "name": "@aazucena/forms",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schemas": "./src/schemas/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./templates": "./src/templates/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@aazucena/api": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@aazucena/ui": "workspace:*",
+    "@aazucena/utils": "workspace:*",
+    "@nanostores/react": "^0.8.4",
+    "@tanstack/react-form": "^1.28.5",
+    "@tanstack/react-query": "^5.95.2",
+    "@tanstack/zod-form-adapter": "^0.42.1",
+    "framer-motion": "^11.15.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
+    "react": "^19.2.3",
+    "react-redux": "^9.2.0"
+  },
+  "sideEffects": false
+}

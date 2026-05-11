@@ -1,0 +1,40 @@
+{
+  "name": "@aazucena/utils",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aazucena/constants": "workspace:*",
+    "@aazucena/types": "workspace:*",
+    "@types/remove-markdown": "^0.3.4",
+    "clsx": "^2.1.1",
+    "flexsearch": "^0.8.212",
+    "lodash-es": "^4.17.23",
+    "luxon": "^3.5.0",
+    "make-plural": "^8.1.0",
+    "remove-markdown": "^0.6.3",
+    "shiki": "^3.23.0",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "@aazucena/config": "workspace:*",
+    "@types/lodash-es": "^4.17.12",
+    "@types/luxon": "^3.4.2",
+    "typescript": "^5.6.3"
+  },
+  "sideEffects": false
+}

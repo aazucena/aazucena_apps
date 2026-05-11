@@ -1,0 +1,72 @@
+{/* design-tokens/themes/autumn.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Autumn" />
+
+# Autumn Vibe
+
+Warm, cozy, and earthy. Reflects the changing of the seasons with deep oranges, browns, and soft, long shadows.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Orange 700" colors={{ primary: '#c2410c' }} />
+  <ColorItem title="Secondary" subtitle="Emerald 900" colors={{ secondary: '#064e3b' }} />
+  <ColorItem title="Background" subtitle="Amber 50" colors={{ background: '#fff7ed' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Orange 500" colors={{ primary: '#f97316' }} />
+  <ColorItem title="Secondary" subtitle="Orange 950" colors={{ secondary: '#431407' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: '#09090b' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Orange (Cozy Primary)
+<ColorPalette>
+  <ColorItem
+    title="Orange Scale"
+    subtitle="Autumnal base"
+    colors={{
+      50: '#fff7ed',
+      100: '#ffedd5',
+      200: '#fed7aa',
+      300: '#fdba74',
+      400: '#fb923c',
+      500: '#f97316',
+      600: '#ea580c',
+      700: '#c2410c',
+      800: '#9a3412',
+      900: '#7c2d12',
+      950: '#431407',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `6px` (Light) / `10px` (Dark) |
+| Card Radius | `1rem` |
+| Shadow | `Deep / Autumn Glow` |
+| Animation Speed | `1.2` (Light) / `1.1` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `serif` |
+| Body Font | `sans` |
+| Title Weight | `700` |

@@ -1,0 +1,21 @@
+/* Entry point for Storybook styles.
+   CSS vars are imported in preview.ts from @aazucena/design-system.
+   This file handles Tailwind processing ONCE via the Vite plugin. */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@config '../tailwind.config.ts';
+@import '@aazucena/ui/globals.css';
+
+/* Storybook canvas — sync background and text with the active theme.
+   Without this, toggling dark/light only affects components, not the
+   surrounding canvas area. */
+html,
+body,
+#storybook-root,
+#storybook-docs {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}

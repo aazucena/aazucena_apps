@@ -4,47 +4,58 @@
  * Dynamic content is fetched from Strapi CMS.
  */
 import {
-BookOpen,
-Download,
-Globe,
-LayersOne as Layers,
-Location,
-SmileSquare,
-Wrench,
-} from '@mynaui/icons-react';
-import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-import { defaultBlockRenderers } from '~/components/blocks/BlockRenderers';
-import { IconRenderer } from '~/components/blocks/IconRenderer';
-import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
-import { EducationItem } from '~/components/ui/EducationItem';
-import { WorkingStyleSection } from '~/components/ui/WorkingStyleSection';
-import DetailLayout from '~/layouts/DetailLayout.astro';
-import { getAbout } from '~/lib/api/about';
-import { fetchEducation } from '~/lib/api/education';
-import { getPortfolio } from '~/lib/api/portfolio';
-import { cn } from '~/lib/utils';
-import { getColorClass, getGradientClass } from '~/lib/utils/about';
-import { getAvailabilityIndicator } from '~/lib/utils/availability';
-import type { InterestItem, Language, MasteryItem, RootItem, WorkflowTool } from '~/types/about';
+  BookOpen,
+  Download,
+  Globe,
+  LayersOne as Layers,
+  Location,
+  SmileSquare,
+  Wrench,
+} from "@aazucena/icons";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
+import { IconRenderer } from "@aazucena/ui";
+import { MarkdownRenderer } from "@aazucena/ui";
+import { EducationItem } from "~/components/ui/EducationItem";
+import { ServiceTabs } from "~/components/ui/ServiceTabs";
+import { WorkingStyleSection } from "~/components/ui/WorkingStyleSection";
+import DetailLayout from "~/layouts/DetailLayout.astro";
+import { getAbout } from "@aazucena/api";
+import { fetchEducation } from "@aazucena/api";
+import { getPortfolio } from "@aazucena/api";
+import { getServices } from "@aazucena/api";
+import { cn } from "@aazucena/utils";
+import { getColorClass, getGradientClass } from "@aazucena/utils";
+import { getAvailabilityIndicator } from "@aazucena/utils";
+import type {
+  InterestItem,
+  Language,
+  MasteryItem,
+  RootItem,
+  ServicesData,
+  WorkflowTool,
+} from "@aazucena/types";
 
 // Fetch data in parallel
 let about = null;
 let portfolio = null;
 let education = [];
+let servicesData: ServicesData = { services: [] };
 
 try {
-  [about, portfolio, education] = await Promise.all([
+  [about, portfolio, education, servicesData] = await Promise.all([
     getAbout(),
     getPortfolio(),
-    fetchEducation()
+    fetchEducation(),
+    getServices(),
   ]);
 } catch (error) {
-  console.error('Error fetching data for about page:', error);
-  return Astro.redirect('/404');
+  console.error("Error fetching data for about page:", error);
+  return Astro.redirect("/404");
 }
 
 if (!about || !portfolio) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 const pageTitle = `About | ${portfolio.fullName}`;
@@ -59,52 +70,48 @@ const sortedEducation = [...education].sort((a, b) => {
 });
 
 // Map CMS data using utility helpers
-const mastery: MasteryItem[] = (about.focusAreas || []).map(item => ({
+const mastery: MasteryItem[] = (about.focusAreas || []).map((item: any) => ({
   name: item.title,
   exp: item.experience,
   description: item.description,
-  color: getGradientClass(item.variant)
+  color: getGradientClass(item.variant),
 }));
 
-const roots: RootItem[] = (about.roots || []).map(item => ({
+const roots: RootItem[] = (about.roots || []).map((item: any) => ({
   title: item.title,
   desc: item.description,
   icon: item.icon,
 }));
-
-const interests: InterestItem[] = (about.interests || []).map(item => ({
+const interests: InterestItem[] = (about.interests || []).map((item: any) => ({
   title: item.title,
   desc: item.description,
   icon: item.icon,
-  color: getColorClass(item.variant)
+  color: getColorClass(item.variant),
 }));
 
-const workflow: WorkflowTool[] = (about.workflow || []).map(item => ({
+const workflow: WorkflowTool[] = (about.workflow || []).map((item: any) => ({
   name: item.name,
-  detail: item.detail
+  detail: item.detail,
 }));
 
-const languages: Language[] = (about.languages || []).map(item => ({
+const languages: Language[] = (about.languages || []).map((item: any) => ({
   name: item.name,
-  level: item.level
+  level: item.level,
 }));
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "mainEntity": {
+  mainEntity: {
     "@type": "Person",
-    "name": portfolio.fullName,
-    "jobTitle": portfolio.occupation,
-    "description": about.tagline
-  }
+    name: portfolio.fullName,
+    jobTitle: portfolio.occupation,
+    description: about.tagline,
+  },
 };
 
-const breadcrumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'About' }
-];
-const [ firstName, /*lastName*/ ] = portfolio.fullName.split(' ');
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "About" }];
+const [firstName /*lastName*/] = portfolio.fullName.split(" ");
 ---
 
 <DetailLayout
@@ -119,31 +126,50 @@ const [ firstName, /*lastName*/ ] = portfolio.fullName.split(' ');
   basePath="/"
 >
   <!-- Hero Section Slot -->
-  <div slot="header" class="flex flex-col md:flex-row items-center md:items-start gap-12">
+  <div
+    slot="header"
+    class="flex flex-col items-center gap-12 md:flex-row md:items-start"
+  >
     <!-- Profile Image -->
-    {portfolio.profileImage?.url && (
-      <div class="flex-shrink-0 relative group">
-        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-        <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden border-2 border-white dark:border-gray-800 shadow-2xl">
-          <img
-            src={portfolio.profileImage.url}
-            alt={portfolio.fullName}
-            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          />
+    {
+      portfolio.profileImage?.url && (
+        <div class="group relative flex-shrink-0">
+          <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-600 to-purple-600 opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
+          <div class="relative h-48 w-48 overflow-hidden rounded-3xl border-2 border-white shadow-2xl md:h-64 md:w-64 dark:border-gray-800">
+            <img
+              src={portfolio.profileImage.url}
+              alt={portfolio.fullName}
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+          </div>
         </div>
-      </div>
-    )}
-    
-    <div class={cn("flex-1 text-center md:text-left space-y-6", portfolio.profileImage?.url && "my-auto")}>
+      )
+    }
+
+    <div
+      class={cn(
+        "flex-1 text-center md:text-left space-y-6",
+        portfolio.profileImage?.url && "my-auto",
+      )}
+    >
       <div>
-        <h1 class="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tighter leading-none mb-4">
-          Hi, I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">{firstName}</span>.
+        <h1
+          class="mb-4 text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-7xl dark:text-white"
+        >
+          Hi, I'm <span
+            class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            >{firstName}</span
+          >.
         </h1>
-        <p class="text-2xl md:text-3xl font-bold text-gray-400 dark:text-gray-500 tracking-tight">
+        <p
+          class="text-2xl font-bold tracking-tight text-gray-400 md:text-3xl dark:text-gray-500"
+        >
           {portfolio.occupation}
         </p>
       </div>
-      <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-2xl leading-relaxed">
+      <p
+        class="max-w-2xl text-xl leading-relaxed font-medium text-gray-600 md:text-2xl dark:text-gray-400"
+      >
         {about.tagline}
       </p>
     </div>
@@ -153,205 +179,332 @@ const [ firstName, /*lastName*/ ] = portfolio.fullName.split(' ');
   <Fragment slot="content">
     <!-- 1. Biography -->
     <section id="biography" class="relative">
-      <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-8 tracking-tight">
+      <h2
+        class="mb-8 text-3xl font-black tracking-tight text-gray-900 dark:text-white"
+      >
         The Story So Far
       </h2>
-      <article class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black">
-        {portfolio.bio ? (
-          <MarkdownRenderer content={portfolio.bio} />
-        ) : (
-          <BlocksRenderer content={about.descriptions} blocks={defaultBlockRenderers} />
-        )}
+      <article
+        class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black max-w-none"
+      >
+        {
+          portfolio.bio ? (
+            <MarkdownRenderer content={portfolio.bio as string} />
+          ) : (
+            <BlocksRenderer
+              content={
+                about.descriptions as import("@strapi/blocks-react-renderer").BlocksContent
+              }
+              blocks={defaultBlockRenderers}
+            />
+          )
+        }
       </article>
     </section>
 
     <!-- 1.5 Narrative Roots (The Origins) -->
     <section id="roots" class="space-y-10">
-      <h2 class="text-xs font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">
+      <h2
+        class="text-xs font-black tracking-[0.3em] text-gray-400 uppercase dark:text-gray-500"
+      >
         Narrative Roots
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {roots.map((root) => (
-          <div class="space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 dark:text-gray-600 border border-gray-100 dark:border-gray-800">
-              <IconRenderer icon={root.icon} client:load />
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {
+          roots.map((root) => (
+            <div class="space-y-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-100 bg-gray-50 text-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-600">
+                <IconRenderer client:only="react" icon={root.icon} />
+              </div>
+              <div>
+                <h3 class="mb-1 text-sm font-bold text-gray-900 dark:text-white">
+                  {root.title}
+                </h3>
+                <p class="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                  {root.desc}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{root.title}</h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{root.desc}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </section>
 
     <!-- 2. Core Competencies -->
     <section id="mastery" class="space-y-12">
-      <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
+      <h2
+        class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
+      >
         <Layers size={24} className="text-blue-600" />
         Focus Areas
       </h2>
       <div class="grid grid-cols-1 gap-6">
-        {mastery.map((item) => (
-          <div class="p-8 rounded-3xl bg-gray-50/50 dark:bg-gray-900/30 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-8 items-start hover:border-blue-500/20 transition-all group">
-            <div class="flex-shrink-0">
-              <div class={`w-16 h-1 bg-gradient-to-r ${item.color} rounded-full mb-4`}></div>
-              <div class="text-2xl font-black text-gray-900 dark:text-white">{item.exp}</div>
-              <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">Experience</div>
+        {
+          mastery.map((item) => (
+            <div class="group flex flex-col items-start gap-8 rounded-3xl border border-gray-100 bg-gray-50/50 p-8 transition-all hover:border-blue-500/20 md:flex-row dark:border-gray-800 dark:bg-gray-900/30">
+              <div class="flex-shrink-0">
+                <div
+                  class={`h-1 w-16 bg-gradient-to-r ${item.color} mb-4 rounded-full`}
+                />
+                <div class="text-2xl font-black text-gray-900 dark:text-white">
+                  {item.exp}
+                </div>
+                <div class="text-[10px] font-black tracking-widest text-gray-400 uppercase">
+                  Experience
+                </div>
+              </div>
+              <div class="space-y-3">
+                <h3 class="text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                  {item.name}
+                </h3>
+                <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                  {item.description}
+                </p>
+              </div>
             </div>
-            <div class="space-y-3">
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.name}</h3>
-              <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                {item.description}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </section>
 
-    <!-- 3. Working Style -->
+    <!-- 3. Services -->
+    {
+      servicesData.services.length > 0 && (
+        <section id="services" class="space-y-10">
+          <h2
+            data-toc-label="WHAT I OFFER"
+            class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
+          >
+            <Wrench size={24} className="text-cyan-600" />
+            What I Offer
+            <span class="rounded-full bg-cyan-500/10 px-3 py-1 text-sm font-bold tracking-normal text-cyan-600 normal-case dark:bg-cyan-500/20 dark:text-cyan-400">
+              {servicesData.services.length} services
+            </span>
+          </h2>
+          <ServiceTabs services={servicesData.services} client:visible />
+        </section>
+      )
+    }
+
+    <!-- 4. Working Style -->
     <section id="working-style" class="space-y-12">
-      <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">
+      <h2
+        class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
+      >
         How I Think
       </h2>
-      <WorkingStyleSection client:only="react" workingStyle={about.workingStyle} />
+      <WorkingStyleSection
+        client:only="react"
+        workingStyle={about.workingStyle}
+      />
     </section>
 
-    <!-- 4. Beyond the Screen -->
+    <!-- 5. Beyond the Screen -->
     <section id="interests" class="space-y-10">
-      <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
+      <h2
+        class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
+      >
         <SmileSquare size={24} className="text-orange-500" />
         Beyond the Screen
       </h2>
-      <div class="prose prose-lg dark:prose-invert max-w-none bg-gray-50/50 dark:bg-gray-900/30 p-8 rounded-3xl border border-gray-100 dark:border-gray-800">
+      <div
+        class="prose prose-lg dark:prose-invert max-w-none rounded-3xl border border-gray-100 bg-gray-50/50 p-8 dark:border-gray-800 dark:bg-gray-900/30"
+      >
         <p>
-          My creative life often feels like it's coming full circle. I'm finding that my fascination with <strong>emergent systems</strong> and <strong>expressive rules</strong> translates perfectly between the keyboard and the soundboard.
+          My creative life often feels like it's coming full circle. I'm finding
+          that my fascination with <strong>emergent systems</strong> and <strong
+            >expressive rules</strong
+          > translates perfectly between the keyboard and the soundboard.
         </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 not-prose">
-          {interests.map(interest => (
-            <div class="p-6 rounded-2xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 space-y-4">
-              <div class={`w-10 h-10 rounded-xl flex items-center justify-center ${interest.color}`}>
-                <IconRenderer icon={interest.icon} client:load />
+        <div class="not-prose mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {
+            interests.map((interest) => (
+              <div class="space-y-4 rounded-2xl border border-gray-100 bg-white p-6 dark:border-gray-800 dark:bg-gray-950">
+                <div
+                  class={`flex h-10 w-10 items-center justify-center rounded-xl ${interest.color}`}
+                >
+                  <IconRenderer client:only="react" icon={interest.icon} />
+                </div>
+                <div>
+                  <h3 class="mb-1 text-sm font-bold text-gray-900 dark:text-white">
+                    {interest.title}
+                  </h3>
+                  <p class="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                    {interest.desc}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{interest.title}</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{interest.desc}</p>
-              </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <!-- 5. Education -->
-    {sortedEducation && sortedEducation.length > 0 && (
-      <section id="education" class="space-y-10">
-        <h2 class="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-3">
-          <BookOpen size={24} className="text-blue-600" />
-          Academic Background
-        </h2>
-        <div class="flex flex-col gap-6 px-3">
-          {sortedEducation.map((edu) => (
-            <EducationItem edu={edu} client:visible />
-          ))}
-        </div>
-      </section>
-    )}
+    <!-- 6. Education -->
+    {
+      sortedEducation && sortedEducation.length > 0 && (
+        <section id="education" class="space-y-10">
+          <h2 class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
+            <BookOpen size={24} className="text-blue-600" />
+            Academic Background
+          </h2>
+          <div class="flex flex-col gap-6 px-3">
+            {sortedEducation.map((edu) => (
+              <EducationItem edu={edu} client:visible />
+            ))}
+          </div>
+        </section>
+      )
+    }
   </Fragment>
 
   <!-- Sidebar Slot -->
   <Fragment slot="sidebar">
     <!-- CV Action -->
-    <div class="bg-gray-900 dark:bg-white rounded-3xl p-8 text-white dark:text-gray-900 shadow-2xl relative overflow-hidden group">
-      <div class="absolute top-0 right-0 p-4 opacity-10 rotate-12 group-hover:rotate-0 transition-transform duration-700">
+    <div
+      class="group relative overflow-hidden rounded-3xl bg-gray-900 p-8 text-white shadow-2xl dark:bg-white dark:text-gray-900"
+    >
+      <div
+        class="absolute top-0 right-0 rotate-12 p-4 opacity-10 transition-transform duration-700 group-hover:rotate-0"
+      >
         <Download size={80} />
       </div>
-      <h3 class="text-xl font-bold mb-4 relative z-10">Curriculum Vitae</h3>
-      <p class="text-gray-400 dark:text-gray-500 text-sm mb-8 leading-relaxed relative z-10">
+      <h3 class="relative z-10 mb-4 text-xl font-bold">Curriculum Vitae</h3>
+      <p
+        class="relative z-10 mb-8 text-sm leading-relaxed text-gray-400 dark:text-gray-500"
+      >
         Need a copy for your records? Grab the full technical breakdown here.
       </p>
-      {portfolio.resumeUrl && (
-        <a
-          href={portfolio.resumeUrl}
-          target="_blank"
-          class="flex items-center justify-center gap-3 w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 transition-all shadow-lg active:scale-95 relative z-10"
-        >
-          <Download size={18} />
-          Download PDF
-        </a>
-      )}
+      {
+        portfolio.resumeUrl && (
+          <a
+            href={portfolio.resumeUrl}
+            target="_blank"
+            class="relative z-10 flex w-full items-center justify-center gap-3 rounded-2xl bg-blue-600 py-4 text-xs font-black tracking-widest text-white uppercase shadow-lg transition-all hover:bg-blue-500 active:scale-95"
+          >
+            <Download size={18} />
+            Download PDF
+          </a>
+        )
+      }
     </div>
 
     <!-- Professional Meta -->
-    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
-      <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+    <div
+      class="space-y-8 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <h2
+        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
+      >
         Vital Stats
       </h2>
       <div class="space-y-6">
-        {portfolio.location && (
-          <div class="flex items-center gap-4 group">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
-              <Location size={20} />
+        {
+          portfolio.location && (
+            <div class="group flex items-center gap-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-transform group-hover:scale-110 dark:bg-blue-900/20">
+                <Location size={20} />
+              </div>
+              <div>
+                <div class="text-[10px] font-black tracking-wider text-gray-400 uppercase">
+                  Based in
+                </div>
+                <div class="text-sm font-bold text-gray-900 dark:text-white">
+                  {portfolio.location}
+                </div>
+              </div>
             </div>
-            <div>
-              <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Based in</div>
-              <div class="text-sm font-bold text-gray-900 dark:text-white">{portfolio.location}</div>
-            </div>
-          </div>
-        )}
-        <div class="flex items-center gap-4 group">
-          <div class="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+          )
+        }
+        <div class="group flex items-center gap-4">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 transition-transform group-hover:scale-110 dark:bg-gray-900/20"
+          >
             <div class="relative flex h-2 w-2">
-              {statusIndicator.pulse && (
-                <span class={`animate-ping absolute inline-flex h-full w-full rounded-full ${statusIndicator.color} opacity-75`}></span>
-              )}
-              <span class={`relative inline-flex rounded-full h-2 w-2 ${statusIndicator.color}`}></span>
+              {
+                statusIndicator.pulse && (
+                  <span
+                    class={`absolute inline-flex h-full w-full animate-ping rounded-full ${statusIndicator.color} opacity-75`}
+                  />
+                )
+              }
+              <span
+                class={`relative inline-flex rounded-full h-2 w-2 ${statusIndicator.color}`}
+              ></span>
             </div>
           </div>
           <div>
-            <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">Availability</div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">{portfolio.availabilityStatus}</div>
+            <div
+              class="text-[10px] font-black tracking-wider text-gray-400 uppercase"
+            >
+              Availability
+            </div>
+            <div class="text-sm font-bold text-gray-900 dark:text-white">
+              {portfolio.availabilityStatus}
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Professional Workflow -->
-    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
-      <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+    <div
+      class="space-y-8 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <h2
+        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
+      >
         Modern Workflow
       </h2>
       <div class="space-y-6">
-        {workflow.map(item => (
-          <div class="group">
-            <div class="flex items-center justify-between mb-1">
-              <div class="text-sm font-bold text-gray-900 dark:text-white">{item.name}</div>
-              <Wrench size={14} className="text-gray-300 dark:text-gray-700 group-hover:text-blue-500 transition-colors" />
+        {
+          workflow.map((item) => (
+            <div class="group">
+              <div class="mb-1 flex items-center justify-between">
+                <div class="text-sm font-bold text-gray-900 dark:text-white">
+                  {item.name}
+                </div>
+                <Wrench
+                  size={14}
+                  className="text-gray-300 dark:text-gray-700 group-hover:text-blue-500 transition-colors"
+                />
+              </div>
+              <div class="text-[10px] text-gray-400 italic dark:text-gray-500">
+                {item.detail}
+              </div>
             </div>
-            <div class="text-[10px] text-gray-400 dark:text-gray-500 italic">{item.detail}</div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
 
     <!-- Human Languages -->
-    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 space-y-8">
-      <h2 class="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em] border-b border-gray-100 dark:border-gray-800 pb-4">
+    <div
+      class="space-y-8 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <h2
+        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
+      >
         Communication
       </h2>
       <div class="space-y-6">
-        {languages.map(lang => (
-          <div class="flex items-center gap-4 group">
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform">
-              <Globe size={20} />
+        {
+          languages.map((lang) => (
+            <div class="group flex items-center gap-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-transform group-hover:scale-110 dark:bg-indigo-900/20">
+                <Globe size={20} />
+              </div>
+              <div>
+                <div class="text-[10px] font-black tracking-wider text-gray-400 uppercase">
+                  {lang.name}
+                </div>
+                <div class="text-sm font-bold text-gray-900 dark:text-white">
+                  {lang.level}
+                </div>
+              </div>
             </div>
-            <div>
-              <div class="text-[10px] font-black uppercase tracking-wider text-gray-400">{lang.name}</div>
-              <div class="text-sm font-bold text-gray-900 dark:text-white">{lang.level}</div>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </Fragment>

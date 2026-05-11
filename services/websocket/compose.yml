@@ -1,0 +1,16 @@
+services:
+  websocket:
+    container_name: aazucena-websocket
+    image: aazucena/websocket:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - WS_PORT=3001
+      - WS_INTERNAL_SECRET=${WS_INTERNAL_SECRET:-dev-secret-123}
+      - INTERNAL_INGEST_URL=http://host.docker.internal:8080/api/ingest
+    restart: unless-stopped

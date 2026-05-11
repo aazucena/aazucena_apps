@@ -1,18 +1,24 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from "eslint-plugin-storybook";
+import eslintConfigAstro from '@aazucena/config/eslint/astro.js';
+import storybook from 'eslint-plugin-storybook';
 
-import { defineConfig } from "eslint/config";
-import eslintConfigAstro from "@aazucena/shared/eslint/astro.js";
-
-
-/** @type {import("eslint").Linter.Config} */
-export default defineConfig([
+/** @type {import("eslint").Linter.Config[]} */
+export default [
+  ...eslintConfigAstro,
   {
-    ...eslintConfigAstro,
-    plugins: [...eslintConfigAstro.plugins, storybook],
+    files: ['**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)', '**/*.story.@(ts|tsx|js|jsx|mjs|cjs)'],
+    plugins: {
+      storybook,
+    },
     rules: {
-      ...eslintConfigAstro.rules,
       ...storybook.configs.recommended.rules,
     },
   },
-]);
+  {
+    // react-hooks v7 React Compiler rules are not applicable to a component library
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      'react-hooks/purity': 'off',
+      'react-hooks/refs': 'off',
+    },
+  },
+];

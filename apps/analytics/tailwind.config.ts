@@ -1,10 +1,10 @@
 import type { Config } from 'tailwindcss';
 import typographyPlugin from '@tailwindcss/typography';
-import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
   darkMode: 'class',
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       colors: {
@@ -158,14 +158,14 @@ const config: Config = {
 
       fontSize: {
         // Typography scale from design system
-        'h1': ['32px', { lineHeight: '1.2', fontWeight: '700' }],
-        'h2': ['24px', { lineHeight: '1.3', fontWeight: '700' }],
-        'h3': ['20px', { lineHeight: '1.4', fontWeight: '700' }],
-        'h4': ['18px', { lineHeight: '1.4', fontWeight: '700' }],
-        'h5': ['16px', { lineHeight: '1.5', fontWeight: '700' }],
-        'h6': ['14px', { lineHeight: '1.5', fontWeight: '700' }],
-        'body': ['16px', { lineHeight: '1.5', fontWeight: '400' }],
-        'caption': ['14px', { lineHeight: '1.4', fontWeight: '400' }],
+        h1: ['32px', { lineHeight: '1.2', fontWeight: '700' }],
+        h2: ['24px', { lineHeight: '1.3', fontWeight: '700' }],
+        h3: ['20px', { lineHeight: '1.4', fontWeight: '700' }],
+        h4: ['18px', { lineHeight: '1.4', fontWeight: '700' }],
+        h5: ['16px', { lineHeight: '1.5', fontWeight: '700' }],
+        h6: ['14px', { lineHeight: '1.5', fontWeight: '700' }],
+        body: ['16px', { lineHeight: '1.5', fontWeight: '400' }],
+        caption: ['14px', { lineHeight: '1.4', fontWeight: '400' }],
       },
 
       spacing: {
@@ -184,13 +184,13 @@ const config: Config = {
 
       gridTemplateColumns: {
         // Custom grid layouts
-        'desktop': 'repeat(12, 1fr)',
-        'mobile': 'repeat(4, 1fr)',
+        desktop: 'repeat(12, 1fr)',
+        mobile: 'repeat(4, 1fr)',
       },
 
       gap: {
-        'desktop': '24px',
-        'mobile': '16px',
+        desktop: '24px',
+        mobile: '16px',
       },
 
       keyframes: {
@@ -251,14 +251,11 @@ const config: Config = {
       },
 
       maxWidth: {
-        'container': '1200px',
+        container: '1200px',
       },
     },
   },
-  plugins: [
-    typographyPlugin,
-    tailwindcssAnimate,
-  ]
-}
+  plugins: [typographyPlugin, tailwindcssAnimate],
+};
 
 export default config;

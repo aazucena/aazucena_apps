@@ -1,0 +1,126 @@
+{/* stories/icons/proprietary-assets.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+import { 
+  Brand, 
+  AwardBadge, 
+  Viewports, 
+  ScrollDown, 
+  Empty, 
+  Vector,
+  Strudel,
+  Tidalcycles,
+  Phaser
+} from '@aazucena/icons';
+
+<Meta title="Icons/Proprietary Assets" />
+
+# Proprietary Assets
+
+This library contains the unique visual marks and hand-crafted implementations that define the **@aazucena** digital identity. Unlike standard library icons, these assets are proprietary or custom-engineered for specific creative protocols.
+
+---
+
+## 🏗️ Core Brand Identity
+
+These marks are the primary visual identifiers for the monorepo and its associated nodes. They are theme-reactive and designed for high-impact display.
+
+<div className="p-12 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 relative overflow-hidden group">
+  <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)]" />
+  
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+    
+    {/* Brand Logo */}
+    <div className="flex flex-col items-center gap-6 group/item">
+      <div className="w-32 h-32 text-[var(--primary)] transition-all duration-700 group-hover/item:scale-110 group-hover/item:text-[var(--foreground)] drop-shadow-[0_0_15px_var(--primary)]">
+        <Brand size="100%" />
+      </div>
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--primary)] font-black uppercase tracking-[0.2em]">Key: BrandLogo</span>
+        <span className="block font-bold text-xs text-[var(--foreground)] uppercase">AAZUCENA_MARK</span>
+      </div>
+    </div>
+
+    {/* Award Badge */}
+    <div className="flex flex-col items-center gap-6 group/item">
+      <div className="w-32 h-32 text-[var(--secondary)] transition-all duration-700 group-hover/item:scale-110 group-hover/item:text-[var(--foreground)] drop-shadow-[0_0_15px_var(--secondary)]">
+        <AwardBadge size="100%" />
+      </div>
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--secondary)] font-black uppercase tracking-[0.2em]">Key: AwardBadge</span>
+        <span className="block font-bold text-xs text-[var(--foreground)] uppercase">ACHIEVEMENT_PROTOCOL</span>
+      </div>
+    </div>
+
+    {/* Viewports */}
+    <div className="flex flex-col items-center gap-6 group/item">
+      <div className="w-32 h-32 text-[var(--primary)] transition-all duration-700 group-hover/item:scale-110 group-hover/item:text-[var(--foreground)] drop-shadow-[0_0_15px_var(--primary)]">
+        <Viewports size="100%" />
+      </div>
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--primary)] font-black uppercase tracking-[0.2em]">Key: Viewports</span>
+        <span className="block font-bold text-xs text-[var(--foreground)] uppercase">COORDINATE_SYSTEM</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## 🏗️ Creative Coding Marks
+
+Custom implementations for live-coding and game engine protocols. These are optimized for technical sub-branding and creative node identification.
+
+<div className="p-12 border rounded-[2rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 overflow-hidden relative">
+  <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+    {[
+      { component: Strudel, key: 'Strudel', label: 'Strudel.cc' },
+      { component: Tidalcycles, key: 'Tidalcycles', label: 'TidalCycles' },
+      { component: Phaser, key: 'Phaser', label: 'Phaser.io' },
+    ].map((icon) => (
+      <div key={icon.key} className="p-6 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex flex-col items-center gap-4 group hover:border-[var(--primary)] transition-all">
+        <div className="w-16 h-16 text-[var(--primary)] group-hover:scale-110 transition-transform duration-500">
+          <icon.component size="100%" />
+        </div>
+        <div className="text-center">
+          <span className="block text-[10px] font-mono font-bold text-[var(--primary)]">{icon.key}</span>
+          <span className="text-[10px] font-mono opacity-40 uppercase tracking-tighter">{icon.label}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+---
+
+## 🏗️ Functional Utility Assets
+
+Custom-engineered icons for specific UI states and interactions within the portfolio.
+
+<div className="p-12 border rounded-[2rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500">
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    {[
+      { component: ScrollDown, key: 'ScrollDown', label: 'SCROLL_INIT' },
+      { component: Empty, key: 'Empty', label: 'NULL_STATE' },
+      { component: Vector, key: 'Vector', label: 'VECTOR_ASSET' },
+    ].map((icon) => (
+      <div key={icon.key} className="flex flex-col items-center gap-3">
+        <div className="w-12 h-12 text-[var(--muted-foreground)] opacity-60 hover:opacity-100 hover:text-[var(--primary)] transition-all">
+          <icon.component size="100%" />
+        </div>
+        <span className="text-[10px] font-mono font-bold">{icon.key}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+---
+
+## Technical Specifications
+
+| Property | Implementation |
+|---|---|
+| **Format** | Pure React Components (SVG-in-JS) |
+| **Coloring** | `fill='currentColor'` or `stroke='currentColor'` |
+| **Scaling** | Fully vector-based, supports numeric `size` prop. |
+| **Logic** | Registered in `@aazucena/icons/registry`. |

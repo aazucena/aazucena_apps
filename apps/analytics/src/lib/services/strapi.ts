@@ -13,7 +13,7 @@ interface FetchStrapiOptions extends RequestInit {
  */
 export async function fetchStrapi(path: string, options: FetchStrapiOptions = {}) {
   const { query, ...fetchOptions } = options;
-  
+
   const queryString = query ? qs.stringify(query, { encodeValuesOnly: true }) : '';
   const url = `${STRAPI_URL}/api/${path}${queryString ? `?${queryString}` : ''}`;
 

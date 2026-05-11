@@ -1,0 +1,100 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('purple', 500),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('teal', 400),
+    secondaryForeground: getColor('teal', 950),
+    success: getColor('emerald', 600),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('red', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('purple', 50),
+    base: getColor('purple', 50),
+    elevated: getColor('zinc', 50),
+    floating: getColor('purple', 50, 0.9),
+    cardBackground: getColor('zinc', 50),
+    overlayBackground: getColor('purple', 50, 0.9),
+    foreground: getColor('purple', 900),
+    mutedForeground: getColor('purple', 400),
+    accent: getColor('pink', 200),
+    accentForeground: getColor('pink', 900),
+    border: getColor('purple', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(8px)',
+    shadow: `0 4px 6px -1px ${getColor('purple', 500, 0.1)}`,
+    borderRadius: {
+      card: '2rem',
+      button: '9999px',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.4,
+    animationEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '600',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+  },
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('purple', 300),
+    primaryForeground: getColor('purple', 950),
+    secondary: getColor('teal', 300),
+    secondaryForeground: getColor('teal', 950),
+    success: getColor('lime', 400),
+    successForeground: getColor('lime', 950),
+    destructive: getColor('rose', 400),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('rose', 400),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('purple', 950),
+    base: getColor('purple', 950),
+    elevated: getColor('purple', 900, 0.5),
+    floating: getColor('purple', 950, 0.95),
+    cardBackground: getColor('purple', 900, 0.5),
+    overlayBackground: getColor('purple', 950, 0.95),
+    foreground: getColor('purple', 100),
+    mutedForeground: getColor('purple', 300),
+    accent: getColor('pink', 300),
+    accentForeground: getColor('pink', 950),
+    border: getColor('purple', 300, 0.3),
+  },
+  effects: {
+    backdropBlur: 'blur(16px)',
+    shadow: `0 0 30px ${getColor('purple', 300, 0.2)}`,
+    borderRadius: {
+      card: '2rem',
+      button: '9999px',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  },
+  typography: {
+    titleSize: '1.625rem',
+    titleWeight: '700',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+  },
+};
+
+export const easterVibe: ThemeVibe = {
+  id: 'easter',
+  name: 'Easter',
+  type: 'holiday',
+  light,
+  dark,
+};

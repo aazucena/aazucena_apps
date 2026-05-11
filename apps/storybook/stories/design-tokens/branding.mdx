@@ -1,0 +1,131 @@
+{/* design-tokens/branding.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+import { LOGO_MAIN, LOGO_ALT, FAVICON_MAIN, FAVICON_ALT, ICON_MAIN, ICON_ALT } from '@aazucena/design-system';
+
+<Meta title="Design Tokens/Branding" />
+
+# Branding
+
+The **@aazucena** brand identity represents the intersection of human intuition and machine precision. It is engineered to feel technical, trustworthy, and intelligence-driven.
+
+---
+
+## 🏗️ Brand Identity: The AAZUCENA Mark
+
+Our visual identity is anchored by a theme-reactive SVG mark. It is designed to adapt to its environment, changing its "Personality" based on the active **Vibe protocol**.
+
+<div className="p-12 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 relative overflow-hidden group">
+  <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)]" />
+  
+  <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+    
+    {/* Main Logo Card */}
+    <div className="p-8 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] shadow-[var(--shadow-lg)] flex flex-col items-center gap-6 group/logo">
+      <div className="w-32 h-32 text-[var(--primary)] transition-transform duration-700 group-hover/logo:scale-110" dangerouslySetInnerHTML={{ __html: LOGO_MAIN }} />
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--primary)] font-black uppercase tracking-[0.2em]">Protocol: LOGO_MAIN</span>
+        <span className="block font-bold text-sm text-[var(--foreground)] tracking-tighter uppercase">AAZUCENA_PRIMITIVE</span>
+      </div>
+    </div>
+
+    {/* Alt Logo Card */}
+    <div className="p-8 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] shadow-[var(--shadow-lg)] flex flex-col items-center gap-6 group/logo">
+      <div className="w-32 h-32 text-[var(--secondary)] transition-transform duration-700 group-hover/logo:scale-110" dangerouslySetInnerHTML={{ __html: LOGO_ALT }} />
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--secondary)] font-black uppercase tracking-[0.2em]">Protocol: LOGO_ALT</span>
+        <span className="block font-bold text-sm text-[var(--foreground)] tracking-tighter uppercase">AAZUCENA_CONTAINER</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div className="mt-12 p-6 rounded-xl bg-black/5 dark:bg-white/5 border border-dashed border-[var(--border)] text-center">
+    <p className="text-xs text-[var(--muted-foreground)] leading-relaxed italic">
+      "The mark uses <code className="text-[var(--primary)] font-mono">fill='currentColor'</code>, ensuring it remains visible and semantically correct across all 17 Vibe protocols."
+    </p>
+  </div>
+</div>
+
+---
+
+## 🏗️ Technical Assets: Icons & Favicons
+
+A suite of optimized SVG assets for various platforms and resolutions. These are generated via the `azds all` CLI command.
+
+<div className="p-12 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 relative overflow-hidden">
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+    
+    {/* Main Favicon */}
+    <div className="space-y-3">
+      <div className="aspect-square bg-white rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        <div className="w-full h-full" dangerouslySetInnerHTML={{ __html: FAVICON_MAIN }} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold text-[var(--foreground)]">FAVICON_MAIN</span>
+        <span className="text-[8px] font-mono opacity-40 uppercase">Standard_Rounded</span>
+      </div>
+    </div>
+
+    {/* Alt Favicon */}
+    <div className="space-y-3">
+      <div className="aspect-square bg-white rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        <div className="w-full h-full" dangerouslySetInnerHTML={{ __html: FAVICON_ALT }} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold text-[var(--foreground)]">FAVICON_ALT</span>
+        <span className="text-[8px] font-mono opacity-40 uppercase">Transparent_Mark</span>
+      </div>
+    </div>
+
+    {/* Main Icon */}
+    <div className="space-y-3">
+      <div className="aspect-square bg-white rounded-full shadow-md overflow-hidden flex items-center justify-center p-4">
+        <div className="w-full h-full" dangerouslySetInnerHTML={{ __html: ICON_MAIN }} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold text-[var(--foreground)]">ICON_MAIN</span>
+        <span className="text-[8px] font-mono opacity-40 uppercase">App_Circular</span>
+      </div>
+    </div>
+
+    {/* Alt Icon */}
+    <div className="space-y-3">
+      <div className="aspect-square bg-white rounded-full shadow-md overflow-hidden flex items-center justify-center p-4">
+        <div className="w-full h-full" dangerouslySetInnerHTML={{ __html: ICON_ALT }} />
+      </div>
+      <div className="text-center">
+        <span className="block text-[10px] font-mono font-bold text-[var(--foreground)]">ICON_ALT</span>
+        <span className="text-[8px] font-mono opacity-40 uppercase">App_Alt_Circular</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## 🏗️ Brand Ecosystem: The Utilitarian Nodes
+
+The **aazucena** identity extends into a suite of specialized microsites, each with its own functional protocol.
+
+| Node | Functional Purpose | Address |
+|---|---|---|
+| **AAZUCENA_LYTICS** | Engineering Intelligence Terminal | `analytics.aazucena.com` |
+| **AAZUCENA_SONA** | High-speed Recruitment Dossiers | `cv.aazucena.com` |
+| **AAZUCENA_LEDGE** | Technical Engineering Wiki | `wiki.aazucena.com` |
+| **AAZUCENA_DAR** | Roadmap & Voting Hub | `radar.aazucena.com` |
+| ****AAZUCENA_DIO**** | Live-Coding Studio | `studio.aazucena.com` |
+| ****AAZUCENA_CLE**** | RAG Digital Twin Terminal | `cli.aazucena.com` |
+| ****AAZUCENA_SCHOLAR**** | Research & Academic Hub | `scholar.aazucena.com` |
+
+---
+
+## Technical Specifications
+
+| Property | Implementation |
+|---|---|
+| **Brand Name** | aazucena (Lowercase) / AAZUCENA (Uppercase) |
+| **Logo Format** | Theme-Reactive SVG (CurrentColor) |
+| **Primary Hue** | Cyan 500 (`oklch(0.64 0.11 215)`) |
+| **Secondary Hue** | Orange 500 (`oklch(0.69 0.15 35)`) |
+| **Core Voice** | Mathematical, High-Precision, Authentic |

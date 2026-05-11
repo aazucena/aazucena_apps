@@ -16,35 +16,35 @@
     }
   },
   "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 200,
+      "required": true
+    },
     "slug": {
       "type": "uid",
       "targetField": "title",
       "required": true
     },
-    "title": {
-      "type": "string",
-      "required": true,
-      "maxLength": 200,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "content": {
       "type": "richtext",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "template": {
       "type": "enumeration",
-      "enum": ["legal", "default", "landing"],
+      "required": true,
       "default": "default",
-      "required": true
+      "enum": ["legal", "default", "landing"]
     },
     "lastUpdated": {
       "type": "date",
@@ -52,8 +52,8 @@
     },
     "seo": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "repeatable": false
     },
     "showTableOfContents": {
       "type": "boolean",
@@ -61,8 +61,8 @@
     },
     "footerVariant": {
       "type": "enumeration",
-      "enum": ["default", "minimal"],
-      "default": "minimal"
+      "default": "minimal",
+      "enum": ["default", "minimal"]
     }
   }
 }

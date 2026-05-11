@@ -4,7 +4,7 @@
  * Used in ProjectsSection to show current page
  */
 
-import type { JSX } from 'react';
+import type { JSX } from "react";
 
 export interface PageIndicatorsProps {
   /** Total number of pages */
@@ -12,7 +12,7 @@ export interface PageIndicatorsProps {
   /** Current active page (0-based) */
   currentPage: number;
   /** Callback when user clicks a page indicator */
-  onPageClick: (page: number) => void;
+  onPageClick: (_page: number) => void;
 }
 
 /**
@@ -35,18 +35,18 @@ export interface PageIndicatorsProps {
 export function PageIndicators({
   totalPages,
   currentPage,
-  onPageClick
+  onPageClick,
 }: PageIndicatorsProps): JSX.Element {
   return (
-    <div className="flex items-center justify-center gap-2 mt-6">
+    <div className="mt-6 flex items-center justify-center gap-2">
       {Array.from({ length: totalPages }).map((_, pageIndex) => (
         <button
           key={pageIndex}
           onClick={() => onPageClick(pageIndex)}
-          className={`transition-all duration-300 rounded-full ${
+          className={`rounded-full transition-all duration-300 ${
             currentPage === pageIndex
-              ? 'w-8 h-2 bg-cyan-400'
-              : 'w-2 h-2 bg-white/30 hover:bg-white/50'
+              ? "h-2 w-8 bg-cyan-400"
+              : "h-2 w-2 bg-white/30 hover:bg-white/50"
           }`}
           aria-label={`Go to page ${pageIndex + 1}`}
         />

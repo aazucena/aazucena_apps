@@ -1,20 +1,21 @@
 /**
  * UIOverlays Component
- * Renders all UI overlays: navigation toolbar, modals, and scroll indicators
- *
- * Simplified architecture with encapsulated NavigationToolbar component
- * Phase 3 Task #5: ExperienceModal lazy-loaded for bundle optimization
+ * Renders all UI overlays: navigation toolbar and scroll indicators
  */
 
-import { lazy, Suspense, type JSX } from "react";
-import { ScrollIndicators, ScrollDownIndicator } from '~/components/ui';
-import { NavigationToolbar } from './NavigationToolbar';
-import type { AtmosphericPhase } from '~/config/animations';
-import { useSectionData, usePortfolio, useDataContext } from '~/contexts/animations';
-import { useModal } from '~/hooks/animations';
-
-// Lazy load ExperienceModal - only loads when user clicks to view experience
-const ExperienceModal = lazy(() => import('~/components/ui/ExperienceModal').then(m => ({ default: m.ExperienceModal })));
+import { type JSX } from "react";
+import React from "react";
+import { ScrollIndicators, SectionNavFAB } from "~/components/ui";
+import {
+  ScrollDown as ScrollDownIndicator,
+  ScrollDownIcon,
+  ScrollDownLabel,
+} from "@aazucena/ui";
+import { useIsMobile } from "@aazucena/hooks";
+import { NavigationToolbar } from "./NavigationToolbar";
+import type { AtmosphericPhase } from "@aazucena/types";
+import { usePortfolio } from "@aazucena/context";
+import { useDataContext } from "~/contexts";
 
 interface UIOverlaysProps {
   // Atmospheric layer (not in contexts yet)
@@ -25,42 +26,21 @@ export default function UIOverlays({
   currentPhase,
 }: UIOverlaysProps): JSX.Element {
   // Get data from contexts
-  const { experiences } = useSectionData();
   const { content } = useDataContext();
 
-  // Portfolio context - navigation and modal state
-  const {
-    currentSection,
-    navigateToSection,
-    isExperienceModalOpen,
-    selectedExperienceIndex,
-    closeExperienceModal,
-  } = usePortfolio();
+  // Portfolio context - navigation state
+  const { currentSection, navigateToSection } = usePortfolio();
 
-  // Modal ref
-  const { modalRef } = useModal({ closeOnEscape: false });
+  const isMobile = useIsMobile();
 
   // Extract section names from CMS data
-  const sectionNames = content.sections.map(section => section.name);
+  const sectionNames = content.sections.map((section) => section.name);
   return (
     <>
-      {/* Experience Modal - Lazy loaded */}
-      {isExperienceModalOpen &&
-        selectedExperienceIndex !== null &&
-        experiences[selectedExperienceIndex] && (
-          <Suspense fallback={<div className="sr-only">Loading...</div>}>
-            <ExperienceModal
-              experience={experiences[selectedExperienceIndex]}
-              onClose={closeExperienceModal}
-              modalRef={modalRef}
-            />
-          </Suspense>
-        )}
-
       {/* Navigation toolbar with integrated panels (Info, Settings, Social) */}
       <NavigationToolbar currentPhase={currentPhase} />
 
-      {/* Scroll Indicators */}
+      {/* Scroll Indicators — desktop only (right-side column) */}
       <ScrollIndicators
         visible={currentSection !== 0}
         currentSection={currentSection}
@@ -68,12 +48,27 @@ export default function UIOverlays({
         sectionNames={sectionNames}
       />
 
-      {/* Scroll Down Indicator */}
+      {/* Section Nav FAB — mobile only (bottom-right, replaces dots) */}
+      {currentSection !== 0 && (
+        <SectionNavFAB
+          currentSection={currentSection}
+          sectionNames={sectionNames}
+          onSectionClick={navigateToSection}
+        />
+      )}
+
+      {/* Scroll/Swipe Indicator */}
       <ScrollDownIndicator
         timeout={15 * 1000}
         visible={currentSection === 0}
         onClick={() => navigateToSection(1)}
-      />
+        className="text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+      >
+        <ScrollDownIcon />
+        <ScrollDownLabel className="opacity-90">
+          {isMobile ? "Swipe Up" : "Scroll Down"}
+        </ScrollDownLabel>
+      </ScrollDownIndicator>
     </>
   );
 }

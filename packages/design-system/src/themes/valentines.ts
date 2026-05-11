@@ -1,0 +1,101 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('rose', 600),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('pink', 200),
+    secondaryForeground: getColor('rose', 900),
+    success: getColor('emerald', 500),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('rose', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('rose', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('rose', 50),
+    base: getColor('rose', 50),
+    elevated: getColor('zinc', 50),
+    floating: getColor('rose', 50, 0.9),
+    cardBackground: getColor('zinc', 50),
+    overlayBackground: getColor('rose', 50, 0.9),
+    foreground: getColor('rose', 900),
+    mutedForeground: getColor('pink', 400),
+    accent: getColor('pink', 400),
+    accentForeground: getColor('zinc', 50),
+    border: getColor('rose', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(8px)',
+    shadow: `0 10px 25px -5px ${getColor('rose', 600, 0.1)}`,
+    borderRadius: {
+      card: '1.5rem',
+      button: '9999px',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '700',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+  },
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('rose', 400),
+    primaryForeground: getColor('rose', 950),
+    secondary: getColor('rose', 950),
+    secondaryForeground: getColor('rose', 50),
+    success: getColor('emerald', 400),
+    successForeground: getColor('zinc', 950),
+    destructive: getColor('rose', 400),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('rose', 400),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('zinc', 950),
+    base: getColor('zinc', 950),
+    elevated: getColor('rose', 950, 0.8),
+    floating: getColor('zinc', 950, 0.95),
+    cardBackground: getColor('rose', 950, 0.8),
+    overlayBackground: getColor('zinc', 950, 0.95),
+    foreground: getColor('rose', 50),
+    mutedForeground: getColor('rose', 400),
+    accent: getColor('rose', 600),
+    accentForeground: getColor('zinc', 50),
+    border: getColor('rose', 600, 0.2),
+  },
+  effects: {
+    backdropBlur: 'blur(12px)',
+    shadow: `0 0 20px ${getColor('rose', 600, 0.3)}`,
+    glowColor: getColor('rose', 600, 0.4),
+    borderRadius: {
+      card: '1.5rem',
+      button: '9999px',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+  },
+  typography: {
+    titleSize: '1.625rem',
+    titleWeight: '800',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+  },
+};
+
+export const valentinesVibe: ThemeVibe = {
+  id: 'valentines',
+  name: 'Valentines',
+  type: 'holiday',
+  light,
+  dark,
+};

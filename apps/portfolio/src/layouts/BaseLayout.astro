@@ -1,16 +1,21 @@
 ---
-import '../styles/globals.css';
-import SEO from '~/components/SEO.astro';
-import Favicon from '~/components/Favicon.astro';
-import ResourceHints from '~/components/ResourceHints.astro';
-import AnalyticsScripts from '~/components/AnalyticsScripts.astro';
-import Preloader, { type PreloaderTheme } from '@/components/preloader';
-import BrandIconLoader from '@/components/BrandIconLoader.astro';
-import { getTheme as getPreloaderTheme } from '@/components/preloader/themes/registry';
-import { getLayoutData } from '~/lib/services/layout';
-import { formatPageTitle } from '~/config/site';
-import PlausibleScript from '~/components/common/PlausibleScript.astro';
-import PageViewTracker from '~/components/telemetry/PageViewTracker';
+import "../styles/globals.css";
+import SEO from "~/components/SEO.astro";
+import Favicon from "~/components/Favicon.astro";
+import ResourceHints from "~/components/ResourceHints.astro";
+import AnalyticsScripts from "~/components/AnalyticsScripts.astro";
+import { Preloader } from "@aazucena/ui/preloader";
+import type { PreloaderTheme } from "@aazucena/types";
+import BrandIconLoader from "@/components/BrandIconLoader.astro";
+import {
+  getThemeConfig as getPreloaderTheme,
+  toHex,
+} from "@aazucena/design-system";
+import { getLayoutData } from "~/lib/services/layout";
+import { formatPageTitle } from "~/config/site";
+import PlausibleScript from "~/components/common/PlausibleScript.astro";
+import AssistantChat from "~/components/assistant/AssistantChat";
+// import { PageViewTracker } from "@aazucena/analytics";
 
 export interface Props {
   title?: string;
@@ -18,19 +23,29 @@ export interface Props {
 }
 const { title, description }: Props = Astro.props;
 
-// Fetch all layout configuration from Strapi CMS in parallel
+// Fetch all layout configuration from Strapi CMS in parallel.
+// setStrapiConfig is called at module-level in layout.ts so it runs before
+// any API call — including page-level calls that run before this component.
 const { siteConfig, websiteConfig, preloaderConfig } = await getLayoutData();
 
 // Detect if we're using CMS fallback configs (indicates CMS fetch failure)
 const isCmsFallback = false;
+const path = Astro.url.pathname;
+const isHomepage = path === "/";
 
 // Get the preloader theme background to prevent white flash
-const preloaderTheme: PreloaderTheme = preloaderConfig.theme || 'default';
-const preloaderThemeConfig = getPreloaderTheme(preloaderTheme);
-const preloaderBackground = preloaderThemeConfig.colors.background;
+const preloaderTheme: PreloaderTheme = preloaderConfig.theme || "default";
+const mode =
+  siteConfig.theme.mode === "system"
+    ? isHomepage
+      ? "dark"
+      : "light"
+    : siteConfig.theme.mode;
+const preloaderThemeConfig = getPreloaderTheme(preloaderTheme, mode);
+const preloaderBackground = toHex(preloaderThemeConfig.colors.background);
 
 // Extract brand logo URL (use CMS siteLogo if available, otherwise default to /icon.svg)
-const brandLogoUrl = websiteConfig.siteLogoUrl || '/icon.svg';
+const brandLogoUrl = websiteConfig.siteLogoUrl || "/icon.svg";
 
 // Build meta title using template
 const pageTitle = formatPageTitle(title);
@@ -38,96 +53,131 @@ const pageTitle = formatPageTitle(title);
 const pageDescription = description || websiteConfig.defaultSEO?.description;
 
 // Detect page type for transition styles
-const path = Astro.url.pathname;
-const isHomepage = path === '/';
-const isDetailPage = path.includes('[slug]') || /\/[^\/]+\/[^\/]+/.test(path); // e.g., /projects/foo, /blog/bar
-const pageType = isHomepage ? 'homepage' : isDetailPage ? 'detail' : 'list';
+const isDetailPage = path.includes("[slug]") || /\/[^/]+\/[^/]+/.test(path); // e.g., /projects/foo, /blog/bar
+const pageType = isHomepage ? "homepage" : isDetailPage ? "detail" : "list";
 
 const themeStyles = {
-  colorPrimaryLight: siteConfig.theme.colors.light.primary,
-  colorSecondaryLight: siteConfig.theme.colors.light.secondary,
-  colorAccentLight: siteConfig.theme.colors.light.accent,
-  colorPrimaryDark: siteConfig.theme.colors.dark.primary,
-  colorSecondaryDark: siteConfig.theme.colors.dark.secondary,
-  colorAccentDark: siteConfig.theme.colors.dark.accent,
+  colorPrimaryLight: toHex(siteConfig.theme.colors.light.primary),
+  colorSecondaryLight: toHex(siteConfig.theme.colors.light.secondary),
+  colorAccentLight: toHex(siteConfig.theme.colors.light.accent),
+  colorPrimaryDark: toHex(siteConfig.theme.colors.dark.primary),
+  colorSecondaryDark: toHex(siteConfig.theme.colors.dark.secondary),
+  colorAccentDark: toHex(siteConfig.theme.colors.dark.accent),
   fontSans: siteConfig.theme.fonts.sans,
   fontSerif: siteConfig.theme.fonts.serif,
   fontHeading: siteConfig.theme.fonts.heading,
   fontCode: siteConfig.theme.fonts.code,
-}
+};
 ---
 
-<html lang="en" data-theme={siteConfig.theme.mode} class={isHomepage ? 'homepage' : 'content-page'} data-page-type={pageType}>
-	<head>
-		<meta charset="utf-8" />
+<html
+  lang="en"
+  data-theme={siteConfig.theme.mode}
+  class={isHomepage ? "homepage" : "content-page"}
+  data-page-type={pageType}
+>
+  <head>
+    <meta charset="utf-8" />
 
-		{/* Resource Hints - DNS prefetch, preconnect, preload for performance */}
-		<ResourceHints />
+    {
+      /* Blocking theme script — runs synchronously before first paint to prevent dark/light flash.
+        Reads the same localStorage key used by useTheme (STORAGE_KEYS.THEME = 'aazucena-theme'),
+        falls back to OS preference when no stored value exists. */
+    }
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("aazucena-theme");
+          if (stored === "dark") {
+            document.documentElement.classList.add("dark");
+            return;
+          }
+          if (stored === "light") return;
+        } catch (_) {}
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
 
-		{/* Favicon - Extracted component with fallback */}
-		<Favicon url={websiteConfig.faviconUrl} />
+    {/* Resource Hints - DNS prefetch, preconnect, preload for performance */}
+    <ResourceHints />
 
-		{/* SEO Meta Tags - Extracted to reusable component */}
-		<SEO
-			title={pageTitle}
-			description={pageDescription!}
-			canonical={websiteConfig.defaultSEO?.canonical}
-			keywords={websiteConfig.defaultSEO?.keywords}
-			robots={websiteConfig.defaultSEO?.robots}
-			viewport={websiteConfig.defaultSEO?.viewport}
-			twitterCard={websiteConfig.defaultSEO?.twitterCard}
-			twitterSite={websiteConfig.twitterHandle}
-			googleSiteVerificationId={websiteConfig.googleSiteVerificationId}
-		/>
+    {/* Favicon - Extracted component with fallback */}
+    <Favicon url={websiteConfig.faviconUrl} />
+
+    {/* SEO Meta Tags - Extracted to reusable component */}
+    <SEO
+      title={pageTitle}
+      description={pageDescription!}
+      canonical={websiteConfig.defaultSEO?.canonical}
+      keywords={websiteConfig.defaultSEO?.keywords}
+      robots={websiteConfig.defaultSEO?.robots}
+      viewport={websiteConfig.defaultSEO?.viewport}
+      twitterCard={websiteConfig.defaultSEO?.twitterCard}
+      twitterSite={websiteConfig.twitterHandle}
+      googleSiteVerificationId={websiteConfig.googleSiteVerificationId}
+    />
     <PlausibleScript domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} />
-    <PageViewTracker client:load />
+    <!-- <PageViewTracker
+      apiUrl={import.meta.env.PUBLIC_ANALYTICS_API_URL}
+      secretKey={import.meta.env.PUBLIC_INGESTION_SECRET_KEY}
+      client:load
+    /> -->
 
-		{/* Theme Stylesheet - Static styles referencing dynamic CMS variables */}
-		<link rel="stylesheet" href="/styles/theme.css">
+    {/* Theme Stylesheet - Static styles referencing dynamic CMS variables */}
+    <link rel="stylesheet" href="/styles/theme.css" />
 
-		{/* Font Optimization - Asynchronous loading for better performance */}
-		<link
-			rel="stylesheet"
-			href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(' ', '+')}&family=${siteConfig.theme.fonts.sans.replace(' ', '+')}:wght@400;700&display=swap`}
-			media="print"
-			onload="this.media='all'"
-		>
-		<noscript>
-			<link rel="stylesheet" href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(' ', '+')}&family=${siteConfig.theme.fonts.sans.replace(' ', '+')}:wght@400;700&display=swap`}>
-		</noscript>
+    {/* Font Optimization - Asynchronous loading for better performance */}
+    <link
+      rel="stylesheet"
+      href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(" ", "+")}&family=${siteConfig.theme.fonts.sans.replace(" ", "+")}:wght@400;700&display=swap`}
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(" ", "+")}&family=${siteConfig.theme.fonts.sans.replace(" ", "+")}:wght@400;700&display=swap`}
+      />
+    </noscript>
 
-		{/* Dynamic Theme Variables - Injected from CMS configuration */}
-		<style is:inline define:vars={themeStyles}>
-			/* Prevent white flash - match preloader background immediately */
-			body {
-				margin: 0;
-				padding: 0;
-			}
+    {/* Dynamic Theme Variables - Injected from CMS configuration */}
+    <style is:inline define:vars={themeStyles}>
+      /* Prevent white flash - match preloader background immediately */
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-			/* Theme CSS Variables - DYNAMIC from CMS */
-			:root {
-				--color-primary: var(--colorPrimaryLight);
-				--color-secondary: var(--colorSecondaryLight);
-				--color-accent: var(--colorAccentLight);
-				--font-sans: var(--fontSans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-				--font-serif: var(--fontSerif), Georgia, 'Times New Roman', serif;
-				--font-heading: var(--fontHeading), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-				--font-code: var(--fontCode), 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-			}
+      /* Theme CSS Variables - DYNAMIC from CMS */
+      :root {
+        --color-primary: var(--colorPrimaryLight);
+        --color-secondary: var(--colorSecondaryLight);
+        --color-accent: var(--colorAccentLight);
+        --font-sans:
+          var(--fontSans), -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, sans-serif;
+        --font-serif: var(--fontSerif), Georgia, "Times New Roman", serif;
+        --font-heading:
+          var(--fontHeading), -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        --font-code:
+          var(--fontCode), "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
 
-			.dark {
-				--color-primary: var(--colorPrimaryDark);
-				--color-secondary: var(--colorSecondaryDark);
-				--color-accent: var(--colorAccentDark);
-			}
-		</style>
-	</head>
-  
-	<body style={{ background: preloaderBackground }}>
-		<!-- Skip to main content (accessibility) -->
-		<a href="#main-content" class="skip-to-main">
-			Skip to main content
-		</a>
+      .dark {
+        --color-primary: var(--colorPrimaryDark);
+        --color-secondary: var(--colorSecondaryDark);
+        --color-accent: var(--colorAccentDark);
+      }
+    </style>
+  </head>
+
+  <body style={`background: var(--background);`}>
+    <!-- Skip to main content (accessibility) -->
+    <a href="#main-content" class="skip-to-main"> Skip to main content </a>
     <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
     <!-- Once hidden and removed, it won't reappear -->
     <!-- Note: transition:persist removed due to React 19 compatibility issues -->
@@ -140,35 +190,67 @@ const themeStyles = {
     <!-- Preloader - Hydrates with React (client:only) -->
     <!-- Pass current path to enable homepage-specific behavior -->
     <!-- Preloader re-renders on navigation to check currentPath and apply show-once logic -->
-    <Preloader {...preloaderConfig} currentPath={Astro.url.pathname} client:only="react" />
+    <Preloader
+      {...preloaderConfig}
+      currentPath={Astro.url.pathname}
+      mode={mode}
+      client:only="react"
+    />
 
     <!-- Main content - hidden until preloader completes -->
-    <main id="main-content" data-critical style="opacity: 0; transition: opacity 0.6s ease;">
+    <main
+      id="main-content"
+      data-critical
+      style="opacity: 0; transition: opacity 0.6s ease;"
+    >
       <slot />
     </main>
+
+    <!-- AI Assistant - Rin (global, client-only to access window.location) -->
+    <AssistantChat client:only="react" />
 
     <!-- Analytics - Vercel Analytics + Speed Insights -->
     <AnalyticsScripts />
 
     <script is:inline>
-      // Show main content when preloader completes
-      document.addEventListener('preloader-complete', function() {
-        const mainContent = document.querySelector('main[data-critical]');
-        if (mainContent) {
-          mainContent.style.opacity = '1';
-          // Reset body background to allow CSS themes to take over
-          document.body.style.background = '';
+      (function () {
+        function revealContent() {
+          var mainContent = document.querySelector("main[data-critical]");
+          if (mainContent) {
+            mainContent.style.opacity = "1";
+            document.body.style.background = "";
+          }
         }
-      });
 
-      // Fallback: if preloader doesn't complete within 10s, show content anyway
-      setTimeout(function() {
-        const mainContent = document.querySelector('main[data-critical]');
-        if (mainContent && mainContent.style.opacity === '0') {
-          console.warn('[BaseLayout] Preloader timeout - forcing content display');
-          mainContent.style.opacity = '1';
-        }
-      }, 10000);
+        // Return visitors: reveal content immediately — BrandIconLoader already
+        // set display:none for itself, so nothing covers <main>.
+        try {
+          if (sessionStorage.getItem("portfolio-preloader-seen") === "true") {
+            revealContent();
+            return;
+          }
+        } catch (_) {}
+
+        // First-time visitors: BrandIconLoader is the primary gate and reveals
+        // <main> when it hides (see BrandIconLoader.astro hideBrandLoader).
+        // This listener is a secondary safety net for edge cases where the
+        // Preloader React component fires preloader-complete after BrandIconLoader
+        // already removed itself from the DOM (e.g. slow navigations).
+        // Forward preloader-complete → brand-loader-complete so BrandIconLoader
+        // exits on non-Journey pages (which don't dispatch it themselves).
+        document.addEventListener("preloader-complete", function () {
+          document.dispatchEvent(new CustomEvent("brand-loader-complete"));
+        });
+
+        document.addEventListener("preloader-complete", revealContent);
+
+        // Hard fallback: if nothing has revealed content after 15s (e.g. JS
+        // completely disabled), force-show it. This is longer than
+        // BrandIconLoader's 8s maxTimeout so that path fires first.
+        setTimeout(function () {
+          revealContent();
+        }, 15000);
+      })();
     </script>
-	</body>
+  </body>
 </html>

@@ -1,0 +1,130 @@
+{/* stories/icons/mynaui-reference.mdx */}
+import { Meta, IconGallery, IconItem } from '@storybook/addon-docs/blocks';
+import * as MynaIcons from '@mynaui/icons-react';
+
+<Meta title="Icons/System UI (MynaUI)" />
+
+# System UI Library (MynaUI)
+
+Our functional UI iconography is powered by **MynaUI**. These are stroke-based, mathematical icons designed for clarity at small sizes. They are used for navigation, standard actions, and system status signaling.
+
+---
+
+## 🏗️ Functional Categories
+
+### 1. Navigation & Control
+Icons used for directional movement and structural navigation.
+
+<IconGallery>
+  <IconItem name="ChevronDown">
+    <MynaIcons.ChevronDown />
+  </IconItem>
+  <IconItem name="ChevronLeft">
+    <MynaIcons.ChevronLeft />
+  </IconItem>
+  <IconItem name="ChevronRight">
+    <MynaIcons.ChevronRight />
+  </IconItem>
+  <IconItem name="ArrowRight">
+    <MynaIcons.ArrowRight />
+  </IconItem>
+  <IconItem name="Dots">
+    <MynaIcons.Dots />
+  </IconItem>
+  <IconItem name="Search">
+    <MynaIcons.Search />
+  </IconItem>
+</IconGallery>
+
+### 2. Technical & Status
+Icons representing system integrity, technical data, and security.
+
+<IconGallery>
+  <IconItem name="Shield">
+    <MynaIcons.Shield />
+  </IconItem>
+  <IconItem name="Activity">
+    <MynaIcons.Activity />
+  </IconItem>
+  <IconItem name="Zap">
+    <MynaIcons.Zap />
+  </IconItem>
+  <IconItem name="Globe">
+    <MynaIcons.Globe />
+  </IconItem>
+  <IconItem name="Database">
+    <MynaIcons.Database />
+  </IconItem>
+  {/* <IconItem name="Chip">
+    <MynaIcons.Chip />
+  </IconItem> */}
+</IconGallery>
+
+### 3. Standards & Actions
+Common interactive verbs and state indicators.
+
+<IconGallery>
+  <IconItem name="Plus">
+    <MynaIcons.Plus />
+  </IconItem>
+  <IconItem name="Minus">
+    <MynaIcons.Minus />
+  </IconItem>
+  <IconItem name="Play">
+    <MynaIcons.Play />
+  </IconItem>
+  <IconItem name="Pause">
+    <MynaIcons.Pause />
+  </IconItem>
+  <IconItem name="Refresh">
+    <MynaIcons.Refresh />
+  </IconItem>
+  <IconItem name="Cog">
+    <MynaIcons.Cog />
+  </IconItem>
+</IconGallery>
+
+---
+
+## 🏗️ Stroke Weight Protocol
+
+The MynaUI set is specifically chosen for its consistent stroke weights. We enforce two primary tiers depending on the UI context.
+
+<div className="p-12 border rounded-2xl bg-[var(--base)] border-[var(--border)] transition-all duration-500">
+  <div className="flex flex-col md:flex-row justify-around gap-12">
+    
+    {/* Tier 1: Standard */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+        <MynaIcons.Shield size={48} stroke={1.5} />
+      </div>
+      <div className="text-center">
+        <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Tier_01: Standard</span>
+        <code className="text-[10px] font-mono text-[var(--primary)]">stroke={'{1.5}'}</code>
+      </div>
+    </div>
+
+    {/* Tier 2: Technical */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+        <MynaIcons.Shield size={48} stroke={2.5} />
+      </div>
+      <div className="text-center">
+        <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Tier_02: Technical</span>
+        <code className="text-[10px] font-mono text-[var(--primary)]">stroke={'{2.5}'}</code>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## Technical Specifications
+
+| Property | Standard |
+|---|---|
+| **Source Library** | `@mynaui/icons-react` |
+| **Logic** | Stroke-based (Path outlines) |
+| **Default Stroke** | `1.5` |
+| **Aesthetics** | Geometric, Minimalist, Open-counter |

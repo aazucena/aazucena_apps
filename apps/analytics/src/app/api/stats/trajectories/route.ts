@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { mainClickhouseClient } from '@/lib/services';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     // 1. Get List of trajectories (Unique sessions/ids)
     const listQuery = `
@@ -39,38 +39,51 @@ export async function GET() {
     `;
 
     const [listRes, stepsRes] = await Promise.all([
-      mainClickhouseClient.query({ query: listQuery, format: 'JSONEachRow' }),
-      mainClickhouseClient.query({ query: stepsQuery, format: 'JSONEachRow' }),
+      mainClickhouseClient.query({
+        query: listQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
+      mainClickhouseClient.query({
+        query: stepsQuery,
+        format: 'JSONEachRow',
+        abort_signal: req.signal,
+      }),
     ]);
 
-    const list = await listRes.json() as any[];
-    const allSteps = await stepsRes.json() as any[];
+    const list = (await listRes.json()) as any[];
+    const allSteps = (await stepsRes.json()) as any[];
 
     // 3. Map steps to trajectories
-    const trajectories = list.map(t => ({
+    const trajectories = list.map((t) => ({
       ...t,
       steps: allSteps
-        .filter(s => s.trajectory_id === t.id)
-        .map(s => {
-            let parsedState = {} as any;
-            try { parsedState = JSON.parse(s.observation || '{}'); } catch {}
-            
-            // Extract the rich 'observation' field if we injected it during ingestion
-            // Otherwise fallback to the full state object
-            const richData = parsedState.observation || parsedState;
+        .filter((s) => s.trajectory_id === t.id)
+        .map((s) => {
+          let parsedState = {} as any;
+          try {
+            parsedState = JSON.parse(s.observation || '{}');
+          } catch (_e) {
+            /* ignore malformed JSON */
+          }
 
-            return {
-                ...s,
-                probability: 1.0, 
-                metadata: JSON.parse(s.metadata || '{}'),
-                // Ensure it's a string for the frontend helper
-                observation: typeof richData === 'string' ? richData : JSON.stringify(richData, null, 2)
-            };
-        })
+          // Extract the rich 'observation' field if we injected it during ingestion
+          // Otherwise fallback to the full state object
+          const richData = parsedState.observation || parsedState;
+
+          return {
+            ...s,
+            probability: 1.0,
+            metadata: JSON.parse(s.metadata || '{}'),
+            // Ensure it's a string for the frontend helper
+            observation:
+              typeof richData === 'string' ? richData : JSON.stringify(richData, null, 2),
+          };
+        }),
     }));
 
     return NextResponse.json({
-      data: trajectories
+      data: trajectories,
     });
   } catch (error) {
     console.error('[Trajectories-Stats-API] Error:', error);

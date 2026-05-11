@@ -1,4 +1,4 @@
-import { atom } from 'nanostores';
+import { atom } from "nanostores";
 
 /**
  * Global store for the Journey page state
@@ -8,7 +8,7 @@ import { atom } from 'nanostores';
 export const visibleCategoriesStore = atom<Set<string> | null>(null);
 
 // Search query for skills
-export const skillSearchQueryStore = atom<string>('');
+export const skillSearchQueryStore = atom<string>("");
 
 /**
  * Toggle a category's visibility

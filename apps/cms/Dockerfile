@@ -1,8 +1,6 @@
 # Use lightweight Alpine Node.js image.
 FROM node:22-alpine
 
-
-
 # Install build tools and libraries for native Node.js module compilation (e.g., sharp).
 RUN apk update && apk add --no-cache \
     build-base \
@@ -24,30 +22,26 @@ ENV NODE_ENV=${NODE_ENV}
 # Increase Node.js memory limit for memory-intensive tasks.
 ENV NODE_OPTIONS=--max_old_space_size=4096
 
-# Set application working directory.
+# Install pnpm globally and node-gyp as root.
+RUN npm install -g pnpm@10.33.4 node-gyp
+
+# Set application working directory and ensure ownership for the node user.
 WORKDIR /srv/app
+RUN chown node:node /srv/app
 
-# Copy essential package files and scripts to leverage Docker cache for dependencies.
-COPY pnpm-lock.yaml package.json ./
+# Switch to non-root user early.
+USER node
 
-# Install pnpm globally and node-gyp for native module compilation.
-RUN npm install -g pnpm node-gyp
+# Copy essential package files with correct ownership.
+COPY --chown=node:node pnpm-lock.yaml package.json ./
 
-# Configure pnpm and install dependencies deterministically with frozen-lockfile.
-RUN pnpm config --global set fetch-retry-maxtimeout 600000 && pnpm install --frozen-lockfile
-
-# Update pnpm executable to latest version.
-RUN pnpm self-update
+# Install dependencies with extended fetch timeout for slow CI/Railway networks.
+RUN pnpm install --frozen-lockfile --fetch-retry-maxtimeout=600000
 
 ENV PATH=/srv/app/node_modules/.bin:$PATH
 
-# Copy application files after dependencies for build caching.
-COPY . .
-
-# Set ownership to non-root 'node' user for security.
-RUN chown -R node:node /srv/app
-# Switch to non-root user for enhanced security.
-USER node
+# Copy application files with correct ownership.
+COPY --chown=node:node . .
 
 # Build Strapi admin panel in production mode for optimization.
 RUN ["pnpm", "build"]

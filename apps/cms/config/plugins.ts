@@ -1,12 +1,14 @@
-export default ({ env }) => ({
+import { ConfigContext } from '../types/strapi';
+
+export default ({ env }: ConfigContext) => ({
   // ========================================
   // Custom Field Plugins
   // ========================================
   'advanced-fields': {
     enabled: true,
   },
-  'combobox': {
-    enabled: true
+  combobox: {
+    enabled: true,
   },
   'liquid-templates': {
     enabled: true,
@@ -21,13 +23,13 @@ export default ({ env }) => ({
     enabled: true,
   },
   'strapi-country-select': {
-    enabled: true
+    enabled: true,
   },
   'strapi-location-picker': {
     enabled: true,
   },
   'strapi-phone-validator-5': {
-    enabled: true
+    enabled: true,
   },
   'strapi-plugin-sortable-list': {
     enabled: true,
@@ -38,19 +40,19 @@ export default ({ env }) => ({
   'table-field': {
     enabled: true,
   },
-  'tagsinput': {
+  tagsinput: {
     enabled: true,
   },
   'timezone-select': {
     enabled: true,
   },
-  'video-field':{
-    enabled: true
+  'video-field': {
+    enabled: true,
   },
   'icons-field': {
     enabled: true,
     config: {
-      publicPath: 'icons'
+      publicPath: 'icons',
     },
   },
   'color-picker': {
@@ -63,13 +65,13 @@ export default ({ env }) => ({
   // ========================================
   // API & Documentation Plugins
   // ========================================
-  'documentation': {
+  documentation: {
     enabled: true,
     config: {
       restrictedAccess: false, // Set to true in production with auth
     },
   },
-  'graphql': {
+  graphql: {
     enabled: true,
     config: {
       endpoint: '/graphql',
@@ -85,8 +87,8 @@ export default ({ env }) => ({
   // ========================================
   // SEO & Metadata Plugins
   // ========================================
-  'seo': {
-    enabled: true,
+  seo: {
+    enabled: false,
   },
 
   // ========================================
@@ -106,7 +108,7 @@ export default ({ env }) => ({
   'duplicate-button': {
     enabled: true,
   },
-  'navigation': {
+  navigation: {
     enabled: true,
     config: {
       additionalFields: [
@@ -115,21 +117,21 @@ export default ({ env }) => ({
           type: 'string',
           label: 'Display Label',
           description: 'Custom display text (overrides title)',
-          placeholder: 'Projects Portfolio'
+          placeholder: 'Projects Portfolio',
         },
         {
           name: 'icon',
           type: 'string',
           label: 'Icon Name',
           description: 'MynaUI icon name (e.g., "briefcase", "clock-circle")',
-          placeholder: 'briefcase'
+          placeholder: 'briefcase',
         },
         {
           name: 'buttonStyle',
           type: 'string',
           label: 'Button Style',
           description: 'If set, renders as button. Options: "primary", "secondary", "outline"',
-          placeholder: 'primary'
+          placeholder: 'primary',
         },
         {
           name: 'description',
@@ -142,13 +144,13 @@ export default ({ env }) => ({
           type: 'string',
           label: 'CSS Class',
           description: 'Optional custom CSS class',
-        }
+        },
       ],
       allowedLevels: 2,
       gql: {
-        navigationItemRelated: []
-      }
-    }
+        navigationItemRelated: [],
+      },
+    },
   },
   'preview-button': {
     enabled: true,
@@ -170,7 +172,7 @@ export default ({ env }) => ({
       ],
     },
   },
-  'publisher': {
+  publisher: {
     enabled: true,
   },
 
@@ -184,7 +186,7 @@ export default ({ env }) => ({
   // ========================================
   // Monitoring & Error Tracking
   // ========================================
-  'sentry': {
+  sentry: {
     enabled: true,
     config: {
       dsn: env('NODE_ENV') === 'production' ? env('SENTRY_DSN') : null,
@@ -195,7 +197,7 @@ export default ({ env }) => ({
   // ========================================
   // Cloud & Deployment
   // ========================================
-  'cloud': {
+  cloud: {
     enabled: false, // Enable only if using Strapi Cloud
   },
 
@@ -229,18 +231,18 @@ export default ({ env }) => ({
       },
     },
   },
-  "rest-cache": {
+  'rest-cache': {
     config: {
       provider: {
-          name: "redis",
-          options: {
-              // The name of the connection as defined in the Redis plugin.
-              connection: "default",
-              // The time to live in milliseconds. This is the maximum amount of time that an item can be in the cache before it is removed.
-              ttl: 3600 * 1000
-          },
+        name: 'redis',
+        options: {
+          // The name of the connection as defined in the Redis plugin.
+          connection: 'default',
+          // The time to live in milliseconds. This is the maximum amount of time that an item can be in the cache before it is removed.
+          ttl: 3600 * 1000,
+        },
       },
-    }
+    },
   },
   'cloudinary-media-library': {
     enabled: true,
@@ -260,14 +262,18 @@ export default ({ env }) => ({
       },
       actionOptions: {
         upload: {
-          ...env('CLOUDINARY_UPLOAD_PRESET') ? {
-            upload_preset: env('CLOUDINARY_UPLOAD_PRESET')
-          } : {},
+          ...(env('CLOUDINARY_UPLOAD_PRESET')
+            ? {
+                upload_preset: env('CLOUDINARY_UPLOAD_PRESET'),
+              }
+            : {}),
         },
         uploadStream: {
-          ...env('CLOUDINARY_UPLOAD_PRESET') ? {
-            upload_preset: env('CLOUDINARY_UPLOAD_PRESET')
-          } : {},
+          ...(env('CLOUDINARY_UPLOAD_PRESET')
+            ? {
+                upload_preset: env('CLOUDINARY_UPLOAD_PRESET'),
+              }
+            : {}),
         },
         delete: {},
       },

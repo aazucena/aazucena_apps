@@ -1,0 +1,85 @@
+{/* design-tokens/layering-z-index.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Layering & Z-Index" />
+
+# Layering & Z-Index
+
+Our layering system enforces a strict volumetric hierarchy, ensuring that interaction depth is predictable and performant.
+
+---
+
+## 🏗️ Implementation Demo: Volumetric Stacking Engine
+
+This simulator tilts the application layers into 3D space to reveal the functional depth defined by our Z-index tokens. Hover over the engine to rotate the stack and inspect the spatial separation.
+
+<div className="p-12 border rounded-3xl bg-[var(--base)] border-[var(--border)] overflow-hidden transition-all duration-500 min-h-[500px] flex items-center justify-center perspective-[1000px] group">
+  
+  <div className="relative w-full max-w-md aspect-video preserve-3d transition-transform duration-1000 rotate-x-[20deg] rotate-y-[-20deg] group-hover:rotate-x-[10deg] group-hover:rotate-y-[-10deg]">
+    
+    {/* Base Layer */}
+    <div 
+      className="absolute inset-0 bg-[var(--base)] border border-[var(--border)] rounded-xl shadow-2xl flex flex-col p-6 transition-all duration-500"
+      style={{ transform: 'translateZ(0px)', zIndex: 'var(--z-base)' }}
+    >
+      <div className="w-1/3 h-4 bg-[var(--primary)] opacity-20 rounded mb-4" />
+      <div className="space-y-2">
+        <div className="w-full h-2 bg-[var(--muted-foreground)] opacity-10 rounded" />
+        <div className="w-full h-2 bg-[var(--muted-foreground)] opacity-10 rounded" />
+        <div className="w-2/3 h-2 bg-[var(--muted-foreground)] opacity-10 rounded" />
+      </div>
+      <div className="mt-auto text-[10px] font-mono opacity-40">LAYER: 01 // Z-BASE</div>
+    </div>
+
+    {/* Dock Layer */}
+    <div 
+      className="absolute bottom-4 left-4 right-4 h-16 bg-[var(--elevated)] border border-[var(--primary)]/30 rounded-xl shadow-xl flex items-center px-6 transition-all duration-500 delay-75"
+      style={{ transform: 'translateZ(40px)', zIndex: 'var(--z-dock)' }}
+    >
+      <div className="flex gap-3">
+        {[1, 2, 3].map(i => <div key={i} className="w-8 h-8 rounded-lg bg-[var(--primary)] opacity-20" />)}
+      </div>
+      <div className="ml-auto text-[8px] font-mono text-[var(--primary)] uppercase tracking-widest">Z-DOCK</div>
+    </div>
+
+    {/* Modal Layer */}
+    <div 
+      className="absolute top-1/2 left-1/2 w-64 h-40 bg-[var(--floating)] border border-[var(--border)] rounded-2xl shadow-2xl backdrop-blur-2xl p-6 transition-all duration-500 delay-150 -translate-x-1/2 -translate-y-1/2"
+      style={{ transform: 'translateZ(100px) translateX(-50%) translateY(-50%)', zIndex: 'var(--z-modal)' }}
+    >
+      <div className="w-8 h-8 rounded-full bg-[var(--secondary)] opacity-30 mb-4" />
+      <div className="font-bold text-sm mb-2">Active Protocol</div>
+      <div className="w-full h-1 bg-[var(--secondary)]/20 rounded" />
+      <div className="mt-auto text-[8px] font-mono text-[var(--secondary)] uppercase">Z-MODAL // LAYER: 03</div>
+    </div>
+
+    {/* Tooltip Layer */}
+    <div 
+      className="absolute top-12 right-12 w-24 h-12 bg-[var(--foreground)] text-[var(--base)] rounded shadow-2xl flex flex-col p-2 transition-all duration-500 delay-300"
+      style={{ transform: 'translateZ(160px)', zIndex: 'var(--z-tooltip)' }}
+    >
+      <span className="text-[10px] font-bold">INFO_NODE</span>
+      <div className="mt-auto w-full h-[2px] bg-[var(--primary)]" />
+    </div>
+
+  </div>
+</div>
+
+<style>
+{`
+  .perspective-[1000px] { perspective: 1000px; }
+  .preserve-3d { transform-style: preserve-3d; }
+`}
+</style>
+
+---
+
+## The Hierarchy
+
+| Tier | CSS Variable | Implementation |
+|---|---|---|
+| Base | `--z-base` | Content and standard layouts. |
+| Dock | `--z-dock` | Navigation and toolbars. |
+| Modal | `--z-modal` | Critical interaction layers. |
+| Tooltip | `--z-tooltip` | Ephemeral contextual data. |
+| Max | `--z-max` | Safety layer for absolute priority. |

@@ -4,7 +4,7 @@
  * Reusable for blog, awards, projects, etc.
  */
 
-import type { JSX } from 'react';
+import type { JSX } from "react";
 
 export interface ViewAllButtonProps {
   /** Button text */
@@ -25,13 +25,13 @@ export function ViewAllButton({
   text,
   href,
   ariaLabel,
-  className = '',
+  className = "",
 }: ViewAllButtonProps): JSX.Element {
   return (
     <div className="mt-16 flex justify-center">
       <a
         href={href}
-        className={`px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-semibold text-lg shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50 ${className}`}
+        className={`focus:ring-opacity-50 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/25 focus:ring-2 focus:ring-cyan-400 focus:outline-none ${className}`}
         aria-label={ariaLabel}
       >
         {text}

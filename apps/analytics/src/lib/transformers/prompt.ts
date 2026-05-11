@@ -1,5 +1,4 @@
-import type { StrapiPrompt } from '../validators/prompt';
-import type { PromptType } from '../validators/enums';
+import type { StrapiPrompt, PromptType } from '@aazucena/api';
 
 export interface Prompt {
   id: string;
@@ -25,7 +24,7 @@ export function transformPrompt(prompt: StrapiPrompt): Prompt {
     humanTemplate: prompt.human_template || undefined,
     type: prompt.type,
     locale: prompt.locale || 'en',
-    tags: prompt.tags?.map(t => t.label) || [],
+    tags: prompt.tags?.map((t) => t.label) || [],
     metadata: prompt.metadata || {},
     lastUpdated: prompt.updatedAt || prompt.createdAt || '',
   };

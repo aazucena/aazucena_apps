@@ -1,0 +1,21 @@
+services:
+  intel-engine:
+    container_name: aazucena-intel-engine
+    image: aazucena/intel-engine:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3001"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - INTEL_BRIDGE_URL=http://aazucena-intel-bridge:3001
+      - DATABASE_URL=postgresql://${DATABASE_USERNAME:-strapi}:${DATABASE_PASSWORD:-strapi}@aazucena-db:5432/${DATABASE_NAME:-strapi}
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-aazucena-intel-engine}
+      - PLAUSIBLE_CLICKHOUSE_USER=${PLAUSIBLE_CLICKHOUSE_USER:-admin}
+      - PLAUSIBLE_CLICKHOUSE_PASSWORD=${PLAUSIBLE_CLICKHOUSE_PASSWORD:-clickhouse}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

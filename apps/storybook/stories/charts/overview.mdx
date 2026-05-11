@@ -1,0 +1,71 @@
+{/* charts/overview.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Charts & Graphs/Overview" />
+
+# Charts & Graphs
+
+The **`@aazucena/visualizations`** package provides 21 high-performance, D3-powered visualization components built for the portfolio monorepo.
+
+## Architecture
+
+Every chart follows a composable anatomy:
+
+```
+ChartContainer          // Root wrapper (border, rounded, hover effect)
+  ChartHeader           // Title row + toolbar area
+    ChartTitle          // Bold uppercase heading
+    ChartDescription    // Muted subtext
+    ChartToolbar        // Export controls (SVG / PNG / CSV)
+  ChartContent          // Main SVG rendering area
+  ChartFooter           // Legends, metadata
+```
+
+All primitives are exported from `@aazucena/visualizations` and can be used independently.
+
+## Data Types
+
+Data interfaces live in `@aazucena/types` under the `data/visualizations` module:
+
+| Type | Used By |
+|---|---|
+| `BarChartData` | BarChart |
+| `PieChartData` | PieChart |
+| `GenericTimeSeriesStep` | LineChart, StreamGraph |
+| `AreaChartPoint` | AreaChart |
+| `ScatterPlotPoint` | ScatterPlot |
+| `GenericPoint` | BarPlot, ParetoFrontier |
+| `GenericHeatmapCell` | Heatmap |
+| `SpiderChartData` | SpiderChart |
+| `TreemapNode` | Treemap |
+| `WordCloudData` | WordCloud |
+| `GenericNetworkData` | ForceDirectedGraph, SankeyDiagram |
+| `DendrogramNode` | Dendrogram |
+| `CircularPackingNode` | CircularPacking |
+| `MapRegion` | ChoroplethMap |
+| `ParetoData` | ParetoFrontier |
+| `TimelineEvent` | InteractiveTimeline |
+
+## Hook Pattern
+
+Every chart has a companion `use[Chart]` hook that encapsulates D3 bindings, scales, and resize logic:
+
+```tsx
+import { useBarChart } from '@aazucena/visualizations';
+
+const { svgRef, dimensions } = useBarChart(data, options);
+```
+
+Hooks are useful when you need direct control over the SVG or want to compose charts into custom layouts.
+
+## Component Inventory
+
+| Category | Components |
+|---|---|
+| **Standard** (7) | BarChart, LineChart, PieChart, AreaChart, ScatterPlot, BarPlot, RadialGauge |
+| **Advanced** (5) | Heatmap, StreamGraph, SpiderChart, Treemap, WordCloud |
+| **Relational** (4) | ForceDirectedGraph, SankeyDiagram, Dendrogram, CircularPacking |
+| **Specialized** (3) | InteractiveTimeline, ParetoFrontier, ChoroplethMap |
+| **Intelligence** (2) | NeuralMap, NeuralNode |
+
+Browse each sub-category in the sidebar to see live examples with mock data.

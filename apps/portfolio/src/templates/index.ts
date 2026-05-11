@@ -37,7 +37,7 @@ export interface BaseTemplateProps {
 
   // Layout customization
   watermarkText: string;
-  watermarkSize?: 'small' | 'medium' | 'large' | 'huge';
+  watermarkSize?: "small" | "medium" | "large" | "huge";
 
   // Features
   showTableOfContents: boolean;
@@ -136,9 +136,9 @@ export interface LandingTemplateProps extends BaseTemplateProps {
  * 4. Define the props interface above
  */
 export const TEMPLATE_MAP = {
-  legal: 'LegalTemplate',
-  default: 'EditorialTemplate',
-  landing: 'LandingTemplate',
+  legal: "LegalTemplate",
+  default: "EditorialTemplate",
+  landing: "LandingTemplate",
 } as const;
 
 /**

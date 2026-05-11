@@ -46,10 +46,10 @@ const {
   description,
   canonical,
   keywords,
-  robots = 'index, follow',
-  viewport = 'width=device-width, initial-scale=1',
+  robots = "index, follow",
+  viewport = "width=device-width, initial-scale=1",
   openGraph,
-  twitterCard = 'summary_large_image',
+  twitterCard = "summary_large_image",
   twitterSite,
   googleSiteVerificationId,
 } = Astro.props;
@@ -66,22 +66,30 @@ const {
 {canonical && <link rel="canonical" href={canonical} />}
 
 <!-- Open Graph Meta Tags -->
-{openGraph && (
-  <>
-    <meta property="og:title" content={openGraph.title} />
-    <meta property="og:description" content={openGraph.description} />
-    <meta property="og:type" content={openGraph.type} />
-    {openGraph.url && <meta property="og:url" content={openGraph.url} />}
-    {openGraph.siteName && <meta property="og:site_name" content={openGraph.siteName} />}
-    {openGraph.image && <meta property="og:image" content={openGraph.image} />}
-  </>
-)}
+{
+  openGraph && (
+    <>
+      <meta property="og:title" content={openGraph.title} />
+      <meta property="og:description" content={openGraph.description} />
+      <meta property="og:type" content={openGraph.type} />
+      {openGraph.url && <meta property="og:url" content={openGraph.url} />}
+      {openGraph.siteName && (
+        <meta property="og:site_name" content={openGraph.siteName} />
+      )}
+      {openGraph.image && (
+        <meta property="og:image" content={openGraph.image} />
+      )}
+    </>
+  )
+}
 
 <!-- Twitter Card Meta Tags -->
 <meta name="twitter:card" content={twitterCard} />
 {twitterSite && <meta name="twitter:site" content={twitterSite} />}
 
 <!-- Google Site Verification -->
-{googleSiteVerificationId && (
-  <meta name="google-site-verification" content={googleSiteVerificationId} />
-)}
+{
+  googleSiteVerificationId && (
+    <meta name="google-site-verification" content={googleSiteVerificationId} />
+  )
+}

@@ -1,11 +1,2 @@
-import { z } from 'zod';
-
-export const PromptTypeEnum = z.enum([
-  'intent_analyst',
-  'assistant',
-  'expert',
-  'tool',
-  'evaluation'
-]);
-
-export type PromptType = z.infer<typeof PromptTypeEnum>;
+export { PromptTypeEnum } from '@aazucena/api';
+export type { PromptType } from '@aazucena/api';

@@ -17,9 +17,9 @@
  * @component
  */
 
-import { MarkdownRenderer } from '~/components/blocks/MarkdownRenderer';
-import DetailLayout from '~/layouts/DetailLayout.astro';
-import type { EditorialTemplateProps } from './index';
+import { MarkdownRenderer } from "@aazucena/ui";
+import DetailLayout from "~/layouts/DetailLayout.astro";
+import type { EditorialTemplateProps } from "./index";
 
 interface Props extends EditorialTemplateProps {}
 
@@ -31,9 +31,9 @@ const {
   jsonLd,
   breadcrumbs,
   watermarkText,
-  watermarkSize = 'small',
+  watermarkSize = "small",
   showTableOfContents,
-  tocSelector = '#dynamic-content',
+  tocSelector = "#dynamic-content",
 } = Astro.props;
 ---
 
@@ -51,9 +51,9 @@ const {
   basePath="/"
 >
   <!-- Editorial Header: Clean centered title -->
-  <div slot="header" class="text-center space-y-8">
+  <div slot="header" class="space-y-8 text-center">
     <h1
-      class="text-5xl md:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-none"
+      class="text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
     >
       {title}<span class="text-blue-600">.</span>
     </h1>
@@ -63,7 +63,7 @@ const {
   <Fragment slot="content">
     <article
       id="dynamic-content"
-      class="prose prose-lg dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600"
+      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 max-w-none"
     >
       <MarkdownRenderer content={content} />
     </article>

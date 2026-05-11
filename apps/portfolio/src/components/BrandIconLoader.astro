@@ -33,14 +33,13 @@ export interface Props {
 }
 
 const {
-  logoUrl = '/icon.svg', // Default to public/icon.svg
+  logoUrl = "/icon.svg", // Default to public/icon.svg
   backgroundColor,
-  isCmsFallback = false
+  isCmsFallback = false,
 } = Astro.props;
 
 // Extend duration for CMS failures
-const animationDuration = isCmsFallback ? '2s' : '1.5s';
-const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
+const animationDuration = isCmsFallback ? "2s" : "1.5s";
 ---
 
 <div
@@ -60,7 +59,7 @@ const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
   </div>
 </div>
 
-<style define:vars={{ animationDuration, displayDuration }}>
+<style define:vars={{ animationDuration }}>
   .brand-icon-loader {
     position: fixed;
     top: 0;
@@ -97,7 +96,8 @@ const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
 
   /* Pulse animation */
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
@@ -133,68 +133,75 @@ const displayDuration = isCmsFallback ? '3000ms' : '1500ms';
    * 1. Preloader component mounts (React hydration complete)
    * 2. Maximum timeout reached (failsafe)
    */
-  (function() {
+  (function () {
     function lockScroll() {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
     }
 
     function unlockScroll() {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
 
     function hideBrandLoader(loader) {
-      if (!loader || loader.classList.contains('hidden')) return;
-      loader.classList.add('hidden');
+      if (!loader || loader.classList.contains("hidden")) return;
+      loader.classList.add("hidden");
       unlockScroll();
-      
+
+      // BrandIconLoader is the single gate for content visibility.
+      // Reveal <main> here regardless of whether the Preloader React
+      // component has hydrated — if it has, Preloader sits on top and
+      // plays its animation before fading; if not (slow dev hydration),
+      // the user sees the SSR content directly without a blank page.
+      var mainContent = document.querySelector("main[data-critical]");
+      if (mainContent) {
+        mainContent.style.opacity = "1";
+        document.body.style.background = "";
+      }
+
       // Remove from DOM after transition to keep it clean
       setTimeout(() => {
         if (loader && loader.parentElement) {
           loader.remove();
         }
-      }, 1000); 
+      }, 1000);
     }
 
     function initLoader() {
-      const loader = document.getElementById('brand-icon-loader');
+      const loader = document.getElementById("brand-icon-loader");
       if (!loader) return;
-
-      // Check if preloader already signaled completion or was skipped
-      const isSkipped = document.querySelector('[data-preloader-skipped="true"]');
-      if (isSkipped) {
-        hideBrandLoader(loader);
-        return;
-      }
 
       // Lock scroll while loader is active
       lockScroll();
 
-      // Check if this is a CMS fallback (longer timeout)
-      const isCmsFallback = loader.getAttribute('data-cms-fallback') === 'true';
-      const maxTimeout = isCmsFallback ? 3000 : 1500;
+      // BrandIconLoader stays up until any code dispatches "brand-loader-complete".
+      // Pages with async content (e.g. Journey charts) dispatch this themselves
+      // when ready. Pages with no async content get it from the preloader flow below.
+      document.addEventListener(
+        "brand-loader-complete",
+        () => hideBrandLoader(loader),
+        {
+          once: true,
+        },
+      );
 
-      // Listen for preloader events
-      const handleReady = () => hideBrandLoader(loader);
-      
-      document.addEventListener('preloader-mounted', handleReady, { once: true });
-      document.addEventListener('preloader-complete', handleReady, { once: true });
-
-      // Fallback timeout
+      // Safety-net: fire the event automatically if nothing else does within timeout.
+      const isCmsFallback = loader.getAttribute("data-cms-fallback") === "true";
+      const maxTimeout = isCmsFallback ? 12000 : 8000;
       setTimeout(() => {
-        hideBrandLoader(loader);
+        document.dispatchEvent(new CustomEvent("brand-loader-complete"));
       }, maxTimeout);
     }
 
     // Initialize on load
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initLoader);
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initLoader);
     } else {
       initLoader();
     }
 
     // Re-initialize on every view transition navigation
-    document.addEventListener('astro:page-load', initLoader);
+    document.addEventListener("astro:page-load", initLoader);
   })();
 </script>

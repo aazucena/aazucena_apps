@@ -1,0 +1,106 @@
+{/* stories/icons/brand-logos.mdx */}
+import { Meta, IconGallery, IconItem } from '@storybook/addon-docs/blocks';
+import { 
+  GitHub, GitHubHex,
+  Astro, AstroHex,
+  React, ReactHex,
+  Vite, ViteHex,
+  TypeScript, TypeScriptHex,
+  Nextjs, NextjsHex,
+  Tailwind, TailwindHex,
+  Threejs, ThreejsHex,
+  Storybook, StorybookHex,
+  Sentry, SentryHex,
+  Vercel, VercelHex,
+  Railway, RailwayHex
+} from '@aazucena/icons';
+
+<Meta title="Icons/Tech & Social (SimpleIcons)" />
+
+# Tech & Social Library
+
+Our technical and social logos are powered by **SimpleIcons**. Unlike our UI set, these are `fill`-based icons that represent external brands and developer tools.
+
+---
+
+## 🏗️ The Dual-State Protocol
+
+We maintain two naming conventions for every brand icon to support both **Official Brand Identity** and **Dynamic Vibe Integration**.
+
+### 1. The Chameleon State (Theme-Reactive)
+Uses the default name (e.g., `GitHub`). These icons ignore their official brand colors and instead use `fill='currentColor'`, allowing them to adapt to the active **Vibe**.
+
+### 2. The Constant State (Official Hex)
+Uses the `*Hex` suffix (e.g., `GitHubHex`). These icons are hard-coded to their official brand colors and do not change with the Vibe.
+
+<div className="p-12 border rounded-2xl bg-[var(--base)] border-[var(--border)] transition-all duration-500">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    
+    {/* Chameleon Example */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] transition-colors">
+        <GitHub size={48} />
+      </div>
+      <div className="text-center">
+        <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Chameleon</span>
+        <code className="text-[10px] font-mono text-[var(--primary)]">GitHub</code>
+      </div>
+    </div>
+
+    {/* Constant Example */}
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center">
+       <GitHub size={48} color={GitHubHex} />
+      </div>
+      <div className="text-center">
+        <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Official</span>
+        <code className="text-[10px] font-mono text-[var(--secondary)]">GitHub w/ GithubHex</code>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## 🏗️ Tech Stack Directory
+
+A selection of the most commonly used developer tool logos available in the registry.
+
+<IconGallery>
+  <IconItem name="Astro">
+    <Astro />
+  </IconItem>
+  <IconItem name="React">
+    <React />
+  </IconItem>
+  <IconItem name="TypeScript">
+    <TypeScript />
+  </IconItem>
+  <IconItem name="Nextjs">
+    <Nextjs />
+  </IconItem>
+  <IconItem name="Tailwind">
+    <Tailwind />
+  </IconItem>
+  <IconItem name="Threejs">
+    <Threejs />
+  </IconItem>
+  <IconItem name="Vercel">
+    <Vercel />
+  </IconItem>
+  <IconItem name="Railway">
+    <Railway />
+  </IconItem>
+</IconGallery>
+
+---
+
+## Technical Specifications
+
+| Property | Standard |
+|---|---|
+| **Source Library** | `@icons-pack/react-simple-icons` |
+| **Logic** | Fill-based (Path solids) |
+| **Official Colors** | Accessible via `*Hex` export suffix. |
+| **Naming Protocol** | PascalCase aliases for standardized dev-tool access. |

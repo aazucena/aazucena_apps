@@ -8,13 +8,13 @@ export async function POST(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const force = searchParams.get('force') === 'true';
-    
+
     // The Intel Engine is accessible via Docker network or localhost:3003
     const INTEL_ENGINE_URL = process.env.INTEL_ENGINE_URL || 'http://localhost:3003';
-    
+
     const syncUrl = `${INTEL_ENGINE_URL}/brain/sync${force ? '?force=true' : ''}`;
     console.log(`[Proxy] Forwarding sync request to: ${syncUrl}`);
-    
+
     const res = await fetch(syncUrl, {
       method: 'POST',
       headers: {

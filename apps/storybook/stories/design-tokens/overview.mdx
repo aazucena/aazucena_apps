@@ -1,0 +1,95 @@
+{/* design-tokens/overview.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Overview" />
+
+# Design Tokens Overview
+
+Design tokens are the visual atoms of the **@aazucena** design system. They ensure a consistent and maintainable visual language across the entire monorepo, translating abstract brand intent into mathematical code.
+
+---
+
+## 🏗️ Implementation Demo: The Token Composition Protocol
+
+This simulation demonstrates how our tokens are composed through layers of abstraction. Hover over each phase to see the transition from a **Raw Value** to a **Functional Role**, and finally to a **Production Component**.
+
+<div className="p-12 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 overflow-hidden relative group">
+  {/* Engineering Grid Overlay */}
+  <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(var(--primary)_1px,transparent_1px),linear-gradient(90deg,var(--primary)_1px,transparent_1px)] [background-size:32px_32px]" />
+  
+  <div className="flex flex-col md:flex-row items-stretch justify-between gap-4 md:gap-0 relative z-10">
+    
+    {/* Step 1: Primitive */}
+    <div className="flex-1 flex flex-col items-center gap-6 p-6 rounded-2xl transition-all hover:bg-[var(--primary)]/5 group/p">
+      <div className="w-24 h-24 rounded-full bg-[#06b6d4] shadow-2xl group-hover/p:scale-110 transition-transform relative">
+        <div className="absolute inset-0 rounded-full border-2 border-white/20 animate-ping" />
+      </div>
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--primary)] font-bold tracking-[0.2em] uppercase">Phase_01</span>
+        <span className="block font-bold text-sm text-[var(--foreground)]">RAW_PRIMITIVE</span>
+        <code className="text-[10px] font-mono opacity-40">cyan-500: #06b6d4</code>
+      </div>
+    </div>
+
+    {/* Connector */}
+    <div className="hidden md:flex items-center justify-center w-12">
+      <div className="w-full h-[1px] bg-gradient-to-r from-[var(--border)] to-[var(--primary)]/30" />
+    </div>
+
+    {/* Step 2: Functional */}
+    <div className="flex-1 flex flex-col items-center gap-6 p-6 rounded-2xl transition-all hover:bg-[var(--primary)]/5 group/f">
+      <div className="w-24 h-24 rounded-3xl bg-[var(--primary)] shadow-2xl group-hover/f:scale-110 transition-transform relative flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,white_0%,transparent_70%)]" />
+        <span className="text-[var(--primary-foreground)] font-mono text-[10px] font-black tracking-tighter">--primary</span>
+      </div>
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--primary)] font-bold tracking-[0.2em] uppercase">Phase_02</span>
+        <span className="block font-bold text-sm text-[var(--foreground)]">SEMANTIC_ROLE</span>
+        <code className="text-[10px] font-mono opacity-40">var(--primary)</code>
+      </div>
+    </div>
+
+    {/* Connector */}
+    <div className="hidden md:flex items-center justify-center w-12">
+      <div className="w-full h-[1px] bg-gradient-to-r from-[var(--primary)]/30 to-[var(--border)]" />
+    </div>
+
+    {/* Step 3: Component */}
+    <div className="flex-1 flex flex-col items-center gap-6 p-6 rounded-2xl transition-all hover:bg-[var(--primary)]/5 group/c">
+      <div className="w-24 h-24 flex items-center justify-center group-hover/c:scale-110 transition-transform">
+        <button className="px-6 py-3 rounded-[var(--radius-button)] bg-[var(--primary)] text-[var(--primary-foreground)] shadow-[var(--shadow-xl)] font-black uppercase tracking-widest text-[10px] border border-white/10">
+          EXEC_INIT
+        </button>
+      </div>
+      <div className="text-center space-y-1">
+        <span className="block text-[10px] font-mono text-[var(--primary)] font-bold tracking-[0.2em] uppercase">Phase_03</span>
+        <span className="block font-bold text-sm text-[var(--foreground)]">ENGINE_COMPONENT</span>
+        <code className="text-[10px] font-mono opacity-40">System_Button_v1</code>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+---
+
+## The Token Hierarchy
+
+Our tokens are organized into three distinct levels of abstraction to ensure maximum scalability and aesthetic flexibility.
+
+### 1. Primitive Tokens
+The bedrock values (colors, spacing, typography). These are raw values that represent the full capability of the system.
+*   **[Colors](/docs/design-tokens-colors--docs)** — OKLCH scales.
+*   **[Typography](/docs/design-tokens-typography--docs)** — Mathematical type scales.
+*   **[Layout & Spacing](/docs/design-tokens-layout-spacing--docs)** — 4px baseline grid.
+
+### 2. Functional Tokens
+Tokens that represent an intended use or role. These refer to primitives but add semantic meaning.
+*   **[Effects & Shadows](/docs/design-tokens-effects-shadows--docs)** — Volumetric depth.
+*   **[Motion & Animation](/docs/design-tokens-motion-animation--docs)** — Physical interaction laws.
+*   **[Layering & Z-Index](/docs/design-tokens-layering-z-index--docs)** — Stacking engine.
+
+### 3. Vibe Tokens (The Theme System)
+The highest level of abstraction. A **Vibe** is an orchestrated collection of token overrides that transforms the entire application's aesthetic.
+*   **[Theme System](/docs/design-tokens-theme-system--docs)** — Visual Identity Protocol.
+*   **[Explore Themes](/docs/design-tokens-themes-default--docs)** — Individual Vibe specs.

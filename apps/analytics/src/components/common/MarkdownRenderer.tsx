@@ -39,10 +39,12 @@ marked.use({
         ? 'list-decimal list-inside mb-4 space-y-1.5 text-sm'
         : 'list-disc list-inside mb-4 space-y-1.5 text-sm';
 
-      const items = token.items.map((item: Tokens.ListItem) => {
-        const content = this.parser.parse(item.tokens);
-        return `<li class="text-zinc-700 dark:text-zinc-300 leading-relaxed">${content}</li>`;
-      }).join('');
+      const items = token.items
+        .map((item: Tokens.ListItem) => {
+          const content = this.parser.parse(item.tokens);
+          return `<li class="text-zinc-700 dark:text-zinc-300 leading-relaxed">${content}</li>`;
+        })
+        .join('');
 
       return `<${tag} class="${className}">${items}</${tag}>`;
     },
@@ -90,10 +92,5 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps):
 
   const html = marked.parse(content) as string;
 
-  return (
-    <div
-      className={className}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+  return <div className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 }

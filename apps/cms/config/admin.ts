@@ -1,4 +1,6 @@
-export default ({ env }) => ({
+import { ConfigContext } from '../types/strapi';
+
+export default ({ env }: ConfigContext) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -32,7 +34,7 @@ export default ({ env }) => ({
   },
   watchIgnoreFiles: [
     '**/logs/**', // Ignores any 'logs' folder at any level
-    './temp/**',   // Ignores a 'temp' folder in the project root
+    './temp/**', // Ignores a 'temp' folder in the project root
     '**/tests/**', // Ignores test folders
     '**/services/**', // Ignores clickhouse folders
   ],

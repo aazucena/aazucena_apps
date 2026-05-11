@@ -1,0 +1,11 @@
+/**
+ * [Constants] : Global_Static_Configs
+ * Configures TypeScript for ecosystem-wide immutable values.
+ */
+{
+  "extends": "@aazucena/config/tsconfig/react.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}

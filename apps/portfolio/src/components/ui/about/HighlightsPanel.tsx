@@ -4,9 +4,9 @@
  * Used in AboutSection to showcase "What I Bring to the Table"
  */
 
-import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-import type { JSX } from 'react';
-import { darkHighlightBlockRenderers } from '~/components/blocks/BlockRenderers';
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import type { JSX } from "react";
+import { darkHighlightBlockRenderers } from "~/components/blocks/BlockRenderers";
 
 export interface HighlightsPanelProps {
   /** Panel heading */
@@ -33,13 +33,13 @@ export interface HighlightsPanelProps {
  * ```
  */
 export function HighlightsPanel({
-  title = 'What I Bring to the Table',
-  highlights
+  title = "What I Bring to the Table",
+  highlights,
 }: HighlightsPanelProps): JSX.Element {
   return (
-    <div className="mt-8 bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10">
-      <h3 className="text-xl font-semibold text-white mb-4">{title}</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-base text-left">
+    <div className="mt-8 rounded-lg border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+      <h3 className="mb-4 text-xl font-semibold text-white">{title}</h3>
+      <div className="grid grid-cols-1 gap-3 text-left text-base md:grid-cols-2">
         <BlocksRenderer
           content={highlights}
           blocks={darkHighlightBlockRenderers}

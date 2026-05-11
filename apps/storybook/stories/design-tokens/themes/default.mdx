@@ -1,0 +1,93 @@
+{/* design-tokens/themes/default.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Default" />
+
+# Default Vibe
+
+The standard visual identity for the **@aazucena** ecosystem. Balanced, professional, and optimized for data density.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Cyan 500" colors={{ primary: 'oklch(0.64 0.11 215)' }} />
+  <ColorItem title="Secondary" subtitle="Orange 500" colors={{ secondary: 'oklch(0.69 0.15 35)' }} />
+  <ColorItem title="Background" subtitle="Zinc 50" colors={{ background: 'oklch(0.98 0 0)' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Cyan 500" colors={{ primary: 'oklch(0.64 0.11 215)' }} />
+  <ColorItem title="Secondary" subtitle="Orange 500" colors={{ secondary: 'oklch(0.69 0.15 35)' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: 'oklch(0.14 0 0)' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Cyan)
+<ColorPalette>
+  <ColorItem
+    title="Primary Scale"
+    subtitle="Brand Cyan (OKLCH)"
+    colors={{
+      50:  'oklch(0.97 0.02 215)',
+      100: 'oklch(0.95 0.02 215)',
+      200: 'oklch(0.90 0.05 215)',
+      300: 'oklch(0.82 0.07 215)',
+      400: 'oklch(0.73 0.09 215)',
+      500: 'oklch(0.64 0.11 215)',
+      600: 'oklch(0.56 0.09 215)',
+      700: 'oklch(0.47 0.08 215)',
+      800: 'oklch(0.38 0.06 215)',
+      900: 'oklch(0.30 0.04 215)',
+      950: 'oklch(0.23 0.02 215)',
+    }}
+  />
+</ColorPalette>
+
+### Secondary (Orange)
+<ColorPalette>
+  <ColorItem
+    title="Secondary Scale"
+    subtitle="Brand Orange (OKLCH)"
+    colors={{
+      50:  'oklch(0.97 0.03 35)',
+      100: 'oklch(0.95 0.05 35)',
+      200: 'oklch(0.90 0.08 35)',
+      300: 'oklch(0.82 0.11 35)',
+      400: 'oklch(0.75 0.13 35)',
+      500: 'oklch(0.69 0.15 35)',
+      600: 'oklch(0.63 0.16 35)',
+      700: 'oklch(0.60 0.16 35)',
+      800: 'oklch(0.50 0.14 35)',
+      900: 'oklch(0.40 0.12 35)',
+      950: 'oklch(0.30 0.10 35)',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `8px` |
+| Card Radius | `1rem` |
+| Button Radius | `0.5rem` |
+| Animation Speed | `1.0` |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `sans` |
+| Body Font | `sans` |
+| Title Weight | `600` (Light) / `700` (Dark) |

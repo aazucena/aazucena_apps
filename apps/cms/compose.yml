@@ -1,0 +1,80 @@
+# ==============================================================================
+# AAZUCENA APPS // CMS (STRAPI)
+# ==============================================================================
+# This orchestrates only the CMS, Database, and Cache.
+# Master orchestration is handled in the project root.
+# ==============================================================================
+
+services:
+  strapi:
+    container_name: aazucena-cms
+    image: aazucena/strapi:latest
+    build: .
+    ports:
+      - "1337:1337"
+      - "5173:5173"
+    volumes:
+      - ./:/srv/app
+      - /srv/app/node_modules
+      - /srv/app/.cache
+    env_file: ./.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - aazucena-network
+    restart: unless-stopped
+
+  postgres:
+    container_name: aazucena-db
+    image: pgvector/pgvector:pg16
+    platform: linux/amd64
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - aazucena-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-strapi} -d ${DATABASE_NAME:-strapi}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    container_name: aazucena-redis
+    image: bitnami/redis:latest
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_PASSWORD:+no}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_PASSWORD:-yes}
+    volumes:
+      - redis-data:/bitnami/redis/data
+    networks:
+      - aazucena-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+
+networks:
+  aazucena-network:
+    driver: bridge

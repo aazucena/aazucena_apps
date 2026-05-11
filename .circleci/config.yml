@@ -1,31 +1,252 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/reference/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/guides/orchestrate/jobs-steps/#jobs-overview & https://circleci.com/docs/reference/configuration-reference/#jobs
-jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/guides/execution-managed/executor-intro/ & https://circleci.com/docs/reference/configuration-reference/#executor-job
+# Common configuration for all jobs
+executors:
+  node-executor:
     docker:
-      # Specify the version you desire here
-      # See: https://circleci.com/developer/images/image/cimg/base
-      - image: cimg/base:current
+      - image: cimg/node:22.14.0
+    environment:
+      HSKY: "0" # Intentional: Not a typo
+      NODE_OPTIONS: "--max_old_space_size=4096"
+      TURBO_UI: "false"
+  node-large-executor:
+    docker:
+      - image: cimg/node:22.14.0
+    resource_class: large          # 4 vCPUs / 8 GB RAM
+    environment:
+      HSKY: "0"
+      NODE_OPTIONS: "--max-old-space-size=8192"
+      TURBO_UI: "false"
 
-    # Add steps to the job
-    # See: https://circleci.com/docs/guides/orchestrate/jobs-steps/#steps-overview & https://circleci.com/docs/reference/configuration-reference/#steps
+# Reusable command to attach the workspace
+commands:
+  attach_project:
     steps:
-      # Checkout the code as the first step.
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - attach_workspace:
+          at: .
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/guides/orchestrate/workflows/ & https://circleci.com/docs/reference/configuration-reference/#workflows
+jobs:
+  setup:
+    executor: node-executor
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore pnpm Package Cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      - run:
+          name: Install & validate PNPM packages
+          command: |
+            sudo npm install --global corepack@latest
+            sudo corepack enable
+            PNPM_VERSION=$(node -p "require('./package.json').packageManager.split('@')[1]")
+            corepack prepare pnpm@${PNPM_VERSION} --activate
+            pnpm config set store-dir .pnpm-store
+            pnpm install --frozen-lockfile
+      - save_cache:
+          name: Save pnpm Package Cache
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - .pnpm-store
+      - persist_to_workspace:
+          root: .
+          paths: [ . ]
+
+  list_projects:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: List Workspace Projects
+          command: pnpm list -r --depth -1
+
+  verify_commits:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Verify Commit Messages
+          command: |
+            if [ -n "$CIRCLE_PR_NUMBER" ]; then
+              npx commitlint --from=main --to=HEAD --verbose
+            fi
+
+  format_packages:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Formatting Packages
+          command: pnpm turbo format:check --filter="./packages/*"
+
+  format_apps:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Formatting Applications
+          command: pnpm turbo format:check --filter="./apps/*"
+
+  lint_packages:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Linting Packages
+          command: pnpm turbo lint --filter="./packages/*"
+
+  lint_apps:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Linking Applications
+          command: pnpm turbo lint --filter="./apps/*"
+
+  type_check_packages:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Type check packages
+          command: pnpm turbo type-check --filter="./packages/*"
+
+  type_check_apps:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Type check applications
+          command: pnpm turbo type-check --filter="./apps/*"
+
+  build_packages:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Packages
+          command: pnpm turbo build --filter="./packages/*"
+
+  test_packages:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run: echo "[TBA] Testing Packages"
+
+  publish_packages:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run: echo "[TBA] Publishing packages"
+
+  build_portfolio:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Portfolio
+          command: pnpm turbo build --filter="portfolio"
+
+  test_portfolio:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run: echo "[TBA] Testing Portfolio"
+  # Build, & Test Avra Design system
+  build_storybook:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Storybook
+          command: pnpm turbo build:storybook --filter="@aazucena/storybook"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - apps/storybook/storybook-static    # Required by test_storybook + deploy_storybook downstream
+            - packages/design-system/dist        # Required by test_storybook (vitest re-runs Vite, needs css-vars.css)
+
+  test_storybook:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Install Playwright browser binaries
+          command: pnpm --filter @aazucena/storybook exec playwright install chromium --with-deps
+      - run:
+          name: Run Avra Design System component tests (vitest)
+          command: pnpm --filter @aazucena/storybook test:ci
+
+  build_analytics:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run: echo "Analytics build skipped (TBA)"
+
+  test_analytics:
+    executor: node-executor
+    steps:
+      - attach_project
+      - run: echo "[TBA] Testing Analytics Dashboard"
+
+  build_cms:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Building Strapi CMS
+          command: pnpm turbo build --filter="cms"
+
+  verify_changesets:
+    executor: node-large-executor
+    steps:
+      - attach_project
+      - run:
+          name: Verify Changesets
+          command: pnpm exec changeset status --since=main --verbose
+
 workflows:
-  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  quality_gate:
     jobs:
-      - say-hello
+      - setup
+      - list_projects:
+          requires: [ setup ]
+      - verify_commits:
+          requires: [ setup ]
+      - format_packages:
+          requires: [ setup ]
+      - format_apps:
+          requires: [ setup ]
+      - lint_packages:
+          requires: [ setup ]
+      - lint_apps:
+          requires: [ setup ]
+      - type_check_packages:
+          requires: [ setup ]
+      - type_check_apps:
+          requires: [ setup ]
+      - build_packages:
+          requires: [ setup ]
+      - test_packages:
+          requires: [ build_packages ]
+      - publish_packages:
+          requires: [ build_packages ]
+      - build_portfolio:
+          requires: [ build_packages ]
+      - test_portfolio:
+          requires: [ build_portfolio ]
+      - build_storybook:
+          requires: [ build_packages ]
+      - test_storybook:
+          requires: [ build_storybook ]
+      - build_analytics:
+          requires: [ build_packages ]
+      - test_analytics:
+          requires: [ build_analytics ]
+      - build_cms:
+          requires: [ build_packages ]
+      - verify_changesets:
+          requires: [ setup ]
+          filters:
+            branches:
+              only: main

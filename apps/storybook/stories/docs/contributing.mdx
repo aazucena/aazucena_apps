@@ -1,0 +1,127 @@
+{/* docs/contributing.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Contributions Guideline" />
+
+# Contributions Guideline
+
+Welcome to the **@aazucena** monorepo! Whether you are a core developer or an automated agent, these guidelines ensure consistent quality, performance, and maintainability across all applications and packages.
+
+---
+
+## 🛠️ Prerequisites
+
+- **Package Manager:** [pnpm](https://pnpm.io/) v10.22.0 or higher.
+- **Node.js:** version 18 or higher (LTS recommended).
+- **Git Hooks:** Initialized automatically via [Husky](https://typicode.github.io/husky/).
+
+---
+
+## 🚀 Getting Started
+
+1.  **Clone the repository** and navigate to the project root.
+2.  **Install dependencies:**
+    ```bash
+    pnpm install
+    ```
+3.  **Start development mode:**
+    ```bash
+    # Start all workspaces
+    pnpm dev
+    
+    # Start specific workspace
+    pnpm dev --filter @aazucena/portfolio
+    ```
+
+---
+
+## 📁 Repository Structure
+
+We use a **pnpm + Turborepo** monorepo architecture:
+
+- `apps/`: Main entry points.
+    - `portfolio/`: Astro-based primary site.
+    - `analytics/`: Engineering Intelligence Terminal (Next.js).
+    - `cms/`: Strapi v5 backend.
+    - `storybook/`: Documentation and component playground.
+- `packages/`: Specialized internal packages.
+    - `design-system/`: Design tokens, themes (17 vibes), and platform integrations.
+    - `ui/`: 225+ shared React components (ShadCN base + custom composed).
+    - `visualizations/`: 21 D3-powered chart & graph components with companion hooks.
+    - `animations/`: 64+ Three.js objects, GSAP presets, and modular 3D inspection tools.
+    - `hooks/`: Domain-specific React hooks.
+    - `icons/`: Custom SVG icon library with registry.
+    - `utils/`: Pure utility functions (`cn()`, export helpers).
+    - `types/`: Centralized TypeScript type definitions.
+    - `constants/`: Global constants and fallback data.
+    - `context/`: Shared React contexts (Telemetry, etc.).
+    - `analytics/`: Tracking and telemetry utilities.
+    - `config/`: Shared build configurations (ESLint, Prettier, TS).
+
+---
+
+## 🎨 Component Development
+
+UI components reside in `packages/ui`, data visualizations in `packages/visualizations`.
+
+- **Styling:** Use [Tailwind CSS 4](https://tailwindcss.com/) with design tokens.
+- **UI Primitives:** Prefer [Radix UI](https://www.radix-ui.com/) or [ShadCN](https://ui.shadcn.com/) as base components.
+- **Visualizations:** D3-powered charts live in `packages/visualizations/src/d3/` with companion hooks in `src/hooks/`.
+- **3D & Animations:**
+    - 3D Objects reside in `packages/animations/src/three/objects/`.
+    - **Modeling:** Use low-poly/primitive-based geometry for performance.
+    - **Fidelity:** Implement **Inverse Kinematics (IK)** for realistic limb motion and follow strict **Canon Landmarks** for pop-culture references.
+    - **Registry:** Every new object must be registered in `packages/animations/src/three/objects/registry.ts` with an assigned `cost` tier and `layer`.
+    - **Verification:** Use the `ObjectViewer` story to audit $360^\circ$ rotation, materials, and slow-motion mechanics.
+- **Animations:** Use GSAP for imperative animations and Framer Motion for declarative ones.
+- **Storybook:** Every new component **must** have a corresponding `.stories.tsx` file in `apps/storybook/stories`. UI component stories go in `stories/`, chart stories in `stories/charts/`.
+- **Performance:** Heavy dependencies (Three.js, PixiJS, D3) must be lazy-loaded using `React.lazy()` and `Suspense`.
+
+---
+
+## 🛡️ Coding Standards
+
+### TypeScript
+- **Strict Mode:** Enabled across all workspaces. Avoid `any` at all costs.
+- **Shared Types:** Export common types from `@aazucena/types`.
+
+### Quality Control
+- **Linting & Formatting:** Automatically enforced on pre-commit via Husky and `lint-staged`.
+- **Manual Check:**
+    ```bash
+    pnpm lint && pnpm format
+    ```
+
+### Commits
+- Use descriptive commit messages (e.g., `feat: add integrity badge to footer`).
+- Keep commits atomic and focused on a single change.
+
+---
+
+## 🔄 Workflow
+
+1.  **Branching:** Create a feature branch from `main` (e.g., `feature/ai-forms`).
+2.  **Development:** Implement changes, add tests, and create Storybook stories.
+3.  **Verification:**
+    - Run `pnpm build` to ensure no workspace is broken.
+    - Run `pnpm chromatic` to check for visual regressions in UI components.
+4.  **Pull Request:** Open a PR against `main`. Ensure all CI checks pass before merging.
+
+---
+
+## ⚡ Performance Mandate (Phase 3)
+
+We strictly adhere to the performance targets established in Phase 3:
+- Initial bundle size target: **< 150 KB gzipped**.
+- Use **demand-based rendering** for 3D scenes.
+- Minimize top-level static imports in the portfolio entry point.
+
+---
+
+## 📖 Documentation
+
+Update the relevant documentation in the `docs/` folder for any major architectural changes or feature implementations. Sync with `ROADMAP.md` to reflect progress.
+
+---
+
+**Last Updated:** February 18, 2026

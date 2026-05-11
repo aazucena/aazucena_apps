@@ -11,6 +11,7 @@ An Astro-based portfolio application with React integration, featuring advanced 
 ## 🎯 Quick Start
 
 ### Development
+
 ```bash
 # Install dependencies (from root)
 pnpm install
@@ -26,6 +27,7 @@ pnpm dev
 The app will be available at `http://localhost:4321`
 
 ### Build & Preview
+
 ```bash
 # Build for production
 pnpm build
@@ -35,6 +37,7 @@ pnpm preview
 ```
 
 ### Testing
+
 ```bash
 # Run E2E tests with Playwright
 pnpm dlx playwright test
@@ -53,11 +56,13 @@ pnpm dlx playwright show-report
 Complete documentation is available in the [`/docs`](./docs/) folder:
 
 ### Essential Reading
+
 - **[ROADMAP.md](./ROADMAP.md)** - Complete development roadmap 🔥
 - **[Documentation Hub](./docs/README.md)** - All implementation guides
 - **[Phase 1 (Current Priority)](./docs/phase-1-animations-refactoring.md)** - Animations refactoring
 
 ### Phase Documentation
+
 - [Phase 0: Infrastructure](./docs/phase-0-infrastructure.md) - Monorepo, Strapi v5, deployment
 - [Phase 1: Animations Refactoring](./docs/phase-1-animations-refactoring.md) ⚡ **START HERE**
 - [Phase 2: Component Architecture](./docs/phase-2-component-architecture.md)
@@ -66,6 +71,7 @@ Complete documentation is available in the [`/docs`](./docs/) folder:
 - [Phase 5: Testing](./docs/phase-5-testing.md)
 
 ### Feature Documentation
+
 - [Music Player & Compositions](./docs/features/music-player.md) - Howler.js + waveform
 - [Strudel.cc Live Coding](./docs/features/strudel-integration.md) - TidalCycles integration
 - [AI-Powered Forms](./docs/features/ai-forms.md) - LangChain + Claude with vector search
@@ -78,6 +84,7 @@ Complete documentation is available in the [`/docs`](./docs/) folder:
 ## 🛠️ Tech Stack
 
 ### Core Framework
+
 - **Astro v5.16.0** - Meta-framework with React integration
 - **React 19.2** - Interactive components
 - **TypeScript** - Type safety
@@ -85,18 +92,21 @@ Complete documentation is available in the [`/docs`](./docs/) folder:
 - **Tailwind CSS 4** - Styling with @tailwindcss/vite plugin
 
 ### Animation System
+
 - **GSAP** - Advanced animations and scroll triggers
 - **Three.js** - 3D graphics and scenes
 - **PixiJS** - 2D particle systems
 - **Framer Motion** - Declarative React animations
 
 The portfolio features a sophisticated animation architecture located in `src/components/animations/` with:
+
 - **Atmospheric Layers** - Visual metaphor for scrolling (troposphere, stratosphere, mesosphere, exosphere)
 - **8 Portfolio Sections** - Hero, About, Projects, Music, Experience, Skills, Contact, Social
 - **Performance Tiers** - Adaptive animations based on device capabilities
 - **State Management** - Custom hooks and contexts (Phase 1 refactoring priority)
 
 ### UI & Forms
+
 - **ShadCN UI** - Headless UI component library
 - **@mynaui/icons-react** - Icon system
 - **react-hook-form** + **Zod** - Form validation
@@ -104,11 +114,13 @@ The portfolio features a sophisticated animation architecture located in `src/co
 - **TanStack Table** - Data tables
 
 ### Audio & Music
+
 - **Howler.js** - Audio playback
 - **wavesurfer.js** - Waveform visualization
 - **Strudel.cc** - Live coding patterns (planned)
 
 ### AI & Intelligence
+
 - **LangChain** + **LangGraph** - LLM orchestration
 - **LangSmith** - Observability and tracing
 - **Anthropic Claude 3.5 Sonnet** - Primary LLM
@@ -122,6 +134,7 @@ The portfolio features a sophisticated animation architecture located in `src/co
 - **Retrieval & Ranking:** LangChain Retrievers, Cohere Rerank, Cross-encoders
 
 ### Backend & CMS (In Progress)
+
 - **Strapi v5** - Headless CMS with 15+ plugins
   - Core: strapi-plugin-icons-field v1.1.5, GraphQL, Documentation, Sentry, SEO
   - Editor: CKEditor, Multi-select, Color picker
@@ -137,6 +150,7 @@ The portfolio features a sophisticated animation architecture located in `src/co
 - **Railway** - Backend hosting
 
 ### Monitoring & Analytics
+
 - **Sentry** - Error tracking
 - **Vercel Analytics** - Web analytics
 - **Vercel Speed Insights** - Performance monitoring
@@ -144,6 +158,7 @@ The portfolio features a sophisticated animation architecture located in `src/co
 - **Redis** - Caching
 
 ### Testing & Development
+
 - **Playwright** - E2E testing (configured)
 - **Vitest** - Unit testing (installed, not configured)
 - **Storybook** - Component development (planned)
@@ -151,6 +166,7 @@ The portfolio features a sophisticated animation architecture located in `src/co
 - **Figma** - Design system (planned)
 
 ### Payments & Monetization
+
 - **Stripe** - Payment processing
 - **Ko-fi** - Tips and donations
 
@@ -197,6 +213,7 @@ apps/portfolio/
 The portfolio uses a complex animation system with **Phase 1 (Current Priority)** focusing on refactoring:
 
 ### Current Structure
+
 - **Section.tsx** - 324 lines, main orchestrator (needs reduction to ~150 lines)
 - **9 Custom Hooks** - Device capabilities, section transitions, atmospheric layers, modals, etc.
 - **8 Sections** - Hero, About, Projects, Music, Experience, Skills, Contact, Social
@@ -204,6 +221,7 @@ The portfolio uses a complex animation system with **Phase 1 (Current Priority)*
 - **Performance Tiers** - High, Medium, Low (adaptive based on device)
 
 ### Phase 1 Refactoring Goals
+
 1. Create **PortfolioContext** and **AnimationContext** for centralized state
 2. Extract components: **AtmosphericOverlays**, **DynamicBackground**, **AnimationCanvas**, **SectionContent**, **UIOverlays**
 3. Eliminate prop drilling
@@ -218,6 +236,7 @@ See **[Phase 1 Documentation](./docs/phase-1-animations-refactoring.md)** for de
 Comprehensive form system with LangChain + LangGraph + Claude (16-20 days implementation):
 
 ### Form Types
+
 - **Contact** - General inquiries
 - **Feedback** - Portfolio feedback
 - **Testimonial** - Client reviews with approval workflow
@@ -228,6 +247,7 @@ Comprehensive form system with LangChain + LangGraph + Claude (16-20 days implem
 - **Music Feedback** - Track-specific reviews
 
 ### Key Features
+
 - ✨ **Easter Egg Step** - Hidden engagement step before submission
 - 🤖 **AI Intent Classification** - Automatic routing
 - 🔍 **Smart Field Extraction** - Structured data from casual messages
@@ -237,6 +257,7 @@ Comprehensive form system with LangChain + LangGraph + Claude (16-20 days implem
 - 🔒 **reCAPTCHA v3** - Spam protection
 
 ### Vector Database & Semantic Search
+
 - **pgVector** - PostgreSQL extension for similarity search
 - **Embeddings Storage** - Store embeddings of messages, feedback, summaries
 - **Metadata Indexing** - formType, sentiment, tags, timestamps
@@ -247,6 +268,7 @@ Comprehensive form system with LangChain + LangGraph + Claude (16-20 days implem
   - Duplicate detection
 
 ### AI Pipeline
+
 ```
 Frontend (Astro/React)
    ↓
@@ -304,6 +326,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for complete timeline and feature details.
 ## 🚀 Current Status
 
 ### Completed ✅
+
 - Icons switched to @mynaui/icons-react v0.3.9
 - Scroll indicators with animations
 - Toolbar panels with backdrop
@@ -320,12 +343,14 @@ See **[ROADMAP.md](./ROADMAP.md)** for complete timeline and feature details.
   - Icon picker via strapi-plugin-icons-field v1.1.5
 
 ### In Progress 🚧
+
 - **Phase 0: Infrastructure & Architecture**
   - Strapi CMS v5 integration
   - PostgreSQL + pgVector setup
   - Deployment pipeline
 
 ### Next Up ⏳
+
 - **Phase 0.2:** Strapi CMS Integration
 - **Phase 0.3:** Deployment Strategy
 - **Phase 0.4:** Content Migration
@@ -335,12 +360,14 @@ See **[ROADMAP.md](./ROADMAP.md)** for complete timeline and feature details.
 ## 📊 Success Metrics
 
 ### Performance Targets
+
 - **Lighthouse Score:** 90+
 - **First Contentful Paint:** <1.5s
 - **Time to Interactive:** <3.5s
 - **Bundle Size:** <350KB (gzipped)
 
 ### AI Forms Targets
+
 - **Conversion Rate:** +30% vs traditional forms
 - **Field Completion:** >85%
 - **Intent Classification:** >95% accuracy
@@ -348,6 +375,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for complete timeline and feature details.
 - **Response Time:** <2s AI agent latency
 
 ### Code Quality
+
 - **Type Coverage:** 80%+
 - **Component Size:** -30% average
 - **ESLint Errors:** 0

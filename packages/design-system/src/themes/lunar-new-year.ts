@@ -1,0 +1,103 @@
+import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
+import { getColor } from '../tokens/colors';
+
+const light: SystemThemeConfig = {
+  colors: {
+    primary: getColor('red', 600),
+    primaryForeground: getColor('zinc', 50),
+    secondary: getColor('amber', 500),
+    secondaryForeground: getColor('red', 950),
+    success: getColor('green', 600),
+    successForeground: getColor('zinc', 50),
+    destructive: getColor('red', 600),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 600),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('red', 50),
+    base: getColor('red', 50),
+    elevated: getColor('zinc', 100),
+    floating: getColor('red', 50, 0.95),
+    cardBackground: getColor('zinc', 50),
+    overlayBackground: getColor('red', 50, 0.95),
+    foreground: getColor('red', 950),
+    mutedForeground: getColor('red', 700),
+    accent: getColor('amber', 300),
+    accentForeground: getColor('red', 950),
+    border: getColor('red', 200),
+  },
+  effects: {
+    backdropBlur: 'blur(8px)',
+    shadow: `0 4px 15px ${getColor('red', 600, 0.1)}`,
+    borderRadius: {
+      card: '0.5rem',
+      button: '0.25rem',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1,
+    animationEasing: 'ease-out',
+  },
+  typography: {
+    titleSize: '1.5rem',
+    titleWeight: '800',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+};
+
+const dark: SystemThemeConfig = {
+  colors: {
+    primary: getColor('red', 500),
+    primaryForeground: getColor('red', 950),
+    secondary: getColor('amber', 400),
+    secondaryForeground: getColor('red', 950),
+    success: getColor('emerald', 400),
+    successForeground: getColor('zinc', 950),
+    destructive: getColor('red', 500),
+    destructiveForeground: getColor('zinc', 50),
+    error: getColor('red', 500),
+    errorForeground: getColor('zinc', 50),
+    background: getColor('red', 950),
+    base: getColor('red', 950),
+    elevated: getColor('red', 900),
+    floating: getColor('red', 950, 0.98),
+    cardBackground: getColor('red', 900),
+    overlayBackground: getColor('red', 950, 0.98),
+    foreground: getColor('red', 50),
+    mutedForeground: getColor('red', 300),
+    accent: getColor('amber', 300),
+    accentForeground: getColor('red', 950),
+    border: getColor('amber', 400, 0.3),
+  },
+  effects: {
+    backdropBlur: 'blur(16px)',
+    shadow: `0 0 30px ${getColor('amber', 400, 0.2)}`,
+    glowColor: getColor('amber', 400, 0.5),
+    borderRadius: {
+      card: '0.5rem',
+      button: '0.25rem',
+      badge: '9999px',
+      progress: '9999px',
+    },
+    animationSpeed: 1.2,
+    animationEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  },
+  typography: {
+    titleSize: '1.625rem',
+    titleWeight: '900',
+    subtitleSize: '0.875rem',
+    headingFont: 'serif',
+    bodyFont: 'sans',
+    fontFamily: 'serif',
+  },
+};
+
+export const lunarNewYearVibe: ThemeVibe = {
+  id: 'lunar-new-year',
+  name: 'Lunar New Year',
+  type: 'holiday',
+  light,
+  dark,
+};

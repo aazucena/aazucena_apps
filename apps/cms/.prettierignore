@@ -1,0 +1,46 @@
+# Dependencies and Build Artifacts
+node_modules/
+dist/
+build/
+.cache/
+.tmp/
+coverage/
+.next/
+.cache/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.min.js
+*.min.css
+
+# Strapi-Specific Generated Files
+.strapi/
+.strapi-updater.json
+public/uploads/
+
+# Version Control and IDEs
+.git/
+.vscode/
+.idea/
+
+# Lock files (optional, but usually ignored)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Documentation and Coverage
+coverage/
+*.md
+
+# Database data
+**/clickhouse/**
+
+# Strapi-Generated Schema/Content types
+types/generated/**
+**/generated/**
+**/content-types/**/schema.json
+**/components/**/*.json
+src/admin/build/
+src/admin/.cache/
+src/admin/.tmp/
+

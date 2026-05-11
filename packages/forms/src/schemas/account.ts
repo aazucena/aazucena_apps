@@ -1,0 +1,127 @@
+import { z } from 'zod';
+
+// =============================================================================
+// ACCOUNT SCHEMAS
+// =============================================================================
+
+/**
+ * Profile Schema (user account profile settings)
+ */
+export const profileSchema = z.object({
+  displayName: z.string().min(2, 'Display name must be at least 2 characters').max(80),
+  avatarUrl: z.string().url().optional().or(z.literal('')),
+  bio: z.string().max(500).optional(),
+  location: z.string().max(100).optional(),
+  website: z.string().url().optional().or(z.literal('')),
+  socialLinks: z
+    .object({
+      github: z.string().optional(),
+      linkedin: z.string().url().optional().or(z.literal('')),
+      twitter: z.string().optional(),
+    })
+    .optional(),
+  timezone: z.string().min(1, 'Timezone is required').default('UTC'),
+  preferredTheme: z.enum(['light', 'dark', 'system']).default('system'),
+});
+
+export type ProfileFormData = z.infer<typeof profileSchema>;
+
+// =============================================================================
+// ACCOUNT (NEW — Phase 1 expansion)
+// =============================================================================
+
+/**
+ * Notification Preferences Schema
+ */
+export const notificationPrefsSchema = z.object({
+  marketing: z.boolean().default(false),
+  security: z.boolean().default(true),
+  product: z.boolean().default(true),
+  social: z.boolean().default(false),
+  frequency: z.enum(['immediate', 'daily', 'weekly']).default('immediate'),
+  emailEnabled: z.boolean().default(true),
+  pushEnabled: z.boolean().default(false),
+  inAppEnabled: z.boolean().default(true),
+});
+
+/**
+ * Privacy Settings Schema
+ */
+export const privacySettingsSchema = z.object({
+  profileVisibility: z.enum(['public', 'private', 'connections']).default('public'),
+  analyticsConsent: z.boolean().default(false),
+  personalizedAds: z.boolean().default(false),
+  dataSharingPartners: z.boolean().default(false),
+  activityStatus: z.boolean().default(true),
+});
+
+/**
+ * Connected Apps Schema
+ */
+export const connectedAppsSchema = z.object({
+  provider: z.enum(['google', 'github', 'slack', 'notion', 'linear', 'jira', 'figma']),
+  permissions: z.array(z.string()).min(1, 'Select at least one permission'),
+  revokeOnSave: z.boolean().default(false),
+});
+
+/**
+ * Account Deletion Schema
+ */
+export const accountDeletionSchema = z.object({
+  reason: z.enum([
+    'no_longer_needed',
+    'switching_service',
+    'privacy_concerns',
+    'too_expensive',
+    'other',
+  ]),
+  otherReason: z.string().max(500).optional(),
+  confirmEmail: z.string().email('Please enter your account email'),
+  exportDataFirst: z.boolean().default(false),
+  acknowledgeIrreversible: z
+    .boolean()
+    .refine((v) => v === true, 'You must acknowledge this action is irreversible'),
+});
+
+export type NotificationPrefsFormData = z.infer<typeof notificationPrefsSchema>;
+export type PrivacySettingsFormData = z.infer<typeof privacySettingsSchema>;
+export type ConnectedAppsFormData = z.infer<typeof connectedAppsSchema>;
+export type AccountDeletionFormData = z.infer<typeof accountDeletionSchema>;
+
+/**
+ * Address Schema — international postal/contact address record.
+ *
+ * postalCode and state are optional — some countries (UAE, etc.) don't use them.
+ * The template enforces country-specific requirements in the UI layer, not here.
+ */
+export const addressSchema = z.object({
+  // Contact
+  fullName: z.string().min(2, 'Name is required').max(100),
+  phone: z.string().max(30).optional(),
+  // Address lines
+  line1: z.string().min(1, 'Address line 1 is required').max(200),
+  line2: z.string().max(200).optional(),
+  // Locality
+  city: z.string().min(1, 'City is required').max(100),
+  state: z.string().max(100).optional(), // Province, prefecture, county
+  postalCode: z.string().max(20).optional(), // ZIP, postcode, Eircode
+  country: z.string().min(2, 'Country is required').max(100),
+  // Address-book metadata
+  type: z.enum(['billing', 'shipping', 'home', 'work', 'other']).default('home'),
+  isDefault: z.boolean().default(false),
+  // Geocoding provider metadata (populated in autocomplete mode)
+  placeId: z.string().optional(), // Google place_id / Mapbox mapbox_id
+  formattedAddress: z.string().optional(), // Raw provider-formatted string
+  source: z.enum(['manual', 'google', 'mapbox', 'here', 'osm', 'other']).default('manual'),
+  geojson: z
+    .object({
+      type: z.literal('Point'),
+      coordinates: z.tuple([
+        z.number().min(-180).max(180), // longitude
+        z.number().min(-90).max(90), // latitude
+      ]),
+    })
+    .optional(), // GeoJSON Point geometry
+});
+
+export type AddressFormData = z.infer<typeof addressSchema>;

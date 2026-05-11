@@ -15,11 +15,11 @@ interface ImportMetaEnv {
   readonly SENTRY_AUTH_TOKEN: string;
 }
 
-interface ImportMeta {
+interface _ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-declare module '~/config/site' {
+declare module "~/config/site" {
   export interface SiteMetadata {
     siteName: string;
     siteUrl: string;
@@ -45,7 +45,7 @@ declare module '~/config/site' {
   }
 
   export interface ThemeConfig {
-    mode: 'system' | 'light' | 'dark' | 'light:only' | 'dark:only';
+    mode: "system" | "light" | "dark";
     colors: {
       light: { primary: string; secondary: string; accent: string };
       dark: { primary: string; secondary: string; accent: string };
@@ -64,6 +64,6 @@ declare module '~/config/site' {
   }
 
   export const SITE_CONFIG: SiteConfig;
-  export function formatPageTitle(title?: string): string;
-  export function getAbsoluteUrl(path: string): string;
+  export function formatPageTitle(_title?: string): string;
+  export function getAbsoluteUrl(_path: string): string;
 }

@@ -1,0 +1,94 @@
+{/* design-tokens/themes/halloween.mdx */}
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Tokens/Themes/Halloween" />
+
+# Halloween Vibe
+
+Spooky, high-contrast, and sharp. Uses monospaced fonts and a combination of deep purples and vibrant oranges.
+
+---
+
+## Semantic Palette
+
+### Light Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Orange 600" colors={{ primary: '#ea580c' }} />
+  <ColorItem title="Secondary" subtitle="Purple 800" colors={{ secondary: '#581c87' }} />
+  <ColorItem title="Background" subtitle="Zinc 50" colors={{ background: '#fafafa' }} />
+</ColorPalette>
+
+### Dark Mode
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Orange 500" colors={{ primary: '#f97316' }} />
+  <ColorItem title="Secondary" subtitle="Purple 500" colors={{ secondary: '#a855f7' }} />
+  <ColorItem title="Background" subtitle="Zinc 950" colors={{ background: '#09090b' }} />
+</ColorPalette>
+
+---
+
+## Reference Scales
+
+### Primary (Orange)
+<ColorPalette>
+  <ColorItem
+    title="Orange Scale"
+    subtitle="Spooky Primary base"
+    colors={{
+      50: '#fff7ed',
+      100: '#ffedd5',
+      200: '#fed7aa',
+      300: '#fdba74',
+      400: '#fb923c',
+      500: '#f97316',
+      600: '#ea580c',
+      700: '#c2410c',
+      800: '#9a3412',
+      900: '#7c2d12',
+      950: '#431407',
+    }}
+  />
+</ColorPalette>
+
+### Secondary (Purple)
+<ColorPalette>
+  <ColorItem
+    title="Purple Scale"
+    subtitle="Spooky Secondary base"
+    colors={{
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      200: '#e9d5ff',
+      300: '#d8b4fe',
+      400: '#c084fc',
+      500: '#a855f7',
+      600: '#9333ea',
+      700: '#7e22ce',
+      800: '#6b21a8',
+      900: '#581c87',
+      950: '#3b0764',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Effects
+
+| Property | Value |
+|---|---|
+| Backdrop Blur | `4px` (Light) / `16px` (Dark) |
+| Card Radius | `0px` (Sharp) |
+| Glow Color | `Orange 500` (Dark) |
+| Animation Easing | `Steps(4)` (Light) / `Cubic` (Dark) |
+
+---
+
+## Typography
+
+| Property | Value |
+|---|---|
+| Heading Font | `mono` |
+| Body Font | `sans` |
+| Title Weight | `900` |
+| Custom Class | `spooky-glow` (Dark) |

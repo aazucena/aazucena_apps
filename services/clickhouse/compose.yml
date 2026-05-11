@@ -1,0 +1,58 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: aazucena-clickhouse
+    # Ensure backup directory has correct permissions before starting
+    entrypoint: /bin/bash -c "mkdir -p /var/lib/clickhouse/backups && chown clickhouse:clickhouse /var/lib/clickhouse/backups && exec /entrypoint.sh"
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+    # Use .env variables to stay consistent with your other services
+      - CLICKHOUSE_USER=${CLICKHOUSE_USER:-admin}
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD:-password}
+      - CLICKHOUSE_DB=${CLICKHOUSE_DB:-analytics}
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - clickhouse-logs:/var/log/clickhouse-server
+      - clickhouse-backups:/var/lib/clickhouse/backups
+      - ./scripts:/docker-entrypoint-initdb.d
+      - ./data:/var/lib/clickhouse
+      - ./logs:/var/log/clickhouse-server
+      - ./logs.xml:/etc/clickhouse-server/config.d/logs.xml:ro
+      # This makes ClickHouse bind to IPv4 only, since Docker doesn't enable IPv6 in bridge networks by default.
+      # Fixes "Listen [::]:9000 failed: Address family for hostname not supported" warnings.
+      - ./ipv4-only.xml:/etc/clickhouse-server/config.d/ipv4-only.xml:ro
+      # The following configuration files make ClickHouse consume less resources, which is useful for small setups.
+      # https://clickhouse.com/docs/en/operations/tips#using-less-than-16gb-of-ram
+      - ./low-resources.xml:/etc/clickhouse-server/config.d/low-resources.xml:ro
+      - ./default-profile-low-resources-overrides.xml:/etc/clickhouse-server/users.d/default-profile-low-resources-overrides.xml:ro
+      - ./admin-rbac.xml:/etc/clickhouse-server/users.d/admin-rbac.xml:ro
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8123/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+volumes:
+  clickhouse-logs:
+    driver: local
+  clickhouse-data:
+    driver: local
+  clickhouse-backups:
+    driver: local

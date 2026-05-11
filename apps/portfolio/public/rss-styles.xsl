@@ -8,6 +8,28 @@
         <meta charset="utf-8" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <!-- Blocking theme script: apply .dark before first paint to prevent flash -->
+        <script>
+          (function () {
+            function applyTheme() {
+              var stored = null;
+              try { stored = localStorage.getItem("aazucena-theme"); } catch (e) {}
+              var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+              if (stored === "dark" || (!stored &amp;&amp; prefersDark)) {
+                document.documentElement.classList.add("dark");
+              } else {
+                document.documentElement.classList.remove("dark");
+              }
+            }
+            applyTheme();
+            // Re-apply when OS preference changes (no stored preference)
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
+              try { if (localStorage.getItem("aazucena-theme")) return; } catch (e) {}
+              applyTheme();
+            });
+          })();
+        </script>
         <style type="text/css">
           :root {
             --brand-blue: #2563eb;
@@ -19,14 +41,12 @@
             --border: #e5e7eb;
           }
 
-          @media (prefers-color-scheme: dark) {
-            :root {
-              --text-main: #f3f4f6;
-              --text-muted: #9ca3af;
-              --bg-body: #030712;
-              --bg-card: #111827;
-              --border: #1f2937;
-            }
+          html.dark {
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --bg-body: #030712;
+            --bg-card: #111827;
+            --border: #1f2937;
           }
 
           body {

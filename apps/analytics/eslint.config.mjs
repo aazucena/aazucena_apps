@@ -1,18 +1,13 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import { createNextConfig } from '@aazucena/config/eslint/nextjs.js';
 
-const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ]),
-]);
-
-export default eslintConfig;
+export default [
+  { ignores: ['eslint.config.mjs', 'postcss.config.mjs', 'scripts/**'] },
+  ...createNextConfig(),
+  {
+    rules: {
+      // App-specific overrides
+      'react/no-unescaped-entities': 'off',
+      '@next/next/no-html-link-for-pages': 'off',
+    },
+  },
+];
