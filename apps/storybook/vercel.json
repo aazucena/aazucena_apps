@@ -1,0 +1,5 @@
+{
+  "buildCommand": "storybook build",
+  "outputDirectory": "storybook-static",
+  "cleanUrls": true
+}
