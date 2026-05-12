@@ -57,7 +57,7 @@ function HomepageSectionInner(): JSX.Element | null {
       if (sessionStorage.getItem("portfolio-preloader-seen") === "true") {
         document.dispatchEvent(new CustomEvent("brand-loader-complete"));
       }
-    } catch (_) {
+    } catch {
       // sessionStorage unavailable — dispatch anyway as fallback
       document.dispatchEvent(new CustomEvent("brand-loader-complete"));
     }

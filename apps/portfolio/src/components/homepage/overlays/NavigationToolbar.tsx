@@ -42,7 +42,9 @@ export function NavigationToolbar({
           clearTimeout(hide);
         };
       }
-    } catch (_) {}
+    } catch {
+      // ignore — localStorage may be unavailable (e.g. private browsing)
+    }
   }, []);
 
   // Shared button set — rendered in both mobile and desktop toolbars
