@@ -105,7 +105,7 @@ export function NavigationButton({
         {/* Main Button */}
         <button
           onClick={() => onNavigate(firstOptionIndex)}
-          className={`focus:ring-opacity-50 flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-cyan-500/25 hover:brightness-110 focus:ring-2 focus:ring-cyan-400 focus:outline-none sm:flex-none ${hasDropdownItems ? "rounded-l-lg" : "rounded-lg"}`}
+          className={`focus:ring-opacity-50 flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-cyan-500/25 hover:brightness-110 focus:ring-2 focus:ring-cyan-400 focus:outline-none sm:flex-none sm:px-8 sm:py-4 sm:text-lg ${hasDropdownItems ? "rounded-l-lg" : "rounded-lg"}`}
           aria-label="Get started"
         >
           {children ?? "Get Started"}
@@ -115,11 +115,11 @@ export function NavigationButton({
         {hasDropdownItems && (
           <button
             onClick={handleToggleDropdown}
-            className="focus:ring-opacity-50 flex-shrink-0 rounded-r-lg border-l border-white/20 bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-cyan-500/25 hover:brightness-110 focus:ring-2 focus:ring-cyan-400 focus:outline-none"
+            className="focus:ring-opacity-50 flex-shrink-0 rounded-r-lg border-l border-white/20 bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-cyan-500/25 hover:brightness-110 focus:ring-2 focus:ring-cyan-400 focus:outline-none sm:px-4 sm:py-4 sm:text-lg"
             aria-label="Show navigation options"
           >
             <svg
-              className="h-5 w-5"
+              className="h-4 w-4 sm:h-5 sm:w-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -162,13 +162,15 @@ export function NavigationButton({
                   <button
                     key={option.index}
                     onClick={() => onNavigate(option.index)}
-                    className="flex w-full items-center gap-3 border-b border-white/10 px-6 py-3 text-left text-white transition-colors duration-200 last:border-b-0 hover:bg-cyan-500/20"
+                    className="flex w-full items-center gap-2 border-b border-white/10 px-4 py-2 text-left text-white transition-colors duration-200 last:border-b-0 hover:bg-cyan-500/20 sm:gap-3 sm:px-6 sm:py-3"
                   >
                     <IconRenderer
                       icon={option.icon}
-                      className="h-5 w-5 flex-shrink-0 text-cyan-400"
+                      className="h-4 w-4 flex-shrink-0 text-cyan-400 sm:h-5 sm:w-5"
                     />
-                    <span className="font-medium">{option.label}</span>
+                    <span className="text-sm font-medium sm:text-base">
+                      {option.label}
+                    </span>
                   </button>
                 );
               })}
