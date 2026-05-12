@@ -1,7 +1,7 @@
 {
   "indexing": {
     "docs_path": "/app/data",
-    "include": ["docs/**/*.md", "context/*.md"],
+    "include": ["docs/**/*.md"],
     "exclude": [
       "**/node_modules/**",
       "**/dist/**",

@@ -13,7 +13,6 @@ COPY services/intel-engine/ .
 
 # Bake knowledge corpus into the image for Railway (no volume mounts in production)
 COPY docs/ /app/data/docs/
-COPY README.md ROADMAP.md /app/data/context/
 
 EXPOSE 3003
 
