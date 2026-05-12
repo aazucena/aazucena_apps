@@ -3,6 +3,7 @@ import re
 import glob
 import json
 import uuid
+import base64
 import hashlib
 import fnmatch
 import asyncio
@@ -151,15 +152,16 @@ class KnowledgeIndexer:
 
         fetched = 0
         for path in doc_files:
-            raw_url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/{GITHUB_BRANCH}/{path}"
-            file_resp = requests.get(raw_url, headers=headers, timeout=10)
+            content_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}?ref={GITHUB_BRANCH}"
+            file_resp = requests.get(content_url, headers=headers, timeout=10)
             if not file_resp.ok:
                 print(f"   └─ ⚠️ Skipped {path}: HTTP {file_resp.status_code}")
                 continue
+            decoded = base64.b64decode(file_resp.json()["content"]).decode("utf-8")
             dest_file = os.path.join(dest_path, path)
             os.makedirs(os.path.dirname(dest_file), exist_ok=True)
             with open(dest_file, "w", encoding="utf-8") as f:
-                f.write(file_resp.text)
+                f.write(decoded)
             fetched += 1
 
         print(f"✅ [Indexer] Remote fetch complete — {fetched}/{len(doc_files)} files downloaded")
