@@ -1,11 +1,9 @@
 import http from 'http';
-import fs from 'fs';
-import path from 'path';
+import https from 'https';
+import cron from 'node-cron';
 import { MonitorConfig, ServiceHealth } from './types';
 
-// Assuming monitors.json is in the root (copied by Dockerfile)
-const CONFIG_PATH = path.join(process.cwd(), 'monitors.json');
-const INGEST_URL = process.env.INTERNAL_INGEST_URL || 'http://10.0.0.97:8080/api/ingest';
+const INGEST_URL = process.env.INTERNAL_INGEST_URL || '';
 const SECRET_KEY = process.env.INGESTION_SECRET_KEY || '';
 
 const BOOTSTRAP_CONFIG: MonitorConfig[] = [
@@ -18,13 +16,11 @@ let activeMonitors: MonitorConfig[] = [...BOOTSTRAP_CONFIG];
 
 function loadConfig() {
   try {
-    let raw: any = null;
-    if (process.env.MONITORS_CONFIG) {
-      raw = JSON.parse(process.env.MONITORS_CONFIG);
-    } else if (fs.existsSync(CONFIG_PATH)) {
-      raw = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+    if (!process.env.MONITORS_CONFIG) {
+      console.warn('⚠️ Heartbeat: MONITORS_CONFIG not set, using bootstrap fallback.');
+      return;
     }
-
+    const raw = JSON.parse(process.env.MONITORS_CONFIG);
     if (Array.isArray(raw)) {
       const valid = raw.filter((m: any) => m.id && m.url);
       if (valid.length > 0) {
@@ -40,7 +36,8 @@ function loadConfig() {
 async function checkService(service: MonitorConfig): Promise<ServiceHealth> {
   const start = Date.now();
   return new Promise((resolve) => {
-    const req = http.get(service.url, (res) => {
+    const client = service.url.startsWith('https') ? https : http;
+    const req = client.get(service.url, (res) => {
       let data = '';
       res.on('data', (chunk) => (data += chunk));
       res.on('end', () => {
@@ -99,13 +96,11 @@ async function runPulse() {
   for (const service of activeMonitors) {
     const result = await checkService(service);
 
-    // Post to Ingestion API
-    const postData = JSON.stringify({
-      type: 'system_integrity',
-      ...result,
-    });
+    if (!INGEST_URL) continue;
 
-    const req = http.request(INGEST_URL, {
+    const postData = JSON.stringify({ type: 'system_integrity', ...result });
+    const client = INGEST_URL.startsWith('https') ? https : http;
+    const req = client.request(INGEST_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -122,10 +117,13 @@ async function runPulse() {
   }
 }
 
+const PULSE_CRON = process.env.PULSE_CRON || '*/30 * * * *'; // default every 30 min
+const CONFIG_SYNC_CRON = process.env.CONFIG_SYNC_CRON || '*/30 * * * *'; // default every 30 min
+
 // Initial load and start cycles
 loadConfig();
-setInterval(loadConfig, 300000); // Sync config every 5 mins
-setInterval(runPulse, 60000); // Run checks every 1 min
+cron.schedule(CONFIG_SYNC_CRON, loadConfig);
+cron.schedule(PULSE_CRON, runPulse);
 
 // Immediate first pulse
 runPulse();

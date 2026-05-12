@@ -8,7 +8,6 @@ RUN npm install
 # Copy source and config
 COPY tsconfig.json ./
 COPY src ./src
-COPY monitors.json ./
 
 # Build TypeScript
 RUN npm run build

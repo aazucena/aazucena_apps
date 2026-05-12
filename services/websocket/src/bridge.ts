@@ -1,7 +1,7 @@
 import http from 'http';
 import { Server } from 'socket.io';
 
-const PORT = process.env.WS_PORT || 3001;
+const PORT = process.env.WS_PORT || process.env.PORT || 3001;
 const INTERNAL_SECRET = process.env.WS_INTERNAL_SECRET || 'dev-secret-123';
 
 const server = http.createServer((req, res) => {
