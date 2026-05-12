@@ -167,7 +167,11 @@ class KnowledgeIndexer:
                         print(f"   └─ ⚠️ Skipped {path}: HTTP {file_resp.status_code}")
                         continue
 
-                    file_content = base64.b64decode(file_resp.json()["content"]).decode("utf-8")
+                    resp_json = file_resp.json()
+                    if "content" not in resp_json:
+                        print(f"   └─ ⚠️ Skipped {path}: {resp_json.get('message', file_resp.status_code)}")
+                        continue
+                    file_content = base64.b64decode(resp_json["content"]).decode("utf-8")
                     content_hash = hashlib.md5(file_content.encode("utf-8")).hexdigest()
 
                     if not force:
