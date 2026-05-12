@@ -55,17 +55,22 @@ export async function fetchChatContext(pathname: string): Promise<ChatContext> {
   const cmsPromptData =
     cmsPrompt.status === "fulfilled" ? cmsPrompt.value : null;
 
-  const systemPrompt =
-    cmsPromptData?.systemMessage ||
-    buildSystemPrompt(
-      aboutData,
-      portfolioData,
-      skillsData,
-      experiencesData,
-      projectsData,
-      servicesData,
-      pathname,
-    );
+  const dataPrompt = buildSystemPrompt(
+    aboutData,
+    portfolioData,
+    skillsData,
+    experiencesData,
+    projectsData,
+    servicesData,
+    pathname,
+  );
+
+  // Strapi persona prepends the built data prompt rather than replacing it.
+  // This keeps dynamic CMS data (skills, projects, etc.) available to Rin
+  // regardless of whether the persona record exists in Strapi.
+  const systemPrompt = cmsPromptData?.systemMessage
+    ? `${cmsPromptData.systemMessage}\n\n${dataPrompt}`
+    : dataPrompt;
 
   return { systemPrompt };
 }
