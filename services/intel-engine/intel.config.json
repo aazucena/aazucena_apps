@@ -2,6 +2,7 @@
   "indexing": {
     "docs_path": "/app/data",
     "include": [
+      "*.md",
       "docs/**/*.md",
       "context/*.md",
       "apps/**/*.md",
@@ -9,6 +10,8 @@
       "packages/**/*.md"
     ],
     "exclude": [
+      "CLAUDE.md",
+      "GEMINI.md",
       "**/node_modules/**",
       "**/dist/**",
       "**/temp-**",
