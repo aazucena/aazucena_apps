@@ -26,7 +26,13 @@
         "!mod.js",
         "!mod.js.map"
       ],
-      "passThroughEnv": ["STRAPI_API_ENDPOINT", "STRAPI_URL", "STRAPI_TOKEN", "SENTRY_AUTH_TOKEN"]
+      "passThroughEnv": [
+        "STRAPI_API_ENDPOINT", "STRAPI_URL", "STRAPI_TOKEN", "SENTRY_AUTH_TOKEN",
+        "INTEL_ENGINE_URL", "INTEL_ENGINE_API_KEY",
+        "MAINTENANCE_MODE", "PREVIEW_TOKEN",
+        "PUBLIC_SENTRY_DSN", "PUBLIC_SENTRY_PROJECT", "PUBLIC_SENTRY_ORG",
+        "PUBLIC_PLAUSIBLE_DOMAIN", "PUBLIC_PLAUSIBLE_API_HOST"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
