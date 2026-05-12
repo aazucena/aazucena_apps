@@ -21,7 +21,7 @@ export function BlogSection({
 
   return (
     <SectionLayout title={title} subtitle={subtitle} contentWidth="narrow">
-      <div className="mt-6 flex flex-col items-center gap-5 md:mt-12 md:gap-8">
+      <div className="mt-6 flex flex-col items-center gap-3 md:mt-12 md:gap-8">
         <NewspaperStack
           posts={blogPosts}
           displayConfig={blog.display}

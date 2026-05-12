@@ -28,7 +28,7 @@ export function ViewAllButton({
   className = "",
 }: ViewAllButtonProps): JSX.Element {
   return (
-    <div className="mt-16 flex justify-center">
+    <div className="mt-4 flex justify-center md:mt-16">
       <a
         href={href}
         className={`focus:ring-opacity-50 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/25 focus:ring-2 focus:ring-cyan-400 focus:outline-none ${className}`}
