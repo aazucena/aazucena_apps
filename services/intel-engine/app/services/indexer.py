@@ -83,7 +83,7 @@ class KnowledgeIndexer:
             row = result.fetchone()
             if row and row[0] != 1024:
                 print(f"⚠️ [Vector Store] Embedding dimension mismatch ({row[0]} → 1024) — clearing stale data...")
-                await conn.execute(text("TRUNCATE TABLE knowledge_items"))
+                await conn.execute(text("TRUNCATE TABLE knowledge_items CASCADE"))
                 await conn.execute(text("ALTER TABLE knowledge_items ALTER COLUMN embedding TYPE vector(1024)"))
                 print("✅ [Vector Store] Dimension migration complete.")
 
