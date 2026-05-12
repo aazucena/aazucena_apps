@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, BackgroundTasks
 from app.services.indexer import indexer
 from app.services.retriever import retriever
@@ -19,7 +20,9 @@ async def search_knowledge(request: KnowledgeSearchRequest):
 
 @router.post("/sync", response_model=KnowledgeSyncResponse)
 async def sync_knowledge(background_tasks: BackgroundTasks, force: bool = False):
-    """Triggers the scan of /app/data and indexing into pgVector."""
-    docs_path = "/app/data"
-    background_tasks.add_task(indexer.index_docs_folder, docs_path, force=force)
-    return {"status": "indexing_queued", "target": docs_path}
+    """Triggers a knowledge re-sync: GitHub in production, local /app/data in dev."""
+    if os.getenv("GITHUB_REPO"):
+        background_tasks.add_task(indexer.index_github_docs, force)
+        return {"status": "indexing_queued", "target": "github"}
+    background_tasks.add_task(indexer.index_docs_folder, "/app/data", force=force)
+    return {"status": "indexing_queued", "target": "/app/data"}

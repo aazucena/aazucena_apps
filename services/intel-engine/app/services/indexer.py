@@ -114,16 +114,17 @@ class KnowledgeIndexer:
         escaped = escaped.replace(r'\*', '[^/]*')
         return re.compile(f'^{escaped}$')
 
-    def _fetch_github_docs_sync(self, dest_path: str):
-        """Downloads all files matching intel.config.json include patterns from GitHub."""
+    async def index_github_docs(self, force: bool = False):
+        """Fetches docs from GitHub and indexes them directly in memory — no disk writes."""
         if not GITHUB_REPO:
-            print("⚠️ [Indexer] GITHUB_REPO not set — skipping remote fetch, using local files")
+            print("⚠️ [Indexer] GITHUB_REPO not set — skipping GitHub sync")
             return
+
+        from langchain_core.documents import Document
 
         config = self._load_config()
         include_patterns = config.get("include", ["docs/**/*.md"])
         exclude_patterns = config.get("exclude", [])
-
         compiled_includes = [self._glob_to_regex(p) for p in include_patterns]
         compiled_excludes = [self._glob_to_regex(p) for p in exclude_patterns]
 
@@ -131,10 +132,10 @@ class KnowledgeIndexer:
         if GITHUB_TOKEN:
             headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
 
-        print(f"🌐 [Indexer] Fetching docs from github.com/{GITHUB_REPO}@{GITHUB_BRANCH}...")
+        print(f"🌐 [Indexer] Fetching doc list from github.com/{GITHUB_REPO}@{GITHUB_BRANCH}...")
 
         tree_url = f"https://api.github.com/repos/{GITHUB_REPO}/git/trees/{GITHUB_BRANCH}?recursive=1"
-        resp = requests.get(tree_url, headers=headers, timeout=30)
+        resp = await asyncio.to_thread(requests.get, tree_url, headers=headers, timeout=30)
         resp.raise_for_status()
         tree_data = resp.json()
 
@@ -149,26 +150,85 @@ class KnowledgeIndexer:
         ]
 
         print(f"📄 [Indexer] {len(doc_files)} remote doc files found")
+        print("🚀 [Indexer] BEGIN DIFFERENTIAL SYNC (GitHub in-memory)")
 
-        fetched = 0
-        for path in doc_files:
-            content_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}?ref={GITHUB_BRANCH}"
-            file_resp = requests.get(content_url, headers=headers, timeout=10)
-            if not file_resp.ok:
-                print(f"   └─ ⚠️ Skipped {path}: HTTP {file_resp.status_code}")
-                continue
-            decoded = base64.b64decode(file_resp.json()["content"]).decode("utf-8")
-            dest_file = os.path.join(dest_path, path)
-            os.makedirs(os.path.dirname(dest_file), exist_ok=True)
-            with open(dest_file, "w", encoding="utf-8") as f:
-                f.write(decoded)
-            fetched += 1
+        current_sources = []
+        total_indexed = 0
+        total_skipped = 0
 
-        print(f"✅ [Indexer] Remote fetch complete — {fetched}/{len(doc_files)} files downloaded")
+        async with AsyncSessionLocal() as session:
+            for i, path in enumerate(doc_files):
+                try:
+                    current_sources.append(path)
 
-    async def fetch_github_docs(self, dest_path: str):
-        """Async wrapper: fetches docs from GitHub into dest_path before indexing."""
-        await asyncio.to_thread(self._fetch_github_docs_sync, dest_path)
+                    content_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}?ref={GITHUB_BRANCH}"
+                    file_resp = await asyncio.to_thread(requests.get, content_url, headers=headers, timeout=10)
+                    if not file_resp.ok:
+                        print(f"   └─ ⚠️ Skipped {path}: HTTP {file_resp.status_code}")
+                        continue
+
+                    file_content = base64.b64decode(file_resp.json()["content"]).decode("utf-8")
+                    content_hash = hashlib.md5(file_content.encode("utf-8")).hexdigest()
+
+                    if not force:
+                        stmt = select(KnowledgeChunk).where(
+                            KnowledgeChunk.source == path,
+                            KnowledgeChunk.file_hash == content_hash
+                        ).limit(1)
+                        result = await session.execute(stmt)
+                        if result.scalars().first():
+                            total_skipped += 1
+                            continue
+
+                    print(f"📂 [{i+1}/{len(doc_files)}] Processing: {path}")
+
+                    await session.execute(
+                        text("DELETE FROM knowledge_items WHERE source = :source"),
+                        {"source": path}
+                    )
+
+                    doc = Document(page_content=file_content, metadata={"source": path})
+                    chunks = self.text_splitter.split_documents([doc])
+                    filename = os.path.basename(path)
+
+                    for j, chunk in enumerate(chunks):
+                        content = chunk.page_content.strip()
+                        if not content:
+                            continue
+                        vector = self._get_embedding(content)
+                        session.add(KnowledgeChunk(
+                            document_id=self._generate_document_id(),
+                            title=f"{filename} - Part {j+1}",
+                            slug=f"{filename.lower().replace('.', '-')}-{uuid.uuid4().hex[:6]}",
+                            content=content,
+                            source=path,
+                            embedding=vector,
+                            extra_metadata=chunk.metadata,
+                            type="docs",
+                            file_hash=content_hash,
+                            locale="en",
+                            created_at=datetime.utcnow(),
+                            updated_at=datetime.utcnow(),
+                            published_at=datetime.utcnow()
+                        ))
+                        total_indexed += 1
+
+                    await session.commit()
+                except Exception as e:
+                    print(f"   └─ ❌ FAILED {path}: {e}")
+                    await session.rollback()
+
+            print("🧹 [Indexer] Cleaning up obsolete records...")
+            if current_sources:
+                await session.execute(
+                    text("DELETE FROM knowledge_items WHERE type = 'docs' AND source != ALL(:sources)"),
+                    {"sources": list(current_sources)}
+                )
+            else:
+                await session.execute(text("DELETE FROM knowledge_items WHERE type = 'docs'"))
+            await session.commit()
+
+        print(f"🏁 GITHUB SYNC COMPLETE. Indexed: {total_indexed}, Skipped: {total_skipped}")
 
     async def index_docs_folder(self, docs_path: str, force: bool = False):
         """Scans, chunks, and indexes files based on configuration."""
