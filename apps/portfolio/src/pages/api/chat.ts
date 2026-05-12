@@ -39,8 +39,11 @@ export const POST: APIRoute = async ({ request }) => {
     token: import.meta.env.STRAPI_TOKEN || "",
   });
 
-  const lastUserMessage =
-    safeMessages.findLast((m: any) => m.role === "user")?.content ?? "";
+  const lastUserMsg = safeMessages.findLast((m: any) => m.role === "user");
+  const lastUserMessage: string =
+    (typeof lastUserMsg?.content === "string" && lastUserMsg.content) ||
+    lastUserMsg?.parts?.find((p: any) => p.type === "text")?.text ||
+    "";
 
   const [{ systemPrompt }, ragContext] = await Promise.all([
     fetchChatContext(pathname),
