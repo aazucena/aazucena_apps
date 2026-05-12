@@ -1,32 +1,19 @@
-import os
-import requests
+import voyageai
 from typing import List, Dict, Any
 from sqlalchemy import text
-from app.core.database import engine, AsyncSessionLocal
+from app.core.database import AsyncSessionLocal
 
 class KnowledgeRetriever:
     def __init__(self):
-        # Point to the local Ollama service within the Docker network
-        self.ollama_url = "http://aazucena-ollama:11434/api/embeddings"
-        self.model = "nomic-embed-text"
+        self.voyage_client = voyageai.Client()
+        self.model = "voyage-3"
 
-    async def _get_embedding_local(self, text_input: str) -> List[float]:
-        payload = {
-            "model": self.model,
-            "prompt": text_input
-        }
-        # Increased timeout to 120s for local inference
-        response = requests.post(self.ollama_url, json=payload, timeout=120)
-        if response.status_code != 200:
-            raise Exception(f"Ollama Error: {response.text}")
-        return response.json()["embedding"]
+    def _get_embedding(self, text_input: str) -> List[float]:
+        result = self.voyage_client.embed([text_input], model=self.model, input_type="query")
+        return result.embeddings[0]
 
     async def find_relevant_docs(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
-        """
-        Searches the local knowledge base using Ollama embeddings.
-        """
-        # 1. Generate local embedding
-        query_vector = await self._get_embedding_local(query)
+        query_vector = self._get_embedding(query)
         
         # 2. Perform Vector Similarity Search
         search_query = text("""

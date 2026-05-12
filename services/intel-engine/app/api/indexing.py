@@ -5,6 +5,12 @@ from app.api.schemas import KnowledgeSearchRequest, KnowledgeSyncResponse
 
 router = APIRouter()
 
+@router.get("/search")
+async def search_knowledge_get(q: str, top_k: int = 5):
+    """GET-friendly search used by portfolio RAG context fetcher."""
+    results = await retriever.find_relevant_docs(q, top_k=top_k)
+    return {"results": results}
+
 @router.post("/search")
 async def search_knowledge(request: KnowledgeSearchRequest):
     """Search the vectorized documentation base for a query."""
