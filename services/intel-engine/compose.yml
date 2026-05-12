@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3003:3001"
+      - "3003:3003"
     environment:
       - PYTHONUNBUFFERED=1
       - INTEL_BRIDGE_URL=${INTEL_BRIDGE_URL:-}
