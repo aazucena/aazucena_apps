@@ -73,7 +73,20 @@ class KnowledgeIndexer:
                 await conn.execute(text("ALTER TABLE knowledge_items ADD COLUMN IF NOT EXISTS file_hash VARCHAR(64)"))
             except Exception:
                 pass # Already exists or table was just created
-                
+
+            # Migrate embedding dimension if changed (e.g. nomic 768 → voyage-3 1024)
+            result = await conn.execute(text(
+                "SELECT atttypmod FROM pg_attribute "
+                "JOIN pg_class ON pg_attribute.attrelid = pg_class.oid "
+                "WHERE relname = 'knowledge_items' AND attname = 'embedding'"
+            ))
+            row = result.fetchone()
+            if row and row[0] != 1024:
+                print(f"⚠️ [Vector Store] Embedding dimension mismatch ({row[0]} → 1024) — clearing stale data...")
+                await conn.execute(text("TRUNCATE TABLE knowledge_items"))
+                await conn.execute(text("ALTER TABLE knowledge_items ALTER COLUMN embedding TYPE vector(1024)"))
+                print("✅ [Vector Store] Dimension migration complete.")
+
             print("✅ Vector Store: Initialized and persistent")
 
     def _get_embedding(self, text_input: str) -> List[float]:

@@ -9,7 +9,7 @@ services:
       - "3003:3001"
     environment:
       - PYTHONUNBUFFERED=1
-      - INTEL_BRIDGE_URL=http://aazucena-intel-bridge:3001
+      - INTEL_BRIDGE_URL=${INTEL_BRIDGE_URL:-}
       - DATABASE_URL=postgresql://${DATABASE_USERNAME:-strapi}:${DATABASE_PASSWORD:-strapi}@aazucena-db:5432/${DATABASE_NAME:-strapi}
       - LANGCHAIN_TRACING_V2=true
       - LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
