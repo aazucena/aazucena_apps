@@ -89,8 +89,8 @@ function HomepageSectionInner(): JSX.Element | null {
       {/* Atmospheric Overlays */}
       <AtmosphericOverlays atmosphericLayer={atmosphericLayer} />
 
-      {/* Animation Canvas - Skipped on mobile (saves ~1MB GPU load) */}
-      {!capabilities.isMobile && (
+      {/* Animation Canvas - Gated on user preference (mobile defaults off, user can enable) */}
+      {capabilities.canUseHeavyAnimations && (
         <Suspense
           fallback={
             <div
