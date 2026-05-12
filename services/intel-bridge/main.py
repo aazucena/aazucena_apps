@@ -4,7 +4,7 @@ import asyncio
 import requests
 import redis
 import clickhouse_connect
-from fastapi import FastAPI, BackgroundTasks, Request
+from fastapi import FastAPI, BackgroundTasks, Request, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, RedirectResponse
 from pydantic import BaseModel
@@ -14,6 +14,15 @@ from typing import Optional, Dict, Any
 # --- CONFIGURATION ---
 INGEST_URL = os.getenv('INTERNAL_INGEST_URL', '')
 SECRET_KEY = os.getenv('INGESTION_SECRET_KEY')
+BRIDGE_INBOUND_SECRET = os.getenv('BRIDGE_INBOUND_SECRET', '')
+BRIDGE_CORS_ORIGINS = [
+    o.strip()
+    for o in os.getenv(
+        'BRIDGE_CORS_ORIGINS',
+        'http://localhost:3000,http://localhost:4321'
+    ).split(',')
+    if o.strip()
+]
 
 REDIS_HOST = os.getenv('REDIS_HOST', '')
 REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
@@ -176,14 +185,24 @@ app = FastAPI(title="AAZUCENA_INTEL_BRIDGE", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=BRIDGE_CORS_ORIGINS,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "X-Bridge-Secret"],
 )
+
+# --- AUTH ---
+async def verify_bridge_secret(request: Request) -> None:
+    """Optional inbound secret check for /pulse/* endpoints.
+    Open when BRIDGE_INBOUND_SECRET is not set (dev mode).
+    """
+    if not BRIDGE_INBOUND_SECRET:
+        return
+    if request.headers.get("X-Bridge-Secret", "") != BRIDGE_INBOUND_SECRET:
+        raise HTTPException(status_code=401, detail="Unauthorized")
 
 # --- ENDPOINTS ---
 @app.post("/pulse/ai")
-async def pulse_ai(event: AiTelemetryEvent, background_tasks: BackgroundTasks):
+async def pulse_ai(event: AiTelemetryEvent, background_tasks: BackgroundTasks, _: None = Depends(verify_bridge_secret)):
     payload = {
         "type": "ai_event",
         "agent_name": event.agent_name,
@@ -198,7 +217,7 @@ async def pulse_ai(event: AiTelemetryEvent, background_tasks: BackgroundTasks):
     return {"status": "queued", "agent": event.agent_name}
 
 @app.post("/pulse/health")
-async def pulse_health(event: SystemIntegrityEvent, background_tasks: BackgroundTasks):
+async def pulse_health(event: SystemIntegrityEvent, background_tasks: BackgroundTasks, _: None = Depends(verify_bridge_secret)):
     payload = {
         "type": "system_integrity",
         "service": event.service,

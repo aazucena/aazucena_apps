@@ -11,6 +11,7 @@ from app.core.brain import brain
 from app.api.router import api_router
 
 INTEL_BRIDGE_URL = os.getenv("INTEL_BRIDGE_URL", "")
+INTEL_BRIDGE_SECRET = os.getenv("INTEL_BRIDGE_SECRET", "")
 
 async def start_heartbeat():
     """Periodic pulse to the Intel Bridge for the Analytics Dashboard."""
@@ -24,7 +25,8 @@ async def start_heartbeat():
                     "latency_ms": 0,
                     "message": "Neural engine operational"
                 }
-                requests.post(f"{INTEL_BRIDGE_URL}/pulse/health", json=payload, timeout=5)
+                headers = {"X-Bridge-Secret": INTEL_BRIDGE_SECRET} if INTEL_BRIDGE_SECRET else {}
+                requests.post(f"{INTEL_BRIDGE_URL}/pulse/health", json=payload, headers=headers, timeout=5)
         except Exception as e:
             print(f"❌ [Intel-Engine] Heartbeat pulse failed: {e}")
         

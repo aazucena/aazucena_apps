@@ -2,12 +2,20 @@ import http from 'http';
 import { Server } from 'socket.io';
 
 const PORT = process.env.WS_PORT || process.env.PORT || 3001;
-const INTERNAL_SECRET = process.env.WS_INTERNAL_SECRET || 'dev-secret-123';
+const INTERNAL_SECRET = process.env.WS_INTERNAL_SECRET || '';
+const WS_CORS_ORIGINS = (process.env.WS_CORS_ORIGINS || 'http://localhost:3000')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+if (!INTERNAL_SECRET) {
+  console.warn('[WS] ⚠️  WS_INTERNAL_SECRET is not set — /emit endpoint is open to all callers');
+}
 
 const server = http.createServer((req, res) => {
   // 1. API: Internal Emission Endpoint
   if (req.url === '/emit' && req.method === 'POST') {
-    if (req.headers['x-internal-secret'] !== INTERNAL_SECRET) {
+    if (INTERNAL_SECRET && req.headers['x-internal-secret'] !== INTERNAL_SECRET) {
       res.writeHead(401);
       return res.end('Unauthorized');
     }
@@ -94,7 +102,7 @@ const server = http.createServer((req, res) => {
 
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: WS_CORS_ORIGINS,
     methods: ['GET', 'POST'],
   },
 });
