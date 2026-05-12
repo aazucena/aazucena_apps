@@ -4,9 +4,10 @@ FROM clickhouse/clickhouse-server:24.12-alpine
 COPY logs.xml /etc/clickhouse-server/config.d/logs.xml
 COPY low-resources.xml /etc/clickhouse-server/config.d/low-resources.xml
 
-# User profile and RBAC
+# User profile overrides
 COPY default-profile-low-resources-overrides.xml /etc/clickhouse-server/users.d/default-profile-low-resources-overrides.xml
-COPY admin-rbac.xml /etc/clickhouse-server/users.d/admin-rbac.xml
+# admin-rbac.xml intentionally excluded — Railway entrypoint creates the admin
+# user via CLICKHOUSE_USER env var; additional RBAC is handled by 03_rbac_security.sql
 
 # Init SQL scripts — run automatically on first boot
 COPY scripts/ /docker-entrypoint-initdb.d/
