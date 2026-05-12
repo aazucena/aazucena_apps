@@ -90,8 +90,10 @@ Enhance the portfolio with intelligent ML-powered features using PyTorch or Tens
 ### Deployment
 - **FastAPI** - ML service REST API
 - **Replicate.com** - GPU-powered serverless inference
-- **Railway/Render** - Self-hosted ML service with GPU
+- **Railway** - Self-hosted ML service, **CPU only** (no GPU instances available — see note below)
 - **Hugging Face Inference API** - Quick & easy deployment
+
+> ⚠️ **Railway GPU Gap:** Railway does not offer GPU instances. Any ML workload deployed on Railway (including Ollama) runs on CPU only. This makes inference for 7B+ parameter models impractically slow (minutes per response). For GPU-backed inference, use Replicate.com, RunPod, Lambda Labs, or vast.ai instead.
 
 ### Storage
 - **S3/Cloudinary** - Model storage
@@ -127,7 +129,7 @@ apps/ml-service/
 ```
 Portfolio Frontend
     ↓
-FastAPI ML Service (Railway with GPU)
+FastAPI ML Service (Railway — CPU only, or RunPod/Replicate for GPU)
     ↓
 PyTorch/TensorFlow models
 ```
@@ -178,7 +180,8 @@ CACHE_DIR=/app/cache
 |---------|-----------|-----------|
 | Hugging Face Inference API | Limited | $0.60/hr GPU |
 | Replicate.com | $0 (pay per use) | ~$0.0002/sec |
-| Railway (GPU) | $5 credit | $0.000463/GB-sec |
+| Railway (CPU only, no GPU) | $5 credit | CPU pricing only |
+| RunPod | Pay per use | ~$0.20–0.80/hr (GPU) |
 | Pinecone (Vector DB) | 1 index, 100K vectors | $70/mo |
 | FAISS (self-hosted) | Free | Server costs only |
 
