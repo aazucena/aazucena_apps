@@ -5,7 +5,7 @@
  */
 
 import type { JSX } from "react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SocialMenu, SettingsPanel, InfoPanel } from "~/components/ui";
 import { ToolbarButton } from "@aazucena/ui";
 import { Popover } from "~/components/ui/common";
@@ -27,6 +27,23 @@ export function NavigationToolbar({
     useAnimation();
   const portfolioData = usePortfolioData();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showSoundHint, setShowSoundHint] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (!sessionStorage.getItem("portfolio-sound-hint-seen")) {
+        const show = setTimeout(() => setShowSoundHint(true), 2500);
+        const hide = setTimeout(() => {
+          setShowSoundHint(false);
+          sessionStorage.setItem("portfolio-sound-hint-seen", "true");
+        }, 7000);
+        return () => {
+          clearTimeout(show);
+          clearTimeout(hide);
+        };
+      }
+    } catch (_) {}
+  }, []);
 
   // Shared button set — rendered in both mobile and desktop toolbars
   const buttons = (
@@ -153,7 +170,32 @@ export function NavigationToolbar({
   return (
     <>
       {/* ── Mobile: collapsible pill (centered top) ── */}
-      <div className="fixed top-6 right-4 z-50 flex flex-row items-center rounded-full border border-white/20 bg-black/30 px-3.5 py-1 backdrop-blur-md md:hidden">
+      <div className="fixed relative top-6 right-4 z-50 flex flex-row items-center rounded-full border border-white/20 bg-black/30 px-3.5 py-1 backdrop-blur-md md:hidden">
+        {/* First-visit sound hint */}
+        <div
+          className={cn(
+            "pointer-events-none absolute top-full right-0 mt-2 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-[10px] font-medium whitespace-nowrap text-white/70 backdrop-blur-md transition-all duration-500",
+            isSoundMuted && showSoundHint
+              ? "translate-y-0 opacity-100"
+              : "translate-y-1 opacity-0",
+          )}
+          aria-hidden="true"
+        >
+          <svg
+            className="h-3 w-3 text-white/60"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15.536 8.464a5 5 0 010 7.072M12 6v12M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+            />
+          </svg>
+          Ambient sound available — tap ☰ to enable
+        </div>
         {/* Buttons expand to the LEFT of the toggle */}
         <div
           className={cn(
@@ -196,8 +238,33 @@ export function NavigationToolbar({
       </div>
 
       {/* ── Desktop: full pill always visible (top-right) ── */}
-      <div className="fixed top-8 right-8 z-50 hidden flex-row gap-4 rounded-full border border-white/20 bg-black/30 px-4 py-3 backdrop-blur-md md:flex">
+      <div className="fixed relative top-8 right-8 z-50 hidden flex-row gap-4 rounded-full border border-white/20 bg-black/30 px-4 py-3 backdrop-blur-md md:flex">
         {buttons}
+        {/* First-visit sound hint */}
+        <div
+          className={cn(
+            "pointer-events-none absolute top-full right-0 mt-2 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-[10px] font-medium whitespace-nowrap text-white/70 backdrop-blur-md transition-all duration-500",
+            isSoundMuted && showSoundHint
+              ? "translate-y-0 opacity-100"
+              : "translate-y-1 opacity-0",
+          )}
+          aria-hidden="true"
+        >
+          <svg
+            className="h-3 w-3 text-white/60"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15.536 8.464a5 5 0 010 7.072M12 6v12M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+            />
+          </svg>
+          Ambient sound available — click 🔊 to enable
+        </div>
       </div>
 
       {/* Popovers — shared, render as fixed overlays independent of toolbar */}
