@@ -31,6 +31,7 @@ import {
   useSectionRefs,
   useSectionTransitions,
 } from "@aazucena/hooks";
+import { useAtmosphericSound } from "~/hooks";
 import AtmosphericOverlays from "./overlays/AtmosphericOverlays";
 import UIOverlays from "./overlays/UIOverlays";
 
@@ -65,7 +66,7 @@ function HomepageSectionInner(): JSX.Element | null {
   // Get only the state needed for this component
   // (Most state is now consumed directly by child components via contexts)
   const { currentSection, scrollProgress } = usePortfolio();
-  const { capabilities } = useAnimation();
+  const { capabilities, isSoundMuted } = useAnimation();
 
   // Calculate atmospheric layer and background style, scaled to actual section count
   const { phase: atmosphericLayer, backgroundStyle } = useAtmosphericLayer(
@@ -73,6 +74,9 @@ function HomepageSectionInner(): JSX.Element | null {
     scrollProgress,
     sections.length,
   );
+
+  // Atmospheric ambient sound — Web Audio API synthesized, no asset files
+  useAtmosphericSound(atmosphericLayer, isSoundMuted);
 
   // Apply section transition animations
   useSectionTransitions(currentSection, refs);

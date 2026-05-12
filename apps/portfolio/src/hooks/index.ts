@@ -5,3 +5,5 @@
 
 // useSectionRegistry — portfolio-specific: wires BASE_REGISTRY to the 8 section components
 export * from "./useSectionRegistry";
+// useAtmosphericSound — Web Audio API ambient sound per atmospheric layer
+export * from "./useAtmosphericSound";
