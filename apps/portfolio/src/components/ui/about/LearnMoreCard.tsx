@@ -120,7 +120,7 @@ export function LearnMoreCard({
     <a
       href={href}
       className={cn(
-        "group rounded-lg border p-4 transition-all duration-300 hover:scale-105 active:scale-95",
+        "group rounded-lg border p-3 transition-all duration-300 hover:scale-105 active:scale-95 md:p-4",
         styles.card,
         className,
       )}
@@ -130,18 +130,21 @@ export function LearnMoreCard({
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg",
+              "flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg md:h-8 md:w-8",
               styles.icon,
               iconClassName,
             )}
           >
-            <IconRenderer icon={icon} className="h-5 w-5 text-white" />
+            <IconRenderer
+              icon={icon}
+              className="h-3.5 w-3.5 text-white md:h-5 md:w-5"
+            />
           </div>
-          <h4 className="text-base font-bold text-white">{title}</h4>
+          <h4 className="text-sm font-bold text-white md:text-base">{title}</h4>
         </div>
         <ArrowRight
           className={cn(
-            "h-4 w-4 flex-shrink-0 transition-transform group-hover:translate-x-1 group-active:translate-x-1 md:hidden",
+            "h-3 w-3 flex-shrink-0 transition-transform group-hover:translate-x-1 group-active:translate-x-1 md:hidden",
             styles.button,
           )}
         />
@@ -149,7 +152,7 @@ export function LearnMoreCard({
 
       {/* Description — desktop only */}
       {children && (
-        <p className="mb-2 hidden text-xs text-gray-400 md:block">{children}</p>
+        <p className="mb-2 hidden text-sm text-gray-400 md:block">{children}</p>
       )}
 
       {/* Button row — desktop only */}

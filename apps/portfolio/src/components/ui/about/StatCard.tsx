@@ -31,11 +31,13 @@ export interface StatCardProps {
  */
 export function StatCard({ value, label }: StatCardProps): JSX.Element {
   return (
-    <GlassCard padding="md">
-      <div className="mb-1 text-2xl font-bold text-cyan-400 md:mb-2 md:text-3xl">
+    <GlassCard padding="none" className="p-3 md:p-4">
+      <div className="mb-1 text-xl font-bold text-cyan-400 md:mb-2 md:text-2xl">
         {value}
       </div>
-      <div className="text-sm text-gray-400">{toTitleCase(label)}</div>
+      <div className="text-xs text-gray-400 md:text-sm">
+        {toTitleCase(label)}
+      </div>
     </GlassCard>
   );
 }
