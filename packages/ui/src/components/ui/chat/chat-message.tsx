@@ -68,7 +68,7 @@ export const ChatContent = React.forwardRef<
     ref={ref}
     className={cn(
       'group/bubble relative flex max-w-[85%] flex-col',
-      role === 'user' ? 'items-end text-right' : 'items-start text-left',
+      role === 'user' ? 'items-end text-left' : 'items-start text-left',
       className,
     )}
     {...props}
