@@ -219,7 +219,7 @@ function PostContent({
   displayConfig: BlogConfigData["display"];
 }): JSX.Element {
   return (
-    <div className="p-8 md:p-10">
+    <div className="p-5 sm:p-8 md:p-10">
       {/* Masthead */}
       <div className="mb-3 flex items-center justify-between">
         <span className="text-[9px] font-black tracking-[0.35em] text-gray-400 uppercase dark:text-gray-500">
@@ -231,11 +231,11 @@ function PostContent({
           </span>
         )}
       </div>
-      <div className="mb-5 h-px bg-gray-300 dark:bg-white/10" />
+      <div className="mb-4 h-px bg-gray-300 dark:bg-white/10" />
 
       {/* Tags */}
       {displayConfig.showTags && post.tags.length > 0 && (
-        <div className="mb-4 flex flex-wrap gap-2">
+        <div className="mb-3 flex flex-wrap gap-2">
           {post.tags.map((tag, i) => (
             <span key={i} className={getTagClasses(tag.color)}>
               {tag.label}
@@ -245,13 +245,13 @@ function PostContent({
       )}
 
       {/* Title */}
-      <h3 className="mb-4 text-2xl leading-tight font-black tracking-tight text-gray-900 md:text-3xl dark:text-white">
+      <h3 className="mb-3 text-xl leading-tight font-black tracking-tight text-gray-900 sm:text-2xl md:text-3xl dark:text-white">
         {post.title}
       </h3>
 
       {/* Byline */}
       {(displayConfig.showDate || displayConfig.showReadTime) && (
-        <div className="mb-4 flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
+        <div className="mb-3 flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
           {displayConfig.showDate && (
             <time dateTime={getPostDateTime(post)}>
               {formatPostDate(post as { publishedAt: string })}
@@ -266,7 +266,7 @@ function PostContent({
         </div>
       )}
 
-      <div className="mb-5 h-px bg-gray-200 dark:bg-white/5" />
+      <div className="mb-4 h-px bg-gray-200 dark:bg-white/5" />
 
       {/* Excerpt */}
       <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
@@ -279,7 +279,7 @@ function PostContent({
         target={post.isExternal ? "_blank" : "_self"}
         rel={post.isExternal ? "noopener noreferrer" : undefined}
         onClick={(e) => e.stopPropagation()}
-        className="mt-6 inline-flex items-center gap-1.5 text-[11px] font-black tracking-[0.2em] text-blue-600 uppercase transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+        className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-black tracking-[0.2em] text-blue-600 uppercase transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
       >
         Read Article
         <svg
@@ -318,13 +318,13 @@ function DecorativeLines(): JSX.Element {
 
 function EmptyContent(): JSX.Element {
   return (
-    <div className="p-8 md:p-10">
+    <div className="p-5 sm:p-8 md:p-10">
       <div className="mb-3 flex items-center justify-between">
         <span className="text-[9px] font-black tracking-[0.35em] text-gray-400 uppercase dark:text-gray-500">
           Journal · Aldrin Azucena
         </span>
       </div>
-      <div className="mb-8 h-px bg-gray-300 dark:bg-white/10" />
+      <div className="mb-6 h-px bg-gray-300 dark:bg-white/10" />
       <p className="text-sm text-gray-400 dark:text-gray-500">
         No posts yet. Check back soon.
       </p>
