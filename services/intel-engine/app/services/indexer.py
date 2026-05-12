@@ -1,4 +1,5 @@
 import os
+import re
 import glob
 import json
 import uuid
@@ -100,11 +101,26 @@ class KnowledgeIndexer:
         result = self.voyage_client.embed([text_input], model=self.model, input_type="document")
         return result.embeddings[0]
 
+    @staticmethod
+    def _glob_to_regex(pattern: str) -> re.Pattern:
+        """Converts a glob pattern with ** support to a compiled regex."""
+        escaped = re.escape(pattern)
+        escaped = escaped.replace(r'\*\*', '.*')
+        escaped = escaped.replace(r'\*', '[^/]*')
+        return re.compile(f'^{escaped}$')
+
     def _fetch_github_docs_sync(self, dest_path: str):
-        """Downloads docs/**/*.md files from the GitHub repo to dest_path."""
+        """Downloads all files matching intel.config.json include patterns from GitHub."""
         if not GITHUB_REPO:
             print("⚠️ [Indexer] GITHUB_REPO not set — skipping remote fetch, using local files")
             return
+
+        config = self._load_config()
+        include_patterns = config.get("include", ["docs/**/*.md"])
+        exclude_patterns = config.get("exclude", [])
+
+        compiled_includes = [self._glob_to_regex(p) for p in include_patterns]
+        compiled_excludes = [self._glob_to_regex(p) for p in exclude_patterns]
 
         headers = {"Accept": "application/vnd.github.v3+json"}
         if GITHUB_TOKEN:
@@ -123,8 +139,8 @@ class KnowledgeIndexer:
         doc_files = [
             item["path"] for item in tree_data.get("tree", [])
             if item["type"] == "blob"
-            and item["path"].startswith("docs/")
-            and item["path"].endswith(".md")
+            and any(p.match(item["path"]) for p in compiled_includes)
+            and not any(p.match(item["path"]) for p in compiled_excludes)
         ]
 
         print(f"📄 [Indexer] {len(doc_files)} remote doc files found")
