@@ -4,6 +4,10 @@ interface ImportMetaEnv {
   readonly STRAPI_URL: string;
   readonly STRAPI_TOKEN: string;
   readonly STRAPI_ENDPOINT: string;
+  readonly INTEL_ENGINE_URL: string | undefined;
+  readonly INTEL_ENGINE_API_KEY: string | undefined;
+  readonly MAINTENANCE_MODE: string | undefined;
+  readonly PREVIEW_TOKEN: string | undefined;
   readonly PUBLIC_RECAPTCHA_SITE_KEY: string;
   readonly RECAPTCHA_SECRET_KEY: string;
   readonly PUBLIC_GOOGLE_ANALYTICS_ID: string;
