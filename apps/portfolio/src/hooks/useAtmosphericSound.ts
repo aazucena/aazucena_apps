@@ -124,6 +124,14 @@ export function useAtmosphericSound(
       nodes.masterGain.gain.setTargetAtTime(1, ctx.currentTime, 0.4);
       nodesRef.current = nodes;
       prevPhaseRef.current = phase;
+
+      // On page load, autoplay policy may have suspended the context before any
+      // user gesture. Register one-time listeners so the first interaction resumes it.
+      if (ctx.state === "suspended") {
+        const resume = () => ctx.resume().catch(() => {});
+        document.addEventListener("click", resume, { once: true });
+        document.addEventListener("keydown", resume, { once: true });
+      }
     }
   }, [isMuted]); // eslint-disable-line react-hooks/exhaustive-deps
 
