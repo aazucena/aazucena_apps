@@ -105,7 +105,11 @@ class KnowledgeIndexer:
     def _glob_to_regex(pattern: str) -> re.Pattern:
         """Converts a glob pattern with ** support to a compiled regex."""
         escaped = re.escape(pattern)
+        # /**/  surrounded by slashes → zero-or-more intermediate segments
+        escaped = escaped.replace(r'/\*\*/', '/(.*/)?')
+        # Remaining ** (at start/end without surrounding slashes)
         escaped = escaped.replace(r'\*\*', '.*')
+        # Single * → one segment (no slashes)
         escaped = escaped.replace(r'\*', '[^/]*')
         return re.compile(f'^{escaped}$')
 
