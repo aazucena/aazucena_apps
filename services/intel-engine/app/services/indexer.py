@@ -149,8 +149,6 @@ class KnowledgeIndexer:
             and not any(p.match(item["path"]) for p in compiled_excludes)
         ]
 
-        token_status = f"present (starts with '{GITHUB_TOKEN[:4]}...')" if GITHUB_TOKEN else "NOT SET (unauthenticated)"
-        print(f"🔑 [Indexer] GITHUB_TOKEN: {token_status}")
         print(f"📄 [Indexer] {len(doc_files)} remote doc files found")
         print("🚀 [Indexer] BEGIN DIFFERENTIAL SYNC (GitHub in-memory)")
 
