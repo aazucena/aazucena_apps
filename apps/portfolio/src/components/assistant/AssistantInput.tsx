@@ -40,7 +40,7 @@ export function AssistantInput({
           minRows={1}
           maxRows={4}
           disabled={isLoading}
-          className="pb-10 text-base"
+          className="pb-10 text-base md:text-xs"
         />
         <span
           className={cn(
