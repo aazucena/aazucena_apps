@@ -188,7 +188,14 @@ export function NavigationToolbar({
 
           {/* Toggle — always pinned to the right */}
           <button
-            onClick={() => setIsExpanded((v) => !v)}
+            onClick={() => {
+              if (isExpanded) {
+                if (showInfoPanel) togglePanel("info");
+                if (showSettingsPanel) togglePanel("settings");
+                if (showSocialMenu) togglePanel("social");
+              }
+              setIsExpanded((v) => !v);
+            }}
             aria-label={isExpanded ? "Collapse toolbar" : "Expand toolbar"}
             className="p-1.5"
           >

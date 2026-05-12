@@ -55,7 +55,7 @@ export function InfoPanel({
   const info = phaseInfo[currentPhase];
 
   return (
-    <div className="max-h-[85vh] overflow-y-auto p-6">
+    <div className="max-h-[calc(100vh-14rem)] overflow-y-auto p-4 sm:max-h-[85vh] sm:p-6">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-lg font-bold text-white">
           Journey Through Earth's Atmosphere
@@ -117,8 +117,14 @@ export function InfoPanel({
         {/* Scroll Tip */}
         <div className="rounded-lg border border-white/10 bg-white/5 p-3">
           <div className="text-center text-xs text-white/60">
-            Scroll to journey through Earth's atmosphere from space to the
-            surface!
+            <span className="sm:hidden">
+              Swipe up/down to journey through Earth's atmosphere from space to
+              the surface!
+            </span>
+            <span className="hidden sm:inline">
+              Scroll to journey through Earth's atmosphere from space to the
+              surface!
+            </span>
           </div>
         </div>
       </div>

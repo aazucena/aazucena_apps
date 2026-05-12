@@ -56,10 +56,7 @@ export interface PopoverProps {
 function getPositionClasses(position: PopoverPosition): string {
   switch (position) {
     case "top-right":
-      // Below toolbar with generous spacing
-      // Toolbar at top-8 (~32px) + height (~70-80px) + gap (~40px) = ~140px
-      // Position at top-32 (144px) for comfortable, non-overlapping spacing
-      return "top-32 right-8"; // Aligned with toolbar's right-8
+      return "top-32 right-8";
     case "top-left":
       return "top-32 left-8"; // Aligned with potential left toolbar
     case "bottom-right":
@@ -154,12 +151,10 @@ export function Popover({
 
           {/* Popover Content */}
           <motion.div
-            className={`fixed ${positionClasses} ${className}`}
+            className={`fixed max-h-[calc(100vh-14rem)] max-w-[calc(100vw-2rem)] sm:max-h-[85vh] sm:max-w-[90vw] ${positionClasses} ${className}`}
             style={{
               zIndex,
               width,
-              maxWidth: "90vw",
-              maxHeight: "85vh",
             }}
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
