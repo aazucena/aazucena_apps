@@ -1,0 +1,52 @@
+# Node dependencies and build outputs
+node_modules
+**/node_modules
+.next
+**/.next
+.astro
+**/.astro
+dist
+**/dist
+build
+**/build
+out
+**/out
+storybook-static
+**/storybook-static
+build.log
+
+# Git
+.git
+
+# Env files (never bake secrets into images)
+.env
+**/.env
+.env.local
+**/.env.local
+.env.production
+**/.env.production
+
+# Python artifacts
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+.venv
+**/venv
+**/.venv
+*.egg-info
+**/*.egg-info
+
+# Test & coverage artifacts
+playwright-report
+**/playwright-report
+test-results
+**/test-results
+coverage
+**/coverage
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo

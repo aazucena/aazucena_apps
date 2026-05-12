@@ -3,8 +3,8 @@ services:
     container_name: aazucena-intel-engine
     image: aazucena/intel-engine:latest
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../..
+      dockerfile: services/intel-engine/Dockerfile
     ports:
       - "3003:3003"
     environment:
@@ -16,6 +16,9 @@ services:
       - LANGCHAIN_TRACING_V2=true
       - LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
       - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-aazucena-intel-engine}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY:-}
+      - VOYAGE_API_KEY=${VOYAGE_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - PLAUSIBLE_CLICKHOUSE_USER=${PLAUSIBLE_CLICKHOUSE_USER:-admin}
       - PLAUSIBLE_CLICKHOUSE_PASSWORD=${PLAUSIBLE_CLICKHOUSE_PASSWORD:-clickhouse}
     extra_hosts:

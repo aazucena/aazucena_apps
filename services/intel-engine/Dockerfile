@@ -5,11 +5,16 @@ WORKDIR /app
 # Install system dependencies for Postgres and curl for diagnostics
 RUN apt-get update && apt-get install -y libpq-dev gcc curl && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+# Build context = monorepo root (set in compose.yml and Railway root directory)
+COPY services/intel-engine/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY services/intel-engine/ .
 
-EXPOSE 3001
+# Bake knowledge corpus into the image for Railway (no volume mounts in production)
+COPY docs/ /app/data/docs/
+COPY README.md ROADMAP.md /app/data/context/
 
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-3001}"]
+EXPOSE 3003
+
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-3003}"]
