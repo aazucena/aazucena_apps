@@ -1,16 +1,17 @@
 import { useEffect, useRef } from "react";
 import type { AtmosphericPhase } from "@aazucena/types";
 
-// Highpass cutoff per layer — as user descends, cutoff drops and sound fills in
+// Lowpass cutoff per layer — brown noise through a lowpass gives deep wind rumble, no hiss.
+// Cutoff rises as user descends: more warm low-frequency content fills in toward ground.
 const LAYER_CONFIG: Record<
   AtmosphericPhase,
   { cutoff: number; gain: number; sweepFreq: number }
 > = {
-  exosphere: { cutoff: 2500, gain: 0.025, sweepFreq: 1100 },
-  thermosphere: { cutoff: 1400, gain: 0.035, sweepFreq: 620 },
-  mesosphere: { cutoff: 700, gain: 0.05, sweepFreq: 320 },
-  stratosphere: { cutoff: 280, gain: 0.06, sweepFreq: 150 },
-  troposphere: { cutoff: 100, gain: 0.065, sweepFreq: 80 },
+  exosphere: { cutoff: 200, gain: 0.01, sweepFreq: 1100 },
+  thermosphere: { cutoff: 320, gain: 0.014, sweepFreq: 620 },
+  mesosphere: { cutoff: 500, gain: 0.018, sweepFreq: 320 },
+  stratosphere: { cutoff: 700, gain: 0.022, sweepFreq: 150 },
+  troposphere: { cutoff: 1000, gain: 0.025, sweepFreq: 80 },
 };
 
 const CROSSFADE_TC = 0.4; // setTargetAtTime time constant (seconds)
@@ -24,12 +25,17 @@ interface AudioNodes {
   noiseSource: AudioBufferSourceNode;
 }
 
+// Brown noise: random walk integration gives -6dB/octave rolloff.
+// Energy concentrates in low frequencies — sounds like deep wind, not hiss.
 function buildNoiseBuffer(ctx: AudioContext): AudioBuffer {
   const length = ctx.sampleRate * 2;
   const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
   const data = buffer.getChannelData(0);
+  let last = 0;
   for (let i = 0; i < length; i++) {
-    data[i] = Math.random() * 2 - 1;
+    const white = Math.random() * 2 - 1;
+    last = (last + 0.02 * white) / 1.02;
+    data[i] = last * 3.5; // compensate for amplitude drop from integration
   }
   return buffer;
 }
@@ -46,7 +52,7 @@ function createNodes(ctx: AudioContext, phase: AtmosphericPhase): AudioNodes {
   ambientGain.connect(masterGain);
 
   const filter = ctx.createBiquadFilter();
-  filter.type = "highpass";
+  filter.type = "lowpass";
   filter.frequency.value = config.cutoff;
   filter.Q.value = 0.7;
   filter.connect(ambientGain);
@@ -72,7 +78,7 @@ function playSweep(nodes: AudioNodes, fromFreq: number, toFreq: number): void {
     ctx.currentTime + SWEEP_DURATION,
   );
 
-  gain.gain.setValueAtTime(0.06, ctx.currentTime);
+  gain.gain.setValueAtTime(0.03, ctx.currentTime);
   gain.gain.exponentialRampToValueAtTime(
     0.001,
     ctx.currentTime + SWEEP_DURATION,
