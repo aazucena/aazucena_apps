@@ -76,11 +76,15 @@ class KnowledgeIndexer:
                 )
             """))
             
-            # Ensure file_hash column exists for older installations
+            # Ensure file_hash and embedding columns exist (Strapi may have created the table without them)
             try:
                 await conn.execute(text("ALTER TABLE knowledge_items ADD COLUMN IF NOT EXISTS file_hash VARCHAR(64)"))
             except Exception:
-                pass # Already exists or table was just created
+                pass
+            try:
+                await conn.execute(text("ALTER TABLE knowledge_items ADD COLUMN IF NOT EXISTS embedding vector(1024)"))
+            except Exception:
+                pass
 
             # Migrate embedding dimension if changed (e.g. nomic 768 → voyage-3 1024)
             result = await conn.execute(text(
