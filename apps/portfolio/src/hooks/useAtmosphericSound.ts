@@ -7,11 +7,11 @@ const LAYER_CONFIG: Record<
   AtmosphericPhase,
   { cutoff: number; gain: number; sweepFreq: number }
 > = {
-  exosphere: { cutoff: 200, gain: 0.01, sweepFreq: 1100 },
-  thermosphere: { cutoff: 320, gain: 0.014, sweepFreq: 620 },
-  mesosphere: { cutoff: 500, gain: 0.018, sweepFreq: 320 },
-  stratosphere: { cutoff: 700, gain: 0.022, sweepFreq: 150 },
-  troposphere: { cutoff: 1000, gain: 0.025, sweepFreq: 80 },
+  exosphere: { cutoff: 200, gain: 0.007, sweepFreq: 1100 },
+  thermosphere: { cutoff: 320, gain: 0.010, sweepFreq: 620 },
+  mesosphere: { cutoff: 500, gain: 0.013, sweepFreq: 320 },
+  stratosphere: { cutoff: 700, gain: 0.016, sweepFreq: 150 },
+  troposphere: { cutoff: 1000, gain: 0.018, sweepFreq: 80 },
 };
 
 const CROSSFADE_TC = 0.4; // setTargetAtTime time constant (seconds)
