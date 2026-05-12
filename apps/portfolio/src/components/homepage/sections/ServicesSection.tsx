@@ -3,7 +3,7 @@
  * Adaptive tabs layout: horizontal for ≤3 services, vertical sidebar for >3.
  */
 
-import { type JSX, useState, useCallback } from "react";
+import { type JSX, useState, useCallback, useEffect } from "react";
 import { ArrowLeftRight as ArrowsHorizontal } from "@aazucena/icons";
 import { useSectionData } from "~/contexts";
 import { SectionLayout } from "./SectionLayout";
@@ -42,13 +42,20 @@ function getCategoryGradient(category: string): string {
   return CATEGORY_COLORS[category] ?? "from-cyan-400 to-blue-500";
 }
 
-const FEATURES_CAP = 6;
+const FEATURES_CAP = 3;
 
 function ServicePanel({ service }: { service: Service }): JSX.Element {
   const gradient = getCategoryGradient(service.category);
   const categoryLabel = CATEGORY_LABELS[service.category] ?? service.category;
   const [featuresExpanded, setFeaturesExpanded] = useState(false);
+  const [descExpanded, setDescExpanded] = useState(false);
   const hasMore = service.features.length > FEATURES_CAP;
+  const longDesc = (service.description?.length ?? 0) > 220;
+
+  useEffect(() => {
+    setDescExpanded(false);
+    setFeaturesExpanded(false);
+  }, [service.id]);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const visibleFeatures =
     featuresExpanded || !isMobile
@@ -95,10 +102,28 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
 
       {/* Description */}
       {service.description ? (
-        <MarkdownRenderer
-          content={service.description}
-          className="text-gray-300 [&_li]:text-[11px] sm:[&_li]:text-xs md:[&_li]:text-sm [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm"
-        />
+        <div className="flex flex-col gap-1">
+          <div
+            className={cn(
+              !descExpanded &&
+                longDesc &&
+                "max-h-[6.5rem] overflow-hidden md:max-h-none md:overflow-visible",
+            )}
+          >
+            <MarkdownRenderer
+              content={service.description}
+              className="text-gray-300 [&_a]:break-words [&_img]:max-w-full [&_li]:text-[11px] sm:[&_li]:text-xs md:[&_li]:text-sm [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm [&_pre]:overflow-x-auto"
+            />
+          </div>
+          {longDesc && (
+            <button
+              onClick={() => setDescExpanded((prev) => !prev)}
+              className="mt-0.5 self-start text-xs font-medium text-gray-400 transition-colors hover:text-white md:hidden"
+            >
+              {descExpanded ? "Show less" : "Show more"}
+            </button>
+          )}
+        </div>
       ) : (
         <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs md:text-sm">
           {service.shortDescription}
@@ -247,7 +272,7 @@ export function ServicesSection({
         {activeService && (
           <div
             className={cn(
-              "rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm sm:p-6",
+              "min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm sm:p-6",
               isVertical && "md:flex-1",
             )}
           >
