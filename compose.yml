@@ -53,6 +53,8 @@ services:
     networks:
       - aazucena-network
     env_file: apps/cms/.env
+    environment:
+      - PORT=3003
     volumes:
       - ./docs:/app/data/docs:ro
       - ./apps:/app/data/apps:ro
