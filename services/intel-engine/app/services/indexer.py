@@ -149,6 +149,8 @@ class KnowledgeIndexer:
             and not any(p.match(item["path"]) for p in compiled_excludes)
         ]
 
+        token_status = f"present (starts with '{GITHUB_TOKEN[:4]}...')" if GITHUB_TOKEN else "NOT SET (unauthenticated)"
+        print(f"🔑 [Indexer] GITHUB_TOKEN: {token_status}")
         print(f"📄 [Indexer] {len(doc_files)} remote doc files found")
         print("🚀 [Indexer] BEGIN DIFFERENTIAL SYNC (GitHub in-memory)")
 
@@ -163,14 +165,21 @@ class KnowledgeIndexer:
 
                     content_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}?ref={GITHUB_BRANCH}"
                     file_resp = await asyncio.to_thread(requests.get, content_url, headers=headers, timeout=10)
+
                     if not file_resp.ok:
-                        print(f"   └─ ⚠️ Skipped {path}: HTTP {file_resp.status_code}")
+                        resp_msg = ""
+                        try:
+                            resp_msg = file_resp.json().get("message", "")
+                        except Exception:
+                            resp_msg = file_resp.text[:80]
+                        print(f"   └─ ⚠️ Skipped {path}: HTTP {file_resp.status_code} — {resp_msg}")
                         continue
 
                     resp_json = file_resp.json()
                     if "content" not in resp_json:
-                        print(f"   └─ ⚠️ Skipped {path}: {resp_json.get('message', file_resp.status_code)}")
+                        print(f"   └─ ⚠️ Skipped {path}: no 'content' key — {resp_json.get('message', resp_json.keys())}")
                         continue
+
                     file_content = base64.b64decode(resp_json["content"]).decode("utf-8")
                     content_hash = hashlib.md5(file_content.encode("utf-8")).hexdigest()
 
@@ -219,7 +228,7 @@ class KnowledgeIndexer:
 
                     await session.commit()
                 except Exception as e:
-                    print(f"   └─ ❌ FAILED {path}: {e}")
+                    print(f"   └─ ❌ FAILED {path}: {type(e).__name__}: {e}")
                     await session.rollback()
 
             print("🧹 [Indexer] Cleaning up obsolete records...")
