@@ -13,6 +13,10 @@ from app.api.router import api_router
 INTEL_BRIDGE_URL = os.getenv("INTEL_BRIDGE_URL", "")
 INTEL_BRIDGE_SECRET = os.getenv("INTEL_BRIDGE_SECRET", "")
 
+# Production: fetch docs from GitHub into a writable temp dir.
+# Local dev: GITHUB_REPO is unset, so volume-mounted /app/data is used directly.
+_DOCS_SYNC_PATH = "/tmp/github_sync" if os.getenv("GITHUB_REPO") else "/app/data"
+
 async def start_heartbeat():
     """Periodic pulse to the Intel Bridge for the Analytics Dashboard."""
     print("💓 [Intel-Engine] Starting periodic heartbeat (60s)...")
@@ -52,8 +56,8 @@ async def lifespan(app: FastAPI):
 
         # 4. Automated Knowledge Sync (Internal RAG)
         print("📚 [Indexer] Starting Automated Knowledge Sync...")
-        await indexer.fetch_github_docs("/app/data")
-        await indexer.index_docs_folder("/app/data")
+        await indexer.fetch_github_docs(_DOCS_SYNC_PATH)
+        await indexer.index_docs_folder(_DOCS_SYNC_PATH)
         
         print("✅ [Vector Store] Handshake Complete.")
     except Exception as e:
