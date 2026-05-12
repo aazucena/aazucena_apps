@@ -9,6 +9,24 @@ import {
 } from "@aazucena/api";
 import { buildSystemPrompt } from "./prompt";
 
+export async function fetchRagContext(query: string): Promise<string> {
+  const engineUrl = import.meta.env.INTEL_ENGINE_URL;
+  if (!engineUrl || !query) return "";
+  try {
+    const res = await fetch(
+      `${engineUrl}/knowledge/search?q=${encodeURIComponent(query)}&top_k=5`,
+      { signal: AbortSignal.timeout(3000) },
+    );
+    if (!res.ok) return "";
+    const { results } = await res.json();
+    return (results as Array<{ source: string; content: string }>)
+      .map((r) => `SOURCE: ${r.source}\n${r.content}`)
+      .join("\n\n");
+  } catch {
+    return "";
+  }
+}
+
 export interface ChatContext {
   systemPrompt: string;
 }

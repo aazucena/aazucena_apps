@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { streamText, convertToModelMessages, stepCountIs } from "ai";
 import { setStrapiConfig } from "@aazucena/api";
 import { gateway } from "@aazucena/api/services/ai/gateway";
-import { fetchChatContext } from "~/lib/utils/chat/context";
+import { fetchChatContext, fetchRagContext } from "~/lib/utils/chat/context";
 import { createChatTools } from "~/lib/utils/chat/tools";
 
 export const prerender = false;
@@ -39,12 +39,21 @@ export const POST: APIRoute = async ({ request }) => {
     token: import.meta.env.STRAPI_TOKEN || "",
   });
 
-  const { systemPrompt } = await fetchChatContext(pathname);
+  const lastUserMessage =
+    safeMessages.findLast((m: any) => m.role === "user")?.content ?? "";
+
+  const [{ systemPrompt }, ragContext] = await Promise.all([
+    fetchChatContext(pathname),
+    fetchRagContext(lastUserMessage),
+  ]);
+
   const last10Messages = safeMessages.slice(-10);
 
   const result = streamText({
     model: gateway("anthropic/claude-sonnet-4.6"),
-    system: systemPrompt,
+    system: ragContext
+      ? `${systemPrompt}\n\n--- KNOWLEDGE BASE ---\n${ragContext}`
+      : systemPrompt,
     messages: await convertToModelMessages(last10Messages),
     maxOutputTokens: 1024,
     stopWhen: stepCountIs(3),
