@@ -14,22 +14,26 @@ class KnowledgeRetriever:
 
     async def find_relevant_docs(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
         query_vector = self._get_embedding(query)
-        
-        # 2. Perform Vector Similarity Search
+
+        # Blended score: cosine distance minus a recency boost (max 0.1, decays to 0 over 30 days).
+        # Ensures recently re-indexed content surfaces over stale chunks when similarity is close.
         search_query = text("""
-            SELECT content, source, metadata, 
-                   (embedding <=> :vector) as distance
+            SELECT content, source, metadata,
+                   (embedding <=> :vector) as distance,
+                   (embedding <=> :vector) - GREATEST(0.0,
+                       0.1 * (1.0 - EXTRACT(EPOCH FROM (NOW() - updated_at)) / (30.0 * 86400.0))
+                   ) as blended_score
             FROM knowledge_items
-            ORDER BY distance ASC
+            ORDER BY blended_score ASC
             LIMIT :limit
         """)
 
         async with AsyncSessionLocal() as session:
             result = await session.execute(
-                search_query, 
+                search_query,
                 {"vector": str(query_vector), "limit": top_k}
             )
-            
+
             docs = []
             for row in result:
                 docs.append({
@@ -37,7 +41,7 @@ class KnowledgeRetriever:
                     "source": row.source,
                     "distance": float(row.distance)
                 })
-            
+
             return docs
 
 # Global Instance
