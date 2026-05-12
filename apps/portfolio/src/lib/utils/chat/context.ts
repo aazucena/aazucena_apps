@@ -12,10 +12,14 @@ import { buildSystemPrompt } from "./prompt";
 export async function fetchRagContext(query: string): Promise<string> {
   const engineUrl = import.meta.env.INTEL_ENGINE_URL;
   if (!engineUrl || !query) return "";
+  const apiKey = import.meta.env.INTEL_ENGINE_API_KEY;
   try {
     const res = await fetch(
       `${engineUrl}/knowledge/search?q=${encodeURIComponent(query)}&top_k=5`,
-      { signal: AbortSignal.timeout(3000) },
+      {
+        signal: AbortSignal.timeout(3000),
+        headers: apiKey ? { "X-API-Key": apiKey } : {},
+      },
     );
     if (!res.ok) return "";
     const { results } = await res.json();
