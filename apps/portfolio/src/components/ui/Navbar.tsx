@@ -187,6 +187,15 @@ export function Navbar({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={{ left: 0, right: 0.4 }}
+              onDragEnd={(_, info) => {
+                if (info.offset.x > 80 || info.velocity.x > 500) {
+                  setIsMobileMenuOpen(false);
+                }
+              }}
+              style={{ touchAction: "pan-y" }}
               className="bg-background fixed top-0 right-0 z-[105] flex h-dvh w-full max-w-[300px] flex-col gap-8 border-l border-gray-100 p-8 pt-24 pb-[max(2rem,env(safe-area-inset-bottom))] shadow-2xl md:hidden dark:border-gray-800"
             >
               <div className="flex flex-col gap-2">
