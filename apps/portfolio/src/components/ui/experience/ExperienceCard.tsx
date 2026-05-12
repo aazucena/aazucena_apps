@@ -29,23 +29,26 @@ export function ExperienceCard({
       href={`/experiences/${experience.slug}`}
       hover
       clickable
-      padding="md"
-      className="block text-inherit no-underline"
+      padding="none"
+      className="block p-3 text-inherit no-underline md:p-4"
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 md:gap-4">
         {/* Company Logo */}
         <CompanyLogo
           company={experience.company}
           companyLogo={experience.companyLogo}
-          size="md"
+          size="sm"
+          className="md:!h-12 md:!w-12 md:!text-lg"
         />
 
         {/* Experience Info */}
         <div className="flex flex-grow flex-col gap-1">
-          <h3 className="text-base font-bold text-white md:text-lg">
+          <h3 className="text-sm font-bold text-white md:text-lg">
             {experience.position}
           </h3>
-          <span className="text-sm text-cyan-400">{experience.company}</span>
+          <span className="text-xs text-cyan-400 md:text-sm">
+            {experience.company}
+          </span>
           <p className="text-xs text-gray-300 md:whitespace-nowrap">
             {formatDate(experience.startDate)} -{" "}
             {experience.isCurrent
@@ -74,7 +77,7 @@ export function ExperienceCard({
 
         {/* Click Indicator */}
         <div className="flex-shrink-0">
-          <ChevronRight className="h-5 w-5 text-cyan-400" />
+          <ChevronRight className="h-4 w-4 text-cyan-400 md:h-5 md:w-5" />
         </div>
       </div>
     </GlassCard>
