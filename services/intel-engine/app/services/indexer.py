@@ -1,10 +1,10 @@
 import os
 import glob
 import json
-import requests
 import uuid
 import hashlib
 import fnmatch
+import voyageai
 from typing import List
 from datetime import datetime
 from langchain_community.document_loaders import TextLoader, PyPDFLoader
@@ -14,9 +14,8 @@ from app.core.database import engine, AsyncSessionLocal, KnowledgeChunk
 
 class KnowledgeIndexer:
     def __init__(self):
-        # Point to the local Ollama service within the Docker network
-        self.ollama_url = "http://aazucena-ollama:11434/api/embeddings"
-        self.model = "nomic-embed-text"
+        self.voyage_client = voyageai.Client()  # reads VOYAGE_API_KEY from env
+        self.model = "voyage-3"
         self.config_path = "intel.config.json"
         
         self.text_splitter = RecursiveCharacterTextSplitter(
@@ -58,7 +57,7 @@ class KnowledgeIndexer:
                     source TEXT NOT NULL,
                     type TEXT DEFAULT 'docs',
                     metadata JSONB,
-                    embedding vector(768),
+                    embedding vector(1024),
                     file_hash VARCHAR(64),
                     locale VARCHAR(255) DEFAULT 'en',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -77,15 +76,10 @@ class KnowledgeIndexer:
                 
             print("✅ Vector Store: Initialized and persistent")
 
-    def _get_embedding_local(self, text_input: str) -> List[float]:
-        """Calls the local Ollama service for embeddings."""
-        payload = {"model": self.model, "prompt": text_input}
-        response = requests.post(self.ollama_url, json=payload, timeout=120)
-        
-        if response.status_code != 200:
-            raise Exception(f"Ollama Error {response.status_code}: {response.text}")
-            
-        return response.json()["embedding"]
+    def _get_embedding(self, text_input: str) -> List[float]:
+        """Calls Voyage AI for embeddings."""
+        result = self.voyage_client.embed([text_input], model=self.model, input_type="document")
+        return result.embeddings[0]
 
     async def index_docs_folder(self, docs_path: str, force: bool = False):
         """Scans, chunks, and indexes files based on configuration."""
@@ -160,7 +154,7 @@ class KnowledgeIndexer:
                         content = chunk.page_content.strip()
                         if not content: continue
 
-                        vector = self._get_embedding_local(content)
+                        vector = self._get_embedding(content)
                         
                         new_chunk = KnowledgeChunk(
                             document_id=self._generate_document_id(),

@@ -10,7 +10,7 @@ from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 from psycopg_pool import AsyncConnectionPool
 from langsmith import Client
-from langchain_openai import ChatOpenAI
+from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from app.services.retriever import retriever
@@ -27,11 +27,11 @@ from sqlalchemy import select, insert, text, update, delete
 
 # --- Engine Configuration (vLLM Style) ---
 class EngineConfig(BaseModel):
-    model: str = "llama3.2"
+    model: str = "claude-haiku-4-5-20251001"
     temperature: float = 0
     max_tokens: int = 2048
     top_p: float = 0.9
-    context_window: int = 8192
+    context_window: int = 200000
 
 # --- State Definition ---
 class AgentState(TypedDict):
@@ -52,19 +52,16 @@ class AgentState(TypedDict):
 class IntelBrain:
     def __init__(self, config: Optional[EngineConfig] = None):
         self.config = config or EngineConfig()
-        self.ollama_url = os.getenv("OLLAMA_URL", "http://aazucena-ollama:11434/v1")
-        self.ls_client = Client(cache=True) 
+        self.ls_client = Client(cache=True)
         self.pool = None
         self.checkpointer = None
-        
-        self.llm = ChatOpenAI(
+
+        self.llm = ChatAnthropic(
             model=self.config.model,
-            api_key="ollama",
-            base_url=self.ollama_url,
             temperature=self.config.temperature,
             max_tokens=self.config.max_tokens,
             top_p=self.config.top_p,
-            request_timeout=120.0
+            timeout=120.0
         )
         
         # Expert Registry

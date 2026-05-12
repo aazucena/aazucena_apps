@@ -7,10 +7,10 @@ psycopg[binary]==3.2.2
 psycopg-pool>=3.2.2
 pgvector==0.2.5
 langsmith>=0.3.0
-openai==1.58.1
 python-dotenv==1.0.1
 langchain>=0.3.14
-langchain-openai>=0.3.0
+langchain-anthropic>=0.3.0
+langchain-voyageai>=0.2.0
 langchain-community>=0.3.14
 langchain-postgres>=0.0.12
 unstructured==0.15.13

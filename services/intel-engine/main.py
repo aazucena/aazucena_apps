@@ -10,20 +10,21 @@ from app.services.indexer import indexer
 from app.core.brain import brain
 from app.api.router import api_router
 
-INTEL_BRIDGE_URL = os.getenv("INTEL_BRIDGE_URL", "http://aazucena-intel-bridge:3001")
+INTEL_BRIDGE_URL = os.getenv("INTEL_BRIDGE_URL", "")
 
 async def start_heartbeat():
     """Periodic pulse to the Intel Bridge for the Analytics Dashboard."""
     print("💓 [Intel-Engine] Starting periodic heartbeat (60s)...")
     while True:
         try:
-            payload = {
-                "service": "intel-engine",
-                "status": "UP",
-                "latency_ms": 0,
-                "message": "Neural engine operational"
-            }
-            requests.post(f"{INTEL_BRIDGE_URL}/pulse/health", json=payload, timeout=5)
+            if INTEL_BRIDGE_URL:
+                payload = {
+                    "service": "intel-engine",
+                    "status": "UP",
+                    "latency_ms": 0,
+                    "message": "Neural engine operational"
+                }
+                requests.post(f"{INTEL_BRIDGE_URL}/pulse/health", json=payload, timeout=5)
         except Exception as e:
             print(f"❌ [Intel-Engine] Heartbeat pulse failed: {e}")
         
