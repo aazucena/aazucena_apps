@@ -17,6 +17,7 @@ SECRET_KEY = os.getenv('INGESTION_SECRET_KEY')
 
 REDIS_HOST = os.getenv('REDIS_HOST', '')
 REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
+REDIS_PASSWORD = os.getenv('REDIS_PASSWORD') or None
 
 CH_HOST = os.getenv('CLICKHOUSE_HOST', '')
 CH_PORT = int(os.getenv('CLICKHOUSE_PORT', 8123))
@@ -80,7 +81,7 @@ def _get_redis() -> Optional[redis.Redis]:
     if not REDIS_HOST:
         return None
     if _redis_client is None:
-        _redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, socket_timeout=2)
+        _redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, socket_timeout=2)
     return _redis_client
 
 def _get_ch_client():
