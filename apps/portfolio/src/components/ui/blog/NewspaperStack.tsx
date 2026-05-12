@@ -19,6 +19,33 @@ import { getPostDateTime } from "~/lib/utils/blog";
 export interface NewspaperStackProps {
   posts: BlogPost[];
   displayConfig: BlogConfigData["display"];
+  isSoundMuted?: boolean;
+}
+
+function playPaperSound(isMuted: boolean): void {
+  if (isMuted || typeof window === "undefined") return;
+  const ctx = new AudioContext();
+  const bufferSize = Math.floor(ctx.sampleRate * 0.04); // 40ms burst
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.frequency.value = 2500; // paper's characteristic mid-high frequency range
+  filter.Q.value = 0.8;
+
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.12, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+  source.start();
 }
 
 // Resting transforms per layer (0 = front, 2 = furthest back)
@@ -38,6 +65,7 @@ const FANNED = [
 export function NewspaperStack({
   posts,
   displayConfig,
+  isSoundMuted = false,
 }: NewspaperStackProps): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
@@ -103,6 +131,7 @@ export function NewspaperStack({
   const cycle = () => {
     if (!canCycle || isCycling.current) return;
     isCycling.current = true;
+    playPaperSound(isSoundMuted);
 
     const front = cardRefs.current[0];
     if (!front) {
@@ -176,6 +205,7 @@ export function NewspaperStack({
                 e.stopPropagation();
                 if (i === frontIndex || isCycling.current) return;
                 isCycling.current = true;
+                playPaperSound(isSoundMuted);
                 const front = cardRefs.current[0];
                 if (!front) {
                   isCycling.current = false;
