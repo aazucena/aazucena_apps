@@ -57,15 +57,17 @@ export function SkillsSection({
   const [mobileActiveTab, setMobileActiveTab] = useState(
     categories[0]?.name ?? "",
   );
+  const [mobileSkillsExpanded, setMobileSkillsExpanded] = useState(false);
 
   const MOBILE_MAX_SKILLS = 8;
   const activeMobileCategory = categories.find(
     (c) => c.name === mobileActiveTab,
   );
-  const mobileSkills =
-    activeMobileCategory?.skills.slice(0, MOBILE_MAX_SKILLS) ?? [];
-  const hiddenSkillsCount =
-    (activeMobileCategory?.skills.length ?? 0) - mobileSkills.length;
+  const allMobileSkills = activeMobileCategory?.skills ?? [];
+  const mobileSkills = mobileSkillsExpanded
+    ? allMobileSkills
+    : allMobileSkills.slice(0, MOBILE_MAX_SKILLS);
+  const hiddenSkillsCount = allMobileSkills.length - MOBILE_MAX_SKILLS;
 
   return (
     <div className="w-full">
@@ -88,7 +90,10 @@ export function SkillsSection({
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setMobileActiveTab(tab.name)}
+                onClick={() => {
+                  setMobileActiveTab(tab.name);
+                  setMobileSkillsExpanded(false);
+                }}
                 style={{ scrollSnapAlign: "center" }}
                 className={cn(
                   "flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-300 active:scale-95",
@@ -113,9 +118,22 @@ export function SkillsSection({
                 variant={mapGradientToVariant(activeMobileCategory.gradient)}
                 size="sm"
               />
-              {hiddenSkillsCount > 0 && (
-                <Badge variant="gray" size="sm">
+              {!mobileSkillsExpanded && hiddenSkillsCount > 0 && (
+                <Badge
+                  variant="gray"
+                  size="sm"
+                  onClick={() => setMobileSkillsExpanded(true)}
+                >
                   +{hiddenSkillsCount} more
+                </Badge>
+              )}
+              {mobileSkillsExpanded && (
+                <Badge
+                  variant="gray"
+                  size="sm"
+                  onClick={() => setMobileSkillsExpanded(false)}
+                >
+                  Show less
                 </Badge>
               )}
             </div>
