@@ -170,7 +170,48 @@ export function NavigationToolbar({
   return (
     <>
       {/* ── Mobile: collapsible pill (centered top) ── */}
-      <div className="fixed relative top-6 right-4 z-50 flex flex-row items-center rounded-full border border-white/20 bg-black/30 px-3.5 py-1 backdrop-blur-md md:hidden">
+      <div className="fixed top-6 right-4 z-50 md:hidden">
+        <div className="relative flex flex-row items-center rounded-full border border-white/20 bg-black/30 px-3.5 py-1 backdrop-blur-md">
+          {/* Buttons expand to the LEFT of the toggle */}
+          <div
+            className={cn(
+              "flex flex-row gap-3 overflow-hidden transition-all duration-300",
+              isExpanded
+                ? "mr-3 max-w-xs opacity-100"
+                : "pointer-events-none max-w-0 opacity-0",
+            )}
+          >
+            {buttons}
+          </div>
+
+          {/* Toggle — always pinned to the right */}
+          <button
+            onClick={() => setIsExpanded((v) => !v)}
+            aria-label={isExpanded ? "Collapse toolbar" : "Expand toolbar"}
+            className="p-1.5"
+          >
+            <div className="flex h-6 w-6 flex-col items-center justify-center gap-1.5">
+              <span
+                className={cn(
+                  "block h-0.5 w-5 rounded-full bg-white/80 transition-all duration-300",
+                  isExpanded && "translate-y-2 rotate-45",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-0.5 w-5 rounded-full bg-white/80 transition-all duration-300",
+                  isExpanded && "opacity-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-0.5 w-5 rounded-full bg-white/80 transition-all duration-300",
+                  isExpanded && "-translate-y-2 -rotate-45",
+                )}
+              />
+            </div>
+          </button>
+        </div>
         {/* First-visit sound hint */}
         <div
           className={cn(
@@ -194,52 +235,15 @@ export function NavigationToolbar({
               d="M15.536 8.464a5 5 0 010 7.072M12 6v12M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
             />
           </svg>
-          Ambient sound available — tap ☰ to enable
+          Ambient sound — tap ☰ to enable
         </div>
-        {/* Buttons expand to the LEFT of the toggle */}
-        <div
-          className={cn(
-            "flex flex-row gap-3 overflow-hidden transition-all duration-300",
-            isExpanded
-              ? "mr-3 max-w-xs opacity-100"
-              : "pointer-events-none max-w-0 opacity-0",
-          )}
-        >
-          {buttons}
-        </div>
-
-        {/* Toggle — always pinned to the right */}
-        <button
-          onClick={() => setIsExpanded((v) => !v)}
-          aria-label={isExpanded ? "Collapse toolbar" : "Expand toolbar"}
-          className="p-1.5"
-        >
-          <div className="flex h-6 w-6 flex-col items-center justify-center gap-1.5">
-            <span
-              className={cn(
-                "block h-0.5 w-5 rounded-full bg-white/80 transition-all duration-300",
-                isExpanded && "translate-y-2 rotate-45",
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-5 rounded-full bg-white/80 transition-all duration-300",
-                isExpanded && "opacity-0",
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-5 rounded-full bg-white/80 transition-all duration-300",
-                isExpanded && "-translate-y-2 -rotate-45",
-              )}
-            />
-          </div>
-        </button>
       </div>
 
       {/* ── Desktop: full pill always visible (top-right) ── */}
-      <div className="fixed relative top-8 right-8 z-50 hidden flex-row gap-4 rounded-full border border-white/20 bg-black/30 px-4 py-3 backdrop-blur-md md:flex">
-        {buttons}
+      <div className="fixed top-8 right-8 z-50 hidden md:block">
+        <div className="flex flex-row gap-4 rounded-full border border-white/20 bg-black/30 px-4 py-3 backdrop-blur-md">
+          {buttons}
+        </div>
         {/* First-visit sound hint */}
         <div
           className={cn(
@@ -263,7 +267,7 @@ export function NavigationToolbar({
               d="M15.536 8.464a5 5 0 010 7.072M12 6v12M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
             />
           </svg>
-          Ambient sound available — click 🔊 to enable
+          Ambient sound — click 🔊 to enable
         </div>
       </div>
 
