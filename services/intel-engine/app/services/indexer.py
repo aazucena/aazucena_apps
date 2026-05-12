@@ -4,6 +4,8 @@ import json
 import uuid
 import hashlib
 import fnmatch
+import asyncio
+import requests
 import voyageai
 from typing import List
 from datetime import datetime
@@ -11,6 +13,10 @@ from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from sqlalchemy import text, select
 from app.core.database import engine, AsyncSessionLocal, KnowledgeChunk
+
+GITHUB_REPO = os.getenv("GITHUB_REPO", "")
+GITHUB_BRANCH = os.getenv("GITHUB_BRANCH", "main")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
 
 class KnowledgeIndexer:
     def __init__(self):
@@ -93,6 +99,54 @@ class KnowledgeIndexer:
         """Calls Voyage AI for embeddings."""
         result = self.voyage_client.embed([text_input], model=self.model, input_type="document")
         return result.embeddings[0]
+
+    def _fetch_github_docs_sync(self, dest_path: str):
+        """Downloads docs/**/*.md files from the GitHub repo to dest_path."""
+        if not GITHUB_REPO:
+            print("⚠️ [Indexer] GITHUB_REPO not set — skipping remote fetch, using local files")
+            return
+
+        headers = {"Accept": "application/vnd.github.v3+json"}
+        if GITHUB_TOKEN:
+            headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+
+        print(f"🌐 [Indexer] Fetching docs from github.com/{GITHUB_REPO}@{GITHUB_BRANCH}...")
+
+        tree_url = f"https://api.github.com/repos/{GITHUB_REPO}/git/trees/{GITHUB_BRANCH}?recursive=1"
+        resp = requests.get(tree_url, headers=headers, timeout=30)
+        resp.raise_for_status()
+        tree_data = resp.json()
+
+        if tree_data.get("truncated"):
+            print("⚠️ [Indexer] GitHub tree response was truncated — some files may be missed")
+
+        doc_files = [
+            item["path"] for item in tree_data.get("tree", [])
+            if item["type"] == "blob"
+            and item["path"].startswith("docs/")
+            and item["path"].endswith(".md")
+        ]
+
+        print(f"📄 [Indexer] {len(doc_files)} remote doc files found")
+
+        fetched = 0
+        for path in doc_files:
+            raw_url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/{GITHUB_BRANCH}/{path}"
+            file_resp = requests.get(raw_url, headers=headers, timeout=10)
+            if not file_resp.ok:
+                print(f"   └─ ⚠️ Skipped {path}: HTTP {file_resp.status_code}")
+                continue
+            dest_file = os.path.join(dest_path, path)
+            os.makedirs(os.path.dirname(dest_file), exist_ok=True)
+            with open(dest_file, "w", encoding="utf-8") as f:
+                f.write(file_resp.text)
+            fetched += 1
+
+        print(f"✅ [Indexer] Remote fetch complete — {fetched}/{len(doc_files)} files downloaded")
+
+    async def fetch_github_docs(self, dest_path: str):
+        """Async wrapper: fetches docs from GitHub into dest_path before indexing."""
+        await asyncio.to_thread(self._fetch_github_docs_sync, dest_path)
 
     async def index_docs_folder(self, docs_path: str, force: bool = False):
         """Scans, chunks, and indexes files based on configuration."""

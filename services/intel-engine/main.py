@@ -52,6 +52,7 @@ async def lifespan(app: FastAPI):
 
         # 4. Automated Knowledge Sync (Internal RAG)
         print("📚 [Indexer] Starting Automated Knowledge Sync...")
+        await indexer.fetch_github_docs("/app/data")
         await indexer.index_docs_folder("/app/data")
         
         print("✅ [Vector Store] Handshake Complete.")

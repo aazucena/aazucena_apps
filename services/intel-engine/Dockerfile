@@ -11,9 +11,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY services/intel-engine/ .
 
-# Bake knowledge corpus into the image for Railway (no volume mounts in production)
-COPY docs/ /app/data/docs/
-
 EXPOSE 3003
 
 CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-3003}"]
