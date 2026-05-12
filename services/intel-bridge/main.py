@@ -12,16 +12,19 @@ from contextlib import asynccontextmanager
 from typing import Optional, Dict, Any
 
 # --- CONFIGURATION ---
-INGEST_URL = os.getenv('INTERNAL_INGEST_URL', 'http://host.docker.internal:8080/api/ingest')
+INGEST_URL = os.getenv('INTERNAL_INGEST_URL', '')
 SECRET_KEY = os.getenv('INGESTION_SECRET_KEY')
 
-REDIS_HOST = os.getenv('REDIS_HOST', 'aazucena-redis')
+REDIS_HOST = os.getenv('REDIS_HOST', '')
 REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
 
-CH_HOST = os.getenv('CLICKHOUSE_HOST', 'aazucena-clickhouse')
+CH_HOST = os.getenv('CLICKHOUSE_HOST', '')
 CH_PORT = int(os.getenv('CLICKHOUSE_PORT', 8123))
 CH_USER = os.getenv('CLICKHOUSE_USER', 'admin')
-CH_PASS = os.getenv('CLICKHOUSE_PASSWORD', 'password')
+CH_PASS = os.getenv('CLICKHOUSE_PASSWORD', '')
+CH_SECURE = os.getenv('CLICKHOUSE_SECURE', 'true').lower() == 'true'
+
+HEARTBEAT_INTERVAL = int(os.getenv('HEARTBEAT_INTERVAL', 1800))  # default 30 min
 
 # Global stats for the "UI Status" view
 bridge_stats = {
@@ -53,6 +56,8 @@ class SystemIntegrityEvent(BaseModel):
 
 # --- TELEMETRY LOGIC ---
 def forward_to_analytics(payload: Dict[str, Any]):
+    if not INGEST_URL:
+        return
     try:
         requests.post(
             INGEST_URL,
@@ -70,17 +75,22 @@ def forward_to_analytics(payload: Dict[str, Any]):
 _redis_client: Optional[redis.Redis] = None
 _ch_client = None
 
-def _get_redis() -> redis.Redis:
+def _get_redis() -> Optional[redis.Redis]:
     global _redis_client
+    if not REDIS_HOST:
+        return None
     if _redis_client is None:
         _redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, socket_timeout=2)
     return _redis_client
 
 def _get_ch_client():
     global _ch_client
+    if not CH_HOST:
+        return None
     if _ch_client is None:
         _ch_client = clickhouse_connect.get_client(
-            host=CH_HOST, port=CH_PORT, username=CH_USER, password=CH_PASS, connect_timeout=2
+            host=CH_HOST, port=CH_PORT, username=CH_USER, password=CH_PASS,
+            secure=CH_SECURE, connect_timeout=2
         )
     return _ch_client
 
@@ -90,7 +100,8 @@ async def check_external_services():
 
     # 1. Check Redis
     try:
-        if _get_redis().ping():
+        r = _get_redis()
+        if r and r.ping():
             bridge_stats["external_services"]["redis"] = "UP"
             forward_to_analytics({
                 "type": "system_integrity",
@@ -110,7 +121,8 @@ async def check_external_services():
 
     # 2. Check Clickhouse
     try:
-        if _get_ch_client().ping():
+        ch = _get_ch_client()
+        if ch and ch.ping():
             bridge_stats["external_services"]["clickhouse"] = "UP"
             forward_to_analytics({
                 "type": "system_integrity",
@@ -130,7 +142,7 @@ async def check_external_services():
 
 async def start_heartbeat():
     """Periodic self-pulse and watchdog to keep the Analytics Status Page alive."""
-    print("💓 [Intel-Bridge] Starting periodic heartbeat and watchdog (60s)...")
+    print(f"💓 [Intel-Bridge] Starting periodic heartbeat and watchdog ({HEARTBEAT_INTERVAL}s)...")
     while True:
         try:
             # Self-pulse
@@ -149,7 +161,7 @@ async def start_heartbeat():
         except Exception as e:
             print(f"❌ [Intel-Bridge] Heartbeat failed: {e}")
         
-        await asyncio.sleep(60)
+        await asyncio.sleep(HEARTBEAT_INTERVAL)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
