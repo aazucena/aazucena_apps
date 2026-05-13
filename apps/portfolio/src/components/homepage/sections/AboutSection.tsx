@@ -36,7 +36,7 @@ export function AboutSection({
       subtitle={subtitle || about.tagline}
       contentWidth="narrow"
     >
-      <div className="flex flex-col gap-3 text-center text-sm md:gap-6 md:text-xl">
+      <div className="flex flex-col gap-3 text-center text-sm md:gap-4 md:text-xl">
         {/* Stats — order-2 mobile, order-3 desktop | 2-col mobile, dynamic desktop */}
         <ResponsiveGrid
           cols={{ sm: 2, md: Math.min(about.stats.length, 4) as 1 | 2 | 3 | 4 }}
@@ -79,7 +79,7 @@ export function AboutSection({
         </ResponsiveGrid>
 
         {/* Description — order-1 on both | first paragraph on mobile, full on desktop */}
-        <div className="order-1 [&_p]:text-sm md:[&_p]:text-xl">
+        <div className="order-1 [&_p]:text-sm md:[&_p]:text-base">
           <div className="md:hidden">
             <BlocksRenderer
               content={(about.descriptions as BlocksContent).slice(0, 1)}
