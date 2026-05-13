@@ -21,6 +21,7 @@
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "lint:packages": "pnpm lint --filter=\"./packages/*\"",
+    "changelog": "git-cliff --output CHANGELOG.md",
     "prepare": "husky",
     "pre-commit": "turbo lint type-check"
   },
@@ -38,6 +39,7 @@
     "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.4.1",
     "@commitlint/config-conventional": "^20.4.1",
+    "git-cliff": "^2.13.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.4.2",

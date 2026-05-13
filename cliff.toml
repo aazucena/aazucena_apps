@@ -1,0 +1,52 @@
+[changelog]
+header = """
+# Changelog
+
+All notable changes to this project are documented here, grouped by phase milestone.
+
+---
+"""
+body = """
+{% if version %}\
+## [{{ version | trim_start_matches(pat="v") }}] — {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}\
+## [unreleased] — {{ now() | date(format="%Y-%m-%d") }}
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group }}
+{% for commit in commits %}
+- {% if commit.scope %}*({{ commit.scope }})* {% endif %}{{ commit.message | upper_first }}\
+{% endfor %}
+{% endfor %}
+"""
+trim = true
+footer = ""
+
+[git]
+conventional_commits = true
+filter_unconventional = false
+split_commits = false
+
+# Strip leading emoji + space from commit messages (e.g. "✨ feat:" → "feat:")
+commit_preprocessors = [
+  { pattern = '^[\x{1F300}-\x{1FFFF}\x{2600}-\x{27BF}\x{2700}-\x{27BF}]\s+', replace = "" },
+  { pattern = '^[^\x00-\x7F]+\s+', replace = "" },
+]
+
+commit_parsers = [
+  { message = "^feat", group = "🚀 Features" },
+  { message = "^fix", group = "🐛 Bug Fixes" },
+  { message = "^perf", group = "⚡ Performance" },
+  { message = "^refactor", group = "♻️ Refactor" },
+  { message = "^test", group = "🧪 Tests" },
+  { message = "^docs", skip = true },
+  { message = "^chore", skip = true },
+  { message = "^style", skip = true },
+  { message = "^revert", skip = true },
+]
+
+protect_breaking_commits = false
+filter_commits = true
+tag_pattern = "v[0-9].*"
+topo_order = false
+sort_commits = "newest"
