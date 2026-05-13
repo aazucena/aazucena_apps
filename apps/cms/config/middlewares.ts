@@ -71,7 +71,10 @@ export default [
   'strapi::query',
   'strapi::body',
   'strapi::session',
-  'strapi::favicon',
+  {
+    name: 'strapi::favicon',
+    config: { path: 'favicon.ico' },
+  },
   'strapi::public',
   // Custom middlewares
   {
