@@ -1,8 +1,9 @@
 export * from '@aazucena/stores';
 
-import { dashboardSlice, chatSlice } from '@aazucena/stores';
+import { dashboardSlice, chatSlice, notificationsSlice } from '@aazucena/stores';
 export const dashboardReducer = dashboardSlice.reducer;
 export const chatReducer = chatSlice.reducer;
+export const notificationsReducer = notificationsSlice.reducer;
 
 // Backwards-compat aliases — analytics call sites use unprefixed names
 export {

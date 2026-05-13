@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
 import { useForm as useTanstackForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { z } from 'zod';
-import { Form } from '@aazucena/ui';
+import { Form, toast } from '@aazucena/ui';
 import { FormButton, FormErrorSummary, ControlledInput, ControlledTextarea } from '@aazucena/forms';
 import {
   useForms,
@@ -143,13 +143,18 @@ function DetailPanel({ submissionId, onClose }: { submissionId: string; onClose:
     defaultValues: { subject: '', body: '' } as ReplyFormData,
     onSubmit: async ({ value }: { value: any }) => {
       const validated = replySchema.parse(value);
-      await replyMutation.mutateAsync({
-        id: submissionId,
-        subject: validated.subject,
-        body: validated.body,
-      });
-      setReplySent(true);
-      setActiveTab('detail');
+      try {
+        await replyMutation.mutateAsync({
+          id: submissionId,
+          subject: validated.subject,
+          body: validated.body,
+        });
+        setReplySent(true);
+        setActiveTab('detail');
+        toast.success('Reply_Transmitted');
+      } catch {
+        toast.error('Transmission_Failed');
+      }
     },
   } as any);
 
@@ -169,8 +174,13 @@ function DetailPanel({ submissionId, onClose }: { submissionId: string; onClose:
   }, [sub]);
 
   const handleDelete = async () => {
-    await deleteForm.mutateAsync(submissionId);
-    onClose();
+    try {
+      await deleteForm.mutateAsync(submissionId);
+      toast.success('Transmission_Deleted');
+      onClose();
+    } catch {
+      toast.error('Delete_Failed');
+    }
   };
 
   if (isLoading) {
@@ -213,7 +223,15 @@ function DetailPanel({ submissionId, onClose }: { submissionId: string; onClose:
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => updateStatus.mutate({ id: submissionId, status: 'Archived' })}
+            onClick={() =>
+              updateStatus.mutate(
+                { id: submissionId, status: 'Archived' },
+                {
+                  onSuccess: () => toast.success('Transmission_Archived'),
+                  onError: () => toast.error('Archive_Failed'),
+                },
+              )
+            }
             disabled={sub.status === 'Archived'}
             className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-all disabled:opacity-30"
             title="Archive"
@@ -359,11 +377,6 @@ function DetailPanel({ submissionId, onClose }: { submissionId: string; onClose:
                   validators={{ onChange: replySchema.shape.body }}
                 />
               </div>
-              {replyMutation.isError && (
-                <p className="text-[10px] font-mono text-rose-500 uppercase">
-                  Transmission_Failed — {(replyMutation.error as Error).message}
-                </p>
-              )}
               <FormButton
                 className="w-full flex items-center justify-center gap-2"
                 disabled={replyMutation.isPending}

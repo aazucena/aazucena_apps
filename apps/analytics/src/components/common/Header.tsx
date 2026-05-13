@@ -2,13 +2,17 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, toggleLiveMode } from '@/store';
-import { Search, ClockCircle } from '@aazucena/icons';
+import { Search, ClockCircle, Bell } from '@aazucena/icons';
+import { NotificationCenter } from '@aazucena/ui';
+import { cn } from '@/lib/utils';
+import { useNotifications } from '@/hooks/useNotifications';
 import { ThemeToggle } from './ThemeToggle';
 import { AdminMenu } from './AdminMenu';
 
 export function Header() {
   const dispatch = useDispatch();
   const { isLive, lastUpdated } = useSelector((state: RootState) => state.dashboard.status);
+  const { notifications, unreadCount, markRead, markAllRead, dismiss } = useNotifications();
 
   return (
     <div className="flex-1 flex items-center justify-between h-full">
@@ -67,6 +71,26 @@ export function Header() {
         {/* 3. USER & THEME GROUP */}
         <div className="flex items-center gap-4 h-full">
           <ThemeToggle size="sm" />
+
+          <NotificationCenter
+            notifications={notifications}
+            onRead={markRead}
+            onDismiss={dismiss}
+            onMarkAllRead={markAllRead}
+            trigger={
+              <button
+                type="button"
+                className="relative p-1.5 rounded-lg text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
+              >
+                <Bell size={16} />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 h-3.5 w-3.5 flex items-center justify-center rounded-full bg-primary-500 text-[8px] font-black text-white">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </button>
+            }
+          />
 
           {/* Admin Identity Popover */}
           <AdminMenu />

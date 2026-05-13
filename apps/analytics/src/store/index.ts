@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { dashboardReducer, chatReducer } from './slices';
+import { dashboardReducer, chatReducer, notificationsReducer } from './slices';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       dashboard: dashboardReducer,
       chat: chatReducer,
-      // Add other slices here (e.g., filters, user preferences)
+      notifications: notificationsReducer,
     },
   });
 };

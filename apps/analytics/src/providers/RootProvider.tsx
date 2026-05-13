@@ -7,6 +7,8 @@ import { SocketProvider } from './SocketProvider';
 import { ConfirmationProvider } from './ConfirmationProvider';
 import { useSocketListener } from '@/hooks/useSocketListener';
 import { TelemetryProvider } from '@aazucena/context/telemetry';
+import { Toaster } from '@aazucena/ui';
+import { NewFormWatcher } from '@/components/common/NewFormWatcher';
 
 const telemetryConfig = {
   baseUrl: process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '',
@@ -44,7 +46,9 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
           <SocketProvider>
             <ConfirmationProvider>
               <SocketListener />
+              <NewFormWatcher />
               {children}
+              <Toaster richColors closeButton />
             </ConfirmationProvider>
           </SocketProvider>
           {/* DevTools: only bundled and rendered in development */}
