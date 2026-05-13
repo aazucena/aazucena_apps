@@ -126,8 +126,8 @@ GROUP BY event_date, form_type, source, country;
 -- ===========================================================================
 -- 3. VERIFICATION
 -- ===========================================================================
--- SELECT name FROM system.tables WHERE database = 'analytics' AND name IN (
+-- SELECT name, engine FROM system.tables WHERE database = 'analytics' AND name IN (
 --     'easter_egg_completions', 'form_submissions',
 --     'daily_egg_summary', 'daily_form_summary',
 --     'mv_daily_egg_summary', 'mv_daily_form_summary'
--- );
+-- ) ORDER BY name;

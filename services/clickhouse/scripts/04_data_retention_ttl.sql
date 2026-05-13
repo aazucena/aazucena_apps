@@ -33,4 +33,4 @@ ALTER TABLE analytics.daily_music_summary MODIFY TTL event_date + INTERVAL 730 D
 -- TTL for daily_form_summary and daily_egg_summary is defined inline in 06_easter_eggs_forms.sql
 
 -- 5. VERIFICATION
--- SELECT name, ttl_table FROM system.tables WHERE database = 'analytics';
+-- SELECT name, extract(create_table_query, 'TTL [^\n]+') AS ttl_expr FROM system.tables WHERE database = 'analytics' ORDER BY name;

@@ -14,6 +14,8 @@ GRANT INSERT ON analytics.error_traces TO telemetry_ingest;
 GRANT INSERT ON analytics.financial_ledger TO telemetry_ingest;
 GRANT INSERT ON analytics.vercel_analytics_events TO telemetry_ingest;
 GRANT INSERT ON analytics.ai_trajectories TO telemetry_ingest;
+GRANT INSERT ON analytics.form_submissions TO telemetry_ingest;
+GRANT INSERT ON analytics.easter_egg_completions TO telemetry_ingest;
 
 
 -- 2. DASHBOARD VIEWER USER
@@ -26,4 +28,5 @@ GRANT SELECT ON analytics.* TO dashboard_viewer;
 
 -- 3. VERIFICATION
 -- Check users and grants
--- SELECT name, networks, grantee_name, access_type FROM system.grants WHERE grantee_name IN ('telemetry_ingest', 'dashboard_viewer');
+-- SELECT name, id FROM system.users WHERE name IN ('telemetry_ingest', 'dashboard_viewer');
+-- SELECT user_name, access_type, database, table FROM system.grants WHERE user_name IN ('telemetry_ingest', 'dashboard_viewer');
