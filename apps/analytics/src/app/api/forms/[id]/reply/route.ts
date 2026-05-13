@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { fetchStrapi } from '@/lib/services/strapi';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 type Params = { params: Promise<{ id: string }> };
 
 export async function POST(req: NextRequest, { params }: Params) {
@@ -17,6 +15,8 @@ export async function POST(req: NextRequest, { params }: Params) {
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json({ error: 'Email service not configured' }, { status: 500 });
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   // Fetch submission to get the recipient email
   let submission: any;
