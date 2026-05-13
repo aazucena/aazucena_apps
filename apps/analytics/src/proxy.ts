@@ -6,6 +6,7 @@ const ALWAYS_PUBLIC = [
   '/api/auth',
   '/api/ingest',
   '/api/health',
+  '/api/webhooks',
   '/status',
 ];
 
