@@ -15,7 +15,7 @@ import { getLayoutData } from "~/lib/services/layout";
 import { formatPageTitle } from "~/config/site";
 import PlausibleScript from "~/components/common/PlausibleScript.astro";
 import AssistantChat from "~/components/assistant/AssistantChat";
-// import { PageViewTracker } from "@aazucena/analytics";
+import { PageViewTracker } from "@aazucena/analytics";
 
 export interface Props {
   title?: string;
@@ -119,11 +119,11 @@ const themeStyles = {
       googleSiteVerificationId={websiteConfig.googleSiteVerificationId}
     />
     <PlausibleScript domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} />
-    <!-- <PageViewTracker
+    <PageViewTracker
       apiUrl={import.meta.env.PUBLIC_ANALYTICS_API_URL}
       secretKey={import.meta.env.PUBLIC_INGESTION_SECRET_KEY}
       client:load
-    /> -->
+    />
 
     {/* Theme Stylesheet - Static styles referencing dynamic CMS variables */}
     <link rel="stylesheet" href="/styles/theme.css" />

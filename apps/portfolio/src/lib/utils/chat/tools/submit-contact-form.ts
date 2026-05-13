@@ -1,6 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod";
 import { createStrapiEntry } from "@aazucena/api";
+import { trackFormSubmission } from "@/lib/utils/analytics";
 
 export function createSubmitContactFormTool(pathname: string) {
   return tool({
@@ -79,6 +80,17 @@ export function createSubmitContactFormTool(pathname: string) {
         aiSummary: summary,
         aiTags: tags,
       });
+
+      trackFormSubmission({
+        formType: "contact_chatbot",
+        source: "ai_assistant",
+        intent,
+        sentiment,
+        summary,
+        tags,
+        url: pathname,
+      });
+
       return { success: true };
     },
   });

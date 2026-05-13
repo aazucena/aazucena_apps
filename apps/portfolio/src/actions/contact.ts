@@ -1,6 +1,7 @@
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import { createStrapiEntry } from "@aazucena/api";
+import { trackFormSubmission } from "@/lib/utils/analytics";
 
 const contact = defineAction({
   accept: "form",
@@ -20,6 +21,9 @@ const contact = defineAction({
       submittedAt: new Date().toISOString(),
       status: "New",
     });
+
+    trackFormSubmission({ formType: "contact_direct", source: "direct_form" });
+
     return { success: true, result };
   },
 });

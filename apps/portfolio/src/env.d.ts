@@ -14,6 +14,10 @@ interface ImportMetaEnv {
   readonly PUBLIC_PLAUSIBLE_DOMAIN: string;
   readonly PUBLIC_PLAUSIBLE_API_HOST: string;
   readonly PUBLIC_SENTRY_DSN: string;
+  readonly ANALYTICS_INGEST_URL: string | undefined;
+  readonly ANALYTICS_INGEST_SECRET: string | undefined;
+  readonly PUBLIC_ANALYTICS_API_URL: string | undefined;
+  readonly PUBLIC_INGESTION_SECRET_KEY: string | undefined;
   readonly PUBLIC_SENTRY_PROJECT: string;
   readonly PUBLIC_SENTRY_ORG: string;
   readonly SENTRY_AUTH_TOKEN: string;
