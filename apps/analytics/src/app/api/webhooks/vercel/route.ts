@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createHmac } from 'crypto';
 import { ZodError } from 'zod';
 import { UAParser } from 'ua-parser-js';
-import { mainClickhouseClient } from '@/lib/services';
+import { ingestClickhouseClient } from '@/lib/services';
 import { VercelLogDrainPayloadSchema } from '@/lib/schemas/vercelAnalyticsWebhook';
 
 const VERCEL_LOG_DRAIN_SECRET = process.env.VERCEL_LOG_DRAIN_SECRET;
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
 
     // 4. Insert into ClickHouse
     if (rows.length > 0) {
-      await mainClickhouseClient.insert({
+      await ingestClickhouseClient.insert({
         table: 'analytics.vercel_analytics_events',
         values: rows,
         format: 'JSONEachRow',

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z, ZodError } from 'zod'; // Import z and ZodError
 import { createHmac } from 'crypto';
-import { mainClickhouseClient } from '@/lib/services'; // Assuming this exports mainClickhouseClient
+import { ingestClickhouseClient } from '@/lib/services';
 import {
   SentryWebhookPayloadSchema,
   ErrorTraceClickHouseSchema,
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
     };
 
     // Insert into ClickHouse (non-blocking)
-    mainClickhouseClient
+    ingestClickhouseClient
       .insert({
         table: 'analytics.error_traces',
         values: [errorTrace],

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHmac, timingSafeEqual } from 'crypto';
-import { mainClickhouseClient } from '@/lib/services';
+import { ingestClickhouseClient } from '@/lib/services';
 import { StripeEventSchema } from '@/lib/schemas/financialWebhooks';
 
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         metadata: session.metadata || {},
       };
 
-      await mainClickhouseClient.insert({
+      await ingestClickhouseClient.insert({
         table: 'analytics.financial_ledger',
         values: [row],
         format: 'JSONEachRow',

@@ -1,6 +1,6 @@
 // apps/analytics/src/app/api/webhooks/kofi/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { mainClickhouseClient } from '@/lib/services';
+import { ingestClickhouseClient } from '@/lib/services';
 import { KofiWebhookSchema } from '@/lib/schemas/financialWebhooks';
 
 const KOFI_WEBHOOK_SECRET = process.env.KOFI_WEBHOOK_SECRET;
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    await mainClickhouseClient.insert({
+    await ingestClickhouseClient.insert({
       table: 'analytics.financial_ledger',
       values: [row],
       format: 'JSONEachRow',
