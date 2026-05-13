@@ -169,7 +169,7 @@ export function useIdleEasterEgg(
   config: Omit<EasterEggConfig, "triggerType">,
 ) {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const startTime = useRef<number>(Date.now());
+  const startTime = useRef<number>(0);
   const fired = useRef(false);
 
   useEffect(() => {
