@@ -8,7 +8,9 @@ import {
   MusicPlaybackPayload,
   SystemIntegrityPayload,
   AiTrajectoryPayload,
-} from '@/lib/schemas'; // Adjust path if needed
+  FormSubmissionPayload,
+  EasterEggCompletionPayload,
+} from '@/lib/schemas';
 import { ingestClickhouseClient, calculateAiCost, calculateHypotheticalCost } from '@/lib/services'; // Adjust path if needed
 
 export const runtime = 'edge';
@@ -204,16 +206,61 @@ export async function POST(req: NextRequest) {
         break;
       }
 
+      case 'form_submission': {
+        const formPayload: FormSubmissionPayload = payload;
+        await ingestClickhouseClient.insert({
+          table: 'analytics.form_submissions',
+          values: [
+            {
+              ...enrichedData,
+              form_type: formPayload.form_type,
+              source: formPayload.source,
+              intent: formPayload.intent || null,
+              sentiment: formPayload.sentiment || null,
+              summary: formPayload.summary || null,
+              tags: formPayload.tags || null,
+            },
+          ],
+          format: 'JSONEachRow',
+        });
+        break;
+      }
+
+      case 'easter_egg_completion': {
+        const eggPayload: EasterEggCompletionPayload = payload;
+        await ingestClickhouseClient.insert({
+          table: 'analytics.easter_egg_completions',
+          values: [
+            {
+              ...enrichedData,
+              egg_id: eggPayload.egg_id,
+              egg_name: eggPayload.egg_name,
+              trigger_type: eggPayload.trigger_type,
+              completion_time_ms: eggPayload.completion_time_ms || 0,
+              attempt_count: eggPayload.attempt_count || 1,
+              metadata: JSON.stringify(eggPayload.metadata || {}),
+            },
+          ],
+          format: 'JSONEachRow',
+        });
+        break;
+      }
+
       default:
-        // This case should ideally not be reached due to Zod's discriminatedUnion,
-        // but is good for defensive programming.
         console.warn('Unknown event type received:', (payload as any).type);
         break;
     }
 
     // Emit event to WebSocket server (non-blocking)
-    const WS_URL = process.env.WS_URL || 'http://localhost:3001/emit';
-    const WS_SECRET = process.env.WS_INTERNAL_SECRET || 'dev-secret-123';
+    const WS_URL = process.env.WS_URL;
+    const WS_SECRET = process.env.WS_INTERNAL_SECRET;
+    if (!WS_URL || !WS_SECRET) {
+      console.warn('[WS-Bridge] WS_URL or WS_INTERNAL_SECRET not configured — skipping broadcast');
+      return NextResponse.json(
+        { message: 'Event ingested successfully', type: payload.type },
+        { status: 200 },
+      );
+    }
 
     // Construct meaningful data payload based on event type
     let broadcastData: any = {};

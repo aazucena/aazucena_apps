@@ -100,6 +100,45 @@ export const AiTrajectoryPayloadSchema = BaseEventSchema.extend({
 });
 export type AiTrajectoryPayload = z.infer<typeof AiTrajectoryPayloadSchema>;
 
+// --- Form Submission Event (for form_submissions table) ---
+export const FormSubmissionPayloadSchema = BaseEventSchema.extend({
+  type: z.literal('form_submission').describe('Discriminator for form submission events'),
+  form_type: z
+    .enum(['contact_direct', 'contact_chatbot'])
+    .describe('Which form triggered the submission'),
+  source: z.enum(['direct_form', 'ai_assistant']).describe('Submission channel'),
+  intent: z.string().optional().describe('AI-classified intent label'),
+  sentiment: z
+    .enum(['Very Positive', 'Positive', 'Neutral', 'Negative', 'Very Negative'])
+    .optional()
+    .describe('AI-classified visitor sentiment'),
+  summary: z.string().optional().describe('AI one-sentence summary of the message'),
+  tags: z.string().optional().describe('JSON-stringified tag array from AI classification'),
+});
+export type FormSubmissionPayload = z.infer<typeof FormSubmissionPayloadSchema>;
+
+// --- Easter Egg Completion Event (for easter_egg_completions table) ---
+export const EasterEggCompletionPayloadSchema = BaseEventSchema.extend({
+  type: z.literal('easter_egg_completion').describe('Discriminator for easter egg events'),
+  egg_id: z.string().describe('Unique identifier for the egg (e.g. "konami_code")'),
+  egg_name: z.string().describe('Human-readable egg name'),
+  trigger_type: z
+    .enum(['konami', 'click_sequence', 'terminal_command', 'idle', 'cursor_pattern', 'rive'])
+    .describe('Mechanism that triggered the egg'),
+  completion_time_ms: z
+    .number()
+    .int()
+    .min(0)
+    .optional()
+    .describe('Time from first interaction to completion in ms'),
+  attempt_count: z.number().int().min(1).optional().describe('Number of attempts before success'),
+  metadata: z
+    .record(z.string(), z.any())
+    .optional()
+    .describe('Flexible extra data (sequence used, command typed, etc.)'),
+});
+export type EasterEggCompletionPayload = z.infer<typeof EasterEggCompletionPayloadSchema>;
+
 // --- Main Ingestion Schema (Discriminated Union) ---
 // This allows the /api/ingest endpoint to accept different payload shapes
 // based on the 'type' field, routing them to the correct ClickHouse table.
@@ -109,5 +148,7 @@ export const IngestionPayloadSchema = z.discriminatedUnion('type', [
   MusicPlaybackPayloadSchema,
   SystemIntegrityPayloadSchema,
   AiTrajectoryPayloadSchema,
+  FormSubmissionPayloadSchema,
+  EasterEggCompletionPayloadSchema,
 ]);
 export type IngestionPayload = z.infer<typeof IngestionPayloadSchema>;

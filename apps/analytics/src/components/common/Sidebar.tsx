@@ -20,6 +20,8 @@ import {
   Globe,
   CreditCard,
   Compass,
+  Mail,
+  Star,
 } from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 import { navModeStore } from '@/store/navModeStore';
@@ -32,6 +34,8 @@ const SYSTEM_NAV = [
   { name: 'Journey Explorer', href: '/journey', icon: Compass },
   { name: 'Telemetry Stream', href: '/logs', icon: Terminal },
   { name: 'System Integrity', href: '/performance', icon: ChartBarOne },
+  { name: 'Comms Inbox', href: '/forms', icon: Mail },
+  { name: 'Easter Eggs', href: '/easter-eggs', icon: Star },
 ];
 
 const INTELLIGENCE_NAV = [

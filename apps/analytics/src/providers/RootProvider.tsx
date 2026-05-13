@@ -11,7 +11,7 @@ import { TelemetryProvider } from '@aazucena/context/telemetry';
 const telemetryConfig = {
   baseUrl: process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '',
   secretKey: process.env.ANALYTICS_SECRET_KEY,
-  defaultPollingInterval: 15000,
+  defaultPollingInterval: 30000, // 30s (was 15s — too aggressive on constrained hardware)
 };
 
 function SocketListener() {
@@ -26,9 +26,11 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 30000,
-            gcTime: 60 * 1000, // evict unused query data 60s after unmount (default is 5min)
+            staleTime: 2 * 60 * 1000, // 2 min — reduces on-mount background refetches
+            gcTime: 5 * 60 * 1000, // 5 min — keeps cache across normal navigation
             refetchInterval: false,
+            refetchOnWindowFocus: false, // prevents mass refetch on every tab switch
+            refetchOnReconnect: false, // prevents mass refetch on network reconnect
             retry: 1,
           },
         },

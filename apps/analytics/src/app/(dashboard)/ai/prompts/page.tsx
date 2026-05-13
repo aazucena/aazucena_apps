@@ -13,6 +13,7 @@ import {
   Message,
   XCircle,
 } from '@aazucena/icons';
+import { useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { usePrompts, useUpdatePrompt } from '@/hooks/usePrompts';
 
@@ -21,6 +22,8 @@ export default function PromptManagerPage() {
   const { data: prompts = [], isLoading: isPromptsLoading, error: promptsError } = usePrompts();
   console.log('🚀 ~ PromptManagerPage ~ prompts:', prompts);
   const updateMutation = useUpdatePrompt();
+
+  const queryClient = useQueryClient();
 
   // --- Local UI State ---
   const [selectedPromptId, setSelectedPromptId] = useState<string | null>(null);
@@ -85,14 +88,7 @@ export default function PromptManagerPage() {
   const handleSync = async () => {
     setIsSyncing(true);
     try {
-      // communicates with the Intel Engine directly to pull latest from Strapi
-      const res = await fetch(`/api/brain/sync${forceReset ? '?force=true' : ''}`, {
-        method: 'POST',
-      });
-      if (!res.ok) throw new Error('SYNC_FAILED');
-      await new Promise((resolve) => setTimeout(resolve, 800));
-    } catch (e) {
-      console.error('Sync failed:', e);
+      await queryClient.invalidateQueries();
     } finally {
       setIsSyncing(false);
     }

@@ -54,7 +54,7 @@ export function createDashboardSlice(config?: DashboardSliceConfig) {
       isSidebarCollapsed: false,
       navMode: config?.defaultNavMode ?? 'SYSTEM',
       activeTab: config?.defaultActiveTab ?? 'overview',
-      refreshInterval: config?.defaultRefreshInterval ?? 5000,
+      refreshInterval: config?.defaultRefreshInterval ?? 30000,
     },
     status: {
       isLive: false,
@@ -82,7 +82,7 @@ export function createDashboardSlice(config?: DashboardSliceConfig) {
       toggleDashboardLiveMode: (state) => {
         state.status.isLive = !state.status.isLive;
         state.ui.refreshInterval = state.status.isLive
-          ? (config?.defaultRefreshInterval ?? 5000)
+          ? (config?.defaultRefreshInterval ?? 30000) // 30s (was 5s — too aggressive)
           : 0;
       },
       /** Updates the last successful sync timestamp */

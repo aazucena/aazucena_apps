@@ -14,6 +14,11 @@ export function useSystemStatus() {
   const { baseUrl } = useTelemetryConfig();
 
   useEffect(() => {
+    if (!baseUrl) {
+      setStatus('UNKNOWN');
+      return;
+    }
+
     const controller = new AbortController();
 
     fetch(`${baseUrl}/api/health/public`, {

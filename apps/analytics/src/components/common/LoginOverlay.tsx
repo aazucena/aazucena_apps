@@ -30,7 +30,6 @@ function formatLastLogin(iso: string): string {
 
 export function LoginOverlay() {
   const router = useRouter();
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -61,13 +60,16 @@ export function LoginOverlay() {
   }, []);
 
   const handleCapsLock = (e: React.KeyboardEvent) => {
-    setCapsLock(e.getModifierState('CapsLock'));
+    const isOn = e.getModifierState('CapsLock');
+    // Only setState when the value actually changes — avoids a re-render on every key
+    if (isOn !== capsLock) setCapsLock(isOn);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
+    const password = passwordRef.current?.value ?? '';
 
     try {
       const res = await fetch('/api/auth', {
@@ -78,7 +80,7 @@ export function LoginOverlay() {
 
       if (!res.ok) {
         setError('ACCESS_DENIED — Invalid credentials');
-        setPassword('');
+        if (passwordRef.current) passwordRef.current.value = '';
         passwordRef.current?.focus();
         return;
       }
@@ -142,8 +144,6 @@ export function LoginOverlay() {
                   id="auth-key"
                   ref={passwordRef}
                   type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   onKeyDown={handleCapsLock}
                   onKeyUp={handleCapsLock}
                   autoComplete="current-password"
@@ -183,7 +183,7 @@ export function LoginOverlay() {
             {/* Submit */}
             <button
               type="submit"
-              disabled={isLoading || !password}
+              disabled={isLoading}
               className={cn(
                 'w-full py-3 rounded-xl text-[11px] font-black uppercase tracking-[0.2em] transition-all',
                 'bg-primary-500 text-white hover:bg-primary-600 shadow-lg shadow-primary-500/20',

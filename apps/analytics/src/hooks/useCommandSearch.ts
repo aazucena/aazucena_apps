@@ -20,6 +20,8 @@ import {
   Zap,
   Refresh,
   Message,
+  Mail,
+  Star,
 } from '@aazucena/icons';
 
 export interface CommandAction {
@@ -125,6 +127,22 @@ export function useCommandSearch() {
         icon: CreditCard,
         href: '/finance',
         keywords: 'finance ledger stripe payments',
+      },
+      {
+        id: 'nav-forms',
+        name: 'Comms Inbox',
+        category: 'NAVIGATION',
+        icon: Mail,
+        href: '/forms',
+        keywords: 'forms inbox contact submissions reply email communications comms',
+      },
+      {
+        id: 'nav-easter-eggs',
+        name: 'Easter Eggs',
+        category: 'NAVIGATION',
+        icon: Star,
+        href: '/easter-eggs',
+        keywords: 'easter eggs hidden secrets unlocks achievements konami triggers completions',
       },
 
       // --- SYSTEM ---

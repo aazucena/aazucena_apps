@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Command } from 'cmdk';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { useDispatch } from 'react-redux';
+import { useQueryClient } from '@tanstack/react-query';
 import { toggleLiveMode } from '@/store';
 import { useCommandSearch, CommandAction } from '@/hooks/useCommandSearch';
 import { cn } from '@/lib/utils';
@@ -15,6 +16,7 @@ export function CommandPalette() {
   const [query, setQuery] = useState('');
   const router = useRouter();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const { search } = useCommandSearch();
 
   // 1. Toggle palette visibility
@@ -61,9 +63,7 @@ export function CommandPalette() {
       }
 
       if (action.id === 'sys-sync') {
-        fetch('/api/brain/sync?force=true').then(() => {
-          alert('Knowledge base sync initiated.');
-        });
+        queryClient.invalidateQueries();
         return;
       }
 

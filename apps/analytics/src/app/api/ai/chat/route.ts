@@ -3,7 +3,7 @@ import { gateway } from '@/lib/services/ai/gateway';
 
 export async function POST(req: Request) {
   try {
-    const { messages, modelId = 'openai/gpt-4o' } = await req.json();
+    const { messages, modelId = 'anthropic/claude-sonnet-4.6' } = await req.json();
     const startTime = Date.now();
     const traceId = `trace_${crypto.randomUUID().slice(0, 8)}`;
 
@@ -22,7 +22,11 @@ export async function POST(req: Request) {
         const latency = Date.now() - startTime;
 
         // Push telemetry to our internal ingestion API
-        const INGEST_URL = process.env.INTERNAL_INGEST_URL || 'http://10.0.0.97:8080/api/ingest';
+        const INGEST_URL = process.env.INTERNAL_INGEST_URL;
+        if (!INGEST_URL) {
+          console.warn('[AI-Telemetry] INTERNAL_INGEST_URL not set — skipping telemetry pulse');
+          return;
+        }
 
         fetch(INGEST_URL, {
           method: 'POST',

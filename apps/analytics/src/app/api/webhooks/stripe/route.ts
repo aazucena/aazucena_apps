@@ -1,9 +1,28 @@
-// apps/analytics/src/app/api/webhooks/stripe/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { createHmac, timingSafeEqual } from 'crypto';
 import { mainClickhouseClient } from '@/lib/services';
 import { StripeEventSchema } from '@/lib/schemas/financialWebhooks';
 
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
+const STRIPE_TIMESTAMP_TOLERANCE_S = 300;
+
+function verifyStripeSignature(body: string, header: string, secret: string): boolean {
+  const parts = Object.fromEntries(header.split(',').map((p) => p.split('=')));
+  const timestamp = parts['t'];
+  const v1 = parts['v1'];
+  if (!timestamp || !v1) return false;
+
+  const age = Math.floor(Date.now() / 1000) - parseInt(timestamp, 10);
+  if (age > STRIPE_TIMESTAMP_TOLERANCE_S) return false;
+
+  const signed = `${timestamp}.${body}`;
+  const expected = createHmac('sha256', secret).update(signed).digest('hex');
+  try {
+    return timingSafeEqual(Buffer.from(expected), Buffer.from(v1));
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(req: NextRequest) {
   if (!STRIPE_WEBHOOK_SECRET) {
@@ -18,13 +37,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'Missing stripe-signature header' }, { status: 400 });
   }
 
-  // NOTE: For production, you MUST verify the signature using the 'stripe' SDK.
-  // import Stripe from 'stripe';
-  // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-  // const event = stripe.webhooks.constructEvent(body, sig, STRIPE_WEBHOOK_SECRET);
+  if (!verifyStripeSignature(body, sig, STRIPE_WEBHOOK_SECRET)) {
+    console.warn('[StripeWebhook] Signature verification failed.');
+    return NextResponse.json({ message: 'Invalid signature' }, { status: 401 });
+  }
 
   try {
-    // Parsing directly for ingestion logic demonstration
     const json = JSON.parse(body);
     const event = StripeEventSchema.parse(json);
 

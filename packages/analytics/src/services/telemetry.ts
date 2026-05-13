@@ -220,3 +220,31 @@ export function sendClientErrorTelemetry(message: string, stack?: string, url?: 
     },
   });
 }
+
+/**
+ * Helper to send an easter egg completion event.
+ */
+export function sendEasterEggTelemetry(params: {
+  eggId: string;
+  eggName: string;
+  triggerType:
+    | 'konami'
+    | 'click_sequence'
+    | 'terminal_command'
+    | 'idle'
+    | 'cursor_pattern'
+    | 'rive';
+  completionTimeMs?: number;
+  attemptCount?: number;
+  metadata?: Record<string, unknown>;
+}): void {
+  sendTelemetry({
+    type: 'easter_egg_completion',
+    egg_id: params.eggId,
+    egg_name: params.eggName,
+    trigger_type: params.triggerType,
+    completion_time_ms: params.completionTimeMs,
+    attempt_count: params.attemptCount,
+    metadata: params.metadata,
+  });
+}

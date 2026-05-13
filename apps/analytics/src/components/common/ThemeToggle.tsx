@@ -49,6 +49,7 @@ export function ThemeToggle({ size = 'md', className }: ThemeToggleProps) {
 
   return (
     <button
+      data-theme-toggle
       onClick={toggleTheme}
       className={cn(
         'dark:bg-zinc-950/5 bg-zinc-50 border border-zinc-800 text-zinc-500 hover:text-primary-500 hover:border-primary-500/30 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary-500/20 cursor-pointer shadow-sm backdrop-blur-md',
