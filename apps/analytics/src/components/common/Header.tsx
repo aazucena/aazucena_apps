@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, toggleLiveMode } from '@/store';
 import { Search, ClockCircle, Bell } from '@aazucena/icons';
 import { NotificationCenter } from '@aazucena/ui';
-import { cn } from '@/lib/utils';
 import { useNotifications } from '@/hooks/useNotifications';
 import { ThemeToggle } from './ThemeToggle';
 import { AdminMenu } from './AdminMenu';
