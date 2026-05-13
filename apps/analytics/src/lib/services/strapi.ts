@@ -1,16 +1,13 @@
 // apps/analytics/src/lib/services/strapi.ts
 import qs from 'qs';
 
-const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = (process.env.STRAPI_URL || 'http://localhost:1337').replace(/\/+$/, '');
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 interface FetchStrapiOptions extends RequestInit {
   query?: Record<string, any>;
 }
 
-/**
- * Strapi Fetcher for Analytics Backend
- */
 export async function fetchStrapi(path: string, options: FetchStrapiOptions = {}) {
   const { query, ...fetchOptions } = options;
 
@@ -22,6 +19,8 @@ export async function fetchStrapi(path: string, options: FetchStrapiOptions = {}
     ...(STRAPI_API_TOKEN ? { Authorization: `Bearer ${STRAPI_API_TOKEN}` } : {}),
     ...((options.headers as any) || {}),
   };
+
+  console.warn(`[Strapi] ${fetchOptions.method ?? 'GET'} ${STRAPI_URL}/api/${path}`);
 
   const res = await fetch(url, {
     ...fetchOptions,
