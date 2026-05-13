@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 const ALWAYS_PUBLIC = [
   '/_next',
   '/favicon.ico',
+  '/api/brain',
+  '/api/stats',
   '/api/auth',
   '/api/ingest',
   '/api/health',
