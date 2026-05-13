@@ -3,7 +3,7 @@
 All notable changes to this project are documented here, grouped by phase milestone.
 
 ---
-## [unreleased] — 2026-05-13
+## 2026-05-13
 
 ### ♻️ Refactor
 
@@ -13,42 +13,10 @@ All notable changes to this project are documented here, grouped by phase milest
 - *(intel-engine)* Replace Ollama with Voyage AI + Claude for Railway
 - *(intel-bridge)* Prepare service for Railway deployment
 - *(websocket)* Prepare service for Railway deployment
-- Update PixiJSParticles component
-- Consolidate ClickHouse client and update config
-- Update existing analytics routes and components
-- Update particles, components, and transformers
-- Restructure journey components (Phase 2)
-- Flatten scene directory structure (Phase 2)
-- Remove old animations structure (Phase 2 cleanup)
-- *(portfolio)* Flatten project showcase data structure
-- *(portfolio)* Enhance type definitions and environment types
-- *(portfolio)* Update API clients and services with utilities
-- *(portfolio)* Update journey components with new utilities
-- *(portfolio)* Update animation components with new utilities
-- *(portfolio)* Streamline dynamic page router with templates
-- *(portfolio)* Update project and experience pages
-- *(portfolio)* Update blog pages with new utilities
-- *(portfolio)* Update main pages with new utility imports
-- *(portfolio)* Enhance layout components with shared utilities
-- *(portfolio)* Reorganize utilities into specialized modules
-- Update content type schemas
-- Update CMS component schemas
-- Integrate Strapi CMS data into section components
-- Simplify Strapi client and fix API field mappings
-- Improve Docker configuration and structure
-- Remove local Strapi type definitions
-- *(types)* Replace any with Award type in AwardsSection
-- *(hooks)* Add GSAP tween cleanup in useFlipText
-- Extract magic numbers and add JSDoc (Iteration 4)
-- Improve TypeScript type safety (Iteration 2)
 
 ### ⚡ Performance
 
 - *(retriever)* Blend recency into vector similarity ranking
-- Complete Phase 3 with 74.3% bundle reduction
-- *(deps)* Upgrade to React 19 for Phase 3 optimization
-- Move gradient and color palettes to module scope
-- Add DOM validation to GSAP animations (Iteration 3)
 
 ### 🐛 Bug Fixes
 
@@ -106,6 +74,66 @@ All notable changes to this project are documented here, grouped by phase milest
 - Resolve SSR 500s, about title duplicate, and Three.js dual-instance warning
 - *(animations)* Gate Three.js canvas on live WebGL availability check
 - *(seo)* Prevent duplicate site name in homepage tab title
+
+### 🚀 Features
+
+- *(portfolio)* Enable IntegrityBadge in footer
+- *(portfolio)* Wire analytics telemetry to AZUCENA_LYTICS
+- *(analytics)* Add toast notifications and notification center
+- *(analytics)* Easter eggs & forms dashboards, Ollama removal, telemetry hardening
+- *(blog)* Add paper sound effect on newspaper card interaction
+- *(homepage)* Add Web Audio API atmospheric ambient sound
+- *(toolbar)* Add first-visit ambient sound hint
+- *(navbar)* Add swipe-to-close gesture for mobile offcanvas
+- *(intel-engine)* Index root-level markdown files in knowledge base
+- *(rin)* Implement Phase 2 persona — three-layer prompt stack
+- *(portfolio)* Wire intel-engine RAG context into Rin chat pipeline
+
+### 🧪 Tests
+
+- *(intel-engine)* Add Voyage AI + Claude Haiku integration smoke tests
+## phase-4 — 2026-05-11
+
+### ♻️ Refactor
+
+- Update PixiJSParticles component
+- Consolidate ClickHouse client and update config
+- Update existing analytics routes and components
+- Update particles, components, and transformers
+- Restructure journey components (Phase 2)
+- Flatten scene directory structure (Phase 2)
+- Remove old animations structure (Phase 2 cleanup)
+- *(portfolio)* Flatten project showcase data structure
+- *(portfolio)* Enhance type definitions and environment types
+- *(portfolio)* Update API clients and services with utilities
+- *(portfolio)* Update journey components with new utilities
+- *(portfolio)* Update animation components with new utilities
+- *(portfolio)* Streamline dynamic page router with templates
+- *(portfolio)* Update project and experience pages
+- *(portfolio)* Update blog pages with new utilities
+- *(portfolio)* Update main pages with new utility imports
+- *(portfolio)* Enhance layout components with shared utilities
+- *(portfolio)* Reorganize utilities into specialized modules
+- Update content type schemas
+- Update CMS component schemas
+- Integrate Strapi CMS data into section components
+- Simplify Strapi client and fix API field mappings
+- Improve Docker configuration and structure
+- Remove local Strapi type definitions
+- *(types)* Replace any with Award type in AwardsSection
+- *(hooks)* Add GSAP tween cleanup in useFlipText
+- Extract magic numbers and add JSDoc (Iteration 4)
+- Improve TypeScript type safety (Iteration 2)
+
+### ⚡ Performance
+
+- Complete Phase 3 with 74.3% bundle reduction
+- *(deps)* Upgrade to React 19 for Phase 3 optimization
+- Move gradient and color palettes to module scope
+- Add DOM validation to GSAP animations (Iteration 3)
+
+### 🐛 Bug Fixes
+
 - Remove console.log from strapi.ts
 - Reset scroll lock on cleanup in PortfolioContext
 - Add URL sanitization to prevent XSS attacks in block renderers
@@ -162,17 +190,6 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
-- *(portfolio)* Enable IntegrityBadge in footer
-- *(portfolio)* Wire analytics telemetry to AZUCENA_LYTICS
-- *(analytics)* Add toast notifications and notification center
-- *(analytics)* Easter eggs & forms dashboards, Ollama removal, telemetry hardening
-- *(blog)* Add paper sound effect on newspaper card interaction
-- *(homepage)* Add Web Audio API atmospheric ambient sound
-- *(toolbar)* Add first-visit ambient sound hint
-- *(navbar)* Add swipe-to-close gesture for mobile offcanvas
-- *(intel-engine)* Index root-level markdown files in knowledge base
-- *(rin)* Implement Phase 2 persona — three-layer prompt stack
-- *(portfolio)* Wire intel-engine RAG context into Rin chat pipeline
 - *(phase-4)* Developer Experience — 16 packages, Storybook, design system, Services, Rin (#3)
 - Implement Command Palette and intelligence feature documentation
 - *(analytics)* Add Command Palette with fuzzy search
@@ -234,8 +251,4 @@ All notable changes to this project are documented here, grouped by phase milest
 - Add Stats component to Strapi CMS with icon picker integration
 - Add essential plugins for Strapi CMS
 - Phase 0 infrastructure setup with Docker Compose and Strapi CMS
-
-### 🧪 Tests
-
-- *(intel-engine)* Add Voyage AI + Claude Haiku integration smoke tests
 

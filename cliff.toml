@@ -8,9 +8,9 @@ All notable changes to this project are documented here, grouped by phase milest
 """
 body = """
 {% if version %}\
-## [{{ version | trim_start_matches(pat="v") }}] — {{ timestamp | date(format="%Y-%m-%d") }}
+## {{ version | trim_start_matches(pat="v") }} — {{ timestamp | date(format="%Y-%m-%d") }}
 {% else %}\
-## [unreleased] — {{ now() | date(format="%Y-%m-%d") }}
+## {{ now() | date(format="%Y-%m-%d") }}
 {% endif %}\
 {% for group, commits in commits | group_by(attribute="group") %}
 ### {{ group }}
@@ -47,6 +47,6 @@ commit_parsers = [
 
 protect_breaking_commits = false
 filter_commits = true
-tag_pattern = "v[0-9].*"
+tag_pattern = "v[0-9].*|phase-[0-9].*"
 topo_order = false
 sort_commits = "newest"
