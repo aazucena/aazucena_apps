@@ -10,11 +10,13 @@ const VERCEL_LOG_DRAIN_SECRET = process.env.VERCEL_LOG_DRAIN_SECRET;
 export async function POST(req: NextRequest) {
   let jsonBody;
 
-  // 1. Signature Verification (Optional but Recommended)
+  // 1. Signature Verification
   if (VERCEL_LOG_DRAIN_SECRET) {
     const signature = req.headers.get('x-vercel-signature');
     if (!signature) {
-      return NextResponse.json({ message: 'Missing signature' }, { status: 401 });
+      // Vercel's drain setup probe is unsigned — acknowledge it so the drain connects,
+      // but skip insertion so unauthenticated requests can't inject data.
+      return NextResponse.json({ ok: true }, { status: 200 });
     }
     const body = await req.text();
     const computedSignature = createHmac('sha1', VERCEL_LOG_DRAIN_SECRET)
@@ -32,7 +34,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 });
     }
   } else {
-    // If no secret, just parse JSON directly
+    // No secret configured — parse JSON directly (dev / pre-secret setup)
     try {
       jsonBody = await req.json();
     } catch {
