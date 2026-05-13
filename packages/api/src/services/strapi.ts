@@ -71,6 +71,7 @@ let globalConfig: StrapiConfig | null = null;
 export function setStrapiConfig(config: StrapiConfig): void {
   globalConfig = {
     ...config,
+    url: config.url.replace(/\/+$/, ''),
     apiEndpoint: config.apiEndpoint || '/api',
   };
 }
