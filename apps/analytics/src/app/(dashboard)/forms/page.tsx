@@ -355,7 +355,6 @@ function DetailPanel({ submissionId, onClose }: { submissionId: string; onClose:
                 name="body"
                 label="Body"
                 required
-                placeholder={`Hi ${sub.submitterName},\n\n`}
                 rows={10}
                 validators={{ onChange: replySchema.shape.body }}
               />
