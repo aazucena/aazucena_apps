@@ -65,12 +65,40 @@ export interface AI_TrajectoryPayload extends Telemetry_BasePayload {
   metadata?: Record<string, any>;
 }
 
+export interface FormSubmission_Payload extends Telemetry_BasePayload {
+  type: 'form_submission';
+  form_type: string;
+  source: string;
+  intent?: string;
+  sentiment?: string;
+  summary?: string;
+  tags?: string;
+}
+
+export interface EasterEgg_CompletionPayload extends Telemetry_BasePayload {
+  type: 'easter_egg_completion';
+  egg_id: string;
+  egg_name: string;
+  trigger_type:
+    | 'konami'
+    | 'click_sequence'
+    | 'terminal_command'
+    | 'idle'
+    | 'cursor_pattern'
+    | 'rive';
+  completion_time_ms?: number;
+  attempt_count?: number;
+  metadata?: Record<string, unknown>;
+}
+
 export type IngestionPayload =
   | Telemetry_EventPayload
   | AI_EventPayload
   | Music_PlaybackPayload
   | System_IntegrityPayload
-  | AI_TrajectoryPayload;
+  | AI_TrajectoryPayload
+  | FormSubmission_Payload
+  | EasterEgg_CompletionPayload;
 
 // --- WEBHOOK TYPES ---
 
