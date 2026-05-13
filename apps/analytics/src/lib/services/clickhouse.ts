@@ -5,7 +5,7 @@ initClickHouseClients({
   viewer: {
     host: process.env.CLICKHOUSE_HOST || 'http://localhost:8123',
     username: process.env.CLICKHOUSE_VIEWER_USER || 'dashboard_viewer',
-    password: process.env.CLICKHOUSE_VIEWER_PASSWORD,
+    password: process.env.CLICKHOUSE_VIEWER_PASSWORD!,
     database: process.env.CLICKHOUSE_DB || 'analytics',
     clickhouse_settings: {
       // Kill the query server-side if the HTTP connection closes (client navigated away)
@@ -17,7 +17,7 @@ initClickHouseClients({
   ingest: {
     host: process.env.CLICKHOUSE_HOST || 'http://localhost:8123',
     username: process.env.CLICKHOUSE_INGEST_USER || 'telemetry_ingest',
-    password: process.env.CLICKHOUSE_INGEST_PASSWORD,
+    password: process.env.CLICKHOUSE_INGEST_PASSWORD!,
     database: process.env.CLICKHOUSE_DB || 'analytics',
     clickhouse_settings: {
       async_insert: 1,

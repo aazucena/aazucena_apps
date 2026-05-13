@@ -34,7 +34,7 @@ export default function DashboardPage() {
   );
 
   // Initialize Hooks
-  const { data: summary, isLoading: _summaryLoading } = useSystemSummary();
+  const { data: summary } = useSystemSummary();
   const { data: trends, isLoading: trendsLoading } = useTrendAnalysis();
   const { data: logs, isLoading: logsLoading } = useTelemetryStream();
 

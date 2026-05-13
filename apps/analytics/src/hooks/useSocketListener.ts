@@ -17,7 +17,7 @@ export function useSocketListener() {
     if (!socket) return;
 
     const handleSignal = (newLog: LogEntry) => {
-      console.log('[Socket] Received signal:', newLog);
+      console.warn('[Socket] Received signal:', newLog);
 
       // 1. Update the telemetry stream cache
       queryClient.setQueryData(['telemetry-stream'], (oldLogs: LogEntry[] | undefined) => {

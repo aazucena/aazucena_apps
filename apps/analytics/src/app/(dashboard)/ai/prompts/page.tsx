@@ -20,7 +20,6 @@ import { usePrompts, useUpdatePrompt } from '@/hooks/usePrompts';
 export default function PromptManagerPage() {
   // --- Data Fetching ---
   const { data: prompts = [], isLoading: isPromptsLoading, error: promptsError } = usePrompts();
-  console.log('🚀 ~ PromptManagerPage ~ prompts:', prompts);
   const updateMutation = useUpdatePrompt();
 
   const queryClient = useQueryClient();

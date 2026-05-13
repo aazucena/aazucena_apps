@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const _range = searchParams.get('range') || 'all';
+    searchParams.get('range'); // reserved for future filtering
 
     // 1. Fetch time-series data grouped by month and event type
     // We use toStartOfMonth for the long-term trend

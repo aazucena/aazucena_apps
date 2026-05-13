@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { useQueryClient } from '@tanstack/react-query';
 import { toggleLiveMode } from '@/store';
 import { useCommandSearch, CommandAction } from '@/hooks/useCommandSearch';
-import { cn } from '@/lib/utils';
 import { Search, Command as CommandIcon, Message, Zap } from '@aazucena/icons';
 
 export function CommandPalette() {
@@ -72,7 +71,7 @@ export function CommandPalette() {
         return;
       }
     },
-    [router, dispatch],
+    [router, dispatch, queryClient],
   );
 
   const filteredActions = search(query);

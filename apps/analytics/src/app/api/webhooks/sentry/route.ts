@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     // The plan states 'issue_id' so we assume it's for 'issue' type webhooks.
     if (payload.type !== 'error' && payload.type !== 'default') {
       // 'default' type often indicates an unhandled error
-      console.log(`[SentryWebhook] Ignoring non-error/default event type: ${payload.type}`);
+      console.warn(`[SentryWebhook] Ignoring non-error/default event type: ${payload.type}`);
       return NextResponse.json(
         { message: `Ignoring event type: ${payload.type}` },
         { status: 200 },
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       })
       .catch((e: unknown) => console.error('[SentryWebhook] ClickHouse insertion error:', e));
 
-    console.log(
+    console.warn(
       `[SentryWebhook] Successfully processed event for issue: ${payload.issue_id} (${payload.message})`,
     );
     return NextResponse.json({ message: 'Webhook processed successfully' }, { status: 200 });

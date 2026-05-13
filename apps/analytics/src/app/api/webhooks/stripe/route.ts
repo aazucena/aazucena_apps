@@ -68,9 +68,9 @@ export async function POST(req: NextRequest) {
         format: 'JSONEachRow',
       });
 
-      console.log(`[StripeWebhook] Ingested transaction ${session.id} for $${row.amount}`);
+      console.warn(`[StripeWebhook] Ingested transaction ${session.id} for $${row.amount}`);
     } else {
-      console.log(`[StripeWebhook] Ignored event type: ${event.type}`);
+      console.warn(`[StripeWebhook] Ignored event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });

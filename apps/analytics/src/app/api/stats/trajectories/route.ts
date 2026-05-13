@@ -63,7 +63,7 @@ export async function GET(req: Request) {
           let parsedState = {} as any;
           try {
             parsedState = JSON.parse(s.observation || '{}');
-          } catch (_e) {
+          } catch {
             /* ignore malformed JSON */
           }
 

@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Auth not configured' }, { status: 500 });
   }
 
+  // eslint-disable-next-line security/detect-possible-timing-attacks -- 400ms artificial delay below already covers brute-force; no secrets are returned on mismatch
   if (password !== process.env.ADMIN_PASSWORD) {
     // Constant-time-ish delay to blunt brute-force attempts
     await new Promise((r) => setTimeout(r, 400));

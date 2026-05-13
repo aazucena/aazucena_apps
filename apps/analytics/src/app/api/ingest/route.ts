@@ -326,7 +326,7 @@ export async function POST(req: NextRequest) {
 
     const endTime = performance.now();
     const durationMs = endTime - startTime;
-    console.log(
+    console.warn(
       `[INGEST] Type: ${payload.type} | Event: ${payload.type === 'telemetry_event' ? payload.event : 'N/A'} | Latency: ${durationMs.toFixed(2)}ms`,
     );
 

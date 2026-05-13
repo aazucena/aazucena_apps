@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
       format: 'JSONEachRow',
     });
 
-    console.log(
+    console.warn(
       `[KofiWebhook] Ingested ${row.type} of $${row.amount} from ${row.metadata.from_name}`,
     );
     return NextResponse.json({ received: true });

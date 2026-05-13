@@ -220,6 +220,7 @@ export default function TrajectoryLabsPage() {
 
   useEffect(() => {
     fetchTrajectories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only; adding fetchTrajectories would loop: fetch → setSelectedTrajectory → fn recreates → effect refires
   }, []);
 
   const currentStep = useMemo(
@@ -238,12 +239,12 @@ export default function TrajectoryLabsPage() {
         const possibleJson = obs.substring(jsonStart).trim();
         try {
           return { _info: prefix, ...JSON.parse(possibleJson) };
-        } catch (_e) {
+        } catch {
           /* ignore malformed JSON */
         }
       }
       return obs;
-    } catch (_e) {
+    } catch {
       return obs;
     }
   }, [currentStep]);

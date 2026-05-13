@@ -351,13 +351,14 @@ function DetailPanel({ submissionId, onClose }: { submissionId: string; onClose:
                 required
                 validators={{ onChange: replySchema.shape.subject }}
               />
-              <ControlledTextarea
-                name="body"
-                label="Body"
-                required
-                rows={10}
-                validators={{ onChange: replySchema.shape.body }}
-              />
+              <div className="[&_textarea]:min-h-[240px]">
+                <ControlledTextarea
+                  name="body"
+                  label="Body"
+                  required
+                  validators={{ onChange: replySchema.shape.body }}
+                />
+              </div>
               {replyMutation.isError && (
                 <p className="text-[10px] font-mono text-rose-500 uppercase">
                   Transmission_Failed — {(replyMutation.error as Error).message}

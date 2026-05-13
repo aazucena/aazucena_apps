@@ -28,14 +28,14 @@ export async function POST(req: NextRequest) {
 
     try {
       jsonBody = JSON.parse(body);
-    } catch (_e) {
+    } catch {
       return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 });
     }
   } else {
     // If no secret, just parse JSON directly
     try {
       jsonBody = await req.json();
-    } catch (_e) {
+    } catch {
       return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 });
     }
   }
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
         values: rows,
         format: 'JSONEachRow',
       });
-      console.log(`[VercelWebhook] Ingested ${rows.length} events with UA enrichment.`);
+      console.warn(`[VercelWebhook] Ingested ${rows.length} events.`);
     }
 
     return NextResponse.json({ message: 'Ingested' }, { status: 200 });

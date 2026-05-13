@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
@@ -50,12 +50,14 @@ function AiTerminalContent() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
-
+  const isMountedRef = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  useLayoutEffect(() => {
+    isMountedRef.current = true;
+  }, []);
+
   useEffect(() => {
-    setIsMounted(true);
     if (Object.keys(conversations).length === 0) {
       dispatch(createNewChat());
     }
@@ -67,11 +69,14 @@ function AiTerminalContent() {
 
   const isLoading = status === 'streaming';
 
-  const sendQuery = (query: string) => {
-    if (!query.trim() || isLoading) return;
-    sendMessage({ text: query }, { body: { modelId: selectedModel } });
-    setInput('');
-  };
+  const sendQuery = useCallback(
+    (query: string) => {
+      if (!query.trim() || isLoading) return;
+      sendMessage({ text: query }, { body: { modelId: selectedModel } });
+      setInput('');
+    },
+    [isLoading, sendMessage, selectedModel],
+  );
 
   const handleCopy = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
@@ -91,7 +96,8 @@ function AiTerminalContent() {
   }, [messages]);
 
   useEffect(() => {
-    if (q && !isLoading && isMounted) {
+    if (q && !isLoading && isMountedRef.current) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: q param is cleared immediately after, no cascade
       sendQuery(q);
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.delete('q');
@@ -99,7 +105,7 @@ function AiTerminalContent() {
         scroll: false,
       });
     }
-  }, [q, isLoading, isMounted]);
+  }, [q, isLoading, sendQuery, searchParams, router]);
 
   return (
     <div className="h-[calc(100vh-8rem)] flex gap-6">
@@ -127,7 +133,7 @@ function AiTerminalContent() {
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin">
-          {isMounted &&
+          {isMountedRef.current &&
             sortedConvs.map((conv: Conversation) => (
               <div key={conv.id} className="relative group">
                 <button
@@ -238,7 +244,9 @@ function AiTerminalContent() {
           <div className="px-8 py-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900/50">
             <div className="flex items-center gap-4">
               <p className="text-zinc-900 dark:text-zinc-100 text-[11px] font-black uppercase tracking-widest truncate">
-                {isMounted ? activeConv?.title || 'New Conversation' : 'New Conversation'}
+                {isMountedRef.current
+                  ? activeConv?.title || 'New Conversation'
+                  : 'New Conversation'}
               </p>
               <div className="h-5 w-px bg-zinc-200 dark:bg-zinc-800 shrink-0" />
               <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-400 font-bold uppercase tracking-widest">
@@ -402,14 +410,16 @@ function AiTerminalContent() {
                     }
                   }}
                   placeholder="ENTER_COMMAND_FOR_AI_ANALYSIS..."
-                  disabled={isLoading || (isMounted && !activeConversationId)}
+                  disabled={isLoading || (isMountedRef.current && !activeConversationId)}
                   rows={Math.min(5, input.split('\n').length || 1)}
                   className="w-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl pl-6 pr-14 py-4 text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500/50 transition-all shadow-inner resize-none min-h-[56px] scrollbar-none"
                 />
                 <div className="absolute right-3 bottom-3">
                   <button
                     type="submit"
-                    disabled={isLoading || !input.trim() || (isMounted && !activeConversationId)}
+                    disabled={
+                      isLoading || !input.trim() || (isMountedRef.current && !activeConversationId)
+                    }
                     className="w-10 h-10 rounded-xl bg-primary-500 text-white flex items-center justify-center hover:bg-primary-600 transition-all disabled:opacity-50 shadow-lg shadow-primary-500/20"
                   >
                     <Send size={18} />
