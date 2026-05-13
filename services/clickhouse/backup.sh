@@ -16,7 +16,7 @@ echo "📂 [Backup] Target: ${BACKUP_DIR}/${BACKUP_NAME}"
 
 # Execute native backup command via clickhouse-client
 # We use 'admin' user to perform this operation.
-docker exec -i aazucena-clickhouse clickhouse-client -u admin --password clickhouse -q \
+docker exec -i aazucena-clickhouse clickhouse-client -u admin --password "${CLICKHOUSE_PASSWORD:-password}" -q \
 "BACKUP DATABASE ${DB_NAME} TO File('${BACKUP_NAME}')"
 
 echo "✅ [Backup] COMPLETED: ${BACKUP_NAME}"

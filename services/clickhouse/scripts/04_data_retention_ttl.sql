@@ -17,6 +17,12 @@ ALTER TABLE analytics.hourly_performance_vitals MODIFY TTL event_hour + INTERVAL
 ALTER TABLE analytics.ai_intelligence MODIFY TTL timestamp + INTERVAL 180 DAY;
 ALTER TABLE analytics.music_playback MODIFY TTL timestamp + INTERVAL 180 DAY;
 ALTER TABLE analytics.financial_ledger MODIFY TTL timestamp + INTERVAL 365 DAY;
+-- TTL for easter_egg_completions and form_submissions is defined inline in 06_easter_eggs_forms.sql
+
+-- 3b. EXTERNAL TRAFFIC DATA (1 Year)
+-- Vercel log drain data — no personal data, but still bounded.
+ALTER TABLE analytics.vercel_traffic_daily MODIFY TTL date + INTERVAL 365 DAY;
+ALTER TABLE analytics.vercel_analytics_events MODIFY TTL timestamp + INTERVAL 365 DAY;
 
 -- 4. LONG-TERM SUMMARIES (2 Years)
 -- Pre-aggregated data for year-over-year growth analysis.
@@ -24,6 +30,7 @@ ALTER TABLE analytics.daily_event_summary MODIFY TTL event_date + INTERVAL 730 D
 ALTER TABLE analytics.daily_ai_summary MODIFY TTL event_date + INTERVAL 730 DAY;
 ALTER TABLE analytics.daily_performance_vitals MODIFY TTL event_date + INTERVAL 730 DAY;
 ALTER TABLE analytics.daily_music_summary MODIFY TTL event_date + INTERVAL 730 DAY;
+-- TTL for daily_form_summary and daily_egg_summary is defined inline in 06_easter_eggs_forms.sql
 
 -- 5. VERIFICATION
 -- SELECT name, ttl_table FROM system.tables WHERE database = 'analytics';
