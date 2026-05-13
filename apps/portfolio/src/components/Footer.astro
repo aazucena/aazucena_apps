@@ -18,7 +18,7 @@ import type {
   SocialLink,
   TechStackItem,
 } from "@aazucena/types";
-// import { IntegrityBadge } from "./IntegrityBadge";
+import { IntegrityBadge } from "./IntegrityBadge";
 
 interface Props {
   siteName: string;
@@ -246,7 +246,7 @@ const getPlatformIcon = (platform: string) => {
             </div>
           )
         }
-        <!-- <IntegrityBadge client:load /> -->
+        <IntegrityBadge client:load />
       </div>
 
       <div class="flex items-center gap-6 text-gray-300 dark:text-gray-800">
