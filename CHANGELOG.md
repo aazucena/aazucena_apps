@@ -21,6 +21,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(storybook)_ Replace unsupported cpp snippet in typography demo
 - _(ui)_ Deduplicate heading IDs in TableOfContents
 - _(changelog)_ Run git-cliff before lint-staged in pre-commit hook
 - _(portfolio)_ Replace impure Date.now() in useRef initializer

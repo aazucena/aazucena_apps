@@ -6,6 +6,12 @@ import type { IconComponent } from '@aazucena/types';
 // Fallback icon when a name cannot be resolved
 const FallbackIcon = MynaIcons.Code as IconComponent;
 
+// React.forwardRef() returns an object ({ $$typeof, render }), not a function.
+// This guard accepts both plain function components and forwardRef components.
+function isComponent(value: unknown): boolean {
+  return typeof value === 'function' || (typeof value === 'object' && value !== null);
+}
+
 // Aliases: map legacy / convenience names to the correct export name in one of the namespaces.
 // Only add an entry here when the desired name differs from the actual export name.
 const ALIASES: Record<string, IconComponent> = {
@@ -56,15 +62,15 @@ export function getIconComponent(iconName: string | null | undefined): IconCompo
 
   // 3. Custom icons (brand logos, hand-crafted SVGs — checked before mynaui so custom wins)
   const custom = (CustomIcons as Record<string, unknown>)[iconName];
-  if (typeof custom === 'function') return custom as IconComponent;
+  if (isComponent(custom)) return custom as IconComponent;
 
   // 4. MynaUI (any stroke-style icon by its exact export name, e.g. "Lamp", "Heart", "Compass")
   const myna = (MynaIcons as Record<string, unknown>)[iconName];
-  if (typeof myna === 'function') return myna as IconComponent;
+  if (isComponent(myna)) return myna as IconComponent;
 
   // 5. SimpleIcons (Si-prefixed brand logos, e.g. "SiGithub", "SiVercel")
   const si = (SimpleIcons as Record<string, unknown>)[iconName];
-  if (typeof si === 'function') return si as IconComponent;
+  if (isComponent(si)) return si as IconComponent;
 
   return FallbackIcon;
 }
@@ -76,9 +82,9 @@ export function isValidIconName(iconName: string): boolean {
   if (!iconName) return false;
   if (iconName.startsWith('<svg')) return true;
   if (iconName in ALIASES) return true;
-  if (typeof (CustomIcons as Record<string, unknown>)[iconName] === 'function') return true;
-  if (typeof (MynaIcons as Record<string, unknown>)[iconName] === 'function') return true;
-  if (typeof (SimpleIcons as Record<string, unknown>)[iconName] === 'function') return true;
+  if (isComponent((CustomIcons as Record<string, unknown>)[iconName])) return true;
+  if (isComponent((MynaIcons as Record<string, unknown>)[iconName])) return true;
+  if (isComponent((SimpleIcons as Record<string, unknown>)[iconName])) return true;
   return false;
 }
 
