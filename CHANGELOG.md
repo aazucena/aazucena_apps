@@ -89,6 +89,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(analytics)_ Map clickhouse and clickhouse-olap to display names
 - _(analytics)_ Add display name mapping for status page services
 - _(portfolio)_ Add changelog page auto-generated from git history
 - _(portfolio)_ Enable IntegrityBadge in footer

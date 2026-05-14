@@ -15,7 +15,10 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@aazucena/constants": "workspace:*",
@@ -35,7 +38,9 @@
     "@aazucena/config": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "@types/luxon": "^3.4.2",
-    "typescript": "^5.6.3"
+    "@vitest/coverage-v8": "^3.2.4",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.4"
   },
   "sideEffects": false
 }
