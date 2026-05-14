@@ -106,6 +106,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(portfolio)_ Add data-testid attributes for Playwright E2E
 - _(phase-5)_ Scaffold Vitest for hooks and utils packages
 - _(intel-engine)_ Add Voyage AI + Claude Haiku integration smoke tests
 

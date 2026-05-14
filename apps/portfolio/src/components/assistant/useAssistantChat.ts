@@ -37,9 +37,16 @@ export function useAssistantChat() {
   const pathname =
     typeof window !== "undefined" ? window.location.pathname : "/";
 
+  // Switch to /api/brain (LangGraph) when PUBLIC_USE_BRAIN_ENDPOINT is set.
+  // Falls back to /api/chat (AI SDK direct) when unset or on any error.
+  const chatApi =
+    import.meta.env.PUBLIC_USE_BRAIN_ENDPOINT === "true"
+      ? "/api/brain"
+      : "/api/chat";
+
   const { messages, sendMessage, status, setMessages } = useChat({
     transport: new DefaultChatTransport({
-      api: "/api/chat",
+      api: chatApi,
       body: { pathname },
     }),
     messages: loadPersistedMessages(),
