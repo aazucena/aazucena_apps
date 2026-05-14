@@ -76,10 +76,18 @@ This simulator tilts the application layers into 3D space to reveal the function
 
 ## The Hierarchy
 
-| Tier | CSS Variable | Implementation |
-|---|---|---|
-| Base | `--z-base` | Content and standard layouts. |
-| Dock | `--z-dock` | Navigation and toolbars. |
-| Modal | `--z-modal` | Critical interaction layers. |
-| Tooltip | `--z-tooltip` | Ephemeral contextual data. |
-| Max | `--z-max` | Safety layer for absolute priority. |
+| Tier | CSS Variable | Value | Implementation |
+|---|---|---|---|
+| Hide | `--z-hide` | `-1` | Visually hidden, still in DOM. |
+| Base | `--z-base` | `0` | Content and standard layouts. |
+| Dock | `--z-dock` | `10` | Navigation and toolbars. |
+| Dropdown | `--z-dropdown` | `1000` | Inline menus and autocomplete lists. |
+| Sticky | `--z-sticky` | `1100` | Sticky headers and section anchors. |
+| Fixed | `--z-fixed` | `1200` | Fixed-position navigation bars. |
+| Overlay | `--z-overlay` | `1300` | Modal backdrops and dimmer layers. |
+| Modal | `--z-modal` | `1400` | Critical interaction dialogs. |
+| Popover | `--z-popover` | `1500` | Floating content cards and menus. |
+| Skip Link | `--z-skip-link` | `1600` | Accessibility skip-to-main links. |
+| Toast | `--z-toast` | `1700` | Notification toasts and alerts. |
+| Tooltip | `--z-tooltip` | `1800` | Ephemeral contextual data. |
+| Max | `--z-max` | `9999` | Safety layer for absolute priority. |
