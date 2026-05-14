@@ -91,56 +91,64 @@ export default function PublicStatusPage() {
 
         {/* SERVICES GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
-          {loading
-            ? Array(4)
-                .fill(0)
-                .map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-24 bg-zinc-100 dark:bg-zinc-900/50 rounded-3xl border border-zinc-200 dark:border-zinc-800 animate-pulse"
-                  />
-                ))
-            : Object.entries(data?.services || {}).map(([name, svc]: [string, any]) => (
+          {loading ? (
+            Array(4)
+              .fill(0)
+              .map((_, i) => (
                 <div
-                  key={name}
-                  className="p-6 bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-3xl flex items-center justify-between group hover:border-primary-500/30 transition-all"
-                >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={cn(
-                        'w-10 h-10 rounded-2xl flex items-center justify-center transition-colors',
-                        svc.status === 'UP'
-                          ? 'bg-emerald-500/10 text-emerald-500'
-                          : 'bg-rose-500/10 text-rose-500',
-                      )}
-                    >
-                      {name.includes('db') ? (
-                        <Activity size={20} />
-                      ) : name.includes('intel') ? (
-                        <Terminal size={20} />
-                      ) : (
-                        <Globe size={20} />
-                      )}
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-black uppercase text-zinc-400 mb-0.5">
-                        {getDisplayName(name)}
-                      </div>
-                      <div className="text-xs font-bold font-mono text-zinc-900 dark:text-zinc-100">
-                        {svc.status}
-                      </div>
-                    </div>
+                  key={i}
+                  className="h-24 bg-zinc-100 dark:bg-zinc-900/50 rounded-3xl border border-zinc-200 dark:border-zinc-800 animate-pulse"
+                />
+              ))
+          ) : !data || Object.keys(data?.services || {}).length === 0 ? (
+            <div className="col-span-2 p-8 text-center bg-zinc-100 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-3xl">
+              <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">
+                No service data in the last 15 minutes
+              </p>
+            </div>
+          ) : (
+            Object.entries(data?.services || {}).map(([name, svc]: [string, any]) => (
+              <div
+                key={name}
+                className="p-6 bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-3xl flex items-center justify-between group hover:border-primary-500/30 transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <div
+                    className={cn(
+                      'w-10 h-10 rounded-2xl flex items-center justify-center transition-colors',
+                      svc.status === 'UP'
+                        ? 'bg-emerald-500/10 text-emerald-500'
+                        : 'bg-rose-500/10 text-rose-500',
+                    )}
+                  >
+                    {name.includes('db') ? (
+                      <Activity size={20} />
+                    ) : name.includes('intel') ? (
+                      <Terminal size={20} />
+                    ) : (
+                      <Globe size={20} />
+                    )}
                   </div>
-                  <div className="text-right">
-                    <div className="text-[8px] font-black uppercase text-zinc-500 mb-0.5 tracking-tighter">
-                      LATENCY
+                  <div>
+                    <div className="text-[10px] font-black uppercase text-zinc-400 mb-0.5">
+                      {getDisplayName(name)}
                     </div>
-                    <div className="text-[10px] font-mono font-bold text-zinc-600 dark:text-zinc-400">
-                      {svc.latency}ms
+                    <div className="text-xs font-bold font-mono text-zinc-900 dark:text-zinc-100">
+                      {svc.status}
                     </div>
                   </div>
                 </div>
-              ))}
+                <div className="text-right">
+                  <div className="text-[8px] font-black uppercase text-zinc-500 mb-0.5 tracking-tighter">
+                    LATENCY
+                  </div>
+                  <div className="text-[10px] font-mono font-bold text-zinc-600 dark:text-zinc-400">
+                    {svc.latency}ms
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
         {/* FOOTER METRICS */}

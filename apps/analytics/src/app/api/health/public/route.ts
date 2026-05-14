@@ -37,20 +37,31 @@ export async function GET() {
       }
     });
 
-    // Calculate overall status
-    const allUp = Object.values(services).every((s) => s.status === 'UP');
+    // No rows within the window = monitoring gap, not "all good"
+    const serviceCount = Object.keys(services).length;
+    const allUp = serviceCount > 0 && Object.values(services).every((s) => s.status === 'UP');
     const someDown = Object.values(services).some((s) => s.status === 'DOWN');
 
     return NextResponse.json(
       {
         success: true,
         system: {
-          overall: someDown ? 'DEGRADED' : allUp ? 'OPERATIONAL' : 'MAINTENANCE',
-          label: someDown
-            ? 'Partial Outage'
-            : allUp
-              ? 'All Systems Functional'
-              : 'Under Observation',
+          overall:
+            serviceCount === 0
+              ? 'MAINTENANCE'
+              : someDown
+                ? 'DEGRADED'
+                : allUp
+                  ? 'OPERATIONAL'
+                  : 'MAINTENANCE',
+          label:
+            serviceCount === 0
+              ? 'No Signal — Monitoring Gap'
+              : someDown
+                ? 'Partial Outage'
+                : allUp
+                  ? 'All Systems Functional'
+                  : 'Under Observation',
           timestamp: new Date().toISOString(),
         },
         services,
