@@ -42,16 +42,33 @@ This sandbox demonstrates how our typography handles high-density data and edito
       <h4 className="text-[10px] font-mono text-[var(--secondary)] uppercase tracking-[0.4em]">Protocol: TECHNICAL_DENSITY</h4>
       
       <CodeBlock 
-        code={`void Reader::addComment(Location begin, Location end, CommentPlacement placement) {
-  assert(collectComments_);
-  const JSONCPP_STRING& normalized = normalizeEOL(begin, end);
-  if (placement == commentAfterOnSameLine) {
-    assert(lastValue_ != 0);
-    lastValue_->setComment(normalized, placement);
-  }
+        code={`type EasingFn = (t: number) => number;
+
+export function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+export function animate(
+  from: number,
+  to: number,
+  duration: number,
+  easing: EasingFn,
+  onUpdate: (value: number) => void,
+): () => void {
+  const start = performance.now();
+  let raf: number;
+
+  const tick = (now: number) => {
+    const t = Math.min((now - start) / duration, 1);
+    onUpdate(lerp(from, to, easing(t)));
+    if (t < 1) raf = requestAnimationFrame(tick);
+  };
+
+  raf = requestAnimationFrame(tick);
+  return () => cancelAnimationFrame(raf);
 }`}
-        language="cpp"
-        fileName="OurReader.cpp"
+        language="typescript"
+        fileName="animate.ts"
         variant="cyber"
         className="shadow-2xl"
       />
