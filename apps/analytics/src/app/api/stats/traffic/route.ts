@@ -6,19 +6,42 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
   try {
+    // Diagnostic: show top paths in the DB to verify what's actually stored.
+    // Remove once geo + path data is confirmed correct.
+    const pathSampleQuery = `
+      SELECT path, project_id, count() as hits
+      FROM analytics.vercel_analytics_events
+      WHERE timestamp >= subtractDays(now(), 30)
+      GROUP BY path, project_id
+      ORDER BY hits DESC
+      LIMIT 20
+    `;
+    const pathSampleRes = await mainClickhouseClient.query({
+      query: pathSampleQuery,
+      format: 'JSONEachRow',
+      abort_signal: req.signal,
+    });
+    const pathSample = await pathSampleRes.json();
+    console.warn('[TrafficStats] path sample:', JSON.stringify(pathSample));
+
     // Page view filter: exclude Next.js internals, API routes, and static assets.
     // The log drain captures all proxy requests; we only want HTML page navigations.
     const pageViewFilter = `
       path NOT LIKE '/_next/%'
       AND path NOT LIKE '/api/%'
       AND path NOT LIKE '/favicon%'
-      AND path NOT REGEXP '\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff2?|ttf|map)$'
+      AND path NOT LIKE '%.js'
+      AND path NOT LIKE '%.css'
+      AND path NOT LIKE '%.png'
+      AND path NOT LIKE '%.ico'
+      AND path NOT LIKE '%.svg'
+      AND path NOT LIKE '%.woff2'
     `;
 
-    // Visitor approximation: hash of ua+country+city per day.
-    // The log drain has no session/cookie identifier — this is the closest proxy
+    // Visitor approximation: hash of ua per day.
+    // Vercel log drain has no geo or session data — ua is the only available signal
     // for deduplicating the same person across multiple page views.
-    const visitorFingerprint = `cityHash64(concat(ua, country, city))`;
+    const visitorFingerprint = `cityHash64(ua)`;
 
     // 1. Aggregated KPIs (Last 30 days)
     const summaryQuery = `

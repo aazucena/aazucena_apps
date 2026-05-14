@@ -51,9 +51,10 @@ export async function POST(req: NextRequest) {
     if (logs.length > 0) {
       const sample = logs[0];
       console.warn(
-        '[VercelWebhook] geo sample:',
+        '[VercelWebhook] proxy sample:',
         JSON.stringify({
-          proxy_geo: sample.proxy?.geo,
+          proxy_path: sample.proxy?.path,
+          proxy_region: sample.proxy?.region,
           has_proxy: !!sample.proxy,
         }),
       );
@@ -64,16 +65,20 @@ export async function POST(req: NextRequest) {
       .filter((log) => log.proxy) // Ensure it's a proxy request log
       .map((log) => {
         const proxy = log.proxy!;
-        const geo = proxy.geo || {};
-        const uaString = Array.isArray(proxy.userAgent)
-          ? proxy.userAgent[0]
-          : proxy.userAgent || '';
+        // proxy.userAgent is always an array per Vercel log drain docs
+        const uaString = proxy.userAgent?.[0] ?? '';
 
         // Parse UA for enrichment
         const parser = new UAParser(uaString);
         const browser = parser.getBrowser().name || 'unknown';
         const os = parser.getOS().name || 'unknown';
         const device = parser.getDevice().type || 'desktop';
+
+        // proxy.path is the actual URL (e.g. /about?ref=home).
+        // Top-level log.path is the route pattern (/[slug]) — not useful for traffic analysis.
+        // Strip query string for clean path storage.
+        const rawPath = proxy.path || log.path || '';
+        const path = rawPath.split('?')[0] || '/';
 
         return {
           timestamp: new Date(log.timestamp || Date.now())
@@ -82,17 +87,17 @@ export async function POST(req: NextRequest) {
             .replace('T', ' '),
           id: log.id || '',
           source: log.source || 'unknown',
-          host: log.host || '',
-          path: log.path || '',
+          host: proxy.host || log.host || '',
+          path,
           ua: uaString,
-          country: geo.country || 'XX',
-          city: geo.city || '',
-          browser: browser,
-          os: os,
-          device: device,
+          country: 'XX', // Vercel log drain does not include geo — no proxy.geo field
+          city: '',
+          browser,
+          os,
+          device,
           referer: proxy.referer || '',
           project_id: log.projectId || '',
-          environment: 'production',
+          environment: log.environment || 'production',
         };
       });
 
