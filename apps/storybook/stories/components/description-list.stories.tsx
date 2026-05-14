@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { DescriptionList, type DescriptionListItem } from '@aazucena/ui';
 import { Badge } from '@aazucena/ui';

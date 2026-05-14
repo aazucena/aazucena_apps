@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { ChatChainOfThought } from '@aazucena/ui';
 import type { ChainOfThoughtStep } from '@aazucena/ui';

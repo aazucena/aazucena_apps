@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { DateRange } from 'react-day-picker';
 import { RangeCalendar } from '@aazucena/ui';
 

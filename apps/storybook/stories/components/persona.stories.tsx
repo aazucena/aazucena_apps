@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { Persona } from '@aazucena/ui';
 import { Robot, User as UserIcon } from '@aazucena/icons'; // Assuming these icons are available

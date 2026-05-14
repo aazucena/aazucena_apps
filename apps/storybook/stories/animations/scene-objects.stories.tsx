@@ -3,7 +3,7 @@
  * High-fidelity 3D inspection for ALL 60+ registry objects.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ObjectViewer } from '@aazucena/animations';
 import type { ComponentProps } from 'react';
 

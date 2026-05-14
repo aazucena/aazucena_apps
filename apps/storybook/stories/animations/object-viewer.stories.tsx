@@ -3,7 +3,7 @@
  * Centralized hub for inspecting all registry objects.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ObjectViewer, ANIMATION_OBJECT_REGISTRY } from '@aazucena/animations';
 import type { ComponentProps } from 'react';
 

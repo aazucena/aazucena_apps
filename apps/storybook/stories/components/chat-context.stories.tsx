@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { ChatContext, type ContextItem } from '@aazucena/ui';
 import { Robot, FileText, User } from '@aazucena/icons';

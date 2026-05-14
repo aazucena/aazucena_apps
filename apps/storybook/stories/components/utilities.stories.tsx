@@ -29,7 +29,7 @@ import { Activity, Database } from '@aazucena/icons';
  * ## Engineering Status
  * - **Design:** `Verified`
  * - **Maturity:** `Stable`
- * - **Theme Support:** `AAZUCENA_v1`
+ * - **Theme Support:** `Avra_v1`
  */
 const meta = {
   title: 'Components/Utilities/Utilities',

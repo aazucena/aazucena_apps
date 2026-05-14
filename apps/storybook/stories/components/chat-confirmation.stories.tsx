@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { ChatConfirmation } from '@aazucena/ui';
 import { Button } from '@aazucena/ui'; // Assuming Button is available for triggering modal

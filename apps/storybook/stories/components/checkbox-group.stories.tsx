@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { CheckboxGroup, type CheckboxGroupOption } from '@aazucena/ui';
 

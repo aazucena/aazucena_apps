@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { HoldToConfirm } from '@aazucena/ui';
 import { toast, Toaster } from '@aazucena/ui'; // Assuming toast and Toaster are available

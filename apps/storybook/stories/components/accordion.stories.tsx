@@ -12,7 +12,7 @@ import type React from 'react';
  * ## Engineering Status
  * - **Design:** `Verified`
  * - **Maturity:** `Stable`
- * - **Theme Support:** `AAZUCENA_v1`
+ * - **Theme Support:** `Avra_v1`
  */
 
 type AccordionStoryArgs = React.ComponentProps<typeof Accordion> & {
