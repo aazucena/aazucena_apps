@@ -1,0 +1,172 @@
+---
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import DetailLayout from "~/layouts/DetailLayout.astro";
+import ChangelogTimeline from "~/components/ui/ChangelogTimeline.astro";
+import {
+  type ParsedItem,
+  type ChangelogSection,
+  type ChangelogEntry,
+} from "~/components/ui/ChangelogSections";
+
+// Read CHANGELOG.md from monorepo root at build time
+let raw = "";
+try {
+  raw = readFileSync(resolve(process.cwd(), "../../CHANGELOG.md"), "utf-8");
+} catch {
+  raw = "## No changelog found\n";
+}
+
+function parseTitle(title: string): {
+  label: string;
+  date: string | null;
+  isPhase: boolean;
+} {
+  const phaseMatch = title.match(
+    /^(phase-(\d+))\s*[—-]\s*(\d{4}-\d{2}-\d{2})$/,
+  );
+  if (phaseMatch) {
+    return {
+      label: `Phase ${phaseMatch[2]}`,
+      date: phaseMatch[3] ?? null,
+      isPhase: true,
+    };
+  }
+  const dateMatch = title.match(/^(\d{4}-\d{2}-\d{2})$/);
+  if (dateMatch) {
+    const d = dateMatch[1] ?? null;
+    return { label: d ?? title, date: d, isPhase: false };
+  }
+  return { label: title, date: null, isPhase: false };
+}
+
+function parseItem(raw: string): ParsedItem {
+  const match = raw.match(/^[*_]\(([^)]+)\)[*_]\s+(.*)/);
+  if (match) return { scope: match[1] ?? null, text: match[2] ?? raw };
+  return { scope: null, text: raw };
+}
+
+const entries: ChangelogEntry[] = raw
+  .split(/^## /m)
+  .slice(1)
+  .map((block) => {
+    const lines = block.trim().split("\n");
+    const { label, date, isPhase } = parseTitle(lines[0]?.trim() ?? "");
+
+    const groupBlocks = lines
+      .slice(1)
+      .join("\n")
+      .split(/^### /m)
+      .filter((g) => g.trim());
+
+    const sections: ChangelogSection[] = groupBlocks
+      .map((gb) => {
+        const glines = gb.trim().split("\n");
+        return {
+          group: glines[0]?.trim() ?? "",
+          items: glines
+            .slice(1)
+            .filter((l) => l.trim().startsWith("- "))
+            .map((l) => parseItem(l.trim().slice(2).trim())),
+        };
+      })
+      .filter((s) => s.items.length > 0);
+
+    return { label, date, isPhase, sections };
+  });
+
+const totalChanges = entries.reduce(
+  (acc, e) => acc + e.sections.reduce((a, s) => a + s.items.length, 0),
+  0,
+);
+
+const lastUpdatedDate = entries[0]?.date
+  ? new Date(entries[0].date + "T00:00:00").toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  : null;
+
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Changelog" }];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Changelog",
+  description:
+    "A running log of changes across all development phases, auto-generated from git history.",
+};
+---
+
+<DetailLayout
+  title="Changelog"
+  description="A running log of changes across all development phases, auto-generated from git history."
+  jsonLd={jsonLd}
+  breadcrumbs={breadcrumbs}
+  watermarkText="CHANGELOG"
+  watermarkSize="large"
+  maxWidth="4xl"
+  hasSidebar={false}
+  showReadingProgress={true}
+  basePath="/"
+>
+  <!-- Page header -->
+  <div slot="header" class="space-y-6 text-center md:text-left">
+    <p
+      class="text-xs font-black tracking-[0.3em] text-gray-400 uppercase dark:text-gray-500"
+    >
+      Development History
+    </p>
+    <h1
+      class="text-6xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
+    >
+      Changelog
+    </h1>
+    <p
+      class="mx-auto max-w-xl text-lg leading-relaxed text-gray-500 md:mx-0 dark:text-gray-400"
+    >
+      Auto-generated from git commits. Every phase, every fix, every feature —
+      in one place.
+    </p>
+    {
+      lastUpdatedDate && (
+        <div class="inline-flex items-center gap-3 rounded-full border border-gray-100 bg-gray-50 px-4 py-2 shadow-sm dark:border-gray-800 dark:bg-gray-800/50">
+          <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-500" />
+          <p class="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
+            Last updated: {lastUpdatedDate}
+          </p>
+        </div>
+      )
+    }
+    <div
+      class="flex flex-wrap items-center justify-center gap-6 pt-2 md:justify-start"
+    >
+      <div>
+        <span
+          class="text-3xl font-black text-gray-900 tabular-nums dark:text-white"
+          >{entries.length}</span
+        >
+        <span
+          class="ml-1.5 text-xs font-black tracking-wider text-gray-400 uppercase"
+          >phases</span
+        >
+      </div>
+      <div class="h-4 w-px bg-gray-200 dark:bg-gray-800" aria-hidden="true">
+      </div>
+      <div>
+        <span
+          class="text-3xl font-black text-gray-900 tabular-nums dark:text-white"
+          >{totalChanges}</span
+        >
+        <span
+          class="ml-1.5 text-xs font-black tracking-wider text-gray-400 uppercase"
+          >changes</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <ChangelogTimeline slot="content" entries={entries} />
+</DetailLayout>

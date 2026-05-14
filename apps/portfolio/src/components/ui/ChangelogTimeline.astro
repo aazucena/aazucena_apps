@@ -1,0 +1,61 @@
+---
+import { ChangelogSections } from "~/components/ui/ChangelogSections";
+import type { ChangelogEntry } from "~/components/ui/ChangelogSections";
+
+interface Props {
+  entries: ChangelogEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="relative mt-4">
+  <div
+    class="absolute top-0 left-2 h-full w-px bg-gradient-to-b from-green-500 via-blue-400 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="space-y-10 pl-8 md:space-y-16 md:pl-10">
+    {
+      entries.map((entry) => (
+        <div class="relative">
+          <div class="absolute top-1.5 -left-8 flex w-4 items-center justify-center md:-left-10">
+            {entry.isPhase ? (
+              <span class="relative flex h-4 w-4">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-25" />
+                <span class="relative inline-flex h-4 w-4 rounded-full border-2 border-white bg-blue-600 shadow dark:border-gray-950" />
+              </span>
+            ) : (
+              <span class="relative flex h-4 w-4">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-300 opacity-25" />
+                <span class="relative inline-flex h-4 w-4 rounded-full border-2 border-white bg-green-500 shadow dark:border-gray-950" />
+              </span>
+            )}
+          </div>
+
+          <div class="mb-5 flex flex-wrap items-baseline gap-3">
+            {entry.isPhase ? (
+              <>
+                <h2 class="text-2xl font-black tracking-tight text-gray-900 dark:text-white">
+                  {entry.label}
+                </h2>
+                {entry.date && (
+                  <span class="font-mono text-xs text-gray-400 dark:text-gray-600">
+                    {entry.date}
+                  </span>
+                )}
+              </>
+            ) : (
+              <h2 class="text-2xl font-black tracking-tight text-green-600 dark:text-green-400">
+                Latest
+              </h2>
+            )}
+          </div>
+
+          <ChangelogSections sections={entry.sections} client:visible />
+        </div>
+      ))
+    }
+  </div>
+</div>
