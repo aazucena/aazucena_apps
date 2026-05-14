@@ -4,6 +4,24 @@ import React, { useEffect, useState } from 'react';
 import { Shield, CheckCircle, Activity, Globe, Zap, Terminal } from '@aazucena/icons';
 import { cn } from '@/lib/utils';
 
+// Map raw service names (from system_integrity table) to human-readable display names.
+// Add entries here whenever a service name in the DB doesn't match what you want shown.
+const SERVICE_DISPLAY_NAMES: Record<string, string> = {
+  'plausible-clickhouse': 'Plausible',
+  'clickhouse-plausible': 'Plausible',
+  plausible_clickhouse: 'Plausible',
+  plausible: 'Plausible',
+};
+
+function getDisplayName(name: string): string {
+  if (SERVICE_DISPLAY_NAMES[name]) return SERVICE_DISPLAY_NAMES[name];
+  // Auto-detect: any service name containing both "plausible" and "clickhouse"
+  if (name.toLowerCase().includes('plausible') && name.toLowerCase().includes('clickhouse')) {
+    return 'Plausible';
+  }
+  return name;
+}
+
 export default function PublicStatusPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -106,7 +124,7 @@ export default function PublicStatusPage() {
                     </div>
                     <div>
                       <div className="text-[10px] font-black uppercase text-zinc-400 mb-0.5">
-                        {name}
+                        {getDisplayName(name)}
                       </div>
                       <div className="text-xs font-bold font-mono text-zinc-900 dark:text-zinc-100">
                         {svc.status}

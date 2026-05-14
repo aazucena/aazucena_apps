@@ -21,6 +21,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(visualizations)_ Use fitExtent to prevent choropleth map cutoff
 - _(analytics)_ Source geo distribution from telemetry_events not log drain
 - _(analytics)_ Align log drain schema and ingestion with Vercel docs
 - _(analytics)_ Correct visitor counting and filter non-page requests in traffic stats
