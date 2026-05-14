@@ -68,14 +68,17 @@ export async function GET(req: Request) {
     `;
 
     // 3. Top Countries (Full list for Map)
+    // telemetry_events has real geo from x-vercel-ip-country (set by Vercel edge at ingest time).
+    // vercel_analytics_events (log drain) never includes geo, so we use the right source here.
     const geoQuery = `
       SELECT
         country,
-        uniq(${visitorFingerprint}) as visitors
-      FROM analytics.vercel_analytics_events
+        uniq(cityHash64(userAgent)) as visitors
+      FROM analytics.telemetry_events
       WHERE timestamp >= subtractDays(now(), 30)
+        AND event = 'PageView'
         AND country != ''
-        AND ${pageViewFilter}
+        AND country != 'Unknown'
       GROUP BY country
       ORDER BY visitors DESC
     `;
