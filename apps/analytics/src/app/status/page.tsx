@@ -7,6 +7,10 @@ import { cn } from '@/lib/utils';
 // Map raw service names (from system_integrity table) to human-readable display names.
 // Add entries here whenever a service name in the DB doesn't match what you want shown.
 const SERVICE_DISPLAY_NAMES: Record<string, string> = {
+  // ClickHouse — main analytics OLAP database
+  clickhouse: 'Analytics DB',
+  'clickhouse-olap': 'ClickHouse OLAP',
+  // Plausible ClickHouse — separate instance for Plausible analytics
   'plausible-clickhouse': 'Plausible',
   'clickhouse-plausible': 'Plausible',
   plausible_clickhouse: 'Plausible',
