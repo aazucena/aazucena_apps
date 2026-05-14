@@ -45,15 +45,15 @@ export const KofiWebhookSchema = z.object({
   message_id: z.string(),
   timestamp: z.string(), // ISO string usually
   type: z.string(), // "Donation", "Subscription", "Shop Order"
-  is_public: z.boolean().optional(),
-  from_name: z.string().optional(),
-  message: z.string().optional(),
+  is_public: z.boolean().nullish(),
+  from_name: z.string().nullish(),
+  message: z.string().nullish(),
   amount: z.string().or(z.number()), // Can be string or number
   currency: z.string(),
-  email: z.string().email().optional(),
-  url: z.string().url().optional(),
-  kofi_transaction_id: z.string().optional(),
-  verification_token: z.string().optional(), // Used for simple verification
+  email: z.string().email().nullish(),
+  url: z.string().url().nullish(),
+  kofi_transaction_id: z.string().nullish(),
+  verification_token: z.string().nullish(),
 });
 
 export type StripeEvent = z.infer<typeof StripeEventSchema>;
