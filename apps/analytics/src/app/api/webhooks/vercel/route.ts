@@ -46,6 +46,19 @@ export async function POST(req: NextRequest) {
     // 2. Validate Payload
     const logs = VercelLogDrainPayloadSchema.parse(jsonBody);
 
+    // Diagnostic: log the first entry's geo structure so we can verify
+    // what Vercel actually sends. Remove once geo is confirmed working.
+    if (logs.length > 0) {
+      const sample = logs[0];
+      console.warn(
+        '[VercelWebhook] geo sample:',
+        JSON.stringify({
+          proxy_geo: sample.proxy?.geo,
+          has_proxy: !!sample.proxy,
+        }),
+      );
+    }
+
     // 3. Transform & Filter
     const rows = logs
       .filter((log) => log.proxy) // Ensure it's a proxy request log

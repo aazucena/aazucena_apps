@@ -21,6 +21,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Correct visitor counting and filter non-page requests in traffic stats
 - _(analytics)_ Align Ko-fi webhook schema and handler with API docs
 - _(analytics)_ Accept null fields in Ko-fi webhook schema
 - _(icons)_ Accept forwardRef components in registry resolver
