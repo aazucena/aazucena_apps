@@ -21,10 +21,13 @@ export function useChoroplethMap(
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
 
-    const projection = d3
-      .geoMercator()
-      .scale(width / 6.5)
-      .translate([width / 2, height / 1.5]);
+    const projection = d3.geoMercator().fitExtent(
+      [
+        [2, 2],
+        [width - 2, height - 2],
+      ],
+      geoJson,
+    );
 
     const path = d3.geoPath().projection(projection);
 
