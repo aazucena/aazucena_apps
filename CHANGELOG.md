@@ -80,6 +80,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Add changelog page auto-generated from git history
 - _(portfolio)_ Enable IntegrityBadge in footer
 - _(portfolio)_ Wire analytics telemetry to AZUCENA_LYTICS
 - _(analytics)_ Add toast notifications and notification center
