@@ -55,7 +55,10 @@ export function InfoPanel({
   const info = phaseInfo[currentPhase];
 
   return (
-    <div className="max-h-[calc(100vh-14rem)] overflow-y-auto p-4 sm:max-h-[85vh] sm:p-6">
+    <div
+      data-testid="info-panel"
+      className="max-h-[calc(100vh-14rem)] overflow-y-auto p-4 sm:max-h-[85vh] sm:p-6"
+    >
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-lg font-bold text-white">
           Journey Through Earth's Atmosphere
@@ -64,6 +67,7 @@ export function InfoPanel({
           onClick={onClose}
           className="text-white/60 transition-colors hover:text-white"
           aria-label="Close info panel"
+          data-testid="info-panel-close"
         >
           <X className="h-5 w-5" />
         </button>

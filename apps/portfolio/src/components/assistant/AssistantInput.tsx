@@ -40,6 +40,7 @@ export function AssistantInput({
           minRows={1}
           maxRows={4}
           disabled={isLoading}
+          data-testid="assistant-input"
           className="pb-10 text-base md:text-xs"
         />
         <span
@@ -58,6 +59,7 @@ export function AssistantInput({
           type="button"
           onClick={onSend}
           disabled={isLoading || !value.trim() || isOverWordLimit}
+          data-testid="assistant-send"
           className="h-8 w-8"
         />
       </ChatInputWrapper>

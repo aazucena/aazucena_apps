@@ -48,6 +48,7 @@ export function Navbar({
 
   return (
     <nav
+      data-testid="navbar"
       className={`fixed top-0 right-0 left-0 z-[100] border-b transition-[padding,box-shadow,backdrop-filter] duration-300 ${
         isScrolled
           ? "bg-background/90 border-gray-200/50 py-4 shadow-sm backdrop-blur-xl dark:border-gray-800/50"
@@ -164,6 +165,7 @@ export function Navbar({
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="dark:bg-background rounded-2xl border border-gray-100 bg-gray-50 p-3 text-gray-600 transition-colors hover:text-blue-600 md:hidden dark:border-gray-800 dark:text-gray-400"
               aria-label="Toggle menu"
+              data-testid="navbar-mobile-toggle"
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -187,6 +189,7 @@ export function Navbar({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              data-testid="navbar-mobile-menu"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={{ left: 0, right: 0.4 }}

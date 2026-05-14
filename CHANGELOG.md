@@ -106,6 +106,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(phase-5)_ Scaffold Vitest for hooks and utils packages
 - _(intel-engine)_ Add Voyage AI + Claude Haiku integration smoke tests
 
 ## phase-4 — 2026-05-11

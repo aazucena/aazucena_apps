@@ -32,6 +32,7 @@ export function AwardModal({
       <DialogContent
         ref={modalRef}
         size="lg"
+        data-testid="award-modal"
         className="max-h-[80vh] overflow-hidden border-white/20 bg-gradient-to-br from-gray-900 to-black p-0 shadow-2xl"
       >
         <DialogBody className="overflow-y-auto p-8">

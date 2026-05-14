@@ -31,7 +31,10 @@ export function SectionNavFAB({
   }, [open]);
 
   return (
-    <div className="fixed right-8 bottom-8 z-50 flex flex-col items-end gap-3 md:hidden">
+    <div
+      data-testid="section-nav-fab"
+      className="fixed right-8 bottom-8 z-50 flex flex-col items-end gap-3 md:hidden"
+    >
       {/* Backdrop — closes list on outside tap */}
       {open && (
         <div
@@ -51,6 +54,7 @@ export function SectionNavFAB({
                 onSectionClick(index);
                 setOpen(false);
               }}
+              data-testid={`section-nav-item-${index}`}
               className={`flex w-full items-center gap-3 px-5 py-3.5 text-left text-sm transition-colors ${
                 currentSection === index
                   ? "bg-cyan-400/20 text-cyan-400"
@@ -75,6 +79,7 @@ export function SectionNavFAB({
           open ? "Close section navigation" : "Open section navigation"
         }
         aria-expanded={open}
+        data-testid="section-nav-fab-trigger"
         className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white/70 backdrop-blur-md transition-all duration-200 hover:bg-black/80 hover:text-white active:scale-95"
       >
         {open ? (

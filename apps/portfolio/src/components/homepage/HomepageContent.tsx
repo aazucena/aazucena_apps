@@ -38,6 +38,7 @@ export default function HomepageContent({
           <div
             key={section.name}
             ref={refs[index]}
+            data-testid={`section-${section.name}`}
             className="absolute top-0 right-0 left-0 z-30 flex min-h-[100dvh] w-full items-center px-6"
             style={{
               pointerEvents: currentSection === index ? "auto" : "none",
