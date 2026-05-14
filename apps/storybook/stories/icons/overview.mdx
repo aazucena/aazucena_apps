@@ -59,30 +59,59 @@ export const MyComponent = () => (
 
 ## 🎨 Featured Custom Icons
 
-These are hand-crafted brand marks optimized for the **@aazucena** aesthetic. They are theme-reactive and support the full color protocol.
+The library ships 75+ hand-crafted brand marks optimized for the **Avra** aesthetic. They are theme-reactive and support the full color protocol.
 
 <div className="p-8 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 overflow-hidden relative group">
   <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)]" />
   
-  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 relative z-10">
-    {[
-      { name: 'BrandLogo', label: 'AAZUCENA' },
-      { name: 'Astro', label: 'Astro' },
-      { name: 'React', label: 'React' },
-      { name: 'Tailwind', label: 'Tailwind' },
-      { name: 'Vite', label: 'Vite' },
-      { name: 'Rss', label: 'RSS' },
-    ].map((icon) => {
-      const IconComp = getIconComponent(icon.name);
-      return (
-        <div key={icon.name} className="flex flex-col items-center gap-3 group/item">
-          <div className="w-16 h-16 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] shadow-[var(--shadow-sm)] group-hover/item:scale-110 group-hover/item:border-[var(--primary)] group-hover/item:text-[var(--foreground)] transition-all duration-500">
-            {['object', 'function'].includes(typeof IconComp) ? <IconComp size={32} stroke={1.5} /> : null}
-          </div>
-          <span className="text-[10px] font-mono font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">{icon.label}</span>
-        </div>
-      );
-    })}
+  <div className="space-y-8 relative z-10">
+    <div>
+      <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--muted-foreground)] mb-4">Frontend Stack</p>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+        {[
+          { name: 'BrandLogo', label: 'Avra' },
+          { name: 'Astro', label: 'Astro' },
+          { name: 'React', label: 'React' },
+          { name: 'TypeScript', label: 'TypeScript' },
+          { name: 'Tailwind', label: 'Tailwind' },
+          { name: 'Vite', label: 'Vite' },
+        ].map((icon) => {
+          const IconComp = getIconComponent(icon.name);
+          return (
+            <div key={icon.name} className="flex flex-col items-center gap-3 group/item">
+              <div className="w-16 h-16 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] shadow-[var(--shadow-sm)] group-hover/item:scale-110 group-hover/item:border-[var(--primary)] group-hover/item:text-[var(--foreground)] transition-all duration-500">
+                {['object', 'function'].includes(typeof IconComp) ? <IconComp size={32} stroke={1.5} /> : null}
+              </div>
+              <span className="text-[10px] font-mono font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">{icon.label}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <div>
+      <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--muted-foreground)] mb-4">Infrastructure & AI</p>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+        {[
+          { name: 'GitHub', label: 'GitHub' },
+          { name: 'Vercel', label: 'Vercel' },
+          { name: 'Storybook', label: 'Storybook' },
+          { name: 'Strapi', label: 'Strapi' },
+          { name: 'Anthropic', label: 'Anthropic' },
+          { name: 'LangChain', label: 'LangChain' },
+        ].map((icon) => {
+          const IconComp = getIconComponent(icon.name);
+          return (
+            <div key={icon.name} className="flex flex-col items-center gap-3 group/item">
+              <div className="w-16 h-16 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] shadow-[var(--shadow-sm)] group-hover/item:scale-110 group-hover/item:border-[var(--primary)] group-hover/item:text-[var(--foreground)] transition-all duration-500">
+                {['object', 'function'].includes(typeof IconComp) ? <IconComp size={32} stroke={1.5} /> : null}
+              </div>
+              <span className="text-[10px] font-mono font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">{icon.label}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   </div>
 </div>
 
