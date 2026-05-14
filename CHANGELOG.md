@@ -21,6 +21,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(changelog)_ Run git-cliff before lint-staged in pre-commit hook
 - _(portfolio)_ Replace impure Date.now() in useRef initializer
 - _(analytics)_ Resolve lint errors flagged in CI
 - _(types)_ Add FormSubmission and EasterEgg payload types to IngestionPayload

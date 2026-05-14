@@ -148,16 +148,22 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
         (el) => !excludeSelector || !el.closest(excludeSelector),
       );
       const scannedSections: ToCItem[] = [];
+      const usedIds = new Map<string, number>();
 
       elements.forEach((element, index) => {
         const htmlElement = element as HTMLElement;
         if (!htmlElement.id) {
           const text = htmlElement.innerText || '';
-          htmlElement.id =
+          const base =
             text
               .toLowerCase()
               .replace(/[^a-z0-9]+/g, '-')
               .replace(/(^-|-$)+/g, '') || `section-${index}`;
+          const count = usedIds.get(base) ?? 0;
+          usedIds.set(base, count + 1);
+          htmlElement.id = count === 0 ? base : `${base}-${count + 1}`;
+        } else {
+          usedIds.set(htmlElement.id, (usedIds.get(htmlElement.id) ?? 0) + 1);
         }
         const label = htmlElement.dataset.tocLabel || htmlElement.innerText;
         if (!label.trim()) return;
