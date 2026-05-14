@@ -44,7 +44,7 @@ export const StripeEventSchema = z.object({
 export const KofiWebhookSchema = z.object({
   message_id: z.string(),
   timestamp: z.string(), // ISO string usually
-  type: z.string(), // "Donation", "Subscription", "Shop Order"
+  type: z.string(), // "Tip", "Subscription", "Commission", "Shop Order"
   is_public: z.boolean().nullish(),
   from_name: z.string().nullish(),
   message: z.string().nullish(),
@@ -54,6 +54,12 @@ export const KofiWebhookSchema = z.object({
   url: z.string().url().nullish(),
   kofi_transaction_id: z.string().nullish(),
   verification_token: z.string().nullish(),
+  // Subscription-specific fields
+  is_subscription_payment: z.boolean().nullish(),
+  is_first_subscription_payment: z.boolean().nullish(),
+  tier_name: z.string().nullish(),
+  // Shop order-specific fields
+  shop_items: z.array(z.object({ direct_link_code: z.string().nullish() }).passthrough()).nullish(),
 });
 
 export type StripeEvent = z.infer<typeof StripeEventSchema>;

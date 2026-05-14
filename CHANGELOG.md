@@ -21,6 +21,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Accept null fields in Ko-fi webhook schema
 - _(icons)_ Accept forwardRef components in registry resolver
 - _(storybook)_ Replace unsupported cpp snippet in typography demo
 - _(ui)_ Deduplicate heading IDs in TableOfContents

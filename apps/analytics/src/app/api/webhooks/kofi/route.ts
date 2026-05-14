@@ -42,15 +42,19 @@ export async function POST(req: NextRequest) {
       provider: 'KOFI',
       amount: parseFloat(String(event.amount)),
       currency: (event.currency || 'USD').toUpperCase(),
-      type: (event.type || 'DONATION').toUpperCase(),
-      status: 'SUCCEEDED', // Ko-fi alerts are generally for successful transactions
-      sessionId: '', // Hard to correlate session ID with Ko-fi unless passed in custom fields (if supported)
+      type: (event.type || 'Tip').toUpperCase().replace(' ', '_'),
+      status: 'SUCCEEDED',
+      sessionId: '',
       customer_email: event.email || '',
       metadata: {
         from_name: event.from_name || '',
         message: event.message || '',
         url: event.url || '',
-        is_public: String(event.is_public || false),
+        is_public: String(event.is_public ?? false),
+        tier_name: event.tier_name || '',
+        is_subscription_payment: String(event.is_subscription_payment ?? false),
+        is_first_subscription_payment: String(event.is_first_subscription_payment ?? false),
+        shop_items: event.shop_items ? JSON.stringify(event.shop_items) : '',
       },
     };
 
