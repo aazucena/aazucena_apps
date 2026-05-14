@@ -21,6 +21,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(icons)_ Accept forwardRef components in registry resolver
 - _(storybook)_ Replace unsupported cpp snippet in typography demo
 - _(ui)_ Deduplicate heading IDs in TableOfContents
 - _(changelog)_ Run git-cliff before lint-staged in pre-commit hook
