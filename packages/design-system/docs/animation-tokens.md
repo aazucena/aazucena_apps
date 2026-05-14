@@ -2,7 +2,7 @@
 
 ## SUMMARY
 
-Standardized timing values, easing functions, and scroll thresholds for consistent animation behavior across the aazucena ecosystem. Designed for 60fps performance with device-adaptive quality tiers.
+Standardized timing values, easing functions, and scroll thresholds for consistent animation behavior across the Avra ecosystem. Designed for 60fps performance with device-adaptive quality tiers.
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## SUMMARY
 
-Core design tenets for the aazucena ecosystem. Every component and interface must prioritize data integrity, agentic state awareness, and high-performance developer experience.
+Core design tenets for the Avra ecosystem. Every component and interface must prioritize data integrity, agentic state awareness, and high-performance developer experience.
 
 ---
 

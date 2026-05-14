@@ -2,7 +2,7 @@
 
 ## 📚 DOCUMENTATION_INDEX
 
-Complete reference for the aazucena Intelligence Design System.
+Complete reference for the Avra Design System.
 
 ---
 

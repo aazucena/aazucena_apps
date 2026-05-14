@@ -2,7 +2,7 @@
 
 ## SUMMARY
 
-Comprehensive accessibility standards for the aazucena ecosystem. Every component must meet WCAG AA minimum, with AAA targets for critical interfaces like AZUCENA_LYTICS dashboards.
+Comprehensive accessibility standards for the Avra ecosystem. Every component must meet WCAG AA minimum, with AAA targets for critical interfaces like AZUCENA_LYTICS dashboards.
 
 ---
 

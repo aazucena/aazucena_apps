@@ -2,7 +2,7 @@
 
 ## SUMMARY
 
-Reusable component patterns and composition strategies for building consistent, maintainable interfaces across the aazucena ecosystem. Follows the Factory Pattern principle where components are easily re-instantiated with different data providers.
+Reusable component patterns and composition strategies for building consistent, maintainable interfaces across the Avra ecosystem. Follows the Factory Pattern principle where components are easily re-instantiated with different data providers.
 
 ---
 
