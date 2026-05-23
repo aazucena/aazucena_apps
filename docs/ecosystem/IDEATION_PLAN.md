@@ -121,17 +121,34 @@ This document provides the exhaustive technical and brand specifications for the
 
 **The Brain Node // Intelligent Search & Interaction Terminal**
 
-- **Polyglot Challenge:** **Rust** for the memory-safe, high-performance RAG terminal.
-- **Core Utility:** Solves "Information Friction." The fastest possible way to get a specific answer without browsing.
+- **Polyglot Challenge:** **Rust** for the memory-safe, high-performance RAG terminal — delivered across two surfaces via **Tauri v2** (desktop) and **Axum + Tokio** (web).
+- **Core Utility:** Solves "Information Friction." The fastest possible way to get a specific answer without browsing — available whether you're at `cli.aazucena.com` in a browser or running the native desktop app.
 - **Detailed Functionality:**
   - **CLI-First Command Bar:** A minimalist, single-purpose command line. Users type `query stack` or `query exp` to get immediate, synthesized answers from your knowledge base.
   - **Intelligent Synthesis:** The terminal reasons across your documentation to answer complex queries (e.g., _"How has Aldrin's database strategy evolved since 2024?"_).
   - **Curiosity Audit:** Logs search trends into ClickHouse, giving you data-driven insights into what technical topics visitors care about most.
+- **Dual-Surface Architecture:**
+  - **Web (`cli.aazucena.com`):** React frontend + Axum (Rust) backend deployed on Railway. Multi-turn conversational RAG with typewriter-style output. Full visitor access.
+  - **Desktop (Tauri v2 app):** Same React frontend wrapped in a native Tauri shell. Rust sidecar handles offline RAG — indexes local files, queries without a network hop. macOS / Windows / Linux. ~3–4MB binary (vs. ~120MB Electron equivalent).
+  - **Shared core:** One Rust RAG engine. Web surface calls it via HTTP; desktop surface bundles it as a Tauri sidecar. No logic duplication.
+- **What Tauri unlocks over the web surface:**
+
+  | Capability                        | Web  | Desktop (Tauri) |
+  | --------------------------------- | ---- | --------------- |
+  | Offline RAG (local corpus)        | ❌   | ✅              |
+  | OS keychain auth                  | ❌   | ✅              |
+  | System tray persistent access     | ❌   | ✅              |
+  | Local file indexing               | ❌   | ✅              |
+  | Native menus + keyboard shortcuts | ❌   | ✅              |
+  | Bundle size                       | ~web | ~3–4 MB         |
+
+- **SCHOLAR Research Angle:** Tauri vs. web terminal is a measurable HCI experiment — same RAG interface, different runtime. SCHOLAR can run user studies comparing task completion time, perceived latency, and trust between the two surfaces. Binary size, memory footprint, and TTFT benchmarks feed the polyglot benchmarking layer.
 - **Technical Implementation:**
-  - **Stack:** Vercel AI SDK + LangGraph + Intel Engine.
-  - **Logic:** Multi-turn conversational RAG with typewriter-style output.
-  - **Data Flow:** `User Query` → `Librarian Agent` → `RAG Context` → `Synthesized Answer`.
-- **Visual Persona:** Single-purpose terminal. Blinking cursor, terminal-green typewriter text, and zero distractions.
+  - **Stack:** Tauri v2 + Rust (Axum + Tokio) + React frontend + LangGraph + Intel Engine.
+  - **Logic:** Multi-turn conversational RAG with typewriter-style output. Tauri sidecar for offline mode; Railway-hosted Axum for web mode.
+  - **Data Flow (web):** `User Query` → `Axum API (Railway)` → `Librarian Agent` → `RAG Context` → `Synthesized Answer`.
+  - **Data Flow (desktop):** `User Query` → `Tauri Sidecar (local Rust)` → `Librarian Agent` → `Local pgVector / Cached Corpus` → `Synthesized Answer`.
+- **Visual Persona:** Single-purpose terminal. Blinking cursor, terminal-green typewriter text, and zero distractions. Identical across web and desktop — Tauri renders the same React UI.
 
 ---
 
@@ -203,16 +220,16 @@ To ensure strict type safety across 8 different languages, the ecosystem uses **
 
 ### 2. Language-Specific Integration Roles
 
-| Node        | Language    | Runtime          | Primary Research / Technical Role                                                       |
-| :---------- | :---------- | :--------------- | :-------------------------------------------------------------------------------------- |
-| **SONA**    | **Java**    | Spring Boot      | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports.  |
-| **LEDGE**   | **C/C++**   | WASM / Sidecar   | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph. |
-| **DAR**     | **Go**      | Gin / Goroutines | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.      |
-| **DIO**     | **Haskell** | Servant          | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.    |
-| **SIM**     | **C#**      | Unity WebGL      | **Interactive Physics:** Physics-based world-state management for the agentic mission.  |
-| **CLE**     | **Rust**    | Axum / Tokio     | **Memory Safety:** Secure, high-speed RAG processing and vector math via `ndarray`.     |
-| **SCHOLAR** | **Python**  | FastAPI          | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.        |
-| **COMMS**   | **PHP**     | Laravel Octane   | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.          |
+| Node        | Language    | Runtime                 | Primary Research / Technical Role                                                                                                            |
+| :---------- | :---------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SONA**    | **Java**    | Spring Boot             | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports.                                                       |
+| **LEDGE**   | **C/C++**   | WASM / Sidecar          | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                      |
+| **DAR**     | **Go**      | Gin / Goroutines        | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.                                                           |
+| **DIO**     | **Haskell** | Servant                 | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                         |
+| **SIM**     | **C#**      | Unity WebGL             | **Interactive Physics:** Physics-based world-state management for the agentic mission.                                                       |
+| **CLE**     | **Rust**    | Axum / Tokio + Tauri v2 | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets. |
+| **SCHOLAR** | **Python**  | FastAPI                 | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                             |
+| **COMMS**   | **PHP**     | Laravel Octane          | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                               |
 
 ### 3. The Shared Data Kernel
 
