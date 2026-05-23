@@ -89,6 +89,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(ecosystem)_ Complete 12-node ideation — GAGE, CAST, SCOPE, INTRO
 - _(design-system)_ Expand Figma token generator to 20 token groups
 - _(portfolio/assistant)_ Add LangGraph brain API endpoint and routing switch
 - _(analytics)_ Map clickhouse and clickhouse-olap to display names

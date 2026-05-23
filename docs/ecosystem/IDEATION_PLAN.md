@@ -125,9 +125,11 @@ This document provides the exhaustive technical and brand specifications for the
   - **Lytics-Modulated Focus Radio:** A persistent ambient focus stream. The music's BPM, timbre, and glitch-density are modulated in real-time by the live signal pulses from `analytics.aazucena.com`.
   - **Oscilloscope Audit:** High-fidelity technical visualizations (via `wavesurfer.js`) providing frequency distribution and dynamic range data for every composition.
 - **Technical Implementation:**
-  - **Stack:** Strudel.cc + Web Audio API + wavesurfer.js.
+  - **Stack:** Vite + React SPA + Strudel.cc + Web Audio API + wavesurfer.js + Haskell (Servant backend).
+  - **Why Vite + React SPA (no meta-framework):** DIO is a studio — a single persistent session, not a content site. There's no need for SSR, file-based routing, or static generation. A plain Vite SPA gives fast HMR, full access to `@aazucena/ui`, `@aazucena/hooks`, and `@aazucena/animations` without any framework overhead or bridge complexity. Every other node that chose a meta-framework had a reason (routing, SSR, static content); DIO doesn't.
+  - **Why not Svelte:** Strudel.cc and the Web Audio API run on a separate audio thread — React's reconciler runs on the main thread and doesn't compete with the audio engine. The performance argument for Svelte doesn't hold in DIO's actual architecture. Keeping React preserves full `@aazucena/ui` component access and eliminates the only framework exception in an otherwise React-consistent frontend layer.
   - **Logic:** Data-to-MIDI/Oscillator mapping using ClickHouse telemetry.
-  - **Data Flow:** `Lytics Stream` → `Audio Mapping Engine` → `Generative Stream`.
+  - **Data Flow:** `LYTICS stream` → `Haskell audio mapping engine` → `Strudel.cc pattern update` → `Web Audio API` → `wavesurfer.js visualization`.
 - **Visual Persona:** "Cyber-Acoustic Studio." Glowing neon waveforms (Cyan/Coral), oscilloscopes, and integrated code editors.
 
 ---
@@ -628,7 +630,7 @@ To ensure strict type safety across 12 different languages, the ecosystem uses *
 | **SONA**    | **Java**      | Spring Boot                                                        | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports. Spring Boot over Quarkus — persistent service, cold-start irrelevant.                                     |
 | **LEDGE**   | **C/C++**     | WASM / Sidecar                                                     | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                                                                          |
 | **DAR**     | **Go**        | Gin + goroutines + gorilla/websocket + go-github + GORM + go-redis | **Genuine Parallelism:** 5 goroutines poll GitHub endpoints concurrently; channel fan-in aggregates signals; WebSocket broadcasts live to Next.js. No client polling.                            |
-| **DIO**     | **Haskell**   | Servant                                                            | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                                                                             |
+| **DIO**     | **Haskell**   | Servant + Vite + React SPA                                         | **Functional Purity:** Deterministic MIDI/OSC signal generation. React SPA (no meta-framework) — full `@aazucena/ui` access, Web Audio runs on separate thread.                                  |
 | **SIM**     | **C# / .NET** | Unity WebGL + ASP.NET Core + SignalR                               | **Full .NET Stack:** Unity WebGL (C# → WASM) for the game client; ASP.NET Core + SignalR for server-authoritative state, NPC bridge, and trajectory recording.                                   |
 | **CLE**     | **Rust**      | Axum / Tokio + Tauri v2                                            | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.                                                     |
 | **SCHOLAR** | **Python**    | FastAPI                                                            | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                                                                                 |
