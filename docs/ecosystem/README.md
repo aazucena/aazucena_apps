@@ -17,8 +17,10 @@ This document outlines the strategic utilitarian nodes orbiting the Aldrin Azuce
 | **`AAZUCENA_CLE`**     | **`cli.aazucena.com`**       | The Brain      | Rust + Tauri  |
 | **`AAZUCENA_SCHOLAR`** | **`scholar.aazucena.com`**   | The Wisdom     | Python        |
 | **`AAZUCENA_COMMS`**   | **`comms.aazucena.com`**     | The Connection | PHP (Laravel) |
-| **`AAZUCENA_FORGE`**   | **`forge.aazucena.com`**     | The Workshop   | Ruby on Rails |
-| **`AAZUCENA_AGORA`**   | **`agora.aazucena.com`**     | The Agora      | Elixir        |
+| **`AAZUCENA_GAGE`**    | **`gage.aazucena.com`**      | The Workshop   | Ruby on Rails |
+| **`AAZUCENA_CAST`**    | **`cast.aazucena.com`**      | The Broadcast  | Elixir        |
+| **`AAZUCENA_SCOPE`**   | **`scope.aazucena.com`**     | The Sentinel   | Gleam         |
+| **`AAZUCENA_INTRO`**   | **`intro.aazucena.com`**     | The Threshold  | Crystal       |
 
 ---
 

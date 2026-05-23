@@ -38,9 +38,10 @@ This document provides the exhaustive technical and brand specifications for the
   - **Dynamic Dossier Engine:** A headless PDF generation service (e.g., using Puppeteer/Playwright) that converts the active persona view into a branded, high-fidelity resume on the fly.
   - **Persona Persistence:** Syncs the chosen persona across the entire ecosystem using the `az_active_persona` key in `localStorage`.
 - **Technical Implementation:**
-  - **Stack:** Next.js 15 (App Router) + Framer Motion.
+  - **Stack:** Remix (loader/action model) + Framer Motion.
+  - **Why Remix:** Each persona lens is a Remix route loader — persona switch triggers a server-side data fetch that re-ranks and filters Strapi data for that specific role. Progressive enhancement means the toggle works before JS hydrates. The loader/action pattern is a natural fit for dossier generation: the PDF action fires server-side, credentials never touch the browser.
   - **Logic:** Dynamic sorting algorithm based on Strapi relations.
-  - **Data Flow:** `Strapi` → `Transformer (Role-Based)` → `UI`.
+  - **Data Flow:** `Strapi` → `Remix loader (role-based transformer)` → `UI`.
 - **Visual Persona:** Zero-latency, minimalist "High-Density" UI. White-label professional aesthetic with SHADES gradient accents.
 
 ---
@@ -56,9 +57,11 @@ This document provides the exhaustive technical and brand specifications for the
   - **pgVector Semantic Search:** A natural-language search bar powered by the **Internal RAG**. Users type a problem, and the WIKI retrieves the exact solution chunk from the monorepo's documentation.
   - **Interconnectivity Graph:** A D3 force-directed graph showing how technologies are interconnected within the aazucena stack (e.g., _Astro_ → _ClickHouse_ → _D3_).
 - **Technical Implementation:**
-  - **Stack:** Astro (Static) + MDX + pgVector.
+  - **Stack:** Gatsby (Static) + MDX + C/C++ WASM (Emscripten) + pgVector.
+  - **Why Gatsby:** The GraphQL data layer at build time pulls all MDX blueprints into a static graph — every blueprint is queryable at build, no runtime API needed. Gatsby's incremental builds mean adding a new blueprint only rebuilds affected nodes, not the whole site.
+  - **Why C/C++ WASM:** The trie-based client-side search index is compiled from C/C++ to WASM via Emscripten. Result: instant prefix-search in the browser with zero network round-trip — the polyglot story lands directly in the search bar. SCHOLAR benchmarks this against pgVector's semantic search to compare exact-match vs. embedding-based retrieval.
   - **Logic:** Automated indexing via the `Intel Engine` indexer.
-  - **Data Flow:** `Markdown` → `pgVector` → `Retriever` → `Search UI`.
+  - **Data Flow:** `Markdown` → `Gatsby GraphQL (build)` → `C/C++ trie (WASM, client)` + `pgVector (semantic, server)`.
 - **Visual Persona:** "Library of the Future." Dark-mode monospace markdown, hierarchical navigation, and technical diagrams.
 
 ---
@@ -187,7 +190,8 @@ This document provides the exhaustive technical and brand specifications for the
 
 - **SCHOLAR Research Angle:** Tauri vs. web terminal is a measurable HCI experiment — same RAG interface, different runtime. SCHOLAR can run user studies comparing task completion time, perceived latency, and trust between the two surfaces. Binary size, memory footprint, and TTFT benchmarks feed the polyglot benchmarking layer.
 - **Technical Implementation:**
-  - **Stack:** Tauri v2 + Rust (Axum + Tokio) + React frontend + LangGraph + Intel Engine.
+  - **Stack:** Tauri v2 + Rust (Axum + Tokio) + React (web surface) + Preact (Tauri desktop shell) + LangGraph + Intel Engine.
+  - **Why Preact for desktop:** The Tauri shell binary target is size-sensitive — 3KB (Preact) vs 45KB (React). Same API, same component code, swapped at build time via `"react" → "preact/compat"` import alias in the Tauri build config. Zero code changes. SCHOLAR benchmarks the memory footprint difference between the two surfaces.
   - **Logic:** Multi-turn conversational RAG with typewriter-style output. Tauri sidecar for offline mode; Railway-hosted Axum for web mode.
   - **Data Flow (web):** `User Query` → `Axum API (Railway)` → `Librarian Agent` → `RAG Context` → `Synthesized Answer`.
   - **Data Flow (desktop):** `User Query` → `Tauri Sidecar (local Rust)` → `Librarian Agent` → `Local pgVector / Cached Corpus` → `Synthesized Answer`.
@@ -207,9 +211,12 @@ This document provides the exhaustive technical and brand specifications for the
   - **Architectural Scaffolding (SE Education):** A pedagogical breakdown of the monorepo's 16 packages. It tracks a learner's "discovery path" through the code, identifying which design patterns (CVA, Zod, GSAP) they've interacted with and providing just-in-time "Contextual Lessons."
   - **Interactive Research Statement:** A dynamic version of the Statement of Purpose (SoP). Key research claims are hyperlinked directly to live code modules, telemetry datasets, or interactive visualizations in the portfolio, proving "Technical Feasibility" to admissions committees.
 - **Technical Implementation:**
-  - **Stack:** Astro (Static) + Next.js (Dynamic Lab) + ClickHouse + D3.js.
-  - **Logic:** Hypothesis-driven A/B testing framework implemented via Vercel Middleware and Edge Config.
-  - **Data Flow:** `User Interaction` → `Edge Telemetry` → `ClickHouse` → `D3 Data Analysis` → `Researcher Dashboard`.
+  - **Stack:** Astro (static pages) + Remix (`/lab/` dynamic layer) + FastAPI + ClickHouse + D3.js.
+  - **Why Astro for static pages:** The academic core — research interests, publications, SoP, education — is pure static content. Astro's zero-JS default keeps the "Austerity of the Professor" aesthetic honest.
+  - **Why Remix for `/lab/`:** The RecSys sandbox and HCI experiment pages are dynamic: each experiment is a Remix route with a server loader streaming fresh ClickHouse telemetry. Form actions handle hypothesis submissions. Progressive enhancement keeps the lab accessible even if JS fails.
+  - **Why FastAPI:** Python's data science ecosystem (NumPy, Pandas, scikit-learn) runs in FastAPI. The `/lab/` endpoints proxy to FastAPI for actual analysis — Remix handles routing and UI, Python handles the math.
+  - **Logic:** Hypothesis-driven A/B testing framework. Vercel Middleware gates research mode opt-in.
+  - **Data Flow:** `User Interaction` → `Edge Telemetry` → `ClickHouse` → `FastAPI analysis` → `Remix loader` → `D3 visualization`.
 - **Visual Persona:** "The Intentional Plain." Adopts the "Austerity of the Professor" aesthetic—high-density typography (LaTeX-inspired Serif), single-column layouts, and zero-distraction navigation. Signals "Information Over Decoration" to admissions committees.
 
 - **Core Content Modules (Student Researcher Edition):**
@@ -241,20 +248,21 @@ This document provides the exhaustive technical and brand specifications for the
   - **Omnichannel Notifications:** Uses Laravel's notification system to sync alerts across Email, Discord, and the `AZUCENA_LYTICS` dashboard.
   - **Interaction Persistence:** Tracks every touchpoint a visitor has across the nodes (e.g., "Visitor A read the WIKI, then looked at SONA"), building a "Social Graph" for your People-Centric research.
 - **Technical Implementation:**
-  - **Stack:** PHP 8.3 + Laravel 11 + PostgreSQL + Redis.
+  - **Stack:** PHP 8.3 + Laravel 11 + TanStack Start (frontend) + PostgreSQL + Redis.
+  - **Why TanStack Start:** TanStack Query and TanStack Table are already powering the analytics app. COMMS reuses the same query patterns for notification feeds and interaction logs — no new mental model for the frontend. TanStack Start's server functions call the Laravel API without a separate REST contract.
   - **Logic:** Event-driven architecture using Laravel Jobs and Queues.
-  - **Data Flow:** `Frontend Form` → `COMMS API` → `PII Scrubber` → `Lytics Event` → `Notification Dispatch`.
+  - **Data Flow:** `Frontend Form (TanStack Start)` → `COMMS API (Laravel)` → `PII Scrubber` → `Lytics Event` → `Notification Dispatch`.
 - **Visual Persona:** "Social Terminal." Minimalist card-based UI, activity feeds, and real-time interaction logs.
 
 ---
 
-### 9. 🔨 AAZUCENA_FORGE // `forge.aazucena.com`
+### 9. 🔨 AAZUCENA_GAGE // `gage.aazucena.com`
 
 **The Workshop Node // Private Client Engagement & Project Pipeline**
 
 - **Polyglot Challenge:** **Ruby on Rails 8** for convention-driven relational back-office tooling — the one architectural pattern none of the other 8 nodes demonstrate.
-- **Core Utility:** Solves "Engagement Gap." The portfolio handles the public story; the Inquiry Firewall qualifies leads; FORGE handles everything after `ACCESS_GRANTED` — briefs, proposals, contracts, milestones, invoicing, and delivery.
-- **Visibility:** Private. Clients receive a direct login link. `forge.aazucena.com` is not publicly listed.
+- **Core Utility:** Solves "Engagement Gap." The portfolio handles the public story; the Inquiry Firewall qualifies leads; GAGE handles everything after `ACCESS_GRANTED` — briefs, proposals, contracts, milestones, invoicing, and delivery.
+- **Visibility:** Private. Clients receive a direct login link. `gage.aazucena.com` is not publicly listed.
 - **Detailed Functionality:**
   - **Project Pipeline:** Five-stage board — Brief → Proposal → Contract → Active → Delivered. Each stage has defined entry/exit conditions. Aldrin manages the full pipeline; clients see only their own project workspace.
   - **Brief Builder:** Structured intake form replacing open-text contact forms. Requirements, tech stack, timeline, budget, and reference links. Both parties sign off before work begins.
@@ -264,7 +272,7 @@ This document provides the exhaustive technical and brand specifications for the
   - **Private Admin View:** Aldrin's dashboard — full pipeline overview, revenue by project, time tracking, overdue alerts. Rin surfaces anomalies: _"Client A has been in the Brief stage for 9 days without a response."_
 - **Why Rails Specifically:**
 
-  | Rails capability               | What it does in FORGE                                                               |
+  | Rails capability               | What it does in GAGE                                                                |
   | ------------------------------ | ----------------------------------------------------------------------------------- |
   | **ActiveRecord**               | Clean relational model: `Client → Project → Milestone → Invoice → Payment`          |
   | **ActionCable**                | Real-time milestone updates in client workspace — no polling                        |
@@ -276,10 +284,10 @@ This document provides the exhaustive technical and brand specifications for the
   | **Multi-tenancy**              | Row-level isolation via `scope: current_client` — clients never cross-contaminate   |
 
 - **Connection to the Existing Ecosystem:**
-  - `COMMS` → qualified leads enter FORGE pipeline after `ACCESS_GRANTED`
+  - `COMMS` → qualified leads enter GAGE pipeline after `ACCESS_GRANTED`
   - `LYTICS financial_ledger` ← milestone payments feed ClickHouse in real-time
   - `LYTICS telemetry` ← milestone events logged as named telemetry signals
-  - `COMMS notification bus` ← FORGE triggers cross-channel alerts (email, Discord, LYTICS)
+  - `COMMS notification bus` ← GAGE triggers cross-channel alerts (email, Discord, LYTICS)
   - `SONA persona lens` → proposal template selected by client's active `az_active_persona`
   - `Strapi projects` → portfolio project data referenced in proposals and briefs
   - `Rin OS` → Rin surfaces overdue milestones and today's revenue on the home screen
@@ -291,12 +299,12 @@ This document provides the exhaustive technical and brand specifications for the
 
 ---
 
-### 10. 🏛️ AAZUCENA_AGORA // `agora.aazucena.com`
+### 10. 🏛️ AAZUCENA_CAST // `cast.aazucena.com`
 
-**The Agora Node // Creator Community Hub & Anonymous Q&A Platform**
+**The Broadcast Node // Creator Community Hub & Anonymous Q&A Platform**
 
 - **Polyglot Challenge:** **Elixir 1.17 + Phoenix 1.7** for fault-tolerant real-time community infrastructure — the one concurrency model none of the other 9 nodes demonstrate.
-- **Core Utility:** Solves "Audience Distance." Every other node requires Aldrin to produce content. AGORA generates content from the audience — anonymous questions become public answers, public answers become newsletter issues, newsletter issues drive more subscribers who ask more questions. A self-sustaining content flywheel.
+- **Core Utility:** Solves "Audience Distance." Every other node requires Aldrin to produce content. CAST generates content from the audience — anonymous questions become public answers, public answers become newsletter issues, newsletter issues drive more subscribers who ask more questions. A self-sustaining content flywheel.
 - **Inspiration:** Marshmallow (marshmallow.app) — anonymous Q&A where the audience generates the questions and the creator curates what becomes public. Extended into a full creator hub with events, learning, and broadcast.
 - **Visibility:** Public. The community-facing node — the town square of the ecosystem.
 
@@ -308,7 +316,7 @@ This document provides the exhaustive technical and brand specifications for the
 
 The core feature. The audience generates the content.
 
-- **Shareable ask link:** `agora.aazucena.com/ask` — one URL distributed across portfolio, SONA, and social profiles
+- **Shareable ask link:** `cast.aazucena.com/ask` — one URL distributed across portfolio, SONA, and social profiles
 - **Anonymous by default:** Zero friction — no account required to submit a question
 - **Private inbox:** All questions land in Aldrin's curated inbox — nothing is auto-published. Full control over what becomes public
 - **Community upvoting:** Unanswered questions can be upvoted to signal priority — the most-wanted answers surface naturally
@@ -360,7 +368,7 @@ repeat
 - **Talk archive:** Conference recordings, slide decks, timestamps, and key quotes. Each talk has its own Q&A thread — audience asks follow-up questions post-talk
 - **Event calendar:** Upcoming conferences, workshops, and live sessions with one-click notification subscription
 - **Live session hosting:** Phoenix Channels — real-time attendee counter, live Q&A feed, Rin narrates milestones (_"100 people in the room"_)
-- **Speaking inquiry route:** Interest form on event pages feeds directly into the FORGE pipeline — qualified inquiries become project briefs
+- **Speaking inquiry route:** Interest form on event pages feeds directly into the GAGE pipeline — qualified inquiries become project briefs
 
 ---
 
@@ -376,9 +384,9 @@ repeat
 
 #### Why Elixir + Phoenix
 
-The Marshmallow layer makes the real-time requirements heavier, not lighter. Four of Phoenix's standard primitives map directly to AGORA's core needs:
+The Marshmallow layer makes the real-time requirements heavier, not lighter. Four of Phoenix's standard primitives map directly to CAST's core needs:
 
-| Phoenix primitive    | AGORA use                                                                   |
+| Phoenix primitive    | CAST use                                                                    |
 | -------------------- | --------------------------------------------------------------------------- |
 | **Phoenix.Presence** | Distributed real-time reader tracking — no polling, OTP-managed             |
 | **Phoenix Channels** | Live AMA sessions — question stream + attendee feed                         |
@@ -393,8 +401,8 @@ The Marshmallow layer makes the real-time requirements heavier, not lighter. Fou
 
 ```
 COMMS (PHP/Laravel)    →  queues and jobs — async deferral
-FORGE (Ruby/Rails)     →  convention-driven request/response + ActionCable
-AGORA (Elixir/Phoenix) →  processes all the way down — concurrency is the default
+GAGE (Ruby/Rails)     →  convention-driven request/response + ActionCable
+CAST (Elixir/Phoenix) →  processes all the way down — concurrency is the default
 ```
 
 Three languages, three answers to "how do you build for many concurrent users doing different things simultaneously."
@@ -407,13 +415,13 @@ Three languages, three answers to "how do you build for many concurrent users do
 Portfolio + SONA      →  "ask" link distributed on every public surface
 LYTICS                ←  subscriber opens, event attendance, tutorial completions as telemetry
 LYTICS financial_ledger ← Stripe member subscriptions feed ClickHouse
-COMMS                 ←  AGORA events trigger cross-channel notifications (email, Discord)
-SCHOLAR               →  research findings become AGORA learning content
+COMMS                 ←  CAST events trigger cross-channel notifications (email, Discord)
+SCHOLAR               →  research findings become CAST learning content
 SCHOLAR               ←  Q&A topic trends feed HCI research signal
-FORGE                 ←  speaking inquiries from event pages enter the FORGE pipeline
+GAGE ←  speaking inquiries from event pages enter the GAGE pipeline
 LEDGE                 ←  technical answers auto-suggest becoming Engineering Blueprints
 DIO                   ←  music compositions embedded in newsletter issues
-DAR                   ←  roadmap updates broadcast to AGORA subscribers
+DAR                   ←  roadmap updates broadcast to CAST subscribers
 Rin OS                →  Rin surfaces "47 new questions this week" on the home screen
 ```
 
@@ -434,7 +442,169 @@ Rin OS                →  Rin surfaces "47 new questions this week" on the home
 
 Warm, editorial, open. The one node that feels like a **home**, not a dashboard or terminal. Readable serif typography for Q&A content, clean sans-serif for UI chrome. Subtle presence indicators — ambient, not intrusive. The ask form is the hero element: one input, one button, no account wall.
 
-SHADES accent colours apply but the overall tone is lighter and more inviting than the rest of the ecosystem. If every other node is a tool or showcase, AGORA is the living room.
+SHADES accent colours apply but the overall tone is lighter and more inviting than the rest of the ecosystem. If every other node is a tool or showcase, CAST is the living room.
+
+---
+
+### 11. 🔭 AAZUCENA_SCOPE // `scope.aazucena.com`
+
+**The Sentinel Node // Ecosystem Health Monitor & Status Board**
+
+- **Name Origin:** From tele-**SCOPE** / micro-**SCOPE** — an instrument of observation. End-of-word extraction matching know-**LEDGE** exactly.
+- **Polyglot Challenge:** **Gleam** — a statically typed language that compiles to Erlang/BEAM bytecode, pairing with CAST (Elixir) on the same BEAM VM. The only node in the ecosystem that can share OTP supervisors, subscribe to Phoenix.PubSub, and call Elixir libraries natively without an HTTP boundary.
+- **Core Utility:** Solves "Ecosystem Blindness." One dashboard that tells you — in real time — whether every other node is healthy, degraded, or down. The sentinel that watches the watchers.
+- **Visibility:** Public status page. Incidents visible to anyone. Private admin view for drill-down telemetry.
+
+---
+
+#### The BEAM Pairing with CAST
+
+SCOPE and CAST run on the same BEAM VM runtime. This is the defining architectural story of Node 11:
+
+```
+CAST (Elixir)  ──  Phoenix.PubSub broadcast  ──► SCOPE (Gleam) GenServer subscribes
+SCOPE (Gleam)  ──  health check result        ──► CAST PubSub ("Node SONA degraded")
+                                                        │
+                                                        ▼
+                                              CAST community feed:
+                                              "SONA is experiencing slowness — ETA 5min"
+```
+
+- **Shared OTP cluster:** SCOPE's GenServers can be supervised by the same application supervisor as CAST — one fault-tolerant process tree for both nodes
+- **Zero-overhead interop:** Gleam calls Elixir functions with no FFI overhead; both compile to Erlang bytecode
+- **Gleam's stronger type system:** Pattern matching in Gleam is exhaustively checked at compile time — every health state (`Healthy | Degraded | Down | Unknown`) must be handled, no runtime surprises
+
+---
+
+#### Detailed Functionality
+
+- **Node Health Board:** One-glance status for all 12 ecosystem nodes. Each node is polled on a configurable interval — HTTP endpoint check + response time measurement. Displayed as SolidJS signals (each node's status is an independent reactive atom — a status flip on one node doesn't re-render any other).
+- **Incident Timeline:** Structured incident log. When a node transitions to `Degraded` or `Down`, SCOPE opens an incident record with timestamp, affected node, and last healthy response. Incidents auto-resolve when health is restored.
+- **SLA Tracking:** Rolling uptime percentages (7d / 30d / 90d) and response time P50/P95/P99 per node. Feeds the `system_integrity` table in LYTICS ClickHouse.
+- **CAST Community Bridge:** SCOPE publishes ecosystem health events to CAST's Phoenix.PubSub. CAST surfaces major incidents in the community feed — visitors see status without visiting `scope.aazucena.com` directly.
+- **Rin OS Integration:** Rin receives a push notification when any core node goes down. SCOPE is the heartbeat sensor; Rin is the voice.
+
+---
+
+#### Why SolidJS for the Frontend
+
+Each node's health indicator — a coloured dot, a latency sparkline, an uptime badge — is a reactive primitive. SolidJS signals map cleanly to this model:
+
+```typescript
+// Each node is an independent signal — no virtual DOM diffing
+const [sonaHealth, setSonaHealth] = createSignal<HealthState>('healthy');
+const [darHealth, setDarHealth] = createSignal<HealthState>('healthy');
+// Updating one signal only re-renders that node's indicator — nothing else
+```
+
+React would wrap these in state and reconcile the full component tree on each update. SolidJS compiles to direct DOM operations — a status flip on SONA touches exactly one DOM node. For a dashboard with 12 live-updating indicators, that's the right abstraction.
+
+---
+
+#### Connection to the Existing Ecosystem
+
+```
+All 12 nodes   →  SCOPE polls health endpoints every 30s
+LYTICS         ←  system_integrity events + P95 response times per node
+CAST           ↔  PubSub bridge — incidents published to community feed; CAST reactions feed back
+Rin OS         ←  push notification on node_down / node_degraded events
+SCHOLAR        ←  uptime + latency data feeds HCI research on "perceived system reliability"
+```
+
+#### Technical Implementation
+
+- **Stack:** Gleam 1.x + Phoenix (shared BEAM cluster with CAST) + SolidJS + ClickHouse
+- **Health checks:** Gleam GenServer per node — each polls independently, crashes restart in isolation (OTP "let it crash")
+- **Data Flow:** `Gleam GenServer poll` → `Health state update` → `Phoenix.PubSub broadcast` → `SolidJS signal` + `LYTICS ClickHouse`
+- **Deployment:** Co-deployed with CAST on Fly.io — shares the BEAM cluster, one release pipeline
+
+#### Visual Persona
+
+Minimal. Clinical precision. Every pixel is information. Dark background, monochrome with single-colour status signals (green/amber/red). No decoration — the ecosystem's vital signs, nothing else. Operators trust dashboards that have no room for noise.
+
+---
+
+### 12. 🪪 AAZUCENA_INTRO // `intro.aazucena.com`
+
+**The Threshold Node // Digital Identity Card & NFC Landing Experience**
+
+- **Name Origin:** From **INTRO**-duction — a business card is a literal introduction. Beginning-of-word extraction; the node is the entry point before the ecosystem begins.
+- **Polyglot Challenge:** **Crystal** — compiled Ruby. Same expressive syntax as GAGE (Ruby on Rails), compiled to a native binary via LLVM. The SCHOLAR benchmark writes the same business card API in both languages and measures binary size, cold start, memory footprint, and request latency.
+- **Core Utility:** Solves "Business Card Friction." Tap the physical card → instant, rich first impression — no URL typing, no app download, no loading spinner. The threshold every visitor crosses before they reach the portfolio.
+- **Visibility:** Public. The most-accessed node at conferences and networking events — it must load in under 200ms.
+
+---
+
+#### The GAGE / Crystal Language Pairing
+
+| Dimension             | GAGE (Ruby on Rails 8)       | INTRO (Crystal)                       |
+| --------------------- | ---------------------------- | ------------------------------------- | ----- |
+| Syntax family         | Ruby                         | Ruby (nearly identical)               |
+| Execution             | Interpreted (MRI/YARV)       | Compiled to native binary (LLVM)      |
+| Startup time          | ~1–2s (JVM-style warmup)     | <50ms                                 |
+| Memory                | ~80–150MB (Rails stack)      | ~4–8MB                                |
+| Concurrency model     | Puma multi-process + Ractors | Fibers (cooperative coroutines)       |
+| Nil safety            | Runtime `NoMethodError`      | Compile-time nil check (`T            | Nil`) |
+| Use case in ecosystem | Convention-heavy back-office | Performance-critical first-impression |
+
+**Crystal's Fiber model** is the third concurrency model in the ecosystem — alongside Go's goroutines (preemptive, OS-thread-based) and Elixir/Gleam's BEAM processes (actor model, millions of lightweight processes). SCHOLAR benchmarks all three for I/O-bound workloads: handling 1,000 concurrent card-load requests across Go, Crystal, and Elixir.
+
+---
+
+#### Detailed Functionality
+
+- **NFC / QR Landing:** Physical card contains an NFC chip and QR code both pointing to `intro.aazucena.com`. The page loads with zero hydration cost — Qwik's resumability means the HTML is interactive from the first byte delivered. No JavaScript parsed before the visitor sees the card.
+- **Context-Aware Identity View:** Crystal backend reads the `Referer` and `UTM` parameters to surface the most relevant persona lens. Conference referrer → engineering-focused card. LinkedIn QR → professional summary card. Direct URL → full card.
+- **Rin AR Trigger Point:** When a visitor opens the Rin OS camera and points at the physical card, the Rin OS AR mode launches — Rin appears over the card in AR and delivers the elevator pitch. INTRO provides the backend endpoint that Rin OS polls to confirm card identity during AR detection.
+- **Ecosystem Gateway:** The card links to all public nodes — a curated, persona-aware entry into the full ecosystem. Not a list of links — a narrative path: _"Start with the portfolio. Then explore the radar. Then ask Rin anything."_
+- **SCHOLAR Benchmark Surface:** The `/bench` endpoint exposes Crystal's server metrics in real time — response time, memory usage, Fiber count, GC pauses. SCHOLAR reads this and compares against the GAGE equivalent.
+
+---
+
+#### Why Qwik for the Frontend
+
+The NFC card is a first impression. The visitor taps their phone and expects the page to be ready — not loading. Qwik's **resumability** model is designed for exactly this constraint:
+
+| Model          | What happens on tap                                                                |
+| -------------- | ---------------------------------------------------------------------------------- |
+| **React/Next** | Browser downloads JS bundle → parses → runs hydration → attaches event listeners   |
+| **Qwik**       | HTML is already interactive. Browser only downloads JS for interactions that occur |
+
+A visitor who taps the card and reads the name, title, and links — without clicking anything — downloads **zero JavaScript**. The page is fully readable and visually polished from the first HTTP response. This is zero hydration, not deferred hydration.
+
+```
+Crystal backend ──► Pre-rendered HTML (server) ──► Browser renders immediately
+                                                         │
+                                                   Qwik serializes state into HTML
+                                                         │
+                                               Only loads JS when visitor interacts
+```
+
+---
+
+#### Connection to the Existing Ecosystem
+
+```
+Physical NFC card / QR code  →  intro.aazucena.com
+SONA                         →  persona lens data — intro surfaces the relevant sub-identity
+Portfolio                    →  primary CTA from the card
+Rin OS                       →  AR trigger — intro confirms card identity for AR detection
+LYTICS                       ←  tap events, referrer source, persona selected, path taken
+SCHOLAR                      ←  Crystal performance metrics feed the benchmarking layer
+GAGE                         ←  language-family benchmark pairing (Ruby vs Crystal)
+CAST                         →  "share card" posts an intro link to the CAST community feed
+```
+
+#### Technical Implementation
+
+- **Stack:** Crystal 1.x + Kemal (lightweight HTTP framework) + Qwik + ClickHouse
+- **Why Kemal over Lucky/Amber:** Kemal is Crystal's lightest HTTP framework — single file, ~4MB binary. INTRO has one job; a full MVC framework adds overhead with no payoff.
+- **Data Flow:** `NFC/QR tap` → `Kemal route` → `Persona resolution` → `Qwik pre-rendered HTML` → `LYTICS tap event`
+- **Deployment:** Railway (static binary — no runtime dependency, container image < 10MB)
+
+#### Visual Persona
+
+The card, not the portfolio. Clean white (or near-white) card aesthetic — the physical business card translated to screen. Name, title, two key links, and Rin's mark. No animations on load (they cost time). Micro-interactions only after the card is visible. The one node that intentionally defers to what it's pointing at, rather than being a destination itself.
 
 ---
 
@@ -446,25 +616,27 @@ To achieve the **Polyglot Challenge**, the ecosystem utilizes a **Containerized 
 
 ### 1. The Communication Handshake (gRPC + Protobuf)
 
-To ensure strict type safety across 10 different languages, the ecosystem uses **gRPC (Protocol Buffers)** for internal service-to-service communication.
+To ensure strict type safety across 12 different languages, the ecosystem uses **gRPC (Protocol Buffers)** for internal service-to-service communication.
 
 - **Why:** Allows the Rust terminal (CLE) to talk to the Java dossier engine (SONA) with sub-millisecond overhead and shared schema definitions.
 - **Research Signal:** Demonstrates mastery of high-performance distributed systems.
 
 ### 2. Language-Specific Integration Roles
 
-| Node        | Language      | Runtime                                                            | Primary Research / Technical Role                                                                                                                                     |
-| :---------- | :------------ | :----------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **SONA**    | **Java**      | Spring Boot                                                        | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports. Spring Boot over Quarkus — persistent service, cold-start irrelevant.          |
-| **LEDGE**   | **C/C++**     | WASM / Sidecar                                                     | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                                               |
-| **DAR**     | **Go**        | Gin + goroutines + gorilla/websocket + go-github + GORM + go-redis | **Genuine Parallelism:** 5 goroutines poll GitHub endpoints concurrently; channel fan-in aggregates signals; WebSocket broadcasts live to Next.js. No client polling. |
-| **DIO**     | **Haskell**   | Servant                                                            | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                                                  |
-| **SIM**     | **C# / .NET** | Unity WebGL + ASP.NET Core + SignalR                               | **Full .NET Stack:** Unity WebGL (C# → WASM) for the game client; ASP.NET Core + SignalR for server-authoritative state, NPC bridge, and trajectory recording.        |
-| **CLE**     | **Rust**      | Axum / Tokio + Tauri v2                                            | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.                          |
-| **SCHOLAR** | **Python**    | FastAPI                                                            | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                                                      |
-| **COMMS**   | **PHP**       | Laravel Octane                                                     | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                                                        |
-| **FORGE**   | **Ruby**      | Rails 8 + Puma + Kamal                                             | **Convention-Driven Tooling:** Rapid relational back-office — the one pattern none of the other 8 nodes demonstrate. Private client pipeline.                         |
-| **AGORA**   | **Elixir**    | Phoenix + Fly.io                                                   | **Fault-Tolerant Concurrency:** OTP actor model — processes all the way down. Real-time community, AMA sessions, newsletter, live presence.                           |
+| Node        | Language      | Runtime                                                            | Primary Research / Technical Role                                                                                                                                                                |
+| :---------- | :------------ | :----------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SONA**    | **Java**      | Spring Boot                                                        | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports. Spring Boot over Quarkus — persistent service, cold-start irrelevant.                                     |
+| **LEDGE**   | **C/C++**     | WASM / Sidecar                                                     | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                                                                          |
+| **DAR**     | **Go**        | Gin + goroutines + gorilla/websocket + go-github + GORM + go-redis | **Genuine Parallelism:** 5 goroutines poll GitHub endpoints concurrently; channel fan-in aggregates signals; WebSocket broadcasts live to Next.js. No client polling.                            |
+| **DIO**     | **Haskell**   | Servant                                                            | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                                                                             |
+| **SIM**     | **C# / .NET** | Unity WebGL + ASP.NET Core + SignalR                               | **Full .NET Stack:** Unity WebGL (C# → WASM) for the game client; ASP.NET Core + SignalR for server-authoritative state, NPC bridge, and trajectory recording.                                   |
+| **CLE**     | **Rust**      | Axum / Tokio + Tauri v2                                            | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.                                                     |
+| **SCHOLAR** | **Python**    | FastAPI                                                            | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                                                                                 |
+| **COMMS**   | **PHP**       | Laravel Octane                                                     | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                                                                                   |
+| **GAGE**    | **Ruby**      | Rails 8 + Puma + Kamal                                             | **Convention-Driven Tooling:** Rapid relational back-office — the one pattern none of the other 8 nodes demonstrate. Private client pipeline.                                                    |
+| **CAST**    | **Elixir**    | Phoenix + Fly.io (BEAM cluster)                                    | **Fault-Tolerant Concurrency:** OTP actor model — processes all the way down. Real-time community, AMA sessions, newsletter, live presence.                                                      |
+| **SCOPE**   | **Gleam**     | Gleam 1.x + Phoenix.PubSub (BEAM cluster, shared with CAST)        | **Type-Safe BEAM:** Statically typed Erlang-target language. Pairs with CAST on same VM — shares OTP supervisors, subscribes to Phoenix.PubSub natively. Sentinel for all 12 nodes.              |
+| **INTRO**   | **Crystal**   | Kemal (Crystal 1.x) + Railway                                      | **Compiled Ruby:** Same syntax family as GAGE (Ruby). Native binary via LLVM — <50ms startup, ~4MB memory. Qwik frontend for zero-hydration NFC/QR landing. SCHOLAR's Ruby vs Crystal benchmark. |
 
 ### 3. The Shared Data Kernel
 
@@ -476,7 +648,7 @@ All nodes share a unified data layer to prevent "Information Silos":
 
 ### 4. Researcher Utility: The "Benchmarking" Layer
 
-By running these 10 stacks side-by-side, the **AAZUCENA_SCHOLAR** node can generate real-time performance comparisons:
+By running these 12 stacks side-by-side, the **AAZUCENA_SCHOLAR** node can generate real-time performance comparisons:
 
 - **Energy Efficiency:** Measuring CPU cycles vs. memory footprint across languages for the same task.
 - **Interaction Latency:** Comparing the TTFT (Time to First Token) of the Rust terminal vs. the Go proxy.
