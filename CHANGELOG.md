@@ -4,7 +4,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ---
 
-## 2026-05-17
+## 2026-05-23
 
 ### ♻️ Refactor
 
@@ -89,6 +89,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(design-system)_ Expand Figma token generator to 20 token groups
 - _(portfolio/assistant)_ Add LangGraph brain API endpoint and routing switch
 - _(analytics)_ Map clickhouse and clickhouse-olap to display names
 - _(analytics)_ Add display name mapping for status page services
