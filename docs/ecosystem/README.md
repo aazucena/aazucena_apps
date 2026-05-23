@@ -18,6 +18,7 @@ This document outlines the strategic utilitarian nodes orbiting the Aldrin Azuce
 | **`AAZUCENA_SCHOLAR`** | **`scholar.aazucena.com`**   | The Wisdom     | Python        |
 | **`AAZUCENA_COMMS`**   | **`comms.aazucena.com`**     | The Connection | PHP (Laravel) |
 | **`AAZUCENA_FORGE`**   | **`forge.aazucena.com`**     | The Workshop   | Ruby on Rails |
+| **`AAZUCENA_AGORA`**   | **`agora.aazucena.com`**     | The Agora      | Elixir        |
 
 ---
 
