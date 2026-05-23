@@ -31,7 +31,7 @@ This document provides the exhaustive technical and brand specifications for the
 
 **The Projection Node // Recruitment Velocity Tool**
 
-- **Polyglot Challenge:** **Java (Spring Boot / Quarkus)** for the enterprise-grade dossier engine.
+- **Polyglot Challenge:** **Java (Spring Boot)** for the enterprise-grade dossier engine.
 - **Core Utility:** Solves "Scanning Friction" for technical recruiters and CTOs.
 - **Detailed Functionality:**
   - **Quantum Toggling:** Visitors select a professional lens (e.g., _Lead Architect_, _Creative Developer_, _System Engineer_). The site instantly re-ranks and filters the Strapi `api::experience` and `api::project` data to project the most relevant sub-identity.
@@ -410,18 +410,18 @@ To ensure strict type safety across 10 different languages, the ecosystem uses *
 
 ### 2. Language-Specific Integration Roles
 
-| Node        | Language    | Runtime                 | Primary Research / Technical Role                                                                                                             |
-| :---------- | :---------- | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| **SONA**    | **Java**    | Spring Boot             | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports.                                                        |
-| **LEDGE**   | **C/C++**   | WASM / Sidecar          | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                       |
-| **DAR**     | **Go**      | Gin / Goroutines        | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.                                                            |
-| **DIO**     | **Haskell** | Servant                 | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                          |
-| **SIM**     | **C#**      | Unity WebGL             | **Interactive Physics:** Physics-based world-state management for the agentic mission.                                                        |
-| **CLE**     | **Rust**    | Axum / Tokio + Tauri v2 | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.  |
-| **SCHOLAR** | **Python**  | FastAPI                 | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                              |
-| **COMMS**   | **PHP**     | Laravel Octane          | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                                |
-| **FORGE**   | **Ruby**    | Rails 8 + Puma + Kamal  | **Convention-Driven Tooling:** Rapid relational back-office — the one pattern none of the other 8 nodes demonstrate. Private client pipeline. |
-| **AGORA**   | **Elixir**  | Phoenix + Fly.io        | **Fault-Tolerant Concurrency:** OTP actor model — processes all the way down. Real-time community, AMA sessions, newsletter, live presence.   |
+| Node        | Language    | Runtime                 | Primary Research / Technical Role                                                                                                                            |
+| :---------- | :---------- | :---------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SONA**    | **Java**    | Spring Boot             | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports. Spring Boot over Quarkus — persistent service, cold-start irrelevant. |
+| **LEDGE**   | **C/C++**   | WASM / Sidecar          | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                                      |
+| **DAR**     | **Go**      | Gin / Goroutines        | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.                                                                           |
+| **DIO**     | **Haskell** | Servant                 | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                                         |
+| **SIM**     | **C#**      | Unity WebGL             | **Interactive Physics:** Physics-based world-state management for the agentic mission.                                                                       |
+| **CLE**     | **Rust**    | Axum / Tokio + Tauri v2 | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.                 |
+| **SCHOLAR** | **Python**  | FastAPI                 | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                                             |
+| **COMMS**   | **PHP**     | Laravel Octane          | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                                               |
+| **FORGE**   | **Ruby**    | Rails 8 + Puma + Kamal  | **Convention-Driven Tooling:** Rapid relational back-office — the one pattern none of the other 8 nodes demonstrate. Private client pipeline.                |
+| **AGORA**   | **Elixir**  | Phoenix + Fly.io        | **Fault-Tolerant Concurrency:** OTP actor model — processes all the way down. Real-time community, AMA sessions, newsletter, live presence.                  |
 
 ### 3. The Shared Data Kernel
 
