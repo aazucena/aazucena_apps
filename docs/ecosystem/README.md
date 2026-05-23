@@ -13,7 +13,7 @@ This document outlines the strategic utilitarian nodes orbiting the Aldrin Azuce
 | **`AAZUCENA_LEDGE`**   | **`wiki.aazucena.com`**      | The Memory     | C/C++ (WASM)  |
 | **`AAZUCENA_DAR`**     | **`radar.aazucena.com`**     | The Horizon    | Go            |
 | **`AAZUCENA_DIO`**     | **`studio.aazucena.com`**    | The Frequency  | Haskell       |
-| **`AAZUCENA_SIM`**     | **`play.aazucena.com`**      | The Arena      | C#            |
+| **`AAZUCENA_SIM`**     | **`play.aazucena.com`**      | The Arena      | C# / .NET     |
 | **`AAZUCENA_CLE`**     | **`cli.aazucena.com`**       | The Brain      | Rust + Tauri  |
 | **`AAZUCENA_SCHOLAR`** | **`scholar.aazucena.com`**   | The Wisdom     | Python        |
 | **`AAZUCENA_COMMS`**   | **`comms.aazucena.com`**     | The Connection | PHP (Laravel) |

@@ -103,16 +103,29 @@ This document provides the exhaustive technical and brand specifications for the
 
 **The Arena Node // Agentic Identity Mission**
 
-- **Polyglot Challenge:** **C# (Unity/Godot)** for the physics-based mission world.
+- **Polyglot Challenge:** **C# + .NET (Unity WebGL + ASP.NET Core)** — one language across two runtime contexts: game engine client and web server backend. The strongest C# polyglot story possible.
 - **Core Utility:** Solves "Visitor Boredom." Demonstrates game-dev and AI orchestration skills via a 5-minute interactive mission.
 - **Detailed Functionality:**
-  - **Kernel Arena:** A physics-based world (built with **Phaser** or **Three.js**) representing the internal structure of your monorepo.
-  - **Agent NPCs:** Your digital twin personas (**Architect, Librarian**) appear as companions. Users must interact with them via the RAG system to solve infrastructure puzzles representing past projects.
-  - **Trajectory Playback:** User sessions are recorded as `ai_trajectory` events, allowing you to review recruiter "playthroughs" in the **Trajectory Labs** dashboard.
+  - **Kernel Arena:** A physics-based Unity WebGL world representing the internal structure of your monorepo. The game client is written entirely in C# and compiled to WebAssembly via IL2CPP.
+  - **Agent NPCs:** Your digital twin personas (**Architect, Librarian**) appear as companions. Visitors interact with them via the RAG system to solve infrastructure puzzles based on real past projects. NPC requests route through the ASP.NET Core backend — credentials never leave the server.
+  - **Trajectory Playback:** User sessions recorded as `ai_trajectory` events via the ASP.NET Core layer, reviewable in the LYTICS Trajectory Labs dashboard.
+- **Two-Layer .NET Architecture:**
+
+  | Layer                   | Technology                              | Role                                                            |
+  | ----------------------- | --------------------------------------- | --------------------------------------------------------------- |
+  | **Game client**         | Unity WebGL (C# → IL2CPP → WASM)        | Rendering, game logic, player input                             |
+  | **Game server**         | ASP.NET Core + SignalR                  | Session state, NPC bridge, trajectory                           |
+  | **Real-time transport** | SignalR (Unity native client support)   | Bidirectional hub — reconnection, fallback, authoritative state |
+  | **Agent bridge**        | ASP.NET Core → LangGraph (Intel Engine) | Proxies RAG requests, keeps keys server-side                    |
+  | **Persistence**         | EF Core → PostgreSQL                    | Playthrough sessions, leaderboard, trajectory events            |
+
+  **Why SignalR over raw WebSockets:** Unity has a native SignalR client library. SignalR handles reconnection, transport fallback (WebSockets → SSE → long-poll), and the hub pattern maps cleanly to game event channels — no custom protocol design needed.
+
 - **Technical Implementation:**
-  - **Stack:** Phaser 3 / React Three Fiber + LangGraph.
-  - **Logic:** State-based puzzle solving connected to the RAG knowledge base.
-  - **Data Flow:** `Game State` → `LangGraph Request` → `RAG Context` → `Agent Action`.
+  - **Stack:** Unity WebGL (C#) + ASP.NET Core + SignalR + EF Core + LangGraph (Intel Engine).
+  - **Logic:** Server-authoritative game state via ASP.NET Core SignalR hub. State-based puzzle solving connected to the RAG knowledge base via ASP.NET Core proxy.
+  - **Data Flow (gameplay):** `Unity Client (C#)` → `SignalR Hub (ASP.NET Core)` → `LangGraph Request` → `RAG Context` → `Agent Action` → `SignalR broadcast back to client`.
+  - **Data Flow (trajectory):** `Game session events` → `ASP.NET Core` → `LYTICS telemetry pipeline` → `ClickHouse ai_trajectories`.
 - **Visual Persona:** Retro-future game world. High-contrast sprites, floating data voxels, and physics-based navigation.
 
 ---
@@ -410,18 +423,18 @@ To ensure strict type safety across 10 different languages, the ecosystem uses *
 
 ### 2. Language-Specific Integration Roles
 
-| Node        | Language    | Runtime                 | Primary Research / Technical Role                                                                                                                            |
-| :---------- | :---------- | :---------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **SONA**    | **Java**    | Spring Boot             | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports. Spring Boot over Quarkus — persistent service, cold-start irrelevant. |
-| **LEDGE**   | **C/C++**   | WASM / Sidecar          | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                                      |
-| **DAR**     | **Go**      | Gin / Goroutines        | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.                                                                           |
-| **DIO**     | **Haskell** | Servant                 | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                                         |
-| **SIM**     | **C#**      | Unity WebGL             | **Interactive Physics:** Physics-based world-state management for the agentic mission.                                                                       |
-| **CLE**     | **Rust**    | Axum / Tokio + Tauri v2 | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.                 |
-| **SCHOLAR** | **Python**  | FastAPI                 | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                                             |
-| **COMMS**   | **PHP**     | Laravel Octane          | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                                               |
-| **FORGE**   | **Ruby**    | Rails 8 + Puma + Kamal  | **Convention-Driven Tooling:** Rapid relational back-office — the one pattern none of the other 8 nodes demonstrate. Private client pipeline.                |
-| **AGORA**   | **Elixir**  | Phoenix + Fly.io        | **Fault-Tolerant Concurrency:** OTP actor model — processes all the way down. Real-time community, AMA sessions, newsletter, live presence.                  |
+| Node        | Language      | Runtime                              | Primary Research / Technical Role                                                                                                                              |
+| :---------- | :------------ | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SONA**    | **Java**      | Spring Boot                          | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports. Spring Boot over Quarkus — persistent service, cold-start irrelevant.   |
+| **LEDGE**   | **C/C++**     | WASM / Sidecar                       | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                                        |
+| **DAR**     | **Go**        | Gin / Goroutines                     | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.                                                                             |
+| **DIO**     | **Haskell**   | Servant                              | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                                           |
+| **SIM**     | **C# / .NET** | Unity WebGL + ASP.NET Core + SignalR | **Full .NET Stack:** Unity WebGL (C# → WASM) for the game client; ASP.NET Core + SignalR for server-authoritative state, NPC bridge, and trajectory recording. |
+| **CLE**     | **Rust**      | Axum / Tokio + Tauri v2              | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.                   |
+| **SCHOLAR** | **Python**    | FastAPI                              | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                                               |
+| **COMMS**   | **PHP**       | Laravel Octane                       | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                                                 |
+| **FORGE**   | **Ruby**      | Rails 8 + Puma + Kamal               | **Convention-Driven Tooling:** Rapid relational back-office — the one pattern none of the other 8 nodes demonstrate. Private client pipeline.                  |
+| **AGORA**   | **Elixir**    | Phoenix + Fly.io                     | **Fault-Tolerant Concurrency:** OTP actor model — processes all the way down. Real-time community, AMA sessions, newsletter, live presence.                    |
 
 ### 3. The Shared Data Kernel
 
