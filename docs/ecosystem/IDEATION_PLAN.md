@@ -658,4 +658,211 @@ By running these 12 stacks side-by-side, the **AAZUCENA_SCHOLAR** node can gener
 
 ---
 
+## 🗺️ Build Sequence
+
+The Polished Core Mandate gates everything. After all four core conditions are met, build nodes in tier order — prerequisites drive sequence, not complexity alone.
+
+```
+Polished Core ──► Tier 1 ──► Tier 2 ──► Tier 3 ──► Tier 4
+```
+
+---
+
+### 🔒 Polished Core (Gate — nothing below starts until all 4 are ✅)
+
+| Condition        | Requirement                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| **Portfolio**    | All 15 pages production-ready, Phase 3 performance active, full mobile audit complete |
+| **LYTICS**       | Live on Railway, RBAC active, ClickHouse Materialized Views populated, TTL active     |
+| **Strapi**       | All 20 content types populated with production data, Cloudinary migration complete    |
+| **Intel Engine** | Stable RAG, corrected JSON prompt templates, monorepo context fully synchronized      |
+
+---
+
+### Tier 1 — Foundation Nodes
+
+No ecosystem node dependencies. Each talks only to the Polished Core. Build in any order within this tier.
+
+---
+
+**INTRO** — `intro.aazucena.com` | Crystal + Qwik
+
+The smallest node in the ecosystem. Bounded scope, single job — build this first.
+
+| Prerequisite   | Why                                                 |
+| -------------- | --------------------------------------------------- |
+| Portfolio live | INTRO links to it as the primary CTA                |
+| LYTICS live    | Tap events and referrer source logged to ClickHouse |
+| Strapi live    | Persona data drives the context-aware identity view |
+
+---
+
+**SONA** — `cv.aazucena.com` | Java (Spring Boot) + Remix
+
+Depends only on Strapi content — the experience and project content types are already in the Polished Core requirement.
+
+| Prerequisite   | Why                                                                        |
+| -------------- | -------------------------------------------------------------------------- |
+| Strapi live    | `api::experience` and `api::project` content types feed the persona engine |
+| Portfolio live | `az_active_persona` localStorage key synced across ecosystem               |
+
+---
+
+**DAR** — `radar.aazucena.com` | Go + Next.js
+
+Polls GitHub directly — no other nodes required. LYTICS is the only Polished Core dependency and it's already gated.
+
+| Prerequisite        | Why                                                                 |
+| ------------------- | ------------------------------------------------------------------- |
+| LYTICS live         | AirportEvent telemetry feeds goroutine 5 (operational region pulse) |
+| GitHub repos public | go-github polls Issues, PRs, Discussions, Commits                   |
+
+---
+
+### Tier 2 — Knowledge & Intelligence Nodes
+
+Depend on Intel Engine (already a Polished Core condition) and benefit from Tier 1 nodes existing. SCOPE specifically needs live nodes to monitor — build it last within this tier.
+
+---
+
+**LEDGE** — `wiki.aazucena.com` | C/C++ WASM + Gatsby
+
+Intel Engine is already a Polished Core gate. The documentation corpus can be seeded from the existing monorepo docs.
+
+| Prerequisite         | Why                                                             |
+| -------------------- | --------------------------------------------------------------- |
+| Intel Engine live    | pgVector semantic search powers the RAG search bar              |
+| Documentation corpus | MDX blueprints need content — seed from `docs/` in the monorepo |
+
+---
+
+**CLE** — `cli.aazucena.com` | Rust + Tauri
+
+Same Intel Engine dependency as LEDGE. The Axum backend needs Railway deployment; the Tauri desktop app is a separate release target.
+
+| Prerequisite              | Why                                                 |
+| ------------------------- | --------------------------------------------------- |
+| Intel Engine live         | The entire RAG terminal depends on it               |
+| pgVector corpus populated | Offline Tauri sidecar needs a local corpus to index |
+
+---
+
+**SCOPE** — `scope.aazucena.com` | Gleam + SolidJS
+
+Build last in Tier 2. A health monitor with nothing to monitor is incomplete — wait until Tier 1 nodes are live so SCOPE has real endpoints to poll from day one.
+
+| Prerequisite      | Why                                                                                                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LYTICS live       | Feeds `system_integrity` events; SCOPE's primary data sink                                                                                                    |
+| CAST live         | ⚠️ Soft — SCOPE functions without CAST but the PubSub bridge (incident broadcast to community) requires CAST. Wire this connection after CAST ships in Tier 3 |
+| Tier 1 nodes live | Something to monitor beyond the Polished Core                                                                                                                 |
+
+---
+
+### Tier 3 — Communication & Community Nodes
+
+Inter-node dependencies appear here. COMMS must come before GAGE — the lead qualification pipeline runs COMMS → GAGE. CAST can launch without COMMS but the notification bridge adds later.
+
+---
+
+**COMMS** — `comms.aazucena.com` | PHP (Laravel) + TanStack Start
+
+Build first within Tier 3. GAGE cannot complete its full pipeline without it.
+
+| Prerequisite         | Why                                                                  |
+| -------------------- | -------------------------------------------------------------------- |
+| Polished Core        | COMMS is the inquiry entry point — needs the portfolio to route from |
+| No node dependencies | COMMS is the start of the pipeline, not a consumer of other nodes    |
+
+---
+
+**GAGE** — `gage.aazucena.com` | Ruby on Rails + Hotwire
+
+Cannot run its full pipeline without COMMS. Can launch with direct client onboarding as a temporary measure — wire the COMMS handoff after.
+
+| Prerequisite | Why                                                          |
+| ------------ | ------------------------------------------------------------ |
+| COMMS live   | Qualified leads enter GAGE after `ACCESS_GRANTED` from COMMS |
+| LYTICS live  | Milestone payments feed `financial_ledger` ClickHouse table  |
+| Strapi live  | Portfolio project data referenced in proposals and briefs    |
+
+---
+
+**CAST** — `cast.aazucena.com` | Elixir + Phoenix LiveView
+
+Needs SONA and Portfolio for "ask" link distribution. COMMS notification bridge is additive — launch without it, wire later.
+
+| Prerequisite          | Why                                                                                           |
+| --------------------- | --------------------------------------------------------------------------------------------- |
+| Portfolio + SONA live | `agora.aazucena.com/ask` link distributed on every public surface                             |
+| LYTICS live           | Subscriber analytics, event attendance, tutorial completions                                  |
+| COMMS live            | ⚠️ Soft — cross-channel notifications (email, Discord) routed via COMMS. Additive post-launch |
+
+---
+
+### Tier 4 — Ambitious & Long-Horizon Nodes
+
+Highest effort, highest reward. SCHOLAR is last because its benchmarking layer needs the full ecosystem to exist. DIO and SIM can be built in parallel with SCHOLAR — they have no dependencies on each other.
+
+---
+
+**SCHOLAR** — `scholar.aazucena.com` | Python + Astro + Remix
+
+The static research pages (publications, SoP, education) can launch earlier as a standalone Astro site. The full benchmarking layer requires all other nodes to be live.
+
+| Prerequisite         | Why                                                                       |
+| -------------------- | ------------------------------------------------------------------------- |
+| LYTICS live          | HCI telemetry, A/B test data, user interaction streams                    |
+| Intel Engine live    | RecSys sandbox depends on pgVector retrieval                              |
+| All other nodes live | Benchmarking layer compares performance across the full 12-node ecosystem |
+| ⚠️ Phased launch     | Static research pages (Astro) can ship before `/lab/` — split the release |
+
+---
+
+**DIO** — `studio.aazucena.com` | Haskell + Vite + React SPA
+
+Haskell proficiency is the real prerequisite here — not a node dependency but a personal one. Block on Haskell readiness, not on other nodes.
+
+| Prerequisite                 | Why                                                                                                                                                                   |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LYTICS live                  | BPM, timbre, glitch-density modulation from live ClickHouse signals                                                                                                   |
+| Portfolio music section live | Strudel patterns and compositions are the content source                                                                                                              |
+| ⚠️ Haskell proficiency       | Servant is non-trivial. Attempting DIO without prior Haskell exposure is the highest risk action in the ecosystem. Spike Haskell separately before starting this node |
+
+---
+
+**SIM** — `play.aazucena.com` | C# / .NET + Unity WebGL
+
+Depends on Intel Engine for NPC RAG. Unity development is a distinct skillset — plan for context-switching cost.
+
+| Prerequisite      | Why                                                                                |
+| ----------------- | ---------------------------------------------------------------------------------- |
+| Intel Engine live | ASP.NET Core proxies RAG requests for NPC dialogue                                 |
+| LYTICS live       | Trajectory events logged to `ai_trajectories` ClickHouse table                     |
+| ⚠️ Unity setup    | IL2CPP → WASM build pipeline requires Unity license and build toolchain configured |
+
+---
+
+### Build Sequence Summary
+
+```
+Polished Core (all 4 ✅)
+        │
+        ▼
+Tier 1 ── INTRO ── SONA ── DAR              (any order)
+        │
+        ▼
+Tier 2 ── LEDGE ── CLE ── SCOPE             (SCOPE last — needs Tier 1 nodes live)
+        │
+        ▼
+Tier 3 ── COMMS ── GAGE ── CAST             (COMMS before GAGE; CAST any point after SONA)
+        │
+        ▼
+Tier 4 ── SCHOLAR ── DIO ── SIM             (SCHOLAR last for full benchmarking; DIO/SIM parallel)
+```
+
+**Estimated horizon:** Tier 1 after Polished Core. Each subsequent tier adds roughly one major build cycle. The full 13-node ecosystem is a multi-year effort — the sequence above ensures every node builds on a stable foundation rather than racing ahead of its dependencies.
+
+---
+
 **ALDRIN AZUCENA // ECOSYSTEM_SPEC_V1_2026**
