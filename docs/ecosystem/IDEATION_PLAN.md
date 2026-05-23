@@ -205,6 +205,49 @@ This document provides the exhaustive technical and brand specifications for the
 
 ---
 
+### 9. 🔨 AAZUCENA_FORGE // `forge.aazucena.com`
+
+**The Workshop Node // Private Client Engagement & Project Pipeline**
+
+- **Polyglot Challenge:** **Ruby on Rails 8** for convention-driven relational back-office tooling — the one architectural pattern none of the other 8 nodes demonstrate.
+- **Core Utility:** Solves "Engagement Gap." The portfolio handles the public story; the Inquiry Firewall qualifies leads; FORGE handles everything after `ACCESS_GRANTED` — briefs, proposals, contracts, milestones, invoicing, and delivery.
+- **Visibility:** Private. Clients receive a direct login link. `forge.aazucena.com` is not publicly listed.
+- **Detailed Functionality:**
+  - **Project Pipeline:** Five-stage board — Brief → Proposal → Contract → Active → Delivered. Each stage has defined entry/exit conditions. Aldrin manages the full pipeline; clients see only their own project workspace.
+  - **Brief Builder:** Structured intake form replacing open-text contact forms. Requirements, tech stack, timeline, budget, and reference links. Both parties sign off before work begins.
+  - **Client Workspace:** Isolated per client. Project status, milestone timeline, threaded messages per milestone (ActionCable — real-time), file delivery (Cloudinary-backed), and sign-off requests.
+  - **Proposal & Contract Generator:** Prawn (PDF gem) generates branded proposals and contracts from brief data. Client signs digitally. Signed contract triggers the first invoice milestone.
+  - **Milestone Invoicing:** Stripe-backed payment tied to deliverables — milestone accepted → invoice sent → paid → next milestone unlocks. Full ledger feeds LYTICS's `financial_ledger` table.
+  - **Private Admin View:** Aldrin's dashboard — full pipeline overview, revenue by project, time tracking, overdue alerts. Rin surfaces anomalies: _"Client A has been in the Brief stage for 9 days without a response."_
+- **Why Rails Specifically:**
+
+  | Rails capability               | What it does in FORGE                                                               |
+  | ------------------------------ | ----------------------------------------------------------------------------------- |
+  | **ActiveRecord**               | Clean relational model: `Client → Project → Milestone → Invoice → Payment`          |
+  | **ActionCable**                | Real-time milestone updates in client workspace — no polling                        |
+  | **Hotwire (Turbo + Stimulus)** | Full interactivity without a React SPA — the right tool for a private back-office   |
+  | **Devise + Pundit**            | Auth (client login) + role-based access (Aldrin sees all; client sees own) in hours |
+  | **ActiveJob + ActionMailer**   | Milestone notifications, invoice reminders, overdue escalations                     |
+  | **ActiveStorage**              | File attachments on milestones — deliverables, design assets, documents             |
+  | **Kamal**                      | Modern Docker deployment — container-native, fits Railway infrastructure            |
+  | **Multi-tenancy**              | Row-level isolation via `scope: current_client` — clients never cross-contaminate   |
+
+- **Connection to the Existing Ecosystem:**
+  - `COMMS` → qualified leads enter FORGE pipeline after `ACCESS_GRANTED`
+  - `LYTICS financial_ledger` ← milestone payments feed ClickHouse in real-time
+  - `LYTICS telemetry` ← milestone events logged as named telemetry signals
+  - `COMMS notification bus` ← FORGE triggers cross-channel alerts (email, Discord, LYTICS)
+  - `SONA persona lens` → proposal template selected by client's active `az_active_persona`
+  - `Strapi projects` → portfolio project data referenced in proposals and briefs
+  - `Rin OS` → Rin surfaces overdue milestones and today's revenue on the home screen
+- **Technical Implementation:**
+  - **Stack:** Ruby 3.x + Rails 8 + PostgreSQL + Redis + ActionCable + Hotwire + Stripe + Prawn.
+  - **Logic:** Convention-driven CRUD with event-driven milestone transitions. ActiveJob handles async invoice delivery and Stripe webhooks.
+  - **Data Flow:** `Brief Form` → `Rails Pipeline` → `Milestone Trigger` → `Stripe Invoice` → `LYTICS financial_ledger`.
+- **Visual Persona:** Clean, minimal, professional. No SHADES gradients — this is a workspace, not a showcase. High information density, calm typography, Linear-meets-Basecamp aesthetic. The one node that deliberately does not look like the rest of the ecosystem.
+
+---
+
 ## 🏗️ Polyglot Orchestration Strategy
 
 **The "Systems Benchmarking" Architecture**
@@ -213,23 +256,24 @@ To achieve the **Polyglot Challenge**, the ecosystem utilizes a **Containerized 
 
 ### 1. The Communication Handshake (gRPC + Protobuf)
 
-To ensure strict type safety across 8 different languages, the ecosystem uses **gRPC (Protocol Buffers)** for internal service-to-service communication.
+To ensure strict type safety across 9 different languages, the ecosystem uses **gRPC (Protocol Buffers)** for internal service-to-service communication.
 
 - **Why:** Allows the Rust terminal (CLE) to talk to the Java dossier engine (SONA) with sub-millisecond overhead and shared schema definitions.
 - **Research Signal:** Demonstrates mastery of high-performance distributed systems.
 
 ### 2. Language-Specific Integration Roles
 
-| Node        | Language    | Runtime                 | Primary Research / Technical Role                                                                                                            |
-| :---------- | :---------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| **SONA**    | **Java**    | Spring Boot             | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports.                                                       |
-| **LEDGE**   | **C/C++**   | WASM / Sidecar          | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                      |
-| **DAR**     | **Go**      | Gin / Goroutines        | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.                                                           |
-| **DIO**     | **Haskell** | Servant                 | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                         |
-| **SIM**     | **C#**      | Unity WebGL             | **Interactive Physics:** Physics-based world-state management for the agentic mission.                                                       |
-| **CLE**     | **Rust**    | Axum / Tokio + Tauri v2 | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets. |
-| **SCHOLAR** | **Python**  | FastAPI                 | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                             |
-| **COMMS**   | **PHP**     | Laravel Octane          | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                               |
+| Node        | Language    | Runtime                 | Primary Research / Technical Role                                                                                                             |
+| :---------- | :---------- | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SONA**    | **Java**    | Spring Boot             | **Enterprise Reliability:** High-concurrency PDF/Dossier generation via JasperReports.                                                        |
+| **LEDGE**   | **C/C++**   | WASM / Sidecar          | **Low-Level Precision:** Ultra-fast trie-based search/indexing for the knowledge graph.                                                       |
+| **DAR**     | **Go**      | Gin / Goroutines        | **Scalable Concurrency:** High-speed, non-blocking polling of GitHub & Pulse APIs.                                                            |
+| **DIO**     | **Haskell** | Servant                 | **Functional Purity:** Deterministic MIDI/OSC signal generation for audio synthesis.                                                          |
+| **SIM**     | **C#**      | Unity WebGL             | **Interactive Physics:** Physics-based world-state management for the agentic mission.                                                        |
+| **CLE**     | **Rust**    | Axum / Tokio + Tauri v2 | **Memory Safety + Dual Surface:** Web RAG via Axum (Railway); native desktop via Tauri v2 sidecar. Same Rust core, two distribution targets.  |
+| **SCHOLAR** | **Python**  | FastAPI                 | **Data Science:** Optimized for NumPy/Pandas analysis of HCI research telemetry.                                                              |
+| **COMMS**   | **PHP**     | Laravel Octane          | **Interaction Speed:** High-velocity notification bus using RoadRunner/Swoole.                                                                |
+| **FORGE**   | **Ruby**    | Rails 8 + Puma + Kamal  | **Convention-Driven Tooling:** Rapid relational back-office — the one pattern none of the other 8 nodes demonstrate. Private client pipeline. |
 
 ### 3. The Shared Data Kernel
 
@@ -241,7 +285,7 @@ All nodes share a unified data layer to prevent "Information Silos":
 
 ### 4. Researcher Utility: The "Benchmarking" Layer
 
-By running these 8 stacks side-by-side, the **AAZUCENA_SCHOLAR** node can generate real-time performance comparisons:
+By running these 9 stacks side-by-side, the **AAZUCENA_SCHOLAR** node can generate real-time performance comparisons:
 
 - **Energy Efficiency:** Measuring CPU cycles vs. memory footprint across languages for the same task.
 - **Interaction Latency:** Comparing the TTFT (Time to First Token) of the Rust terminal vs. the Go proxy.

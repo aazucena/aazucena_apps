@@ -6,16 +6,18 @@ This document outlines the strategic utilitarian nodes orbiting the Aldrin Azuce
 
 ## 🏛️ The Memorable Map
 
-| Internal App Name      | Memorable Subdomain          | Brand Identity |
-| :--------------------- | :--------------------------- | :------------- |
-| **`AAZUCENA_LYTICS`**  | **`analytics.aazucena.com`** | The Observer   |
-| **`AAZUCENA_SONA`**    | **`cv.aazucena.com`**        | The Projection |
-| **`AAZUCENA_LEDGE`**   | **`wiki.aazucena.com`**      | The Memory     |
-| **`AAZUCENA_DAR`**     | **`radar.aazucena.com`**     | The Horizon    |
-| **`AAZUCENA_DIO`**     | **`studio.aazucena.com`**    | The Frequency  |
-| **`AAZUCENA_SIM`**     | **`play.aazucena.com`**      | The Arena      |
-| **`AAZUCENA_CLE`**     | **`cli.aazucena.com`**       | The Brain      |
-| **`AAZUCENA_SCHOLAR`** | **`scholar.aazucena.com`**   | The Wisdom     |
+| Internal App Name      | Memorable Subdomain          | Brand Identity | Language      |
+| :--------------------- | :--------------------------- | :------------- | :------------ |
+| **`AAZUCENA_LYTICS`**  | **`analytics.aazucena.com`** | The Observer   | TypeScript    |
+| **`AAZUCENA_SONA`**    | **`cv.aazucena.com`**        | The Projection | Java          |
+| **`AAZUCENA_LEDGE`**   | **`wiki.aazucena.com`**      | The Memory     | C/C++ (WASM)  |
+| **`AAZUCENA_DAR`**     | **`radar.aazucena.com`**     | The Horizon    | Go            |
+| **`AAZUCENA_DIO`**     | **`studio.aazucena.com`**    | The Frequency  | Haskell       |
+| **`AAZUCENA_SIM`**     | **`play.aazucena.com`**      | The Arena      | C#            |
+| **`AAZUCENA_CLE`**     | **`cli.aazucena.com`**       | The Brain      | Rust + Tauri  |
+| **`AAZUCENA_SCHOLAR`** | **`scholar.aazucena.com`**   | The Wisdom     | Python        |
+| **`AAZUCENA_COMMS`**   | **`comms.aazucena.com`**     | The Connection | PHP (Laravel) |
+| **`AAZUCENA_FORGE`**   | **`forge.aazucena.com`**     | The Workshop   | Ruby on Rails |
 
 ---
 
