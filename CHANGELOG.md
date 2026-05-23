@@ -89,6 +89,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(ecosystem)_ Add tiered build sequence with prerequisites
 - _(ecosystem)_ Lock DIO frontend to Vite + React SPA
 - _(ecosystem)_ Complete 12-node ideation — GAGE, CAST, SCOPE, INTRO
 - _(design-system)_ Expand Figma token generator to 20 token groups
