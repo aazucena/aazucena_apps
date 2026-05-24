@@ -4,10 +4,11 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ---
 
-## 2026-05-23
+## 2026-05-24
 
 ### ♻️ Refactor
 
+- _(ecosystem)_ Split IDEATION_PLAN into per-node specs
 - _(intel-engine)_ Replace disk-based GitHub fetch with in-memory indexing
 - _(intel-engine)_ Fetch docs from GitHub at startup instead of baking into image
 - _(intel-engine)_ Migrate retriever from Ollama to Voyage AI + add GET search endpoint
