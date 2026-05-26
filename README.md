@@ -8,10 +8,24 @@
 
 ![Storybook](https://img.shields.io/badge/Storybook-373%2B_stories-FF4785?logo=storybook&logoColor=white) ![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white) ![Railway](https://img.shields.io/badge/Backend-Railway-0B0D0E?logo=railway&logoColor=white) ![CircleCI](https://img.shields.io/badge/CI-CircleCI-343434?logo=circleci&logoColor=white)
 
-A **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project. The primary application is an Astro-based portfolio with React integration, featuring advanced animations (GSAP, Three.js, PixiJS) and a planned Strapi CMS backend.
+A **pnpm + Turborepo monorepo** for Aldrin Azucena's personal engineering ecosystem. The primary app is an Astro 5 portfolio with React 19, featuring animations via GSAP, Three.js, and PixiJS, backed by a Strapi v5 CMS. The full vision is 13 purpose-built nodes across 13 programming languages, all sharing a common intelligence layer.
 
 **Package Manager:** pnpm v10.33.4 (required)
 **Node Version:** >=18
+
+---
+
+## Design philosophy
+
+Four words describe every decision in this project: **personal, intent, interactive, engineered**.
+
+**Personal** — this is Aldrin Azucena's digital identity. The content, the brand names, the language choices, the music, the career visualizations — all of it reflects one person's work and range.
+
+**Intent** — every architectural decision has a stated reason. The 13-node polyglot ecosystem assigns each domain to exactly 1 node and picks the language that fits that domain. The 74.3% bundle reduction was a target before it was a result. Scroll depth determines which atmospheric layer is active (troposphere → exosphere). If the reason can't be stated, the decision gets reconsidered.
+
+**Interactive** — the portfolio is built for participation. 8 animated sections, Three.js scenes, PixiJS particles, D3 career visualizations, an AI assistant (Rin), a live-coding studio, a playable mission with agentic NPCs. Visitors do things.
+
+**Engineered** — 16 shared packages, strict TypeScript across all apps, 373+ Storybook stories, a measured performance pipeline, CircleCI, Railway, Docker microservices with health endpoints. The monorepo grows to 13+ nodes without re-solving infrastructure each time.
 
 ---
 
