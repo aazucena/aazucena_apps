@@ -16,6 +16,7 @@ GRANT INSERT ON analytics.vercel_analytics_events TO telemetry_ingest;
 GRANT INSERT ON analytics.ai_trajectories TO telemetry_ingest;
 GRANT INSERT ON analytics.form_submissions TO telemetry_ingest;
 GRANT INSERT ON analytics.easter_egg_completions TO telemetry_ingest;
+GRANT INSERT ON analytics.raw_ingest TO telemetry_ingest; -- Bronze layer
 
 
 -- 2. DASHBOARD VIEWER USER

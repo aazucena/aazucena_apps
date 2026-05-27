@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { z } from 'zod';
 import { UAParser } from 'ua-parser-js';
 import {
@@ -33,6 +33,7 @@ function getGeoFromHeaders(req: NextRequest): {
 export async function POST(req: NextRequest) {
   const startTime = performance.now();
   let payload: z.infer<typeof IngestionPayloadSchema>;
+  let rawBody = ''; // captured before JSON.parse — used for Bronze layer insert
   // 1. Validate Secret Key
   const ingestionSecretKey = process.env.INGESTION_SECRET_KEY;
   const xSecretKey = req.headers.get('x-secret-key');
@@ -44,7 +45,8 @@ export async function POST(req: NextRequest) {
   }
   // 2. Parse and Validate Request Body
   try {
-    const body = await req.json();
+    rawBody = await req.text(); // capture raw string before parsing — needed for Bronze layer
+    const body = JSON.parse(rawBody);
     payload = IngestionPayloadSchema.parse(body);
   } catch (error) {
     console.error('Ingestion Payload Validation Error:', error);
@@ -53,7 +55,30 @@ export async function POST(req: NextRequest) {
       { status: 400 },
     );
   }
-  // 3. Data Enrichment (Server-side)
+  // 3. Bronze Layer — store validated raw payload before any enrichment
+  // Non-fatal: .catch() swallows errors so Silver inserts always proceed.
+  // Runs concurrently with enrichment (pure JS) + Silver insert for near-zero added latency.
+  const bronzePromise = ingestClickhouseClient
+    .insert({
+      table: 'analytics.raw_ingest',
+      values: [
+        {
+          event_type: payload.type,
+          raw_payload: rawBody,
+          source_ip: req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '',
+          raw_user_agent: req.headers.get('user-agent') || '',
+          geo_country: req.headers.get('x-vercel-ip-country') || '',
+          geo_city: req.headers.get('x-vercel-ip-city') || '',
+          geo_lat: req.headers.get('x-vercel-ip-latitude') || '',
+          geo_lon: req.headers.get('x-vercel-ip-longitude') || '',
+        },
+      ],
+      format: 'JSONEachRow',
+    })
+    .catch((err: unknown) => {
+      console.error('[Bronze] Insert failed (non-critical):', err);
+    });
+  // 4. Data Enrichment (Server-side)
   let ip =
     req.headers.get('x-forwarded-for')?.split(',').shift() || // Common for proxy like Vercel
     req.headers.get('x-real-ip') || // Another common proxy header
@@ -86,7 +111,7 @@ export async function POST(req: NextRequest) {
     sessionId: payload.sessionId || 'anonymous', // Default to anonymous if not provided
     url: payload.url || req.nextUrl.href, // Default to current request URL if not provided
   };
-  // 4. Insert into ClickHouse (Non-blocking)
+  // 5. Silver Layer — Insert into ClickHouse (enriched, event-typed tables)
   try {
     switch (payload.type) {
       case 'telemetry_event': {
@@ -250,6 +275,11 @@ export async function POST(req: NextRequest) {
         console.warn('Unknown event type received:', (payload as any).type);
         break;
     }
+
+    // Schedule Bronze insert to complete after the response is sent.
+    // `after()` (Next.js 15) runs the Promise in the background post-response,
+    // so Bronze never adds latency to the 200 and is not inside this try/catch boundary.
+    after(bronzePromise);
 
     // Emit event to WebSocket server (non-blocking)
     const WS_URL = process.env.WS_URL;
