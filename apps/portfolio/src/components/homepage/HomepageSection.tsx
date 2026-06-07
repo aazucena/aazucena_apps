@@ -10,7 +10,7 @@
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { lazy, Suspense, useContext, useEffect, type JSX } from "react";
+import { lazy, Suspense, useContext, useEffect, useRef, type JSX } from "react";
 import type { HomepageData } from "@aazucena/types";
 import type { PortfolioContent } from "@aazucena/types";
 import type { PortfolioData } from "~/types";
@@ -46,7 +46,9 @@ function HomepageSectionInner(): JSX.Element | null {
   // must run before any early return, so we guard after they've all been called.
   const dataCtx = useContext(DataContext);
   const sections = dataCtx?.content.sections ?? [];
-  const refs = useSectionRefs(sections);
+  const cmsRefs = useSectionRefs(sections);
+  const exitRef = useRef<HTMLDivElement>(null);
+  const refs = [...cmsRefs, exitRef];
 
   // Return visitors skip the preloader animation, so preloader-complete never fires.
   // In that case, release BrandIconLoader here once animations are mounted.
@@ -133,8 +135,8 @@ export default function HomepageSection({
   content: HomepageData;
   portfolio: PortfolioContent;
 }): JSX.Element {
-  // Calculate total sections from CMS data
-  const totalSections = content.sections.length;
+  // +1 for the hardcoded ExitSection appended after all CMS sections
+  const totalSections = content.sections.length + 1;
 
   return (
     <DataProvider data={data} content={content} portfolio={portfolio}>

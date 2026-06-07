@@ -4,7 +4,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ---
 
-## 2026-05-26
+## 2026-06-07
 
 ### ♻️ Refactor
 
@@ -90,6 +90,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(analytics)_ Add Bronze layer to ClickHouse ingestion pipeline
 - _(ecosystem)_ Add tiered build sequence with prerequisites
 - _(ecosystem)_ Lock DIO frontend to Vite + React SPA
 - _(ecosystem)_ Complete 12-node ideation — GAGE, CAST, SCOPE, INTRO

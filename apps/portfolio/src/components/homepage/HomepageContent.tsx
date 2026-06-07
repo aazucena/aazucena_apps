@@ -10,6 +10,7 @@ import { usePortfolio } from "@aazucena/context";
 import { useDataContext, useRegistry } from "~/contexts";
 import { type SectionRef } from "@aazucena/hooks";
 import { type SectionComponent } from "@aazucena/hooks";
+import { ExitSection } from "./sections/ExitSection";
 
 interface HomepageContentProps {
   // Only refs remain as prop (created in parent with useSectionRefs)
@@ -52,6 +53,21 @@ export default function HomepageContent({
           </div>
         );
       })}
+
+      {/* Exit section — always last, not CMS-driven */}
+      <div
+        ref={refs[activeSections.length]}
+        data-testid="section-exit"
+        className="absolute top-0 right-0 left-0 z-30 flex min-h-[100dvh] w-full items-center px-6"
+        style={{
+          pointerEvents:
+            currentSection === activeSections.length ? "auto" : "none",
+          opacity: 0,
+          transform: "translateY(150px) scale(0.95)",
+        }}
+      >
+        <ExitSection />
+      </div>
     </>
   );
 }

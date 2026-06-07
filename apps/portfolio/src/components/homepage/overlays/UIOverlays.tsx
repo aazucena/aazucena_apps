@@ -34,7 +34,13 @@ export default function UIOverlays({
   const isMobile = useIsMobile();
 
   // Extract section names from CMS data
-  const sectionNames = content.sections.map((section) => section.name);
+  const sectionNames = [
+    ...content.sections.map((section) => section.name),
+    "explore",
+  ];
+  // ExitSection is appended after all CMS sections, so its index equals sections.length
+  const isLastSection = currentSection === content.sections.length;
+
   return (
     <>
       {/* Navigation toolbar with integrated panels (Info, Settings, Social) */}
@@ -48,8 +54,8 @@ export default function UIOverlays({
         sectionNames={sectionNames}
       />
 
-      {/* Section Nav FAB — mobile only (bottom-right, replaces dots) */}
-      {currentSection !== 0 && (
+      {/* Section Nav FAB — mobile only; hidden on last section (exit CTA takes over) */}
+      {currentSection !== 0 && !isLastSection && (
         <SectionNavFAB
           currentSection={currentSection}
           sectionNames={sectionNames}
