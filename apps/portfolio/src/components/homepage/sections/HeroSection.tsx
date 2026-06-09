@@ -45,6 +45,14 @@ export function HeroSection({
       icon: section.icon as IconComponent | undefined,
     }));
 
+  const pageLinks = [
+    { label: "About", href: "/about" },
+    { label: "Projects", href: "/projects" },
+    { label: "Journey", href: "/journey" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
+  ] as const;
+
   const onNavigate = () => {
     if (ctaRef.current) {
       gsap.to(ctaRef.current.children, {
@@ -110,6 +118,18 @@ export function HeroSection({
           {hero?.secondaryButtonText ?? "View Resume"}
         </ResumeButton>
       </div>
+
+      <nav className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        {pageLinks.map(({ label, href }) => (
+          <a
+            key={href}
+            href={href}
+            className="text-sm text-white/40 transition-colors duration-200 hover:text-white/70"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
     </SectionLayout>
   );
 }
