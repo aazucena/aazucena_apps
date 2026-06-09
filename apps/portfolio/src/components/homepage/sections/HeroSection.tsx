@@ -124,7 +124,7 @@ export function HeroSection({
           <a
             key={href}
             href={href}
-            className="text-sm text-white/40 transition-colors duration-200 hover:text-white/70"
+            className="px-1 py-2 text-sm text-white/40 transition-colors duration-200 hover:text-white/70"
           >
             {label}
           </a>

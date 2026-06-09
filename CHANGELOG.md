@@ -90,6 +90,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(homepage)_ Add visible page navigation links to hero section
 - _(homepage)_ Add Blog to exit section with responsive card sizing
 - _(portfolio)_ Add dedicated exit section to homepage journey
 - _(analytics)_ Add Bronze layer to ClickHouse ingestion pipeline
