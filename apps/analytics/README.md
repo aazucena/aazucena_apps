@@ -45,7 +45,7 @@ Behavioral mapping of unique identities.
 Visual playback of agent decision-making.
 
 - **Neural Mapping:** Dynamic D3 visualization of the LangGraph execution path.
-- **SHADES Highlighting:** Automatic detection and styling of `[KNOWLEDGE_SOURCE]` ground-truth data.
+- **Knowledge-Source Highlighting:** Automatic detection and styling of `[KNOWLEDGE_SOURCE]` ground-truth data. (Unrelated to the [SHADES](../../docs/features/inquiry-firewall.md) inquiry-scoring framework.)
 
 ## 🛠️ Tech Stack
 
@@ -56,7 +56,7 @@ Visual playback of agent decision-making.
 - **State Management:** Redux Toolkit + TanStack Query v5
 - **Database:** ClickHouse (@clickhouse/client-web) + pgVector (PostgreSQL 16)
 - **Icons:** @mynaui/icons-react
-- **Styling:** Tailwind CSS 4 (Zinc/Cyberpunk design system)
+- **Styling:** Tailwind CSS 4 — currently stock `zinc` surfaces with hardcoded accents, **not** the [Avra design system](https://avra.aazucena.com) this app already depends on. Realignment is queued: [Analytics Visual Identity](../../docs/features/analytics-visual-identity.md).
 
 ## 🚀 Getting Started
 

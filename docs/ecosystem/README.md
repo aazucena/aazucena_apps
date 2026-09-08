@@ -45,13 +45,13 @@ Each language was chosen for the domain it covers:
 - **Gleam** for `SCOPE` — type-safe functional code on the BEAM with Elixir interop. Right fit for a sentinel node.
 - **Crystal** for `INTRO` — Ruby-like ergonomics compiled to native binaries. Clean performance without runtime overhead.
 
-All 13 nodes share 4 infrastructure pieces: the SHADES design system for visual consistency, `AAZUCENA_LYTICS` for telemetry, the pgVector RAG layer for knowledge retrieval, and the LangGraph Intel Engine for decision logic. A new node picks up all 4 immediately.
+All 13 nodes share 4 infrastructure pieces: the Avra design system for visual consistency, `AAZUCENA_LYTICS` for telemetry, the pgVector RAG layer for knowledge retrieval, and the LangGraph Intel Engine for decision logic. A new node picks up all 4 immediately.
 
 ---
 
 ## 🏗️ Architectural Foundations
 
-All nodes utilize the **SHADES** design system and the **Intelligence Infrastructure**:
+All nodes utilize the **Avra** design system and the **Intelligence Infrastructure**:
 
 - **Observation:** `AAZUCENA_LYTICS` (ClickHouse)
 - **Knowledge:** `Internal RAG` (pgVector)

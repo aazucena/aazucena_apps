@@ -47,6 +47,7 @@ Establish comprehensive testing strategy with unit tests, integration tests, and
    - Sound mute/unmute logic
 
 **Example Test:**
+
 ```typescript
 // hooks/__tests__/useToolbarState.test.ts
 import { renderHook, act } from '@testing-library/react';
@@ -120,6 +121,7 @@ describe('useToolbarState', () => {
    - Verify layout adjusts correctly
 
 **Example Integration Test:**
+
 ```typescript
 // __tests__/integration/section-navigation.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -160,7 +162,9 @@ describe('Section Navigation', () => {
 ## Testing Strategy by Phase
 
 ### Phase 1: Animations Refactoring
+
 **Tests to Add:**
+
 - `usePortfolio` hook tests
 - `useAnimation` hook tests
 - `useToolbarState` tests
@@ -168,26 +172,34 @@ describe('Section Navigation', () => {
 - Component rendering tests
 
 ### Phase 2: Component Architecture
+
 **Tests to Add:**
+
 - `SectionWrapper` component tests
 - `SectionHeading` component tests
 - Scene component rendering tests
 - Atmospheric overlay tests
 
 ### Phase 3: Performance
+
 **Tests to Add:**
+
 - Lazy loading tests
 - Bundle size checks (automated)
 - Performance benchmarks
 
 ### Phase 4: Developer Experience
+
 **Tests to Add:**
+
 - Storybook interaction tests
 - Chromatic visual regression tests
 - Type checking in CI/CD
 
 ### Phase 5: Full Test Suite
+
 **Complete Coverage:**
+
 - All hooks tested
 - All utilities tested
 - Critical user flows tested
@@ -198,9 +210,17 @@ describe('Section Navigation', () => {
 
 ## E2E Testing with Playwright
 
+> ⚠️ **Analytics dashboard — assert on behavior, not appearance.**
+> The AZUCENA_LYTICS visual layer is queued for replacement
+> ([Analytics Visual Identity](./features/analytics-visual-identity.md), Post-Phase 5).
+> Tests covering `apps/analytics` must assert on rendered data, routing, and interaction
+> outcomes — never on class strings, colors, or panel geometry. Visual-regression coverage
+> for that app should wait until the realignment lands, or it will be rewritten twice.
+
 **Critical User Flows:**
 
 1. **Homepage → Navigate All Sections**
+
    ```typescript
    test('should navigate through all portfolio sections', async ({ page }) => {
      await page.goto('/');
@@ -217,6 +237,7 @@ describe('Section Navigation', () => {
    ```
 
 2. **Open Experience Modal → Close**
+
    ```typescript
    test('should open and close experience modal', async ({ page }) => {
      await page.goto('/');
@@ -239,6 +260,7 @@ describe('Section Navigation', () => {
    ```
 
 3. **Toolbar Panel Interactions**
+
    ```typescript
    test('should enforce panel mutual exclusivity', async ({ page }) => {
      await page.goto('/');
@@ -258,6 +280,7 @@ describe('Section Navigation', () => {
    ```
 
 4. **Responsive Design**
+
    ```typescript
    test('should adapt to mobile viewport', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
@@ -321,9 +344,9 @@ visual-tests:
 
 ## Timeline Summary
 
-| Task | Duration |
-|------|----------|
-| 5.1 Unit Testing | 2-3 days |
+| Task                    | Duration |
+| ----------------------- | -------- |
+| 5.1 Unit Testing        | 2-3 days |
 | 5.2 Integration Testing | 3-5 days |
 
 **Total:** 5-8 days
@@ -333,12 +356,14 @@ visual-tests:
 ## Success Metrics
 
 **Coverage Targets:**
+
 - **Unit Tests:** 70-80% coverage for hooks and utilities
 - **Integration Tests:** All critical user flows covered
 - **E2E Tests:** 5-10 critical scenarios
 - **Visual Tests:** All Storybook stories (automated via Chromatic)
 
 **Quality Gates:**
+
 - All tests must pass before merge
 - No decrease in coverage
 - Performance budget checks pass
@@ -372,12 +397,14 @@ visual-tests:
 ## Next Steps
 
 After Phase 5, the portfolio codebase will be:
+
 - ✅ Well-tested
 - ✅ Maintainable
 - ✅ Documented
 - ✅ Production-ready
 
 **Ready for:**
+
 - New feature development
 - Music player implementation
 - AI-powered forms
@@ -387,6 +414,7 @@ After Phase 5, the portfolio codebase will be:
 ---
 
 **Related Documentation:**
+
 - [ROADMAP.md - Full Phase 5 Details](../ROADMAP.md#phase-5-testing--quality-priority-low)
 - [Phase 4: Developer Experience](./phase-4-developer-experience.md)
 - [Features Documentation](./features/)

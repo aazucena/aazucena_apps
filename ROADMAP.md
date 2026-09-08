@@ -108,6 +108,7 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 | Strapi Plugin Icons v2.0  | Post-Phase 5  | [docs →](./docs/features/strapi-plugin-icons-field/README.md) |
 | Logging & Monitoring      | Post-Phase 5  | [docs →](./docs/features/logging-monitoring.md)               |
 | Payments (Stripe + Ko-fi) | Post-Phase 5  | [docs →](./docs/features/payments.md)                         |
+| Analytics Visual Identity | Post-Phase 5  | [docs →](./docs/features/analytics-visual-identity.md)        |
 
 ---
 

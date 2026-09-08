@@ -4,7 +4,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ---
 
-## 2026-06-09
+## 2026-09-07
 
 ### ♻️ Refactor
 
@@ -90,6 +90,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(homepage)_ Improve touch target size on hero page navigation links
 - _(homepage)_ Add visible page navigation links to hero section
 - _(homepage)_ Add Blog to exit section with responsive card sizing
 - _(portfolio)_ Add dedicated exit section to homepage journey
