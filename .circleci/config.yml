@@ -4,14 +4,14 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: cimg/node:22.14.0
+      - image: cimg/node:22.23.4
     environment:
       HSKY: "0" # Intentional: Not a typo
       NODE_OPTIONS: "--max_old_space_size=4096"
       TURBO_UI: "false"
   node-large-executor:
     docker:
-      - image: cimg/node:22.14.0
+      - image: cimg/node:22.23.4
     resource_class: large          # 4 vCPUs / 8 GB RAM
     environment:
       HSKY: "0"
