@@ -11,7 +11,7 @@ import {
   MAX_INPUT_WORDS,
   countWords,
 } from "./constants";
-import { loadPersistedMessages } from "./utils";
+import { getToolOutput, loadPersistedMessages } from "./utils";
 import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
 import { type RinBehavior } from "./RinCharacter";
 
@@ -67,10 +67,14 @@ export function useAssistantChat() {
       .reverse()
       .find((m) => m.role === "assistant");
     if (!lastAssistant) return "idle";
-    const emotionPart = (lastAssistant.parts ?? []).find(
-      (p: any) => p.type === "tool-set_emotion" && p.state === "result",
-    );
-    return (emotionPart as any)?.output?.emotion ?? "idle";
+    for (const part of lastAssistant.parts ?? []) {
+      const output = getToolOutput<{ emotion: RinEmotion }>(
+        part,
+        "set_emotion",
+      );
+      if (output) return output.emotion;
+    }
+    return "idle";
   }, [messages, isLoading, status]);
 
   const deferredInput = React.useDeferredValue(input);

@@ -74,3 +74,17 @@ export function loadPersistedMessages(): UIMessage[] {
     return [];
   }
 }
+
+/**
+ * Output of a finished tool call part, or undefined while it is still running.
+ * AI SDK 5+ marks a finished call with state "output-available" (v4 used "result").
+ */
+export function getToolOutput<T = unknown>(
+  part: unknown,
+  toolName: string,
+): T | undefined {
+  const p = part as { type?: string; state?: string; output?: T };
+  return p?.type === `tool-${toolName}` && p.state === "output-available"
+    ? p.output
+    : undefined;
+}

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { ChatMessage, ChatAvatar, ChatContent, ChatBubble } from "@aazucena/ui";
 import type { UIMessage } from "ai";
-import { renderMarkdown } from "./utils";
+import { getToolOutput, renderMarkdown } from "./utils";
 import { rinAvatarIcon } from "./RinMark";
 
 interface AssistantMessageListProps {
@@ -19,9 +19,8 @@ export function AssistantMessageList({ messages }: AssistantMessageListProps) {
         const hasVisibleParts = parts.some(
           (p: any) =>
             p.type === "text" ||
-            (p.type === "tool-submit_contact_form" &&
-              p.state === "result" &&
-              p.output?.success === true),
+            getToolOutput<{ success: boolean }>(p, "submit_contact_form")
+              ?.success === true,
         );
         if (!hasVisibleParts) return null;
         return (
@@ -56,9 +55,10 @@ export function AssistantMessageList({ messages }: AssistantMessageListProps) {
                   );
                 }
                 if (
-                  part.type === "tool-submit_contact_form" &&
-                  part.state === "result" &&
-                  part.output?.success === true
+                  getToolOutput<{ success: boolean }>(
+                    part,
+                    "submit_contact_form",
+                  )?.success === true
                 ) {
                   return (
                     <p
