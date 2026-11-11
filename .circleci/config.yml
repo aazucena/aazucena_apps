@@ -207,6 +207,9 @@ jobs:
 
 workflows:
   quality_gate:
+    # Only run on main; pushes to other branches create a pipeline with no workflow
+    when:
+      equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - setup
       - list_projects:
