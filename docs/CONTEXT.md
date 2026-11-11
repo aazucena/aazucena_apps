@@ -1,7 +1,7 @@
 ## Repository Overview
 
 **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project.
-**Package Manager:** pnpm v10.33.4 (required) | **Node:** >=18
+**Package Manager:** pnpm v10.33.4 (required) | **Node:** >=22
 
 ---
 
@@ -12,8 +12,8 @@ aazucena_apps/
 │
 │  ── Deployable apps ──
 ├── apps/
-│   ├── portfolio/      # Astro 5 + React 19 — main portfolio (aazucena.com)
-│   ├── analytics/      # AZUCENA_LYTICS — Next.js 15 telemetry dashboard
+│   ├── portfolio/      # Astro 7 + React 19 — main portfolio (aazucena.com)
+│   ├── analytics/      # AZUCENA_LYTICS — Next.js 16 telemetry dashboard
 │   ├── cms/            # Strapi v5 CMS (PostgreSQL + pgVector + Cloudinary)
 │   └── storybook/      # Component library host (avra.aazucena.com, 373+ stories)
 │
@@ -134,14 +134,14 @@ pnpm dlx playwright test --headed
 
 ### Portfolio (`apps/portfolio/`)
 
-- **Astro 5.16.0** + React 19.2 + Tailwind CSS 4 + TypeScript
+- **Astro 7.4** + React 19.3 + Tailwind CSS 4 + TypeScript
 - **Rendering:** Hybrid (static default, SSR for maintenance/500 pages)
 - **Animation System:** `src/components/animations/Section.tsx` (174 lines) — orchestrates 8 sections via PortfolioContext + AnimationContext + DataContext
 - **CMS:** Strapi → 25 API clients → Zod validators → transformers → DataContext → hooks
 
 ### Analytics (`apps/analytics/`)
 
-- **Next.js 15** (App Router) + Redux Toolkit + TanStack Query v5 + D3.js + Vercel AI SDK
+- **Next.js 16** (App Router) + Redux Toolkit + TanStack Query v5 + D3.js + Vercel AI SDK
 - **ClickHouse** OLAP for high-volume telemetry; Edge Runtime ingestion (<50ms)
 - Dashboards: Node Overview, Audio Intelligence, Telemetry Stream, System Integrity, AI Terminal, AI Cost Center, Trajectory Labs
 
@@ -152,7 +152,7 @@ pnpm dlx playwright test --headed
 shamefully-hoist=true
 public-hoist-pattern[]=*babel*
 
-// React 19.2 polyfill — add to index.astro (until React 19.3+)
+// React 19.2 polyfill — add to index.astro (React is now 19.3; removal tracked in the backlog)
 if (typeof window !== 'undefined' && !window.suspendOnActiveViewTransition) {
   window.suspendOnActiveViewTransition = function() { return null; };
 }
@@ -198,7 +198,7 @@ All 16 packages are scaffolded and populated. **Portfolio app does not yet impor
 import { LoginForm } from '@aazucena/forms/templates'
 const form = useForm({ ... } as any)  // validatorAdapter not in FormOptions type
 onSubmit: async ({ value }: { value: any }) => { ... }
-// ZodEffects (.refine()/.superRefine()) returns ZodEffects not ZodObject — cannot access .shape
+// Zod 4: .refine()/.superRefine() keep the ZodObject type, so .shape is available
 ```
 
 ---
@@ -297,8 +297,8 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 | Layer     | Tech                                                                   |
 | --------- | ---------------------------------------------------------------------- |
-| Portfolio | Astro 5, React 19.2, Tailwind 4, GSAP, Three.js, PixiJS, Framer Motion |
-| Analytics | Next.js 15, Redux Toolkit, TanStack Query v5, D3.js, Vercel AI SDK     |
+| Portfolio | Astro 7, React 19.3, Tailwind 4, GSAP, Three.js, PixiJS, Framer Motion |
+| Analytics | Next.js 16, Redux Toolkit, TanStack Query v5, D3.js, Vercel AI SDK     |
 | CMS       | Strapi v5, PostgreSQL 16 + pgVector, Cloudinary, Redis                 |
 | Forms     | react-hook-form + Zod, TanStack Form                                   |
 | Testing   | Playwright (configured), Vitest (installed, not configured)            |

@@ -2,16 +2,16 @@
 
 ![Status](https://img.shields.io/badge/status-active_development-orange) ![Phase](https://img.shields.io/badge/phase-5_%E2%80%94_testing_%26_quality-blue)
 
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=nodedotjs&logoColor=white) ![pnpm](https://img.shields.io/badge/pnpm-10.33.4-F69220?logo=pnpm&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white) ![Turborepo](https://img.shields.io/badge/Turborepo-monorepo-EF4444?logo=turborepo&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-22+-339933?logo=nodedotjs&logoColor=white) ![pnpm](https://img.shields.io/badge/pnpm-10.33.4-F69220?logo=pnpm&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white) ![Turborepo](https://img.shields.io/badge/Turborepo-monorepo-EF4444?logo=turborepo&logoColor=white)
 
-![Astro](https://img.shields.io/badge/Astro-5.x-FF5D01?logo=astro&logoColor=white) ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black) ![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=nextdotjs&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Astro](https://img.shields.io/badge/Astro-7.x-FF5D01?logo=astro&logoColor=white) ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black) ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
 
 ![Storybook](https://img.shields.io/badge/Storybook-373%2B_stories-FF4785?logo=storybook&logoColor=white) ![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white) ![Railway](https://img.shields.io/badge/Backend-Railway-0B0D0E?logo=railway&logoColor=white) ![CircleCI](https://img.shields.io/badge/CI-CircleCI-343434?logo=circleci&logoColor=white)
 
-A **pnpm + Turborepo monorepo** for Aldrin Azucena's personal engineering ecosystem. The primary app is an Astro 5 portfolio with React 19, featuring animations via GSAP, Three.js, and PixiJS, backed by a Strapi v5 CMS. The full vision is 13 purpose-built nodes across 13 programming languages, all sharing a common intelligence layer.
+A **pnpm + Turborepo monorepo** for Aldrin Azucena's personal engineering ecosystem. The primary app is an Astro 7 portfolio with React 19, featuring animations via GSAP, Three.js, and PixiJS, backed by a Strapi v5 CMS. The full vision is 13 purpose-built nodes across 13 programming languages, all sharing a common intelligence layer.
 
 **Package Manager:** pnpm v10.33.4 (required)
-**Node Version:** >=18
+**Node Version:** >=22
 
 ---
 
@@ -33,7 +33,7 @@ Four words describe every decision in this project: **personal, intent, interact
 
 ### Prerequisites
 
-- **Node.js >=18** — [nodejs.org/en/download](https://nodejs.org/en/download) (verify: `node --version`)
+- **Node.js >=22** — [nodejs.org/en/download](https://nodejs.org/en/download) (verify: `node --version`)
 - **pnpm 10.33.4** — install via npm:
 
 ```bash
@@ -186,7 +186,7 @@ pnpm dlx playwright show-report
 
 ### Frontend & Analytics
 
-- **Frameworks:** Astro (Portfolio), Next.js 15 (Analytics)
+- **Frameworks:** Astro (Portfolio), Next.js 16 (Analytics)
 - **Build Tool:** Vite, Turbo
 - **UI Library:** React 19 with TypeScript
 - **Styling:** Tailwind CSS 4

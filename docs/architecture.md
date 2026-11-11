@@ -150,7 +150,7 @@ dimensions on first mount and gets width=0 if SSR'd.
 
 ## AZUCENA_LYTICS Architecture
 
-**Stack:** Next.js 15 (App Router) + React 19.2 + Tailwind 4 + D3.js + Redux Toolkit + TanStack Query v5 + Vercel AI SDK + ClickHouse
+**Stack:** Next.js 16 (App Router) + React 19.3 + Tailwind 4 + D3.js + Redux Toolkit + TanStack Query v5 + Vercel AI SDK + ClickHouse
 
 **Dashboards:**
 
