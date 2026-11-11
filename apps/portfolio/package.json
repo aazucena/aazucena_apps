@@ -115,7 +115,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@types/canvas-confetti": "^1.9.0",
     "@types/d3": "^7.4.3",
@@ -134,11 +134,11 @@
     "@types/three": "^0.187.0",
     "@typescript-eslint/eslint-plugin": "^8.72.2",
     "@typescript-eslint/parser": "^8.72.2",
-    "@vitest/ui": "^3.2.4",
+    "@vitest/ui": "^5.1.0",
     "dotenv": "^16.6.1",
     "eslint": "^9.39.4",
     "eslint-plugin-astro": "^1.6.0",
-    "happy-dom": "^20.8.9",
+    "happy-dom": "^21.0.4",
     "husky": "^9.1.7",
     "marked": "^17.0.5",
     "prettier": "^3.10.0",
@@ -148,6 +148,6 @@
     "tailwindcss-animate": "^1.0.7",
     "terser": "^5.51.2",
     "tsx": "^4.23.15",
-    "vitest": "^3.2.4"
+    "vitest": "^5.1.0"
   }
 }
