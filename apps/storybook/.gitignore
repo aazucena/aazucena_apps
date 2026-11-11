@@ -63,3 +63,5 @@ storybook-static
 package-*.json
 
 chromatic-diagnostics.json
+# Argos screenshots (uploaded from CI, never committed)
+screenshots

@@ -4,6 +4,7 @@ import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import tailwindcss from '@tailwindcss/vite';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+import { argosVitestPlugin } from '@argos-ci/storybook/vitest-plugin';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -29,6 +30,9 @@ export default defineConfig({
             // asked to render 260+ story files.
             tags: { include: ['interaction-test'], exclude: ['no-vitest'] },
           }),
+          // Screenshots every story the run renders. Uploads only on CI so Argos
+          // compares CI captures with CI captures; local runs write ./screenshots.
+          argosVitestPlugin({ uploadToArgos: !!process.env.CI }),
         ],
         test: {
           name: 'storybook',
@@ -97,6 +101,10 @@ export default defineConfig({
                   '--disable-gpu',
                   '--disable-extensions',
                   '--no-sandbox',
+                  // Same text rendering on every machine, so screenshots don't
+                  // diff on subpixel antialiasing or font hinting
+                  '--disable-lcd-text',
+                  '--font-render-hinting=none',
                 ],
               },
             }),
