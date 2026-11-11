@@ -81,7 +81,7 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 - ✅ Portfolio & CMS version upgrades complete
 - ✅ Public Storybook hosting live
 - ⏳ Chromatic — deferred (requires paid plan)
-- ⏳ Figma Design System — deferred
+- ⏳ Figma Design System — unblocked (Figma seat, 2026-11), scheduled for the next release
 
 ---
 
@@ -170,4 +170,4 @@ Features (as needed)        →  3-40 days each
 
 ---
 
-**Last Updated:** 2026-04-18 | **Next Milestone:** Begin Phase 5 (Testing)
+**Last Updated:** 2026-11-11 | **Next Milestone:** Phase 5 (Testing) on `phase-5/next-release`
