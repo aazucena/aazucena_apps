@@ -147,6 +147,8 @@ pnpm dlx playwright test --headed
 
 ### Critical Build Patterns
 
+**CMS has two lockfiles.** The workspace uses the root `pnpm-lock.yaml`, but `apps/cms/Dockerfile*` and Railway install `apps/cms` standalone from `apps/cms/pnpm-lock.yaml`, where `apps/cms/package.json`'s own `pnpm.overrides` apply (pnpm warns that they're ignored in the workspace; keep them anyway). After changing cms dependencies or root security overrides, mirror the overrides and run `pnpm install --ignore-workspace --lockfile-only` in `apps/cms`. Standalone cms stays on React 18 (Strapi 5 peer).
+
 ```typescript
 // Vercel .npmrc — required for Babel dependency tracing
 shamefully-hoist=true
