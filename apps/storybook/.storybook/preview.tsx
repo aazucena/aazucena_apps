@@ -3,6 +3,7 @@ import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import { type Decorator, type Preview } from '@storybook/react-vite';
 import { useEffect, useRef } from 'react';
 import { docsTheme } from './theme';
+import { avraVersion } from './version.ts';
 import '../styles/globals.css';
 
 // ---------------------------------------------------------------------------
@@ -119,6 +120,9 @@ const preview: Preview = {
   },
 
   parameters: {
+    // Toolbar version badge (registered in manager.tsx)
+    version: avraVersion,
+
     docs: {
       theme: docsTheme,
     },
