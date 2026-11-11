@@ -323,6 +323,10 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 Commit by separate concern: one commit per logical change, even when several changes are pending together. A `.gitignore` tweak and a CI config change are two commits, not one. Stage files explicitly (`git add <path>`) rather than `git add -A` so unrelated changes don't ride along.
 
+### Versioning
+
+`@aazucena/*` packages are versioned with Changesets (first release 0.1.0, 2026-11-11). A change to a package that Storybook documents needs a changeset: `pnpm changeset`, pick the packages and bump, write a one-line summary. To cut a release on main, run `GITHUB_TOKEN=$(gh auth token) pnpm version-packages`; it bumps versions, writes each package's `CHANGELOG.md`, and Storybook's Docs/Changelog page renders the ui and design-system logs. The toolbar badge shows the `@aazucena/ui` version (`apps/storybook/.storybook/version.ts`). Packages are not published to npm.
+
 ### Authorship
 
 No AI-attributed authoring anywhere in the repo. AI assistants (Claude, Gemini, etc.) must not add:
