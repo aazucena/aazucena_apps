@@ -8,7 +8,7 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 
 ## Analytics UI
 
-- [ ] **Avra visual identity realignment for AZUCENA_LYTICS** — current dashboard UI reads as generic and unoriginal. Queued in commit `002a954`; full feedback list to be added.
+- [ ] **Avra visual identity realignment for AZUCENA_LYTICS.** The dashboard reads like a one-shot Claude artifact: glass cards, stock zinc, Inter + JetBrains Mono, Tableau10 charts, airy layout. Direction decided 2026-11-10 (instrument panels, dedicated cyan/coral vibe, Fira, dense). D3 chart colors await approval. Spec and implementation order: [analytics-visual-identity.md](./features/analytics-visual-identity.md).
 
 ## Features
 

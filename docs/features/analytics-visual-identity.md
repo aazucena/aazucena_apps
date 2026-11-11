@@ -81,9 +81,9 @@ These are defects independent of any aesthetic decision.
 
 ---
 
-## 3. Open decisions — OWNER-AUTHORED, BLOCKING
+## 3. Decisions — OWNER-AUTHORED
 
-**None of these are answered. Implementation is gated on all five.**
+D1, D2, D4 and D5 answered 2026-11-10. D3 is proposed and needs approval before the chart work (step 1).
 
 ### D1 — Surface language
 
@@ -91,7 +91,10 @@ Does the glass panel (`rounded-[2.5rem]` + `backdrop-blur-md`) stay as intention
 precisely the thing being replaced? If replaced, what governs surfaces instead — flat bordered
 instrument panels, hairline dividers, elevation via shadow, something else?
 
-> **Decision:** _(unanswered)_
+> **Decision (2026-11-10): Replace the glass panel with instrument panels.** Flat surface, 1px hairline
+> border, square or 2px corners, no `backdrop-blur`. Each panel carries a framed header strip (micro-caps
+> label, e.g. `TRAFFIC // 30D`, with a status indicator at the right edge). Elevation comes from borders and
+> surface steps, not shadow or blur.
 
 ### D2 — Palette authority
 
@@ -103,7 +106,12 @@ Options: adopt an existing vibe, or register a dedicated analytics vibe.
 > `docs/architecture.md:189`, `README.md:338`, `packages/design-system/README.md:88`) against 17
 > actually registered. Reconcile while here.
 
-> **Decision:** _(unanswered)_
+> **Decision (2026-11-10): Register a dedicated analytics vibe** in `packages/design-system/src/themes/`,
+> built on the existing cyan (`oklch(0.64 0.11 215)`, `#32A0C5`) and coral (`oklch(0.69 0.15 35)`,
+> `#FF7B54`) ramps over a near-black base. Cyan is the primary/data color. **Coral is reserved for
+> alerts, anomalies, and destructive states** and never used as a plain series color. The vibe defines
+> this accent language itself; the "SHADES gradient" wording in node specs (§5) gets reconciled to it
+> afterward rather than blocking it.
 
 ### D3 — Chart color language
 
@@ -111,14 +119,25 @@ What categorical ramp replaces Tableau10, and where does it live so that all 21
 `@aazucena/visualizations` components inherit it rather than each being passed a prop? Also needs
 resolving: sequential and diverging ramps, axis/gridline color, and tooltip surface.
 
-> **Decision:** _(unanswered)_
+> **Proposed (2026-11-10), awaiting approval.** Follows from D2:
+>
+> - **Categorical:** led by cyan; additional series spread around the OKLCH hue wheel at matched
+>   lightness/chroma, **skipping the coral hue band (~20–50°)** so alerts stay unambiguous. Validate
+>   contrast and color-vision-deficiency separation before locking values.
+> - **Sequential:** single-hue cyan ramp (light → dark), used for heatmaps and magnitude.
+> - **Diverging:** cyan ↔ neutral ↔ coral, only for above/below-baseline data where "below" is bad.
+> - **Axes/gridlines:** `border` token at reduced opacity, never a hardcoded slate.
+> - **Tooltip:** instrument-panel surface (same as D1), hairline border, Fira Code values.
+> - **Home:** defaults live in `packages/visualizations/src/hooks/` so all 21 chart components inherit
+>   them with no per-call `colorMap`.
 
 ### D4 — Typeface
 
 Fira Sans / Fira Code (declared) or Inter / JetBrains Mono (loaded)? One of the two declarations is
 wrong and must be deleted, not left contradictory.
 
-> **Decision:** _(unanswered)_
+> **Decision (2026-11-10): Fira Sans + Fira Code.** Keep the `globals.css` declaration; delete the
+> Inter / JetBrains Mono loaders in `src/app/layout.tsx` and load Fira there instead.
 
 ### D5 — Density
 
@@ -126,13 +145,14 @@ The current shell is airy — `max-w-7xl` main with `p-8` panels. An instrument/
 be considerably denser. This decision governs spacing scale, table row heights, and chart aspect
 ratios.
 
-> **Decision:** _(unanswered)_
+> **Decision (2026-11-10): Dense terminal.** Full-width layout (drop `max-w-7xl`), 12–16px gutters,
+> compact table rows, panel padding around `p-3`/`p-4` instead of `p-8`. Optimize for data per screen.
 
 ---
 
-## 4. Implementation outline — GATED
+## 4. Implementation outline
 
-**Do not begin until §3 is answered.** Ordered by leverage-per-effort, smallest first.
+Unblocked except step 1, which waits on D3 approval. Ordered by leverage-per-effort, smallest first.
 
 1. **Chart defaults.** Centralize color, axis, and tooltip defaults in
    `packages/visualizations/src/hooks/` so every consumer inherits them. Replace `#94a3b8` axis fills
@@ -184,6 +204,6 @@ defines one.
 
 ---
 
-**Last Updated:** 2026-09-07
-**Status:** ⏳ DEFERRED — Post-Phase 5
-**Reason:** Requires owner-authored aesthetic direction (§3) before any code is written. Queued rather than executed because the visual language is a personal-brand decision, not an engineering one. Audit evidence captured here so it does not need re-deriving when the work starts.
+**Last Updated:** 2026-11-10
+**Status:** 🟢 UNBLOCKED — scheduled in the next release (`phase-5/next-release`, see [backlog](../next-release-backlog.md))
+**Remaining gate:** D3 approval before chart work. Audit counts in §2 re-verified 2026-11-10 (381 `bg-zinc`, 632 `text-zinc`, unchanged).
