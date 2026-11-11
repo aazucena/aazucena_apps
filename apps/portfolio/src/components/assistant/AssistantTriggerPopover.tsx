@@ -1,19 +1,23 @@
 "use client";
 
 import * as React from "react";
-import { SparklesSolid } from "@aazucena/icons";
 import {
   AssistantTrigger,
   Popover,
   PopoverContent,
   PopoverAnchor,
 } from "@aazucena/ui";
+import { RinCharacter } from "./RinCharacter";
+import { type RinEmotion, type RinBehavior } from "./useAssistantChat";
 
 interface AssistantTriggerPopoverProps {
   isOpen: boolean;
   popoverVisible: boolean;
   onPopoverOpenChange: (open: boolean) => void;
   onTriggerClick: () => void;
+  currentEmotion: RinEmotion;
+  behavior: RinBehavior;
+  rinSrc?: string;
 }
 
 export function AssistantTriggerPopover({
@@ -21,6 +25,9 @@ export function AssistantTriggerPopover({
   popoverVisible,
   onPopoverOpenChange,
   onTriggerClick,
+  currentEmotion,
+  behavior,
+  rinSrc,
 }: AssistantTriggerPopoverProps) {
   return (
     <Popover open={popoverVisible} onOpenChange={onPopoverOpenChange}>
@@ -28,7 +35,14 @@ export function AssistantTriggerPopover({
         <AssistantTrigger
           variant="default"
           isOpen={isOpen}
-          icon={<SparklesSolid size={18} />}
+          icon={
+            <RinCharacter
+              src={rinSrc}
+              currentEmotion={currentEmotion}
+              behavior={behavior}
+              className="h-7 w-7"
+            />
+          }
           label="Chat"
           closeLabel="Close"
           tooltipSide="right"

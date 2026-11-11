@@ -8,12 +8,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@aazucena/ui";
-import { RinAvatar } from "./RinMark";
+import { RinCharacter } from "./RinCharacter";
 import {
   AssistantDropdown,
   type AssistantMenuAction,
 } from "./AssistantDropdown";
-import { type ChatMode } from "./useAssistantChat";
+import {
+  type ChatMode,
+  type RinEmotion,
+  type RinBehavior,
+} from "./useAssistantChat";
 
 interface AssistantHeaderProps {
   chatMode: ChatMode;
@@ -22,6 +26,9 @@ interface AssistantHeaderProps {
   onAction: (action: AssistantMenuAction) => void;
   onClose: () => void;
   messagesCount: number;
+  currentEmotion: RinEmotion;
+  behavior: RinBehavior;
+  rinSrc?: string;
 }
 
 export function AssistantHeader({
@@ -31,6 +38,9 @@ export function AssistantHeader({
   onAction,
   onClose,
   messagesCount,
+  currentEmotion,
+  behavior,
+  rinSrc,
 }: AssistantHeaderProps) {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
   const ExpandIcon = chatMode === "fullscreen" ? Minimize : Maximize;
@@ -46,7 +56,12 @@ export function AssistantHeader({
   return (
     <div className="border-border/50 flex items-center justify-between border-b px-4 py-3">
       <div className="flex items-center gap-2">
-        <RinAvatar />
+        <RinCharacter
+          src={rinSrc}
+          currentEmotion={currentEmotion}
+          behavior={behavior}
+          className="text-secondary h-7 w-7 shrink-0"
+        />
         <span className="text-foreground text-xs font-black tracking-widest uppercase">
           Rin
         </span>

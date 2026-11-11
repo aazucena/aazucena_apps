@@ -13,8 +13,9 @@ import {
 } from "./constants";
 import { loadPersistedMessages } from "./utils";
 import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
+import { type RinBehavior } from "./RinCharacter";
 
-export type { RinEmotion };
+export type { RinEmotion, RinBehavior };
 export type ChatMode = "floating" | "offcanvas" | "fullscreen";
 
 export function useAssistantChat() {
@@ -54,11 +55,13 @@ export function useAssistantChat() {
 
   const isLoading = status === "streaming" || status === "submitted";
 
-  const [isTalking, setIsTalking] = React.useState(false);
+  const [behavior, setBehavior] = React.useState<RinBehavior>("idle");
 
   // Derive current emotion from the last assistant message's set_emotion tool result.
   // Forces "thinking" while streaming so the emote updates before text arrives.
+  // Forces "sad" on error so Rin looks apologetic rather than blank.
   const currentEmotion = React.useMemo((): RinEmotion => {
+    if (status === "error") return "sad";
     if (isLoading) return "thinking";
     const lastAssistant = [...messages]
       .reverse()
@@ -68,7 +71,7 @@ export function useAssistantChat() {
       (p: any) => p.type === "tool-set_emotion" && p.state === "result",
     );
     return (emotionPart as any)?.output?.emotion ?? "idle";
-  }, [messages, isLoading]);
+  }, [messages, isLoading, status]);
 
   const deferredInput = React.useDeferredValue(input);
   const wordCount = countWords(deferredInput);
@@ -99,15 +102,28 @@ export function useAssistantChat() {
     return () => clearInterval(id);
   }, [isLoading]);
 
-  // 300ms tail keeps the mouth animation running until the last token renders
+  // Derive behavior from AI SDK status + input. The 300ms tail on idle keeps
+  // the responding animation running until the last token renders.
   React.useEffect(() => {
-    if (isLoading) {
-      setIsTalking(true);
-    } else {
-      const t = setTimeout(() => setIsTalking(false), 300);
-      return () => clearTimeout(t);
+    if (status === "streaming") {
+      setBehavior("responding");
+      return;
     }
-  }, [isLoading]);
+    if (status === "submitted") {
+      setBehavior("thinking");
+      return;
+    }
+    if (status === "error") {
+      setBehavior("error");
+      return;
+    }
+    if (input.length > 0) {
+      setBehavior("listening");
+      return;
+    }
+    const t = setTimeout(() => setBehavior("idle"), 300);
+    return () => clearTimeout(t);
+  }, [status, input]);
 
   // Reset to floating mode whenever the chat is closed
   React.useEffect(() => {
@@ -190,7 +206,7 @@ export function useAssistantChat() {
     messages,
     sendMessage,
     isLoading,
-    isTalking,
+    behavior,
     currentEmotion,
     wordCount,
     isOverWordLimit,

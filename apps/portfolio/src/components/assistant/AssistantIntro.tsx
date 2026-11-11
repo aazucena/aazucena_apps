@@ -10,20 +10,38 @@ import {
 } from "@aazucena/ui";
 import { getSuggestions } from "./constants";
 import { rinAvatarIcon } from "./RinMark";
+import { RinCharacter, type RinBehavior } from "./RinCharacter";
+import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
 
 interface AssistantIntroProps {
   pathname: string;
   isLoading: boolean;
   onSendMessage: (text: string) => void;
+  currentEmotion: RinEmotion;
+  behavior: RinBehavior;
+  rinSrc?: string;
 }
 
 export function AssistantIntro({
   pathname,
   isLoading,
   onSendMessage,
+  currentEmotion,
+  behavior,
+  rinSrc,
 }: AssistantIntroProps) {
   return (
     <>
+      {/* Prominent character portrait — the first thing every visitor sees */}
+      <div className="flex flex-col items-center pt-3 pb-1">
+        <RinCharacter
+          src={rinSrc}
+          currentEmotion={currentEmotion}
+          behavior={behavior}
+          className="h-36 w-36"
+        />
+      </div>
+
       <ChatMessage role="assistant">
         <ChatAvatar variant="ai" icon={rinAvatarIcon} />
         <ChatContent role="assistant">

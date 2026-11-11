@@ -17,6 +17,12 @@ import { exportTranscript } from "./utils";
 import { outerVariants, innerVariants } from "./variants";
 
 export default function AssistantChat() {
+  // Set PUBLIC_RIN_CHARACTER_SRC in .env to point to the hosted .riv file URL.
+  // Falls back to the static RinMark SVG when unset.
+  const RIN_SRC = import.meta.env.PUBLIC_RIN_CHARACTER_SRC as
+    | string
+    | undefined;
+
   const {
     isOpen,
     setIsOpen,
@@ -35,6 +41,8 @@ export default function AssistantChat() {
     messages,
     sendMessage,
     isLoading,
+    behavior,
+    currentEmotion,
     wordCount,
     isOverWordLimit,
     transparencyOpen,
@@ -74,6 +82,9 @@ export default function AssistantChat() {
             dropdownOpen={dropdownOpen}
             onDropdownOpenChange={setDropdownOpen}
             messagesCount={messages.length}
+            currentEmotion={currentEmotion}
+            behavior={behavior}
+            rinSrc={RIN_SRC}
             onAction={(action) => {
               switch (action) {
                 case "lore":
@@ -103,6 +114,9 @@ export default function AssistantChat() {
                   pathname={pathname}
                   isLoading={isLoading}
                   onSendMessage={(text) => sendMessage({ text })}
+                  currentEmotion={currentEmotion}
+                  behavior={behavior}
+                  rinSrc={RIN_SRC}
                 />
               )}
               <AssistantMessageList messages={messages} />
@@ -136,6 +150,9 @@ export default function AssistantChat() {
           popoverVisible={popoverVisible}
           onPopoverOpenChange={setPopoverVisible}
           onTriggerClick={handleTriggerClick}
+          currentEmotion={currentEmotion}
+          behavior={behavior}
+          rinSrc={RIN_SRC}
         />
       )}
     </div>
