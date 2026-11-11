@@ -19,6 +19,11 @@ _To be filled in from the feature list._
 - [ ] **Re-enable Plausible with a ClickHouse memory cap.** The Plausible container on Railway was disabled 2026-11-10 to stop the cost spike (unbounded ClickHouse memory, $5 → $50+/mo). Fix: fork `railwayapp-templates/plausible`, add `<max_server_memory_usage>1610612736</max_server_memory_usage>` (1.5GB) to `packages/clickhouse/ch-config.xml`, repoint the Railway service source to the fork, redeploy, then confirm memory stays under the cap. Data is preserved on the `clickhouse-volume` volume.
   - While disabled: the portfolio requests a dead `script.js` on every page (unset `PUBLIC_PLAUSIBLE_API_HOST` in Vercel to stop it), and analytics `/api/stats/plausible` returns 500.
 - [ ] **Fix option merge order in `PlausibleScript.astro`.** `apps/portfolio/src/components/common/PlausibleScript.astro` builds config as `{ ...opts, ...defaultOptions }`, so defaults overwrite caller props (e.g. `outboundLinks={true}` silently becomes `false`). Swap to `{ ...defaultOptions, ...opts }`.
+- [ ] **Unpatched transitive advisories (after 2026-11 override prune).** No in-major fix; forcing them crosses a major inside a dependency:
+  - `adm-zip` <0.6.0 (high) via `strapi-plugin-config-sync` — wait for plugin release.
+  - `@graphql-tools/utils` ≤12.0.0 (high) via `@strapi/plugin-graphql` → `@apollo/server` — wait for Strapi.
+  - `sharp` <0.35.0 (high) via `astro` — recheck after the Astro 7 upgrade.
+- [ ] **Refactor `setState` inside effects** (`react-hooks/set-state-in-effect`, downgraded to warn when eslint-config-next 16.4 made it an error): analytics `ai/prompts/page.tsx:55,62`, `ai/trajectories/page.tsx:222`, `forms/page.tsx:171`, `components/common/LoginOverlay.tsx:59`; storybook `key-value.stories.tsx:70`. Restore the rule to error after.
 - [ ] **git-cliff skips 120 commits** with grouping errors, so they're missing from `CHANGELOG.md`. Run `git cliff -vv` to find the unmatched commit types and add groups to `cliff.toml`.
 
 ## Carried over

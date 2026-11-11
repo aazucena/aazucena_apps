@@ -22,6 +22,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(deps)_ Prune and refresh security overrides
 - _(analytics)_ Guard vacuous-truth OPERATIONAL on empty system_integrity data
 - _(visualizations)_ Use fitExtent to prevent choropleth map cutoff
 - _(analytics)_ Source geo distribution from telemetry_events not log drain
