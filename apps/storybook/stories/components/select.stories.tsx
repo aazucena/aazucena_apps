@@ -220,7 +220,8 @@ export const InteractionTest: Story = {
     await waitFor(() => expect(option).toBeVisible(), { timeout: 2000 });
     // Select an option
     await userEvent.click(option);
-    // Trigger should now show selected value
-    await expect(canvas.getByRole('combobox')).toHaveTextContent('Europe');
+    // Trigger should now show selected value. findByRole waits out the exit
+    // animation, during which Radix still aria-hides everything but the content.
+    await expect(await canvas.findByRole('combobox')).toHaveTextContent('Europe');
   },
 };
