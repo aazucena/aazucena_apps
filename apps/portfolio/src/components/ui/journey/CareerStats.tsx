@@ -3,7 +3,7 @@
  * Displays animated statistics about career progression
  */
 
-import CountUp from "react-countup";
+import CountUp from "./countUp";
 import type { CareerStat as CareerStatsType } from "@aazucena/types";
 
 interface CareerStatsProps {

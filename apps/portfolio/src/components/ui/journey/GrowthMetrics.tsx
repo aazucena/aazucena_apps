@@ -3,7 +3,7 @@
  * Displays quantitative insights about technical evolution
  */
 
-import CountUp from "react-countup";
+import CountUp from "./countUp";
 import type { GrowthData } from "@aazucena/types";
 
 interface GrowthMetricsProps {
