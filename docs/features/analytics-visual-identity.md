@@ -83,7 +83,7 @@ These are defects independent of any aesthetic decision.
 
 ## 3. Decisions — OWNER-AUTHORED
 
-D1, D2, D4 and D5 answered 2026-11-10. D3 is proposed and needs approval before the chart work (step 1).
+All five answered 2026-11-10. A static prototype of the Overview page (ecosystem rail as the signature element) was reviewed the same day.
 
 ### D1 — Surface language
 
@@ -119,7 +119,11 @@ What categorical ramp replaces Tableau10, and where does it live so that all 21
 `@aazucena/visualizations` components inherit it rather than each being passed a prop? Also needs
 resolving: sequential and diverging ramps, axis/gridline color, and tooltip surface.
 
-> **Proposed (2026-11-10), awaiting approval.** Follows from D2:
+> **Decision (2026-11-10): approved.** Categorical order, validated with the dataviz palette validator
+> (dark mode, all checks pass on both `#13232B` panel and `#0E1A20` ink): **`#32A0C5` signal → `#889D37` olive →
+> `#7C5BC5` violet → `#D4679F` rose.** Coral `#FF7B54` is status-only and always paired with a ▲ marker.
+> Surfaces: ink `#0E1A20`, panel `#13232B`, rule `#24404C`, text `#D7E6EC`, muted `#7F9AA5`.
+> Original proposal:
 >
 > - **Categorical:** led by cyan; additional series spread around the OKLCH hue wheel at matched
 >   lightness/chroma, **skipping the coral hue band (~20–50°)** so alerts stay unambiguous. Validate
@@ -152,7 +156,7 @@ ratios.
 
 ## 4. Implementation outline
 
-Unblocked except step 1, which waits on D3 approval. Ordered by leverage-per-effort, smallest first.
+Fully unblocked. Ordered by leverage-per-effort, smallest first.
 
 1. **Chart defaults.** Centralize color, axis, and tooltip defaults in
    `packages/visualizations/src/hooks/` so every consumer inherits them. Replace `#94a3b8` axis fills
@@ -206,4 +210,4 @@ defines one.
 
 **Last Updated:** 2026-11-10
 **Status:** 🟢 UNBLOCKED — scheduled in the next release (`phase-5/next-release`, see [backlog](../next-release-backlog.md))
-**Remaining gate:** D3 approval before chart work. Audit counts in §2 re-verified 2026-11-10 (381 `bg-zinc`, 632 `text-zinc`, unchanged).
+**Remaining gate:** none. Audit counts in §2 re-verified 2026-11-10 (381 `bg-zinc`, 632 `text-zinc`, unchanged).
