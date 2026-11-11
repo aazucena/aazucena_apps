@@ -1,7 +1,7 @@
 ## Repository Overview
 
 **pnpm + Turborepo monorepo** for Aldrin Azucena's portfolio project.
-**Package Manager:** pnpm v10.33.4 (required) | **Node:** >=22
+**Package Manager:** pnpm v10.33.4 (required) | **Node:** >=22.23.4
 
 ---
 
