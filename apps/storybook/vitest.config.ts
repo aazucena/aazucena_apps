@@ -5,6 +5,7 @@ import { playwright } from '@vitest/browser-playwright';
 import tailwindcss from '@tailwindcss/vite';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { argosVitestPlugin } from '@argos-ci/storybook/vitest-plugin';
+import { INTERACTION_TEST_STORIES } from './.storybook/interaction-tests.ts';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -37,46 +38,9 @@ export default defineConfig({
         test: {
           name: 'storybook',
           fileParallelism: false,
-          // Explicitly enumerate only the 34 story files that have play() interaction
-          // tests. storybookTest's tag-based include filter does NOT prevent Chrome from
-          // loading all 260+ story files (it filters exports, not files). Restricting
-          // the file list here eliminates the file-load OOM root cause.
-          include: [
-            'stories/components/accordion.stories.tsx',
-            'stories/components/alert-dialog.stories.tsx',
-            'stories/components/app-loader.stories.tsx',
-            'stories/components/arrow-link.stories.tsx',
-            'stories/components/assistant-trigger.stories.tsx',
-            'stories/components/back-to-top.stories.tsx',
-            'stories/components/button.stories.tsx',
-            'stories/components/checkbox.stories.tsx',
-            'stories/components/collapsible.stories.tsx',
-            'stories/components/combobox.stories.tsx',
-            'stories/components/data-list.stories.tsx',
-            'stories/components/dialog.stories.tsx',
-            'stories/components/drawer.stories.tsx',
-            'stories/components/floating-label.stories.tsx',
-            'stories/components/hover-card.stories.tsx',
-            'stories/components/inplace.stories.tsx',
-            'stories/components/input.stories.tsx',
-            'stories/components/lightbox.stories.tsx',
-            'stories/components/number-input.stories.tsx',
-            'stories/components/popover.stories.tsx',
-            'stories/components/radio-group.stories.tsx',
-            'stories/components/search-input.stories.tsx',
-            'stories/components/select.stories.tsx',
-            'stories/components/sheet.stories.tsx',
-            'stories/components/slider.stories.tsx',
-            'stories/components/spoiler.stories.tsx',
-            'stories/components/switch.stories.tsx',
-            'stories/components/tabs.stories.tsx',
-            'stories/components/tags-input.stories.tsx',
-            'stories/components/textarea.stories.tsx',
-            'stories/components/toggle.stories.tsx',
-            'stories/components/tooltip.stories.tsx',
-            'stories/recipes/auth-card.stories.tsx',
-            'stories/recipes/contact-form.stories.tsx',
-          ],
+          // Only the story files with play() tests: the tag filter above drops
+          // exports, not files, so Chrome would still load all 300+ files and OOM.
+          include: INTERACTION_TEST_STORIES,
           // Generous timeouts for headless browser: 34 interaction-test stories × DOM + animation overhead.
           testTimeout: 30000,
           hookTimeout: 30000,
