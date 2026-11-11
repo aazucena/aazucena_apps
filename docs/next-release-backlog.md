@@ -23,7 +23,7 @@ _To be filled in from the feature list._
 ## Maintenance
 
 - [x] **Dependency maintenance pass (2026-11-11).** Plan: [2026-11-10-maintenance-pass.md](./superpowers/plans/2026-11-10-maintenance-pass.md). `pnpm audit` went from 29 critical / 171 high to 0 critical / 9 high (all Strapi-plugin transitives, listed below). Node 22 baseline; Strapi 5.61, Next 16.4, Astro 7, Storybook 10.6, Vitest 5, Vite 8, Zod 4, AI SDK 7, Sentry 11. Deferred: ESLint 10, TypeScript 7, d3-cloud 2 (entries below).
-- [ ] **Smoke-test Strapi 5.61 locally.** Skipped during the pass because it would run forward-only migrations on the shared local Postgres used by the `aazucena-cms` container (5.45). Rebuild the container (`docker compose build cms`) and check the admin, navigation, CKEditor field, and config-sync pages.
+- [x] **Smoke-test Strapi 5.61 locally.** Done 2026-11-11: container on 5.61.1, migrations applied, admin login loads clean; plugin pages still to click through with an admin login.
 - [ ] **Remove the React 19.2 `suspendOnActiveViewTransition` polyfill** from `index.astro` if React 19.3 no longer needs it (check the Vercel preview without it).
 - [ ] **Re-enable Plausible with a ClickHouse memory cap.** The Plausible container on Railway was disabled 2026-11-10 to stop the cost spike (unbounded ClickHouse memory, $5 → $50+/mo). Fix: fork `railwayapp-templates/plausible`, add `<max_server_memory_usage>1610612736</max_server_memory_usage>` (1.5GB) to `packages/clickhouse/ch-config.xml`, repoint the Railway service source to the fork, redeploy, then confirm memory stays under the cap. Data is preserved on the `clickhouse-volume` volume.
   - While disabled: the portfolio requests a dead `script.js` on every page (unset `PUBLIC_PLAUSIBLE_API_HOST` in Vercel to stop it), and analytics `/api/stats/plausible` returns 500.
@@ -38,6 +38,14 @@ _To be filled in from the feature list._
 - [ ] **ESLint 10 (blocked upstream).** `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-import` (pulled in by `eslint-config-next` and the Storybook config) peer on ESLint ≤9, and `eslint-plugin-astro` 3 / `astro-eslint-parser` 3 require ESLint 10. Upgrade all five together once those three plugins support ESLint 10.
 - [ ] **Port the word cloud to d3-cloud 2.** v2 replaces the `cloud()` factory and `.on('end')` events with a `CloudLayout` class and explicit sprite placement (see the package's `MIGRATING.md`). `packages/visualizations/src/hooks/useWordCloud.ts` stays on `d3-cloud@^1.2.9` until it's rewritten.
 - [ ] **TypeScript 7 (blocked upstream).** `typescript-eslint` peers on TypeScript `<6.1.0` and `@astrojs/check` on `^5 || ^6`. Repo stays on `^5.9.3`. TypeScript 6 is allowed by both and is a possible intermediate step.
+- [ ] **Review follow-ups from the maintenance pass** (minor, deferred):
+  - Sentry 11 collects every data category by default (HTTP bodies, gen-AI inputs/outputs), so Rin chat text and contact-form fields can reach traces. Set an explicit `dataCollection` in `packages/config/src/sentry/{client,server}.ts` (e.g. `httpBodies: ['incomingRequest']`, `genAI: { inputs: false, outputs: false }`).
+  - `apps/analytics` has no `instrumentation.ts` / `instrumentation-client.ts`, so its `sentry.*.config.ts` never load under Next 16.
+  - Analytics webhooks (`api/webhooks/vercel/route.ts:119`, `webhooks/sentry/route.ts:92`) check `'errors' in zodError`, which is false in Zod 4; use `zodError.issues` so 400s keep their detail.
+  - `toUIMessageStreamResponse()` is deprecated in AI SDK 7 (removed in 8): `apps/portfolio/src/pages/api/chat.ts`, `apps/analytics/src/app/api/ai/chat/route.ts`.
+  - Remove `@tanstack/zod-form-adapter` and the ignored `validatorAdapter: zodValidator()` option (TanStack Form v1 uses Standard Schema; the adapter peers on Zod 3).
+  - `@strapi/design-system` override pins 2.2.0 while Strapi 5.61 declares 2.2.4 (all imports exist in 2.2.0); bump or drop the pin.
+  - `ajv` 6.12.6 is back via `@microsoft/tsdoc-config` (dev-only ReDoS with `$data`); re-add an `^6.14.0` floor or accept.
 - [ ] **git-cliff skips 120 commits** with grouping errors, so they're missing from `CHANGELOG.md`. Run `git cliff -vv` to find the unmatched commit types and add groups to `cliff.toml`.
 
 ## Carried over
