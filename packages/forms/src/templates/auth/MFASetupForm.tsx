@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
-import { cn } from '@aazucena/utils';
+import { cn, getErrorMessage } from '@aazucena/utils';
 import { mfaSetupSchema, type MFASetupFormData } from '../../schemas/index';
 import { ControlledInput } from '../fields';
 import { FormWizard } from '../../components/FormWizard';
@@ -167,7 +167,9 @@ export function MFASetupForm({
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-center text-2xl font-mono tracking-[0.5em] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 />
                 {field.state.meta.errors?.length > 0 && (
-                  <p className="text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
+                  <p className="text-xs text-destructive">
+                    {getErrorMessage(field.state.meta.errors[0])}
+                  </p>
                 )}
               </div>
             )}

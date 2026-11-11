@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { Form } from '@aazucena/ui';
-import { cn } from '@aazucena/utils';
+import { cn, getErrorMessage } from '@aazucena/utils';
 import { communityReportSchema, type CommunityReportFormData } from '../../schemas/index';
 import { ControlledInput, ControlledTextarea, ControlledCheckbox } from '../fields';
 import { FormButton } from '../../components/FormButton';
@@ -99,7 +99,7 @@ export function CommunityReportForm({
               ))}
               {field.state.meta.errors.length > 0 && (
                 <p className="col-span-2 text-xs text-destructive sm:col-span-3">
-                  {String(field.state.meta.errors[0])}
+                  {getErrorMessage(field.state.meta.errors[0])}
                 </p>
               )}
             </div>

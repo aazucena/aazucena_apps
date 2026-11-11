@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield } from '@aazucena/icons';
-import { cn } from '@aazucena/utils';
+import { cn, getErrorMessage } from '@aazucena/utils';
 import { useFormInstance } from '../utils/composables';
 
 /**
@@ -41,7 +41,7 @@ export function FormErrorSummary({
           .filter(([_, meta]) => (meta as any).errors.length > 0)
           .map(([name, meta]) => ({
             field: name,
-            message: (meta as any).errors[0],
+            message: getErrorMessage((meta as any).errors[0]),
           }));
       }}
     >

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useFormInstance } from '../utils/composables';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@aazucena/utils';
+import { cn, getErrorMessage } from '@aazucena/utils';
 
 /**
  * ## Engineering Standards
@@ -121,7 +121,9 @@ export function FormDebugger() {
                             </span>
                           </div>
                           {meta.errors.length > 0 && (
-                            <div className="mt-1 text-red-400 italic">↳ {meta.errors[0]}</div>
+                            <div className="mt-1 text-red-400 italic">
+                              ↳ {getErrorMessage(meta.errors[0])}
+                            </div>
                           )}
                         </div>
                       ))}

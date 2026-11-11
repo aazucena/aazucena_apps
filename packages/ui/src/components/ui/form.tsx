@@ -9,7 +9,7 @@ import { zodValidator } from '@tanstack/zod-form-adapter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@aazucena/utils';
+import { cn, getErrorMessage } from '@aazucena/utils';
 import { Label } from './label';
 
 /**
@@ -180,7 +180,7 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId, variant } = useFormField();
-  const body = error ? String(error) : children;
+  const body = error ? getErrorMessage(error) : children;
 
   return (
     <AnimatePresence mode="wait">

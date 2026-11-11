@@ -22,6 +22,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Read finished tool calls by AI SDK 5+ output-available state
 - _(cms)_ Restore standalone overrides and regenerate cms lockfile
 - _(portfolio)_ Unwrap react-countup default export under Vite 8
 - _(deps)_ Restore Apollo Server 5 override for Strapi GraphQL

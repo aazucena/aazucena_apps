@@ -8,6 +8,7 @@ export * from './datetime';
 export * from './device';
 export * from './dom';
 export * from './env';
+export * from './errors';
 export * from './experiences';
 export * from './export';
 export * from './function';
