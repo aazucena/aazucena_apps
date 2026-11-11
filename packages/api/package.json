@@ -37,7 +37,6 @@
   "devDependencies": {
     "@aazucena/config": "workspace:*",
     "@types/qs": "^6.9.15",
-    "@types/socket.io-client": "^3.0.0",
     "typescript": "^5.6.3"
   },
   "sideEffects": false

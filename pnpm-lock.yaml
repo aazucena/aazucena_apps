@@ -310,9 +310,6 @@ importers:
       '@types/luxon':
         specifier: ^3.7.1
         version: 3.7.1
-      '@types/marked':
-        specifier: ^6.0.0
-        version: 6.0.0
       '@types/node':
         specifier: ^20.19.37
         version: 20.19.39
@@ -846,9 +843,6 @@ importers:
       '@types/node':
         specifier: ^22.19.15
         version: 22.19.17
-      '@types/pixi.js':
-        specifier: ^5.0.0
-        version: 5.0.0
       '@types/qs':
         specifier: ^6.15.0
         version: 6.15.0
@@ -1231,9 +1225,6 @@ importers:
       '@types/qs':
         specifier: ^6.9.15
         version: 6.15.0
-      '@types/socket.io-client':
-        specifier: ^3.0.0
-        version: 3.0.0
       typescript:
         specifier: ^5.6.3
         version: 5.9.3
@@ -1859,9 +1850,6 @@ importers:
       '@types/eslint':
         specifier: ^9.6.1
         version: 9.6.1
-      '@types/eslint__js':
-        specifier: ^8.42.3
-        version: 8.42.3
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -8093,9 +8081,6 @@ packages:
   '@types/eslint@9.6.1':
     resolution: {integrity: sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==}
 
-  '@types/eslint__js@8.42.3':
-    resolution: {integrity: sha512-alfG737uhmPdnvkrLdZLcEKJ/B8s9Y4hrZ+YAdzUeoArBlSUERA2E87ROfOaS4jd/C45fzOoZzidLc1IPwLqOw==}
-
   '@types/estree-jsx@1.0.5':
     resolution: {integrity: sha512-52CcUVNFyfb1A2ALocQw/Dd1BQFNmSdkuC3BkZ6iqhdMfQz7JWOFRuJFloOzjk+6WijU56m9oKXFAXc7o3Towg==}
 
@@ -8200,10 +8185,6 @@ packages:
   '@types/markdown-it@14.1.2':
     resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
 
-  '@types/marked@6.0.0':
-    resolution: {integrity: sha512-jmjpa4BwUsmhxcfsgUit/7A9KbrC48Q0q8KvnY107ogcjGgTFDlIL3RpihNpx2Mu1hM4mdFQjoVc4O6JoGKHsA==}
-    deprecated: This is a stub types definition. marked provides its own type definitions, so you do not need this installed.
-
   '@types/mdast@3.0.15':
     resolution: {integrity: sha512-LnwD+mUEfxWMa1QpDraczIn6k0Ee3SMicuYSSzS6ZYl2gKS09EClnJYGd8Du6rfc5r/GZEk5o1mRb8TaTj03sQ==}
 
@@ -8267,10 +8248,6 @@ packages:
   '@types/picomatch@4.0.3':
     resolution: {integrity: sha512-iG0T6+nYJ9FAPmx9SsUlnwcq1ZVRuCXcVEvWnntoPlrOpwtSTKNDC9uVAxTsC3PUvJ+99n4RpAcNgBbHX3JSnQ==}
 
-  '@types/pixi.js@5.0.0':
-    resolution: {integrity: sha512-yZqQBR043lRBlBZci2cx6hgmX0fvBfYIqFm6VThlnueXEjitxd3coy+BGsqsZ7+ary7O//+ks4aJRhC5MJoHqA==}
-    deprecated: This is a stub types definition. pixi.js provides its own type definitions, so you do not need this installed.
-
   '@types/prompts@2.4.9':
     resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
 
@@ -8327,10 +8304,6 @@ packages:
 
   '@types/serve-static@2.2.0':
     resolution: {integrity: sha512-8mam4H1NHLtu7nmtalF7eyBH14QyOASmcxHhSfEoRyr0nP/YdoesEtU+uSRvMe96TW/HPTtkoKqQLl53N7UXMQ==}
-
-  '@types/socket.io-client@3.0.0':
-    resolution: {integrity: sha512-s+IPvFoEIjKA3RdJz/Z2dGR4gLgysKi8owcnrVwNjgvc01Lk68LJDDsG2GRqegFITcxmvCMYM7bhMpwEMlHmDg==}
-    deprecated: This is a stub types definition. socket.io-client provides its own type definitions, so you do not need this installed.
 
   '@types/stats.js@0.17.4':
     resolution: {integrity: sha512-jIBvWWShCvlBqBNIZt0KAshWpvSjhkwkEu4ZUcASoAvhmrgAUI2t1dXrjSL4xXVLB4FznPrIsX3nKXFl/Dt4vA==}
@@ -20830,6 +20803,18 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.4
 
+  '@formatjs/intl@2.10.0(typescript@5.4.5)':
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.18.2
+      '@formatjs/fast-memoize': 2.2.0
+      '@formatjs/icu-messageformat-parser': 2.7.6
+      '@formatjs/intl-displaynames': 6.6.6
+      '@formatjs/intl-listformat': 7.5.5
+      intl-messageformat: 10.5.11
+      tslib: 2.8.1
+    optionalDependencies:
+      typescript: 5.4.5
+
   '@formatjs/intl@2.10.0(typescript@5.9.3)':
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
@@ -24368,7 +24353,7 @@ snapshots:
       '@strapi/design-system': 2.2.0(@babel/runtime@7.29.2)(@codemirror/autocomplete@6.20.1)(@codemirror/language@6.12.3)(@codemirror/lint@6.9.5)(@codemirror/search@6.6.0)(@codemirror/state@6.6.0)(@codemirror/theme-one-dark@6.1.3)(@codemirror/view@6.41.0)(@strapi/icons@2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(codemirror@5.65.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       '@strapi/icons': 2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       '@strapi/permissions': 5.45.0
-      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.9.3)
+      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)
       '@strapi/typescript-utils': 5.45.0
       '@strapi/utils': 5.45.0
       '@testing-library/dom': 10.4.1
@@ -24572,7 +24557,7 @@ snapshots:
       '@strapi/database': 5.45.0(@types/node@20.19.39)(pg@8.8.0)
       '@strapi/design-system': 2.2.0(@babel/runtime@7.29.2)(@codemirror/autocomplete@6.20.1)(@codemirror/language@6.12.3)(@codemirror/lint@6.9.5)(@codemirror/search@6.6.0)(@codemirror/state@6.6.0)(@codemirror/theme-one-dark@6.1.3)(@codemirror/view@6.41.0)(@strapi/icons@2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(codemirror@5.65.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       '@strapi/icons': 2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
-      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.9.3)
+      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)
       '@strapi/utils': 5.45.0
       date-fns: 2.30.0
       date-fns-tz: 2.0.1(date-fns@2.30.0)
@@ -24673,7 +24658,7 @@ snapshots:
       '@strapi/generators': 5.45.0(@babel/preset-env@7.29.2(@babel/core@7.29.0))(@types/node@20.19.39)
       '@strapi/logger': 5.45.0
       '@strapi/permissions': 5.45.0
-      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.9.3)
+      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)
       '@strapi/typescript-utils': 5.45.0
       '@strapi/utils': 5.45.0
       '@vercel/stega': 0.1.2
@@ -24754,6 +24739,39 @@ snapshots:
       - styled-components
       - supports-color
       - tedious
+
+  '@strapi/data-transfer@5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)':
+    dependencies:
+      '@strapi/logger': 5.45.0
+      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)
+      '@strapi/utils': 5.45.0
+      chalk: 4.1.2
+      cli-table3: 0.6.5
+      commander: 8.3.0
+      fs-extra: 11.3.4
+      inquirer: 9.3.8(@types/node@20.19.39)
+      lodash: 4.18.1
+      ora: 5.4.1
+      resolve-cwd: 3.0.0
+      semver: 7.7.4
+      stream-chain: 2.2.5
+      stream-json: 1.8.0
+      tar: 7.5.11
+      tar-stream: 2.2.0
+      ws: 8.17.1
+    transitivePeerDependencies:
+      - '@types/node'
+      - better-sqlite3
+      - bufferutil
+      - mysql
+      - mysql2
+      - pg
+      - pg-native
+      - sqlite3
+      - supports-color
+      - tedious
+      - typescript
+      - utf-8-validate
 
   '@strapi/data-transfer@5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.9.3)':
     dependencies:
@@ -25471,7 +25489,7 @@ snapshots:
       '@strapi/content-releases': 5.45.0(43aba0454136e361de9976520fe60ecc)
       '@strapi/content-type-builder': 5.45.0(e48a539e32d00949535264793df0353b)
       '@strapi/core': 5.45.0(@babel/preset-env@7.29.2(@babel/core@7.29.0))(@babel/runtime@7.29.2)(@codemirror/autocomplete@6.20.1)(@codemirror/language@6.12.3)(@codemirror/lint@6.9.5)(@codemirror/search@6.6.0)(@codemirror/state@6.6.0)(@codemirror/theme-one-dark@6.1.3)(@codemirror/view@6.41.0)(@emotion/is-prop-valid@1.4.0)(@strapi/data-transfer@5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.9.3))(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@20.19.39)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(codemirror@5.65.21)(pg@8.8.0)(react-dom@19.2.4(react@19.2.4))(react-router-dom@6.30.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(redux@5.0.1)(styled-components@6.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
-      '@strapi/data-transfer': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.9.3)
+      '@strapi/data-transfer': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)
       '@strapi/database': 5.45.0(@types/node@20.19.39)(pg@8.8.0)
       '@strapi/email': 5.45.0(8e4add7ddb3ff6e6da9aa29f42091971)
       '@strapi/generators': 5.45.0(@babel/preset-env@7.29.2(@babel/core@7.29.0))(@types/node@20.19.39)
@@ -25480,7 +25498,7 @@ snapshots:
       '@strapi/openapi': 5.45.0
       '@strapi/permissions': 5.45.0
       '@strapi/review-workflows': 5.45.0(775cd35fc38750e8396f46d29a2f6b50)
-      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.9.3)
+      '@strapi/types': 5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)
       '@strapi/typescript-utils': 5.45.0
       '@strapi/upload': 5.45.0(d2fce60ae84689d8a09e6ae8aedc0f33)
       '@strapi/utils': 5.45.0
@@ -25597,6 +25615,36 @@ snapshots:
       koa-body: 6.0.1
       node-schedule: 2.1.1
       typedoc: 0.25.10(typescript@5.4.4)
+      typedoc-github-wiki-theme: 1.1.0(typedoc-plugin-markdown@3.17.1(typedoc@0.25.10(typescript@5.9.3)))(typedoc@0.25.10(typescript@5.9.3))
+      typedoc-plugin-markdown: 3.17.1(typedoc@0.25.10(typescript@5.9.3))
+      zod: 3.25.67
+    transitivePeerDependencies:
+      - '@types/node'
+      - better-sqlite3
+      - mysql
+      - mysql2
+      - pg
+      - pg-native
+      - sqlite3
+      - supports-color
+      - tedious
+      - typescript
+
+  '@strapi/types@5.45.0(@types/node@20.19.39)(pg@8.8.0)(typescript@5.4.5)':
+    dependencies:
+      '@casl/ability': 6.7.5
+      '@koa/cors': 5.0.0
+      '@koa/router': 12.0.2
+      '@strapi/database': 5.45.0(@types/node@20.19.39)(pg@8.8.0)
+      '@strapi/logger': 5.45.0
+      '@strapi/permissions': 5.45.0
+      '@strapi/utils': 5.45.0
+      commander: 8.3.0
+      json-logic-js: 2.0.5
+      koa: 2.16.4
+      koa-body: 6.0.1
+      node-schedule: 2.1.1
+      typedoc: 0.25.10(typescript@5.4.5)
       typedoc-github-wiki-theme: 1.1.0(typedoc-plugin-markdown@3.17.1(typedoc@0.25.10(typescript@5.9.3)))(typedoc@0.25.10(typescript@5.9.3))
       typedoc-plugin-markdown: 3.17.1(typedoc@0.25.10(typescript@5.9.3))
       zod: 3.25.67
@@ -26545,10 +26593,6 @@ snapshots:
       '@types/estree': 1.0.8
       '@types/json-schema': 7.0.15
 
-  '@types/eslint__js@8.42.3':
-    dependencies:
-      '@types/eslint': 9.6.1
-
   '@types/estree-jsx@1.0.5':
     dependencies:
       '@types/estree': 1.0.8
@@ -26676,10 +26720,6 @@ snapshots:
       '@types/linkify-it': 5.0.0
       '@types/mdurl': 2.0.0
 
-  '@types/marked@6.0.0':
-    dependencies:
-      marked: 17.0.6
-
   '@types/mdast@3.0.15':
     dependencies:
       '@types/unist': 2.0.11
@@ -26746,10 +26786,6 @@ snapshots:
 
   '@types/picomatch@4.0.3': {}
 
-  '@types/pixi.js@5.0.0':
-    dependencies:
-      pixi.js: 8.17.1
-
   '@types/prompts@2.4.9':
     dependencies:
       '@types/node': 20.19.39
@@ -26815,14 +26851,6 @@ snapshots:
     dependencies:
       '@types/http-errors': 2.0.5
       '@types/node': 20.19.39
-
-  '@types/socket.io-client@3.0.0':
-    dependencies:
-      socket.io-client: 4.8.3
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
 
   '@types/stats.js@0.17.4': {}
 
@@ -27456,9 +27484,9 @@ snapshots:
       std-env: 3.10.0
       test-exclude: 7.0.2
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.13)(@types/node@25.6.0)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(happy-dom@20.8.9)(jiti@2.6.1)(lightningcss@1.32.0)(msw@2.13.2(@types/node@25.6.0)(typescript@5.9.3))(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
+      vitest: 3.2.4(@types/debug@4.1.13)(@types/node@22.19.17)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(happy-dom@20.8.9)(jiti@2.6.1)(lightningcss@1.32.0)(msw@2.13.2(@types/node@22.19.17)(typescript@5.9.3))(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
     optionalDependencies:
-      '@vitest/browser': 3.2.4(msw@2.13.2(@types/node@25.6.0)(typescript@5.9.3))(playwright@1.59.1)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@3.2.4)
+      '@vitest/browser': 3.2.4(msw@2.13.2(@types/node@22.19.17)(typescript@5.9.3))(playwright@1.59.1)(vite@7.3.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@3.2.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -34928,7 +34956,7 @@ snapshots:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
       '@formatjs/icu-messageformat-parser': 2.7.6
-      '@formatjs/intl': 2.10.0(typescript@5.9.3)
+      '@formatjs/intl': 2.10.0(typescript@5.4.5)
       '@formatjs/intl-displaynames': 6.6.6
       '@formatjs/intl-listformat': 7.5.5
       '@types/hoist-non-react-statics': 3.3.7(@types/react@19.2.14)
@@ -37575,6 +37603,14 @@ snapshots:
       minimatch: 10.2.5
       shiki: 0.14.7
       typescript: 5.4.4
+
+  typedoc@0.25.10(typescript@5.4.5):
+    dependencies:
+      lunr: 2.3.9
+      marked: 4.3.0
+      minimatch: 10.2.5
+      shiki: 0.14.7
+      typescript: 5.4.5
 
   typedoc@0.25.10(typescript@5.9.3):
     dependencies:

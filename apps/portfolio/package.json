@@ -128,7 +128,6 @@
     "@types/d3-zoom": "^3.0.8",
     "@types/luxon": "^3.7.1",
     "@types/node": "^22.19.15",
-    "@types/pixi.js": "^5.0.0",
     "@types/qs": "^6.15.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
