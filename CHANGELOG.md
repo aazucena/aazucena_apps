@@ -23,6 +23,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(storybook)_ Label form controls and icon-only triggers in stories
 - _(ui)_ Give icon buttons, slider thumbs, and inner inputs accessible names
 - _(sentry)_ Set explicit data collection to keep chat and form data out
 - _(forms)_ Show validation messages instead of [object Object]

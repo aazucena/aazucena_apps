@@ -14,6 +14,7 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 ## Storybook (Avra)
 
 - [x] **Argos visual testing (2026-11-11).** `@argos-ci/storybook` plugin in the Vitest config; first build uploaded (180 screenshots from the 34 interaction-test files). CI needs `ARGOS_TOKEN` set in CircleCI. Next: cover all component and recipe stories (sharded `visual` project), then per-release snapshots. Plan: `~/.claude/plans/logical-zooming-crescent.md` phases 4–5.
+- [ ] **Token contrast pass, then make a11y blocking.** Storybook a11y stays at `test: 'todo'` (decided 2026-11-11). With labelling gaps fixed, the only violations left in the interaction-test stories are color contrast from the tokens: primary `#139cb6` on `#f8f8f8` is 3.06:1, muted `#9e9e9e` about 2.6:1 (AA needs 4.5:1). Adjust the light-mode tokens across failing vibes (best done with the Figma variables work), then switch `.storybook/preview.tsx` to `test: 'error'`.
 - [ ] **Link Figma frames to stories.** `@storybook/addon-designs` is registered in `apps/storybook/.storybook/main.ts` but no story sets `parameters.design`. Once the Figma design system exists, add `design: { type: 'figma', url }`, starting with the analytics `Panel` and `PageHeader`. (Figma's Storybook Connect plugin needs a Chromatic-published Storybook, which is still deferred; `addon-designs` works without it.)
 - [ ] **Rin character story.** Add `stories/components/rin-character.stories.tsx` with the SVG fallback (no src) and the `.riv` (once hosted), plus an `emotion` control over the 22 EmotionSM values.
 
