@@ -74,14 +74,14 @@
     "@types/node": "^20.19.19",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.5.5",
     "husky": "^9.1.7",
     "prettier": "^3.7.4",
     "shx": "^0.4.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5",
+    "typescript": "^5.9.3",
     "vite-plugin-monaco-editor": "^1.1.0"
   },
   "engines": {

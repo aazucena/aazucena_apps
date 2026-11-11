@@ -37,7 +37,7 @@
   "devDependencies": {
     "@aazucena/config": "workspace:*",
     "@types/qs": "^6.9.15",
-    "typescript": "^5.6.3"
+    "typescript": "^5.9.3"
   },
   "sideEffects": false
 }
