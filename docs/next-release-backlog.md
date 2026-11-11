@@ -26,6 +26,7 @@ _To be filled in from the feature list._
 - [ ] **Refactor `setState` inside effects** (`react-hooks/set-state-in-effect`, downgraded to warn when eslint-config-next 16.4 made it an error): analytics `ai/prompts/page.tsx:55,62`, `ai/trajectories/page.tsx:222`, `forms/page.tsx:171`, `components/common/LoginOverlay.tsx:59`; storybook `key-value.stories.tsx:70`. Restore the rule to error after.
 - [ ] **Vercel preview of the portfolio before merging.** Astro 7 + Vite 8 can't be built locally (OOM), and Vite 8 changed CommonJS interop (`react-countup` broke in dev). Check the journey page charts, Rin chat streaming (AI SDK 7, no local gateway key), and the 500 page on the preview.
 - [ ] **Audit `compressHTML: 'jsx'`.** `apps/portfolio/astro.config.mjs` pins `compressHTML: true` to keep Astro 6 whitespace. Check inline-element spacing, then drop the pin to use Astro 7's default.
+- [ ] **ESLint 10 (blocked upstream).** `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-import` (pulled in by `eslint-config-next` and the Storybook config) peer on ESLint ≤9, and `eslint-plugin-astro` 3 / `astro-eslint-parser` 3 require ESLint 10. Upgrade all five together once those three plugins support ESLint 10.
 - [ ] **git-cliff skips 120 commits** with grouping errors, so they're missing from `CHANGELOG.md`. Run `git cliff -vv` to find the unmatched commit types and add groups to `cliff.toml`.
 
 ## Carried over
