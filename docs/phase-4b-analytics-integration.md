@@ -482,9 +482,7 @@ git commit -m "♻️ refactor(analytics): phase B — integrate @aazucena/* wor
 - replace 5 telemetry hooks with @aazucena/hooks equivalents
 - add TelemetryProvider to RootProvider
 - migrate 26 files from @mynaui/icons-react to @aazucena/icons
-- import design system CSS tokens in globals.css
-
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+- import design system CSS tokens in globals.css"
 ```
 
 ---

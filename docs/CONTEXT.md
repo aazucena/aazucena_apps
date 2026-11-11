@@ -310,10 +310,18 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 ## Git & Deployment
 
-**Current Branch:** `phase-5/testing` (create on Phase 5 start)
+**Current Branch:** `phase-5/next-release` (Phase 5 testing + analytics UI redesign + features + maintenance)
 **CI/CD:** CircleCI — currently prechecks only; Railway handles Docker builds
 **Frontend:** Vercel (auto-deploy from GitHub)
 **Backend:** Railway
+
+### Authorship
+
+No AI-attributed authoring anywhere in the repo. AI assistants (Claude, Gemini, etc.) must not add:
+
+- `Co-Authored-By:` trailers for AI models in commit messages
+- "Generated with Claude Code" / "🤖 Generated with ..." lines in PR descriptions
+- AI author credits, bylines, or "written by AI" notes in code comments, docs, or changelogs
 
 ---
 
