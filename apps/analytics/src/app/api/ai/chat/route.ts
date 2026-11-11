@@ -18,7 +18,7 @@ export async function POST(req: Request) {
         },
       },
       // AZUCENA_LYTICS: Custom telemetry for monorepo-wide correlation
-      onFinish: async ({ usage }) => {
+      onEnd: async ({ usage }) => {
         const latency = Date.now() - startTime;
 
         // Push telemetry to our internal ingestion API

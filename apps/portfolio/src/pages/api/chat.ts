@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { streamText, convertToModelMessages, stepCountIs } from "ai";
+import { streamText, convertToModelMessages, isStepCount } from "ai";
 import { setStrapiConfig } from "@aazucena/api";
 import { gateway } from "@aazucena/api/services/ai/gateway";
 import { fetchChatContext, fetchRagContext } from "~/lib/utils/chat/context";
@@ -54,12 +54,12 @@ export const POST: APIRoute = async ({ request }) => {
 
   const result = streamText({
     model: gateway("anthropic/claude-sonnet-4.6"),
-    system: ragContext
+    instructions: ragContext
       ? `${systemPrompt}\n\n--- KNOWLEDGE BASE ---\n${ragContext}`
       : systemPrompt,
     messages: await convertToModelMessages(last10Messages),
     maxOutputTokens: 1024,
-    stopWhen: stepCountIs(3),
+    stopWhen: isStepCount(3),
     tools: createChatTools(pathname),
   });
 
