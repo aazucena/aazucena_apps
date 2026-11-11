@@ -9,17 +9,21 @@
 
 ```
 aazucena_apps/
+│
+│  ── Deployable apps ──
 ├── apps/
-│   ├── portfolio/      # Astro 5 + React 19 — main portfolio
+│   ├── portfolio/      # Astro 5 + React 19 — main portfolio (aazucena.com)
 │   ├── analytics/      # AZUCENA_LYTICS — Next.js 15 telemetry dashboard
-│   ├── cms/            # Strapi v5 CMS
-│   └── storybook/      # Standalone Storybook app (373+ stories)
-├── packages/           # 16 specialized packages (all scaffolded — Phase 4)
+│   ├── cms/            # Strapi v5 CMS (PostgreSQL + pgVector + Cloudinary)
+│   └── storybook/      # Component library host (avra.aazucena.com, 373+ stories)
+│
+│  ── Shared JS/TS libraries (pnpm workspace, @aazucena/* namespace) ──
+├── packages/
 │   ├── design-system/  # 7 tokens, 18 themes, 35 platform integrations
-│   ├── ui/             # 284 component files (75+ composed components)
-│   ├── forms/          # 94 templates + 48 Zod schemas
+│   ├── ui/             # 75+ composed components (CVA + forwardRef pattern)
+│   ├── forms/          # 94 templates + 48 Zod schemas (TanStack Form)
 │   ├── hooks/          # animations/, data/, device/, dom/
-│   ├── utils/          # domain utilities
+│   ├── utils/          # domain utilities (cn(), formatters, etc.)
 │   ├── types/          # TypeScript definitions
 │   ├── constants/      # global constants
 │   ├── animations/     # gsap/, pixi/, three/
@@ -31,9 +35,58 @@ aazucena_apps/
 │   ├── context/        # AnimationContext, DataContext, PortfolioContext
 │   ├── stores/         # Redux slices (interactions, journey)
 │   └── visualizations/ # D3, intelligence, common
-├── turbo.json
-├── pnpm-workspace.yaml
-└── package.json
+│
+│  ── Docker infrastructure services (not in pnpm workspace) ──
+├── services/
+│   ├── clickhouse/     # OLAP analytics DB (compose + SQL migration scripts 01–07)
+│   ├── websocket/      # Real-time WebSocket server (TypeScript)
+│   ├── intel-engine/   # Python AI/ML engine (LangChain + LangGraph)
+│   ├── intel-bridge/   # Python bridge connecting intel-engine to the stack
+│   ├── ollama/         # Local LLM runtime (dropped — compose kept for reference)
+│   └── plausible/      # Self-hosted privacy analytics
+│
+│  ── Documentation ──
+├── docs/
+│   ├── CONTEXT.md          # Single source of truth (you are here)
+│   ├── architecture.md     # Deep-dive: animation system, CMS data flow, packages
+│   ├── phase-*.md          # Per-phase plans and status
+│   ├── features/           # Feature specs (Rin, music player, AI forms, etc.)
+│   ├── ecosystem/nodes/    # 13-node polyglot ecosystem specs
+│   ├── incidents/          # Incident post-mortems
+│   └── strapi/             # CMS-specific docs
+│
+│  ── Monorepo config ──
+├── turbo.json              # Turborepo task pipeline
+├── pnpm-workspace.yaml     # Workspace definition (apps/, packages/)
+├── package.json            # Root scripts + tooling deps
+├── pnpm-lock.yaml          # Lockfile
+├── .npmrc                  # shamefully-hoist + Babel hoist (required for Vercel)
+├── compose.yml             # Root Docker Compose (orchestrates services/)
+│
+│  ── Code quality ──
+├── eslint.config.js        # Root ESLint flat config
+├── .eslintrc.js            # Legacy ESLint (transitional)
+├── .prettierrc.mjs         # Prettier config
+├── commitlint.config.mjs   # Enforces conventional commit format
+├── cliff.toml              # git-cliff: auto-generates CHANGELOG.md from commits
+│
+│  ── Git + CI/CD ──
+├── .husky/                 # Git hooks (pre-commit → lint-staged)
+├── .changeset/             # Changeset versioning config
+├── .circleci/              # CircleCI pipeline config
+│
+│  ── AI assistant configs ──
+├── .claude/                # Claude Code: agents, commands, skills, sessions
+├── .gemini/                # Gemini session context
+│
+│  ── Deploy + editor ──
+├── .vercel/                # Vercel project link
+├── .vscode/                # Shared editor settings
+├── .dockerignore
+├── .gitignore
+│
+│  ── Project docs ──
+└── README.md / ROADMAP.md / CHANGELOG.md / CLAUDE.md / GEMINI.md / SECURITY.md / LICENSE / NOTICE
 ```
 
 **Deep architecture details:** `docs/architecture.md`
