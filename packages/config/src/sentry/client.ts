@@ -3,6 +3,8 @@
  * Optimized for Browser/Astro/Next.js frontend environments.
  */
 
+import { sentryDataCollection } from './dataCollection';
+
 export interface SentryClientOptions {
   dsn: string;
   environment: string;
@@ -22,6 +24,9 @@ export const getBaseClientConfig = (options: SentryClientOptions) => {
 
     // Performance Monitoring
     tracesSampleRate: options.sampleRate ?? (isProduction ? 0.1 : 1.0),
+
+    // Privacy: see dataCollection.ts
+    dataCollection: sentryDataCollection,
 
     // Session Replay
     replaysSessionSampleRate: 0.1,

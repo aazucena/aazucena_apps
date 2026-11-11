@@ -3,6 +3,8 @@
  * Optimized for Node.js/SSR/Edge runtimes.
  */
 
+import { sentryDataCollection } from './dataCollection';
+
 export interface SentryServerOptions {
   dsn: string;
   environment: string;
@@ -20,6 +22,9 @@ export const getBaseServerConfig = (options: SentryServerOptions) => {
 
     // Server-side monitoring
     tracesSampleRate: isProduction ? 0.1 : 1.0,
+
+    // Privacy: see dataCollection.ts
+    dataCollection: sentryDataCollection,
 
     // Performance & Profiling (v11: profiles follow sampled traces)
     profileSessionSampleRate: isProduction ? 0.1 : 1.0,
