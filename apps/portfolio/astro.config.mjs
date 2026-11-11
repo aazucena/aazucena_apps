@@ -18,6 +18,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   // Set site URL for sitemap and RSS feed generation
   site: process.env.PUBLIC_SITE_URL || "https://aazucena.com",
+  // Astro 7 changed the default to 'jsx', which strips spaces between inline
+  // elements; keep the Astro 6 output until the pages are audited for it
+  compressHTML: true,
 
   vite: {
     resolve: {
