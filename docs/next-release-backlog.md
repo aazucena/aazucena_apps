@@ -27,6 +27,7 @@ _To be filled in from the feature list._
 - [ ] **Vercel preview of the portfolio before merging.** Astro 7 + Vite 8 can't be built locally (OOM), and Vite 8 changed CommonJS interop (`react-countup` broke in dev). Check the journey page charts, Rin chat streaming (AI SDK 7, no local gateway key), and the 500 page on the preview.
 - [ ] **Audit `compressHTML: 'jsx'`.** `apps/portfolio/astro.config.mjs` pins `compressHTML: true` to keep Astro 6 whitespace. Check inline-element spacing, then drop the pin to use Astro 7's default.
 - [ ] **ESLint 10 (blocked upstream).** `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-import` (pulled in by `eslint-config-next` and the Storybook config) peer on ESLint ≤9, and `eslint-plugin-astro` 3 / `astro-eslint-parser` 3 require ESLint 10. Upgrade all five together once those three plugins support ESLint 10.
+- [ ] **Port the word cloud to d3-cloud 2.** v2 replaces the `cloud()` factory and `.on('end')` events with a `CloudLayout` class and explicit sprite placement (see the package's `MIGRATING.md`). `packages/visualizations/src/hooks/useWordCloud.ts` stays on `d3-cloud@^1.2.9` until it's rewritten.
 - [ ] **git-cliff skips 120 commits** with grouping errors, so they're missing from `CHANGELOG.md`. Run `git cliff -vv` to find the unmatched commit types and add groups to `cliff.toml`.
 
 ## Carried over
