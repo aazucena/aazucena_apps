@@ -22,6 +22,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Unwrap react-countup default export under Vite 8
 - _(deps)_ Restore Apollo Server 5 override for Strapi GraphQL
 - _(deps)_ Prune and refresh security overrides
 - _(analytics)_ Guard vacuous-truth OPERATIONAL on empty system_integrity data
