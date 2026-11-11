@@ -23,8 +23,8 @@
     "@aazucena/ui": "workspace:*",
     "@aazucena/utils": "workspace:*",
     "@nanostores/react": "^0.8.4",
-    "@tanstack/react-form": "^1.28.5",
-    "@tanstack/react-query": "^5.95.2",
+    "@tanstack/react-form": "^1.33.5",
+    "@tanstack/react-query": "^5.107.1",
     "@tanstack/zod-form-adapter": "^0.42.1",
     "framer-motion": "^11.15.0",
     "zod": "^3.25.76"

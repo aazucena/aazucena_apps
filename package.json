@@ -39,11 +39,11 @@
     "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.4.1",
     "@commitlint/config-conventional": "^20.4.1",
-    "git-cliff": "^2.13.1",
+    "git-cliff": "^2.14.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.4.2",
-    "turbo": "^2.4.2"
+    "prettier": "^3.10.0",
+    "turbo": "^2.11.10"
   },
   "packageManager": "pnpm@10.33.4",
   "engines": {
@@ -57,10 +57,10 @@
       "sharp"
     ],
     "overrides": {
-      "react": "19.2.4",
-      "react-dom": "19.2.4",
-      "@types/react": "^19",
-      "@types/react-dom": "^19",
+      "react": "19.3.1",
+      "react-dom": "19.3.1",
+      "@types/react": "^19.3.0",
+      "@types/react-dom": "^19.3.0",
       "react-reconciler": "0.34.0-canary-71b3a03c-20251021",
       "@strapi/design-system": "2.2.0",
       "path-to-regexp@>=4.0.0 <6.3.0": ">=6.3.0",

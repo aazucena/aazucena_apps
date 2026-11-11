@@ -69,7 +69,7 @@ All notable changes to this project are documented here, grouped by phase milest
 - _(indexer)_ Remove token prefix log from startup output
 - _(intel-engine)_ Surface GitHub API message when content key is missing
 - _(intel-engine)_ Use GitHub Contents API instead of raw.githubusercontent.com
-- _(intel-engine)_ Fix \_glob_to_regex to match zero-segment \*\* case
+- _(intel-engine)_ Fix _glob_to_regex to match zero-segment ** case
 - _(intel-engine)_ Write GitHub-fetched docs to /tmp to avoid read-only volume error
 - _(intel-engine)_ Use intel.config.json patterns for GitHub doc fetch
 - _(intel-engine)_ Remove root-file COPY that breaks Railway build

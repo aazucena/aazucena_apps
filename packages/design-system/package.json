@@ -32,21 +32,21 @@
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "@clack/prompts": "^1.0.0",
+    "@clack/prompts": "^1.9.0",
     "@types/culori": "^4.0.1",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^25.5.0",
     "picocolors": "^1.1.1",
-    "png-to-ico": "^3.0.1",
-    "sharp": "^0.34.5",
+    "png-to-ico": "^3.0.2",
+    "sharp": "^0.35.5",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@aazucena/utils": "workspace:*",
-    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/typography": "^0.5.20",
     "culori": "^4.0.2",
     "lodash-es": "^4.17.23",
-    "tailwindcss": "^4.1.13",
+    "tailwindcss": "^4.3.5",
     "tailwindcss-animate": "^1.0.7",
     "tsup": "^8.5.1"
   }
