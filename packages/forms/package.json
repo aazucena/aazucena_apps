@@ -15,7 +15,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run"
   },
   "dependencies": {
     "@aazucena/api": "workspace:*",
@@ -27,11 +28,12 @@
     "@tanstack/react-query": "^5.107.1",
     "@tanstack/zod-form-adapter": "^0.42.1",
     "framer-motion": "^11.15.0",
-    "zod": "^3.25.76"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
   },
   "peerDependencies": {
     "@reduxjs/toolkit": "^2.11.2",

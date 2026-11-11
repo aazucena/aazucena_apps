@@ -6,14 +6,14 @@ import { baseFormSchema } from './base';
  * 1. Contact Form Schema
  */
 export const contactFormSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Contact),
+  formType: z.literal(FormTypeEnum.enum.Contact),
 });
 
 /**
  * 2. Feedback Form Schema
  */
 export const feedbackFormSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Feedback),
+  formType: z.literal(FormTypeEnum.enum.Feedback),
   rating: z.number().min(1).max(5).optional(),
   category: z.enum(['UI/UX', 'Performance', 'Content', 'General']).default('General'),
 });
@@ -22,7 +22,7 @@ export const feedbackFormSchema = baseFormSchema.extend({
  * 3. Testimonial Form Schema
  */
 export const testimonialFormSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Testimonial),
+  formType: z.literal(FormTypeEnum.enum.Testimonial),
   company: z.string().min(2).max(100).optional(),
   jobTitle: z.string().min(2).max(100).optional(),
   relationship: z.string().optional(),
@@ -33,7 +33,7 @@ export const testimonialFormSchema = baseFormSchema.extend({
  * 4. Bug Report Schema
  */
 export const bugReportSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values['Bug Report']),
+  formType: z.literal(FormTypeEnum.enum['Bug Report']),
   severity: z.enum(['Low', 'Medium', 'High', 'Critical']).default('Medium'),
   browser: z.string().optional(),
   os: z.string().optional(),
@@ -44,7 +44,7 @@ export const bugReportSchema = baseFormSchema.extend({
  * 5. Feature Request Schema
  */
 export const featureRequestSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values['Feature Request']),
+  formType: z.literal(FormTypeEnum.enum['Feature Request']),
   impact: z.enum(['Nice to have', 'Useful', 'Important', 'Critical']).default('Useful'),
 });
 
@@ -52,7 +52,7 @@ export const featureRequestSchema = baseFormSchema.extend({
  * 6. Collaboration Schema
  */
 export const collaborationSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Collaboration),
+  formType: z.literal(FormTypeEnum.enum.Collaboration),
   projectType: z.string().optional(),
   budget: z.string().optional(),
   timeline: z.string().optional(),
@@ -62,7 +62,7 @@ export const collaborationSchema = baseFormSchema.extend({
  * 7. Referral Schema
  */
 export const referralSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values.Referral),
+  formType: z.literal(FormTypeEnum.enum.Referral),
   referralName: z.string().min(2),
   referralEmail: z.string().email(),
 });
@@ -71,7 +71,7 @@ export const referralSchema = baseFormSchema.extend({
  * 8. Music Feedback Schema
  */
 export const musicFeedbackSchema = baseFormSchema.extend({
-  formType: z.literal(FormTypeEnum.Values['Music Feedback']),
+  formType: z.literal(FormTypeEnum.enum['Music Feedback']),
   trackTitle: z.string().optional(),
   elements: z.array(z.string()).optional(), // e.g. ['Mix', 'Arrangement', 'Melody']
 });

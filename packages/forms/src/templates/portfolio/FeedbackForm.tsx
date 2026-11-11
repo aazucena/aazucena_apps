@@ -29,7 +29,7 @@ export function FeedbackForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values.Feedback,
+      formType: FormTypeEnum.enum.Feedback,
       name: '',
       email: '',
       subject: '',

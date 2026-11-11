@@ -29,7 +29,7 @@ export function BugReportForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values['Bug Report'],
+      formType: FormTypeEnum.enum['Bug Report'],
       name: '',
       email: '',
       subject: '',

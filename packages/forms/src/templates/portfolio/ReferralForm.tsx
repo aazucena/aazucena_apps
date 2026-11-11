@@ -29,7 +29,7 @@ export function ReferralForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values.Referral,
+      formType: FormTypeEnum.enum.Referral,
       name: '',
       email: '',
       subject: 'Client Referral',

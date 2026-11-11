@@ -29,7 +29,7 @@ export function CollaborationForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values.Collaboration,
+      formType: FormTypeEnum.enum.Collaboration,
       name: '',
       email: '',
       subject: '',

@@ -29,7 +29,7 @@ export function TestimonialForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values.Testimonial,
+      formType: FormTypeEnum.enum.Testimonial,
       name: '',
       email: '',
       subject: 'Testimonial',

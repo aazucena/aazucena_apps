@@ -29,7 +29,7 @@ export function FeatureRequestForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values['Feature Request'],
+      formType: FormTypeEnum.enum['Feature Request'],
       name: '',
       email: '',
       subject: '',

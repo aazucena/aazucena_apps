@@ -35,7 +35,7 @@ export function MusicFeedbackForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values['Music Feedback'],
+      formType: FormTypeEnum.enum['Music Feedback'],
       name: '',
       email: '',
       subject: trackTitle ? `Feedback: ${trackTitle}` : '',

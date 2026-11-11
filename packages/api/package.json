@@ -32,7 +32,7 @@
     "qs": "^6.17.1",
     "socket.io-client": "^4.8.4",
     "web-vitals": "^4.2.4",
-    "zod": "^3.25.76"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",

@@ -29,7 +29,7 @@ export function ContactUsForm({
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      formType: FormTypeEnum.Values.Contact,
+      formType: FormTypeEnum.enum.Contact,
       name: '',
       email: '',
       subject: '',
