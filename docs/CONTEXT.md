@@ -149,6 +149,8 @@ pnpm dlx playwright test --headed
 
 **CMS has two lockfiles.** The workspace uses the root `pnpm-lock.yaml`, but `apps/cms/Dockerfile*` and Railway install `apps/cms` standalone from `apps/cms/pnpm-lock.yaml`, where `apps/cms/package.json`'s own `pnpm.overrides` apply (pnpm warns that they're ignored in the workspace; keep them anyway). After changing cms dependencies or root security overrides, mirror the overrides and run `pnpm install --ignore-workspace --lockfile-only` in `apps/cms`. Standalone cms stays on React 18 (Strapi 5 peer).
 
+**Storybook visual tests run on Argos.** `argosVitestPlugin` in `apps/storybook/vitest.config.ts` screenshots every story the Vitest run renders. It uploads only when `CI` is set, using `ARGOS_TOKEN` (a CircleCI project env var, never committed); local runs write `apps/storybook/screenshots/` (gitignored). CI runs on main only, so the latest main build is the baseline and changes are reviewed after merge.
+
 ```typescript
 // Vercel .npmrc — required for Babel dependency tracing
 shamefully-hoist=true

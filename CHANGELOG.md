@@ -125,6 +125,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(storybook)_ Capture stories with Argos
 - _(storybook)_ Wait for Select exit animation before asserting trigger
 - _(portfolio)_ Add data-testid attributes for Playwright E2E
 - _(phase-5)_ Scaffold Vitest for hooks and utils packages
