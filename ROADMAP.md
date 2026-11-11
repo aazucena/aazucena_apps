@@ -87,7 +87,9 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 
 ### Phase 5 — Testing & Quality 🔥 (current)
 
-**[Full doc →](./docs/phase-5-testing.md)**
+**[Full doc →](./docs/phase-5-testing.md)** · **[Release backlog →](./docs/next-release-backlog.md)**
+
+Branch `phase-5/next-release` also carries the analytics UI redesign, new features, and maintenance.
 
 - Vitest unit tests (hooks, utilities) — 70-80% coverage target
 - Playwright E2E (critical user flows — 100% coverage target)
