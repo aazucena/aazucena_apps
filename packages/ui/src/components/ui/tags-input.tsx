@@ -55,6 +55,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
       max,
       allowDuplicates = false,
       disabled,
+      'aria-label': ariaLabel,
       ...props
     },
     ref,
@@ -134,6 +135,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           onKeyDown={handleKeyDown}
           onBlur={() => addTag(input)}
           placeholder={value.length === 0 ? placeholder : ''}
+          aria-label={ariaLabel ?? placeholder}
           disabled={disabled}
           className={cn(
             'placeholder:text-muted-foreground min-w-[80px] flex-1 bg-transparent outline-none',

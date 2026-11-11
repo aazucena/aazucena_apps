@@ -64,6 +64,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
       emptyMessage = 'No results.',
       onChange,
       disabled,
+      'aria-label': ariaLabel,
       ...props
     },
     ref,
@@ -87,6 +88,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           role="combobox"
           aria-expanded={open}
           aria-haspopup="listbox"
+          aria-label={ariaLabel ?? placeholder}
           aria-controls={open ? listboxId : undefined}
           disabled={disabled}
           onClick={() => {

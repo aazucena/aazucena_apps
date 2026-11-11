@@ -67,6 +67,7 @@ export const ChatInputSubmit = React.forwardRef<
     <Button
       ref={ref}
       size="icon"
+      aria-label="Send message"
       className={cn('h-10 w-10 rounded-xl shadow-lg', className)}
       {...props}
     >

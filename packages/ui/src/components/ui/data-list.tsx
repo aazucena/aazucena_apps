@@ -71,7 +71,13 @@ export const DataListProgress = React.forwardRef<
   <div className={cn('flex flex-col items-end gap-1.5', className)}>
     {label && <span className="font-mono text-[10px] font-bold opacity-60">{label}</span>}
     <div className="h-1.5 w-24 overflow-hidden rounded-full bg-current/10">
-      <Progress ref={ref} value={value} className="h-full bg-current" {...props} />
+      <Progress
+        ref={ref}
+        value={value}
+        aria-label={label ?? 'Progress'}
+        className="h-full bg-current"
+        {...props}
+      />
     </div>
   </div>
 ));

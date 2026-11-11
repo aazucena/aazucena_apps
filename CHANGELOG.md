@@ -8,6 +8,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### ♻️ Refactor
 
+- _(storybook)_ Keep the interaction-test story list in one module
 - _(ecosystem)_ Split IDEATION_PLAN into per-node specs
 - _(intel-engine)_ Replace disk-based GitHub fetch with in-memory indexing
 - _(intel-engine)_ Fetch docs from GitHub at startup instead of baking into image

@@ -55,7 +55,7 @@ export interface SliderProps
     VariantProps<typeof sliderTrackVariants> {}
 
 const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, SliderProps>(
-  ({ className, variant, ...props }, ref) => (
+  ({ className, variant, 'aria-label': ariaLabel, ...props }, ref) => (
     <SliderPrimitive.Root
       ref={ref}
       className={cn('relative flex w-full touch-none items-center select-none', className)}
@@ -64,7 +64,10 @@ const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, S
       <SliderPrimitive.Track className={cn(sliderTrackVariants({ variant }))}>
         <SliderPrimitive.Range className={cn(sliderRangeVariants({ variant }))} />
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className={cn(sliderThumbVariants({ variant }))} />
+      <SliderPrimitive.Thumb
+        aria-label={ariaLabel ?? 'Value'}
+        className={cn(sliderThumbVariants({ variant }))}
+      />
     </SliderPrimitive.Root>
   ),
 );
