@@ -28,6 +28,7 @@ _To be filled in from the feature list._
 - [ ] **Audit `compressHTML: 'jsx'`.** `apps/portfolio/astro.config.mjs` pins `compressHTML: true` to keep Astro 6 whitespace. Check inline-element spacing, then drop the pin to use Astro 7's default.
 - [ ] **ESLint 10 (blocked upstream).** `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-import` (pulled in by `eslint-config-next` and the Storybook config) peer on ESLint ≤9, and `eslint-plugin-astro` 3 / `astro-eslint-parser` 3 require ESLint 10. Upgrade all five together once those three plugins support ESLint 10.
 - [ ] **Port the word cloud to d3-cloud 2.** v2 replaces the `cloud()` factory and `.on('end')` events with a `CloudLayout` class and explicit sprite placement (see the package's `MIGRATING.md`). `packages/visualizations/src/hooks/useWordCloud.ts` stays on `d3-cloud@^1.2.9` until it's rewritten.
+- [ ] **TypeScript 7 (blocked upstream).** `typescript-eslint` peers on TypeScript `<6.1.0` and `@astrojs/check` on `^5 || ^6`. Repo stays on `^5.9.3`. TypeScript 6 is allowed by both and is a possible intermediate step.
 - [ ] **git-cliff skips 120 commits** with grouping errors, so they're missing from `CHANGELOG.md`. Run `git cliff -vv` to find the unmatched commit types and add groups to `cliff.toml`.
 
 ## Carried over
