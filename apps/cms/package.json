@@ -88,11 +88,6 @@
     "node": ">=20.0.0 <=24.x.x",
     "npm": ">=6.0.0"
   },
-  "pnpm": {
-    "overrides": {
-      "@strapi/design-system": "2.2.0"
-    }
-  },
   "strapi": {
     "uuid": "cf897ca4-7212-401c-af40-2a7c4911c4f6",
     "installId": "6e3edd35a7e4439bc8e11b783fbcccf085613077405e28eafca379e0a4408fe3"
