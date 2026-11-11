@@ -1,9 +1,31 @@
 {/* docs/changelog.mdx */}
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Markdown, Meta } from '@storybook/addon-docs/blocks';
+import uiChangelog from '../../../../packages/ui/CHANGELOG.md?raw';
+import designSystemChangelog from '../../../../packages/design-system/CHANGELOG.md?raw';
 
 <Meta title="Docs/Changelog" />
 
+{/* Generated sections come from Changesets (`pnpm changeset`, then `pnpm version-packages`).
+    Drop each file's "# @aazucena/<pkg>" title and nest its headings one level under ours. */}
+export const body = (log) => log.replace(/^# .*\n+/, '').replace(/^(#+) /gm, '#$1 ');
+
 # Changelog
+
+Versions follow [semver](https://semver.org) and are managed with Changesets. Each package below has its own `CHANGELOG.md`.
+
+## @aazucena/ui
+
+<Markdown>{body(uiChangelog)}</Markdown>
+
+## @aazucena/design-system
+
+<Markdown>{body(designSystemChangelog)}</Markdown>
+
+---
+
+# Before 0.1.0
+
+History from before the packages were versioned.
 
 ## Phase 4 — Animation Fidelity & Tooling (2026-02-18)
 
