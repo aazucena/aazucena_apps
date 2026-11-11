@@ -315,6 +315,10 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 **Frontend:** Vercel (auto-deploy from GitHub)
 **Backend:** Railway
 
+### Commits
+
+Commit by separate concern: one commit per logical change, even when several changes are pending together. A `.gitignore` tweak and a CI config change are two commits, not one. Stage files explicitly (`git add <path>`) rather than `git add -A` so unrelated changes don't ride along.
+
 ### Authorship
 
 No AI-attributed authoring anywhere in the repo. AI assistants (Claude, Gemini, etc.) must not add:
