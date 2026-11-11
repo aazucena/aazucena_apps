@@ -1,11 +1,20 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "aazucena/aazucena_apps" }],
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "aazucena/aazucena_apps"
+    }
+  ],
   "commit": false,
   "fixed": [],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["portfolio", "analytics", "cms", "@aazucena/storybook"]
+  "ignore": ["portfolio", "analytics", "cms", "@aazucena/storybook"],
+  "privatePackages": {
+    "version": true,
+    "tag": false
+  }
 }
