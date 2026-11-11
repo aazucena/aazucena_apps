@@ -48,6 +48,6 @@
     "lodash-es": "^4.17.23",
     "tailwindcss": "^4.3.5",
     "tailwindcss-animate": "^1.0.7",
-    "tsup": "^8.5.1"
+    "tsup": "^9.0.0"
   }
 }

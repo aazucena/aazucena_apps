@@ -23,11 +23,11 @@
     "@aazucena/types": "workspace:*",
     "@aazucena/ui": "workspace:*",
     "@aazucena/utils": "workspace:*",
-    "@nanostores/react": "^0.8.4",
+    "@nanostores/react": "^2.0.1",
     "@tanstack/react-form": "^1.33.5",
     "@tanstack/react-query": "^5.107.1",
     "@tanstack/zod-form-adapter": "^0.42.1",
-    "framer-motion": "^11.15.0",
+    "framer-motion": "^14.12.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {

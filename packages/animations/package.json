@@ -27,7 +27,7 @@
     "@aazucena/ui": "workspace:*",
     "@aazucena/utils": "workspace:*",
     "@gsap/react": "^2.1.2",
-    "@nanostores/react": "^0.8.4",
+    "@nanostores/react": "^2.0.1",
     "@pixi/react": "8.1.0-alpha.1",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
