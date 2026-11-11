@@ -165,7 +165,7 @@ export function useBarChart<T extends BarChartData>(
 
     g.selectAll('rect')
       .on('mouseenter', (event, d: any) => {
-        d3.select(event.currentTarget).attr('opacity', 0.8);
+        d3.select(event.currentTarget as SVGRectElement).attr('opacity', 0.8);
         tooltip
           .style('opacity', 1)
           .html(`<strong>${d.label}</strong>: ${d.value}`)
@@ -176,7 +176,7 @@ export function useBarChart<T extends BarChartData>(
         tooltip.style('left', event.pageX + 10 + 'px').style('top', event.pageY - 28 + 'px');
       })
       .on('mouseleave', (event) => {
-        d3.select(event.currentTarget).attr('opacity', 1);
+        d3.select(event.currentTarget as SVGRectElement).attr('opacity', 1);
         tooltip.style('opacity', 0);
       })
       .on('click', (_event, d: any) => onBarClick?.(d));
