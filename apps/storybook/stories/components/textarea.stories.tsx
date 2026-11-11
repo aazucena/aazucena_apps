@@ -129,6 +129,7 @@ export const GlassAtmospheric: Story = {
  */
 export const Disabled: Story = {
   args: {
+    'aria-label': 'Locked buffer',
     disabled: true,
     value:
       'SYSTEM_LOCK_ACTIVE: Unauthorized access to this buffer is prohibited by Security_Enclave_V4.',

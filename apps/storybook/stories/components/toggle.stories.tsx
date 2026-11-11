@@ -102,6 +102,7 @@ export const CyberTerminal: Story = {
         </span>
       </div>
       <Toggle
+        aria-label="Toggle activity monitor"
         variant="outline"
         className="h-12 w-12 rounded-xl border-cyan-500/30 text-cyan-500 data-[state=on]:bg-cyan-500/20 data-[state=on]:text-cyan-400 data-[state=on]:border-cyan-400 hover:bg-cyan-500/10"
       >
@@ -118,19 +119,19 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-6">
       <div className="text-center space-y-3">
-        <Toggle size="sm" variant="outline">
+        <Toggle size="sm" variant="outline" aria-label="Bold">
           <Bold size={14} />
         </Toggle>
         <p className="text-[9px] font-mono opacity-40 uppercase">SM</p>
       </div>
       <div className="text-center space-y-3">
-        <Toggle size="default" variant="outline">
+        <Toggle size="default" variant="outline" aria-label="Bold">
           <Bold size={16} />
         </Toggle>
         <p className="text-[9px] font-mono opacity-40 uppercase">DEFAULT</p>
       </div>
       <div className="text-center space-y-3">
-        <Toggle size="lg" variant="outline">
+        <Toggle size="lg" variant="outline" aria-label="Bold">
           <Bold size={20} />
         </Toggle>
         <p className="text-[9px] font-mono opacity-40 uppercase">LG</p>

@@ -188,7 +188,7 @@ export const InteractionTest: Story = {
       <PopoverTrigger asChild>
         <Button variant="outline">Open Popover</Button>
       </PopoverTrigger>
-      <PopoverContent className="w-64 p-4">
+      <PopoverContent aria-label="Popover details" className="w-64 p-4">
         <p className="text-sm">Popover content is visible</p>
       </PopoverContent>
     </Popover>

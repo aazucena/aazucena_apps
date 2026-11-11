@@ -62,7 +62,7 @@ const ContactFormUI = ({ showErrors = false }: { showErrors?: boolean }) => (
         {showErrors && <p className="text-xs text-destructive mt-1">Valid email is required</p>}
       </div>
       <Select>
-        <SelectTrigger className="rounded-xl h-12">
+        <SelectTrigger aria-label="Inquiry type" className="rounded-xl h-12">
           <SelectValue placeholder="Select inquiry type" />
         </SelectTrigger>
         <SelectContent>

@@ -58,7 +58,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Select defaultValue="us">
-      <SelectTrigger className="w-[240px] rounded-xl border-zinc-200">
+      <SelectTrigger aria-label="Region" className="w-[240px] rounded-xl border-zinc-200">
         <SelectValue placeholder="Select_Region" />
       </SelectTrigger>
       <SelectContent className="rounded-2xl">
@@ -97,7 +97,11 @@ export const CyberTerminal: Story = {
           </span>
         </div>
         <Select defaultValue="v2">
-          <SelectTrigger variant="cyber" className="w-[240px] font-mono italic">
+          <SelectTrigger
+            aria-label="Protocol phase"
+            variant="cyber"
+            className="w-[240px] font-mono italic"
+          >
             <SelectValue placeholder="EXECUTE_PHASE" />
           </SelectTrigger>
           <SelectContent variant="cyber" className="font-mono">
@@ -126,6 +130,7 @@ export const GlassAtmospheric: Story = {
       <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-sm" />
       <Select defaultValue="stratosphere">
         <SelectTrigger
+          aria-label="Atmospheric layer"
           variant="glass"
           className="w-[240px] border-white/10 bg-white/5 text-white rounded-full px-6"
         >
@@ -148,7 +153,7 @@ export const GlassAtmospheric: Story = {
 export const AdvancedComposition: Story = {
   render: () => (
     <Select>
-      <SelectTrigger className="w-[280px] h-12 rounded-2xl">
+      <SelectTrigger aria-label="Storage node" className="w-[280px] h-12 rounded-2xl">
         <div className="flex items-center gap-3">
           <Database size={16} className="text-primary" />
           <SelectValue placeholder="Select_Storage_Node" />
@@ -200,7 +205,7 @@ export const InteractionTest: Story = {
   tags: ['!autodocs'],
   render: () => (
     <Select>
-      <SelectTrigger className="w-[240px] rounded-xl">
+      <SelectTrigger aria-label="Region" className="w-[240px] rounded-xl">
         <SelectValue placeholder="Select a region" />
       </SelectTrigger>
       <SelectContent>

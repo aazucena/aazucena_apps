@@ -96,6 +96,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   args: {
+    'aria-label': 'Quantity',
     defaultValue: 5,
     min: 0,
     max: 100,
@@ -141,9 +142,9 @@ export const Cyber: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <NumberInput size="sm" defaultValue={1} min={0} max={10} />
-      <NumberInput size="md" defaultValue={5} min={0} max={10} />
-      <NumberInput size="lg" defaultValue={9} min={0} max={10} />
+      <NumberInput size="sm" aria-label="Quantity" defaultValue={1} min={0} max={10} />
+      <NumberInput size="md" aria-label="Quantity" defaultValue={5} min={0} max={10} />
+      <NumberInput size="lg" aria-label="Quantity" defaultValue={9} min={0} max={10} />
     </div>
   ),
 };
@@ -178,6 +179,7 @@ export const Disabled: Story = {
 export const InteractionTest: Story = {
   tags: ['!autodocs'],
   args: {
+    'aria-label': 'Quantity',
     defaultValue: 5,
     min: 0,
     max: 100,

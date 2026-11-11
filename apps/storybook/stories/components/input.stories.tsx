@@ -105,6 +105,7 @@ export const GlassAtmospheric: Story = {
 export const FileUpload: Story = {
   args: {
     type: 'file',
+    'aria-label': 'Upload file',
   },
   render: (args) => (
     <div className="w-96 p-6 border rounded-2xl bg-muted/5">
@@ -121,6 +122,7 @@ export const FileUpload: Story = {
  */
 export const Disabled: Story = {
   args: {
+    'aria-label': 'Configuration',
     disabled: true,
     value: 'LOCKED_CONFIGURATION',
     variant: 'cyber',

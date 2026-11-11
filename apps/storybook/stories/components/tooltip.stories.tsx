@@ -102,7 +102,7 @@ export const GlassAtmospheric: Story = {
       <div className="absolute inset-0 bg-black/20" />
       <Tooltip>
         <TooltipTrigger asChild>
-          <button className="text-white hover:opacity-80 transition-opacity">
+          <button aria-label="More info" className="text-white hover:opacity-80 transition-opacity">
             <Info size={24} />
           </button>
         </TooltipTrigger>
