@@ -22,6 +22,7 @@ _To be filled in from the feature list._
 
 ## Maintenance
 
+- [x] **Explicit Sentry `dataCollection` (2026-11-11).** `packages/config/src/sentry/dataCollection.ts`: no HTTP bodies, gen-AI text, user info, cookies, stack-frame variables, or DB/queue payloads; headers and query params kept (Sentry filters secrets).
 - [x] **Dependency maintenance pass (2026-11-11).** Plan: [2026-11-10-maintenance-pass.md](./superpowers/plans/2026-11-10-maintenance-pass.md). `pnpm audit` went from 29 critical / 171 high to 0 critical / 9 high (all Strapi-plugin transitives, listed below). Node 22 baseline; Strapi 5.61, Next 16.4, Astro 7, Storybook 10.6, Vitest 5, Vite 8, Zod 4, AI SDK 7, Sentry 11. Deferred: ESLint 10, TypeScript 7, d3-cloud 2 (entries below).
 - [x] **Smoke-test Strapi 5.61 locally.** Done 2026-11-11: container on 5.61.1, migrations applied, admin login loads clean; plugin pages still to click through with an admin login.
 - [ ] **Remove the React 19.2 `suspendOnActiveViewTransition` polyfill** from `index.astro` if React 19.3 no longer needs it (check the Vercel preview without it).
@@ -39,7 +40,6 @@ _To be filled in from the feature list._
 - [ ] **Port the word cloud to d3-cloud 2.** v2 replaces the `cloud()` factory and `.on('end')` events with a `CloudLayout` class and explicit sprite placement (see the package's `MIGRATING.md`). `packages/visualizations/src/hooks/useWordCloud.ts` stays on `d3-cloud@^1.2.9` until it's rewritten.
 - [ ] **TypeScript 7 (blocked upstream).** `typescript-eslint` peers on TypeScript `<6.1.0` and `@astrojs/check` on `^5 || ^6`. Repo stays on `^5.9.3`. TypeScript 6 is allowed by both and is a possible intermediate step.
 - [ ] **Review follow-ups from the maintenance pass** (minor, deferred):
-  - Sentry 11 collects every data category by default (HTTP bodies, gen-AI inputs/outputs), so Rin chat text and contact-form fields can reach traces. Set an explicit `dataCollection` in `packages/config/src/sentry/{client,server}.ts` (e.g. `httpBodies: ['incomingRequest']`, `genAI: { inputs: false, outputs: false }`).
   - `apps/analytics` has no `instrumentation.ts` / `instrumentation-client.ts`, so its `sentry.*.config.ts` never load under Next 16.
   - Analytics webhooks (`api/webhooks/vercel/route.ts:119`, `webhooks/sentry/route.ts:92`) check `'errors' in zodError`, which is false in Zod 4; use `zodError.issues` so 400s keep their detail.
   - `toUIMessageStreamResponse()` is deprecated in AI SDK 7 (removed in 8): `apps/portfolio/src/pages/api/chat.ts`, `apps/analytics/src/app/api/ai/chat/route.ts`.
