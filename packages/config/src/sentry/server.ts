@@ -21,11 +21,9 @@ export const getBaseServerConfig = (options: SentryServerOptions) => {
     // Server-side monitoring
     tracesSampleRate: isProduction ? 0.1 : 1.0,
 
-    // Performance & Profiling
-    profilesSampleRate: isProduction ? 0.1 : 1.0,
-
-    // Security
-    sendDefaultPii: true,
+    // Performance & Profiling (v11: profiles follow sampled traces)
+    profileSessionSampleRate: isProduction ? 0.1 : 1.0,
+    profileLifecycle: 'trace' as const,
 
     // Shared metadata
     initialScope: {

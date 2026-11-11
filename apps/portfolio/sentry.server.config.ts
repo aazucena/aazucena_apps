@@ -10,5 +10,4 @@ Sentry.init({
     environment,
   }),
   integrations: [nodeProfilingIntegration()],
-  enableLogs: true,
 });

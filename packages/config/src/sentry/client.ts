@@ -23,9 +23,6 @@ export const getBaseClientConfig = (options: SentryClientOptions) => {
     // Performance Monitoring
     tracesSampleRate: options.sampleRate ?? (isProduction ? 0.1 : 1.0),
 
-    // Privacy & Security
-    sendDefaultPii: true,
-
     // Session Replay
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,

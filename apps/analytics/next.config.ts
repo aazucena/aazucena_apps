@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
+import { withSentryConfig } from '@sentry/nextjs/config';
 import { sentryNextConfigOptions } from '@aazucena/config/sentry/nextjs';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { version } = require('./package.json') as { version: string };

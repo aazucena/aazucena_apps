@@ -16,6 +16,5 @@ Sentry.init({
       autoInject: environment === "preview",
     }),
   ],
-  enableLogs: true,
   replaysOnErrorSampleRate: environment === "production" ? 0.1 : 1.0,
 });
