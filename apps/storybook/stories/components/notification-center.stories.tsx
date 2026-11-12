@@ -12,6 +12,10 @@ const meta = {
   title: 'Components/Feedback/NotificationCenter',
   component: NotificationCenter,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=18-31',
+    },
     layout: 'centered',
     docs: {
       description: {

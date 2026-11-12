@@ -12,6 +12,10 @@ const meta = {
   title: 'Components/Display/AvatarGroup',
   component: AvatarGroup,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=24-28',
+    },
     layout: 'centered',
     docs: {
       description: {

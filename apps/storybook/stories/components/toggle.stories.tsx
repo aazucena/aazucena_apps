@@ -22,6 +22,10 @@ const meta = {
   title: 'Components/Actions/Toggle',
   component: Toggle,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=20-53',
+    },
     layout: 'centered',
     docs: {
       description: {

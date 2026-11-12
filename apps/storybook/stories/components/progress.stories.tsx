@@ -13,6 +13,10 @@ const meta = {
   title: 'Components/Primitives/Progress',
   component: Progress,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=23-66',
+    },
     layout: 'centered',
     docs: {
       description: {

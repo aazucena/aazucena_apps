@@ -12,6 +12,10 @@ const meta = {
   title: 'Components/Forms/SearchInput',
   component: SearchInput,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=20-84',
+    },
     layout: 'centered',
     docs: {
       description: {

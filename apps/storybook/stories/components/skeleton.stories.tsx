@@ -12,6 +12,10 @@ const meta = {
   title: 'Components/Primitives/Skeleton',
   component: Skeleton,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=31-649',
+    },
     layout: 'centered',
     docs: {
       description: {

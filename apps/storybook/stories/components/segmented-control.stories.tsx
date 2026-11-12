@@ -15,6 +15,10 @@ const meta = {
   component: SegmentedControl,
   subcomponents: { SegmentedItem } as any,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=20-66',
+    },
     layout: 'centered',
     docs: {
       description: {

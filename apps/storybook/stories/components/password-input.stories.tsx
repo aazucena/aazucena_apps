@@ -12,6 +12,10 @@ const meta = {
   title: 'Components/Forms/PasswordInput',
   component: PasswordInput,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=20-91',
+    },
     layout: 'centered',
     docs: {
       description: {

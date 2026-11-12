@@ -16,6 +16,10 @@ const meta = {
   component: Tabs,
   subcomponents: { TabsList, TabsTrigger, TabsContent } as any,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=16-35',
+    },
     layout: 'centered',
     docs: {
       description: {

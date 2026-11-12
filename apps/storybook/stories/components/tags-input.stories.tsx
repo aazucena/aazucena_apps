@@ -13,6 +13,10 @@ const meta = {
   title: 'Components/Forms/TagsInput',
   component: TagsInput,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=21-71',
+    },
     layout: 'centered',
     docs: {
       description: {

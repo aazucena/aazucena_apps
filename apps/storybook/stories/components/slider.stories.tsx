@@ -15,6 +15,10 @@ const meta = {
   title: 'Components/Primitives/Slider',
   component: Slider,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=20-48',
+    },
     layout: 'centered',
     docs: {
       description: {

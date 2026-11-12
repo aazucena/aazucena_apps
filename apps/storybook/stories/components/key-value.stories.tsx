@@ -6,6 +6,10 @@ const meta: Meta<typeof KeyValue> = {
   title: 'Components/Data/KeyValue',
   component: KeyValue,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=24-66',
+    },
     layout: 'centered',
   },
   tags: ['autodocs'],

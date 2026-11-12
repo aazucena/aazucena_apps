@@ -34,6 +34,10 @@ const meta = {
     NavigationMenuIndicator,
   } as any,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=22-37',
+    },
     layout: 'centered',
     docs: {
       description: {

@@ -16,6 +16,10 @@ const meta = {
   component: Tooltip,
   subcomponents: { TooltipTrigger, TooltipContent, TooltipProvider } as any,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=16-48',
+    },
     layout: 'centered',
   },
   tags: ['autodocs', 'interaction-test'],

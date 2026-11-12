@@ -14,6 +14,10 @@ const meta = {
   component: Avatar,
   subcomponents: { AvatarImage, AvatarFallback } as any,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=24-27',
+    },
     layout: 'centered',
     docs: {
       description: {

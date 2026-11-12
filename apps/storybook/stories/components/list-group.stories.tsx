@@ -11,6 +11,10 @@ const meta = {
   title: 'Components/Display/ListGroup',
   component: ListGroup,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=24-53',
+    },
     layout: 'centered',
     docs: {
       description: {

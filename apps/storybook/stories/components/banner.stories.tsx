@@ -12,6 +12,10 @@ const meta = {
   title: 'Components/Feedback/Banner',
   component: Banner,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=23-46',
+    },
     layout: 'padded',
     docs: {
       description: {

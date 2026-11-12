@@ -5,6 +5,10 @@ const meta: Meta<typeof Meter> = {
   title: 'Components/Data/Meter',
   component: Meter,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=23-67',
+    },
     layout: 'centered',
   },
   tags: ['autodocs'],
