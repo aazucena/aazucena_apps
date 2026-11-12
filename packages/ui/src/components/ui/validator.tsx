@@ -100,7 +100,7 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
                 className={cn(
                   rule.valid
                     ? v === 'cyber'
-                      ? 'text-signal/60'
+                      ? 'text-muted-foreground'
                       : 'text-muted-foreground'
                     : v === 'cyber'
                       ? 'text-signal'

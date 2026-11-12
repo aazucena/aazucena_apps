@@ -124,7 +124,7 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                     onClick={() => handleCopy(entry.id, entry.value)}
                     className={cn(
                       'text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 transition-colors',
-                      variant === 'cyber' && 'text-signal/50 hover:text-signal',
+                      variant === 'cyber' && 'text-muted-foreground hover:text-signal',
                       variant === 'glass' && 'text-foreground/50 hover:text-foreground',
                     )}
                   >
@@ -142,7 +142,7 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                   className={cn(
                     'text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-9 w-9 shrink-0',
                     variant === 'cyber' &&
-                      'text-signal/50 hover:bg-alert/10 hover:text-alert rounded-none',
+                      'text-muted-foreground hover:bg-alert/10 hover:text-alert rounded-none',
                     variant === 'glass' && 'text-foreground/50 hover:bg-alert/20 hover:text-alert',
                   )}
                 >

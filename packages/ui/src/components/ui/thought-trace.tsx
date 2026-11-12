@@ -9,7 +9,7 @@ const thoughtTraceVariants = cva('flex flex-col gap-3 transition-all duration-50
     variant: {
       default: 'text-muted-foreground',
       cyber: 'text-foreground0/60 font-mono',
-      ai: 'text-signal/60 font-mono',
+      ai: 'text-muted-foreground font-mono',
     },
   },
   defaultVariants: {

@@ -115,7 +115,7 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
                 size === 'sm' && 'text-xs',
                 size === 'lg' && 'text-base',
                 size === 'xl' && 'text-lg',
-                variant === 'cyber' && 'text-signal/80 font-mono',
+                variant === 'cyber' && 'text-muted-foreground font-mono',
                 variant === 'glass' && 'text-foreground/70',
               )}
             >

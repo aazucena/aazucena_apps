@@ -11,7 +11,7 @@ const dataExplorerVariants = cva('w-full transition-all duration-300 font-mono t
     variant: {
       default: 'text-foreground',
       glass: 'text-foreground dark:text-foreground/90',
-      cyber: 'text-signal dark:text-signal/90',
+      cyber: 'text-signal dark:text-muted-foreground',
     },
   },
   defaultVariants: {

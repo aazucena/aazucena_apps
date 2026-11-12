@@ -90,7 +90,7 @@ function CommentNode({
             <span
               className={cn(
                 'text-[10px]',
-                variant === 'cyber' ? 'text-signal/40' : 'text-muted-foreground',
+                variant === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
               )}
             >
               {comment.timestamp}
@@ -99,7 +99,7 @@ function CommentNode({
           <p
             className={cn(
               'mt-1 leading-relaxed',
-              variant === 'cyber' ? 'text-signal/80' : 'text-foreground/80',
+              variant === 'cyber' ? 'text-muted-foreground' : 'text-foreground/80',
             )}
           >
             {comment.content}
@@ -113,7 +113,7 @@ function CommentNode({
                 className={cn(
                   'flex items-center gap-1 text-[11px] transition-colors',
                   variant === 'cyber'
-                    ? 'text-signal/40 hover:text-signal'
+                    ? 'text-muted-foreground hover:text-signal'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
@@ -138,7 +138,7 @@ function CommentNode({
                 className={cn(
                   'text-[11px] transition-colors',
                   variant === 'cyber'
-                    ? 'text-signal/40 hover:text-signal'
+                    ? 'text-muted-foreground hover:text-signal'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >

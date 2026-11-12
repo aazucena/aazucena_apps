@@ -83,7 +83,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
             className={cn(
               'text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
               variant === 'glass' && 'text-foreground/80',
-              variant === 'cyber' && 'text-signal/80 font-mono',
+              variant === 'cyber' && 'text-muted-foreground font-mono',
             )}
           >
             {label}

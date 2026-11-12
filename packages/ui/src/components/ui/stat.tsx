@@ -95,7 +95,7 @@ export const statDescriptionVariants = cva(
     variants: {
       variant: {
         default: 'text-muted-foreground',
-        primary: 'text-signal/70',
+        primary: 'text-muted-foreground',
         secondary: 'text-secondary-500/70',
         success: 'text-success/70',
         rose: 'text-alert/70',
@@ -121,7 +121,7 @@ export const statIconVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-panel dark:bg-panel-raised text-muted-foreground dark:text-foreground group-hover:text-signal/50',
+          'bg-panel dark:bg-panel-raised text-muted-foreground dark:text-foreground group-hover:text-signal',
         glass: 'bg-background/10 dark:bg-state text-foreground border border-border/20',
         cyber:
           'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-border/10 dark:border-signal/40',

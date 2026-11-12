@@ -166,7 +166,7 @@ const FormDescription = React.forwardRef<
       id={formDescriptionId}
       className={cn(
         'text-muted-foreground text-[0.8rem]',
-        variant === 'cyber' && 'text-signal/40 font-mono text-[9px] uppercase',
+        variant === 'cyber' && 'text-muted-foreground font-mono text-[9px] uppercase',
         className,
       )}
       {...props}

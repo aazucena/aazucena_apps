@@ -115,7 +115,7 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
         <span
           className={cn(
             'shrink-0 text-[10px] tabular-nums',
-            v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
+            v === 'cyber' ? 'text-muted-foreground font-mono' : 'text-muted-foreground',
           )}
         >
           {fmt(current)} / {fmt(duration)}

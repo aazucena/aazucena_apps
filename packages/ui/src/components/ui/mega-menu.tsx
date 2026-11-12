@@ -151,7 +151,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
                         <p
                           className={cn(
                             'mt-0.5 text-xs leading-relaxed',
-                            v === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
+                            v === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
                           )}
                         >
                           {link.description}

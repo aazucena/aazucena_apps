@@ -65,7 +65,7 @@ function ToolbarButton({
             ? 'bg-signal/20 text-signal'
             : 'bg-accent text-accent-foreground'
           : variant === 'cyber'
-            ? 'text-signal/60 hover:text-signal'
+            ? 'text-muted-foreground hover:text-signal'
             : 'text-muted-foreground hover:text-foreground',
       )}
     >

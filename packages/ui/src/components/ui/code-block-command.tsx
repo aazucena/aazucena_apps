@@ -194,7 +194,7 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
                   className={cn(
                     'data-[state=active]:border-primary h-full rounded-none px-4 text-[10px] font-bold tracking-widest uppercase data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:shadow-none',
                     v === 'cyber' &&
-                      'text-signal/50 data-[state=active]:border-signal data-[state=active]:text-signal',
+                      'text-muted-foreground data-[state=active]:border-signal data-[state=active]:text-signal',
                     v === 'glass' &&
                       'text-foreground/50 data-[state=active]:border-rule data-[state=active]:text-foreground',
                   )}
@@ -207,7 +207,7 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
                   className={cn(
                     'data-[state=active]:border-primary h-full rounded-none px-4 text-[10px] font-bold tracking-widest uppercase data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:shadow-none',
                     v === 'cyber' &&
-                      'text-signal/50 data-[state=active]:border-signal data-[state=active]:text-signal',
+                      'text-muted-foreground data-[state=active]:border-signal data-[state=active]:text-signal',
                     v === 'glass' &&
                       'text-foreground/50 data-[state=active]:border-rule data-[state=active]:text-foreground',
                   )}

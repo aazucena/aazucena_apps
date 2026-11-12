@@ -41,7 +41,7 @@ const labelClasses: Record<string, Record<string, string>> = {
   variant: {
     default: 'text-muted-foreground peer-focus:text-primary',
     glass: 'text-foreground/50 peer-focus:text-foreground/80',
-    cyber: 'text-signal/50 peer-focus:text-signal font-mono',
+    cyber: 'text-muted-foreground peer-focus:text-signal font-mono',
   },
   size: {
     sm: 'left-2 text-xs peer-focus:text-[9px] peer-[:not(:placeholder-shown)]:text-[9px] peer-focus:top-0.5 peer-[:not(:placeholder-shown)]:top-0.5 top-1.5',

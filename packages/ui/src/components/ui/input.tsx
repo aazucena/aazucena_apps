@@ -10,7 +10,7 @@ const inputVariants = cva(
       variant: {
         default: 'border-rule-strong',
         glass: 'glass',
-        cyber: 'border-signal/60 text-signal placeholder:text-signal/50',
+        cyber: 'border-signal/60 text-signal placeholder:text-muted-foreground',
       },
     },
     defaultVariants: {

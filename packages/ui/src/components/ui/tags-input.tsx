@@ -140,7 +140,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           disabled={disabled}
           className={cn(
             'placeholder:text-muted-foreground min-w-[80px] flex-1 bg-transparent outline-none',
-            v === 'cyber' && 'text-signal placeholder:text-signal/30 font-mono',
+            v === 'cyber' && 'text-signal placeholder:text-muted-foreground font-mono',
           )}
         />
       </div>

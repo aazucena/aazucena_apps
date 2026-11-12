@@ -60,7 +60,7 @@ const ActionBar = React.forwardRef<HTMLDivElement, ActionBarProps>(
             className={cn(
               'ml-1 flex h-6 w-6 items-center justify-center rounded-full transition-colors',
               v === 'cyber'
-                ? 'text-signal/60 hover:bg-signal/10 hover:text-signal'
+                ? 'text-muted-foreground hover:bg-signal/10 hover:text-signal'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
             )}
           >

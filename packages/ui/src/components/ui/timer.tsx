@@ -104,7 +104,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
                 disabled={isRunning || time < 60000}
                 className={cn(
                   'h-10 px-3 text-xs font-bold',
-                  variant === 'cyber' && 'border-signal/20 text-signal/60',
+                  variant === 'cyber' && 'border-signal/20 text-muted-foreground',
                 )}
               >
                 -1m
@@ -116,7 +116,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
                 disabled={isRunning || time < 10000}
                 className={cn(
                   'h-10 px-3 text-xs font-bold',
-                  variant === 'cyber' && 'border-signal/20 text-signal/60',
+                  variant === 'cyber' && 'border-signal/20 text-muted-foreground',
                 )}
               >
                 -10s

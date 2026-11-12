@@ -49,7 +49,7 @@ const bottomNavigationItemVariants = cva(
       variant: {
         default: 'text-muted-foreground hover:text-foreground',
         glass: 'text-foreground/60 hover:text-foreground',
-        cyber: 'text-signal/50 hover:text-signal',
+        cyber: 'text-muted-foreground hover:text-signal',
       },
       active: {
         true: '',

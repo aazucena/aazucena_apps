@@ -96,7 +96,7 @@ const DownloadTrigger = React.forwardRef<HTMLAnchorElement, DownloadTriggerProps
             <span
               className={cn(
                 'text-[10px]',
-                v === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
+                v === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
               )}
             >
               {fileSize}

@@ -96,7 +96,7 @@ function TieredMenuPanel({
                 <span
                   className={cn(
                     'ml-auto text-xs',
-                    variant === 'cyber' ? 'text-signal/50' : 'text-muted-foreground',
+                    variant === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
                   )}
                 >
                   {item.command}

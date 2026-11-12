@@ -80,7 +80,7 @@ const User = React.forwardRef<HTMLDivElement, UserProps>(
               className={cn(
                 'text-muted-foreground leading-tight',
                 s === 'sm' ? 'text-[10px]' : s === 'lg' ? 'text-sm' : 'text-xs',
-                v === 'cyber' && 'text-signal/60',
+                v === 'cyber' && 'text-muted-foreground',
               )}
             >
               {description}

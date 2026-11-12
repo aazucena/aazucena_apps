@@ -89,7 +89,7 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>(
               <span
                 className={cn(
                   'text-muted-foreground',
-                  variant === 'cyber' && 'text-signal/80 font-mono',
+                  variant === 'cyber' && 'text-muted-foreground font-mono',
                   variant === 'glass' && 'text-foreground/70',
                 )}
               >

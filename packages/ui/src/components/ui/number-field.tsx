@@ -111,7 +111,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
                 variant === 'glass' &&
                   'border-rule bg-state text-foreground placeholder:text-foreground/40',
                 variant === 'cyber' &&
-                  'border-signal/20 bg-signal/5 text-signal placeholder:text-signal/60 font-mono text-xs',
+                  'border-signal/20 bg-signal/5 text-signal placeholder:text-muted-foreground font-mono text-xs',
                 size === 'sm' && 'h-8 text-xs',
                 size === 'lg' && 'h-12 text-base',
                 size === 'default' && 'h-10 text-sm',
@@ -127,7 +127,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
                   size === 'lg' && 'text-sm',
                   size === 'default' && 'text-xs',
                   variant === 'glass' && 'text-foreground/60',
-                  variant === 'cyber' && 'text-signal/80 font-mono',
+                  variant === 'cyber' && 'text-muted-foreground font-mono',
                 )}
               >
                 {unit}

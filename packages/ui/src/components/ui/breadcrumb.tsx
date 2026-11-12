@@ -21,7 +21,7 @@ const breadcrumbListVariants = cva(
       variant: {
         default: 'text-muted-foreground',
         glass: 'text-muted-foreground dark:text-foreground/60',
-        cyber: 'text-signal dark:text-signal/60',
+        cyber: 'text-signal dark:text-muted-foreground',
         intel: 'text-[10px] font-black tracking-[0.3em] text-muted-foreground uppercase',
       },
     },

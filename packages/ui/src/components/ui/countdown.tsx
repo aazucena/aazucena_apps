@@ -117,7 +117,7 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
           <span
             className={cn(
               'text-sm font-medium',
-              v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
+              v === 'cyber' ? 'text-muted-foreground font-mono' : 'text-muted-foreground',
             )}
           >
             {label}
@@ -130,7 +130,7 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
                 <span
                   className={cn(
                     'font-bold',
-                    v === 'cyber' ? 'text-signal/40' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
                   )}
                 >
                   :
@@ -143,7 +143,7 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
                 <span
                   className={cn(
                     'text-[9px] tracking-wider uppercase',
-                    v === 'cyber' ? 'text-signal/40' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
                   )}
                 >
                   {seg.label}

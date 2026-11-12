@@ -63,7 +63,7 @@ const DescriptionList = React.forwardRef<HTMLDivElement, DescriptionListProps>(
                 className={cn(
                   'text-muted-foreground font-medium md:w-1/3',
                   variant === 'glass' && 'text-foreground/70',
-                  variant === 'cyber' && 'text-signal/80 font-mono',
+                  variant === 'cyber' && 'text-muted-foreground font-mono',
                   size === 'sm' && 'text-xs',
                   size === 'lg' && 'text-base',
                 )}

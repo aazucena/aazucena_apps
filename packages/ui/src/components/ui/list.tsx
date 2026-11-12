@@ -9,7 +9,7 @@ const listVariants = cva('space-y-1', {
     variant: {
       default: 'text-foreground',
       glass: 'text-foreground/90',
-      cyber: 'font-mono text-sm text-primary/80 dark:text-signal/80',
+      cyber: 'font-mono text-sm text-primary/80 dark:text-muted-foreground',
       muted: 'text-muted-foreground',
     },
     type: {
@@ -54,7 +54,7 @@ const listItemVariants = cva('', {
     variant: {
       default: '',
       glass: 'opacity-90',
-      cyber: 'before:content-[">_"] before:text-signal/50 list-none',
+      cyber: 'before:content-[">_"] before:text-muted-foreground list-none',
       muted: 'text-muted-foreground',
     },
   },

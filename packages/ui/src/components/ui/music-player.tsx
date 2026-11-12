@@ -139,7 +139,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   <p
                     className={cn(
                       'truncate text-xs',
-                      v === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
+                      v === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
                     )}
                   >
                     {artist}
@@ -175,7 +175,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                 <span
                   className={cn(
                     'w-8 text-right text-[10px] tabular-nums',
-                    v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-muted-foreground font-mono' : 'text-muted-foreground',
                   )}
                 >
                   {formatTime(current)}
@@ -196,7 +196,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                 <span
                   className={cn(
                     'w-8 text-[10px] tabular-nums',
-                    v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-muted-foreground font-mono' : 'text-muted-foreground',
                   )}
                 >
                   {formatTime(duration)}
@@ -211,7 +211,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className={cn(v === 'cyber' ? 'text-signal/40' : 'text-muted-foreground')}
+                  className={cn(v === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground')}
                 >
                   <path d="M11 5 6 9H2v6h4l5 4V5z" />
                   {volume > 0 && <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />}

@@ -108,7 +108,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
                 'text-muted-foreground flex items-center gap-2',
                 size === 'lg' && 'text-sm',
                 variant === 'glass' && 'text-foreground/60',
-                variant === 'cyber' && 'text-signal/60 font-mono text-[10px]',
+                variant === 'cyber' && 'text-muted-foreground font-mono text-[10px]',
               )}
             >
               <span>{formatFileSize(file.size)}</span>
@@ -131,7 +131,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
             className={cn(
               'flex-shrink-0 opacity-0 group-focus-within:opacity-100 group-hover:opacity-100',
               variant === 'glass' && 'text-foreground/70 hover:bg-state',
-              variant === 'cyber' && 'text-signal/60 hover:bg-signal/10',
+              variant === 'cyber' && 'text-muted-foreground hover:bg-signal/10',
               isFailed && 'text-alert hover:bg-alert/10',
             )}
           >

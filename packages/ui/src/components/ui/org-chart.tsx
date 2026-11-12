@@ -109,7 +109,7 @@ function OrgNodeComponent({
               <div
                 className={cn(
                   'text-xs leading-tight',
-                  variant === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
+                  variant === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
                 )}
               >
                 {node.title}

@@ -80,7 +80,7 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
           <CardDescription
             className={cn(
               variant === 'glass' && 'text-foreground/70',
-              variant === 'cyber' && 'text-signal/60 font-mono',
+              variant === 'cyber' && 'text-muted-foreground font-mono',
             )}
           >
             {description}
@@ -95,7 +95,7 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
             <ul
               className={cn(
                 'list-inside list-disc space-y-1 text-sm',
-                variant === 'cyber' && 'text-signal/80 list-[">"] font-mono',
+                variant === 'cyber' && 'text-muted-foreground list-[">"] font-mono',
               )}
             >
               {features.map((feature, index) => (

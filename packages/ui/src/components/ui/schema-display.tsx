@@ -116,7 +116,7 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
                 className={cn(
                   'h-3 w-3 shrink-0 transition-transform duration-200',
                   isNodeExpanded ? 'rotate-90' : 'rotate-0',
-                  variant === 'cyber' && 'text-signal/60',
+                  variant === 'cyber' && 'text-muted-foreground',
                   variant === 'glass' && 'text-foreground/50',
                 )}
               />

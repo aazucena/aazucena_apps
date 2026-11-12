@@ -76,14 +76,14 @@ const Diff = React.forwardRef<HTMLDivElement, DiffProps>(
       cyber: {
         add: 'bg-success/10 text-success',
         remove: 'bg-alert/10 text-alert',
-        equal: 'text-signal/60',
+        equal: 'text-muted-foreground',
       },
     };
 
     const gutterColors: Record<string, string> = {
       default: 'text-muted-foreground/40',
       glass: 'text-foreground/20',
-      cyber: 'text-signal/20',
+      cyber: 'text-muted-foreground',
     };
 
     return (

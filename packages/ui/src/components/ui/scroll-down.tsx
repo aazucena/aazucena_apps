@@ -13,7 +13,7 @@ const scrollDownVariants = cva(
         default: 'text-foreground/80 hover:text-foreground',
         glass: 'text-foreground/80 hover:text-primary dark:hover:text-foreground',
         cyber:
-          'text-primary/80 dark:text-signal/80 hover:text-primary dark:hover:text-signal font-mono tracking-wider',
+          'text-primary/80 dark:text-muted-foreground hover:text-primary dark:hover:text-signal font-mono tracking-wider',
       },
       visible: {
         true: 'opacity-100 scale-100',

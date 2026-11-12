@@ -64,7 +64,7 @@ const Frame = React.forwardRef<HTMLDivElement, FrameProps>(
             <div
               className={cn(
                 'flex gap-2',
-                variant === 'cyber' && 'text-signal/60',
+                variant === 'cyber' && 'text-muted-foreground',
                 variant === 'glass' && 'text-foreground/60',
               )}
             >

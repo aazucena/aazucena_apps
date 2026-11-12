@@ -16,7 +16,7 @@ const tabsListVariants = cva(
         default: 'bg-muted text-muted-foreground',
         glass: 'glass text-foreground',
         cyber:
-          'glass bg-signal-faint border border-signal/20 text-signal dark:bg-background/40 dark:text-signal/70',
+          'glass bg-signal-faint border border-signal/20 text-signal dark:bg-background/40 dark:text-muted-foreground',
         phone:
           'relative mt-16 mb-8 h-[420px] w-full max-w-[600px] flex items-center justify-center bg-transparent border-none overflow-visible',
       },
@@ -54,7 +54,7 @@ const tabsTriggerVariants = cva(
         glass:
           'text-foreground/60 data-active:bg-background/20 data-active:text-foreground data-active:border-rule',
         cyber:
-          'text-signal/50 data-active:bg-signal/10 data-active:text-signal data-active:border-signal/40',
+          'text-muted-foreground data-active:bg-signal/10 data-active:text-signal data-active:border-signal/40',
         phone:
           'absolute flex flex-col items-center justify-center gap-2 rounded-card p-4 border pointer-events-auto border-border/10 bg-background/5 data-active:scale-110 data-active:border-primary/40 text-muted-foreground data-active:text-foreground',
       },
