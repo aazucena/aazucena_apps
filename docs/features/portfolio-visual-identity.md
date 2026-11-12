@@ -49,7 +49,13 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
 ## Frames
 
 - **Homepage, dark:** Hero, About, Projects, Experience, What I do, Skills, Blog, What's next.
-- **Journey and Blog index:** dark and light.
+- **Blog index:** dark and light.
+- **Journey, dark and light (rebuilt 2026-11-12):** the full three-phase report.
+  - Career at a Glance
+  - Chronology gantt, with dates read from the live D3 chart
+  - Technical DNA: insights, chart tabs, domain filter, and the spider chart without the total spoke
+  - Distilled Wisdom
+  - Explore band
 - **Pages, dark and light (added 2026-11-12):**
   - About
   - Projects and the Portfolio Website case study
