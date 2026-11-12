@@ -150,6 +150,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(storybook)_ Vibe matrix checks each vibe's own signal
 - _(design-system)_ Every vibe emits its own AA signal
 - _(storybook)_ Vibe matrix measures the panel surface and status text
 - _(design-system)_ Guard fill variants against empty values
