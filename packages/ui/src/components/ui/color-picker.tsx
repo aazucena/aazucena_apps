@@ -35,8 +35,8 @@ const swatchVariants = cva(
       },
       variant: {
         default: 'border-input',
-        glass: 'glass-m border-white/20',
-        cyber: 'border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+        glass: 'bg-panel-glass border-rule',
+        cyber: 'border-signal-line',
       },
     },
     defaultVariants: {

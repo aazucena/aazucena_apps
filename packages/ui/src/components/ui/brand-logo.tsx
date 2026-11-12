@@ -15,10 +15,9 @@ const brandLogoVariants = cva(
         xl: 'w-20 h-20 text-3xl',
       },
       variant: {
-        default: 'bg-gradient-to-br border border-zinc-300/20',
-        glass: 'bg-background/10 dark:bg-white/10 backdrop-blur-md border border-border/20',
-        cyber:
-          'bg-background dark:bg-black border border-border dark:border-cyan-500/50 text-primary dark:text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.3)]',
+        default: 'bg-panel border border-rule',
+        glass: 'bg-panel-glass border border-rule',
+        cyber: 'bg-panel border border-signal-line text-signal font-mono',
       },
     },
     defaultVariants: {

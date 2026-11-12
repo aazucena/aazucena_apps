@@ -16,7 +16,7 @@ export const preloaderOverlayVariants = cva(
         default: 'bg-background',
         glass: 'bg-background/20',
         cyber: 'bg-background',
-        hoyoverse: 'bg-[#f0f0f0] dark:bg-[#101010]',
+        hoyoverse: 'bg-panel',
         minimal: 'bg-panel dark:bg-background',
         nature: 'bg-success/10 dark:bg-panel-raised',
       },

@@ -59,10 +59,10 @@ const environmentGridVariants = cva('absolute inset-0 transition-all duration-10
   variants: {
     variant: {
       default:
-        'bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]',
+        'bg-[linear-gradient(to_right,var(--chart-grid)_1px,transparent_1px),linear-gradient(to_bottom,var(--chart-grid)_1px,transparent_1px)] bg-[size:24px_24px]',
       cyber:
-        'bg-[linear-gradient(to_right,#06b6d415_1px,transparent_1px),linear-gradient(to_bottom,#06b6d415_1px,transparent_1px)] bg-[size:40px_40px]',
-      dots: 'bg-[radial-gradient(#80808012_1px,transparent_1px)] [background-size:16px_16px]',
+        'bg-[linear-gradient(to_right,var(--signal-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--signal-line)_1px,transparent_1px)] bg-[size:40px_40px]',
+      dots: 'bg-[radial-gradient(var(--chart-grid)_1px,transparent_1px)] [background-size:16px_16px]',
     },
   },
   defaultVariants: {

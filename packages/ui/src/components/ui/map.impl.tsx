@@ -43,12 +43,12 @@ export const DefaultMarkerIcon = () => {
   return icon;
 };
 
-const mapVariants = cva('w-full h-full rounded-lg overflow-hidden relative z-0', {
+const mapVariants = cva('w-full h-full rounded-card overflow-hidden relative z-0', {
   variants: {
     variant: {
-      default: 'border border-border shadow-md',
-      glass: 'border-white/10 shadow-xl backdrop-blur-md',
-      cyber: 'border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.2)]',
+      default: 'border border-rule',
+      glass: 'border border-rule',
+      cyber: 'border border-signal-line',
     },
   },
   defaultVariants: {

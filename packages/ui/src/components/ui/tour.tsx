@@ -71,8 +71,8 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
           .tour-highlight {
             position: relative;
             z-index: 9999;
-            box-shadow: 0 0 0 4000px rgba(0,0,0,0.5);
-            border-radius: 4px;
+            box-shadow: 0 0 0 4000px var(--scrim);
+            border-radius: var(--radius-control, 4px);
           }
         `}</style>
         {/* Step tooltip */}

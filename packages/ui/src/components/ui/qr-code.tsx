@@ -22,9 +22,9 @@ const qrCodeVariants = cva('inline-flex flex-col items-center gap-2', {
 });
 
 const wrapperStyles: Record<string, string> = {
-  default: 'rounded-lg border border-border bg-white p-3',
-  glass: 'glass rounded-xl p-3',
-  cyber: 'rounded-lg border border-cyan-500/30 bg-black/50 p-3',
+  default: 'rounded-card border border-rule bg-white p-3',
+  glass: 'rounded-card border border-rule bg-white p-3',
+  cyber: 'rounded-card border border-signal-line bg-panel p-3 text-signal',
 };
 
 const sizeMap: Record<string, number> = {
@@ -69,7 +69,8 @@ const QrCode = React.forwardRef<HTMLDivElement, QrCodeProps>(
     const v = variant ?? 'default';
     const s = size ?? 'md';
 
-    const defaultFg = v === 'cyber' ? '#06b6d4' : '#000000';
+    // Scanners need dark-on-light; cyber draws in the signal color via currentColor
+    const defaultFg = v === 'cyber' ? 'currentColor' : '#000000';
     const defaultBg = v === 'cyber' ? 'transparent' : '#ffffff';
 
     return (
@@ -89,7 +90,7 @@ const QrCode = React.forwardRef<HTMLDivElement, QrCodeProps>(
           <span
             className={cn(
               'text-xs font-medium',
-              v === 'cyber' ? 'font-mono text-cyan-400' : 'text-muted-foreground',
+              v === 'cyber' ? 'text-signal font-mono' : 'text-muted-foreground',
             )}
           >
             {label}

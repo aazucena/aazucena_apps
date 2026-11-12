@@ -27,7 +27,7 @@ const CTA = React.forwardRef<
     )}
     {variant === 'cyber' && (
       <div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1)_0%,transparent_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--signal-faint)_0%,transparent_70%)]"
         aria-hidden="true"
       />
     )}

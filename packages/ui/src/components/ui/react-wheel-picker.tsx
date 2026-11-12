@@ -183,18 +183,6 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const scale = useTransform(offset, [-1, 0, 1], [0.8, 1.15, 0.8]);
 
-            // Text color transition
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const color = useTransform(
-              offset,
-              [-0.5, 0, 0.5],
-              [
-                variant === 'cyber' ? 'rgba(6, 182, 212, 0.4)' : 'rgba(0, 0, 0, 0.4)',
-                variant === 'cyber' ? 'rgba(34, 211, 238, 1)' : 'rgba(0, 0, 0, 1)',
-                variant === 'cyber' ? 'rgba(6, 182, 212, 0.4)' : 'rgba(0, 0, 0, 0.4)',
-              ],
-            );
-
             return (
               <motion.div
                 key={`${idx}-${option}`}
@@ -203,7 +191,6 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
                   rotateX,
                   opacity,
                   scale,
-                  color,
                   position: 'absolute',
                   width: '100%',
                   display: 'flex',
@@ -214,7 +201,7 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
                 }}
                 className={cn(
                   'font-bold transition-colors',
-                  variant === 'cyber' && 'font-mono',
+                  variant === 'cyber' ? 'text-signal font-mono' : 'text-foreground',
                   isSelected && 'z-20',
                 )}
               >
@@ -225,7 +212,7 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
         </motion.div>
 
         {/* Vertical Fade Overlays */}
-        <div className="from-background to-background pointer-events-none absolute inset-0 z-30 opacity-90" />
+        <div className="from-background to-background pointer-events-none absolute inset-0 z-30 bg-linear-to-b via-transparent opacity-90" />
       </div>
     );
   },
