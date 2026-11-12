@@ -1,3 +1,5 @@
+// The manager bundle compiles JSX with the classic runtime, so React must be in scope
+import React from 'react';
 import { addons, types, useParameter } from 'storybook/manager-api';
 import { useTheme } from 'storybook/theming';
 import { adminTheme } from './theme';

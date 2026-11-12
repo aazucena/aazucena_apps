@@ -100,6 +100,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(storybook)_ Add a version switcher
 - _(storybook)_ Show the package version in the toolbar
 - _(assistant)_ Add animated Rive character for Rin
 - _(homepage)_ Improve touch target size on hero page navigation links
