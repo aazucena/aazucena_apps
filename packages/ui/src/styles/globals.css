@@ -56,28 +56,44 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-}
 
-:root {
-  --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(240 5.3% 26.1%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(240 5.9% 10%);
-  --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
-}
+  /* Avra instrument roles (Figma: Avra Design System / Theme) */
+  --color-panel: var(--panel);
+  --color-panel-raised: var(--panel-raised);
+  --color-state: var(--state);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+  --color-signal-faint: var(--signal-faint);
+  --color-signal-subtle: var(--signal-subtle);
+  --color-signal-line: var(--signal-line);
+  --color-alert: var(--alert);
+  --color-alert-foreground: var(--alert-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-success-subtle: var(--success-subtle);
+  --color-scrim: var(--scrim);
+  --color-panel-glass: var(--panel-glass);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-series-4: var(--series-4);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
 
-.dark {
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  /* Instrument shape + density */
+  --radius-card: var(--radius-card);
+  --radius-control: var(--radius-control);
+  --radius-badge: var(--radius-badge);
+  --spacing-control-sm: var(--control-sm);
+  --spacing-control: var(--control-md);
+  --spacing-control-lg: var(--control-lg);
+  --spacing-row: var(--row-height);
+  --spacing-gutter: var(--layout-gutter);
+  --spacing-panel: var(--panel-padding);
+  --spacing-panel-header: var(--panel-header);
 }
 
 @layer base {
