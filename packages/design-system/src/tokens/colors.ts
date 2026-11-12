@@ -119,11 +119,11 @@ export const colors = {
   },
 
   // Coral: alerts, anomalies, destructive. Never a series color.
-  coral: { 300: '#f8b09b', 500: '#FF7B54', 700: '#ca4b23' },
+  coral: { 300: '#f8b09b', 500: '#FF7B54', 700: '#c14319' },
 
   // Functional states (owner-chosen 2026-11-11): success = mint 170, warning = amber 80.
-  mint: { 500: '#55c1a3', 700: '#007b62' },
-  'avra-amber': { 500: '#d9a02c', 700: '#896100' },
+  mint: { 500: '#55c1a3', 700: '#00735b' },
+  'avra-amber': { 500: '#d9a02c', 700: '#855e00' },
 
   // Categorical series 2-4 (series 1 = signal). Namespaced: Tailwind owns olive/violet/rose.
   'avra-olive': { 500: '#889D37', 700: '#687c04' },

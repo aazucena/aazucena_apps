@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { wcagContrast } from 'culori';
+import { formatHex, interpolate, wcagContrast } from 'culori';
 import { generateCssVariables } from './generate-css';
 import { deriveAliases } from './aliases';
 import { vibes } from '../themes/registry';
@@ -25,14 +25,14 @@ describe('default vibe: instrument tokens', () => {
     expect(read(darkBlock, 'signal')?.toLowerCase()).toBe('#32a0c5');
     expect(read(darkBlock, 'alert')?.toLowerCase()).toBe('#ff7b54');
     expect(read(rootBlock, 'signal')?.toLowerCase()).toBe('#007493');
-    expect(read(rootBlock, 'alert')?.toLowerCase()).toBe('#ca4b23');
+    expect(read(rootBlock, 'alert')?.toLowerCase()).toBe('#c14319');
   });
 
   it('uses the owner-chosen success and warning colors', () => {
     expect(read(darkBlock, 'success')?.toLowerCase()).toBe('#55c1a3');
-    expect(read(rootBlock, 'success')?.toLowerCase()).toBe('#007b62');
+    expect(read(rootBlock, 'success')?.toLowerCase()).toBe('#00735b');
     expect(read(darkBlock, 'warning')?.toLowerCase()).toBe('#d9a02c');
-    expect(read(rootBlock, 'warning')?.toLowerCase()).toBe('#896100');
+    expect(read(rootBlock, 'warning')?.toLowerCase()).toBe('#855e00');
   });
 
   it('emits series, state, tint and chart tokens in both modes', () => {
@@ -122,5 +122,24 @@ describe('shadcn aliases', () => {
     expect(aliases.card).toBe(vibes['christmas']!.dark.colors.cardBackground);
     expect(aliases.ring).toBe(vibes['christmas']!.dark.colors.primary);
     expect(aliases.input).toBe(vibes['christmas']!.dark.colors.border);
+  });
+});
+
+describe('final review regressions', () => {
+  it('keeps the state tone distinct from raised surfaces in both modes (C3)', () => {
+    for (const block of [rootBlock, darkBlock]) {
+      expect(read(block, 'state')).not.toBe(read(block, 'panel-raised'));
+    }
+  });
+
+  it('keeps light-mode status text at AA on panel, background and its own tint (I2)', () => {
+    const v = (n: string) => read(rootBlock, n)!;
+    const tint = (c: string) => formatHex(interpolate([v('panel'), c], 'rgb')(0.15));
+    expect(wcagContrast(v('alert'), v('panel'))).toBeGreaterThanOrEqual(4.5);
+    expect(wcagContrast(v('alert'), v('background'))).toBeGreaterThanOrEqual(4.5);
+    for (const role of ['success', 'warning']) {
+      expect(wcagContrast(v(role), v('background')), role).toBeGreaterThanOrEqual(4.5);
+      expect(wcagContrast(v(role), tint(v(role))), `${role} on tint`).toBeGreaterThanOrEqual(4.5);
+    }
   });
 });

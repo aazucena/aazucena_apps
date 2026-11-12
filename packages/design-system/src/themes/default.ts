@@ -96,7 +96,7 @@ const dark: SystemThemeConfig = {
     base: getColor('ink', 950),
     panel: getColor('ink', 900),
     panelRaised: getColor('ink', 850),
-    state: getColor('ink', 850),
+    state: getColor('ink', 800), // one step off panel-raised so hover/focus shows on raised surfaces
     elevated: getColor('ink', 900),
     cardBackground: getColor('ink', 900),
     floating: getColor('ink', 850),
