@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(design-system)_ Distinct dark state tone and AA light status colors
 - _(design-system)_ Clear the previous vibe's tokens before applying the next
 - _(design-system)_ Raise light-mode muted text contrast in 9 vibes
 - _(design-system)_ Define the shadcn aliases the ui theme references
