@@ -85,6 +85,17 @@ These are defects independent of any aesthetic decision.
 
 All five answered 2026-11-10. A static prototype of the Overview page (ecosystem rail as the signature element) was reviewed the same day.
 
+> **Revision (2026-11-12): the sidebar is page navigation again.** In review of the full screen set, the owner found the ecosystem rail (13 service nodes) confusing: it showed no pages, so it could not say where you are or take you anywhere. The Figma screens now use the app's real nav, restyled as instruments:
+>
+> - brand
+> - SYSTEM | INTEL segmented switch, moved back out of the top bar
+> - `SYSTEM // 7` label
+> - `NavItem` rows carrying the same mynaui icons as `Sidebar.tsx`, with the active page on a `state` fill, signal edge and signal icon
+> - integrity footer linking to `/status`
+> - collapse control
+>
+> Status keeps no sidebar, as in the app, where `/status` sits outside the `(dashboard)` layout. Per-node health lives on the Status page's Services table.
+
 ### D1 — Surface language
 
 Does the glass panel (`rounded-[2.5rem]` + `backdrop-blur-md`) stay as intentional identity, or is it
