@@ -28,7 +28,8 @@
     "ds:help": "tsx scripts/cli.ts --help",
     "ds:sync": "tsx scripts/cli.ts all default FAVICON_MAIN ./dist",
     "ds:css": "tsx scripts/cli.ts css default FAVICON_MAIN ./dist",
-    "ds:figma": "tsx scripts/cli.ts figma default FAVICON_MAIN ./dist"
+    "ds:figma": "tsx scripts/cli.ts figma default FAVICON_MAIN ./dist",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@aazucena/config": "workspace:*",
@@ -39,7 +40,8 @@
     "picocolors": "^1.1.1",
     "png-to-ico": "^3.0.2",
     "sharp": "^0.35.5",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
   },
   "dependencies": {
     "@aazucena/utils": "workspace:*",
