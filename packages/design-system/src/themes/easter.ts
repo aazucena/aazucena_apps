@@ -6,6 +6,8 @@ const light: SystemThemeConfig = {
   colors: {
     primary: getColor('purple', 500),
     primaryForeground: getColor('zinc', 50),
+    signal: getColor('purple', 600),
+    signalForeground: getColor('zinc', 50),
     secondary: getColor('teal', 400),
     secondaryForeground: getColor('teal', 950),
     success: getColor('emerald', 600),

@@ -6,6 +6,8 @@ const light: SystemThemeConfig = {
   colors: {
     primary: getColor('green', 600),
     primaryForeground: getColor('zinc', 50),
+    signal: getColor('green', 700),
+    signalForeground: getColor('zinc', 50),
     secondary: getColor('teal', 600),
     secondaryForeground: getColor('zinc', 50),
     success: getColor('lime', 600),
@@ -49,5 +51,20 @@ export const natureVibe: ThemeVibe = {
   name: 'Nature',
   type: 'standard',
   light,
-  dark: defaultVibe.dark,
+  dark: {
+    ...defaultVibe.dark,
+    colors: {
+      ...defaultVibe.dark.colors,
+      signal: getColor('green', 400),
+      signalForeground: getColor('zinc', 950),
+      signalFaint: getColor('green', 400, 0.08),
+      signalSubtle: getColor('green', 400, 0.15),
+      signalLine: getColor('green', 400, 0.4),
+      primary: getColor('green', 400),
+      primaryForeground: getColor('zinc', 950),
+      accent: getColor('green', 400),
+      accentForeground: getColor('zinc', 950),
+      series1: getColor('green', 400),
+    },
+  },
 };

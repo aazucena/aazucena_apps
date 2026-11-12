@@ -111,6 +111,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(design-system)_ Derive signal and surfaces from each vibe's own roles
 - _(design-system)_ Keep the instrument shape across every vibe
 - _(ui)_ Add Panel, PanelHeader and PanelBody
 - _(ui)_ Expose instrument tokens as Tailwind utilities

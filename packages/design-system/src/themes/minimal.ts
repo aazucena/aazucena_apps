@@ -48,5 +48,20 @@ export const minimalVibe: ThemeVibe = {
   name: 'Minimal',
   type: 'standard',
   light,
-  dark: defaultVibe.dark,
+  dark: {
+    ...defaultVibe.dark,
+    colors: {
+      ...defaultVibe.dark.colors,
+      signal: getColor('zinc', 300),
+      signalForeground: getColor('zinc', 950),
+      signalFaint: getColor('zinc', 300, 0.08),
+      signalSubtle: getColor('zinc', 300, 0.15),
+      signalLine: getColor('zinc', 300, 0.4),
+      primary: getColor('zinc', 300),
+      primaryForeground: getColor('zinc', 950),
+      accent: getColor('zinc', 300),
+      accentForeground: getColor('zinc', 950),
+      series1: getColor('zinc', 300),
+    },
+  },
 };

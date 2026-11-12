@@ -47,6 +47,8 @@ const dark: SystemThemeConfig = {
   colors: {
     primary: getColor('orange', 500),
     primaryForeground: getColor('zinc', 50),
+    signal: getColor('orange', 500),
+    signalForeground: getColor('zinc', 950),
     secondary: getColor('orange', 950),
     secondaryForeground: getColor('zinc', 50),
     success: getColor('emerald', 600),

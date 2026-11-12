@@ -6,6 +6,8 @@ const light: SystemThemeConfig = {
   colors: {
     primary: getColor('red', 600),
     primaryForeground: getColor('zinc', 50),
+    signal: getColor('red', 700),
+    signalForeground: getColor('zinc', 50),
     secondary: getColor('amber', 500),
     secondaryForeground: getColor('red', 950),
     success: getColor('green', 600),
@@ -47,6 +49,11 @@ const dark: SystemThemeConfig = {
   colors: {
     primary: getColor('red', 500),
     primaryForeground: getColor('red', 950),
+    signal: getColor('red', 300),
+    signalForeground: getColor('zinc', 950),
+    // Coral reads 3.9:1 on this deep-red panel; a lighter warm tone keeps alerts at AA
+    alert: getColor('orange', 300),
+    alertForeground: getColor('zinc', 950),
     secondary: getColor('amber', 400),
     secondaryForeground: getColor('red', 950),
     success: getColor('emerald', 400),

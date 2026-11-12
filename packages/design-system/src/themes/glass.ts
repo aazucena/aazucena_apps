@@ -6,6 +6,8 @@ const light: SystemThemeConfig = {
   colors: {
     primary: getColor('indigo', 500, 0.85),
     primaryForeground: getColor('zinc', 50),
+    signal: getColor('indigo', 600),
+    signalForeground: getColor('zinc', 50),
     secondary: getColor('purple', 500, 0.85),
     secondaryForeground: getColor('zinc', 50),
     success: getColor('blue', 500, 0.85),
@@ -49,6 +51,8 @@ const dark: SystemThemeConfig = {
   colors: {
     primary: getColor('indigo', 500, 0.9),
     primaryForeground: getColor('zinc', 50),
+    signal: getColor('indigo', 400),
+    signalForeground: getColor('zinc', 950),
     secondary: getColor('purple', 500, 0.9),
     secondaryForeground: getColor('zinc', 50),
     success: getColor('blue', 500, 0.9),
