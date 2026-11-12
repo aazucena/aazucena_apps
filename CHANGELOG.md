@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Read Rive's CommonJS exports so Astro SSR can load RinCharacter
 - _(ui)_ Restore fills the sweep emptied in progress, timeline and friends
 - _(ui)_ Use the panel surface where the sweep put a translucent scrim
 - _(design-system)_ Distinct dark state tone and AA light status colors
