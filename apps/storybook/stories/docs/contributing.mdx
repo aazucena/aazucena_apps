@@ -79,6 +79,26 @@ UI components reside in `packages/ui`, data visualizations in `packages/visualiz
 
 ---
 
+## 🏷️ Story Status Tags
+
+Add a status tag to a story file's meta to show a pill next to the component in the sidebar. Untagged components are stable.
+
+| Tag | Pill | Meaning |
+| --- | --- | --- |
+| `new` | NEW | Recently added; API may still be adjusted from feedback. |
+| `beta` | BETA | Usable, but not yet covered by interaction tests. Expect changes. |
+| `deprecated` | DEPRECATED | Kept for existing callers; don't use it in new work. Say what replaces it in the story docs. |
+
+Two tags control testing rather than status: `no-visual` skips the Argos screenshot (use it for output that depends on the clock, the network, or animation), and `no-vitest` skips the story in every Vitest run.
+
+```tsx
+const meta = {
+  title: 'Components/Display/Gantt',
+  component: Gantt,
+  tags: ['autodocs', 'beta'],
+} satisfies Meta<typeof Gantt>;
+```
+
 ## 🛡️ Coding Standards
 
 ### TypeScript
@@ -124,4 +144,4 @@ Update the relevant documentation in the `docs/` folder for any major architectu
 
 ---
 
-**Last Updated:** February 18, 2026
+**Last Updated:** November 11, 2026
