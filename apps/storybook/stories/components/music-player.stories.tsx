@@ -104,7 +104,7 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-6">
+      <div className="rounded-card bg-background p-6">
         <Story />
       </div>
     ),

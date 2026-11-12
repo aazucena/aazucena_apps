@@ -96,7 +96,7 @@ export const ProgressDots: Story = {
     ];
 
     return (
-      <div className="flex flex-col items-center gap-8 p-12 border rounded-[2rem] bg-muted/5">
+      <div className="flex flex-col items-center gap-8 p-12 border rounded-card bg-muted/5">
         <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">
           SECTION_NAVIGATION
         </h3>
@@ -124,8 +124,8 @@ export const ProgressDots: Story = {
  */
 export const CyberVertical: Story = {
   render: () => (
-    <div className="h-[400px] w-[600px] bg-black border border-cyan-500/10 rounded-2xl relative overflow-hidden flex items-center justify-center">
-      <div className="text-center font-mono text-cyan-500/20 text-4xl font-black italic select-none uppercase">
+    <div className="h-[400px] w-[600px] bg-background border border-signal/10 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="text-center font-mono text-signal/20 text-4xl font-black italic select-none uppercase">
         UPLINK_TERMINAL
       </div>
       <PaginationDots variant="cyber" position="fixed-right" className="absolute">
@@ -143,14 +143,14 @@ export const CyberVertical: Story = {
  */
 export const GlassFloating: Story = {
   render: () => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] flex flex-col items-center gap-8">
-      <PaginationDots variant="glass" className="bg-white/5 border-white/10 px-4 py-3 shadow-2xl">
+    <div className="p-20 rounded-card flex flex-col items-center gap-8">
+      <PaginationDots variant="glass" className="bg-state border-rule px-4 py-3">
         <PaginationDot variant="glass" tooltip="Page 1" />
         <PaginationDot variant="glass" isActive tooltip="Page 2" />
         <PaginationDot variant="glass" tooltip="Page 3" />
         <PaginationDot variant="glass" tooltip="Page 4" />
       </PaginationDots>
-      <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em]">
+      <span className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.4em]">
         Atmospheric_Control
       </span>
     </div>

@@ -97,7 +97,7 @@ export const Cyber: Story = {
  */
 export const Intel: Story = {
   render: () => (
-    <div className="p-8 bg-muted/5 border border-dashed rounded-3xl">
+    <div className="p-8 bg-muted/5 border border-dashed rounded-card">
       <Breadcrumb>
         <BreadcrumbList variant="intel">
           <BreadcrumbItem>
@@ -126,7 +126,7 @@ export const Intel: Story = {
  */
 export const Glass: Story = {
   render: () => (
-    <div className="p-12 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-[3rem]">
+    <div className="p-12 rounded-card">
       <Breadcrumb>
         <BreadcrumbList variant="glass">
           <BreadcrumbItem>

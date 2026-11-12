@@ -66,7 +66,7 @@ export const ServiceCard: Story = {
               <span className="text-xs font-black tracking-widest uppercase">CLUSTER_MAIN_01</span>
               <div className="flex items-center gap-2 mt-1">
                 <StatusDot state="nominal" pulse />
-                <StatusLabel variant="cyber" className="text-emerald-500">
+                <StatusLabel variant="cyber" className="text-success">
                   CONNECTED
                 </StatusLabel>
               </div>
@@ -109,29 +109,25 @@ export const ServiceCard: Story = {
 export const DegradedState: Story = {
   render: () => (
     <div className="w-[450px]">
-      <HeartbeatItem className="border-rose-500/20 bg-rose-500/5 shadow-rose-500/5 shadow-2xl">
+      <HeartbeatItem className="border-alert/20 bg-alert/5">
         <HeartbeatHeader>
           <div className="flex items-center gap-4">
-            <IconBox
-              variant="cyber"
-              size="md"
-              className="border-rose-500/20 text-rose-500 bg-rose-500/10"
-            >
+            <IconBox variant="cyber" size="md" className="border-alert/20 text-alert bg-alert/10">
               <Activity size={20} />
             </IconBox>
             <div className="flex flex-col">
-              <span className="text-xs font-black tracking-widest uppercase text-rose-500">
+              <span className="text-xs font-black tracking-widest uppercase text-alert">
                 INGESTION_RELAY
               </span>
               <div className="flex items-center gap-2 mt-1">
                 <StatusDot state="warning" animated />
-                <StatusLabel variant="cyber" className="text-amber-500">
+                <StatusLabel variant="cyber" className="text-warning">
                   JITTER_DETECTED
                 </StatusLabel>
               </div>
             </div>
           </div>
-          <span className="font-mono text-[10px] font-black text-rose-500/60 uppercase">
+          <span className="font-mono text-[10px] font-black text-alert/60 uppercase">
             HIGH_LATENCY
           </span>
         </HeartbeatHeader>
@@ -140,20 +136,20 @@ export const DegradedState: Story = {
           {[...Array(24)].map((_, i) => (
             <div
               key={i}
-              className="flex-1 bg-rose-500 rounded-t-sm"
+              className="flex-1 bg-alert rounded-t-sm"
               style={{ height: `${Math.random() * 100}%` }}
             />
           ))}
         </div>
 
-        <HeartbeatFooter className="border-rose-500/10">
+        <HeartbeatFooter className="border-alert/10">
           <HeartbeatDetail>
-            <HeartbeatDetailLabel className="text-rose-500/40">Packet_Loss</HeartbeatDetailLabel>
-            <HeartbeatDetailValue className="text-rose-500">12.4% FAIL</HeartbeatDetailValue>
+            <HeartbeatDetailLabel className="text-alert/40">Packet_Loss</HeartbeatDetailLabel>
+            <HeartbeatDetailValue className="text-alert">12.4% FAIL</HeartbeatDetailValue>
           </HeartbeatDetail>
           <HeartbeatDetail align="right">
-            <HeartbeatDetailLabel className="text-rose-500/40">Incident_ID</HeartbeatDetailLabel>
-            <HeartbeatDetailValue className="text-rose-500">0x7F42</HeartbeatDetailValue>
+            <HeartbeatDetailLabel className="text-alert/40">Incident_ID</HeartbeatDetailLabel>
+            <HeartbeatDetailValue className="text-alert">0x7F42</HeartbeatDetailValue>
           </HeartbeatDetail>
         </HeartbeatFooter>
       </HeartbeatItem>
@@ -166,7 +162,7 @@ export const DegradedState: Story = {
  */
 export const IndicatorGallery: Story = {
   render: () => (
-    <div className="p-12 border rounded-[2rem] bg-card space-y-12 w-[500px]">
+    <div className="p-12 border rounded-card bg-card space-y-12 w-[500px]">
       <div className="space-y-4">
         <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
           SYSTEM_SIGNALS
@@ -176,9 +172,9 @@ export const IndicatorGallery: Story = {
             <StatusDot state="nominal" pulse />
             <StatusLabel variant="bright">OPERATIONAL</StatusLabel>
           </Status>
-          <Status variant="pill" className="px-4 py-1.5 border-rose-500/20 bg-rose-500/5">
+          <Status variant="pill" className="px-4 py-1.5 border-alert/20 bg-alert/5">
             <StatusDot state="critical" animated />
-            <StatusLabel variant="bright" className="text-rose-500">
+            <StatusLabel variant="bright" className="text-alert">
               OFFLINE
             </StatusLabel>
           </Status>

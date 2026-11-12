@@ -78,7 +78,7 @@ export const CyberTerminal: Story = {
     className: 'font-mono text-xs uppercase tracking-widest',
   },
   render: (args) => (
-    <div className="w-80 p-8 bg-black border border-cyan-500/10 rounded-2xl">
+    <div className="w-80 p-8 bg-background border border-signal/10 rounded-card">
       <Input {...args} />
     </div>
   ),
@@ -93,11 +93,11 @@ export const GlassAtmospheric: Story = {
     placeholder: 'Layer coordinate...',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 to-blue-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-80">
         <Input
           {...args}
-          className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-xl h-12 px-6"
+          className="bg-state border-rule text-foreground placeholder:text-foreground/40 rounded-card h-12 px-6"
         />
       </div>
     </div>
@@ -113,7 +113,7 @@ export const FileUpload: Story = {
     'aria-label': 'Upload file',
   },
   render: (args) => (
-    <div className="w-96 p-6 border rounded-2xl bg-muted/5">
+    <div className="w-96 p-6 border rounded-card bg-muted/5">
       <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-4 px-1">
         Source_Payload_Upload
       </p>

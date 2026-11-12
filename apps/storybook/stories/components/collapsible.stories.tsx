@@ -55,7 +55,7 @@ export const Basic: Story = {
 
     return (
       <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-[400px] space-y-2">
-        <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-xl bg-muted/30">
+        <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-card bg-muted/30">
           <div className="flex items-center gap-3">
             <Cog className="size-4 animate-spin-slow opacity-40" />
             <h4 className="text-[10px] font-black italic uppercase tracking-[0.3em] opacity-60">
@@ -72,15 +72,15 @@ export const Basic: Story = {
           </CollapsibleTrigger>
         </div>
 
-        <div className="rounded-xl border border-border px-4 py-3 font-mono text-[10px] bg-muted/10 opacity-80">
+        <div className="rounded-card border border-border px-4 py-3 font-mono text-[10px] bg-muted/10 opacity-80">
           {'>'} INITIALIZING_KERNEL... [OK]
         </div>
 
         <CollapsibleContent className="space-y-2 overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-300">
-          <div className="rounded-xl border border-border px-4 py-3 font-mono text-[10px] bg-muted/10 opacity-80">
+          <div className="rounded-card border border-border px-4 py-3 font-mono text-[10px] bg-muted/10 opacity-80">
             {'>'} MOUNTING_VIRTUAL_VOLUMES... [OK]
           </div>
-          <div className="rounded-xl border border-border px-4 py-3 font-mono text-[10px] bg-muted/10 opacity-80">
+          <div className="rounded-card border border-border px-4 py-3 font-mono text-[10px] bg-muted/10 opacity-80">
             {'>'} ESTABLISHING_ENCRYPTED_TUNNEL... [OK]
           </div>
         </CollapsibleContent>
@@ -97,14 +97,14 @@ export const DetailInspection: Story = {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <div className="w-[450px] p-8 border rounded-3xl bg-card shadow-2xl">
+      <div className="w-[450px] p-8 border rounded-card bg-card">
         <div className="flex justify-between items-start mb-6">
           <div>
             <h3 className="text-lg font-black tracking-tighter">NODE_TRANSCEIVER</h3>
             <p className="text-xs text-muted-foreground">Standard Signal Processor v4</p>
           </div>
-          <div className="p-2 bg-emerald-500/10 rounded-lg">
-            <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="p-2 bg-success/10 rounded-control">
+            <div className="size-2 rounded-full bg-success animate-pulse" />
           </div>
         </div>
 
@@ -119,25 +119,25 @@ export const DetailInspection: Story = {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-3 bg-muted rounded-xl border">
+            <div className="p-3 bg-muted rounded-card border">
               <p className="text-[9px] opacity-40 uppercase">Bandwidth</p>
               <p className="text-lg font-black">1.2 Gbps</p>
             </div>
-            <div className="p-3 bg-muted rounded-xl border">
+            <div className="p-3 bg-muted rounded-card border">
               <p className="text-[9px] opacity-40 uppercase">Latency</p>
-              <p className="text-lg font-black text-cyan-500">12ms</p>
+              <p className="text-lg font-black text-signal">12ms</p>
             </div>
           </div>
 
           <CollapsibleContent className="pt-4 overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-300">
-            <div className="p-4 rounded-xl border-2 border-dashed bg-muted/20 space-y-3">
+            <div className="p-4 rounded-card border-2 border-dashed bg-muted/20 space-y-3">
               <div className="flex justify-between text-[10px] font-mono">
                 <span className="opacity-40 uppercase">Packet_Loss</span>
-                <span className="text-emerald-500">0.0001%</span>
+                <span className="text-success">0.0001%</span>
               </div>
               <div className="flex justify-between text-[10px] font-mono">
                 <span className="opacity-40 uppercase">Signal_Jitter</span>
-                <span className="text-cyan-500">0.42ms</span>
+                <span className="text-signal">0.42ms</span>
               </div>
               <div className="flex justify-between text-[10px] font-mono">
                 <span className="opacity-40 uppercase">Auth_Status</span>
@@ -160,7 +160,7 @@ export const InteractionTest: Story = {
     const [isOpen, setIsOpen] = useState(false);
     return (
       <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-[400px] space-y-2">
-        <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-xl bg-muted/30">
+        <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-card bg-muted/30">
           <h4 className="text-sm font-semibold">System Log</h4>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="icon" className="size-8" aria-label="Toggle system log">
@@ -171,7 +171,7 @@ export const InteractionTest: Story = {
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent>
-          <div className="rounded-xl border px-4 py-3 font-mono text-sm">
+          <div className="rounded-card border px-4 py-3 font-mono text-sm">
             Hidden content revealed
           </div>
         </CollapsibleContent>

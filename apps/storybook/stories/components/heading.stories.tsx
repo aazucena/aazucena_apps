@@ -101,7 +101,7 @@ export const Glass: Story = {
     size: 'h1',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <Heading {...args} />
     </div>
   ),

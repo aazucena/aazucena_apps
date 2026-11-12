@@ -85,7 +85,7 @@ export const LinkMenuGallery: Story = {
                 <Twitter />
               </LinkMenuIcon>
               <LinkMenuContent>
-                <LinkMenuLabel className="font-mono text-cyan-400">SIGNAL_STREAM</LinkMenuLabel>
+                <LinkMenuLabel className="font-mono text-signal">SIGNAL_STREAM</LinkMenuLabel>
                 <LinkMenuDescription className="font-mono italic text-[10px]">
                   Real-time telemetry broadcasts.
                 </LinkMenuDescription>
@@ -116,7 +116,7 @@ export const DetailNavGallery: Story = {
       </div>
 
       <div className="space-y-4">
-        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-cyan-500/60">
+        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal/60">
           // CYBER_STREAM
         </h4>
         <DetailNavigation
@@ -150,7 +150,7 @@ export const ArrowLinkGallery: Story = {
         </ArrowLink>
         <ArrowLink variant="card-cyber" href="#">
           <h3 className="text-2xl font-mono italic mb-2">// READ_BLOG</h3>
-          <p className="font-mono text-[10px] text-cyan-500/60">NODE_TELEMETRY</p>
+          <p className="font-mono text-[10px] text-signal/60">NODE_TELEMETRY</p>
         </ArrowLink>
       </div>
     </div>

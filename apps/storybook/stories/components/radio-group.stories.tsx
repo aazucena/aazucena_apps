@@ -64,10 +64,10 @@ export const Basic: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="p-8 border border-cyan-500/20 bg-black rounded-xl w-80">
+    <div className="p-8 border border-signal/20 bg-background rounded-card w-80">
       <div className="flex items-center gap-3 mb-6">
-        <Zap className="size-4 text-cyan-500 animate-pulse" />
-        <span className="text-[10px] font-mono text-cyan-500 uppercase tracking-[0.3em]">
+        <Zap className="size-4 text-signal animate-pulse" />
+        <span className="text-[10px] font-mono text-signal uppercase tracking-[0.3em]">
           # SELECT_PROTOCOL_PHASE
         </span>
       </div>
@@ -75,7 +75,7 @@ export const CyberTerminal: Story = {
         <div className="flex items-center justify-between group">
           <Label
             htmlFor="p1"
-            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300"
+            className="font-mono text-xs text-signal cursor-pointer group-hover:text-signal"
           >
             PHASE_01_BOOT
           </Label>
@@ -84,7 +84,7 @@ export const CyberTerminal: Story = {
         <div className="flex items-center justify-between group">
           <Label
             htmlFor="p2"
-            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300"
+            className="font-mono text-xs text-signal cursor-pointer group-hover:text-signal"
           >
             PHASE_02_SYNC
           </Label>
@@ -93,11 +93,11 @@ export const CyberTerminal: Story = {
         <div className="flex items-center justify-between group">
           <Label
             htmlFor="p3"
-            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300 text-rose-500"
+            className="font-mono text-xs text-signal cursor-pointer group-hover:text-signal text-alert"
           >
             PHASE_03_OVERRIDE
           </Label>
-          <RadioGroupItem value="phase-3" id="p3" variant="cyber" className="border-rose-500/50" />
+          <RadioGroupItem value="phase-3" id="p3" variant="cyber" className="border-alert/50" />
         </div>
       </RadioGroup>
     </div>
@@ -112,7 +112,7 @@ export const CardSelection: Story = {
     <RadioGroup defaultValue="stable" className="grid grid-cols-2 gap-4 w-[500px]">
       <Label
         htmlFor="card-stable"
-        className="flex flex-col items-center gap-4 rounded-3xl border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-data-checked:border-primary has-data-checked:bg-primary/5"
+        className="flex flex-col items-center gap-4 rounded-card border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-data-checked:border-primary has-data-checked:bg-primary/5"
       >
         <RadioGroupItem value="stable" id="card-stable" className="sr-only" />
         <Globe className="size-8 text-primary" />
@@ -124,7 +124,7 @@ export const CardSelection: Story = {
 
       <Label
         htmlFor="card-edge"
-        className="flex flex-col items-center gap-4 rounded-3xl border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-data-checked:border-primary has-data-checked:bg-primary/5"
+        className="flex flex-col items-center gap-4 rounded-card border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-data-checked:border-primary has-data-checked:bg-primary/5"
       >
         <RadioGroupItem value="edge" id="card-edge" className="sr-only" />
         <Activity className="size-8 text-primary" />

@@ -65,10 +65,10 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="h-[200vh] w-full relative bg-black">
+    <div className="h-[200vh] w-full relative bg-background">
       <ReadingProgress {...args} />
       <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-cyan-500 font-mono text-xl animate-pulse uppercase tracking-[0.3em]">
+        <h1 className="text-signal font-mono text-xl animate-pulse uppercase tracking-[0.3em]">
           // DATA_STREAM_INBOUND
         </h1>
       </div>
@@ -84,10 +84,10 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="h-[200vh] w-full relative bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800">
-      <ReadingProgress {...args} className="h-2 border-b border-white/10" />
+    <div className="h-[200vh] w-full relative">
+      <ReadingProgress {...args} className="h-2 border-b border-rule" />
       <div className="flex flex-col items-center justify-center h-screen">
-        <div className="p-12 glass border-white/10 rounded-[3rem] text-white">
+        <div className="p-12 glass border-rule rounded-card text-foreground">
           <h2 className="text-2xl font-black uppercase tracking-tighter">Atmospheric_Reading</h2>
         </div>
       </div>

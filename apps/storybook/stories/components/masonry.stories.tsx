@@ -49,7 +49,7 @@ const heights = [120, 200, 160, 80, 240, 140, 100, 180, 220, 130, 170, 90];
 const cards = heights.map((h, i) => (
   <div
     key={i}
-    className="flex items-center justify-center rounded-lg border bg-muted/30 text-sm font-medium"
+    className="flex items-center justify-center rounded-control border bg-muted/30 text-sm font-medium"
     style={{ height: h }}
   >
     Card {i + 1} ({h}px)
@@ -69,7 +69,7 @@ export const TwoColumns: Story = {
 export const Glass: Story = {
   args: { variant: 'glass', columns: 3, gap: 16 },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <Masonry {...args}>{cards}</Masonry>
     </div>
   ),

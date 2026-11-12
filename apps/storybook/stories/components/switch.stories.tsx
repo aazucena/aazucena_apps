@@ -73,13 +73,13 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="p-8 bg-black border border-cyan-500/10 rounded-xl w-80">
+    <div className="p-8 bg-background border border-signal/10 rounded-card w-80">
       <div className="flex items-center justify-between group">
         <div className="flex items-center gap-3">
-          <Shield size={16} className="text-cyan-500" />
+          <Shield size={16} className="text-signal" />
           <Label
             htmlFor="cyber-lock"
-            className="font-mono text-xs text-cyan-400 cursor-pointer group-hover:text-cyan-300"
+            className="font-mono text-xs text-signal cursor-pointer group-hover:text-signal"
           >
             ENCRYPTION_SYNC
           </Label>
@@ -98,8 +98,8 @@ export const LogicOverride: Story = {
     variant: 'logic',
   },
   render: (args) => (
-    <div className="flex items-center gap-4 px-6 py-3 border-2 border-dashed rounded-2xl bg-muted/5">
-      <Zap size={14} className="text-rose-500 animate-pulse" />
+    <div className="flex items-center gap-4 px-6 py-3 border-2 border-dashed rounded-card bg-muted/5">
+      <Zap size={14} className="text-alert animate-pulse" />
       <Label
         htmlFor="logic-opt"
         className="text-[10px] font-black uppercase tracking-widest opacity-60 cursor-pointer"
@@ -116,7 +116,7 @@ export const LogicOverride: Story = {
  */
 export const SettingsList: Story = {
   render: () => (
-    <div className="w-80 space-y-6 p-6 border rounded-2xl bg-card shadow-lg">
+    <div className="w-80 space-y-6 p-6 border rounded-card bg-card">
       <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 px-1">
         SYSTEM_PREFERENCES
       </h4>

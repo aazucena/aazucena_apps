@@ -92,19 +92,19 @@ export const WithText: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="p-8 bg-black border border-cyan-500/10 rounded-2xl flex items-center gap-6">
+    <div className="p-8 bg-background border border-signal/10 rounded-card flex items-center gap-6">
       <div className="flex flex-col gap-1">
-        <span className="text-[10px] font-mono text-cyan-500 opacity-40 uppercase tracking-widest">
+        <span className="text-[10px] font-mono text-signal opacity-40 uppercase tracking-widest">
           Uplink_Sync
         </span>
-        <span className="text-[8px] font-mono text-cyan-500/20 uppercase tracking-tighter italic">
+        <span className="text-[8px] font-mono text-signal/20 uppercase tracking-tighter italic">
           Phase: 0x7F42
         </span>
       </div>
       <Toggle
         aria-label="Toggle activity monitor"
         variant="outline"
-        className="h-12 w-12 rounded-xl border-cyan-500/30 text-cyan-500 data-[state=on]:bg-cyan-500/20 data-[state=on]:text-cyan-400 data-[state=on]:border-cyan-400 hover:bg-cyan-500/10"
+        className="h-12 w-12 rounded-card border-signal/30 text-signal data-[state=on]:bg-signal/20 data-[state=on]:text-signal data-[state=on]:border-signal hover:bg-signal/10"
       >
         <Activity size={20} />
       </Toggle>

@@ -79,8 +79,8 @@ export const CyberTerminal: Story = {
     indicatorVariant: 'cyber',
   },
   render: (args) => (
-    <div className="w-80 p-8 bg-black rounded-xl border border-white/5">
-      <div className="flex justify-between mb-2 font-mono text-[10px] text-cyan-500 uppercase tracking-widest">
+    <div className="w-80 p-8 bg-background rounded-card border border-rule">
+      <div className="flex justify-between mb-2 font-mono text-[10px] text-signal uppercase tracking-widest">
         <span>Signal_Sync</span>
         <span>{args.value}%</span>
       </div>
@@ -99,12 +99,12 @@ export const GlassAtmospheric: Story = {
     indicatorVariant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 to-blue-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-80 space-y-2">
-        <p className="text-[10px] text-white/40 font-black uppercase tracking-[0.3em]">
+        <p className="text-[10px] text-foreground/40 font-black uppercase tracking-[0.3em]">
           Refraction_Index
         </p>
-        <Progress {...args} className="bg-white/10" />
+        <Progress {...args} className="bg-state" />
       </div>
     </div>
   ),

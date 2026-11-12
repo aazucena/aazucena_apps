@@ -65,7 +65,7 @@ export const Basic: Story = {
       <HeroContent>
         <HeroHeader>
           <div className="flex justify-center mb-8">
-            <Badge variant="outline" className="px-6 py-1.5 rounded-full border-zinc-200">
+            <Badge variant="outline" className="px-6 py-1.5 rounded-full border-rule">
               v2.4.0_STABLE
             </Badge>
           </div>
@@ -84,7 +84,7 @@ export const Basic: Story = {
             <Button
               variant="outline"
               size="lg"
-              className="rounded-full px-10 h-14 font-black tracking-widest uppercase border-zinc-200"
+              className="rounded-full px-10 h-14 font-black tracking-widest uppercase border-rule"
             >
               Get_in_Touch
             </Button>
@@ -104,22 +104,22 @@ export const CyberTerminal: Story = {
     size: 'xl',
   },
   render: (args) => (
-    <div className="bg-black">
-      <Hero {...args} className="border-cyan-500/10">
+    <div className="bg-background">
+      <Hero {...args} className="border-signal/10">
         <HeroContent>
           <HeroHeader>
             <div className="flex flex-col items-center gap-4 mb-12">
-              <div className="p-4 border border-cyan-500/30 rounded-full animate-pulse">
-                <Zap className="size-8 text-cyan-500" />
+              <div className="p-4 border border-signal/30 rounded-full animate-pulse">
+                <Zap className="size-8 text-signal" />
               </div>
-              <span className="font-mono text-[10px] text-cyan-500/60 uppercase tracking-[0.4em]">
+              <span className="font-mono text-[10px] text-signal/60 uppercase tracking-[0.4em]">
                 UPLINK_STATUS: SECURE_ENCLAVE
               </span>
             </div>
-            <HeroTitle variant="cyber" size="lg" className="text-cyan-500 italic uppercase">
+            <HeroTitle variant="cyber" size="lg" className="text-signal italic uppercase">
               CORE_PROTOCOL
             </HeroTitle>
-            <HeroSubtitle className="font-mono text-cyan-50/40 uppercase tracking-[0.2em] max-w-2xl mx-auto text-sm md:text-base">
+            <HeroSubtitle className="font-mono text-signal/40 uppercase tracking-[0.2em] max-w-2xl mx-auto text-sm md:text-base">
               INITIALIZING_SECURE_EXTRACTION_SEQUENCE... // ALL_NODES_ONLINE
             </HeroSubtitle>
             <HeroActions className="mt-16">
@@ -144,20 +144,20 @@ export const GlassAtmospheric: Story = {
   },
   render: (args) => (
     <div className="bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center h-screen relative overflow-hidden">
-      <div className="absolute inset-0 bg-black/40" />
-      <Hero {...args} className="h-full border-none bg-transparent backdrop-blur-none">
+      <div className="absolute inset-0 bg-scrim" />
+      <Hero {...args} className="h-full border-none bg-transparent">
         <HeroContent>
           <HeroHeader>
-            <HeroTitle variant="glass" size="lg" className="text-white drop-shadow-2xl">
+            <HeroTitle variant="glass" size="lg" className="text-foreground">
               Crystal_Flow
             </HeroTitle>
-            <HeroSubtitle className="text-white/80 max-w-3xl leading-relaxed text-2xl md:text-3xl font-light tracking-tight">
+            <HeroSubtitle className="text-foreground/80 max-w-3xl leading-relaxed text-2xl md:text-3xl font-light tracking-tight">
               Adaptive layered surfaces with real-time backdrop blur and environmental projection.
             </HeroSubtitle>
             <HeroActions className="mt-16">
               <Button
                 variant="glass"
-                className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-12 h-16 text-xl"
+                className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-12 h-16 text-xl"
               >
                 <Globe className="mr-2 size-6" /> Explore_Enclave
               </Button>
@@ -178,10 +178,10 @@ export const IntelDashboard: Story = {
     size: 'default',
   },
   render: (args) => (
-    <div className="w-[1000px] border rounded-[3rem] overflow-hidden bg-zinc-950">
+    <div className="w-[1000px] border rounded-card overflow-hidden bg-background">
       <Hero {...args} className="border-none py-20 bg-transparent">
         <HeroContent>
-          <div className="flex justify-between items-end border-b border-white/10 pb-12">
+          <div className="flex justify-between items-end border-b border-rule pb-12">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <Activity className="size-4 text-primary animate-pulse" />
@@ -189,12 +189,12 @@ export const IntelDashboard: Story = {
                   LIVE_TELEMETRY_STREAM
                 </span>
               </div>
-              <h1 className="text-5xl font-black tracking-tighter text-white uppercase">
+              <h1 className="text-5xl font-black tracking-tighter text-foreground uppercase">
                 Neural_Stats
               </h1>
             </div>
             <div className="text-right space-y-2">
-              <p className="text-[10px] font-mono text-white/40 uppercase">Assigned_Node</p>
+              <p className="text-[10px] font-mono text-foreground/40 uppercase">Assigned_Node</p>
               <p className="text-xl font-mono text-primary font-black">0x7F42_ALPHA</p>
             </div>
           </div>

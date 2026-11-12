@@ -45,7 +45,7 @@ import { Badge, Button, Avatar, AvatarImage, AvatarFallback } from '@aazucena/ui
  * ## Engineering Standards
  * - **CDD Pattern:** Orchestral layout system for high-complexity application navigation.
  * - **UX:** Features collapsible states (`offcanvas`, `icon`), mobile-responsive drawers, and persistence.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur`.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity ``.
  * - **Composition:** Extremely modular parts (Menu, Group, Block, Action, Badge) for technical dashboard assembly.
  */
 const meta = {
@@ -71,7 +71,7 @@ const meta = {
   decorators: [
     (Story) => (
       <SidebarProvider>
-        <div className="flex h-[600px] w-full overflow-hidden bg-background border rounded-[3rem] m-10 shadow-2xl">
+        <div className="flex h-[600px] w-full overflow-hidden bg-background border rounded-card m-10">
           <Story />
           <SidebarInset className="flex flex-col flex-1">
             <header className="flex h-14 items-center gap-4 border-b bg-card px-6">
@@ -83,14 +83,14 @@ const meta = {
             </header>
             <main className="flex-1 p-8 overflow-auto">
               <div className="space-y-8">
-                <div className="h-32 rounded-2xl bg-muted/5 border-2 border-dashed flex items-center justify-center italic text-xs opacity-20 uppercase tracking-[0.4em]">
+                <div className="h-32 rounded-card bg-muted/5 border-2 border-dashed flex items-center justify-center italic text-xs opacity-20 uppercase tracking-[0.4em]">
                   Viewport_Content_Area
                 </div>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="aspect-video rounded-3xl bg-muted/10 border border-border/50 animate-pulse"
+                      className="aspect-video rounded-card bg-muted/10 border border-border/50 animate-pulse"
                     />
                   ))}
                 </div>
@@ -208,8 +208,8 @@ export const CyberTerminal: Story = {
   },
   render: (args) => (
     <Sidebar {...args}>
-      <SidebarHeader className="p-6 border-b border-cyan-500/10 bg-cyan-500/5">
-        <div className="flex items-center gap-3 text-cyan-500">
+      <SidebarHeader className="p-6 border-b border-signal/10 bg-signal/5">
+        <div className="flex items-center gap-3 text-signal">
           <Terminal size={18} />
           <span className="font-mono text-xs italic font-black uppercase tracking-tighter">
             // SYSTEM_SHELL_V4
@@ -219,47 +219,47 @@ export const CyberTerminal: Story = {
       <SidebarContent className="p-4 space-y-8">
         <SidebarBlock variant="cyber">
           <SidebarBlockHeader>
-            <SidebarBlockTitle className="text-cyan-500/60 uppercase text-[9px] font-mono tracking-[0.2em]">
+            <SidebarBlockTitle className="text-signal/60 uppercase text-[9px] font-mono tracking-[0.2em]">
               # NODE_PULSE
             </SidebarBlockTitle>
           </SidebarBlockHeader>
           <SidebarBlockContent className="space-y-3">
-            <SidebarBlockItem className="bg-cyan-500/5 border-cyan-500/10">
-              <Activity className="size-4 text-cyan-400 animate-pulse" />
+            <SidebarBlockItem className="bg-signal/5 border-signal/10">
+              <Activity className="size-4 text-signal animate-pulse" />
               <div className="flex flex-col font-mono">
-                <span className="text-[10px] font-bold text-white">UPLINK_US_EAST</span>
-                <span className="text-[8px] text-emerald-500">STABLE // 12ms</span>
+                <span className="text-[10px] font-bold text-foreground">UPLINK_US_EAST</span>
+                <span className="text-[8px] text-success">STABLE // 12ms</span>
               </div>
             </SidebarBlockItem>
-            <SidebarBlockItem className="bg-rose-500/5 border-rose-500/10">
-              <Zap className="size-4 text-rose-500" />
+            <SidebarBlockItem className="bg-alert/5 border-alert/10">
+              <Zap className="size-4 text-alert" />
               <div className="flex flex-col font-mono">
-                <span className="text-[10px] font-bold text-rose-400">BUFFER_OVERFLOW</span>
-                <span className="text-[8px] opacity-40 text-rose-500">CRITICAL // 0x7F</span>
+                <span className="text-[10px] font-bold text-alert">BUFFER_OVERFLOW</span>
+                <span className="text-[8px] opacity-40 text-alert">CRITICAL // 0x7F</span>
               </div>
             </SidebarBlockItem>
           </SidebarBlockContent>
         </SidebarBlock>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="font-mono text-[9px] text-cyan-500/40 uppercase">
+          <SidebarGroupLabel className="font-mono text-[9px] text-signal/40 uppercase">
             # CONTROL_PLANE
           </SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton className="font-mono text-xs text-cyan-500/80 italic hover:text-cyan-400">
+              <SidebarMenuButton className="font-mono text-xs text-signal/80 italic hover:text-signal">
                 {'>'} TRACE_SIGNAL
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton className="font-mono text-xs text-cyan-500/80 italic hover:text-cyan-400">
+              <SidebarMenuButton className="font-mono text-xs text-signal/80 italic hover:text-signal">
                 {'>'} FLUSH_KERNEL
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-6 border-t border-cyan-500/10">
+      <SidebarFooter className="p-6 border-t border-signal/10">
         <Badge variant="cyber" animated className="w-full justify-center">
           SECURE_ENCLAVE_ACTIVE
         </Badge>
@@ -276,27 +276,27 @@ export const GlassMonitor: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <Sidebar {...args} className="bg-transparent border-white/10">
+    <Sidebar {...args} className="bg-transparent border-rule">
       <SidebarHeader className="p-8">
-        <span className="text-white font-black uppercase tracking-[0.4em] text-[10px]">
+        <span className="text-foreground font-black uppercase tracking-[0.4em] text-[10px]">
           Environment_Intel
         </span>
       </SidebarHeader>
       <SidebarContent className="p-4 space-y-12">
         <div className="space-y-4 px-4">
-          <div className="flex items-center justify-between text-white/40 font-bold uppercase text-[9px] tracking-widest">
+          <div className="flex items-center justify-between text-foreground/40 font-bold uppercase text-[9px] tracking-widest">
             <span>Atmosphere</span>
             <span>98%</span>
           </div>
-          <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full w-[98%] bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+          <div className="h-1 w-full bg-state rounded-full overflow-hidden">
+            <div className="h-full w-[98%] bg-panel" />
           </div>
         </div>
 
         <SidebarMenu className="px-2">
           {['Troposphere', 'Mesosphere', 'Exosphere'].map((layer) => (
             <SidebarMenuItem key={layer}>
-              <SidebarMenuButton className="text-white hover:bg-white/10 h-12 rounded-xl px-4 gap-4 transition-all">
+              <SidebarMenuButton className="text-foreground hover:bg-state h-12 rounded-card px-4 gap-4 transition-all">
                 <Globe className="size-4 opacity-40" />
                 <span className="font-bold tracking-tight">{layer}</span>
               </SidebarMenuButton>
@@ -304,9 +304,9 @@ export const GlassMonitor: Story = {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="p-8 border-t border-white/10">
-        <div className="flex items-center gap-3 text-white/60">
-          <div className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+      <SidebarFooter className="p-8 border-t border-rule">
+        <div className="flex items-center gap-3 text-foreground/60">
+          <div className="size-1.5 rounded-full bg-success animate-pulse" />
           <span className="text-[9px] font-mono uppercase">Status: Nominal</span>
         </div>
       </SidebarFooter>

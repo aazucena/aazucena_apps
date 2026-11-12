@@ -110,14 +110,14 @@ export const TechnicalItem: Story = {
   },
   render: (args) => (
     <div className="w-[450px]">
-      <Item {...args} className="rounded-xl">
+      <Item {...args} className="rounded-card">
         <ItemMedia variant="icon" className="bg-primary/10 border-primary/20 text-primary">
           <Activity size={14} />
         </ItemMedia>
         <ItemContent>
           <div className="flex items-center gap-2">
             <ItemTitle className="text-xs font-black uppercase">Ingestion_Pulse</ItemTitle>
-            <div className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="size-1.5 rounded-full bg-success animate-pulse" />
           </div>
           <ItemDescription className="font-mono text-[10px]">
             FREQ: 2.4GHz // SYNC: TRUE
@@ -136,7 +136,7 @@ export const TechnicalItem: Story = {
  */
 export const NavigationList: Story = {
   render: () => (
-    <div className="w-[350px] border rounded-2xl overflow-hidden shadow-2xl bg-card">
+    <div className="w-[350px] border rounded-card overflow-hidden bg-card">
       <div className="p-4 border-b bg-muted/30">
         <h3 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
           SYSTEM_REGISTRY
@@ -180,7 +180,7 @@ export const NavigationList: Story = {
               <ItemDescription>Real-time pulse monitoring</ItemDescription>
             </ItemContent>
             <ItemActions>
-              <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="size-2 rounded-full bg-success animate-pulse" />
             </ItemActions>
           </a>
         </Item>
@@ -195,7 +195,7 @@ export const NavigationList: Story = {
 export const RichContent: Story = {
   render: () => (
     <div className="w-[500px]">
-      <Item className="flex-col items-stretch gap-4 p-6 border-2 border-dashed rounded-[2rem]">
+      <Item className="flex-col items-stretch gap-4 p-6 border-2 border-dashed rounded-card">
         <ItemHeader>
           <div className="flex items-center gap-3">
             <Globe className="text-primary size-5" />

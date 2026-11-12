@@ -92,7 +92,7 @@ export const BasicCard: Story = {
         </DashboardActions>
       </DashboardHeader>
       <DashboardBody>
-        <div className="h-48 flex items-center justify-center border-2 border-dashed border-current/10 rounded-2xl opacity-20 bg-muted/5">
+        <div className="h-48 flex items-center justify-center border-2 border-dashed border-current/10 rounded-card opacity-20 bg-muted/5">
           <span className="font-black text-xs uppercase tracking-widest">Visualization_Stage</span>
         </div>
       </DashboardBody>
@@ -134,22 +134,22 @@ export const CyberTerminal: Story = {
   render: (args) => (
     <DashboardCard {...args} className="w-[600px]">
       <DashboardHeader inset>
-        <DashboardTitle className="text-cyan-500">
+        <DashboardTitle className="text-signal">
           <IconBox variant="cyber">
             <Shield size={16} />
           </IconBox>
           CORE_INTEGRITY
         </DashboardTitle>
-        <DashboardStatus className="text-cyan-500/60">SYSTEM_OPERATIONAL</DashboardStatus>
+        <DashboardStatus className="text-signal/60">SYSTEM_OPERATIONAL</DashboardStatus>
       </DashboardHeader>
-      <DashboardBody className="font-mono text-[10px] space-y-3 bg-black/40">
-        <div className="flex justify-between items-center border-b border-white/5 pb-2">
+      <DashboardBody className="font-mono text-[10px] space-y-3 bg-panel">
+        <div className="flex justify-between items-center border-b border-rule pb-2">
           <span className="opacity-40 uppercase">Ingestion_Buffer</span>
-          <span className="text-emerald-500 font-bold">0ms</span>
+          <span className="text-success font-bold">0ms</span>
         </div>
-        <div className="flex justify-between items-center border-b border-white/5 pb-2">
+        <div className="flex justify-between items-center border-b border-rule pb-2">
           <span className="opacity-40 uppercase">Kernel_Pulse</span>
-          <span className="text-cyan-500 font-bold">STABLE</span>
+          <span className="text-signal font-bold">STABLE</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="opacity-40 uppercase">Signal_Lock</span>
@@ -168,28 +168,28 @@ export const GlassMonitor: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <DashboardCard {...args} className="w-[500px]">
-        <DashboardHeader className="border-white/10">
-          <DashboardTitle className="text-white">
-            <IconBox className="bg-white/10 border-white/20 text-white">
+        <DashboardHeader className="border-rule">
+          <DashboardTitle className="text-foreground">
+            <IconBox className="bg-state border-rule text-foreground">
               <Zap size={16} />
             </IconBox>
             Energy_Distribution
           </DashboardTitle>
-          <DashboardStatus className="text-white/40">Real_Time</DashboardStatus>
+          <DashboardStatus className="text-foreground/40">Real_Time</DashboardStatus>
         </DashboardHeader>
         <DashboardBody>
           <div className="h-32 flex items-end gap-1 mb-6">
             {[40, 70, 45, 90, 65, 80, 30, 50, 85, 60, 40, 75].map((h, i) => (
               <div
                 key={i}
-                className="flex-1 bg-white/20 rounded-t-sm hover:bg-white/40 transition-colors"
+                className="flex-1 bg-panel-raised rounded-t-sm hover:bg-panel-raised transition-colors"
                 style={{ height: `${h}%` }}
               />
             ))}
           </div>
-          <p className="text-[10px] font-mono text-white/60 text-center uppercase tracking-widest italic">
+          <p className="text-[10px] font-mono text-foreground/60 text-center uppercase tracking-widest italic">
             Peak_Usage_Window: 14:00 - 16:00
           </p>
         </DashboardBody>

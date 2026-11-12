@@ -84,7 +84,7 @@ export const DenseGrid: Story = {
         {Array.from({ length: 12 }).map((_, i) => (
           <div
             key={i}
-            className="aspect-square bg-muted/30 border-2 border-dashed rounded-xl flex items-center justify-center"
+            className="aspect-square bg-muted/30 border-2 border-dashed rounded-card flex items-center justify-center"
           >
             <div className="size-2 rounded-full bg-primary/20" />
           </div>
@@ -105,10 +105,10 @@ export const HeroGrid: Story = {
   render: (args) => (
     <div className="w-[800px]">
       <ResponsiveGrid {...args}>
-        <div className="h-64 bg-gradient-to-br from-primary/20 to-primary/5 rounded-[2rem] border p-8">
+        <div className="h-64 rounded-card border p-8">
           <h3 className="text-xl font-black uppercase tracking-tighter">Primary_Sector</h3>
         </div>
-        <div className="h-64 bg-gradient-to-br from-secondary/20 to-secondary/5 rounded-[2rem] border p-8">
+        <div className="h-64 rounded-card border p-8">
           <h3 className="text-xl font-black uppercase tracking-tighter">Secondary_Buffer</h3>
         </div>
       </ResponsiveGrid>
@@ -125,7 +125,7 @@ export const AdaptiveColumns: Story = {
     gap: 'md',
   },
   render: (args) => (
-    <div className="w-[900px] border border-dashed p-8 rounded-[3rem]">
+    <div className="w-[900px] border border-dashed p-8 rounded-card">
       <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-8 text-center">
         Breakpoints: SM(2) // MD(3) // LG(4)
       </p>

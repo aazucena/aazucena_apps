@@ -44,7 +44,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   render: () => (
-    <div className="w-80 p-8 border rounded-3xl bg-muted/5">
+    <div className="w-80 p-8 border rounded-card bg-muted/5">
       <ThoughtTrace>
         <ThoughtStep status="completed">Initializing buffer stream</ThoughtStep>
         <ThoughtStep status="completed">Authenticating uplink</ThoughtStep>
@@ -60,10 +60,10 @@ export const Basic: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="w-96 p-10 bg-black border border-cyan-500/10 rounded-2xl">
+    <div className="w-96 p-10 bg-background border border-signal/10 rounded-card">
       <div className="flex items-center gap-3 mb-6">
-        <Terminal size={14} className="text-cyan-500 opacity-40" />
-        <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-[0.2em]">
+        <Terminal size={14} className="text-signal opacity-40" />
+        <span className="text-[10px] font-mono text-signal/40 uppercase tracking-[0.2em]">
           # INTERNAL_PROCESS_TRACE
         </span>
       </div>
@@ -90,7 +90,7 @@ export const CyberTerminal: Story = {
  */
 export const AIReasoning: Story = {
   render: () => (
-    <div className="w-96 p-8 border-2 border-primary/10 rounded-[2rem] bg-primary/5">
+    <div className="w-96 p-8 border-2 border-primary/10 rounded-card bg-primary/5">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <Activity size={14} className="text-primary animate-pulse" />

@@ -61,7 +61,7 @@ export const Default: Story = {
 
 export const CyberVariant: Story = {
   args: {
-    children: <span className="text-cyan-400 font-mono">LINK://CORE_SYNC</span>,
+    children: <span className="text-signal font-mono">LINK://CORE_SYNC</span>,
     url: 'https://github.com/aazucena/core',
     variant: 'cyber',
     data: {
@@ -75,7 +75,7 @@ export const CyberVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="bg-black p-20 rounded-3xl">
+      <div className="bg-background p-20 rounded-card">
         <Story />
       </div>
     ),
@@ -84,7 +84,7 @@ export const CyberVariant: Story = {
 
 export const GlassVariant: Story = {
   args: {
-    children: <span className="text-white">Troposphere Protocol</span>,
+    children: <span className="text-foreground">Troposphere Protocol</span>,
     url: 'https://aazucena.me/layers/troposphere',
     variant: 'glass',
     data: {
@@ -98,7 +98,7 @@ export const GlassVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-20 rounded-[3rem]">
+      <div className="p-20 rounded-card">
         <Story />
       </div>
     ),

@@ -82,7 +82,7 @@ const cardContent = (
 
 const richContent = (
   <div className="p-6">
-    <div className="mb-3 h-32 rounded-lg bg-gradient-to-br from-violet-500/20 to-pink-500/20" />
+    <div className="mb-3 h-32 rounded-control" />
     <h3 className="text-lg font-bold">Project Alpha</h3>
     <p className="mt-1 text-sm text-muted-foreground">
       A fullstack application built with React and Node.js.
@@ -119,7 +119,7 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="rounded-card p-8">
         <div className="w-[320px]">
           <Story />
         </div>
@@ -139,7 +139,7 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-8">
+      <div className="rounded-card bg-background p-8">
         <div className="w-[320px]">
           <Story />
         </div>

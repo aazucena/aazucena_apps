@@ -142,7 +142,7 @@ export const Glass: Story = {
     size: 'xl',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <BrandLogo {...args}>
         <BrandLogoInitials>GD</BrandLogoInitials>
       </BrandLogo>

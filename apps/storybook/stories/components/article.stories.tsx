@@ -88,11 +88,11 @@ export const Default: Story = {
  */
 export const Cyber: Story = {
   render: () => (
-    <div className="relative pt-20 bg-background border min-h-screen text-foreground selection:bg-cyan-500/30">
+    <div className="relative pt-20 bg-background border min-h-screen text-foreground selection:bg-signal/30">
       <ReadingProgress variant="cyber" className="fixed top-0 left-0 w-full z-50" />
       <div className="max-w-3xl mx-auto px-6 pb-40">
-        <header className="mb-12 border-b border-cyan-500/20 pb-8">
-          <h1 className="text-5xl font-mono italic font-black tracking-tighter text-cyan-400 mb-4 animate-in fade-in slide-in-from-left-4 duration-700">
+        <header className="mb-12 border-b border-signal/20 pb-8">
+          <h1 className="text-5xl font-mono italic font-black tracking-tighter text-signal mb-4 animate-in fade-in slide-in-from-left-4 duration-700">
             // CORE_PROTOCOL_v4
           </h1>
           <ReadingTime variant="cyber">
@@ -114,11 +114,11 @@ export const Cyber: Story = {
  */
 export const Glass: Story = {
   render: () => (
-    <div className="relative pt-20 bg-gradient-to-br from-indigo-500/10 via-background to-sky-500/10 min-h-screen">
+    <div className="relative pt-20 bg-linear-to-br via-background min-h-screen">
       <ReadingProgress variant="glass" className="fixed top-0 left-0 w-full z-50" />
-      <div className="max-w-3xl mx-auto px-6 pb-40 glass-morphism rounded-[3rem] p-12 mt-12 border border-white/10 shadow-2xl">
-        <header className="mb-12 border-b border-white/10 pb-8">
-          <h1 className="text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-sky-400 mb-4">
+      <div className="max-w-3xl mx-auto px-6 pb-40 glass-morphism rounded-card p-12 mt-12 border border-rule">
+        <header className="mb-12 border-b border-rule pb-8">
+          <h1 className="text-5xl font-black tracking-tighter text-signal mb-4">
             Atmospheric_Ingestion
           </h1>
           <ReadingTime variant="muted">

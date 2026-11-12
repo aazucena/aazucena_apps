@@ -129,7 +129,7 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="flex w-96 justify-center rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="flex w-96 justify-center rounded-card p-8">
         <Story />
       </div>
     ),

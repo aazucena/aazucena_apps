@@ -73,7 +73,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <ListGroup variant={args.variant}>
         <ListGroupItem variant={args.variant}>Dashboard</ListGroupItem>
         <ListGroupItem variant={args.variant} active>
@@ -159,7 +159,7 @@ export const WithIconsAndActions: Story = {
           </svg>
         }
         action={
-          <span className="rounded-full bg-destructive px-1.5 text-[10px] text-white">3</span>
+          <span className="rounded-full bg-destructive px-1.5 text-[10px] text-foreground">3</span>
         }
       >
         Notifications

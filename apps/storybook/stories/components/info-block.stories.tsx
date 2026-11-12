@@ -76,21 +76,21 @@ export const CyberMonitor: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-8 border border-cyan-500/10 bg-black rounded-[3rem]">
+    <div className="w-[600px] p-8 border border-signal/10 bg-background rounded-card">
       <InfoBlock {...args}>
         <InfoBlockContent>
-          <Zap className="size-5 text-cyan-500" />
+          <Zap className="size-5 text-signal" />
           <div className="flex flex-col gap-0.5 font-mono">
-            <span className="text-xs font-black uppercase tracking-tighter text-white">
+            <span className="text-xs font-black uppercase tracking-tighter text-foreground">
               // POWER_CELL_0x7F
             </span>
-            <span className="text-[9px] text-cyan-500/60 uppercase">CHARGE: 82% // TEMP: 42°C</span>
+            <span className="text-[9px] text-signal/60 uppercase">CHARGE: 82% // TEMP: 42°C</span>
           </div>
         </InfoBlockContent>
         <InfoBlockActions>
           <div className="flex items-center gap-2">
-            <div className="size-1.5 rounded-full bg-cyan-500 animate-pulse" />
-            <span className="text-[10px] font-mono text-cyan-500/40 uppercase">COLLECTING_</span>
+            <div className="size-1.5 rounded-full bg-signal animate-pulse" />
+            <span className="text-[10px] font-mono text-signal/40 uppercase">COLLECTING_</span>
           </div>
         </InfoBlockActions>
       </InfoBlock>
@@ -115,10 +115,7 @@ export const SemanticLevels: Story = {
           </div>
         </InfoBlockContent>
         <InfoBlockActions>
-          <Badge
-            variant="outline"
-            className="border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-          >
+          <Badge variant="outline" className="border-success/20 text-success">
             ACTIVE
           </Badge>
         </InfoBlockActions>

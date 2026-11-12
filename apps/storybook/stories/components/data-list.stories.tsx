@@ -104,7 +104,7 @@ export const LeaderboardTable: Story = {
                   <div
                     className={cn(
                       'size-2 rounded-full',
-                      signal.load > 80 ? 'bg-amber-500 animate-pulse' : 'bg-emerald-500',
+                      signal.load > 80 ? 'bg-warning animate-pulse' : 'bg-success',
                     )}
                   />
                   <div>
@@ -138,38 +138,38 @@ export const CyberGrid: Story = {
           <IconBox variant="cyber" size="sm">
             <Activity size={14} />
           </IconBox>
-          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-signal">
             GEO_DISTRIBUTION_PROTOCOLS
           </h3>
         </div>
         <DataListGrid cols={4} gap="lg">
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-cyan-500/40">US_CLUSTER</DataListLabel>
-              <DataListValue className="text-cyan-400">42.8%</DataListValue>
+              <DataListLabel className="text-signal/40">US_CLUSTER</DataListLabel>
+              <DataListValue className="text-signal">42.8%</DataListValue>
             </div>
-            <Globe className="size-4 text-cyan-500/20" />
+            <Globe className="size-4 text-signal/20" />
           </DataListItem>
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-cyan-500/40">DE_CLUSTER</DataListLabel>
-              <DataListValue className="text-cyan-400">18.2%</DataListValue>
+              <DataListLabel className="text-signal/40">DE_CLUSTER</DataListLabel>
+              <DataListValue className="text-signal">18.2%</DataListValue>
             </div>
-            <Database className="size-4 text-cyan-500/20" />
+            <Database className="size-4 text-signal/20" />
           </DataListItem>
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-cyan-500/40">JP_CLUSTER</DataListLabel>
-              <DataListValue className="text-cyan-400">15.1%</DataListValue>
+              <DataListLabel className="text-signal/40">JP_CLUSTER</DataListLabel>
+              <DataListValue className="text-signal">15.1%</DataListValue>
             </div>
-            <Zap className="size-4 text-cyan-500/20" />
+            <Zap className="size-4 text-signal/20" />
           </DataListItem>
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-cyan-500/40">TOTAL_REACH</DataListLabel>
-              <DataListValue className="text-cyan-400">GLOBAL</DataListValue>
+              <DataListLabel className="text-signal/40">TOTAL_REACH</DataListLabel>
+              <DataListValue className="text-signal">GLOBAL</DataListValue>
             </div>
-            <Globe className="size-4 text-cyan-500/20" />
+            <Globe className="size-4 text-signal/20" />
           </DataListItem>
         </DataListGrid>
       </div>
@@ -185,22 +185,22 @@ export const GlassDisplay: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
-      <DataList {...args} className="w-[600px] border-white/10 shadow-2xl">
-        <DataListHeader className="border-white/10 bg-white/5">
-          <DataListTitle className="text-white">Active_Trajectories</DataListTitle>
-          <DataListSubtitle className="text-white/40">Prediction_Engine_v4</DataListSubtitle>
+    <div className="p-20 rounded-card">
+      <DataList {...args} className="w-[600px] border-rule">
+        <DataListHeader className="border-rule bg-state">
+          <DataListTitle className="text-foreground">Active_Trajectories</DataListTitle>
+          <DataListSubtitle className="text-foreground/40">Prediction_Engine_v4</DataListSubtitle>
         </DataListHeader>
         <div className="p-8 space-y-6">
-          <div className="flex justify-between items-center text-white/80">
+          <div className="flex justify-between items-center text-foreground/80">
             <span className="text-[10px] font-black uppercase tracking-widest">Inference_Load</span>
-            <DataListProgress value={65} label="65%" className="text-white" />
+            <DataListProgress value={65} label="65%" className="text-foreground" />
           </div>
-          <div className="flex justify-between items-center text-white/80">
+          <div className="flex justify-between items-center text-foreground/80">
             <span className="text-[10px] font-black uppercase tracking-widest">
               Network_Stability
             </span>
-            <DataListProgress value={98} label="98%" className="text-white" />
+            <DataListProgress value={98} label="98%" className="text-foreground" />
           </div>
         </div>
       </DataList>
@@ -213,10 +213,8 @@ const cn = (...args: any[]) => args.filter(Boolean).join(' ');
 const IconBox = ({ children, variant, size }: any) => (
   <div
     className={cn(
-      'flex items-center justify-center rounded-lg border',
-      variant === 'cyber'
-        ? 'bg-cyan-500/10 border-cyan-500/20 text-cyan-500'
-        : 'bg-muted border-border',
+      'flex items-center justify-center rounded-control border',
+      variant === 'cyber' ? 'bg-signal/10 border-signal/20 text-signal' : 'bg-muted border-border',
       size === 'sm' ? 'size-8' : 'size-10',
     )}
   >

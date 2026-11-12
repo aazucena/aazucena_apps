@@ -96,7 +96,7 @@ export const Empty: Story = {
 export const Glass: Story = {
   args: { ...Basic.args, variant: 'glass' },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <NotificationCenter {...args} />
     </div>
   ),
@@ -110,7 +110,7 @@ export const CustomTrigger: Story = {
   args: {
     ...Basic.args,
     trigger: (
-      <button className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">
+      <button className="rounded-control bg-primary px-4 py-2 text-sm text-primary-foreground">
         Messages (3)
       </button>
     ),

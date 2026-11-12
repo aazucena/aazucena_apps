@@ -18,7 +18,7 @@ import { useState } from 'react';
  * - **CDD Pattern:** Orchestral layout suite for global site navigation.
  * - **UX:** Features `isScrolled` state handling for dynamic padding, background, and shadow transitions.
  * - **Mobile:** Integrated mobile drawer system with spring-based animations.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur`.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity ``.
  * - **Composition:** Fully modular parts (Container, Brand, Content, Actions, Mobile) for flexible navigation assembly.
  */
 const meta = {
@@ -115,18 +115,18 @@ export const TransparentTop: Story = {
     isScrolled: false,
   },
   render: (args) => (
-    <div className="h-[400px] bg-zinc-950 relative overflow-hidden flex flex-col">
-      <Navbar {...args} className="text-white">
+    <div className="h-[400px] bg-background relative overflow-hidden flex flex-col">
+      <Navbar {...args} className="text-foreground">
         <NavbarContainer>
           <NavbarBrand href="/">
             <Logo variant="white" size="sm" />
             <span className="font-black tracking-tighter uppercase text-xl">Aazucena</span>
           </NavbarBrand>
-          <NavbarContent className="bg-white/5 border-white/10">
-            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 px-6">
+          <NavbarContent className="bg-state border-rule">
+            <Button variant="ghost" size="sm" className="text-foreground hover:bg-state px-6">
               Archive
             </Button>
-            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 px-6">
+            <Button variant="ghost" size="sm" className="text-foreground hover:bg-state px-6">
               Terminal
             </Button>
           </NavbarContent>
@@ -134,7 +134,7 @@ export const TransparentTop: Story = {
             <Button
               variant="glass"
               size="sm"
-              className="bg-white/10 border-white/20 text-white rounded-full px-8"
+              className="bg-state border-rule text-foreground rounded-full px-8"
             >
               UPLINK
             </Button>
@@ -142,7 +142,7 @@ export const TransparentTop: Story = {
         </NavbarContainer>
       </Navbar>
       <div className="flex-1 flex items-center justify-center">
-        <h1 className="text-white text-4xl font-black tracking-tighter opacity-20">
+        <h1 className="text-foreground text-4xl font-black tracking-tighter opacity-20">
           HERO_BACKGROUND
         </h1>
       </div>
@@ -159,16 +159,16 @@ export const CyberTerminal: Story = {
     isScrolled: true,
   },
   render: (args) => (
-    <div className="h-[300px] bg-black relative overflow-hidden">
+    <div className="h-[300px] bg-background relative overflow-hidden">
       <Navbar {...args}>
         <NavbarContainer>
           <NavbarBrand href="/" className="gap-4">
             <Logo variant="cyber" size="sm" />
             <div className="flex flex-col leading-none">
-              <span className="font-mono text-cyan-400 font-black italic tracking-tighter uppercase text-lg">
+              <span className="font-mono text-signal font-black italic tracking-tighter uppercase text-lg">
                 AAZUCENA_LYTICS
               </span>
-              <span className="text-[8px] font-mono text-cyan-500/40 uppercase tracking-widest">
+              <span className="text-[8px] font-mono text-signal/40 uppercase tracking-widest">
                 v1.4.2 // Node_Active
               </span>
             </div>
@@ -177,24 +177,24 @@ export const CyberTerminal: Story = {
             <Button
               variant="ghost"
               size="sm"
-              className="font-mono text-[10px] text-cyan-500 hover:text-cyan-400 italic px-4"
+              className="font-mono text-[10px] text-signal hover:text-signal italic px-4"
             >
               {'>'} SCAN_GEO
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="font-mono text-[10px] text-cyan-500 hover:text-cyan-400 italic px-4"
+              className="font-mono text-[10px] text-signal hover:text-signal italic px-4"
             >
               {'>'} TRACE_SIGNAL
             </Button>
           </NavbarContent>
           <NavbarActions>
-            <div className="hidden lg:flex items-center gap-2 mr-4 border-r border-white/10 pr-6">
-              <Activity size={14} className="text-cyan-500 animate-pulse" />
-              <span className="text-[10px] font-mono text-cyan-500/60 uppercase">Pulse: 12ms</span>
+            <div className="hidden lg:flex items-center gap-2 mr-4 border-r border-rule pr-6">
+              <Activity size={14} className="text-signal animate-pulse" />
+              <span className="text-[10px] font-mono text-signal/60 uppercase">Pulse: 12ms</span>
             </div>
-            <Button variant="cyber" size="sm" className="px-8 h-10 rounded-lg">
+            <Button variant="cyber" size="sm" className="px-8 h-10 rounded-control">
               LOGIN_ENCLAVE
             </Button>
           </NavbarActions>

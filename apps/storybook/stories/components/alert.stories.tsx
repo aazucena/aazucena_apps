@@ -293,7 +293,7 @@ export const Announcement: Story = {
     variant: 'default',
     icon: Bell,
     borderAccent: true,
-    className: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
+    className: 'bg-signal/10 dark:bg-panel-raised/20 border-signal dark:border-rule',
   },
   render: (args) => (
     <Alert {...args}>
@@ -347,7 +347,7 @@ export const Dismissible: Story = {
             </AlertDescription>
           </Alert>
         ) : (
-          <div className="flex justify-center p-4 border border-dashed rounded-xl border-zinc-300 dark:border-zinc-700">
+          <div className="flex justify-center p-4 border border-dashed rounded-card border-rule">
             <Button variant="outline" size="sm" onClick={() => setIsVisible(true)}>
               <Refresh className="h-3 w-3 mr-2" />
               Reset Alert
@@ -365,7 +365,7 @@ export const Dismissible: Story = {
 export const ManualPlacement: Story = {
   render: () => (
     <Alert variant="default">
-      <Bell className="h-4 w-4 text-blue-500" />
+      <Bell className="h-4 w-4 text-signal" />
       <AlertTitle>Update Available</AlertTitle>
       <AlertDescription>You have 3 pending updates for your dashboard components.</AlertDescription>
     </Alert>
@@ -386,7 +386,7 @@ export const ComplexContent: Story = {
       <AlertDescription>
         <div className="flex flex-col gap-2 mt-2">
           <p>Transferring 4.2GB of telemetry data to the cloud...</p>
-          <div className="h-1 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+          <div className="h-1 w-full bg-state dark:bg-panel-raised rounded-full overflow-hidden">
             <div className="h-full bg-primary w-2/3" />
           </div>
           <span className="text-[10px] opacity-50 uppercase font-mono tracking-widest">

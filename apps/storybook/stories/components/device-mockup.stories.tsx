@@ -130,7 +130,7 @@ export const Android: Story = {
     size: 'lg',
     variant: 'cyber', // Differentiate with cyber variant
     children: (
-      <div className="flex h-full w-full flex-col items-center justify-center bg-black/80 font-mono text-cyan-400">
+      <div className="flex h-full w-full flex-col items-center justify-center bg-panel font-mono text-signal">
         <p>ANDROID_OS</p>
         <p>INIT_COMPLETE</p>
       </div>
@@ -153,7 +153,7 @@ export const Safari: Story = {
     size: 'lg',
     url: 'https://safari.apple.com',
     children: (
-      <div className="flex h-full w-full items-center justify-center bg-blue-500/10 text-muted-foreground">
+      <div className="flex h-full w-full items-center justify-center bg-signal/10 text-muted-foreground">
         <p className="text-sm">Safari Browser Content</p>
       </div>
     ),

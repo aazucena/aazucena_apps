@@ -109,10 +109,10 @@ export const Glass: Story = {
     display: 'Click to edit',
   },
   render: () => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <Inplace variant="glass" closable display={<span>Click to edit</span>}>
         <input
-          className="rounded border border-white/20 bg-white/10 px-2 py-1 text-sm text-white outline-none"
+          className="rounded border border-rule bg-state px-2 py-1 text-sm text-foreground outline-none"
           defaultValue="Glass"
         />
       </Inplace>
@@ -127,7 +127,7 @@ export const Cyber: Story = {
   render: () => (
     <Inplace variant="cyber" closable display={<span>CLICK_TO_EDIT</span>}>
       <input
-        className="rounded border border-cyan-500/30 bg-black/50 px-2 py-1 text-sm text-cyan-50 font-mono outline-none"
+        className="rounded border border-signal/30 bg-panel px-2 py-1 text-sm text-signal font-mono outline-none"
         defaultValue="CYBER_VALUE"
       />
     </Inplace>

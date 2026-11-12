@@ -50,7 +50,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="relative h-80 w-[24rem] overflow-hidden rounded-xl border bg-background">
+      <div className="relative h-80 w-[24rem] overflow-hidden rounded-card border bg-background">
         <div className="p-4 text-sm text-muted-foreground">Page content area</div>
         <Story />
       </div>
@@ -156,8 +156,8 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
-      <div className="relative h-64 overflow-hidden rounded-xl">
+    <div className="rounded-card p-8">
+      <div className="relative h-64 overflow-hidden rounded-card">
         <BottomNavigation {...args}>
           <BottomNavigationItem variant="glass" icon={<HomeIcon />} label="Home" active />
           <BottomNavigationItem variant="glass" icon={<SearchIcon />} label="Search" />
@@ -197,7 +197,7 @@ export const Sizes: Story = {
       {(['sm', 'md', 'lg'] as const).map((s) => (
         <div key={s}>
           <p className="mb-1 text-xs font-mono text-muted-foreground">size=&quot;{s}&quot;</p>
-          <div className="relative h-24 overflow-hidden rounded-xl border bg-background">
+          <div className="relative h-24 overflow-hidden rounded-card border bg-background">
             <BottomNavigation size={s}>
               <BottomNavigationItem icon={<HomeIcon />} label="Home" active />
               <BottomNavigationItem icon={<SearchIcon />} label="Search" />

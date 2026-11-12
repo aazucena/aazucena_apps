@@ -61,7 +61,7 @@ export const Basic: Story = {
     variant: 'default',
   },
   render: (args) => (
-    <div className="w-[600px] p-10 bg-card border rounded-[2rem] shadow-2xl">
+    <div className="w-[600px] p-10 bg-card border rounded-card">
       <History {...args}>
         <HistoryItem>
           <HistoryTitle>Senior Engineering Lead</HistoryTitle>
@@ -101,7 +101,7 @@ export const CyberLog: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-10 bg-black rounded-xl border border-cyan-500/20">
+    <div className="w-[600px] p-10 bg-background rounded-card border border-signal/20">
       <History {...args}>
         <HistoryItem variant="cyber">
           <HistoryTitle variant="cyber">// NODE_ESTABLISHMENT_0x7F</HistoryTitle>
@@ -110,7 +110,7 @@ export const CyberLog: Story = {
             <HistoryBadge variant="cyber">EPOCH: 1742.4</HistoryBadge>
             <HistoryBadge variant="cyber">SIGNAL: STABLE</HistoryBadge>
           </HistoryMeta>
-          <HistoryDescription className="text-cyan-500/60 font-mono text-xs italic">
+          <HistoryDescription className="text-signal/60 font-mono text-xs italic">
             BUFFER_INITIALIZATION_SUCCESSFUL. SECURE_ENCLAVE_LOCKED. READY_FOR_TRAJECTORY_INFERENCE.
           </HistoryDescription>
         </HistoryItem>
@@ -122,7 +122,7 @@ export const CyberLog: Story = {
             <HistoryBadge variant="cyber">EPOCH: 1741.9</HistoryBadge>
             <HistoryBadge variant="cyber">SIGNAL: DEGRADED</HistoryBadge>
           </HistoryMeta>
-          <HistoryDescription className="text-cyan-500/60 font-mono text-xs italic">
+          <HistoryDescription className="text-signal/60 font-mono text-xs italic">
             RETRY_SEQUENCE_INITIATED... PACKET_LOSS_DETECTION_ACTIVE.
           </HistoryDescription>
         </HistoryItem>

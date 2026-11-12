@@ -119,7 +119,7 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-12 bg-black rounded-[3rem] border border-cyan-500/10">
+    <div className="w-[600px] p-12 bg-background rounded-card border border-signal/10">
       <Timeline {...args}>
         <TimelineItem>
           <TimelineDot variant="cyber" />
@@ -129,13 +129,13 @@ export const CyberTerminal: Story = {
               <Badge variant="cyber" size="xs">
                 EPOCH_1742
               </Badge>
-              <Activity className="size-3 text-cyan-500 animate-pulse" />
+              <Activity className="size-3 text-signal animate-pulse" />
             </div>
             <TimelineHeader>
-              <TimelineTitle className="font-mono italic text-cyan-400 uppercase tracking-tighter text-xl">
+              <TimelineTitle className="font-mono italic text-signal uppercase tracking-tighter text-xl">
                 // KERNEL_SYNC_INIT
               </TimelineTitle>
-              <TimelineDescription className="font-mono text-[10px] text-cyan-500/40 uppercase">
+              <TimelineDescription className="font-mono text-[10px] text-signal/40 uppercase">
                 Handshake sequence successful.
               </TimelineDescription>
             </TimelineHeader>
@@ -151,10 +151,10 @@ export const CyberTerminal: Story = {
               </Badge>
             </div>
             <TimelineHeader>
-              <TimelineTitle className="font-mono italic text-cyan-400 uppercase tracking-tighter text-xl">
+              <TimelineTitle className="font-mono italic text-signal uppercase tracking-tighter text-xl">
                 // BUFFER_FLUSH
               </TimelineTitle>
-              <TimelineDescription className="font-mono text-[10px] text-cyan-500/40 uppercase">
+              <TimelineDescription className="font-mono text-[10px] text-signal/40 uppercase">
                 Purging legacy packets.
               </TimelineDescription>
             </TimelineHeader>

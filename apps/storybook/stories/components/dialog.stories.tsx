@@ -127,15 +127,15 @@ export const CyberSpec: Story = {
         </div>
         <div className="pt-12 px-8">
           <DialogHeader className="p-0 text-left">
-            <DialogTitle className="font-mono uppercase italic tracking-tighter text-2xl text-cyan-500">
+            <DialogTitle className="font-mono uppercase italic tracking-tighter text-2xl text-signal">
               // TERMINATE_CORE_PROTOCOL
             </DialogTitle>
-            <DialogDescription className="font-mono text-[10px] text-cyan-500/40">
+            <DialogDescription className="font-mono text-[10px] text-signal/40">
               UPLINK_SECURITY_CLEARANCE: LEVEL_01
             </DialogDescription>
           </DialogHeader>
           <DialogBody className="p-0 py-8 font-mono text-xs space-y-4">
-            <div className="p-4 bg-rose-500/5 border border-rose-500/20 rounded-xl text-rose-500">
+            <div className="p-4 bg-alert/5 border border-alert/20 rounded-card text-alert">
               <p className="font-black uppercase mb-1 underline">WARNING_DESTRUCTION_NOTICE</p>
               <p>
                 Proceeding will purge all cached telemetry packets and reset local node identifiers.
@@ -145,8 +145,8 @@ export const CyberSpec: Story = {
             <p className="opacity-60 italic">{'>'} Confirming authorization sequence...</p>
           </DialogBody>
         </div>
-        <DialogFooter className="px-8 border-cyan-500/10">
-          <Button variant="ghost" className="text-cyan-500">
+        <DialogFooter className="px-8 border-signal/10">
+          <Button variant="ghost" className="text-signal">
             Abort
           </Button>
           <Button variant="destructive" className="px-10">
@@ -165,35 +165,35 @@ export const GlassHero: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="glass" className="bg-primary/20 text-zinc-800 rounded-full px-8">
+        <Button variant="glass" className="bg-primary/20 text-foreground rounded-full px-8">
           <Sparkles className="mr-2" /> Upgrade Intel
         </Button>
       </DialogTrigger>
-      <DialogContent variant="glass" className="p-0 border-white/10">
+      <DialogContent variant="glass" className="p-0 border-rule">
         <DialogHero className="h-48 flex items-center justify-center p-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800" />
-          <DialogIcon className="relative z-10 border-white/20 bg-white/10 text-zinc-800 size-20">
+          <div className="absolute inset-0" />
+          <DialogIcon className="relative z-10 border-rule bg-state text-foreground size-20">
             <Zap className="size-10" />
           </DialogIcon>
         </DialogHero>
         <div className="p-8 pt-6">
           <DialogHeader className="p-0 text-center items-center">
-            <DialogTitle className="text-zinc-800 text-3xl">Unlock Advanced Intel</DialogTitle>
-            <DialogDescription className="text-zinc-800">
+            <DialogTitle className="text-foreground text-3xl">Unlock Advanced Intel</DialogTitle>
+            <DialogDescription className="text-foreground">
               Access real-time trajectory predictions and global node distribution.
             </DialogDescription>
           </DialogHeader>
-          <DialogBody className="p-0 py-8 text-center text-zinc-800">
+          <DialogBody className="p-0 py-8 text-center text-foreground">
             <p className="text-sm">
               Join the 14,000+ engineers leveraging high-fidelity telemetry for biometric
               optimization.
             </p>
           </DialogBody>
-          <DialogFooter className="p-0 border-white/10 justify-center">
+          <DialogFooter className="p-0 border-rule justify-center">
             <Button
               variant="glass"
               size="lg"
-              className="rounded-full px-12 bg-white border-zinc-800/80  text-black hover:bg-white/90"
+              className="rounded-full px-12 bg-panel border-rule/80 text-foreground hover:bg-panel-raised"
             >
               Upgrade_Now
             </Button>

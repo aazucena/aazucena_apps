@@ -16,7 +16,7 @@ import { Globe, Shield, Zap, Activity, Database, Dots as MoreHorizontal } from '
  * ## Engineering Standards
  * - **CDD Pattern:** Orchestral layout suite for high-density structured data.
  * - **Responsiveness:** Features a `relative w-full overflow-auto` wrapper to manage horizontal overflow on smaller viewports.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur` and pulsing status indicators.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and pulsing status indicators.
  * - **Composition:** Fully modular parts (Header, Body, Footer, Head, Row, Cell) for flexible tabular architecture.
  */
 const meta = {
@@ -124,40 +124,35 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[800px] p-8 bg-black rounded-[2rem]">
+    <div className="w-[800px] p-8 bg-background rounded-card">
       <div className="flex items-center gap-3 mb-6 px-4">
-        <Activity className="size-4 text-cyan-500 animate-pulse" />
-        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+        <Activity className="size-4 text-signal animate-pulse" />
+        <span className="font-mono text-[10px] text-signal uppercase tracking-[0.3em]">
           // KERNEL_INGESTION_BUFFER
         </span>
       </div>
       <Table {...args} className="font-mono text-xs">
         <TableHeader variant="cyber">
           <TableRow variant="cyber" className="hover:bg-transparent">
-            <TableHead className="text-cyan-500 font-black uppercase">Sector</TableHead>
-            <TableHead className="text-cyan-500 font-black uppercase">Buffer_Load</TableHead>
-            <TableHead className="text-right text-cyan-500 font-black uppercase">
-              Stability
-            </TableHead>
+            <TableHead className="text-signal font-black uppercase">Sector</TableHead>
+            <TableHead className="text-signal font-black uppercase">Buffer_Load</TableHead>
+            <TableHead className="text-right text-signal font-black uppercase">Stability</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {mockNodes.slice(0, 3).map((node) => (
             <TableRow key={node.id} variant="cyber">
-              <TableCell className="text-white">{node.sector}</TableCell>
+              <TableCell className="text-foreground">{node.sector}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-4">
-                  <div className="h-1 w-24 bg-cyan-500/10 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,1)]"
-                      style={{ width: `${node.load}%` }}
-                    />
+                  <div className="h-1 w-24 bg-signal/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-signal" style={{ width: `${node.load}%` }} />
                   </div>
                   <span className="opacity-40">{node.load}%</span>
                 </div>
               </TableCell>
               <TableCell className="text-right">
-                <span className={node.status === 'NOMINAL' ? 'text-emerald-500' : 'text-amber-500'}>
+                <span className={node.status === 'NOMINAL' ? 'text-success' : 'text-warning'}>
                   {node.status === 'NOMINAL' ? 'OPTIMAL' : 'FLUCTUATING'}
                 </span>
               </TableCell>
@@ -177,19 +172,19 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-20 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="w-[700px] relative z-10">
-        <Table {...args} className="border-white/10 text-white">
+        <Table {...args} className="border-rule text-foreground">
           <TableHeader variant="glass">
             <TableRow variant="glass" className="hover:bg-transparent">
-              <TableHead className="text-white/40 uppercase tracking-widest font-black text-[10px]">
+              <TableHead className="text-foreground/40 uppercase tracking-widest font-black text-[10px]">
                 Resource
               </TableHead>
-              <TableHead className="text-white/40 uppercase tracking-widest font-black text-[10px]">
+              <TableHead className="text-foreground/40 uppercase tracking-widest font-black text-[10px]">
                 Encryption
               </TableHead>
-              <TableHead className="text-right text-white/40 uppercase tracking-widest font-black text-[10px]">
+              <TableHead className="text-right text-foreground/40 uppercase tracking-widest font-black text-[10px]">
                 Availability
               </TableHead>
             </TableRow>
@@ -200,22 +195,22 @@ export const GlassAtmospheric: Story = {
                 <Database size={14} className="opacity-60" /> Core_Enclave
               </TableCell>
               <TableCell>
-                <div className="flex items-center gap-2 text-emerald-400">
+                <div className="flex items-center gap-2 text-success">
                   <Shield size={12} /> AES-256
                 </div>
               </TableCell>
-              <TableCell className="text-right text-emerald-400 font-bold">100%</TableCell>
+              <TableCell className="text-right text-success font-bold">100%</TableCell>
             </TableRow>
             <TableRow variant="glass">
               <TableCell className="flex items-center gap-3">
                 <Zap size={14} className="opacity-60" /> Edge_Sync
               </TableCell>
               <TableCell>
-                <div className="flex items-center gap-2 text-cyan-400">
+                <div className="flex items-center gap-2 text-signal">
                   <Shield size={12} /> ChaCha20
                 </div>
               </TableCell>
-              <TableCell className="text-right text-cyan-400 font-bold">98.2%</TableCell>
+              <TableCell className="text-right text-signal font-bold">98.2%</TableCell>
             </TableRow>
           </TableBody>
         </Table>

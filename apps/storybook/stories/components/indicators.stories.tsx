@@ -106,7 +106,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const IconBox = () => (
-  <div className="flex size-10 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+  <div className="flex size-10 items-center justify-center rounded-control bg-muted text-muted-foreground">
     <svg
       width="20"
       height="20"
@@ -149,7 +149,7 @@ export const Glass: Story = {
     count: 3,
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <Indicator {...args}>
         <IconBox />
       </Indicator>

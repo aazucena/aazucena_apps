@@ -60,29 +60,14 @@ export const Basic: Story = {
     variant: 'default',
   },
   render: (args) => (
-    <div className="w-[500px] p-8 border rounded-[2rem] bg-card shadow-2xl">
+    <div className="w-[500px] p-8 border rounded-card bg-card">
       <Distribution {...args}>
         <DistributionGroup>
           <DistributionHeader>Regional_Intelligence_Metrics</DistributionHeader>
           <DistributionList>
-            <DistributionBar
-              value={45}
-              label="North America"
-              icon={<Globe />}
-              color="from-blue-500 to-indigo-600"
-            />
-            <DistributionBar
-              value={30}
-              label="European Union"
-              icon={<Globe />}
-              color="from-emerald-500 to-teal-600"
-            />
-            <DistributionBar
-              value={25}
-              label="APAC Region"
-              icon={<Globe />}
-              color="from-orange-500 to-rose-600"
-            />
+            <DistributionBar value={45} label="North America" icon={<Globe />} color="" />
+            <DistributionBar value={30} label="European Union" icon={<Globe />} color="" />
+            <DistributionBar value={25} label="APAC Region" icon={<Globe />} color="" />
           </DistributionList>
         </DistributionGroup>
 
@@ -109,12 +94,12 @@ export const Cyber: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[500px] p-8 border border-cyan-500/20 bg-black rounded-xl">
+    <div className="w-[500px] p-8 border border-signal/20 bg-background rounded-card">
       <Distribution {...args}>
         <DistributionGroup>
           <div className="flex items-center gap-3 mb-6">
-            <Activity className="size-4 text-cyan-500 animate-pulse" />
-            <DistributionHeader className="mb-0 text-cyan-500 opacity-60">
+            <Activity className="size-4 text-signal animate-pulse" />
+            <DistributionHeader className="mb-0 text-signal opacity-60">
               SYSTEM_SECURITY_DISTRIBUTION
             </DistributionHeader>
           </div>
@@ -124,14 +109,14 @@ export const Cyber: Story = {
               value={98}
               label="ENCRYPTION_STRENGTH"
               icon={<Shield />}
-              color="from-cyan-500 to-blue-600"
+              color=""
             />
             <DistributionBar
               variant="cyber"
               value={12}
               label="THREAT_VECTOR_COUNT"
               icon={<Code />}
-              color="from-rose-500 to-red-600"
+              color=""
             />
           </DistributionList>
         </DistributionGroup>
@@ -156,24 +141,9 @@ export const PerformanceMetrics: Story = {
         <DistributionGroup>
           <DistributionHeader>Resource_Allocation</DistributionHeader>
           <DistributionList className="space-y-6">
-            <DistributionBar
-              value={12}
-              label="CPU_Cycle_Load"
-              icon={<Activity />}
-              color="from-zinc-500 to-zinc-700"
-            />
-            <DistributionBar
-              value={85}
-              label="Memory_Cache_Util"
-              icon={<Database />}
-              color="from-blue-400 to-blue-600"
-            />
-            <DistributionBar
-              value={42}
-              label="Network_Bandwidth"
-              icon={<Zap />}
-              color="from-emerald-400 to-emerald-600"
-            />
+            <DistributionBar value={12} label="CPU_Cycle_Load" icon={<Activity />} color="" />
+            <DistributionBar value={85} label="Memory_Cache_Util" icon={<Database />} color="" />
+            <DistributionBar value={42} label="Network_Bandwidth" icon={<Zap />} color="" />
           </DistributionList>
         </DistributionGroup>
       </Distribution>

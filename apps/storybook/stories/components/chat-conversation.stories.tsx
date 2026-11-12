@@ -157,7 +157,7 @@ export const GlassVariant: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="h-[600px] w-[500px] bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-8 rounded-[3rem]">
+    <div className="h-[600px] w-[500px] p-8 rounded-card">
       <ChatConversation {...args} />
     </div>
   ),

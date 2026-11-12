@@ -104,7 +104,7 @@ export const Glass: Story = {
     title: 'Ambient Soundscape',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <AudioEmbed {...args} />
     </div>
   ),

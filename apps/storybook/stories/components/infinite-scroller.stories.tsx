@@ -64,14 +64,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const techItems = [
-  { name: 'TypeScript', icon: Code, color: 'text-blue-500' },
-  { name: 'React', icon: Activity, color: 'text-cyan-500' },
-  { name: 'Next.js', icon: Globe, color: 'text-white' },
-  { name: 'PostgreSQL', icon: Database, color: 'text-indigo-500' },
-  { name: 'Tailwind', icon: Zap, color: 'text-sky-400' },
-  { name: 'Three.js', icon: Globe, color: 'text-emerald-500' },
-  { name: 'Node.js', icon: Cpu, color: 'text-green-500' },
-  { name: 'Zod', icon: Shield, color: 'text-amber-500' },
+  { name: 'TypeScript', icon: Code, color: 'text-signal' },
+  { name: 'React', icon: Activity, color: 'text-signal' },
+  { name: 'Next.js', icon: Globe, color: 'text-foreground' },
+  { name: 'PostgreSQL', icon: Database, color: 'text-series-3' },
+  { name: 'Tailwind', icon: Zap, color: 'text-signal' },
+  { name: 'Three.js', icon: Globe, color: 'text-success' },
+  { name: 'Node.js', icon: Cpu, color: 'text-success' },
+  { name: 'Zod', icon: Shield, color: 'text-warning' },
 ];
 
 // --- STORIES ---
@@ -85,12 +85,12 @@ export const Basic: Story = {
     direction: 'left',
   },
   render: (args) => (
-    <div className="w-[800px] border border-dashed rounded-3xl p-4 bg-muted/5">
+    <div className="w-[800px] border border-dashed rounded-card p-4 bg-muted/5">
       <InfiniteScroller {...args}>
         {techItems.map((item, i) => (
           <div
             key={i}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl border bg-card shadow-sm whitespace-nowrap"
+            className="flex items-center gap-2 px-6 py-3 rounded-card border bg-card whitespace-nowrap"
           >
             <item.icon className={cn('size-4', item.color)} />
             <span className="text-xs font-black uppercase tracking-widest">{item.name}</span>
@@ -110,15 +110,15 @@ export const FastTicker: Story = {
     variant: 'full',
   },
   render: (args) => (
-    <div className="w-full bg-black py-2 border-y border-white/5">
+    <div className="w-full bg-background py-2 border-y border-rule">
       <InfiniteScroller {...args}>
         {Array.from({ length: 10 }).map((_, i) => (
           <div
             key={i}
-            className="flex items-center gap-4 text-white font-mono text-[10px] tracking-tighter opacity-40"
+            className="flex items-center gap-4 text-foreground font-mono text-[10px] tracking-tighter opacity-40"
           >
             <span>// UPLINK_NODE_{i}</span>
-            <span className="text-emerald-500">STABLE</span>
+            <span className="text-success">STABLE</span>
             <span className="opacity-20">|</span>
           </div>
         ))}
@@ -148,7 +148,7 @@ export const CardScroller: Story = {
                 <Badge variant="outline" size="xs">
                   AGENT_0{i + 1}
                 </Badge>
-                <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                <div className="size-2 rounded-full bg-success animate-pulse" />
               </div>
             </CardContent>
           </Card>
@@ -167,13 +167,13 @@ export const GlassAtmosphere: Story = {
     speed: 'slow',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 to-purple-800 rounded-[3rem] w-[800px]">
+    <div className="p-20 rounded-card w-[800px]">
       <InfiniteScroller {...args}>
         {['TROPOSPHERE', 'STRATOSPHERE', 'MESOSPHERE', 'THERMOSPHERE', 'EXOSPHERE'].map(
           (layer, i) => (
             <div
               key={i}
-              className="px-8 py-4 glass border-white/10 rounded-full text-white font-black text-xs tracking-[0.3em]"
+              className="px-8 py-4 glass border-rule rounded-full text-foreground font-black text-xs tracking-[0.3em]"
             >
               {layer}
             </div>

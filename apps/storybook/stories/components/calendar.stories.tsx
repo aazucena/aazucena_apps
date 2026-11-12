@@ -60,7 +60,7 @@ export const Basic: Story = {
   render: (args) => {
     const [date, setDate] = useState<Date>();
     return (
-      <div className="rounded-xl border shadow-lg overflow-hidden">
+      <div className="rounded-card border overflow-hidden">
         <Calendar {...args} mode="single" selected={date} onSelect={setDate} />
       </div>
     );
@@ -92,7 +92,7 @@ export const Glass: Story = {
   render: (args) => {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
-      <div className="p-12 bg-gradient-to-br from-zinc-900 to-black rounded-[2rem]">
+      <div className="p-12 rounded-card">
         <Calendar {...args} mode="single" selected={date} onSelect={setDate} />
       </div>
     );
@@ -113,7 +113,7 @@ export const RangeSelection: Story = {
     });
 
     return (
-      <div className="rounded-xl border shadow-lg overflow-hidden">
+      <div className="rounded-card border overflow-hidden">
         <Calendar {...args} mode="range" selected={range} onSelect={setRange} />
       </div>
     );
@@ -130,7 +130,7 @@ export const MultipleMonths: Story = {
   render: (args) => {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
-      <div className="rounded-xl border shadow-lg overflow-hidden">
+      <div className="rounded-card border overflow-hidden">
         <Calendar {...args} mode="single" selected={date} onSelect={setDate} />
       </div>
     );

@@ -8,7 +8,7 @@ import { useState } from 'react';
  * ## Engineering Standards
  * - **CDD Pattern:** Orchestral layout suite for technical readouts, code snippets, and log streams.
  * - **UX:** Features specialized `TerminalLine` with support for line numbering and high-fidelity code highlighting.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur` and terminal decoration buttons.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and terminal decoration buttons.
  * - **Composition:** Fully modular parts (Header, Body, Line, Action) for tailorable technical displays.
  */
 const meta = {
@@ -53,7 +53,7 @@ export const CyberBoot: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[700px] p-12 bg-black rounded-[3rem] border border-cyan-500/10">
+    <div className="w-[700px] p-12 bg-background rounded-card border border-signal/10">
       <Terminal {...args}>
         <TerminalHeader>KERNEL_BOOT_SEQUENCE</TerminalHeader>
         <TerminalBody className="max-h-[300px]">
@@ -65,7 +65,7 @@ export const CyberBoot: Story = {
             [ 0.000000] NX (Execute Disable) protection: active
           </TerminalLine>
           <TerminalLine number={4}>[ 0.000000] DMI: AAZUCENA_LABS_UNIT_0x7F42</TerminalLine>
-          <TerminalLine number={5} className="text-cyan-400 font-bold">
+          <TerminalLine number={5} className="text-signal font-bold">
             -- INITIALIZING_UPLINK_ENCLAVE --
           </TerminalLine>
           <TerminalLine number={6}>
@@ -74,7 +74,7 @@ export const CyberBoot: Story = {
           <TerminalLine number={7}>
             [ 0.420884] usbcore: registered new interface driver usbfs
           </TerminalLine>
-          <TerminalLine number={8} className="text-emerald-500 font-bold">
+          <TerminalLine number={8} className="text-success font-bold">
             {' '}
             SUCCESS: Uplink synchronized across all continental nodes.
           </TerminalLine>
@@ -99,59 +99,59 @@ export const GlassCode: Story = {
     };
 
     return (
-      <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] relative overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 bg-black/20" />
+      <div className="p-20 rounded-card relative overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 bg-scrim" />
         <div className="w-[600px] relative z-10">
-          <Terminal {...args} className="border-white/10 shadow-2xl">
-            <TerminalHeader className="text-white border-white/10">
+          <Terminal {...args} className="border-rule">
+            <TerminalHeader className="text-foreground border-rule">
               <div className="flex items-center gap-3">
-                <Badge variant="outline" className="text-white border-white/20">
+                <Badge variant="outline" className="text-foreground border-rule">
                   JSON
                 </Badge>
                 <span>node_config.json</span>
               </div>
-              <TerminalAction active={copied} onClick={handleCopy} className="text-white" />
+              <TerminalAction active={copied} onClick={handleCopy} className="text-foreground" />
             </TerminalHeader>
-            <TerminalBody className="text-white/80">
+            <TerminalBody className="text-foreground/80">
               <TerminalLine number={1}>
-                <span className="text-pink-400">&#123;</span>
+                <span className="text-series-4">&#123;</span>
               </TerminalLine>
               <TerminalLine number={2}>
                 {' '}
-                <span className="text-cyan-400">"id"</span>:{' '}
-                <span className="text-yellow-200">"0x7F42"</span>,
+                <span className="text-signal">"id"</span>:{' '}
+                <span className="text-warning">"0x7F42"</span>,
               </TerminalLine>
               <TerminalLine number={3}>
                 {' '}
-                <span className="text-cyan-400">"alias"</span>:{' '}
-                <span className="text-yellow-200">"Azucena_Primary"</span>,
+                <span className="text-signal">"alias"</span>:{' '}
+                <span className="text-warning">"Azucena_Primary"</span>,
               </TerminalLine>
               <TerminalLine number={4}>
                 {' '}
-                <span className="text-cyan-400">"status"</span>:{' '}
-                <span className="text-emerald-400">"OPERATIONAL"</span>,
+                <span className="text-signal">"status"</span>:{' '}
+                <span className="text-success">"OPERATIONAL"</span>,
               </TerminalLine>
               <TerminalLine number={5}>
                 {' '}
-                <span className="text-cyan-400">"enclave"</span>:{' '}
-                <span className="text-pink-400">&#123;</span>
+                <span className="text-signal">"enclave"</span>:{' '}
+                <span className="text-series-4">&#123;</span>
               </TerminalLine>
               <TerminalLine number={6}>
                 {' '}
-                <span className="text-cyan-400">"type"</span>:{' '}
-                <span className="text-yellow-200">"RSA-4096"</span>,
+                <span className="text-signal">"type"</span>:{' '}
+                <span className="text-warning">"RSA-4096"</span>,
               </TerminalLine>
               <TerminalLine number={7}>
                 {' '}
-                <span className="text-cyan-400">"active"</span>:{' '}
-                <span className="text-orange-400">true</span>
+                <span className="text-signal">"active"</span>:{' '}
+                <span className="text-warning">true</span>
               </TerminalLine>
               <TerminalLine number={8}>
                 {' '}
-                <span className="text-pink-400">&#125;</span>
+                <span className="text-series-4">&#125;</span>
               </TerminalLine>
               <TerminalLine number={9}>
-                <span className="text-pink-400">&#125;</span>
+                <span className="text-series-4">&#125;</span>
               </TerminalLine>
             </TerminalBody>
           </Terminal>
@@ -183,21 +183,21 @@ export const StatusMonitor: Story = {
                 <span className="text-[10px] opacity-40 uppercase">US_EAST_NODE</span>
                 <span className="font-bold">Syncing...</span>
               </div>
-              <div className="size-2 rounded-full bg-blue-500 animate-pulse" />
+              <div className="size-2 rounded-full bg-signal animate-pulse" />
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <div className="flex flex-col">
                 <span className="text-[10px] opacity-40 uppercase">EU_WEST_NODE</span>
-                <span className="font-bold text-emerald-500">Nominal</span>
+                <span className="font-bold text-success">Nominal</span>
               </div>
-              <div className="size-2 rounded-full bg-emerald-500" />
+              <div className="size-2 rounded-full bg-success" />
             </div>
             <div className="flex justify-between items-center">
               <div className="flex flex-col">
                 <span className="text-[10px] opacity-40 uppercase">AP_SOUTH_NODE</span>
-                <span className="font-bold text-rose-500">Critical_Fail</span>
+                <span className="font-bold text-alert">Critical_Fail</span>
               </div>
-              <div className="size-2 rounded-full bg-rose-500 animate-ping" />
+              <div className="size-2 rounded-full bg-alert animate-ping" />
             </div>
           </div>
         </TerminalBody>

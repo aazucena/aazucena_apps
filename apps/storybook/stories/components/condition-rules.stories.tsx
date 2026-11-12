@@ -73,7 +73,7 @@ const ConditionDemo = (props: Partial<React.ComponentProps<typeof ConditionRules
   return (
     <div className="space-y-4">
       <ConditionRules fields={fields} value={value} onChange={setValue} {...props} />
-      <div className="rounded-md bg-muted p-4">
+      <div className="rounded-control bg-muted p-4">
         <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">
           Output JSON:
         </p>
@@ -119,7 +119,7 @@ export const Nested: Story = {
     return (
       <div className="space-y-4">
         <ConditionRules fields={fields} value={value} onChange={setValue} />
-        <div className="rounded-md bg-muted p-4">
+        <div className="rounded-control bg-muted p-4">
           <p className="mb-2 text-xs font-mono font-bold uppercase text-muted-foreground">
             Output JSON:
           </p>
@@ -137,7 +137,7 @@ export const Glass: Story = {
     fields,
   },
   render: () => (
-    <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 shadow-xl">
+    <div className="rounded-card p-8">
       <ConditionDemo variant="glass" />
     </div>
   ),

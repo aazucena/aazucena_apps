@@ -46,15 +46,15 @@ export const SixteenByNine: Story = {
     ratio: 16 / 9,
   },
   render: (args) => (
-    <div className="w-[450px] overflow-hidden rounded-xl border border-border shadow-2xl">
+    <div className="w-[450px] overflow-hidden rounded-card border border-border">
       <AspectRatio {...args}>
         <img
           src="https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2000&auto=format&fit=crop"
           alt="Engineering aesthetic"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-          <p className="text-white font-black uppercase tracking-widest text-xs">
+        <div className="absolute inset-0 flex items-end p-6">
+          <p className="text-foreground font-black uppercase tracking-widest text-xs">
             VIDEO_STREAM // 16:9
           </p>
         </div>
@@ -71,7 +71,7 @@ export const FourByThree: Story = {
     ratio: 4 / 3,
   },
   render: (args) => (
-    <div className="w-[300px] overflow-hidden rounded-lg border bg-muted/50">
+    <div className="w-[300px] overflow-hidden rounded-control border bg-muted/50">
       <AspectRatio {...args}>
         <div className="flex h-full items-center justify-center flex-col gap-2">
           <div className="w-12 h-12 rounded-full bg-primary/20 animate-pulse" />
@@ -112,12 +112,12 @@ export const CinemaScope: Story = {
     ratio: 21 / 9,
   },
   render: (args) => (
-    <div className="w-[600px] border bg-black overflow-hidden group">
+    <div className="w-[600px] border bg-background overflow-hidden group">
       <AspectRatio {...args}>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="h-[1px] w-0 bg-cyan-500 group-hover:w-full transition-all duration-700 opacity-50" />
+          <div className="h-[1px] w-0 bg-signal group-hover:w-full transition-all duration-700 opacity-50" />
         </div>
-        <div className="absolute top-4 left-4 text-[9px] font-mono text-cyan-500/50">
+        <div className="absolute top-4 left-4 text-[9px] font-mono text-signal/50">
           ULTRAWIDE_OUTPUT
         </div>
       </AspectRatio>

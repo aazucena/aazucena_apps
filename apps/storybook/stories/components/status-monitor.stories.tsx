@@ -28,7 +28,7 @@ import { Badge, Button } from '@aazucena/ui';
  * ## Engineering Standards
  * - **CDD Pattern:** Orchestral layout suite for real-time system monitoring and alert management.
  * - **UX:** Features state-aware headers and icons that transition between `NOMINAL`, `WARNING`, and `CRITICAL`.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur` and pulsing alert icons.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and pulsing alert icons.
  * - **Composition:** Fully modular parts (Header, Icon, Value, Log, Alert) for tailorable terminal interfaces.
  */
 const meta = {
@@ -101,7 +101,7 @@ export const NominalState: Story = {
           <div className="mt-6 space-y-3">
             <StatusMonitorAlert level="NOMINAL">
               <div className="flex items-center gap-3">
-                <Database size={14} className="text-emerald-500" />
+                <Database size={14} className="text-success" />
                 <span className="text-xs font-bold uppercase">Buffer_Sync</span>
               </div>
               <span className="text-[10px] font-mono opacity-40 uppercase">0ms_Lag</span>
@@ -141,38 +141,38 @@ export const CriticalTerminal: Story = {
               <DangerCircle className="size-6" />
             </StatusMonitorIcon>
             <div>
-              <StatusMonitorTitle className="text-rose-500/60">Kernel_Inference</StatusMonitorTitle>
+              <StatusMonitorTitle className="text-alert/60">Kernel_Inference</StatusMonitorTitle>
               <StatusMonitorValue status="CRITICAL">BUFFER_OVERFLOW_0x7F</StatusMonitorValue>
             </div>
           </div>
-          <div className="size-2 rounded-full bg-rose-500 animate-ping" />
+          <div className="size-2 rounded-full bg-alert animate-ping" />
         </StatusMonitorHeader>
-        <StatusMonitorContent className="bg-zinc-950 p-0">
-          <div className="p-6 font-mono text-[11px] text-rose-400 space-y-1">
+        <StatusMonitorContent className="bg-background p-0">
+          <div className="p-6 font-mono text-[11px] text-alert space-y-1">
             <p className="font-bold">{'>'} CRITICAL_ERROR: MEMORY_ALLOCATION_FAILED</p>
             <p className="opacity-40 italic">-- generating stack trace --</p>
             <p className="opacity-40 italic">-- isolating affected sectors --</p>
             <p className="mt-4">{'>'} INITIATING_EMERGENCY_OVERRIDE...</p>
           </div>
           <div className="px-6 pb-6">
-            <StatusMonitorAlert level="CRITICAL" className="bg-rose-500/10 border-rose-500/20">
+            <StatusMonitorAlert level="CRITICAL" className="bg-alert/10 border-alert/20">
               <div className="flex items-center gap-3">
-                <Terminal size={14} className="text-rose-500" />
-                <span className="text-xs font-black uppercase text-rose-500">
+                <Terminal size={14} className="text-alert" />
+                <span className="text-xs font-black uppercase text-alert">
                   Manual_Init_Required
                 </span>
               </div>
             </StatusMonitorAlert>
           </div>
         </StatusMonitorContent>
-        <StatusMonitorFooter variant="cyber" className="border-rose-500/20">
-          <span className="text-[10px] font-mono text-rose-500/40 uppercase">
+        <StatusMonitorFooter variant="cyber" className="border-alert/20">
+          <span className="text-[10px] font-mono text-alert/40 uppercase">
             Awaiting_Admin_Pulse_
           </span>
           <Button
             variant="destructive"
             size="sm"
-            className="h-8 rounded-lg uppercase font-black tracking-widest text-[9px]"
+            className="h-8 rounded-control uppercase font-black tracking-widest text-[9px]"
           >
             Reboot_Kernel
           </Button>
@@ -190,38 +190,46 @@ export const GlassMonitor: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-20 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="relative z-10 w-[500px]">
-        <StatusMonitor {...args} className="border-white/10 shadow-2xl">
-          <StatusMonitorHeader status="NOMINAL" className="border-white/10 bg-white/5">
-            <div className="flex items-center gap-4 text-white">
+        <StatusMonitor {...args} className="border-rule">
+          <StatusMonitorHeader status="NOMINAL" className="border-rule bg-state">
+            <div className="flex items-center gap-4 text-foreground">
               <StatusMonitorIcon
                 status="NOMINAL"
-                className="bg-white/10 border-white/20 text-white shadow-none"
+                className="bg-state border-rule text-foreground shadow-none"
               >
                 <Globe size={24} />
               </StatusMonitorIcon>
               <div>
-                <StatusMonitorTitle className="text-white/40">Network_Reach</StatusMonitorTitle>
-                <StatusMonitorValue className="text-white">Global_Uplink_Active</StatusMonitorValue>
+                <StatusMonitorTitle className="text-foreground/40">
+                  Network_Reach
+                </StatusMonitorTitle>
+                <StatusMonitorValue className="text-foreground">
+                  Global_Uplink_Active
+                </StatusMonitorValue>
               </div>
             </div>
           </StatusMonitorHeader>
-          <StatusMonitorContent className="text-white/80">
+          <StatusMonitorContent className="text-foreground/80">
             <div className="space-y-6">
               <p className="text-xs leading-relaxed">
                 Continental edge nodes are reporting consistent heartbeat signals. Signal gain
                 optimization is running at **98.4%** efficiency.
               </p>
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-3 bg-white/5 border border-white/10 rounded-xl">
-                  <span className="text-[9px] font-black uppercase text-white/40">US_East</span>
+                <div className="p-3 bg-state border border-rule rounded-card">
+                  <span className="text-[9px] font-black uppercase text-foreground/40">
+                    US_East
+                  </span>
                   <p className="text-lg font-black">12ms</p>
                 </div>
-                <div className="p-3 bg-white/5 border border-white/10 rounded-xl">
-                  <span className="text-[9px] font-black uppercase text-white/40">EU_West</span>
-                  <p className="text-lg font-black text-cyan-400">18ms</p>
+                <div className="p-3 bg-state border border-rule rounded-card">
+                  <span className="text-[9px] font-black uppercase text-foreground/40">
+                    EU_West
+                  </span>
+                  <p className="text-lg font-black text-signal">18ms</p>
                 </div>
               </div>
             </div>

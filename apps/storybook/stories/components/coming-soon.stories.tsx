@@ -70,7 +70,7 @@ export const CyberMode: Story = {
     packetId: '0xBB-99',
   },
   render: (args) => (
-    <div className="bg-black p-12 rounded-3xl w-[700px]">
+    <div className="bg-background p-12 rounded-card w-[700px]">
       <ComingSoon {...args} />
     </div>
   ),
@@ -85,7 +85,7 @@ export const GlassVariant: Story = {
     expectedDate: 'JUNE_2026',
   },
   render: (args) => (
-    <div className="bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-20 rounded-[3rem] w-[800px]">
+    <div className="p-20 rounded-card w-[800px]">
       <ComingSoon {...args} />
     </div>
   ),
@@ -130,7 +130,7 @@ export const LargeHero: Story = {
     expectedDate: 'PROJECTED_AUGUST_2026',
   },
   render: (args) => (
-    <div className="bg-black p-4 w-[900px]">
+    <div className="bg-background p-4 w-[900px]">
       <ComingSoon {...args} />
     </div>
   ),

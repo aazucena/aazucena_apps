@@ -92,11 +92,11 @@ export const SystemSettings: Story = {
           <Settings className="mr-2" /> Global Protocol Settings
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="rounded-t-[2rem]">
+      <DrawerContent className="rounded-t-card">
         <div className="mx-auto w-full max-w-lg">
           <DrawerHeader className="border-b border-current/5 py-8">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-primary/10 rounded-2xl text-primary">
+              <div className="p-3 bg-primary/10 rounded-card text-primary">
                 <Shield size={24} />
               </div>
               <div className="text-left">
@@ -110,13 +110,13 @@ export const SystemSettings: Story = {
             </div>
           </DrawerHeader>
           <div className="p-8 space-y-6">
-            <div className="flex items-center justify-between p-4 border rounded-2xl bg-muted/20">
+            <div className="flex items-center justify-between p-4 border rounded-card bg-muted/20">
               <span className="text-sm font-bold opacity-80 uppercase tracking-widest">
                 Encryption_Sync
               </span>
-              <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="size-2 rounded-full bg-success animate-pulse" />
             </div>
-            <div className="flex items-center justify-between p-4 border rounded-2xl bg-muted/20">
+            <div className="flex items-center justify-between p-4 border rounded-card bg-muted/20">
               <span className="text-sm font-bold opacity-80 uppercase tracking-widest">
                 Knowledge_Index
               </span>
@@ -148,11 +148,11 @@ export const LiveMonitor: Story = {
           <Activity className="mr-2 animate-pulse" /> OPEN_PULSE_MONITOR
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="bg-zinc-950 text-white border-white/5">
+      <DrawerContent className="bg-background text-foreground border-rule">
         <div className="mx-auto w-full max-w-md">
           <DrawerHeader>
-            <DrawerTitle className="text-cyan-500 font-mono italic">// LIVE_TRAJECTORY</DrawerTitle>
-            <DrawerDescription className="text-white/40 font-mono text-[10px]">
+            <DrawerTitle className="text-signal font-mono italic">// LIVE_TRAJECTORY</DrawerTitle>
+            <DrawerDescription className="text-foreground/40 font-mono text-[10px]">
               Real-time node telemetry
             </DrawerDescription>
           </DrawerHeader>
@@ -161,13 +161,13 @@ export const LiveMonitor: Story = {
               {[40, 70, 45, 90, 65, 80, 30, 50, 85, 60, 40, 75].map((h, i) => (
                 <div
                   key={i}
-                  className="flex-1 bg-cyan-500/20 rounded-t-sm hover:bg-cyan-500 transition-colors"
+                  className="flex-1 bg-signal/20 rounded-t-sm hover:bg-signal transition-colors"
                   style={{ height: `${h}%` }}
                 />
               ))}
             </div>
           </div>
-          <DrawerFooter className="pb-12 border-t border-white/5">
+          <DrawerFooter className="pb-12 border-t border-rule">
             <Button variant="cyber" className="w-full">
               REFRESH_UPLINK
             </Button>

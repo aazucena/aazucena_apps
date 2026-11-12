@@ -102,29 +102,27 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[1000px] p-20 bg-black rounded-[3rem] border border-cyan-500/20 shadow-2xl relative overflow-hidden">
+    <div className="w-[1000px] p-20 bg-background rounded-card border border-signal/20 relative overflow-hidden">
       <div className="absolute top-0 right-0 p-8">
         <div className="flex items-center gap-2">
-          <Activity size={12} className="text-cyan-500 animate-pulse" />
-          <span className="font-mono text-[9px] text-cyan-500/40 uppercase">
-            NODE_STATUS: STABLE
-          </span>
+          <Activity size={12} className="text-signal animate-pulse" />
+          <span className="font-mono text-[9px] text-signal/40 uppercase">NODE_STATUS: STABLE</span>
         </div>
       </div>
       <Identity {...args}>
         <IdentityProfile
           src="https://avatars.githubusercontent.com/u/1234567?v=4"
-          className="border-cyan-500/40 shadow-[0_0_30px_rgba(6,182,212,0.2)]"
+          className="border-signal/40"
         />
         <IdentityContent className="space-y-8">
           <IdentityName variant="cyber" className="font-mono italic">
-            <span className="text-cyan-400">ALDRIN</span>_AZUCENA
+            <span className="text-signal">ALDRIN</span>_AZUCENA
           </IdentityName>
-          <IdentityOccupation className="font-mono text-cyan-500/60 uppercase tracking-[0.3em] text-lg">
+          <IdentityOccupation className="font-mono text-signal/60 uppercase tracking-[0.3em] text-lg">
             LEAD_SYSTEMS_ARCHITECT // UNIT_0x7F42
           </IdentityOccupation>
-          <div className="p-6 bg-cyan-500/5 border border-cyan-500/10 rounded-2xl max-w-lg">
-            <p className="font-mono text-sm text-cyan-500/80 leading-relaxed italic">
+          <div className="p-6 bg-signal/5 border border-signal/10 rounded-card max-w-lg">
+            <p className="font-mono text-sm text-signal/80 leading-relaxed italic">
               "Establishing high-bandwidth knowledge ingestion layers across distributed node
               clusters."
             </p>
@@ -149,25 +147,26 @@ export const StatusGlass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden">
-      <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-sm" />
-      <Identity {...args} className="relative z-10 text-white">
+    <div className="p-40 rounded-card relative overflow-hidden">
+      <Identity {...args} className="relative z-10 text-foreground">
         <IdentityProfile
           src="https://avatars.githubusercontent.com/u/1234567?v=4"
-          className="border-white/20 bg-white/5 backdrop-blur-3xl"
+          className="border-rule bg-state"
         />
         <IdentityContent>
-          <IdentityName className="text-white drop-shadow-2xl">
+          <IdentityName className="text-foreground">
             <span className="opacity-60">Aldrin</span> Azucena
           </IdentityName>
-          <IdentityOccupation className="text-white/40 uppercase tracking-widest text-lg">
+          <IdentityOccupation className="text-foreground/40 uppercase tracking-widest text-lg">
             Atmospheric_Designer
           </IdentityOccupation>
           <div className="flex items-center gap-4 pt-8">
-            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl flex items-center gap-3">
-              <Globe size={20} className="text-cyan-400" />
+            <div className="p-4 bg-state border border-rule rounded-card flex items-center gap-3">
+              <Globe size={20} className="text-signal" />
               <div className="flex flex-col">
-                <span className="text-[9px] font-bold text-white/40 uppercase">Current_Zone</span>
+                <span className="text-[9px] font-bold text-foreground/40 uppercase">
+                  Current_Zone
+                </span>
                 <span className="text-xs font-bold">Orbit_US_East</span>
               </div>
             </div>

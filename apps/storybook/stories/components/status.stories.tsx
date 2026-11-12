@@ -76,10 +76,10 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="p-8 bg-black border border-cyan-500/10 rounded-xl">
+    <div className="p-8 bg-background border border-signal/10 rounded-card">
       <Status {...args}>
         <StatusDot state="intel" size="lg" pulse />
-        <StatusLabel variant="cyber" className="text-cyan-400">
+        <StatusLabel variant="cyber" className="text-signal">
           ACTIVE_INFERENCE
         </StatusLabel>
       </Status>
@@ -96,21 +96,21 @@ export const StatusPill: Story = {
   },
   render: (args) => (
     <div className="flex gap-6">
-      <Status {...args} className="border-emerald-500/20 bg-emerald-500/5">
+      <Status {...args} className="border-success/20 bg-success/5">
         <StatusDot state="nominal" animated />
-        <StatusLabel variant="bright" className="text-emerald-600 dark:text-emerald-400">
+        <StatusLabel variant="bright" className="text-success">
           OPERATIONAL
         </StatusLabel>
       </Status>
-      <Status {...args} className="border-amber-500/20 bg-amber-500/5">
+      <Status {...args} className="border-warning/20 bg-warning/5">
         <StatusDot state="warning" animated />
-        <StatusLabel variant="bright" className="text-amber-600 dark:text-amber-400">
+        <StatusLabel variant="bright" className="text-warning">
           DEGRADED
         </StatusLabel>
       </Status>
-      <Status {...args} className="border-rose-500/20 bg-rose-500/5">
+      <Status {...args} className="border-alert/20 bg-alert/5">
         <StatusDot state="critical" pulse />
-        <StatusLabel variant="bright" className="text-rose-600 dark:text-rose-400">
+        <StatusLabel variant="bright" className="text-alert">
           CRITICAL
         </StatusLabel>
       </Status>

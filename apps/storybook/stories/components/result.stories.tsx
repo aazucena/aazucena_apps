@@ -152,10 +152,10 @@ export const CustomIcon: Story = {
 /** Fully custom status via className override on ResultIcon. */
 export const CustomStatus: Story = {
   render: () => (
-    <Result className="border-purple-500/30">
+    <Result className="border-series-3/30">
       <ResultIcon
         icon={<ClockCircle className="size-7" />}
-        className="bg-purple-50 text-purple-600 ring-purple-500/20 dark:bg-purple-950/50 dark:text-purple-400"
+        className="bg-series-3/10 text-series-3 ring-series-3/20 dark:bg-panel-raised/50"
       />
       <ResultTitle>Processing</ResultTitle>
       <ResultDescription>
@@ -196,15 +196,15 @@ export const Compact: Story = {
 /** Glass variant over a gradient background. */
 export const Glass: Story = {
   render: () => (
-    <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 p-12">
-      <Result variant="glass" status="success" className="border-white/10 text-white">
-        <ResultIcon status="success" className="bg-white/10 text-white ring-white/20" />
-        <ResultTitle className="text-white">Deployment Successful</ResultTitle>
-        <ResultDescription className="text-white/70">
+    <div className="flex items-center justify-center rounded-card p-12">
+      <Result variant="glass" status="success" className="border-rule text-foreground">
+        <ResultIcon status="success" className="bg-state text-foreground ring-rule" />
+        <ResultTitle className="text-foreground">Deployment Successful</ResultTitle>
+        <ResultDescription className="text-foreground/70">
           Your application has been deployed to production. All health checks passed.
         </ResultDescription>
         <ResultActions>
-          <Button variant="glass" className="bg-white text-black hover:bg-white/90">
+          <Button variant="glass" className="bg-panel text-foreground hover:bg-panel-raised">
             View Dashboard
           </Button>
         </ResultActions>
@@ -217,9 +217,9 @@ export const Glass: Story = {
 export const Cyber: Story = {
   render: () => (
     <Result variant="cyber" status="error">
-      <ResultIcon status="error" className="bg-cyan-950/50 text-cyan-400 ring-cyan-500/20" />
-      <ResultTitle className="font-mono text-cyan-400">BREACH_DETECTED</ResultTitle>
-      <ResultDescription className="font-mono text-cyan-500/60">
+      <ResultIcon status="error" className="bg-panel-raised/50 text-signal ring-signal/20" />
+      <ResultTitle className="font-mono text-signal">BREACH_DETECTED</ResultTitle>
+      <ResultDescription className="font-mono text-signal/60">
         Unauthorized access attempt logged. Security protocols have been escalated.
       </ResultDescription>
       <ResultActions>
@@ -227,7 +227,7 @@ export const Cyber: Story = {
           <Shield className="mr-2 size-4" /> Initiate_Lockdown
         </Button>
       </ResultActions>
-      <ResultExtra className="border-cyan-500/10 font-mono text-cyan-500/40">
+      <ResultExtra className="border-signal/10 font-mono text-signal/40">
         Incident: INC-7F42A1C9
       </ResultExtra>
     </Result>

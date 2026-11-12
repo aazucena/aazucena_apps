@@ -52,7 +52,7 @@ export const Basic: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-xl">
+        <Button variant="outline" size="icon" className="rounded-card">
           <Plus size={18} />
           <span className="sr-only">New_Project</span>
         </Button>
@@ -71,22 +71,22 @@ export const CyberTerminal: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className="flex items-center gap-3 p-4 bg-black border border-cyan-500/10 rounded-xl cursor-help group">
-          <Activity size={16} className="text-cyan-500" />
-          <span className="font-mono text-xs text-cyan-400 group-hover:text-cyan-300">
+        <div className="flex items-center gap-3 p-4 bg-background border border-signal/10 rounded-card cursor-help group">
+          <Activity size={16} className="text-signal" />
+          <span className="font-mono text-xs text-signal group-hover:text-signal">
             UPLINK_US_EAST
           </span>
         </div>
       </TooltipTrigger>
       <TooltipContent variant="cyber" side="top" className="font-mono p-4">
         <div className="space-y-2">
-          <div className="flex justify-between gap-8 text-[9px] uppercase font-black italic text-cyan-500/60">
+          <div className="flex justify-between gap-8 text-[9px] uppercase font-black italic text-signal/60">
             <span># BUFFER_SYNC</span>
             <Badge variant="cyber" size="xs">
               NOMINAL
             </Badge>
           </div>
-          <p className="text-[10px] text-cyan-50">Ingestion rate: 450 packets/s</p>
+          <p className="text-[10px] text-signal">Ingestion rate: 450 packets/s</p>
         </div>
       </TooltipContent>
     </Tooltip>
@@ -98,22 +98,25 @@ export const CyberTerminal: Story = {
  */
 export const GlassAtmospheric: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <Tooltip>
         <TooltipTrigger asChild>
-          <button aria-label="More info" className="text-white hover:opacity-80 transition-opacity">
+          <button
+            aria-label="More info"
+            className="text-foreground hover:opacity-80 transition-opacity"
+          >
             <Info size={24} />
           </button>
         </TooltipTrigger>
         <TooltipContent
           variant="glass"
           side="bottom"
-          className="w-64 border-white/10 text-white p-4"
+          className="w-64 border-rule text-foreground p-4"
         >
           <div className="flex flex-col gap-2">
             <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
-            <p className="text-xs text-white/60 leading-relaxed">
+            <p className="text-xs text-foreground/60 leading-relaxed">
               Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur.
             </p>
           </div>

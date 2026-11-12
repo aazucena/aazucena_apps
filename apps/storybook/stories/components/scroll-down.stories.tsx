@@ -58,7 +58,7 @@ export const Basic: Story = {
     timeout: 500, // Faster for Storybook demo
   },
   render: (args) => (
-    <div className="h-[300px] w-full flex items-center justify-center relative bg-muted/5 border border-dashed rounded-[3rem]">
+    <div className="h-[300px] w-full flex items-center justify-center relative bg-muted/5 border border-dashed rounded-card">
       <ScrollDown {...args} className="absolute bottom-8">
         <ScrollDownIcon />
         <ScrollDownLabel>Scroll_Down</ScrollDownLabel>
@@ -78,14 +78,12 @@ export const CyberTerminal: Story = {
     timeout: 500,
   },
   render: (args) => (
-    <div className="h-[300px] w-full bg-black border border-cyan-500/10 rounded-2xl relative overflow-hidden flex items-center justify-center">
+    <div className="h-[300px] w-full bg-background border border-signal/10 rounded-card relative overflow-hidden flex items-center justify-center">
       <ScrollDown {...args} className="absolute bottom-8">
-        <ScrollDownIcon className="text-cyan-400" />
-        <ScrollDownLabel className="text-cyan-500 font-mono italic">
-          // DISCOVER_MORE
-        </ScrollDownLabel>
+        <ScrollDownIcon className="text-signal" />
+        <ScrollDownLabel className="text-signal font-mono italic">// DISCOVER_MORE</ScrollDownLabel>
       </ScrollDown>
-      <h1 className="font-mono text-cyan-500/10 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
+      <h1 className="font-mono text-signal/10 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
         UPLINK_CORE
       </h1>
     </div>
@@ -102,14 +100,14 @@ export const GlassAtmospheric: Story = {
     timeout: 500,
   },
   render: (args) => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <ScrollDown {...args} className="absolute bottom-8">
-        <ScrollDownIcon className="text-white" />
-        <ScrollDownLabel className="text-white/60">Atmospheric_Descent</ScrollDownLabel>
+        <ScrollDownIcon className="text-foreground" />
+        <ScrollDownLabel className="text-foreground/60">Atmospheric_Descent</ScrollDownLabel>
       </ScrollDown>
-      <div className="p-12 glass border-white/10 rounded-full">
-        <span className="text-white font-black text-xl tracking-tighter uppercase">
+      <div className="p-12 glass border-rule rounded-full">
+        <span className="text-foreground font-black text-xl tracking-tighter uppercase">
           Crystal_Layer
         </span>
       </div>

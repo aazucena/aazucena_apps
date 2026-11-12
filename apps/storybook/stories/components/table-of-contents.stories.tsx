@@ -6,7 +6,7 @@ import { TableOfContents } from '@aazucena/ui';
  * - **Pattern:** Scroll-synced navigational helper for long-form content.
  * - **UX:** Features automated header scanning and high-fidelity `IntersectionObserver` logic for active state tracking.
  * - **Hierarchy:** Supports nested tree structures (H2 -> H3) with automated indentation and parent tracking.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur`.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity ``.
  * - **Responsiveness:** Automatically hidden on smaller viewports (`hidden xl:block`).
  */
 const meta = {
@@ -68,7 +68,7 @@ export const Basic: Story = {
           <p className="text-lg opacity-60 leading-relaxed">
             Scroll down to see the Contents panel update its active state automatically.
           </p>
-          <div className="h-96 bg-muted/10 rounded-[3rem] border-2 border-dashed mt-12" />
+          <div className="h-96 bg-muted/10 rounded-card border-2 border-dashed mt-12" />
         </section>
         <section>
           <h2 id="arch" className="text-4xl font-black tracking-tighter uppercase mb-8">
@@ -78,18 +78,18 @@ export const Basic: Story = {
             <h3 id="kernel" className="text-2xl font-bold uppercase">
               Kernel_Processing
             </h3>
-            <div className="h-64 bg-muted/10 rounded-2xl" />
+            <div className="h-64 bg-muted/10 rounded-card" />
             <h3 id="uplink" className="text-2xl font-bold uppercase">
               Global_Uplink
             </h3>
-            <div className="h-64 bg-muted/10 rounded-2xl" />
+            <div className="h-64 bg-muted/10 rounded-card" />
           </div>
         </section>
         <section>
           <h2 id="security" className="text-4xl font-black tracking-tighter uppercase mb-8">
             Security_Enclave
           </h2>
-          <div className="h-screen bg-muted/10 rounded-[3rem] border-2 border-dashed" />
+          <div className="h-screen bg-muted/10 rounded-card border-2 border-dashed" />
         </section>
       </div>
     </div>
@@ -106,24 +106,24 @@ export const CyberTerminal: Story = {
     containerSelector: '#cyber-content',
   },
   render: (args) => (
-    <div className="relative p-20 max-w-4xl mx-auto bg-black min-h-[150vh] border-x border-cyan-500/10">
+    <div className="relative p-20 max-w-4xl mx-auto bg-background min-h-[150vh] border-x border-signal/10">
       <TableOfContents {...args} />
       <div id="cyber-content" className="space-y-32 font-mono">
         <section>
-          <h2 id="init" className="text-cyan-500 italic text-4xl mb-8 uppercase tracking-tighter">
+          <h2 id="init" className="text-signal italic text-4xl mb-8 uppercase tracking-tighter">
             // 01_INITIALIZATION
           </h2>
-          <div className="h-96 border border-cyan-500/20 bg-cyan-500/5 rounded-xl" />
+          <div className="h-96 border border-signal/20 bg-signal/5 rounded-card" />
         </section>
         <section>
-          <h2 id="sync" className="text-cyan-500 italic text-4xl mb-8 uppercase tracking-tighter">
+          <h2 id="sync" className="text-signal italic text-4xl mb-8 uppercase tracking-tighter">
             // 02_BUFFER_SYNC
           </h2>
           <div className="space-y-12">
-            <h3 id="packets" className="text-cyan-400 text-xl uppercase">
+            <h3 id="packets" className="text-signal text-xl uppercase">
               # PACKET_TRACE
             </h3>
-            <div className="h-64 border border-cyan-500/20 bg-cyan-500/5 rounded-xl" />
+            <div className="h-64 border border-signal/20 bg-signal/5 rounded-card" />
           </div>
         </section>
       </div>
@@ -141,22 +141,22 @@ export const GlassAtmospheric: Story = {
     containerSelector: '#glass-content',
   },
   render: (args) => (
-    <div className="relative min-h-[150vh] bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-20">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="relative min-h-[150vh] p-20">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="max-w-4xl mx-auto relative z-10">
-        <TableOfContents {...args} className="border-white/10" />
-        <div id="glass-content" className="space-y-32 text-white">
+        <TableOfContents {...args} className="border-rule" />
+        <div id="glass-content" className="space-y-32 text-foreground">
           <section>
             <h2 id="troposphere" className="text-5xl font-black uppercase tracking-tighter mb-8">
               Troposphere_Layer
             </h2>
-            <div className="h-96 glass border-white/10 rounded-[3rem]" />
+            <div className="h-96 glass border-rule rounded-card" />
           </section>
           <section>
             <h2 id="mesosphere" className="text-5xl font-black uppercase tracking-tighter mb-8">
               Mesosphere_Layer
             </h2>
-            <div className="h-screen glass border-white/10 rounded-[3rem]" />
+            <div className="h-screen glass border-rule rounded-card" />
           </section>
         </div>
       </div>

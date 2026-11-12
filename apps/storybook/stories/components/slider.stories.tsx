@@ -94,16 +94,16 @@ export const CyberTerminal: Story = {
   render: (args) => {
     const [val, setVal] = useState(args.defaultValue?.[0] || 0);
     return (
-      <div className="w-80 p-10 bg-black border border-cyan-500/10 rounded-2xl space-y-8">
+      <div className="w-80 p-10 bg-background border border-signal/10 rounded-card space-y-8">
         <div className="flex justify-between items-end font-mono">
           <div className="flex items-center gap-2">
-            <Zap className="size-4 text-cyan-500 animate-pulse" />
-            <span className="text-[10px] text-cyan-500 uppercase tracking-widest">Signal_Gain</span>
+            <Zap className="size-4 text-signal animate-pulse" />
+            <span className="text-[10px] text-signal uppercase tracking-widest">Signal_Gain</span>
           </div>
-          <span className="text-xl font-black text-cyan-400 leading-none">{val}%</span>
+          <span className="text-xl font-black text-signal leading-none">{val}%</span>
         </div>
         <Slider {...args} onValueChange={([v = 0]) => setVal(v)} />
-        <p className="text-[9px] font-mono text-cyan-500/20 uppercase text-center italic">
+        <p className="text-[9px] font-mono text-signal/20 uppercase text-center italic">
           Awaiting_Manual_Override
         </p>
       </div>

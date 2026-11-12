@@ -152,7 +152,7 @@ export const VerticalFlip: Story = {
 export const CyberVariant: Story = {
   args: {
     front: (
-      <Card className="flex h-full w-full items-center justify-center bg-black text-cyan-400 border border-cyan-500/20">
+      <Card className="flex h-full w-full items-center justify-center bg-background text-signal border border-signal/20">
         <CardContent className="p-4 text-center font-mono">
           <h3 className="text-xl font-bold">INITIATE_HACK</h3>
           <p className="text-sm">ACCESS_GRANTED</p>
@@ -160,7 +160,7 @@ export const CyberVariant: Story = {
       </Card>
     ),
     back: (
-      <Card className="flex h-full w-full items-center justify-center bg-black text-cyan-400 border border-cyan-500/20">
+      <Card className="flex h-full w-full items-center justify-center bg-background text-signal border border-signal/20">
         <CardContent className="p-4 text-center font-mono">
           <h3 className="text-xl font-bold">DATA_RETRIEVED</h3>
           <p className="text-sm">ENCRYPTING_...</p>
@@ -172,7 +172,7 @@ export const CyberVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-8">
+      <div className="rounded-card bg-background p-8">
         <Story />
       </div>
     ),
@@ -182,7 +182,7 @@ export const CyberVariant: Story = {
 export const GlassVariant: Story = {
   args: {
     front: (
-      <Card className="flex h-full w-full items-center justify-center bg-white/5 text-white border border-white/10 backdrop-blur-md">
+      <Card className="flex h-full w-full items-center justify-center bg-state text-foreground border border-rule">
         <CardContent className="p-4 text-center">
           <h3 className="text-xl font-bold">Transparent Front</h3>
           <p className="text-sm">See through</p>
@@ -190,7 +190,7 @@ export const GlassVariant: Story = {
       </Card>
     ),
     back: (
-      <Card className="flex h-full w-full items-center justify-center bg-white/5 text-white border border-white/10 backdrop-blur-md">
+      <Card className="flex h-full w-full items-center justify-center bg-state text-foreground border border-rule">
         <CardContent className="p-4 text-center">
           <h3 className="text-xl font-bold">Reflected Back</h3>
           <p className="text-sm">What lies beneath</p>
@@ -202,7 +202,7 @@ export const GlassVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-8">
+      <div className="rounded-card p-8">
         <Story />
       </div>
     ),

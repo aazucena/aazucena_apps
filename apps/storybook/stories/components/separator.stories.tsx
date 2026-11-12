@@ -80,13 +80,13 @@ export const CyberTerminal: Story = {
     thickness: 'default',
   },
   render: (args) => (
-    <div className="w-[500px] p-8 bg-black border border-cyan-500/10 rounded-xl space-y-6">
-      <div className="flex justify-between items-center text-cyan-500 font-mono text-[10px]">
+    <div className="w-[500px] p-8 bg-background border border-signal/10 rounded-card space-y-6">
+      <div className="flex justify-between items-center text-signal font-mono text-[10px]">
         <span>// SESSION_ID: 0x7F42</span>
         <span>STATUS: ACTIVE</span>
       </div>
       <Separator {...args} />
-      <div className="flex justify-between items-center text-cyan-500/40 font-mono text-[9px]">
+      <div className="flex justify-between items-center text-signal/40 font-mono text-[9px]">
         <span>UPLINK_READY</span>
         <span>LATENCY: 12ms</span>
       </div>
@@ -106,7 +106,7 @@ export const Highlight: Story = {
     <div className="w-[600px] space-y-8">
       <h2 className="text-4xl font-black tracking-tighter uppercase">Project_Intelligence</h2>
       <Separator {...args} />
-      <div className="h-20 bg-muted/20 rounded-xl border border-dashed flex items-center justify-center italic text-xs opacity-20 uppercase tracking-widest">
+      <div className="h-20 bg-muted/20 rounded-card border border-dashed flex items-center justify-center italic text-xs opacity-20 uppercase tracking-widest">
         Main_Content_Stage
       </div>
     </div>
@@ -139,12 +139,12 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 to-blue-800 rounded-[3rem] w-[600px] flex flex-col items-center gap-6">
-      <span className="text-white/40 font-black uppercase tracking-[0.4em] text-[10px]">
+    <div className="p-20 rounded-card w-[600px] flex flex-col items-center gap-6">
+      <span className="text-foreground/40 font-black uppercase tracking-[0.4em] text-[10px]">
         Atmospheric_Control
       </span>
       <Separator {...args} className="w-1/2" />
-      <div className="p-8 glass border-white/10 rounded-2xl text-white font-bold uppercase text-xs">
+      <div className="p-8 glass border-rule rounded-card text-foreground font-bold uppercase text-xs">
         Layer_Sync_Active
       </div>
     </div>

@@ -16,7 +16,7 @@ import {
  * ## Engineering Standards
  * - **CDD Pattern:** Orchestral root layout suite for assembling entire application interfaces.
  * - **Responsiveness:** Features a specialized sidebar-view split with integrated scroll-management for the main viewport.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur` and dynamic border tokens.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and dynamic border tokens.
  * - **Composition:** Fully modular parts (Sidebar, View, Header, Main, Content) for tailorable app architecture.
  */
 const meta = {
@@ -70,14 +70,20 @@ export const BasicDashboard: Story = {
         <nav className="space-y-3">
           <Button
             variant="ghost"
-            className="w-full justify-start h-12 rounded-xl gap-4 bg-accent/50"
+            className="w-full justify-start h-12 rounded-card gap-4 bg-accent/50"
           >
             <Layout size={20} /> <span className="font-bold tracking-tight">Overview</span>
           </Button>
-          <Button variant="ghost" className="w-full justify-start h-12 rounded-xl gap-4 opacity-60">
+          <Button
+            variant="ghost"
+            className="w-full justify-start h-12 rounded-card gap-4 opacity-60"
+          >
             <Activity size={20} /> <span className="font-bold tracking-tight">Analytics</span>
           </Button>
-          <Button variant="ghost" className="w-full justify-start h-12 rounded-xl gap-4 opacity-60">
+          <Button
+            variant="ghost"
+            className="w-full justify-start h-12 rounded-card gap-4 opacity-60"
+          >
             <Database size={20} /> <span className="font-bold tracking-tight">Node_Registry</span>
           </Button>
         </nav>
@@ -121,7 +127,7 @@ export const BasicDashboard: Story = {
         <ShellMain>
           <ShellContent maxWidth="7xl">
             <div className="space-y-12">
-              <div className="h-40 rounded-[2.5rem] bg-gradient-to-br from-primary/10 to-blue-500/10 border border-primary/20 flex flex-col justify-center px-12 gap-2">
+              <div className="h-40 rounded-card border border-primary/20 flex flex-col justify-center px-12 gap-2">
                 <h1 className="text-5xl font-black tracking-tighter uppercase">
                   Intelligence_Center
                 </h1>
@@ -133,7 +139,7 @@ export const BasicDashboard: Story = {
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div
                     key={i}
-                    className="h-64 rounded-[2.5rem] bg-card border border-border/50 flex items-center justify-center opacity-20 border-dashed"
+                    className="h-64 rounded-card bg-card border border-border/50 flex items-center justify-center opacity-20 border-dashed"
                   >
                     <span className="font-black uppercase tracking-widest text-xs">
                       Module_Slot_0{i}
@@ -158,7 +164,7 @@ export const CyberTerminal: Story = {
   },
   render: (args) => (
     <Shell {...args}>
-      <ShellSidebar className="w-20 bg-black border-r border-cyan-500/20 flex flex-col items-center py-10 gap-10">
+      <ShellSidebar className="w-20 bg-background border-r border-signal/20 flex flex-col items-center py-10 gap-10">
         <IconBox variant="cyber" size="md">
           <Activity size={20} />
         </IconBox>
@@ -175,26 +181,26 @@ export const CyberTerminal: Story = {
         </div>
       </ShellSidebar>
       <ShellView>
-        <ShellHeader variant="cyber" className="justify-between px-8 border-cyan-500/10">
+        <ShellHeader variant="cyber" className="justify-between px-8 border-signal/10">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-cyan-500 italic uppercase text-[10px] tracking-widest">
+            <span className="font-mono text-signal italic uppercase text-[10px] tracking-widest">
               // AAZUCENA_LYTICS_v1.4
             </span>
-            <div className="size-1.5 rounded-full bg-cyan-500 animate-pulse" />
+            <div className="size-1.5 rounded-full bg-signal animate-pulse" />
           </div>
-          <span className="font-mono text-[9px] text-cyan-500/40 uppercase">
+          <span className="font-mono text-[9px] text-signal/40 uppercase">
             ENCLAVE_AUTH: VERIFIED
           </span>
         </ShellHeader>
-        <ShellMain className="bg-zinc-950">
-          <div className="p-12 font-mono text-cyan-500/60 text-[11px] leading-loose">
-            <p className="text-cyan-400 font-bold uppercase mb-4 text-sm">
+        <ShellMain className="bg-background">
+          <div className="p-12 font-mono text-signal/60 text-[11px] leading-loose">
+            <p className="text-signal font-bold uppercase mb-4 text-sm">
               {'>'} SYSTEM_INITIALIZATION_COMPLETE
             </p>
             <p className="opacity-40 italic">-- established node handshake US_EAST_01 --</p>
             <p className="opacity-40 italic">-- synchronized buffer [SIZE: 1024MB] --</p>
             <p className="opacity-40 italic">-- security keys rotated successfully --</p>
-            <p className="mt-8 text-cyan-400">{'>'} AWAITING_INGESTION_COMMAND_</p>
+            <p className="mt-8 text-signal">{'>'} AWAITING_INGESTION_COMMAND_</p>
           </div>
         </ShellMain>
       </ShellView>

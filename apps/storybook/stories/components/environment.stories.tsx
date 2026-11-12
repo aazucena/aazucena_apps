@@ -63,10 +63,10 @@ export const BasicShell: Story = {
         <EnvironmentNoise />
       </Environment>
 
-      <EnvironmentHeader className="p-8 border-b border-current/10 bg-white/5 backdrop-blur-sm">
+      <EnvironmentHeader className="p-8 border-b border-current/10 bg-state">
         <div className="flex justify-between items-center">
           <span className="font-black uppercase tracking-widest text-xs">Environment_Protocol</span>
-          <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="size-2 rounded-full bg-success animate-pulse" />
         </div>
       </EnvironmentHeader>
 
@@ -79,7 +79,7 @@ export const BasicShell: Story = {
         </div>
       </EnvironmentMain>
 
-      <EnvironmentFooter className="p-8 border-t border-current/10 bg-white/5 backdrop-blur-sm text-center">
+      <EnvironmentFooter className="p-8 border-t border-current/10 bg-state text-center">
         <p className="text-[10px] font-mono opacity-40 italic">// SYSTEM_ACTIVE_ID: 0x7F42</p>
       </EnvironmentFooter>
     </EnvironmentShell>
@@ -91,16 +91,16 @@ export const BasicShell: Story = {
  */
 export const CyberSpace: Story = {
   render: () => (
-    <EnvironmentShell className="h-screen bg-black overflow-hidden">
+    <EnvironmentShell className="h-screen bg-background overflow-hidden">
       <Environment>
         <EnvironmentAtmosphere phase="exosphere" />
         <EnvironmentGrid variant="cyber" className="opacity-60" />
         <EnvironmentGlow color="cyan" size="xl" position="center" />
         <EnvironmentNoise className="opacity-[0.05]" />
       </Environment>
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-cyan-400">
-        <div className="p-4 border border-cyan-500/30 rounded-full mb-8 animate-pulse">
-          <div className="size-4 rounded-full bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,1)]" />
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-signal">
+        <div className="p-4 border border-signal/30 rounded-full mb-8 animate-pulse">
+          <div className="size-4 rounded-full bg-signal" />
         </div>
         <h1 className="text-5xl font-mono font-black tracking-[0.4em] uppercase italic">
           SIGNAL_ENCLAVE
@@ -118,7 +118,7 @@ export const CyberSpace: Story = {
  */
 export const GlowComposition: Story = {
   render: () => (
-    <EnvironmentShell className="h-screen bg-zinc-950 overflow-hidden">
+    <EnvironmentShell className="h-screen bg-background overflow-hidden">
       <Environment>
         <EnvironmentGlow color="indigo" size="xl" position="top-left" delay="0s" />
         <EnvironmentGlow color="purple" size="lg" position="bottom-right" delay="1s" />
@@ -127,9 +127,11 @@ export const GlowComposition: Story = {
         <EnvironmentNoise />
       </Environment>
       <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="text-center p-12 glass rounded-[3rem] border-white/10">
-          <h2 className="text-white text-3xl font-black tracking-tighter">Compositional_Depth</h2>
-          <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mt-2">
+        <div className="text-center p-12 glass rounded-card border-rule">
+          <h2 className="text-foreground text-3xl font-black tracking-tighter">
+            Compositional_Depth
+          </h2>
+          <p className="text-foreground/40 text-[10px] font-bold uppercase tracking-widest mt-2">
             Stacked Glow Layers
           </p>
         </div>

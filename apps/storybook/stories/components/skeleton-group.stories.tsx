@@ -116,7 +116,7 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[400px] rounded-[2rem] bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 p-10">
+      <div className="w-[400px] rounded-card p-10">
         <Story />
       </div>
     ),
@@ -134,7 +134,7 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[400px] rounded-[2rem] border border-cyan-500/10 bg-black p-10">
+      <div className="w-[400px] rounded-card border border-signal/10 bg-background p-10">
         <Story />
       </div>
     ),
@@ -148,8 +148,8 @@ export const CustomLayout: Story = {
   render: (args) => (
     <SkeletonGroup {...args}>
       <div className="grid grid-cols-2 gap-4">
-        <Skeleton className="h-32 w-full rounded-xl" />
-        <Skeleton className="h-32 w-full rounded-xl" />
+        <Skeleton className="h-32 w-full rounded-card" />
+        <Skeleton className="h-32 w-full rounded-card" />
         <div className="col-span-2 space-y-2">
           <Skeleton className="h-4 w-3/4" />
           <Skeleton className="h-4 w-1/2" />

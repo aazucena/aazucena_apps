@@ -107,7 +107,7 @@ export const IntegratedContext: Story = {
           <span className="text-[10px] font-black uppercase opacity-40">Packet_Loss</span>
           <Trend variant="pill" direction="down" value="-0.4%" />
         </div>
-        <div className="text-3xl font-black tracking-tighter text-emerald-500">0.02%</div>
+        <div className="text-3xl font-black tracking-tighter text-success">0.02%</div>
       </Card>
     </div>
   ),

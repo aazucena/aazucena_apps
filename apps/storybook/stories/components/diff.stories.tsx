@@ -117,7 +117,7 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="rounded-card p-8">
         <div className="w-[520px]">
           <Story />
         </div>
@@ -136,7 +136,7 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-8">
+      <div className="rounded-card bg-background p-8">
         <div className="w-[520px]">
           <Story />
         </div>
@@ -184,8 +184,8 @@ export const VariantComparison: Story = {
         </span>
         <Diff original={originalCode} modified={modifiedCode} />
       </div>
-      <div className="rounded-xl bg-black p-4">
-        <span className="mb-2 block font-mono text-[10px] font-bold uppercase tracking-widest text-cyan-500/40">
+      <div className="rounded-card bg-background p-4">
+        <span className="mb-2 block font-mono text-[10px] font-bold uppercase tracking-widest text-signal/40">
           Cyber
         </span>
         <Diff original={originalCode} modified={modifiedCode} variant="cyber" />

@@ -151,7 +151,7 @@ export const Glass: Story = {
   render: () => {
     const [value, setValue] = React.useState<string[]>([]);
     return (
-      <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="rounded-card p-8">
         <Cascader
           variant="glass"
           options={locationOptions}

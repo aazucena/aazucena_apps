@@ -8,7 +8,7 @@ import { Badge } from '@aazucena/ui';
  * ## Engineering Standards
  * - **Pattern:** Radix UI based primitive for organizing content into navigable views.
  * - **UX:** Features smooth state transitions and tactile feedback. Supports a unique `phone` dial variant for mobile-first circular navigation.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur` and neon glowing indicators.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and neon glowing indicators.
  * - **Accessibility:** Built with standard `role="tablist"`, `role="tab"`, and `role="tabpanel"`; fully keyboard navigable (Arrow keys).
  */
 const meta = {
@@ -46,7 +46,7 @@ export const Basic: Story = {
         <TabsTrigger value="password">Password</TabsTrigger>
       </TabsList>
       <TabsContent value="account">
-        <Card className="rounded-2xl shadow-lg border-zinc-200">
+        <Card className="rounded-card border-rule">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">
               Update your identity tokens and global display preferences.
@@ -55,7 +55,7 @@ export const Basic: Story = {
         </Card>
       </TabsContent>
       <TabsContent value="password">
-        <Card className="rounded-2xl shadow-lg border-zinc-200">
+        <Card className="rounded-card border-rule">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground">
               Manage your secure enclave access tokens.
@@ -82,26 +82,26 @@ export const CyberTerminal: Story = {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="kernel" className="mt-6">
-        <div className="bg-black border border-cyan-500/20 p-8 rounded-xl font-mono text-[11px] text-cyan-400 space-y-2">
+        <div className="bg-background border border-signal/20 p-8 rounded-card font-mono text-[11px] text-signal space-y-2">
           <p className="font-bold">{'>'} INITIALIZING_BOOT_LOADER...</p>
           <p className="opacity-40 italic">-- loading virtual environment --</p>
           <p className="opacity-40 italic">-- synchronizing pulse clock --</p>
-          <p className="pt-4 text-emerald-500">{'>'} SYSTEM_READY.</p>
+          <p className="pt-4 text-success">{'>'} SYSTEM_READY.</p>
         </div>
       </TabsContent>
       <TabsContent value="buffer" className="mt-6">
-        <div className="bg-black border border-cyan-500/20 p-8 rounded-xl font-mono text-[11px] text-cyan-400 space-y-4">
-          <div className="flex justify-between items-center border-b border-white/5 pb-2">
+        <div className="bg-background border border-signal/20 p-8 rounded-card font-mono text-[11px] text-signal space-y-4">
+          <div className="flex justify-between items-center border-b border-rule pb-2">
             <span className="opacity-40">SECTOR_0x7F</span>
-            <span className="text-emerald-500 font-black">STABLE</span>
+            <span className="text-success font-black">STABLE</span>
           </div>
-          <div className="flex justify-between items-center border-b border-white/5 pb-2">
+          <div className="flex justify-between items-center border-b border-rule pb-2">
             <span className="opacity-40">SECTOR_0x1A</span>
-            <span className="text-emerald-500 font-black">STABLE</span>
+            <span className="text-success font-black">STABLE</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="opacity-40">SECTOR_0x9C</span>
-            <span className="text-amber-500 font-black animate-pulse">DEGRADED</span>
+            <span className="text-warning font-black animate-pulse">DEGRADED</span>
           </div>
         </div>
       </TabsContent>
@@ -114,37 +114,37 @@ export const CyberTerminal: Story = {
  */
 export const GlassAtmospheric: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <Tabs defaultValue="stratosphere" className="w-[450px] relative z-10">
         <TabsList
           variant="glass"
-          className="grid w-full grid-cols-2 rounded-full border-white/10 bg-white/5 backdrop-blur-2xl px-2 py-1.5 h-12"
+          className="grid w-full grid-cols-2 rounded-full border-rule bg-state px-2 py-1.5 h-12"
         >
           <TabsTrigger
             variant="glass"
             value="stratosphere"
-            className="rounded-full text-white font-black uppercase tracking-widest text-[10px]"
+            className="rounded-full text-foreground font-black uppercase tracking-widest text-[10px]"
           >
             Stratosphere
           </TabsTrigger>
           <TabsTrigger
             variant="glass"
             value="exosphere"
-            className="rounded-full text-white font-black uppercase tracking-widest text-[10px]"
+            className="rounded-full text-foreground font-black uppercase tracking-widest text-[10px]"
           >
             Exosphere
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="stratosphere" className="mt-8 text-center text-white">
+        <TabsContent value="stratosphere" className="mt-8 text-center text-foreground">
           <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Middle_Layer</h3>
-          <p className="text-white/60 text-sm leading-relaxed">
+          <p className="text-foreground/60 text-sm leading-relaxed">
             Altitude: 12km - 50km. Primary ingestion zone for high-altitude telemetry data points.
           </p>
         </TabsContent>
-        <TabsContent value="exosphere" className="mt-8 text-center text-white">
+        <TabsContent value="exosphere" className="mt-8 text-center text-foreground">
           <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Outer_Enclave</h3>
-          <p className="text-white/60 text-sm leading-relaxed">
+          <p className="text-foreground/60 text-sm leading-relaxed">
             Altitude: 10,000km+. Secure buffer synchronization zone for orbital node clusters.
           </p>
         </TabsContent>

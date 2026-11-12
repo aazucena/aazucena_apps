@@ -114,7 +114,7 @@ export const CyberVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-8">
+      <div className="rounded-card bg-background p-8">
         <Story />
         <Toaster />
       </div>
@@ -135,7 +135,7 @@ export const GlassVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-8">
+      <div className="rounded-card p-8">
         <Story />
         <Toaster />
       </div>

@@ -97,28 +97,28 @@ export const CyberTerminal: Story = {
         </Button>
       </SheetTrigger>
       <SheetContent variant="cyber" side="left" className="font-mono">
-        <SheetHeader className="border-b border-cyan-500/10 pb-6 mb-6">
-          <div className="flex items-center gap-3 text-cyan-500 mb-2">
+        <SheetHeader className="border-b border-signal/10 pb-6 mb-6">
+          <div className="flex items-center gap-3 text-signal mb-2">
             <Terminal size={18} />
-            <SheetTitle className="text-cyan-500 font-mono italic uppercase tracking-tighter text-2xl">
+            <SheetTitle className="text-signal font-mono italic uppercase tracking-tighter text-2xl">
               // CORE_SHELL_V4
             </SheetTitle>
           </div>
-          <SheetDescription className="text-cyan-500/40 text-[10px] uppercase">
+          <SheetDescription className="text-signal/40 text-[10px] uppercase">
             Enclave_Authorization: LEVEL_01
           </SheetDescription>
         </SheetHeader>
 
         <div className="space-y-8">
-          <div className="p-4 bg-cyan-500/5 border border-cyan-500/10 rounded-xl space-y-4">
+          <div className="p-4 bg-signal/5 border border-signal/10 rounded-card space-y-4">
             <div className="flex justify-between items-center">
               <span className="text-[10px] opacity-40 uppercase">Ingestion_Pulse</span>
               <Badge variant="cyber" size="xs">
                 NOMINAL
               </Badge>
             </div>
-            <div className="h-1 w-full bg-cyan-500/10 rounded-full overflow-hidden">
-              <div className="h-full w-2/3 bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,1)]" />
+            <div className="h-1 w-full bg-signal/10 rounded-full overflow-hidden">
+              <div className="h-full w-2/3 bg-signal" />
             </div>
           </div>
 
@@ -130,21 +130,21 @@ export const CyberTerminal: Story = {
               <Button
                 variant="ghost"
                 size="sm"
-                className="justify-start italic hover:text-cyan-400 font-mono"
+                className="justify-start italic hover:text-signal font-mono"
               >
                 {'>'} FLUSH_BUFFER
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                className="justify-start italic hover:text-cyan-400 font-mono"
+                className="justify-start italic hover:text-signal font-mono"
               >
                 {'>'} ROTATE_KEYS
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                className="justify-start italic hover:text-rose-400 font-mono"
+                className="justify-start italic hover:text-alert font-mono"
               >
                 {'>'} EMERGENCY_REBOOT
               </Button>
@@ -161,13 +161,12 @@ export const CyberTerminal: Story = {
  */
 export const GlassFloating: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-sm" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
       <Sheet>
         <SheetTrigger asChild>
           <Button
             variant="glass"
-            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-10 h-14 font-black uppercase tracking-widest"
+            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-10 h-14 font-black uppercase tracking-widest"
           >
             Inspect_Environment
           </Button>
@@ -176,19 +175,19 @@ export const GlassFloating: Story = {
           variant="glass"
           side="right"
           layout="floating"
-          className="border-white/10 text-white w-[400px]"
+          className="border-rule text-foreground w-[400px]"
         >
           <SheetHeader>
-            <SheetTitle className="text-white text-3xl font-black tracking-tighter">
+            <SheetTitle className="text-foreground text-3xl font-black tracking-tighter">
               Atmospheric_Unit
             </SheetTitle>
-            <SheetDescription className="text-white/40">
+            <SheetDescription className="text-foreground/40">
               Real-time refraction metrics
             </SheetDescription>
           </SheetHeader>
           <div className="py-12 space-y-8">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-white/10 rounded-2xl border border-white/20">
+              <div className="p-3 bg-state rounded-card border border-rule">
                 <Globe size={24} />
               </div>
               <div className="flex flex-col">
@@ -196,17 +195,17 @@ export const GlassFloating: Story = {
                 <span className="text-sm font-bold">Mesosphere // Altitude: 62km</span>
               </div>
             </div>
-            <div className="p-6 bg-white/5 border border-white/10 rounded-2xl">
-              <p className="text-xs leading-relaxed text-white/80">
+            <div className="p-6 bg-state border border-rule rounded-card">
+              <p className="text-xs leading-relaxed text-foreground/80">
                 Adaptive glass surfacing is performing within optimal parameters. Backdrop blur
                 constant set to **32px**.
               </p>
             </div>
           </div>
-          <SheetFooter className="mt-auto pt-8 border-t border-white/10">
+          <SheetFooter className="mt-auto pt-8 border-t border-rule">
             <Button
               variant="outline"
-              className="w-full h-12 rounded-full border-white/20 text-white hover:bg-white/10 font-bold uppercase tracking-widest text-[10px]"
+              className="w-full h-12 rounded-full border-rule text-foreground hover:bg-state font-bold uppercase tracking-widest text-[10px]"
             >
               Sync_Atmosphere
             </Button>

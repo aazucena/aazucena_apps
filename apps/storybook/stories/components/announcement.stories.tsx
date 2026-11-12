@@ -133,7 +133,7 @@ export const WithDetails: Story = {
 export const CustomIcon: Story = {
   args: {
     message: 'Pro Tip: You can customize your dashboard layout in settings.',
-    icon: <Lightbulb className="size-4 text-amber-400" />,
+    icon: <Lightbulb className="size-4 text-warning" />,
     variant: 'default',
   },
 };

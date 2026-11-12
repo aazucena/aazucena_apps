@@ -360,9 +360,9 @@ export const Styling: Story = {
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger
-          headerClassName="bg-emerald-500/10 rounded-lg px-2"
-          className="text-emerald-600 dark:text-emerald-400 hover:no-underline"
-          iconClassName="text-emerald-500"
+          headerClassName="bg-success/10 rounded-control px-2"
+          className="text-success hover:no-underline"
+          iconClassName="text-success"
         >
           Emerald Header Wrapper
         </AccordionTrigger>

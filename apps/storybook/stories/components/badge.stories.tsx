@@ -135,7 +135,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl">
+    <div className="p-8 rounded-card">
       <Badge {...args}>IMMERSIVE_TAG</Badge>
     </div>
   ),

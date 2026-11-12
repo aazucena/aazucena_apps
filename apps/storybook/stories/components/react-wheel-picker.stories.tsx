@@ -129,7 +129,7 @@ export const TimePickerGroup: Story = {
           />
         </ReactWheelPickerGroup>
 
-        <div className="text-center font-mono text-sm border p-2 rounded-lg bg-muted/20">
+        <div className="text-center font-mono text-sm border p-2 rounded-control bg-muted/20">
           SELECTED_TIME:{' '}
           <span className="text-primary font-bold">
             {hour}:{minute} {meridiem}
@@ -149,8 +149,8 @@ export const TimePickerGroup: Story = {
 export const CyberDate: Story = {
   render: (args) => {
     return (
-      <div className="bg-black p-12 rounded-[2rem] border border-cyan-500/20">
-        <ReactWheelPickerGroup className="bg-cyan-500/5 border-cyan-500/20">
+      <div className="bg-background p-12 rounded-card border border-signal/20">
+        <ReactWheelPickerGroup className="bg-signal/5 border-signal/20">
           <ReactWheelPicker
             {...args}
             options={['2024', '2025', '2026', '2027']}
@@ -185,7 +185,7 @@ export const GlassVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="p-20 bg-gradient-to-br from-indigo-600 to-blue-700 rounded-[3rem]">
+      <div className="p-20 rounded-card">
         <Story />
       </div>
     ),

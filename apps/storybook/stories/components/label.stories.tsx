@@ -47,7 +47,7 @@ export const Basic: Story = {
  */
 export const WithCheckbox: Story = {
   render: () => (
-    <div className="flex items-center gap-3 p-4 border rounded-xl bg-muted/5">
+    <div className="flex items-center gap-3 p-4 border rounded-card bg-muted/5">
       <Checkbox id="terms" />
       <Label htmlFor="terms" className="cursor-pointer">
         Accept_Security_Protocol

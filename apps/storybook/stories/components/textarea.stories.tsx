@@ -61,7 +61,7 @@ export const Basic: Story = {
   render: (args) => (
     <div className="w-[450px] space-y-3">
       <Label className="font-bold tracking-tight">Full_Message_Content</Label>
-      <Textarea {...args} className="rounded-2xl border-zinc-200" />
+      <Textarea {...args} className="rounded-card border-rule" />
     </div>
   ),
 };
@@ -77,16 +77,16 @@ export const CyberTerminal: Story = {
     className: 'font-mono text-xs uppercase tracking-widest',
   },
   render: (args) => (
-    <div className="w-[500px] p-8 bg-black border border-cyan-500/10 rounded-2xl">
+    <div className="w-[500px] p-8 bg-background border border-signal/10 rounded-card">
       <div className="flex items-center gap-3 mb-6">
-        <Terminal className="size-4 text-cyan-500 animate-pulse" />
-        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+        <Terminal className="size-4 text-signal animate-pulse" />
+        <span className="font-mono text-[10px] text-signal uppercase tracking-[0.3em]">
           // KERNEL_INPUT_SHELL
         </span>
       </div>
       <Textarea {...args} />
       <div className="flex justify-between items-center mt-6">
-        <p className="text-[9px] font-mono text-cyan-500/40 uppercase italic">
+        <p className="text-[9px] font-mono text-signal/40 uppercase italic">
           Awaiting_Secure_Uplink
         </p>
         <Button variant="cyber" size="sm">
@@ -107,17 +107,17 @@ export const GlassAtmospheric: Story = {
     rows: 5,
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-[450px] space-y-4">
         <div className="flex items-center justify-between">
-          <Badge variant="outline" className="bg-white/10 text-white border-white/20">
+          <Badge variant="outline" className="bg-state text-foreground border-rule">
             ATMOSPHERE_V1
           </Badge>
-          <div className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="size-2 rounded-full bg-success animate-pulse" />
         </div>
         <Textarea
           {...args}
-          className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-3xl p-6"
+          className="bg-state border-rule text-foreground placeholder:text-foreground/40 rounded-card p-6"
         />
       </div>
     </div>

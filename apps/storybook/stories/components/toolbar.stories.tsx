@@ -16,7 +16,7 @@ import { useState } from 'react';
  * ## Engineering Standards
  * - **CDD Pattern:** Fixed-position layout component for high-level site or section controls.
  * - **UX:** Features automated `Tooltip` integration for all buttons and smooth `isScrolled` transition logic.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur`.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity ``.
  * - **Responsiveness:** Supports multiple fixed anchors (`top-center`, `bottom-right`, etc.) and vertical/horizontal orientations.
  * - **Composition:** Modular `ToolbarButton` parts with support for `isActive` state tracking.
  */
@@ -100,17 +100,17 @@ export const CyberTerminal: Story = {
     orientation: 'vertical',
   },
   render: (args) => (
-    <div className="h-[400px] w-full bg-black relative overflow-hidden border border-cyan-500/10">
+    <div className="h-[400px] w-full bg-background relative overflow-hidden border border-signal/10">
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.3)_0%,transparent_70%)]" />
       <Toolbar {...args}>
         <ToolbarButton variant="cyber" icon={<Zap size={20} />} label="INIT_PULSE" />
         <ToolbarButton variant="cyber" icon={<Shield size={20} />} label="AUTH_ENCLAVE" isActive />
         <ToolbarButton variant="cyber" icon={<Search size={20} />} label="SCAN_SECTOR" />
-        <div className="h-px w-8 bg-cyan-500/20 my-2" />
+        <div className="h-px w-8 bg-signal/20 my-2" />
         <ToolbarButton variant="cyber" icon={<Cog size={20} />} label="SYS_CONFIG" />
       </Toolbar>
       <div className="h-full flex items-center justify-center">
-        <h1 className="font-mono text-cyan-500/20 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
+        <h1 className="font-mono text-signal/20 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
           UPLINK_TERMINAL
         </h1>
       </div>
@@ -128,27 +128,27 @@ export const GlassAtmospheric: Story = {
     orientation: 'horizontal',
   },
   render: (args) => (
-    <div className="h-[400px] w-full bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 relative overflow-hidden flex flex-col items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
-      <Toolbar {...args} className="bg-white/5 border-white/10 shadow-2xl">
+    <div className="h-[400px] w-full relative overflow-hidden flex flex-col items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
+      <Toolbar {...args} className="bg-state border-rule">
         <ToolbarButton
           variant="glass"
-          icon={<Layout size={20} className="text-white" />}
+          icon={<Layout size={20} className="text-foreground" />}
           label="Layers"
         />
         <ToolbarButton
           variant="glass"
-          icon={<Globe size={20} className="text-white" />}
+          icon={<Globe size={20} className="text-foreground" />}
           label="Regions"
           isActive
         />
         <ToolbarButton
           variant="glass"
-          icon={<Activity size={20} className="text-white" />}
+          icon={<Activity size={20} className="text-foreground" />}
           label="Telemetry"
         />
       </Toolbar>
-      <span className="text-white font-black text-3xl tracking-tighter uppercase opacity-20">
+      <span className="text-foreground font-black text-3xl tracking-tighter uppercase opacity-20">
         Crystal_Layer_Sync
       </span>
     </div>
@@ -162,7 +162,7 @@ export const Interactive: Story = {
   render: () => {
     const [active, setActive] = useState('d');
     return (
-      <div className="h-[200px] w-full flex items-center justify-center bg-muted/5 border-2 border-dashed rounded-[3rem]">
+      <div className="h-[200px] w-full flex items-center justify-center bg-muted/5 border-2 border-dashed rounded-card">
         <Toolbar
           position="top-center"
           variant="glass"

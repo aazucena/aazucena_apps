@@ -79,7 +79,7 @@ export const CyberVariant: Story = {
   args: {
     title: 'SECURE_SHELL_0x7F',
     children: (
-      <div className="flex flex-col gap-4 font-mono text-cyan-400">
+      <div className="flex flex-col gap-4 font-mono text-signal">
         <p>// KERNEL_ACTIVE</p>
         <p>// INGESTION_LIVE</p>
         <Button variant="cyber" size="sm">
@@ -91,7 +91,7 @@ export const CyberVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-8">
+      <div className="rounded-card bg-background p-8">
         <Story />
       </div>
     ),
@@ -102,7 +102,7 @@ export const GlassVariant: Story = {
   args: {
     title: 'Atmospheric Layer',
     children: (
-      <div className="flex flex-col gap-4 text-white">
+      <div className="flex flex-col gap-4 text-foreground">
         <p>Crystal clear view of the mesosphere.</p>
         <Button variant="glass" size="sm">
           Explore
@@ -113,7 +113,7 @@ export const GlassVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-8">
+      <div className="rounded-card p-8">
         <Story />
       </div>
     ),

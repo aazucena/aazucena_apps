@@ -102,7 +102,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <List {...args}>
         <ListItem variant="glass">Blurred background layers</ListItem>
         <ListItem variant="glass">Frosted card surfaces</ListItem>

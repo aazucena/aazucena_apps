@@ -59,7 +59,7 @@ export const Basic: Story = {
       <PopoverTrigger asChild>
         <Button variant="outline">Layer_Settings</Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-6 rounded-2xl shadow-2xl">
+      <PopoverContent className="w-80 p-6 rounded-card">
         <div className="space-y-6">
           <div className="space-y-1">
             <h4 className="font-black tracking-tighter uppercase text-sm">Visual_Coordinates</h4>
@@ -81,7 +81,7 @@ export const Basic: Story = {
               <Input id="height" defaultValue="300px" className="col-span-2 h-8 text-xs" />
             </div>
           </div>
-          <Button size="sm" className="w-full rounded-lg uppercase font-bold text-[10px]">
+          <Button size="sm" className="w-full rounded-control uppercase font-bold text-[10px]">
             Apply_Coordinates
           </Button>
         </div>
@@ -103,7 +103,7 @@ export const CyberSpec: Story = {
       </PopoverTrigger>
       <PopoverContent variant="cyber" side="right" className="w-72 font-mono p-6">
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-cyan-500 mb-2">
+          <div className="flex items-center gap-2 text-signal mb-2">
             <Activity size={14} className="animate-pulse" />
             <span className="text-[10px] font-black uppercase italic tracking-tighter">
               // KERNEL_PARAMETERS
@@ -113,23 +113,23 @@ export const CyberSpec: Story = {
             <div className="space-y-2">
               <div className="flex justify-between text-[10px] uppercase">
                 <span className="opacity-40">Signal_Gain</span>
-                <span className="text-cyan-400">85.4%</span>
+                <span className="text-signal">85.4%</span>
               </div>
-              <div className="h-1 bg-cyan-500/10 rounded-full overflow-hidden">
-                <div className="h-full bg-cyan-500 w-[85%] shadow-[0_0_8px_rgba(6,182,212,1)]" />
+              <div className="h-1 bg-signal/10 rounded-full overflow-hidden">
+                <div className="h-full bg-signal w-[85%]" />
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-[10px] uppercase">
                 <span className="opacity-40">Uplink_Buffer</span>
-                <span className="text-emerald-400">0ms</span>
+                <span className="text-success">0ms</span>
               </div>
-              <div className="h-1 bg-emerald-500/10 rounded-full overflow-hidden">
-                <div className="h-full bg-emerald-500 w-full shadow-[0_0_8px_rgba(16,185,129,1)]" />
+              <div className="h-1 bg-success/10 rounded-full overflow-hidden">
+                <div className="h-full bg-success w-full" />
               </div>
             </div>
           </div>
-          <div className="pt-4 border-t border-cyan-500/10 flex justify-between items-center">
+          <div className="pt-4 border-t border-signal/10 flex justify-between items-center">
             <span className="text-[9px] opacity-40 uppercase">Protection_Layer</span>
             <Badge variant="cyber" size="xs">
               LOCKED
@@ -146,29 +146,31 @@ export const CyberSpec: Story = {
  */
 export const GlassInfo: Story = {
   render: () => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <Popover>
         <PopoverTrigger asChild>
-          <button className="text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <button className="text-foreground flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Info size={20} />{' '}
             <span className="text-xs font-black uppercase tracking-widest">Environment_Intel</span>
           </button>
         </PopoverTrigger>
-        <PopoverContent variant="glass" side="top" className="w-80 border-white/10 text-white">
+        <PopoverContent variant="glass" side="top" className="w-80 border-rule text-foreground">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/10 rounded-lg">
+              <div className="p-2 bg-state rounded-control">
                 <Globe size={16} />
               </div>
               <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
             </div>
-            <p className="text-xs text-white/60 leading-relaxed">
+            <p className="text-xs text-foreground/60 leading-relaxed">
               Active telemetry indicates nominal refraction across all frosted surfaces. Backdrop
               blur is performing within optimal parameters.
             </p>
             <div className="flex justify-between items-center pt-2">
-              <span className="text-[9px] font-bold text-white/40 uppercase">Phase: EXOSPHERE</span>
-              <div className="size-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)]" />
+              <span className="text-[9px] font-bold text-foreground/40 uppercase">
+                Phase: EXOSPHERE
+              </span>
+              <div className="size-1.5 rounded-full bg-success" />
             </div>
           </div>
         </PopoverContent>

@@ -98,7 +98,7 @@ export const SmallDensity: Story = {
     label: 'Protocol_Level',
   },
   render: (args) => (
-    <div className="w-64 p-6 border rounded-2xl bg-muted/5">
+    <div className="w-64 p-6 border rounded-card bg-muted/5">
       <NativeSelect {...args}>
         <NativeSelectOption value="v1">Layer_01_Base</NativeSelectOption>
         <NativeSelectOption value="v2">Layer_02_Ext</NativeSelectOption>

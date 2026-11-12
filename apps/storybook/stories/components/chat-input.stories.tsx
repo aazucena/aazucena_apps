@@ -191,7 +191,7 @@ export const Default: Story = {
     selectedModelId: 'gpt4',
   },
   render: (args) => (
-    <div className="w-[600px] border rounded-lg bg-background p-4">
+    <div className="w-[600px] border rounded-control bg-background p-4">
       <Toaster />
       <ChatInput {...args} />
     </div>
@@ -208,7 +208,7 @@ export const WithAttachments: Story = {
     maxFileSize: 5 * 1024 * 1024, // 5MB
   },
   render: (args) => (
-    <div className="w-[600px] border rounded-lg bg-background p-4">
+    <div className="w-[600px] border rounded-control bg-background p-4">
       <Toaster />
       <ChatInput {...args} />
     </div>
@@ -224,7 +224,7 @@ export const SendingState: Story = {
     isSending: true,
   },
   render: (args) => (
-    <div className="w-[600px] border rounded-lg bg-background p-4">
+    <div className="w-[600px] border rounded-control bg-background p-4">
       <Toaster />
       <ChatInput {...args} />
     </div>
@@ -247,7 +247,7 @@ export const FullFeatured: Story = {
     globalDropzone: true,
   },
   render: (args) => (
-    <div className="w-[600px] h-[400px] border rounded-lg bg-background p-4 flex flex-col justify-end">
+    <div className="w-[600px] h-[400px] border rounded-control bg-background p-4 flex flex-col justify-end">
       <Toaster />
       <p className="flex-grow text-sm text-muted-foreground p-2">
         Try typing, using speech input, attaching files (drag/drop or button), or changing the
@@ -267,7 +267,7 @@ export const Minimal: Story = {
     showAttachmentButton: false,
   },
   render: (args) => (
-    <div className="w-[400px] border rounded-lg bg-background p-4">
+    <div className="w-[400px] border rounded-control bg-background p-4">
       <Toaster />
       <ChatInput {...args} />
     </div>
@@ -281,7 +281,7 @@ export const CustomMinMaxHeight: Story = {
     maxRows: 5,
   },
   render: (args) => (
-    <div className="w-[500px] border rounded-lg bg-background p-4">
+    <div className="w-[500px] border rounded-control bg-background p-4">
       <Toaster />
       <ChatInput {...args} />
     </div>

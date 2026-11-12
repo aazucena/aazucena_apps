@@ -172,7 +172,9 @@ export const CyberVariant: Story = {
     height: 700,
     variant: 'cyber',
     renderContent: (ctx) => {
-      ctx.strokeStyle = '#06b6d4'; // cyan-500
+      // Canvas needs a resolved color, so read the signal token at draw time
+      ctx.strokeStyle =
+        getComputedStyle(ctx.canvas).getPropertyValue('--signal').trim() || 'currentColor';
       ctx.lineWidth = 1;
       for (let i = 0; i < ctx.canvas.width; i += 20) {
         ctx.beginPath();
@@ -193,7 +195,7 @@ export const CyberVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-8">
+      <div className="rounded-card bg-background p-8">
         <Story />
       </div>
     ),
@@ -219,7 +221,7 @@ export const GlassVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-8">
+      <div className="rounded-card p-8">
         <Story />
       </div>
     ),

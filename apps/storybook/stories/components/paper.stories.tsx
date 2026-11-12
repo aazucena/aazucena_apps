@@ -105,7 +105,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <Paper {...args}>
         <div>
           <h3 className="font-semibold">Glass Surface</h3>
@@ -125,8 +125,8 @@ export const Cyber: Story = {
     variant: 'cyber',
     children: (
       <div className="font-mono">
-        <h3 className="text-cyan-400">DATA_PANEL</h3>
-        <p className="mt-2 text-xs text-cyan-500/60">Secure container // encrypted</p>
+        <h3 className="text-signal">DATA_PANEL</h3>
+        <p className="mt-2 text-xs text-signal/60">Secure container // encrypted</p>
       </div>
     ),
   },

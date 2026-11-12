@@ -83,11 +83,11 @@ export const CyberTerminal: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(true);
     return (
-      <div className="w-[500px] p-8 bg-black rounded-xl border border-cyan-500/10">
+      <div className="w-[500px] p-8 bg-background rounded-card border border-signal/10">
         <Reveal variant="cyber" isOpen={isOpen}>
           <RevealTrigger
             onClick={() => setIsOpen(!isOpen)}
-            className="font-mono text-cyan-500 hover:text-cyan-400 no-underline gap-4"
+            className="font-mono text-signal hover:text-signal no-underline gap-4"
           >
             <div className="flex items-center gap-3">
               <Activity className="size-4 animate-pulse" />
@@ -95,7 +95,7 @@ export const CyberTerminal: Story = {
             </div>
             <RevealIndicator />
           </RevealTrigger>
-          <RevealContent className="font-mono text-cyan-50/40 text-[10px] space-y-1 py-4">
+          <RevealContent className="font-mono text-signal/40 text-[10px] space-y-1 py-4">
             <p>[0x7F42] HANDSHAKE_INITIATED...</p>
             <p>[0x7F42] ENCLAVE_AUTH_SUCCESS [KEY: RSA-4096]</p>
             <p>[0x7F42] STREAM_ESTABLISHED // BUFFER: 1024MB</p>
@@ -113,20 +113,20 @@ export const GlassAtmospheric: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
-      <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+      <div className="p-20 rounded-card">
         <div className="w-[450px]">
           <Reveal variant="glass" isOpen={isOpen}>
             <RevealTrigger
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:no-underline"
+              className="text-foreground hover:no-underline"
             >
               <div className="flex items-center gap-3">
                 <Globe className="size-4 opacity-60" />
                 <span className="font-black uppercase tracking-tighter">Atmospheric_Unit</span>
               </div>
-              <RevealIndicator className="text-white" />
+              <RevealIndicator className="text-foreground" />
             </RevealTrigger>
-            <RevealContent className="text-white/60 pt-2">
+            <RevealContent className="text-foreground/60 pt-2">
               <p className="text-xs">
                 Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur
                 enabled across all continental nodes.

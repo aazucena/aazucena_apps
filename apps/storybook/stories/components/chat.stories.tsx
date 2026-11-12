@@ -72,11 +72,11 @@ type Story = StoryObj<typeof meta>;
  */
 export const FullInterface: Story = {
   render: () => (
-    <div className="h-[600px] flex flex-col bg-background border m-10 rounded-[2rem] overflow-hidden shadow-2xl">
+    <div className="h-[600px] flex flex-col bg-background border m-10 rounded-card overflow-hidden">
       <Chat>
         <div className="p-4 border-b bg-muted/30 flex justify-between items-center px-6">
           <div className="flex items-center gap-3">
-            <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="size-2 rounded-full bg-success animate-pulse" />
             <span className="text-[10px] font-black tracking-widest uppercase">
               AZUCENA_AI // AGENT_01
             </span>
@@ -185,7 +185,7 @@ export const MessageVariants: Story = {
         <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
           GLASS_THEME
         </p>
-        <div className="p-10 bg-gradient-to-br from-indigo-600 to-blue-700 rounded-3xl">
+        <div className="p-10 rounded-card">
           <ChatMessage role="assistant">
             <ChatAvatar variant="glass" />
             <ChatContent role="assistant">
@@ -238,7 +238,7 @@ export const ThreadList: Story = {
 
       <ChatThread variant="cyber">
         <ChatThreadIcon>
-          <Message size={18} className="text-cyan-400" />
+          <Message size={18} className="text-signal" />
         </ChatThreadIcon>
         <ChatThreadContent>
           <ChatThreadTitle>// SIGNAL_LOCK_0x7F</ChatThreadTitle>

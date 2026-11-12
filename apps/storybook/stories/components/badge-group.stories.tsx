@@ -74,7 +74,7 @@ export const AlignedCenter: Story = {
     alignment: 'center',
   },
   render: (args) => (
-    <div className="w-[500px] border border-dashed p-12 rounded-3xl bg-muted/5">
+    <div className="w-[500px] border border-dashed p-12 rounded-card bg-muted/5">
       <BadgeGroup {...args}>
         <BadgeGroupItem variant="cyber">CORE_PROTOCOL</BadgeGroupItem>
         <BadgeGroupItem variant="cyber">NODE_ESTABLISHED</BadgeGroupItem>

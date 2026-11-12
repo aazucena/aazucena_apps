@@ -108,7 +108,7 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[480px] rounded-[2rem] bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 p-10">
+      <div className="w-[480px] rounded-card p-10">
         <Story />
       </div>
     ),
@@ -124,7 +124,7 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[480px] rounded-[2rem] border border-cyan-500/10 bg-black p-10">
+      <div className="w-[480px] rounded-card border border-signal/10 bg-background p-10">
         <Story />
       </div>
     ),

@@ -97,11 +97,11 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="p-12 bg-black border border-cyan-500/10 rounded-[3rem]">
+    <div className="p-12 bg-background border border-signal/10 rounded-card">
       <Stat {...args} className="w-64">
         <div className="flex justify-between items-start mb-6">
           <StatIcon variant="cyber" size="sm">
-            <Zap className="size-5 text-cyan-500" />
+            <Zap className="size-5 text-signal" />
           </StatIcon>
           <Badge variant="cyber" size="xs">
             STABLE
@@ -125,17 +125,17 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-64">
         <Stat {...args}>
           <div className="flex items-center gap-3 mb-4 opacity-60">
-            <Globe className="size-5 text-white" />
+            <Globe className="size-5 text-foreground" />
             <StatLabel variant="glass" className="mb-0">
               Global_Reach
             </StatLabel>
           </div>
-          <StatValue className="text-white text-5xl">14.2K</StatValue>
-          <StatDescription className="text-white/40 font-bold mt-2 tracking-widest uppercase">
+          <StatValue className="text-foreground text-5xl">14.2K</StatValue>
+          <StatDescription className="text-foreground/40 font-bold mt-2 tracking-widest uppercase">
             Nodes_Active
           </StatDescription>
         </Stat>

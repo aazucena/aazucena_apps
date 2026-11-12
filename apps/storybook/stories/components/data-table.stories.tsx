@@ -131,8 +131,8 @@ export const CustomRender: Story = {
           <span
             className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
               value === 'Active'
-                ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                ? 'bg-success/10 text-success dark:bg-panel-raised/30'
+                : 'bg-alert/10 text-alert dark:bg-panel-raised/30'
             }`}
           >
             {String(value)}
@@ -163,7 +163,7 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[700px] rounded-[2rem] bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 p-10">
+      <div className="w-[700px] rounded-card p-10">
         <Story />
       </div>
     ),
@@ -181,7 +181,7 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[700px] rounded-[2rem] border border-cyan-500/10 bg-black p-10">
+      <div className="w-[700px] rounded-card border border-signal/10 bg-background p-10">
         <Story />
       </div>
     ),

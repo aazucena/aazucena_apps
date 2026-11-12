@@ -46,7 +46,7 @@ export const Basic: Story = {
     variant: 'default',
   },
   render: (args) => (
-    <div className="w-[600px] p-12 bg-muted/5 rounded-3xl">
+    <div className="w-[600px] p-12 bg-muted/5 rounded-card">
       <Beacon {...args}>
         <BeaconHeader>Connect_Network</BeaconHeader>
         <BeaconGrid>
@@ -68,7 +68,7 @@ export const Cyber: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-12 bg-black rounded-3xl border border-white/5">
+    <div className="w-[600px] p-12 bg-background rounded-card border border-rule">
       <Beacon {...args}>
         <BeaconHeader>UPLINK_CHANNELS:OPEN</BeaconHeader>
         <BeaconGrid>

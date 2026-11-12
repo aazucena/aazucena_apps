@@ -74,9 +74,9 @@ type Story = StoryObj<typeof meta>;
 
 const ActionButtons = () => (
   <>
-    <button className="rounded-md bg-muted px-3 py-1.5 text-xs font-medium">Cut</button>
-    <button className="rounded-md bg-muted px-3 py-1.5 text-xs font-medium">Copy</button>
-    <button className="rounded-md bg-muted px-3 py-1.5 text-xs font-medium">Paste</button>
+    <button className="rounded-control bg-muted px-3 py-1.5 text-xs font-medium">Cut</button>
+    <button className="rounded-control bg-muted px-3 py-1.5 text-xs font-medium">Copy</button>
+    <button className="rounded-control bg-muted px-3 py-1.5 text-xs font-medium">Paste</button>
   </>
 );
 
@@ -91,7 +91,7 @@ export const Basic: Story = {
     onClose: fn(),
   },
   render: (args) => (
-    <div className="relative h-[180px] w-full overflow-hidden rounded-xl border border-dashed">
+    <div className="relative h-[180px] w-full overflow-hidden rounded-card border border-dashed">
       <ActionBar {...args}>
         <ActionButtons />
       </ActionBar>
@@ -114,19 +114,19 @@ export const Glass: Story = {
     onClose: fn(),
   },
   render: (args) => (
-    <div className="relative h-[180px] w-full overflow-hidden rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500">
+    <div className="relative h-[180px] w-full overflow-hidden rounded-card">
       <ActionBar {...args}>
-        <button className="rounded-md bg-white/20 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">
+        <button className="rounded-control bg-panel-raised px-3 py-1.5 text-xs font-medium text-foreground">
           Cut
         </button>
-        <button className="rounded-md bg-white/20 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">
+        <button className="rounded-control bg-panel-raised px-3 py-1.5 text-xs font-medium text-foreground">
           Copy
         </button>
-        <button className="rounded-md bg-white/20 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">
+        <button className="rounded-control bg-panel-raised px-3 py-1.5 text-xs font-medium text-foreground">
           Paste
         </button>
       </ActionBar>
-      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest text-white/30">
+      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest text-foreground/30">
         Glass Context
       </div>
     </div>
@@ -143,19 +143,19 @@ export const Cyber: Story = {
     onClose: fn(),
   },
   render: (args) => (
-    <div className="relative h-[180px] w-full overflow-hidden rounded-xl border border-cyan-500/10 bg-black">
+    <div className="relative h-[180px] w-full overflow-hidden rounded-card border border-signal/10 bg-background">
       <ActionBar {...args}>
-        <button className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 font-mono text-xs text-cyan-300">
+        <button className="rounded-control border border-signal/30 bg-signal/10 px-3 py-1.5 font-mono text-xs text-signal">
           CUT
         </button>
-        <button className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 font-mono text-xs text-cyan-300">
+        <button className="rounded-control border border-signal/30 bg-signal/10 px-3 py-1.5 font-mono text-xs text-signal">
           COPY
         </button>
-        <button className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 font-mono text-xs text-cyan-300">
+        <button className="rounded-control border border-signal/30 bg-signal/10 px-3 py-1.5 font-mono text-xs text-signal">
           PASTE
         </button>
       </ActionBar>
-      <div className="flex h-full items-center justify-center font-mono text-xs uppercase tracking-widest text-cyan-500/20">
+      <div className="flex h-full items-center justify-center font-mono text-xs uppercase tracking-widest text-signal/20">
         TERMINAL_STAGE
       </div>
     </div>
@@ -174,7 +174,7 @@ export const TopPosition: Story = {
     onClose: fn(),
   },
   render: (args) => (
-    <div className="relative h-[180px] w-full overflow-hidden rounded-xl border border-dashed">
+    <div className="relative h-[180px] w-full overflow-hidden rounded-card border border-dashed">
       <ActionBar {...args}>
         <ActionButtons />
       </ActionBar>
@@ -193,7 +193,7 @@ export const NoDismiss: Story = {
     open: true,
   },
   render: (args) => (
-    <div className="relative h-[180px] w-full overflow-hidden rounded-xl border border-dashed">
+    <div className="relative h-[180px] w-full overflow-hidden rounded-card border border-dashed">
       <ActionBar {...args}>
         <ActionButtons />
       </ActionBar>

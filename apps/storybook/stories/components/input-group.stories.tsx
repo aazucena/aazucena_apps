@@ -72,20 +72,20 @@ export const Basic: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="w-96 p-10 bg-black rounded-3xl border border-cyan-500/10">
-      <InputGroup className="border-cyan-500/30 bg-cyan-500/5 h-12 rounded-xl">
-        <InputGroupAddon className="text-cyan-500 pl-4">
+    <div className="w-96 p-10 bg-background rounded-card border border-signal/10">
+      <InputGroup className="border-signal/30 bg-signal/5 h-12 rounded-card">
+        <InputGroupAddon className="text-signal pl-4">
           <Database size={16} />
         </InputGroupAddon>
         <InputGroupInput
-          className="text-cyan-400 font-mono uppercase tracking-widest placeholder:text-cyan-500/20"
+          className="text-signal font-mono uppercase tracking-widest placeholder:text-signal/20"
           placeholder="QUERY_ID"
         />
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             variant="ghost"
             size="icon-sm"
-            className="text-cyan-500 hover:bg-cyan-500/10 mr-1"
+            className="text-signal hover:bg-signal/10 mr-1"
           >
             <Refresh size={14} />
           </InputGroupButton>
@@ -115,7 +115,7 @@ export const MultilineConfig: Story = {
           className="min-h-[150px] p-4 text-xs font-mono"
         />
         <InputGroupAddon align="inline-end" className="absolute bottom-2 right-2 border-none">
-          <InputGroupButton variant="default" size="sm" className="rounded-lg h-10 px-6">
+          <InputGroupButton variant="default" size="sm" className="rounded-control h-10 px-6">
             Apply_Key
           </InputGroupButton>
         </InputGroupAddon>
@@ -130,7 +130,7 @@ export const MultilineConfig: Story = {
 export const IntegratedSearch: Story = {
   render: () => (
     <div className="w-[500px]">
-      <InputGroup className="h-14 rounded-full pl-6 border-zinc-200 overflow-hidden shadow-lg">
+      <InputGroup className="h-14 rounded-full pl-6 border-rule overflow-hidden">
         <Search className="size-5 opacity-40 mr-2" />
         <InputGroupInput placeholder="Search node registry..." className="text-base" />
         <InputGroupAddon align="inline-end" className="p-0">

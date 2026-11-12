@@ -55,7 +55,7 @@ type Story = StoryObj;
  */
 export const TrendIndicators: Story = {
   render: () => (
-    <div className="flex gap-12 items-center p-10 bg-muted/5 rounded-[3rem] border border-dashed">
+    <div className="flex gap-12 items-center p-10 bg-muted/5 rounded-card border border-dashed">
       <Trend direction="up" value="+24.5%" variant="default" />
       <Trend direction="down" value="-12.2%" variant="pill" />
       <Trend direction="neutral" value="STABLE" variant="ghost" />
@@ -68,7 +68,7 @@ export const TrendIndicators: Story = {
  */
 export const AIThoughtTrace: Story = {
   render: () => (
-    <div className="w-96 p-8 border border-border rounded-[2.5rem] bg-gradient-to-br from-background to-muted/20">
+    <div className="w-96 p-8 border border-border rounded-card bg-linear-to-br from-background to-muted/20">
       <ThoughtTrace variant="ai">
         <ThoughtStep status="completed">Querying kernel metrics</ThoughtStep>
         <ThoughtStep status="completed">Analyzing buffer lag</ThoughtStep>
@@ -84,7 +84,7 @@ export const AIThoughtTrace: Story = {
  */
 export const ModelSelector: Story = {
   render: () => (
-    <div className="space-y-8 p-10 bg-zinc-50 dark:bg-background border rounded-[3rem] shadow-2xl">
+    <div className="space-y-8 p-10 bg-panel dark:bg-background border rounded-card">
       <div className="space-y-2">
         <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4">
           Primary_Engine
@@ -99,7 +99,7 @@ export const ModelSelector: Story = {
       </div>
 
       <div className="space-y-2">
-        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-cyan-500/60 ml-4">
+        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal/60 ml-4">
           // RUNTIME_ENVIRONMENT
         </h4>
         <SegmentedControl variant="cyber">
@@ -120,7 +120,7 @@ export const ModelSelector: Story = {
  */
 export const StepSequence: Story = {
   render: () => (
-    <div className="w-[600px] space-y-12 p-10 border rounded-[3rem] bg-muted/10">
+    <div className="w-[600px] space-y-12 p-10 border rounded-card bg-muted/10">
       <Stepper>
         <Step status="completed">
           <StepIndicator index={0} status="completed" />
@@ -146,7 +146,7 @@ export const StepSequence: Story = {
  */
 export const PlaybackController: Story = {
   render: () => (
-    <div className="w-[800px] p-10 border rounded-[2rem] bg-background shadow-inner">
+    <div className="w-[800px] p-10 border rounded-card bg-background">
       <Playback variant="cyber">
         <PlaybackCounter current={42} total={120} />
         <PlaybackControls>
@@ -161,10 +161,10 @@ export const PlaybackController: Story = {
           </PlaybackButton>
         </PlaybackControls>
         <PlaybackActions>
-          <Button variant="ghost" size="icon" className="text-cyan-400">
+          <Button variant="ghost" size="icon" className="text-signal">
             <Refresh size={16} />
           </Button>
-          <Button variant="ghost" size="icon" className="text-cyan-400">
+          <Button variant="ghost" size="icon" className="text-signal">
             <Settings size={16} />
           </Button>
         </PlaybackActions>

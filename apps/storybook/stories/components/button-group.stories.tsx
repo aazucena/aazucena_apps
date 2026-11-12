@@ -78,11 +78,11 @@ export const CyberToolbar: Story = {
   render: (args) => (
     <ButtonGroup {...args}>
       <ButtonGroupText variant="cyber">NODE_01</ButtonGroupText>
-      <ButtonGroupSeparator className="dark:bg-cyan-500/20" />
-      <Button variant="ghost" size="icon" className="text-cyan-500 hover:bg-cyan-500/10">
+      <ButtonGroupSeparator className="dark:bg-signal/20" />
+      <Button variant="ghost" size="icon" className="text-signal hover:bg-signal/10">
         <Plus className="h-4 w-4" />
       </Button>
-      <Button variant="ghost" size="icon" className="text-cyan-500 hover:bg-cyan-500/10">
+      <Button variant="ghost" size="icon" className="text-signal hover:bg-signal/10">
         <Minus className="h-4 w-4" />
       </Button>
     </ButtonGroup>
@@ -97,17 +97,17 @@ export const GlassSegments: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <ButtonGroup {...args}>
-        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">
+        <Button variant="ghost" className="text-foreground hover:bg-state px-6">
           ANALYTICS
         </Button>
-        <ButtonGroupSeparator className="bg-white/10" />
-        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">
+        <ButtonGroupSeparator className="bg-state" />
+        <Button variant="ghost" className="text-foreground hover:bg-state px-6">
           TRAJECTORY
         </Button>
-        <ButtonGroupSeparator className="bg-white/10" />
-        <Button variant="ghost" className="text-white hover:bg-white/10 px-6">
+        <ButtonGroupSeparator className="bg-state" />
+        <Button variant="ghost" className="text-foreground hover:bg-state px-6">
           INTEL
         </Button>
       </ButtonGroup>
@@ -123,7 +123,7 @@ export const ActionPair: Story = {
     variant: 'actions',
   },
   render: (args) => (
-    <div className="w-[600px] border border-dashed p-12 rounded-3xl">
+    <div className="w-[600px] border border-dashed p-12 rounded-card">
       <ButtonGroup {...args}>
         <ButtonGroupItem variant="cta">INITIATE_SEQUENCE</ButtonGroupItem>
         <ButtonGroupItem variant="outline">ABORT_PROTOCOL</ButtonGroupItem>

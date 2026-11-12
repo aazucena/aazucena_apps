@@ -120,17 +120,17 @@ export const Cyber: Story = {
   render: (args) => (
     <Card {...args} className="w-[400px]">
       <CardHeader>
-        <div className="flex items-center gap-2 mb-2 text-cyan-500">
+        <div className="flex items-center gap-2 mb-2 text-signal">
           <Play size={14} />
           <span className="text-[10px] font-black tracking-[0.3em] uppercase">SYSTEM_INIT</span>
         </div>
         <CardTitle className="font-mono italic">// PROTOCOL_TRACE</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="p-4 bg-black/40 rounded border border-cyan-500/10 font-mono text-[10px] space-y-1">
-          <p className="text-cyan-500/60">{'>'} INITIALIZING_UPLINK...</p>
-          <p className="text-emerald-500/60">{'>'} UPLINK_SUCCESS [PORT:8080]</p>
-          <p className="text-white/40">{'>'} LISTENING_FOR_PACKETS</p>
+        <div className="p-4 bg-panel rounded border border-signal/10 font-mono text-[10px] space-y-1">
+          <p className="text-signal/60">{'>'} INITIALIZING_UPLINK...</p>
+          <p className="text-success/60">{'>'} UPLINK_SUCCESS [PORT:8080]</p>
+          <p className="text-foreground/40">{'>'} LISTENING_FOR_PACKETS</p>
         </div>
       </CardContent>
       <CardFooter>
@@ -151,15 +151,15 @@ export const Glass: Story = {
     hover: true,
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <Card {...args} className="w-[350px]">
         <CardHeader>
-          <CardTitle className="text-white">Atmospheric_Layer</CardTitle>
-          <CardDescription className="text-white/60">Mesosphere configuration</CardDescription>
+          <CardTitle className="text-foreground">Atmospheric_Layer</CardTitle>
+          <CardDescription className="text-foreground/60">Mesosphere configuration</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-4 text-white/80">
-            <Shield size={24} className="text-emerald-400" />
+          <div className="flex items-center gap-4 text-foreground/80">
+            <Shield size={24} className="text-success" />
             <div className="text-xs font-medium">Encryption enabled across all dynamic routes.</div>
           </div>
         </CardContent>
@@ -197,13 +197,13 @@ export const AnalyticsDashboard: Story = {
         ))}
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <div className="p-3 bg-muted/50 rounded-lg border">
+        <div className="p-3 bg-muted/50 rounded-control border">
           <p className="text-[10px] font-bold opacity-40 uppercase">Latency</p>
           <p className="text-xl font-black">12ms</p>
         </div>
-        <div className="p-3 bg-muted/50 rounded-lg border">
+        <div className="p-3 bg-muted/50 rounded-control border">
           <p className="text-[10px] font-bold opacity-40 uppercase">Success</p>
-          <p className="text-xl font-black text-emerald-500">99.9%</p>
+          <p className="text-xl font-black text-success">99.9%</p>
         </div>
       </div>
     </Card>

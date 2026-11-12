@@ -116,10 +116,10 @@ export const CyberTelemetry: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-8 bg-black rounded-2xl border border-cyan-500/10">
+    <div className="w-[600px] p-8 bg-background rounded-card border border-signal/10">
       <MetaData {...args} className="space-y-8">
         <MetaDataHeader>
-          <div className="flex items-center gap-3 text-cyan-500 mb-2">
+          <div className="flex items-center gap-3 text-signal mb-2">
             <Activity className="size-4 animate-pulse" />
             <MetaDataTitle variant="cyber">// NODE_TELEMETRY</MetaDataTitle>
           </div>
@@ -127,19 +127,19 @@ export const CyberTelemetry: Story = {
         <MetaDataGrid cols={3} gap="lg">
           <MetaDataItem>
             <MetaDataLabel variant="cyber">UPLINK_ID</MetaDataLabel>
-            <MetaDataValue variant="cyber" className="text-white">
+            <MetaDataValue variant="cyber" className="text-foreground">
               0x7F42
             </MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
             <MetaDataLabel variant="cyber">SIGNAL_GAIN</MetaDataLabel>
-            <MetaDataValue variant="cyber" className="text-cyan-400">
+            <MetaDataValue variant="cyber" className="text-signal">
               85.4%
             </MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
             <MetaDataLabel variant="cyber">SYNC_STATUS</MetaDataLabel>
-            <MetaDataValue variant="cyber" className="text-emerald-500">
+            <MetaDataValue variant="cyber" className="text-success">
               STABLE
             </MetaDataValue>
           </MetaDataItem>
@@ -183,26 +183,26 @@ export const GlassSidebar: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
-      <MetaData {...args} className="w-[300px] border-white/10 shadow-2xl">
+    <div className="p-20 rounded-card">
+      <MetaData {...args} className="w-[300px] border-rule">
         <MetaDataHeader>
-          <MetaDataTitle size="lg" className="text-white">
+          <MetaDataTitle size="lg" className="text-foreground">
             File_Info
           </MetaDataTitle>
         </MetaDataHeader>
         <div className="space-y-6">
           <MetaDataItem>
-            <MetaDataLabel className="text-white/40">Resource_Type</MetaDataLabel>
-            <MetaDataValue className="text-white font-bold">Encrypted_Payload</MetaDataValue>
+            <MetaDataLabel className="text-foreground/40">Resource_Type</MetaDataLabel>
+            <MetaDataValue className="text-foreground font-bold">Encrypted_Payload</MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
-            <MetaDataLabel className="text-white/40">Size_Weight</MetaDataLabel>
-            <MetaDataValue className="text-white font-mono">1.42 GB</MetaDataValue>
+            <MetaDataLabel className="text-foreground/40">Size_Weight</MetaDataLabel>
+            <MetaDataValue className="text-foreground font-mono">1.42 GB</MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
-            <MetaDataLabel className="text-white/40">Encryption</MetaDataLabel>
-            <MetaDataValue className="text-white flex items-center gap-2">
-              <Zap size={14} className="text-yellow-400" /> AES-256-GCM
+            <MetaDataLabel className="text-foreground/40">Encryption</MetaDataLabel>
+            <MetaDataValue className="text-foreground flex items-center gap-2">
+              <Zap size={14} className="text-warning" /> AES-256-GCM
             </MetaDataValue>
           </MetaDataItem>
         </div>

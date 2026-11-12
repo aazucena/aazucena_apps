@@ -77,7 +77,7 @@ export const Basic: Story = {
     children: sampleContent,
   },
   render: (args) => (
-    <div className="w-[800px] p-12 border rounded-[3rem] bg-card shadow-2xl">
+    <div className="w-[800px] p-12 border rounded-card bg-card">
       <Prose {...args} />
     </div>
   ),
@@ -93,7 +93,7 @@ export const CyberTerminal: Story = {
     children: sampleContent,
   },
   render: (args) => (
-    <div className="w-[800px] p-12 bg-black border border-cyan-500/20 rounded-xl text-white">
+    <div className="w-[800px] p-12 bg-background border border-signal/20 rounded-card text-foreground">
       <Prose {...args} />
     </div>
   ),
@@ -128,7 +128,7 @@ export const LegalDocument: Story = {
     ),
   },
   render: (args) => (
-    <div className="w-[700px] p-12 bg-white text-zinc-900 border rounded-2xl shadow-sm">
+    <div className="w-[700px] p-12 bg-panel text-foreground border rounded-card">
       <Prose {...args} />
     </div>
   ),
@@ -144,7 +144,7 @@ export const Sizes: Story = {
         <p className="text-[10px] font-black uppercase tracking-widest opacity-30">
           Small (Prose-sm)
         </p>
-        <Prose size="sm" className="w-[600px] border p-6 rounded-xl">
+        <Prose size="sm" className="w-[600px] border p-6 rounded-card">
           <p>
             The neural telemetry engine is reporting optimal pulse intervals across all active nodes
             in the US_EAST sector.
@@ -155,7 +155,7 @@ export const Sizes: Story = {
         <p className="text-[10px] font-black uppercase tracking-widest opacity-30">
           Extra Large (Prose-xl)
         </p>
-        <Prose size="xl" className="w-[600px] border p-6 rounded-xl">
+        <Prose size="xl" className="w-[600px] border p-6 rounded-card">
           <p>Scaling the synchronized node infrastructure across multiple continental sectors.</p>
         </Prose>
       </div>

@@ -119,7 +119,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <Button {...args}>
         <Activity className="mr-2" />
         TELEMETRY_VIEW

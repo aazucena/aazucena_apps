@@ -154,7 +154,7 @@ export const GlassModal: Story = {
   render: (args) => {
     const [open, setOpen] = React.useState(args.open);
     return (
-      <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+      <div className="p-20 rounded-card">
         <Button onClick={() => setOpen(true)}>Open Glass Modal</Button>
         <ChatConfirmation {...args} open={open} onOpenChange={setOpen} />
       </div>

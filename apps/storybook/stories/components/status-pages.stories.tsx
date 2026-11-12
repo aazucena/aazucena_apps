@@ -76,7 +76,7 @@ export const Error404: Story = {
           <Button
             variant="outline"
             size="lg"
-            className="rounded-full px-10 h-14 font-black tracking-widest border-zinc-200"
+            className="rounded-full px-10 h-14 font-black tracking-widest border-rule"
           >
             Report_Anomaly
           </Button>
@@ -98,10 +98,10 @@ export const Error500Cyber: Story = {
       <ErrorPageContent>
         <ErrorPageVisual status={500} />
         <ErrorPageHeader className="space-y-4">
-          <ErrorPageTitle className="text-cyan-500 font-mono italic tracking-tighter text-4xl md:text-6xl">
+          <ErrorPageTitle className="text-signal font-mono italic tracking-tighter text-4xl md:text-6xl">
             // SYSTEM_CORRUPTION
           </ErrorPageTitle>
-          <ErrorPageDescription className="text-cyan-500/40 font-mono text-[10px] tracking-[0.2em]">
+          <ErrorPageDescription className="text-signal/40 font-mono text-[10px] tracking-[0.2em]">
             IDENT_FAILED // BUFFER_OVERFLOW // STACK_TRACE_ENABLED
           </ErrorPageDescription>
         </ErrorPageHeader>
@@ -110,8 +110,8 @@ export const Error500Cyber: Story = {
             <RefreshCw className="mr-2 animate-spin-slow" /> INITIATE_REBOOT
           </Button>
         </ErrorPageActions>
-        <div className="mt-20 p-6 border-2 border-dashed border-cyan-500/10 rounded-2xl bg-cyan-500/5 max-w-md mx-auto">
-          <p className="text-[10px] font-mono text-cyan-500/60 leading-relaxed">
+        <div className="mt-20 p-6 border-2 border-dashed border-signal/10 rounded-card bg-signal/5 max-w-md mx-auto">
+          <p className="text-[10px] font-mono text-signal/60 leading-relaxed">
             Incident ID: 7F42A1C9
             <br />
             Timestamp: 2026-11-11T14:35:00.000Z
@@ -129,7 +129,7 @@ export const Error500Cyber: Story = {
  */
 export const MaintenanceMode: Story = {
   render: () => (
-    <div className="h-screen flex items-center justify-center bg-zinc-50 dark:bg-background">
+    <div className="h-screen flex items-center justify-center bg-panel dark:bg-background">
       <Maintenance>
         <MaintenanceIcon className="text-primary animate-pulse" />
         <MaintenanceTitle className="text-4xl font-black tracking-tighter uppercase">
@@ -159,28 +159,27 @@ export const MaintenanceMode: Story = {
  */
 export const StatusGlass: Story = {
   render: () => (
-    <div className="h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-10 overflow-hidden">
-      <ErrorPage
-        variant="glass"
-        className="w-full max-w-4xl min-h-[70vh] border-white/10 bg-white/5 backdrop-blur-2xl"
-      >
+    <div className="h-screen flex items-center justify-center p-10 overflow-hidden">
+      <ErrorPage variant="glass" className="w-full max-w-4xl min-h-[70vh] border-rule bg-state">
         <ErrorPageContent>
           <div className="flex justify-center mb-12">
             <Badge
               variant="cyber"
-              className="bg-white/10 text-white border-white/20 px-6 py-2 rounded-full scale-125"
+              className="bg-state text-foreground border-rule px-6 py-2 rounded-full scale-125"
             >
               MAINTENANCE_IN_PROGRESS
             </Badge>
           </div>
-          <ErrorPageTitle className="text-white text-5xl mb-6">Cloud_Layer_Sync</ErrorPageTitle>
-          <ErrorPageDescription className="text-white/60 mb-12">
+          <ErrorPageTitle className="text-foreground text-5xl mb-6">
+            Cloud_Layer_Sync
+          </ErrorPageTitle>
+          <ErrorPageDescription className="text-foreground/60 mb-12">
             Atmospheric data points are being re-indexed across all orbital nodes.
           </ErrorPageDescription>
           <ErrorPageActions>
             <Button
               variant="glass"
-              className="bg-white text-black hover:bg-white/90 rounded-full px-12 h-14"
+              className="bg-panel text-foreground hover:bg-panel-raised rounded-full px-12 h-14"
             >
               <Globe className="mr-2" /> View Global Map
             </Button>
@@ -239,7 +238,7 @@ export const Error401: Story = {
           <Button
             variant="outline"
             size="lg"
-            className="rounded-full px-10 h-14 font-black tracking-widest border-zinc-200"
+            className="rounded-full px-10 h-14 font-black tracking-widest border-rule"
           >
             <Home className="mr-2 size-5" /> Return_to_Root
           </Button>

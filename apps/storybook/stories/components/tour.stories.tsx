@@ -79,14 +79,14 @@ const meta = {
         <div className="flex gap-4">
           <button
             id="tour-btn-1"
-            className="rounded-md bg-primary px-4 py-2 text-primary-foreground"
+            className="rounded-control bg-primary px-4 py-2 text-primary-foreground"
           >
             Dashboard
           </button>
-          <button id="tour-btn-2" className="rounded-md border border-border px-4 py-2">
+          <button id="tour-btn-2" className="rounded-control border border-border px-4 py-2">
             Navigation
           </button>
-          <button id="tour-btn-3" className="rounded-md border border-border px-4 py-2">
+          <button id="tour-btn-3" className="rounded-control border border-border px-4 py-2">
             Settings
           </button>
         </div>
@@ -142,23 +142,23 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="relative min-h-[500px] rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="relative min-h-[500px] rounded-card p-8">
         <div className="flex gap-4">
           <button
             id="tour-btn-1"
-            className="rounded-md bg-white/20 px-4 py-2 text-white backdrop-blur-sm"
+            className="rounded-control bg-panel-raised px-4 py-2 text-foreground"
           >
             Dashboard
           </button>
           <button
             id="tour-btn-2"
-            className="rounded-md border border-white/30 px-4 py-2 text-white"
+            className="rounded-control border border-rule px-4 py-2 text-foreground"
           >
             Navigation
           </button>
           <button
             id="tour-btn-3"
-            className="rounded-md border border-white/30 px-4 py-2 text-white"
+            className="rounded-control border border-rule px-4 py-2 text-foreground"
           >
             Settings
           </button>
@@ -191,17 +191,17 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="relative min-h-[400px] bg-black p-8">
+      <div className="relative min-h-[400px] bg-background p-8">
         <div className="flex gap-4">
           <button
             id="tour-btn-1"
-            className="rounded border border-cyan-500/30 px-4 py-2 font-mono text-cyan-400"
+            className="rounded border border-signal/30 px-4 py-2 font-mono text-signal"
           >
             INITIALIZE
           </button>
           <button
             id="tour-btn-2"
-            className="rounded border border-cyan-500/20 px-4 py-2 font-mono text-cyan-500/60"
+            className="rounded border border-signal/20 px-4 py-2 font-mono text-signal/60"
           >
             NAV_MODULE
           </button>

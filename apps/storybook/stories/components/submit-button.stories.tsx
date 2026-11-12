@@ -98,7 +98,7 @@ export const WithIcons: Story = {
 export const Glass: Story = {
   args: { children: 'Submit', variant: 'glass' },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <SubmitButton {...args} />
     </div>
   ),

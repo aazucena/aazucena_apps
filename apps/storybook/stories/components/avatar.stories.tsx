@@ -85,7 +85,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl">
+    <div className="p-12 rounded-card">
       <Avatar {...args}>
         <AvatarImage src="https://github.com/shadcn.png" />
         <AvatarFallback>CN</AvatarFallback>

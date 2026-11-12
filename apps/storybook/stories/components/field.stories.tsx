@@ -91,7 +91,7 @@ export const Basic: Story = {
  */
 export const TechnicalField: Story = {
   render: () => (
-    <div className="w-[450px] p-8 border rounded-[2rem] bg-card">
+    <div className="w-[450px] p-8 border rounded-card bg-card">
       <FieldHeader>
         <FieldTitle className="gap-2">
           <Shield size={14} className="text-primary" /> Security_Key
@@ -121,7 +121,7 @@ export const HorizontalToggle: Story = {
     orientation: 'horizontal',
   },
   render: (args) => (
-    <div className="w-[450px] p-6 border rounded-2xl bg-muted/5">
+    <div className="w-[450px] p-6 border rounded-card bg-muted/5">
       <Field {...args}>
         <div className="flex-1 space-y-1">
           <FieldLabel className="text-sm font-bold">Enable_Edge_Ingestion</FieldLabel>

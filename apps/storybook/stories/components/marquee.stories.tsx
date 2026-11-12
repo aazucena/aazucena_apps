@@ -126,12 +126,12 @@ export const Cyber: Story = {
     className: 'w-full',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-black p-4">
+    <div className="rounded-card bg-background p-4">
       <Marquee {...args}>
         {tags.map((t) => (
           <span
             key={t}
-            className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 font-mono text-xs text-cyan-300"
+            className="rounded-full border border-signal/30 bg-signal/10 px-4 py-2 font-mono text-xs text-signal"
           >
             {t}
           </span>

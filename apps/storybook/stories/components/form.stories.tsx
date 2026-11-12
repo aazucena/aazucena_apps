@@ -76,10 +76,10 @@ export const Basic: Story = {
     } as any);
 
     return (
-      <div className="w-[400px] p-8 border rounded-[2rem] bg-card shadow-2xl relative">
+      <div className="w-[400px] p-8 border rounded-card bg-card relative">
         <Toaster />
         <div className="flex items-center gap-3 mb-8">
-          <div className="p-2 bg-primary/10 rounded-lg text-primary">
+          <div className="p-2 bg-primary/10 rounded-control text-primary">
             <Shield size={20} />
           </div>
           <h3 className="font-black tracking-tighter uppercase text-xl">Identity_Auth</h3>
@@ -138,12 +138,12 @@ const CyberConfigFormInner = () => {
   });
 
   return (
-    <div className="w-[500px] p-8 border border-cyan-500/20 bg-black rounded-xl text-white shadow-[0_0_50px_rgba(6,182,212,0.1)] relative">
+    <div className="w-[500px] p-8 border border-signal/20 bg-background rounded-card text-foreground relative">
       <Toaster />
-      <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
+      <div className="flex justify-between items-center mb-8 border-b border-rule pb-6">
         <div className="flex items-center gap-3">
-          <Activity className="size-4 text-cyan-500 animate-pulse" />
-          <span className="font-mono text-xs text-cyan-500 italic uppercase tracking-tighter text-glow-cyan">
+          <Activity className="size-4 text-signal animate-pulse" />
+          <span className="font-mono text-xs text-signal italic uppercase tracking-tighter text-glow-cyan">
             // NODE_CALIBRATION_v4
           </span>
         </div>
@@ -175,7 +175,7 @@ const CyberConfigFormInner = () => {
           description="Enable real-time sync with main cluster."
           {...({
             className:
-              'flex flex-row items-center justify-between rounded-xl border border-cyan-500/10 p-4 bg-cyan-500/5',
+              'flex flex-row items-center justify-between rounded-card border border-signal/10 p-4 bg-signal/5',
           } as any)}
         />
 
@@ -237,7 +237,7 @@ export const DetailedSubmission: Story = {
             name="message"
             label="Full_Telemetry_Report"
             required
-            className="min-h-[200px] rounded-2xl"
+            className="min-h-[200px] rounded-card"
             validators={{ onChange: schema.shape.message }}
             description="Minimum 20 characters for technical analysis."
             {...({ placeholder: 'Paste stack traces or detailed logs here...' } as any)}

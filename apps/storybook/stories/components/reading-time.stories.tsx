@@ -69,9 +69,9 @@ export const CyberTerminal: Story = {
     size: 'sm',
   },
   render: (args) => (
-    <div className="p-8 bg-black border border-cyan-500/10 rounded-xl">
+    <div className="p-8 bg-background border border-signal/10 rounded-card">
       <ReadingTime {...args}>
-        <ReadingTimeIcon icon={<Zap className="size-3.5 text-cyan-500" />} />
+        <ReadingTimeIcon icon={<Zap className="size-3.5 text-signal" />} />
         <ReadingTimeValue>EST_PROCESSING: 120s</ReadingTimeValue>
       </ReadingTime>
     </div>

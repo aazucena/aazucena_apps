@@ -95,29 +95,29 @@ export const CyberTerminal: Story = {
     variant: 'outline',
   },
   render: (args) => (
-    <div className="p-10 bg-black border border-cyan-500/10 rounded-2xl flex flex-col items-center gap-8">
+    <div className="p-10 bg-background border border-signal/10 rounded-card flex flex-col items-center gap-8">
       <div className="flex items-center gap-3">
-        <Database size={16} className="text-cyan-500 animate-pulse" />
-        <span className="font-mono text-xs text-cyan-500 uppercase tracking-tighter italic">
+        <Database size={16} className="text-signal animate-pulse" />
+        <span className="font-mono text-xs text-signal uppercase tracking-tighter italic">
           // SELECT_ACTIVE_SECTOR
         </span>
       </div>
       <ToggleGroup {...args} className="gap-2">
         <ToggleGroupItem
           value="s1"
-          className="h-12 w-16 border-cyan-500/30 text-cyan-500 data-[state=on]:bg-cyan-500/20 data-[state=on]:text-cyan-400 data-[state=on]:border-cyan-400"
+          className="h-12 w-16 border-signal/30 text-signal data-[state=on]:bg-signal/20 data-[state=on]:text-signal data-[state=on]:border-signal"
         >
           0x7F
         </ToggleGroupItem>
         <ToggleGroupItem
           value="s2"
-          className="h-12 w-16 border-cyan-500/30 text-cyan-500 data-[state=on]:bg-cyan-500/20 data-[state=on]:text-cyan-400 data-[state=on]:border-cyan-400"
+          className="h-12 w-16 border-signal/30 text-signal data-[state=on]:bg-signal/20 data-[state=on]:text-signal data-[state=on]:border-signal"
         >
           0x1A
         </ToggleGroupItem>
         <ToggleGroupItem
           value="s3"
-          className="h-12 w-16 border-cyan-500/30 text-cyan-500 data-[state=on]:bg-cyan-500/20 data-[state=on]:text-cyan-400 data-[state=on]:border-cyan-400"
+          className="h-12 w-16 border-signal/30 text-signal data-[state=on]:bg-signal/20 data-[state=on]:text-signal data-[state=on]:border-signal"
         >
           0x9C
         </ToggleGroupItem>
@@ -135,11 +135,7 @@ export const TypographyTools: Story = {
     variant: 'outline',
   },
   render: () => (
-    <ToggleGroup
-      type="multiple"
-      variant="outline"
-      className="border p-1 rounded-xl bg-card shadow-sm"
-    >
+    <ToggleGroup type="multiple" variant="outline" className="border p-1 rounded-card bg-card">
       <ToggleGroupItem value="bold" aria-label="Toggle bold">
         <Bold />
       </ToggleGroupItem>

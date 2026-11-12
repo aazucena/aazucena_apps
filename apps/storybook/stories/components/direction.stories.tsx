@@ -45,7 +45,7 @@ export const LeftToRight: Story = {
   },
   render: (args) => (
     <DirectionProvider {...args}>
-      <div className="flex items-center gap-4 p-8 border rounded-2xl bg-muted/5">
+      <div className="flex items-center gap-4 p-8 border rounded-card bg-muted/5">
         <span className="text-sm font-bold uppercase tracking-widest">Signal_Flow</span>
         <ArrowRight className="size-4 text-primary" />
       </div>
@@ -62,7 +62,7 @@ export const RightToLeft: Story = {
   },
   render: (args) => (
     <DirectionProvider {...args}>
-      <div className="flex items-center gap-4 p-8 border rounded-2xl bg-muted/5">
+      <div className="flex items-center gap-4 p-8 border rounded-card bg-muted/5">
         <span className="text-sm font-bold uppercase tracking-widest">Signal_Flow</span>
         <ArrowLeft className="size-4 text-primary" />
       </div>
@@ -83,7 +83,7 @@ export const ComponentResponse: Story = {
         RTL_CONTEXT_ACTIVE
       </p>
       <DirectionProvider {...args}>
-        <div className="w-[400px] p-8 border rounded-[2rem] space-y-4">
+        <div className="w-[400px] p-8 border rounded-card space-y-4">
           <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
             <div className="h-full w-2/3 bg-primary" />
           </div>

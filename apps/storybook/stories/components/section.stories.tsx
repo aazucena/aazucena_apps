@@ -104,25 +104,25 @@ export const CyberTerminal: Story = {
     alignment: 'left',
   },
   render: (args) => (
-    <div className="bg-black py-20 px-10">
+    <div className="bg-background py-20 px-10">
       <Section {...args}>
         <SectionHeader alignment="left">
           <div className="flex items-center gap-3 mb-6">
-            <Activity className="size-4 text-cyan-500 animate-pulse" />
+            <Activity className="size-4 text-signal animate-pulse" />
             <Badge variant="cyber" size="xs">
               ACTIVE_SIGNAL
             </Badge>
           </div>
-          <SectionTitle className="text-white font-mono italic uppercase tracking-tighter text-4xl md:text-5xl">
+          <SectionTitle className="text-foreground font-mono italic uppercase tracking-tighter text-4xl md:text-5xl">
             // PROTOCOL_0x7F
           </SectionTitle>
-          <SectionSubtitle className="text-cyan-500/40 font-mono text-sm uppercase tracking-[0.2em] italic">
+          <SectionSubtitle className="text-signal/40 font-mono text-sm uppercase tracking-[0.2em] italic">
             Kernel_Ingestion_Layer
           </SectionSubtitle>
         </SectionHeader>
         <SectionContent>
-          <div className="p-12 border-2 border-dashed border-cyan-500/10 bg-cyan-500/5 rounded-[3rem] text-center">
-            <p className="font-mono text-xs text-cyan-400">WAITING_FOR_TRAJECTORY_DATA...</p>
+          <div className="p-12 border-2 border-dashed border-signal/10 bg-signal/5 rounded-card text-center">
+            <p className="font-mono text-xs text-signal">WAITING_FOR_TRAJECTORY_DATA...</p>
           </div>
         </SectionContent>
       </Section>
@@ -176,18 +176,20 @@ export const GlassHero: Story = {
     contentWidth: 'wide',
   },
   render: (args) => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden">
-      <div className="absolute inset-0 bg-black/20" />
-      <Section {...args} className="relative z-10 m-0 border-white/10">
+    <div className="p-40 rounded-card relative overflow-hidden">
+      <div className="absolute inset-0 bg-scrim" />
+      <Section {...args} className="relative z-10 m-0 border-rule">
         <SectionHeader>
-          <SectionTitle className="text-white text-5xl md:text-7xl">Crystal_Flow</SectionTitle>
-          <SectionSubtitle className="text-white/60">Atmospheric_Unit_Inference</SectionSubtitle>
+          <SectionTitle className="text-foreground text-5xl md:text-7xl">Crystal_Flow</SectionTitle>
+          <SectionSubtitle className="text-foreground/60">
+            Atmospheric_Unit_Inference
+          </SectionSubtitle>
         </SectionHeader>
         <SectionContent className="flex justify-center mt-12">
           <Button
             variant="glass"
             size="lg"
-            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-12 h-16 text-xl"
+            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-12 h-16 text-xl"
           >
             <Globe className="mr-2" /> Start_Observation
           </Button>

@@ -63,7 +63,7 @@ export const GridGallery: Story = {
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div
               key={i}
-              className="h-40 bg-background border border-dashed rounded-3xl flex items-center justify-center font-mono shadow-sm hover:shadow-md transition-shadow"
+              className="h-40 bg-background border border-dashed rounded-card flex items-center justify-center font-mono transition-shadow"
             >
               NODE_{i}
             </div>
@@ -101,14 +101,14 @@ export const ScrollerGallery: Story = {
       </div>
 
       <div className="space-y-4">
-        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-cyan-500/60 ml-4">
+        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal/60 ml-4">
           // SPECTRUM_SYNC
         </h4>
         <InfiniteScroller direction="right" speed="slow">
           {['#FE0042', '#00F0FF', '#7000FF', '#FFD600', '#00FF41'].map((color) => (
             <div
               key={color}
-              className="w-64 h-32 rounded-2xl shadow-lg"
+              className="w-64 h-32 rounded-card"
               style={{ backgroundColor: color }}
             />
           ))}

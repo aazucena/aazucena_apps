@@ -86,7 +86,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-zinc-900 to-black rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-[800px]">
         <DetailNavigation {...args} />
       </div>

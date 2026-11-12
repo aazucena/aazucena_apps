@@ -96,7 +96,7 @@ export const CustomIconsAndValues: Story = {
       {
         id: 'status',
         label: 'System Status',
-        value: <span className="text-green-500">Online</span>,
+        value: <span className="text-success">Online</span>,
         icon: Robot,
       },
       { id: 'uptime', label: 'Uptime', value: '3d 12h 45m', icon: FileText },

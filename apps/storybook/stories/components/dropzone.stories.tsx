@@ -9,7 +9,7 @@ import { CloudUpload, File as FileIcon, Activity } from '@aazucena/icons';
  * - **CDD Pattern:** Interactive layout primitive for file ingestion and upload sequences.
  * - **UX:** Features automated drag-state handling (`isDragging`) with visual feedback via scaling and border-accents.
  * - **Accessibility:** Uses a hidden native `<input type="file">` for standard browser behavior; supports keyboard trigger via click-delegation.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur` and technical labels.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and technical labels.
  */
 const meta = {
   title: 'Components/Forms/Dropzone',
@@ -74,10 +74,10 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-12 bg-black rounded-[3rem] border border-cyan-500/10">
+    <div className="w-[600px] p-12 bg-background rounded-card border border-signal/10">
       <div className="flex items-center gap-3 mb-8 px-4">
-        <Activity className="size-4 text-cyan-500 animate-pulse" />
-        <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+        <Activity className="size-4 text-signal animate-pulse" />
+        <span className="font-mono text-[10px] text-signal uppercase tracking-[0.3em]">
           // SIGNAL_INGESTION_SHELL
         </span>
       </div>
@@ -87,7 +87,7 @@ export const CyberTerminal: Story = {
           toast.info(`PARSING_PAYLOAD: Found ${files[0]?.name ?? 'unknown'}`)
         }
       />
-      <p className="mt-6 text-center text-[9px] font-mono text-cyan-500/20 uppercase tracking-widest italic">
+      <p className="mt-6 text-center text-[9px] font-mono text-signal/20 uppercase tracking-widest italic">
         Awaiting_Secure_Packet_Stream
       </p>
     </div>
@@ -102,12 +102,12 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="w-[500px] relative z-10">
-        <Dropzone {...args} className="border-white/10 shadow-2xl text-white">
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 border border-white/20">
-            <FileIcon size={32} className="text-white opacity-60" />
+        <Dropzone {...args} className="border-rule text-foreground">
+          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-card bg-state border border-rule">
+            <FileIcon size={32} className="text-foreground opacity-60" />
           </div>
           <div className="space-y-2">
             <h3 className="text-sm font-black uppercase tracking-widest">Atmospheric_Upload</h3>

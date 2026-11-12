@@ -127,7 +127,7 @@ export const Positions: Story = {
 
 export const Glass: Story = {
   render: () => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-12">
+    <div className="rounded-card p-12">
       <Dock variant="glass">
         <DockItem label="Home">
           <HomeIcon />

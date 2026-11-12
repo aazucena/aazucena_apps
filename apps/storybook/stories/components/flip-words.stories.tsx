@@ -80,7 +80,7 @@ export const CyberTerminal: Story = {
     duration: 0.4,
   },
   render: (args) => (
-    <div className="p-20 bg-black rounded-[3rem] border border-cyan-500/20 text-white">
+    <div className="p-20 bg-background rounded-card border border-signal/20 text-foreground">
       <FlipWords {...args} />
     </div>
   ),

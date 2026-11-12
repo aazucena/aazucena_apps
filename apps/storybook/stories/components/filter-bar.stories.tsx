@@ -71,7 +71,7 @@ export const Basic: Story = {
             <label className="ml-2 block text-[10px] font-black tracking-widest uppercase opacity-40 mb-3">
               Domain_Sector
             </label>
-            <NativeSelect className="rounded-2xl h-12">
+            <NativeSelect className="rounded-card h-12">
               <option>All_Sectors</option>
               <option>Frontend_Engineering</option>
               <option>Intelligence_AI</option>
@@ -117,21 +117,21 @@ export const CyberTerminal: Story = {
       <FilterBar {...args}>
         <FilterBarHeader>
           <div className="flex items-center gap-3">
-            <Activity className="size-4 text-cyan-500 animate-pulse" />
+            <Activity className="size-4 text-signal animate-pulse" />
             <span>// NODE_QUERY_TERMINAL</span>
           </div>
         </FilterBarHeader>
         <FilterBarGrid className="lg:grid-cols-2">
           <FilterBarSearch label="IDENT_SEARCH" variant="cyber" placeholder="Enter sector ID..." />
           <FilterBarItem>
-            <label className="ml-2 block font-mono text-[10px] text-cyan-500/60 uppercase mb-3">
+            <label className="ml-2 block font-mono text-[10px] text-signal/60 uppercase mb-3">
               PROTOCOL_LEVEL
             </label>
             <div className="flex gap-4">
               <Badge variant="cyber">CORE_NOMINAL</Badge>
               <Badge
                 variant="outline"
-                className="text-cyan-500/40 border-cyan-500/10 uppercase tracking-tighter"
+                className="text-signal/40 border-signal/10 uppercase tracking-tighter"
               >
                 Legacy_Buffer
               </Badge>
@@ -151,27 +151,27 @@ export const GlassOverlay: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
-      <FilterBar {...args} className="w-[800px] border-white/10">
-        <FilterBarHeader className="text-white/60">LAYER_COORDINATES</FilterBarHeader>
+    <div className="p-20 rounded-card">
+      <FilterBar {...args} className="w-[800px] border-rule">
+        <FilterBarHeader className="text-foreground/60">LAYER_COORDINATES</FilterBarHeader>
         <FilterBarGrid className="md:grid-cols-2">
           <FilterBarSearch
             label="Vector_Search"
             placeholder="Search spatial data..."
-            className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
+            className="bg-state border-rule text-foreground placeholder:text-foreground/40"
           />
           <FilterBarItem>
-            <label className="ml-2 block text-[10px] font-black tracking-widest text-white/40 uppercase mb-3">
+            <label className="ml-2 block text-[10px] font-black tracking-widest text-foreground/40 uppercase mb-3">
               Visibility_Range
             </label>
             <div className="flex gap-3">
-              <Badge variant="outline" className="bg-white/10 border-white/20 text-white">
+              <Badge variant="outline" className="bg-state border-rule text-foreground">
                 NEAR
               </Badge>
-              <Badge variant="primary" className="bg-white text-black hover:bg-white/90">
+              <Badge variant="primary" className="bg-panel text-foreground hover:bg-panel-raised">
                 ORBITAL
               </Badge>
-              <Badge variant="outline" className="bg-white/10 border-white/20 text-white">
+              <Badge variant="outline" className="bg-state border-rule text-foreground">
                 DEEP_SPACE
               </Badge>
             </div>

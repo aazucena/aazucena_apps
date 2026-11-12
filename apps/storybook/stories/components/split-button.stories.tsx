@@ -99,7 +99,7 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="p-12 bg-black border border-cyan-500/10 rounded-[3rem]">
+    <div className="p-12 bg-background border border-signal/10 rounded-card">
       <SplitButtonMenu>
         <SplitButton {...args}>
           <SplitButtonPrimary
@@ -108,13 +108,13 @@ export const CyberTerminal: Story = {
           >
             <Play className="mr-2 animate-pulse" /> EXECUTE_INIT
           </SplitButtonPrimary>
-          <SplitButtonTrigger variant="cyber" className="h-12 border-cyan-500/40" />
+          <SplitButtonTrigger variant="cyber" className="h-12 border-signal/40" />
         </SplitButton>
         <SplitButtonContent variant="cyber" className="font-mono">
-          <SplitButtonItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+          <SplitButtonItem className="focus:bg-signal/20 focus:text-signal gap-3">
             <Zap className="size-4" /> PULSE_SYNC
           </SplitButtonItem>
-          <SplitButtonItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+          <SplitButtonItem className="focus:bg-signal/20 focus:text-signal gap-3">
             <Shield className="size-4" /> AUTH_ENCLAVE
           </SplitButtonItem>
         </SplitButtonContent>
@@ -135,16 +135,16 @@ export const Highlight: Story = {
       <SplitButton {...args}>
         <SplitButtonPrimary
           variant="gradient"
-          className="rounded-full rounded-r-none px-10 h-14 font-black uppercase tracking-widest text-white"
+          className="rounded-full rounded-r-none px-10 h-14 font-black uppercase tracking-widest text-foreground"
         >
           DOWNLOAD_INTEL
         </SplitButtonPrimary>
         <SplitButtonTrigger
           variant="gradient"
-          className="rounded-full rounded-l-none h-14 px-6 border-white/20 text-white"
+          className="rounded-full rounded-l-none h-14 px-6 border-rule text-foreground"
         />
       </SplitButton>
-      <SplitButtonContent className="rounded-2xl shadow-2xl">
+      <SplitButtonContent className="rounded-card">
         <SplitButtonItem className="gap-3">
           <Globe className="size-4 opacity-40" /> Global Region
         </SplitButtonItem>
@@ -164,24 +164,24 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-20 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <SplitButtonMenu>
-        <SplitButton {...args} className="shadow-2xl">
+        <SplitButton {...args} className="">
           <SplitButtonPrimary
             variant="glass"
-            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-l-2xl h-12"
+            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-l-card h-12"
           >
             Share_Uplink
           </SplitButtonPrimary>
           <SplitButtonTrigger
             variant="glass"
-            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-r-2xl h-12"
+            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-r-card h-12"
           />
         </SplitButton>
-        <SplitButtonContent variant="glass" className="border-white/10 text-white">
-          <SplitButtonItem className="focus:bg-white/10">To_Public_Channel</SplitButtonItem>
-          <SplitButtonItem className="focus:bg-white/10">To_Private_Enclave</SplitButtonItem>
+        <SplitButtonContent variant="glass" className="border-rule text-foreground">
+          <SplitButtonItem className="focus:bg-state">To_Public_Channel</SplitButtonItem>
+          <SplitButtonItem className="focus:bg-state">To_Private_Enclave</SplitButtonItem>
         </SplitButtonContent>
       </SplitButtonMenu>
     </div>

@@ -114,9 +114,7 @@ const AlertDialogTemplate = (args: any) => (
       </AlertDialogHeader>
       <AlertDialogFooter alignment={args.alignment}>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction
-          className={args.variant === 'cyber' ? 'bg-cyan-600 hover:bg-cyan-500' : ''}
-        >
+        <AlertDialogAction className={args.variant === 'cyber' ? 'bg-signal hover:bg-signal' : ''}>
           Continue
         </AlertDialogAction>
       </AlertDialogFooter>

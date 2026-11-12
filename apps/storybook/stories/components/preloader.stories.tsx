@@ -126,7 +126,7 @@ export const GlassAtmospheric: Story = {
     showOnce: false,
   },
   render: (args) => (
-    <div className="h-screen bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800">
+    <div className="h-screen">
       <Preloader {...args} />
     </div>
   ),
@@ -172,12 +172,15 @@ export const ComponentGallery: Story = {
             Preloader_Content_Variants
           </p>
           <div className="grid grid-cols-2 gap-8">
-            <PreloaderContent variant="cyber" className="p-10 border border-cyan-500/20 bg-black">
+            <PreloaderContent
+              variant="cyber"
+              className="p-10 border border-signal/20 bg-background"
+            >
               <PreloaderHeader>
-                <PreloaderTitle className="text-cyan-500 font-mono italic tracking-tighter text-xl">
+                <PreloaderTitle className="text-signal font-mono italic tracking-tighter text-xl">
                   // SECURITY_ENCLAVE
                 </PreloaderTitle>
-                <PreloaderSubtitle className="font-mono text-[9px] text-cyan-500/40">
+                <PreloaderSubtitle className="font-mono text-[9px] text-signal/40">
                   IDENT_AUTH_REQUIRED
                 </PreloaderSubtitle>
               </PreloaderHeader>
@@ -188,18 +191,15 @@ export const ComponentGallery: Story = {
               </PreloaderActions>
             </PreloaderContent>
 
-            <PreloaderContent
-              variant="glass"
-              className="p-10 border-white/10 bg-white/5 backdrop-blur-2xl"
-            >
+            <PreloaderContent variant="glass" className="p-10 border-rule bg-state">
               <PreloaderHeader>
-                <PreloaderTitle className="text-white text-xl">Cloud_Layer</PreloaderTitle>
-                <PreloaderSubtitle className="text-white/40 text-xs uppercase tracking-widest">
+                <PreloaderTitle className="text-foreground text-xl">Cloud_Layer</PreloaderTitle>
+                <PreloaderSubtitle className="text-foreground/40 text-xs uppercase tracking-widest">
                   Optimizing_Refraction
                 </PreloaderSubtitle>
               </PreloaderHeader>
               <PreloaderActions>
-                <Badge variant="outline" className="text-white border-white/20">
+                <Badge variant="outline" className="text-foreground border-rule">
                   98% STABLE
                 </Badge>
               </PreloaderActions>

@@ -66,7 +66,7 @@ export const CyberMode: Story = {
     onComplete: () => alert('SYSTEM_LOCKDOWN_INITIATED'),
   },
   render: (args) => (
-    <div className="bg-black p-12 rounded-2xl w-[500px]">
+    <div className="bg-background p-12 rounded-card w-[500px]">
       <Timer {...args} />
     </div>
   ),
@@ -78,7 +78,7 @@ export const GlassVariant: Story = {
     initialTime: 300000, // 5 minutes
   },
   render: (args) => (
-    <div className="bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-12 rounded-3xl w-[500px]">
+    <div className="p-12 rounded-card w-[500px]">
       <Timer {...args} />
     </div>
   ),

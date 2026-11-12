@@ -43,8 +43,8 @@ export const ProfileHeader: Story = {
     <div className="flex items-center gap-6">
       <Skeleton {...args} className="size-16 rounded-full" />
       <div className="space-y-3">
-        <Skeleton {...args} className="h-5 w-[200px] rounded-lg" />
-        <Skeleton {...args} className="h-3 w-[150px] rounded-md opacity-60" />
+        <Skeleton {...args} className="h-5 w-[200px] rounded-control" />
+        <Skeleton {...args} className="h-3 w-[150px] rounded-control opacity-60" />
       </div>
     </div>
   ),
@@ -58,15 +58,15 @@ export const CyberModule: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[450px] p-8 border border-cyan-500/10 bg-black rounded-[2rem] space-y-8">
+    <div className="w-[450px] p-8 border border-signal/10 bg-background rounded-card space-y-8">
       <div className="flex justify-between items-center">
         <Skeleton {...args} className="h-4 w-32" />
         <Skeleton {...args} className="h-6 w-12 rounded-full" />
       </div>
-      <Skeleton {...args} className="h-32 w-full rounded-2xl" />
+      <Skeleton {...args} className="h-32 w-full rounded-card" />
       <div className="grid grid-cols-2 gap-4">
-        <Skeleton {...args} className="h-12 w-full rounded-xl" />
-        <Skeleton {...args} className="h-12 w-full rounded-xl" />
+        <Skeleton {...args} className="h-12 w-full rounded-card" />
+        <Skeleton {...args} className="h-12 w-full rounded-card" />
       </div>
     </div>
   ),
@@ -80,13 +80,13 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-[350px] space-y-6">
-        <Skeleton {...args} className="h-10 w-2/3 rounded-full border-white/10" />
+        <Skeleton {...args} className="h-10 w-2/3 rounded-full border-rule" />
         <div className="space-y-3">
-          <Skeleton {...args} className="h-3 w-full rounded-md border-white/10" />
-          <Skeleton {...args} className="h-3 w-full rounded-md border-white/10" />
-          <Skeleton {...args} className="h-3 w-1/2 rounded-md border-white/10" />
+          <Skeleton {...args} className="h-3 w-full rounded-control border-rule" />
+          <Skeleton {...args} className="h-3 w-full rounded-control border-rule" />
+          <Skeleton {...args} className="h-3 w-1/2 rounded-control border-rule" />
         </div>
       </div>
     </div>
@@ -100,8 +100,8 @@ export const DataGrid: Story = {
   render: () => (
     <div className="w-[800px] grid grid-cols-1 md:grid-cols-3 gap-8">
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className="p-6 border rounded-[2rem] bg-card space-y-4 shadow-sm">
-          <Skeleton className="aspect-video w-full rounded-2xl" />
+        <div key={i} className="p-6 border rounded-card bg-card space-y-4">
+          <Skeleton className="aspect-video w-full rounded-card" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-3/4" />
             <Skeleton className="h-3 w-1/2 opacity-60" />

@@ -60,7 +60,7 @@ export const Basic: Story = {
     variant: 'default',
   },
   render: (args) => (
-    <div className="w-[700px] p-12 border rounded-[2rem] bg-card shadow-2xl">
+    <div className="w-[700px] p-12 border rounded-card bg-card">
       <Stepper {...args}>
         {basicSteps.map((step, index) => (
           <Step key={index} status={step.status as any}>
@@ -101,13 +101,11 @@ export const TechnicalSequence: Story = {
               <StepIndicator status={getStatus(index)}>
                 <step.icon size={16} />
               </StepIndicator>
-              <StepLabel className="font-mono italic text-cyan-500/60">{step.label}</StepLabel>
+              <StepLabel className="font-mono italic text-signal/60">{step.label}</StepLabel>
               {index < techSteps.length - 1 && (
                 <StepLine
                   status={getStatus(index)}
-                  className={cn(
-                    getStatus(index) === 'completed' ? 'bg-emerald-500' : 'bg-cyan-500/20',
-                  )}
+                  className={cn(getStatus(index) === 'completed' ? 'bg-success' : 'bg-signal/20')}
                 />
               )}
             </Step>

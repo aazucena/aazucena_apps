@@ -72,11 +72,11 @@ export const Cyber: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="flex items-center gap-3 p-6 bg-black rounded-xl border border-white/5">
+    <div className="flex items-center gap-3 p-6 bg-background rounded-card border border-rule">
       <Checkbox {...args} id="cyber-lock" />
       <Label
         htmlFor="cyber-lock"
-        className="font-mono text-cyan-400 cursor-pointer tracking-widest text-[10px]"
+        className="font-mono text-signal cursor-pointer tracking-widest text-[10px]"
       >
         ENCRYPT_PAYLOAD_VOLUME
       </Label>
@@ -107,7 +107,7 @@ export const Disabled: Story = {
  */
 export const Checklist: Story = {
   render: () => (
-    <div className="space-y-4 w-64 p-6 border rounded-2xl bg-muted/5">
+    <div className="space-y-4 w-64 p-6 border rounded-card bg-muted/5">
       <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 mb-4">
         MODULE_SUBSCRIPTION
       </h4>

@@ -68,7 +68,7 @@ export const Basic: Story = {
     content: complexMarkdown,
   },
   render: (args) => (
-    <div className="w-[700px] p-12 border rounded-[3rem] bg-card shadow-2xl">
+    <div className="w-[700px] p-12 border rounded-card bg-card">
       <MarkdownRenderer {...args} />
     </div>
   ),
@@ -89,7 +89,7 @@ export const TechnicalDocs: Story = {
     `,
   },
   render: (args) => (
-    <div className="w-[500px] p-8 border border-zinc-200 dark:border-zinc-800 rounded-2xl">
+    <div className="w-[500px] p-8 border border-rule rounded-card">
       <MarkdownRenderer {...args} />
     </div>
   ),
@@ -114,8 +114,8 @@ export const CyberAesthetic: Story = {
     `,
   },
   render: (args) => (
-    <div className="w-[600px] p-12 bg-black border border-cyan-500/20 rounded-xl text-white">
-      <MarkdownRenderer {...args} className="font-mono text-cyan-500/80" />
+    <div className="w-[600px] p-12 bg-background border border-signal/20 rounded-card text-foreground">
+      <MarkdownRenderer {...args} className="font-mono text-signal/80" />
     </div>
   ),
 };

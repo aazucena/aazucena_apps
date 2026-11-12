@@ -57,7 +57,7 @@ export const Basic: Story = {
           @aazucena
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-80 p-6 rounded-2xl shadow-2xl">
+      <HoverCardContent className="w-80 p-6 rounded-card">
         <div className="flex justify-between space-x-4">
           <Avatar className="size-12">
             <AvatarImage src="https://github.com/shadcn.png" />
@@ -88,15 +88,15 @@ export const CyberSpec: Story = {
   render: () => (
     <HoverCard openDelay={100}>
       <HoverCardTrigger asChild>
-        <div className="flex items-center gap-2 cursor-help border-b border-dashed border-cyan-500/40 pb-0.5">
-          <Activity size={14} className="text-cyan-500" />
-          <span className="font-mono text-xs text-cyan-400">NODE_0x7F42</span>
+        <div className="flex items-center gap-2 cursor-help border-b border-dashed border-signal/40 pb-0.5">
+          <Activity size={14} className="text-signal" />
+          <span className="font-mono text-xs text-signal">NODE_0x7F42</span>
         </div>
       </HoverCardTrigger>
       <HoverCardContent variant="cyber" side="top" className="w-72 font-mono p-6">
         <div className="space-y-4">
           <div className="flex justify-between items-start">
-            <div className="text-[10px] text-cyan-500 font-black uppercase italic tracking-tighter">
+            <div className="text-[10px] text-signal font-black uppercase italic tracking-tighter">
               // IDENT_DECRYPTED
             </div>
             <Badge variant="cyber" size="xs">
@@ -104,12 +104,12 @@ export const CyberSpec: Story = {
             </Badge>
           </div>
           <div className="space-y-1">
-            <p className="text-xs font-bold text-white uppercase">Primary_Uplink_Core</p>
+            <p className="text-xs font-bold text-foreground uppercase">Primary_Uplink_Core</p>
             <p className="text-[10px] opacity-40 uppercase">ZONE: US_EAST_1</p>
           </div>
-          <div className="pt-2 border-t border-cyan-500/10 flex justify-between text-[9px] opacity-60 uppercase">
+          <div className="pt-2 border-t border-signal/10 flex justify-between text-[9px] opacity-60 uppercase">
             <span>Latency</span>
-            <span className="text-cyan-400">12ms</span>
+            <span className="text-signal">12ms</span>
           </div>
         </div>
       </HoverCardContent>
@@ -122,31 +122,31 @@ export const CyberSpec: Story = {
  */
 export const GlassPreview: Story = {
   render: () => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 to-blue-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <HoverCard openDelay={100}>
         <HoverCardTrigger asChild>
           <Button
             variant="glass"
-            className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full"
+            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full"
           >
             Inspect_Layer
           </Button>
         </HoverCardTrigger>
-        <HoverCardContent variant="glass" className="w-80 border-white/10 text-white">
+        <HoverCardContent variant="glass" className="w-80 border-rule text-foreground">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <Globe className="size-4 opacity-60" />
               <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
             </div>
-            <p className="text-xs text-white/60 leading-relaxed">
+            <p className="text-xs text-foreground/60 leading-relaxed">
               Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur
               enabled.
             </p>
-            <div className="p-3 bg-white/5 border border-white/10 rounded-xl">
-              <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">
+            <div className="p-3 bg-state border border-rule rounded-card">
+              <span className="text-[9px] font-bold text-foreground/40 uppercase tracking-widest">
                 SIGNAL_LOCK
               </span>
-              <div className="text-emerald-400 font-mono text-xs mt-1">99.98% STABLE</div>
+              <div className="text-success font-mono text-xs mt-1">99.98% STABLE</div>
             </div>
           </div>
         </HoverCardContent>

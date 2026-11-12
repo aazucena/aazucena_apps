@@ -128,7 +128,7 @@ export const Nested: Story = {
 export const Glass: Story = {
   args: { items: basicItems, variant: 'glass' },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <PanelMenu {...args} />
     </div>
   ),

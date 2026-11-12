@@ -127,7 +127,7 @@ export const WithCustomPlaceholder: Story = {
   args: {
     url: 'https://loading-example.com',
     placeholder: (
-      <div className="flex h-24 items-center justify-center text-orange-500">Custom Loading...</div>
+      <div className="flex h-24 items-center justify-center text-warning">Custom Loading...</div>
     ),
   },
 };

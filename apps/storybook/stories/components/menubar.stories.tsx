@@ -81,7 +81,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   render: () => (
-    <Menubar className="rounded-xl border shadow-lg px-2">
+    <Menubar className="rounded-card border px-2">
       <MenubarMenu>
         <MenubarTrigger className="font-bold">Protocol</MenubarTrigger>
         <MenubarContent>
@@ -140,37 +140,37 @@ export const Basic: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="p-10 bg-black border border-cyan-500/10 rounded-2xl">
+    <div className="p-10 bg-background border border-signal/10 rounded-card">
       <Menubar className="font-mono bg-transparent border-none">
         <MenubarMenu>
-          <MenubarTrigger className="text-cyan-500 hover:bg-cyan-500/10 italic font-black uppercase tracking-tighter">
+          <MenubarTrigger className="text-signal hover:bg-signal/10 italic font-black uppercase tracking-tighter">
             // KERNEL
           </MenubarTrigger>
           <MenubarContent variant="cyber" className="w-64">
-            <MenubarLabel className="text-cyan-500/60 uppercase text-[10px]">
+            <MenubarLabel className="text-signal/60 uppercase text-[10px]">
               # CORE_OPERATIONS
             </MenubarLabel>
-            <MenubarSeparator className="bg-cyan-500/20" />
-            <MenubarItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+            <MenubarSeparator className="bg-signal/20" />
+            <MenubarItem className="focus:bg-signal/20 focus:text-signal gap-3">
               <Activity className="size-4" /> STATUS_REPORT
             </MenubarItem>
-            <MenubarItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+            <MenubarItem className="focus:bg-signal/20 focus:text-signal gap-3">
               <Zap className="size-4" /> INITIALIZE_BOOT
             </MenubarItem>
-            <MenubarSeparator className="bg-cyan-500/20" />
-            <MenubarItem className="focus:bg-rose-500/20 text-rose-500">SHUTDOWN_NODE</MenubarItem>
+            <MenubarSeparator className="bg-signal/20" />
+            <MenubarItem className="focus:bg-alert/20 text-alert">SHUTDOWN_NODE</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
 
         <MenubarMenu>
-          <MenubarTrigger className="text-cyan-500 hover:bg-cyan-500/10 italic font-black uppercase tracking-tighter">
+          <MenubarTrigger className="text-signal hover:bg-signal/10 italic font-black uppercase tracking-tighter">
             // NETWORK
           </MenubarTrigger>
           <MenubarContent variant="cyber" className="w-64">
-            <MenubarItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+            <MenubarItem className="focus:bg-signal/20 focus:text-signal gap-3">
               <Globe className="size-4" /> SCAN_PORTS
             </MenubarItem>
-            <MenubarItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+            <MenubarItem className="focus:bg-signal/20 focus:text-signal gap-3">
               <Database className="size-4" /> SYNC_CLUSTER
             </MenubarItem>
           </MenubarContent>
@@ -185,29 +185,28 @@ export const CyberTerminal: Story = {
  */
 export const GlassToolbar: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden">
-      <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-sm" />
+    <div className="p-40 rounded-card relative overflow-hidden">
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-fit">
-        <Menubar className="bg-white/5 border-white/10 text-white rounded-full px-4 h-12 backdrop-blur-2xl shadow-2xl">
+        <Menubar className="bg-state border-rule text-foreground rounded-full px-4 h-12">
           <MenubarMenu>
-            <MenubarTrigger className="focus:bg-white/10 data-open:bg-white/10 font-black uppercase tracking-widest text-xs">
+            <MenubarTrigger className="focus:bg-state data-open:bg-state font-black uppercase tracking-widest text-xs">
               Layers
             </MenubarTrigger>
-            <MenubarContent variant="glass" className="border-white/10 text-white">
-              <MenubarItem className="focus:bg-white/10">Troposphere</MenubarItem>
-              <MenubarItem className="focus:bg-white/10">Mesosphere</MenubarItem>
-              <MenubarItem className="focus:bg-white/10">Exosphere</MenubarItem>
+            <MenubarContent variant="glass" className="border-rule text-foreground">
+              <MenubarItem className="focus:bg-state">Troposphere</MenubarItem>
+              <MenubarItem className="focus:bg-state">Mesosphere</MenubarItem>
+              <MenubarItem className="focus:bg-state">Exosphere</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger className="focus:bg-white/10 data-open:bg-white/10 font-black uppercase tracking-widest text-xs">
+            <MenubarTrigger className="focus:bg-state data-open:bg-state font-black uppercase tracking-widest text-xs">
               View
             </MenubarTrigger>
-            <MenubarContent variant="glass" className="border-white/10 text-white">
-              <MenubarCheckboxItem checked className="focus:bg-white/10">
+            <MenubarContent variant="glass" className="border-rule text-foreground">
+              <MenubarCheckboxItem checked className="focus:bg-state">
                 Show_Telemetry
               </MenubarCheckboxItem>
-              <MenubarCheckboxItem className="focus:bg-white/10">Grid_Overlay</MenubarCheckboxItem>
+              <MenubarCheckboxItem className="focus:bg-state">Grid_Overlay</MenubarCheckboxItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

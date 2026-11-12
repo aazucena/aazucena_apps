@@ -42,7 +42,7 @@ const mockLogs = Array.from({ length: 50 }).map((_, i) => ({
  */
 export const Basic: Story = {
   render: () => (
-    <ScrollArea className="h-72 w-64 rounded-2xl border bg-card shadow-lg">
+    <ScrollArea className="h-72 w-64 rounded-card border bg-card">
       <div className="p-6">
         <h4 className="mb-6 text-[10px] font-black tracking-[0.2em] uppercase opacity-40">
           System_Registry
@@ -65,10 +65,10 @@ export const Basic: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="bg-black p-8 rounded-2xl border border-cyan-500/10">
+    <div className="bg-background p-8 rounded-card border border-signal/10">
       <ScrollArea className="h-80 w-[500px] font-mono">
         <div className="p-4 space-y-3">
-          <div className="flex items-center gap-3 text-cyan-500 mb-6">
+          <div className="flex items-center gap-3 text-signal mb-6">
             <Terminal className="size-4 animate-pulse" />
             <span className="text-xs font-black uppercase tracking-widest">
               // KERNEL_INGESTION_LOG
@@ -77,15 +77,15 @@ export const CyberTerminal: Story = {
           {mockLogs.map((log, i) => (
             <div key={log.id} className="flex gap-4 text-[10px] tracking-tighter">
               <span className="opacity-20">[14:35:{String(i % 60).padStart(2, '0')}]</span>
-              <span className={log.status === 'FAILED' ? 'text-rose-500' : 'text-cyan-400'}>
+              <span className={log.status === 'FAILED' ? 'text-alert' : 'text-signal'}>
                 {log.id}
               </span>
               <span className="opacity-40 uppercase">{log.status}</span>
-              <span className="text-white/60 truncate">{log.message}</span>
+              <span className="text-foreground/60 truncate">{log.message}</span>
             </div>
           ))}
         </div>
-        <ScrollBar className="bg-cyan-500/5" />
+        <ScrollBar className="bg-signal/5" />
       </ScrollArea>
     </div>
   ),
@@ -96,13 +96,13 @@ export const CyberTerminal: Story = {
  */
 export const Horizontal: Story = {
   render: () => (
-    <div className="w-[600px] p-8 border rounded-[2rem] bg-muted/5">
+    <div className="w-[600px] p-8 border rounded-card bg-muted/5">
       <ScrollArea className="w-full pb-4">
         <div className="flex gap-6 w-max px-2">
           {['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta'].map((name, i) => (
             <div
               key={i}
-              className="w-48 h-32 bg-card border rounded-2xl p-6 flex flex-col justify-between shadow-sm"
+              className="w-48 h-32 bg-card border rounded-card p-6 flex flex-col justify-between"
             >
               <div className="flex justify-between items-start">
                 <Database className="text-primary size-5" />
@@ -125,8 +125,8 @@ export const Horizontal: Story = {
  */
 export const GlassMonitor: Story = {
   render: () => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
-      <ScrollArea className="h-64 w-80 glass border-white/10 rounded-2xl shadow-2xl text-white">
+    <div className="p-20 rounded-card">
+      <ScrollArea className="h-64 w-80 glass border-rule rounded-card text-foreground">
         <div className="p-6 space-y-6">
           <div className="flex items-center gap-3 opacity-60">
             <Activity className="size-4" />
@@ -137,10 +137,10 @@ export const GlassMonitor: Story = {
           {Array.from({ length: 10 }).map((_, i) => (
             <div
               key={i}
-              className="flex justify-between items-center border-b border-white/5 pb-4 last:border-0"
+              className="flex justify-between items-center border-b border-rule pb-4 last:border-0"
             >
               <span className="text-xs font-bold">Orbit_TRJ_{i + 1}</span>
-              <div className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="size-1.5 rounded-full bg-success animate-pulse" />
             </div>
           ))}
         </div>

@@ -77,7 +77,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const Placeholder = ({ label }: { label: string }) => (
-  <div className="rounded-lg border border-dashed border-border bg-muted/30 px-4 py-6 text-center text-sm text-muted-foreground">
+  <div className="rounded-control border border-dashed border-border bg-muted/30 px-4 py-6 text-center text-sm text-muted-foreground">
     {label}
   </div>
 );
@@ -107,7 +107,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <Container {...args}>
         <Placeholder label="Glass container content" />
       </Container>
@@ -136,7 +136,7 @@ export const MaxWidths: Story = {
     <div className="flex flex-col gap-3">
       {(['sm', 'md', 'lg', 'xl', '2xl', 'full', 'prose'] as const).map((mw) => (
         <Container key={mw} maxWidth={mw}>
-          <div className="rounded-md border border-dashed border-border bg-muted/30 px-3 py-2 text-center text-xs text-muted-foreground">
+          <div className="rounded-control border border-dashed border-border bg-muted/30 px-3 py-2 text-center text-xs text-muted-foreground">
             maxWidth=&quot;{mw}&quot;
           </div>
         </Container>
@@ -158,7 +158,7 @@ export const Centered: Story = {
   },
   render: (args) => (
     <Container {...args}>
-      <div className="rounded-lg bg-primary/10 px-6 py-4 text-center text-sm font-medium text-primary">
+      <div className="rounded-control bg-primary/10 px-6 py-4 text-center text-sm font-medium text-primary">
         Centered content block
       </div>
       <p className="mt-2 text-xs text-muted-foreground">

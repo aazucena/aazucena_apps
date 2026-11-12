@@ -65,7 +65,7 @@ export const Glass: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>();
     return (
-      <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="rounded-card p-8">
         <RangeCalendar variant="glass" value={range} onChange={setRange} />
       </div>
     );

@@ -60,7 +60,7 @@ const SortableDemo = (props: Partial<React.ComponentProps<typeof SortableList>>)
       onReorder={setItems as (items: unknown[]) => void}
       keyExtractor={(item: unknown) => (item as Item).id}
       renderItem={(item: unknown, _index: number, dragHandleProps) => (
-        <div className="flex items-center gap-3 rounded-md border bg-background px-3 py-2">
+        <div className="flex items-center gap-3 rounded-control border bg-background px-3 py-2">
           <span className="cursor-grab text-muted-foreground" {...dragHandleProps}>
             ⠿
           </span>
@@ -91,7 +91,7 @@ export const Glass: Story = {
     items: initialItems,
   },
   render: () => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <SortableDemo variant="glass" />
     </div>
   ),
@@ -120,7 +120,7 @@ export const Cards: Story = {
         onReorder={setItems as (items: unknown[]) => void}
         keyExtractor={(item: { id: string }) => item.id}
         renderItem={(item: { id: string; label: string; desc: string }, _i, handleProps) => (
-          <div className="rounded-lg border bg-card p-3 shadow-sm" {...handleProps}>
+          <div className="rounded-control border bg-card p-3" {...handleProps}>
             <p className="text-sm font-semibold">{item.label}</p>
             <p className="text-xs text-muted-foreground">{item.desc}</p>
           </div>

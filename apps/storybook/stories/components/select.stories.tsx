@@ -63,10 +63,10 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Select defaultValue="us">
-      <SelectTrigger aria-label="Region" className="w-[240px] rounded-xl border-zinc-200">
+      <SelectTrigger aria-label="Region" className="w-[240px] rounded-card border-rule">
         <SelectValue placeholder="Select_Region" />
       </SelectTrigger>
-      <SelectContent className="rounded-2xl">
+      <SelectContent className="rounded-card">
         <SelectGroup>
           <SelectLabel className="text-[10px] font-black uppercase opacity-40">
             Primary_Sectors
@@ -93,11 +93,11 @@ export const Basic: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="p-12 bg-black border border-cyan-500/10 rounded-[3rem]">
+    <div className="p-12 bg-background border border-signal/10 rounded-card">
       <div className="flex flex-col items-center gap-6">
         <div className="flex items-center gap-3">
-          <Zap className="size-4 text-cyan-500 animate-pulse" />
-          <span className="font-mono text-[10px] text-cyan-500 uppercase tracking-[0.3em]">
+          <Zap className="size-4 text-signal animate-pulse" />
+          <span className="font-mono text-[10px] text-signal uppercase tracking-[0.3em]">
             # PROTOCOL_OVERRIDE
           </span>
         </div>
@@ -110,13 +110,13 @@ export const CyberTerminal: Story = {
             <SelectValue placeholder="EXECUTE_PHASE" />
           </SelectTrigger>
           <SelectContent variant="cyber" className="font-mono">
-            <SelectItem value="v1" className="focus:bg-cyan-500/20 focus:text-cyan-400">
+            <SelectItem value="v1" className="focus:bg-signal/20 focus:text-signal">
               PHASE_01_BOOT
             </SelectItem>
-            <SelectItem value="v2" className="focus:bg-cyan-500/20 focus:text-cyan-400">
+            <SelectItem value="v2" className="focus:bg-signal/20 focus:text-signal">
               PHASE_02_SYNC
             </SelectItem>
-            <SelectItem value="v3" className="focus:bg-rose-500/20 text-rose-500">
+            <SelectItem value="v3" className="focus:bg-alert/20 text-alert">
               PHASE_03_BYPASS
             </SelectItem>
           </SelectContent>
@@ -131,17 +131,16 @@ export const CyberTerminal: Story = {
  */
 export const GlassAtmospheric: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-sm" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
       <Select defaultValue="stratosphere">
         <SelectTrigger
           aria-label="Atmospheric layer"
           variant="glass"
-          className="w-[240px] border-white/10 bg-white/5 text-white rounded-full px-6"
+          className="w-[240px] border-rule bg-state text-foreground rounded-full px-6"
         >
           <SelectValue placeholder="Atmospheric_Layer" />
         </SelectTrigger>
-        <SelectContent variant="glass" className="border-white/10 text-white">
+        <SelectContent variant="glass" className="border-rule text-foreground">
           <SelectItem value="troposphere">Troposphere</SelectItem>
           <SelectItem value="stratosphere">Stratosphere</SelectItem>
           <SelectItem value="mesosphere">Mesosphere</SelectItem>
@@ -158,13 +157,13 @@ export const GlassAtmospheric: Story = {
 export const AdvancedComposition: Story = {
   render: () => (
     <Select>
-      <SelectTrigger aria-label="Storage node" className="w-[280px] h-12 rounded-2xl">
+      <SelectTrigger aria-label="Storage node" className="w-[280px] h-12 rounded-card">
         <div className="flex items-center gap-3">
           <Database size={16} className="text-primary" />
           <SelectValue placeholder="Select_Storage_Node" />
         </div>
       </SelectTrigger>
-      <SelectContent className="rounded-2xl p-2">
+      <SelectContent className="rounded-card p-2">
         <SelectGroup>
           <SelectLabel className="flex items-center gap-2 mb-2">
             <Shield size={12} className="opacity-40" />
@@ -190,10 +189,10 @@ export const AdvancedComposition: Story = {
         <SelectSeparator />
         <SelectGroup>
           <SelectLabel className="flex items-center gap-2 mb-2">
-            <Activity size={12} className="text-rose-500" />
-            <span className="text-[10px] font-black uppercase text-rose-500/40">Critical_Path</span>
+            <Activity size={12} className="text-alert" />
+            <span className="text-[10px] font-black uppercase text-alert/40">Critical_Path</span>
           </SelectLabel>
-          <SelectItem value="n3" className="text-rose-500 focus:text-rose-500">
+          <SelectItem value="n3" className="text-alert focus:text-alert">
             <span className="font-bold">UNIT_0x9C8D</span>
           </SelectItem>
         </SelectGroup>
@@ -210,7 +209,7 @@ export const InteractionTest: Story = {
   tags: ['!autodocs'],
   render: () => (
     <Select>
-      <SelectTrigger aria-label="Region" className="w-[240px] rounded-xl">
+      <SelectTrigger aria-label="Region" className="w-[240px] rounded-card">
         <SelectValue placeholder="Select a region" />
       </SelectTrigger>
       <SelectContent>

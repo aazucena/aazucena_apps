@@ -60,7 +60,7 @@ export const Basic: Story = {
         <Button
           variant="outline"
           size="lg"
-          className="px-8 h-14 rounded-full font-black uppercase tracking-widest bg-white/10 border-white/20 text-white hover:bg-white/20"
+          className="px-8 h-14 rounded-full font-black uppercase tracking-widest bg-state border-rule text-foreground hover:bg-panel-raised"
         >
           Learn More
         </Button>
@@ -79,14 +79,14 @@ export const Cyber: Story = {
   render: (args) => (
     <CTA {...args}>
       <div className="flex justify-center mb-8">
-        <div className="p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/30">
-          <Zap className="size-8 text-cyan-500" />
+        <div className="p-3 bg-signal/10 rounded-card border border-signal/30">
+          <Zap className="size-8 text-signal" />
         </div>
       </div>
-      <CTATitle className="font-mono italic tracking-tighter text-cyan-600 dark:text-cyan-400">
+      <CTATitle className="font-mono italic tracking-tighter text-signal">
         // CORE_INITIALIZATION
       </CTATitle>
-      <CTADescription className="font-mono text-base dark:text-cyan-50/60 max-w-xl">
+      <CTADescription className="font-mono text-base dark:text-signal/60 max-w-xl">
         ESTABLISH_ENCRYPTED_UPLINK // NODES_ONLINE: 14,204 // SIGNAL_STRENGTH: 98%
       </CTADescription>
       <CTAActions>
@@ -107,13 +107,10 @@ export const GlassHero: Story = {
   },
   render: (args) => (
     <div className="relative h-[600px] w-full flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center">
-      <div className="absolute inset-0 bg-black/40" />
-      <CTA
-        {...args}
-        className="w-full h-full flex items-center bg-transparent backdrop-blur-none border-none"
-      >
-        <CTATitle className="text-white">Crystal_Clear_Aesthetics</CTATitle>
-        <CTADescription className="text-white/80">
+      <div className="absolute inset-0 bg-scrim" />
+      <CTA {...args} className="w-full h-full flex items-center bg-transparent border-none">
+        <CTATitle className="text-foreground">Crystal_Clear_Aesthetics</CTATitle>
+        <CTADescription className="text-foreground/80">
           Adaptive glass surfacing with multi-layer depth effects and real-time reflection
           simulation.
         </CTADescription>
@@ -121,7 +118,7 @@ export const GlassHero: Story = {
           <Button
             variant="glass"
             size="lg"
-            className="h-14 px-12 bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full"
+            className="h-14 px-12 bg-state text-foreground border-rule hover:bg-panel-raised rounded-full"
           >
             <Globe className="mr-2 size-5" /> Experience Depth
           </Button>

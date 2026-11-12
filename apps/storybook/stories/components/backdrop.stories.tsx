@@ -58,7 +58,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="relative h-64 w-full overflow-hidden rounded-xl border border-border">
+      <div className="relative h-64 w-full overflow-hidden rounded-card border border-border">
         <div className="flex h-full items-center justify-center bg-background p-4">
           <p className="text-sm text-muted-foreground">Content behind the backdrop</p>
         </div>
@@ -95,10 +95,10 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
-      <div className="relative h-48 overflow-hidden rounded-xl">
+    <div className="rounded-card p-8">
+      <div className="relative h-48 overflow-hidden rounded-card">
         <div className="flex h-full items-center justify-center">
-          <p className="text-sm font-medium text-white">Background content</p>
+          <p className="text-sm font-medium text-foreground">Background content</p>
         </div>
         <Backdrop {...args} className="!absolute !z-10" />
       </div>
@@ -137,7 +137,7 @@ export const AllVariants: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4">
       {(['default', 'glass', 'cyber', 'light'] as const).map((v) => (
-        <div key={v} className="relative h-32 overflow-hidden rounded-xl border border-border">
+        <div key={v} className="relative h-32 overflow-hidden rounded-card border border-border">
           <div className="flex h-full items-center justify-center bg-background">
             <p className="text-xs text-muted-foreground">{v}</p>
           </div>
@@ -158,18 +158,18 @@ export const Interactive: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     return (
-      <div className="relative h-48 overflow-hidden rounded-xl border border-border">
+      <div className="relative h-48 overflow-hidden rounded-card border border-border">
         <div className="flex h-full items-center justify-center bg-background">
           <button
             onClick={() => setOpen(true)}
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+            className="rounded-control bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
           >
             Show Backdrop
           </button>
         </div>
         <Backdrop open={open} onDismiss={() => setOpen(false)} className="!absolute !z-10" />
         {open && (
-          <p className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-sm font-medium text-white">
+          <p className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-sm font-medium text-foreground">
             Click to dismiss
           </p>
         )}

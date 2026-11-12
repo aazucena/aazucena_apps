@@ -70,7 +70,7 @@ export const CyberVariant: Story = {
     children: (
       <div className="space-y-4">
         <div>
-          <Label htmlFor="username_cyber" className="font-mono text-cyan-400">
+          <Label htmlFor="username_cyber" className="font-mono text-signal">
             USERNAME
           </Label>
           <Input
@@ -81,7 +81,7 @@ export const CyberVariant: Story = {
           />
         </div>
         <div>
-          <Label htmlFor="password_cyber" className="font-mono text-cyan-400">
+          <Label htmlFor="password_cyber" className="font-mono text-signal">
             PASSWORD
           </Label>
           <Input id="password_cyber" type="password" variant="cyber" className="font-mono" />
@@ -91,9 +91,9 @@ export const CyberVariant: Story = {
             <RadioGroupItem
               value="protocol_tcp"
               id="protocol_tcp"
-              className="text-cyan-400 border-cyan-500/50"
+              className="text-signal border-signal/50"
             />
-            <Label htmlFor="protocol_tcp" className="font-mono text-cyan-500/80">
+            <Label htmlFor="protocol_tcp" className="font-mono text-signal/80">
               PROTOCOL_TCP
             </Label>
           </div>
@@ -101,9 +101,9 @@ export const CyberVariant: Story = {
             <RadioGroupItem
               value="protocol_udp"
               id="protocol_udp"
-              className="text-cyan-400 border-cyan-500/50"
+              className="text-signal border-signal/50"
             />
-            <Label htmlFor="protocol_udp" className="font-mono text-cyan-500/80">
+            <Label htmlFor="protocol_udp" className="font-mono text-signal/80">
               PROTOCOL_UDP
             </Label>
           </div>
@@ -115,7 +115,7 @@ export const CyberVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-black p-8">
+      <div className="rounded-card bg-background p-8">
         <Story />
       </div>
     ),
@@ -128,22 +128,22 @@ export const GlassVariant: Story = {
     children: (
       <div className="space-y-4">
         <div>
-          <Label htmlFor="theme_glass" className="text-white">
+          <Label htmlFor="theme_glass" className="text-foreground">
             Theme
           </Label>
           <Input
             id="theme_glass"
             placeholder="Transparent"
             variant="glass"
-            className="text-white placeholder:text-white/70"
+            className="text-foreground placeholder:text-foreground/70"
           />
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
             id="animations_glass"
-            className="border-white/50 data-[state=checked]:bg-white data-[state=checked]:text-blue-500"
+            className="border-rule data-[state=checked]:bg-panel data-[state=checked]:text-signal"
           />
-          <Label htmlFor="animations_glass" className="text-white/90">
+          <Label htmlFor="animations_glass" className="text-foreground/90">
             Enable Glass Animations
           </Label>
         </div>
@@ -154,7 +154,7 @@ export const GlassVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="rounded-2xl bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-8">
+      <div className="rounded-card p-8">
         <Story />
       </div>
     ),

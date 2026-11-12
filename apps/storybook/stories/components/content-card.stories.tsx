@@ -144,8 +144,8 @@ export const CyberShowcase: Story = {
           </Badge>
         </ContentCardOverlay>
         <ContentCardOverlay position="bottom-left">
-          <div className="size-10 bg-black/60 backdrop-blur-md rounded-lg flex items-center justify-center border border-white/10">
-            <Play className="text-cyan-400 size-5" />
+          <div className="size-10 bg-panel rounded-control flex items-center justify-center border border-rule">
+            <Play className="text-signal size-5" />
           </div>
         </ContentCardOverlay>
       </div>
@@ -157,7 +157,7 @@ export const CyberShowcase: Story = {
           Cryptographic protocol analyzer for secure node-to-node communication.
         </ContentCardDescription>
       </ContentCardHeader>
-      <ContentCardGlow color="bg-cyan-500/10" />
+      <ContentCardGlow color="bg-signal/10" />
     </ContentCard>
   ),
 };
@@ -171,32 +171,34 @@ export const GlassHero: Story = {
     padding: 'lg',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <ContentCard {...args} className="w-[450px] group">
         <ContentCardHeader>
-          <ContentCardMeta className="text-white/60">DEPLOYMENT_STATION</ContentCardMeta>
-          <ContentCardTitle size="2xl" className="text-white">
+          <ContentCardMeta className="text-foreground/60">DEPLOYMENT_STATION</ContentCardMeta>
+          <ContentCardTitle size="2xl" className="text-foreground">
             Atmospheric_Unit
           </ContentCardTitle>
-          <ContentCardDescription className="text-white/70 line-clamp-2">
+          <ContentCardDescription className="text-foreground/70 line-clamp-2">
             Real-time environmental monitoring across high-altitude edge nodes.
           </ContentCardDescription>
         </ContentCardHeader>
         <ContentCardContent>
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl flex flex-col gap-2">
-              <Zap size={16} className="text-yellow-400" />
-              <span className="text-lg font-black text-white">98%</span>
-              <span className="text-[8px] font-bold text-white/40 uppercase">Efficiency</span>
+            <div className="p-4 bg-state border border-rule rounded-card flex flex-col gap-2">
+              <Zap size={16} className="text-warning" />
+              <span className="text-lg font-black text-foreground">98%</span>
+              <span className="text-[8px] font-bold text-foreground/40 uppercase">Efficiency</span>
             </div>
-            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl flex flex-col gap-2">
-              <Globe size={16} className="text-blue-400" />
-              <span className="text-lg font-black text-white">42</span>
-              <span className="text-[8px] font-bold text-white/40 uppercase">Active_Nodes</span>
+            <div className="p-4 bg-state border border-rule rounded-card flex flex-col gap-2">
+              <Globe size={16} className="text-signal" />
+              <span className="text-lg font-black text-foreground">42</span>
+              <span className="text-[8px] font-bold text-foreground/40 uppercase">
+                Active_Nodes
+              </span>
             </div>
           </div>
         </ContentCardContent>
-        <ContentCardGlow color="bg-white/5" />
+        <ContentCardGlow color="bg-state" />
       </ContentCard>
     </div>
   ),

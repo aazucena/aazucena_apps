@@ -131,7 +131,7 @@ export const CyberVariant: Story = {
     center: [48.8566, 2.3522], // Paris
     zoom: 12,
     variant: 'cyber',
-    className: 'h-[500px] w-[700px] bg-black',
+    className: 'h-[500px] w-[700px] bg-background',
   },
   render: (args) => {
     const icon = defaultMarkerIcon();
@@ -150,7 +150,7 @@ export const GlassVariant: Story = {
     center: [35.6895, 139.6917], // Tokyo
     zoom: 10,
     variant: 'glass',
-    className: 'h-[500px] w-[700px] bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800',
+    className: 'h-[500px] w-[700px]',
   },
   render: (args) => {
     const icon = defaultMarkerIcon();

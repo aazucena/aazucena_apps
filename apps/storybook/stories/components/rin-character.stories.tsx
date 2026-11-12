@@ -45,7 +45,7 @@ const meta = {
   args: {
     currentEmotion: 'idle',
     behavior: 'idle',
-    className: 'h-40 w-40 text-cyan-500',
+    className: 'h-40 w-40 text-signal',
   },
 } satisfies Meta<typeof RinCharacter>;
 

@@ -121,7 +121,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <CardStack {...args} />
     </div>
   ),
@@ -171,17 +171,17 @@ export const RichContent: Story = {
     variant: 'default',
     cards: [
       <div key="a" className="p-5">
-        <div className="mb-3 h-24 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500" />
+        <div className="mb-3 h-24 rounded-control" />
         <h3 className="font-bold">Project Alpha</h3>
         <p className="mt-1 text-xs text-muted-foreground">React + TypeScript</p>
       </div>,
       <div key="b" className="p-5">
-        <div className="mb-3 h-24 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500" />
+        <div className="mb-3 h-24 rounded-control" />
         <h3 className="font-bold">Project Beta</h3>
         <p className="mt-1 text-xs text-muted-foreground">Next.js + D3</p>
       </div>,
       <div key="c" className="p-5">
-        <div className="mb-3 h-24 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500" />
+        <div className="mb-3 h-24 rounded-control" />
         <h3 className="font-bold">Project Gamma</h3>
         <p className="mt-1 text-xs text-muted-foreground">Astro + Three.js</p>
       </div>,

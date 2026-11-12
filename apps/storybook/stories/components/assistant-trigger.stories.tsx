@@ -96,7 +96,7 @@ export const FullInterface: Story = {
   render: (args) => {
     const [isOpen, setIsOpen] = useState(args.isOpen || false);
     return (
-      <div className="h-[500px] w-[500px] relative border border-dashed rounded-[3rem] flex items-center justify-center bg-muted/5">
+      <div className="h-[500px] w-[500px] relative border border-dashed rounded-card flex items-center justify-center bg-muted/5">
         <div className="text-center space-y-2 opacity-20 select-none">
           <p className="text-sm font-black tracking-widest uppercase">STAGE_ENVIRONMENT</p>
           <p className="text-[10px] font-mono italic">// TRIGGER_IS_BOTTOM_RIGHT</p>
@@ -112,11 +112,11 @@ export const FullInterface: Story = {
             >
               <Card
                 variant="cyber"
-                className="h-[400px] flex flex-col overflow-hidden shadow-2xl border-cyan-500/30"
+                className="h-[400px] flex flex-col overflow-hidden border-signal/30"
               >
                 <Chat>
-                  <div className="p-4 border-b border-cyan-500/10 bg-cyan-500/5">
-                    <p className="text-[10px] font-mono text-cyan-500 tracking-tighter">
+                  <div className="p-4 border-b border-signal/10 bg-signal/5">
+                    <p className="text-[10px] font-mono text-signal tracking-tighter">
                       INTELLIGENCE_UPLINK_ESTABLISHED
                     </p>
                   </div>
@@ -131,7 +131,7 @@ export const FullInterface: Story = {
                       </ChatContent>
                     </ChatMessage>
                   </ChatFeed>
-                  <ChatInputContainer className="p-4 border-t border-cyan-500/10">
+                  <ChatInputContainer className="p-4 border-t border-signal/10">
                     <ChatInputWrapper>
                       <ChatInputArea
                         placeholder="Command input..."

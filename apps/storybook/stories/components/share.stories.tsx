@@ -46,7 +46,7 @@ export const Basic: Story = {
     variant: 'default',
   },
   render: (args) => (
-    <div className="w-[600px] p-8 border rounded-[2rem] bg-card">
+    <div className="w-[600px] p-8 border rounded-card bg-card">
       <Share {...args}>
         <ShareHeader>
           <div className="flex flex-col gap-1">
@@ -80,10 +80,10 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-8 bg-black border border-cyan-500/10 rounded-xl">
+    <div className="w-[600px] p-8 bg-background border border-signal/10 rounded-card">
       <Share {...args}>
         <ShareHeader>
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-cyan-500/60">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-signal/60">
             // BROADCAST_SIGNAL_ENCLAVE
           </span>
           <ShareGroup>
@@ -108,24 +108,24 @@ export const CyberTerminal: Story = {
  */
 export const GlassAtmospheric: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="w-[500px] relative z-10">
-        <Share className="border-t-white/10">
+        <Share className="border-t-rule">
           <ShareHeader>
-            <span className="text-white font-black uppercase tracking-[0.4em] text-[10px]">
+            <span className="text-foreground font-black uppercase tracking-[0.4em] text-[10px]">
               Cloud_Distribution
             </span>
             <ShareGroup>
               <ShareAction
                 variant="glass"
-                className="bg-white/10 border-white/20 text-white rounded-full"
+                className="bg-state border-rule text-foreground rounded-full"
               >
                 <Send size={18} />
               </ShareAction>
               <ShareAction
                 variant="glass"
-                className="bg-white/10 border-white/20 text-white rounded-full"
+                className="bg-state border-rule text-foreground rounded-full"
               >
                 <Link size={18} />
               </ShareAction>

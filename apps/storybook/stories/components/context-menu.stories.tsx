@@ -67,7 +67,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[200px] w-[400px] items-center justify-center rounded-3xl border-2 border-dashed border-muted text-sm select-none hover:bg-muted/10 transition-colors">
+      <ContextMenuTrigger className="flex h-[200px] w-[400px] items-center justify-center rounded-card border-2 border-dashed border-muted text-sm select-none hover:bg-muted/10 transition-colors">
         Right-click to Inspect Element
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -100,32 +100,32 @@ export const Basic: Story = {
 export const Cyber: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="group flex h-[200px] w-[400px] flex-col items-center justify-center rounded-3xl border border-cyan-500/20 bg-black shadow-inner">
-        <Activity className="size-8 text-cyan-500 mb-4 animate-pulse" />
-        <span className="font-mono text-cyan-400 text-xs tracking-widest">
+      <ContextMenuTrigger className="group flex h-[200px] w-[400px] flex-col items-center justify-center rounded-card border border-signal/20 bg-background">
+        <Activity className="size-8 text-signal mb-4 animate-pulse" />
+        <span className="font-mono text-signal text-xs tracking-widest">
           [ENCRYPTED_NODE_TERMINAL]
         </span>
         <span className="text-[9px] opacity-20 uppercase mt-2">Right-click for root access</span>
       </ContextMenuTrigger>
       <ContextMenuContent variant="cyber" className="w-72 font-mono">
-        <ContextMenuLabel className="text-cyan-500 uppercase italic tracking-tighter">
+        <ContextMenuLabel className="text-signal uppercase italic tracking-tighter">
           // NODE_PROTOCOLS
         </ContextMenuLabel>
-        <ContextMenuSeparator className="bg-cyan-500/20" />
-        <ContextMenuItem className="gap-3 focus:bg-cyan-500/20 focus:text-cyan-400">
+        <ContextMenuSeparator className="bg-signal/20" />
+        <ContextMenuItem className="gap-3 focus:bg-signal/20 focus:text-signal">
           <Play className="size-3.5" />
           EXECUTE_SEQUENCE
           <ContextMenuShortcut>F5</ContextMenuShortcut>
         </ContextMenuItem>
-        <ContextMenuItem className="gap-3 focus:bg-cyan-500/20 focus:text-cyan-400">
+        <ContextMenuItem className="gap-3 focus:bg-signal/20 focus:text-signal">
           <Shield className="size-3.5" />
           BYPASS_FIREWALL
           <ContextMenuShortcut>F12</ContextMenuShortcut>
         </ContextMenuItem>
-        <ContextMenuSeparator className="bg-cyan-500/20" />
+        <ContextMenuSeparator className="bg-signal/20" />
         <ContextMenuGroup>
           <ContextMenuLabel className="text-[10px] opacity-40">DANGEROUS_ZONE</ContextMenuLabel>
-          <ContextMenuItem className="gap-3 focus:bg-rose-500/20 text-rose-500">
+          <ContextMenuItem className="gap-3 focus:bg-alert/20 text-alert">
             <Trash className="size-3.5" />
             TERMINATE_CORE
           </ContextMenuItem>
@@ -140,24 +140,24 @@ export const Cyber: Story = {
  */
 export const Glass: Story = {
   render: () => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[200px] w-[400px] items-center justify-center rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl text-white font-black tracking-widest text-xs uppercase shadow-2xl">
+        <ContextMenuTrigger className="flex h-[200px] w-[400px] items-center justify-center rounded-card border border-rule bg-state text-foreground font-black tracking-widest text-xs uppercase">
           Atmospheric_Interaction_Zone
         </ContextMenuTrigger>
-        <ContextMenuContent variant="glass" className="w-64 border-white/10">
-          <ContextMenuLabel className="text-white/60">LAYER_CONFIG</ContextMenuLabel>
-          <ContextMenuSeparator className="bg-white/10" />
-          <ContextMenuCheckboxItem checked className="text-white focus:bg-white/10">
+        <ContextMenuContent variant="glass" className="w-64 border-rule">
+          <ContextMenuLabel className="text-foreground/60">LAYER_CONFIG</ContextMenuLabel>
+          <ContextMenuSeparator className="bg-state" />
+          <ContextMenuCheckboxItem checked className="text-foreground focus:bg-state">
             Enable_Blur_Texture
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem className="text-white focus:bg-white/10">
+          <ContextMenuCheckboxItem className="text-foreground focus:bg-state">
             Live_Update_Stream
           </ContextMenuCheckboxItem>
-          <ContextMenuSeparator className="bg-white/10" />
-          <ContextMenuItem className="text-white focus:bg-white/10">
+          <ContextMenuSeparator className="bg-state" />
+          <ContextMenuItem className="text-foreground focus:bg-state">
             Reset_Coordinates
-            <ContextMenuShortcut className="text-white/40">⌘R</ContextMenuShortcut>
+            <ContextMenuShortcut className="text-foreground/40">⌘R</ContextMenuShortcut>
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

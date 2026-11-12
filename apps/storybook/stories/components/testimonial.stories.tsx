@@ -15,7 +15,7 @@ import { Badge } from '@aazucena/ui';
  * ## Engineering Standards
  * - **CDD Pattern:** Composite layout component for social proof and entity endorsements.
  * - **UX:** Features integrated avatar scaling and high-impact quote typography with leading-relaxed presets.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `backdrop-blur` and decorative icons.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and decorative icons.
  * - **Composition:** Fully modular parts (Quote, Footer, Author, Name, Title, Avatar) for tailorable testimonial blocks.
  */
 const meta = {
@@ -63,7 +63,7 @@ export const Basic: Story = {
   },
   render: (args) => (
     <div className="w-[600px]">
-      <Testimonial {...args} className="shadow-2xl">
+      <Testimonial {...args} className="">
         <div className="flex justify-between items-start mb-4">
           <Quote className="size-8 text-primary opacity-20" />
           <Badge variant="outline" size="xs">
@@ -95,24 +95,24 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] p-12 bg-black rounded-[3rem] border border-cyan-500/10">
-      <Testimonial {...args} className="border-cyan-500/20 shadow-none">
+    <div className="w-[600px] p-12 bg-background rounded-card border border-signal/10">
+      <Testimonial {...args} className="border-signal/20 shadow-none">
         <div className="flex justify-between items-center mb-6">
-          <Activity className="size-5 text-cyan-500 animate-pulse" />
-          <span className="font-mono text-[9px] text-cyan-500/40 uppercase tracking-[0.4em]">
+          <Activity className="size-5 text-signal animate-pulse" />
+          <span className="font-mono text-[9px] text-signal/40 uppercase tracking-[0.4em]">
             SOURCE: EXTERNAL_VALIDATOR
           </span>
         </div>
-        <TestimonialQuote className="font-mono italic text-cyan-100/80 leading-relaxed text-sm">
+        <TestimonialQuote className="font-mono italic text-signal/80 leading-relaxed text-sm">
           "PROTOCOL_SUCCESS: Integration with the AAZUCENA_OS core was seamless. Performance
           benchmarks exceeded all previous iterations across US_EAST sectors."
         </TestimonialQuote>
         <TestimonialFooter>
           <TestimonialAuthor className="font-mono">
-            <TestimonialName className="text-cyan-400 uppercase tracking-tighter">
+            <TestimonialName className="text-signal uppercase tracking-tighter">
               UNIT_0x7F42
             </TestimonialName>
-            <TestimonialTitle className="text-cyan-500/40 uppercase text-[10px]">
+            <TestimonialTitle className="text-signal/40 uppercase text-[10px]">
               Security_Enclave_V4
             </TestimonialTitle>
           </TestimonialAuthor>
@@ -131,22 +131,22 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="w-[500px] relative z-10">
-        <Testimonial {...args} className="border-white/10 text-white shadow-2xl">
-          <TestimonialQuote className="text-white text-lg font-medium tracking-tight">
+        <Testimonial {...args} className="border-rule text-foreground">
+          <TestimonialQuote className="text-foreground text-lg font-medium tracking-tight">
             "The crystal-clear interface and responsiveness of the glass-mode components are
             world-class. A paradigm shift in high-fidelity application architecture."
           </TestimonialQuote>
-          <TestimonialFooter className="pt-8 border-t border-white/10">
+          <TestimonialFooter className="pt-8 border-t border-rule">
             <TestimonialAuthor>
-              <TestimonialName className="text-white">Sarah Connor</TestimonialName>
-              <TestimonialTitle className="text-white/40 font-bold uppercase tracking-widest text-[10px]">
+              <TestimonialName className="text-foreground">Sarah Connor</TestimonialName>
+              <TestimonialTitle className="text-foreground/40 font-bold uppercase tracking-widest text-[10px]">
                 Lead_UX_Unit
               </TestimonialTitle>
             </TestimonialAuthor>
-            <TestimonialAvatar variant="glass" className="bg-white/10 border-white/20">
+            <TestimonialAvatar variant="glass" className="bg-state border-rule">
               SC
             </TestimonialAvatar>
           </TestimonialFooter>

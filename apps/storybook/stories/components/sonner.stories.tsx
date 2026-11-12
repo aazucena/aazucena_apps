@@ -72,7 +72,7 @@ export const SemanticStates: Story = {
       <Toaster />
       <Button
         variant="outline"
-        className="border-emerald-500/20 hover:bg-emerald-500/5 text-emerald-600 dark:text-emerald-400"
+        className="border-success/20 hover:bg-success/5 text-success"
         onClick={() =>
           toast.success('Uplink_Established', {
             icon: <CheckCircle className="size-4" />,
@@ -85,7 +85,7 @@ export const SemanticStates: Story = {
 
       <Button
         variant="outline"
-        className="border-rose-500/20 hover:bg-rose-500/5 text-rose-600 dark:text-rose-400"
+        className="border-alert/20 hover:bg-alert/5 text-alert"
         onClick={() =>
           toast.error('Auth_Sequence_Failed', {
             icon: <DangerCircle className="size-4" />,
@@ -123,7 +123,7 @@ export const TechnicalTelemetry: Story = {
         variant="cyber"
         onClick={() =>
           toast('INGESTION_TRACE_ACTIVE', {
-            icon: <Activity className="size-4 text-cyan-500 animate-pulse" />,
+            icon: <Activity className="size-4 text-signal animate-pulse" />,
             description: 'Monitoring packet flow from continental sectors...',
             className: 'font-mono italic',
           })

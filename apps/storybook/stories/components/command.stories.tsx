@@ -81,7 +81,7 @@ export const Basic: Story = {
     variant: 'default',
   },
   render: (args) => (
-    <div className="w-[450px] border rounded-xl overflow-hidden shadow-2xl">
+    <div className="w-[450px] border rounded-card overflow-hidden">
       <Command {...args}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
@@ -124,19 +124,19 @@ export const Cyber: Story = {
         <CommandList className="max-h-[300px]">
           <CommandEmpty>ERROR: No results found.</CommandEmpty>
           <CommandGroup heading="CORE_PROTOCOLS">
-            <CommandItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
-              <Zap className="size-4 text-cyan-500" />
+            <CommandItem className="focus:bg-signal/20 focus:text-signal gap-3">
+              <Zap className="size-4 text-signal" />
               <span>INITIALIZE_SCHEDULER</span>
             </CommandItem>
-            <CommandItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
-              <Database className="size-4 text-cyan-500" />
+            <CommandItem className="focus:bg-signal/20 focus:text-signal gap-3">
+              <Database className="size-4 text-signal" />
               <span>SYNC_TELEMETRY_DB</span>
             </CommandItem>
           </CommandGroup>
-          <CommandSeparator className="bg-cyan-500/20" />
+          <CommandSeparator className="bg-signal/20" />
           <CommandGroup heading="SECURITY_SETTINGS">
-            <CommandItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
-              <Shield className="size-4 text-cyan-500" />
+            <CommandItem className="focus:bg-signal/20 focus:text-signal gap-3">
+              <Shield className="size-4 text-signal" />
               <span>IDENT_AUTH_TOKEN</span>
               <CommandShortcut>CTRL_P</CommandShortcut>
             </CommandItem>
@@ -155,19 +155,19 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-[450px]">
         <Command {...args}>
           <CommandInput
             placeholder="Search system..."
-            className="text-white placeholder:text-white/40"
+            className="text-foreground placeholder:text-foreground/40"
           />
           <CommandList className="max-h-[250px]">
-            <CommandGroup heading="NAVIGATION" className="text-white/60">
-              <CommandItem className="text-white hover:bg-white/10">
+            <CommandGroup heading="NAVIGATION" className="text-foreground/60">
+              <CommandItem className="text-foreground hover:bg-state">
                 <Globe className="mr-2" /> Global Overview
               </CommandItem>
-              <CommandItem className="text-white hover:bg-white/10">
+              <CommandItem className="text-foreground hover:bg-state">
                 <Activity className="mr-2" /> Live Stream
               </CommandItem>
             </CommandGroup>
@@ -214,8 +214,7 @@ export const PaletteDemo: Story = {
     return (
       <div className="text-center space-y-4">
         <p className="text-xs opacity-40 uppercase tracking-widest">
-          Press <kbd className="bg-muted px-1.5 py-0.5 rounded border shadow-sm">⌘K</kbd> to
-          activate
+          Press <kbd className="bg-muted px-1.5 py-0.5 rounded border">⌘K</kbd> to activate
         </p>
         <Button onClick={() => setOpen(true)}>Open Palette</Button>
         <CommandDialog open={open} onOpenChange={setOpen} variant="cyber">
@@ -225,7 +224,7 @@ export const PaletteDemo: Story = {
             <CommandGroup heading="ACTIONS_CORE">
               {mockActions.map((action) => (
                 <CommandItem key={action.id} className="flex items-center gap-3">
-                  <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-lg border">
+                  <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-control border">
                     <action.icon className="h-4 w-4" />
                   </div>
                   <div className="flex flex-1 flex-col">

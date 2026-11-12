@@ -85,9 +85,9 @@ export const CyberTerminal: Story = {
   render: (args) => {
     const [value, setValue] = useState('live');
     return (
-      <div className="p-12 bg-black rounded-[3rem] border border-cyan-500/10">
+      <div className="p-12 bg-background rounded-card border border-signal/10">
         <div className="flex flex-col items-center gap-6">
-          <p className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-[0.4em]">
+          <p className="text-[10px] font-mono text-signal/40 uppercase tracking-[0.4em]">
             Signal_Source_Override
           </p>
           <SegmentedControl {...args}>
@@ -124,14 +124,14 @@ export const GlassAtmospheric: Story = {
   render: (args) => {
     const [value, setValue] = useState('v1');
     return (
-      <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] flex flex-col items-center gap-8">
-        <SegmentedControl {...args} className="bg-white/5 border-white/10 shadow-2xl px-2 py-1.5">
+      <div className="p-20 rounded-card flex flex-col items-center gap-8">
+        <SegmentedControl {...args} className="bg-state border-rule px-2 py-1.5">
           <SegmentedItem
             variant="glass"
             value="v1"
             isActive={value === 'v1'}
             onClick={() => setValue('v1')}
-            className="px-8 text-white"
+            className="px-8 text-foreground"
           >
             PHASE_01
           </SegmentedItem>
@@ -140,12 +140,12 @@ export const GlassAtmospheric: Story = {
             value="v2"
             isActive={value === 'v2'}
             onClick={() => setValue('v2')}
-            className="px-8 text-white"
+            className="px-8 text-foreground"
           >
             PHASE_02
           </SegmentedItem>
         </SegmentedControl>
-        <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em]">
+        <span className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.4em]">
           Atmospheric_Control
         </span>
       </div>
@@ -163,7 +163,7 @@ export const SmallDensity: Story = {
   render: (args) => {
     const [value, setValue] = useState('grid');
     return (
-      <div className="flex items-center gap-4 border p-2 rounded-2xl bg-muted/20">
+      <div className="flex items-center gap-4 border p-2 rounded-card bg-muted/20">
         <span className="text-[10px] font-bold uppercase opacity-40 ml-2">View:</span>
         <SegmentedControl {...args}>
           <SegmentedItem value="grid" isActive={value === 'grid'} onClick={() => setValue('grid')}>

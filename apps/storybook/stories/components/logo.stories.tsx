@@ -75,7 +75,7 @@ export const Cyber: Story = {
     size: 'xl',
   },
   render: (args) => (
-    <div className="p-12 bg-black rounded-3xl border border-cyan-500/10 flex justify-center">
+    <div className="p-12 bg-background rounded-card border border-signal/10 flex justify-center">
       <Logo {...args} />
     </div>
   ),
@@ -135,7 +135,7 @@ export const OnDark: Story = {
     size: 'xl',
   },
   render: (args) => (
-    <div className="p-12 bg-zinc-950 rounded-3xl border border-white/5 flex justify-center">
+    <div className="p-12 bg-background rounded-card border border-rule flex justify-center">
       <Logo {...args} />
     </div>
   ),

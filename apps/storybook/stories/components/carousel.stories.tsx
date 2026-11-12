@@ -120,9 +120,9 @@ export const Vertical: Story = {
             <CarouselItem key={index} className="pt-1 basis-1/2">
               <Card
                 variant="glass"
-                className="h-full flex items-center justify-center bg-zinc-900 border-white/10"
+                className="h-full flex items-center justify-center bg-panel border-rule"
               >
-                <span className="text-2xl font-bold text-white/40">{index + 1}</span>
+                <span className="text-2xl font-bold text-foreground/40">{index + 1}</span>
               </Card>
             </CarouselItem>
           ))}
@@ -139,7 +139,7 @@ export const Vertical: Story = {
  */
 export const ProjectShowcase: Story = {
   render: () => (
-    <div className="w-[1000px] px-12 p-20 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem]">
+    <div className="w-[1000px] px-12 p-20 rounded-card">
       <Carousel opts={{ loop: true }}>
         <CarouselContent>
           {[
@@ -148,24 +148,24 @@ export const ProjectShowcase: Story = {
             { title: 'Project_Gamma', type: 'WEB' },
           ].map((item, index) => (
             <CarouselItem key={index}>
-              <Card variant="glass" className="h-96 border-white/5 bg-white/5 backdrop-blur-2xl">
+              <Card variant="glass" className="h-96 border-rule bg-state">
                 <CardHeader>
                   <div className="flex justify-between items-center">
-                    <CardTitle className="text-3xl font-black tracking-tighter text-white">
+                    <CardTitle className="text-3xl font-black tracking-tighter text-foreground">
                       {item.title}
                     </CardTitle>
                     <Badge variant="cyber">{item.type}</Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="h-full flex items-center justify-center">
-                  <div className="w-full h-40 bg-primary/10 border border-primary/20 rounded-xl animate-pulse" />
+                  <div className="w-full h-40 bg-primary/10 border border-primary/20 rounded-card animate-pulse" />
                 </CardContent>
               </Card>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="bg-white/10 border-white/20 text-white hover:bg-white/20" />
-        <CarouselNext className="bg-white/10 border-white/20 text-white hover:bg-white/20" />
+        <CarouselPrevious className="bg-state border-rule text-foreground hover:bg-panel-raised" />
+        <CarouselNext className="bg-state border-rule text-foreground hover:bg-panel-raised" />
       </Carousel>
     </div>
   ),

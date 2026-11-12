@@ -120,7 +120,7 @@ export const Glass: Story = {
   render: () => {
     const [value, setValue] = React.useState('');
     return (
-      <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="rounded-card p-8">
         <AutoComplete variant="glass" options={frameworks} value={value} onChange={setValue} />
       </div>
     );

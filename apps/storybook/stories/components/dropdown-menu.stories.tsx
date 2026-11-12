@@ -98,7 +98,7 @@ export const Basic: Story = {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-rose-500 focus:text-rose-500">
+        <DropdownMenuItem className="text-alert focus:text-alert">
           <Trash className="mr-2" />
           <span>Purge_Session</span>
         </DropdownMenuItem>
@@ -117,30 +117,30 @@ export const Cyber: Story = {
         <Button variant="cyber">NODE_OPERATIONS</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent variant="cyber" size="lg" className="font-mono">
-        <DropdownMenuLabel className="text-cyan-500 italic tracking-tighter uppercase">
+        <DropdownMenuLabel className="text-signal italic tracking-tighter uppercase">
           // SELECT_PROTOCOL
         </DropdownMenuLabel>
-        <DropdownMenuSeparator className="bg-cyan-500/20" />
-        <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+        <DropdownMenuSeparator className="bg-signal/20" />
+        <DropdownMenuItem className="focus:bg-signal/20 focus:text-signal gap-3">
           <Globe className="size-4" />
           ESTABLISH_GLOBAL_LINK
         </DropdownMenuItem>
-        <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+        <DropdownMenuItem className="focus:bg-signal/20 focus:text-signal gap-3">
           <Zap className="size-4" />
           INITIATE_PULSE_SYNC
         </DropdownMenuItem>
-        <DropdownMenuSeparator className="bg-cyan-500/20" />
+        <DropdownMenuSeparator className="bg-signal/20" />
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger className="focus:bg-cyan-500/20 focus:text-cyan-400 gap-3">
+          <DropdownMenuSubTrigger className="focus:bg-signal/20 focus:text-signal gap-3">
             <Shield className="size-4" />
             ENCRYPTION_MODES
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent variant="cyber" className="font-mono">
-              <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400">
+              <DropdownMenuItem className="focus:bg-signal/20 focus:text-signal">
                 AES_256_GCM
               </DropdownMenuItem>
-              <DropdownMenuItem className="focus:bg-cyan-500/20 focus:text-cyan-400">
+              <DropdownMenuItem className="focus:bg-signal/20 focus:text-signal">
                 CHACHA20_POLY1305
               </DropdownMenuItem>
             </DropdownMenuSubContent>
@@ -160,36 +160,36 @@ export const GlassSelection: Story = {
     const [blur, setBlur] = useState(true);
 
     return (
-      <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem]">
+      <div className="p-20 rounded-card">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="glass"
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20 rounded-full px-8"
+              className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-8"
             >
               Environment_Config
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent variant="glass" className="w-64 border-white/10 text-white">
-            <DropdownMenuLabel className="text-white/60">LAYER_VISUALS</DropdownMenuLabel>
-            <DropdownMenuSeparator className="bg-white/10" />
+          <DropdownMenuContent variant="glass" className="w-64 border-rule text-foreground">
+            <DropdownMenuLabel className="text-foreground/60">LAYER_VISUALS</DropdownMenuLabel>
+            <DropdownMenuSeparator className="bg-state" />
             <DropdownMenuCheckboxItem
               checked={blur}
               onCheckedChange={setBlur}
-              className="focus:bg-white/10"
+              className="focus:bg-state"
             >
               Backdrop_Blur_Active
             </DropdownMenuCheckboxItem>
-            <DropdownMenuSeparator className="bg-white/10" />
+            <DropdownMenuSeparator className="bg-state" />
             <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
               <DropdownMenuLabel className="text-[10px] opacity-40">DISPLAY_MODE</DropdownMenuLabel>
-              <DropdownMenuRadioItem value="light" className="focus:bg-white/10">
+              <DropdownMenuRadioItem value="light" className="focus:bg-state">
                 Light_Layer
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="dark" className="focus:bg-white/10">
+              <DropdownMenuRadioItem value="dark" className="focus:bg-state">
                 Dark_Layer
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="auto" className="focus:bg-white/10">
+              <DropdownMenuRadioItem value="auto" className="focus:bg-state">
                 System_Sync
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>

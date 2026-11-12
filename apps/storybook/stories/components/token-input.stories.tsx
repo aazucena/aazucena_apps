@@ -96,7 +96,7 @@ export const CyberSecurity: Story = {
     initialToken: 'SECURE_LINK_0x7F_ACTIVE',
   },
   render: (args) => (
-    <div className="bg-black p-12 rounded-2xl w-[600px]">
+    <div className="bg-background p-12 rounded-card w-[600px]">
       <TokenInput {...args} />
     </div>
   ),
@@ -109,7 +109,7 @@ export const GlassTheme: Story = {
     length: 24,
   },
   render: (args) => (
-    <div className="bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 p-12 rounded-3xl w-[500px]">
+    <div className="p-12 rounded-card w-[500px]">
       <TokenInput {...args} />
     </div>
   ),

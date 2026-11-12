@@ -72,7 +72,7 @@ export const Basic: Story = {
  */
 export const CyberTerminal: Story = {
   render: () => (
-    <div className="w-[800px] p-12 bg-black rounded-[3rem] border border-cyan-500/10">
+    <div className="w-[800px] p-12 bg-background rounded-card border border-signal/10">
       <Showcase>
         <ShowcaseFigure>
           <div className="relative group">
@@ -87,7 +87,7 @@ export const CyberTerminal: Story = {
               </Badge>
             </div>
           </div>
-          <ShowcaseCaption className="font-mono text-cyan-500/60 mt-6 italic">
+          <ShowcaseCaption className="font-mono text-signal/60 mt-6 italic">
             // DATA_STREAM_TRACE // SOURCE: NODE_0x7F42
           </ShowcaseCaption>
         </ShowcaseFigure>
@@ -130,17 +130,17 @@ export const GalleryGrid: Story = {
  */
 export const GlassHero: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="w-[600px] relative z-10">
         <Showcase>
           <ShowcaseFigure>
             <ShowcaseImage
               variant="glass"
               src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
-              className="border-white/10"
+              className="border-rule"
             />
-            <ShowcaseCaption className="text-white font-black tracking-[0.4em] mt-8">
+            <ShowcaseCaption className="text-foreground font-black tracking-[0.4em] mt-8">
               Atmospheric_Reflection_Map
             </ShowcaseCaption>
           </ShowcaseFigure>

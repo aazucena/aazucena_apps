@@ -138,7 +138,7 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-80 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+      <div className="w-80 rounded-card p-8">
         <Story />
       </div>
     ),

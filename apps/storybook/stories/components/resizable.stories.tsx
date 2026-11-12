@@ -46,7 +46,7 @@ export const Basic: Story = {
     orientation: 'horizontal',
   },
   render: (args) => (
-    <div className="h-[400px] w-[800px] rounded-[2rem] border overflow-hidden shadow-2xl bg-card">
+    <div className="h-[400px] w-[800px] rounded-card border overflow-hidden bg-card">
       <ResizablePanelGroup {...args}>
         <ResizablePanel defaultSize={25} minSize={20}>
           <div className="flex h-full flex-col gap-4 p-6 bg-muted/20">
@@ -86,18 +86,18 @@ export const TechnicalIDE: Story = {
     orientation: 'horizontal',
   },
   render: () => (
-    <div className="h-[500px] w-[900px] bg-black border border-cyan-500/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+    <div className="h-[500px] w-[900px] bg-background border border-signal/10 rounded-card overflow-hidden">
       <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel defaultSize={20} minSize={15}>
-          <div className="flex h-full flex-col p-4 border-r border-white/5">
-            <span className="font-mono text-[9px] text-cyan-500 opacity-40 uppercase mb-4">
+          <div className="flex h-full flex-col p-4 border-r border-rule">
+            <span className="font-mono text-[9px] text-signal opacity-40 uppercase mb-4">
               Files_Expl
             </span>
             <div className="space-y-2">
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-2 text-cyan-500/60 font-mono text-[10px]"
+                  className="flex items-center gap-2 text-signal/60 font-mono text-[10px]"
                 >
                   <Database size={12} /> NODE_0{i}.LOG
                 </div>
@@ -105,27 +105,25 @@ export const TechnicalIDE: Story = {
             </div>
           </div>
         </ResizablePanel>
-        <ResizableHandle className="bg-white/5" />
+        <ResizableHandle className="bg-state" />
         <ResizablePanel defaultSize={80}>
           <ResizablePanelGroup orientation="vertical">
             <ResizablePanel defaultSize={70}>
-              <div className="flex h-full items-center justify-center p-6 font-mono text-cyan-400 text-xs">
+              <div className="flex h-full items-center justify-center p-6 font-mono text-signal text-xs">
                 <div className="flex items-center gap-3">
                   <Terminal className="animate-pulse" />
                   <span>// UPLINK_CORE_STABLE_0x7F42</span>
                 </div>
               </div>
             </ResizablePanel>
-            <ResizableHandle className="bg-white/5" withHandle />
+            <ResizableHandle className="bg-state" withHandle />
             <ResizablePanel defaultSize={30}>
-              <div className="flex h-full flex-col p-4 bg-cyan-500/5">
-                <span className="font-mono text-[9px] text-cyan-500 opacity-40 uppercase mb-2">
+              <div className="flex h-full flex-col p-4 bg-signal/5">
+                <span className="font-mono text-[9px] text-signal opacity-40 uppercase mb-2">
                   Diagnostic_Console
                 </span>
-                <p className="font-mono text-[10px] text-emerald-500/80">
-                  {'>'} ALL_SYSTEMS_NOMINAL
-                </p>
-                <p className="font-mono text-[10px] text-cyan-500/40 mt-1">
+                <p className="font-mono text-[10px] text-success/80">{'>'} ALL_SYSTEMS_NOMINAL</p>
+                <p className="font-mono text-[10px] text-signal/40 mt-1">
                   {'>'} Waiting for signal sync...
                 </p>
               </div>
@@ -145,7 +143,7 @@ export const ThreeColumn: Story = {
     orientation: 'horizontal',
   },
   render: () => (
-    <div className="h-[300px] w-[900px] border rounded-2xl overflow-hidden shadow-xl bg-card">
+    <div className="h-[300px] w-[900px] border rounded-card overflow-hidden bg-card">
       <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel defaultSize={20} className="bg-muted/30">
           <div className="flex h-full items-center justify-center p-4">

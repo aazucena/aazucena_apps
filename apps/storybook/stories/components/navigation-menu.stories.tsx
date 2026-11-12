@@ -60,7 +60,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            'block select-none space-y-1 rounded-2xl p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group/item',
+            'block select-none space-y-1 rounded-card p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group/item',
             className,
           )}
           {...props}
@@ -99,7 +99,7 @@ export const Basic: Story = {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 p-8 no-underline outline-none focus:shadow-md border border-primary/10"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-card p-8 no-underline outline-none border border-primary/10"
                     href="/"
                   >
                     <Activity className="size-10 text-primary mb-4" />
@@ -146,16 +146,16 @@ export const CyberTerminal: Story = {
     <NavigationMenu>
       <NavigationMenuList className="font-mono">
         <NavigationMenuItem>
-          <NavigationMenuTrigger variant="intel" className="text-cyan-500 italic">
+          <NavigationMenuTrigger variant="intel" className="text-signal italic">
             // TERMINAL
           </NavigationMenuTrigger>
           <NavigationMenuContent variant="cyber">
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-black border border-cyan-500/20 rounded-2xl shadow-2xl">
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-background border border-signal/20 rounded-card">
               <ListItem
                 href="#"
                 title="SCAN_GEO"
                 icon={<Globe size={14} />}
-                className="hover:bg-cyan-500/10 hover:text-cyan-400"
+                className="hover:bg-signal/10 hover:text-signal"
               >
                 Execute geospatial signal trace.
               </ListItem>
@@ -163,7 +163,7 @@ export const CyberTerminal: Story = {
                 href="#"
                 title="SYNC_KERNEL"
                 icon={<Zap size={14} />}
-                className="hover:bg-cyan-500/10 hover:text-cyan-400"
+                className="hover:bg-signal/10 hover:text-signal"
               >
                 Initialize node pulse calibration.
               </ListItem>
@@ -171,7 +171,7 @@ export const CyberTerminal: Story = {
                 href="#"
                 title="AUTH_LOGS"
                 icon={<Shield size={14} />}
-                className="hover:bg-cyan-500/10 hover:text-cyan-400"
+                className="hover:bg-signal/10 hover:text-signal"
               >
                 Review enclave access patterns.
               </ListItem>
@@ -179,7 +179,7 @@ export const CyberTerminal: Story = {
                 href="#"
                 title="EXIT_SHELL"
                 icon={<Terminal size={14} />}
-                className="hover:bg-rose-500/10 hover:text-rose-400"
+                className="hover:bg-alert/10 hover:text-alert"
               >
                 Terminate active session identifiers.
               </ListItem>
@@ -201,20 +201,19 @@ export const CyberTerminal: Story = {
  */
 export const GlassAtmospheric: Story = {
   render: () => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-sm" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
       <NavigationMenu className="relative z-10">
-        <NavigationMenuList className="bg-white/5 border border-white/10 rounded-full px-4 py-1.5 backdrop-blur-3xl shadow-2xl">
+        <NavigationMenuList className="bg-state border border-rule rounded-full px-4 py-1.5">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent hover:bg-white/10 text-white font-black uppercase tracking-widest text-[10px]">
+            <NavigationMenuTrigger className="bg-transparent hover:bg-state text-foreground font-black uppercase tracking-widest text-[10px]">
               Environment
             </NavigationMenuTrigger>
             <NavigationMenuContent variant="glass">
-              <ul className="grid w-[400px] gap-3 p-6 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl text-white">
-                <ListItem href="#" title="Atmosphere" className="hover:bg-white/10 text-white">
+              <ul className="grid w-[400px] gap-3 p-6 bg-state border border-rule rounded-card text-foreground">
+                <ListItem href="#" title="Atmosphere" className="hover:bg-state text-foreground">
                   Troposphere to Exosphere phases.
                 </ListItem>
-                <ListItem href="#" title="Telemetry" className="hover:bg-white/10 text-white">
+                <ListItem href="#" title="Telemetry" className="hover:bg-state text-foreground">
                   Real-time environmental metrics.
                 </ListItem>
               </ul>
@@ -224,12 +223,12 @@ export const GlassAtmospheric: Story = {
             <NavigationMenuLink
               className={cn(
                 navigationMenuTriggerStyle(),
-                'bg-transparent hover:bg-white/10 text-white font-black uppercase tracking-widest text-[10px]',
+                'bg-transparent hover:bg-state text-foreground font-black uppercase tracking-widest text-[10px]',
               )}
               href="#"
             >
               Status
-              <div className="ml-2 size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="ml-2 size-1.5 rounded-full bg-success animate-pulse" />
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

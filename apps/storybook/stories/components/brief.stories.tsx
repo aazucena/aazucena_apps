@@ -95,9 +95,7 @@ export const Cyber: Story = {
   render: (args) => (
     <div className="w-[450px]">
       <Brief {...args}>
-        <BriefHeader className="text-cyan-600 dark:text-cyan-400">
-          // CORE_SPECIFICATIONS
-        </BriefHeader>
+        <BriefHeader className="text-signal">// CORE_SPECIFICATIONS</BriefHeader>
         <BriefSection>
           <div className="grid grid-cols-2 gap-8">
             <BriefItem>
@@ -106,7 +104,7 @@ export const Cyber: Story = {
             </BriefItem>
             <BriefItem>
               <BriefLabel>SIGNAL_GAIN</BriefLabel>
-              <BriefValue className="font-mono text-cyan-500">85.4%</BriefValue>
+              <BriefValue className="font-mono text-signal">85.4%</BriefValue>
             </BriefItem>
           </div>
         </BriefSection>
@@ -129,26 +127,26 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-zinc-900 to-zinc-800 rounded-[3rem]">
+    <div className="p-20 rounded-card">
       <div className="w-[400px]">
         <Brief {...args}>
-          <BriefHeader className="text-white/60">NODE_OVERVIEW</BriefHeader>
+          <BriefHeader className="text-foreground/60">NODE_OVERVIEW</BriefHeader>
           <BriefSection>
             <BriefItem>
-              <BriefLabel className="text-white/40">Encryption</BriefLabel>
-              <BriefValue className="text-white flex items-center gap-2">
-                <Shield size={14} className="text-emerald-400" /> AES-256-GCM
+              <BriefLabel className="text-foreground/40">Encryption</BriefLabel>
+              <BriefValue className="text-foreground flex items-center gap-2">
+                <Shield size={14} className="text-success" /> AES-256-GCM
               </BriefValue>
             </BriefItem>
             <BriefItem>
-              <BriefLabel className="text-white/40">Database</BriefLabel>
-              <BriefValue className="text-white flex items-center gap-2">
-                <Database size={14} className="text-blue-400" /> ClickHouse_Cluster
+              <BriefLabel className="text-foreground/40">Database</BriefLabel>
+              <BriefValue className="text-foreground flex items-center gap-2">
+                <Database size={14} className="text-signal" /> ClickHouse_Cluster
               </BriefValue>
             </BriefItem>
           </BriefSection>
           <BriefCallout variant="glass">
-            <p className="text-xs text-white/80">Atmospheric layer: **MESOSPHERE**</p>
+            <p className="text-xs text-foreground/80">Atmospheric layer: **MESOSPHERE**</p>
           </BriefCallout>
         </Brief>
       </div>
@@ -187,7 +185,7 @@ export const DenseLayout: Story = {
           </BriefItem>
           <BriefItem>
             <BriefLabel>ERR</BriefLabel>
-            <BriefValue className="text-rose-500">0</BriefValue>
+            <BriefValue className="text-alert">0</BriefValue>
           </BriefItem>
         </BriefSection>
       </Brief>

@@ -79,7 +79,7 @@ export const StringIdentifier: Story = {
   args: {
     icon: 'Shield',
     size: 48,
-    className: 'text-emerald-500',
+    className: 'text-success',
   },
 };
 
@@ -90,7 +90,7 @@ export const RawSVG: Story = {
   args: {
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>',
     size: 48,
-    className: 'text-amber-500',
+    className: 'text-warning',
   },
 };
 
@@ -102,12 +102,12 @@ export const TechnicalIcons: Story = {
     icon: Activity,
   },
   render: () => (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 p-8 border rounded-[2rem] bg-muted/5">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 p-8 border rounded-card bg-muted/5">
       <div className="flex flex-col items-center gap-4 group">
         <IconRenderer
           icon={Zap}
           size={40}
-          className="text-yellow-500 transition-transform group-hover:scale-125"
+          className="text-warning transition-transform group-hover:scale-125"
         />
         <span className="text-[10px] font-black uppercase opacity-40">ENERGY_SIGNAL</span>
       </div>
@@ -115,7 +115,7 @@ export const TechnicalIcons: Story = {
         <IconRenderer
           icon="Terminal"
           size={40}
-          className="text-cyan-500 transition-transform group-hover:scale-125"
+          className="text-signal transition-transform group-hover:scale-125"
         />
         <span className="text-[10px] font-black uppercase opacity-40">SYSTEM_SHELL</span>
       </div>
@@ -123,7 +123,7 @@ export const TechnicalIcons: Story = {
         <IconRenderer
           icon={Database}
           size={40}
-          className="text-blue-500 transition-transform group-hover:scale-125"
+          className="text-signal transition-transform group-hover:scale-125"
         />
         <span className="text-[10px] font-black uppercase opacity-40">DATA_CLUSTER</span>
       </div>
@@ -131,7 +131,7 @@ export const TechnicalIcons: Story = {
         <IconRenderer
           icon={Github}
           size={40}
-          className="text-zinc-400 transition-transform group-hover:scale-125"
+          className="text-muted-foreground transition-transform group-hover:scale-125"
         />
         <span className="text-[10px] font-black uppercase opacity-40">SOURCE_CORE</span>
       </div>
@@ -139,7 +139,7 @@ export const TechnicalIcons: Story = {
         <IconRenderer
           icon={Lightbulb}
           size={40}
-          className="text-amber-400 transition-transform group-hover:scale-125"
+          className="text-warning transition-transform group-hover:scale-125"
         />
         <span className="text-[10px] font-black uppercase opacity-40">IDEA_OUTLINE</span>
       </div>
@@ -147,7 +147,7 @@ export const TechnicalIcons: Story = {
         <IconRenderer
           icon={LightbulbSolid}
           size={40}
-          className="text-amber-500 transition-transform group-hover:scale-125"
+          className="text-warning transition-transform group-hover:scale-125"
         />
         <span className="text-[10px] font-black uppercase opacity-40">IDEA_SOLID</span>
       </div>
@@ -162,7 +162,7 @@ export const ErrorFallback: Story = {
   args: {
     icon: 'NonExistentIcon',
     fallback: (
-      <div className="p-4 border border-rose-500/20 bg-rose-500/5 rounded-lg text-rose-500 text-[10px] font-mono">
+      <div className="p-4 border border-alert/20 bg-alert/5 rounded-control text-alert text-[10px] font-mono">
         RENDER_FAILED // INVALID_ID
       </div>
     ),

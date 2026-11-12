@@ -121,8 +121,8 @@ export const Glass: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="relative h-[400px] rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
-        <p className="text-sm text-white/80">Glass speed dial on gradient background</p>
+      <div className="relative h-[400px] rounded-card p-8">
+        <p className="text-sm text-foreground/80">Glass speed dial on gradient background</p>
         <Story />
       </div>
     ),
@@ -144,8 +144,8 @@ export const Cyber: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="relative h-[400px] bg-black p-8">
-        <p className="font-mono text-sm text-cyan-500/60">SPEED_DIAL :: HOVER_TO_EXPAND</p>
+      <div className="relative h-[400px] bg-background p-8">
+        <p className="font-mono text-sm text-signal/60">SPEED_DIAL :: HOVER_TO_EXPAND</p>
         <Story />
       </div>
     ),

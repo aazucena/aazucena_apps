@@ -93,7 +93,7 @@ export const Cyber: Story = {
  */
 export const ScrollBehavior: Story = {
   render: (args) => (
-    <div className="h-[150vh] w-full flex items-center justify-center border border-dashed rounded-3xl bg-muted/5 relative">
+    <div className="h-[150vh] w-full flex items-center justify-center border border-dashed rounded-card bg-muted/5 relative">
       <div className="text-center space-y-4">
         <p className="font-mono text-xs opacity-40">↓ SCROLL_DOWN_TO_ACTIVATE ↓</p>
         <div className="h-96" />

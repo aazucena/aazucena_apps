@@ -119,8 +119,8 @@ export const CyberTerminal: Story = {
   render: (args) => (
     <div className="w-[400px]">
       <LinkMenu {...args}>
-        <LinkMenuHeader className="border-cyan-500/10">
-          <div className="flex items-center gap-3 text-cyan-500">
+        <LinkMenuHeader className="border-signal/10">
+          <div className="flex items-center gap-3 text-signal">
             <Activity className="size-4 animate-pulse" />
             <LinkMenuTitle className="font-mono italic uppercase tracking-tighter">
               // NODE_DIRECTORIES
@@ -168,22 +168,22 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] relative overflow-hidden">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-20 rounded-card relative overflow-hidden">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="w-[350px] relative z-10">
-        <LinkMenu {...args} className="border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl">
-          <LinkMenuHeader className="border-white/10">
-            <LinkMenuTitle className="text-white">Resource_Map</LinkMenuTitle>
+        <LinkMenu {...args} className="border-rule bg-state">
+          <LinkMenuHeader className="border-rule">
+            <LinkMenuTitle className="text-foreground">Resource_Map</LinkMenuTitle>
           </LinkMenuHeader>
           <LinkMenuList>
             <LinkMenuItem>
-              <LinkMenuLink variant="glass" href="#" className="text-white">
-                <LinkMenuIcon variant="glass" className="bg-white/10 border-white/20">
+              <LinkMenuLink variant="glass" href="#" className="text-foreground">
+                <LinkMenuIcon variant="glass" className="bg-state border-rule">
                   <Globe />
                 </LinkMenuIcon>
                 <LinkMenuContent>
                   <LinkMenuLabel>Global_Nodes</LinkMenuLabel>
-                  <LinkMenuDescription className="text-white/40">
+                  <LinkMenuDescription className="text-foreground/40">
                     Visualized edge network
                   </LinkMenuDescription>
                 </LinkMenuContent>

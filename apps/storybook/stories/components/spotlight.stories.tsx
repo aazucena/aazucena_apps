@@ -105,7 +105,7 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[700px] p-12 bg-black rounded-[3rem]">
+    <div className="w-[700px] p-12 bg-background rounded-card">
       <Spotlight {...args}>
         <SpotlightVisual variant="cyber">
           <Database size={24} />
@@ -115,14 +115,14 @@ export const CyberTerminal: Story = {
             <Badge variant="cyber" size="xs">
               SECURE_ENCLAVE
             </Badge>
-            <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-widest">
+            <span className="text-[10px] font-mono text-signal/40 uppercase tracking-widest">
               Protocol: RSA-4096
             </span>
           </div>
           <SpotlightTitle variant="cyber" className="font-mono italic">
             // KERNEL_STORAGE_V4
           </SpotlightTitle>
-          <SpotlightDescription className="font-mono text-xs text-cyan-500/60 leading-relaxed">
+          <SpotlightDescription className="font-mono text-xs text-signal/60 leading-relaxed">
             Encrypted buffer synchronization established across all continental edge nodes.
             Persistence level: CRITICAL.
           </SpotlightDescription>
@@ -179,16 +179,16 @@ export const GlassAtmospheric: Story = {
     variant: 'glass',
   },
   render: (args) => (
-    <div className="p-40 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[4rem] relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-scrim" />
       <div className="w-[600px] relative z-10">
-        <Spotlight {...args} className="border-white/10 shadow-2xl">
+        <Spotlight {...args} className="border-rule">
           <SpotlightVisual variant="glass">
-            <Globe size={24} className="text-white" />
+            <Globe size={24} className="text-foreground" />
           </SpotlightVisual>
-          <SpotlightContent className="text-white">
-            <SpotlightTitle className="text-white">Global_Reach</SpotlightTitle>
-            <SpotlightDescription className="text-white/60">
+          <SpotlightContent className="text-foreground">
+            <SpotlightTitle className="text-foreground">Global_Reach</SpotlightTitle>
+            <SpotlightDescription className="text-foreground/60">
               Distributed cloud architecture performing within nominal latency thresholds.
             </SpotlightDescription>
           </SpotlightContent>

@@ -146,7 +146,7 @@ export const Glass: Story = {
     variant: 'glass',
   },
   render: () => (
-    <div className="p-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-700">
+    <div className="p-16 rounded-card">
       <LightboxWithTrigger variant="glass" images={sampleImages.slice(0, 4)} />
     </div>
   ),
@@ -161,7 +161,7 @@ export const Cyber: Story = {
     variant: 'cyber',
   },
   render: () => (
-    <div className="p-16 rounded-2xl bg-zinc-950 border border-cyan-500/10">
+    <div className="p-16 rounded-card bg-background border border-signal/10">
       <LightboxWithTrigger variant="cyber" images={sampleImages.slice(0, 4)} />
     </div>
   ),

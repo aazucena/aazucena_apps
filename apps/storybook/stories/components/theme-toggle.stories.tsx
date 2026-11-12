@@ -6,7 +6,7 @@ import { ThemeProvider } from 'next-themes';
  * ## Engineering Standards
  * - **Pattern:** Interactive utility primitive for global theme orchestration (Dark/Light).
  * - **UX:** Features smooth `rotate` and `scale` icon transitions with tactile `active:scale-95` feedback.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`, `ghost`) with support for high-fidelity `backdrop-blur`.
+ * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`, `ghost`) with support for high-fidelity ``.
  * - **Architecture:** Consumes `@aazucena/hooks` `useTheme` for centralized state management.
  * - **Accessibility:** Built with standard Button semantics and `aria-label="Toggle theme"`.
  */
@@ -69,8 +69,8 @@ export const CyberTerminal: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="p-12 bg-black rounded-[3rem] border border-cyan-500/10 flex flex-col items-center gap-6">
-      <span className="text-[10px] font-mono text-cyan-500 opacity-40 uppercase tracking-[0.4em]">
+    <div className="p-12 bg-background rounded-card border border-signal/10 flex flex-col items-center gap-6">
+      <span className="text-[10px] font-mono text-signal opacity-40 uppercase tracking-[0.4em]">
         Atmosphere_Shift
       </span>
       <ThemeToggle {...args} />
@@ -87,7 +87,7 @@ export const GlassAtmospheric: Story = {
     size: 'lg',
   },
   render: (args) => (
-    <div className="p-20 bg-gradient-to-tr from-indigo-600 via-blue-700 to-cyan-800 rounded-[3rem] shadow-2xl">
+    <div className="p-20 rounded-card">
       <ThemeToggle {...args} />
     </div>
   ),
@@ -102,7 +102,7 @@ export const GhostNavigation: Story = {
     size: 'sm',
   },
   render: (args) => (
-    <div className="flex items-center gap-6 px-6 py-2 border rounded-full bg-card shadow-sm">
+    <div className="flex items-center gap-6 px-6 py-2 border rounded-full bg-card">
       <span className="text-xs font-black uppercase tracking-widest opacity-40">System_Mode</span>
       <ThemeToggle {...args} />
     </div>

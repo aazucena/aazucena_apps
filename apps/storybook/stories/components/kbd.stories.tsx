@@ -72,12 +72,12 @@ export const ShortcutCombo: Story = {
  */
 export const TechnicalContext: Story = {
   render: () => (
-    <div className="p-8 border-2 border-dashed rounded-2xl bg-muted/5 flex flex-col items-center gap-4">
-      <div className="bg-zinc-950 text-white p-4 rounded-xl border border-white/10 shadow-2xl flex items-center gap-4">
+    <div className="p-8 border-2 border-dashed rounded-card bg-muted/5 flex flex-col items-center gap-4">
+      <div className="bg-background text-foreground p-4 rounded-card border border-rule flex items-center gap-4">
         <span className="text-[10px] font-mono uppercase tracking-tighter opacity-60">
           Terminal_Toggle
         </span>
-        <Kbd className="bg-white/10 text-white border-white/20 h-6 px-2 min-w-6 rounded-md">
+        <Kbd className="bg-state text-foreground border-rule h-6 px-2 min-w-6 rounded-control">
           F12
         </Kbd>
       </div>

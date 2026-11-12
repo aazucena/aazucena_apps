@@ -72,7 +72,7 @@ export const Basic: Story = {
       <PhaseContent className="max-w-5xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <Card key={i} variant="outline" className="border-zinc-200">
+            <Card key={i} variant="outline" className="border-rule">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3 mb-4">
                   <Badge variant="secondary" size="xs">
@@ -100,21 +100,21 @@ export const CyberSequence: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="bg-black">
+    <div className="bg-background">
       <Phase {...args}>
         <PhaseHeader>
           <PhaseBadge variant="cyber">NODE_EXTRACTION</PhaseBadge>
-          <PhaseTitle className="font-mono text-cyan-500 italic tracking-tighter text-4xl md:text-6xl">
+          <PhaseTitle className="font-mono text-signal italic tracking-tighter text-4xl md:text-6xl">
             // BUFFER_OVERRIDE_0x7F
           </PhaseTitle>
-          <PhaseDescription className="font-mono text-cyan-500/40 uppercase tracking-[0.2em] text-sm md:text-base">
+          <PhaseDescription className="font-mono text-signal/40 uppercase tracking-[0.2em] text-sm md:text-base">
             CRITICAL_SYSTEM_MODIFICATION // TARGET: KERNEL_SYNC
           </PhaseDescription>
         </PhaseHeader>
         <PhaseContent className="max-w-4xl mx-auto text-center px-4">
-          <div className="p-8 border-2 border-dashed border-cyan-500/20 bg-cyan-500/5 rounded-3xl">
-            <Activity className="size-12 text-cyan-500 mx-auto mb-6 animate-pulse" />
-            <p className="font-mono text-xs text-cyan-400">WAITING_FOR_ADMIN_CREDENTIALS...</p>
+          <div className="p-8 border-2 border-dashed border-signal/20 bg-signal/5 rounded-card">
+            <Activity className="size-12 text-signal mx-auto mb-6 animate-pulse" />
+            <p className="font-mono text-xs text-signal">WAITING_FOR_ADMIN_CREDENTIALS...</p>
           </div>
         </PhaseContent>
       </Phase>

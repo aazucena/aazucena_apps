@@ -116,7 +116,7 @@ export const Glass: Story = {
     children: 'TypeScript',
   },
   render: (args) => (
-    <div className="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+    <div className="rounded-card p-8">
       <Chip {...args} />
     </div>
   ),

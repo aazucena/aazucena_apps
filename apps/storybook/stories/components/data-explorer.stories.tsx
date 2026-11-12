@@ -82,7 +82,7 @@ export const Basic: Story = {
     initialExpanded: true,
   },
   render: (args) => (
-    <div className="w-[600px] h-[400px] overflow-auto p-8 border rounded-[2rem] bg-card shadow-2xl">
+    <div className="w-[600px] h-[400px] overflow-auto p-8 border rounded-card bg-card">
       <DataExplorer {...args} />
     </div>
   ),
@@ -97,7 +97,7 @@ export const Cyber: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] h-[400px] overflow-auto p-8 border border-cyan-500/20 bg-black rounded-xl shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+    <div className="w-[600px] h-[400px] overflow-auto p-8 border border-signal/20 bg-background rounded-card">
       <DataExplorer {...args} />
     </div>
   ),
@@ -118,7 +118,7 @@ export const AuditFailure: Story = {
     },
   },
   render: (args) => (
-    <div className="w-[600px] h-[450px] overflow-auto p-8 border border-rose-500/20 bg-card rounded-[2rem] shadow-2xl">
+    <div className="w-[600px] h-[450px] overflow-auto p-8 border border-alert/20 bg-card rounded-card">
       <DataExplorer {...args} />
     </div>
   ),
@@ -138,7 +138,7 @@ export const KnowledgeSignal: Story = {
     },
   },
   render: (args) => (
-    <div className="w-[600px] p-8 border rounded-[2rem] bg-card">
+    <div className="w-[600px] p-8 border rounded-card bg-card">
       <DataExplorer {...args} />
     </div>
   ),

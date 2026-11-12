@@ -73,7 +73,7 @@ export const Certification: Story = {
   args: {
     variant: 'certification',
     size: 'default',
-    icon: <Globe className="text-white" />,
+    icon: <Globe className="text-foreground" />,
   },
   render: (args) => (
     <HexagonCard {...args}>
@@ -90,7 +90,7 @@ export const InProgress: Story = {
   args: {
     variant: 'certification',
     dashed: true,
-    icon: <Activity className="text-white animate-pulse" />,
+    icon: <Activity className="text-foreground animate-pulse" />,
   },
   render: (args) => (
     <HexagonCard {...args}>
@@ -135,7 +135,7 @@ export const CyberAchievement: Story = {
   args: {
     variant: 'certification',
     size: 'lg',
-    icon: <Shield className="size-10 text-white" />,
+    icon: <Shield className="size-10 text-foreground" />,
   },
   render: (args) => (
     <HexagonCard {...args}>
