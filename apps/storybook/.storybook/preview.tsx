@@ -19,6 +19,9 @@ import '../styles/globals.css';
 // maintain a manager per container id and apply to whichever exists.
 const CANVAS_IDS = ['storybook-root', 'storybook-docs'] as const;
 
+// Visual runs can capture another vibe or mode: STORYBOOK_VIBE=christmas STORYBOOK_MODE=dark
+const initialVibe = (import.meta.env.STORYBOOK_VIBE as string | undefined) ?? 'default';
+const initialMode = import.meta.env.STORYBOOK_MODE === 'dark' ? 'dark' : 'light';
 /**
  * Applies the selected vibe to whichever Storybook container is active.
  * ThemeManager targets each container specifically so vibe vars never bleed
@@ -73,7 +76,8 @@ const preview: Preview = {
   },
 
   initialGlobals: {
-    vibe: 'default',
+    vibe: initialVibe,
+    theme: initialMode,
   },
 
   parameters: {
@@ -168,7 +172,7 @@ const preview: Preview = {
   decorators: [
     withVibe,
     withThemeByDataAttribute({
-      defaultTheme: 'light',
+      defaultTheme: initialMode,
       themes: {
         light: 'light',
         dark: 'dark',

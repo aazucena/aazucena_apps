@@ -152,6 +152,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(storybook)_ Panel status, badge marker and select item radius
 - _(design-system)_ Guard accent hovers, translucent signal text, gradient stops and stock cyan
 - _(design-system)_ Chart theme references emitted tokens
 - _(storybook)_ Vibe matrix checks each vibe's own signal
