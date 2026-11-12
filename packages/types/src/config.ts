@@ -72,6 +72,42 @@ export interface SystemThemeColors {
   accent: string;
   accentForeground: string;
   border: string;
+
+  // --- Avra instrument roles (optional: vibes that omit them inherit the defaults' CSS) ---
+  panel?: string; // Panel surface
+  panelRaised?: string; // Raised surfaces: popover, menu, dialog, toast
+  state?: string; // Hover / selected rows (never panelRaised)
+  rule?: string; // Hairline dividers
+  ruleStrong?: string; // Interactive control borders (>= 3:1)
+  signal?: string;
+  signalForeground?: string;
+  signalFaint?: string; // 8% tint
+  signalSubtle?: string; // 15% tint
+  signalLine?: string; // 40% tint
+  alert?: string; // Alerts / anomalies / destructive, always with a ▲ marker
+  alertForeground?: string;
+  warning?: string; // Always with a ◆ marker
+  warningForeground?: string;
+  warningSubtle?: string;
+  successSubtle?: string;
+  scrim?: string; // Modal overlay
+  panelGlass?: string; // Glass variant surface
+  series1?: string;
+  series2?: string;
+  series3?: string;
+  series4?: string;
+  chartSeq1?: string;
+  chartSeq2?: string;
+  chartSeq3?: string;
+  chartSeq4?: string;
+  chartSeq5?: string;
+  chartDivLow?: string;
+  chartDivLowMid?: string;
+  chartDivMid?: string;
+  chartDivHighMid?: string;
+  chartDivHigh?: string;
+  chartGrid?: string;
+  chartAxis?: string;
 }
 
 export interface SystemThemeEffects {
@@ -84,6 +120,7 @@ export interface SystemThemeEffects {
     button: string;
     badge: string;
     progress: string;
+    control?: string;
   };
   animationSpeed: number;
   animationEasing: string;
