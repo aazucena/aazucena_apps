@@ -122,6 +122,42 @@ Steps:
 - [ ] **Wait for approval.** Feedback loops back into A1–A3. Phase B does not start until the owner says the Figma is approved.
 - [ ] Record the approval in `docs/features/analytics-visual-identity.md`: add a §3 note dated the day it is given.
 
+### Round 2 (2026-11-11): "instrument in air", approved direction
+
+The owner approved the round-2 direction. These values replace the round-1 shape and density constants:
+
+- **Radius:** card/panel 6px, control/button/badge 4px, progress full.
+- **Density:** controls 30/36/44, rows 36px, panel padding 20px, panel header 32px, `--layout-gutter` 24px.
+- **Surfaces:** separated by tone steps, not full borders. An alert is a 2px coral left edge.
+- **Type:** headline metrics use `Display/Value` (Fira Sans Light 40); mono for labels, tables and captions.
+- **Air:** a token-to-token fade (`--signal` → `--panel`, 40% opacity) under chart lines and on live states only.
+- **Motion:** `--motion-breath` 4000ms (live-dot pulse), `--motion-draw` 900ms (line draw-in), `--motion-base` 200ms. All are off under `prefers-reduced-motion`.
+
+### Task A5: Analytics kit in Figma (owner request, before Phase B)
+
+Every component the analytics app uses, on a new `Analytics kit` page:
+
+- Dialog (default + confirm)
+- Toast
+- NotificationCenter + NotificationItem
+- Textarea
+- Table header/row
+- Tooltip (incl. chart tooltip)
+- DropdownMenu + MenuItem
+- CommandPalette
+- Tabs/segmented (mode switch)
+- Switch (theme toggle)
+- Timeline item
+- Sidebar NavItem
+- Badge `Status` variant (IntegrityBadge)
+- Chart foundations: axis, gridline, legend item, sequential cyan ramp, diverging cyan↔neutral↔coral, heatmap cells
+
+Built from A1 variables + round-2 values. Review gate as in A4.
+
+### Task A6: Remaining @aazucena/ui components in Figma
+
+The remaining ~240 components, grouped by category (forms, navigation, overlays, feedback, data display, media, layout). The approach for the long tail (full component vs pattern sheet) is decided with the owner after A5. Review gate as in A4.
+
 ## Phase B: Code (only after A4 approval)
 
 Values come from the approved Figma variables. If Figma changed during review, Figma wins over the constraints above.
