@@ -20,7 +20,7 @@ const light: SystemThemeConfig = {
     cardBackground: getColor('zinc', 50),
     overlayBackground: getColor('rose', 50, 0.9),
     foreground: getColor('rose', 900),
-    mutedForeground: getColor('pink', 400),
+    mutedForeground: getColor('pink', 700),
     accent: getColor('pink', 400),
     accentForeground: getColor('zinc', 50),
     border: getColor('rose', 200),

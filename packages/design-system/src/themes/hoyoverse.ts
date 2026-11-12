@@ -21,7 +21,7 @@ const light: SystemThemeConfig = {
     cardBackground: getColor('amber', 100, 0.7),
     overlayBackground: getColor('amber', 50, 0.92),
     foreground: getColor('indigo', 950),
-    mutedForeground: getColor('indigo', 400),
+    mutedForeground: getColor('indigo', 700),
     accent: getColor('amber', 500),
     accentForeground: getColor('zinc', 50),
     border: getColor('amber', 400, 0.4),
