@@ -177,6 +177,30 @@ jobs:
           name: Run Avra Design System component tests (vitest)
           command: pnpm --filter @aazucena/storybook test:ci
 
+  visual_storybook:
+    executor: node-large-executor
+    parallelism: 3
+    steps:
+      - attach_project
+      - run:
+          name: Skip unless the design system changed
+          command: |
+            # Each run uploads ~1,300 screenshots against Argos Hobby's 5,000/month
+            if git diff --quiet HEAD~1 HEAD -- packages/ui packages/design-system packages/utils packages/icons apps/storybook; then
+              echo "No design system changes since the previous main commit; skipping Argos upload."
+              circleci-agent step halt
+            fi
+      - run:
+          name: Install Playwright browser binaries
+          command: pnpm --filter @aazucena/storybook exec playwright install chromium --with-deps
+      - run:
+          name: Capture component and recipe stories for Argos
+          # Same nonce on every container so Argos merges the shards into one build;
+          # the plugin reads the shard index and total from --shard
+          command: |
+            ARGOS_PARALLEL_NONCE="$CIRCLE_WORKFLOW_ID" \
+              pnpm --filter @aazucena/storybook test:visual --shard=$((CIRCLE_NODE_INDEX + 1))/$CIRCLE_NODE_TOTAL
+
   build_analytics:
     executor: node-executor
     steps:
@@ -242,6 +266,8 @@ workflows:
           requires: [ build_packages ]
       - test_storybook:
           requires: [ build_storybook ]
+      - visual_storybook:
+          requires: [ build_storybook ]   # needs packages/design-system/dist
       - build_analytics:
           requires: [ build_packages ]
       - test_analytics:
