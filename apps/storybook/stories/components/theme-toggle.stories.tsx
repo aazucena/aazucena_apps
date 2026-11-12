@@ -102,7 +102,7 @@ export const GhostNavigation: Story = {
     size: 'sm',
   },
   render: (args) => (
-    <div className="flex items-center gap-6 px-6 py-2 border rounded-full bg-card">
+    <div className="flex items-center gap-6 px-6 py-2 border rounded-control bg-card">
       <span className="text-xs font-black uppercase tracking-widest opacity-40">System_Mode</span>
       <ThemeToggle {...args} />
     </div>

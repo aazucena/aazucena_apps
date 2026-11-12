@@ -207,7 +207,7 @@ export const GlassAtmospheric: Story = {
   render: () => (
     <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
       <NavigationMenu className="relative z-10">
-        <NavigationMenuList className="bg-state border border-rule rounded-full px-4 py-1.5">
+        <NavigationMenuList className="bg-state border border-rule rounded-control px-4 py-1.5">
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-transparent hover:bg-state text-foreground font-black uppercase tracking-widest text-[10px]">
               Environment

@@ -91,7 +91,7 @@ export const ScrollerGallery: Story = {
                 key={tech}
                 size="lg"
                 variant="secondary"
-                className="px-8 py-3 rounded-full text-xl"
+                className="px-8 py-3 rounded-control text-xl"
               >
                 {tech}
               </Badge>

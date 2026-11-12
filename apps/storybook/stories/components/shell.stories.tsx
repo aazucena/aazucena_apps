@@ -119,7 +119,7 @@ export const BasicDashboard: Story = {
             <Button variant="ghost" size="icon" className="rounded-full">
               <Search size={18} />
             </Button>
-            <Button size="sm" className="rounded-full px-6">
+            <Button size="sm" className="rounded-control px-6">
               New_Deployment
             </Button>
           </div>

@@ -77,7 +77,7 @@ export const HeatmapWithInfoPanel: StoryObj<typeof Heatmap> = {
               <p className="text-2xl font-black text-foreground">{cell.value}</p>
               <p className="text-sm text-muted-foreground">{String(cell.date)}</p>
               {cell.category && (
-                <span className="inline-block rounded-full bg-signal/10 px-3 py-1 text-xs font-bold text-signal dark:bg-panel-raised/30">
+                <span className="inline-block rounded-control bg-signal/10 px-3 py-1 text-xs font-bold text-signal dark:bg-panel-raised/30">
                   {cell.category}
                 </span>
               )}

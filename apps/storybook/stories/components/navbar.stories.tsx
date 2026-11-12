@@ -79,13 +79,13 @@ export const Scrolled: Story = {
             <span className="font-black tracking-tighter uppercase text-xl">Aazucena</span>
           </NavbarBrand>
           <NavbarContent>
-            <Button variant="ghost" size="sm" className="rounded-full px-6">
+            <Button variant="ghost" size="sm" className="rounded-control px-6">
               Projects
             </Button>
-            <Button variant="ghost" size="sm" className="rounded-full px-6">
+            <Button variant="ghost" size="sm" className="rounded-control px-6">
               Journey
             </Button>
-            <Button variant="ghost" size="sm" className="rounded-full px-6">
+            <Button variant="ghost" size="sm" className="rounded-control px-6">
               Intel
             </Button>
           </NavbarContent>
@@ -93,7 +93,7 @@ export const Scrolled: Story = {
             <Button variant="ghost" size="icon" className="rounded-full">
               <Search size={18} />
             </Button>
-            <Button size="sm" className="rounded-full px-8">
+            <Button size="sm" className="rounded-control px-8">
               Contact
             </Button>
           </NavbarActions>
@@ -134,7 +134,7 @@ export const TransparentTop: Story = {
             <Button
               variant="glass"
               size="sm"
-              className="bg-state border-rule text-foreground rounded-full px-8"
+              className="bg-state border-rule text-foreground rounded-control px-8"
             >
               UPLINK
             </Button>

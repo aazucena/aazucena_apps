@@ -54,13 +54,16 @@ export const Basic: Story = {
         Experience the power of high-fidelity engineering combined with modern aesthetic standards.
       </CTADescription>
       <CTAActions>
-        <Button size="lg" className="px-8 h-14 rounded-full font-black uppercase tracking-widest">
+        <Button
+          size="lg"
+          className="px-8 h-14 rounded-control font-black uppercase tracking-widest"
+        >
           Get Started <ArrowRight className="ml-2" />
         </Button>
         <Button
           variant="outline"
           size="lg"
-          className="px-8 h-14 rounded-full font-black uppercase tracking-widest bg-state border-rule text-foreground hover:bg-panel-raised"
+          className="px-8 h-14 rounded-control font-black uppercase tracking-widest bg-state border-rule text-foreground hover:bg-panel-raised"
         >
           Learn More
         </Button>
@@ -118,7 +121,7 @@ export const GlassHero: Story = {
           <Button
             variant="glass"
             size="lg"
-            className="h-14 px-12 bg-state text-foreground border-rule hover:bg-panel-raised rounded-full"
+            className="h-14 px-12 bg-state text-foreground border-rule hover:bg-panel-raised rounded-control"
           >
             <Globe className="mr-2 size-5" /> Experience Depth
           </Button>
@@ -145,7 +148,7 @@ export const MidPageTransition: Story = {
         Want to see the source code?
       </CTATitle>
       <CTAActions className="mt-8">
-        <Button variant="outline" className="rounded-full px-8">
+        <Button variant="outline" className="rounded-control px-8">
           Visit Repository
         </Button>
       </CTAActions>

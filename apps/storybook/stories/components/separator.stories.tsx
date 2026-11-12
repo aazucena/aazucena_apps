@@ -121,7 +121,7 @@ export const VerticalSplit: Story = {
     orientation: 'vertical',
   },
   render: (args) => (
-    <div className="flex h-12 items-center space-x-6 px-6 py-2 border rounded-full bg-card">
+    <div className="flex h-12 items-center space-x-6 px-6 py-2 border rounded-control bg-card">
       <div className="font-black uppercase tracking-widest text-xs">Blog</div>
       <Separator {...args} />
       <div className="font-black uppercase tracking-widest text-xs">Docs</div>

@@ -244,7 +244,7 @@ export const DetailedSubmission: Story = {
           />
 
           <div className="flex justify-end pt-4">
-            <FormButton size="lg" className="rounded-full px-12 h-14 font-black tracking-widest">
+            <FormButton size="lg" className="rounded-control px-12 h-14 font-black tracking-widest">
               Transmit_Report <Send className="ml-2 size-5" />
             </FormButton>
           </div>

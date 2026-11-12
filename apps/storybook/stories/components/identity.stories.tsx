@@ -129,7 +129,7 @@ export const CyberTerminal: Story = {
           </div>
           <Button
             variant="cyber"
-            className="h-14 px-12 rounded-full font-black uppercase tracking-widest"
+            className="h-14 px-12 rounded-control font-black uppercase tracking-widest"
           >
             Execute_Link_Sequence
           </Button>

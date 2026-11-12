@@ -123,7 +123,7 @@ export const GlassAtmospheric: Story = {
       <Tabs defaultValue="stratosphere" className="w-[450px] relative z-10">
         <TabsList
           variant="glass"
-          className="grid w-full grid-cols-2 rounded-full border-rule bg-state px-2 py-1.5 h-12"
+          className="grid w-full grid-cols-2 rounded-control border-rule bg-state px-2 py-1.5 h-12"
         >
           <TabsTrigger
             variant="glass"

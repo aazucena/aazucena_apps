@@ -163,7 +163,9 @@ export const WithIconsAndActions: Story = {
           </svg>
         }
         action={
-          <span className="rounded-full bg-destructive px-1.5 text-[10px] text-foreground">3</span>
+          <span className="rounded-control bg-destructive px-1.5 text-[10px] text-foreground">
+            3
+          </span>
         }
       >
         Notifications

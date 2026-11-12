@@ -142,7 +142,7 @@ export const AlternatePhase: Story = {
       <PhaseContent className="max-w-5xl mx-auto px-4 md:px-8 flex justify-center">
         <Button
           variant="outline"
-          className="rounded-full px-12 h-14 font-black tracking-widest uppercase"
+          className="rounded-control px-12 h-14 font-black tracking-widest uppercase"
         >
           Review_Deployment_Stats <Globe className="ml-2 size-5" />
         </Button>

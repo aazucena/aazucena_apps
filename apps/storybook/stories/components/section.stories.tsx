@@ -159,7 +159,7 @@ export const ContentFocused: Story = {
             node.
           </p>
           <div className="pt-8">
-            <Button className="rounded-full px-10">Explore_Blueprint</Button>
+            <Button className="rounded-control px-10">Explore_Blueprint</Button>
           </div>
         </SectionContent>
       </Section>
@@ -189,7 +189,7 @@ export const GlassHero: Story = {
           <Button
             variant="glass"
             size="lg"
-            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-12 h-16 text-xl"
+            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-control px-12 h-16 text-xl"
           >
             <Globe className="mr-2" /> Start_Observation
           </Button>

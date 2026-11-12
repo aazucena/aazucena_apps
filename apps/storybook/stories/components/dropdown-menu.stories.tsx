@@ -169,7 +169,7 @@ export const GlassSelection: Story = {
           <DropdownMenuTrigger asChild>
             <Button
               variant="glass"
-              className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-8"
+              className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-control px-8"
             >
               Environment_Config
             </Button>

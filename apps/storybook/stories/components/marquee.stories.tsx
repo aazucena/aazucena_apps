@@ -61,7 +61,7 @@ type Story = StoryObj<typeof meta>;
 const TagBadges = () => (
   <>
     {tags.map((t) => (
-      <span key={t} className="rounded-full bg-muted px-4 py-2 text-sm font-medium">
+      <span key={t} className="rounded-control bg-muted px-4 py-2 text-sm font-medium">
         {t}
       </span>
     ))}
@@ -131,7 +131,7 @@ export const Cyber: Story = {
         {tags.map((t) => (
           <span
             key={t}
-            className="rounded-full border border-signal/30 bg-signal/10 px-4 py-2 font-mono text-xs text-signal"
+            className="rounded-control border border-signal/30 bg-signal/10 px-4 py-2 font-mono text-xs text-signal"
           >
             {t}
           </span>

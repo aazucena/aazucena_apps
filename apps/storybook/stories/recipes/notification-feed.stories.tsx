@@ -129,7 +129,7 @@ export const WithUnread: Story = {
           <CardTitle className="text-base font-black tracking-tight flex items-center gap-2">
             <Bell className="size-4" />
             Notifications
-            <Badge className="rounded-full px-2 h-5 text-[10px]">2</Badge>
+            <Badge className="rounded-control px-2 h-5 text-[10px]">2</Badge>
           </CardTitle>
           <Button variant="ghost" size="sm" className="text-xs h-7">
             Mark all read

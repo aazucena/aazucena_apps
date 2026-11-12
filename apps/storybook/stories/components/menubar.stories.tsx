@@ -191,7 +191,7 @@ export const GlassToolbar: Story = {
   render: () => (
     <div className="p-40 rounded-card relative overflow-hidden">
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-fit">
-        <Menubar className="bg-state border-rule text-foreground rounded-full px-4 h-12">
+        <Menubar className="bg-state border-rule text-foreground rounded-control px-4 h-12">
           <MenubarMenu>
             <MenubarTrigger className="focus:bg-state data-open:bg-state font-black uppercase tracking-widest text-xs">
               Layers

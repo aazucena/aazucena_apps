@@ -154,7 +154,7 @@ export const CyberTelemetry: Story = {
  */
 export const HeaderReadout: Story = {
   render: () => (
-    <div className="flex items-center bg-muted/30 border rounded-full px-6 py-2 gap-2">
+    <div className="flex items-center bg-muted/30 border rounded-control px-6 py-2 gap-2">
       <div className="flex items-center gap-2 mr-4 opacity-40">
         <Shield size={14} />
         <span className="text-[10px] font-black uppercase tracking-widest">Live_Stats:</span>

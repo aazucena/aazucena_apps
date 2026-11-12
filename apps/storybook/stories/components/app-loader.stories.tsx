@@ -242,7 +242,7 @@ export const ExitAnimation: Story = {
       <div className="flex h-screen items-center justify-center bg-background text-foreground transition-colors duration-500">
         <button
           onClick={() => setHidden(!hidden)}
-          className="fixed bottom-8 right-8 z-[10001] rounded-full bg-primary px-6 py-3 text-primary-foreground hover:scale-105 active:scale-95 transition-all font-bold"
+          className="fixed bottom-8 right-8 z-[10001] rounded-control bg-primary px-6 py-3 text-primary-foreground hover:scale-105 active:scale-95 transition-all font-bold"
         >
           {hidden ? 'Re-run Loader' : 'Trigger Exit'}
         </button>

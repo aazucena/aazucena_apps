@@ -169,7 +169,7 @@ export const GlassHero: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="glass" className="bg-primary/20 text-foreground rounded-full px-8">
+        <Button variant="glass" className="bg-primary/20 text-foreground rounded-control px-8">
           <Sparkles className="mr-2" /> Upgrade Intel
         </Button>
       </DialogTrigger>
@@ -197,7 +197,7 @@ export const GlassHero: Story = {
             <Button
               variant="glass"
               size="lg"
-              className="rounded-full px-12 bg-panel border-rule/80 text-foreground hover:bg-panel-raised"
+              className="rounded-control px-12 bg-panel border-rule/80 text-foreground hover:bg-panel-raised"
             >
               Upgrade_Now
             </Button>

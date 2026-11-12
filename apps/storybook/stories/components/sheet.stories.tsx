@@ -170,7 +170,7 @@ export const GlassFloating: Story = {
         <SheetTrigger asChild>
           <Button
             variant="glass"
-            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-10 h-14 font-black uppercase tracking-widest"
+            className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-control px-10 h-14 font-black uppercase tracking-widest"
           >
             Inspect_Environment
           </Button>

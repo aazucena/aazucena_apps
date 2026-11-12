@@ -173,7 +173,7 @@ export const GlassAtmosphere: Story = {
           (layer, i) => (
             <div
               key={i}
-              className="px-8 py-4 glass border-rule rounded-full text-foreground font-black text-xs tracking-[0.3em]"
+              className="px-8 py-4 glass border-rule rounded-control text-foreground font-black text-xs tracking-[0.3em]"
             >
               {layer}
             </div>

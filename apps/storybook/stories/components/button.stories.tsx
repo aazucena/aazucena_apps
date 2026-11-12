@@ -101,7 +101,7 @@ export const Cyber: Story = {
 export const Highlight: Story = {
   args: {
     variant: 'gradient',
-    className: 'px-8 py-6 rounded-full font-black tracking-widest',
+    className: 'px-8 py-6 rounded-control font-black tracking-widest',
     children: (
       <>
         UPGRADE_NOW

@@ -70,13 +70,13 @@ export const Error404: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <Home className="mr-2 size-5" /> Return_to_Root
           </Button>
           <Button
             variant="outline"
             size="lg"
-            className="rounded-full px-10 h-14 font-black tracking-widest border-rule"
+            className="rounded-control px-10 h-14 font-black tracking-widest border-rule"
           >
             Report_Anomaly
           </Button>
@@ -141,10 +141,10 @@ export const MaintenanceMode: Story = {
         </MaintenanceMessage>
         <MaintenanceFooter className="mt-12">
           <div className="flex gap-4 justify-center">
-            <Button variant="outline" className="rounded-full px-8 h-12">
+            <Button variant="outline" className="rounded-control px-8 h-12">
               System Status
             </Button>
-            <Button variant="ghost" className="rounded-full px-8 h-12">
+            <Button variant="ghost" className="rounded-control px-8 h-12">
               Contact Uplink
             </Button>
           </div>
@@ -165,7 +165,7 @@ export const StatusGlass: Story = {
           <div className="flex justify-center mb-12">
             <Badge
               variant="cyber"
-              className="bg-state text-foreground border-rule px-6 py-2 rounded-full scale-125"
+              className="bg-state text-foreground border-rule px-6 py-2 rounded-control scale-125"
             >
               MAINTENANCE_IN_PROGRESS
             </Badge>
@@ -179,7 +179,7 @@ export const StatusGlass: Story = {
           <ErrorPageActions>
             <Button
               variant="glass"
-              className="bg-panel text-foreground hover:bg-panel-raised rounded-full px-12 h-14"
+              className="bg-panel text-foreground hover:bg-panel-raised rounded-control px-12 h-14"
             >
               <Globe className="mr-2" /> View Global Map
             </Button>
@@ -206,7 +206,7 @@ export const Error400: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <RefreshCw className="mr-2 size-5" /> Retry_Request
           </Button>
         </ErrorPageActions>
@@ -232,13 +232,13 @@ export const Error401: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <Lock className="mr-2 size-5" /> Authenticate
           </Button>
           <Button
             variant="outline"
             size="lg"
-            className="rounded-full px-10 h-14 font-black tracking-widest border-rule"
+            className="rounded-control px-10 h-14 font-black tracking-widest border-rule"
           >
             <Home className="mr-2 size-5" /> Return_to_Root
           </Button>
@@ -265,7 +265,7 @@ export const Error403: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <Shield className="mr-2 size-5" /> Request_Clearance
           </Button>
         </ErrorPageActions>
@@ -291,7 +291,7 @@ export const Error408: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <RefreshCw className="mr-2 size-5" /> Retry_Connection
           </Button>
         </ErrorPageActions>
@@ -317,7 +317,7 @@ export const Error429: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <ClockCircle className="mr-2 size-5" /> Wait_and_Retry
           </Button>
         </ErrorPageActions>
@@ -343,7 +343,7 @@ export const Error502: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <RefreshCw className="mr-2 size-5" /> Retry_Gateway
           </Button>
         </ErrorPageActions>
@@ -369,7 +369,7 @@ export const Error503: Story = {
           </ErrorPageDescription>
         </ErrorPageHeader>
         <ErrorPageActions>
-          <Button size="lg" className="rounded-full px-10 h-14 font-black tracking-widest">
+          <Button size="lg" className="rounded-control px-10 h-14 font-black tracking-widest">
             <Wrench className="mr-2 size-5" /> View_Status
           </Button>
         </ErrorPageActions>

@@ -136,7 +136,7 @@ export const GlassAtmospheric: Story = {
         <SelectTrigger
           aria-label="Atmospheric layer"
           variant="glass"
-          className="w-[240px] border-rule bg-state text-foreground rounded-full px-6"
+          className="w-[240px] border-rule bg-state text-foreground rounded-control px-6"
         >
           <SelectValue placeholder="Atmospheric_Layer" />
         </SelectTrigger>

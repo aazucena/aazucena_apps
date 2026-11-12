@@ -65,7 +65,7 @@ export const Basic: Story = {
       <HeroContent>
         <HeroHeader>
           <div className="flex justify-center mb-8">
-            <Badge variant="outline" className="px-6 py-1.5 rounded-full border-rule">
+            <Badge variant="outline" className="px-6 py-1.5 rounded-control border-rule">
               v2.4.0_STABLE
             </Badge>
           </div>
@@ -77,14 +77,14 @@ export const Basic: Story = {
           <HeroActions>
             <Button
               size="lg"
-              className="rounded-full px-10 h-14 font-black tracking-widest uppercase"
+              className="rounded-control px-10 h-14 font-black tracking-widest uppercase"
             >
               View_Projects <ArrowRight className="ml-2 size-5" />
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="rounded-full px-10 h-14 font-black tracking-widest uppercase border-rule"
+              className="rounded-control px-10 h-14 font-black tracking-widest uppercase border-rule"
             >
               Get_in_Touch
             </Button>
@@ -157,7 +157,7 @@ export const GlassAtmospheric: Story = {
             <HeroActions className="mt-16">
               <Button
                 variant="glass"
-                className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-full px-12 h-16 text-xl"
+                className="bg-state text-foreground border-rule hover:bg-panel-raised rounded-control px-12 h-16 text-xl"
               >
                 <Globe className="mr-2 size-6" /> Explore_Enclave
               </Button>

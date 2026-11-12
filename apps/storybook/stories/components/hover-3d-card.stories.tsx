@@ -88,9 +88,11 @@ const richContent = (
       A fullstack application built with React and Node.js.
     </p>
     <div className="mt-3 flex gap-2">
-      <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium">React</span>
-      <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium">Node.js</span>
-      <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium">TypeScript</span>
+      <span className="rounded-control bg-muted px-2 py-0.5 text-[10px] font-medium">React</span>
+      <span className="rounded-control bg-muted px-2 py-0.5 text-[10px] font-medium">Node.js</span>
+      <span className="rounded-control bg-muted px-2 py-0.5 text-[10px] font-medium">
+        TypeScript
+      </span>
     </div>
   </div>
 );
