@@ -3,11 +3,15 @@ import { dirname } from 'node:path';
 import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import tailwindcss from '@tailwindcss/vite';
-import { INTERACTION_TEST_STORIES } from './interaction-tests.ts';
+import { INTERACTION_TEST_STORIES, VISUAL_TEST_STORIES } from './interaction-tests.ts';
+
+// Under Vitest only the files a project runs are loaded (all 300+ at once OOMs):
+// STORYBOOK_VISUAL=1 → Argos screenshot set, otherwise the interaction tests.
+const vitestStories = process.env.STORYBOOK_VISUAL ? VISUAL_TEST_STORIES : INTERACTION_TEST_STORIES;
 
 const config: StorybookConfig = {
   stories: process.env.STORYBOOK_VITEST
-    ? INTERACTION_TEST_STORIES.map((p) => `../${p}`)
+    ? vitestStories.map((p) => `../${p}`)
     : [
         '../stories/docs/**/*.mdx',
         '../stories/**/*.mdx',

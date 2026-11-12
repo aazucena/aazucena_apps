@@ -44,3 +44,14 @@ export const INTERACTION_TEST_STORIES = [
   'stories/recipes/auth-card.stories.tsx',
   'stories/recipes/contact-form.stories.tsx',
 ];
+
+/**
+ * Story globs screenshotted for Argos by the `visual` Vitest project
+ * (STORYBOOK_VISUAL=1). Stories tagged `no-visual` (time-, network- or
+ * animation-dependent output) are skipped. ~1,300 stories per run against the
+ * Hobby plan's 5,000 screenshots/month, so widen this list deliberately.
+ */
+export const VISUAL_TEST_STORIES = [
+  'stories/components/**/*.stories.tsx',
+  'stories/recipes/**/*.stories.tsx',
+];
