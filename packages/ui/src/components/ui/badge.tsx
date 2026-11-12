@@ -11,7 +11,7 @@ const badgeVariants = cva(
       variant: {
         primary: 'border-transparent bg-signal text-signal-foreground',
         secondary: 'border-transparent bg-panel-raised text-foreground',
-        /** Pair with a ▲ in the label: coral never carries meaning alone. */
+        /** Renders its own ▲ marker: coral never carries meaning alone. */
         destructive: 'border-alert bg-transparent text-alert',
         outline: 'border-rule text-foreground',
         glass: 'glass text-foreground',
@@ -46,6 +46,9 @@ export interface BadgeProps
 
 const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   ({ className, variant, size, animated, ...props }, ref) => {
+    const label = props.children;
+    const marked =
+      variant === 'destructive' && !(typeof label === 'string' && label.startsWith('▲'));
     return (
       <div ref={ref} className={cn(badgeVariants({ variant, size }), className)} {...props}>
         {animated && (
@@ -54,7 +57,8 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
             className="size-1.5 rounded-full bg-current motion-safe:animate-pulse"
           />
         )}
-        {props.children}
+        {marked && <span aria-hidden>▲</span>}
+        {label}
       </div>
     );
   },

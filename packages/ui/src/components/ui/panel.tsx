@@ -7,7 +7,8 @@ import { cn } from '@aazucena/utils';
  * The framed header strip carries a micro-caps label and a status indicator.
  * Coral is reserved for `status="alert"` and always ships with a ▲ marker.
  */
-export type PanelStatus = 'idle' | 'live' | 'alert';
+/** `none` (the default) shows no indicator; only stream-fed panels should say LIVE. */
+export type PanelStatus = 'none' | 'idle' | 'live' | 'alert';
 
 const panelVariants = cva('flex flex-col rounded-card text-card-foreground', {
   variants: {
@@ -17,15 +18,19 @@ const panelVariants = cva('flex flex-col rounded-card text-card-foreground', {
       cyber: 'border border-signal/40 bg-panel shadow-[inset_0_0_12px_var(--signal-faint)]',
     },
     status: {
+      none: '',
       idle: '',
       live: '',
       alert: 'border-l-2 border-l-alert',
     },
   },
-  defaultVariants: { variant: 'default', status: 'live' },
+  defaultVariants: { variant: 'default', status: 'none' },
 });
 
-const statusCopy: Record<PanelStatus, { text: string; tone: string; dot: string }> = {
+const statusCopy: Record<
+  Exclude<PanelStatus, 'none'>,
+  { text: string; tone: string; dot: string }
+> = {
   idle: { text: 'IDLE', tone: 'text-muted-foreground', dot: 'bg-rule-strong' },
   live: { text: 'LIVE', tone: 'text-signal', dot: 'bg-signal motion-safe:animate-pulse' },
   alert: { text: '▲ ALERT', tone: 'text-alert', dot: 'bg-alert' },
@@ -38,8 +43,8 @@ export interface PanelHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const PanelHeader = React.forwardRef<HTMLDivElement, PanelHeaderProps>(
-  ({ className, label, status = 'live', children, ...props }, ref) => {
-    const s = statusCopy[status];
+  ({ className, label, status = 'none', children, ...props }, ref) => {
+    const s = status === 'none' ? undefined : statusCopy[status];
     return (
       <div
         ref={ref}
@@ -51,12 +56,13 @@ const PanelHeader = React.forwardRef<HTMLDivElement, PanelHeaderProps>(
         {...props}
       >
         <span className="micro-label text-muted-foreground truncate">{label}</span>
-        {children ?? (
-          <span className={cn('micro-label flex items-center gap-1.5', s.tone)}>
-            <span aria-hidden className={cn('size-1.5 rounded-full', s.dot)} />
-            {s.text}
-          </span>
-        )}
+        {children ??
+          (s && (
+            <span className={cn('micro-label flex items-center gap-1.5', s.tone)}>
+              <span aria-hidden className={cn('size-1.5 rounded-full', s.dot)} />
+              {s.text}
+            </span>
+          ))}
       </div>
     );
   },
@@ -83,7 +89,7 @@ export interface PanelProps
 }
 
 const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
-  ({ className, variant, status = 'live', label, children, ...props }, ref) => (
+  ({ className, variant, status = 'none', label, children, ...props }, ref) => (
     <div
       ref={ref}
       role={label ? 'region' : undefined}
