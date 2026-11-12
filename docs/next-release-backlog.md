@@ -8,6 +8,8 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 
 ## Analytics UI
 
+- [x] **Avra instrument redesign, design system + ui (2026-11-11).** Figma first (owner-approved), then code: ink palette and role tokens, shadcn aliases fixed (they were never emitted), 261 components swept by codemod, `Panel`, vibe matrix with AA checks. Plan: `docs/superpowers/plans/2026-11-11-avra-instrument-redesign.md`. The analytics app adopting it (spec §4) is the next item below.
+
 - [ ] **Avra visual identity realignment for AZUCENA_LYTICS.** The dashboard reads like a one-shot Claude artifact: glass cards, stock zinc, Inter + JetBrains Mono, Tableau10 charts, airy layout. Direction decided 2026-11-10 (instrument panels, dedicated cyan/coral vibe, Fira, dense). All five decisions made; Overview prototype reviewed. Spec and implementation order: [analytics-visual-identity.md](./features/analytics-visual-identity.md).
 - [x] **Mirror the locked analytics tokens as Figma variables** (done 2026-11-11 in the instrument redesign; see the Figma Foundations page) (unblocked: Figma Starter full seat, 2026-11): ink, panel, rule, text, muted, signal, alert, plus the four categorical colors in order. Later design passes start in Figma instead of HTML prototypes.
 
