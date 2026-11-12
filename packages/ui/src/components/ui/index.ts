@@ -25,6 +25,7 @@ export * from './button';
 export * from './calendar';
 export * from './card-stack';
 export * from './card';
+export * from './panel';
 export * from './carousel';
 export * from './cascader';
 

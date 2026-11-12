@@ -139,6 +139,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(storybook)_ Assert instrument tokens reach the page
 - _(storybook)_ Capture component and recipe stories for Argos
 - _(storybook)_ Use fixed sample data in stories that rendered random IDs
 - _(storybook)_ Capture stories with Argos
