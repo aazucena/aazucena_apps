@@ -123,3 +123,22 @@ export const Dark: Story = {
   ),
   play: async ({ canvasElement }) => checkRows(canvasElement),
 };
+
+/**
+ * Regression (final review C1): one manager reused across vibe and mode switches must not
+ * leave the previous vibe's instrument tokens inline on the element.
+ */
+export const SwitchingVibes: Story = {
+  render: () => <div data-switch-probe className="dark bg-background p-4" />,
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.querySelector<HTMLElement>('[data-switch-probe]')!;
+    const manager = new ThemeManager(el);
+    manager.apply('default', 'light');
+    manager.apply('autumn', 'dark');
+    await expect(el.style.getPropertyValue('--panel')).toBe('');
+    await expect(getComputedStyle(el).getPropertyValue('--panel').trim().toLowerCase()).toBe(
+      '#13232b',
+    );
+    manager.destroy();
+  },
+};
