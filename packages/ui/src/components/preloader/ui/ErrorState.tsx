@@ -26,7 +26,7 @@ export const ErrorState = memo(function ErrorState({
     <div className="space-y-6 text-center" role="alert" aria-live="assertive">
       <div className="relative mx-auto h-20 w-20">
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-full shadow-lg"
+          className="absolute inset-0 flex items-center justify-center rounded-full"
           style={{ background: themeStyles.config.colors.error }}
         >
           <X className="h-10 w-10" style={{ color: themeStyles.config.colors.errorForeground }} />
@@ -49,7 +49,7 @@ export const ErrorState = memo(function ErrorState({
       </div>
 
       <div
-        className="rounded-lg border p-4"
+        className="rounded-control border p-4"
         style={{
           background: `${themeStyles.config.colors.error}15`,
           borderColor: themeStyles.config.colors.error,

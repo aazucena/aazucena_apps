@@ -43,7 +43,7 @@ export const ReadyState = memo(function ReadyState({
     >
       <div className="relative mx-auto h-20 w-20" aria-hidden="true">
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-full shadow-lg"
+          className="absolute inset-0 flex items-center justify-center rounded-full"
           style={{ background: themeStyles.config.colors.success }}
         >
           <Check
@@ -51,7 +51,7 @@ export const ReadyState = memo(function ReadyState({
             style={{ color: themeStyles.config.colors.successForeground }}
           />
         </div>
-        <Sparkle className="absolute -top-2 -right-2 h-6 w-6 animate-pulse text-yellow-400" />
+        <Sparkle className="text-warning absolute -top-2 -right-2 h-6 w-6 animate-pulse" />
       </div>
 
       <div className="space-y-2">

@@ -22,6 +22,7 @@ const qrCodeVariants = cva('inline-flex flex-col items-center gap-2', {
 });
 
 const wrapperStyles: Record<string, string> = {
+  // Scanners need a light quiet zone, in dark mode too
   default: 'rounded-card border border-rule bg-white p-3',
   glass: 'rounded-card border border-rule bg-white p-3',
   cyber: 'rounded-card border border-signal-line bg-panel p-3 text-signal',

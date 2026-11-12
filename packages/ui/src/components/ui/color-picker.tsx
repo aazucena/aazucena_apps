@@ -25,7 +25,7 @@ const colorPickerVariants = cva('inline-flex items-center gap-2', {
 });
 
 const swatchVariants = cva(
-  'rounded-md border shadow-sm transition-all hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  'rounded-control border transition-all hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
   {
     variants: {
       size: {
@@ -130,9 +130,9 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                     type="button"
                     onClick={() => handleColorChange(c)}
                     className={cn(
-                      'group relative h-8 w-8 rounded-md border transition-all hover:scale-110 active:scale-95',
+                      'group rounded-control relative h-8 w-8 border transition-all hover:scale-110 active:scale-95',
                       c === value
-                        ? 'ring-primary ring-2 ring-offset-2'
+                        ? 'ring-primary ring-2'
                         : 'border-border/50 hover:border-primary/50',
                     )}
                     style={{
@@ -150,7 +150,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                         <div
                           className={cn(
                             'h-1.5 w-1.5 rounded-full',
-                            c === '#ffffff' || c === 'transparent' ? 'bg-black' : 'bg-white',
+                            c === '#ffffff' || c === 'transparent' ? 'bg-black' : 'bg-white', // contrast on the swatch itself
                           )}
                         />
                       </div>
@@ -161,7 +161,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                 {/* Custom Color Trigger */}
                 <label
                   htmlFor={nativePickerId}
-                  className="border-muted-foreground/40 hover:border-primary hover:bg-muted/50 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-dashed transition-all"
+                  className="border-muted-foreground/40 hover:border-primary hover:bg-muted/50 rounded-control flex h-8 w-8 cursor-pointer items-center justify-center border border-dashed transition-all"
                   title="Custom Color"
                 >
                   <Plus className="text-muted-foreground h-4 w-4" />
@@ -188,7 +188,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
               </div>
               <div className="flex gap-2">
                 <div
-                  className="h-9 w-9 shrink-0 rounded-md border"
+                  className="rounded-control h-9 w-9 shrink-0 border"
                   style={{ backgroundColor: value }}
                 />
                 <Input

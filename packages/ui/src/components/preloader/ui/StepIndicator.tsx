@@ -78,7 +78,7 @@ export const StepIndicator = memo(function StepIndicator({
 
   return (
     <div
-      className="flex items-center gap-3 rounded-lg border p-3 transition-all duration-300"
+      className="rounded-control flex items-center gap-3 border p-3 transition-all duration-300"
       style={getContainerStyle()}
       role="listitem"
       aria-current={isActive ? 'step' : undefined}
