@@ -13,8 +13,8 @@ const separatorVariants = cva('shrink-0 transition-all duration-300', {
       default: 'bg-border',
       glass: 'bg-background/10 dark:bg-state',
       cyber: 'bg-primary/30 dark:bg-signal/30',
-      gradient: '',
-      'cyber-gradient': '',
+      gradient: 'bg-signal',
+      'cyber-gradient': 'bg-signal',
     },
     thickness: {
       default: 'h-[1px] w-[1px]',

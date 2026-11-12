@@ -31,8 +31,8 @@ const hexagonIconVariants = cva(
   {
     variants: {
       variant: {
-        award: '',
-        certification: '',
+        award: 'bg-warning',
+        certification: 'bg-signal',
       },
       size: {
         sm: 'h-12 w-12',
@@ -78,7 +78,12 @@ const HexagonCard = React.forwardRef<HTMLDivElement, HexagonCardProps>(
         <div className="relative z-10 flex flex-col items-center p-6 text-center">
           <div className={cn(hexagonIconVariants({ variant, size }))}>
             {icon || (
-              <AwardBadge size={size === 'sm' ? 24 : 32} className="text-primary-foreground" />
+              <AwardBadge
+                size={size === 'sm' ? 24 : 32}
+                className={
+                  variant === 'award' ? 'text-warning-foreground' : 'text-signal-foreground'
+                }
+              />
             )}
           </div>
           {children}

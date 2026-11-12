@@ -51,11 +51,11 @@ const timelineDotVariants = cva(
   {
     variants: {
       variant: {
-        default: '',
-        primary: '',
-        success: '',
-        warning: '',
-        danger: '',
+        default: 'bg-rule-strong',
+        primary: 'bg-signal',
+        success: 'bg-success',
+        warning: 'bg-warning',
+        danger: 'bg-alert',
         cyber: 'bg-panel border border-signal/50 dark:bg-background',
       },
       position: {
@@ -94,8 +94,8 @@ TimelineDot.displayName = 'TimelineDot';
 const timelineLineVariants = cva('absolute h-full w-0.5 transition-all duration-300', {
   variants: {
     variant: {
-      default: '',
-      cyber: '',
+      default: 'bg-rule-strong',
+      cyber: 'bg-signal/60',
     },
     position: {
       left: 'top-1/2 left-[11px]',

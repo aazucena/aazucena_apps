@@ -132,11 +132,11 @@ EnvironmentGlow.displayName = 'EnvironmentGlow';
 const environmentAtmosphereVariants = cva('absolute inset-0 transition-all duration-1000', {
   variants: {
     phase: {
-      exosphere: '',
-      thermosphere: '',
-      mesosphere: '',
-      stratosphere: '',
-      troposphere: '',
+      exosphere: 'bg-linear-to-b from-background via-panel to-signal-faint',
+      thermosphere: 'bg-linear-to-b from-signal-faint to-signal-subtle',
+      mesosphere: 'bg-linear-to-b from-signal-subtle to-signal-faint',
+      stratosphere: 'bg-linear-to-b from-signal-faint to-background',
+      troposphere: 'bg-linear-to-b from-background to-panel',
     },
   },
   defaultVariants: {

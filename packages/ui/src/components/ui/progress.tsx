@@ -33,8 +33,8 @@ const progressIndicatorVariants = cva(
       variant: {
         default: 'bg-primary',
         cyber: 'bg-primary dark:bg-signal',
-        glass: 'bg-primary dark:bg-panel',
-        gradient: '',
+        glass: 'bg-signal',
+        gradient: 'bg-signal',
         emerald: 'bg-success',
         rose: 'bg-alert',
       },
