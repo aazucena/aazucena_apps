@@ -45,7 +45,7 @@ The content layer also runs on its own token island. `apps/portfolio/src/styles/
   - Changelog
   - 404
 
-  Content comes from the running site, with real project images. Every page shares one instrument footer (`Shared / Footer`).
+  Content comes from the running site, with real project images. Every page uses two shared components: `Shared / Navbar` (one variant per active page, plus `None` for Contact, Support, Changelog and 404) and `Shared / Footer`. Edit the component to update every page.
 
 - **Overlays and mobile, dark:**
   - Rin chat open over About, with the trigger as a signal outline button
