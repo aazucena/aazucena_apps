@@ -75,7 +75,7 @@ const HexagonCard = React.forwardRef<HTMLDivElement, HexagonCardProps>(
           />
         </svg>
 
-        <div className="relative z-10 flex flex-col items-center px-[16%] py-6 text-center [overflow-wrap:anywhere]">
+        <div className="relative z-10 flex flex-col items-center px-[18%] pt-2 pb-10 text-center [overflow-wrap:anywhere]">
           <div className={cn(hexagonIconVariants({ variant, size }))}>
             {icon || (
               <AwardBadge
