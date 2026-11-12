@@ -1009,6 +1009,9 @@ importers:
       storybook:
         specifier: ^10.6.7
         version: 10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1)
+      storybook-addon-semantic-version:
+        specifier: ^4.1.0
+        version: 4.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(storybook@10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1))
       tailwindcss:
         specifier: ^4.3.5
         version: 4.3.5
@@ -7755,6 +7758,13 @@ packages:
 
   '@storybook/global@5.0.0':
     resolution: {integrity: sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==}
+
+  '@storybook/icons@1.6.0':
+    resolution: {integrity: sha512-hcFZIjW8yQz8O8//2WTIXylm5Xsgc+lW9ISLgUk1xGmptIJQRdlhVIXCpSyLrQaaRiyhQRaVg7l3BD9S216BHw==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: 19.3.1
+      react-dom: 19.3.1
 
   '@storybook/icons@2.2.0':
     resolution: {integrity: sha512-FpUB/xizIrV1ILhCIYFo+TtQNN9YEoLjfcnAW0JtOXL+BcM2aisSysI0B54JMWDnljriXySBHgN6ps4s9lb75A==}
@@ -16761,6 +16771,20 @@ packages:
     resolution: {integrity: sha512-eLoXW/DHyl62zxY4SCaIgnRhuMr6ri4juEYARS8E6sCEqzKpOiE521Ucofdx+KnDZl5xmvGYaaKCk5FEOxJCoQ==}
     engines: {node: '>= 0.4'}
 
+  storybook-addon-semantic-version@4.1.0:
+    resolution: {integrity: sha512-qY2kPlYEtnbhYPvnNX3rpweBPn2qPaPJ/UcvxUdQwTX5SE1n+AdYciw4KRo/ohKYrJdDJtyo7NJlWq+QqehWNA==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+    peerDependencies:
+      react: 19.3.1
+      react-dom: 19.3.1
+      storybook: '>=8.0.0 <12.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   storybook@10.6.7:
     resolution: {integrity: sha512-/1h87XqC+8tZ5PQ/GVWOg78tCQuEAshYWwok5niBcnHEKzZy6Ls06uuT5/rhQ3iUB0y8iexEVHmUe3jaaxNguw==}
     hasBin: true
@@ -25064,6 +25088,11 @@ snapshots:
       vite: 8.3.8(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
 
   '@storybook/global@5.0.0': {}
+
+  '@storybook/icons@1.6.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
 
   '@storybook/icons@2.2.0(react@19.3.1)':
     dependencies:
@@ -36672,6 +36701,16 @@ snapshots:
     dependencies:
       es-errors: 1.3.0
       internal-slot: 1.1.0
+
+  storybook-addon-semantic-version@4.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(storybook@10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1)):
+    dependencies:
+      '@storybook/icons': 1.6.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      chalk: 5.6.2
+      semver: 7.8.6
+      storybook: 10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1)
+    optionalDependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
 
   storybook@10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1):
     dependencies:

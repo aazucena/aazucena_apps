@@ -37,6 +37,9 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-designs'),
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-vitest'),
+    // Version switcher: reads /root/versions.json, links to /storybooks/<version>/
+    // (served by rewrites in vercel.json)
+    getAbsolutePath('storybook-addon-semantic-version'),
   ],
   async viteFinal(config) {
     config.plugins = config.plugins || [];

@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [{ "source": "/storybooks/0.1.0/:path*", "destination": "/:path*" }]
+}
