@@ -9,8 +9,8 @@ import { cn } from '@aazucena/utils';
 export const statusVariants = cva('inline-flex items-center gap-2 transition-all duration-300', {
   variants: {
     variant: {
-      default: 'px-4 py-2 bg-muted/30 border border-border rounded-full',
-      pill: 'px-3 py-1.5 bg-background border border-border rounded-full',
+      default: 'px-4 py-2 bg-muted/30 border border-border rounded-badge',
+      pill: 'px-3 py-1.5 bg-background border border-border rounded-badge',
       ghost: 'bg-transparent border-none',
       cyber: 'font-mono text-[10px] tracking-widest',
       nominal: 'border-success/20 text-success bg-success/5 hover:bg-success/10',

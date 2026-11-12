@@ -97,7 +97,7 @@ const NavbarBrand = React.forwardRef<
 NavbarBrand.displayName = 'NavbarBrand';
 
 const navbarContentVariants = cva(
-  'hidden items-center gap-1 rounded-full border p-1.5 md:flex transition-all duration-300',
+  'hidden items-center gap-1 rounded-card border p-1.5 md:flex transition-all duration-300',
   {
     variants: {
       variant: {

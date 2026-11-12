@@ -23,8 +23,8 @@ const toolbarVariants = cva('fixed flex items-center transition-all duration-300
       'bottom-center': 'bottom-8 left-1/2 -translate-x-1/2',
     },
     orientation: {
-      horizontal: 'flex-row gap-4 px-4 py-3 rounded-full',
-      vertical: 'flex-col gap-4 px-3 py-4 rounded-full',
+      horizontal: 'flex-row gap-4 px-4 py-3 rounded-card',
+      vertical: 'flex-col gap-4 px-3 py-4 rounded-card',
     },
   },
   defaultVariants: {

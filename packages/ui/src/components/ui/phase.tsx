@@ -37,7 +37,7 @@ const PhaseHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 PhaseHeader.displayName = 'PhaseHeader';
 
 const phaseBadgeVariants = cva(
-  'inline-flex items-center gap-3 px-4 py-2 rounded-full border mb-8 transition-all duration-300',
+  'inline-flex items-center gap-3 px-4 py-2 rounded-badge border mb-8 transition-all duration-300',
   {
     variants: {
       variant: {

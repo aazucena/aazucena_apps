@@ -171,7 +171,7 @@ const TimelineBadge = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
     <div
       ref={ref}
       className={cn(
-        'bg-muted text-muted-foreground border-border mb-6 inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-black tracking-[0.2em] uppercase',
+        'bg-muted text-muted-foreground border-border rounded-badge mb-6 inline-flex items-center border px-3 py-1 text-[10px] font-black tracking-[0.2em] uppercase',
         className,
       )}
       {...props}

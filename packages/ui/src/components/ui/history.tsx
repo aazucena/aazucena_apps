@@ -114,7 +114,7 @@ const HistoryMeta = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 HistoryMeta.displayName = 'HistoryMeta';
 
 const historyBadgeVariants = cva(
-  'flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-3 py-1 text-[9px] font-black tracking-widest uppercase transition-all',
+  'flex items-center gap-1.5 rounded-badge border border-border bg-muted/50 px-3 py-1 text-[9px] font-black tracking-widest uppercase transition-all',
   {
     variants: {
       variant: {
