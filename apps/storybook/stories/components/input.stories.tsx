@@ -162,3 +162,18 @@ export const InteractionTest: Story = {
     await expect(input).toHaveValue('');
   },
 };
+
+/**
+ * Keyboard focus shows a 1px signal outline instead of a ring; 4px control radius.
+ */
+export const FocusVisible: Story = {
+  args: { placeholder: 'Focus me' },
+  play: async ({ canvasElement }: any) => {
+    const input = within(canvasElement).getByRole('textbox');
+    await userEvent.tab();
+    await expect(input).toHaveFocus();
+    const style = getComputedStyle(input);
+    await expect(style.outlineStyle).not.toBe('none');
+    await expect(style.borderTopLeftRadius).toBe('4px');
+  },
+};

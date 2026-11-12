@@ -235,3 +235,27 @@ export const InteractionTest: Story = {
     await expect(await canvas.findByRole('combobox')).toHaveTextContent('Europe');
   },
 };
+
+/**
+ * Keyboard focus on the trigger shows a 1px signal outline; 4px control radius.
+ */
+export const FocusVisible: Story = {
+  render: () => (
+    <Select>
+      <SelectTrigger className="w-[220px]">
+        <SelectValue placeholder="Select a region" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="na">North America</SelectItem>
+      </SelectContent>
+    </Select>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const trigger = within(canvasElement).getByRole('combobox');
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    const style = getComputedStyle(trigger);
+    await expect(style.outlineStyle).not.toBe('none');
+    await expect(style.borderTopLeftRadius).toBe('4px');
+  },
+};

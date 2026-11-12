@@ -185,3 +185,19 @@ export const InteractionTest: Story = {
     await expect(root.getPropertyValue('--card').trim()).not.toBe('');
   },
 };
+
+/**
+ * Keyboard focus shows a 1px signal outline (no ring offset, no shadow); 4px control radius.
+ */
+export const FocusVisible: Story = {
+  args: { ...Basic.args, children: 'FOCUS_ME' },
+  play: async ({ canvasElement }: any) => {
+    const button = within(canvasElement).getByRole('button');
+    await userEvent.tab();
+    await expect(button).toHaveFocus();
+    const style = getComputedStyle(button);
+    await expect(style.outlineStyle).not.toBe('none');
+    await expect(style.borderTopLeftRadius).toBe('4px');
+    await expect(style.boxShadow).toBe('none');
+  },
+};
