@@ -82,13 +82,21 @@ const checkRows = async (canvasElement: HTMLElement) => {
   for (const row of canvasElement.querySelectorAll<HTMLElement>('[data-vibe-row]')) {
     const css = getComputedStyle(row);
     const bg = toRgb(css.getPropertyValue('--background').trim() || '#fff', '#fff');
-    const card = toRgb(css.getPropertyValue('--card').trim(), `rgb(${bg.join(',')})`);
-    const fg = toRgb(css.getPropertyValue('--foreground').trim());
-    const muted = toRgb(css.getPropertyValue('--muted-foreground').trim());
-    const fgRatio = contrast(fg, card);
-    const mutedRatio = contrast(muted, card);
-    if (fgRatio < 4.5) failures.push(`${row.dataset.vibeRow}: foreground ${fgRatio.toFixed(2)}`);
-    if (mutedRatio < 4.5) failures.push(`${row.dataset.vibeRow}: muted ${mutedRatio.toFixed(2)}`);
+    // Measure the surface the instrument components actually render (Panel = --panel)
+    const panel = toRgb(css.getPropertyValue('--panel').trim(), `rgb(${bg.join(',')})`);
+    const pairs: Array<[string, string, number]> = [
+      ['foreground', '--foreground', 4.5],
+      ['muted', '--muted-foreground', 4.5],
+      ['signal', '--signal', 4.5],
+      ['alert', '--alert', 4.5],
+    ];
+    for (const [label, token, min] of pairs) {
+      const ratio = contrast(toRgb(css.getPropertyValue(token).trim()), panel);
+      if (ratio < min) failures.push(`${row.dataset.vibeRow}: ${label} ${ratio.toFixed(2)}`);
+    }
+    // Hover/focus rows must show on raised surfaces
+    if (css.getPropertyValue('--state').trim() === css.getPropertyValue('--panel-raised').trim())
+      failures.push(`${row.dataset.vibeRow}: state equals panel-raised`);
     // Vibes re-color the instrument language but keep its shape
     for (const [token, want] of [
       ['--radius-card', '6px'],
