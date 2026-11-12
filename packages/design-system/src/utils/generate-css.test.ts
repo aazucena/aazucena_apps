@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatHex, interpolate, wcagContrast } from 'culori';
+import { formatHex, interpolate, parse, wcagContrast } from 'culori';
 import { generateCssVariables } from './generate-css';
 import { deriveAliases } from './aliases';
 import { vibes } from '../themes/registry';
@@ -120,7 +120,9 @@ describe('shadcn aliases', () => {
   it('falls back to legacy roles for vibes without instrument roles', () => {
     const aliases = deriveAliases(vibes['christmas']!.dark.colors);
     expect(aliases.card).toBe(vibes['christmas']!.dark.colors.cardBackground);
-    expect(aliases.ring).toBe(vibes['christmas']!.dark.colors.primary);
+    expect(aliases.ring).toBe(
+      vibes['christmas']!.dark.colors.signal ?? vibes['christmas']!.dark.colors.primary,
+    );
     expect(aliases.input).toBe(vibes['christmas']!.dark.colors.border);
   });
 });
@@ -140,6 +142,71 @@ describe('final review regressions', () => {
     for (const role of ['success', 'warning']) {
       expect(wcagContrast(v(role), v('background')), role).toBeGreaterThanOrEqual(4.5);
       expect(wcagContrast(v(role), tint(v(role))), `${role} on tint`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+});
+
+describe('every vibe brings its own accent (I4)', () => {
+  /** Flatten a possibly translucent color onto the surface beneath it. */
+  const solid = (color: string, under: string): string => {
+    const c = parse(color);
+    if (!c) throw new Error(`unparseable color: ${color}`);
+    const a = c.alpha ?? 1;
+    if (a >= 1) return formatHex(c)!;
+    return formatHex(interpolate([solid(under, '#ffffff'), { ...c, alpha: 1 }], 'rgb')(a))!;
+  };
+
+  for (const id of Object.keys(vibes)) {
+    const vibeCss = generateCssVariables(id);
+    const blocks = {
+      light: vibeCss.slice(vibeCss.indexOf(':root {'), vibeCss.indexOf('.dark {')),
+      dark: vibeCss.slice(vibeCss.indexOf('.dark {')),
+    };
+    for (const [mode, block] of Object.entries(blocks)) {
+      it(`${id} ${mode}: emits signal roles and instrument surfaces at AA`, () => {
+        for (const name of [
+          'signal',
+          'signal-foreground',
+          'signal-faint',
+          'signal-subtle',
+          'signal-line',
+          'panel',
+          'panel-raised',
+          'rule',
+          'rule-strong',
+          'state',
+        ]) {
+          expect(read(block, name), name).toBeTruthy();
+        }
+        // Roles a vibe omits fall back to the default vibe's static CSS, as in the browser
+        const v = (n: string) =>
+          read(block, n) ?? read(mode === 'dark' ? darkBlock : rootBlock, n)!;
+        const bg = solid(v('background'), '#ffffff');
+        const panel = solid(v('panel'), bg);
+        const signal = solid(v('signal'), panel);
+        expect(
+          wcagContrast(v('signal-foreground'), signal),
+          'signal-foreground on signal',
+        ).toBeGreaterThanOrEqual(4.5);
+        expect(wcagContrast(signal, panel), 'signal text on panel').toBeGreaterThanOrEqual(4.5);
+        expect(
+          wcagContrast(solid(v('alert'), panel), panel),
+          'alert text on panel',
+        ).toBeGreaterThanOrEqual(4.5);
+        const subtle = formatHex(interpolate([panel, signal], 'rgb')(0.15))!;
+        expect(
+          wcagContrast(solid(v('foreground'), panel), subtle),
+          'foreground on signal-subtle',
+        ).toBeGreaterThanOrEqual(4.5);
+      });
+    }
+  }
+
+  it('lets seasonal vibes differ from the default signal', () => {
+    const sig = (id: string) =>
+      read(generateCssVariables(id).slice(generateCssVariables(id).indexOf('.dark {')), 'signal');
+    for (const id of Object.keys(vibes).filter((v) => v !== 'default')) {
+      expect(sig(id), id).not.toBe(sig('default'));
     }
   });
 });
