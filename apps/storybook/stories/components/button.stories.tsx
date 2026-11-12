@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { within, userEvent } from 'storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 import { Button } from '@aazucena/ui';
 import { Play, Download, Trash, PlusCircle as Plus, ChevronRight, Activity } from '@aazucena/icons';
 
@@ -177,5 +177,11 @@ export const InteractionTest: Story = {
 
     // Simulate interaction
     await userEvent.click(button);
+
+    // Instrument tokens reach the page (Avra 0.2)
+    const root = getComputedStyle(document.documentElement);
+    await expect(root.getPropertyValue('--radius-control').trim()).toBe('4px');
+    await expect(root.getPropertyValue('--rule').trim()).not.toBe('');
+    await expect(root.getPropertyValue('--card').trim()).not.toBe('');
   },
 };
