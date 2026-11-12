@@ -154,9 +154,26 @@ Every component the analytics app uses, on a new `Analytics kit` page:
 
 Built from A1 variables + round-2 values. Review gate as in A4.
 
-### Task A6: Remaining @aazucena/ui components in Figma
+### Task A6: Remaining @aazucena/ui components in Figma (tiered, owner-approved 2026-11-11)
 
-The remaining ~240 components, grouped by category (forms, navigation, overlays, feedback, data display, media, layout). The approach for the long tail (full component vs pattern sheet) is decided with the owner after A5. Review gate as in A4.
+**Tier 1: full variant sets** (page `Core kit`):
+
+- **Forms:** checkbox, radio-group, slider, toggle, segmented-control, number-input, search-input, password-input, input-otp, combobox, field (label/help/error), tags-input/chip, dropzone, datepicker/calendar, rating.
+- **Navigation:** breadcrumb, pagination, menubar, navigation-menu, stepper, accordion, collapsible.
+- **Overlays:** popover, hover-card, sheet/drawer.
+- **Feedback:** alert, banner, progress, meter, spinner, skeleton, empty, kbd.
+- **Data:** avatar + avatar-group, stat, list-group, key-value/description-list, code-block/terminal, tree, trend.
+
+**Tier 2: one pattern sheet per category** (page `Patterns`). Each sheet shows the instrument-in-air treatment on representative members. The rest of each category is verified in code through Argos screenshots.
+
+1. **Marketing/content:** hero, cta, testimonial, purchase-card, footer, error-page.
+2. **Media:** music-player, audio-embed, video, gallery, carousel.
+3. **Complex data:** gantt, org-chart, kanban, tree-table, data-explorer, condition-rules.
+4. **Effects/interaction:** marquee, flip-words, card-flip, reveal, spotlight. The motion tokens govern these.
+5. **AI/system:** chat, thought-trace, terminal, status-monitor, heartbeat, assistant-trigger.
+6. **Layout/utility:** shell, container, stack, resizable, scroll-area, watermark.
+
+Review gate as in A4.
 
 ## Phase B: Code (only after A4 approval)
 
