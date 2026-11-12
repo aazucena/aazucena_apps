@@ -22,6 +22,20 @@ That is the intent of the design system. Avra is infrastructure — a shared env
 
 ---
 
+## The visual language: instrument in air
+
+Avra 0.2 balances two readings of the name. The data is an instrument: mono labels, live status, dense readouts. The frame around it is air: generous gutters, surfaces separated by tone instead of boxes, light display numbers, slow motion.
+
+- **Surfaces:** ink neutrals (hue ~228). Panels sit one tone step off the background; hairline rules only where structure needs them. No shadows, no blur.
+- **Shape:** 6px panels and cards, 4px controls and badges, shared by every vibe.
+- **Color roles:** `signal` cyan for data and focus, `success` mint, `warning` amber, `alert` coral. Warning always carries ◆ and alert always carries ▲, so status never depends on color alone.
+- **Type:** Fira Sans for reading and Light display metrics; Fira Code for labels (`TRAFFIC // 30D`), values and code.
+- **Motion:** a 4s breathing pulse on live indicators, lines that draw in, 200ms state changes, all off under `prefers-reduced-motion`.
+
+The source of truth is the [Avra Design System Figma file](https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G); its variables carry the same names as the CSS custom properties.
+
+---
+
 ## What's in here
 
 | Package | Purpose |
@@ -29,7 +43,7 @@ That is the intent of the design system. Avra is infrastructure — a shared env
 | `@aazucena/animations` | 64+ Three.js objects, GSAP presets, and modular 3D inspection tools |
 | `@aazucena/ui` | 225+ composed components (ShadCN base + custom) |
 | `@aazucena/visualizations` | 21 D3-powered chart & graph components with companion hooks |
-| `@aazucena/design-system` | Design tokens, themes (18 vibes), CSS variable generation |
+| `@aazucena/design-system` | Design tokens, themes (17 vibes), CSS variable generation |
 | `@aazucena/icons` | Custom SVG icon library |
 | `@aazucena/hooks` | Shared React hooks |
 | `@aazucena/context` | Shared React contexts (Telemetry, etc.) |
@@ -52,7 +66,7 @@ This Storybook contains **416 stories** organized into top-level categories:
 This Storybook supports two independent controls in the toolbar:
 
 - **Light / Dark** — toggles the `dark` class on `<html>` via `@storybook/addon-themes`
-- **Vibe** — applies one of 18 seasonal/style vibes to the story canvas via `ThemeManager`
+- **Vibe** — applies one of 17 seasonal/style vibes to the story canvas via `ThemeManager`
 
 Both controls are fully independent. You can preview any vibe in either light or dark mode.
 

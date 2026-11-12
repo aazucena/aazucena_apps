@@ -33,10 +33,15 @@ Design follows content. We use real data from the **Strapi CMS** early in the de
 3D objects and animations must respect physical or canon-logical rules. We use **Inverse Kinematics** for realistic character motion and strictly follow **Canon Landmarks** for pop-culture recreations.
 *   *Action:* Ensure legs stay on pedals and wings flap from shoulder joints. Authenticity breeds technical trust.
 
+## 7. Instrument in Air
+The data is precise; the frame breathes. Separate surfaces by tone, not borders and shadows. Keep coral for alerts (with ▲) and amber for warnings (with ◆). Selection uses the `state` tone, never a raised surface.
+*   *Action:* Before adding a border, shadow or new color, check whether a tone step or an existing role token already says it.
+
 ---
 
 ## Technical Verification
 These principles are not just guidelines; they are enforced through our **Verification Suite**:
 - **Linting:** Standardized coding styles.
-- **Visual Regression:** Captured via Chromatic.
+- **Visual Regression:** Captured via Argos on every main build.
+- **Contrast:** The vibe matrix story checks WCAG AA text contrast for every vibe in both modes.
 - **Type Safety:** Enforced via TypeScript Strict Mode.
