@@ -1,7 +1,14 @@
 'use client';
 
 import * as React from 'react';
-import { useRive, useStateMachineInput, Layout, Fit, Alignment } from '@rive-app/react-webgl2';
+import * as RiveModule from '@rive-app/react-webgl2';
+
+// @rive-app/react-webgl2 ships CommonJS only. In Node SSR (Astro) the ESM loader can't
+// detect its re-exported names (Layout, Fit, Alignment), so read them from the CJS default
+// export when present; in the browser Vite pre-bundles real named exports.
+const Rive = ((RiveModule as unknown as { default?: typeof RiveModule }).default ??
+  RiveModule) as typeof RiveModule;
+const { useRive, useStateMachineInput, Layout, Fit, Alignment } = Rive;
 import {
   RIN_BEHAVIORS,
   RIN_EMOTIONS,
