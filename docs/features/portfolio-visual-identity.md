@@ -25,6 +25,21 @@ The content layer also runs on its own token island. `apps/portfolio/src/styles/
 | Tags and chips                        | Square outline badges; the active filter uses the cyber badge.                                                                                      |
 | Journey and Blog pages                | The same panels in light and dark; D3 charts read `chartTheme` (series order cyan → olive → violet → rose).                                         |
 
+## Availability status (decided 2026-11-12)
+
+`availabilityStatus` (Strapi enum) drives the footer, About Vital Stats and Contact Presence. Today `getAvailabilityIndicator` in `packages/utils/src/content.ts` maps it to stock palette classes (`bg-green-500` … `bg-red-500`). In the redesign it maps to status tokens, so coral stays reserved for alerts:
+
+| Status                     | Today        | Redesign                |
+| -------------------------- | ------------ | ----------------------- |
+| Open to Opportunities      | green, pulse | `success` ●, pulse ring |
+| Looking for Collaborations | blue, pulse  | `signal` ●, pulse ring  |
+| Busy / Working on Projects | yellow       | `warning` ◆             |
+| On Break / Personal Time   | orange       | `warning` ◆             |
+| Unavailable                | red          | `muted-foreground` ●    |
+| Unknown (fallback)         | gray         | `muted-foreground` ●    |
+
+Busy and On Break share amber, and the label tells them apart. Unavailable goes muted grey rather than red, because coral would read as an error. Figma: `Shared / Availability` on the Portfolio page, one variant per status. Phase 5 changes `getAvailabilityIndicator` to return these tokens.
+
 ## Decision needed
 
 1. **How far into the homepage?** The recommendation is the table above: content layer only, with scenes unchanged apart from particle hues. The alternative is to also replace the gradient scene backdrops with flat ink surfaces, which is closer to the dashboard but loses the altitude story.
