@@ -10,3 +10,4 @@ export * from './routes';
 export * from './sentinel';
 export * from './storage';
 export * from './preloader';
+export * from './rin';
