@@ -89,6 +89,15 @@ const checkRows = async (canvasElement: HTMLElement) => {
     const mutedRatio = contrast(muted, card);
     if (fgRatio < 4.5) failures.push(`${row.dataset.vibeRow}: foreground ${fgRatio.toFixed(2)}`);
     if (mutedRatio < 4.5) failures.push(`${row.dataset.vibeRow}: muted ${mutedRatio.toFixed(2)}`);
+    // Vibes re-color the instrument language but keep its shape
+    for (const [token, want] of [
+      ['--radius-card', '6px'],
+      ['--radius-badge', '4px'],
+      ['--radius-button', '4px'],
+    ]) {
+      const got = css.getPropertyValue(token!).trim();
+      if (got !== want) failures.push(`${row.dataset.vibeRow}: ${token} ${got}`);
+    }
   }
   await expect(failures).toEqual([]);
 };
