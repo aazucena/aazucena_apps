@@ -28,6 +28,7 @@ export const INTERACTION_TEST_STORIES = [
   'stories/components/input.stories.tsx',
   'stories/components/lightbox.stories.tsx',
   'stories/components/number-input.stories.tsx',
+  'stories/components/panel.stories.tsx',
   'stories/components/popover.stories.tsx',
   'stories/components/radio-group.stories.tsx',
   'stories/components/search-input.stories.tsx',
