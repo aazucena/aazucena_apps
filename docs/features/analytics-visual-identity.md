@@ -119,6 +119,8 @@ What categorical ramp replaces Tableau10, and where does it live so that all 21
 `@aazucena/visualizations` components inherit it rather than each being passed a prop? Also needs
 resolving: sequential and diverging ramps, axis/gridline color, and tooltip surface.
 
+> **Functional states (2026-11-11):** success = mint `#55c1a3` (dark) / `#007b62` (light), replacing stock green. It was chosen for the best color-blind separation from coral. New warning = amber `#d9a02c` / `#896100`, always marked ◆ (coral keeps ▲). All pass AA on both panels.
+>
 > **Decision (2026-11-10): approved.** Categorical order, validated with the dataviz palette validator
 > (dark mode, all checks pass on both `#13232B` panel and `#0E1A20` ink): **`#32A0C5` signal → `#889D37` olive →
 > `#7C5BC5` violet → `#D4679F` rose.** Coral `#FF7B54` is status-only and always paired with a ▲ marker.
