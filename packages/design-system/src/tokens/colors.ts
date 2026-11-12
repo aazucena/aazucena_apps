@@ -85,10 +85,55 @@ export const colors = {
     900: 'oklch(0.45 0.13 145)',
     950: 'oklch(0.35 0.10 145)',
   },
+  // --- Avra instrument palette (Figma: Avra Design System / Primitives) ---
+
+  // Ink: hue ~228 neutrals. 950/900/800/500/200 are the locked analytics surfaces.
+  ink: {
+    25: '#fbfeff',
+    50: '#f5fbfe',
+    100: '#e8f2f7',
+    200: '#D7E6EC',
+    300: '#c3d4dc',
+    400: '#a6bbc6',
+    500: '#7F9AA5',
+    550: '#6b8591',
+    600: '#536d79',
+    700: '#3d5a67',
+    800: '#24404C',
+    850: '#192f38',
+    900: '#13232B',
+    950: '#0E1A20',
+  },
+
+  // Signal: brand cyan. 500 = dark-mode signal, 700 = light-mode signal.
+  signal: {
+    100: '#daf3fe',
+    200: '#aee1f6',
+    300: '#7acae9',
+    400: '#53b5d9',
+    500: '#32A0C5',
+    600: '#1880a0',
+    700: '#007493',
+    800: '#0d556c',
+    900: '#0d3b4b',
+  },
+
+  // Coral: alerts, anomalies, destructive. Never a series color.
+  coral: { 300: '#f8b09b', 500: '#FF7B54', 700: '#ca4b23' },
+
+  // Functional states (owner-chosen 2026-11-11): success = mint 170, warning = amber 80.
+  mint: { 500: '#55c1a3', 700: '#007b62' },
+  'avra-amber': { 500: '#d9a02c', 700: '#896100' },
+
+  // Categorical series 2-4 (series 1 = signal). Namespaced: Tailwind owns olive/violet/rose.
+  'avra-olive': { 500: '#889D37', 700: '#687c04' },
+  'avra-violet': { 500: '#7C5BC5', 700: '#7a59c3' },
+  'avra-rose': { 500: '#D4679F', 700: '#af457e' },
 } as const;
 
 export type ColorScale = keyof typeof colors;
-export type ColorWeight = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950;
+export type ColorWeight =
+  25 | 50 | 100 | 200 | 300 | 400 | 500 | 550 | 600 | 700 | 800 | 850 | 900 | 950;
 
 /**
  * Get the color value from the tokens.
@@ -105,6 +150,11 @@ export function getColor(scale: ColorScale, weight: ColorWeight = 500, alpha?: n
   if (alpha !== undefined && baseColor.startsWith('oklch(')) {
     // If it's already an oklch string, append the alpha channel
     return baseColor.replace(')', ` / ${alpha})`);
+  }
+
+  if (alpha !== undefined && baseColor) {
+    // Hex (and any other) values: mix with transparent so alpha survives as a token
+    return `color-mix(in oklch, ${baseColor} ${Math.round(alpha * 100)}%, transparent)`;
   }
 
   return baseColor;

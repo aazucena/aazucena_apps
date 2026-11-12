@@ -7,6 +7,7 @@ import { vibes } from '../themes/registry';
 import { fontFamilies } from '../tokens/typography';
 import { breakpoints } from '../tokens/breakpoints';
 import { transitions } from '../tokens/motion';
+import { density, motionTokens } from '../tokens/instrument';
 import type { SystemThemeConfig } from '@aazucena/types';
 
 const toKebabCase = kebabCase;
@@ -127,6 +128,12 @@ export function generateCssVariables(vibeId: string = 'default'): string {
   css += '  /* Animation Timing Functions */\n';
   Object.entries(transitions.timing).forEach(([key, value]) => {
     css += `  --timing-${key}: ${value};\n`;
+  });
+  css += '\n';
+
+  css += '  /* Instrument Density + Motion */\n';
+  Object.entries({ ...density, ...motionTokens }).forEach(([key, value]) => {
+    css += `  --${key}: ${value};\n`;
   });
   css += '\n';
 

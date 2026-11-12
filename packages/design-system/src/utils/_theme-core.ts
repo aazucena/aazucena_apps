@@ -89,7 +89,7 @@ export function writeThemeConfig(
   if (config.effects.glowColor) set('--glow-color', config.effects.glowColor);
   if (config.effects.cardBlur) set('--card-blur', config.effects.cardBlur);
   forEach(config.effects.borderRadius, (value, key) => {
-    set(`--radius-${key}`, value);
+    if (value) set(`--radius-${key}`, value);
   });
 
   // Typography

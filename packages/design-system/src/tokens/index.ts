@@ -5,3 +5,4 @@ export * from './shadows';
 export * from './z-index';
 export * from './breakpoints';
 export * from './motion';
+export * from './instrument';
