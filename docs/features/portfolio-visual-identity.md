@@ -34,3 +34,22 @@ The content layer also runs on its own token island. `apps/portfolio/src/styles/
 
 - **Homepage, dark:** Hero, About, Projects, Experience, What I do, Skills, Blog, What's next.
 - **Journey and Blog index:** dark and light.
+- **Pages, dark and light (added 2026-11-12):**
+  - About
+  - Projects and the Portfolio Website case study
+  - Experience and the Tangle Media case study
+  - Blog post
+  - Technical Expertise
+  - Contact
+  - Support
+  - Changelog
+  - 404
+
+  Content comes from the running site, with real project images. Every page shares one instrument footer (`Shared / Footer`).
+
+- **Overlays and mobile, dark:**
+  - Rin chat open over About, with the trigger as a signal outline button
+  - Preloader gate
+  - Mobile Home hero, menu open and Blog post at 390px
+
+Not drawn: `/maintenance`, `/500` and the legal template. Their content wasn't reachable locally.
