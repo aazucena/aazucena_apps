@@ -110,6 +110,7 @@
     "@radix-ui/react-toggle": "^1.2.1",
     "@radix-ui/react-toggle-group": "^1.2.1",
     "@radix-ui/react-tooltip": "^1.4.1",
+    "@rive-app/react-webgl2": "^4.39.0",
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@tailwindcss/postcss": "^4.1.13",
     "@tanstack/react-form": "^1.33.5",

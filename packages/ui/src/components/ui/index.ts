@@ -158,6 +158,7 @@ export * from './react-wheel-picker';
 export * from './radio-group';
 export * from './range-calendar';
 export * from './rating';
+export * from './rin-character';
 export * from './reading-progress';
 export * from './reading-time';
 export * from './resizable';

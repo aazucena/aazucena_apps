@@ -101,6 +101,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(constants)_ Add Rin emotion and behavior lists
 - _(storybook)_ Show new, beta, and deprecated badges in the sidebar
 - _(storybook)_ Add a version switcher
 - _(storybook)_ Show the package version in the toolbar
