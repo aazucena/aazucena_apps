@@ -13,6 +13,11 @@ const meta = {
   component: Badge,
   parameters: {
     layout: 'centered',
+    // Figma component set in the Avra Design System file (addon-designs Design tab)
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=4-95',
+    },
     docs: {
       description: {
         component:
