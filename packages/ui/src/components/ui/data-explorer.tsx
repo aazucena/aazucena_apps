@@ -10,8 +10,8 @@ const dataExplorerVariants = cva('w-full transition-all duration-300 font-mono t
   variants: {
     variant: {
       default: 'text-foreground',
-      glass: 'text-foreground dark:text-white/90',
-      cyber: 'text-cyan-600 dark:text-cyan-50/90',
+      glass: 'text-foreground dark:text-foreground/90',
+      cyber: 'text-signal dark:text-signal/90',
     },
   },
   defaultVariants: {
@@ -73,7 +73,7 @@ const RecursiveRenderer = ({
   if (level > maxDepth) return <span className="italic opacity-40">...Max Depth</span>;
 
   // 1. PRIMITIVES
-  if (data === null) return <span className="text-rose-500/50 italic">null</span>;
+  if (data === null) return <span className="text-alert/50 italic">null</span>;
 
   if (typeof data === 'boolean') {
     return (
@@ -81,10 +81,10 @@ const RecursiveRenderer = ({
         className={cn(
           'rounded px-1.5 py-0.5 text-[10px] font-bold',
           keyName === 'is_valid' && data === false
-            ? 'text-foreground animate-pulse bg-rose-500'
+            ? 'text-alert-foreground bg-alert animate-pulse'
             : keyName === 'is_valid' && data === true
-              ? 'text-foreground bg-emerald-500'
-              : 'text-amber-500',
+              ? 'text-success-foreground bg-success'
+              : 'text-warning',
         )}
       >
         {data.toString().toUpperCase()}
@@ -93,9 +93,7 @@ const RecursiveRenderer = ({
   }
 
   if (typeof data === 'number') {
-    return (
-      <span className={cn(variant === 'cyber' ? 'text-cyan-400' : 'text-emerald-500')}>{data}</span>
-    );
+    return <span className={cn(variant === 'cyber' ? 'text-signal' : 'text-success')}>{data}</span>;
   }
 
   if (typeof data === 'string') {
@@ -115,24 +113,24 @@ const RecursiveRenderer = ({
       return (
         <div
           className={cn(
-            'my-2 rounded-r-xl border-l-2 py-3 pl-4 transition-colors',
+            'rounded-r-card my-2 border-l-2 py-3 pl-4 transition-colors',
             isInvalid
               ? 'border-destructive/50 bg-destructive/10'
               : isKnowledgeSource
-                ? 'border-emerald-500/30 bg-emerald-500/5'
+                ? 'border-success/30 bg-success/5'
                 : variant === 'cyber'
-                  ? 'border-cyan-500/30 bg-cyan-500/5'
-                  : 'glass bg-primary-100 border-primary/30',
+                  ? 'border-signal/30 bg-signal/5'
+                  : 'glass bg-signal-faint border-primary/30',
             'w-full',
           )}
         >
           {isInvalid && (
-            <div className="mb-2 flex items-center gap-2 text-[9px] font-black tracking-tighter text-rose-500 uppercase">
+            <div className="text-alert mb-2 flex items-center gap-2 text-[9px] font-black tracking-tighter uppercase">
               <Activity size={12} /> Audit_Discrepancy_Detected
             </div>
           )}
           {isKnowledgeSource && (
-            <div className="mb-2 flex items-center gap-2 text-[9px] font-black tracking-tighter text-emerald-500 uppercase">
+            <div className="text-success mb-2 flex items-center gap-2 text-[9px] font-black tracking-tighter uppercase">
               <Database size={12} /> Knowledge_Source_Signal
             </div>
           )}
@@ -141,10 +139,10 @@ const RecursiveRenderer = ({
             className={cn(
               'prose-sm prose-zinc dark:prose-invert prose-p:mb-3 last:prose-p:mb-0 text-[13px] leading-relaxed',
               isInvalid
-                ? 'text-destructive dark:text-red-200'
+                ? 'text-destructive dark:text-alert'
                 : isKnowledgeSource
-                  ? 'text-emerald-800 dark:text-emerald-200'
-                  : 'text-zinc-950 dark:text-zinc-100',
+                  ? 'text-foreground dark:text-success'
+                  : 'text-foreground',
             )}
           />
         </div>
@@ -154,7 +152,7 @@ const RecursiveRenderer = ({
       <span
         className={cn(
           'leading-relaxed break-words',
-          isInvalid ? 'font-bold text-rose-500' : 'text-zinc-900/80 dark:text-white/80',
+          isInvalid ? 'text-alert font-bold' : 'text-foreground/80',
         )}
       >
         "{data}"
@@ -194,12 +192,11 @@ const RecursiveRenderer = ({
         className={cn(
           'flex flex-col gap-1.5 transition-all',
           level > 0 && 'ml-1 border-l border-current/10 py-1 pl-4',
-          hasFailedAudit &&
-            'my-2 rounded-2xl border border-rose-500/20 bg-rose-500/5 p-4 shadow-lg',
+          hasFailedAudit && 'rounded-card border-alert/20 bg-alert/5 my-2 border p-4',
         )}
       >
         {hasFailedAudit && (
-          <div className="mb-2 flex animate-pulse items-center gap-2 text-[10px] font-black tracking-widest text-rose-600 uppercase dark:text-rose-400">
+          <div className="text-alert mb-2 flex animate-pulse items-center gap-2 text-[10px] font-black tracking-widest uppercase">
             <Activity size={14} /> Critical_Audit_Failure
           </div>
         )}
@@ -209,7 +206,7 @@ const RecursiveRenderer = ({
               className={cn(
                 'mt-0.5 shrink-0 text-[9px] font-black tracking-tighter uppercase',
                 key === 'is_valid' && data[key] === false
-                  ? 'text-rose-500'
+                  ? 'text-alert'
                   : variant === 'cyber'
                     ? 'text-foreground0'
                     : 'text-primary',

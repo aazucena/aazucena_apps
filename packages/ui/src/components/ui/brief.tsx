@@ -4,23 +4,18 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const briefVariants = cva(
-  'rounded-[2rem] shadow-sm border p-8 space-y-8 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-card border-border',
-        glass:
-          'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl',
-        cyber:
-          'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const briefVariants = cva('rounded-card border p-8 space-y-8 transition-all duration-300', {
+  variants: {
+    variant: {
+      default: 'bg-card border-border',
+      glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+      cyber: 'bg-background/80 dark:bg-scrim border-signal/30 text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const Brief = React.forwardRef<
   HTMLDivElement,
@@ -77,13 +72,13 @@ const BriefValue = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 BriefValue.displayName = 'BriefValue';
 
 const briefCalloutVariants = cva(
-  'p-5 rounded-2xl border flex items-start gap-4 transition-all duration-300',
+  'p-5 rounded-card border flex items-start gap-4 transition-all duration-300',
   {
     variants: {
       variant: {
-        default: 'glass bg-primary-100 border-primary/20 text-primary',
-        cyber: 'bg-cyan-500/5 border-cyan-500/20 text-cyan-600 dark:text-cyan-400',
-        glass: 'glass text-foreground dark:text-white',
+        default: 'glass bg-signal-faint border-primary/20 text-primary',
+        cyber: 'bg-signal/5 border-signal/20 text-signal',
+        glass: 'glass text-foreground',
       },
     },
     defaultVariants: {

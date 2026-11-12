@@ -36,7 +36,7 @@ export interface ConditionRulesNodeProps {
 }
 
 const fieldClass =
-  'h-8 rounded-md border bg-transparent px-2 text-sm outline-none focus:ring-1 focus:ring-ring transition-all hover:bg-muted/50';
+  'h-8 rounded-control border bg-transparent px-2 text-sm outline-none focus:ring-1 focus:ring-ring transition-all hover:bg-muted/50';
 
 const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodeProps>(
   ({ rule, fields, operators, onChange, onRemove, variant }, ref) => {
@@ -57,8 +57,8 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
       <div
         ref={ref}
         className={cn(
-          'group hover:bg-accent/40 flex items-center gap-2 rounded-md px-2 py-1.5 transition-all duration-200',
-          variant === 'cyber' && 'hover:bg-cyan-500/5',
+          'group hover:bg-accent/40 rounded-control flex items-center gap-2 px-2 py-1.5 transition-all duration-200',
+          variant === 'cyber' && 'hover:bg-signal/5',
         )}
       >
         <select
@@ -96,7 +96,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
           <button
             type="button"
             onClick={onRemove}
-            className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border shadow-sm transition-all"
+            className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 rounded-control flex h-8 w-8 shrink-0 items-center justify-center border transition-all"
             aria-label="Remove rule"
           >
             <X size="16" />

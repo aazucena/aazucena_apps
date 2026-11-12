@@ -53,11 +53,11 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
       <div ref={ref} className={cn(megaMenuVariants({ variant }), className)} {...props}>
         <nav
           className={cn(
-            'flex items-center gap-1 rounded-lg border px-2 py-1',
+            'rounded-control flex items-center gap-1 border px-2 py-1',
             v === 'cyber'
-              ? 'border-cyan-500/30 bg-black/80'
+              ? 'border-signal/30 bg-scrim'
               : v === 'glass'
-                ? 'glass-m border-white/10'
+                ? 'glass border-rule'
                 : 'border-border bg-background',
           )}
         >
@@ -71,13 +71,13 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
               <a
                 href={item.href ?? '#'}
                 className={cn(
-                  'inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  'rounded-control inline-flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors',
                   activeIndex === index
                     ? v === 'cyber'
-                      ? 'bg-cyan-500/20 text-cyan-400'
+                      ? 'bg-signal/20 text-signal'
                       : 'bg-accent text-accent-foreground'
                     : v === 'cyber'
-                      ? 'text-cyan-50 hover:bg-cyan-500/10'
+                      ? 'text-signal hover:bg-signal/10'
                       : 'text-foreground hover:bg-accent',
                 )}
               >
@@ -106,11 +106,11 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
               onMouseEnter={() => clearTimeout(timeoutRef.current)}
               onMouseLeave={handleLeave}
               className={cn(
-                'absolute left-0 z-50 mt-1 w-full min-w-[32rem] rounded-lg border p-4 shadow-xl',
+                'rounded-control absolute left-0 z-50 mt-1 w-full min-w-[32rem] border p-4',
                 v === 'cyber'
-                  ? 'border-cyan-500/30 bg-black/95 shadow-[0_0_20px_rgba(6,182,212,0.1)]'
+                  ? 'border-signal/30 bg-scrim'
                   : v === 'glass'
-                    ? 'glass border-white/10'
+                    ? 'glass border-rule'
                     : 'border-border bg-popover',
               )}
             >
@@ -125,8 +125,8 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
                     key={link.label}
                     href={link.href ?? '#'}
                     className={cn(
-                      'group flex items-start gap-3 rounded-md p-3 transition-colors',
-                      v === 'cyber' ? 'hover:bg-cyan-500/10' : 'hover:bg-accent',
+                      'group rounded-control flex items-start gap-3 p-3 transition-colors',
+                      v === 'cyber' ? 'hover:bg-signal/10' : 'hover:bg-accent',
                     )}
                   >
                     {link.icon && (
@@ -134,7 +134,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
                         className={cn(
                           'mt-0.5 shrink-0 [&_svg]:size-5',
                           v === 'cyber'
-                            ? 'text-cyan-400'
+                            ? 'text-signal'
                             : 'text-muted-foreground group-hover:text-foreground',
                         )}
                       >
@@ -143,7 +143,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
                     )}
                     <div>
                       <div
-                        className={cn('text-sm font-medium', v === 'cyber' ? 'text-cyan-50' : '')}
+                        className={cn('text-sm font-medium', v === 'cyber' ? 'text-signal' : '')}
                       >
                         {link.label}
                       </div>
@@ -151,7 +151,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
                         <p
                           className={cn(
                             'mt-0.5 text-xs leading-relaxed',
-                            v === 'cyber' ? 'text-cyan-400/60' : 'text-muted-foreground',
+                            v === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
                           )}
                         >
                           {link.description}

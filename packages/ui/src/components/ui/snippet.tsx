@@ -5,13 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const snippetVariants = cva(
-  'inline-flex items-center gap-2 rounded-lg border font-mono transition-all',
+  'inline-flex items-center gap-2 rounded-control border font-mono transition-all',
   {
     variants: {
       variant: {
         default: 'bg-muted/50 border-border text-foreground',
-        glass: 'glass-m border-white/10 text-foreground',
-        cyber: 'bg-black/50 border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+        glass: 'glass border-rule text-foreground',
+        cyber: 'bg-scrim border-signal/30 text-signal',
       },
       size: {
         sm: 'h-8 px-2.5 text-xs',

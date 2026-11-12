@@ -22,8 +22,8 @@ const transferVariants = cva('flex items-stretch gap-2 transition-all', {
 
 const panelClass: Record<string, string> = {
   default: 'border-border bg-background',
-  glass: 'glass-m border-white/10',
-  cyber: 'border-cyan-500/30 bg-black/50 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+  glass: 'glass border-rule',
+  cyber: 'border-signal/30 bg-scrim',
 };
 
 export interface TransferItem {
@@ -117,11 +117,11 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
       const allChecked = enabled.length > 0 && enabled.every((i) => selected.has(i.key));
 
       return (
-        <div className={cn('flex w-52 flex-col rounded-lg border', panelClass[v])}>
+        <div className={cn('rounded-control flex w-52 flex-col border', panelClass[v])}>
           <div
             className={cn(
               'flex items-center gap-2 border-b px-3 py-2',
-              v === 'cyber' ? 'border-cyan-500/20' : 'border-border',
+              v === 'cyber' ? 'border-signal/20' : 'border-border',
             )}
           >
             <input
@@ -140,7 +140,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
             <div
               className={cn(
                 'border-b px-2 py-1.5',
-                v === 'cyber' ? 'border-cyan-500/20' : 'border-border',
+                v === 'cyber' ? 'border-signal/20' : 'border-border',
               )}
             >
               <input
@@ -150,7 +150,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
                 onChange={(e) => setQuery(e.target.value)}
                 className={cn(
                   'placeholder:text-muted-foreground w-full bg-transparent px-1 py-0.5 outline-none',
-                  v === 'cyber' && 'text-cyan-50',
+                  v === 'cyber' && 'text-signal',
                 )}
               />
             </div>
@@ -165,7 +165,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
                   className={cn(
                     'flex cursor-pointer items-center gap-2 rounded px-2 py-1 transition-colors',
                     item.disabled && 'pointer-events-none opacity-50',
-                    v === 'cyber' ? 'hover:bg-cyan-500/10' : 'hover:bg-accent',
+                    v === 'cyber' ? 'hover:bg-signal/10' : 'hover:bg-accent',
                   )}
                 >
                   <input
@@ -209,9 +209,9 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
             disabled={disabled || sourceSelected.size === 0}
             onClick={moveToTarget}
             className={cn(
-              'rounded-md border p-1.5 transition-all disabled:opacity-30',
+              'rounded-control border p-1.5 transition-all disabled:opacity-30',
               v === 'cyber'
-                ? 'border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10'
+                ? 'border-signal/30 text-signal hover:bg-signal/10'
                 : 'border-border hover:bg-accent',
             )}
           >
@@ -233,9 +233,9 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
             disabled={disabled || targetSelected.size === 0}
             onClick={moveToSource}
             className={cn(
-              'rounded-md border p-1.5 transition-all disabled:opacity-30',
+              'rounded-control border p-1.5 transition-all disabled:opacity-30',
               v === 'cyber'
-                ? 'border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10'
+                ? 'border-signal/30 text-signal hover:bg-signal/10'
                 : 'border-border hover:bg-accent',
             )}
           >

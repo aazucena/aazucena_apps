@@ -24,16 +24,15 @@ const speedDialVariants = cva('fixed z-50', {
 });
 
 const triggerClasses: Record<string, string> = {
-  default: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg',
-  glass: 'glass text-foreground shadow-xl',
-  cyber: 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.4)]',
+  default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+  glass: 'glass text-foreground',
+  cyber: 'bg-signal text-signal-foreground hover:bg-signal',
 };
 
 const actionClasses: Record<string, string> = {
-  default: 'bg-background border border-border text-foreground shadow-md hover:bg-accent',
-  glass: 'glass-m text-foreground shadow-lg hover:opacity-80',
-  cyber:
-    'bg-black/80 border border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.1)] hover:bg-cyan-500/10',
+  default: 'bg-background border border-border text-foreground hover:bg-accent',
+  glass: 'glass text-foreground hover:opacity-80',
+  cyber: 'bg-scrim border border-signal/30 text-signal hover:bg-signal/10',
 };
 
 export interface SpeedDialAction {

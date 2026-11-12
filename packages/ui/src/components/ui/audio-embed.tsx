@@ -4,12 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const audioEmbedVariants = cva('inline-flex w-full items-center rounded-lg', {
+const audioEmbedVariants = cva('inline-flex w-full items-center rounded-control', {
   variants: {
     variant: {
       default: 'border border-border bg-muted/30',
-      glass: 'glass-m',
-      cyber: 'border border-cyan-500/20 bg-black/50',
+      glass: 'glass',
+      cyber: 'border border-signal/20 bg-scrim',
     },
     size: {
       sm: 'gap-2 p-2',
@@ -70,7 +70,7 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
           className={cn(
             'flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors',
             v === 'cyber'
-              ? 'bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30'
+              ? 'bg-signal/20 text-signal hover:bg-signal/30'
               : 'bg-primary/10 text-primary hover:bg-primary/20',
           )}
         >
@@ -91,7 +91,7 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
             <span
               className={cn(
                 'truncate text-xs font-medium',
-                v === 'cyber' ? 'font-mono text-cyan-50' : 'text-foreground',
+                v === 'cyber' ? 'text-signal font-mono' : 'text-foreground',
               )}
             >
               {title}
@@ -100,13 +100,13 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
           <div
             className={cn(
               'h-1 w-full overflow-hidden rounded-full',
-              v === 'cyber' ? 'bg-cyan-500/10' : 'bg-zinc-200',
+              v === 'cyber' ? 'bg-signal/10' : 'bg-state',
             )}
           >
             <div
               className={cn(
                 'h-full rounded-full transition-[width] duration-200',
-                v === 'cyber' ? 'bg-cyan-500' : 'bg-primary',
+                v === 'cyber' ? 'bg-signal' : 'bg-primary',
               )}
               style={{ width: `${pct}%` }}
             />
@@ -115,7 +115,7 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
         <span
           className={cn(
             'shrink-0 text-[10px] tabular-nums',
-            v === 'cyber' ? 'font-mono text-cyan-500/60' : 'text-muted-foreground',
+            v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
           )}
         >
           {fmt(current)} / {fmt(duration)}

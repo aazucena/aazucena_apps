@@ -13,10 +13,9 @@ export const sidebarVariants = cva('flex h-full flex-col transition-all duration
   variants: {
     variant: {
       default: 'bg-sidebar text-sidebar-foreground',
-      glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-xl border-r border-border/10 text-foreground',
+      glass: 'bg-background/5 dark:bg-state border-r border-border/10 text-foreground',
       cyber:
-        'bg-background/90 dark:bg-black/90 border-r border-border/10 dark:border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.1)]',
+        'bg-background/90 dark:bg-scrim border-r border-border/10 dark:border-signal/40 text-foreground',
       floating: 'bg-sidebar text-sidebar-foreground',
       inset: 'bg-sidebar text-sidebar-foreground',
     },

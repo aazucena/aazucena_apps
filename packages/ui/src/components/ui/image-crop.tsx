@@ -5,13 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const imageCropVariants = cva(
-  'relative inline-block select-none overflow-hidden rounded-md border transition-all duration-300',
+  'relative inline-block select-none overflow-hidden rounded-control border transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'border-border',
-        glass: 'border-border/20 shadow-2xl',
-        cyber: 'border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+        glass: 'border-border/20',
+        cyber: 'border-signal/30',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -115,7 +115,7 @@ const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
       document.addEventListener('mouseup', handleUp);
     };
 
-    const handleStyle = 'absolute h-3 w-3 rounded-full border-2 border-white bg-primary shadow';
+    const handleStyle = 'absolute h-3 w-3 rounded-full border-2 border-rule bg-primary';
 
     return (
       <div ref={ref} className={cn(imageCropVariants({ variant }), className)} {...props}>
@@ -123,14 +123,14 @@ const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
           <img src={src} alt="" className="block w-full" draggable={false} />
           {/* Overlay */}
           <div
-            className="absolute inset-0 bg-black/50"
+            className="bg-scrim absolute inset-0"
             style={{
               clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${crop.x}% ${crop.y}%, ${crop.x}% ${crop.y + crop.height}%, ${crop.x + crop.width}% ${crop.y + crop.height}%, ${crop.x + crop.width}% ${crop.y}%, ${crop.x}% ${crop.y}%)`,
             }}
           />
           {/* Crop area */}
           <div
-            className="absolute cursor-move border-2 border-white/80"
+            className="border-rule absolute cursor-move border-2"
             style={{
               left: `${crop.x}%`,
               top: `${crop.y}%`,

@@ -20,8 +20,8 @@ const breadcrumbListVariants = cva(
     variants: {
       variant: {
         default: 'text-muted-foreground',
-        glass: 'text-muted-foreground dark:text-white/60',
-        cyber: 'text-cyan-600 dark:text-cyan-500/60',
+        glass: 'text-muted-foreground dark:text-foreground/60',
+        cyber: 'text-signal dark:text-signal/60',
         intel: 'text-[10px] font-black tracking-[0.3em] text-muted-foreground uppercase',
       },
     },
@@ -50,8 +50,8 @@ const breadcrumbLinkVariants = cva('transition-colors', {
   variants: {
     variant: {
       default: 'hover:text-foreground',
-      glass: 'hover:text-foreground dark:hover:text-white',
-      cyber: 'hover:text-cyan-700 dark:hover:text-cyan-400',
+      glass: 'hover:text-foreground',
+      cyber: 'hover:text-signal',
       intel: 'hover:text-primary',
     },
   },
@@ -79,8 +79,8 @@ const breadcrumbPageVariants = cva('font-normal', {
   variants: {
     variant: {
       default: 'text-foreground',
-      glass: 'text-foreground dark:text-white',
-      cyber: 'text-cyan-600 dark:text-cyan-400',
+      glass: 'text-foreground',
+      cyber: 'text-signal',
       intel: 'text-primary',
     },
   },
@@ -108,7 +108,7 @@ const breadcrumbSeparatorVariants = cva('[&>svg]:w-3.5 [&>svg]:h-3.5', {
   variants: {
     variant: {
       default: '',
-      glass: 'text-muted-foreground/40 dark:text-white/40',
+      glass: 'text-muted-foreground/40 dark:text-foreground/40',
       cyber: 'text-foreground0/40',
       intel: 'text-muted-foreground/40 font-normal',
     },

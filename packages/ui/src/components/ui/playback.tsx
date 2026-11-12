@@ -10,10 +10,9 @@ const playbackVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800',
-        glass: 'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground',
-        cyber:
-          'bg-background dark:bg-black border border-border dark:border-cyan-500/30 text-foreground',
+        default: 'bg-panel dark:bg-panel/50 border-rule',
+        glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+        cyber: 'bg-background border border-border dark:border-signal/30 text-foreground',
       },
     },
     defaultVariants: {
@@ -63,8 +62,8 @@ const PlaybackButton = React.forwardRef<
     variant={variant}
     size={size}
     className={cn(
-      'rounded-xl transition-all',
-      active && 'bg-primary text-primary-foreground shadow-primary/20 shadow-lg',
+      'rounded-card transition-all',
+      active && 'bg-primary text-primary-foreground',
       className,
     )}
     {...props}

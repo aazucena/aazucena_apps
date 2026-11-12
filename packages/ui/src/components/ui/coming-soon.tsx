@@ -12,10 +12,9 @@ const comingSoonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-muted/10 border-border rounded-xl',
-        glass: 'glass border-white/10 rounded-[2rem] text-white',
-        cyber:
-          'bg-black border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] text-cyan-400 font-mono rounded-none',
+        default: 'bg-muted/10 border-border rounded-card',
+        glass: 'glass border-rule rounded-card text-foreground',
+        cyber: 'bg-background border-signal/20 text-signal font-mono rounded-none',
       },
       size: {
         default: 'w-full',
@@ -111,7 +110,7 @@ const BitStream = ({ variant, isHovered }: { variant: string; isHovered: boolean
           className="flex flex-col gap-2 font-mono text-[10px]"
         >
           {[...streamData, ...streamData].map((hex, j) => (
-            <span key={j} className={variant === 'cyber' ? 'text-cyan-500' : ''}>
+            <span key={j} className={variant === 'cyber' ? 'text-signal' : ''}>
               {hex}
             </span>
           ))}
@@ -176,10 +175,10 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
         {/* L-Bracket Corners (Cyber Variant or FullScreen) */}
         {(v === 'cyber' || fullScreen) && (
           <>
-            <div className="absolute top-0 left-0 size-8 border-t-2 border-l-2 border-cyan-500/40" />
-            <div className="absolute top-0 right-0 size-8 border-t-2 border-r-2 border-cyan-500/40" />
-            <div className="absolute bottom-0 left-0 size-8 border-b-2 border-l-2 border-cyan-500/40" />
-            <div className="absolute right-0 bottom-0 size-8 border-r-2 border-b-2 border-cyan-500/40" />
+            <div className="border-signal/40 absolute top-0 left-0 size-8 border-t-2 border-l-2" />
+            <div className="border-signal/40 absolute top-0 right-0 size-8 border-t-2 border-r-2" />
+            <div className="border-signal/40 absolute bottom-0 left-0 size-8 border-b-2 border-l-2" />
+            <div className="border-signal/40 absolute right-0 bottom-0 size-8 border-r-2 border-b-2" />
           </>
         )}
 
@@ -200,7 +199,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
               <Button
                 variant="ghost"
                 size="icon"
-                className="size-8 rounded-full hover:bg-white/10"
+                className="hover:bg-state size-8 rounded-full"
                 onClick={onClose}
               >
                 <X className="size-4" />
@@ -216,13 +215,13 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
             animate={{ scale: 1, opacity: 1 }}
             className="bg-primary/5 border-primary/10 mb-4 inline-flex rounded-full border p-4"
           >
-            <Lock className={cn('size-8', v === 'cyber' && 'text-cyan-400')} />
+            <Lock className={cn('size-8', v === 'cyber' && 'text-signal')} />
           </motion.div>
 
           <h3
             className={cn(
               'text-3xl font-black tracking-tighter uppercase md:text-5xl',
-              v === 'cyber' && 'text-cyan-400',
+              v === 'cyber' && 'text-signal',
             )}
           >
             <GlitchText text={title} isHovered={isHovered || fullScreen} />
@@ -235,14 +234,14 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
           <div className="flex items-center justify-center gap-6 pt-8">
             <motion.div
               animate={{ width: isHovered || fullScreen ? 60 : 32 }}
-              className={cn('bg-border h-px', v === 'cyber' && 'bg-cyan-500/50')}
+              className={cn('bg-border h-px', v === 'cyber' && 'bg-signal/50')}
             />
             <span className="text-xs font-black tracking-[0.4em] uppercase opacity-60">
               {expectedDate}
             </span>
             <motion.div
               animate={{ width: isHovered || fullScreen ? 60 : 32 }}
-              className={cn('bg-border h-px', v === 'cyber' && 'bg-cyan-500/50')}
+              className={cn('bg-border h-px', v === 'cyber' && 'bg-signal/50')}
             />
           </div>
         </div>

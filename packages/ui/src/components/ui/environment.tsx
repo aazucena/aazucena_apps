@@ -83,14 +83,14 @@ const environmentGlowVariants = cva(
   {
     variants: {
       color: {
-        blue: 'bg-blue-500/10 dark:bg-blue-600/5',
-        purple: 'bg-purple-500/10 dark:bg-purple-600/5',
-        cyan: 'bg-cyan-500/10 dark:bg-cyan-600/5',
-        rose: 'bg-rose-500/10 dark:bg-rose-600/5',
-        indigo: 'bg-indigo-500/10 dark:bg-indigo-600/5',
-        orange: 'bg-orange-500/10 dark:bg-orange-600/5',
-        red: 'bg-red-500/10 dark:bg-red-600/5',
-        emerald: 'bg-emerald-500/10 dark:bg-emerald-600/5',
+        blue: 'bg-signal/10 dark:bg-signal/5',
+        purple: 'bg-series-3/10 dark:bg-series-3/5',
+        cyan: 'bg-signal/10 dark:bg-signal/5',
+        rose: 'bg-alert/10 dark:bg-alert/5',
+        indigo: 'bg-series-3/10 dark:bg-series-3/5',
+        orange: 'bg-warning/10 dark:bg-warning/5',
+        red: 'bg-alert/10 dark:bg-alert/5',
+        emerald: 'bg-success/10 dark:bg-success/5',
       },
       size: {
         xs: 'w-1/6 h-1/4',
@@ -132,11 +132,11 @@ EnvironmentGlow.displayName = 'EnvironmentGlow';
 const environmentAtmosphereVariants = cva('absolute inset-0 transition-all duration-1000', {
   variants: {
     phase: {
-      exosphere: 'bg-gradient-to-b from-black via-slate-900 to-blue-900/20',
-      thermosphere: 'bg-gradient-to-b from-blue-900/40 via-blue-800/30 to-blue-700/20',
-      mesosphere: 'bg-gradient-to-b from-blue-700/30 via-blue-600/20 to-blue-500/10',
-      stratosphere: 'bg-gradient-to-b from-blue-500/20 via-blue-400/10 to-blue-300/5',
-      troposphere: 'bg-gradient-to-b from-blue-300/10 via-blue-100/5 to-white dark:to-gray-950',
+      exosphere: '',
+      thermosphere: '',
+      mesosphere: '',
+      stratosphere: '',
+      troposphere: '',
     },
   },
   defaultVariants: {

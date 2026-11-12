@@ -11,7 +11,7 @@ const techStackVariants = cva('flex items-center gap-6 transition-all duration-3
     variant: {
       default: 'opacity-40 hover:opacity-100',
       bright: 'opacity-100',
-      cyber: 'text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.3)]',
+      cyber: 'text-signal',
     },
   },
   defaultVariants: {
@@ -40,7 +40,7 @@ const techStackItemVariants = cva(
     variants: {
       variant: {
         default: 'hover:text-foreground grayscale hover:grayscale-0',
-        cyber: 'hover:text-cyan-400 hover:scale-110',
+        cyber: 'hover:text-signal hover:scale-110',
         color: 'grayscale-0',
       },
     },

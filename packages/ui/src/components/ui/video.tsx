@@ -7,9 +7,9 @@ import { cn } from '@aazucena/utils';
 const videoVariants = cva('relative overflow-hidden group', {
   variants: {
     variant: {
-      default: 'bg-muted rounded-lg',
-      glass: 'glass rounded-xl',
-      cyber: 'border border-cyan-500/20 bg-black/50 rounded-lg',
+      default: 'bg-muted rounded-control',
+      glass: 'glass rounded-card',
+      cyber: 'border border-signal/20 bg-scrim rounded-control',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -62,16 +62,16 @@ const Video = React.forwardRef<HTMLVideoElement, VideoProps>(
             aria-label="Play video"
             onClick={handlePlay}
             className={cn(
-              'absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity group-hover:bg-black/40',
-              variant === 'cyber' && 'bg-black/50',
+              'bg-scrim group-hover:bg-scrim absolute inset-0 flex items-center justify-center transition-opacity',
+              variant === 'cyber' && 'bg-scrim',
             )}
           >
             <div
               className={cn(
                 'flex size-14 items-center justify-center rounded-full transition-transform group-hover:scale-110',
                 variant === 'cyber'
-                  ? 'bg-cyan-500 text-black shadow-[0_0_20px_rgba(6,182,212,0.5)]'
-                  : 'bg-white/90 text-black shadow-lg',
+                  ? 'bg-signal text-signal-foreground'
+                  : 'bg-panel-raised text-foreground',
               )}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

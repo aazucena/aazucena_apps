@@ -7,14 +7,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../collapsi
 import { ChevronsUpDown } from '@aazucena/icons'; // Assuming ChevronsUpDown icon is available
 
 const chatChainOfThoughtVariants = cva(
-  'flex flex-col gap-4 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-4 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -65,7 +64,7 @@ const ChatChainOfThought = React.forwardRef<HTMLDivElement, ChatChainOfThoughtPr
               key={step.id}
               open={expandedStates[step.id]}
               onOpenChange={() => toggleExpanded(step.id)}
-              className="bg-muted/50 rounded-md border p-3"
+              className="bg-muted/50 rounded-control border p-3"
             >
               <CollapsibleTrigger className="flex w-full items-center justify-between text-left font-semibold">
                 <span>{`Step ${index + 1}: ${step.title}`}</span>

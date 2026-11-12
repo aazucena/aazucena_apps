@@ -4,12 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const hover3dCardVariants = cva('overflow-hidden rounded-xl transition-shadow', {
+const hover3dCardVariants = cva('overflow-hidden rounded-card transition-shadow', {
   variants: {
     variant: {
-      default: 'border border-border bg-background shadow-sm hover:shadow-lg',
-      glass: 'glass hover:shadow-lg',
-      cyber: 'border border-cyan-500/20 bg-black/80 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]',
+      default: 'border border-border bg-background',
+      glass: 'glass',
+      cyber: 'border border-signal/20 bg-scrim',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -77,7 +77,7 @@ const Hover3DCard = React.forwardRef<HTMLDivElement, Hover3DCardProps>(
         {children}
         {glare && transform && (
           <div
-            className="pointer-events-none absolute inset-0 rounded-xl"
+            className="rounded-card pointer-events-none absolute inset-0"
             style={{
               background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
             }}

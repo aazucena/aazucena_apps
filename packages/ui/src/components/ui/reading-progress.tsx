@@ -10,9 +10,9 @@ const readingProgressVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500',
-        glass: 'bg-white/30 backdrop-blur-sm',
-        cyber: 'bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]',
+        default: '',
+        glass: 'bg-panel-raised',
+        cyber: 'bg-signal',
       },
     },
     defaultVariants: {

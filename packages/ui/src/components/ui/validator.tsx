@@ -45,7 +45,7 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
           <div
             className={cn(
               'h-1.5 w-full overflow-hidden rounded-full',
-              v === 'cyber' ? 'bg-cyan-500/10' : 'bg-muted',
+              v === 'cyber' ? 'bg-signal/10' : 'bg-muted',
             )}
           >
             <div
@@ -53,15 +53,15 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
                 'h-full rounded-full transition-all duration-300',
                 pct === 100
                   ? v === 'cyber'
-                    ? 'bg-green-400'
-                    : 'bg-green-500'
+                    ? 'bg-success'
+                    : 'bg-success'
                   : pct >= 50
                     ? v === 'cyber'
-                      ? 'bg-yellow-400'
-                      : 'bg-yellow-500'
+                      ? 'bg-warning'
+                      : 'bg-warning'
                     : v === 'cyber'
-                      ? 'bg-red-400'
-                      : 'bg-red-500',
+                      ? 'bg-alert'
+                      : 'bg-alert',
               )}
               style={{ width: `${pct}%` }}
             />
@@ -78,7 +78,7 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2.5"
-                  className={cn(v === 'cyber' ? 'text-green-400' : 'text-green-500')}
+                  className={cn(v === 'cyber' ? 'text-success' : 'text-success')}
                 >
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
@@ -90,7 +90,7 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2.5"
-                  className={cn(v === 'cyber' ? 'text-red-400' : 'text-red-500')}
+                  className={cn(v === 'cyber' ? 'text-alert' : 'text-alert')}
                 >
                   <path d="M18 6 6 18" />
                   <path d="m6 6 12 12" />
@@ -100,10 +100,10 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
                 className={cn(
                   rule.valid
                     ? v === 'cyber'
-                      ? 'text-cyan-50/60'
+                      ? 'text-signal/60'
                       : 'text-muted-foreground'
                     : v === 'cyber'
-                      ? 'text-cyan-50'
+                      ? 'text-signal'
                       : 'text-foreground',
                   v === 'cyber' && 'font-mono',
                 )}

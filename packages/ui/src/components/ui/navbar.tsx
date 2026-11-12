@@ -12,10 +12,10 @@ const navbarVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-background/80 backdrop-blur-lg border-border text-foreground',
-        glass: 'glass text-foreground dark:text-white',
+        default: 'bg-background/80 border-border text-foreground',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-scrim dark:text-signal',
       },
       isScrolled: {
         true: '',
@@ -26,7 +26,7 @@ const navbarVariants = cva(
       {
         variant: 'default',
         isScrolled: true,
-        className: 'py-4 shadow-sm bg-background/95',
+        className: 'py-4 bg-background/95',
       },
       {
         variant: 'default',
@@ -36,7 +36,7 @@ const navbarVariants = cva(
       {
         variant: 'glass',
         isScrolled: true,
-        className: 'py-4 bg-background/10 dark:bg-white/10 border-border/20 shadow-xl',
+        className: 'py-4 bg-background/10 dark:bg-state border-border/20',
       },
       {
         variant: 'glass',
@@ -46,8 +46,7 @@ const navbarVariants = cva(
       {
         variant: 'cyber',
         isScrolled: true,
-        className:
-          'py-4 bg-background dark:bg-black/95 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.2)]',
+        className: 'py-4 bg-background dark:bg-scrim border-signal/50',
       },
       {
         variant: 'cyber',
@@ -98,13 +97,13 @@ const NavbarBrand = React.forwardRef<
 NavbarBrand.displayName = 'NavbarBrand';
 
 const navbarContentVariants = cva(
-  'hidden items-center gap-1 rounded-full border p-1.5 backdrop-blur-md md:flex transition-all duration-300',
+  'hidden items-center gap-1 rounded-full border p-1.5 md:flex transition-all duration-300',
   {
     variants: {
       variant: {
-        default: 'bg-gray-50/50 border-gray-100',
-        glass: 'bg-background/10 dark:bg-white/10 border-border/20',
-        cyber: 'bg-background/40 dark:bg-black/40 border-cyan-500/20',
+        default: 'bg-panel/50 border-rule',
+        glass: 'bg-background/10 dark:bg-state border-border/20',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/20',
       },
     },
     defaultVariants: {
@@ -155,7 +154,7 @@ const NavbarMobile = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="bg-background fixed inset-0 z-[120] backdrop-blur-md md:hidden dark:bg-black/60"
+          className="bg-background dark:bg-scrim fixed inset-0 z-[120] md:hidden"
         />
         <motion.div
           initial={{ x: '100%' }}
@@ -164,11 +163,8 @@ const NavbarMobile = ({
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           className={cn(
             'fixed top-0 right-0 bottom-0 z-[130] flex w-[85vw] max-w-sm flex-col border-l p-8 md:hidden',
-            variant === 'cyber'
-              ? 'bg-background border-cyan-500/20 dark:bg-black'
-              : 'bg-background border-border',
-            variant === 'glass' &&
-              'border-border/10 bg-background/5 backdrop-blur-xl dark:bg-white/5',
+            variant === 'cyber' ? 'bg-background border-signal/20' : 'bg-background border-border',
+            variant === 'glass' && 'border-border/10 bg-background/5 dark:bg-state',
           )}
         >
           <div className="mb-8 flex justify-end">

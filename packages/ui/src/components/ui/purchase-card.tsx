@@ -58,8 +58,8 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
         className={cn(
           purchaseCardVariants({ variant }),
           'flex flex-col overflow-hidden',
-          variant === 'glass' && 'border-white/10 bg-white/5 text-white',
-          variant === 'cyber' && 'border-cyan-500/20 bg-black text-cyan-50',
+          variant === 'glass' && 'border-rule bg-state text-foreground',
+          variant === 'cyber' && 'border-signal/20 bg-background text-signal',
           className,
         )}
         variant={variant === 'glass' || variant === 'cyber' ? variant : 'default'}
@@ -70,7 +70,7 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
         )}
         <CardHeader className="flex-grow">
           <div className="flex items-center justify-between">
-            <CardTitle className={cn(variant === 'cyber' && 'font-mono text-cyan-400 italic')}>
+            <CardTitle className={cn(variant === 'cyber' && 'text-signal font-mono italic')}>
               {title}
             </CardTitle>
             {badgeText && (
@@ -79,8 +79,8 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
           </div>
           <CardDescription
             className={cn(
-              variant === 'glass' && 'text-white/70',
-              variant === 'cyber' && 'font-mono text-cyan-500/60',
+              variant === 'glass' && 'text-foreground/70',
+              variant === 'cyber' && 'text-signal/60 font-mono',
             )}
           >
             {description}
@@ -89,13 +89,13 @@ const PurchaseCard = React.forwardRef<HTMLDivElement, PurchaseCardProps>(
         <CardContent className="space-y-4">
           <div className="text-3xl font-bold">
             {price}
-            {variant === 'cyber' && <span className="font-mono text-cyan-400">$</span>}
+            {variant === 'cyber' && <span className="text-signal font-mono">$</span>}
           </div>
           {features && (
             <ul
               className={cn(
                 'list-inside list-disc space-y-1 text-sm',
-                variant === 'cyber' && 'list-[">"] font-mono text-cyan-500/80',
+                variant === 'cyber' && 'text-signal/80 list-[">"] font-mono',
               )}
             >
               {features.map((feature, index) => (

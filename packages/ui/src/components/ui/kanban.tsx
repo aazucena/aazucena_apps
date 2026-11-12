@@ -69,15 +69,14 @@ const KanbanBoard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 KanbanBoard.displayName = 'KanbanBoard';
 
 const kanbanLaneVariants = cva(
-  'flex-shrink-0 w-[85vw] md:w-[340px] snap-start transition-all duration-500 rounded-[2.5rem] border flex flex-col overflow-hidden',
+  'flex-shrink-0 w-[85vw] md:w-[340px] snap-start transition-all duration-500 rounded-card border flex flex-col overflow-hidden',
   {
     variants: {
       variant: {
-        default:
-          'bg-muted/30 border-border hover:bg-card hover:shadow-2xl hover:border-primary/10 text-foreground',
-        glass: 'glass text-foreground dark:text-white hover:bg-background/10 dark:bg-white/10',
+        default: 'bg-muted/30 border-border hover:bg-card hover:border-primary/10 text-foreground',
+        glass: 'glass text-foreground hover:bg-background/10 dark:bg-state',
         cyber:
-          'glass bg-primary-100 border-cyan-500/20 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:border-cyan-400 dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/20 text-foreground hover:border-signal dark:bg-background/40 dark:bg-scrim dark:text-signal',
       },
     },
     defaultVariants: {
@@ -120,7 +119,7 @@ const KanbanCard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
     <div
       ref={ref}
       className={cn(
-        'bg-card border-border hover:border-primary/20 rounded-2xl border p-5 shadow-sm transition-all duration-300 hover:shadow-lg',
+        'bg-card border-border hover:border-primary/20 rounded-card border p-5 transition-all duration-300',
         className,
       )}
       {...props}

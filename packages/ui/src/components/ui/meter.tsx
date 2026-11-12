@@ -10,11 +10,11 @@ const meterVariants = cva(
     variants: {
       variant: {
         default: 'bg-muted',
-        glass: 'bg-white/10',
-        cyber: 'bg-cyan-500/10',
-        success: 'bg-emerald-500/20',
-        warning: 'bg-amber-500/20',
-        destructive: 'bg-rose-500/20',
+        glass: 'bg-state',
+        cyber: 'bg-signal/10',
+        success: 'bg-success/20',
+        warning: 'bg-warning/20',
+        destructive: 'bg-alert/20',
       },
       size: {
         sm: 'h-1.5',
@@ -33,11 +33,11 @@ const meterIndicatorVariants = cva('h-full transition-all duration-300 ease-out'
   variants: {
     variant: {
       default: 'bg-primary',
-      glass: 'bg-white',
-      cyber: 'bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]',
-      success: 'bg-emerald-500',
-      warning: 'bg-amber-500',
-      destructive: 'bg-rose-500',
+      glass: 'bg-panel',
+      cyber: 'bg-signal',
+      success: 'bg-success',
+      warning: 'bg-warning',
+      destructive: 'bg-alert',
     },
   },
   defaultVariants: {
@@ -89,8 +89,8 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>(
               <span
                 className={cn(
                   'text-muted-foreground',
-                  variant === 'cyber' && 'font-mono text-cyan-500/80',
-                  variant === 'glass' && 'text-white/70',
+                  variant === 'cyber' && 'text-signal/80 font-mono',
+                  variant === 'glass' && 'text-foreground/70',
                 )}
               >
                 {label}
@@ -100,8 +100,8 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>(
               <span
                 className={cn(
                   'text-foreground',
-                  variant === 'cyber' && 'font-mono text-cyan-400',
-                  variant === 'glass' && 'text-white',
+                  variant === 'cyber' && 'text-signal font-mono',
+                  variant === 'glass' && 'text-foreground',
                 )}
               >
                 {clampedValue}

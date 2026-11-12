@@ -6,14 +6,13 @@ import { cn } from '@aazucena/utils';
 import { Dialog, DialogContent, DialogTrigger } from '../dialog'; // For click-to-enlarge functionality
 
 const chatImageVariants = cva(
-  'group relative flex flex-col gap-2 rounded-md border bg-background p-2 transition-all duration-300',
+  'group relative flex flex-col gap-2 rounded-control border bg-background p-2 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -51,7 +50,7 @@ const ChatImage = React.forwardRef<HTMLDivElement, ChatImageProps>(
         <img
           src={src}
           alt={alt}
-          className="h-auto w-full rounded-md object-cover"
+          className="rounded-control h-auto w-full object-cover"
           style={{ maxWidth: width, maxHeight: height }}
         />
         {caption && <p className="text-muted-foreground text-sm">{caption}</p>}
@@ -65,7 +64,7 @@ const ChatImage = React.forwardRef<HTMLDivElement, ChatImageProps>(
             <DialogTrigger asChild>
               <div className="cursor-pointer">
                 {content}
-                <div className="absolute inset-0 flex items-center justify-center rounded-md bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100">
+                <div className="rounded-control bg-scrim text-foreground absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
                   Click to Enlarge
                 </div>
               </div>

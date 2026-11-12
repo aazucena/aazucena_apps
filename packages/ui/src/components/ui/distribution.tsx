@@ -48,7 +48,7 @@ const distributionBarVariants = cva('space-y-1 group transition-all duration-300
   variants: {
     variant: {
       default: '',
-      cyber: 'text-cyan-400',
+      cyber: 'text-signal',
     },
   },
   defaultVariants: {
@@ -72,7 +72,7 @@ const DistributionBar = React.forwardRef<
         {icon && (
           <span
             className={cn(
-              'text-foreground flex h-4 w-4 items-center justify-center rounded bg-gradient-to-br text-[10px]',
+              'text-foreground flex h-4 w-4 items-center justify-center rounded text-[10px]',
               color,
             )}
           >
@@ -100,7 +100,7 @@ const DistributionGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
 DistributionGroup.displayName = 'DistributionGroup';
 
 const distributionTagVariants = cva(
-  'inline-flex items-center rounded-md border transition-all duration-300 cursor-default',
+  'inline-flex items-center rounded-control border transition-all duration-300 cursor-default',
   {
     variants: {
       weight: {
@@ -109,7 +109,7 @@ const distributionTagVariants = cva(
         emphasis:
           'px-2.5 py-1 text-xs font-bold border-border bg-muted text-foreground hover:bg-accent',
         cyber:
-          'px-2.5 py-1 text-xs font-black uppercase tracking-widest border-cyan-500/20 bg-cyan-500/5 text-cyan-400 hover:border-cyan-400 hover:bg-cyan-500/10',
+          'px-2.5 py-1 text-xs font-black uppercase tracking-widest border-signal/20 bg-signal/5 text-signal hover:border-signal hover:bg-signal/10',
       },
     },
     defaultVariants: {

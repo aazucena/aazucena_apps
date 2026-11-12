@@ -9,14 +9,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../collapsi
 import { ChevronsUpDown } from '@aazucena/icons'; // Re-import for collapsible trigger
 
 const chatTestResultsVariants = cva(
-  'flex flex-col gap-3 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -54,9 +53,9 @@ const statusIconMap: Record<TestCase['status'], React.ElementType> = {
 };
 
 const statusColorMap: Record<TestCase['status'], string> = {
-  passed: 'text-green-500',
-  failed: 'text-red-500',
-  skipped: 'text-yellow-500',
+  passed: 'text-success',
+  failed: 'text-alert',
+  skipped: 'text-warning',
 };
 
 const ChatTestResults = React.forwardRef<HTMLDivElement, ChatTestResultsProps>(
@@ -74,10 +73,10 @@ const ChatTestResults = React.forwardRef<HTMLDivElement, ChatTestResultsProps>(
   ) => {
     const totalStatusColor =
       summary.failed > 0
-        ? 'border-red-500/20 text-red-500'
+        ? 'border-alert/20 text-alert'
         : summary.passed === summary.total && summary.total > 0
-          ? 'border-green-500/20 text-green-500'
-          : 'border-yellow-500/20 text-yellow-500';
+          ? 'border-success/20 text-success'
+          : 'border-warning/20 text-warning';
 
     return (
       <div
@@ -100,13 +99,13 @@ const ChatTestResults = React.forwardRef<HTMLDivElement, ChatTestResultsProps>(
           <Badge variant="outline" className="justify-between">
             Total: <span className="font-bold">{summary.total}</span>
           </Badge>
-          <Badge variant="outline" className="justify-between border-green-500/20 text-green-500">
+          <Badge variant="outline" className="border-success/20 text-success justify-between">
             Passed: <span className="font-bold">{summary.passed}</span>
           </Badge>
-          <Badge variant="outline" className="justify-between border-red-500/20 text-red-500">
+          <Badge variant="outline" className="border-alert/20 text-alert justify-between">
             Failed: <span className="font-bold">{summary.failed}</span>
           </Badge>
-          <Badge variant="outline" className="justify-between border-yellow-500/20 text-yellow-500">
+          <Badge variant="outline" className="border-warning/20 text-warning justify-between">
             Skipped: <span className="font-bold">{summary.skipped}</span>
           </Badge>
           <Badge variant="outline" className="col-span-2 justify-between">
@@ -136,7 +135,7 @@ const ChatTestResults = React.forwardRef<HTMLDivElement, ChatTestResultsProps>(
                     )}
                     {testCase.errorMessage && (
                       <>
-                        <DangerCircle className="h-4 w-4 text-red-500" />
+                        <DangerCircle className="text-alert h-4 w-4" />
                         {testCase.errorMessage}
                       </>
                     )}

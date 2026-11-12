@@ -9,12 +9,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export type CodeBlockDualTheme = CodeOptionsMultipleThemes['themes'];
 
-const codeBlockVariants = cva('relative w-full overflow-hidden rounded-lg', {
+const codeBlockVariants = cva('relative w-full overflow-hidden rounded-control', {
   variants: {
     variant: {
       default: 'border border-border bg-muted/30',
-      glass: 'glass border border-white/10 bg-white/5 backdrop-blur-md',
-      cyber: 'border border-cyan-500/20 bg-black shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+      glass: 'glass border border-rule bg-state',
+      cyber: 'border border-signal/20 bg-background',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -52,8 +52,8 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
       <div
         ref={ref}
         className={cn(
-          'flex items-center justify-between rounded-lg rounded-b-none border-b px-4 py-2',
-          v === 'cyber' ? 'border-cyan-500/20 bg-cyan-500/5' : 'border-border bg-muted/50 border',
+          'rounded-control flex items-center justify-between rounded-b-none border-b px-4 py-2',
+          v === 'cyber' ? 'border-signal/20 bg-signal/5' : 'border-border bg-muted/50 border',
           className,
         )}
         {...props}
@@ -63,7 +63,7 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
             <span
               className={cn(
                 'text-[10px] font-bold tracking-widest uppercase',
-                v === 'cyber' ? 'text-cyan-400' : 'text-foreground',
+                v === 'cyber' ? 'text-signal' : 'text-foreground',
               )}
             >
               {fileName}
@@ -72,9 +72,9 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
           {language && (
             <span
               className={cn(
-                'rounded-md border px-1.5 py-0.5 text-[9px] font-black tracking-tighter uppercase',
+                'rounded-control border px-1.5 py-0.5 text-[9px] font-black tracking-tighter uppercase',
                 v === 'cyber'
-                  ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-500'
+                  ? 'border-signal/30 bg-signal/10 text-signal'
                   : 'border-border bg-muted text-muted-foreground',
               )}
             >
@@ -88,12 +88,12 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
             type="button"
             onClick={onCopy}
             className={cn(
-              'flex min-w-[64px] items-center justify-center gap-1.5 rounded-md px-2 py-1 text-[10px] font-bold uppercase transition-all active:scale-95',
+              'rounded-control flex min-w-[64px] items-center justify-center gap-1.5 px-2 py-1 text-[10px] font-bold uppercase transition-all active:scale-95',
               v === 'cyber'
-                ? 'text-cyan-500/60 hover:bg-cyan-500/10 hover:text-cyan-400'
+                ? 'text-signal/60 hover:bg-signal/10 hover:text-signal'
                 : 'text-muted-foreground hover:bg-accent hover:text-foreground',
-              copied && 'text-emerald-500',
-              copyError && 'text-rose-500',
+              copied && 'text-success',
+              copyError && 'text-alert',
             )}
           >
             <AnimatePresence mode="wait">

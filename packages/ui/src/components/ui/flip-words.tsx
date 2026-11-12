@@ -21,7 +21,7 @@ const flipWordVariants = cva('inline-block font-semibold transition-all duration
   variants: {
     variant: {
       default: 'text-primary',
-      cyber: 'text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]',
+      cyber: 'text-signal',
     },
   },
   defaultVariants: {

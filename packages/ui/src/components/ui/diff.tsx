@@ -4,12 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const diffVariants = cva('w-full overflow-hidden rounded-lg font-mono text-sm', {
+const diffVariants = cva('w-full overflow-hidden rounded-control font-mono text-sm', {
   variants: {
     variant: {
       default: 'border border-border bg-muted/20',
       glass: 'glass',
-      cyber: 'border border-cyan-500/20 bg-black',
+      cyber: 'border border-signal/20 bg-background',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -64,26 +64,26 @@ const Diff = React.forwardRef<HTMLDivElement, DiffProps>(
 
     const lineColors: Record<string, Record<string, string>> = {
       default: {
-        add: 'bg-green-500/10 text-green-700 dark:text-green-400',
-        remove: 'bg-red-500/10 text-red-700 dark:text-red-400',
+        add: 'bg-success/10 text-success',
+        remove: 'bg-alert/10 text-alert',
         equal: 'text-foreground',
       },
       glass: {
-        add: 'bg-green-500/10 text-green-300',
-        remove: 'bg-red-500/10 text-red-300',
+        add: 'bg-success/10 text-success',
+        remove: 'bg-alert/10 text-alert',
         equal: 'text-foreground/80',
       },
       cyber: {
-        add: 'bg-green-500/10 text-green-400',
-        remove: 'bg-red-500/10 text-red-400',
-        equal: 'text-cyan-50/60',
+        add: 'bg-success/10 text-success',
+        remove: 'bg-alert/10 text-alert',
+        equal: 'text-signal/60',
       },
     };
 
     const gutterColors: Record<string, string> = {
       default: 'text-muted-foreground/40',
-      glass: 'text-white/20',
-      cyber: 'text-cyan-500/20',
+      glass: 'text-foreground/20',
+      cyber: 'text-signal/20',
     };
 
     return (

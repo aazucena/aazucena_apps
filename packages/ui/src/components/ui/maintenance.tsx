@@ -32,7 +32,7 @@ const maintenanceIconVariants = cva('mb-12 relative inline-flex group', {
   variants: {
     variant: {
       default: 'text-primary',
-      cyber: 'text-cyan-400',
+      cyber: 'text-signal',
     },
   },
   defaultVariants: {
@@ -49,14 +49,14 @@ const MaintenanceIcon = React.forwardRef<
     <div
       className={cn(
         'absolute inset-0 scale-150 rounded-full opacity-50 blur-3xl transition-opacity duration-1000 group-hover:opacity-100',
-        variant === 'cyber' ? 'bg-primary/20 dark:bg-cyan-500/20' : 'bg-primary/20',
+        variant === 'cyber' ? 'bg-primary/20 dark:bg-signal/20' : 'bg-primary/20',
       )}
     />
     <div
       className={cn(
-        'relative flex h-28 w-28 items-center justify-center rounded-[2.5rem] border shadow-2xl transition-all duration-500',
+        'rounded-card relative flex h-28 w-28 items-center justify-center border transition-all duration-500',
         variant === 'cyber'
-          ? 'border-border/10 bg-background dark:border-cyan-500/30 dark:bg-black'
+          ? 'border-border/10 bg-background dark:border-signal/30'
           : 'bg-card border-border',
       )}
     >

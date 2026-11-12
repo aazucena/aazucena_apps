@@ -11,7 +11,7 @@ const logoVariants = cva('inline-block shrink-0 transition-all duration-300', {
       main: 'text-primary',
       alt: 'text-foreground',
       white: 'text-foreground',
-      cyber: 'text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]',
+      cyber: 'text-signal',
     },
     size: {
       xs: 'w-6 h-6',

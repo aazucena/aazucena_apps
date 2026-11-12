@@ -6,14 +6,13 @@ import { cn } from '@aazucena/utils';
 import { FileText, Link, Code, Download } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatArtifactVariants = cva(
-  'flex flex-col gap-3 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -74,9 +73,9 @@ const ChatArtifact = React.forwardRef<HTMLDivElement, ChatArtifactProps>(
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    'hover:bg-muted/50 flex items-center gap-2 rounded-md border p-2 text-sm font-medium transition-colors duration-200',
-                    variant === 'cyber' && 'border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10',
-                    variant === 'glass' && 'border-input/20 hover:bg-white/10',
+                    'hover:bg-muted/50 rounded-control flex items-center gap-2 border p-2 text-sm font-medium transition-colors duration-200',
+                    variant === 'cyber' && 'border-signal/30 text-signal hover:bg-signal/10',
+                    variant === 'glass' && 'border-input/20 hover:bg-state',
                   )}
                 >
                   <Icon className="h-4 w-4 shrink-0" />

@@ -6,14 +6,13 @@ import { cn } from '@aazucena/utils';
 import { ExternalLink } from '@aazucena/icons'; // Assuming ExternalLink icon is available
 
 const chatWebPreviewVariants = cva(
-  'flex flex-col gap-2 rounded-md border bg-background text-foreground transition-all duration-300',
+  'flex flex-col gap-2 rounded-control border bg-background text-foreground transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
       size: {
         default: 'max-w-md',
@@ -76,7 +75,7 @@ const ChatWebPreview = React.forwardRef<HTMLAnchorElement, ChatWebPreviewProps>(
               <img
                 src={data.image}
                 alt={data.title}
-                className="h-32 w-full rounded-t-md object-cover"
+                className="rounded-t-control h-32 w-full object-cover"
               />
             )}
             <div className="p-3">

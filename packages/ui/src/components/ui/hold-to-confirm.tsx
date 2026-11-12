@@ -7,14 +7,14 @@ import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { Check } from '@aazucena/icons';
 
 const holdToConfirmVariants = cva(
-  'relative w-full overflow-hidden rounded-md border transition-all cursor-pointer select-none flex items-center justify-center font-medium text-sm',
+  'relative w-full overflow-hidden rounded-control border transition-all cursor-pointer select-none flex items-center justify-center font-medium text-sm',
   {
     variants: {
       variant: {
         default: 'bg-background border-input text-foreground hover:bg-muted/50',
-        destructive: 'bg-background border-rose-200 text-rose-600 hover:bg-rose-50',
-        glass: 'glass border-white/10 text-white',
-        cyber: 'bg-black border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/5',
+        destructive: 'bg-background border-alert text-alert hover:bg-alert/10',
+        glass: 'glass border-rule text-foreground',
+        cyber: 'bg-background border-signal/30 text-signal hover:bg-signal/5',
       },
       size: {
         default: 'h-9 px-4',
@@ -113,11 +113,11 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
     const progressColor = React.useMemo(() => {
       switch (variant) {
         case 'destructive':
-          return 'bg-rose-500/20';
+          return 'bg-alert/20';
         case 'cyber':
-          return 'bg-cyan-500/30';
+          return 'bg-signal/30';
         case 'glass':
-          return 'bg-white/20';
+          return 'bg-panel-raised';
         default:
           return 'bg-primary/20';
       }
@@ -126,13 +126,13 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
     const successColor = React.useMemo(() => {
       switch (variant) {
         case 'destructive':
-          return 'bg-rose-500 text-white';
+          return 'bg-alert text-alert-foreground';
         case 'cyber':
-          return 'bg-cyan-500 text-black';
+          return 'bg-signal text-signal-foreground';
         case 'glass':
-          return 'bg-white text-blue-600';
+          return 'bg-panel text-signal';
         default:
-          return 'bg-emerald-500 text-white';
+          return 'bg-success text-success-foreground';
       }
     }, [variant]);
 
@@ -182,7 +182,7 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
 
         {/* Shine/Glow Effect for Cyber Variant */}
         {variant === 'cyber' && isHolding && (
-          <div className="animate-shimmer pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent" />
+          <div className="animate-shimmer pointer-events-none absolute inset-0" />
         )}
       </div>
     );

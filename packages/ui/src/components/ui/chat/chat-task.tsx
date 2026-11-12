@@ -7,14 +7,13 @@ import { Badge } from '../../ui/badge'; // Assuming Badge component is available
 import { CheckCircle, Circle, XCircle, ClockCircle } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatTaskVariants = cva(
-  'flex flex-col gap-3 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -36,10 +35,10 @@ export interface ChatTaskProps
 }
 
 const statusColorMap: Record<TaskStatus, string> = {
-  todo: 'bg-gray-500/20 text-gray-500',
-  'in-progress': 'bg-blue-500/20 text-blue-500',
-  done: 'bg-green-500/20 text-green-500',
-  cancelled: 'bg-red-500/20 text-red-500',
+  todo: 'bg-rule-strong/20 text-muted-foreground',
+  'in-progress': 'bg-signal/20 text-signal',
+  done: 'bg-success/20 text-success',
+  cancelled: 'bg-alert/20 text-alert',
 };
 
 const statusIconMap: Record<TaskStatus, React.ElementType> = {
@@ -65,9 +64,9 @@ const ChatTask = React.forwardRef<HTMLDivElement, ChatTaskProps>(
           {task.priority && (
             <Badge
               className={cn({
-                'bg-red-500/20 text-red-500': task.priority === 'high',
-                'bg-yellow-500/20 text-yellow-500': task.priority === 'medium',
-                'bg-blue-500/20 text-blue-500': task.priority === 'low',
+                'bg-alert/20 text-alert': task.priority === 'high',
+                'bg-warning/20 text-warning': task.priority === 'medium',
+                'bg-signal/20 text-signal': task.priority === 'low',
               })}
             >
               Priority: {task.priority}

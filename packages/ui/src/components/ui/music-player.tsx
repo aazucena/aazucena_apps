@@ -4,12 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const musicPlayerVariants = cva('w-full overflow-hidden rounded-xl', {
+const musicPlayerVariants = cva('w-full overflow-hidden rounded-card', {
   variants: {
     variant: {
-      default: 'border border-border bg-background shadow-sm',
+      default: 'border border-border bg-background',
       glass: 'glass',
-      cyber: 'border border-cyan-500/30 bg-black/80',
+      cyber: 'border border-signal/30 bg-scrim',
     },
     size: {
       sm: 'p-3',
@@ -117,7 +117,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
         <div className="flex items-center gap-3">
           {/* Artwork */}
           {artwork && (
-            <div className="bg-muted h-12 w-12 shrink-0 overflow-hidden rounded-lg">
+            <div className="bg-muted rounded-control h-12 w-12 shrink-0 overflow-hidden">
               <img src={artwork} alt="" className="h-full w-full object-cover" />
             </div>
           )}
@@ -129,7 +129,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   <p
                     className={cn(
                       'truncate text-sm font-semibold',
-                      v === 'cyber' && 'font-mono text-cyan-50',
+                      v === 'cyber' && 'text-signal font-mono',
                     )}
                   >
                     {title}
@@ -139,7 +139,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   <p
                     className={cn(
                       'truncate text-xs',
-                      v === 'cyber' ? 'text-cyan-500/60' : 'text-muted-foreground',
+                      v === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
                     )}
                   >
                     {artist}
@@ -155,7 +155,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                 className={cn(
                   'flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors',
                   v === 'cyber'
-                    ? 'bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30'
+                    ? 'bg-signal/20 text-signal hover:bg-signal/30'
                     : 'bg-primary text-primary-foreground hover:bg-primary/90',
                 )}
               >
@@ -175,7 +175,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                 <span
                   className={cn(
                     'w-8 text-right text-[10px] tabular-nums',
-                    v === 'cyber' ? 'font-mono text-cyan-500/60' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
                   )}
                 >
                   {formatTime(current)}
@@ -189,14 +189,14 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   className={cn(
                     'h-1 flex-1 cursor-pointer appearance-none rounded-full [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full',
                     v === 'cyber'
-                      ? 'bg-cyan-500/20 [&::-webkit-slider-thumb]:bg-cyan-400'
+                      ? 'bg-signal/20 [&::-webkit-slider-thumb]:bg-signal'
                       : 'bg-muted [&::-webkit-slider-thumb]:bg-primary',
                   )}
                 />
                 <span
                   className={cn(
                     'w-8 text-[10px] tabular-nums',
-                    v === 'cyber' ? 'font-mono text-cyan-500/60' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
                   )}
                 >
                   {formatTime(duration)}
@@ -211,7 +211,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className={cn(v === 'cyber' ? 'text-cyan-500/40' : 'text-muted-foreground')}
+                  className={cn(v === 'cyber' ? 'text-signal/40' : 'text-muted-foreground')}
                 >
                   <path d="M11 5 6 9H2v6h4l5 4V5z" />
                   {volume > 0 && <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />}
@@ -226,7 +226,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   className={cn(
                     'h-1 w-16 cursor-pointer appearance-none rounded-full [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full',
                     v === 'cyber'
-                      ? 'bg-cyan-500/20 [&::-webkit-slider-thumb]:bg-cyan-400'
+                      ? 'bg-signal/20 [&::-webkit-slider-thumb]:bg-signal'
                       : 'bg-muted [&::-webkit-slider-thumb]:bg-primary',
                   )}
                 />

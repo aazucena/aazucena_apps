@@ -21,16 +21,15 @@ export interface TourStepProps {
 }
 
 const variantClasses: Record<string, string> = {
-  default: 'bg-popover border border-border text-popover-foreground shadow-xl',
-  glass: 'glass border-white/10 text-foreground shadow-2xl',
-  cyber:
-    'bg-black/95 border border-cyan-500/30 text-cyan-50 shadow-[0_0_30px_rgba(6,182,212,0.15)]',
+  default: 'bg-popover border border-border text-popover-foreground',
+  glass: 'glass border-rule text-foreground',
+  cyber: 'bg-scrim border border-signal/30 text-signal',
 };
 
 const btnClasses: Record<string, string> = {
   default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-  glass: 'glass-m text-foreground hover:opacity-80',
-  cyber: 'bg-cyan-500 text-black hover:bg-cyan-400',
+  glass: 'glass text-foreground hover:opacity-80',
+  cyber: 'bg-signal text-signal-foreground hover:bg-signal',
 };
 
 export const TourStep = React.forwardRef<HTMLDivElement, TourStepProps>(
@@ -66,7 +65,7 @@ export const TourStep = React.forwardRef<HTMLDivElement, TourStepProps>(
         ref={ref}
         role="dialog"
         aria-label={step.title}
-        className={cn('fixed z-[9999] w-64 rounded-lg p-4', variantClasses[variant])}
+        className={cn('rounded-control fixed z-[9999] w-64 p-4', variantClasses[variant])}
         style={{ top: pos.top, left: pos.left, transform: 'translateX(-50%)' }}
       >
         <h4 className={cn('mb-1 text-sm font-semibold', variant === 'cyber' && 'font-mono')}>

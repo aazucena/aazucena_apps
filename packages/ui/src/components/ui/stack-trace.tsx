@@ -6,14 +6,13 @@ import { cn } from '@aazucena/utils';
 import { Terminal } from '@aazucena/icons';
 
 const stackTraceVariants = cva(
-  'relative w-full overflow-hidden rounded-lg border transition-all duration-300',
+  'relative w-full overflow-hidden rounded-control border transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-card border-border',
-        glass: 'glass border-white/10 bg-white/5 backdrop-blur-md text-white',
-        cyber:
-          'bg-black border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.1)] text-cyan-400 font-mono',
+        glass: 'glass border-rule bg-state text-foreground',
+        cyber: 'bg-background border-signal/20 text-signal font-mono',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -36,17 +35,17 @@ const frameVariants = cva('flex flex-col py-1.5 px-4 text-xs transition-colors',
     {
       isHighlighted: true,
       variant: 'default',
-      className: 'bg-yellow-500/10 border-l-2 border-yellow-500',
+      className: 'bg-warning/10 border-l-2 border-warning',
     },
     {
       isHighlighted: true,
       variant: 'cyber',
-      className: 'bg-cyan-500/10 border-l-2 border-cyan-500 text-cyan-300',
+      className: 'bg-signal/10 border-l-2 border-signal text-signal',
     },
     {
       isHighlighted: true,
       variant: 'glass',
-      className: 'bg-white/10 border-l-2 border-white text-white font-bold',
+      className: 'bg-state border-l-2 border-rule text-foreground font-bold',
     },
   ],
   defaultVariants: {
@@ -157,9 +156,9 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
           className={cn(
             'flex items-center gap-2 border-b px-4 py-2 text-[10px] font-bold tracking-widest uppercase',
             variant === 'cyber'
-              ? 'border-cyan-500/20 bg-cyan-500/5 text-cyan-400'
+              ? 'border-signal/20 bg-signal/5 text-signal'
               : 'border-border bg-muted/50 text-muted-foreground',
-            variant === 'glass' && 'border-white/10 bg-white/10 text-white',
+            variant === 'glass' && 'border-rule bg-state text-foreground',
           )}
         >
           <Terminal size={14} />
@@ -186,8 +185,8 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
                   <span
                     className={cn(
                       'font-medium',
-                      variant === 'cyber' ? 'text-cyan-300' : 'text-foreground',
-                      variant === 'glass' && 'text-white',
+                      variant === 'cyber' ? 'text-signal' : 'text-foreground',
+                      variant === 'glass' && 'text-foreground',
                     )}
                   >
                     {frame.functionName || (frame.fileName ? '<anonymous>' : '')}
@@ -203,8 +202,8 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
                       <span
                         className={cn(
                           'bg-muted rounded px-1 py-0.5 font-bold',
-                          variant === 'cyber' && 'bg-cyan-500/20 text-cyan-400',
-                          variant === 'glass' && 'bg-white/20 text-white',
+                          variant === 'cyber' && 'bg-signal/20 text-signal',
+                          variant === 'glass' && 'bg-panel-raised text-foreground',
                         )}
                       >
                         {frame.lineNumber}:{frame.columnNumber}
@@ -224,7 +223,7 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
         <div
           className={cn(
             'flex justify-between border-t px-4 py-1.5 font-mono text-[8px] opacity-30',
-            variant === 'cyber' ? 'border-cyan-500/20' : 'border-border',
+            variant === 'cyber' ? 'border-signal/20' : 'border-border',
           )}
         >
           <span>FRAMES: {frames.length}</span>

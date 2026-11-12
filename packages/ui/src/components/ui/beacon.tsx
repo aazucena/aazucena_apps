@@ -59,7 +59,7 @@ const beaconLinkVariants = cva(
     variants: {
       variant: {
         default: 'text-muted-foreground hover:text-primary',
-        cyber: 'text-foreground0/60 hover:text-cyan-400 font-mono tracking-wider italic',
+        cyber: 'text-foreground0/60 hover:text-signal font-mono tracking-wider italic',
       },
     },
     defaultVariants: {
@@ -77,7 +77,7 @@ const BeaconLink = React.forwardRef<
     <span
       className={cn(
         'absolute -bottom-1 left-0 h-0.5 w-0 transition-all group-hover:w-full',
-        variant === 'cyber' ? 'bg-cyan-400' : 'bg-primary',
+        variant === 'cyber' ? 'bg-signal' : 'bg-primary',
       )}
     />
   </a>

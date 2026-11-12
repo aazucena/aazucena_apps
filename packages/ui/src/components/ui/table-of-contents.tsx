@@ -8,11 +8,11 @@ import * as React from 'react';
 const tocVariants = cva('fixed z-40 hidden xl:block transition-all duration-300', {
   variants: {
     variant: {
-      default: 'bg-background border border-border shadow-sm rounded-2xl p-4',
+      default: 'bg-background border border-border rounded-card p-4',
       glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 text-foreground rounded-2xl p-4 shadow-xl',
+        'bg-background/5 dark:bg-state border border-border/10 text-foreground rounded-card p-4',
       cyber:
-        'bg-background/80 dark:bg-black/80 border border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-2xl p-4',
+        'bg-background/80 dark:bg-scrim border border-signal/30 text-foreground rounded-card p-4',
     },
     position: {
       'top-right': 'top-32 right-8 w-56',
@@ -26,14 +26,14 @@ const tocVariants = cva('fixed z-40 hidden xl:block transition-all duration-300'
 });
 
 const tocItemVariants = cva(
-  'block w-full break-words rounded-xl px-3 py-1.5 text-sm transition-all duration-300',
+  'block w-full break-words rounded-card px-3 py-1.5 text-sm transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-        glass: 'text-foreground/60 hover:bg-white/10 hover:text-white',
+        glass: 'text-foreground/60 hover:bg-state hover:text-foreground',
         cyber:
-          'text-foreground/60 hover:bg-cyan-500/10 hover:text-cyan-400 font-black uppercase tracking-widest italic text-[10px]',
+          'text-foreground/60 hover:bg-signal/10 hover:text-signal font-black uppercase tracking-widest italic text-[10px]',
       },
       isActive: {
         true: '',
@@ -49,19 +49,19 @@ const tocItemVariants = cva(
         variant: 'default',
         isActive: true,
         isNested: false,
-        className: 'bg-primary text-primary-foreground shadow-lg font-bold',
+        className: 'bg-primary text-primary-foreground font-bold',
       },
       {
         variant: 'glass',
         isActive: true,
         isNested: false,
-        className: 'bg-white/20 text-foreground font-bold shadow-lg',
+        className: 'bg-panel-raised text-foreground font-bold',
       },
       {
         variant: 'cyber',
         isActive: true,
         isNested: false,
-        className: 'bg-cyan-500/20 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.2)]',
+        className: 'bg-signal/20 text-signal font-bold',
       },
       {
         variant: 'default',
@@ -73,13 +73,13 @@ const tocItemVariants = cva(
         variant: 'glass',
         isActive: true,
         isNested: true,
-        className: 'bg-white/10 text-foreground font-semibold',
+        className: 'bg-state text-foreground font-semibold',
       },
       {
         variant: 'cyber',
         isActive: true,
         isNested: true,
-        className: 'bg-cyan-500/10 text-cyan-400 font-semibold',
+        className: 'bg-signal/10 text-signal font-semibold',
       },
     ],
     defaultVariants: {

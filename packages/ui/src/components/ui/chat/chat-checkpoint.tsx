@@ -6,20 +6,19 @@ import { cn } from '@aazucena/utils';
 import { CheckCircle, XCircle, ClockCircle, CircleDashed } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatCheckpointVariants = cva(
-  'flex items-center gap-3 rounded-md border p-3 transition-all duration-300',
+  'flex items-center gap-3 rounded-control border p-3 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
       status: {
-        success: 'border-green-500/20 text-green-500',
-        failure: 'border-red-500/20 text-red-500',
-        pending: 'border-gray-500/20 text-gray-500',
-        current: 'border-blue-500/20 text-blue-500 animate-pulse',
+        success: 'border-success/20 text-success',
+        failure: 'border-alert/20 text-alert',
+        pending: 'border-rule-strong/20 text-muted-foreground',
+        current: 'border-signal/20 text-signal animate-pulse',
       },
     },
     defaultVariants: { variant: 'default', status: 'pending' },

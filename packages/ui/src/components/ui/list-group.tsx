@@ -4,12 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const listGroupVariants = cva('overflow-hidden rounded-lg border', {
+const listGroupVariants = cva('overflow-hidden rounded-control border', {
   variants: {
     variant: {
       default: 'border-border bg-background',
-      glass: 'glass border-white/10',
-      cyber: 'border-cyan-500/30 bg-black/80',
+      glass: 'glass border-rule',
+      cyber: 'border-signal/30 bg-scrim',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -36,8 +36,8 @@ const listGroupItemVariants = cva(
     variants: {
       variant: {
         default: 'border-border hover:bg-muted/50',
-        glass: 'border-white/5 hover:bg-white/5',
-        cyber: 'border-cyan-500/10 hover:bg-cyan-500/5 text-cyan-50 font-mono text-xs',
+        glass: 'border-rule hover:bg-state',
+        cyber: 'border-signal/10 hover:bg-signal/5 text-signal font-mono text-xs',
       },
       active: {
         true: '',
@@ -46,8 +46,8 @@ const listGroupItemVariants = cva(
     },
     compoundVariants: [
       { variant: 'default', active: true, className: 'bg-accent' },
-      { variant: 'glass', active: true, className: 'bg-white/10' },
-      { variant: 'cyber', active: true, className: 'bg-cyan-500/10' },
+      { variant: 'glass', active: true, className: 'bg-state' },
+      { variant: 'cyber', active: true, className: 'bg-signal/10' },
     ],
     defaultVariants: { variant: 'default', active: false },
   },

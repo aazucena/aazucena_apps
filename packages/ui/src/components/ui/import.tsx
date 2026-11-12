@@ -19,14 +19,13 @@ import {
 import { useImport } from '../../hooks/use-import';
 
 const importVariants = cva(
-  'flex flex-col gap-6 rounded-xl border p-6 transition-all duration-300',
+  'flex flex-col gap-6 rounded-card border p-6 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
-        glass: 'glass border-white/10 shadow-xl backdrop-blur-md',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)] text-cyan-400 font-mono',
+        glass: 'glass border-rule',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal font-mono',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -111,12 +110,12 @@ const Import = React.forwardRef<HTMLDivElement, ImportProps>(
         <div
           {...getRootProps()}
           className={cn(
-            'flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-10 text-center transition-all',
+            'rounded-control flex flex-col items-center justify-center border-2 border-dashed p-10 text-center transition-all',
             isDragActive
               ? 'border-primary bg-primary/5'
               : 'border-muted-foreground/20 hover:border-muted-foreground/40 bg-muted/5',
-            status === 'error' && 'border-rose-500 bg-rose-500/5',
-            status === 'success' && 'border-emerald-500 bg-emerald-500/5',
+            status === 'error' && 'border-alert bg-alert/5',
+            status === 'success' && 'border-success bg-success/5',
             !enableDragAndDrop && 'pointer-events-none',
           )}
         >
@@ -147,13 +146,13 @@ const Import = React.forwardRef<HTMLDivElement, ImportProps>(
               <div className="flex items-center gap-2 text-xs font-medium">
                 <FileText className="size-3" />
                 <span>{fileName}</span>
-                {status === 'success' && <X className="size-3 text-emerald-500" />}
+                {status === 'success' && <X className="text-success size-3" />}
               </div>
               {status === 'uploading' && <Progress value={progress} className="h-1 w-32" />}
             </div>
           )}
 
-          {error && <p className="mt-4 text-xs font-medium text-rose-500">{error}</p>}
+          {error && <p className="text-alert mt-4 text-xs font-medium">{error}</p>}
         </div>
 
         {/* Action Buttons */}

@@ -23,11 +23,9 @@ const dateRangePickerVariants = cva('relative w-full', {
 });
 
 const triggerStyles: Record<string, string> = {
-  default:
-    'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring focus:ring-offset-2',
-  glass: 'glass-m border-white/10',
-  cyber:
-    'border-cyan-500/30 bg-black/50 text-cyan-50 font-mono focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+  default: 'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring',
+  glass: 'glass border-rule',
+  cyber: 'border-signal/30 bg-scrim text-signal font-mono focus:border-signal',
 };
 
 const sizeStyles: Record<string, string> = {
@@ -37,9 +35,9 @@ const sizeStyles: Record<string, string> = {
 };
 
 const dropdownStyles: Record<string, string> = {
-  default: 'border-border bg-popover shadow-lg',
-  glass: 'glass border-white/10 shadow-xl',
-  cyber: 'border-cyan-500/30 bg-black/95 shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+  default: 'border-border bg-popover',
+  glass: 'glass border-rule',
+  cyber: 'border-signal/30 bg-scrim',
 };
 
 export interface DateRangePickerProps
@@ -115,7 +113,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(
           disabled={disabled}
           onClick={() => setOpen(!open)}
           className={cn(
-            'flex w-full items-center gap-2 rounded-md border transition-all outline-none',
+            'rounded-control flex w-full items-center gap-2 border transition-all outline-none',
             triggerStyles[v],
             sizeStyles[s],
             disabled && 'pointer-events-none opacity-50',
@@ -143,7 +141,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(
         {open && (
           <div
             className={cn(
-              'absolute z-50 mt-1 rounded-md border p-0',
+              'rounded-control absolute z-50 mt-1 border p-0',
               dropdownStyles[v],
               align === 'end' && 'right-0',
               align === 'center' && 'left-1/2 -translate-x-1/2',

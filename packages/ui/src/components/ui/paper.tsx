@@ -4,22 +4,21 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const paperVariants = cva('rounded-lg bg-background transition-shadow', {
+const paperVariants = cva('rounded-control bg-background transition-shadow', {
   variants: {
     variant: {
       default: 'bg-card text-card-foreground',
       glass: 'glass text-foreground',
-      cyber:
-        'bg-black/80 border border-cyan-500/20 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.05)]',
+      cyber: 'bg-scrim border border-signal/20 text-foreground',
       outlined: 'bg-background border border-border',
     },
     elevation: {
       0: 'shadow-none',
-      1: 'shadow-sm',
-      2: 'shadow-md',
-      3: 'shadow-lg',
-      4: 'shadow-xl',
-      5: 'shadow-2xl',
+      1: '',
+      2: '',
+      3: '',
+      4: '',
+      5: '',
     },
     padding: {
       none: '',

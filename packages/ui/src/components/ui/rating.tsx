@@ -7,9 +7,9 @@ import { cn } from '@aazucena/utils';
 const ratingVariants = cva('inline-flex items-center gap-0.5', {
   variants: {
     variant: {
-      default: 'text-amber-400',
-      glass: 'text-amber-300/80',
-      cyber: 'text-cyan-400',
+      default: 'text-warning',
+      glass: 'text-warning/80',
+      cyber: 'text-signal',
     },
     size: {
       sm: '[&_svg]:size-4',

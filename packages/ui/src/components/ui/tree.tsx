@@ -8,9 +8,9 @@ import { TreeItem, type TreeNode } from './tree-item';
 const treeVariants = cva('w-full select-none', {
   variants: {
     variant: {
-      default: 'border border-border rounded-lg bg-background',
-      glass: 'glass rounded-xl',
-      cyber: 'border border-cyan-500/30 rounded-lg bg-black/80',
+      default: 'border border-border rounded-control bg-background',
+      glass: 'glass rounded-card',
+      cyber: 'border border-signal/30 rounded-control bg-scrim',
     },
     size: {
       sm: 'p-1 text-xs',

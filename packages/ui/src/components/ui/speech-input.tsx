@@ -43,14 +43,13 @@ type WindowWithSpeech = Window & {
 };
 
 const speechInputVariants = cva(
-  'flex items-center gap-2 rounded-md border p-2 transition-all duration-300',
+  'flex items-center gap-2 rounded-control border p-2 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -169,7 +168,7 @@ const SpeechInput = React.forwardRef<HTMLDivElement, SpeechInputProps>(
     return (
       <div ref={ref} className={cn(speechInputVariants({ variant }), className)} {...props}>
         {error ? (
-          <div className="flex items-center gap-2 text-sm text-rose-500">
+          <div className="text-alert flex items-center gap-2 text-sm">
             <Danger className="size-4" />
             <span className="truncate">{error}</span>
             <Button
@@ -189,8 +188,8 @@ const SpeechInput = React.forwardRef<HTMLDivElement, SpeechInputProps>(
               size="icon"
               className={cn(
                 'size-8 shrink-0',
-                isListening && 'animate-pulse border-rose-500/20 text-rose-500',
-                variant === 'cyber' && 'border-cyan-500/30 text-cyan-400',
+                isListening && 'border-alert/20 text-alert animate-pulse',
+                variant === 'cyber' && 'border-signal/30 text-signal',
                 variant === 'glass' && 'glass border-input/20 text-foreground',
               )}
             >

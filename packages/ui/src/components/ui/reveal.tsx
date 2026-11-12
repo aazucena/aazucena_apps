@@ -10,8 +10,8 @@ const revealVariants = cva('w-full transition-all duration-300', {
   variants: {
     variant: {
       default: 'border-b border-border',
-      glass: 'border-b border-border/10 dark:border-white/10 text-foreground',
-      cyber: 'border-b border-border/10 dark:border-cyan-500/20 text-foreground',
+      glass: 'border-b border-border/10 dark:border-rule text-foreground',
+      cyber: 'border-b border-border/10 dark:border-signal/20 text-foreground',
     },
   },
   defaultVariants: {
@@ -91,7 +91,7 @@ const RevealIndicator = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
         {...props}
       >
         <ChevronDown
-          className={cn('h-4 w-4', variant === 'cyber' ? 'text-cyan-400' : 'text-muted-foreground')}
+          className={cn('h-4 w-4', variant === 'cyber' ? 'text-signal' : 'text-muted-foreground')}
         />
       </div>
     );

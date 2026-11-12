@@ -13,8 +13,8 @@ const pageTitleVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-zinc-900 dark:text-zinc-100',
-        cyber: 'text-foreground drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]',
+        default: 'text-foreground',
+        cyber: 'text-foreground',
         glass: 'text-foreground',
       },
     },
@@ -31,13 +31,13 @@ const PageTitle = React.forwardRef<
 >(({ className, variant, version, children, ...props }, ref) => (
   <h1 ref={ref} className={cn(pageTitleVariants({ variant }), className)} {...props}>
     {children}
-    {version && <span className="text-primary-500 ml-1">{version}</span>}
+    {version && <span className="text-signal ml-1">{version}</span>}
   </h1>
 ));
 PageTitle.displayName = 'PageTitle';
 
 const pageSubtitleVariants = cva(
-  'text-foreground0 dark:text-zinc-400 text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold text-wrap',
+  'text-foreground0 dark:text-muted-foreground text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold text-wrap',
   {
     variants: {
       variant: {
@@ -68,11 +68,9 @@ const dashboardCardVariants = cva('relative overflow-hidden transition-all durat
   variants: {
     variant: {
       default:
-        'bg-background/5 dark:bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md rounded-[2.5rem]',
-      glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-xl border border-border/10 text-foreground shadow-2xl rounded-[2.5rem]',
-      cyber:
-        'bg-background/80 dark:bg-black/80 border border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.1)] rounded-xl',
+        'bg-background/5 dark:bg-panel-raised dark:bg-panel/30 border border-rule rounded-card',
+      glass: 'bg-background/5 dark:bg-state border border-border/10 text-foreground rounded-card',
+      cyber: 'bg-background/80 dark:bg-scrim border border-signal/30 text-foreground rounded-card',
     },
     padding: {
       none: '',
@@ -108,7 +106,7 @@ const DashboardHeader = React.forwardRef<
     ref={ref}
     className={cn(
       'flex items-center justify-between border-b border-current/5 px-8 py-6',
-      inset ? 'bg-zinc-50 dark:bg-zinc-900/50' : 'bg-transparent',
+      inset ? 'bg-panel dark:bg-panel/50' : 'bg-transparent',
       className,
     )}
     {...props}
@@ -117,20 +115,17 @@ const DashboardHeader = React.forwardRef<
 DashboardHeader.displayName = 'DashboardHeader';
 
 const iconBoxVariants = cva(
-  'flex items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110 shrink-0 border',
+  'flex items-center justify-center rounded-control transition-all duration-300 group-hover:scale-110 shrink-0 border',
   {
     variants: {
       variant: {
-        default:
-          'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-foreground0',
-        primary:
-          'bg-primary-500/10 border-primary-500/20 text-primary-500 shadow-sm shadow-primary-500/5',
+        default: 'bg-panel dark:bg-panel-raised border-rule text-foreground0',
+        primary: 'bg-signal/10 border-signal/20 text-signal',
         secondary:
-          'bg-secondary-500/10 border-secondary-500/20 text-secondary-500 shadow-sm shadow-secondary-500/5',
-        success:
-          'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 shadow-sm shadow-emerald-500/5',
+          'bg-secondary-500/10 border-secondary-500/20 text-secondary-500 shadow-secondary-500/5',
+        success: 'bg-success/10 border-success/20 text-success',
         cyber:
-          'bg-primary/10 dark:bg-cyan-500/10 border-border dark:border-cyan-500/20 text-primary dark:text-cyan-500 shadow-sm shadow-cyan-500/5',
+          'bg-primary/10 dark:bg-signal/10 border-border dark:border-signal/20 text-primary dark:text-signal',
       },
       size: {
         sm: 'w-8 h-8',
@@ -160,7 +155,7 @@ const DashboardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      'flex items-center gap-3 text-xs font-black tracking-[0.2em] text-zinc-900 uppercase dark:text-zinc-300',
+      'text-foreground dark:text-muted-foreground flex items-center gap-3 text-xs font-black tracking-[0.2em] uppercase',
       className,
     )}
     {...props}
@@ -173,7 +168,7 @@ const DashboardStatus = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<H
     <span
       ref={ref}
       className={cn(
-        'font-mono text-[10px] font-bold tracking-widest text-zinc-400 uppercase dark:text-zinc-600',
+        'text-muted-foreground font-mono text-[10px] font-bold tracking-widest uppercase',
         className,
       )}
       {...props}

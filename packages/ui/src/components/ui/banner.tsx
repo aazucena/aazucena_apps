@@ -10,18 +10,17 @@ const bannerVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground',
-        glass: 'glass-m text-foreground',
+        glass: 'glass text-foreground',
         cyber:
-          'bg-cyan-500/10 border-b border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider',
-        info: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-b border-blue-500/20',
-        warning: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-b border-amber-500/20',
+          'bg-signal/10 border-b border-signal/30 text-signal font-mono text-xs tracking-wider',
+        info: 'bg-signal/10 text-signal border-b border-signal/20',
+        warning: 'bg-warning/10 text-warning border-b border-warning/20',
         destructive: 'bg-destructive/10 text-destructive border-b border-destructive/20',
-        success:
-          'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-b border-emerald-500/20',
+        success: 'bg-success/10 text-success border-b border-success/20',
       },
       position: {
         top: 'sticky top-0 z-50',
-        inline: 'rounded-lg',
+        inline: 'rounded-control',
       },
     },
     defaultVariants: {

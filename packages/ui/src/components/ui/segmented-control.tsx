@@ -5,14 +5,14 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 const segmentedControlVariants = cva(
-  'inline-flex items-center p-1 rounded-xl transition-all duration-300',
+  'inline-flex items-center p-1 rounded-card transition-all duration-300',
   {
     variants: {
       variant: {
-        default: 'bg-zinc-100 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800',
+        default: 'bg-panel dark:bg-panel/50 border border-rule',
         glass: 'glass text-foreground',
         cyber:
-          'bg-background/80 dark:bg-black/80 border border-border dark:border-cyan-500/20 text-foreground',
+          'bg-background/80 dark:bg-scrim border border-border dark:border-signal/20 text-foreground',
       },
       size: {
         default: 'gap-1',
@@ -40,7 +40,7 @@ const SegmentedControl = React.forwardRef<
 SegmentedControl.displayName = 'SegmentedControl';
 
 const segmentedItemVariants = cva(
-  'relative px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+  'relative px-4 py-1.5 rounded-control text-[9px] font-black uppercase tracking-widest transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary',
   {
     variants: {
       isActive: {
@@ -58,19 +58,19 @@ const segmentedItemVariants = cva(
         isActive: true,
         variant: 'default',
         className:
-          'bg-white dark:bg-zinc-700 text-primary shadow-sm border border-zinc-200 dark:border-zinc-600',
+          'bg-panel dark:bg-panel-raised text-primary border border-rule dark:border-rule-strong',
       },
       {
         isActive: true,
         variant: 'cyber',
         className:
-          'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.2)] border border-border dark:border-cyan-500/40',
+          'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-border dark:border-signal/40',
       },
       {
         isActive: true,
         variant: 'glass',
         className:
-          'bg-background/20 dark:bg-white/20 text-foreground shadow-lg border border-border dark:border-white/30',
+          'bg-background/20 dark:bg-panel-raised text-foreground border border-border dark:border-rule',
       },
     ],
     defaultVariants: {

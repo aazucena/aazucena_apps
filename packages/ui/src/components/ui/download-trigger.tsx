@@ -5,13 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const downloadTriggerVariants = cva(
-  'inline-flex items-center gap-2 rounded-lg border transition-all',
+  'inline-flex items-center gap-2 rounded-control border transition-all',
   {
     variants: {
       variant: {
         default: 'border-border bg-background hover:bg-muted',
-        glass: 'glass-m hover:bg-white/10',
-        cyber: 'border-cyan-500/30 bg-black/50 hover:border-cyan-400',
+        glass: 'glass hover:bg-state',
+        cyber: 'border-signal/30 bg-scrim hover:border-signal',
       },
       size: {
         sm: 'px-3 py-2 text-xs',
@@ -77,7 +77,7 @@ const DownloadTrigger = React.forwardRef<HTMLAnchorElement, DownloadTriggerProps
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className={cn(v === 'cyber' ? 'text-cyan-400' : 'text-muted-foreground')}
+          className={cn(v === 'cyber' ? 'text-signal' : 'text-muted-foreground')}
         >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <path d="m7 10 5 5 5-5" />
@@ -87,7 +87,7 @@ const DownloadTrigger = React.forwardRef<HTMLAnchorElement, DownloadTriggerProps
           <span
             className={cn(
               'font-medium',
-              v === 'cyber' ? 'font-mono text-cyan-50' : 'text-foreground',
+              v === 'cyber' ? 'text-signal font-mono' : 'text-foreground',
             )}
           >
             {fileName ?? 'Download'}
@@ -96,7 +96,7 @@ const DownloadTrigger = React.forwardRef<HTMLAnchorElement, DownloadTriggerProps
             <span
               className={cn(
                 'text-[10px]',
-                v === 'cyber' ? 'text-cyan-500/60' : 'text-muted-foreground',
+                v === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
               )}
             >
               {fileSize}

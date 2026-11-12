@@ -8,13 +8,13 @@ import { Button } from './button';
 import { File as FileIcon, Trash } from '@aazucena/icons'; // Assuming these icons are available
 
 const filePreviewVariants = cva(
-  'group flex items-center justify-between gap-4 p-3 rounded-lg transition-colors duration-200',
+  'group flex items-center justify-between gap-4 p-3 rounded-control transition-colors duration-200',
   {
     variants: {
       variant: {
         default: 'bg-muted/30 border border-border',
-        glass: 'bg-white/5 border-white/10 text-white',
-        cyber: 'bg-cyan-500/5 border border-cyan-500/10 text-cyan-50',
+        glass: 'bg-state border-rule text-foreground',
+        cyber: 'bg-signal/5 border border-signal/10 text-signal',
       },
       size: {
         sm: 'text-xs',
@@ -66,7 +66,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
         ref={ref}
         className={cn(
           filePreviewVariants({ variant, size }),
-          isFailed && 'border-rose-500/50 bg-rose-500/5 text-rose-300 group-hover:bg-rose-500/10',
+          isFailed && 'border-alert/50 bg-alert/5 text-alert group-hover:bg-alert/10',
           className,
         )}
         {...props}
@@ -76,16 +76,16 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
             <Image
               src={file.preview!}
               alt={file.name}
-              className="size-10 flex-shrink-0 rounded-md object-cover"
+              className="rounded-control size-10 flex-shrink-0 object-cover"
             />
           ) : (
             <div
               className={cn(
-                'flex size-10 flex-shrink-0 items-center justify-center rounded-md',
+                'rounded-control flex size-10 flex-shrink-0 items-center justify-center',
                 variant === 'cyber'
-                  ? 'bg-cyan-500/10 text-cyan-400'
+                  ? 'bg-signal/10 text-signal'
                   : variant === 'glass'
-                    ? 'bg-white/10 text-white'
+                    ? 'bg-state text-foreground'
                     : 'bg-background text-muted-foreground',
               )}
             >
@@ -96,9 +96,9 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
             <span
               className={cn(
                 'truncate font-medium',
-                isFailed && 'text-rose-300',
-                variant === 'cyber' && 'font-mono text-cyan-400',
-                variant === 'glass' && 'text-white',
+                isFailed && 'text-alert',
+                variant === 'cyber' && 'text-signal font-mono',
+                variant === 'glass' && 'text-foreground',
               )}
             >
               {file.name}
@@ -107,8 +107,8 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
               className={cn(
                 'text-muted-foreground flex items-center gap-2',
                 size === 'lg' && 'text-sm',
-                variant === 'glass' && 'text-white/60',
-                variant === 'cyber' && 'font-mono text-[10px] text-cyan-500/60',
+                variant === 'glass' && 'text-foreground/60',
+                variant === 'cyber' && 'text-signal/60 font-mono text-[10px]',
               )}
             >
               <span>{formatFileSize(file.size)}</span>
@@ -116,7 +116,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
                 <span>- {file.progress}% Uploading</span>
               )}
               {isFailed && file.error && (
-                <span className="font-medium text-rose-300">{file.error}</span>
+                <span className="text-alert font-medium">{file.error}</span>
               )}
             </div>
           </div>
@@ -130,9 +130,9 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
             onClick={() => onRemove(file.id)}
             className={cn(
               'flex-shrink-0 opacity-0 group-focus-within:opacity-100 group-hover:opacity-100',
-              variant === 'glass' && 'text-white/70 hover:bg-white/10',
-              variant === 'cyber' && 'text-cyan-500/60 hover:bg-cyan-500/10',
-              isFailed && 'text-rose-300 hover:bg-rose-500/10',
+              variant === 'glass' && 'text-foreground/70 hover:bg-state',
+              variant === 'cyber' && 'text-signal/60 hover:bg-signal/10',
+              isFailed && 'text-alert hover:bg-alert/10',
             )}
           >
             <Trash size={16} />

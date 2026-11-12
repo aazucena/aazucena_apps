@@ -4,13 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const dockVariants = cva('flex items-center gap-2 rounded-2xl border p-2 transition-all', {
+const dockVariants = cva('flex items-center gap-2 rounded-card border p-2 transition-all', {
   variants: {
     variant: {
-      default: 'bg-background/80 border-border backdrop-blur-md shadow-lg',
-      glass: 'glass-m border-white/10 shadow-xl',
-      cyber:
-        'bg-black/80 border-cyan-500/30 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.15)]',
+      default: 'bg-background/80 border-border',
+      glass: 'glass border-rule',
+      cyber: 'bg-scrim border-signal/30',
     },
     position: {
       bottom: 'flex-row',
@@ -115,11 +114,11 @@ const DockItem = React.forwardRef<HTMLDivElement, DockItemProps>(
           (itemRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
         }}
         className={cn(
-          'relative flex size-10 cursor-pointer items-center justify-center rounded-xl transition-transform duration-150 [&_svg]:size-5',
+          'rounded-card relative flex size-10 cursor-pointer items-center justify-center transition-transform duration-150 [&_svg]:size-5',
           variant === 'cyber'
-            ? 'text-cyan-400 hover:bg-cyan-500/10'
+            ? 'text-signal hover:bg-signal/10'
             : variant === 'glass'
-              ? 'hover:bg-white/10'
+              ? 'hover:bg-state'
               : 'hover:bg-accent',
           className,
         )}
@@ -133,8 +132,8 @@ const DockItem = React.forwardRef<HTMLDivElement, DockItemProps>(
               'pointer-events-none absolute -top-8 rounded px-1.5 py-0.5 text-xs whitespace-nowrap opacity-0 transition-opacity',
               scale > 1.1 && 'opacity-100',
               variant === 'cyber'
-                ? 'border border-cyan-500/30 bg-black/90 text-cyan-400'
-                : 'bg-popover text-popover-foreground border shadow-sm',
+                ? 'border-signal/30 bg-scrim text-signal border'
+                : 'bg-popover text-popover-foreground border',
             )}
           >
             {label}

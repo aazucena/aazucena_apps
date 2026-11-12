@@ -31,15 +31,15 @@ export const ChatMessage = React.forwardRef<
 ChatMessage.displayName = 'ChatMessage';
 
 export const chatAvatarVariants = cva(
-  'w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-transform group-hover/msg:scale-110',
+  'w-8 h-8 rounded-card flex items-center justify-center shrink-0 border transition-transform group-hover/msg:scale-110',
   {
     variants: {
       variant: {
         default: 'bg-muted border-border text-muted-foreground',
         glass: 'glass text-foreground',
         cyber:
-          'bg-primary/10 dark:bg-cyan-500/10 border-border dark:border-cyan-500/20 text-muted-foreground dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)]',
-        ai: 'bg-primary/10 border-primary/20 text-primary shadow-[0_0_15px_rgba(16,185,129,0.1)]',
+          'bg-primary/10 dark:bg-signal/10 border-border dark:border-signal/20 text-muted-foreground dark:text-signal',
+        ai: 'bg-primary/10 border-primary/20 text-primary',
       },
     },
     defaultVariants: {
@@ -77,17 +77,14 @@ export const ChatContent = React.forwardRef<
 ChatContent.displayName = 'ChatContent';
 
 export const chatBubbleVariants = cva(
-  'p-5 rounded-2xl text-sm font-mono leading-relaxed transition-all border group relative shadow-sm',
+  'p-5 rounded-card text-sm font-mono leading-relaxed transition-all border group relative',
   {
     variants: {
       variant: {
-        default:
-          'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200',
-        muted:
-          'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800',
+        default: 'bg-panel dark:bg-background border-rule text-foreground',
+        muted: 'bg-panel text-foreground border-rule',
         glass: 'glass text-foreground',
-        cyber:
-          'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        cyber: 'bg-background/80 dark:bg-scrim border-signal/30 text-foreground',
       },
       role: {
         user: 'rounded-tr-none',
@@ -115,7 +112,7 @@ export const ChatReasoning = React.forwardRef<HTMLDivElement, React.HTMLAttribut
     <div
       ref={ref}
       className={cn(
-        'border-primary/30 glass bg-primary-100 text-muted-foreground my-3 rounded-r-lg border-l-2 px-4 py-2 text-left font-mono text-[11px] italic',
+        'border-primary/30 glass bg-signal-faint text-muted-foreground rounded-r-control my-3 border-l-2 px-4 py-2 text-left font-mono text-[11px] italic',
         className,
       )}
       {...props}

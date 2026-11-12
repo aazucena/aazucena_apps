@@ -21,10 +21,9 @@ const countdownVariants = cva('inline-flex items-center', {
 });
 
 const segmentStyles: Record<string, string> = {
-  default: 'bg-muted text-foreground rounded-lg border border-border',
-  glass: 'glass rounded-lg',
-  cyber:
-    'bg-cyan-500/5 border border-cyan-500/30 text-cyan-400 rounded-lg shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+  default: 'bg-muted text-foreground rounded-control border border-border',
+  glass: 'glass rounded-control',
+  cyber: 'bg-signal/5 border border-signal/30 text-signal rounded-control',
 };
 
 const segmentSizes: Record<string, string> = {
@@ -118,7 +117,7 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
           <span
             className={cn(
               'text-sm font-medium',
-              v === 'cyber' ? 'font-mono text-cyan-500/60' : 'text-muted-foreground',
+              v === 'cyber' ? 'text-signal/60 font-mono' : 'text-muted-foreground',
             )}
           >
             {label}
@@ -131,7 +130,7 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
                 <span
                   className={cn(
                     'font-bold',
-                    v === 'cyber' ? 'text-cyan-500/40' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-signal/40' : 'text-muted-foreground',
                   )}
                 >
                   :
@@ -144,7 +143,7 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
                 <span
                   className={cn(
                     'text-[9px] tracking-wider uppercase',
-                    v === 'cyber' ? 'text-cyan-500/40' : 'text-muted-foreground',
+                    v === 'cyber' ? 'text-signal/40' : 'text-muted-foreground',
                   )}
                 >
                   {seg.label}

@@ -8,11 +8,11 @@ export const statVariants = cva('flex flex-col transition-all duration-300', {
   variants: {
     variant: {
       default: '',
-      card: 'bg-card border border-border shadow-sm p-6 rounded-2xl',
+      card: 'bg-card border border-border p-6 rounded-card',
       glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 text-foreground shadow-xl p-6 rounded-2xl',
+        'bg-background/5 dark:bg-state border border-border/10 text-foreground p-6 rounded-card',
       cyber:
-        'bg-background/80 dark:bg-black/80 border border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] p-6 rounded-2xl',
+        'bg-background/80 dark:bg-scrim border border-signal/30 text-foreground p-6 rounded-card',
     },
     alignment: {
       left: 'items-start text-left',
@@ -39,14 +39,11 @@ export const statValueVariants = cva('font-black tracking-tighter transition-all
     variant: {
       default: 'text-foreground',
       glass: 'text-foreground',
-      cyber: 'text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.5)] font-mono',
-      primary:
-        'bg-clip-text text-transparent bg-gradient-to-br from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-200',
-      secondary:
-        'bg-clip-text text-transparent bg-gradient-to-br from-secondary-600 to-secondary-400 dark:from-secondary-400 dark:to-secondary-200',
-      success:
-        'bg-clip-text text-transparent bg-gradient-to-br from-emerald-600 to-emerald-400 dark:from-emerald-400 dark:to-emerald-200',
-      rose: 'bg-clip-text text-transparent bg-gradient-to-br from-rose-600 to-rose-400 dark:from-rose-400 dark:to-rose-200',
+      cyber: 'text-signal font-mono',
+      primary: 'text-signal',
+      secondary: 'text-signal',
+      success: 'text-signal',
+      rose: 'text-signal',
     },
     size: {
       sm: 'text-2xl',
@@ -73,7 +70,7 @@ export const statLabelVariants = cva('transition-all duration-300', {
   variants: {
     variant: {
       default:
-        'text-[10px] font-black uppercase tracking-[0.2em] text-foreground0 dark:text-zinc-400 mb-1',
+        'text-[10px] font-black uppercase tracking-[0.2em] text-foreground0 dark:text-muted-foreground mb-1',
       glass: 'text-sm text-foreground/60 font-medium',
       cyber: 'text-foreground0/60 font-mono uppercase tracking-wider text-[10px] font-black',
       bright: 'text-lg font-bold opacity-90 tracking-tight',
@@ -97,11 +94,11 @@ export const statDescriptionVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-zinc-400 dark:text-zinc-600',
-        primary: 'text-primary-500/70',
+        default: 'text-muted-foreground',
+        primary: 'text-signal/70',
         secondary: 'text-secondary-500/70',
-        success: 'text-emerald-500/70',
-        rose: 'text-rose-500/70',
+        success: 'text-success/70',
+        rose: 'text-alert/70',
       },
     },
     defaultVariants: {
@@ -119,19 +116,19 @@ export const StatDescription = React.forwardRef<
 StatDescription.displayName = 'StatDescription';
 
 export const statIconVariants = cva(
-  'transition-all duration-500 group-hover:scale-110 flex items-center justify-center rounded-2xl',
+  'transition-all duration-500 group-hover:scale-110 flex items-center justify-center rounded-card',
   {
     variants: {
       variant: {
         default:
-          'bg-zinc-100 dark:bg-zinc-800 text-zinc-300 dark:text-zinc-800 group-hover:text-primary-500/50',
-        glass: 'bg-background/10 dark:bg-white/10 text-foreground border border-border/20',
+          'bg-panel dark:bg-panel-raised text-muted-foreground dark:text-foreground group-hover:text-signal/50',
+        glass: 'bg-background/10 dark:bg-state text-foreground border border-border/20',
         cyber:
-          'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 border border-border/10 dark:border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.3)]',
-        primary: 'bg-primary-500/10 border border-primary-500/20 text-primary-500',
+          'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-border/10 dark:border-signal/40',
+        primary: 'bg-signal/10 border border-signal/20 text-signal',
         secondary: 'bg-secondary-500/10 border border-secondary-500/20 text-secondary-500',
-        success: 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-500',
-        rose: 'bg-rose-500/10 border border-rose-500/20 text-rose-500',
+        success: 'bg-success/10 border border-success/20 text-success',
+        rose: 'bg-alert/10 border border-alert/20 text-alert',
       },
       size: {
         default: 'h-12 w-12',

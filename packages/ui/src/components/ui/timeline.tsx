@@ -8,7 +8,7 @@ const timelineVariants = cva('relative w-full transition-all duration-300', {
   variants: {
     variant: {
       default: '',
-      cyber: 'text-foreground dark:text-cyan-50',
+      cyber: 'text-foreground dark:text-signal',
       alternating: 'max-w-5xl mx-auto',
     },
   },
@@ -47,17 +47,16 @@ const TimelineItem = React.forwardRef<
 TimelineItem.displayName = 'TimelineItem';
 
 const timelineDotVariants = cva(
-  'flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110 shadow-lg',
+  'flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110',
   {
     variants: {
       variant: {
-        default: 'bg-gradient-to-br from-zinc-200 to-zinc-100 dark:from-white/40 dark:to-white/20',
-        primary: 'bg-gradient-to-br from-cyan-400 to-blue-500 shadow-cyan-400/50',
-        success: 'bg-gradient-to-br from-green-400 to-emerald-500 shadow-green-400/50',
-        warning: 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-yellow-400/50',
-        danger: 'bg-gradient-to-br from-red-400 to-rose-500 shadow-red-400/50',
-        cyber:
-          'bg-zinc-100 border border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.2)] dark:bg-black dark:shadow-[0_0_10px_rgba(6,182,212,0.5)]',
+        default: '',
+        primary: '',
+        success: '',
+        warning: '',
+        danger: '',
+        cyber: 'bg-panel border border-signal/50 dark:bg-background',
       },
       position: {
         left: 'absolute top-1/2 left-0 -translate-y-1/2 z-10',
@@ -81,8 +80,8 @@ const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
         <div
           ref={ref}
           className={cn(
-            'h-3 w-3 rounded-full bg-zinc-400 transition-all duration-300 dark:bg-white/80',
-            variant === 'cyber' && 'animate-pulse bg-cyan-600 dark:bg-cyan-400',
+            'bg-rule-strong dark:bg-panel-raised h-3 w-3 rounded-full transition-all duration-300',
+            variant === 'cyber' && 'bg-signal animate-pulse',
           )}
           {...props}
         />
@@ -95,9 +94,8 @@ TimelineDot.displayName = 'TimelineDot';
 const timelineLineVariants = cva('absolute h-full w-0.5 transition-all duration-300', {
   variants: {
     variant: {
-      default: 'bg-gradient-to-b from-cyan-400/50 via-cyan-400/30 to-transparent',
-      cyber:
-        'bg-gradient-to-b from-cyan-500/80 via-cyan-500/40 to-transparent shadow-[0_0:8px_rgba(6,182,212,0.3)]',
+      default: '',
+      cyber: '',
     },
     position: {
       left: 'top-1/2 left-[11px]',

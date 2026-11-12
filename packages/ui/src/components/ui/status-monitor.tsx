@@ -5,14 +5,14 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 export const statusMonitorVariants = cva(
-  'overflow-hidden rounded-[2rem] border shadow-lg backdrop-blur-md transition-all duration-500',
+  'overflow-hidden rounded-card border transition-all duration-500',
   {
     variants: {
       variant: {
         default: 'bg-background border-border text-foreground',
-        glass: 'glass text-foreground dark:text-white shadow-2xl',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.15)] dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-scrim dark:text-signal',
       },
     },
     defaultVariants: {
@@ -34,9 +34,9 @@ export const statusMonitorHeaderVariants = cva(
   {
     variants: {
       status: {
-        NOMINAL: 'border-emerald-500/20 bg-emerald-500/10',
-        WARNING: 'border-amber-500/20 bg-amber-500/10',
-        CRITICAL: 'border-rose-500/20 bg-rose-500/10',
+        NOMINAL: 'border-success/20 bg-success/10',
+        WARNING: 'border-warning/20 bg-warning/10',
+        CRITICAL: 'border-alert/20 bg-alert/10',
       },
     },
     defaultVariants: {
@@ -54,13 +54,13 @@ export const StatusMonitorHeader = React.forwardRef<
 StatusMonitorHeader.displayName = 'StatusMonitorHeader';
 
 export const statusMonitorIconVariants = cva(
-  'flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-500',
+  'flex h-12 w-12 items-center justify-center rounded-card transition-all duration-500',
   {
     variants: {
       status: {
-        NOMINAL: 'bg-emerald-500 text-foreground shadow-[0_0_20px_rgba(16,185,129,0.2)]',
-        WARNING: 'bg-amber-500 text-foreground shadow-[0_0_20px_rgba(245,158,11,0.4)]',
-        CRITICAL: 'animate-pulse bg-rose-500 text-foreground shadow-[0_0_20px_rgba(244,63,94,0.4)]',
+        NOMINAL: 'bg-success text-success-foreground',
+        WARNING: 'bg-warning text-warning-foreground',
+        CRITICAL: 'animate-pulse bg-alert text-alert-foreground',
       },
     },
     defaultVariants: {
@@ -94,9 +94,9 @@ export const statusMonitorValueVariants = cva(
   {
     variants: {
       status: {
-        NOMINAL: 'text-emerald-500',
-        WARNING: 'text-amber-500',
-        CRITICAL: 'text-rose-500',
+        NOMINAL: 'text-success',
+        WARNING: 'text-warning',
+        CRITICAL: 'text-alert',
       },
     },
     defaultVariants: {
@@ -129,7 +129,7 @@ export const StatusMonitorFooter = React.forwardRef<
     ref={ref}
     className={cn(
       'flex items-center justify-between border-t px-8 py-4',
-      variant === 'cyber' ? 'border-cyan-500/20 bg-cyan-950/20' : 'border-border bg-muted/50',
+      variant === 'cyber' ? 'border-signal/20 bg-panel-raised/20' : 'border-border bg-muted/50',
       className,
     )}
     {...props}

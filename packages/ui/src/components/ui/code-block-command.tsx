@@ -184,8 +184,8 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
             <div
               className={cn(
                 'bg-muted/20 flex items-center justify-between border-b px-1',
-                v === 'cyber' && 'border-cyan-500/20 bg-black',
-                v === 'glass' && 'border-white/10 bg-white/5',
+                v === 'cyber' && 'border-signal/20 bg-background',
+                v === 'glass' && 'border-rule bg-state',
               )}
             >
               <TabsList className={cn('h-9 bg-transparent p-0', v === 'cyber' && 'gap-1')}>
@@ -194,9 +194,9 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
                   className={cn(
                     'data-[state=active]:border-primary h-full rounded-none px-4 text-[10px] font-bold tracking-widest uppercase data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:shadow-none',
                     v === 'cyber' &&
-                      'text-cyan-500/50 data-[state=active]:border-cyan-500 data-[state=active]:text-cyan-400',
+                      'text-signal/50 data-[state=active]:border-signal data-[state=active]:text-signal',
                     v === 'glass' &&
-                      'text-white/50 data-[state=active]:border-white data-[state=active]:text-white',
+                      'text-foreground/50 data-[state=active]:border-rule data-[state=active]:text-foreground',
                   )}
                 >
                   <CodeIcon className="mr-2 size-3" />
@@ -207,9 +207,9 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
                   className={cn(
                     'data-[state=active]:border-primary h-full rounded-none px-4 text-[10px] font-bold tracking-widest uppercase data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:shadow-none',
                     v === 'cyber' &&
-                      'text-cyan-500/50 data-[state=active]:border-cyan-500 data-[state=active]:text-cyan-400',
+                      'text-signal/50 data-[state=active]:border-signal data-[state=active]:text-signal',
                     v === 'glass' &&
-                      'text-white/50 data-[state=active]:border-white data-[state=active]:text-white',
+                      'text-foreground/50 data-[state=active]:border-rule data-[state=active]:text-foreground',
                   )}
                 >
                   <Activity className="mr-2 size-3" />
@@ -222,10 +222,7 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
               </div>
             </div>
 
-            <TabsContent
-              value="command"
-              className="ring-offset-background mt-0 focus-visible:outline-none"
-            >
+            <TabsContent value="command" className="mt-0 focus-visible:outline-none">
               <CommandHeader
                 fileName={fileName}
                 variant={v}
@@ -247,10 +244,7 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
                 header={null}
               />
             </TabsContent>
-            <TabsContent
-              value="output"
-              className="ring-offset-background mt-0 focus-visible:outline-none"
-            >
+            <TabsContent value="output" className="mt-0 focus-visible:outline-none">
               <CommandHeader
                 fileName="output.log"
                 variant={v}

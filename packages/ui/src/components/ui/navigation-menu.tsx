@@ -36,7 +36,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'group inline-flex h-9 w-max items-center justify-center rounded-control px-4 py-2 text-sm font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -77,9 +77,9 @@ const navigationMenuContentVariants = cva(
     variants: {
       variant: {
         default: '',
-        glass: 'glass text-foreground dark:text-white shadow-2xl rounded-md mt-2',
+        glass: 'glass text-foreground rounded-control mt-2',
         cyber:
-          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] rounded-md mt-2 dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/40 text-foreground rounded-control mt-2 dark:bg-scrim dark:text-signal',
       },
     },
     defaultVariants: {
@@ -104,14 +104,14 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
 const navigationMenuViewportVariants = cva(
-  'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border shadow data-open:animate-in data-closed:animate-out data-closed:zoom-out-95 data-open:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
+  'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-control border data-open:animate-in data-closed:animate-out data-closed:zoom-out-95 data-open:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
   {
     variants: {
       variant: {
         default: 'bg-popover text-popover-foreground',
-        glass: 'glass text-foreground dark:text-white shadow-2xl',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-scrim dark:text-signal',
       },
     },
     defaultVariants: {
@@ -147,7 +147,7 @@ const NavigationMenuIndicator = React.forwardRef<
     )}
     {...props}
   >
-    <div className="bg-border relative top-3/5 h-2 w-2 rotate-45 rounded-tl-sm shadow-md" />
+    <div className="bg-border relative top-3/5 h-2 w-2 rotate-45 rounded-tl-sm" />
   </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;

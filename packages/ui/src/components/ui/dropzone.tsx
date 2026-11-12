@@ -6,14 +6,14 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 const dropzoneVariants = cva(
-  'w-full border-2 border-dashed rounded-[2rem] p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 group',
+  'w-full border-2 border-dashed rounded-card p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 group',
   {
     variants: {
       variant: {
-        default: 'border-border bg-muted/30 hover:border-primary/50 hover:glass bg-primary-100',
-        glass: 'glass text-foreground dark:text-white',
+        default: 'border-border bg-muted/30 hover:border-primary/50 hover:glass bg-signal-faint',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/30 text-foreground hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/30 text-foreground hover:border-signal dark:bg-background/40 dark:bg-scrim dark:text-signal',
       },
       isDragging: {
         true: 'scale-[1.02] border-primary bg-primary/10',
@@ -77,7 +77,7 @@ const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(
           className="hidden"
         />
 
-        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-current/5 transition-transform duration-500 group-hover:scale-110">
+        <div className="rounded-card mb-6 flex h-16 w-16 items-center justify-center bg-current/5 transition-transform duration-500 group-hover:scale-110">
           <CloudUpload
             size={32}
             className="opacity-40 transition-opacity group-hover:opacity-100"

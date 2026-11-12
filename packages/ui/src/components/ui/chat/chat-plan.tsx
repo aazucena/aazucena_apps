@@ -6,14 +6,13 @@ import { cn } from '@aazucena/utils';
 import { CheckCircle, XCircle, CircleNotch as Loader, CircleDashed } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatPlanVariants = cva(
-  'flex flex-col gap-4 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-4 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -42,9 +41,9 @@ const statusIconMap: Record<PlanStep['status'], React.ElementType> = {
 
 const statusColorMap: Record<PlanStep['status'], string> = {
   pending: 'text-muted-foreground',
-  active: 'text-blue-500 animate-spin',
-  completed: 'text-green-500',
-  failed: 'text-red-500',
+  active: 'text-signal animate-spin',
+  completed: 'text-success',
+  failed: 'text-alert',
 };
 
 const ChatPlan = React.forwardRef<HTMLDivElement, ChatPlanProps>(
@@ -52,7 +51,7 @@ const ChatPlan = React.forwardRef<HTMLDivElement, ChatPlanProps>(
     return (
       <div ref={ref} className={cn(chatPlanVariants({ variant }), className)} {...props}>
         {plan.length === 0 && <p className="text-muted-foreground text-center">{emptyMessage}</p>}
-        <ol className="relative border-l border-gray-200 dark:border-gray-700">
+        <ol className="border-rule relative border-l">
           {plan.map((step, index) => {
             const Icon = statusIconMap[step.status] as React.ComponentType<{ className?: string }>;
             return (

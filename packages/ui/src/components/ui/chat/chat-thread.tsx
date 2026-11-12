@@ -13,16 +13,15 @@ export const ChatThreadList = React.forwardRef<
 ChatThreadList.displayName = 'ChatThreadList';
 
 export const chatThreadVariants = cva(
-  'w-full p-4 rounded-2xl border text-left transition-all group relative overflow-hidden flex items-start gap-3 cursor-pointer',
+  'w-full p-4 rounded-card border text-left transition-all group relative overflow-hidden flex items-start gap-3 cursor-pointer',
   {
     variants: {
       variant: {
-        default:
-          'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-900',
+        default: 'bg-panel dark:bg-background border-rule hover:border-rule hover:bg-panel',
         glass:
-          'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground hover:bg-background/10 dark:bg-white/10 hover:border-border/20',
+          'bg-background/5 dark:bg-state border-border/10 text-foreground hover:bg-background/10 hover:border-border/20',
         cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/20 text-foreground hover:border-cyan-400',
+          'bg-background/40 dark:bg-scrim border-signal/20 text-foreground hover:border-signal',
       },
       isActive: {
         true: '',
@@ -33,13 +32,12 @@ export const chatThreadVariants = cva(
       {
         variant: 'default',
         isActive: true,
-        className: 'bg-primary-500/5 border-primary-500/30 text-primary-500 shadow-sm',
+        className: 'bg-signal/5 border-signal/30 text-signal',
       },
       {
         variant: 'cyber',
         isActive: true,
-        className:
-          'bg-cyan-500/10 border-cyan-500/50 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.2)]',
+        className: 'bg-signal/10 border-signal/50 text-signal',
       },
     ],
     defaultVariants: {
@@ -114,14 +112,14 @@ export const ChatThreadMeta = React.forwardRef<
 ChatThreadMeta.displayName = 'ChatThreadMeta';
 
 export const chatThreadActionVariants = cva(
-  'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-all z-20 opacity-0 group-hover/thread:opacity-100 border focus:opacity-100',
+  'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-card transition-all z-20 opacity-0 group-hover/thread:opacity-100 border focus:opacity-100',
   {
     variants: {
       variant: {
         default:
-          'bg-rose-500/10 border-rose-500/20 text-rose-600 hover:bg-rose-500 hover:text-white',
+          'bg-alert/10 border-alert/20 text-alert hover:bg-alert hover:text-alert-foreground',
         cyber:
-          'bg-background dark:bg-black border-border dark:border-cyan-500/20 text-primary dark:text-cyan-400 hover:border-primary dark:hover:border-cyan-400',
+          'bg-background border-border dark:border-signal/20 text-primary dark:text-signal hover:border-primary dark:hover:border-signal',
       },
     },
     defaultVariants: {

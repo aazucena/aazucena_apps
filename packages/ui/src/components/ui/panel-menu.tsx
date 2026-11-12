@@ -4,12 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const panelMenuVariants = cva('w-full rounded-lg border transition-all', {
+const panelMenuVariants = cva('w-full rounded-control border transition-all', {
   variants: {
     variant: {
       default: 'border-border bg-background',
-      glass: 'glass-m border-white/10',
-      cyber: 'border-cyan-500/30 bg-black/50 font-mono shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+      glass: 'glass border-rule',
+      cyber: 'border-signal/30 bg-scrim font-mono',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -45,7 +45,7 @@ function PanelMenuItemComponent({
       onClick={() => (hasChildren ? setOpen(!open) : undefined)}
       className={cn(
         'flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors',
-        variant === 'cyber' ? 'text-cyan-50 hover:bg-cyan-500/10' : 'hover:bg-accent',
+        variant === 'cyber' ? 'text-signal hover:bg-signal/10' : 'hover:bg-accent',
       )}
       style={{ paddingLeft: `${depth * 16 + 12}px` }}
     >
@@ -80,10 +80,7 @@ function PanelMenuItemComponent({
       {content}
       {hasChildren && open && (
         <div
-          className={cn(
-            'border-t',
-            variant === 'cyber' ? 'border-cyan-500/10' : 'border-border/50',
-          )}
+          className={cn('border-t', variant === 'cyber' ? 'border-signal/10' : 'border-border/50')}
         >
           {item.children!.map((child) => (
             <PanelMenuItemComponent
@@ -110,7 +107,7 @@ const PanelMenu = React.forwardRef<HTMLDivElement, PanelMenuProps>(
             key={item.label}
             className={cn(
               i > 0 && 'border-t',
-              v === 'cyber' ? 'border-cyan-500/20' : 'border-border',
+              v === 'cyber' ? 'border-signal/20' : 'border-border',
             )}
           >
             <PanelMenuItemComponent item={item} depth={0} variant={v} />

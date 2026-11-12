@@ -6,15 +6,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 const errorPageVariants = cva(
-  'min-h-[80vh] flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500 text-center rounded-[3rem] border',
+  'min-h-[80vh] flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500 text-center rounded-card border',
   {
     variants: {
       variant: {
-        default: 'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800',
-        glass:
-          'bg-background/5 dark:bg-white/5 backdrop-blur-xl border-border/10 text-foreground shadow-2xl',
-        cyber:
-          'bg-background dark:bg-black border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.15)]',
+        default: 'bg-panel dark:bg-background border-rule',
+        glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+        cyber: 'bg-background border-signal/30 text-foreground',
       },
     },
     defaultVariants: {
@@ -77,26 +75,26 @@ const ErrorPageVisual = React.forwardRef<
         className={cn(
           'absolute inset-0 scale-150 rounded-full opacity-0 blur-[80px] transition-opacity duration-1000 group-hover:opacity-100',
           resolvedColor === 'primary'
-            ? 'bg-primary-500/20'
+            ? 'bg-signal/20'
             : resolvedColor === 'secondary'
               ? 'bg-secondary-500/20'
-              : 'bg-rose-500/20',
+              : 'bg-alert/20',
         )}
       />
 
       <div className="relative">
-        <h1 className="font-mono text-[10rem] leading-none font-black tracking-tighter text-zinc-900 drop-shadow-2xl md:text-[15rem] dark:text-zinc-100">
+        <h1 className="text-foreground font-mono text-[10rem] leading-none font-black tracking-tighter md:text-[15rem]">
           {resolvedCode}
         </h1>
         {resolvedLabel && (
           <div
             className={cn(
-              'text-foreground absolute -bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-lg border px-4 py-1.5 text-[10px] font-black tracking-[0.3em] whitespace-nowrap uppercase shadow-xl transition-transform',
+              'text-foreground rounded-control absolute -bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 border px-4 py-1.5 text-[10px] font-black tracking-[0.3em] whitespace-nowrap uppercase transition-transform',
               resolvedColor === 'primary'
-                ? 'bg-primary-600 border-primary-400/30 rotate-[-2deg]'
+                ? 'bg-signal border-signal/30 rotate-[-2deg]'
                 : resolvedColor === 'secondary'
                   ? 'bg-secondary-600 border-secondary-400/30 rotate-[2deg]'
-                  : 'rotate-0 border-rose-400/30 bg-rose-600',
+                  : 'border-alert/30 bg-alert rotate-0',
             )}
           >
             {resolvedColor === 'destructive' ? (
@@ -127,7 +125,7 @@ const ErrorPageTitle = React.forwardRef<
   <h2
     ref={ref}
     className={cn(
-      'text-3xl font-black tracking-tight text-zinc-900 uppercase md:text-5xl dark:text-zinc-100',
+      'text-foreground text-3xl font-black tracking-tight uppercase md:text-5xl',
       className,
     )}
     {...props}
@@ -142,7 +140,7 @@ const ErrorPageDescription = React.forwardRef<
   <p
     ref={ref}
     className={cn(
-      'text-muted-foreground mx-auto max-w-sm font-mono text-sm leading-relaxed tracking-wider uppercase md:text-base dark:text-zinc-400',
+      'text-muted-foreground mx-auto max-w-sm font-mono text-sm leading-relaxed tracking-wider uppercase md:text-base',
       className,
     )}
     {...props}
@@ -182,7 +180,7 @@ const ErrorPageBeacon = React.forwardRef<
   <div ref={ref} className={cn('flex flex-col items-center gap-4', className)} {...props}>
     <div className="flex items-center gap-3">
       <Activity size={14} className="text-secondary-500 animate-pulse" />
-      <h3 className="font-mono text-[10px] font-black tracking-[0.4em] text-zinc-400 uppercase dark:text-zinc-600">
+      <h3 className="text-muted-foreground font-mono text-[10px] font-black tracking-[0.4em] uppercase">
         {label || 'Incident_Protocol_Active'}
       </h3>
     </div>

@@ -8,14 +8,13 @@ import { ChatMessage, ChatFeed } from './chat'; // Existing chat components
 import type { ChatMessageProps } from './chat-message'; // For message type definition
 
 const chatConversationVariants = cva(
-  'flex flex-col h-full rounded-md border transition-all duration-300',
+  'flex flex-col h-full rounded-control border transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },

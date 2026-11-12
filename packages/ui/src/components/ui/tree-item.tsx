@@ -17,8 +17,8 @@ const treeItemVariants = cva('flex flex-col', {
 
 const itemRowClasses: Record<string, string> = {
   default: 'hover:bg-muted/50 text-foreground',
-  glass: 'hover:bg-white/5 text-foreground/90',
-  cyber: 'hover:bg-cyan-500/5 text-cyan-50 font-mono text-xs',
+  glass: 'hover:bg-state text-foreground/90',
+  cyber: 'hover:bg-signal/5 text-signal font-mono text-xs',
 };
 
 export interface TreeNode {
@@ -83,7 +83,7 @@ const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           className={cn(
             'flex cursor-pointer items-center gap-1.5 rounded-sm px-2 py-1 transition-colors',
             itemRowClasses[v],
-            isSelected && (v === 'cyber' ? 'bg-cyan-500/10' : 'bg-accent'),
+            isSelected && (v === 'cyber' ? 'bg-signal/10' : 'bg-accent'),
             node.disabled && 'pointer-events-none opacity-50',
           )}
           style={{ paddingLeft: `${level * 16 + 8}px` }}

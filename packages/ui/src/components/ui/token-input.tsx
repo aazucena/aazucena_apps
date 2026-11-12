@@ -8,14 +8,13 @@ import { Button } from './button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
 const tokenInputVariants = cva(
-  'flex items-center gap-2 rounded-lg border transition-all duration-300 bg-background',
+  'flex items-center gap-2 rounded-control border transition-all duration-300 bg-background',
   {
     variants: {
       variant: {
-        default: 'border-input shadow-sm focus-within:ring-1 focus-within:ring-ring',
-        glass: 'glass border-white/10 text-white',
-        cyber:
-          'bg-black/40 border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)] text-cyan-400 font-mono',
+        default: 'border-input focus-within:ring-1 focus-within:ring-ring',
+        glass: 'glass border-rule text-foreground',
+        cyber: 'bg-scrim border-signal/30 text-signal font-mono',
       },
       size: {
         default: 'h-10 px-3',
@@ -150,7 +149,7 @@ const TokenInput = React.forwardRef<HTMLDivElement, TokenInputProps>(
               className={cn(
                 'truncate font-mono tabular-nums select-all',
                 isVisible ? 'text-foreground' : 'text-muted-foreground tracking-widest',
-                variant === 'cyber' && 'text-cyan-400',
+                variant === 'cyber' && 'text-signal',
               )}
             >
               {displayValue}
@@ -199,7 +198,7 @@ const TokenInput = React.forwardRef<HTMLDivElement, TokenInputProps>(
                     size="icon"
                     className={cn(
                       'size-7 transition-all',
-                      isCopied ? 'text-emerald-500 opacity-100' : 'opacity-60 hover:opacity-100',
+                      isCopied ? 'text-success opacity-100' : 'opacity-60 hover:opacity-100',
                     )}
                     onClick={handleCopy}
                     disabled={!token}

@@ -14,13 +14,12 @@ import {
 } from '../dialog'; // Assuming Dialog components are available
 import { DangerCircle } from '@aazucena/icons';
 
-const chatConfirmationVariants = cva('rounded-md border p-4 transition-all duration-300', {
+const chatConfirmationVariants = cva('rounded-control border p-4 transition-all duration-300', {
   variants: {
     variant: {
       default: 'bg-background border-input',
       glass: 'glass border-input/20',
-      cyber:
-        'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+      cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -70,7 +69,7 @@ const ChatConfirmation = React.forwardRef<HTMLDivElement, ChatConfirmationProps>
     const content = (
       <div ref={ref} className={cn(chatConfirmationVariants({ variant }), className)} {...props}>
         <div className="mb-4 flex items-center gap-3">
-          <DangerCircle className="h-6 w-6 text-orange-500" />
+          <DangerCircle className="text-warning h-6 w-6" />
           <h4 className="text-lg font-semibold">{title}</h4>
         </div>
         <p className="text-muted-foreground mb-6 text-sm">{message}</p>
@@ -89,7 +88,7 @@ const ChatConfirmation = React.forwardRef<HTMLDivElement, ChatConfirmationProps>
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
-                <DangerCircle className="h-6 w-6 text-orange-500" /> {title}
+                <DangerCircle className="text-warning h-6 w-6" /> {title}
               </DialogTitle>
               <DialogDescription>{message}</DialogDescription>
             </DialogHeader>

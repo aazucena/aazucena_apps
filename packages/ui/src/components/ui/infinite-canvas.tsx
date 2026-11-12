@@ -5,13 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const infiniteCanvasVariants = cva(
-  'relative overflow-hidden rounded-lg border flex items-center justify-center',
+  'relative overflow-hidden rounded-control border flex items-center justify-center',
   {
     variants: {
       variant: {
         default: 'bg-muted/30 border-border',
-        glass: 'bg-white/5 border-white/10 text-white backdrop-blur-md',
-        cyber: 'bg-black border-cyan-500/20 text-cyan-50',
+        glass: 'bg-state border-rule text-foreground',
+        cyber: 'bg-background border-signal/20 text-signal',
       },
     },
     defaultVariants: {

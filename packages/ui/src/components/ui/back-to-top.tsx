@@ -11,11 +11,11 @@ const backToTopVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90',
+        default: 'bg-primary text-primary-foreground rounded-full hover:bg-primary/90',
         glass:
-          'bg-background/10 dark:bg-white/10 backdrop-blur-md border border-border/20 text-foreground rounded-full shadow-2xl hover:bg-white/20',
+          'bg-background/10 dark:bg-state border border-border/20 text-foreground rounded-full hover:bg-panel-raised',
         cyber:
-          'bg-background/80 dark:bg-black/80 border border-cyan-500/40 text-cyan-400 rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]',
+          'bg-background/80 dark:bg-scrim border border-signal/40 text-signal rounded-control hover:border-signal',
       },
       size: {
         default: 'w-12 h-12',

@@ -10,14 +10,13 @@ import { Skeleton } from './skeleton';
 import { useGlimpse } from '../../hooks/use-glimpse';
 
 const glimpsePreviewVariants = cva(
-  'absolute z-50 overflow-hidden rounded-xl border bg-popover shadow-2xl transition-all duration-300',
+  'absolute z-50 overflow-hidden rounded-card border bg-popover transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'border-border',
-        glass: 'glass border-white/10 backdrop-blur-md text-white',
-        cyber:
-          'bg-black border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.2)] text-cyan-50 font-mono',
+        glass: 'glass border-rule text-foreground',
+        cyber: 'bg-background border-signal/30 text-signal font-mono',
       },
       size: {
         default: 'w-72',
@@ -75,7 +74,7 @@ const Glimpse = React.forwardRef<HTMLDivElement, GlimpseProps>(
       if (isLoading) {
         return (
           <div className="flex flex-col gap-2 p-3">
-            <Skeleton className="h-32 w-full rounded-lg" />
+            <Skeleton className="rounded-control h-32 w-full" />
             <Skeleton className="h-4 w-3/4" />
             <Skeleton className="h-3 w-1/2" />
           </div>
@@ -110,7 +109,7 @@ const Glimpse = React.forwardRef<HTMLDivElement, GlimpseProps>(
               <h5
                 className={cn(
                   'line-clamp-2 text-sm leading-tight font-bold',
-                  variant === 'cyber' && 'text-cyan-400',
+                  variant === 'cyber' && 'text-signal',
                 )}
               >
                 {data?.title || domain}

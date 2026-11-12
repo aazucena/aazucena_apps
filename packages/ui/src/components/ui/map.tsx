@@ -8,12 +8,12 @@ export type { MapProps } from './map.impl';
 
 // mapVariants is duplicated here (cva + strings only, zero side effects) to
 // avoid importing from map.impl which would pull in leaflet at module load time.
-export const mapVariants = cva('w-full h-full rounded-lg overflow-hidden relative z-0', {
+export const mapVariants = cva('w-full h-full rounded-control overflow-hidden relative z-0', {
   variants: {
     variant: {
-      default: 'border border-border shadow-md',
-      glass: 'border-white/10 shadow-xl backdrop-blur-md',
-      cyber: 'border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.2)]',
+      default: 'border border-border',
+      glass: 'border-rule',
+      cyber: 'border-signal/20',
     },
   },
   defaultVariants: { variant: 'default' },

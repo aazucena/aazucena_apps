@@ -4,12 +4,12 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const fieldsetVariants = cva('w-full rounded-lg border p-4', {
+const fieldsetVariants = cva('w-full rounded-control border p-4', {
   variants: {
     variant: {
       default: 'border-border bg-card',
-      glass: 'border-white/10 bg-white/5 text-white backdrop-blur-md',
-      cyber: 'border-cyan-500/20 bg-black text-cyan-50',
+      glass: 'border-rule bg-state text-foreground',
+      cyber: 'border-signal/20 bg-background text-signal',
     },
   },
   defaultVariants: {
@@ -35,8 +35,8 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(
           <legend
             className={cn(
               'px-2 text-lg font-semibold',
-              variant === 'glass' && 'text-white',
-              variant === 'cyber' && 'font-mono text-cyan-400 italic',
+              variant === 'glass' && 'text-foreground',
+              variant === 'cyber' && 'text-signal font-mono italic',
             )}
           >
             {legend}

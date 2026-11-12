@@ -5,14 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const mentionInputVariants = cva(
-  'relative w-full rounded-md border bg-transparent transition-colors',
+  'relative w-full rounded-control border bg-transparent transition-colors',
   {
     variants: {
       variant: {
         default: 'border-input focus-within:ring-1 focus-within:ring-ring',
-        glass: 'glass-m focus-within:bg-background/10',
-        cyber:
-          'border-cyan-500/30 bg-background/40 dark:bg-black/40 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+        glass: 'glass focus-within:bg-background/10',
+        cyber: 'border-signal/30 bg-background/40 dark:bg-scrim focus-within:border-signal',
       },
       size: {
         sm: 'text-sm',
@@ -106,7 +105,7 @@ const MentionInput = React.forwardRef<HTMLTextAreaElement, MentionInputProps>(
           {...props}
         />
         {showDropdown && filtered.length > 0 && (
-          <div className="bg-popover absolute left-0 z-50 mt-1 max-h-48 w-full overflow-auto rounded-md border p-1 shadow-md">
+          <div className="bg-popover rounded-control absolute left-0 z-50 mt-1 max-h-48 w-full overflow-auto border p-1">
             {filtered.map((s) => (
               <button
                 key={s.id}

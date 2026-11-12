@@ -27,9 +27,8 @@ const inputClasses: Record<string, Record<string, string>> = {
   variant: {
     default:
       'border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-ring',
-    glass: 'glass-m border-white/10 text-foreground focus:border-white/30',
-    cyber:
-      'border-cyan-500/30 bg-black/50 text-cyan-50 font-mono focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+    glass: 'glass border-rule text-foreground focus:border-rule',
+    cyber: 'border-signal/30 bg-scrim text-signal font-mono focus:border-signal',
   },
   size: {
     sm: 'h-8 pt-3 px-2 text-xs',
@@ -42,7 +41,7 @@ const labelClasses: Record<string, Record<string, string>> = {
   variant: {
     default: 'text-muted-foreground peer-focus:text-primary',
     glass: 'text-foreground/50 peer-focus:text-foreground/80',
-    cyber: 'text-cyan-500/50 peer-focus:text-cyan-400 font-mono',
+    cyber: 'text-signal/50 peer-focus:text-signal font-mono',
   },
   size: {
     sm: 'left-2 text-xs peer-focus:text-[9px] peer-[:not(:placeholder-shown)]:text-[9px] peer-focus:top-0.5 peer-[:not(:placeholder-shown)]:top-0.5 top-1.5',
@@ -80,7 +79,7 @@ const FloatingLabel = React.forwardRef<HTMLInputElement, FloatingLabelProps>(
     const s = size ?? 'md';
 
     const fieldCn = cn(
-      'peer w-full rounded-md border outline-none transition-all',
+      'peer w-full rounded-control border outline-none transition-all',
       inputClasses.variant?.[v],
       inputClasses.size?.[s],
       className,

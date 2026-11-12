@@ -12,7 +12,7 @@ const detailNavigationVariants = cva(
       variant: {
         default: 'border-border',
         glass: 'border-border/10',
-        cyber: 'border-border dark:border-cyan-500/20',
+        cyber: 'border-border dark:border-signal/20',
       },
     },
     defaultVariants: {
@@ -22,15 +22,15 @@ const detailNavigationVariants = cva(
 );
 
 const detailNavItemVariants = cva(
-  'group space-y-2 p-8 transition-all duration-300 rounded-[2rem] border',
+  'group space-y-2 p-8 transition-all duration-300 rounded-card border',
   {
     variants: {
       variant: {
         default: 'border-border bg-card hover:border-primary/20',
         glass:
-          'border-border/10 bg-background/5 dark:bg-white/5 backdrop-blur-md text-foreground hover:bg-background/10 dark:bg-white/10 hover:border-border/20',
+          'border-border/10 bg-background/5 dark:bg-state text-foreground hover:bg-background/10 hover:border-border/20',
         cyber:
-          'border-cyan-500/20 bg-background/40 dark:bg-black/40 text-foreground hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+          'border-signal/20 bg-background/40 dark:bg-scrim text-foreground hover:border-signal',
       },
       alignment: {
         left: 'text-left',

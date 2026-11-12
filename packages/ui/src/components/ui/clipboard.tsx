@@ -5,13 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const clipboardVariants = cva(
-  'inline-flex items-center gap-2 rounded-md text-sm font-medium transition-all',
+  'inline-flex items-center gap-2 rounded-control text-sm font-medium transition-all',
   {
     variants: {
       variant: {
         default: 'bg-muted text-foreground border border-border',
-        glass: 'glass-m text-foreground',
-        cyber: 'bg-cyan-500/5 border border-cyan-500/30 text-cyan-400 font-mono text-xs',
+        glass: 'glass text-foreground',
+        cyber: 'bg-signal/5 border border-signal/30 text-signal font-mono text-xs',
         minimal: 'text-muted-foreground hover:text-foreground',
       },
       size: {
@@ -104,7 +104,7 @@ const Clipboard = React.forwardRef<HTMLDivElement, ClipboardProps>(
           onClick={handleCopy}
           className={cn(
             'ml-auto shrink-0 rounded p-1 transition-colors',
-            copied ? 'text-emerald-500' : 'opacity-60 hover:opacity-100',
+            copied ? 'text-success' : 'opacity-60 hover:opacity-100',
           )}
         >
           {copied ? <CheckIcon /> : <CopyIcon />}

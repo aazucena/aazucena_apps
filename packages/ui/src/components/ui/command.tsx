@@ -10,14 +10,13 @@ import { cn } from '@aazucena/utils';
 import { Dialog, DialogContent } from './dialog';
 import { useCommandSearch, type CommandAction } from '@aazucena/hooks';
 
-const commandVariants = cva('flex h-full w-full flex-col overflow-hidden rounded-md', {
+const commandVariants = cva('flex h-full w-full flex-col overflow-hidden rounded-control', {
   variants: {
     variant: {
       default: 'bg-background text-foreground',
-      glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-xl border border-border/10 text-foreground shadow-2xl',
+      glass: 'bg-background/5 dark:bg-state border border-border/10 text-foreground',
       cyber:
-        'bg-background/90 dark:bg-black/90 border border-border dark:border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)]',
+        'bg-background/90 dark:bg-scrim border border-border dark:border-signal/40 text-foreground',
     },
   },
   defaultVariants: {
@@ -46,7 +45,7 @@ const CommandDialog = ({ children, variant, ...props }: CommandDialogProps) => {
     <Dialog {...props}>
       <DialogContent
         variant={variant === 'glass' ? 'glass' : variant === 'cyber' ? 'cyber' : 'default'}
-        className="overflow-hidden p-0 shadow-2xl"
+        className="overflow-hidden p-0"
       >
         <Command
           variant={variant}
@@ -68,7 +67,7 @@ const CommandInput = React.forwardRef<
     <CommandPrimitive.Input
       ref={ref}
       className={cn(
-        'placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        'placeholder:text-muted-foreground rounded-control flex h-11 w-full bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
         _className,
       )}
       {...props}
@@ -212,7 +211,7 @@ const CommandPalette = React.forwardRef<HTMLDivElement, CommandPaletteProps>(
                     onSelect={() => handleSelect(action)}
                     className="flex items-center gap-3"
                   >
-                    <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-lg border transition-colors">
+                    <div className="bg-muted rounded-control flex h-8 w-8 items-center justify-center border transition-colors">
                       <action.icon className="h-4 w-4" />
                     </div>
                     <div className="flex flex-1 flex-col">

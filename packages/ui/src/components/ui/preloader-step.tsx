@@ -22,7 +22,7 @@ export const preloaderIndicatorVariants = cva(
       theme: {
         default: 'text-primary',
         glass: 'text-foreground',
-        cyber: 'text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]',
+        cyber: 'text-signal',
       },
     },
     defaultVariants: {
@@ -55,18 +55,18 @@ export const PreloaderIndicator = React.forwardRef<
 PreloaderIndicator.displayName = 'PreloaderIndicator';
 
 export const preloaderStepVariants = cva(
-  'flex items-center gap-3 rounded-xl border p-3 transition-all duration-300',
+  'flex items-center gap-3 rounded-card border p-3 transition-all duration-300',
   {
     variants: {
       status: {
         pending: 'border-border opacity-40',
-        active: 'border-primary glass bg-primary-100 animate-pulse',
+        active: 'border-primary glass bg-signal-faint animate-pulse',
         completed: 'border-success/30 bg-success/5',
       },
       theme: {
         default: '',
-        glass: 'text-foreground border-border/10 dark:border-white/10',
-        cyber: 'text-foreground border-border/10 dark:border-cyan-500/20',
+        glass: 'text-foreground border-border/10 dark:border-rule',
+        cyber: 'text-foreground border-border/10 dark:border-signal/20',
       },
     },
     defaultVariants: {

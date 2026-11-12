@@ -10,9 +10,9 @@ const proseVariants = cva('max-w-none transition-all duration-300', {
       default:
         'prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-4 prose-a:transition-all',
       legal:
-        'prose prose-base dark:prose-invert prose-p:leading-relaxed prose-headings:font-bold prose-a:text-primary print:prose-sm print:text-black',
+        'prose prose-base dark:prose-invert prose-p:leading-relaxed prose-headings:font-bold prose-a:text-primary print:prose-sm print:text-foreground',
       cyber:
-        'prose prose-lg dark:prose-invert font-mono prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase prose-a:text-cyan-400 prose-a:decoration-cyan-400/30 hover:prose-a:decoration-cyan-400',
+        'prose prose-lg dark:prose-invert font-mono prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase prose-a:text-signal prose-a:decoration-signal/30 hover:prose-a:decoration-signal',
     },
     size: {
       sm: 'prose-sm',

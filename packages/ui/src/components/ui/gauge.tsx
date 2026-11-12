@@ -101,8 +101,8 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
               size === 'sm' && 'text-lg',
               size === 'lg' && 'text-3xl',
               size === 'xl' && 'text-4xl',
-              variant === 'cyber' && 'font-mono text-cyan-400',
-              variant === 'glass' && 'text-white',
+              variant === 'cyber' && 'text-signal font-mono',
+              variant === 'glass' && 'text-foreground',
             )}
           >
             {clampedValue}
@@ -115,8 +115,8 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
                 size === 'sm' && 'text-xs',
                 size === 'lg' && 'text-base',
                 size === 'xl' && 'text-lg',
-                variant === 'cyber' && 'font-mono text-cyan-500/80',
-                variant === 'glass' && 'text-white/70',
+                variant === 'cyber' && 'text-signal/80 font-mono',
+                variant === 'glass' && 'text-foreground/70',
               )}
             >
               {label}

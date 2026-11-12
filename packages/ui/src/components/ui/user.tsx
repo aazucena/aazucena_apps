@@ -10,7 +10,7 @@ const userVariants = cva('inline-flex items-center gap-2.5 transition-all', {
     variant: {
       default: 'text-foreground',
       glass: 'text-foreground',
-      cyber: 'text-cyan-50 font-mono',
+      cyber: 'text-signal font-mono',
     },
     size: {
       sm: '',
@@ -80,7 +80,7 @@ const User = React.forwardRef<HTMLDivElement, UserProps>(
               className={cn(
                 'text-muted-foreground leading-tight',
                 s === 'sm' ? 'text-[10px]' : s === 'lg' ? 'text-sm' : 'text-xs',
-                v === 'cyber' && 'text-cyan-400/60',
+                v === 'cyber' && 'text-signal/60',
               )}
             >
               {description}

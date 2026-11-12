@@ -14,11 +14,11 @@ export const preloaderOverlayVariants = cva(
     variants: {
       theme: {
         default: 'bg-background',
-        glass: 'bg-background/20 backdrop-blur-2xl',
-        cyber: 'bg-black',
+        glass: 'bg-background/20',
+        cyber: 'bg-background',
         hoyoverse: 'bg-[#f0f0f0] dark:bg-[#101010]',
-        minimal: 'bg-white dark:bg-black',
-        nature: 'bg-emerald-50 dark:bg-emerald-950',
+        minimal: 'bg-panel dark:bg-background',
+        nature: 'bg-success/10 dark:bg-panel-raised',
       },
     },
     defaultVariants: {
@@ -41,11 +41,11 @@ export const preloaderContentVariants = cva(
     variants: {
       variant: {
         default: '',
-        card: 'bg-card border border-border rounded-[2rem] p-8 shadow-2xl',
+        card: 'bg-card border border-border rounded-card p-8',
         glass:
-          'bg-background/5 dark:bg-white/5 backdrop-blur-xl border border-border/10 rounded-[2rem] p-8 shadow-2xl text-foreground',
+          'bg-background/5 dark:bg-state border border-border/10 rounded-card p-8 text-foreground',
         cyber:
-          'bg-background/80 dark:bg-black/80 border border-cyan-500/30 rounded-lg p-8 shadow-[0_0_30px_rgba(6,182,212,0.2)] text-foreground',
+          'bg-background/80 dark:bg-scrim border border-signal/30 rounded-control p-8 text-foreground',
       },
     },
     defaultVariants: {

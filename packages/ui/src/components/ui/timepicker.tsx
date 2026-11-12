@@ -21,11 +21,9 @@ const timepickerVariants = cva('inline-flex items-center', {
 });
 
 const selectStyles: Record<string, string> = {
-  default:
-    'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring focus:ring-offset-2',
-  glass: 'glass-m border-white/10',
-  cyber:
-    'border-cyan-500/30 bg-black/50 text-cyan-50 font-mono focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+  default: 'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring',
+  glass: 'glass border-rule',
+  cyber: 'border-signal/30 bg-scrim text-signal font-mono focus:border-signal',
 };
 
 const sizeMap: Record<string, string> = {
@@ -70,7 +68,7 @@ const Timepicker = React.forwardRef<HTMLDivElement, TimepickerProps>(
     const minutes = Array.from({ length: Math.ceil(60 / minuteStep) }, (_, i) => i * minuteStep);
 
     const selCn = cn(
-      'appearance-none rounded-md border outline-none transition-all cursor-pointer',
+      'appearance-none rounded-control border outline-none transition-all cursor-pointer',
       selectStyles[v],
       sizeMap[s],
       disabled && 'pointer-events-none opacity-50',

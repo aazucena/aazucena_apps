@@ -8,14 +8,13 @@ import { Terminal, ChevronsUpDown } from '@aazucena/icons'; // Assuming Terminal
 import { CodeBlock } from '../code-block'; // Assuming CodeBlock component is available
 
 const chatToolVariants = cva(
-  'flex flex-col gap-3 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -58,9 +57,9 @@ const ChatTool = React.forwardRef<HTMLDivElement, ChatToolProps>(
     const [expanded, setExpanded] = React.useState(isExpanded);
 
     const statusColor = {
-      success: 'text-green-500',
-      failure: 'text-red-500',
-      executing: 'text-blue-500 animate-pulse',
+      success: 'text-success',
+      failure: 'text-alert',
+      executing: 'text-signal animate-pulse',
     }[status];
 
     const formatJson = (json: any) => {
@@ -106,7 +105,7 @@ const ChatTool = React.forwardRef<HTMLDivElement, ChatToolProps>(
                 </div>
               )}
               {error && (
-                <div className="text-red-500">
+                <div className="text-alert">
                   <h4 className="mb-2 text-sm font-medium">Error:</h4>
                   <p>{error}</p>
                 </div>

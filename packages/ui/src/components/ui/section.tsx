@@ -14,10 +14,8 @@ const sectionVariants = cva('container mx-auto transition-all duration-500', {
     },
     variant: {
       default: '',
-      glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 rounded-3xl p-8 my-8 shadow-xl',
-      cyber:
-        'bg-background/40 dark:bg-black/40 border border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-3xl p-8 my-8',
+      glass: 'bg-background/5 dark:bg-state border border-border/10 rounded-card p-8 my-8',
+      cyber: 'bg-background/40 dark:bg-scrim border border-signal/20 rounded-card p-8 my-8',
     },
     alignment: {
       left: 'text-left items-start',
@@ -94,10 +92,7 @@ const SectionSubtitle = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<H
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn(
-        'mt-4 block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-2xl font-medium text-transparent md:text-3xl',
-        className,
-      )}
+      className={cn('text-signal mt-4 block text-2xl font-medium md:text-3xl', className)}
       {...props}
     />
   ),

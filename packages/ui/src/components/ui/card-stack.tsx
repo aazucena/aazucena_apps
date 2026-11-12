@@ -16,9 +16,9 @@ const cardStackVariants = cva('relative', {
 });
 
 const cardStyles: Record<string, string> = {
-  default: 'border border-border bg-background shadow-md rounded-xl',
-  glass: 'glass rounded-xl',
-  cyber: 'border border-cyan-500/20 bg-black/80 rounded-xl',
+  default: 'border border-border bg-background rounded-card',
+  glass: 'glass rounded-card',
+  cyber: 'border border-signal/20 bg-scrim rounded-card',
 };
 
 export interface CardStackProps

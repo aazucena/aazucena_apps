@@ -5,14 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const ganttBarVariants = cva(
-  'absolute flex h-8 items-center rounded-md px-2 text-xs font-medium transition-all hover:brightness-110 cursor-pointer',
+  'absolute flex h-8 items-center rounded-control px-2 text-xs font-medium transition-all hover:brightness-110 cursor-pointer',
   {
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground',
-        glass: 'glass-m text-foreground',
-        cyber:
-          'bg-cyan-500/20 border border-cyan-500/40 text-cyan-50 shadow-[0_0_8px_rgba(6,182,212,0.2)]',
+        glass: 'glass text-foreground',
+        cyber: 'bg-signal/20 border border-signal/40 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -63,7 +62,7 @@ const GanttBar = React.forwardRef<HTMLDivElement, GanttBarProps>(
       >
         {task.progress != null && (
           <div
-            className="absolute inset-y-0 left-0 rounded-md bg-white/20"
+            className="rounded-control bg-panel-raised absolute inset-y-0 left-0"
             style={{ width: `${task.progress}%` }}
           />
         )}

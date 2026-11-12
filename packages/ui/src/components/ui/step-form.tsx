@@ -8,9 +8,8 @@ const stepFormVariants = cva('w-full space-y-6 transition-all duration-300', {
   variants: {
     variant: {
       default: '',
-      glass: 'rounded-2xl p-6 glass',
-      cyber:
-        'rounded-2xl p-6 bg-background/40 dark:bg-black/40 border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+      glass: 'rounded-card p-6 glass',
+      cyber: 'rounded-card p-6 bg-background/40 dark:bg-scrim border border-signal/30',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -71,7 +70,7 @@ const StepForm = React.forwardRef<HTMLDivElement, StepFormProps>(
                 <div
                   className={cn(
                     'flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-semibold transition-all',
-                    i < current && 'border-emerald-500 bg-emerald-500 text-white',
+                    i < current && 'border-success bg-success text-success-foreground',
                     i === current && 'border-primary bg-primary text-primary-foreground scale-110',
                     i > current && 'border-border bg-background text-muted-foreground',
                   )}
@@ -112,7 +111,7 @@ const StepForm = React.forwardRef<HTMLDivElement, StepFormProps>(
             onClick={() => setCurrent((c) => c - 1)}
             disabled={current === 0}
             className={cn(
-              'rounded-md px-4 py-2 text-sm font-medium transition-colors',
+              'rounded-control px-4 py-2 text-sm font-medium transition-colors',
               current === 0
                 ? 'invisible'
                 : 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
@@ -125,7 +124,7 @@ const StepForm = React.forwardRef<HTMLDivElement, StepFormProps>(
               type="button"
               onClick={onSubmit}
               disabled={!canNext}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-50"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-control px-4 py-2 text-sm font-medium disabled:opacity-50"
             >
               {submitLabel}
             </button>
@@ -134,7 +133,7 @@ const StepForm = React.forwardRef<HTMLDivElement, StepFormProps>(
               type="button"
               onClick={() => setCurrent((c) => c + 1)}
               disabled={!canNext}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-50"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-control px-4 py-2 text-sm font-medium disabled:opacity-50"
             >
               {nextLabel}
             </button>

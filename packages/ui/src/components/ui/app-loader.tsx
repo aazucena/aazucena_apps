@@ -10,8 +10,8 @@ const appLoaderVariants = cva(
     variants: {
       variant: {
         default: 'bg-background',
-        glass: 'bg-background/40 backdrop-blur-3xl',
-        cyber: 'bg-background dark:bg-black',
+        glass: 'bg-background/40',
+        cyber: 'bg-background',
       },
       isHidden: {
         true: 'opacity-0 pointer-events-none scale-105',
@@ -118,7 +118,7 @@ const appLoaderProgressVariants = cva('h-0.5 w-48 overflow-hidden rounded-full b
     variant: {
       default: 'text-foreground',
       primary: 'text-primary',
-      cyan: 'text-cyan-500',
+      cyan: 'text-signal',
       destructive: 'text-destructive',
     },
   },

@@ -4,26 +4,27 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const searchInputVariants = cva('flex items-center gap-2 rounded-md border transition-colors', {
-  variants: {
-    variant: {
-      default:
-        'border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-      glass: 'glass-m border-white/10 focus-within:border-white/30',
-      cyber:
-        'border-cyan-500/30 bg-black/50 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+const searchInputVariants = cva(
+  'flex items-center gap-2 rounded-control border transition-colors',
+  {
+    variants: {
+      variant: {
+        default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
+        glass: 'glass border-rule focus-within:border-rule',
+        cyber: 'border-signal/30 bg-scrim focus-within:border-signal',
+      },
+      size: {
+        sm: 'h-8 px-2 text-xs',
+        md: 'h-9 px-3 text-sm',
+        lg: 'h-10 px-4',
+      },
     },
-    size: {
-      sm: 'h-8 px-2 text-xs',
-      md: 'h-9 px-3 text-sm',
-      lg: 'h-10 px-4',
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    size: 'md',
-  },
-});
+);
 
 export interface SearchInputProps
   extends

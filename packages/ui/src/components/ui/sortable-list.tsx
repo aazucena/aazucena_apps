@@ -4,17 +4,19 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const sortableListVariants = cva('flex flex-col gap-1 rounded-md transition-all duration-300', {
-  variants: {
-    variant: {
-      default: '',
-      glass: 'rounded-2xl p-3 glass',
-      cyber:
-        'rounded-2xl p-3 bg-background/40 dark:bg-black/40 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+const sortableListVariants = cva(
+  'flex flex-col gap-1 rounded-control transition-all duration-300',
+  {
+    variants: {
+      variant: {
+        default: '',
+        glass: 'rounded-card p-3 glass',
+        cyber: 'rounded-card p-3 bg-background/40 dark:bg-scrim border border-signal/30',
+      },
     },
+    defaultVariants: { variant: 'default' },
   },
-  defaultVariants: { variant: 'default' },
-});
+);
 
 export interface DragHandleProps {
   draggable: true;

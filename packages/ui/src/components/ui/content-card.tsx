@@ -38,8 +38,8 @@ const contentCardTitleVariants = cva('font-bold transition-colors leading-tight 
     },
     variant: {
       default: 'text-foreground group-hover:text-primary',
-      glass: 'text-foreground group-hover:text-cyan-400',
-      cyber: 'text-foreground group-hover:text-cyan-400',
+      glass: 'text-foreground group-hover:text-signal',
+      cyber: 'text-foreground group-hover:text-signal',
     },
   },
   defaultVariants: {
@@ -98,8 +98,8 @@ const contentCardImageVariants = cva('relative overflow-hidden transition-all du
       auto: 'h-auto',
     },
     rounded: {
-      default: 'rounded-xl',
-      lg: 'rounded-[2rem]',
+      default: 'rounded-card',
+      lg: 'rounded-card',
       none: 'rounded-none',
     },
   },
@@ -157,7 +157,7 @@ ContentCardOverlay.displayName = 'ContentCardOverlay';
 const ContentCardGlow = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { color?: string }
->(({ className, color = 'glass bg-primary-100', ...props }, ref) => (
+>(({ className, color = 'glass bg-signal-faint', ...props }, ref) => (
   <div
     ref={ref}
     className={cn(

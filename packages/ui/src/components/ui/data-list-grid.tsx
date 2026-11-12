@@ -37,16 +37,15 @@ export const DataListGrid = React.forwardRef<
 DataListGrid.displayName = 'DataListGrid';
 
 export const dataListItemVariants = cva(
-  'p-4 flex items-center justify-between transition-all duration-300 rounded-2xl border',
+  'p-4 flex items-center justify-between transition-all duration-300 rounded-card border',
   {
     variants: {
       variant: {
-        default:
-          'bg-zinc-50 dark:bg-zinc-950/50 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700',
+        default: 'bg-panel dark:bg-background/50 border-rule hover:border-rule',
         glass:
-          'bg-background/5 dark:bg-white/5 border-border/10 text-foreground hover:bg-background/10 dark:bg-white/10',
+          'bg-background/5 dark:bg-state border-border/10 text-foreground hover:bg-background/10',
         cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/20 text-foreground hover:border-cyan-400',
+          'bg-background/40 dark:bg-scrim border-signal/20 text-foreground hover:border-signal',
       },
     },
     defaultVariants: {
@@ -69,7 +68,10 @@ export const DataListLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <span
     ref={ref}
-    className={cn('text-[10px] font-black tracking-widest text-zinc-400 uppercase', className)}
+    className={cn(
+      'text-muted-foreground text-[10px] font-black tracking-widest uppercase',
+      className,
+    )}
     {...props}
   />
 ));
@@ -81,7 +83,7 @@ export const DataListValue = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <span
     ref={ref}
-    className={cn('font-mono text-sm font-bold text-zinc-900 dark:text-zinc-100', className)}
+    className={cn('text-foreground font-mono text-sm font-bold', className)}
     {...props}
   />
 ));

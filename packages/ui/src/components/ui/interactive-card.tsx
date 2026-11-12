@@ -8,11 +8,11 @@ import { ChevronDown } from '@aazucena/icons';
 import { Card } from './card';
 
 const interactiveCardVariants = cva(
-  'group rounded-3xl transition-all duration-500 overflow-hidden',
+  'group rounded-card transition-all duration-500 overflow-hidden',
   {
     variants: {
       isExpanded: {
-        true: 'shadow-2xl scale-[1.01]',
+        true: 'scale-[1.01]',
         false: '',
       },
     },
@@ -59,21 +59,21 @@ const InteractiveCardHeader = React.forwardRef<
 InteractiveCardHeader.displayName = 'InteractiveCardHeader';
 
 const interactiveCardIconVariants = cva(
-  'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl shadow-sm transition-transform duration-500 group-hover:scale-110',
+  'flex h-12 w-12 shrink-0 items-center justify-center rounded-card transition-transform duration-500 group-hover:scale-110',
   {
     variants: {
       variant: {
         default: 'bg-muted text-foreground',
-        glass: 'bg-background/10 dark:bg-white/10 text-foreground border border-border/20',
+        glass: 'bg-background/10 dark:bg-state text-foreground border border-border/20',
         cyber:
-          'bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 border border-border dark:border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+          'bg-primary/10 dark:bg-signal/10 text-primary dark:text-signal border border-border dark:border-signal/30',
       },
       color: {
-        blue: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20',
-        amber: 'text-amber-600 bg-amber-50 dark:bg-amber-900/20',
-        purple: 'text-purple-600 bg-purple-50 dark:bg-purple-900/20',
-        emerald: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20',
-        rose: 'text-rose-600 bg-rose-50 dark:bg-rose-900/20',
+        blue: 'text-signal bg-signal-faint dark:bg-panel-raised/20',
+        amber: 'text-warning bg-warning/10 dark:bg-panel-raised/20',
+        purple: 'text-series-3 bg-series-3/10 dark:bg-panel-raised/20',
+        emerald: 'text-success bg-success/10 dark:bg-panel-raised/20',
+        rose: 'text-alert bg-alert/10 dark:bg-panel-raised/20',
       },
     },
     defaultVariants: {

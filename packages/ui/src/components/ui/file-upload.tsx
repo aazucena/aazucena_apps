@@ -117,9 +117,9 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
               <li
                 key={`${file.name}-${file.size}-${i}`}
                 className={cn(
-                  'flex items-center gap-3 rounded-lg border p-2 text-sm',
+                  'rounded-control flex items-center gap-3 border p-2 text-sm',
                   variant === 'glass' && 'glass border-border/10',
-                  variant === 'cyber' && 'border-cyan-500/20 bg-black/40 text-cyan-50',
+                  variant === 'cyber' && 'border-signal/20 bg-scrim text-signal',
                   variant === 'default' && 'border-border bg-muted/30',
                 )}
               >

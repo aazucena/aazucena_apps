@@ -7,14 +7,13 @@ import { Link, FileText, ExternalLink } from '@aazucena/icons'; // Assuming thes
 import { Badge } from '../badge';
 
 const chatSourcesVariants = cva(
-  'flex flex-col gap-3 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -56,7 +55,7 @@ const ChatSources = React.forwardRef<HTMLDivElement, ChatSourcesProps>(
         )}
         <ul className="flex flex-col gap-2">
           {sources.map((source) => (
-            <li key={source.id} className="bg-muted/50 rounded-md p-3 text-sm">
+            <li key={source.id} className="bg-muted/50 rounded-control p-3 text-sm">
               <a
                 href={source.url || '#'}
                 target={source.url ? '_blank' : '_self'}
@@ -82,7 +81,7 @@ const ChatSources = React.forwardRef<HTMLDivElement, ChatSourcesProps>(
                   <p className="text-muted-foreground line-clamp-2 text-xs">{source.snippet}</p>
                 )}
                 {source.url && (
-                  <span className="flex items-center gap-1 text-xs text-blue-500 opacity-80 group-hover:opacity-100">
+                  <span className="text-signal flex items-center gap-1 text-xs opacity-80 group-hover:opacity-100">
                     <ExternalLink className="h-3 w-3" /> {new URL(source.url).hostname}
                   </span>
                 )}

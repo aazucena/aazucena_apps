@@ -8,11 +8,11 @@ const metadataVariants = cva('w-full transition-all duration-300', {
   variants: {
     variant: {
       default: 'space-y-6',
-      card: 'bg-card border border-border rounded-2xl p-6 shadow-sm',
+      card: 'bg-card border border-border rounded-card p-6',
       glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 rounded-2xl p-6 text-foreground',
+        'bg-background/5 dark:bg-state border border-border/10 rounded-card p-6 text-foreground',
       cyber:
-        'bg-background/40 dark:bg-black/40 border border-border/10 dark:border-cyan-500/20 rounded-2xl p-6 text-foreground',
+        'bg-background/40 dark:bg-scrim border border-border/10 dark:border-signal/20 rounded-card p-6 text-foreground',
       // Compact vertical variant for headers
       readout:
         'flex flex-col items-end px-4 border-r border-current/10 last:border-0 h-8 justify-center',
@@ -48,7 +48,7 @@ const metadataTitleVariants = cva('font-black transition-all duration-300', {
     },
     variant: {
       default: 'text-foreground',
-      cyber: 'text-primary dark:text-cyan-400',
+      cyber: 'text-primary dark:text-signal',
     },
   },
   defaultVariants: {
@@ -116,7 +116,7 @@ const metadataLabelVariants = cva(
         cyber: 'text-muted-foreground opacity-60',
         bright: 'text-foreground/80',
         readout: 'text-[8px] opacity-40 leading-none mb-1',
-        stack: 'text-[9px] text-zinc-400 tracking-widest',
+        stack: 'text-[9px] text-muted-foreground tracking-widest',
       },
     },
     defaultVariants: {
@@ -140,7 +140,7 @@ const metadataValueVariants = cva('transition-all duration-300', {
       cyber: 'text-sm font-mono tracking-tight text-foreground',
       muted: 'text-sm text-muted-foreground',
       readout: 'text-xs font-mono font-black text-primary leading-none',
-      stack: 'text-xs font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2',
+      stack: 'text-xs font-bold text-foreground flex items-center gap-2',
     },
   },
   defaultVariants: {
@@ -163,11 +163,11 @@ const MetaDataIcon = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'flex h-8 w-8 items-center justify-center rounded-lg border',
+      'rounded-control flex h-8 w-8 items-center justify-center border',
       variant === 'cyber'
-        ? 'border-border glass bg-primary-100 text-primary dark:border-cyan-500/20 dark:bg-cyan-500/5 dark:text-cyan-400'
+        ? 'border-border glass bg-signal-faint text-primary dark:border-signal/20 dark:bg-signal/5 dark:text-signal'
         : variant === 'muted'
-          ? 'h-auto w-auto shrink-0 border-none bg-transparent text-zinc-400'
+          ? 'text-muted-foreground h-auto w-auto shrink-0 border-none bg-transparent'
           : 'bg-muted/50 border-border text-muted-foreground',
       className,
     )}

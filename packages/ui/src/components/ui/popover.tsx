@@ -10,14 +10,14 @@ import { cn } from '@aazucena/utils';
 const Popover = PopoverPrimitive.Root;
 
 const popoverContentVariants = cva(
-  'z-50 w-72 rounded-md border p-4 shadow-md outline-none data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 origin-[--radix-popover-content-transform-origin]',
+  'z-50 w-72 rounded-control border p-4 outline-none data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 origin-[--radix-popover-content-transform-origin]',
   {
     variants: {
       variant: {
         default: 'bg-popover text-popover-foreground',
-        glass: 'glass text-foreground dark:text-white shadow-2xl',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-scrim dark:text-signal',
       },
       side: {
         top: 'data-[side=top]:slide-in-from-bottom-2',

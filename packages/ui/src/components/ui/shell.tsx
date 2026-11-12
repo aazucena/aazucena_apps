@@ -7,8 +7,8 @@ import { cn } from '@aazucena/utils';
 const shellVariants = cva('flex h-screen w-full overflow-hidden transition-colors duration-500', {
   variants: {
     variant: {
-      default: 'bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100',
-      cyber: 'bg-background dark:bg-black text-foreground',
+      default: 'bg-panel dark:bg-background text-foreground',
+      cyber: 'bg-background text-foreground',
       glass: 'bg-background text-foreground',
     },
   },
@@ -52,11 +52,9 @@ const shellHeaderVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-md border-zinc-200 dark:border-zinc-800',
-        glass: 'bg-background/20 backdrop-blur-xl border-border/10',
-        cyber:
-          'bg-background/80 dark:bg-black/80 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        default: 'bg-panel/50 dark:bg-background/50 border-rule',
+        glass: 'bg-background/20 border-border/10',
+        cyber: 'bg-background/80 dark:bg-scrim border-signal/30',
       },
     },
     defaultVariants: {

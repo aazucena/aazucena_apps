@@ -16,10 +16,8 @@ export const paginationDotsVariants = cva(
       variant: {
         default: 'mt-6',
         inline: '',
-        glass:
-          'p-2 bg-background/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-border/10',
-        cyber:
-          'p-2 bg-background/40 dark:bg-black/40 rounded-full border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]',
+        glass: 'p-2 bg-background/5 dark:bg-state rounded-full border border-border/10',
+        cyber: 'p-2 bg-background/40 dark:bg-scrim rounded-full border border-signal/20',
       },
       position: {
         default: '',
@@ -54,14 +52,14 @@ export const PaginationDots = React.forwardRef<
 PaginationDots.displayName = 'PaginationDots';
 
 export const paginationDotVariants = cva(
-  'rounded-full transition-all duration-300 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+  'rounded-full transition-all duration-300 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring',
   {
     variants: {
       variant: {
         default: 'bg-primary/30 hover:glass bg-primary-1000 h-2 w-2',
-        glass: 'bg-white/30 hover:bg-background/5 dark:bg-white/50 h-2 w-2',
+        glass: 'bg-panel-raised hover:bg-background/5 h-2 w-2',
         cyber:
-          'bg-primary/30 dark:bg-cyan-500/30 hover:glass bg-primary-1000 dark:hover:bg-cyan-500/50 h-2 w-2',
+          'bg-primary/30 dark:bg-signal/30 hover:glass bg-primary-1000 dark:hover:bg-signal/50 h-2 w-2',
       },
       isActive: {
         true: '',
@@ -77,12 +75,12 @@ export const paginationDotVariants = cva(
       {
         variant: 'glass',
         isActive: true,
-        className: 'h-2 w-8 bg-white scale-110',
+        className: 'h-2 w-8 bg-panel scale-110',
       },
       {
         variant: 'cyber',
         isActive: true,
-        className: 'h-2 w-8 bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)] scale-110',
+        className: 'h-2 w-8 bg-signal scale-110',
       },
     ],
     defaultVariants: {

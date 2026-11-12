@@ -6,17 +6,19 @@ import { cn } from '@aazucena/utils';
 import { Button } from './button';
 import { Progress } from './progress';
 
-const pollVariants = cva('flex flex-col gap-4 rounded-md border p-6 transition-all duration-300', {
-  variants: {
-    variant: {
-      default: 'bg-background border-input',
-      glass: 'glass border-input/20',
-      cyber:
-        'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+const pollVariants = cva(
+  'flex flex-col gap-4 rounded-control border p-6 transition-all duration-300',
+  {
+    variants: {
+      variant: {
+        default: 'bg-background border-input',
+        glass: 'glass border-input/20',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
+      },
     },
+    defaultVariants: { variant: 'default' },
   },
-  defaultVariants: { variant: 'default' },
-});
+);
 
 export interface PollOption {
   id: string;
@@ -83,7 +85,7 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
                 <label
                   htmlFor={`option-${option.id}`}
                   className={cn(
-                    'flex cursor-pointer items-center justify-between rounded-md border p-3 text-sm transition-colors',
+                    'rounded-control flex cursor-pointer items-center justify-between border p-3 text-sm transition-colors',
                     selectedOption === option.id
                       ? 'border-primary bg-primary/10'
                       : 'border-input hover:bg-muted/50',
@@ -104,7 +106,7 @@ const Poll = React.forwardRef<HTMLDivElement, PollProps>(
               ) : (
                 <div
                   className={cn(
-                    'flex flex-col gap-1 rounded-md border p-3 text-sm',
+                    'rounded-control flex flex-col gap-1 border p-3 text-sm',
                     selectedOption === option.id ||
                       (initialHasVoted && selectedOption === option.id)
                       ? 'border-primary bg-primary/10'

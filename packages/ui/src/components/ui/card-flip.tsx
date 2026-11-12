@@ -8,8 +8,8 @@ const cardFlipVariants = cva('relative w-64 h-40 preserve-3d', {
   variants: {
     variant: {
       default: '',
-      glass: 'text-white',
-      cyber: 'font-mono text-cyan-50',
+      glass: 'text-foreground',
+      cyber: 'font-mono text-signal',
     },
   },
   defaultVariants: {
@@ -97,11 +97,11 @@ const CardFlip = React.forwardRef<HTMLDivElement, CardFlipProps>(
           {/* Front Face */}
           <div
             className={cn(
-              'front-face absolute h-full w-full rounded-lg shadow-lg',
+              'front-face rounded-control absolute h-full w-full',
               variant === 'glass'
-                ? 'border-white/10 bg-white/10'
+                ? 'border-rule bg-state'
                 : variant === 'cyber'
-                  ? 'border-cyan-500/20 bg-black'
+                  ? 'border-signal/20 bg-background'
                   : 'bg-card border-border border',
             )}
             style={commonFaceStyle}
@@ -112,11 +112,11 @@ const CardFlip = React.forwardRef<HTMLDivElement, CardFlipProps>(
           {/* Back Face */}
           <div
             className={cn(
-              'back-face absolute h-full w-full rounded-lg shadow-lg',
+              'back-face rounded-control absolute h-full w-full',
               variant === 'glass'
-                ? 'border-white/10 bg-white/10'
+                ? 'border-rule bg-state'
                 : variant === 'cyber'
-                  ? 'border-cyan-500/20 bg-black'
+                  ? 'border-signal/20 bg-background'
                   : 'bg-card border-border border',
             )}
             style={{

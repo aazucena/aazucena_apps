@@ -8,7 +8,7 @@ const ctaVariants = cva('relative py-32 overflow-hidden transition-all duration-
   variants: {
     variant: {
       default: 'bg-primary text-primary-foreground',
-      cyber: 'glass bg-primary-100 border-y border-cyan-500/30 text-foreground dark:bg-black',
+      cyber: 'glass bg-signal-faint border-y border-signal/30 text-foreground dark:bg-background',
       glass: 'glass text-foreground',
     },
   },
@@ -23,10 +23,7 @@ const CTA = React.forwardRef<
 >(({ className, variant, children, ...props }, ref) => (
   <section ref={ref} className={cn(ctaVariants({ variant }), className)} {...props}>
     {variant === 'default' && (
-      <div
-        className="absolute inset-0 bg-white opacity-10 backdrop-blur-3xl dark:bg-black"
-        aria-hidden="true"
-      />
+      <div className="bg-panel dark:bg-background absolute inset-0 opacity-10" aria-hidden="true" />
     )}
     {variant === 'cyber' && (
       <div

@@ -45,11 +45,11 @@ function TieredMenuPanel({
   return (
     <div
       className={cn(
-        'min-w-[12rem] rounded-md border p-1 shadow-lg',
+        'rounded-control min-w-[12rem] border p-1',
         variant === 'cyber'
-          ? 'border-cyan-500/30 bg-black/95 shadow-[0_0_20px_rgba(6,182,212,0.1)]'
+          ? 'border-signal/30 bg-scrim'
           : variant === 'glass'
-            ? 'glass border-white/10'
+            ? 'glass border-rule'
             : 'border-border bg-popover',
         depth > 0 && 'absolute top-0 left-full ml-1',
       )}
@@ -59,7 +59,7 @@ function TieredMenuPanel({
           return (
             <div
               key={`sep-${index}`}
-              className={cn('my-1 h-px', variant === 'cyber' ? 'bg-cyan-500/20' : 'bg-border')}
+              className={cn('my-1 h-px', variant === 'cyber' ? 'bg-signal/20' : 'bg-border')}
             />
           );
         }
@@ -83,10 +83,10 @@ function TieredMenuPanel({
                 item.disabled && 'pointer-events-none opacity-50',
                 activeIndex === index
                   ? variant === 'cyber'
-                    ? 'bg-cyan-500/20 text-cyan-400'
+                    ? 'bg-signal/20 text-signal'
                     : 'bg-accent text-accent-foreground'
                   : variant === 'cyber'
-                    ? 'text-cyan-50'
+                    ? 'text-signal'
                     : '',
               )}
             >
@@ -96,7 +96,7 @@ function TieredMenuPanel({
                 <span
                   className={cn(
                     'ml-auto text-xs',
-                    variant === 'cyber' ? 'text-cyan-400/50' : 'text-muted-foreground',
+                    variant === 'cyber' ? 'text-signal/50' : 'text-muted-foreground',
                   )}
                 >
                   {item.command}
@@ -157,9 +157,9 @@ const TieredMenu = React.forwardRef<HTMLDivElement, TieredMenuProps>(
             <button
               type="button"
               className={cn(
-                'rounded-md border px-3 py-1.5 text-sm transition-colors',
+                'rounded-control border px-3 py-1.5 text-sm transition-colors',
                 v === 'cyber'
-                  ? 'border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10'
+                  ? 'border-signal/30 text-signal hover:bg-signal/10'
                   : 'border-border hover:bg-accent',
               )}
             >

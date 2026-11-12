@@ -6,15 +6,13 @@ import { cn } from '@aazucena/utils';
 import { Card } from './card';
 
 const testimonialVariants = cva(
-  'w-full max-w-lg rounded-[2rem] border transition-all duration-500 overflow-hidden flex flex-col min-h-[280px]',
+  'w-full max-w-lg rounded-card border transition-all duration-500 overflow-hidden flex flex-col min-h-[280px]',
   {
     variants: {
       variant: {
-        default: 'bg-card border-border shadow-sm',
-        glass:
-          'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl',
-        cyber:
-          'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        default: 'bg-card border-border',
+        glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+        cyber: 'bg-background/80 dark:bg-scrim border-signal/30 text-foreground',
       },
     },
     defaultVariants: {
@@ -87,8 +85,8 @@ const testimonialAvatarVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground',
         cyber:
-          'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 border border-primary/40 dark:border-cyan-500/40',
-        glass: 'bg-background/10 dark:bg-white/10 text-foreground border border-border/20',
+          'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-primary/40 dark:border-signal/40',
+        glass: 'bg-background/10 dark:bg-state text-foreground border border-border/20',
       },
     },
     defaultVariants: {

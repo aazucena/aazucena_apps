@@ -16,16 +16,15 @@ const orgChartVariants = cva('w-full overflow-auto transition-all', {
 });
 
 const nodeCardStyles: Record<string, string> = {
-  default: 'border-border bg-background hover:bg-accent shadow-sm',
-  glass: 'glass-m border-white/10 hover:border-white/20',
-  cyber:
-    'border-cyan-500/30 bg-black/50 hover:bg-cyan-500/10 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+  default: 'border-border bg-background hover:bg-accent',
+  glass: 'glass border-rule hover:border-rule',
+  cyber: 'border-signal/30 bg-scrim hover:bg-signal/10',
 };
 
 const lineColor: Record<string, string> = {
   default: 'bg-border',
-  glass: 'bg-white/20',
-  cyber: 'bg-cyan-500/30',
+  glass: 'bg-panel-raised',
+  cyber: 'bg-signal/30',
 };
 
 export interface OrgNode {
@@ -74,7 +73,7 @@ function OrgNodeComponent({
             if (hasChildren) setCollapsed(!collapsed);
           }}
           className={cn(
-            'flex items-center gap-2 rounded-lg border px-3 py-2 transition-all',
+            'rounded-control flex items-center gap-2 border px-3 py-2 transition-all',
             nodeCardStyles[variant],
           )}
         >
@@ -84,16 +83,14 @@ function OrgNodeComponent({
               alt={node.label}
               className={cn(
                 'size-8 rounded-full object-cover',
-                variant === 'cyber' && 'border border-cyan-500/50',
+                variant === 'cyber' && 'border-signal/50 border',
               )}
             />
           ) : (
             <div
               className={cn(
                 'flex size-8 items-center justify-center rounded-full text-xs font-medium',
-                variant === 'cyber'
-                  ? 'bg-cyan-500/20 text-cyan-400'
-                  : 'bg-muted text-muted-foreground',
+                variant === 'cyber' ? 'bg-signal/20 text-signal' : 'bg-muted text-muted-foreground',
               )}
             >
               {initials}
@@ -103,7 +100,7 @@ function OrgNodeComponent({
             <div
               className={cn(
                 'text-sm leading-tight font-medium',
-                variant === 'cyber' && 'text-cyan-50',
+                variant === 'cyber' && 'text-signal',
               )}
             >
               {node.label}
@@ -112,7 +109,7 @@ function OrgNodeComponent({
               <div
                 className={cn(
                   'text-xs leading-tight',
-                  variant === 'cyber' ? 'text-cyan-400/60' : 'text-muted-foreground',
+                  variant === 'cyber' ? 'text-signal/60' : 'text-muted-foreground',
                 )}
               >
                 {node.title}

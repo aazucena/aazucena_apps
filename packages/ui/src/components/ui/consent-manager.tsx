@@ -15,14 +15,13 @@ import {
 import { Checkbox } from './checkbox'; // Assuming Checkbox is available
 
 const consentManagerVariants = cva(
-  'fixed bottom-0 left-0 right-0 z-[100] flex flex-col gap-4 border-t bg-background p-4 shadow-lg transition-transform duration-300 ease-out data-[state=closed]:translate-y-full data-[state=open]:translate-y-0',
+  'fixed bottom-0 left-0 right-0 z-[100] flex flex-col gap-4 border-t bg-background p-4 transition-transform duration-300 ease-out data-[state=closed]:translate-y-full data-[state=open]:translate-y-0',
   {
     variants: {
       variant: {
         default: 'border-border',
-        glass: 'glass border-border/20 backdrop-blur-sm',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        glass: 'glass border-border/20',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },

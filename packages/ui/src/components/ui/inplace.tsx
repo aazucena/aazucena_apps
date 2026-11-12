@@ -78,7 +78,7 @@ const Inplace = React.forwardRef<HTMLDivElement, InplaceProps>(
                 className={cn(
                   'shrink-0 rounded p-0.5 transition-colors',
                   v === 'cyber'
-                    ? 'text-cyan-400 hover:text-cyan-300'
+                    ? 'text-signal hover:text-signal'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
@@ -103,9 +103,9 @@ const Inplace = React.forwardRef<HTMLDivElement, InplaceProps>(
             className={cn(
               'cursor-pointer rounded px-1 py-0.5 transition-colors',
               v === 'cyber'
-                ? 'text-cyan-400 hover:bg-cyan-500/10'
+                ? 'text-signal hover:bg-signal/10'
                 : v === 'glass'
-                  ? 'hover:bg-white/10'
+                  ? 'hover:bg-state'
                   : 'hover:bg-accent',
             )}
           >

@@ -22,10 +22,10 @@ const phoneInputVariants = cva('flex w-full items-center', {
 
 const fieldStyles: Record<string, string> = {
   default:
-    'border-input bg-background placeholder:text-muted-foreground focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-  glass: 'glass-m border-white/10 placeholder:text-white/40',
+    'border-input bg-background placeholder:text-muted-foreground focus-within:ring-2 focus-within:ring-ring',
+  glass: 'glass border-rule placeholder:text-foreground/40',
   cyber:
-    'border-cyan-500/30 bg-black/50 text-cyan-50 font-mono placeholder:text-cyan-500/30 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+    'border-signal/30 bg-scrim text-signal font-mono placeholder:text-signal/30 focus-within:border-signal',
 };
 
 interface CountryOption {
@@ -92,7 +92,7 @@ const PhoneInput = React.forwardRef<HTMLDivElement, PhoneInputProps>(
       <div
         ref={ref}
         className={cn(
-          'flex overflow-hidden rounded-md border transition-all',
+          'rounded-control flex overflow-hidden border transition-all',
           fieldStyles[v],
           phoneInputVariants({ variant, size }),
           disabled && 'pointer-events-none opacity-50',
@@ -107,7 +107,7 @@ const PhoneInput = React.forwardRef<HTMLDivElement, PhoneInputProps>(
           aria-label="Country code"
           className={cn(
             'cursor-pointer appearance-none border-r bg-transparent px-2 outline-none',
-            v === 'cyber' ? 'border-cyan-500/20' : 'border-input',
+            v === 'cyber' ? 'border-signal/20' : 'border-input',
           )}
         >
           {countries.map((c) => (

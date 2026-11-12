@@ -21,7 +21,7 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-background/80 fixed inset-0 z-50 backdrop-blur-sm dark:bg-black/80',
+      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-background/80 dark:bg-scrim fixed inset-0 z-50',
       className,
     )}
     {...props}
@@ -31,14 +31,14 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  'fixed z-50 gap-4 p-6 shadow-lg transition ease-in-out data-closed:duration-300 data-open:duration-500 data-open:animate-in data-closed:animate-out',
+  'fixed z-50 gap-4 p-6 transition ease-in-out data-closed:duration-300 data-open:duration-500 data-open:animate-in data-closed:animate-out',
   {
     variants: {
       variant: {
         default: 'bg-background border-border text-foreground',
-        glass: 'glass text-foreground dark:text-white',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-scrim dark:text-signal',
       },
       side: {
         top: 'inset-x-0 top-0 border-b data-closed:slide-out-to-top data-open:slide-in-from-top',
@@ -50,8 +50,8 @@ const sheetVariants = cva(
       },
       layout: {
         default: '',
-        floating: 'm-4 rounded-xl border shadow-2xl h-[calc(100%-2rem)]',
-        inset: 'm-2 rounded-lg border shadow-lg h-[calc(100%-1rem)]',
+        floating: 'm-4 rounded-card border h-[calc(100%-2rem)]',
+        inset: 'm-2 rounded-control border h-[calc(100%-1rem)]',
       },
     },
     compoundVariants: [
@@ -94,7 +94,7 @@ const SheetContent = React.forwardRef<
         className={cn(sheetVariants({ side, variant, layout }), className)}
         {...props}
       >
-        <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-open:bg-secondary absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none">
+        <SheetPrimitive.Close className="focus:ring-ring data-open:bg-secondary absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:outline-none disabled:pointer-events-none">
           <Cross2Icon className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>

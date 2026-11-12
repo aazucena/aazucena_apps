@@ -125,7 +125,7 @@ const FormLabel = React.forwardRef<
         <span
           className={cn(
             'text-xs leading-none font-bold',
-            error ? 'text-destructive' : variant === 'cyber' ? 'text-cyan-400' : 'text-primary',
+            error ? 'text-destructive' : variant === 'cyber' ? 'text-signal' : 'text-primary',
           )}
         >
           *
@@ -166,7 +166,7 @@ const FormDescription = React.forwardRef<
       id={formDescriptionId}
       className={cn(
         'text-muted-foreground text-[0.8rem]',
-        variant === 'cyber' && 'font-mono text-[9px] text-cyan-500/40 uppercase',
+        variant === 'cyber' && 'text-signal/40 font-mono text-[9px] uppercase',
         className,
       )}
       {...props}
@@ -194,7 +194,7 @@ const FormMessage = React.forwardRef<
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className={cn(
             'text-destructive text-[0.8rem] font-medium',
-            variant === 'cyber' && 'font-mono text-[9px] text-red-400 uppercase',
+            variant === 'cyber' && 'text-alert font-mono text-[9px] uppercase',
             className,
           )}
           {...(props as any)}

@@ -21,11 +21,9 @@ const datepickerVariants = cva('relative w-full', {
 });
 
 const triggerStyles: Record<string, string> = {
-  default:
-    'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring focus:ring-offset-2',
-  glass: 'glass-m border-white/10',
-  cyber:
-    'border-cyan-500/30 bg-black/50 text-cyan-50 font-mono focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+  default: 'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring',
+  glass: 'glass border-rule',
+  cyber: 'border-signal/30 bg-scrim text-signal font-mono focus:border-signal',
 };
 
 const sizeStyles: Record<string, string> = {
@@ -92,7 +90,7 @@ const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>(
           disabled={disabled}
           onClick={() => inputRef.current?.showPicker()}
           className={cn(
-            'flex w-full items-center gap-2 rounded-md border transition-all outline-none',
+            'rounded-control flex w-full items-center gap-2 border transition-all outline-none',
             triggerStyles[v],
             sizeStyles[s],
             disabled && 'pointer-events-none opacity-50',

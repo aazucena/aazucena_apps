@@ -8,10 +8,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tool
 const toolbarVariants = cva('fixed flex items-center transition-all duration-300 z-50', {
   variants: {
     variant: {
-      default: 'bg-background/80 backdrop-blur-md border border-border shadow-sm text-foreground',
-      glass: 'glass text-foreground shadow-2xl',
+      default: 'bg-background/80 border border-border text-foreground',
+      glass: 'glass text-foreground',
       cyber:
-        'bg-background/80 dark:bg-black/80 border border-border dark:border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.15)]',
+        'bg-background/80 dark:bg-scrim border border-border dark:border-signal/30 text-foreground',
       ghost: 'bg-transparent border-none shadow-none',
     },
     position: {
@@ -57,9 +57,9 @@ const toolbarButtonVariants = cva(
       variant: {
         default: 'bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20',
         glass:
-          'bg-background/10 dark:bg-white/10 border border-border/10 dark:border-border/20 text-foreground hover:bg-background/20 dark:hover:bg-white/20 hover:border-border/40',
+          'bg-background/10 dark:bg-state border border-border/10 dark:border-border/20 text-foreground hover:bg-background/20 dark:hover:bg-panel-raised hover:border-border/40',
         cyber:
-          'bg-primary/10 dark:bg-cyan-500/10 border border-border dark:border-cyan-500/30 text-primary dark:text-cyan-400 dark:hover:bg-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+          'bg-primary/10 dark:bg-signal/10 border border-border dark:border-signal/30 text-primary dark:text-signal dark:hover:bg-signal/20',
       },
       size: {
         sm: 'w-10 h-10',
@@ -75,14 +75,13 @@ const toolbarButtonVariants = cva(
       {
         variant: 'glass',
         isActive: true,
-        className:
-          'bg-background/20 dark:bg-white/20 border-border/40 dark:border-white/40 shadow-lg',
+        className: 'bg-background/20 dark:bg-panel-raised border-border/40 dark:border-rule',
       },
       {
         variant: 'cyber',
         isActive: true,
         className:
-          'bg-primary/20 dark:bg-cyan-500/20 border-primary/60 dark:border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.3)] text-foreground',
+          'bg-primary/20 dark:bg-signal/20 border-primary/60 dark:border-signal/60 text-foreground',
       },
     ],
     defaultVariants: {

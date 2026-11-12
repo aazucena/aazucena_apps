@@ -10,8 +10,8 @@ const bottomNavigationVariants = cva(
     variants: {
       variant: {
         default: 'bg-background border-border',
-        glass: 'glass border-white/10',
-        cyber: 'bg-black/90 border-cyan-500/30 shadow-[0_-2px_20px_rgba(6,182,212,0.1)]',
+        glass: 'glass border-rule',
+        cyber: 'bg-scrim border-signal/30',
       },
       size: {
         sm: 'h-14 px-2',
@@ -49,7 +49,7 @@ const bottomNavigationItemVariants = cva(
       variant: {
         default: 'text-muted-foreground hover:text-foreground',
         glass: 'text-foreground/60 hover:text-foreground',
-        cyber: 'text-cyan-500/50 hover:text-cyan-400',
+        cyber: 'text-signal/50 hover:text-signal',
       },
       active: {
         true: '',
@@ -59,7 +59,7 @@ const bottomNavigationItemVariants = cva(
     compoundVariants: [
       { variant: 'default', active: true, className: 'text-primary' },
       { variant: 'glass', active: true, className: 'text-foreground' },
-      { variant: 'cyber', active: true, className: 'text-cyan-400' },
+      { variant: 'cyber', active: true, className: 'text-signal' },
     ],
     defaultVariants: {
       variant: 'default',

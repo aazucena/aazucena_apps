@@ -8,9 +8,8 @@ const masonryVariants = cva('transition-all duration-300', {
   variants: {
     variant: {
       default: '',
-      glass: 'rounded-2xl p-4 glass',
-      cyber:
-        'rounded-2xl p-4 bg-background/40 dark:bg-black/40 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+      glass: 'rounded-card p-4 glass',
+      cyber: 'rounded-card p-4 bg-background/40 dark:bg-scrim border border-signal/30',
     },
   },
   defaultVariants: { variant: 'default' },

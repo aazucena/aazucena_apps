@@ -7,16 +7,15 @@ import { cn } from '@aazucena/utils';
 import { useTheme } from '@aazucena/hooks';
 
 const themeToggleVariants = cva(
-  'group relative flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+  'group relative flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-ring',
   {
     variants: {
       variant: {
-        default:
-          'rounded-2xl border border-gray-100 bg-gray-50 text-gray-600 shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400',
+        default: 'rounded-card border border-rule bg-panel text-muted-foreground hover:text-signal',
         glass:
-          'rounded-full bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 text-foreground/70 hover:text-white hover:bg-background/10 dark:bg-white/10 shadow-xl',
+          'rounded-full bg-background/5 dark:bg-state border border-border/10 text-foreground/70 hover:text-foreground hover:bg-background/10',
         cyber:
-          'rounded-lg bg-background/40 dark:bg-black/40 border border-cyan-500/30 text-foreground0/70 hover:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)]',
+          'rounded-control bg-background/40 dark:bg-scrim border border-signal/30 text-foreground0/70 hover:text-signal',
         ghost: 'bg-transparent border-none text-muted-foreground hover:text-foreground shadow-none',
       },
       size: {

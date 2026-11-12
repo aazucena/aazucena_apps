@@ -7,14 +7,12 @@ import { useEditor, EditorContent, type Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 
-const editorVariants = cva('w-full overflow-hidden rounded-lg border transition-all', {
+const editorVariants = cva('w-full overflow-hidden rounded-control border transition-all', {
   variants: {
     variant: {
-      default:
-        'border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-      glass: 'glass border-white/10',
-      cyber:
-        'border-cyan-500/30 bg-black/50 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+      default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
+      glass: 'glass border-rule',
+      cyber: 'border-signal/30 bg-scrim focus-within:border-signal',
     },
     size: {
       sm: '',
@@ -33,8 +31,8 @@ const sizeMap: Record<string, string> = {
 
 const toolbarStyles: Record<string, string> = {
   default: 'border-b border-input bg-muted/50',
-  glass: 'border-b border-white/10 bg-white/5',
-  cyber: 'border-b border-cyan-500/20 bg-black/30',
+  glass: 'border-b border-rule bg-state',
+  cyber: 'border-b border-signal/20 bg-scrim',
 };
 
 interface ToolbarButtonProps {
@@ -64,10 +62,10 @@ function ToolbarButton({
         'rounded px-2 py-1 transition-colors disabled:opacity-50',
         active
           ? variant === 'cyber'
-            ? 'bg-cyan-500/20 text-cyan-300'
+            ? 'bg-signal/20 text-signal'
             : 'bg-accent text-accent-foreground'
           : variant === 'cyber'
-            ? 'text-cyan-500/60 hover:text-cyan-300'
+            ? 'text-signal/60 hover:text-signal'
             : 'text-muted-foreground hover:text-foreground',
       )}
     >
@@ -116,7 +114,7 @@ const RichEditor = React.forwardRef<HTMLDivElement, RichEditorProps>(
           class: cn(
             'prose prose-sm max-w-none px-4 py-3 outline-none',
             sizeMap[s],
-            v === 'cyber' && 'prose-invert font-mono text-cyan-50',
+            v === 'cyber' && 'prose-invert font-mono text-signal',
             '[&_.is-editor-empty:first-child::before]:text-muted-foreground [&_.is-editor-empty:first-child::before]:float-left [&_.is-editor-empty:first-child::before]:pointer-events-none [&_.is-editor-empty:first-child::before]:h-0 [&_.is-editor-empty:first-child::before]:content-[attr(data-placeholder)]',
           ),
         },
@@ -168,7 +166,7 @@ const RichEditor = React.forwardRef<HTMLDivElement, RichEditorProps>(
             >
               <s>S</s>
             </ToolbarButton>
-            <span className={cn('mx-1 w-px', v === 'cyber' ? 'bg-cyan-500/20' : 'bg-border')} />
+            <span className={cn('mx-1 w-px', v === 'cyber' ? 'bg-signal/20' : 'bg-border')} />
             <ToolbarButton
               active={editor.isActive('heading', { level: 2 })}
               onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
@@ -243,7 +241,7 @@ const RichEditor = React.forwardRef<HTMLDivElement, RichEditorProps>(
                 <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z" />
               </svg>
             </ToolbarButton>
-            <span className={cn('mx-1 w-px', v === 'cyber' ? 'bg-cyan-500/20' : 'bg-border')} />
+            <span className={cn('mx-1 w-px', v === 'cyber' ? 'bg-signal/20' : 'bg-border')} />
             <ToolbarButton
               active={editor.isActive('codeBlock')}
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}

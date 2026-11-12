@@ -8,18 +8,17 @@ const spoilerVariants = cva('relative transition-all', {
   variants: {
     variant: {
       default: '',
-      glass: 'glass-m rounded-lg p-4 border border-white/10',
-      cyber:
-        'rounded-lg border border-cyan-500/30 bg-black/50 p-4 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+      glass: 'glass rounded-control p-4 border border-rule',
+      cyber: 'rounded-control border border-signal/30 bg-scrim p-4',
     },
   },
   defaultVariants: { variant: 'default' },
 });
 
 const gradientMap: Record<string, string> = {
-  default: 'from-transparent to-background',
-  glass: 'from-transparent to-background/80',
-  cyber: 'from-transparent to-black/90',
+  default: 'to-background',
+  glass: 'to-background/80',
+  cyber: '',
 };
 
 export interface SpoilerProps
@@ -57,10 +56,7 @@ const Spoiler = React.forwardRef<HTMLDivElement, SpoilerProps>(
         </div>
         {!open && (
           <div
-            className={cn(
-              'pointer-events-none absolute inset-x-0 bottom-6 h-12 bg-gradient-to-b',
-              gradientMap[v],
-            )}
+            className={cn('pointer-events-none absolute inset-x-0 bottom-6 h-12', gradientMap[v])}
           />
         )}
         <button
@@ -68,9 +64,7 @@ const Spoiler = React.forwardRef<HTMLDivElement, SpoilerProps>(
           onClick={() => setOpen(!open)}
           className={cn(
             'mt-1 text-sm font-medium transition-colors',
-            v === 'cyber'
-              ? 'text-cyan-400 hover:text-cyan-300'
-              : 'text-primary hover:text-primary/80',
+            v === 'cyber' ? 'text-signal hover:text-signal' : 'text-primary hover:text-primary/80',
           )}
         >
           {open ? hideLabel : showLabel}

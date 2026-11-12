@@ -9,13 +9,12 @@ import type { ConditionField, ConditionOperator } from './condition-rules-node';
 export * from './condition-rules-node';
 export * from './condition-rules-group';
 
-const conditionRulesVariants = cva('rounded-md border p-4 transition-all duration-300', {
+const conditionRulesVariants = cva('rounded-control border p-4 transition-all duration-300', {
   variants: {
     variant: {
       default: 'bg-background border-border',
       glass: 'glass border-border/20',
-      cyber:
-        'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+      cyber: 'bg-background/40 dark:bg-scrim border-signal/30',
     },
   },
   defaultVariants: { variant: 'default' },

@@ -19,8 +19,7 @@ const wheelPickerVariants = cva(
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
       size: {
         default: 'w-32 h-48',
@@ -151,9 +150,7 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
         <div
           className={cn(
             'pointer-events-none absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 border-y-2',
-            variant === 'cyber'
-              ? 'border-cyan-500/40 bg-cyan-500/5 shadow-[0_0_20px_rgba(6,182,212,0.2)]'
-              : 'border-primary/20 bg-primary/5',
+            variant === 'cyber' ? 'border-signal/40 bg-signal/5' : 'border-primary/20 bg-primary/5',
           )}
           style={{ height: itemHeight }}
         />
@@ -228,7 +225,7 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
         </motion.div>
 
         {/* Vertical Fade Overlays */}
-        <div className="from-background to-background pointer-events-none absolute inset-0 z-30 bg-gradient-to-b via-transparent opacity-90" />
+        <div className="from-background to-background pointer-events-none absolute inset-0 z-30 opacity-90" />
       </div>
     );
   },
@@ -245,7 +242,7 @@ export const ReactWheelPickerGroup = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'bg-muted/5 border-border/40 flex items-center gap-1 rounded-3xl border p-2 shadow-inner',
+      'bg-muted/5 border-border/40 rounded-card flex items-center gap-1 border p-2',
       className,
     )}
     {...props}

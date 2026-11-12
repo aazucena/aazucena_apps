@@ -9,14 +9,14 @@ const imageVariants = cva('relative overflow-hidden', {
     variant: {
       default: 'bg-muted',
       glass: 'glass',
-      cyber: 'border border-cyan-500/20 bg-black/50',
+      cyber: 'border border-signal/20 bg-scrim',
     },
     radius: {
       none: 'rounded-none',
       sm: 'rounded-sm',
-      md: 'rounded-md',
-      lg: 'rounded-lg',
-      xl: 'rounded-xl',
+      md: 'rounded-control',
+      lg: 'rounded-control',
+      xl: 'rounded-card',
       full: 'rounded-full',
     },
     objectFit: {

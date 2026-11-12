@@ -11,7 +11,7 @@ const accordionVariants = cva('flex w-full flex-col', {
   variants: {
     variant: {
       default: '',
-      card: 'border border-border rounded-xl bg-card/50 overflow-hidden divide-y divide-border',
+      card: 'border border-border rounded-card bg-card/50 overflow-hidden divide-y divide-border',
     },
   },
   defaultVariants: {
@@ -38,9 +38,9 @@ const accordionItemVariants = cva('', {
     variant: {
       default: 'border-b last:border-b-0 border-border px-0',
       card: 'border-none px-4 bg-transparent transition-colors hover:bg-muted/30 data-[state=open]:bg-muted/50',
-      glass: 'glass rounded-lg px-4 mb-2 border-b-0 shadow-sm dark:text-white',
+      glass: 'glass rounded-control px-4 mb-2 border-b-0 dark:text-foreground',
       cyber:
-        'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.1)] rounded-lg px-4 mb-2 border-b-0 dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
+        'glass bg-signal-faint border-signal/30 text-foreground rounded-control px-4 mb-2 border-b-0 dark:bg-background/80 dark:bg-scrim dark:text-signal',
     },
   },
   defaultVariants: {
@@ -63,14 +63,14 @@ const AccordionItem = React.forwardRef<
 AccordionItem.displayName = 'AccordionItem';
 
 const accordionTriggerVariants = cva(
-  'focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring rounded-lg py-4 text-left text-sm font-medium hover:underline focus-visible:ring-3 group/accordion-trigger relative flex flex-1 items-center justify-between transition-all outline-none disabled:pointer-events-none disabled:opacity-50',
+  'focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring rounded-control py-4 text-left text-sm font-medium hover:underline focus-visible:ring-3 group/accordion-trigger relative flex flex-1 items-center justify-between transition-all outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default: '',
         card: 'py-5',
-        glass: 'hover:text-primary dark:hover:text-white/80',
-        cyber: 'hover:text-cyan-600 dark:hover:text-cyan-400',
+        glass: 'hover:text-primary dark:hover:text-foreground/80',
+        cyber: 'hover:text-signal',
       },
     },
     defaultVariants: {

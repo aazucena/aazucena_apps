@@ -7,14 +7,13 @@ import { Button } from '../button'; // Assuming Button component is available
 import { Message, PlusCircle, CogFour, Trash } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatQuickActionsVariants = cva(
-  'flex flex-wrap items-center gap-2 rounded-md border p-4 transition-all duration-300',
+  'flex flex-wrap items-center gap-2 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },

@@ -59,7 +59,7 @@ function CommentNode({
     <div
       className={cn(
         depth > 0 && 'ml-6 border-l pl-4',
-        variant === 'cyber' ? 'border-cyan-500/15' : 'border-border',
+        variant === 'cyber' ? 'border-signal/15' : 'border-border',
       )}
     >
       <div className="flex gap-3">
@@ -67,7 +67,7 @@ function CommentNode({
         <div
           className={cn(
             'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold',
-            variant === 'cyber' ? 'bg-cyan-500/10 text-cyan-400' : 'bg-primary/10 text-primary',
+            variant === 'cyber' ? 'bg-signal/10 text-signal' : 'bg-primary/10 text-primary',
           )}
         >
           {comment.avatar ? (
@@ -82,7 +82,7 @@ function CommentNode({
             <span
               className={cn(
                 'font-semibold',
-                variant === 'cyber' ? 'font-mono text-cyan-50' : 'text-foreground',
+                variant === 'cyber' ? 'text-signal font-mono' : 'text-foreground',
               )}
             >
               {comment.author}
@@ -90,7 +90,7 @@ function CommentNode({
             <span
               className={cn(
                 'text-[10px]',
-                variant === 'cyber' ? 'text-cyan-500/40' : 'text-muted-foreground',
+                variant === 'cyber' ? 'text-signal/40' : 'text-muted-foreground',
               )}
             >
               {comment.timestamp}
@@ -99,7 +99,7 @@ function CommentNode({
           <p
             className={cn(
               'mt-1 leading-relaxed',
-              variant === 'cyber' ? 'text-cyan-50/80' : 'text-foreground/80',
+              variant === 'cyber' ? 'text-signal/80' : 'text-foreground/80',
             )}
           >
             {comment.content}
@@ -113,7 +113,7 @@ function CommentNode({
                 className={cn(
                   'flex items-center gap-1 text-[11px] transition-colors',
                   variant === 'cyber'
-                    ? 'text-cyan-500/40 hover:text-cyan-400'
+                    ? 'text-signal/40 hover:text-signal'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
@@ -138,7 +138,7 @@ function CommentNode({
                 className={cn(
                   'text-[11px] transition-colors',
                   variant === 'cyber'
-                    ? 'text-cyan-500/40 hover:text-cyan-400'
+                    ? 'text-signal/40 hover:text-signal'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >

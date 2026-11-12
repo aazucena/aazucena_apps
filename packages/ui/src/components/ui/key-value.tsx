@@ -11,8 +11,8 @@ const keyValueVariants = cva('w-full space-y-2', {
   variants: {
     variant: {
       default: '',
-      glass: 'p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md',
-      cyber: 'p-4 rounded-none border border-cyan-500/20 bg-black/40 relative',
+      glass: 'p-4 rounded-card bg-state border border-rule',
+      cyber: 'p-4 rounded-none border border-signal/20 bg-scrim relative',
     },
   },
   defaultVariants: {
@@ -98,9 +98,9 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                 className={cn(
                   'flex-1 font-mono text-xs',
                   variant === 'cyber' &&
-                    'rounded-none border-cyan-500/30 bg-cyan-500/5 text-cyan-400 focus-visible:ring-cyan-500/50',
+                    'border-signal/30 bg-signal/5 text-signal focus-visible:ring-signal/50 rounded-none',
                   variant === 'glass' &&
-                    'border-white/10 bg-white/5 text-white placeholder:text-white/30 focus-visible:ring-white/30',
+                    'border-rule bg-state text-foreground placeholder:text-foreground/30 focus-visible:ring-rule',
                 )}
               />
               <div className="relative flex-1">
@@ -113,9 +113,9 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                     'w-full font-mono text-xs',
                     copyable && 'pr-8',
                     variant === 'cyber' &&
-                      'rounded-none border-cyan-500/30 bg-cyan-500/5 text-cyan-100 focus-visible:ring-cyan-500/50',
+                      'border-signal/30 bg-signal/5 text-signal focus-visible:ring-signal/50 rounded-none',
                     variant === 'glass' &&
-                      'border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus-visible:ring-white/30',
+                      'border-rule bg-state text-foreground/90 placeholder:text-foreground/30 focus-visible:ring-rule',
                   )}
                 />
                 {copyable && (
@@ -124,8 +124,8 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                     onClick={() => handleCopy(entry.id, entry.value)}
                     className={cn(
                       'text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 transition-colors',
-                      variant === 'cyber' && 'text-cyan-500/50 hover:text-cyan-400',
-                      variant === 'glass' && 'text-white/50 hover:text-white',
+                      variant === 'cyber' && 'text-signal/50 hover:text-signal',
+                      variant === 'glass' && 'text-foreground/50 hover:text-foreground',
                     )}
                   >
                     {copiedId === entry.id ? <Check size={12} /> : <Copy size={12} />}
@@ -142,8 +142,8 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                   className={cn(
                     'text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-9 w-9 shrink-0',
                     variant === 'cyber' &&
-                      'rounded-none text-cyan-500/50 hover:bg-red-500/10 hover:text-red-400',
-                    variant === 'glass' && 'text-white/50 hover:bg-red-500/20 hover:text-red-300',
+                      'text-signal/50 hover:bg-alert/10 hover:text-alert rounded-none',
+                    variant === 'glass' && 'text-foreground/50 hover:bg-alert/20 hover:text-alert',
                   )}
                 >
                   <Trash size={14} />
@@ -162,9 +162,9 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
             className={cn(
               'w-full border-dashed text-xs',
               variant === 'cyber' &&
-                'rounded-none border-cyan-500/30 text-cyan-500 hover:border-cyan-500/50 hover:bg-cyan-500/10',
+                'border-signal/30 text-signal hover:border-signal/50 hover:bg-signal/10 rounded-none',
               variant === 'glass' &&
-                'border-white/20 text-white/70 hover:bg-white/10 hover:text-white',
+                'border-rule text-foreground/70 hover:bg-state hover:text-foreground',
             )}
           >
             <Plus size={14} className="mr-2" />

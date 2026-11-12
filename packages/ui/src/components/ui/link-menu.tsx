@@ -9,11 +9,11 @@ const linkMenuVariants = cva('transition-all duration-300 flex flex-col', {
   variants: {
     variant: {
       default: 'space-y-4',
-      card: 'rounded-2xl border p-6 bg-card border-border shadow-sm space-y-6',
+      card: 'rounded-card border p-6 bg-card border-border space-y-6',
       glass:
-        'rounded-2xl border p-6 bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl space-y-6',
+        'rounded-card border p-6 bg-background/5 dark:bg-state border-border/10 text-foreground space-y-6',
       cyber:
-        'rounded-2xl border p-6 bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] space-y-6',
+        'rounded-card border p-6 bg-background/80 dark:bg-scrim border-signal/30 text-foreground space-y-6',
     },
   },
   defaultVariants: {
@@ -63,14 +63,14 @@ const LinkMenuList = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTM
 LinkMenuList.displayName = 'LinkMenuList';
 
 const linkMenuItemVariants = cva(
-  'group flex items-start gap-3 rounded-xl border border-transparent p-3 transition-all duration-300',
+  'group flex items-start gap-3 rounded-card border border-transparent p-3 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'hover:border-border hover:bg-muted',
-        glass: 'hover:border-border/20 hover:bg-background/10 dark:bg-white/10',
+        glass: 'hover:border-border/20 hover:bg-background/10 dark:bg-state',
         cyber:
-          'hover:border-border/40 dark:hover:border-cyan-500/40 hover:bg-primary/10 dark:hover:bg-cyan-500/10',
+          'hover:border-border/40 dark:hover:border-signal/40 hover:bg-primary/10 dark:hover:bg-signal/10',
       },
     },
     defaultVariants: {
@@ -99,14 +99,14 @@ const LinkMenuLink = React.forwardRef<
 LinkMenuLink.displayName = 'LinkMenuLink';
 
 const linkMenuIconVariants = cva(
-  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110',
+  'flex h-10 w-10 shrink-0 items-center justify-center rounded-control transition-all duration-300 group-hover:scale-110',
   {
     variants: {
       variant: {
         default: 'bg-muted text-foreground group-hover:text-primary',
-        glass: 'bg-background/10 dark:bg-white/10 text-foreground',
+        glass: 'bg-background/10 dark:bg-state text-foreground',
         cyber:
-          'bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 border border-border/10 dark:border-cyan-500/30',
+          'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-border/10 dark:border-signal/30',
       },
     },
     defaultVariants: {

@@ -8,11 +8,11 @@ const indicatorVariants = cva('absolute flex items-center justify-center rounded
   variants: {
     variant: {
       default: 'bg-primary text-primary-foreground',
-      glass: 'glass-m text-foreground',
-      cyber: 'bg-cyan-500 text-black shadow-[0_0_8px_rgba(6,182,212,0.6)]',
+      glass: 'glass text-foreground',
+      cyber: 'bg-signal text-signal-foreground',
       destructive: 'bg-destructive text-destructive-foreground',
-      success: 'bg-emerald-500 text-white',
-      warning: 'bg-amber-500 text-black',
+      success: 'bg-success text-success-foreground',
+      warning: 'bg-warning text-warning-foreground',
     },
     size: {
       dot: 'size-2.5',

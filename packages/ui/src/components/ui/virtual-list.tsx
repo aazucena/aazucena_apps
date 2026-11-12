@@ -4,17 +4,19 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const virtualListVariants = cva('overflow-auto rounded-md border transition-all duration-300', {
-  variants: {
-    variant: {
-      default: 'bg-background border-border',
-      glass: 'glass border-border/20',
-      cyber:
-        'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+const virtualListVariants = cva(
+  'overflow-auto rounded-control border transition-all duration-300',
+  {
+    variants: {
+      variant: {
+        default: 'bg-background border-border',
+        glass: 'glass border-border/20',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30',
+      },
     },
+    defaultVariants: { variant: 'default' },
   },
-  defaultVariants: { variant: 'default' },
-});
+);
 
 export interface VirtualListProps<T>
   extends

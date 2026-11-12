@@ -11,22 +11,22 @@ import { cn } from '@aazucena/utils';
 const lightboxOverlayVariants = cva('fixed inset-0 z-[200] flex items-center justify-center', {
   variants: {
     variant: {
-      default: 'bg-black/80 backdrop-blur-sm',
-      glass: 'bg-black/40 backdrop-blur-xl',
-      cyber: 'bg-black/90 backdrop-blur-sm',
+      default: 'bg-scrim',
+      glass: 'bg-scrim',
+      cyber: 'bg-scrim',
     },
   },
   defaultVariants: { variant: 'default' },
 });
 
 const lightboxCloseVariants = cva(
-  'absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full shadow-lg transition-opacity hover:opacity-80',
+  'absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full transition-opacity hover:opacity-80',
   {
     variants: {
       variant: {
         default: 'bg-background text-foreground',
-        glass: 'bg-white/20 text-white backdrop-blur-sm border border-white/20',
-        cyber: 'bg-black text-cyan-400 border border-cyan-500/40',
+        glass: 'bg-panel-raised text-foreground border border-rule',
+        cyber: 'bg-background text-signal border border-signal/40',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -34,13 +34,13 @@ const lightboxCloseVariants = cva(
 );
 
 const lightboxNavVariants = cva(
-  'absolute top-1/2 -translate-y-1/2 rounded-full p-2 shadow-lg transition-opacity hover:opacity-80',
+  'absolute top-1/2 -translate-y-1/2 rounded-full p-2 transition-opacity hover:opacity-80',
   {
     variants: {
       variant: {
         default: 'bg-background/80 text-foreground',
-        glass: 'bg-white/20 text-white backdrop-blur-sm border border-white/20',
-        cyber: 'bg-black/80 text-cyan-400 border border-cyan-500/40',
+        glass: 'bg-panel-raised text-foreground border border-rule',
+        cyber: 'bg-scrim text-signal border border-signal/40',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -48,13 +48,13 @@ const lightboxNavVariants = cva(
 );
 
 const lightboxCaptionVariants = cva(
-  'absolute bottom-16 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg text-sm max-w-sm text-center',
+  'absolute bottom-16 left-1/2 -translate-x-1/2 px-4 py-2 rounded-control text-sm max-w-sm text-center',
   {
     variants: {
       variant: {
-        default: 'bg-black/60 text-white backdrop-blur-sm',
-        glass: 'bg-white/10 text-white backdrop-blur-md border border-white/20',
-        cyber: 'bg-black/80 text-cyan-300 border border-cyan-500/30 font-mono text-xs',
+        default: 'bg-scrim text-foreground',
+        glass: 'bg-state text-foreground border border-rule',
+        cyber: 'bg-scrim text-signal border border-signal/30 font-mono text-xs',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -197,7 +197,7 @@ const Lightbox = React.forwardRef<HTMLDivElement, LightboxProps>(
           <img
             src={current.src}
             alt={current.alt ?? ''}
-            className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
+            className="rounded-control max-h-[85vh] max-w-[90vw] object-contain"
           />
 
           {/* Caption */}
@@ -278,7 +278,7 @@ const Lightbox = React.forwardRef<HTMLDivElement, LightboxProps>(
                 className={cn(
                   'h-12 w-12 overflow-hidden rounded border-2 transition-all',
                   i === currentIndex
-                    ? 'border-white opacity-100'
+                    ? 'border-rule opacity-100'
                     : 'border-transparent opacity-50 hover:opacity-80',
                 )}
               >

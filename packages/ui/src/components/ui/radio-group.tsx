@@ -15,13 +15,12 @@ const RadioGroup = React.forwardRef<
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
 const radioGroupItemVariants = cva(
-  'aspect-square h-4 w-4 rounded-full border shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-all',
+  'aspect-square h-4 w-4 rounded-full border focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-all',
   {
     variants: {
       variant: {
         default: 'border-primary text-primary',
-        cyber:
-          'border-cyan-500/50 text-cyan-400 data-checked:border-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0)] data-checked:shadow-[0_0_15px_rgba(6,182,212,0.2)]',
+        cyber: 'border-signal/50 text-signal data-checked:border-signal',
       },
     },
     defaultVariants: {

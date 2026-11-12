@@ -8,11 +8,10 @@ const headingVariants = cva('scroll-m-20 tracking-tight', {
   variants: {
     variant: {
       default: 'text-foreground',
-      glass: 'text-foreground/90 drop-shadow-md',
-      cyber:
-        'font-mono italic text-primary dark:text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.3)]',
+      glass: 'text-foreground/90',
+      cyber: 'font-mono italic text-primary dark:text-signal',
       muted: 'text-muted-foreground',
-      gradient: 'bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent',
+      gradient: 'text-signal',
     },
     size: {
       h1: 'text-4xl font-extrabold lg:text-5xl',

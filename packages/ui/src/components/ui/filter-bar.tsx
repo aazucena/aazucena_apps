@@ -6,14 +6,12 @@ import { cn } from '@aazucena/utils';
 import { Search } from '@aazucena/icons';
 import { Input } from './input';
 
-const filterBarVariants = cva('w-full transition-all duration-500 rounded-[2rem] border p-8', {
+const filterBarVariants = cva('w-full transition-all duration-500 rounded-card border p-8', {
   variants: {
     variant: {
-      default: 'bg-card border-border shadow-sm',
-      glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-md border-border/10 text-foreground shadow-xl',
-      cyber:
-        'bg-background/80 dark:bg-black/80 border-cyan-500/30 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+      default: 'bg-card border-border',
+      glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+      cyber: 'bg-background/80 dark:bg-scrim border-signal/30 text-foreground',
     },
   },
   defaultVariants: {
@@ -82,7 +80,7 @@ const FilterBarSearch = React.forwardRef<
       )}
       <div className="relative w-full">
         <Search className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 opacity-40" />
-        <Input id={id} ref={ref} className={cn('h-12 rounded-2xl pl-11', className)} {...props} />
+        <Input id={id} ref={ref} className={cn('rounded-card h-12 pl-11', className)} {...props} />
       </div>
     </div>
   );

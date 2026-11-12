@@ -9,11 +9,9 @@ import { Progress } from './progress';
 export const dataListVariants = cva('w-full transition-all duration-500 overflow-hidden', {
   variants: {
     variant: {
-      default: 'bg-card border border-border rounded-[2rem]',
-      glass:
-        'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 rounded-[2rem] text-foreground shadow-xl',
-      cyber:
-        'bg-background/40 dark:bg-black/40 border border-cyan-500/20 text-foreground shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-xl',
+      default: 'bg-card border border-border rounded-card',
+      glass: 'bg-background/5 dark:bg-state border border-border/10 rounded-card text-foreground',
+      cyber: 'bg-background/40 dark:bg-scrim border border-signal/20 text-foreground rounded-card',
       transparent: 'bg-transparent border-none p-0',
     },
   },

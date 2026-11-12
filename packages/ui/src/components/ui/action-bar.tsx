@@ -5,13 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const actionBarVariants = cva(
-  'fixed left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 rounded-xl px-4 py-2 shadow-xl transition-all duration-300',
+  'fixed left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 rounded-card px-4 py-2 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'border border-border bg-background',
         glass: 'glass',
-        cyber: 'border border-cyan-500/30 bg-black/90',
+        cyber: 'border border-signal/30 bg-scrim',
       },
       position: {
         top: '',
@@ -60,7 +60,7 @@ const ActionBar = React.forwardRef<HTMLDivElement, ActionBarProps>(
             className={cn(
               'ml-1 flex h-6 w-6 items-center justify-center rounded-full transition-colors',
               v === 'cyber'
-                ? 'text-cyan-500/60 hover:bg-cyan-500/10 hover:text-cyan-400'
+                ? 'text-signal/60 hover:bg-signal/10 hover:text-signal'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
             )}
           >

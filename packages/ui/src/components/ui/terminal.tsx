@@ -6,14 +6,14 @@ import { cn } from '@aazucena/utils';
 import { Terminal as TerminalIcon, Copy, Check } from '@aazucena/icons';
 
 const terminalVariants = cva(
-  'w-full flex flex-col rounded-2xl border overflow-hidden transition-all duration-500',
+  'w-full flex flex-col rounded-card border overflow-hidden transition-all duration-500',
   {
     variants: {
       variant: {
-        default: 'bg-muted border-border text-foreground shadow-sm',
+        default: 'bg-muted border-border text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/30 text-foreground shadow-[0_0_25px_rgba(6,182,212,0.1)] dark:bg-black dark:text-cyan-50',
-        glass: 'glass text-foreground dark:text-white',
+          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background dark:text-signal',
+        glass: 'glass text-foreground',
       },
     },
     defaultVariants: {
@@ -45,9 +45,9 @@ const TerminalHeader = React.forwardRef<
     <div className="flex items-center gap-3">
       {showButtons && (
         <div className="flex gap-1.5">
-          <div className="h-2.5 w-2.5 rounded-full bg-red-500/50" />
-          <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/50" />
-          <div className="h-2.5 w-2.5 rounded-full bg-green-500/50" />
+          <div className="bg-alert/50 h-2.5 w-2.5 rounded-full" />
+          <div className="bg-warning/50 h-2.5 w-2.5 rounded-full" />
+          <div className="bg-success/50 h-2.5 w-2.5 rounded-full" />
         </div>
       )}
       <div className="flex items-center gap-2">

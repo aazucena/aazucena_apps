@@ -17,23 +17,23 @@ const treeTableVariants = cva('w-full', {
 
 const wrapperStyles: Record<string, string> = {
   default: '',
-  glass: 'glass dark:bg-background/5 dark:bg-white/5 dark:border-border/10 shadow-xl rounded-lg',
+  glass: 'glass dark:bg-background/5 dark:bg-state dark:border-border/10 rounded-control',
   cyber:
-    'border border-border/10 dark:border-cyan-500/30 glass bg-primary-100 dark:bg-background/80 dark:bg-black/80 shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-lg',
+    'border border-border/10 dark:border-signal/30 glass bg-signal-faint dark:bg-background/80 dark:bg-scrim rounded-control',
 };
 
 const headerStyles: Record<string, string> = {
   default: '',
-  glass: 'bg-background/5 dark:bg-white/5 [&_th]:border-border/10',
+  glass: 'bg-background/5 dark:bg-state [&_th]:border-border/10',
   cyber:
-    'glass bg-primary-100 dark:bg-cyan-500/5 [&_th]:border-border/10 dark:[&_th]:border-cyan-500/20',
+    'glass bg-signal-faint dark:bg-signal/5 [&_th]:border-border/10 dark:[&_th]:border-signal/20',
 };
 
 const rowStyles: Record<string, string> = {
   default: 'hover:bg-muted/50 border-b',
-  glass: 'hover:bg-background/5 dark:hover:bg-white/5 border-b border-border/10',
+  glass: 'hover:bg-background/5 dark:hover:bg-state border-b border-border/10',
   cyber:
-    'hover:bg-primary/10 dark:hover:bg-cyan-500/10 border-b border-border/10 dark:border-cyan-500/20',
+    'hover:bg-primary/10 dark:hover:bg-signal/10 border-b border-border/10 dark:border-signal/20',
 };
 
 export interface TreeTableNode {
@@ -95,7 +95,7 @@ function TreeTableRow({
                     className={cn(
                       'shrink-0 rounded p-0.5 transition-colors',
                       variant === 'cyber'
-                        ? 'text-cyan-400 hover:bg-cyan-500/10'
+                        ? 'text-signal hover:bg-signal/10'
                         : 'text-muted-foreground hover:bg-accent',
                     )}
                   >

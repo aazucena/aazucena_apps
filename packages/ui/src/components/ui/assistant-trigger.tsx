@@ -12,12 +12,12 @@ const assistantTriggerVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow-lg rounded-full',
+        default: 'bg-primary text-primary-foreground rounded-full',
         glass:
-          'bg-background/10 dark:bg-white/10 backdrop-blur-xl border border-border/20 text-foreground shadow-2xl rounded-full',
+          'bg-background/10 dark:bg-state border border-border/20 text-foreground rounded-full',
         cyber:
-          'bg-background dark:bg-black border border-border dark:border-cyan-500/40 text-primary dark:text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)] rounded-2xl',
-        ai: 'bg-gradient-to-br from-primary-600 to-blue-600 text-foreground shadow-xl rounded-full',
+          'bg-background border border-border dark:border-signal/40 text-primary dark:text-signal rounded-card',
+        ai: 'text-foreground rounded-full',
       },
       size: {
         default: 'w-14 h-14',
@@ -76,8 +76,8 @@ const AssistantTrigger = React.forwardRef<HTMLButtonElement, AssistantTriggerPro
         {/* Branded Pulse / Notification */}
         {hasNotification && !isOpen && (
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex h-4 w-4 rounded-full border-2 border-white bg-emerald-500 dark:border-black"></span>
+            <span className="bg-success absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
+            <span className="border-rule bg-success relative inline-flex h-4 w-4 rounded-full border-2"></span>
           </span>
         )}
 

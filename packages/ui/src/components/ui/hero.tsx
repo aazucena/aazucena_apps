@@ -7,9 +7,9 @@ import { cn } from '@aazucena/utils';
 const heroVariants = cva('relative overflow-hidden transition-all duration-500', {
   variants: {
     variant: {
-      default: 'bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800',
-      glass: 'bg-background/20 backdrop-blur-3xl border-b border-border/10',
-      cyber: 'bg-background dark:bg-black border-b border-border/10 dark:border-cyan-500/20',
+      default: 'bg-panel border-b border-rule',
+      glass: 'bg-background/20 border-b border-border/10',
+      cyber: 'bg-background border-b border-border/10 dark:border-signal/20',
     },
     size: {
       default: 'py-20 md:py-32',
@@ -58,9 +58,9 @@ const heroTitleVariants = cva('font-black tracking-tighter leading-none transiti
       lg: 'text-6xl md:text-9xl',
     },
     variant: {
-      default: 'text-gray-900 dark:text-white',
+      default: 'text-foreground',
       glass: 'text-foreground',
-      cyber: 'text-foreground drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]',
+      cyber: 'text-foreground',
     },
   },
   defaultVariants: {
@@ -75,8 +75,8 @@ const HeroTitle = React.forwardRef<
 >(({ className, size, variant, children, ...props }, ref) => (
   <h1 ref={ref} className={cn(heroTitleVariants({ size, variant }), className)} {...props}>
     {children}
-    {variant === 'default' && <span className="text-blue-600">.</span>}
-    {variant === 'cyber' && <span className="text-cyan-400">_</span>}
+    {variant === 'default' && <span className="text-signal">.</span>}
+    {variant === 'cyber' && <span className="text-signal">_</span>}
   </h1>
 ));
 HeroTitle.displayName = 'HeroTitle';

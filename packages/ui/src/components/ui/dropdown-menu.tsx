@@ -19,14 +19,14 @@ const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
 const dropdownMenuContentVariants = cva(
-  'z-50 min-w-[8rem] overflow-hidden rounded-md border p-1 shadow-md data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-dropdown-menu-content-transform-origin]',
+  'z-50 min-w-[8rem] overflow-hidden rounded-control border p-1 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-dropdown-menu-content-transform-origin]',
   {
     variants: {
       variant: {
         default: 'bg-popover text-popover-foreground',
-        glass: 'glass text-foreground dark:text-white shadow-2xl rounded-2xl',
+        glass: 'glass text-foreground rounded-card',
         cyber:
-          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] rounded-3xl dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/40 text-foreground rounded-card dark:bg-scrim dark:text-signal',
       },
       size: {
         default: 'min-w-[8rem]',

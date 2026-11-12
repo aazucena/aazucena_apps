@@ -7,9 +7,9 @@ import { cn } from '@aazucena/utils';
 const descriptionListVariants = cva('w-full', {
   variants: {
     variant: {
-      default: 'rounded-lg border bg-card',
-      glass: 'rounded-lg bg-white/5 border-white/10 text-white',
-      cyber: 'rounded-lg bg-black border-cyan-500/20 text-cyan-50',
+      default: 'rounded-control border bg-card',
+      glass: 'rounded-control bg-state border-rule text-foreground',
+      cyber: 'rounded-control bg-background border-signal/20 text-signal',
     },
     size: {
       sm: 'p-3 text-sm',
@@ -49,8 +49,8 @@ const DescriptionList = React.forwardRef<HTMLDivElement, DescriptionListProps>(
               size === 'sm' && 'text-base',
               size === 'default' && 'text-lg',
               size === 'lg' && 'text-xl',
-              variant === 'cyber' && 'font-mono text-cyan-400 italic',
-              variant === 'glass' && 'text-white',
+              variant === 'cyber' && 'text-signal font-mono italic',
+              variant === 'glass' && 'text-foreground',
             )}
           >
             {title}
@@ -62,8 +62,8 @@ const DescriptionList = React.forwardRef<HTMLDivElement, DescriptionListProps>(
               <dt
                 className={cn(
                   'text-muted-foreground font-medium md:w-1/3',
-                  variant === 'glass' && 'text-white/70',
-                  variant === 'cyber' && 'font-mono text-cyan-500/80',
+                  variant === 'glass' && 'text-foreground/70',
+                  variant === 'cyber' && 'text-signal/80 font-mono',
                   size === 'sm' && 'text-xs',
                   size === 'lg' && 'text-base',
                 )}
@@ -73,8 +73,8 @@ const DescriptionList = React.forwardRef<HTMLDivElement, DescriptionListProps>(
               <dd
                 className={cn(
                   'mt-1 md:mt-0 md:w-2/3',
-                  variant === 'glass' && 'text-white',
-                  variant === 'cyber' && 'font-mono text-cyan-400',
+                  variant === 'glass' && 'text-foreground',
+                  variant === 'cyber' && 'text-signal font-mono',
                   size === 'sm' && 'text-sm',
                   size === 'lg' && 'text-xl',
                 )}

@@ -82,8 +82,8 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
             id={labelId}
             className={cn(
               'text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
-              variant === 'glass' && 'text-white/80',
-              variant === 'cyber' && 'font-mono text-cyan-500/80',
+              variant === 'glass' && 'text-foreground/80',
+              variant === 'cyber' && 'text-signal/80 font-mono',
             )}
           >
             {label}
@@ -105,9 +105,9 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
                 disabled={disabled || option.disabled}
                 className={cn(
                   variant === 'glass' &&
-                    'border-white/50 data-[state=checked]:bg-white data-[state=checked]:text-blue-500',
+                    'border-rule data-[state=checked]:bg-panel data-[state=checked]:text-signal',
                   variant === 'cyber' &&
-                    'border-cyan-500/50 data-[state=checked]:bg-cyan-500 data-[state=checked]:text-black',
+                    'border-signal/50 data-[state=checked]:bg-signal data-[state=checked]:text-signal-foreground',
                 )}
               />
               <Label
@@ -115,8 +115,8 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
                 className={cn(
                   'text-sm font-normal',
                   (disabled || option.disabled) && 'cursor-not-allowed opacity-70',
-                  variant === 'glass' && 'text-white/90',
-                  variant === 'cyber' && 'font-mono text-cyan-400',
+                  variant === 'glass' && 'text-foreground/90',
+                  variant === 'cyber' && 'text-signal font-mono',
                 )}
               >
                 {option.label}

@@ -7,14 +7,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Robot, ChevronDown } from '@aazucena/icons';
 
 const chatModelSelectorVariants = cva(
-  'flex items-center gap-2 rounded-md border p-2 transition-all duration-300',
+  'flex items-center gap-2 rounded-control border p-2 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -55,7 +54,7 @@ const ChatModelSelector = React.forwardRef<HTMLDivElement, ChatModelSelectorProp
           <SelectTrigger
             className={cn(
               'flex items-center gap-2 [&>span]:line-clamp-1',
-              variant === 'cyber' && 'border-cyan-500/30 bg-cyan-500/5 font-mono text-cyan-400',
+              variant === 'cyber' && 'border-signal/30 bg-signal/5 text-signal font-mono',
               variant === 'glass' && 'glass border-input/20',
             )}
           >
@@ -65,7 +64,7 @@ const ChatModelSelector = React.forwardRef<HTMLDivElement, ChatModelSelectorProp
           </SelectTrigger>
           <SelectContent
             className={cn(
-              variant === 'cyber' && 'border-cyan-500/30 bg-black font-mono text-cyan-400',
+              variant === 'cyber' && 'border-signal/30 bg-background text-signal font-mono',
               variant === 'glass' && 'glass border-input/20',
             )}
           >

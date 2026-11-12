@@ -8,14 +8,13 @@ import { Play, Pause, Refresh, Plus, Minus } from '@aazucena/icons';
 import { useTimer } from '@aazucena/hooks';
 
 const timerVariants = cva(
-  'flex flex-col items-center gap-6 rounded-xl border p-8 transition-all duration-300 shadow-lg',
+  'flex flex-col items-center gap-6 rounded-card border p-8 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-card border-border text-card-foreground',
-        glass: 'glass border-white/10 text-white backdrop-blur-md',
-        cyber:
-          'bg-black border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.1)] text-cyan-400 font-mono',
+        glass: 'glass border-rule text-foreground',
+        cyber: 'bg-background border-signal/20 text-signal font-mono',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -82,7 +81,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
             className={cn(
               'font-mono text-5xl tracking-tighter tabular-nums transition-all duration-300',
               isRunning && 'text-primary scale-110',
-              time === 0 && 'text-rose-500 opacity-50',
+              time === 0 && 'text-alert opacity-50',
             )}
           >
             {formatTime(time)}
@@ -105,7 +104,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
                 disabled={isRunning || time < 60000}
                 className={cn(
                   'h-10 px-3 text-xs font-bold',
-                  variant === 'cyber' && 'border-cyan-500/20 text-cyan-500/60',
+                  variant === 'cyber' && 'border-signal/20 text-signal/60',
                 )}
               >
                 -1m
@@ -117,7 +116,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
                 disabled={isRunning || time < 10000}
                 className={cn(
                   'h-10 px-3 text-xs font-bold',
-                  variant === 'cyber' && 'border-cyan-500/20 text-cyan-500/60',
+                  variant === 'cyber' && 'border-signal/20 text-signal/60',
                 )}
               >
                 -10s
@@ -134,7 +133,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
                 disabled={isRunning}
                 className={cn(
                   'h-10 px-3 text-xs font-bold',
-                  variant === 'cyber' && 'border-cyan-500/20 text-cyan-400',
+                  variant === 'cyber' && 'border-signal/20 text-signal',
                 )}
               >
                 +10s
@@ -146,7 +145,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
                 disabled={isRunning}
                 className={cn(
                   'h-10 px-3 text-xs font-bold',
-                  variant === 'cyber' && 'border-cyan-500/20 text-cyan-400',
+                  variant === 'cyber' && 'border-signal/20 text-signal',
                 )}
               >
                 +1m

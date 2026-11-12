@@ -6,14 +6,13 @@ import { cn } from '@aazucena/utils';
 import { FileText, Image as ImageIcon, XCircle, Download, CheckCircle } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatAttachmentsVariants = cva(
-  'flex flex-col gap-3 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -72,22 +71,22 @@ const ChatAttachments = React.forwardRef<HTMLDivElement, ChatAttachmentsProps>(
           {attachments.map((attachment) => {
             const Icon = getIconForAttachmentType(attachment.type);
             const statusColor = {
-              pending: 'text-gray-500',
-              uploading: 'text-blue-500',
-              uploaded: 'text-green-500',
-              failed: 'text-red-500',
+              pending: 'text-muted-foreground',
+              uploading: 'text-signal',
+              uploaded: 'text-success',
+              failed: 'text-alert',
             }[attachment.status || 'pending'];
 
             return (
               <li
                 key={attachment.id}
-                className="bg-muted/50 flex items-center gap-3 rounded-md p-2 text-sm"
+                className="bg-muted/50 rounded-control flex items-center gap-3 p-2 text-sm"
               >
                 {attachment.preview ? (
                   <img
                     src={attachment.preview}
                     alt="Preview"
-                    className="h-8 w-8 rounded-md object-cover"
+                    className="rounded-control h-8 w-8 object-cover"
                   />
                 ) : (
                   <Icon className="h-5 w-5 shrink-0" />
@@ -103,7 +102,7 @@ const ChatAttachments = React.forwardRef<HTMLDivElement, ChatAttachmentsProps>(
                         <span className="text-muted-foreground">({attachment.progress}%)</span>
                       )}
                       {attachment.error && (
-                        <span className="text-red-500"> - {attachment.error}</span>
+                        <span className="text-alert"> - {attachment.error}</span>
                       )}
                     </div>
                   )}
@@ -123,7 +122,7 @@ const ChatAttachments = React.forwardRef<HTMLDivElement, ChatAttachmentsProps>(
                     <button
                       type="button"
                       onClick={() => onRemoveAttachment(attachment.id)}
-                      className="text-muted-foreground hover:text-red-500"
+                      className="text-muted-foreground hover:text-alert"
                     >
                       <XCircle className="h-4 w-4" />
                     </button>

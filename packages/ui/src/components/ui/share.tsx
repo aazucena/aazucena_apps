@@ -43,15 +43,15 @@ const ShareGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 ShareGroup.displayName = 'ShareGroup';
 
 const shareActionVariants = cva(
-  'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 active:scale-90 shadow-sm',
+  'w-12 h-12 rounded-card flex items-center justify-center transition-all duration-300 active:scale-90',
   {
     variants: {
       variant: {
         default: 'bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground',
         cyber:
-          'bg-cyan-500/5 border border-cyan-500/20 text-cyan-500 hover:bg-cyan-500 hover:text-primary-foreground hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]',
+          'bg-signal/5 border border-signal/20 text-signal hover:bg-signal hover:text-primary-foreground',
         glass:
-          'bg-background/5 dark:bg-white/5 backdrop-blur-md border border-border/10 text-foreground/60 hover:bg-background/10 dark:bg-white/10 hover:text-white',
+          'bg-background/5 dark:bg-state border border-border/10 text-foreground/60 hover:bg-background/10 hover:text-foreground',
       },
     },
     defaultVariants: {

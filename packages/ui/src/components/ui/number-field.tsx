@@ -82,8 +82,8 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
             size={size}
             className={cn(
               'rounded-r-none',
-              variant === 'glass' && 'border-white/20 text-white',
-              variant === 'cyber' && 'border-cyan-500/30 text-cyan-400',
+              variant === 'glass' && 'border-rule text-foreground',
+              variant === 'cyber' && 'border-signal/30 text-signal',
               disabled && 'cursor-not-allowed opacity-50',
             )}
             onClick={handleDecrement}
@@ -109,9 +109,9 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
               className={cn(
                 'rounded-none text-center [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
                 variant === 'glass' &&
-                  'border-white/10 bg-white/5 text-white placeholder:text-white/40',
+                  'border-rule bg-state text-foreground placeholder:text-foreground/40',
                 variant === 'cyber' &&
-                  'border-cyan-500/20 bg-cyan-500/5 font-mono text-xs text-cyan-400 placeholder:text-cyan-500/60',
+                  'border-signal/20 bg-signal/5 text-signal placeholder:text-signal/60 font-mono text-xs',
                 size === 'sm' && 'h-8 text-xs',
                 size === 'lg' && 'h-12 text-base',
                 size === 'default' && 'h-10 text-sm',
@@ -126,8 +126,8 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
                   size === 'sm' && 'text-[10px]',
                   size === 'lg' && 'text-sm',
                   size === 'default' && 'text-xs',
-                  variant === 'glass' && 'text-white/60',
-                  variant === 'cyber' && 'font-mono text-cyan-500/80',
+                  variant === 'glass' && 'text-foreground/60',
+                  variant === 'cyber' && 'text-signal/80 font-mono',
                 )}
               >
                 {unit}
@@ -140,8 +140,8 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
             size={size}
             className={cn(
               'rounded-l-none',
-              variant === 'glass' && 'border-white/20 text-white',
-              variant === 'cyber' && 'border-cyan-500/30 text-cyan-400',
+              variant === 'glass' && 'border-rule text-foreground',
+              variant === 'cyber' && 'border-signal/30 text-signal',
               disabled && 'cursor-not-allowed opacity-50',
             )}
             onClick={handleIncrement}

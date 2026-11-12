@@ -5,14 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const signaturePadVariants = cva(
-  'flex flex-col gap-2 rounded-md border transition-all duration-300',
+  'flex flex-col gap-2 rounded-control border transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-border',
         glass: 'glass border-border/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)]',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -114,14 +113,14 @@ const SignaturePad = React.forwardRef<HTMLDivElement, SignaturePadProps>(
           <button
             type="button"
             onClick={clear}
-            className="bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md px-3 py-1.5 text-sm font-medium"
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-control px-3 py-1.5 text-sm font-medium"
           >
             {clearLabel}
           </button>
           <button
             type="button"
             onClick={save}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-3 py-1.5 text-sm font-medium"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-control px-3 py-1.5 text-sm font-medium"
           >
             {saveLabel}
           </button>

@@ -7,14 +7,13 @@ import { Badge } from '../badge'; // Assuming Badge component is available
 import { motion, AnimatePresence } from 'framer-motion';
 
 const chatQueueVariants = cva(
-  'flex flex-col gap-3 rounded-md border p-4 transition-all duration-300',
+  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -35,10 +34,10 @@ export interface ChatQueueProps
 }
 
 const statusMap: Record<QueueItem['status'], { text: string; color: string }> = {
-  pending: { text: 'Pending', color: 'bg-yellow-500/20 text-yellow-500' },
-  processing: { text: 'Processing', color: 'bg-blue-500/20 text-blue-500' },
-  completed: { text: 'Completed', color: 'bg-green-500/20 text-green-500' },
-  failed: { text: 'Failed', color: 'bg-red-500/20 text-red-500' },
+  pending: { text: 'Pending', color: 'bg-warning/20 text-warning' },
+  processing: { text: 'Processing', color: 'bg-signal/20 text-signal' },
+  completed: { text: 'Completed', color: 'bg-success/20 text-success' },
+  failed: { text: 'Failed', color: 'bg-alert/20 text-alert' },
 };
 
 const ChatQueue = React.forwardRef<HTMLDivElement, ChatQueueProps>(
@@ -55,10 +54,14 @@ const ChatQueue = React.forwardRef<HTMLDivElement, ChatQueueProps>(
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.2 }}
-              className="bg-muted/50 flex items-center justify-between rounded-md p-3 text-sm"
+              className="bg-muted/50 rounded-control flex items-center justify-between p-3 text-sm"
             >
               <span className="truncate">{item.content}</span>
-              <Badge className={statusMap[item.status]?.color || 'bg-gray-500/20 text-gray-500'}>
+              <Badge
+                className={
+                  statusMap[item.status]?.color || 'bg-rule-strong/20 text-muted-foreground'
+                }
+              >
                 {statusMap[item.status]?.text || 'Unknown'}
               </Badge>
             </motion.div>

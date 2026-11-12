@@ -10,8 +10,8 @@ const hexagonCardVariants = cva(
   {
     variants: {
       variant: {
-        award: 'text-orange-400',
-        certification: 'text-cyan-400',
+        award: 'text-warning',
+        certification: 'text-signal',
       },
       size: {
         sm: 'h-40 w-36',
@@ -27,12 +27,12 @@ const hexagonCardVariants = cva(
 );
 
 const hexagonIconVariants = cva(
-  'mb-3 flex items-center justify-center rounded-xl bg-gradient-to-br shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl',
+  'mb-3 flex items-center justify-center rounded-card transition-all duration-300 group-hover:scale-110',
   {
     variants: {
       variant: {
-        award: 'from-yellow-400 to-orange-500',
-        certification: 'from-cyan-400 to-blue-500',
+        award: '',
+        certification: '',
       },
       size: {
         sm: 'h-12 w-12',

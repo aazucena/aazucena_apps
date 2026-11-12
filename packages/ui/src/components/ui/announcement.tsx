@@ -20,16 +20,15 @@ const announcementVariants = cva(
     variants: {
       variant: {
         default: 'bg-muted/50 border-border text-foreground',
-        info: 'bg-blue-500 border-blue-600 text-white dark:bg-blue-900/80 dark:border-blue-800',
+        info: 'bg-signal border-signal text-signal-foreground dark:bg-panel-raised/80 dark:border-rule',
         success:
-          'bg-emerald-500 border-emerald-600 text-white dark:bg-emerald-900/80 dark:border-emerald-800',
+          'bg-success border-success text-success-foreground dark:bg-panel-raised/80 dark:border-rule',
         warning:
-          'bg-amber-500 border-amber-600 text-white dark:bg-amber-900/80 dark:border-amber-800',
+          'bg-warning border-warning text-warning-foreground dark:bg-panel-raised/80 dark:border-rule',
         destructive:
-          'bg-rose-500 border-rose-600 text-white dark:bg-rose-900/80 dark:border-rose-800',
-        glass: 'glass border-white/10 text-white backdrop-blur-md',
-        cyber:
-          'bg-black border-cyan-500/20 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)] font-mono',
+          'bg-alert border-alert text-alert-foreground dark:bg-panel-raised/80 dark:border-rule',
+        glass: 'glass border-rule text-foreground',
+        cyber: 'bg-background border-signal/20 text-signal font-mono',
       },
     },
     defaultVariants: {
@@ -109,7 +108,7 @@ const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
                 onClick={onAction}
                 className={cn(
                   'h-auto p-0 font-bold text-current underline decoration-current/30 hover:decoration-current',
-                  variant === 'cyber' && 'text-cyan-300',
+                  variant === 'cyber' && 'text-signal',
                 )}
               >
                 {actionText}
@@ -128,7 +127,7 @@ const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
                   <ChevronDown className="size-3 transition-transform duration-200 data-[state=open]:rotate-180" />
                 </Button>
               </CollapsibleTrigger>
-              <CollapsibleContent className="absolute top-full left-0 z-50 w-full border-b bg-inherit p-4 shadow-xl">
+              <CollapsibleContent className="absolute top-full left-0 z-50 w-full border-b bg-inherit p-4">
                 {details}
               </CollapsibleContent>
             </Collapsible>

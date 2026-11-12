@@ -9,15 +9,13 @@ import { cn } from '@aazucena/utils';
  */
 
 export const statBoardVariants = cva(
-  'rounded-[2rem] border transition-all duration-500 overflow-hidden',
+  'rounded-card border transition-all duration-500 overflow-hidden',
   {
     variants: {
       variant: {
-        default: 'bg-card border-border shadow-sm p-8',
-        glass:
-          'bg-background/10 backdrop-blur-md border-border/20 text-foreground shadow-2xl p-12 md:p-20',
-        cyber:
-          'bg-background/80 dark:bg-black/80 border border-cyan-500/30 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.1)] p-8',
+        default: 'bg-card border-border p-8',
+        glass: 'bg-background/10 border-border/20 text-foreground p-12 md:p-20',
+        cyber: 'bg-background/80 dark:bg-scrim border border-signal/30 text-foreground p-8',
       },
     },
     defaultVariants: {

@@ -5,15 +5,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const tagsInputVariants = cva(
-  'flex w-full flex-wrap items-center gap-1.5 rounded-md border px-3 py-2 transition-all',
+  'flex w-full flex-wrap items-center gap-1.5 rounded-control border px-3 py-2 transition-all',
   {
     variants: {
       variant: {
-        default:
-          'border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-        glass: 'glass-m border-white/10',
-        cyber:
-          'border-cyan-500/30 bg-black/50 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+        default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
+        glass: 'glass border-rule',
+        cyber: 'border-signal/30 bg-scrim focus-within:border-signal',
       },
       size: {
         sm: 'min-h-8 text-xs',
@@ -27,8 +25,8 @@ const tagsInputVariants = cva(
 
 const tagStyles: Record<string, string> = {
   default: 'bg-muted text-foreground',
-  glass: 'bg-white/10 text-foreground',
-  cyber: 'bg-cyan-500/10 text-cyan-300 font-mono text-xs',
+  glass: 'bg-state text-foreground',
+  cyber: 'bg-signal/10 text-signal font-mono text-xs',
 };
 
 export interface TagsInputProps
@@ -101,7 +99,10 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
         {value.map((tag, i) => (
           <span
             key={`${tag}-${i}`}
-            className={cn('inline-flex items-center gap-1 rounded-md px-2 py-0.5', tagStyles[v])}
+            className={cn(
+              'rounded-control inline-flex items-center gap-1 px-2 py-0.5',
+              tagStyles[v],
+            )}
           >
             {tag}
             <button
@@ -139,7 +140,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           disabled={disabled}
           className={cn(
             'placeholder:text-muted-foreground min-w-[80px] flex-1 bg-transparent outline-none',
-            v === 'cyber' && 'font-mono text-cyan-50 placeholder:text-cyan-500/30',
+            v === 'cyber' && 'text-signal placeholder:text-signal/30 font-mono',
           )}
         />
       </div>

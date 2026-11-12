@@ -7,9 +7,9 @@ import { cn } from '@aazucena/utils';
 const phaseVariants = cva('py-24 transition-all duration-500', {
   variants: {
     variant: {
-      default: 'bg-white dark:bg-gray-950',
-      alternate: 'bg-gray-50/50 dark:bg-gray-900/30 border-y border-gray-100 dark:border-gray-800',
-      cyber: 'bg-background/40 dark:bg-black/40 border-y border-cyan-500/10',
+      default: 'bg-panel dark:bg-background',
+      alternate: 'bg-panel/50 dark:bg-panel/30 border-y border-rule',
+      cyber: 'bg-background/40 dark:bg-scrim border-y border-signal/10',
     },
   },
   defaultVariants: {
@@ -41,13 +41,12 @@ const phaseBadgeVariants = cva(
   {
     variants: {
       variant: {
-        blue: 'bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-400',
+        blue: 'bg-signal-faint dark:bg-panel-raised/20 border-signal dark:border-rule text-signal',
         purple:
-          'bg-purple-50 dark:bg-purple-900/20 border-purple-100 dark:border-purple-800 text-purple-600 dark:text-purple-400',
-        green:
-          'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400',
+          'bg-series-3/10 dark:bg-panel-raised/20 border-series-3 dark:border-rule text-series-3',
+        green: 'bg-success/10 dark:bg-panel-raised/20 border-success dark:border-rule text-success',
         cyber:
-          'glass bg-primary-100 dark:bg-cyan-500/5 border-border dark:border-cyan-500/20 text-primary dark:text-cyan-400',
+          'glass bg-signal-faint dark:bg-signal/5 border-border dark:border-signal/20 text-primary dark:text-signal',
       },
     },
     defaultVariants: {
@@ -65,12 +64,12 @@ const PhaseBadge = React.forwardRef<
       className={cn(
         'h-1.5 w-1.5 animate-pulse rounded-full',
         variant === 'blue'
-          ? 'bg-blue-500'
+          ? 'bg-signal'
           : variant === 'purple'
-            ? 'bg-purple-500'
+            ? 'bg-series-3'
             : variant === 'green'
-              ? 'bg-emerald-500'
-              : 'bg-cyan-400',
+              ? 'bg-success'
+              : 'bg-signal',
       )}
     />
     <span className="text-[10px] font-black tracking-[0.3em] uppercase">{children}</span>
@@ -83,7 +82,7 @@ const PhaseTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTM
     <h2
       ref={ref}
       className={cn(
-        'mb-6 text-4xl font-black tracking-tighter text-gray-900 md:text-6xl dark:text-white',
+        'text-foreground mb-6 text-4xl font-black tracking-tighter md:text-6xl',
         className,
       )}
       {...props}
@@ -98,10 +97,7 @@ const PhaseDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn(
-      'max-w-3xl text-xl leading-relaxed font-medium text-gray-600 dark:text-gray-400',
-      className,
-    )}
+    className={cn('text-muted-foreground max-w-3xl text-xl leading-relaxed font-medium', className)}
     {...props}
   />
 ));

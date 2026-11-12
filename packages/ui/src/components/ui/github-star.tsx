@@ -7,14 +7,13 @@ import { Star, GitHub as GitHubIcon } from '@aazucena/icons';
 import { useGithubRepo } from '@aazucena/hooks';
 
 const githubStarVariants = cva(
-  'inline-flex items-stretch overflow-hidden rounded-md border transition-all duration-200',
+  'inline-flex items-stretch overflow-hidden rounded-control border transition-all duration-200',
   {
     variants: {
       variant: {
         default: 'bg-background border-input hover:border-muted-foreground/30',
-        glass: 'glass border-white/10 text-white hover:bg-white/10',
-        cyber:
-          'bg-black border-cyan-500/30 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)] hover:border-cyan-500/60',
+        glass: 'glass border-rule text-foreground hover:bg-state',
+        cyber: 'bg-background border-signal/30 text-signal hover:border-signal/60',
       },
       size: {
         default: 'h-7 text-xs',
@@ -80,8 +79,8 @@ const GithubStar = React.forwardRef<HTMLAnchorElement, GithubStarProps>(
           className={cn(
             'flex items-center gap-1.5 px-2.5 transition-colors',
             variant === 'default' ? 'bg-background border-r' : 'bg-transparent',
-            isCyber && 'border-r border-cyan-500/20 bg-cyan-500/5',
-            isGlass && 'border-r border-white/10 bg-white/5',
+            isCyber && 'border-signal/20 bg-signal/5 border-r',
+            isGlass && 'border-rule bg-state border-r',
           )}
         >
           {showBranding && (
@@ -106,8 +105,8 @@ const GithubStar = React.forwardRef<HTMLAnchorElement, GithubStarProps>(
             className={cn(
               'flex items-center px-2.5 font-mono font-medium',
               variant === 'default' ? 'bg-muted/30' : 'bg-transparent',
-              isCyber && 'bg-black/40 text-cyan-300',
-              error && 'text-[9px] text-rose-500 italic opacity-70',
+              isCyber && 'bg-scrim text-signal',
+              error && 'text-alert text-[9px] italic opacity-70',
             )}
           >
             {isLoading ? (

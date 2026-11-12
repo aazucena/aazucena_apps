@@ -7,14 +7,13 @@ import { Robot, Activity, CheckCircle, XCircle } from '@aazucena/icons'; // Assu
 import { Avatar, AvatarFallback, AvatarImage } from '../avatar'; // Assuming Avatar components are available
 
 const chatAgentVariants = cva(
-  'flex items-center gap-3 rounded-md border p-3 transition-all duration-300',
+  'flex items-center gap-3 rounded-control border p-3 transition-all duration-300',
   {
     variants: {
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber:
-          'bg-background/40 dark:bg-black/40 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.1)] text-cyan-400',
+        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -30,11 +29,11 @@ export interface ChatAgentProps
 }
 
 const statusColorMap: Record<Required<ChatAgentProps>['status'], string> = {
-  idle: 'text-gray-500',
-  active: 'text-blue-500 animate-pulse',
-  thinking: 'text-yellow-500 animate-pulse',
-  online: 'text-green-500',
-  offline: 'text-red-500',
+  idle: 'text-muted-foreground',
+  active: 'text-signal animate-pulse',
+  thinking: 'text-warning animate-pulse',
+  online: 'text-success',
+  offline: 'text-alert',
 };
 
 const statusIconMap: Record<Required<ChatAgentProps>['status'], React.ElementType> = {

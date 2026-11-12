@@ -9,9 +9,9 @@ const readingTimeVariants = cva('inline-flex items-center gap-2 transition-all d
   variants: {
     variant: {
       default: 'text-muted-foreground',
-      cyber: 'text-cyan-400 font-mono tracking-tight',
+      cyber: 'text-signal font-mono tracking-tight',
       bright: 'text-foreground font-bold',
-      muted: 'text-gray-400 dark:text-gray-500 font-black uppercase tracking-[0.2em]',
+      muted: 'text-muted-foreground font-black uppercase tracking-[0.2em]',
     },
     size: {
       xs: 'text-[9px]',

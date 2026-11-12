@@ -4,26 +4,27 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const numberInputVariants = cva('inline-flex items-center rounded-md border transition-colors', {
-  variants: {
-    variant: {
-      default:
-        'border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-      glass: 'glass-m border-white/10 focus-within:border-white/30',
-      cyber:
-        'border-cyan-500/30 bg-black/50 focus-within:border-cyan-400 focus-within:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+const numberInputVariants = cva(
+  'inline-flex items-center rounded-control border transition-colors',
+  {
+    variants: {
+      variant: {
+        default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
+        glass: 'glass border-rule focus-within:border-rule',
+        cyber: 'border-signal/30 bg-scrim focus-within:border-signal',
+      },
+      size: {
+        sm: 'h-8 text-xs',
+        md: 'h-9 text-sm',
+        lg: 'h-10 text-base',
+      },
     },
-    size: {
-      sm: 'h-8 text-xs',
-      md: 'h-9 text-sm',
-      lg: 'h-10 text-base',
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    size: 'md',
-  },
-});
+);
 
 export interface NumberInputProps
   extends
@@ -73,7 +74,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     const btnCn = cn(
       'flex h-full items-center justify-center px-2 transition-colors disabled:opacity-40',
       variant === 'cyber'
-        ? 'text-cyan-400 hover:bg-cyan-500/10'
+        ? 'text-signal hover:bg-signal/10'
         : 'text-muted-foreground hover:bg-accent',
     );
 
@@ -86,7 +87,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           aria-label="Decrease"
           disabled={disabled || (min !== undefined && value <= min)}
           onClick={() => update(value - step)}
-          className={cn(btnCn, 'rounded-l-md border-r border-inherit')}
+          className={cn(btnCn, 'rounded-l-control border-r border-inherit')}
         >
           <svg
             width="12"
@@ -116,7 +117,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           aria-label="Increase"
           disabled={disabled || (max !== undefined && value >= max)}
           onClick={() => update(value + step)}
-          className={cn(btnCn, 'rounded-r-md border-l border-inherit')}
+          className={cn(btnCn, 'rounded-r-control border-l border-inherit')}
         >
           <svg
             width="12"

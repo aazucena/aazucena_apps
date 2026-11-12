@@ -17,20 +17,19 @@ const STATUS_ICONS = {
 /* ─── CVA: Result (root) ───────────────────────────────────────────────────── */
 
 const resultVariants = cva(
-  'flex flex-col items-center justify-center text-center rounded-2xl border p-8 md:p-12 transition-all duration-300',
+  'flex flex-col items-center justify-center text-center rounded-card border p-8 md:p-12 transition-all duration-300',
   {
     variants: {
       variant: {
-        default: 'bg-background shadow-sm',
-        glass: 'bg-background/5 dark:bg-white/5 backdrop-blur-xl border-border/10 shadow-2xl',
-        cyber:
-          'bg-background dark:bg-black border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+        default: 'bg-background',
+        glass: 'bg-background/5 dark:bg-state border-border/10',
+        cyber: 'bg-background border-signal/30',
       },
       status: {
-        success: 'border-emerald-500/30',
-        info: 'border-blue-500/30',
-        warning: 'border-amber-500/30',
-        error: 'border-rose-500/30',
+        success: 'border-success/30',
+        info: 'border-signal/30',
+        warning: 'border-warning/30',
+        error: 'border-alert/30',
       },
       size: {
         sm: 'p-6 max-w-sm gap-3',
@@ -39,10 +38,10 @@ const resultVariants = cva(
       },
     },
     compoundVariants: [
-      { variant: 'cyber', status: 'success', className: 'border-cyan-500/30' },
-      { variant: 'cyber', status: 'info', className: 'border-cyan-500/30' },
-      { variant: 'cyber', status: 'warning', className: 'border-cyan-500/30' },
-      { variant: 'cyber', status: 'error', className: 'border-cyan-500/30' },
+      { variant: 'cyber', status: 'success', className: 'border-signal/30' },
+      { variant: 'cyber', status: 'info', className: 'border-signal/30' },
+      { variant: 'cyber', status: 'warning', className: 'border-signal/30' },
+      { variant: 'cyber', status: 'error', className: 'border-signal/30' },
     ],
     defaultVariants: {
       variant: 'default',
@@ -58,12 +57,10 @@ const resultIconVariants = cva(
   {
     variants: {
       status: {
-        success:
-          'bg-emerald-50 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-950/50 dark:text-emerald-400',
-        info: 'bg-blue-50 text-blue-600 ring-blue-500/20 dark:bg-blue-950/50 dark:text-blue-400',
-        warning:
-          'bg-amber-50 text-amber-600 ring-amber-500/20 dark:bg-amber-950/50 dark:text-amber-400',
-        error: 'bg-rose-50 text-rose-600 ring-rose-500/20 dark:bg-rose-950/50 dark:text-rose-400',
+        success: 'bg-success/10 text-success ring-success/20 dark:bg-panel-raised/50',
+        info: 'bg-signal-faint text-signal ring-signal/20 dark:bg-panel-raised/50',
+        warning: 'bg-warning/10 text-warning ring-warning/20 dark:bg-panel-raised/50',
+        error: 'bg-alert/10 text-alert ring-alert/20 dark:bg-panel-raised/50',
       },
       size: {
         sm: 'size-12 [&_svg]:size-5',

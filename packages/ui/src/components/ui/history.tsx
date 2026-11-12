@@ -10,8 +10,7 @@ const historyVariants = cva('relative border-l-2 pl-8 transition-all duration-30
   variants: {
     variant: {
       default: 'border-border space-y-8',
-      cyber:
-        'border-border/10 dark:border-cyan-500/30 space-y-12 shadow-[inset_1px_0_0_rgba(6,182,212,0.1)]',
+      cyber: 'border-border/10 dark:border-signal/30 space-y-12',
     },
   },
   defaultVariants: {
@@ -58,7 +57,7 @@ const historyTitleVariants = cva(
     variants: {
       variant: {
         default: 'text-foreground group-hover:text-primary',
-        cyber: 'text-foreground group-hover:text-primary dark:group-hover:text-cyan-400',
+        cyber: 'text-foreground group-hover:text-primary dark:group-hover:text-signal',
       },
     },
     defaultVariants: {
@@ -120,7 +119,7 @@ const historyBadgeVariants = cva(
     variants: {
       variant: {
         default: 'text-muted-foreground opacity-60',
-        cyber: 'border-cyan-500/20 text-cyan-400 bg-cyan-500/5 opacity-100',
+        cyber: 'border-signal/20 text-signal bg-signal/5 opacity-100',
       },
     },
     defaultVariants: {

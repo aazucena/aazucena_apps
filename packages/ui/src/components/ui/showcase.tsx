@@ -34,10 +34,10 @@ ShowcaseFigure.displayName = 'ShowcaseFigure';
 const showcaseImageVariants = cva('relative overflow-hidden border transition-all duration-700', {
   variants: {
     variant: {
-      default: 'rounded-[2rem] border-border shadow-xl group-hover:shadow-2xl',
-      glass: 'rounded-[2rem] border-border/10 dark:border-white/10 shadow-2xl',
+      default: 'rounded-card border-border',
+      glass: 'rounded-card border-border/10 dark:border-rule',
       cyber:
-        'rounded-xl border-border/10 dark:border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] group-hover:border-primary/40 dark:group-hover:border-cyan-400',
+        'rounded-card border-border/10 dark:border-signal/20 group-hover:border-primary/40 dark:group-hover:border-signal',
     },
     aspect: {
       video: 'aspect-video',
@@ -60,9 +60,7 @@ const ShowcaseImage = React.forwardRef<
     <div
       className={cn(
         'pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-700 group-hover:opacity-100',
-        variant === 'cyber'
-          ? 'bg-gradient-to-tr from-cyan-500/10 to-transparent'
-          : 'from-primary/5 bg-gradient-to-tr to-transparent',
+        variant === 'cyber' ? '' : '',
       )}
     />
     {src && (

@@ -21,11 +21,9 @@ const cascaderVariants = cva('relative w-full', {
 });
 
 const triggerClasses: Record<string, string> = {
-  default:
-    'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring focus:ring-offset-2',
-  glass: 'glass-m border-white/10 hover:border-white/20',
-  cyber:
-    'border-cyan-500/30 bg-black/50 text-cyan-50 font-mono hover:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+  default: 'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring',
+  glass: 'glass border-rule hover:border-rule',
+  cyber: 'border-signal/30 bg-scrim text-signal font-mono hover:border-signal',
 };
 
 const sizeClasses: Record<string, string> = {
@@ -150,7 +148,7 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
           disabled={disabled}
           onClick={() => setOpen(!open)}
           className={cn(
-            'flex w-full items-center justify-between rounded-md border transition-all outline-none',
+            'rounded-control flex w-full items-center justify-between border transition-all outline-none',
             triggerClasses[v],
             sizeClasses[s],
             disabled && 'pointer-events-none opacity-50',
@@ -175,11 +173,11 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
         {open && (
           <div
             className={cn(
-              'absolute z-50 mt-1 flex rounded-md border shadow-lg',
+              'rounded-control absolute z-50 mt-1 flex border',
               v === 'cyber'
-                ? 'border-cyan-500/30 bg-black/95 shadow-[0_0_20px_rgba(6,182,212,0.1)]'
+                ? 'border-signal/30 bg-scrim'
                 : v === 'glass'
-                  ? 'glass border-white/10'
+                  ? 'glass border-rule'
                   : 'border-border bg-popover',
             )}
           >
@@ -189,7 +187,7 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
                 className={cn(
                   'max-h-56 w-40 overflow-auto p-1',
                   depth > 0 && 'border-l',
-                  v === 'cyber' ? 'border-cyan-500/20' : 'border-border',
+                  v === 'cyber' ? 'border-signal/20' : 'border-border',
                 )}
               >
                 {column.map((option) => {
@@ -206,10 +204,10 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
                         option.disabled && 'pointer-events-none opacity-50',
                         isActive
                           ? v === 'cyber'
-                            ? 'bg-cyan-500/20 text-cyan-400'
+                            ? 'bg-signal/20 text-signal'
                             : 'bg-accent text-accent-foreground'
                           : v === 'cyber'
-                            ? 'text-cyan-50 hover:bg-cyan-500/10'
+                            ? 'text-signal hover:bg-signal/10'
                             : 'hover:bg-accent',
                       )}
                     >
