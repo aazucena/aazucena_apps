@@ -104,6 +104,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(ui)_ Add Panel, PanelHeader and PanelBody
 - _(ui)_ Expose instrument tokens as Tailwind utilities
 - _(design-system)_ Instrument default vibe on ink neutrals
 - _(types)_ Add instrument theme roles to SystemThemeColors

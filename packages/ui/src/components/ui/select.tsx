@@ -13,14 +13,13 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const selectTriggerVariants = cva(
-  'flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border px-3 py-2 text-sm shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 transition-all duration-300',
+  'flex h-control w-full items-center justify-between whitespace-nowrap rounded-control border bg-background px-3 py-2 font-mono text-[13px] text-foreground data-[placeholder]:text-muted-foreground outline-none focus-visible:outline-1 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-signal focus-visible:border-signal data-[state=open]:border-signal disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 transition-[border-color] duration-200',
   {
     variants: {
       variant: {
-        default: 'border-input bg-transparent',
-        glass: 'glass-m text-foreground focus:bg-background/10 dark:bg-white/10 dark:text-white',
-        cyber:
-          'glass bg-primary-100 border-cyan-500/30 text-foreground focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.2)] dark:bg-background/40 dark:bg-black/40 dark:text-cyan-50',
+        default: 'border-rule-strong',
+        glass: 'glass',
+        cyber: 'border-signal/60 text-signal',
       },
     },
     defaultVariants: {
@@ -44,7 +43,7 @@ const SelectTrigger = React.forwardRef<
       <ChevronDown
         className={cn(
           'h-4 w-4 opacity-50 transition-colors',
-          variant === 'cyber' ? 'text-cyan-400' : 'text-current',
+          variant === 'cyber' ? 'text-signal' : 'text-muted-foreground',
         )}
       />
     </SelectPrimitive.Icon>
@@ -53,15 +52,13 @@ const SelectTrigger = React.forwardRef<
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const selectContentVariants = cva(
-  'relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border shadow-md data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-select-content-transform-origin]',
+  'relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-control border border-rule data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-select-content-transform-origin]',
   {
     variants: {
       variant: {
         default: 'bg-popover text-popover-foreground',
-        glass:
-          'bg-background/5 dark:bg-white/5 backdrop-blur-xl border-border/10 text-foreground shadow-2xl',
-        cyber:
-          'bg-black/90 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)]',
+        glass: 'glass text-foreground',
+        cyber: 'border-signal/40 bg-popover text-foreground',
       },
     },
     defaultVariants: {
@@ -137,7 +134,7 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn('px-2 py-1.5 text-sm font-semibold', className)}
+    className={cn('micro-label text-muted-foreground px-2 py-1.5', className)}
     {...props}
   />
 ));
@@ -150,7 +147,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 pl-2 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'focus:bg-state focus:text-foreground relative flex w-full cursor-default items-center rounded-[2px] py-1.5 pr-8 pl-2 font-mono text-[13px] outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className,
     )}
     {...props}
@@ -171,7 +168,7 @@ const SelectSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn('bg-muted -mx-1 my-1 h-px', className)}
+    className={cn('bg-rule -mx-1 my-1 h-px', className)}
     {...props}
   />
 ));

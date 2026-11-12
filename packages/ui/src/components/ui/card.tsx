@@ -4,60 +4,48 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const cardVariants = cva('transition-all duration-300', {
+const cardVariants = cva('transition-[border-color,background-color] duration-200', {
   variants: {
     variant: {
-      default: 'bg-card text-card-foreground shadow-sm border',
-      glass: 'glass text-foreground shadow-xl',
+      /** Tone-only panel surface: no shadow, no border (Avra 0.2). */
+      default: 'bg-card text-card-foreground',
+      glass: 'glass text-foreground',
       cyber:
-        'glass bg-primary-100 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)] text-foreground dark:bg-background/80 dark:bg-black/80 dark:text-cyan-50',
-      outline: 'bg-transparent border-2 border-muted text-foreground',
-      ghost: 'bg-transparent border-none text-foreground shadow-none',
-      // Dashboard variant absorbed from analytics app
-      dashboard:
-        'bg-background/5 dark:bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md',
+        'border border-signal/40 bg-card text-foreground shadow-[inset_0_0_12px_var(--signal-faint)]',
+      outline: 'border border-rule bg-transparent text-foreground',
+      ghost: 'border-none bg-transparent text-foreground',
+      /** @deprecated Analytics glass panel; renders as an instrument panel. Use `Panel`. */
+      dashboard: 'bg-card text-card-foreground',
     },
     padding: {
       none: '',
       sm: 'p-3',
       md: 'p-4',
-      lg: 'p-6',
-      xl: 'p-8',
-      '2xl': 'p-10',
+      lg: 'p-panel',
+      xl: 'p-6',
+      '2xl': 'p-8',
     },
+    /** All radii resolve to the 6px panel radius except `full`; legacy keys kept for API stability. */
     radius: {
-      default: 'rounded-xl',
-      lg: 'rounded-2xl',
-      xl: 'rounded-3xl',
-      '2xl': 'rounded-[2rem]',
-      '3xl': 'rounded-[2.5rem]',
+      default: 'rounded-card',
+      lg: 'rounded-card',
+      xl: 'rounded-card',
+      '2xl': 'rounded-card',
+      '3xl': 'rounded-card',
       full: 'rounded-full',
     },
     hover: {
-      true: 'hover:scale-[1.01] hover:shadow-md',
+      true: 'hover:bg-state',
       false: '',
     },
     clickable: {
-      true: 'cursor-pointer active:scale-[0.98]',
+      true: 'cursor-pointer active:opacity-90',
       false: '',
     },
   },
   compoundVariants: [
-    {
-      variant: 'cyber',
-      hover: true,
-      className: 'hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(6,182,212,0.2)]',
-    },
-    {
-      variant: 'glass',
-      hover: true,
-      className: 'hover:bg-background/10 dark:bg-white/10 hover:border-border/20',
-    },
-    {
-      variant: 'dashboard',
-      hover: true,
-      className: 'hover:border-zinc-300 dark:hover:border-zinc-700 shadow-lg dark:shadow-none',
-    },
+    { variant: 'cyber', hover: true, className: 'hover:border-signal' },
+    { variant: 'outline', hover: true, className: 'hover:border-rule-strong' },
   ],
   defaultVariants: {
     variant: 'default',
@@ -89,18 +77,14 @@ Card.displayName = 'Card';
 
 const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex flex-col space-y-1.5 p-6', className)} {...props} />
+    <div ref={ref} className={cn('p-panel flex flex-col gap-1.5', className)} {...props} />
   ),
 );
 CardHeader.displayName = 'CardHeader';
 
 const CardTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('leading-none font-semibold tracking-tight', className)}
-      {...props}
-    />
+    <div ref={ref} className={cn('text-base leading-tight font-medium', className)} {...props} />
   ),
 );
 CardTitle.displayName = 'CardTitle';
@@ -114,14 +98,14 @@ CardDescription.displayName = 'CardDescription';
 
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
+    <div ref={ref} className={cn('p-panel pt-0', className)} {...props} />
   ),
 );
 CardContent.displayName = 'CardContent';
 
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex items-center p-6 pt-0', className)} {...props} />
+    <div ref={ref} className={cn('p-panel flex items-center gap-2 pt-0', className)} {...props} />
   ),
 );
 CardFooter.displayName = 'CardFooter';
