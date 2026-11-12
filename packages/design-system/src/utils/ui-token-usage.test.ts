@@ -31,3 +31,33 @@ describe('@aazucena/ui token usage', () => {
     expect(offenders).toEqual([]);
   });
 });
+
+/** Variant keys whose element is a fill (bar, dot, rule, icon box): an empty value draws nothing. */
+const FILL_VARIANTS: Array<[file: string, cva: string, keys: string[]]> = [
+  ['progress.tsx', 'progressIndicatorVariants', ['default', 'cyber', 'glass', 'gradient']],
+  ['separator.tsx', 'separatorVariants', ['gradient', 'cyber-gradient']],
+  ['timeline.tsx', 'timelineDotVariants', ['default', 'primary', 'success', 'warning', 'danger']],
+  ['timeline.tsx', 'timelineLineVariants', ['default', 'cyber']],
+  ['hexagon-card.tsx', 'hexagonIconVariants', ['award', 'certification']],
+  [
+    'environment.tsx',
+    'environmentAtmosphereVariants',
+    ['exosphere', 'thermosphere', 'mesosphere', 'stratosphere', 'troposphere'],
+  ],
+];
+
+describe('@aazucena/ui fill variants (I1)', () => {
+  it.each(FILL_VARIANTS)('%s %s keeps a visible fill', (file, cvaName, keys) => {
+    const src = readFileSync(join(UI_DIR, file), 'utf8');
+    const start = src.indexOf(`const ${cvaName} = cva(`);
+    expect(start, `${cvaName} not found`).toBeGreaterThan(-1);
+    const block = src.slice(
+      start,
+      src.indexOf('\n});', start) > -1 ? src.indexOf('\n});', start) : start + 3000,
+    );
+    for (const key of keys) {
+      const m = block.match(new RegExp(`['"]?${key}['"]?:\\s*\\n?\\s*'([^']*)'`));
+      expect(m?.[1] ?? '', `${file} ${cvaName}.${key}`).toMatch(/\bbg-/);
+    }
+  });
+});

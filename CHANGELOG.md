@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Use the panel surface where the sweep put a translucent scrim
 - _(design-system)_ Distinct dark state tone and AA light status colors
 - _(design-system)_ Clear the previous vibe's tokens before applying the next
 - _(design-system)_ Raise light-mode muted text contrast in 9 vibes
