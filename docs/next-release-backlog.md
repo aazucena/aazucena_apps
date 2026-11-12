@@ -24,6 +24,10 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 - [x] **Link Figma frames to stories (2026-11-11).** Figma component sets bound to the Avra variables: Button (30 variants), Badge (16), Input (3), Select (3), Card (3), each with text properties, a description and a Storybook link; the five stories set `parameters.design`. Glass/cyber/gradient variants and the open Select listbox are not in Figma yet. The Design tab embed needs the Figma file shared as "anyone with the link can view" for public Storybook visitors.
 - [x] **Rin character story (2026-11-11).** `RinCharacter` and `RinMark` moved into `@aazucena/ui`; the emotion/behavior lists live in `@aazucena/constants` (`RIN_EMOTIONS`, `RIN_BEHAVIORS`), which the portfolio's `set_emotion` tool also uses. `Components/AI/RinCharacter` has `Fallback` and `Animated` stories with emotion and behavior controls; `Animated` reads `STORYBOOK_RIN_CHARACTER_SRC` once the .riv is hosted.
 
+## Portfolio
+
+- [ ] **Journey spider chart plots the total as a spoke.** `apps/portfolio/src/lib/transformers/skills.ts:120` puts `{ axis: "Total Skills" }` first among the axes. The chart then scales its rings to the total (56 in 2026), so the eight domains (max 15) collapse into a sliver, and the total spoke has no visible label because the year title covers it. Drop the total axis and show it as a value beside the chart, as the Figma Journey frame does. (Found in the Figma review, 2026-11-12.)
+
 ## Features
 
 _To be filled in from the feature list._
