@@ -13,7 +13,7 @@ import {
 } from "./constants";
 import { getToolOutput, loadPersistedMessages } from "./utils";
 import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
-import { type RinBehavior } from "./RinCharacter";
+import type { RinBehavior } from "@aazucena/constants";
 
 export type { RinEmotion, RinBehavior };
 export type ChatMode = "floating" | "offcanvas" | "fullscreen";

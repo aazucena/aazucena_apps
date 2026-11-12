@@ -1,32 +1,10 @@
 import { tool } from "ai";
 import { z } from "zod";
+import { RIN_EMOTIONS, type RinEmotion } from "@aazucena/constants";
 
-export const emotionEnum = z.enum([
-  "idle",
-  "happy",
-  "thinking",
-  "surprised",
-  "shocked",
-  "flustered",
-  "sad",
-  "angry",
-  "disgusted",
-  "laughing",
-  "delighted",
-  "uninterested",
-  "cute",
-  "annoyed",
-  "winking",
-  "silly",
-  "smirky",
-  "cringe",
-  "impressed",
-  "exhausted",
-  "confused",
-  "sleepy",
-]);
+export const emotionEnum = z.enum(RIN_EMOTIONS);
 
-export type RinEmotion = z.infer<typeof emotionEnum>;
+export type { RinEmotion };
 
 export const setEmotionTool = tool({
   description:

@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverAnchor,
 } from "@aazucena/ui";
-import { RinCharacter } from "./RinCharacter";
+import { RinCharacter } from "@aazucena/ui";
 import { type RinEmotion, type RinBehavior } from "./useAssistantChat";
 
 interface AssistantTriggerPopoverProps {

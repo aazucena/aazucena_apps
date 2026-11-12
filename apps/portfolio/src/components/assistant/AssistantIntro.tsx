@@ -10,7 +10,8 @@ import {
 } from "@aazucena/ui";
 import { getSuggestions } from "./constants";
 import { rinAvatarIcon } from "./RinMark";
-import { RinCharacter, type RinBehavior } from "./RinCharacter";
+import { RinCharacter } from "@aazucena/ui";
+import type { RinBehavior } from "@aazucena/constants";
 import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
 
 interface AssistantIntroProps {

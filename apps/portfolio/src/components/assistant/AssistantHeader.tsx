@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@aazucena/ui";
-import { RinCharacter } from "./RinCharacter";
+import { RinCharacter } from "@aazucena/ui";
 import {
   AssistantDropdown,
   type AssistantMenuAction,
