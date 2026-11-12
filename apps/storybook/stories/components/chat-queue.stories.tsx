@@ -8,7 +8,7 @@ const meta: Meta<typeof ChatQueue> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-visual'],
   argTypes: {
     queue: {
       control: 'object',

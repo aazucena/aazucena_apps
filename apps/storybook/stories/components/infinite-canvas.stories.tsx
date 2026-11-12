@@ -8,7 +8,7 @@ const meta: Meta<typeof InfiniteCanvas> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-visual'],
   argTypes: {
     width: {
       control: 'number',

@@ -49,7 +49,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'interaction-test'],
+  tags: ['autodocs', 'interaction-test', 'no-visual'],
   argTypes: {
     variant: {
       control: 'select',

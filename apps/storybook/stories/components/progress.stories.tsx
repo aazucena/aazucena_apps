@@ -20,7 +20,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-visual'],
   argTypes: {
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },

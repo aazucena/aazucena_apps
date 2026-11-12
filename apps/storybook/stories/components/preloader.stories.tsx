@@ -60,7 +60,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-visual'],
 } satisfies Meta<typeof Preloader>;
 
 export default meta;

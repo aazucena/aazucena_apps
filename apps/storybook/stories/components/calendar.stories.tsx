@@ -22,7 +22,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-visual'],
   argTypes: {
     variant: {
       control: 'select',

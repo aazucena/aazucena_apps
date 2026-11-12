@@ -42,7 +42,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'no-visual'],
 } satisfies Meta<typeof HeartbeatItem>;
 
 export default meta;
