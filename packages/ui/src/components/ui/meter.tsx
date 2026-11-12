@@ -84,7 +84,7 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>(
     return (
       <div ref={ref} className={cn('flex flex-col gap-2', className)} {...props}>
         {(label || showValue) && (
-          <div className="flex items-center justify-between text-sm font-medium">
+          <div className="flex items-center justify-between gap-4 text-sm font-medium">
             {label && (
               <span
                 className={cn(

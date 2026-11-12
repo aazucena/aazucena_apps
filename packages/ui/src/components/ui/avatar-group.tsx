@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Avatar, AvatarFallback } from './avatar';
 
-const avatarGroupVariants = cva('flex items-center', {
+const avatarGroupVariants = cva('flex items-center [&>*]:ring-2 [&>*]:ring-background', {
   variants: {
     variant: {
       default: '',

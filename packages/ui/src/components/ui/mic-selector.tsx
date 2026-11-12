@@ -68,9 +68,17 @@ const MicSelector = React.forwardRef<HTMLDivElement, MicSelectorProps>(
 
     if (!permissionGranted) {
       return (
-        <div ref={ref} className={cn(micSelectorVariants({ variant }), className)} {...props}>
-          <Alert className="text-alert h-5 w-5" />
-          <span className="text-alert text-sm">{error || 'Microphone access required.'}</span>
+        <div
+          ref={ref}
+          title={error || 'Microphone access required.'}
+          className={cn(micSelectorVariants({ variant }), 'min-w-0', className)}
+          {...props}
+        >
+          <Alert className="text-alert h-5 w-5 shrink-0" />
+          {/* One line: narrow toolbars (chat input) otherwise wrap this word by word */}
+          <span className="text-alert truncate text-sm">
+            {error || 'Microphone access required.'}
+          </span>
         </div>
       );
     }
