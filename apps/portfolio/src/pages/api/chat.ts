@@ -1,11 +1,23 @@
 import type { APIRoute } from "astro";
-import { streamText, convertToModelMessages, isStepCount } from "ai";
+import {
+  streamText,
+  convertToModelMessages,
+  isStepCount,
+  createGateway,
+} from "ai";
+import { getSecret } from "astro:env/server";
 import { setStrapiConfig } from "@aazucena/api";
-import { gateway } from "@aazucena/api/services/ai/gateway";
 import { fetchChatContext, fetchRagContext } from "~/lib/utils/chat/context";
 import { createChatTools } from "~/lib/utils/chat/tools";
 
 export const prerender = false;
+
+// Astro reads .env through astro:env, not process.env, so the shared
+// @aazucena/api gateway (process.env) never sees a local key under `astro dev`.
+// getSecret reads .env in dev and the real environment at runtime without
+// inlining the key into the build. With no key, the gateway falls back to
+// Vercel OIDC on deployments.
+const gateway = createGateway({ apiKey: getSecret("AI_GATEWAY_API_KEY") });
 
 export const POST: APIRoute = async ({ request }) => {
   let body: Record<string, unknown>;
