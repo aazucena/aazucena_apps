@@ -11,11 +11,10 @@ const separatorVariants = cva('shrink-0 transition-all duration-300', {
   variants: {
     variant: {
       default: 'bg-border',
-      glass: 'bg-background/10 dark:bg-white/10',
-      cyber: 'bg-primary/30 dark:bg-cyan-500/30 shadow-[0_0_8px_rgba(6,182,212,0.2)]',
-      gradient: 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500',
-      'cyber-gradient':
-        'bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-600 shadow-[0_0_10px_rgba(6,182,212,0.5)]',
+      glass: 'bg-background/10 dark:bg-state',
+      cyber: 'bg-primary/30 dark:bg-signal/30',
+      gradient: '',
+      'cyber-gradient': '',
     },
     thickness: {
       default: 'h-[1px] w-[1px]',

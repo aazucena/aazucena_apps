@@ -9,14 +9,14 @@ import * as React from 'react';
 const Tabs = TabsPrimitive.Root;
 
 const tabsListVariants = cva(
-  'inline-flex items-center justify-center rounded-lg p-1 transition-all',
+  'inline-flex items-center justify-center rounded-control p-1 transition-all',
   {
     variants: {
       variant: {
         default: 'bg-muted text-muted-foreground',
-        glass: 'glass-m text-foreground',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border border-cyan-500/20 text-cyan-600 dark:bg-zinc-950/40 dark:text-cyan-500/70',
+          'glass bg-signal-faint border border-signal/20 text-signal dark:bg-background/40 dark:text-signal/70',
         phone:
           'relative mt-16 mb-8 h-[420px] w-full max-w-[600px] flex items-center justify-center bg-transparent border-none overflow-visible',
       },
@@ -46,17 +46,17 @@ const TabsList = React.forwardRef<
 TabsList.displayName = TabsPrimitive.List.displayName;
 
 const tabsTriggerVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-control px-3 py-1 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default: 'data-active:bg-background data-active:text-foreground data-active:shadow',
         glass:
-          'text-foreground/60 data-active:bg-background/20 data-active:text-foreground data-active:border-white/20',
+          'text-foreground/60 data-active:bg-background/20 data-active:text-foreground data-active:border-rule',
         cyber:
-          'text-cyan-600/50 data-active:bg-cyan-500/10 data-active:text-cyan-600 dark:text-cyan-500/50 dark:data-active:text-cyan-400 data-active:border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0)] data-active:shadow-[0_0_15px_rgba(6,182,212,0.2)]',
+          'text-signal/50 data-active:bg-signal/10 data-active:text-signal data-active:border-signal/40',
         phone:
-          'absolute flex flex-col items-center justify-center gap-2 rounded-xl p-4 border backdrop-blur-sm pointer-events-auto border-border/10 bg-background/5 data-active:scale-110 data-active:border-primary/40 data-active:shadow-lg data-active:shadow-primary/20 text-muted-foreground data-active:text-foreground',
+          'absolute flex flex-col items-center justify-center gap-2 rounded-card p-4 border pointer-events-auto border-border/10 bg-background/5 data-active:scale-110 data-active:border-primary/40 text-muted-foreground data-active:text-foreground',
       },
     },
     defaultVariants: {
@@ -85,7 +85,7 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+      'focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:outline-none',
       className,
     )}
     {...props}

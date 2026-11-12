@@ -9,8 +9,8 @@ const progressVariants = cva('relative w-full overflow-hidden rounded-full trans
   variants: {
     variant: {
       default: 'bg-primary/20',
-      cyber: 'bg-primary/10 dark:bg-cyan-500/10 border border-border/10 dark:border-cyan-500/20',
-      glass: 'bg-background/10 dark:bg-white/10 backdrop-blur-sm border border-border/10',
+      cyber: 'bg-primary/10 dark:bg-signal/10 border border-border/10 dark:border-signal/20',
+      glass: 'bg-background/10 dark:bg-state border border-border/10',
       branded: 'bg-muted',
     },
     size: {
@@ -32,11 +32,11 @@ const progressIndicatorVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary',
-        cyber: 'bg-primary dark:bg-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.5)]',
-        glass: 'bg-primary dark:bg-white',
-        gradient: 'bg-gradient-to-r from-primary to-secondary',
-        emerald: 'bg-emerald-500',
-        rose: 'bg-rose-500',
+        cyber: 'bg-primary dark:bg-signal',
+        glass: 'bg-primary dark:bg-panel',
+        gradient: '',
+        emerald: 'bg-success',
+        rose: 'bg-alert',
       },
     },
     defaultVariants: {

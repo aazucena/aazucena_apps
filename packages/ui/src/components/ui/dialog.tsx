@@ -22,7 +22,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-background/80 fixed inset-0 z-50 backdrop-blur-sm dark:bg-black/80',
+      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-scrim fixed inset-0 z-50',
       className,
     )}
     {...props}
@@ -31,14 +31,13 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const dialogContentVariants = cva(
-  'fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 border shadow-lg duration-200 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-closed:slide-out-to-left-1/2 data-closed:slide-out-to-top-[48%] data-open:slide-in-from-left-1/2 data-open:slide-in-from-top-[48%] overflow-hidden transition-all',
+  'fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 border duration-200 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-closed:slide-out-to-left-1/2 data-closed:slide-out-to-top-[48%] data-open:slide-in-from-left-1/2 data-open:slide-in-from-top-[48%] overflow-hidden transition-all',
   {
     variants: {
       variant: {
-        default: 'bg-background rounded-lg p-6 text-foreground',
-        glass: 'glass text-foreground dark:text-white shadow-2xl rounded-[2rem] p-6',
-        cyber:
-          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_30px_rgba(6,182,212,0.2)] rounded-3xl p-6 dark:bg-black/90 dark:text-cyan-50',
+        default: 'bg-panel-raised rounded-card p-6 text-foreground',
+        glass: 'glass text-foreground rounded-card p-6',
+        cyber: 'border-signal/40 bg-panel-raised text-foreground rounded-card p-6',
       },
       size: {
         default: 'max-w-lg',
@@ -68,7 +67,7 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="ring-offset-background focus:ring-ring absolute top-4 right-4 z-50 rounded-full bg-black/30 p-2 text-white opacity-80 shadow-sm backdrop-blur-sm transition-all hover:scale-110 hover:bg-black/50 hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none dark:bg-white/15 dark:text-white dark:hover:bg-white/25">
+      <DialogPrimitive.Close className="rounded-control text-muted-foreground hover:bg-state hover:text-foreground focus-visible:outline-signal absolute top-3 right-3 z-50 p-2 transition-colors outline-none focus-visible:outline-1 focus-visible:outline-solid disabled:pointer-events-none">
         <Cross2Icon className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
@@ -91,8 +90,8 @@ const DialogHero = React.forwardRef<
     className={cn(
       'relative flex h-32 items-end overflow-hidden p-6',
       variant === 'cyber'
-        ? 'border-border/10 bg-background/40 border-b dark:border-cyan-500/20 dark:bg-cyan-950/40'
-        : 'from-primary/20 bg-gradient-to-r via-blue-600/20 to-purple-600/20',
+        ? 'border-border/10 bg-background/40 dark:border-signal/20 dark:bg-panel-raised/40 border-b'
+        : '',
       className,
     )}
     {...props}
@@ -110,10 +109,10 @@ const DialogIcon = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'flex h-16 w-16 items-center justify-center rounded-xl border-4 text-3xl shadow-xl transition-transform duration-500 hover:scale-110',
+      'rounded-card flex h-16 w-16 items-center justify-center border-4 text-3xl transition-transform duration-500 hover:scale-110',
       variant === 'cyber'
-        ? 'bg-background border-cyan-500/20 text-cyan-400 dark:bg-black'
-        : 'text-primary border-border/20 bg-white dark:bg-gray-800',
+        ? 'bg-background border-signal/20 text-signal'
+        : 'text-primary border-border/20 bg-panel dark:bg-panel-raised',
       className,
     )}
     {...props}

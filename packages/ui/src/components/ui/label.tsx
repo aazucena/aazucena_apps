@@ -13,8 +13,8 @@ const labelVariants = cva(
     variants: {
       variant: {
         default: 'text-foreground',
-        glass: 'text-foreground/80 dark:text-white/80',
-        cyber: 'font-mono text-[10px] uppercase tracking-widest text-cyan-500/70 text-glow-cyan',
+        glass: 'text-foreground/80',
+        cyber: 'font-mono text-[10px] uppercase tracking-widest text-signal/70 text-glow-cyan',
       },
     },
     defaultVariants: {

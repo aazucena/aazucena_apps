@@ -14,14 +14,14 @@ const Tooltip = TooltipPrimitive.Root;
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
 const tooltipContentVariants = cva(
-  'z-50 origin-[--radix-tooltip-content-transform-origin] overflow-hidden rounded-md px-3 py-1.5 text-xs animate-in fade-in-0 zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+  'z-50 origin-[--radix-tooltip-content-transform-origin] overflow-hidden rounded-control px-3 py-1.5 text-xs animate-in fade-in-0 zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow-md',
-        glass: 'glass-m text-foreground dark:text-white shadow-xl',
+        default: 'bg-primary text-primary-foreground',
+        glass: 'glass text-foreground',
         cyber:
-          'glass bg-primary-100 border-cyan-500/40 text-foreground shadow-[0_0_15px_rgba(6,182,212,0.2)] dark:bg-black/90 dark:text-cyan-50',
+          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-scrim dark:text-signal',
       },
     },
     defaultVariants: {
