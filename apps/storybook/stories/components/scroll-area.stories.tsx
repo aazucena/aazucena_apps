@@ -31,7 +31,7 @@ type Story = StoryObj<typeof meta>;
 
 const mockLogs = Array.from({ length: 50 }).map((_, i) => ({
   id: `0x7F${i.toString(16).padStart(2, '0')}`,
-  status: Math.random() > 0.8 ? 'FAILED' : 'STABLE',
+  status: i % 5 === 4 ? 'FAILED' : 'STABLE',
   message: `Synchronizing node telemetry unit ${i + 1}...`,
 }));
 
@@ -74,9 +74,9 @@ export const CyberTerminal: Story = {
               // KERNEL_INGESTION_LOG
             </span>
           </div>
-          {mockLogs.map((log) => (
+          {mockLogs.map((log, i) => (
             <div key={log.id} className="flex gap-4 text-[10px] tracking-tighter">
-              <span className="opacity-20">[{new Date().toLocaleTimeString()}]</span>
+              <span className="opacity-20">[14:35:{String(i % 60).padStart(2, '0')}]</span>
               <span className={log.status === 'FAILED' ? 'text-rose-500' : 'text-cyan-400'}>
                 {log.id}
               </span>

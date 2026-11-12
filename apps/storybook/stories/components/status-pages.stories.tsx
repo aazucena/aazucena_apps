@@ -112,9 +112,9 @@ export const Error500Cyber: Story = {
         </ErrorPageActions>
         <div className="mt-20 p-6 border-2 border-dashed border-cyan-500/10 rounded-2xl bg-cyan-500/5 max-w-md mx-auto">
           <p className="text-[10px] font-mono text-cyan-500/60 leading-relaxed">
-            Incident ID: {Math.random().toString(16).slice(2, 10).toUpperCase()}
+            Incident ID: 7F42A1C9
             <br />
-            Timestamp: {new Date().toISOString()}
+            Timestamp: 2026-11-11T14:35:00.000Z
             <br />
             Status: LISTENING_FOR_ADMIN_OVERRIDE
           </p>

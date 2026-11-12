@@ -228,7 +228,7 @@ export const Cyber: Story = {
         </Button>
       </ResultActions>
       <ResultExtra className="border-cyan-500/10 font-mono text-cyan-500/40">
-        Incident: INC-{Math.random().toString(16).slice(2, 10).toUpperCase()}
+        Incident: INC-7F42A1C9
       </ResultExtra>
     </Result>
   ),
