@@ -41,7 +41,7 @@ export const WithAutocompleteSlot: Story = {
     autocompleteSlot: (onSelect) => (
       <div className="space-y-2">
         <input
-          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground"
+          className="w-full rounded-control border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground"
           placeholder="Search for an address…"
           readOnly
         />
