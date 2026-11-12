@@ -50,7 +50,7 @@ type Story = StoryObj<typeof meta>;
 // Colored placeholder cells — explicit colors so they're always visible regardless of theme
 const Cell = ({
   label,
-  color = 'from-blue-500/20 to-cyan-500/20 border-blue-500/30',
+  color = 'border-signal/30',
   className = '',
 }: {
   label: string;
@@ -67,12 +67,12 @@ const Cell = ({
 );
 
 const COLORS = [
-  'from-blue-500/20 to-cyan-500/20 border-blue-500/30',
-  'from-violet-500/20 to-purple-500/20 border-violet-500/30',
-  'from-emerald-500/20 to-teal-500/20 border-emerald-500/30',
-  'from-orange-500/20 to-amber-500/20 border-orange-500/30',
-  'from-rose-500/20 to-pink-500/20 border-rose-500/30',
-  'from-sky-500/20 to-indigo-500/20 border-sky-500/30',
+  'border-signal/30',
+  'border-series-3/30',
+  'border-success/30',
+  'border-warning/30',
+  'border-alert/30',
+  'border-signal/30',
 ];
 
 // ---------------------------------------------------------------------------
@@ -116,7 +116,7 @@ export const AsymmetricLayout: Story = {
   render: () => (
     <Grid cols={12} gap="lg">
       <GridItem span={12} md={8}>
-        <div className="bg-gradient-to-br from-primary/10 to-blue-500/10 border border-primary/20 rounded-2xl p-6 min-h-[200px] flex flex-col gap-3">
+        <div className="border border-primary/20 rounded-card p-6 min-h-[200px] flex flex-col gap-3">
           <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Main Content — span=12 / md:8
           </span>
@@ -128,7 +128,7 @@ export const AsymmetricLayout: Story = {
         </div>
       </GridItem>
       <GridItem span={12} md={4}>
-        <div className="bg-card border border-border rounded-2xl p-6 min-h-[200px] flex flex-col gap-3 border-dashed">
+        <div className="bg-card border border-border rounded-card p-6 min-h-[200px] flex flex-col gap-3 border-dashed">
           <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Sidebar — span=12 / md:4
           </span>

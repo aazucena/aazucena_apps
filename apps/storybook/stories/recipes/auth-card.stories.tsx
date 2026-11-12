@@ -40,7 +40,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const SignIn: Story = {
   render: () => (
-    <Card className="w-[400px] shadow-2xl">
+    <Card className="w-[400px]">
       <CardHeader className="text-center">
         <CardTitle className="text-3xl font-black tracking-tighter">Welcome Back</CardTitle>
         <CardDescription>Sign in to your account to continue.</CardDescription>
@@ -104,7 +104,7 @@ export const SignIn: Story = {
  */
 export const SignUp: Story = {
   render: () => (
-    <Card className="w-[400px] shadow-2xl">
+    <Card className="w-[400px]">
       <CardHeader className="text-center">
         <CardTitle className="text-3xl font-black tracking-tighter">Create Account</CardTitle>
         <CardDescription>Join thousands of developers building with this stack.</CardDescription>

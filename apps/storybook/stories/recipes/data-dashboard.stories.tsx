@@ -89,7 +89,7 @@ export const Default: Story = {
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
-            <Card key={stat.label} className="shadow-sm">
+            <Card key={stat.label} className="">
               <CardContent className="pt-6">
                 <Stat>
                   <div className="flex items-center gap-2 mb-2">
@@ -97,7 +97,7 @@ export const Default: Story = {
                     <StatLabel>{stat.label}</StatLabel>
                   </div>
                   <StatValue>{stat.value}</StatValue>
-                  <StatDescription className="text-emerald-500 mt-1">{stat.change}</StatDescription>
+                  <StatDescription className="text-success mt-1">{stat.change}</StatDescription>
                 </Stat>
               </CardContent>
             </Card>

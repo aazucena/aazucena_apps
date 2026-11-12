@@ -106,14 +106,14 @@ export const TimelineWithPopup: StoryObj<typeof InteractiveTimeline> = {
       hoverPopup={(event, pos) =>
         event && pos ? (
           <div
-            className="absolute z-50 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-xl dark:border-gray-700 dark:bg-gray-900"
+            className="absolute z-50 rounded-card border border-rule bg-panel px-4 py-3"
             style={{ left: pos.x + 8, top: pos.y - 8 }}
           >
-            <p className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+            <p className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
               {(event as any).type}
             </p>
-            <p className="mt-1 text-sm font-bold text-gray-900 dark:text-white">{event.name}</p>
-            <p className="text-xs text-gray-500">{String(event.date)}</p>
+            <p className="mt-1 text-sm font-bold text-foreground">{event.name}</p>
+            <p className="text-xs text-muted-foreground">{String(event.date)}</p>
           </div>
         ) : null
       }

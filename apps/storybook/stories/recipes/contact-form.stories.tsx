@@ -41,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const ContactFormUI = ({ showErrors = false }: { showErrors?: boolean }) => (
-  <Card className="w-[480px] shadow-xl">
+  <Card className="w-[480px]">
     <CardHeader>
       <CardTitle className="text-2xl font-black tracking-tighter">Get In Touch</CardTitle>
       <CardDescription>Fill out the form below and I'll respond within 24 hours.</CardDescription>
@@ -62,7 +62,7 @@ const ContactFormUI = ({ showErrors = false }: { showErrors?: boolean }) => (
         {showErrors && <p className="text-xs text-destructive mt-1">Valid email is required</p>}
       </div>
       <Select>
-        <SelectTrigger aria-label="Inquiry type" className="rounded-xl h-12">
+        <SelectTrigger aria-label="Inquiry type" className="rounded-card h-12">
           <SelectValue placeholder="Select inquiry type" />
         </SelectTrigger>
         <SelectContent>

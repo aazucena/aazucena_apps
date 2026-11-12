@@ -47,24 +47,24 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <TooltipProvider delayDuration={200}>
-      <Card className="w-[340px] shadow-xl overflow-hidden">
+      <Card className="w-[340px] overflow-hidden">
         {/* Cover gradient */}
-        <div className="h-24 bg-gradient-to-br from-indigo-500 via-purple-600 to-cyan-600" />
+        <div className="h-24" />
         <CardContent className="-mt-12 pb-6">
           <div className="flex items-end justify-between mb-4">
-            <Avatar className="size-20 border-4 border-background shadow-xl">
+            <Avatar className="size-20 border-4 border-background">
               <AvatarFallback className="text-2xl font-black bg-primary/10">AA</AvatarFallback>
             </Avatar>
             <div className="flex items-center gap-2 pb-1">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="outline" className="size-9 rounded-xl">
+                  <Button size="icon" variant="outline" className="size-9 rounded-card">
                     <Email className="size-4" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>Send Message</TooltipContent>
               </Tooltip>
-              <Button size="sm" className="rounded-xl h-9 px-4">
+              <Button size="sm" className="rounded-card h-9 px-4">
                 <User className="mr-2 size-4" />
                 Follow
               </Button>
@@ -112,17 +112,17 @@ export const Default: Story = {
 export const WithActions: Story = {
   render: () => (
     <TooltipProvider delayDuration={200}>
-      <Card className="w-[340px] shadow-xl overflow-hidden">
-        <div className="h-24 bg-gradient-to-br from-indigo-500 via-purple-600 to-cyan-600" />
+      <Card className="w-[340px] overflow-hidden">
+        <div className="h-24" />
         <CardContent className="-mt-12 pb-6">
           <div className="flex items-end justify-between mb-4">
-            <Avatar className="size-20 border-4 border-background shadow-xl">
+            <Avatar className="size-20 border-4 border-background">
               <AvatarFallback className="text-2xl font-black bg-primary/10">AA</AvatarFallback>
             </Avatar>
             <div className="flex items-center gap-2 pb-1">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="outline" className="size-9 rounded-xl">
+                  <Button size="icon" variant="outline" className="size-9 rounded-card">
                     <Dots className="size-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -139,7 +139,7 @@ export const WithActions: Story = {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button size="sm" className="rounded-xl h-9 px-4">
+              <Button size="sm" className="rounded-card h-9 px-4">
                 <User className="mr-2 size-4" />
                 Follow
               </Button>

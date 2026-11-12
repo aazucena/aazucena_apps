@@ -49,7 +49,7 @@ const meta = {
     (Story) => (
       <AnimationProvider>
         <PortfolioProvider totalSections={8}>
-          <div className="w-full h-screen bg-slate-950">
+          <div className="w-full h-screen bg-background">
             <Canvas
               frameloop="demand"
               camera={{ position: [0, 0, 0], fov: 15 }}

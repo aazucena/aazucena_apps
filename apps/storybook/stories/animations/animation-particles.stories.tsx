@@ -94,7 +94,7 @@ export const Space: Story = {
     }, []);
 
     return (
-      <div className="bg-slate-950 w-full h-screen">
+      <div className="bg-background w-full h-screen">
         <AnimationParticles {...args} width={dimensions.width} height={dimensions.height} />
       </div>
     );

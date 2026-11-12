@@ -97,7 +97,7 @@ const NotificationItem = ({ notification }: { notification: Notification }) => (
  */
 export const Default: Story = {
   render: () => (
-    <Card className="w-[380px] shadow-xl">
+    <Card className="w-[380px]">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-black tracking-tight flex items-center gap-2">
@@ -123,7 +123,7 @@ export const Default: Story = {
  */
 export const WithUnread: Story = {
   render: () => (
-    <Card className="w-[380px] shadow-xl">
+    <Card className="w-[380px]">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-black tracking-tight flex items-center gap-2">

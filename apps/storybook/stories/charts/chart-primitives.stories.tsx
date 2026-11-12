@@ -69,18 +69,18 @@ export const ComposedLayout: StoryObj = {
         </div>
       </ChartHeader>
       <ChartContent className="h-48">
-        <div className="flex items-center justify-center h-full border-2 border-dashed border-border/30 rounded-lg text-muted-foreground text-sm">
+        <div className="flex items-center justify-center h-full border-2 border-dashed border-border/30 rounded-control text-muted-foreground text-sm">
           Chart SVG renders here
         </div>
       </ChartContent>
       <ChartFooter>
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-blue-500" />
+            <span className="w-2 h-2 rounded-full bg-signal" />
             Series A
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="w-2 h-2 rounded-full bg-success" />
             Series B
           </span>
         </div>

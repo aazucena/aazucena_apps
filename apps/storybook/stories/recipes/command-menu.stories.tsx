@@ -37,7 +37,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Default: Story = {
   render: () => (
-    <div className="w-[560px] shadow-2xl rounded-2xl border overflow-hidden bg-background">
+    <div className="w-[560px] rounded-card border overflow-hidden bg-background">
       <Command className="rounded-none">
         <div className="flex items-center border-b px-4 py-3 gap-3">
           <Search className="size-4 shrink-0 opacity-50" />
@@ -60,7 +60,7 @@ export const Default: Story = {
               </Badge>
             </CommandItem>
             <CommandItem className="gap-3 py-2.5">
-              <Zap className="size-4 text-amber-500" />
+              <Zap className="size-4 text-warning" />
               <span>Run Build</span>
               <Badge variant="secondary" className="ml-auto text-[10px]">
                 ⌘B
@@ -70,15 +70,15 @@ export const Default: Story = {
           <CommandSeparator />
           <CommandGroup heading="Navigation">
             <CommandItem className="gap-3 py-2.5">
-              <Globe className="size-4 text-blue-500" />
+              <Globe className="size-4 text-signal" />
               <span>Portfolio</span>
             </CommandItem>
             <CommandItem className="gap-3 py-2.5">
-              <FileText className="size-4 text-green-500" />
+              <FileText className="size-4 text-success" />
               <span>Documentation</span>
             </CommandItem>
             <CommandItem className="gap-3 py-2.5">
-              <Users className="size-4 text-purple-500" />
+              <Users className="size-4 text-series-3" />
               <span>Team Members</span>
             </CommandItem>
           </CommandGroup>

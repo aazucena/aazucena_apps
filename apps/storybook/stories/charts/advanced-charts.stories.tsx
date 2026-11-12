@@ -71,19 +71,19 @@ export const HeatmapWithInfoPanel: StoryObj<typeof Heatmap> = {
         <div className="flex h-full flex-col justify-center gap-3 p-4">
           {cell ? (
             <>
-              <p className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+              <p className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
                 Selected Cell
               </p>
-              <p className="text-2xl font-black text-gray-900 dark:text-white">{cell.value}</p>
-              <p className="text-sm text-gray-500">{String(cell.date)}</p>
+              <p className="text-2xl font-black text-foreground">{cell.value}</p>
+              <p className="text-sm text-muted-foreground">{String(cell.date)}</p>
               {cell.category && (
-                <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                <span className="inline-block rounded-full bg-signal/10 px-3 py-1 text-xs font-bold text-signal dark:bg-panel-raised/30">
                   {cell.category}
                 </span>
               )}
             </>
           ) : (
-            <p className="text-sm text-gray-400">Hover a cell to see details</p>
+            <p className="text-sm text-muted-foreground">Hover a cell to see details</p>
           )}
         </div>
       )}

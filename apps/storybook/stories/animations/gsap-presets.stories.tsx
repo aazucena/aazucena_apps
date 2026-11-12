@@ -39,7 +39,7 @@ const AnimationBox = ({
     <div className="flex flex-col items-center gap-4">
       <div
         ref={boxRef}
-        className="w-24 h-24 bg-blue-500 rounded-xl shadow-lg flex items-center justify-center text-white font-bold"
+        className="w-24 h-24 bg-signal rounded-card flex items-center justify-center text-foreground font-bold"
       >
         Box
       </div>
@@ -49,7 +49,7 @@ const AnimationBox = ({
           gsap.set(boxRef.current, { clearProps: 'all' });
           applyPreset(boxRef.current, preset);
         }}
-        className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs transition-colors"
+        className="px-3 py-1 bg-panel-raised hover:bg-panel-raised text-foreground rounded text-xs transition-colors"
       >
         Replay
       </button>
@@ -98,7 +98,7 @@ export const StaggeredGroup: StoryObj = {
           {[1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="stagger-item w-16 h-16 bg-orange-500 rounded-lg shadow-md flex items-center justify-center text-white font-bold"
+              className="stagger-item w-16 h-16 bg-warning rounded-control flex items-center justify-center text-foreground font-bold"
             >
               {i}
             </div>
@@ -112,7 +112,7 @@ export const StaggeredGroup: StoryObj = {
               staggerFadeIn(Array.from(children), 0.1);
             }
           }}
-          className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-md text-sm transition-colors"
+          className="px-4 py-2 bg-panel-raised hover:bg-panel-raised text-foreground rounded-control text-sm transition-colors"
         >
           Replay Stagger
         </button>

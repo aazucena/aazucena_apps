@@ -81,10 +81,10 @@ const SidebarSlot = ({ collapsed = false }: { collapsed?: boolean }) => (
 );
 
 const HeaderSlot = () => (
-  <header className="h-14 shrink-0 flex items-center justify-between px-6 border-b border-border bg-background/80 backdrop-blur-sm">
+  <header className="h-14 shrink-0 flex items-center justify-between px-6 border-b border-border bg-background/80">
     <div className="flex items-center gap-3">
       <div className="h-5 w-24 rounded bg-muted animate-pulse" />
-      <div className="size-1.5 rounded-full bg-green-500" />
+      <div className="size-1.5 rounded-full bg-success" />
       <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
         Online
       </span>
@@ -98,7 +98,7 @@ const HeaderSlot = () => (
 
 const ContentPlaceholder = ({ rows = 3 }: { rows?: number }) => (
   <div className="space-y-6">
-    <div className="h-32 rounded-2xl bg-gradient-to-br from-primary/10 to-blue-500/10 border border-primary/20 flex items-center px-8">
+    <div className="h-32 rounded-card border border-primary/20 flex items-center px-8">
       <div>
         <div className="h-6 w-48 rounded bg-foreground/10 mb-2" />
         <div className="h-3 w-32 rounded bg-foreground/5" />
@@ -108,7 +108,7 @@ const ContentPlaceholder = ({ rows = 3 }: { rows?: number }) => (
       {Array.from({ length: rows * 2 }).map((_, i) => (
         <div
           key={i}
-          className="h-40 rounded-xl bg-card border border-border/50 border-dashed flex items-center justify-center"
+          className="h-40 rounded-card bg-card border border-border/50 border-dashed flex items-center justify-center"
         >
           <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">
             Module_0{i + 1}
@@ -172,7 +172,7 @@ export const WithContentMaxWidths: Story = {
       {(['sm', 'md', 'lg', 'xl', '2xl', '7xl', 'full'] as const).map((mw) => (
         <div
           key={mw}
-          className="border border-border rounded-xl overflow-hidden"
+          className="border border-border rounded-card overflow-hidden"
           style={{ height: 180 }}
         >
           <DashboardLayout
@@ -187,7 +187,7 @@ export const WithContentMaxWidths: Story = {
             contentMaxWidth={mw}
             contentPadding="sm"
           >
-            <div className="h-20 rounded-lg bg-primary/10 border border-primary/20 border-dashed flex items-center justify-center">
+            <div className="h-20 rounded-control bg-primary/10 border border-primary/20 border-dashed flex items-center justify-center">
               <span className="text-[10px] font-mono text-primary">
                 max-w-{mw === '7xl' ? '7xl' : mw}
               </span>
