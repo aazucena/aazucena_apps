@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Keep hexagon card labels inside the shape's wide band
 - _(ui)_ Meter label gap, hexagon text inset, avatar rings, one-line mic error
 - _(ui)_ Quiet static panels, marked destructive badges, select item radius
 - _(design-system)_ Per-vibe signal and alert contrast
