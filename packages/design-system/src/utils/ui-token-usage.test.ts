@@ -30,6 +30,61 @@ describe('@aazucena/ui token usage', () => {
     }
     expect(offenders).toEqual([]);
   });
+
+  it('hovers with the state tone, not a solid accent fill (hover:bg-accent needs accent text)', () => {
+    const offenders: string[] = [];
+    for (const file of tsxFiles(UI_DIR)) {
+      const src = readFileSync(file, 'utf8');
+      for (const [, , body] of src.matchAll(LITERALS)) {
+        if (/hover:bg-accent\b/.test(body!) && !/hover:text-accent-foreground\b/.test(body!)) {
+          offenders.push(`${file.split('components/ui/')[1]}: ${body!.slice(0, 80)}`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it('keeps a gradient utility wherever gradient stops are set (the sweep stripped some)', () => {
+    const offenders: string[] = [];
+    for (const file of tsxFiles(UI_DIR)) {
+      const src = readFileSync(file, 'utf8');
+      for (const [, , body] of src.matchAll(LITERALS)) {
+        if (/(^|\s)from-\S/.test(body!) && !/\bbg-(gradient|linear|radial|conic)-?/.test(body!)) {
+          offenders.push(`${file.split('components/ui/')[1]}: ${body!.slice(0, 80)}`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it('never sets text in translucent signal (it falls to 2-3:1 on panels)', () => {
+    const offenders: string[] = [];
+    for (const file of tsxFiles(UI_DIR)) {
+      readFileSync(file, 'utf8')
+        .split('\n')
+        .forEach((line, i) => {
+          if (/text-signal\/\d+/.test(line))
+            offenders.push(`${file.split('components/ui/')[1]}:${i + 1}`);
+        });
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it('uses the signal token instead of stock Tailwind cyan', () => {
+    // Swatch palettes are data the user picks from, not chrome
+    const allowed = [/^\s*'#06b6d4',$/];
+    const offenders: string[] = [];
+    for (const file of tsxFiles(UI_DIR)) {
+      readFileSync(file, 'utf8')
+        .split('\n')
+        .forEach((line, i) => {
+          if (!/\bcyan-\d|rgba\(6,\s*182,\s*212|rgba\(34,\s*211,\s*238|#06b6d4/.test(line)) return;
+          if (allowed.some((re) => re.test(line))) return;
+          offenders.push(`${file.split('components/ui/')[1]}:${i + 1}`);
+        });
+    }
+    expect(offenders).toEqual([]);
+  });
 });
 
 /** Variant keys whose element is a fill (bar, dot, rule, icon box): an empty value draws nothing. */
