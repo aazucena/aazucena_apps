@@ -7,6 +7,7 @@ import { kebabCase, forEach } from 'lodash-es';
 import { fontFamilies } from '../tokens/typography';
 import { vibes } from '../themes/registry';
 import type { SystemThemeConfig } from '@aazucena/types';
+import { deriveAliases } from './aliases';
 
 // ---------------------------------------------------------------------------
 // Environment guard
@@ -81,6 +82,11 @@ export function writeThemeConfig(
   // Colors
   forEach(config.colors, (value, key) => {
     set(`--${kebabCase(key)}`, value as string);
+  });
+
+  // shadcn aliases (concrete values so they follow the applied vibe)
+  forEach(deriveAliases(config.colors), (value, key) => {
+    if (value) set(`--${key}`, value);
   });
 
   // Effects

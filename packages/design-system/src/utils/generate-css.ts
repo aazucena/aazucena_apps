@@ -9,6 +9,7 @@ import { breakpoints } from '../tokens/breakpoints';
 import { transitions } from '../tokens/motion';
 import { density, motionTokens } from '../tokens/instrument';
 import type { SystemThemeConfig } from '@aazucena/types';
+import { deriveAliases } from './aliases';
 
 const toKebabCase = kebabCase;
 
@@ -21,6 +22,12 @@ function generateSemanticVars(theme: SystemThemeConfig, indent: string = '  '): 
   // Colors
   Object.entries(theme.colors).forEach(([key, value]) => {
     css += `${indent}--${toKebabCase(key)}: ${value};\n`;
+  });
+
+  // shadcn aliases consumed by @aazucena/ui @theme
+  css += `\n${indent}/* Aliases */\n`;
+  Object.entries(deriveAliases(theme.colors)).forEach(([key, value]) => {
+    css += `${indent}--${key}: ${value};\n`;
   });
 
   // Effects

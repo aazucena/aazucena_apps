@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { wcagContrast } from 'culori';
 import { generateCssVariables } from './generate-css';
+import { deriveAliases } from './aliases';
+import { vibes } from '../themes/registry';
 
 const css = generateCssVariables('default');
 const rootBlock = css.slice(css.indexOf(':root {'), css.indexOf('.dark {'));
@@ -98,5 +100,27 @@ describe('default vibe: instrument tokens', () => {
       expect(wcagContrast(v('signal-foreground'), v('signal'))).toBeGreaterThanOrEqual(4.5);
       expect(wcagContrast(v('rule-strong'), v('panel'))).toBeGreaterThanOrEqual(3);
     }
+  });
+});
+
+describe('shadcn aliases', () => {
+  it('resolves the aliases Tailwind @theme references, in both modes', () => {
+    for (const block of [rootBlock, darkBlock]) {
+      expect(read(block, 'card')).toBe(read(block, 'panel'));
+      expect(read(block, 'popover')).toBe(read(block, 'panel-raised'));
+      expect(read(block, 'muted')).toBe(read(block, 'panel-raised'));
+      expect(read(block, 'input')).toBe(read(block, 'rule-strong'));
+      expect(read(block, 'ring')).toBe(read(block, 'signal'));
+      expect(read(block, 'chart-1')).toBe(read(block, 'series-1'));
+      expect(read(block, 'sidebar')).toBe(read(block, 'panel'));
+      expect(read(block, 'sidebar-accent')).toBe(read(block, 'state'));
+    }
+  });
+
+  it('falls back to legacy roles for vibes without instrument roles', () => {
+    const aliases = deriveAliases(vibes['christmas']!.dark.colors);
+    expect(aliases.card).toBe(vibes['christmas']!.dark.colors.cardBackground);
+    expect(aliases.ring).toBe(vibes['christmas']!.dark.colors.primary);
+    expect(aliases.input).toBe(vibes['christmas']!.dark.colors.border);
   });
 });

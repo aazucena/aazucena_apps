@@ -103,6 +103,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(design-system)_ Instrument default vibe on ink neutrals
 - _(types)_ Add instrument theme roles to SystemThemeColors
 - _(constants)_ Add Rin emotion and behavior lists
 - _(storybook)_ Show new, beta, and deprecated badges in the sidebar
