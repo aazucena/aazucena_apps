@@ -16,14 +16,15 @@ The content layer also runs on its own token island. `apps/portfolio/src/styles/
 
 **The instrument language owns the content layer. The scenes stay.**
 
-| Layer                                 | Treatment                                                                                                                                           |
-| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Three.js / PixiJS scenes, GSAP motion | Unchanged. Particle colors move to the signal and series hues (`config/animations.ts` `PARTICLE_PRESETS`), read from the tokens once at scene init. |
-| Cards, lists, menus                   | Panels: `panel` surface, 1px `rule`, 6px radius, micro-caps header strip (`BIO // 6+ YEARS`). No blur, no shadow.                                   |
-| Type                                  | Fira Sans headings, Fira Code for labels, dates and data. Values use `Display/Value`.                                                               |
-| Actions                               | Instrument buttons (4px). The Rin trigger is a signal outline button, not coral: coral is reserved for alerts.                                      |
-| Tags and chips                        | Square outline badges; the active filter uses the cyber badge.                                                                                      |
-| Journey and Blog pages                | The same panels in light and dark; D3 charts read `chartTheme` (series order cyan → olive → violet → rose).                                         |
+| Layer                                 | Treatment                                                                                                                                                                  |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Three.js / PixiJS scenes, GSAP motion | Unchanged. Particle colors move to the signal and series hues (`config/animations.ts` `PARTICLE_PRESETS`), read from the tokens once at scene init.                        |
+| Cards, lists, menus                   | Panels: `panel` surface, 1px `rule`, 6px radius, micro-caps header strip (`BIO // 6+ YEARS`). No blur, no shadow.                                                          |
+| Type                                  | Fira Sans headings, Fira Code for labels, dates and data. Values use `Display/Value`.                                                                                      |
+| Actions                               | Instrument buttons (4px). The Rin trigger is a signal outline button, not coral: coral is reserved for alerts.                                                             |
+| Tags and chips                        | Square outline badges; the active filter uses the cyber badge.                                                                                                             |
+| Expertise                             | Keeps its kanban board: one lane per domain, scrolling horizontally. Proficiency badges are Expert = cyber, Proficient = outline, Competent = secondary, Learning = glass. |
+| Journey and Blog pages                | The same panels in light and dark; D3 charts read `chartTheme` (series order cyan → olive → violet → rose).                                                                |
 
 ## Availability status (decided 2026-11-12)
 
