@@ -75,7 +75,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       'flex h-full items-center justify-center px-2 transition-colors disabled:opacity-40',
       variant === 'cyber'
         ? 'text-signal hover:bg-signal/10'
-        : 'text-muted-foreground hover:bg-accent',
+        : 'text-muted-foreground hover:bg-state',
     );
 
     return (

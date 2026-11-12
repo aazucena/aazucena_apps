@@ -12,7 +12,7 @@ const chipVariants = cva(
         default: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         glass: 'glass text-foreground hover:opacity-80',
         cyber: 'bg-signal/10 border border-signal/30 text-signal font-mono text-xs',
-        outline: 'border border-input bg-background hover:bg-accent',
+        outline: 'border border-input bg-background hover:bg-state',
         primary: 'bg-primary/10 text-primary border border-primary/20',
         destructive: 'bg-destructive/10 text-destructive border border-destructive/20',
       },

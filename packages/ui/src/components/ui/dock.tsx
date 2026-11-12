@@ -119,7 +119,7 @@ const DockItem = React.forwardRef<HTMLDivElement, DockItemProps>(
             ? 'text-signal hover:bg-signal/10'
             : variant === 'glass'
               ? 'hover:bg-state'
-              : 'hover:bg-accent',
+              : 'hover:bg-state',
           className,
         )}
         style={{ transform: `scale(${scale})` }}

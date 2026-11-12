@@ -107,7 +107,7 @@ const distributionTagVariants = cva(
         default:
           'px-2 py-0.5 text-[10px] opacity-50 border-transparent bg-muted/50 hover:opacity-100 hover:border-border',
         emphasis:
-          'px-2.5 py-1 text-xs font-bold border-border bg-muted text-foreground hover:bg-accent',
+          'px-2.5 py-1 text-xs font-bold border-border bg-muted text-foreground hover:bg-state',
         cyber:
           'px-2.5 py-1 text-xs font-black uppercase tracking-widest border-signal/20 bg-signal/5 text-signal hover:border-signal hover:bg-signal/10',
       },

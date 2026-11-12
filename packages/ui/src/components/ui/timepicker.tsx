@@ -21,7 +21,7 @@ const timepickerVariants = cva('inline-flex items-center', {
 });
 
 const selectStyles: Record<string, string> = {
-  default: 'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring',
+  default: 'border-input bg-background hover:bg-state focus:ring-2 focus:ring-ring',
   glass: 'glass border-rule',
   cyber: 'border-signal/30 bg-panel text-signal font-mono focus:border-signal',
 };

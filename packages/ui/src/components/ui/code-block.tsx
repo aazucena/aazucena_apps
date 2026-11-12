@@ -91,7 +91,7 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
               'rounded-control flex min-w-[64px] items-center justify-center gap-1.5 px-2 py-1 text-[10px] font-bold uppercase transition-all active:scale-95',
               v === 'cyber'
                 ? 'text-signal/60 hover:bg-signal/10 hover:text-signal'
-                : 'text-muted-foreground hover:bg-accent hover:text-foreground',
+                : 'text-muted-foreground hover:bg-state hover:text-foreground',
               copied && 'text-success',
               copyError && 'text-alert',
             )}

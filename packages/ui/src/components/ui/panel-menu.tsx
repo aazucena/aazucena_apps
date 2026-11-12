@@ -45,7 +45,7 @@ function PanelMenuItemComponent({
       onClick={() => (hasChildren ? setOpen(!open) : undefined)}
       className={cn(
         'flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors',
-        variant === 'cyber' ? 'text-signal hover:bg-signal/10' : 'hover:bg-accent',
+        variant === 'cyber' ? 'text-signal hover:bg-signal/10' : 'hover:bg-state',
       )}
       style={{ paddingLeft: `${depth * 16 + 12}px` }}
     >

@@ -57,7 +57,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
       <div
         ref={ref}
         className={cn(
-          'group hover:bg-accent/40 rounded-control flex items-center gap-2 px-2 py-1.5 transition-all duration-200',
+          'group hover:bg-state rounded-control flex items-center gap-2 px-2 py-1.5 transition-all duration-200',
           variant === 'cyber' && 'hover:bg-signal/5',
         )}
       >

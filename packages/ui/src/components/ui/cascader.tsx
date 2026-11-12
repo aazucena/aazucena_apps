@@ -21,7 +21,7 @@ const cascaderVariants = cva('relative w-full', {
 });
 
 const triggerClasses: Record<string, string> = {
-  default: 'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring',
+  default: 'border-input bg-background hover:bg-state focus:ring-2 focus:ring-ring',
   glass: 'glass border-rule hover:border-rule',
   cyber: 'border-signal/30 bg-panel text-signal font-mono hover:border-signal',
 };
@@ -208,7 +208,7 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
                             : 'bg-accent text-accent-foreground'
                           : v === 'cyber'
                             ? 'text-signal hover:bg-signal/10'
-                            : 'hover:bg-accent',
+                            : 'hover:bg-state',
                       )}
                     >
                       <span className="truncate">{option.label}</span>

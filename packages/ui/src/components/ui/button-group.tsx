@@ -51,7 +51,7 @@ const buttonGroupItemVariants = cva(
         default: '',
         cta: 'px-10 py-5 rounded-card bg-primary text-primary-foreground hover:bg-primary/90 text-xs uppercase tracking-[0.2em]',
         outline:
-          'px-10 py-5 rounded-card border border-border bg-background hover:bg-accent text-foreground text-xs uppercase tracking-[0.2em]',
+          'px-10 py-5 rounded-card border border-border bg-background hover:bg-state text-foreground text-xs uppercase tracking-[0.2em]',
         glass:
           'px-10 py-5 rounded-card bg-background/10 dark:bg-state border border-border/20 text-foreground hover:bg-panel-raised text-xs uppercase tracking-[0.2em]',
         cyber:

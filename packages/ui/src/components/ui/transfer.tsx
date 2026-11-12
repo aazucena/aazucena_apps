@@ -165,7 +165,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
                   className={cn(
                     'flex cursor-pointer items-center gap-2 rounded px-2 py-1 transition-colors',
                     item.disabled && 'pointer-events-none opacity-50',
-                    v === 'cyber' ? 'hover:bg-signal/10' : 'hover:bg-accent',
+                    v === 'cyber' ? 'hover:bg-signal/10' : 'hover:bg-state',
                   )}
                 >
                   <input
@@ -212,7 +212,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
               'rounded-control border p-1.5 transition-all disabled:opacity-30',
               v === 'cyber'
                 ? 'border-signal/30 text-signal hover:bg-signal/10'
-                : 'border-border hover:bg-accent',
+                : 'border-border hover:bg-state',
             )}
           >
             <svg
@@ -236,7 +236,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
               'rounded-control border p-1.5 transition-all disabled:opacity-30',
               v === 'cyber'
                 ? 'border-signal/30 text-signal hover:bg-signal/10'
-                : 'border-border hover:bg-accent',
+                : 'border-border hover:bg-state',
             )}
           >
             <svg

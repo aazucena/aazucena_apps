@@ -30,7 +30,7 @@ const triggerClasses: Record<string, string> = {
 };
 
 const actionClasses: Record<string, string> = {
-  default: 'bg-background border border-border text-foreground hover:bg-accent',
+  default: 'bg-background border border-border text-foreground hover:bg-state',
   glass: 'glass text-foreground hover:opacity-80',
   cyber: 'bg-panel border border-signal/30 text-signal hover:bg-signal/10',
 };

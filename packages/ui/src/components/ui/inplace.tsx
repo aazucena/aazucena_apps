@@ -106,7 +106,7 @@ const Inplace = React.forwardRef<HTMLDivElement, InplaceProps>(
                 ? 'text-signal hover:bg-signal/10'
                 : v === 'glass'
                   ? 'hover:bg-state'
-                  : 'hover:bg-accent',
+                  : 'hover:bg-state',
             )}
           >
             {display}

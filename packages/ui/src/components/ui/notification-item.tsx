@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const notificationItemVariants = cva(
-  'flex items-start gap-3 rounded-control px-3 py-2 transition-colors hover:bg-accent/50',
+  'flex items-start gap-3 rounded-control px-3 py-2 transition-colors hover:bg-state',
   {
     variants: {
       variant: {

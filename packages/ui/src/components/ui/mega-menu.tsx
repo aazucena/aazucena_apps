@@ -78,7 +78,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
                       : 'bg-accent text-accent-foreground'
                     : v === 'cyber'
                       ? 'text-signal hover:bg-signal/10'
-                      : 'text-foreground hover:bg-accent',
+                      : 'text-foreground hover:bg-state',
                 )}
               >
                 {item.label}
@@ -126,7 +126,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
                     href={link.href ?? '#'}
                     className={cn(
                       'group rounded-control flex items-start gap-3 p-3 transition-colors',
-                      v === 'cyber' ? 'hover:bg-signal/10' : 'hover:bg-accent',
+                      v === 'cyber' ? 'hover:bg-signal/10' : 'hover:bg-state',
                     )}
                   >
                     {link.icon && (

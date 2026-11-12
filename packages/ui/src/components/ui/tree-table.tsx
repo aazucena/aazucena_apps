@@ -96,7 +96,7 @@ function TreeTableRow({
                       'shrink-0 rounded p-0.5 transition-colors',
                       variant === 'cyber'
                         ? 'text-signal hover:bg-signal/10'
-                        : 'text-muted-foreground hover:bg-accent',
+                        : 'text-muted-foreground hover:bg-state',
                     )}
                   >
                     <svg

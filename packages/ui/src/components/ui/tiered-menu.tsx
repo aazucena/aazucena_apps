@@ -160,7 +160,7 @@ const TieredMenu = React.forwardRef<HTMLDivElement, TieredMenuProps>(
                 'rounded-control border px-3 py-1.5 text-sm transition-colors',
                 v === 'cyber'
                   ? 'border-signal/30 text-signal hover:bg-signal/10'
-                  : 'border-border hover:bg-accent',
+                  : 'border-border hover:bg-state',
               )}
             >
               Menu
