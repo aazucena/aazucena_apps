@@ -40,7 +40,7 @@ const accordionItemVariants = cva('', {
       card: 'border-none px-4 bg-transparent transition-colors hover:bg-muted/30 data-[state=open]:bg-muted/50',
       glass: 'glass rounded-control px-4 mb-2 border-b-0 dark:text-foreground',
       cyber:
-        'glass bg-signal-faint border-signal/30 text-foreground rounded-control px-4 mb-2 border-b-0 dark:bg-background/80 dark:bg-scrim dark:text-signal',
+        'glass bg-signal-faint border-signal/30 text-foreground rounded-control px-4 mb-2 border-b-0 dark:bg-background/80 dark:bg-panel dark:text-signal',
     },
   },
   defaultVariants: {

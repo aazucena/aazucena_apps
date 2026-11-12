@@ -12,7 +12,7 @@ const calendarVariants = cva('p-4 transition-all duration-300', {
     variant: {
       default: 'bg-background',
       glass: 'bg-background/5 dark:bg-state border border-border/10 text-foreground rounded-card',
-      cyber: 'bg-background/80 dark:bg-scrim border border-signal/30 text-foreground rounded-card',
+      cyber: 'bg-background/80 dark:bg-panel border border-signal/30 text-foreground rounded-card',
     },
   },
   defaultVariants: {

@@ -12,7 +12,7 @@ const metadataVariants = cva('w-full transition-all duration-300', {
       glass:
         'bg-background/5 dark:bg-state border border-border/10 rounded-card p-6 text-foreground',
       cyber:
-        'bg-background/40 dark:bg-scrim border border-border/10 dark:border-signal/20 rounded-card p-6 text-foreground',
+        'bg-background/40 dark:bg-panel border border-border/10 dark:border-signal/20 rounded-card p-6 text-foreground',
       // Compact vertical variant for headers
       readout:
         'flex flex-col items-end px-4 border-r border-current/10 last:border-0 h-8 justify-center',

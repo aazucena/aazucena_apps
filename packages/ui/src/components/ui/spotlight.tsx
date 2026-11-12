@@ -13,7 +13,7 @@ const spotlightVariants = cva(
         glass:
           'bg-background/5 dark:bg-state border-border/10 text-foreground hover:bg-background/10 p-10',
         cyber:
-          'bg-background/40 dark:bg-scrim border-signal/20 text-foreground hover:border-signal p-10',
+          'bg-background/40 dark:bg-panel border-signal/20 text-foreground hover:border-signal p-10',
         // Gradient variants absorbed from FeaturedCard
         'cyan-blue': 'border-signal/30 text-foreground p-10',
         'emerald-teal': 'border-success/30 text-foreground p-10',

@@ -9,7 +9,7 @@ const masonryVariants = cva('transition-all duration-300', {
     variant: {
       default: '',
       glass: 'rounded-card p-4 glass',
-      cyber: 'rounded-card p-4 bg-background/40 dark:bg-scrim border border-signal/30',
+      cyber: 'rounded-card p-4 bg-background/40 dark:bg-panel border border-signal/30',
     },
   },
   defaultVariants: { variant: 'default' },

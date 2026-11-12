@@ -10,7 +10,7 @@ const treeVariants = cva('w-full select-none', {
     variant: {
       default: 'border border-border rounded-control bg-background',
       glass: 'glass rounded-card',
-      cyber: 'border border-signal/30 rounded-control bg-scrim',
+      cyber: 'border border-signal/30 rounded-control bg-panel',
     },
     size: {
       sm: 'p-1 text-xs',

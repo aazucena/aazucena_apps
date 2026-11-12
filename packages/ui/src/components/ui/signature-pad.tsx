@@ -11,7 +11,7 @@ const signaturePadVariants = cva(
       variant: {
         default: 'bg-background border-border',
         glass: 'glass border-border/20',
-        cyber: 'bg-background/40 dark:bg-scrim border-signal/30',
+        cyber: 'bg-background/40 dark:bg-panel border-signal/30',
       },
     },
     defaultVariants: { variant: 'default' },

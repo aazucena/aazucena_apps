@@ -119,7 +119,7 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
                 className={cn(
                   'rounded-control flex items-center gap-3 border p-2 text-sm',
                   variant === 'glass' && 'glass border-border/10',
-                  variant === 'cyber' && 'border-signal/20 bg-scrim text-signal',
+                  variant === 'cyber' && 'border-signal/20 bg-panel text-signal',
                   variant === 'default' && 'border-border bg-muted/30',
                 )}
               >

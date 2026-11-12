@@ -70,7 +70,7 @@ const dashboardCardVariants = cva('relative overflow-hidden transition-all durat
       default:
         'bg-background/5 dark:bg-panel-raised dark:bg-panel/30 border border-rule rounded-card',
       glass: 'bg-background/5 dark:bg-state border border-border/10 text-foreground rounded-card',
-      cyber: 'bg-background/80 dark:bg-scrim border border-signal/30 text-foreground rounded-card',
+      cyber: 'bg-background/80 dark:bg-panel border border-signal/30 text-foreground rounded-card',
     },
     padding: {
       none: '',

@@ -19,7 +19,7 @@ const wheelPickerVariants = cva(
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
+        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
       },
       size: {
         default: 'w-32 h-48',

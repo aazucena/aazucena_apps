@@ -30,7 +30,7 @@ const detailNavItemVariants = cva(
         glass:
           'border-border/10 bg-background/5 dark:bg-state text-foreground hover:bg-background/10 hover:border-border/20',
         cyber:
-          'border-signal/20 bg-background/40 dark:bg-scrim text-foreground hover:border-signal',
+          'border-signal/20 bg-background/40 dark:bg-panel text-foreground hover:border-signal',
       },
       alignment: {
         left: 'text-left',

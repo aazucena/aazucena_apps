@@ -21,7 +21,7 @@ const alertVariants = cva(
         info: 'border-signal/50 text-signal [&_svg]:text-signal dark:[_svg]:text-signal',
         glass: 'glass border-l-4 border-l-primary dark:text-foreground dark:border-l-rule',
         cyber:
-          'glass bg-signal-faint border-signal/30 text-foreground [&_svg]:text-signal border-l-4 border-l-signal dark:bg-background/80 dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/30 text-foreground [&_svg]:text-signal border-l-4 border-l-signal dark:bg-background/80 dark:bg-panel dark:text-signal',
         dashboard: 'bg-background/5 dark:bg-panel-raised dark:bg-panel/30 border border-rule',
       },
       borderAccent: {

@@ -9,7 +9,7 @@ const hover3dCardVariants = cva('overflow-hidden rounded-card transition-shadow'
     variant: {
       default: 'border border-border bg-background',
       glass: 'glass',
-      cyber: 'border border-signal/20 bg-scrim',
+      cyber: 'border border-signal/20 bg-panel',
     },
   },
   defaultVariants: { variant: 'default' },

@@ -18,7 +18,7 @@ const orgChartVariants = cva('w-full overflow-auto transition-all', {
 const nodeCardStyles: Record<string, string> = {
   default: 'border-border bg-background hover:bg-accent',
   glass: 'glass border-rule hover:border-rule',
-  cyber: 'border-signal/30 bg-scrim hover:bg-signal/10',
+  cyber: 'border-signal/30 bg-panel hover:bg-signal/10',
 };
 
 const lineColor: Record<string, string> = {

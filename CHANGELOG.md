@@ -144,6 +144,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(design-system)_ Guard against scrim used as a component surface
 - _(storybook)_ Vibe switching leaves no stale tokens
 - _(storybook)_ Assert vibes keep the instrument radii
 - _(storybook)_ Vibe matrix with AA contrast checks

@@ -21,7 +21,7 @@ const buttonGroupVariants = cva('flex items-center transition-all duration-300',
       glass:
         'bg-background/5 dark:bg-state rounded-card border border-border/10 w-fit items-stretch [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none overflow-hidden',
       cyber:
-        'bg-background/40 dark:bg-scrim rounded-control border border-signal/30 w-fit items-stretch [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none overflow-hidden',
+        'bg-background/40 dark:bg-panel rounded-control border border-signal/30 w-fit items-stretch [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none overflow-hidden',
     },
   },
   defaultVariants: {

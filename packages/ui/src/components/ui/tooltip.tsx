@@ -21,7 +21,7 @@ const tooltipContentVariants = cva(
         default: 'bg-primary text-primary-foreground',
         glass: 'glass text-foreground',
         cyber:
-          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-panel dark:text-signal',
       },
     },
     defaultVariants: {

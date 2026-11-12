@@ -13,7 +13,7 @@ const dropzoneVariants = cva(
         default: 'border-border bg-muted/30 hover:border-primary/50 hover:glass bg-signal-faint',
         glass: 'glass text-foreground',
         cyber:
-          'glass bg-signal-faint border-signal/30 text-foreground hover:border-signal dark:bg-background/40 dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/30 text-foreground hover:border-signal dark:bg-background/40 dark:bg-panel dark:text-signal',
       },
       isDragging: {
         true: 'scale-[1.02] border-primary bg-primary/10',

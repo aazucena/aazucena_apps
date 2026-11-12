@@ -16,7 +16,7 @@ const commandVariants = cva('flex h-full w-full flex-col overflow-hidden rounded
       default: 'bg-background text-foreground',
       glass: 'bg-background/5 dark:bg-state border border-border/10 text-foreground',
       cyber:
-        'bg-background/90 dark:bg-scrim border border-border dark:border-signal/40 text-foreground',
+        'bg-background/90 dark:bg-panel border border-border dark:border-signal/40 text-foreground',
     },
   },
   defaultVariants: {

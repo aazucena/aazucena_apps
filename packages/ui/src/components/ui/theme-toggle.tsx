@@ -15,7 +15,7 @@ const themeToggleVariants = cva(
         glass:
           'rounded-full bg-background/5 dark:bg-state border border-border/10 text-foreground/70 hover:text-foreground hover:bg-background/10',
         cyber:
-          'rounded-control bg-background/40 dark:bg-scrim border border-signal/30 text-foreground0/70 hover:text-signal',
+          'rounded-control bg-background/40 dark:bg-panel border border-signal/30 text-foreground0/70 hover:text-signal',
         ghost: 'bg-transparent border-none text-muted-foreground hover:text-foreground shadow-none',
       },
       size: {

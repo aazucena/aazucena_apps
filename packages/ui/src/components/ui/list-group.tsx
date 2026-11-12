@@ -9,7 +9,7 @@ const listGroupVariants = cva('overflow-hidden rounded-control border', {
     variant: {
       default: 'border-border bg-background',
       glass: 'glass border-rule',
-      cyber: 'border-signal/30 bg-scrim',
+      cyber: 'border-signal/30 bg-panel',
     },
   },
   defaultVariants: { variant: 'default' },

@@ -12,7 +12,7 @@ const chatInlineCitationVariants = cva(
       variant: {
         default: 'border-transparent',
         glass: 'glass border-border/20',
-        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
+        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
       },
       size: {
         default: 'h-5 w-5 text-xs',

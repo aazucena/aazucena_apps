@@ -11,7 +11,7 @@ const bottomNavigationVariants = cva(
       variant: {
         default: 'bg-background border-border',
         glass: 'glass border-rule',
-        cyber: 'bg-scrim border-signal/30',
+        cyber: 'bg-panel border-signal/30',
       },
       size: {
         sm: 'h-14 px-2',

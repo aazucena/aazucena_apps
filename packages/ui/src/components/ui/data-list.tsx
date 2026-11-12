@@ -11,7 +11,7 @@ export const dataListVariants = cva('w-full transition-all duration-500 overflow
     variant: {
       default: 'bg-card border border-border rounded-card',
       glass: 'bg-background/5 dark:bg-state border border-border/10 rounded-card text-foreground',
-      cyber: 'bg-background/40 dark:bg-scrim border border-signal/20 text-foreground rounded-card',
+      cyber: 'bg-background/40 dark:bg-panel border border-signal/20 text-foreground rounded-card',
       transparent: 'bg-transparent border-none p-0',
     },
   },

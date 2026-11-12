@@ -62,7 +62,7 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
       <div ref={ref} className={cn(tourVariants({ variant }), className)} {...props}>
         {/* Backdrop */}
         <div
-          className={cn('fixed inset-0 z-[9998]', v === 'cyber' ? 'bg-scrim' : 'bg-scrim')}
+          className={cn('fixed inset-0 z-[9998]', v === 'cyber' ? 'bg-panel' : 'bg-panel')}
           onClick={onSkip}
           aria-hidden="true"
         />

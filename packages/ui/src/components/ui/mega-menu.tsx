@@ -55,7 +55,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
           className={cn(
             'rounded-control flex items-center gap-1 border px-2 py-1',
             v === 'cyber'
-              ? 'border-signal/30 bg-scrim'
+              ? 'border-signal/30 bg-panel'
               : v === 'glass'
                 ? 'glass border-rule'
                 : 'border-border bg-background',
@@ -108,7 +108,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
               className={cn(
                 'rounded-control absolute left-0 z-50 mt-1 w-full min-w-[32rem] border p-4',
                 v === 'cyber'
-                  ? 'border-signal/30 bg-scrim'
+                  ? 'border-signal/30 bg-panel'
                   : v === 'glass'
                     ? 'glass border-rule'
                     : 'border-border bg-popover',

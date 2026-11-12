@@ -11,7 +11,7 @@ const mentionInputVariants = cva(
       variant: {
         default: 'border-input focus-within:ring-1 focus-within:ring-ring',
         glass: 'glass focus-within:bg-background/10',
-        cyber: 'border-signal/30 bg-background/40 dark:bg-scrim focus-within:border-signal',
+        cyber: 'border-signal/30 bg-background/40 dark:bg-panel focus-within:border-signal',
       },
       size: {
         sm: 'text-sm',

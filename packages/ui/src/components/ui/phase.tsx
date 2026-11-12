@@ -9,7 +9,7 @@ const phaseVariants = cva('py-24 transition-all duration-500', {
     variant: {
       default: 'bg-panel dark:bg-background',
       alternate: 'bg-panel/50 dark:bg-panel/30 border-y border-rule',
-      cyber: 'bg-background/40 dark:bg-scrim border-y border-signal/10',
+      cyber: 'bg-background/40 dark:bg-panel border-y border-signal/10',
     },
   },
   defaultVariants: {

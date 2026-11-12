@@ -9,7 +9,7 @@ const paperVariants = cva('rounded-control bg-background transition-shadow', {
     variant: {
       default: 'bg-card text-card-foreground',
       glass: 'glass text-foreground',
-      cyber: 'bg-scrim border border-signal/20 text-foreground',
+      cyber: 'bg-panel border border-signal/20 text-foreground',
       outlined: 'bg-background border border-border',
     },
     elevation: {

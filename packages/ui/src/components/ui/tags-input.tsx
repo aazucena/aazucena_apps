@@ -11,7 +11,7 @@ const tagsInputVariants = cva(
       variant: {
         default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
         glass: 'glass border-rule',
-        cyber: 'border-signal/30 bg-scrim focus-within:border-signal',
+        cyber: 'border-signal/30 bg-panel focus-within:border-signal',
       },
       size: {
         sm: 'min-h-8 text-xs',

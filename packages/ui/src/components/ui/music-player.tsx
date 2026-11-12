@@ -9,7 +9,7 @@ const musicPlayerVariants = cva('w-full overflow-hidden rounded-card', {
     variant: {
       default: 'border border-border bg-background',
       glass: 'glass',
-      cyber: 'border border-signal/30 bg-scrim',
+      cyber: 'border border-signal/30 bg-panel',
     },
     size: {
       sm: 'p-3',

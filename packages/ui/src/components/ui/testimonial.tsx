@@ -12,7 +12,7 @@ const testimonialVariants = cva(
       variant: {
         default: 'bg-card border-border',
         glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
-        cyber: 'bg-background/80 dark:bg-scrim border-signal/30 text-foreground',
+        cyber: 'bg-background/80 dark:bg-panel border-signal/30 text-foreground',
       },
     },
     defaultVariants: {

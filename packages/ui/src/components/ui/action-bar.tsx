@@ -11,7 +11,7 @@ const actionBarVariants = cva(
       variant: {
         default: 'border border-border bg-background',
         glass: 'glass',
-        cyber: 'border border-signal/30 bg-scrim',
+        cyber: 'border border-signal/30 bg-panel',
       },
       position: {
         top: '',

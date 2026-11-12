@@ -11,9 +11,9 @@ import { cn } from '@aazucena/utils';
 const lightboxOverlayVariants = cva('fixed inset-0 z-[200] flex items-center justify-center', {
   variants: {
     variant: {
-      default: 'bg-scrim',
-      glass: 'bg-scrim',
-      cyber: 'bg-scrim',
+      default: 'bg-panel',
+      glass: 'bg-panel',
+      cyber: 'bg-panel',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -40,7 +40,7 @@ const lightboxNavVariants = cva(
       variant: {
         default: 'bg-background/80 text-foreground',
         glass: 'bg-panel-raised text-foreground border border-rule',
-        cyber: 'bg-scrim text-signal border border-signal/40',
+        cyber: 'bg-panel text-signal border border-signal/40',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -52,9 +52,9 @@ const lightboxCaptionVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-scrim text-foreground',
+        default: 'bg-panel text-foreground',
         glass: 'bg-state text-foreground border border-rule',
-        cyber: 'bg-scrim text-signal border border-signal/30 font-mono text-xs',
+        cyber: 'bg-panel text-signal border border-signal/30 font-mono text-xs',
       },
     },
     defaultVariants: { variant: 'default' },

@@ -11,7 +11,7 @@ const textareaVariants = cva(
         default: 'border-input',
         glass: 'glass focus-visible:bg-background/10 dark:bg-state dark:text-foreground',
         cyber:
-          'glass bg-signal-faint border-signal/30 focus-visible:border-signal dark:bg-background/40 dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/30 focus-visible:border-signal dark:bg-background/40 dark:bg-panel dark:text-signal',
       },
     },
     defaultVariants: {

@@ -9,7 +9,7 @@ const videoVariants = cva('relative overflow-hidden group', {
     variant: {
       default: 'bg-muted rounded-control',
       glass: 'glass rounded-card',
-      cyber: 'border border-signal/20 bg-scrim rounded-control',
+      cyber: 'border border-signal/20 bg-panel rounded-control',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -63,7 +63,7 @@ const Video = React.forwardRef<HTMLVideoElement, VideoProps>(
             onClick={handlePlay}
             className={cn(
               'bg-scrim group-hover:bg-scrim absolute inset-0 flex items-center justify-center transition-opacity',
-              variant === 'cyber' && 'bg-scrim',
+              variant === 'cyber' && 'bg-panel',
             )}
           >
             <div

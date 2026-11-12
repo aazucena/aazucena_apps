@@ -12,7 +12,7 @@ export const statVariants = cva('flex flex-col transition-all duration-300', {
       glass:
         'bg-background/5 dark:bg-state border border-border/10 text-foreground p-6 rounded-card',
       cyber:
-        'bg-background/80 dark:bg-scrim border border-signal/30 text-foreground p-6 rounded-card',
+        'bg-background/80 dark:bg-panel border border-signal/30 text-foreground p-6 rounded-card',
     },
     alignment: {
       left: 'items-start text-left',

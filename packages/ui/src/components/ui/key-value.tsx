@@ -12,7 +12,7 @@ const keyValueVariants = cva('w-full space-y-2', {
     variant: {
       default: '',
       glass: 'p-4 rounded-card bg-state border border-rule',
-      cyber: 'p-4 rounded-none border border-signal/20 bg-scrim relative',
+      cyber: 'p-4 rounded-none border border-signal/20 bg-panel relative',
     },
   },
   defaultVariants: {

@@ -11,7 +11,7 @@ const toolbarVariants = cva('fixed flex items-center transition-all duration-300
       default: 'bg-background/80 border border-border text-foreground',
       glass: 'glass text-foreground',
       cyber:
-        'bg-background/80 dark:bg-scrim border border-border dark:border-signal/30 text-foreground',
+        'bg-background/80 dark:bg-panel border border-border dark:border-signal/30 text-foreground',
       ghost: 'bg-transparent border-none shadow-none',
     },
     position: {

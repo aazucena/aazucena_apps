@@ -15,7 +15,7 @@ const backToTopVariants = cva(
         glass:
           'bg-background/10 dark:bg-state border border-border/20 text-foreground rounded-full hover:bg-panel-raised',
         cyber:
-          'bg-background/80 dark:bg-scrim border border-signal/40 text-signal rounded-control hover:border-signal',
+          'bg-background/80 dark:bg-panel border border-signal/40 text-signal rounded-control hover:border-signal',
       },
       size: {
         default: 'w-12 h-12',

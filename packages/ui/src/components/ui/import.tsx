@@ -25,7 +25,7 @@ const importVariants = cva(
       variant: {
         default: 'bg-background border-input',
         glass: 'glass border-rule',
-        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal font-mono',
+        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal font-mono',
       },
     },
     defaultVariants: { variant: 'default' },

@@ -9,7 +9,7 @@ const panelMenuVariants = cva('w-full rounded-control border transition-all', {
     variant: {
       default: 'border-border bg-background',
       glass: 'glass border-rule',
-      cyber: 'border-signal/30 bg-scrim font-mono',
+      cyber: 'border-signal/30 bg-panel font-mono',
     },
   },
   defaultVariants: { variant: 'default' },

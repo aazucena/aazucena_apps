@@ -11,7 +11,7 @@ const snippetVariants = cva(
       variant: {
         default: 'bg-muted/50 border-border text-foreground',
         glass: 'glass border-rule text-foreground',
-        cyber: 'bg-scrim border-signal/30 text-signal',
+        cyber: 'bg-panel border-signal/30 text-signal',
       },
       size: {
         sm: 'h-8 px-2.5 text-xs',

@@ -9,7 +9,7 @@ const imageVariants = cva('relative overflow-hidden', {
     variant: {
       default: 'bg-muted',
       glass: 'glass',
-      cyber: 'border border-signal/20 bg-scrim',
+      cyber: 'border border-signal/20 bg-panel',
     },
     radius: {
       none: 'rounded-none',

@@ -79,7 +79,7 @@ const navigationMenuContentVariants = cva(
         default: '',
         glass: 'glass text-foreground rounded-control mt-2',
         cyber:
-          'glass bg-signal-faint border-signal/40 text-foreground rounded-control mt-2 dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/40 text-foreground rounded-control mt-2 dark:bg-panel dark:text-signal',
       },
     },
     defaultVariants: {
@@ -111,7 +111,7 @@ const navigationMenuViewportVariants = cva(
         default: 'bg-popover text-popover-foreground',
         glass: 'glass text-foreground',
         cyber:
-          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/40 text-foreground dark:bg-panel dark:text-signal',
       },
     },
     defaultVariants: {

@@ -9,7 +9,7 @@ const audioEmbedVariants = cva('inline-flex w-full items-center rounded-control'
     variant: {
       default: 'border border-border bg-muted/30',
       glass: 'glass',
-      cyber: 'border border-signal/20 bg-scrim',
+      cyber: 'border border-signal/20 bg-panel',
     },
     size: {
       sm: 'gap-2 p-2',

@@ -54,7 +54,7 @@ const shellHeaderVariants = cva(
       variant: {
         default: 'bg-panel/50 dark:bg-background/50 border-rule',
         glass: 'bg-background/20 border-border/10',
-        cyber: 'bg-background/80 dark:bg-scrim border-signal/30',
+        cyber: 'bg-background/80 dark:bg-panel border-signal/30',
       },
     },
     defaultVariants: {

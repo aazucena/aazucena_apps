@@ -11,7 +11,7 @@ const maskInputVariants = cva(
       variant: {
         default: '',
         glass: 'glass',
-        cyber: 'bg-background/40 dark:bg-scrim border-signal/30 text-signal',
+        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
       },
     },
     defaultVariants: {

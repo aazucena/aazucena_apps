@@ -25,7 +25,7 @@ const fieldStyles: Record<string, string> = {
     'border-input bg-background placeholder:text-muted-foreground focus-within:ring-2 focus-within:ring-ring',
   glass: 'glass border-rule placeholder:text-foreground/40',
   cyber:
-    'border-signal/30 bg-scrim text-signal font-mono placeholder:text-signal/30 focus-within:border-signal',
+    'border-signal/30 bg-panel text-signal font-mono placeholder:text-signal/30 focus-within:border-signal',
 };
 
 interface CountryOption {

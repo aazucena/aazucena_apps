@@ -25,7 +25,7 @@ const Table = React.forwardRef<
       'rounded-control relative w-full overflow-auto',
       variant === 'glass' && 'glass dark:bg-background/5 dark:border-border/10 dark:bg-state',
       variant === 'cyber' &&
-        'border-border/10 glass bg-signal-faint dark:bg-background/80 dark:border-signal/30 dark:bg-scrim border',
+        'border-border/10 glass bg-signal-faint dark:bg-background/80 dark:border-signal/30 dark:bg-panel border',
     )}
   >
     <table ref={ref} className={cn(tableVariants({ variant }), className)} {...props} />

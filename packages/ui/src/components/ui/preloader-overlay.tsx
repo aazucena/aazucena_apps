@@ -45,7 +45,7 @@ export const preloaderContentVariants = cva(
         glass:
           'bg-background/5 dark:bg-state border border-border/10 rounded-card p-8 text-foreground',
         cyber:
-          'bg-background/80 dark:bg-scrim border border-signal/30 rounded-control p-8 text-foreground',
+          'bg-background/80 dark:bg-panel border border-signal/30 rounded-control p-8 text-foreground',
       },
     },
     defaultVariants: {

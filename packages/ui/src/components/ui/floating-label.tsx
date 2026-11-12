@@ -28,7 +28,7 @@ const inputClasses: Record<string, Record<string, string>> = {
     default:
       'border-input bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-ring',
     glass: 'glass border-rule text-foreground focus:border-rule',
-    cyber: 'border-signal/30 bg-scrim text-signal font-mono focus:border-signal',
+    cyber: 'border-signal/30 bg-panel text-signal font-mono focus:border-signal',
   },
   size: {
     sm: 'h-8 pt-3 px-2 text-xs',

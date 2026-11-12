@@ -12,7 +12,7 @@ const editorVariants = cva('w-full overflow-hidden rounded-control border transi
     variant: {
       default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
       glass: 'glass border-rule',
-      cyber: 'border-signal/30 bg-scrim focus-within:border-signal',
+      cyber: 'border-signal/30 bg-panel focus-within:border-signal',
     },
     size: {
       sm: '',
@@ -32,7 +32,7 @@ const sizeMap: Record<string, string> = {
 const toolbarStyles: Record<string, string> = {
   default: 'border-b border-input bg-muted/50',
   glass: 'border-b border-rule bg-state',
-  cyber: 'border-b border-signal/20 bg-scrim',
+  cyber: 'border-b border-signal/20 bg-panel',
 };
 
 interface ToolbarButtonProps {

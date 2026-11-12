@@ -15,7 +15,7 @@ const sectionVariants = cva('container mx-auto transition-all duration-500', {
     variant: {
       default: '',
       glass: 'bg-background/5 dark:bg-state border border-border/10 rounded-card p-8 my-8',
-      cyber: 'bg-background/40 dark:bg-scrim border border-signal/20 rounded-card p-8 my-8',
+      cyber: 'bg-background/40 dark:bg-panel border border-signal/20 rounded-card p-8 my-8',
     },
     alignment: {
       left: 'text-left items-start',

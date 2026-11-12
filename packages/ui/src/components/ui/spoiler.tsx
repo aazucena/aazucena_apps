@@ -9,7 +9,7 @@ const spoilerVariants = cva('relative transition-all', {
     variant: {
       default: '',
       glass: 'glass rounded-control p-4 border border-rule',
-      cyber: 'rounded-control border border-signal/30 bg-scrim p-4',
+      cyber: 'rounded-control border border-signal/30 bg-panel p-4',
     },
   },
   defaultVariants: { variant: 'default' },

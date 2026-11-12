@@ -23,7 +23,7 @@ const transferVariants = cva('flex items-stretch gap-2 transition-all', {
 const panelClass: Record<string, string> = {
   default: 'border-border bg-background',
   glass: 'glass border-rule',
-  cyber: 'border-signal/30 bg-scrim',
+  cyber: 'border-signal/30 bg-panel',
 };
 
 export interface TransferItem {

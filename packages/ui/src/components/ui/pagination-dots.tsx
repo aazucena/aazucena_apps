@@ -17,7 +17,7 @@ export const paginationDotsVariants = cva(
         default: 'mt-6',
         inline: '',
         glass: 'p-2 bg-background/5 dark:bg-state rounded-full border border-border/10',
-        cyber: 'p-2 bg-background/40 dark:bg-scrim rounded-full border border-signal/20',
+        cyber: 'p-2 bg-background/40 dark:bg-panel rounded-full border border-signal/20',
       },
       position: {
         default: '',

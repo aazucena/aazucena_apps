@@ -47,7 +47,7 @@ function TieredMenuPanel({
       className={cn(
         'rounded-control min-w-[12rem] border p-1',
         variant === 'cyber'
-          ? 'border-signal/30 bg-scrim'
+          ? 'border-signal/30 bg-panel'
           : variant === 'glass'
             ? 'glass border-rule'
             : 'border-border bg-popover',

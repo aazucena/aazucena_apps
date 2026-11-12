@@ -105,7 +105,7 @@ const GithubStar = React.forwardRef<HTMLAnchorElement, GithubStarProps>(
             className={cn(
               'flex items-center px-2.5 font-mono font-medium',
               variant === 'default' ? 'bg-muted/30' : 'bg-transparent',
-              isCyber && 'bg-scrim text-signal',
+              isCyber && 'bg-panel text-signal',
               error && 'text-alert text-[9px] italic opacity-70',
             )}
           >

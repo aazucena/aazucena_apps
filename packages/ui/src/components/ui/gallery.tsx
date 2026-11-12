@@ -29,7 +29,7 @@ const galleryVariants = cva('w-full', {
 const thumbStyles: Record<string, string> = {
   default: 'rounded-control bg-muted ring-ring hover:ring-2',
   glass: 'glass rounded-card ring-rule hover:ring-2',
-  cyber: 'rounded-control border border-signal/20 bg-scrim ring-signal hover:ring-1',
+  cyber: 'rounded-control border border-signal/20 bg-panel ring-signal hover:ring-1',
 };
 
 export interface GalleryItem {

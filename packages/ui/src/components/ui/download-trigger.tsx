@@ -11,7 +11,7 @@ const downloadTriggerVariants = cva(
       variant: {
         default: 'border-border bg-background hover:bg-muted',
         glass: 'glass hover:bg-state',
-        cyber: 'border-signal/30 bg-scrim hover:border-signal',
+        cyber: 'border-signal/30 bg-panel hover:border-signal',
       },
       size: {
         sm: 'px-3 py-2 text-xs',

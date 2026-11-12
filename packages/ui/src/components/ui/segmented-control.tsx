@@ -12,7 +12,7 @@ const segmentedControlVariants = cva(
         default: 'bg-panel dark:bg-panel/50 border border-rule',
         glass: 'glass text-foreground',
         cyber:
-          'bg-background/80 dark:bg-scrim border border-border dark:border-signal/20 text-foreground',
+          'bg-background/80 dark:bg-panel border border-border dark:border-signal/20 text-foreground',
       },
       size: {
         default: 'gap-1',

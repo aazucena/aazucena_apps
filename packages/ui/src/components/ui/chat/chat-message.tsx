@@ -84,7 +84,7 @@ export const chatBubbleVariants = cva(
         default: 'bg-panel dark:bg-background border-rule text-foreground',
         muted: 'bg-panel text-foreground border-rule',
         glass: 'glass text-foreground',
-        cyber: 'bg-background/80 dark:bg-scrim border-signal/30 text-foreground',
+        cyber: 'bg-background/80 dark:bg-panel border-signal/30 text-foreground',
       },
       role: {
         user: 'rounded-tr-none',

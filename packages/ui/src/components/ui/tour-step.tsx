@@ -23,7 +23,7 @@ export interface TourStepProps {
 const variantClasses: Record<string, string> = {
   default: 'bg-popover border border-border text-popover-foreground',
   glass: 'glass border-rule text-foreground',
-  cyber: 'bg-scrim border border-signal/30 text-signal',
+  cyber: 'bg-panel border border-signal/30 text-signal',
 };
 
 const btnClasses: Record<string, string> = {

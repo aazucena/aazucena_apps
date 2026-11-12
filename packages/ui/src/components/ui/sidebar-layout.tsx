@@ -29,7 +29,7 @@ export const sidebarHeaderVariants = cva('flex flex-col gap-2 p-2 transition-all
     variant: {
       default: '',
       glass: 'border-b border-border/10 dark:border-rule bg-background/5 dark:bg-state',
-      cyber: 'border-b border-border/10 dark:border-signal/20 bg-background/80 dark:bg-scrim',
+      cyber: 'border-b border-border/10 dark:border-signal/20 bg-background/80 dark:bg-panel',
     },
   },
   defaultVariants: {

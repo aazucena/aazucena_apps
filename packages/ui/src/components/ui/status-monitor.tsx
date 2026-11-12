@@ -12,7 +12,7 @@ export const statusMonitorVariants = cva(
         default: 'bg-background border-border text-foreground',
         glass: 'glass text-foreground',
         cyber:
-          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-panel dark:text-signal',
       },
     },
     defaultVariants: {

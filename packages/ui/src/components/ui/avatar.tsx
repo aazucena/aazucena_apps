@@ -13,7 +13,7 @@ const avatarVariants = cva(
       variant: {
         default: 'bg-muted',
         glass: 'bg-background/10 dark:bg-state border border-border/20',
-        cyber: 'bg-background/40 dark:bg-scrim border border-signal/50',
+        cyber: 'bg-background/40 dark:bg-panel border border-signal/50',
       },
       size: {
         sm: 'h-8 w-8',

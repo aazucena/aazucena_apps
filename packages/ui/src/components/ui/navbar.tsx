@@ -15,7 +15,7 @@ const navbarVariants = cva(
         default: 'bg-background/80 border-border text-foreground',
         glass: 'glass text-foreground',
         cyber:
-          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-panel dark:text-signal',
       },
       isScrolled: {
         true: '',
@@ -46,7 +46,7 @@ const navbarVariants = cva(
       {
         variant: 'cyber',
         isScrolled: true,
-        className: 'py-4 bg-background dark:bg-scrim border-signal/50',
+        className: 'py-4 bg-background dark:bg-panel border-signal/50',
       },
       {
         variant: 'cyber',
@@ -103,7 +103,7 @@ const navbarContentVariants = cva(
       variant: {
         default: 'bg-panel/50 border-rule',
         glass: 'bg-background/10 dark:bg-state border-border/20',
-        cyber: 'bg-background/40 dark:bg-scrim border-signal/20',
+        cyber: 'bg-background/40 dark:bg-panel border-signal/20',
       },
     },
     defaultVariants: {

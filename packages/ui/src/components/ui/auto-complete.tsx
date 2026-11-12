@@ -23,7 +23,7 @@ const autoCompleteVariants = cva('relative w-full', {
 const triggerClasses: Record<string, string> = {
   default: 'border-input bg-background hover:bg-accent focus:ring-2 focus:ring-ring',
   glass: 'glass border-rule hover:border-rule',
-  cyber: 'border-signal/30 bg-scrim text-signal font-mono hover:border-signal',
+  cyber: 'border-signal/30 bg-panel text-signal font-mono hover:border-signal',
 };
 
 const sizeClasses: Record<string, string> = {
@@ -134,7 +134,7 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
             className={cn(
               'rounded-control absolute z-50 mt-1 w-full border',
               v === 'cyber'
-                ? 'border-signal/30 bg-scrim'
+                ? 'border-signal/30 bg-panel'
                 : v === 'glass'
                   ? 'glass border-rule'
                   : 'border-border bg-popover',

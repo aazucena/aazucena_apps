@@ -9,7 +9,7 @@ const dockVariants = cva('flex items-center gap-2 rounded-card border p-2 transi
     variant: {
       default: 'bg-background/80 border-border',
       glass: 'glass border-rule',
-      cyber: 'bg-scrim border-signal/30',
+      cyber: 'bg-panel border-signal/30',
     },
     position: {
       bottom: 'flex-row',
@@ -132,7 +132,7 @@ const DockItem = React.forwardRef<HTMLDivElement, DockItemProps>(
               'pointer-events-none absolute -top-8 rounded px-1.5 py-0.5 text-xs whitespace-nowrap opacity-0 transition-opacity',
               scale > 1.1 && 'opacity-100',
               variant === 'cyber'
-                ? 'border-signal/30 bg-scrim text-signal border'
+                ? 'border-signal/30 bg-panel text-signal border'
                 : 'bg-popover text-popover-foreground border',
             )}
           >

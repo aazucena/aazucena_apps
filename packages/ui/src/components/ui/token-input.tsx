@@ -14,7 +14,7 @@ const tokenInputVariants = cva(
       variant: {
         default: 'border-input focus-within:ring-1 focus-within:ring-ring',
         glass: 'glass border-rule text-foreground',
-        cyber: 'bg-scrim border-signal/30 text-signal font-mono',
+        cyber: 'bg-panel border-signal/30 text-signal font-mono',
       },
       size: {
         default: 'h-10 px-3',

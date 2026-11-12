@@ -26,7 +26,7 @@ const dropdownMenuContentVariants = cva(
         default: 'bg-popover text-popover-foreground',
         glass: 'glass text-foreground rounded-card',
         cyber:
-          'glass bg-signal-faint border-signal/40 text-foreground rounded-card dark:bg-scrim dark:text-signal',
+          'glass bg-signal-faint border-signal/40 text-foreground rounded-card dark:bg-panel dark:text-signal',
       },
       size: {
         default: 'min-w-[8rem]',
