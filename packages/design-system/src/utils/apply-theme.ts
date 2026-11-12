@@ -42,6 +42,8 @@ export function applyVibe(
   if (!vibe) return;
 
   const root = document.documentElement;
+  // Clear the previous write first: vibes emit different key sets, so leftovers would leak.
+  getTrackedProps(root).forEach((prop) => root.style.removeProperty(prop));
   const applied = writeThemeConfig(vibe[mode], root);
 
   trackProps(root, applied);

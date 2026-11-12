@@ -60,6 +60,8 @@ export class ThemeManager {
     const vibe = vibes[resolveVibeId(vibeId)] ?? vibes['default'] ?? Object.values(vibes)[0];
     if (!vibe) return this;
 
+    // Clear the previous write first: vibes emit different key sets, so leftovers would leak.
+    this.trackedProps.forEach((prop) => this.target.style.removeProperty(prop));
     this.trackedProps = writeThemeConfig(vibe[mode], this.target, '[ThemeManager]');
     this.target.setAttribute('data-vibe', vibe.id);
 
