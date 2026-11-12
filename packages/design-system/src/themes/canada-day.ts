@@ -1,5 +1,6 @@
 import type { SystemThemeConfig, ThemeVibe } from '@aazucena/types';
 import { getColor } from '../tokens/colors';
+import { instrumentRadius } from './default';
 
 const light: SystemThemeConfig = {
   colors: {
@@ -28,12 +29,7 @@ const light: SystemThemeConfig = {
   effects: {
     backdropBlur: 'blur(8px)',
     shadow: `0 4px 6px -1px ${getColor('red', 600, 0.1)}, 0 2px 4px -1px ${getColor('zinc', 950, 0.06)}`,
-    borderRadius: {
-      card: '0.5rem',
-      button: '0.375rem',
-      badge: '9999px',
-      progress: '9999px',
-    },
+    borderRadius: instrumentRadius,
     animationSpeed: 1,
     animationEasing: 'ease-out',
   },
@@ -74,12 +70,7 @@ const dark: SystemThemeConfig = {
     backdropBlur: 'blur(12px)',
     shadow: `0 0 20px ${getColor('red', 600, 0.3)}`,
     glowColor: getColor('red', 600, 0.5),
-    borderRadius: {
-      card: '0.5rem',
-      button: '0.375rem',
-      badge: '9999px',
-      progress: '9999px',
-    },
+    borderRadius: instrumentRadius,
     animationSpeed: 0.9,
     animationEasing: 'cubic-bezier(0.25, 1, 0.5, 1)',
   },

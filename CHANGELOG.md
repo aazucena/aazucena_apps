@@ -141,6 +141,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(storybook)_ Vibe matrix with AA contrast checks
 - _(storybook)_ Assert keyboard focus outlines on core controls
 - _(storybook)_ Assert instrument tokens reach the page
 - _(storybook)_ Capture component and recipe stories for Argos

@@ -9,7 +9,14 @@ import { getColor } from '../tokens/colors';
  * amber (`warning`) with ◆.
  */
 
-const radius = { card: '6px', button: '4px', badge: '4px', progress: '9999px', control: '4px' };
+/** Instrument shape, shared by every vibe: vibes re-color Avra but keep its shape language. */
+export const instrumentRadius = {
+  card: '6px',
+  button: '4px',
+  badge: '4px',
+  progress: '9999px',
+  control: '4px',
+};
 
 const light: SystemThemeConfig = {
   colors: {
@@ -70,7 +77,7 @@ const light: SystemThemeConfig = {
   effects: {
     backdropBlur: 'none',
     shadow: 'none',
-    borderRadius: radius,
+    borderRadius: instrumentRadius,
     animationSpeed: 1,
     animationEasing: 'ease-out',
   },
@@ -142,7 +149,7 @@ const dark: SystemThemeConfig = {
   effects: {
     backdropBlur: 'none',
     shadow: 'none',
-    borderRadius: radius,
+    borderRadius: instrumentRadius,
     animationSpeed: 1,
     animationEasing: 'ease-out',
   },
