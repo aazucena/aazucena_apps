@@ -327,6 +327,12 @@ Commit by separate concern: one commit per logical change, even when several cha
 
 `@aazucena/*` packages are versioned with Changesets (first release 0.1.0, 2026-11-11). A change to a package that Storybook documents needs a changeset: `pnpm changeset`, pick the packages and bump, write a one-line summary. To cut a release on main, run `GITHUB_TOKEN=$(gh auth token) pnpm version-packages`; it bumps versions, writes each package's `CHANGELOG.md`, and Storybook's Docs/Changelog page renders the ui and design-system logs. The toolbar badge shows the `@aazucena/ui` version (`apps/storybook/.storybook/version.ts`). Packages are not published to npm.
 
+Storybook's version switcher (`storybook-addon-semantic-version`) reads `apps/storybook/public/root/versions.json` and links to `/storybooks/<version>/`, which `apps/storybook/vercel.json` rewrites. At each release:
+
+1. Add the new version to the top of `versions.json`.
+2. Point the old version's rewrite at the immutable URL of the last avra deployment that served it (Vercel dashboard → avra → Deployments), and add `/storybooks/<new>/:path*` → `/:path*` for the current one.
+3. Check that `/storybooks/<old>/` loads on avra.aazucena.com. Vercel Deployment Protection covers `*.vercel.app` deployment URLs by default; if the proxied page returns 401, relax protection for the avra project.
+
 ### Authorship
 
 No AI-attributed authoring anywhere in the repo. AI assistants (Claude, Gemini, etc.) must not add:
