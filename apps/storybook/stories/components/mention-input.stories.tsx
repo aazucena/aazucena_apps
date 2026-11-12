@@ -21,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'beta'],
   argTypes: {
     variant: {
       control: 'select',
