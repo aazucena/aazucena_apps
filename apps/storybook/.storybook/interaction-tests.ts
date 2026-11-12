@@ -56,4 +56,5 @@ export const INTERACTION_TEST_STORIES = [
 export const VISUAL_TEST_STORIES = [
   'stories/components/**/*.stories.tsx',
   'stories/recipes/**/*.stories.tsx',
+  'stories/design-tokens/vibes-matrix.stories.tsx',
 ];

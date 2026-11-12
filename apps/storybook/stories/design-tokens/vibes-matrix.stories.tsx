@@ -79,6 +79,7 @@ function contrast(a: [number, number, number], b: [number, number, number]): num
 const checkRows = async (canvasElement: HTMLElement) => {
   await new Promise((r) => setTimeout(r, 300));
   const failures: string[] = [];
+  const signals = new Map<string, string>();
   for (const row of canvasElement.querySelectorAll<HTMLElement>('[data-vibe-row]')) {
     const css = getComputedStyle(row);
     const bg = toRgb(css.getPropertyValue('--background').trim() || '#fff', '#fff');
@@ -94,6 +95,12 @@ const checkRows = async (canvasElement: HTMLElement) => {
       const ratio = contrast(toRgb(css.getPropertyValue(token).trim()), panel);
       if (ratio < min) failures.push(`${row.dataset.vibeRow}: ${label} ${ratio.toFixed(2)}`);
     }
+    // Each vibe brings its own accent (I4): text on a signal fill stays AA
+    const signal = toRgb(css.getPropertyValue('--signal').trim(), `rgb(${panel.join(',')})`);
+    const onSignal = contrast(toRgb(css.getPropertyValue('--signal-foreground').trim()), signal);
+    if (onSignal < 4.5)
+      failures.push(`${row.dataset.vibeRow}: signal-foreground ${onSignal.toFixed(2)}`);
+    signals.set(row.dataset.vibeRow ?? '', signal.join(','));
     // Hover/focus rows must show on raised surfaces
     if (css.getPropertyValue('--state').trim() === css.getPropertyValue('--panel-raised').trim())
       failures.push(`${row.dataset.vibeRow}: state equals panel-raised`);
@@ -107,6 +114,9 @@ const checkRows = async (canvasElement: HTMLElement) => {
       if (got !== want) failures.push(`${row.dataset.vibeRow}: ${token} ${got}`);
     }
   }
+  const base = signals.get('default');
+  for (const [vibe, sig] of signals)
+    if (vibe !== 'default' && sig === base) failures.push(`${vibe}: reuses the default signal`);
   await expect(failures).toEqual([]);
 };
 
@@ -143,10 +153,12 @@ export const SwitchingVibes: Story = {
     const manager = new ThemeManager(el);
     manager.apply('default', 'light');
     manager.apply('autumn', 'dark');
-    await expect(el.style.getPropertyValue('--panel')).toBe('');
-    await expect(getComputedStyle(el).getPropertyValue('--panel').trim().toLowerCase()).toBe(
-      '#13232b',
+    // Autumn derives its own panel (I4), so the inline value is autumn's, never default's
+    await expect(el.style.getPropertyValue('--panel')).toBe(
+      vibes['autumn']!.dark.colors.cardBackground,
     );
+    // A token only the default defines must not be left behind inline
+    await expect(el.style.getPropertyValue('--chart-seq-1')).toBe('');
     manager.destroy();
   },
 };
