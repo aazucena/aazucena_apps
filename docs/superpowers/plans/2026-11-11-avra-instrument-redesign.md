@@ -131,7 +131,7 @@ The owner approved the round-2 direction. These values replace the round-1 shape
 - **Surfaces:** separated by tone steps, not full borders. An alert is a 2px coral left edge.
 - **Type:** headline metrics use `Display/Value` (Fira Sans Light 40); mono for labels, tables and captions.
 - **Air:** a token-to-token fade (`--signal` → `--panel`, 40% opacity) under chart lines and on live states only.
-- **Tints:** alpha tokens, never opacity on a bound paint: `--signal-faint` (8%), `--signal-subtle` (15%), `--signal-line` (40%), `--scrim` (ink-950 at 60%), `--panel-glass` (panel at 70%). Chart ramps: `--chart-seq-1..5`, `--chart-div-low|low-mid|mid|high-mid|high`, `--chart-grid`, `--chart-axis`.
+- **Tints:** alpha tokens, never opacity on a bound paint: `--signal-faint` (8%), `--signal-subtle` (15%), `--signal-line` (40%), `--scrim` (ink-950 at 60%), `--panel-glass` (panel at 70%). Selection/hover rows use `--state` (dark ink-850, light ink-100), never `--panel-raised`, which is for raised surfaces only. Chart ramps: `--chart-seq-1..5`, `--chart-div-low|low-mid|mid|high-mid|high`, `--chart-grid`, `--chart-axis`.
 - **Motion:** `--motion-breath` 4000ms (live-dot pulse), `--motion-draw` 900ms (line draw-in), `--motion-base` 200ms. All are off under `prefers-reduced-motion`.
 
 ### Task A5: Analytics kit in Figma (owner request, before Phase B)
