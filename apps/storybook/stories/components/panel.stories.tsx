@@ -78,6 +78,23 @@ export const Alert: Story = {
 };
 
 /**
+ * Static: no status passed, so no live indicator. Only panels fed by a stream say LIVE.
+ */
+export const Static: Story = {
+  args: { label: 'ARCHIVE // 2025', status: undefined },
+  render: (args) => (
+    <Panel label={args.label} className="w-80">
+      <Metric value="412" caption="posts" />
+    </Panel>
+  ),
+  play: async ({ canvasElement }: any) => {
+    const panel = canvasElement.querySelector('[data-slot="panel"]') as HTMLElement;
+    await expect(panel.dataset.status).toBe('none');
+    await expect(within(canvasElement).queryByText(/LIVE|IDLE|ALERT/)).toBeNull();
+  },
+};
+
+/**
  * Composition: header and body as separate parts, e.g. a chart panel.
  */
 export const Composed: Story = {

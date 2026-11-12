@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from 'storybook/test';
 import { Badge } from '@aazucena/ui';
 
 /**
@@ -138,4 +139,19 @@ export const Glass: Story = {
       <Badge {...args}>IMMERSIVE_TAG</Badge>
     </div>
   ),
+};
+
+/**
+ * Destructive: coral never carries meaning alone, so the badge adds the ▲ marker itself.
+ */
+export const Destructive: Story = {
+  tags: ['interaction-test'],
+  args: { children: 'ERROR_RATE', variant: 'destructive', size: 'sm' },
+  play: async ({ canvasElement }: any) => {
+    await expect(
+      within(canvasElement)
+        .getByText(/ERROR_RATE/)
+        .closest('[class]')!.textContent,
+    ).toMatch(/^▲\s?ERROR_RATE/);
+  },
 };

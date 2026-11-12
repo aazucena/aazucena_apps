@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Quiet static panels, marked destructive badges, select item radius
 - _(design-system)_ Per-vibe signal and alert contrast
 - _(portfolio)_ Read the AI Gateway key through astro:env in the chat route
 - _(ui)_ Read Rive's CommonJS exports so Astro SSR can load RinCharacter

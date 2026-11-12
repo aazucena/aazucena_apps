@@ -228,6 +228,9 @@ export const InteractionTest: Story = {
     // Content portals to body — wait for entry animation to complete
     const option = await within(document.body).findByText('Europe');
     await waitFor(() => expect(option).toBeVisible(), { timeout: 2000 });
+    // Items sit inside a 4px menu, so they use the control radius too
+    const item = option.closest('[role="option"]') as HTMLElement;
+    await expect(getComputedStyle(item).borderTopLeftRadius).toBe('4px');
     // Select an option
     await userEvent.click(option);
     // Trigger should now show selected value. findByRole waits out the exit

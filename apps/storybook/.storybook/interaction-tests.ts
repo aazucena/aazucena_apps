@@ -28,6 +28,7 @@ export const INTERACTION_TEST_STORIES = [
   'stories/components/input.stories.tsx',
   'stories/components/lightbox.stories.tsx',
   'stories/components/number-input.stories.tsx',
+  'stories/components/badge.stories.tsx',
   'stories/components/panel.stories.tsx',
   'stories/design-tokens/vibes-matrix.stories.tsx',
   'stories/components/popover.stories.tsx',
