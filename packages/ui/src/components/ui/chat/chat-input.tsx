@@ -46,11 +46,9 @@ export const ChatInputArea = React.forwardRef<
     minRows={minRows}
     maxRows={maxRows}
     className={cn(
-      'min-h-[56px] w-full resize-none py-4 pr-14 pl-6 text-sm shadow-inner',
-      'border-input focus-visible:ring-ring bg-transparent focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-      variant === 'cyber'
-        ? 'rounded-xl font-mono text-xs shadow-[inset_0_0_10px_rgba(6,182,212,0.1)]'
-        : 'rounded-2xl',
+      'min-h-[56px] w-full resize-none py-4 pr-14 pl-6 text-sm',
+      'border-input focus-visible:ring-ring bg-transparent focus-visible:ring-2 focus-visible:outline-none',
+      variant === 'cyber' ? 'rounded-card font-mono text-xs' : 'rounded-card',
       variant === 'glass' && 'glass-input',
       className,
     )}
@@ -68,7 +66,7 @@ export const ChatInputSubmit = React.forwardRef<
       ref={ref}
       size="icon"
       aria-label="Send message"
-      className={cn('h-10 w-10 rounded-xl shadow-lg', className)}
+      className={cn('rounded-card h-10 w-10', className)}
       {...props}
     >
       <Send size={18} />
@@ -228,7 +226,7 @@ export const ChatInput = React.forwardRef<HTMLDivElement, ChatInputProps>(
             {showModelSelector && availableModels && onSelectModel && (
               <div className="absolute right-14 bottom-3 z-10">
                 <Select value={selectedModelId} onValueChange={onSelectModel}>
-                  <SelectTrigger className="hover:bg-muted/50 h-8 gap-1 rounded-lg border-none bg-transparent text-xs">
+                  <SelectTrigger className="hover:bg-muted/50 rounded-control h-8 gap-1 border-none bg-transparent text-xs">
                     <Robot className="h-4 w-4 shrink-0" />
                     <SelectValue placeholder="Model" />
                   </SelectTrigger>

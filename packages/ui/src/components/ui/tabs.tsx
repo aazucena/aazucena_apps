@@ -50,7 +50,7 @@ const tabsTriggerVariants = cva(
   {
     variants: {
       variant: {
-        default: 'data-active:bg-background data-active:text-foreground data-active:shadow',
+        default: 'data-active:bg-background data-active:text-foreground',
         glass:
           'text-foreground/60 data-active:bg-background/20 data-active:text-foreground data-active:border-rule',
         cyber:

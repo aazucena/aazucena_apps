@@ -7,9 +7,9 @@ import * as React from 'react';
 const thoughtTraceVariants = cva('flex flex-col gap-3 transition-all duration-500', {
   variants: {
     variant: {
-      default: 'text-zinc-400 dark:text-zinc-500',
+      default: 'text-muted-foreground',
       cyber: 'text-foreground0/60 font-mono',
-      ai: 'text-primary-500/60 font-mono',
+      ai: 'text-signal/60 font-mono',
     },
   },
   defaultVariants: {
@@ -55,9 +55,7 @@ const ThoughtStep = React.forwardRef<
     <div
       className={cn(
         'h-1 w-1 shrink-0 rounded-full',
-        status === 'active'
-          ? 'animate-pulse bg-current shadow-[0_0_8px_currentColor]'
-          : 'bg-current opacity-40',
+        status === 'active' ? 'animate-pulse bg-current' : 'bg-current opacity-40',
       )}
     />
     <span className="truncate">{children}</span>

@@ -54,21 +54,21 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
 
     const baseColor =
       variant === 'cyber'
-        ? 'stroke-cyan-500/20'
+        ? 'stroke-signal/20'
         : variant === 'glass'
-          ? 'stroke-white/20'
+          ? 'stroke-foreground/20'
           : 'stroke-muted';
     const indicatorColor =
       variant === 'cyber'
-        ? 'stroke-cyan-500 drop-shadow-[0_0_4px_rgba(6,182,212,0.8)]'
+        ? 'stroke-signal'
         : variant === 'glass'
-          ? 'stroke-white drop-shadow-[0_0_4px_rgba(255,255,255,0.8)]'
+          ? 'stroke-foreground'
           : variant === 'success'
-            ? 'stroke-emerald-500'
+            ? 'stroke-success'
             : variant === 'warning'
-              ? 'stroke-amber-500'
+              ? 'stroke-warning'
               : variant === 'destructive'
-                ? 'stroke-rose-500'
+                ? 'stroke-alert'
                 : 'stroke-primary';
 
     return (

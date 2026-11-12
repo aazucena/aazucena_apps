@@ -20,7 +20,7 @@ export const SidebarGroup = React.forwardRef<HTMLDivElement, React.ComponentProp
 SidebarGroup.displayName = 'SidebarGroup';
 
 export const sidebarGroupLabelVariants = cva(
-  'flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+  'flex h-8 shrink-0 items-center rounded-control px-2 text-xs font-medium outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -68,7 +68,7 @@ export const SidebarGroupAction = React.forwardRef<
       ref={ref}
       data-sidebar="group-action"
       className={cn(
-        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 transition-transform outline-none focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-control absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center p-0 transition-transform outline-none focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
         'after:absolute after:-inset-2 after:md:hidden',
         'group-data-[collapsible=icon]:hidden',
         className,

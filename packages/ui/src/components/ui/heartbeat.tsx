@@ -12,7 +12,7 @@ export const HeartbeatItem = React.forwardRef<HTMLDivElement, React.HTMLAttribut
     <div
       ref={ref}
       className={cn(
-        'flex flex-col gap-4 rounded-[2rem] border border-zinc-200 bg-white p-6 transition-all hover:border-zinc-300 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-700',
+        'rounded-card border-rule bg-panel hover:border-rule dark:bg-panel/30 flex flex-col gap-4 border p-6 transition-all',
         className,
       )}
       {...props}
@@ -35,10 +35,7 @@ export const HeartbeatFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      'flex items-center justify-between border-t border-zinc-200 pt-4 dark:border-zinc-800',
-      className,
-    )}
+    className={cn('border-rule flex items-center justify-between border-t pt-4', className)}
     {...props}
   />
 ));
@@ -62,7 +59,10 @@ export const HeartbeatDetailLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <span
     ref={ref}
-    className={cn('text-[8px] font-bold tracking-widest text-zinc-400 uppercase', className)}
+    className={cn(
+      'text-muted-foreground text-[8px] font-bold tracking-widest uppercase',
+      className,
+    )}
     {...props}
   />
 ));
@@ -74,10 +74,7 @@ export const HeartbeatDetailValue = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <span
     ref={ref}
-    className={cn(
-      'font-mono text-[10px] font-bold text-zinc-600 uppercase dark:text-zinc-400',
-      className,
-    )}
+    className={cn('text-muted-foreground font-mono text-[10px] font-bold uppercase', className)}
     {...props}
   />
 ));

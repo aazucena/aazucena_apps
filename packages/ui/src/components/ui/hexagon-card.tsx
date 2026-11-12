@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { AwardBadge } from '@aazucena/icons';
 
 const hexagonCardVariants = cva(
-  'group relative flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300',
+  'group relative flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all duration-300',
   {
     variants: {
       variant: {

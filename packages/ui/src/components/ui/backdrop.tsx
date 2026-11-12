@@ -7,10 +7,10 @@ import { cn } from '@aazucena/utils';
 const backdropVariants = cva('fixed inset-0 z-40 transition-opacity duration-300', {
   variants: {
     variant: {
-      default: 'bg-black/50',
-      glass: 'bg-black/30 backdrop-blur-sm',
-      cyber: 'bg-black/70 backdrop-blur-md',
-      light: 'bg-white/50 backdrop-blur-sm',
+      default: 'bg-scrim',
+      glass: 'bg-scrim',
+      cyber: 'bg-scrim',
+      light: 'bg-panel-raised',
     },
   },
   defaultVariants: {

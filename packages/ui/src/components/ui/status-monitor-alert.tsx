@@ -9,13 +9,13 @@ import { cn } from '@aazucena/utils';
  */
 
 export const statusMonitorAlertVariants = cva(
-  'group flex items-center justify-between rounded-2xl border p-4 transition-all duration-300',
+  'group flex items-center justify-between rounded-card border p-4 transition-all duration-300',
   {
     variants: {
       level: {
-        NOMINAL: 'border-emerald-500/10 bg-emerald-500/5 hover:border-emerald-500/30',
-        WARNING: 'border-amber-500/10 bg-amber-500/5 hover:border-amber-500/30',
-        CRITICAL: 'border-rose-500/10 bg-rose-500/5 hover:border-rose-500/30',
+        NOMINAL: 'border-success/10 bg-success/5 hover:border-success/30',
+        WARNING: 'border-warning/10 bg-warning/5 hover:border-warning/30',
+        CRITICAL: 'border-alert/10 bg-alert/5 hover:border-alert/30',
       },
     },
     defaultVariants: {

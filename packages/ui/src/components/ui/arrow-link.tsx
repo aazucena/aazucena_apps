@@ -56,7 +56,7 @@ const arrowLinkIconVariants = cva(
         circular:
           'w-8 h-8 rounded-full bg-muted group-hover/link:bg-primary group-hover/link:text-primary-foreground',
         'circular-cyber':
-          'w-8 h-8 rounded-full bg-primary/10 dark:bg-signal/10 group-hover/link:bg-primary/20 dark:group-hover/link:bg-cyan-500/20 text-primary dark:text-signal',
+          'w-8 h-8 rounded-full bg-primary/10 dark:bg-signal/10 group-hover/link:bg-primary/20 dark:group-hover/link:bg-signal/20 text-primary dark:text-signal',
       },
     },
     defaultVariants: {

@@ -32,11 +32,11 @@ const SkeletonGroup = React.forwardRef<HTMLDivElement, SkeletonGroupProps>(
     const presets: Record<string, React.ReactNode> = {
       card: (
         <div className="space-y-4">
-          <Skeleton {...v} className="h-48 w-full rounded-xl" />
+          <Skeleton {...v} className="rounded-card h-48 w-full" />
           <Skeleton {...v} className="h-5 w-3/4 rounded" />
           <Skeleton {...v} className="h-4 w-full rounded" />
           <Skeleton {...v} className="h-4 w-2/3 rounded" />
-          <Skeleton {...v} className="h-9 w-28 rounded-md" />
+          <Skeleton {...v} className="rounded-control h-9 w-28" />
         </div>
       ),
       table: (

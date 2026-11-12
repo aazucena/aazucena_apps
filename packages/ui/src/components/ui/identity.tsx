@@ -33,8 +33,8 @@ const IdentityProfile = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & { src?: string; alt?: string }
 >(({ className, src, alt, ...props }, ref) => (
   <div ref={ref} className={cn('group relative flex-shrink-0', className)} {...props}>
-    <div className="from-primary to-secondary absolute inset-0 rounded-3xl bg-gradient-to-tr opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
-    <div className="border-border relative h-48 w-48 overflow-hidden rounded-3xl border-2 shadow-2xl md:h-64 md:w-64">
+    <div className="rounded-card absolute inset-0 opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
+    <div className="border-border rounded-card relative h-48 w-48 overflow-hidden border-2 md:h-64 md:w-64">
       {src && (
         <img
           src={src}
@@ -64,7 +64,7 @@ const identityNameVariants = cva(
     variants: {
       variant: {
         default: 'text-foreground',
-        cyber: 'text-foreground drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]',
+        cyber: 'text-foreground',
       },
     },
     defaultVariants: {
@@ -85,14 +85,7 @@ IdentityName.displayName = 'IdentityName';
 
 const IdentityFirst = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => (
-    <span
-      ref={ref}
-      className={cn(
-        'from-primary to-secondary bg-gradient-to-r bg-clip-text text-transparent',
-        className,
-      )}
-      {...props}
-    />
+    <span ref={ref} className={cn('text-signal', className)} {...props} />
   ),
 );
 IdentityFirst.displayName = 'IdentityFirst';

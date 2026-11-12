@@ -10,13 +10,13 @@ const trendVariants = cva(
   {
     variants: {
       direction: {
-        up: 'text-emerald-500',
-        down: 'text-rose-500',
-        neutral: 'text-zinc-400',
+        up: 'text-success',
+        down: 'text-alert',
+        neutral: 'text-muted-foreground',
       },
       variant: {
         default: '',
-        pill: 'px-2 py-0.5 rounded-md bg-current/10 border border-current/20',
+        pill: 'px-2 py-0.5 rounded-control bg-current/10 border border-current/20',
         ghost: 'bg-transparent border-none',
       },
     },

@@ -10,7 +10,7 @@ const emptyVariants = cva(
   {
     variants: {
       variant: {
-        default: 'gap-6 rounded-lg border-dashed p-6 text-center md:p-12',
+        default: 'gap-6 rounded-control border-dashed p-6 text-center md:p-12',
         archive: 'py-20 text-center',
         fullscreen: 'min-h-[60vh] text-center',
       },
@@ -52,9 +52,9 @@ const emptyMediaVariants = cva(
     variants: {
       variant: {
         default: 'bg-transparent',
-        icon: "bg-muted text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-6",
+        icon: "bg-muted text-foreground flex size-10 shrink-0 items-center justify-center rounded-control [&_svg:not([class*='size-'])]:size-6",
         branded:
-          'inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-muted text-muted-foreground mb-8 border border-border group-hover:scale-110',
+          'inline-flex items-center justify-center w-20 h-20 rounded-card bg-muted text-muted-foreground mb-8 border border-border group-hover:scale-110',
       },
     },
     defaultVariants: {

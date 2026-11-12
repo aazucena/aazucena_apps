@@ -32,7 +32,7 @@ const SplitButton = React.forwardRef<HTMLDivElement, SplitButtonProps>(
     return (
       <ButtonGroup
         ref={ref}
-        className={cn('w-fit items-stretch shadow-lg transition-all duration-300', className)}
+        className={cn('w-fit items-stretch transition-all duration-300', className)}
         {...props}
       >
         {children}

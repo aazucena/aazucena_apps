@@ -15,8 +15,8 @@ export const StatusMonitorLog = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'overflow-hidden rounded-2xl border transition-all duration-500',
-      isExpanded ? 'scale-[1.01] shadow-xl' : 'hover:border-current/20',
+      'rounded-card overflow-hidden border transition-all duration-500',
+      isExpanded ? 'scale-[1.01]' : 'hover:border-current/20',
       className,
     )}
     {...props}

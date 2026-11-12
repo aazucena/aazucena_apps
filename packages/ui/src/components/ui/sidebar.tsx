@@ -115,7 +115,7 @@ export const Sidebar = React.forwardRef<
             data-sidebar="sidebar"
             className={cn(
               sidebarVariants({ variant }),
-              'flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow',
+              'group-data-[variant=floating]:rounded-control flex h-full w-full flex-col group-data-[variant=floating]:border',
             )}
           >
             {children}

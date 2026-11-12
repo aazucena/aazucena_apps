@@ -31,7 +31,7 @@ const switchThumbVariants = cva(
         logic:
           'h-2.5 w-2.5 data-[state=checked]:translate-x-3 data-[state=unchecked]:translate-x-0.5 data-[state=checked]:bg-alert data-[state=unchecked]:bg-rule-strong dark:bg-rule-strong',
         cyber:
-          'h-4 w-4 data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0 data-[state=unchecked]:bg-white/50 data-[state=checked]:bg-cyan-400 data-[state=checked]:shadow-[0_0_10px_#22d3ee]',
+          'h-4 w-4 data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0 data-[state=unchecked]:bg-panel-raised data-[state=checked]:bg-signal',
       },
     },
     defaultVariants: {

@@ -44,7 +44,7 @@ const RadioGroupItem = React.forwardRef<
         <Circle
           className={cn(
             'h-3.5 w-3.5 fill-current',
-            variant === 'cyber' ? 'fill-cyan-400' : 'fill-primary',
+            variant === 'cyber' ? 'fill-signal' : 'fill-primary',
           )}
         />
       </RadioGroupPrimitive.Indicator>

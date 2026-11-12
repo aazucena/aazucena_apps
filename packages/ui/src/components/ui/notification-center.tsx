@@ -44,7 +44,7 @@ const NotificationCenter = React.forwardRef<HTMLDivElement, NotificationCenterPr
             {trigger ?? (
               <button
                 type="button"
-                className="text-muted-foreground hover:text-foreground relative rounded-md p-2 transition-colors"
+                className="text-muted-foreground hover:text-foreground rounded-control relative p-2 transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

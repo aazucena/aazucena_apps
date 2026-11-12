@@ -54,7 +54,7 @@ const listItemVariants = cva('', {
     variant: {
       default: '',
       glass: 'opacity-90',
-      cyber: 'before:content-[">_"] before:text-cyan-500/50 list-none',
+      cyber: 'before:content-[">_"] before:text-signal/50 list-none',
       muted: 'text-muted-foreground',
     },
   },

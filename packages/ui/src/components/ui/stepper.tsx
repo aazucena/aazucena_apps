@@ -33,7 +33,7 @@ const stepVariants = cva('flex flex-col items-center flex-1 relative group', {
     status: {
       pending: 'text-muted-foreground',
       active: 'text-primary',
-      completed: 'text-emerald-500',
+      completed: 'text-success',
     },
   },
   defaultVariants: {
@@ -55,9 +55,8 @@ const stepIndicatorVariants = cva(
     variants: {
       status: {
         pending: 'bg-background border-border text-muted-foreground',
-        active:
-          'bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20 scale-110',
-        completed: 'bg-emerald-500 border-emerald-500 text-foreground',
+        active: 'bg-primary border-primary text-primary-foreground scale-110',
+        completed: 'bg-success border-success text-foreground',
       },
     },
     defaultVariants: {
@@ -102,7 +101,7 @@ const stepLineVariants = cva(
       status: {
         pending: 'bg-border',
         active: 'bg-primary/30',
-        completed: 'bg-emerald-500',
+        completed: 'bg-success',
       },
     },
     defaultVariants: {

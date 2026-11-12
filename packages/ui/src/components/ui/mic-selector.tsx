@@ -109,8 +109,8 @@ const MicSelector = React.forwardRef<HTMLDivElement, MicSelectorProps>(
                 key={device.deviceId}
                 value={device.deviceId}
                 className={cn(
-                  variant === 'cyber' && 'focus:bg-cyan-500/20 focus:text-cyan-400',
-                  variant === 'glass' && 'focus:bg-white/10 focus:text-white',
+                  variant === 'cyber' && 'focus:bg-signal/20 focus:text-signal',
+                  variant === 'glass' && 'focus:bg-state focus:text-foreground',
                 )}
               >
                 {device.label || `Microphone (${device.deviceId})`}
