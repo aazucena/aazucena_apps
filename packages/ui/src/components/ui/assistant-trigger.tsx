@@ -3,7 +3,7 @@
 import { Sparkles, X } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import * as React from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
@@ -88,37 +88,41 @@ const AssistantTrigger = React.forwardRef<HTMLButtonElement, AssistantTriggerPro
 
         {/* Icon Toggle */}
         <div className="relative z-10">
-          <AnimatePresence mode="wait">
-            {isOpen ? (
-              <motion.div
-                key="close"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5 }}
-                className="flex items-center gap-2"
-              >
-                <X size={24} strokeWidth={2.5} />
-                {closeLabel && (
-                  <span className="pr-2 text-xs font-black tracking-widest uppercase">
-                    {closeLabel}
-                  </span>
-                )}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="icon"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5 }}
-                className="flex items-center gap-2"
-              >
-                {icon ?? <Sparkles size={24} />}
-                {label && (
-                  <span className="pr-2 text-xs font-black tracking-widest uppercase">{label}</span>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <MotionConfig reducedMotion="user">
+            <AnimatePresence mode="wait">
+              {isOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  className="flex items-center gap-2"
+                >
+                  <X size={24} strokeWidth={2.5} />
+                  {closeLabel && (
+                    <span className="pr-2 text-xs font-black tracking-widest uppercase">
+                      {closeLabel}
+                    </span>
+                  )}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="icon"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  className="flex items-center gap-2"
+                >
+                  {icon ?? <Sparkles size={24} />}
+                  {label && (
+                    <span className="pr-2 text-xs font-black tracking-widest uppercase">
+                      {label}
+                    </span>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </MotionConfig>
         </div>
       </button>
     );

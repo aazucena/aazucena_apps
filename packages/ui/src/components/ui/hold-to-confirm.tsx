@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence, MotionConfig } from 'framer-motion';
 import { Check } from '@aazucena/icons';
 
 const holdToConfirmVariants = cva(
@@ -161,24 +161,26 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
         />
 
         {/* Label Layer */}
-        <AnimatePresence mode="wait">
-          {isComplete ? (
-            <motion.div
-              key="complete"
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -10, opacity: 0 }}
-              className="relative z-10 flex items-center gap-2"
-            >
-              <Check className="size-4" />
-              <span>Confirmed</span>
-            </motion.div>
-          ) : (
-            <motion.span key="text" className="relative z-10" initial={{ opacity: 1 }}>
-              {isHolding ? confirmText : text}
-            </motion.span>
-          )}
-        </AnimatePresence>
+        <MotionConfig reducedMotion="user">
+          <AnimatePresence mode="wait">
+            {isComplete ? (
+              <motion.div
+                key="complete"
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -10, opacity: 0 }}
+                className="relative z-10 flex items-center gap-2"
+              >
+                <Check className="size-4" />
+                <span>Confirmed</span>
+              </motion.div>
+            ) : (
+              <motion.span key="text" className="relative z-10" initial={{ opacity: 1 }}>
+                {isHolding ? confirmText : text}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </MotionConfig>
 
         {/* Shine/Glow Effect for Cyber Variant */}
         {variant === 'cyber' && isHolding && (

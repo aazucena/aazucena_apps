@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Stop css animations and transitions under reduced motion
 - _(storybook)_ Docs container no longer breaks the test run
 - _(storybook)_ Docs table stripes use the panel tone so links stay AA
 - _(storybook)_ Docs links, code and tables meet AA and fit phones

@@ -6,7 +6,7 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import { useForm, useField, type AnyFieldApi, type FormApi } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn, getErrorMessage } from '@aazucena/utils';
@@ -183,26 +183,28 @@ const FormMessage = React.forwardRef<
   const body = error ? getErrorMessage(error) : children;
 
   return (
-    <AnimatePresence mode="wait">
-      {body && (
-        <motion.p
-          ref={ref as any}
-          id={formMessageId}
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -4 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className={cn(
-            'text-destructive text-[0.8rem] font-medium',
-            variant === 'cyber' && 'text-alert font-mono text-[9px] uppercase',
-            className,
-          )}
-          {...(props as any)}
-        >
-          {body}
-        </motion.p>
-      )}
-    </AnimatePresence>
+    <MotionConfig reducedMotion="user">
+      <AnimatePresence mode="wait">
+        {body && (
+          <motion.p
+            ref={ref as any}
+            id={formMessageId}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className={cn(
+              'text-destructive text-[0.8rem] font-medium',
+              variant === 'cyber' && 'text-alert font-mono text-[9px] uppercase',
+              className,
+            )}
+            {...(props as any)}
+          >
+            {body}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </MotionConfig>
   );
 });
 FormMessage.displayName = 'FormMessage';

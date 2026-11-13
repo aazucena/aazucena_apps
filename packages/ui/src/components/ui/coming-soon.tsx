@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig, useReducedMotion } from 'framer-motion';
 import { Activity, Shield, Zap, Lock, X } from '@aazucena/icons';
 import { Button } from './button';
 
@@ -42,10 +42,16 @@ const GLITCH_CHARS = '!<>-_/[]{}—=+*^?#________';
 const GlitchText = ({ text, isHovered }: { text: string; isHovered: boolean }) => {
   const [displayText, setDisplayText] = React.useState(text);
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+  const reduceMotion = useReducedMotion();
 
   const startGlitch = React.useCallback(() => {
     let iteration = 0;
     if (intervalRef.current) clearInterval(intervalRef.current);
+    // The scramble swaps characters every 30ms; under reduced motion show the text as is.
+    if (reduceMotion) {
+      setDisplayText(text);
+      return;
+    }
 
     intervalRef.current = setInterval(() => {
       setDisplayText((prev) =>
@@ -63,7 +69,7 @@ const GlitchText = ({ text, isHovered }: { text: string; isHovered: boolean }) =
       }
       iteration += 1 / 3;
     }, 30);
-  }, [text]);
+  }, [text, reduceMotion]);
 
   React.useEffect(() => {
     if (isHovered) {
@@ -83,6 +89,7 @@ const GlitchText = ({ text, isHovered }: { text: string; isHovered: boolean }) =
  * An infinitely scrolling background of hexadecimal data.
  */
 const BitStream = ({ variant, isHovered }: { variant: string; isHovered: boolean }) => {
+  const reduceMotion = useReducedMotion();
   const columns = Array.from({ length: 15 });
   const streamData = React.useMemo(
     () =>
@@ -101,12 +108,13 @@ const BitStream = ({ variant, isHovered }: { variant: string; isHovered: boolean
         <motion.div
           key={i}
           initial={{ y: 0 }}
-          animate={{ y: '-50%' }}
-          transition={{
-            duration: isHovered ? 5 : 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          // The columns scroll forever; under reduced motion they stay still.
+          animate={reduceMotion ? { y: 0 } : { y: '-50%' }}
+          transition={
+            reduceMotion
+              ? { duration: 0 }
+              : { duration: isHovered ? 5 : 20, repeat: Infinity, ease: 'linear' }
+          }
           className="flex flex-col gap-2 font-mono text-[10px]"
         >
           {[...streamData, ...streamData].map((hex, j) => (
@@ -270,20 +278,22 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
 
     if (fullScreen) {
       return (
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999]"
-          >
-            {content}
-          </motion.div>
-        </AnimatePresence>
+        <MotionConfig reducedMotion="user">
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[9999]"
+            >
+              {content}
+            </motion.div>
+          </AnimatePresence>
+        </MotionConfig>
       );
     }
 
-    return content;
+    return <MotionConfig reducedMotion="user">{content}</MotionConfig>;
   },
 );
 ComingSoon.displayName = 'ComingSoon';

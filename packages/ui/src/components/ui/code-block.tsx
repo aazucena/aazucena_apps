@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getHighlighter } from '@aazucena/utils';
 import { Check, Copy, X } from '@aazucena/icons';
 import type { CodeOptionsMultipleThemes } from 'shiki';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 
 export type CodeBlockDualTheme = CodeOptionsMultipleThemes['themes'];
 
@@ -96,42 +96,44 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
               copyError && 'text-alert',
             )}
           >
-            <AnimatePresence mode="wait">
-              {copied ? (
-                <motion.div
-                  key="copied"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  className="flex items-center gap-1.5"
-                >
-                  <Check size={12} strokeWidth={3} />
-                  <span>Done</span>
-                </motion.div>
-              ) : copyError ? (
-                <motion.div
-                  key="error"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  className="flex items-center gap-1.5"
-                >
-                  <X size={12} strokeWidth={3} />
-                  <span>Fail</span>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="copy"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-center gap-1.5"
-                >
-                  <Copy size={12} strokeWidth={2.5} />
-                  <span>Copy</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <MotionConfig reducedMotion="user">
+              <AnimatePresence mode="wait">
+                {copied ? (
+                  <motion.div
+                    key="copied"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="flex items-center gap-1.5"
+                  >
+                    <Check size={12} strokeWidth={3} />
+                    <span>Done</span>
+                  </motion.div>
+                ) : copyError ? (
+                  <motion.div
+                    key="error"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="flex items-center gap-1.5"
+                  >
+                    <X size={12} strokeWidth={3} />
+                    <span>Fail</span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="copy"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center gap-1.5"
+                  >
+                    <Copy size={12} strokeWidth={2.5} />
+                    <span>Copy</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </MotionConfig>
           </button>
         )}
       </div>

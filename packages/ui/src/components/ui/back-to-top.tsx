@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, scrollToTop } from '@aazucena/utils';
 import { ArrowUp } from '@aazucena/icons';
@@ -60,22 +60,24 @@ const BackToTop = React.forwardRef<HTMLButtonElement, BackToTopProps>(
     }, [threshold, forceVisible]);
 
     return (
-      <AnimatePresence>
-        {visible && (
-          <motion.button
-            ref={ref}
-            initial={{ opacity: 0, scale: 0.5, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.5, y: 20 }}
-            onClick={() => scrollToTop()}
-            className={cn(backToTopVariants({ variant, size }), className)}
-            aria-label="Back to top"
-            {...cleanProps}
-          >
-            <ArrowUp size={size === 'sm' ? 18 : 24} />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      <MotionConfig reducedMotion="user">
+        <AnimatePresence>
+          {visible && (
+            <motion.button
+              ref={ref}
+              initial={{ opacity: 0, scale: 0.5, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.5, y: 20 }}
+              onClick={() => scrollToTop()}
+              className={cn(backToTopVariants({ variant, size }), className)}
+              aria-label="Back to top"
+              {...cleanProps}
+            >
+              <ArrowUp size={size === 'sm' ? 18 : 24} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </MotionConfig>
     );
   },
 );

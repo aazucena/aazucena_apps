@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import * as RiveModule from '@rive-app/react-webgl2';
+import { useReducedMotion } from 'framer-motion';
 
 // @rive-app/react-webgl2 ships CommonJS only. In Node SSR (Astro) the ESM loader can't
 // detect its re-exported names (Layout, Fit, Alignment), so read them from the CJS default
@@ -107,8 +108,8 @@ function RinCanvas({
 
 /**
  * Renders the animated Rin character from a .riv file.
- * Falls back to the static RinMark SVG when src is not provided,
- * so the UI is always functional even before the .riv file is ready.
+ * Falls back to the static RinMark SVG when src is not provided (so the UI
+ * works before the .riv file is ready) and when the user prefers reduced motion.
  */
 export function RinCharacter({
   src,
@@ -121,8 +122,10 @@ export function RinCharacter({
 }: RinCharacterProps) {
   const movementSM = stateMachines?.movement ?? DEFAULT_STATE_MACHINES.movement;
   const emotionSM = stateMachines?.emotion ?? DEFAULT_STATE_MACHINES.emotion;
+  // The Rive character loops continuously; under reduced motion show the static mark.
+  const reduceMotion = useReducedMotion();
 
-  if (!src) {
+  if (!src || reduceMotion) {
     return <RinMark className={className} />;
   }
 

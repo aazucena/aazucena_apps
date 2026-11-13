@@ -3,7 +3,7 @@
 import { ChevronDown } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import * as React from 'react';
 
 const historyVariants = cva('relative border-l-2 pl-8 transition-all duration-300', {
@@ -140,28 +140,30 @@ const HistoryDescription = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { isOpen?: boolean }
 >(({ className, isOpen = true, children, ...props }, ref) => (
-  <AnimatePresence initial={false}>
-    {isOpen && (
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: 'auto', opacity: 1 }}
-        exit={{ height: 0, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
-        <div
-          ref={ref}
-          className={cn(
-            'border-border/50 mt-6 border-t pt-6 text-base leading-relaxed font-medium opacity-70',
-            className,
-          )}
-          {...props}
+  <MotionConfig reducedMotion="user">
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="overflow-hidden"
         >
-          {children}
-        </div>
-      </motion.div>
-    )}
-  </AnimatePresence>
+          <div
+            ref={ref}
+            className={cn(
+              'border-border/50 mt-6 border-t pt-6 text-base leading-relaxed font-medium opacity-70',
+              className,
+            )}
+            {...props}
+          >
+            {children}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </MotionConfig>
 ));
 HistoryDescription.displayName = 'HistoryDescription';
 

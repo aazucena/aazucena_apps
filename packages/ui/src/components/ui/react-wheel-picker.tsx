@@ -8,6 +8,7 @@ import {
   useMotionValue,
   useTransform,
   useSpring,
+  useReducedMotion,
   type PanInfo,
   animate,
 } from 'framer-motion';
@@ -74,11 +75,14 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
 
     // We use a spring for the VISUAL display to give it inertia while dragging
     // but the actual container position should follow y closely.
-    const springY = useSpring(y, {
+    const smoothY = useSpring(y, {
       stiffness: 400,
       damping: 40,
       mass: 0.8,
     });
+    // Under reduced motion the wheel follows the pointer directly, with no inertia.
+    const reduceMotion = useReducedMotion();
+    const springY = reduceMotion ? y : smoothY;
 
     const [activeIndex, setActiveIndex] = React.useState(0);
 
@@ -99,13 +103,13 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
           finalTargetIdx = targetIdx + offset;
         }
 
-        animate(y, -finalTargetIdx * itemHeight, {
-          type: 'spring',
-          stiffness: 400,
-          damping: 40,
-        });
+        animate(
+          y,
+          -finalTargetIdx * itemHeight,
+          reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 40 },
+        );
       }
-    }, [value, options, itemHeight, y, loop]);
+    }, [value, options, itemHeight, y, loop, reduceMotion]);
 
     const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
       const currentY = y.get();
@@ -119,9 +123,8 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
 
       // Force absolute snapping to the center
       animate(y, -targetIndex * itemHeight, {
-        type: 'spring',
-        stiffness: 500, // Slightly stiffer for a solid "thud" snap
-        damping: 35,
+        // Reduced motion: snap instantly. Otherwise a stiff spring for a solid "thud".
+        ...(reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 500, damping: 35 }),
         onComplete: () => {
           const normalizedIdx = normalizeIndex(targetIndex, options.length);
           onChange?.(options[normalizedIdx]!);

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Menu, X } from '@aazucena/icons';
 import { cn } from '@aazucena/utils';
@@ -146,37 +146,41 @@ const NavbarMobile = ({
   children: React.ReactNode;
   variant?: 'default' | 'glass' | 'cyber';
 }) => (
-  <AnimatePresence>
-    {isOpen && (
-      <>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="bg-background dark:bg-scrim fixed inset-0 z-[120] md:hidden"
-        />
-        <motion.div
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '100%' }}
-          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className={cn(
-            'fixed top-0 right-0 bottom-0 z-[130] flex w-[85vw] max-w-sm flex-col border-l p-8 md:hidden',
-            variant === 'cyber' ? 'bg-background border-signal/20' : 'bg-background border-border',
-            variant === 'glass' && 'border-border/10 bg-background/5 dark:bg-state',
-          )}
-        >
-          <div className="mb-8 flex justify-end">
-            <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
-              <X size={24} />
-            </Button>
-          </div>
-          <div className="flex flex-col gap-6 overflow-y-auto">{children}</div>
-        </motion.div>
-      </>
-    )}
-  </AnimatePresence>
+  <MotionConfig reducedMotion="user">
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="bg-background dark:bg-scrim fixed inset-0 z-[120] md:hidden"
+          />
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className={cn(
+              'fixed top-0 right-0 bottom-0 z-[130] flex w-[85vw] max-w-sm flex-col border-l p-8 md:hidden',
+              variant === 'cyber'
+                ? 'bg-background border-signal/20'
+                : 'bg-background border-border',
+              variant === 'glass' && 'border-border/10 bg-background/5 dark:bg-state',
+            )}
+          >
+            <div className="mb-8 flex justify-end">
+              <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
+                <X size={24} />
+              </Button>
+            </div>
+            <div className="flex flex-col gap-6 overflow-y-auto">{children}</div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  </MotionConfig>
 );
 
 const NavbarMobileTrigger = React.forwardRef<

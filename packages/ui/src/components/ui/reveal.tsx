@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { cn } from '@aazucena/utils';
 import { ChevronDown } from '@aazucena/icons';
 
@@ -53,25 +53,27 @@ const RevealContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
   ({ className, children, ...props }, ref) => {
     const { isOpen } = React.useContext(RevealContext);
     return (
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
-          >
-            <div
-              ref={ref}
-              className={cn('pt-0 pb-4 text-sm leading-relaxed opacity-70', className)}
-              {...props}
+      <MotionConfig reducedMotion="user">
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="overflow-hidden"
             >
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <div
+                ref={ref}
+                className={cn('pt-0 pb-4 text-sm leading-relaxed opacity-70', className)}
+                {...props}
+              >
+                {children}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </MotionConfig>
     );
   },
 );

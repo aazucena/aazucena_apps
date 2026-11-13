@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
@@ -27,11 +27,13 @@ export interface ReadingProgressProps
 const ReadingProgress = React.forwardRef<HTMLDivElement, ReadingProgressProps>(
   ({ className, variant, ...props }, ref) => {
     const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
+    const smoothed = useSpring(scrollYProgress, {
       stiffness: 100,
       damping: 30,
       restDelta: 0.001,
     });
+    // Under reduced motion the bar tracks the scroll position directly, without spring easing.
+    const scaleX = useReducedMotion() ? scrollYProgress : smoothed;
 
     // Omit motion-conflicting props
     const {
