@@ -21,7 +21,7 @@ aazucena_apps/
 ├── packages/
 │   ├── design-system/  # 7 tokens, 18 themes, 35 platform integrations
 │   ├── ui/             # 75+ composed components (CVA + forwardRef pattern)
-│   ├── forms/          # 94 templates + 48 Zod schemas (TanStack Form)
+│   ├── forms/          # 94 templates + 98 Zod schemas (TanStack Form)
 │   ├── hooks/          # animations/, data/, device/, dom/
 │   ├── utils/          # domain utilities (cn(), formatters, etc.)
 │   ├── types/          # TypeScript definitions
@@ -150,6 +150,8 @@ pnpm dlx playwright test --headed
 **CMS has two lockfiles.** The workspace uses the root `pnpm-lock.yaml`, but `apps/cms/Dockerfile*` and Railway install `apps/cms` standalone from `apps/cms/pnpm-lock.yaml`, where `apps/cms/package.json`'s own `pnpm.overrides` apply (pnpm warns that they're ignored in the workspace; keep them anyway). After changing cms dependencies or root security overrides, mirror the overrides and run `pnpm install --ignore-workspace --lockfile-only` in `apps/cms`. Standalone cms stays on React 18 (Strapi 5 peer).
 
 **Avra tokens are named once.** The Figma variables' WEB code syntax matches the CSS custom properties `packages/design-system` emits (`--panel`, `--state`, `--rule`, `--signal`, `--signal-subtle`, `--alert`, `--warning`, `--series-1..4`, `--chart-seq-*`, `--radius-card|control`, `--control-md`, `--motion-*`), and `@aazucena/ui` exposes them as Tailwind utilities (`bg-panel`, `bg-state`, `border-rule`, `rounded-control`, `h-control`, `micro-label`). Use those, not stock palette classes; the shadcn names (`--card`, `--muted`, `--ring`) are derived aliases.
+
+**Storybook docs pages theme through a container, not decorators.** Decorators never run on a standalone MDX page, so `.storybook/docs-container.tsx` applies the light/dark class and the vibe to every docs page and swaps the docs theme. MDX demos import real `@aazucena/ui` components inside an `sb-unstyled` wrapper; live token swatches come from `stories/design-tokens/_token-swatches.tsx`.
 
 **Storybook visual tests run on Argos.** `argosVitestPlugin` in `apps/storybook/vitest.config.ts` screenshots every story the Vitest run renders. It uploads only when `CI` is set, using `ARGOS_TOKEN` (a CircleCI project env var, never committed); local runs write `apps/storybook/screenshots/` (gitignored). CI runs on main only, so the latest main build is the baseline and changes are reviewed after merge.
 
