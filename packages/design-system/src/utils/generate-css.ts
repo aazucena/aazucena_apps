@@ -107,7 +107,9 @@ export function generateCssVariables(vibeId: string = 'default'): string {
   // 4. Z-Index
   css += '  /* Z-Index Hierarchy */\n';
   Object.entries(zIndex).forEach(([key, value]) => {
-    css += `  --z-${key}: ${value};\n`;
+    // CSS custom properties are case-sensitive: skipLink must emit as --z-skip-link.
+    const name = key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
+    css += `  --z-${name}: ${value};\n`;
   });
   css += '\n';
 
