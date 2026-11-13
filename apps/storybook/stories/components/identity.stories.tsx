@@ -13,7 +13,7 @@ import { Github, Linkedin, Twitter, Globe, Activity } from '@aazucena/icons';
 /**
  * ## Engineering Standards
  * - **CDD Pattern:** Orchestral layout suite for managing primary brand or profile identity.
- * - **UX:** Features integrated profile image scaling and an ambient background `Glow` effect.
+ * - **UX:** Features integrated profile image scaling.
  * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) with support for gradients and high-impact typography.
  * - **Architecture:** Fully atomic parts (Profile, Content, Name, Occupation) for assembling flexible identity sections.
  */
@@ -95,7 +95,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders, mono typography, and technical status.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

@@ -17,7 +17,7 @@ import { Badge, Button } from '@aazucena/ui';
  * ## Engineering Standards
  * - **CDD Pattern:** Composite layout system for chronological events and sequential technical logs.
  * - **Responsiveness:** Supports `default` (Left-aligned) and `alternating` (Centered) layouts for mobile vs desktop views.
- * - **Aesthetics:** Aligned with site-wide themes (`default`, `cyber`) featuring high-fidelity glowing dots and gradient connectors.
+ * - **Aesthetics:** `default` and `cyber` variants; status dots on a 1px rule connector.
  * - **Composition:** Fully modular parts (Item, Dot, Line, Content, Header, Badge) for flexible temporal narratives.
  */
 const meta = {
@@ -116,7 +116,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

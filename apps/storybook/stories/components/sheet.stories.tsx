@@ -14,7 +14,7 @@ import { Shield, Zap, Activity, Globe, CogFour as Settings, Terminal } from '@aa
 /**
  * ## Engineering Standards
  * - **CDD Pattern:** Radix UI based side-drawer primitive for supplemental task flows and navigation.
- * - **UX:** Features directional slide-in animations (Top, Bottom, Left, Right) with a backdrop blur overlay.
+ * - **UX:** Slides in from any side (Top, Bottom, Left, Right) over a scrim overlay.
  * - **Accessibility:** Traps focus and supports keyboard ESC to close; semantic title and description required.
  * - **Variants:** Supports high-fidelity `glass` and `cyber` themes with specialized `floating` and `inset` layouts.
  */

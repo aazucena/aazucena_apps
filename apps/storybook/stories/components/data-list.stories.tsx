@@ -128,7 +128,7 @@ export const LeaderboardTable: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and technical grid distribution.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberGrid: Story = {
   render: () => (

@@ -7,7 +7,7 @@ import { within, userEvent, expect } from 'storybook/test';
  * ## Engineering Standards
  * - **Pattern:** Radix UI based primitive for boolean selection.
  * - **Accessibility:** Uses standard `aria-checked` states and maintains focus rings for keyboard users.
- * - **Design:** Supports high-fidelity `cyber` variant with glowing borders and mono typography alignment.
+ * - **Design:** Supports a `cyber` variant (signal rule, Fira Code labels).
  * - **State:** Handles `checked`, `unchecked`, `indeterminate`, and `disabled` states.
  */
 const meta = {
@@ -69,7 +69,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and high-contrast borders.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

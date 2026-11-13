@@ -140,7 +140,7 @@ export const Basic: Story = {
 // --- VISUAL VARIANTS ---
 
 /**
- * Glassmorphic indicator on a gradient background.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {
@@ -158,7 +158,7 @@ export const Glass: Story = {
 };
 
 /**
- * Neon-glow cyber indicator for dark terminal interfaces.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

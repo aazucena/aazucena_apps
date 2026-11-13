@@ -124,7 +124,7 @@ export const ProgressDots: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and "fixed" side positioning.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberVertical: Story = {
   render: () => (

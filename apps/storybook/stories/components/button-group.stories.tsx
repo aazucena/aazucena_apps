@@ -69,7 +69,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and specialized text segments.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberToolbar: Story = {
   args: {

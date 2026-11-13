@@ -6,7 +6,7 @@ import { Github, Linkedin, Twitter, LinkOne as Link, Discord, Send } from '@aazu
  * ## Engineering Standards
  * - **CDD Pattern:** Composite layout component for social sharing and resource distribution.
  * - **UX:** Features `active:scale-90` tactile feedback on actions and built-in semantic labels.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) with support for high-impact neon accents.
+ * - **Aesthetics:** Supports `glass` and `cyber` variants.
  * - **Composition:** Fully modular parts (Header, Group, Action) for flexible placement at the end of content.
  */
 const meta = {
@@ -73,7 +73,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

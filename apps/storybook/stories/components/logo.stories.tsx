@@ -6,7 +6,7 @@ import { Logo } from '@aazucena/ui';
  * - **CDD Pattern:** Atomic brand primitive for universal site identification.
  * - **Accessibility:** Built with standard `role="img"` and supports `aria-label` for semantic screen reader recognition.
  * - **UX:** Features hover-triggered scale and rotation feedback for interactive depth.
- * - **Design:** Optimized for high-fidelity technical branding with specific `cyber` glow effects.
+ * - **Design:** `cyber` renders the mark in signal with a mono wordmark.
  * - **Architecture:** Leverages centralized SVG constants from the `@aazucena/design-system`.
  */
 const meta = {
@@ -66,7 +66,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and specific technical tint.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

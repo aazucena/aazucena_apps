@@ -19,7 +19,7 @@ import { Github, Linkedin, Twitter, Discord, Activity, Globe } from '@aazucena/i
  * - **CDD Pattern:** Orchestral layout suite for managing global site footers.
  * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`).
  * - **UX:** Features `FooterLink` with hover-triggered directional displacement.
- * - **Aesthetics:** Optimized for high-fidelity technical depth with grain overlays and neon-tinted borders.
+ * - **Aesthetics:** Panel surface with 1px rules; mono micro-labels for section headers.
  * - **Architecture:** Fully atomic parts for assembling complex, multi-column navigation footers.
  */
 const meta = {
@@ -150,7 +150,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

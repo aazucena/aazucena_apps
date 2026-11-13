@@ -151,7 +151,7 @@ export const TransparentTop: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and technical status indicators.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

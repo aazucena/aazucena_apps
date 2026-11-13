@@ -7,7 +7,7 @@ import { ArrowRight, Play, Globe, Zap } from '@aazucena/icons';
  * ## Engineering Standards
  * - **CDD Pattern:** Section-level layout component for primary conversion actions.
  * - **UX:** Features centered, high-impact typography with built-in maximum width constraints.
- * - **Design:** Includes aesthetic background layers (radial gradients for `cyber`, backdrop-blur for `glass`).
+ * - **Design:** `cyber` adds a faint signal radial wash behind the content; `glass` is a translucent panel.
  * - **Variants:** Aligned with site-wide themes (`glass`, `cyber`) for consistent technical depth.
  * - **Composition:** Atomic header, description, and action-group components.
  */
@@ -73,7 +73,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with radial glow and technical typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

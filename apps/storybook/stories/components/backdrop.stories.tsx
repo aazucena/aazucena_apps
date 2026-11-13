@@ -9,7 +9,7 @@ import { useState } from 'react';
  * |-----------|--------|
  * | CDD | Variant-driven (default / glass / cyber / light) with opacity transition |
  * | UX | Full-screen overlay that dismisses on click; conditionally rendered via `open` prop |
- * | Design | Fixed-position inset-0 layer with z-40; glass/cyber add backdrop-blur for depth |
+ * | Design | Fixed-position inset-0 scrim with z-40; glass/cyber change its tint |
  */
 const meta = {
   title: 'Components/Primitives/Backdrop',
@@ -87,7 +87,7 @@ export const Basic: Story = {
 // --- VISUAL VARIANTS ---
 
 /**
- * Glass variant with backdrop-blur providing a frosted-glass effect over a gradient.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {

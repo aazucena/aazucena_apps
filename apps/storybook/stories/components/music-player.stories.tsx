@@ -92,7 +92,7 @@ export const WithArtwork: Story = {
 };
 
 /**
- * High-performance cyber variant with neon accents and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

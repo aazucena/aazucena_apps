@@ -92,7 +92,7 @@ export const Basic: Story = {
 // --- VISUAL VARIANTS ---
 
 /**
- * Frosted glass variant for overlaying gradient or image backgrounds.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {
@@ -108,7 +108,7 @@ export const Glass: Story = {
 };
 
 /**
- * Cyber variant with neon accents for terminal-style interfaces.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

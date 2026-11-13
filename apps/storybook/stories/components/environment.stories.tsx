@@ -16,7 +16,7 @@ import {
  * - **CDD Pattern:** Orchestral layout suite for managing global site "Atmosphere" and page shells.
  * - **UX:** Features pointer-event transparent layers for background depth effects (Grids, Glows, Noise).
  * - **Atmosphere:** Uses `EnvironmentAtmosphere` to sync visual gradients with the site's scrolling phases (Troposphere to Exosphere).
- * - **Design:** Optimized for high-fidelity technical depth with grain overlays and neon-tinted grids.
+ * - **Design:** Optimized for high-fidelity technical depth with grain overlays and signal-tinted grids.
  * - **Architecture:** Fully atomic parts for assembling complex, layered backgrounds.
  */
 const meta = {
@@ -87,7 +87,7 @@ export const BasicShell: Story = {
 };
 
 /**
- * High-performance cyber variant with exosphere (deep space) atmosphere and neon grid.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberSpace: Story = {
   render: () => (

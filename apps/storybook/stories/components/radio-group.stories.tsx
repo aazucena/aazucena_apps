@@ -7,7 +7,7 @@ import { Shield, Zap, Activity, Globe } from '@aazucena/icons';
  * ## Engineering Standards
  * - **Pattern:** Radix UI based primitive for mutually exclusive selection.
  * - **Accessibility:** Built-in focus management, keyboard navigation (Arrow keys), and standard ARIA roles.
- * - **Design:** Supports high-fidelity `cyber` variant with neon glowing indicators and precise border tokens.
+ * - **Design:** Supports a `cyber` variant (signal rule, Fira Code labels).
  * - **UX:** Features smooth state transitions and active shadow elevation for the selected item.
  */
 const meta = {
@@ -64,7 +64,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   render: () => (

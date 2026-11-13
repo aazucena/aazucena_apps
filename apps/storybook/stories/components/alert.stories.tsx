@@ -254,7 +254,7 @@ export const Dashboard: Story = {
 };
 
 /**
- * Frosted glass variant with soft borders, ideal for atmospheric portfolio layers.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {
@@ -272,7 +272,7 @@ export const Glass: Story = {
 };
 
 /**
- * Engineering-first variant with glowing cyan accents and high contrast.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

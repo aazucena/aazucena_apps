@@ -65,7 +65,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance dark mode variant with a cyan border and subtle glow.
+ * Cyber variant: signal ring around the avatar.
  */
 export const Cyber: Story = {
   args: {
@@ -81,7 +81,7 @@ export const Cyber: Story = {
 };
 
 /**
- * Transparent glass variant with backdrop blur, ideal for overlaying on complex backgrounds.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {

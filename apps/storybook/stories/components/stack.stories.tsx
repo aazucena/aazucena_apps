@@ -141,7 +141,7 @@ export const Basic: Story = {
 // --- VISUAL VARIANTS ---
 
 /**
- * Glass variant on a gradient background, useful for overlay compositions.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {

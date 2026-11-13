@@ -19,7 +19,7 @@ import { Shield, Sparkles, Zap, Trash, Globe } from '@aazucena/icons';
 /**
  * ## Engineering Standards
  * - **Pattern:** Radix UI based modal system for focused tasks and confirmation.
- * - **UX:** Features `zoom-in` and `fade-in` entry animations with a backdrop blur overlay.
+ * - **UX:** `zoom-in` and `fade-in` entry animations over a scrim overlay.
  * - **Architecture:** Uses CVA for 3 visual variants (`glass`, `cyber`) and 5 size presets.
  * - **Specialized Components:** Includes `DialogHero` and `DialogIcon` for high-fidelity branding within modals.
  * - **Accessibility:** Traps focus and supports keyboard ESC to close; semantic title and description required.
@@ -163,7 +163,7 @@ export const CyberSpec: Story = {
 };
 
 /**
- * Immersive glass variant with high-fidelity gradients and icons.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const GlassHero: Story = {
   render: () => (

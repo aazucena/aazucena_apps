@@ -116,7 +116,7 @@ export const Glass: Story = {
 };
 
 /**
- * Cyber variant with neon styling.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

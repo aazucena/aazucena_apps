@@ -121,7 +121,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

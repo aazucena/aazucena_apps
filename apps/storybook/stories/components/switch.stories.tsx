@@ -9,7 +9,7 @@ import { within, userEvent, expect } from 'storybook/test';
  * - **Pattern:** Radix UI based primitive for boolean toggle interaction.
  * - **Accessibility:** Built with standard `role="switch"` and `aria-checked` attributes; supports keyboard SPACE to toggle.
  * - **UX:** Features smooth CSS transitions for thumb movement and background state changes.
- * - **Design:** Supports high-fidelity `cyber` and `logic` (technical settings) variants with integrated neon glow.
+ * - **Design:** Supports `cyber` (signal rule, Fira Code labels) and `logic` (technical settings) variants.
  */
 const meta = {
   title: 'Components/Primitives/Switch',
@@ -70,7 +70,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and technical context.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

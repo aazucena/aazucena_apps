@@ -138,7 +138,7 @@ export const Default: Story = {
 };
 
 /**
- * Glass overlay variant — frosted dark backdrop with translucent UI elements.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {
@@ -153,7 +153,7 @@ export const Glass: Story = {
 };
 
 /**
- * Cyber overlay with deep black background and neon-accented navigation controls.
+ * Cyber overlay: ink scrim with signal-ruled navigation controls.
  */
 export const Cyber: Story = {
   args: {

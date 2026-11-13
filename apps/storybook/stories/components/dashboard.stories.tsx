@@ -125,7 +125,7 @@ export const PageIdentity: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and technical typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

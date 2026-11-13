@@ -7,7 +7,7 @@ import { Activity, Play, Globe, Zap, ArrowRight } from '@aazucena/icons';
  * ## Engineering Standards
  * - **CDD Pattern:** Orchestral layout suite for primary landing and section entry headers.
  * - **UX:** Features high-impact typography with built-in decorative elements (dots/underscores) aligned with brand variants.
- * - **Aesthetics:** Supports `glass` and `cyber` presets with integrated background effects (Radial glows, Neon borders).
+ * - **Aesthetics:** Supports `glass` (translucent panel) and `cyber` (signal rule, mono labels) presets.
  * - **Scalability:** Uses standard size presets from `default` to `full` (screen-height).
  * - **Composition:** Fully modular parts (Header, Content, Actions) for flexible landing page assembly.
  */
@@ -96,7 +96,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with exosphere aesthetics and neon effects.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

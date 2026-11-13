@@ -124,7 +124,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with overlays and glowing interaction.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberShowcase: Story = {
   args: {

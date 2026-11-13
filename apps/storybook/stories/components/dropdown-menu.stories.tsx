@@ -112,7 +112,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   render: () => (
@@ -156,7 +156,7 @@ export const Cyber: Story = {
 };
 
 /**
- * Immersive glass variant with backdrop blur for atmospheric UI contexts.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const GlassSelection: Story = {
   render: () => {

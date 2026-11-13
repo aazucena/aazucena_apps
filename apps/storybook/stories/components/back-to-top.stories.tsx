@@ -7,9 +7,9 @@ import { BackToTop } from '@aazucena/ui';
  * - **UX:** Provides a frictionless way to return to the top of long-form content.
  * - **Logic:** Uses an intersection-style threshold (default 300px) to trigger visibility.
  * - **Animation:** Orchestrated with Framer Motion `AnimatePresence` for smooth entry/exit.
- * - **Variants:** `default` (opaque, high-contrast — production default), `glass` (10% opacity,
- *   subtle), `cyber` (neon borders + glow). Default changed from `glass` → `default` for
- *   visibility on portfolio page backgrounds.
+ * - **Variants:** `default` (opaque, the production default), `glass` (translucent panel)
+ *   and `cyber` (signal rule). `default` replaced `glass` as the default so the button
+ *   stays visible on portfolio page backgrounds.
  */
 const meta = {
   title: 'Components/Navigation/BackToTop',
@@ -79,7 +79,7 @@ export const Glass: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and glow.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

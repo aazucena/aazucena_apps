@@ -6,7 +6,7 @@ import { ReadingProgress } from '@aazucena/ui';
  * - **Pattern:** Global scroll-synced indicator for long-form content readability.
  * - **Animation:** Orchestrated with Framer Motion `useScroll` and `useSpring` for physics-based fluid movement.
  * - **UX:** Fixed to the viewport top with `origin-left` to ensure accurate percentage representation.
- * - **Variants:** Supports `glass` and high-fidelity `cyber` themes with integrated neon glow.
+ * - **Variants:** Supports `glass` and `cyber` (signal bar) variants.
  * - **Accessibility:** Automatically hidden during print using `print:hidden`.
  */
 const meta = {
@@ -58,7 +58,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

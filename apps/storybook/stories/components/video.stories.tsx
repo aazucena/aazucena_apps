@@ -121,7 +121,7 @@ export const Basic: Story = {
 // --- VISUAL VARIANTS ---
 
 /**
- * Glassmorphic variant with frosted container, ideal for immersive hero sections.
+ * Glass variant: translucent `panel-glass` surface with a 1px rule, for use over imagery. Avra 0.2 has no blur, so check contrast against the backdrop.
  */
 export const Glass: Story = {
   args: {
@@ -136,7 +136,7 @@ export const Glass: Story = {
 };
 
 /**
- * Cyber variant with neon cyan border and glowing play button for terminal interfaces.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

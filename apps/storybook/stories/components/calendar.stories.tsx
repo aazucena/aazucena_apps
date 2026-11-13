@@ -72,7 +72,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon accents and high-contrast borders.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

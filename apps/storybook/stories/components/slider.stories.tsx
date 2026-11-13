@@ -9,7 +9,7 @@ import { useState } from 'react';
  * - **Pattern:** Radix UI based accessible range primitive for numeric selection.
  * - **Accessibility:** Built-in keyboard support (Arrow keys, Home/End, PageUp/Down) and standard ARIA roles.
  * - **UX:** Features `touch-none` and `select-none` optimizations for fluid mobile and desktop interactions.
- * - **Design:** Supports high-fidelity `cyber` variant with neon glowing tracks and precise thumb shadows.
+ * - **Design:** Supports a `cyber` variant (signal rule, Fira Code labels).
  */
 const meta = {
   title: 'Components/Primitives/Slider',
@@ -86,7 +86,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon glow and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   args: {

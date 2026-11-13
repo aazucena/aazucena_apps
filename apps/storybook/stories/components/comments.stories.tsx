@@ -135,7 +135,7 @@ export const WithLikes: Story = {
 };
 
 /**
- * Cyber variant with neon nesting indicators and dark styling.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {

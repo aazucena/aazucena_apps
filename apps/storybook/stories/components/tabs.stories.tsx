@@ -8,7 +8,7 @@ import { Badge } from '@aazucena/ui';
  * ## Engineering Standards
  * - **Pattern:** Radix UI based primitive for organizing content into navigable views.
  * - **UX:** Features smooth state transitions and tactile feedback. Supports a unique `phone` dial variant for mobile-first circular navigation.
- * - **Aesthetics:** Aligned with site-wide themes (`glass`, `cyber`) featuring high-fidelity `` and neon glowing indicators.
+ * - **Aesthetics:** Supports `glass` and `cyber` variants; the active tab is marked by a signal indicator.
  * - **Accessibility:** Built with standard `role="tablist"`, `role="tab"`, and `role="tabpanel"`; fully keyboard navigable (Arrow keys).
  */
 const meta = {
@@ -72,7 +72,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and mono typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const CyberTerminal: Story = {
   render: () => (
