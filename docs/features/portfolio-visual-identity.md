@@ -44,11 +44,16 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
 ## Decision needed
 
 1. **How far into the homepage?** The recommendation is the table above: content layer only, with scenes unchanged apart from particle hues. The alternative is to also replace the gradient scene backdrops with flat ink surfaces, which is closer to the dashboard but loses the altitude story.
+   - **Contrast caveat (found 2026-11-12, frames now show the live scenes):** the signal cyan used for section subtitles ("From pixel to pipeline.", "Drag to explore more projects", "Capabilities & services") fails contrast where it sits directly on the bright blue sky scenes (Projects, Experience, What I do). If scenes stay, text that sits on a scene uses `foreground`, or the scene gets a scrim under the heading block. Signal stays inside panels.
 2. **Rin trigger color.** Signal (recommended, matches the alert rule) or keep the warm accent as a brand exception.
 
 ## Frames
 
-- **Homepage, dark:** Hero, About, Projects, Experience, What I do, Skills, Blog, What's next.
+- **Homepage, dark:** Hero, About, Projects, Experience, What I do, Skills, Blog, What's next. Revised 2026-11-12:
+  - Each frame sits on a capture of its live scene.
+  - Copy matches the live site.
+  - Chrome comes from `Shared / Control dock` and `Shared / Section dots`.
+  - Projects is a carousel, Skills a radial orbit selector, and Blog a card deck, as on the live site.
 - **Blog index:** dark and light.
 - **Journey, dark and light (rebuilt 2026-11-12):** the full three-phase report.
   - Career at a Glance
