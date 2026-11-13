@@ -30,6 +30,8 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 
 - [ ] **Splash hides the preloader card for up to 8 seconds.** `BrandIconLoader` (`components/BrandIconLoader.astro`, `z-index: 10000`) sits above the React preloader (`z-[9999]`). It only hides on `brand-loader-complete`, which `layouts/BaseLayout.astro:241` forwards from `preloader-complete`. That event fires after the visitor clicks "Enter Website", so the splash covers the Loading steps and the Ready card until its 8s safety timeout. The button stays clickable underneath (`pointer-events: none`) but can't be seen. Fix: have the splash hand off when the preloader mounts, for example a `preloader-mounted` event from `InteractivePreloader`, and keep `preloader-complete` for revealing `<main>`. Figma `Shared / Preloader` shows the intended sequence: Splash → Loading → Ready (Error on failure). (Found 2026-11-12.)
 
+- [ ] **Rin's About and Transparency copy doesn't match the canon.** In `components/assistant/AssistantLoreOverlay.tsx`, "The Name" is garbled ("…which is the last three letters of the part that remained"). It also says Rin is "not a separate creation. The residue of the person who built this place", but `docs/features/rin.md` says Rin is distinct and "not a copy of Aldrin, nor a fragment of him." `AssistantTransparencyOverlay.tsx` calls Rin "it", and Rin has no pronouns. Copy them from the Figma `Shared / Rin chat` About and Notice states, which follow the canon, including the added "Rin's nature" section. The trigger greeting's "Ask me anything about Aldrin's work" is assistant framing ("What brings you here today?" register); it's an open question for the owner. (Found 2026-11-12.)
+
 ## Features
 
 _To be filled in from the feature list._
