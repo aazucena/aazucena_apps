@@ -9,7 +9,7 @@ import { cn } from '@aazucena/utils';
 const Menubar = MenubarPrimitive.Root;
 
 const menubarContentVariants = cva(
-  'z-50 min-w-[12rem] overflow-hidden rounded-control border p-1 data-open:animate-in data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-menubar-content-transform-origin]',
+  'z-(--z-popover) min-w-[12rem] overflow-hidden rounded-control border p-1 data-open:animate-in data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-menubar-content-transform-origin]',
   {
     variants: {
       variant: {

@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
-const toolbarVariants = cva('fixed flex items-center transition-all duration-300 z-50', {
+const toolbarVariants = cva('fixed flex items-center transition-all duration-300 z-(--z-fixed)', {
   variants: {
     variant: {
       default: 'bg-background/80 border border-border text-foreground',

@@ -127,7 +127,7 @@ const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
                   <ChevronDown className="size-3 transition-transform duration-200 data-[state=open]:rotate-180" />
                 </Button>
               </CollapsibleTrigger>
-              <CollapsibleContent className="absolute top-full left-0 z-50 w-full border-b bg-inherit p-4">
+              <CollapsibleContent className="absolute top-full left-0 z-(--z-dropdown) w-full border-b bg-inherit p-4">
                 {details}
               </CollapsibleContent>
             </Collapsible>

@@ -10,7 +10,7 @@ import { cn } from '@aazucena/utils';
 const Popover = PopoverPrimitive.Root;
 
 const popoverContentVariants = cva(
-  'z-50 w-72 rounded-control border p-4 outline-none data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 origin-[--radix-popover-content-transform-origin]',
+  'z-(--z-popover) w-72 rounded-control border p-4 outline-none data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 origin-[--radix-popover-content-transform-origin]',
   {
     variants: {
       variant: {

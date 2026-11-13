@@ -132,7 +132,7 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
             id={listboxId}
             role="listbox"
             className={cn(
-              'rounded-control absolute z-50 mt-1 w-full border',
+              'rounded-control absolute z-(--z-dropdown) mt-1 w-full border',
               v === 'cyber'
                 ? 'border-signal/30 bg-panel'
                 : v === 'glass'

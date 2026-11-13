@@ -65,7 +65,7 @@ export const TourStep = React.forwardRef<HTMLDivElement, TourStepProps>(
         ref={ref}
         role="dialog"
         aria-label={step.title}
-        className={cn('rounded-control fixed z-[9999] w-64 p-4', variantClasses[variant])}
+        className={cn('rounded-control fixed z-(--z-max) w-64 p-4', variantClasses[variant])}
         style={{ top: pos.top, left: pos.left, transform: 'translateX(-50%)' }}
       >
         <h4 className={cn('mb-1 text-sm font-semibold', variant === 'cyber' && 'font-mono')}>

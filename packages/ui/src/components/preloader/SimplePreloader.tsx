@@ -207,7 +207,7 @@ export default function SimplePreloader({
   return (
     <div
       ref={containerRef}
-      className={`fixed inset-0 z-[9999] flex items-center justify-center p-4 ${transitionClass} ${overlayClassName} ${themeStyles.overlayClasses} `}
+      className={`fixed inset-0 z-(--z-max) flex items-center justify-center p-4 ${transitionClass} ${overlayClassName} ${themeStyles.overlayClasses} `}
       style={{ ...themeStyles.overlayStyle, ...style }}
       aria-label={ariaLabel}
       aria-live={ariaLive}

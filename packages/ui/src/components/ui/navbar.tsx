@@ -8,7 +8,7 @@ import { cn } from '@aazucena/utils';
 import { Button } from './button';
 
 const navbarVariants = cva(
-  'fixed top-0 right-0 left-0 z-[100] border-b transition-all duration-500',
+  'fixed top-0 right-0 left-0 z-(--z-fixed) border-b transition-all duration-500',
   {
     variants: {
       variant: {
@@ -90,7 +90,7 @@ const NavbarBrand = React.forwardRef<
   <a
     ref={ref}
     aria-label={label || (typeof props.children === 'string' ? props.children : undefined)}
-    className={cn('group relative z-[110] flex shrink-0 items-center gap-3', className)}
+    className={cn('group relative z-10 flex shrink-0 items-center gap-3', className)}
     {...props}
   />
 ));
@@ -122,11 +122,7 @@ NavbarContent.displayName = 'NavbarContent';
 
 const NavbarActions = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('relative z-[110] flex items-center gap-4', className)}
-      {...props}
-    />
+    <div ref={ref} className={cn('relative z-10 flex items-center gap-4', className)} {...props} />
   ),
 );
 NavbarActions.displayName = 'NavbarActions';
@@ -155,7 +151,7 @@ const NavbarMobile = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="bg-background dark:bg-scrim fixed inset-0 z-[120] md:hidden"
+            className="bg-background dark:bg-scrim fixed inset-0 z-(--z-overlay) md:hidden"
           />
           <motion.div
             initial={{ x: '100%' }}
@@ -163,7 +159,7 @@ const NavbarMobile = ({
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className={cn(
-              'fixed top-0 right-0 bottom-0 z-[130] flex w-[85vw] max-w-sm flex-col border-l p-8 md:hidden',
+              'fixed top-0 right-0 bottom-0 z-(--z-modal) flex w-[85vw] max-w-sm flex-col border-l p-8 md:hidden',
               variant === 'cyber'
                 ? 'bg-background border-signal/20'
                 : 'bg-background border-border',

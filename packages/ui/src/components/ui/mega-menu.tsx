@@ -106,7 +106,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
               onMouseEnter={() => clearTimeout(timeoutRef.current)}
               onMouseLeave={handleLeave}
               className={cn(
-                'rounded-control absolute left-0 z-50 mt-1 w-full min-w-[32rem] border p-4',
+                'rounded-control absolute left-0 z-(--z-dropdown) mt-1 w-full min-w-[32rem] border p-4',
                 v === 'cyber'
                   ? 'border-signal/30 bg-panel'
                   : v === 'glass'

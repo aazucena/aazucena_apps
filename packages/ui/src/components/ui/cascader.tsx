@@ -173,7 +173,7 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
         {open && (
           <div
             className={cn(
-              'rounded-control absolute z-50 mt-1 flex border',
+              'rounded-control absolute z-(--z-dropdown) mt-1 flex border',
               v === 'cyber'
                 ? 'border-signal/30 bg-panel'
                 : v === 'glass'

@@ -168,7 +168,7 @@ const TieredMenu = React.forwardRef<HTMLDivElement, TieredMenuProps>(
           )}
         </div>
         {open && (
-          <div className="absolute z-50 mt-1">
+          <div className="absolute z-(--z-dropdown) mt-1">
             <TieredMenuPanel items={items} variant={v} depth={0} />
           </div>
         )}

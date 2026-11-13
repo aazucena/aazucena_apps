@@ -9,7 +9,7 @@ import { cn } from '@aazucena/utils';
  */
 
 export const preloaderOverlayVariants = cva(
-  'fixed inset-0 z-[9999] flex items-center justify-center p-4 transition-all duration-500',
+  'fixed inset-0 z-(--z-max) flex items-center justify-center p-4 transition-all duration-500',
   {
     variants: {
       theme: {

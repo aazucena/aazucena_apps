@@ -22,7 +22,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-scrim fixed inset-0 z-50',
+      'data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-scrim fixed inset-0 z-(--z-overlay)',
       className,
     )}
     {...props}
@@ -31,7 +31,7 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const dialogContentVariants = cva(
-  'fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 border duration-200 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-closed:slide-out-to-left-1/2 data-closed:slide-out-to-top-[48%] data-open:slide-in-from-left-1/2 data-open:slide-in-from-top-[48%] overflow-hidden transition-all',
+  'fixed top-1/2 left-1/2 z-(--z-modal) grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 border duration-200 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-closed:slide-out-to-left-1/2 data-closed:slide-out-to-top-[48%] data-open:slide-in-from-left-1/2 data-open:slide-in-from-top-[48%] overflow-hidden transition-all',
   {
     variants: {
       variant: {
@@ -67,7 +67,7 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="rounded-control text-muted-foreground hover:bg-state hover:text-foreground focus-visible:outline-signal absolute top-3 right-3 z-50 p-2 transition-colors outline-none focus-visible:outline-1 focus-visible:outline-solid disabled:pointer-events-none">
+      <DialogPrimitive.Close className="rounded-control text-muted-foreground hover:bg-state hover:text-foreground focus-visible:outline-signal absolute top-3 right-3 z-10 p-2 transition-colors outline-none focus-visible:outline-1 focus-visible:outline-solid disabled:pointer-events-none">
         <Cross2Icon className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>

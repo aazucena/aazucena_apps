@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const appLoaderVariants = cva(
-  'fixed inset-0 z-[10000] flex items-center justify-center transition-all duration-1000 text-foreground',
+  'fixed inset-0 z-[calc(var(--z-max)+1)] flex items-center justify-center transition-all duration-1000 text-foreground',
   {
     variants: {
       variant: {

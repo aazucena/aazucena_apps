@@ -8,16 +8,19 @@ import { cn } from '@aazucena/utils';
 // Variants
 // ---------------------------------------------------------------------------
 
-const lightboxOverlayVariants = cva('fixed inset-0 z-[200] flex items-center justify-center', {
-  variants: {
-    variant: {
-      default: 'bg-panel',
-      glass: 'bg-panel',
-      cyber: 'bg-panel',
+const lightboxOverlayVariants = cva(
+  'fixed inset-0 z-(--z-modal) flex items-center justify-center',
+  {
+    variants: {
+      variant: {
+        default: 'bg-panel',
+        glass: 'bg-panel',
+        cyber: 'bg-panel',
+      },
     },
+    defaultVariants: { variant: 'default' },
   },
-  defaultVariants: { variant: 'default' },
-});
+);
 
 const lightboxCloseVariants = cva(
   'absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full transition-opacity hover:opacity-80',

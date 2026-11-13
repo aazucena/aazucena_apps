@@ -19,7 +19,7 @@ const bannerVariants = cva(
         success: 'bg-success/10 text-success border-b border-success/20',
       },
       position: {
-        top: 'sticky top-0 z-50',
+        top: 'sticky top-0 z-(--z-sticky)',
         inline: 'rounded-control',
       },
     },

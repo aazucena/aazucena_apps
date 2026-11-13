@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { ScrollDown as Icon } from '@aazucena/icons';
 
 const scrollDownVariants = cva(
-  'fixed bottom-12 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 transition-all duration-1000 cursor-pointer group outline-none',
+  'fixed bottom-12 left-1/2 -translate-x-1/2 z-(--z-fixed) flex flex-col items-center gap-2 transition-all duration-1000 cursor-pointer group outline-none',
   {
     variants: {
       variant: {

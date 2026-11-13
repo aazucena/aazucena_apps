@@ -22,7 +22,7 @@ const comingSoonVariants = cva(
         lg: 'w-full min-h-[500px]',
       },
       fullScreen: {
-        true: 'fixed inset-0 z-[9999] border-none rounded-none min-h-screen',
+        true: 'fixed inset-0 z-(--z-max) border-none rounded-none min-h-screen',
         false: '',
       },
     },
@@ -284,7 +284,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[9999]"
+              className="fixed inset-0 z-(--z-max)"
             >
               {content}
             </motion.div>

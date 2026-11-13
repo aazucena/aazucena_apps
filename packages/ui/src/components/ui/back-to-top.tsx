@@ -7,7 +7,7 @@ import { cn, scrollToTop } from '@aazucena/utils';
 import { ArrowUp } from '@aazucena/icons';
 
 const backToTopVariants = cva(
-  'fixed bottom-8 right-8 z-40 flex items-center justify-center transition-all duration-300 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-ring',
+  'fixed bottom-8 right-8 z-(--z-fixed) flex items-center justify-center transition-all duration-300 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-ring',
   {
     variants: {
       variant: {

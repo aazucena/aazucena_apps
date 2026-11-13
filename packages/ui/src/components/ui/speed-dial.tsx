@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const speedDialVariants = cva('fixed z-50', {
+const speedDialVariants = cva('fixed z-(--z-fixed)', {
   variants: {
     variant: {
       default: '',

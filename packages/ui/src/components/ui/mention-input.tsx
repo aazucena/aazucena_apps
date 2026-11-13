@@ -105,7 +105,7 @@ const MentionInput = React.forwardRef<HTMLTextAreaElement, MentionInputProps>(
           {...props}
         />
         {showDropdown && filtered.length > 0 && (
-          <div className="bg-popover rounded-control absolute left-0 z-50 mt-1 max-h-48 w-full overflow-auto border p-1">
+          <div className="bg-popover rounded-control absolute left-0 z-(--z-dropdown) mt-1 max-h-48 w-full overflow-auto border p-1">
             {filtered.map((s) => (
               <button
                 key={s.id}

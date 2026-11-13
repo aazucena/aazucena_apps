@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const bottomNavigationVariants = cva(
-  'fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t safe-area-bottom',
+  'fixed bottom-0 left-0 right-0 z-(--z-fixed) flex items-center justify-around border-t safe-area-bottom',
   {
     variants: {
       variant: {

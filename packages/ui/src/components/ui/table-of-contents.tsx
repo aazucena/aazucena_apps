@@ -5,7 +5,7 @@ import { cn, toTitleCase } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-const tocVariants = cva('fixed z-40 hidden xl:block transition-all duration-300', {
+const tocVariants = cva('fixed z-(--z-fixed) hidden xl:block transition-all duration-300', {
   variants: {
     variant: {
       default: 'bg-background border border-border rounded-card p-4',

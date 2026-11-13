@@ -141,7 +141,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(
         {open && (
           <div
             className={cn(
-              'rounded-control absolute z-50 mt-1 border p-0',
+              'rounded-control absolute z-(--z-dropdown) mt-1 border p-0',
               dropdownStyles[v],
               align === 'end' && 'right-0',
               align === 'center' && 'left-1/2 -translate-x-1/2',

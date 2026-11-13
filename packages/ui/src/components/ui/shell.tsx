@@ -48,7 +48,7 @@ const ShellView = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
 ShellView.displayName = 'ShellView';
 
 const shellHeaderVariants = cva(
-  'h-14 shrink-0 z-40 flex items-center px-6 border-b transition-all duration-300',
+  'h-14 shrink-0 z-(--z-sticky) flex items-center px-6 border-b transition-all duration-300',
   {
     variants: {
       variant: {

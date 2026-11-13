@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const backdropVariants = cva('fixed inset-0 z-40 transition-opacity duration-300', {
+const backdropVariants = cva('fixed inset-0 z-(--z-overlay) transition-opacity duration-300', {
   variants: {
     variant: {
       default: 'bg-panel',

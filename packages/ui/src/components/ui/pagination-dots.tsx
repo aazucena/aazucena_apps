@@ -21,8 +21,8 @@ export const paginationDotsVariants = cva(
       },
       position: {
         default: '',
-        'fixed-right': 'fixed top-1/2 right-8 z-50 -translate-y-1/2 flex-col gap-4',
-        'fixed-left': 'fixed top-1/2 left-8 z-50 -translate-y-1/2 flex-col gap-4',
+        'fixed-right': 'fixed top-1/2 right-8 z-(--z-fixed) -translate-y-1/2 flex-col gap-4',
+        'fixed-left': 'fixed top-1/2 left-8 z-(--z-fixed) -translate-y-1/2 flex-col gap-4',
       },
       visible: {
         true: 'opacity-100 scale-100',

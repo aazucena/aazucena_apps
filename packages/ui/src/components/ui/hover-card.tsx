@@ -10,7 +10,7 @@ import { cn } from '@aazucena/utils';
 const HoverCard = HoverCardPrimitive.Root;
 
 const hoverCardContentVariants = cva(
-  'z-50 w-64 origin-[--radix-hover-card-content-transform-origin] rounded-control border p-4 outline-none data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+  'z-(--z-popover) w-64 origin-[--radix-hover-card-content-transform-origin] rounded-control border p-4 outline-none data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
   {
     variants: {
       variant: {

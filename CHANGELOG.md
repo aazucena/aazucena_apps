@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(design-system)_ Emit z-index tokens with kebab-case names
 - _(design-system)_ Stop shifting tailwind's type scale
 - _(ui)_ Framer motion, loops and rive respect reduced motion
 - _(ui)_ Stop css animations and transitions under reduced motion
