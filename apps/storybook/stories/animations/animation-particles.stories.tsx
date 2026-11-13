@@ -16,11 +16,13 @@ const meta: Meta<typeof AnimationParticles> = {
     docs: {
       description: {
         component:
-          'High-performance 2D particle system using PixiJS. Ideal for atmospheric backgrounds like space, snow, or rain.',
+          'High-performance 2D particle system using PixiJS. Ideal for atmospheric backgrounds like space, snow, or rain. **Dark mode only:** the particles are light on transparent, made for the dark scenes, so these stories lock the theme to dark.',
       },
     },
     chromatic: { disableSnapshot: true }, // PixiJS requires WebGL — not available in Chromatic's headless Chrome
   },
+  // Light particles on a transparent canvas only read on dark: lock the mode.
+  globals: { theme: 'dark' },
   tags: ['autodocs', 'no-vitest'],
   argTypes: {
     preset: {
