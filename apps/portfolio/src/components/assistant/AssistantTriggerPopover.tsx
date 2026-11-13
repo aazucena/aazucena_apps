@@ -78,7 +78,7 @@ export function AssistantTriggerPopover({
             </button>
           </div>
           <p className="text-muted-foreground text-[11px]">
-            Ask me anything about Aldrin's work.
+            What brings you here today?
           </p>
         </div>
       </PopoverContent>
