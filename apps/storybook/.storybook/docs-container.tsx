@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
-import { GLOBALS_UPDATED, SET_GLOBALS } from 'storybook/internal/core-events';
 import { ThemeManager } from '@aazucena/design-system';
 import { docsThemeDark, docsThemeLight } from './theme';
 
 type Mode = 'light' | 'dark';
+
+// Storybook core event names (storybook/internal/core-events). Inlined so the
+// preview doesn't pull in an internal module Vite would optimize mid-test-run.
+const GLOBALS_UPDATED = 'globalsUpdated';
+const SET_GLOBALS = 'setGlobals';
 type Globals = { theme?: string; vibe?: string };
 
 const envVibe = (import.meta.env.STORYBOOK_VIBE as string | undefined) ?? 'default';
