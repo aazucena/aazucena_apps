@@ -165,6 +165,26 @@ ratios.
 > **Decision (2026-11-10): Dense terminal.** Full-width layout (drop `max-w-7xl`), 12–16px gutters,
 > compact table rows, panel padding around `p-3`/`p-4` instead of `p-8`. Optimize for data per screen.
 
+### D6 — Each screen keeps its own centrepiece
+
+> **Decision (2026-11-12, owner review of the Figma screens):** the first pass gave every page the same
+> KPI-strip, area-chart and table template, and the owner found the screens "same-ey" and hard to tell apart.
+> The instrument language supplies consistency; each page's layout follows its job:
+>
+> | Page         | Centrepiece                                                                                                                             |
+> | ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+> | Overview     | Velocity Dynamics stream graph, Interaction Density calendar heatmap, Raw Telemetry Logs and Sentinel watchdog under a single KPI strip |
+> | Traffic      | Geospatial map as the hero, with metric tabs, a hover tooltip and Top regions cards (owner's layout)                                    |
+> | AI Terminal  | Chat terminal: session list, thread with an `INTERNAL_REASONING` block, composer. No KPI tiles                                          |
+> | AI Costs     | Ledger: budget burn meter (spent, projected, budget), daily spend, Model Efficiency and Agent Resource tables                           |
+> | Trajectories | Three panes: trajectory list, NeuralMap with playback controls, step inspector (reward, confidence, JSON)                               |
+> | Logs         | Full-height console with level filters and ● / ◆ / ▲ markers                                                                            |
+> | Performance  | Core Web Vitals over good, needs-work and poor bands; error traces; service heartbeat tiles                                             |
+> | Status       | Public status page: overall banner, 90-day uptime bar per service                                                                       |
+>
+> Page titles use the app's own copy (`TRAFFIC_CENTER`, `TELEMETRY_STREAM`, `SYSTEM_INTEGRITY`, …).
+> Figma: Analytics page, dark and light frames.
+
 ---
 
 ## 4. Implementation outline
