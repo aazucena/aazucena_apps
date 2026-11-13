@@ -76,7 +76,16 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
   Content comes from the running site, with real project images. Every page uses two shared components: `Shared / Navbar` (one variant per active page, plus `None` for Contact, Support, Changelog and 404) and `Shared / Footer`. Edit the component to update every page.
 
 - **Overlays and mobile, dark:**
-  - Rin chat open over About, with the trigger as a signal outline button
+  - Rin chat, built from the live assistant (`Shared / Rin chat`, six states):
+    - Notice: Transparency, shown on first open
+    - Empty: portrait, intro and page-aware suggestions
+    - Conversation: with the loading status
+    - Menu: About Rin, Transparency, Export transcript, Clear conversation
+    - About Rin
+    - Clear confirm
+
+    The chat appears in floating, side-panel and full-screen modes.
+
   - Preloader gate
   - Mobile Home hero, menu open and Blog post at 390px
 
