@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Align Rin's lore and transparency copy with the canon
 - _(ui)_ Keep hexagon card labels inside the shape's wide band
 - _(ui)_ Meter label gap, hexagon text inset, avatar rings, one-line mic error
 - _(ui)_ Quiet static panels, marked destructive badges, select item radius
