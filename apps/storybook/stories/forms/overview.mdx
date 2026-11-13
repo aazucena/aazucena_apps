@@ -7,75 +7,74 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 The **`@aazucena/forms`** package is a fully type-safe, schema-driven form library for the portfolio monorepo.
 It pairs **TanStack Form v1** with **Zod 4** validation and ships **94 pre-composed template components** across 13
-domains — from authentication ceremonies to incident post-mortems — all in three design variants.
+domains, from sign-in to incident post-mortems, in three design variants.
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 The system is organized into three layers that compose cleanly together:
 
-<div className="my-6 p-8 rounded-2xl border border-[var(--border)] bg-[var(--base)] relative overflow-hidden">
-  <div className="absolute inset-0 opacity-[0.025] pointer-events-none bg-[linear-gradient(var(--primary)_1px,transparent_1px),linear-gradient(90deg,var(--primary)_1px,transparent_1px)] [background-size:24px_24px]" />
+<div className="my-6 p-8 rounded-card border border-rule bg-background relative overflow-hidden">
   <div className="flex flex-col md:flex-row items-stretch gap-4 relative z-10">
 
     {/* Layer 1 */}
-    <div className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--primary)]/5 p-5 space-y-3">
+    <div className="flex-1 rounded-card border border-rule bg-[var(--signal)]/5 p-5 space-y-3">
       <div className="flex items-center gap-2">
-        <span className="text-xs font-mono font-bold text-[var(--primary)] tracking-[0.15em] uppercase">Layer_01</span>
+        <span className="text-xs font-mono font-bold text-[var(--signal)] tracking-[0.15em] uppercase">Layer_01</span>
       </div>
-      <p className="text-sm font-bold text-[var(--foreground)]">Validation Engine</p>
-      <code className="block text-[11px] font-mono opacity-60">@aazucena/forms/schemas</code>
+      <p className="text-sm font-bold text-[var(--foreground)]">Validation</p>
+      <code className="block text-[11px] font-mono text-muted-foreground">@aazucena/forms/schemas</code>
       <p className="text-xs text-[var(--muted-foreground)]">
         98 Zod schemas validate form data at runtime before it reaches your server.
         Schemas are exported independently so you can use them in API routes too.
       </p>
       <div className="mt-2 flex flex-wrap gap-1">
         {['loginSchema', 'mfaSetupSchema', 'paymentSchema', 'bookingSchema', '+ 77 more'].map(tag => (
-          <span key={tag} className="inline-block rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-mono opacity-70">{tag}</span>
+          <span key={tag} className="inline-block rounded-full border border-rule px-2 py-0.5 text-sm font-mono opacity-70">{tag}</span>
         ))}
       </div>
     </div>
 
     {/* Arrow */}
     <div className="hidden md:flex items-center justify-center w-8 shrink-0">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-[var(--primary)] opacity-40">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-[var(--signal)] text-muted-foreground">
         <path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </div>
 
     {/* Layer 2 */}
-    <div className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--primary)]/5 p-5 space-y-3">
+    <div className="flex-1 rounded-card border border-rule bg-[var(--signal)]/5 p-5 space-y-3">
       <div className="flex items-center gap-2">
-        <span className="text-xs font-mono font-bold text-[var(--primary)] tracking-[0.15em] uppercase">Layer_02</span>
+        <span className="text-xs font-mono font-bold text-[var(--signal)] tracking-[0.15em] uppercase">Layer_02</span>
       </div>
-      <p className="text-sm font-bold text-[var(--foreground)]">Form Engine</p>
-      <code className="block text-[11px] font-mono opacity-60">TanStack Form v1</code>
+      <p className="text-sm font-bold text-[var(--foreground)]">Form state</p>
+      <code className="block text-[11px] font-mono text-muted-foreground">TanStack Form v1</code>
       <p className="text-xs text-[var(--muted-foreground)]">
         Headless, field-level subscriptions. <code className="font-mono">useForm()</code> manages state,
         dirty tracking, and async submission. No re-renders outside changed fields.
       </p>
       <div className="mt-2 flex flex-wrap gap-1">
         {['useForm', 'form.Field', 'form.Subscribe', 'FormWizard', 'FormConditional'].map(tag => (
-          <span key={tag} className="inline-block rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-mono opacity-70">{tag}</span>
+          <span key={tag} className="inline-block rounded-full border border-rule px-2 py-0.5 text-sm font-mono opacity-70">{tag}</span>
         ))}
       </div>
     </div>
 
     {/* Arrow */}
     <div className="hidden md:flex items-center justify-center w-8 shrink-0">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-[var(--primary)] opacity-40">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-[var(--signal)] text-muted-foreground">
         <path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </div>
 
     {/* Layer 3 */}
-    <div className="flex-1 rounded-xl border border-[var(--border)] bg-[var(--primary)]/5 p-5 space-y-3">
+    <div className="flex-1 rounded-card border border-rule bg-[var(--signal)]/5 p-5 space-y-3">
       <div className="flex items-center gap-2">
-        <span className="text-xs font-mono font-bold text-[var(--primary)] tracking-[0.15em] uppercase">Layer_03</span>
+        <span className="text-xs font-mono font-bold text-[var(--signal)] tracking-[0.15em] uppercase">Layer_03</span>
       </div>
       <p className="text-sm font-bold text-[var(--foreground)]">Template Components</p>
-      <code className="block text-[11px] font-mono opacity-60">@aazucena/forms/templates</code>
+      <code className="block text-[11px] font-mono text-muted-foreground">@aazucena/forms/templates</code>
       <p className="text-xs text-[var(--muted-foreground)]">
         94 pre-composed, drop-in form templates. Each accepts <code className="font-mono">variant</code>,
         <code className="font-mono">onSuccess</code>, <code className="font-mono">onError</code>,
@@ -83,7 +82,7 @@ The system is organized into three layers that compose cleanly together:
       </p>
       <div className="mt-2 flex flex-wrap gap-1">
         {['LoginForm', 'MFASetupForm', 'PaymentForm', 'SSOForm', '+ 90 more'].map(tag => (
-          <span key={tag} className="inline-block rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-mono opacity-70">{tag}</span>
+          <span key={tag} className="inline-block rounded-full border border-rule px-2 py-0.5 text-sm font-mono opacity-70">{tag}</span>
         ))}
       </div>
     </div>
@@ -93,7 +92,7 @@ The system is organized into three layers that compose cleanly together:
 
 ---
 
-## 📦 Import Paths
+## Import Paths
 
 ```ts
 // All schemas + type exports
@@ -111,90 +110,66 @@ import { ... } from '@aazucena/forms';
 
 ---
 
-## 🎨 The Three Variants
+## The Three Variants
 
-Every template accepts a `variant` prop. The design system token layer drives all three without any extra CSS:
+Every template accepts a `variant` prop. The role tokens drive all three, so they follow the light/dark and vibe toolbar with no extra CSS:
 
-<div className="my-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div className="sb-unstyled my-6 grid grid-cols-1 gap-4 md:grid-cols-3">
 
-  {/* Default */}
-  <div className="rounded-xl border border-[var(--border)] overflow-hidden">
-    <div className="bg-[var(--muted)]/40 px-4 py-2.5 border-b border-[var(--border)] flex items-center gap-2">
-      <span className="h-2.5 w-2.5 rounded-full bg-[var(--primary)]"></span>
-      <span className="text-xs font-mono font-bold tracking-wider text-[var(--foreground)]">DEFAULT</span>
+  <div className="rounded-card overflow-hidden bg-panel">
+    <div className="border-rule flex items-center gap-2 border-b px-4 py-2">
+      <span className="micro-label text-muted-foreground">Default</span>
     </div>
-    <div className="p-5 space-y-3">
-      <div className="space-y-1">
-        <div className="h-3 w-12 rounded bg-[var(--muted)] opacity-60"></div>
-        <div className="h-8 w-full rounded-md border border-[var(--input)] bg-[var(--background)]"></div>
-      </div>
-      <div className="space-y-1">
-        <div className="h-3 w-16 rounded bg-[var(--muted)] opacity-60"></div>
-        <div className="h-8 w-full rounded-md border border-[var(--input)] bg-[var(--background)]"></div>
-      </div>
-      <div className="h-8 w-full rounded-md bg-[var(--primary)]"></div>
+    <div className="space-y-3 p-5" aria-hidden>
+      <div className="bg-state h-3 w-12 rounded-control" />
+      <div className="h-control w-full rounded-control border-rule-strong bg-background border" />
+      <div className="bg-state h-3 w-16 rounded-control" />
+      <div className="h-control w-full rounded-control border-rule-strong bg-background border" />
+      <div className="h-control w-full rounded-control bg-signal" />
     </div>
-    <div className="px-4 py-2.5 border-t border-[var(--border)] bg-[var(--muted)]/20">
-      <p className="text-[10px] text-[var(--muted-foreground)]">Clean surfaces. Neutral borders. Default Radix tokens.</p>
-    </div>
+    <p className="text-muted-foreground border-rule border-t px-4 py-2 text-sm">Panel surface, strong-rule fields, signal action. Works everywhere.</p>
   </div>
 
-  {/* Glass */}
-  <div className="rounded-xl border border-white/15 overflow-hidden bg-gradient-to-br from-[var(--primary)]/10 to-transparent backdrop-blur">
-    <div className="bg-white/5 px-4 py-2.5 border-b border-white/10 flex items-center gap-2">
-      <span className="h-2.5 w-2.5 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.4)]"></span>
-      <span className="text-xs font-mono font-bold tracking-wider text-white/80">GLASS</span>
+  <div className="rounded-card overflow-hidden glass">
+    <div className="border-rule flex items-center gap-2 border-b px-4 py-2">
+      <span className="micro-label text-muted-foreground">Glass</span>
     </div>
-    <div className="p-5 space-y-3">
-      <div className="space-y-1">
-        <div className="h-3 w-12 rounded bg-white/20"></div>
-        <div className="h-8 w-full rounded-md border border-white/20 bg-white/5 backdrop-blur-sm"></div>
-      </div>
-      <div className="space-y-1">
-        <div className="h-3 w-16 rounded bg-white/20"></div>
-        <div className="h-8 w-full rounded-md border border-white/20 bg-white/5 backdrop-blur-sm"></div>
-      </div>
-      <div className="h-8 w-full rounded-md bg-white/20 border border-white/30"></div>
+    <div className="space-y-3 p-5" aria-hidden>
+      <div className="bg-state h-3 w-12 rounded-control" />
+      <div className="h-control w-full rounded-control border-rule bg-background/40 border" />
+      <div className="bg-state h-3 w-16 rounded-control" />
+      <div className="h-control w-full rounded-control border-rule bg-background/40 border" />
+      <div className="h-control w-full rounded-control bg-signal" />
     </div>
-    <div className="px-4 py-2.5 border-t border-white/10 bg-white/5">
-      <p className="text-[10px] text-white/50">Frosted surfaces. White borders. Renders over gradient backdrops.</p>
-    </div>
+    <p className="text-muted-foreground border-rule border-t px-4 py-2 text-sm">Translucent panel-glass with a 1px rule, for forms over imagery. No blur.</p>
   </div>
 
-  {/* Cyber */}
-  <div className="rounded-xl border border-cyan-500/30 overflow-hidden bg-black">
-    <div className="bg-cyan-950/40 px-4 py-2.5 border-b border-cyan-500/20 flex items-center gap-2">
-      <span className="h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.6)]"></span>
-      <span className="text-xs font-mono font-bold tracking-wider text-cyan-400">CYBER</span>
+  <div className="rounded-card overflow-hidden bg-panel border border-signal/40">
+    <div className="border-rule flex items-center gap-2 border-b px-4 py-2">
+      <span className="micro-label text-signal">Cyber</span>
     </div>
-    <div className="p-5 space-y-3">
-      <div className="space-y-1">
-        <div className="h-3 w-12 rounded bg-cyan-900/60"></div>
-        <div className="h-8 w-full rounded-md border border-cyan-500/30 bg-cyan-950/30"></div>
-      </div>
-      <div className="space-y-1">
-        <div className="h-3 w-16 rounded bg-cyan-900/60"></div>
-        <div className="h-8 w-full rounded-md border border-cyan-500/30 bg-cyan-950/30"></div>
-      </div>
-      <div className="h-8 w-full rounded-md bg-cyan-500/20 border border-cyan-400/40"></div>
+    <div className="space-y-3 p-5" aria-hidden>
+      <div className="bg-state h-3 w-12 rounded-control" />
+      <div className="h-control w-full rounded-control border-signal/40 bg-signal-faint border" />
+      <div className="bg-state h-3 w-16 rounded-control" />
+      <div className="h-control w-full rounded-control border-signal/40 bg-signal-faint border" />
+      <div className="h-control w-full rounded-control border-signal bg-transparent border" />
     </div>
-    <div className="px-4 py-2.5 border-t border-cyan-500/20 bg-cyan-950/20">
-      <p className="text-[10px] text-cyan-500/60">Dark surface. Cyan accents. High-contrast terminal aesthetic.</p>
-    </div>
+    <p className="text-muted-foreground border-rule border-t px-4 py-2 text-sm">Signal rules and Fira Code labels, for terminal-style dashboards.</p>
   </div>
 
 </div>
 
 ```tsx
 // All templates accept the same variant contract
-<LoginForm variant="default" />   // neutral — works everywhere
-<LoginForm variant="glass" />     // over gradient / blurred backgrounds
-<LoginForm variant="cyber" />     // dark terminals, AZUCENA_LYTICS dashboards
+<LoginForm variant="default" />   // works everywhere
+<LoginForm variant="glass" />     // over imagery or scenes
+<LoginForm variant="cyber" />     // terminal-style dashboards (AZUCENA_LYTICS)
 ```
 
 ---
 
-## 🧩 Special Components
+## Special Components
 
 Beyond templates, the package exports building-block components that templates are composed from:
 
@@ -240,7 +215,7 @@ import { FormConditional } from '@aazucena/forms';
 
 ---
 
-## ✍️ Usage Pattern
+## Usage Pattern
 
 Every template follows the same contract. Swap the schema and type to use any of the 94 forms:
 
@@ -268,11 +243,11 @@ export function AuthPage() {
 
 ---
 
-## 🗂️ Template Catalog — 94 Forms
+## Template catalog: 94 forms
 
 ### 🔐 Auth (14)
 
-The authentication ceremony layer — covers every identity proof pattern from credential entry
+The sign-in and identity forms, covering every pattern from credential entry
 to hardware attestation.
 
 | Form | Description | Multi-step |
@@ -399,7 +374,7 @@ to hardware attestation.
 | `TutorialRequestForm` | Topic, format, skill level, urgency |
 | `TechnicalAuditRequestForm` | Project URL, stack, audit scope, pain points |
 
-### 📊 Analytics — AZUCENA_LYTICS (4)
+### Analytics: AZUCENA_LYTICS (4)
 
 | Form | Description | Multi-step |
 |---|---|---|
@@ -433,7 +408,7 @@ to hardware attestation.
 
 ---
 
-## 🔧 Engineering Notes
+## Engineering Notes
 
 ### Zod + TanStack Form integration
 
@@ -448,20 +423,16 @@ const form = useForm({
 } as any);
 ```
 
-### `.shape` vs `.refine()` schemas
+### `.shape` on refined schemas
 
-Zod's `.refine()` / `.superRefine()` methods return `ZodEffects`, not `ZodObject` — `.shape` is unavailable.
-Schemas that cross-validate fields (e.g., `registrationSchema` checking password === confirmPassword)
-cannot have their shapes accessed for field-level validators. Use standalone schemas for those fields:
+In Zod 4, `.refine()` and `.superRefine()` keep the `ZodObject` type, so a schema with cross-field checks still exposes `.shape`. Field-level validators can reuse it:
 
 ```ts
-// ❌ Won't compile — registrationSchema is ZodEffects
+// registrationSchema checks password === confirmPassword, and .shape still works
 validators={{ onChange: registrationSchema.shape.email }}
-
-// ✅ Use the unwrapped field schema directly
-const emailSchema = z.string().email();
-validators={{ onChange: emailSchema }}
 ```
+
+The field validator runs only that field's rules; the cross-field refinement runs on submit.
 
 ### `form.Subscribe` selectors
 

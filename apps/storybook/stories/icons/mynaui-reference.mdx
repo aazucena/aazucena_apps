@@ -10,7 +10,7 @@ Our functional UI iconography is powered by **MynaUI**. These are stroke-based, 
 
 ---
 
-## 🏗️ Functional Categories
+## Categories
 
 ### 1. Navigation & Control
 Icons used for directional movement and structural navigation.
@@ -86,32 +86,32 @@ Common interactive verbs and state indicators.
 
 ---
 
-## 🏗️ Stroke Weight Protocol
+## Stroke weight
 
 The MynaUI set is specifically chosen for its consistent stroke weights. We enforce two primary tiers depending on the UI context.
 
-<div className="p-12 border rounded-2xl bg-[var(--base)] border-[var(--border)] transition-all duration-500">
+<div className="p-12 border rounded-card bg-background border-rule transition-all duration-500">
   <div className="flex flex-col md:flex-row justify-around gap-12">
     
     {/* Tier 1: Standard */}
     <div className="flex flex-col items-center gap-4">
-      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+      <div className="w-20 h-20 rounded-card bg-panel border border-rule flex items-center justify-center text-[var(--signal)]">
         <MynaIcons.Shield size={48} stroke={1.5} />
       </div>
       <div className="text-center">
         <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Tier_01: Standard</span>
-        <code className="text-[10px] font-mono text-[var(--primary)]">stroke={'{1.5}'}</code>
+        <code className="text-sm font-mono text-[var(--signal)]">stroke={'{1.5}'}</code>
       </div>
     </div>
 
     {/* Tier 2: Technical */}
     <div className="flex flex-col items-center gap-4">
-      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)]">
+      <div className="w-20 h-20 rounded-card bg-panel border border-rule flex items-center justify-center text-[var(--signal)]">
         <MynaIcons.Shield size={48} stroke={2.5} />
       </div>
       <div className="text-center">
         <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Tier_02: Technical</span>
-        <code className="text-[10px] font-mono text-[var(--primary)]">stroke={'{2.5}'}</code>
+        <code className="text-sm font-mono text-[var(--signal)]">stroke={'{2.5}'}</code>
       </div>
     </div>
 

@@ -23,7 +23,7 @@ Our technical and social logos are powered by **SimpleIcons**. Unlike our UI set
 
 ---
 
-## 🏗️ The Dual-State Protocol
+## Two color modes
 
 We maintain two naming conventions for every brand icon to support both **Official Brand Identity** and **Dynamic Vibe Integration**.
 
@@ -31,30 +31,31 @@ We maintain two naming conventions for every brand icon to support both **Offici
 Uses the default name (e.g., `GitHub`). These icons ignore their official brand colors and instead use `fill='currentColor'`, allowing them to adapt to the active **Vibe**.
 
 ### 2. The Constant State (Official Hex)
-Uses the `*Hex` suffix (e.g., `GitHubHex`). These icons are hard-coded to their official brand colors and do not change with the Vibe.
+Uses the `*Hex` suffix (e.g., `GitHubHex`). These colors are the brands' official ones and don't change with the vibe or mode, so some (GitHub's near-black) disappear on dark surfaces. Put them on a light tile, as shown here.
 
-<div className="p-12 border rounded-2xl bg-[var(--base)] border-[var(--border)] transition-all duration-500">
+<div className="p-12 border rounded-card bg-background border-rule transition-all duration-500">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
     
     {/* Chameleon Example */}
     <div className="flex flex-col items-center gap-4">
-      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] transition-colors">
+      <div className="w-20 h-20 rounded-card bg-panel border border-rule flex items-center justify-center text-[var(--signal)] transition-colors">
         <GitHub size={48} />
       </div>
       <div className="text-center">
         <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Chameleon</span>
-        <code className="text-[10px] font-mono text-[var(--primary)]">GitHub</code>
+        <code className="text-sm font-mono text-[var(--signal)]">GitHub</code>
       </div>
     </div>
 
     {/* Constant Example */}
     <div className="flex flex-col items-center gap-4">
-      <div className="w-20 h-20 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] flex items-center justify-center">
+      {/* Official colors are fixed, so they sit on a fixed white tile like the favicons. */}
+      <div className="w-20 h-20 rounded-card bg-white border border-rule flex items-center justify-center">
        <GitHub size={48} color={GitHubHex} />
       </div>
       <div className="text-center">
         <span className="block text-xs font-bold uppercase tracking-widest text-[var(--foreground)]">Official</span>
-        <code className="text-[10px] font-mono text-[var(--secondary)]">GitHub w/ GithubHex</code>
+        <code className="text-sm font-mono text-foreground">GitHub w/ GithubHex</code>
       </div>
     </div>
 
@@ -63,7 +64,7 @@ Uses the `*Hex` suffix (e.g., `GitHubHex`). These icons are hard-coded to their 
 
 ---
 
-## 🏗️ Tech Stack Directory
+## Tech stack icons
 
 A selection of the most commonly used developer tool logos available in the registry.
 
@@ -103,4 +104,4 @@ A selection of the most commonly used developer tool logos available in the regi
 | **Source Library** | `@icons-pack/react-simple-icons` |
 | **Logic** | Fill-based (Path solids) |
 | **Official Colors** | Accessible via `*Hex` export suffix. |
-| **Naming Protocol** | PascalCase aliases for standardized dev-tool access. |
+| **Naming** | PascalCase aliases for standardized dev-tool access. |
