@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(storybook)_ Docs table stripes use the panel tone so links stay AA
 - _(storybook)_ Docs links, code and tables meet AA and fit phones
 - _(storybook)_ Docs pages follow the light/dark and vibe toolbar
 - _(portfolio)_ Rin's greeting asks what brings the visitor here

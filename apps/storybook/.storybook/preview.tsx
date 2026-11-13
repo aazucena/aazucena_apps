@@ -136,7 +136,7 @@ const preview: Preview = {
             'Layering & Z-Index',
             'Theme System',
             'Themes',
-            ['*'],
+            'Vibes Matrix',
           ],
           'Icons',
           [
