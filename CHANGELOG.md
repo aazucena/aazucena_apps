@@ -163,6 +163,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(design-system)_ Pin the type scale to figma's text styles
 - _(design-system)_ Guard reduced motion in ui and the animation hooks
 - _(design-system)_ Guard pill controls and cover all ui components
 - _(storybook)_ Panel status, badge marker and select item radius

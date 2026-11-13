@@ -40,17 +40,9 @@ export const fontSizes = {
   body: ['14px', { lineHeight: '1.5', fontWeight: '400' }],
   caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
 
-  // Base scales (Standard Tailwind-like names for consistency)
-  xs: ['10px', { lineHeight: '1rem' }],
-  sm: ['12px', { lineHeight: '1.25rem' }],
-  base: ['14px', { lineHeight: '1.5rem' }],
-  lg: ['16px', { lineHeight: '1.75rem' }],
-  xl: ['18px', { lineHeight: '1.75rem' }],
-  '2xl': ['20px', { lineHeight: '2rem' }],
-  '3xl': ['24px', { lineHeight: '2.25rem' }],
-  '4xl': ['30px', { lineHeight: '2.5rem' }],
-  '5xl': ['36px', { lineHeight: '1' }],
-  '6xl': ['48px', { lineHeight: '1' }],
+  // No xs..6xl here: Tailwind's stock scale (text-xs 12px, text-sm 14px, ...) is
+  // the one Figma and the components use. Redefining those keys shifted
+  // Storybook a size smaller than the apps (fixed 2026-11-13).
 } as const;
 
 export const fontWeights = {
