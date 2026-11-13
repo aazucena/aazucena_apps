@@ -19,3 +19,83 @@ body,
     background-color 0.2s ease,
     color 0.2s ease;
 }
+
+/* ---------------------------------------------------------------------------
+   Docs pages: layout and accessibility.
+   The frame colors come from the docs theme (.storybook/theme.ts); these rules
+   cover what the theme can't: link affordance, focus, and narrow screens.
+   --------------------------------------------------------------------------- */
+
+/* The docs theme paints the frame in default-vibe colors; let the active
+   vibe's background (set by ThemeManager on #storybook-docs) show through. */
+.sbdocs-wrapper {
+  background-color: var(--background) !important;
+  color: var(--foreground);
+}
+
+/* Links: signal, underlined so they don't rely on color alone. */
+.sbdocs-content a:not([class*='docblock']) {
+  color: var(--signal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.sbdocs-content a:focus-visible,
+.sbdocs-content button:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+  border-radius: var(--radius-control);
+}
+
+/* Wide content scrolls inside itself instead of widening the page. */
+.sbdocs-content table:not(.docblock-argstable) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.sbdocs-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.sbdocs-content .docblock-colorpalette,
+.sbdocs-content .docblock-typeset {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+  .sbdocs-wrapper {
+    padding-inline: 16px !important;
+  }
+  /* Color palette rows stack their name above the swatches. */
+  .sbdocs-content .docblock-colorpalette > div {
+    flex-wrap: wrap;
+  }
+}
+
+/* Inline code paths break instead of widening the page. */
+.sbdocs-content :not(pre) > code {
+  display: inline;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+/* Code blocks nested in list items stay inside the column. */
+.sbdocs-content li > div,
+.sbdocs-content .docblock-source {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+/* Prism's light palette puts properties, class names and numbers at ~4.2:1.
+   Remap those tokens to Avra roles (AA on panel and background). */
+html:not(.dark) .sbdocs-content pre .token.property,
+html:not(.dark) .sbdocs-content pre .token.class-name {
+  color: var(--signal);
+}
+html:not(.dark) .sbdocs-content pre .token.attr-name {
+  color: var(--series-3);
+}
+html:not(.dark) .sbdocs-content pre .token.number,
+html:not(.dark) .sbdocs-content pre .token.boolean {
+  color: var(--success);
+}
