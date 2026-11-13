@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { usePrefersReducedMotion } from '../device/usePrefersReducedMotion';
 
 export interface UseTypingEffectOptions {
   /** Delay between characters in milliseconds */
@@ -11,15 +12,24 @@ export interface UseTypingEffectOptions {
 
 /**
  * A hook that simulates a typing effect for a given string.
+ * Under prefers-reduced-motion the full text shows at once.
  */
 export function useTypingEffect(text: string, options: UseTypingEffectOptions = {}): string {
   const { delay = 50, enabled = true, onComplete } = options;
-  const [displayedText, setDisplayedText] = useState(enabled ? '' : text);
+  const reduceMotion = usePrefersReducedMotion();
+  const animate = enabled && !reduceMotion;
+  const [displayedText, setDisplayedText] = useState(animate ? '' : text);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  // Read the callback through a ref so an inline function doesn't restart the effect.
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  });
 
   useEffect(() => {
-    if (!enabled) {
+    if (!animate) {
       setDisplayedText(text);
+      if (enabled) onCompleteRef.current?.();
       return;
     }
 
@@ -32,14 +42,14 @@ export function useTypingEffect(text: string, options: UseTypingEffectOptions = 
         currentIndex++;
       } else {
         if (intervalRef.current) clearInterval(intervalRef.current);
-        onComplete?.();
+        onCompleteRef.current?.();
       }
     }, delay);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [text, delay, enabled, onComplete]);
+  }, [text, delay, enabled, animate]);
 
   return displayedText;
 }

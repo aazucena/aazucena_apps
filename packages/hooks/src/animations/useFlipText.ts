@@ -1,10 +1,12 @@
 /**
  * useFlipText Hook
- * Animates text flipping through an array of words using GSAP
+ * Animates text flipping through an array of words using GSAP.
+ * Under prefers-reduced-motion the words still cycle, but swap without the flip.
  */
 
 import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { usePrefersReducedMotion } from '../device/usePrefersReducedMotion';
 
 export interface FlipTextOptions {
   words: string[];
@@ -16,11 +18,16 @@ export function useFlipText({ words, interval = 3000, duration = 0.3 }: FlipText
   const [currentIndex, setCurrentIndex] = useState(0);
   const elementRef = useRef<HTMLElement | null>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (!elementRef.current) return;
 
     const flipInterval = setInterval(() => {
+      if (reduceMotion) {
+        setCurrentIndex((prev) => (prev + 1) % words.length);
+        return;
+      }
       if (elementRef.current) {
         // Kill any existing tween before creating a new one
         if (tweenRef.current) {
@@ -52,7 +59,7 @@ export function useFlipText({ words, interval = 3000, duration = 0.3 }: FlipText
         tweenRef.current.kill();
       }
     };
-  }, [words.length, interval, duration]);
+  }, [words.length, interval, duration, reduceMotion]);
 
   return {
     currentWord: words[currentIndex],
