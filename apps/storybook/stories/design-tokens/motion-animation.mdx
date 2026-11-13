@@ -17,7 +17,7 @@ Motion in Avra is slow and sparse: state changes are quick, lines draw in, and l
 | `--motion-draw` | 900ms | Chart lines and bars drawing in |
 | `--motion-breath` | 4000ms | The pulse on live status indicators |
 
-Components currently write `duration-200` directly, which matches `--motion-base`. New work should use the tokens: `duration-[var(--motion-base)]`.
+Components don't use these tokens yet. Most write `transition-all duration-300` (about 150 places) or `duration-500` (about 60), so state changes run slower than `--motion-base`. New work should use the tokens: `duration-(--motion-base)`.
 
 ## Easing
 

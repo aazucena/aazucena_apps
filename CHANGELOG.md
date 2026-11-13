@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(storybook)_ Show the three.js scene stories in dark mode only
 - _(animations)_ Object viewer loads without a removeChild error
 - _(storybook)_ Story canvas takes the vibe's background
 - _(storybook)_ Show the particles stories in dark mode only
