@@ -59,7 +59,7 @@ function ObjectViewInternal({ showGrid: _initialShowGrid }: { showGrid: boolean 
       <Canvas shadows gl={{ antialias: true, preserveDrawingBuffer: true }}>
         <PerspectiveCamera makeDefault position={[5, 3, 5]} fov={50} />
 
-        <Suspense fallback={<ObjectViewerLoading />}>
+        <Suspense fallback={null}>
           <ObjectViewerStage />
         </Suspense>
 
@@ -77,6 +77,9 @@ function ObjectViewInternal({ showGrid: _initialShowGrid }: { showGrid: boolean 
           enableDamping
         />
       </Canvas>
+
+      {/* Loading skeleton: plain DOM over the canvas, driven by the asset loader */}
+      <ObjectViewerLoading />
     </Section>
   );
 }
