@@ -27,6 +27,7 @@ const initialMode = import.meta.env.STORYBOOK_MODE === 'dark' ? 'dark' : 'light'
  * Applies the selected vibe to whichever Storybook container is active.
  * ThemeManager targets each container specifically so vibe vars never bleed
  * onto <html>, which withThemeByClassName (stories) and AvraDocsContainer (docs) manage.
+ * In story view the canvas <body> takes the vibe's background color, nothing else.
  */
 const withVibe: Decorator = (Story, context) => {
   const vibeId = (context.globals.vibe as string) ?? 'default';
@@ -47,11 +48,19 @@ const withVibe: Decorator = (Story, context) => {
       managers.get(id)!.apply(vibeId, mode);
     });
 
+    // The vibe lives on the story root, but the canvas around it is <body>, which would
+    // keep the default vibe's background. Paint it with the vibe's own.
+    const root = document.getElementById('storybook-root');
+    if (context.viewMode === 'story' && root) {
+      document.body.style.backgroundColor = getComputedStyle(root).getPropertyValue('--background');
+    }
+
     return () => {
+      document.body.style.removeProperty('background-color');
       managers.forEach((manager) => manager.destroy());
       managers.clear();
     };
-  }, [vibeId, mode]);
+  }, [vibeId, mode, context.viewMode]);
 
   return <Story />;
 };
