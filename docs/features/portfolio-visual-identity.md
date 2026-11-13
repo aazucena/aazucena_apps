@@ -48,6 +48,8 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
    - **Text on a scene uses `foreground`; signal stays inside panels.** The cyan subtitles failed contrast on the bright blue sky scenes (Projects, Experience, What I do). Rejected: a scrim behind each heading block (adds a translucent layer the instrument rules avoid) and flat ink backdrops (loses the altitude story).
 2. **Rin trigger: signal cyan outline, with Rin's face and "Chat"** (owner, 2026-11-12: the face is Rin's identity on the button, and "Chat" is the clearest label for first-time visitors). The open state reads ✕ "Close". Coral stays reserved for alerts. Rejected: coral as a brand exception and a dedicated Rin accent.
 
+3. **The homepage is always dark (owner, 2026-11-12).** Its content sits on the Three.js / Pixi scenes, and the live sections already hard-code light-on-dark, so it looks the same whichever theme the visitor picked. In Phase 5, bind the homepage content layer to the Dark mode of the tokens instead of following the site theme. Inner pages, the Rin chat and mobile inner pages follow the theme and have light frames.
+
 ## Frames
 
 - **Homepage, dark:** Hero, About, Projects, Experience, What I do, Skills, Blog, What's next. Revised 2026-11-12:
