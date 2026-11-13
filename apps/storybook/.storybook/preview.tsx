@@ -1,8 +1,9 @@
-import { ThemeManager, vibes, previewTheme } from '@aazucena/design-system';
-import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import { ThemeManager, vibes } from '@aazucena/design-system';
+import { withThemeByClassName } from '@storybook/addon-themes';
 import { type Decorator, type Preview } from '@storybook/react-vite';
 import { useEffect, useRef } from 'react';
-import { docsTheme } from './theme';
+import { docsThemeDark, docsThemeLight } from './theme';
+import { AvraDocsContainer } from './docs-container';
 import { avraVersion } from './version.ts';
 import '../styles/globals.css';
 
@@ -25,7 +26,7 @@ const initialMode = import.meta.env.STORYBOOK_MODE === 'dark' ? 'dark' : 'light'
 /**
  * Applies the selected vibe to whichever Storybook container is active.
  * ThemeManager targets each container specifically so vibe vars never bleed
- * onto <html>, which is exclusively managed by withThemeByClassName for dark/light.
+ * onto <html>, which withThemeByClassName (stories) and AvraDocsContainer (docs) manage.
  */
 const withVibe: Decorator = (Story, context) => {
   const vibeId = (context.globals.vibe as string) ?? 'default';
@@ -85,7 +86,10 @@ const preview: Preview = {
     version: avraVersion,
 
     docs: {
-      theme: docsTheme,
+      // Standalone MDX pages render no story, so decorators never run there.
+      // The container applies light/dark + vibe to every docs page.
+      container: AvraDocsContainer,
+      theme: initialMode === 'dark' ? docsThemeDark : docsThemeLight,
     },
 
     controls: {
@@ -171,13 +175,13 @@ const preview: Preview = {
 
   decorators: [
     withVibe,
-    withThemeByDataAttribute({
+    // Avra's CSS keys dark mode on the `.dark` class (@custom-variant dark).
+    withThemeByClassName({
       defaultTheme: initialMode,
       themes: {
         light: 'light',
         dark: 'dark',
       },
-      attributeName: 'data-mode',
     }),
   ],
 };
