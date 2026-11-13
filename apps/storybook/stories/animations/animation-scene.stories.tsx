@@ -17,10 +17,12 @@ const meta = {
     docs: {
       description: {
         component:
-          'Main Three.js scene orchestrator for the portfolio background. Supports atmospheric layer transitions and demand-based rendering.',
+          'Main Three.js scene orchestrator for the portfolio background. Supports atmospheric layer transitions and demand-based rendering. **Dark mode only:** the layers are the homepage sky, which is always dark; the stars and clouds wash out on a light page, so these stories lock the theme to dark.',
       },
     },
   },
+  // Stars and white clouds on a transparent canvas only read on dark: lock the mode.
+  globals: { theme: 'dark' },
   tags: ['autodocs', 'no-vitest'],
   argTypes: {
     phase: {
