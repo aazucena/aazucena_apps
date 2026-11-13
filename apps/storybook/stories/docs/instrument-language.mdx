@@ -1,0 +1,119 @@
+{/* docs/instrument-language.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Panel, PanelBody, Badge, Button } from '@aazucena/ui';
+
+<Meta title="Docs/Instrument Language" />
+
+# Instrument Language
+
+Avra 0.2 treats data as an instrument and the frame around it as air. This page lists the rules every component follows. Each demo below is a real `@aazucena/ui` component, so switching light/dark or the vibe in the toolbar shows what ships.
+
+---
+
+## Surfaces
+
+Separate surfaces by tone. Add a rule only where structure needs one, and never a shadow or blur on a default surface.
+
+| Role | Token | Use |
+|---|---|---|
+| Background | `--background` | The page. |
+| Panel | `--panel` | Cards, panels, sidebars. One tone step off the background. |
+| Raised | `--panel-raised` | Secondary buttons and nested surfaces. |
+| State | `--state` | Hover, focus and selection. Selection never uses a raised surface. |
+| Rule | `--rule`, `--rule-strong` | 1px dividers and outlines. Strong rules mark controls. |
+
+Overlays (popover, dialog, toast) are the one place a shadow appears, because they float above the page.
+
+<div className="sb-unstyled my-6 grid gap-4 sm:grid-cols-2">
+  <Panel label="TRAFFIC // 30D" status="live">
+    <PanelBody>
+      <p className="text-foreground text-3xl font-light">12,480</p>
+      <p className="text-muted-foreground text-sm">Sessions, up 8% on the previous 30 days.</p>
+    </PanelBody>
+  </Panel>
+  <Panel label="INGEST // QUEUE" status="alert">
+    <PanelBody>
+      <p className="text-foreground text-3xl font-light">412</p>
+      <p className="text-muted-foreground text-sm">Events waiting. The ▲ marker carries the meaning, so color is never the only signal.</p>
+    </PanelBody>
+  </Panel>
+</div>
+
+---
+
+## Shape and density
+
+| Property | Token | Value |
+|---|---|---|
+| Card and panel radius | `--radius-card` | 6px |
+| Control and badge radius | `--radius-control`, `--radius-badge` | 4px |
+| Control heights | `--control-sm`, `--control-md`, `--control-lg` | 30, 36, 44px |
+| Panel padding | `--panel-padding` | 20px |
+| Panel header strip | `--panel-header` | 32px |
+
+Every vibe keeps this shape. Vibes recolor Avra; they don't round it.
+
+<div className="sb-unstyled my-6 flex flex-wrap items-center gap-3">
+  <Button size="sm">Small 30</Button>
+  <Button>Medium 36</Button>
+  <Button size="lg">Large 44</Button>
+  <Button variant="outline">Outline</Button>
+  <Button variant="secondary">Secondary</Button>
+</div>
+
+---
+
+## Status grammar
+
+Each status has a marker as well as a color, so it reads in grayscale and for color-blind viewers.
+
+| Status | Marker | Token | Example |
+|---|---|---|---|
+| Info | ● | `--signal` | Live data, focus, links |
+| Success | OK | `--success` | Health checks, completed jobs |
+| Warning | ◆ | `--warning` | Degraded, needs attention soon |
+| Alert | ▲ | `--alert` | Errors and destructive actions only |
+
+Coral (`--alert`) is reserved for alerts and destructive actions. Don't use it for decoration, links or brand accents.
+
+<div className="sb-unstyled my-6 flex flex-wrap items-center gap-3">
+  <Badge variant="cyber">● LIVE</Badge>
+  <Badge variant="success">OK HEALTHY</Badge>
+  <Badge variant="warning">◆ DEGRADED</Badge>
+  <Badge variant="destructive">▲ FAILED</Badge>
+</div>
+
+---
+
+## Type
+
+| Role | Family | Where |
+|---|---|---|
+| Reading | Fira Sans | Prose, headings, controls |
+| Display values | Fira Sans Light | Large metrics (`12,480`) |
+| Labels and data | Fira Code | Panel headers, timestamps, IDs, code |
+
+Panel headers use the `micro-label` utility: Fira Code, 10px, uppercase, tracked, in the form `TRAFFIC // 30D`.
+
+---
+
+## Motion
+
+| Token | Duration | Use |
+|---|---|---|
+| `--motion-base` | 200ms | State changes: hover, press, toggle |
+| `--motion-draw` | 900ms | Lines and bars drawing in |
+| `--motion-breath` | 4000ms | The pulse on live indicators |
+
+All three turn off under `prefers-reduced-motion`.
+
+---
+
+## Before adding a style
+
+1. Check whether a tone step already separates the surfaces. Add a border only if it doesn't.
+2. Use a role utility (`bg-panel`, `border-rule`, `text-signal`), never a stock palette class like `bg-zinc-900`. The `ui-token-usage` test in `@aazucena/design-system` fails on stock palette classes in `@aazucena/ui`.
+3. Check text contrast: 4.5:1 for body text, 3:1 for large text and UI parts. The [vibe matrix](?path=/story/design-tokens-vibes-matrix--light) checks every vibe in both modes.
+4. Give every status a marker.
+
+The Figma source is the [Avra Design System file](https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G); its variables use the same names as these CSS custom properties.

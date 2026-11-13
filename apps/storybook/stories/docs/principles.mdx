@@ -10,7 +10,7 @@ The **Avra** design system is guided by a set of core principles that balance te
 ---
 
 ## 1. Mathematical Precision
-Every visual element is anchored to a mathematical protocol. We use a **4px baseline grid**, perceptually uniform **OKLCH color scales**, and standardized **Z-index hierarchies**.
+Every visual element is anchored to a mathematical protocol. We use a **4px baseline grid**, color roles whose tints are mixed in **OKLCH**, and standardized **z-index layers**.
 *   *Action:* If a spacing value or color feels "off," check it against the tokens. Avoid "magic numbers" in CSS.
 
 ## 2. Technical Authenticity
@@ -35,7 +35,7 @@ Design follows content. We use real data from the **Strapi CMS** early in the de
 
 ## 7. Instrument in Air
 The data is precise; the frame breathes. Separate surfaces by tone, not borders and shadows. Keep coral for alerts (with ▲) and amber for warnings (with ◆). Selection uses the `state` tone, never a raised surface.
-*   *Action:* Before adding a border, shadow or new color, check whether a tone step or an existing role token already says it.
+*   *Action:* Before adding a border, shadow or new color, check whether a tone step or an existing role token already says it. The full rules are in [Instrument Language](?path=/docs/docs-instrument-language--docs).
 
 ---
 
