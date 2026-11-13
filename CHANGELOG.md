@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(storybook)_ Show the particles stories in dark mode only
 - _(animations)_ Particles survive unmounting during pixi init
 - _(ui)_ Put page-level layers on the z-index tiers
 - _(design-system)_ Emit z-index tokens with kebab-case names
