@@ -30,7 +30,7 @@ Avra 0.2 balances two readings of the name. The data is an instrument: mono labe
 - **Shape:** 6px panels and cards, 4px controls and badges, shared by every vibe.
 - **Color roles:** `signal` cyan for data and focus, `success` mint, `warning` amber, `alert` coral. Warning always carries ◆ and alert always carries ▲, so status never depends on color alone.
 - **Type:** Fira Sans for reading and Light display metrics; Fira Code for labels (`TRAFFIC // 30D`), values and code.
-- **Motion:** a 4s breathing pulse on live indicators, lines that draw in, 200ms state changes. Looping motion should stop under `prefers-reduced-motion`; most components still need that check.
+- **Motion:** a 4s breathing pulse on live indicators, lines that draw in, 200ms state changes. All of it stops under `prefers-reduced-motion`, except spinners.
 
 The source of truth is the [Avra Design System Figma file](https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G); its variables carry the same names as the CSS custom properties.
 

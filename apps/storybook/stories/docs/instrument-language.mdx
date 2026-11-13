@@ -105,7 +105,7 @@ Panel headers use the `micro-label` utility: Fira Code, 10px, uppercase, tracked
 | `--motion-draw` | 900ms | Lines and bars drawing in |
 | `--motion-breath` | 4000ms | The pulse on live indicators |
 
-Looping and decorative motion must respect `prefers-reduced-motion` (`motion-safe:` in Tailwind). Most components don't yet; see [Motion & Animation](?path=/docs/design-tokens-motion-animation--docs#reduced-motion).
+Under `prefers-reduced-motion` all CSS motion stops except spinners, and JS-driven motion checks the preference; see [Motion & Animation](?path=/docs/design-tokens-motion-animation--docs#reduced-motion).
 
 ---
 

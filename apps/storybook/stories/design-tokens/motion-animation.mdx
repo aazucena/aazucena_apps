@@ -55,6 +55,11 @@ These come from before Avra 0.2 and remain for existing callers.
 
 ## Reduced motion
 
-Respect `prefers-reduced-motion`: wrap looping or decorative animation in Tailwind's `motion-safe:` variant (as `Panel`'s live pulse does), or check `useReducedMotion()` in Framer Motion. State changes under 200ms can stay.
+`@aazucena/ui` respects `prefers-reduced-motion` in two layers:
 
-**Known gap:** only 2 of the roughly 240 animated components check reduced motion today. Fixing the rest is on the backlog.
+- **CSS:** one rule in `core.css` stops every CSS animation and transition when the user asks for reduced motion. Durations drop to 0.01ms rather than `none`, so `animationend` still fires and Radix still unmounts closed dialogs and menus. Spinners (`animate-spin`) keep turning because they mean "loading"; add `data-motion="essential"` to anything else that must keep moving.
+- **JavaScript:** Framer Motion components wrap their animations in `MotionConfig reducedMotion="user"` (slides, scales and layout motion turn off; short fades stay) or check `useReducedMotion()` for springs and loops. Outside Framer, use `usePrefersReducedMotion()` from `@aazucena/hooks`.
+
+Under reduced motion, coming-soon's text scramble and data stream stop, the wheel picker and reading progress drop their springs, `RinCharacter` shows the static mark, `useTypingEffect` shows the full text and `useFlipText` swaps words without the flip.
+
+A test in `@aazucena/design-system` (`ui-reduced-motion.test.ts`) fails if a new Framer Motion component, interval loop or Rive autoplay skips the check.
