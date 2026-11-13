@@ -128,6 +128,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(design-system)_ Give minimal and nature their own palettes
 - _(storybook)_ Docs pages honour a story file's locked theme
 - _(hooks)_ Add usePrefersReducedMotion and use it in text effects
 - _(design-system)_ Add chartTheme and back d3Scales with it
