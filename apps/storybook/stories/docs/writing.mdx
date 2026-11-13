@@ -1,0 +1,88 @@
+{/* docs/writing.mdx: voice, tone and capitalization (merged 2026-11-13). */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Writing" />
+
+# Writing
+
+How interface copy sounds in every **@aazucena** app: the voice, how the tone shifts with context, and the capitalization rules.
+
+---
+
+## Voice: the helpful engineer
+
+Write like a competent peer who respects the reader's time and gives them the exact detail they need.
+
+| Attribute | In practice |
+|---|---|
+| **Helpful** | Say what to do next, not only what happened. |
+| **Direct** | Lead with the point. Skip apologies and filler. |
+| **Technical** | Use the precise term when it builds trust: `0x4F2A`, not "Address 1". |
+| **Calm** | Stay steady in errors and exact in analysis. |
+
+---
+
+## Guidelines
+
+### Write for scanning
+People scan before they read. Put the main message first and break long text into short lists.
+
+### Prefer short and direct
+- **Do:** `Save changes?`
+- **Don't:** `Would you like to save the changes you have made?`
+
+### Use numerals
+- **Do:** `3 files updated`, `12ms latency`
+- **Don't:** `Three files updated`, `Low latency`
+
+### Plain words, precise terms
+Use everyday words for actions and keep technical terms where they're exact.
+- **Do:** `Allow microphone`, `Initialize Neural Link` (a named product action)
+- **Don't:** `Utilize the audio input device`
+
+### No placeholder text
+Never ship lorem ipsum. Use real logs, project descriptions or CMS entries, so the layout is tested against real lengths.
+
+---
+
+## Tone by context
+
+The voice stays the same; the tone follows the system state.
+
+| Context | Tone | Example |
+|---|---|---|
+| Onboarding | Welcoming, informative | "Welcome. Setting up your profile." |
+| Normal | Focused | "Node Alpha is operational. Syncing 14 data streams." |
+| Warning | Urgent, precise | "◆ Latency at 45ms, above the 40ms threshold." |
+| Error | Calm, actionable | "▲ Sync failed. Check the API key in Settings." |
+| Success | Short | "Sync complete. 1,420 records indexed." |
+
+Status copy carries the same markers as the UI (● ◆ ▲, see [Instrument Language](?path=/docs/docs-instrument-language--docs)).
+
+---
+
+## Capitalization
+
+| Case | Example | Use for |
+|---|---|---|
+| Sentence case | `This is a message` | Descriptions, tooltips, placeholders, paragraphs |
+| Title Case | `Save Changes` | Page titles, buttons, menu items, input labels |
+| UPPERCASE | `NODE_ALPHA_01`, `TRAFFIC // 30D` | Node IDs, status keys (`READY`, `WARN`), panel micro-labels |
+| lowercase | `aazucena`, `reader.cpp` | The brand name in running text, file extensions |
+
+### The brand name
+- **Default:** lowercase `aazucena`.
+- **Emphasis:** `AAZUCENA` next to the logo.
+- **Avoid:** `Aazucena`, unless a third-party platform requires it.
+
+### Set case in code, not content
+Store labels in normal case and transform them for display, so translations aren't stuck with hard-coded capitals.
+
+```tsx
+// Display transform: the stored text stays "Technical key"
+<span className="micro-label">Technical key</span>
+
+// Title Case for dynamic labels
+import { toTitleCase } from '@aazucena/utils';
+<span>{toTitleCase(dynamicLabel)}</span>
+```

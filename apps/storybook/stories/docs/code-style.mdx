@@ -1,0 +1,59 @@
+{/* docs/code-style.mdx: code rules split out of the former Style Conventions page (2026-11-13). */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Code Style" />
+
+# Code Style
+
+The coding rules for the **@aazucena** packages. ESLint, Prettier and the pre-commit hook enforce most of them. Visual rules live in [Instrument Language](?path=/docs/docs-instrument-language--docs).
+
+---
+
+## React and TypeScript
+
+- **Components:** PascalCase names (`IntegrityBadge`); one component per file in `packages/ui/src/components/ui/`, named after the file (`datepicker.tsx` exports `Datepicker`).
+- **Hooks:** camelCase with a `use` prefix (`useVibe`).
+- **Props:** export a `ComponentNameProps` interface for every component.
+- **Pattern:** CVA variants, `React.forwardRef`, and `cn()` from `@aazucena/utils`.
+- **Types:** strict mode everywhere. Avoid `any`; shared types come from `@aazucena/types`.
+
+---
+
+## Styling (Tailwind CSS 4)
+
+- **Role utilities only:** `bg-panel`, `bg-state`, `border-rule`, `text-signal`, `rounded-card`, `rounded-control`, `h-control`, `micro-label`. Stock palette classes (`bg-zinc-900`, `text-blue-500`) fail the `ui-token-usage` test in `@aazucena/design-system`.
+- **No arbitrary colors:** if a value isn't a token, it needs a token or a documented exception.
+- **Hover on accent:** `hover:bg-accent` always pairs with `hover:text-accent-foreground`.
+- **Logical properties:** `ms-*` and `me-*` instead of `ml-*` and `mr-*`, so layouts work right-to-left.
+- **Scoped transitions:** list the properties (`transition-[color,background-color]`), never `transition-all`. It delays the light/dark switch by about 300ms.
+- **Class order:** Prettier sorts Tailwind classes; don't hand-sort them.
+
+---
+
+## File layout
+
+Keep packages flat, at most 2 levels deep.
+
+```
+packages/ui/                    packages/visualizations/
+├── src/                        ├── src/
+│   ├── components/ui/          │   ├── d3/           (chart components)
+│   ├── styles/                 │   ├── common/       (ChartContainer, toolbar, export)
+│   └── index.ts (barrel)       │   ├── hooks/        (companion hooks)
+├── package.json                │   ├── intelligence/ (NeuralMap, NeuralNode)
+└── README.md                   │   └── index.ts      (barrel)
+                                └── package.json
+```
+
+---
+
+## Checks
+
+| Check | Command |
+|---|---|
+| Types (the main gate) | `pnpm --filter @aazucena/ui type-check` |
+| Lint | `pnpm lint` |
+| Token guard and design-system tests | `pnpm --filter @aazucena/design-system test` |
+| Story tests | `pnpm --filter @aazucena/storybook test:ci` |
+
+Husky runs ESLint and Prettier on staged files before each commit.
