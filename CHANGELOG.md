@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Rin's greeting asks what brings the visitor here
 - _(portfolio)_ Align Rin's lore and transparency copy with the canon
 - _(ui)_ Keep hexagon card labels inside the shape's wide band
 - _(ui)_ Meter label gap, hexagon text inset, avatar rings, one-line mic error
