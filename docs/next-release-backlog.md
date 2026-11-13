@@ -28,6 +28,8 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 
 - [ ] **Journey spider chart plots the total as a spoke.** `apps/portfolio/src/lib/transformers/skills.ts:120` puts `{ axis: "Total Skills" }` first among the axes. The chart then scales its rings to the total (56 in 2026), so the eight domains (max 15) collapse into a sliver, and the total spoke has no visible label because the year title covers it. Drop the total axis and show it as a value beside the chart, as the Figma Journey frame does. (Found in the Figma review, 2026-11-12.)
 
+- [ ] **Splash hides the preloader card for up to 8 seconds.** `BrandIconLoader` (`components/BrandIconLoader.astro`, `z-index: 10000`) sits above the React preloader (`z-[9999]`). It only hides on `brand-loader-complete`, which `layouts/BaseLayout.astro:241` forwards from `preloader-complete`. That event fires after the visitor clicks "Enter Website", so the splash covers the Loading steps and the Ready card until its 8s safety timeout. The button stays clickable underneath (`pointer-events: none`) but can't be seen. Fix: have the splash hand off when the preloader mounts, for example a `preloader-mounted` event from `InteractivePreloader`, and keep `preloader-complete` for revealing `<main>`. Figma `Shared / Preloader` shows the intended sequence: Splash → Loading → Ready (Error on failure). (Found 2026-11-12.)
+
 ## Features
 
 _To be filled in from the feature list._
