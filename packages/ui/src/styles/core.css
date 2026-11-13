@@ -65,3 +65,32 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+
+/*
+ * Reduced motion. One rule for every CSS animation and transition in the
+ * library (Tailwind animate-*, tailwindcss-animate enter/exit, inline keyframes).
+ * Durations go to 0.01ms rather than `none` so animationend/transitionend still
+ * fire: Radix waits for them before unmounting closed dialogs and menus.
+ * Spinners keep turning (they carry "loading"); mark anything else that must
+ * keep moving with data-motion="essential". JS-driven motion checks the
+ * preference itself (Framer Motion's useReducedMotion / MotionConfig).
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-spin,
+  [data-motion='essential'],
+  [data-motion='essential'] * {
+    animation-duration: revert-layer !important;
+    animation-iteration-count: revert-layer !important;
+  }
+}
