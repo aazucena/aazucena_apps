@@ -24,6 +24,16 @@ function readGlobals(context: DocsContainerProps['context']): Globals {
   }
 }
 
+/** The theme a story file locks on its meta, if any. Pure MDX pages have no stories and throw. */
+function readLockedTheme(context: DocsContainerProps['context']): string | undefined {
+  try {
+    const first = context.componentStories()[0] as { storyGlobals?: Globals } | undefined;
+    return first?.storyGlobals?.theme;
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * Story decorators never run on a standalone MDX page, so the light/dark and
  * Vibe toolbar used to do nothing there. This container applies both to every
@@ -50,8 +60,11 @@ export function AvraDocsContainer({
     };
   }, [context.channel]);
 
-  const mode: Mode =
-    globals.theme === 'dark' ? 'dark' : globals.theme === 'light' ? 'light' : envMode;
+  // A story file can lock the mode (`globals: { theme: 'dark' }` on its meta) when its
+  // stories only work in one mode; the lock wins over the toolbar on its docs page too.
+  const locked = readLockedTheme(context);
+  const theme = locked ?? globals.theme;
+  const mode: Mode = theme === 'dark' ? 'dark' : theme === 'light' ? 'light' : envMode;
   const vibe = globals.vibe ?? envVibe;
 
   React.useEffect(() => {
