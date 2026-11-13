@@ -16,7 +16,7 @@ import { Play, Activity, Globe, Shield } from '@aazucena/icons';
  * - **CDD Pattern:** Layout container using atomic sub-components (Header, Content, Footer).
  * - **Architecture:** Uses CVA for 6 visual variants, 6 padding levels, and 6 radius presets.
  * - **Interactivity:** Features built-in `hover` and `clickable` states with tactile scale feedback.
- * - **Variants:** Aligned with atmospheric layers (`glass`, `cyber`) and specialized contexts (`dashboard`).
+ * - **Variants:** `default` tone-only panel, `glass` translucent panel over imagery, `cyber` signal rule; `dashboard` is deprecated (use `Panel`).
  */
 const meta = {
   title: 'Components/Layout/Card',
@@ -110,7 +110,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon accents and letter-spaced typography.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {
@@ -130,7 +130,7 @@ export const Cyber: Story = {
         <div className="p-4 bg-panel rounded border border-signal/10 font-mono text-[10px] space-y-1">
           <p className="text-signal/60">{'>'} INITIALIZING_UPLINK...</p>
           <p className="text-success/60">{'>'} UPLINK_SUCCESS [PORT:8080]</p>
-          <p className="text-foreground/40">{'>'} LISTENING_FOR_PACKETS</p>
+          <p className="text-muted-foreground">{'>'} LISTENING_FOR_PACKETS</p>
         </div>
       </CardContent>
       <CardFooter>
@@ -143,7 +143,8 @@ export const Cyber: Story = {
 };
 
 /**
- * Immersive glass variant with backdrop blur, ideal for floating overlays.
+ * Translucent `panel-glass` surface with a 1px rule, for content over imagery or scenes.
+ * Avra 0.2 has no blur, so check contrast against what sits behind it.
  */
 export const Glass: Story = {
   args: {
@@ -155,7 +156,7 @@ export const Glass: Story = {
       <Card {...args} className="w-[350px]">
         <CardHeader>
           <CardTitle className="text-foreground">Atmospheric_Layer</CardTitle>
-          <CardDescription className="text-foreground/60">Mesosphere configuration</CardDescription>
+          <CardDescription>Mesosphere configuration</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4 text-foreground/80">
@@ -169,9 +170,11 @@ export const Glass: Story = {
 };
 
 /**
- * Specialized variant for technical dashboards and analytics views.
+ * **Deprecated.** `dashboard` renders as `default`. For dashboard panels with a
+ * micro-caps header and status, use `Panel` instead.
  */
 export const AnalyticsDashboard: Story = {
+  tags: ['deprecated'],
   args: {
     variant: 'dashboard',
     padding: 'lg',

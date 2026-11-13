@@ -81,7 +81,7 @@ export const Basic: Story = {
 };
 
 /**
- * High-performance cyber variant with neon borders and shadow glow.
+ * Cyber variant: signal rule and Fira Code labels.
  */
 export const Cyber: Story = {
   args: {
@@ -96,12 +96,13 @@ export const Cyber: Story = {
 };
 
 /**
- * Modern gradient variant for primary call-to-actions.
+ * **Deprecated.** Avra 0.2 has no gradients: `gradient` renders exactly like `default`
+ * and is removed in 0.3.0. Use `default` for primary actions.
  */
 export const Highlight: Story = {
+  tags: ['deprecated'],
   args: {
     variant: 'gradient',
-    className: 'px-8 py-6 rounded-control font-black tracking-widest',
     children: (
       <>
         UPGRADE_NOW
@@ -112,7 +113,8 @@ export const Highlight: Story = {
 };
 
 /**
- * Transparent glass variant, ideal for atmospheric or image-heavy backgrounds.
+ * Translucent `panel-glass` surface with a 1px rule, for actions over imagery or scenes.
+ * Avra 0.2 has no blur, so check contrast against what sits behind it.
  */
 export const Glass: Story = {
   args: {
