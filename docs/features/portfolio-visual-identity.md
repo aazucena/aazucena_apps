@@ -1,6 +1,6 @@
 # Portfolio visual identity
 
-Status: **proposal, awaiting owner review** (2026-11-12). Figma: [Avra Design System → Portfolio page](https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G?node-id=45-2).
+Status: **proposal; homepage reach, Rin color and availability decided 2026-11-12; Figma review gate still open**. Figma: [Avra Design System → Portfolio page](https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G?node-id=45-2).
 
 ## Problem
 
@@ -41,11 +41,11 @@ The content layer also runs on its own token island. `apps/portfolio/src/styles/
 
 Busy and On Break share amber, and the label tells them apart. Unavailable goes muted grey rather than red, because coral would read as an error. Figma: `Shared / Availability` on the Portfolio page, one variant per status. Phase 5 changes `getAvailabilityIndicator` to return these tokens.
 
-## Decision needed
+## Decisions (owner, 2026-11-12)
 
-1. **How far into the homepage?** The recommendation is the table above: content layer only, with scenes unchanged apart from particle hues. The alternative is to also replace the gradient scene backdrops with flat ink surfaces, which is closer to the dashboard but loses the altitude story.
-   - **Contrast caveat (found 2026-11-12, frames now show the live scenes):** the signal cyan used for section subtitles ("From pixel to pipeline.", "Drag to explore more projects", "Capabilities & services") fails contrast where it sits directly on the bright blue sky scenes (Projects, Experience, What I do). If scenes stay, text that sits on a scene uses `foreground`, or the scene gets a scrim under the heading block. Signal stays inside panels.
-2. **Rin trigger color.** Signal (recommended, matches the alert rule) or keep the warm accent as a brand exception.
+1. **Homepage reach: content layer only, scenes stay.** The space → treeline scenes keep their imagery; panels, type and actions take the instrument language, and particle colors move to the signal and series hues.
+   - **Text on a scene uses `foreground`; signal stays inside panels.** The cyan subtitles failed contrast on the bright blue sky scenes (Projects, Experience, What I do). Rejected: a scrim behind each heading block (adds a translucent layer the instrument rules avoid) and flat ink backdrops (loses the altitude story).
+2. **Rin trigger: signal cyan outline** (the `Cyber` button), labelled `● RIN`; the open state reads `✕ CLOSE RIN`. Coral stays reserved for alerts. Rejected: coral as a brand exception and a dedicated Rin accent.
 
 ## Frames
 
