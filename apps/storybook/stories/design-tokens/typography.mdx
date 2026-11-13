@@ -26,7 +26,7 @@ Two families do the work: **Fira Sans** for reading and **Fira Code** for labels
     <PanelBody className="flex flex-col gap-2">
       <p className="text-foreground text-4xl font-light">128<span className="text-muted-foreground text-lg">ms</span></p>
       <p className="text-muted-foreground text-sm">Fira Sans Light for the display value, Fira Sans for the caption, and the header strip in the Fira Code <code>micro-label</code>.</p>
-      <p className="text-muted-foreground font-mono text-sm">2026-11-13 14:02:11 UTC · node-alpha-01</p>
+      <p className="text-muted-foreground font-mono text-xs">2026-11-13 14:02:11 UTC · node-alpha-01</p>
     </PanelBody>
   </Panel>
 </div>
@@ -35,26 +35,23 @@ Two families do the work: **Fira Sans** for reading and **Fira Code** for labels
 
 ## Scale
 
-The `@aazucena/design-system` Tailwind preset sets its own scale, one step smaller than stock Tailwind: `text-xs` is 10px, not 12px. Storybook and `@aazucena/ui` use the preset.
+Tailwind's stock size scale, which matches the Figma text styles. The preset adds named sizes on top; it doesn't change the stock keys.
 
-| Utility | Size / line height | Use |
-|---|---|---|
-| `text-xs` | 10 / 16px | Micro-labels and badges only |
-| `text-sm` | 12 / 20px | Captions, timestamps, table metadata |
-| `text-base` | 14 / 24px | Body text, controls, table cells |
-| `text-lg` | 16 / 28px | Lead paragraphs |
-| `text-xl` | 18 / 28px | Card titles |
-| `text-2xl` | 20 / 32px | Section titles |
-| `text-3xl` | 24 / 36px | Page titles |
-| `text-4xl` | 30 / 40px | Metric values |
-| `text-5xl` | 36px | Display metrics |
-| `text-6xl` | 48px | Hero values |
+| Utility | Size / line height | Figma style | Use |
+|---|---|---|---|
+| `text-xs` | 12 / 16px | Body/Caption | Captions, timestamps, table metadata |
+| `text-sm` | 14 / 20px | Body/Default, Label/Button | Body text in dense UI, buttons, table cells |
+| `text-base` | 16 / 24px | Heading/H5 size | Long-form reading |
+| `text-lg` | 18 / 28px | Heading/H4 size | Lead paragraphs |
+| `text-xl` | 20 / 28px | Heading/H3 size | Card titles |
+| `text-2xl` | 24 / 32px | Heading/H2 size | Section titles |
+| `text-3xl` | 30 / 36px | Heading/H1 size | Page titles |
+| `text-4xl` | 36 / 40px | | Metric values |
+| `text-5xl` | 48px | | Display metrics |
 
-There are also named sizes: `text-h1` (30px) to `text-h6` (14px), `text-body` (14px) and `text-caption` (12px).
+Named sizes from the preset carry Figma's heading weights and line heights: `text-h1` (30px) to `text-h6` (14px), `text-body` (14px) and `text-caption` (12px). Inputs and selects use 13px Fira Code (Figma's Data/Value) via `text-[13px]`.
 
-Keep reading text at 12px (`text-sm`) or larger. 10px is for the `micro-label` utility (uppercase, 0.2em tracking, Fira Code) and badges.
-
-**Known gap:** apps that don't load the preset, such as `apps/analytics` today, get stock Tailwind sizes, so the same component renders one step larger there than in Storybook.
+Below 12px, use only the `micro-label` utility (10px, uppercase, 0.2em tracking, Fira Code) for panel headers, and the badge sizes.
 
 ## Weights
 

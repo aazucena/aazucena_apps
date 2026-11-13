@@ -52,11 +52,11 @@ export function TokenSwatches({ tokens }: { tokens: SwatchToken[] }) {
             aria-hidden
           />
           <div className="text-foreground mt-2 text-sm font-medium">{label}</div>
-          <div className="text-muted-foreground font-mono text-sm break-all">--{token}</div>
-          <div className="text-muted-foreground font-mono text-sm break-all">
+          <div className="text-muted-foreground font-mono text-xs break-all">--{token}</div>
+          <div className="text-muted-foreground font-mono text-xs break-all">
             {values[token] ?? ''}
           </div>
-          {use ? <div className="text-muted-foreground mt-1 text-sm">{use}</div> : null}
+          {use ? <div className="text-muted-foreground mt-1 text-xs">{use}</div> : null}
         </div>
       ))}
     </div>

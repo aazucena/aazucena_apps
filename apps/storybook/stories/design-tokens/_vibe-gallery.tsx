@@ -82,8 +82,8 @@ function VibeRow({ id, mode }: { id: string; mode: Mode }) {
               style={{ background: `var(--${v})` }}
               aria-hidden
             />
-            <div className="mt-1 text-sm leading-tight">{label}</div>
-            <div className="text-muted-foreground font-mono text-sm leading-tight break-all">
+            <div className="mt-1 text-xs leading-tight">{label}</div>
+            <div className="text-muted-foreground font-mono text-xs leading-tight break-all">
               {values[v] ?? ''}
             </div>
           </div>
@@ -103,7 +103,7 @@ export function VibeGallery() {
           <div>
             <h3 id={`vibe-${id}`} className="text-foreground text-lg font-medium">
               {vibes[id]!.name}{' '}
-              <code className="text-muted-foreground font-mono text-sm">{id}</code>
+              <code className="text-muted-foreground font-mono text-xs">{id}</code>
             </h3>
             <p className="text-muted-foreground text-sm">
               {NOTES[id] ?? ''} Headings:{' '}
