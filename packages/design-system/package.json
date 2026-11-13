@@ -28,6 +28,7 @@
     "ds:help": "tsx scripts/cli.ts --help",
     "ds:sync": "tsx scripts/cli.ts all default FAVICON_MAIN ./dist",
     "ds:css": "tsx scripts/cli.ts css default FAVICON_MAIN ./dist",
+    "ds:structure": "tsx scripts/structure.ts",
     "ds:figma": "tsx scripts/cli.ts figma default FAVICON_MAIN ./dist",
     "test": "vitest run"
   },

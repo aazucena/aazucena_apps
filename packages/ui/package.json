@@ -15,6 +15,7 @@
     "./styles": "./src/styles/globals.css",
     "./globals.css": "./src/styles/globals.css",
     "./core.css": "./src/styles/core.css",
+    "./structure.css": "./src/styles/structure.css",
     "./postcss": "./postcss.config.js"
   },
   "scripts": {

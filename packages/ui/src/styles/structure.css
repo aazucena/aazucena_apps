@@ -1,0 +1,30 @@
+/* GENERATED from @aazucena/design-system (generateStructuralCss). Edit the tokens, not this file. */
+:root {
+  /* Z-Index Hierarchy */
+  --z-hide: -1;
+  --z-auto: auto;
+  --z-base: 0;
+  --z-dock: 10;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-fixed: 1200;
+  --z-overlay: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-skip-link: 1600;
+  --z-toast: 1700;
+  --z-tooltip: 1800;
+  --z-max: 9999;
+
+  /* Instrument Density + Motion */
+  --control-sm: 30px;
+  --control-md: 36px;
+  --control-lg: 44px;
+  --panel-padding: 20px;
+  --panel-header: 32px;
+  --layout-gutter: 24px;
+  --row-height: 36px;
+  --motion-breath: 4000ms;
+  --motion-draw: 900ms;
+  --motion-base: 200ms;
+}

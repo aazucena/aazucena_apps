@@ -64,6 +64,42 @@ function generateSemanticVars(theme: SystemThemeConfig, indent: string = '  '): 
   return css;
 }
 
+function zIndexVars(): string {
+  let css = '  /* Z-Index Hierarchy */\n';
+  Object.entries(zIndex).forEach(([key, value]) => {
+    // CSS custom properties are case-sensitive: skipLink must emit as --z-skip-link.
+    const name = key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
+    css += `  --z-${name}: ${value};\n`;
+  });
+  return css;
+}
+
+function instrumentVars(): string {
+  let css = '  /* Instrument Density + Motion */\n';
+  Object.entries({ ...density, ...motionTokens }).forEach(([key, value]) => {
+    css += `  --${key}: ${value};\n`;
+  });
+  return css;
+}
+
+/**
+ * The vibe-independent tokens `@aazucena/ui` components read through `var()`: stacking
+ * tiers, control density and motion durations. An app that renders ui components without
+ * the full `css-vars.css` (the portfolio) still needs these, or `z-(--z-modal)` and
+ * `duration-(--motion-base)` resolve to nothing. Committed as `@aazucena/ui/structure.css`;
+ * a test keeps that file equal to this output.
+ */
+export function generateStructuralCss(): string {
+  let css =
+    '/* GENERATED from @aazucena/design-system (generateStructuralCss). Edit the tokens, not this file. */\n';
+  css += ':root {\n';
+  css += zIndexVars();
+  css += '\n';
+  css += instrumentVars();
+  css += '}\n';
+  return css;
+}
+
 /**
  * Generates a CSS string containing :root and .dark variables.
  * @param vibeId - Which vibe to use for the semantic variables (defaults to 'default')
@@ -105,12 +141,7 @@ export function generateCssVariables(vibeId: string = 'default'): string {
   css += '\n';
 
   // 4. Z-Index
-  css += '  /* Z-Index Hierarchy */\n';
-  Object.entries(zIndex).forEach(([key, value]) => {
-    // CSS custom properties are case-sensitive: skipLink must emit as --z-skip-link.
-    const name = key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
-    css += `  --z-${name}: ${value};\n`;
-  });
+  css += zIndexVars();
   css += '\n';
 
   // 5. Core Primitives (Shadows)
@@ -140,10 +171,7 @@ export function generateCssVariables(vibeId: string = 'default'): string {
   });
   css += '\n';
 
-  css += '  /* Instrument Density + Motion */\n';
-  Object.entries({ ...density, ...motionTokens }).forEach(([key, value]) => {
-    css += `  --${key}: ${value};\n`;
-  });
+  css += instrumentVars();
   css += '\n';
 
   // 7. Default Vibe Mode (Light)
