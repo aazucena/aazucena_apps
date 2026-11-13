@@ -22,6 +22,7 @@ export const colors = {
     600: 'oklch(0.44 0 0)',
     700: 'oklch(0.37 0 0)',
     800: 'oklch(0.27 0 0)',
+    850: 'oklch(0.24 0 0)', // raised surface in the Minimal dark vibe
     900: 'oklch(0.21 0 0)',
     950: 'oklch(0.14 0 0)',
   },
@@ -103,6 +104,18 @@ export const colors = {
     850: '#192f38',
     900: '#13232B',
     950: '#0E1A20',
+  },
+
+  // Forest: the ink ramp's lightness steps at a green hue. Dark surfaces of the Nature vibe.
+  forest: {
+    200: '#d8e8dc',
+    500: '#849c89',
+    550: '#6f8875',
+    700: '#425d49',
+    800: '#294330',
+    850: '#1d3122',
+    900: '#152519',
+    950: '#101b13',
   },
 
   // Signal: brand cyan. 500 = dark-mode signal, 700 = light-mode signal.
