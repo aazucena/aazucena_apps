@@ -5,52 +5,40 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Internationalization (i18n)
 
-The **@aazucena** monorepo is architected to support global engineering intelligence. We follow a strict protocol for delivering content across multiple locales while maintaining technical consistency.
+How content and UI handle more than one locale. Some of this is in place today; the rest is the agreed approach for when a second locale ships.
 
 ---
 
-## 🏗️ Architecture
+## What exists today
 
-Our i18n strategy is split between static UI strings and dynamic CMS content.
+### CMS content (Strapi v5)
+Content types have Strapi's i18n enabled, so blog posts, projects and experience entries can carry per-locale fields. English (`en`) is the primary locale.
 
-### 1. Dynamic Content (Strapi v5)
-Content types in Strapi are configured with i18n enabled. Every technical dossier, blog post, and experience entry should support:
-- **English (en):** The primary technical language of the system.
-- **Other Locales:** (e.g., fr, es, de, ja) based on node requirements.
-
-### 2. Static UI Strings
-Standard UI elements (buttons, labels, status messages) are managed via a centralized i18n dictionary.
-*   **Rule:** Never hard-code strings directly in components. Use the localization hook.
-
----
-
-## 🚀 Translation Protocols
-
-### Numerical Precision
-Regardless of the locale, technical metrics (latency, bandwidth, timestamps) must remain mathematically precise. Use the browser's native `Intl` API for formatting.
+### Numbers and dates
+Format metrics, dates and currencies with the browser's `Intl` API, or the `formatDate` helper in `@aazucena/utils`:
 
 ```typescript
-// Do this:
 new Intl.NumberFormat(locale, { style: 'unit', unit: 'megabyte' }).format(124);
+new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(date);
 ```
 
-### UI Reflow Resilience
-Different languages have different average character lengths (e.g., German is often 30% longer than English). 
-*   **Protocol:** Always test your components in the **Viewport Resonance Chamber** with expanded widths to ensure long translated strings don't break the 4px baseline grid.
+### Right-to-left readiness
+Components use logical properties (`ms-4`, `ps-2`) instead of `ml-4` and `pl-2`, so layouts mirror correctly. The [Code Style](?path=/docs/docs-code-style--docs) page makes this a rule.
 
 ---
 
-## 🛡️ A11y & RTL Support
+## Planned
 
-- **Language Attributes:** The `<html>` tag must always reflect the current `lang` attribute.
-- **RTL Protocols:** All layout components must utilize logical properties (e.g., `ms-4` instead of `ml-4`) to ensure compatibility with Right-to-Left languages.
+- **UI strings:** there is no shared string dictionary or localization hook yet. Until there is, keep UI strings in the component that uses them, never in shared constants that mix languages.
+- **`lang` attribute:** set `<html lang>` from the active locale once routing supports more than one.
 
 ---
 
-## Best Practices
+## Rules for new components
 
-| Category | Guideline |
+| Area | Rule |
 |---|---|
-| **Dates** | Use `Intl.DateTimeFormat` or `formatDate` utility. Avoid locale-specific strings. |
-| **Currencies** | Use the currency tokens from the design system for consistent symbol rendering. |
-| **Direction** | Avoid "left" and "right" in technical copy. Use "previous," "next," "start," or "end." |
+| Text length | German runs about 30% longer than English. Check components at narrow widths with the Storybook viewport toolbar. |
+| Case | Store labels in normal case and transform for display (see [Writing](?path=/docs/docs-writing--docs#capitalization)). |
+| Direction | In copy, say "previous", "next", "start" and "end", not "left" and "right". |
+| Dates and money | Always `Intl`; never concatenate symbols or month names by hand. |

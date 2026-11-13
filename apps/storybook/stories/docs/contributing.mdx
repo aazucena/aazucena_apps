@@ -5,19 +5,19 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Contributions Guideline
 
-Welcome to the **@aazucena** monorepo! Whether you are a core developer or an automated agent, these guidelines ensure consistent quality, performance, and maintainability across all applications and packages.
+How to work in the **@aazucena** monorepo: setup, structure, standards and the release workflow.
 
 ---
 
-## 🛠️ Prerequisites
+## Prerequisites
 
-- **Package Manager:** [pnpm](https://pnpm.io/) v10.22.0 or higher.
-- **Node.js:** version 18 or higher (LTS recommended).
+- **Package manager:** [pnpm](https://pnpm.io/) 10.33.4, the version pinned in `packageManager`. Never npm or yarn.
+- **Node.js:** 22.23.4 or later.
 - **Git Hooks:** Initialized automatically via [Husky](https://typicode.github.io/husky/).
 
 ---
 
-## 🚀 Getting Started
+## Getting started
 
 1.  **Clone the repository** and navigate to the project root.
 2.  **Install dependencies:**
@@ -30,12 +30,13 @@ Welcome to the **@aazucena** monorepo! Whether you are a core developer or an au
     pnpm dev
     
     # Start specific workspace
-    pnpm dev --filter @aazucena/portfolio
+    pnpm web:dev          # portfolio
+    pnpm storybook:dev    # this Storybook
     ```
 
 ---
 
-## 📁 Repository Structure
+## Repository structure
 
 We use a **pnpm + Turborepo** monorepo architecture:
 
@@ -46,7 +47,7 @@ We use a **pnpm + Turborepo** monorepo architecture:
     - `storybook/`: Documentation and component playground.
 - `packages/`: Specialized internal packages.
     - `design-system/`: Design tokens, themes (17 vibes), and platform integrations.
-    - `ui/`: 225+ shared React components (ShadCN base + custom composed).
+    - `ui/`: 260 shared React components (shadcn base + custom).
     - `visualizations/`: 21 D3-powered chart & graph components with companion hooks.
     - `animations/`: 64+ Three.js objects, GSAP presets, and modular 3D inspection tools.
     - `hooks/`: Domain-specific React hooks.
@@ -60,7 +61,7 @@ We use a **pnpm + Turborepo** monorepo architecture:
 
 ---
 
-## 🎨 Component Development
+## Component development
 
 UI components reside in `packages/ui`, data visualizations in `packages/visualizations`.
 
@@ -74,22 +75,14 @@ UI components reside in `packages/ui`, data visualizations in `packages/visualiz
     - **Registry:** Every new object must be registered in `packages/animations/src/three/objects/registry.ts` with an assigned `cost` tier and `layer`.
     - **Verification:** Use the `ObjectViewer` story to audit $360^\circ$ rotation, materials, and slow-motion mechanics.
 - **Animations:** Use GSAP for imperative animations and Framer Motion for declarative ones.
-- **Storybook:** Every new component **must** have a corresponding `.stories.tsx` file in `apps/storybook/stories`. UI component stories go in `stories/`, chart stories in `stories/charts/`.
+- **Storybook:** every new component needs a `.stories.tsx` file: UI components in `stories/components/`, charts in `stories/charts/`. Follow the [Instrument Language](?path=/docs/docs-instrument-language--docs) and [Code Style](?path=/docs/docs-code-style--docs) pages.
 - **Performance:** Heavy dependencies (Three.js, PixiJS, D3) must be lazy-loaded using `React.lazy()` and `Suspense`.
 
 ---
 
-## 🏷️ Story Status Tags
+## Story tags
 
-Add a status tag to a story file's meta to show a pill next to the component in the sidebar. Untagged components are stable.
-
-| Tag | Pill | Meaning |
-| --- | --- | --- |
-| `new` | NEW | Recently added; API may still be adjusted from feedback. |
-| `beta` | BETA | Usable, but not yet covered by interaction tests. Expect changes. |
-| `deprecated` | DEPRECATED | Kept for existing callers; don't use it in new work. Say what replaces it in the story docs. |
-
-Two tags control testing rather than status: `no-visual` skips the Argos screenshot (use it for output that depends on the clock, the network, or animation), and `no-vitest` skips the story in every Vitest run.
+Add tags to a story file's meta (or to one story). The full list is on the [Introduction](?path=/docs/docs-introduction--docs#tags) page.
 
 ```tsx
 const meta = {
@@ -99,7 +92,7 @@ const meta = {
 } satisfies Meta<typeof Gantt>;
 ```
 
-## 🛡️ Coding Standards
+## Coding standards
 
 ### TypeScript
 - **Strict Mode:** Enabled across all workspaces. Avoid `any` at all costs.
@@ -113,23 +106,28 @@ const meta = {
     ```
 
 ### Commits
-- Use descriptive commit messages (e.g., `feat: add integrity badge to footer`).
-- Keep commits atomic and focused on a single change.
+- Conventional commits, checked by commitlint: an emoji, a type, an optional scope and a lowercase subject, e.g. `🐛 fix(ui): select items use the control radius`.
+- One commit per concern, staging paths explicitly (`git add <path>`), so unrelated changes don't ride along.
+- No AI attribution: no `Co-Authored-By` trailers for AI models and no "generated with" lines.
+
+### Changesets
+A change to a package that Storybook documents needs a changeset: run `pnpm changeset`, pick the packages and the bump, and write a one-line summary. The [Changelog](?path=/docs/docs-changelog--docs) page renders the result.
 
 ---
 
-## 🔄 Workflow
+## Workflow
 
-1.  **Branching:** Create a feature branch from `main` (e.g., `feature/ai-forms`).
-2.  **Development:** Implement changes, add tests, and create Storybook stories.
-3.  **Verification:**
-    - Run `pnpm build` to ensure no workspace is broken.
-    - Run `pnpm chromatic` to check for visual regressions in UI components.
-4.  **Pull Request:** Open a PR against `main`. Ensure all CI checks pass before merging.
+1.  **Branch:** work happens on the current phase branch (for example `phase-5/next-release`), merged into `main` by pull request.
+2.  **Develop:** implement the change, add tests and stories.
+3.  **Verify:**
+    - Type-check the touched workspaces, e.g. `pnpm --filter @aazucena/ui type-check`. Full builds run out of memory on the dev machine; Vercel previews are the build check.
+    - `pnpm --filter @aazucena/storybook test:ci` for stories and interaction tests.
+    - Visual regressions: Argos screenshots every story on `main` in CI; review the diff after merge.
+4.  **Pull request:** open it against `main` and wait for CI.
 
 ---
 
-## ⚡ Performance Mandate (Phase 3)
+## Performance targets (Phase 3)
 
 We strictly adhere to the performance targets established in Phase 3:
 - Initial bundle size target: **< 150 KB gzipped**.
@@ -138,10 +136,10 @@ We strictly adhere to the performance targets established in Phase 3:
 
 ---
 
-## 📖 Documentation
+## Documentation
 
 Update the relevant documentation in the `docs/` folder for any major architectural changes or feature implementations. Sync with `ROADMAP.md` to reflect progress.
 
 ---
 
-**Last Updated:** November 11, 2026
+**Last updated:** November 13, 2026

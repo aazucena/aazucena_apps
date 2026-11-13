@@ -41,7 +41,7 @@ The source of truth is the [Avra Design System Figma file](https://www.figma.com
 | Package | Purpose |
 |---|---|
 | `@aazucena/animations` | 64+ Three.js objects, GSAP presets, and modular 3D inspection tools |
-| `@aazucena/ui` | 225+ composed components (ShadCN base + custom) |
+| `@aazucena/ui` | 260 components (shadcn base + custom) |
 | `@aazucena/visualizations` | 21 D3-powered chart & graph components with companion hooks |
 | `@aazucena/design-system` | Design tokens, themes (17 vibes), CSS variable generation |
 | `@aazucena/icons` | Custom SVG icon library |
@@ -53,11 +53,11 @@ The source of truth is the [Avra Design System Figma file](https://www.figma.com
 
 ---
 
-This Storybook contains **416 stories** organized into top-level categories:
-- **Components** — UI primitives, forms, navigation, data display, feedback, overlays, and more
-- **Charts & Graphs** — D3-powered visualizations (standard, advanced, relational, specialized, intelligence)
-- **Design Tokens** — Colors, typography, spacing, shadows, motion, z-index, and theme system
-- **Icons** — Proprietary assets, MynaUI system icons, and SimpleIcons tech/social set
+This Storybook has about **1,800 stories** across 376 story files, plus 43 MDX guides, in these top-level categories:
+- **Components:** UI primitives, forms, navigation, data display, feedback, overlays and more.
+- **Charts & Graphs:** D3 visualizations (standard, advanced, relational, specialized, intelligence).
+- **Design Tokens:** colors, typography, spacing, shape, motion, z-index, and the vibes.
+- **Icons:** proprietary assets, MynaUI system icons, and the SimpleIcons tech and social set.
 
 ---
 
@@ -65,24 +65,26 @@ This Storybook contains **416 stories** organized into top-level categories:
 
 This Storybook supports two independent controls in the toolbar:
 
-- **Light / Dark** — toggles the `dark` class on `<html>` via `@storybook/addon-themes`
-- **Vibe** — applies one of 17 seasonal/style vibes to the story canvas via `ThemeManager`
+- **Light / Dark:** toggles the `dark` class on `<html>`, which Avra's CSS keys on.
+- **Vibe:** applies one of 17 vibes with `ThemeManager`.
 
-Both controls are fully independent. You can preview any vibe in either light or dark mode.
+Both work on stories and on every docs page, including these MDX guides, and combine freely: any vibe in either mode.
 
 ---
 
-## Maturity tags
+## Tags
 
-Stories are tagged to indicate component status:
+Status tags show as a pill next to the component in the sidebar. Untagged components are stable.
 
 | Tag | Meaning |
 |---|---|
-| `stable` | Production-ready, API frozen |
-| `beta` | Functional but API may change |
-| `experimental` | Work in progress, use with caution |
-| `a11y-verified` | Passed accessibility audit |
-| `design-verified` | Approved against Figma specs |
+| `new` | Recently added; the API may still change after feedback. |
+| `beta` | Usable, but not yet covered by interaction tests. |
+| `stable` | API frozen. |
+| `deprecated` | Kept for existing callers. The story says what replaces it. |
+| `a11y-verified` | Passed an accessibility audit. |
+
+Test tags control the test runs rather than status: `interaction-test` (has a play function), `no-visual` (skipped by the Argos screenshots, for clock-, network- or animation-dependent output) and `no-vitest` (skipped by every Vitest run).
 
 ---
 

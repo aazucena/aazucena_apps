@@ -23,6 +23,10 @@ ChartContainer          // Root wrapper (border, rounded, hover effect)
 
 All primitives are exported from `@aazucena/visualizations` and can be used independently.
 
+## Colors
+
+Charts take their colors from the Avra chart roles: `--series-1..4` for categories (cyan, olive, violet, rose, in that order), `--chart-seq-1..5` for sequential ramps, and `--chart-grid` / `--chart-axis` for chrome. Some charts still use D3's built-in schemes; moving every chart onto these roles is planned.
+
 ## Data Types
 
 Data interfaces live in `@aazucena/types` under the `data/visualizations` module:

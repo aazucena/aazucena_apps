@@ -28,32 +28,58 @@ All packages are internal to the monorepo. Add them as workspace dependencies:
 
 ## Setup
 
-### 1. Import the global stylesheet
+### 1. Import the stylesheet
 
-In your app's entry point:
+One CSS import brings in Tailwind, the generated Avra tokens (`css-vars.css`) and the role utilities:
 
-```ts
-import '@aazucena/ui/styles/globals.css';
+```css
+/* app.css */
+@import '@aazucena/ui/globals.css';
 ```
 
-### 2. Add the Tailwind preset
+### 2. Optional: the Tailwind preset
+
+Tailwind 4 reads theme values from CSS, so most apps need nothing else. To reuse the shared preset (dark mode on the `.dark` class, Fira font stacks), point Tailwind at a config that extends it:
+
+```css
+@config './tailwind.config.ts';
+```
 
 ```ts
 // tailwind.config.ts
 import { tailwindPreset } from '@aazucena/design-system';
 
-export default {
-  presets: [tailwindPreset],
-};
+export default { presets: [tailwindPreset] };
 ```
 
-### 3. Generate CSS variables (build time)
+### 3. Light and dark
+
+Dark mode follows the `dark` class on `<html>`. Set it before first paint (a small inline script reading the saved preference) to avoid a flash.
+
+### 4. Generated tokens
+
+`dist/css-vars.css` is generated, not committed. The design-system `build` writes it, and Turborepo builds dependencies first, so apps get it automatically. After changing tokens or themes during development, regenerate it directly:
 
 ```bash
 pnpm --filter @aazucena/design-system ds:css
 ```
 
-This outputs `dist/css-vars.css` which you import once in your app's root layout.
+---
+
+## Role utilities
+
+Style with the Avra role utilities rather than stock palette classes:
+
+| Utility | Role |
+|---|---|
+| `bg-background`, `bg-panel`, `bg-panel-raised`, `bg-state` | Surfaces |
+| `border-rule`, `border-rule-strong` | 1px rules and control outlines |
+| `text-foreground`, `text-muted-foreground`, `text-signal` | Text |
+| `rounded-card`, `rounded-control` | 6px and 4px shapes |
+| `h-control`, `h-control-sm`, `h-control-lg` | 36, 30 and 44px controls |
+| `micro-label` | Fira Code panel labels (`TRAFFIC // 30D`) |
+
+The full rules are on the [Instrument Language](?path=/docs/docs-instrument-language--docs) page.
 
 ---
 
@@ -76,7 +102,7 @@ export function Example() {
 ## Using visualizations
 
 ```tsx
-import { BarChart, PieChart, ForceDirectedGraph } from '@aazucena/visualizations';
+import { BarChart } from '@aazucena/visualizations';
 import type { BarChartData } from '@aazucena/types';
 
 const data: BarChartData[] = [
