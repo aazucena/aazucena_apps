@@ -79,4 +79,13 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
   - Preloader gate
   - Mobile Home hero, menu open and Blog post at 390px
 
+- **RAD Intel role, preview (2026-11-12):** Front End Developer, RAD Intel · Lickly, Jun 22, 2026 – present, remote, full-time. It appears in five places:
+  - the homepage hero badge
+  - the homepage Experience list (current, 4 of 7)
+  - the Experience timeline
+  - a new case study, `Page / Experience detail (RAD Intel)`
+  - Journey: timeline extended to 2027, Companies 6 → 7
+
+  Content comes only from the public bio at lickly.com/our-team/aldrin-azucena, with no invented outcomes. The live site doesn't list the role yet; each frame carries a canvas note until the Strapi entry exists.
+
 Not drawn: `/maintenance`, `/500` and the legal template. Their content wasn't reachable locally.
