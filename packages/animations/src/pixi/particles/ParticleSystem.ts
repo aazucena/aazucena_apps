@@ -16,6 +16,10 @@ export class ParticleSystem {
   private renderer: ParticleRenderer | null = null;
   private emitter: ParticleEmitter | null = null;
   private lastTime: number = 0;
+  /** True once app.init() has resolved; Pixi can't destroy or resize an app before that. */
+  private ready = false;
+  /** Set by destroy(); an init still in flight tears the app down when it resolves. */
+  private destroyed = false;
 
   constructor(config: Partial<ParticleSystemConfig> = {}) {
     this.controller = new ParticlesController(config);
@@ -25,9 +29,10 @@ export class ParticleSystem {
    * Initialize PixiJS application
    */
   async initialize(canvas: HTMLCanvasElement, width: number, height: number): Promise<void> {
-    this.app = new PIXI.Application();
+    const app = new PIXI.Application();
+    this.app = app;
 
-    await this.app.init({
+    await app.init({
       canvas,
       width,
       height,
@@ -37,8 +42,17 @@ export class ParticleSystem {
       autoDensity: true,
     });
 
+    // destroy() ran while init was pending (React remounts, Storybook arg changes).
+    // Pixi's Application.destroy() fails before init finishes (its ResizePlugin hasn't
+    // set _cancelResize yet), so the teardown happens here, now that it's safe.
+    if (this.destroyed) {
+      app.destroy(true, { children: true, texture: true, textureSource: true });
+      return;
+    }
+    this.ready = true;
+
     this.container = new PIXI.Container();
-    this.app.stage.addChild(this.container);
+    app.stage.addChild(this.container);
 
     // Initialize renderer
     this.renderer = new ParticleRenderer(this.container);
@@ -61,7 +75,7 @@ export class ParticleSystem {
 
     // Start animation loop
     this.lastTime = performance.now();
-    this.app.ticker.add(this.animate.bind(this));
+    app.ticker.add(this.animate.bind(this));
   }
 
   /**
@@ -96,7 +110,7 @@ export class ParticleSystem {
    * Resize canvas
    */
   resize(width: number, height: number): void {
-    if (this.app) {
+    if (this.app && this.ready) {
       this.app.renderer.resize(width, height);
     }
   }
@@ -171,6 +185,8 @@ export class ParticleSystem {
    * Cleanup and destroy
    */
   destroy(): void {
+    if (this.destroyed) return;
+    this.destroyed = true;
     this.controller.destroy();
 
     if (this.emitter) {
@@ -189,12 +205,16 @@ export class ParticleSystem {
     }
 
     if (this.app) {
-      this.app.destroy(true, {
-        children: true,
-        texture: true,
-        textureSource: true,
-      });
+      // Before init resolves, initialize() destroys the app itself (see above).
+      if (this.ready) {
+        this.app.destroy(true, {
+          children: true,
+          texture: true,
+          textureSource: true,
+        });
+      }
       this.app = null;
+      this.ready = false;
     }
   }
 }

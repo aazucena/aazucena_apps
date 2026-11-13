@@ -56,8 +56,11 @@ export const AnimationParticles = forwardRef<AnimationParticlesHandle, Animation
 
       systemRef.current = particleSystem;
 
-      // Initialize the particle system
-      particleSystem.initialize(canvas, width, height);
+      // Initialize the particle system. It can be destroyed while this is pending;
+      // ParticleSystem handles that. A failed init (no WebGL) shouldn't go unhandled.
+      particleSystem.initialize(canvas, width, height).catch((error: unknown) => {
+        console.warn('[AnimationParticles] PixiJS failed to initialize', error);
+      });
 
       if (!isPlaying) {
         particleSystem.pause();
