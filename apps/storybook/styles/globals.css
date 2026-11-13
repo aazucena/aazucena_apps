@@ -100,9 +100,10 @@ html:not(.dark) .sbdocs-content pre .token.boolean {
   color: var(--success);
 }
 
-/* Table stripes use the Avra state tone instead of Storybook's neutral grey. */
+/* Table stripes use the panel tone (one step off the background) instead of
+   Storybook's neutral grey; links stay AA on it in both modes. */
 .sbdocs-content table:not(.docblock-argstable) tr:nth-of-type(2n) {
-  background-color: var(--state);
+  background-color: var(--panel);
 }
 .sbdocs-content table:not(.docblock-argstable) :is(th, td) {
   border-color: var(--rule);
