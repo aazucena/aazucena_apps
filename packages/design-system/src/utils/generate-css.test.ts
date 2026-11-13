@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatHex, interpolate, parse, wcagContrast } from 'culori';
+import { converter, formatHex, interpolate, parse, wcagContrast } from 'culori';
 import { generateCssVariables } from './generate-css';
 import { deriveAliases } from './aliases';
 import { vibes } from '../themes/registry';
@@ -209,4 +209,92 @@ describe('every vibe brings its own accent (I4)', () => {
       expect(sig(id), id).not.toBe(sig('default'));
     }
   });
+});
+
+describe('minimal and nature bring their own palette', () => {
+  const blocksFor = (id: string) => {
+    const c = generateCssVariables(id);
+    return {
+      light: c.slice(c.indexOf(':root {'), c.indexOf('.dark {')),
+      dark: c.slice(c.indexOf('.dark {')),
+    };
+  };
+  const oklch = (color: string) => converter('oklch')(parse(color)!)!;
+  const SURFACES = ['background', 'panel', 'panel-raised', 'state', 'rule', 'rule-strong'];
+  const TEXT = ['foreground', 'muted-foreground'];
+
+  it.each(['minimal', 'nature'])(
+    '%s dark has its own surfaces and text, not the ink ones',
+    (id) => {
+      const { dark } = blocksFor(id);
+      for (const name of [...SURFACES, ...TEXT, 'chart-grid', 'chart-axis']) {
+        expect(read(dark, name), name).toBeTruthy();
+        expect(read(dark, name), name).not.toBe(read(darkBlock, name));
+      }
+    },
+  );
+
+  it('keeps minimal achromatic on every surface, in both modes', () => {
+    for (const block of Object.values(blocksFor('minimal'))) {
+      for (const name of [...SURFACES, ...TEXT, 'signal']) {
+        expect(oklch(read(block, name)!).c, name).toBeLessThan(0.01);
+      }
+    }
+  });
+
+  it('tints nature dark surfaces green', () => {
+    const { dark } = blocksFor('nature');
+    for (const name of [...SURFACES, ...TEXT]) {
+      const { c, h } = oklch(read(dark, name)!);
+      expect(c, name).toBeGreaterThan(0.01);
+      expect(h, name).toBeGreaterThan(130);
+      expect(h, name).toBeLessThan(175);
+    }
+  });
+
+  it('gives minimal light status colors a hue of their own', () => {
+    const { light } = blocksFor('minimal');
+    for (const name of ['success', 'warning', 'alert', 'destructive']) {
+      expect(read(light, name), name).toBeTruthy();
+      expect(oklch(read(light, name)!).c, name).toBeGreaterThan(0.05);
+    }
+    expect(read(light, 'destructive')).toBe(read(light, 'alert'));
+    expect(read(light, 'success')).not.toBe(read(light, 'signal'));
+  });
+
+  for (const id of ['minimal', 'nature']) {
+    for (const mode of ['light', 'dark'] as const) {
+      it(`${id} ${mode}: selection shows and text, status and input borders pass AA`, () => {
+        const block = blocksFor(id)[mode];
+        const v = (n: string) =>
+          read(block, n) ?? read(mode === 'dark' ? darkBlock : rootBlock, n)!;
+        const flat = (color: string, under: string): string => {
+          const c = parse(color)!;
+          const a = c.alpha ?? 1;
+          return a >= 1
+            ? formatHex(c)!
+            : formatHex(interpolate([under, { ...c, alpha: 1 }], 'rgb')(a))!;
+        };
+        const bg = flat(v('background'), '#ffffff');
+        const panel = flat(v('panel'), bg);
+        const raised = flat(v('panel-raised'), bg);
+        const state = flat(v('state'), panel);
+        expect(state, 'state vs panel').not.toBe(panel);
+        expect(state, 'state vs panel-raised').not.toBe(raised);
+        for (const surface of [bg, panel]) {
+          for (const name of ['foreground', 'muted-foreground', 'success', 'warning', 'alert']) {
+            expect(wcagContrast(flat(v(name), surface), surface), name).toBeGreaterThanOrEqual(4.5);
+          }
+        }
+        expect(
+          wcagContrast(flat(v('foreground'), state), state),
+          'text on state',
+        ).toBeGreaterThanOrEqual(4.5);
+        expect(
+          wcagContrast(flat(v('rule-strong'), panel), panel),
+          'rule-strong',
+        ).toBeGreaterThanOrEqual(3);
+      });
+    }
+  }
 });
