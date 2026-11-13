@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Stacking, density and motion tokens that @aazucena/ui components read through var() */
+@import "@aazucena/ui/structure.css";
+
 /* Scan @aazucena/* workspace packages for dynamically-generated Tailwind classes */
 @source "../../../../packages/utils/src";
 @source "../../../../packages/ui/src";
