@@ -51,7 +51,7 @@ export function AssistantTransparencyOverlay({
 
       <AssistantOverlaySection label="What Rin Can Do">
         <p className="text-xs leading-relaxed">
-          If you ask Rin to send a message to Aldrin, it can submit a contact
+          If you ask Rin to send a message to Aldrin, Rin can submit a contact
           form on your behalf. You'll see a confirmation in the chat before
           anything is sent. This is the only case where information leaves your
           browser.
