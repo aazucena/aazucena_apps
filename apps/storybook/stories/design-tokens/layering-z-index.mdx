@@ -11,26 +11,48 @@ A fixed stacking order, so a menu never opens under a sticky header and a toolti
 
 ## Tiers
 
-| Tier | Token | Value | For |
-|---|---|---|---|
-| Hide | `--z-hide` | -1 | Behind the page, still in the DOM |
-| Base | `--z-base` | 0 | Content |
-| Dock | `--z-dock` | 10 | Toolbars and docks inside content |
-| Dropdown | `--z-dropdown` | 1000 | Inline menus, autocomplete lists |
-| Sticky | `--z-sticky` | 1100 | Sticky headers, section anchors |
-| Fixed | `--z-fixed` | 1200 | Fixed navigation bars |
-| Overlay | `--z-overlay` | 1300 | Scrims behind modals |
-| Modal | `--z-modal` | 1400 | Dialogs and sheets |
-| Popover | `--z-popover` | 1500 | Popovers and menus opened from a modal |
-| Toast | `--z-toast` | 1700 | Notifications |
-| Tooltip | `--z-tooltip` | 1800 | Tooltips, always on top |
-| Max | `--z-max` | 9999 | Emergencies only |
+| Tier      | Token           | Value | For                                                                               |
+| --------- | --------------- | ----- | --------------------------------------------------------------------------------- |
+| Hide      | `--z-hide`      | -1    | Behind the page, still in the DOM                                                 |
+| Base      | `--z-base`      | 0     | Content                                                                           |
+| Dock      | `--z-dock`      | 10    | Toolbars and docks inside content                                                 |
+| Dropdown  | `--z-dropdown`  | 1000  | Inline menus, autocomplete lists                                                  |
+| Sticky    | `--z-sticky`    | 1100  | Sticky headers, section anchors                                                   |
+| Fixed     | `--z-fixed`     | 1200  | Fixed navigation bars                                                             |
+| Overlay   | `--z-overlay`   | 1300  | Scrims behind modals                                                              |
+| Modal     | `--z-modal`     | 1400  | Dialogs and sheets                                                                |
+| Popover   | `--z-popover`   | 1500  | Popovers, menus, selects, hover cards (above modals, so they work inside dialogs) |
+| Skip link | `--z-skip-link` | 1600  | Skip-to-content links                                                             |
+| Toast     | `--z-toast`     | 1700  | Notifications                                                                     |
+| Tooltip   | `--z-tooltip`   | 1800  | Tooltips, always on top                                                           |
+| Max       | `--z-max`       | 9999  | Emergencies only                                                                  |
 
 Gaps of 100 leave room to slot a layer in without renumbering.
 
 ---
 
-## Known gaps
+## Using the tiers
 
-- **Skip link:** `skipLink: 1600` is defined in `tokens/z-index.ts` but isn't emitted as a CSS variable yet. Until it is, use `z-[1600]`.
-- **Overlay components** (popover, dialog, sheet, select, tooltip, dropdown menu) use Tailwind's `z-50` and rely on Radix portals for order. They stack correctly with each other; mixing them with elements on the token tiers above 50 can put a menu under a sticky header. Moving them onto the tiers is on the backlog.
+Tailwind 4 reads a custom property with `z-(--token)`:
+
+```tsx
+<div className="fixed inset-0 z-(--z-overlay)" />   // scrim
+<div className="fixed z-(--z-modal)" />             // dialog panel
+```
+
+How `@aazucena/ui` uses them:
+
+| Tier     | Components                                                                                                                                                                     |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Dropdown | Menus that open in place: combobox, auto-complete, cascader, date-range picker, mega menu, mention input, tiered menu                                                          |
+| Sticky   | Banner (top), shell header                                                                                                                                                     |
+| Fixed    | Navbar, reading progress, bottom navigation, back-to-top, scroll-down, action bar, pagination dots, speed dial, toolbar, table of contents, assistant trigger, consent manager |
+| Overlay  | Dialog, alert dialog, sheet and drawer scrims; backdrop; the navbar's mobile scrim                                                                                             |
+| Modal    | Dialog, alert dialog, sheet, drawer and lightbox panels; the navbar's mobile menu                                                                                              |
+| Popover  | Popover, dropdown menu, context menu, menubar, hover card, select                                                                                                              |
+| Tooltip  | Tooltip                                                                                                                                                                        |
+| Max      | Preloaders, coming-soon full screen, tour (the tour mask sits one below its step; the app loader one above)                                                                    |
+
+Values from `z-0` to `z-30` stay as plain utilities: they order layers inside one component. A test in `@aazucena/design-system` (`z-index.test.ts`) fails if a component uses a raw page-level value (`z-40`, `z-50` or `z-[100]` and up), and checks that every tier is emitted under its kebab-case name.
+
+To place an app layer between tiers, use a value inside the gap, e.g. `z-[1250]` for something above fixed chrome but below scrims.
