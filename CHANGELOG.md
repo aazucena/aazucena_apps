@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(design-system)_ Stop shifting tailwind's type scale
 - _(ui)_ Framer motion, loops and rive respect reduced motion
 - _(ui)_ Stop css animations and transitions under reduced motion
 - _(storybook)_ Docs container no longer breaks the test run
