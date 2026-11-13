@@ -22,16 +22,16 @@ Separate surfaces by tone. Add a rule only where structure needs one, and never 
 | State | `--state` | Hover, focus and selection. Selection never uses a raised surface. |
 | Rule | `--rule`, `--rule-strong` | 1px dividers and outlines. Strong rules mark controls. |
 
-Overlays (popover, dialog, toast) are the one place a shadow appears, because they float above the page.
+Overlays don't use shadows either. Popovers, menus and selects sit on `panel-raised` with a 1px rule; dialogs and sheets add a `scrim` behind them.
 
 <div className="sb-unstyled my-6 grid gap-4 sm:grid-cols-2">
-  <Panel label="TRAFFIC // 30D" status="live">
+  <Panel label="Traffic // 30d" status="live">
     <PanelBody>
       <p className="text-foreground text-3xl font-light">12,480</p>
       <p className="text-muted-foreground text-sm">Sessions, up 8% on the previous 30 days.</p>
     </PanelBody>
   </Panel>
-  <Panel label="INGEST // QUEUE" status="alert">
+  <Panel label="Ingest // queue" status="alert">
     <PanelBody>
       <p className="text-foreground text-3xl font-light">412</p>
       <p className="text-muted-foreground text-sm">Events waiting. The ▲ marker carries the meaning, so color is never the only signal.</p>
@@ -51,7 +51,7 @@ Overlays (popover, dialog, toast) are the one place a shadow appears, because th
 | Panel padding | `--panel-padding` | 20px |
 | Panel header strip | `--panel-header` | 32px |
 
-Every vibe keeps this shape. Vibes recolor Avra; they don't round it.
+Every vibe keeps this shape. Vibes recolor Avra and may swap the heading font; they never change radius or density.
 
 <div className="sb-unstyled my-6 flex flex-wrap items-center gap-3">
   <Button size="sm">Small 30</Button>
@@ -89,7 +89,7 @@ Coral (`--alert`) is reserved for alerts and destructive actions. Don't use it f
 
 | Role | Family | Where |
 |---|---|---|
-| Reading | Fira Sans | Prose, headings, controls |
+| Reading | Fira Sans | Prose, headings, controls (some vibes set headings in Playfair Display or Fira Code) |
 | Display values | Fira Sans Light | Large metrics (`12,480`) |
 | Labels and data | Fira Code | Panel headers, timestamps, IDs, code |
 
@@ -105,7 +105,7 @@ Panel headers use the `micro-label` utility: Fira Code, 10px, uppercase, tracked
 | `--motion-draw` | 900ms | Lines and bars drawing in |
 | `--motion-breath` | 4000ms | The pulse on live indicators |
 
-All three turn off under `prefers-reduced-motion`.
+Looping and decorative motion must respect `prefers-reduced-motion` (`motion-safe:` in Tailwind). Most components don't yet; see [Motion & Animation](?path=/docs/design-tokens-motion-animation--docs#reduced-motion).
 
 ---
 

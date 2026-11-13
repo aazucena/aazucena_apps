@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { ThemeManager, vibes, toHex } from '@aazucena/design-system';
 
-/** One line per vibe: what it recolors. Shape and density stay Avra's in every vibe. */
+const HEADING_FONT: Record<string, string> = {
+  sans: 'Fira Sans',
+  serif: 'Playfair Display',
+  mono: 'Fira Code',
+};
+
+/** One line per vibe. Shape and density stay Avra's in every vibe; the heading font can change. */
 const NOTES: Record<string, string> = {
   default: 'Ink neutrals with signal cyan. The reference palette every other vibe recolors.',
   minimal: 'Near-monochrome, high contrast, with the fewest accents.',
@@ -76,8 +82,8 @@ function VibeRow({ id, mode }: { id: string; mode: Mode }) {
               style={{ background: `var(--${v})` }}
               aria-hidden
             />
-            <div className="mt-1 text-[11px] leading-tight">{label}</div>
-            <div className="text-muted-foreground font-mono text-[11px] leading-tight break-all">
+            <div className="mt-1 text-sm leading-tight">{label}</div>
+            <div className="text-muted-foreground font-mono text-sm leading-tight break-all">
               {values[v] ?? ''}
             </div>
           </div>
@@ -97,9 +103,12 @@ export function VibeGallery() {
           <div>
             <h3 id={`vibe-${id}`} className="text-foreground text-lg font-medium">
               {vibes[id]!.name}{' '}
-              <code className="text-muted-foreground font-mono text-xs">{id}</code>
+              <code className="text-muted-foreground font-mono text-sm">{id}</code>
             </h3>
-            <p className="text-muted-foreground text-sm">{NOTES[id] ?? ''}</p>
+            <p className="text-muted-foreground text-sm">
+              {NOTES[id] ?? ''} Headings:{' '}
+              {HEADING_FONT[vibes[id]!.light.typography.headingFont] ?? 'Fira Sans'}.
+            </p>
           </div>
           <div className="grid gap-3 lg:grid-cols-2">
             <VibeRow id={id} mode="light" />
