@@ -1,224 +1,73 @@
 {/* design-tokens/typography.mdx */}
-import { Meta, Typeset } from '@storybook/addon-docs/blocks';
-import { CodeBlock } from '@aazucena/ui';
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Panel, PanelBody } from '@aazucena/ui';
 
 <Meta title="Design Tokens/Typography" />
 
 # Typography
 
-The **Avra** typography system is a high-precision instrument. It balances the editorial elegance of `Serif` with the technical rigidity of `Mono`, all anchored to a strict **4px mathematical baseline**.
+Two families do the work: **Fira Sans** for reading and **Fira Code** for labels, data and code. Some vibes set headings in Playfair Display or Fira Code; body text stays Fira Sans everywhere.
 
 ---
 
-## 🏗️ Technical Density Sandbox
+## Families
 
-This sandbox demonstrates how our typography handles high-density data and editorial content. Change the **Vibe** to see how the system adapts its "Voice" while maintaining absolute legibility.
+| Role | Family | Token | Use |
+|---|---|---|---|
+| Body | Fira Sans | `--font-body` | Prose, controls, table cells |
+| Headings | Fira Sans (vibe can change) | `--font-heading` | Page and section titles |
+| Mono | Fira Code | `font-mono` | Panel labels, timestamps, IDs, values in tables, code |
+| Serif | Playfair Display | `font-serif` | Headings in the Autumn, Christmas, Easter, Hoyoverse, Lunar New Year, Nature, New Year's, Northern Lights and Valentine's vibes |
 
-<div className="p-12 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 relative overflow-hidden group">
-  <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
-    
-    {/* Editorial Content */}
-    <div className="space-y-6">
-      <h4 className="text-[10px] font-mono text-[var(--primary)] uppercase tracking-[0.4em]">Protocol: EDITORIAL_VOICE</h4>
-      <div className="p-8 rounded-2xl bg-[var(--elevated)] border border-[var(--border)] shadow-[var(--shadow-lg)] space-y-4">
-        <p 
-          style={{ fontFamily: 'var(--font-heading)' }}
-          className="text-xl font-bold text-[var(--foreground)] leading-snug"
-        >
-          "Design is the bridge between human intuition and machine precision."
-        </p>
-        <div className="h-[1px] w-12 bg-[var(--primary)]" />
-        <p 
-          style={{ fontFamily: 'var(--font-body)' }}
-          className="text-sm text-[var(--foreground)] opacity-80 leading-relaxed"
-        >
-          Our editorial system adapts to the environment. In <span className="text-[var(--primary)] font-bold italic font-serif">Nature</span> or <span className="text-[var(--primary)] font-bold italic font-serif">Hoyoverse</span> vibes, it leverages high-contrast serifs to provide a premium, narrative feel.
-        </p>
-      </div>
-    </div>
+## In a panel
 
-    {/* Technical Data (High-Fidelity Code Block) */}
-    <div className="space-y-6">
-      <h4 className="text-[10px] font-mono text-[var(--secondary)] uppercase tracking-[0.4em]">Protocol: TECHNICAL_DENSITY</h4>
-      
-      <CodeBlock 
-        code={`type EasingFn = (t: number) => number;
-
-export function lerp(a: number, b: number, t: number): number {
-  return a + (b - a) * t;
-}
-
-export function animate(
-  from: number,
-  to: number,
-  duration: number,
-  easing: EasingFn,
-  onUpdate: (value: number) => void,
-): () => void {
-  const start = performance.now();
-  let raf: number;
-
-  const tick = (now: number) => {
-    const t = Math.min((now - start) / duration, 1);
-    onUpdate(lerp(from, to, easing(t)));
-    if (t < 1) raf = requestAnimationFrame(tick);
-  };
-
-  raf = requestAnimationFrame(tick);
-  return () => cancelAnimationFrame(raf);
-}`}
-        language="typescript"
-        fileName="animate.ts"
-        variant="cyber"
-        className="shadow-2xl"
-      />
-    </div>
-
-  </div>
+<div className="sb-unstyled my-6 max-w-xl">
+  <Panel label="Latency // p95" status="live">
+    <PanelBody className="flex flex-col gap-2">
+      <p className="text-foreground text-4xl font-light">128<span className="text-muted-foreground text-lg">ms</span></p>
+      <p className="text-muted-foreground text-sm">Fira Sans Light for the display value, Fira Sans for the caption, and the header strip in the Fira Code <code>micro-label</code>.</p>
+      <p className="text-muted-foreground font-mono text-sm">2026-11-13 14:02:11 UTC · node-alpha-01</p>
+    </PanelBody>
+  </Panel>
 </div>
 
 ---
 
-## 🏗️ Typography Scale Ladder
+## Scale
 
-Visualizing the 10-tier size protocol from XS to 6XL. This scale ensures a consistent visual hierarchy across all device profiles.
+The `@aazucena/design-system` Tailwind preset sets its own scale, one step smaller than stock Tailwind: `text-xs` is 10px, not 12px. Storybook and `@aazucena/ui` use the preset.
 
-<div className="p-12 border rounded-[3rem] bg-[var(--base)] border-[var(--border)] transition-all duration-500 overflow-hidden relative">
-  <div className="space-y-8 bg-[var(--elevated)] p-8 rounded-2xl border border-[var(--border)]">
-    {[
-      { id: '6xl', size: '48px', label: '6XL // DISPLAY_MAX' },
-      { id: '5xl', size: '36px', label: '5XL // HERO_TITLE' },
-      { id: '4xl', size: '30px', label: '4XL // SECTION_TITLE' },
-      { id: '3xl', size: '24px', label: '3XL // SUB_HEADING' },
-      { id: '2xl', size: '20px', label: '2XL // CARD_TITLE' },
-      { id: 'xl', size: '18px', label: 'XL // PROMINENT_BODY' },
-      { id: 'lg', size: '16px', label: 'LG // STANDARD_BODY' },
-      { id: 'base', size: '14px', label: 'BASE // SMALL_BODY' },
-      { id: 'sm', size: '12px', label: 'SM // CAPTION' },
-      { id: 'xs', size: '10px', label: 'XS // METADATA' },
-    ].map((item) => (
-      <div key={item.id} className="flex items-baseline gap-6 group hover:translate-x-2 transition-transform">
-        <div className="w-32 shrink-0">
-          <span className="text-[10px] font-mono text-[var(--primary)] font-black uppercase tracking-tighter">{item.label}</span>
-        </div>
-        <div 
-          style={{ fontSize: item.size, fontFamily: 'var(--font-heading)' }}
-          className="text-[var(--foreground)] leading-none truncate"
-        >
-          Intelligence Engine Node_
-        </div>
-        <div className="ml-auto text-[10px] font-mono opacity-20 group-hover:opacity-100 transition-opacity">
-          {item.size}
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
-
----
-
-## 🏗️ Weight & Style Spectrum
-
-A comprehensive range of font weights and functional styles to establish clear emphasis and informational hierarchy.
-
-<div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-  <div className="space-y-6">
-    <h4 className="text-[10px] font-mono text-[var(--primary)] uppercase tracking-[0.4em]">Spectrum: WEIGHT_PROTOCOL</h4>
-    <div className="bg-[var(--elevated)] p-8 rounded-2xl border border-[var(--border)] space-y-6 shadow-xl">
-      {[
-        { weight: '300', label: 'LIGHT' },
-        { weight: '400', label: 'NORMAL' },
-        { weight: '500', label: 'MEDIUM' },
-        { weight: '600', label: 'SEMIBOLD' },
-        { weight: '700', label: 'BOLD' },
-        { weight: '800', label: 'BLACK' },
-        { weight: '900', label: 'EXTRA_BOLD' },
-      ].map((item) => (
-        <div key={item.weight} className="flex items-center justify-between group">
-          <span className="text-[10px] font-mono text-[var(--muted-foreground)]">{item.label}</span>
-          <span 
-            style={{ fontWeight: item.weight, fontFamily: 'var(--font-heading)' }}
-            className="text-2xl text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors"
-          >
-            AAZUCENA_
-          </span>
-          <span className="text-[10px] font-mono opacity-20">{item.weight}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  <div className="space-y-6">
-    <h4 className="text-[10px] font-mono text-[var(--secondary)] uppercase tracking-[0.4em]">Gallery: USAGE_SCENARIOS</h4>
-    <div className="bg-[var(--elevated)] p-8 rounded-2xl border border-[var(--border)] space-y-10 shadow-xl text-foreground">
-      
-      {/* Usage: Heading */}
-      <div className="space-y-3">
-        <span className="text-[8px] font-mono text-[var(--muted-foreground)] uppercase tracking-widest">Usage: HEADING_LEVELS</span>
-        <div className="space-y-2">
-          <h1 className="text-3xl font-black font-[var(--font-heading)]">H1. System Initialized</h1>
-          <h2 className="text-2xl font-bold font-[var(--font-heading)] italic underline decoration-[var(--primary)]/30">H2. Protocol Optimized</h2>
-          <h3 className="text-xl font-semibold text-[var(--primary)] font-[var(--font-heading)] uppercase tracking-wider">H3. Data Stream Active</h3>
-        </div>
-      </div>
-
-      {/* Usage: Paragraph Styles */}
-      <div className="space-y-3">
-        <span className="text-[8px] font-mono text-[var(--muted-foreground)] uppercase tracking-widest">Usage: PARAGRAPH_STYLES</span>
-        <div className="space-y-2 text-sm leading-relaxed font-[var(--font-body)]">
-          <p>Standard paragraph text providing <span className="font-bold text-[var(--primary)] underline decoration-[var(--primary)]/20 underline-offset-4">Bold Emphasis</span> for key terms.</p>
-          <p className="italic text-muted-foreground">Italic variant for secondary context or de-emphasized narratives.</p>
-          <p><span className="underline decoration-dashed decoration-[var(--secondary)]">Underlined Protocol</span> and <span className="line-through opacity-40">Decommissioned Data</span> tokens.</p>
-        </div>
-      </div>
-
-      {/* Usage: Data & Technical */}
-      <div className="space-y-3">
-        <span className="text-[8px] font-mono text-[var(--muted-foreground)] uppercase tracking-widest">Usage: DATA_VISUALIZATION</span>
-        <div className="space-y-2 font-mono">
-          <div className="flex justify-between items-center p-2 rounded bg-[var(--base)] border border-[var(--border)]">
-            <span className="text-[10px] font-bold text-[var(--primary)] tracking-widest">NODE_ALPHA</span>
-            <span className="text-[10px] font-black underline decoration-[var(--primary)]/30">0x4F2A</span>
-          </div>
-          <div className="flex justify-between items-center p-2 rounded bg-[var(--base)] border border-[var(--border)]">
-            <span className="text-[10px] opacity-60">METRIC_YIELD</span>
-            <span className="text-[10px] font-bold text-[var(--success)] italic">+12.4%</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
----
-
-## Font Families
-
-| Role | Font Family | Strategic Usage |
+| Utility | Size / line height | Use |
 |---|---|---|
-| **Sans** | `Fira Sans` | Primary readable content, UI labels, and action states. |
-| **Mono** | `Fira Code` | Technical telemetry, system logs, and code-based intelligence. |
-| **Serif** | `Playfair Display` | High-level display titles and editorial narrative accents. |
+| `text-xs` | 10 / 16px | Micro-labels and badges only |
+| `text-sm` | 12 / 20px | Captions, timestamps, table metadata |
+| `text-base` | 14 / 24px | Body text, controls, table cells |
+| `text-lg` | 16 / 28px | Lead paragraphs |
+| `text-xl` | 18 / 28px | Card titles |
+| `text-2xl` | 20 / 32px | Section titles |
+| `text-3xl` | 24 / 36px | Page titles |
+| `text-4xl` | 30 / 40px | Metric values |
+| `text-5xl` | 36px | Display metrics |
+| `text-6xl` | 48px | Hero values |
 
----
+There are also named sizes: `text-h1` (30px) to `text-h6` (14px), `text-body` (14px) and `text-caption` (12px).
 
-## Technical Specifications
+Keep reading text at 12px (`text-sm`) or larger. 10px is for the `micro-label` utility (uppercase, 0.2em tracking, Fira Code) and badges.
 
-### Font Weights
-| Name | Weight | Role |
-|---|---|---|
-| Light | `300` | De-emphasized metadata and secondary descriptions. |
-| Normal | `400` | Primary content and standard UI components. |
-| Medium | `500` | Accented labels and active UI states. |
-| Semibold | `600` | Subheadings and emphasized UI labels. |
-| Bold | `700` | Primary headings and section titles. |
-| Black | `800` | High-impact display and dashboard values. |
-| Extra Bold | `900` | Maximum impact display elements. |
+**Known gap:** apps that don't load the preset, such as `apps/analytics` today, get stock Tailwind sizes, so the same component renders one step larger there than in Storybook.
 
-### System Dynamics
-| Property | Implementation |
+## Weights
+
+| Weight | Use |
 |---|---|
-| **Grid Alignment** | All text is aligned to a 4px baseline grid to ensure vertical rhythm. |
-| **Vibe Mapping** | `--font-heading` and `--font-body` are reassigned per-vibe. |
-| **Letter Spacing** | Adjusted dynamically per-vibe to optimize for "Technical" vs "Editorial" personality. |
+| 300 Light | Display values (`12,480`) and the default vibe's titles (`--font-title-weight`) |
+| 400 Normal | Body text |
+| 500 Medium | Labels, active nav items, table headers |
+| 600 Semibold | Subheadings |
+| 700 Bold | Page headings in prose |
+
+Heavier weights (800, 900) are loaded but have no role in Avra 0.2.
+
+## Labels
+
+`micro-label` is the panel header style: `TRAFFIC // 30D`. Write the text in normal case in the source (`Traffic // 30d`) and let the utility uppercase it; some screen readers read all-caps words as abbreviations.

@@ -131,7 +131,7 @@ const preview: Preview = {
             'Colors',
             'Typography',
             'Layout & Spacing',
-            'Effects & Shadows',
+            'Shape & Elevation',
             'Motion & Animation',
             'Layering & Z-Index',
             'Theme System',
