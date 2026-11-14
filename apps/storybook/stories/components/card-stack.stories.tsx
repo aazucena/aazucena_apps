@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import { CardStack } from '@aazucena/ui';
 
 /**
@@ -20,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -186,5 +187,18 @@ export const RichContent: Story = {
         <p className="mt-1 text-xs text-muted-foreground">Astro + Three.js</p>
       </div>,
     ],
+  },
+};
+
+/** The stack advances from the keyboard and reports its position. */
+export const Keyboard: Story = {
+  ...Basic,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const next = canvas.getByRole('button', { name: /next card/i });
+    next.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('status')).toHaveTextContent(/card 2 of/i);
   },
 };

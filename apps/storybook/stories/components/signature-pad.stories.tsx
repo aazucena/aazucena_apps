@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import { SignaturePad } from '@aazucena/ui';
 
 /**
@@ -20,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'beta', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -86,5 +87,16 @@ export const Small: Story = {
     ...Basic.args,
     width: 250,
     height: 120,
+  },
+};
+
+/** A typed name is an alternative to drawing. */
+export const TypedName: Story = {
+  ...Basic,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole('textbox', { name: /type your name/i }), 'Ada');
+    await expect(canvas.getByRole('img', { name: 'Signature: Ada' })).toBeVisible();
   },
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import { Gantt, type GanttTask } from '@aazucena/ui';
 
 /**
@@ -20,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'beta', 'no-visual'],
+  tags: ['autodocs', 'beta', 'no-visual', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -87,5 +88,17 @@ export const LongTimeline: Story = {
       { id: '5', label: 'Phase 5', start: d(35), end: d(50), color: '#ef4444' },
     ],
     dayWidth: 20,
+  },
+};
+
+/** A clickable bar is a button and responds to Enter. */
+export const Keyboard: Story = {
+  args: { tasks, onTaskClick: fn() },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }: any) => {
+    const bar = within(canvasElement).getAllByRole('button')[0]!;
+    bar.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(args.onTaskClick).toHaveBeenCalledTimes(1);
   },
 };

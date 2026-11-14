@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DataTable, type DataTableColumn, type DataTableProps } from '@aazucena/ui';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards
@@ -20,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'beta', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -98,6 +99,23 @@ export const Basic: Story = {
     data: sampleData,
     columns,
     pageSize: 5,
+  },
+};
+
+/** Sorting works from the keyboard and the header reports its sort state. */
+export const KeyboardSort: Story = {
+  args: { data: sampleData, columns, pageSize: 5 },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const header = canvas.getByRole('columnheader', { name: /name/i });
+    await expect(header).toHaveAttribute('aria-sort', 'none');
+    const sort = within(header).getByRole('button', { name: /name/i });
+    sort.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(header).toHaveAttribute('aria-sort', 'ascending');
+    await userEvent.keyboard('{Enter}');
+    await expect(header).toHaveAttribute('aria-sort', 'descending');
   },
 };
 

@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Keyboard access for fourteen pointer-only components
 - _(portfolio)_ Load the ui structural tokens
 - _(storybook)_ Show the three.js scene stories in dark mode only
 - _(animations)_ Object viewer loads without a removeChild error

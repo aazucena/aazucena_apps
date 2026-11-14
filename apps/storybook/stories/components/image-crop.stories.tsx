@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import { ImageCrop } from '@aazucena/ui';
 
 /**
@@ -20,7 +21,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'beta', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -92,5 +93,22 @@ export const Square: Story = {
     src: SAMPLE_IMAGE,
     aspect: 1,
     onCropChange: (crop) => console.log('Crop:', crop),
+  },
+};
+
+/** Arrow keys move the crop area and the new position is reported. */
+export const Keyboard: Story = {
+  ...Basic,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const area = canvas.getByRole('group', { name: /crop area/i });
+    area.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('status')).toHaveTextContent(/11% from the left/i);
+    const corner = canvas.getByRole('button', { name: /bottom right corner/i });
+    corner.focus();
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(canvas.getByRole('status')).toHaveTextContent(/79% wide/i);
   },
 };

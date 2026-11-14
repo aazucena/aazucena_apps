@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import React from 'react';
 import { ChatImage } from '@aazucena/ui';
 
@@ -8,7 +9,7 @@ const meta: Meta<typeof ChatImage> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     src: {
       control: 'text',
@@ -124,5 +125,21 @@ export const NoCaption: Story = {
     alt: 'Image Without Caption',
     width: 500,
     height: 250,
+  },
+};
+
+/** The image is a button, so Enter opens the enlarged view. */
+export const Keyboard: Story = {
+  ...Default,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const trigger = within(canvasElement).getByRole('button', { name: /enlarge image/i });
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(await within(document.body).findByRole('dialog')).toHaveAttribute(
+      'data-state',
+      'open',
+    );
+    await userEvent.keyboard('{Escape}');
   },
 };

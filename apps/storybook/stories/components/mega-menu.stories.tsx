@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MegaMenu } from '@aazucena/ui';
+import { within, userEvent, expect } from 'storybook/test';
 
 const ChartIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -60,7 +61,8 @@ const iconItems = [
  * | Principle | Detail |
  * |-----------|--------|
  * | CDD | Variant-driven (default / glass / cyber) |
- * | UX | Wide dropdown panel with grouped links in columns on hover |
+ * | UX | Wide dropdown panel with grouped links in columns on hover, click or Enter |
+ * | Accessibility | Disclosure navigation: `aria-expanded` buttons, Arrow Down enters the panel, Escape closes and restores focus |
  * | Design | Supports icons, descriptions, and configurable column count |
  */
 const meta = {
@@ -70,11 +72,11 @@ const meta = {
     docs: {
       description: {
         component:
-          'A horizontal navigation bar where hovering a trigger reveals a wide dropdown panel with grouped links in columns. Supports icons, descriptions, and configurable column layouts.',
+          'A horizontal navigation bar where hovering or activating a trigger reveals a wide dropdown panel with grouped links in columns. Supports icons, descriptions, and configurable column layouts.',
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -96,6 +98,26 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: { items: basicItems },
+};
+
+/** The panel opens, is entered and closes from the keyboard. */
+export const Keyboard: Story = {
+  args: { items: basicItems },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const products = canvas.getByRole('button', { name: /products/i });
+    await expect(products).toHaveAttribute('aria-expanded', 'false');
+    products.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(products).toHaveAttribute('aria-expanded', 'true');
+    const links = within(canvas.getByRole('list', { name: /products/i })).getAllByRole('link');
+    await userEvent.tab();
+    await expect(links[0]).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    await expect(products).toHaveAttribute('aria-expanded', 'false');
+    await expect(products).toHaveFocus();
+  },
 };
 
 export const WithIcons: Story = {

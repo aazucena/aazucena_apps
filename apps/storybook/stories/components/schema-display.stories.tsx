@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import React from 'react';
 import { SchemaDisplay, type SchemaProperty } from '@aazucena/ui';
 
@@ -8,7 +9,7 @@ const meta: Meta<typeof SchemaDisplay> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     schema: {
       control: 'object',
@@ -159,5 +160,18 @@ export const EmptySchema: Story = {
   args: {
     schema: { name: 'Empty', type: 'object', properties: [] },
     title: 'Empty Object Schema',
+  },
+};
+
+/** Object rows expand from the keyboard. */
+export const Keyboard: Story = {
+  ...Default,
+  args: { ...Default.args, defaultExpanded: false },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const row = within(canvasElement).getAllByRole('button', { expanded: false })[0]!;
+    row.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(row).toHaveAttribute('aria-expanded', 'true');
   },
 };

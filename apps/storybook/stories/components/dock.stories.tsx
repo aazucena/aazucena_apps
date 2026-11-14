@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import { Dock, DockItem } from '@aazucena/ui';
 
 const HomeIcon = () => (
@@ -52,7 +53,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -185,4 +186,15 @@ export const NoMagnification: Story = {
       </DockItem>
     </Dock>
   ),
+};
+
+/** Dock items are named buttons in the tab order. */
+export const Keyboard: Story = {
+  ...Basic,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const home = within(canvasElement).getByRole('button', { name: /home/i });
+    await userEvent.tab();
+    await expect(home).toHaveFocus();
+  },
 };

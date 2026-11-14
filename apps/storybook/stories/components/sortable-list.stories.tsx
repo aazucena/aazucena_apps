@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SortableList } from '@aazucena/ui';
 import { useState } from 'react';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards
  * - **CDD Pattern:** Drag-and-drop reorderable list using the HTML5 Drag and Drop API.
  * - **UX:** Dragged item fades; drop target shows a top border indicator. Grip handle props exposed.
  * - **Design:** Zero-dependency DnD via native browser APIs (dataTransfer, dragOver, drop events).
- * - **Accessibility:** Items are draggable with visual feedback states for drag and drop targets.
+ * - **Accessibility:** Each handle is a tab stop; Arrow Up/Down, Home and End move its item, and the new position is announced.
  */
 const meta = {
   title: 'Components/Display/SortableList',
@@ -21,7 +22,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'beta', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -79,6 +80,26 @@ export const Basic: Story = {
   render: () => <SortableDemo />,
 };
 
+/** Reordering works without a mouse: focus a handle and press an arrow key. */
+export const KeyboardReorder: Story = {
+  args: { items: initialItems },
+  render: () => <SortableDemo />,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const first = canvas.getByRole('button', { name: /reorder item 1 of 5/i });
+    first.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    const handles = canvas.getAllByRole('button', { name: /reorder item/i });
+    await expect(handles[1]).toHaveFocus();
+    await expect(handles[1]!.parentElement).toHaveTextContent('Design system tokens');
+    await expect(canvas.getByRole('status')).toHaveTextContent('Moved to position 2 of 5');
+    await userEvent.keyboard('{End}');
+    const after = canvas.getAllByRole('button', { name: /reorder item/i });
+    await expect(after[4]!.parentElement).toHaveTextContent('Design system tokens');
+  },
+};
+
 export const WithHandles: Story = {
   args: {
     items: initialItems,
@@ -119,6 +140,9 @@ export const Cards: Story = {
         items={items}
         onReorder={setItems as (items: unknown[]) => void}
         keyExtractor={(item: { id: string }) => item.id}
+        getHandleLabel={(item: { label: string }, index: number, total: number) =>
+          `${item.label}, item ${index + 1} of ${total}. Use the arrow keys to move it`
+        }
         renderItem={(item: { id: string; label: string; desc: string }, _i, handleProps) => (
           <div className="rounded-control border bg-card p-3" {...handleProps}>
             <p className="text-sm font-semibold">{item.label}</p>

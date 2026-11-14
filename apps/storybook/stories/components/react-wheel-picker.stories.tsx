@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import { ReactWheelPicker, ReactWheelPickerGroup } from '@aazucena/ui';
+import { within, userEvent, expect } from 'storybook/test';
 
 const meta: Meta<typeof ReactWheelPicker> = {
   title: 'Components/Forms/ReactWheelPicker',
@@ -8,7 +9,7 @@ const meta: Meta<typeof ReactWheelPicker> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     options: {
       control: 'object',
@@ -88,6 +89,22 @@ export const Default: Story = {
     options: numbers,
     value: '10',
     loop: true,
+    'aria-label': 'Quantity',
+  },
+};
+
+/** The value changes with the arrow keys and is exposed as a spinbutton. */
+export const Keyboard: Story = {
+  args: { options: numbers, value: '10', loop: true, 'aria-label': 'Minutes' },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const picker = within(canvasElement).getByRole('spinbutton', { name: /minutes/i });
+    await expect(picker).toHaveAttribute('aria-valuetext', '10');
+    picker.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(picker).toHaveAttribute('aria-valuetext', '11');
+    await userEvent.keyboard('{ArrowUp}{ArrowUp}');
+    await expect(picker).toHaveAttribute('aria-valuetext', '9');
   },
 };
 
@@ -105,6 +122,7 @@ export const TimePickerGroup: Story = {
         <ReactWheelPickerGroup>
           <ReactWheelPicker
             {...args}
+            aria-label="Hour"
             options={hours.slice(1, 13)}
             value={hour}
             onChange={setHour}
@@ -113,6 +131,7 @@ export const TimePickerGroup: Story = {
           <span className="text-2xl font-black opacity-40 px-1">:</span>
           <ReactWheelPicker
             {...args}
+            aria-label="Minute"
             options={minutes}
             value={minute}
             onChange={setMinute}
@@ -121,6 +140,7 @@ export const TimePickerGroup: Story = {
           <div className="w-4" />
           <ReactWheelPicker
             {...args}
+            aria-label="AM or PM"
             options={['AM', 'PM']}
             value={meridiem}
             onChange={setMeridiem}
@@ -153,18 +173,21 @@ export const CyberDate: Story = {
         <ReactWheelPickerGroup className="bg-signal/5 border-signal/20">
           <ReactWheelPicker
             {...args}
+            aria-label="Year"
             options={['2024', '2025', '2026', '2027']}
             value="2026"
             variant="cyber"
           />
           <ReactWheelPicker
             {...args}
+            aria-label="Month"
             options={['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN']}
             value="FEB"
             variant="cyber"
           />
           <ReactWheelPicker
             {...args}
+            aria-label="Day"
             options={Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'))}
             value="22"
             variant="cyber"
@@ -179,6 +202,7 @@ export const GlassVariant: Story = {
   args: {
     options: ['Troposphere', 'Stratosphere', 'Mesosphere', 'Exosphere'],
     value: 'Mesosphere',
+    'aria-label': 'Atmospheric layer',
     variant: 'glass',
     size: 'lg',
     loop: false,

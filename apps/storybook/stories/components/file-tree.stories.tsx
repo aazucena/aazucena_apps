@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import React from 'react';
 import { FileTree, type FileTreeNode } from '@aazucena/ui';
 
@@ -8,7 +9,7 @@ const meta: Meta<typeof FileTree> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     data: {
       control: 'object',
@@ -145,5 +146,17 @@ export const LargeSize: Story = {
     data: sampleFileSystem,
     defaultExpandedIds: ['src'],
     size: 'lg',
+  },
+};
+
+/** Folders open and close from the keyboard. */
+export const Keyboard: Story = {
+  ...Default,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const folder = within(canvasElement).getAllByRole('button', { expanded: false })[0]!;
+    folder.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(folder).toHaveAttribute('aria-expanded', 'true');
   },
 };

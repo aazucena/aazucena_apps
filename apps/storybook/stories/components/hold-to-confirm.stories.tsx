@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor, fn } from 'storybook/test';
 import React from 'react';
 import { HoldToConfirm } from '@aazucena/ui';
 import { toast, Toaster } from '@aazucena/ui'; // Assuming toast and Toaster are available
@@ -9,7 +10,7 @@ const meta: Meta<typeof HoldToConfirm> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     onConfirm: {
       action: 'confirmed',
@@ -164,5 +165,18 @@ export const Disabled: Story = {
   args: {
     text: 'Cannot Confirm',
     disabled: true,
+  },
+};
+
+/** Holding Enter confirms, the same as holding the pointer down. */
+export const Keyboard: Story = {
+  args: { text: 'Quick Confirm', confirmText: 'Done!', duration: 300, onConfirm: fn() },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }: any) => {
+    const button = within(canvasElement).getByRole('button', { name: /quick confirm/i });
+    button.focus();
+    await userEvent.keyboard('{Enter>}');
+    await waitFor(() => expect(args.onConfirm).toHaveBeenCalled(), { timeout: 2000 });
+    await userEvent.keyboard('{/Enter}');
   },
 };

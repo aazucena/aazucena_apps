@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TieredMenu } from '@aazucena/ui';
+import { within, userEvent, expect } from 'storybook/test';
 
 const basicItems = [
   {
@@ -34,11 +35,11 @@ const meta = {
     docs: {
       description: {
         component:
-          'A nested flyout menu where hovering a parent item opens a submenu to the right. Supports keyboard command shortcuts, separators, icons, disabled items, and custom trigger elements.',
+          'A nested flyout menu where hovering a parent item, or pressing Arrow Right on it, opens a submenu to the right. Arrow keys move between items and Escape closes the menu. Supports keyboard command shortcuts, separators, icons, disabled items, and custom trigger elements.',
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -60,6 +61,31 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: { items: basicItems },
+};
+
+/** Opens, moves into a submenu and closes with the keyboard alone. */
+export const Keyboard: Story = {
+  args: { items: basicItems },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: /menu/i });
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    const first = await canvas.findByRole('menuitem', { name: /new/i });
+    await expect(first).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(first).toHaveAttribute('aria-expanded', 'true');
+    await expect(await canvas.findByRole('menuitem', { name: /project/i })).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(canvas.getByRole('menuitem', { name: /^file$/i })).toHaveFocus();
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(first).toHaveFocus();
+    await expect(first).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.keyboard('{Escape}');
+    await expect(trigger).toHaveFocus();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  },
 };
 
 export const WithCommands: Story = {
