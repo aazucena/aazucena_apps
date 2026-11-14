@@ -56,7 +56,7 @@ const ChatTool = React.forwardRef<HTMLDivElement, ChatToolProps>(
     const statusColor = {
       success: 'text-success',
       failure: 'text-alert',
-      executing: 'text-signal animate-pulse',
+      executing: 'text-signal',
     }[status];
 
     const formatJson = (json: any) => {

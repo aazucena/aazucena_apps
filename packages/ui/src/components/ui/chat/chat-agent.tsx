@@ -27,8 +27,8 @@ export interface ChatAgentProps
 
 const statusColorMap: Record<Required<ChatAgentProps>['status'], string> = {
   idle: 'text-muted-foreground',
-  active: 'text-signal animate-pulse',
-  thinking: 'text-warning animate-pulse',
+  active: 'text-signal',
+  thinking: 'text-warning',
   online: 'text-success',
   offline: 'text-alert',
 };

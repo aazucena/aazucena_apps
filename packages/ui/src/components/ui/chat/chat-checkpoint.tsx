@@ -18,7 +18,7 @@ const chatCheckpointVariants = cva(
         success: 'border-success/20 text-success',
         failure: 'border-alert/20 text-alert',
         pending: 'border-rule-strong/20 text-muted-foreground',
-        current: 'border-signal/20 text-signal animate-pulse',
+        current: 'border-signal/20 text-signal',
       },
     },
     defaultVariants: { variant: 'default', status: 'pending' },

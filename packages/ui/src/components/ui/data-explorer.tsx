@@ -81,7 +81,7 @@ const RecursiveRenderer = ({
         className={cn(
           'rounded px-1.5 py-0.5 text-[10px] font-bold',
           keyName === 'is_valid' && data === false
-            ? 'text-alert-foreground bg-alert animate-pulse'
+            ? 'text-alert-foreground bg-alert'
             : keyName === 'is_valid' && data === true
               ? 'text-success-foreground bg-success'
               : 'text-warning',
@@ -196,7 +196,7 @@ const RecursiveRenderer = ({
         )}
       >
         {hasFailedAudit && (
-          <div className="text-alert mb-2 flex animate-pulse items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+          <div className="text-alert mb-2 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
             <Activity size={14} /> Critical_Audit_Failure
           </div>
         )}

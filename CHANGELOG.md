@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Name the speech, token copy, colour and pagination dot controls and the qr code
 - _(ui)_ Resolve lint errors from the accessibility fixes
 - _(storybook)_ Story markup passes contrast and names its icon buttons
 - _(ui)_ Text contrast: no dimmed text, lighter tints, readable code blocks

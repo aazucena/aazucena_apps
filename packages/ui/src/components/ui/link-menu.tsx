@@ -11,7 +11,7 @@ const linkMenuVariants = cva('flex flex-col', {
       default: 'space-y-4',
       card: 'rounded-card border p-6 bg-card border-border space-y-6',
       glass:
-        'rounded-card border p-6 bg-background/5 dark:bg-state border-border/10 text-foreground space-y-6',
+        'rounded-card border p-6 bg-background/5 dark:bg-panel-raised border-border/10 text-foreground space-y-6',
       cyber:
         'rounded-card border p-6 bg-background/80 dark:bg-panel border-signal/30 text-foreground space-y-6',
     },

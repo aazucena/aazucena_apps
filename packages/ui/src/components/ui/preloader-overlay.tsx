@@ -41,7 +41,7 @@ export const preloaderContentVariants = cva('w-full max-w-md flex flex-col gap-6
       default: '',
       card: 'bg-card border border-border rounded-card p-8',
       glass:
-        'bg-background/5 dark:bg-state border border-border/10 rounded-card p-8 text-foreground',
+        'bg-background/5 dark:bg-panel-raised border border-border/10 rounded-card p-8 text-foreground',
       cyber:
         'bg-background/80 dark:bg-panel border border-signal/30 rounded-control p-8 text-foreground',
     },

@@ -10,7 +10,7 @@ export const statVariants = cva('flex flex-col', {
       default: '',
       card: 'bg-card border border-border p-6 rounded-card',
       glass:
-        'bg-background/5 dark:bg-state border border-border/10 text-foreground p-6 rounded-card',
+        'bg-background/5 dark:bg-panel-raised border border-border/10 text-foreground p-6 rounded-card',
       cyber:
         'bg-background/80 dark:bg-panel border border-signal/30 text-foreground p-6 rounded-card',
     },

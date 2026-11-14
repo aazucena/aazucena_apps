@@ -101,7 +101,7 @@ export const PreloaderStep = React.forwardRef<
     </div>
     <div className="min-w-0 flex-1 text-left">{children}</div>
     {status === 'active' && (
-      <Badge variant="outline" className="h-5 animate-pulse px-1.5 text-[10px]">
+      <Badge variant="outline" className="h-5 px-1.5 text-[10px]">
         Processing
       </Badge>
     )}

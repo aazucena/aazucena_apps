@@ -19,7 +19,7 @@ export const chatThreadVariants = cva(
       variant: {
         default: 'bg-panel dark:bg-background border-rule hover:border-rule hover:bg-panel',
         glass:
-          'bg-background/5 dark:bg-state border-border/10 text-foreground hover:bg-background/10 hover:border-border/20',
+          'bg-background/5 dark:bg-panel-raised border-border/10 text-foreground hover:bg-background/10 hover:border-border/20',
         cyber:
           'bg-background/40 dark:bg-panel border-signal/20 text-foreground hover:border-signal',
       },

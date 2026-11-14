@@ -11,7 +11,7 @@ const spotlightVariants = cva(
       variant: {
         default: 'bg-panel/50 dark:bg-panel/30 border-rule hover:border-primary/20 p-10',
         glass:
-          'bg-background/5 dark:bg-state border-border/10 text-foreground hover:bg-background/10 p-10',
+          'bg-background/5 dark:bg-panel-raised border-border/10 text-foreground hover:bg-background/10 p-10',
         cyber:
           'bg-background/40 dark:bg-panel border-signal/20 text-foreground hover:border-signal p-10',
         // Gradient variants absorbed from FeaturedCard
@@ -49,7 +49,7 @@ const spotlightVisualVariants = cva(
         default:
           'w-14 h-14 rounded-card flex items-center justify-center bg-primary/10 text-primary',
         glass:
-          'w-14 h-14 rounded-card flex items-center justify-center bg-background/10 dark:bg-state text-foreground border border-border/20',
+          'w-14 h-14 rounded-card flex items-center justify-center bg-background/10 dark:bg-panel-raised text-foreground border border-border/20',
         cyber:
           'w-14 h-14 rounded-card flex items-center justify-center bg-primary/10 dark:bg-signal/10 text-primary dark:text-signal border border-border/10 dark:border-signal/30',
         // Gradient matches for icon boxes
@@ -113,7 +113,7 @@ const SpotlightDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('text-base leading-relaxed font-medium opacity-70', className)}
+    className={cn('text-muted-foreground text-base leading-relaxed font-medium', className)}
     {...props}
   />
 ));

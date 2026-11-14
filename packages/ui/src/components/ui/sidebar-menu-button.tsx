@@ -17,7 +17,7 @@ export const sidebarMenuButtonVariants = cva(
         outline:
           'bg-background border border-sidebar-border hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
         glass:
-          'text-foreground/70 hover:bg-background/10 dark:bg-state hover:text-foreground data-[active=true]:bg-panel-raised data-[active=true]:text-foreground',
+          'text-foreground/70 hover:bg-background/10 dark:bg-panel-raised hover:text-foreground data-[active=true]:bg-panel-raised data-[active=true]:text-foreground',
         cyber:
           'text-foreground0/70 hover:bg-signal/10 hover:text-signal data-[active=true]:bg-signal/10 data-[active=true]:text-signal',
       },

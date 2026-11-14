@@ -51,7 +51,7 @@ const shareActionVariants = cva(
         cyber:
           'bg-signal/5 border border-signal/20 text-signal hover:bg-signal hover:text-primary-foreground',
         glass:
-          'bg-background/5 dark:bg-state border border-border/10 text-muted-foreground hover:bg-background/10 hover:text-foreground',
+          'bg-background/5 dark:bg-panel-raised border border-border/10 text-muted-foreground hover:bg-background/10 hover:text-foreground',
       },
     },
     defaultVariants: {

@@ -19,7 +19,7 @@ const buttonGroupVariants = cva('flex items-center', {
       actions: 'flex-col sm:flex-row items-center justify-center gap-4 mt-6 w-full sm:w-auto',
       inline: 'flex-row gap-2 items-center',
       glass:
-        'bg-background/5 dark:bg-state rounded-card border border-border/10 w-fit items-stretch [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none overflow-hidden',
+        'bg-background/5 dark:bg-panel-raised rounded-card border border-border/10 w-fit items-stretch [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none overflow-hidden',
       cyber:
         'bg-background/40 dark:bg-panel rounded-control border border-signal/30 w-fit items-stretch [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none overflow-hidden',
     },
@@ -53,7 +53,7 @@ const buttonGroupItemVariants = cva(
         outline:
           'px-10 py-5 rounded-card border border-border bg-background hover:bg-state text-foreground text-xs uppercase tracking-[0.2em]',
         glass:
-          'px-10 py-5 rounded-card bg-background/10 dark:bg-state border border-border/20 text-foreground hover:bg-panel-raised text-xs uppercase tracking-[0.2em]',
+          'px-10 py-5 rounded-card bg-background/10 dark:bg-panel-raised border border-border/20 text-foreground hover:bg-panel-raised text-xs uppercase tracking-[0.2em]',
         cyber:
           'px-10 py-5 rounded-card bg-background border border-signal/40 text-signal hover:border-signal text-xs uppercase tracking-[0.2em]',
         gradient:

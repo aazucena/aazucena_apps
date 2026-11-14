@@ -14,7 +14,7 @@ const assistantTriggerVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground rounded-full',
         glass:
-          'bg-background/10 dark:bg-state border border-border/20 text-foreground rounded-full',
+          'bg-background/10 dark:bg-panel-raised border border-border/20 text-foreground rounded-full',
         cyber:
           'bg-background border border-border dark:border-signal/40 text-primary dark:text-signal rounded-card',
         ai: 'text-foreground rounded-full',

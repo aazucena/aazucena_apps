@@ -122,7 +122,7 @@ export const statusLabelVariants = cva('text-xs font-bold transition-colors', {
   variants: {
     variant: {
       default: 'text-muted-foreground',
-      cyber: 'uppercase tracking-widest text-[9px] opacity-70',
+      cyber: 'uppercase tracking-widest text-[9px]',
       bright: 'text-foreground',
       compact: 'text-[10px] font-black uppercase tracking-[0.2em]',
     },

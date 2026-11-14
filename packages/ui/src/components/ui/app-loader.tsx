@@ -105,7 +105,7 @@ const AppLoaderStatus = React.forwardRef<
   <p
     ref={ref}
     className={cn(
-      'text-muted-foreground animate-pulse font-mono text-[9px] tracking-widest uppercase',
+      'text-muted-foreground font-mono text-[9px] tracking-widest uppercase',
       className,
     )}
     {...props}

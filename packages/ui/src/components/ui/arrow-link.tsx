@@ -17,7 +17,7 @@ const arrowLinkVariants = cva(
         white: 'text-foreground hover:text-foreground/80',
         card: 'flex flex-col items-center justify-center rounded-card border p-12 bg-muted/50 border-border hover:bg-muted text-foreground',
         'card-glass':
-          'flex flex-col items-center justify-center rounded-card border p-12 border-border/10 bg-background/5 dark:bg-state hover:bg-background/10 dark:hover:bg-state text-foreground',
+          'flex flex-col items-center justify-center rounded-card border p-12 border-border/10 bg-background/5 dark:bg-panel-raised hover:bg-background/10 dark:hover:bg-state text-foreground',
         'card-cyber':
           'flex flex-col items-center justify-center rounded-card border p-12 border-border/10 dark:border-signal/30 glass bg-signal-faint text-foreground',
         circular: 'gap-3 text-xs',

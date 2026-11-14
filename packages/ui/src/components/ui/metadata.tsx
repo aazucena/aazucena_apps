@@ -10,7 +10,7 @@ const metadataVariants = cva('w-full', {
       default: 'space-y-6',
       card: 'bg-card border border-border rounded-card p-6',
       glass:
-        'bg-background/5 dark:bg-state border border-border/10 rounded-card p-6 text-foreground',
+        'bg-background/5 dark:bg-panel-raised border border-border/10 rounded-card p-6 text-foreground',
       cyber:
         'bg-background/40 dark:bg-panel border border-border/10 dark:border-signal/20 rounded-card p-6 text-foreground',
       // Compact vertical variant for headers

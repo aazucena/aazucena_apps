@@ -25,7 +25,7 @@ const detailNavItemVariants = cva(
       variant: {
         default: 'border-border bg-card hover:border-primary/20',
         glass:
-          'border-border/10 bg-background/5 dark:bg-state text-foreground hover:bg-background/10 hover:border-border/20',
+          'border-border/10 bg-background/5 dark:bg-panel-raised text-foreground hover:bg-background/10 hover:border-border/20',
         cyber:
           'border-signal/20 bg-background/40 dark:bg-panel text-foreground hover:border-signal',
       },

@@ -26,7 +26,7 @@ const announcementVariants = cva(
         warning:
           'bg-warning border-warning text-warning-foreground dark:bg-panel-raised/80 dark:border-rule',
         destructive:
-          'bg-alert border-alert text-alert-foreground dark:bg-panel-raised/80 dark:border-rule',
+          'bg-alert border-alert text-alert-foreground dark:bg-panel-raised/80 dark:border-rule dark:text-alert',
         glass: 'glass border-rule text-foreground',
         cyber: 'bg-background border-signal/20 text-signal font-mono',
       },

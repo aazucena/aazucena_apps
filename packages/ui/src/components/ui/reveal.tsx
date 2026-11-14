@@ -65,7 +65,7 @@ const RevealContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
             >
               <div
                 ref={ref}
-                className={cn('pt-0 pb-4 text-sm leading-relaxed opacity-70', className)}
+                className={cn('text-muted-foreground pt-0 pb-4 text-sm leading-relaxed', className)}
                 {...props}
               >
                 {children}

@@ -10,7 +10,7 @@ const tocVariants = cva('fixed z-(--z-fixed) hidden xl:block', {
     variant: {
       default: 'bg-background border border-border rounded-card p-4',
       glass:
-        'bg-background/5 dark:bg-state border border-border/10 text-foreground rounded-card p-4',
+        'bg-background/5 dark:bg-panel-raised border border-border/10 text-foreground rounded-card p-4',
       cyber:
         'bg-background/80 dark:bg-panel border border-signal/30 text-foreground rounded-card p-4',
     },

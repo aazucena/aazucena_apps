@@ -36,7 +36,7 @@ const navbarVariants = cva(
       {
         variant: 'glass',
         isScrolled: true,
-        className: 'py-4 bg-background/10 dark:bg-state border-border/20',
+        className: 'py-4 bg-background/10 dark:bg-panel-raised border-border/20',
       },
       {
         variant: 'glass',

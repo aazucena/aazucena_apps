@@ -13,7 +13,7 @@ const backToTopVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground rounded-full hover:bg-primary/90',
         glass:
-          'bg-background/10 dark:bg-state border border-border/20 text-foreground rounded-full hover:bg-panel-raised',
+          'bg-background/10 dark:bg-panel-raised border border-border/20 text-foreground rounded-full hover:bg-panel-raised',
         cyber:
           'bg-background/80 dark:bg-panel border border-signal/40 text-signal rounded-control hover:border-signal',
       },

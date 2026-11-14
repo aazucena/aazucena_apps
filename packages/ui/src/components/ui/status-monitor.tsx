@@ -57,7 +57,7 @@ export const statusMonitorIconVariants = cva(
       status: {
         NOMINAL: 'bg-success text-success-foreground',
         WARNING: 'bg-warning text-warning-foreground',
-        CRITICAL: 'animate-pulse bg-alert text-alert-foreground',
+        CRITICAL: 'bg-alert text-alert-foreground',
       },
     },
     defaultVariants: {
