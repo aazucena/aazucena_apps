@@ -56,6 +56,7 @@ function VirtualListInner<T>(
     <div
       ref={ref}
       // A tab stop, so the list can be scrolled with the keyboard.
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scroll or drag region must be a tab stop
       tabIndex={0}
       className={cn(
         virtualListVariants({ variant }),

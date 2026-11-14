@@ -25,6 +25,7 @@ const ChatFeed = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
       aria-live="polite"
       aria-relevant="additions"
       aria-label="Conversation"
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scroll or drag region must be a tab stop
       tabIndex={0}
       className={cn(
         'custom-scrollbar focus-visible:outline-signal flex-1 space-y-8 overflow-y-auto p-6 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',

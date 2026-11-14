@@ -98,7 +98,7 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
     // focus stays in the text field so typing keeps filtering.
     const [active, setActive] = React.useState(-1);
     const move = (to: number) => {
-      const enabled = filtered.map((o, i) => (false ? -1 : i)).filter((i) => i >= 0);
+      const enabled = filtered.map((_, i) => i);
       if (!enabled.length) return setActive(-1);
       const pos = enabled.indexOf(active);
       const next =
@@ -202,6 +202,7 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
                 </p>
               ) : (
                 filtered.map((option, index) => (
+                  // eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus stays in the text field (aria-activedescendant)
                   <div
                     key={option.value}
                     id={`${listboxId}-${index}`}

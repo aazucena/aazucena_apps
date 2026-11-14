@@ -190,6 +190,7 @@ const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
           {/* Crop area */}
           <div
             role="group"
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scroll or drag region must be a tab stop
             tabIndex={0}
             aria-label="Crop area. Use the arrow keys to move it"
             aria-roledescription="movable crop area"

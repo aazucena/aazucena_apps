@@ -110,6 +110,7 @@ const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
     };
 
     return (
+      // eslint-disable-next-line jsx-a11y/interactive-supports-focus -- composite widget: its items take focus (roving tab stop)
       <div
         ref={(node) => {
           treeRef.current = node;

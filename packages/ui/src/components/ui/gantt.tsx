@@ -96,6 +96,7 @@ const Gantt = React.forwardRef<HTMLDivElement, GanttProps>(
         // Scrolls sideways, so it must be reachable by keyboard (arrow keys scroll it).
         role="group"
         aria-label="Gantt chart"
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scroll or drag region must be a tab stop
         tabIndex={0}
         className={cn(
           ganttVariants({ variant }),

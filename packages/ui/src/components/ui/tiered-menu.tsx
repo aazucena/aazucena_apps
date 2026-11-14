@@ -114,6 +114,7 @@ function TieredMenuPanel({
   };
 
   return (
+    // eslint-disable-next-line jsx-a11y/interactive-supports-focus -- composite widget: its items take focus (roving tab stop)
     <div
       ref={panelRef}
       role="menu"

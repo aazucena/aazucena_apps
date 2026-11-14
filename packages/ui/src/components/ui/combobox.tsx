@@ -230,6 +230,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                 </p>
               ) : (
                 filtered.map((option, index) => (
+                  // eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus stays in the text field (aria-activedescendant)
                   <div
                     key={option.value}
                     id={`${listboxId}-${index}`}

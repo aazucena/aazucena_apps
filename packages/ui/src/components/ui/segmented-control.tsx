@@ -41,6 +41,7 @@ const SegmentedControl = React.forwardRef<
       ?.setAttribute('tabindex', '0');
   });
   return (
+    // eslint-disable-next-line jsx-a11y/interactive-supports-focus -- composite widget: its items take focus (roving tab stop)
     <div
       ref={(node) => {
         groupRef.current = node;
