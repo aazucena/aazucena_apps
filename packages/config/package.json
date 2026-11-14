@@ -19,6 +19,7 @@
     "./eslint/react.js": "./src/eslint/react.js",
     "./eslint/library.js": "./src/eslint/library.js",
     "./eslint/astro.js": "./src/eslint/astro.js",
+    "./eslint/a11y.js": "./src/eslint/a11y.js",
     "./prettier/*": "./src/prettier/*",
     "./tsconfig/*": "./src/tsconfig/*",
     "./playwright/base": "./src/playwright/base.ts",
