@@ -17,7 +17,7 @@ Motion in Avra is slow and sparse: state changes are quick, lines draw in, and l
 | `--motion-draw` | 900ms | Chart lines and bars drawing in |
 | `--motion-breath` | 4000ms | The pulse on live status indicators |
 
-Components don't use these tokens yet. Most write `transition-all duration-300` (about 150 places) or `duration-500` (about 60), so state changes run slower than `--motion-base`. New work should use the tokens: `duration-(--motion-base)`.
+State changes in `@aazucena/ui` (hover, press, toggle, selection) run on `duration-(--motion-base)`. Durations of 500ms and up are kept for slow moves: progress and gauge fills, the navbar's scroll state, long reveals. Components name the properties they transition (`transition-colors`, `transition-transform`, `transition-[width]`) and never use `transition-all`, which would also fade every color when the theme toggles. A container with no state of its own has no transition. Two tests in `@aazucena/design-system` (`ui-token-usage.test.ts`) fail on a raw short duration or `transition-all`.
 
 ## Easing
 
