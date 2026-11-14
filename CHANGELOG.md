@@ -176,6 +176,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(storybook)_ Keyboard tests for the components that were pointer-only
 - _(design-system)_ Guard motion durations and transition-all in ui
 - _(design-system)_ Apps load the tokens ui components read
 - _(design-system)_ Minimal and nature bring their own palette
