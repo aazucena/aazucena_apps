@@ -70,10 +70,10 @@ const RecursiveRenderer = ({
   keyName?: string;
   maxDepth: number;
 }) => {
-  if (level > maxDepth) return <span className="italic opacity-40">...Max Depth</span>;
+  if (level > maxDepth) return <span className="text-muted-foreground italic">...Max Depth</span>;
 
   // 1. PRIMITIVES
-  if (data === null) return <span className="text-alert/50 italic">null</span>;
+  if (data === null) return <span className="text-alert italic">null</span>;
 
   if (typeof data === 'boolean') {
     return (
@@ -162,12 +162,12 @@ const RecursiveRenderer = ({
 
   // 2. ARRAYS
   if (Array.isArray(data)) {
-    if (data.length === 0) return <span className="opacity-40">[]</span>;
+    if (data.length === 0) return <span className="text-muted-foreground">[]</span>;
     return (
       <div className="mt-1 flex flex-col gap-1">
         {data.map((item, i) => (
           <div key={i} className="flex gap-2">
-            <span className="shrink-0 text-[10px] text-current opacity-30">[{i}]</span>
+            <span className="text-muted-foreground shrink-0 text-[10px]">[{i}]</span>
             <RecursiveRenderer
               data={item}
               variant={variant}
@@ -183,7 +183,7 @@ const RecursiveRenderer = ({
   // 3. OBJECTS
   if (typeof data === 'object') {
     const keys = Object.keys(data);
-    if (keys.length === 0) return <span className="opacity-40">{}</span>;
+    if (keys.length === 0) return <span className="text-muted-foreground">{}</span>;
 
     const hasFailedAudit = data['is_valid'] === false;
 

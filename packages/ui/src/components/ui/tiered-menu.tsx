@@ -168,7 +168,7 @@ function TieredMenuPanel({
                 item.disabled && 'pointer-events-none opacity-50',
                 activeIndex === index
                   ? variant === 'cyber'
-                    ? 'bg-signal/20 text-signal'
+                    ? 'bg-signal/10 text-signal'
                     : 'bg-accent text-accent-foreground'
                   : variant === 'cyber'
                     ? 'text-signal'

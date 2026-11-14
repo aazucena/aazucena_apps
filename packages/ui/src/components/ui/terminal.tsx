@@ -49,7 +49,7 @@ const TerminalHeader = React.forwardRef<
       )}
       <div className="flex items-center gap-2">
         <TerminalIcon size={14} className="opacity-40" />
-        <span className="text-[10px] font-black tracking-[0.2em] uppercase opacity-40">
+        <span className="text-muted-foreground text-[10px] font-black tracking-[0.2em] uppercase">
           {children || 'System_Terminal'}
         </span>
       </div>
@@ -78,7 +78,7 @@ const TerminalLine = React.forwardRef<
 >(({ className, number, children, ...props }, ref) => (
   <div ref={ref} className={cn('group flex gap-4', className)} {...props}>
     {number !== undefined && (
-      <span className="w-4 shrink-0 text-right opacity-20 select-none">{number}</span>
+      <span className="text-muted-foreground w-4 shrink-0 text-right select-none">{number}</span>
     )}
     <div className="flex-1 whitespace-pre-wrap">{children}</div>
   </div>

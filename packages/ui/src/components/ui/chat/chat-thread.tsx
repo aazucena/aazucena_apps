@@ -105,7 +105,10 @@ export const ChatThreadMeta = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('mt-1 font-mono text-[8px] tracking-widest uppercase opacity-50', className)}
+    className={cn(
+      'text-muted-foreground mt-1 font-mono text-[8px] tracking-widest uppercase',
+      className,
+    )}
     {...props}
   />
 ));

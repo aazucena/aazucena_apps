@@ -90,7 +90,7 @@ const buttonGroupTextVariants = cva(
     variants: {
       variant: {
         default: 'bg-muted text-muted-foreground border-border',
-        glass: 'bg-background/10 dark:bg-state text-foreground border-border/20',
+        glass: 'bg-background/10 dark:bg-panel-raised text-foreground border-border/20',
         cyber:
           'bg-primary/10 dark:bg-signal/10 text-primary dark:text-signal border-border dark:border-signal/30 font-black uppercase tracking-widest italic',
       },

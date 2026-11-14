@@ -160,7 +160,7 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
         >
           <Terminal size={14} />
           <span>{title}</span>
-          <div className="ml-auto flex gap-1.5 opacity-50">
+          <div className="text-muted-foreground ml-auto flex gap-1.5">
             <span className="size-1.5 rounded-full bg-current" />
             <span className="size-1.5 rounded-full bg-current" />
             <span className="size-1.5 rounded-full bg-current" />
@@ -170,7 +170,9 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
         {/* Content */}
         <div className="max-h-[400px] overflow-auto py-2">
           {frames.length === 0 ? (
-            <div className="p-4 text-center text-xs italic opacity-50">No frames detected</div>
+            <div className="text-muted-foreground p-4 text-center text-xs italic">
+              No frames detected
+            </div>
           ) : (
             frames.map((frame, index) => (
               <div
@@ -178,7 +180,7 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
                 className={cn(frameVariants({ isHighlighted: index === highlightFrame, variant }))}
               >
                 <div className="flex items-baseline gap-2">
-                  <span className="w-4 text-right opacity-40 select-none">{index}</span>
+                  <span className="text-muted-foreground w-4 text-right select-none">{index}</span>
                   <span
                     className={cn(
                       'font-medium',
@@ -189,17 +191,17 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
                     {frame.functionName || (frame.fileName ? '<anonymous>' : '')}
                   </span>
                   {frame.isNative && (
-                    <span className="text-[10px] italic opacity-40">[native]</span>
+                    <span className="text-muted-foreground text-[10px] italic">[native]</span>
                   )}
                 </div>
                 {frame.fileName && (
-                  <div className="mt-0.5 ml-6 flex items-center gap-1 text-[10px] opacity-60">
+                  <div className="text-muted-foreground mt-0.5 ml-6 flex items-center gap-1 text-[10px]">
                     <span className="max-w-[300px] truncate">{frame.fileName}</span>
                     {frame.lineNumber !== undefined && (
                       <span
                         className={cn(
                           'bg-muted rounded px-1 py-0.5 font-bold',
-                          variant === 'cyber' && 'bg-signal/20 text-signal',
+                          variant === 'cyber' && 'bg-signal/10 text-signal',
                           variant === 'glass' && 'bg-panel-raised text-foreground',
                         )}
                       >
@@ -209,7 +211,7 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
                   </div>
                 )}
                 {!frame.functionName && !frame.fileName && frame.raw && (
-                  <div className="ml-6 italic opacity-60">{frame.raw}</div>
+                  <div className="text-muted-foreground ml-6 italic">{frame.raw}</div>
                 )}
               </div>
             ))
@@ -219,7 +221,7 @@ const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
         {/* Footer */}
         <div
           className={cn(
-            'flex justify-between border-t px-4 py-1.5 font-mono text-[8px] opacity-30',
+            'text-muted-foreground flex justify-between border-t px-4 py-1.5 font-mono text-[8px]',
             variant === 'cyber' ? 'border-signal/20' : 'border-border',
           )}
         >

@@ -88,7 +88,7 @@ const HeroSubtitle = React.forwardRef<
   <p
     ref={ref}
     className={cn(
-      'mx-auto max-w-3xl text-xl leading-relaxed font-medium opacity-70 md:text-2xl',
+      'text-muted-foreground mx-auto max-w-3xl text-xl leading-relaxed font-medium md:text-2xl',
       className,
     )}
     {...props}

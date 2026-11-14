@@ -33,9 +33,9 @@ export interface ChatTaskProps
 
 const statusColorMap: Record<TaskStatus, string> = {
   todo: 'bg-rule-strong/20 text-muted-foreground',
-  'in-progress': 'bg-signal/20 text-signal',
-  done: 'bg-success/20 text-success',
-  cancelled: 'bg-alert/20 text-alert',
+  'in-progress': 'bg-signal/10 text-signal',
+  done: 'bg-success/10 text-success',
+  cancelled: 'bg-alert/10 text-alert',
 };
 
 const statusIconMap: Record<TaskStatus, React.ElementType> = {
@@ -61,9 +61,9 @@ const ChatTask = React.forwardRef<HTMLDivElement, ChatTaskProps>(
           {task.priority && (
             <Badge
               className={cn({
-                'bg-alert/20 text-alert': task.priority === 'high',
-                'bg-warning/20 text-warning': task.priority === 'medium',
-                'bg-signal/20 text-signal': task.priority === 'low',
+                'bg-alert/10 text-alert': task.priority === 'high',
+                'bg-warning/10 text-warning': task.priority === 'medium',
+                'bg-signal/10 text-signal': task.priority === 'low',
               })}
             >
               Priority: {task.priority}

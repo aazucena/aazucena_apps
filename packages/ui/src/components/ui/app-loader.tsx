@@ -90,7 +90,7 @@ const AppLoaderTitle = React.forwardRef<
   <h2
     ref={ref}
     className={cn(
-      'animate-in fade-in slide-in-from-bottom-4 text-[10px] font-black tracking-[0.5em] uppercase opacity-40 duration-1000',
+      'animate-in fade-in slide-in-from-bottom-4 text-muted-foreground text-[10px] font-black tracking-[0.5em] uppercase duration-1000',
       className,
     )}
     {...props}
@@ -105,7 +105,7 @@ const AppLoaderStatus = React.forwardRef<
   <p
     ref={ref}
     className={cn(
-      'animate-pulse font-mono text-[9px] tracking-widest uppercase opacity-30',
+      'text-muted-foreground animate-pulse font-mono text-[9px] tracking-widest uppercase',
       className,
     )}
     {...props}
@@ -143,7 +143,7 @@ const AppLoaderProgress = React.forwardRef<
       />
     </div>
     {showPercentage && (
-      <span className="font-mono text-[10px] tracking-tighter opacity-40">
+      <span className="text-muted-foreground font-mono text-[10px] tracking-tighter">
         {Math.round(value || 0)}%
       </span>
     )}

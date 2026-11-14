@@ -45,7 +45,7 @@ const listGroupItemVariants = cva(
       },
     },
     compoundVariants: [
-      { variant: 'default', active: true, className: 'bg-accent' },
+      { variant: 'default', active: true, className: 'bg-accent text-accent-foreground' },
       { variant: 'glass', active: true, className: 'bg-state' },
       { variant: 'cyber', active: true, className: 'bg-signal/10' },
     ],

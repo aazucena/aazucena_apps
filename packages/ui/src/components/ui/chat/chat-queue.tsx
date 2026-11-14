@@ -31,10 +31,10 @@ export interface ChatQueueProps
 }
 
 const statusMap: Record<QueueItem['status'], { text: string; color: string }> = {
-  pending: { text: 'Pending', color: 'bg-warning/20 text-warning' },
-  processing: { text: 'Processing', color: 'bg-signal/20 text-signal' },
-  completed: { text: 'Completed', color: 'bg-success/20 text-success' },
-  failed: { text: 'Failed', color: 'bg-alert/20 text-alert' },
+  pending: { text: 'Pending', color: 'bg-warning/10 text-warning' },
+  processing: { text: 'Processing', color: 'bg-signal/10 text-signal' },
+  completed: { text: 'Completed', color: 'bg-success/10 text-success' },
+  failed: { text: 'Failed', color: 'bg-alert/10 text-alert' },
 };
 
 const ChatQueue = React.forwardRef<HTMLDivElement, ChatQueueProps>(

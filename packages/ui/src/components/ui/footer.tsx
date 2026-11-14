@@ -85,7 +85,7 @@ const FooterLink = React.forwardRef<
     aria-label={label || (typeof props.children === 'string' ? props.children : undefined)}
     className={cn(
       'gap-group flex items-center text-sm font-bold transition duration-(--motion-base) hover:translate-x-1',
-      isActive ? 'text-primary' : 'hover:text-primary opacity-60 hover:opacity-100',
+      isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary',
       className,
     )}
     {...props}
@@ -116,7 +116,11 @@ FooterBottom.displayName = 'FooterBottom';
 
 const FooterTechStack = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex items-center gap-6 opacity-40', className)} {...props} />
+    <div
+      ref={ref}
+      className={cn('text-muted-foreground flex items-center gap-6', className)}
+      {...props}
+    />
   ),
 );
 FooterTechStack.displayName = 'FooterTechStack';

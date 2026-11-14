@@ -180,12 +180,14 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
       variant: VariantProps<typeof codeBlockVariants>['variant'],
     ): CodeBlockDualTheme => {
       switch (variant) {
+        // Light mode uses the high-contrast palette: the standard light themes drop
+        // below 4.5:1 on the tinted surfaces (keywords measured 4.17:1).
         case 'cyber':
-          return { light: 'nord', dark: 'nord' };
+          return { light: 'github-light-high-contrast', dark: 'nord' };
         case 'glass':
-          return { light: 'slack-ochin', dark: 'slack-dark' };
+          return { light: 'github-light-high-contrast', dark: 'slack-dark' };
         default:
-          return { light: 'github-light', dark: 'github-dark' };
+          return { light: 'github-light-high-contrast', dark: 'github-dark' };
       }
     };
 

@@ -67,7 +67,7 @@ export function QuizForm({
                       : 'border-border bg-background hover:border-primary/40',
                   )}
                 >
-                  <span className="mr-2 font-mono text-xs opacity-50">
+                  <span className="mr-2 font-mono text-xs text-muted-foreground">
                     {String.fromCharCode(65 + optIdx)}.
                   </span>
                   {opt}

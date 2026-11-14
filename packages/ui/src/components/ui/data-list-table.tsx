@@ -37,7 +37,7 @@ export const dataListCellVariants = cva('px-6 py-4', {
   variants: {
     type: {
       default: '',
-      rank: 'w-16 font-mono text-xs font-bold opacity-40',
+      rank: 'w-16 font-mono text-xs font-bold text-muted-foreground',
       detail: 'min-w-[200px]',
       metric: 'text-right font-mono text-xs font-bold',
       visual: 'text-right w-48',

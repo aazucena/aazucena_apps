@@ -88,7 +88,7 @@ const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(
           <h3 className="text-sm font-bold tracking-widest uppercase opacity-90">
             Select or Drop Files
           </h3>
-          <p className="font-mono text-[10px] uppercase opacity-40">
+          <p className="text-muted-foreground font-mono text-[10px] uppercase">
             Signal_Ingestion_Active // Max_Size: 50MB
           </p>
         </div>

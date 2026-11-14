@@ -175,7 +175,7 @@ const ContentCardMeta = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     <div
       ref={ref}
       className={cn(
-        'mb-4 flex items-center gap-4 text-[10px] font-black tracking-[0.2em] uppercase opacity-40',
+        'text-muted-foreground mb-4 flex items-center gap-4 text-[10px] font-black tracking-[0.2em] uppercase',
         className,
       )}
       {...props}

@@ -85,7 +85,7 @@ const ShowcaseCaption = React.forwardRef<
   <figcaption
     ref={ref}
     className={cn(
-      'text-center text-[10px] font-black tracking-widest uppercase opacity-40 transition duration-(--motion-base) group-hover:translate-y-1 group-hover:opacity-100',
+      'text-muted-foreground group-hover:text-foreground text-center text-[10px] font-black tracking-widest uppercase transition duration-(--motion-base) group-hover:translate-y-1',
       className,
     )}
     {...props}

@@ -94,7 +94,7 @@ const Glimpse = React.forwardRef<HTMLDivElement, GlimpseProps>(
           )}
 
           <div className="flex flex-col gap-2 p-4">
-            <div className="flex items-center gap-2 opacity-60">
+            <div className="text-muted-foreground flex items-center gap-2">
               {data?.favicon ? (
                 <img src={data.favicon} className="size-3 rounded-sm" alt="" />
               ) : (
@@ -121,7 +121,7 @@ const Glimpse = React.forwardRef<HTMLDivElement, GlimpseProps>(
               )}
             </div>
 
-            <div className="border-border/10 mt-1 flex items-center gap-1.5 border-t pt-3 font-mono text-[10px] italic opacity-40">
+            <div className="border-border/10 text-muted-foreground mt-1 flex items-center gap-1.5 border-t pt-3 font-mono text-[10px] italic">
               <LinkIcon className="size-2.5" />
               <span className="truncate">{url}</span>
             </div>

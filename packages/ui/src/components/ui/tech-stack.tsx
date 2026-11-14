@@ -11,7 +11,7 @@ const techStackVariants = cva(
   {
     variants: {
       variant: {
-        default: 'opacity-40 hover:opacity-100',
+        default: 'text-muted-foreground hover:text-foreground',
         bright: 'opacity-100',
         cyber: 'text-signal',
       },

@@ -30,9 +30,9 @@ const thoughtStepVariants = cva(
   {
     variants: {
       status: {
-        pending: 'opacity-40',
-        active: 'opacity-100 font-bold',
-        completed: 'opacity-60',
+        pending: 'text-muted-foreground',
+        active: 'font-bold',
+        completed: 'text-muted-foreground',
       },
       variant: {
         default: '',

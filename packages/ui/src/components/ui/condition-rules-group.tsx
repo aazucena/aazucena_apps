@@ -112,7 +112,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
               className={cn(
                 'rounded-control px-3 py-1 text-[10px] font-bold tracking-wider uppercase transition-colors',
                 group.logic === 'or'
-                  ? 'bg-secondary-500 text-foreground'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-background/50 hover:text-foreground',
               )}
             >
@@ -123,7 +123,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
             <button
               type="button"
               onClick={onRemove}
-              className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 rounded-control flex h-8 w-8 items-center justify-center border transition-colors"
+              className="text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 rounded-control flex h-8 w-8 items-center justify-center border transition-colors"
               aria-label="Remove group"
               title="Delete Group"
             >
@@ -134,7 +134,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
 
         <div className="space-y-2">
           {group.conditions.length === 0 && (
-            <div className="text-muted-foreground/50 py-4 text-center text-xs italic">
+            <div className="text-muted-foreground py-4 text-center text-xs italic">
               Empty group - add a rule or remove it
             </div>
           )}

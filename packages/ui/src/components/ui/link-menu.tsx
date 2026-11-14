@@ -68,7 +68,7 @@ const linkMenuItemVariants = cva(
     variants: {
       variant: {
         default: 'hover:border-border hover:bg-muted',
-        glass: 'hover:border-border/20 hover:bg-background/10 dark:bg-state',
+        glass: 'hover:border-border/20 hover:bg-background/10 dark:bg-panel-raised',
         cyber:
           'hover:border-border/40 dark:hover:border-signal/40 hover:bg-primary/10 dark:hover:bg-signal/10',
       },
@@ -104,9 +104,9 @@ const linkMenuIconVariants = cva(
     variants: {
       variant: {
         default: 'bg-muted text-foreground group-hover:text-primary',
-        glass: 'bg-background/10 dark:bg-state text-foreground',
+        glass: 'bg-background/10 dark:bg-panel-raised text-foreground',
         cyber:
-          'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-border/10 dark:border-signal/30',
+          'bg-primary/10 dark:bg-signal/10 text-primary dark:text-signal border border-border/10 dark:border-signal/30',
       },
     },
     defaultVariants: {
@@ -150,7 +150,7 @@ const LinkMenuDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('line-clamp-2 text-xs leading-relaxed opacity-60', className)}
+    className={cn('text-muted-foreground line-clamp-2 text-xs leading-relaxed', className)}
     {...props}
   />
 ));

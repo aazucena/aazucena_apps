@@ -50,6 +50,7 @@ export function getHighlighter(): Promise<Highlighter> {
         'catppuccin-latte',
         'catppuccin-frappe',
         'github-light',
+        'github-light-high-contrast',
         'github-dark',
         'slack-ochin',
         'slack-dark',

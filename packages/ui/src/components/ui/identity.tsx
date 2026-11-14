@@ -93,7 +93,7 @@ const IdentityOccupation = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('text-2xl font-bold tracking-tight opacity-50 md:text-3xl', className)}
+    className={cn('text-muted-foreground text-2xl font-bold tracking-tight md:text-3xl', className)}
     {...props}
   />
 ));

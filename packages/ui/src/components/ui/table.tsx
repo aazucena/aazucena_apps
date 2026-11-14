@@ -23,7 +23,8 @@ const Table = React.forwardRef<
   <div
     className={cn(
       'rounded-control relative w-full overflow-auto',
-      variant === 'glass' && 'glass dark:bg-background/5 dark:border-border/10 dark:bg-state',
+      variant === 'glass' &&
+        'glass dark:bg-background/5 dark:border-border/10 dark:bg-panel-raised',
       variant === 'cyber' &&
         'border-border/10 glass bg-signal-faint dark:bg-background/80 dark:border-signal/30 dark:bg-panel border',
     )}
@@ -37,7 +38,7 @@ const tableHeaderVariants = cva('[&_tr]:border-b', {
   variants: {
     variant: {
       default: '',
-      glass: '[&_tr]:border-border/10 bg-background/5 dark:bg-state',
+      glass: '[&_tr]:border-border/10 bg-background/5 dark:bg-panel-raised',
       cyber:
         '[&_tr]:border-border/10 dark:[&_tr]:border-signal/20 glass bg-signal-faint dark:bg-signal/5',
     },
@@ -79,7 +80,7 @@ const tableRowVariants = cva('border-b transition-colors data-[state=selected]:b
   variants: {
     variant: {
       default: 'hover:bg-muted/50',
-      glass: 'border-border/10 hover:bg-background/5 dark:bg-state',
+      glass: 'border-border/10 hover:bg-background/5 dark:bg-panel-raised',
       cyber: 'border-border/10 dark:border-signal/20 hover:bg-primary/10 dark:hover:bg-signal/10',
     },
   },

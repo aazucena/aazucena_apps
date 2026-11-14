@@ -10,7 +10,7 @@ const filterBarVariants = cva('w-full rounded-card border p-8', {
   variants: {
     variant: {
       default: 'bg-card border-border',
-      glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+      glass: 'bg-background/5 dark:bg-panel-raised border-border/10 text-foreground',
       cyber: 'bg-background/80 dark:bg-panel border-signal/30 text-foreground',
     },
   },
@@ -37,7 +37,7 @@ const FilterBarHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
       )}
       {...props}
     >
-      <h2 className="text-[10px] font-black tracking-[0.3em] uppercase opacity-40">
+      <h2 className="text-muted-foreground text-[10px] font-black tracking-[0.3em] uppercase">
         {children || 'Filter_Archive'}
       </h2>
     </div>
@@ -73,7 +73,7 @@ const FilterBarSearch = React.forwardRef<
       {label && (
         <label
           htmlFor={id}
-          className="ml-2 block cursor-pointer text-[10px] font-black tracking-widest uppercase opacity-40 transition-opacity hover:opacity-60"
+          className="text-muted-foreground hover:text-foreground ml-2 block cursor-pointer text-[10px] font-black tracking-widest uppercase transition-colors"
         >
           {label}
         </label>

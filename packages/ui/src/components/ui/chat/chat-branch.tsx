@@ -75,9 +75,7 @@ const ChatBranch = React.forwardRef<HTMLDivElement, ChatBranchProps>(
                       <span
                         className={cn(
                           'text-xs',
-                          selectedOptionId === option.id
-                            ? 'text-primary/80'
-                            : 'text-muted-foreground',
+                          selectedOptionId === option.id ? 'text-primary' : 'text-muted-foreground',
                         )}
                       >
                         {option.description}

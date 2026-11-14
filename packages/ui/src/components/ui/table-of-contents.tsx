@@ -31,9 +31,9 @@ const tocItemVariants = cva(
     variants: {
       variant: {
         default: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-        glass: 'text-foreground/60 hover:bg-state hover:text-foreground',
+        glass: 'text-muted-foreground hover:bg-state hover:text-foreground',
         cyber:
-          'text-foreground/60 hover:bg-signal/10 hover:text-signal font-black uppercase tracking-widest italic text-[10px]',
+          'text-muted-foreground hover:bg-signal/10 hover:text-signal font-black uppercase tracking-widest italic text-[10px]',
       },
       isActive: {
         true: '',
@@ -61,13 +61,13 @@ const tocItemVariants = cva(
         variant: 'cyber',
         isActive: true,
         isNested: false,
-        className: 'bg-signal/20 text-signal font-bold',
+        className: 'bg-signal/10 text-signal font-bold',
       },
       {
         variant: 'default',
         isActive: true,
         isNested: true,
-        className: 'bg-primary/30 text-primary-foreground font-semibold',
+        className: 'bg-primary text-primary-foreground font-semibold',
       },
       {
         variant: 'glass',
@@ -205,7 +205,7 @@ const TableOfContents = React.forwardRef<HTMLElement, TableOfContentsProps>(
 
     return (
       <nav ref={ref} className={cn(tocVariants({ variant, position }), className)} {...props}>
-        <div className="mb-4 ml-2 flex items-center gap-2 text-[10px] font-black tracking-[0.2em] uppercase opacity-60">
+        <div className="text-muted-foreground mb-4 ml-2 flex items-center gap-2 text-[10px] font-black tracking-[0.2em] uppercase">
           <List size={14} />
           Contents
         </div>

@@ -81,8 +81,8 @@ const Diff = React.forwardRef<HTMLDivElement, DiffProps>(
     };
 
     const gutterColors: Record<string, string> = {
-      default: 'text-muted-foreground/40',
-      glass: 'text-foreground/20',
+      default: 'text-muted-foreground',
+      glass: 'text-muted-foreground',
       cyber: 'text-muted-foreground',
     };
 
@@ -113,7 +113,7 @@ const Diff = React.forwardRef<HTMLDivElement, DiffProps>(
                     {line.type !== 'remove' ? addNum : ''}
                   </span>
                 )}
-                <span className="mr-2 opacity-60 select-none">{prefix}</span>
+                <span className="text-muted-foreground mr-2 select-none">{prefix}</span>
                 <span className="flex-1">{line.content || ' '}</span>
               </div>
             );

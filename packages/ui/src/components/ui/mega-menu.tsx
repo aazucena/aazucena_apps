@@ -112,7 +112,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
         focusRing,
         activeIndex === index
           ? v === 'cyber'
-            ? 'bg-signal/20 text-signal'
+            ? 'bg-signal/10 text-signal'
             : 'bg-accent text-accent-foreground'
           : v === 'cyber'
             ? 'text-signal hover:bg-signal/10'

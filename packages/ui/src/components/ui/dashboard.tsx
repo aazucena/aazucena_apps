@@ -40,7 +40,7 @@ const pageSubtitleVariants = cva(
       variant: {
         default: '',
         cyber: 'text-foreground0/60',
-        glass: 'text-foreground/60',
+        glass: 'text-muted-foreground',
       },
     },
     defaultVariants: {
@@ -66,7 +66,8 @@ const dashboardCardVariants = cva('relative overflow-hidden', {
     variant: {
       default:
         'bg-background/5 dark:bg-panel-raised dark:bg-panel/30 border border-rule rounded-card',
-      glass: 'bg-background/5 dark:bg-state border border-border/10 text-foreground rounded-card',
+      glass:
+        'bg-background/5 dark:bg-panel-raised border border-border/10 text-foreground rounded-card',
       cyber: 'bg-background/80 dark:bg-panel border border-signal/30 text-foreground rounded-card',
     },
     padding: {

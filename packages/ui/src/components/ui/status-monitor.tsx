@@ -80,7 +80,10 @@ export const StatusMonitorTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('mb-1 text-[10px] font-black tracking-[0.3em] uppercase opacity-60', className)}
+    className={cn(
+      'text-muted-foreground mb-1 text-[10px] font-black tracking-[0.3em] uppercase',
+      className,
+    )}
     {...props}
   />
 ));

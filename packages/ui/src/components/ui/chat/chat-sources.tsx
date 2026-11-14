@@ -78,7 +78,7 @@ const ChatSources = React.forwardRef<HTMLDivElement, ChatSourcesProps>(
                   <p className="text-muted-foreground line-clamp-2 text-xs">{source.snippet}</p>
                 )}
                 {source.url && (
-                  <span className="text-signal flex items-center gap-1 text-xs opacity-80 group-hover:opacity-100">
+                  <span className="text-signal flex items-center gap-1 text-xs group-hover:underline">
                     <ExternalLink className="h-3 w-3" /> {new URL(source.url).hostname}
                   </span>
                 )}

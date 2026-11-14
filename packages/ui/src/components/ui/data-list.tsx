@@ -10,7 +10,8 @@ export const dataListVariants = cva('w-full overflow-hidden', {
   variants: {
     variant: {
       default: 'bg-card border border-border rounded-card',
-      glass: 'bg-background/5 dark:bg-state border border-border/10 rounded-card text-foreground',
+      glass:
+        'bg-background/5 dark:bg-panel-raised border border-border/10 rounded-card text-foreground',
       cyber: 'bg-background/40 dark:bg-panel border border-signal/20 text-foreground rounded-card',
       transparent: 'bg-transparent border-none p-0',
     },
@@ -56,7 +57,10 @@ export const DataListSubtitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('text-[10px] font-black tracking-widest uppercase opacity-40', className)}
+    className={cn(
+      'text-muted-foreground text-[10px] font-black tracking-widest uppercase',
+      className,
+    )}
     {...props}
   />
 ));
@@ -67,7 +71,9 @@ export const DataListProgress = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Progress> & { label?: string; value: number }
 >(({ className, label, value, ...props }, ref) => (
   <div className={cn('flex flex-col items-end gap-1.5', className)}>
-    {label && <span className="font-mono text-[10px] font-bold opacity-60">{label}</span>}
+    {label && (
+      <span className="text-muted-foreground font-mono text-[10px] font-bold">{label}</span>
+    )}
     <div className="h-1.5 w-24 overflow-hidden rounded-full bg-current/10">
       <Progress
         ref={ref}

@@ -10,9 +10,9 @@ const arrowLinkVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-primary hover:text-primary/80',
+        default: 'text-primary hover:text-foreground',
         cyber:
-          'text-primary dark:text-signal hover:text-primary/80 dark:hover:text-signal font-mono italic',
+          'text-primary dark:text-signal hover:text-foreground dark:hover:text-signal font-mono italic',
         muted: 'text-muted-foreground hover:text-primary',
         white: 'text-foreground hover:text-foreground/80',
         card: 'flex flex-col items-center justify-center rounded-card border p-12 bg-muted/50 border-border hover:bg-muted text-foreground',
@@ -22,7 +22,7 @@ const arrowLinkVariants = cva(
           'flex flex-col items-center justify-center rounded-card border p-12 border-border/10 dark:border-signal/30 glass bg-signal-faint text-foreground',
         circular: 'gap-3 text-xs',
         'circular-cyber':
-          'gap-3 text-xs text-primary dark:text-signal hover:text-primary/80 dark:hover:text-signal font-mono italic',
+          'gap-3 text-xs text-primary dark:text-signal hover:text-foreground dark:hover:text-signal font-mono italic',
       },
       size: {
         xs: 'text-[9px]',
@@ -56,7 +56,7 @@ const arrowLinkIconVariants = cva(
         circular:
           'w-8 h-8 rounded-full bg-muted group-hover/link:bg-primary group-hover/link:text-primary-foreground',
         'circular-cyber':
-          'w-8 h-8 rounded-full bg-primary/10 dark:bg-signal/10 group-hover/link:bg-primary/20 dark:group-hover/link:bg-signal/20 text-primary dark:text-signal',
+          'w-8 h-8 rounded-full bg-primary/10 dark:bg-signal/10 group-hover/link:bg-primary/10 dark:group-hover/link:bg-signal/10 text-primary dark:text-signal',
       },
     },
     defaultVariants: {
@@ -132,7 +132,7 @@ const ArrowLinkSubtitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-sm font-medium opacity-60', className)} {...props} />
+  <p ref={ref} className={cn('text-muted-foreground text-sm font-medium', className)} {...props} />
 ));
 ArrowLinkSubtitle.displayName = 'ArrowLinkSubtitle';
 

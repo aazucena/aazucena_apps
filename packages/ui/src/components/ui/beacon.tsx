@@ -35,7 +35,7 @@ const BeaconHeader = React.forwardRef<
     {...props}
   >
     {icon || <Compass size={16} className="text-primary animate-[spin_10s_linear_infinite]" />}
-    <h3 className="text-[10px] font-black tracking-[0.4em] uppercase opacity-40">
+    <h3 className="text-muted-foreground text-[10px] font-black tracking-[0.4em] uppercase">
       {children || 'Navigation_Beacon'}
     </h3>
   </div>

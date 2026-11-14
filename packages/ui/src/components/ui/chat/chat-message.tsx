@@ -89,7 +89,7 @@ export const chatBubbleVariants = cva(
       role: {
         user: 'rounded-tr-none',
         assistant: 'rounded-tl-none',
-        system: 'rounded-none text-center italic opacity-60',
+        system: 'rounded-none text-center italic text-muted-foreground',
       },
     },
     defaultVariants: {
@@ -117,7 +117,7 @@ export const ChatReasoning = React.forwardRef<HTMLDivElement, React.HTMLAttribut
       )}
       {...props}
     >
-      <span className="text-primary/50 mb-1 block text-[9px] font-black tracking-tighter uppercase">
+      <span className="text-primary mb-1 block text-[9px] font-black tracking-tighter uppercase">
         INTERNAL_REASONING
       </span>
       {children}
@@ -141,7 +141,7 @@ export const ChatActions = React.forwardRef<HTMLDivElement, React.HTMLAttributes
     <div
       ref={ref}
       className={cn(
-        'mt-4 flex items-center gap-2 border-t border-current/5 pt-3 opacity-30 transition-opacity duration-(--motion-base) group-hover/bubble:opacity-100',
+        'mt-4 flex items-center gap-2 border-t border-current/5 pt-3 opacity-70 transition-opacity duration-(--motion-base) group-hover/bubble:opacity-100',
         className,
       )}
       {...props}

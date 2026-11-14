@@ -10,7 +10,7 @@ const avatarVariants = cva('relative flex shrink-0 overflow-hidden rounded-full'
   variants: {
     variant: {
       default: 'bg-muted',
-      glass: 'bg-background/10 dark:bg-state border border-border/20',
+      glass: 'bg-background/10 dark:bg-panel-raised border border-border/20',
       cyber: 'bg-background/40 dark:bg-panel border border-signal/50',
     },
     size: {

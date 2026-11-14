@@ -11,7 +11,7 @@ const ganttBarVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground',
         glass: 'glass text-foreground',
-        cyber: 'bg-signal/20 border border-signal/40 text-signal',
+        cyber: 'bg-signal/10 border border-signal/40 text-signal',
       },
     },
     defaultVariants: { variant: 'default' },

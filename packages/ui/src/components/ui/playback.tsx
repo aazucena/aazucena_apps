@@ -9,7 +9,7 @@ const playbackVariants = cva('flex items-center gap-6 px-8 py-4 border-b', {
   variants: {
     variant: {
       default: 'bg-panel dark:bg-panel/50 border-rule',
-      glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+      glass: 'bg-background/5 dark:bg-panel-raised border-border/10 text-foreground',
       cyber: 'bg-background border border-border dark:border-signal/30 text-foreground',
     },
   },

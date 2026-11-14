@@ -90,7 +90,7 @@ function OrgNodeComponent({
             <div
               className={cn(
                 'flex size-8 items-center justify-center rounded-full text-xs font-medium',
-                variant === 'cyber' ? 'bg-signal/20 text-signal' : 'bg-muted text-muted-foreground',
+                variant === 'cyber' ? 'bg-signal/10 text-signal' : 'bg-muted text-muted-foreground',
               )}
             >
               {initials}

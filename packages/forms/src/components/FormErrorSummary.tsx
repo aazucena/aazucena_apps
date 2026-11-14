@@ -67,7 +67,7 @@ export function FormErrorSummary({
               <ul className="space-y-1.5 pl-6 list-disc">
                 {errors.map((err: any) => (
                   <li key={err.field} className="text-xs text-destructive/80 font-medium">
-                    <span className="font-mono uppercase opacity-50 mr-1">
+                    <span className="font-mono uppercase text-muted-foreground mr-1">
                       {err.field.replace(/\[\d+\]/g, '')}:
                     </span>
                     {String(err.message)}

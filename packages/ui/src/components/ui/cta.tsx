@@ -58,10 +58,7 @@ const CTADescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn(
-      'mx-auto mb-12 max-w-2xl text-xl leading-relaxed font-medium opacity-80',
-      className,
-    )}
+    className={cn('mx-auto mb-12 max-w-2xl text-xl leading-relaxed font-medium', className)}
     {...props}
   />
 ));

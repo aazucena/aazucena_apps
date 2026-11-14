@@ -55,11 +55,11 @@ const toolbarButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20',
+        default: 'bg-primary/10 border border-primary/20 text-primary hover:bg-primary/10',
         glass:
           'bg-background/10 dark:bg-state border border-border/10 dark:border-border/20 text-foreground hover:bg-background/20 dark:hover:bg-panel-raised hover:border-border/40',
         cyber:
-          'bg-primary/10 dark:bg-signal/10 border border-border dark:border-signal/30 text-primary dark:text-signal dark:hover:bg-signal/20',
+          'bg-primary/10 dark:bg-signal/10 border border-border dark:border-signal/30 text-primary dark:text-signal dark:hover:bg-signal/10',
       },
       size: {
         sm: 'w-10 h-10',

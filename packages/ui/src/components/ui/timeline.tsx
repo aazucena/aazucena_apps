@@ -162,7 +162,11 @@ const TimelineDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-sm leading-relaxed opacity-60', className)} {...props} />
+  <p
+    ref={ref}
+    className={cn('text-muted-foreground text-sm leading-relaxed', className)}
+    {...props}
+  />
 ));
 TimelineDescription.displayName = 'TimelineDescription';
 

@@ -31,7 +31,10 @@ const SidebarBlockTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h2
     ref={ref}
-    className={cn('text-[10px] font-black tracking-[0.3em] uppercase opacity-40', className)}
+    className={cn(
+      'text-muted-foreground text-[10px] font-black tracking-[0.3em] uppercase',
+      className,
+    )}
     {...props}
   />
 ));

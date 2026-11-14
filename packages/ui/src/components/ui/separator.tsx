@@ -11,7 +11,7 @@ const separatorVariants = cva('shrink-0', {
   variants: {
     variant: {
       default: 'bg-border',
-      glass: 'bg-background/10 dark:bg-state',
+      glass: 'bg-background/10 dark:bg-panel-raised',
       cyber: 'bg-primary/30 dark:bg-signal/30',
       gradient: 'bg-signal',
       'cyber-gradient': 'bg-signal',

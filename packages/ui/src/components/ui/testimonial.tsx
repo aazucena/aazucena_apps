@@ -11,7 +11,7 @@ const testimonialVariants = cva(
     variants: {
       variant: {
         default: 'bg-card border-border',
-        glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+        glass: 'bg-background/5 dark:bg-panel-raised border-border/10 text-foreground',
         cyber: 'bg-background/80 dark:bg-panel border-signal/30 text-foreground',
       },
     },
@@ -73,7 +73,11 @@ TestimonialName.displayName = 'TestimonialName';
 
 const TestimonialTitle = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => (
-    <span ref={ref} className={cn('text-sm font-medium opacity-50', className)} {...props} />
+    <span
+      ref={ref}
+      className={cn('text-muted-foreground text-sm font-medium', className)}
+      {...props}
+    />
   ),
 );
 TestimonialTitle.displayName = 'TestimonialTitle';
@@ -85,8 +89,8 @@ const testimonialAvatarVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground',
         cyber:
-          'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-primary/40 dark:border-signal/40',
-        glass: 'bg-background/10 dark:bg-state text-foreground border border-border/20',
+          'bg-primary/10 dark:bg-signal/10 text-primary dark:text-signal border border-primary/40 dark:border-signal/40',
+        glass: 'bg-background/10 dark:bg-panel-raised text-foreground border border-border/20',
       },
     },
     defaultVariants: {

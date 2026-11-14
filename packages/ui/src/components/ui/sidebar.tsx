@@ -13,7 +13,7 @@ export const sidebarVariants = cva('flex h-full flex-col', {
   variants: {
     variant: {
       default: 'bg-sidebar text-sidebar-foreground',
-      glass: 'bg-background/5 dark:bg-state border-r border-border/10 text-foreground',
+      glass: 'bg-background/5 dark:bg-panel-raised border-r border-border/10 text-foreground',
       cyber:
         'bg-background/90 dark:bg-panel border-r border-border/10 dark:border-signal/40 text-foreground',
       floating: 'bg-sidebar text-sidebar-foreground',

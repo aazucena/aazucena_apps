@@ -8,7 +8,7 @@ const briefVariants = cva('rounded-card border p-8 space-y-8', {
   variants: {
     variant: {
       default: 'bg-card border-border',
-      glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+      glass: 'bg-background/5 dark:bg-panel-raised border-border/10 text-foreground',
       cyber: 'bg-background/80 dark:bg-panel border-signal/30 text-foreground',
     },
   },
@@ -30,7 +30,7 @@ const BriefHeader = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HT
     <h2
       ref={ref}
       className={cn(
-        'border-b border-current/10 pb-4 text-[10px] font-black tracking-[0.3em] uppercase opacity-40',
+        'text-muted-foreground border-b border-current/10 pb-4 text-[10px] font-black tracking-[0.3em] uppercase',
         className,
       )}
       {...props}
@@ -57,7 +57,10 @@ const BriefLabel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('text-[9px] font-black tracking-widest uppercase opacity-40', className)}
+      className={cn(
+        'text-muted-foreground text-[9px] font-black tracking-widest uppercase',
+        className,
+      )}
       {...props}
     />
   ),

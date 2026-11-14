@@ -20,7 +20,7 @@ const breadcrumbListVariants = cva(
     variants: {
       variant: {
         default: 'text-muted-foreground',
-        glass: 'text-muted-foreground dark:text-foreground/60',
+        glass: 'text-muted-foreground dark:text-muted-foreground',
         cyber: 'text-signal dark:text-muted-foreground',
         intel: 'text-[10px] font-black tracking-[0.3em] text-muted-foreground uppercase',
       },
@@ -108,9 +108,9 @@ const breadcrumbSeparatorVariants = cva('[&>svg]:w-3.5 [&>svg]:h-3.5', {
   variants: {
     variant: {
       default: '',
-      glass: 'text-muted-foreground/40 dark:text-foreground/40',
+      glass: 'text-muted-foreground dark:text-muted-foreground',
       cyber: 'text-foreground0/40',
-      intel: 'text-muted-foreground/40 font-normal',
+      intel: 'text-muted-foreground font-normal',
     },
   },
   defaultVariants: {
@@ -139,9 +139,9 @@ const breadcrumbEllipsisVariants = cva('flex h-9 w-9 items-center justify-center
   variants: {
     variant: {
       default: '',
-      glass: 'text-foreground/60',
+      glass: 'text-muted-foreground',
       cyber: 'text-foreground0/60',
-      intel: 'text-muted-foreground/60',
+      intel: 'text-muted-foreground',
     },
   },
   defaultVariants: {

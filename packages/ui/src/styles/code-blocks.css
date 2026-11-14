@@ -10,7 +10,19 @@
     margin-right: 1.5rem;
     display: inline-block;
     text-align: right;
-    color: @apply text-foreground;
-    opacity: 0.375;
+    color: var(--muted-foreground);
   }
+}
+
+/*
+ * Shiki dual themes: each token carries its light colour inline and its dark
+ * colour in --shiki-dark. Without this switch dark mode keeps the light palette
+ * (dark blue on near-black, 1.25:1).
+ */
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }

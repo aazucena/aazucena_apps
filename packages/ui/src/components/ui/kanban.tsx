@@ -74,7 +74,7 @@ const kanbanLaneVariants = cva(
     variants: {
       variant: {
         default: 'bg-muted/30 border-border hover:bg-card hover:border-primary/10 text-foreground',
-        glass: 'glass text-foreground hover:bg-background/10 dark:bg-state',
+        glass: 'glass text-foreground hover:bg-background/10 dark:bg-panel-raised',
         cyber:
           'glass bg-signal-faint border-signal/20 text-foreground hover:border-signal dark:bg-background/40 dark:bg-panel dark:text-signal',
       },

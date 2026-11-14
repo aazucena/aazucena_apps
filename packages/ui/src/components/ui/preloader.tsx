@@ -17,7 +17,11 @@ export const PreloaderSubtitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('max-w-[280px] text-sm opacity-60', className)} {...props} />
+  <p
+    ref={ref}
+    className={cn('text-muted-foreground max-w-[280px] text-sm', className)}
+    {...props}
+  />
 ));
 PreloaderSubtitle.displayName = 'PreloaderSubtitle';
 

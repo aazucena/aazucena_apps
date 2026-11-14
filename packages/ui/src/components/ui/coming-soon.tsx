@@ -193,7 +193,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
         {/* Top Telemetry */}
         <div
           className={cn(
-            'absolute inset-x-8 top-6 flex items-center justify-between text-[10px] font-bold tracking-widest uppercase opacity-40',
+            'text-muted-foreground absolute inset-x-8 top-6 flex items-center justify-between text-[10px] font-bold tracking-widest uppercase',
             fullScreen && 'inset-x-12 top-10',
           )}
         >
@@ -205,6 +205,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
             <span>PKT_ID: {packetId}</span>
             {fullScreen && onClose && (
               <Button
+                aria-label="Close"
                 variant="ghost"
                 size="icon"
                 className="hover:bg-state size-8 rounded-full"
@@ -235,7 +236,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
             <GlitchText text={title} isHovered={isHovered || fullScreen} />
           </h3>
 
-          <p className="text-muted-foreground mx-auto max-w-xl px-6 text-base leading-relaxed opacity-80">
+          <p className="text-muted-foreground mx-auto max-w-xl px-6 text-base leading-relaxed">
             {description}
           </p>
 
@@ -244,7 +245,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
               animate={{ width: isHovered || fullScreen ? 60 : 32 }}
               className={cn('bg-border h-px', v === 'cyber' && 'bg-signal/50')}
             />
-            <span className="text-xs font-black tracking-[0.4em] uppercase opacity-60">
+            <span className="text-muted-foreground text-xs font-black tracking-[0.4em] uppercase">
               {expectedDate}
             </span>
             <motion.div
@@ -257,7 +258,7 @@ const ComingSoon = React.forwardRef<HTMLDivElement, ComingSoonProps>(
         {/* Bottom Telemetry */}
         <div
           className={cn(
-            'absolute inset-x-8 bottom-6 flex items-center justify-between text-[10px] font-bold tracking-widest uppercase opacity-40',
+            'text-muted-foreground absolute inset-x-8 bottom-6 flex items-center justify-between text-[10px] font-bold tracking-widest uppercase',
             fullScreen && 'inset-x-12 bottom-10',
           )}
         >

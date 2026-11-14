@@ -111,7 +111,7 @@ export function FormDebugger() {
                               <span className="text-cyan-400 animate-pulse">VALIDATING...</span>
                             )}
                           </div>
-                          <div className="grid grid-cols-3 gap-1 opacity-50 uppercase text-[8px]">
+                          <div className="grid grid-cols-3 gap-1 text-muted-foreground uppercase text-[8px]">
                             <span>Touched: {String(meta.isTouched)}</span>
                             <span>Dirty: {String(!meta.isPristine)}</span>
                             <span

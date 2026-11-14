@@ -49,7 +49,7 @@ const tabsTriggerVariants = cva(
       variant: {
         default: 'data-active:bg-background data-active:text-foreground',
         glass:
-          'text-foreground/60 data-active:bg-background/20 data-active:text-foreground data-active:border-rule',
+          'text-muted-foreground data-active:bg-background/20 data-active:text-foreground data-active:border-rule',
         cyber:
           'text-muted-foreground data-active:bg-signal/10 data-active:text-signal data-active:border-signal/40',
         phone:

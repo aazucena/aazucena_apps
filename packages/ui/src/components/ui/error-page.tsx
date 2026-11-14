@@ -11,7 +11,7 @@ const errorPageVariants = cva(
     variants: {
       variant: {
         default: 'bg-panel dark:bg-background border-rule',
-        glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+        glass: 'bg-background/5 dark:bg-panel-raised border-border/10 text-foreground',
         cyber: 'bg-background border-signal/30 text-foreground',
       },
     },
@@ -89,12 +89,12 @@ const ErrorPageVisual = React.forwardRef<
         {resolvedLabel && (
           <div
             className={cn(
-              'text-foreground rounded-control absolute -bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 border px-4 py-1.5 text-[10px] font-black tracking-[0.3em] whitespace-nowrap uppercase transition-transform',
+              'rounded-control absolute -bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 border px-4 py-1.5 text-[10px] font-black tracking-[0.3em] whitespace-nowrap uppercase transition-transform',
               resolvedColor === 'primary'
-                ? 'bg-signal border-signal/30 rotate-[-2deg]'
+                ? 'bg-signal text-signal-foreground border-signal/30 rotate-[-2deg]'
                 : resolvedColor === 'secondary'
-                  ? 'bg-secondary-600 border-secondary-400/30 rotate-[2deg]'
-                  : 'border-alert/30 bg-alert rotate-0',
+                  ? 'bg-secondary-600 text-foreground border-secondary-400/30 rotate-[2deg]'
+                  : 'border-alert/30 bg-alert text-alert-foreground rotate-0',
             )}
           >
             {resolvedColor === 'destructive' ? (

@@ -65,7 +65,7 @@ const Frame = React.forwardRef<HTMLDivElement, FrameProps>(
               className={cn(
                 'flex gap-2',
                 variant === 'cyber' && 'text-muted-foreground',
-                variant === 'glass' && 'text-foreground/60',
+                variant === 'glass' && 'text-muted-foreground',
               )}
             >
               <Minus size={14} />

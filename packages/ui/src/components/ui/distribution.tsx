@@ -31,7 +31,10 @@ const DistributionHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn('mb-4 text-[10px] font-black tracking-widest uppercase opacity-40', className)}
+    className={cn(
+      'text-muted-foreground mb-4 text-[10px] font-black tracking-widest uppercase',
+      className,
+    )}
     {...props}
   />
 ));
@@ -81,7 +84,7 @@ const DistributionBar = React.forwardRef<
         )}
         {label}
       </span>
-      <span className="opacity-60">{value}%</span>
+      <span className="text-muted-foreground">{value}%</span>
     </div>
     <Progress
       value={value}
@@ -105,7 +108,7 @@ const distributionTagVariants = cva(
     variants: {
       weight: {
         default:
-          'px-2 py-0.5 text-[10px] opacity-50 border-transparent bg-muted/50 hover:opacity-100 hover:border-border',
+          'px-2 py-0.5 text-[10px] text-muted-foreground border-transparent bg-muted/50 hover:text-foreground hover:border-border',
         emphasis:
           'px-2.5 py-1 text-xs font-bold border-border bg-muted text-foreground hover:bg-state',
         cyber:

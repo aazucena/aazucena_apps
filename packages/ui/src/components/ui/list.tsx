@@ -9,7 +9,7 @@ const listVariants = cva('space-y-1', {
     variant: {
       default: 'text-foreground',
       glass: 'text-foreground/90',
-      cyber: 'font-mono text-sm text-primary/80 dark:text-muted-foreground',
+      cyber: 'font-mono text-sm text-primary dark:text-muted-foreground',
       muted: 'text-muted-foreground',
     },
     type: {

@@ -71,7 +71,7 @@ export const statLabelVariants = cva('', {
     variant: {
       default:
         'text-[10px] font-black uppercase tracking-[0.2em] text-foreground0 dark:text-muted-foreground mb-1',
-      glass: 'text-sm text-foreground/60 font-medium',
+      glass: 'text-sm text-muted-foreground font-medium',
       cyber: 'text-foreground0/60 font-mono uppercase tracking-wider text-[10px] font-black',
       bright: 'text-lg font-bold opacity-90 tracking-tight',
     },
@@ -95,8 +95,8 @@ export const statDescriptionVariants = cva('text-[10px] font-mono uppercase', {
       default: 'text-muted-foreground',
       primary: 'text-muted-foreground',
       secondary: 'text-secondary-500/70',
-      success: 'text-success/70',
-      rose: 'text-alert/70',
+      success: 'text-success',
+      rose: 'text-alert',
     },
   },
   defaultVariants: {
@@ -119,9 +119,9 @@ export const statIconVariants = cva(
       variant: {
         default:
           'bg-panel dark:bg-panel-raised text-muted-foreground dark:text-foreground group-hover:text-signal',
-        glass: 'bg-background/10 dark:bg-state text-foreground border border-border/20',
+        glass: 'bg-background/10 dark:bg-panel-raised text-foreground border border-border/20',
         cyber:
-          'bg-primary/20 dark:bg-signal/20 text-primary dark:text-signal border border-border/10 dark:border-signal/40',
+          'bg-primary/10 dark:bg-signal/10 text-primary dark:text-signal border border-border/10 dark:border-signal/40',
         primary: 'bg-signal/10 border border-signal/20 text-signal',
         secondary: 'bg-secondary-500/10 border border-secondary-500/20 text-secondary-500',
         success: 'bg-success/10 border border-success/20 text-success',

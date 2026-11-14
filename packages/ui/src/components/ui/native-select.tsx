@@ -23,7 +23,7 @@ function NativeSelect({
       {label && (
         <label
           htmlFor={id}
-          className="ml-2 block cursor-pointer text-[10px] font-black tracking-widest uppercase opacity-40 transition-opacity hover:opacity-60"
+          className="text-muted-foreground hover:text-foreground ml-2 block cursor-pointer text-[10px] font-black tracking-widest uppercase transition-colors"
         >
           {label}
         </label>

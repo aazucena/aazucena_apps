@@ -124,14 +124,14 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
                   'h-3 w-3 shrink-0 transition-transform duration-(--motion-base)',
                   isNodeExpanded ? 'rotate-90' : 'rotate-0',
                   variant === 'cyber' && 'text-muted-foreground',
-                  variant === 'glass' && 'text-foreground/50',
+                  variant === 'glass' && 'text-muted-foreground',
                 )}
               />
             )}
             <TypeIcon aria-hidden="true" className="text-muted-foreground h-4 w-4 shrink-0" />
             <span className={cn('font-medium', node.required && 'font-bold')}>
               {node.name}
-              {node.required && <span className="text-alert/80 ml-1">*</span>}
+              {node.required && <span className="text-alert ml-1">*</span>}
             </span>
             <span className="text-muted-foreground ml-1 text-xs">({node.type})</span>
             {node.enum && (
@@ -149,9 +149,7 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
               <span className="text-muted-foreground ml-2 text-xs">pattern: {node.pattern}</span>
             )}
             {node.description && (
-              <span className="text-muted-foreground ml-2 text-xs opacity-60">
-                {node.description}
-              </span>
+              <span className="text-muted-foreground ml-2 text-xs">{node.description}</span>
             )}
           </Row>
 

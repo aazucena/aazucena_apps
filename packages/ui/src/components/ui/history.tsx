@@ -118,7 +118,7 @@ const historyBadgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-muted-foreground opacity-60',
+        default: 'text-muted-foreground',
         cyber: 'border-signal/20 text-signal bg-signal/5 opacity-100',
       },
     },

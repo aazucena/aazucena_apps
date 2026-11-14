@@ -22,7 +22,7 @@ const resultVariants = cva(
     variants: {
       variant: {
         default: 'bg-background',
-        glass: 'bg-background/5 dark:bg-state border-border/10',
+        glass: 'bg-background/5 dark:bg-panel-raised border-border/10',
         cyber: 'bg-background border-signal/30',
       },
       status: {

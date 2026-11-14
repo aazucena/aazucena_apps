@@ -43,7 +43,7 @@ MetaDataHeader.displayName = 'MetaDataHeader';
 const metadataTitleVariants = cva('font-black', {
   variants: {
     size: {
-      default: 'text-[10px] font-black tracking-[0.3em] uppercase opacity-40',
+      default: 'text-[10px] font-black tracking-[0.3em] uppercase text-muted-foreground',
       lg: 'text-xl md:text-2xl tracking-tight opacity-90',
     },
     variant: {
@@ -112,10 +112,10 @@ const metadataLabelVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-muted-foreground opacity-40',
-        cyber: 'text-muted-foreground opacity-60',
+        default: 'text-muted-foreground',
+        cyber: 'text-muted-foreground',
         bright: 'text-foreground/80',
-        readout: 'text-[8px] opacity-40 leading-none mb-1',
+        readout: 'text-[8px] text-muted-foreground leading-none mb-1',
         stack: 'text-[9px] text-muted-foreground tracking-widest',
       },
     },

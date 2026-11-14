@@ -9,7 +9,7 @@ const textareaVariants = cva(
     variants: {
       variant: {
         default: 'border-input',
-        glass: 'glass focus-visible:bg-background/10 dark:bg-state dark:text-foreground',
+        glass: 'glass focus-visible:bg-background/10 dark:bg-panel-raised dark:text-foreground',
         cyber:
           'glass bg-signal-faint border-signal/30 focus-visible:border-signal dark:bg-background/40 dark:bg-panel dark:text-signal',
       },

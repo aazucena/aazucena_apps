@@ -196,7 +196,7 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
                     v === 'cyber' &&
                       'text-muted-foreground data-[state=active]:border-signal data-[state=active]:text-signal',
                     v === 'glass' &&
-                      'text-foreground/50 data-[state=active]:border-rule data-[state=active]:text-foreground',
+                      'text-muted-foreground data-[state=active]:border-rule data-[state=active]:text-foreground',
                   )}
                 >
                   <CodeIcon className="mr-2 size-3" />
@@ -209,14 +209,14 @@ const CodeBlockCommand = React.forwardRef<HTMLDivElement, CodeBlockCommandProps>
                     v === 'cyber' &&
                       'text-muted-foreground data-[state=active]:border-signal data-[state=active]:text-signal',
                     v === 'glass' &&
-                      'text-foreground/50 data-[state=active]:border-rule data-[state=active]:text-foreground',
+                      'text-muted-foreground data-[state=active]:border-rule data-[state=active]:text-foreground',
                   )}
                 >
                   <Activity className="mr-2 size-3" />
                   Output
                 </TabsTrigger>
               </TabsList>
-              <div className="flex items-center gap-2 px-3 font-mono text-[9px] tracking-tighter uppercase opacity-40">
+              <div className="text-muted-foreground flex items-center gap-2 px-3 font-mono text-[9px] tracking-tighter uppercase">
                 <Terminal className="size-3" />
                 {fileName && <span>{fileName}</span>}
               </div>
