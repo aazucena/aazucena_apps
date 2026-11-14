@@ -206,6 +206,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
 
         {showInput && (
           <Input
+            aria-label={props['aria-label'] ?? 'Color value'}
             variant={v}
             value={value}
             disabled={disabled}

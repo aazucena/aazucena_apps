@@ -196,6 +196,7 @@ const TokenInput = React.forwardRef<HTMLDivElement, TokenInputProps>(
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                    aria-label={isCopied ? 'Copied' : 'Copy'}
                     variant="ghost"
                     size="icon"
                     className={cn(

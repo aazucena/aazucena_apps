@@ -78,6 +78,7 @@ const QrCode = React.forwardRef<HTMLDivElement, QrCodeProps>(
       <div ref={ref} className={cn(qrCodeVariants({ variant, size }), className)} {...props}>
         <div className={wrapperStyles[v]}>
           <QRCodeSVG
+            title={props['aria-label'] ?? `QR code for ${value}`}
             value={value}
             size={sizeMap[s]}
             fgColor={fgColor ?? defaultFg}

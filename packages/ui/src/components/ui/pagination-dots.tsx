@@ -104,6 +104,10 @@ export const PaginationDot = React.forwardRef<HTMLButtonElement, PaginationDotPr
     const dot = (
       <button
         ref={ref}
+        type="button"
+        // The dot has no text, so its tooltip doubles as its name unless aria-label is passed.
+        aria-label={typeof tooltip === 'string' ? tooltip : undefined}
+        aria-current={isActive ? 'true' : undefined}
         className={cn(paginationDotVariants({ variant, isActive }), className)}
         {...props}
       />

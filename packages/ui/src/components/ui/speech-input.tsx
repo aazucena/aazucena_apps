@@ -181,12 +181,14 @@ const SpeechInput = React.forwardRef<HTMLDivElement, SpeechInputProps>(
         ) : (
           <>
             <Button
+              aria-label={isListening ? 'Stop listening' : 'Start listening'}
+              aria-pressed={isListening}
               onClick={isListening ? stopListening : startListening}
               variant="outline"
               size="icon"
               className={cn(
                 'size-8 shrink-0',
-                isListening && 'border-alert/20 text-alert animate-pulse',
+                isListening && 'border-alert/20 text-alert',
                 variant === 'cyber' && 'border-signal/30 text-signal',
                 variant === 'glass' && 'glass border-input/20 text-foreground',
               )}
