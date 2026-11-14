@@ -17,14 +17,14 @@ const treeTableVariants = cva('w-full', {
 
 const wrapperStyles: Record<string, string> = {
   default: '',
-  glass: 'glass dark:bg-background/5 dark:bg-state dark:border-border/10 rounded-control',
+  glass: 'glass dark:bg-background/5 dark:bg-panel-raised dark:border-border/10 rounded-control',
   cyber:
     'border border-border/10 dark:border-signal/30 glass bg-signal-faint dark:bg-background/80 dark:bg-panel rounded-control',
 };
 
 const headerStyles: Record<string, string> = {
   default: '',
-  glass: 'bg-background/5 dark:bg-state [&_th]:border-border/10',
+  glass: 'bg-background/5 dark:bg-panel-raised [&_th]:border-border/10',
   cyber:
     'glass bg-signal-faint dark:bg-signal/5 [&_th]:border-border/10 dark:[&_th]:border-signal/20',
 };
@@ -90,6 +90,8 @@ function TreeTableRow({
               <div className="flex items-center gap-1.5">
                 {hasChildren ? (
                   <button
+                    aria-expanded={isExpanded}
+                    aria-label="Toggle child rows"
                     type="button"
                     onClick={() => onToggle(node.key)}
                     className={cn(

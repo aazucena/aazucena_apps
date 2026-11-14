@@ -120,6 +120,7 @@ const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
             <Collapsible>
               <CollapsibleTrigger asChild>
                 <Button
+                  aria-label="Toggle details"
                   variant="ghost"
                   size="icon"
                   className="size-6 text-current hover:bg-current/10"

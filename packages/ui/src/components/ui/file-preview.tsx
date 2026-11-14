@@ -107,7 +107,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
               className={cn(
                 'text-muted-foreground flex items-center gap-2',
                 size === 'lg' && 'text-sm',
-                variant === 'glass' && 'text-foreground/60',
+                variant === 'glass' && 'text-muted-foreground',
                 variant === 'cyber' && 'text-muted-foreground font-mono text-[10px]',
               )}
             >
@@ -124,6 +124,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(
 
         {onRemove && (
           <Button
+            aria-label={`Remove ${file.name}`}
             type="button"
             variant="ghost"
             size="icon"

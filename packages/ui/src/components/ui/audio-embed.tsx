@@ -65,13 +65,14 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
           onEnded={() => setPlaying(false)}
         />
         <button
+          aria-label={playing ? 'Pause' : 'Play'}
           type="button"
           onClick={toggle}
           className={cn(
             'flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors',
             v === 'cyber'
-              ? 'bg-signal/20 text-signal hover:bg-signal/30'
-              : 'bg-primary/10 text-primary hover:bg-primary/20',
+              ? 'bg-signal/10 text-signal hover:bg-signal/10'
+              : 'bg-primary/10 text-primary hover:bg-primary/10',
           )}
         >
           {playing ? (

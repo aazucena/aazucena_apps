@@ -10,7 +10,7 @@ const progressVariants = cva('relative w-full overflow-hidden rounded-full', {
     variant: {
       default: 'bg-primary/20',
       cyber: 'bg-primary/10 dark:bg-signal/10 border border-border/10 dark:border-signal/20',
-      glass: 'bg-background/10 dark:bg-state border border-border/10',
+      glass: 'bg-background/10 dark:bg-panel-raised border border-border/10',
       branded: 'bg-muted',
     },
     size: {
@@ -57,6 +57,8 @@ const Progress = React.forwardRef<React.ElementRef<typeof ProgressPrimitive.Root
     <ProgressPrimitive.Root
       ref={ref}
       className={cn(progressVariants({ variant, size }), className)}
+      // A progress bar needs a name; pass aria-label or aria-labelledby to say what is loading.
+      aria-label={props['aria-labelledby'] ? undefined : 'Progress'}
       {...props}
     >
       <ProgressPrimitive.Indicator

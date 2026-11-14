@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Visible focus on every control that hid its outline
 - _(ui)_ Scroll regions are reachable by keyboard
 - _(ui)_ Targets of at least 24px, or spaced to match
 - _(ui)_ Announce status changes to screen readers

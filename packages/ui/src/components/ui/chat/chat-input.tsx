@@ -82,7 +82,7 @@ export const ChatInputFooter = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'mt-3 flex items-center justify-between px-2 font-mono text-[8px] tracking-widest uppercase opacity-40',
+      'text-muted-foreground mt-3 flex items-center justify-between px-2 font-mono text-[8px] tracking-widest uppercase',
       className,
     )}
     {...props}
@@ -191,6 +191,7 @@ export const ChatInput = React.forwardRef<HTMLDivElement, ChatInputProps>(
               <div className="absolute bottom-3 left-3 z-10 flex gap-2">
                 {showAttachmentButton && (
                   <Button
+                    aria-label="Attach a file"
                     type="button"
                     size="icon"
                     variant="ghost"
@@ -226,7 +227,10 @@ export const ChatInput = React.forwardRef<HTMLDivElement, ChatInputProps>(
             {showModelSelector && availableModels && onSelectModel && (
               <div className="absolute right-14 bottom-3 z-10">
                 <Select value={selectedModelId} onValueChange={onSelectModel}>
-                  <SelectTrigger className="hover:bg-muted/50 rounded-control h-8 gap-1 border-none bg-transparent text-xs">
+                  <SelectTrigger
+                    aria-label="Model"
+                    className="hover:bg-muted/50 rounded-control h-8 gap-1 border-none bg-transparent text-xs"
+                  >
                     <Robot className="h-4 w-4 shrink-0" />
                     <SelectValue placeholder="Model" />
                   </SelectTrigger>

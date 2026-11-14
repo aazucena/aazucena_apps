@@ -100,7 +100,7 @@ const navbarContentVariants = cva('hidden items-center gap-1 rounded-card border
   variants: {
     variant: {
       default: 'bg-panel/50 border-rule',
-      glass: 'bg-background/10 dark:bg-state border-border/20',
+      glass: 'bg-background/10 dark:bg-panel-raised border-border/20',
       cyber: 'bg-background/40 dark:bg-panel border-signal/20',
     },
   },
@@ -160,11 +160,17 @@ const NavbarMobile = ({
               variant === 'cyber'
                 ? 'bg-background border-signal/20'
                 : 'bg-background border-border',
-              variant === 'glass' && 'border-border/10 bg-background/5 dark:bg-state',
+              variant === 'glass' && 'border-border/10 bg-background/5 dark:bg-panel-raised',
             )}
           >
             <div className="mb-8 flex justify-end">
-              <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
+              <Button
+                aria-label="Close menu"
+                variant="ghost"
+                size="icon"
+                onClick={onClose}
+                className="rounded-full"
+              >
                 <X size={24} />
               </Button>
             </div>
@@ -181,6 +187,7 @@ const NavbarMobileTrigger = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement>
 >(({ className, ...props }, ref) => (
   <Button
+    aria-label="Open menu"
     ref={ref}
     variant="ghost"
     size="icon"

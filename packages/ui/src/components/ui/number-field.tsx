@@ -77,6 +77,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
         {label && <Label htmlFor={id}>{label}</Label>}
         <div className="group flex items-center">
           <Button
+            aria-label="Decrease"
             type="button"
             variant="outline"
             size={size}
@@ -109,7 +110,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
               className={cn(
                 'rounded-none text-center [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
                 variant === 'glass' &&
-                  'border-rule bg-state text-foreground placeholder:text-foreground/40',
+                  'border-rule bg-state text-foreground placeholder:text-muted-foreground',
                 variant === 'cyber' &&
                   'border-signal/20 bg-signal/5 text-signal placeholder:text-muted-foreground font-mono text-xs',
                 size === 'sm' && 'h-8 text-xs',
@@ -126,7 +127,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
                   size === 'sm' && 'text-[10px]',
                   size === 'lg' && 'text-sm',
                   size === 'default' && 'text-xs',
-                  variant === 'glass' && 'text-foreground/60',
+                  variant === 'glass' && 'text-muted-foreground',
                   variant === 'cyber' && 'text-muted-foreground font-mono',
                 )}
               >
@@ -135,6 +136,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
             )}
           </div>
           <Button
+            aria-label="Increase"
             type="button"
             variant="outline"
             size={size}

@@ -49,6 +49,7 @@ const ChatModelSelector = React.forwardRef<HTMLDivElement, ChatModelSelectorProp
       <div ref={ref} className={cn(chatModelSelectorVariants({ variant }), className)} {...props}>
         <Select value={selectedModelId} onValueChange={onSelectModel}>
           <SelectTrigger
+            aria-label="Model"
             className={cn(
               'flex items-center gap-2 [&>span]:line-clamp-1',
               variant === 'cyber' && 'border-signal/30 bg-signal/5 text-signal font-mono',
@@ -70,7 +71,7 @@ const ChatModelSelector = React.forwardRef<HTMLDivElement, ChatModelSelectorProp
                 key={model.id}
                 value={model.id}
                 className={cn(
-                  variant === 'cyber' && 'focus:bg-signal/20 focus:text-signal',
+                  variant === 'cyber' && 'focus:bg-signal/10 focus:text-signal',
                   variant === 'glass' && 'focus:bg-state focus:text-foreground',
                 )}
               >

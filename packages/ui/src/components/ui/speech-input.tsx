@@ -169,6 +169,7 @@ const SpeechInput = React.forwardRef<HTMLDivElement, SpeechInputProps>(
             <Danger className="size-4" />
             <span className="truncate">{error}</span>
             <Button
+              aria-label="Dismiss error"
               variant="ghost"
               size="icon"
               className="ml-auto size-6"

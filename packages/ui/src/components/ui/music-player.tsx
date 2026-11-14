@@ -150,12 +150,13 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
             {/* Controls */}
             <div className="flex items-center gap-2">
               <button
+                aria-label={playing ? 'Pause' : 'Play'}
                 type="button"
                 onClick={toggle}
                 className={cn(
                   'flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors',
                   v === 'cyber'
-                    ? 'bg-signal/20 text-signal hover:bg-signal/30'
+                    ? 'bg-signal/10 text-signal hover:bg-signal/10'
                     : 'bg-primary text-primary-foreground hover:bg-primary/90',
                 )}
               >
@@ -181,6 +182,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   {formatTime(current)}
                 </span>
                 <input
+                  aria-label="Seek"
                   type="range"
                   min={0}
                   max={duration || 0}
@@ -217,6 +219,7 @@ const MusicPlayer = React.forwardRef<HTMLDivElement, MusicPlayerProps>(
                   {volume > 0 && <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />}
                 </svg>
                 <input
+                  aria-label="Volume"
                   type="range"
                   min={0}
                   max={1}

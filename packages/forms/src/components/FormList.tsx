@@ -84,6 +84,7 @@ export function FormList<TData, TName extends string>({
                 >
                   <div className="absolute -top-2 -right-2 opacity-0 transition-opacity group-hover:opacity-100">
                     <Button
+                      aria-label="Remove item"
                       type="button"
                       variant="destructive"
                       size="icon"
@@ -99,7 +100,7 @@ export function FormList<TData, TName extends string>({
 
               {values.length === 0 && (
                 <div className="flex h-24 flex-col items-center justify-center rounded-xl border border-dashed border-muted-foreground/20">
-                  <p className="text-xs italic text-muted-foreground/50">
+                  <p className="text-xs italic text-muted-foreground">
                     No items added to {label.toLowerCase()}
                   </p>
                 </div>

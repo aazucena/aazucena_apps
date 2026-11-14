@@ -55,6 +55,7 @@ const ActionBar = React.forwardRef<HTMLDivElement, ActionBarProps>(
         {children}
         {onClose && (
           <button
+            aria-label="Close"
             type="button"
             onClick={onClose}
             className={cn(

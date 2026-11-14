@@ -62,6 +62,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
         )}
       >
         <select
+          aria-label="Field"
           className={cn(fieldClass, 'min-w-[120px]')}
           value={rule.field}
           onChange={(e) => onChange({ ...rule, field: e.target.value })}
@@ -75,6 +76,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
         </select>
 
         <select
+          aria-label="Operator"
           className={cn(fieldClass, 'min-w-[100px]')}
           value={rule.operator}
           onChange={(e) => {
@@ -96,7 +98,7 @@ const ConditionRulesNode = React.forwardRef<HTMLDivElement, ConditionRulesNodePr
           <button
             type="button"
             onClick={onRemove}
-            className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 rounded-control flex h-8 w-8 shrink-0 items-center justify-center border transition-colors"
+            className="text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 rounded-control flex h-8 w-8 shrink-0 items-center justify-center border transition-colors"
             aria-label="Remove rule"
           >
             <X size="16" />
@@ -119,6 +121,7 @@ const ConditionRulesField = React.forwardRef<HTMLInputElement, ConditionRulesFie
       <>
         {field?.type === 'select' && field.options ? (
           <select
+            aria-label="Value"
             className={cn(fieldClass, 'flex-1')}
             value={String(rule.value ?? '')}
             onChange={(e) => onChange({ ...rule, value: e.target.value })}
@@ -132,6 +135,7 @@ const ConditionRulesField = React.forwardRef<HTMLInputElement, ConditionRulesFie
           </select>
         ) : field?.type === 'boolean' ? (
           <select
+            aria-label="Value"
             className={fieldClass}
             value={String(rule.value ?? '')}
             onChange={(e) => onChange({ ...rule, value: e.target.value === 'true' })}
@@ -141,6 +145,7 @@ const ConditionRulesField = React.forwardRef<HTMLInputElement, ConditionRulesFie
           </select>
         ) : (
           <input
+            aria-label="Value"
             type={field?.type === 'number' ? 'number' : field?.type === 'date' ? 'date' : 'text'}
             className={cn(fieldClass, 'flex-1')}
             value={String(rule.value ?? '')}

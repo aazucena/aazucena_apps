@@ -93,6 +93,7 @@ const MicSelector = React.forwardRef<HTMLDivElement, MicSelectorProps>(
       <div ref={ref} className={cn(micSelectorVariants({ variant }), className)} {...props}>
         <Select value={selectedDeviceId} onValueChange={onSelectDevice}>
           <SelectTrigger
+            aria-label="Microphone"
             className={cn(
               'flex items-center gap-2 [&>span]:line-clamp-1',
               variant === 'cyber' && 'border-signal/30 bg-signal/5 text-signal font-mono',
@@ -114,7 +115,7 @@ const MicSelector = React.forwardRef<HTMLDivElement, MicSelectorProps>(
                 key={device.deviceId}
                 value={device.deviceId}
                 className={cn(
-                  variant === 'cyber' && 'focus:bg-signal/20 focus:text-signal',
+                  variant === 'cyber' && 'focus:bg-signal/10 focus:text-signal',
                   variant === 'glass' && 'focus:bg-state focus:text-foreground',
                 )}
               >

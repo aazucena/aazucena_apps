@@ -59,6 +59,7 @@ const SplitButtonTrigger = React.forwardRef<
 >(({ className, variant = 'default', size: _size = 'default', ...props }, ref) => (
   <DropdownMenuTrigger asChild {...props}>
     <Button
+      aria-label="More options"
       ref={ref}
       variant={variant}
       size="icon"

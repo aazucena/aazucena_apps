@@ -164,6 +164,7 @@ const TokenInput = React.forwardRef<HTMLDivElement, TokenInputProps>(
                   variant="ghost"
                   size="icon"
                   className="size-7 opacity-60 hover:opacity-100"
+                  aria-label={isVisible ? 'Hide value' : 'Show value'}
                   onClick={() => setIsVisible(!isVisible)}
                 >
                   {isVisible ? <EyeOff className="size-3.5" /> : <Eye className="size-3.5" />}
@@ -177,6 +178,7 @@ const TokenInput = React.forwardRef<HTMLDivElement, TokenInputProps>(
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                    aria-label="Regenerate"
                     variant="ghost"
                     size="icon"
                     className="size-7 opacity-60 hover:opacity-100"
