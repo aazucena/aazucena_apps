@@ -131,7 +131,7 @@ const Import = React.forwardRef<HTMLDivElement, ImportProps>(
             <p className="font-bold tracking-tight">
               {isDragActive ? 'Drop files now' : 'Drag and drop files here'}
             </p>
-            <p className="text-muted-foreground text-xs opacity-60">
+            <p className="text-muted-foreground text-xs">
               {allowedFileTypes?.length
                 ? `Supported: ${allowedFileTypes.join(', ')}`
                 : 'All formats supported'}
@@ -149,7 +149,11 @@ const Import = React.forwardRef<HTMLDivElement, ImportProps>(
             </div>
           )}
 
-          {error && <p className="text-alert mt-4 text-xs font-medium">{error}</p>}
+          {error && (
+            <p role="alert" className="text-alert mt-4 text-xs font-medium">
+              {error}
+            </p>
+          )}
         </div>
 
         {/* Action Buttons */}

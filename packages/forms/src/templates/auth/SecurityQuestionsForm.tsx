@@ -44,8 +44,15 @@ function QuestionSelect({
     <form.Field name={fieldName}>
       {(field: any) => (
         <div className="space-y-1">
-          <label className="text-sm font-medium">Security Question {index}</label>
+          <label htmlFor={field.name} className="text-sm font-medium">
+            Security Question {index}
+          </label>
           <select
+            id={field.name}
+            aria-invalid={field.state.meta.errors?.length > 0 || undefined}
+            aria-describedby={
+              field.state.meta.errors?.length > 0 ? `${field.name}-error` : undefined
+            }
             value={field.state.value || ''}
             onChange={(e) => field.handleChange(e.target.value)}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -62,7 +69,7 @@ function QuestionSelect({
             ))}
           </select>
           {field.state.meta.errors?.length > 0 && (
-            <p className="text-xs text-destructive">
+            <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
               {getErrorMessage(field.state.meta.errors[0])}
             </p>
           )}

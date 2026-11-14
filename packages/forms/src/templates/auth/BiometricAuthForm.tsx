@@ -94,6 +94,11 @@ export function BiometricAuthForm({
               )}
             >
               <input
+                id={field.name}
+                aria-invalid={field.state.meta.errors?.length > 0 || undefined}
+                aria-describedby={
+                  field.state.meta.errors?.length > 0 ? `${field.name}-error` : undefined
+                }
                 type="checkbox"
                 checked={!!field.state.value}
                 onChange={(e) => field.handleChange(e.target.checked)}
@@ -109,7 +114,7 @@ export function BiometricAuthForm({
               </span>
             </label>
             {field.state.meta.errors?.length > 0 && (
-              <p className="text-xs text-destructive">
+              <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
                 {getErrorMessage(field.state.meta.errors[0])}
               </p>
             )}

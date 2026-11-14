@@ -103,11 +103,16 @@ export function TokenAuthForm({
       <form.Field name="token" validators={{ onChange: tokenAuthSchema.shape.token }}>
         {(field) => (
           <div className="space-y-1">
-            <label className="text-sm font-medium">
+            <label htmlFor={field.name} className="text-sm font-medium">
               Token <span className="text-destructive">*</span>
             </label>
             <div className="relative">
               <input
+                id={field.name}
+                aria-invalid={field.state.meta.errors?.length > 0 || undefined}
+                aria-describedby={
+                  field.state.meta.errors?.length > 0 ? `${field.name}-error` : undefined
+                }
                 value={(field.state.value as string) || ''}
                 onChange={(e) => field.handleChange(e.target.value)}
                 type={showToken ? 'text' : 'password'}
@@ -118,14 +123,14 @@ export function TokenAuthForm({
               <button
                 type="button"
                 onClick={() => setShowToken((v) => !v)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="absolute right-1 top-1/2 inline-flex min-h-6 min-w-6 items-center justify-center -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 aria-label={showToken ? 'Hide token' : 'Show token'}
               >
                 {showToken ? '🙈' : '👁️'}
               </button>
             </div>
             {field.state.meta.errors?.length > 0 && (
-              <p className="text-xs text-destructive">
+              <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
                 {getErrorMessage(field.state.meta.errors[0])}
               </p>
             )}

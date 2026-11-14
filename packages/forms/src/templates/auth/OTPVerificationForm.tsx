@@ -72,8 +72,15 @@ export function OTPVerificationForm({
       <form.Field name="code" validators={{ onChange: otpVerificationSchema.shape.code }}>
         {(field) => (
           <div className="space-y-1">
-            <label className="text-sm font-medium">Verification Code</label>
+            <label htmlFor={field.name} className="text-sm font-medium">
+              Verification Code
+            </label>
             <input
+              id={field.name}
+              aria-invalid={field.state.meta.errors?.length > 0 || undefined}
+              aria-describedby={
+                field.state.meta.errors?.length > 0 ? `${field.name}-error` : undefined
+              }
               value={(field.state.value as string) || ''}
               onChange={(e) => {
                 const raw = e.target.value.replace(/\D/g, '').slice(0, 6);
@@ -87,7 +94,7 @@ export function OTPVerificationForm({
               className="w-full rounded-md border border-input bg-background px-4 py-3 text-center text-2xl font-mono tracking-[0.5em] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             {field.state.meta.errors?.length > 0 && (
-              <p className="text-xs text-destructive">
+              <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
                 {getErrorMessage(field.state.meta.errors[0])}
               </p>
             )}

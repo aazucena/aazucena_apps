@@ -75,16 +75,26 @@ export function AccountDeletionForm({
 
       {/* Reason */}
       <div className="space-y-2">
-        <p className="text-sm font-medium">
+        <p id="deletion-reason-label" className="text-sm font-medium">
           Why are you deleting your account? <span className="text-destructive">*</span>
         </p>
         <form.Field name="reason" validators={{ onChange: accountDeletionSchema.shape.reason }}>
           {(field) => (
-            <div className="space-y-2">
+            <div
+              role="radiogroup"
+              aria-labelledby="deletion-reason-label"
+              aria-required="true"
+              aria-describedby={
+                field.state.meta.errors.length > 0 ? `${field.name}-error` : undefined
+              }
+              className="space-y-2"
+            >
               {REASON_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
                   type="button"
+                  role="radio"
+                  aria-checked={field.state.value === opt.value}
                   onClick={() => field.handleChange(opt.value)}
                   className={cn(
                     'flex w-full items-center gap-2 rounded-md border px-3 py-2.5 text-left text-sm font-medium transition-all',
@@ -101,13 +111,13 @@ export function AccountDeletionForm({
                         : 'border-muted-foreground',
                     )}
                   >
-                    {field.state.value === opt.value ? '●' : ''}
+                    <span aria-hidden="true">{field.state.value === opt.value ? '●' : ''}</span>
                   </span>
                   {opt.label}
                 </button>
               ))}
               {field.state.meta.errors.length > 0 && (
-                <p className="text-xs text-destructive">
+                <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
                   {getErrorMessage(field.state.meta.errors[0])}
                 </p>
               )}
@@ -126,8 +136,15 @@ export function AccountDeletionForm({
             >
               {(field) => (
                 <div className="space-y-1">
-                  <label className="text-sm font-medium">Please tell us more</label>
+                  <label htmlFor={field.name} className="text-sm font-medium">
+                    Please tell us more
+                  </label>
                   <textarea
+                    id={field.name}
+                    aria-invalid={field.state.meta.errors?.length > 0 || undefined}
+                    aria-describedby={
+                      field.state.meta.errors?.length > 0 ? `${field.name}-error` : undefined
+                    }
                     className="w-full resize-none rounded-md border border-border bg-background p-3 text-sm focus:outline-none focus:ring-2 focus:ring-destructive/30"
                     rows={3}
                     placeholder="Describe your reason…"
@@ -135,7 +152,7 @@ export function AccountDeletionForm({
                     onChange={(e) => field.handleChange(e.target.value)}
                   />
                   {field.state.meta.errors.length > 0 && (
-                    <p className="text-xs text-destructive">
+                    <p id={`${field.name}-error`} role="alert" className="text-xs text-destructive">
                       {getErrorMessage(field.state.meta.errors[0])}
                     </p>
                   )}
