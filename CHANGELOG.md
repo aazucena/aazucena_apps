@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Text contrast: no dimmed text, lighter tints, readable code blocks
 - _(ui)_ Accessible names for icon-only controls, inputs and progress
 - _(ui)_ Visible focus on every control that hid its outline
 - _(ui)_ Scroll regions are reachable by keyboard
