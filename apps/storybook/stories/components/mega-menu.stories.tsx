@@ -117,6 +117,10 @@ export const Keyboard: Story = {
     await userEvent.keyboard('{Escape}');
     await expect(products).toHaveAttribute('aria-expanded', 'false');
     await expect(products).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(
+      within(canvas.getByRole('list', { name: /products/i })).getAllByRole('link')[0],
+    ).toHaveFocus();
   },
 };
 

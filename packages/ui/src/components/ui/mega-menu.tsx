@@ -62,6 +62,7 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
     const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
     const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>(undefined);
     const rootRef = React.useRef<HTMLDivElement | null>(null);
+    const enterPanel = React.useRef(false);
     const baseId = React.useId();
     const v = variant ?? 'default';
 
@@ -90,12 +91,20 @@ const MegaMenu = React.forwardRef<HTMLDivElement, MegaMenuProps>(
     const handleToggleKeyDown = (index: number) => (e: React.KeyboardEvent) => {
       if (e.key !== 'ArrowDown') return;
       e.preventDefault();
-      setActiveIndex(index);
-      // The panel renders on the next frame when it was closed.
-      requestAnimationFrame(() => {
-        rootRef.current?.querySelector<HTMLElement>(`[id="${baseId}-panel-${index}"] a`)?.focus();
-      });
+      enterPanel.current = true;
+      if (activeIndex === index) focusFirstLink(index);
+      else setActiveIndex(index);
     };
+
+    const focusFirstLink = (index: number) => {
+      enterPanel.current = false;
+      rootRef.current?.querySelector<HTMLElement>(`[id="${baseId}-panel-${index}"] a`)?.focus();
+    };
+
+    // Arrow Down on a closed item opens the panel first; focus moves in once it exists.
+    React.useEffect(() => {
+      if (enterPanel.current && activeIndex !== null) focusFirstLink(activeIndex);
+    });
 
     const itemClass = (index: number) =>
       cn(
