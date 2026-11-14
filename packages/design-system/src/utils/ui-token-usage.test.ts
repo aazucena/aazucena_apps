@@ -129,4 +129,31 @@ describe('@aazucena/ui fill variants (I1)', () => {
       expect(m?.[1] ?? '', `${file} ${cvaName}.${key}`).toMatch(/\bbg-/);
     }
   });
+
+  it('uses the motion token for state changes, never a raw short duration', () => {
+    // 500ms and up are deliberate slow moves (fills, reveals); anything shorter is a state change.
+    const RAW_SHORT = /(?:^|[\s:'"`])duration-(?:75|100|150|200|300)(?=[\s'"`]|$)/;
+    const offenders: string[] = [];
+    for (const file of tsxFiles(UI_DIR)) {
+      readFileSync(file, 'utf8')
+        .split('\n')
+        .forEach((line, i) => {
+          if (RAW_SHORT.test(line)) offenders.push(`${file.split('src/components/')[1]}:${i + 1}`);
+        });
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it('never transitions every property (transition-all also fades colors on theme toggle)', () => {
+    const offenders: string[] = [];
+    for (const file of tsxFiles(UI_DIR)) {
+      readFileSync(file, 'utf8')
+        .split('\n')
+        .forEach((line, i) => {
+          if (/(?:^|[\s:'"`])transition-all(?=[\s'"`]|$)/.test(line))
+            offenders.push(`${file.split('src/components/')[1]}:${i + 1}`);
+        });
+    }
+    expect(offenders).toEqual([]);
+  });
 });
