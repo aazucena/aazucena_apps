@@ -24,15 +24,15 @@ describe('default vibe: instrument tokens', () => {
   it('maps signal and alert per mode', () => {
     expect(read(darkBlock, 'signal')?.toLowerCase()).toBe('#32a0c5');
     expect(read(darkBlock, 'alert')?.toLowerCase()).toBe('#ff7b54');
-    expect(read(rootBlock, 'signal')?.toLowerCase()).toBe('#007493');
-    expect(read(rootBlock, 'alert')?.toLowerCase()).toBe('#c14319');
+    expect(read(rootBlock, 'signal')?.toLowerCase()).toBe('#006584');
+    expect(read(rootBlock, 'alert')?.toLowerCase()).toBe('#ac2f00');
   });
 
   it('uses the owner-chosen success and warning colors', () => {
     expect(read(darkBlock, 'success')?.toLowerCase()).toBe('#55c1a3');
-    expect(read(rootBlock, 'success')?.toLowerCase()).toBe('#00735b');
+    expect(read(rootBlock, 'success')?.toLowerCase()).toBe('#006b53');
     expect(read(darkBlock, 'warning')?.toLowerCase()).toBe('#d9a02c');
-    expect(read(rootBlock, 'warning')?.toLowerCase()).toBe('#855e00');
+    expect(read(rootBlock, 'warning')?.toLowerCase()).toBe('#7d5700');
   });
 
   it('emits series, state, tint and chart tokens in both modes', () => {
@@ -144,6 +144,35 @@ describe('final review regressions', () => {
       expect(wcagContrast(v(role), tint(v(role))), `${role} on tint`).toBeGreaterThanOrEqual(4.5);
     }
   });
+});
+
+describe('accessibility audit 2026-11-13: text on tinted surfaces', () => {
+  // Components put role-coloured text on a tint of the same role (`bg-primary/10
+  // text-primary`, status badges) and muted text on tinted or selected rows. The
+  // tint sits on the page background, the darkest light surface, so that is the
+  // worst case. 15% is the `--*-subtle` strength, the strongest tint allowed under text.
+  for (const [mode, block] of [
+    ['light', rootBlock],
+    ['dark', darkBlock],
+  ] as const) {
+    const v = (n: string) => read(block, n)!;
+    const tint = (c: string, amount: number) =>
+      formatHex(interpolate([v('background'), c], 'rgb')(amount))!;
+
+    for (const role of ['signal', 'alert', 'success', 'warning']) {
+      it(`${mode}: ${role} text passes AA on its own 15% tint`, () => {
+        expect(wcagContrast(v(role), tint(v(role), 0.15))).toBeGreaterThanOrEqual(4.5);
+      });
+    }
+
+    it(`${mode}: muted text passes AA on background and a signal tint`, () => {
+      const muted = v('muted-foreground');
+      expect(wcagContrast(muted, v('background')), 'background').toBeGreaterThanOrEqual(4.5);
+      expect(wcagContrast(muted, tint(v('signal'), 0.15)), 'signal tint').toBeGreaterThanOrEqual(
+        4.5,
+      );
+    });
+  }
 });
 
 describe('every vibe brings its own accent (I4)', () => {

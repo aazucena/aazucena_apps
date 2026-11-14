@@ -98,7 +98,7 @@ export const colors = {
     400: '#a6bbc6',
     500: '#7F9AA5',
     550: '#6b8591',
-    600: '#536d79',
+    600: '#49626e',
     700: '#3d5a67',
     800: '#24404C',
     850: '#192f38',
@@ -119,6 +119,8 @@ export const colors = {
   },
 
   // Signal: brand cyan. 500 = dark-mode signal, 700 = light-mode signal.
+  // The light-mode 700 steps (signal, coral, mint, amber) and ink 600 are set so the
+  // colour passes AA as text on its own 15% tint over the page background.
   signal: {
     100: '#daf3fe',
     200: '#aee1f6',
@@ -126,17 +128,17 @@ export const colors = {
     400: '#53b5d9',
     500: '#32A0C5',
     600: '#1880a0',
-    700: '#007493',
+    700: '#006584',
     800: '#0d556c',
     900: '#0d3b4b',
   },
 
   // Coral: alerts, anomalies, destructive. Never a series color.
-  coral: { 300: '#f8b09b', 500: '#FF7B54', 700: '#c14319' },
+  coral: { 300: '#f8b09b', 500: '#FF7B54', 700: '#ac2f00' },
 
   // Functional states (owner-chosen 2026-11-11): success = mint 170, warning = amber 80.
-  mint: { 500: '#55c1a3', 700: '#00735b' },
-  'avra-amber': { 500: '#d9a02c', 700: '#855e00' },
+  mint: { 500: '#55c1a3', 700: '#006b53' },
+  'avra-amber': { 500: '#d9a02c', 700: '#7d5700' },
 
   // Categorical series 2-4 (series 1 = signal). Namespaced: Tailwind owns olive/violet/rose.
   'avra-olive': { 500: '#889D37', 700: '#687c04' },

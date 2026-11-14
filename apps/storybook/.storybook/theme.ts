@@ -21,7 +21,7 @@ function docsThemeFor(mode: 'light' | 'dark') {
   const hex = (v: string | undefined, fallback: string) => (v ? toHex(v) : fallback);
   const background = hex(c.background, mode === 'dark' ? '#0e1a20' : '#e8f2f7');
   const panel = hex(c.panel, background);
-  const signal = hex(c.signal, '#007493');
+  const signal = hex(c.signal, '#006584');
 
   return create({
     ...previewTheme,
