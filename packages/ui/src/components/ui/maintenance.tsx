@@ -54,7 +54,7 @@ const MaintenanceIcon = React.forwardRef<
     />
     <div
       className={cn(
-        'rounded-card relative flex h-28 w-28 items-center justify-center border transition-all duration-500',
+        'rounded-card relative flex h-28 w-28 items-center justify-center border transition-colors duration-(--motion-base)',
         variant === 'cyber'
           ? 'border-border/10 bg-background dark:border-signal/30'
           : 'bg-card border-border',

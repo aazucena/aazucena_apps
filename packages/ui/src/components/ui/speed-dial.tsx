@@ -68,7 +68,7 @@ const SpeedDial = React.forwardRef<HTMLDivElement, SpeedDialProps>(
         {/* Actions */}
         <div
           className={cn(
-            'absolute flex gap-2 transition-all duration-200',
+            'absolute flex gap-2 transition-[opacity,scale] duration-(--motion-base)',
             direction === 'up'
               ? 'bottom-full mb-2 flex-col-reverse'
               : 'right-full mr-2 flex-row-reverse',
@@ -86,7 +86,7 @@ const SpeedDial = React.forwardRef<HTMLDivElement, SpeedDialProps>(
                 setOpen(false);
               }}
               className={cn(
-                'flex size-10 items-center justify-center rounded-full transition-all [&_svg]:size-4',
+                'flex size-10 items-center justify-center rounded-full transition-colors [&_svg]:size-4',
                 actionClasses[v],
               )}
               style={{ transitionDelay: open ? `${i * 50}ms` : '0ms' }}
@@ -102,7 +102,7 @@ const SpeedDial = React.forwardRef<HTMLDivElement, SpeedDialProps>(
           aria-label="Speed dial"
           onClick={() => setOpen(!open)}
           className={cn(
-            'flex size-14 items-center justify-center rounded-full transition-all [&_svg]:size-5',
+            'flex size-14 items-center justify-center rounded-full transition [&_svg]:size-5',
             triggerClasses[v],
             open && 'rotate-45',
           )}

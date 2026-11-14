@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const masonryVariants = cva('transition-all duration-300', {
+const masonryVariants = cva('', {
   variants: {
     variant: {
       default: '',

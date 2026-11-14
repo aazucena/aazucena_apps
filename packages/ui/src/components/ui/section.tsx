@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const sectionVariants = cva('container mx-auto transition-all duration-500', {
+const sectionVariants = cva('container mx-auto', {
   variants: {
     contentWidth: {
       narrow: 'max-w-3xl',

@@ -7,7 +7,7 @@ import { Star, GitHub as GitHubIcon } from '@aazucena/icons';
 import { useGithubRepo } from '@aazucena/hooks';
 
 const githubStarVariants = cva(
-  'inline-flex items-stretch overflow-hidden rounded-control border transition-all duration-200',
+  'inline-flex items-stretch overflow-hidden rounded-control border transition-colors duration-(--motion-base)',
   {
     variants: {
       variant: {

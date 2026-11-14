@@ -4,19 +4,22 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const footerVariants = cva('relative overflow-hidden transition-colors duration-300 border-t', {
-  variants: {
-    variant: {
-      default: 'bg-background border-border text-foreground',
-      glass: 'glass text-foreground',
-      cyber:
-        'glass bg-signal-faint border-signal/20 text-foreground dark:bg-background dark:text-signal',
+const footerVariants = cva(
+  'relative overflow-hidden transition-colors duration-(--motion-base) border-t',
+  {
+    variants: {
+      variant: {
+        default: 'bg-background border-border text-foreground',
+        glass: 'glass text-foreground',
+        cyber:
+          'glass bg-signal-faint border-signal/20 text-foreground dark:bg-background dark:text-signal',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+);
 
 const Footer = React.forwardRef<
   HTMLElement,
@@ -81,7 +84,7 @@ const FooterLink = React.forwardRef<
     ref={ref}
     aria-label={label || (typeof props.children === 'string' ? props.children : undefined)}
     className={cn(
-      'gap-group flex items-center text-sm font-bold transition-all duration-200 hover:translate-x-1',
+      'gap-group flex items-center text-sm font-bold transition duration-(--motion-base) hover:translate-x-1',
       isActive ? 'text-primary' : 'hover:text-primary opacity-60 hover:opacity-100',
       className,
     )}

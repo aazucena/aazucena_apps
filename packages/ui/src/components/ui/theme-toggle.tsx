@@ -7,7 +7,7 @@ import { cn } from '@aazucena/utils';
 import { useTheme } from '@aazucena/hooks';
 
 const themeToggleVariants = cva(
-  'group relative flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-ring',
+  'group relative flex items-center justify-center cursor-pointer transition duration-(--motion-base) hover:scale-110 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-ring',
   {
     variants: {
       variant: {
@@ -31,23 +31,29 @@ const themeToggleVariants = cva(
   },
 );
 
-const sunIconVariants = cva('absolute inset-0 transform transition-all duration-500', {
-  variants: {
-    theme: {
-      dark: 'rotate-0 opacity-100 scale-100',
-      light: 'scale-0 rotate-90 opacity-0',
+const sunIconVariants = cva(
+  'absolute inset-0 transform transition-[opacity,rotate,scale] duration-(--motion-base)',
+  {
+    variants: {
+      theme: {
+        dark: 'rotate-0 opacity-100 scale-100',
+        light: 'scale-0 rotate-90 opacity-0',
+      },
     },
   },
-});
+);
 
-const moonIconVariants = cva('absolute inset-0 transform transition-all duration-500', {
-  variants: {
-    theme: {
-      light: 'rotate-0 opacity-100 scale-100',
-      dark: 'scale-0 -rotate-90 opacity-0',
+const moonIconVariants = cva(
+  'absolute inset-0 transform transition-[opacity,rotate,scale] duration-(--motion-base)',
+  {
+    variants: {
+      theme: {
+        light: 'rotate-0 opacity-100 scale-100',
+        dark: 'scale-0 -rotate-90 opacity-0',
+      },
     },
   },
-});
+);
 
 export interface ThemeToggleProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof themeToggleVariants> {}

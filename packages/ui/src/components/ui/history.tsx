@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import * as React from 'react';
 
-const historyVariants = cva('relative border-l-2 pl-8 transition-all duration-300', {
+const historyVariants = cva('relative border-l-2 pl-8', {
   variants: {
     variant: {
       default: 'border-border space-y-8',
@@ -26,7 +26,7 @@ const History = React.forwardRef<
 ));
 History.displayName = 'History';
 
-const historyItemVariants = cva('group transition-all duration-300', {
+const historyItemVariants = cva('group', {
   variants: {
     variant: {
       default: '',
@@ -77,7 +77,7 @@ const HistoryTitle = React.forwardRef<
       <ChevronDown
         size={18}
         className={cn(
-          'opacity-40 transition-transform duration-300',
+          'opacity-40 transition-transform duration-(--motion-base)',
           isExpanded && 'rotate-180 opacity-100',
         )}
       />
@@ -114,7 +114,7 @@ const HistoryMeta = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 HistoryMeta.displayName = 'HistoryMeta';
 
 const historyBadgeVariants = cva(
-  'flex items-center gap-1.5 rounded-badge border border-border bg-muted/50 px-3 py-1 text-[9px] font-black tracking-widest uppercase transition-all',
+  'flex items-center gap-1.5 rounded-badge border border-border bg-muted/50 px-3 py-1 text-[9px] font-black tracking-widest uppercase',
   {
     variants: {
       variant: {

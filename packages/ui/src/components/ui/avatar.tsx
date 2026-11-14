@@ -6,28 +6,25 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const avatarVariants = cva(
-  'relative flex shrink-0 overflow-hidden rounded-full transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-muted',
-        glass: 'bg-background/10 dark:bg-state border border-border/20',
-        cyber: 'bg-background/40 dark:bg-panel border border-signal/50',
-      },
-      size: {
-        sm: 'h-8 w-8',
-        default: 'h-10 w-10',
-        lg: 'h-16 w-16',
-        xl: 'h-24 w-24',
-      },
+const avatarVariants = cva('relative flex shrink-0 overflow-hidden rounded-full', {
+  variants: {
+    variant: {
+      default: 'bg-muted',
+      glass: 'bg-background/10 dark:bg-state border border-border/20',
+      cyber: 'bg-background/40 dark:bg-panel border border-signal/50',
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+    size: {
+      sm: 'h-8 w-8',
+      default: 'h-10 w-10',
+      lg: 'h-16 w-16',
+      xl: 'h-24 w-24',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+    size: 'default',
+  },
+});
 
 export interface AvatarProps
   extends

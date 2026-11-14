@@ -7,7 +7,7 @@ import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const separatorVariants = cva('shrink-0 transition-all duration-300', {
+const separatorVariants = cva('shrink-0', {
   variants: {
     variant: {
       default: 'bg-border',

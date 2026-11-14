@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { Search } from '@aazucena/icons';
 import { Input } from './input';
 
-const filterBarVariants = cva('w-full transition-all duration-500 rounded-card border p-8', {
+const filterBarVariants = cva('w-full rounded-card border p-8', {
   variants: {
     variant: {
       default: 'bg-card border-border',

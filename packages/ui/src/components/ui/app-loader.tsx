@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const appLoaderVariants = cva(
-  'fixed inset-0 z-[calc(var(--z-max)+1)] flex items-center justify-center transition-all duration-1000 text-foreground',
+  'fixed inset-0 z-[calc(var(--z-max)+1)] flex items-center justify-center transition-[opacity,scale] duration-1000 text-foreground',
   {
     variants: {
       variant: {
@@ -33,7 +33,7 @@ const AppLoader = React.forwardRef<
 ));
 AppLoader.displayName = 'AppLoader';
 
-const appLoaderIconVariants = cva('transition-all duration-1000', {
+const appLoaderIconVariants = cva('', {
   variants: {
     animation: {
       pulse: 'animate-pulse',
@@ -138,7 +138,7 @@ const AppLoaderProgress = React.forwardRef<
   <div className="flex flex-col items-center gap-2">
     <div ref={ref} className={cn(appLoaderProgressVariants({ variant }), className)} {...props}>
       <div
-        className="h-full bg-current transition-all duration-500 ease-out"
+        className="h-full bg-current transition-[width] duration-500 ease-out"
         style={{ width: `${value || 0}%` }}
       />
     </div>

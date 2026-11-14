@@ -4,18 +4,21 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const shellVariants = cva('flex h-screen w-full overflow-hidden transition-colors duration-500', {
-  variants: {
-    variant: {
-      default: 'bg-panel dark:bg-background text-foreground',
-      cyber: 'bg-background text-foreground',
-      glass: 'bg-background text-foreground',
+const shellVariants = cva(
+  'flex h-screen w-full overflow-hidden transition-colors duration-(--motion-base)',
+  {
+    variants: {
+      variant: {
+        default: 'bg-panel dark:bg-background text-foreground',
+        cyber: 'bg-background text-foreground',
+        glass: 'bg-background text-foreground',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+);
 
 const Shell = React.forwardRef<
   HTMLDivElement,
@@ -47,21 +50,18 @@ const ShellView = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
 );
 ShellView.displayName = 'ShellView';
 
-const shellHeaderVariants = cva(
-  'h-14 shrink-0 z-(--z-sticky) flex items-center px-6 border-b transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-panel/50 dark:bg-background/50 border-rule',
-        glass: 'bg-background/20 border-border/10',
-        cyber: 'bg-background/80 dark:bg-panel border-signal/30',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const shellHeaderVariants = cva('h-14 shrink-0 z-(--z-sticky) flex items-center px-6 border-b', {
+  variants: {
+    variant: {
+      default: 'bg-panel/50 dark:bg-background/50 border-rule',
+      glass: 'bg-background/20 border-border/10',
+      cyber: 'bg-background/80 dark:bg-panel border-signal/30',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const ShellHeader = React.forwardRef<
   HTMLElement,

@@ -68,7 +68,7 @@ const Timepicker = React.forwardRef<HTMLDivElement, TimepickerProps>(
     const minutes = Array.from({ length: Math.ceil(60 / minuteStep) }, (_, i) => i * minuteStep);
 
     const selCn = cn(
-      'appearance-none rounded-control border outline-none transition-all cursor-pointer',
+      'appearance-none rounded-control border outline-none transition-[background-color,border-color,box-shadow] cursor-pointer',
       selectStyles[v],
       sizeMap[s],
       disabled && 'pointer-events-none opacity-50',

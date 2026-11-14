@@ -6,19 +6,16 @@ import { cn } from '@aazucena/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../collapsible'; // Assuming Collapsible components are available
 import { ChevronsUpDown } from '@aazucena/icons'; // Assuming ChevronsUpDown icon is available
 
-const chatChainOfThoughtVariants = cva(
-  'flex flex-col gap-4 rounded-control border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatChainOfThoughtVariants = cva('flex flex-col gap-4 rounded-control border p-4', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface ChainOfThoughtStep {
   id: string;
@@ -68,7 +65,7 @@ const ChatChainOfThought = React.forwardRef<HTMLDivElement, ChatChainOfThoughtPr
             >
               <CollapsibleTrigger className="flex w-full items-center justify-between text-left font-semibold">
                 <span>{`Step ${index + 1}: ${step.title}`}</span>
-                <ChevronsUpDown className="h-4 w-4 shrink-0 transition-transform duration-200 data-[state=closed]:rotate-0 data-[state=open]:rotate-180" />
+                <ChevronsUpDown className="h-4 w-4 shrink-0 transition-transform duration-(--motion-base) data-[state=closed]:rotate-0 data-[state=open]:rotate-180" />
               </CollapsibleTrigger>
               <CollapsibleContent className="text-muted-foreground pt-2 text-sm">
                 {step.description}

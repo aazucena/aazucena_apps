@@ -5,19 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Terminal } from '@aazucena/icons';
 
-const stackTraceVariants = cva(
-  'relative w-full overflow-hidden rounded-control border transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-card border-border',
-        glass: 'glass border-rule bg-state text-foreground',
-        cyber: 'bg-background border-signal/20 text-signal font-mono',
-      },
+const stackTraceVariants = cva('relative w-full overflow-hidden rounded-control border', {
+  variants: {
+    variant: {
+      default: 'bg-card border-border',
+      glass: 'glass border-rule bg-state text-foreground',
+      cyber: 'bg-background border-signal/20 text-signal font-mono',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 const frameVariants = cva('flex flex-col py-1.5 px-4 text-xs transition-colors', {
   variants: {

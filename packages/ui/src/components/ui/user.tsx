@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Avatar, AvatarImage, AvatarFallback } from './avatar';
 
-const userVariants = cva('inline-flex items-center gap-2.5 transition-all', {
+const userVariants = cva('inline-flex items-center gap-2.5', {
   variants: {
     variant: {
       default: 'text-foreground',

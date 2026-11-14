@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const readingProgressVariants = cva(
-  'fixed top-0 right-0 left-0 z-(--z-fixed) h-1 origin-left transition-all duration-300 print:hidden',
+  'fixed top-0 right-0 left-0 z-(--z-fixed) h-1 origin-left print:hidden',
   {
     variants: {
       variant: {

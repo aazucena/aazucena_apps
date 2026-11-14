@@ -8,24 +8,21 @@ import * as React from 'react';
 
 const Tabs = TabsPrimitive.Root;
 
-const tabsListVariants = cva(
-  'inline-flex items-center justify-center rounded-control p-1 transition-all',
-  {
-    variants: {
-      variant: {
-        default: 'bg-muted text-muted-foreground',
-        glass: 'glass text-foreground',
-        cyber:
-          'glass bg-signal-faint border border-signal/20 text-signal dark:bg-background/40 dark:text-muted-foreground',
-        phone:
-          'relative mt-16 mb-8 h-[420px] w-full max-w-[600px] flex items-center justify-center bg-transparent border-none overflow-visible',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const tabsListVariants = cva('inline-flex items-center justify-center rounded-control p-1', {
+  variants: {
+    variant: {
+      default: 'bg-muted text-muted-foreground',
+      glass: 'glass text-foreground',
+      cyber:
+        'glass bg-signal-faint border border-signal/20 text-signal dark:bg-background/40 dark:text-muted-foreground',
+      phone:
+        'relative mt-16 mb-8 h-[420px] w-full max-w-[600px] flex items-center justify-center bg-transparent border-none overflow-visible',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -46,7 +43,7 @@ const TabsList = React.forwardRef<
 TabsList.displayName = TabsPrimitive.List.displayName;
 
 const tabsTriggerVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-control px-3 py-1 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-control px-3 py-1 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {

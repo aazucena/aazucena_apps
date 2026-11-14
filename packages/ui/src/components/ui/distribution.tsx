@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Progress } from './progress';
 
-const distributionVariants = cva('w-full space-y-8 transition-all duration-300', {
+const distributionVariants = cva('w-full space-y-8', {
   variants: {
     variant: {
       default: '',
@@ -44,7 +44,7 @@ const DistributionList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
 );
 DistributionList.displayName = 'DistributionList';
 
-const distributionBarVariants = cva('space-y-1 group transition-all duration-300', {
+const distributionBarVariants = cva('space-y-1 group', {
   variants: {
     variant: {
       default: '',
@@ -100,7 +100,7 @@ const DistributionGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
 DistributionGroup.displayName = 'DistributionGroup';
 
 const distributionTagVariants = cva(
-  'inline-flex items-center rounded-control border transition-all duration-300 cursor-default',
+  'inline-flex items-center rounded-control border transition duration-(--motion-base) cursor-default',
   {
     variants: {
       weight: {

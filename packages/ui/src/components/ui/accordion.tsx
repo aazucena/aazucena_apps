@@ -63,7 +63,7 @@ const AccordionItem = React.forwardRef<
 AccordionItem.displayName = 'AccordionItem';
 
 const accordionTriggerVariants = cva(
-  'focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring rounded-control py-4 text-left text-sm font-medium hover:underline focus-visible:ring-3 group/accordion-trigger relative flex flex-1 items-center justify-between transition-all outline-none disabled:pointer-events-none disabled:opacity-50',
+  'focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring rounded-control py-4 text-left text-sm font-medium hover:underline focus-visible:ring-3 group/accordion-trigger relative flex flex-1 items-center justify-between transition outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -151,7 +151,7 @@ const AccordionTrigger = React.forwardRef<
                     icon={icon}
                     data-slot="accordion-trigger-icon"
                     className={cn(
-                      'text-muted-foreground pointer-events-none absolute h-4 w-4 shrink-0 transition-all duration-200 group-data-[state=open]/accordion-trigger:scale-0 group-data-[state=open]/accordion-trigger:opacity-0',
+                      'text-muted-foreground pointer-events-none absolute h-4 w-4 shrink-0 transition duration-(--motion-base) group-data-[state=open]/accordion-trigger:scale-0 group-data-[state=open]/accordion-trigger:opacity-0',
                       variant === 'cyber' && 'text-foreground',
                       iconClassName,
                     )}
@@ -160,7 +160,7 @@ const AccordionTrigger = React.forwardRef<
                     icon={openIcon}
                     data-slot="accordion-trigger-icon"
                     className={cn(
-                      'text-muted-foreground pointer-events-none absolute h-4 w-4 shrink-0 scale-0 opacity-0 transition-all duration-200 group-data-[state=open]/accordion-trigger:scale-100 group-data-[state=open]/accordion-trigger:opacity-100',
+                      'text-muted-foreground pointer-events-none absolute h-4 w-4 shrink-0 scale-0 opacity-0 transition duration-(--motion-base) group-data-[state=open]/accordion-trigger:scale-100 group-data-[state=open]/accordion-trigger:opacity-100',
                       variant === 'cyber' && 'text-foreground',
                       iconClassName,
                     )}
@@ -171,7 +171,7 @@ const AccordionTrigger = React.forwardRef<
                   icon={icon}
                   data-slot="accordion-trigger-icon"
                   className={cn(
-                    'text-muted-foreground pointer-events-none h-4 w-4 shrink-0 transition-transform duration-200',
+                    'text-muted-foreground pointer-events-none h-4 w-4 shrink-0 transition-transform duration-(--motion-base)',
                     variant === 'cyber' && 'text-foreground',
                     iconClassName,
                   )}

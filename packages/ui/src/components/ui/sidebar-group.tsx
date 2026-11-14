@@ -20,7 +20,7 @@ export const SidebarGroup = React.forwardRef<HTMLDivElement, React.ComponentProp
 SidebarGroup.displayName = 'SidebarGroup';
 
 export const sidebarGroupLabelVariants = cva(
-  'flex h-8 shrink-0 items-center rounded-control px-2 text-xs font-medium outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+  'flex h-8 shrink-0 items-center rounded-control px-2 text-xs font-medium outline-none ring-sidebar-ring transition-[margin,opacity] duration-(--motion-base) ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
   {
     variants: {
       variant: {

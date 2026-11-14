@@ -279,7 +279,7 @@ const Lightbox = React.forwardRef<HTMLDivElement, LightboxProps>(
                 onClick={() => goTo(i)}
                 aria-label={`Go to image ${i + 1}`}
                 className={cn(
-                  'h-12 w-12 overflow-hidden rounded border-2 transition-all',
+                  'h-12 w-12 overflow-hidden rounded border-2 transition',
                   i === currentIndex
                     ? 'border-rule opacity-100'
                     : 'border-transparent opacity-50 hover:opacity-80',

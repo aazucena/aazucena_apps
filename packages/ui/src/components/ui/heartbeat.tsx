@@ -12,7 +12,7 @@ export const HeartbeatItem = React.forwardRef<HTMLDivElement, React.HTMLAttribut
     <div
       ref={ref}
       className={cn(
-        'rounded-card border-rule bg-panel hover:border-rule dark:bg-panel/30 flex flex-col gap-4 border p-6 transition-all',
+        'rounded-card border-rule bg-panel hover:border-rule dark:bg-panel/30 flex flex-col gap-4 border p-6 transition-colors',
         className,
       )}
       {...props}

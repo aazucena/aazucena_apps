@@ -5,21 +5,18 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const emptyVariants = cva(
-  'flex min-w-0 flex-1 flex-col items-center justify-center text-balance transition-all duration-500',
-  {
-    variants: {
-      variant: {
-        default: 'gap-6 rounded-control border-dashed p-6 text-center md:p-12',
-        archive: 'py-20 text-center',
-        fullscreen: 'min-h-[60vh] text-center',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const emptyVariants = cva('flex min-w-0 flex-1 flex-col items-center justify-center text-balance', {
+  variants: {
+    variant: {
+      default: 'gap-6 rounded-control border-dashed p-6 text-center md:p-12',
+      archive: 'py-20 text-center',
+      fullscreen: 'min-h-[60vh] text-center',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const Empty = React.forwardRef<
   HTMLDivElement,
@@ -47,7 +44,7 @@ const EmptyHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 EmptyHeader.displayName = 'EmptyHeader';
 
 const emptyMediaVariants = cva(
-  'mb-2 flex shrink-0 items-center justify-center transition-all duration-300 [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  'mb-2 flex shrink-0 items-center justify-center transition-transform duration-(--motion-base) [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {

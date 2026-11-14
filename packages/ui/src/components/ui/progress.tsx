@@ -5,7 +5,7 @@ import * as ProgressPrimitive from '@radix-ui/react-progress';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const progressVariants = cva('relative w-full overflow-hidden rounded-full transition-all', {
+const progressVariants = cva('relative w-full overflow-hidden rounded-full', {
   variants: {
     variant: {
       default: 'bg-primary/20',
@@ -27,7 +27,7 @@ const progressVariants = cva('relative w-full overflow-hidden rounded-full trans
 });
 
 const progressIndicatorVariants = cva(
-  'h-full w-full flex-1 transition-all duration-500 ease-in-out',
+  'h-full w-full flex-1 transition-transform duration-(--motion-base) ease-in-out',
   {
     variants: {
       variant: {

@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const watermarkVariants = cva(
-  'pointer-events-none absolute top-1/2 left-1/2 z-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.02] select-none dark:opacity-[0.05] font-black tracking-tighter uppercase italic transition-all duration-500',
+  'pointer-events-none absolute top-1/2 left-1/2 z-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.02] select-none dark:opacity-[0.05] font-black tracking-tighter uppercase italic',
   {
     variants: {
       size: {

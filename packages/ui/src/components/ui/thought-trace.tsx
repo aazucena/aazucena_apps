@@ -4,7 +4,7 @@ import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-const thoughtTraceVariants = cva('flex flex-col gap-3 transition-all duration-500', {
+const thoughtTraceVariants = cva('flex flex-col gap-3', {
   variants: {
     variant: {
       default: 'text-muted-foreground',
@@ -26,7 +26,7 @@ const ThoughtTrace = React.forwardRef<
 ThoughtTrace.displayName = 'ThoughtTrace';
 
 const thoughtStepVariants = cva(
-  'flex items-center gap-2 text-[10px] font-mono animate-in fade-in slide-in-from-left-2 duration-300',
+  'flex items-center gap-2 text-[10px] font-mono animate-in fade-in slide-in-from-left-2 duration-(--motion-base)',
   {
     variants: {
       status: {

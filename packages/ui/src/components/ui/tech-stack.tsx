@@ -6,18 +6,21 @@ import { cn } from '@aazucena/utils';
 import { IconRenderer } from './icon-renderer';
 import { Astro, React as ReactIcon, Tailwind, Vite } from '@aazucena/icons';
 
-const techStackVariants = cva('flex items-center gap-6 transition-all duration-300', {
-  variants: {
-    variant: {
-      default: 'opacity-40 hover:opacity-100',
-      bright: 'opacity-100',
-      cyber: 'text-signal',
+const techStackVariants = cva(
+  'flex items-center gap-6 transition-opacity duration-(--motion-base)',
+  {
+    variants: {
+      variant: {
+        default: 'opacity-40 hover:opacity-100',
+        bright: 'opacity-100',
+        cyber: 'text-signal',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+);
 
 const TechStack = React.forwardRef<
   HTMLDivElement,
@@ -35,7 +38,7 @@ const TechStackGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
 TechStackGroup.displayName = 'TechStackGroup';
 
 const techStackItemVariants = cva(
-  'transition-all duration-300 cursor-default flex items-center gap-2',
+  'transition duration-(--motion-base) cursor-default flex items-center gap-2',
   {
     variants: {
       variant: {

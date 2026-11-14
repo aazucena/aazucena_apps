@@ -5,20 +5,17 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Check } from '@aazucena/icons';
 
-const stepperVariants = cva(
-  'flex w-full items-center justify-between transition-all duration-500',
-  {
-    variants: {
-      variant: {
-        default: 'gap-4',
-        compact: 'gap-2',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const stepperVariants = cva('flex w-full items-center justify-between', {
+  variants: {
+    variant: {
+      default: 'gap-4',
+      compact: 'gap-2',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const Stepper = React.forwardRef<
   HTMLDivElement,
@@ -50,7 +47,7 @@ const Step = React.forwardRef<
 Step.displayName = 'Step';
 
 const stepIndicatorVariants = cva(
-  'w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-500 z-10',
+  'w-8 h-8 rounded-full flex items-center justify-center border-2 transition-[color,background-color,border-color,scale] duration-500 z-10',
   {
     variants: {
       status: {
@@ -95,7 +92,7 @@ const StepLabel = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpa
 StepLabel.displayName = 'StepLabel';
 
 const stepLineVariants = cva(
-  'absolute top-4 left-1/2 w-full h-[2px] -z-0 transition-colors duration-500',
+  'absolute top-4 left-1/2 w-full h-[2px] -z-0 transition-colors duration-(--motion-base)',
   {
     variants: {
       status: {

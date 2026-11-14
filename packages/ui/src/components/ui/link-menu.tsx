@@ -5,7 +5,7 @@ import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-const linkMenuVariants = cva('transition-all duration-300 flex flex-col', {
+const linkMenuVariants = cva('flex flex-col', {
   variants: {
     variant: {
       default: 'space-y-4',
@@ -63,7 +63,7 @@ const LinkMenuList = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTM
 LinkMenuList.displayName = 'LinkMenuList';
 
 const linkMenuItemVariants = cva(
-  'group flex items-start gap-3 rounded-card border border-transparent p-3 transition-all duration-300',
+  'group flex items-start gap-3 rounded-card border border-transparent p-3 transition-colors duration-(--motion-base)',
   {
     variants: {
       variant: {
@@ -99,7 +99,7 @@ const LinkMenuLink = React.forwardRef<
 LinkMenuLink.displayName = 'LinkMenuLink';
 
 const linkMenuIconVariants = cva(
-  'flex h-10 w-10 shrink-0 items-center justify-center rounded-control transition-all duration-300 group-hover:scale-110',
+  'flex h-10 w-10 shrink-0 items-center justify-center rounded-control transition duration-(--motion-base) group-hover:scale-110',
   {
     variants: {
       variant: {

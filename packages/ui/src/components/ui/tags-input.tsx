@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const tagsInputVariants = cva(
-  'flex w-full flex-wrap items-center gap-1.5 rounded-control border px-3 py-2 transition-all',
+  'flex w-full flex-wrap items-center gap-1.5 rounded-control border px-3 py-2 transition',
   {
     variants: {
       variant: {

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const phaseVariants = cva('py-24 transition-all duration-500', {
+const phaseVariants = cva('py-24', {
   variants: {
     variant: {
       default: 'bg-panel dark:bg-background',
@@ -37,7 +37,7 @@ const PhaseHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 PhaseHeader.displayName = 'PhaseHeader';
 
 const phaseBadgeVariants = cva(
-  'inline-flex items-center gap-3 px-4 py-2 rounded-badge border mb-8 transition-all duration-300',
+  'inline-flex items-center gap-3 px-4 py-2 rounded-badge border mb-8',
   {
     variants: {
       variant: {
@@ -105,7 +105,7 @@ PhaseDescription.displayName = 'PhaseDescription';
 
 const PhaseContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('w-full transition-all duration-500', className)} {...props} />
+    <div ref={ref} className={cn('w-full', className)} {...props} />
   ),
 );
 PhaseContent.displayName = 'PhaseContent';

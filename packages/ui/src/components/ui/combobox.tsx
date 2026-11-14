@@ -94,7 +94,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
             setTimeout(() => inputRef.current?.focus(), 0);
           }}
           className={cn(
-            'rounded-control flex w-full items-center justify-between border transition-all outline-none',
+            'rounded-control flex w-full items-center justify-between border transition-opacity outline-none',
             triggerClasses[v],
             sizeClasses[s],
             disabled && 'pointer-events-none opacity-50',

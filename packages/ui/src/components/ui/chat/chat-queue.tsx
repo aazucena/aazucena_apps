@@ -6,19 +6,16 @@ import { cn } from '@aazucena/utils';
 import { Badge } from '../badge'; // Assuming Badge component is available
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 
-const chatQueueVariants = cva(
-  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatQueueVariants = cva('flex flex-col gap-3 rounded-control border p-4', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface QueueItem {
   id: string;

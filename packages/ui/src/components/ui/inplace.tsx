@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const inplaceVariants = cva('relative inline-block transition-all', {
+const inplaceVariants = cva('relative inline-block transition-opacity', {
   variants: {
     variant: {
       default: '',

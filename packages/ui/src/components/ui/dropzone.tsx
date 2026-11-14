@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 const dropzoneVariants = cva(
-  'w-full border-2 border-dashed rounded-card p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 group',
+  'w-full border-2 border-dashed rounded-card p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-colors duration-(--motion-base) group',
   {
     variants: {
       variant: {
@@ -77,7 +77,7 @@ const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(
           className="hidden"
         />
 
-        <div className="rounded-card mb-6 flex h-16 w-16 items-center justify-center bg-current/5 transition-transform duration-500 group-hover:scale-110">
+        <div className="rounded-card mb-6 flex h-16 w-16 items-center justify-center bg-current/5 transition-transform duration-(--motion-base) group-hover:scale-110">
           <CloudUpload
             size={32}
             className="opacity-40 transition-opacity group-hover:opacity-100"

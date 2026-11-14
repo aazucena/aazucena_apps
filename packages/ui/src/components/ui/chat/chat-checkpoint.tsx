@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { CheckCircle, XCircle, ClockCircle, CircleDashed } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatCheckpointVariants = cva(
-  'flex items-center gap-3 rounded-control border p-3 transition-all duration-300',
+  'flex items-center gap-3 rounded-control border p-3 transition-colors duration-(--motion-base)',
   {
     variants: {
       variant: {

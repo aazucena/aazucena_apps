@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const orgChartVariants = cva('w-full overflow-auto transition-all', {
+const orgChartVariants = cva('w-full overflow-auto', {
   variants: {
     variant: {
       default: '',
@@ -73,7 +73,7 @@ function OrgNodeComponent({
             if (hasChildren) setCollapsed(!collapsed);
           }}
           className={cn(
-            'rounded-control flex items-center gap-2 border px-3 py-2 transition-all',
+            'rounded-control flex items-center gap-2 border px-3 py-2 transition-colors',
             nodeCardStyles[variant],
           )}
         >

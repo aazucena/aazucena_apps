@@ -6,19 +6,16 @@ import { cn } from '@aazucena/utils';
 import { Robot, Activity, CheckCircle, XCircle } from '@aazucena/icons'; // Assuming these icons are available
 import { Avatar, AvatarFallback, AvatarImage } from '../avatar'; // Assuming Avatar components are available
 
-const chatAgentVariants = cva(
-  'flex items-center gap-3 rounded-control border p-3 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatAgentVariants = cva('flex items-center gap-3 rounded-control border p-3', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface ChatAgentProps
   extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatAgentVariants> {

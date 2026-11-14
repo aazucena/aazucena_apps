@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const stepFormVariants = cva('w-full space-y-6 transition-all duration-300', {
+const stepFormVariants = cva('w-full space-y-6', {
   variants: {
     variant: {
       default: '',
@@ -69,7 +69,7 @@ const StepForm = React.forwardRef<HTMLDivElement, StepFormProps>(
               <div className="flex flex-col items-center gap-1">
                 <div
                   className={cn(
-                    'flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-semibold transition-all',
+                    'flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-semibold transition',
                     i < current && 'border-success bg-success text-success-foreground',
                     i === current && 'border-primary bg-primary text-primary-foreground scale-110',
                     i > current && 'border-border bg-background text-muted-foreground',

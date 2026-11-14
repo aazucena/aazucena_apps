@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { ArrowRight, ArrowLeft } from '@aazucena/icons';
 
 const arrowLinkVariants = cva(
-  'group/link transition-all duration-500 active:scale-95 inline-flex items-center gap-2 font-black uppercase tracking-[0.2em] no-underline',
+  'group/link transition duration-(--motion-base) active:scale-95 inline-flex items-center gap-2 font-black uppercase tracking-[0.2em] no-underline',
   {
     variants: {
       variant: {
@@ -48,7 +48,7 @@ const arrowLinkVariants = cva(
 );
 
 const arrowLinkIconVariants = cva(
-  'transition-all duration-300 flex items-center justify-center shrink-0',
+  'transition duration-(--motion-base) flex items-center justify-center shrink-0',
   {
     variants: {
       iconStyle: {
@@ -105,7 +105,7 @@ const ArrowLink = React.forwardRef<HTMLAnchorElement, ArrowLinkProps>(
             <Icon
               size={iconSize || (isCard ? 24 : 16)}
               className={cn(
-                'transition-transform duration-300',
+                'transition-transform duration-(--motion-base)',
                 direction === 'right'
                   ? 'group-hover/link:translate-x-1'
                   : 'group-hover/link:-translate-x-1',

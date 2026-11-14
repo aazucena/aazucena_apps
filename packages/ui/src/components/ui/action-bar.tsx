@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const actionBarVariants = cva(
-  'fixed left-1/2 z-(--z-fixed) flex -translate-x-1/2 items-center gap-2 rounded-card px-4 py-2 transition-all duration-300',
+  'fixed left-1/2 z-(--z-fixed) flex -translate-x-1/2 items-center gap-2 rounded-card px-4 py-2 transition duration-(--motion-base)',
   {
     variants: {
       variant: {

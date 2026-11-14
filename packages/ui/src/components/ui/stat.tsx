@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-export const statVariants = cva('flex flex-col transition-all duration-300', {
+export const statVariants = cva('flex flex-col', {
   variants: {
     variant: {
       default: '',
@@ -34,7 +34,7 @@ export const Stat = React.forwardRef<
 ));
 Stat.displayName = 'Stat';
 
-export const statValueVariants = cva('font-black tracking-tighter transition-all duration-300', {
+export const statValueVariants = cva('font-black tracking-tighter', {
   variants: {
     variant: {
       default: 'text-foreground',
@@ -66,7 +66,7 @@ export const StatValue = React.forwardRef<
 ));
 StatValue.displayName = 'StatValue';
 
-export const statLabelVariants = cva('transition-all duration-300', {
+export const statLabelVariants = cva('', {
   variants: {
     variant: {
       default:
@@ -89,23 +89,20 @@ export const StatLabel = React.forwardRef<
 ));
 StatLabel.displayName = 'StatLabel';
 
-export const statDescriptionVariants = cva(
-  'text-[10px] font-mono uppercase transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'text-muted-foreground',
-        primary: 'text-muted-foreground',
-        secondary: 'text-secondary-500/70',
-        success: 'text-success/70',
-        rose: 'text-alert/70',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+export const statDescriptionVariants = cva('text-[10px] font-mono uppercase', {
+  variants: {
+    variant: {
+      default: 'text-muted-foreground',
+      primary: 'text-muted-foreground',
+      secondary: 'text-secondary-500/70',
+      success: 'text-success/70',
+      rose: 'text-alert/70',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 export const StatDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -116,7 +113,7 @@ export const StatDescription = React.forwardRef<
 StatDescription.displayName = 'StatDescription';
 
 export const statIconVariants = cva(
-  'transition-all duration-500 group-hover:scale-110 flex items-center justify-center rounded-card',
+  'transition duration-(--motion-base) group-hover:scale-110 flex items-center justify-center rounded-card',
   {
     variants: {
       variant: {

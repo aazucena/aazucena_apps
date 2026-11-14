@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '
 import { useSidebar } from './sidebar-context';
 import { SIDEBAR_WIDTH_MOBILE } from './sidebar-provider';
 
-export const sidebarVariants = cva('flex h-full flex-col transition-all duration-300', {
+export const sidebarVariants = cva('flex h-full flex-col', {
   variants: {
     variant: {
       default: 'bg-sidebar text-sidebar-foreground',
@@ -90,7 +90,7 @@ export const Sidebar = React.forwardRef<
       >
         <div
           className={cn(
-            'relative w-[--sidebar-width] bg-transparent transition-[width] duration-200 ease-linear',
+            'relative w-[--sidebar-width] bg-transparent transition-[width] duration-(--motion-base) ease-linear',
             'group-data-[collapsible=offcanvas]:w-0',
             'group-data-[side=right]:rotate-180',
             variant === 'floating' || (variant as any) === 'inset'
@@ -100,7 +100,7 @@ export const Sidebar = React.forwardRef<
         />
         <div
           className={cn(
-            'fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] duration-200 ease-linear md:flex',
+            'fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] duration-(--motion-base) ease-linear md:flex',
             side === 'left'
               ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
               : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',

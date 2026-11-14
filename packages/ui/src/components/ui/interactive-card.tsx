@@ -8,7 +8,7 @@ import { ChevronDown } from '@aazucena/icons';
 import { Card } from './card';
 
 const interactiveCardVariants = cva(
-  'group rounded-card transition-all duration-500 overflow-hidden',
+  'group rounded-card transition-transform duration-(--motion-base) overflow-hidden',
   {
     variants: {
       isExpanded: {
@@ -59,7 +59,7 @@ const InteractiveCardHeader = React.forwardRef<
 InteractiveCardHeader.displayName = 'InteractiveCardHeader';
 
 const interactiveCardIconVariants = cva(
-  'flex h-12 w-12 shrink-0 items-center justify-center rounded-card transition-transform duration-500 group-hover:scale-110',
+  'flex h-12 w-12 shrink-0 items-center justify-center rounded-card transition-transform duration-(--motion-base) group-hover:scale-110',
   {
     variants: {
       variant: {
@@ -165,7 +165,7 @@ const InteractiveCardIndicator = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        'ml-auto opacity-40 transition-transform duration-300',
+        'ml-auto opacity-40 transition-transform duration-(--motion-base)',
         isOpen && 'rotate-180 opacity-100',
         className,
       )}

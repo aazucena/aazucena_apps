@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const skeletonVariants = cva('animate-pulse rounded-control transition-all duration-300', {
+const skeletonVariants = cva('animate-pulse rounded-control', {
   variants: {
     variant: {
       default: 'bg-primary/10 dark:bg-primary/20',

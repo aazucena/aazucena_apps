@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const clipboardVariants = cva(
-  'inline-flex items-center gap-2 rounded-control text-sm font-medium transition-all',
+  'inline-flex items-center gap-2 rounded-control text-sm font-medium transition-colors',
   {
     variants: {
       variant: {

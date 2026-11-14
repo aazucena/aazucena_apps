@@ -17,7 +17,7 @@ const STATUS_ICONS = {
 /* ─── CVA: Result (root) ───────────────────────────────────────────────────── */
 
 const resultVariants = cva(
-  'flex flex-col items-center justify-center text-center rounded-card border p-8 md:p-12 transition-all duration-300',
+  'flex flex-col items-center justify-center text-center rounded-card border p-8 md:p-12 transition-colors duration-(--motion-base)',
   {
     variants: {
       variant: {
@@ -53,7 +53,7 @@ const resultVariants = cva(
 /* ─── CVA: ResultIcon ──────────────────────────────────────────────────────── */
 
 const resultIconVariants = cva(
-  'relative flex shrink-0 items-center justify-center rounded-full ring-4 transition-all duration-300',
+  'relative flex shrink-0 items-center justify-center rounded-full ring-4 transition-colors duration-(--motion-base)',
   {
     variants: {
       status: {

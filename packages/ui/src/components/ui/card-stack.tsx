@@ -58,7 +58,7 @@ const CardStack = React.forwardRef<HTMLDivElement, CardStackProps>(
                 key={cardIdx}
                 className={cn(
                   cardStyles[v],
-                  'overflow-hidden transition-all duration-300',
+                  'overflow-hidden transition-transform duration-(--motion-base)',
                   !isTop && 'absolute inset-x-0 top-0',
                   isTop && 'relative cursor-pointer',
                 )}

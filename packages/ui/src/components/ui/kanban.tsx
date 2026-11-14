@@ -69,7 +69,7 @@ const KanbanBoard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 KanbanBoard.displayName = 'KanbanBoard';
 
 const kanbanLaneVariants = cva(
-  'flex-shrink-0 w-[85vw] md:w-[340px] snap-start transition-all duration-500 rounded-card border flex flex-col overflow-hidden',
+  'flex-shrink-0 w-[85vw] md:w-[340px] snap-start transition-colors duration-(--motion-base) rounded-card border flex flex-col overflow-hidden',
   {
     variants: {
       variant: {
@@ -119,7 +119,7 @@ const KanbanCard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
     <div
       ref={ref}
       className={cn(
-        'bg-card border-border hover:border-primary/20 rounded-card border p-5 transition-all duration-300',
+        'bg-card border-border hover:border-primary/20 rounded-card border p-5 transition-colors duration-(--motion-base)',
         className,
       )}
       {...props}

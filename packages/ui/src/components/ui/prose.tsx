@@ -4,11 +4,11 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const proseVariants = cva('max-w-none transition-all duration-300', {
+const proseVariants = cva('max-w-none', {
   variants: {
     variant: {
       default:
-        'prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-4 prose-a:transition-all',
+        'prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-4 prose-a:transition-colors',
       legal:
         'prose prose-base dark:prose-invert prose-p:leading-relaxed prose-headings:font-bold prose-a:text-primary print:prose-sm print:text-foreground',
       cyber:

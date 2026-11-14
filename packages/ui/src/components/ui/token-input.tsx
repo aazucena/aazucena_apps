@@ -8,7 +8,7 @@ import { Button } from './button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
 const tokenInputVariants = cva(
-  'flex items-center gap-2 rounded-control border transition-all duration-300 bg-background',
+  'flex items-center gap-2 rounded-control border transition duration-(--motion-base) bg-background',
   {
     variants: {
       variant: {
@@ -197,7 +197,7 @@ const TokenInput = React.forwardRef<HTMLDivElement, TokenInputProps>(
                     variant="ghost"
                     size="icon"
                     className={cn(
-                      'size-7 transition-all',
+                      'size-7 transition',
                       isCopied ? 'text-success opacity-100' : 'opacity-60 hover:opacity-100',
                     )}
                     onClick={handleCopy}

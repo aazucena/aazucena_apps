@@ -78,13 +78,13 @@ export const StepIndicator = memo(function StepIndicator({
 
   return (
     <div
-      className="rounded-control flex items-center gap-3 border p-3 transition-all duration-300"
+      className="rounded-control flex items-center gap-3 border p-3 transition-colors duration-(--motion-base)"
       style={getContainerStyle()}
       role="listitem"
       aria-current={isActive ? 'step' : undefined}
     >
       <div
-        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-colors duration-(--motion-base) ${
           isActive ? 'animate-pulse' : ''
         }`}
         style={getIconStyle()}

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const shareVariants = cva('pt-12 border-t border-current/10 w-full transition-all duration-500', {
+const shareVariants = cva('pt-12 border-t border-current/10 w-full', {
   variants: {
     variant: {
       default: '',
@@ -43,7 +43,7 @@ const ShareGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 ShareGroup.displayName = 'ShareGroup';
 
 const shareActionVariants = cva(
-  'w-12 h-12 rounded-card flex items-center justify-center transition-all duration-300 active:scale-90',
+  'w-12 h-12 rounded-card flex items-center justify-center transition duration-(--motion-base) active:scale-90',
   {
     variants: {
       variant: {

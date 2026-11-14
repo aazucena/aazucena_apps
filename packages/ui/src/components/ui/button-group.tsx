@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Separator } from './separator';
 
-const buttonGroupVariants = cva('flex items-center transition-all duration-300', {
+const buttonGroupVariants = cva('flex items-center', {
   variants: {
     orientation: {
       horizontal: 'flex-row',
@@ -44,7 +44,7 @@ const ButtonGroup = React.forwardRef<
 ButtonGroup.displayName = 'ButtonGroup';
 
 const buttonGroupItemVariants = cva(
-  'inline-flex items-center justify-center transition-all duration-300 active:scale-95 cursor-pointer font-bold',
+  'inline-flex items-center justify-center transition duration-(--motion-base) active:scale-95 cursor-pointer font-bold',
   {
     variants: {
       variant: {
@@ -85,7 +85,7 @@ const ButtonGroupItem = React.forwardRef<
 ButtonGroupItem.displayName = 'ButtonGroupItem';
 
 const buttonGroupTextVariants = cva(
-  "flex items-center gap-2 rounded-control border px-4 text-sm font-medium [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none transition-all duration-300",
+  "flex items-center gap-2 rounded-control border px-4 text-sm font-medium [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none",
   {
     variants: {
       variant: {

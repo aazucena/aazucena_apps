@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const ctaVariants = cva('relative py-32 overflow-hidden transition-all duration-500', {
+const ctaVariants = cva('relative py-32 overflow-hidden', {
   variants: {
     variant: {
       default: 'bg-primary text-primary-foreground',

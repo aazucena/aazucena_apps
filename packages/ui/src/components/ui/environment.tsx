@@ -4,20 +4,17 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const environmentVariants = cva(
-  'fixed inset-0 pointer-events-none transition-all duration-500 overflow-hidden',
-  {
-    variants: {
-      variant: {
-        default: 'z-0',
-        overlay: 'z-10',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const environmentVariants = cva('fixed inset-0 pointer-events-none overflow-hidden', {
+  variants: {
+    variant: {
+      default: 'z-0',
+      overlay: 'z-10',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const Environment = React.forwardRef<
   HTMLDivElement,
@@ -55,7 +52,7 @@ const EnvironmentFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
 );
 EnvironmentFooter.displayName = 'EnvironmentFooter';
 
-const environmentGridVariants = cva('absolute inset-0 transition-all duration-1000 opacity-20', {
+const environmentGridVariants = cva('absolute inset-0 opacity-20', {
   variants: {
     variant: {
       default:
@@ -78,42 +75,39 @@ const EnvironmentGrid = React.forwardRef<
 ));
 EnvironmentGrid.displayName = 'EnvironmentGrid';
 
-const environmentGlowVariants = cva(
-  'absolute rounded-full blur-[120px] transition-all duration-1000 animate-pulse',
-  {
-    variants: {
-      color: {
-        blue: 'bg-signal/10 dark:bg-signal/5',
-        purple: 'bg-series-3/10 dark:bg-series-3/5',
-        cyan: 'bg-signal/10 dark:bg-signal/5',
-        rose: 'bg-alert/10 dark:bg-alert/5',
-        indigo: 'bg-series-3/10 dark:bg-series-3/5',
-        orange: 'bg-warning/10 dark:bg-warning/5',
-        red: 'bg-alert/10 dark:bg-alert/5',
-        emerald: 'bg-success/10 dark:bg-success/5',
-      },
-      size: {
-        xs: 'w-1/6 h-1/4',
-        sm: 'w-1/4 h-1/4',
-        md: 'w-1/2 h-1/2',
-        lg: 'w-[70%] h-[70%]',
-        xl: 'w-[90%] h-[90%]',
-      },
-      position: {
-        'top-left': '-top-[10%] -left-[10%]',
-        'top-right': '-top-[10%] -right-[10%]',
-        'bottom-left': '-bottom-[10%] -left-[10%]',
-        'bottom-right': '-bottom-[10%] -right-[10%]',
-        center: 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
-      },
+const environmentGlowVariants = cva('absolute rounded-full blur-[120px] animate-pulse', {
+  variants: {
+    color: {
+      blue: 'bg-signal/10 dark:bg-signal/5',
+      purple: 'bg-series-3/10 dark:bg-series-3/5',
+      cyan: 'bg-signal/10 dark:bg-signal/5',
+      rose: 'bg-alert/10 dark:bg-alert/5',
+      indigo: 'bg-series-3/10 dark:bg-series-3/5',
+      orange: 'bg-warning/10 dark:bg-warning/5',
+      red: 'bg-alert/10 dark:bg-alert/5',
+      emerald: 'bg-success/10 dark:bg-success/5',
     },
-    defaultVariants: {
-      color: 'blue',
-      size: 'md',
-      position: 'top-left',
+    size: {
+      xs: 'w-1/6 h-1/4',
+      sm: 'w-1/4 h-1/4',
+      md: 'w-1/2 h-1/2',
+      lg: 'w-[70%] h-[70%]',
+      xl: 'w-[90%] h-[90%]',
+    },
+    position: {
+      'top-left': '-top-[10%] -left-[10%]',
+      'top-right': '-top-[10%] -right-[10%]',
+      'bottom-left': '-bottom-[10%] -left-[10%]',
+      'bottom-right': '-bottom-[10%] -right-[10%]',
+      center: 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
     },
   },
-);
+  defaultVariants: {
+    color: 'blue',
+    size: 'md',
+    position: 'top-left',
+  },
+});
 
 const EnvironmentGlow = React.forwardRef<
   HTMLDivElement,
@@ -129,7 +123,7 @@ const EnvironmentGlow = React.forwardRef<
 ));
 EnvironmentGlow.displayName = 'EnvironmentGlow';
 
-const environmentAtmosphereVariants = cva('absolute inset-0 transition-all duration-1000', {
+const environmentAtmosphereVariants = cva('absolute inset-0 transition-colors duration-1000', {
   variants: {
     phase: {
       exosphere: 'bg-linear-to-b from-background via-panel to-signal-faint',

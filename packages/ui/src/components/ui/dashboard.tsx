@@ -8,21 +8,18 @@ import { cn } from '@aazucena/utils';
  * Dashboard Header & Page Typography
  */
 
-const pageTitleVariants = cva(
-  'text-4xl font-black tracking-tighter uppercase transition-all duration-500',
-  {
-    variants: {
-      variant: {
-        default: 'text-foreground',
-        cyber: 'text-foreground',
-        glass: 'text-foreground',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const pageTitleVariants = cva('text-4xl font-black tracking-tighter uppercase', {
+  variants: {
+    variant: {
+      default: 'text-foreground',
+      cyber: 'text-foreground',
+      glass: 'text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const PageTitle = React.forwardRef<
   HTMLHeadingElement,
@@ -64,7 +61,7 @@ PageSubtitle.displayName = 'PageSubtitle';
  * Dashboard Card & Header Primitives
  */
 
-const dashboardCardVariants = cva('relative overflow-hidden transition-all duration-500', {
+const dashboardCardVariants = cva('relative overflow-hidden', {
   variants: {
     variant: {
       default:
@@ -115,7 +112,7 @@ const DashboardHeader = React.forwardRef<
 DashboardHeader.displayName = 'DashboardHeader';
 
 const iconBoxVariants = cva(
-  'flex items-center justify-center rounded-control transition-all duration-300 group-hover:scale-110 shrink-0 border',
+  'flex items-center justify-center rounded-control transition-transform duration-(--motion-base) group-hover:scale-110 shrink-0 border',
   {
     variants: {
       variant: {

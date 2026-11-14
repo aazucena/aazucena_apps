@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
-const toolbarVariants = cva('fixed flex items-center transition-all duration-300 z-(--z-fixed)', {
+const toolbarVariants = cva('fixed flex items-center z-(--z-fixed)', {
   variants: {
     variant: {
       default: 'bg-background/80 border border-border text-foreground',
@@ -51,7 +51,7 @@ const Toolbar = React.forwardRef<HTMLDivElement, ToolbarProps>(
 Toolbar.displayName = 'Toolbar';
 
 const toolbarButtonVariants = cva(
-  'group relative rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shrink-0',
+  'group relative rounded-full flex items-center justify-center transition duration-(--motion-base) hover:scale-110 shrink-0',
   {
     variants: {
       variant: {

@@ -9,7 +9,7 @@ export interface ChatMessageProps {
   role?: 'user' | 'assistant' | 'system';
 }
 
-export const chatMessageVariants = cva('flex w-full gap-4 transition-all duration-300 group/msg', {
+export const chatMessageVariants = cva('flex w-full gap-4 group/msg', {
   variants: {
     role: {
       user: 'flex-row-reverse',
@@ -77,7 +77,7 @@ export const ChatContent = React.forwardRef<
 ChatContent.displayName = 'ChatContent';
 
 export const chatBubbleVariants = cva(
-  'p-5 rounded-card text-sm font-mono leading-relaxed transition-all border group relative',
+  'p-5 rounded-card text-sm font-mono leading-relaxed border group relative',
   {
     variants: {
       variant: {
@@ -141,7 +141,7 @@ export const ChatActions = React.forwardRef<HTMLDivElement, React.HTMLAttributes
     <div
       ref={ref}
       className={cn(
-        'mt-4 flex items-center gap-2 border-t border-current/5 pt-3 opacity-30 transition-all duration-300 group-hover/bubble:opacity-100',
+        'mt-4 flex items-center gap-2 border-t border-current/5 pt-3 opacity-30 transition-opacity duration-(--motion-base) group-hover/bubble:opacity-100',
         className,
       )}
       {...props}

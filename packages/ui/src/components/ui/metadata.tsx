@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const metadataVariants = cva('w-full transition-all duration-300', {
+const metadataVariants = cva('w-full', {
   variants: {
     variant: {
       default: 'space-y-6',
@@ -40,7 +40,7 @@ const MetaDataHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
 );
 MetaDataHeader.displayName = 'MetaDataHeader';
 
-const metadataTitleVariants = cva('font-black transition-all duration-300', {
+const metadataTitleVariants = cva('font-black', {
   variants: {
     size: {
       default: 'text-[10px] font-black tracking-[0.3em] uppercase opacity-40',
@@ -72,7 +72,7 @@ const MetaDataContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
 );
 MetaDataContent.displayName = 'MetaDataContent';
 
-const metadataGridVariants = cva('grid transition-all duration-300', {
+const metadataGridVariants = cva('grid', {
   variants: {
     cols: {
       1: 'grid-cols-1',
@@ -133,7 +133,7 @@ const MetaDataLabel = React.forwardRef<
 ));
 MetaDataLabel.displayName = 'MetaDataLabel';
 
-const metadataValueVariants = cva('transition-all duration-300', {
+const metadataValueVariants = cva('', {
   variants: {
     variant: {
       default: 'text-sm font-medium text-foreground opacity-90',

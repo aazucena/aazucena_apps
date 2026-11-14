@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const bannerVariants = cva(
-  'relative flex w-full items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium transition-all',
+  'relative flex w-full items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium',
   {
     variants: {
       variant: {

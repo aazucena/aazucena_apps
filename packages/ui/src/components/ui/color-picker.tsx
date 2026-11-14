@@ -25,7 +25,7 @@ const colorPickerVariants = cva('inline-flex items-center gap-2', {
 });
 
 const swatchVariants = cva(
-  'rounded-control border transition-all hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  'rounded-control border transition hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
   {
     variants: {
       size: {
@@ -130,7 +130,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                     type="button"
                     onClick={() => handleColorChange(c)}
                     className={cn(
-                      'group rounded-control relative h-8 w-8 border transition-all hover:scale-110 active:scale-95',
+                      'group rounded-control relative h-8 w-8 border transition hover:scale-110 active:scale-95',
                       c === value
                         ? 'ring-primary ring-2'
                         : 'border-border/50 hover:border-primary/50',
@@ -161,7 +161,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
                 {/* Custom Color Trigger */}
                 <label
                   htmlFor={nativePickerId}
-                  className="border-muted-foreground/40 hover:border-primary hover:bg-muted/50 rounded-control flex h-8 w-8 cursor-pointer items-center justify-center border border-dashed transition-all"
+                  className="border-muted-foreground/40 hover:border-primary hover:bg-muted/50 rounded-control flex h-8 w-8 cursor-pointer items-center justify-center border border-dashed transition-colors"
                   title="Custom Color"
                 >
                   <Plus className="text-muted-foreground h-4 w-4" />

@@ -5,22 +5,19 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Terminal as TerminalIcon, Copy, Check } from '@aazucena/icons';
 
-const terminalVariants = cva(
-  'w-full flex flex-col rounded-card border overflow-hidden transition-all duration-500',
-  {
-    variants: {
-      variant: {
-        default: 'bg-muted border-border text-foreground',
-        cyber:
-          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background dark:text-signal',
-        glass: 'glass text-foreground',
-      },
-    },
-    defaultVariants: {
-      variant: 'cyber',
+const terminalVariants = cva('w-full flex flex-col rounded-card border overflow-hidden', {
+  variants: {
+    variant: {
+      default: 'bg-muted border-border text-foreground',
+      cyber:
+        'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background dark:text-signal',
+      glass: 'glass text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'cyber',
+  },
+});
 
 const Terminal = React.forwardRef<
   HTMLDivElement,

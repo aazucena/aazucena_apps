@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { BookOpen } from '@aazucena/icons';
 
-const readingTimeVariants = cva('inline-flex items-center gap-2 transition-all duration-300', {
+const readingTimeVariants = cva('inline-flex items-center gap-2', {
   variants: {
     variant: {
       default: 'text-muted-foreground',

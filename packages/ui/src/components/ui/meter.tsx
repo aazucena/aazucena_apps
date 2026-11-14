@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const meterVariants = cva(
-  'relative h-2 w-full rounded-full overflow-hidden transition-colors duration-300',
+  'relative h-2 w-full rounded-full overflow-hidden transition-colors duration-(--motion-base)',
   {
     variants: {
       variant: {
@@ -29,7 +29,7 @@ const meterVariants = cva(
   },
 );
 
-const meterIndicatorVariants = cva('h-full transition-all duration-300 ease-out', {
+const meterIndicatorVariants = cva('h-full transition-[width] duration-(--motion-base) ease-out', {
   variants: {
     variant: {
       default: 'bg-primary',

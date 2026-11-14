@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const chipVariants = cva(
-  'inline-flex items-center gap-1.5 rounded-badge text-sm font-medium transition-all',
+  'inline-flex items-center gap-1.5 rounded-badge text-sm font-medium transition',
   {
     variants: {
       variant: {

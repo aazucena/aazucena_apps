@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const heroVariants = cva('relative overflow-hidden transition-all duration-500', {
+const heroVariants = cva('relative overflow-hidden', {
   variants: {
     variant: {
       default: 'bg-panel border-b border-rule',

@@ -6,7 +6,7 @@ import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { cn } from '@aazucena/utils';
 import { ChevronDown } from '@aazucena/icons';
 
-const revealVariants = cva('w-full transition-all duration-300', {
+const revealVariants = cva('w-full', {
   variants: {
     variant: {
       default: 'border-b border-border',
@@ -41,7 +41,7 @@ const RevealTrigger = React.forwardRef<
   <button
     ref={ref}
     className={cn(
-      'flex w-full items-center justify-between py-4 text-left font-medium underline-offset-4 transition-all outline-none hover:underline',
+      'flex w-full items-center justify-between py-4 text-left font-medium underline-offset-4 transition-colors outline-none hover:underline',
       className,
     )}
     {...props}
@@ -86,7 +86,7 @@ const RevealIndicator = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
       <div
         ref={ref}
         className={cn(
-          'shrink-0 transition-transform duration-300',
+          'shrink-0 transition-transform duration-(--motion-base)',
           isOpen && 'rotate-180',
           className,
         )}

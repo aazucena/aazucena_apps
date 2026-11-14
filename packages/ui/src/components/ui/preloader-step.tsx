@@ -11,7 +11,7 @@ import { Badge } from './badge';
  */
 
 export const preloaderIndicatorVariants = cva(
-  'relative flex items-center justify-center rounded-full transition-all duration-500',
+  'relative flex items-center justify-center rounded-full',
   {
     variants: {
       variant: {
@@ -55,7 +55,7 @@ export const PreloaderIndicator = React.forwardRef<
 PreloaderIndicator.displayName = 'PreloaderIndicator';
 
 export const preloaderStepVariants = cva(
-  'flex items-center gap-3 rounded-card border p-3 transition-all duration-300',
+  'flex items-center gap-3 rounded-card border p-3 transition-[border-color,background-color,opacity] duration-(--motion-base)',
   {
     variants: {
       status: {
@@ -89,7 +89,7 @@ export const PreloaderStep = React.forwardRef<
   >
     <div
       className={cn(
-        'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all',
+        'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors',
         status === 'active'
           ? 'bg-primary text-primary-foreground border-primary'
           : status === 'completed'

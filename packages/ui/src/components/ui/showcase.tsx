@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const showcaseVariants = cva('w-full transition-all duration-500', {
+const showcaseVariants = cva('w-full', {
   variants: {
     variant: {
       default: 'space-y-12',
@@ -31,25 +31,28 @@ const ShowcaseFigure = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLEl
 );
 ShowcaseFigure.displayName = 'ShowcaseFigure';
 
-const showcaseImageVariants = cva('relative overflow-hidden border transition-all duration-700', {
-  variants: {
-    variant: {
-      default: 'rounded-card border-border',
-      glass: 'rounded-card border-border/10 dark:border-rule',
-      cyber:
-        'rounded-card border-border/10 dark:border-signal/20 group-hover:border-primary/40 dark:group-hover:border-signal',
+const showcaseImageVariants = cva(
+  'relative overflow-hidden border transition-colors duration-700',
+  {
+    variants: {
+      variant: {
+        default: 'rounded-card border-border',
+        glass: 'rounded-card border-border/10 dark:border-rule',
+        cyber:
+          'rounded-card border-border/10 dark:border-signal/20 group-hover:border-primary/40 dark:group-hover:border-signal',
+      },
+      aspect: {
+        video: 'aspect-video',
+        square: 'aspect-square',
+        auto: 'h-auto',
+      },
     },
-    aspect: {
-      video: 'aspect-video',
-      square: 'aspect-square',
-      auto: 'h-auto',
+    defaultVariants: {
+      variant: 'default',
+      aspect: 'auto',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    aspect: 'auto',
-  },
-});
+);
 
 const ShowcaseImage = React.forwardRef<
   HTMLDivElement,
@@ -82,7 +85,7 @@ const ShowcaseCaption = React.forwardRef<
   <figcaption
     ref={ref}
     className={cn(
-      'text-center text-[10px] font-black tracking-widest uppercase opacity-40 transition-all duration-500 group-hover:translate-y-1 group-hover:opacity-100',
+      'text-center text-[10px] font-black tracking-widest uppercase opacity-40 transition duration-(--motion-base) group-hover:translate-y-1 group-hover:opacity-100',
       className,
     )}
     {...props}

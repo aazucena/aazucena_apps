@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover'; // Assuming Popover components are available
 
 const chatInlineCitationVariants = cva(
-  'inline-flex items-center justify-center rounded-full border bg-muted text-muted-foreground transition-colors duration-200 hover:bg-muted/80',
+  'inline-flex items-center justify-center rounded-full border bg-muted text-muted-foreground transition-colors duration-(--motion-base) hover:bg-muted/80',
   {
     variants: {
       variant: {

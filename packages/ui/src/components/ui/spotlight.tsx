@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const spotlightVariants = cva(
-  'group relative rounded-card border transition-all duration-500 overflow-hidden flex flex-col md:flex-row gap-8 items-start',
+  'group relative rounded-card border transition-colors duration-(--motion-base) overflow-hidden flex flex-col md:flex-row gap-8 items-start',
   {
     variants: {
       variant: {
@@ -42,7 +42,7 @@ const Spotlight = React.forwardRef<
 Spotlight.displayName = 'Spotlight';
 
 const spotlightVisualVariants = cva(
-  'flex-shrink-0 transition-all duration-500 group-hover:scale-110',
+  'flex-shrink-0 transition-transform duration-(--motion-base) group-hover:scale-110',
   {
     variants: {
       variant: {

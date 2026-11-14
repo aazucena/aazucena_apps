@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Compass } from '@aazucena/icons';
 
-const beaconVariants = cva('pt-12 border-t border-current/10 w-full transition-all duration-500', {
+const beaconVariants = cva('pt-12 border-t border-current/10 w-full', {
   variants: {
     variant: {
       default: '',
@@ -76,7 +76,7 @@ const BeaconLink = React.forwardRef<
     {props.children}
     <span
       className={cn(
-        'absolute -bottom-1 left-0 h-0.5 w-0 transition-all group-hover:w-full',
+        'absolute -bottom-1 left-0 h-0.5 w-0 transition-[width] group-hover:w-full',
         variant === 'cyber' ? 'bg-signal' : 'bg-primary',
       )}
     />

@@ -4,22 +4,19 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-export const statusMonitorVariants = cva(
-  'overflow-hidden rounded-card border transition-all duration-500',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-border text-foreground',
-        glass: 'glass text-foreground',
-        cyber:
-          'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-panel dark:text-signal',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+export const statusMonitorVariants = cva('overflow-hidden rounded-card border', {
+  variants: {
+    variant: {
+      default: 'bg-background border-border text-foreground',
+      glass: 'glass text-foreground',
+      cyber:
+        'glass bg-signal-faint border-signal/30 text-foreground dark:bg-background/80 dark:bg-panel dark:text-signal',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 export const StatusMonitor = React.forwardRef<
   HTMLDivElement,
@@ -30,7 +27,7 @@ export const StatusMonitor = React.forwardRef<
 StatusMonitor.displayName = 'StatusMonitor';
 
 export const statusMonitorHeaderVariants = cva(
-  'flex items-center justify-between border-b px-8 py-6 transition-colors duration-500',
+  'flex items-center justify-between border-b px-8 py-6 transition-colors duration-(--motion-base)',
   {
     variants: {
       status: {
@@ -54,7 +51,7 @@ export const StatusMonitorHeader = React.forwardRef<
 StatusMonitorHeader.displayName = 'StatusMonitorHeader';
 
 export const statusMonitorIconVariants = cva(
-  'flex h-12 w-12 items-center justify-center rounded-card transition-all duration-500',
+  'flex h-12 w-12 items-center justify-center rounded-card transition-colors duration-(--motion-base)',
   {
     variants: {
       status: {
@@ -90,7 +87,7 @@ export const StatusMonitorTitle = React.forwardRef<
 StatusMonitorTitle.displayName = 'StatusMonitorTitle';
 
 export const statusMonitorValueVariants = cva(
-  'text-xl font-black tracking-tighter uppercase transition-colors duration-500',
+  'text-xl font-black tracking-tighter uppercase transition-colors duration-(--motion-base)',
   {
     variants: {
       status: {

@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 const brandLogoVariants = cva(
-  'relative flex shrink-0 items-center justify-center overflow-hidden rounded-control font-bold text-foreground transition-all duration-300',
+  'relative flex shrink-0 items-center justify-center overflow-hidden rounded-control font-bold text-foreground',
   {
     variants: {
       size: {

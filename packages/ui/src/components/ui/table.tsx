@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const tableVariants = cva('w-full caption-bottom text-sm transition-all duration-300', {
+const tableVariants = cva('w-full caption-bottom text-sm', {
   variants: {
     variant: {
       default: '',

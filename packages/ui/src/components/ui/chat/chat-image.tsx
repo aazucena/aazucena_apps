@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { Dialog, DialogContent, DialogTrigger } from '../dialog'; // For click-to-enlarge functionality
 
 const chatImageVariants = cva(
-  'group relative flex flex-col gap-2 rounded-control border bg-background p-2 transition-all duration-300',
+  'group relative flex flex-col gap-2 rounded-control border bg-background p-2',
   {
     variants: {
       variant: {

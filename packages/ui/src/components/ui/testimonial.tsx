@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { Card } from './card';
 
 const testimonialVariants = cva(
-  'w-full max-w-lg rounded-card border transition-all duration-500 overflow-hidden flex flex-col min-h-[280px]',
+  'w-full max-w-lg rounded-card border overflow-hidden flex flex-col min-h-[280px]',
   {
     variants: {
       variant: {
@@ -79,7 +79,7 @@ const TestimonialTitle = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<
 TestimonialTitle.displayName = 'TestimonialTitle';
 
 const testimonialAvatarVariants = cva(
-  'w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0 transition-transform duration-500 hover:scale-110',
+  'w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0 transition-transform duration-(--motion-base) hover:scale-110',
   {
     variants: {
       variant: {

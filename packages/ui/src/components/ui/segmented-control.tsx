@@ -4,27 +4,24 @@ import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-const segmentedControlVariants = cva(
-  'inline-flex items-center p-1 rounded-card transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-panel dark:bg-panel/50 border border-rule',
-        glass: 'glass text-foreground',
-        cyber:
-          'bg-background/80 dark:bg-panel border border-border dark:border-signal/20 text-foreground',
-      },
-      size: {
-        default: 'gap-1',
-        sm: 'gap-0.5',
-      },
+const segmentedControlVariants = cva('inline-flex items-center p-1 rounded-card', {
+  variants: {
+    variant: {
+      default: 'bg-panel dark:bg-panel/50 border border-rule',
+      glass: 'glass text-foreground',
+      cyber:
+        'bg-background/80 dark:bg-panel border border-border dark:border-signal/20 text-foreground',
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+    size: {
+      default: 'gap-1',
+      sm: 'gap-0.5',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+    size: 'default',
+  },
+});
 
 const SegmentedControl = React.forwardRef<
   HTMLDivElement,
@@ -40,7 +37,7 @@ const SegmentedControl = React.forwardRef<
 SegmentedControl.displayName = 'SegmentedControl';
 
 const segmentedItemVariants = cva(
-  'relative px-4 py-1.5 rounded-control text-[9px] font-black uppercase tracking-widest transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary',
+  'relative px-4 py-1.5 rounded-control text-[9px] font-black uppercase tracking-widest transition duration-(--motion-base) outline-none focus-visible:ring-2 focus-visible:ring-primary',
   {
     variants: {
       isActive: {

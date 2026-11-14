@@ -4,7 +4,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const cardVariants = cva('transition-[border-color,background-color] duration-200', {
+const cardVariants = cva('transition-[border-color,background-color] duration-(--motion-base)', {
   variants: {
     variant: {
       /** Tone-only panel surface: no shadow, no border (Avra 0.2). */

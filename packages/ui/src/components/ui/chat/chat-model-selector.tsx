@@ -6,19 +6,16 @@ import { cn } from '@aazucena/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select'; // Assuming Select components are available
 import { Robot, ChevronDown } from '@aazucena/icons';
 
-const chatModelSelectorVariants = cva(
-  'flex items-center gap-2 rounded-control border p-2 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatModelSelectorVariants = cva('flex items-center gap-2 rounded-control border p-2', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface AiModel {
   id: string;

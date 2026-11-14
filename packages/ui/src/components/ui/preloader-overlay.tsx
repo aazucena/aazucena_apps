@@ -9,7 +9,7 @@ import { cn } from '@aazucena/utils';
  */
 
 export const preloaderOverlayVariants = cva(
-  'fixed inset-0 z-(--z-max) flex items-center justify-center p-4 transition-all duration-500',
+  'fixed inset-0 z-(--z-max) flex items-center justify-center p-4',
   {
     variants: {
       theme: {
@@ -35,24 +35,21 @@ export const PreloaderOverlay = React.forwardRef<
 ));
 PreloaderOverlay.displayName = 'PreloaderOverlay';
 
-export const preloaderContentVariants = cva(
-  'w-full max-w-md transition-all duration-500 flex flex-col gap-6',
-  {
-    variants: {
-      variant: {
-        default: '',
-        card: 'bg-card border border-border rounded-card p-8',
-        glass:
-          'bg-background/5 dark:bg-state border border-border/10 rounded-card p-8 text-foreground',
-        cyber:
-          'bg-background/80 dark:bg-panel border border-signal/30 rounded-control p-8 text-foreground',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+export const preloaderContentVariants = cva('w-full max-w-md flex flex-col gap-6', {
+  variants: {
+    variant: {
+      default: '',
+      card: 'bg-card border border-border rounded-card p-8',
+      glass:
+        'bg-background/5 dark:bg-state border border-border/10 rounded-card p-8 text-foreground',
+      cyber:
+        'bg-background/80 dark:bg-panel border border-signal/30 rounded-control p-8 text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 export const PreloaderContent = React.forwardRef<
   HTMLDivElement,

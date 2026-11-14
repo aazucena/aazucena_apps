@@ -18,19 +18,16 @@ import {
 } from './dialog';
 import { useImport } from '../../hooks/use-import';
 
-const importVariants = cva(
-  'flex flex-col gap-6 rounded-card border p-6 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-rule',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal font-mono',
-      },
+const importVariants = cva('flex flex-col gap-6 rounded-card border p-6', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-rule',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal font-mono',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export type ImportStatus = 'idle' | 'uploading' | 'parsing' | 'pending' | 'success' | 'error';
 
@@ -110,7 +107,7 @@ const Import = React.forwardRef<HTMLDivElement, ImportProps>(
         <div
           {...getRootProps()}
           className={cn(
-            'rounded-control flex flex-col items-center justify-center border-2 border-dashed p-10 text-center transition-all',
+            'rounded-control flex flex-col items-center justify-center border-2 border-dashed p-10 text-center transition-colors',
             isDragActive
               ? 'border-primary bg-primary/5'
               : 'border-muted-foreground/20 hover:border-muted-foreground/40 bg-muted/5',

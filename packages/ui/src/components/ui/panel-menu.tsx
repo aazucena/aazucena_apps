@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const panelMenuVariants = cva('w-full rounded-control border transition-all', {
+const panelMenuVariants = cva('w-full rounded-control border', {
   variants: {
     variant: {
       default: 'border-border bg-background',
@@ -59,7 +59,10 @@ function PanelMenuItemComponent({
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className={cn('shrink-0 transition-transform duration-200', open && 'rotate-90')}
+          className={cn(
+            'shrink-0 transition-transform duration-(--motion-base)',
+            open && 'rotate-90',
+          )}
         >
           <path d="m9 18 6-6-6-6" />
         </svg>

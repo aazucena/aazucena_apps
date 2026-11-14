@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const briefVariants = cva('rounded-card border p-8 space-y-8 transition-all duration-300', {
+const briefVariants = cva('rounded-card border p-8 space-y-8', {
   variants: {
     variant: {
       default: 'bg-card border-border',
@@ -71,21 +71,18 @@ const BriefValue = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 );
 BriefValue.displayName = 'BriefValue';
 
-const briefCalloutVariants = cva(
-  'p-5 rounded-card border flex items-start gap-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'glass bg-signal-faint border-primary/20 text-primary',
-        cyber: 'bg-signal/5 border-signal/20 text-signal',
-        glass: 'glass text-foreground',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const briefCalloutVariants = cva('p-5 rounded-card border flex items-start gap-4', {
+  variants: {
+    variant: {
+      default: 'glass bg-signal-faint border-primary/20 text-primary',
+      cyber: 'bg-signal/5 border-signal/20 text-signal',
+      glass: 'glass text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const BriefCallout = React.forwardRef<
   HTMLDivElement,

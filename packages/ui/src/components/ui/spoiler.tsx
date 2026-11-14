@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const spoilerVariants = cva('relative transition-all', {
+const spoilerVariants = cva('relative', {
   variants: {
     variant: {
       default: '',
@@ -49,7 +49,7 @@ const Spoiler = React.forwardRef<HTMLDivElement, SpoilerProps>(
     return (
       <div ref={ref} className={cn(spoilerVariants({ variant }), className)} {...props}>
         <div
-          className="overflow-hidden transition-all duration-300"
+          className="overflow-hidden transition-[max-height] duration-(--motion-base)"
           style={{ maxHeight: open ? 'none' : maxHeight }}
         >
           {children}

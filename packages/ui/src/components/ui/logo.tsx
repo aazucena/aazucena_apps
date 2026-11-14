@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { LOGO_MAIN, LOGO_ALT, BRAND_NAME } from '@aazucena/design-system';
 
-const logoVariants = cva('inline-block shrink-0 transition-all duration-300', {
+const logoVariants = cva('inline-block shrink-0 transition-transform duration-(--motion-base)', {
   variants: {
     variant: {
       main: 'text-primary',

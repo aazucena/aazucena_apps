@@ -7,7 +7,7 @@ import { GanttBar, type GanttTask } from './gantt-bar';
 
 export * from './gantt-bar';
 
-const ganttVariants = cva('overflow-x-auto rounded-control border transition-all duration-300', {
+const ganttVariants = cva('overflow-x-auto rounded-control border', {
   variants: {
     variant: {
       default: 'bg-background border-border',

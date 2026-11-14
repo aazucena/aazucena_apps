@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { ExternalLink } from '@aazucena/icons'; // Assuming ExternalLink icon is available
 
 const chatWebPreviewVariants = cva(
-  'flex flex-col gap-2 rounded-control border bg-background text-foreground transition-all duration-300',
+  'flex flex-col gap-2 rounded-control border bg-background text-foreground',
   {
     variants: {
       variant: {

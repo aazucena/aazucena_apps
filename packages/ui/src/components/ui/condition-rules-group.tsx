@@ -76,7 +76,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
       <div
         ref={ref}
         className={cn(
-          'rounded-control border-l-2 px-3 py-2 transition-all',
+          'rounded-control border-l-2 px-3 py-2 transition-colors',
           depth === 0 && 'border-l-0 pl-0',
           depth > 0 &&
             (variant === 'cyber'
@@ -93,12 +93,12 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
         )}
       >
         <div className="mb-3 flex items-center justify-between gap-3">
-          <div className="bg-muted/50 hover:border-muted-foreground/30 rounded-control flex items-center gap-1 border p-1 transition-all">
+          <div className="bg-muted/50 hover:border-muted-foreground/30 rounded-control flex items-center gap-1 border p-1 transition-colors">
             <button
               type="button"
               onClick={() => onChange({ ...group, logic: 'and' })}
               className={cn(
-                'rounded-control px-3 py-1 text-[10px] font-bold tracking-wider uppercase transition-all',
+                'rounded-control px-3 py-1 text-[10px] font-bold tracking-wider uppercase transition-colors',
                 group.logic === 'and'
                   ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:bg-background/50 hover:text-foreground',
@@ -110,7 +110,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
               type="button"
               onClick={() => onChange({ ...group, logic: 'or' })}
               className={cn(
-                'rounded-control px-3 py-1 text-[10px] font-bold tracking-wider uppercase transition-all',
+                'rounded-control px-3 py-1 text-[10px] font-bold tracking-wider uppercase transition-colors',
                 group.logic === 'or'
                   ? 'bg-secondary-500 text-foreground'
                   : 'text-muted-foreground hover:bg-background/50 hover:text-foreground',
@@ -123,7 +123,7 @@ const ConditionRulesGroup = React.forwardRef<HTMLDivElement, ConditionRulesGroup
             <button
               type="button"
               onClick={onRemove}
-              className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 rounded-control flex h-8 w-8 items-center justify-center border transition-all"
+              className="text-destructive/80 hover:text-destructive border-destructive/20 bg-background hover:border-destructive/40 hover:bg-destructive/10 rounded-control flex h-8 w-8 items-center justify-center border transition-colors"
               aria-label="Remove group"
               title="Delete Group"
             >

@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { Activity, Database } from '@aazucena/icons';
 import { MarkdownRenderer } from './markdown-renderer';
 
-const dataExplorerVariants = cva('w-full transition-all duration-300 font-mono text-xs', {
+const dataExplorerVariants = cva('w-full font-mono text-xs', {
   variants: {
     variant: {
       default: 'text-foreground',
@@ -190,7 +190,7 @@ const RecursiveRenderer = ({
     return (
       <div
         className={cn(
-          'flex flex-col gap-1.5 transition-all',
+          'flex flex-col gap-1.5',
           level > 0 && 'ml-1 border-l border-current/10 py-1 pl-4',
           hasFailedAudit && 'rounded-card border-alert/20 bg-alert/5 my-2 border p-4',
         )}

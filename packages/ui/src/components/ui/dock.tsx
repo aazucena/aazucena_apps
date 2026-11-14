@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const dockVariants = cva('flex items-center gap-2 rounded-card border p-2 transition-all', {
+const dockVariants = cva('flex items-center gap-2 rounded-card border p-2', {
   variants: {
     variant: {
       default: 'bg-background/80 border-border',
@@ -114,7 +114,7 @@ const DockItem = React.forwardRef<HTMLDivElement, DockItemProps>(
           (itemRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
         }}
         className={cn(
-          'rounded-card relative flex size-10 cursor-pointer items-center justify-center transition-transform duration-150 [&_svg]:size-5',
+          'rounded-card relative flex size-10 cursor-pointer items-center justify-center transition-transform duration-(--motion-base) [&_svg]:size-5',
           variant === 'cyber'
             ? 'text-signal hover:bg-signal/10'
             : variant === 'glass'

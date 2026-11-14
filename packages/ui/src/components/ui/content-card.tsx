@@ -89,7 +89,7 @@ const ContentCardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
 );
 ContentCardFooter.displayName = 'ContentCardFooter';
 
-const contentCardImageVariants = cva('relative overflow-hidden transition-all duration-500', {
+const contentCardImageVariants = cva('relative overflow-hidden', {
   variants: {
     aspect: {
       video: 'aspect-video',

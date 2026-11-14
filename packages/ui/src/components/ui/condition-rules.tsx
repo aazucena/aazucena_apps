@@ -9,7 +9,7 @@ import type { ConditionField, ConditionOperator } from './condition-rules-node';
 export * from './condition-rules-node';
 export * from './condition-rules-group';
 
-const conditionRulesVariants = cva('rounded-control border p-4 transition-all duration-300', {
+const conditionRulesVariants = cva('rounded-control border p-4', {
   variants: {
     variant: {
       default: 'bg-background border-border',

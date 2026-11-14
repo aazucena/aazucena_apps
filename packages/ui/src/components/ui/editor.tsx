@@ -7,7 +7,7 @@ import { useEditor, EditorContent, type Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 
-const editorVariants = cva('w-full overflow-hidden rounded-control border transition-all', {
+const editorVariants = cva('w-full overflow-hidden rounded-control border transition', {
   variants: {
     variant: {
       default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',

@@ -93,7 +93,7 @@ export const ReadyState = memo(function ReadyState({
       <Button
         onClick={onContinue}
         size="lg"
-        className="w-full transform gap-2 border-2 transition-all duration-300 hover:scale-105 active:scale-95"
+        className="w-full transform gap-2 border-2 transition-transform duration-(--motion-base) hover:scale-105 active:scale-95"
         style={{
           ...themeStyles.getButtonStyle('primary'),
           // Ensure text is always visible

@@ -92,7 +92,7 @@ const PhoneInput = React.forwardRef<HTMLDivElement, PhoneInputProps>(
       <div
         ref={ref}
         className={cn(
-          'rounded-control flex overflow-hidden border transition-all',
+          'rounded-control flex overflow-hidden border transition-opacity',
           fieldStyles[v],
           phoneInputVariants({ variant, size }),
           disabled && 'pointer-events-none opacity-50',

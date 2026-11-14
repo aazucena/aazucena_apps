@@ -7,7 +7,7 @@ import { Button } from '../button'; // Assuming Button component is available
 import { Message, PlusCircle, CogFour, Trash } from '@aazucena/icons'; // Assuming these icons are available
 
 const chatQuickActionsVariants = cva(
-  'flex flex-wrap items-center gap-2 rounded-control border p-4 transition-all duration-300',
+  'flex flex-wrap items-center gap-2 rounded-control border p-4',
   {
     variants: {
       variant: {

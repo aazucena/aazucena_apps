@@ -7,19 +7,16 @@ import { ChatInput } from './chat-input'; // Will be enhanced later
 import { ChatMessage, ChatFeed } from './chat'; // Existing chat components
 import type { ChatMessageProps } from './chat-message'; // For message type definition
 
-const chatConversationVariants = cva(
-  'flex flex-col h-full rounded-control border transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatConversationVariants = cva('flex flex-col h-full rounded-control border', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface ConversationMessage extends ChatMessageProps {
   id: string;

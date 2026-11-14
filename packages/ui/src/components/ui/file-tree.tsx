@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { ChevronRight, File, Folder } from '@aazucena/icons'; // Assuming these icons are available
 
-const fileTreeVariants = cva('rounded-control border p-4 transition-all duration-300', {
+const fileTreeVariants = cva('rounded-control border p-4', {
   variants: {
     variant: {
       default: 'bg-background border-input',
@@ -80,7 +80,7 @@ const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
             {isFolder && (
               <ChevronRight
                 className={cn(
-                  'h-4 w-4 shrink-0 transition-transform duration-200',
+                  'h-4 w-4 shrink-0 transition-transform duration-(--motion-base)',
                   isExpanded ? 'rotate-90' : 'rotate-0',
                   variant === 'cyber' && 'text-signal',
                   variant === 'glass' && 'text-foreground/70',

@@ -8,7 +8,7 @@ import * as React from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
 const assistantTriggerVariants = cva(
-  'fixed bottom-8 right-8 z-(--z-fixed) flex items-center justify-center transition-all duration-500 hover:scale-110 active:scale-95 group',
+  'fixed bottom-8 right-8 z-(--z-fixed) flex items-center justify-center transition-transform duration-(--motion-base) hover:scale-110 active:scale-95 group',
   {
     variants: {
       variant: {

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cn } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const timelineVariants = cva('relative w-full transition-all duration-300', {
+const timelineVariants = cva('relative w-full', {
   variants: {
     variant: {
       default: '',
@@ -47,7 +47,7 @@ const TimelineItem = React.forwardRef<
 TimelineItem.displayName = 'TimelineItem';
 
 const timelineDotVariants = cva(
-  'flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110',
+  'flex h-6 w-6 items-center justify-center rounded-full transition-transform duration-(--motion-base) group-hover:scale-110',
   {
     variants: {
       variant: {
@@ -80,7 +80,7 @@ const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
         <div
           ref={ref}
           className={cn(
-            'bg-rule-strong dark:bg-panel-raised h-3 w-3 rounded-full transition-all duration-300',
+            'bg-rule-strong dark:bg-panel-raised h-3 w-3 rounded-full transition-colors duration-(--motion-base)',
             variant === 'cyber' && 'bg-signal animate-pulse',
           )}
           {...props}
@@ -91,7 +91,7 @@ const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
 );
 TimelineDot.displayName = 'TimelineDot';
 
-const timelineLineVariants = cva('absolute h-full w-0.5 transition-all duration-300', {
+const timelineLineVariants = cva('absolute h-full w-0.5', {
   variants: {
     variant: {
       default: 'bg-rule-strong',
@@ -120,7 +120,7 @@ const TimelineLine = React.forwardRef<
 ));
 TimelineLine.displayName = 'TimelineLine';
 
-const timelineContentVariants = cva('transition-all duration-500', {
+const timelineContentVariants = cva('', {
   variants: {
     side: {
       left: 'w-full md:w-1/2 ml-8 md:ml-0 md:mr-auto md:pr-16',

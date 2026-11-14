@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const responsiveGridVariants = cva('grid transition-all duration-500', {
+const responsiveGridVariants = cva('grid', {
   variants: {
     cols: {
       1: 'grid-cols-1',

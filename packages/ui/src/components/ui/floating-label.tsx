@@ -79,14 +79,14 @@ const FloatingLabel = React.forwardRef<HTMLInputElement, FloatingLabelProps>(
     const s = size ?? 'md';
 
     const fieldCn = cn(
-      'peer w-full rounded-control border outline-none transition-all',
+      'peer w-full rounded-control border outline-none transition-[border-color,box-shadow]',
       inputClasses.variant?.[v],
       inputClasses.size?.[s],
       className,
     );
 
     const labelCn = cn(
-      'pointer-events-none absolute transition-all duration-200',
+      'pointer-events-none absolute transition-[top,font-size,color] duration-(--motion-base)',
       labelClasses.variant?.[v],
       labelClasses.size?.[s],
     );

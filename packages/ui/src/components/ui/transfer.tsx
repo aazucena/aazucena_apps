@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const transferVariants = cva('flex items-stretch gap-2 transition-all', {
+const transferVariants = cva('flex items-stretch gap-2 transition-opacity', {
   variants: {
     variant: {
       default: '',
@@ -209,7 +209,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
             disabled={disabled || sourceSelected.size === 0}
             onClick={moveToTarget}
             className={cn(
-              'rounded-control border p-1.5 transition-all disabled:opacity-30',
+              'rounded-control border p-1.5 transition disabled:opacity-30',
               v === 'cyber'
                 ? 'border-signal/30 text-signal hover:bg-signal/10'
                 : 'border-border hover:bg-state',
@@ -233,7 +233,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
             disabled={disabled || targetSelected.size === 0}
             onClick={moveToSource}
             className={cn(
-              'rounded-control border p-1.5 transition-all disabled:opacity-30',
+              'rounded-control border p-1.5 transition disabled:opacity-30',
               v === 'cyber'
                 ? 'border-signal/30 text-signal hover:bg-signal/10'
                 : 'border-border hover:bg-state',

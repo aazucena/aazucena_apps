@@ -4,24 +4,21 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const snippetVariants = cva(
-  'inline-flex items-center gap-2 rounded-control border font-mono transition-all',
-  {
-    variants: {
-      variant: {
-        default: 'bg-muted/50 border-border text-foreground',
-        glass: 'glass border-rule text-foreground',
-        cyber: 'bg-panel border-signal/30 text-signal',
-      },
-      size: {
-        sm: 'h-8 px-2.5 text-xs',
-        md: 'h-9 px-3 text-sm',
-        lg: 'h-10 px-4 text-base',
-      },
+const snippetVariants = cva('inline-flex items-center gap-2 rounded-control border font-mono', {
+  variants: {
+    variant: {
+      default: 'bg-muted/50 border-border text-foreground',
+      glass: 'glass border-rule text-foreground',
+      cyber: 'bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default', size: 'md' },
+    size: {
+      sm: 'h-8 px-2.5 text-xs',
+      md: 'h-9 px-3 text-sm',
+      lg: 'h-10 px-4 text-base',
+    },
   },
-);
+  defaultVariants: { variant: 'default', size: 'md' },
+});
 
 export interface SnippetProps
   extends

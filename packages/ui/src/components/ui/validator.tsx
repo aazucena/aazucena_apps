@@ -50,7 +50,7 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
           >
             <div
               className={cn(
-                'h-full rounded-full transition-all duration-300',
+                'h-full rounded-full transition-[width,background-color] duration-(--motion-base)',
                 pct === 100
                   ? v === 'cyber'
                     ? 'bg-success'

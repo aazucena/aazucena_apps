@@ -5,19 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { FileText, Link, Code, Download } from '@aazucena/icons'; // Assuming these icons are available
 
-const chatArtifactVariants = cva(
-  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatArtifactVariants = cva('flex flex-col gap-3 rounded-control border p-4', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export type ArtifactType = 'file' | 'link' | 'code' | 'other';
 
@@ -73,7 +70,7 @@ const ChatArtifact = React.forwardRef<HTMLDivElement, ChatArtifactProps>(
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    'hover:bg-muted/50 rounded-control flex items-center gap-2 border p-2 text-sm font-medium transition-colors duration-200',
+                    'hover:bg-muted/50 rounded-control flex items-center gap-2 border p-2 text-sm font-medium transition-colors duration-(--motion-base)',
                     variant === 'cyber' && 'border-signal/30 text-signal hover:bg-signal/10',
                     variant === 'glass' && 'border-input/20 hover:bg-state',
                   )}

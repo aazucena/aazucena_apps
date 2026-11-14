@@ -88,7 +88,7 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, CodeBlockHeaderP
             type="button"
             onClick={onCopy}
             className={cn(
-              'rounded-control flex min-w-[64px] items-center justify-center gap-1.5 px-2 py-1 text-[10px] font-bold uppercase transition-all active:scale-95',
+              'rounded-control flex min-w-[64px] items-center justify-center gap-1.5 px-2 py-1 text-[10px] font-bold uppercase transition active:scale-95',
               v === 'cyber'
                 ? 'text-muted-foreground hover:bg-signal/10 hover:text-signal'
                 : 'text-muted-foreground hover:bg-state hover:text-foreground',

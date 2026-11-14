@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Progress } from './progress';
 
-export const dataListVariants = cva('w-full transition-all duration-500 overflow-hidden', {
+export const dataListVariants = cva('w-full overflow-hidden', {
   variants: {
     variant: {
       default: 'bg-card border border-border rounded-card',

@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { ArrowUp, ArrowDown, Activity } from '@aazucena/icons';
 
 const trendVariants = cva(
-  'inline-flex items-center gap-1 font-mono text-[10px] font-black uppercase tracking-tighter transition-all duration-300',
+  'inline-flex items-center gap-1 font-mono text-[10px] font-black uppercase tracking-tighter',
   {
     variants: {
       direction: {

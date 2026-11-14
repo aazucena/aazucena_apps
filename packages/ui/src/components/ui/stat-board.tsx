@@ -8,21 +8,18 @@ import { cn } from '@aazucena/utils';
  * Stat Board (Metric Collection) Components
  */
 
-export const statBoardVariants = cva(
-  'rounded-card border transition-all duration-500 overflow-hidden',
-  {
-    variants: {
-      variant: {
-        default: 'bg-card border-border p-8',
-        glass: 'bg-background/10 border-border/20 text-foreground p-12 md:p-20',
-        cyber: 'bg-background/80 dark:bg-panel border border-signal/30 text-foreground p-8',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+export const statBoardVariants = cva('rounded-card border overflow-hidden', {
+  variants: {
+    variant: {
+      default: 'bg-card border-border p-8',
+      glass: 'bg-background/10 border-border/20 text-foreground p-12 md:p-20',
+      cyber: 'bg-background/80 dark:bg-panel border border-signal/30 text-foreground p-8',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 export const StatBoard = React.forwardRef<
   HTMLDivElement,

@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Button, buttonVariants } from './button';
 
-const calendarVariants = cva('p-4 transition-all duration-300', {
+const calendarVariants = cva('p-4', {
   variants: {
     variant: {
       default: 'bg-background',

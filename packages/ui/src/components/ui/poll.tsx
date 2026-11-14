@@ -6,19 +6,16 @@ import { cn } from '@aazucena/utils';
 import { Button } from './button';
 import { Progress } from './progress';
 
-const pollVariants = cva(
-  'flex flex-col gap-4 rounded-control border p-6 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const pollVariants = cva('flex flex-col gap-4 rounded-control border p-6', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface PollOption {
   id: string;

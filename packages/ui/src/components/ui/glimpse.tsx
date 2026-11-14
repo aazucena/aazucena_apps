@@ -10,7 +10,7 @@ import { Skeleton } from './skeleton';
 import { useGlimpse } from '../../hooks/use-glimpse';
 
 const glimpsePreviewVariants = cva(
-  'absolute z-(--z-dropdown) overflow-hidden rounded-card border bg-popover transition-all duration-300',
+  'absolute z-(--z-dropdown) overflow-hidden rounded-card border bg-popover',
   {
     variants: {
       variant: {

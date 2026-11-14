@@ -4,21 +4,18 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const identityVariants = cva(
-  'flex flex-col md:flex-row items-center md:items-start gap-12 transition-all duration-500',
-  {
-    variants: {
-      variant: {
-        default: '',
-        glass: 'text-foreground',
-        cyber: 'text-foreground',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const identityVariants = cva('flex flex-col md:flex-row items-center md:items-start gap-12', {
+  variants: {
+    variant: {
+      default: '',
+      glass: 'text-foreground',
+      cyber: 'text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const Identity = React.forwardRef<
   HTMLDivElement,
@@ -33,7 +30,7 @@ const IdentityProfile = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & { src?: string; alt?: string }
 >(({ className, src, alt, ...props }, ref) => (
   <div ref={ref} className={cn('group relative flex-shrink-0', className)} {...props}>
-    <div className="rounded-card absolute inset-0 opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
+    <div className="rounded-card absolute inset-0 opacity-20 blur-2xl transition-opacity duration-(--motion-base) group-hover:opacity-40" />
     <div className="border-border rounded-card relative h-48 w-48 overflow-hidden border-2 md:h-64 md:w-64">
       {src && (
         <img

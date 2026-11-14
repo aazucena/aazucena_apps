@@ -9,7 +9,7 @@ import { cn } from '@aazucena/utils';
  */
 
 export const statusMonitorAlertVariants = cva(
-  'group flex items-center justify-between rounded-card border p-4 transition-all duration-300',
+  'group flex items-center justify-between rounded-card border p-4 transition-colors duration-(--motion-base)',
   {
     variants: {
       level: {

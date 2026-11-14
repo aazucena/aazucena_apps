@@ -46,11 +46,7 @@ SidebarBlockContent.displayName = 'SidebarBlockContent';
 
 const SidebarBlockItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('group flex items-center gap-4 transition-all', className)}
-      {...props}
-    />
+    <div ref={ref} className={cn('group flex items-center gap-4', className)} {...props} />
   ),
 );
 SidebarBlockItem.displayName = 'SidebarBlockItem';

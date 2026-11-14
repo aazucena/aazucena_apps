@@ -66,7 +66,7 @@ const Gallery = React.forwardRef<HTMLDivElement, GalleryProps>(
                 type="button"
                 onClick={() => setOpenIndex(i)}
                 className={cn(
-                  'relative aspect-square overflow-hidden transition-all focus-visible:outline-none',
+                  'relative aspect-square overflow-hidden transition focus-visible:outline-none',
                   thumbStyles[v],
                 )}
               >

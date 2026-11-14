@@ -5,21 +5,18 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { Button } from './button';
 
-const playbackVariants = cva(
-  'flex items-center gap-6 px-8 py-4 border-b transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-panel dark:bg-panel/50 border-rule',
-        glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
-        cyber: 'bg-background border border-border dark:border-signal/30 text-foreground',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const playbackVariants = cva('flex items-center gap-6 px-8 py-4 border-b', {
+  variants: {
+    variant: {
+      default: 'bg-panel dark:bg-panel/50 border-rule',
+      glass: 'bg-background/5 dark:bg-state border-border/10 text-foreground',
+      cyber: 'bg-background border border-border dark:border-signal/30 text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const Playback = React.forwardRef<
   HTMLDivElement,
@@ -62,7 +59,7 @@ const PlaybackButton = React.forwardRef<
     variant={variant}
     size={size}
     className={cn(
-      'rounded-card transition-all',
+      'rounded-card transition-colors',
       active && 'bg-primary text-primary-foreground',
       className,
     )}

@@ -83,7 +83,7 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
             cy="50"
           />
           <circle
-            className={cn('transition-all duration-500 ease-out', indicatorColor)}
+            className={cn('transition-[stroke-dashoffset] duration-500 ease-out', indicatorColor)}
             strokeWidth={strokeWidth}
             fill="transparent"
             r={radius}

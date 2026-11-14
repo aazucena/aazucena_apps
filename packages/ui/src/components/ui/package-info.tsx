@@ -5,24 +5,21 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Package, GitFork, License, Code, Info, User } from '@aazucena/icons';
 
-const packageInfoVariants = cva(
-  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
-      size: {
-        default: 'text-sm',
-        sm: 'text-xs',
-        lg: 'text-base',
-      },
+const packageInfoVariants = cva('flex flex-col gap-3 rounded-control border p-4', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default', size: 'default' },
+    size: {
+      default: 'text-sm',
+      sm: 'text-xs',
+      lg: 'text-base',
+    },
   },
-);
+  defaultVariants: { variant: 'default', size: 'default' },
+});
 
 export interface PackageMetadata {
   name: string;

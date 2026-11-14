@@ -31,7 +31,7 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const dialogContentVariants = cva(
-  'fixed top-1/2 left-1/2 z-(--z-modal) grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 border duration-200 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-closed:slide-out-to-left-1/2 data-closed:slide-out-to-top-[48%] data-open:slide-in-from-left-1/2 data-open:slide-in-from-top-[48%] overflow-hidden transition-all',
+  'fixed top-1/2 left-1/2 z-(--z-modal) grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 border duration-(--motion-base) data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-closed:slide-out-to-left-1/2 data-closed:slide-out-to-top-[48%] data-open:slide-in-from-left-1/2 data-open:slide-in-from-top-[48%] overflow-hidden',
   {
     variants: {
       variant: {
@@ -109,7 +109,7 @@ const DialogIcon = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'rounded-card flex h-16 w-16 items-center justify-center border-4 text-3xl transition-transform duration-500 hover:scale-110',
+      'rounded-card flex h-16 w-16 items-center justify-center border-4 text-3xl transition-transform duration-(--motion-base) hover:scale-110',
       variant === 'cyber'
         ? 'bg-background border-signal/20 text-signal'
         : 'text-primary border-border/20 bg-panel dark:bg-panel-raised',

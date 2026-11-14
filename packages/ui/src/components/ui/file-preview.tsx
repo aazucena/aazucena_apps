@@ -8,7 +8,7 @@ import { Button } from './button';
 import { File as FileIcon, Trash } from '@aazucena/icons'; // Assuming these icons are available
 
 const filePreviewVariants = cva(
-  'group flex items-center justify-between gap-4 p-3 rounded-control transition-colors duration-200',
+  'group flex items-center justify-between gap-4 p-3 rounded-control transition-colors duration-(--motion-base)',
   {
     variants: {
       variant: {

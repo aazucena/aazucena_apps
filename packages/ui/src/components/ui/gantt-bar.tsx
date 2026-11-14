@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const ganttBarVariants = cva(
-  'absolute flex h-8 items-center rounded-control px-2 text-xs font-medium transition-all hover:brightness-110 cursor-pointer',
+  'absolute flex h-8 items-center rounded-control px-2 text-xs font-medium transition-[left,width,filter] hover:brightness-110 cursor-pointer',
   {
     variants: {
       variant: {

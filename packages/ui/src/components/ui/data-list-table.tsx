@@ -33,7 +33,7 @@ export const DataListRow = React.forwardRef<
 ));
 DataListRow.displayName = 'DataListRow';
 
-export const dataListCellVariants = cva('px-6 py-4 transition-all duration-300', {
+export const dataListCellVariants = cva('px-6 py-4', {
   variants: {
     type: {
       default: '',

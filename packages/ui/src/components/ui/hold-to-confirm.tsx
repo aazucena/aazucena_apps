@@ -7,7 +7,7 @@ import { motion, useAnimation, AnimatePresence, MotionConfig } from 'framer-moti
 import { Check } from '@aazucena/icons';
 
 const holdToConfirmVariants = cva(
-  'relative w-full overflow-hidden rounded-control border transition-all cursor-pointer select-none flex items-center justify-center font-medium text-sm',
+  'relative w-full overflow-hidden rounded-control border transition cursor-pointer select-none flex items-center justify-center font-medium text-sm',
   {
     variants: {
       variant: {

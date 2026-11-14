@@ -15,7 +15,7 @@ import {
 import { Checkbox } from './checkbox'; // Assuming Checkbox is available
 
 const consentManagerVariants = cva(
-  'fixed bottom-0 left-0 right-0 z-(--z-fixed) flex flex-col gap-4 border-t bg-background p-4 transition-transform duration-300 ease-out data-[state=closed]:translate-y-full data-[state=open]:translate-y-0',
+  'fixed bottom-0 left-0 right-0 z-(--z-fixed) flex flex-col gap-4 border-t bg-background p-4 transition-transform duration-(--motion-base) ease-out data-[state=closed]:translate-y-full data-[state=open]:translate-y-0',
   {
     variants: {
       variant: {

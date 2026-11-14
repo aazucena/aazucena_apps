@@ -48,10 +48,10 @@ const Swap = React.forwardRef<HTMLDivElement, SwapProps>(
     };
 
     const transitionClass = rotate
-      ? 'transition-transform duration-300'
+      ? 'transition-transform duration-(--motion-base)'
       : flip
-        ? 'transition-transform duration-300'
-        : 'transition-opacity duration-200';
+        ? 'transition-transform duration-(--motion-base)'
+        : 'transition-opacity duration-(--motion-base)';
 
     const activeTransform = rotate ? 'rotate-180' : flip ? 'scale-x-0' : 'opacity-0';
 

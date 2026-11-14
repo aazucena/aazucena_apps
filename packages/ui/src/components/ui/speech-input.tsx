@@ -42,19 +42,16 @@ type WindowWithSpeech = Window & {
   webkitSpeechRecognition?: SpeechRecognitionConstructor;
 };
 
-const speechInputVariants = cva(
-  'flex items-center gap-2 rounded-control border p-2 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const speechInputVariants = cva('flex items-center gap-2 rounded-control border p-2', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface SpeechInputProps
   extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof speechInputVariants> {

@@ -6,7 +6,7 @@ import { cn } from '@aazucena/utils';
 import { AwardBadge } from '@aazucena/icons';
 
 const hexagonCardVariants = cva(
-  'group relative flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all duration-300',
+  'group relative flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring transition duration-(--motion-base)',
   {
     variants: {
       variant: {
@@ -27,7 +27,7 @@ const hexagonCardVariants = cva(
 );
 
 const hexagonIconVariants = cva(
-  'mb-3 flex items-center justify-center rounded-card transition-all duration-300 group-hover:scale-110',
+  'mb-3 flex items-center justify-center rounded-card transition-transform duration-(--motion-base) group-hover:scale-110',
   {
     variants: {
       variant: {
@@ -71,7 +71,7 @@ const HexagonCard = React.forwardRef<HTMLDivElement, HexagonCardProps>(
             stroke="currentColor"
             strokeWidth="2"
             strokeDasharray={dashed ? '8,4' : undefined}
-            className="group-hover:fill-opacity-20 transition-all duration-300 group-hover:stroke-[3]"
+            className="group-hover:fill-opacity-20 transition-colors duration-(--motion-base) group-hover:stroke-[3]"
           />
         </svg>
 

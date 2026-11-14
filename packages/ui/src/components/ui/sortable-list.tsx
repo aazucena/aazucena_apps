@@ -4,19 +4,16 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const sortableListVariants = cva(
-  'flex flex-col gap-1 rounded-control transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: '',
-        glass: 'rounded-card p-3 glass',
-        cyber: 'rounded-card p-3 bg-background/40 dark:bg-panel border border-signal/30',
-      },
+const sortableListVariants = cva('flex flex-col gap-1 rounded-control', {
+  variants: {
+    variant: {
+      default: '',
+      glass: 'rounded-card p-3 glass',
+      cyber: 'rounded-card p-3 bg-background/40 dark:bg-panel border border-signal/30',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface DragHandleProps {
   draggable: true;
@@ -81,7 +78,7 @@ function SortableListInner<T>(
         <div
           key={keyExtractor(item)}
           className={cn(
-            'transition-all duration-150',
+            'transition duration-(--motion-base)',
             dragIdx === index && 'opacity-50',
             overIdx === index && dragIdx !== index && 'border-primary border-t-2',
           )}

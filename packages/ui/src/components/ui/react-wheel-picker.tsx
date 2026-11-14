@@ -14,7 +14,7 @@ import {
 } from 'framer-motion';
 
 const wheelPickerVariants = cva(
-  'relative flex items-center justify-center overflow-hidden transition-all duration-300 select-none',
+  'relative flex items-center justify-center overflow-hidden select-none',
   {
     variants: {
       variant: {

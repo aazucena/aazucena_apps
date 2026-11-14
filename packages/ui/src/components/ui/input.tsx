@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const inputVariants = cva(
-  'flex h-control w-full rounded-control border bg-background px-3 py-1 font-mono text-[13px] text-foreground transition-[border-color,background-color] duration-200 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground outline-none focus-visible:outline-1 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-signal focus-visible:border-signal aria-invalid:border-alert disabled:cursor-not-allowed disabled:opacity-50',
+  'flex h-control w-full rounded-control border bg-background px-3 py-1 font-mono text-[13px] text-foreground transition-[border-color,background-color] duration-(--motion-base) file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground outline-none focus-visible:outline-1 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-signal focus-visible:border-signal aria-invalid:border-alert disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {

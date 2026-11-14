@@ -26,7 +26,7 @@ export const PreloaderProgress = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Progress>
 >(({ className, ...props }, ref) => (
   <div className="w-full space-y-2">
-    <Progress ref={ref} className={cn('h-2 transition-all duration-300', className)} {...props} />
+    <Progress ref={ref} className={cn('h-2', className)} {...props} />
   </div>
 ));
 PreloaderProgress.displayName = 'PreloaderProgress';

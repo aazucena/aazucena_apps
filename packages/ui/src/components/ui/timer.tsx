@@ -7,19 +7,16 @@ import { Button } from './button';
 import { Play, Pause, Refresh, Plus, Minus } from '@aazucena/icons';
 import { useTimer } from '@aazucena/hooks';
 
-const timerVariants = cva(
-  'flex flex-col items-center gap-6 rounded-card border p-8 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-card border-border text-card-foreground',
-        glass: 'glass border-rule text-foreground',
-        cyber: 'bg-background border-signal/20 text-signal font-mono',
-      },
+const timerVariants = cva('flex flex-col items-center gap-6 rounded-card border p-8', {
+  variants: {
+    variant: {
+      default: 'bg-card border-border text-card-foreground',
+      glass: 'glass border-rule text-foreground',
+      cyber: 'bg-background border-signal/20 text-signal font-mono',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface TimerProps
   extends
@@ -79,7 +76,7 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
         <div className="flex flex-col items-center gap-1">
           <div
             className={cn(
-              'font-mono text-5xl tracking-tighter tabular-nums transition-all duration-300',
+              'font-mono text-5xl tracking-tighter tabular-nums transition duration-(--motion-base)',
               isRunning && 'text-primary scale-110',
               time === 0 && 'text-alert opacity-50',
             )}

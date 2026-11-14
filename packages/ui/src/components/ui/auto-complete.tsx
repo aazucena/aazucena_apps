@@ -120,7 +120,7 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
           onFocus={() => setOpen(true)}
           onBlur={handleBlur}
           className={cn(
-            'rounded-control flex w-full border transition-all outline-none',
+            'rounded-control flex w-full border transition-opacity outline-none',
             triggerClasses[v],
             sizeClasses[s],
             disabled && 'pointer-events-none opacity-50',

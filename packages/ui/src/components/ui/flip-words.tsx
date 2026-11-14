@@ -5,7 +5,7 @@ import { useFlipText, type FlipTextOptions } from '@aazucena/hooks';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const taglineVariants = cva('mb-8 text-center leading-relaxed transition-all duration-500', {
+const taglineVariants = cva('mb-8 text-center leading-relaxed', {
   variants: {
     variant: {
       default: 'text-xl md:text-2xl text-muted-foreground',
@@ -17,7 +17,7 @@ const taglineVariants = cva('mb-8 text-center leading-relaxed transition-all dur
   },
 });
 
-const flipWordVariants = cva('inline-block font-semibold transition-all duration-300', {
+const flipWordVariants = cva('inline-block font-semibold', {
   variants: {
     variant: {
       default: 'text-primary',

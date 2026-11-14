@@ -7,7 +7,7 @@ import { IconRenderer } from './icon-renderer';
 import { X } from '@aazucena/icons';
 
 const alertVariants = cva(
-  'relative w-full rounded-card border px-4 py-3 text-sm transition-all duration-300 flex gap-3',
+  'relative w-full rounded-card border px-4 py-3 text-sm transition-colors duration-(--motion-base) flex gap-3',
   {
     variants: {
       variant: {

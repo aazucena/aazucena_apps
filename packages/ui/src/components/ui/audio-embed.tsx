@@ -105,7 +105,7 @@ const AudioEmbed = React.forwardRef<HTMLDivElement, AudioEmbedProps>(
           >
             <div
               className={cn(
-                'h-full rounded-full transition-[width] duration-200',
+                'h-full rounded-full transition-[width] duration-(--motion-base)',
                 v === 'cyber' ? 'bg-signal' : 'bg-primary',
               )}
               style={{ width: `${pct}%` }}

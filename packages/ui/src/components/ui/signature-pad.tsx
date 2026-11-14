@@ -4,19 +4,16 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const signaturePadVariants = cva(
-  'flex flex-col gap-2 rounded-control border transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-border',
-        glass: 'glass border-border/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30',
-      },
+const signaturePadVariants = cva('flex flex-col gap-2 rounded-control border', {
+  variants: {
+    variant: {
+      default: 'bg-background border-border',
+      glass: 'glass border-border/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface SignaturePadProps
   extends

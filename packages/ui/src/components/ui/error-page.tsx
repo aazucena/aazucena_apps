@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 const errorPageVariants = cva(
-  'min-h-[80vh] flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500 text-center rounded-card border',
+  'min-h-[80vh] flex flex-col items-center justify-center relative overflow-hidden text-center rounded-card border',
   {
     variants: {
       variant: {

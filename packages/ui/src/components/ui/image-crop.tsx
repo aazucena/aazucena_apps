@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const imageCropVariants = cva(
-  'relative inline-block select-none overflow-hidden rounded-control border transition-all duration-300',
+  'relative inline-block select-none overflow-hidden rounded-control border',
   {
     variants: {
       variant: {

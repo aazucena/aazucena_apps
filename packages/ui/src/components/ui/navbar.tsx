@@ -8,7 +8,7 @@ import { cn } from '@aazucena/utils';
 import { Button } from './button';
 
 const navbarVariants = cva(
-  'fixed top-0 right-0 left-0 z-(--z-fixed) border-b transition-all duration-500',
+  'fixed top-0 right-0 left-0 z-(--z-fixed) border-b transition-[padding,background-color,border-color] duration-500',
   {
     variants: {
       variant: {
@@ -96,21 +96,18 @@ const NavbarBrand = React.forwardRef<
 ));
 NavbarBrand.displayName = 'NavbarBrand';
 
-const navbarContentVariants = cva(
-  'hidden items-center gap-1 rounded-card border p-1.5 md:flex transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-panel/50 border-rule',
-        glass: 'bg-background/10 dark:bg-state border-border/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/20',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const navbarContentVariants = cva('hidden items-center gap-1 rounded-card border p-1.5 md:flex', {
+  variants: {
+    variant: {
+      default: 'bg-panel/50 border-rule',
+      glass: 'bg-background/10 dark:bg-state border-border/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/20',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const NavbarContent = React.forwardRef<
   HTMLDivElement,

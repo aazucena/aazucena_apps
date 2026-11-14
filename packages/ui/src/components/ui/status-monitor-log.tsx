@@ -15,7 +15,7 @@ export const StatusMonitorLog = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'rounded-card overflow-hidden border transition-all duration-500',
+      'rounded-card overflow-hidden border transition duration-(--motion-base)',
       isExpanded ? 'scale-[1.01]' : 'hover:border-current/20',
       className,
     )}

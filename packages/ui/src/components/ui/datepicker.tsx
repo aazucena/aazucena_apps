@@ -90,7 +90,7 @@ const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>(
           disabled={disabled}
           onClick={() => inputRef.current?.showPicker()}
           className={cn(
-            'rounded-control flex w-full items-center gap-2 border transition-all outline-none',
+            'rounded-control flex w-full items-center gap-2 border transition-opacity outline-none',
             triggerStyles[v],
             sizeStyles[s],
             disabled && 'pointer-events-none opacity-50',

@@ -13,7 +13,7 @@ export const ChatThreadList = React.forwardRef<
 ChatThreadList.displayName = 'ChatThreadList';
 
 export const chatThreadVariants = cva(
-  'w-full p-4 rounded-card border text-left transition-all group relative overflow-hidden flex items-start gap-3 cursor-pointer',
+  'w-full p-4 rounded-card border text-left transition-colors group relative overflow-hidden flex items-start gap-3 cursor-pointer',
   {
     variants: {
       variant: {
@@ -112,7 +112,7 @@ export const ChatThreadMeta = React.forwardRef<
 ChatThreadMeta.displayName = 'ChatThreadMeta';
 
 export const chatThreadActionVariants = cva(
-  'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-card transition-all z-20 opacity-0 group-hover/thread:opacity-100 border focus:opacity-100',
+  'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-card transition z-20 opacity-0 group-hover/thread:opacity-100 border focus:opacity-100',
   {
     variants: {
       variant: {

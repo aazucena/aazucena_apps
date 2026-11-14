@@ -8,7 +8,7 @@ import { Activity, Shield, Zap, Lock, X } from '@aazucena/icons';
 import { Button } from './button';
 
 const comingSoonVariants = cva(
-  'relative group overflow-hidden border transition-all duration-500 flex flex-col items-center justify-center text-center p-12 min-h-[300px]',
+  'relative group overflow-hidden border flex flex-col items-center justify-center text-center p-12 min-h-[300px]',
   {
     variants: {
       variant: {

@@ -15,7 +15,7 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible';
 
 const announcementVariants = cva(
-  'relative w-full flex items-center justify-center gap-4 px-4 py-2 text-sm font-medium transition-all duration-300 border-b',
+  'relative w-full flex items-center justify-center gap-4 px-4 py-2 text-sm font-medium border-b',
   {
     variants: {
       variant: {
@@ -124,7 +124,7 @@ const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
                   size="icon"
                   className="size-6 text-current hover:bg-current/10"
                 >
-                  <ChevronDown className="size-3 transition-transform duration-200 data-[state=open]:rotate-180" />
+                  <ChevronDown className="size-3 transition-transform duration-(--motion-base) data-[state=open]:rotate-180" />
                 </Button>
               </CollapsibleTrigger>
               <CollapsibleContent className="absolute top-full left-0 z-(--z-dropdown) w-full border-b bg-inherit p-4">

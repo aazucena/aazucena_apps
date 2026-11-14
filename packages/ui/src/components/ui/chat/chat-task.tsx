@@ -6,19 +6,16 @@ import { cn } from '@aazucena/utils';
 import { Badge } from '../../ui/badge'; // Assuming Badge component is available
 import { CheckCircle, Circle, XCircle, ClockCircle } from '@aazucena/icons'; // Assuming these icons are available
 
-const chatTaskVariants = cva(
-  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatTaskVariants = cva('flex flex-col gap-3 rounded-control border p-4', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export type TaskStatus = 'todo' | 'in-progress' | 'done' | 'cancelled';
 

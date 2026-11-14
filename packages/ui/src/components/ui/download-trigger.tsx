@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const downloadTriggerVariants = cva(
-  'inline-flex items-center gap-2 rounded-control border transition-all',
+  'inline-flex items-center gap-2 rounded-control border transition',
   {
     variants: {
       variant: {

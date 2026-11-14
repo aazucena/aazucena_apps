@@ -8,7 +8,7 @@ import { cn } from '@aazucena/utils';
  * Data List Grid Components
  */
 
-export const dataListGridVariants = cva('grid transition-all duration-300', {
+export const dataListGridVariants = cva('grid', {
   variants: {
     cols: {
       1: 'grid-cols-1',
@@ -37,7 +37,7 @@ export const DataListGrid = React.forwardRef<
 DataListGrid.displayName = 'DataListGrid';
 
 export const dataListItemVariants = cva(
-  'p-4 flex items-center justify-between transition-all duration-300 rounded-card border',
+  'p-4 flex items-center justify-between transition-colors duration-(--motion-base) rounded-card border',
   {
     variants: {
       variant: {

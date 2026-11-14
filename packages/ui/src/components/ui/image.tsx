@@ -87,7 +87,7 @@ const ImageComponent = React.forwardRef<HTMLImageElement, ImageProps>(
             onLoad={() => setStatus('loaded')}
             onError={() => setStatus('error')}
             className={cn(
-              'h-full w-full transition-opacity duration-300',
+              'h-full w-full transition-opacity duration-(--motion-base)',
               status === 'loaded' ? 'opacity-100' : 'opacity-0',
             )}
             {...props}

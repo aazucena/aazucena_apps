@@ -5,24 +5,21 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { ArrowLeft, ArrowRight } from '@aazucena/icons';
 
-const detailNavigationVariants = cva(
-  'grid grid-cols-1 gap-8 md:grid-cols-2 mt-20 border-t pt-12 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'border-border',
-        glass: 'border-border/10',
-        cyber: 'border-border dark:border-signal/20',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const detailNavigationVariants = cva('grid grid-cols-1 gap-8 md:grid-cols-2 mt-20 border-t pt-12', {
+  variants: {
+    variant: {
+      default: 'border-border',
+      glass: 'border-border/10',
+      cyber: 'border-border dark:border-signal/20',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 const detailNavItemVariants = cva(
-  'group space-y-2 p-8 transition-all duration-300 rounded-card border',
+  'group space-y-2 p-8 transition-colors duration-(--motion-base) rounded-card border',
   {
     variants: {
       variant: {

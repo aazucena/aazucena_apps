@@ -5,24 +5,21 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { ChevronsUpDown, Braces, Info, Type, List } from '@aazucena/icons';
 
-const schemaDisplayVariants = cva(
-  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
-      size: {
-        default: 'text-sm',
-        sm: 'text-xs',
-        lg: 'text-base',
-      },
+const schemaDisplayVariants = cva('flex flex-col gap-3 rounded-control border p-4', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default', size: 'default' },
+    size: {
+      default: 'text-sm',
+      sm: 'text-xs',
+      lg: 'text-base',
+    },
   },
-);
+  defaultVariants: { variant: 'default', size: 'default' },
+});
 
 export interface SchemaProperty {
   name: string;
@@ -114,7 +111,7 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
             {isObject && (
               <ChevronsUpDown
                 className={cn(
-                  'h-3 w-3 shrink-0 transition-transform duration-200',
+                  'h-3 w-3 shrink-0 transition-transform duration-(--motion-base)',
                   isNodeExpanded ? 'rotate-90' : 'rotate-0',
                   variant === 'cyber' && 'text-muted-foreground',
                   variant === 'glass' && 'text-foreground/50',

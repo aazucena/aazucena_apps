@@ -8,19 +8,16 @@ import { Badge } from '../badge';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../collapsible';
 import { ChevronsUpDown } from '@aazucena/icons'; // Re-import for collapsible trigger
 
-const chatTestResultsVariants = cva(
-  'flex flex-col gap-3 rounded-control border p-4 transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-background border-input',
-        glass: 'glass border-input/20',
-        cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
-      },
+const chatTestResultsVariants = cva('flex flex-col gap-3 rounded-control border p-4', {
+  variants: {
+    variant: {
+      default: 'bg-background border-input',
+      glass: 'glass border-input/20',
+      cyber: 'bg-background/40 dark:bg-panel border-signal/30 text-signal',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 export interface TestCase {
   id: string;
@@ -117,7 +114,7 @@ const ChatTestResults = React.forwardRef<HTMLDivElement, ChatTestResultsProps>(
           <Collapsible>
             <CollapsibleTrigger className="flex w-full items-center justify-between text-left text-sm font-semibold">
               <span>View Details ({testCases.length})</span>
-              <ChevronsUpDown className="h-4 w-4 shrink-0 transition-transform duration-200 data-[state=closed]:rotate-0 data-[state=open]:rotate-180" />
+              <ChevronsUpDown className="h-4 w-4 shrink-0 transition-transform duration-(--motion-base) data-[state=closed]:rotate-0 data-[state=open]:rotate-180" />
             </CollapsibleTrigger>
             <CollapsibleContent className="mt-2 space-y-1">
               {testCases.map((testCase) => {

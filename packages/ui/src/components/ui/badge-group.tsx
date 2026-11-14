@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 import { Badge } from './badge';
 
-const badgeGroupVariants = cva('flex flex-wrap gap-2 transition-all duration-300', {
+const badgeGroupVariants = cva('flex flex-wrap gap-2', {
   variants: {
     alignment: {
       left: 'justify-start',

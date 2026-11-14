@@ -5,7 +5,7 @@ import { cn, toTitleCase } from '@aazucena/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-const tocVariants = cva('fixed z-(--z-fixed) hidden xl:block transition-all duration-300', {
+const tocVariants = cva('fixed z-(--z-fixed) hidden xl:block', {
   variants: {
     variant: {
       default: 'bg-background border border-border rounded-card p-4',
@@ -26,7 +26,7 @@ const tocVariants = cva('fixed z-(--z-fixed) hidden xl:block transition-all dura
 });
 
 const tocItemVariants = cva(
-  'block w-full break-words rounded-card px-3 py-1.5 text-sm transition-all duration-300',
+  'block w-full break-words rounded-card px-3 py-1.5 text-sm transition-colors duration-(--motion-base)',
   {
     variants: {
       variant: {

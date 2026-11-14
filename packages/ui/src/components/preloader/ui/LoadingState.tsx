@@ -104,7 +104,7 @@ export const LoadingState = memo(function LoadingState({
       <div className="space-y-2">
         <Progress
           value={progress}
-          className="h-2 transition-all duration-300"
+          className="h-2"
           style={progressStyle}
           aria-label={`Loading progress: ${progress}%`}
         />

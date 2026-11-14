@@ -24,7 +24,7 @@ export const SidebarInset = React.forwardRef<HTMLDivElement, React.ComponentProp
 );
 SidebarInset.displayName = 'SidebarInset';
 
-export const sidebarHeaderVariants = cva('flex flex-col gap-2 p-2 transition-all duration-300', {
+export const sidebarHeaderVariants = cva('flex flex-col gap-2 p-2', {
   variants: {
     variant: {
       default: '',

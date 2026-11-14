@@ -14,7 +14,7 @@ import {
 } from '../dialog'; // Assuming Dialog components are available
 import { DangerCircle } from '@aazucena/icons';
 
-const chatConfirmationVariants = cva('rounded-control border p-4 transition-all duration-300', {
+const chatConfirmationVariants = cva('rounded-control border p-4', {
   variants: {
     variant: {
       default: 'bg-background border-input',

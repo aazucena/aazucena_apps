@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tool
  */
 
 export const paginationDotsVariants = cva(
-  'flex items-center justify-center gap-2 transition-all duration-300',
+  'flex items-center justify-center gap-2 transition-[opacity,scale] duration-(--motion-base)',
   {
     variants: {
       variant: {
@@ -52,7 +52,7 @@ export const PaginationDots = React.forwardRef<
 PaginationDots.displayName = 'PaginationDots';
 
 export const paginationDotVariants = cva(
-  'rounded-full transition-all duration-300 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring',
+  'rounded-full transition duration-(--motion-base) cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring',
   {
     variants: {
       variant: {
