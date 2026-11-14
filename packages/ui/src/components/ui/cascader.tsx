@@ -146,9 +146,11 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
         <button
           type="button"
           disabled={disabled}
+          aria-haspopup="true"
+          aria-expanded={open}
           onClick={() => setOpen(!open)}
           className={cn(
-            'rounded-control flex w-full items-center justify-between border transition-opacity outline-none',
+            'rounded-control focus-visible:outline-signal flex w-full items-center justify-between border transition-opacity focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
             triggerClasses[v],
             sizeClasses[s],
             disabled && 'pointer-events-none opacity-50',
@@ -197,6 +199,8 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
                       key={option.value}
                       type="button"
                       disabled={option.disabled}
+                      aria-expanded={option.children?.length ? isActive : undefined}
+                      aria-current={isActive && !option.children?.length ? 'true' : undefined}
                       onClick={() => handleSelect(option, depth)}
                       onMouseEnter={() => handleHover(option, depth)}
                       className={cn(
@@ -204,7 +208,7 @@ const Cascader = React.forwardRef<HTMLDivElement, CascaderProps>(
                         option.disabled && 'pointer-events-none opacity-50',
                         isActive
                           ? v === 'cyber'
-                            ? 'bg-signal/20 text-signal'
+                            ? 'bg-signal/10 text-signal'
                             : 'bg-accent text-accent-foreground'
                           : v === 'cyber'
                             ? 'text-signal hover:bg-signal/10'

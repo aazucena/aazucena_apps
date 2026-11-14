@@ -72,8 +72,18 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
                 : 'stroke-primary';
 
     return (
-      <div ref={ref} className={cn(gaugeVariants({ size }), className)} {...props}>
-        <svg className="size-full -rotate-90 transform" viewBox="0 0 100 100">
+      <div
+        ref={ref}
+        role="meter"
+        aria-valuenow={clampedValue}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuetext={unit ? `${clampedValue}${unit}` : undefined}
+        aria-label={props['aria-labelledby'] ? undefined : (label ?? 'Gauge')}
+        className={cn(gaugeVariants({ size }), className)}
+        {...props}
+      >
+        <svg aria-hidden="true" className="size-full -rotate-90 transform" viewBox="0 0 100 100">
           <circle
             className={baseColor}
             strokeWidth={strokeWidth}

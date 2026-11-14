@@ -42,6 +42,7 @@ function PanelMenuItemComponent({
   const content = (
     <button
       type="button"
+      aria-expanded={hasChildren ? open : undefined}
       onClick={() => (hasChildren ? setOpen(!open) : undefined)}
       className={cn(
         'flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors',

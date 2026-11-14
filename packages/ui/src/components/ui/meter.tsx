@@ -110,7 +110,15 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>(
             )}
           </div>
         )}
-        <div className={cn(meterVariants({ variant: currentVariant, size }))}>
+        <div
+          role="meter"
+          aria-valuenow={clampedValue}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuetext={unit ? `${clampedValue}${unit}` : undefined}
+          aria-label={props['aria-labelledby'] ? undefined : (label ?? 'Meter')}
+          className={cn(meterVariants({ variant: currentVariant, size }))}
+        >
           <div
             className={cn(meterIndicatorVariants({ variant: currentVariant }))}
             style={{ width: `${percentage}%` }}

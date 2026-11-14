@@ -75,13 +75,79 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
     const v = variant ?? 'default';
     const s = size ?? 'md';
 
+    // The search field takes focus when the list opens.
+    React.useEffect(() => {
+      if (open) inputRef.current?.focus();
+    }, [open]);
+
     const filtered = options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()));
 
-    // const selected = options.find((o) => o.value === value);
+    // Arrow keys move a virtual cursor through the options (aria-activedescendant);
+    // focus stays in the text field so typing keeps filtering.
+    const [active, setActive] = React.useState(-1);
+    const move = (to: number) => {
+      const enabled = filtered.map((o, i) => (o.disabled ? -1 : i)).filter((i) => i >= 0);
+      if (!enabled.length) return setActive(-1);
+      const pos = enabled.indexOf(active);
+      const next =
+        to === Infinity
+          ? enabled[enabled.length - 1]!
+          : to === -Infinity
+            ? enabled[0]!
+            : enabled[(pos + to + enabled.length) % enabled.length]!;
+      setActive(pos === -1 && to === -1 ? enabled[enabled.length - 1]! : next);
+    };
+    React.useEffect(() => {
+      if (active >= 0)
+        document.getElementById(`${listboxId}-${active}`)?.scrollIntoView({ block: 'nearest' });
+    }, [active, listboxId]);
+
+    const triggerRef = React.useRef<HTMLButtonElement>(null);
+    const close = (refocus = true) => {
+      setOpen(false);
+      setQuery('');
+      setActive(-1);
+      if (refocus) triggerRef.current?.focus();
+    };
+    const choose = (option: ComboboxOption) => {
+      if (option.disabled) return;
+      onChange?.(option.value);
+      setSelected(option);
+      close();
+    };
+    const handleSearchKeyDown = (e: React.KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowDown':
+          move(1);
+          break;
+        case 'ArrowUp':
+          move(-1);
+          break;
+        case 'Home':
+          move(-Infinity);
+          break;
+        case 'End':
+          move(Infinity);
+          break;
+        case 'Enter':
+          if (active >= 0 && filtered[active]) choose(filtered[active]!);
+          break;
+        case 'Escape':
+          close();
+          break;
+        case 'Tab':
+          close(false);
+          return;
+        default:
+          return;
+      }
+      e.preventDefault();
+    };
 
     return (
       <div ref={ref} className={cn(comboboxVariants({ variant, size }), className)} {...props}>
         <button
+          ref={triggerRef}
           type="button"
           role="combobox"
           aria-expanded={open}
@@ -89,12 +155,15 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           aria-label={ariaLabel ?? placeholder}
           aria-controls={open ? listboxId : undefined}
           disabled={disabled}
-          onClick={() => {
-            setOpen(!open);
-            setTimeout(() => inputRef.current?.focus(), 0);
+          onClick={() => (open ? close() : setOpen(true))}
+          onKeyDown={(e) => {
+            if (!open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+              e.preventDefault();
+              setOpen(true);
+            }
           }}
           className={cn(
-            'rounded-control flex w-full items-center justify-between border transition-opacity outline-none',
+            'rounded-control focus-visible:outline-signal flex w-full items-center justify-between border transition-opacity focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
             triggerClasses[v],
             sizeClasses[s],
             disabled && 'pointer-events-none opacity-50',
@@ -110,6 +179,7 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
+            aria-hidden="true"
             className={cn('shrink-0 transition-transform', open && 'rotate-180')}
           >
             <path d="m6 9 6 6 6-6" />
@@ -118,8 +188,6 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
 
         {open && (
           <div
-            id={listboxId}
-            role="listbox"
             className={cn(
               'rounded-control absolute z-(--z-dropdown) mt-1 w-full border',
               v === 'cyber'
@@ -134,43 +202,58 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                 ref={inputRef}
                 type="text"
                 placeholder="Search..."
+                aria-label="Search options"
+                aria-controls={listboxId}
+                aria-activedescendant={active >= 0 ? `${listboxId}-${active}` : undefined}
+                autoComplete="off"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setActive(-1);
+                }}
+                onKeyDown={handleSearchKeyDown}
                 className={cn(
-                  'placeholder:text-muted-foreground w-full rounded border-none bg-transparent px-2 py-1 text-sm outline-none',
+                  'placeholder:text-muted-foreground focus-visible:outline-signal w-full rounded border-none bg-transparent px-2 py-1 text-sm focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
                   v === 'cyber' && 'text-signal font-mono',
                 )}
               />
             </div>
-            <div className="max-h-48 overflow-auto p-1">
+            <div
+              id={listboxId}
+              role="listbox"
+              aria-label={ariaLabel ?? placeholder}
+              className="max-h-48 overflow-auto p-1"
+            >
               {filtered.length === 0 ? (
-                <p className="text-muted-foreground px-2 py-1.5 text-center text-xs">
+                <p role="status" className="text-muted-foreground px-2 py-1.5 text-center text-xs">
                   {emptyMessage}
                 </p>
               ) : (
-                filtered.map((option) => (
-                  <button
+                filtered.map((option, index) => (
+                  <div
                     key={option.value}
-                    type="button"
+                    id={`${listboxId}-${index}`}
                     role="option"
                     aria-selected={value === option.value}
-                    disabled={option.disabled}
-                    onClick={() => {
-                      onChange?.(option.value);
-                      setSelected(option);
-                      setOpen(false);
-                      setQuery('');
-                    }}
+                    aria-disabled={option.disabled || undefined}
+                    onMouseEnter={() => setActive(index)}
+                    onClick={() => choose(option)}
                     className={cn(
-                      'flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors',
+                      'flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors',
                       option.disabled && 'pointer-events-none opacity-50',
                       value === option.value
                         ? v === 'cyber'
-                          ? 'bg-signal/20 text-signal'
+                          ? 'bg-signal/10 text-signal'
                           : 'bg-accent text-accent-foreground'
                         : v === 'cyber'
-                          ? 'text-signal hover:bg-signal/10'
-                          : 'hover:bg-state',
+                          ? 'text-signal'
+                          : '',
+                      // The option the arrow keys are on (aria-activedescendant).
+                      index === active &&
+                        value !== option.value &&
+                        (v === 'cyber' ? 'bg-signal/10' : 'bg-state'),
+                      index === active &&
+                        'outline-signal outline-1 -outline-offset-1 outline-solid',
                     )}
                   >
                     <svg
@@ -180,12 +263,13 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2.5"
+                      aria-hidden="true"
                       className={cn('shrink-0', value !== option.value && 'invisible')}
                     >
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
                     {option.label}
-                  </button>
+                  </div>
                 ))
               )}
             </div>

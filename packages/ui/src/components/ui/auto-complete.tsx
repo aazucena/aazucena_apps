@@ -94,10 +94,56 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
       if (freeSolo) onChange?.(val);
     };
 
+    // Arrow keys move a virtual cursor through the options (aria-activedescendant);
+    // focus stays in the text field so typing keeps filtering.
+    const [active, setActive] = React.useState(-1);
+    const move = (to: number) => {
+      const enabled = filtered.map((o, i) => (false ? -1 : i)).filter((i) => i >= 0);
+      if (!enabled.length) return setActive(-1);
+      const pos = enabled.indexOf(active);
+      const next =
+        to === Infinity
+          ? enabled[enabled.length - 1]!
+          : to === -Infinity
+            ? enabled[0]!
+            : enabled[(pos + to + enabled.length) % enabled.length]!;
+      setActive(pos === -1 && to === -1 ? enabled[enabled.length - 1]! : next);
+    };
+    React.useEffect(() => {
+      if (active >= 0)
+        document.getElementById(`${listboxId}-${active}`)?.scrollIntoView({ block: 'nearest' });
+    }, [active, listboxId]);
+
     const handleSelect = (option: AutoCompleteOption) => {
       onChange?.(option.value);
       setQuery(option.label);
       setOpen(false);
+      setActive(-1);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowDown':
+          if (!open) setOpen(true);
+          else move(1);
+          break;
+        case 'ArrowUp':
+          if (!open) setOpen(true);
+          else move(-1);
+          break;
+        case 'Enter':
+          if (!open || active < 0 || !filtered[active]) return;
+          handleSelect(filtered[active]!);
+          break;
+        case 'Escape':
+          if (!open) return;
+          setOpen(false);
+          setActive(-1);
+          break;
+        default:
+          return;
+      }
+      e.preventDefault();
     };
 
     const handleBlur = () => {
@@ -113,6 +159,10 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-controls={open ? listboxId : undefined}
+          aria-autocomplete="list"
+          aria-activedescendant={open && active >= 0 ? `${listboxId}-${active}` : undefined}
+          autoComplete="off"
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           value={query}
           disabled={disabled}
@@ -120,7 +170,7 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
           onFocus={() => setOpen(true)}
           onBlur={handleBlur}
           className={cn(
-            'rounded-control flex w-full border transition-opacity outline-none',
+            'rounded-control focus-visible:outline-signal flex w-full border transition-opacity focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
             triggerClasses[v],
             sizeClasses[s],
             disabled && 'pointer-events-none opacity-50',
@@ -129,8 +179,6 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
 
         {open && (
           <div
-            id={listboxId}
-            role="listbox"
             className={cn(
               'rounded-control absolute z-(--z-dropdown) mt-1 w-full border',
               v === 'cyber'
@@ -140,7 +188,12 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
                   : 'border-border bg-popover',
             )}
           >
-            <div className="max-h-48 overflow-auto p-1">
+            <div
+              id={listboxId}
+              role="listbox"
+              aria-label={props['aria-label'] ?? placeholder}
+              className="max-h-48 overflow-auto p-1"
+            >
               {loading ? (
                 <p className="text-muted-foreground px-2 py-3 text-center text-xs">Loading...</p>
               ) : filtered.length === 0 ? (
@@ -148,23 +201,30 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
                   {emptyMessage}
                 </p>
               ) : (
-                filtered.map((option) => (
-                  <button
+                filtered.map((option, index) => (
+                  <div
                     key={option.value}
-                    type="button"
+                    id={`${listboxId}-${index}`}
                     role="option"
                     aria-selected={value === option.value}
                     onMouseDown={(e) => e.preventDefault()}
+                    onMouseEnter={() => setActive(index)}
                     onClick={() => handleSelect(option)}
                     className={cn(
-                      'flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors',
+                      'flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors',
                       value === option.value
                         ? v === 'cyber'
-                          ? 'bg-signal/20 text-signal'
+                          ? 'bg-signal/10 text-signal'
                           : 'bg-accent text-accent-foreground'
                         : v === 'cyber'
-                          ? 'text-signal hover:bg-signal/10'
-                          : 'hover:bg-state',
+                          ? 'text-signal'
+                          : '',
+                      // The option the arrow keys are on (aria-activedescendant).
+                      index === active &&
+                        value !== option.value &&
+                        (v === 'cyber' ? 'bg-signal/10' : 'bg-state'),
+                      index === active &&
+                        'outline-signal outline-1 -outline-offset-1 outline-solid',
                     )}
                   >
                     <svg
@@ -174,12 +234,13 @@ const AutoComplete = React.forwardRef<HTMLDivElement, AutoCompleteProps>(
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2.5"
+                      aria-hidden="true"
                       className={cn('shrink-0', value !== option.value && 'invisible')}
                     >
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
                     {option.label}
-                  </button>
+                  </div>
                 ))
               )}
             </div>

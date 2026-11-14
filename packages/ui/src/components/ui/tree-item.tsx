@@ -68,7 +68,10 @@ const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           aria-expanded={hasChildren ? isExpanded : undefined}
           aria-selected={isSelected}
           aria-disabled={node.disabled}
-          tabIndex={0}
+          aria-level={level + 1}
+          data-tree-id={node.id}
+          // Roving tab stop: Tree makes exactly one item reachable with Tab.
+          tabIndex={-1}
           onClick={() => {
             if (hasChildren) onToggle?.(node.id);
             onSelect?.(node.id);
@@ -81,15 +84,18 @@ const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
             }
           }}
           className={cn(
-            'flex cursor-pointer items-center gap-1.5 rounded-sm px-2 py-1 transition-colors',
+            'focus-visible:outline-signal flex cursor-pointer items-center gap-1.5 rounded-sm px-2 py-1 transition-colors focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
             itemRowClasses[v],
-            isSelected && (v === 'cyber' ? 'bg-signal/10' : 'bg-accent'),
+            isSelected && (v === 'cyber' ? 'bg-signal/10' : 'bg-state'),
             node.disabled && 'pointer-events-none opacity-50',
           )}
           style={{ paddingLeft: `${level * 16 + 8}px` }}
         >
           {/* Chevron */}
-          <span className={cn('shrink-0 transition-transform', !hasChildren && 'invisible')}>
+          <span
+            aria-hidden="true"
+            className={cn('shrink-0 transition-transform', !hasChildren && 'invisible')}
+          >
             <svg
               width="12"
               height="12"
@@ -103,7 +109,11 @@ const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
             </svg>
           </span>
           {/* Icon */}
-          {node.icon && <span className="shrink-0 [&_svg]:size-4">{node.icon}</span>}
+          {node.icon && (
+            <span aria-hidden="true" className="shrink-0 [&_svg]:size-4">
+              {node.icon}
+            </span>
+          )}
           {/* Label */}
           <span className="truncate text-sm">{node.label}</span>
         </div>

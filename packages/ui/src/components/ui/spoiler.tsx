@@ -61,10 +61,11 @@ const Spoiler = React.forwardRef<HTMLDivElement, SpoilerProps>(
         )}
         <button
           type="button"
+          aria-expanded={open}
           onClick={() => setOpen(!open)}
           className={cn(
             'mt-1 text-sm font-medium transition-colors',
-            v === 'cyber' ? 'text-signal hover:text-signal' : 'text-primary hover:text-primary/80',
+            v === 'cyber' ? 'text-signal hover:text-signal' : 'text-primary hover:text-foreground',
           )}
         >
           {open ? hideLabel : showLabel}

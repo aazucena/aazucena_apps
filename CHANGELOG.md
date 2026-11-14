@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(design-system)_ Light role colours pass aa as text on their own tint
 - _(ui)_ Mega menu moves focus into its panel without an animation frame
 - _(ui)_ Keyboard access for fourteen pointer-only components
 - _(portfolio)_ Load the ui structural tokens
