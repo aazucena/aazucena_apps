@@ -91,7 +91,19 @@ const Gantt = React.forwardRef<HTMLDivElement, GanttProps>(
     const todayOffset = daysBetween(startDate, today);
 
     return (
-      <div ref={ref} className={cn(ganttVariants({ variant }), className)} {...props}>
+      <div
+        ref={ref}
+        // Scrolls sideways, so it must be reachable by keyboard (arrow keys scroll it).
+        role="group"
+        aria-label="Gantt chart"
+        tabIndex={0}
+        className={cn(
+          ganttVariants({ variant }),
+          'focus-visible:outline-signal focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
+          className,
+        )}
+        {...props}
+      >
         <div style={{ width: totalWidth, minWidth: '100%' }}>
           {/* Header */}
           <div className="border-border/50 flex border-b">

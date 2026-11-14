@@ -55,7 +55,13 @@ function VirtualListInner<T>(
   return (
     <div
       ref={ref}
-      className={cn(virtualListVariants({ variant }), className)}
+      // A tab stop, so the list can be scrolled with the keyboard.
+      tabIndex={0}
+      className={cn(
+        virtualListVariants({ variant }),
+        'focus-visible:outline-signal focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
+        className,
+      )}
       style={{ height, ...style }}
       onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
       {...props}
