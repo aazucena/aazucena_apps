@@ -39,10 +39,16 @@ const NotificationCenter = React.forwardRef<HTMLDivElement, NotificationCenterPr
 
     return (
       <div ref={ref} className={cn(notificationCenterVariants({ variant }), className)} {...props}>
+        <span role="status" className="sr-only">
+          {unreadCount > 0 ? `${unreadCount} unread notifications` : ''}
+        </span>
         <Popover>
           <PopoverTrigger asChild>
             {trigger ?? (
               <button
+                aria-label={
+                  unreadCount > 0 ? `Notifications, ${unreadCount} unread` : 'Notifications'
+                }
                 type="button"
                 className="text-muted-foreground hover:text-foreground rounded-control relative p-2 transition-colors"
               >

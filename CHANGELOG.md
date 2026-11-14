@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(forms)_ Link validation errors to their fields
 - _(ui)_ Listbox, tree, radio group and dialog keyboard patterns
 - _(design-system)_ Light role colours pass aa as text on their own tint
 - _(ui)_ Mega menu moves focus into its panel without an animation frame

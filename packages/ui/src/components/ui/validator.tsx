@@ -67,6 +67,9 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
             />
           </div>
         )}
+        <span role="status" className="sr-only">
+          {validCount} of {rules.length} requirements met
+        </span>
         <ul className="space-y-1">
           {rules.map((rule, i) => (
             <li key={i} className="flex items-center gap-2">
@@ -78,6 +81,8 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2.5"
+                  role="img"
+                  aria-label="Met"
                   className={cn(v === 'cyber' ? 'text-success' : 'text-success')}
                 >
                   <path d="M20 6 9 17l-5-5" />
@@ -90,6 +95,8 @@ const Validator = React.forwardRef<HTMLDivElement, ValidatorProps>(
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2.5"
+                  role="img"
+                  aria-label="Not met"
                   className={cn(v === 'cyber' ? 'text-alert' : 'text-alert')}
                 >
                   <path d="M18 6 6 18" />

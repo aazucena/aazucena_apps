@@ -109,6 +109,9 @@ const Clipboard = React.forwardRef<HTMLDivElement, ClipboardProps>(
         >
           {copied ? <CheckIcon /> : <CopyIcon />}
         </button>
+        <span role="status" className="sr-only">
+          {copied ? 'Copied to clipboard' : ''}
+        </span>
       </div>
     );
   },

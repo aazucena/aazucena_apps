@@ -112,7 +112,17 @@ const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(
     if (showSeconds) segments.push({ label: 'Sec', value: timeLeft.seconds });
 
     return (
-      <div ref={ref} className={cn('flex flex-col items-center gap-2', className)} {...props}>
+      <div
+        ref={ref}
+        role="timer"
+        aria-live="off"
+        aria-label={label ?? 'Countdown'}
+        className={cn('flex flex-col items-center gap-2', className)}
+        {...props}
+      >
+        <span role="status" className="sr-only">
+          {segments.every((segment) => segment.value === 0) ? 'Countdown finished' : ''}
+        </span>
         {label && (
           <span
             className={cn(

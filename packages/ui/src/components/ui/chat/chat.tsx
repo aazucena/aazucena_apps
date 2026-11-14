@@ -20,7 +20,16 @@ const ChatFeed = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('custom-scrollbar flex-1 space-y-8 overflow-y-auto p-6', className)}
+      // New messages are announced as they arrive, without moving focus.
+      role="log"
+      aria-live="polite"
+      aria-relevant="additions"
+      aria-label="Conversation"
+      tabIndex={0}
+      className={cn(
+        'custom-scrollbar focus-visible:outline-signal flex-1 space-y-8 overflow-y-auto p-6 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
+        className,
+      )}
       {...props}
     />
   ),

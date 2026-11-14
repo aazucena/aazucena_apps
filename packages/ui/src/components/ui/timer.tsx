@@ -74,17 +74,22 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
       <div ref={ref} className={cn(timerVariants({ variant }), className)} {...props}>
         {/* Time Display */}
         <div className="flex flex-col items-center gap-1">
+          <span role="status" className="sr-only">
+            {time === 0 ? 'Time is up' : ''}
+          </span>
           <div
+            role="timer"
+            aria-live="off"
             className={cn(
               'font-mono text-5xl tracking-tighter tabular-nums transition duration-(--motion-base)',
               isRunning && 'text-primary scale-110',
-              time === 0 && 'text-alert opacity-50',
+              time === 0 && 'text-alert',
             )}
           >
             {formatTime(time)}
           </div>
           {variant === 'cyber' && (
-            <div className="text-[10px] tracking-[0.2em] uppercase opacity-40">
+            <div className="text-muted-foreground text-[10px] tracking-[0.2em] uppercase">
               {isRunning ? 'Status: Active' : 'Status: Standby'}
             </div>
           )}

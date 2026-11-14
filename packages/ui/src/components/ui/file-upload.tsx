@@ -109,7 +109,19 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
           multiple={multiple}
         />
 
-        {error && <p className="text-destructive text-sm font-medium">{error}</p>}
+        {error && (
+          <p role="alert" className="text-destructive text-sm font-medium">
+            {error}
+          </p>
+        )}
+
+        <span role="status" className="sr-only">
+          {files.length === 0
+            ? ''
+            : files.length === 1
+              ? '1 file selected'
+              : `${files.length} files selected`}
+        </span>
 
         {showPreview && files.length > 0 && (
           <ul className="space-y-2">
