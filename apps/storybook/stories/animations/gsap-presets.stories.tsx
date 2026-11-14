@@ -39,7 +39,7 @@ const AnimationBox = ({
     <div className="flex flex-col items-center gap-4">
       <div
         ref={boxRef}
-        className="w-24 h-24 bg-signal rounded-card flex items-center justify-center text-foreground font-bold"
+        className="w-24 h-24 bg-signal rounded-card flex items-center justify-center text-signal-foreground font-bold"
       >
         Box
       </div>

@@ -169,7 +169,7 @@ export const Fullscreen: Story = {
           Start by connecting your first edge node to visualize real-time trajectory flows.
         </EmptyDescription>
         <EmptyContent className="mt-12">
-          <Button className="h-14 px-12 rounded-control bg-signal text-foreground hover:bg-signal font-black uppercase tracking-widest">
+          <Button className="h-14 px-12 rounded-control bg-signal text-signal-foreground hover:bg-signal font-black uppercase tracking-widest">
             Connect_Node <Globe className="ml-2 size-5" />
           </Button>
         </EmptyContent>
