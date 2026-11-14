@@ -186,6 +186,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(design-system)_ Guard dimmed text, tint strength, accent text and focus styles in ui
 - _(storybook)_ Keyboard tests for the components that were pointer-only
 - _(design-system)_ Guard motion durations and transition-all in ui
 - _(design-system)_ Apps load the tokens ui components read

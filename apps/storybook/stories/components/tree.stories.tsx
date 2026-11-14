@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tree, TreeItem } from '@aazucena/ui';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## Engineering Standards
@@ -25,7 +26,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -192,7 +193,9 @@ export const Sizes: Story = {
     <div className="flex items-start gap-4">
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <div key={size} className="space-y-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">{size}</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            {size}
+          </span>
           <Tree data={fileSystemData} size={size} defaultExpanded={['src']} className="w-56" />
         </div>
       ))}
@@ -230,5 +233,27 @@ export const DisabledNodes: Story = {
       },
     ],
     defaultExpanded: ['root'],
+  },
+};
+
+/** One tab stop; arrow keys move between items and open or close branches. */
+export const Keyboard: Story = {
+  ...Basic,
+  args: { ...Basic.args, defaultExpanded: [] },
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    await userEvent.tab();
+    const src = canvas.getByRole('treeitem', { name: /^src$/i });
+    await expect(src).toHaveFocus();
+    await expect(canvasElement.querySelectorAll('[role="treeitem"][tabindex="0"]')).toHaveLength(1);
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(src).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(canvas.getByRole('treeitem', { name: /components/i })).toHaveFocus();
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(src).toHaveFocus();
+    await userEvent.keyboard('{End}');
+    await expect(canvas.getByRole('treeitem', { name: /tsconfig/i })).toHaveFocus();
   },
 };

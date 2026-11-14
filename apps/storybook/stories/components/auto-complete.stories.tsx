@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AutoComplete } from '@aazucena/ui';
+import { within, userEvent, expect } from 'storybook/test';
 
 const frameworks = [
   { value: 'react', label: 'React' },
@@ -33,7 +34,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs', 'new'],
+  tags: ['autodocs', 'new', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -148,4 +149,25 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
+};
+
+/** Arrow keys move through the suggestions, Enter picks one and Escape closes the list. */
+export const Keyboard: Story = {
+  ...Basic,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox');
+    await userEvent.click(input);
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+    const options = canvas.getAllByRole('option');
+    await expect(input).toHaveAttribute('aria-activedescendant', options[1]!.id);
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('Vue');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{Escape}');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+  },
 };

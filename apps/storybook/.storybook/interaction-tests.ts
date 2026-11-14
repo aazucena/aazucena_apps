@@ -18,6 +18,7 @@ export const INTERACTION_TEST_STORIES = [
   'stories/components/button.stories.tsx',
   'stories/components/checkbox.stories.tsx',
   'stories/components/collapsible.stories.tsx',
+  'stories/components/auto-complete.stories.tsx',
   'stories/components/combobox.stories.tsx',
   'stories/components/data-list.stories.tsx',
   'stories/components/dialog.stories.tsx',
@@ -58,6 +59,8 @@ export const INTERACTION_TEST_STORIES = [
   'stories/components/gantt.stories.tsx',
   'stories/components/dock.stories.tsx',
   'stories/components/signature-pad.stories.tsx',
+  'stories/components/segmented-control.stories.tsx',
+  'stories/components/tree.stories.tsx',
   'stories/recipes/auth-card.stories.tsx',
   'stories/recipes/contact-form.stories.tsx',
 ];

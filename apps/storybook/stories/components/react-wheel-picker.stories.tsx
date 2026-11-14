@@ -128,7 +128,7 @@ export const TimePickerGroup: Story = {
             onChange={setHour}
             size="md"
           />
-          <span className="text-2xl font-black opacity-40 px-1">:</span>
+          <span className="text-2xl font-black text-muted-foreground px-1">:</span>
           <ReactWheelPicker
             {...args}
             aria-label="Minute"

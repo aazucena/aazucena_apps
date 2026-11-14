@@ -226,3 +226,30 @@ export const InteractionTest: Story = {
     await expect(canvas.getByRole('combobox')).toHaveTextContent('Astro');
   },
 };
+
+/** Arrow keys move through the options, Enter selects and Escape closes. */
+export const Keyboard: Story = {
+  tags: ['!autodocs'],
+  args: {
+    placeholder: 'Select framework...',
+    variant: 'default',
+    size: 'md',
+    options: frameworkOptions,
+  },
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('combobox');
+    trigger.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    const search = await canvas.findByRole('textbox');
+    await expect(search).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+    const options = canvas.getAllByRole('option');
+    await expect(search).toHaveAttribute('aria-activedescendant', options[1]!.id);
+    await userEvent.keyboard('{Escape}');
+    await expect(trigger).toHaveFocus();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{Enter}');
+    await expect(trigger).toHaveTextContent('React');
+  },
+};

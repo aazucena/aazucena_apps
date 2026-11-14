@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SegmentedControl, SegmentedItem } from '@aazucena/ui';
 import { useState } from 'react';
+import { within, userEvent, expect } from 'storybook/test';
 import { Activity, Database, Globe, Zap, Shield } from '@aazucena/icons';
 
 /**
  * ## Engineering Standards
  * - **CDD Pattern:** Tab-style selection primitive for toggling between related content views.
  * - **UX:** Features `active:scale-95` tactile feedback and smooth state transitions for the selection background.
- * - **Accessibility:** Built with standard `role="tablist"` and `aria-selected` attributes; supports keyboard navigation.
+ * - **Accessibility:** A radio group: one tab stop, arrow keys move and select, `aria-checked` marks the choice.
  * - **Variants:** Supports high-fidelity `glass` and `cyber` themes with specialized `active` indicator styles.
  */
 const meta = {
@@ -27,7 +28,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     variant: {
       control: 'select',
@@ -91,7 +92,7 @@ export const CyberTerminal: Story = {
     return (
       <div className="p-12 bg-background rounded-card border border-signal/10">
         <div className="flex flex-col items-center gap-6">
-          <p className="text-[10px] font-mono text-signal/40 uppercase tracking-[0.4em]">
+          <p className="text-[10px] font-mono text-signal uppercase tracking-[0.4em]">
             Signal_Source_Override
           </p>
           <SegmentedControl {...args}>
@@ -149,7 +150,7 @@ export const GlassAtmospheric: Story = {
             PHASE_02
           </SegmentedItem>
         </SegmentedControl>
-        <span className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.4em]">
+        <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em]">
           Atmospheric_Control
         </span>
       </div>
@@ -168,7 +169,7 @@ export const SmallDensity: Story = {
     const [value, setValue] = useState('grid');
     return (
       <div className="flex items-center gap-4 border p-2 rounded-card bg-muted/20">
-        <span className="text-[10px] font-bold uppercase opacity-40 ml-2">View:</span>
+        <span className="text-[10px] font-bold uppercase text-muted-foreground ml-2">View:</span>
         <SegmentedControl {...args}>
           <SegmentedItem value="grid" isActive={value === 'grid'} onClick={() => setValue('grid')}>
             GRID
@@ -179,5 +180,21 @@ export const SmallDensity: Story = {
         </SegmentedControl>
       </div>
     );
+  },
+};
+
+/** A radio group: one tab stop, and the arrow keys move and select. */
+export const Keyboard: Story = {
+  ...Basic,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    const radios = canvas.getAllByRole('radio');
+    await userEvent.tab();
+    await expect(radios[0]).toHaveFocus();
+    await expect(radios[0]).toBeChecked();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getAllByRole('radio')[1]).toHaveFocus();
+    await expect(canvas.getAllByRole('radio')[1]).toBeChecked();
   },
 };
