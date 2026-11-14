@@ -137,18 +137,33 @@ function DataTableInner<T extends Record<string, unknown>>(
               <TableHead
                 key={col.key}
                 style={col.width ? { width: col.width } : undefined}
-                className={cn(col.sortable && 'cursor-pointer select-none')}
-                onClick={col.sortable ? () => handleSort(col.key) : undefined}
+                aria-sort={
+                  !col.sortable
+                    ? undefined
+                    : sortKey !== col.key || !sortDir
+                      ? 'none'
+                      : sortDir === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                }
               >
-                <span className="inline-flex items-center gap-1">
-                  {col.header}
-                  {col.sortable && sortKey === col.key && sortDir === 'asc' && (
-                    <ChevronUp size={14} />
-                  )}
-                  {col.sortable && sortKey === col.key && sortDir === 'desc' && (
-                    <ChevronDown size={14} />
-                  )}
-                </span>
+                {col.sortable ? (
+                  <button
+                    type="button"
+                    onClick={() => handleSort(col.key)}
+                    className="rounded-control focus-visible:outline-signal -mx-1 inline-flex cursor-pointer items-center gap-1 px-1 py-0.5 font-[inherit] select-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid"
+                  >
+                    {col.header}
+                    {sortKey === col.key && sortDir === 'asc' && (
+                      <ChevronUp size={14} aria-hidden="true" />
+                    )}
+                    {sortKey === col.key && sortDir === 'desc' && (
+                      <ChevronDown size={14} aria-hidden="true" />
+                    )}
+                  </button>
+                ) : (
+                  col.header
+                )}
               </TableHead>
             ))}
           </TableRow>
@@ -166,7 +181,22 @@ function DataTableInner<T extends Record<string, unknown>>(
                 key={ri}
                 variant={variant}
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
-                className={cn(onRowClick && 'cursor-pointer')}
+                tabIndex={onRowClick ? 0 : undefined}
+                onKeyDown={
+                  onRowClick
+                    ? (e) => {
+                        if (e.target !== e.currentTarget) return;
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          onRowClick(row);
+                        }
+                      }
+                    : undefined
+                }
+                className={cn(
+                  onRowClick &&
+                    'focus-visible:outline-signal cursor-pointer focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
+                )}
               >
                 {columns.map((col) => (
                   <TableCell key={col.key}>

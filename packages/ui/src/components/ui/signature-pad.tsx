@@ -26,6 +26,14 @@ export interface SignaturePadProps
   height?: number;
   clearLabel?: string;
   saveLabel?: string;
+  /**
+   * Offer a typed name as an alternative to drawing, for people who can't use a
+   * pointer. The typed name is drawn onto the canvas, so `onSave` still gets an image.
+   */
+  allowTyped?: boolean;
+  typedLabel?: string;
+  /** Accessible name of the drawing area. */
+  label?: string;
 }
 
 const SignaturePad = React.forwardRef<HTMLDivElement, SignaturePadProps>(
@@ -40,6 +48,9 @@ const SignaturePad = React.forwardRef<HTMLDivElement, SignaturePadProps>(
       height = 200,
       clearLabel = 'Clear',
       saveLabel = 'Save',
+      allowTyped = true,
+      typedLabel = 'Or type your name',
+      label = 'Signature',
       ...props
     },
     ref,
@@ -82,9 +93,28 @@ const SignaturePad = React.forwardRef<HTMLDivElement, SignaturePadProps>(
       drawing.current = false;
     };
 
+    const [typed, setTyped] = React.useState('');
+    const typedId = React.useId();
+
     const clear = () => {
       const ctx = getCtx();
       if (ctx) ctx.clearRect(0, 0, width, height);
+      setTyped('');
+    };
+
+    const drawTyped = (name: string) => {
+      setTyped(name);
+      const canvas = canvasRef.current;
+      const ctx = getCtx();
+      if (!canvas || !ctx) return;
+      ctx.clearRect(0, 0, width, height);
+      if (!name) return;
+      ctx.fillStyle = strokeColor === 'currentColor' ? getComputedStyle(canvas).color : strokeColor;
+      const fontSize = Math.min(height * 0.4, (width * 1.6) / Math.max(name.length, 6));
+      ctx.font = `italic ${fontSize}px cursive`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(name, width / 2, height / 2, width - 24);
     };
 
     const save = () => {
@@ -97,6 +127,8 @@ const SignaturePad = React.forwardRef<HTMLDivElement, SignaturePadProps>(
           ref={canvasRef}
           width={width}
           height={height}
+          role="img"
+          aria-label={typed ? `${label}: ${typed}` : label}
           className="border-border/50 cursor-crosshair rounded border border-dashed"
           onMouseDown={startDraw}
           onMouseMove={draw}
@@ -106,6 +138,21 @@ const SignaturePad = React.forwardRef<HTMLDivElement, SignaturePadProps>(
           onTouchMove={draw}
           onTouchEnd={endDraw}
         />
+        {allowTyped && (
+          <div className="flex flex-col gap-1">
+            <label htmlFor={typedId} className="text-muted-foreground text-xs">
+              {typedLabel}
+            </label>
+            <input
+              id={typedId}
+              type="text"
+              value={typed}
+              autoComplete="name"
+              onChange={(e) => drawTyped(e.target.value)}
+              className="border-input bg-background rounded-control h-control focus-visible:outline-signal border px-3 text-sm focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid"
+            />
+          </div>
+        )}
         <div className="flex gap-2">
           <button
             type="button"

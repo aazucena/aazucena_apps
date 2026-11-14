@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
-import { Dialog, DialogContent, DialogTrigger } from '../dialog'; // For click-to-enlarge functionality
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '../dialog'; // For click-to-enlarge functionality
 
 const chatImageVariants = cva(
   'group relative flex flex-col gap-2 rounded-control border bg-background p-2',
@@ -44,37 +44,46 @@ const ChatImage = React.forwardRef<HTMLDivElement, ChatImageProps>(
     },
     ref,
   ) => {
-    const content = (
-      <>
-        {/* Next.js Image component */}
-        <img
-          src={src}
-          alt={alt}
-          className="rounded-control h-auto w-full object-cover"
-          style={{ maxWidth: width, maxHeight: height }}
-        />
-        {caption && <p className="text-muted-foreground text-sm">{caption}</p>}
-      </>
+    const image = (
+      <img
+        src={src}
+        alt={alt}
+        className="rounded-control h-auto w-full object-cover"
+        style={{ maxWidth: width, maxHeight: height }}
+      />
     );
+    const captionEl = caption && <p className="text-muted-foreground text-sm">{caption}</p>;
 
     return (
       <div ref={ref} className={cn(chatImageVariants({ variant }), className)} {...props}>
         {enlargeable ? (
           <Dialog>
             <DialogTrigger asChild>
-              <div className="cursor-pointer">
-                {content}
-                <div className="rounded-control bg-scrim text-foreground absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+              <button
+                type="button"
+                aria-label={`Enlarge image: ${alt}`}
+                className="peer rounded-control focus-visible:outline-signal block cursor-pointer text-left focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid"
+              >
+                {image}
+                <span
+                  aria-hidden="true"
+                  className="rounded-control bg-scrim text-foreground absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 group-has-[button:focus-visible]:opacity-100"
+                >
                   Click to Enlarge
-                </div>
-              </div>
+                </span>
+              </button>
             </DialogTrigger>
+            {captionEl}
             <DialogContent className="max-w-[calc(100vw-40px)] p-0">
+              <DialogTitle className="sr-only">{alt}</DialogTitle>
               <img src={src} alt={alt} className="max-h-[calc(100vh-40px)] object-contain" />
             </DialogContent>
           </Dialog>
         ) : (
-          content
+          <>
+            {image}
+            {captionEl}
+          </>
         )}
       </div>
     );

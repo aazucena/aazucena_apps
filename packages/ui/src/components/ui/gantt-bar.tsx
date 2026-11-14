@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const ganttBarVariants = cva(
-  'absolute flex h-8 items-center rounded-control px-2 text-xs font-medium transition-[left,width,filter] hover:brightness-110 cursor-pointer',
+  'absolute flex h-8 items-center rounded-control px-2 text-xs font-medium transition-[left,width,filter] hover:brightness-110',
   {
     variants: {
       variant: {
@@ -45,19 +45,39 @@ const GanttBar = React.forwardRef<HTMLDivElement, GanttBarProps>(
   ({ className, variant, task, dayWidth, startDate, onClick, style, ...props }, ref) => {
     const offset = daysBetween(startDate, task.start);
     const duration = daysBetween(task.start, task.end);
+    const range = `${task.label}: ${task.start.toLocaleDateString()} – ${task.end.toLocaleDateString()}`;
 
     return (
       <div
         ref={ref}
-        className={cn(ganttBarVariants({ variant }), className)}
+        className={cn(
+          ganttBarVariants({ variant }),
+          onClick &&
+            'focus-visible:outline-signal cursor-pointer focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
+          className,
+        )}
         style={{
           left: offset * dayWidth,
           width: duration * dayWidth - 4,
           backgroundColor: task.color,
           ...style,
         }}
-        onClick={() => onClick?.(task)}
-        title={`${task.label}: ${task.start.toLocaleDateString()} – ${task.end.toLocaleDateString()}`}
+        title={range}
+        aria-label={range}
+        {...(onClick
+          ? {
+              // A bar that does something on click is a button for keyboard users too.
+              role: 'button',
+              tabIndex: 0,
+              onClick: () => onClick(task),
+              onKeyDown: (e: React.KeyboardEvent) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onClick(task);
+                }
+              },
+            }
+          : { role: 'img' })}
         {...props}
       >
         {task.progress != null && (

@@ -114,7 +114,8 @@ const DockItem = React.forwardRef<HTMLDivElement, DockItemProps>(
           (itemRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
         }}
         className={cn(
-          'rounded-card relative flex size-10 cursor-pointer items-center justify-center transition-transform duration-(--motion-base) [&_svg]:size-5',
+          'group/dock-item rounded-card relative flex size-10 cursor-pointer items-center justify-center transition-transform duration-(--motion-base) [&_svg]:size-5',
+          'focus-visible:outline-signal focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
           variant === 'cyber'
             ? 'text-signal hover:bg-signal/10'
             : variant === 'glass'
@@ -123,13 +124,25 @@ const DockItem = React.forwardRef<HTMLDivElement, DockItemProps>(
           className,
         )}
         style={{ transform: `scale(${scale})` }}
+        role="button"
+        tabIndex={0}
+        aria-label={label}
         {...props}
+        onKeyDown={(e) => {
+          props.onKeyDown?.(e);
+          if (e.defaultPrevented || e.target !== e.currentTarget) return;
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.currentTarget.click();
+          }
+        }}
       >
         {children}
         {label && (
           <span
+            aria-hidden="true"
             className={cn(
-              'pointer-events-none absolute -top-8 rounded px-1.5 py-0.5 text-xs whitespace-nowrap opacity-0 transition-opacity',
+              'pointer-events-none absolute -top-8 rounded px-1.5 py-0.5 text-xs whitespace-nowrap opacity-0 transition-opacity group-focus-visible/dock-item:opacity-100',
               scale > 1.1 && 'opacity-100',
               variant === 'cyber'
                 ? 'border-signal/30 bg-panel text-signal border'

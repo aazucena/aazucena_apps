@@ -69,7 +69,7 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
     const controls = useAnimation();
     const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
-    const startHold = async (e: React.MouseEvent | React.TouchEvent) => {
+    const startHold = () => {
       if (disabled || isComplete) return;
 
       setIsHolding(true);
@@ -141,18 +141,35 @@ const HoldToConfirm = React.forwardRef<HTMLDivElement, HoldToConfirmProps>(
         ref={ref}
         className={cn(
           holdToConfirmVariants({ variant, size }),
+          'focus-visible:outline-signal focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
           isHolding && 'ring-primary/10 scale-[0.98] ring-2',
           isComplete && successColor,
           disabled && 'cursor-not-allowed opacity-50',
           className,
         )}
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-disabled={disabled || undefined}
         onMouseDown={startHold}
         onMouseUp={reset}
         onMouseLeave={reset}
         onTouchStart={startHold}
         onTouchEnd={reset}
+        // Keyboard: hold Space or Enter for the same duration; releasing cancels.
+        onKeyDown={(e) => {
+          if (e.key !== ' ' && e.key !== 'Enter') return;
+          e.preventDefault();
+          if (!e.repeat && !isHolding) startHold();
+        }}
+        onKeyUp={(e) => {
+          if (e.key === ' ' || e.key === 'Enter') reset();
+        }}
+        onBlur={reset}
         {...props}
       >
+        <span role="status" className="sr-only">
+          {isComplete ? 'Confirmed' : ''}
+        </span>
         {/* Progress Fill Layer */}
         <motion.div
           initial={{ width: '0%' }}

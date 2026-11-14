@@ -88,6 +88,8 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
       const isObject = node.type === 'object';
       const isArray = node.type === 'array';
       const TypeIcon = getTypeIcon(node.type);
+      // Only objects expand, so only they are buttons; other rows are plain text.
+      const Row = (isObject ? 'button' : 'div') as 'button';
 
       const isNodeExpanded =
         expandedStates[node.name] !== undefined
@@ -96,20 +98,28 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
 
       return (
         <div key={node.name || `root-${level}`} className="flex flex-col">
-          <div
+          <Row
+            {...(isObject
+              ? {
+                  type: 'button' as const,
+                  'aria-expanded': isNodeExpanded,
+                  onClick: () =>
+                    setExpandedStates((prev) => ({ ...prev, [node.name]: !isNodeExpanded })),
+                }
+              : {})}
             className={cn(
-              'flex cursor-pointer items-center gap-2 py-1',
+              'flex items-center gap-2 py-1 text-left',
+              isObject &&
+                'rounded-control focus-visible:outline-signal cursor-pointer focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
               level > 0 && variant === 'cyber' && 'text-signal',
               level > 0 && variant === 'glass' && 'text-foreground/90',
               size === 'sm' && 'text-xs',
               size === 'lg' && 'text-base',
             )}
-            onClick={() =>
-              isObject && setExpandedStates((prev) => ({ ...prev, [node.name]: !isNodeExpanded }))
-            }
           >
             {isObject && (
               <ChevronsUpDown
+                aria-hidden="true"
                 className={cn(
                   'h-3 w-3 shrink-0 transition-transform duration-(--motion-base)',
                   isNodeExpanded ? 'rotate-90' : 'rotate-0',
@@ -118,7 +128,7 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
                 )}
               />
             )}
-            <TypeIcon className="text-muted-foreground h-4 w-4 shrink-0" />
+            <TypeIcon aria-hidden="true" className="text-muted-foreground h-4 w-4 shrink-0" />
             <span className={cn('font-medium', node.required && 'font-bold')}>
               {node.name}
               {node.required && <span className="text-alert/80 ml-1">*</span>}
@@ -143,7 +153,7 @@ const SchemaDisplay = React.forwardRef<HTMLDivElement, SchemaDisplayProps>(
                 {node.description}
               </span>
             )}
-          </div>
+          </Row>
 
           {isObject && isNodeExpanded && node.properties && (
             <div className="border-rule-strong/20 ml-4 border-l pl-4">

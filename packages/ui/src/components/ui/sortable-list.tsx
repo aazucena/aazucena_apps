@@ -18,6 +18,13 @@ const sortableListVariants = cva('flex flex-col gap-1 rounded-control', {
 export interface DragHandleProps {
   draggable: true;
   onDragStart: (e: React.DragEvent) => void;
+  /** Keyboard reordering: the handle is a tab stop and moves its item with the arrow keys. */
+  tabIndex: 0;
+  role: 'button';
+  'aria-roledescription': 'sortable item';
+  'aria-label': string;
+  'data-sortable-handle': string;
+  onKeyDown: (e: React.KeyboardEvent) => void;
 }
 
 export interface SortableListProps<T>
@@ -28,6 +35,8 @@ export interface SortableListProps<T>
   renderItem: (item: T, index: number, dragHandleProps: DragHandleProps) => React.ReactNode;
   onReorder: (items: T[]) => void;
   keyExtractor: (item: T) => string;
+  /** Accessible name for a handle. Defaults to "Reorder item 2 of 5. Use the arrow keys to move it". */
+  getHandleLabel?: (item: T, index: number, total: number) => string;
 }
 
 function SortableListInner<T>(
@@ -38,6 +47,7 @@ function SortableListInner<T>(
     renderItem,
     onReorder,
     keyExtractor,
+    getHandleLabel,
     ...props
   }: SortableListProps<T> & { ref?: React.Ref<HTMLDivElement> },
   ref: React.Ref<HTMLDivElement>,
@@ -67,18 +77,68 @@ function SortableListInner<T>(
     setOverIdx(null);
   };
 
+  const listRef = React.useRef<HTMLDivElement | null>(null);
+  const focusKey = React.useRef<string | null>(null);
+  const [announcement, setAnnouncement] = React.useState('');
+
+  // Moving a DOM node can drop focus, so put it back on the handle that was moved.
+  React.useEffect(() => {
+    if (focusKey.current === null) return;
+    const key = focusKey.current;
+    focusKey.current = null;
+    const handles = listRef.current?.querySelectorAll<HTMLElement>('[data-sortable-handle]');
+    handles?.forEach((el) => {
+      if (el.dataset.sortableHandle === key) el.focus();
+    });
+  }, [items]);
+
+  const moveTo = (from: number, to: number) => {
+    if (to < 0 || to >= items.length || to === from) return;
+    const next = [...items];
+    const [moved] = next.splice(from, 1);
+    next.splice(to, 0, moved!);
+    focusKey.current = keyExtractor(moved!);
+    setAnnouncement(`Moved to position ${to + 1} of ${items.length}`);
+    onReorder(next);
+  };
+
+  const handleKeyDown = (index: number) => (e: React.KeyboardEvent) => {
+    const target =
+      e.key === 'ArrowUp'
+        ? index - 1
+        : e.key === 'ArrowDown'
+          ? index + 1
+          : e.key === 'Home'
+            ? 0
+            : e.key === 'End'
+              ? items.length - 1
+              : null;
+    if (target === null) return;
+    e.preventDefault();
+    moveTo(index, target);
+  };
+
   const handleDragEnd = () => {
     setDragIdx(null);
     setOverIdx(null);
   };
 
   return (
-    <div ref={ref} className={cn(sortableListVariants({ variant }), className)} {...props}>
+    <div
+      ref={(node) => {
+        listRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      }}
+      className={cn(sortableListVariants({ variant }), className)}
+      {...props}
+    >
       {items.map((item, index) => (
         <div
           key={keyExtractor(item)}
           className={cn(
             'transition duration-(--motion-base)',
+            '[&_[data-sortable-handle]:focus-visible]:outline-signal [&_[data-sortable-handle]:focus-visible]:outline-1 [&_[data-sortable-handle]:focus-visible]:outline-offset-2 [&_[data-sortable-handle]:focus-visible]:outline-solid',
             dragIdx === index && 'opacity-50',
             overIdx === index && dragIdx !== index && 'border-primary border-t-2',
           )}
@@ -89,9 +149,20 @@ function SortableListInner<T>(
           {renderItem(item, index, {
             draggable: true,
             onDragStart: handleDragStart(index),
+            tabIndex: 0,
+            role: 'button',
+            'aria-roledescription': 'sortable item',
+            'aria-label':
+              getHandleLabel?.(item, index, items.length) ??
+              `Reorder item ${index + 1} of ${items.length}. Use the arrow keys to move it`,
+            'data-sortable-handle': keyExtractor(item),
+            onKeyDown: handleKeyDown(index),
           })}
         </div>
       ))}
+      <span role="status" aria-live="polite" className="sr-only">
+        {announcement}
+      </span>
     </div>
   );
 }

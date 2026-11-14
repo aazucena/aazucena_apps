@@ -85,6 +85,14 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
     const springY = reduceMotion ? y : smoothY;
 
     const [activeIndex, setActiveIndex] = React.useState(0);
+    // The settled value, in un-wrapped wheel positions. `activeIndex` follows the
+    // animation frame by frame; this is what assistive technology is told.
+    const targetRef = React.useRef(0);
+    const [valueIndex, setValueIndex] = React.useState(0);
+    const settle = (position: number) => {
+      targetRef.current = position;
+      setValueIndex(normalizeIndex(position, options.length));
+    };
 
     // Initial and controlled value synchronization
     React.useEffect(() => {
@@ -103,6 +111,7 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
           finalTargetIdx = targetIdx + offset;
         }
 
+        settle(finalTargetIdx);
         animate(
           y,
           -finalTargetIdx * itemHeight,
@@ -121,6 +130,7 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
         targetIndex = Math.max(0, Math.min(options.length - 1, targetIndex));
       }
 
+      settle(targetIndex);
       // Force absolute snapping to the center
       animate(y, -targetIndex * itemHeight, {
         // Reduced motion: snap instantly. Otherwise a stiff spring for a solid "thud".
@@ -141,6 +151,53 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
       return () => unsubscribe();
     }, [y, options.length, itemHeight]);
 
+    // Keyboard: the picker is a spinbutton. Arrow keys step by one, Page keys by
+    // a page, Home and End jump to the ends.
+    const step = (delta: number, absolute?: number) => {
+      const len = options.length;
+      if (!len) return;
+      const position = targetRef.current;
+      let target = absolute !== undefined ? position - valueIndex + absolute : position + delta;
+      if (!loop) target = Math.max(0, Math.min(len - 1, target));
+      if (target === position) return;
+      settle(target);
+      animate(
+        y,
+        -target * itemHeight,
+        reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 500, damping: 35 },
+      );
+      onChange?.(options[normalizeIndex(target, len)]!);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      props.onKeyDown?.(e);
+      if (e.defaultPrevented) return;
+      const page = Math.max(1, visibleCount);
+      switch (e.key) {
+        case 'ArrowDown':
+          step(1);
+          break;
+        case 'ArrowUp':
+          step(-1);
+          break;
+        case 'PageDown':
+          step(page);
+          break;
+        case 'PageUp':
+          step(-page);
+          break;
+        case 'Home':
+          step(0, 0);
+          break;
+        case 'End':
+          step(0, options.length - 1);
+          break;
+        default:
+          return;
+      }
+      e.preventDefault();
+    };
+
     // Render 5 sets of options for infinite looping comfort
     const renderIndices = React.useMemo(() => {
       if (!loop) return options.map((_, i) => i);
@@ -148,9 +205,25 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
     }, [options.length, loop]);
 
     return (
-      <div ref={ref} className={cn(wheelPickerVariants({ variant, size }), className)} {...props}>
+      <div
+        ref={ref}
+        role="spinbutton"
+        tabIndex={0}
+        aria-valuenow={valueIndex}
+        aria-valuemin={0}
+        aria-valuemax={Math.max(0, options.length - 1)}
+        aria-valuetext={options[valueIndex]}
+        className={cn(
+          wheelPickerVariants({ variant, size }),
+          'focus-visible:outline-signal focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
+          className,
+        )}
+        {...props}
+        onKeyDown={handleKeyDown}
+      >
         {/* Centered Selection Indicator */}
         <div
+          aria-hidden="true"
           className={cn(
             'pointer-events-none absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 border-y-2',
             variant === 'cyber' ? 'border-signal/40 bg-signal/5' : 'border-primary/20 bg-primary/5',
@@ -166,6 +239,7 @@ const ReactWheelPicker = React.forwardRef<HTMLDivElement, ReactWheelPickerProps>
           dragElastic={0.1}
           style={{ y: y }} // Use direct y for drag target
           onDragEnd={handleDragEnd}
+          aria-hidden="true"
         >
           {renderIndices.map((idx) => {
             const normalizedIdx = normalizeIndex(idx, options.length);

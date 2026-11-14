@@ -29,10 +29,24 @@ export interface CardStackProps
   offset?: number;
   rotation?: number;
   onSwipe?: (index: number) => void;
+  /** Name of the keyboard control that shows the next card. */
+  nextLabel?: string;
 }
 
 const CardStack = React.forwardRef<HTMLDivElement, CardStackProps>(
-  ({ className, variant = 'default', cards, offset = 8, rotation = 3, onSwipe, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = 'default',
+      cards,
+      offset = 8,
+      rotation = 3,
+      onSwipe,
+      nextLabel = 'Next card',
+      ...props
+    },
+    ref,
+  ) => {
     const v = variant ?? 'default';
     const [current, setCurrent] = React.useState(0);
     const visibleCount = Math.min(3, cards.length);
@@ -73,6 +87,19 @@ const CardStack = React.forwardRef<HTMLDivElement, CardStackProps>(
             );
           })}
         </div>
+        {/* Clicking the top card cycles the stack; this is the same action for keyboard users. */}
+        {cards.length > 1 && (
+          <button
+            type="button"
+            onClick={cycle}
+            className="bg-panel text-foreground border-rule rounded-control focus-visible:outline-signal sr-only z-(--z-dock) border px-2 py-1 text-xs focus-visible:not-sr-only focus-visible:absolute focus-visible:right-2 focus-visible:bottom-2 focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid"
+          >
+            {nextLabel}
+          </button>
+        )}
+        <span role="status" className="sr-only">
+          Card {current + 1} of {cards.length}
+        </span>
       </div>
     );
   },

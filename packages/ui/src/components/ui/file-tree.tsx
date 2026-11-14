@@ -63,9 +63,11 @@ const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
           key={node.id}
           className={cn('flex flex-col', size === 'sm' && 'py-0.5', size === 'lg' && 'py-1')}
         >
-          <div
+          <button
+            type="button"
+            aria-expanded={isFolder ? isExpanded : undefined}
             className={cn(
-              'rounded-control flex cursor-pointer items-center gap-2 px-2 py-1',
+              'rounded-control focus-visible:outline-signal flex w-full cursor-pointer items-center gap-2 px-2 py-1 text-left focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
               variant === 'cyber' && 'hover:bg-signal/10',
               variant === 'glass' && 'hover:bg-state',
               'hover:bg-muted/50',
@@ -79,6 +81,7 @@ const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
           >
             {isFolder && (
               <ChevronRight
+                aria-hidden="true"
                 className={cn(
                   'h-4 w-4 shrink-0 transition-transform duration-(--motion-base)',
                   isExpanded ? 'rotate-90' : 'rotate-0',
@@ -90,13 +93,17 @@ const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
             )}
             {isFolder ? (
               <Folder
+                aria-hidden="true"
                 className={cn(
                   'h-4 w-4 shrink-0',
                   isExpanded ? 'text-signal' : 'text-muted-foreground',
                 )}
               />
             ) : (
-              <File className={cn('h-4 w-4 shrink-0', 'text-muted-foreground')} />
+              <File
+                aria-hidden="true"
+                className={cn('h-4 w-4 shrink-0', 'text-muted-foreground')}
+              />
             )}
             <span
               className={cn(
@@ -106,7 +113,7 @@ const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
             >
               {node.name}
             </span>
-          </div>
+          </button>
           {isFolder && isExpanded && node.children && (
             <ul className="border-rule-strong/20 ml-4 border-l">{node.children.map(renderNode)}</ul>
           )}
