@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const numberInputVariants = cva(
-  'inline-flex items-center rounded-control border transition-colors',
+  'inline-flex items-center rounded-control border transition-colors focus-within:outline-signal focus-within:outline-1 focus-within:outline-offset-2 focus-within:outline-solid',
   {
     variants: {
       variant: {

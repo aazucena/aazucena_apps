@@ -125,6 +125,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
             )}
           >
             <input
+              aria-label={`Select all in ${title}`}
               type="checkbox"
               checked={allChecked}
               onChange={() => toggleAll(filtered, selected, setSelected)}
@@ -139,11 +140,12 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
           {searchable && (
             <div
               className={cn(
-                'border-b px-2 py-1.5',
+                'focus-within:outline-signal border-b px-2 py-1.5 focus-within:outline-1 focus-within:-outline-offset-1 focus-within:outline-solid',
                 v === 'cyber' ? 'border-signal/20' : 'border-border',
               )}
             >
               <input
+                aria-label={`Search ${title}`}
                 type="text"
                 placeholder="Search..."
                 value={query}

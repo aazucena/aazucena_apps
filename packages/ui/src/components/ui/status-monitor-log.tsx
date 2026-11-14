@@ -31,7 +31,7 @@ export const StatusMonitorLogHeader = React.forwardRef<
   <button
     ref={ref}
     className={cn(
-      'flex w-full cursor-pointer items-start gap-4 border-none bg-transparent p-6 text-left outline-none',
+      'focus-visible:outline-signal flex w-full cursor-pointer items-start gap-4 border-none bg-transparent p-6 text-left focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
       className,
     )}
     {...props}

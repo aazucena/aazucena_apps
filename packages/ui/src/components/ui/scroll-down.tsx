@@ -6,14 +6,14 @@ import { cn } from '@aazucena/utils';
 import { ScrollDown as Icon } from '@aazucena/icons';
 
 const scrollDownVariants = cva(
-  'fixed bottom-12 left-1/2 -translate-x-1/2 z-(--z-fixed) flex flex-col items-center gap-2 transition-colors duration-1000 cursor-pointer group outline-none',
+  'fixed bottom-12 left-1/2 -translate-x-1/2 z-(--z-fixed) flex flex-col items-center gap-2 transition-colors duration-1000 cursor-pointer group focus-visible:outline-signal focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
   {
     variants: {
       variant: {
         default: 'text-foreground/80 hover:text-foreground',
         glass: 'text-foreground/80 hover:text-primary dark:hover:text-foreground',
         cyber:
-          'text-primary/80 dark:text-muted-foreground hover:text-primary dark:hover:text-signal font-mono tracking-wider',
+          'text-primary dark:text-muted-foreground hover:text-primary dark:hover:text-signal font-mono tracking-wider',
       },
       visible: {
         true: 'opacity-100 scale-100',
@@ -72,7 +72,10 @@ const ScrollDownLabel = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<H
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn('text-[10px] font-black tracking-widest uppercase opacity-60', className)}
+      className={cn(
+        'text-muted-foreground text-[10px] font-black tracking-widest uppercase',
+        className,
+      )}
       {...props}
     />
   ),

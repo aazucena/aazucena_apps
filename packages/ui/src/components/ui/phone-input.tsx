@@ -4,26 +4,29 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
-const phoneInputVariants = cva('flex w-full items-center', {
-  variants: {
-    variant: {
-      default: '',
-      glass: '',
-      cyber: '',
+const phoneInputVariants = cva(
+  'flex w-full items-center focus-within:outline-signal focus-within:outline-1 focus-within:outline-offset-2 focus-within:outline-solid',
+  {
+    variants: {
+      variant: {
+        default: '',
+        glass: '',
+        cyber: '',
+      },
+      size: {
+        sm: 'h-8 text-xs',
+        md: 'h-9 text-sm',
+        lg: 'h-10 text-base',
+      },
     },
-    size: {
-      sm: 'h-8 text-xs',
-      md: 'h-9 text-sm',
-      lg: 'h-10 text-base',
-    },
+    defaultVariants: { variant: 'default', size: 'md' },
   },
-  defaultVariants: { variant: 'default', size: 'md' },
-});
+);
 
 const fieldStyles: Record<string, string> = {
   default:
     'border-input bg-background placeholder:text-muted-foreground focus-within:ring-2 focus-within:ring-ring',
-  glass: 'glass border-rule placeholder:text-foreground/40',
+  glass: 'glass border-rule placeholder:text-muted-foreground',
   cyber:
     'border-signal/30 bg-panel text-signal font-mono placeholder:text-muted-foreground focus-within:border-signal',
 };
@@ -117,6 +120,7 @@ const PhoneInput = React.forwardRef<HTMLDivElement, PhoneInputProps>(
           ))}
         </select>
         <input
+          aria-label={props['aria-label'] ?? 'Phone number'}
           type="tel"
           value={formatPhone(value)}
           placeholder={placeholder}

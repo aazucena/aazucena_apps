@@ -40,7 +40,7 @@ const inputClasses: Record<string, Record<string, string>> = {
 const labelClasses: Record<string, Record<string, string>> = {
   variant: {
     default: 'text-muted-foreground peer-focus:text-primary',
-    glass: 'text-foreground/50 peer-focus:text-foreground/80',
+    glass: 'text-muted-foreground peer-focus:text-foreground/80',
     cyber: 'text-muted-foreground peer-focus:text-signal font-mono',
   },
   size: {
@@ -79,7 +79,7 @@ const FloatingLabel = React.forwardRef<HTMLInputElement, FloatingLabelProps>(
     const s = size ?? 'md';
 
     const fieldCn = cn(
-      'peer w-full rounded-control border outline-none transition-[border-color,box-shadow]',
+      'peer w-full rounded-control border focus-visible:outline-signal focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid transition-[border-color,box-shadow]',
       inputClasses.variant?.[v],
       inputClasses.size?.[s],
       className,

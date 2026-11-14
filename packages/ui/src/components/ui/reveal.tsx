@@ -41,7 +41,7 @@ const RevealTrigger = React.forwardRef<
   <button
     ref={ref}
     className={cn(
-      'flex w-full items-center justify-between py-4 text-left font-medium underline-offset-4 transition-colors outline-none hover:underline',
+      'focus-visible:outline-signal flex w-full items-center justify-between py-4 text-left font-medium underline-offset-4 transition-colors hover:underline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
       className,
     )}
     {...props}

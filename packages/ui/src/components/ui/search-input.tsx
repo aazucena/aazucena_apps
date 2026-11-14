@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const searchInputVariants = cva(
-  'flex items-center gap-2 rounded-control border transition-colors',
+  'flex items-center gap-2 rounded-control border transition-colors focus-within:outline-signal focus-within:outline-1 focus-within:outline-offset-2 focus-within:outline-solid',
   {
     variants: {
       variant: {

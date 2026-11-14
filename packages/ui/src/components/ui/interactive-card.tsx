@@ -50,7 +50,7 @@ const InteractiveCardHeader = React.forwardRef<
   <button
     ref={ref}
     className={cn(
-      'flex w-full cursor-pointer items-start gap-4 border-none bg-transparent p-6 text-left outline-none',
+      'focus-visible:outline-signal flex w-full cursor-pointer items-start gap-4 border-none bg-transparent p-6 text-left focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
       className,
     )}
     {...props}
@@ -64,7 +64,7 @@ const interactiveCardIconVariants = cva(
     variants: {
       variant: {
         default: 'bg-muted text-foreground',
-        glass: 'bg-background/10 dark:bg-state text-foreground border border-border/20',
+        glass: 'bg-background/10 dark:bg-panel-raised text-foreground border border-border/20',
         cyber:
           'bg-primary/10 dark:bg-signal/10 text-primary dark:text-signal border border-border dark:border-signal/30',
       },
@@ -114,7 +114,10 @@ const InteractiveCardSubtitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('mt-1 text-[10px] font-black tracking-widest uppercase opacity-40', className)}
+    className={cn(
+      'text-muted-foreground mt-1 text-[10px] font-black tracking-widest uppercase',
+      className,
+    )}
     {...props}
   />
 ));

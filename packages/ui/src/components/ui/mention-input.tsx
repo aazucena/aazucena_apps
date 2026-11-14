@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@aazucena/utils';
 
 const mentionInputVariants = cva(
-  'relative w-full rounded-control border bg-transparent transition-colors',
+  'relative w-full rounded-control border bg-transparent transition-colors focus-within:outline-signal focus-within:outline-1 focus-within:outline-offset-2 focus-within:outline-solid',
   {
     variants: {
       variant: {

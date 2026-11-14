@@ -7,21 +7,24 @@ import { useEditor, EditorContent, type Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 
-const editorVariants = cva('w-full overflow-hidden rounded-control border transition', {
-  variants: {
-    variant: {
-      default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
-      glass: 'glass border-rule',
-      cyber: 'border-signal/30 bg-panel focus-within:border-signal',
+const editorVariants = cva(
+  'w-full overflow-hidden rounded-control border transition focus-within:outline-signal focus-within:outline-1 focus-within:outline-offset-2 focus-within:outline-solid',
+  {
+    variants: {
+      variant: {
+        default: 'border-input bg-background focus-within:ring-2 focus-within:ring-ring',
+        glass: 'glass border-rule',
+        cyber: 'border-signal/30 bg-panel focus-within:border-signal',
+      },
+      size: {
+        sm: '',
+        md: '',
+        lg: '',
+      },
     },
-    size: {
-      sm: '',
-      md: '',
-      lg: '',
-    },
+    defaultVariants: { variant: 'default', size: 'md' },
   },
-  defaultVariants: { variant: 'default', size: 'md' },
-});
+);
 
 const sizeMap: Record<string, string> = {
   sm: 'min-h-[120px] text-xs',
@@ -62,7 +65,7 @@ function ToolbarButton({
         'rounded px-2 py-1 transition-colors disabled:opacity-50',
         active
           ? variant === 'cyber'
-            ? 'bg-signal/20 text-signal'
+            ? 'bg-signal/10 text-signal'
             : 'bg-accent text-accent-foreground'
           : variant === 'cyber'
             ? 'text-muted-foreground hover:text-signal'

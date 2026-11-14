@@ -14,7 +14,7 @@ const commandVariants = cva('flex h-full w-full flex-col overflow-hidden rounded
   variants: {
     variant: {
       default: 'bg-background text-foreground',
-      glass: 'bg-background/5 dark:bg-state border border-border/10 text-foreground',
+      glass: 'bg-background/5 dark:bg-panel-raised border border-border/10 text-foreground',
       cyber:
         'bg-background/90 dark:bg-panel border border-border dark:border-signal/40 text-foreground',
     },
@@ -62,7 +62,10 @@ const CommandInput = React.forwardRef<
   ElementRef<typeof CommandPrimitive.Input>,
   ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className: _className, ...props }, ref) => (
-  <div className="flex items-center border-b px-3" cmdk-input-wrapper="">
+  <div
+    className="focus-within:outline-signal flex items-center border-b px-3 focus-within:outline-1 focus-within:-outline-offset-1 focus-within:outline-solid"
+    cmdk-input-wrapper=""
+  >
     <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       ref={ref}
@@ -218,7 +221,7 @@ const CommandPalette = React.forwardRef<HTMLDivElement, CommandPaletteProps>(
                       <span className="text-xs font-bold tracking-wide uppercase">
                         {action.name}
                       </span>
-                      <span className="truncate font-mono text-[10px] opacity-50">
+                      <span className="text-muted-foreground truncate font-mono text-[10px]">
                         {action.keywords}
                       </span>
                     </div>

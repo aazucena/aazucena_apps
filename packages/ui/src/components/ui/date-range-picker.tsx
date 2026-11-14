@@ -113,7 +113,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(
           disabled={disabled}
           onClick={() => setOpen(!open)}
           className={cn(
-            'rounded-control flex w-full items-center gap-2 border transition-opacity outline-none',
+            'rounded-control focus-visible:outline-signal flex w-full items-center gap-2 border transition-opacity focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
             triggerStyles[v],
             sizeStyles[s],
             disabled && 'pointer-events-none opacity-50',

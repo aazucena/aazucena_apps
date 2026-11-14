@@ -73,6 +73,7 @@ const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>(
     return (
       <div ref={ref} className={cn(datepickerVariants({ variant, size }), className)} {...props}>
         <input
+          aria-hidden="true"
           ref={inputRef}
           type="date"
           value={isoValue}
@@ -90,7 +91,7 @@ const Datepicker = React.forwardRef<HTMLDivElement, DatepickerProps>(
           disabled={disabled}
           onClick={() => inputRef.current?.showPicker()}
           className={cn(
-            'rounded-control flex w-full items-center gap-2 border transition-opacity outline-none',
+            'rounded-control focus-visible:outline-signal flex w-full items-center gap-2 border transition-opacity focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
             triggerStyles[v],
             sizeStyles[s],
             disabled && 'pointer-events-none opacity-50',
