@@ -73,18 +73,18 @@ export const Basic: Story = {
             <IdentityFirst>Aldrin</IdentityFirst> Azucena
           </IdentityName>
           <IdentityOccupation>Engineering Intelligence Lead</IdentityOccupation>
-          <p className="text-xl opacity-60 leading-relaxed max-w-xl">
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
             Architecting high-fidelity decentralized interfaces and neural-adaptive telemetry
             systems for the next generation of computing.
           </p>
           <div className="flex gap-4 justify-center md:justify-start pt-4">
-            <Button variant="outline" size="icon" className="rounded-full">
+            <Button aria-label="GitHub" variant="outline" size="icon" className="rounded-full">
               <Github size={18} />
             </Button>
-            <Button variant="outline" size="icon" className="rounded-full">
+            <Button aria-label="LinkedIn" variant="outline" size="icon" className="rounded-full">
               <Linkedin size={18} />
             </Button>
-            <Button variant="outline" size="icon" className="rounded-full">
+            <Button aria-label="Twitter" variant="outline" size="icon" className="rounded-full">
               <Twitter size={18} />
             </Button>
           </div>
@@ -106,7 +106,7 @@ export const CyberTerminal: Story = {
       <div className="absolute top-0 right-0 p-8">
         <div className="flex items-center gap-2">
           <Activity size={12} className="text-signal animate-pulse" />
-          <span className="font-mono text-[9px] text-signal/40 uppercase">NODE_STATUS: STABLE</span>
+          <span className="font-mono text-[9px] text-signal uppercase">NODE_STATUS: STABLE</span>
         </div>
       </div>
       <Identity {...args}>
@@ -118,11 +118,11 @@ export const CyberTerminal: Story = {
           <IdentityName variant="cyber" className="font-mono italic">
             <span className="text-signal">ALDRIN</span>_AZUCENA
           </IdentityName>
-          <IdentityOccupation className="font-mono text-signal/60 uppercase tracking-[0.3em] text-lg">
+          <IdentityOccupation className="font-mono text-signal uppercase tracking-[0.3em] text-lg">
             LEAD_SYSTEMS_ARCHITECT // UNIT_0x7F42
           </IdentityOccupation>
           <div className="p-6 bg-signal/5 border border-signal/10 rounded-card max-w-lg">
-            <p className="font-mono text-sm text-signal/80 leading-relaxed italic">
+            <p className="font-mono text-sm text-signal leading-relaxed italic">
               "Establishing high-bandwidth knowledge ingestion layers across distributed node
               clusters."
             </p>
@@ -155,16 +155,16 @@ export const StatusGlass: Story = {
         />
         <IdentityContent>
           <IdentityName className="text-foreground">
-            <span className="opacity-60">Aldrin</span> Azucena
+            <span className="text-muted-foreground">Aldrin</span> Azucena
           </IdentityName>
-          <IdentityOccupation className="text-foreground/40 uppercase tracking-widest text-lg">
+          <IdentityOccupation className="text-muted-foreground uppercase tracking-widest text-lg">
             Atmospheric_Designer
           </IdentityOccupation>
           <div className="flex items-center gap-4 pt-8">
             <div className="p-4 bg-state border border-rule rounded-card flex items-center gap-3">
               <Globe size={20} className="text-signal" />
               <div className="flex flex-col">
-                <span className="text-[9px] font-bold text-foreground/40 uppercase">
+                <span className="text-[9px] font-bold text-muted-foreground uppercase">
                   Current_Zone
                 </span>
                 <span className="text-xs font-bold">Orbit_US_East</span>

@@ -95,7 +95,7 @@ export const Basic: Story = {
       <ActionBar {...args}>
         <ActionButtons />
       </ActionBar>
-      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest opacity-20">
+      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest text-muted-foreground">
         Content Area
       </div>
     </div>
@@ -126,7 +126,7 @@ export const Glass: Story = {
           Paste
         </button>
       </ActionBar>
-      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest text-foreground/30">
+      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest text-muted-foreground">
         Glass Context
       </div>
     </div>
@@ -155,7 +155,7 @@ export const Cyber: Story = {
           PASTE
         </button>
       </ActionBar>
-      <div className="flex h-full items-center justify-center font-mono text-xs uppercase tracking-widest text-signal/20">
+      <div className="flex h-full items-center justify-center font-mono text-xs uppercase tracking-widest text-signal">
         TERMINAL_STAGE
       </div>
     </div>
@@ -178,7 +178,7 @@ export const TopPosition: Story = {
       <ActionBar {...args}>
         <ActionButtons />
       </ActionBar>
-      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest opacity-20">
+      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest text-muted-foreground">
         Content Area
       </div>
     </div>
@@ -197,7 +197,7 @@ export const NoDismiss: Story = {
       <ActionBar {...args}>
         <ActionButtons />
       </ActionBar>
-      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest opacity-20">
+      <div className="flex h-full items-center justify-center text-xs uppercase tracking-widest text-muted-foreground">
         Persistent Toolbar
       </div>
     </div>

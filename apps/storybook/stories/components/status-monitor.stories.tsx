@@ -94,7 +94,7 @@ export const NominalState: Story = {
           </Badge>
         </StatusMonitorHeader>
         <StatusMonitorContent>
-          <p className="text-sm opacity-60 leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             All cryptographic barriers are active. Node US_EAST_01 is reporting zero unauthorized
             handshake attempts in the current epoch.
           </p>
@@ -104,12 +104,12 @@ export const NominalState: Story = {
                 <Database size={14} className="text-success" />
                 <span className="text-xs font-bold uppercase">Buffer_Sync</span>
               </div>
-              <span className="text-[10px] font-mono opacity-40 uppercase">0ms_Lag</span>
+              <span className="text-[10px] font-mono text-muted-foreground uppercase">0ms_Lag</span>
             </StatusMonitorAlert>
           </div>
         </StatusMonitorContent>
         <StatusMonitorFooter>
-          <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Auto_Audit: PASS
           </span>
           <Button
@@ -141,7 +141,7 @@ export const CriticalTerminal: Story = {
               <DangerCircle className="size-6" />
             </StatusMonitorIcon>
             <div>
-              <StatusMonitorTitle className="text-alert/60">Kernel_Inference</StatusMonitorTitle>
+              <StatusMonitorTitle className="text-alert">Kernel_Inference</StatusMonitorTitle>
               <StatusMonitorValue status="CRITICAL">BUFFER_OVERFLOW_0x7F</StatusMonitorValue>
             </div>
           </div>
@@ -150,8 +150,8 @@ export const CriticalTerminal: Story = {
         <StatusMonitorContent className="bg-background p-0">
           <div className="p-6 font-mono text-[11px] text-alert space-y-1">
             <p className="font-bold">{'>'} CRITICAL_ERROR: MEMORY_ALLOCATION_FAILED</p>
-            <p className="opacity-40 italic">-- generating stack trace --</p>
-            <p className="opacity-40 italic">-- isolating affected sectors --</p>
+            <p className="text-muted-foreground italic">-- generating stack trace --</p>
+            <p className="text-muted-foreground italic">-- isolating affected sectors --</p>
             <p className="mt-4">{'>'} INITIATING_EMERGENCY_OVERRIDE...</p>
           </div>
           <div className="px-6 pb-6">
@@ -166,9 +166,7 @@ export const CriticalTerminal: Story = {
           </div>
         </StatusMonitorContent>
         <StatusMonitorFooter variant="cyber" className="border-alert/20">
-          <span className="text-[10px] font-mono text-alert/40 uppercase">
-            Awaiting_Admin_Pulse_
-          </span>
+          <span className="text-[10px] font-mono text-alert uppercase">Awaiting_Admin_Pulse_</span>
           <Button
             variant="destructive"
             size="sm"
@@ -203,7 +201,7 @@ export const GlassMonitor: Story = {
                 <Globe size={24} />
               </StatusMonitorIcon>
               <div>
-                <StatusMonitorTitle className="text-foreground/40">
+                <StatusMonitorTitle className="text-muted-foreground">
                   Network_Reach
                 </StatusMonitorTitle>
                 <StatusMonitorValue className="text-foreground">
@@ -220,13 +218,13 @@ export const GlassMonitor: Story = {
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-3 bg-state border border-rule rounded-card">
-                  <span className="text-[9px] font-black uppercase text-foreground/40">
+                  <span className="text-[9px] font-black uppercase text-muted-foreground">
                     US_East
                   </span>
                   <p className="text-lg font-black">12ms</p>
                 </div>
                 <div className="p-3 bg-state border border-rule rounded-card">
-                  <span className="text-[9px] font-black uppercase text-foreground/40">
+                  <span className="text-[9px] font-black uppercase text-muted-foreground">
                     EU_West
                   </span>
                   <p className="text-lg font-black text-signal">18ms</p>

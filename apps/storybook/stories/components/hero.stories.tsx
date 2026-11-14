@@ -112,14 +112,14 @@ export const CyberTerminal: Story = {
               <div className="p-4 border border-signal/30 rounded-full animate-pulse">
                 <Zap className="size-8 text-signal" />
               </div>
-              <span className="font-mono text-[10px] text-signal/60 uppercase tracking-[0.4em]">
+              <span className="font-mono text-[10px] text-signal uppercase tracking-[0.4em]">
                 UPLINK_STATUS: SECURE_ENCLAVE
               </span>
             </div>
             <HeroTitle variant="cyber" size="lg" className="text-signal italic uppercase">
               CORE_PROTOCOL
             </HeroTitle>
-            <HeroSubtitle className="font-mono text-signal/40 uppercase tracking-[0.2em] max-w-2xl mx-auto text-sm md:text-base">
+            <HeroSubtitle className="font-mono text-signal uppercase tracking-[0.2em] max-w-2xl mx-auto text-sm md:text-base">
               INITIALIZING_SECURE_EXTRACTION_SEQUENCE... // ALL_NODES_ONLINE
             </HeroSubtitle>
             <HeroActions className="mt-16">
@@ -185,7 +185,7 @@ export const IntelDashboard: Story = {
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <Activity className="size-4 text-primary animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">
+                <span className="text-[10px] font-black uppercase tracking-widest text-primary">
                   LIVE_TELEMETRY_STREAM
                 </span>
               </div>
@@ -194,7 +194,7 @@ export const IntelDashboard: Story = {
               </h1>
             </div>
             <div className="text-right space-y-2">
-              <p className="text-[10px] font-mono text-foreground/40 uppercase">Assigned_Node</p>
+              <p className="text-[10px] font-mono text-muted-foreground uppercase">Assigned_Node</p>
               <p className="text-xl font-mono text-primary font-black">0x7F42_ALPHA</p>
             </div>
           </div>

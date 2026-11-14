@@ -184,21 +184,21 @@ export const StatusMonitor: Story = {
           <div className="space-y-4">
             <div className="flex justify-between items-center border-b pb-2">
               <div className="flex flex-col">
-                <span className="text-[10px] opacity-40 uppercase">US_EAST_NODE</span>
+                <span className="text-[10px] text-muted-foreground uppercase">US_EAST_NODE</span>
                 <span className="font-bold">Syncing...</span>
               </div>
               <div className="size-2 rounded-full bg-signal animate-pulse" />
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <div className="flex flex-col">
-                <span className="text-[10px] opacity-40 uppercase">EU_WEST_NODE</span>
+                <span className="text-[10px] text-muted-foreground uppercase">EU_WEST_NODE</span>
                 <span className="font-bold text-success">Nominal</span>
               </div>
               <div className="size-2 rounded-full bg-success" />
             </div>
             <div className="flex justify-between items-center">
               <div className="flex flex-col">
-                <span className="text-[10px] opacity-40 uppercase">AP_SOUTH_NODE</span>
+                <span className="text-[10px] text-muted-foreground uppercase">AP_SOUTH_NODE</span>
                 <span className="font-bold text-alert">Critical_Fail</span>
               </div>
               <div className="size-2 rounded-full bg-alert animate-ping" />

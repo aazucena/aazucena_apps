@@ -91,7 +91,7 @@ export const Basic: Story = {
           <Badge variant="outline" size="xs">
             ACTIVE
           </Badge>
-          <Button variant="ghost" size="icon" className="size-8">
+          <Button aria-label="Next" variant="ghost" size="icon" className="size-8">
             <ChevronRight size={14} />
           </Button>
         </ItemActions>
@@ -124,7 +124,7 @@ export const TechnicalItem: Story = {
           </ItemDescription>
         </ItemContent>
         <ItemActions>
-          <span className="font-mono text-[10px] opacity-40">12ms</span>
+          <span className="font-mono text-[10px] text-muted-foreground">12ms</span>
         </ItemActions>
       </Item>
     </div>
@@ -138,7 +138,7 @@ export const NavigationList: Story = {
   render: () => (
     <div className="w-[350px] border rounded-card overflow-hidden bg-card">
       <div className="p-4 border-b bg-muted/30">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
           SYSTEM_REGISTRY
         </h3>
       </div>
@@ -220,7 +220,9 @@ export const RichContent: Story = {
                 </Avatar>
               ))}
             </div>
-            <span className="text-[10px] font-bold opacity-40 uppercase">3 Agents Active</span>
+            <span className="text-[10px] font-bold text-muted-foreground uppercase">
+              3 Agents Active
+            </span>
           </div>
           <Button variant="ghost" size="sm" className="gap-2">
             <Copy size={12} /> Copy_Log_ID

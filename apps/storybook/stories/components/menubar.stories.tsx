@@ -151,7 +151,7 @@ export const CyberTerminal: Story = {
             // KERNEL
           </MenubarTrigger>
           <MenubarContent variant="cyber" className="w-64">
-            <MenubarLabel className="text-signal/60 uppercase text-[10px]">
+            <MenubarLabel className="text-signal uppercase text-[10px]">
               # CORE_OPERATIONS
             </MenubarLabel>
             <MenubarSeparator className="bg-signal/20" />

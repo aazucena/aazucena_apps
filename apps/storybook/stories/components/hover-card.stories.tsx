@@ -109,9 +109,9 @@ export const CyberSpec: Story = {
           </div>
           <div className="space-y-1">
             <p className="text-xs font-bold text-foreground uppercase">Primary_Uplink_Core</p>
-            <p className="text-[10px] opacity-40 uppercase">ZONE: US_EAST_1</p>
+            <p className="text-[10px] text-muted-foreground uppercase">ZONE: US_EAST_1</p>
           </div>
-          <div className="pt-2 border-t border-signal/10 flex justify-between text-[9px] opacity-60 uppercase">
+          <div className="pt-2 border-t border-signal/10 flex justify-between text-[9px] text-muted-foreground uppercase">
             <span>Latency</span>
             <span className="text-signal">12ms</span>
           </div>
@@ -142,12 +142,12 @@ export const GlassPreview: Story = {
               <Globe className="size-4 opacity-60" />
               <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
             </div>
-            <p className="text-xs text-foreground/60 leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur
               enabled.
             </p>
             <div className="p-3 bg-state border border-rule rounded-card">
-              <span className="text-[9px] font-bold text-foreground/40 uppercase tracking-widest">
+              <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
                 SIGNAL_LOCK
               </span>
               <div className="text-success font-mono text-xs mt-1">99.98% STABLE</div>

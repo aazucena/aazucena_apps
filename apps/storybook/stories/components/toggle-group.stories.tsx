@@ -70,7 +70,9 @@ export const MultiSelect: Story = {
   },
   render: (args) => (
     <div className="flex flex-col items-center gap-4">
-      <p className="text-[10px] font-black uppercase tracking-widest opacity-40">View_Filters</p>
+      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+        View_Filters
+      </p>
       <ToggleGroup {...args}>
         <ToggleGroupItem value="grid" aria-label="Toggle grid">
           <Layout />
@@ -165,7 +167,7 @@ export const Sizes: Story = {
           <ToggleGroupItem value="2">2</ToggleGroupItem>
           <ToggleGroupItem value="3">3</ToggleGroupItem>
         </ToggleGroup>
-        <p className="text-[9px] font-mono opacity-40 uppercase">SM</p>
+        <p className="text-[9px] font-mono text-muted-foreground uppercase">SM</p>
       </div>
       <div className="flex flex-col items-center gap-3">
         <ToggleGroup type="single" size="default" variant="outline">
@@ -173,7 +175,7 @@ export const Sizes: Story = {
           <ToggleGroupItem value="2">2</ToggleGroupItem>
           <ToggleGroupItem value="3">3</ToggleGroupItem>
         </ToggleGroup>
-        <p className="text-[9px] font-mono opacity-40 uppercase">DEFAULT</p>
+        <p className="text-[9px] font-mono text-muted-foreground uppercase">DEFAULT</p>
       </div>
       <div className="flex flex-col items-center gap-3">
         <ToggleGroup type="single" size="lg" variant="outline">
@@ -181,7 +183,7 @@ export const Sizes: Story = {
           <ToggleGroupItem value="2">2</ToggleGroupItem>
           <ToggleGroupItem value="3">3</ToggleGroupItem>
         </ToggleGroup>
-        <p className="text-[9px] font-mono opacity-40 uppercase">LG</p>
+        <p className="text-[9px] font-mono text-muted-foreground uppercase">LG</p>
       </div>
     </div>
   ),

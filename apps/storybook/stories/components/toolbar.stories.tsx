@@ -78,7 +78,7 @@ export const Basic: Story = {
     orientation: 'horizontal',
   },
   render: (args) => (
-    <div className="h-[300px] w-full bg-muted/10 relative overflow-hidden flex flex-col items-center justify-center italic text-xs opacity-20 uppercase tracking-widest">
+    <div className="h-[300px] w-full bg-muted/10 relative overflow-hidden flex flex-col items-center justify-center italic text-xs text-muted-foreground uppercase tracking-widest">
       <Toolbar {...args}>
         <ToolbarButton icon={<Layout size={20} />} label="Dashboard" isActive />
         <ToolbarButton icon={<Globe size={20} />} label="Globe_View" />
@@ -110,7 +110,7 @@ export const CyberTerminal: Story = {
         <ToolbarButton variant="cyber" icon={<Cog size={20} />} label="SYS_CONFIG" />
       </Toolbar>
       <div className="h-full flex items-center justify-center">
-        <h1 className="font-mono text-signal/20 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
+        <h1 className="font-mono text-signal text-4xl font-black italic select-none uppercase tracking-[0.2em]">
           UPLINK_TERMINAL
         </h1>
       </div>
@@ -148,7 +148,7 @@ export const GlassAtmospheric: Story = {
           label="Telemetry"
         />
       </Toolbar>
-      <span className="text-foreground font-black text-3xl tracking-tighter uppercase opacity-20">
+      <span className="font-black text-3xl tracking-tighter uppercase text-muted-foreground">
         Crystal_Layer_Sync
       </span>
     </div>

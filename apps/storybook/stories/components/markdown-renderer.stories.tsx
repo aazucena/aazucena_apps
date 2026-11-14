@@ -115,7 +115,7 @@ export const CyberAesthetic: Story = {
   },
   render: (args) => (
     <div className="w-[600px] p-12 bg-background border border-signal/20 rounded-card text-foreground">
-      <MarkdownRenderer {...args} className="font-mono text-signal/80" />
+      <MarkdownRenderer {...args} className="font-mono text-signal" />
     </div>
   ),
 };

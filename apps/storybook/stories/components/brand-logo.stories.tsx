@@ -108,25 +108,25 @@ export const Sizes: Story = {
         <BrandLogo size="sm" name="Small">
           <BrandLogoInitials>SM</BrandLogoInitials>
         </BrandLogo>
-        <p className="text-[10px] font-mono opacity-50">SM</p>
+        <p className="text-[10px] font-mono text-muted-foreground">SM</p>
       </div>
       <div className="text-center space-y-2">
         <BrandLogo size="default" name="Default">
           <BrandLogoInitials>DF</BrandLogoInitials>
         </BrandLogo>
-        <p className="text-[10px] font-mono opacity-50">DEFAULT</p>
+        <p className="text-[10px] font-mono text-muted-foreground">DEFAULT</p>
       </div>
       <div className="text-center space-y-2">
         <BrandLogo size="lg" name="Large">
           <BrandLogoInitials>LG</BrandLogoInitials>
         </BrandLogo>
-        <p className="text-[10px] font-mono opacity-50">LG</p>
+        <p className="text-[10px] font-mono text-muted-foreground">LG</p>
       </div>
       <div className="text-center space-y-2">
         <BrandLogo size="xl" name="ExtraLarge">
           <BrandLogoInitials>XL</BrandLogoInitials>
         </BrandLogo>
-        <p className="text-[10px] font-mono opacity-50">XL</p>
+        <p className="text-[10px] font-mono text-muted-foreground">XL</p>
       </div>
     </div>
   ),

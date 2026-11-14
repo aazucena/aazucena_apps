@@ -159,7 +159,7 @@ export const Sizes: Story = {
     <div className="flex flex-col gap-6">
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <div key={size}>
-          <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest opacity-40">
+          <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             {size}
           </span>
           <Validator rules={mixedRules} size={size} showProgress />

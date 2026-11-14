@@ -70,7 +70,7 @@ export const CyberTerminal: Story = {
   },
   render: (args) => (
     <div className="p-12 bg-background rounded-card border border-signal/10 flex flex-col items-center gap-6">
-      <span className="text-[10px] font-mono text-signal opacity-40 uppercase tracking-[0.4em]">
+      <span className="text-[10px] font-mono text-signal uppercase tracking-[0.4em]">
         Atmosphere_Shift
       </span>
       <ThemeToggle {...args} />
@@ -103,7 +103,9 @@ export const GhostNavigation: Story = {
   },
   render: (args) => (
     <div className="flex items-center gap-6 px-6 py-2 border rounded-control bg-card">
-      <span className="text-xs font-black uppercase tracking-widest opacity-40">System_Mode</span>
+      <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+        System_Mode
+      </span>
       <ThemeToggle {...args} />
     </div>
   ),
@@ -117,15 +119,15 @@ export const Sizes: Story = {
     <div className="flex items-center gap-8">
       <div className="text-center space-y-2">
         <ThemeToggle size="sm" variant="default" />
-        <p className="text-[10px] font-mono opacity-40">SM</p>
+        <p className="text-[10px] font-mono text-muted-foreground">SM</p>
       </div>
       <div className="text-center space-y-2">
         <ThemeToggle size="default" variant="default" />
-        <p className="text-[10px] font-mono opacity-40">DEFAULT</p>
+        <p className="text-[10px] font-mono text-muted-foreground">DEFAULT</p>
       </div>
       <div className="text-center space-y-2">
         <ThemeToggle size="lg" variant="default" />
-        <p className="text-[10px] font-mono opacity-40">LG</p>
+        <p className="text-[10px] font-mono text-muted-foreground">LG</p>
       </div>
     </div>
   ),

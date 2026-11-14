@@ -79,10 +79,20 @@ export const CyberToolbar: Story = {
     <ButtonGroup {...args}>
       <ButtonGroupText variant="cyber">NODE_01</ButtonGroupText>
       <ButtonGroupSeparator className="dark:bg-signal/20" />
-      <Button variant="ghost" size="icon" className="text-signal hover:bg-signal/10">
+      <Button
+        aria-label="Add"
+        variant="ghost"
+        size="icon"
+        className="text-signal hover:bg-signal/10"
+      >
         <Plus className="h-4 w-4" />
       </Button>
-      <Button variant="ghost" size="icon" className="text-signal hover:bg-signal/10">
+      <Button
+        aria-label="Remove"
+        variant="ghost"
+        size="icon"
+        className="text-signal hover:bg-signal/10"
+      >
         <Minus className="h-4 w-4" />
       </Button>
     </ButtonGroup>

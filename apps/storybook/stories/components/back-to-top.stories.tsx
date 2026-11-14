@@ -95,7 +95,7 @@ export const ScrollBehavior: Story = {
   render: (args) => (
     <div className="h-[150vh] w-full flex items-center justify-center border border-dashed rounded-card bg-muted/5 relative">
       <div className="text-center space-y-4">
-        <p className="font-mono text-xs opacity-40">↓ SCROLL_DOWN_TO_ACTIVATE ↓</p>
+        <p className="font-mono text-xs text-muted-foreground">↓ SCROLL_DOWN_TO_ACTIVATE ↓</p>
         <div className="h-96" />
         <p className="text-sm font-bold animate-pulse">TRIGGER_ZONE</p>
       </div>

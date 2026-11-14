@@ -86,7 +86,7 @@ export const ModelSelector: Story = {
   render: () => (
     <div className="space-y-8 p-10 bg-panel dark:bg-background border rounded-card">
       <div className="space-y-2">
-        <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4">
+        <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-4">
           Primary_Engine
         </h4>
         <SegmentedControl variant="default">
@@ -99,7 +99,7 @@ export const ModelSelector: Story = {
       </div>
 
       <div className="space-y-2">
-        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal/60 ml-4">
+        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal ml-4">
           // RUNTIME_ENVIRONMENT
         </h4>
         <SegmentedControl variant="cyber">
@@ -161,10 +161,10 @@ export const PlaybackController: Story = {
           </PlaybackButton>
         </PlaybackControls>
         <PlaybackActions>
-          <Button variant="ghost" size="icon" className="text-signal">
+          <Button aria-label="Refresh" variant="ghost" size="icon" className="text-signal">
             <Refresh size={16} />
           </Button>
-          <Button variant="ghost" size="icon" className="text-signal">
+          <Button aria-label="Settings" variant="ghost" size="icon" className="text-signal">
             <Settings size={16} />
           </Button>
         </PlaybackActions>

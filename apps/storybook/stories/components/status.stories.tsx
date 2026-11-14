@@ -126,23 +126,23 @@ export const IndicatorStates: Story = {
     <div className="flex items-center gap-12">
       <div className="flex flex-col items-center gap-4">
         <StatusDot state="nominal" size="xs" />
-        <p className="text-[10px] font-mono opacity-40 uppercase">XS</p>
+        <p className="text-[10px] font-mono text-muted-foreground uppercase">XS</p>
       </div>
       <div className="flex flex-col items-center gap-4">
         <StatusDot state="nominal" size="sm" animated />
-        <p className="text-[10px] font-mono opacity-40 uppercase">SM_Pulse</p>
+        <p className="text-[10px] font-mono text-muted-foreground uppercase">SM_Pulse</p>
       </div>
       <div className="flex flex-col items-center gap-4">
         <StatusDot state="nominal" size="default" pulse />
-        <p className="text-[10px] font-mono opacity-40 uppercase">DF_Ping</p>
+        <p className="text-[10px] font-mono text-muted-foreground uppercase">DF_Ping</p>
       </div>
       <div className="flex flex-col items-center gap-4">
         <StatusDot state="nominal" size="lg" />
-        <p className="text-[10px] font-mono opacity-40 uppercase">LG</p>
+        <p className="text-[10px] font-mono text-muted-foreground uppercase">LG</p>
       </div>
       <div className="flex flex-col items-center gap-4">
         <StatusDot state="nominal" size="xl" />
-        <p className="text-[10px] font-mono opacity-40 uppercase">XL</p>
+        <p className="text-[10px] font-mono text-muted-foreground uppercase">XL</p>
       </div>
     </div>
   ),

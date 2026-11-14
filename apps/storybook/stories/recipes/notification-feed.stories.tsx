@@ -87,7 +87,7 @@ const NotificationItem = ({ notification }: { notification: Notification }) => (
       <p className="text-xs text-muted-foreground mt-1 leading-relaxed line-clamp-2">
         {notification.message}
       </p>
-      <p className="text-[10px] text-muted-foreground/60 mt-1.5 font-mono">{notification.time}</p>
+      <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">{notification.time}</p>
     </div>
   </div>
 );

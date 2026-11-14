@@ -68,7 +68,7 @@ export const Basic: Story = {
             <FilterBarSearch label="Signal_Query" placeholder="Filter by tech or title..." />
           </FilterBarItem>
           <FilterBarItem>
-            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase opacity-40 mb-3">
+            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase text-muted-foreground mb-3">
               Domain_Sector
             </label>
             <NativeSelect className="rounded-card h-12">
@@ -79,7 +79,7 @@ export const Basic: Story = {
             </NativeSelect>
           </FilterBarItem>
           <FilterBarItem>
-            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase opacity-40 mb-3">
+            <label className="ml-2 block text-[10px] font-black tracking-widest uppercase text-muted-foreground mb-3">
               Sort_Order
             </label>
             <div className="flex gap-2">
@@ -124,14 +124,14 @@ export const CyberTerminal: Story = {
         <FilterBarGrid className="lg:grid-cols-2">
           <FilterBarSearch label="IDENT_SEARCH" variant="cyber" placeholder="Enter sector ID..." />
           <FilterBarItem>
-            <label className="ml-2 block font-mono text-[10px] text-signal/60 uppercase mb-3">
+            <label className="ml-2 block font-mono text-[10px] text-signal uppercase mb-3">
               PROTOCOL_LEVEL
             </label>
             <div className="flex gap-4">
               <Badge variant="cyber">CORE_NOMINAL</Badge>
               <Badge
                 variant="outline"
-                className="text-signal/40 border-signal/10 uppercase tracking-tighter"
+                className="text-signal border-signal/10 uppercase tracking-tighter"
               >
                 Legacy_Buffer
               </Badge>
@@ -153,7 +153,7 @@ export const GlassOverlay: Story = {
   render: (args) => (
     <div className="p-20 rounded-card">
       <FilterBar {...args} className="w-[800px] border-rule">
-        <FilterBarHeader className="text-foreground/60">LAYER_COORDINATES</FilterBarHeader>
+        <FilterBarHeader className="text-muted-foreground">LAYER_COORDINATES</FilterBarHeader>
         <FilterBarGrid className="md:grid-cols-2">
           <FilterBarSearch
             label="Vector_Search"
@@ -161,7 +161,7 @@ export const GlassOverlay: Story = {
             className="bg-state border-rule text-foreground placeholder:text-foreground/40"
           />
           <FilterBarItem>
-            <label className="ml-2 block text-[10px] font-black tracking-widest text-foreground/40 uppercase mb-3">
+            <label className="ml-2 block text-[10px] font-black tracking-widest text-muted-foreground uppercase mb-3">
               Visibility_Range
             </label>
             <div className="flex gap-3">

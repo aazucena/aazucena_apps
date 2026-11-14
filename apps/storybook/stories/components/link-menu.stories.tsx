@@ -135,7 +135,7 @@ export const CyberTerminal: Story = {
               </LinkMenuIcon>
               <LinkMenuContent>
                 <LinkMenuLabel className="font-mono">SIGNAL_STREAM</LinkMenuLabel>
-                <LinkMenuDescription className="font-mono text-[10px] opacity-40 uppercase">
+                <LinkMenuDescription className="font-mono text-[10px] text-muted-foreground uppercase">
                   Real-time telemetry
                 </LinkMenuDescription>
               </LinkMenuContent>
@@ -148,7 +148,7 @@ export const CyberTerminal: Story = {
               </LinkMenuIcon>
               <LinkMenuContent>
                 <LinkMenuLabel className="font-mono">SECURITY_LOGS</LinkMenuLabel>
-                <LinkMenuDescription className="font-mono text-[10px] opacity-40 uppercase">
+                <LinkMenuDescription className="font-mono text-[10px] text-muted-foreground uppercase">
                   Enclave_Access_Archive
                 </LinkMenuDescription>
               </LinkMenuContent>
@@ -183,7 +183,7 @@ export const GlassAtmospheric: Story = {
                 </LinkMenuIcon>
                 <LinkMenuContent>
                   <LinkMenuLabel>Global_Nodes</LinkMenuLabel>
-                  <LinkMenuDescription className="text-foreground/40">
+                  <LinkMenuDescription className="text-muted-foreground">
                     Visualized edge network
                   </LinkMenuDescription>
                 </LinkMenuContent>

@@ -105,7 +105,7 @@ export const DetailNavGallery: Story = {
   render: () => (
     <div className="p-20 space-y-20 max-w-6xl mx-auto">
       <div className="space-y-4">
-        <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40">
+        <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
           Standard_Pattern
         </h4>
         <DetailNavigation
@@ -116,7 +116,7 @@ export const DetailNavGallery: Story = {
       </div>
 
       <div className="space-y-4">
-        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal/60">
+        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal">
           // CYBER_STREAM
         </h4>
         <DetailNavigation
@@ -146,11 +146,11 @@ export const ArrowLinkGallery: Story = {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <ArrowLink variant="card" href="#">
           <h3 className="text-2xl font-black mb-2">EXPLORE_PROJS</h3>
-          <p className="opacity-60 text-sm">View full portfolio</p>
+          <p className="text-muted-foreground text-sm">View full portfolio</p>
         </ArrowLink>
         <ArrowLink variant="card-cyber" href="#">
           <h3 className="text-2xl font-mono italic mb-2">// READ_BLOG</h3>
-          <p className="font-mono text-[10px] text-signal/60">NODE_TELEMETRY</p>
+          <p className="font-mono text-[10px] text-signal">NODE_TELEMETRY</p>
         </ArrowLink>
       </div>
     </div>

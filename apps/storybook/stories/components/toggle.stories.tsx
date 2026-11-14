@@ -98,10 +98,10 @@ export const CyberTerminal: Story = {
   render: () => (
     <div className="p-8 bg-background border border-signal/10 rounded-card flex items-center gap-6">
       <div className="flex flex-col gap-1">
-        <span className="text-[10px] font-mono text-signal opacity-40 uppercase tracking-widest">
+        <span className="text-[10px] font-mono text-signal uppercase tracking-widest">
           Uplink_Sync
         </span>
-        <span className="text-[8px] font-mono text-signal/20 uppercase tracking-tighter italic">
+        <span className="text-[8px] font-mono text-signal uppercase tracking-tighter italic">
           Phase: 0x7F42
         </span>
       </div>
@@ -126,19 +126,19 @@ export const Sizes: Story = {
         <Toggle size="sm" variant="outline" aria-label="Bold">
           <Bold size={14} />
         </Toggle>
-        <p className="text-[9px] font-mono opacity-40 uppercase">SM</p>
+        <p className="text-[9px] font-mono text-muted-foreground uppercase">SM</p>
       </div>
       <div className="text-center space-y-3">
         <Toggle size="default" variant="outline" aria-label="Bold">
           <Bold size={16} />
         </Toggle>
-        <p className="text-[9px] font-mono opacity-40 uppercase">DEFAULT</p>
+        <p className="text-[9px] font-mono text-muted-foreground uppercase">DEFAULT</p>
       </div>
       <div className="text-center space-y-3">
         <Toggle size="lg" variant="outline" aria-label="Bold">
           <Bold size={20} />
         </Toggle>
-        <p className="text-[9px] font-mono opacity-40 uppercase">LG</p>
+        <p className="text-[9px] font-mono text-muted-foreground uppercase">LG</p>
       </div>
     </div>
   ),

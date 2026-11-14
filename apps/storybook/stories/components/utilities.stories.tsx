@@ -56,7 +56,7 @@ export const GridGallery: Story = {
   render: () => (
     <div className="p-20 space-y-20 bg-muted/5 min-h-screen">
       <section className="space-y-8">
-        <h2 className="text-sm font-black mb-8 opacity-40 uppercase tracking-widest ml-4">
+        <h2 className="text-sm font-black mb-8 text-muted-foreground uppercase tracking-widest ml-4">
           3-Column Grid
         </h2>
         <ResponsiveGrid cols={3} gap="lg">
@@ -81,7 +81,7 @@ export const ScrollerGallery: Story = {
   render: () => (
     <div className="p-20 space-y-20 bg-background">
       <div className="space-y-4">
-        <h4 className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4">
+        <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-4">
           Standard_Ticker
         </h4>
         <InfiniteScroller speed="fast">
@@ -101,7 +101,7 @@ export const ScrollerGallery: Story = {
       </div>
 
       <div className="space-y-4">
-        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal/60 ml-4">
+        <h4 className="text-[10px] font-mono italic uppercase tracking-widest text-signal ml-4">
           // SPECTRUM_SYNC
         </h4>
         <InfiniteScroller direction="right" speed="slow">

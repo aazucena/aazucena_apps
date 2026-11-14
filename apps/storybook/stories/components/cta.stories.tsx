@@ -141,7 +141,7 @@ export const MidPageTransition: Story = {
   },
   render: (args) => (
     <CTA {...args}>
-      <h3 className="text-[10px] font-black tracking-[0.4em] uppercase opacity-40 mb-6">
+      <h3 className="text-[10px] font-black tracking-[0.4em] uppercase text-muted-foreground mb-6">
         SECTION_REACHED
       </h3>
       <CTATitle className="text-3xl md:text-4xl normal-case font-black tracking-tighter">

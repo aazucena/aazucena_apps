@@ -126,7 +126,7 @@ export const Cyber: Story = {
     children: (
       <div className="font-mono">
         <h3 className="text-signal">DATA_PANEL</h3>
-        <p className="mt-2 text-xs text-signal/60">Secure container // encrypted</p>
+        <p className="mt-2 text-xs text-signal">Secure container // encrypted</p>
       </div>
     ),
   },

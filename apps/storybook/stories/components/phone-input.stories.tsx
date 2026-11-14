@@ -158,7 +158,7 @@ export const Sizes: Story = {
     <div className="flex flex-col gap-4">
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <div key={size} className="flex items-center gap-3">
-          <span className="w-8 text-[10px] font-bold uppercase tracking-widest opacity-40">
+          <span className="w-8 text-[10px] font-bold uppercase tracking-widest text-muted-foreground ">
             {size}
           </span>
           <PhoneInput size={size} country="US" placeholder="(555) 123-4567" />

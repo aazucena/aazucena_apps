@@ -59,7 +59,7 @@ export const Basic: Story = {
       <div className="w-[500px]">
         <Reveal isOpen={isOpen}>
           <RevealTrigger onClick={() => setIsOpen(!isOpen)} className="hover:no-underline group">
-            <span className="text-sm font-black tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">
+            <span className="text-sm font-black tracking-widest uppercase text-muted-foreground group-hover:text-foreground transition-colors">
               Technical_Specifications
             </span>
             <RevealIndicator />
@@ -95,7 +95,7 @@ export const CyberTerminal: Story = {
             </div>
             <RevealIndicator />
           </RevealTrigger>
-          <RevealContent className="font-mono text-signal/40 text-[10px] space-y-1 py-4">
+          <RevealContent className="font-mono text-signal text-[10px] space-y-1 py-4">
             <p>[0x7F42] HANDSHAKE_INITIATED...</p>
             <p>[0x7F42] ENCLAVE_AUTH_SUCCESS [KEY: RSA-4096]</p>
             <p>[0x7F42] STREAM_ESTABLISHED // BUFFER: 1024MB</p>
@@ -126,7 +126,7 @@ export const GlassAtmospheric: Story = {
               </div>
               <RevealIndicator className="text-foreground" />
             </RevealTrigger>
-            <RevealContent className="text-foreground/60 pt-2">
+            <RevealContent className="text-muted-foreground pt-2">
               <p className="text-xs">
                 Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur
                 enabled across all continental nodes.
@@ -172,7 +172,7 @@ export const DisclosureList: Story = {
               <RevealIndicator />
             </RevealTrigger>
             <RevealContent>
-              <p className="text-sm opacity-60">{item.content}</p>
+              <p className="text-sm text-muted-foreground">{item.content}</p>
             </RevealContent>
           </Reveal>
         ))}

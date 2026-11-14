@@ -70,7 +70,7 @@ const SidebarSlot = ({ collapsed = false }: { collapsed?: boolean }) => (
       {['Overview', 'Analytics', 'Registry', 'Settings'].map((label, i) => (
         <div
           key={label}
-          className={`h-10 rounded-lg flex items-center gap-3 px-3 text-xs font-bold uppercase tracking-wider ${i === 0 ? 'bg-primary/10 text-primary' : 'text-muted-foreground opacity-50'}`}
+          className={`h-10 rounded-lg flex items-center gap-3 px-3 text-xs font-bold uppercase tracking-wider ${i === 0 ? 'bg-primary/10 text-primary' : 'text-muted-foreground '}`}
         >
           <div className="size-4 rounded bg-current opacity-60 shrink-0" />
           {!collapsed && label}
@@ -110,7 +110,7 @@ const ContentPlaceholder = ({ rows = 3 }: { rows?: number }) => (
           key={i}
           className="h-40 rounded-card bg-card border border-border/50 border-dashed flex items-center justify-center"
         >
-          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">
+          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Module_0{i + 1}
           </span>
         </div>

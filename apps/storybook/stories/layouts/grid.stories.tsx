@@ -60,7 +60,7 @@ const Cell = ({
   <div
     className={`bg-gradient-to-br ${color} border rounded-xl flex items-center justify-center py-6 ${className}`}
   >
-    <span className="text-[10px] font-black uppercase tracking-widest text-foreground/60">
+    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
       {label}
     </span>
   </div>

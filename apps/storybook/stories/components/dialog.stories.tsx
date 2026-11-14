@@ -134,7 +134,7 @@ export const CyberSpec: Story = {
             <DialogTitle className="font-mono uppercase italic tracking-tighter text-2xl text-signal">
               // TERMINATE_CORE_PROTOCOL
             </DialogTitle>
-            <DialogDescription className="font-mono text-[10px] text-signal/40">
+            <DialogDescription className="font-mono text-[10px] text-signal">
               UPLINK_SECURITY_CLEARANCE: LEVEL_01
             </DialogDescription>
           </DialogHeader>
@@ -146,7 +146,9 @@ export const CyberSpec: Story = {
                 This action is **IRREVERSIBLE**.
               </p>
             </div>
-            <p className="opacity-60 italic">{'>'} Confirming authorization sequence...</p>
+            <p className="text-muted-foreground italic">
+              {'>'} Confirming authorization sequence...
+            </p>
           </DialogBody>
         </div>
         <DialogFooter className="px-8 border-signal/10">

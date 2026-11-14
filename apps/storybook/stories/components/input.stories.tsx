@@ -114,7 +114,7 @@ export const FileUpload: Story = {
   },
   render: (args) => (
     <div className="w-96 p-6 border rounded-card bg-muted/5">
-      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-4 px-1">
+      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-4 px-1">
         Source_Payload_Upload
       </p>
       <Input {...args} className="h-auto py-4 cursor-pointer" />

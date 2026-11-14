@@ -122,7 +122,7 @@ export const CardSelection: Story = {
         <Globe className="size-8 text-primary" />
         <div className="text-center">
           <span className="block font-black uppercase tracking-tighter">STABLE_RELAY</span>
-          <span className="text-[10px] opacity-40 uppercase">Global_Availability</span>
+          <span className="text-[10px] text-muted-foreground uppercase">Global_Availability</span>
         </div>
       </Label>
 
@@ -134,7 +134,7 @@ export const CardSelection: Story = {
         <Activity className="size-8 text-primary" />
         <div className="text-center">
           <span className="block font-black uppercase tracking-tighter">EDGE_UPLINK</span>
-          <span className="text-[10px] opacity-40 uppercase">Low_Latency_Sync</span>
+          <span className="text-[10px] text-muted-foreground uppercase">Low_Latency_Sync</span>
         </div>
       </Label>
     </RadioGroup>

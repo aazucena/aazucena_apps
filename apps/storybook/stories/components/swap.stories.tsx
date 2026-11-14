@@ -147,7 +147,9 @@ export const Sizes: Story = {
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <div key={size} className="flex flex-col items-center gap-2">
           <Swap on={<span>🌙</span>} off={<span>☀️</span>} size={size} />
-          <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">{size}</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            {size}
+          </span>
         </div>
       ))}
     </div>

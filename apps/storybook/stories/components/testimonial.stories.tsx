@@ -99,11 +99,11 @@ export const CyberTerminal: Story = {
       <Testimonial {...args} className="border-signal/20 shadow-none">
         <div className="flex justify-between items-center mb-6">
           <Activity className="size-5 text-signal animate-pulse" />
-          <span className="font-mono text-[9px] text-signal/40 uppercase tracking-[0.4em]">
+          <span className="font-mono text-[9px] text-signal uppercase tracking-[0.4em]">
             SOURCE: EXTERNAL_VALIDATOR
           </span>
         </div>
-        <TestimonialQuote className="font-mono italic text-signal/80 leading-relaxed text-sm">
+        <TestimonialQuote className="font-mono italic text-signal leading-relaxed text-sm">
           "PROTOCOL_SUCCESS: Integration with the AAZUCENA_OS core was seamless. Performance
           benchmarks exceeded all previous iterations across US_EAST sectors."
         </TestimonialQuote>
@@ -112,7 +112,7 @@ export const CyberTerminal: Story = {
             <TestimonialName className="text-signal uppercase tracking-tighter">
               UNIT_0x7F42
             </TestimonialName>
-            <TestimonialTitle className="text-signal/40 uppercase text-[10px]">
+            <TestimonialTitle className="text-signal uppercase text-[10px]">
               Security_Enclave_V4
             </TestimonialTitle>
           </TestimonialAuthor>
@@ -142,7 +142,7 @@ export const GlassAtmospheric: Story = {
           <TestimonialFooter className="pt-8 border-t border-rule">
             <TestimonialAuthor>
               <TestimonialName className="text-foreground">Sarah Connor</TestimonialName>
-              <TestimonialTitle className="text-foreground/40 font-bold uppercase tracking-widest text-[10px]">
+              <TestimonialTitle className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">
                 Lead_UX_Unit
               </TestimonialTitle>
             </TestimonialAuthor>

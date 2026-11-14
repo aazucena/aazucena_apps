@@ -105,7 +105,7 @@ export const GlassAtmospheric: Story = {
   render: (args) => (
     <div className="p-20 rounded-card">
       <div className="w-80 space-y-2">
-        <p className="text-[10px] text-foreground/40 font-black uppercase tracking-[0.3em]">
+        <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.3em]">
           Refraction_Index
         </p>
         <Progress {...args} className="bg-state" />
@@ -121,19 +121,21 @@ export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-8">
       <div className="space-y-2">
-        <span className="text-[10px] opacity-40 uppercase font-bold">Extra_Small (1px)</span>
+        <span className="text-[10px] text-muted-foreground uppercase font-bold">
+          Extra_Small (1px)
+        </span>
         <Progress value={75} size="xs" />
       </div>
       <div className="space-y-2">
-        <span className="text-[10px] opacity-40 uppercase font-bold">Small (1.5px)</span>
+        <span className="text-[10px] text-muted-foreground uppercase font-bold">Small (1.5px)</span>
         <Progress value={60} size="sm" />
       </div>
       <div className="space-y-2">
-        <span className="text-[10px] opacity-40 uppercase font-bold">Default (2px)</span>
+        <span className="text-[10px] text-muted-foreground uppercase font-bold">Default (2px)</span>
         <Progress value={45} size="default" />
       </div>
       <div className="space-y-2">
-        <span className="text-[10px] opacity-40 uppercase font-bold">Large (3px)</span>
+        <span className="text-[10px] text-muted-foreground uppercase font-bold">Large (3px)</span>
         <Progress value={30} size="lg" />
       </div>
     </div>
@@ -170,7 +172,9 @@ export const LiveSequence: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="flex justify-between items-end">
-          <span className="text-[10px] font-black uppercase opacity-40">Ingestion_Active</span>
+          <span className="text-[10px] font-black uppercase text-muted-foreground">
+            Ingestion_Active
+          </span>
           <span className="font-mono text-sm font-bold text-primary">{progress}%</span>
         </div>
         <Progress value={progress} indicatorVariant="gradient" className="h-1.5" />

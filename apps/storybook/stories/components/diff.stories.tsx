@@ -179,13 +179,13 @@ export const VariantComparison: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <div>
-        <span className="mb-2 block text-[10px] font-bold uppercase tracking-widest opacity-40">
+        <span className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
           Default
         </span>
         <Diff original={originalCode} modified={modifiedCode} />
       </div>
       <div className="rounded-card bg-background p-4">
-        <span className="mb-2 block font-mono text-[10px] font-bold uppercase tracking-widest text-signal/40">
+        <span className="mb-2 block font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
           Cyber
         </span>
         <Diff original={originalCode} modified={modifiedCode} variant="cyber" />

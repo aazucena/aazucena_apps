@@ -165,13 +165,13 @@ export const CustomSeparator: Story = {
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
-          <span className="opacity-20">/</span>
+          <span className="text-muted-foreground">/</span>
         </BreadcrumbSeparator>
         <BreadcrumbItem>
           <BreadcrumbLink href="/docs">Documentation</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
-          <span className="opacity-20">/</span>
+          <span className="text-muted-foreground">/</span>
         </BreadcrumbSeparator>
         <BreadcrumbItem>
           <BreadcrumbPage>API_Reference</BreadcrumbPage>

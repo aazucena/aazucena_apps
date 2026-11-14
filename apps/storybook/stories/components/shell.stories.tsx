@@ -94,7 +94,9 @@ export const BasicDashboard: Story = {
             </Avatar>
             <div className="flex flex-col leading-none">
               <span className="text-sm font-bold">Aldrin_Azucena</span>
-              <span className="text-[10px] opacity-40 uppercase font-black">Level_01_Admin</span>
+              <span className="text-[10px] text-muted-foreground uppercase font-black">
+                Level_01_Admin
+              </span>
             </div>
           </div>
           <Button
@@ -111,12 +113,12 @@ export const BasicDashboard: Story = {
             <Badge variant="outline" animated>
               UPLINK_STABLE
             </Badge>
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               Primary_Cluster_US_East
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="rounded-full">
+            <Button aria-label="Search" variant="ghost" size="icon" className="rounded-full">
               <Search size={18} />
             </Button>
             <Button size="sm" className="rounded-control px-6">
@@ -131,7 +133,7 @@ export const BasicDashboard: Story = {
                 <h1 className="text-5xl font-black tracking-tighter uppercase">
                   Intelligence_Center
                 </h1>
-                <p className="text-xs font-medium uppercase tracking-widest text-primary/60">
+                <p className="text-xs font-medium uppercase tracking-widest text-primary">
                   Node Management & Telemetry Ingestion
                 </p>
               </div>
@@ -188,18 +190,18 @@ export const CyberTerminal: Story = {
             </span>
             <div className="size-1.5 rounded-full bg-signal animate-pulse" />
           </div>
-          <span className="font-mono text-[9px] text-signal/40 uppercase">
-            ENCLAVE_AUTH: VERIFIED
-          </span>
+          <span className="font-mono text-[9px] text-signal uppercase">ENCLAVE_AUTH: VERIFIED</span>
         </ShellHeader>
         <ShellMain className="bg-background">
-          <div className="p-12 font-mono text-signal/60 text-[11px] leading-loose">
+          <div className="p-12 font-mono text-signal text-[11px] leading-loose">
             <p className="text-signal font-bold uppercase mb-4 text-sm">
               {'>'} SYSTEM_INITIALIZATION_COMPLETE
             </p>
-            <p className="opacity-40 italic">-- established node handshake US_EAST_01 --</p>
-            <p className="opacity-40 italic">-- synchronized buffer [SIZE: 1024MB] --</p>
-            <p className="opacity-40 italic">-- security keys rotated successfully --</p>
+            <p className="text-muted-foreground italic">
+              -- established node handshake US_EAST_01 --
+            </p>
+            <p className="text-muted-foreground italic">-- synchronized buffer [SIZE: 1024MB] --</p>
+            <p className="text-muted-foreground italic">-- security keys rotated successfully --</p>
             <p className="mt-8 text-signal">{'>'} AWAITING_INGESTION_COMMAND_</p>
           </div>
         </ShellMain>

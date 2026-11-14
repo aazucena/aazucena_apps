@@ -112,18 +112,18 @@ export const CyberTerminal: Story = {
               <InteractiveCardTitle className="text-signal font-black tracking-tighter uppercase italic">
                 // DATA_ENCLAVE_ROOT
               </InteractiveCardTitle>
-              <InteractiveCardSubtitle className="text-signal/60">
+              <InteractiveCardSubtitle className="text-signal">
                 SECTOR_ACCESS_GRANTED
               </InteractiveCardSubtitle>
             </div>
             <InteractiveCardIndicator className="text-signal" />
           </InteractiveCardHeader>
-          <InteractiveCardContent className="font-mono text-signal/60 bg-signal/5">
+          <InteractiveCardContent className="font-mono text-signal bg-signal/5">
             <div className="space-y-2 text-xs">
-              <p className="text-signal/80">{'>'} DECRYPTING_BUFFER_STREAM...</p>
+              <p className="text-signal">{'>'} DECRYPTING_BUFFER_STREAM...</p>
               <p className="text-success">{'>'} 0x7F42_ACTIVE: [OK]</p>
-              <p className="text-signal/80">{'>'} SYNCHRONIZING_WITH_MASTER_NODE...</p>
-              <p className="text-signal/80">{'>'} HANDSHAKE_COMPLETE.</p>
+              <p className="text-signal">{'>'} SYNCHRONIZING_WITH_MASTER_NODE...</p>
+              <p className="text-signal">{'>'} HANDSHAKE_COMPLETE.</p>
             </div>
             <Button variant="cyber" size="sm" className="mt-6 w-full">
               INIT_EXTRACTION
@@ -151,11 +151,11 @@ export const GlassAtmospheric: Story = {
               </InteractiveCardIcon>
               <div className="flex flex-col">
                 <InteractiveCardTitle>Global_Traffic</InteractiveCardTitle>
-                <InteractiveCardSubtitle className="text-foreground/40">
+                <InteractiveCardSubtitle className="text-muted-foreground">
                   Real-time Node Distribution
                 </InteractiveCardSubtitle>
               </div>
-              <InteractiveCardIndicator className="text-foreground/60" />
+              <InteractiveCardIndicator className="text-muted-foreground" />
             </InteractiveCardHeader>
             <InteractiveCardContent className="text-foreground/80 border-rule">
               <p className="text-xs font-medium">
@@ -164,13 +164,13 @@ export const GlassAtmospheric: Story = {
               </p>
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div className="p-3 bg-state border border-rule rounded-card">
-                  <span className="text-[9px] font-black uppercase text-foreground/40">
+                  <span className="text-[9px] font-black uppercase text-muted-foreground">
                     US_East
                   </span>
                   <p className="text-lg font-black">42.8%</p>
                 </div>
                 <div className="p-3 bg-state border border-rule rounded-card">
-                  <span className="text-[9px] font-black uppercase text-foreground/40">
+                  <span className="text-[9px] font-black uppercase text-muted-foreground">
                     EU_West
                   </span>
                   <p className="text-lg font-black text-signal">18.2%</p>
@@ -201,13 +201,13 @@ export const AlertState: Story = {
               <InteractiveCardTitle className="text-alert">
                 Security_Breach_Attempt
               </InteractiveCardTitle>
-              <InteractiveCardSubtitle className="text-alert/40">
+              <InteractiveCardSubtitle className="text-alert">
                 Node: US_EAST_01 // CRITICAL
               </InteractiveCardSubtitle>
             </div>
             <InteractiveCardIndicator className="text-alert" />
           </InteractiveCardHeader>
-          <InteractiveCardContent className="text-alert/80 border-alert/10">
+          <InteractiveCardContent className="text-alert border-alert/10">
             <p className="font-mono text-xs italic">
               Multiple unauthorized handshake attempts detected from IP range 192.168.x.x. Port 8080
               has been automatically isolated.

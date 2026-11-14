@@ -105,7 +105,9 @@ export const Cyber: Story = {
         <span className="font-mono text-signal text-xs tracking-widest">
           [ENCRYPTED_NODE_TERMINAL]
         </span>
-        <span className="text-[9px] opacity-20 uppercase mt-2">Right-click for root access</span>
+        <span className="text-[9px] text-muted-foreground uppercase mt-2">
+          Right-click for root access
+        </span>
       </ContextMenuTrigger>
       <ContextMenuContent variant="cyber" className="w-72 font-mono">
         <ContextMenuLabel className="text-signal uppercase italic tracking-tighter">
@@ -124,7 +126,9 @@ export const Cyber: Story = {
         </ContextMenuItem>
         <ContextMenuSeparator className="bg-signal/20" />
         <ContextMenuGroup>
-          <ContextMenuLabel className="text-[10px] opacity-40">DANGEROUS_ZONE</ContextMenuLabel>
+          <ContextMenuLabel className="text-[10px] text-muted-foreground">
+            DANGEROUS_ZONE
+          </ContextMenuLabel>
           <ContextMenuItem className="gap-3 focus:bg-alert/20 text-alert">
             <Trash className="size-3.5" />
             TERMINATE_CORE
@@ -146,7 +150,7 @@ export const Glass: Story = {
           Atmospheric_Interaction_Zone
         </ContextMenuTrigger>
         <ContextMenuContent variant="glass" className="w-64 border-rule">
-          <ContextMenuLabel className="text-foreground/60">LAYER_CONFIG</ContextMenuLabel>
+          <ContextMenuLabel className="text-muted-foreground">LAYER_CONFIG</ContextMenuLabel>
           <ContextMenuSeparator className="bg-state" />
           <ContextMenuCheckboxItem checked className="text-foreground focus:bg-state">
             Enable_Blur_Texture
@@ -157,7 +161,7 @@ export const Glass: Story = {
           <ContextMenuSeparator className="bg-state" />
           <ContextMenuItem className="text-foreground focus:bg-state">
             Reset_Coordinates
-            <ContextMenuShortcut className="text-foreground/40">⌘R</ContextMenuShortcut>
+            <ContextMenuShortcut className="text-muted-foreground">⌘R</ContextMenuShortcut>
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

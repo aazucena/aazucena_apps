@@ -72,7 +72,7 @@ export const ServiceCard: Story = {
               </div>
             </div>
           </div>
-          <span className="font-mono text-[10px] font-bold opacity-40 uppercase tracking-tighter">
+          <span className="font-mono text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
             Latency: 12ms
           </span>
         </HeartbeatHeader>
@@ -127,7 +127,7 @@ export const DegradedState: Story = {
               </div>
             </div>
           </div>
-          <span className="font-mono text-[10px] font-black text-alert/60 uppercase">
+          <span className="font-mono text-[10px] font-black text-alert uppercase">
             HIGH_LATENCY
           </span>
         </HeartbeatHeader>
@@ -144,11 +144,11 @@ export const DegradedState: Story = {
 
         <HeartbeatFooter className="border-alert/10">
           <HeartbeatDetail>
-            <HeartbeatDetailLabel className="text-alert/40">Packet_Loss</HeartbeatDetailLabel>
+            <HeartbeatDetailLabel className="text-alert">Packet_Loss</HeartbeatDetailLabel>
             <HeartbeatDetailValue className="text-alert">12.4% FAIL</HeartbeatDetailValue>
           </HeartbeatDetail>
           <HeartbeatDetail align="right">
-            <HeartbeatDetailLabel className="text-alert/40">Incident_ID</HeartbeatDetailLabel>
+            <HeartbeatDetailLabel className="text-alert">Incident_ID</HeartbeatDetailLabel>
             <HeartbeatDetailValue className="text-alert">0x7F42</HeartbeatDetailValue>
           </HeartbeatDetail>
         </HeartbeatFooter>
@@ -164,7 +164,7 @@ export const IndicatorGallery: Story = {
   render: () => (
     <div className="p-12 border rounded-card bg-card space-y-12 w-[500px]">
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground text-center">
           SYSTEM_SIGNALS
         </p>
         <div className="flex justify-center gap-12">
@@ -182,7 +182,7 @@ export const IndicatorGallery: Story = {
       </div>
 
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground text-center">
           AGENT_STATUS
         </p>
         <div className="flex justify-center gap-12">

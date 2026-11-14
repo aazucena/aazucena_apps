@@ -44,7 +44,7 @@ export const Basic: Story = {
   render: () => (
     <ScrollArea className="h-72 w-64 rounded-card border bg-card">
       <div className="p-6">
-        <h4 className="mb-6 text-[10px] font-black tracking-[0.2em] uppercase opacity-40">
+        <h4 className="mb-6 text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground">
           System_Registry
         </h4>
         <div className="space-y-4">
@@ -76,12 +76,14 @@ export const CyberTerminal: Story = {
           </div>
           {mockLogs.map((log, i) => (
             <div key={log.id} className="flex gap-4 text-[10px] tracking-tighter">
-              <span className="opacity-20">[14:35:{String(i % 60).padStart(2, '0')}]</span>
+              <span className="text-muted-foreground">
+                [14:35:{String(i % 60).padStart(2, '0')}]
+              </span>
               <span className={log.status === 'FAILED' ? 'text-alert' : 'text-signal'}>
                 {log.id}
               </span>
-              <span className="opacity-40 uppercase">{log.status}</span>
-              <span className="text-foreground/60 truncate">{log.message}</span>
+              <span className="text-muted-foreground uppercase">{log.status}</span>
+              <span className="text-muted-foreground truncate">{log.message}</span>
             </div>
           ))}
         </div>

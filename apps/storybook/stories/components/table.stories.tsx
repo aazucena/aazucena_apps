@@ -108,7 +108,7 @@ export const Basic: Story = {
               </TableCell>
               <TableCell className="text-right font-mono">{node.latency}</TableCell>
               <TableCell className="text-right">
-                <Button variant="ghost" size="icon" className="size-8">
+                <Button aria-label="More options" variant="ghost" size="icon" className="size-8">
                   <MoreHorizontal size={14} />
                 </Button>
               </TableCell>
@@ -152,7 +152,7 @@ export const CyberTerminal: Story = {
                   <div className="h-1 w-24 bg-signal/10 rounded-full overflow-hidden">
                     <div className="h-full bg-signal" style={{ width: `${node.load}%` }} />
                   </div>
-                  <span className="opacity-40">{node.load}%</span>
+                  <span className="text-muted-foreground">{node.load}%</span>
                 </div>
               </TableCell>
               <TableCell className="text-right">
@@ -182,13 +182,13 @@ export const GlassAtmospheric: Story = {
         <Table {...args} className="border-rule text-foreground">
           <TableHeader variant="glass">
             <TableRow variant="glass" className="hover:bg-transparent">
-              <TableHead className="text-foreground/40 uppercase tracking-widest font-black text-[10px]">
+              <TableHead className="text-muted-foreground uppercase tracking-widest font-black text-[10px]">
                 Resource
               </TableHead>
-              <TableHead className="text-foreground/40 uppercase tracking-widest font-black text-[10px]">
+              <TableHead className="text-muted-foreground uppercase tracking-widest font-black text-[10px]">
                 Encryption
               </TableHead>
-              <TableHead className="text-right text-foreground/40 uppercase tracking-widest font-black text-[10px]">
+              <TableHead className="text-right text-muted-foreground uppercase tracking-widest font-black text-[10px]">
                 Availability
               </TableHead>
             </TableRow>

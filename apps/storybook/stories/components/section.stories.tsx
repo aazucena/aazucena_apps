@@ -82,7 +82,7 @@ export const Basic: Story = {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
               <Card key={i} variant="outline" className="h-48 flex items-center justify-center">
-                <span className="text-xs font-black opacity-20 uppercase tracking-widest">
+                <span className="text-xs font-black text-muted-foreground uppercase tracking-widest">
                   MODULE_0{i}
                 </span>
               </Card>
@@ -116,7 +116,7 @@ export const CyberTerminal: Story = {
           <SectionTitle className="text-foreground font-mono italic uppercase tracking-tighter text-4xl md:text-5xl">
             // PROTOCOL_0x7F
           </SectionTitle>
-          <SectionSubtitle className="text-signal/40 font-mono text-sm uppercase tracking-[0.2em] italic">
+          <SectionSubtitle className="text-signal font-mono text-sm uppercase tracking-[0.2em] italic">
             Kernel_Ingestion_Layer
           </SectionSubtitle>
         </SectionHeader>
@@ -181,7 +181,7 @@ export const GlassHero: Story = {
       <Section {...args} className="relative z-10 m-0 border-rule">
         <SectionHeader>
           <SectionTitle className="text-foreground text-5xl md:text-7xl">Crystal_Flow</SectionTitle>
-          <SectionSubtitle className="text-foreground/60">
+          <SectionSubtitle className="text-muted-foreground">
             Atmospheric_Unit_Inference
           </SectionSubtitle>
         </SectionHeader>

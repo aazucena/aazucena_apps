@@ -77,13 +77,13 @@ const meta = {
             <header className="flex h-14 items-center gap-4 border-b bg-card px-6">
               <SidebarTrigger />
               <div className="h-4 w-px bg-border" />
-              <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                 Stage_Environment // Unit_0x7F42
               </span>
             </header>
             <main className="flex-1 p-8 overflow-auto">
               <div className="space-y-8">
-                <div className="h-32 rounded-card bg-muted/5 border-2 border-dashed flex items-center justify-center italic text-xs opacity-20 uppercase tracking-[0.4em]">
+                <div className="h-32 rounded-card bg-muted/5 border-2 border-dashed flex items-center justify-center italic text-xs text-muted-foreground uppercase tracking-[0.4em]">
                   Viewport_Content_Area
                 </div>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -119,7 +119,7 @@ export const BasicDashboard: Story = {
           <MoveHorizontal size="sm" />
           <div className="flex flex-col leading-none">
             <span className="font-black tracking-tighter uppercase text-sm">Aazucena</span>
-            <span className="text-[9px] opacity-40 uppercase font-bold tracking-widest">
+            <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-widest">
               Intelligence_Unit
             </span>
           </div>
@@ -183,7 +183,7 @@ export const BasicDashboard: Story = {
           </Avatar>
           <div className="flex flex-col">
             <span className="text-xs font-bold">Aldrin_A</span>
-            <span className="text-[9px] opacity-40">Admin_L1</span>
+            <span className="text-[9px] text-muted-foreground">Admin_L1</span>
           </div>
         </div>
         <SidebarMenu>
@@ -219,7 +219,7 @@ export const CyberTerminal: Story = {
       <SidebarContent className="p-4 space-y-8">
         <SidebarBlock variant="cyber">
           <SidebarBlockHeader>
-            <SidebarBlockTitle className="text-signal/60 uppercase text-[9px] font-mono tracking-[0.2em]">
+            <SidebarBlockTitle className="text-signal uppercase text-[9px] font-mono tracking-[0.2em]">
               # NODE_PULSE
             </SidebarBlockTitle>
           </SidebarBlockHeader>
@@ -235,24 +235,24 @@ export const CyberTerminal: Story = {
               <Zap className="size-4 text-alert" />
               <div className="flex flex-col font-mono">
                 <span className="text-[10px] font-bold text-alert">BUFFER_OVERFLOW</span>
-                <span className="text-[8px] opacity-40 text-alert">CRITICAL // 0x7F</span>
+                <span className="text-[8px] text-alert">CRITICAL // 0x7F</span>
               </div>
             </SidebarBlockItem>
           </SidebarBlockContent>
         </SidebarBlock>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="font-mono text-[9px] text-signal/40 uppercase">
+          <SidebarGroupLabel className="font-mono text-[9px] text-signal uppercase">
             # CONTROL_PLANE
           </SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton className="font-mono text-xs text-signal/80 italic hover:text-signal">
+              <SidebarMenuButton className="font-mono text-xs text-signal italic hover:text-signal">
                 {'>'} TRACE_SIGNAL
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton className="font-mono text-xs text-signal/80 italic hover:text-signal">
+              <SidebarMenuButton className="font-mono text-xs text-signal italic hover:text-signal">
                 {'>'} FLUSH_KERNEL
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -284,7 +284,7 @@ export const GlassMonitor: Story = {
       </SidebarHeader>
       <SidebarContent className="p-4 space-y-12">
         <div className="space-y-4 px-4">
-          <div className="flex items-center justify-between text-foreground/40 font-bold uppercase text-[9px] tracking-widest">
+          <div className="flex items-center justify-between text-muted-foreground font-bold uppercase text-[9px] tracking-widest">
             <span>Atmosphere</span>
             <span>98%</span>
           </div>
@@ -305,7 +305,7 @@ export const GlassMonitor: Story = {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="p-8 border-t border-rule">
-        <div className="flex items-center gap-3 text-foreground/60">
+        <div className="flex items-center gap-3 text-muted-foreground">
           <div className="size-1.5 rounded-full bg-success animate-pulse" />
           <span className="text-[9px] font-mono uppercase">Status: Nominal</span>
         </div>

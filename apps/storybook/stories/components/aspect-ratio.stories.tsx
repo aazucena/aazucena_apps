@@ -117,7 +117,7 @@ export const CinemaScope: Story = {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="h-[1px] w-0 bg-signal group-hover:w-full transition-all duration-700 opacity-50" />
         </div>
-        <div className="absolute top-4 left-4 text-[9px] font-mono text-signal/50">
+        <div className="absolute top-4 left-4 text-[9px] font-mono text-signal">
           ULTRAWIDE_OUTPUT
         </div>
       </AspectRatio>

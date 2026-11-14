@@ -106,7 +106,7 @@ export const LogicOverride: Story = {
       <Zap size={14} className="text-alert animate-pulse" />
       <Label
         htmlFor="logic-opt"
-        className="text-[10px] font-black uppercase tracking-widest opacity-60 cursor-pointer"
+        className="text-[10px] font-black uppercase tracking-widest text-muted-foreground cursor-pointer"
       >
         Force_Reset_Sequence
       </Label>
@@ -121,7 +121,7 @@ export const LogicOverride: Story = {
 export const SettingsList: Story = {
   render: () => (
     <div className="w-80 space-y-6 p-6 border rounded-card bg-card">
-      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 px-1">
+      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground px-1">
         SYSTEM_PREFERENCES
       </h4>
       <div className="space-y-4">

@@ -100,7 +100,9 @@ export const IntegratedContext: Story = {
     <div className="grid grid-cols-2 gap-6 w-[500px]">
       <Card variant="outline" className="p-6">
         <div className="flex justify-between items-start mb-4">
-          <span className="text-[10px] font-black uppercase opacity-40">Uplink_Signal</span>
+          <span className="text-[10px] font-black uppercase text-muted-foreground">
+            Uplink_Signal
+          </span>
           <Trend variant="pill" direction="up" value="BOOST" />
         </div>
         <div className="text-3xl font-black tracking-tighter">85dBm</div>
@@ -108,7 +110,9 @@ export const IntegratedContext: Story = {
 
       <Card variant="outline" className="p-6">
         <div className="flex justify-between items-start mb-4">
-          <span className="text-[10px] font-black uppercase opacity-40">Packet_Loss</span>
+          <span className="text-[10px] font-black uppercase text-muted-foreground">
+            Packet_Loss
+          </span>
           <Trend variant="pill" direction="down" value="-0.4%" />
         </div>
         <div className="text-3xl font-black tracking-tighter text-success">0.02%</div>

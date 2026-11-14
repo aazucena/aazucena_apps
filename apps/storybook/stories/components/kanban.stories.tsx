@@ -83,14 +83,14 @@ export const Basic: Story = {
             <KanbanHeader>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="font-black text-[10px] uppercase tracking-widest opacity-40">
+                  <span className="font-black text-[10px] uppercase tracking-widest text-muted-foreground">
                     To_Do
                   </span>
                   <Badge variant="secondary" size="xs">
                     3
                   </Badge>
                 </div>
-                <Button variant="ghost" size="icon" className="size-6">
+                <Button aria-label="Add" variant="ghost" size="icon" className="size-6">
                   <Plus size={14} />
                 </Button>
               </div>
@@ -136,7 +136,7 @@ export const Basic: Story = {
                 <h4 className="text-xs font-bold mb-3 uppercase tracking-tight text-primary">
                   Establish_Uplink_Protocols
                 </h4>
-                <p className="text-[10px] opacity-60 mb-4 italic">
+                <p className="text-[10px] text-muted-foreground mb-4 italic">
                   Defining secure node handshake sequence.
                 </p>
                 <div className="flex -space-x-2">
@@ -154,7 +154,7 @@ export const Basic: Story = {
           <KanbanLane>
             <KanbanHeader>
               <div className="flex items-center gap-2 mb-4">
-                <span className="font-black text-[10px] uppercase tracking-widest opacity-40">
+                <span className="font-black text-[10px] uppercase tracking-widest text-muted-foreground">
                   Validation
                 </span>
               </div>
@@ -206,7 +206,7 @@ export const CyberTerminal: Story = {
                   </h4>
                   <Shield size={14} className="text-alert" />
                 </div>
-                <p className="text-[9px] font-mono opacity-40 uppercase">
+                <p className="text-[9px] font-mono text-muted-foreground uppercase">
                   Trace: BUFFER_OVERFLOW_01
                 </p>
               </KanbanCard>
@@ -218,7 +218,7 @@ export const CyberTerminal: Story = {
                   <Badge variant="cyber" size="xs">
                     MONITORING
                   </Badge>
-                  <span className="font-mono text-[9px] text-signal/40">Lat: 142ms</span>
+                  <span className="font-mono text-[9px] text-signal">Lat: 142ms</span>
                 </div>
               </KanbanCard>
             </KanbanContent>
@@ -268,7 +268,7 @@ export const GlassBoard: Story = {
                     className="bg-state border-rule text-foreground shadow-none hover:bg-panel-raised transition-colors"
                   >
                     <h4 className="text-sm font-bold opacity-90">Telemetry_Unit_0{j + 1}</h4>
-                    <p className="text-[10px] text-foreground/40 mt-2 uppercase tracking-widest font-mono">
+                    <p className="text-[10px] text-muted-foreground mt-2 uppercase tracking-widest font-mono">
                       Status: Syncing...
                     </p>
                   </KanbanCard>

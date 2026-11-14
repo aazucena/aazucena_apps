@@ -80,7 +80,7 @@ export const Basic: Story = {
                   </Badge>
                 </div>
                 <p className="text-sm font-bold">Inference_Engine_{i}</p>
-                <p className="text-xs opacity-60 mt-2">
+                <p className="text-xs text-muted-foreground mt-2">
                   Nominal pulse interval detected across all local buffers.
                 </p>
               </CardContent>
@@ -107,7 +107,7 @@ export const CyberSequence: Story = {
           <PhaseTitle className="font-mono text-signal italic tracking-tighter text-4xl md:text-6xl">
             // BUFFER_OVERRIDE_0x7F
           </PhaseTitle>
-          <PhaseDescription className="font-mono text-signal/40 uppercase tracking-[0.2em] text-sm md:text-base">
+          <PhaseDescription className="font-mono text-signal uppercase tracking-[0.2em] text-sm md:text-base">
             CRITICAL_SYSTEM_MODIFICATION // TARGET: KERNEL_SYNC
           </PhaseDescription>
         </PhaseHeader>

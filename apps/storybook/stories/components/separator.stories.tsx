@@ -64,7 +64,7 @@ export const Basic: Story = {
     <div className="w-[400px] space-y-4">
       <p className="text-sm font-bold">Protocol_Header</p>
       <Separator {...args} />
-      <p className="text-xs opacity-60">
+      <p className="text-xs text-muted-foreground">
         Initializing ingestion sequence for primary node cluster US_EAST_01.
       </p>
     </div>
@@ -86,7 +86,7 @@ export const CyberTerminal: Story = {
         <span>STATUS: ACTIVE</span>
       </div>
       <Separator {...args} />
-      <div className="flex justify-between items-center text-signal/40 font-mono text-[9px]">
+      <div className="flex justify-between items-center text-signal font-mono text-[9px]">
         <span>UPLINK_READY</span>
         <span>LATENCY: 12ms</span>
       </div>
@@ -106,7 +106,7 @@ export const Highlight: Story = {
     <div className="w-[600px] space-y-8">
       <h2 className="text-4xl font-black tracking-tighter uppercase">Project_Intelligence</h2>
       <Separator {...args} />
-      <div className="h-20 bg-muted/20 rounded-card border border-dashed flex items-center justify-center italic text-xs opacity-20 uppercase tracking-widest">
+      <div className="h-20 bg-muted/20 rounded-card border border-dashed flex items-center justify-center italic text-xs text-muted-foreground uppercase tracking-widest">
         Main_Content_Stage
       </div>
     </div>
@@ -140,7 +140,7 @@ export const GlassAtmospheric: Story = {
   },
   render: (args) => (
     <div className="p-20 rounded-card w-[600px] flex flex-col items-center gap-6">
-      <span className="text-foreground/40 font-black uppercase tracking-[0.4em] text-[10px]">
+      <span className="text-muted-foreground font-black uppercase tracking-[0.4em] text-[10px]">
         Atmospheric_Control
       </span>
       <Separator {...args} className="w-1/2" />

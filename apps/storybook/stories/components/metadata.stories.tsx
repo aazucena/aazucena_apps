@@ -192,15 +192,15 @@ export const GlassSidebar: Story = {
         </MetaDataHeader>
         <div className="space-y-6">
           <MetaDataItem>
-            <MetaDataLabel className="text-foreground/40">Resource_Type</MetaDataLabel>
+            <MetaDataLabel className="text-muted-foreground">Resource_Type</MetaDataLabel>
             <MetaDataValue className="text-foreground font-bold">Encrypted_Payload</MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
-            <MetaDataLabel className="text-foreground/40">Size_Weight</MetaDataLabel>
+            <MetaDataLabel className="text-muted-foreground">Size_Weight</MetaDataLabel>
             <MetaDataValue className="text-foreground font-mono">1.42 GB</MetaDataValue>
           </MetaDataItem>
           <MetaDataItem>
-            <MetaDataLabel className="text-foreground/40">Encryption</MetaDataLabel>
+            <MetaDataLabel className="text-muted-foreground">Encryption</MetaDataLabel>
             <MetaDataValue className="text-foreground flex items-center gap-2">
               <Zap size={14} className="text-warning" /> AES-256-GCM
             </MetaDataValue>

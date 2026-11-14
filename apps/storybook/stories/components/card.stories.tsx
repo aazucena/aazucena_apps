@@ -128,8 +128,8 @@ export const Cyber: Story = {
       </CardHeader>
       <CardContent>
         <div className="p-4 bg-panel rounded border border-signal/10 font-mono text-[10px] space-y-1">
-          <p className="text-signal/60">{'>'} INITIALIZING_UPLINK...</p>
-          <p className="text-success/60">{'>'} UPLINK_SUCCESS [PORT:8080]</p>
+          <p className="text-signal">{'>'} INITIALIZING_UPLINK...</p>
+          <p className="text-success">{'>'} UPLINK_SUCCESS [PORT:8080]</p>
           <p className="text-muted-foreground">{'>'} LISTENING_FOR_PACKETS</p>
         </div>
       </CardContent>
@@ -201,11 +201,11 @@ export const AnalyticsDashboard: Story = {
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="p-3 bg-muted/50 rounded-control border">
-          <p className="text-[10px] font-bold opacity-40 uppercase">Latency</p>
+          <p className="text-[10px] font-bold text-muted-foreground uppercase">Latency</p>
           <p className="text-xl font-black">12ms</p>
         </div>
         <div className="p-3 bg-muted/50 rounded-control border">
-          <p className="text-[10px] font-bold opacity-40 uppercase">Success</p>
+          <p className="text-[10px] font-bold text-muted-foreground uppercase">Success</p>
           <p className="text-xl font-black text-success">99.9%</p>
         </div>
       </div>

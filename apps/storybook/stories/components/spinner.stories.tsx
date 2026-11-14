@@ -71,19 +71,19 @@ export const Sizes: Story = {
     <div className="flex items-end gap-12">
       <div className="text-center space-y-4">
         <Spinner className="size-4" />
-        <p className="text-[10px] font-mono opacity-40">SM (16px)</p>
+        <p className="text-[10px] font-mono text-muted-foreground">SM (16px)</p>
       </div>
       <div className="text-center space-y-4">
         <Spinner className="size-8" />
-        <p className="text-[10px] font-mono opacity-40">DEFAULT (32px)</p>
+        <p className="text-[10px] font-mono text-muted-foreground">DEFAULT (32px)</p>
       </div>
       <div className="text-center space-y-4">
         <Spinner className="size-12" />
-        <p className="text-[10px] font-mono opacity-40">LG (48px)</p>
+        <p className="text-[10px] font-mono text-muted-foreground">LG (48px)</p>
       </div>
       <div className="text-center space-y-4">
         <Spinner className="size-20" />
-        <p className="text-[10px] font-mono opacity-40">XL (80px)</p>
+        <p className="text-[10px] font-mono text-muted-foreground">XL (80px)</p>
       </div>
     </div>
   ),

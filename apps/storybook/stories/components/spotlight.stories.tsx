@@ -115,14 +115,14 @@ export const CyberTerminal: Story = {
             <Badge variant="cyber" size="xs">
               SECURE_ENCLAVE
             </Badge>
-            <span className="text-[10px] font-mono text-signal/40 uppercase tracking-widest">
+            <span className="text-[10px] font-mono text-signal uppercase tracking-widest">
               Protocol: RSA-4096
             </span>
           </div>
           <SpotlightTitle variant="cyber" className="font-mono italic">
             // KERNEL_STORAGE_V4
           </SpotlightTitle>
-          <SpotlightDescription className="font-mono text-xs text-signal/60 leading-relaxed">
+          <SpotlightDescription className="font-mono text-xs text-signal leading-relaxed">
             Encrypted buffer synchronization established across all continental edge nodes.
             Persistence level: CRITICAL.
           </SpotlightDescription>
@@ -156,11 +156,15 @@ export const GradientHighlight: Story = {
           <SpotlightMeta>
             <div className="flex gap-4 mt-4">
               <div className="flex flex-col">
-                <span className="text-[10px] font-black uppercase opacity-40">Success_Rate</span>
+                <span className="text-[10px] font-black uppercase text-muted-foreground">
+                  Success_Rate
+                </span>
                 <span className="text-xl font-black">99.9%</span>
               </div>
               <div className="flex flex-col border-l pl-4">
-                <span className="text-[10px] font-black uppercase opacity-40">Active_Units</span>
+                <span className="text-[10px] font-black uppercase text-muted-foreground">
+                  Active_Units
+                </span>
                 <span className="text-xl font-black">14.2K</span>
               </div>
             </div>
@@ -188,7 +192,7 @@ export const GlassAtmospheric: Story = {
           </SpotlightVisual>
           <SpotlightContent className="text-foreground">
             <SpotlightTitle className="text-foreground">Global_Reach</SpotlightTitle>
-            <SpotlightDescription className="text-foreground/60">
+            <SpotlightDescription className="text-muted-foreground">
               Distributed cloud architecture performing within nominal latency thresholds.
             </SpotlightDescription>
           </SpotlightContent>

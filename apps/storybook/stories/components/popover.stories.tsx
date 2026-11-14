@@ -116,7 +116,7 @@ export const CyberSpec: Story = {
           <div className="space-y-4">
             <div className="space-y-2">
               <div className="flex justify-between text-[10px] uppercase">
-                <span className="opacity-40">Signal_Gain</span>
+                <span className="text-muted-foreground">Signal_Gain</span>
                 <span className="text-signal">85.4%</span>
               </div>
               <div className="h-1 bg-signal/10 rounded-full overflow-hidden">
@@ -125,7 +125,7 @@ export const CyberSpec: Story = {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-[10px] uppercase">
-                <span className="opacity-40">Uplink_Buffer</span>
+                <span className="text-muted-foreground">Uplink_Buffer</span>
                 <span className="text-success">0ms</span>
               </div>
               <div className="h-1 bg-success/10 rounded-full overflow-hidden">
@@ -134,7 +134,7 @@ export const CyberSpec: Story = {
             </div>
           </div>
           <div className="pt-4 border-t border-signal/10 flex justify-between items-center">
-            <span className="text-[9px] opacity-40 uppercase">Protection_Layer</span>
+            <span className="text-[9px] text-muted-foreground uppercase">Protection_Layer</span>
             <Badge variant="cyber" size="xs">
               LOCKED
             </Badge>
@@ -166,12 +166,12 @@ export const GlassInfo: Story = {
               </div>
               <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
             </div>
-            <p className="text-xs text-foreground/60 leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Active telemetry indicates nominal refraction across all frosted surfaces. Backdrop
               blur is performing within optimal parameters.
             </p>
             <div className="flex justify-between items-center pt-2">
-              <span className="text-[9px] font-bold text-foreground/40 uppercase">
+              <span className="text-[9px] font-bold text-muted-foreground uppercase">
                 Phase: EXOSPHERE
               </span>
               <div className="size-1.5 rounded-full bg-success" />

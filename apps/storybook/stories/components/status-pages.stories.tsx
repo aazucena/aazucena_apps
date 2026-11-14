@@ -101,7 +101,7 @@ export const Error500Cyber: Story = {
           <ErrorPageTitle className="text-signal font-mono italic tracking-tighter text-4xl md:text-6xl">
             // SYSTEM_CORRUPTION
           </ErrorPageTitle>
-          <ErrorPageDescription className="text-signal/40 font-mono text-[10px] tracking-[0.2em]">
+          <ErrorPageDescription className="text-signal font-mono text-[10px] tracking-[0.2em]">
             IDENT_FAILED // BUFFER_OVERFLOW // STACK_TRACE_ENABLED
           </ErrorPageDescription>
         </ErrorPageHeader>
@@ -111,7 +111,7 @@ export const Error500Cyber: Story = {
           </Button>
         </ErrorPageActions>
         <div className="mt-20 p-6 border-2 border-dashed border-signal/10 rounded-card bg-signal/5 max-w-md mx-auto">
-          <p className="text-[10px] font-mono text-signal/60 leading-relaxed">
+          <p className="text-[10px] font-mono text-signal leading-relaxed">
             Incident ID: 7F42A1C9
             <br />
             Timestamp: 2026-11-11T14:35:00.000Z
@@ -173,7 +173,7 @@ export const StatusGlass: Story = {
           <ErrorPageTitle className="text-foreground text-5xl mb-6">
             Cloud_Layer_Sync
           </ErrorPageTitle>
-          <ErrorPageDescription className="text-foreground/60 mb-12">
+          <ErrorPageDescription className="text-muted-foreground mb-12">
             Atmospheric data points are being re-indexed across all orbital nodes.
           </ErrorPageDescription>
           <ErrorPageActions>

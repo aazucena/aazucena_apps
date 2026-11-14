@@ -48,7 +48,7 @@ export const ShortcutCombo: Story = {
   render: () => (
     <div className="flex flex-col items-center gap-6">
       <div className="flex items-center gap-4">
-        <span className="text-xs font-black uppercase tracking-widest opacity-40">
+        <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
           Open_Command_Palette
         </span>
         <KbdGroup>
@@ -58,7 +58,7 @@ export const ShortcutCombo: Story = {
       </div>
 
       <div className="flex items-center gap-4">
-        <span className="text-xs font-black uppercase tracking-widest opacity-40">
+        <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
           Hard_Refresh
         </span>
         <KbdGroup>
@@ -78,14 +78,14 @@ export const TechnicalContext: Story = {
   render: () => (
     <div className="p-8 border-2 border-dashed rounded-card bg-muted/5 flex flex-col items-center gap-4">
       <div className="bg-background text-foreground p-4 rounded-card border border-rule flex items-center gap-4">
-        <span className="text-[10px] font-mono uppercase tracking-tighter opacity-60">
+        <span className="text-[10px] font-mono uppercase tracking-tighter text-muted-foreground">
           Terminal_Toggle
         </span>
         <Kbd className="bg-state text-foreground border-rule h-6 px-2 min-w-6 rounded-control">
           F12
         </Kbd>
       </div>
-      <p className="text-[9px] font-mono opacity-40 italic">// AUTO_LINKING_DETECTED</p>
+      <p className="text-[9px] font-mono text-muted-foreground italic">// AUTO_LINKING_DETECTED</p>
     </div>
   ),
 };

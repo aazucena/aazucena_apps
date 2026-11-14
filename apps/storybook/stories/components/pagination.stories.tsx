@@ -101,7 +101,7 @@ export const ProgressDots: Story = {
 
     return (
       <div className="flex flex-col items-center gap-8 p-12 border rounded-card bg-muted/5">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
           SECTION_NAVIGATION
         </h3>
         <PaginationDots variant="default">
@@ -129,7 +129,7 @@ export const ProgressDots: Story = {
 export const CyberVertical: Story = {
   render: () => (
     <div className="h-[400px] w-[600px] bg-background border border-signal/10 rounded-card relative overflow-hidden flex items-center justify-center">
-      <div className="text-center font-mono text-signal/20 text-4xl font-black italic select-none uppercase">
+      <div className="text-center font-mono text-signal text-4xl font-black italic select-none uppercase">
         UPLINK_TERMINAL
       </div>
       <PaginationDots variant="cyber" position="fixed-right" className="absolute">
@@ -154,7 +154,7 @@ export const GlassFloating: Story = {
         <PaginationDot variant="glass" tooltip="Page 3" />
         <PaginationDot variant="glass" tooltip="Page 4" />
       </PaginationDots>
-      <span className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.4em]">
+      <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em]">
         Atmospheric_Control
       </span>
     </div>

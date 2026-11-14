@@ -81,7 +81,7 @@ export const Basic: Story = {
               <TimelineTitle>System_v4_Release</TimelineTitle>
               <TimelineDescription>Primary node infrastructure deployment.</TimelineDescription>
             </TimelineHeader>
-            <p className="text-sm opacity-60 leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Successfully established the neural-adaptive ingestion layer across all US_EAST
               continental clusters.
             </p>
@@ -139,7 +139,7 @@ export const CyberTerminal: Story = {
               <TimelineTitle className="font-mono italic text-signal uppercase tracking-tighter text-xl">
                 // KERNEL_SYNC_INIT
               </TimelineTitle>
-              <TimelineDescription className="font-mono text-[10px] text-signal/40 uppercase">
+              <TimelineDescription className="font-mono text-[10px] text-signal uppercase">
                 Handshake sequence successful.
               </TimelineDescription>
             </TimelineHeader>
@@ -158,7 +158,7 @@ export const CyberTerminal: Story = {
               <TimelineTitle className="font-mono italic text-signal uppercase tracking-tighter text-xl">
                 // BUFFER_FLUSH
               </TimelineTitle>
-              <TimelineDescription className="font-mono text-[10px] text-signal/40 uppercase">
+              <TimelineDescription className="font-mono text-[10px] text-signal uppercase">
                 Purging legacy packets.
               </TimelineDescription>
             </TimelineHeader>

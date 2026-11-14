@@ -75,7 +75,7 @@ export const Basic: Story = {
   render: (args) => (
     <div className="w-80 space-y-6">
       <div className="flex justify-between items-center">
-        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">
+        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
           System_Volume
         </Label>
         <Volume size={14} className="opacity-40" />
@@ -107,7 +107,7 @@ export const CyberTerminal: Story = {
           <span className="text-xl font-black text-signal leading-none">{val}%</span>
         </div>
         <Slider {...args} onValueChange={([v = 0]) => setVal(v)} />
-        <p className="text-[9px] font-mono text-signal/20 uppercase text-center italic">
+        <p className="text-[9px] font-mono text-signal uppercase text-center italic">
           Awaiting_Manual_Override
         </p>
       </div>
@@ -127,7 +127,7 @@ export const RangeSelection: Story = {
   render: (args) => (
     <div className="w-80 space-y-6">
       <div className="flex justify-between items-center">
-        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">
+        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
           Buffer_Range
         </Label>
         <Badge variant="outline" size="xs">
@@ -135,7 +135,7 @@ export const RangeSelection: Story = {
         </Badge>
       </div>
       <Slider {...args} />
-      <div className="flex justify-between text-[10px] font-mono opacity-20 uppercase">
+      <div className="flex justify-between text-[10px] font-mono text-muted-foreground uppercase">
         <span>0x00</span>
         <span>0xFF</span>
       </div>

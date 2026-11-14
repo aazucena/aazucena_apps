@@ -109,7 +109,9 @@ export const TechnicalIcons: Story = {
           size={40}
           className="text-warning transition-transform group-hover:scale-125"
         />
-        <span className="text-[10px] font-black uppercase opacity-40">ENERGY_SIGNAL</span>
+        <span className="text-[10px] font-black uppercase text-muted-foreground">
+          ENERGY_SIGNAL
+        </span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
         <IconRenderer
@@ -117,7 +119,7 @@ export const TechnicalIcons: Story = {
           size={40}
           className="text-signal transition-transform group-hover:scale-125"
         />
-        <span className="text-[10px] font-black uppercase opacity-40">SYSTEM_SHELL</span>
+        <span className="text-[10px] font-black uppercase text-muted-foreground">SYSTEM_SHELL</span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
         <IconRenderer
@@ -125,7 +127,7 @@ export const TechnicalIcons: Story = {
           size={40}
           className="text-signal transition-transform group-hover:scale-125"
         />
-        <span className="text-[10px] font-black uppercase opacity-40">DATA_CLUSTER</span>
+        <span className="text-[10px] font-black uppercase text-muted-foreground">DATA_CLUSTER</span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
         <IconRenderer
@@ -133,7 +135,7 @@ export const TechnicalIcons: Story = {
           size={40}
           className="text-muted-foreground transition-transform group-hover:scale-125"
         />
-        <span className="text-[10px] font-black uppercase opacity-40">SOURCE_CORE</span>
+        <span className="text-[10px] font-black uppercase text-muted-foreground">SOURCE_CORE</span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
         <IconRenderer
@@ -141,7 +143,7 @@ export const TechnicalIcons: Story = {
           size={40}
           className="text-warning transition-transform group-hover:scale-125"
         />
-        <span className="text-[10px] font-black uppercase opacity-40">IDEA_OUTLINE</span>
+        <span className="text-[10px] font-black uppercase text-muted-foreground">IDEA_OUTLINE</span>
       </div>
       <div className="flex flex-col items-center gap-4 group">
         <IconRenderer
@@ -149,7 +151,7 @@ export const TechnicalIcons: Story = {
           size={40}
           className="text-warning transition-transform group-hover:scale-125"
         />
-        <span className="text-[10px] font-black uppercase opacity-40">IDEA_SOLID</span>
+        <span className="text-[10px] font-black uppercase text-muted-foreground">IDEA_SOLID</span>
       </div>
     </div>
   ),

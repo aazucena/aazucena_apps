@@ -88,23 +88,23 @@ export const CyberTerminal: Story = {
       <TabsContent value="kernel" className="mt-6">
         <div className="bg-background border border-signal/20 p-8 rounded-card font-mono text-[11px] text-signal space-y-2">
           <p className="font-bold">{'>'} INITIALIZING_BOOT_LOADER...</p>
-          <p className="opacity-40 italic">-- loading virtual environment --</p>
-          <p className="opacity-40 italic">-- synchronizing pulse clock --</p>
+          <p className="text-muted-foreground italic">-- loading virtual environment --</p>
+          <p className="text-muted-foreground italic">-- synchronizing pulse clock --</p>
           <p className="pt-4 text-success">{'>'} SYSTEM_READY.</p>
         </div>
       </TabsContent>
       <TabsContent value="buffer" className="mt-6">
         <div className="bg-background border border-signal/20 p-8 rounded-card font-mono text-[11px] text-signal space-y-4">
           <div className="flex justify-between items-center border-b border-rule pb-2">
-            <span className="opacity-40">SECTOR_0x7F</span>
+            <span className="text-muted-foreground">SECTOR_0x7F</span>
             <span className="text-success font-black">STABLE</span>
           </div>
           <div className="flex justify-between items-center border-b border-rule pb-2">
-            <span className="opacity-40">SECTOR_0x1A</span>
+            <span className="text-muted-foreground">SECTOR_0x1A</span>
             <span className="text-success font-black">STABLE</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="opacity-40">SECTOR_0x9C</span>
+            <span className="text-muted-foreground">SECTOR_0x9C</span>
             <span className="text-warning font-black animate-pulse">DEGRADED</span>
           </div>
         </div>
@@ -142,13 +142,13 @@ export const GlassAtmospheric: Story = {
         </TabsList>
         <TabsContent value="stratosphere" className="mt-8 text-center text-foreground">
           <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Middle_Layer</h3>
-          <p className="text-foreground/60 text-sm leading-relaxed">
+          <p className="text-muted-foreground text-sm leading-relaxed">
             Altitude: 12km - 50km. Primary ingestion zone for high-altitude telemetry data points.
           </p>
         </TabsContent>
         <TabsContent value="exosphere" className="mt-8 text-center text-foreground">
           <h3 className="text-3xl font-black tracking-tighter uppercase mb-4">Outer_Enclave</h3>
-          <p className="text-foreground/60 text-sm leading-relaxed">
+          <p className="text-muted-foreground text-sm leading-relaxed">
             Altitude: 10,000km+. Secure buffer synchronization zone for orbital node clusters.
           </p>
         </TabsContent>
@@ -163,7 +163,7 @@ export const GlassAtmospheric: Story = {
 export const PhoneDial: Story = {
   render: () => (
     <div className="w-[600px] flex flex-col items-center">
-      <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-12">
+      <p className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground mb-12">
         CLICK_AND_DRAG_TO_ROTATE_DIAL
       </p>
       <Tabs defaultValue="t1">

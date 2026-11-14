@@ -95,10 +95,10 @@ export const FullInterface: Story = {
                 I help you analyze the results?
               </ChatBubble>
               <ChatActions>
-                <Button variant="ghost" size="icon" className="size-6">
+                <Button aria-label="Copy" variant="ghost" size="icon" className="size-6">
                   <Copy size={12} />
                 </Button>
-                <Button variant="ghost" size="icon" className="size-6">
+                <Button aria-label="Refresh" variant="ghost" size="icon" className="size-6">
                   <Refresh size={12} />
                 </Button>
               </ChatActions>
@@ -154,7 +154,7 @@ export const MessageVariants: Story = {
   render: () => (
     <div className="max-w-2xl mx-auto p-10 space-y-12">
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground text-center">
           DEFAULT_THEME
         </p>
         <ChatMessage role="assistant">
@@ -168,7 +168,7 @@ export const MessageVariants: Story = {
       </div>
 
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground text-center">
           CYBER_THEME
         </p>
         <ChatMessage role="assistant">
@@ -182,7 +182,7 @@ export const MessageVariants: Story = {
       </div>
 
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground text-center">
           GLASS_THEME
         </p>
         <div className="p-10 rounded-card">
@@ -206,7 +206,7 @@ export const MessageVariants: Story = {
 export const ThreadList: Story = {
   render: () => (
     <div className="max-w-md mx-auto p-10 space-y-4">
-      <h3 className="text-xs font-black uppercase tracking-widest opacity-40 mb-6">
+      <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-6">
         Archive_Threads
       </h3>
 

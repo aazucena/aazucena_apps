@@ -55,7 +55,7 @@ export const Basic: Story = {
       <Watermark {...args} />
       <div className="relative z-10 h-full flex flex-col items-center justify-center p-20 text-center gap-4">
         <h1 className="text-5xl font-black tracking-tighter uppercase">Foreground_Content</h1>
-        <p className="max-w-md opacity-60">
+        <p className="max-w-md text-muted-foreground">
           The watermark sits at z-index 0, providing a subtle architectural layer behind your
           primary components.
         </p>
@@ -95,15 +95,21 @@ export const SizePresets: Story = {
     <div className="space-y-12 p-20">
       <div className="relative h-40 w-full border border-dashed rounded-card overflow-hidden bg-muted/5">
         <Watermark text="SMALL" size="sm" />
-        <div className="relative z-10 p-4 text-[10px] font-bold opacity-40 uppercase">Size: sm</div>
+        <div className="relative z-10 p-4 text-[10px] font-bold text-muted-foreground uppercase">
+          Size: sm
+        </div>
       </div>
       <div className="relative h-40 w-full border border-dashed rounded-card overflow-hidden bg-muted/5">
         <Watermark text="MEDIUM" size="md" />
-        <div className="relative z-10 p-4 text-[10px] font-bold opacity-40 uppercase">Size: md</div>
+        <div className="relative z-10 p-4 text-[10px] font-bold text-muted-foreground uppercase">
+          Size: md
+        </div>
       </div>
       <div className="relative h-40 w-full border border-dashed rounded-card overflow-hidden bg-muted/5">
         <Watermark text="LARGE" size="lg" />
-        <div className="relative z-10 p-4 text-[10px] font-bold opacity-40 uppercase">Size: lg</div>
+        <div className="relative z-10 p-4 text-[10px] font-bold text-muted-foreground uppercase">
+          Size: lg
+        </div>
       </div>
     </div>
   ),

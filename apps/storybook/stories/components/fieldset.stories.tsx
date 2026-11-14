@@ -93,7 +93,7 @@ export const CyberVariant: Story = {
               id="protocol_tcp"
               className="text-signal border-signal/50"
             />
-            <Label htmlFor="protocol_tcp" className="font-mono text-signal/80">
+            <Label htmlFor="protocol_tcp" className="font-mono text-signal">
               PROTOCOL_TCP
             </Label>
           </div>
@@ -103,7 +103,7 @@ export const CyberVariant: Story = {
               id="protocol_udp"
               className="text-signal border-signal/50"
             />
-            <Label htmlFor="protocol_udp" className="font-mono text-signal/80">
+            <Label htmlFor="protocol_udp" className="font-mono text-signal">
               PROTOCOL_UDP
             </Label>
           </div>

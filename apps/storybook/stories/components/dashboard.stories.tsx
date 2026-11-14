@@ -83,10 +83,10 @@ export const BasicCard: Story = {
         </DashboardTitle>
         <DashboardStatus>Pulse_Active</DashboardStatus>
         <DashboardActions>
-          <Button variant="ghost" size="icon" className="size-8">
+          <Button aria-label="Refresh" variant="ghost" size="icon" className="size-8">
             <Refresh size={14} />
           </Button>
-          <Button variant="ghost" size="icon" className="size-8">
+          <Button aria-label="Settings" variant="ghost" size="icon" className="size-8">
             <Settings size={14} />
           </Button>
         </DashboardActions>
@@ -140,19 +140,19 @@ export const CyberTerminal: Story = {
           </IconBox>
           CORE_INTEGRITY
         </DashboardTitle>
-        <DashboardStatus className="text-signal/60">SYSTEM_OPERATIONAL</DashboardStatus>
+        <DashboardStatus className="text-signal">SYSTEM_OPERATIONAL</DashboardStatus>
       </DashboardHeader>
       <DashboardBody className="font-mono text-[10px] space-y-3 bg-panel">
         <div className="flex justify-between items-center border-b border-rule pb-2">
-          <span className="opacity-40 uppercase">Ingestion_Buffer</span>
+          <span className="text-muted-foreground uppercase">Ingestion_Buffer</span>
           <span className="text-success font-bold">0ms</span>
         </div>
         <div className="flex justify-between items-center border-b border-rule pb-2">
-          <span className="opacity-40 uppercase">Kernel_Pulse</span>
+          <span className="text-muted-foreground uppercase">Kernel_Pulse</span>
           <span className="text-signal font-bold">STABLE</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="opacity-40 uppercase">Signal_Lock</span>
+          <span className="text-muted-foreground uppercase">Signal_Lock</span>
           <span className="text-primary font-bold">TRUE</span>
         </div>
       </DashboardBody>
@@ -177,7 +177,7 @@ export const GlassMonitor: Story = {
             </IconBox>
             Energy_Distribution
           </DashboardTitle>
-          <DashboardStatus className="text-foreground/40">Real_Time</DashboardStatus>
+          <DashboardStatus className="text-muted-foreground">Real_Time</DashboardStatus>
         </DashboardHeader>
         <DashboardBody>
           <div className="h-32 flex items-end gap-1 mb-6">
@@ -189,7 +189,7 @@ export const GlassMonitor: Story = {
               />
             ))}
           </div>
-          <p className="text-[10px] font-mono text-foreground/60 text-center uppercase tracking-widest italic">
+          <p className="text-[10px] font-mono text-muted-foreground text-center uppercase tracking-widest italic">
             Peak_Usage_Window: 14:00 - 16:00
           </p>
         </DashboardBody>

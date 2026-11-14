@@ -84,17 +84,19 @@ export const Basic: Story = {
           <PlaybackActions>
             <div className="flex items-center gap-2 mr-4">
               <Activity size={14} className="text-success" />
-              <span className="text-[10px] font-black uppercase opacity-40">Uplink_Active</span>
+              <span className="text-[10px] font-black uppercase text-muted-foreground">
+                Uplink_Active
+              </span>
             </div>
-            <Button variant="ghost" size="icon" className="size-8">
+            <Button aria-label="Refresh" variant="ghost" size="icon" className="size-8">
               <Refresh size={14} />
             </Button>
-            <Button variant="ghost" size="icon" className="size-8">
+            <Button aria-label="Settings" variant="ghost" size="icon" className="size-8">
               <Cog size={14} />
             </Button>
           </PlaybackActions>
         </Playback>
-        <div className="h-40 bg-muted/10 flex items-center justify-center italic text-xs opacity-20 uppercase tracking-widest">
+        <div className="h-40 bg-muted/10 flex items-center justify-center italic text-xs text-muted-foreground uppercase tracking-widest">
           Content_Sequence_Stage
         </div>
       </div>
@@ -118,7 +120,7 @@ export const CyberTerminal: Story = {
             <Play size={16} />
           </PlaybackButton>
         </PlaybackControls>
-        <div className="ml-4 font-mono text-[10px] text-signal/60 uppercase animate-pulse tracking-widest flex-1">
+        <div className="ml-4 font-mono text-[10px] text-signal uppercase animate-pulse tracking-widest flex-1">
           AWAITING_ROOT_ACCESS_
         </div>
         <PlaybackActions>
@@ -167,7 +169,7 @@ export const GlassMonitor: Story = {
           </PlaybackActions>
         </Playback>
         <div className="h-32 glass border-rule border-t-0 rounded-b-card flex items-center justify-center">
-          <Globe className="text-foreground/20 animate-spin-slow size-12" />
+          <Globe className="text-muted-foreground animate-spin-slow size-12" />
         </div>
       </div>
     </div>

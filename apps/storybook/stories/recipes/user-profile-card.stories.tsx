@@ -58,7 +58,12 @@ export const Default: Story = {
             <div className="flex items-center gap-2 pb-1">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="outline" className="size-9 rounded-card">
+                  <Button
+                    aria-label="Email"
+                    size="icon"
+                    variant="outline"
+                    className="size-9 rounded-card"
+                  >
                     <Email className="size-4" />
                   </Button>
                 </TooltipTrigger>
@@ -122,7 +127,12 @@ export const WithActions: Story = {
             <div className="flex items-center gap-2 pb-1">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="outline" className="size-9 rounded-card">
+                  <Button
+                    aria-label="More options"
+                    size="icon"
+                    variant="outline"
+                    className="size-9 rounded-card"
+                  >
                     <Dots className="size-4" />
                   </Button>
                 </DropdownMenuTrigger>

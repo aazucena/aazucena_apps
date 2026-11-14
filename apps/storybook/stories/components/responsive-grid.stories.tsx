@@ -62,7 +62,7 @@ export const Basic: Story = {
       <ResponsiveGrid {...args}>
         {Array.from({ length: 6 }).map((_, i) => (
           <Card key={i} variant="outline" className="h-32 flex items-center justify-center">
-            <span className="text-xs font-black opacity-20">UNIT_0{i + 1}</span>
+            <span className="text-xs font-black text-muted-foreground">UNIT_0{i + 1}</span>
           </Card>
         ))}
       </ResponsiveGrid>
@@ -126,7 +126,7 @@ export const AdaptiveColumns: Story = {
   },
   render: (args) => (
     <div className="w-[900px] border border-dashed p-8 rounded-card">
-      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-8 text-center">
+      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-8 text-center">
         Breakpoints: SM(2) // MD(3) // LG(4)
       </p>
       <ResponsiveGrid {...args}>

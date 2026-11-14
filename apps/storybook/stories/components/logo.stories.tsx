@@ -89,27 +89,27 @@ export const Sizes: Story = {
     <div className="flex items-end gap-8">
       <div className="text-center space-y-2">
         <Logo size="xs" />
-        <p className="text-[10px] font-mono opacity-40">XS</p>
+        <p className="text-[10px] font-mono text-muted-foreground">XS</p>
       </div>
       <div className="text-center space-y-2">
         <Logo size="sm" />
-        <p className="text-[10px] font-mono opacity-40">SM</p>
+        <p className="text-[10px] font-mono text-muted-foreground">SM</p>
       </div>
       <div className="text-center space-y-2">
         <Logo size="default" />
-        <p className="text-[10px] font-mono opacity-40">DEFAULT</p>
+        <p className="text-[10px] font-mono text-muted-foreground">DEFAULT</p>
       </div>
       <div className="text-center space-y-2">
         <Logo size="lg" />
-        <p className="text-[10px] font-mono opacity-40">LG</p>
+        <p className="text-[10px] font-mono text-muted-foreground">LG</p>
       </div>
       <div className="text-center space-y-2">
         <Logo size="xl" />
-        <p className="text-[10px] font-mono opacity-40">XL</p>
+        <p className="text-[10px] font-mono text-muted-foreground">XL</p>
       </div>
       <div className="text-center space-y-2">
         <Logo size="2xl" />
-        <p className="text-[10px] font-mono opacity-40">2XL</p>
+        <p className="text-[10px] font-mono text-muted-foreground">2XL</p>
       </div>
     </div>
   ),

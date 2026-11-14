@@ -108,7 +108,7 @@ export const CyberTerminal: Story = {
               // CORE_SHELL_V4
             </SheetTitle>
           </div>
-          <SheetDescription className="text-signal/40 text-[10px] uppercase">
+          <SheetDescription className="text-signal text-[10px] uppercase">
             Enclave_Authorization: LEVEL_01
           </SheetDescription>
         </SheetHeader>
@@ -116,7 +116,7 @@ export const CyberTerminal: Story = {
         <div className="space-y-8">
           <div className="p-4 bg-signal/5 border border-signal/10 rounded-card space-y-4">
             <div className="flex justify-between items-center">
-              <span className="text-[10px] opacity-40 uppercase">Ingestion_Pulse</span>
+              <span className="text-[10px] text-muted-foreground uppercase">Ingestion_Pulse</span>
               <Badge variant="cyber" size="xs">
                 NOMINAL
               </Badge>
@@ -127,7 +127,7 @@ export const CyberTerminal: Story = {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-[10px] font-black uppercase opacity-20 tracking-[0.3em]">
+            <h4 className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.3em]">
               Quick_Actions
             </h4>
             <div className="flex flex-col gap-2">
@@ -185,7 +185,7 @@ export const GlassFloating: Story = {
             <SheetTitle className="text-foreground text-3xl font-black tracking-tighter">
               Atmospheric_Unit
             </SheetTitle>
-            <SheetDescription className="text-foreground/40">
+            <SheetDescription className="text-muted-foreground">
               Real-time refraction metrics
             </SheetDescription>
           </SheetHeader>
@@ -195,7 +195,9 @@ export const GlassFloating: Story = {
                 <Globe size={24} />
               </div>
               <div className="flex flex-col">
-                <span className="text-[9px] font-black uppercase opacity-40">Current_Phase</span>
+                <span className="text-[9px] font-black uppercase text-muted-foreground">
+                  Current_Phase
+                </span>
                 <span className="text-sm font-bold">Mesosphere // Altitude: 62km</span>
               </div>
             </div>

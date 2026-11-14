@@ -167,7 +167,7 @@ export const Glass: Story = {
             className="text-foreground placeholder:text-foreground/40"
           />
           <CommandList className="max-h-[250px]">
-            <CommandGroup heading="NAVIGATION" className="text-foreground/60">
+            <CommandGroup heading="NAVIGATION" className="text-muted-foreground">
               <CommandItem className="text-foreground hover:bg-state">
                 <Globe className="mr-2" /> Global Overview
               </CommandItem>
@@ -217,7 +217,7 @@ export const PaletteDemo: Story = {
 
     return (
       <div className="text-center space-y-4">
-        <p className="text-xs opacity-40 uppercase tracking-widest">
+        <p className="text-xs text-muted-foreground uppercase tracking-widest">
           Press <kbd className="bg-muted px-1.5 py-0.5 rounded border">⌘K</kbd> to activate
         </p>
         <Button onClick={() => setOpen(true)}>Open Palette</Button>
@@ -233,7 +233,7 @@ export const PaletteDemo: Story = {
                   </div>
                   <div className="flex flex-1 flex-col">
                     <span className="text-xs font-bold tracking-wide uppercase">{action.name}</span>
-                    <span className="truncate font-mono text-[10px] opacity-50">
+                    <span className="truncate font-mono text-[10px] text-muted-foreground">
                       {action.keywords}
                     </span>
                   </div>

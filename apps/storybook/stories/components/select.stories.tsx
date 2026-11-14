@@ -68,7 +68,7 @@ export const Basic: Story = {
       </SelectTrigger>
       <SelectContent className="rounded-card">
         <SelectGroup>
-          <SelectLabel className="text-[10px] font-black uppercase opacity-40">
+          <SelectLabel className="text-[10px] font-black uppercase text-muted-foreground">
             Primary_Sectors
           </SelectLabel>
           <SelectItem value="us">North_America_Core</SelectItem>
@@ -77,7 +77,7 @@ export const Basic: Story = {
         </SelectGroup>
         <SelectSeparator />
         <SelectGroup>
-          <SelectLabel className="text-[10px] font-black uppercase opacity-40">
+          <SelectLabel className="text-[10px] font-black uppercase text-muted-foreground">
             Secondary_Nodes
           </SelectLabel>
           <SelectItem value="au">Australia_South</SelectItem>
@@ -167,7 +167,9 @@ export const AdvancedComposition: Story = {
         <SelectGroup>
           <SelectLabel className="flex items-center gap-2 mb-2">
             <Shield size={12} className="opacity-40" />
-            <span className="text-[10px] font-black uppercase opacity-40">Secured_Clusters</span>
+            <span className="text-[10px] font-black uppercase text-muted-foreground">
+              Secured_Clusters
+            </span>
           </SelectLabel>
           <SelectItem value="n1">
             <div className="flex items-center gap-3">
@@ -190,7 +192,7 @@ export const AdvancedComposition: Story = {
         <SelectGroup>
           <SelectLabel className="flex items-center gap-2 mb-2">
             <Activity size={12} className="text-alert" />
-            <span className="text-[10px] font-black uppercase text-alert/40">Critical_Path</span>
+            <span className="text-[10px] font-black uppercase text-alert">Critical_Path</span>
           </SelectLabel>
           <SelectItem value="n3" className="text-alert focus:text-alert">
             <span className="font-bold">UNIT_0x9C8D</span>

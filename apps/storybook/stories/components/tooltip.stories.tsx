@@ -84,7 +84,7 @@ export const CyberTerminal: Story = {
       </TooltipTrigger>
       <TooltipContent variant="cyber" side="top" className="font-mono p-4">
         <div className="space-y-2">
-          <div className="flex justify-between gap-8 text-[9px] uppercase font-black italic text-signal/60">
+          <div className="flex justify-between gap-8 text-[9px] uppercase font-black italic text-signal">
             <span># BUFFER_SYNC</span>
             <Badge variant="cyber" size="xs">
               NOMINAL
@@ -120,7 +120,7 @@ export const GlassAtmospheric: Story = {
         >
           <div className="flex flex-col gap-2">
             <h4 className="font-black uppercase tracking-tighter">Atmospheric_Unit</h4>
-            <p className="text-xs text-foreground/60 leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Real-time environmental monitoring with adaptive frosted surfaces and backdrop blur.
             </p>
           </div>

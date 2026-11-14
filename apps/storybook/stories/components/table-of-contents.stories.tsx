@@ -65,7 +65,7 @@ export const Basic: Story = {
           <h2 id="intro" className="text-4xl font-black tracking-tighter uppercase mb-8">
             Introduction
           </h2>
-          <p className="text-lg opacity-60 leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             Scroll down to see the Contents panel update its active state automatically.
           </p>
           <div className="h-96 bg-muted/10 rounded-card border-2 border-dashed mt-12" />

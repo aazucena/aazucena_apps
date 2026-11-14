@@ -393,7 +393,7 @@ export const ComplexContent: Story = {
           <div className="h-1 w-full bg-state dark:bg-panel-raised rounded-full overflow-hidden">
             <div className="h-full bg-primary w-2/3" />
           </div>
-          <span className="text-[10px] opacity-50 uppercase font-mono tracking-widest">
+          <span className="text-[10px] text-muted-foreground uppercase font-mono tracking-widest">
             67% COMPLETED
           </span>
         </div>

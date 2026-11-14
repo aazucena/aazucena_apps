@@ -91,7 +91,7 @@ export const CyberTerminal: Story = {
           toast.info(`PARSING_PAYLOAD: Found ${files[0]?.name ?? 'unknown'}`)
         }
       />
-      <p className="mt-6 text-center text-[9px] font-mono text-signal/20 uppercase tracking-widest italic">
+      <p className="mt-6 text-center text-[9px] font-mono text-signal uppercase tracking-widest italic">
         Awaiting_Secure_Packet_Stream
       </p>
     </div>
@@ -115,7 +115,7 @@ export const GlassAtmospheric: Story = {
           </div>
           <div className="space-y-2">
             <h3 className="text-sm font-black uppercase tracking-widest">Atmospheric_Upload</h3>
-            <p className="text-[10px] opacity-40">
+            <p className="text-[10px] text-muted-foreground">
               Drag reflection maps or layer coordinates here.
             </p>
           </div>

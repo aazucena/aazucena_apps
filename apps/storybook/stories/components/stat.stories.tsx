@@ -139,7 +139,7 @@ export const GlassAtmospheric: Story = {
             </StatLabel>
           </div>
           <StatValue className="text-foreground text-5xl">14.2K</StatValue>
-          <StatDescription className="text-foreground/40 font-bold mt-2 tracking-widest uppercase">
+          <StatDescription className="text-muted-foreground font-bold mt-2 tracking-widest uppercase">
             Nodes_Active
           </StatDescription>
         </Stat>
@@ -158,12 +158,12 @@ export const DashboardBoard: Story = {
         <StatBoardHeader>
           <div className="space-y-1">
             <h3 className="text-xl font-black tracking-tighter uppercase">Cluster_Inference</h3>
-            <p className="text-[10px] font-mono opacity-40 uppercase tracking-[0.3em]">
+            <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-[0.3em]">
               Real-time node analysis
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="rounded-full">
+            <Button aria-label="Refresh" variant="outline" size="sm" className="rounded-full">
               <Refresh size={14} />
             </Button>
             <Button size="sm" className="rounded-full">

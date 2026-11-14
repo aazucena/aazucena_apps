@@ -66,7 +66,7 @@ export const Basic: Story = {
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index}>
               <Card variant="outline" className="aspect-square flex items-center justify-center">
-                <p className="text-4xl font-black opacity-20">{index + 1}</p>
+                <p className="text-4xl font-black text-muted-foreground">{index + 1}</p>
               </Card>
             </CarouselItem>
           ))}
@@ -122,7 +122,7 @@ export const Vertical: Story = {
                 variant="glass"
                 className="h-full flex items-center justify-center bg-panel border-rule"
               >
-                <span className="text-2xl font-bold text-foreground/40">{index + 1}</span>
+                <span className="text-2xl font-bold text-muted-foreground">{index + 1}</span>
               </Card>
             </CarouselItem>
           ))}

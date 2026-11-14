@@ -90,15 +90,10 @@ export const TechnicalIDE: Story = {
       <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel defaultSize={20} minSize={15}>
           <div className="flex h-full flex-col p-4 border-r border-rule">
-            <span className="font-mono text-[9px] text-signal opacity-40 uppercase mb-4">
-              Files_Expl
-            </span>
+            <span className="font-mono text-[9px] text-signal uppercase mb-4">Files_Expl</span>
             <div className="space-y-2">
               {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 text-signal/60 font-mono text-[10px]"
-                >
+                <div key={i} className="flex items-center gap-2 text-signal font-mono text-[10px]">
                   <Database size={12} /> NODE_0{i}.LOG
                 </div>
               ))}
@@ -119,11 +114,11 @@ export const TechnicalIDE: Story = {
             <ResizableHandle className="bg-state" withHandle />
             <ResizablePanel defaultSize={30}>
               <div className="flex h-full flex-col p-4 bg-signal/5">
-                <span className="font-mono text-[9px] text-signal opacity-40 uppercase mb-2">
+                <span className="font-mono text-[9px] text-signal uppercase mb-2">
                   Diagnostic_Console
                 </span>
-                <p className="font-mono text-[10px] text-success/80">{'>'} ALL_SYSTEMS_NOMINAL</p>
-                <p className="font-mono text-[10px] text-signal/40 mt-1">
+                <p className="font-mono text-[10px] text-success">{'>'} ALL_SYSTEMS_NOMINAL</p>
+                <p className="font-mono text-[10px] text-signal mt-1">
                   {'>'} Waiting for signal sync...
                 </p>
               </div>
@@ -147,7 +142,7 @@ export const ThreeColumn: Story = {
       <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel defaultSize={20} className="bg-muted/30">
           <div className="flex h-full items-center justify-center p-4">
-            <span className="text-[10px] font-bold uppercase opacity-40">Sidebar_L</span>
+            <span className="text-[10px] font-bold uppercase text-muted-foreground">Sidebar_L</span>
           </div>
         </ResizablePanel>
         <ResizableHandle />
@@ -159,7 +154,7 @@ export const ThreeColumn: Story = {
         <ResizableHandle />
         <ResizablePanel defaultSize={20} className="bg-muted/30">
           <div className="flex h-full items-center justify-center p-4">
-            <span className="text-[10px] font-bold uppercase opacity-40">Sidebar_R</span>
+            <span className="text-[10px] font-bold uppercase text-muted-foreground">Sidebar_R</span>
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

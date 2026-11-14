@@ -63,7 +63,7 @@ export const Basic: Story = {
         <ScrollDownIcon />
         <ScrollDownLabel>Scroll_Down</ScrollDownLabel>
       </ScrollDown>
-      <p className="text-xs opacity-20 uppercase tracking-widest">Indicator_Stage</p>
+      <p className="text-xs text-muted-foreground uppercase tracking-widest">Indicator_Stage</p>
     </div>
   ),
 };
@@ -83,7 +83,7 @@ export const CyberTerminal: Story = {
         <ScrollDownIcon className="text-signal" />
         <ScrollDownLabel className="text-signal font-mono italic">// DISCOVER_MORE</ScrollDownLabel>
       </ScrollDown>
-      <h1 className="font-mono text-signal/10 text-4xl font-black italic select-none uppercase tracking-[0.2em]">
+      <h1 className="font-mono text-signal text-4xl font-black italic select-none uppercase tracking-[0.2em]">
         UPLINK_CORE
       </h1>
     </div>
@@ -104,7 +104,7 @@ export const GlassAtmospheric: Story = {
       <div className="absolute inset-0 bg-scrim" />
       <ScrollDown {...args} className="absolute bottom-8">
         <ScrollDownIcon className="text-foreground" />
-        <ScrollDownLabel className="text-foreground/60">Atmospheric_Descent</ScrollDownLabel>
+        <ScrollDownLabel className="text-muted-foreground">Atmospheric_Descent</ScrollDownLabel>
       </ScrollDown>
       <div className="p-12 glass border-rule rounded-full">
         <span className="text-foreground font-black text-xl tracking-tighter uppercase">

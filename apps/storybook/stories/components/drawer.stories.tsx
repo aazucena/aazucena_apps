@@ -65,7 +65,7 @@ export const Basic: Story = {
           </DrawerHeader>
           <div className="p-8 text-center space-y-4">
             <div className="text-7xl font-black tracking-tighter">14.2K</div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
               NODES_PER_CYCLE
             </p>
           </div>
@@ -152,7 +152,7 @@ export const LiveMonitor: Story = {
         <div className="mx-auto w-full max-w-md">
           <DrawerHeader>
             <DrawerTitle className="text-signal font-mono italic">// LIVE_TRAJECTORY</DrawerTitle>
-            <DrawerDescription className="text-foreground/40 font-mono text-[10px]">
+            <DrawerDescription className="text-muted-foreground font-mono text-[10px]">
               Real-time node telemetry
             </DrawerDescription>
           </DrawerHeader>

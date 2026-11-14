@@ -109,7 +109,7 @@ export const LeaderboardTable: Story = {
                   />
                   <div>
                     <div className="font-bold text-xs uppercase">{signal.name}</div>
-                    <div className="text-[9px] opacity-40 font-mono italic">
+                    <div className="text-[9px] text-muted-foreground font-mono italic">
                       STATE: {signal.status}
                     </div>
                   </div>
@@ -145,31 +145,31 @@ export const CyberGrid: Story = {
         <DataListGrid cols={4} gap="lg">
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-signal/40">US_CLUSTER</DataListLabel>
+              <DataListLabel className="text-signal">US_CLUSTER</DataListLabel>
               <DataListValue className="text-signal">42.8%</DataListValue>
             </div>
-            <Globe className="size-4 text-signal/20" />
+            <Globe className="size-4 text-signal" />
           </DataListItem>
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-signal/40">DE_CLUSTER</DataListLabel>
+              <DataListLabel className="text-signal">DE_CLUSTER</DataListLabel>
               <DataListValue className="text-signal">18.2%</DataListValue>
             </div>
-            <Database className="size-4 text-signal/20" />
+            <Database className="size-4 text-signal" />
           </DataListItem>
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-signal/40">JP_CLUSTER</DataListLabel>
+              <DataListLabel className="text-signal">JP_CLUSTER</DataListLabel>
               <DataListValue className="text-signal">15.1%</DataListValue>
             </div>
-            <Zap className="size-4 text-signal/20" />
+            <Zap className="size-4 text-signal" />
           </DataListItem>
           <DataListItem variant="cyber">
             <div className="flex flex-col gap-1">
-              <DataListLabel className="text-signal/40">TOTAL_REACH</DataListLabel>
+              <DataListLabel className="text-signal">TOTAL_REACH</DataListLabel>
               <DataListValue className="text-signal">GLOBAL</DataListValue>
             </div>
-            <Globe className="size-4 text-signal/20" />
+            <Globe className="size-4 text-signal" />
           </DataListItem>
         </DataListGrid>
       </div>
@@ -189,7 +189,9 @@ export const GlassDisplay: Story = {
       <DataList {...args} className="w-[600px] border-rule">
         <DataListHeader className="border-rule bg-state">
           <DataListTitle className="text-foreground">Active_Trajectories</DataListTitle>
-          <DataListSubtitle className="text-foreground/40">Prediction_Engine_v4</DataListSubtitle>
+          <DataListSubtitle className="text-muted-foreground">
+            Prediction_Engine_v4
+          </DataListSubtitle>
         </DataListHeader>
         <div className="p-8 space-y-6">
           <div className="flex justify-between items-center text-foreground/80">

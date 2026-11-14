@@ -62,7 +62,7 @@ export const Basic: Story = {
         <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-card bg-muted/30">
           <div className="flex items-center gap-3">
             <Cog className="size-4 animate-spin-slow opacity-40" />
-            <h4 className="text-[10px] font-black italic uppercase tracking-[0.3em] opacity-60">
+            <h4 className="text-[10px] font-black italic uppercase tracking-[0.3em] text-muted-foreground">
               SYSTEM_BOOT_LOG
             </h4>
           </div>
@@ -113,7 +113,7 @@ export const DetailInspection: Story = {
         </div>
 
         <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-          <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest opacity-40 mb-4 px-1">
+          <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-4 px-1">
             <span>Core_Metrics</span>
             <CollapsibleTrigger asChild>
               <button className="hover:text-primary transition-colors flex items-center gap-1">
@@ -124,11 +124,11 @@ export const DetailInspection: Story = {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="p-3 bg-muted rounded-card border">
-              <p className="text-[9px] opacity-40 uppercase">Bandwidth</p>
+              <p className="text-[9px] text-muted-foreground uppercase">Bandwidth</p>
               <p className="text-lg font-black">1.2 Gbps</p>
             </div>
             <div className="p-3 bg-muted rounded-card border">
-              <p className="text-[9px] opacity-40 uppercase">Latency</p>
+              <p className="text-[9px] text-muted-foreground uppercase">Latency</p>
               <p className="text-lg font-black text-signal">12ms</p>
             </div>
           </div>
@@ -136,15 +136,15 @@ export const DetailInspection: Story = {
           <CollapsibleContent className="pt-4 overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-300">
             <div className="p-4 rounded-card border-2 border-dashed bg-muted/20 space-y-3">
               <div className="flex justify-between text-[10px] font-mono">
-                <span className="opacity-40 uppercase">Packet_Loss</span>
+                <span className="text-muted-foreground uppercase">Packet_Loss</span>
                 <span className="text-success">0.0001%</span>
               </div>
               <div className="flex justify-between text-[10px] font-mono">
-                <span className="opacity-40 uppercase">Signal_Jitter</span>
+                <span className="text-muted-foreground uppercase">Signal_Jitter</span>
                 <span className="text-signal">0.42ms</span>
               </div>
               <div className="flex justify-between text-[10px] font-mono">
-                <span className="opacity-40 uppercase">Auth_Status</span>
+                <span className="text-muted-foreground uppercase">Auth_Status</span>
                 <span className="text-primary font-bold">VERIFIED</span>
               </div>
             </div>

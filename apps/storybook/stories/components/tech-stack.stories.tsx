@@ -90,7 +90,7 @@ export const CyberTerminal: Story = {
   render: (args) => (
     <div className="p-12 bg-background rounded-card border border-signal/10">
       <div className="flex flex-col items-center gap-8">
-        <span className="text-[10px] font-mono text-signal/40 uppercase tracking-[0.4em]">
+        <span className="text-[10px] font-mono text-signal uppercase tracking-[0.4em]">
           # CORE_SYSTEM_STACK
         </span>
         <TechStack {...args}>

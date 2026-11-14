@@ -219,7 +219,7 @@ export const Cyber: Story = {
     <Result variant="cyber" status="error">
       <ResultIcon status="error" className="bg-panel-raised/50 text-signal ring-signal/20" />
       <ResultTitle className="font-mono text-signal">BREACH_DETECTED</ResultTitle>
-      <ResultDescription className="font-mono text-signal/60">
+      <ResultDescription className="font-mono text-signal">
         Unauthorized access attempt logged. Security protocols have been escalated.
       </ResultDescription>
       <ResultActions>
@@ -227,7 +227,7 @@ export const Cyber: Story = {
           <Shield className="mr-2 size-4" /> Initiate_Lockdown
         </Button>
       </ResultActions>
-      <ResultExtra className="border-signal/10 font-mono text-signal/40">
+      <ResultExtra className="border-signal/10 font-mono text-signal">
         Incident: INC-7F42A1C9
       </ResultExtra>
     </Result>

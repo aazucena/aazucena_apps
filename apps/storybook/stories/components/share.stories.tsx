@@ -51,7 +51,7 @@ export const Basic: Story = {
         <ShareHeader>
           <div className="flex flex-col gap-1">
             <span className="text-sm font-bold tracking-tight">Share_Intelligence</span>
-            <span className="text-[10px] uppercase font-black tracking-widest opacity-40">
+            <span className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">
               Broadcast this report
             </span>
           </div>
@@ -83,7 +83,7 @@ export const CyberTerminal: Story = {
     <div className="w-[600px] p-8 bg-background border border-signal/10 rounded-card">
       <Share {...args}>
         <ShareHeader>
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-signal/60">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-signal">
             // BROADCAST_SIGNAL_ENCLAVE
           </span>
           <ShareGroup>

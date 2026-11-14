@@ -105,7 +105,7 @@ export const MultilineConfig: Story = {
         <InputGroupAddon align="block-start" className="border-b bg-muted/30">
           <div className="flex items-center gap-2">
             <Shield size={14} className="text-primary" />
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               Security_Protocol_Override
             </span>
           </div>

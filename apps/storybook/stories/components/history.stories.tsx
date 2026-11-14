@@ -110,7 +110,7 @@ export const CyberLog: Story = {
             <HistoryBadge variant="cyber">EPOCH: 1742.4</HistoryBadge>
             <HistoryBadge variant="cyber">SIGNAL: STABLE</HistoryBadge>
           </HistoryMeta>
-          <HistoryDescription className="text-signal/60 font-mono text-xs italic">
+          <HistoryDescription className="text-signal font-mono text-xs italic">
             BUFFER_INITIALIZATION_SUCCESSFUL. SECURE_ENCLAVE_LOCKED. READY_FOR_TRAJECTORY_INFERENCE.
           </HistoryDescription>
         </HistoryItem>
@@ -122,7 +122,7 @@ export const CyberLog: Story = {
             <HistoryBadge variant="cyber">EPOCH: 1741.9</HistoryBadge>
             <HistoryBadge variant="cyber">SIGNAL: DEGRADED</HistoryBadge>
           </HistoryMeta>
-          <HistoryDescription className="text-signal/60 font-mono text-xs italic">
+          <HistoryDescription className="text-signal font-mono text-xs italic">
             RETRY_SEQUENCE_INITIATED... PACKET_LOSS_DETECTION_ACTIVE.
           </HistoryDescription>
         </HistoryItem>

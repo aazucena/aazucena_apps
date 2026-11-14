@@ -63,7 +63,7 @@ export const CyberTerminal: Story = {
     <div className="w-96 p-10 bg-background border border-signal/10 rounded-card">
       <div className="flex items-center gap-3 mb-6">
         <Terminal size={14} className="text-signal opacity-40" />
-        <span className="text-[10px] font-mono text-signal/40 uppercase tracking-[0.2em]">
+        <span className="text-[10px] font-mono text-signal uppercase tracking-[0.2em]">
           # INTERNAL_PROCESS_TRACE
         </span>
       </div>
@@ -94,7 +94,7 @@ export const AIReasoning: Story = {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <Activity size={14} className="text-primary animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">
+          <span className="text-[10px] font-black uppercase tracking-widest text-primary">
             Reasoning_Layer
           </span>
         </div>
@@ -127,15 +127,15 @@ export const StepStates: Story = {
   render: () => (
     <div className="space-y-6">
       <div className="space-y-2">
-        <p className="text-[9px] opacity-40 uppercase font-black">Completed</p>
+        <p className="text-[9px] text-muted-foreground uppercase font-black">Completed</p>
         <ThoughtStep status="completed">Protocol verification successful.</ThoughtStep>
       </div>
       <div className="space-y-2">
-        <p className="text-[9px] opacity-40 uppercase font-black">Active (Pulsing)</p>
+        <p className="text-[9px] text-muted-foreground uppercase font-black">Active (Pulsing)</p>
         <ThoughtStep status="active">Establishing encrypted handshake</ThoughtStep>
       </div>
       <div className="space-y-2">
-        <p className="text-[9px] opacity-40 uppercase font-black">Pending</p>
+        <p className="text-[9px] text-muted-foreground uppercase font-black">Pending</p>
         <ThoughtStep status="pending">Awaiting signal response...</ThoughtStep>
       </div>
     </div>

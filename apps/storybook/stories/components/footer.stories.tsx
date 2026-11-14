@@ -74,18 +74,18 @@ export const Basic: Story = {
         <FooterGrid>
           <FooterSection>
             <Logo size="lg" />
-            <p className="text-sm opacity-60 max-w-xs leading-relaxed mt-4">
+            <p className="text-sm text-muted-foreground max-w-xs leading-relaxed mt-4">
               Engineering Intelligence Unit. Built for the future of decentralized computing and
               high-fidelity interfaces.
             </p>
             <FooterSocials className="mt-8">
-              <Button variant="outline" size="icon" className="rounded-full">
+              <Button aria-label="GitHub" variant="outline" size="icon" className="rounded-full">
                 <Github size={16} />
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full">
+              <Button aria-label="LinkedIn" variant="outline" size="icon" className="rounded-full">
                 <Linkedin size={16} />
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full">
+              <Button aria-label="Twitter" variant="outline" size="icon" className="rounded-full">
                 <Twitter size={16} />
               </Button>
             </FooterSocials>
@@ -124,21 +124,23 @@ export const Basic: Story = {
 
         <FooterBottom>
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-black uppercase tracking-widest opacity-40">
+            <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
               © 2026 AAZUCENA_LABS
             </span>
-            <span className="text-[9px] font-mono opacity-20">BUILD_UUID: 0x7F42_ACTIVE</span>
+            <span className="text-[9px] font-mono text-muted-foreground">
+              BUILD_UUID: 0x7F42_ACTIVE
+            </span>
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Activity size={12} className="text-success animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-success/60">
+              <span className="text-[10px] font-black uppercase tracking-widest text-success">
                 System_Operational
               </span>
             </div>
             <FooterTechStack>
               <Globe size={14} className="opacity-40" />
-              <span className="text-[9px] font-bold opacity-40 uppercase tracking-tighter">
+              <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-tighter">
                 Distributed_Edge_Network
               </span>
             </FooterTechStack>
@@ -164,7 +166,7 @@ export const CyberTerminal: Story = {
             <h2 className="text-3xl font-black tracking-tighter uppercase mb-4 italic text-signal">
               // AAZUCENA_LYTICS
             </h2>
-            <p className="font-mono text-xs text-signal/40 max-w-md">
+            <p className="font-mono text-xs text-signal max-w-md">
               CENTRAL_INTELLIGENCE_UPLINK_ESTABLISHED
               <br />
               NODES_SYNCED: 14,204 // ENCRYPTION: AES_256_GCM
@@ -173,13 +175,13 @@ export const CyberTerminal: Story = {
           <FooterSection>
             <FooterHeader className="text-signal">QUICK_COMMANDS</FooterHeader>
             <FooterNav>
-              <FooterLink href="#" className="font-mono text-signal/60 hover:text-signal italic">
+              <FooterLink href="#" className="font-mono text-signal hover:text-signal italic">
                 {'>'} INIT_SYNC
               </FooterLink>
-              <FooterLink href="#" className="font-mono text-signal/60 hover:text-signal italic">
+              <FooterLink href="#" className="font-mono text-signal hover:text-signal italic">
                 {'>'} FLUSH_BUFFER
               </FooterLink>
-              <FooterLink href="#" className="font-mono text-signal/60 hover:text-signal italic">
+              <FooterLink href="#" className="font-mono text-signal hover:text-signal italic">
                 {'>'} REBOOT_NODE
               </FooterLink>
             </FooterNav>
@@ -187,10 +189,10 @@ export const CyberTerminal: Story = {
           <FooterSection>
             <FooterHeader className="text-signal">SECURITY</FooterHeader>
             <FooterNav>
-              <FooterLink href="#" className="font-mono text-signal/60 hover:text-signal italic">
+              <FooterLink href="#" className="font-mono text-signal hover:text-signal italic">
                 {'>'} AUTH_TRACE
               </FooterLink>
-              <FooterLink href="#" className="font-mono text-signal/60 hover:text-signal italic">
+              <FooterLink href="#" className="font-mono text-signal hover:text-signal italic">
                 {'>'} FIREWALL_LOGS
               </FooterLink>
             </FooterNav>
@@ -198,7 +200,7 @@ export const CyberTerminal: Story = {
         </FooterGrid>
         <FooterBottom className="border-signal/10">
           <Badge variant="cyber">UPLINK_SECURE</Badge>
-          <p className="font-mono text-[9px] text-signal/20">
+          <p className="font-mono text-[9px] text-signal">
             FRAGMENTED_KNOWLEDGE_BASE // ALL_SIGNALS_TRACED
           </p>
         </FooterBottom>
@@ -224,10 +226,10 @@ export const GlassAtmospheric: Story = {
               <h3 className="text-foreground text-xl font-black uppercase tracking-tighter">
                 Crystal_Layer
               </h3>
-              <p className="text-foreground/60 text-xs">Distributed cloud infrastructure</p>
+              <p className="text-muted-foreground text-xs">Distributed cloud infrastructure</p>
             </FooterSection>
             <FooterSection>
-              <FooterHeader className="text-foreground/40">Regions</FooterHeader>
+              <FooterHeader className="text-muted-foreground">Regions</FooterHeader>
               <FooterNav>
                 <FooterLink href="#" className="text-foreground/80 hover:text-foreground">
                   US_East
@@ -242,10 +244,10 @@ export const GlassAtmospheric: Story = {
             </FooterSection>
           </FooterGrid>
           <FooterBottom className="border-rule">
-            <span className="text-foreground/40 text-[9px] font-bold uppercase tracking-widest">
+            <span className="text-muted-foreground text-[9px] font-bold uppercase tracking-widest">
               Atmospheric_Unit // 2026
             </span>
-            <div className="flex items-center gap-4 text-foreground/60 font-mono text-[9px]">
+            <div className="flex items-center gap-4 text-muted-foreground font-mono text-[9px]">
               <span>STATUS: NOMINAL</span>
               <div className="size-1.5 rounded-full bg-success" />
             </div>

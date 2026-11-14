@@ -90,7 +90,7 @@ export const Scrolled: Story = {
             </Button>
           </NavbarContent>
           <NavbarActions>
-            <Button variant="ghost" size="icon" className="rounded-full">
+            <Button aria-label="Search" variant="ghost" size="icon" className="rounded-full">
               <Search size={18} />
             </Button>
             <Button size="sm" className="rounded-control px-8">
@@ -100,7 +100,9 @@ export const Scrolled: Story = {
         </NavbarContainer>
       </Navbar>
       <div className="flex items-center justify-center h-full pt-20">
-        <p className="text-xs opacity-20 uppercase tracking-widest">Main_Page_Content_Area</p>
+        <p className="text-xs text-muted-foreground uppercase tracking-widest">
+          Main_Page_Content_Area
+        </p>
       </div>
     </div>
   ),
@@ -142,7 +144,7 @@ export const TransparentTop: Story = {
         </NavbarContainer>
       </Navbar>
       <div className="flex-1 flex items-center justify-center">
-        <h1 className="text-foreground text-4xl font-black tracking-tighter opacity-20">
+        <h1 className="text-4xl font-black tracking-tighter text-muted-foreground">
           HERO_BACKGROUND
         </h1>
       </div>
@@ -168,7 +170,7 @@ export const CyberTerminal: Story = {
               <span className="font-mono text-signal font-black italic tracking-tighter uppercase text-lg">
                 AAZUCENA_LYTICS
               </span>
-              <span className="text-[8px] font-mono text-signal/40 uppercase tracking-widest">
+              <span className="text-[8px] font-mono text-signal uppercase tracking-widest">
                 v1.4.2 // Node_Active
               </span>
             </div>
@@ -192,7 +194,7 @@ export const CyberTerminal: Story = {
           <NavbarActions>
             <div className="hidden lg:flex items-center gap-2 mr-4 border-r border-rule pr-6">
               <Activity size={14} className="text-signal animate-pulse" />
-              <span className="text-[10px] font-mono text-signal/60 uppercase">Pulse: 12ms</span>
+              <span className="text-[10px] font-mono text-signal uppercase">Pulse: 12ms</span>
             </div>
             <Button variant="cyber" size="sm" className="px-8 h-10 rounded-control">
               LOGIN_ENCLAVE

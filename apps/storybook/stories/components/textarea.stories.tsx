@@ -90,9 +90,7 @@ export const CyberTerminal: Story = {
       </div>
       <Textarea {...args} />
       <div className="flex justify-between items-center mt-6">
-        <p className="text-[9px] font-mono text-signal/40 uppercase italic">
-          Awaiting_Secure_Uplink
-        </p>
+        <p className="text-[9px] font-mono text-signal uppercase italic">Awaiting_Secure_Uplink</p>
         <Button variant="cyber" size="sm">
           TRANSMIT
         </Button>

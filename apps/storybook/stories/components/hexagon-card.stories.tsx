@@ -110,19 +110,19 @@ export const Sizes: Story = {
         <HexagonCard size="sm" variant="award">
           <HexagonCardTitle>SM_UNIT</HexagonCardTitle>
         </HexagonCard>
-        <p className="mt-4 text-[10px] font-mono opacity-40">SM</p>
+        <p className="mt-4 text-[10px] font-mono text-muted-foreground">SM</p>
       </div>
       <div className="text-center">
         <HexagonCard size="default" variant="certification">
           <HexagonCardTitle>DF_UNIT</HexagonCardTitle>
         </HexagonCard>
-        <p className="mt-4 text-[10px] font-mono opacity-40">DEFAULT</p>
+        <p className="mt-4 text-[10px] font-mono text-muted-foreground">DEFAULT</p>
       </div>
       <div className="text-center">
         <HexagonCard size="lg" variant="award">
           <HexagonCardTitle>LG_UNIT</HexagonCardTitle>
         </HexagonCard>
-        <p className="mt-4 text-[10px] font-mono opacity-40">LG</p>
+        <p className="mt-4 text-[10px] font-mono text-muted-foreground">LG</p>
       </div>
     </div>
   ),

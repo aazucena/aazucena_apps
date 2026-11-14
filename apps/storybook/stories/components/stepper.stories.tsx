@@ -105,7 +105,7 @@ export const TechnicalSequence: Story = {
               <StepIndicator status={getStatus(index)}>
                 <step.icon size={16} />
               </StepIndicator>
-              <StepLabel className="font-mono italic text-signal/60">{step.label}</StepLabel>
+              <StepLabel className="font-mono italic text-signal">{step.label}</StepLabel>
               {index < techSteps.length - 1 && (
                 <StepLine
                   status={getStatus(index)}

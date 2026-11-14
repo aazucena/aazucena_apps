@@ -108,25 +108,25 @@ export const Sizes: Story = {
         <Avatar size="sm">
           <AvatarFallback>SM</AvatarFallback>
         </Avatar>
-        <p className="text-[10px] font-mono opacity-50">SM</p>
+        <p className="text-[10px] font-mono text-muted-foreground">SM</p>
       </div>
       <div className="text-center space-y-2">
         <Avatar size="default">
           <AvatarFallback>DF</AvatarFallback>
         </Avatar>
-        <p className="text-[10px] font-mono opacity-50">DEFAULT</p>
+        <p className="text-[10px] font-mono text-muted-foreground">DEFAULT</p>
       </div>
       <div className="text-center space-y-2">
         <Avatar size="lg">
           <AvatarFallback>LG</AvatarFallback>
         </Avatar>
-        <p className="text-[10px] font-mono opacity-50">LG</p>
+        <p className="text-[10px] font-mono text-muted-foreground">LG</p>
       </div>
       <div className="text-center space-y-2">
         <Avatar size="xl">
           <AvatarFallback>XL</AvatarFallback>
         </Avatar>
-        <p className="text-[10px] font-mono opacity-50">XL</p>
+        <p className="text-[10px] font-mono text-muted-foreground">XL</p>
       </div>
     </div>
   ),

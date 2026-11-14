@@ -80,7 +80,9 @@ export const BasicShell: Story = {
       </EnvironmentMain>
 
       <EnvironmentFooter className="p-8 border-t border-current/10 bg-state text-center">
-        <p className="text-[10px] font-mono opacity-40 italic">// SYSTEM_ACTIVE_ID: 0x7F42</p>
+        <p className="text-[10px] font-mono text-muted-foreground italic">
+          // SYSTEM_ACTIVE_ID: 0x7F42
+        </p>
       </EnvironmentFooter>
     </EnvironmentShell>
   ),
@@ -105,7 +107,7 @@ export const CyberSpace: Story = {
         <h1 className="text-5xl font-mono font-black tracking-[0.4em] uppercase italic">
           SIGNAL_ENCLAVE
         </h1>
-        <p className="mt-4 font-mono text-[10px] opacity-40 tracking-widest">
+        <p className="mt-4 font-mono text-[10px] text-muted-foreground tracking-widest">
           ENCRYPTED_UPLINK_STABLE // ALTITUDE: 10,000KM+
         </p>
       </div>
@@ -131,7 +133,7 @@ export const GlowComposition: Story = {
           <h2 className="text-foreground text-3xl font-black tracking-tighter">
             Compositional_Depth
           </h2>
-          <p className="text-foreground/40 text-[10px] font-bold uppercase tracking-widest mt-2">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest mt-2">
             Stacked Glow Layers
           </p>
         </div>

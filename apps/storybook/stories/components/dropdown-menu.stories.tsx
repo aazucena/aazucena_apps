@@ -175,7 +175,7 @@ export const GlassSelection: Story = {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent variant="glass" className="w-64 border-rule text-foreground">
-            <DropdownMenuLabel className="text-foreground/60">LAYER_VISUALS</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-muted-foreground">LAYER_VISUALS</DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-state" />
             <DropdownMenuCheckboxItem
               checked={blur}
@@ -186,7 +186,9 @@ export const GlassSelection: Story = {
             </DropdownMenuCheckboxItem>
             <DropdownMenuSeparator className="bg-state" />
             <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-              <DropdownMenuLabel className="text-[10px] opacity-40">DISPLAY_MODE</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-[10px] text-muted-foreground">
+                DISPLAY_MODE
+              </DropdownMenuLabel>
               <DropdownMenuRadioItem value="light" className="focus:bg-state">
                 Light_Layer
               </DropdownMenuRadioItem>
@@ -211,7 +213,7 @@ export const AdvancedComposition: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button aria-label="Add" variant="outline" size="icon">
           <Plus />
         </Button>
       </DropdownMenuTrigger>

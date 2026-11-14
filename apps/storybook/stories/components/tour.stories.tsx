@@ -201,7 +201,7 @@ export const Cyber: Story = {
           </button>
           <button
             id="tour-btn-2"
-            className="rounded border border-signal/20 px-4 py-2 font-mono text-signal/60"
+            className="rounded border border-signal/20 px-4 py-2 font-mono text-signal"
           >
             NAV_MODULE
           </button>

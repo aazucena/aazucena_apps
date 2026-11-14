@@ -135,7 +135,7 @@ export const Highlight: Story = {
       <SplitButton {...args}>
         <SplitButtonPrimary
           variant="gradient"
-          className="rounded-control rounded-r-none px-10 h-14 font-black uppercase tracking-widest text-foreground"
+          className="rounded-control rounded-r-none px-10 h-14 font-black uppercase tracking-widest"
         >
           DOWNLOAD_INTEL
         </SplitButtonPrimary>

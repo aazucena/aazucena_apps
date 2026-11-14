@@ -53,7 +53,7 @@ export const Basic: Story = {
           <Activity className="size-5 text-primary" />
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-bold tracking-tight">Main_Cluster_Status</span>
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               Uptime: 99.98%
             </span>
           </div>
@@ -84,13 +84,13 @@ export const CyberMonitor: Story = {
             <span className="text-xs font-black uppercase tracking-tighter text-foreground">
               // POWER_CELL_0x7F
             </span>
-            <span className="text-[9px] text-signal/60 uppercase">CHARGE: 82% // TEMP: 42°C</span>
+            <span className="text-[9px] text-signal uppercase">CHARGE: 82% // TEMP: 42°C</span>
           </div>
         </InfoBlockContent>
         <InfoBlockActions>
           <div className="flex items-center gap-2">
             <div className="size-1.5 rounded-full bg-signal animate-pulse" />
-            <span className="text-[10px] font-mono text-signal/40 uppercase">COLLECTING_</span>
+            <span className="text-[10px] font-mono text-signal uppercase">COLLECTING_</span>
           </div>
         </InfoBlockActions>
       </InfoBlock>
@@ -109,7 +109,7 @@ export const SemanticLevels: Story = {
           <CheckCircle className="size-5" />
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-bold tracking-tight">Security_Protocol_Verified</span>
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               ENCLAVE_LOCKED
             </span>
           </div>
@@ -126,13 +126,13 @@ export const SemanticLevels: Story = {
           <Activity className="size-5" />
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-bold tracking-tight">Latency_Deviation_Detected</span>
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-40">
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               PEAK: 142ms
             </span>
           </div>
         </InfoBlockContent>
         <InfoBlockActions>
-          <Button size="icon" variant="ghost" className="size-8">
+          <Button aria-label="Refresh" size="icon" variant="ghost" className="size-8">
             <Refresh size={14} />
           </Button>
         </InfoBlockActions>
@@ -152,7 +152,7 @@ export const ResourceGrid: Story = {
           <Globe className="size-5" />
           <div className="flex flex-col">
             <span className="text-xs font-bold uppercase">US_East</span>
-            <span className="text-[9px] opacity-40 uppercase">Node_Count: 12</span>
+            <span className="text-[9px] text-muted-foreground uppercase">Node_Count: 12</span>
           </div>
         </InfoBlockContent>
       </InfoBlock>
@@ -161,7 +161,7 @@ export const ResourceGrid: Story = {
           <Globe className="size-5" />
           <div className="flex flex-col">
             <span className="text-xs font-bold uppercase">EU_West</span>
-            <span className="text-[9px] opacity-40 uppercase">Node_Count: 08</span>
+            <span className="text-[9px] text-muted-foreground uppercase">Node_Count: 08</span>
           </div>
         </InfoBlockContent>
       </InfoBlock>

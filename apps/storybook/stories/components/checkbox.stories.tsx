@@ -112,7 +112,7 @@ export const Disabled: Story = {
 export const Checklist: Story = {
   render: () => (
     <div className="space-y-4 w-64 p-6 border rounded-card bg-muted/5">
-      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 mb-4">
+      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-4">
         MODULE_SUBSCRIPTION
       </h4>
       <div className="flex items-center justify-between group">

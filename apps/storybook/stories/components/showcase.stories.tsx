@@ -87,7 +87,7 @@ export const CyberTerminal: Story = {
               </Badge>
             </div>
           </div>
-          <ShowcaseCaption className="font-mono text-signal/60 mt-6 italic">
+          <ShowcaseCaption className="font-mono text-signal mt-6 italic">
             // DATA_STREAM_TRACE // SOURCE: NODE_0x7F42
           </ShowcaseCaption>
         </ShowcaseFigure>

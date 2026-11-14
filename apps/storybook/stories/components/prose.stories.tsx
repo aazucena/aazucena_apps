@@ -141,7 +141,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="space-y-12">
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-widest opacity-30">
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
           Small (Prose-sm)
         </p>
         <Prose size="sm" className="w-[600px] border p-6 rounded-card">
@@ -152,7 +152,7 @@ export const Sizes: Story = {
         </Prose>
       </div>
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-widest opacity-30">
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
           Extra Large (Prose-xl)
         </p>
         <Prose size="xl" className="w-[600px] border p-6 rounded-card">

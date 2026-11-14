@@ -48,7 +48,7 @@ export const Basic: Story = {
     <div className="h-[200vh] w-full relative bg-muted/5">
       <ReadingProgress {...args} />
       <div className="flex flex-col items-center justify-center h-screen space-y-4">
-        <p className="font-mono text-xs opacity-40 uppercase tracking-[0.4em]">
+        <p className="font-mono text-xs text-muted-foreground uppercase tracking-[0.4em]">
           ↓ SCROLL_TO_FILL_BAR ↓
         </p>
         <div className="h-96 w-px bg-current/10" />

@@ -135,7 +135,7 @@ export const SignalLost: Story = {
           </EmptyMedia>
         </div>
         <EmptyTitle className="text-alert font-mono italic">// SIGNAL_INTERRUPTED</EmptyTitle>
-        <EmptyDescription className="font-mono text-[10px] opacity-60">
+        <EmptyDescription className="font-mono text-[10px] text-muted-foreground">
           UPLINK_STATUS: DISCONNECTED // ERROR_CODE: 0x7F42
         </EmptyDescription>
         <EmptyContent className="mt-6">
@@ -165,7 +165,7 @@ export const Fullscreen: Story = {
         <EmptyTitle size="lg" className="text-4xl">
           Welcome_to_Intelligence
         </EmptyTitle>
-        <EmptyDescription className="text-foreground/60 text-base mt-4 max-w-md">
+        <EmptyDescription className="text-muted-foreground text-base mt-4 max-w-md">
           Start by connecting your first edge node to visualize real-time trajectory flows.
         </EmptyDescription>
         <EmptyContent className="mt-12">

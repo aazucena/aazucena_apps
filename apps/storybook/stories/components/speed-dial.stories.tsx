@@ -145,7 +145,7 @@ export const Cyber: Story = {
   decorators: [
     (Story) => (
       <div className="relative h-[400px] bg-background p-8">
-        <p className="font-mono text-sm text-signal/60">SPEED_DIAL :: HOVER_TO_EXPAND</p>
+        <p className="font-mono text-sm text-signal">SPEED_DIAL :: HOVER_TO_EXPAND</p>
         <Story />
       </div>
     ),

@@ -115,11 +115,11 @@ export const FastTicker: Story = {
         {Array.from({ length: 10 }).map((_, i) => (
           <div
             key={i}
-            className="flex items-center gap-4 text-foreground font-mono text-[10px] tracking-tighter opacity-40"
+            className="flex items-center gap-4 font-mono text-[10px] tracking-tighter text-muted-foreground"
           >
             <span>// UPLINK_NODE_{i}</span>
             <span className="text-success">STABLE</span>
-            <span className="opacity-20">|</span>
+            <span className="text-muted-foreground">|</span>
           </div>
         ))}
       </InfiniteScroller>
@@ -141,7 +141,7 @@ export const CardScroller: Story = {
         {Array.from({ length: 6 }).map((_, i) => (
           <Card key={i} variant="cyber" className="w-64 h-40 shrink-0">
             <CardContent className="pt-6 flex flex-col justify-between h-full">
-              <p className="text-xs italic opacity-60 font-mono">
+              <p className="text-xs italic text-muted-foreground font-mono">
                 "The neural telemetry engine is reporting optimal pulse intervals."
               </p>
               <div className="flex justify-between items-center">

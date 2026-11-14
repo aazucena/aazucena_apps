@@ -114,7 +114,7 @@ export const Default: Story = {
         <TabsContent value="overview">
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest opacity-60">
+              <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
                 Overview Panel
               </CardTitle>
             </CardHeader>
@@ -128,7 +128,7 @@ export const Default: Story = {
         <TabsContent value="performance">
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest opacity-60">
+              <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
                 Performance Metrics
               </CardTitle>
             </CardHeader>
@@ -142,7 +142,7 @@ export const Default: Story = {
         <TabsContent value="logs">
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest opacity-60">
+              <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
                 Recent Log Entries
               </CardTitle>
             </CardHeader>

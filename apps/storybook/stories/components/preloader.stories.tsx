@@ -140,7 +140,7 @@ export const ComponentGallery: Story = {
     return (
       <div className="p-20 space-y-12">
         <div className="space-y-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
             Preloader_Indicator
           </p>
           <div className="flex gap-8 items-center">
@@ -151,7 +151,7 @@ export const ComponentGallery: Story = {
         </div>
 
         <div className="space-y-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
             Step_States
           </p>
           <div className="w-80 space-y-2">
@@ -168,7 +168,7 @@ export const ComponentGallery: Story = {
         </div>
 
         <div className="space-y-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
             Preloader_Content_Variants
           </p>
           <div className="grid grid-cols-2 gap-8">
@@ -180,7 +180,7 @@ export const ComponentGallery: Story = {
                 <PreloaderTitle className="text-signal font-mono italic tracking-tighter text-xl">
                   // SECURITY_ENCLAVE
                 </PreloaderTitle>
-                <PreloaderSubtitle className="font-mono text-[9px] text-signal/40">
+                <PreloaderSubtitle className="font-mono text-[9px] text-signal">
                   IDENT_AUTH_REQUIRED
                 </PreloaderSubtitle>
               </PreloaderHeader>
@@ -194,7 +194,7 @@ export const ComponentGallery: Story = {
             <PreloaderContent variant="glass" className="p-10 border-rule bg-state">
               <PreloaderHeader>
                 <PreloaderTitle className="text-foreground text-xl">Cloud_Layer</PreloaderTitle>
-                <PreloaderSubtitle className="text-foreground/40 text-xs uppercase tracking-widest">
+                <PreloaderSubtitle className="text-muted-foreground text-xs uppercase tracking-widest">
                   Optimizing_Refraction
                 </PreloaderSubtitle>
               </PreloaderHeader>

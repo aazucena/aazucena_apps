@@ -79,7 +79,7 @@ export const ComponentResponse: Story = {
   },
   render: (args) => (
     <div className="space-y-8">
-      <p className="text-[10px] font-black uppercase tracking-widest opacity-40 text-center">
+      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center">
         RTL_CONTEXT_ACTIVE
       </p>
       <DirectionProvider {...args}>
@@ -87,7 +87,7 @@ export const ComponentResponse: Story = {
           <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
             <div className="h-full w-2/3 bg-primary" />
           </div>
-          <p className="text-xs italic opacity-60">
+          <p className="text-xs italic text-muted-foreground">
             Notice how the progress bar and text alignment would naturally shift in a full RTL
             implementation.
           </p>

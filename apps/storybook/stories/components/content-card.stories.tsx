@@ -174,7 +174,7 @@ export const GlassHero: Story = {
     <div className="p-20 rounded-card">
       <ContentCard {...args} className="w-[450px] group">
         <ContentCardHeader>
-          <ContentCardMeta className="text-foreground/60">DEPLOYMENT_STATION</ContentCardMeta>
+          <ContentCardMeta className="text-muted-foreground">DEPLOYMENT_STATION</ContentCardMeta>
           <ContentCardTitle size="2xl" className="text-foreground">
             Atmospheric_Unit
           </ContentCardTitle>
@@ -187,12 +187,14 @@ export const GlassHero: Story = {
             <div className="p-4 bg-state border border-rule rounded-card flex flex-col gap-2">
               <Zap size={16} className="text-warning" />
               <span className="text-lg font-black text-foreground">98%</span>
-              <span className="text-[8px] font-bold text-foreground/40 uppercase">Efficiency</span>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase">
+                Efficiency
+              </span>
             </div>
             <div className="p-4 bg-state border border-rule rounded-card flex flex-col gap-2">
               <Globe size={16} className="text-signal" />
               <span className="text-lg font-black text-foreground">42</span>
-              <span className="text-[8px] font-bold text-foreground/40 uppercase">
+              <span className="text-[8px] font-bold text-muted-foreground uppercase">
                 Active_Nodes
               </span>
             </div>
@@ -222,7 +224,7 @@ export const SidebarCard: Story = {
         </div>
       </ContentCardHeader>
       <ContentCardContent className="pt-2">
-        <p className="text-[11px] opacity-60">
+        <p className="text-[11px] text-muted-foreground">
           Authentication tokens will expire in **12 minutes**. Please re-validate your session
           identifiers.
         </p>

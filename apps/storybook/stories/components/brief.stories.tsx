@@ -130,16 +130,16 @@ export const Glass: Story = {
     <div className="p-20 rounded-card">
       <div className="w-[400px]">
         <Brief {...args}>
-          <BriefHeader className="text-foreground/60">NODE_OVERVIEW</BriefHeader>
+          <BriefHeader className="text-muted-foreground">NODE_OVERVIEW</BriefHeader>
           <BriefSection>
             <BriefItem>
-              <BriefLabel className="text-foreground/40">Encryption</BriefLabel>
+              <BriefLabel className="text-muted-foreground">Encryption</BriefLabel>
               <BriefValue className="text-foreground flex items-center gap-2">
                 <Shield size={14} className="text-success" /> AES-256-GCM
               </BriefValue>
             </BriefItem>
             <BriefItem>
-              <BriefLabel className="text-foreground/40">Database</BriefLabel>
+              <BriefLabel className="text-muted-foreground">Database</BriefLabel>
               <BriefValue className="text-foreground flex items-center gap-2">
                 <Database size={14} className="text-signal" /> ClickHouse_Cluster
               </BriefValue>
