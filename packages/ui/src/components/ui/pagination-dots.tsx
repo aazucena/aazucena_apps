@@ -10,13 +10,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tool
  */
 
 export const paginationDotsVariants = cva(
-  'flex items-center justify-center gap-2 transition-[opacity,scale] duration-(--motion-base)',
+  // gap-4: the dots are 8px, so 16px between them keeps each target's 24px circle clear (WCAG 2.5.8).
+  'flex items-center justify-center gap-4 transition-[opacity,scale] duration-(--motion-base)',
   {
     variants: {
       variant: {
         default: 'mt-6',
         inline: '',
-        glass: 'p-2 bg-background/5 dark:bg-state rounded-full border border-border/10',
+        glass: 'p-2 bg-background/5 dark:bg-panel-raised rounded-full border border-border/10',
         cyber: 'p-2 bg-background/40 dark:bg-panel rounded-full border border-signal/20',
       },
       position: {

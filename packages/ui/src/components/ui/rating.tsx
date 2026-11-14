@@ -8,7 +8,7 @@ const ratingVariants = cva('inline-flex items-center gap-0.5', {
   variants: {
     variant: {
       default: 'text-warning',
-      glass: 'text-warning/80',
+      glass: 'text-warning',
       cyber: 'text-signal',
     },
     size: {
@@ -84,7 +84,11 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
           return (
             <span
               key={i}
-              className={cn('transition-transform', !readOnly && 'cursor-pointer hover:scale-110')}
+              className={cn(
+                'transition-transform',
+                !readOnly &&
+                  'focus-visible:outline-signal inline-flex min-h-6 min-w-6 cursor-pointer items-center justify-center hover:scale-110 focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid',
+              )}
               onMouseEnter={() => !readOnly && setHoverValue(starValue)}
               onMouseLeave={() => !readOnly && setHoverValue(null)}
               onClick={() => !readOnly && onChange?.(starValue)}

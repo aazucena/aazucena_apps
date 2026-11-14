@@ -107,19 +107,21 @@ const ChatAttachments = React.forwardRef<HTMLDivElement, ChatAttachmentsProps>(
                 <div className="flex items-center gap-1">
                   {attachment.url && attachment.status === 'uploaded' && (
                     <a
+                      aria-label={`Download ${attachment.name}`}
                       href={attachment.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-muted-foreground hover:text-foreground inline-flex min-h-6 min-w-6 items-center justify-center"
                     >
                       <Download className="h-4 w-4" />
                     </a>
                   )}
                   {onRemoveAttachment && attachment.status !== 'uploading' && (
                     <button
+                      aria-label={`Remove ${attachment.name}`}
                       type="button"
                       onClick={() => onRemoveAttachment(attachment.id)}
-                      className="text-muted-foreground hover:text-alert"
+                      className="text-muted-foreground hover:text-alert inline-flex min-h-6 min-w-6 items-center justify-center"
                     >
                       <XCircle className="h-4 w-4" />
                     </button>

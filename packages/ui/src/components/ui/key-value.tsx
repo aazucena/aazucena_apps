@@ -100,7 +100,7 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                   variant === 'cyber' &&
                     'border-signal/30 bg-signal/5 text-signal focus-visible:ring-signal/50 rounded-none',
                   variant === 'glass' &&
-                    'border-rule bg-state text-foreground placeholder:text-foreground/30 focus-visible:ring-rule',
+                    'border-rule bg-state text-foreground placeholder:text-muted-foreground focus-visible:ring-rule',
                 )}
               />
               <div className="relative flex-1">
@@ -115,17 +115,18 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                     variant === 'cyber' &&
                       'border-signal/30 bg-signal/5 text-signal focus-visible:ring-signal/50 rounded-none',
                     variant === 'glass' &&
-                      'border-rule bg-state text-foreground/90 placeholder:text-foreground/30 focus-visible:ring-rule',
+                      'border-rule bg-state text-foreground/90 placeholder:text-muted-foreground focus-visible:ring-rule',
                   )}
                 />
                 {copyable && (
                   <button
+                    aria-label={copiedId === entry.id ? 'Copied' : 'Copy value'}
                     type="button"
                     onClick={() => handleCopy(entry.id, entry.value)}
                     className={cn(
-                      'text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 transition-colors',
+                      'text-muted-foreground hover:text-foreground absolute top-1/2 right-1 inline-flex min-h-6 min-w-6 -translate-y-1/2 items-center justify-center transition-colors',
                       variant === 'cyber' && 'text-muted-foreground hover:text-signal',
-                      variant === 'glass' && 'text-foreground/50 hover:text-foreground',
+                      variant === 'glass' && 'text-muted-foreground hover:text-foreground',
                     )}
                   >
                     {copiedId === entry.id ? <Check size={12} /> : <Copy size={12} />}
@@ -135,6 +136,7 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
 
               {allowRemove && !disabled && !entry.disabled && (
                 <Button
+                  aria-label="Remove entry"
                   type="button"
                   variant="ghost"
                   size="icon"
@@ -143,7 +145,8 @@ const KeyValue = React.forwardRef<HTMLDivElement, KeyValueProps>(
                     'text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-9 w-9 shrink-0',
                     variant === 'cyber' &&
                       'text-muted-foreground hover:bg-alert/10 hover:text-alert rounded-none',
-                    variant === 'glass' && 'text-foreground/50 hover:bg-alert/20 hover:text-alert',
+                    variant === 'glass' &&
+                      'text-muted-foreground hover:bg-alert/10 hover:text-alert',
                   )}
                 >
                   <Trash size={14} />
