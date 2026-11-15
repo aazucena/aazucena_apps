@@ -79,7 +79,7 @@ const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuetext={unit ? `${clampedValue}${unit}` : undefined}
-        aria-label={props['aria-labelledby'] ? undefined : (label ?? 'Gauge')}
+        aria-label={props['aria-labelledby'] ? undefined : label || 'Gauge'}
         className={cn(gaugeVariants({ size }), className)}
         {...props}
       >

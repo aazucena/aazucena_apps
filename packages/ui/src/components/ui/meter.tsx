@@ -116,7 +116,7 @@ const Meter = React.forwardRef<HTMLDivElement, MeterProps>(
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuetext={unit ? `${clampedValue}${unit}` : undefined}
-          aria-label={props['aria-labelledby'] ? undefined : (label ?? 'Meter')}
+          aria-label={props['aria-labelledby'] ? undefined : label || 'Meter'}
           className={cn(meterVariants({ variant: currentVariant, size }))}
         >
           <div

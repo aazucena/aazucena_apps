@@ -61,7 +61,8 @@ const ChatImage = React.forwardRef<HTMLDivElement, ChatImageProps>(
             <DialogTrigger asChild>
               <button
                 type="button"
-                aria-label={`Enlarge image: ${alt}`}
+                // Starts with the visible overlay text, so voice control can target it by what it says.
+                aria-label={`Click to enlarge image: ${alt}`}
                 className="peer rounded-control focus-visible:outline-signal block cursor-pointer text-left focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-solid"
               >
                 {image}
