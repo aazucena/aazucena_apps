@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '@aazucena/utils';
+import { SkipLink } from './SkipLink';
 
 export interface DashboardLayoutProps {
   /** Sidebar slot — consumer owns the sidebar component and its state */
@@ -10,6 +11,12 @@ export interface DashboardLayoutProps {
   className?: string;
   contentMaxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '7xl' | 'full';
   contentPadding?: 'none' | 'sm' | 'md' | 'lg';
+  /** The id of the main region, and the target of the skip link. Defaults to `main-content`. */
+  mainId?: string;
+  /** Accessible name of the main region, for pages that render more than one. */
+  mainLabel?: string;
+  /** Render a "Skip to main content" link as the first tab stop. Defaults to true. */
+  skipLink?: boolean;
 }
 
 const maxWidthMap: Record<string, string> = {
@@ -50,13 +57,23 @@ export const DashboardLayout = ({
   className,
   contentMaxWidth = '7xl',
   contentPadding = 'lg',
+  mainId = 'main-content',
+  mainLabel,
+  skipLink = true,
 }: DashboardLayoutProps) => {
   return (
     <div className={cn('flex h-screen w-full overflow-hidden', className)}>
+      {skipLink && <SkipLink targetId={mainId} />}
       {sidebar}
       <div className="flex flex-1 flex-col min-w-0 overflow-hidden">
         {header}
-        <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-border hover:scrollbar-thumb-muted-foreground/30">
+        {/* tabIndex -1: the skip link can move focus here, and the region scrolls from the keyboard. */}
+        <main
+          id={mainId}
+          tabIndex={-1}
+          aria-label={mainLabel}
+          className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-border hover:scrollbar-thumb-muted-foreground/30 focus-visible:outline-none"
+        >
           <div
             className={cn(
               paddingMap[contentPadding],

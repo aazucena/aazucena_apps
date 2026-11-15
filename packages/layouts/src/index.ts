@@ -5,6 +5,7 @@ export * from './Section';
 
 // Unique utilities
 export * from './PageTransition';
+export * from './SkipLink';
 
 // Templates (structural composites)
 export * from './DashboardLayout';
