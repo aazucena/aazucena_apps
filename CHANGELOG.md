@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Disabled tags input says so, and a sortable handle can keep its own text as its name
 - _(storybook)_ Signal fills in stories use signal foreground text
 - _(ui)_ Contrast second pass after re-measuring
 - _(ui)_ Name the speech, token copy, colour and pagination dot controls and the qr code

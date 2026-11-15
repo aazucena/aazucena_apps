@@ -140,9 +140,8 @@ export const Cards: Story = {
         items={items}
         onReorder={setItems as (items: unknown[]) => void}
         keyExtractor={(item: { id: string }) => item.id}
-        getHandleLabel={(item: { label: string }, index: number, total: number) =>
-          `${item.label}, item ${index + 1} of ${total}. Use the arrow keys to move it`
-        }
+        // The whole card is the handle, so its text is its name.
+        getHandleLabel={() => undefined}
         renderItem={(item: { id: string; label: string; desc: string }, _i, handleProps) => (
           <div className="rounded-control border bg-card p-3" {...handleProps}>
             <p className="text-sm font-semibold">{item.label}</p>

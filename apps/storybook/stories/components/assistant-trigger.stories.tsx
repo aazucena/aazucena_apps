@@ -97,7 +97,7 @@ export const FullInterface: Story = {
     const [isOpen, setIsOpen] = useState(args.isOpen || false);
     return (
       <div className="h-[500px] w-[500px] relative border border-dashed rounded-card flex items-center justify-center bg-muted/5">
-        <div className="text-center space-y-2 opacity-20 select-none">
+        <div className="text-center space-y-2 text-muted-foreground select-none">
           <p className="text-sm font-black tracking-widest uppercase">STAGE_ENVIRONMENT</p>
           <p className="text-[10px] font-mono italic">// TRIGGER_IS_BOTTOM_RIGHT</p>
         </div>

@@ -246,7 +246,7 @@ export const InteractionTest: Story = {
 export const FocusVisible: Story = {
   render: () => (
     <Select>
-      <SelectTrigger className="w-[220px]">
+      <SelectTrigger aria-label="Region" className="w-[220px]">
         <SelectValue placeholder="Select a region" />
       </SelectTrigger>
       <SelectContent>

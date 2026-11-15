@@ -119,7 +119,7 @@ export const CyberTerminal: Story = {
 export const GlassAtmospheric: Story = {
   render: () => (
     <div className="p-40 rounded-card relative overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-scrim" />
+      <div className="absolute inset-0 bg-panel" />
       <Tabs defaultValue="stratosphere" className="w-[450px] relative z-10">
         <TabsList
           variant="glass"
