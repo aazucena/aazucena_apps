@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(storybook)_ Placeholders, alt text and labels in stories
 - _(forms)_ Status colours use role tokens, not stock palette classes
 - _(ui)_ Disabled wrappers say so, the editor and otp field are named, lists hold list items
 - _(design-system)_ Every vibe passes aa for text on its own tint
