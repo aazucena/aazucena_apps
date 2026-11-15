@@ -155,6 +155,8 @@ pnpm dlx playwright test --headed
 
 **Storybook docs pages theme through a container, not decorators.** Decorators never run on a standalone MDX page, so `.storybook/docs-container.tsx` applies the light/dark class and the vibe to every docs page and swaps the docs theme. MDX demos import real `@aazucena/ui` components inside an `sb-unstyled` wrapper; live token swatches come from `stories/design-tokens/_token-swatches.tsx`. A story file whose stories only work in one mode locks it with `globals: { theme: 'dark' }` on its meta; the docs container honours the lock on the docs page too (see `animation-particles.stories.tsx`).
 
+**Accessibility is gated in three places.** Storybook runs axe on every interaction-test story with `a11y.test: 'error'`; `packages/design-system/src/utils/ui-token-usage.test.ts` fails on dimmed text (`opacity-*` or `text-foreground/50` on text; use `text-muted-foreground`), on a tint above 10% under signal or status text, and on `outline-none` with no focus style; `@aazucena/config/eslint/a11y.js` makes unnamed controls and missing `alt` lint errors in ui, forms and layouts. A custom widget gets a keyboard play test in its story. Audit and results: `docs/audits/2026-11-13-accessibility.md`.
+
 **Storybook visual tests run on Argos.** `argosVitestPlugin` in `apps/storybook/vitest.config.ts` screenshots every story the Vitest run renders. It uploads only when `CI` is set, using `ARGOS_TOKEN` (a CircleCI project env var, never committed); local runs write `apps/storybook/screenshots/` (gitignored). CI runs on main only, so the latest main build is the baseline and changes are reviewed after merge.
 
 ```typescript
