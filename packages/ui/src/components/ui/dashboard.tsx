@@ -150,7 +150,7 @@ const DashboardTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <h3
+  <h2
     ref={ref}
     className={cn(
       'text-foreground dark:text-muted-foreground flex items-center gap-3 text-xs font-black tracking-[0.2em] uppercase',

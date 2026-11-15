@@ -154,6 +154,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(layouts)_ Skip link, a focusable main region and focus on route change
 - _(config)_ Accessibility lint rules for ui, forms and layouts
 - _(ui)_ Ship the structural tokens as structure.css
 - _(design-system)_ Give minimal and nature their own palettes
