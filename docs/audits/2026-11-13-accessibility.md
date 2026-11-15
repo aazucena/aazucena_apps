@@ -196,3 +196,13 @@ What still fails is listed in `docs/next-release-backlog.md` ("Accessibility lef
 - `packages/design-system/src/utils/ui-token-usage.test.ts`: no dimmed or translucent text, tints under role text at 10% or lighter, accent fills carry accent text, a removed outline has a replacement.
 - 18 keyboard play tests in Storybook; `a11y.test` is `'error'`, so an axe violation in an interaction-test story fails the run (298 tests pass).
 - `@aazucena/config/eslint/a11y.js`: unnamed controls, missing `alt`, invalid ARIA and positive `tabindex` are lint errors in ui, forms and layouts.
+
+### Second pass (2026-11-14)
+
+Done after the results above and not yet re-measured in the browser, apart from the 298 interaction tests, which pass with axe blocking.
+
+- **Vibes.** The tint rule now holds for all 17 vibes in both modes. Fifteen needed changes; light-mode `success` had been 2 to 3.5:1 on the plain background in ten of them. The vibe matrix story checks contrast again.
+- **Stories.** Dimmed placeholders, missing `alt`, unlabelled inputs and selects, and nine images from a dead host (now an inline SVG helper).
+- **Components.** `aria-disabled` on DownloadTrigger, Transfer, Chip and Editor; names for the Editor textbox and InputOTP; `ItemGroup` and InfiniteScroller no longer claim list semantics they don't have.
+- **Forms.** Status colours in 16 templates use role tokens instead of stock green, blue, amber and red.
+- **Layouts (P2, finding 10).** `SkipLink`; `DashboardLayout` renders it and makes `main` a focus target; `PageTransition` can move focus on route change; `DashboardTitle` is an `h2`.
