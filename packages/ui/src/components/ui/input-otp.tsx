@@ -15,6 +15,7 @@ const InputOTP = React.forwardRef<
 >(({ className, containerClassName, ...props }, ref) => (
   <OTPInput
     ref={ref}
+    aria-label="One-time code"
     data-slot="input-otp"
     containerClassName={cn(
       'cn-input-otp flex items-center has-disabled:opacity-50',

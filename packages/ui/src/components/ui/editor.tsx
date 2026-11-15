@@ -98,6 +98,7 @@ const RichEditor = React.forwardRef<HTMLDivElement, RichEditorProps>(
       value,
       onChange,
       placeholder = 'Start writing...',
+      'aria-label': ariaLabel,
       disabled,
       toolbar = true,
       onEditorReady,
@@ -114,6 +115,8 @@ const RichEditor = React.forwardRef<HTMLDivElement, RichEditorProps>(
       editable: !disabled,
       editorProps: {
         attributes: {
+          'aria-label': ariaLabel ?? placeholder ?? 'Rich text editor',
+          'aria-multiline': 'true',
           class: cn(
             'prose prose-sm max-w-none px-4 py-3 outline-none',
             sizeMap[s],
@@ -133,6 +136,7 @@ const RichEditor = React.forwardRef<HTMLDivElement, RichEditorProps>(
     return (
       <div
         ref={ref}
+        aria-disabled={disabled || undefined}
         className={cn(
           editorVariants({ variant, size }),
           disabled && 'pointer-events-none opacity-50',

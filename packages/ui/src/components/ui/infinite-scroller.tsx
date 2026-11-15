@@ -35,7 +35,7 @@ export interface InfiniteScrollerProps
 const InfiniteScroller = React.forwardRef<HTMLDivElement, InfiniteScrollerProps>(
   ({ className, variant, speed, direction, pauseOnHover = true, children, ...props }, ref) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const scrollerRef = React.useRef<HTMLUListElement>(null);
+    const scrollerRef = React.useRef<HTMLDivElement>(null);
     const [start, setStart] = React.useState(false);
 
     // Merge refs
@@ -67,7 +67,7 @@ const InfiniteScroller = React.forwardRef<HTMLDivElement, InfiniteScrollerProps>
         className={cn(infiniteScrollerVariants({ variant, speed, direction }), className)}
         {...props}
       >
-        <ul
+        <div
           ref={scrollerRef}
           className={cn(
             'flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4',
@@ -76,7 +76,7 @@ const InfiniteScroller = React.forwardRef<HTMLDivElement, InfiniteScrollerProps>
           )}
         >
           {children}
-        </ul>
+        </div>
       </div>
     );
   },

@@ -40,6 +40,7 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
   ({ className, variant, size, icon, onDismiss, disabled, children, ...props }, ref) => (
     <div
       ref={ref}
+      aria-disabled={disabled || undefined}
       className={cn(
         chipVariants({ variant, size }),
         disabled && 'pointer-events-none opacity-50',

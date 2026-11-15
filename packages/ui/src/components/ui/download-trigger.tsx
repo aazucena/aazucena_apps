@@ -54,6 +54,7 @@ const DownloadTrigger = React.forwardRef<HTMLAnchorElement, DownloadTriggerProps
     return (
       <a
         ref={ref}
+        aria-disabled={disabled || undefined}
         href={disabled ? undefined : href}
         download={fileName ?? true}
         onClick={(e) => {

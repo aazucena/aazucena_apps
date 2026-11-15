@@ -145,7 +145,7 @@ const ConsentManager = React.forwardRef<HTMLDivElement, ConsentManagerProps>(
                   href={policyLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:underline"
+                  className="text-primary underline underline-offset-2"
                 >
                   Privacy Policy
                 </a>{' '}

@@ -189,6 +189,7 @@ const Transfer = React.forwardRef<HTMLDivElement, TransferProps>(
     return (
       <div
         ref={ref}
+        aria-disabled={disabled || undefined}
         className={cn(
           transferVariants({ variant, size }),
           disabled && 'pointer-events-none opacity-50',
