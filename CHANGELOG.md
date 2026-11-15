@@ -194,6 +194,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(storybook)_ Accessibility violations fail the interaction tests
 - _(storybook)_ Keyboard tests for combobox, autocomplete, tree and segmented control
 - _(design-system)_ Guard dimmed text, tint strength, accent text and focus styles in ui
 - _(storybook)_ Keyboard tests for the components that were pointer-only

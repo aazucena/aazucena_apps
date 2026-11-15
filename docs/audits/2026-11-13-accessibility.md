@@ -1,6 +1,6 @@
 # Accessibility audit: the Avra library
 
-**Date:** 2026-11-13 · **Standard:** WCAG 2.2 Level AA, with the WAI-ARIA Authoring Practices (APG) for custom widgets · **Scope:** every story in Storybook (1,832 stories, 376 components across `@aazucena/ui`, `@aazucena/forms`, `@aazucena/layouts`, recipes, charts and animations) · **Status:** audit only, no code changed.
+**Date:** 2026-11-13 · **Standard:** WCAG 2.2 Level AA, with the WAI-ARIA Authoring Practices (APG) for custom widgets · **Scope:** every story in Storybook (1,832 stories, 376 components across `@aazucena/ui`, `@aazucena/forms`, `@aazucena/layouts`, recipes, charts and animations) · **Status:** P0 and P1 fixed on 2026-11-14; see [Results after the fixes](#results-after-the-fixes). The findings below describe the library as audited.
 
 ## Summary
 
@@ -156,3 +156,43 @@ axe confirms six components once the spacing exception is applied: Rating stars,
 6. Switch Storybook's `a11y.test` from `'todo'` to `'error'` once the interaction-test stories are clean.
 
 P2 items go to `docs/next-release-backlog.md`.
+
+---
+
+## Results after the fixes
+
+**Date:** 2026-11-14. Every P0 and P1 finding was fixed in `@aazucena/ui`, `@aazucena/forms` and `@aazucena/design-system`, with tests that fail if the cause returns.
+
+### Re-measurement
+
+The full sweep was not repeated. A sample was: one story per component plus every story that had failed contrast (465 stories, all rules, light mode), and one contrast-failing story per component in dark mode (157 stories).
+
+| Measure (same stories, before → after) | Before | After |
+| -------------------------------------- | ------ | ----- |
+| Stories with no violation, light       | 227    | 422   |
+| Components failing contrast, light     | 207    | 19    |
+| Components failing contrast, dark      | 157    | 28    |
+| Buttons with no name (stories)         | 31     | 2     |
+| Targets under 24px (stories)           | 4      | 0     |
+| Progress bars with no name (stories)   | 4      | 0     |
+
+What still fails is listed in `docs/next-release-backlog.md` ("Accessibility leftovers"): story markup, disabled states that axe cannot recognise, dependency markup (cmdk, react-day-picker, Leaflet, TipTap), and a few dark-mode pairs that depend on locked colours.
+
+### What changed, by finding
+
+1. **Keyboard access.** All 14 components work from the keyboard. `FilterBar` was a false positive: the flagged element is a `label` for its input.
+2. **Contrast.** Five light-mode primitives are darker (signal 700 `#006584`, coral 700 `#ac2f00`, mint 700 `#006b53`, amber 700 `#7d5700`, ink 600 `#49626e`); hue and dark mode are unchanged. Dimmed text became `text-muted-foreground` (about 110 lines in packages, 400 in stories). Tints under role-coloured text stop at 10%. Code blocks use a high-contrast light palette and now switch palette in dark mode. Status text no longer pulses.
+3. **Names.** 45 controls in the packages and 26 story buttons are named; `Progress` has a fallback name.
+4. **Focus.** The 17 components show a signal outline, on the control or its wrapper.
+5. **Widget patterns.** Combobox, AutoComplete, Tree, SegmentedControl, Tour, Cascader, PanelMenu, Spoiler, Meter and Gauge. Not done: Command and CommandMenu (cmdk markup), Calendar day names (react-day-picker), Item and Preloader list structure.
+6. **Form errors.** The seven files link errors to fields and announce them.
+7. **Status announcements.** Chat feed, clipboard, timers, notifications, validator, file upload.
+8. **Target size.** The six components pass.
+9. **Scroll regions.** VirtualList, ScrollArea and Gantt are tab stops.
+
+### Guards
+
+- `packages/design-system/src/utils/generate-css.test.ts`: role text on a 15% tint and muted text on a signal tint stay at 4.5:1.
+- `packages/design-system/src/utils/ui-token-usage.test.ts`: no dimmed or translucent text, tints under role text at 10% or lighter, accent fills carry accent text, a removed outline has a replacement.
+- 21 keyboard play tests in Storybook; `a11y.test` is `'error'`, so an axe violation in an interaction-test story fails the run (298 tests pass).
+- `@aazucena/config/eslint/a11y.js`: unnamed controls, missing `alt`, invalid ARIA and positive `tabindex` are lint errors in ui, forms and layouts.
