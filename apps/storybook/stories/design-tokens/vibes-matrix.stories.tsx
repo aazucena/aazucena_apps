@@ -14,18 +14,8 @@ const meta = {
   title: 'Design Tokens/Vibes Matrix',
   parameters: {
     layout: 'fullscreen',
-    // The matrix renders all 17 vibes. Status text on its own tint is below 4.5:1 in
-    // several non-default vibes (nature, cyberpunk, glass, autumn); that is tracked in
-    // docs/next-release-backlog.md. The play test checks the pairs each vibe must pass.
-    // It also repeats each component 17 times, so landmarks cannot be unique.
-    a11y: {
-      config: {
-        rules: [
-          { id: 'color-contrast', enabled: false },
-          { id: 'landmark-unique', enabled: false },
-        ],
-      },
-    },
+    // The matrix repeats each component 17 times, so landmarks cannot be unique.
+    a11y: { config: { rules: [{ id: 'landmark-unique', enabled: false }] } },
   },
   tags: ['interaction-test'],
 } satisfies Meta;
