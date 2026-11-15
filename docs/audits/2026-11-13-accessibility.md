@@ -206,3 +206,32 @@ Done after the results above and not yet re-measured in the browser, apart from 
 - **Components.** `aria-disabled` on DownloadTrigger, Transfer, Chip and Editor; names for the Editor textbox and InputOTP; `ItemGroup` and InfiniteScroller no longer claim list semantics they don't have.
 - **Forms.** Status colours in 16 templates use role tokens instead of stock green, blue, amber and red.
 - **Layouts (P2, finding 10).** `SkipLink`; `DashboardLayout` renders it and makes `main` a focus target; `PageTransition` can move focus on route change; `DashboardTitle` is an `h2`.
+
+### Full re-measurement (2026-11-15)
+
+Every story was measured again after both passes: all rules in light mode and contrast in dark mode, with the same script as the audit. There are 1,851 stories now (19 test stories were added). Two Three.js stories could not be measured in dark mode. The landmark `region` rule is left out of every figure here, as in the component counts of the audit; with it left out the audit's baseline is 1,075 clean stories, not the 268 quoted in the summary, which counted that rule.
+
+| Measure                              | Audit | Now   |
+| ------------------------------------ | ----- | ----- |
+| Stories with no violation, light     | 1,075 | 1,749 |
+| Components with no violation, light  | 145   | 320   |
+| Stories failing contrast, light      | 605   | 53    |
+| Components failing contrast, light   | 207   | 34    |
+| Stories failing contrast, dark       | 373   | 73    |
+| Components failing contrast, dark    | 157   | 44    |
+| Stories with an unnamed button       | 104   | 8     |
+| Stories with an unlabelled input     | 36    | 4     |
+| Stories with a target under 24px     | 16    | 0     |
+| Stories with an unreachable scroller | 13    | 0     |
+| Stories with an unnamed progress bar | 11    | 0     |
+| Stories with an unnamed select       | 10    | 0     |
+
+**What still fails, and why**
+
+- **Contrast, forms (16 stories per mode).** IntegrationSetup, DeploymentTrigger, FeatureFlag and VulnerabilityDisclosure forms keep decorative stock palette classes.
+- **Contrast, single stories (about 30 components, one or two stories each).** Mostly story markup: text dimmed through a parent's opacity, disabled states that axe cannot recognise, and demo colours. In dark mode also StatusPages (5), Announcement (3), the charts package and signal text on a tint inside a glass panel.
+- **Names (8 stories).** Icon-only buttons in the Playback, EngineeringPrimitives, InputGroup, BottomNavigation and Field stories; a chat thread delete button.
+- **Markup from dependencies.** react-day-picker day names (12 stories, 388 elements), Leaflet markers (6), cmdk's list (3).
+- **Structure.** A button nested in a button in the chat thread list, `role="listitem"` on a button in ListGroup, duplicate landmarks in Footer and Sidebar stories, three heading-order skips in stories.
+
+Two regressions the sweep caught were fixed the same day: a Meter with an empty label got an empty name, and the ChatImage button's name did not contain its visible text.
