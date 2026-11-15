@@ -61,6 +61,7 @@ export const INTERACTION_TEST_STORIES = [
   'stories/components/signature-pad.stories.tsx',
   'stories/components/segmented-control.stories.tsx',
   'stories/components/tree.stories.tsx',
+  'stories/layouts/dashboard-layout.stories.tsx',
   'stories/recipes/auth-card.stories.tsx',
   'stories/recipes/contact-form.stories.tsx',
 ];

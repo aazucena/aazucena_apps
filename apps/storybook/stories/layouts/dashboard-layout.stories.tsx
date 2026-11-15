@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DashboardLayout } from '@aazucena/layouts';
+import { within, userEvent, expect } from 'storybook/test';
 
 /**
  * ## DashboardLayout
@@ -10,6 +11,7 @@ import { DashboardLayout } from '@aazucena/layouts';
  * |-----------|--------|
  * | **Composition** | `sidebar` and `header` are render slots — the consumer owns those components entirely |
  * | **Scroll** | Only the `<main>` region scrolls; sidebar and header are sticky |
+ * | **Accessibility** | A "Skip to main content" link is the first tab stop and moves focus to `<main id="main-content">` |
  * | **Sizing** | `contentMaxWidth` constrains the inner content div; `contentPadding` sets inner spacing |
  *
  * The layout itself has no concept of navigation items, sidebar state, or header content.
@@ -26,7 +28,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'interaction-test'],
   argTypes: {
     contentMaxWidth: {
       control: 'select',
@@ -166,7 +168,11 @@ export const WithContentMaxWidths: Story = {
     header: <HeaderSlot />,
     children: <></>,
   },
-  parameters: { controls: { disable: true } },
+  parameters: {
+    controls: { disable: true },
+    // Seven layouts on one canvas means seven main regions; a real page has one.
+    a11y: { config: { rules: [{ id: 'landmark-no-duplicate-main', enabled: false }] } },
+  },
   render: () => (
     <div className="flex flex-col gap-8 p-6">
       {(['sm', 'md', 'lg', 'xl', '2xl', '7xl', 'full'] as const).map((mw) => (
@@ -186,6 +192,9 @@ export const WithContentMaxWidths: Story = {
             }
             contentMaxWidth={mw}
             contentPadding="sm"
+            mainId={`main-${mw}`}
+            mainLabel={`Content, max width ${mw}`}
+            skipLink={false}
           >
             <div className="h-20 rounded-control bg-primary/10 border border-primary/20 border-dashed flex items-center justify-center">
               <span className="text-[10px] font-mono text-primary">
@@ -197,4 +206,23 @@ export const WithContentMaxWidths: Story = {
       ))}
     </div>
   ),
+};
+
+/** The skip link is the first tab stop and targets the main region. */
+export const SkipToContent: Story = {
+  ...Default,
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    await userEvent.tab();
+    const skip = canvas.getByRole('link', { name: /skip to main content/i });
+    await expect(skip).toHaveFocus();
+    // Following a hash link reloads the test runner's page, so check the wiring instead:
+    // the link points at the main region, and that region can take focus.
+    const main = canvas.getByRole('main');
+    await expect(skip).toHaveAttribute('href', `#${main.id}`);
+    await expect(main).toHaveAttribute('tabindex', '-1');
+    main.focus();
+    await expect(main).toHaveFocus();
+  },
 };

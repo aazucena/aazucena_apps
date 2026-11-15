@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Dashboard title is an h2 under the page h1
 - _(storybook)_ Placeholders, alt text and labels in stories
 - _(forms)_ Status colours use role tokens, not stock palette classes
 - _(ui)_ Disabled wrappers say so, the editor and otp field are named, lists hold list items

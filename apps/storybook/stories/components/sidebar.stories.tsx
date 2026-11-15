@@ -81,7 +81,7 @@ const meta = {
                 Stage_Environment // Unit_0x7F42
               </span>
             </header>
-            <main className="flex-1 p-8 overflow-auto">
+            <div className="flex-1 p-8 overflow-auto">
               <div className="space-y-8">
                 <div className="h-32 rounded-card bg-muted/5 border-2 border-dashed flex items-center justify-center italic text-xs text-muted-foreground uppercase tracking-[0.4em]">
                   Viewport_Content_Area
@@ -95,7 +95,7 @@ const meta = {
                   ))}
                 </div>
               </div>
-            </main>
+            </div>
           </SidebarInset>
         </div>
       </SidebarProvider>

@@ -97,9 +97,9 @@ export const Basic: Story = {
             </KanbanHeader>
             <KanbanContent>
               <KanbanCard>
-                <h4 className="text-xs font-bold mb-3 uppercase tracking-tight">
+                <h3 className="text-xs font-bold mb-3 uppercase tracking-tight">
                   Optimize_ClickHouse_Ingestion
-                </h4>
+                </h3>
                 <div className="flex justify-between items-center">
                   <Badge variant="outline" size="xs">
                     HIGH_PRIO
@@ -110,9 +110,9 @@ export const Basic: Story = {
                 </div>
               </KanbanCard>
               <KanbanCard>
-                <h4 className="text-xs font-bold mb-3 uppercase tracking-tight">
+                <h3 className="text-xs font-bold mb-3 uppercase tracking-tight">
                   Refactor_Design_Tokens
-                </h4>
+                </h3>
                 <Badge variant="outline" size="xs">
                   PHASE_4
                 </Badge>
@@ -133,9 +133,9 @@ export const Basic: Story = {
             </KanbanHeader>
             <KanbanContent>
               <KanbanCard className="border-primary/20 shadow-primary/5">
-                <h4 className="text-xs font-bold mb-3 uppercase tracking-tight text-primary">
+                <h3 className="text-xs font-bold mb-3 uppercase tracking-tight text-primary">
                   Establish_Uplink_Protocols
-                </h4>
+                </h3>
                 <p className="text-[10px] text-muted-foreground mb-4 italic">
                   Defining secure node handshake sequence.
                 </p>
@@ -161,9 +161,9 @@ export const Basic: Story = {
             </KanbanHeader>
             <KanbanContent>
               <KanbanCard className="opacity-40 grayscale">
-                <h4 className="text-xs font-bold uppercase tracking-tight line-through">
+                <h3 className="text-xs font-bold uppercase tracking-tight line-through">
                   Fix_Preloader_Lag
-                </h4>
+                </h3>
               </KanbanCard>
             </KanbanContent>
           </KanbanLane>
