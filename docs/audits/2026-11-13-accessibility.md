@@ -194,5 +194,5 @@ What still fails is listed in `docs/next-release-backlog.md` ("Accessibility lef
 
 - `packages/design-system/src/utils/generate-css.test.ts`: role text on a 15% tint and muted text on a signal tint stay at 4.5:1.
 - `packages/design-system/src/utils/ui-token-usage.test.ts`: no dimmed or translucent text, tints under role text at 10% or lighter, accent fills carry accent text, a removed outline has a replacement.
-- 21 keyboard play tests in Storybook; `a11y.test` is `'error'`, so an axe violation in an interaction-test story fails the run (298 tests pass).
+- 18 keyboard play tests in Storybook; `a11y.test` is `'error'`, so an axe violation in an interaction-test story fails the run (298 tests pass).
 - `@aazucena/config/eslint/a11y.js`: unnamed controls, missing `alt`, invalid ARIA and positive `tabindex` are lint errors in ui, forms and layouts.
