@@ -22,7 +22,7 @@ export interface DragHandleProps {
   tabIndex: 0;
   role: 'button';
   'aria-roledescription': 'sortable item';
-  'aria-label': string;
+  'aria-label': string | undefined;
   'data-sortable-handle': string;
   onKeyDown: (e: React.KeyboardEvent) => void;
 }
@@ -35,8 +35,11 @@ export interface SortableListProps<T>
   renderItem: (item: T, index: number, dragHandleProps: DragHandleProps) => React.ReactNode;
   onReorder: (items: T[]) => void;
   keyExtractor: (item: T) => string;
-  /** Accessible name for a handle. Defaults to "Reorder item 2 of 5. Use the arrow keys to move it". */
-  getHandleLabel?: (item: T, index: number, total: number) => string;
+  /**
+   * Accessible name for a handle. Defaults to "Reorder item 2 of 5. Use the arrow keys to move it".
+   * Return `undefined` when the handle is the whole item, so its own text is its name.
+   */
+  getHandleLabel?: (item: T, index: number, total: number) => string | undefined;
 }
 
 function SortableListInner<T>(
@@ -152,9 +155,9 @@ function SortableListInner<T>(
             tabIndex: 0,
             role: 'button',
             'aria-roledescription': 'sortable item',
-            'aria-label':
-              getHandleLabel?.(item, index, items.length) ??
-              `Reorder item ${index + 1} of ${items.length}. Use the arrow keys to move it`,
+            'aria-label': getHandleLabel
+              ? getHandleLabel(item, index, items.length)
+              : `Reorder item ${index + 1} of ${items.length}. Use the arrow keys to move it`,
             'data-sortable-handle': keyExtractor(item),
             onKeyDown: handleKeyDown(index),
           })}

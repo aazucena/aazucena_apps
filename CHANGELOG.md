@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(storybook)_ Signal fills in stories use signal foreground text
 - _(ui)_ Contrast second pass after re-measuring
 - _(ui)_ Name the speech, token copy, colour and pagination dot controls and the qr code
 - _(ui)_ Resolve lint errors from the accessibility fixes

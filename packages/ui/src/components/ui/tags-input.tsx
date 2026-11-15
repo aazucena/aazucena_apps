@@ -88,6 +88,7 @@ const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
     return (
       <div
         ref={ref}
+        aria-disabled={disabled || undefined}
         className={cn(
           tagsInputVariants({ variant, size }),
           disabled && 'pointer-events-none opacity-50',
