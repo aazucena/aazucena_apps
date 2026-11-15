@@ -167,7 +167,7 @@ export const FormSection: Story = {
               <Badge variant="cyber">CRITICAL</Badge>
             </FieldHeader>
             <FieldControl>
-              <Input type="number" defaultValue={95} />
+              <Input type="number" defaultValue={95} aria-label="Threshold" />
             </FieldControl>
             <FieldError errors={[{ message: 'Threshold below 98% increases jitter risk.' }]} />
           </Field>

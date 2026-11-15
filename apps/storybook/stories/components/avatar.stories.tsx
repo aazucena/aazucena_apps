@@ -74,7 +74,10 @@ export const Cyber: Story = {
   },
   render: (args) => (
     <Avatar {...args}>
-      <AvatarImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop" />
+      <AvatarImage
+        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop"
+        alt=""
+      />
       <AvatarFallback>AA</AvatarFallback>
     </Avatar>
   ),
@@ -91,7 +94,7 @@ export const Glass: Story = {
   render: (args) => (
     <div className="p-12 rounded-card">
       <Avatar {...args}>
-        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarImage src="https://github.com/shadcn.png" alt="" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
     </div>
@@ -139,12 +142,12 @@ export const Fallbacks: Story = {
   render: () => (
     <div className="flex gap-6">
       <Avatar variant="cyber" size="lg">
-        <AvatarImage src="/invalid.jpg" />
+        <AvatarImage src="/invalid.jpg" alt="" />
         <AvatarFallback>AA</AvatarFallback>
       </Avatar>
 
       <Avatar variant="default" size="lg">
-        <AvatarImage src="/invalid.jpg" />
+        <AvatarImage src="/invalid.jpg" alt="" />
         <AvatarFallback>
           <User className="h-6 w-6 opacity-50" />
         </AvatarFallback>

@@ -97,7 +97,7 @@ export const ScrollBehavior: Story = {
       <div className="text-center space-y-4">
         <p className="font-mono text-xs text-muted-foreground">↓ SCROLL_DOWN_TO_ACTIVATE ↓</p>
         <div className="h-96" />
-        <p className="text-sm font-bold animate-pulse">TRIGGER_ZONE</p>
+        <p className="text-sm font-bold">TRIGGER_ZONE</p>
       </div>
       <BackToTop {...args} className="absolute" />
     </div>

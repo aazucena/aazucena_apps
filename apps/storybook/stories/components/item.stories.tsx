@@ -79,7 +79,7 @@ export const Basic: Story = {
       <Item {...args}>
         <ItemMedia variant="image">
           <Avatar className="size-full rounded-none">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src="https://github.com/shadcn.png" alt="shadcn" />
             <AvatarFallback>AA</AvatarFallback>
           </Avatar>
         </ItemMedia>

@@ -141,7 +141,7 @@ export const BasicDashboard: Story = {
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div
                     key={i}
-                    className="h-64 rounded-card bg-card border border-border/50 flex items-center justify-center opacity-20 border-dashed"
+                    className="h-64 rounded-card bg-card border border-border/50 flex items-center justify-center text-muted-foreground border-dashed"
                   >
                     <span className="font-black uppercase tracking-widest text-xs">
                       Module_Slot_0{i}

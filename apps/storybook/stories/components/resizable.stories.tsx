@@ -50,7 +50,7 @@ export const Basic: Story = {
       <ResizablePanelGroup {...args}>
         <ResizablePanel defaultSize={25} minSize={20}>
           <div className="flex h-full flex-col gap-4 p-6 bg-muted/20">
-            <div className="flex items-center gap-2 opacity-40">
+            <div className="flex items-center gap-2 text-muted-foreground">
               <Layout size={14} />
               <span className="text-[10px] font-black uppercase tracking-widest">Navigation</span>
             </div>

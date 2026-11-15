@@ -71,7 +71,7 @@ export const Basic: Story = {
             <label className="ml-2 block text-[10px] font-black tracking-widest uppercase text-muted-foreground mb-3">
               Domain_Sector
             </label>
-            <NativeSelect className="rounded-card h-12">
+            <NativeSelect aria-label="Category" className="rounded-card h-12">
               <option>All_Sectors</option>
               <option>Frontend_Engineering</option>
               <option>Intelligence_AI</option>

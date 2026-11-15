@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { placeholder } from './_placeholder';
 import React from 'react';
 import { ChatAttachments, type Attachment } from '@aazucena/ui';
 
@@ -73,7 +74,7 @@ const sampleAttachments: Attachment[] = [
     id: '2',
     name: 'image.png',
     type: 'image/png',
-    preview: 'https://via.placeholder.com/50x50/ADD8E6/000000?text=IMG',
+    preview: placeholder(50, 50, 'IMG', '#ADD8E6', '#000000'),
     url: 'https://example.com/image.png',
     status: 'uploaded',
   },
@@ -133,7 +134,7 @@ export const OnlyImages: Story = {
         id: '6',
         name: 'chart.png',
         type: 'image/png',
-        preview: 'https://via.placeholder.com/50x50/C8A2C8/FFFFFF?text=Chart',
+        preview: placeholder(50, 50, 'Chart', '#C8A2C8', '#FFFFFF'),
         url: 'https://example.com/chart.png',
         status: 'uploaded',
       },
@@ -141,7 +142,7 @@ export const OnlyImages: Story = {
         id: '7',
         name: 'diagram.svg',
         type: 'image/svg+xml',
-        preview: 'https://via.placeholder.com/50x50/FFD700/000000?text=SVG',
+        preview: placeholder(50, 50, 'SVG', '#FFD700', '#000000'),
         url: 'https://example.com/diagram.svg',
         status: 'uploaded',
       },

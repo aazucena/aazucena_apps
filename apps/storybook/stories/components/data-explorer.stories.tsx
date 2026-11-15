@@ -82,7 +82,7 @@ export const Basic: Story = {
     initialExpanded: true,
   },
   render: (args) => (
-    <div className="w-[600px] h-[400px] overflow-auto p-8 border rounded-card bg-card">
+    <div tabIndex={0} className="w-[600px] h-[400px] overflow-auto p-8 border rounded-card bg-card">
       <DataExplorer {...args} />
     </div>
   ),
@@ -97,7 +97,10 @@ export const Cyber: Story = {
     variant: 'cyber',
   },
   render: (args) => (
-    <div className="w-[600px] h-[400px] overflow-auto p-8 border border-signal/20 bg-background rounded-card">
+    <div
+      tabIndex={0}
+      className="w-[600px] h-[400px] overflow-auto p-8 border border-signal/20 bg-background rounded-card"
+    >
       <DataExplorer {...args} />
     </div>
   ),
@@ -118,7 +121,10 @@ export const AuditFailure: Story = {
     },
   },
   render: (args) => (
-    <div className="w-[600px] h-[450px] overflow-auto p-8 border border-alert/20 bg-card rounded-card">
+    <div
+      tabIndex={0}
+      className="w-[600px] h-[450px] overflow-auto p-8 border border-alert/20 bg-card rounded-card"
+    >
       <DataExplorer {...args} />
     </div>
   ),

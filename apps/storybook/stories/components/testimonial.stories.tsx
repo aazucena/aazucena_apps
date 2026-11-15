@@ -80,7 +80,10 @@ export const Basic: Story = {
             <TestimonialName>Dr. Elias Vance</TestimonialName>
             <TestimonialTitle>Director of Research @ BlackMesa_Labs</TestimonialTitle>
           </TestimonialAuthor>
-          <TestimonialAvatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop" />
+          <TestimonialAvatar
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop"
+            alt="Portrait of the reviewer"
+          />
         </TestimonialFooter>
       </Testimonial>
     </div>

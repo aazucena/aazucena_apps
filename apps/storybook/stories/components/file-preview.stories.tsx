@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { placeholder } from './_placeholder';
 import React from 'react';
 import { FilePreview, type FilePreviewData } from '@aazucena/ui';
 
@@ -65,7 +66,7 @@ const sampleFiles: FilePreviewData[] = [
     name: 'image.png',
     size: 567890,
     type: 'image/png',
-    preview: 'https://via.placeholder.com/50x50/ADD8E6/000000?text=IMG',
+    preview: placeholder(50, 50, 'IMG', '#ADD8E6', '#000000'),
     status: 'uploaded',
   },
   {

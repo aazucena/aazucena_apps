@@ -148,7 +148,7 @@ export const BasicDashboard: Story = {
                   <Database />
                   <span>Clusters</span>
                 </SidebarMenuButton>
-                <SidebarMenuAction>
+                <SidebarMenuAction aria-label="Add project">
                   <Plus />
                 </SidebarMenuAction>
               </SidebarMenuItem>

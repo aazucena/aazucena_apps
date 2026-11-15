@@ -92,7 +92,7 @@ export const BasicCard: Story = {
         </DashboardActions>
       </DashboardHeader>
       <DashboardBody>
-        <div className="h-48 flex items-center justify-center border-2 border-dashed border-current/10 rounded-card opacity-20 bg-muted/5">
+        <div className="h-48 flex items-center justify-center border-2 border-dashed border-current/10 rounded-card text-muted-foreground bg-muted/5">
           <span className="font-black text-xs uppercase tracking-widest">Visualization_Stage</span>
         </div>
       </DashboardBody>

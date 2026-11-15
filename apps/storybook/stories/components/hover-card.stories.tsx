@@ -64,7 +64,7 @@ export const Basic: Story = {
       <HoverCardContent className="w-80 p-6 rounded-card">
         <div className="flex justify-between space-x-4">
           <Avatar className="size-12">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src="https://github.com/shadcn.png" alt="" />
             <AvatarFallback>AA</AvatarFallback>
           </Avatar>
           <div className="space-y-1">
