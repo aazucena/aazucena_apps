@@ -109,6 +109,8 @@ export const colors = {
   // Forest: the ink ramp's lightness steps at a green hue. Dark surfaces of the Nature vibe.
   forest: {
     200: '#d8e8dc',
+    // 450: muted text in Nature dark; 500 was 4.42:1 on a signal tint.
+    450: '#93ab98',
     500: '#849c89',
     550: '#6f8875',
     700: '#425d49',
@@ -138,7 +140,8 @@ export const colors = {
 
   // Functional states (owner-chosen 2026-11-11): success = mint 170, warning = amber 80.
   mint: { 500: '#55c1a3', 700: '#006b53' },
-  'avra-amber': { 500: '#d9a02c', 700: '#7d5700' },
+  // 300: warning text on the tinted dark panels of a few seasonal vibes.
+  'avra-amber': { 300: '#ecc06a', 500: '#d9a02c', 700: '#7d5700' },
 
   // Categorical series 2-4 (series 1 = signal). Namespaced: Tailwind owns olive/violet/rose.
   'avra-olive': { 500: '#889D37', 700: '#687c04' },
@@ -148,7 +151,7 @@ export const colors = {
 
 export type ColorScale = keyof typeof colors;
 export type ColorWeight =
-  25 | 50 | 100 | 200 | 300 | 400 | 500 | 550 | 600 | 700 | 800 | 850 | 900 | 950;
+  25 | 50 | 100 | 200 | 300 | 400 | 450 | 500 | 550 | 600 | 700 | 800 | 850 | 900 | 950;
 
 /**
  * Get the color value from the tokens.

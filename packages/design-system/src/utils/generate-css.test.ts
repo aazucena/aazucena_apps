@@ -175,6 +175,57 @@ describe('accessibility audit 2026-11-13: text on tinted surfaces', () => {
   }
 });
 
+describe('every vibe: text on tinted surfaces (audit 2026-11-13)', () => {
+  // The same rule the default vibe holds, for all vibes: role-coloured text passes AA
+  // on its own 15% tint over the page background and 10% tint over a panel, and muted text passes on the
+  // background, on a panel and on a signal tint.
+  const split = (c: string) => ({
+    light: c.slice(c.indexOf(':root {'), c.indexOf('.dark {')),
+    dark: c.slice(c.indexOf('.dark {')),
+  });
+  const flat = (color: string, under: string): string => {
+    const c = parse(color)!;
+    const a = c.alpha ?? 1;
+    return a >= 1 ? formatHex(c)! : formatHex(interpolate([under, { ...c, alpha: 1 }], 'rgb')(a))!;
+  };
+  const fallback = { light: rootBlock, dark: darkBlock };
+
+  for (const id of Object.keys(vibes)) {
+    const blocks = split(generateCssVariables(id));
+    for (const mode of ['light', 'dark'] as const) {
+      it(`${id} ${mode}`, () => {
+        const v = (n: string) => read(blocks[mode], n) ?? read(fallback[mode], n)!;
+        const bg = flat(v('background'), mode === 'dark' ? '#000000' : '#ffffff');
+        const panel = flat(v('panel'), bg);
+        const tintOn = (under: string, c: string, amount: number) =>
+          formatHex(interpolate([under, c], 'rgb')(amount))!;
+        const tint = (c: string) => tintOn(bg, c, 0.15);
+        for (const role of ['signal', 'alert', 'success', 'warning']) {
+          const color = flat(v(role), bg);
+          // Components cap the tint under role text at 10% (ui-token-usage.test.ts), so
+          // that is the strength tested on a panel; the 15% `-subtle` token sits on the page.
+          for (const [name, under, amount] of [
+            ['background', bg, 0.15],
+            ['panel', panel, 0.1],
+          ] as const) {
+            expect(
+              wcagContrast(color, tintOn(under, color, amount)),
+              `${role} on its tint over the ${name}`,
+            ).toBeGreaterThanOrEqual(4.5);
+          }
+        }
+        const muted = flat(v('muted-foreground'), bg);
+        expect(wcagContrast(muted, bg), 'muted on background').toBeGreaterThanOrEqual(4.5);
+        expect(wcagContrast(muted, panel), 'muted on panel').toBeGreaterThanOrEqual(4.5);
+        expect(
+          wcagContrast(muted, tint(flat(v('signal'), bg))),
+          'muted on signal tint',
+        ).toBeGreaterThanOrEqual(4.5);
+      });
+    }
+  }
+});
+
 describe('every vibe brings its own accent (I4)', () => {
   /** Flatten a possibly translucent color onto the surface beneath it. */
   const solid = (color: string, under: string): string => {

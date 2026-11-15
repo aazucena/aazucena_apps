@@ -6,11 +6,11 @@ const light: SystemThemeConfig = {
   colors: {
     primary: getColor('red', 600),
     primaryForeground: getColor('zinc', 50),
-    signal: getColor('red', 700),
+    signal: getColor('red', 800),
     signalForeground: getColor('zinc', 50),
     secondary: getColor('amber', 500),
     secondaryForeground: getColor('red', 950),
-    success: getColor('green', 600),
+    success: getColor('green', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 600),
     destructiveForeground: getColor('zinc', 50),
@@ -23,7 +23,7 @@ const light: SystemThemeConfig = {
     cardBackground: getColor('zinc', 50),
     overlayBackground: getColor('red', 50, 0.95),
     foreground: getColor('red', 950),
-    mutedForeground: getColor('red', 700),
+    mutedForeground: getColor('red', 800),
     accent: getColor('amber', 300),
     accentForeground: getColor('red', 950),
     border: getColor('red', 200),
@@ -49,7 +49,7 @@ const dark: SystemThemeConfig = {
   colors: {
     primary: getColor('red', 500),
     primaryForeground: getColor('red', 950),
-    signal: getColor('red', 300),
+    signal: getColor('red', 200),
     signalForeground: getColor('zinc', 950),
     // Coral reads 3.9:1 on this deep-red panel; a lighter warm tone keeps alerts at AA
     alert: getColor('orange', 300),
@@ -57,6 +57,8 @@ const dark: SystemThemeConfig = {
     secondary: getColor('amber', 400),
     secondaryForeground: getColor('red', 950),
     success: getColor('emerald', 400),
+    // The default warning is under 4.5:1 on this vibe's dark panel tint.
+    warning: getColor('avra-amber', 300),
     successForeground: getColor('zinc', 950),
     destructive: getColor('red', 500),
     destructiveForeground: getColor('zinc', 50),

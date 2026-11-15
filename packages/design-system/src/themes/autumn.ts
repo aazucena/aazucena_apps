@@ -4,11 +4,11 @@ import { instrumentRadius } from './default';
 
 const light: SystemThemeConfig = {
   colors: {
-    primary: getColor('orange', 700),
+    primary: getColor('orange', 800),
     primaryForeground: getColor('zinc', 50),
     secondary: getColor('emerald', 900),
     secondaryForeground: getColor('zinc', 50),
-    success: getColor('amber', 600),
+    success: getColor('amber', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 800),
     destructiveForeground: getColor('zinc', 50),
@@ -21,7 +21,7 @@ const light: SystemThemeConfig = {
     cardBackground: getColor('zinc', 50),
     overlayBackground: getColor('amber', 50, 0.9),
     foreground: getColor('orange', 950),
-    mutedForeground: getColor('orange', 700),
+    mutedForeground: getColor('orange', 800),
     accent: getColor('amber', 700),
     accentForeground: getColor('zinc', 50),
     border: getColor('zinc', 200),
@@ -51,7 +51,7 @@ const dark: SystemThemeConfig = {
     signalForeground: getColor('zinc', 950),
     secondary: getColor('orange', 950),
     secondaryForeground: getColor('zinc', 50),
-    success: getColor('emerald', 600),
+    success: getColor('emerald', 500),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 600),
     destructiveForeground: getColor('zinc', 50),

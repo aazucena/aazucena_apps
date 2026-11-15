@@ -10,7 +10,7 @@ const light: SystemThemeConfig = {
     signalForeground: getColor('zinc', 50),
     secondary: getColor('amber', 700),
     secondaryForeground: getColor('zinc', 50),
-    success: getColor('emerald', 600),
+    success: getColor('emerald', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 600),
     destructiveForeground: getColor('zinc', 50),

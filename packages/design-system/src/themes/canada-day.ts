@@ -10,7 +10,7 @@ const light: SystemThemeConfig = {
     signalForeground: getColor('zinc', 50),
     secondary: getColor('zinc', 50),
     secondaryForeground: getColor('red', 600),
-    success: getColor('emerald', 600),
+    success: getColor('emerald', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 600),
     destructiveForeground: getColor('zinc', 50),
@@ -48,7 +48,7 @@ const dark: SystemThemeConfig = {
   colors: {
     primary: getColor('red', 500),
     primaryForeground: getColor('zinc', 50),
-    signal: getColor('red', 300),
+    signal: getColor('red', 200),
     signalForeground: getColor('zinc', 950),
     // Coral reads 3.9:1 on this deep-red panel; a lighter warm tone keeps alerts at AA
     alert: getColor('orange', 300),
@@ -56,6 +56,8 @@ const dark: SystemThemeConfig = {
     secondary: getColor('zinc', 900),
     secondaryForeground: getColor('zinc', 50),
     success: getColor('cyan', 400),
+    // The default warning is under 4.5:1 on this vibe's dark panel tint.
+    warning: getColor('avra-amber', 300),
     successForeground: getColor('zinc', 950),
     destructive: getColor('orange', 500),
     destructiveForeground: getColor('zinc', 50),

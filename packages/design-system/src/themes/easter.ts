@@ -6,11 +6,11 @@ const light: SystemThemeConfig = {
   colors: {
     primary: getColor('purple', 500),
     primaryForeground: getColor('zinc', 50),
-    signal: getColor('purple', 600),
+    signal: getColor('purple', 700),
     signalForeground: getColor('zinc', 50),
     secondary: getColor('teal', 400),
     secondaryForeground: getColor('teal', 950),
-    success: getColor('emerald', 600),
+    success: getColor('emerald', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 600),
     destructiveForeground: getColor('zinc', 50),
@@ -51,6 +51,8 @@ const dark: SystemThemeConfig = {
     secondary: getColor('teal', 300),
     secondaryForeground: getColor('teal', 950),
     success: getColor('lime', 400),
+    // The default alert is under 4.5:1 on this vibe's dark panel tint.
+    alert: getColor('coral', 300),
     successForeground: getColor('lime', 950),
     destructive: getColor('rose', 400),
     destructiveForeground: getColor('zinc', 50),

@@ -6,11 +6,11 @@ const light: SystemThemeConfig = {
   colors: {
     primary: getColor('cyan', 600),
     primaryForeground: getColor('zinc', 50),
-    signal: getColor('cyan', 700),
+    signal: getColor('cyan', 800),
     signalForeground: getColor('zinc', 50),
     secondary: getColor('pink', 600),
     secondaryForeground: getColor('zinc', 50),
-    success: getColor('cyan', 700),
+    success: getColor('cyan', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('orange', 600),
     destructiveForeground: getColor('zinc', 50),

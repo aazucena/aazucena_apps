@@ -8,7 +8,7 @@ const light: SystemThemeConfig = {
     primaryForeground: getColor('zinc', 50),
     secondary: getColor('emerald', 900),
     secondaryForeground: getColor('zinc', 50),
-    success: getColor('green', 600),
+    success: getColor('green', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 600),
     destructiveForeground: getColor('zinc', 50),
@@ -47,7 +47,7 @@ const dark: SystemThemeConfig = {
   colors: {
     primary: getColor('red', 500),
     primaryForeground: getColor('zinc', 50),
-    signal: getColor('red', 400),
+    signal: getColor('red', 300),
     signalForeground: getColor('zinc', 950),
     secondary: getColor('emerald', 500),
     secondaryForeground: getColor('emerald', 950),

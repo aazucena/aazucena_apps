@@ -4,11 +4,11 @@ import { instrumentRadius } from './default';
 
 const light: SystemThemeConfig = {
   colors: {
-    primary: getColor('green', 700),
+    primary: getColor('green', 800),
     primaryForeground: getColor('zinc', 50),
     secondary: getColor('amber', 600),
     secondaryForeground: getColor('zinc', 50),
-    success: getColor('green', 600),
+    success: getColor('green', 800),
     successForeground: getColor('zinc', 50),
     destructive: getColor('red', 600),
     destructiveForeground: getColor('zinc', 50),
@@ -21,7 +21,7 @@ const light: SystemThemeConfig = {
     cardBackground: getColor('zinc', 50),
     overlayBackground: getColor('green', 50, 0.9),
     foreground: getColor('green', 900),
-    mutedForeground: getColor('green', 700),
+    mutedForeground: getColor('green', 800),
     accent: getColor('amber', 500),
     accentForeground: getColor('green', 900),
     border: getColor('green', 200),
@@ -44,11 +44,15 @@ const light: SystemThemeConfig = {
 
 const dark: SystemThemeConfig = {
   colors: {
-    primary: getColor('green', 500),
+    primary: getColor('green', 400),
     primaryForeground: getColor('green', 950),
     secondary: getColor('amber', 500),
     secondaryForeground: getColor('amber', 950),
     success: getColor('green', 400),
+    // The default alert is under 4.5:1 on this vibe's dark panel tint.
+    alert: getColor('coral', 300),
+    // The default warning is under 4.5:1 on this vibe's dark panel tint.
+    warning: getColor('avra-amber', 300),
     successForeground: getColor('green', 950),
     destructive: getColor('rose', 400),
     destructiveForeground: getColor('zinc', 50),
