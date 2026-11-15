@@ -66,19 +66,19 @@ export function FormDebugger() {
                   </section>
 
                   <section>
-                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-amber-500">
+                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-warning">
                       Global_State
                     </h4>
                     <div className="grid grid-cols-2 gap-2 text-[9px] font-mono uppercase">
                       <div className="rounded border border-white/5 p-2 bg-white/5">
                         <span className="text-white/30 block mb-1">isDirty</span>
-                        <span className={state.isDirty ? 'text-amber-400' : 'text-white/50'}>
+                        <span className={state.isDirty ? 'text-warning' : 'text-white/50'}>
                           {String(state.isDirty)}
                         </span>
                       </div>
                       <div className="rounded border border-white/5 p-2 bg-white/5">
                         <span className="text-white/30 block mb-1">isValid</span>
-                        <span className={state.isValid ? 'text-emerald-400' : 'text-white/50'}>
+                        <span className={state.isValid ? 'text-success' : 'text-white/50'}>
                           {String(state.isValid)}
                         </span>
                       </div>
@@ -96,7 +96,7 @@ export function FormDebugger() {
                   </section>
 
                   <section>
-                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-red-500">
+                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-widest text-alert">
                       Field_Meta
                     </h4>
                     <div className="space-y-2">
@@ -114,14 +114,12 @@ export function FormDebugger() {
                           <div className="grid grid-cols-3 gap-1 text-muted-foreground uppercase text-[8px]">
                             <span>Touched: {String(meta.isTouched)}</span>
                             <span>Dirty: {String(!meta.isPristine)}</span>
-                            <span
-                              className={meta.errors.length > 0 ? 'text-red-400 font-bold' : ''}
-                            >
+                            <span className={meta.errors.length > 0 ? 'text-alert font-bold' : ''}>
                               Errors: {meta.errors.length}
                             </span>
                           </div>
                           {meta.errors.length > 0 && (
-                            <div className="mt-1 text-red-400 italic">
+                            <div className="mt-1 text-alert italic">
                               ↳ {getErrorMessage(meta.errors[0])}
                             </div>
                           )}

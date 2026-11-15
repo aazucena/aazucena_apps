@@ -19,16 +19,16 @@ export interface EnvironmentVariablesFormProps {
 }
 
 const ENV_OPTIONS = [
-  { value: 'dev', label: 'Dev', activeClass: 'border-green-500/50 bg-green-500/10 text-green-600' },
+  { value: 'dev', label: 'Dev', activeClass: 'border-success/50 bg-success/10 text-success' },
   {
     value: 'staging',
     label: 'Staging',
-    activeClass: 'border-amber-500/50 bg-amber-500/10 text-amber-600',
+    activeClass: 'border-warning/50 bg-warning/10 text-warning',
   },
   {
     value: 'prod',
     label: 'Production',
-    activeClass: 'border-red-500/50 bg-red-500/10 text-red-600',
+    activeClass: 'border-alert/50 bg-alert/10 text-alert',
   },
 ] as const;
 

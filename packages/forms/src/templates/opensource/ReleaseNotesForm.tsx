@@ -22,20 +22,20 @@ const RELEASE_TYPE_OPTIONS = [
   {
     value: 'patch',
     label: 'Patch',
-    color: 'text-green-500',
-    border: 'border-green-500/50 bg-green-500/10',
+    color: 'text-success',
+    border: 'border-success/50 bg-success/10',
   },
   {
     value: 'minor',
     label: 'Minor',
-    color: 'text-blue-500',
-    border: 'border-blue-500/50 bg-blue-500/10',
+    color: 'text-signal',
+    border: 'border-signal/50 bg-signal/10',
   },
   {
     value: 'major',
     label: 'Major',
-    color: 'text-red-500',
-    border: 'border-red-500/50 bg-red-500/10',
+    color: 'text-alert',
+    border: 'border-alert/50 bg-alert/10',
   },
 ] as const;
 

@@ -46,7 +46,7 @@ export function FieldMetaBadge({ name, className }: FieldMetaBadgeProps) {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
-            className="h-1 w-1 rounded-full bg-amber-500/50"
+            className="h-1 w-1 rounded-full bg-warning/50"
             title="Modified"
           />
         ) : null}

@@ -19,10 +19,10 @@ export interface EscalationFormProps {
 }
 
 const SEVERITY_OPTIONS = [
-  { value: 'low', label: 'Low', color: 'text-green-500' },
-  { value: 'medium', label: 'Medium', color: 'text-amber-500' },
-  { value: 'high', label: 'High', color: 'text-orange-500' },
-  { value: 'critical', label: 'Critical', color: 'text-red-500' },
+  { value: 'low', label: 'Low', color: 'text-success' },
+  { value: 'medium', label: 'Medium', color: 'text-warning' },
+  { value: 'high', label: 'High', color: 'text-warning' },
+  { value: 'critical', label: 'Critical', color: 'text-alert' },
 ] as const;
 
 const REASON_OPTIONS = [

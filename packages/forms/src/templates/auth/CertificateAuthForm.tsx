@@ -56,8 +56,8 @@ export function CertificateAuthForm({
     >
       <FormErrorSummary />
 
-      <div className="rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2">
-        <p className="text-xs text-amber-600 dark:text-amber-400">
+      <div className="rounded-md border border-warning/30 bg-warning/5 px-3 py-2">
+        <p className="text-xs text-warning dark:text-warning">
           🔒 Certificate data is transmitted over TLS and never stored on the server.
         </p>
       </div>

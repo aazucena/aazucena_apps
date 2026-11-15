@@ -21,7 +21,7 @@ export interface IntegrationSetupFormProps {
 const INTEGRATION_OPTIONS = [
   { value: 'GitHub', label: 'GitHub', initials: 'GH', color: 'bg-slate-800 text-slate-100' },
   { value: 'Slack', label: 'Slack', initials: 'SL', color: 'bg-purple-600 text-white' },
-  { value: 'Jira', label: 'Jira', initials: 'JR', color: 'bg-blue-600 text-white' },
+  { value: 'Jira', label: 'Jira', initials: 'JR', color: 'bg-signal text-white' },
   { value: 'Notion', label: 'Notion', initials: 'NT', color: 'bg-zinc-800 text-white' },
   { value: 'Linear', label: 'Linear', initials: 'LN', color: 'bg-indigo-600 text-white' },
 ] as const;

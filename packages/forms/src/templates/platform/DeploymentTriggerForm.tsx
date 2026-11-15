@@ -79,10 +79,10 @@ export function DeploymentTriggerForm({
                       'flex flex-col items-center gap-1 rounded-md border px-2 py-3 text-xs font-medium transition-all',
                       isActive
                         ? isProd
-                          ? 'border-red-500 bg-red-600 text-white'
+                          ? 'border-alert bg-alert text-white'
                           : 'border-primary bg-primary text-primary-foreground'
                         : isProd
-                          ? 'border-red-200 text-red-600 hover:border-red-400'
+                          ? 'border-red-200 text-alert hover:border-alert'
                           : 'border-border hover:border-primary/50',
                     )}
                   >

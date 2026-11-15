@@ -123,7 +123,7 @@ export function SubscriptionChangeForm({
                     : 'border-border hover:border-primary/50',
                 )}
               >
-                Annual <span className="text-green-500 font-bold">Save 20%</span>
+                Annual <span className="text-success font-bold">Save 20%</span>
               </button>
             </div>
           )}

@@ -68,7 +68,7 @@ export function AccountDeletionForm({
       {/* Danger warning banner */}
       <div className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive dark:border-destructive/50 dark:bg-destructive/20">
         <p className="font-semibold">This action is permanent and cannot be undone.</p>
-        <p className="mt-1 text-xs opacity-90">
+        <p className="mt-1 text-xs">
           All your data, including projects, history, and settings, will be permanently erased.
         </p>
       </div>

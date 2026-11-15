@@ -21,18 +21,18 @@ export interface FeatureFlagFormProps {
 const ENV_CONFIG = {
   dev: {
     label: 'Dev',
-    activeClass: 'border-green-500 bg-green-600 text-white',
-    hoverClass: 'border-green-200 text-green-700 hover:border-green-400',
+    activeClass: 'border-success bg-success text-white',
+    hoverClass: 'border-green-200 text-green-700 hover:border-success',
   },
   staging: {
     label: 'Staging',
-    activeClass: 'border-amber-500 bg-amber-500 text-white',
-    hoverClass: 'border-amber-200 text-amber-700 hover:border-amber-400',
+    activeClass: 'border-warning bg-warning text-white',
+    hoverClass: 'border-amber-200 text-amber-700 hover:border-warning',
   },
   prod: {
     label: 'Prod',
-    activeClass: 'border-red-500 bg-red-600 text-white',
-    hoverClass: 'border-red-200 text-red-600 hover:border-red-400',
+    activeClass: 'border-alert bg-alert text-white',
+    hoverClass: 'border-red-200 text-alert hover:border-alert',
   },
 } as const;
 
@@ -144,6 +144,7 @@ export function FeatureFlagForm({
         <form.Field name="rolloutPercentage">
           {(field) => (
             <input
+              aria-label="Rollout percentage"
               type="range"
               min={0}
               max={100}

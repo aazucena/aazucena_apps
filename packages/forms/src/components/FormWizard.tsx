@@ -99,8 +99,8 @@ export function FormWizard({
                   Security Verification: {activeChallenge.label}
                 </h4>
                 <p className="text-sm text-muted-foreground mb-4">{activeChallenge.hint}</p>
-                <div className="flex items-center gap-2 text-[10px] font-bold text-yellow-600 dark:text-yellow-400">
-                  <span className="w-2 h-2 rounded-full bg-yellow-500 animate-ping" />
+                <div className="flex items-center gap-2 text-[10px] font-bold text-warning dark:text-warning">
+                  <span className="w-2 h-2 rounded-full bg-warning animate-ping" />
                   Interaction Required to Unlock Submission
                 </div>
               </div>

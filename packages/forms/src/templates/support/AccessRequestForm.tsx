@@ -27,9 +27,9 @@ const RESOURCE_OPTIONS = [
 ] as const;
 
 const ACCESS_LEVEL_OPTIONS = [
-  { value: 'read', label: 'Read', color: 'text-blue-500' },
-  { value: 'write', label: 'Write', color: 'text-amber-500' },
-  { value: 'admin', label: 'Admin', color: 'text-red-500' },
+  { value: 'read', label: 'Read', color: 'text-signal' },
+  { value: 'write', label: 'Write', color: 'text-warning' },
+  { value: 'admin', label: 'Admin', color: 'text-alert' },
 ] as const;
 
 export function AccessRequestForm({

@@ -19,17 +19,17 @@ export interface NPSFormProps {
 }
 
 function getScoreColor(score: number): string {
-  if (score >= 9) return 'border-green-500 bg-green-600 text-white';
-  if (score >= 7) return 'border-yellow-500 bg-yellow-500 text-white';
-  return 'border-red-500 bg-red-600 text-white';
+  if (score >= 9) return 'border-success bg-success text-white';
+  if (score >= 7) return 'border-warning bg-warning text-white';
+  return 'border-alert bg-alert text-white';
 }
 
 function getScoreInactiveColor(score: number): string {
   if (score >= 9)
-    return 'border-green-200 text-green-700 hover:border-green-400 dark:border-green-800 dark:text-green-400';
+    return 'border-green-200 text-green-700 hover:border-success dark:border-green-800 dark:text-success';
   if (score >= 7)
-    return 'border-yellow-200 text-yellow-700 hover:border-yellow-400 dark:border-yellow-800 dark:text-yellow-400';
-  return 'border-red-200 text-red-700 hover:border-red-400 dark:border-red-800 dark:text-red-400';
+    return 'border-yellow-200 text-yellow-700 hover:border-warning dark:border-yellow-800 dark:text-warning';
+  return 'border-red-200 text-red-700 hover:border-alert dark:border-red-800 dark:text-alert';
 }
 
 export function NPSForm({

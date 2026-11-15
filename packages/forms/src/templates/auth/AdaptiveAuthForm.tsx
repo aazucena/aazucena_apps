@@ -32,12 +32,12 @@ const RISK_BADGE: Record<
   NonNullable<AdaptiveAuthFormProps['riskLevel']>,
   { label: string; className: string }
 > = {
-  low: { label: 'Low Risk', className: 'bg-green-500/10 text-green-600 border-green-500/30' },
+  low: { label: 'Low Risk', className: 'bg-success/10 text-success border-success/30' },
   medium: {
     label: 'Medium Risk',
-    className: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/30',
+    className: 'bg-warning/10 text-warning border-warning/30',
   },
-  high: { label: 'High Risk', className: 'bg-red-500/10 text-red-600 border-red-500/30' },
+  high: { label: 'High Risk', className: 'bg-alert/10 text-alert border-alert/30' },
 };
 
 const CHALLENGE_LABEL: Record<NonNullable<AdaptiveAuthFormProps['challengeType']>, string> = {
