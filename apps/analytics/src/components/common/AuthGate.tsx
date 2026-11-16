@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import dynamic from 'next/dynamic';
+import { SessionExpiryDialog } from './SessionExpiryDialog';
 
 // Lazy-load the overlay — only downloaded and compiled by the client
 // when actually needed (unauthenticated). Authenticated sessions pay zero cost.
@@ -17,6 +18,6 @@ export async function AuthGate() {
   const session = cookieStore.get('az_session')?.value;
   const isAuthenticated = !!process.env.ADMIN_SECRET && session === process.env.ADMIN_SECRET;
 
-  if (isAuthenticated) return null;
+  if (isAuthenticated) return <SessionExpiryDialog />;
   return <LoginOverlay />;
 }
