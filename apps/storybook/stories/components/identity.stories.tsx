@@ -112,6 +112,7 @@ export const CyberTerminal: Story = {
       <Identity {...args}>
         <IdentityProfile
           src="https://avatars.githubusercontent.com/u/1234567?v=4"
+          alt="Aldrin"
           className="border-signal/40"
         />
         <IdentityContent className="space-y-8">

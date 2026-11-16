@@ -222,10 +222,10 @@ export const IconOnly: Story = {
   },
   render: (args) => (
     <BottomNavigation {...args}>
-      <BottomNavigationItem icon={<HomeIcon />} active />
-      <BottomNavigationItem icon={<SearchIcon />} />
-      <BottomNavigationItem icon={<UserIcon />} />
-      <BottomNavigationItem icon={<SettingsIcon />} />
+      <BottomNavigationItem aria-label="Home" icon={<HomeIcon />} active />
+      <BottomNavigationItem aria-label="Search" icon={<SearchIcon />} />
+      <BottomNavigationItem aria-label="Profile" icon={<UserIcon />} />
+      <BottomNavigationItem aria-label="Settings" icon={<SettingsIcon />} />
     </BottomNavigation>
   ),
 };

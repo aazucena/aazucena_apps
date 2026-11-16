@@ -83,6 +83,7 @@ export const CyberTerminal: Story = {
         />
         <InputGroupAddon align="inline-end">
           <InputGroupButton
+            aria-label="Refresh"
             variant="ghost"
             size="icon-sm"
             className="text-signal hover:bg-signal/10 mr-1"

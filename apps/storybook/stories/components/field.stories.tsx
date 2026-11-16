@@ -104,7 +104,7 @@ export const TechnicalField: Story = {
       </FieldHeader>
       <Field>
         <FieldControl>
-          <Input type="password" value="••••••••••••" readOnly />
+          <Input type="password" value="••••••••••••" readOnly aria-label="Security key" />
         </FieldControl>
         <div className="mt-3 flex justify-between items-center">
           <FieldDescription className="text-[10px]">RSA-4096 // Rotated 12d ago</FieldDescription>
@@ -134,7 +134,7 @@ export const HorizontalToggle: Story = {
           </FieldDescription>
         </div>
         <FieldControl className="w-auto">
-          <Checkbox defaultChecked />
+          <Checkbox defaultChecked aria-label="Enable edge ingestion" />
         </FieldControl>
       </Field>
     </div>

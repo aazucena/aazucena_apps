@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(visualizations)_ Name the chart range sliders
 - _(forms)_ Solid role fills use their role foreground text
 - _(ui)_ No button inside the chat thread button; list group buttons sit in list items
 - _(ui)_ Empty meter labels fall back to a name; chat image named by its visible text

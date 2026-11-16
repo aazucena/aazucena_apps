@@ -122,5 +122,6 @@ export const ShowMaskAlways: Story = {
   args: {
     mask: '(999) 999-9999',
     showMaskOnEmpty: true,
+    'aria-label': 'Phone number',
   },
 };

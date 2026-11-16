@@ -150,13 +150,13 @@ export const PlaybackController: Story = {
       <Playback variant="cyber">
         <PlaybackCounter current={42} total={120} />
         <PlaybackControls>
-          <PlaybackButton>
+          <PlaybackButton aria-label="Previous">
             <ChevronLeft size={16} />
           </PlaybackButton>
-          <PlaybackButton active>
+          <PlaybackButton aria-label="Pause" active>
             <Pause size={16} />
           </PlaybackButton>
-          <PlaybackButton>
+          <PlaybackButton aria-label="Next">
             <ChevronRight size={16} />
           </PlaybackButton>
         </PlaybackControls>

@@ -218,7 +218,7 @@ export const ThreadList: Story = {
           <ChatThreadTitle>Mesosphere Stability Analysis</ChatThreadTitle>
           <ChatThreadMeta>ACTIVE_SESSION</ChatThreadMeta>
         </ChatThreadContent>
-        <ChatThreadAction>
+        <ChatThreadAction aria-label="Delete chat">
           <Trash size={14} />
         </ChatThreadAction>
       </ChatThread>
@@ -231,7 +231,7 @@ export const ThreadList: Story = {
           <ChatThreadTitle>Database Migration Protocol</ChatThreadTitle>
           <ChatThreadMeta>2h ago</ChatThreadMeta>
         </ChatThreadContent>
-        <ChatThreadAction>
+        <ChatThreadAction aria-label="Delete chat">
           <Trash size={14} />
         </ChatThreadAction>
       </ChatThread>
@@ -244,7 +244,7 @@ export const ThreadList: Story = {
           <ChatThreadTitle>// SIGNAL_LOCK_0x7F</ChatThreadTitle>
           <ChatThreadMeta>TERMINATED</ChatThreadMeta>
         </ChatThreadContent>
-        <ChatThreadAction variant="cyber">
+        <ChatThreadAction variant="cyber" aria-label="Copy chat">
           <Copy size={14} />
         </ChatThreadAction>
       </ChatThread>

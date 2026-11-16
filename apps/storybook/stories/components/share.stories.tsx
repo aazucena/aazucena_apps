@@ -87,13 +87,13 @@ export const CyberTerminal: Story = {
             // BROADCAST_SIGNAL_ENCLAVE
           </span>
           <ShareGroup>
-            <ShareAction variant="cyber" href="#">
+            <ShareAction variant="cyber" href="#" aria-label="GitHub">
               <Github size={18} />
             </ShareAction>
-            <ShareAction variant="cyber" href="#">
+            <ShareAction variant="cyber" href="#" aria-label="Twitter">
               <Twitter size={18} />
             </ShareAction>
-            <ShareAction variant="cyber" href="#">
+            <ShareAction variant="cyber" href="#" aria-label="Discord">
               <Discord size={18} />
             </ShareAction>
           </ShareGroup>

@@ -74,7 +74,7 @@ export const Basic: Story = {
             <PlaybackButton onClick={() => setCurrent(Math.max(0, current - 1))}>
               <ChevronLeft />
             </PlaybackButton>
-            <PlaybackButton active>
+            <PlaybackButton aria-label="Pause" active>
               <Pause />
             </PlaybackButton>
             <PlaybackButton onClick={() => setCurrent(Math.min(45, current + 1))}>
@@ -116,7 +116,7 @@ export const CyberTerminal: Story = {
       <Playback {...args}>
         <PlaybackCounter current={1} total={10} className="text-signal" />
         <PlaybackControls>
-          <PlaybackButton variant="cyber">
+          <PlaybackButton aria-label="Play" variant="cyber">
             <Play size={16} />
           </PlaybackButton>
         </PlaybackControls>
@@ -152,13 +152,17 @@ export const GlassMonitor: Story = {
         <Playback {...args} className="border-rule rounded-t-card">
           <PlaybackCounter current={42} total={100} className="text-foreground" />
           <PlaybackControls>
-            <PlaybackButton className="text-foreground hover:bg-state">
+            <PlaybackButton aria-label="Previous" className="text-foreground hover:bg-state">
               <ChevronLeft />
             </PlaybackButton>
-            <PlaybackButton active className="bg-panel text-foreground hover:bg-panel-raised">
+            <PlaybackButton
+              aria-label="Play"
+              active
+              className="bg-panel text-foreground hover:bg-panel-raised"
+            >
               <Play />
             </PlaybackButton>
-            <PlaybackButton className="text-foreground hover:bg-state">
+            <PlaybackButton aria-label="Next" className="text-foreground hover:bg-state">
               <ChevronRight />
             </PlaybackButton>
           </PlaybackControls>

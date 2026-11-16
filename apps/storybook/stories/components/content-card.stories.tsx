@@ -135,6 +135,7 @@ export const CyberShowcase: Story = {
     <ContentCard {...args} className="w-[400px] group">
       <div className="relative">
         <ContentCardImage
+          alt="Article cover image"
           src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
           aspect="wide"
         />

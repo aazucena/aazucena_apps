@@ -77,6 +77,7 @@ export const CyberTerminal: Story = {
         <ShowcaseFigure>
           <div className="relative group">
             <ShowcaseImage
+              alt="Project screenshot"
               variant="cyber"
               src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
               aspect="video"
@@ -108,6 +109,7 @@ export const GalleryGrid: Story = {
       <Showcase {...args}>
         <ShowcaseFigure>
           <ShowcaseImage
+            alt="Project screenshot"
             aspect="square"
             src="https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1000&auto=format&fit=crop"
           />
@@ -115,6 +117,7 @@ export const GalleryGrid: Story = {
         </ShowcaseFigure>
         <ShowcaseFigure>
           <ShowcaseImage
+            alt="Project screenshot"
             aspect="square"
             src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=1000&auto=format&fit=crop"
           />
@@ -136,6 +139,7 @@ export const GlassHero: Story = {
         <Showcase>
           <ShowcaseFigure>
             <ShowcaseImage
+              alt="Project screenshot"
               variant="glass"
               src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
               className="border-rule"
