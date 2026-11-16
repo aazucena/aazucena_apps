@@ -23,6 +23,10 @@ import { networkData, sankeyData, dendrogramData, circularPackingData } from './
 const meta = {
   title: 'Charts & Graphs/Relational',
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=194-284',
+    },
     layout: 'padded',
     docs: {
       description: {
