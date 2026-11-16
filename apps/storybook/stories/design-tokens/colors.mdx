@@ -2,6 +2,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import { Panel, PanelBody, Badge, Button } from '@aazucena/ui';
 import { TokenSwatches } from './_token-swatches';
+import { categorical } from '@aazucena/visualizations';
 
 <Meta title="Design Tokens/Colors" />
 
@@ -99,8 +100,17 @@ Categorical series follow a fixed order. Sequential ramps run light to dark from
     { token: 'chart-seq-5', label: 'Seq 5' },
     { token: 'chart-grid', label: 'Grid' },
     { token: 'chart-axis', label: 'Axis' },
+    { token: 'state', label: 'Empty', use: 'Cells with no data (chartTheme.empty).' },
   ]}
 />
+
+Charts with more than four groups use `categorical` from `@aazucena/visualizations`: the four series, then each one mixed 50% toward the panel in OKLab, which keeps its hue. Labels on a series use panel-colored text; labels on a tint use foreground text. Both reach 4.5:1 in light and dark for the default vibe.
+
+<div className="flex flex-wrap gap-2" aria-label="Categorical colors 1 to 8" role="img">
+  {categorical.map((color, i) => (
+    <div key={i} className="rounded-control h-8 w-14" style={{ background: color }} title={color} />
+  ))}
+</div>
 
 ---
 
