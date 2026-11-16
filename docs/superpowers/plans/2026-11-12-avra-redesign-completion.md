@@ -122,15 +122,15 @@ File `KIKPyhRdGbeBhj8dS0km2G`. Load `figma-use` + `figma-generate-library` first
 
 ## Phase 3: Charts (`packages/visualizations`)
 
-- [ ] **Replace hardcoded chart colors** with `chartTheme`:
+- [x] **Replace hardcoded chart colors** with `chartTheme`:
   - Replace `d3.schemeTableau10` in the 15 files: 12 hooks plus `ForceDirectedGraph`, `InteractiveTimeline` and `LineChart` (drop the inline Tableau hex).
   - Replace `interpolateBlues` in `useHeatmap` with the `seq` ramp.
   - Replace the 63 hex literals with tokens: `#94a3b8` → axis, `#e5e7eb` → grid, `#fff` separators → `var(--panel)`, the gray ramp in `useSpiderChart` → seq/neutral.
   - Replace the `var(--color-primary, #3b82f6)` defaults with `var(--series-1)`.
-- [ ] **One tooltip helper** in `src/hooks/` (panel surface, rule border, mono, no blur), used by StreamGraph, ForceDirected, Bar, Heatmap, Spider and Sankey.
-- [ ] **Chart chrome:** `ChartExportControl`, `InteractiveTimeline` buttons, `SpiderChart` and `LineChart` hover move to ui tokens and components.
-- [ ] **Guard:** a test that greps `packages/visualizations/src` for `scheme|#[0-9a-f]{3,6}\b|interpolate(Blues|…)` and expects 0. Add vitest to visualizations, or put the guard in design-system next to `ui-token-usage.test.ts`.
-- [ ] Verify with the 6 chart story files under `stories/charts/` (add them to the visual globs), light and dark. Changeset.
+- [x] **One tooltip helper** in `src/hooks/` (panel surface, rule border, mono, no blur), used by StreamGraph, ForceDirected, Bar, Heatmap, Spider and Sankey.
+- [x] **Chart chrome:** `ChartExportControl`, `InteractiveTimeline` buttons, `SpiderChart` and `LineChart` hover move to ui tokens and components.
+- [x] **Guard:** a test that greps `packages/visualizations/src` for `scheme|#[0-9a-f]{3,6}\b|interpolate(Blues|…)` and expects 0. Add vitest to visualizations, or put the guard in design-system next to `ui-token-usage.test.ts`.
+- [x] Verify with the 6 chart story files under `stories/charts/` (add them to the visual globs), light and dark. Changeset. Verified locally (126 shots, light, dark and christmas) and changeset added (2026-11-16). Still open: the chart story files carry `no-vitest`, which the visual project skips, so Argos needs that tag reviewed first (the choropleth fetches map data over the network).
 
 ## Phase 4: Analytics app adoption (spec §4, adjusted)
 
