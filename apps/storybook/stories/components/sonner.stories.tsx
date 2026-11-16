@@ -22,6 +22,10 @@ const meta = {
   title: 'Components/Primitives/Sonner',
   component: Toaster,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=18-19',
+    },
     layout: 'centered',
     docs: {
       description: {

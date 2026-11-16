@@ -13,6 +13,10 @@ const meta = {
   component: Status,
   subcomponents: { StatusDot, StatusLabel } as any,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=16-58',
+    },
     layout: 'centered',
     docs: {
       description: {

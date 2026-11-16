@@ -39,6 +39,10 @@ const meta = {
   title: 'Components/Display/CodeBlock',
   component: CodeBlock,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G/Avra-Design-System?node-id=24-79',
+    },
     layout: 'centered',
     docs: {
       description: {
