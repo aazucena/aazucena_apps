@@ -162,6 +162,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(storybook)_ Show where the apps use each component
 - _(design-system)_ Chart color roles as a CSS subset for apps without css-vars
 - _(analytics)_ Warn five minutes before the session ends and let the admin renew it
 - _(analytics)_ Expiry cookie and a renew endpoint for the admin session
