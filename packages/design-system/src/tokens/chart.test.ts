@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { wcagContrast } from 'culori';
 import { chartTheme } from './chart';
 import { d3Scales } from '../integrations/d3/scales';
 import { generateCssVariables } from '../utils/generate-css';
@@ -29,5 +30,27 @@ describe('chartTheme', () => {
     expect(d3Scales.categorical).toEqual(chartTheme.series);
     expect(d3Scales.sequential).toEqual(chartTheme.seq);
     expect(d3Scales.diverging).toEqual(chartTheme.div);
+  });
+});
+
+describe('labels on categorical fills', () => {
+  // Pie and treemap labels sit on series fills in the panel color (`labelOn`), and on
+  // the mixed tints in the foreground color, so both pairings must reach AA body text.
+  const [light, dark] = css.split('\n.dark {');
+  const value = (block: string, name: string) =>
+    block.match(new RegExp(`--${name}: ([^;]+);`))![1]!.trim();
+
+  it.each([
+    ['light', light!],
+    ['dark', dark!],
+  ])('%s: panel text on every series reaches 4.5:1', (_mode, block) => {
+    const panel = value(block, 'panel');
+    for (const n of [1, 2, 3, 4]) {
+      const series = value(block, `series-${n}`);
+      expect(
+        wcagContrast(series, panel),
+        `series-${n} ${series} on ${panel}`,
+      ).toBeGreaterThanOrEqual(4.5);
+    }
   });
 });

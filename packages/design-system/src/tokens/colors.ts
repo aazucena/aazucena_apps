@@ -144,8 +144,8 @@ export const colors = {
   'avra-amber': { 300: '#ecc06a', 500: '#d9a02c', 700: '#7d5700' },
 
   // Categorical series 2-4 (series 1 = signal). Namespaced: Tailwind owns olive/violet/rose.
-  'avra-olive': { 500: '#889D37', 700: '#687c04' },
-  'avra-violet': { 500: '#7C5BC5', 700: '#7a59c3' },
+  'avra-olive': { 500: '#889D37', 700: '#657900' },
+  'avra-violet': { 500: '#9B7BE8', 700: '#7a59c3' },
   'avra-rose': { 500: '#D4679F', 700: '#af457e' },
 } as const;
 
