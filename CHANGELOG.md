@@ -162,6 +162,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(design-system)_ Chart color roles as a CSS subset for apps without css-vars
 - _(analytics)_ Warn five minutes before the session ends and let the admin renew it
 - _(analytics)_ Expiry cookie and a renew endpoint for the admin session
 - _(layouts)_ Skip link, a focusable main region and focus on route change

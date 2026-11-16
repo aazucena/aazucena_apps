@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
     '@aazucena/api',
     '@aazucena/constants',
     '@aazucena/context',
+    '@aazucena/design-system',
     '@aazucena/hooks',
     '@aazucena/icons',
     '@aazucena/stores',
