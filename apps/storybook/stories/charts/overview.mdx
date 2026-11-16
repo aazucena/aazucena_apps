@@ -25,7 +25,7 @@ All primitives are exported from `@aazucena/visualizations` and can be used inde
 
 ## Colors
 
-Charts take their colors from the Avra chart roles: `--series-1..4` for categories (cyan, olive, violet, rose, in that order), `--chart-seq-1..5` for sequential ramps, and `--chart-grid` / `--chart-axis` for chrome. Some charts still use D3's built-in schemes; moving every chart onto these roles is planned.
+Charts take their colors from the Avra chart roles: `--series-1..4` for categories (cyan, olive, violet, rose, in that order), `--chart-seq-1..5` for sequential ramps, and `--chart-grid` / `--chart-axis` for chrome. Charts with more than four groups continue with the same four mixed toward the panel. Ramps are binned into five steps, and cells with no data use `--state`. Import the helpers from the package: `chartTheme`, `categorical`, `categoricalScale`, `sequentialScale` and `chartTooltip`. A guard test fails if a literal color or a D3 scheme comes back.
 
 ## Data Types
 

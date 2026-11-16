@@ -8,6 +8,7 @@ import {
   ChartContent,
   ChartFooter,
   ChartExportControl,
+  categorical,
 } from '@aazucena/visualizations';
 
 /**
@@ -99,8 +100,8 @@ function ExportControlDemo() {
   return (
     <div className="flex flex-col items-center gap-4 p-8">
       <svg ref={svgRef} width={200} height={100} className="border border-border/50 rounded">
-        <rect x={10} y={10} width={80} height={80} fill="#3b82f6" rx={8} />
-        <rect x={110} y={30} width={80} height={60} fill="#10b981" rx={8} />
+        <rect x={10} y={10} width={80} height={80} fill={categorical[0]} rx={8} />
+        <rect x={110} y={30} width={80} height={60} fill={categorical[1]} rx={8} />
       </svg>
       <ChartExportControl svgRef={svgRef} fileName="demo-export" />
     </div>

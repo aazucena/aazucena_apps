@@ -1,5 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Heatmap, StreamGraph, SpiderChart, Treemap, WordCloud } from '@aazucena/visualizations';
+import {
+  Heatmap,
+  StreamGraph,
+  SpiderChart,
+  Treemap,
+  WordCloud,
+  categorical,
+} from '@aazucena/visualizations';
 import type { GenericHeatmapCell } from '@aazucena/types';
 import {
   heatmapData,
@@ -102,10 +109,10 @@ export const Stream: StoryObj<typeof StreamGraph> = {
       data={streamGraphData}
       title="Library Usage Over Time"
       colorMap={{
-        React: '#61dafb',
-        D3: '#f9a03c',
-        Three: '#049ef4',
-        GSAP: '#88ce02',
+        React: categorical[0],
+        D3: categorical[1],
+        Three: categorical[2],
+        GSAP: categorical[3],
       }}
     />
   ),
@@ -122,10 +129,10 @@ export const StreamNoHeader: StoryObj<typeof StreamGraph> = {
       data={streamGraphData}
       hideHeader
       colorMap={{
-        React: '#61dafb',
-        D3: '#f9a03c',
-        Three: '#049ef4',
-        GSAP: '#88ce02',
+        React: categorical[0],
+        D3: categorical[1],
+        Three: categorical[2],
+        GSAP: categorical[3],
       }}
     />
   ),
@@ -146,8 +153,8 @@ export const Spider: StoryObj<typeof SpiderChart> = {
       data={spiderChartData}
       title="Skill Profile"
       colorMap={{
-        Current: '#3b82f6',
-        Target: '#10b981',
+        Current: categorical[0],
+        Target: categorical[1],
       }}
     />
   ),
@@ -168,10 +175,10 @@ export const SpiderYearControls: StoryObj<typeof SpiderChart> = {
       title="Skill Evolution"
       showYearControls
       colorMap={{
-        '2022': '#94a3b8',
-        '2023': '#60a5fa',
-        '2024': '#34d399',
-        '2025': '#f59e0b',
+        '2022': categorical[0],
+        '2023': categorical[1],
+        '2024': categorical[2],
+        '2025': categorical[3],
       }}
     />
   ),
@@ -197,16 +204,16 @@ export const Cloud: StoryObj<typeof WordCloud> = {
       minFontSize={14}
       maxFontSize={56}
       colorMap={{
-        lang: '#3178c6',
-        framework: '#61dafb',
-        runtime: '#68a063',
-        lib: '#f59e0b',
-        css: '#38bdf8',
-        db: '#336791',
-        devops: '#2496ed',
-        ai: '#8b5cf6',
-        tool: '#ec4899',
-        api: '#10b981',
+        lang: categorical[0],
+        framework: categorical[1],
+        runtime: categorical[2],
+        lib: categorical[3],
+        css: categorical[4],
+        db: categorical[5],
+        devops: categorical[6],
+        ai: categorical[7],
+        tool: categorical[0],
+        api: categorical[1],
       }}
     />
   ),

@@ -4,6 +4,7 @@ import {
   SankeyDiagram,
   Dendrogram,
   CircularPacking,
+  categorical,
 } from '@aazucena/visualizations';
 import { networkData, sankeyData, dendrogramData, circularPackingData } from './_mock-data';
 
@@ -54,10 +55,10 @@ export const ForceGraph: StoryObj<typeof ForceDirectedGraph> = {
       title="Tech Dependency Graph"
       groupKey="group"
       colorMap={{
-        frontend: '#3b82f6',
-        backend: '#10b981',
-        data: '#f59e0b',
-        infra: '#8b5cf6',
+        frontend: categorical[0],
+        backend: categorical[1],
+        data: categorical[2],
+        infra: categorical[3],
       }}
     />
   ),
@@ -80,10 +81,10 @@ export const ForceWithPhysics: StoryObj<typeof ForceDirectedGraph> = {
       groupKey="group"
       showPhysicsControls
       colorMap={{
-        frontend: '#3b82f6',
-        backend: '#10b981',
-        data: '#f59e0b',
-        infra: '#8b5cf6',
+        frontend: categorical[0],
+        backend: categorical[1],
+        data: categorical[2],
+        infra: categorical[3],
       }}
     />
   ),
@@ -103,10 +104,10 @@ export const ForceWithHighlight: StoryObj<typeof ForceDirectedGraph> = {
       groupKey="group"
       highlightIds={new Set(['react', 'next', 'astro'])}
       colorMap={{
-        frontend: '#3b82f6',
-        backend: '#10b981',
-        data: '#f59e0b',
-        infra: '#8b5cf6',
+        frontend: categorical[0],
+        backend: categorical[1],
+        data: categorical[2],
+        infra: categorical[3],
       }}
     />
   ),
@@ -122,16 +123,16 @@ export const Sankey: StoryObj<typeof SankeyDiagram> = {
       data={sankeyData}
       title="Request Flow"
       colorMap={{
-        input: '#3b82f6',
-        network: '#10b981',
-        compute: '#f59e0b',
-        storage: '#8b5cf6',
+        input: categorical[0],
+        network: categorical[1],
+        compute: categorical[2],
+        storage: categorical[3],
       }}
       legend={[
-        { label: 'Input', color: '#3b82f6' },
-        { label: 'Network', color: '#10b981' },
-        { label: 'Compute', color: '#f59e0b' },
-        { label: 'Storage', color: '#8b5cf6' },
+        { label: 'Input', color: categorical[0] },
+        { label: 'Network', color: categorical[1] },
+        { label: 'Compute', color: categorical[2] },
+        { label: 'Storage', color: categorical[3] },
       ]}
     />
   ),
@@ -161,9 +162,9 @@ export const CircularPack: StoryObj<typeof CircularPacking> = {
       data={circularPackingData}
       title="Stack Composition"
       colorMap={{
-        frontend: '#3b82f6',
-        backend: '#10b981',
-        ai: '#8b5cf6',
+        frontend: categorical[0],
+        backend: categorical[1],
+        ai: categorical[2],
       }}
     />
   ),

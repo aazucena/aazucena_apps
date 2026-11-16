@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as topojson from 'topojson-client';
-import { InteractiveTimeline, ParetoFrontier, ChoroplethMap } from '@aazucena/visualizations';
+import {
+  InteractiveTimeline,
+  ParetoFrontier,
+  ChoroplethMap,
+  categorical,
+} from '@aazucena/visualizations';
 import { timelineData, paretoData, choroplethData } from './_mock-data';
 
 /**
@@ -58,9 +63,9 @@ export const Timeline: StoryObj<typeof InteractiveTimeline> = {
       data={timelineData}
       title="Career Journey"
       colorMap={{
-        career: '#3b82f6',
-        milestone: '#10b981',
-        project: '#f59e0b',
+        career: categorical[0],
+        milestone: categorical[1],
+        project: categorical[2],
       }}
     />
   ),
@@ -79,9 +84,9 @@ export const TimelineSwimLanes: StoryObj<typeof InteractiveTimeline> = {
       title="Career by Type"
       laneKey="type"
       colorMap={{
-        career: '#3b82f6',
-        milestone: '#10b981',
-        project: '#f59e0b',
+        career: categorical[0],
+        milestone: categorical[1],
+        project: categorical[2],
       }}
     />
   ),
@@ -99,9 +104,9 @@ export const TimelineWithPopup: StoryObj<typeof InteractiveTimeline> = {
       title="Career Journey"
       laneKey="type"
       colorMap={{
-        career: '#3b82f6',
-        milestone: '#10b981',
-        project: '#f59e0b',
+        career: categorical[0],
+        milestone: categorical[1],
+        project: categorical[2],
       }}
       hoverPopup={(event, pos) =>
         event && pos ? (
@@ -133,9 +138,9 @@ export const TimelineNoHeader: StoryObj<typeof InteractiveTimeline> = {
       hideHeader
       laneKey="type"
       colorMap={{
-        career: '#3b82f6',
-        milestone: '#10b981',
-        project: '#f59e0b',
+        career: categorical[0],
+        milestone: categorical[1],
+        project: categorical[2],
       }}
     />
   ),
@@ -197,7 +202,6 @@ function ChoroplethDemo() {
       geoJson={geoJson}
       title="Portfolio Visitors by Country"
       description="Geographic distribution of portfolio traffic (ISO 3166-1 numeric IDs)"
-      colors={['#e2e8f0', '#3b82f6']}
     />
   );
 }

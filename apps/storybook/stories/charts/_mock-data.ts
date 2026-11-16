@@ -20,6 +20,7 @@ import type {
   ParetoData,
 } from '@aazucena/types';
 import type { TimelineEvent } from '@aazucena/visualizations';
+import { categorical } from '@aazucena/visualizations';
 
 // ---------------------------------------------------------------------------
 // Standard Charts
@@ -35,11 +36,11 @@ export const barChartData: BarChartData[] = [
 ];
 
 export const pieChartData: PieChartData[] = [
-  { label: 'Frontend', value: 42, color: '#3b82f6' },
-  { label: 'Backend', value: 28, color: '#10b981' },
-  { label: 'DevOps', value: 12, color: '#f59e0b' },
-  { label: 'ML/AI', value: 10, color: '#8b5cf6' },
-  { label: 'Design', value: 8, color: '#ec4899' },
+  { label: 'Frontend', value: 42, color: categorical[0] },
+  { label: 'Backend', value: 28, color: categorical[1] },
+  { label: 'DevOps', value: 12, color: categorical[2] },
+  { label: 'ML/AI', value: 10, color: categorical[3] },
+  { label: 'Design', value: 8, color: categorical[4] },
 ];
 
 const months = [

@@ -7,6 +7,7 @@ import {
   ScatterPlot,
   BarPlot,
   RadialGauge,
+  categorical,
 } from '@aazucena/visualizations';
 import {
   barChartData,
@@ -52,13 +53,7 @@ export default meta;
 // ---------------------------------------------------------------------------
 
 export const Bar: StoryObj<typeof BarChart> = {
-  render: () => (
-    <BarChart
-      data={barChartData}
-      title="Language Proficiency"
-      color="var(--color-primary, #3b82f6)"
-    />
-  ),
+  render: () => <BarChart data={barChartData} title="Language Proficiency" />,
 };
 
 export const BarHorizontal: StoryObj<typeof BarChart> = {
@@ -77,9 +72,9 @@ export const Line: StoryObj<typeof LineChart> = {
       data={lineChartData}
       title="Commit Activity"
       colorMap={{
-        TypeScript: '#3178c6',
-        Python: '#3572a5',
-        Go: '#00add8',
+        TypeScript: categorical[0],
+        Python: categorical[1],
+        Go: categorical[2],
       }}
     />
   ),
@@ -117,10 +112,10 @@ export const Scatter: StoryObj<typeof ScatterPlot> = {
       xAxisLabel="Adoption (%)"
       yAxisLabel="Satisfaction (%)"
       colorMap={{
-        Frontend: '#3b82f6',
-        Backend: '#10b981',
-        DevOps: '#f59e0b',
-        ML: '#8b5cf6',
+        Frontend: categorical[0],
+        Backend: categorical[1],
+        DevOps: categorical[2],
+        ML: categorical[3],
       }}
     />
   ),
@@ -131,14 +126,7 @@ export const Scatter: StoryObj<typeof ScatterPlot> = {
 // ---------------------------------------------------------------------------
 
 export const Histogram: StoryObj<typeof BarPlot> = {
-  render: () => (
-    <BarPlot
-      data={barPlotData}
-      title="Score Distribution"
-      binCount={12}
-      color="var(--color-primary, #3b82f6)"
-    />
-  ),
+  render: () => <BarPlot data={barPlotData} title="Score Distribution" binCount={12} />,
 };
 
 // ---------------------------------------------------------------------------
@@ -148,7 +136,7 @@ export const Histogram: StoryObj<typeof BarPlot> = {
 export const Gauge: StoryObj<typeof RadialGauge> = {
   render: () => (
     <div className="flex items-center justify-center p-8">
-      <RadialGauge value={73} max={100} label="Performance" color="var(--color-primary, #3b82f6)" />
+      <RadialGauge value={73} max={100} label="Performance" />
     </div>
   ),
 };
@@ -156,7 +144,14 @@ export const Gauge: StoryObj<typeof RadialGauge> = {
 export const GaugeSmall: StoryObj<typeof RadialGauge> = {
   render: () => (
     <div className="flex items-center justify-center p-8">
-      <RadialGauge value={42} max={100} label="CPU" size={120} thickness={12} color="#10b981" />
+      <RadialGauge
+        value={42}
+        max={100}
+        label="CPU"
+        size={120}
+        thickness={12}
+        color={categorical[1]}
+      />
     </div>
   ),
 };
