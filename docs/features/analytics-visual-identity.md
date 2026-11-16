@@ -181,9 +181,20 @@ ratios.
 > | Logs         | Full-height console with level filters and ● / ◆ / ▲ markers                                                                            |
 > | Performance  | Core Web Vitals over good, needs-work and poor bands; error traces; service heartbeat tiles                                             |
 > | Status       | Public status page: overall banner, 90-day uptime bar per service                                                                       |
+> | Journey      | Master-detail: identities table (search, last active, engagement, top events) beside a session panel with timeline and inference        |
+> | Comms Inbox  | Mail client: transmissions list with status filters, message with an `AI_ANALYSIS` block and a reply composer                           |
+> | Easter Eggs  | Egg leaderboard bars, unlocks by trigger type, 30-day trend columns, recent unlocks feed                                                |
+> | Prompt IDE   | Prompt list beside an editor (Editor / Test lab tabs, persona and template fields, detected variables, token estimate)                  |
+> | Audio        | Five-KPI strip, Top Compositions table with completion bars, Genre Spectrum                                                             |
+> | Finance      | Three-KPI strip, weekly revenue columns stacked by provider (Stripe, Ko-fi), Recent Transactions table                                  |
+> | Settings     | The `AdminMenu` popover from the top bar: Live feed switch, Refresh all data, Clear AI history, Terminate session                       |
 >
 > Page titles use the app's own copy (`TRAFFIC_CENTER`, `TELEMETRY_STREAM`, `SYSTEM_INTEGRITY`, …).
-> Figma: Analytics page, dark and light frames.
+> Figma: Analytics page, dark and light frames. All 13 sidebar pages have frames (2026-11-15).
+>
+> **Decision (2026-11-15, frame check):** where a frame and the current code differ (Traffic KPIs and
+> region count, AI Terminal session panel, AI Costs budget panel, Performance vitals gauges), the Figma
+> frame is the target; Phase 4 brings the code in line.
 
 ---
 
