@@ -1,0 +1,12 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { UsageIndex } from '../../.storybook/usage/UsageIndex';
+
+<Meta title="Docs/Component Usage" />
+
+# Component Usage
+
+Storybook shows everything the library offers. This page shows what the analytics app and the portfolio use from it: every library module and how many files in each app import it. Each component's docs page lists those files under "Used in".
+
+The numbers come from the apps' source, scanned when Storybook starts, so they match the code it was built from. They count imports from `@aazucena/ui`, `@aazucena/visualizations`, `@aazucena/layouts` and `@aazucena/forms`. A component an app copied locally instead of importing doesn't count.
+
+<UsageIndex />

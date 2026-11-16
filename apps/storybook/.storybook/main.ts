@@ -4,6 +4,20 @@ import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-vite';
 import tailwindcss from '@tailwindcss/vite';
 import { INTERACTION_TEST_STORIES, VISUAL_TEST_STORIES } from './interaction-tests.ts';
+import { scanComponentUsage } from './usage/scan.ts';
+
+/** Serves where the apps use each component, scanned fresh on every start. */
+const componentUsage = () => {
+  const id = 'virtual:component-usage';
+  return {
+    name: 'avra-component-usage',
+    resolveId: (source: string) => (source === id ? '\0' + id : undefined),
+    load: (resolved: string) =>
+      resolved === '\0' + id
+        ? `export default ${JSON.stringify(scanComponentUsage(fileURLToPath(new URL('../../..', import.meta.url))))};`
+        : undefined,
+  };
+};
 
 // Under Vitest only the files a project runs are loaded (all 300+ at once OOMs):
 // STORYBOOK_VISUAL=1 → Argos screenshot set, otherwise the interaction tests.
@@ -44,6 +58,7 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     config.plugins = config.plugins || [];
     config.plugins.push(tailwindcss() as any);
+    config.plugins.push(componentUsage());
 
     // Define environment variables for browser compatibility
     config.define = config.define || {};

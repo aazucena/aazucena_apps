@@ -4,6 +4,7 @@ import { type Decorator, type Preview } from '@storybook/react-vite';
 import { useEffect, useRef } from 'react';
 import { docsThemeDark, docsThemeLight } from './theme';
 import { AvraDocsContainer } from './docs-container';
+import { AvraDocsPage } from './usage/docs-page';
 import { avraVersion } from './version.ts';
 import '../styles/globals.css';
 
@@ -98,6 +99,8 @@ const preview: Preview = {
       // Standalone MDX pages render no story, so decorators never run there.
       // The container applies light/dark + vibe to every docs page.
       container: AvraDocsContainer,
+      // Default autodocs blocks plus "Used in" (where the apps import the component)
+      page: AvraDocsPage,
       theme: initialMode === 'dark' ? docsThemeDark : docsThemeLight,
     },
 
@@ -130,6 +133,7 @@ const preview: Preview = {
             'Writing',
             'Internationalization',
             'Code Style',
+            'Component Usage',
             'Contributions Guideline',
             'Changelog',
           ],
