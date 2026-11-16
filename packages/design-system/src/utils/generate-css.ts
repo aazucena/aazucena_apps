@@ -10,6 +10,7 @@ import { transitions } from '../tokens/motion';
 import { density, motionTokens } from '../tokens/instrument';
 import type { SystemThemeConfig } from '@aazucena/types';
 import { deriveAliases } from './aliases';
+import { chartTheme } from '../tokens/chart';
 
 const toKebabCase = kebabCase;
 
@@ -99,6 +100,36 @@ export function generateStructuralCss(): string {
   css += '}\n';
   return css;
 }
+
+/**
+ * The color roles `chartTheme` references, in light (`:root`) and dark (`.dark`), with
+ * default-vibe values. For apps that render @aazucena/visualizations without loading
+ * the full css-vars.css; import it before the app's own variables so they win.
+ */
+export function generateChartCss(): string {
+  const names = [...new Set(JSON.stringify(chartTheme).match(/--[a-z0-9-]+/g) ?? [])].filter(
+    (name) => !STRUCTURAL_PREFIXES.some((p) => name.startsWith(p)),
+  );
+  const full = generateCssVariables('default');
+  const darkAt = full.indexOf('\n.dark {');
+  const pick = (block: string) =>
+    names
+      .map((name) => {
+        // Last declaration wins, as it would in the cascade
+        const values = [...block.matchAll(new RegExp(`^\\s*${name}: ([^;]+);`, 'gm'))];
+        const value = values.at(-1)?.[1];
+        // Lowercase so the committed file survives Prettier unchanged
+        return value ? `  ${name}: ${value.toLowerCase()};\n` : '';
+      })
+      .join('');
+  return (
+    '/* GENERATED from @aazucena/design-system (generateChartCss). Edit the tokens, not this file. */\n' +
+    `:root {\n${pick(full.slice(0, darkAt))}}\n\n.dark {\n${pick(full.slice(darkAt))}}\n`
+  );
+}
+
+/** Tokens structure.css already carries, so chart.css leaves them out. */
+const STRUCTURAL_PREFIXES = ['--z-', '--motion-', '--control-', '--radius-'];
 
 /**
  * Generates a CSS string containing :root and .dark variables.

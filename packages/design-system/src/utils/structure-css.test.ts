@@ -1,7 +1,8 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { generateCssVariables, generateStructuralCss } from './generate-css';
+import { generateChartCss, generateCssVariables, generateStructuralCss } from './generate-css';
+import { chartTheme } from '../tokens/chart';
 
 /**
  * `@aazucena/ui` components read stacking, density and motion tokens through `var()`.
@@ -57,6 +58,47 @@ describe('structural tokens', () => {
     const css = readFileSync(join(ROOT, file), 'utf8');
     expect(css).toMatch(
       /@import\s+['"]@aazucena\/(ui\/(structure|globals)\.css|design-system\/css-vars\.css)['"]/,
+    );
+  });
+});
+
+describe('chart color roles', () => {
+  const CHART_FILE = join(ROOT, 'packages/visualizations/src/chart.css');
+
+  it('keeps @aazucena/visualizations/chart.css equal to the generated roles', () => {
+    // Regenerate: pnpm --filter @aazucena/design-system ds:structure
+    expect(readFileSync(CHART_FILE, 'utf8')).toBe(generateChartCss());
+  });
+
+  it('defines every color role chartTheme references, light and dark', () => {
+    const css = generateChartCss();
+    const [light, dark] = css.split('.dark {');
+    const roles = (JSON.stringify(chartTheme).match(/--[a-z0-9-]+/g) ?? []).filter(
+      (n) => !/^--(z|motion|control|radius)-/.test(n),
+    );
+    expect(roles.length).toBeGreaterThan(20);
+    for (const role of roles) {
+      expect(light, role).toContain(`${role}:`);
+      expect(dark, role).toContain(`${role}:`);
+    }
+  });
+
+  it('uses the same values as css-vars.css', () => {
+    const full = generateCssVariables('default').toLowerCase();
+    const lines = generateChartCss()
+      .split('\n')
+      .filter((l) => l.trim().startsWith('--'));
+    expect(lines.filter((l) => !full.includes(l))).toEqual([]);
+  });
+
+  it.each([
+    ['portfolio', 'apps/portfolio/src/styles/globals.css'],
+    ['analytics', 'apps/analytics/src/styles/globals.css'],
+    ['storybook', 'apps/storybook/styles/globals.css'],
+  ])('%s loads the chart roles', (_app, file) => {
+    const css = readFileSync(join(ROOT, file), 'utf8');
+    expect(css).toMatch(
+      /@import\s+['"]@aazucena\/(visualizations\/chart|ui\/globals|design-system\/css-vars)\.css['"]/,
     );
   });
 });

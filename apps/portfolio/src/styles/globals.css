@@ -3,6 +3,9 @@
 /* Stacking, density and motion tokens that @aazucena/ui components read through var() */
 @import "@aazucena/ui/structure.css";
 
+/* Chart color roles @aazucena/visualizations reads through var(); before :root so the app's own variables win */
+@import "@aazucena/visualizations/chart.css";
+
 /* Scan @aazucena/* workspace packages for dynamically-generated Tailwind classes */
 @source "../../../../packages/utils/src";
 @source "../../../../packages/ui/src";

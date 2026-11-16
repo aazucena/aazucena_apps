@@ -8,7 +8,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./d3/*": "./src/d3/*.tsx",
-    "./intelligence/*": "./src/intelligence/*.tsx"
+    "./intelligence/*": "./src/intelligence/*.tsx",
+    "./chart.css": "./src/chart.css"
   },
   "scripts": {
     "lint": "eslint .",
@@ -18,6 +19,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@aazucena/design-system": "workspace:*",
     "@aazucena/types": "workspace:*",
     "@aazucena/utils": "workspace:*",
     "@radix-ui/react-slot": "^1.5.0",

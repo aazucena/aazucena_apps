@@ -1,0 +1,54 @@
+/* GENERATED from @aazucena/design-system (generateChartCss). Edit the tokens, not this file. */
+:root {
+  --series-1: #006584;
+  --series-2: #657900;
+  --series-3: #7a59c3;
+  --series-4: #af457e;
+  --chart-seq-1: #daf3fe;
+  --chart-seq-2: #aee1f6;
+  --chart-seq-3: #7acae9;
+  --chart-seq-4: #32a0c5;
+  --chart-seq-5: #006584;
+  --chart-div-low: #006584;
+  --chart-div-low-mid: #7acae9;
+  --chart-div-mid: #d7e6ec;
+  --chart-div-high-mid: #f8b09b;
+  --chart-div-high: #ac2f00;
+  --chart-grid: #c3d4dc;
+  --chart-axis: #49626e;
+  --panel: #f5fbfe;
+  --state: #e8f2f7;
+  --muted-foreground: #49626e;
+  --foreground: #0e1a20;
+  --alert: #ac2f00;
+  --signal: #006584;
+  --panel-raised: #fbfeff;
+  --rule: #c3d4dc;
+}
+
+.dark {
+  --series-1: #32a0c5;
+  --series-2: #889d37;
+  --series-3: #9b7be8;
+  --series-4: #d4679f;
+  --chart-seq-1: #0d3b4b;
+  --chart-seq-2: #0d556c;
+  --chart-seq-3: #1880a0;
+  --chart-seq-4: #32a0c5;
+  --chart-seq-5: #7acae9;
+  --chart-div-low: #32a0c5;
+  --chart-div-low-mid: #0d556c;
+  --chart-div-mid: #3d5a67;
+  --chart-div-high-mid: #ac2f00;
+  --chart-div-high: #ff7b54;
+  --chart-grid: #24404c;
+  --chart-axis: #7f9aa5;
+  --panel: #13232b;
+  --state: #24404c;
+  --muted-foreground: #7f9aa5;
+  --foreground: #d7e6ec;
+  --alert: #ff7b54;
+  --signal: #32a0c5;
+  --panel-raised: #192f38;
+  --rule: #24404c;
+}

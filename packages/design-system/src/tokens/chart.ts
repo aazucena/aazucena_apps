@@ -28,6 +28,8 @@ export const chartTheme = {
   axis: 'var(--chart-axis)',
   /** Separator between adjacent marks (slices, cells): the surface the chart sits on. */
   separator: 'var(--panel)',
+  /** Cell with no data (heatmap, map region): the state tone, distinct from the lowest ramp step. */
+  empty: 'var(--state)',
   label: 'var(--muted-foreground)',
   text: 'var(--foreground)',
   anomaly: 'var(--alert)',
