@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-
-const COOKIE_NAME = 'az_session';
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+import { SESSION_COOKIE, SESSION_EXP_COOKIE, writeSessionCookies } from '@/lib/session';
 
 export async function POST(req: NextRequest) {
   const { password } = await req.json();
@@ -18,20 +16,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'ACCESS_DENIED' }, { status: 401 });
   }
 
-  const cookieStore = await cookies();
-  cookieStore.set(COOKIE_NAME, process.env.ADMIN_SECRET, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    maxAge: COOKIE_MAX_AGE,
-    path: '/',
-  });
+  const expiresAt = writeSessionCookies(await cookies(), process.env.ADMIN_SECRET);
+  return NextResponse.json({ ok: true, expiresAt });
+}
 
-  return NextResponse.json({ ok: true });
+/** Renews a live session: only a request that still holds the valid cookie can extend it. */
+export async function PATCH() {
+  const cookieStore = await cookies();
+  const session = cookieStore.get(SESSION_COOKIE)?.value;
+
+  if (!process.env.ADMIN_SECRET || session !== process.env.ADMIN_SECRET) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const expiresAt = writeSessionCookies(cookieStore, process.env.ADMIN_SECRET);
+  return NextResponse.json({ ok: true, expiresAt });
 }
 
 export async function DELETE() {
   const cookieStore = await cookies();
-  cookieStore.delete(COOKIE_NAME);
+  cookieStore.delete(SESSION_COOKIE);
+  cookieStore.delete(SESSION_EXP_COOKIE);
   return NextResponse.json({ ok: true });
 }
