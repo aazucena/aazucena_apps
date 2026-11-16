@@ -235,3 +235,5 @@ Every story was measured again after both passes: all rules in light mode and co
 - **Structure.** A button nested in a button in the chat thread list, `role="listitem"` on a button in ListGroup, duplicate landmarks in Footer and Sidebar stories, three heading-order skips in stories.
 
 Two regressions the sweep caught were fixed the same day: a Meter with an empty label got an empty name, and the ChatImage button's name did not contain its visible text.
+
+A third pass the same day fixed what the re-measurement listed under names and structure: the eight unnamed icon buttons and four unlabelled fields in stories, missing image `alt` in the Showcase, Identity and ContentCard stories, the button nested in the chat thread button, `role="listitem"` on ListGroup buttons, and the chart range sliders. It also fixed a regression from the second pass: solid status fills in four form templates had kept `text-white` after moving to role colours (1.7 to 2.7:1). The 302 interaction tests pass with axe blocking. Not re-swept; what remains is the story-level contrast misses and the dependency markup above.
