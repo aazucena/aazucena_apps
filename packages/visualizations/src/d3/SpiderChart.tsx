@@ -226,6 +226,7 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
                   {allYears[0]}
                 </span>
                 <input
+                  aria-label="Year"
                   type="range"
                   min={allYears[0]}
                   max={allYears.at(-1)}

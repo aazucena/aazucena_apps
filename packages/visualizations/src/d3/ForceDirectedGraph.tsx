@@ -27,6 +27,7 @@ function SliderRow({ label, value, min, max, step = 1, onChange }: SliderRowProp
         <span className="font-mono">{value}</span>
       </div>
       <input
+        aria-label={label}
         type="range"
         min={min}
         max={max}

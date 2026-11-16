@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(forms)_ Solid role fills use their role foreground text
 - _(ui)_ No button inside the chat thread button; list group buttons sit in list items
 - _(ui)_ Empty meter labels fall back to a name; chat image named by its visible text
 - _(storybook)_ One main region and ordered headings in layout stories, with a skip link test
