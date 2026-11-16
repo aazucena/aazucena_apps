@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme } from '../theme';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
 
 export interface UseLineChartOptions {
@@ -90,7 +91,7 @@ export function useLineChart<T extends GenericTimeSeriesStep>(
       .attr('class', 'text-[10px] text-muted-foreground')
       .call(d3.axisLeft(y).ticks(5).tickSizeOuter(0));
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
 
     allKeys.forEach((key) => {
       if (!visibleKeys.has(key)) return;
@@ -122,7 +123,7 @@ export function useLineChart<T extends GenericTimeSeriesStep>(
           .attr('cy', (d) => y(Math.max(scaleType === 'log' ? 1 : 0, d.values[key] || 0)))
           .attr('r', 3)
           .attr('fill', color)
-          .attr('stroke', '#fff')
+          .attr('stroke', chartTheme.separator)
           .attr('stroke-width', 1);
       }
     });

@@ -29,7 +29,7 @@ export const ChartToolbar = forwardRef<HTMLDivElement, ChartToolbarProps>(
       <Comp ref={ref} className={cn('flex items-center gap-2 p-1', className)} {...props}>
         <div className="flex items-center gap-1">{children}</div>
 
-        <div className="h-4 w-px bg-border/50 mx-1" />
+        <div className="mx-1 h-4 w-px bg-(--rule)" />
 
         <ChartExportControl svgRef={svgRef} data={data} fileName={fileName} />
       </Comp>

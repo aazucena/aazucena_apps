@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme } from '../theme';
 import type { SpiderChartData } from '@aazucena/types';
 
 export interface UseSpiderChartOptions {
@@ -52,7 +53,7 @@ export function useSpiderChart<T extends SpiderChartData>(
       g.append('circle')
         .attr('r', r)
         .attr('fill', 'none')
-        .attr('stroke', '#e5e7eb')
+        .attr('stroke', chartTheme.grid)
         .attr('stroke-width', 1)
         .attr('stroke-dasharray', '4 4');
 
@@ -60,7 +61,7 @@ export function useSpiderChart<T extends SpiderChartData>(
       g.append('text')
         .attr('x', 5)
         .attr('y', -r)
-        .attr('fill', '#9ca3af')
+        .attr('fill', chartTheme.label)
         .attr('font-size', '10px')
         .text(Math.round((computedMax / TICKS) * i));
     }
@@ -76,7 +77,7 @@ export function useSpiderChart<T extends SpiderChartData>(
         .attr('y1', 0)
         .attr('x2', x)
         .attr('y2', y)
-        .attr('stroke', '#d1d5db')
+        .attr('stroke', chartTheme.grid)
         .attr('stroke-width', 1);
 
       const labelDist = radius + 25;
@@ -85,16 +86,14 @@ export function useSpiderChart<T extends SpiderChartData>(
         .attr('y', Math.sin(angle) * labelDist)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
-        .attr('fill', '#4b5563')
+        .attr('fill', chartTheme.label)
         .attr('font-size', '11px')
         .attr('font-weight', '600')
         .text(category);
     });
 
     // ── Color scale ───────────────────────────────────────────────────────────
-    const defaultColors = d3
-      .scaleOrdinal<string, string>(d3.schemeTableau10)
-      .domain(data.map((d) => d.name));
+    const defaultColors = categoricalScale(data.map((d) => d.name));
     const getColor = (name: string) => colorMap[name] || defaultColors(name);
 
     // ── Blobs ─────────────────────────────────────────────────────────────────
@@ -138,7 +137,7 @@ export function useSpiderChart<T extends SpiderChartData>(
           .attr('cy', cy)
           .attr('r', dotR)
           .attr('fill', color)
-          .attr('stroke', '#ffffff')
+          .attr('stroke', chartTheme.separator)
           .attr('stroke-width', 2)
           .style('cursor', 'pointer')
           .on('mouseenter', function () {
@@ -150,7 +149,7 @@ export function useSpiderChart<T extends SpiderChartData>(
               .attr('x', cx)
               .attr('y', cy - 14)
               .attr('text-anchor', 'middle')
-              .attr('fill', '#111827')
+              .attr('fill', chartTheme.text)
               .attr('font-size', '12px')
               .attr('font-weight', '700')
               .text(`${axisData.value} skills`);
@@ -190,7 +189,7 @@ export function useSpiderChart<T extends SpiderChartData>(
           .append('text')
           .attr('x', 22)
           .attr('y', 8)
-          .attr('fill', '#374151')
+          .attr('fill', chartTheme.text)
           .attr('font-size', '11px')
           .attr('font-weight', '600')
           .text(d.name);

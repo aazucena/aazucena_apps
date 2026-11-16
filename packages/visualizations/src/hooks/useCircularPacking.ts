@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme } from '../theme';
 import type { CircularPackingNode } from '@aazucena/types';
 
 export interface UseCircularPackingOptions {
@@ -31,7 +32,7 @@ export function useCircularPacking<T extends CircularPackingNode>(
 
     const packedData = pack(root);
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
     const getColor = (d: d3.HierarchyCircularNode<T>) => {
       const category = d.data.category || '';
       return colorMap[category] || defaultColors(category);
@@ -52,7 +53,7 @@ export function useCircularPacking<T extends CircularPackingNode>(
       .attr('r', (d) => d.r)
       .attr('fill', (d) => getColor(d))
       .attr('fill-opacity', (d) => (d.children ? 0.1 : 0.6))
-      .attr('stroke', (d) => (d.children ? 'none' : 'white'))
+      .attr('stroke', (d) => (d.children ? 'none' : chartTheme.separator))
       .attr('stroke-width', 1)
       .on('mouseenter', function () {
         d3.select(this).attr('fill-opacity', 0.8);

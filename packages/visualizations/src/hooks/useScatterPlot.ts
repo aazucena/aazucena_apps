@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme } from '../theme';
 import type { ScatterPlotPoint } from '@aazucena/types';
 
 export interface UseScatterPlotOptions {
@@ -65,7 +66,7 @@ export function useScatterPlot<T extends ScatterPlotPoint>(
       .attr('font-weight', 'bold')
       .text(yAxisLabel);
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
     const getColor = (d: T) => colorMap[d.category || ''] || defaultColors(d.category || 'default');
 
     // Draw Points
@@ -77,7 +78,7 @@ export function useScatterPlot<T extends ScatterPlotPoint>(
       .attr('r', (d) => d.r || 5)
       .attr('fill', getColor)
       .attr('opacity', 0.7)
-      .attr('stroke', '#fff')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 1)
       .style('cursor', onPointClick ? 'pointer' : 'default')
       .on('mouseenter', function (_e, d: T) {

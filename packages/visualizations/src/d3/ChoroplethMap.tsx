@@ -29,7 +29,7 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       title = 'Geospatial Analysis',
       description,
       height = 500,
-      colors = ['#e2e8f0', '#3b82f6'],
+      colors,
       exportFileName = 'choropleth-map',
       onRegionClick,
       className,

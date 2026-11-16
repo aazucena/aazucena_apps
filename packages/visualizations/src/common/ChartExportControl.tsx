@@ -7,6 +7,10 @@ import React, { useState, forwardRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { downloadSVG, downloadPNG, downloadCSV, cn } from '@aazucena/utils';
 import { Download, Image, Vector, File } from '@aazucena/icons';
+import { chartControl } from '../theme';
+
+const menuItemClass =
+  'flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-(--foreground) hover:bg-(--state) focus-visible:bg-(--state) focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-(--signal)';
 
 export interface ChartExportControlProps extends React.HTMLAttributes<HTMLDivElement> {
   svgRef: React.RefObject<SVGSVGElement | null>;
@@ -45,13 +49,22 @@ export const ChartExportControl = forwardRef<HTMLDivElement, ChartExportControlP
     };
 
     return (
-      <Comp ref={ref} className={cn('relative', className)} {...props}>
+      <Comp
+        ref={ref}
+        className={cn('relative', className)}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === 'Escape') setIsOpen(false);
+        }}
+        {...props}
+      >
         <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-600 dark:text-zinc-300 hover:bg-white dark:hover:bg-zinc-700 transition-all shadow-sm"
-          title="Export Visualization"
+          aria-expanded={isOpen}
+          className={cn(chartControl, 'border border-(--rule) px-2.5')}
+          title="Export visualization"
         >
-          <Download size={14} strokeWidth={2.5} />
+          <Download size={14} aria-hidden="true" />
           Export
         </button>
 
@@ -62,27 +75,18 @@ export const ChartExportControl = forwardRef<HTMLDivElement, ChartExportControlP
               onClick={() => setIsOpen(false)}
               role="presentation"
             />
-            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 rounded-xl shadow-xl border border-zinc-100 dark:border-zinc-700 py-2 z-20 animate-in fade-in zoom-in-95 duration-100">
-              <button
-                onClick={handleDownloadPNG}
-                className="w-full text-left px-4 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700 flex items-center gap-2 transition-colors"
-              >
-                <Image size={14} />
+            <div className="absolute right-0 z-20 mt-1 w-48 rounded-[var(--radius-control,4px)] border border-(--rule) bg-(--panel-raised) py-1">
+              <button type="button" onClick={handleDownloadPNG} className={menuItemClass}>
+                <Image size={14} aria-hidden="true" />
                 Download as PNG
               </button>
-              <button
-                onClick={handleDownloadSVG}
-                className="w-full text-left px-4 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700 flex items-center gap-2 transition-colors"
-              >
-                <Vector size={14} />
+              <button type="button" onClick={handleDownloadSVG} className={menuItemClass}>
+                <Vector size={14} aria-hidden="true" />
                 Download as SVG
               </button>
               {data && (
-                <button
-                  onClick={handleDownloadCSV}
-                  className="w-full text-left px-4 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700 flex items-center gap-2 transition-colors"
-                >
-                  <File size={14} />
+                <button type="button" onClick={handleDownloadCSV} className={menuItemClass}>
+                  <File size={14} aria-hidden="true" />
                   Download Data (CSV)
                 </button>
               )}

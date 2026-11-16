@@ -9,6 +9,7 @@ import {
 } from '../common/ChartContainer';
 import { ChartToolbar } from '../common/ChartToolbar';
 import { useAreaChart } from '../hooks/useAreaChart';
+import { chartTheme } from '../theme';
 
 export interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: AreaChartPoint[];
@@ -29,7 +30,7 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
       title = 'Area Analysis',
       description,
       height = 400,
-      color = 'var(--color-primary, #3b82f6)',
+      color = chartTheme.series[0],
       fillOpacity = 0.3,
       headerOffset = 80,
       exportFileName = 'area-chart',

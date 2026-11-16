@@ -65,10 +65,10 @@ export const NeuralMap = forwardRef<HTMLDivElement, NeuralMapProps>(
                       size={16}
                       className={
                         isFailed
-                          ? 'text-rose-500'
+                          ? 'text-(--alert)'
                           : i < currentStepIndex
-                            ? 'text-emerald-500'
-                            : 'text-zinc-300 dark:text-zinc-800'
+                            ? 'text-(--success)'
+                            : 'text-(--rule-strong)'
                       }
                     />
                   </div>

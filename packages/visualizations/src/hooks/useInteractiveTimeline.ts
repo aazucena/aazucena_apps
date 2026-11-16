@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme, labelOn } from '../theme';
 import type { TimelineEvent } from '../d3/InteractiveTimeline';
 
 export interface UseInteractiveTimelineOptions {
@@ -45,7 +46,7 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
     const getColor = (d: T) => {
       const lane = String((d as any)[laneKey] || '');
       return colorMap[lane] || defaultColors(lane);
@@ -111,17 +112,6 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
     }
 
     // ── SVG setup ─────────────────────────────────────────────────────────────
-    // Define gradient for the center line
-    const defs = svg.append('defs');
-    const grad = defs
-      .append('linearGradient')
-      .attr('id', 'timeline-line-gradient')
-      .attr('x1', '0%')
-      .attr('x2', '100%');
-    grad.append('stop').attr('offset', '0%').attr('stop-color', '#3b82f6');
-    grad.append('stop').attr('offset', '50%').attr('stop-color', '#a855f7');
-    grad.append('stop').attr('offset', '100%').attr('stop-color', '#ec4899');
-
     const mainGroup = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
     const centerY = innerHeight / 2;
@@ -139,7 +129,7 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
       )
       .call((g) => g.select('.domain').remove())
       .selectAll('text')
-      .attr('fill', '#94a3b8')
+      .attr('fill', chartTheme.label)
       .attr('font-size', '11px')
       .attr('font-weight', '600');
 
@@ -152,7 +142,7 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
         .attr('y1', 0)
         .attr('x2', todayX)
         .attr('y2', innerHeight)
-        .attr('stroke', '#94a3b8')
+        .attr('stroke', chartTheme.axis)
         .attr('stroke-width', 1)
         .attr('stroke-dasharray', '4 4');
       mainGroup
@@ -160,7 +150,7 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
         .attr('x', todayX)
         .attr('y', -10)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#94a3b8')
+        .attr('fill', chartTheme.label)
         .attr('font-size', '10px')
         .attr('font-weight', 'bold')
         .text('TODAY');
@@ -173,7 +163,7 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
       .attr('y1', centerY)
       .attr('x2', innerWidth)
       .attr('y2', centerY)
-      .attr('stroke', 'url(#timeline-line-gradient)')
+      .attr('stroke', chartTheme.axis)
       .attr('stroke-width', 4)
       .attr('stroke-linecap', 'round');
 
@@ -216,7 +206,7 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
       .append('circle')
       .attr('r', 14)
       .attr('fill', (d) => getColor(d as T))
-      .attr('stroke', '#ffffff')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 4);
 
     // ── Avatar: logo image (44×44 circle) ────────────────────────────────────
@@ -236,9 +226,9 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
           .append('xhtml:div')
           .attr(
             'class',
-            'w-full h-full rounded-full flex items-center justify-center overflow-hidden border-2 border-white shadow-md',
+            'w-full h-full rounded-full flex items-center justify-center overflow-hidden border-2 border-(--panel)',
           )
-          .style('background-color', getColor(d as T) + '22')
+          .style('background-color', `color-mix(in oklch, ${getColor(d as T)} 15%, transparent)`)
           .append('xhtml:img')
           .attr('src', d.avatarUrl!)
           .attr('alt', d.avatarAlt || d.name)
@@ -264,9 +254,10 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
           .append('xhtml:div')
           .attr(
             'class',
-            'w-full h-full rounded-full flex items-center justify-center border-2 border-white shadow-md font-bold text-sm text-white',
+            'w-full h-full rounded-full flex items-center justify-center border-2 border-(--panel) font-bold text-sm',
           )
           .style('background-color', getColor(d as T))
+          .style('color', labelOn(getColor(d as T)))
           .text(initials);
       });
 
@@ -276,7 +267,7 @@ export function useInteractiveTimeline<T extends TimelineEvent>(
       .append('text')
       .attr('y', (d) => (d.yOffset >= 0 ? 95 : -95))
       .attr('text-anchor', 'middle')
-      .attr('fill', '#94a3b8')
+      .attr('fill', chartTheme.label)
       .attr('font-size', '11px')
       .attr('font-weight', '700')
       .text((d) => d.subtitle!);

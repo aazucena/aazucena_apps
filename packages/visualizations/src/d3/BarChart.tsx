@@ -11,6 +11,7 @@ import {
 import { ChartToolbar } from '../common/ChartToolbar';
 import { useBarChart } from '../hooks/useBarChart';
 import { Zap } from '@aazucena/icons';
+import { chartControl, chartControlOn, chartMicro, chartTheme } from '../theme';
 
 export interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: BarChartData[];
@@ -33,7 +34,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
       title = 'Comparison',
       description,
       height = 400,
-      color = 'var(--color-primary, #3b82f6)',
+      color = chartTheme.series[0],
       horizontal: initialHorizontal = false,
       racing: initialRacing = false,
       headerOffset = 80,
@@ -93,28 +94,30 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
             </div>
             <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName}>
               <button
+                type="button"
                 onClick={toggleSort}
-                className="px-2 py-1 rounded md hover:bg-white/10 text-[10px] font-bold uppercase transition-colors"
+                className={cn(chartControl, chartMicro, 'px-2')}
                 title="Toggle Sorting (None/Value/Label)"
               >
                 Sort: {sortType}
               </button>
               <button
+                type="button"
                 onClick={() => setHorizontal(!horizontal)}
-                className="px-2 py-1 rounded md hover:bg-white/10 text-[10px] font-bold uppercase transition-colors"
+                className={cn(chartControl, chartMicro, 'px-2')}
                 title="Toggle Orientation"
               >
                 {horizontal ? 'Vertical' : 'Horizontal'}
               </button>
               <button
+                type="button"
                 onClick={() => setRacing(!racing)}
-                className={cn(
-                  'p-1 rounded md transition-colors',
-                  racing ? 'bg-primary/20 text-primary' : 'hover:bg-white/10',
-                )}
+                aria-pressed={racing}
+                aria-label="Toggle Racing Animation"
+                className={cn(chartControl, racing && chartControlOn)}
                 title="Toggle Racing Animation"
               >
-                <Zap size={14} />
+                <Zap size={14} aria-hidden="true" />
               </button>
             </ChartToolbar>
           </ChartHeader>

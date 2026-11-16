@@ -1,6 +1,7 @@
 import React, { forwardRef, useRef } from 'react';
 import { cn } from '@aazucena/utils';
 import { useRadialGauge } from '../hooks/useRadialGauge';
+import { chartTheme } from '../theme';
 
 export interface RadialGaugeProps extends React.SVGAttributes<SVGSVGElement> {
   /** Current value (0 to max) */
@@ -23,7 +24,7 @@ export const RadialGauge = forwardRef<SVGSVGElement, RadialGaugeProps>(
       value,
       max = 100,
       label,
-      color = 'var(--color-primary, #3b82f6)',
+      color = chartTheme.series[0],
       size = 200,
       thickness = 20,
       className,

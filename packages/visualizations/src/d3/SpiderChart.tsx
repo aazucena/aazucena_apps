@@ -1,5 +1,6 @@
 import React, { forwardRef, useRef, useState, useEffect } from 'react';
 import type { SpiderChartData } from '@aazucena/types';
+import { cn } from '@aazucena/utils';
 import {
   ChartContainer,
   ChartHeader,
@@ -9,6 +10,7 @@ import {
 } from '../common/ChartContainer';
 import { ChartToolbar } from '../common/ChartToolbar';
 import { useSpiderChart } from '../hooks/useSpiderChart';
+import { chartControl, chartControlOn } from '../theme';
 
 export interface SpiderChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: SpiderChartData[];
@@ -148,15 +150,19 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
               <div className="flex gap-2">
                 <button
                   onClick={animateYears}
-                  disabled={isAnimating && false /* toggle allowed */}
-                  className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-all ${
-                    isAnimating
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'bg-blue-600 text-white shadow-md hover:bg-blue-700 hover:shadow-lg active:scale-95'
-                  }`}
+                  type="button"
+                  aria-pressed={isAnimating}
+                  className={cn(
+                    chartControl,
+                    'bg-(--signal) px-3 text-(--panel) hover:bg-(--signal) hover:opacity-90',
+                  )}
                 >
                   {isAnimating ? (
-                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4 motion-safe:animate-spin"
+                      viewBox="0 0 24 24"
+                    >
                       <circle
                         className="opacity-25"
                         cx="12"
@@ -173,6 +179,7 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
                     </svg>
                   ) : (
                     <svg
+                      aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="14"
                       height="14"
@@ -191,13 +198,16 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
                     setIsAnimating(false);
                   }}
                   disabled={isAnimating}
-                  className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all ${
-                    showComparison
-                      ? 'border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
-                      : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800'
-                  }`}
+                  type="button"
+                  aria-pressed={showComparison}
+                  className={cn(
+                    chartControl,
+                    'border border-(--rule) px-3 disabled:cursor-not-allowed disabled:text-(--muted-foreground)',
+                    showComparison && chartControlOn,
+                  )}
                 >
                   <svg
+                    aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="14"
                     height="14"
@@ -218,11 +228,10 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
 
               {/* Slider row — fades when compare is active */}
               <div
-                className={`flex w-full flex-1 items-center gap-3 transition-opacity duration-300 sm:w-auto ${
-                  showComparison ? 'pointer-events-none opacity-30' : 'opacity-100'
-                }`}
+                className="flex w-full flex-1 items-center gap-3 sm:w-auto"
+                hidden={showComparison}
               >
-                <span className="w-10 text-right text-[10px] font-bold text-gray-400">
+                <span className="w-10 text-right font-mono text-[10px] text-(--muted-foreground)">
                   {allYears[0]}
                 </span>
                 <input
@@ -234,15 +243,17 @@ export const SpiderChart = forwardRef<HTMLDivElement, SpiderChartProps>(
                   value={currentYear}
                   disabled={isAnimating || showComparison}
                   onChange={(e) => setCurrentYear(Number(e.target.value))}
-                  className="h-1.5 flex-1 cursor-pointer appearance-none rounded-lg bg-gray-200 accent-blue-600 dark:bg-gray-700"
+                  className="h-1.5 flex-1 cursor-pointer accent-(--signal)"
                 />
-                <span className="w-10 text-[10px] font-bold text-gray-400">{allYears.at(-1)}</span>
+                <span className="w-10 font-mono text-[10px] text-(--muted-foreground)">
+                  {allYears.at(-1)}
+                </span>
               </div>
 
               {/* Current year badge — hidden in compare mode */}
               {!showComparison && (
-                <div className="rounded-md border border-blue-100 bg-blue-50 px-3 py-1 dark:border-blue-800 dark:bg-blue-900/30">
-                  <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                <div className="rounded-[var(--radius-control,4px)] border border-(--rule) px-3 py-1">
+                  <span className="font-mono text-lg tabular-nums text-(--signal)">
                     {currentYear}
                   </span>
                 </div>

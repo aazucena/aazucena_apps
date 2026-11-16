@@ -98,20 +98,20 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       return (
         <div ref={ref} className={className} {...props}>
           {header}
-          <div className="grid grid-cols-1 gap-1 rounded-3xl bg-gray-50 lg:grid-cols-4 dark:bg-gray-900">
+          <div className="grid grid-cols-1 overflow-hidden rounded-[var(--radius-card,6px)] bg-(--panel) lg:grid-cols-4">
             {/* Heatmap — 3/4 width */}
             <div ref={containerRef} className="relative p-4 lg:col-span-3">
               <svg
                 ref={svgRef}
                 width={width}
                 height={svgHeight}
-                className="w-full text-gray-900 dark:text-gray-100"
+                className="w-full text-(--foreground)"
               />
             </div>
 
             {/* Info panel — 1/4 width */}
             <div className="flex h-full flex-col lg:col-span-1">
-              <div className="flex h-full flex-col rounded-3xl border border-gray-100 bg-white/50 p-6 shadow-sm dark:border-gray-800">
+              <div className="flex h-full flex-col border-t border-(--rule) p-(--panel-padding) lg:border-t-0 lg:border-l">
                 {infoPanel(hoveredCell)}
               </div>
             </div>

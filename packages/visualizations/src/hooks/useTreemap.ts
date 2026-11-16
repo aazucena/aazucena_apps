@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, labelOn } from '../theme';
 import type { TreemapNode } from '@aazucena/types';
 
 export interface UseTreemapOptions {
@@ -26,7 +27,8 @@ export function useTreemap<T extends TreemapNode>(
 
     d3.treemap<any>().size([width, height]).padding(4)(root);
 
-    const color = d3.scaleOrdinal(d3.schemeTableau10);
+    const color = categoricalScale();
+    const fillOf = (d: any): string => color(d.parent?.data.name || d.data.name);
 
     const leaf = svg
       .selectAll('g')
@@ -39,7 +41,7 @@ export function useTreemap<T extends TreemapNode>(
       .append('rect')
       .attr('width', (d: any) => d.x1 - d.x0)
       .attr('height', (d: any) => d.y1 - d.y0)
-      .attr('fill', (d: any) => color(d.parent?.data.name || d.data.name))
+      .attr('fill', (d: any) => fillOf(d))
       .attr('rx', 4)
       .style('cursor', onNodeClick ? 'pointer' : 'default')
       .on('click', (_e, d) => onNodeClick?.(d.data as T));
@@ -48,7 +50,7 @@ export function useTreemap<T extends TreemapNode>(
       .append('text')
       .attr('x', 5)
       .attr('y', 15)
-      .attr('fill', '#fff')
+      .attr('fill', (d: any) => labelOn(fillOf(d)))
       .style('font-size', '10px')
       .style('font-weight', 'bold')
       .text((d: any) => d.data.name);

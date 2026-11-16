@@ -9,6 +9,7 @@ import {
 } from '../common/ChartContainer';
 import { ChartToolbar } from '../common/ChartToolbar';
 import { useBarPlot } from '../hooks/useBarPlot';
+import { chartTheme } from '../theme';
 
 export interface BarPlotProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GenericPoint[];
@@ -27,7 +28,7 @@ export const BarPlot = forwardRef<HTMLDivElement, BarPlotProps>(
       title = 'Distribution Analysis',
       description,
       height = 400,
-      color = 'var(--color-primary, #3b82f6)',
+      color = chartTheme.series[0],
       binCount = 20,
       exportFileName = 'bar-plot',
       className,

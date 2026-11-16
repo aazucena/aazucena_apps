@@ -24,15 +24,14 @@ import {
 import { cn } from '@aazucena/utils';
 
 const nodeVariants = cva(
-  'w-14 h-14 rounded-2xl border-2 flex items-center justify-center transition-colors shadow-xl',
+  'flex size-14 items-center justify-center rounded-[var(--radius-card,6px)] border transition-colors',
   {
     variants: {
       state: {
-        default:
-          'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-300 dark:text-zinc-800',
-        active: 'bg-primary-500/10 border-primary-500 shadow-primary-500/20',
-        completed: 'bg-emerald-500/10 border-emerald-500',
-        failed: 'bg-rose-500/10 border-rose-500 shadow-rose-500/20',
+        default: 'border-(--rule) bg-(--panel) text-(--muted-foreground)',
+        active: 'border-(--signal) bg-(--state)',
+        completed: 'border-(--success) bg-(--panel)',
+        failed: 'border-2 border-(--alert) bg-(--panel)',
       },
     },
     defaultVariants: {
@@ -42,14 +41,14 @@ const nodeVariants = cva(
 );
 
 const labelVariants = cva(
-  'text-[9px] font-black uppercase tracking-widest text-center max-w-[80px] leading-tight',
+  'max-w-[80px] text-center font-mono text-[9px] leading-tight uppercase tracking-[0.12em]',
   {
     variants: {
       state: {
-        default: 'text-zinc-500',
-        active: 'text-primary-500',
-        completed: 'text-zinc-500',
-        failed: 'text-rose-500',
+        default: 'text-(--muted-foreground)',
+        active: 'text-(--signal)',
+        completed: 'text-(--muted-foreground)',
+        failed: 'text-(--alert)',
       },
     },
     defaultVariants: {
@@ -136,14 +135,17 @@ export const NeuralNode = forwardRef<HTMLDivElement, NeuralNodeProps>(
           <Icon
             size={20}
             className={cn(
-              state === 'active' && 'text-primary-500',
-              state === 'failed' && 'text-rose-500',
-              state === 'completed' && 'text-emerald-500',
-              state === 'default' && 'text-zinc-400 dark:text-zinc-600',
+              state === 'active' && 'text-(--signal)',
+              state === 'failed' && 'text-(--alert)',
+              state === 'completed' && 'text-(--success)',
+              state === 'default' && 'text-(--muted-foreground)',
             )}
           />
         </motion.div>
-        <span className={cn(labelVariants({ state }))}>{label.replace('_', ' ')}</span>
+        <span className={cn(labelVariants({ state }))}>
+          {state === 'failed' && <span aria-hidden="true">▲ </span>}
+          {label.replace('_', ' ')}
+        </span>
       </div>
     );
   },

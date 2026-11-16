@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { chartTheme, sequentialScale } from '../theme';
 import type { MapRegion } from '@aazucena/types';
 
 export interface UseChoroplethMapOptions {
   width: number;
   height: number;
-  colors: [string, string];
+  /** Low → high colors to interpolate. Omit for the binned sequential ramp. */
+  colors?: [string, string];
   onRegionClick?: (region: any) => void;
 }
 
@@ -31,10 +33,10 @@ export function useChoroplethMap(
 
     const path = d3.geoPath().projection(projection);
 
-    const colorScale = d3
-      .scaleLinear<string>()
-      .domain([0, d3.max(data, (d) => d.value) || 100])
-      .range(colors);
+    const max = d3.max(data, (d) => d.value) || 100;
+    const colorScale = colors
+      ? d3.scaleLinear<string>().domain([0, max]).range(colors)
+      : sequentialScale([0, max]);
 
     // Create a map for fast lookup
     const dataMap = new Map(data.map((d) => [d.id, d]));
@@ -47,9 +49,9 @@ export function useChoroplethMap(
       .attr('d', path as any)
       .attr('fill', (d: any) => {
         const regionData = dataMap.get(d.id);
-        return regionData ? colorScale(regionData.value) : '#f1f5f9';
+        return regionData ? colorScale(regionData.value) : chartTheme.empty;
       })
-      .attr('stroke', '#fff')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 0.5)
       .style('cursor', onRegionClick ? 'pointer' : 'default')
       .on('mouseenter', function () {

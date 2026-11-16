@@ -9,6 +9,7 @@ import {
 } from '../common/ChartContainer';
 import { ChartToolbar } from '../common/ChartToolbar';
 import { useDendrogram } from '../hooks/useDendrogram';
+import { chartTheme } from '../theme';
 
 export interface DendrogramProps extends React.HTMLAttributes<HTMLDivElement> {
   data: DendrogramNode;
@@ -29,7 +30,7 @@ export const Dendrogram = forwardRef<HTMLDivElement, DendrogramProps>(
       description,
       height = 600,
       direction = 'horizontal',
-      color = 'var(--color-primary, #3b82f6)',
+      color = chartTheme.series[0],
       exportFileName = 'dendrogram',
       onNodeClick,
       className,

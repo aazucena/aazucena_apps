@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme, chartTooltip } from '../theme';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
 import type { BaseNode, BaseLink } from '@aazucena/types';
 
@@ -54,27 +55,13 @@ export function useSankeyDiagram<TNode extends BaseNode, TLink extends BaseLink<
       links,
     });
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
     const getColor = (d: any) => {
       const groupValue = String(d[groupKey] || '');
       return colorMap[groupValue] || defaultColors(groupValue);
     };
 
-    const tooltip = d3
-      .select('body')
-      .selectAll('.viz-tooltip')
-      .data([0])
-      .join('div')
-      .attr('class', 'viz-tooltip')
-      .style('position', 'absolute')
-      .style('background', 'rgba(0,0,0,0.85)')
-      .style('color', '#fff')
-      .style('padding', '8px 12px')
-      .style('border-radius', '8px')
-      .style('font-size', '11px')
-      .style('pointer-events', 'none')
-      .style('opacity', 0)
-      .style('z-index', 100);
+    const tooltip = chartTooltip('viz-tooltip');
 
     g.append('g')
       .attr('fill', 'none')
@@ -86,7 +73,6 @@ export function useSankeyDiagram<TNode extends BaseNode, TLink extends BaseLink<
       .attr('d', sankeyLinkHorizontal())
       .attr('stroke', (d: any) => getColor(d.source))
       .attr('stroke-width', (d: any) => Math.max(1, d.width || 0))
-      .style('mix-blend-mode', 'multiply')
       .on('mouseenter', function (event, d: any) {
         d3.select(this).attr('stroke-opacity', 0.5);
         tooltip
@@ -112,7 +98,7 @@ export function useSankeyDiagram<TNode extends BaseNode, TLink extends BaseLink<
       .attr('width', (d: any) => d.x1 - d.x0)
       .attr('fill', (d: any) => getColor(d))
       .attr('rx', 4)
-      .attr('stroke', '#fff')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 0.5)
       .style('cursor', onNodeClick ? 'pointer' : 'default')
       .on('click', (_event, d: any) => {

@@ -9,6 +9,8 @@ import {
 } from '../common/ChartContainer';
 import { ChartToolbar } from '../common/ChartToolbar';
 import { useForceDirectedGraph } from '../hooks/useForceDirectedGraph';
+import { categorical, chartControl, chartControlOn, chartTheme } from '../theme';
+import { cn } from '@aazucena/utils';
 
 interface SliderRowProps {
   label: string;
@@ -34,7 +36,7 @@ function SliderRow({ label, value, min, max, step = 1, onChange }: SliderRowProp
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-blue-500"
+        className="w-full accent-(--signal)"
       />
     </div>
   );
@@ -126,23 +128,10 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
       const seen = new Set<string>();
       const entries: { label: string; color: string }[] = [];
       const defaultColors = (label: string) => {
-        // Deterministic color from schemeTableau10
-        const palette = [
-          '#4e79a7',
-          '#f28e2b',
-          '#e15759',
-          '#76b7b2',
-          '#59a14f',
-          '#edc948',
-          '#b07aa1',
-          '#ff9da7',
-          '#9c755f',
-          '#bab0ac',
-        ];
         const all = data.nodes.map((n) => String(n[groupKey as keyof BaseNode] || ''));
         const unique = [...new Set(all)];
         const idx = unique.indexOf(label);
-        return palette[idx % palette.length] ?? '#94a3b8';
+        return categorical[idx % categorical.length] ?? chartTheme.axis;
       };
       for (const node of data.nodes) {
         const group = String(node[groupKey as keyof BaseNode] || '');
@@ -179,11 +168,19 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
             {showPhysicsControls && (
               <>
                 <button
+                  type="button"
                   onClick={() => setShowControls((v) => !v)}
                   title="Physics controls"
-                  className="absolute top-3 left-3 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 text-base shadow-md transition hover:bg-white dark:bg-gray-900/90 dark:hover:bg-gray-900"
+                  aria-label="Physics controls"
+                  aria-expanded={showControls}
+                  className={cn(
+                    chartControl,
+                    'absolute top-3 left-3 z-10 border border-(--rule) bg-(--panel)',
+                    showControls && chartControlOn,
+                  )}
                 >
                   <svg
+                    aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="18"
                     height="18"
@@ -194,7 +191,9 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className={
-                      showControls ? 'rotate-90 transition-transform' : 'transition-transform'
+                      showControls
+                        ? 'rotate-90 motion-safe:transition-transform'
+                        : 'motion-safe:transition-transform'
                     }
                   >
                     <circle cx="12" cy="12" r="3" />
@@ -203,8 +202,8 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
                 </button>
 
                 {showControls && (
-                  <div className="absolute top-14 left-3 z-10 w-56 rounded-xl border border-gray-100 bg-white/95 p-4 shadow-xl backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95">
-                    <p className="mb-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  <div className="absolute top-14 left-3 z-10 w-56 rounded-[var(--radius-card,6px)] border border-(--rule) bg-(--panel-raised) p-4">
+                    <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-(--muted-foreground)">
                       Physics
                     </p>
                     <div className="flex flex-col gap-3">
@@ -233,12 +232,13 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
                       />
                     </div>
                     <button
+                      type="button"
                       onClick={() => {
                         setChargeStrength(DEFAULTS.chargeStrength);
                         setLinkDistance(DEFAULTS.linkDistance);
                         setCollisionRadius(DEFAULTS.collisionRadius);
                       }}
-                      className="mt-3 w-full rounded-lg bg-gray-100 py-1.5 text-[10px] font-semibold text-gray-600 transition hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                      className={cn(chartControl, 'mt-3 w-full border border-(--rule)')}
                     >
                       Reset Defaults
                     </button>
@@ -253,13 +253,12 @@ export const ForceDirectedGraph = forwardRef<HTMLDivElement, ForceDirectedGraphP
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 px-4 pt-3 pb-1">
               {legendEntries.map(({ label, color }) => (
                 <div key={label} className="flex items-center gap-1.5">
-                  <div
-                    className="h-2.5 w-2.5 flex-shrink-0 rounded-full"
+                  <span
+                    aria-hidden="true"
+                    className="size-2.5 shrink-0 rounded-full"
                     style={{ backgroundColor: color }}
                   />
-                  <span className="text-[11px] font-medium text-gray-600 dark:text-gray-400">
-                    {label}
-                  </span>
+                  <span className="text-[11px] text-(--muted-foreground)">{label}</span>
                 </div>
               ))}
             </div>

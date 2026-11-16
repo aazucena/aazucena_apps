@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme, labelOn } from '../theme';
 import type { PieChartData } from '@aazucena/types';
 
 export interface UsePieChartOptions {
@@ -23,7 +24,8 @@ export function usePieChart<T extends PieChartData>(
     const radius = Math.min(width, height) / 2 - 40;
     const g = svg.append('g').attr('transform', `translate(${width / 2},${height / 2})`);
 
-    const color = d3.scaleOrdinal(d3.schemeTableau10);
+    const color = categoricalScale();
+    const fillOf = (d: T) => d.color || color(d.label);
 
     const pie = d3.pie<T>().value((d) => d.value);
     const arc = d3.arc<d3.PieArcDatum<T>>().innerRadius(innerRadius).outerRadius(radius);
@@ -33,8 +35,8 @@ export function usePieChart<T extends PieChartData>(
     arcs
       .append('path')
       .attr('d', arc)
-      .attr('fill', (d) => d.data.color || color(d.data.label))
-      .attr('stroke', '#fff')
+      .attr('fill', (d) => fillOf(d.data))
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 2)
       .style('cursor', onSliceClick ? 'pointer' : 'default')
       .on('click', (_e, d) => onSliceClick?.(d.data));
@@ -43,7 +45,7 @@ export function usePieChart<T extends PieChartData>(
       .append('text')
       .attr('transform', (d) => `translate(${arc.centroid(d)})`)
       .attr('text-anchor', 'middle')
-      .attr('fill', '#fff')
+      .attr('fill', (d) => labelOn(fillOf(d.data)))
       .style('font-size', '10px')
       .style('font-weight', 'bold')
       .text((d) => (d.data.value > 5 ? d.data.label : ''));

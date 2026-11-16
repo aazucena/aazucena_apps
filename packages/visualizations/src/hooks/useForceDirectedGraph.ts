@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTheme } from '../theme';
 import type { BaseNode, BaseLink } from '@aazucena/types';
 
 /**
@@ -57,7 +58,7 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
       target: d.target,
     })) as any;
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
     const getColor = (d: TNode) => {
       const groupValue = String(d[groupKey as keyof TNode] || '');
       return colorMap[groupValue] || defaultColors(groupValue);
@@ -104,11 +105,11 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
       const tgtId = typeof l.target === 'string' ? l.target : (l.target as any)?.id;
       const srcNode = data.nodes.find((n) => n.id === srcId);
       const tgtNode = data.nodes.find((n) => n.id === tgtId);
-      if (!srcNode || !tgtNode) return '#94a3b8';
+      if (!srcNode || !tgtNode) return chartTheme.axis;
       const srcGroup = String(srcNode[groupKey as keyof TNode] || '');
       const tgtGroup = String(tgtNode[groupKey as keyof TNode] || '');
       if (srcGroup === tgtGroup) return colorMap[srcGroup] || defaultColors(srcGroup);
-      return '#94a3b8';
+      return chartTheme.axis;
     };
 
     const link = g
@@ -156,7 +157,7 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
       .append('circle')
       .attr('r', (d) => 6 + Math.sqrt((d as any).size || (d as any).value || 1) * 4)
       .attr('fill', (d) => getColor(d))
-      .attr('stroke', '#ffffff')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 2);
 
     // Hover: expand, highlight connected links/nodes, fade unconnected
@@ -212,7 +213,7 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
       .attr('y', (d) => -(9 + Math.sqrt((d as any).size || (d as any).value || 1) * 4))
       .attr('font-size', '11px')
       .attr('font-weight', '600')
-      .attr('stroke', '#ffffff')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 3)
       .attr('stroke-linejoin', 'round')
       .attr('pointer-events', 'none')
@@ -227,7 +228,7 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
       .attr('y', (d) => -(9 + Math.sqrt((d as any).size || (d as any).value || 1) * 4))
       .attr('font-size', '11px')
       .attr('font-weight', '600')
-      .attr('fill', '#1f2937')
+      .attr('fill', chartTheme.text)
       .attr('pointer-events', 'none')
       .text((d) => d.name);
 
@@ -266,7 +267,7 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
 
     if (!highlightIds || highlightIds.size === 0) {
       nodeGroups.style('opacity', 1);
-      nodeGroups.select('circle').attr('stroke', '#ffffff').attr('stroke-width', 2);
+      nodeGroups.select('circle').attr('stroke', chartTheme.separator).attr('stroke-width', 2);
       return;
     }
 
@@ -278,9 +279,9 @@ export function useForceDirectedGraph<TNode extends BaseNode, TLink extends Base
         .style('opacity', isMatch ? 1 : 0.1);
       d3.select(this)
         .select('circle')
+        .attr('stroke', isMatch ? chartTheme.highlight : chartTheme.separator)
         .transition()
         .duration(300)
-        .attr('stroke', isMatch ? '#3b82f6' : '#ffffff')
         .attr('stroke-width', isMatch ? 4 : 2);
     });
   }, [svgRef, highlightIds]);

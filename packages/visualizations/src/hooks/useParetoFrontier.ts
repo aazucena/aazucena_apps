@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { chartTheme } from '../theme';
 import type { ParetoData, GenericPoint } from '@aazucena/types';
 
 export interface UseParetoFrontierOptions {
@@ -84,7 +85,7 @@ export function useParetoFrontier<T extends GenericPoint>(
     g.append('path')
       .datum(frontierPoints)
       .attr('fill', 'none')
-      .attr('stroke', 'var(--color-primary, #3b82f6)')
+      .attr('stroke', chartTheme.series[0])
       .attr('stroke-width', 2)
       .attr('stroke-dasharray', '4,4')
       .attr('d', line);
@@ -97,8 +98,8 @@ export function useParetoFrontier<T extends GenericPoint>(
       .attr('cx', (d) => x(d.x))
       .attr('cy', (d) => y(d.y))
       .attr('r', 6)
-      .attr('fill', 'var(--color-primary, #3b82f6)')
-      .attr('stroke', '#fff')
+      .attr('fill', chartTheme.series[0])
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 2)
       .style('cursor', onPointClick ? 'pointer' : 'default')
       .on('click', (_event, d) => onPointClick?.(d))

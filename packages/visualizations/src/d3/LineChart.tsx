@@ -1,5 +1,5 @@
 import React, { forwardRef, useRef, useState, useEffect, useMemo } from 'react';
-import * as d3 from 'd3';
+import { categoricalScale, chartControl, chartControlOn, chartMicro } from '../theme';
 import { cn } from '@aazucena/utils';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
 import {
@@ -84,7 +84,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
       allKeys,
     });
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
 
     return (
       <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
@@ -96,38 +96,41 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
             </div>
             <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName}>
               <button
+                type="button"
                 onClick={() => setShowGrid(!showGrid)}
-                className={cn(
-                  'p-1 rounded md transition-colors',
-                  showGrid ? 'bg-primary/20 text-primary' : 'hover:bg-white/10',
-                )}
+                aria-pressed={showGrid}
+                aria-label="Toggle Grid"
+                className={cn(chartControl, showGrid && chartControlOn)}
                 title="Toggle Grid"
               >
-                <Activity size={14} />
+                <Activity size={14} aria-hidden="true" />
               </button>
               <button
+                type="button"
                 onClick={() => setShowPoints(!showPoints)}
-                className={cn(
-                  'p-1 rounded md transition-colors',
-                  showPoints ? 'bg-primary/20 text-primary' : 'hover:bg-white/10',
-                )}
+                aria-pressed={showPoints}
+                aria-label="Toggle Points"
+                className={cn(chartControl, showPoints && chartControlOn)}
                 title="Toggle Points"
               >
-                <Dots size={14} />
+                <Dots size={14} aria-hidden="true" />
               </button>
               <button
+                type="button"
                 onClick={() => setScaleType(scaleType === 'linear' ? 'log' : 'linear')}
-                className="px-2 py-1 rounded md hover:bg-white/10 text-[10px] font-bold uppercase transition-colors"
+                className={cn(chartControl, chartMicro, 'px-2')}
                 title="Toggle Linear/Log Scale"
               >
                 {scaleType}
               </button>
               <button
+                type="button"
                 onClick={resetVisibility}
-                className="p-1 rounded md hover:bg-white/10 transition-colors"
+                aria-label="Reset View"
+                className={chartControl}
                 title="Reset View"
               >
-                <Refresh size={14} />
+                <Refresh size={14} aria-hidden="true" />
               </button>
             </ChartToolbar>
           </ChartHeader>
@@ -146,17 +149,28 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
               {allKeys.map((key) => (
                 <button
                   key={key}
+                  type="button"
                   onClick={() => toggleKey(key)}
+                  aria-pressed={visibleKeys.has(key)}
                   className={cn(
-                    'flex items-center gap-2 transition-all duration-200 group/item',
-                    !visibleKeys.has(key) && 'opacity-30 grayscale',
+                    chartControl,
+                    chartMicro,
+                    'px-2',
+                    // Hidden series: hollow swatch and muted text, never a dimmed label
+                    !visibleKeys.has(key) && 'text-(--muted-foreground) line-through',
                   )}
                 >
-                  <div
-                    className="w-3 h-3 rounded-full shadow-sm group-hover/item:scale-125 transition-transform"
-                    style={{ backgroundColor: colorMap[key] || defaultColors(key) }}
+                  <span
+                    aria-hidden="true"
+                    className="size-2.5 rounded-full border-2"
+                    style={{
+                      borderColor: colorMap[key] || defaultColors(key),
+                      backgroundColor: visibleKeys.has(key)
+                        ? colorMap[key] || defaultColors(key)
+                        : 'transparent',
+                    }}
                   />
-                  <span className="text-[10px] font-black uppercase tracking-widest">{key}</span>
+                  {key}
                 </button>
               ))}
             </div>

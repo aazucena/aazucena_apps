@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { chartTheme, sequentialScale } from '../theme';
 import { Info } from 'luxon';
 import type { GenericHeatmapCell } from '@aazucena/types';
 
@@ -52,7 +53,7 @@ export function useHeatmap<T extends GenericHeatmapCell>(
     const xOffset = Math.max(0, (innerWidth - gridWidth) / 2);
 
     const maxCount = d3.max(data, (d) => d.value) || 1;
-    const colorScale = d3.scaleSequential(d3.interpolateBlues).domain([0, maxCount]);
+    const colorScale = sequentialScale([0, maxCount]);
 
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
@@ -106,7 +107,7 @@ export function useHeatmap<T extends GenericHeatmapCell>(
     });
 
     const getRectColor = (cell: GridCell) => {
-      if (!cell.data || cell.data.value === 0) return '#f3f4f6';
+      if (!cell.data || cell.data.value === 0) return chartTheme.empty;
       const cat = cell.data.category;
       if (cat && colorMap[cat]) return colorMap[cat];
       return colorScale(cell.data.value);
@@ -125,8 +126,9 @@ export function useHeatmap<T extends GenericHeatmapCell>(
       .attr('height', Math.max(1, cellSize - 2))
       .attr('rx', Math.max(2, cellSize * 0.08))
       .attr('fill', getRectColor)
-      .attr('stroke', '#e5e7eb')
-      .attr('stroke-width', 0.5)
+      // A grid outline keeps empty and lowest-step cells visible on the panel
+      .attr('stroke', chartTheme.grid)
+      .attr('stroke-width', 1)
       .style('cursor', (d) => (d.data && onCellClick ? 'pointer' : 'default'));
 
     // Tooltips
@@ -140,11 +142,11 @@ export function useHeatmap<T extends GenericHeatmapCell>(
       rects
         .on('mouseenter', function (_event, d) {
           if (!d.data || d.data.value === 0) return;
-          d3.select(this).attr('stroke', '#3b82f6').attr('stroke-width', 2);
+          d3.select(this).attr('stroke', chartTheme.highlight).attr('stroke-width', 2);
           onCellHover?.(d.data);
         })
         .on('mouseleave', function (_event, d) {
-          d3.select(this).attr('stroke', '#e5e7eb').attr('stroke-width', 0.5);
+          d3.select(this).attr('stroke', chartTheme.grid).attr('stroke-width', 1);
           if (d.data && d.data.value > 0) onCellHover?.(null);
         })
         .on('click', (_event, d) => {

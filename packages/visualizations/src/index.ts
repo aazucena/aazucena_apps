@@ -24,6 +24,9 @@ export * from './d3/ChoroplethMap';
 export * from './d3/AreaChart';
 export * from './d3/BarPlot';
 
+// Theme: chart color roles and the shared tooltip
+export * from './theme';
+
 // Common
 export * from './common/ChartContainer';
 export * from './common/ChartToolbar';

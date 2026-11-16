@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale } from '../theme';
 import cloud from 'd3-cloud';
 import type { WordCloudData } from '@aazucena/types';
 
@@ -30,14 +31,14 @@ export function useWordCloud<T extends WordCloudData>(
       .domain([d3.min(data, (d) => d.value) || 0, d3.max(data, (d) => d.value) || 0])
       .range([minFontSize, maxFontSize]);
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10);
+    const defaultColors = categoricalScale();
 
     const layout = cloud<T>()
       .size([width, height])
       .words(data.map((d) => ({ ...d })))
       .padding(5)
       .rotate(() => (Math.random() > 0.5 ? 0 : 90))
-      .font('Impact')
+      .font('Fira Sans')
       .fontSize((d) => fontScale(d.value!))
       .on('end', (words) => {
         g.selectAll('text')
@@ -45,7 +46,7 @@ export function useWordCloud<T extends WordCloudData>(
           .enter()
           .append('text')
           .style('font-size', (d: any) => `${d.size}px`)
-          .style('font-family', 'Impact')
+          .style('font-family', "'Fira Sans', sans-serif")
           .style('fill', (d: any) => colorMap[d.category || ''] || defaultColors(d.text))
           .attr('text-anchor', 'middle')
           .attr('transform', (d: any) => `translate(${d.x},${d.y})rotate(${d.rotate})`)

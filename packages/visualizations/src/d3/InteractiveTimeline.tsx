@@ -3,6 +3,8 @@ import * as d3 from 'd3';
 import type { BaseNode } from '@aazucena/types';
 import { ChartContainer } from '../common/ChartContainer';
 import { useInteractiveTimeline } from '../hooks/useInteractiveTimeline';
+import { categorical, chartControl, chartControlOn } from '../theme';
+import { cn } from '@aazucena/utils';
 
 export interface TimelineEvent extends BaseNode {
   date: Date | string;
@@ -57,9 +59,11 @@ function ZoomBtn({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       title={title}
-      className="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 bg-white text-sm font-bold text-gray-600 shadow-md transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+      aria-label={title}
+      className={cn(chartControl, 'border border-(--rule) bg-(--panel) font-mono')}
     >
       {children}
     </button>
@@ -170,12 +174,14 @@ export const InteractiveTimeline = forwardRef<HTMLDivElement, InteractiveTimelin
               {['all', ...laneValues].map((v) => (
                 <button
                   key={v}
+                  type="button"
                   onClick={() => setActiveFilter(v)}
-                  className={`rounded-xl px-4 py-1.5 text-xs font-bold transition-all capitalize ${
-                    activeFilter === v
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700'
-                  }`}
+                  aria-pressed={activeFilter === v}
+                  className={cn(
+                    chartControl,
+                    'border border-(--rule) px-3 capitalize',
+                    activeFilter === v && chartControlOn,
+                  )}
                 >
                   {v === 'all' ? 'All' : v}
                 </button>
@@ -219,13 +225,15 @@ export const InteractiveTimeline = forwardRef<HTMLDivElement, InteractiveTimelin
             <div className="flex flex-wrap justify-center gap-6 px-4 pb-4 pt-2">
               {laneValues.map((v) => {
                 const color =
-                  colorMap[v] || d3.schemeTableau10[laneValues.indexOf(v) % 10] || '#94a3b8';
+                  colorMap[v] ?? categorical[laneValues.indexOf(v) % categorical.length];
                 return (
                   <div key={v} className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
-                    <span className="text-xs font-medium capitalize text-gray-600 dark:text-gray-400">
-                      {v}
-                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="size-2.5 rounded-full"
+                      style={{ backgroundColor: color }}
+                    />
+                    <span className="text-xs capitalize text-(--muted-foreground)">{v}</span>
                   </div>
                 );
               })}

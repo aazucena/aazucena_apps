@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { chartTheme } from '../theme';
 import type { DendrogramNode } from '@aazucena/types';
 
 export interface UseDendrogramOptions {
@@ -89,7 +90,7 @@ export function useDendrogram<T extends DendrogramNode>(
       .append('circle')
       .attr('r', 4)
       .attr('fill', color)
-      .attr('stroke', '#fff')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 1.5)
       .style('cursor', onNodeClick ? 'pointer' : 'default')
       .on('click', (_e, d) => onNodeClick?.(d.data as T));
@@ -111,7 +112,7 @@ export function useDendrogram<T extends DendrogramNode>(
       .attr('fill', 'currentColor')
       .clone(true)
       .lower()
-      .attr('stroke', 'var(--color-background, #fff)')
+      .attr('stroke', chartTheme.separator)
       .attr('stroke-width', 3);
   }, [svgRef, data, width, height, direction, color, onNodeClick]);
 }

@@ -17,7 +17,7 @@ export const ChartContainer = forwardRef<HTMLDivElement, ChartContainerProps>(
       <Comp
         ref={ref}
         className={cn(
-          'group relative flex flex-col w-full bg-accent/5 rounded-[2rem] border border-border/50 overflow-hidden transition-all hover:bg-accent/10 hover:border-border',
+          'group relative flex w-full flex-col overflow-hidden rounded-[var(--radius-card,6px)] bg-(--panel) text-(--foreground)',
           className,
         )}
         {...props}
@@ -36,7 +36,7 @@ export const ChartHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
     <div
       ref={ref}
       className={cn(
-        'flex items-center justify-between px-6 py-4 border-b border-border/10',
+        'flex min-h-(--panel-header) items-center justify-between gap-3 border-b border-(--rule) px-(--panel-padding) py-2',
         className,
       )}
       {...props}
@@ -54,7 +54,10 @@ export const ChartTitle = forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn('text-sm font-bold tracking-tight uppercase', className)}
+    className={cn(
+      'font-mono text-[10px] leading-[14px] font-normal tracking-[0.2em] uppercase text-(--muted-foreground)',
+      className,
+    )}
     {...props}
   />
 ));
@@ -67,11 +70,7 @@ export const ChartDescription = forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn('text-[10px] text-muted-foreground font-medium', className)}
-    {...props}
-  />
+  <p ref={ref} className={cn('text-xs text-(--muted-foreground)', className)} {...props} />
 ));
 ChartDescription.displayName = 'ChartDescription';
 
@@ -81,7 +80,11 @@ ChartDescription.displayName = 'ChartDescription';
  */
 export const ChartContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('relative flex-1 min-h-0 w-full p-4', className)} {...props} />
+    <div
+      ref={ref}
+      className={cn('relative min-h-0 w-full flex-1 p-(--panel-padding)', className)}
+      {...props}
+    />
   ),
 );
 ChartContent.displayName = 'ChartContent';
@@ -94,7 +97,7 @@ export const ChartFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('px-6 py-4 border-t border-border/10 bg-accent/5', className)}
+      className={cn('border-t border-(--rule) px-(--panel-padding) py-3', className)}
       {...props}
     />
   ),

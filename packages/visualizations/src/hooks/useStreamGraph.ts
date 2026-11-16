@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTooltip, chartTheme } from '../theme';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
 
 export interface UseStreamGraphOptions {
@@ -61,25 +62,11 @@ export function useStreamGraph<T extends GenericTimeSeriesStep>(
       .y1((d) => y(d[1]))
       .curve(d3.curveBasis);
 
-    const defaultColors = d3.scaleOrdinal(d3.schemeTableau10).domain(keys);
+    const defaultColors = categoricalScale(keys);
     const getColor = (key: string) => colorMap[key] || defaultColors(key);
 
     // Tooltip
-    const tooltip = d3
-      .select('body')
-      .selectAll('.stream-viz-tooltip')
-      .data([0])
-      .join('div')
-      .attr('class', 'stream-viz-tooltip')
-      .style('position', 'absolute')
-      .style('background', 'rgba(0,0,0,0.8)')
-      .style('color', '#fff')
-      .style('padding', '6px 10px')
-      .style('border-radius', '6px')
-      .style('font-size', '12px')
-      .style('pointer-events', 'none')
-      .style('opacity', 0)
-      .style('z-index', 100);
+    const tooltip = chartTooltip('stream-viz-tooltip');
 
     // Stream layers
     g.selectAll('.stream-layer')
@@ -118,7 +105,7 @@ export function useStreamGraph<T extends GenericTimeSeriesStep>(
       )
       .call((ax) => ax.select('.domain').remove())
       .selectAll('text')
-      .attr('fill', '#94a3b8')
+      .attr('fill', chartTheme.label)
       .attr('font-size', '11px');
 
     // SVG legend — drawn below the x-axis within the bottom margin

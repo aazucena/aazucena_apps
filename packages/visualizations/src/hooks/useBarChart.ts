@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
+import { categoricalScale, chartTooltip } from '../theme';
 import type { BarChartData } from '@aazucena/types';
 
 export interface UseBarChartOptions {
@@ -40,23 +41,9 @@ export function useBarChart<T extends BarChartData>(
     }
 
     const t = d3.transition().duration(750).ease(d3.easeCubicOut);
-    const colorScale = d3.scaleOrdinal(d3.schemeTableau10);
+    const colorScale = categoricalScale();
 
-    const tooltip = d3
-      .select('body')
-      .selectAll('.viz-tooltip')
-      .data([0])
-      .join('div')
-      .attr('class', 'viz-tooltip')
-      .style('position', 'absolute')
-      .style('background', 'rgba(0,0,0,0.85)')
-      .style('color', '#fff')
-      .style('padding', '8px 12px')
-      .style('border-radius', '8px')
-      .style('font-size', '11px')
-      .style('pointer-events', 'none')
-      .style('opacity', 0)
-      .style('z-index', 100);
+    const tooltip = chartTooltip('viz-tooltip');
 
     if (horizontal) {
       const x = d3
@@ -104,11 +91,13 @@ export function useBarChart<T extends BarChartData>(
               .attr('width', 0)
               .remove(),
         )
+        // Fill is set outright: CSS var() colors can't be tweened, and D3 would
+        // interpolate the digits inside the variable name.
+        .attr('fill', (d) => (racing ? colorScale(d.label) : color))
         .transition(t as any)
         .attr('y', (d) => y(d.label) || 0)
         .attr('width', (d) => x(d.value))
-        .attr('height', y.bandwidth())
-        .attr('fill', (d) => (racing ? colorScale(d.label) : color));
+        .attr('height', y.bandwidth());
     } else {
       const x = d3
         .scaleBand()
