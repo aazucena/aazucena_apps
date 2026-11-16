@@ -19,9 +19,9 @@ export interface NPSFormProps {
 }
 
 function getScoreColor(score: number): string {
-  if (score >= 9) return 'border-success bg-success text-white';
-  if (score >= 7) return 'border-warning bg-warning text-white';
-  return 'border-alert bg-alert text-white';
+  if (score >= 9) return 'border-success bg-success text-success-foreground';
+  if (score >= 7) return 'border-warning bg-warning text-warning-foreground';
+  return 'border-alert bg-alert text-alert-foreground';
 }
 
 function getScoreInactiveColor(score: number): string {

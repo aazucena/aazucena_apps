@@ -21,17 +21,17 @@ export interface FeatureFlagFormProps {
 const ENV_CONFIG = {
   dev: {
     label: 'Dev',
-    activeClass: 'border-success bg-success text-white',
+    activeClass: 'border-success bg-success text-success-foreground',
     hoverClass: 'border-green-200 text-green-700 hover:border-success',
   },
   staging: {
     label: 'Staging',
-    activeClass: 'border-warning bg-warning text-white',
+    activeClass: 'border-warning bg-warning text-warning-foreground',
     hoverClass: 'border-amber-200 text-amber-700 hover:border-warning',
   },
   prod: {
     label: 'Prod',
-    activeClass: 'border-alert bg-alert text-white',
+    activeClass: 'border-alert bg-alert text-alert-foreground',
     hoverClass: 'border-red-200 text-alert hover:border-alert',
   },
 } as const;

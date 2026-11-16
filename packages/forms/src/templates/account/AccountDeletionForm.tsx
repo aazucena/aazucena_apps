@@ -107,7 +107,7 @@ export function AccountDeletionForm({
                     className={cn(
                       'flex h-4 w-4 shrink-0 items-center justify-center rounded-full border text-[10px]',
                       field.state.value === opt.value
-                        ? 'border-destructive bg-destructive text-white'
+                        ? 'border-destructive bg-destructive text-destructive-foreground'
                         : 'border-muted-foreground',
                     )}
                   >

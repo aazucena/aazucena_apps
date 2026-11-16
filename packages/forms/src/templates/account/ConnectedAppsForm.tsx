@@ -19,12 +19,12 @@ export interface ConnectedAppsFormProps {
 }
 
 const PROVIDER_OPTIONS = [
-  { value: 'google', label: 'Google', color: 'bg-alert' },
+  { value: 'google', label: 'Google', color: 'bg-alert text-alert-foreground' },
   { value: 'github', label: 'GitHub', color: 'bg-zinc-800' },
   { value: 'slack', label: 'Slack', color: 'bg-purple-500' },
   { value: 'notion', label: 'Notion', color: 'bg-zinc-900' },
   { value: 'linear', label: 'Linear', color: 'bg-indigo-500' },
-  { value: 'jira', label: 'Jira', color: 'bg-signal' },
+  { value: 'jira', label: 'Jira', color: 'bg-signal text-signal-foreground' },
   { value: 'figma', label: 'Figma', color: 'bg-pink-500' },
 ] as const;
 

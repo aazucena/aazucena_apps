@@ -79,7 +79,7 @@ export function DeploymentTriggerForm({
                       'flex flex-col items-center gap-1 rounded-md border px-2 py-3 text-xs font-medium transition-all',
                       isActive
                         ? isProd
-                          ? 'border-alert bg-alert text-white'
+                          ? 'border-alert bg-alert text-alert-foreground'
                           : 'border-primary bg-primary text-primary-foreground'
                         : isProd
                           ? 'border-red-200 text-alert hover:border-alert'
@@ -88,9 +88,7 @@ export function DeploymentTriggerForm({
                   >
                     <span className="text-base">{config.icon}</span>
                     <span>{config.label}</span>
-                    <span className={cn('text-[10px] opacity-70', isActive && 'opacity-90')}>
-                      {config.description}
-                    </span>
+                    <span className="text-[10px]">{config.description}</span>
                   </button>
                 );
               })}
