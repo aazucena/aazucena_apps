@@ -62,24 +62,47 @@ export interface ListGroupItemProps
 
 const ListGroupItem = React.forwardRef<HTMLElement, ListGroupItemProps>(
   ({ className, variant, active, icon, action, asButton, children, ...props }, ref) => {
-    const Component = (asButton ? 'button' : 'div') as any;
-    return (
-      <Component
-        ref={ref}
-        role="listitem"
-        tabIndex={asButton ? 0 : undefined}
-        type={asButton ? 'button' : undefined}
-        className={cn(
-          listGroupItemVariants({ variant, active }),
-          asButton && 'w-full cursor-pointer text-left',
-          className,
+    const content = (
+      <>
+        {icon && (
+          <span aria-hidden="true" className="shrink-0 [&_svg]:size-4">
+            {icon}
+          </span>
         )}
-        {...props}
-      >
-        {icon && <span className="shrink-0 [&_svg]:size-4">{icon}</span>}
         <span className="flex-1">{children}</span>
         {action && <span className="shrink-0">{action}</span>}
-      </Component>
+      </>
+    );
+    // A list item cannot also be a button, so a clickable item is a button
+    // inside the list item.
+    if (asButton) {
+      return (
+        <div role="listitem" className="border-b [border-color:inherit] last:border-b-0">
+          <button
+            ref={ref as React.Ref<HTMLButtonElement>}
+            type="button"
+            aria-current={active ? 'true' : undefined}
+            className={cn(
+              listGroupItemVariants({ variant, active }),
+              'focus-visible:outline-signal w-full cursor-pointer border-b-0 text-left focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
+              className,
+            )}
+            {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+          >
+            {content}
+          </button>
+        </div>
+      );
+    }
+    return (
+      <div
+        ref={ref as React.Ref<HTMLDivElement>}
+        role="listitem"
+        className={cn(listGroupItemVariants({ variant, active }), className)}
+        {...props}
+      >
+        {content}
+      </div>
     );
   },
 );

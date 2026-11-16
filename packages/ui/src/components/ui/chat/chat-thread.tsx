@@ -50,15 +50,32 @@ export const chatThreadVariants = cva(
 export const ChatThread = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof chatThreadVariants>
->(({ className, variant, isActive, ...props }, ref) => (
-  <div className="group/thread relative">
-    <button
-      ref={ref}
-      className={cn(chatThreadVariants({ variant, isActive }), className)}
-      {...props}
-    />
-  </div>
-));
+>(({ className, variant, isActive, children, ...props }, ref) => {
+  // A button cannot contain another button, so a ChatThreadAction passed as a
+  // child is rendered beside the thread button, positioned over its right edge.
+  const isAction = (child: React.ReactNode) =>
+    React.isValidElement(child) &&
+    (child.type as { displayName?: string }).displayName === 'ChatThreadAction';
+  const items = React.Children.toArray(children);
+  return (
+    <div role="listitem" className="group/thread relative">
+      <button
+        ref={ref}
+        type="button"
+        aria-current={isActive ? 'true' : undefined}
+        className={cn(
+          chatThreadVariants({ variant, isActive }),
+          'focus-visible:outline-signal focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-solid',
+          className,
+        )}
+        {...props}
+      >
+        {items.filter((c) => !isAction(c))}
+      </button>
+      {items.filter(isAction)}
+    </div>
+  );
+});
 ChatThread.displayName = 'ChatThread';
 
 export const ChatThreadIcon = React.forwardRef<
@@ -115,7 +132,7 @@ export const ChatThreadMeta = React.forwardRef<
 ChatThreadMeta.displayName = 'ChatThreadMeta';
 
 export const chatThreadActionVariants = cva(
-  'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-card transition z-20 opacity-0 group-hover/thread:opacity-100 border focus:opacity-100',
+  'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-card transition z-20 opacity-0 group-hover/thread:opacity-100 group-focus-within/thread:opacity-100 border focus:opacity-100',
   {
     variants: {
       variant: {
