@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReduxStoreProvider } from '@/store';
@@ -40,23 +41,25 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <TelemetryProvider config={telemetryConfig}>
-      <ReduxStoreProvider>
-        <QueryClientProvider client={queryClient}>
-          <SocketProvider>
-            <ConfirmationProvider>
-              <SocketListener />
-              <NewFormWatcher />
-              {children}
-              <Toaster richColors closeButton />
-            </ConfirmationProvider>
-          </SocketProvider>
-          {/* DevTools: only bundled and rendered in development */}
-          {process.env.NODE_ENV === 'development' && (
-            <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
-          )}
-        </QueryClientProvider>
-      </ReduxStoreProvider>
-    </TelemetryProvider>
+    <MotionConfig reducedMotion="user">
+      <TelemetryProvider config={telemetryConfig}>
+        <ReduxStoreProvider>
+          <QueryClientProvider client={queryClient}>
+            <SocketProvider>
+              <ConfirmationProvider>
+                <SocketListener />
+                <NewFormWatcher />
+                {children}
+                <Toaster richColors closeButton />
+              </ConfirmationProvider>
+            </SocketProvider>
+            {/* DevTools: only bundled and rendered in development */}
+            {process.env.NODE_ENV === 'development' && (
+              <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
+            )}
+          </QueryClientProvider>
+        </ReduxStoreProvider>
+      </TelemetryProvider>
+    </MotionConfig>
   );
 }
