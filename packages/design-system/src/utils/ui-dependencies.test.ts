@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 
 /**
@@ -18,15 +19,21 @@ function sourceFiles(dir: string): string[] {
   });
 }
 
-// Statement-anchored forms only, so a package name inside a comment or string never counts
-const PATTERNS = [
-  /^\s*import\s[^'"]*?from\s*['"]([^'"]+)['"]/gm,
-  /^\s*import\s*['"]([^'"]+)['"]/gm,
-  /\bimport\(\s*['"]([^'"]+)['"]\s*\)/g,
-  /^\s*export\s[^'"]*?from\s*['"]([^'"]+)['"]/gm,
-  /^\s*@import\s+['"]([^'"]+)['"]/gm,
-  /^\s*@plugin\s+['"]([^'"]+)['"]/gm,
-];
+// CSS has no parser here, so its two forms are matched at the start of a line, outside comments
+const CSS_PATTERNS = [/^\s*@import\s+['"]([^'"]+)['"]/gm, /^\s*@plugin\s+['"]([^'"]+)['"]/gm];
+
+/**
+ * Module specifiers a file imports. TypeScript's own pre-processor reads .ts/.tsx, so imports,
+ * re-exports and import() count, and import-like text in comments or template strings doesn't.
+ */
+function specifiers(file: string): string[] {
+  const text = readFileSync(file, 'utf8');
+  if (file.endsWith('.css')) {
+    const code = text.replace(/\/\*[\s\S]*?\*\//g, '');
+    return CSS_PATTERNS.flatMap((p) => [...code.matchAll(p)].map((m) => m[1]!));
+  }
+  return ts.preProcessFile(text, true, true).importedFiles.map((f) => f.fileName);
+}
 
 function packageName(spec: string): string | null {
   if (spec.startsWith('.') || spec.startsWith('/') || spec.startsWith('node:')) return null;
@@ -38,17 +45,11 @@ function packageName(spec: string): string | null {
 export function bareImports(dir: string): Map<string, Set<string>> {
   const found = new Map<string, Set<string>>();
   for (const file of sourceFiles(dir)) {
-    const src = readFileSync(file, 'utf8')
-      .split('\n')
-      .filter((line) => !/^\s*(\/\/|\/?\*)/.test(line))
-      .join('\n');
-    for (const pattern of PATTERNS) {
-      for (const match of src.matchAll(pattern)) {
-        const name = packageName(match[1]!);
-        if (!name) continue;
-        if (!found.has(name)) found.set(name, new Set());
-        found.get(name)!.add(file.slice(dir.length + 1));
-      }
+    for (const spec of specifiers(file)) {
+      const name = packageName(spec);
+      if (!name) continue;
+      if (!found.has(name)) found.set(name, new Set());
+      found.get(name)!.add(file.slice(dir.length + 1));
     }
   }
   return found;
@@ -77,7 +78,8 @@ describe('@aazucena/ui dependencies', () => {
   ])('%s animates with tw-animate-css', (file) => {
     const css = readFileSync(join(ROOT, file), 'utf8');
     expect(css).not.toMatch(/@plugin\s+['"]tailwindcss-animate['"]/);
-    expect(css).toMatch(/@import\s+['"]tw-animate-css['"]/);
+    // tw-animate-css builds on Tailwind's layers, so it has to come right after tailwindcss
+    expect(css).toMatch(/@import\s+['"]tailwindcss['"];\s*@import\s+['"]tw-animate-css['"]/);
   });
 
   it('declares react and react-dom as peers, not dependencies', () => {
