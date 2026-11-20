@@ -19,6 +19,10 @@ export interface ChoroplethMapProps extends React.HTMLAttributes<HTMLDivElement>
   colors?: [string, string];
   exportFileName?: string;
   onRegionClick?: (region: MapRegion) => void;
+  /** Suppress the ChartHeader so a surrounding Panel can carry the label. */
+  hideHeader?: boolean;
+  /** Noun after the value in the hover tooltip (`visitors`). */
+  unit?: string;
 }
 
 export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
@@ -32,6 +36,8 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       colors,
       exportFileName = 'choropleth-map',
       onRegionClick,
+      hideHeader = false,
+      unit,
       className,
       ...props
     },
@@ -59,21 +65,24 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
 
     useChoroplethMap(svgRef, data, geoJson, {
       width,
-      height: height - 80, // Adjusted for header
+      height: hideHeader ? height : height - 80, // Adjusted for header
       colors,
       onRegionClick,
+      unit,
     });
 
     return (
       <ChartContainer ref={ref} className={className} style={{ height }} {...props}>
         <div ref={containerRef} className="flex flex-col h-full">
-          <ChartHeader>
-            <div>
-              <ChartTitle>{title}</ChartTitle>
-              {description && <ChartDescription>{description}</ChartDescription>}
-            </div>
-            <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName} />
-          </ChartHeader>
+          {!hideHeader && (
+            <ChartHeader>
+              <div>
+                <ChartTitle>{title}</ChartTitle>
+                {description && <ChartDescription>{description}</ChartDescription>}
+              </div>
+              <ChartToolbar svgRef={svgRef} data={data} fileName={exportFileName} />
+            </ChartHeader>
+          )}
 
           <ChartContent>
             <svg

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
-import { chartTheme, sequentialScale } from '../theme';
+import { chartTheme, chartTooltip, sequentialScale } from '../theme';
 import type { MapRegion } from '@aazucena/types';
 
 export interface UseChoroplethMapOptions {
@@ -9,13 +9,15 @@ export interface UseChoroplethMapOptions {
   /** Low → high colors to interpolate. Omit for the binned sequential ramp. */
   colors?: [string, string];
   onRegionClick?: (region: any) => void;
+  /** Noun after the value in the hover tooltip (`visitors`). */
+  unit?: string;
 }
 
 export function useChoroplethMap(
   svgRef: React.RefObject<SVGSVGElement | null>,
   data: MapRegion[],
   geoJson: any,
-  { width, height, colors, onRegionClick }: UseChoroplethMapOptions,
+  { width, height, colors, onRegionClick, unit }: UseChoroplethMapOptions,
 ) {
   useEffect(() => {
     if (!svgRef.current || width === 0 || !geoJson) return;
@@ -41,6 +43,8 @@ export function useChoroplethMap(
     // Create a map for fast lookup
     const dataMap = new Map(data.map((d) => [d.id, d]));
 
+    const total = d3.sum(data, (d) => d.value);
+    const tooltip = chartTooltip('viz-tooltip-map');
     const g = svg.append('g');
 
     g.selectAll('path')
@@ -57,17 +61,26 @@ export function useChoroplethMap(
       .on('mouseenter', function () {
         d3.select(this).attr('opacity', 0.8).attr('stroke-width', 1.5);
       })
+      .on('mousemove', (event: MouseEvent, d: any) => {
+        const r = dataMap.get(d.id);
+        const share = r && total ? Math.round((r.value / total) * 100) : 0;
+        tooltip
+          .style('opacity', 1)
+          .style('left', `${event.pageX + 12}px`)
+          .style('top', `${event.pageY + 12}px`)
+          .text(
+            r
+              ? `${String(d.properties.name).toUpperCase()}  ${r.value.toLocaleString()}${unit ? ` ${unit}` : ''} · ${share}% of total`
+              : `${String(d.properties.name).toUpperCase()}  no data`,
+          );
+      })
       .on('mouseleave', function () {
         d3.select(this).attr('opacity', 1).attr('stroke-width', 0.5);
+        tooltip.style('opacity', 0);
       })
       .on('click', (_e, d: any) => {
         const regionData = dataMap.get(d.id);
         if (regionData && onRegionClick) onRegionClick(regionData);
-      })
-      .append('title')
-      .text((d: any) => {
-        const regionData = dataMap.get(d.id);
-        return `${d.properties.name}: ${regionData ? regionData.value : 'N/A'}`;
       });
-  }, [svgRef, data, geoJson, width, height, colors, onRegionClick]);
+  }, [svgRef, data, geoJson, width, height, colors, onRegionClick, unit]);
 }
