@@ -4,17 +4,16 @@ import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+import { Activity, Send, Sparkles, Copy, Trash, Check, Plus } from '@aazucena/icons';
 import {
-  Activity,
-  Send,
-  Terminal as TerminalIcon,
-  Sparkles,
-  Copy,
-  Trash,
-  Check,
-  Plus,
-  Puzzle,
-} from '@aazucena/icons';
+  Button,
+  Panel,
+  PanelBody,
+  PanelHeader,
+  ScrollArea,
+  Skeleton,
+  Textarea,
+} from '@aazucena/ui';
 import { cn } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/common/MarkdownRenderer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -108,334 +107,289 @@ function AiTerminalContent() {
     }
   }, [q, isLoading, isMounted, sendQuery, searchParams, router]);
 
+  const lastMessage = messages[messages.length - 1];
+  const activeModel = AVAILABLE_MODELS.find((m) => m.id === selectedModel);
+  const isDisabled = isLoading || (isMounted && !activeConversationId);
+
   return (
-    <div className="h-[calc(100vh-8rem)] flex gap-6">
-      {/* SIDEBAR */}
-      <div
+    <div className="mt-6 flex h-[calc(100vh-8rem)] gap-4">
+      {/* CONVERSATIONS */}
+      <Panel
         className={cn(
-          'flex flex-col bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] transition-all duration-300 overflow-hidden shadow-2xl shadow-black/5',
-          isSidebarOpen ? 'w-72' : 'w-0 opacity-0 -translate-x-10',
+          'min-h-0 shrink-0 overflow-hidden',
+          isSidebarOpen ? 'w-64 max-lg:w-52' : 'hidden',
         )}
       >
-        <div className="p-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/30">
-          <h2 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-500 flex items-center gap-2">
-            <Activity size={14} /> History
-          </h2>
-          <button
+        <PanelHeader label="CONVERSATIONS">
+          <span className="micro-label text-signal flex items-center gap-1.5">
+            <span aria-hidden className="bg-signal size-1.5 rounded-full" />
+            {isMounted ? sortedConvs.length : 0}
+          </span>
+        </PanelHeader>
+        <div className="p-3">
+          <Button
+            variant="outline"
+            className="w-full"
             onClick={() => {
               dispatch(createNewChat());
               setMessages([]);
             }}
-            className="p-2 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-all shadow-lg shadow-primary-500/20 active:scale-95"
-            title="New Chat"
           >
-            <Plus size={16} />
-          </button>
+            <Plus size={14} /> New Chat
+          </Button>
         </div>
-
-        <div className="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin">
-          {isMounted &&
-            sortedConvs.map((conv: Conversation) => (
-              <div key={conv.id} className="relative group">
-                <button
-                  onClick={() => {
-                    dispatch(switchConversation(conv.id));
-                    setMessages([]);
-                  }}
-                  className={cn(
-                    'w-full p-4 pr-12 rounded-2xl text-left transition-all border flex items-start gap-3',
-                    activeConversationId === conv.id
-                      ? 'bg-primary-500/5 border-primary-500/30 text-primary-500'
-                      : 'bg-transparent border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100',
-                  )}
-                >
-                  <Puzzle size={14} className="mt-0.5 shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[11px] font-bold truncate leading-tight">{conv.title}</p>
-                    <p className="text-[8px] font-mono opacity-50 mt-1 uppercase">
+        <ScrollArea className="min-h-0 flex-1">
+          <div className="flex flex-col gap-1 px-3 pb-3">
+            {isMounted &&
+              sortedConvs.map((conv: Conversation) => (
+                <div key={conv.id} className="group relative">
+                  <button
+                    onClick={() => {
+                      dispatch(switchConversation(conv.id));
+                      setMessages([]);
+                    }}
+                    aria-current={activeConversationId === conv.id ? 'true' : undefined}
+                    className={cn(
+                      'rounded-control focus-visible:outline-signal w-full border-l-2 px-3 py-2.5 pr-10 text-left outline-none focus-visible:outline-1',
+                      activeConversationId === conv.id
+                        ? 'border-l-signal bg-state text-foreground'
+                        : 'text-muted-foreground hover:bg-state hover:text-foreground border-l-transparent',
+                    )}
+                  >
+                    <p className="truncate text-sm leading-tight font-medium">{conv.title}</p>
+                    <p className="micro-label text-muted-foreground mt-1">
                       {new Date(conv.updatedAt).toLocaleDateString()}
                     </p>
-                  </div>
-                </button>
-
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (confirm(`Delete conversation "${conv.title}"?`)) {
-                      setDeletingId(conv.id);
-                      setTimeout(() => {
-                        dispatch(deleteConversation(conv.id));
-                        setDeletingId(null);
-                      }, 1000);
-                    }
-                  }}
-                  className={cn(
-                    'absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-all z-20 shadow-sm border',
-                    deletingId === conv.id
-                      ? 'bg-emerald-500 text-white border-emerald-600 opacity-100 scale-110 shadow-emerald-500/20'
-                      : 'opacity-60 hover:opacity-100 bg-rose-500/10 dark:bg-rose-500/20 border-rose-500/20 hover:border-rose-500/50 text-rose-600 dark:text-rose-400 hover:bg-rose-500 hover:text-white hover:scale-110',
-                  )}
-                  title="Delete Chat"
-                  disabled={deletingId === conv.id}
-                >
-                  {deletingId === conv.id ? <Check size={16} /> : <Trash size={16} />}
-                </button>
-              </div>
-            ))}
-        </div>
-
-        <div className="p-4 border-t border-zinc-200 dark:border-zinc-800">
-          <button
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (confirm(`Delete conversation "${conv.title}"?`)) {
+                        setDeletingId(conv.id);
+                        setTimeout(() => {
+                          dispatch(deleteConversation(conv.id));
+                          setDeletingId(null);
+                        }, 1000);
+                      }
+                    }}
+                    className={cn(
+                      'rounded-control focus-visible:outline-signal absolute top-1/2 right-2 -translate-y-1/2 p-1.5 outline-none focus-visible:outline-1',
+                      deletingId === conv.id
+                        ? 'text-success'
+                        : 'text-muted-foreground hover:text-alert opacity-0 group-focus-within:opacity-100 group-hover:opacity-100',
+                    )}
+                    aria-label={`Delete conversation ${conv.title}`}
+                    disabled={deletingId === conv.id}
+                  >
+                    {deletingId === conv.id ? <Check size={14} /> : <Trash size={14} />}
+                  </button>
+                </div>
+              ))}
+          </div>
+        </ScrollArea>
+        <div className="border-rule border-t p-3">
+          <Button
+            variant="destructive"
+            size="sm"
+            className="w-full"
             onClick={() => {
               dispatch(clearAllHistory());
               setMessages([]);
             }}
-            className="w-full py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/10 transition-colors flex items-center justify-center gap-2"
           >
             <Trash size={14} /> Clear All
-          </button>
+          </Button>
         </div>
-      </div>
+      </Panel>
 
-      {/* MAIN */}
-      <div className="flex-1 flex flex-col min-w-0 space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
-          <div className="flex items-center gap-4">
+      {/* THREAD */}
+      <Panel className="min-h-0 min-w-0 flex-1 overflow-hidden">
+        <PanelHeader label={`AI_CORE // ${isMounted ? (activeConv?.title ?? 'THREAD') : 'THREAD'}`}>
+          <div className="flex shrink-0 items-center gap-3">
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              aria-pressed={isSidebarOpen}
+              className="micro-label text-muted-foreground hover:text-foreground focus-visible:outline-signal outline-none focus-visible:outline-1"
+            >
+              {isSidebarOpen ? 'HIDE LIST' : 'SHOW LIST'}
+            </button>
+            <span
               className={cn(
-                'p-3 rounded-2xl border transition-all',
-                isSidebarOpen
-                  ? 'bg-primary-500 text-white border-primary-600'
-                  : 'bg-white dark:bg-zinc-900 text-zinc-500 border-zinc-200 dark:border-zinc-800',
+                'micro-label flex items-center gap-1.5',
+                isLoading ? 'text-signal' : 'text-muted-foreground',
               )}
             >
-              <Activity size={20} />
-            </button>
-            <div>
-              <h1 className="text-3xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter uppercase flex items-center gap-2">
-                AI_CORE<span className="text-primary-500">_TERMINAL</span>
-              </h1>
-              <p className="text-zinc-500 text-[9px] font-mono uppercase font-bold tracking-widest leading-none">
-                Intelligence Interface
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 bg-zinc-100 dark:bg-zinc-900/50 p-1 rounded-xl border border-zinc-200 dark:border-zinc-800">
-            {AVAILABLE_MODELS.map((model) => (
-              <button
-                key={model.id}
-                onClick={() => setSelectedModel(model.id)}
+              <span
+                aria-hidden
                 className={cn(
-                  'px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all',
-                  selectedModel === model.id
-                    ? 'bg-white dark:bg-zinc-800 text-primary-500 shadow-sm border border-zinc-200 dark:border-zinc-700'
-                    : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300',
+                  'size-1.5 rounded-full',
+                  isLoading ? 'bg-signal motion-safe:animate-pulse' : 'bg-rule-strong',
                 )}
-              >
-                {model.name.split(' ')[0]}
-              </button>
-            ))}
+              />
+              {isLoading ? 'INFERENCE_ACTIVE' : 'IDLE'}
+            </span>
           </div>
-        </div>
+        </PanelHeader>
 
-        {/* MESSAGES VIEW */}
-        <div className="flex-1 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] flex flex-col overflow-hidden shadow-2xl shadow-primary-500/5">
-          <div className="px-8 py-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900/50">
-            <div className="flex items-center gap-4">
-              <p className="text-zinc-900 dark:text-zinc-100 text-[11px] font-black uppercase tracking-widest truncate">
-                {isMounted ? activeConv?.title || 'New Conversation' : 'New Conversation'}
-              </p>
-              <div className="h-5 w-px bg-zinc-200 dark:bg-zinc-800 shrink-0" />
-              <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-400 font-bold uppercase tracking-widest">
-                <TerminalIcon
-                  size={12}
-                  className={cn(isLoading ? 'text-primary-500 animate-spin' : 'text-zinc-400')}
-                />
-                status:{' '}
-                <span className={cn(isLoading ? 'text-primary-500' : 'text-zinc-500')}>
-                  {isLoading ? 'INFERENCE_ACTIVE' : 'IDLE'}
+        <div ref={scrollRef} className="min-h-0 flex-1 space-y-5 overflow-y-auto p-4">
+          {messages.length === 0 && (
+            <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
+              <Sparkles size={24} className="text-muted-foreground" />
+              <p className="micro-label text-muted-foreground">CORE READY FOR ANALYSIS</p>
+            </div>
+          )}
+
+          {messages.map((m) => {
+            const isLast = m === lastMessage && m.role === 'assistant';
+            return (
+              <div key={m.id} className="flex flex-col gap-1.5">
+                <span className="micro-label text-signal">
+                  {m.role === 'user' ? 'OPERATOR' : 'AI_CORE'}
                 </span>
-              </div>
-            </div>
-
-            <div className="text-[9px] font-mono text-emerald-500 font-black animate-pulse uppercase ml-6 shrink-0 bg-emerald-500/5 px-3 py-1.5 rounded-xl border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-              [{selectedModel.replace('/', '_')}]
-            </div>
-          </div>
-
-          <div
-            ref={scrollRef}
-            className="flex-1 overflow-y-auto p-8 space-y-10 scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800"
-          >
-            {messages.length === 0 && (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-50">
-                <div className="w-16 h-16 rounded-3xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-400">
-                  <Activity size={32} />
-                </div>
-                <p className="text-xs font-black uppercase tracking-widest text-zinc-900 dark:text-zinc-100">
-                  Core Ready for Analysis
-                </p>
-              </div>
-            )}
-
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={cn(
-                  'flex gap-4 group/msg',
-                  m.role === 'user' ? 'flex-row-reverse' : 'flex-row',
-                )}
-              >
                 <div
+                  aria-live={isLast ? 'polite' : undefined}
                   className={cn(
-                    'w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-transform group-hover/msg:scale-110',
-                    m.role === 'user'
-                      ? 'bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500'
-                      : 'bg-primary-500/10 border-primary-500/20 text-primary-500 shadow-[0_0_15px_rgba(16,185,129,0.1)]',
+                    'rounded-control border px-4 py-3 text-sm leading-relaxed',
+                    m.role === 'user' ? 'bg-state border-transparent' : 'border-rule-strong',
                   )}
                 >
-                  {m.role === 'user' ? <Activity size={16} /> : <Sparkles size={16} />}
-                </div>
-
-                <div
-                  className={cn(
-                    'flex flex-col max-w-[85%] relative group/bubble',
-                    m.role === 'user' ? 'items-end text-right' : 'items-start text-left',
-                  )}
-                >
-                  <div className="flex items-center gap-2 mb-1.5 px-1">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
-                      {m.role === 'user' ? 'Operator' : 'AI_Core'}
-                    </span>
-                  </div>
-
-                  <div
-                    className={cn(
-                      'p-5 rounded-2xl text-sm font-mono leading-relaxed transition-all border group relative shadow-sm',
-                      m.role === 'user'
-                        ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 rounded-tr-none border-zinc-200 dark:border-zinc-800'
-                        : 'bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-tl-none',
-                    )}
-                  >
-                    {m.parts.map((part, i) => {
-                      if (part.type === 'text')
-                        return <MarkdownRenderer key={i} content={part.text} />;
-                      if (part.type === 'reasoning')
-                        return (
-                          <div
-                            key={i}
-                            className="text-[11px] text-zinc-500 italic border-l-2 border-primary-500/30 pl-3 my-3 font-mono bg-primary-500/5 py-2 rounded-r-lg"
-                          >
-                            <span className="text-[9px] font-black text-primary-500/50 block mb-1 uppercase tracking-tighter">
-                              INTERNAL_REASONING
-                            </span>
+                  {m.parts.map((part, i) => {
+                    if (part.type === 'text')
+                      return <MarkdownRenderer key={i} content={part.text} />;
+                    if (part.type === 'reasoning')
+                      return (
+                        <details
+                          key={i}
+                          open
+                          className="bg-panel-raised border-rule rounded-control my-3 border font-mono"
+                        >
+                          <summary className="micro-label text-muted-foreground cursor-pointer px-3 py-2">
+                            INTERNAL_REASONING
+                          </summary>
+                          <p className="text-muted-foreground px-3 pb-3 text-xs whitespace-pre-wrap">
                             {part.text}
-                          </div>
-                        );
-                      return null;
-                    })}
+                          </p>
+                        </details>
+                      );
+                    return null;
+                  })}
 
-                    <div className="mt-4 pt-3 border-t border-zinc-200/50 dark:border-zinc-800/50 flex items-center gap-2 opacity-30 group-hover/msg:opacity-100 transition-all duration-300">
-                      <button
-                        onClick={() =>
-                          handleCopy(
-                            m.id,
-                            m.parts
-                              .filter((p) => p.type === 'text')
-                              .map((p) => (p as { type: 'text'; text: string }).text)
-                              .join('\n'),
-                          )
-                        }
-                        disabled={isLoading}
-                        className={cn(
-                          'flex items-center gap-1 px-2 py-1 rounded-md transition-all text-[9px] font-black uppercase tracking-tighter border',
-                          copiedId === m.id
-                            ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
-                            : 'hover:bg-primary-500/10 hover:text-primary-500 text-zinc-500 border-transparent hover:border-primary-500/20',
-                        )}
-                      >
-                        {copiedId === m.id ? (
-                          <>
-                            <Check size={12} /> COPIED
-                          </>
-                        ) : (
-                          <>
-                            <Copy size={12} /> COPY
-                          </>
-                        )}
-                      </button>
-                    </div>
+                  <div className="mt-3 flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() =>
+                        handleCopy(
+                          m.id,
+                          m.parts
+                            .filter((p) => p.type === 'text')
+                            .map((p) => (p as { type: 'text'; text: string }).text)
+                            .join('\n'),
+                        )
+                      }
+                      disabled={isLoading}
+                      className={cn('micro-label h-6 px-2', copiedId === m.id && 'text-success')}
+                    >
+                      {copiedId === m.id ? (
+                        <>
+                          <Check size={12} /> COPIED
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={12} /> COPY
+                        </>
+                      )}
+                    </Button>
                   </div>
                 </div>
+              </div>
+            );
+          })}
+
+          {isLoading && (
+            <div className="flex flex-col gap-1.5" role="status" aria-label="Inference running">
+              <span className="micro-label text-signal">AI_CORE</span>
+              <div className="border-rule-strong rounded-control max-w-md space-y-2 border p-4">
+                <Skeleton className="h-2 w-3/4" />
+                <Skeleton className="h-2 w-1/2" />
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="border-rule border-t p-4">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendQuery(input);
+            }}
+            className="flex items-end gap-3"
+          >
+            <Textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  sendQuery(input);
+                }
+              }}
+              aria-label="Message the core"
+              placeholder="Ask the core about telemetry, costs or errors..."
+              disabled={isDisabled}
+              rows={Math.min(5, input.split('\n').length || 1)}
+              className="border-rule-strong min-h-control flex-1 resize-none font-mono text-xs md:text-xs"
+            />
+            <Button type="submit" disabled={isDisabled || !input.trim()}>
+              <Send size={14} /> Send
+            </Button>
+          </form>
+          <p className="micro-label text-muted-foreground mt-3 flex flex-wrap gap-x-3">
+            <span>ENTER TO INFER</span>
+            <span aria-hidden>·</span>
+            <span>SHIFT + ENTER FOR A NEW LINE</span>
+            <span aria-hidden>·</span>
+            <span>{messages.length} MESSAGES</span>
+          </p>
+        </div>
+      </Panel>
+
+      {/* SESSION CONTEXT */}
+      <Panel className="min-h-0 w-64 shrink-0 overflow-y-auto max-xl:hidden">
+        <PanelHeader label="SESSION // CONTEXT" />
+        <PanelBody className="gap-4">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="ai-model" className="micro-label text-muted-foreground">
+              MODEL
+            </label>
+            <select
+              id="ai-model"
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+              className="border border-rule-strong h-control rounded-control text-foreground focus-visible:outline-signal bg-transparent px-3 text-sm outline-none focus-visible:outline-1"
+            >
+              {AVAILABLE_MODELS.map((model) => (
+                <option key={model.id} value={model.id} className="bg-panel">
+                  {model.name}
+                </option>
+              ))}
+            </select>
+            <span className="micro-label text-muted-foreground">{activeModel?.provider}</span>
+          </div>
+          <dl className="flex flex-col gap-3">
+            {['TOKENS IN', 'TOKENS OUT', 'LATENCY', 'COST'].map((k) => (
+              <div key={k} className="flex items-baseline justify-between">
+                <dt className="micro-label text-muted-foreground">{k}</dt>
+                <dd className="text-muted-foreground font-mono text-sm">—</dd>
               </div>
             ))}
-
-            {isLoading && (
-              <div className="flex gap-4">
-                <div className="w-8 h-8 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 animate-pulse">
-                  <Sparkles size={16} />
-                </div>
-                <div className="flex flex-col gap-3 flex-1">
-                  <div className="h-3 w-24 bg-zinc-100 dark:bg-zinc-900 rounded-full" />
-                  <div className="max-w-[400px] bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-5 rounded-2xl animate-pulse">
-                    <div className="space-y-2">
-                      <div className="h-2 bg-zinc-100 dark:bg-zinc-800 rounded w-3/4" />
-                      <div className="h-2 bg-zinc-100 dark:bg-zinc-800 rounded w-1/2" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+          </dl>
+          <div className="border-rule border-t pt-3">
+            <p className="micro-label text-muted-foreground mb-2">TOOLS AVAILABLE</p>
+            <p className="text-muted-foreground font-mono text-sm">—</p>
           </div>
-
-          <div className="p-6 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/30">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                sendQuery(input);
-              }}
-              className="relative flex items-end gap-3"
-            >
-              <div className="relative flex-1">
-                <textarea
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      sendQuery(input);
-                    }
-                  }}
-                  placeholder="ENTER_COMMAND_FOR_AI_ANALYSIS..."
-                  disabled={isLoading || (isMounted && !activeConversationId)}
-                  rows={Math.min(5, input.split('\n').length || 1)}
-                  className="w-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl pl-6 pr-14 py-4 text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500/50 transition-all shadow-inner resize-none min-h-[56px] scrollbar-none"
-                />
-                <div className="absolute right-3 bottom-3">
-                  <button
-                    type="submit"
-                    disabled={isLoading || !input.trim() || (isMounted && !activeConversationId)}
-                    className="w-10 h-10 rounded-xl bg-primary-500 text-white flex items-center justify-center hover:bg-primary-600 transition-all disabled:opacity-50 shadow-lg shadow-primary-500/20"
-                  >
-                    <Send size={18} />
-                  </button>
-                </div>
-              </div>
-            </form>
-            <div className="mt-3 flex items-center justify-between px-2 text-[8px] font-mono text-zinc-400 uppercase">
-              <span className="flex items-center gap-1">
-                <div className="w-1 h-1 rounded-full bg-emerald-500" /> {messages.length} messages
-              </span>
-              <div className="flex items-center gap-3">
-                <span>Shift+Enter for newline</span>
-                <span className="text-primary-500 font-black">Enter to infer</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </PanelBody>
+      </Panel>
     </div>
   );
 }
@@ -444,13 +398,11 @@ export default function AiTerminalPage() {
   return (
     <React.Suspense
       fallback={
-        <div className="h-[calc(100vh-8rem)] flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <Activity className="w-8 h-8 text-primary-500 animate-pulse" />
-            <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest text-center">
-              Initializing_Neural_Core...
-              <br />
-              Loading_System_Context
+        <div className="mt-6 flex h-[calc(100vh-8rem)] items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <Activity className="text-signal size-6 motion-safe:animate-pulse" />
+            <p className="micro-label text-muted-foreground text-center">
+              INITIALIZING CORE // LOADING CONTEXT
             </p>
           </div>
         </div>

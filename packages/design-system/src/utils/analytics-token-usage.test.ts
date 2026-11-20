@@ -30,7 +30,6 @@ const RULES: Array<[name: string, re: RegExp]> = [
 /** Paths relative to apps/analytics/src, POSIX separators, sorted. */
 export const PENDING = new Set<string>([
   'app/(dashboard)/ai/costs/page.tsx',
-  'app/(dashboard)/ai/page.tsx',
   'app/(dashboard)/ai/prompts/page.tsx',
   'app/(dashboard)/ai/trajectories/page.tsx',
   'app/(dashboard)/easter-eggs/page.tsx',
