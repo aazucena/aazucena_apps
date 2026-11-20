@@ -40,7 +40,6 @@ export const PENDING = new Set<string>([
   'app/(dashboard)/journey/page.tsx',
   'app/(dashboard)/loading.tsx',
   'app/(dashboard)/logs/page.tsx',
-  'app/(dashboard)/page.tsx',
   'app/(dashboard)/music/page.tsx',
   'app/(dashboard)/performance/page.tsx',
   'app/(dashboard)/traffic/page.tsx',
