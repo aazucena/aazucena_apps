@@ -286,11 +286,11 @@ export default function TrajectoryLabsPage() {
                         </span>
                         <span
                           className={cn(
-                            'micro-label shrink-0 font-mono',
-                            t.totalReward < 0 ? 'text-alert' : 'text-muted-foreground',
+                            'micro-label text-muted-foreground shrink-0 font-mono tabular-nums',
                           )}
                         >
-                          {t.totalReward < 0 && '▲ '}R {t.totalReward.toFixed(2)}
+                          R {t.totalReward > 0 ? '+' : ''}
+                          {t.totalReward.toFixed(2)}
                         </span>
                       </div>
                       <p className="mt-1 truncate text-xs">
@@ -366,18 +366,19 @@ export default function TrajectoryLabsPage() {
           <PanelHeader
             label={`STEP_${(currentStepIndex + 1).toString().padStart(2, '0')} // INSPECTOR`}
           />
-          <ScrollArea className="min-h-0 flex-1">
+          <div
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- keyboard users must be able to scroll this region
+            tabIndex={0}
+            role="region"
+            aria-label="Step inspector"
+            className="focus-visible:outline-signal min-h-0 flex-1 overflow-y-auto outline-none focus-visible:outline-1"
+          >
             <PanelBody className="gap-4">
               <div className="grid grid-cols-2 gap-2">
                 <div className="bg-panel-raised rounded-control p-3">
                   <p className="micro-label text-muted-foreground">OUTCOME_REWARD</p>
-                  <p
-                    className={cn(
-                      'mt-1 font-mono text-xl',
-                      reward < 0 ? 'text-alert' : 'text-foreground',
-                    )}
-                  >
-                    {reward < 0 ? '▲ ' : reward > 0 ? '+' : ''}
+                  <p className="text-foreground mt-1 font-mono text-xl tabular-nums">
+                    {reward > 0 ? '+' : ''}
                     {reward}
                   </p>
                 </div>
@@ -401,6 +402,9 @@ export default function TrajectoryLabsPage() {
                   language="json"
                   showLineNumbers={false}
                   className="max-h-56 overflow-y-auto font-mono text-xs"
+                  tabIndex={0}
+                  role="region"
+                  aria-label="Step metadata"
                 />
               </div>
 
@@ -425,7 +429,7 @@ export default function TrajectoryLabsPage() {
                 </div>
               </div>
             </PanelBody>
-          </ScrollArea>
+          </div>
         </Panel>
       </div>
     </div>
