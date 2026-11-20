@@ -16,12 +16,15 @@ const RULES: Array<[name: string, re: RegExp]> = [
     'stock palette',
     /\b(?:bg|text|border|ring|fill|stroke|from|via|to|divide|outline|placeholder|decoration|accent|caret|shadow)-(?:zinc|slate|gray|neutral|stone|rose|red|emerald|green|amber|yellow|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|orange|teal|lime)-\d{2,3}\b/g,
   ],
-  ['white/black', /\b(?:bg|text|border)-(?:white|black)\b/g],
+  [
+    'white/black',
+    /\b(?:bg|text|border|ring|fill|stroke|outline|divide|shadow|from|via|to)-(?:white|black)\b/g,
+  ],
   ['glass', /\bbackdrop-blur\b/g],
   ['big radius', /\brounded-(?:2xl|3xl|\[[^\]]+\])/g],
-  ['surface shadow', /\bshadow-(?:sm|md|lg|xl|2xl)\b/g],
+  ['surface shadow', /(?<!drop-)\bshadow-(?:sm|md|lg|xl|2xl)\b/g],
   ['width cap', /\bmax-w-7xl\b/g],
-  ['literal colour', /#[0-9a-fA-F]{6}\b|\brgba?\(/g],
+  ['literal colour', /#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b|\brgba?\(/g],
 ];
 
 /** Paths relative to apps/analytics/src, POSIX separators, sorted. */
