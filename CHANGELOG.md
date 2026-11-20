@@ -8,6 +8,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### ♻️ Refactor
 
+- _(ui)_ Animate with tw-animate-css instead of the tailwindcss-animate plugin
 - _(portfolio)_ Use the shared RinCharacter and Rin constants
 - _(ui)_ Move RinCharacter into @aazucena/ui
 - _(storybook)_ Keep the interaction-test story list in one module

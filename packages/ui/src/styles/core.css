@@ -68,7 +68,7 @@
 
 /*
  * Reduced motion. One rule for every CSS animation and transition in the
- * library (Tailwind animate-*, tailwindcss-animate enter/exit, inline keyframes).
+ * library (Tailwind animate-*, tw-animate-css enter/exit, inline keyframes).
  * Durations go to 0.01ms rather than `none` so animationend/transitionend still
  * fire: Radix waits for them before unmounting closed dialogs and menus.
  * Spinners keep turning (they carry "loading"); mark anything else that must
