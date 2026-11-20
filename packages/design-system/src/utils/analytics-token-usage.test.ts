@@ -37,11 +37,7 @@ export const PENDING = new Set<string>([
   'app/(dashboard)/finance/page.tsx',
   'app/(dashboard)/forms/page.tsx',
   'app/(dashboard)/journey/page.tsx',
-  'app/(dashboard)/logs/page.tsx',
   'app/(dashboard)/music/page.tsx',
-  'app/(dashboard)/performance/page.tsx',
-  'app/(dashboard)/traffic/page.tsx',
-  'app/status/page.tsx',
 ]);
 
 function tsxFiles(dir: string): string[] {
