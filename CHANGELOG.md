@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(visualizations)_ Heatmap honours its height prop
 - _(ui)_ Navigation menu indicator animates on data-state
 - _(ui)_ Text-foreground0 typo leaves secondary text unstyled
 - _(ui)_ Style Radix states with data-[state=…] so they apply

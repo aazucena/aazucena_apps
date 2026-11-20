@@ -15,7 +15,7 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   description?: string;
   colorMap?: Record<string, string>;
-  /** Maximum SVG height in px. Omit to size from the container width. */
+  /** Maximum SVG height in px. Omit to size from the container width. Heights under 168px render at 168px (4px cells). */
   height?: number;
   exportFileName?: string;
   onCellClick?: (cell: GenericHeatmapCell) => void;

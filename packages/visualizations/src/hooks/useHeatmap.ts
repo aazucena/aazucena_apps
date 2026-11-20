@@ -11,7 +11,7 @@ export interface UseHeatmapOptions {
   onCellHover?: (cell: GenericHeatmapCell | null) => void;
   /** Called whenever the required SVG height changes (dynamic based on cell size) */
   onHeightChange?: (height: number) => void;
-  /** Maximum SVG height in px; omit to size from the container width */
+  /** Maximum SVG height in px; omit to size from the container width. Heights under 168px render at 168px (4px cells). */
   maxHeight?: number;
 }
 
