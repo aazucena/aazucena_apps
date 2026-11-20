@@ -25,6 +25,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Declare the packages ui imports and drop the unused ones
 - _(design-system)_ Panel-colored labels reach AA on every chart series
 - _(storybook)_ Name the remaining icon buttons and fields, and add image alt text
 - _(visualizations)_ Name the chart range sliders

@@ -57,9 +57,7 @@ export function bareImports(dir: string): Map<string, Set<string>> {
 describe('@aazucena/ui dependencies', () => {
   it('declares every package ui imports (deps or peers)', () => {
     const declared = { ...pkg.dependencies, ...pkg.peerDependencies };
-    const missing = [...bareImports(UI_SRC).keys()]
-      .filter((n) => !declared[n])
-      .filter((n) => n !== 'tailwindcss-animate'); // removed in Task 2
+    const missing = [...bareImports(UI_SRC).keys()].filter((n) => !declared[n]);
     expect(missing).toEqual([]);
   });
 
@@ -67,10 +65,19 @@ describe('@aazucena/ui dependencies', () => {
     const used = bareImports(UI_SRC);
     const KEEP = [
       '@tailwindcss/postcss', // exported postcss.config.js
-      'tw-animate-css', // imported from Task 2
     ];
     const unused = Object.keys(pkg.dependencies).filter((n) => !used.has(n) && !KEEP.includes(n));
     expect(unused).toEqual([]);
+  });
+
+  it.each([
+    'packages/ui/src/styles/globals.css',
+    'apps/analytics/src/styles/globals.css',
+    'apps/portfolio/src/styles/globals.css',
+  ])('%s animates with tw-animate-css', (file) => {
+    const css = readFileSync(join(ROOT, file), 'utf8');
+    expect(css).not.toMatch(/@plugin\s+['"]tailwindcss-animate['"]/);
+    expect(css).toMatch(/@import\s+['"]tw-animate-css['"]/);
   });
 
   it('declares react and react-dom as peers, not dependencies', () => {

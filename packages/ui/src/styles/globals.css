@@ -1,9 +1,8 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
 @import '@aazucena/design-system/css-vars.css';
 @import './core.css';
-
-@plugin 'tailwindcss-animate';
 
 @plugin '@tailwindcss/typography';
 
