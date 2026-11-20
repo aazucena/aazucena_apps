@@ -2,17 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Shield, Eye, EyeOff, Danger } from '@aazucena/icons';
-import {
-  Input,
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '@aazucena/ui';
-import { cn } from '@/lib/utils';
+import { Shield, Eye, EyeOff } from '@aazucena/icons';
+import { Button, Input, Panel, PanelBody, PanelHeader } from '@aazucena/ui';
 import { ThemeToggle } from './ThemeToggle';
 import { IntegrityBadge } from './IntegrityBadge';
 
@@ -32,7 +23,7 @@ export function LoginOverlay() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ code: string; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [time, setTime] = useState('');
   const [lastLogin, setLastLogin] = useState<string | null>(null);
@@ -52,6 +43,11 @@ export function LoginOverlay() {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
+  }, []);
+
+  // Focus the key field on open
+  useEffect(() => {
+    passwordRef.current?.focus();
   }, []);
 
   // Last login — localStorage is client-only
@@ -79,7 +75,10 @@ export function LoginOverlay() {
       });
 
       if (!res.ok) {
-        setError('ACCESS_DENIED — Invalid credentials');
+        setError({
+          code: 'ACCESS_DENIED',
+          message: 'Invalid credentials. The key field was cleared.',
+        });
         if (passwordRef.current) passwordRef.current.value = '';
         passwordRef.current?.focus();
         return;
@@ -89,55 +88,45 @@ export function LoginOverlay() {
       // Re-render server component tree — AuthGate finds valid cookie → overlay unmounts
       router.refresh();
     } catch {
-      setError('NETWORK_ERROR — Could not reach auth service');
+      setError({ code: 'NETWORK_ERROR', message: 'Could not reach the auth service.' });
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-md">
-      {/* Dot grid */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}
-      />
-
+    <div className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Top bar: live clock + theme toggle */}
-      <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-        <span className="text-[11px] font-mono text-zinc-600 tabular-nums tracking-widest">
+      <div className="absolute top-4 right-4 left-4 flex items-center justify-between">
+        <span className="text-muted-foreground font-mono text-[11px] tracking-widest tabular-nums">
           {time}
         </span>
         <ThemeToggle size="sm" />
       </div>
 
-      <Card className="relative w-full max-w-sm bg-zinc-100 dark:bg-zinc-950/50 shadow-2xl">
-        {/* Header */}
-        <CardHeader className="text-center">
-          <CardTitle className="flex flex-col justify-center items-center text-xl font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-[0.2em]">
-            <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-500/10 border border-primary-500/20 mb-4">
-              <Shield size={24} className="text-primary-500" />
-            </span>
-            AZUCENA_LYTICS
-          </CardTitle>
-          <CardDescription className="text-[10px] font-mono text-zinc-500 mt-1 uppercase tracking-[0.3em]">
-            Restricted Access Terminal
-          </CardDescription>
-        </CardHeader>
+      <Panel
+        role="dialog"
+        aria-modal="true"
+        aria-label="Authentication required"
+        className="border-rule relative w-full max-w-sm border"
+      >
+        <PanelHeader label="AUTH // REQUIRED">
+          <span className="micro-label text-signal">RESTRICTED</span>
+        </PanelHeader>
 
-        <CardContent>
-          {/* Form card */}
-          <form onSubmit={handleSubmit} className="px-6 py-2 space-y-4">
-            {/* Password */}
-            <div className="space-y-1.5">
-              <label
-                htmlFor="auth-key"
-                className="text-[9px] font-black text-zinc-400 uppercase tracking-[0.3em] flex items-center gap-1.5"
-              >
-                <Shield size={10} /> Auth Key
+        <PanelBody className="gap-4">
+          <div className="flex flex-col items-center gap-2 text-center">
+            <span className="border-signal bg-signal-faint text-signal mb-2 inline-flex size-11 items-center justify-center rounded-control border">
+              <Shield size={20} />
+            </span>
+            <h1 className="text-lg font-medium tracking-tight">AZUCENA_LYTICS</h1>
+            <p className="micro-label text-muted-foreground">Restricted Access Terminal</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="auth-key" className="micro-label text-muted-foreground">
+                Auth Key
               </label>
               <div className="relative">
                 <Input
@@ -149,12 +138,12 @@ export function LoginOverlay() {
                   autoComplete="current-password"
                   required
                   placeholder="••••••••••••"
-                  className="px-4 py-3 pr-11 text-xs w-full bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm font-mono text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 shadow-inner leading-relaxed transition-all"
+                  className="h-control w-full pr-11 font-mono"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400 transition-colors"
+                  className="text-muted-foreground hover:text-foreground focus-visible:outline-signal absolute top-1/2 right-3 -translate-y-1/2 focus-visible:outline-1 focus-visible:outline-offset-2"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
@@ -162,62 +151,39 @@ export function LoginOverlay() {
               </div>
             </div>
 
-            {/* Caps Lock warning */}
             {capsLock && (
-              <div className="flex items-center gap-2 px-3 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl">
-                <Danger size={12} className="text-amber-500 shrink-0" />
-                <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider">
-                  Caps Lock is active
-                </p>
+              <div className="border-warning flex flex-col gap-1 border-l-2 px-3 py-2">
+                <span className="micro-label text-warning">◆ CAPS LOCK</span>
+                <p className="text-sm">Caps Lock is active.</p>
               </div>
             )}
 
-            {/* Error */}
-            {error && (
-              <div className="flex items-start gap-2 px-3 py-2.5 bg-rose-500/10 border border-rose-500/20 rounded-xl">
-                <Shield size={12} className="text-rose-500 shrink-0 mt-0.5" />
-                <p className="text-[10px] font-mono text-rose-400">{error}</p>
-              </div>
-            )}
-
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={cn(
-                'w-full py-3 rounded-xl text-[11px] font-black uppercase tracking-[0.2em] transition-all',
-                'bg-primary-500 text-white hover:bg-primary-600 shadow-lg shadow-primary-500/20',
-                'disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none',
-                isLoading && 'animate-pulse',
+            <div role="alert" aria-live="assertive" className="empty:hidden">
+              {error && (
+                <div className="border-alert flex flex-col gap-1 border-l-2 px-3 py-2">
+                  <span className="micro-label text-alert">▲ {error.code}</span>
+                  <p className="text-sm">{error.message}</p>
+                </div>
               )}
-            >
-              {isLoading ? 'Authenticating...' : 'Authenticate'}
-            </button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex-col items-center">
-          {/* System status */}
-          <div className="flex items-center justify-center mt-5">
-            <IntegrityBadge />
-          </div>
+            </div>
 
-          {/* Footer: version + last login */}
-          <div className="flex items-center justify-between mt-4 px-1 w-full">
-            <span className="text-[9px] font-mono text-zinc-700 uppercase tracking-widest">
-              v{process.env.NEXT_PUBLIC_APP_VERSION ?? '0.1.0'}
+            <Button type="submit" disabled={isLoading} aria-busy={isLoading} className="w-full">
+              {isLoading ? 'Authenticating…' : 'Authenticate'}
+            </Button>
+            <span className="sr-only" role="status">
+              {isLoading ? 'Authenticating' : ''}
             </span>
-            {lastLogin ? (
-              <span className="text-[9px] font-mono text-zinc-700 uppercase tracking-widest">
-                Last: {formatLastLogin(lastLogin)}
-              </span>
-            ) : (
-              <span className="text-[9px] font-mono text-zinc-700 uppercase tracking-widest">
-                First session
-              </span>
-            )}
+          </form>
+        </PanelBody>
+
+        <div className="border-rule flex flex-col items-center gap-3 border-t p-panel">
+          <IntegrityBadge />
+          <div className="micro-label text-muted-foreground flex w-full items-center justify-between">
+            <span>v{process.env.NEXT_PUBLIC_APP_VERSION ?? '0.1.0'}</span>
+            <span>{lastLogin ? `Last: ${formatLastLogin(lastLogin)}` : 'First session'}</span>
           </div>
-        </CardFooter>
-      </Card>
+        </div>
+      </Panel>
     </div>
   );
 }

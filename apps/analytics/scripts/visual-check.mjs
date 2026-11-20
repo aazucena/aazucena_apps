@@ -1,6 +1,7 @@
 // Screenshots routes in both themes and two widths, and reports horizontal overflow.
 // Run from apps/analytics with the dev server on :8080:
 //   node --env-file=.env scripts/visual-check.mjs / /traffic
+// Add --signed-out to skip the session cookie (shows the login overlay on /).
 import { mkdirSync } from 'node:fs';
 import { chromium } from '@playwright/test';
 
@@ -9,7 +10,9 @@ const THEMES = ['light', 'dark'];
 const WIDTHS = [1440, 1024];
 const HEIGHT = 900;
 
-const routes = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const args = process.argv.slice(2);
+const signedOut = args.includes('--signed-out');
+const routes = args.filter((a) => !a.startsWith('--'));
 if (routes.length === 0) {
   console.error('usage: node --env-file=.env scripts/visual-check.mjs <route...>');
   process.exit(2);
@@ -34,7 +37,8 @@ try {
     for (const theme of THEMES) {
       for (const width of WIDTHS) {
         const context = await browser.newContext({ viewport: { width, height: HEIGHT } });
-        await context.addCookies([{ name: 'az_session', value: secret, url: BASE }]);
+        if (!signedOut)
+          await context.addCookies([{ name: 'az_session', value: secret, url: BASE }]);
         await context.addInitScript((t) => localStorage.setItem('theme', t), theme);
         const page = await context.newPage();
         const errors = [];
