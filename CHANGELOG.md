@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Login overlay keeps focus inside
 - _(analytics)_ Kpi trend always shows its glyph
 - _(visualizations)_ Heatmap honours its height prop
 - _(ui)_ Navigation menu indicator animates on data-state

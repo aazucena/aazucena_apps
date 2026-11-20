@@ -9,6 +9,8 @@ import { useInertOutside } from '@/hooks/useInertOutside';
 import { ThemeToggle } from './ThemeToggle';
 import { IntegrityBadge } from './IntegrityBadge';
 
+const noopSubscribe = () => () => {};
+
 const LAST_LOGIN_KEY = 'az_last_login';
 
 function formatLastLogin(iso: string): string {
@@ -31,7 +33,7 @@ export function LoginOverlay() {
   const [lastLogin, setLastLogin] = useState<string | null>(null);
   // false on the server and during hydration, true afterwards
   const mounted = useSyncExternalStore(
-    () => () => {},
+    noopSubscribe,
     () => true,
     () => false,
   );
@@ -106,7 +108,8 @@ export function LoginOverlay() {
     }
   };
 
-  if (!mounted) return null;
+  // Opaque cover for the server HTML and first client render, so the shell never shows un-inerted
+  if (!mounted) return <div aria-hidden className="bg-background fixed inset-0 z-50" />;
 
   return createPortal(
     <div

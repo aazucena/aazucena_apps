@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, type RefObject } from 'react';
 
 /**
  * While `active`, marks every direct child of `document.body` except the one
  * containing `ref` as `inert`, removing it from tab order and the accessibility tree.
  * On cleanup, removes only the `inert` attributes this hook added.
  */
-export function useInertOutside(ref: React.RefObject<HTMLElement | null>, active: boolean): void {
+export function useInertOutside(ref: RefObject<HTMLElement | null>, active: boolean): void {
   useEffect(() => {
     const root = ref.current;
     if (!active || !root) return;
