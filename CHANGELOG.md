@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Text-foreground0 typo leaves secondary text unstyled
 - _(ui)_ Style Radix states with data-[state=…] so they apply
 - _(analytics)_ Coral only with ▲ in the settings menu and integrity badge
 - _(analytics)_ Respect reduced motion in framer-motion

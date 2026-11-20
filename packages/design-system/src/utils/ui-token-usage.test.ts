@@ -268,7 +268,9 @@ describe('@aazucena/ui fill variants (I1)', () => {
     for (const file of tsxFiles(UI_DIR)) {
       const src = readFileSync(file, 'utf8');
       const hits =
-        src.match(/\bdata-(?:open|closed|checked|unchecked|active|inactive)(?=[:/])/g) ?? [];
+        src.match(
+          /\bdata-(?:open|closed|checked|unchecked|active|inactive|visible|hidden)(?=[:/])/g,
+        ) ?? [];
       expect({ file: file.split('src/components/')[1], hits }).toEqual({
         file: file.split('src/components/')[1],
         hits: [],

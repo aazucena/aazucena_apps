@@ -142,7 +142,7 @@ const NavigationMenuIndicator = React.forwardRef<
   <NavigationMenuPrimitive.Indicator
     ref={ref}
     className={cn(
-      'data-visible:animate-in data-hidden:animate-out data-hidden:fade-out data-visible:fade-in top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden',
+      'data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden',
       className,
     )}
     {...props}
