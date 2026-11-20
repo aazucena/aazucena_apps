@@ -28,6 +28,7 @@
     "@aazucena/stores": "workspace:*",
     "@aazucena/types": "workspace:*",
     "@aazucena/ui": "workspace:*",
+    "@aazucena/utils": "workspace:*",
     "@aazucena/visualizations": "workspace:*",
     "@ai-sdk/gateway": "^4.0.142",
     "@ai-sdk/react": "^4.0.173",

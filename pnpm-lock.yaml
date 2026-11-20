@@ -102,6 +102,9 @@ importers:
       '@aazucena/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@aazucena/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@aazucena/visualizations':
         specifier: workspace:*
         version: link:../../packages/visualizations

@@ -1,18 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Fira_Code, Fira_Sans } from 'next/font/google';
 import '../styles/globals.css';
 
 import { RootProvider } from '@/providers/RootProvider';
 
-const inter = Inter({
+const sans = Fira_Sans({
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-sans',
 });
 
-const mono = JetBrains_Mono({
+const mono = Fira_Code({
   subsets: ['latin'],
+  weight: ['400', '500'],
   variable: '--font-mono',
 });
+
+const themeInit = `try{var t=localStorage.getItem('theme');document.documentElement.classList.toggle('dark',t!=='light')}catch(e){document.documentElement.classList.add('dark')}`;
 
 export const metadata: Metadata = {
   title: 'AZUCENA_LYTICS // Core_Terminal',
@@ -32,9 +36,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+      </head>
       <body
-        className={`${inter.variable} ${mono.variable} font-sans bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased`}
+        className={`${sans.variable} ${mono.variable} font-sans bg-background text-foreground antialiased`}
       >
         <RootProvider>{children}</RootProvider>
       </body>
