@@ -216,6 +216,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(design-system)_ Radix state styles use data-[state=…]
 - _(design-system)_ The analytics guard catches the removed app palette
 - _(design-system)_ Analytics token-layer guards
 - _(design-system)_ Catch short hex, drop false drop-shadow hits in the analytics guard

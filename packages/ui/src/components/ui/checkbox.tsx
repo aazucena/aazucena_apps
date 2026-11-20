@@ -11,9 +11,10 @@ const checkboxVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border-primary data-checked:bg-primary data-checked:text-primary-foreground',
+        default:
+          'border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
         cyber:
-          'border-border dark:border-signal/50 data-checked:bg-primary/10 dark:data-checked:bg-signal/10 data-checked:text-primary dark:data-checked:text-signal data-checked:border-primary dark:data-checked:border-signal',
+          'border-border dark:border-signal/50 data-[state=checked]:bg-primary/10 dark:data-[state=checked]:bg-signal/10 data-[state=checked]:text-primary dark:data-[state=checked]:text-signal data-[state=checked]:border-primary dark:data-[state=checked]:border-signal',
       },
     },
     defaultVariants: {

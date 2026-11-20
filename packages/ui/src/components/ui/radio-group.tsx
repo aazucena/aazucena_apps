@@ -20,7 +20,7 @@ const radioGroupItemVariants = cva(
     variants: {
       variant: {
         default: 'border-primary text-primary',
-        cyber: 'border-signal/50 text-signal data-checked:border-signal',
+        cyber: 'border-signal/50 text-signal data-[state=checked]:border-signal',
       },
     },
     defaultVariants: {

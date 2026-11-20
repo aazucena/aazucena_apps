@@ -41,9 +41,9 @@ const navigationMenuTriggerStyle = cva(
     variants: {
       variant: {
         default:
-          'bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-open:bg-accent/50',
+          'bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent/50',
         intel:
-          'text-[10px] font-black tracking-[0.2em] uppercase italic hover:text-primary data-open:text-primary',
+          'text-[10px] font-black tracking-[0.2em] uppercase italic hover:text-primary data-[state=open]:text-primary',
       },
     },
     defaultVariants: {
@@ -64,7 +64,7 @@ const NavigationMenuTrigger = React.forwardRef<
   >
     {children}{' '}
     <ChevronDown
-      className="relative top-[1px] ml-1 h-3 w-3 transition duration-(--motion-base) group-data-open:rotate-180"
+      className="relative top-[1px] ml-1 h-3 w-3 transition duration-(--motion-base) group-data-[state=open]:rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -104,7 +104,7 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
 const navigationMenuViewportVariants = cva(
-  'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-control border data-open:animate-in data-closed:animate-out data-closed:zoom-out-95 data-open:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
+  'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-control border data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
   {
     variants: {
       variant: {

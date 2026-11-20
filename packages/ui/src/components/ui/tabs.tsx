@@ -47,13 +47,13 @@ const tabsTriggerVariants = cva(
   {
     variants: {
       variant: {
-        default: 'data-active:bg-background data-active:text-foreground',
+        default: 'data-[state=active]:bg-background data-[state=active]:text-foreground',
         glass:
-          'text-muted-foreground data-active:bg-background/20 data-active:text-foreground data-active:border-rule',
+          'text-muted-foreground data-[state=active]:bg-background/20 data-[state=active]:text-foreground data-[state=active]:border-rule',
         cyber:
-          'text-muted-foreground data-active:bg-signal/10 data-active:text-signal data-active:border-signal/40',
+          'text-muted-foreground data-[state=active]:bg-signal/10 data-[state=active]:text-signal data-[state=active]:border-signal/40',
         phone:
-          'absolute flex flex-col items-center justify-center gap-2 rounded-card p-4 border pointer-events-auto border-border/10 bg-background/5 data-active:scale-110 data-active:border-primary/40 text-muted-foreground data-active:text-foreground',
+          'absolute flex flex-col items-center justify-center gap-2 rounded-card p-4 border pointer-events-auto border-border/10 bg-background/5 data-[state=active]:scale-110 data-[state=active]:border-primary/40 text-muted-foreground data-[state=active]:text-foreground',
       },
     },
     defaultVariants: {
