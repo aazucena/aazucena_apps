@@ -2,17 +2,15 @@
 
 import { useSyncExternalStore } from 'react';
 import { Sun, Moon } from '@aazucena/icons';
-import { cn } from '@/lib/utils';
-
-// Define the available sizes
-type ToggleSize = 'sm' | 'md' | 'lg';
+import { Button } from '@aazucena/ui';
 
 interface ThemeToggleProps {
-  size?: ToggleSize;
+  /** Kept for existing callers; the control is always the 30px icon button. */
+  size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
 
-export function ThemeToggle({ size = 'md', className }: ThemeToggleProps) {
+export function ThemeToggle({ className }: ThemeToggleProps) {
   const theme = useSyncExternalStore(
     (callback) => {
       const observer = new MutationObserver(callback);
@@ -34,48 +32,16 @@ export function ThemeToggle({ size = 'md', className }: ThemeToggleProps) {
     }
   };
 
-  // 1. SIZE MAPPING
-  const sizeClasses = {
-    sm: 'p-1.5 rounded-lg',
-    md: 'p-2.5 rounded-xl',
-    lg: 'p-4 rounded-2xl',
-  };
-
-  const iconSizes = {
-    sm: 14,
-    md: 20,
-    lg: 28,
-  };
-
   return (
-    <button
+    <Button
       data-theme-toggle
+      variant="ghost"
+      size="icon"
       onClick={toggleTheme}
-      className={cn(
-        'dark:bg-zinc-950/5 bg-zinc-50 border border-zinc-800 text-zinc-500 hover:text-primary-500 hover:border-primary-500/30 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary-500/20 cursor-pointer shadow-sm backdrop-blur-md',
-        sizeClasses[size],
-        className,
-      )}
-      aria-label="Toggle theme"
+      className={className}
+      aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
     >
-      <div className="relative" style={{ width: iconSizes[size], height: iconSizes[size] }}>
-        <div
-          className={cn(
-            'absolute inset-0 transition-all duration-500 transform',
-            theme === 'dark' ? 'rotate-0 opacity-100 scale-100' : 'rotate-90 opacity-0 scale-0',
-          )}
-        >
-          <Sun size={iconSizes[size]} />
-        </div>
-        <div
-          className={cn(
-            'absolute inset-0 transition-all duration-500 transform',
-            theme === 'light' ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-0',
-          )}
-        >
-          <Moon size={iconSizes[size]} />
-        </div>
-      </div>
-    </button>
+      {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+    </Button>
   );
 }

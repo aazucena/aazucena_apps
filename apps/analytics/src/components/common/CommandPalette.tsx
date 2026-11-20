@@ -83,125 +83,110 @@ export function CommandPalette() {
       open={open}
       onOpenChange={setOpen}
       label="Global Command Palette"
-      className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh] p-4 bg-zinc-950/20 backdrop-blur-sm"
+      overlayClassName="bg-scrim fixed inset-0 z-(--z-overlay)"
+      contentClassName="fixed top-[20vh] left-1/2 z-(--z-modal) w-full max-w-2xl -translate-x-1/2 px-4"
+      className="border-rule-strong bg-panel-raised text-foreground rounded-card overflow-hidden border"
     >
       <DialogPrimitive.Title className="sr-only">Global Command Palette</DialogPrimitive.Title>
       <DialogPrimitive.Description className="sr-only">
         Search for commands, navigation, and AI assistance.
       </DialogPrimitive.Description>
 
-      <div className="w-full max-w-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        {/* INPUT SECTION */}
-        <div className="flex items-center px-4 border-b border-zinc-200 dark:border-zinc-800 h-14 gap-3">
-          <Search className="w-5 h-5 text-zinc-400" />
-          <Command.Input
-            value={query}
-            onValueChange={setQuery}
-            placeholder="EXECUTE_COMMAND_OR_QUERY..."
-            className="flex-1 bg-transparent border-none outline-none text-sm font-mono text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-500"
-          />
-          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-            <span className="text-[10px] font-mono text-zinc-500 font-bold uppercase">ESC</span>
-          </div>
-        </div>
+      {/* INPUT SECTION */}
+      <div className="border-rule flex h-14 items-center gap-3 border-b px-4">
+        <Search className="text-muted-foreground size-5" />
+        <Command.Input
+          value={query}
+          onValueChange={setQuery}
+          placeholder="EXECUTE_COMMAND_OR_QUERY..."
+          className="placeholder:text-muted-foreground flex-1 border-none bg-transparent font-mono text-sm outline-none"
+        />
+        <kbd className="micro-label border-rule text-muted-foreground rounded-control border px-2 py-1">
+          ESC
+        </kbd>
+      </div>
 
-        {/* RESULTS SECTION */}
-        <Command.List className="max-h-[400px] overflow-y-auto p-2 custom-scrollbar">
-          <Command.Empty className="py-12 text-center">
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-                <Search className="w-5 h-5 text-zinc-400" />
+      {/* RESULTS SECTION */}
+      <Command.List className="max-h-[400px] overflow-y-auto p-2">
+        <Command.Empty className="py-12 text-center">
+          <p className="micro-label text-muted-foreground">No_Results_Found</p>
+        </Command.Empty>
+
+        {categories.map((category) => {
+          const actionsInCategory = filteredActions.filter((a) => a.category === category);
+          if (actionsInCategory.length === 0) return null;
+
+          return (
+            <Command.Group
+              key={category}
+              heading={category}
+              className="px-2 pt-3 pb-2 [&_[cmdk-group-heading]]:sr-only"
+            >
+              <div className="mb-2 px-2">
+                <span className="micro-label text-muted-foreground">{category}_CORE</span>
               </div>
-              <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">
-                No_Results_Found
-              </p>
-            </div>
-          </Command.Empty>
+              {actionsInCategory.map((action) => (
+                <Command.Item
+                  key={action.id}
+                  onSelect={() => onSelect(action)}
+                  className="rounded-control aria-selected:bg-state aria-selected:text-signal group flex cursor-pointer items-center gap-3 px-3 py-2"
+                >
+                  <div className="border-rule rounded-control flex size-8 items-center justify-center border">
+                    <action.icon className="size-4" />
+                  </div>
+                  <div className="flex flex-1 flex-col">
+                    <span className="micro-label">{action.name}</span>
+                    <span className="text-muted-foreground truncate font-mono text-[10px]">
+                      {action.keywords}
+                    </span>
+                  </div>
+                  <div className="text-signal hidden items-center gap-1 font-mono text-[10px] group-aria-selected:flex">
+                    ENTER <CommandIcon size={12} />
+                  </div>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          );
+        })}
 
-          {categories.map((category) => {
-            const actionsInCategory = filteredActions.filter((a) => a.category === category);
-            if (actionsInCategory.length === 0) return null;
-
-            return (
-              <Command.Group key={category} heading={category} className="px-2 pt-4 pb-2">
-                <div className="mb-2 px-2">
-                  <span className="text-[9px] font-black text-zinc-400 dark:text-zinc-600 uppercase tracking-[0.2em]">
-                    {category}_CORE
-                  </span>
-                </div>
-                {actionsInCategory.map((action) => (
-                  <Command.Item
-                    key={action.id}
-                    onSelect={() => onSelect(action)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer aria-selected:bg-primary-500/10 aria-selected:text-primary-500 transition-all duration-200 group"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center group-aria-selected:bg-primary-500/20 group-aria-selected:border-primary-500/30 transition-colors">
-                      <action.icon className="w-4 h-4 transition-transform group-active:scale-90" />
-                    </div>
-                    <div className="flex-1 flex flex-col">
-                      <span className="text-xs font-bold uppercase tracking-wide">
-                        {action.name}
-                      </span>
-                      <span className="text-[10px] font-mono text-zinc-500 truncate">
-                        {action.keywords}
-                      </span>
-                    </div>
-                    <div className="hidden group-aria-selected:flex items-center gap-1 text-[10px] font-mono text-primary-500 font-bold opacity-50">
-                      ENTER <CommandIcon size={12} />
-                    </div>
-                  </Command.Item>
-                ))}
-              </Command.Group>
-            );
-          })}
-
-          {/* AI SUGGESTION IF NO RESULTS OR AS A PERMANENT OPTION */}
-          <Command.Group
-            heading="AI Assistant"
-            className="px-2 pt-4 pb-2 border-t border-zinc-100 dark:border-zinc-800 mt-2"
+        {/* AI SUGGESTION IF NO RESULTS OR AS A PERMANENT OPTION */}
+        <Command.Group
+          heading="AI Assistant"
+          className="border-rule mt-2 border-t px-2 pt-3 pb-2 [&_[cmdk-group-heading]]:sr-only"
+        >
+          <div className="mb-2 px-2">
+            <span className="micro-label text-signal">NEURAL_BRIDGE</span>
+          </div>
+          <Command.Item
+            onSelect={() => router.push(`/ai?q=${encodeURIComponent(query)}`)}
+            className="rounded-control aria-selected:bg-state aria-selected:text-signal flex cursor-pointer items-center gap-3 px-3 py-2"
           >
-            <div className="mb-2 px-2">
-              <span className="text-[9px] font-black text-primary-500/70 uppercase tracking-[0.2em]">
-                NEURAL_BRIDGE
+            <div className="border-rule text-signal rounded-control flex size-8 items-center justify-center border">
+              <Message className="size-4" />
+            </div>
+            <div className="flex flex-1 flex-col">
+              <span className="micro-label">Ask Assistant</span>
+              <span className="text-muted-foreground truncate font-mono text-[10px]">
+                {query ? `Query: "${query}"` : 'Bridge to collective monorepo memory'}
               </span>
             </div>
-            <Command.Item
-              onSelect={() => router.push(`/ai?q=${encodeURIComponent(query)}`)}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer aria-selected:bg-primary-500/10 aria-selected:text-primary-500 transition-all duration-200 group"
-            >
-              <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center">
-                <Message className="w-4 h-4 text-primary-500" />
-              </div>
-              <div className="flex-1 flex flex-col">
-                <span className="text-xs font-bold uppercase tracking-wide">Ask Assistant</span>
-                <span className="text-[10px] font-mono text-zinc-500 truncate">
-                  {query ? `Query: "${query}"` : 'Bridge to collective monorepo memory'}
-                </span>
-              </div>
-              <Zap className="w-3 h-3 text-primary-500 animate-pulse" />
-            </Command.Item>
-          </Command.Group>
-        </Command.List>
+            <Zap className="text-signal size-3" />
+          </Command.Item>
+        </Command.Group>
+      </Command.List>
 
-        <div className="px-4 py-3 bg-zinc-50 dark:bg-zinc-950/50 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
-          <div className="flex items-center gap-4 text-[10px] font-mono text-zinc-500">
-            <div className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 rounded border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-300 font-bold">
-                ↵
-              </kbd>
-              <span>to select</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 rounded border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-300 font-bold">
-                ↑↓
-              </kbd>
-              <span>to navigate</span>
-            </div>
+      <div className="border-rule text-muted-foreground flex items-center justify-between border-t px-4 py-3 font-mono text-[10px]">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1">
+            <kbd className="border-rule rounded-control border px-1.5 py-0.5">↵</kbd>
+            <span>to select</span>
           </div>
-          <div className="text-[10px] font-mono text-primary-500/50 italic uppercase tracking-tighter">
-            Powered_by_FlexSearch_v0.8
+          <div className="flex items-center gap-1">
+            <kbd className="border-rule rounded-control border px-1.5 py-0.5">↑↓</kbd>
+            <span>to navigate</span>
           </div>
         </div>
+        <span className="micro-label">Powered_by_FlexSearch_v0.8</span>
       </div>
     </Command.Dialog>
   );

@@ -12,10 +12,10 @@ interface IntegrityBadgeProps {
 }
 
 const statusToVariant = {
-  OPERATIONAL: 'emerald',
-  DEGRADED: 'rose',
-  UNKNOWN: 'secondary',
-  LOADING: 'sky',
+  OPERATIONAL: 'success',
+  DEGRADED: 'destructive',
+  UNKNOWN: 'destructive',
+  LOADING: 'cyber',
 } as const;
 
 const statusToLabel = {
@@ -29,22 +29,16 @@ export function IntegrityBadge({ className, showLabel = true }: IntegrityBadgePr
   const { status } = useSystemStatus();
 
   return (
-    <a
-      href="/status"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={cn('transition-all hover:scale-105 active:scale-95', className)}
-    >
+    <a href="/status" target="_blank" rel="noopener noreferrer" className={cn('block', className)}>
       <Badge
         variant={statusToVariant[status as keyof typeof statusToVariant] ?? 'secondary'}
         animated={status === 'OPERATIONAL' || status === 'LOADING'}
-        className="font-black tracking-widest rounded-full px-4 py-2"
+        size="xs"
+        className="h-[34px] w-full justify-center rounded-control px-2 whitespace-nowrap"
       >
         <Shield size={12} />
         {showLabel && (
-          <span className="ml-1">
-            System: {statusToLabel[status as keyof typeof statusToLabel] ?? 'Unknown'}
-          </span>
+          <span>System: {statusToLabel[status as keyof typeof statusToLabel] ?? 'Unknown'}</span>
         )}
       </Badge>
     </a>
