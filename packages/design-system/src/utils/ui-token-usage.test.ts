@@ -262,4 +262,17 @@ describe('@aazucena/ui fill variants (I1)', () => {
     }
     expect(offenders).toEqual([]);
   });
+
+  it('styles Radix states with data-[state=…], not bare data-open/closed/checked/active shorthands', () => {
+    // Radix sets data-state="open|closed|checked|…"; a bare data-open: compiles to [data-open], which never matches.
+    for (const file of tsxFiles(UI_DIR)) {
+      const src = readFileSync(file, 'utf8');
+      const hits =
+        src.match(/\bdata-(?:open|closed|checked|unchecked|active|inactive)(?=[:/])/g) ?? [];
+      expect({ file: file.split('src/components/')[1], hits }).toEqual({
+        file: file.split('src/components/')[1],
+        hits: [],
+      });
+    }
+  });
 });
