@@ -85,6 +85,8 @@ export default function PublicStatusPage() {
   const total = entries.length;
   const upCount = entries.filter(([, svc]) => svc.status === 'UP').length;
   const notUp = total - upCount;
+  const degradedCount = entries.filter(([, svc]) => svc.status === 'DEGRADED').length;
+  const downCount = notUp - degradedCount;
   // Partial degradation is a warning; nothing up (or no data at all) is an alert.
   const bannerTone: Tone = isHealthy ? 'ok' : upCount > 0 ? 'warn' : 'alert';
 
@@ -94,7 +96,14 @@ export default function PublicStatusPage() {
         <span>
           STATUS.AZUCENA <span className="text-muted-foreground">// PUBLIC</span>
         </span>
-        {!loading && notUp > 0 && <span className="text-warning">◆ {notUp} DEGRADED</span>}
+        {!loading && total > 0 && (
+          <span>
+            {downCount > 0 && <span className="text-alert">▲ {downCount} DOWN</span>}
+            {downCount > 0 && degradedCount > 0 && ' · '}
+            {degradedCount > 0 && <span className="text-warning">◆ {degradedCount} DEGRADED</span>}
+            {notUp === 0 && <span className="text-success">OK</span>}
+          </span>
+        )}
       </div>
 
       <main className="mx-auto flex w-full max-w-[860px] flex-col gap-6 px-6 py-12">
