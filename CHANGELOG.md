@@ -213,6 +213,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(design-system)_ Parse ui imports with TypeScript and pin the animate import order
 - _(storybook)_ The vibe matrix checks contrast again
 - _(storybook)_ Accessibility violations fail the interaction tests
 - _(storybook)_ Keyboard tests for combobox, autocomplete, tree and segmented control

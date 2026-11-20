@@ -86,4 +86,10 @@ describe('@aazucena/ui dependencies', () => {
     expect(pkg.peerDependencies).toMatchObject({ react: '^19.0.0', 'react-dom': '^19.0.0' });
     expect(pkg.dependencies.react).toBeUndefined();
   });
+
+  it('declares zod as an optional peer, for the zodValidator that form.tsx re-exports', () => {
+    expect(bareImports(UI_SRC).has('@tanstack/zod-form-adapter')).toBe(true);
+    expect(pkg.peerDependencies.zod).toBe('^4.0.0');
+    expect(pkg.peerDependenciesMeta?.zod).toEqual({ optional: true });
+  });
 });
