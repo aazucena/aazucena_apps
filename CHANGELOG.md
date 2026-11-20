@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Trajectory rewards read neutral, scroll regions focusable
 - _(analytics)_ Budget meter shows the projected burn
 - _(analytics)_ Model picker at every width and an honest live region
 - _(visualizations)_ Name the choropleth map

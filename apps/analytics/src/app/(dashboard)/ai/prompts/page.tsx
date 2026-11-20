@@ -300,7 +300,7 @@ export default function PromptManagerPage() {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <p className="micro-label text-muted-foreground">
-                    VARIABLES DETECTED // {variables.length}
+                    LAB VARIABLES // {variables.length}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {variables.map((v) => (
@@ -355,7 +355,7 @@ export default function PromptManagerPage() {
                     </pre>
                     {testResult && (
                       <div className="border-rule mt-4 flex items-center justify-between border-t pt-3">
-                        <Badge variant="success">OK</Badge>
+                        <span className="micro-label text-muted-foreground">SIMULATED</span>
                         <Button
                           variant="ghost"
                           size="sm"
