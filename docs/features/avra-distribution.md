@@ -24,7 +24,7 @@ Facts verified against the code and the shadcn docs:
 - **The schema has what we need.** `registry-item.json` supports `author`, `docs`, `meta`, `cssVars` (theme, light, dark), a `css` block (`@utility`, `@layer`, arbitrary selectors) and `registry:font` items.
 - **shadcn's MCP server reads `components.json` `registries`.** One line in a consumer project, `"@aazucena": "https://avra.aazucena.com/r/{name}.json"`, enables both `shadcn add @aazucena/panel` and agent access.
 - **Every derived token is a baked literal.** For example, `--signal-subtle: color-mix(in oklch, #006584 15%, transparent)`. So overriding `--signal` changes nothing downstream. `aliases.ts:5-6` explains the literals: a `var()` declared on `:root` resolves there, so it can't follow vibes applied to a container element.
-- **The ui package is close to ready, with one blocker.** 133 ui components import only `cn`. `cn` is `twMerge(clsx())`, the same as shadcn's `utils` item. 103 components import the private `@aazucena/icons`.
+- **The ui package is close to ready, with one blocker.** 133 ui components import only `cn`. `cn` is `clsx` plus a tailwind-merge config that knows Avra's tokens, so it differs from shadcn's `utils` item and ships as its own `avra-utils` lib item. 103 components import the private `@aazucena/icons`.
 - **Existing setup to replace.** `packages/ui/components.json` and `scripts/build-registry.ts` already exist, but the script is stale: it uses the old format and ignores `@aazucena/*` imports. There is no `registry.json` and no `public/r`.
 - **Fonts are never loaded by a shared package.** `core.css` reads `--font-sans`, which nothing defines.
 - **Undeclared dependencies.** `framer-motion` is only a devDependency of ui although 15 files import it. `@radix-ui/react-direction` is imported but undeclared.
@@ -61,15 +61,15 @@ New private workspace package `packages/avra-build`. `generate({ outDir, baseUrl
 
 ## Import rewriting (registry items)
 
-| Source                                    | Rewritten to                   | Item metadata                                                                                                         |
-| ----------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| `cn` from `@aazucena/utils`               | `@/lib/utils`                  | `registryDependencies: ["utils"]` (shadcn built-in). A guard test fails if `cn` gains a custom tailwind-merge config. |
-| other utils helpers                       | `@/registry/avra/lib/<helper>` | one `registry:lib` item per helper                                                                                    |
-| relative `./button`                       | `@/registry/avra/ui/button`    | full URL of the dependency, versioned inside versioned items                                                          |
-| plain Myna icons                          | `@mynaui/icons-react`          | npm `dependencies`                                                                                                    |
-| custom icons                              | `@/registry/avra/icons/<name>` | one item per icon                                                                                                     |
-| hooks (`@aazucena/hooks`, ui `src/hooks`) | `@/registry/avra/hooks/use-x`  | `registry:hook`                                                                                                       |
-| `@aazucena/types`                         | inlined                        | —                                                                                                                     |
+| Source                                    | Rewritten to                   | Item metadata                                                                                                                                                    |
+| ----------------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cn` from `@aazucena/utils`               | `@/registry/avra/lib/utils`    | a `registry:lib` item `avra-utils` carrying the Avra tailwind-merge config (npm deps `clsx`, `tailwind-merge`). A test keeps its token lists equal to the theme. |
+| other utils helpers                       | `@/registry/avra/lib/<helper>` | one `registry:lib` item per helper                                                                                                                               |
+| relative `./button`                       | `@/registry/avra/ui/button`    | full URL of the dependency, versioned inside versioned items                                                                                                     |
+| plain Myna icons                          | `@mynaui/icons-react`          | npm `dependencies`                                                                                                                                               |
+| custom icons                              | `@/registry/avra/icons/<name>` | one item per icon                                                                                                                                                |
+| hooks (`@aazucena/hooks`, ui `src/hooks`) | `@/registry/avra/hooks/use-x`  | `registry:hook`                                                                                                                                                  |
+| `@aazucena/types`                         | inlined                        | —                                                                                                                                                                |
 
 Other rules:
 

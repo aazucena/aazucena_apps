@@ -177,6 +177,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(utils)_ Cn merges avra token classes
 - _(visualizations)_ Choropleth hover tooltip and hideHeader
 - _(storybook)_ Show where the apps use each component
 - _(design-system)_ Chart color roles as a CSS subset for apps without css-vars
