@@ -53,7 +53,7 @@ export function MetricCard({
         >
           {value}
         </div>
-        {delta && trend && (
+        {trend && (
           <div
             className={cn(
               'micro-label flex items-center gap-1',
