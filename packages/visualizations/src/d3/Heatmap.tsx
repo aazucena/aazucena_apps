@@ -15,6 +15,7 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   description?: string;
   colorMap?: Record<string, string>;
+  /** Maximum SVG height in px. Omit to size from the container width. */
   height?: number;
   exportFileName?: string;
   onCellClick?: (cell: GenericHeatmapCell) => void;
@@ -37,7 +38,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       title = 'Skill Usage Heatmap',
       description,
       colorMap = {},
-      height: heightProp = 500,
+      height: heightProp,
       exportFileName = 'skill-heatmap',
       onCellClick,
       onCellHover,
@@ -51,7 +52,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     const svgRef = useRef<SVGSVGElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);
-    const [svgHeight, setSvgHeight] = useState(300);
+    const [svgHeight, setSvgHeight] = useState(heightProp ?? 300);
     const [hoveredCell, setHoveredCell] = useState<GenericHeatmapCell | null>(null);
 
     // Track container width only — height is dynamic from the hook
@@ -82,6 +83,7 @@ export const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       onCellClick,
       onCellHover: infoPanel || onCellHover ? handleCellHover : undefined,
       onHeightChange: handleHeightChange,
+      maxHeight: heightProp,
     });
 
     const header = !hideHeader && (

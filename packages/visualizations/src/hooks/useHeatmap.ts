@@ -11,6 +11,8 @@ export interface UseHeatmapOptions {
   onCellHover?: (cell: GenericHeatmapCell | null) => void;
   /** Called whenever the required SVG height changes (dynamic based on cell size) */
   onHeightChange?: (height: number) => void;
+  /** Maximum SVG height in px; omit to size from the container width */
+  maxHeight?: number;
 }
 
 const MAX_CELL_SIZE = 35;
@@ -21,16 +23,25 @@ export function heatmapHeight(cellSize: number): number {
   return 12 * cellSize + MARGIN.top + MARGIN.bottom;
 }
 
-/** Compute the cell size for a given container width and year count */
-export function heatmapCellSize(containerWidth: number, yearCount: number): number {
+const MIN_CELL_SIZE = 4;
+
+/** Compute the cell size for a container width, year count and optional max SVG height */
+export function heatmapCellSize(
+  containerWidth: number,
+  yearCount: number,
+  maxHeight?: number,
+): number {
   const available = containerWidth - MARGIN.left - MARGIN.right;
-  return Math.min(MAX_CELL_SIZE, available / Math.max(yearCount, 1));
+  const widthBased = available / Math.max(yearCount, 1);
+  const heightBased =
+    maxHeight === undefined ? Infinity : (maxHeight - MARGIN.top - MARGIN.bottom) / 12;
+  return Math.max(MIN_CELL_SIZE, Math.min(MAX_CELL_SIZE, widthBased, heightBased));
 }
 
 export function useHeatmap<T extends GenericHeatmapCell>(
   svgRef: React.RefObject<SVGSVGElement | null>,
   data: T[],
-  { width, colorMap, onCellClick, onCellHover, onHeightChange }: UseHeatmapOptions,
+  { width, colorMap, onCellClick, onCellHover, onHeightChange, maxHeight }: UseHeatmapOptions,
 ) {
   useEffect(() => {
     if (!svgRef.current || width === 0 || !data.length) return;
@@ -42,7 +53,7 @@ export function useHeatmap<T extends GenericHeatmapCell>(
       (a, b) => a - b,
     );
 
-    const cellSize = heatmapCellSize(width, years.length);
+    const cellSize = heatmapCellSize(width, years.length, maxHeight);
     const svgHeight = heatmapHeight(cellSize);
 
     // Notify parent of height so it can resize the SVG container
@@ -153,5 +164,5 @@ export function useHeatmap<T extends GenericHeatmapCell>(
           if (d.data && onCellClick) onCellClick(d.data);
         });
     }
-  }, [svgRef, data, width, colorMap, onCellClick, onCellHover, onHeightChange]);
+  }, [svgRef, data, width, colorMap, onCellClick, onCellHover, onHeightChange, maxHeight]);
 }
