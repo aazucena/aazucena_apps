@@ -21,6 +21,14 @@ import { StreamGraph } from '@aazucena/visualizations';
 import { useAiStats } from '@/hooks/useAiStats';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
 
+function Bar({ pct, tone }: { pct: number; tone: string }) {
+  return (
+    <div aria-hidden className="bg-state mt-1 ml-auto h-1 w-16 overflow-hidden rounded-full">
+      <div className={`h-full ${tone}`} style={{ width: `${Math.min(Math.max(pct, 0), 100)}%` }} />
+    </div>
+  );
+}
+
 export default function AiCostCenterPage() {
   const dispatch = useDispatch();
   const { data: stats, isLoading } = useAiStats();
@@ -71,9 +79,9 @@ export default function AiCostCenterPage() {
   const models: any[] = stats?.models ?? (stats as any)?.distribution ?? [];
   const agents: any[] = (stats as any)?.agents ?? [];
   const th = 'micro-label text-muted-foreground';
-  const emptyRow = (text: string) => (
+  const emptyRow = (cols: number, text: string) => (
     <TableRow>
-      <TableCell colSpan={4} className="micro-label text-muted-foreground py-10 text-center">
+      <TableCell colSpan={cols} className="micro-label text-muted-foreground py-10 text-center">
         {text}
       </TableCell>
     </TableRow>
@@ -136,7 +144,7 @@ export default function AiCostCenterPage() {
             {budgetNum && burn !== null ? (
               <Meter
                 label="Budget burn"
-                value={Math.min((totalSpendNum / budgetNum) * 100, 100)}
+                value={Math.min(burn, 100)}
                 variant={
                   budgetState === 'alert'
                     ? 'destructive'
@@ -152,6 +160,7 @@ export default function AiCostCenterPage() {
                 aria-valuenow={0}
                 aria-valuemin={0}
                 aria-valuemax={100}
+                aria-valuetext="No budget set"
                 className="bg-state h-2 w-full rounded-full"
               />
             )}
@@ -210,11 +219,15 @@ export default function AiCostCenterPage() {
                       ${model.spend.toFixed(4)}
                     </TableCell>
                     <TableCell className="text-success text-right font-mono text-sm tabular-nums">
-                      +${(model.savings || 0).toFixed(4)}
+                      <div>+${(model.savings || 0).toFixed(4)}</div>
+                      <Bar
+                        pct={((model.savings || 0) / (totalSavingsNum || 1)) * 100}
+                        tone="bg-success"
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
-                {models.length === 0 && emptyRow('FISCAL TELEMETRY INGESTION PENDING...')}
+                {models.length === 0 && emptyRow(4, 'FISCAL TELEMETRY INGESTION PENDING...')}
               </TableBody>
             </Table>
           </PanelBody>
@@ -228,7 +241,6 @@ export default function AiCostCenterPage() {
                   <TableHead className={th}>AGENT_IDENTITY</TableHead>
                   <TableHead className={`${th} text-right`}>INFERENCES</TableHead>
                   <TableHead className={`${th} text-right`}>TOTAL_SPEND</TableHead>
-                  <TableHead className={`${th} text-right`}>NEURAL_NODE</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -239,14 +251,12 @@ export default function AiCostCenterPage() {
                       {agent.inferences.toLocaleString()}
                     </TableCell>
                     <TableCell className="text-right font-mono text-sm tabular-nums">
-                      ${agent.spend.toFixed(4)}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground text-right font-mono text-sm">
-                      {agent.node ?? '—'}
+                      <div>${agent.spend.toFixed(4)}</div>
+                      <Bar pct={(agent.spend / (totalSpendNum || 1)) * 100} tone="bg-signal" />
                     </TableCell>
                   </TableRow>
                 ))}
-                {agents.length === 0 && emptyRow('AGENT FISCAL MAPPING PENDING...')}
+                {agents.length === 0 && emptyRow(3, 'AGENT FISCAL MAPPING PENDING...')}
               </TableBody>
             </Table>
           </PanelBody>

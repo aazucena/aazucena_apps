@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Model picker at every width and an honest live region
 - _(visualizations)_ Name the choropleth map
 - _(analytics)_ Status top bar counts down and degraded apart
 - _(analytics)_ Label web vitals by the statistic they show
