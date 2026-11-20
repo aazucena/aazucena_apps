@@ -107,9 +107,73 @@ function AiTerminalContent() {
     }
   }, [q, isLoading, isMounted, sendQuery, searchParams, router]);
 
-  const lastMessage = messages[messages.length - 1];
+  const liveIdx = messages[messages.length - 1]?.role === 'assistant' ? messages.length - 1 : -1;
   const activeModel = AVAILABLE_MODELS.find((m) => m.id === selectedModel);
   const isDisabled = isLoading || (isMounted && !activeConversationId);
+
+  const renderMessage = (m: (typeof messages)[number]) => {
+    return (
+      <div key={m.id} className="flex flex-col gap-1.5">
+        <span className="micro-label text-signal">
+          {m.role === 'user' ? 'OPERATOR' : 'AI_CORE'}
+        </span>
+        <div
+          className={cn(
+            'rounded-control border px-4 py-3 text-sm leading-relaxed',
+            m.role === 'user' ? 'bg-state border-transparent' : 'border-rule-strong',
+          )}
+        >
+          {m.parts.map((part, i) => {
+            if (part.type === 'text') return <MarkdownRenderer key={i} content={part.text} />;
+            if (part.type === 'reasoning')
+              return (
+                <details
+                  key={i}
+                  open
+                  className="bg-panel-raised border-rule rounded-control my-3 border font-mono"
+                >
+                  <summary className="micro-label text-muted-foreground cursor-pointer px-3 py-2">
+                    INTERNAL_REASONING
+                  </summary>
+                  <p className="text-muted-foreground px-3 pb-3 text-xs whitespace-pre-wrap">
+                    {part.text}
+                  </p>
+                </details>
+              );
+            return null;
+          })}
+
+          <div className="mt-3 flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() =>
+                handleCopy(
+                  m.id,
+                  m.parts
+                    .filter((p) => p.type === 'text')
+                    .map((p) => (p as { type: 'text'; text: string }).text)
+                    .join('\n'),
+                )
+              }
+              disabled={isLoading}
+              className={cn('micro-label h-6 px-2', copiedId === m.id && 'text-success')}
+            >
+              {copiedId === m.id ? (
+                <>
+                  <Check size={12} /> COPIED
+                </>
+              ) : (
+                <>
+                  <Copy size={12} /> COPY
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="mt-6 flex h-[calc(100vh-8rem)] gap-4">
@@ -206,6 +270,23 @@ function AiTerminalContent() {
       <Panel className="min-h-0 min-w-0 flex-1 overflow-hidden">
         <PanelHeader label={`AI_CORE // ${isMounted ? (activeConv?.title ?? 'THREAD') : 'THREAD'}`}>
           <div className="flex shrink-0 items-center gap-3">
+            <span className="xl:hidden">
+              <label htmlFor="ai-model-compact" className="sr-only">
+                Model
+              </label>
+              <select
+                id="ai-model-compact"
+                value={selectedModel}
+                onChange={(e) => setSelectedModel(e.target.value)}
+                className="border border-rule-strong h-control-sm rounded-control text-foreground focus-visible:outline-signal bg-transparent px-3 text-sm outline-none focus-visible:outline-1"
+              >
+                {AVAILABLE_MODELS.map((model) => (
+                  <option key={model.id} value={model.id} className="bg-panel">
+                    {model.name}
+                  </option>
+                ))}
+              </select>
+            </span>
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               aria-pressed={isSidebarOpen}
@@ -239,72 +320,8 @@ function AiTerminalContent() {
             </div>
           )}
 
-          {messages.map((m) => {
-            const isLast = m === lastMessage && m.role === 'assistant';
-            return (
-              <div key={m.id} className="flex flex-col gap-1.5">
-                <span className="micro-label text-signal">
-                  {m.role === 'user' ? 'OPERATOR' : 'AI_CORE'}
-                </span>
-                <div
-                  aria-live={isLast ? 'polite' : undefined}
-                  className={cn(
-                    'rounded-control border px-4 py-3 text-sm leading-relaxed',
-                    m.role === 'user' ? 'bg-state border-transparent' : 'border-rule-strong',
-                  )}
-                >
-                  {m.parts.map((part, i) => {
-                    if (part.type === 'text')
-                      return <MarkdownRenderer key={i} content={part.text} />;
-                    if (part.type === 'reasoning')
-                      return (
-                        <details
-                          key={i}
-                          open
-                          className="bg-panel-raised border-rule rounded-control my-3 border font-mono"
-                        >
-                          <summary className="micro-label text-muted-foreground cursor-pointer px-3 py-2">
-                            INTERNAL_REASONING
-                          </summary>
-                          <p className="text-muted-foreground px-3 pb-3 text-xs whitespace-pre-wrap">
-                            {part.text}
-                          </p>
-                        </details>
-                      );
-                    return null;
-                  })}
-
-                  <div className="mt-3 flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() =>
-                        handleCopy(
-                          m.id,
-                          m.parts
-                            .filter((p) => p.type === 'text')
-                            .map((p) => (p as { type: 'text'; text: string }).text)
-                            .join('\n'),
-                        )
-                      }
-                      disabled={isLoading}
-                      className={cn('micro-label h-6 px-2', copiedId === m.id && 'text-success')}
-                    >
-                      {copiedId === m.id ? (
-                        <>
-                          <Check size={12} /> COPIED
-                        </>
-                      ) : (
-                        <>
-                          <Copy size={12} /> COPY
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {messages.slice(0, liveIdx < 0 ? messages.length : liveIdx).map(renderMessage)}
+          <div aria-live="polite">{liveIdx >= 0 && renderMessage(messages[liveIdx]!)}</div>
 
           {isLoading && (
             <div className="flex flex-col gap-1.5" role="status" aria-label="Inference running">
