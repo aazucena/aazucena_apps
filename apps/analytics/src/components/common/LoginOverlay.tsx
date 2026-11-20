@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useSyncExternalStore } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { Shield, Eye, EyeOff } from '@aazucena/icons';
 import { Button, Input, Panel, PanelBody, PanelHeader } from '@aazucena/ui';
+import { useInertOutside } from '@/hooks/useInertOutside';
 import { ThemeToggle } from './ThemeToggle';
 import { IntegrityBadge } from './IntegrityBadge';
 
@@ -27,7 +29,17 @@ export function LoginOverlay() {
   const [isLoading, setIsLoading] = useState(false);
   const [time, setTime] = useState('');
   const [lastLogin, setLastLogin] = useState<string | null>(null);
+  // false on the server and during hydration, true afterwards
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const passwordRef = useRef<HTMLInputElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  // Portal to body only on the client; then everything else on the page goes inert
+  useInertOutside(rootRef, mounted);
 
   // Live clock — start after mount to avoid hydration mismatch
   useEffect(() => {
@@ -47,8 +59,8 @@ export function LoginOverlay() {
 
   // Focus the key field on open
   useEffect(() => {
-    passwordRef.current?.focus();
-  }, []);
+    if (mounted) passwordRef.current?.focus();
+  }, [mounted]);
 
   // Last login — localStorage is client-only
   useEffect(() => {
@@ -94,8 +106,14 @@ export function LoginOverlay() {
     }
   };
 
-  return (
-    <div className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4">
+  if (!mounted) return null;
+
+  return createPortal(
+    <div
+      ref={rootRef}
+      data-login-overlay
+      className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
       {/* Top bar: live clock + theme toggle */}
       <div className="absolute top-4 right-4 left-4 flex items-center justify-between">
         <span className="text-muted-foreground font-mono text-[11px] tracking-widest tabular-nums">
@@ -184,6 +202,7 @@ export function LoginOverlay() {
           </div>
         </div>
       </Panel>
-    </div>
+    </div>,
+    document.body,
   );
 }
