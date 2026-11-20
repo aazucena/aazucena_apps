@@ -153,6 +153,10 @@ All 14 monorepo packages have comprehensive Intelligence-themed documentation (~
 
 ### Feature Documentation
 
+#### Design System 🎨
+
+- **[Avra Distribution](./features/avra-distribution.md)** - Use the design system outside this repo: shadcn registry, theme and vibe CSS for any framework, llms files, an Avra skill (after Phase 4)
+
 #### Analytics & Telemetry 📊
 
 - **[AZUCENA_LYTICS Overview](/apps/analytics/README.md)** - Engineering Intelligence Terminal architecture and setup (Next.js/ClickHouse/D3.js)

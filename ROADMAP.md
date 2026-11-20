@@ -99,18 +99,19 @@ Branch `phase-5/next-release` also carries the analytics UI redesign, new featur
 
 ## 🎵 Feature Implementations
 
-| Feature                   | Timeline      | Docs                                                          |
-| ------------------------- | ------------- | ------------------------------------------------------------- |
-| AZUCENA_LYTICS v1         | ✅ 2026-02-04 | [docs →](./docs/features/azucena-lytics-plan.md)              |
-| AI-Powered Forms          | Post-Phase 5  | [docs →](./docs/features/ai-forms.md)                         |
-| Vercel AI SDK Integration | Post-Phase 5  | [docs →](./docs/features/ai-forms.md)                         |
-| Music Player              | Post-Phase 5  | [docs →](./docs/features/music-player.md)                     |
-| Strudel.cc Live Coding    | Post-Phase 5  | [docs →](./docs/features/strudel-integration.md)              |
-| Machine Learning Features | Post-Phase 5  | [docs →](./docs/features/machine-learning.md)                 |
-| Strapi Plugin Icons v2.0  | Post-Phase 5  | [docs →](./docs/features/strapi-plugin-icons-field/README.md) |
-| Logging & Monitoring      | Post-Phase 5  | [docs →](./docs/features/logging-monitoring.md)               |
-| Payments (Stripe + Ko-fi) | Post-Phase 5  | [docs →](./docs/features/payments.md)                         |
-| Analytics Visual Identity | Next release  | [docs →](./docs/features/analytics-visual-identity.md)        |
+| Feature                                              | Timeline      | Docs                                                          |
+| ---------------------------------------------------- | ------------- | ------------------------------------------------------------- |
+| AZUCENA_LYTICS v1                                    | ✅ 2026-02-04 | [docs →](./docs/features/azucena-lytics-plan.md)              |
+| AI-Powered Forms                                     | Post-Phase 5  | [docs →](./docs/features/ai-forms.md)                         |
+| Vercel AI SDK Integration                            | Post-Phase 5  | [docs →](./docs/features/ai-forms.md)                         |
+| Music Player                                         | Post-Phase 5  | [docs →](./docs/features/music-player.md)                     |
+| Strudel.cc Live Coding                               | Post-Phase 5  | [docs →](./docs/features/strudel-integration.md)              |
+| Machine Learning Features                            | Post-Phase 5  | [docs →](./docs/features/machine-learning.md)                 |
+| Strapi Plugin Icons v2.0                             | Post-Phase 5  | [docs →](./docs/features/strapi-plugin-icons-field/README.md) |
+| Logging & Monitoring                                 | Post-Phase 5  | [docs →](./docs/features/logging-monitoring.md)               |
+| Payments (Stripe + Ko-fi)                            | Post-Phase 5  | [docs →](./docs/features/payments.md)                         |
+| Analytics Visual Identity                            | Next release  | [docs →](./docs/features/analytics-visual-identity.md)        |
+| Avra Distribution (registry, theme CSS, llms, skill) | After Phase 4 | [docs →](./docs/features/avra-distribution.md)                |
 
 ---
 
