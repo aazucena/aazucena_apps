@@ -2,19 +2,23 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { ChevronRight, Refresh, Save } from '@aazucena/icons';
 import {
-  Terminal,
-  Sparkles,
-  Save,
-  Refresh,
-  Database,
-  ChevronRight,
-  Zap,
-  Message,
-  XCircle,
-} from '@aazucena/icons';
+  Badge,
+  Button,
+  Panel,
+  PanelBody,
+  PanelHeader,
+  ScrollArea,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Textarea,
+} from '@aazucena/ui';
 import { useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { PageHeader } from '@/components/common/PageHeader';
 import { usePrompts, useUpdatePrompt } from '@/hooks/usePrompts';
 
 export default function PromptManagerPage() {
@@ -114,336 +118,259 @@ export default function PromptManagerPage() {
   // --- Loading/Error Views ---
   if (isPromptsLoading)
     return (
-      <div className="h-full flex items-center justify-center font-mono text-xs uppercase tracking-widest text-zinc-500 animate-pulse">
-        Initializing_Prompt_Hub...
+      <div className="flex h-[50vh] items-center justify-center" role="status">
+        <p className="micro-label text-muted-foreground motion-safe:animate-pulse">
+          LOADING PROMPTS
+        </p>
       </div>
     );
   if (promptsError)
     return (
-      <div className="h-full flex items-center justify-center text-rose-500 font-mono text-xs uppercase">
-        <XCircle className="mr-2" size={16} /> Hub_Connection_Failed
+      <div className="flex h-[50vh] items-center justify-center">
+        <Badge variant="destructive">PROMPT HUB UNREACHABLE</Badge>
       </div>
     );
 
+  const variables = ['input', 'context'];
+  const fieldClass =
+    'border-rule-strong bg-panel-raised min-h-0 flex-1 resize-none font-mono text-sm leading-relaxed';
+
   return (
-    <div className="space-y-10 pb-20 h-[calc(100vh-10rem)] flex flex-col">
-      {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
-        <div>
-          <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter uppercase flex items-center gap-3">
-            PROMPT<span className="text-primary-500">_LABS</span>
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold text-wrap">
-            Centralized Intelligence Instructions & Template IDE
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="hidden md:flex flex-col items-end px-4 border-r border-zinc-200 dark:border-zinc-800">
-            <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest">
-              Est_Payload_Cost
-            </span>
-            <span className="text-xs font-mono font-black text-primary-500">${estCost}</span>
-          </div>
-
-          <div className="flex items-center gap-3 px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl">
-            <label className="flex items-center cursor-pointer group">
-              <div className="relative">
-                <input
-                  type="checkbox"
-                  checked={forceReset}
-                  onChange={(e) => setForceReset(e.target.checked)}
-                  className="sr-only"
-                />
-                <div
-                  className={cn(
-                    'block w-8 h-5 rounded-full border transition-all',
-                    forceReset
-                      ? 'bg-rose-500/20 border-rose-500/40'
-                      : 'bg-zinc-200 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-700',
-                  )}
-                ></div>
-                <div
-                  className={cn(
-                    'absolute left-1 top-1 w-3 h-3 rounded-full transition-all',
-                    forceReset
-                      ? 'translate-x-3 bg-rose-500 shadow-[0_0_8px_#f43f5e]'
-                      : 'bg-zinc-400 dark:bg-zinc-500',
-                  )}
-                ></div>
+    <div className="flex flex-col gap-4">
+      <PageHeader
+        title="PROMPT_LABS"
+        meta="CENTRALIZED INTELLIGENCE INSTRUCTIONS & TEMPLATE IDE"
+        actions={
+          <>
+            <dl className="border-rule bg-panel rounded-card flex items-stretch divide-x divide-[var(--rule)] border">
+              <div className="px-4 py-1.5">
+                <dt className="micro-label text-muted-foreground">≈ PAYLOAD COST</dt>
+                <dd className="font-mono text-sm">${estCost}</dd>
               </div>
-              <span
-                className={cn(
-                  'ml-2 text-[8px] font-black uppercase tracking-widest transition-colors',
-                  forceReset ? 'text-rose-500' : 'text-zinc-400 group-hover:text-zinc-300',
-                )}
-              >
-                Force_Reset
-              </span>
+              <div className="px-4 py-1.5">
+                <dt className="micro-label text-muted-foreground">≈ TOKENS</dt>
+                <dd className="font-mono text-sm">~{estTokens}</dd>
+              </div>
+            </dl>
+            <label className="micro-label text-muted-foreground flex cursor-pointer items-center gap-2">
+              <input
+                type="checkbox"
+                checked={forceReset}
+                onChange={(e) => setForceReset(e.target.checked)}
+                className="accent-[var(--signal)]"
+              />
+              FORCE RESET
             </label>
-            <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800" />
-            <button
-              onClick={handleSync}
-              disabled={isSyncing}
-              className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest hover:text-primary-500 transition-all disabled:opacity-50"
-            >
-              <Refresh size={14} className={cn(isSyncing && 'animate-spin')} />
-              {isSyncing ? 'Syncing...' : 'Sync'}
-            </button>
-          </div>
-        </div>
-      </div>
+            <Button variant="outline" onClick={handleSync} disabled={isSyncing}>
+              <Refresh size={14} className={cn(isSyncing && 'motion-safe:animate-spin')} />
+              {isSyncing ? 'Syncing...' : 'Sync prompts'}
+            </Button>
+          </>
+        }
+      />
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-4 gap-8">
-        {/* SIDEBAR: PROMPT LIST */}
-        <div className="xl:col-span-1 bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-md">
-          <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-between">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-zinc-500 flex items-center gap-2">
-              <Database size={12} /> Templates
-            </h3>
-            <span className="text-[8px] font-mono text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded uppercase">
-              {prompts.length}_Stored
+      <div className="grid h-[calc(100vh-11rem)] min-h-[560px] grid-cols-1 gap-4 xl:grid-cols-[20rem_minmax(0,1fr)]">
+        {/* PROMPT LIST */}
+        <Panel className="min-h-0 overflow-hidden">
+          <PanelHeader label="PROMPTS">
+            <span className="micro-label text-signal flex items-center gap-1.5">
+              <span aria-hidden className="bg-signal size-1.5 rounded-full" />
+              {prompts.length}
             </span>
-          </div>
-          <div className="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
-            {prompts.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => setSelectedPromptId(p.id)}
-                className={cn(
-                  'w-full p-4 rounded-2xl border text-left transition-all group relative overflow-hidden',
-                  selectedPrompt?.id === p.id
-                    ? 'bg-primary-500 border-primary-600 text-white shadow-lg'
-                    : 'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700',
-                )}
-              >
-                <div className="flex items-center justify-between mb-1 relative z-10">
-                  <div className="flex gap-2">
-                    <span className="text-[8px] font-mono font-bold opacity-70 uppercase tracking-tighter">
-                      {p.type}
-                    </span>
-                    {p.locale !== 'en' && (
-                      <span className="text-[8px] font-mono font-black text-primary-500 bg-primary-500/10 px-1 rounded">
-                        {p.locale.toUpperCase()}
-                      </span>
-                    )}
-                  </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_5px_rgba(52,211,153,0.5)]" />
-                </div>
-                <div className="text-xs font-black uppercase tracking-wider truncate relative z-10">
-                  {p.name}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* MAIN: EDITOR/LAB VIEW */}
-        <div className="xl:col-span-3 flex flex-col gap-6">
-          <div className="flex-1 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] flex flex-col overflow-hidden shadow-2xl shadow-primary-500/5">
-            {/* Editor Header & Tabs */}
-            <div className="px-8 py-4 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-2">
-                  <Terminal size={16} className="text-primary-500" />
-                  <span className="text-[10px] font-mono font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">
-                    {selectedPrompt?.name}
-                  </span>
-                </div>
-                <div className="flex items-center bg-zinc-200/50 dark:bg-zinc-800/50 p-1 rounded-xl">
-                  <button
-                    onClick={() => setActiveTab('editor')}
-                    className={cn(
-                      'px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all',
-                      activeTab === 'editor'
-                        ? 'bg-white dark:bg-zinc-700 text-primary-500 shadow-sm'
-                        : 'text-zinc-500',
-                    )}
-                  >
-                    Editor
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('lab')}
-                    className={cn(
-                      'px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all',
-                      activeTab === 'lab'
-                        ? 'bg-white dark:bg-zinc-700 text-rose-500 shadow-sm'
-                        : 'text-zinc-500',
-                    )}
-                  >
-                    Test_Lab
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleSave}
-                  disabled={updateMutation.isPending}
-                  className="flex items-center gap-2 px-4 py-1.5 bg-primary-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary-600 transition-all shadow-lg shadow-primary-500/20 active:scale-95 disabled:opacity-50"
-                >
-                  {updateMutation.isPending ? (
-                    <Refresh className="animate-spin" size={14} />
-                  ) : (
-                    <Save size={14} />
-                  )}
-                  {updateMutation.isPending ? 'Committing...' : 'Commit_Changes'}
-                </button>
-              </div>
-            </div>
-
-            {/* Content Area */}
-            <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
-              {activeTab === 'editor' ? (
-                <>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* System Message */}
-                    <div className="space-y-3 flex flex-col h-[450px]">
-                      <div className="flex justify-between items-center shrink-0">
-                        <label
-                          htmlFor="system-persona"
-                          className="text-[10px] font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2"
-                        >
-                          <Sparkles size={12} /> System_Persona
-                        </label>
-                        <span className="text-[8px] font-mono text-zinc-500 uppercase">
-                          {systemMsg.length} Chars
-                        </span>
-                      </div>
-                      <textarea
-                        id="system-persona"
-                        value={systemMsg}
-                        onChange={(e) => setSystemMsg(e.target.value)}
-                        className="flex-1 w-full bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 text-sm font-mono text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-none shadow-inner leading-relaxed"
-                      />
-                    </div>
-
-                    {/* Human Template */}
-                    <div className="space-y-3 flex flex-col h-[450px]">
-                      <div className="flex justify-between items-center shrink-0">
-                        <label
-                          htmlFor="interaction-template"
-                          className="text-[10px] font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2"
-                        >
-                          <Message size={12} /> Interaction_Template
-                        </label>
-                        <span className="text-[8px] font-mono text-zinc-500 uppercase">
-                          {humanTmpl.length} Chars
-                        </span>
-                      </div>
-                      <textarea
-                        id="interaction-template"
-                        value={humanTmpl}
-                        onChange={(e) => setHumanTemplate(e.target.value)}
-                        className="flex-1 w-full bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 text-sm font-mono text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-none shadow-inner leading-relaxed"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Variables Discovery */}
-                  <div className="p-6 bg-primary-500/5 border border-primary-500/10 rounded-[2rem] flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center text-primary-500">
-                        <Zap size={20} />
-                      </div>
-                      <div>
-                        <p className="text-xs font-black uppercase text-zinc-900 dark:text-zinc-100 tracking-wider">
-                          Variables Detected
-                        </p>
-                        <div className="flex gap-2 mt-1">
-                          {['input', 'context'].map((v) => (
-                            <code
-                              key={v}
-                              className="text-[9px] font-mono bg-zinc-200 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-primary-500"
-                            >{`{${v}}`}</code>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-6">
-                      <div className="text-right">
-                        <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest">
-                          Est_Token_Volume
-                        </p>
-                        <p className="text-xs font-mono font-black text-zinc-600 dark:text-zinc-300">
-                          ~{estTokens}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => setActiveTab('lab')}
-                        className="flex items-center gap-2 text-primary-500 hover:text-primary-600 transition-colors text-[10px] font-black uppercase tracking-widest"
-                      >
-                        Go_to_Lab <ChevronRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* TEST LAB VIEW */
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 h-full pb-8">
-                  <div className="space-y-6 flex flex-col">
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
-                      Simulation_Inputs
-                    </h4>
-                    <div className="space-y-4 flex-1">
-                      {['input', 'context'].map((v) => (
-                        <div key={v} className="space-y-2">
-                          <label className="text-[9px] font-mono text-primary-500 uppercase">
-                            {v}
-                          </label>
-                          <textarea
-                            value={testVariables[v]}
-                            onChange={(e) =>
-                              setTestVariables((prev) => ({ ...prev, [v]: e.target.value }))
-                            }
-                            className="w-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 text-xs font-mono text-zinc-700 dark:text-zinc-300 focus:outline-none resize-none h-32"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <button
-                      onClick={runTest}
-                      disabled={isTesting}
-                      className="w-full py-4 bg-rose-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-rose-500/20 hover:bg-rose-600 active:scale-[0.98] transition-all disabled:opacity-50"
-                    >
-                      {isTesting ? 'Synthesizing_Inference...' : 'Run_Logic_Test'}
-                    </button>
-                  </div>
-
-                  <div className="flex flex-col space-y-6">
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
-                      Inference_Output
-                    </h4>
-                    <div className="flex-1 bg-zinc-900 rounded-[2rem] p-8 border border-zinc-800 shadow-inner relative overflow-hidden group">
-                      <div className="absolute top-4 right-6 flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-[8px] font-mono text-zinc-500 uppercase">
-                          Status: Success
-                        </span>
-                      </div>
-                      <div className="h-full flex flex-col">
-                        <pre className="flex-1 text-sm font-mono text-zinc-300 whitespace-pre-wrap leading-relaxed">
-                          {testResult ||
-                            (isTesting
-                              ? 'Awaiting response from neural core...'
-                              : 'Ready for test execution...')}
-                        </pre>
-                        {testResult && (
-                          <div className="mt-6 pt-6 border-t border-zinc-800 flex justify-between items-center">
-                            <span className="text-[8px] font-mono text-zinc-600 uppercase italic">
-                              Inference produced in 1042ms
-                            </span>
-                            <button className="text-[9px] font-black text-primary-500 uppercase tracking-widest hover:underline">
-                              Copy_Output
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          </PanelHeader>
+          <ScrollArea className="min-h-0 flex-1">
+            <div className="flex flex-col gap-1 p-2">
+              {prompts.length === 0 && (
+                <p className="micro-label text-muted-foreground py-16 text-center">
+                  NO PROMPTS STORED
+                </p>
               )}
+              {prompts.map((p) => {
+                const active = selectedPrompt?.id === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => setSelectedPromptId(p.id)}
+                    aria-current={active ? 'true' : undefined}
+                    className={cn(
+                      'rounded-control focus-visible:outline-signal w-full border-l-2 px-3 py-2.5 text-left outline-none focus-visible:outline-1',
+                      active
+                        ? 'border-l-signal bg-state text-foreground'
+                        : 'text-muted-foreground hover:bg-state hover:text-foreground border-l-transparent',
+                    )}
+                  >
+                    <span
+                      className={cn('block truncate font-mono text-sm', active && 'text-signal')}
+                    >
+                      {p.name}
+                    </span>
+                    <span className="micro-label text-muted-foreground mt-1 block">
+                      {p.type} · {p.locale.toUpperCase()}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
-          </div>
-        </div>
+          </ScrollArea>
+        </Panel>
+
+        {/* EDITOR / TEST LAB */}
+        <Panel className="min-h-0 min-w-0 overflow-hidden">
+          <PanelHeader
+            label={`${selectedPrompt?.name ?? 'NO PROMPT'} // ${selectedPrompt?.type ?? ''}`}
+          >
+            <span
+              className={cn(
+                'micro-label flex items-center gap-1.5',
+                updateMutation.isPending ? 'text-signal' : 'text-muted-foreground',
+              )}
+            >
+              <span
+                aria-hidden
+                className={cn(
+                  'size-1.5 rounded-full',
+                  updateMutation.isPending
+                    ? 'bg-signal motion-safe:animate-pulse'
+                    : 'bg-rule-strong',
+                )}
+              />
+              {updateMutation.isPending ? 'SAVING' : 'IDLE'}
+            </span>
+          </PanelHeader>
+          <Tabs
+            value={activeTab}
+            onValueChange={(v) => setActiveTab(v as 'editor' | 'lab')}
+            className="flex min-h-0 flex-1 flex-col"
+          >
+            <div className="flex items-center justify-between gap-3 px-panel pt-4">
+              <TabsList className="micro-label">
+                <TabsTrigger value="editor" className="micro-label data-[state=active]:bg-state">
+                  EDITOR
+                </TabsTrigger>
+                <TabsTrigger value="lab" className="micro-label data-[state=active]:bg-state">
+                  TEST LAB
+                </TabsTrigger>
+              </TabsList>
+              <Button onClick={handleSave} disabled={updateMutation.isPending || !selectedPrompt}>
+                {updateMutation.isPending ? (
+                  <Refresh className="motion-safe:animate-spin" size={14} />
+                ) : (
+                  <Save size={14} />
+                )}
+                {updateMutation.isPending ? 'Saving...' : 'Save version'}
+              </Button>
+            </div>
+
+            <TabsContent value="editor" className="mt-0 min-h-0 flex-1 overflow-y-auto">
+              <PanelBody className="gap-5">
+                <div className="flex h-60 flex-col gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="system-persona" className="micro-label text-muted-foreground">
+                      SYSTEM PERSONA
+                    </label>
+                    <span className="micro-label text-muted-foreground">
+                      {systemMsg.length} CHARS
+                    </span>
+                  </div>
+                  <Textarea
+                    id="system-persona"
+                    value={systemMsg}
+                    onChange={(e) => setSystemMsg(e.target.value)}
+                    className={fieldClass}
+                  />
+                </div>
+                <div className="flex h-48 flex-col gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <label
+                      htmlFor="interaction-template"
+                      className="micro-label text-muted-foreground"
+                    >
+                      INTERACTION TEMPLATE
+                    </label>
+                    <span className="micro-label text-muted-foreground">
+                      {humanTmpl.length} CHARS
+                    </span>
+                  </div>
+                  <Textarea
+                    id="interaction-template"
+                    value={humanTmpl}
+                    onChange={(e) => setHumanTemplate(e.target.value)}
+                    className={fieldClass}
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <p className="micro-label text-muted-foreground">
+                    VARIABLES DETECTED // {variables.length}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {variables.map((v) => (
+                      <code
+                        key={v}
+                        className="border-rule-strong rounded-control border px-2 py-0.5 font-mono text-xs"
+                      >{`{${v}}`}</code>
+                    ))}
+                  </div>
+                </div>
+                <div className="border-rule flex items-center justify-between border-t pt-4">
+                  <p className="micro-label text-muted-foreground">≈ TOKENS ~{estTokens}</p>
+                  <Button variant="ghost" size="sm" onClick={() => setActiveTab('lab')}>
+                    Go to lab <ChevronRight size={14} />
+                  </Button>
+                </div>
+              </PanelBody>
+            </TabsContent>
+
+            <TabsContent value="lab" className="mt-0 min-h-0 flex-1 overflow-y-auto">
+              <PanelBody className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <div className="flex flex-col gap-4">
+                  <p className="micro-label text-muted-foreground">SIMULATION INPUTS</p>
+                  {variables.map((v) => (
+                    <div key={v} className="flex flex-col gap-1.5">
+                      <label htmlFor={`lab-${v}`} className="micro-label text-signal">
+                        {v}
+                      </label>
+                      <Textarea
+                        id={`lab-${v}`}
+                        value={testVariables[v]}
+                        onChange={(e) =>
+                          setTestVariables((prev) => ({ ...prev, [v]: e.target.value }))
+                        }
+                        className="border-rule-strong bg-panel-raised h-32 resize-none font-mono text-xs"
+                      />
+                    </div>
+                  ))}
+                  <Button onClick={runTest} disabled={isTesting}>
+                    {isTesting ? 'Running...' : 'Run logic test'}
+                  </Button>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <p className="micro-label text-muted-foreground">INFERENCE OUTPUT (SIMULATED)</p>
+                  <div className="bg-panel-raised border-rule rounded-control flex min-h-64 flex-1 flex-col border p-4">
+                    <pre
+                      role="status"
+                      className="text-foreground flex-1 font-mono text-sm leading-relaxed whitespace-pre-wrap"
+                    >
+                      {testResult ||
+                        (isTesting ? 'Awaiting response...' : 'Ready for test execution.')}
+                    </pre>
+                    {testResult && (
+                      <div className="border-rule mt-4 flex items-center justify-between border-t pt-3">
+                        <Badge variant="success">OK</Badge>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => navigator.clipboard.writeText(testResult)}
+                        >
+                          Copy output
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </PanelBody>
+            </TabsContent>
+          </Tabs>
+        </Panel>
       </div>
     </div>
   );
