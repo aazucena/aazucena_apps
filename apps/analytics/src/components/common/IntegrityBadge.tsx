@@ -15,7 +15,7 @@ const statusToVariant = {
   OPERATIONAL: 'success',
   DEGRADED: 'warning',
   UNKNOWN: 'secondary',
-  LOADING: 'cyber',
+  LOADING: 'secondary',
 } as const;
 
 const statusToLabel = {

@@ -100,7 +100,6 @@ export function AdminMenu() {
             </label>
             <Switch
               id="admin-live-feed"
-              variant="cyber"
               checked={isLive}
               onCheckedChange={() => dispatch(toggleLiveMode())}
             />

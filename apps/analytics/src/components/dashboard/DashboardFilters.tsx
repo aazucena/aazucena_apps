@@ -30,29 +30,27 @@ export function DashboardFilters({ categories }: ToolbarProps) {
   if (!visibleCategories) return null;
 
   return (
-    <div className="bg-white/50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-3xl backdrop-blur-md p-6 shadow-sm dark:shadow-none transition-all duration-300">
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+    <div className="rounded-card border border-rule bg-panel p-panel">
+      <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
         {/* Category Toggles */}
-        <div className="flex-1 w-full">
-          <div className="flex items-center justify-between gap-8 mb-4">
+        <div className="w-full flex-1">
+          <div className="mb-3 flex items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <span className="text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em]">
-                Domain Filter
-              </span>
-              <span className="px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-[9px] font-bold text-zinc-500 dark:text-zinc-400 font-mono">
+              <span className="micro-label text-muted-foreground">Domain Filter</span>
+              <span className="rounded-control border border-rule px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
                 {visibleCategories.length} / {categories.length}
               </span>
             </div>
             <div className="flex gap-4">
               <button
                 onClick={() => dispatch(resetCategories(categories))}
-                className="text-[10px] font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 transition-colors uppercase tracking-widest"
+                className="micro-label text-signal hover:underline"
               >
                 Select All
               </button>
               <button
                 onClick={() => dispatch(resetCategories([]))}
-                className="text-[10px] font-bold text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 transition-colors uppercase tracking-widest"
+                className="micro-label text-muted-foreground hover:text-foreground"
               >
                 Clear All
               </button>
@@ -61,20 +59,18 @@ export function DashboardFilters({ categories }: ToolbarProps) {
 
           <div className="relative">
             <div
-              className={cn(
-                'flex flex-wrap gap-2 transition-all duration-500',
-                !isExpanded && 'max-h-[80px] overflow-hidden',
-              )}
+              className={cn('flex flex-wrap gap-2', !isExpanded && 'max-h-[80px] overflow-hidden')}
             >
               {displayedCategories.map((cat) => (
                 <button
                   key={cat}
+                  aria-pressed={visibleCategories.includes(cat)}
                   onClick={() => dispatch(toggleCategory(cat))}
                   className={cn(
-                    'px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all border uppercase tracking-wider',
+                    'micro-label h-control-sm rounded-control border px-3 transition-colors',
                     visibleCategories.includes(cat)
-                      ? 'bg-primary-500 text-white border-primary-500 shadow-md shadow-primary-500/20'
-                      : 'bg-white dark:bg-zinc-950 text-zinc-500 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-200',
+                      ? 'border-signal bg-signal text-signal-foreground'
+                      : 'border-rule text-muted-foreground hover:bg-state hover:text-foreground',
                   )}
                 >
                   {toTitleCase(cat)}
@@ -84,7 +80,7 @@ export function DashboardFilters({ categories }: ToolbarProps) {
               {hasManyCategories && !isExpanded && (
                 <button
                   onClick={() => setIsExpanded(true)}
-                  className="px-3 py-1.5 rounded-xl text-[10px] font-black bg-zinc-100 dark:bg-zinc-800 text-primary-600 dark:text-primary-400 border border-dashed border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors uppercase tracking-widest"
+                  className="micro-label h-control-sm rounded-control border border-dashed border-rule px-3 text-signal hover:bg-state"
                 >
                   + {categories.length - CATEGORY_THRESHOLD} More
                 </button>
@@ -93,7 +89,7 @@ export function DashboardFilters({ categories }: ToolbarProps) {
               {isExpanded && (
                 <button
                   onClick={() => setIsExpanded(false)}
-                  className="px-3 py-1.5 rounded-xl text-[10px] font-black bg-zinc-100 dark:bg-zinc-800 text-zinc-400 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors uppercase tracking-widest"
+                  className="micro-label h-control-sm rounded-control border border-rule px-3 text-muted-foreground hover:bg-state"
                 >
                   Show Less
                 </button>
@@ -102,24 +98,29 @@ export function DashboardFilters({ categories }: ToolbarProps) {
           </div>
         </div>
 
-        {/* Skill Search */}
-        <div className="w-full lg:w-80 shrink-0">
-          <span className="text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-4 block">
+        {/* Telemetry search */}
+        <div className="w-full shrink-0 lg:w-80">
+          <label
+            htmlFor="telemetry-search"
+            className="micro-label mb-3 block text-muted-foreground"
+          >
             Telemetry Search
-          </span>
-          <div className="relative group">
+          </label>
+          <div className="relative">
             <input
+              id="telemetry-search"
               type="text"
               placeholder="Filter by event or ID..."
               value={searchQuery}
               onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-              className="w-full bg-zinc-100 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl px-4 py-2.5 text-xs font-mono focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all text-zinc-900 dark:text-zinc-100 outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-700"
+              className="h-control w-full rounded-control border border-rule bg-background px-3 pr-16 font-mono text-xs text-foreground outline-none placeholder:text-muted-foreground focus-visible:border-signal"
             />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+            <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
               {searchQuery && (
                 <button
+                  aria-label="Clear search"
                   onClick={() => dispatch(setSearchQuery(''))}
-                  className="p-1 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-full transition-colors"
+                  className="rounded-control p-1 text-muted-foreground hover:bg-state hover:text-foreground"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +132,7 @@ export function DashboardFilters({ categories }: ToolbarProps) {
                     strokeWidth="3"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="text-zinc-400"
+                    aria-hidden
                   >
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
@@ -139,13 +140,11 @@ export function DashboardFilters({ categories }: ToolbarProps) {
                 </button>
               )}
               <svg
-                className={cn(
-                  'h-4 w-4 transition-colors',
-                  searchQuery ? 'text-primary-500' : 'text-zinc-400 dark:text-zinc-600',
-                )}
+                className={cn('h-4 w-4', searchQuery ? 'text-signal' : 'text-muted-foreground')}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden
               >
                 <path
                   strokeLinecap="round"

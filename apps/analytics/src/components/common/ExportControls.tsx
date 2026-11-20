@@ -37,7 +37,7 @@ export function ExportControls({
     <div className={`relative ${className}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-700 text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 transition-all shadow-sm"
+        className="micro-label flex h-control-sm items-center gap-2 rounded-control border border-rule bg-panel px-3 text-muted-foreground hover:bg-state hover:text-foreground"
         title="Export Visualization"
       >
         <svg
@@ -61,10 +61,10 @@ export function ExportControls({
       {isOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-20 animate-in fade-in zoom-in-95 duration-100">
+          <div className="absolute right-0 z-20 mt-2 w-48 rounded-card border border-rule-strong bg-panel-raised py-1">
             <button
               onClick={handleDownloadPNG}
-              className="w-full text-left px-4 py-2 text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors"
+              className="flex w-full items-center gap-2 px-4 py-2 text-left text-xs text-foreground hover:bg-state"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ export function ExportControls({
             </button>
             <button
               onClick={handleDownloadSVG}
-              className="w-full text-left px-4 py-2 text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors"
+              className="flex w-full items-center gap-2 px-4 py-2 text-left text-xs text-foreground hover:bg-state"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
