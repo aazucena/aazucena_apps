@@ -499,14 +499,21 @@
 - **`components.json`:** delete `tailwind.iconLibrary` (`"@aazucena/icons"`). Keep one top-level `"iconLibrary"`. Set `tailwind.config` to `""`, because Tailwind 4 has no config file; the CSS lives in `src/styles/globals.css`.
 - **Registry script:** delete `build-registry.ts` and the `"build:registry"` script. The spec replaces both with `packages/avra-build`.
 - **Storage key:** `CodeBlockCommand`'s default `storageKey` becomes `'avra-command-preference'`. The prop already exists (`code-block-command.tsx:33`), so no API change is needed.
+- **Drop `@tanstack/zod-form-adapter`** (owner decision 2026-11-19). The adapter is for TanStack Form v0 and peers on `zod@^3`; the repo is on Form v1 (`@tanstack/form-core` 1.33.5 never reads `validatorAdapter`) and zod 4, which Form v1 accepts directly through Standard Schema. So every `validatorAdapter: zodValidator()` line is dead code, and removing it changes no behaviour.
+  - ui: delete the `zodValidator` import and re-export in `form.tsx` (lines 8 and 255), remove the dependency, and remove the optional `zod` peer and its `peerDependenciesMeta`. In `ui-dependencies.test.ts`, replace the "declares zod as an optional peer" test with one asserting `pkg.dependencies['@tanstack/zod-form-adapter']`, `pkg.peerDependencies.zod` and `pkg.peerDependenciesMeta` are all undefined.
+  - forms: delete the import and the `validatorAdapter: zodValidator(),` line in the 96 templates plus `utils/composables.tsx` and `utils/testing.tsx`; remove the dependency (keep `zod`).
+  - apps: the same two deletions in `apps/analytics/src/app/(dashboard)/forms/page.tsx` and `apps/storybook/stories/components/form.stories.tsx`; reword the sentence in `apps/storybook/stories/forms/overview.mdx` to "Validators take Zod schemas directly (TanStack Form v1 reads Standard Schema)."
+  - Do it with a sed/perl pass over `rg -l "zod-form-adapter|zodValidator"`, then hand-fix anything left. If a removed `validatorAdapter` leaves a now-unneeded `as any` on `useForm({...})`, leave the cast: removing it is out of scope.
 
-- [ ] **Step 1: Make the three edits.**
+- [ ] **Step 1: Make the edits** (the three above, plus the adapter removal).
 
 - [ ] **Step 2: Verify**
 
   Run: `node -e "JSON.parse(require('fs').readFileSync('packages/ui/components.json','utf8'))" && cd packages/ui && npx tsc --noEmit && rg -n "build-registry|aazucena-command-preference" packages apps --glob '!**/node_modules/**' --glob '!**/CHANGELOG.md'`
 
   Expected: the JSON parses, `tsc` exits 0, and `rg` prints nothing.
+
+  Then: `rg -l "zod-form-adapter|zodValidator|validatorAdapter" packages apps --glob '!**/node_modules/**' --glob '!**/CHANGELOG.md'` prints nothing; `pnpm install` no longer warns `unmet peer zod@^3.x`; `pnpm --filter @aazucena/design-system test`, `cd packages/forms && npx tsc --noEmit`, `(cd apps/storybook && npx tsc --noEmit)` and `pnpm --filter analytics type-check` pass; and the form interaction stories pass (`pnpm --filter @aazucena/storybook test:ci`), which proves validation still runs.
 
 - [ ] **Step 3: Commit**, one per concern:
 
@@ -516,12 +523,15 @@
   git add packages/ui/src/components/ui/code-block-command.tsx && git commit -m "♻️ refactor(ui): neutral default storage key for CodeBlockCommand"
   ```
 
+  Then one commit for the adapter removal, staging the paths `rg` listed plus the three package.json files and `pnpm-lock.yaml`:
+  `🔥 refactor(forms,ui): drop the unused zod form adapter, Form v1 reads zod schemas directly`
+
 ### Task 8: Release notes, migration guide and docs
 
 **Files:**
 
 - Create: `packages/ui/MIGRATION-0.3.md`
-- Create: `.changeset/ui-0-3-removals.md`, `.changeset/ui-deps-and-animate.md`, `.changeset/layouts-animations-0-3.md`
+- Create: `.changeset/ui-0-3-removals.md`, `.changeset/layouts-animations-0-3.md`, `.changeset/forms-drop-zod-adapter.md`
 - Modify: `docs/next-release-backlog.md` (line 41), `docs/features/avra-distribution.md` (status line and the P1 row)
 
 **Interfaces:**
@@ -539,15 +549,17 @@
   | PreloaderOverlay `variant="hoyoverse"` | default                                   |                                        |
   | `@utility glass`                       | `bg-panel-glass`                          | Only if Task 4, step 5 removed it.     |
   | `tailwindcss-animate`                  | `@import 'tw-animate-css'`                |                                        |
+  | `zodValidator` export (from `form`)    | pass the Zod schema to `validators`       | Form v1 ignores `validatorAdapter`.    |
 
   End with one line: "Unknown variant values fall back to the default style; nothing throws."
 
 - [ ] **Step 2: Write the changesets**
   - `'@aazucena/ui': minor`: removals plus a link to `MIGRATION-0.3.md`. In 0.x, a minor bump is the breaking release, so this becomes 0.3.0 once 0.2.0 is out.
-  - `'@aazucena/ui': patch`: dependency declarations and `tw-animate-css`.
+  - ~~`'@aazucena/ui': patch`: dependency declarations and `tw-animate-css`.~~ Already written in Task 2 as `.changeset/ui-deps-and-animate.md` and released in 0.2.0; don't recreate it.
   - `'@aazucena/layouts': patch` and `'@aazucena/animations': patch`: call sites.
+  - `'@aazucena/forms': patch`: the zod form adapter is gone; validators take Zod schemas directly. The ui minor also mentions the removed `zodValidator` export.
 
-  Run: `pnpm changeset status --since=main`. Expected: lists ui minor, plus layouts and animations patch.
+  Run: `pnpm changeset status --since=main`. Expected: lists ui minor, plus layouts, animations and forms patch.
 
 - [ ] **Step 3: Update the docs**
   - **Backlog:** line 41's note "Glass/cyber/gradient variants … are not in Figma yet" becomes "Glass/cyber/gradient variants removed in ui 0.3.0 (never added to Figma)".
@@ -569,6 +581,6 @@
 
   ```bash
   git add packages/ui/MIGRATION-0.3.md && git commit -m "📝 docs(ui): migration guide for the 0.3.0 variant removals"
-  git add .changeset/ui-0-3-removals.md .changeset/ui-deps-and-animate.md .changeset/layouts-animations-0-3.md && git commit -m "🔖 chore: changesets for ui 0.3.0"
+  git add .changeset/ui-0-3-removals.md .changeset/layouts-animations-0-3.md .changeset/forms-drop-zod-adapter.md && git commit -m "🔖 chore: changesets for ui 0.3.0"
   git add docs/next-release-backlog.md docs/features/avra-distribution.md && git commit -m "📝 docs: P1 of the Avra distribution plan is done"
   ```
