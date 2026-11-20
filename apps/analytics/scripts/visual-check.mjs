@@ -27,32 +27,50 @@ const slug = (route) =>
 mkdirSync('.shots', { recursive: true });
 const browser = await chromium.launch();
 let failed = false;
+let first = true;
 
-for (const route of routes) {
-  for (const theme of THEMES) {
-    for (const width of WIDTHS) {
-      const context = await browser.newContext({ viewport: { width, height: HEIGHT } });
-      await context.addCookies([{ name: 'az_session', value: secret, url: BASE }]);
-      await context.addInitScript((t) => localStorage.setItem('theme', t), theme);
-      const page = await context.newPage();
-      const errors = [];
-      page.on('console', (m) => {
-        if (m.type() === 'error') errors.push(m.text());
-      });
-      page.on('pageerror', (e) => errors.push(String(e)));
-      await page.goto(BASE + route, { waitUntil: 'load' });
-      await page.waitForLoadState('networkidle').catch(() => {});
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      );
-      await page.screenshot({ path: `.shots/${slug(route)}-${theme}-${width}.png` });
-      console.log(`${route} ${theme} ${width} overflow=${overflow} errors=${errors.length}`);
-      for (const e of errors) console.log(`  ${e.split('\n')[0]}`);
-      if (overflow > 0) failed = true;
-      await context.close();
+try {
+  for (const route of routes) {
+    for (const theme of THEMES) {
+      for (const width of WIDTHS) {
+        const context = await browser.newContext({ viewport: { width, height: HEIGHT } });
+        await context.addCookies([{ name: 'az_session', value: secret, url: BASE }]);
+        await context.addInitScript((t) => localStorage.setItem('theme', t), theme);
+        const page = await context.newPage();
+        const errors = [];
+        page.on('console', (m) => {
+          if (m.type() === 'error') errors.push(m.text());
+        });
+        page.on('pageerror', (e) => errors.push(String(e)));
+        let overflow = 0;
+        try {
+          await page.goto(BASE + route, { waitUntil: 'load' });
+          await page.waitForLoadState('networkidle').catch(() => {});
+          overflow = await page.evaluate(
+            () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          );
+          await page.screenshot({ path: `.shots/${slug(route)}-${theme}-${width}.png` });
+        } catch (e) {
+          const msg = String(e);
+          if (first && /ERR_CONNECTION|ECONNREFUSED/.test(msg)) {
+            console.error('server not reachable on :8080');
+            await context.close();
+            await browser.close();
+            process.exit(2);
+          }
+          errors.push(`navigation failed: ${msg.split('\n')[0]}`);
+          failed = true;
+        }
+        first = false;
+        console.log(`${route} ${theme} ${width} overflow=${overflow} errors=${errors.length}`);
+        for (const e of errors) console.log(`  ${e.split('\n')[0]}`);
+        if (overflow > 0) failed = true;
+        await context.close();
+      }
     }
   }
+} finally {
+  await browser.close().catch(() => {});
 }
 
-await browser.close();
 process.exit(failed ? 1 : 0);
