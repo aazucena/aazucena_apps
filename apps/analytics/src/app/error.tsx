@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { DangerCircle } from '@aazucena/icons';
+import { Button, Panel } from '@aazucena/ui';
+import { PageHeader } from '@/components/common/PageHeader';
 
 export default function RootError({
   error,
@@ -15,16 +16,14 @@ export default function RootError({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 gap-6">
-      <DangerCircle size={40} className="text-rose-500" />
-      <h1 className="text-xl font-black uppercase tracking-tight font-mono">Root Layout Error</h1>
-      <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">{error.message}</p>
-      <button
-        onClick={reset}
-        className="px-6 py-3 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-rose-600 transition-colors"
-      >
-        Retry
-      </button>
+    <div className="bg-background text-foreground flex min-h-screen flex-col gap-4 p-6">
+      <PageHeader title="SYSTEM_FAULT" meta="ROOT_LAYOUT" />
+      <Panel label="FAULT // ROOT_LAYOUT" status="alert" className="max-w-xl">
+        <p className="text-muted-foreground font-mono text-sm break-words">{error.message}</p>
+        <div className="pt-2">
+          <Button onClick={reset}>Retry</Button>
+        </div>
+      </Panel>
     </div>
   );
 }
