@@ -1600,9 +1600,6 @@ importers:
       '@aazucena/constants':
         specifier: workspace:*
         version: link:../constants
-      '@aazucena/context':
-        specifier: workspace:*
-        version: link:../context
       '@aazucena/design-system':
         specifier: workspace:*
         version: link:../design-system
@@ -1612,15 +1609,15 @@ importers:
       '@aazucena/icons':
         specifier: workspace:*
         version: link:../icons
+      '@aazucena/types':
+        specifier: workspace:*
+        version: link:../types
       '@aazucena/utils':
         specifier: workspace:*
         version: link:../utils
       '@floating-ui/react':
         specifier: ^0.27.20
         version: 0.27.20(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      '@mynaui/icons-react':
-        specifier: ^0.4.11
-        version: 0.4.11(react@19.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.3.1
         version: 1.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -1645,6 +1642,9 @@ importers:
       '@radix-ui/react-dialog':
         specifier: ^1.3.1
         version: 1.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@radix-ui/react-direction':
+        specifier: ^1.2.0
+        version: 1.2.0(@types/react@19.3.0)(react@19.3.1)
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.2.1
         version: 2.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -1702,12 +1702,12 @@ importers:
       '@rive-app/react-webgl2':
         specifier: ^4.39.0
         version: 4.39.0(react@19.3.1)
-      '@strapi/blocks-react-renderer':
-        specifier: ^1.0.2
-        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@tailwindcss/postcss':
         specifier: ^4.1.13
         version: 4.3.5
+      '@tailwindcss/typography':
+        specifier: ^0.5.20
+        version: 0.5.20(tailwindcss@4.3.5)
       '@tanstack/react-form':
         specifier: ^1.33.5
         version: 1.33.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -1723,45 +1723,24 @@ importers:
       '@tiptap/starter-kit':
         specifier: ^3.33.1
         version: 3.33.1
-      '@types/d3':
-        specifier: ^7.4.3
-        version: 7.4.3
-      '@types/d3-sankey':
-        specifier: ^0.12.5
-        version: 0.12.5
-      canvas-confetti:
-        specifier: ^1.9.3
-        version: 1.9.4
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
       cmdk:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      d3:
-        specifier: ^7.9.2
-        version: 7.9.2
-      d3-sankey:
-        specifier: ^0.12.3
-        version: 0.12.3
-      date-fns:
-        specifier: ^4.4.0
-        version: 4.4.0
       embla-carousel-react:
         specifier: ^8.6.0
         version: 8.6.0(react@19.3.1)
-      gsap:
-        specifier: '>=3.12.0'
-        version: 3.15.1
+      framer-motion:
+        specifier: ^14.12.0
+        version: 14.12.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       input-otp:
         specifier: ^1.5.0
         version: 1.5.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
-      lucide-react:
-        specifier: ^1.72.0
-        version: 1.72.0(@types/react@19.3.0)(react@19.3.1)
       marked:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1771,9 +1750,6 @@ importers:
       qrcode.react:
         specifier: ^4.2.0
         version: 4.2.0(react@19.3.1)
-      react-countup:
-        specifier: ^6.5.3
-        version: 6.5.3(react@19.3.1)
       react-day-picker:
         specifier: ^10.0.2
         version: 10.0.2(@types/react@19.3.0)(react@19.3.1)
@@ -1804,22 +1780,13 @@ importers:
       vaul:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      zod:
-        specifier: ^4.6.7
-        version: 4.6.7
     devDependencies:
       '@aazucena/config':
         specifier: workspace:*
         version: link:../config
-      '@aazucena/types':
-        specifier: workspace:*
-        version: link:../types
       '@nanostores/react':
         specifier: ^2.0.1
         version: 2.0.1(nanostores@1.5.5)(react@19.3.1)
-      '@tailwindcss/typography':
-        specifier: ^0.5.20
-        version: 0.5.20(tailwindcss@4.3.5)
       '@tailwindcss/vite':
         specifier: ^4.3.5
         version: 4.3.5(vite@8.3.8(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
@@ -1871,9 +1838,6 @@ importers:
       eslint:
         specifier: ^9.39.4
         version: 9.39.4(jiti@2.7.0)
-      framer-motion:
-        specifier: ^14.12.0
-        version: 14.12.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       js-yaml:
         specifier: ^5.5.0
         version: 5.5.0
