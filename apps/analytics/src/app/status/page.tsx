@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Shield, CheckCircle, Activity, Globe, Zap, Terminal } from '@aazucena/icons';
+import { Shield } from '@aazucena/icons';
+import { Panel, Skeleton } from '@aazucena/ui';
 import { cn } from '@/lib/utils';
 
 // Map raw service names (from system_integrity table) to human-readable display names.
@@ -26,6 +27,44 @@ function getDisplayName(name: string): string {
   return name;
 }
 
+const DAYS = 90;
+
+type Tone = 'ok' | 'warn' | 'alert';
+
+const toneOf = (status: string): Tone =>
+  status === 'UP' ? 'ok' : status === 'DEGRADED' ? 'warn' : 'alert';
+
+const TONE_CELL: Record<Tone, string> = { ok: 'bg-success', warn: 'bg-warning', alert: 'bg-alert' };
+const TONE_LABEL: Record<Tone, { text: string; cls: string }> = {
+  ok: { text: 'OK OPERATIONAL', cls: 'text-success' },
+  warn: { text: '◆ DEGRADED', cls: 'text-warning' },
+  alert: { text: '▲ DOWN', cls: 'text-alert' },
+};
+
+/**
+ * One cell per day for 90 days. The health endpoint reports only the current state,
+ * so earlier days stay empty (`bg-state`) and today's cell carries the live status.
+ */
+function UptimeBar({ name, tone }: { name: string; tone: Tone }) {
+  const summary = `${name}: ${
+    tone === 'ok' ? 'operational' : tone === 'warn' ? 'degraded' : 'down'
+  } today, no earlier history recorded`;
+  return (
+    <div role="img" aria-label={summary} className="flex h-6 w-full min-w-0 gap-px">
+      {Array.from({ length: DAYS }, (_, d) => {
+        const today = d === DAYS - 1;
+        return (
+          <span
+            key={d}
+            title={today ? `Today: ${tone}` : `${DAYS - 1 - d} days ago: no data`}
+            className={cn('h-full min-w-0 flex-1', today ? TONE_CELL[tone] : 'bg-state')}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 export default function PublicStatusPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -42,144 +81,148 @@ export default function PublicStatusPage() {
 
   const overall = data?.system?.overall || 'UNKNOWN';
   const isHealthy = overall === 'OPERATIONAL';
+  const entries = Object.entries(data?.services || {}) as [string, any][];
+  const total = entries.length;
+  const upCount = entries.filter(([, svc]) => svc.status === 'UP').length;
+  const notUp = total - upCount;
+  // Partial degradation is a warning; nothing up (or no data at all) is an alert.
+  const bannerTone: Tone = isHealthy ? 'ok' : upCount > 0 ? 'warn' : 'alert';
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100 font-sans selection:bg-primary-500/30">
-      <div className="max-w-3xl mx-auto px-6 py-20">
-        {/* HEADER */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="w-16 h-16 rounded-3xl bg-zinc-900 dark:bg-zinc-800 flex items-center justify-center mb-6 shadow-2xl">
-            <Shield size={32} className="text-primary-500" />
-          </div>
-          <h1 className="text-3xl font-black tracking-tighter uppercase mb-2">
-            SYSTEM_INTEGRITY_LAB
-          </h1>
-          <p className="text-xs font-mono text-zinc-500 uppercase tracking-[0.3em] font-bold">
-            Aldrin Azucena // Real-time Node Status
-          </p>
-        </div>
+    <div className="min-h-screen bg-background font-sans text-foreground">
+      <div className="micro-label flex h-14 items-center justify-between border-b border-rule px-6">
+        <span>
+          STATUS.AZUCENA <span className="text-muted-foreground">// PUBLIC</span>
+        </span>
+        {!loading && notUp > 0 && <span className="text-warning">◆ {notUp} DEGRADED</span>}
+      </div>
 
-        {/* OVERALL STATUS CARD */}
-        <div
-          className={cn(
-            'p-10 rounded-[3rem] border transition-all duration-700 mb-10',
-            loading
-              ? 'bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 animate-pulse'
-              : isHealthy
-                ? 'bg-emerald-500/5 border-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.05)]'
-                : 'bg-rose-500/5 border-rose-500/20 shadow-[0_0_50px_rgba(244,63,94,0.05)]',
-          )}
-        >
-          <div className="flex flex-col items-center text-center">
-            <div
-              className={cn(
-                'text-5xl font-black tracking-[ -0.05em] uppercase mb-4',
-                isHealthy ? 'text-emerald-500' : 'text-rose-500',
-              )}
-            >
-              {loading ? 'SYNCING...' : data?.system?.label}
+      <main className="mx-auto flex w-full max-w-[860px] flex-col gap-6 px-6 py-12">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="flex size-12 items-center justify-center rounded-full bg-signal text-signal-foreground">
+              <Shield size={24} />
             </div>
-            <div className="flex items-center gap-3">
-              <div
-                className={cn(
-                  'w-2.5 h-2.5 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.2)]',
-                  isHealthy ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500',
-                )}
-              />
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">
-                Live Audit Horizon: 15m
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* SERVICES GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
-          {loading ? (
-            Array(4)
-              .fill(0)
-              .map((_, i) => (
-                <div
-                  key={i}
-                  className="h-24 bg-zinc-100 dark:bg-zinc-900/50 rounded-3xl border border-zinc-200 dark:border-zinc-800 animate-pulse"
-                />
-              ))
-          ) : !data || Object.keys(data?.services || {}).length === 0 ? (
-            <div className="col-span-2 p-8 text-center bg-zinc-100 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-3xl">
-              <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">
-                No service data in the last 15 minutes
+            <div>
+              <h1 className="text-2xl font-light tracking-tight">SYSTEM_INTEGRITY_LAB</h1>
+              <p className="text-sm text-muted-foreground">
+                Aldrin Azucena // Real-time Node Status
               </p>
             </div>
+          </div>
+          <span className="micro-label text-muted-foreground">Live Audit Horizon: 15M</span>
+        </div>
+
+        {/* Overall banner */}
+        <Panel
+          status={bannerTone === 'alert' && !loading ? 'alert' : 'none'}
+          role="status"
+          className={cn(
+            'border px-5 py-4',
+            loading || bannerTone === 'alert'
+              ? 'border-rule'
+              : bannerTone === 'ok'
+                ? 'border-success'
+                : 'border-warning',
+          )}
+        >
+          {loading ? (
+            <Skeleton className="h-10 w-full" />
           ) : (
-            Object.entries(data?.services || {}).map(([name, svc]: [string, any]) => (
-              <div
-                key={name}
-                className="p-6 bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-3xl flex items-center justify-between group hover:border-primary-500/30 transition-all"
-              >
-                <div className="flex items-center gap-4">
-                  <div
-                    className={cn(
-                      'w-10 h-10 rounded-2xl flex items-center justify-center transition-colors',
-                      svc.status === 'UP'
-                        ? 'bg-emerald-500/10 text-emerald-500'
-                        : 'bg-rose-500/10 text-rose-500',
-                    )}
-                  >
-                    {name.includes('db') ? (
-                      <Activity size={20} />
-                    ) : name.includes('intel') ? (
-                      <Terminal size={20} />
-                    ) : (
-                      <Globe size={20} />
-                    )}
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-black uppercase text-zinc-400 mb-0.5">
-                      {getDisplayName(name)}
-                    </div>
-                    <div className="text-xs font-bold font-mono text-zinc-900 dark:text-zinc-100">
-                      {svc.status}
-                    </div>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-[8px] font-black uppercase text-zinc-500 mb-0.5 tracking-tighter">
-                    LATENCY
-                  </div>
-                  <div className="text-[10px] font-mono font-bold text-zinc-600 dark:text-zinc-400">
-                    {svc.latency}ms
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-start gap-4">
+                <span
+                  aria-hidden
+                  className={cn(
+                    'text-2xl leading-none',
+                    bannerTone === 'ok' && 'text-success',
+                    bannerTone === 'warn' && 'text-warning',
+                    bannerTone === 'alert' && 'text-alert',
+                  )}
+                >
+                  {bannerTone === 'ok' ? 'OK' : bannerTone === 'warn' ? '◆' : '▲'}
+                </span>
+                <div>
+                  <div className="font-medium">{data?.system?.label || 'STATUS UNKNOWN'}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {total
+                      ? `${upCount} of ${total} nodes operational.`
+                      : 'No service data reported.'}
                   </div>
                 </div>
               </div>
-            ))
+              <span className="micro-label text-muted-foreground">UPTIME — · 30D</span>
+            </div>
           )}
-        </div>
+        </Panel>
 
-        {/* FOOTER METRICS */}
-        <div className="flex flex-wrap items-center justify-center gap-8 py-8 border-t border-zinc-200 dark:border-zinc-800">
-          <div className="flex items-center gap-2">
-            <Zap size={14} className="text-zinc-400" />
-            <span className="text-[10px] font-mono text-zinc-500 uppercase font-bold tracking-widest">
-              Uptime: 99.9%
-            </span>
+        {/* Services */}
+        <Panel className="overflow-hidden">
+          <div className="micro-label grid grid-cols-[minmax(0,9rem)_minmax(0,1fr)_4rem_8rem] items-center gap-4 border-b border-rule bg-state px-5 py-2.5 text-muted-foreground sm:grid-cols-[minmax(0,12rem)_minmax(0,1fr)_4rem_9rem]">
+            <span>SERVICE</span>
+            <span>LAST 90 DAYS</span>
+            <span className="text-right">LATENCY</span>
+            <span className="text-right">STATUS</span>
           </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle size={14} className="text-zinc-400" />
-            <span className="text-[10px] font-mono text-zinc-500 uppercase font-bold tracking-widest">
-              SLA: Guaranteed
+          {loading ? (
+            <div className="flex flex-col gap-3 p-5">
+              {Array.from({ length: 4 }, (_, i) => (
+                <Skeleton key={i} className="h-6 w-full" />
+              ))}
+            </div>
+          ) : total === 0 ? (
+            <p className="micro-label p-8 text-center text-muted-foreground">
+              No service data in the last 15 minutes
+            </p>
+          ) : (
+            <ul className="divide-y divide-rule">
+              {entries.map(([name, svc]) => {
+                const tone = toneOf(svc.status);
+                return (
+                  <li
+                    key={name}
+                    className="grid grid-cols-[minmax(0,9rem)_minmax(0,1fr)_4rem_8rem] items-center gap-4 px-5 py-3 sm:grid-cols-[minmax(0,12rem)_minmax(0,1fr)_4rem_9rem]"
+                  >
+                    <span className="truncate text-sm font-medium">{getDisplayName(name)}</span>
+                    <UptimeBar name={getDisplayName(name)} tone={tone} />
+                    <span className="text-right font-mono text-xs tabular-nums text-muted-foreground">
+                      {svc.latency}ms
+                    </span>
+                    <span className={cn('micro-label text-right', TONE_LABEL[tone].cls)}>
+                      {TONE_LABEL[tone].text}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </Panel>
+
+        <div className="micro-label flex flex-wrap items-center justify-between gap-3 text-muted-foreground">
+          <span>90 DAYS AGO</span>
+          <span className="flex flex-wrap items-center gap-4">
+            <span className="flex items-center gap-1.5">
+              <span aria-hidden className="size-2 bg-success" /> OK OPERATIONAL
             </span>
-          </div>
+            <span className="flex items-center gap-1.5">
+              <span aria-hidden className="size-2 bg-warning" /> ◆ DEGRADED
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span aria-hidden className="size-2 bg-alert" /> ▲ OUTAGE
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span aria-hidden className="size-2 bg-state" /> NO HISTORY YET
+            </span>
+          </span>
+          <span>TODAY</span>
         </div>
 
         <div className="text-center">
-          <a
-            href="/"
-            className="text-[9px] font-black uppercase text-zinc-400 hover:text-primary-500 transition-colors tracking-[0.2em]"
-          >
+          <a href="/" className="micro-label text-muted-foreground hover:text-signal">
             ← Back to Intelligence Terminal
           </a>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
