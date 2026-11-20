@@ -203,7 +203,7 @@ export default function PerformancePage() {
               {totalErrors > 0 ? `▲ ${totalErrors}` : totalErrors} · FATAL {fatalErrors}
             </span>
           </PanelHeader>
-          <PanelBody className="p-0">
+          <div>
             {topErrors.length > 0 ? (
               <ul className="divide-y divide-rule">
                 {topErrors.map((error, idx) => {
@@ -243,7 +243,7 @@ export default function PerformancePage() {
                 No error traces detected. System nominal.
               </p>
             )}
-          </PanelBody>
+          </div>
         </Panel>
 
         <Panel>
@@ -316,13 +316,12 @@ export default function PerformancePage() {
       </div>
 
       {/* Vitals velocity */}
-      <Panel
-        label="CORE_WEB_VITALS_VELOCITY // SOURCE: CLICKHOUSE_TELEMETRY"
-        status={isLoading ? 'idle' : 'none'}
-      >
-        <PanelBody className="p-0">
-          <StreamGraph data={latencyData} height={300} hideHeader />
-        </PanelBody>
+      <Panel>
+        <PanelHeader
+          label="CORE_WEB_VITALS_VELOCITY // SOURCE: CLICKHOUSE_TELEMETRY"
+          status={isLoading ? 'idle' : 'none'}
+        />
+        <StreamGraph data={latencyData} height={300} hideHeader />
       </Panel>
     </>
   );

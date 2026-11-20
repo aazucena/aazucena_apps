@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { MetricCard } from '@/components/widgets/MetricCard';
 import { StreamGraph, ChoroplethMap, chartTheme } from '@aazucena/visualizations';
-import { Panel, PanelBody, Progress, Tabs, TabsList, TabsTrigger } from '@aazucena/ui';
+import { Panel, PanelBody, PanelHeader, Progress, Tabs, TabsList, TabsTrigger } from '@aazucena/ui';
 import { PageHeader } from '@/components/common/PageHeader';
 import { useTrafficStats } from '@/hooks/useTraffic';
 import type { GenericTimeSeriesStep, MapRegion } from '@aazucena/types';
@@ -230,13 +230,12 @@ export default function TrafficPage() {
       </div>
 
       {/* Trend */}
-      <Panel
-        label="TRAFFIC_VELOCITY // SOURCE: VERCEL_ANALYTICS"
-        status={isLoading ? 'idle' : 'none'}
-      >
-        <PanelBody className="p-0">
-          <StreamGraph data={chartData} height={300} hideHeader />
-        </PanelBody>
+      <Panel>
+        <PanelHeader
+          label="TRAFFIC_VELOCITY // SOURCE: VERCEL_ANALYTICS"
+          status={isLoading ? 'idle' : 'none'}
+        />
+        <StreamGraph data={chartData} height={300} hideHeader />
       </Panel>
     </>
   );
