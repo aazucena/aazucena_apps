@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Respect reduced motion in framer-motion
 - _(ui)_ Declare zod as an optional peer for the re-exported zodValidator
 - _(ui)_ Declare the packages ui imports and drop the unused ones
 - _(design-system)_ Panel-colored labels reach AA on every chart series
