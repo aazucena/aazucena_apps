@@ -1,6 +1,6 @@
 # Avra distribution plan: using the design system outside this repo
 
-> Status: planned 2026-11-19, not started. Build after Phase 4 (the analytics app adopting `@aazucena/ui`); the P0 habits apply now.
+> Status: planned 2026-11-19, not started. Build after Phase 4 (the analytics app adopting `@aazucena/ui`); the P0 habits apply now. Implementation plans: [P1 cleanup and ui 0.3.0](../superpowers/plans/2026-11-19-avra-p1-cleanup-and-0.3.0.md); P2 to P6 are written just before each phase runs.
 
 ## Context
 
