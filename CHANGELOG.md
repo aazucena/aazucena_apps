@@ -215,6 +215,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(design-system)_ Analytics token-layer guards
 - _(design-system)_ Catch short hex, drop false drop-shadow hits in the analytics guard
 - _(design-system)_ Ratcheting Avra token guard for the analytics app
 - _(design-system)_ Parse ui imports with TypeScript and pin the animate import order
