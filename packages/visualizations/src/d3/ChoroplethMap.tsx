@@ -87,6 +87,8 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
           <ChartContent>
             <svg
               ref={svgRef}
+              role="img"
+              aria-label={title ?? 'Geographic distribution map'}
               width={width}
               height="100%"
               className="w-full h-full text-foreground"
