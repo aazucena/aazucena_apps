@@ -1,25 +1,112 @@
-// apps/analytics/src/app/performance/page.tsx
 'use client';
 
 import React, { useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 import { setCategoryPreset } from '@/store';
-import { MetricCard } from '@/components/widgets/MetricCard';
+import { Badge, Panel, PanelBody, PanelHeader } from '@aazucena/ui';
 import { StreamGraph } from '@aazucena/visualizations';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
-// Corrected icon imports: Bug -> Activity, AlertTriangle -> DangerTriangle
-import {
-  Activity,
-  Zap,
-  Database,
-  Globe,
-  DangerTriangle,
-  XCircle,
-  ExternalLink,
-} from '@aazucena/icons';
+import { ExternalLink } from '@aazucena/icons';
+import { PageHeader } from '@/components/common/PageHeader';
 import { usePerformanceStats } from '@/hooks/usePerformance';
-import Link from 'next/link';
-import { cn } from '@/lib/utils'; // cn imported from lib/utils
+import { cn } from '@/lib/utils';
+
+type Band = 'good' | 'needs' | 'poor';
+
+interface Vital {
+  key: string;
+  label: string;
+  /** Good / poor thresholds in the metric's own unit. */
+  good: number;
+  poor: number;
+  /** Text for the threshold legend. */
+  legend: string;
+  format: (n: number) => string;
+}
+
+const VITALS: Vital[] = [
+  {
+    key: 'LCP',
+    label: 'LCP (P75)',
+    good: 2500,
+    poor: 4000,
+    legend: 'GOOD ≤ 2.5 · POOR > 4',
+    format: (n) => `${(n / 1000).toFixed(1)}s`,
+  },
+  {
+    key: 'INP',
+    label: 'INP (P75)',
+    good: 200,
+    poor: 500,
+    legend: 'GOOD ≤ 200 · POOR > 500',
+    format: (n) => `${Math.round(n)}ms`,
+  },
+  {
+    key: 'CLS',
+    label: 'CLS (P75)',
+    good: 0.1,
+    poor: 0.25,
+    legend: 'GOOD ≤ 0.1 · POOR > 0.25',
+    format: (n) => n.toFixed(2),
+  },
+];
+
+const bandOf = (v: Vital, n: number): Band =>
+  n <= v.good ? 'good' : n <= v.poor ? 'needs' : 'poor';
+
+const BAND_COPY: Record<Band, { text: string; tone: string }> = {
+  good: { text: 'GOOD', tone: 'text-success' },
+  needs: { text: '◆ NEEDS WORK', tone: 'text-warning' },
+  poor: { text: '▲ POOR', tone: 'text-alert' },
+};
+
+/** Sparkline over three threshold bands: good (bottom), needs work, poor (top). */
+function BandChart({ vital, points }: { vital: Vital; points: number[] }) {
+  const W = 300;
+  const H = 80;
+  const max = vital.poor * 1.5;
+  const y = (n: number) => H - Math.min(n / max, 1) * H;
+  const yGood = y(vital.good);
+  const yPoor = y(vital.poor);
+  const path = points
+    .map(
+      (p, i) =>
+        `${i === 0 ? 'M' : 'L'}${((i / Math.max(points.length - 1, 1)) * W).toFixed(1)},${y(p).toFixed(1)}`,
+    )
+    .join(' ');
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="none"
+      role="img"
+      aria-label={`${vital.key} trend over the good, needs-work and poor bands`}
+      className="h-20 w-full"
+    >
+      <rect x="0" y="0" width={W} height={yPoor} className="fill-alert/10" />
+      <rect x="0" y={yPoor} width={W} height={yGood - yPoor} className="fill-warning/10" />
+      <rect x="0" y={yGood} width={W} height={H - yGood} className="fill-success/10" />
+      <line x1="0" x2={W} y1={yPoor} y2={yPoor} className="stroke-rule" strokeWidth="1" />
+      <line x1="0" x2={W} y1={yGood} y2={yGood} className="stroke-rule" strokeWidth="1" />
+      {points.length > 1 && (
+        <path
+          d={path}
+          fill="none"
+          className="stroke-signal"
+          strokeWidth="1.5"
+          vectorEffect="non-scaling-stroke"
+        />
+      )}
+    </svg>
+  );
+}
+
+const levelMarker = (level: string) =>
+  level === 'fatal' || level === 'error'
+    ? { glyph: '▲', tone: 'text-alert' }
+    : level === 'warning'
+      ? { glyph: '◆', tone: 'text-warning' }
+      : { glyph: '●', tone: 'text-signal' };
 
 export default function PerformancePage() {
   const dispatch = useDispatch();
@@ -44,262 +131,174 @@ export default function PerformancePage() {
     }));
   }, [stats]);
 
-  const lcpValue = stats?.summary?.lcp_p75
-    ? `${(stats.summary.lcp_p75 / 1000).toFixed(2)}s`
-    : '0.00s';
-  const totalMetrics = stats?.summary?.total_metrics || 0;
-  const goodMetrics = stats?.summary?.good_metrics || 0;
-  const healthScore =
-    totalMetrics > 0 ? `${((goodMetrics / totalMetrics) * 100).toFixed(0)}%` : '100%';
+  const seriesFor = (key: string): number[] =>
+    ((stats?.history as { date: string; value: number; metric: string }[] | undefined) ?? [])
+      .filter((d) => d.metric?.toUpperCase() === key)
+      .sort((a, b) => +new Date(a.date) - +new Date(b.date))
+      .map((d) => d.value ?? 0);
+
+  const summaryValue = (key: string): number | undefined => {
+    if (key === 'LCP') return stats?.summary?.lcp_p75 || undefined;
+    if (key === 'CLS') return stats?.summary?.cls_avg ?? undefined;
+    const s = seriesFor(key);
+    return s.length ? s[s.length - 1] : undefined;
+  };
 
   const totalErrors = stats?.errors?.summary?.total_errors || 0;
   const fatalErrors = stats?.errors?.summary?.fatal_errors || 0;
+  const topErrors = stats?.errors?.top ?? [];
+
+  const services = useMemo(() => {
+    const unique: Record<string, any> = {};
+    (stats?.integrity ?? []).forEach((current: any) => {
+      if (!unique[current.service]) unique[current.service] = current;
+    });
+    return Object.values(unique);
+  }, [stats]);
+  const upCount = services.filter((s: any) => s.status === 'UP').length;
 
   return (
-    <div className="space-y-10 pb-20">
-      {/* HEADER */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter uppercase">
-            SYSTEM_INTEGRITY
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold">
-            Real-time Infrastructure & Experience Monitoring
-          </p>
-        </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">
-            Live_Stream_Active
-          </span>
-        </div>
-      </div>
+    <>
+      <PageHeader
+        title="SYSTEM_INTEGRITY"
+        meta="Real-time Infrastructure & Experience Monitoring"
+        actions={
+          <Badge variant="cyber" animated>
+            LIVE_STREAM_ACTIVE
+          </Badge>
+        }
+      />
 
-      {/* KPI METRICS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        {' '}
-        {/* Changed to 5 columns */}
-        <MetricCard
-          label="LCP (P75)"
-          value={lcpValue}
-          description="TARGET < 2.5s"
-          icon={<Zap size={24} />}
-        />
-        <MetricCard
-          label="Signal Integrity"
-          value={healthScore}
-          description="PCT_GOOD_RATINGS"
-          icon={<Activity size={24} />}
-        />
-        <MetricCard
-          label="Metric Streams"
-          value={stats?.summary?.total_metrics?.toLocaleString() || '0'}
-          description="TOTAL_CWV_EVENTS"
-          variant="secondary"
-          icon={<Database size={24} />}
-        />
-        <MetricCard
-          label="Total Errors (24h)"
-          value={totalErrors.toLocaleString()}
-          description="SENTRY_TRACE_COUNT"
-          variant={totalErrors > 0 ? 'rose' : 'default'} // Highlight if errors present
-          icon={<Activity size={24} />} // Changed Bug to Activity
-        />
-        <MetricCard
-          label="Fatal Errors (24h)"
-          value={fatalErrors.toLocaleString()}
-          description="CRITICAL_INCIDENTS"
-          variant={fatalErrors > 0 ? 'rose' : 'default'} // Highlight if fatal errors present
-          icon={<XCircle size={24} />}
-        />
-      </div>
-
-      {/* LATENCY GRAPH */}
-      <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 backdrop-blur-md shadow-sm dark:shadow-none transition-all duration-300">
-        <div className="flex items-center justify-between mb-8 px-2">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500">
-              <Activity size={18} />
-            </div>
-            <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
-              Core Web Vitals Velocity
-            </h3>
-          </div>
-          <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 uppercase font-bold">
-            {isLoading ? 'SYNCING_VITAL_SIGNS...' : 'Source: ClickHouse_Telemetry'}
-          </span>
-        </div>
-        <div className="min-h-[450px]">
-          <StreamGraph data={latencyData} />
-        </div>
-      </div>
-
-      {/* TOP SENTRY ERRORS & SYSTEM INTEGRITY LIST */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* TOP SENTRY ERRORS */}
-        <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 backdrop-blur-md">
-          <h3 className="text-xs font-black text-zinc-500 uppercase tracking-widest mb-8 px-2 flex items-center gap-2">
-            <Activity size={14} /> Top Sentry Traces (24h) {/* Changed Bug to Activity */}
-          </h3>
-          <div className="space-y-4">
-            {stats?.errors?.top && stats.errors.top.length > 0 ? (
-              stats.errors.top.map((error, idx) => (
-                <div
-                  key={error.issue_id || idx}
-                  className="p-4 bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl flex items-start gap-3"
-                >
-                  <div
-                    className={cn(
-                      'w-6 h-6 rounded-full flex items-center justify-center shrink-0',
-                      error.level === 'fatal'
-                        ? 'bg-rose-500 text-white'
-                        : error.level === 'error'
-                          ? 'bg-red-500 text-white'
-                          : error.level === 'warning'
-                            ? 'bg-amber-500 text-white'
-                            : 'bg-zinc-400 text-white',
-                    )}
-                  >
-                    {error.level === 'fatal' || error.level === 'error' ? (
-                      <XCircle size={14} />
-                    ) : (
-                      <DangerTriangle size={14} />
-                    )}{' '}
-                    {/* Changed AlertTriangle to DangerTriangle */}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-100 truncate">
-                      {error.message}
-                    </p>
-                    <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate">
-                      {error.culprit || 'unknown culprit'}
-                    </p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span
-                        className={cn(
-                          'text-[9px] font-mono font-black uppercase tracking-widest px-2 py-0.5 rounded-full',
-                          error.level === 'fatal'
-                            ? 'bg-rose-500/10 text-rose-500'
-                            : error.level === 'error'
-                              ? 'bg-red-500/10 text-red-500'
-                              : error.level === 'warning'
-                                ? 'bg-amber-500/10 text-amber-500'
-                                : 'bg-zinc-500/10 text-zinc-500',
-                        )}
-                      >
-                        {error.level}
-                      </span>
-                      <Link
-                        href={error.sentry_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[9px] font-mono font-bold text-primary-500 hover:underline flex items-center gap-1"
-                      >
-                        View in Sentry <ExternalLink size={10} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="py-10 text-center text-zinc-500 font-mono text-xs uppercase tracking-widest">
-                No error traces detected. System nominal.
+      {/* Core Web Vitals */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {VITALS.map((v) => {
+          const value = summaryValue(v.key);
+          const band = value === undefined ? undefined : bandOf(v, value);
+          return (
+            <Panel key={v.key} label={v.label} status={isLoading ? 'idle' : 'none'}>
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono text-4xl font-light tabular-nums">
+                  {value === undefined ? '—' : v.format(value)}
+                </span>
+                {band && (
+                  <span className={cn('micro-label', BAND_COPY[band].tone)}>
+                    {BAND_COPY[band].text}
+                  </span>
+                )}
               </div>
-            )}
-          </div>
-        </div>
+              <div className="mt-3">
+                <BandChart vital={v} points={seriesFor(v.key)} />
+              </div>
+              <div className="micro-label mt-2 text-muted-foreground">{v.legend}</div>
+            </Panel>
+          );
+        })}
+      </div>
 
-        {/* SYSTEM INTEGRITY LIST (Moved to second column) */}
-        <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 backdrop-blur-md">
-          <h3 className="text-xs font-black text-zinc-500 uppercase tracking-widest mb-8 px-2">
-            Service Heartbeats
-          </h3>
-          <div className="grid grid-cols-1 gap-6">
-            {' '}
-            {/* Adjusted to 1 column for better layout in half-width */}
-            {(() => {
-              // Deduplicate integrity logs by service name, keeping the latest one
-              const uniqueServices = stats?.integrity?.reduce(
-                (acc: any, current: any) => {
-                  if (!acc[current.service]) {
-                    acc[current.service] = current;
-                  }
-                  return acc;
-                },
-                {} as Record<string, any>,
-              );
-
-              const serviceList = Object.values(uniqueServices || {});
-
-              if (serviceList.length === 0) {
-                return (
-                  <div className="col-span-full py-20 text-center text-zinc-500 font-mono text-xs uppercase tracking-widest">
-                    No heartbeat signals detected...
-                  </div>
-                );
-              }
-
-              return serviceList.map((item: any, idx: number) => {
-                // Categorical icons for visual cues
-                const isCore =
-                  item.service.includes('cms') ||
-                  item.service.includes('clickhouse') ||
-                  item.service.includes('db');
-                const Icon = isCore ? Database : item.service.includes('api') ? Globe : Zap;
-
-                return (
-                  <div
-                    key={item.service || idx}
-                    className="group p-6 bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 rounded-[2rem] flex flex-col gap-4 transition-all hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-lg dark:hover:shadow-primary-500/5"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div
-                        className={cn(
-                          'w-10 h-10 rounded-xl flex items-center justify-center border transition-colors',
-                          item.status === 'UP'
-                            ? 'bg-emerald-500/5 border-emerald-500/20 text-emerald-500'
-                            : item.status === 'DEGRADED'
-                              ? 'bg-amber-500/5 border-amber-500/20 text-amber-500'
-                              : 'bg-rose-500/5 border-rose-500/20 text-rose-500',
+      {/* Traces and heartbeats */}
+      <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+        <Panel status={totalErrors > 0 ? 'alert' : 'none'}>
+          <PanelHeader label="ERROR_TRACES // 24H">
+            <span className="micro-label text-muted-foreground">
+              {totalErrors > 0 ? `▲ ${totalErrors}` : totalErrors} · FATAL {fatalErrors}
+            </span>
+          </PanelHeader>
+          <PanelBody className="p-0">
+            {topErrors.length > 0 ? (
+              <ul className="divide-y divide-rule">
+                {topErrors.map((error, idx) => {
+                  const m = levelMarker(error.level);
+                  return (
+                    <li
+                      key={error.issue_id || idx}
+                      className="flex items-start gap-3 px-panel py-3"
+                    >
+                      <span aria-hidden className={cn('mt-0.5 text-xs', m.tone)}>
+                        {m.glyph}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-mono text-xs break-words">{error.message}</p>
+                        <p className="micro-label mt-1 truncate text-muted-foreground">
+                          <span className="sr-only">{error.level}: </span>
+                          {error.culprit || 'unknown culprit'}
+                        </p>
+                        {error.sentry_url && (
+                          <Link
+                            href={error.sentry_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="micro-label mt-1 inline-flex items-center gap-1 text-signal hover:underline"
+                          >
+                            View in Sentry <ExternalLink size={10} />
+                          </Link>
                         )}
-                      >
-                        <Icon size={20} />
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400">
-                          {item.latency_ms}ms
-                        </span>
-                        <div className="w-2 h-2 rounded-full shadow-[0_0_8px]" />{' '}
-                        {/* cn removed here */}
-                      </div>
-                    </div>
+                      <span className="micro-label text-muted-foreground">×{error.count}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="micro-label px-panel py-8 text-center text-muted-foreground">
+                No error traces detected. System nominal.
+              </p>
+            )}
+          </PanelBody>
+        </Panel>
 
-                    <div>
-                      <div className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-1">
-                        {item.service.replace('-', '_')}
+        <Panel>
+          <PanelHeader label="SERVICE HEARTBEATS">
+            <span className="micro-label text-muted-foreground">
+              {services.length ? `${upCount} / ${services.length} OK` : '—'}
+            </span>
+          </PanelHeader>
+          <PanelBody>
+            {services.length === 0 ? (
+              <p className="micro-label py-8 text-center text-muted-foreground">
+                No heartbeat signals detected...
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                {services.map((item: any, idx: number) => {
+                  const state =
+                    item.status === 'UP'
+                      ? {
+                          text: 'HTTP_OK',
+                          tone: 'text-success',
+                          line: 'bg-signal',
+                          tile: 'border-rule',
+                        }
+                      : item.status === 'DEGRADED'
+                        ? {
+                            text: '◆ SLOW',
+                            tone: 'text-warning',
+                            line: 'bg-warning',
+                            tile: 'border-warning',
+                          }
+                        : {
+                            text: '▲ DOWN',
+                            tone: 'text-alert',
+                            line: 'bg-alert',
+                            tile: 'border-alert',
+                          };
+                  return (
+                    <div
+                      key={item.service || idx}
+                      className={cn(
+                        'flex flex-col gap-3 rounded-control border bg-state p-3',
+                        state.tile,
+                      )}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="micro-label truncate">
+                          {String(item.service).replace(/-/g, '_').toUpperCase()}
+                        </span>
+                        <span className={cn('micro-label shrink-0', state.tone)}>{state.text}</span>
                       </div>
-                      <div className="text-xl font-black text-zinc-900 dark:text-zinc-100 flex items-baseline gap-2">
-                        {item.status}
-                        <span className="text-[9px] font-mono text-zinc-400 dark:text-zinc-600 font-medium">
-                          HTTP_OK
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">
-                          Stability
-                        </span>
-                        <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 font-bold">
-                          99.9% UPTIME
-                        </span>
-                      </div>
-                      <div className="text-right flex flex-col">
-                        <span className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">
-                          Last Pulse
-                        </span>
-                        <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
+                      <div aria-hidden className={cn('h-px w-full', state.line)} />
+                      <div className="micro-label flex items-center justify-between text-muted-foreground">
+                        <span>{item.latency_ms}ms</span>
+                        <span>
                           {new Date(item.timestamp).toLocaleTimeString([], {
                             hour12: false,
                             hour: '2-digit',
@@ -308,13 +307,23 @@ export default function PerformancePage() {
                         </span>
                       </div>
                     </div>
-                  </div>
-                );
-              });
-            })()}
-          </div>
-        </div>
+                  );
+                })}
+              </div>
+            )}
+          </PanelBody>
+        </Panel>
       </div>
-    </div>
+
+      {/* Vitals velocity */}
+      <Panel
+        label="CORE_WEB_VITALS_VELOCITY // SOURCE: CLICKHOUSE_TELEMETRY"
+        status={isLoading ? 'idle' : 'none'}
+      >
+        <PanelBody className="p-0">
+          <StreamGraph data={latencyData} height={300} hideHeader />
+        </PanelBody>
+      </Panel>
+    </>
   );
 }
