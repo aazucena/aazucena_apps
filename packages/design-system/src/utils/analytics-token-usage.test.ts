@@ -46,7 +46,6 @@ export const PENDING = new Set<string>([
   'app/(dashboard)/performance/page.tsx',
   'app/(dashboard)/traffic/page.tsx',
   'app/error.tsx',
-  'app/layout.tsx',
   'app/not-found.tsx',
   'app/status/page.tsx',
   'components/common/AdminMenu.tsx',
@@ -65,7 +64,6 @@ export const PENDING = new Set<string>([
   'components/logs/TelemetryFeed.tsx',
   'components/ui/timeline.tsx',
   'components/widgets/MetricCard.tsx',
-  'layouts/RootLayout.tsx',
 ]);
 
 function tsxFiles(dir: string): string[] {
@@ -108,5 +106,26 @@ describe('analytics app Avra token usage', () => {
       expect({ file, exists: existsSync(join(SRC, file)) }).toEqual({ file, exists: true });
       expect({ file, dirty: violations(file).length > 0 }).toEqual({ file, dirty: true });
     }
+  });
+
+  it('loads Avra through ui globals', () => {
+    const css = readFileSync(join(SRC, 'styles/globals.css'), 'utf8');
+    expect(css).toMatch(/@import ['"]@aazucena\/ui\/globals\.css['"]/);
+    expect(css).not.toMatch(/--(?:primary|secondary|neutral|destructive|success)-\d{2,3}\s*:/);
+    expect(css).not.toMatch(/@theme inline/);
+  });
+
+  it('loads Fira and sets the theme before paint', () => {
+    const layout = readFileSync(join(SRC, 'app/layout.tsx'), 'utf8');
+    expect(layout).toMatch(/Fira_Sans/);
+    expect(layout).toMatch(/Fira_Code/);
+    expect(layout).not.toMatch(/Inter|JetBrains_Mono/);
+    expect(layout).toMatch(/localStorage\.getItem\(['"]theme['"]\)/);
+    expect(layout).toMatch(/suppressHydrationWarning/);
+  });
+
+  it('respects reduced motion', () => {
+    const provider = readFileSync(join(SRC, 'providers/RootProvider.tsx'), 'utf8');
+    expect(provider).toMatch(/<MotionConfig[^>]*reducedMotion="user"/);
   });
 });
