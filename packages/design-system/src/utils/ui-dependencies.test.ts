@@ -78,8 +78,11 @@ describe('@aazucena/ui dependencies', () => {
   ])('%s animates with tw-animate-css', (file) => {
     const css = readFileSync(join(ROOT, file), 'utf8');
     expect(css).not.toMatch(/@plugin\s+['"]tailwindcss-animate['"]/);
-    // tw-animate-css builds on Tailwind's layers, so it has to come right after tailwindcss
-    expect(css).toMatch(/@import\s+['"]tailwindcss['"];\s*@import\s+['"]tw-animate-css['"]/);
+    // Either the file imports tailwindcss then tw-animate-css itself (tw-animate-css builds on
+    // Tailwind's layers, so it comes right after tailwindcss), or it imports the ui globals that do
+    const direct = /@import\s+['"]tailwindcss['"];\s*@import\s+['"]tw-animate-css['"]/;
+    const viaUi = /@import\s+['"]@aazucena\/ui\/globals\.css['"]/;
+    expect(direct.test(css) || viaUi.test(css)).toBe(true);
   });
 
   it('declares react and react-dom as peers, not dependencies', () => {

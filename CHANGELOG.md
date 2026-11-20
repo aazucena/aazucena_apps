@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Style Radix states with data-[state=…] so they apply
 - _(analytics)_ Coral only with ▲ in the settings menu and integrity badge
 - _(analytics)_ Respect reduced motion in framer-motion
 - _(ui)_ Declare zod as an optional peer for the re-exported zodValidator
