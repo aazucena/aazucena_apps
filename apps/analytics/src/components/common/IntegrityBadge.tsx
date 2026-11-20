@@ -13,15 +13,15 @@ interface IntegrityBadgeProps {
 
 const statusToVariant = {
   OPERATIONAL: 'success',
-  DEGRADED: 'destructive',
-  UNKNOWN: 'destructive',
+  DEGRADED: 'warning',
+  UNKNOWN: 'secondary',
   LOADING: 'cyber',
 } as const;
 
 const statusToLabel = {
   OPERATIONAL: 'Nominal',
-  DEGRADED: 'Issues Detected',
-  UNKNOWN: 'Issues Detected',
+  DEGRADED: '◆ Issues Detected',
+  UNKNOWN: 'Unknown',
   LOADING: 'Checking...',
 } as const;
 

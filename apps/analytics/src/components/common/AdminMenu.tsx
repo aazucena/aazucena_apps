@@ -19,19 +19,17 @@ interface ActionRowProps {
   label: string;
   sub: string;
   icon: React.ComponentType<{ size?: number; className?: string }>;
-  /** Alert tone for destructive-ish actions (the icon carries the cue). */
-  alert?: boolean;
   onSelect: () => void;
 }
 
-function ActionRow({ label, sub, icon: Icon, alert = false, onSelect }: ActionRowProps) {
+function ActionRow({ label, sub, icon: Icon, onSelect }: ActionRowProps) {
   return (
     <button type="button" onClick={onSelect} className={rowClass}>
       <div className="min-w-0 flex-1">
-        <div className={cn('text-sm font-medium', alert && 'text-alert')}>{label}</div>
+        <div className="text-sm font-medium">{label}</div>
         <div className="micro-label text-muted-foreground">{sub}</div>
       </div>
-      <Icon size={14} className={alert ? 'text-alert' : 'text-muted-foreground'} />
+      <Icon size={14} className="text-muted-foreground" />
     </button>
   );
 }
@@ -119,7 +117,6 @@ export function AdminMenu() {
             label="Clear AI history"
             sub="PURGE_THREAD_LOG"
             icon={Trash}
-            alert
             onSelect={() =>
               confirmAndClose({
                 title: 'Clear AI History',
