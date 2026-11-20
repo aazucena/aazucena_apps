@@ -3,9 +3,21 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
+import {
+  Badge,
+  Meter,
+  Panel,
+  PanelBody,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@aazucena/ui';
 import { MetricCard } from '@/components/widgets/MetricCard';
+import { PageHeader } from '@/components/common/PageHeader';
 import { StreamGraph } from '@aazucena/visualizations';
-import { CreditCard, Zap, Activity, Chip, Database, TrendingUp } from '@aazucena/icons';
 import { useAiStats } from '@/hooks/useAiStats';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
 
@@ -33,6 +45,11 @@ export default function AiCostCenterPage() {
       ? ((totalSavingsNum / (totalSpendNum + totalSavingsNum)) * 100).toFixed(1)
       : '0';
 
+  // The stats payload carries no budget yet; without one the meter stays empty.
+  const budgetNum: number | null = Number((stats as any)?.summary?.budget_usd) || null;
+  const burn = budgetNum ? ((totalSpendNum * 30) / budgetNum) * 100 : null;
+  const budgetState = burn === null ? null : burn >= 100 ? 'alert' : burn >= 80 ? 'warning' : 'ok';
+
   // Group trends by date → GenericTimeSeriesStep[] (cost by model over time)
   const statsTrends = stats?.trends;
   const statsHistory = (stats as any)?.history;
@@ -51,257 +68,190 @@ export default function AiCostCenterPage() {
     }));
   }, [statsTrends, statsHistory]);
 
+  const models: any[] = stats?.models ?? (stats as any)?.distribution ?? [];
+  const agents: any[] = (stats as any)?.agents ?? [];
+  const th = 'micro-label text-muted-foreground';
+  const emptyRow = (text: string) => (
+    <TableRow>
+      <TableCell colSpan={4} className="micro-label text-muted-foreground py-10 text-center">
+        {text}
+      </TableCell>
+    </TableRow>
+  );
+
   return (
-    <div className="space-y-10 pb-20">
-      {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter uppercase flex items-center gap-3">
-            COST_CENTER<span className="text-primary-500">_INTEL</span>
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold text-wrap">
-            Financial Ledger & Model Resource Consumption
-          </p>
-        </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-full shrink-0 self-start">
-          <TrendingUp size={14} className="text-primary-500" />
-          <span className="text-[10px] font-black text-primary-500 uppercase tracking-widest">
-            Budget_Audit_Active
-          </span>
-        </div>
-      </div>
+    <>
+      <PageHeader
+        title="FISCAL_INTEL"
+        meta="Financial Ledger & Model Resource Consumption"
+        actions={
+          <Badge variant="cyber" animated>
+            BUDGET_AUDIT_ACTIVE
+          </Badge>
+        }
+      />
 
-      {/* KPI METRICS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <MetricCard
-          label="Total Spend (24h)"
-          value={`$${totalSpend}`}
-          description="EST_REAL_TIME_BURN"
-          variant="secondary"
-          icon={<CreditCard size={24} />}
-        />
-        <MetricCard
-          label="Efficiency Score"
-          value={`${efficiencyScore}%`}
-          description="FISCAL_OPTIMIZATION"
-          variant="success"
-          icon={<TrendingUp size={24} />}
-        />
-        <MetricCard
-          label="Fiscal Savings"
-          value={`$${totalSavings}`}
-          description="OPPORTUNITY_GAIN"
-          icon={<Zap size={24} />}
-        />
-        <MetricCard
-          label="Token Volume"
-          value={totalTokens}
-          description="TOTAL_IN_OUT_FLUX"
-          icon={<Database size={24} />}
-        />
-        <MetricCard
-          label="Monthly Projection"
-          value={`$${monthlyProjection}`}
-          description="EST_30_DAY_RUN_RATE"
-          icon={<Chip size={24} />}
-        />
-      </div>
-
-      {/* SPEND HISTORY GRAPH */}
-      <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 backdrop-blur-md transition-all duration-300">
-        <div className="flex items-center justify-between mb-8 px-2">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
-              <Activity size={18} />
+      {/* BUDGET LEDGER */}
+      <Panel
+        label="BUDGET // LEDGER"
+        status={isLoading ? 'idle' : 'none'}
+        className="overflow-hidden"
+      >
+        <PanelBody className="gap-5">
+          <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+            <div>
+              <div className="micro-label text-muted-foreground">SPENT · 24H</div>
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono text-4xl font-light tabular-nums">${totalSpend}</span>
+                <span className="micro-label text-muted-foreground">
+                  {budgetNum ? `OF $${budgetNum.toFixed(2)}` : 'NO BUDGET SET'}
+                </span>
+              </div>
             </div>
-            <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
-              Spend Velocity Dynamics
-            </h3>
-          </div>
-          <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 uppercase font-bold">
-            {isLoading ? 'CALCULATING_LEDGER...' : 'Unit: USD ($)'}
-          </span>
-        </div>
-        <div className="min-h-[400px]">
-          <StreamGraph data={streamData} />
-        </div>
-      </div>
-
-      {/* AGENT & MODEL DISTRIBUTION GRID */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
-        {/* MODEL DISTRIBUTION TABLE */}
-        <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] overflow-hidden backdrop-blur-md">
-          <div className="px-8 py-6 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-between">
-            <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
-              Model Efficiency Audit
-            </h3>
-            <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest">
-              7_Day_Analysis
-            </span>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4">
+              <MetricCard
+                className="border-0 bg-transparent p-0"
+                label="Token Volume"
+                value={totalTokens}
+              />
+              <MetricCard
+                className="border-0 bg-transparent p-0"
+                label="Efficiency Score"
+                value={`${efficiencyScore}%`}
+              />
+              <MetricCard
+                className="border-0 bg-transparent p-0"
+                label="Fiscal Savings"
+                value={`$${totalSavings}`}
+              />
+              <MetricCard
+                className="border-0 bg-transparent p-0"
+                label="Monthly Projection"
+                value={`$${monthlyProjection}`}
+              />
+            </div>
           </div>
 
-          <div className="p-2 overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-zinc-200 dark:border-zinc-800">
-                  <th className="px-6 py-4 text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
-                    Model_ID
-                  </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest text-right">
-                    Inferences
-                  </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest text-right">
-                    Actual_Spend
-                  </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest text-right">
-                    Fiscal_Savings
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
-                {(stats?.models ?? (stats as any)?.distribution ?? []).map((model: any) => (
-                  <tr
-                    key={model.model}
-                    className="group hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
-                  >
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-primary-500 group-hover:scale-125 transition-transform" />
-                        <div>
-                          <div className="font-bold text-zinc-900 dark:text-zinc-100 text-sm font-mono truncate max-w-[150px]">
-                            {model.model.split('/').pop()}
-                          </div>
-                          <div className="text-[10px] text-zinc-500 dark:text-zinc-500 uppercase tracking-wider font-mono opacity-60">
-                            {model.model.split('/')[0]}
-                          </div>
-                        </div>
+          <div className="flex flex-col gap-2">
+            {budgetNum && burn !== null ? (
+              <Meter
+                label="Budget burn"
+                value={Math.min((totalSpendNum / budgetNum) * 100, 100)}
+                variant={
+                  budgetState === 'alert'
+                    ? 'destructive'
+                    : budgetState === 'warning'
+                      ? 'warning'
+                      : 'cyber'
+                }
+              />
+            ) : (
+              <div
+                role="meter"
+                aria-label="Budget burn"
+                aria-valuenow={0}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                className="bg-state h-2 w-full rounded-full"
+              />
+            )}
+            <div className="micro-label text-muted-foreground flex flex-wrap items-center justify-between gap-2">
+              <span>$0</span>
+              <span>
+                {budgetNum && burn !== null
+                  ? `PROJECTION $${monthlyProjection} (${burn.toFixed(0)}% OF BUDGET)`
+                  : 'PROJECTION — · NO BUDGET SET'}
+              </span>
+              {budgetState === 'alert' && <Badge variant="destructive">OVER BUDGET</Badge>}
+              {budgetState === 'warning' && <Badge variant="warning">◆ NEAR BUDGET</Badge>}
+              <span>{budgetNum ? `BUDGET $${budgetNum.toFixed(2)}` : 'BUDGET —'}</span>
+            </div>
+          </div>
+        </PanelBody>
+      </Panel>
+
+      {/* DAILY SPEND */}
+      <Panel label="DAILY SPEND // BY MODEL" status={isLoading ? 'idle' : 'none'}>
+        <PanelBody>
+          <div className="micro-label text-muted-foreground">
+            {isLoading ? 'CALCULATING LEDGER...' : 'UNIT: USD ($)'}
+          </div>
+          <div className="min-h-[360px]">
+            <StreamGraph data={streamData} />
+          </div>
+        </PanelBody>
+      </Panel>
+
+      <div className="grid grid-cols-1 items-start gap-4 xl:grid-cols-2">
+        <Panel label="MODEL EFFICIENCY AUDIT // 7_DAY_ANALYSIS" className="overflow-hidden">
+          <PanelBody className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-rule">
+                  <TableHead className={th}>MODEL_ID</TableHead>
+                  <TableHead className={`${th} text-right`}>INFERENCES</TableHead>
+                  <TableHead className={`${th} text-right`}>ACTUAL_SPEND</TableHead>
+                  <TableHead className={`${th} text-right`}>FISCAL_SAVINGS</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {models.map((model: any) => (
+                  <TableRow key={model.model} className="border-rule">
+                    <TableCell className="font-mono text-sm">
+                      <div className="max-w-[180px] truncate">{model.model.split('/').pop()}</div>
+                      <div className="micro-label text-muted-foreground">
+                        {model.model.split('/')[0]}
                       </div>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <span className="font-mono text-xs font-bold text-zinc-700 dark:text-zinc-300">
-                        {model.inferences.toLocaleString()}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <span className="font-mono text-xs font-black text-primary-500">
-                        ${model.spend.toFixed(4)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex flex-col items-end">
-                        <span className="font-mono text-xs font-black text-emerald-500">
-                          ${(model.savings || 0).toFixed(4)}
-                        </span>
-                        <div className="w-16 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full mt-1 overflow-hidden">
-                          <div
-                            className="h-full bg-emerald-500"
-                            style={{
-                              width: `${Math.min(((model.savings || 0) / ((stats as any)?.summary?.total_savings || 1)) * 100, 100)}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-sm tabular-nums">
+                      {model.inferences.toLocaleString()}
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-sm tabular-nums">
+                      ${model.spend.toFixed(4)}
+                    </TableCell>
+                    <TableCell className="text-success text-right font-mono text-sm tabular-nums">
+                      +${(model.savings || 0).toFixed(4)}
+                    </TableCell>
+                  </TableRow>
                 ))}
-                {(!(stats?.models ?? (stats as any)?.distribution) ||
-                  (stats?.models ?? (stats as any)?.distribution ?? []).length === 0) && (
-                  <tr>
-                    <td
-                      colSpan={3}
-                      className="py-20 text-center text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] italic"
-                    >
-                      Fiscal telemetry ingestion pending...
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                {models.length === 0 && emptyRow('FISCAL TELEMETRY INGESTION PENDING...')}
+              </TableBody>
+            </Table>
+          </PanelBody>
+        </Panel>
 
-        {/* AGENT DISTRIBUTION TABLE */}
-        <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] overflow-hidden backdrop-blur-md">
-          <div className="px-8 py-6 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-between">
-            <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
-              Agent Resource Allocation
-            </h3>
-            <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest">
-              7_Day_Analysis
-            </span>
-          </div>
-
-          <div className="p-2 overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-zinc-200 dark:border-zinc-800">
-                  <th className="px-6 py-4 text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
-                    Agent_Identity
-                  </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest text-right">
-                    Inferences
-                  </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest text-right">
-                    Total_Spend
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
-                {((stats as any)?.agents || []).map((agent: any) => (
-                  <tr
-                    key={agent.agent_name}
-                    className="group hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
-                  >
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-secondary-500 group-hover:scale-125 transition-transform" />
-                        <div>
-                          <div className="font-bold text-zinc-900 dark:text-zinc-100 text-sm font-mono">
-                            {agent.agent_name}
-                          </div>
-                          <div className="text-[10px] text-zinc-500 dark:text-zinc-500 uppercase tracking-wider font-mono opacity-60">
-                            Neural_Node
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <span className="font-mono text-xs font-bold text-zinc-700 dark:text-zinc-300">
-                        {agent.inferences.toLocaleString()}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex flex-col items-end">
-                        <span className="font-mono text-xs font-black text-secondary-500">
-                          ${agent.spend.toFixed(4)}
-                        </span>
-                        <div className="w-16 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full mt-1 overflow-hidden">
-                          <div
-                            className="h-full bg-secondary-500"
-                            style={{
-                              width: `${Math.min((agent.spend / (totalSpendNum || 1)) * 100, 100)}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+        <Panel label="AGENT RESOURCE ALLOCATION // 7_DAY_ANALYSIS" className="overflow-hidden">
+          <PanelBody className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-rule">
+                  <TableHead className={th}>AGENT_IDENTITY</TableHead>
+                  <TableHead className={`${th} text-right`}>INFERENCES</TableHead>
+                  <TableHead className={`${th} text-right`}>TOTAL_SPEND</TableHead>
+                  <TableHead className={`${th} text-right`}>NEURAL_NODE</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {agents.map((agent: any) => (
+                  <TableRow key={agent.agent_name} className="border-rule">
+                    <TableCell className="font-mono text-sm">{agent.agent_name}</TableCell>
+                    <TableCell className="text-right font-mono text-sm tabular-nums">
+                      {agent.inferences.toLocaleString()}
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-sm tabular-nums">
+                      ${agent.spend.toFixed(4)}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground text-right font-mono text-sm">
+                      {agent.node ?? '—'}
+                    </TableCell>
+                  </TableRow>
                 ))}
-                {(!(stats as any)?.agents || (stats as any).agents.length === 0) && (
-                  <tr>
-                    <td
-                      colSpan={3}
-                      className="py-20 text-center text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] italic"
-                    >
-                      Agent fiscal mapping pending...
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                {agents.length === 0 && emptyRow('AGENT FISCAL MAPPING PENDING...')}
+              </TableBody>
+            </Table>
+          </PanelBody>
+        </Panel>
       </div>
-    </div>
+    </>
   );
 }
