@@ -70,9 +70,9 @@ export const statLabelVariants = cva('', {
   variants: {
     variant: {
       default:
-        'text-[10px] font-black uppercase tracking-[0.2em] text-foreground0 dark:text-muted-foreground mb-1',
+        'text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground dark:text-muted-foreground mb-1',
       glass: 'text-sm text-muted-foreground font-medium',
-      cyber: 'text-foreground0/60 font-mono uppercase tracking-wider text-[10px] font-black',
+      cyber: 'text-muted-foreground font-mono uppercase tracking-wider text-[10px] font-black',
       bright: 'text-lg font-bold opacity-90 tracking-tight',
     },
   },

@@ -59,7 +59,7 @@ const beaconLinkVariants = cva(
     variants: {
       variant: {
         default: 'text-muted-foreground hover:text-primary',
-        cyber: 'text-foreground0/60 hover:text-signal font-mono tracking-wider italic',
+        cyber: 'text-muted-foreground hover:text-signal font-mono tracking-wider italic',
       },
     },
     defaultVariants: {

@@ -208,7 +208,7 @@ const RecursiveRenderer = ({
                 key === 'is_valid' && data[key] === false
                   ? 'text-alert'
                   : variant === 'cyber'
-                    ? 'text-foreground0'
+                    ? 'text-muted-foreground'
                     : 'text-primary',
               )}
             >

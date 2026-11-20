@@ -82,7 +82,7 @@ const DetailNavigation = React.forwardRef<HTMLElement, DetailNavigationProps>(
             <div
               className={cn(
                 'flex items-center gap-2 text-[9px] font-black tracking-[0.3em] uppercase',
-                variant === 'cyber' ? 'text-foreground0' : 'text-muted-foreground',
+                variant === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
               )}
             >
               <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
@@ -102,7 +102,7 @@ const DetailNavigation = React.forwardRef<HTMLElement, DetailNavigationProps>(
             <div
               className={cn(
                 'flex items-center justify-end gap-2 text-[9px] font-black tracking-[0.3em] uppercase',
-                variant === 'cyber' ? 'text-foreground0' : 'text-muted-foreground',
+                variant === 'cyber' ? 'text-muted-foreground' : 'text-muted-foreground',
               )}
             >
               {nextLabel}

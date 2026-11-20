@@ -26,7 +26,7 @@ export const sidebarGroupLabelVariants = cva(
       variant: {
         default: 'text-sidebar-foreground/70',
         glass: 'text-muted-foreground',
-        cyber: 'text-foreground0/70 font-black tracking-widest uppercase italic',
+        cyber: 'text-muted-foreground font-black tracking-widest uppercase italic',
       },
     },
     defaultVariants: {

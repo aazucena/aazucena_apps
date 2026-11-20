@@ -34,12 +34,12 @@ const PageTitle = React.forwardRef<
 PageTitle.displayName = 'PageTitle';
 
 const pageSubtitleVariants = cva(
-  'text-foreground0 dark:text-muted-foreground text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold text-wrap',
+  'text-muted-foreground dark:text-muted-foreground text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold text-wrap',
   {
     variants: {
       variant: {
         default: '',
-        cyber: 'text-foreground0/60',
+        cyber: 'text-muted-foreground',
         glass: 'text-muted-foreground',
       },
     },
@@ -117,7 +117,7 @@ const iconBoxVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-panel dark:bg-panel-raised border-rule text-foreground0',
+        default: 'bg-panel dark:bg-panel-raised border-rule text-muted-foreground',
         primary: 'bg-signal/10 border-signal/20 text-signal',
         secondary:
           'bg-secondary-500/10 border-secondary-500/20 text-secondary-500 shadow-secondary-500/5',

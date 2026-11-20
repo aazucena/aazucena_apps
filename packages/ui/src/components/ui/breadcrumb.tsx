@@ -109,7 +109,7 @@ const breadcrumbSeparatorVariants = cva('[&>svg]:w-3.5 [&>svg]:h-3.5', {
     variant: {
       default: '',
       glass: 'text-muted-foreground dark:text-muted-foreground',
-      cyber: 'text-foreground0/40',
+      cyber: 'text-muted-foreground',
       intel: 'text-muted-foreground font-normal',
     },
   },
@@ -140,7 +140,7 @@ const breadcrumbEllipsisVariants = cva('flex h-9 w-9 items-center justify-center
     variant: {
       default: '',
       glass: 'text-muted-foreground',
-      cyber: 'text-foreground0/60',
+      cyber: 'text-muted-foreground',
       intel: 'text-muted-foreground',
     },
   },
