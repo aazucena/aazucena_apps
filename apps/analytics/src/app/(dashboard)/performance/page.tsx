@@ -22,6 +22,8 @@ interface Vital {
   poor: number;
   /** Text for the threshold legend. */
   legend: string;
+  /** True when the value is not a P75, so the bands need a caveat. */
+  note?: boolean;
   format: (n: number) => string;
 }
 
@@ -36,7 +38,8 @@ const VITALS: Vital[] = [
   },
   {
     key: 'INP',
-    label: 'INP (P75)',
+    note: true,
+    label: 'INP (LATEST)',
     good: 200,
     poor: 500,
     legend: 'GOOD ≤ 200 · POOR > 500',
@@ -44,7 +47,8 @@ const VITALS: Vital[] = [
   },
   {
     key: 'CLS',
-    label: 'CLS (P75)',
+    note: true,
+    label: 'CLS (AVG)',
     good: 0.1,
     poor: 0.25,
     legend: 'GOOD ≤ 0.1 · POOR > 0.25',
@@ -190,6 +194,11 @@ export default function PerformancePage() {
                 <BandChart vital={v} points={seriesFor(v.key)} />
               </div>
               <div className="micro-label mt-2 text-muted-foreground">{v.legend}</div>
+              {v.note && (
+                <div className="micro-label text-muted-foreground">
+                  Banded against P75 thresholds.
+                </div>
+              )}
             </Panel>
           );
         })}
