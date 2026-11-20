@@ -297,6 +297,12 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 **Full details:** `ROADMAP.md`
 
+**Phase names.** Three plans number their phases, so each has a prefix:
+
+- **Phase N** (no prefix): the roadmap phases below.
+- **R0–R5**: the Avra redesign, Part 2 (`docs/superpowers/plans/2026-11-12-avra-redesign-completion.md`). R4 is the analytics app, R5 the portfolio.
+- **D0–D7**: Avra distribution outside this repo (`docs/features/avra-distribution.md`). D1 is cleanup and ui 0.3.0, D2 the design-system `var()` refactor.
+
 | Phase                            | Status        | Key Achievement                               |
 | -------------------------------- | ------------- | --------------------------------------------- |
 | Phase 1 — Animations Refactoring | ✅ 2025-01-13 | Section.tsx 324→174 lines                     |
