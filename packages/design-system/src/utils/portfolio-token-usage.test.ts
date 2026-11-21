@@ -37,17 +37,15 @@ const PENDING: string[] = [
   'components/assistant/AssistantMessageList.tsx',
   'components/assistant/AssistantTriggerPopover.tsx',
   'components/assistant/variants.ts',
-  'components/homepage/overlays/AtmosphericOverlays.tsx',
-  'components/homepage/overlays/NavigationToolbar.tsx',
-  'components/homepage/overlays/UIOverlays.tsx',
   'components/ui/InfiniteMovingCards.tsx',
-  'components/ui/ScrollIndicators.tsx',
-  'components/ui/SectionNavFAB.tsx',
   'config/animations.ts',
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */
-const SCENE_EXEMPT: Record<string, string> = {};
+const SCENE_EXEMPT: Record<string, string> = {
+  'components/homepage/overlays/AtmosphericOverlays.tsx':
+    'sky dimming scrims and aurora tints over the scenes are atmospheric imagery, not panel styling',
+};
 
 function sourceFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {

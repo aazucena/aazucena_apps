@@ -68,10 +68,10 @@ export default function UIOverlays({
         timeout={15 * 1000}
         visible={currentSection === 0}
         onClick={() => navigateToSection(1)}
-        className="text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+        className="text-foreground"
       >
         <ScrollDownIcon />
-        <ScrollDownLabel className="opacity-90">
+        <ScrollDownLabel>
           {isMobile ? "Swipe Up" : "Scroll Down"}
         </ScrollDownLabel>
       </ScrollDownIndicator>

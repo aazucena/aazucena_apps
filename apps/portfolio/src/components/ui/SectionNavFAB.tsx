@@ -46,7 +46,7 @@ export function SectionNavFAB({
 
       {/* Section list — opens upward above FAB */}
       {open && (
-        <div className="overflow-hidden rounded-xl border border-white/20 bg-black/80 backdrop-blur-md">
+        <div className="rounded-card border-rule-strong bg-panel overflow-hidden border">
           {sectionNames.map((name, index) => (
             <button
               key={name}
@@ -55,16 +55,21 @@ export function SectionNavFAB({
                 setOpen(false);
               }}
               data-testid={`section-nav-item-${index}`}
-              className={`flex w-full items-center gap-3 px-5 py-3.5 text-left text-sm transition-colors ${
+              className={`focus-visible:outline-signal flex w-full items-center gap-3 px-5 py-3.5 text-left text-sm transition-colors focus-visible:outline-1 focus-visible:-outline-offset-2 ${
                 currentSection === index
-                  ? "bg-cyan-400/20 text-cyan-400"
-                  : "text-white/60 hover:bg-white/10 hover:text-white"
+                  ? "bg-state text-foreground"
+                  : "text-muted-foreground hover:bg-state hover:text-foreground"
               }`}
+              aria-current={currentSection === index ? "step" : undefined}
             >
-              <span className="w-5 font-mono text-xs text-white/30">
+              <span className="text-muted-foreground w-5 font-mono text-xs">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className={currentSection === index ? "font-medium" : ""}>
+              <span
+                className={
+                  currentSection === index ? "text-signal font-medium" : ""
+                }
+              >
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </span>
             </button>
@@ -80,7 +85,7 @@ export function SectionNavFAB({
         }
         aria-expanded={open}
         data-testid="section-nav-fab-trigger"
-        className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white/70 backdrop-blur-md transition-all duration-200 hover:bg-black/80 hover:text-white active:scale-95"
+        className="rounded-control border-rule-strong bg-panel text-foreground hover:bg-state focus-visible:outline-signal flex size-12 items-center justify-center border transition-[background-color] duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
       >
         {open ? (
           <X size={14} aria-hidden="true" />

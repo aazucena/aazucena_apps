@@ -204,6 +204,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(utils)_ ParseCssColor for reading tokens into three.js colours
 - _(portfolio)_ Skills section shows its tool count
 - _(portfolio)_ Blog posts get copy link and rss share controls
 - _(ui)_ Perspective-1000 utility for flip words

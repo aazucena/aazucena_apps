@@ -21,28 +21,32 @@ export function ScrollIndicators({
   if (!visible) return <></>;
 
   return (
-    <div className="fixed z-40 hidden gap-4 md:top-1/2 md:right-8 md:flex md:-translate-y-1/2 md:flex-col">
+    <div className="fixed z-40 hidden gap-1 md:top-1/2 md:right-8 md:flex md:-translate-y-1/2 md:flex-col md:items-center">
       {sectionNames.map((section, index) => (
         <button
           key={section}
           onClick={() => onSectionClick(index)}
-          className="group relative"
+          aria-current={currentSection === index ? "step" : undefined}
+          className="group focus-visible:outline-signal relative flex items-center justify-center p-1.5 focus-visible:outline-1 focus-visible:outline-offset-2"
           aria-label={`Go to ${section} section`}
         >
-          {/* Dot */}
-          <div
-            className={`h-3 w-3 rounded-full transition-all duration-300 ${
+          {/* Tick: the current section is a tall signal bar, the rest are dots */}
+          <span
+            aria-hidden="true"
+            className={`block rounded-full transition-[height,background-color] duration-(--motion-base) ${
               currentSection === index
-                ? "scale-125 bg-cyan-400"
-                : "bg-white/30 hover:scale-110 hover:bg-white/50"
+                ? "bg-signal h-4 w-0.5"
+                : "bg-muted-foreground group-hover:bg-foreground group-focus-visible:bg-foreground size-1.5"
             }`}
           />
 
           {/* Tooltip */}
-          <div className="pointer-events-none absolute top-1/2 right-full mr-4 -translate-y-1/2 rounded-lg bg-black/80 px-3 py-1.5 text-xs whitespace-nowrap text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
+          <span
+            role="presentation"
+            className="rounded-control border-rule bg-panel text-foreground micro-label pointer-events-none absolute top-1/2 right-full mr-4 -translate-y-1/2 border px-3 py-1.5 whitespace-nowrap opacity-0 transition-opacity duration-(--motion-base) group-hover:opacity-100 group-focus-visible:opacity-100"
+          >
             {section.charAt(0).toUpperCase() + section.slice(1)}
-            <div className="absolute top-1/2 left-full -ml-1 -translate-y-1/2 border-4 border-transparent border-l-black/80"></div>
-          </div>
+          </span>
         </button>
       ))}
     </div>
