@@ -15,26 +15,25 @@ export interface TestimonialCardProps {
   title: string;
   /** Avatar text (usually initials) */
   avatar: string;
-  /** Gradient class for avatar background */
-  gradient: string;
+  /** Retained for existing callers; avatars use the state tone. */
+  gradient?: string;
 }
 
 /**
  * TestimonialCard
- * Displays a testimonial with quote, author info, and gradient avatar
+ * Displays a testimonial with quote, author info, and initials avatar
  */
 export function TestimonialCard({
   quote,
   name,
   title,
   avatar,
-  gradient,
 }: TestimonialCardProps): JSX.Element {
   return (
     <GlassCard
       as="li"
       padding="lg"
-      className="flex min-h-[280px] w-[350px] max-w-full flex-col rounded-2xl md:w-[450px]"
+      className="flex min-h-[280px] w-[350px] max-w-full flex-col md:w-[450px]"
     >
       <blockquote className="flex h-full flex-col">
         <div
@@ -43,7 +42,7 @@ export function TestimonialCard({
         ></div>
         <div className="relative z-20 flex h-full flex-col justify-between pt-8">
           {/* Quote Text */}
-          <span className="flex-grow text-base leading-[1.6] font-normal text-gray-300">
+          <span className="text-foreground flex-grow text-base leading-[1.6] font-normal">
             {quote}
           </span>
 
@@ -51,18 +50,16 @@ export function TestimonialCard({
           <div className="mt-auto flex flex-row items-center justify-between gap-4">
             {/* Author Details */}
             <div className="flex flex-col gap-1 *:text-left">
-              <span className="text-base leading-[1.6] font-semibold text-white">
+              <span className="text-foreground text-base leading-[1.6] font-semibold">
                 {name}
               </span>
-              <span className="text-sm leading-[1.6] font-normal text-gray-400">
+              <span className="text-muted-foreground text-sm leading-[1.6] font-normal">
                 {title}
               </span>
             </div>
 
             {/* Avatar */}
-            <div
-              className={`h-12 w-12 bg-gradient-to-br ${gradient} flex flex-shrink-0 items-center justify-center rounded-full text-lg font-bold text-white`}
-            >
+            <div className="bg-state border-rule-strong text-foreground flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border font-mono text-base">
               {avatar}
             </div>
           </div>

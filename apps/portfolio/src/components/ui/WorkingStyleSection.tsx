@@ -1,7 +1,5 @@
 import { Users, Zap, Message } from "@aazucena/icons";
-import { InteractiveCard } from "./InteractiveCard";
-import { IconRenderer } from "@aazucena/ui";
-import { getWorkingStyleColor } from "@aazucena/utils";
+import { IconRenderer, Panel } from "@aazucena/ui";
 import type { WorkingStyleItem } from "@aazucena/types";
 
 interface WorkingStyleSectionProps {
@@ -16,7 +14,6 @@ const defaultWorkingStyle = [
     description:
       "I believe the best code comes from diverse perspectives. I prioritize clear documentation and constructive code reviews to elevate the whole team.",
     icon: Users,
-    color: "text-blue-600 bg-blue-50 dark:bg-blue-900/20",
   },
   {
     title: "Pragmatic Problem Solver",
@@ -24,7 +21,6 @@ const defaultWorkingStyle = [
     description:
       "I focus on shipping value. I balance technical excellence with business requirements, ensuring we solve the right problems at the right time.",
     icon: Zap,
-    color: "text-amber-600 bg-amber-50 dark:bg-amber-900/20",
   },
   {
     title: "Continuous Mentor",
@@ -32,7 +28,6 @@ const defaultWorkingStyle = [
     description:
       "Sharing knowledge is as important as writing code. I actively participate in mentorship and knowledge-sharing sessions to foster technical growth.",
     icon: Message,
-    color: "text-purple-600 bg-purple-50 dark:bg-purple-900/20",
   },
 ];
 
@@ -62,22 +57,27 @@ export function WorkingStyleSection({
           subtitle: style.subtitle,
           description: style.description,
           icon: getIconComponent(style.icon as string | null | undefined),
-          color: getWorkingStyleColor(style.variant || "blue-cyan"),
         }))
       : defaultWorkingStyle;
 
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {items.map((style, index) => (
-        <InteractiveCard
-          key={index}
-          title={style.title}
-          subtitle={style.subtitle}
-          description={style.description}
-          icon={style.icon}
-          color={style.color}
-        />
-      ))}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      {items.map((style, index) => {
+        const Icon = style.icon;
+        return (
+          <Panel key={index} label={style.subtitle.toUpperCase()}>
+            <div className="text-signal">
+              <Icon size={20} />
+            </div>
+            <h3 className="text-foreground text-base font-semibold">
+              {style.title}
+            </h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {style.description}
+            </p>
+          </Panel>
+        );
+      })}
     </div>
   );
 }

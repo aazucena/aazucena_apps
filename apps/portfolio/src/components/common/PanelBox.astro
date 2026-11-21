@@ -1,0 +1,32 @@
+---
+/**
+ * PanelBox - Astro twin of the ui Panel: flat panel tone, 1px rule, optional label strip.
+ * Use inside .astro pages; React islands use the ui Panel directly.
+ */
+interface Props {
+  /** Micro-caps label in the copy voice, e.g. `NARRATIVE // ROOTS`. */
+  label?: string;
+  /** Right side of the header strip (e.g. a count). */
+  meta?: string;
+  class?: string;
+  as?: "div" | "section" | "article" | "li";
+}
+const { label, meta, class: className, as: Tag = "div" } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    "bg-panel border-rule rounded-card flex flex-col border",
+    className,
+  ]}
+>
+  {label && (
+    <div class="h-panel-header border-rule px-panel flex items-center justify-between gap-3 border-b">
+      <span class="micro-label text-muted-foreground truncate">{label}</span>
+      {meta && <span class="micro-label text-signal shrink-0">● {meta}</span>}
+    </div>
+  )}
+  <div class="p-panel flex flex-col gap-2">
+    <slot />
+  </div>
+</Tag>

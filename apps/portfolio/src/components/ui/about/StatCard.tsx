@@ -18,11 +18,10 @@ export interface StatCardProps {
 /**
  * StatCard
  *
- * Displays a key metric in a glass-morphism card:
- * - Large, bold value in cyan accent
- * - Small label in gray
- * - Backdrop blur effect (via GlassCard)
- *
+ * Displays a key metric in a panel:
+ * - Large value in the signal tone
+ * - Micro-caps label
+ *  *
  * @example
  * ```tsx
  * <StatCard value="5+" label="Years Experience" />
@@ -32,10 +31,10 @@ export interface StatCardProps {
 export function StatCard({ value, label }: StatCardProps): JSX.Element {
   return (
     <GlassCard padding="none" className="p-3 md:p-4">
-      <div className="mb-1 text-xl font-bold text-cyan-400 md:mb-2 md:text-2xl">
+      <div className="text-signal mb-1 text-xl font-light md:mb-2 md:text-2xl">
         {value}
       </div>
-      <div className="text-xs text-gray-400 md:text-sm">
+      <div className="micro-label text-muted-foreground">
         {toTitleCase(label)}
       </div>
     </GlassCard>

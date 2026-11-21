@@ -1,11 +1,12 @@
 /**
  * HighlightsPanel Component
- * Displays key highlights/strengths in a glass-morphism panel
+ * Displays key highlights/strengths in a flat Avra panel
  * Used in AboutSection to showcase "What I Bring to the Table"
  */
 
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import type { JSX } from "react";
+import { Panel } from "@aazucena/ui";
 import { darkHighlightBlockRenderers } from "~/components/blocks/BlockRenderers";
 
 export interface HighlightsPanelProps {
@@ -19,7 +20,7 @@ export interface HighlightsPanelProps {
  * HighlightsPanel
  *
  * Displays highlights in a styled panel:
- * - Glass-morphism background
+ * - Flat panel surface with a label strip
  * - Custom heading
  * - 2-column grid on desktop
  * - Uses darkHighlightBlockRenderers for checkmark styling
@@ -37,14 +38,13 @@ export function HighlightsPanel({
   highlights,
 }: HighlightsPanelProps): JSX.Element {
   return (
-    <div className="mt-8 rounded-lg border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-      <h3 className="mb-4 text-xl font-semibold text-white">{title}</h3>
+    <Panel label={title.toUpperCase()} className="mt-8">
       <div className="grid grid-cols-1 gap-3 text-left text-base md:grid-cols-2">
         <BlocksRenderer
           content={highlights}
           blocks={darkHighlightBlockRenderers}
         />
       </div>
-    </div>
+    </Panel>
   );
 }
