@@ -52,10 +52,10 @@ const STATUS_BADGE: Record<string, React.ComponentProps<typeof Badge>['variant']
   Archived: 'secondary',
 };
 
-/** Sentiment text carries its meaning in the label; only warnings and failures get a marker. */
+/** Sentiment text carries its meaning in the label; only negative sentiment gets a warning marker. */
 function sentimentLabel(sentiment: string): { text: string; tone: string } {
-  if (sentiment === 'Very Negative') return { text: `▲ ${sentiment}`, tone: 'text-alert' };
-  if (sentiment === 'Negative') return { text: `◆ ${sentiment}`, tone: 'text-warning' };
+  if (sentiment === 'Very Negative' || sentiment === 'Negative')
+    return { text: `◆ ${sentiment}`, tone: 'text-warning' };
   return { text: sentiment, tone: 'text-muted-foreground' };
 }
 

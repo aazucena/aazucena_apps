@@ -18,11 +18,12 @@ TimelineItem.displayName = 'TimelineItem';
 const TimelineDot = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
-    variant?: 'default' | 'primary' | 'success' | 'warning' | 'danger';
+    variant?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'neutral';
   }
 >(({ className, variant = 'default', ...props }, ref) => {
   const variantStyles = {
     default: 'bg-muted-foreground',
+    neutral: 'bg-rule-strong',
     primary: 'bg-signal',
     success: 'bg-success',
     warning: 'bg-warning',

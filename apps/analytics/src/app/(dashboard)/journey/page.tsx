@@ -41,7 +41,11 @@ export default function JourneyPage() {
   const [searchTerm, setSearchQuery] = useState('');
 
   const { data: journeys, isLoading: journeysLoading, isError: journeysError } = useJourneys();
-  const { data: detail, isLoading: detailLoading } = useJourneyDetail(selectedSid);
+  const {
+    data: detail,
+    isLoading: detailLoading,
+    isError: detailError,
+  } = useJourneyDetail(selectedSid);
 
   useEffect(() => {
     dispatch(setCategoryPreset('LOGS'));
@@ -264,6 +268,10 @@ export default function JourneyPage() {
                     <Skeleton className="h-10 w-full" />
                     <Skeleton className="h-10 w-full" />
                   </div>
+                ) : detailError ? (
+                  <p role="alert" className="micro-label text-alert">
+                    ▲ Session events failed to load.
+                  </p>
                 ) : events.length === 0 ? (
                   <EmptyNote>No events logged.</EmptyNote>
                 ) : (
@@ -288,7 +296,7 @@ export default function JourneyPage() {
                                 : isPage
                                   ? 'primary'
                                   : isMusic
-                                    ? 'success'
+                                    ? 'neutral'
                                     : 'default'
                             }
                           />
