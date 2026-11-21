@@ -11,11 +11,8 @@ import {
 import type { JSX } from "react";
 import { useSectionData } from "~/contexts";
 import { useDragToSwipe } from "@aazucena/hooks";
-import {
-  getCompanyInitials,
-  getCompanyLogoGradient,
-  getGradientColors,
-} from "@aazucena/utils";
+import { getCompanyInitials } from "@aazucena/utils";
+import { Button } from "@aazucena/ui";
 import { ProjectCard, ViewMoreCard, PageIndicators } from "~/components/ui";
 import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
@@ -73,23 +70,12 @@ export function ProjectsSection({
               <a
                 key={index}
                 href={`/projects/${p.slug}`}
-                className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 p-3 transition-all duration-200 active:scale-95 active:bg-white/10"
+                className="rounded-card border-rule bg-panel hover:bg-state focus-visible:outline-signal flex items-center gap-3 border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
               >
-                {(() => {
-                  const gradient = getCompanyLogoGradient(p.title);
-                  const { from, to } = getGradientColors(gradient);
-                  return (
-                    <div
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-sm font-bold text-white shadow"
-                      style={{
-                        background: `linear-gradient(135deg, ${from}, ${to})`,
-                      }}
-                    >
-                      {getCompanyInitials(p.title)}
-                    </div>
-                  );
-                })()}
-                <h4 className="line-clamp-2 text-sm leading-tight font-bold text-white">
+                <div className="micro-label rounded-control border-rule bg-state text-foreground flex h-9 w-9 flex-shrink-0 items-center justify-center border">
+                  {getCompanyInitials(p.title)}
+                </div>
+                <h4 className="text-foreground line-clamp-2 text-sm leading-tight font-bold">
                   {p.title}
                 </h4>
               </a>
@@ -98,20 +84,19 @@ export function ProjectsSection({
         </div>
 
         <div className="mt-4 text-center">
-          <a
-            href={listPageUrl}
-            className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-5 py-2.5 text-sm font-medium text-cyan-400 transition-all duration-300 active:bg-cyan-400/20"
-          >
-            {showcase?.viewMoreButtonLabel ?? "View All Projects"}
-            <ArrowRight className="h-4 w-4" />
-          </a>
+          <Button asChild variant="outline">
+            <a href={listPageUrl}>
+              {showcase?.viewMoreButtonLabel ?? "View All Projects"}
+              <ArrowRight aria-hidden />
+            </a>
+          </Button>
         </div>
       </div>
 
       {/* ── Desktop: horizontal drag carousel ── */}
       <div className="hidden md:block">
         <div className="mb-4 text-center">
-          <p className="flex animate-pulse items-center justify-center gap-2 text-sm text-gray-400">
+          <p className="text-muted-foreground flex animate-pulse items-center justify-center gap-2 text-sm">
             <ArrowsHorizontal className="h-5 w-5" />
             {showcase?.dragHintText ?? "Drag to explore more projects"}
           </p>

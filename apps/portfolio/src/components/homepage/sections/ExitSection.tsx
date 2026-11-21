@@ -1,5 +1,6 @@
 import type { JSX } from "react";
 import { ArrowRight } from "@aazucena/icons";
+import { cn } from "@aazucena/utils";
 import { SectionLayout } from "./SectionLayout";
 
 const GRID_DESTINATIONS = [
@@ -45,19 +46,22 @@ function DestinationCard({
   return (
     <a
       href={href}
-      className={`group flex items-center justify-between rounded-2xl border p-3.5 transition-all duration-300 active:scale-[0.98] sm:p-5 ${
-        highlight
-          ? "border-cyan-400/30 bg-cyan-400/10 hover:border-cyan-400/50 hover:bg-cyan-400/15"
-          : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
-      }`}
+      className={cn(
+        "group rounded-card bg-panel hover:bg-state focus-visible:outline-signal flex items-center justify-between border p-3.5 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 sm:p-5",
+        highlight ? "border-signal" : "border-rule hover:border-rule-strong",
+      )}
     >
       <div className="text-left">
-        <p className="text-sm font-bold text-white sm:text-base">{label}</p>
-        <p className="mt-0.5 text-xs text-white/50 sm:text-sm">{description}</p>
+        <p className="text-foreground text-sm font-bold sm:text-base">
+          {label}
+        </p>
+        <p className="text-muted-foreground mt-0.5 text-xs sm:text-sm">
+          {description}
+        </p>
       </div>
       <ArrowRight
         size={16}
-        className="flex-shrink-0 text-white/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white/60 sm:size-[18px]"
+        className="text-muted-foreground group-hover:text-foreground flex-shrink-0 transition-transform duration-(--motion-base) group-hover:translate-x-1 sm:size-[18px]"
       />
     </a>
   );

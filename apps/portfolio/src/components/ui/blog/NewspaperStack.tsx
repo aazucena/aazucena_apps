@@ -168,7 +168,7 @@ export function NewspaperStack({
             ref={(el) => {
               cardRefs.current[i] = el;
             }}
-            className="absolute inset-0 rounded-3xl border border-gray-200/80 bg-[#f0ede6] dark:border-white/8 dark:bg-[#1e1d19]"
+            className="border-rule bg-panel-raised rounded-card absolute inset-0 border"
             style={{
               transform: `rotate(${REST[i]!.rotate}deg)`,
               zIndex: i === 1 ? 10 : 5,
@@ -184,7 +184,7 @@ export function NewspaperStack({
           ref={(el) => {
             cardRefs.current[0] = el;
           }}
-          className="relative z-20 overflow-hidden rounded-3xl border border-gray-200 bg-[#faf8f3] shadow-2xl dark:border-white/10 dark:bg-[#1e1d19]"
+          className="border-rule bg-panel rounded-card relative z-20 overflow-hidden border"
           style={{ transform: `rotate(${REST[0]!.rotate}deg)` }}
         >
           {frontPost ? (
@@ -225,14 +225,14 @@ export function NewspaperStack({
                 });
               }}
               aria-label={`Show post ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`focus-visible:outline-signal h-1.5 rounded-full transition-[width,background-color] duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 ${
                 i === frontIndex
-                  ? "w-6 bg-blue-500"
-                  : "w-1.5 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-500"
+                  ? "bg-signal w-6"
+                  : "bg-rule-strong hover:bg-muted-foreground w-1.5"
               }`}
             />
           ))}
-          <span className="ml-1 text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-600">
+          <span className="micro-label text-muted-foreground ml-1">
             Tap to browse
           </span>
         </div>
@@ -252,16 +252,14 @@ function PostContent({
     <div className="p-5 sm:p-8 md:p-10">
       {/* Masthead */}
       <div className="mb-3 flex items-center justify-between">
-        <span className="text-[9px] font-black tracking-[0.35em] text-gray-400 uppercase dark:text-gray-500">
+        <span className="micro-label text-muted-foreground">
           Journal · Aldrin Azucena
         </span>
         {post.featured && (
-          <span className="text-[9px] font-black tracking-[0.25em] text-yellow-600 uppercase dark:text-yellow-500">
-            Featured
-          </span>
+          <span className="micro-label text-signal">Featured</span>
         )}
       </div>
-      <div className="mb-4 h-px bg-gray-300 dark:bg-white/10" />
+      <div className="bg-rule mb-4 h-px" />
 
       {/* Tags */}
       {displayConfig.showTags && post.tags.length > 0 && (
@@ -275,13 +273,13 @@ function PostContent({
       )}
 
       {/* Title */}
-      <h3 className="mb-3 text-xl leading-tight font-black tracking-tight text-gray-900 sm:text-2xl md:text-3xl dark:text-white">
+      <h3 className="text-foreground mb-3 text-xl leading-tight font-semibold tracking-tight sm:text-2xl md:text-3xl">
         {post.title}
       </h3>
 
       {/* Byline */}
       {(displayConfig.showDate || displayConfig.showReadTime) && (
-        <div className="mb-3 flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
+        <div className="micro-label text-muted-foreground mb-3 flex items-center gap-3">
           {displayConfig.showDate && (
             <time dateTime={getPostDateTime(post)}>
               {formatPostDate(post as { publishedAt: string })}
@@ -296,10 +294,10 @@ function PostContent({
         </div>
       )}
 
-      <div className="mb-4 h-px bg-gray-200 dark:bg-white/5" />
+      <div className="bg-rule mb-4 h-px" />
 
       {/* Excerpt */}
-      <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+      <p className="text-muted-foreground text-sm leading-relaxed">
         {getPostExcerpt(post.description)}
       </p>
 
@@ -309,7 +307,7 @@ function PostContent({
         target={post.isExternal ? "_blank" : "_self"}
         rel={post.isExternal ? "noopener noreferrer" : undefined}
         onClick={(e) => e.stopPropagation()}
-        className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-black tracking-[0.2em] text-blue-600 uppercase transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+        className="micro-label text-signal hover:text-foreground mt-4 inline-flex items-center gap-1.5 transition-colors"
       >
         Read Article
         <svg
@@ -334,14 +332,14 @@ function PostContent({
 function DecorativeLines(): JSX.Element {
   return (
     <div className="flex h-full flex-col gap-3 p-8 pt-10 opacity-20">
-      <div className="h-px w-full bg-gray-500 dark:bg-gray-400" />
-      <div className="h-2 w-3/4 rounded-full bg-gray-400 dark:bg-gray-500" />
-      <div className="h-2 w-full rounded-full bg-gray-300 dark:bg-gray-600" />
-      <div className="h-2 w-5/6 rounded-full bg-gray-300 dark:bg-gray-600" />
-      <div className="mt-2 h-px w-full bg-gray-400 dark:bg-gray-500" />
-      <div className="h-2 w-2/3 rounded-full bg-gray-300 dark:bg-gray-600" />
-      <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700" />
-      <div className="h-2 w-4/5 rounded-full bg-gray-200 dark:bg-gray-700" />
+      <div className="bg-muted-foreground h-px w-full" />
+      <div className="bg-muted-foreground h-2 w-3/4 rounded-full" />
+      <div className="bg-rule-strong h-2 w-full rounded-full" />
+      <div className="bg-rule-strong h-2 w-5/6 rounded-full" />
+      <div className="bg-muted-foreground mt-2 h-px w-full" />
+      <div className="bg-rule-strong h-2 w-2/3 rounded-full" />
+      <div className="bg-rule-strong h-2 w-full rounded-full" />
+      <div className="bg-rule-strong h-2 w-4/5 rounded-full" />
     </div>
   );
 }
@@ -350,12 +348,12 @@ function EmptyContent(): JSX.Element {
   return (
     <div className="p-5 sm:p-8 md:p-10">
       <div className="mb-3 flex items-center justify-between">
-        <span className="text-[9px] font-black tracking-[0.35em] text-gray-400 uppercase dark:text-gray-500">
+        <span className="micro-label text-muted-foreground">
           Journal · Aldrin Azucena
         </span>
       </div>
-      <div className="mb-6 h-px bg-gray-300 dark:bg-white/10" />
-      <p className="text-sm text-gray-400 dark:text-gray-500">
+      <div className="bg-rule mb-6 h-px" />
+      <p className="text-muted-foreground text-sm">
         No posts yet. Check back soon.
       </p>
     </div>

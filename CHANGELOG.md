@@ -30,6 +30,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Blocks code renderer type-checks
 - _(ui)_ Preloaders follow the resolved theme and release the body background
 - _(portfolio)_ Inner pages paint the theme background under the navbar
 - _(portfolio)_ Hero subtitle readable after the palette removal

@@ -10,7 +10,6 @@ import {
   CTA_CLICK_DURATION,
   CTA_CLICK_REPEAT,
   CTA_CLICK_SCALE,
-  RESUME_BUTTON_COLOR,
   RESUME_BUTTON_DURATION,
   RESUME_BUTTON_SCALE,
 } from "~/config/animations";
@@ -71,7 +70,6 @@ export function HeroSection({
       tl.to(resumeButton, {
         scale: RESUME_BUTTON_SCALE,
         duration: RESUME_BUTTON_DURATION,
-        backgroundColor: RESUME_BUTTON_COLOR,
       }).to(resumeButton, {
         scale: 1,
         duration: RESUME_BUTTON_DURATION,
@@ -89,7 +87,7 @@ export function HeroSection({
       contentWidth="narrow"
       headerClassName="max-w-2xl"
       headingClassName="font-bold mb-6 leading-tight text-center"
-      titleClassName="block text-4xl sm:text-5xl md:text-7xl mb-4 text-white"
+      titleClassName="block text-4xl sm:text-5xl md:text-7xl mb-4 text-foreground"
       subtitleClassName="block text-2xl sm:text-3xl md:text-5xl text-foreground"
     >
       <FlipWords
@@ -124,7 +122,7 @@ export function HeroSection({
           <a
             key={href}
             href={href}
-            className="px-1 py-2 text-sm text-white/40 transition-colors duration-200 hover:text-white/70"
+            className="micro-label text-muted-foreground hover:text-foreground focus-visible:outline-signal px-1 py-2 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
           >
             {label}
           </a>

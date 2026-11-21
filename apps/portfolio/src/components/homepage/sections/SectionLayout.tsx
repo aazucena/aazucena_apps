@@ -1,7 +1,7 @@
 /**
  * SectionLayout Component
  * Reusable layout wrapper for all portfolio sections
- * Provides consistent container, header, and gradient subtitle styling
+ * Provides consistent container, header, and subtitle styling
  */
 
 import type { JSX, ReactNode, RefObject } from "react";
@@ -10,7 +10,7 @@ import { cn } from "@aazucena/utils";
 export interface SectionLayoutProps {
   /** Section title (main heading) */
   title: string;
-  /** Section subtitle (gradient text below title) */
+  /** Section subtitle (text below title) */
   subtitle?: string | null;
   /** Content to render below the header */
   children: ReactNode;
@@ -59,12 +59,15 @@ export function SectionLayout({
   const Heading = headerLevel;
 
   return (
-    <div ref={ref} className={cn("container mx-auto max-w-7xl", className)}>
+    <div
+      ref={ref}
+      className={cn("container mx-auto max-w-screen-xl", className)}
+    >
       <div className={cn(widthClass, "mx-auto text-center", headerClassName)}>
         <Heading
           ref={headerRef}
           className={cn(
-            "mb-4 text-3xl leading-tight font-bold text-white sm:text-4xl md:mb-8 md:text-6xl",
+            "text-foreground mb-4 text-3xl leading-tight font-bold [text-shadow:0_0_14px_var(--background),0_0_3px_var(--background)] sm:text-4xl md:mb-8 md:text-6xl",
             headingClassName,
           )}
         >
@@ -72,7 +75,7 @@ export function SectionLayout({
           {subtitle && (
             <span
               className={cn(
-                "mt-2 block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-lg text-transparent sm:text-xl md:mt-4 md:text-4xl",
+                "text-foreground mt-2 block text-lg sm:text-xl md:mt-4 md:text-4xl",
                 subtitleClassName,
               )}
             >

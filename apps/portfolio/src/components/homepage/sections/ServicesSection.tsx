@@ -9,7 +9,13 @@ import { useSectionData } from "~/contexts";
 import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 import type { Service } from "@aazucena/types";
-import { IconRenderer, MarkdownRenderer } from "@aazucena/ui";
+import {
+  Badge,
+  Button,
+  IconRenderer,
+  Panel,
+  MarkdownRenderer,
+} from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 
 export interface ServicesSectionProps extends SectionProps {}
@@ -26,26 +32,9 @@ const CATEGORY_LABELS: Record<string, string> = {
   research: "Research",
 };
 
-const CATEGORY_COLORS: Record<string, string> = {
-  engineering: "from-cyan-400 to-blue-500",
-  consulting: "from-purple-400 to-indigo-500",
-  design: "from-pink-400 to-rose-500",
-  ai: "from-violet-400 to-purple-600",
-  analytics: "from-emerald-400 to-teal-500",
-  tutoring: "from-amber-400 to-orange-500",
-  devops: "from-slate-400 to-blue-600",
-  creative: "from-fuchsia-400 to-pink-500",
-  research: "from-sky-400 to-cyan-600",
-};
-
-function getCategoryGradient(category: string): string {
-  return CATEGORY_COLORS[category] ?? "from-cyan-400 to-blue-500";
-}
-
 const FEATURES_CAP = 3;
 
 function ServicePanel({ service }: { service: Service }): JSX.Element {
-  const gradient = getCategoryGradient(service.category);
   const categoryLabel = CATEGORY_LABELS[service.category] ?? service.category;
   const [featuresExpanded, setFeaturesExpanded] = useState(false);
   const [descExpanded, setDescExpanded] = useState(false);
@@ -73,31 +62,27 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
         {!!service.icon && (
           <div
             className={cn(
-              "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white sm:h-12 sm:w-12",
-              gradient,
+              "bg-state text-signal border-rule rounded-control flex h-10 w-10 flex-shrink-0 items-center justify-center border sm:h-12 sm:w-12",
             )}
           >
             <IconRenderer icon={service.icon as string} size={20} aria-hidden />
           </div>
         )}
         <div className="flex min-w-0 flex-col gap-1">
-          <h3 className="text-base font-bold text-white sm:text-lg md:text-xl">
+          <h3 className="text-foreground text-base font-bold sm:text-lg md:text-xl">
             {service.title}
           </h3>
-          <span
-            className={cn(
-              "inline-flex w-fit rounded-full bg-gradient-to-r px-2.5 py-0.5 text-xs font-medium text-white",
-              gradient,
-            )}
-          >
+          <Badge variant="outline" className="w-fit">
             {categoryLabel}
-          </span>
+          </Badge>
         </div>
       </div>
 
       {/* Price hint (optional) */}
       {service.price && (
-        <p className="text-xs font-medium text-gray-400">{service.price}</p>
+        <p className="text-muted-foreground text-xs font-medium">
+          {service.price}
+        </p>
       )}
 
       {/* Description */}
@@ -112,20 +97,20 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
           >
             <MarkdownRenderer
               content={service.description}
-              className="text-gray-300 [&_a]:break-words [&_img]:max-w-full [&_li]:text-[11px] sm:[&_li]:text-xs md:[&_li]:text-sm [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm [&_pre]:overflow-x-auto"
+              className="text-muted-foreground [&_a]:break-words [&_img]:max-w-full [&_li]:text-[11px] sm:[&_li]:text-xs md:[&_li]:text-sm [&_p]:text-[11px] [&_p]:leading-relaxed sm:[&_p]:text-xs md:[&_p]:text-sm [&_pre]:overflow-x-auto"
             />
           </div>
           {longDesc && (
             <button
               onClick={() => setDescExpanded((prev) => !prev)}
-              className="mt-0.5 self-start text-xs font-medium text-gray-400 transition-colors hover:text-white md:hidden"
+              className="text-muted-foreground hover:text-foreground focus-visible:outline-signal mt-0.5 self-start text-xs font-medium transition-colors focus-visible:outline-1 focus-visible:outline-offset-2 md:hidden"
             >
               {descExpanded ? "Show less" : "Show more"}
             </button>
           )}
         </div>
       ) : (
-        <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs md:text-sm">
+        <p className="text-muted-foreground text-[11px] leading-relaxed sm:text-xs md:text-sm">
           {service.shortDescription}
         </p>
       )}
@@ -137,13 +122,11 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
             {visibleFeatures.map((feature, i) => (
               <li
                 key={i}
-                className="flex items-center gap-2 text-xs text-gray-300 sm:text-sm"
+                className="text-muted-foreground flex items-center gap-2 text-xs sm:text-sm"
               >
                 <span
-                  className={cn(
-                    "h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-r",
-                    gradient,
-                  )}
+                  aria-hidden
+                  className="bg-signal h-1.5 w-1.5 flex-shrink-0 rounded-full"
                 />
                 {feature}
               </li>
@@ -152,11 +135,7 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
           {hasMore && (
             <button
               onClick={toggleFeatures}
-              className={cn(
-                "mt-1 flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 py-2 text-xs font-medium transition-all hover:border-white/20 hover:bg-white/5 active:scale-[0.98] md:hidden",
-                "bg-gradient-to-r bg-clip-text text-transparent",
-                gradient,
-              )}
+              className="border-rule text-signal hover:bg-state rounded-control focus-visible:outline-signal mt-1 flex w-full items-center justify-center gap-1.5 border py-2 text-xs font-medium transition-colors focus-visible:outline-1 focus-visible:outline-offset-2 md:hidden"
             >
               {featuresExpanded
                 ? "Show less"
@@ -169,27 +148,31 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
       {/* CTA */}
       {service.cta && (
         <div className="mt-auto pt-2">
-          <a
-            href={service.cta.url}
-            target={service.cta.openInNewTab ? "_blank" : undefined}
-            rel={service.cta.openInNewTab ? "noopener noreferrer" : undefined}
-            className={cn(
-              "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-opacity duration-200 hover:opacity-90 sm:px-4 sm:py-2",
+          <Button
+            asChild
+            size="sm"
+            variant={
               service.cta.variant === "primary" ||
-                service.cta.variant === "secondary"
-                ? cn("bg-gradient-to-r text-white", gradient)
-                : "border border-white/20 text-white/80 hover:text-white",
-            )}
+              service.cta.variant === "secondary"
+                ? "default"
+                : "outline"
+            }
           >
-            {!!service.cta.icon && (
-              <IconRenderer
-                icon={service.cta.icon as string}
-                size={14}
-                aria-hidden
-              />
-            )}
-            {service.cta.label}
-          </a>
+            <a
+              href={service.cta.url}
+              target={service.cta.openInNewTab ? "_blank" : undefined}
+              rel={service.cta.openInNewTab ? "noopener noreferrer" : undefined}
+            >
+              {!!service.cta.icon && (
+                <IconRenderer
+                  icon={service.cta.icon as string}
+                  size={14}
+                  aria-hidden
+                />
+              )}
+              {service.cta.label}
+            </a>
+          </Button>
         </div>
       )}
     </div>
@@ -220,7 +203,7 @@ export function ServicesSection({
       >
         {/* Scroll hint — mobile only */}
         <div className="mb-2 text-center md:hidden">
-          <p className="flex animate-pulse items-center justify-center gap-2 text-sm text-gray-400">
+          <p className="text-muted-foreground flex animate-pulse items-center justify-center gap-2 text-sm">
             <ArrowsHorizontal className="h-4 w-4" />
             Swipe to explore services
           </p>
@@ -236,23 +219,20 @@ export function ServicesSection({
           )}
         >
           {services.map((service) => {
-            const gradient = getCategoryGradient(service.category);
             const isActive = activeId === service.id;
             return (
               <button
                 key={service.id}
                 onClick={() => setActiveId(service.id)}
+                aria-pressed={isActive}
                 className={cn(
-                  "flex flex-shrink-0 items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-bold transition-all",
+                  "rounded-control focus-visible:outline-signal h-control flex flex-shrink-0 items-center gap-2 border px-3 text-sm font-medium transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2",
                   isVertical
                     ? "justify-start md:w-full"
                     : "justify-center px-5",
                   isActive
-                    ? cn(
-                        "bg-gradient-to-r text-white shadow-lg dark:shadow-none",
-                        gradient,
-                      )
-                    : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white",
+                    ? "border-signal bg-state text-foreground"
+                    : "border-rule bg-panel text-muted-foreground hover:bg-state hover:text-foreground",
                 )}
               >
                 {!!service.icon && (
@@ -270,14 +250,15 @@ export function ServicesSection({
 
         {/* Active panel */}
         {activeService && (
-          <div
+          <Panel
+            label={`SERVICE // ${activeService.title}`}
             className={cn(
-              "min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm sm:p-6",
+              "border-rule min-w-0 overflow-hidden border",
               isVertical && "md:flex-1",
             )}
           >
             <ServicePanel service={activeService} />
-          </div>
+          </Panel>
         )}
       </div>
     </SectionLayout>

@@ -18,7 +18,7 @@ import { Badge } from "~/components/ui/common/Badge";
 import { SectionLayout } from "./SectionLayout";
 import type { SectionProps } from "./types";
 import { IconRenderer } from "@aazucena/ui";
-import { cn, getGradientClass } from "@aazucena/utils";
+import { cn } from "@aazucena/utils";
 
 export interface SkillsSectionProps extends SectionProps {}
 
@@ -35,14 +35,11 @@ export function SkillsSection({
     id: String(category.id),
     name: category.name,
     label: category.label,
-    gradient: getGradientClass(category.gradient),
     icon: (
       <IconRenderer
         icon={
           category.icon as
-            | import("@aazucena/types").IconComponent
-            | null
-            | undefined
+            import("@aazucena/types").IconComponent | null | undefined
         }
       />
     ),
@@ -76,7 +73,7 @@ export function SkillsSection({
         <div className="md:hidden">
           {/* Swipe hint — mirrors projects section pattern */}
           <div className="mb-3 text-center">
-            <p className="flex animate-pulse items-center justify-center gap-2 text-sm text-gray-400">
+            <p className="text-muted-foreground flex animate-pulse items-center justify-center gap-2 text-sm">
               <ArrowsHorizontal className="h-5 w-5" />
               Swipe to explore categories
             </p>
@@ -95,11 +92,12 @@ export function SkillsSection({
                   setMobileSkillsExpanded(false);
                 }}
                 style={{ scrollSnapAlign: "center" }}
+                aria-pressed={mobileActiveTab === tab.name}
                 className={cn(
-                  "flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-300 active:scale-95",
+                  "rounded-control h-control focus-visible:outline-signal flex flex-shrink-0 items-center gap-2 border px-4 text-sm font-medium whitespace-nowrap transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2",
                   mobileActiveTab === tab.name
-                    ? `bg-gradient-to-r ${tab.gradient} border-transparent text-white shadow-lg`
-                    : "border-white/20 bg-white/5 text-gray-300",
+                    ? "border-signal bg-state text-foreground"
+                    : "border-rule bg-panel text-muted-foreground",
                 )}
               >
                 <span className="flex h-4 w-4 flex-shrink-0 items-center justify-center [&_svg]:h-4 [&_svg]:w-4">

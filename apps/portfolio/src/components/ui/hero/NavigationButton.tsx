@@ -7,7 +7,9 @@
 import type { JSX } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { IconRenderer } from "@aazucena/ui";
+import { Button, IconRenderer } from "@aazucena/ui";
+import { ChevronDown } from "@aazucena/icons";
+import { cn } from "@aazucena/utils";
 import type { IconComponent } from "@aazucena/types";
 import { usePortfolio } from "@aazucena/context";
 
@@ -103,35 +105,28 @@ export function NavigationButton({
     <div ref={buttonRef} className="relative w-full sm:w-auto">
       <div className="flex w-full sm:w-auto">
         {/* Main Button */}
-        <button
+        <Button
           onClick={() => onNavigate(firstOptionIndex)}
-          className={`focus:ring-opacity-50 flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-cyan-500/25 hover:brightness-110 focus:ring-2 focus:ring-cyan-400 focus:outline-none sm:flex-none sm:px-8 sm:py-4 sm:text-lg ${hasDropdownItems ? "rounded-l-lg" : "rounded-lg"}`}
+          className={cn(
+            "h-control-lg flex-1 px-5 sm:flex-none sm:px-6",
+            hasDropdownItems && "rounded-r-none",
+          )}
           aria-label="Get started"
         >
           {children ?? "Get Started"}
-        </button>
+        </Button>
 
         {/* Dropdown Trigger - only show if dropdown prop is true AND there are items */}
         {hasDropdownItems && (
-          <button
+          <Button
             onClick={handleToggleDropdown}
-            className="focus:ring-opacity-50 flex-shrink-0 rounded-r-lg border-l border-white/20 bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-cyan-500/25 hover:brightness-110 focus:ring-2 focus:ring-cyan-400 focus:outline-none sm:px-4 sm:py-4 sm:text-lg"
+            className="border-signal-foreground/30 h-control-lg flex-shrink-0 rounded-l-none border-l px-3"
             aria-label="Show navigation options"
+            aria-expanded={showDropdown}
+            aria-haspopup="menu"
           >
-            <svg
-              className="h-4 w-4 sm:h-5 sm:w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
+            <ChevronDown aria-hidden />
+          </Button>
         )}
       </div>
 
@@ -155,18 +150,18 @@ export function NavigationButton({
           const dropdownElement = (
             <div
               style={dropdownStyle}
-              className="scrollbar-thin scrollbar-thumb-cyan-400/50 scrollbar-track-gray-800 z-[500] max-h-[216px] overflow-y-auto rounded-lg border border-cyan-400/30 bg-gray-900 shadow-2xl sm:min-w-[280px]"
+              className="bg-panel border-rule-strong rounded-card z-[500] max-h-[216px] overflow-y-auto border sm:min-w-[280px]"
             >
               {otherOptions.map((option) => {
                 return (
                   <button
                     key={option.index}
                     onClick={() => onNavigate(option.index)}
-                    className="flex w-full items-center gap-2 border-b border-white/10 px-4 py-2 text-left text-white transition-colors duration-200 last:border-b-0 hover:bg-cyan-500/20 sm:gap-3 sm:px-6 sm:py-3"
+                    className="border-rule text-foreground hover:bg-state focus-visible:outline-signal flex w-full items-center gap-2 border-b px-4 py-2 text-left transition-colors duration-(--motion-base) last:border-b-0 focus-visible:outline-1 focus-visible:-outline-offset-2 sm:gap-3 sm:px-6 sm:py-3"
                   >
                     <IconRenderer
                       icon={option.icon}
-                      className="h-4 w-4 flex-shrink-0 text-cyan-400 sm:h-5 sm:w-5"
+                      className="text-signal h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5"
                     />
                     <span className="text-sm font-medium sm:text-base">
                       {option.label}

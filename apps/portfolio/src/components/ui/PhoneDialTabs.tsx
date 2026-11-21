@@ -2,6 +2,7 @@
 
 import { gsap } from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Panel } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 
 export interface PhoneDialTab {
@@ -9,7 +10,6 @@ export interface PhoneDialTab {
   label: string;
   name: string;
   icon?: React.ReactNode;
-  gradient: string;
   content: React.ReactNode;
 }
 
@@ -294,6 +294,10 @@ export function PhoneDialTabs({
     return tab?.content;
   }, [activeTab]);
 
+  const activeTabLabel = (
+    tabs.find((tab) => tab.name === activeTab)?.label ?? ""
+  ).toUpperCase();
+
   return (
     <div className={cn("relative w-full", className)}>
       {/* Tabs Container - Semicircle Layout */}
@@ -325,8 +329,7 @@ export function PhoneDialTabs({
               cx="250"
               cy="200"
               r="200"
-              fill="none"
-              stroke="rgba(255, 255, 255, 0.15)"
+              className="stroke-rule-strong fill-none"
               strokeWidth="2"
               strokeDasharray="6.28 6.28"
               strokeLinecap="butt"
@@ -351,10 +354,10 @@ export function PhoneDialTabs({
                   y1={y1}
                   x2={x2}
                   y2={y2}
-                  stroke={
+                  className={
                     index === currentStepIndex
-                      ? "rgba(34, 211, 238, 0.8)"
-                      : "rgba(255, 255, 255, 0.3)"
+                      ? "stroke-signal"
+                      : "stroke-rule-strong"
                   }
                   strokeWidth={index === currentStepIndex ? "3" : "2"}
                 />
@@ -380,7 +383,7 @@ export function PhoneDialTabs({
                   y1={y1}
                   x2={x2}
                   y2={y2}
-                  stroke="rgba(255, 255, 255, 0.1)"
+                  className="stroke-rule"
                   strokeWidth="1"
                 />
               );
@@ -391,8 +394,7 @@ export function PhoneDialTabs({
               cx="250"
               cy="200"
               r="8"
-              fill="rgba(255, 255, 255, 0.2)"
-              stroke="rgba(255, 255, 255, 0.4)"
+              className="fill-state stroke-rule-strong"
               strokeWidth="2"
             />
           </svg>
@@ -416,7 +418,7 @@ export function PhoneDialTabs({
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <div className="h-3 w-3 rounded-full border border-white/20 bg-white/10" />
+                <div className="border-rule bg-state h-3 w-3 rounded-full border" />
               </div>
             );
           })}
@@ -434,11 +436,11 @@ export function PhoneDialTabs({
                 }}
                 onClick={() => handleTabClick(tab.id, index)}
                 className={cn(
-                  "absolute flex flex-col items-center justify-center gap-2 rounded-xl p-4 transition-all duration-200",
-                  "pointer-events-auto border backdrop-blur-sm",
+                  "rounded-card absolute flex flex-col items-center justify-center gap-2 p-4 transition-[transform,background-color,border-color] duration-(--motion-base)",
+                  "focus-visible:outline-signal pointer-events-auto border focus-visible:outline-1 focus-visible:outline-offset-2",
                   isActive
-                    ? `bg-gradient-to-br ${tab.gradient} scale-110 border-white/40 shadow-lg shadow-cyan-500/20`
-                    : "border-white/10 bg-white/5 hover:scale-105 hover:border-white/20 hover:bg-white/10",
+                    ? "border-signal bg-state scale-110"
+                    : "border-rule bg-panel hover:border-rule-strong hover:bg-state hover:scale-105",
                 )}
                 style={{
                   left: `calc(50% + ${x}px)`,
@@ -448,12 +450,15 @@ export function PhoneDialTabs({
                   minHeight: "80px",
                 }}
                 aria-label={tab.label}
+                aria-pressed={isActive}
               >
                 {tab.icon && (
                   <div
                     className={cn(
                       "flex-shrink-0 transition-transform duration-200",
-                      isActive ? "scale-110 text-white" : "text-gray-400",
+                      isActive
+                        ? "text-signal scale-110"
+                        : "text-muted-foreground",
                     )}
                   >
                     {tab.icon}
@@ -461,8 +466,8 @@ export function PhoneDialTabs({
                 )}
                 <span
                   className={cn(
-                    "text-center text-sm font-semibold whitespace-nowrap",
-                    isActive ? "text-white" : "text-gray-300",
+                    "micro-label text-center whitespace-nowrap",
+                    isActive ? "text-foreground" : "text-muted-foreground",
                   )}
                 >
                   {tab.label}
@@ -475,7 +480,12 @@ export function PhoneDialTabs({
 
       {/* Tab Content */}
       <div ref={contentRef} className="w-full pt-4">
-        {activeTabContent}
+        <Panel
+          label={`STACK // ${activeTabLabel}`}
+          className="border-rule border"
+        >
+          {activeTabContent}
+        </Panel>
       </div>
     </div>
   );
