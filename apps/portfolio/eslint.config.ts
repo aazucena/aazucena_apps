@@ -24,7 +24,14 @@ const config: Linter.Config[] = [
     },
   },
   {
-    ignores: ["dist/", ".astro/", "node_modules/"],
+    ignores: [
+      "dist/",
+      ".astro/",
+      "node_modules/",
+      ".vercel/",
+      "**/.vercel/",
+      ".shots/",
+    ],
   },
 ];
 
