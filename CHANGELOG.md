@@ -28,6 +28,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Homepage wrapper scopes dark tokens without hiding the scene
 - _(analytics)_ Sidebar mode follows the current route
 - _(constants)_ Prototype names are unknown models, not priced
 - _(analytics)_ Chat route accepts only catalogue models

@@ -90,7 +90,7 @@ export function HeroSection({
       headerClassName="max-w-2xl"
       headingClassName="font-bold mb-6 leading-tight text-center"
       titleClassName="block text-4xl sm:text-5xl md:text-7xl mb-4 text-white"
-      subtitleClassName="block text-2xl sm:text-3xl md:text-5xl bg-gradient-to-r from-secondary-400 to-secondary-500 bg-clip-text text-transparent"
+      subtitleClassName="block text-2xl sm:text-3xl md:text-5xl text-foreground"
     >
       <FlipWords
         words={hero.flipWords}
