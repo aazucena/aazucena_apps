@@ -1,32 +1,46 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import {
-  Compass,
-  Hand as Fingerprint,
-  Globe,
-  Terminal,
-  ClockCircle,
-  ChevronRight,
-  ArrowLeft,
-  Search,
-  Zap,
-  Music,
-  Eye,
-  DangerTriangle,
-} from '@aazucena/icons';
+  Button,
+  Input,
+  Panel,
+  PanelBody,
+  PanelHeader,
+  Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@aazucena/ui';
 import { useJourneys, useJourneyDetail } from '@/hooks/useTelemetry';
 import { cn } from '@/lib/utils';
+import { PageHeader } from '@/components/common/PageHeader';
+import {
+  Timeline,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineLine,
+} from '@/components/ui/timeline';
 import { formatDistanceToNow } from 'date-fns';
+
+const EMPTY = '—';
+
+function EmptyNote({ children }: { children: React.ReactNode }) {
+  return <p className="micro-label text-muted-foreground p-6 text-center">{children}</p>;
+}
 
 export default function JourneyPage() {
   const dispatch = useDispatch();
   const [selectedSid, setSelectedSid] = useState<string | null>(null);
   const [searchTerm, setSearchQuery] = useState('');
 
-  const { data: journeys, isLoading: journeysLoading } = useJourneys();
+  const { data: journeys, isLoading: journeysLoading, isError: journeysError } = useJourneys();
   const { data: detail, isLoading: detailLoading } = useJourneyDetail(selectedSid);
 
   useEffect(() => {
@@ -39,305 +53,285 @@ export default function JourneyPage() {
       j.country.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
+  const avgEvents = useMemo(() => {
+    if (!journeys?.length) return EMPTY;
+    const total = journeys.reduce((n: number, j: any) => n + (Number(j.event_count) || 0), 0);
+    return (total / journeys.length).toFixed(1);
+  }, [journeys]);
+
+  const events: any[] = useMemo(() => detail?.events ?? [], [detail]);
+  const mix = useMemo(() => {
+    const count = (names: string[]) => events.filter((e) => names.includes(e.event)).length;
+    return {
+      pages: count(['PageView']),
+      music: count(['MusicPlay']),
+      errors: count(['ClientError', 'Error']),
+      other: events.filter(
+        (e) => !['PageView', 'MusicPlay', 'ClientError', 'Error'].includes(e.event),
+      ).length,
+    };
+  }, [events]);
+
+  const stats: Array<[label: string, value: string]> = [
+    ['IDENTITIES // LOADED', journeys ? String(journeys.length) : EMPTY],
+    ['RETURNING', EMPTY],
+    ['AVG EVENTS', avgEvents],
+    ['UNRESOLVED', EMPTY],
+  ];
+
   return (
-    <div className="space-y-10 pb-20 h-[calc(100vh-8rem)] flex flex-col">
-      {/* HEADER */}
-      <div className="shrink-0 flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter uppercase flex items-center gap-3">
-            <Compass size={36} className="text-primary-500" />
-            JOURNEY_EXPLORER
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold">
-            Behavioral Identity Stitching & Persona Mapping
-          </p>
-        </div>
+    <div className="flex flex-col gap-4">
+      <PageHeader
+        title="JOURNEY_EXPLORER"
+        meta="BEHAVIORAL IDENTITY STITCHING & PERSONA MAPPING"
+        actions={
+          <dl className="border-rule bg-panel rounded-card flex items-stretch divide-x divide-[var(--rule)] border">
+            {stats.map(([label, value]) => (
+              <div key={label} className="px-4 py-1.5">
+                <dt className="micro-label text-muted-foreground">{label}</dt>
+                <dd
+                  className={cn(
+                    'font-mono text-lg tabular-nums',
+                    value === EMPTY && 'text-muted-foreground',
+                  )}
+                >
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        }
+      />
 
-        {selectedSid && (
-          <button
-            onClick={() => setSelectedSid(null)}
-            className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 rounded-xl text-[10px] font-black uppercase text-zinc-500 hover:text-primary-500 transition-all border border-zinc-200 dark:border-zinc-700"
-          >
-            <ArrowLeft size={14} />
-            Back to List
-          </button>
-        )}
-      </div>
-
-      {!selectedSid ? (
-        <>
-          {/* JOURNEY LIST SEARCH */}
-          <div className="shrink-0 relative max-w-md">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500">
-              <Search size={18} />
-            </div>
-            <input
-              type="text"
-              placeholder="Search by Session_ID or Country..."
+      <div className="grid h-[calc(100vh-11rem)] min-h-[520px] grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_26rem]">
+        {/* IDENTITIES */}
+        <Panel className="flex min-h-0 flex-col overflow-hidden">
+          <PanelHeader label="IDENTITIES">
+            <span className="micro-label text-signal flex items-center gap-1.5">
+              <span aria-hidden className="bg-signal size-1.5 rounded-full" />
+              {journeys ? `${journeys.length} TRACES` : `0 TRACES`}
+            </span>
+          </PanelHeader>
+          <div className="p-panel shrink-0">
+            <Input
+              type="search"
+              aria-label="Search identities by session ID or country"
+              placeholder="Search by session ID or country..."
               value={searchTerm}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl py-3 pl-12 pr-4 text-xs font-mono focus:outline-none focus:border-primary-500 transition-all"
             />
           </div>
-
-          {/* JOURNEY LIST */}
-          <div className="flex-1 bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm">
-            <div className="px-8 py-6 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/50 grid grid-cols-12 text-[10px] font-black uppercase text-zinc-400 tracking-widest shrink-0">
-              <div className="col-span-4">Identity / Origin</div>
-              <div className="col-span-2">Last Active</div>
-              <div className="col-span-2">Engagement</div>
-              <div className="col-span-3">Top Events</div>
-              <div className="col-span-1 text-right">Actions</div>
-            </div>
-
-            <div className="flex-1 overflow-y-auto custom-scrollbar">
-              {journeysLoading ? (
-                <div className="p-20 text-center text-xs font-mono uppercase text-zinc-500 animate-pulse">
-                  Scanning_Neural_Traces...
-                </div>
-              ) : filteredJourneys?.length === 0 ? (
-                <div className="p-20 text-center text-xs font-mono uppercase text-zinc-500">
-                  No identities found.
-                </div>
-              ) : (
-                filteredJourneys?.map((journey: any) => (
-                  <div
-                    key={journey.sessionId}
-                    onClick={() => setSelectedSid(journey.sessionId)}
-                    className="px-8 py-6 border-b border-zinc-100 dark:border-zinc-900/50 grid grid-cols-12 items-center hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition-all cursor-pointer group"
-                  >
-                    <div className="col-span-4 flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-primary-500 group-hover:bg-primary-500/10 transition-all">
-                        <Fingerprint size={20} />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-[11px] font-mono font-bold text-zinc-900 dark:text-zinc-100 truncate w-48">
-                          {journey.sessionId}
-                        </div>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="flex items-center gap-1 text-[9px] text-zinc-500 uppercase font-black tracking-tighter">
-                            <Globe size={10} /> {journey.country}
-                          </span>
-                          <span className="text-zinc-800 dark:text-zinc-700">•</span>
-                          <span className="flex items-center gap-1 text-[9px] text-zinc-500 uppercase font-black tracking-tighter">
-                            <Terminal size={10} /> {journey.device}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-span-2">
-                      <div className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 font-bold">
-                        {formatDistanceToNow(new Date(journey.end_time), { addSuffix: true })}
-                      </div>
-                    </div>
-
-                    <div className="col-span-2">
-                      <div className="inline-flex items-center gap-2 px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                        <Zap size={12} />
-                        <span className="text-[10px] font-black">
-                          {journey.event_count} SIGNAL_PULSES
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="col-span-3 flex flex-wrap gap-1">
-                      {journey.unique_events.slice(0, 3).map((ev: string) => (
-                        <span
-                          key={ev}
-                          className="px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[8px] font-black uppercase text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700"
-                        >
-                          {ev}
-                        </span>
-                      ))}
-                      {journey.unique_events.length > 3 && (
-                        <span className="text-[8px] text-zinc-400 font-black">
-                          +{journey.unique_events.length - 3}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="col-span-1 text-right">
-                      <ChevronRight
-                        size={18}
-                        className="inline text-zinc-300 group-hover:text-primary-500 transition-all"
-                      />
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </>
-      ) : (
-        /* JOURNEY DETAIL VIEW */
-        <div className="flex-1 flex gap-8 overflow-hidden">
-          {/* TIMELINE VIEW */}
-          <div className="flex-1 bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] flex flex-col overflow-hidden shadow-sm">
-            <div className="px-8 py-6 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/50 flex items-center justify-between shrink-0">
-              <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
-                Activity Timeline
-              </span>
-              <span className="text-[10px] font-mono text-primary-500 font-bold uppercase">
-                {detail?.events?.length || 0} Events Logged
-              </span>
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-              {detailLoading ? (
-                <div className="p-20 text-center text-xs font-mono uppercase text-zinc-500 animate-pulse">
-                  Retrieving_Event_Sequence...
-                </div>
-              ) : (
-                <div className="space-y-8 relative">
-                  {/* Vertical Line */}
-                  <div className="absolute left-4 top-2 bottom-2 w-[1px] bg-zinc-200 dark:bg-zinc-800" />
-
-                  {detail?.events?.map((ev: any, idx: number) => {
-                    const isPage = ev.event === 'PageView';
-                    const isMusic = ev.event === 'MusicPlay';
-                    const isError = ev.event === 'ClientError' || ev.event === 'Error';
-
+          <div
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- keyboard users must be able to scroll this region
+            tabIndex={0}
+            role="region"
+            aria-label="Identities list"
+            className="px-panel pb-panel focus-visible:outline-signal min-h-0 flex-1 overflow-y-auto focus-visible:outline-1"
+          >
+            {journeysLoading ? (
+              <div className="flex flex-col gap-2">
+                {Array.from({ length: 6 }, (_, i) => (
+                  <Skeleton key={i} className="h-10 w-full" />
+                ))}
+              </div>
+            ) : journeysError ? (
+              <EmptyNote>▲ Identities unavailable. The telemetry fetch failed.</EmptyNote>
+            ) : filteredJourneys?.length === 0 ? (
+              <EmptyNote>No identities found.</EmptyNote>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-rule">
+                    {['Identity / Origin', 'Last active', 'Engagement', 'Top events'].map((h) => (
+                      <TableHead
+                        key={h}
+                        scope="col"
+                        className="micro-label h-9 px-2 font-normal uppercase"
+                      >
+                        {h}
+                      </TableHead>
+                    ))}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredJourneys?.map((journey: any) => {
+                    const selected = journey.sessionId === selectedSid;
                     return (
-                      <div key={ev.id || idx} className="relative pl-12 group">
-                        {/* Bullet */}
-                        <div
-                          className={cn(
-                            'absolute left-2.5 top-1.5 w-3 h-3 rounded-full border-2 border-white dark:border-zinc-950 z-10 transition-all group-hover:scale-125',
-                            isError
-                              ? 'bg-rose-500'
-                              : isPage
-                                ? 'bg-primary-500'
-                                : isMusic
-                                  ? 'bg-emerald-500'
-                                  : 'bg-zinc-400',
-                          )}
-                        />
-
-                        <div className="bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 transition-all hover:border-primary-500/50">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="flex items-center gap-2">
-                              {isPage ? (
-                                <Eye size={14} className="text-primary-500" />
-                              ) : isMusic ? (
-                                <Music size={14} className="text-emerald-500" />
-                              ) : isError ? (
-                                <DangerTriangle size={14} className="text-rose-500" />
-                              ) : (
-                                <Fingerprint size={14} className="text-zinc-400" />
-                              )}
-                              <span className="text-xs font-black uppercase text-zinc-900 dark:text-zinc-100">
-                                {ev.event}
-                              </span>
+                      <TableRow
+                        key={journey.sessionId}
+                        onClick={() => setSelectedSid(journey.sessionId)}
+                        className={cn(
+                          'border-rule hover:bg-state cursor-pointer font-mono text-[13px]',
+                          selected && 'bg-state',
+                        )}
+                      >
+                        <TableCell className="p-0">
+                          <button
+                            type="button"
+                            aria-current={selected ? 'true' : undefined}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedSid(journey.sessionId);
+                            }}
+                            className="focus-visible:outline-signal block w-full truncate px-2 py-2.5 text-left outline-none focus-visible:outline-1"
+                          >
+                            {journey.sessionId}
+                            <span className="text-muted-foreground"> · {journey.country}</span>
+                            {journey.device && (
+                              <span className="text-muted-foreground"> · {journey.device}</span>
+                            )}
+                          </button>
+                        </TableCell>
+                        <TableCell className="text-muted-foreground px-2 whitespace-nowrap">
+                          {formatDistanceToNow(new Date(journey.end_time), { addSuffix: true })}
+                        </TableCell>
+                        <TableCell className="px-2 whitespace-nowrap tabular-nums">
+                          {journey.event_count} events
+                        </TableCell>
+                        <TableCell className="px-2">
+                          {journey.unique_events.slice(0, 2).join(', ')}
+                          {journey.unique_events.length > 2 && (
+                            <span className="text-muted-foreground">
+                              {' '}
+                              +{journey.unique_events.length - 2}
                             </span>
-                            <span className="text-[10px] font-mono text-zinc-400">
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            )}
+          </div>
+        </Panel>
+
+        {/* SESSION */}
+        <Panel className="flex min-h-0 flex-col overflow-hidden">
+          <PanelHeader label={selectedSid ? `SESSION // ${selectedSid}` : 'SESSION'}>
+            {selectedSid && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="micro-label h-6 px-2"
+                onClick={() => setSelectedSid(null)}
+              >
+                Close
+              </Button>
+            )}
+          </PanelHeader>
+          {!selectedSid ? (
+            <EmptyNote>Select an identity to read its session.</EmptyNote>
+          ) : (
+            <div
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- keyboard users must be able to scroll this region
+              tabIndex={0}
+              role="region"
+              aria-label="Session detail"
+              className="focus-visible:outline-signal min-h-0 flex-1 overflow-y-auto focus-visible:outline-1"
+            >
+              <PanelBody className="gap-0">
+                <dl>
+                  {[
+                    ['Global node', events[0]?.country || EMPTY],
+                    [
+                      'Access client',
+                      events[0] ? `${events[0].device_type} / ${events[0].browser}` : EMPTY,
+                    ],
+                    [
+                      'Session age',
+                      events.length > 0
+                        ? formatDistanceToNow(new Date(events[0].timestamp), { addSuffix: false })
+                        : EMPTY,
+                    ],
+                  ].map(([k, v]) => (
+                    <div
+                      key={k}
+                      className="border-rule flex items-baseline justify-between gap-3 border-b py-2"
+                    >
+                      <dt className="micro-label text-muted-foreground">{k}</dt>
+                      <dd className="font-mono text-sm">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <h3 className="micro-label text-muted-foreground mt-5 mb-3">
+                  ACTIVITY TIMELINE // {events.length} EVENTS
+                </h3>
+                {detailLoading ? (
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                  </div>
+                ) : events.length === 0 ? (
+                  <EmptyNote>No events logged.</EmptyNote>
+                ) : (
+                  <Timeline>
+                    {events.map((ev: any, idx: number) => {
+                      const isPage = ev.event === 'PageView';
+                      const isMusic = ev.event === 'MusicPlay';
+                      const isError = ev.event === 'ClientError' || ev.event === 'Error';
+                      const data =
+                        ev.data && Object.keys(ev.data).length > 0
+                          ? Object.entries(ev.data)
+                              .map(([k, v]) => `${k}=${String(v)}`)
+                              .join(' · ')
+                          : null;
+                      return (
+                        <TimelineItem key={ev.id || idx} className="pb-2">
+                          {idx < events.length - 1 && <TimelineLine />}
+                          <TimelineDot
+                            variant={
+                              isError
+                                ? 'danger'
+                                : isPage
+                                  ? 'primary'
+                                  : isMusic
+                                    ? 'success'
+                                    : 'default'
+                            }
+                          />
+                          <TimelineContent className="ml-9 pt-6">
+                            <div
+                              className={cn(
+                                'micro-label',
+                                isError ? 'text-alert' : 'text-muted-foreground',
+                              )}
+                            >
                               {new Date(ev.timestamp).toLocaleTimeString([], {
                                 hour12: false,
                                 hour: '2-digit',
                                 minute: '2-digit',
                                 second: '2-digit',
-                              })}
-                            </span>
-                          </div>
-
-                          <div className="text-[10px] font-mono text-zinc-500 truncate mb-3">
-                            URL:{' '}
-                            <span className="text-zinc-700 dark:text-zinc-300">
-                              {ev.url || 'N/A'}
-                            </span>
-                          </div>
-
-                          {ev.data && Object.keys(ev.data).length > 0 && (
-                            <div className="bg-white/50 dark:bg-black/20 rounded-xl p-3 grid grid-cols-2 gap-2">
-                              {Object.entries(ev.data).map(([k, v]: [string, any]) => (
-                                <div key={k} className="flex flex-col gap-0.5">
-                                  <span className="text-[8px] font-black uppercase text-zinc-400 tracking-widest">
-                                    {k}
-                                  </span>
-                                  <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 truncate">
-                                    {String(v)}
-                                  </span>
-                                </div>
-                              ))}
+                              })}{' '}
+                              // {isError && '▲ '}
+                              {ev.event}
                             </div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
+                            <div className="truncate font-mono text-[13px]">{ev.url || EMPTY}</div>
+                            {data && (
+                              <div className="text-muted-foreground truncate font-mono text-xs">
+                                {data}
+                              </div>
+                            )}
+                          </TimelineContent>
+                        </TimelineItem>
+                      );
+                    })}
+                  </Timeline>
+                )}
 
-          {/* IDENTITY SIDEBAR */}
-          <div className="w-80 shrink-0 flex flex-col gap-6">
-            <div className="bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 shadow-sm">
-              <div className="flex flex-col items-center text-center mb-8">
-                <div className="w-20 h-20 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 mb-4 shadow-2xl shadow-primary-500/10">
-                  <Fingerprint size={40} />
-                </div>
-                <div className="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-100 break-all mb-2">
-                  {selectedSid}
-                </div>
-                <div className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[9px] font-black uppercase text-zinc-500 border border-zinc-200 dark:border-zinc-700 tracking-widest">
-                  Persona: UNKNOWN_ENTITY
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex flex-col gap-1.5">
-                  <span className="text-[9px] font-black uppercase text-zinc-400 tracking-widest">
-                    Global Node
-                  </span>
-                  <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                    <Globe size={14} className="text-zinc-400" />{' '}
-                    {detail?.events?.[0]?.country || 'Unknown'}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <span className="text-[9px] font-black uppercase text-zinc-400 tracking-widest">
-                    Access Client
-                  </span>
-                  <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                    <Terminal size={14} className="text-zinc-400" />{' '}
-                    {detail?.events?.[0]?.device_type} / {detail?.events?.[0]?.browser}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <span className="text-[9px] font-black uppercase text-zinc-400 tracking-widest">
-                    Session Age
-                  </span>
-                  <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                    <ClockCircle size={14} className="text-zinc-400" />
-                    {detail?.events?.length > 0 &&
-                      formatDistanceToNow(new Date(detail.events[0].timestamp), {
-                        addSuffix: false,
-                      })}
-                  </span>
-                </div>
-              </div>
+                <h3 className="micro-label text-muted-foreground mt-6 mb-2">EVENT MIX</h3>
+                <p className="bg-panel-raised border-rule rounded-control border p-3 font-mono text-xs leading-relaxed">
+                  {events.length === 0
+                    ? EMPTY
+                    : `${mix.pages} page views · ${mix.music} music plays · ${mix.errors} errors · ${mix.other} other`}
+                </p>
+              </PanelBody>
             </div>
-
-            <div className="flex-1 bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 shadow-sm">
-              <h3 className="text-[10px] font-black uppercase text-zinc-400 tracking-widest mb-6">
-                Inference Suggestions
-              </h3>
-              <div className="space-y-4">
-                <div className="p-4 bg-zinc-50 dark:bg-zinc-950/50 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <p className="text-[10px] leading-relaxed text-zinc-500 dark:text-zinc-400 font-medium italic">
-                    &quot;This entity has strong engagement with audio tracks and high-latency
-                    interactions. Potential Persona: MUSIC_ENTHUSIAST.&quot;
-                  </p>
-                </div>
-                <button className="w-full py-3 bg-primary-500/10 border border-primary-500/20 rounded-xl text-[9px] font-black uppercase text-primary-500 hover:bg-primary-500/20 transition-all">
-                  Request_Deep_Audit
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+          )}
+        </Panel>
+      </div>
     </div>
   );
 }
