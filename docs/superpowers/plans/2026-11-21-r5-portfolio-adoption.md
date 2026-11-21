@@ -2,11 +2,6 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Status:** draft, written 2026-11-21 just before the usage limit. Two parts are still to write:
->
-> - per-task file lists for Tasks 5–10, beyond the groupings below
-> - frame IDs for the mobile and toolbar states, beyond the ones listed
-
 **Goal:** Move the portfolio (`apps/portfolio`, Astro 7 + React 19) onto `@aazucena/ui` and the instrument language, matching the approved Figma frames, with the R4 tooling and rules.
 
 **Architecture:**
@@ -53,6 +48,36 @@
 
 ---
 
+## Restyle procedure (Tasks 4–10 follow it)
+
+File paths in Tasks 3–10 are relative to `apps/portfolio/src`. The lists come from a scan of the
+96 failing files on 2026-11-21. Task 2 regenerates `PENDING` from the walker. A `PENDING` file no
+task names is picked up by Task 11.
+
+- [ ] **R1:** remove the task's files from `PENDING`. Run the guard
+      (`pnpm --filter @aazucena/design-system exec vitest run src/utils/portfolio-token-usage.test.ts`)
+      and see test 1 fail with their hits. Remove each page group's entries in the same commit as
+      that group, so the guard is green after every commit.
+- [ ] **R2:** fetch the task's frames, dark and light, with Figma MCP `get_screenshot`.
+- [ ] **R3:** restyle to the frame under the Global Constraints:
+  - Local glass cards become ui `Panel`.
+  - Status text becomes ui `Badge`.
+  - Hand-rolled buttons become ui `Button`.
+  - Keep every data loader, Strapi call, fallback, handler and route as it is.
+  - Astro files use the same token classes in `class` and `class:list`.
+- [ ] **R4:** gates: the guard is green, and `pnpm --filter portfolio type-check` and
+      `pnpm --filter portfolio lint` pass. Before the last commit of the task, run the full
+      design-system suite once.
+- [ ] **R5:** start the dev server (`pnpm web:dev`, :4321). From `apps/portfolio`, run
+      `node scripts/visual-check.mjs <routes>`. Expected: `overflow=0` and exit 0. Compare the 1440
+      shots with the dark and light frames, and the 390 shots with the mobile frames where they
+      exist. Write down which frames you compared. Stop the server with
+      `lsof -ti:4321 | xargs -r kill`.
+- [ ] **R6:** commit `🎨 style(portfolio): <group> in the instrument language`, one commit per
+      group the task lists.
+
+A task with more than about 15 files runs as two dispatches (a/b) along the split shown.
+
 ## Tasks
 
 ### Task 1: Follow-ups from R4 and the model catalogue
@@ -87,17 +112,37 @@
 
 ### Task 4: Shared chrome
 
-- **Files:**
-  - `layouts/*`, `templates/*`
-  - `components/Footer.astro`, `Button.astro`
-  - `components/common/*`
-  - `components/ui/{Navbar,SettingsPanel,SocialMenu,StatusBadge.astro,MetricCard.astro}`
-  - `components/ui/common/*`: `GlassCard` becomes ui `Panel`. The local drawer `Panel.tsx` is renamed `SlidePanel`.
-- **Frames:** Navbar `86:1022`, NavLink `86:716`, Footer `87:2546`, Availability `90:2722`, Mobile menu `77:453` / `155:5074`.
+- **4a, layouts and building blocks (commit: layouts and shared parts):**
+  - `layouts/DetailLayout.astro`, `layouts/ListLayout.astro`
+  - `templates/EditorialTemplate.astro`, `templates/LandingTemplate.astro`, `templates/LegalTemplate.astro`
+  - `components/Button.astro`, `components/BrandIconLoader.astro`, `components/IntegrityBadge.tsx`
+  - `components/common/Breadcrumbs.astro`, `DetailNavigation.astro`, `GradientAccent.astro`
+  - `components/ui/common/Badge.tsx`, `GlassCard.tsx` (becomes ui `Panel`), `Panel.tsx` (the local
+    drawer, renamed `SlidePanel` along with its imports), `Popover.tsx`
+  - `components/ui/MetricCard.astro`, `components/ui/StatusBadge.astro`
+- **4b, site chrome (commit: navbar, footer and menus):**
+  - `components/ui/Navbar.tsx`, `components/Footer.astro`, `components/ui/SettingsPanel.tsx`,
+    `components/ui/SocialMenu.tsx`
+- **Frames:**
+  - Navbar `86:1022`, NavLink `86:716`, Footer `87:2546`, Availability `90:2722`
+  - Mobile menu `77:453` (dark) / `155:5074` (light)
+- **Routes for R5:** `/about` (it uses DetailLayout and the chrome), `/projects` (ListLayout),
+  `/privacy` or any legal `[slug]` page.
 
 ### Task 5: About, Contact, Support, Changelog, error states
 
-- **Pages:** `about`, `contact`, `support`, `changelog`, `404`/`500`/`maintenance`, and `[slug]` (the legal template). Plus their `components/ui` parts (about/*, ChangelogTimeline, ChangelogSections, AskMeAbout).
+- **Files, one commit per page group:**
+  - About: `pages/about.astro`, `components/ui/about/HighlightsPanel.tsx`, `LearnMoreCard.tsx`,
+    `StatCard.tsx`, `components/ui/AskMeAbout.tsx`, `components/ui/WorkingStyleSection.tsx`,
+    `components/ui/TestimonialCard.tsx`
+  - Contact and Support: `pages/contact.astro`, `pages/support.astro`
+  - Changelog: `pages/changelog.astro`, `components/ui/ChangelogTimeline.astro`,
+    `components/ui/ChangelogSections.tsx`
+  - Error states: `pages/404.astro`, `pages/500.astro`, `pages/maintenance.astro` (500 and
+    maintenance have no frames; they follow the 404 frame)
+- **Contact form:** the form keeps its handler, validation and success and error toasts. Error text
+  carries ▲ and `role="alert"`.
+- **Routes:** `/about /contact /support /changelog /does-not-exist`.
 
 | Page      | Dark     | Light     |
 | --------- | -------- | --------- |
@@ -109,7 +154,21 @@
 
 ### Task 6: Projects, Experience, Expertise
 
-- **Pages:** `projects/*`, `experiences/*`, `skills/index` (Expertise). Plus ProjectCard, ExperienceCard, ServiceCard, ServiceTabs, TechStackDistribution, EducationItem, awards/*, PhoneDialTabs, InteractiveCard, InfoPanel, RelatedLinks.
+- **6a, Projects and Experience (two commits):**
+  - Projects: `pages/projects/index.astro`, `pages/projects/[slug].astro`,
+    `components/ui/projects/ProjectCard.tsx`, `ViewMoreCard.tsx`, `PageIndicators.tsx`,
+    `components/ui/RelatedLinks.tsx`
+  - Experience: `pages/experiences/index.astro`, `pages/experiences/[slug].astro`,
+    `components/ui/experience/ExperienceCard.tsx`, `ExperienceActions.tsx`, `CompanyLogo.tsx`,
+    `components/ui/EducationItem.tsx`
+- **6b, Expertise (one commit):**
+  - `pages/skills/index.astro`, `components/ui/ServiceCard.tsx`, `ServiceTabs.tsx`,
+    `TechStackDistribution.tsx`, `SkillBadgeList.tsx`, `InteractiveCard.tsx`, `InfoPanel.tsx`,
+    `AwardModal.tsx`, `components/ui/awards/HexagonCard.tsx`, `SectionLabel.tsx`
+- **Company logos and brand icons** keep their brand colours. If a logo needs a literal colour, add it
+  to `SCENE_EXEMPT` with the reason "brand mark".
+- **Routes:** `/projects`, one `/projects/<slug>`, `/experiences`, one `/experiences/<slug>`,
+  `/skills`.
 
 | Page                          | Dark       | Light      |
 | ----------------------------- | ---------- | ---------- |
@@ -122,7 +181,13 @@
 
 ### Task 7: Blog
 
-- **Pages:** `blog/index`, `blog/[slug]`. Plus blog/* (NewspaperStack, BlogCard, ViewAllButton) and blocks/* (BlockRenderers, SimpleRichTextRenderer).
+- **Files (one commit):** `pages/blog/index.astro`, `pages/blog/[slug].astro`,
+  `components/ui/blog/BlogCard.tsx`, `ViewAllButton.tsx`, `components/blocks/BlockRenderers.tsx`,
+  `SimpleRichTextRenderer.tsx`. `components/ui/blog/NewspaperStack.tsx` moves to Task 9, because
+  its inline colours are homepage scene colours.
+- **Rich text:** prose uses the typography plugin with token colours (`prose` plus foreground,
+  muted and signal links). Code blocks use ui `CodeBlock`.
+- **Routes:** `/blog`, one `/blog/<slug>`; 390 shots compared with the mobile blog-post frames.
 
 | Page             | Dark     | Light      |
 | ---------------- | -------- | ---------- |
@@ -132,13 +197,44 @@
 
 ### Task 8: Journey
 
-- **Files:** `journey.astro`, `JourneyDashboard.tsx`, `components/ui/journey/*`.
+- **Files (one commit):** `pages/journey.astro`, `components/JourneyDashboard.tsx`,
+  `components/ui/journey/CareerStats.tsx`, `ChronologyTimeline.tsx`, `DetailsModal.tsx`,
+  `ExportControls.tsx`, `GrowthMetrics.tsx`, `HeatmapInfoPanel.tsx`, `SankeyWithSemantics.tsx`,
+  `TimelineEventTooltip.tsx`, `Toolbar.tsx`
 - **Frames:** Journey `95:2813` (dark) / `113:4022` (light).
-- **Charts** keep the visualizations defaults.
+- **Charts** keep the visualizations defaults. Journey components still need `client:only="react"`
+  (CONTEXT.md: D3 reads width 0 under SSR). Tooltips use `chartTooltip`, and chart values need a
+  text equivalent (as in R4 Task 9).
+- **Route:** `/journey`.
 
 ### Task 9: Homepage content layer and particle colours
 
-- **Files:** `components/homepage/sections/*`, `overlays/*`, `ui/hero/*`, ScrollIndicators, SectionNavFAB.
+- **9a, sections (one commit):** `components/homepage/sections/HeroSection.tsx`,
+  `ProjectsSection.tsx`, `ServicesSection.tsx`, `SkillsSection.tsx`, `ExitSection.tsx`,
+  `SectionLayout.tsx`, `components/ui/hero/NavigationButton.tsx`, `ResumeButton.tsx`,
+  `components/ui/PhoneDialTabs.tsx`, `components/ui/blog/NewspaperStack.tsx`
+- **9b, overlays and particles (two commits):**
+  - Overlays: `components/homepage/overlays/NavigationToolbar.tsx`, `UIOverlays.tsx`,
+    `AtmosphericOverlays.tsx`, `components/ui/ScrollIndicators.tsx`, `components/ui/SectionNavFAB.tsx`
+  - Particles: `config/animations.ts` plus a new `lib/utils/token-color.ts`
+- **Scenes:** the Three.js and Pixi scene files (the sky gradients and imagery in
+  `AtmosphericOverlays` if they are imagery) can go in `SCENE_EXEMPT` with a reason. Panel, text and
+  control styling can't.
+- **Test for `readTokenColor`:** a vitest in `packages/utils` is wrong here, because the helper lives
+  in the app. Put the parse logic in `@aazucena/utils` as
+  `parseCssColor(value: string): number | null` (`#rgb`, `#rrggbb`, `rgb()`, `oklch()` via the
+  browser's computed `rgb()` form), with tests:
+  - `parseCssColor('#32a0c5') === 0x32a0c5`
+  - `parseCssColor('rgb(50, 160, 197)') === 0x32a0c5`
+  - `parseCssColor('nope') === null`
+
+  The app helper calls `getComputedStyle` and then `parseCssColor`, falling back to the preset's old
+  value when parsing fails.
+
+- **Contrast check:** in R5's screenshot pass, read the computed colour of each section heading on
+  the bright scenes. Text uses `text-foreground` in dark mode; record the values.
+- **Route:** `/` at 1440 and 390. The homepage is always dark, so its light shots must look dark
+  too (Review Focus 1).
 
 | Element        | Frames                                                                                                                                       |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -151,7 +247,13 @@
 
 ### Task 10: Rin assistant UI
 
-- **Files:** `components/assistant/*`.
+- **Files (one commit):**
+  - Failing today: `components/assistant/AssistantInput.tsx`, `AssistantIntro.tsx`,
+    `AssistantMessageList.tsx`, `variants.ts`
+  - Clean, but checked against the frames: `AssistantChat.tsx`, `AssistantHeader.tsx`,
+    `AssistantOverlay.tsx`, `AssistantTriggerPopover.tsx`, `RinMark.tsx`
+- **Rin trigger:** a signal outline with Rin's face and "Chat"; the open state reads ✕ "Close".
+  Never coral.
 - **Frames:**
   - Rin trigger `147:4076`, greeting `147:4077`, chat set `151:4435`
   - Floating `76:390` / `155:5154`
