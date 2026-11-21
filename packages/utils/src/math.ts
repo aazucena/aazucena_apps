@@ -3,7 +3,7 @@
  * CONCEPT: (Endgame_Score << 16) + Midgame_Score
  */
 
-import { AI_PRICING, SAVINGS_BASELINE_MODEL } from '@aazucena/constants';
+import { priceFor, SAVINGS_BASELINE_MODEL } from '@aazucena/constants';
 
 /**
  * Linear interpolation between two values
@@ -111,7 +111,7 @@ export function normalizeModelName(model: string): string {
  */
 export function calculateAiCost(model: string, inputTokens: number, outputTokens: number): number {
   const normalized = normalizeModelName(model);
-  const pricing = (AI_PRICING as any)[normalized] || AI_PRICING.default;
+  const pricing = priceFor(normalized);
   const inputCost = (inputTokens / 1_000_000) * pricing.in;
   const outputCost = (outputTokens / 1_000_000) * pricing.out;
   return inputCost + outputCost;
