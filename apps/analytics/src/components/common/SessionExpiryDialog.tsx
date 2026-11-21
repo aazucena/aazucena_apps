@@ -15,11 +15,6 @@ import {
 import { clearAllHistory } from '@/store';
 import { SESSION_WARN_MS, formatRemaining, readClientExpiry } from '@/lib/session';
 
-const btn =
-  'h-(--control-md) rounded-(--radius-control) px-4 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--signal) disabled:cursor-not-allowed';
-const primaryBtn = `${btn} bg-(--signal) text-(--signal-foreground) hover:bg-(--signal)/90`;
-const secondaryBtn = `${btn} border border-(--rule) bg-transparent text-(--foreground) hover:bg-(--state)`;
-
 /** Screen-reader wording, read once when the dialog opens. */
 function spokenRemaining(ms: number): string {
   const secs = Math.max(0, Math.round(ms / 1000));
@@ -91,9 +86,7 @@ export function SessionExpiryDialog() {
     <AlertDialog open={open}>
       <AlertDialogContent
         size="sm"
-        // Analytics does not load the ui Tailwind theme yet (Phase 4), so role
-        // colours are read from the CSS variables directly.
-        className="border-(--rule) bg-(--panel) text-(--foreground) rounded-(--radius-card)"
+        className="border-rule bg-panel text-foreground rounded-card"
         // Focus the safe, expected action rather than the first button (Sign out).
         onOpenAutoFocus={(e) => {
           e.preventDefault();
@@ -101,39 +94,34 @@ export function SessionExpiryDialog() {
         }}
       >
         <AlertDialogHeader>
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-(--warning)">
+          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-warning">
             <span aria-hidden="true">◆ </span>Session {'//'} Expiring
           </p>
-          <AlertDialogTitle className="text-(--foreground)">
+          <AlertDialogTitle className="text-foreground">
             Session ends in{' '}
             <span className="font-mono tabular-nums" aria-hidden="true">
               {formatRemaining(remaining ?? 0)}
             </span>
             <span className="sr-only">{spokenRemaining(remaining ?? 0)}</span>
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-(--muted-foreground)">
+          <AlertDialogDescription className="text-muted-foreground">
             Stay signed in to keep working, or sign out now. After it ends you need the auth key to
             sign in again.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         {renewFailed && (
-          <p role="alert" className="text-(--alert) text-sm">
+          <p role="alert" className="text-alert text-sm">
             <span aria-hidden="true">▲ </span>Could not renew the session. Try again, or sign in
             again after it ends.
           </p>
         )}
 
         <AlertDialogFooter className="gap-2">
-          <Button
-            variant="outline"
-            onClick={signOut}
-            disabled={pending !== null}
-            className={secondaryBtn}
-          >
+          <Button variant="outline" onClick={signOut} disabled={pending !== null}>
             {pending === 'signout' ? 'Signing out…' : 'Sign out'}
           </Button>
-          <Button ref={renewRef} onClick={renew} disabled={pending !== null} className={primaryBtn}>
+          <Button ref={renewRef} onClick={renew} disabled={pending !== null}>
             {pending === 'renew' ? 'Renewing…' : 'Stay signed in'}
           </Button>
         </AlertDialogFooter>
