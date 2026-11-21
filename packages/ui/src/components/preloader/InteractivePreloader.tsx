@@ -13,6 +13,7 @@ import {
 import { LoadingState, ReadyState, ErrorState } from './ui/index';
 import type { PreloaderPropsWithTheme } from '@aazucena/types';
 import { getTransitionClass, getLoadingSteps } from '@aazucena/utils';
+import { useResolvedPreloaderMode, usePreloaderBodyBackground } from './usePreloaderPageTheme';
 
 export default function InteractivePreloader({
   // Timing & Behavior
@@ -139,7 +140,8 @@ export default function InteractivePreloader({
     onContinue: handleContinue,
   });
 
-  const themeStyles = usePreloaderTheme({ theme, customTheme, mode });
+  const resolvedMode = useResolvedPreloaderMode(mode);
+  const themeStyles = usePreloaderTheme({ theme, customTheme, mode: resolvedMode });
 
   // ============================================================================
   // EFFECTS (after all hooks)
@@ -172,21 +174,9 @@ export default function InteractivePreloader({
     return () => cancelAnimationFrame(rafId);
   }, []); // Empty deps - run only on mount
 
-  // Sync body background with preloader theme to prevent flash during hydration
-  useEffect(() => {
-    const body = document.body;
-    const themeBackground = themeStyles.backgroundStyle.background as string;
-
-    if (body && themeBackground) {
-      const originalBackground = body.style.background;
-      body.style.background = themeBackground;
-
-      // Restore original background when component unmounts
-      return () => {
-        body.style.background = originalBackground;
-      };
-    }
-  }, [themeStyles.backgroundStyle.background]);
+  // Sync body background with preloader theme to prevent flash during hydration.
+  // Released as soon as the preloader hides, not only on unmount.
+  usePreloaderBodyBackground(themeStyles.backgroundStyle.background as string, isVisible);
 
   // ============================================================================
   // CONDITIONAL RENDERING (after all hooks and effects)
