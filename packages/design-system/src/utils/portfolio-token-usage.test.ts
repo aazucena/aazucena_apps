@@ -31,14 +31,7 @@ const RULES: Array<[name: string, re: RegExp]> = [
 ];
 
 /** Files not yet on Avra tokens (paths relative to apps/portfolio/src). */
-const PENDING: string[] = [
-  'components/assistant/AssistantInput.tsx',
-  'components/assistant/AssistantIntro.tsx',
-  'components/assistant/AssistantMessageList.tsx',
-  'components/assistant/AssistantTriggerPopover.tsx',
-  'components/assistant/variants.ts',
-  'components/ui/InfiniteMovingCards.tsx',
-];
+const PENDING: string[] = ['components/ui/InfiniteMovingCards.tsx'];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */
 const SCENE_EXEMPT: Record<string, string> = {

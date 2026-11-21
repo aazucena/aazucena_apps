@@ -56,7 +56,7 @@ export function AssistantIntro({
               work well. The projects, the thinking behind them, the skills he's
               built, and where he's headed next.
             </p>
-            <p className="text-muted-foreground/80 italic">
+            <p className="text-muted-foreground italic">
               What brings you here today?
             </p>
           </ChatBubble>
@@ -68,10 +68,7 @@ export function AssistantIntro({
           if (!isLoading) onSendMessage(s);
         }}
         chipColors={[
-          "h-7 px-2.5 text-[10px] rounded-full border bg-cyan-500/10 border-cyan-500/25 text-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300",
-          "h-7 px-2.5 text-[10px] rounded-full border bg-violet-500/10 border-violet-500/25 text-violet-400 hover:bg-violet-500/20 hover:text-violet-300",
-          "h-7 px-2.5 text-[10px] rounded-full border bg-amber-500/10 border-amber-500/25 text-amber-400 hover:bg-amber-500/20 hover:text-amber-300",
-          "h-7 px-2.5 text-[10px] rounded-full border bg-emerald-500/10 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300",
+          "border-signal text-signal hover:bg-signal-faint rounded-control h-8 border bg-transparent px-2.5 text-xs",
         ]}
         className="justify-center"
       />

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { ShieldCheck } from "@aazucena/icons";
+import { Button } from "@aazucena/ui";
 import { AssistantOverlay, AssistantOverlaySection } from "./AssistantOverlay";
 
 interface AssistantTransparencyOverlayProps {
@@ -13,17 +14,14 @@ export function AssistantTransparencyOverlay({
 }: AssistantTransparencyOverlayProps) {
   return (
     <AssistantOverlay
-      icon={<ShieldCheck size={40} className="text-secondary shrink-0" />}
+      icon={<ShieldCheck size={40} className="text-signal shrink-0" />}
       title="Transparency"
       subtitle="How this chat works."
       onClose={onClose}
       footer={
-        <button
-          onClick={onClose}
-          className="bg-foreground text-background mt-4 w-full rounded-lg py-2 text-xs font-semibold transition-opacity hover:opacity-80"
-        >
+        <Button onClick={onClose} className="mt-4 w-full">
           Got it
-        </button>
+        </Button>
       }
     >
       <AssistantOverlaySection label="Powered By">
@@ -58,7 +56,7 @@ export function AssistantTransparencyOverlay({
         </p>
       </AssistantOverlaySection>
 
-      <div className="border-border/50 border-t pt-3">
+      <div className="border-rule border-t pt-3">
         <p className="text-muted-foreground text-xs italic">
           Rin exists to help you understand Aldrin's work. Nothing more.
         </p>

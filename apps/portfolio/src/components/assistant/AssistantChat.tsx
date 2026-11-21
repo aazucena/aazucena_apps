@@ -20,8 +20,7 @@ export default function AssistantChat() {
   // Set PUBLIC_RIN_CHARACTER_SRC in .env to point to the hosted .riv file URL.
   // Falls back to the static RinMark SVG when unset.
   const RIN_SRC = import.meta.env.PUBLIC_RIN_CHARACTER_SRC as
-    | string
-    | undefined;
+    string | undefined;
 
   const {
     isOpen,
@@ -56,10 +55,58 @@ export default function AssistantChat() {
     handleKeyDown,
   } = useAssistantChat();
 
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const wasOpen = React.useRef(false);
+
+  // Focus moves into the composer on open and back to the trigger on close.
+  React.useEffect(() => {
+    const root = rootRef.current;
+    if (isOpen) {
+      root
+        ?.querySelector<HTMLTextAreaElement>('[data-testid="assistant-input"]')
+        ?.focus();
+    } else if (wasOpen.current) {
+      root
+        ?.querySelector<HTMLButtonElement>(
+          'button[aria-haspopup="dialog"][aria-expanded]',
+        )
+        ?.focus();
+    }
+    wasOpen.current = isOpen;
+  }, [isOpen]);
+
+  // Escape closes the top overlay first, then the chat. Menus and the clear
+  // dialog handle their own Escape.
+  React.useEffect(() => {
+    if (!isOpen) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key !== "Escape" || e.defaultPrevented) return;
+      if (dropdownOpen || clearDialogOpen) return;
+      if (loreDialogOpen) setLoreDialogOpen(false);
+      else if (transparencyOpen) setTransparencyOpen(false);
+      else setIsOpen(false);
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [
+    isOpen,
+    dropdownOpen,
+    clearDialogOpen,
+    loreDialogOpen,
+    transparencyOpen,
+    setLoreDialogOpen,
+    setTransparencyOpen,
+    setIsOpen,
+  ]);
+
   return (
-    <div className={outerVariants({ mode: chatMode })}>
+    <div ref={rootRef} className={outerVariants({ mode: chatMode })}>
       {isOpen && (
-        <div className={innerVariants({ mode: chatMode })}>
+        <div
+          role="region"
+          aria-label="Chat with Rin"
+          className={innerVariants({ mode: chatMode })}
+        >
           {loreDialogOpen && (
             <AssistantLoreOverlay onClose={() => setLoreDialogOpen(false)} />
           )}

@@ -11,14 +11,13 @@ export const outerVariants = cva("fixed z-[100]", {
 });
 
 export const innerVariants = cva(
-  "bg-background relative flex flex-col overflow-hidden",
+  "bg-panel text-foreground border-rule rounded-card relative flex flex-col overflow-hidden border",
   {
     variants: {
       mode: {
-        floating:
-          "h-[480px] max-h-[60vh] w-80 rounded-2xl border border-border shadow-2xl transition-all duration-300",
-        offcanvas: "h-full w-full sm:w-88 border-r border-border shadow-2xl",
-        fullscreen: "h-full w-full",
+        floating: "h-[480px] max-h-[60vh] w-80",
+        offcanvas: "h-full w-full rounded-none border-y-0 border-l-0 sm:w-88",
+        fullscreen: "h-full w-full rounded-none border-0",
       },
     },
   },

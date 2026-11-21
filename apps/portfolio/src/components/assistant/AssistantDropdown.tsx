@@ -11,11 +11,7 @@ import {
 } from "@aazucena/ui";
 
 export type AssistantMenuAction =
-  | "lore"
-  | "transparency"
-  | "expand"
-  | "export"
-  | "clear";
+  "lore" | "transparency" | "expand" | "export" | "clear";
 
 interface AssistantDropdownProps {
   open: boolean;
@@ -34,10 +30,10 @@ export function AssistantDropdown({
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
       <DropdownMenuTrigger asChild>
         <button
-          className="bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors"
+          className="text-muted-foreground hover:bg-state hover:text-foreground rounded-control flex size-8 items-center justify-center transition-colors"
           aria-label="More options"
         >
-          <Dots size={32} />
+          <Dots size={24} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

@@ -32,7 +32,7 @@ export function AssistantLoadingBubble({
                 style={{ animationDelay: "300ms" }}
               />
             </span>
-            <span className="text-muted-foreground font-sans text-[10px]">
+            <span className="text-signal font-mono text-[10px] tracking-widest uppercase">
               {LOADING_STATUSES[statusIdx]}
             </span>
           </span>

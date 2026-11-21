@@ -31,11 +31,12 @@ export function AssistantInput({
 }: AssistantInputProps) {
   return (
     <ChatInputContainer className="px-3 pt-2 pb-3">
-      <ChatInputWrapper className="border-foreground/20 bg-muted/30 rounded-xl border-2">
+      <ChatInputWrapper className="border-rule bg-state rounded-control border">
         <ChatInputArea
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={onKeyDown}
+          aria-label="Message Rin"
           placeholder="Ask about Aldrin's work…"
           minRows={1}
           maxRows={4}
@@ -45,25 +46,30 @@ export function AssistantInput({
         />
         <span
           className={cn(
-            "pointer-events-none absolute right-4 bottom-2 font-mono text-[9px]",
+            "pointer-events-none absolute right-14 bottom-2 font-mono text-[10px] tracking-widest uppercase",
             isOverWordLimit
-              ? "text-rose-500"
+              ? "text-alert"
               : wordCount >= MAX_INPUT_WORDS * 0.8
-                ? "text-amber-500"
-                : "text-muted-foreground/40",
+                ? "text-warning"
+                : "text-muted-foreground",
           )}
         >
-          {wordCount}/{MAX_INPUT_WORDS}
+          {isOverWordLimit
+            ? "▲ "
+            : wordCount >= MAX_INPUT_WORDS * 0.8
+              ? "◆ "
+              : ""}
+          {wordCount} / {MAX_INPUT_WORDS} words
         </span>
         <ChatInputSubmit
           type="button"
           onClick={onSend}
           disabled={isLoading || !value.trim() || isOverWordLimit}
           data-testid="assistant-send"
-          className="h-8 w-8"
+          className="rounded-control h-8 w-8"
         />
       </ChatInputWrapper>
-      <p className="text-muted-foreground/50 mt-1.5 text-right text-[9px]">
+      <p className="text-muted-foreground mt-1.5 text-right font-mono text-[10px] tracking-widest uppercase">
         <kbd className="font-sans">Shift</kbd> +{" "}
         <kbd className="font-sans">Enter</kbd> for new line
       </p>

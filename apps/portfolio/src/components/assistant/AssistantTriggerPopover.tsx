@@ -35,6 +35,9 @@ export function AssistantTriggerPopover({
         <AssistantTrigger
           variant="default"
           isOpen={isOpen}
+          aria-label={isOpen ? "Close chat" : "Chat with Rin"}
+          aria-expanded={isOpen}
+          aria-haspopup="dialog"
           icon={
             <RinCharacter
               src={rinSrc}
@@ -46,7 +49,7 @@ export function AssistantTriggerPopover({
           label="Chat"
           closeLabel="Close"
           tooltipSide="right"
-          className="focus-visible:ring-ring bg-secondary text-secondary-foreground hover:bg-secondary-dark relative right-auto bottom-auto left-auto h-11 w-auto !rotate-0 rounded-full px-4 shadow-lg duration-300 outline-none hover:scale-100 focus-visible:ring-2 focus-visible:ring-offset-2"
+          className="border-signal bg-background text-signal hover:bg-signal-faint focus-visible:ring-ring rounded-control h-control-lg relative right-auto bottom-auto left-auto w-auto !rotate-0 border px-4 outline-none hover:scale-100 focus-visible:ring-2 focus-visible:ring-offset-2"
           onClick={onTriggerClick}
         />
       </PopoverAnchor>

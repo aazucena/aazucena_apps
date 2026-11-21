@@ -11,7 +11,7 @@ interface AssistantLoreOverlayProps {
 export function AssistantLoreOverlay({ onClose }: AssistantLoreOverlayProps) {
   return (
     <AssistantOverlay
-      icon={<RinMark className="text-secondary h-10 w-10 shrink-0" />}
+      icon={<RinMark className="text-signal h-10 w-10 shrink-0" />}
       title="Rin"
       subtitle="The keeper of this archive."
       onClose={onClose}
@@ -52,7 +52,7 @@ export function AssistantLoreOverlay({ onClose }: AssistantLoreOverlayProps) {
         </p>
       </AssistantOverlaySection>
 
-      <div className="border-border/50 border-t pt-3">
+      <div className="border-rule border-t pt-3">
         <p className="text-muted-foreground text-xs italic">
           "I'm the oldest thing here. I don't have a cleaner answer than that."
         </p>
