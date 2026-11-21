@@ -13,8 +13,9 @@ html.homepage {
   color-scheme: dark;
 }
 
+/* body carries the .dark class on the homepage (BaseLayout), so --background is the dark token. */
 html.homepage body {
-  background: #0f172a;
+  background: var(--background);
 }
 
 /* Content pages: Respect user theme preference */

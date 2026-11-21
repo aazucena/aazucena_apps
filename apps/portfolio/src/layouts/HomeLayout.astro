@@ -6,7 +6,7 @@ const props: BaseLayoutProps = Astro.props;
 
 <BaseLayout {...props}>
   {/* The homepage is always dark: this wrapper only scopes the dark tokens (no background, so the scene shows), whatever <html> says. */}
-  <div class="dark">
+  <div class="dark text-foreground">
     <slot />
   </div>
 </BaseLayout>
