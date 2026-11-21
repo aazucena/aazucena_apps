@@ -7,12 +7,13 @@
  * Phase 3 Task #6: Demand-based rendering for improved FPS
  */
 
-import type { JSX } from "react";
+import { useMemo, type JSX } from "react";
 import { Canvas } from "@react-three/fiber";
 import { AnimationParticles } from "@aazucena/animations/pixi";
 import HomepageScene from "./HomepageScene";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { useAnimation, usePortfolio } from "@aazucena/context";
+import { resolveParticleColors } from "~/config/animations";
 
 interface AnimationCanvasProps {
   // Only atmospheric layer remains as prop (not in context)
@@ -27,6 +28,11 @@ export default function AnimationCanvas({
 
   // Get portfolio state from context
   const { currentSection, scrollProgress } = usePortfolio();
+  // Read once when the particles first mount; they don't follow later theme changes
+  const particleColors = useMemo(
+    () => (mounted ? resolveParticleColors("space") : undefined),
+    [mounted],
+  );
   // Don't render heavy animations if not capable
   if (!capabilities.canUseHeavyAnimations) {
     return null;
@@ -45,6 +51,7 @@ export default function AnimationCanvas({
             <AnimationParticles
               width={window.innerWidth}
               height={window.innerHeight}
+              colors={particleColors}
             />
           </div>
         )}

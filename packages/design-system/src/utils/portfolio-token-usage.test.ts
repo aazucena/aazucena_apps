@@ -38,11 +38,12 @@ const PENDING: string[] = [
   'components/assistant/AssistantTriggerPopover.tsx',
   'components/assistant/variants.ts',
   'components/ui/InfiniteMovingCards.tsx',
-  'config/animations.ts',
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */
 const SCENE_EXEMPT: Record<string, string> = {
+  'config/animations.ts':
+    'particle fallback colours, used only when a signal or series token cannot be read',
   'components/homepage/overlays/AtmosphericOverlays.tsx':
     'sky dimming scrims and aurora tints over the scenes are atmospheric imagery, not panel styling',
 };

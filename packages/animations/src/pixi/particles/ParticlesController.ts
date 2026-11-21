@@ -22,6 +22,7 @@ export class ParticlesController {
       speed: config.speed || preset?.speed || PARTICLE_DEFAULTS.SPEED,
       opacity: config.opacity || preset?.opacity || PARTICLE_DEFAULTS.OPACITY,
       color: config.color,
+      colors: config.colors,
       phase: config.phase,
       preset: config.preset,
     };
@@ -43,13 +44,15 @@ export class ParticlesController {
   private createParticle(width: number, height: number): PixiParticle {
     // Get colors from preset or use defaults
     const preset = this.config.preset ? PARTICLE_PRESETS[this.config.preset] : null;
-    const colors = preset?.colors || [
-      0xffffff, // White
-      0xe0f0ff, // Blue-white
-      0x88ffff, // Cyan
-      0xfffacd, // Pale yellow
-      0xddeeff, // Icy blue
-    ];
+    const colors = this.config.colors?.length
+      ? this.config.colors
+      : preset?.colors || [
+          0xffffff, // White
+          0xe0f0ff, // Blue-white
+          0x88ffff, // Cyan
+          0xfffacd, // Pale yellow
+          0xddeeff, // Icy blue
+        ];
 
     const baseColor = colors[0] || 0xffffff; // First color as base
     const targetColor = colors[Math.floor(Math.random() * colors.length)] || 0xffffff;

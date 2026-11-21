@@ -3,6 +3,8 @@
  * Central configuration for particle counts, timing, and atmospheric phases
  */
 
+import { readTokenColor } from "~/lib/utils/token-color";
+
 // Particle System
 export const PARTICLE_COUNTS = {
   HIGH: 200,
@@ -17,6 +19,10 @@ export const PARTICLE_DEFAULTS = {
 } as const;
 
 // Particle Presets
+// Each colour is [token, fallback]: the scene reads the token once at start through
+// readTokenColor and uses the fallback (the old hex) only when the token can't be read.
+type ParticleColor = readonly [token: string, fallback: number];
+
 export const PARTICLE_PRESETS = {
   space: {
     count: 150,
@@ -24,12 +30,12 @@ export const PARTICLE_PRESETS = {
     speed: 0.3,
     opacity: 0.8,
     colors: [
-      0xffffff, // White
-      0xe0f0ff, // Blue-white
-      0x88ffff, // Cyan
-      0xfffacd, // Pale yellow
-      0xddeeff, // Icy blue
-    ],
+      ["--signal", 0x88ffff], // Cyan
+      ["--series-1", 0xe0f0ff], // Blue-white
+      ["--series-2", 0xffffff], // White
+      ["--series-3", 0xfffacd], // Pale yellow
+      ["--series-4", 0xddeeff], // Icy blue
+    ] as readonly ParticleColor[],
     twinkling: true,
     twinkleSpeed: { min: 0.5, max: 2.0 },
   },
@@ -39,10 +45,10 @@ export const PARTICLE_PRESETS = {
     speed: 1.5,
     opacity: 0.9,
     colors: [
-      0xffffff, // Pure white
-      0xf0f8ff, // Alice blue
-      0xe6f2ff, // Very pale blue
-    ],
+      ["--signal", 0xffffff], // Pure white
+      ["--series-1", 0xf0f8ff], // Alice blue
+      ["--series-2", 0xe6f2ff], // Very pale blue
+    ] as readonly ParticleColor[],
     twinkling: false,
     drift: true, // Sideways movement
     driftSpeed: 0.5,
@@ -53,10 +59,10 @@ export const PARTICLE_PRESETS = {
     speed: 8.0,
     opacity: 0.6,
     colors: [
-      0x88ccff, // Light blue
-      0x99ddff, // Pale cyan
-      0xaaeeff, // Very pale cyan
-    ],
+      ["--signal", 0x88ccff], // Light blue
+      ["--series-1", 0x99ddff], // Pale cyan
+      ["--series-2", 0xaaeeff], // Very pale cyan
+    ] as readonly ParticleColor[],
     twinkling: false,
     streaks: true, // Elongated particles
     streakLength: 8,
@@ -67,12 +73,12 @@ export const PARTICLE_PRESETS = {
     speed: 0.5,
     opacity: 0.4,
     colors: [
-      0xffd700, // Gold
-      0xffa500, // Orange
-      0xff69b4, // Hot pink
-      0x00ffff, // Cyan
-      0x9370db, // Medium purple
-    ],
+      ["--series-1", 0xffd700], // Gold
+      ["--series-2", 0xffa500], // Orange
+      ["--series-3", 0xff69b4], // Hot pink
+      ["--signal", 0x00ffff], // Cyan
+      ["--series-4", 0x9370db], // Medium purple
+    ] as readonly ParticleColor[],
     twinkling: true,
     twinkleSpeed: { min: 1.0, max: 3.0 },
     sineWave: true, // Wave motion
@@ -80,6 +86,15 @@ export const PARTICLE_PRESETS = {
     waveFrequency: 0.5,
   },
 } as const;
+
+/** A preset's colours as 0xRRGGBB, read from the tokens. Call once when the scene starts. */
+export function resolveParticleColors(
+  preset: keyof typeof PARTICLE_PRESETS,
+): number[] {
+  return PARTICLE_PRESETS[preset].colors.map(([token, fallback]) =>
+    readTokenColor(token, fallback),
+  );
+}
 
 // Scene Configuration
 export const SCENE_PARTICLE_COUNT = 3000;
@@ -120,7 +135,6 @@ export const CTA_CLICK_REPEAT = 1;
 // Resume Button Animation
 export const RESUME_BUTTON_SCALE = 1.1;
 export const RESUME_BUTTON_DURATION = 0.2;
-export const RESUME_BUTTON_COLOR = "#059669"; // Tailwind emerald-600
 export const RESUME_OPEN_DELAY = 400; // ms delay before opening resume
 
 // Scroll Navigation

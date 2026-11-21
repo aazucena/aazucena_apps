@@ -8,11 +8,7 @@ import type { ReactNode, RefObject, ComponentType } from 'react';
  * Atmospheric Phases
  */
 export type AtmosphericPhase =
-  | 'exosphere'
-  | 'thermosphere'
-  | 'mesosphere'
-  | 'stratosphere'
-  | 'troposphere';
+  'exosphere' | 'thermosphere' | 'mesosphere' | 'stratosphere' | 'troposphere';
 
 /**
  * Device & Performance
@@ -341,6 +337,8 @@ export interface ParticleSystemConfig {
   speed: number;
   opacity: number;
   color?: string;
+  /** 0xRRGGBB colours that replace the preset's. The app reads them from tokens at start. */
+  colors?: number[];
   phase?: AtmosphericPhase;
   preset?: 'space' | 'snow' | 'rain' | 'floating';
 }

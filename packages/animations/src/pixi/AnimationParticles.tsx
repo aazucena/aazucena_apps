@@ -21,6 +21,8 @@ interface AnimationParticlesProps {
   opacity?: number;
   isPlaying?: boolean;
   preset?: 'space' | 'snow' | 'rain' | 'floating';
+  /** 0xRRGGBB colours replacing the preset's. */
+  colors?: number[];
   effect?: 'glow' | 'blur' | 'none';
 }
 
@@ -35,10 +37,13 @@ export const AnimationParticles = forwardRef<AnimationParticlesHandle, Animation
       opacity,
       isPlaying = true,
       preset = 'space',
+      colors,
       effect = 'glow',
     } = props;
     const containerRef = useRef<HTMLDivElement>(null);
     const systemRef = useRef<ParticleSystem | null>(null);
+    // Colours are read once when the system starts; a new array does not restart it.
+    const colorsRef = useRef(colors);
 
     useEffect(() => {
       if (!containerRef.current) return;
@@ -48,6 +53,7 @@ export const AnimationParticles = forwardRef<AnimationParticlesHandle, Animation
 
       const particleSystem = new ParticleSystem({
         preset,
+        colors: colorsRef.current,
         count,
         speed,
         size,
