@@ -116,7 +116,7 @@ export const CardSelection: Story = {
     <RadioGroup defaultValue="stable" className="grid grid-cols-2 gap-4 w-[500px]">
       <Label
         htmlFor="card-stable"
-        className="flex flex-col items-center gap-4 rounded-card border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-data-checked:border-primary has-data-checked:bg-primary/5"
+        className="flex flex-col items-center gap-4 rounded-card border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/5"
       >
         <RadioGroupItem value="stable" id="card-stable" className="sr-only" />
         <Globe className="size-8 text-primary" />
@@ -128,7 +128,7 @@ export const CardSelection: Story = {
 
       <Label
         htmlFor="card-edge"
-        className="flex flex-col items-center gap-4 rounded-card border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-data-checked:border-primary has-data-checked:bg-primary/5"
+        className="flex flex-col items-center gap-4 rounded-card border-2 p-6 transition-all hover:bg-muted/50 cursor-pointer has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/5"
       >
         <RadioGroupItem value="edge" id="card-edge" className="sr-only" />
         <Activity className="size-8 text-primary" />

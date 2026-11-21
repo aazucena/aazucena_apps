@@ -193,7 +193,7 @@ export const GlassToolbar: Story = {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-fit">
         <Menubar className="bg-state border-rule text-foreground rounded-control px-4 h-12">
           <MenubarMenu>
-            <MenubarTrigger className="focus:bg-state data-open:bg-state font-black uppercase tracking-widest text-xs">
+            <MenubarTrigger className="focus:bg-state data-[state=open]:bg-state font-black uppercase tracking-widest text-xs">
               Layers
             </MenubarTrigger>
             <MenubarContent variant="glass" className="border-rule text-foreground">
@@ -203,7 +203,7 @@ export const GlassToolbar: Story = {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger className="focus:bg-state data-open:bg-state font-black uppercase tracking-widest text-xs">
+            <MenubarTrigger className="focus:bg-state data-[state=open]:bg-state font-black uppercase tracking-widest text-xs">
               View
             </MenubarTrigger>
             <MenubarContent variant="glass" className="border-rule text-foreground">

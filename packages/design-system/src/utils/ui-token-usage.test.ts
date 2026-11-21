@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
  */
 // All of components/, not just components/ui: preloader/ sat outside the old scope
 const UI_DIR = join(__dirname, '../../../ui/src/components');
+const STORIES_DIR = join(__dirname, '../../../../apps/storybook/stories');
 
 function tsxFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
@@ -265,16 +266,14 @@ describe('@aazucena/ui fill variants (I1)', () => {
 
   it('styles Radix states with data-[state=…], not bare data-open/closed/checked/active shorthands', () => {
     // Radix sets data-state="open|closed|checked|…"; a bare data-open: compiles to [data-open], which never matches.
-    for (const file of tsxFiles(UI_DIR)) {
+    for (const file of [...tsxFiles(UI_DIR), ...tsxFiles(STORIES_DIR)]) {
       const src = readFileSync(file, 'utf8');
       const hits =
         src.match(
           /\bdata-(?:open|closed|checked|unchecked|active|inactive|visible|hidden)(?=[:/])/g,
         ) ?? [];
-      expect({ file: file.split('src/components/')[1], hits }).toEqual({
-        file: file.split('src/components/')[1],
-        hits: [],
-      });
+      const name = file.split('src/components/')[1] ?? file.split('apps/storybook/')[1];
+      expect({ file: name, hits }).toEqual({ file: name, hits: [] });
     }
   });
 });
