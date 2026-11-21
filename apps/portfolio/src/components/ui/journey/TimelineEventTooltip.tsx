@@ -10,6 +10,7 @@
  * education field+GPA+honors.
  */
 
+import { Badge } from "@aazucena/ui";
 import type { TimelineEvent } from "@aazucena/visualizations";
 
 interface TimelineEventTooltipProps {
@@ -50,23 +51,12 @@ export function TimelineEventTooltip({
   const honors = (event as any).honors as string | null | undefined;
 
   const rawSkills = (event as any).skills as
-    | (string | { name: string })[]
-    | undefined;
+    (string | { name: string })[] | undefined;
   const skills = rawSkills?.map((s) => (typeof s === "string" ? s : s.name));
 
   const isExperience = type === "experience";
   const isEducation = type === "education";
   const subtitle = company || institution || event.subtitle || "";
-
-  const badgeClass = isExperience
-    ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
-    : isEducation
-      ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300"
-      : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
-
-  const skillChipClass = isExperience
-    ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
-    : "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400";
 
   // Position card above the hovered node, centered horizontally
   const style: React.CSSProperties = {
@@ -83,16 +73,15 @@ export function TimelineEventTooltip({
   return (
     <div
       style={style}
-      className="rounded-xl border border-gray-200 bg-white/95 p-4 shadow-2xl backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95"
+      role="tooltip"
+      className="border-rule bg-panel-raised text-foreground rounded-control border p-3 font-mono"
     >
-      {/* Type badge + duration */}
+      {/* Type + duration */}
       <div className="mb-2 flex items-start justify-between gap-2">
-        <span
-          className={`inline-block rounded px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase ${badgeClass}`}
-        >
+        <Badge variant={isExperience ? "cyber" : "outline"} size="xs">
           {type}
-        </span>
-        <span className="text-[10px] font-medium text-gray-400 dark:text-gray-500">
+        </Badge>
+        <span className="micro-label text-muted-foreground">
           {formatDate(event.date)}
           {event.endDate ? ` → ${formatDate(event.endDate)}` : " → Present"}
           {" · "}
@@ -100,64 +89,54 @@ export function TimelineEventTooltip({
         </span>
       </div>
 
-      {/* Title */}
-      <h3 className="mb-1 text-sm leading-tight font-bold text-gray-900 dark:text-white">
+      <h3 className="text-foreground mb-1 text-sm leading-tight font-semibold">
         {event.name}
       </h3>
 
-      {/* Subtitle */}
       {subtitle && (
-        <p className="mb-3 text-sm text-gray-600 dark:text-gray-300">
-          {subtitle}
-        </p>
+        <p className="text-muted-foreground mb-3 text-xs">{subtitle}</p>
       )}
 
-      {/* Skills */}
       {skills && skills.length > 0 && (
-        <div className="border-t border-gray-100 pt-3 dark:border-gray-700">
-          <div className="flex flex-wrap gap-1">
+        <div className="border-rule border-t pt-3">
+          <ul className="flex flex-wrap gap-1">
             {skills.slice(0, 5).map((s, idx) => (
-              <span
-                key={idx}
-                className={`rounded-full px-2 py-0.5 text-[10px] ${skillChipClass}`}
-              >
-                {s}
-              </span>
+              <li key={idx}>
+                <Badge variant="secondary" size="xs">
+                  {s}
+                </Badge>
+              </li>
             ))}
             {skills.length > 5 && (
-              <span className="rounded-full bg-gray-50 px-2 py-0.5 text-[10px] text-gray-500 dark:bg-gray-800">
-                +{skills.length - 5}
-              </span>
+              <li>
+                <Badge variant="outline" size="xs">
+                  +{skills.length - 5}
+                </Badge>
+              </li>
             )}
-          </div>
+          </ul>
         </div>
       )}
 
-      {/* Experience: link to detail page */}
       {isExperience && slug && (
-        <p className="mt-3 text-[10px] font-semibold text-blue-600 dark:text-blue-400">
+        <p className="micro-label text-signal mt-3">
           Click node to view details →
         </p>
       )}
 
-      {/* Education: field, GPA, honors */}
       {isEducation && (field || gpa || honors) && (
-        <div className="mt-2 space-y-1 border-t border-gray-100 pt-2 dark:border-gray-700">
+        <div className="border-rule mt-2 space-y-1 border-t pt-2">
           {field && (
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              <span className="font-medium">Field:</span> {field}
+            <p className="text-muted-foreground text-xs">
+              <span className="text-foreground">Field:</span> {field}
             </p>
           )}
           {gpa && (
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              <span className="font-medium">GPA:</span> {gpa.toFixed(2)}
+            <p className="text-muted-foreground text-xs">
+              <span className="text-foreground">GPA:</span> {gpa.toFixed(2)}
             </p>
           )}
-          {honors && (
-            <p className="text-xs font-medium text-green-600 dark:text-green-400">
-              🏆 {honors}
-            </p>
-          )}
+          {honors && <p className="text-foreground text-xs">{honors}</p>}
         </div>
       )}
     </div>

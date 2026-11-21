@@ -21,9 +21,8 @@ import {
   transformToTimelineData,
   type SkillNode,
 } from "~/lib/transformers";
-import { IconRenderer } from "@aazucena/ui";
-import GradientAccent from "~/components/common/GradientAccent.astro";
-import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
+import { buttonVariants } from "@aazucena/ui";
+import PanelBox from "~/components/common/PanelBox.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
 import { fetchEducation as getEducation } from "@aazucena/api";
 import { getExperiences } from "@aazucena/api";
@@ -97,22 +96,10 @@ const pageTitle =
 const pageDescription =
   journeyConfig?.header?.description ||
   "An interactive visualization of my professional journey, showcasing career growth, skills evolution, and key milestones.";
-const watermarkText = journeyConfig?.header?.watermark || "JOURNEY";
 
-// Map phase badges to colors (used for badge styling)
-const phaseColors: Record<string, string> = {
-  "Phase I": "blue",
-  "Phase II": "purple",
-  "Phase III": "green",
-};
-
-function getPhaseColor(badge?: string | null): string {
-  if (!badge) return "blue";
-  for (const [key, value] of Object.entries(phaseColors)) {
-    if (badge.includes(key)) return value;
-  }
-  return "blue";
-}
+// CMS badges read "Phase I: Chronology"; the instrument voice writes "PHASE I // CHRONOLOGY"
+const phaseLabel = (badge: string) =>
+  badge.replace(/\s*:\s*/, " // ").toUpperCase();
 
 // Get CMS phases or use hardcoded fallback
 const phases =
@@ -149,29 +136,21 @@ const phases =
               title: "Embrace Complexity",
               description:
                 "Complex problems aren't obstacles; they're opportunities for innovation. The most rewarding solutions often lie behind the most daunting challenges.",
-              icon: "Lamp",
-              variant: "blue" as const,
             },
             {
               title: "Collective Intelligence",
               description:
                 "Diverse perspectives are the secret ingredient to building truly resilient systems. I prioritize team growth as much as technical excellence.",
-              icon: "Heart",
-              variant: "purple" as const,
             },
             {
               title: "Iterative Velocity",
               description:
                 "Perfection is the enemy of progress. I prioritize getting working software into users' hands fast, using real feedback as the driver for refinement.",
-              icon: "Rocket",
-              variant: "pink" as const,
             },
             {
               title: "Relentless Curiosity",
               description:
                 "Staying static is moving backward. I treat every project as a classroom, and every bug as a vital lesson in architecture and logic.",
-              icon: "Compass",
-              variant: "green" as const,
             },
           ],
         },
@@ -179,193 +158,154 @@ const phases =
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
-  <main class="min-h-screen bg-white dark:bg-gray-950">
-    <GradientAccent variant="print-hidden" />
-
+  <main class="bg-background min-h-screen">
     <!-- Hero Header -->
-    <header
-      class="relative overflow-hidden border-b border-gray-100 bg-white py-20 md:py-32 dark:border-gray-800 dark:bg-gray-900"
-    >
-      <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="mb-20 space-y-6 text-center">
-          <h1
-            class="text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
-          >
-            {pageTitle}<span class="text-blue-600">.</span>
-          </h1>
-          {
-            pageDescription && (
-              <p class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-600 md:text-2xl dark:text-gray-400">
-                {pageDescription}
-              </p>
-            )
-          }
-        </div>
+    <header class="mx-auto max-w-[1120px] px-6 pt-0">
+      <h1 class="text-foreground text-5xl leading-none font-bold tracking-tighter md:text-7xl">
+        <span
+          class="after:text-signal after:content-['.']"
+          set:text={pageTitle}
+        />
+      </h1>
+      {pageDescription && (
+        <p class="text-muted-foreground mt-6 max-w-3xl text-xl leading-relaxed">
+          {pageDescription}
+        </p>
+      )}
 
-        <!-- Career Stats Visualization -->
-        <div class="relative z-20">
-          <CareerStats stats={careerStats} client:only="react" />
-        </div>
+      <div class="mt-12">
+        <CareerStats stats={careerStats} client:only="react" />
       </div>
-
-      <WatermarkBackground text={watermarkText} size="huge" />
     </header>
 
     <!-- Dynamic Phases from CMS -->
-    {
-      phases.map((phase, index) => {
-        const phaseColor = getPhaseColor(phase.badge);
-        const isEven = index % 2 === 0;
-        const bgClass = isEven
-          ? "bg-white dark:bg-gray-950"
-          : "bg-gray-50/50 dark:bg-gray-900/30 border-y border-gray-100 dark:border-gray-800";
+    {phases.map((phase) => (
+      <section class="py-16 md:py-24">
+        <div class="mx-auto mb-10 max-w-[1120px] px-6">
+          {phase.badge && (
+            <p class="micro-label text-signal mb-4">
+              {phaseLabel(phase.badge)}
+            </p>
+          )}
+          <h2 class="text-foreground text-4xl font-bold tracking-tighter md:text-5xl">
+            <span
+              class="after:text-signal after:content-['.']"
+              set:text={phase.title.replace(/\.$/, "")}
+            />
+          </h2>
+          <p class="text-muted-foreground mt-4 max-w-3xl text-lg leading-relaxed">
+            {phase.description}
+          </p>
+        </div>
 
-        return (
-          <section class={`py-12 md:py-24 ${bgClass}`}>
-            <div class="mx-auto mb-16 max-w-5xl px-4 sm:px-6 lg:px-8">
-              {phase.badge && (
-                <div
-                  class={`inline-flex items-center gap-3 px-4 py-2 bg-${phaseColor}-50 dark:bg-${phaseColor}-900/20 rounded-full border border-${phaseColor}-100 dark:border-${phaseColor}-800 mb-8`}
-                >
-                  <div
-                    class={`h-1.5 w-1.5 rounded-full bg-${phaseColor}-500 animate-pulse`}
-                  />
-                  <span
-                    class={`text-[10px] font-black tracking-[0.3em] uppercase text-${phaseColor}-600 dark:text-${phaseColor}-400`}
-                  >
-                    {phase.badge}
-                  </span>
-                </div>
-              )}
-
-              <div class="space-y-6">
-                <h2 class="text-4xl font-black tracking-tighter text-gray-900 md:text-6xl dark:text-white">
-                  {phase.title}
-                </h2>
-                <p class="max-w-3xl text-xl leading-relaxed font-medium text-gray-600 dark:text-gray-400">
-                  {phase.description}
-                </p>
-              </div>
-            </div>
-
-            {/* Phase I: Chronology - Timeline */}
-            {phase.name === "chronology" && (
-              <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <ChronologyTimeline data={timelineData} client:only="react" />
-              </div>
-            )}
-
-            {/* Phase II: Adaptation - Skills Dashboard */}
-            {phase.name === "adaptation" && (
-              <>
-                <div class="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <GrowthMetrics metrics={growthMetrics} client:only="react" />
-                </div>
-                <JourneyDashboard
-                  evolutionData={skillsEvolutionData}
-                  networkData={skillsNetworkData}
-                  sankeyData={sankeyData}
-                  heatmapData={heatmapData}
-                  streamGraphData={streamGraphData}
-                  experiences={experiences}
-                  education={education}
-                  projects={projects}
-                  growthMetrics={growthMetrics}
-                  careerStats={careerStats}
-                  categories={allCategories}
-                  hideHeader={true}
-                  hideStats={true}
-                  hideMetrics={true}
-                  client:only="react"
-                />
-              </>
-            )}
-
-            {/* Phase III or custom phases - Render narrative items as cards */}
-            {phase.items && phase.items.length > 0 && (
-              <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
-                {phase.items.map((item) => (
-                  <div class="group rounded-[2.5rem] border border-gray-100 bg-gray-50 p-10 shadow-sm transition-all duration-500 hover:border-blue-500/20 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900">
-                    {item.icon && (
-                      <div
-                        class={`flex h-14 w-14 items-center justify-center rounded-2xl text-${item.variant}-600 bg-${item.variant}-50 dark:bg-${item.variant}-900/20 mb-8 transition-transform duration-500 group-hover:scale-110`}
-                      >
-                        <IconRenderer client:only="react" icon={item.icon} />
-                      </div>
-                    )}
-                    <h3 class="mb-4 text-2xl font-black tracking-tight text-gray-900 dark:text-white">
-                      {item.title}
-                    </h3>
-                    <p class="leading-relaxed font-medium text-gray-600 dark:text-gray-400">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-        );
-      })
-    }
-
-    <!-- Global CTA -->
-    {
-      (
-        <section class="relative overflow-hidden py-32">
-          <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
-          <div class="absolute inset-0 bg-black/10 backdrop-blur-3xl" />
-
-          <div class="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 class="mb-8 text-4xl font-black tracking-tighter text-white md:text-6xl">
-              {journeyConfig?.callToAction?.title || "Explore the Details."}
-            </h2>
-            {
-              <p class="mx-auto mb-12 max-w-2xl text-xl font-medium text-white/80">
-                {journeyConfig?.callToAction?.description ||
-                  "Dive deeper into specific case studies, technical writings, or get in touch to discuss a collaboration."}
-              </p>
-            }
-            <div class="flex flex-col justify-center gap-4 sm:flex-row">
-              {journeyConfig?.callToAction?.buttons?.length ? (
-                journeyConfig.callToAction.buttons.map((button) => (
-                  <a
-                    href={button.url}
-                    target={button.openInNewTab ? "_blank" : undefined}
-                    class={`rounded-[1.5rem] px-6 py-4 text-xs font-black tracking-[0.2em] uppercase shadow-2xl transition-all active:scale-95 sm:px-10 sm:py-5 ${
-                      button.variant === "primary"
-                        ? "bg-white text-gray-900 hover:bg-blue-50"
-                        : "border border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/20"
-                    }`}
-                  >
-                    {button.label}
-                  </a>
-                ))
-              ) : (
-                <>
-                  <a
-                    href="/projects"
-                    class="rounded-[1.5rem] bg-white px-6 py-4 text-xs font-black tracking-[0.2em] text-gray-900 uppercase shadow-2xl transition-all hover:bg-blue-50 active:scale-95 sm:px-10 sm:py-5"
-                  >
-                    Portfolio
-                  </a>
-                  <a
-                    href="/experiences"
-                    class="rounded-[1.5rem] border border-white/20 bg-white/10 px-6 py-4 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl backdrop-blur-md transition-all hover:bg-white/20 active:scale-95 sm:px-10 sm:py-5"
-                  >
-                    Full History
-                  </a>
-                  <a
-                    href="/contact"
-                    class="rounded-[1.5rem] border border-white/20 bg-white/10 px-6 py-4 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl backdrop-blur-md transition-all hover:bg-white/20 active:scale-95 sm:px-10 sm:py-5"
-                  >
-                    Get in Touch
-                  </a>
-                </>
-              )}
-            </div>
+        {/* Phase I: Chronology - Timeline */}
+        {phase.name === "chronology" && (
+          <div class="mx-auto max-w-[1120px] px-6">
+            <ChronologyTimeline data={timelineData} client:only="react" />
           </div>
-        </section>
-      )
-    }
+        )}
+
+        {/* Phase II: Adaptation - Skills Dashboard */}
+        {phase.name === "adaptation" && (
+          <>
+            <div class="mx-auto mb-4 max-w-[1120px] px-6">
+              <GrowthMetrics metrics={growthMetrics} client:only="react" />
+            </div>
+            <JourneyDashboard
+              evolutionData={skillsEvolutionData}
+              networkData={skillsNetworkData}
+              sankeyData={sankeyData}
+              heatmapData={heatmapData}
+              streamGraphData={streamGraphData}
+              experiences={experiences}
+              education={education}
+              projects={projects}
+              growthMetrics={growthMetrics}
+              careerStats={careerStats}
+              categories={allCategories}
+              hideHeader={true}
+              hideStats={true}
+              hideMetrics={true}
+              client:only="react"
+            />
+          </>
+        )}
+
+        {/* Phase III or custom phases - narrative items as panels */}
+        {phase.items && phase.items.length > 0 && (
+          <div class="mx-auto grid max-w-[1120px] grid-cols-1 gap-4 px-6 md:grid-cols-2">
+            {phase.items.map((item, i) => (
+              <PanelBox
+                label={`${String(i + 1).padStart(2, "0")} // PRINCIPLE`}
+              >
+                <h3 class="text-foreground text-xl font-semibold tracking-tight">
+                  {item.title}
+                </h3>
+                <p class="text-muted-foreground text-sm leading-relaxed">
+                  {item.description}
+                </p>
+              </PanelBox>
+            ))}
+          </div>
+        )}
+      </section>
+    ))}
+
+    <!-- Explore band -->
+    <section class="bg-panel border-rule border-y py-20">
+      <div class="mx-auto max-w-4xl px-6 text-center">
+        <p class="micro-label text-signal mb-4">NEXT // EXPLORE</p>
+        <h2 class="text-foreground mb-6 text-4xl font-bold tracking-tighter md:text-5xl">
+          <span
+            class="after:text-signal after:content-['.']"
+            set:text={(
+              journeyConfig?.callToAction?.title || "Explore the Details."
+            ).replace(/\.$/, "")}
+          />
+        </h2>
+        <p class="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg">
+          {journeyConfig?.callToAction?.description ||
+            "Dive deeper into specific case studies, technical writings, or get in touch to discuss a collaboration."}
+        </p>
+        <div class="flex flex-col justify-center gap-3 sm:flex-row">
+          {journeyConfig?.callToAction?.buttons?.length ? (
+            journeyConfig.callToAction.buttons.map((button) => (
+              <a
+                href={button.url}
+                target={button.openInNewTab ? "_blank" : undefined}
+                rel={button.openInNewTab ? "noopener noreferrer" : undefined}
+                class={buttonVariants({
+                  variant: button.variant === "primary" ? "default" : "outline",
+                  size: "lg",
+                })}
+              >
+                {button.label}
+              </a>
+            ))
+          ) : (
+            <>
+              <a
+                href="/projects"
+                class={buttonVariants({ variant: "default", size: "lg" })}
+              >
+                Portfolio
+              </a>
+              <a
+                href="/experiences"
+                class={buttonVariants({ variant: "outline", size: "lg" })}
+              >
+                Full history
+              </a>
+              <a
+                href="/contact"
+                class={buttonVariants({ variant: "outline", size: "lg" })}
+              >
+                Get in touch
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    </section>
   </main>
 </PageLayout>

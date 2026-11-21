@@ -6,17 +6,20 @@
  *   cat_*   → category node → distinct colour per category
  *   skill_* → skill node → inherits from its source cat_ link
  *   group_* → grouped skill node → same rule as skill_*
- *   exp_*   → experience entity → blue
- *   prj_*   → project entity → purple
- *   edu_*   → education entity → emerald
+ *   exp_*   → experience entity → series 1
+ *   edu_*   → education entity → series 2
+ *   prj_*   → project entity → series 3
  *
  * Filtering subscribes to visibleCategoriesStore so the Toolbar works correctly.
  */
 
 import { useMemo } from "react";
-import * as d3 from "d3";
 import { useStore } from "@nanostores/react";
-import { SankeyDiagram } from "@aazucena/visualizations";
+import {
+  SankeyDiagram,
+  categorical,
+  categoricalScale,
+} from "@aazucena/visualizations";
 import { visibleCategoriesStore } from "~/store/journey";
 import type { SankeyData } from "~/lib/transformers";
 
@@ -25,10 +28,11 @@ interface SankeyWithSemanticsProps {
   height?: number;
 }
 
+// Entity hues come from the package's series order (CSS vars), never literals
 const ENTITY_COLORS = {
-  exp: "#3b82f6",
-  prj: "#a855f7",
-  edu: "#10b981",
+  exp: categorical[0],
+  edu: categorical[1],
+  prj: categorical[2],
 };
 
 const ENTITY_LEGEND = [
@@ -45,7 +49,7 @@ export function SankeyWithSemantics({
 
   // Build color map keyed by node.id so groupKey="id" resolves correctly.
   const colorMap = useMemo(() => {
-    const categoryColor = d3.scaleOrdinal(d3.schemeTableau10);
+    const categoryColor = categoricalScale();
     const map: Record<string, string> = {};
 
     // Pass 1 — assign category and entity colors
@@ -112,14 +116,49 @@ export function SankeyWithSemantics({
     };
   }, [data, visibleCategories]);
 
+  // Text equivalent: each visible category and the total flow leaving it
+  const categoryFlows = useMemo(
+    () =>
+      filteredData.nodes
+        .filter((n) => n.id.startsWith("cat_"))
+        .map((n) => ({
+          name: n.name,
+          flow: filteredData.links
+            .filter((l) => String(l.source) === n.id)
+            .reduce((sum, l) => sum + (Number(l.value) || 0), 0),
+        })),
+    [filteredData],
+  );
+
   return (
-    <SankeyDiagram
-      data={filteredData as any}
-      colorMap={colorMap}
-      groupKey="id"
-      legend={ENTITY_LEGEND}
-      hideHeader
-      height={height}
-    />
+    <>
+      <SankeyDiagram
+        data={filteredData as any}
+        colorMap={colorMap}
+        groupKey="id"
+        legend={ENTITY_LEGEND}
+        hideHeader
+        height={height}
+      />
+      <div className="sr-only">
+        <table>
+          <caption>Skill impact flow: total flow leaving each category</caption>
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Flow</th>
+            </tr>
+          </thead>
+          <tbody>
+            {categoryFlows.map((c) => (
+              <tr key={c.name}>
+                <th scope="row">{c.name}</th>
+                <td>{c.flow}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }

@@ -202,6 +202,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Blog posts get copy link and rss share controls
 - _(ui)_ Perspective-1000 utility for flip words
 - _(analytics)_ Ai terminal offers opus, sonnet and haiku 5.5
 - _(constants)_ One claude model catalogue with prices

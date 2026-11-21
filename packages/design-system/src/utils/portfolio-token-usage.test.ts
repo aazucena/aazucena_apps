@@ -32,7 +32,6 @@ const RULES: Array<[name: string, re: RegExp]> = [
 
 /** Files not yet on Avra tokens (paths relative to apps/portfolio/src). */
 const PENDING: string[] = [
-  'components/JourneyDashboard.tsx',
   'components/assistant/AssistantInput.tsx',
   'components/assistant/AssistantIntro.tsx',
   'components/assistant/AssistantMessageList.tsx',
@@ -54,17 +53,7 @@ const PENDING: string[] = [
   'components/ui/blog/NewspaperStack.tsx',
   'components/ui/hero/NavigationButton.tsx',
   'components/ui/hero/ResumeButton.tsx',
-  'components/ui/journey/CareerStats.tsx',
-  'components/ui/journey/ChronologyTimeline.tsx',
-  'components/ui/journey/DetailsModal.tsx',
-  'components/ui/journey/ExportControls.tsx',
-  'components/ui/journey/GrowthMetrics.tsx',
-  'components/ui/journey/HeatmapInfoPanel.tsx',
-  'components/ui/journey/SankeyWithSemantics.tsx',
-  'components/ui/journey/TimelineEventTooltip.tsx',
-  'components/ui/journey/Toolbar.tsx',
   'config/animations.ts',
-  'pages/journey.astro',
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */

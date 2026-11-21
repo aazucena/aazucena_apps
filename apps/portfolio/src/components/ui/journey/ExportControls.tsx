@@ -6,6 +6,7 @@
 import React from "react";
 import { downloadSVG, downloadPNG } from "@aazucena/utils";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -35,10 +36,7 @@ export function ExportControls({
     <div className={`relative ${className}`}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button
-            className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white/80 px-4 py-2 text-xs font-bold text-gray-600 shadow-sm backdrop-blur-sm transition-all hover:bg-white dark:border-gray-700 dark:bg-gray-800/80 dark:text-gray-300 dark:hover:bg-gray-700"
-            title="Export Visualization"
-          >
+          <Button variant="outline" size="sm" title="Export visualization">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
@@ -49,13 +47,14 @@ export function ExportControls({
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
             Export
-          </button>
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem onClick={handleDownloadPNG}>
