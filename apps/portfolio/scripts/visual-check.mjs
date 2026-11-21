@@ -23,7 +23,14 @@ const slug = (route) =>
   route === "/" ? "root" : route.replace(/^\/|\/$/g, "").replace(/\//g, "-");
 
 mkdirSync(".shots", { recursive: true });
-const browser = await chromium.launch();
+const browser = await chromium.launch({
+  args: [
+    "--use-gl=angle",
+    "--use-angle=swiftshader",
+    "--enable-unsafe-swiftshader",
+    "--ignore-gpu-blocklist",
+  ],
+});
 let failed = false;
 let first = true;
 let unreachable = false;
@@ -53,6 +60,7 @@ try {
           uncaught.push(String(e));
         });
         let overflow = 0;
+        let failedNav = false;
         try {
           await page.goto(BASE + route, { waitUntil: "load" });
           // Three.js and Pixi keep the network busy; wait for it briefly, then let scenes settle.
@@ -77,8 +85,24 @@ try {
           }
           errors.push(`navigation failed: ${msg.split("\n")[0]}`);
           failed = true;
+          failedNav = true;
         }
         first = false;
+        if (!failedNav) {
+          try {
+            await page.screenshot({
+              path: `.shots/${slug(route)}-${theme}-${width}.png`,
+              animations: "disabled",
+              caret: "hide",
+              timeout: 60_000,
+            });
+          } catch (e) {
+            console.log(
+              `screenshot failed: ${route} ${theme} ${width} (${String(e).split("\n")[0]})`,
+            );
+            failed = true;
+          }
+        }
         console.log(
           `${route} ${theme} ${width} overflow=${overflow} errors=${errors.length}`,
         );
