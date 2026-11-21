@@ -161,6 +161,8 @@ pnpm dlx playwright test --headed
 
 **Storybook shows where the apps use each component.** Storybook is the general catalog; "Used in" on each component docs page lists the analytics and portfolio files that import it, and `Docs/Component Usage` indexes every module (used ones first, catalog-only collapsed). `.storybook/usage/scan.ts` reads the apps' imports from `@aazucena/ui`, `visualizations`, `layouts` and `forms` when Storybook starts and serves them as `virtual:component-usage` (plugin in `main.ts`), so the data can't go stale and nothing is committed. A page finds its module from `component`, then the title; gallery pages with several components (the charts) list every module their story file imports. Override with `parameters.usage: { module: 'ui/sonner' }` or hide with `{ show: false }`. Local copies of a component in an app don't count; only imports do.
 
+**Analytics runs on Avra.** `apps/analytics/src/styles/globals.css` imports `@aazucena/ui/globals.css`, and `packages/design-system/src/utils/analytics-token-usage.test.ts` fails on stock palette, glass, big radii and literal colours in any analytics `.tsx` file.
+
 **Storybook visual tests run on Argos.** `argosVitestPlugin` in `apps/storybook/vitest.config.ts` screenshots every story the Vitest run renders. It uploads only when `CI` is set, using `ARGOS_TOKEN` (a CircleCI project env var, never committed); local runs write `apps/storybook/screenshots/` (gitignored). CI runs on main only, so the latest main build is the baseline and changes are reviewed after merge.
 
 ```typescript

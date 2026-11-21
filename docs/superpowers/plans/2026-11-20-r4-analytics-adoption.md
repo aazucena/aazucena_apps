@@ -68,7 +68,7 @@
 
 - Produces: `PENDING: Set<string>` (paths relative to `apps/analytics/src`) and `violations(file: string): string[]`. Every later task deletes its files from `PENDING`.
 
-- [ ] **Step 1: Write the test.** Constants: `ROOT = join(__dirname, '../../../..')`, `SRC = join(ROOT, 'apps/analytics/src')`. Walk `SRC` for `.tsx`, skipping `app/api/`. `violations(file)` returns the matches of these patterns, outside `//` and `/* */` comments:
+- [x] **Step 1: Write the test.** Constants: `ROOT = join(__dirname, '../../../..')`, `SRC = join(ROOT, 'apps/analytics/src')`. Walk `SRC` for `.tsx`, skipping `app/api/`. `violations(file)` returns the matches of these patterns, outside `//` and `/* */` comments:
 
   ```ts
   const RULES: Array<[name: string, re: RegExp]> = [
@@ -91,9 +91,9 @@
 
   Fill `PENDING` with exactly the files that fail today. Run the walker once and paste the list sorted; it is about 37 files.
 
-- [ ] **Step 2: Run it.** `pnpm --filter @aazucena/design-system exec vitest run src/utils/analytics-token-usage.test.ts`. Expected: 2 passed. Then delete one entry, see test 1 fail with that file's hits, and restore it.
+- [x] **Step 2: Run it.** `pnpm --filter @aazucena/design-system exec vitest run src/utils/analytics-token-usage.test.ts`. Expected: 2 passed. Then delete one entry, see test 1 fail with that file's hits, and restore it.
 
-- [ ] **Step 3: Commit.** `✅ test(design-system): ratcheting Avra token guard for the analytics app`
+- [x] **Step 3: Commit.** `✅ test(design-system): ratcheting Avra token guard for the analytics app`
 
 ### Task 2: Token layer, fonts, theme init, screenshot script
 
@@ -108,7 +108,7 @@
 
 - Produces: `node --env-file=.env scripts/visual-check.mjs <route…>` (run from `apps/analytics`, dev server on 8080). It sets the `az_session` cookie to `process.env.ADMIN_SECRET` (never prints it). For each route × `light|dark` × width `1440|1024` (height 900), it sets `localStorage.theme`, loads the page, waits for network idle, and saves `.shots/<route-slug>-<theme>-<width>.png`. It prints one line per shot: `route theme width overflow=<px> errors=<n>`, then the console error texts. It exits 1 when any shot has `overflow > 0`. `overflow` is `document.documentElement.scrollWidth - clientWidth`. Failed-fetch errors count but don't fail the run.
 
-- [ ] **Step 1: Add the failing tests** to the guard file:
+- [x] **Step 1: Add the failing tests** to the guard file:
   - `it('loads Avra through ui globals')`:
     - `globals.css` matches `/@import ['"]@aazucena\/ui\/globals\.css['"]/`
     - it does not match `/--(?:primary|secondary|neutral|destructive|success)-\d{2,3}\s*:/` or `/@theme inline/`
@@ -120,15 +120,15 @@
   - `it('respects reduced motion')`: `providers/RootProvider.tsx` matches `/<MotionConfig[^>]*reducedMotion="user"/`.
   - Remove `app/layout.tsx` and `layouts/RootLayout.tsx` from `PENDING`.
 
-- [ ] **Step 2: Run the guard.** Expected: the new tests fail, and so does test 1 for `app/layout.tsx`.
+- [x] **Step 2: Run the guard.** Expected: the new tests fail, and so does test 1 for `app/layout.tsx`.
 
-- [ ] **Step 3: Rewrite `globals.css`.**
+- [x] **Step 3: Rewrite `globals.css`.**
   - Keep: the five `@source` lines.
   - Replace lines 1–3, the plugin, the dark variant, `:root`, `.dark` and both `@theme inline` blocks with `@import '@aazucena/ui/globals.css';`. ui already imports Tailwind, `tw-animate-css`, css-vars, core and typography.
   - In `@layer base`, delete the font-family and the h1–h6, `p`, `code` and `.caption` type rules (ui's type scale applies).
   - Keep `html, body { height: 100% }`, plus `.perspective-1000`, `.homepage` and `.content-page` only if `rg` finds them used in `src`, and the scrollbar rules rewritten with `var(--rule)` and `var(--rule-strong)`.
 
-- [ ] **Step 4: Update `layout.tsx`.**
+- [x] **Step 4: Update `layout.tsx`.**
   - Fonts: `Fira_Sans` (weights 300/400/500/600/700) with `variable: '--font-sans'`, and `Fira_Code` (400/500) with `variable: '--font-mono'`, both from `next/font/google`.
   - `<html lang="en" suppressHydrationWarning>`.
   - In `<head>`, add an inline script (via `dangerouslySetInnerHTML`): `try{var t=localStorage.getItem('theme');document.documentElement.classList.toggle('dark',t!=='light')}catch(e){document.documentElement.classList.add('dark')}`.
@@ -139,11 +139,11 @@
   - `package.json`: add `"@aazucena/utils": "workspace:*"` (`src/lib/utils` re-exports it), then `pnpm install`.
   - Add `.shots/` to `apps/analytics/.gitignore`.
 
-- [ ] **Step 5: Write `visual-check.mjs` and check the theme.** Start the dev server and run `node --env-file=.env scripts/visual-check.mjs /`. Also check first paint: open `/` with `localStorage.theme='light'` set by `addInitScript`, `waitUntil: 'commit'`, then after `domcontentloaded` evaluate `document.documentElement.classList.contains('dark')`. Expected: `false`, and no console message containing `Hydration`. Run it again with nothing stored. Expected: `true`.
+- [x] **Step 5: Write `visual-check.mjs` and check the theme.** Start the dev server and run `node --env-file=.env scripts/visual-check.mjs /`. Also check first paint: open `/` with `localStorage.theme='light'` set by `addInitScript`, `waitUntil: 'commit'`, then after `domcontentloaded` evaluate `document.documentElement.classList.contains('dark')`. Expected: `false`, and no console message containing `Hydration`. Run it again with nothing stored. Expected: `true`.
 
-- [ ] **Step 6: Gates.** The guard (all pass), `type-check`, `lint`. Look at `.shots/root-dark-1440.png`: Fira on the body, ink background. Stop the server.
+- [x] **Step 6: Gates.** The guard (all pass), `type-check`, `lint`. Look at `.shots/root-dark-1440.png`: Fira on the body, ink background. Stop the server.
 
-- [ ] **Step 7: Commit, one per concern:**
+- [x] **Step 7: Commit, one per concern:**
   - `🎨 style(analytics): load Avra through ui globals.css and Fira fonts` (globals.css, layout.tsx, components.json, package.json, pnpm-lock.yaml, deleted config)
   - `♿ fix(analytics): respect reduced motion in framer-motion` (RootProvider.tsx). The theme-init script rides in the commit above with the rest of layout.tsx.
   - `🔥 chore(analytics): remove the unused RootLayout`
@@ -154,12 +154,12 @@
 
 Each restyle task lists its files, its frames and its specific changes. The steps are always these:
 
-- [ ] **R1:** remove the task's files from `PENDING`; run the guard and see test 1 fail with their hits.
-- [ ] **R2:** fetch the task's frames (dark and light) with Figma MCP `get_screenshot`, file `KIKPyhRdGbeBhj8dS0km2G`.
-- [ ] **R3:** restyle to the frame using the Global Constraints; replace local glass cards with `Panel` (`label`, `status`), headings with `PageHeader`, status text with `Badge`. Keep every data hook, query and handler as it is: this is a visual change.
-- [ ] **R4:** gates (guard green, `type-check`, `lint`).
-- [ ] **R5:** dev server, `node --env-file=.env scripts/visual-check.mjs <routes>`; expect `overflow=0` everywhere and no errors other than failed fetches; compare the 1440 shots with the frames side by side and fix layout differences the frame decides. Stop the server.
-- [ ] **R6:** commit `🎨 style(analytics): <page or group> in the instrument language`, one commit per page group listed in the task.
+- [x] **R1:** remove the task's files from `PENDING`; run the guard and see test 1 fail with their hits.
+- [x] **R2:** fetch the task's frames (dark and light) with Figma MCP `get_screenshot`, file `KIKPyhRdGbeBhj8dS0km2G`.
+- [x] **R3:** restyle to the frame using the Global Constraints; replace local glass cards with `Panel` (`label`, `status`), headings with `PageHeader`, status text with `Badge`. Keep every data hook, query and handler as it is: this is a visual change.
+- [x] **R4:** gates (guard green, `type-check`, `lint`).
+- [x] **R5:** dev server, `node --env-file=.env scripts/visual-check.mjs <routes>`; expect `overflow=0` everywhere and no errors other than failed fetches; compare the 1440 shots with the frames side by side and fix layout differences the frame decides. Stop the server.
+- [x] **R6:** commit `🎨 style(analytics): <page or group> in the instrument language`, one commit per page group listed in the task.
 
 ### Task 3: App shell and PageHeader
 
@@ -321,14 +321,14 @@ Routes: `/` signed out, `/does-not-exist`.
 - Modify: `docs/CONTEXT.md`
 - Modify: `ROADMAP.md`
 
-- [ ] **Step 1: Close the ratchet.** Delete `PENDING` and the "lists only files that still need work" test, so test 1 covers every file. Run the guard. Expected: pass.
-- [ ] **Step 2: Coral audit.** Run `rg -n "\b(text|bg|border)-alert\b" apps/analytics/src`. Each hit must either sit next to a `▲` in the same element or be a destructive control. Fix the rest.
-- [ ] **Step 3: Full visual pass.** Run `visual-check.mjs` over every route from Tasks 3–9. Expected: `overflow=0`, and no errors other than failed fetches.
-- [ ] **Step 4: Docs.**
+- [x] **Step 1: Close the ratchet.** Delete `PENDING` and the "lists only files that still need work" test, so test 1 covers every file. Run the guard. Expected: pass.
+- [x] **Step 2: Coral audit.** Run `rg -n "\b(text|bg|border)-alert\b" apps/analytics/src`. Each hit must either sit next to a `▲` in the same element or be a destructive control. Fix the rest.
+- [x] **Step 3: Full visual pass.** Run `visual-check.mjs` over every route from Tasks 3–9. Expected: `overflow=0`, and no errors other than failed fetches.
+- [x] **Step 4: Docs.**
   - Tick §4 in the visual identity doc and the R4 checklist in the redesign plan.
   - Add one line to the CONTEXT.md "Critical Build Patterns" section: analytics loads Avra through `@aazucena/ui/globals.css`, and `analytics-token-usage.test.ts` keeps stock palette out.
   - Update the ROADMAP status line.
-- [ ] **Step 5: Commit, one per concern:**
+- [x] **Step 5: Commit, one per concern:**
   - `✅ test(design-system): the analytics guard covers every file`
   - `♿ fix(analytics): alert colour only with ▲` (only if step 2 changed code)
   - `📝 docs: R4, the analytics app is on Avra`

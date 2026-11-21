@@ -200,22 +200,22 @@ ratios.
 
 ## 4. Implementation outline
 
-Fully unblocked. Ordered by leverage-per-effort, smallest first.
+Fully unblocked. Ordered by leverage-per-effort, smallest first. All five steps are done: R4 (2026-11-20) put every analytics page on the Avra tokens.
 
-1. **Chart defaults.** Centralize color, axis, and tooltip defaults in
-   `packages/visualizations/src/hooks/` so every consumer inherits them. Replace `#94a3b8` axis fills
-   and the `rgba(0,0,0,0.8)` tooltip with token references, and set tooltip type to the mono stack.
-   _This single step removes the most template-looking element in the app._
-2. **Extract primitives.** Create `Panel`, `PageHeader`, `SectionTitle` in
-   `apps/analytics/src/components/` and retire all 23 duplicated class strings plus the repeated
-   `h1`/`h3` patterns (12 files each).
-3. **Repair the token layer.** Add `@config` to `globals.css` or delete `tailwind.config.ts`;
-   resolve D4 across `globals.css` + `layout.tsx`; reconcile `--radius-xl` with actual usage; fix
-   `components.json:8`.
-4. **Route surfaces through semantic tokens.** Replace `zinc-*` surface/border/text usage with the
-   semantic scale so the vibe from D2 actually governs the interface.
-5. **Cleanup.** Add a blocking theme-init script to `layout.tsx`; fix `timeline.tsx:83`; delete
-   `src/layouts/RootLayout.tsx`.
+1. [x] **Chart defaults.** Centralize color, axis, and tooltip defaults in
+       `packages/visualizations/src/hooks/` so every consumer inherits them. Replace `#94a3b8` axis fills
+       and the `rgba(0,0,0,0.8)` tooltip with token references, and set tooltip type to the mono stack.
+       _This single step removes the most template-looking element in the app._
+2. [x] **Extract primitives.** Create `Panel`, `PageHeader`, `SectionTitle` in
+       `apps/analytics/src/components/` and retire all 23 duplicated class strings plus the repeated
+       `h1`/`h3` patterns (12 files each).
+3. [x] **Repair the token layer.** Add `@config` to `globals.css` or delete `tailwind.config.ts`;
+       resolve D4 across `globals.css` + `layout.tsx`; reconcile `--radius-xl` with actual usage; fix
+       `components.json:8`.
+4. [x] **Route surfaces through semantic tokens.** Replace `zinc-*` surface/border/text usage with the
+       semantic scale so the vibe from D2 actually governs the interface.
+5. [x] **Cleanup.** Add a blocking theme-init script to `layout.tsx`; fix `timeline.tsx:83`; delete
+       `src/layouts/RootLayout.tsx`.
 
 ---
 

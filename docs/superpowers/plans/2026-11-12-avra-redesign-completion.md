@@ -134,22 +134,24 @@ File `KIKPyhRdGbeBhj8dS0km2G`. Load `figma-use` + `figma-generate-library` first
 
 ## Phase 4: Analytics app adoption (spec §4, adjusted)
 
-- [ ] **Token layer (step 3 first, since nothing renders without it):**
+- [x] **Token layer (step 3 first, since nothing renders without it):**
   - `apps/analytics/src/styles/globals.css` imports `@aazucena/ui/globals.css` and `@aazucena/ui/core.css`. Drop its duplicate `@theme inline` radii and the conflicting vars.
   - Delete the unwired `tailwind.config.ts`.
   - Fix `components.json:8`.
   - `layout.tsx`: replace Inter/JetBrains Mono with Fira Sans + Fira Code (next/font), and the body `bg-zinc-*` with `bg-background text-foreground`.
   - Add a blocking theme-init script.
   - Add `@aazucena/utils` to `package.json`.
-- [ ] **Primitives:** use `Panel`/`PanelHeader`/`PanelBody` from `@aazucena/ui`, not a local copy. Add local `PageHeader` + `SectionTitle` in `src/components/common/`. Replace the 23 glass class strings (the `rounded-[2.5rem] p-8 backdrop-blur-md` family) and the repeated h1/h3s.
-- [ ] **Pages:** go page by page following the Phase 2 frames: overview, traffic, finance, music, performance, logs, ai, ai/costs, ai/prompts, ai/trajectories, journey, forms, easter-eggs, status, error/not-found/loading. Then the 19 components (Sidebar, Header, CommandPalette, LoginOverlay, ConfirmationModal, AdminMenu, IntegrityBadge → Badge status, MetricCard, ThemeToggle → ui Switch, DashboardFilters, SentinelWatchdog, logs/*).
-- [ ] **Semantic tokens:** remove the stock palette (zinc 1,365, rose 86, emerald 70, …). Map by meaning: rose → alert, emerald → success, amber → warning.
-- [ ] **Density (D5):** remove `max-w-7xl`, panel padding 20px, gutter 24px.
-- [ ] **Cleanup:** fix `timeline.tsx:83`, delete `src/layouts/RootLayout.tsx`.
-- [ ] **Guard + check:**
+- [x] **Primitives:** use `Panel`/`PanelHeader`/`PanelBody` from `@aazucena/ui`, not a local copy. Add local `PageHeader` + `SectionTitle` in `src/components/common/`. Replace the 23 glass class strings (the `rounded-[2.5rem] p-8 backdrop-blur-md` family) and the repeated h1/h3s.
+- [x] **Pages:** go page by page following the Phase 2 frames: overview, traffic, finance, music, performance, logs, ai, ai/costs, ai/prompts, ai/trajectories, journey, forms, easter-eggs, status, error/not-found/loading. Then the 19 components (Sidebar, Header, CommandPalette, LoginOverlay, ConfirmationModal, AdminMenu, IntegrityBadge → Badge status, MetricCard, ThemeToggle → ui Switch, DashboardFilters, SentinelWatchdog, logs/*).
+- [x] **Semantic tokens:** remove the stock palette (zinc 1,365, rose 86, emerald 70, …). Map by meaning: rose → alert, emerald → success, amber → warning.
+- [x] **Density (D5):** remove `max-w-7xl`, panel padding 20px, gutter 24px.
+- [x] **Cleanup:** fix `timeline.tsx:83`, delete `src/layouts/RootLayout.tsx`.
+- [x] **Guard + check:**
   - `rg -c "zinc-|slate-|gray-|backdrop-blur|rounded-(2xl|3xl|\[)" apps/analytics/src` reaches 0.
   - `pnpm --filter analytics type-check` + `lint`.
   - Commit per page group.
+
+Done 2026-11-20 (R4, `docs/superpowers/plans/2026-11-20-r4-analytics-adoption.md`). The guard `analytics-token-usage.test.ts` now covers every file.
 
 ## Phase 5: Portfolio
 

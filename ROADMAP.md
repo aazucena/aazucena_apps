@@ -89,7 +89,7 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 
 **[Full doc →](./docs/phase-5-testing.md)** · **[Release backlog →](./docs/next-release-backlog.md)**
 
-Branch `phase-5/next-release` also carries the analytics UI redesign, new features, and maintenance.
+Branch `phase-5/next-release` also carries the analytics UI redesign, new features, and maintenance. Avra redesign R4 is done (2026-11-20): every analytics page uses the Avra tokens and a test guards it.
 
 - Vitest unit tests (hooks, utilities) — 70-80% coverage target
 - Playwright E2E (critical user flows — 100% coverage target)
