@@ -60,25 +60,28 @@ export default function FinancePage() {
     const names = Array.from(new Set(trends.map((d) => d.provider)));
     names.sort((a, b) => (a === 'STRIPE' ? -1 : b === 'STRIPE' ? 1 : a.localeCompare(b)));
     const colorOf = (name: string) => categorical[names.indexOf(name) % categorical.length];
-    const weeks = new Map<number, Map<string, number>>();
+    const sums = new Map<number, Map<string, number>>();
     trends.forEach((d) => {
       const wk = weekStart(new Date(d.date));
-      const row = weeks.get(wk) ?? new Map<string, number>();
+      const row = sums.get(wk) ?? new Map<string, number>();
       row.set(d.provider, (row.get(d.provider) ?? 0) + (d.revenue ?? 0));
-      weeks.set(wk, row);
+      sums.set(wk, row);
     });
-    const cols: ColumnDatum[] = Array.from(weeks.entries())
-      .sort(([a], [b]) => a - b)
-      .slice(-WEEKS)
-      .map(([wk, row]) => ({
+    const current = weekStart(new Date());
+    const cols: ColumnDatum[] = Array.from({ length: WEEKS }, (_, i) => {
+      const wk = current - (WEEKS - 1 - i) * 7 * DAY_MS;
+      const row = sums.get(wk);
+      return {
         key: String(wk),
-        label: `Week of ${new Date(wk).toLocaleDateString(undefined, {
+        label: `Wk of ${new Date(wk).toLocaleDateString(undefined, {
           month: 'short',
           day: '2-digit',
           timeZone: 'UTC',
         })}`,
-        segments: names.map((n) => ({ name: n, value: row.get(n) ?? 0, color: colorOf(n) })),
-      }));
+        note: wk === current ? 'to date' : undefined,
+        segments: names.map((n) => ({ name: n, value: row?.get(n) ?? 0, color: colorOf(n) })),
+      };
+    });
     return { columns: cols, providers: names.map((n) => ({ name: n, color: colorOf(n) })) };
   }, [stats]);
 
@@ -100,7 +103,7 @@ export default function FinancePage() {
       <div className="divide-rule border-rule bg-panel grid grid-cols-1 divide-y overflow-hidden rounded-card border md:grid-cols-3 md:divide-y-0 md:divide-x">
         <MetricCard
           className="rounded-none border-0"
-          label="Total Revenue"
+          label="Total Revenue ≈ USD"
           value={summary ? formatCurrency(summary.total_revenue ?? 0) : '—'}
         />
         <MetricCard
@@ -110,15 +113,13 @@ export default function FinancePage() {
         />
         <MetricCard
           className="rounded-none border-0"
-          label="Avg Transaction"
+          label="Avg Transaction ≈ USD"
           value={summary ? formatCurrency(summary.avg_transaction ?? 0) : '—'}
         />
       </div>
 
-      <Panel
-        label={`REVENUE VELOCITY // WEEKLY${columns.length ? ` // ${columns.length} WEEKS` : ''}`}
-      >
-        {columns.length === 0 ? (
+      <Panel label={`REVENUE VELOCITY // WEEKLY${providers.length ? ` // ${WEEKS} WEEKS` : ''}`}>
+        {providers.length === 0 ? (
           empty('No revenue recorded yet.')
         ) : (
           <>
@@ -134,13 +135,13 @@ export default function FinancePage() {
               height={200}
               data={columns}
               format={(v) => formatCurrency(v)}
-              summary={`Weekly revenue by provider, ${columns.length} weeks, ${providers
+              summary={`Weekly revenue by provider, last ${WEEKS} weeks, ${providers
                 .map((p) => p.name)
                 .join(' and ')}`}
             />
             <div className="micro-label text-muted-foreground flex justify-between pt-1">
               <span>{columns[0]!.label}</span>
-              <span>{columns[columns.length - 1]!.label}</span>
+              <span>{columns[columns.length - 1]!.label} · TO DATE</span>
             </div>
           </>
         )}
