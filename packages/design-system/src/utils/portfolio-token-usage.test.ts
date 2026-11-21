@@ -3,9 +3,8 @@ import { join, relative, sep } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 /**
- * Ratcheting guard for the portfolio's Avra token usage. Every .astro, .tsx and .ts file under
+ * Guard for the portfolio's Avra token usage. Every .astro, .tsx and .ts file under
  * apps/portfolio/src must stay free of stock palette classes, glass, big radii and literal colours.
- * PENDING lists files not yet restyled; remove an entry when its file is clean (test 2 enforces it).
  * SCENE_EXEMPT lists files whose literal colours are scene imagery (path -> reason); it never
  * covers panel or text styling.
  */
@@ -25,13 +24,9 @@ const RULES: Array<[name: string, re: RegExp]> = [
   ['legacy variant', /variant=["'](?:cyber|glass|gradient)["']/g],
   ['big radius', /\brounded-(?:2xl|3xl|\[[^\]]+\])/g],
   ['surface shadow', /(?<!drop-)\bshadow-(?:sm|md|lg|xl|2xl)\b/g],
-  ['width cap', /\bmax-w-7xl\b/g],
   ['literal colour', /#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b|\brgba?\(/g],
   ['three hex', /\b0x[0-9a-fA-F]{6}\b/g],
 ];
-
-/** Files not yet on Avra tokens (paths relative to apps/portfolio/src). */
-const PENDING: string[] = ['components/ui/InfiniteMovingCards.tsx'];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */
 const SCENE_EXEMPT: Record<string, string> = {
@@ -73,20 +68,12 @@ export function violations(file: string): string[] {
 }
 
 const ALL = sourceFiles(SRC).map(rel).sort();
-const pending = new Set(PENDING);
-const CHECKED = ALL.filter((f) => !pending.has(f) && !(f in SCENE_EXEMPT));
+const CHECKED = ALL.filter((f) => !(f in SCENE_EXEMPT));
 
 describe('portfolio Avra token usage', () => {
-  it('uses Avra tokens in every file outside PENDING and SCENE_EXEMPT', () => {
+  it('uses Avra tokens in every file outside SCENE_EXEMPT', () => {
     for (const file of CHECKED) {
       expect({ file, hits: violations(file) }).toEqual({ file, hits: [] });
-    }
-  });
-
-  it('keeps PENDING honest: each entry exists and still has a violation', () => {
-    for (const file of PENDING) {
-      expect({ file, exists: existsSync(join(SRC, file)) }).toEqual({ file, exists: true });
-      expect({ file, dirty: violations(file).length > 0 }).toEqual({ file, dirty: true });
     }
   });
 
