@@ -156,9 +156,11 @@ Each restyle task lists its files, its frames and its specific changes. The step
 
 - [x] **R1:** remove the task's files from `PENDING`; run the guard and see test 1 fail with their hits.
 - [x] **R2:** fetch the task's frames (dark and light) with Figma MCP `get_screenshot`, file `KIKPyhRdGbeBhj8dS0km2G`.
+  - Verified: light frames compared directly for Overview, Traffic, Journey, Logs, AI Terminal, AI Costs, Login; by screenshot only for Status, Finance, Audio; not compared: Trajectories, Comms Inbox, Easter Eggs, Prompt IDE, Session expiring (open).
 - [x] **R3:** restyle to the frame using the Global Constraints; replace local glass cards with `Panel` (`label`, `status`), headings with `PageHeader`, status text with `Badge`. Keep every data hook, query and handler as it is: this is a visual change.
 - [x] **R4:** gates (guard green, `type-check`, `lint`).
 - [x] **R5:** dev server, `node --env-file=.env scripts/visual-check.mjs <routes>`; expect `overflow=0` everywhere and no errors other than failed fetches; compare the 1440 shots with the frames side by side and fix layout differences the frame decides. Stop the server.
+  - Verified: light frames compared directly for Overview, Traffic, Journey, Logs, AI Terminal, AI Costs, Login; by screenshot only for Status, Finance, Audio; not compared: Trajectories, Comms Inbox, Easter Eggs, Prompt IDE, Session expiring (open).
 - [x] **R6:** commit `🎨 style(analytics): <page or group> in the instrument language`, one commit per page group listed in the task.
 
 ### Task 3: App shell and PageHeader
@@ -324,6 +326,7 @@ Routes: `/` signed out, `/does-not-exist`.
 - [x] **Step 1: Close the ratchet.** Delete `PENDING` and the "lists only files that still need work" test, so test 1 covers every file. Run the guard. Expected: pass.
 - [x] **Step 2: Coral audit.** Run `rg -n "\b(text|bg|border)-alert\b" apps/analytics/src`. Each hit must either sit next to a `▲` in the same element or be a destructive control. Fix the rest.
 - [x] **Step 3: Full visual pass.** Run `visual-check.mjs` over every route from Tasks 3–9. Expected: `overflow=0`, and no errors other than failed fetches.
+  - Verified: light frames compared directly for Overview, Traffic, Journey, Logs, AI Terminal, AI Costs, Login; by screenshot only for Status, Finance, Audio; not compared: Trajectories, Comms Inbox, Easter Eggs, Prompt IDE, Session expiring (open).
 - [x] **Step 4: Docs.**
   - Tick §4 in the visual identity doc and the R4 checklist in the redesign plan.
   - Add one line to the CONTEXT.md "Critical Build Patterns" section: analytics loads Avra through `@aazucena/ui/globals.css`, and `analytics-token-usage.test.ts` keeps stock palette out.

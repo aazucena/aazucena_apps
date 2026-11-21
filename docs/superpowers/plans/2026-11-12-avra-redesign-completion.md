@@ -141,7 +141,7 @@ File `KIKPyhRdGbeBhj8dS0km2G`. Load `figma-use` + `figma-generate-library` first
   - `layout.tsx`: replace Inter/JetBrains Mono with Fira Sans + Fira Code (next/font), and the body `bg-zinc-*` with `bg-background text-foreground`.
   - Add a blocking theme-init script.
   - Add `@aazucena/utils` to `package.json`.
-- [x] **Primitives:** use `Panel`/`PanelHeader`/`PanelBody` from `@aazucena/ui`, not a local copy. Add local `PageHeader` + `SectionTitle` in `src/components/common/`. Replace the 23 glass class strings (the `rounded-[2.5rem] p-8 backdrop-blur-md` family) and the repeated h1/h3s.
+- [x] **Primitives:** use `Panel`/`PanelHeader`/`PanelBody` from `@aazucena/ui`, not a local copy. Add local `PageHeader` in `src/components/common/`. `SectionTitle` was not built: the Panel header strips (`label`) do that job. Replace the 23 glass class strings (the `rounded-[2.5rem] p-8 backdrop-blur-md` family) and the repeated h1/h3s.
 - [x] **Pages:** go page by page following the Phase 2 frames: overview, traffic, finance, music, performance, logs, ai, ai/costs, ai/prompts, ai/trajectories, journey, forms, easter-eggs, status, error/not-found/loading. Then the 19 components (Sidebar, Header, CommandPalette, LoginOverlay, ConfirmationModal, AdminMenu, IntegrityBadge → Badge status, MetricCard, ThemeToggle → ui Switch, DashboardFilters, SentinelWatchdog, logs/*).
 - [x] **Semantic tokens:** remove the stock palette (zinc 1,365, rose 86, emerald 70, …). Map by meaning: rose → alert, emerald → success, amber → warning.
 - [x] **Density (D5):** remove `max-w-7xl`, panel padding 20px, gutter 24px.
