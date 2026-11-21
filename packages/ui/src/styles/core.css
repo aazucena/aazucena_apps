@@ -53,6 +53,10 @@
 }
 
 /* Avra instrument utilities */
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
 @utility glass {
   background-color: var(--panel-glass);
   border: 1px solid var(--rule);
