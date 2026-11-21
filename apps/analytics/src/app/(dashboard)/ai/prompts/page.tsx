@@ -142,7 +142,7 @@ export default function PromptManagerPage() {
         meta="CENTRALIZED INTELLIGENCE INSTRUCTIONS & TEMPLATE IDE"
         actions={
           <>
-            <dl className="border-rule bg-panel rounded-card flex items-stretch divide-x divide-[var(--rule)] border">
+            <dl className="border-rule bg-panel rounded-card flex items-stretch divide-x divide-rule border">
               <div className="px-4 py-1.5">
                 <dt className="micro-label text-muted-foreground">≈ PAYLOAD COST</dt>
                 <dd className="font-mono text-sm">${estCost}</dd>
@@ -157,7 +157,7 @@ export default function PromptManagerPage() {
                 type="checkbox"
                 checked={forceReset}
                 onChange={(e) => setForceReset(e.target.checked)}
-                className="accent-[var(--signal)]"
+                className="accent-signal"
               />
               FORCE RESET
             </label>

@@ -86,7 +86,7 @@ export default function JourneyPage() {
         title="JOURNEY_EXPLORER"
         meta="BEHAVIORAL IDENTITY STITCHING & PERSONA MAPPING"
         actions={
-          <dl className="border-rule bg-panel rounded-card flex items-stretch divide-x divide-[var(--rule)] border">
+          <dl className="border-rule bg-panel rounded-card flex items-stretch divide-x divide-rule border">
             {stats.map(([label, value]) => (
               <div key={label} className="px-4 py-1.5">
                 <dt className="micro-label text-muted-foreground">{label}</dt>
