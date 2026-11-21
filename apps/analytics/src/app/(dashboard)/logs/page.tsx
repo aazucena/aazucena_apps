@@ -82,24 +82,40 @@ export default function LogsPage() {
               value={level}
               onValueChange={(v) => v && setLevel(v as Level)}
               aria-label="Log level"
-              className="gap-1"
+              className="border-rule bg-panel gap-0 border p-0.5"
             >
-              <ToggleGroupItem value="all" aria-label="All levels">
+              <ToggleGroupItem
+                value="all"
+                aria-label="All levels"
+                className="font-mono text-[10px] tracking-[0.2em] uppercase font-normal text-muted-foreground data-[state=on]:bg-signal data-[state=on]:text-signal-foreground"
+              >
                 ALL
               </ToggleGroupItem>
-              <ToggleGroupItem value="info" aria-label="Info only">
+              <ToggleGroupItem
+                value="info"
+                aria-label="Info only"
+                className="font-mono text-[10px] tracking-[0.2em] uppercase font-normal text-muted-foreground data-[state=on]:bg-state data-[state=on]:text-foreground"
+              >
                 <span aria-hidden className="text-signal">
                   ●
                 </span>{' '}
                 INFO
               </ToggleGroupItem>
-              <ToggleGroupItem value="warn" aria-label="Warnings only">
+              <ToggleGroupItem
+                value="warn"
+                aria-label="Warnings only"
+                className="font-mono text-[10px] tracking-[0.2em] uppercase font-normal text-muted-foreground data-[state=on]:bg-state data-[state=on]:text-foreground"
+              >
                 <span aria-hidden className="text-warning">
                   ◆
                 </span>{' '}
                 WARN
               </ToggleGroupItem>
-              <ToggleGroupItem value="error" aria-label="Errors only">
+              <ToggleGroupItem
+                value="error"
+                aria-label="Errors only"
+                className="font-mono text-[10px] tracking-[0.2em] uppercase font-normal text-muted-foreground data-[state=on]:bg-state data-[state=on]:text-foreground"
+              >
                 <span aria-hidden className="text-alert">
                   ▲
                 </span>{' '}
