@@ -168,9 +168,11 @@ export default function PerformancePage() {
         title="SYSTEM_INTEGRITY"
         meta="Real-time Infrastructure & Experience Monitoring"
         actions={
-          <Badge variant="cyber" animated>
-            LIVE_STREAM_ACTIVE
-          </Badge>
+          stats && !error ? (
+            <Badge variant="primary" animated>
+              LIVE_STREAM_ACTIVE
+            </Badge>
+          ) : undefined
         }
       />
 

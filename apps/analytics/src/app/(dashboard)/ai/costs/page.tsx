@@ -96,9 +96,11 @@ export default function AiCostCenterPage() {
         title="FISCAL_INTEL"
         meta="Financial Ledger & Model Resource Consumption"
         actions={
-          <Badge variant="cyber" animated>
-            BUDGET_AUDIT_ACTIVE
-          </Badge>
+          stats && !error ? (
+            <Badge variant="primary" animated>
+              BUDGET_AUDIT_ACTIVE
+            </Badge>
+          ) : undefined
         }
       />
 

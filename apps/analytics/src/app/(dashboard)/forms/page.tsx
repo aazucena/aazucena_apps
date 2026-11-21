@@ -47,7 +47,7 @@ type ReplyFormData = z.infer<typeof replySchema>;
 const STATUS_FILTERS = ['all', 'New', 'Read', 'Replied', 'Archived'] as const;
 
 const STATUS_BADGE: Record<string, React.ComponentProps<typeof Badge>['variant']> = {
-  New: 'cyber',
+  New: 'primary',
   Read: 'outline',
   Replied: 'success',
   Archived: 'secondary',

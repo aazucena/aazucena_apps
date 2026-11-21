@@ -19,6 +19,7 @@ const RULES: Array<[name: string, re: RegExp]> = [
     /\b(?:bg|text|border|ring|fill|stroke|outline|divide|shadow|from|via|to)-(?:white|black)\b/g,
   ],
   ['glass', /\bbackdrop-blur\b/g],
+  ['legacy variant', /variant=["'](?:cyber|glass|gradient)["']/g],
   ['big radius', /\brounded-(?:2xl|3xl|\[[^\]]+\])/g],
   ['surface shadow', /(?<!drop-)\bshadow-(?:sm|md|lg|xl|2xl)\b/g],
   ['width cap', /\bmax-w-7xl\b/g],
