@@ -4,6 +4,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  Panel,
 } from "@aazucena/ui";
 
 export type ParsedItem = { scope: string | null; text: string };
@@ -21,21 +22,15 @@ interface Props {
 
 function ItemList({ items }: { items: ParsedItem[] }) {
   return (
-    <ul className="space-y-2.5">
+    <ul className="divide-rule divide-y">
       {items.map((item, j) => (
         <li
           key={j}
-          className="flex items-start gap-3 text-sm leading-relaxed text-gray-600 dark:text-gray-400"
+          className="text-foreground flex items-start gap-3 py-2 text-sm leading-relaxed first:pt-0 last:pb-0"
         >
-          <span
-            className="mt-0.5 shrink-0 text-gray-300 dark:text-gray-700"
-            aria-hidden="true"
-          >
-            —
-          </span>
           <span className="flex-1">
             {item.scope && (
-              <span className="mr-2 inline-block rounded bg-gray-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-gray-500 md:text-xs dark:bg-gray-800 dark:text-gray-400">
+              <span className="bg-state border-rule text-muted-foreground rounded-control mr-2 inline-block border px-1.5 py-0.5 font-mono text-[10px] uppercase">
                 {item.scope}
               </span>
             )}
@@ -52,15 +47,9 @@ export function ChangelogSections({ sections }: Props) {
     const [sole] = sections;
     if (!sole) return null;
     return (
-      <div
-        data-toc-exclude
-        className="border-border bg-card/50 overflow-hidden rounded-xl border p-4"
-      >
-        <p className="mb-3 text-lg font-semibold text-gray-700 dark:text-gray-300">
-          {sole.group}
-        </p>
+      <Panel data-toc-exclude label={sole.group.toUpperCase()}>
         <ItemList items={sole.items} />
-      </div>
+      </Panel>
     );
   }
 
@@ -77,7 +66,7 @@ export function ChangelogSections({ sections }: Props) {
             icon={ChevronDown}
             iconAnimation="rotate"
           >
-            <span className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+            <span className="text-foreground text-sm font-semibold">
               {section.group}
             </span>
           </AccordionTrigger>

@@ -112,59 +112,37 @@ const jsonLd = {
   basePath="/"
 >
   <!-- Page header -->
-  <div slot="header" class="space-y-6 text-center md:text-left">
-    <p
-      class="text-xs font-black tracking-[0.3em] text-gray-400 uppercase dark:text-gray-500"
-    >
-      Development History
-    </p>
-    <h1
-      class="text-6xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
-    >
-      Changelog
+  <div slot="header" class="space-y-4 text-center md:text-left">
+    <p class="micro-label text-muted-foreground">DEVELOPMENT HISTORY</p>
+    <h1 class="text-foreground text-5xl leading-none font-bold tracking-tight md:text-7xl">
+      Changelog<span class="text-signal">.</span>
     </h1>
-    <p
-      class="mx-auto max-w-xl text-lg leading-relaxed text-gray-500 md:mx-0 dark:text-gray-400"
-    >
+    <p class="text-muted-foreground mx-auto max-w-xl text-lg leading-relaxed md:mx-0">
       Auto-generated from git commits. Every phase, every fix, every feature —
       in one place.
     </p>
-    {
-      lastUpdatedDate && (
-        <div class="inline-flex items-center gap-3 rounded-full border border-gray-100 bg-gray-50 px-4 py-2 shadow-sm dark:border-gray-800 dark:bg-gray-800/50">
-          <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-500" />
-          <p class="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500">
-            Last updated: {lastUpdatedDate}
-          </p>
+    <dl class="bg-panel border-rule rounded-card divide-rule inline-flex flex-wrap divide-x border text-left">
+      <div class="px-panel py-3">
+        <dd class="text-signal text-3xl font-light tabular-nums">
+          {entries.length}
+        </dd>
+        <dt class="micro-label text-muted-foreground">PHASES</dt>
+      </div>
+      <div class="px-panel py-3">
+        <dd class="text-signal text-3xl font-light tabular-nums">
+          {totalChanges}
+        </dd>
+        <dt class="micro-label text-muted-foreground">CHANGES</dt>
+      </div>
+      {lastUpdatedDate && (
+        <div class="px-panel py-3">
+          <dd class="text-foreground font-mono text-lg uppercase">
+            {lastUpdatedDate}
+          </dd>
+          <dt class="micro-label text-muted-foreground">LAST UPDATED</dt>
         </div>
-      )
-    }
-    <div
-      class="flex flex-wrap items-center justify-center gap-6 pt-2 md:justify-start"
-    >
-      <div>
-        <span
-          class="text-3xl font-black text-gray-900 tabular-nums dark:text-white"
-          >{entries.length}</span
-        >
-        <span
-          class="ml-1.5 text-xs font-black tracking-wider text-gray-400 uppercase"
-          >phases</span
-        >
-      </div>
-      <div class="h-4 w-px bg-gray-200 dark:bg-gray-800" aria-hidden="true">
-      </div>
-      <div>
-        <span
-          class="text-3xl font-black text-gray-900 tabular-nums dark:text-white"
-          >{totalChanges}</span
-        >
-        <span
-          class="ml-1.5 text-xs font-black tracking-wider text-gray-400 uppercase"
-          >changes</span
-        >
-      </div>
-    </div>
+      )}
+    </dl>
   </div>
 
   <!-- Timeline -->
