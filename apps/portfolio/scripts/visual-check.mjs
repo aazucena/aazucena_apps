@@ -1,6 +1,9 @@
 // Screenshots routes in both themes and two widths, and reports horizontal overflow.
 // Run from apps/portfolio with the dev server (pnpm web:dev) on :4321:
 //   node scripts/visual-check.mjs / /about
+// Flags:
+//   --with-preloader   keep the first-visit preloader (by default it is skipped by setting
+//                      sessionStorage 'portfolio-preloader-seen' so the page underneath is shot)
 // Exits 1 on horizontal overflow, failed navigation or an uncaught page exception, 2 when the
 // server can't be reached. Failed fetches and console errors are printed but do not fail the run.
 import { mkdirSync } from "node:fs";
@@ -13,6 +16,8 @@ const SIZES = [
   { width: 390, height: 844 },
 ];
 
+const flags = new Set(process.argv.slice(2).filter((a) => a.startsWith("--")));
+const withPreloader = flags.has("--with-preloader");
 const routes = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 if (routes.length === 0) {
   console.error("usage: node scripts/visual-check.mjs <route...>");
@@ -43,8 +48,13 @@ try {
           viewport: { width, height },
         });
         await context.addInitScript(
-          (t) => localStorage.setItem("aazucena-theme", t),
-          theme,
+          ({ t, skipPreloader }) => {
+            localStorage.setItem("aazucena-theme", t);
+            if (skipPreloader) {
+              sessionStorage.setItem("portfolio-preloader-seen", "true");
+            }
+          },
+          { t: theme, skipPreloader: !withPreloader },
         );
         const page = await context.newPage();
         const errors = [];
@@ -63,6 +73,13 @@ try {
         let failedNav = false;
         try {
           await page.goto(BASE + route, { waitUntil: "load" });
+          if (!withPreloader) {
+            // BrandIconLoader only lifts after brand-loader-complete; pages without async
+            // content wait for its 8s timeout, so release it here.
+            await page.evaluate(() =>
+              document.dispatchEvent(new CustomEvent("brand-loader-complete")),
+            );
+          }
           // Three.js and Pixi keep the network busy; wait for it briefly, then let scenes settle.
           await page
             .waitForLoadState("networkidle", { timeout: 8000 })
