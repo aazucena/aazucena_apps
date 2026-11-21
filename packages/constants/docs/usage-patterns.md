@@ -138,12 +138,10 @@ const duration = ANIMATION_TIMING.SECTION_TRANSITION;
 **Best for:** Related constants from same module.
 
 ```typescript
-import { AI_MODELS, AI_PRICING, SAVINGS_BASELINE_MODEL } from '@aazucena/constants';
+import { CLAUDE_MODELS, DEFAULT_CHAT_MODEL, priceFor } from '@aazucena/constants';
 
-function calculateAICost(model: string, inputTokens: number, outputTokens: number) {
-  const pricing = AI_PRICING[model] || AI_PRICING.default;
-  return (inputTokens / 1_000_000) * pricing.in + (outputTokens / 1_000_000) * pricing.out;
-}
+const defaultPrice = priceFor(DEFAULT_CHAT_MODEL);
+const labels = CLAUDE_MODELS.map((m) => `${m.name} · ${m.role}`);
 ```
 
 **Pros:**
@@ -327,13 +325,11 @@ function formatMetric(metric: MetricKey, value: number): string {
 **Use Case:** Derive values from base constants.
 
 ```typescript
-import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
+import { CLAUDE_MODELS } from '@aazucena/constants';
 
-// Compute model efficiency (tokens per dollar)
-const MODEL_EFFICIENCY = Object.entries(AI_PRICING).reduce(
-  (acc, [model, pricing]) => {
-    if (model === 'default') return acc;
-
+// Compute model efficiency (tokens per dollar) for the chat models
+const MODEL_EFFICIENCY = CLAUDE_MODELS.reduce(
+  (acc, { id: model, price: pricing }) => {
     const avgCostPer1M = (pricing.in + pricing.out) / 2;
     const tokensPerDollar = 1_000_000 / avgCostPer1M;
 
@@ -348,8 +344,8 @@ const MODEL_EFFICIENCY = Object.entries(AI_PRICING).reduce(
 );
 
 // Usage
-const efficiency = MODEL_EFFICIENCY[AI_MODELS.GEMINI_FLASH];
-console.log(`Gemini Flash: ${efficiency.tokensPerDollar.toLocaleString()} tokens/$`);
+const efficiency = MODEL_EFFICIENCY['anthropic/claude-haiku-5.5'];
+console.log(`Haiku 5.5: ${efficiency.tokensPerDollar.toLocaleString()} tokens/$`);
 ```
 
 ---
@@ -493,22 +489,21 @@ const themeKey = STORAGE_KEYS.THEME; // "aazucena-theme"
 function calculateTokenCost(model: string, tokens: number): number {
   let pricePerMillion: number;
 
-  if (model === 'openai/gpt-4o') {
-    pricePerMillion = 5.0;
-  } else if (model === 'anthropic/claude-3-5-sonnet') {
-    pricePerMillion = 3.0;
+  if (model === 'anthropic/claude-sonnet-5.5') {
+    pricePerMillion = 2.0;
+  } else if (model === 'anthropic/claude-haiku-5.5') {
+    pricePerMillion = 0.1;
   }
   // ... more conditions
 
   return (tokens / 1_000_000) * pricePerMillion;
 }
 
-// ✅ GOOD - Use pricing constant
-import { AI_PRICING } from '@aazucena/constants';
+// ✅ GOOD - Use the shared cost function (prices come from the catalogue)
+import { calculateAiCost } from '@aazucena/utils';
 
 function calculateTokenCost(model: string, tokens: number): number {
-  const pricing = AI_PRICING[model] || AI_PRICING.default;
-  return (tokens / 1_000_000) * pricing.in; // Input tokens
+  return calculateAiCost(model, tokens, 0); // Input tokens
 }
 ```
 
@@ -541,7 +536,7 @@ const customCounts = {
 **Pattern:** Use constants to generate complex objects.
 
 ```typescript
-import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
+import { CLAUDE_MODELS, priceFor } from '@aazucena/constants';
 
 interface ModelMetadata {
   provider: string;
@@ -552,7 +547,7 @@ interface ModelMetadata {
 }
 
 function createModelMetadata(modelKey: string): ModelMetadata {
-  const pricing = AI_PRICING[modelKey];
+  const pricing = priceFor(modelKey);
   const [provider, model] = modelKey.split('/');
 
   return {
@@ -565,9 +560,7 @@ function createModelMetadata(modelKey: string): ModelMetadata {
 }
 
 // Generate metadata for all models
-const allModels = Object.keys(AI_MODELS).map((key) =>
-  createModelMetadata(AI_MODELS[key as keyof typeof AI_MODELS]),
-);
+const allModels = CLAUDE_MODELS.map((m) => createModelMetadata(m.id));
 ```
 
 ---

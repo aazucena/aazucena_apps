@@ -419,84 +419,53 @@ localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
 
 ## 🤖 AI
 
-**File:** `ai.ts` (45 lines)
-**Purpose:** AI/ML model registry, pricing (per 1M tokens), neural map configuration
+**Files:** `ai.ts`, `ai-models.ts`
+**Purpose:** the Claude model catalogue, the AI price table (USD per 1M tokens), neural map
+configuration. Prices are checked against the Vercel AI Gateway model list.
 
-### AI_MODELS
+### CLAUDE_MODELS
 
-```typescript
-export const AI_MODELS = {
-  BRAIN: 'local/brain',
-  GPT_4O: 'openai/gpt-4o',
-  GPT_4O_MINI: 'openai/gpt-4o-mini',
-  GPT_4_TURBO: 'openai/gpt-4-turbo',
-  CLAUDE_3_SONNET: 'anthropic/claude-3-5-sonnet',
-  CLAUDE_3_OPUS: 'anthropic/claude-3-opus',
-  CLAUDE_3_HAIKU: 'anthropic/claude-3-haiku',
-  GEMINI_PRO: 'google/gemini-1.5-pro',
-  GEMINI_FLASH: 'google/gemini-1.5-flash',
-} as const;
-```
+The chat models the apps offer, in role order.
 
-**Model Categories:**
+| ID                            | Name              | Role    | Input | Output |
+| ----------------------------- | ----------------- | ------- | ----- | ------ |
+| `anthropic/claude-opus-5.5`   | Claude Opus 5.5   | deep    | 4.00  | 20.00  |
+| `anthropic/claude-sonnet-5.5` | Claude Sonnet 5.5 | default | 2.00  | 10.00  |
+| `anthropic/claude-haiku-5.5`  | Claude Haiku 5.5  | fast    | 0.10  | 0.50   |
 
-- **Local:** BRAIN (on-device inference)
-- **OpenAI:** GPT-4o, GPT-4o Mini, GPT-4 Turbo
-- **Anthropic:** Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku
-- **Google:** Gemini 1.5 Pro, Gemini 1.5 Flash
+`DEFAULT_CHAT_MODEL` is Sonnet 5.5. `isChatModel(id)` checks an id against this list; the
+analytics chat route rejects anything else.
 
 ---
 
-### AI_PRICING
+### MODEL_PRICES, priceFor, isPriced
 
-```typescript
-export const AI_PRICING = {
-  [AI_MODELS.GPT_4O]: { in: 5.0, out: 15.0 },
-  [AI_MODELS.GPT_4O_MINI]: { in: 0.15, out: 0.6 },
-  [AI_MODELS.GPT_4_TURBO]: { in: 10.0, out: 30.0 },
-  [AI_MODELS.CLAUDE_3_SONNET]: { in: 3.0, out: 15.0 },
-  [AI_MODELS.CLAUDE_3_OPUS]: { in: 15.0, out: 75.0 },
-  [AI_MODELS.CLAUDE_3_HAIKU]: { in: 0.25, out: 1.25 },
-  [AI_MODELS.GEMINI_PRO]: { in: 3.5, out: 10.5 },
-  [AI_MODELS.GEMINI_FLASH]: { in: 0.075, out: 0.3 },
-  default: { in: 0, out: 0 },
-} as const;
-```
-
-**Pricing per 1,000,000 (1M) tokens in USD:**
-
-- `in` - Input tokens cost
-- `out` - Output tokens cost
-
-**Cost Comparison:**
-
-- **Most Expensive:** Claude 3 Opus ($15/$75 per 1M)
-- **Mid-Tier:** GPT-4o ($5/$15), Claude 3.5 Sonnet ($3/$15), Gemini Pro ($3.5/$10.5)
-- **Budget:** GPT-4o Mini ($0.15/$0.6), Claude 3 Haiku ($0.25/$1.25), Gemini Flash ($0.075/$0.3)
+`MODEL_PRICES` holds the catalogue plus retired models (Claude 4.x and 3.x, OpenAI, Google, Voyage
+embeddings, `local/brain`), so stored history still gets a cost. Retired models are priced, never
+offered. `priceFor(model)` looks an id up case-insensitively and returns `{ in: 0, out: 0 }` for an
+unknown id; `isPriced(model)` tells you whether it was known.
 
 **Example:**
 
 ```typescript
-import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
+import { DEFAULT_CHAT_MODEL } from '@aazucena/constants';
+import { calculateAiCost } from '@aazucena/utils';
 
-function calculateCost(model: string, inputTokens: number, outputTokens: number): number {
-  const pricing = AI_PRICING[model] || AI_PRICING.default;
-  return (inputTokens / 1_000_000) * pricing.in + (outputTokens / 1_000_000) * pricing.out;
-}
-
-const cost = calculateCost(AI_MODELS.CLAUDE_3_SONNET, 500_000, 250_000);
-console.log(`Cost: $${cost.toFixed(4)}`); // Cost: $5.2500
+const cost = calculateAiCost(DEFAULT_CHAT_MODEL, 500_000, 250_000);
+console.log(`Cost: $${cost.toFixed(4)}`); // Cost: $3.5000
 ```
+
+**Adding a model:** add it to `CLAUDE_MODELS` in `src/ai-models.ts` with its gateway id and price.
+The catalogue test in `packages/utils/src/__tests__/ai-models.test.ts` checks it is priced.
+`services/intel-engine` (Python) sets its own model (`claude-haiku-4-5-20251001`) outside the
+catalogue.
 
 ---
 
 ### SAVINGS_BASELINE_MODEL
 
-```typescript
-export const SAVINGS_BASELINE_MODEL = AI_MODELS.GPT_4O;
-```
-
-**Use Case:** Calculate savings by comparing actual usage against GPT-4o baseline.
+`anthropic/claude-opus-5.5`. "Savings" compare actual cost with what the same tokens would have
+cost on the deep tier; `calculateAiSavings` in `@aazucena/utils` never returns less than 0.
 
 ---
 

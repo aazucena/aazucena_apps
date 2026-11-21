@@ -92,16 +92,16 @@ const transitionDuration = ANIMATION_TIMING.SECTION_TRANSITION; // 1000ms
 
 ```typescript
 import {
-  AI_MODELS,
-  AI_PRICING,
+  DEFAULT_CHAT_MODEL,
+  priceFor,
   SENTINEL_THRESHOLDS,
   ATMOSPHERIC_COLORS,
   PARTICLE_PRESETS,
 } from '@aazucena/constants';
 
 // Configure AI model
-const model = AI_MODELS.CLAUDE_3_SONNET; // "anthropic/claude-3-5-sonnet"
-const pricing = AI_PRICING[model]; // { in: 3.0, out: 15.0 }
+const model = DEFAULT_CHAT_MODEL; // "anthropic/claude-sonnet-5.5"
+const pricing = priceFor(model); // { in: 2.0, out: 10.0 }
 console.log(`Model: ${model} | Input: $${pricing.in}/1M | Output: $${pricing.out}/1M`);
 
 // Check health thresholds
@@ -409,66 +409,48 @@ localStorage.removeItem(STORAGE_KEYS.TERMINAL_HISTORY);
 
 ---
 
-### 4. ai.ts (45 lines)
+### 4. ai.ts and ai-models.ts
 
-**Purpose:** AI/ML model registry, pricing (per 1M tokens), and neural map configuration.
+**Purpose:** the Claude model catalogue (the chat models the apps offer), the price table every AI
+cost is computed from, and neural map configuration. Prices are USD per 1,000,000 tokens, checked
+against the Vercel AI Gateway model list (`https://ai-gateway.vercel.sh/v1/models`).
+
+**Chat models (`CLAUDE_MODELS`):**
+
+| ID                            | Name              | Role    | Input | Output |
+| ----------------------------- | ----------------- | ------- | ----- | ------ |
+| `anthropic/claude-opus-5.5`   | Claude Opus 5.5   | deep    | 4.00  | 20.00  |
+| `anthropic/claude-sonnet-5.5` | Claude Sonnet 5.5 | default | 2.00  | 10.00  |
+| `anthropic/claude-haiku-5.5`  | Claude Haiku 5.5  | fast    | 0.10  | 0.50   |
 
 **Key Exports:**
 
-```typescript
-export const AI_MODELS = {
-  BRAIN: 'local/brain',
-  GPT_4O: 'openai/gpt-4o',
-  GPT_4O_MINI: 'openai/gpt-4o-mini',
-  GPT_4_TURBO: 'openai/gpt-4-turbo',
-  CLAUDE_3_SONNET: 'anthropic/claude-3-5-sonnet',
-  CLAUDE_3_OPUS: 'anthropic/claude-3-opus',
-  CLAUDE_3_HAIKU: 'anthropic/claude-3-haiku',
-  GEMINI_PRO: 'google/gemini-1.5-pro',
-  GEMINI_FLASH: 'google/gemini-1.5-flash',
-} as const;
+- `CLAUDE_MODELS`, `ChatModelId`, `ModelRole`, `ModelPrice`
+- `DEFAULT_CHAT_MODEL` (`anthropic/claude-sonnet-5.5`)
+- `SAVINGS_BASELINE_MODEL` (`anthropic/claude-opus-5.5`): savings are measured against the deep tier
+- `MODEL_PRICES`: the catalogue plus retired models (Claude 4.x and 3.x, OpenAI, Google, Voyage
+  embeddings), so history still gets a cost. Retired models are priced, never offered.
+- `isChatModel(id)`, `priceFor(model)` (case-insensitive; unknown ids cost 0), `isPriced(model)`
+- `NEURAL_MAP_FALLBACK_NODES`
 
-// Pricing per 1,000,000 (1M) tokens in USD
-export const AI_PRICING = {
-  [AI_MODELS.GPT_4O]: { in: 5.0, out: 15.0 },
-  [AI_MODELS.GPT_4O_MINI]: { in: 0.15, out: 0.6 },
-  [AI_MODELS.CLAUDE_3_SONNET]: { in: 3.0, out: 15.0 },
-  [AI_MODELS.CLAUDE_3_OPUS]: { in: 15.0, out: 75.0 },
-  [AI_MODELS.GEMINI_PRO]: { in: 3.5, out: 10.5 },
-  [AI_MODELS.GEMINI_FLASH]: { in: 0.075, out: 0.3 },
-  default: { in: 0, out: 0 },
-} as const;
+Cost maths lives in `@aazucena/utils`: `calculateAiCost(model, inputTokens, outputTokens)` and
+`calculateAiSavings(...)`. The analytics chat route accepts only catalogue ids (`resolveChatModel`
+in `@aazucena/utils`).
 
-export const SAVINGS_BASELINE_MODEL = AI_MODELS.GPT_4O;
-
-export const NEURAL_MAP_FALLBACK_NODES = [
-  { id: 'analyze_intent', label: 'Intent_Analysis' },
-  { id: 'expert_dispatcher', label: 'Expert_Dispatcher' },
-  { id: 'retrieve_knowledge', label: 'Knowledge_RAG' },
-  { id: 'generate_response', label: 'Cognitive_Gen' },
-  { id: 'validate_response', label: 'Truth_Validator' },
-] as const;
-```
-
-**Use Cases:**
-
-- Calculate AI cost estimates
-- Compare model pricing
-- Configure neural map visualization (Trajectory Labs)
-- Track AI spending against baseline
+**Adding a model:** add it to `CLAUDE_MODELS` in `src/ai-models.ts` with its gateway id and the
+price from the gateway list. The catalogue test (`packages/utils/src/__tests__/ai-models.test.ts`)
+checks that every catalogue model is priced. `services/intel-engine` (Python) sets its own model
+(`claude-haiku-4-5-20251001`) outside this catalogue.
 
 **Example:**
 
 ```typescript
-import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
+import { CLAUDE_MODELS, DEFAULT_CHAT_MODEL } from '@aazucena/constants';
+import { calculateAiCost } from '@aazucena/utils';
 
-function calculateCost(model: string, inputTokens: number, outputTokens: number): number {
-  const pricing = AI_PRICING[model] || AI_PRICING.default;
-  return (inputTokens / 1_000_000) * pricing.in + (outputTokens / 1_000_000) * pricing.out;
-}
-
-const cost = calculateCost(AI_MODELS.CLAUDE_3_SONNET, 500_000, 250_000);
-console.log(`Cost: $${cost.toFixed(4)}`); // Cost: $5.2500
+const cost = calculateAiCost(DEFAULT_CHAT_MODEL, 500_000, 250_000);
+console.log(`Cost: $${cost.toFixed(4)}`); // Cost: $3.5000
+const options = CLAUDE_MODELS.map((m) => `${m.name} · ${m.role}`);
 ```
 
 ---
@@ -623,11 +605,11 @@ console.log(`Alert: ${status} ($3.20 > $${SENTINEL_THRESHOLDS.AI_COST_DAILY.WARN
 ### Pattern 1: Constant Lookup
 
 ```typescript
-import { ROUTES, AI_MODELS, STORAGE_KEYS } from '@aazucena/constants';
+import { ROUTES, DEFAULT_CHAT_MODEL, STORAGE_KEYS } from '@aazucena/constants';
 
 // Direct property access
 const homeUrl = ROUTES.PORTFOLIO.HOME; // "/"
-const model = AI_MODELS.CLAUDE_3_SONNET; // "anthropic/claude-3-5-sonnet"
+const model = DEFAULT_CHAT_MODEL; // "anthropic/claude-sonnet-5.5"
 const themeKey = STORAGE_KEYS.THEME; // "aazucena-theme"
 ```
 
@@ -718,7 +700,7 @@ function Navigation() {
 ### Example 2: AI Cost Calculator
 
 ```typescript
-import { AI_MODELS, AI_PRICING, SAVINGS_BASELINE_MODEL } from '@aazucena/constants';
+import { calculateAiCost, calculateAiSavings } from '@aazucena/utils';
 
 interface UsageRecord {
   model: string;
@@ -726,39 +708,23 @@ interface UsageRecord {
   outputTokens: number;
 }
 
-function calculateTotalCost(records: UsageRecord[]): number {
-  return records.reduce((total, record) => {
-    const pricing = AI_PRICING[record.model] || AI_PRICING.default;
-    const cost =
-      (record.inputTokens / 1_000_000) * pricing.in +
-      (record.outputTokens / 1_000_000) * pricing.out;
-    return total + cost;
-  }, 0);
-}
-
-function calculateSavings(records: UsageRecord[]): number {
-  const actualCost = calculateTotalCost(records);
-
-  // Calculate what it would cost with baseline model (GPT-4o)
-  const baselinePricing = AI_PRICING[SAVINGS_BASELINE_MODEL];
-  const baselineCost = records.reduce((total, record) => {
-    const cost =
-      (record.inputTokens / 1_000_000) * baselinePricing.in +
-      (record.outputTokens / 1_000_000) * baselinePricing.out;
-    return total + cost;
-  }, 0);
-
-  return baselineCost - actualCost;
-}
-
-// Usage
 const usage: UsageRecord[] = [
-  { model: AI_MODELS.CLAUDE_3_HAIKU, inputTokens: 500_000, outputTokens: 200_000 },
-  { model: AI_MODELS.GEMINI_FLASH, inputTokens: 1_000_000, outputTokens: 500_000 },
+  { model: 'anthropic/claude-haiku-5.5', inputTokens: 500_000, outputTokens: 200_000 },
+  { model: 'anthropic/claude-sonnet-5.5', inputTokens: 1_000_000, outputTokens: 500_000 },
 ];
 
-console.log(`Total cost: $${calculateTotalCost(usage).toFixed(4)}`);
-console.log(`Savings vs GPT-4o: $${calculateSavings(usage).toFixed(4)}`);
+const total = usage.reduce(
+  (sum, r) => sum + calculateAiCost(r.model, r.inputTokens, r.outputTokens),
+  0,
+);
+// Savings are measured against SAVINGS_BASELINE_MODEL (Claude Opus 5.5) and never go below 0
+const savings = usage.reduce(
+  (sum, r) => sum + calculateAiSavings(r.model, r.inputTokens, r.outputTokens),
+  0,
+);
+
+console.log(`Total cost: $${total.toFixed(4)}`);
+console.log(`Savings vs Opus 5.5: $${savings.toFixed(4)}`);
 ```
 
 ---
@@ -834,7 +800,7 @@ const snowParticles = initializeParticleSystem('snow');
 
 ```typescript
 // ✅ GOOD - Named imports (tree-shakeable)
-import { ROUTES, STORAGE_KEYS, AI_MODELS } from '@aazucena/constants';
+import { ROUTES, STORAGE_KEYS, CLAUDE_MODELS } from '@aazucena/constants';
 
 // ❌ BAD - Namespace import (includes entire module)
 import * as Constants from '@aazucena/constants';
