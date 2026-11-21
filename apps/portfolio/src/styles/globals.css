@@ -74,3 +74,8 @@
       var(--animation-direction, forwards) linear infinite;
   }
 }
+
+/* Logos are designed for a white plate in both themes. */
+:root {
+  --logo-plate: #fff;
+}

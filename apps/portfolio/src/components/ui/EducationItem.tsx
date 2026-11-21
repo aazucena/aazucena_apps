@@ -69,7 +69,7 @@ export function EducationItem({ edu }: EducationItemProps) {
         <div className="mb-2 flex items-start gap-4">
           {/* Institution Logo */}
           <div
-            className={`rounded-control border-rule flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden border font-mono ${edu.institutionLogoUrl ? "bg-white" : "bg-state text-signal text-xs"}`}
+            className={`rounded-control border-rule flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden border font-mono ${edu.institutionLogoUrl ? "bg-(--logo-plate)" : "bg-state text-signal text-xs"}`}
           >
             {edu.institutionLogoUrl ? (
               <img

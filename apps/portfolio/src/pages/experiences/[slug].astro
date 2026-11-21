@@ -123,7 +123,9 @@ const breadcrumbs = [
       <div
         class:list={[
           "rounded-card border-rule flex size-16 shrink-0 items-center justify-center overflow-hidden border font-mono text-lg",
-          experience.companyLogo?.url ? "bg-white" : "bg-state text-signal",
+          experience.companyLogo?.url
+            ? "bg-(--logo-plate)"
+            : "bg-state text-signal",
         ]}
       >
         {experience.companyLogo?.url ? (

@@ -47,7 +47,7 @@ export function CompanyLogo({
 
   return (
     <div
-      className={`rounded-control border-rule flex flex-shrink-0 items-center justify-center overflow-hidden border font-mono ${hasLogo ? "bg-white" : "bg-state text-signal"} ${sizeClass} ${className}`}
+      className={`rounded-control border-rule flex flex-shrink-0 items-center justify-center overflow-hidden border font-mono ${hasLogo ? "bg-(--logo-plate)" : "bg-state text-signal"} ${sizeClass} ${className}`}
     >
       {companyLogo?.url ? (
         <img

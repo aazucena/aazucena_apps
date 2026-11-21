@@ -83,15 +83,7 @@ const PENDING: string[] = [
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */
-const SCENE_EXEMPT: Record<string, string> = {
-  'components/ui/EducationItem.tsx':
-    'brand mark: white plate behind institution logos (bg-white only)',
-  'components/ui/experience/CompanyLogo.tsx':
-    'brand mark: white plate behind company logos (bg-white only)',
-  'pages/experiences/[slug].astro':
-    'brand mark: white plate behind the company logo (bg-white only)',
-  'pages/experiences/index.astro': 'brand mark: white plate behind company logos (bg-white only)',
-};
+const SCENE_EXEMPT: Record<string, string> = {};
 
 function sourceFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
