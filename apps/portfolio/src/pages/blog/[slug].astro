@@ -145,6 +145,49 @@ const jsonLd = {
           <BrandLinkedin size={16} aria-hidden="true" />
         </a>
       </div>
+      <button
+        type="button"
+        id="copy-link"
+        data-url={postUrl}
+        class="micro-label text-signal hover:text-foreground rounded-control focus-visible:outline-signal px-2 py-1 transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+      >
+        Copy link
+      </button>
+      <a
+        href="/rss.xml"
+        rel="alternate"
+        type="application/rss+xml"
+        class="micro-label text-signal hover:text-foreground rounded-control focus-visible:outline-signal px-2 py-1 transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+      >
+        RSS
+      </a>
+      <span
+        id="copy-link-status"
+        role="status"
+        aria-live="polite"
+        class="micro-label text-muted-foreground"
+      ></span>
     </div>
   </Fragment>
 </DetailLayout>
+
+<script>
+  const button = document.getElementById("copy-link");
+  const status = document.getElementById("copy-link-status");
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  button?.addEventListener("click", async () => {
+    const url = button.dataset.url ?? window.location.href;
+    let message = "Link copied";
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      message = "Copy failed";
+    }
+    if (!status) return;
+    status.textContent = message;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      status.textContent = "";
+    }, 2000);
+  });
+</script>

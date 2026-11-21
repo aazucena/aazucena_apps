@@ -51,6 +51,7 @@ type QuoteNode = {
 
 type CodeNode = {
   type: "code";
+  language?: string;
   children: TextNode[];
 };
 
@@ -194,7 +195,9 @@ function renderBlock(block: BlockNode, index: number): JSX.Element | null {
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
           tabIndex={0}
           role="region"
-          aria-label="Code sample"
+          aria-label={
+            block.language ? `Code sample, ${block.language}` : "Code sample"
+          }
           className="border-rule bg-state rounded-control focus-visible:outline-signal mb-4 overflow-x-auto border p-4 focus-visible:outline-1"
         >
           <code className="text-foreground font-mono text-sm">
