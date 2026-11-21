@@ -5,8 +5,8 @@ const props: BaseLayoutProps = Astro.props;
 ---
 
 <BaseLayout {...props}>
-  {/* The homepage is always dark: this wrapper binds its content to the dark tokens, whatever <html> says. */}
-  <div class="dark bg-background text-foreground min-h-screen">
+  {/* The homepage is always dark: this wrapper only scopes the dark tokens (no background, so the scene shows), whatever <html> says. */}
+  <div class="dark">
     <slot />
   </div>
 </BaseLayout>
