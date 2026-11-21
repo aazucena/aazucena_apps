@@ -30,6 +30,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Rin announces only the finished reply
 - _(portfolio)_ Homepage text and body follow the dark tokens
 - _(portfolio)_ Blocks code renderer type-checks
 - _(ui)_ Preloaders follow the resolved theme and release the body background
