@@ -46,6 +46,14 @@ describe('Claude model catalogue', () => {
     expect(isPriced('mystery/model')).toBe(false);
   });
 
+  it('treats object-prototype names as unknown models', () => {
+    for (const id of ['constructor', '__proto__', 'toString', 'hasOwnProperty']) {
+      expect(isPriced(id)).toBe(false);
+      expect(priceFor(id)).toEqual({ in: 0, out: 0 });
+      expect(calculateAiCost(id, 1e6, 1e6)).toBe(0);
+    }
+  });
+
   it('calculates cost per million tokens', () => {
     expect(calculateAiCost('anthropic/claude-sonnet-5.5', 1_000_000, 500_000)).toBe(7);
   });

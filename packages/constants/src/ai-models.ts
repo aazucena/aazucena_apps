@@ -101,11 +101,18 @@ export function isChatModel(id: unknown): id is ChatModelId {
 
 const FREE: ModelPrice = { in: 0, out: 0 };
 
+/** Own-property check, so names like `constructor` or `__proto__` are unknown, not inherited. */
+function knownKey(model: string): string | null {
+  const key = (model ?? '').toLowerCase();
+  return Object.hasOwn(MODEL_PRICES, key) ? key : null;
+}
+
 /** Price for a model id (case-insensitive); unknown ids cost nothing. */
 export function priceFor(model: string): ModelPrice {
-  return MODEL_PRICES[(model ?? '').toLowerCase()] ?? FREE;
+  const key = knownKey(model);
+  return key === null ? FREE : MODEL_PRICES[key]!;
 }
 
 export function isPriced(model: string): boolean {
-  return (model ?? '').toLowerCase() in MODEL_PRICES;
+  return knownKey(model) !== null;
 }
