@@ -1,6 +1,8 @@
 ---
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex -- scrollable debug pane must be keyboard-focusable */
 import PageLayout from "~/layouts/PageLayout.astro";
-import { Home, Refresh, DangerCircle, Terminal } from "@aazucena/icons";
+import { Home, Refresh } from "@aazucena/icons";
+import { Badge, buttonVariants } from "@aazucena/ui";
 
 export const prerender = false;
 
@@ -17,161 +19,72 @@ const { error } = Astro.props;
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
-  <main
-    class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white text-center dark:bg-gray-950"
-  >
-    <!-- Immersive Background Decoration -->
-    <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <div
-        class="absolute -top-[10%] -left-[10%] h-[70%] w-[70%] animate-pulse rounded-full bg-red-500/10 blur-[120px] dark:bg-red-600/5"
-      >
-      </div>
-      <div
-        class="absolute -right-[10%] -bottom-[10%] h-[70%] w-[70%] animate-pulse rounded-full bg-orange-500/10 blur-[120px] dark:bg-orange-600/5"
-        style="animation-delay: 2s;"
-      >
-      </div>
+  <main class="bg-background relative flex min-h-screen flex-col items-center justify-center overflow-hidden text-center">
+    <div class="relative z-10 mx-auto max-w-xl px-4 py-16 sm:px-6 lg:px-8">
+      <p class="micro-label text-muted-foreground mb-8">SYSTEM // FAULT</p>
 
-      <!-- Glitchy Watermark Background -->
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] select-none dark:opacity-[0.07]"
-      >
-        <span
-          class="animate-glitch text-[25rem] font-black tracking-tighter uppercase italic"
-          >ERROR</span
-        >
-      </div>
-    </div>
-
-    <div class="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <!-- 500 Visual -->
-      <div class="group relative mb-16 inline-block">
-        <div
-          class="absolute inset-0 scale-125 rounded-full bg-red-600/20 opacity-0 blur-[80px] transition-opacity duration-1000 group-hover:opacity-100"
-        >
-        </div>
-        <h1
-          class="text-[12rem] leading-none font-black tracking-tighter text-gray-900 drop-shadow-2xl md:text-[18rem] dark:text-white"
-        >
-          500
-        </h1>
-        <div
-          class="absolute -bottom-4 left-1/2 -translate-x-1/2 rotate-[2deg] rounded-full border border-red-500/30 bg-red-700 px-6 py-2 text-sm font-bold tracking-[0.2em] whitespace-nowrap text-white uppercase shadow-xl shadow-red-900/20 dark:bg-red-600"
-        >
-          System Malfunction
-        </div>
+      <h1 class="text-signal font-mono text-[9rem] leading-none font-light tracking-widest md:text-[14rem]">
+        500
+      </h1>
+      <div class="mt-8 flex justify-center">
+        <Badge variant="destructive">System Malfunction</Badge>
       </div>
 
       <!-- Error Message -->
-      <div class="mb-16 space-y-6">
-        <h2
-          class="text-4xl font-black tracking-tight text-gray-900 md:text-6xl dark:text-white"
-        >
-          Critical <br class="hidden md:block" /><span
-            class="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent"
-            >Core Failure.</span
-          >
+      <div class="mt-8 mb-12 space-y-4">
+        <h2 class="text-foreground text-4xl font-bold tracking-tight md:text-5xl">
+          Critical <br class="hidden md:block" />
+          <span class="text-signal">Core Failure.</span>
         </h2>
-        <p
-          class="mx-auto max-w-md text-xl leading-relaxed font-medium text-gray-600 dark:text-gray-400"
-        >
+        <p class="text-muted-foreground mx-auto max-w-md text-lg leading-relaxed">
           Something went wrong deep within the system. We're working on
           stabilizing the core.
         </p>
       </div>
 
       <!-- Error Detail (DEV ONLY) -->
-      {
-        import.meta.env.DEV && error && (
-          <div class="mb-12 max-h-64 overflow-auto rounded-[1.5rem] border border-gray-100 bg-gray-50 p-6 text-left dark:border-gray-800 dark:bg-gray-900">
-            <div class="mb-4 flex items-center gap-2 text-red-500">
-              <Terminal size={16} />
-              <span class="text-[10px] font-black tracking-widest uppercase">
-                Debug Info
-              </span>
-            </div>
-            <pre class="font-mono text-xs text-gray-600 dark:text-gray-400">
+      {import.meta.env.DEV && error && (
+        <div
+          aria-label="Debug info"
+          role="region"
+          tabindex="0"
+          class="bg-panel border-rule rounded-card focus-visible:outline-signal mb-12 max-h-64 overflow-auto border p-4 text-left focus-visible:outline-1 focus-visible:outline-offset-2"
+        >
+          <p class="micro-label text-alert mb-3">▲ DEBUG INFO</p>
+          <pre class="text-muted-foreground font-mono text-xs">
               {error instanceof Error
                 ? error.stack
                 : JSON.stringify(error, null, 2)}
             </pre>
-          </div>
-        )
-      }
+        </div>
+      )}
 
       <!-- Action Buttons -->
-      <div
-        class="mb-24 flex flex-col items-center justify-center gap-4 sm:flex-row"
-      >
+      <div class="mb-16 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <button
           onclick="window.location.reload()"
-          class="group inline-flex items-center justify-center gap-3 rounded-[1.5rem] bg-gray-900 px-10 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl transition-all hover:bg-red-600 active:scale-95 dark:bg-white dark:text-gray-900 dark:hover:bg-red-50"
+          class={buttonVariants({ variant: "default" })}
         >
-          <Refresh
-            size={18}
-            className="transition-transform duration-700 group-hover:rotate-180"
-          />
+          <Refresh size={16} />
           Reboot System
         </button>
-        <a
-          href="/"
-          class="group inline-flex items-center justify-center gap-3 rounded-[1.5rem] border border-gray-200 bg-white px-10 py-5 text-xs font-black tracking-[0.2em] text-gray-900 uppercase shadow-sm transition-all hover:bg-gray-50 active:scale-95 dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
-        >
-          <Home
-            size={18}
-            className="transition-transform group-hover:-translate-y-0.5"
-          />
+        <a href="/" class={buttonVariants({ variant: "outline" })}>
+          <Home size={16} />
           Safe Harbor
         </a>
       </div>
 
       <!-- Support Status -->
-      <div class="border-t border-gray-100 pt-12 dark:border-gray-900">
-        <div class="mb-4 flex items-center justify-center gap-3">
-          <DangerCircle size={16} className="animate-pulse text-red-500" />
-          <h3
-            class="text-[10px] font-black tracking-[0.4em] text-gray-400 uppercase dark:text-gray-500"
-          >
-            Incident Monitoring Active
-          </h3>
-        </div>
-        <p
-          class="mx-auto max-w-xs text-[10px] font-medium tracking-[0.2em] text-gray-400 uppercase dark:text-gray-600"
-        >
+      <div>
+        <p class="micro-label text-muted-foreground mb-3">
+          INCIDENT // MONITORING ACTIVE
+        </p>
+        <p class="text-muted-foreground mx-auto max-w-xs text-xs leading-relaxed">
           Automated logs have been dispatched to the engineering deck for
           immediate analysis.
         </p>
       </div>
     </div>
   </main>
-
-  <style>
-    @keyframes glitch {
-      0% {
-        transform: translate(0);
-      }
-      20% {
-        transform: translate(-5px, 5px);
-      }
-      40% {
-        transform: translate(-5px, -5px);
-      }
-      60% {
-        transform: translate(5px, 5px);
-      }
-      80% {
-        transform: translate(5px, -5px);
-      }
-      100% {
-        transform: translate(0);
-      }
-    }
-    .animate-glitch {
-      animation: glitch 1s linear infinite;
-      animation-play-state: paused;
-    }
-    .group:hover .animate-glitch {
-      animation-play-state: running;
-    }
-  </style>
 </PageLayout>

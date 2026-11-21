@@ -1,5 +1,6 @@
 ---
-import { ArrowLeft, Compass, Home } from "@aazucena/icons";
+import { ArrowLeft, Home } from "@aazucena/icons";
+import { Badge, buttonVariants } from "@aazucena/ui";
 import PageLayout from "~/layouts/PageLayout.astro";
 
 const pageTitle = "404 - Page Not Found";
@@ -8,142 +9,67 @@ const pageDescription =
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
-  <main
-    class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white dark:bg-gray-950"
-  >
-    <!-- Immersive Background Decoration -->
-    <div
-      class="pointer-events-none absolute inset-0 z-0 overflow-hidden text-gray-100 dark:text-gray-900/20"
-    >
-      <div
-        class="absolute -top-[10%] -left-[10%] h-[70%] w-[70%] animate-pulse rounded-full bg-blue-500/10 blur-[120px] dark:bg-blue-600/5"
-      >
-      </div>
-      <div
-        class="absolute -right-[10%] -bottom-[10%] h-[70%] w-[70%] animate-pulse rounded-full bg-purple-500/10 blur-[120px] dark:bg-purple-600/5"
-        style="animation-delay: 2s;"
-      >
-      </div>
+  <main class="bg-background relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
+    <div class="relative z-10 mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
+      <p class="micro-label text-muted-foreground mb-8">LOST // SIGNAL</p>
 
-      <!-- Watermark Background -->
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] select-none dark:opacity-[0.07]"
-      >
-        <span class="text-[30rem] font-black tracking-tighter uppercase italic"
-          >LOST</span
-        >
-      </div>
-    </div>
-
-    <div
-      class="relative z-10 mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8"
-    >
       <!-- 404 Visual -->
-      <div class="group relative mb-16 inline-block">
-        <div
-          class="absolute inset-0 scale-125 rounded-full bg-blue-600/20 opacity-0 blur-[80px] transition-opacity duration-1000 group-hover:opacity-100"
-        >
-        </div>
-        <h1
-          class="text-[12rem] leading-none font-black tracking-tighter text-gray-900 drop-shadow-2xl md:text-[18rem] dark:text-white"
-        >
-          404
-        </h1>
-        <div
-          class="absolute -bottom-4 left-1/2 -translate-x-1/2 rotate-[-2deg] rounded-full bg-blue-600 px-6 py-2 text-xs font-black tracking-[0.3em] text-white uppercase shadow-xl"
-        >
-          Drifted Out of Orbit
-        </div>
+      <h1 class="text-signal font-mono text-[9rem] leading-none font-light tracking-widest md:text-[14rem]">
+        404
+      </h1>
+      <div class="mt-8 flex justify-center">
+        <Badge variant="destructive">Drifted Out of Orbit</Badge>
       </div>
 
       <!-- Error Message -->
-      <div class="mb-16 space-y-6">
-        <h2
-          class="text-4xl font-black tracking-tight text-gray-900 md:text-6xl dark:text-white"
-        >
-          Houston, we have <br class="hidden md:block" /><span
-            class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-            >a problem.</span
-          >
+      <div class="mt-8 mb-12 space-y-4">
+        <h2 class="text-foreground text-4xl font-bold tracking-tight md:text-5xl">
+          Houston, we have <br class="hidden md:block" />
+          <span class="text-signal">a problem.</span>
         </h2>
-        <p
-          class="mx-auto max-w-md text-xl leading-relaxed font-medium text-gray-600 dark:text-gray-400"
-        >
+        <p class="text-muted-foreground mx-auto max-w-md text-lg leading-relaxed">
           The page you're looking for has drifted into deep space. Let's get you
           back to mission control.
         </p>
       </div>
 
       <!-- Action Buttons -->
-      <div
-        class="mb-24 flex flex-col items-center justify-center gap-4 sm:flex-row"
-      >
-        <a
-          href="/"
-          class="group inline-flex items-center justify-center gap-3 rounded-[1.5rem] bg-gray-900 px-10 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl transition-all hover:bg-blue-600 active:scale-95 dark:bg-white dark:text-gray-900 dark:hover:bg-blue-50"
-        >
-          <Home
-            size={18}
-            className="transition-transform group-hover:-translate-y-0.5"
-          />
+      <div class="mb-16 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="/" class={buttonVariants({ variant: "default" })}>
+          <Home size={16} />
           Back to Safety
         </a>
         <button
           onclick="history.back()"
-          class="group inline-flex items-center justify-center gap-3 rounded-[1.5rem] border border-gray-200 bg-white px-10 py-5 text-xs font-black tracking-[0.2em] text-gray-900 uppercase shadow-sm transition-all hover:bg-gray-50 active:scale-95 dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
+          class={buttonVariants({ variant: "outline" })}
         >
-          <ArrowLeft
-            size={18}
-            className="transition-transform group-hover:-translate-x-1"
-          />
+          <ArrowLeft size={16} />
           Previous Page
         </button>
       </div>
 
       <!-- Navigation Beacon -->
-      <div class="border-t border-gray-100 pt-12 dark:border-gray-900">
-        <div class="mb-8 flex items-center justify-center gap-3">
-          <Compass size={16} className="animate-spin-slow text-blue-500" />
-          <h3
-            class="text-[10px] font-black tracking-[0.4em] text-gray-400 uppercase dark:text-gray-500"
-          >
-            Navigation Beacon
-          </h3>
-        </div>
-        <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
-          {
-            [
-              { label: "Projects", href: "/projects" },
-              { label: "Experience", href: "/experiences" },
-              { label: "Skills", href: "/skills" },
-              { label: "Blog", href: "/blog" },
-              { label: "About", href: "/about" },
-            ].map((link) => (
-              <a
-                href={link.href}
-                class="group relative text-xs font-black tracking-widest text-gray-500 uppercase transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-              >
-                {link.label}
-                <span class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all group-hover:w-full" />
-              </a>
-            ))
-          }
+      <div>
+        <p class="micro-label text-muted-foreground mb-4">
+          NAVIGATION // BEACON
+        </p>
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
+          {[
+            { label: "Projects", href: "/projects" },
+            { label: "Experience", href: "/experiences" },
+            { label: "Skills", href: "/skills" },
+            { label: "Blog", href: "/blog" },
+            { label: "About", href: "/about" },
+          ].map((link) => (
+            <a
+              href={link.href}
+              class="text-foreground hover:text-signal focus-visible:outline-signal text-sm font-medium tracking-wide uppercase transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </div>
   </main>
-
-  <style>
-    .animate-spin-slow {
-      animation: spin 10s linear infinite;
-    }
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-  </style>
 </PageLayout>
