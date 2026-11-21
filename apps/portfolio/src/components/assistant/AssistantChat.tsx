@@ -55,6 +55,25 @@ export default function AssistantChat() {
     handleKeyDown,
   } = useAssistantChat();
 
+  // Announce only the finished assistant reply: the feed itself is aria-live="off"
+  // so streaming tokens and the user's own messages are not read out.
+  const [announcement, setAnnouncement] = React.useState("");
+  const wasLoading = React.useRef(false);
+  React.useEffect(() => {
+    if (wasLoading.current && !isLoading) {
+      const last = messages[messages.length - 1];
+      if (last?.role === "assistant") {
+        setAnnouncement(
+          (last.parts ?? [])
+            .map((p: any) => (p.type === "text" ? p.text : ""))
+            .join(" ")
+            .trim(),
+        );
+      }
+    }
+    wasLoading.current = isLoading;
+  }, [isLoading, messages]);
+
   const rootRef = React.useRef<HTMLDivElement>(null);
   const wasOpen = React.useRef(false);
 
@@ -155,7 +174,7 @@ export default function AssistantChat() {
           />
 
           <Chat className="flex-1 overflow-hidden">
-            <ChatFeed ref={feedRef} className="space-y-4 p-4">
+            <ChatFeed ref={feedRef} aria-live="off" className="space-y-4 p-4">
               {messages.length === 0 && (
                 <AssistantIntro
                   pathname={pathname}
@@ -184,6 +203,10 @@ export default function AssistantChat() {
           </Chat>
         </div>
       )}
+
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {announcement}
+      </div>
 
       <AssistantClearDialog
         open={clearDialogOpen}
