@@ -8,6 +8,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### ♻️ Refactor
 
+- _(portfolio)_ Logo plates use one variable, no guard exemptions
 - _(portfolio)_ One availability marker helper
 - _(analytics,api)_ Price ai calls from the shared catalogue
 - _(analytics)_ One state note for empty and failed panels

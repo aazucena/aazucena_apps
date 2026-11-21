@@ -16,7 +16,7 @@ import {
   Wrench,
 } from "@aazucena/icons";
 import type { JSX } from "react";
-import { Progress } from "@aazucena/ui";
+import { Badge, Panel } from "@aazucena/ui";
 
 interface Skill {
   name: string;
@@ -40,17 +40,8 @@ const CATEGORY_ICONS: Record<string, any> = {
   Other: Terminal,
 };
 
-// Color mapping for skill categories (gradients)
-const CATEGORY_COLORS: Record<string, string> = {
-  Frontend: "from-blue-400 to-cyan-400",
-  Backend: "from-green-400 to-emerald-500",
-  Database: "from-yellow-400 to-orange-500",
-  Cloud: "from-purple-400 to-pink-500",
-  Tools: "from-gray-400 to-gray-600",
-  Design: "from-pink-400 to-rose-500",
-  Testing: "from-red-400 to-red-600",
-  Other: "from-indigo-400 to-violet-500",
-};
+// Series fills by rank; every bar also carries its category name and percentage as text
+const SERIES_BG = ["bg-series-1", "bg-series-2", "bg-series-3", "bg-series-4"];
 
 export function TechStackDistribution({
   skills,
@@ -78,82 +69,65 @@ export function TechStackDistribution({
     .slice(0, 4); // Take top 4 for the chart
 
   return (
-    <div className="space-y-8">
-      {/* Distribution Chart */}
-      <div>
-        <h3 className="mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-          Focus Distribution
-        </h3>
+    <div className="space-y-4">
+      {/* Distribution chart */}
+      <Panel label="Focus // Distribution" className="border-rule border">
         <div className="space-y-4">
-          {distribution.map((item) => (
-            <div key={item.category} className="space-y-1">
-              <div className="flex justify-between text-sm">
-                <span className="flex items-center gap-2 font-medium text-gray-700 dark:text-gray-300">
-                  {CATEGORY_ICONS[item.category] && (
-                    <span
-                      className={`flex h-4 w-4 items-center justify-center rounded bg-gradient-to-br ${CATEGORY_COLORS[item.category] || "from-gray-400 to-gray-500"} text-[10px] text-white`}
-                    >
-                      <span className="opacity-80">
-                        {/* We render the icon component dynamically */}
-                        {(() => {
-                          const Icon =
-                            CATEGORY_ICONS[item.category] || Terminal;
-                          return <Icon size={12} />;
-                        })()}
-                      </span>
-                    </span>
-                  )}
-                  {item.category}
-                </span>
-                <span className="text-gray-500 dark:text-gray-400">
-                  {item.percentage}%
-                </span>
-              </div>
-              <Progress
-                value={item.percentage}
-                className="h-1.5 bg-gray-100 dark:bg-gray-700"
-              />
-              {/* Custom colored progress bar hack since Progress component usually takes primary color */}
-              <div className="relative -mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100 opacity-90 dark:bg-gray-700">
-                <div
-                  className={`h-full bg-gradient-to-r ${CATEGORY_COLORS[item.category] || "from-gray-400 to-gray-500"} transition-all duration-500`}
-                  style={{ width: `${item.percentage}%` }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Tech Stack Grid */}
-      <div>
-        <h3 className="mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-          Area of Expertise
-        </h3>
-        <div className="space-y-6">
-          {Object.entries(skillsByCategory).map(([category, items]) => (
-            <div key={category}>
-              <div className="mb-3 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white">
-                {(() => {
-                  const Icon = CATEGORY_ICONS[category] || Terminal;
-                  return <Icon className="h-4 w-4 text-gray-400" />;
-                })()}
-                {category}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {items.map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex cursor-default items-center rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 transition-colors dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                  >
-                    {skill}
+          {distribution.map((item, i) => {
+            const Icon = CATEGORY_ICONS[item.category] || Terminal;
+            return (
+              <div key={item.category} className="space-y-1.5">
+                <div className="flex justify-between text-sm">
+                  <span className="text-foreground flex items-center gap-2 font-medium">
+                    <Icon size={14} className="text-muted-foreground" />
+                    {item.category}
                   </span>
-                ))}
+                  <span className="micro-label text-muted-foreground">
+                    {item.count} / {totalSkills} · {item.percentage}%
+                  </span>
+                </div>
+                <div
+                  role="progressbar"
+                  aria-label={`${item.category} share of skills`}
+                  aria-valuenow={item.percentage}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  className="bg-state h-1.5 w-full overflow-hidden"
+                >
+                  <div
+                    className={`h-full ${SERIES_BG[i % SERIES_BG.length]}`}
+                    style={{ width: `${item.percentage}%` }}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
-      </div>
+      </Panel>
+
+      {/* Tech stack grid */}
+      <Panel label="Area // Expertise" className="border-rule border">
+        <div className="space-y-5">
+          {Object.entries(skillsByCategory).map(([category, items]) => {
+            const Icon = CATEGORY_ICONS[category] || Terminal;
+            return (
+              <div key={category}>
+                <div className="text-foreground mb-2 flex items-center gap-2 text-sm font-medium">
+                  <Icon className="text-muted-foreground h-4 w-4" />
+                  {category}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {items.map((skill) => (
+                    <Badge key={skill} variant="outline">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Panel>
     </div>
   );
 }

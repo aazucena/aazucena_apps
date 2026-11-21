@@ -4,7 +4,6 @@
  */
 
 import React, { type JSX } from "react";
-import { getGradientColors } from "@aazucena/utils";
 import type { Award } from "@aazucena/types";
 
 export interface HexagonCardProps {
@@ -16,118 +15,56 @@ export interface HexagonCardProps {
   onClick: () => void;
 }
 
-/**
- * Get gradient string based on award type
- * Certifications use cyan/blue, Awards use yellow/orange
- */
-function getAwardGradient(type: "certification" | "award"): string {
-  return type === "certification"
-    ? "from-cyan-400 to-blue-500"
-    : "from-yellow-400 to-orange-500";
-}
-
-/**
- * Get Tailwind gradient class based on award type
- */
-function getAwardGradientClass(type: "certification" | "award"): string {
-  return type === "certification"
-    ? "from-cyan-400 to-blue-500"
-    : "from-yellow-400 to-orange-500";
-}
+/** Certifications take series 1, awards series 3; the type is also written in the tooltip. */
+const AWARD_HUE = {
+  certification: { stroke: "stroke-series-1", text: "text-series-1" },
+  award: { stroke: "stroke-series-3", text: "text-series-3" },
+} as const;
 
 /**
  * HexagonCard
- * SVG-based hexagonal card with gradient fills, glow effects, and tooltip
- * Intentionally NOT using GlassCard - custom hexagonal design
+ * SVG hexagonal card on a flat panel fill with a series-hue outline
+ * Intentionally NOT using Panel - custom hexagonal design
  */
 export function HexagonCard({
   award,
   dashed = false,
   onClick,
 }: HexagonCardProps): JSX.Element {
-  const gradient = getAwardGradient(award.type);
-  const gradientClass = getAwardGradientClass(award.type);
-  const colors = getGradientColors(gradient);
+  const hue = AWARD_HUE[award.type];
 
   return (
-    <div
-      className="group relative flex h-52 w-48 cursor-pointer items-center justify-center"
+    <button
+      type="button"
       onClick={onClick}
+      aria-label={`${award.title}, ${award.organization}, ${award.year}`}
+      className="group focus-visible:outline-signal relative flex h-52 w-48 cursor-pointer items-center justify-center focus-visible:outline-1 focus-visible:outline-offset-2"
     >
       {/* Hexagon SVG */}
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 110">
-        <defs>
-          <linearGradient
-            id={`grad-${award.id}`}
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop
-              offset="0%"
-              style={{ stopColor: colors.from, stopOpacity: 0.3 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: colors.to, stopOpacity: 0.3 }}
-            />
-          </linearGradient>
-          <linearGradient
-            id={`grad-hover-${award.id}`}
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop
-              offset="0%"
-              style={{ stopColor: colors.from, stopOpacity: 0.6 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: colors.to, stopOpacity: 0.6 }}
-            />
-          </linearGradient>
-        </defs>
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 100 110"
+        aria-hidden="true"
+      >
         <polygon
           points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
-          fill={`url(#grad-${award.id})`}
-          stroke={colors.from}
           strokeWidth="2"
           strokeDasharray={dashed ? "8,4" : undefined}
-          className="transition-all duration-300 group-hover:stroke-[3]"
-          style={{ transition: "all 0.3s ease" }}
-        />
-        <polygon
-          points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
-          fill={`url(#grad-hover-${award.id})`}
-          stroke={colors.from}
-          strokeWidth="3"
-          strokeDasharray={dashed ? "8,4" : undefined}
-          className="opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className={`fill-panel group-hover:fill-state transition-[fill] duration-(--motion-base) ${hue.stroke}`}
         />
       </svg>
-
-      {/* Glow Effect on Hover */}
-      <div
-        className="absolute inset-0 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(circle, ${colors.from}40 0%, transparent 70%)`,
-          pointerEvents: "none",
-        }}
-      />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center p-6 text-center">
         <div
-          className={`h-16 w-16 bg-gradient-to-br ${gradientClass} mb-3 flex items-center justify-center rounded-xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}
+          className={`border-rule bg-state rounded-control mb-3 flex h-16 w-16 items-center justify-center border ${hue.text}`}
         >
           <svg
-            className="h-8 w-8 text-white"
+            className="h-8 w-8"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -137,30 +74,26 @@ export function HexagonCard({
             />
           </svg>
         </div>
-        <h3 className="mb-1 text-sm font-bold text-white">
+        <h3 className="text-foreground mb-1 text-sm font-semibold">
           {award.shortTitle}
         </h3>
-        <p
-          className="text-xs transition-colors duration-300"
-          style={{ color: colors.from }}
-        >
-          {award.year}
-        </p>
+        <p className={`micro-label ${hue.text}`}>{award.year}</p>
       </div>
 
-      {/* Tooltip on hover */}
+      {/* Tooltip on hover or keyboard focus */}
       <div
-        className="pointer-events-none absolute top-full left-1/2 z-20 mt-4 w-64 -translate-x-1/2 transform rounded-lg bg-gray-900/95 p-4 opacity-0 shadow-2xl backdrop-blur-sm transition-all duration-300 group-hover:opacity-100"
-        style={{ borderWidth: "2px", borderColor: colors.from }}
+        className={`border-rule-strong bg-panel rounded-card pointer-events-none absolute top-full left-1/2 z-20 mt-4 w-64 -translate-x-1/2 border p-4 text-left opacity-0 transition-opacity duration-(--motion-base) group-hover:opacity-100 group-focus-visible:opacity-100`}
       >
-        <h4 className="mb-2 text-base font-bold text-white">{award.title}</h4>
-        <p className="mb-2 text-xs" style={{ color: colors.from }}>
+        <h4 className="text-foreground mb-2 text-base font-semibold">
+          {award.title}
+        </h4>
+        <p className={`micro-label mb-2 ${hue.text}`}>
           {award.organization} • {award.year}
         </p>
-        <p className="text-xs text-gray-300">
+        <p className="text-muted-foreground text-xs">
           {award.description as React.ReactNode}
         </p>
       </div>
-    </div>
+    </button>
   );
 }

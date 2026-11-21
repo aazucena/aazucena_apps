@@ -6,6 +6,7 @@
 import type { JSX } from "react";
 import type { AtmosphericPhase } from "@aazucena/types";
 import { X } from "@aazucena/icons";
+import { Button } from "@aazucena/ui";
 
 export interface InfoPanelProps {
   onClose: () => void;
@@ -57,70 +58,78 @@ export function InfoPanel({
   return (
     <div
       data-testid="info-panel"
-      className="max-h-[calc(100vh-14rem)] overflow-y-auto p-4 sm:max-h-[85vh] sm:p-6"
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
+      tabIndex={0}
+      role="region"
+      aria-label="Atmospheric layers"
+      className="focus-visible:outline-signal max-h-[calc(100vh-14rem)] overflow-y-auto p-4 focus-visible:outline-1 focus-visible:-outline-offset-2 sm:max-h-[85vh] sm:p-6"
     >
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-bold text-white">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <h3 className="text-foreground text-lg font-semibold">
           Journey Through Earth's Atmosphere
         </h3>
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onClose}
-          className="text-white/60 transition-colors hover:text-white"
           aria-label="Close info panel"
           data-testid="info-panel-close"
         >
           <X className="h-5 w-5" />
-        </button>
+        </Button>
       </div>
 
       <div className="space-y-4">
         {/* Current Layer */}
-        <div className="rounded-xl border border-cyan-400/30 bg-cyan-500/20 p-4">
-          <div className="mb-1 text-sm font-semibold text-cyan-400">
-            Current Layer
+        <div className="border-signal bg-signal-faint rounded-control border p-4">
+          <div className="micro-label text-signal mb-1">Current Layer</div>
+          <div className="text-foreground text-lg font-semibold">
+            {info.title}
           </div>
-          <div className="text-lg font-bold text-white">{info.title}</div>
-          <div className="mt-1 text-xs text-white/60">{info.altitude}</div>
+          <div className="text-muted-foreground mt-1 text-xs">
+            {info.altitude}
+          </div>
         </div>
 
         {/* Description */}
-        <div>
-          <div className="text-sm leading-relaxed text-white/80">
-            {info.description}
-          </div>
+        <div className="text-muted-foreground text-sm leading-relaxed">
+          {info.description}
         </div>
 
         {/* All Layers */}
-        <div className="border-t border-white/10 pt-4">
-          <div className="mb-3 text-sm font-semibold text-white">
+        <div className="border-rule border-t pt-4">
+          <div className="micro-label text-muted-foreground mb-3">
             All Atmospheric Layers
           </div>
           <div className="space-y-2">
             {Object.entries(phaseInfo).map(([phase, data]) => (
               <div
                 key={phase}
-                className={`rounded-lg p-2 transition-all ${
+                aria-current={phase === currentPhase ? "true" : undefined}
+                className={`rounded-control border p-2 transition-[border-color] ${
                   phase === currentPhase
-                    ? "border border-cyan-400/30 bg-cyan-500/20"
-                    : "border border-white/10 bg-white/5"
+                    ? "border-signal bg-signal-faint"
+                    : "border-rule bg-state"
                 }`}
               >
                 <div
                   className={`text-sm font-medium ${
-                    phase === currentPhase ? "text-cyan-400" : "text-white"
+                    phase === currentPhase ? "text-signal" : "text-foreground"
                   }`}
                 >
                   {data.title}
                 </div>
-                <div className="text-xs text-white/60">{data.altitude}</div>
+                <div className="text-muted-foreground text-xs">
+                  {data.altitude}
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Scroll Tip */}
-        <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-          <div className="text-center text-xs text-white/60">
+        <div className="border-rule bg-state rounded-control border p-3">
+          <div className="text-muted-foreground text-center text-xs">
             <span className="sm:hidden">
               Swipe up/down to journey through Earth's atmosphere from space to
               the surface!

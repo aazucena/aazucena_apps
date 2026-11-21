@@ -49,18 +49,10 @@ const PENDING: string[] = [
   'components/homepage/sections/SectionLayout.tsx',
   'components/homepage/sections/ServicesSection.tsx',
   'components/homepage/sections/SkillsSection.tsx',
-  'components/ui/AwardModal.tsx',
   'components/ui/InfiniteMovingCards.tsx',
-  'components/ui/InfoPanel.tsx',
-  'components/ui/InteractiveCard.tsx',
   'components/ui/PhoneDialTabs.tsx',
   'components/ui/ScrollIndicators.tsx',
   'components/ui/SectionNavFAB.tsx',
-  'components/ui/ServiceCard.tsx',
-  'components/ui/ServiceTabs.tsx',
-  'components/ui/TechStackDistribution.tsx',
-  'components/ui/awards/HexagonCard.tsx',
-  'components/ui/awards/SectionLabel.tsx',
   'components/ui/blog/BlogCard.tsx',
   'components/ui/blog/NewspaperStack.tsx',
   'components/ui/blog/ViewAllButton.tsx',
@@ -79,7 +71,6 @@ const PENDING: string[] = [
   'pages/blog/[slug].astro',
   'pages/blog/index.astro',
   'pages/journey.astro',
-  'pages/skills/index.astro',
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */

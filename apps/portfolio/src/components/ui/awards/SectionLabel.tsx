@@ -1,6 +1,6 @@
 /**
  * SectionLabel Component
- * Decorative section label with gradient lines
+ * Section label with rules on both sides
  * Used for "Certifications" and "Awards" labels in the hexagonal grid
  */
 
@@ -9,31 +9,21 @@ import type { JSX } from "react";
 export interface SectionLabelProps {
   /** Label text */
   text: string;
-  /** Gradient color for the line and text */
+  /** Series hue for the label: cyan maps to series 1, yellow to series 3 */
   color: "cyan" | "yellow";
   /** Additional className */
   className?: string;
 }
 
-/**
- * Color variant styles for gradient lines and text
- */
+/** Series tokens; the label text always names the group, so hue never carries meaning alone. */
 const colorVariants = {
-  cyan: {
-    text: "text-cyan-400",
-    lineFrom: "from-transparent to-cyan-400/50",
-    lineTo: "from-transparent to-cyan-400/50",
-  },
-  yellow: {
-    text: "text-yellow-400",
-    lineFrom: "from-transparent to-yellow-400/50",
-    lineTo: "from-transparent to-yellow-400/50",
-  },
+  cyan: { text: "text-series-1", line: "bg-series-1/50" },
+  yellow: { text: "text-series-3", line: "bg-series-3/50" },
 } as const;
 
 /**
  * SectionLabel
- * Displays a decorative label with gradient lines on both sides
+ * Displays a label with a rule on each side
  */
 export function SectionLabel({
   text,
@@ -45,13 +35,9 @@ export function SectionLabel({
   return (
     <div className={`flex items-center justify-center ${className}`}>
       <div className="flex items-center gap-4">
-        <div className={`h-px w-16 bg-gradient-to-r ${styles.lineFrom}`}></div>
-        <h3
-          className={`text-lg font-semibold ${styles.text} tracking-wider uppercase`}
-        >
-          {text}
-        </h3>
-        <div className={`h-px w-16 bg-gradient-to-l ${styles.lineTo}`}></div>
+        <div className={`h-px w-16 ${styles.line}`} aria-hidden="true"></div>
+        <h3 className={`micro-label ${styles.text}`}>{text}</h3>
+        <div className={`h-px w-16 ${styles.line}`} aria-hidden="true"></div>
       </div>
     </div>
   );

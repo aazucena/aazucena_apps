@@ -1,16 +1,21 @@
 /**
  * AwardModal Component
- * Modal for displaying award/certification details
+ * Modal for displaying award/certification details (ui Dialog: focus trap, Escape, labelled)
  */
 
 import { type JSX, type RefObject } from "react";
 import type { Award } from "@aazucena/types";
 import { toTitleCase } from "@aazucena/utils";
-import { getCompanyLogoGradient, getGradientColors } from "@aazucena/utils";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { darkBlockRenderers } from "~/components/blocks/BlockRenderers";
-import { Dialog, DialogContent, DialogBody } from "@aazucena/ui";
-import React from "react";
+import {
+  Badge,
+  Dialog,
+  DialogBody,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@aazucena/ui";
 
 export interface AwardModalProps {
   award: Award;
@@ -23,30 +28,26 @@ export function AwardModal({
   onClose,
   modalRef,
 }: AwardModalProps): JSX.Element {
-  const { from, to } = getGradientColors(
-    getCompanyLogoGradient(award.organization),
-  );
-
   return (
     <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
+      {/* The homepage is always dark and the block renderers are light-on-dark, so the
+          dialog binds the dark tokens even though it portals outside the dark wrapper. */}
       <DialogContent
         ref={modalRef}
         size="lg"
         data-testid="award-modal"
-        className="max-h-[80vh] overflow-hidden border-white/20 bg-gradient-to-br from-gray-900 to-black p-0 shadow-2xl"
+        className="dark max-h-[80vh] overflow-hidden p-0"
       >
         <DialogBody className="overflow-y-auto p-8">
           {/* Header */}
           <div className="mb-6 flex items-start gap-4">
-            <div
-              className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl text-2xl font-bold text-white shadow-lg"
-              style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}
-            >
+            <div className="border-rule bg-state text-signal rounded-control flex h-16 w-16 flex-shrink-0 items-center justify-center border">
               <svg
-                className="h-10 w-10 text-white"
+                className="h-10 w-10"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -58,19 +59,19 @@ export function AwardModal({
             </div>
             <div className="flex-grow">
               <div className="mb-2 inline-block">
-                <span
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${award.type === "certification" ? "bg-cyan-400/20 text-cyan-400" : "bg-yellow-400/20 text-yellow-400"}`}
+                <Badge
+                  variant={award.type === "certification" ? "sky" : "indigo"}
                 >
                   {award.type === "certification" ? "Certification" : "Award"}
-                </span>
+                </Badge>
               </div>
-              <h2 className="mb-2 text-2xl font-bold text-white md:text-3xl">
+              <DialogTitle className="text-foreground mb-2 text-2xl font-semibold md:text-3xl">
                 {toTitleCase(award.title)}
-              </h2>
-              <p className="mb-1 text-lg text-gray-300">
+              </DialogTitle>
+              <DialogDescription className="text-muted-foreground mb-1 text-lg">
                 {toTitleCase(award.organization)}
-              </p>
-              <p className="text-sm text-cyan-400">{award.year}</p>
+              </DialogDescription>
+              <p className="micro-label text-signal">{award.year}</p>
             </div>
           </div>
 
@@ -79,8 +80,8 @@ export function AwardModal({
             | import("@strapi/blocks-react-renderer").BlocksContent
             | undefined) && (
             <div className="mb-6 space-y-4">
-              <h3 className="text-lg font-semibold text-white">About</h3>
-              <div className="prose prose-invert max-w-none text-sm leading-relaxed text-gray-300 md:text-base">
+              <h3 className="micro-label text-muted-foreground">About</h3>
+              <div className="prose max-w-none text-sm leading-relaxed md:text-base">
                 <BlocksRenderer
                   content={
                     award.description as import("@strapi/blocks-react-renderer").BlocksContent
