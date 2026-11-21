@@ -54,10 +54,6 @@ declare module "~/config/site" {
 
   export interface ThemeConfig {
     mode: "system" | "light" | "dark";
-    colors: {
-      light: { primary: string; secondary: string; accent: string };
-      dark: { primary: string; secondary: string; accent: string };
-    };
     fonts: {
       sans: string;
       serif: string;

@@ -57,12 +57,6 @@ const isDetailPage = path.includes("[slug]") || /\/[^/]+\/[^/]+/.test(path); // 
 const pageType = isHomepage ? "homepage" : isDetailPage ? "detail" : "list";
 
 const themeStyles = {
-  colorPrimaryLight: toHex(siteConfig.theme.colors.light.primary),
-  colorSecondaryLight: toHex(siteConfig.theme.colors.light.secondary),
-  colorAccentLight: toHex(siteConfig.theme.colors.light.accent),
-  colorPrimaryDark: toHex(siteConfig.theme.colors.dark.primary),
-  colorSecondaryDark: toHex(siteConfig.theme.colors.dark.secondary),
-  colorAccentDark: toHex(siteConfig.theme.colors.dark.accent),
   fontSans: siteConfig.theme.fonts.sans,
   fontSerif: siteConfig.theme.fonts.serif,
   fontHeading: siteConfig.theme.fonts.heading,
@@ -79,11 +73,9 @@ const themeStyles = {
   <head>
     <meta charset="utf-8" />
 
-    {
-      /* Blocking theme script — runs synchronously before first paint to prevent dark/light flash.
+    {/* Blocking theme script — runs synchronously before first paint to prevent dark/light flash.
         Reads the same localStorage key used by useTheme (STORAGE_KEYS.THEME = 'aazucena-theme'),
-        falls back to OS preference when no stored value exists. */
-    }
+        falls back to OS preference when no stored value exists. */}
     <script is:inline>
       (function () {
         try {
@@ -152,9 +144,6 @@ const themeStyles = {
 
       /* Theme CSS Variables - DYNAMIC from CMS */
       :root {
-        --color-primary: var(--colorPrimaryLight);
-        --color-secondary: var(--colorSecondaryLight);
-        --color-accent: var(--colorAccentLight);
         --font-sans:
           var(--fontSans), -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -166,18 +155,15 @@ const themeStyles = {
           var(--fontCode), "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
           Courier, monospace;
       }
-
-      .dark {
-        --color-primary: var(--colorPrimaryDark);
-        --color-secondary: var(--colorSecondaryDark);
-        --color-accent: var(--colorAccentDark);
-      }
     </style>
   </head>
 
   <body style={`background: var(--background);`}>
     <!-- Skip to main content (accessibility) -->
-    <a href="#main-content" class="skip-to-main"> Skip to main content </a>
+    <a href="#main-content" class="skip-to-main">
+      {" "}
+      Skip to main content{" "}
+    </a>
     <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
     <!-- Once hidden and removed, it won't reappear -->
     <!-- Note: transition:persist removed due to React 19 compatibility issues -->

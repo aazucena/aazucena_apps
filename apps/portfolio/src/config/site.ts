@@ -25,10 +25,6 @@ export interface SiteMetadata {
 
 export interface ThemeConfig {
   mode: "system" | "light" | "dark" | "light:only" | "dark:only";
-  colors: {
-    light: { primary: string; secondary: string; accent: string };
-    dark: { primary: string; secondary: string; accent: string };
-  };
   fonts: {
     sans: string;
     serif: string;
@@ -67,10 +63,6 @@ export const SITE_CONFIG: SiteConfig = {
   },
   theme: {
     mode: "system",
-    colors: {
-      light: { primary: "#3b82f6", secondary: "#8b5cf6", accent: "#06b6d4" },
-      dark: { primary: "#60a5fa", secondary: "#a78bfa", accent: "#22d3ee" },
-    },
     fonts: {
       sans: "Fira Sans",
       serif: "Fira Sans",
