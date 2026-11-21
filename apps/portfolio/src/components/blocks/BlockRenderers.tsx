@@ -2,7 +2,8 @@
  * Reusable BlocksRenderer Configuration
  *
  * Provides consistent styling for Strapi rich text blocks across all components.
- * Uses Tailwind CSS classes for typography and layout.
+ * Uses Avra token classes; they follow the theme (the homepage binds its content
+ * layer to the dark tokens, so the "dark" renderers share the same classes).
  *
  * @see https://docs.strapi.io/dev-docs/plugins/blocks-react-renderer
  */
@@ -29,35 +30,31 @@ function sanitizeUrl(url: string): string {
   return url;
 }
 
+const HEADING_CLASSES = {
+  1: "text-4xl md:text-5xl font-semibold tracking-tight text-foreground mb-6 mt-8",
+  2: "text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-5 mt-7",
+  3: "text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-4 mt-6",
+  4: "text-xl md:text-2xl font-semibold text-foreground mb-3 mt-5",
+  5: "text-lg md:text-xl font-semibold text-foreground mb-2 mt-4",
+  6: "text-base md:text-lg font-semibold text-foreground mb-2 mt-3",
+} as const;
+
 /**
- * Default block renderers with Tailwind styling
- * Supports both light and dark themes
+ * Default block renderers on Avra tokens
+ * Heading levels are rendered as authored (order preserved)
  */
 export const defaultBlockRenderers: Parameters<
   typeof BlocksRendererType
 >[0]["blocks"] = {
   // Paragraphs
   paragraph: ({ children }) => (
-    <p className="mb-4 leading-relaxed text-gray-700 last:mb-0 dark:text-gray-300">
-      {children}
-    </p>
+    <p className="text-foreground mb-4 leading-relaxed last:mb-0">{children}</p>
   ),
 
   // Headings
   heading: ({ children, level }) => {
-    const headingClasses = {
-      1: "text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 mt-8",
-      2: "text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-5 mt-7",
-      3: "text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4 mt-6",
-      4: "text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-3 mt-5",
-      5: "text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 mt-4",
-      6: "text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-2 mt-3",
-    };
-
     const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-    const className = headingClasses[level as keyof typeof headingClasses];
-
-    return <Tag className={className}>{children}</Tag>;
+    return <Tag className={HEADING_CLASSES[level]}>{children}</Tag>;
   },
 
   // Lists
@@ -65,19 +62,17 @@ export const defaultBlockRenderers: Parameters<
     const Tag = format === "ordered" ? "ol" : "ul";
     const className =
       format === "ordered"
-        ? "list-decimal list-outside ms-4 mb-4 space-y-2 text-gray-700 dark:text-gray-300"
-        : "list-disc list-outside ms-4 mb-4 space-y-2 text-gray-700 dark:text-gray-300";
+        ? "list-decimal list-outside ms-4 mb-4 space-y-2 text-foreground"
+        : "list-disc list-outside ms-4 mb-4 space-y-2 text-foreground";
 
     return <Tag className={className}>{children}</Tag>;
   },
 
   "list-item": ({ children }) => (
-    <li className="leading-relaxed text-gray-700 dark:text-gray-300">
-      {children}
-    </li>
+    <li className="text-foreground leading-relaxed">{children}</li>
   ),
 
-  // Links
+  // Links: underlined so they are distinguishable by more than colour
   link: ({ children, url }) => {
     const sanitizedUrl = sanitizeUrl(url);
     const isExternal = sanitizedUrl.startsWith("http");
@@ -85,7 +80,7 @@ export const defaultBlockRenderers: Parameters<
     return (
       <a
         href={sanitizedUrl}
-        className="text-blue-600 underline decoration-blue-600/30 transition-colors duration-200 hover:text-blue-800 hover:decoration-blue-800 dark:text-cyan-400 dark:decoration-cyan-400/30 dark:hover:text-cyan-300 dark:hover:decoration-cyan-300"
+        className="text-signal hover:text-foreground focus-visible:outline-signal underline underline-offset-2 transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
       >
@@ -96,17 +91,21 @@ export const defaultBlockRenderers: Parameters<
 
   // Quotes
   quote: ({ children }) => (
-    <blockquote className="mb-4 rounded-r-lg border-l-4 border-blue-600 bg-gray-100 px-4 py-2 text-gray-700 italic dark:border-cyan-400 dark:bg-white/5 dark:text-gray-300">
+    <blockquote className="border-signal bg-state text-muted-foreground rounded-r-control mb-4 border-l-2 px-4 py-2 italic">
       {children}
     </blockquote>
   ),
 
-  // Code blocks
+  // Code blocks: keyboard-scrollable when they overflow
   code: ({ children }) => (
-    <pre className="mb-4 overflow-x-auto rounded-lg border border-gray-300 bg-gray-100 p-4 dark:border-white/10 dark:bg-gray-900">
-      <code className="font-mono text-sm text-blue-700 dark:text-cyan-400">
-        {children}
-      </code>
+    <pre
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
+      tabIndex={0}
+      role="region"
+      aria-label="Code sample"
+      className="border-rule bg-state rounded-control focus-visible:outline-signal mb-4 overflow-x-auto border p-4 focus-visible:outline-1"
+    >
+      <code className="text-foreground font-mono text-sm">{children}</code>
     </pre>
   ),
 
@@ -116,11 +115,11 @@ export const defaultBlockRenderers: Parameters<
       <img
         src={sanitizeUrl(image.url)}
         alt={image.alternativeText || ""}
-        className="h-auto w-full rounded-lg"
+        className="border-rule rounded-card h-auto w-full border"
         loading="lazy"
       />
       {image.caption && (
-        <figcaption className="mt-2 text-center text-sm text-gray-600 italic dark:text-gray-400">
+        <figcaption className="micro-label text-muted-foreground mt-2 text-center">
           {image.caption}
         </figcaption>
       )}
@@ -129,113 +128,26 @@ export const defaultBlockRenderers: Parameters<
 };
 
 /**
- * Dark-only block renderers (for homepage immersive sections)
- * Always uses light text on dark backgrounds regardless of theme
- * Used in: AboutSection and other homepage components
+ * Block renderers for homepage immersive sections (AboutSection and others).
+ * The homepage content layer is bound to the dark tokens, so these are the default set.
  */
 export const darkBlockRenderers: Parameters<
   typeof BlocksRendererType
->[0]["blocks"] = {
-  // Paragraphs
-  paragraph: ({ children }) => (
-    <p className="mb-4 leading-relaxed text-gray-300 last:mb-0">{children}</p>
-  ),
-
-  // Headings
-  heading: ({ children, level }) => {
-    const headingClasses = {
-      1: "text-4xl md:text-5xl font-bold text-white mb-6 mt-8",
-      2: "text-3xl md:text-4xl font-bold text-white mb-5 mt-7",
-      3: "text-2xl md:text-3xl font-semibold text-white mb-4 mt-6",
-      4: "text-xl md:text-2xl font-semibold text-white mb-3 mt-5",
-      5: "text-lg md:text-xl font-semibold text-white mb-2 mt-4",
-      6: "text-base md:text-lg font-semibold text-white mb-2 mt-3",
-    };
-
-    const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-    const className = headingClasses[level as keyof typeof headingClasses];
-
-    return <Tag className={className}>{children}</Tag>;
-  },
-
-  // Lists
-  list: ({ children, format }) => {
-    const Tag = format === "ordered" ? "ol" : "ul";
-    const className =
-      format === "ordered"
-        ? "list-decimal list-outside ms-4 mb-4 space-y-2 text-gray-300"
-        : "list-disc list-outside ms-4 mb-4 space-y-2 text-gray-300";
-
-    return <Tag className={className}>{children}</Tag>;
-  },
-
-  "list-item": ({ children }) => (
-    <li className="leading-relaxed text-gray-300">{children}</li>
-  ),
-
-  // Links
-  link: ({ children, url }) => {
-    const sanitizedUrl = sanitizeUrl(url);
-    const isExternal = sanitizedUrl.startsWith("http");
-
-    return (
-      <a
-        href={sanitizedUrl}
-        className="text-cyan-400 underline decoration-cyan-400/30 transition-colors duration-200 hover:text-cyan-300 hover:decoration-cyan-300"
-        target={isExternal ? "_blank" : undefined}
-        rel={isExternal ? "noopener noreferrer" : undefined}
-      >
-        {children}
-      </a>
-    );
-  },
-
-  // Quotes
-  quote: ({ children }) => (
-    <blockquote className="mb-4 rounded-r-lg border-l-4 border-cyan-400 bg-white/5 px-4 py-2 text-gray-300 italic">
-      {children}
-    </blockquote>
-  ),
-
-  // Code blocks
-  code: ({ children }) => (
-    <pre className="mb-4 overflow-x-auto rounded-lg border border-white/10 bg-gray-900 p-4">
-      <code className="font-mono text-sm text-cyan-400">{children}</code>
-    </pre>
-  ),
-
-  // Images
-  image: ({ image }) => (
-    <figure className="mb-6">
-      <img
-        src={sanitizeUrl(image.url)}
-        alt={image.alternativeText || ""}
-        className="h-auto w-full rounded-lg"
-        loading="lazy"
-      />
-      {image.caption && (
-        <figcaption className="mt-2 text-center text-sm text-gray-400 italic">
-          {image.caption}
-        </figcaption>
-      )}
-    </figure>
-  ),
-};
+>[0]["blocks"] = { ...defaultBlockRenderers };
 
 /**
  * Highlight-specific renderers (for bullet points with checkmarks)
  * Used in About section "What I Bring to the Table"
- * Supports both light and dark themes
  */
 export const highlightBlockRenderers: Parameters<
   typeof BlocksRendererType
 >[0]["blocks"] = {
   paragraph: ({ children }) => (
     <div className="mb-3 flex items-start gap-2">
-      <span className="mt-1 flex-shrink-0 text-blue-600 dark:text-cyan-400">
+      <span className="text-signal mt-1 shrink-0" aria-hidden="true">
         ✓
       </span>
-      <span className="text-gray-700 dark:text-gray-300">{children}</span>
+      <span className="text-foreground">{children}</span>
     </div>
   ),
 
@@ -246,10 +158,10 @@ export const highlightBlockRenderers: Parameters<
 
   "list-item": ({ children }) => (
     <li className="flex items-start gap-2">
-      <span className="mt-1 flex-shrink-0 text-blue-600 dark:text-cyan-400">
+      <span className="text-signal mt-1 shrink-0" aria-hidden="true">
         ✓
       </span>
-      <span className="text-gray-700 dark:text-gray-300">{children}</span>
+      <span className="text-foreground">{children}</span>
     </li>
   ),
 
@@ -262,35 +174,9 @@ export const highlightBlockRenderers: Parameters<
 };
 
 /**
- * Dark-only highlight renderers (for homepage immersive sections)
- * Always uses light text with checkmarks
+ * Dark-only highlight renderers (homepage immersive sections)
+ * Same classes as the highlight set: the homepage binds the dark tokens.
  */
 export const darkHighlightBlockRenderers: Parameters<
   typeof BlocksRendererType
->[0]["blocks"] = {
-  paragraph: ({ children }) => (
-    <div className="mb-3 flex items-start gap-2">
-      <span className="mt-1 flex-shrink-0 text-cyan-400">✓</span>
-      <span className="text-gray-300">{children}</span>
-    </div>
-  ),
-
-  list: ({ children, format }) => {
-    const Tag = format === "ordered" ? "ol" : "ul";
-    return <Tag className="space-y-2">{children}</Tag>;
-  },
-
-  "list-item": ({ children }) => (
-    <li className="flex items-start gap-2">
-      <span className="mt-1 flex-shrink-0 text-cyan-400">✓</span>
-      <span className="text-gray-300">{children}</span>
-    </li>
-  ),
-
-  // Other blocks use dark styling
-  heading: darkBlockRenderers.heading,
-  link: darkBlockRenderers.link,
-  quote: darkBlockRenderers.quote,
-  code: darkBlockRenderers.code,
-  image: darkBlockRenderers.image,
-};
+>[0]["blocks"] = { ...highlightBlockRenderers };

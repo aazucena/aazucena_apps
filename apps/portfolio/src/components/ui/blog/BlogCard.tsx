@@ -6,7 +6,7 @@
 import React, { type JSX } from "react";
 import { ExternalLink } from "@aazucena/icons";
 import { GlassCard } from "../common/GlassCard";
-import { getTagClasses } from "@aazucena/utils";
+import { Badge, type BadgeVariant } from "../common/Badge";
 import {
   formatPostDate,
   calculateReadTime,
@@ -18,6 +18,25 @@ import type { BlogConfigData } from "@aazucena/types";
 export interface BlogCardProps {
   post: BlogPost;
   displayConfig: BlogConfigData["display"];
+}
+
+const BADGE_VARIANTS: BadgeVariant[] = [
+  "cyan",
+  "blue",
+  "emerald",
+  "purple",
+  "pink",
+  "yellow",
+  "orange",
+  "gray",
+  "white",
+];
+
+/** CMS tag colour names map to tag badge hues; unknown names fall back to gray. */
+function toBadgeVariant(color: string): BadgeVariant {
+  return BADGE_VARIANTS.includes(color as BadgeVariant)
+    ? (color as BadgeVariant)
+    : "gray";
 }
 
 /**
@@ -41,9 +60,13 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           {post.tags.map(
             (tag: { label: string; color: string }, tagIndex: number) => (
-              <span key={tagIndex} className={getTagClasses(tag.color)}>
+              <Badge
+                key={tagIndex}
+                variant={toBadgeVariant(tag.color)}
+                size="xs"
+              >
                 {tag.label}
-              </span>
+              </Badge>
             ),
           )}
         </div>
@@ -51,12 +74,12 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
 
       {/* Title with External Link Icon */}
       <div className="mb-2 flex items-start justify-between gap-2">
-        <h3 className="text-xl font-bold text-white transition-colors group-hover:text-cyan-400">
+        <h3 className="text-foreground group-hover:text-signal text-lg font-semibold tracking-tight transition-colors">
           {post.title}
         </h3>
         {post.isExternal && (
           <ExternalLink
-            className="mt-1 h-5 w-5 flex-shrink-0 text-gray-400 transition-colors group-hover:text-cyan-400"
+            className="text-muted-foreground group-hover:text-signal mt-1 size-4 shrink-0 transition-colors"
             aria-hidden="true"
           />
         )}
@@ -66,15 +89,17 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
       {(displayConfig.showDate || displayConfig.showReadTime) && (
         <div className="mb-3 flex items-center gap-3">
           {displayConfig.showDate && (
-            <p className="text-sm text-gray-400">
+            <p className="micro-label text-muted-foreground">
               {formatPostDate(post as { publishedAt: string })}
             </p>
           )}
           {displayConfig.showDate && displayConfig.showReadTime && (
-            <span className="text-gray-500">•</span>
+            <span className="text-muted-foreground" aria-hidden="true">
+              //
+            </span>
           )}
           {displayConfig.showReadTime && (
-            <p className="text-sm text-gray-400">
+            <p className="micro-label text-muted-foreground">
               {calculateReadTime(post.description)}
             </p>
           )}
@@ -82,7 +107,7 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
       )}
 
       {/* Description */}
-      <p className="text-sm leading-relaxed text-gray-300">
+      <p className="text-muted-foreground text-sm leading-relaxed">
         {getPostExcerpt(post.description)}
       </p>
     </GlassCard>

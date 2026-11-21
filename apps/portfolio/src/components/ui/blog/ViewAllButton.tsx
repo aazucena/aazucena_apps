@@ -1,10 +1,12 @@
 /**
  * ViewAllButton Component
- * Gradient CTA button for "View All" actions
+ * Link button for "View All" actions (ui Button)
  * Reusable for blog, awards, projects, etc.
  */
 
 import type { JSX } from "react";
+import { Button } from "@aazucena/ui";
+import { cn } from "@aazucena/utils";
 
 export interface ViewAllButtonProps {
   /** Button text */
@@ -19,7 +21,7 @@ export interface ViewAllButtonProps {
 
 /**
  * ViewAllButton
- * Reusable gradient CTA button with hover effects and accessibility
+ * Reusable CTA link with an accessible label
  */
 export function ViewAllButton({
   text,
@@ -29,13 +31,11 @@ export function ViewAllButton({
 }: ViewAllButtonProps): JSX.Element {
   return (
     <div className="mt-4 flex justify-center md:mt-16">
-      <a
-        href={href}
-        className={`focus:ring-opacity-50 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/25 focus:ring-2 focus:ring-cyan-400 focus:outline-none ${className}`}
-        aria-label={ariaLabel}
-      >
-        {text}
-      </a>
+      <Button asChild size="lg" className={cn(className)}>
+        <a href={href} aria-label={ariaLabel}>
+          {text}
+        </a>
+      </Button>
     </div>
   );
 }

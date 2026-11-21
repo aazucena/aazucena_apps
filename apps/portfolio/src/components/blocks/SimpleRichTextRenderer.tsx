@@ -69,7 +69,7 @@ function renderText(node: TextNode): JSX.Element | string {
 
   if (node.code) {
     return (
-      <code className="rounded bg-gray-900 px-1 py-0.5 font-mono text-sm text-cyan-400">
+      <code className="bg-state text-signal rounded-control px-1 py-0.5 font-mono text-sm">
         {text}
       </code>
     );
@@ -110,7 +110,7 @@ function renderInlineChildren(children: any[]): JSX.Element[] {
           <a
             key={idx}
             href={child.url}
-            className="text-cyan-400 underline decoration-cyan-400/30 transition-colors duration-200 hover:text-cyan-300 hover:decoration-cyan-300"
+            className="text-signal hover:text-foreground focus-visible:outline-signal underline underline-offset-2 transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noopener noreferrer" : undefined}
           >
@@ -133,7 +133,10 @@ function renderBlock(block: BlockNode, index: number): JSX.Element | null {
   switch (block.type) {
     case "paragraph":
       return (
-        <p key={index} className="mb-4 leading-relaxed text-gray-300 last:mb-0">
+        <p
+          key={index}
+          className="text-foreground mb-4 leading-relaxed last:mb-0"
+        >
           {renderInlineChildren(block.children)}
         </p>
       );
@@ -141,12 +144,12 @@ function renderBlock(block: BlockNode, index: number): JSX.Element | null {
     case "heading": {
       const Tag = `h${block.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
       const headingClasses = {
-        1: "text-4xl md:text-5xl font-bold text-white mb-6 mt-8",
-        2: "text-3xl md:text-4xl font-bold text-white mb-5 mt-7",
-        3: "text-2xl md:text-3xl font-semibold text-white mb-4 mt-6",
-        4: "text-xl md:text-2xl font-semibold text-white mb-3 mt-5",
-        5: "text-lg md:text-xl font-semibold text-white mb-2 mt-4",
-        6: "text-base md:text-lg font-semibold text-white mb-2 mt-3",
+        1: "text-4xl md:text-5xl font-semibold tracking-tight text-foreground mb-6 mt-8",
+        2: "text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-5 mt-7",
+        3: "text-2xl md:text-3xl font-semibold text-foreground mb-4 mt-6",
+        4: "text-xl md:text-2xl font-semibold text-foreground mb-3 mt-5",
+        5: "text-lg md:text-xl font-semibold text-foreground mb-2 mt-4",
+        6: "text-base md:text-lg font-semibold text-foreground mb-2 mt-3",
       };
 
       return (
@@ -160,13 +163,13 @@ function renderBlock(block: BlockNode, index: number): JSX.Element | null {
       const Tag = block.format === "ordered" ? "ol" : "ul";
       const className =
         block.format === "ordered"
-          ? "list-decimal list-inside mb-4 space-y-2 text-gray-300"
-          : "list-disc list-inside mb-4 space-y-2 text-gray-300";
+          ? "list-decimal list-inside mb-4 space-y-2 text-foreground"
+          : "list-disc list-inside mb-4 space-y-2 text-foreground";
 
       return (
         <Tag key={index} className={className}>
           {block.children.map((item, idx) => (
-            <li key={idx} className="leading-relaxed text-gray-300">
+            <li key={idx} className="text-foreground leading-relaxed">
               {renderInlineChildren(item.children)}
             </li>
           ))}
@@ -178,7 +181,7 @@ function renderBlock(block: BlockNode, index: number): JSX.Element | null {
       return (
         <blockquote
           key={index}
-          className="mb-4 rounded-r-lg border-l-4 border-cyan-400 bg-white/5 py-2 pl-4 text-gray-300 italic"
+          className="border-signal bg-state text-muted-foreground rounded-r-control mb-4 border-l-2 py-2 pl-4 italic"
         >
           {renderInlineChildren(block.children)}
         </blockquote>
@@ -188,9 +191,13 @@ function renderBlock(block: BlockNode, index: number): JSX.Element | null {
       return (
         <pre
           key={index}
-          className="mb-4 overflow-x-auto rounded-lg border border-white/10 bg-gray-900 p-4"
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
+          tabIndex={0}
+          role="region"
+          aria-label="Code sample"
+          className="border-rule bg-state rounded-control focus-visible:outline-signal mb-4 overflow-x-auto border p-4 focus-visible:outline-1"
         >
-          <code className="font-mono text-sm text-cyan-400">
+          <code className="text-foreground font-mono text-sm">
             {block.children.map((c) => c.text).join("")}
           </code>
         </pre>

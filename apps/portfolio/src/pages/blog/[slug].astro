@@ -1,16 +1,10 @@
 ---
-import {
-  BookOpen,
-  BrandLinkedin,
-  Twitter,
-  ClockCircle as Clock,
-} from "@aazucena/icons";
+import { BrandLinkedin, Twitter } from "@aazucena/icons";
 import { MarkdownRenderer } from "@aazucena/ui";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getPosts } from "@aazucena/api";
 import { calculateReadTime, formatPostDate } from "@aazucena/utils";
-import { getTagColorClasses } from "@aazucena/utils";
 import { getPostDateTime } from "~/lib/utils/blog";
 
 export async function getStaticPaths() {
@@ -64,110 +58,92 @@ const jsonLd = {
   watermarkSize="medium"
   maxWidth="4xl"
   hasSidebar={false}
-  prevItem={prevPost
-    ? { slug: prevPost.url.replace("/blog/", ""), title: prevPost.title }
-    : null}
-  nextItem={nextPost
-    ? { slug: nextPost.url.replace("/blog/", ""), title: nextPost.title }
-    : null}
+  prevItem={
+    prevPost
+      ? { slug: prevPost.url.replace("/blog/", ""), title: prevPost.title }
+      : null
+  }
+  nextItem={
+    nextPost
+      ? { slug: nextPost.url.replace("/blog/", ""), title: nextPost.title }
+      : null
+  }
   basePath="/blog"
   prevLabel="Previous"
   nextLabel="Next"
   tocSelector="#article-content"
 >
   <!-- Header slot: tags, title, metadata -->
-  <div slot="header" class="space-y-8">
-    <div class="flex flex-wrap gap-2">
-      {
-        post.tags.map((tag: any) => (
-          <span
-            class={`rounded-full border px-3 py-1 text-[10px] font-black tracking-widest uppercase ${getTagColorClasses(tag.color)}`}
-          >
+  <div slot="header" class="space-y-6">
+    {post.tags.length > 0 && (
+      <div class="flex flex-wrap gap-1.5">
+        {post.tags.map((tag: any) => (
+          <span class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5">
             {tag.label}
           </span>
-        ))
-      }
-    </div>
+        ))}
+      </div>
+    )}
 
-    <h1
-      class="text-4xl leading-none font-black tracking-tighter text-gray-900 md:text-7xl dark:text-white"
-    >
-      {post.title}<span class="text-blue-600">.</span>
+    <h1 class="text-foreground text-4xl leading-none font-semibold tracking-tighter md:text-6xl">
+      {post.title}
+      <span class="text-signal">.</span>
     </h1>
 
-    <div
-      class="flex items-center gap-6 text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase"
-    >
-      <time datetime={getPostDateTime(post)} class="flex items-center gap-2">
-        <Clock size={14} className="text-blue-500" />
+    <div class="micro-label text-muted-foreground flex flex-wrap items-center gap-3">
+      <time datetime={getPostDateTime(post)}>
         {formatPostDate(post as { publishedAt: string })}
       </time>
-      <span class="h-1 w-1 rounded-full bg-gray-200 dark:bg-gray-800"></span>
-      <span class="flex items-center gap-2">
-        <BookOpen size={14} className="text-purple-500" />
-        {calculateReadTime(post.description)}
-      </span>
+      <span aria-hidden="true">//</span>
+      <span>{calculateReadTime(post.description)}</span>
     </div>
   </div>
 
-  <!-- Content slot: cover image, article, related links, share buttons -->
+  <!-- Content slot: cover image, article, related links, share links -->
   <Fragment slot="content">
-    {
-      post.coverImage?.url && (
-        <div class="mb-20 overflow-hidden rounded-[2.5rem] border border-gray-100 shadow-2xl dark:border-gray-800">
-          <img
-            src={post.coverImage?.url}
-            alt={post.coverImage?.alt ?? post.title}
-            class="h-auto w-full object-cover"
-          />
-        </div>
-      )
-    }
+    {post.coverImage?.url && (
+      <div class="border-rule rounded-card overflow-hidden border">
+        <img
+          src={post.coverImage?.url}
+          alt={post.coverImage?.alt ?? post.title}
+          class="h-auto w-full object-cover"
+        />
+      </div>
+    )}
 
     <article
       id="article-content"
-      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 prose-code:before:content-none prose-code:after:content-none max-w-none"
+      class="prose prose-lg prose-p:leading-relaxed prose-headings:text-foreground prose-headings:font-semibold prose-headings:tracking-tight prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-signal prose-a:underline prose-a:underline-offset-2 prose-blockquote:text-muted-foreground prose-blockquote:border-signal prose-code:text-signal prose-code:before:content-none prose-code:after:content-none max-w-none"
     >
       <MarkdownRenderer content={post.description as string} />
     </article>
 
-    {
-      post.relatedLinks && post.relatedLinks.length > 0 && (
-        <div class="mt-20">
-          <RelatedLinks
-            links={post.relatedLinks}
-            title="Deep Dives & Resources"
-            className="bg-gray-50 dark:bg-gray-900 rounded-[2rem] border-none p-10"
-          />
-        </div>
-      )
-    }
+    {post.relatedLinks && post.relatedLinks.length > 0 && (
+      <RelatedLinks links={post.relatedLinks} title="DEEP DIVES // RESOURCES" />
+    )}
 
-    <!-- Share Section -->
-    <div class="mt-32 border-t border-gray-100 pt-12 dark:border-gray-900">
-      <div class="flex flex-col items-center justify-between gap-8 md:flex-row">
-        <div class="flex items-center gap-4">
-          <span
-            class="text-[10px] font-black tracking-widest text-gray-300 uppercase"
-            >Share Insight</span
-          >
-          <div class="flex gap-2">
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`}
-              target="_blank"
-              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-50 text-gray-400 transition-all hover:bg-blue-500 hover:text-white dark:bg-gray-900"
-            >
-              <Twitter size={20} />
-            </a>
-            <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`}
-              target="_blank"
-              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-50 text-gray-400 transition-all hover:bg-blue-700 hover:text-white dark:bg-gray-900"
-            >
-              <BrandLinkedin size={20} />
-            </a>
-          </div>
-        </div>
+    <!-- Share links -->
+    <div class="border-rule flex flex-wrap items-center gap-4 border-t pt-6 print:hidden">
+      <span class="micro-label text-muted-foreground">Share</span>
+      <div class="flex gap-2">
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Share on X (opens in a new tab)"
+          class="border-rule-strong text-muted-foreground hover:text-foreground hover:bg-state rounded-control focus-visible:outline-signal flex size-control items-center justify-center border transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+        >
+          <Twitter size={16} aria-hidden="true" />
+        </a>
+        <a
+          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Share on LinkedIn (opens in a new tab)"
+          class="border-rule-strong text-muted-foreground hover:text-foreground hover:bg-state rounded-control focus-visible:outline-signal flex size-control items-center justify-center border transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+        >
+          <BrandLinkedin size={16} aria-hidden="true" />
+        </a>
       </div>
     </div>
   </Fragment>

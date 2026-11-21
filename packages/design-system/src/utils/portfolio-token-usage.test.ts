@@ -38,8 +38,6 @@ const PENDING: string[] = [
   'components/assistant/AssistantMessageList.tsx',
   'components/assistant/AssistantTriggerPopover.tsx',
   'components/assistant/variants.ts',
-  'components/blocks/BlockRenderers.tsx',
-  'components/blocks/SimpleRichTextRenderer.tsx',
   'components/homepage/overlays/AtmosphericOverlays.tsx',
   'components/homepage/overlays/NavigationToolbar.tsx',
   'components/homepage/overlays/UIOverlays.tsx',
@@ -53,9 +51,7 @@ const PENDING: string[] = [
   'components/ui/PhoneDialTabs.tsx',
   'components/ui/ScrollIndicators.tsx',
   'components/ui/SectionNavFAB.tsx',
-  'components/ui/blog/BlogCard.tsx',
   'components/ui/blog/NewspaperStack.tsx',
-  'components/ui/blog/ViewAllButton.tsx',
   'components/ui/hero/NavigationButton.tsx',
   'components/ui/hero/ResumeButton.tsx',
   'components/ui/journey/CareerStats.tsx',
@@ -68,8 +64,6 @@ const PENDING: string[] = [
   'components/ui/journey/TimelineEventTooltip.tsx',
   'components/ui/journey/Toolbar.tsx',
   'config/animations.ts',
-  'pages/blog/[slug].astro',
-  'pages/blog/index.astro',
   'pages/journey.astro',
 ];
 
