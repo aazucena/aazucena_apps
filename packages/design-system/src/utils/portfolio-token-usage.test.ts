@@ -50,7 +50,6 @@ const PENDING: string[] = [
   'components/homepage/sections/ServicesSection.tsx',
   'components/homepage/sections/SkillsSection.tsx',
   'components/ui/AwardModal.tsx',
-  'components/ui/EducationItem.tsx',
   'components/ui/InfiniteMovingCards.tsx',
   'components/ui/InfoPanel.tsx',
   'components/ui/InteractiveCard.tsx',
@@ -65,9 +64,6 @@ const PENDING: string[] = [
   'components/ui/blog/BlogCard.tsx',
   'components/ui/blog/NewspaperStack.tsx',
   'components/ui/blog/ViewAllButton.tsx',
-  'components/ui/experience/CompanyLogo.tsx',
-  'components/ui/experience/ExperienceActions.tsx',
-  'components/ui/experience/ExperienceCard.tsx',
   'components/ui/hero/NavigationButton.tsx',
   'components/ui/hero/ResumeButton.tsx',
   'components/ui/journey/CareerStats.tsx',
@@ -82,14 +78,20 @@ const PENDING: string[] = [
   'config/animations.ts',
   'pages/blog/[slug].astro',
   'pages/blog/index.astro',
-  'pages/experiences/[slug].astro',
-  'pages/experiences/index.astro',
   'pages/journey.astro',
   'pages/skills/index.astro',
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */
-const SCENE_EXEMPT: Record<string, string> = {};
+const SCENE_EXEMPT: Record<string, string> = {
+  'components/ui/EducationItem.tsx':
+    'brand mark: white plate behind institution logos (bg-white only)',
+  'components/ui/experience/CompanyLogo.tsx':
+    'brand mark: white plate behind company logos (bg-white only)',
+  'pages/experiences/[slug].astro':
+    'brand mark: white plate behind the company logo (bg-white only)',
+  'pages/experiences/index.astro': 'brand mark: white plate behind company logos (bg-white only)',
+};
 
 function sourceFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {

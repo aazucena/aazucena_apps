@@ -22,10 +22,10 @@ export function ExperienceActions({
     <div className="mt-6 flex items-center justify-center">
       <a
         href={`/${timelineUrl}`}
-        className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-3 font-semibold text-white transition-transform duration-300 hover:scale-105"
+        className="bg-signal text-signal-foreground h-control rounded-control hover:bg-signal/90 focus-visible:outline-signal flex items-center gap-2 px-4 text-sm font-medium transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
       >
         View Full Timeline
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </a>
     </div>
   );

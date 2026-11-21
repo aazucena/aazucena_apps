@@ -1,13 +1,9 @@
 ---
-import { ArrowRight, Briefcase, Location, Zap } from "@aazucena/icons";
+import { ArrowRight } from "@aazucena/icons";
 import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig } from "~/layouts/ListLayout.astro";
 import { getExperiences } from "@aazucena/api";
-import {
-  calculateDuration,
-  getCompanyLogoGradient,
-  getCompanyInitials,
-} from "@aazucena/utils";
+import { calculateDuration, getCompanyInitials } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
 import type { Experience } from "@aazucena/types";
 
@@ -29,18 +25,6 @@ const filters: FilterConfig[] = [
   { id: "company", label: "Company", options: companies },
   { id: "type", label: "Employment Type", options: employmentTypes },
 ];
-
-// Helper to extract the first metric found in achievements
-function getTopMetric(experience: Experience) {
-  const metric = (experience.achievements || []).find((a) =>
-    /([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/.test(a.title),
-  );
-  if (!metric) return null;
-  const match = metric.title.match(/([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/);
-  return match
-    ? { value: match[0], label: metric.title.replace(match[0], "").trim() }
-    : null;
-}
 ---
 
 <ListLayout
@@ -53,137 +37,110 @@ function getTopMetric(experience: Experience) {
   maxWidth="5xl"
   hasItems={experiences.length > 0}
 >
-  {
-    experiences.map((experience, index) => {
-      const topMetric = getTopMetric(experience);
-
-      return (
+  {experiences.map((experience) => {
+    const isCurrent = experience.isCurrent || !experience.endDate;
+    return (
+      <div
+        class="item-card group relative pl-12"
+        data-filter-company={experience.company}
+        data-filter-type={experience.employmentType || ""}
+        data-search={`${experience.company} ${experience.position} ${experience.skills.map((s) => s.name).join(" ")} ${experience.location || ""}`.toLowerCase()}
+      >
+        {/* Timeline Node */}
         <div
-          class="item-card group relative flex flex-col items-center md:flex-row"
-          data-filter-company={experience.company}
-          data-filter-type={experience.employmentType || ""}
-          data-search={`${experience.company} ${experience.position} ${experience.skills.map((s) => s.name).join(" ")} ${experience.location || ""}`.toLowerCase()}
-        >
-          {/* Timeline Node */}
-          <div class="absolute top-0 left-1/2 z-20 h-5 w-5 -translate-x-1/2 rounded-full border-4 border-blue-600 bg-white shadow-xl shadow-blue-500/20 transition-transform duration-500 group-hover:scale-125 md:top-1/2 md:-translate-y-1/2 dark:border-blue-400 dark:bg-gray-950" />
+          class:list={[
+            "absolute top-8 left-1 z-10 size-[11px] rounded-full border-2",
+            isCurrent
+              ? "border-signal bg-signal"
+              : "border-rule-strong bg-background group-hover:border-signal",
+          ]}
+          aria-hidden="true"
+        />
 
-          {/* Content Card Wrapper */}
-          <div
-            class={`timeline-content-wrapper mt-8 w-full md:mt-0 md:w-1/2 ${index % 2 === 0 ? "md:mr-auto md:pr-16" : "md:ml-auto md:pl-16"}`}
-          >
-            <div class="group/card relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-500 hover:border-blue-300 hover:shadow-xl md:rounded-[2rem] md:p-8 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-500/50">
-              {/* Hover Gradient Background */}
-              <div
-                class={`absolute inset-0 bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} pointer-events-none opacity-0 transition-opacity duration-700 group-hover/card:opacity-[0.02] dark:group-hover/card:opacity-[0.05]`}
-              />
+        <article class="bg-panel border-rule rounded-card hover:border-signal focus-within:border-signal relative flex flex-col border transition-[border-color]">
+          <div class="p-panel flex items-start gap-4">
+            {/* Company mark: CMS logos keep their own colours */}
+            <div
+              class:list={[
+                "rounded-control border-rule flex size-10 shrink-0 items-center justify-center overflow-hidden border font-mono text-xs",
+                experience.companyLogo?.url
+                  ? "bg-white"
+                  : "bg-state text-signal",
+              ]}
+            >
+              {experience.companyLogo?.url ? (
+                <img
+                  src={experience.companyLogo.url}
+                  alt=""
+                  class="h-full w-full object-contain p-1"
+                />
+              ) : (
+                <span aria-hidden="true">
+                  {getCompanyInitials(experience.company)}
+                </span>
+              )}
+            </div>
 
-              {/* Duration Badge */}
-              <div class="mb-3 inline-flex items-center rounded-full border border-gray-100 bg-gray-50 px-3 py-1 text-[10px] font-black tracking-[0.2em] text-gray-400 md:mb-6 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500">
+            <div class="min-w-0 flex-1">
+              <h3 class="text-foreground text-base font-semibold tracking-tight">
+                <a
+                  href={`/experiences/${experience.slug}`}
+                  class="after:absolute after:inset-0 focus-visible:outline-none"
+                >
+                  {toTitleCase(experience.position)}
+                </a>
+              </h3>
+              <div class="text-signal text-sm">
+                {toTitleCase(experience.company)}
+              </div>
+            </div>
+
+            <div class="flex shrink-0 flex-col items-end gap-1.5">
+              {isCurrent && (
+                <span class="rounded-badge border-signal/60 bg-signal-faint micro-label text-signal border px-2 py-0.5">
+                  ● Current
+                </span>
+              )}
+              <span class="text-foreground font-mono text-xs">
                 {calculateDuration(
                   experience.startDate,
                   experience.endDate,
                   !experience.endDate,
                 )}
-              </div>
-
-              {/* Company Info */}
-              <div class="mb-4 flex items-start gap-3 md:mb-8 md:gap-5">
-                <div
-                  class={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-base font-black shadow-xl transition-transform duration-700 group-hover/card:scale-110 md:h-16 md:w-16 md:rounded-2xl md:text-xl ${experience.companyLogo?.url ? "bg-white" : `bg-gradient-to-br ${getCompanyLogoGradient(experience.company)} text-white`}`}
-                >
-                  {experience.companyLogo?.url ? (
-                    <img
-                      src={experience.companyLogo.url}
-                      alt={experience.company}
-                      class="h-full w-full rounded-xl object-contain p-1.5 md:rounded-2xl"
-                    />
-                  ) : (
-                    getCompanyInitials(experience.company)
-                  )}
-                </div>
-                <div class="min-w-0 flex-1">
-                  <h3 class="mb-1 text-lg leading-tight font-black tracking-tighter text-gray-900 md:text-3xl dark:text-white">
-                    <a
-                      href={`/experiences/${experience.slug}`}
-                      class="transition-colors group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400"
-                    >
-                      {toTitleCase(experience.position)}
-                    </a>
-                  </h3>
-                  <div class="flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400">
-                    {toTitleCase(experience.company)}
-                  </div>
-                  {experience.employmentType && (
-                    <div class="mt-1 flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-400 uppercase dark:text-gray-500">
-                      <Briefcase size={12} />
-                      {experience.employmentType}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Impact Highlight */}
-              {topMetric && (
-                <div class="group/metric mb-4 flex items-center gap-3 rounded-xl border border-blue-100 bg-blue-50/50 p-3 md:mb-8 md:gap-4 md:rounded-2xl md:p-4 dark:border-blue-800/50 dark:bg-blue-900/10">
-                  <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600 md:h-10 md:w-10 md:rounded-xl dark:bg-blue-900/30 dark:text-blue-400">
-                    <Zap size={16} className="animate-pulse md:size-[20px]" />
-                  </div>
-                  <div class="min-w-0">
-                    <div class="text-[10px] font-black tracking-widest text-blue-900/40 uppercase dark:text-blue-200/40">
-                      Key Outcome
-                    </div>
-                    <div class="md:truncate-none truncate text-sm leading-tight font-bold text-blue-900 md:text-base dark:text-blue-100">
-                      <span class="text-blue-600 dark:text-blue-400">
-                        {topMetric.value}
-                      </span>{" "}
-                      {topMetric.label}
-                    </div>
-                  </div>
-                </div>
+              </span>
+              {experience.employmentType && (
+                <span class="rounded-badge border-rule micro-label text-muted-foreground border px-2 py-0.5">
+                  {experience.employmentType}
+                </span>
               )}
-
-              {/* Skills */}
-              <div class="mb-4 flex flex-wrap gap-1.5 md:mb-8 md:gap-2">
-                {experience.skills.slice(0, 5).map((skill) => (
-                  <span class="rounded-md border border-gray-100 bg-gray-50 px-2 py-0.5 text-[10px] font-bold tracking-wider text-gray-600 uppercase transition-colors hover:border-blue-500/20 md:rounded-lg md:px-2.5 md:py-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
-                    {skill.name}
-                  </span>
-                ))}
-                {experience.skills.length > 5 && (
-                  <span class="px-2 py-0.5 text-[10px] font-bold tracking-widest text-gray-400 uppercase dark:text-gray-500">
-                    +{experience.skills.length - 5}
-                  </span>
-                )}
-              </div>
-
-              {/* Bottom Actions */}
-              <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-3 md:pt-6 dark:border-gray-800">
-                <div class="flex items-center gap-3 text-[10px] font-black tracking-widest text-gray-400 uppercase dark:text-gray-500">
-                  {experience.location && (
-                    <span class="flex items-center gap-1.5">
-                      <Location size={12} />
-                      <span class="max-w-[120px] truncate md:max-w-none">
-                        {experience.location}
-                      </span>
-                    </span>
-                  )}
-                </div>
-
-                <a
-                  href={`/experiences/${experience.slug}`}
-                  class="group/link inline-flex items-center gap-2 text-xs font-black tracking-widest text-blue-600 uppercase hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                >
-                  Case Study
-                  <ArrowRight
-                    size={14}
-                    className="transform group-hover/link:translate-x-1 transition-transform"
-                  />
-                </a>
-              </div>
             </div>
           </div>
-        </div>
-      );
-    })
-  }
+
+          <div class="border-rule px-panel flex flex-wrap items-center justify-between gap-3 border-t py-2.5">
+            <div class="flex flex-wrap gap-1.5">
+              {experience.skills.slice(0, 5).map((skill) => (
+                <span class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5">
+                  {skill.name}
+                </span>
+              ))}
+              {experience.skills.length > 5 && (
+                <span class="micro-label text-muted-foreground py-0.5">
+                  +{experience.skills.length - 5}
+                </span>
+              )}
+            </div>
+            <div class="micro-label text-muted-foreground flex items-center gap-3">
+              {experience.location && (
+                <span class="truncate">{experience.location}</span>
+              )}
+              <span class="text-signal flex items-center gap-1.5">
+                Case Study
+                <ArrowRight size={12} aria-hidden="true" />
+              </span>
+            </div>
+          </div>
+        </article>
+      </div>
+    );
+  })}
 </ListLayout>

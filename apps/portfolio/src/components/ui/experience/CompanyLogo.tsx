@@ -1,15 +1,11 @@
 /**
  * CompanyLogo Component
- * Company logo or initials with gradient background
+ * Company logo (keeps its own colours) or initials on a state tone
  * Reusable in ExperienceSection and experience detail pages
  */
 
 import type { JSX } from "react";
-import {
-  getCompanyLogoGradient,
-  getCompanyInitials,
-  getGradientColors,
-} from "@aazucena/utils";
+import { getCompanyInitials } from "@aazucena/utils";
 
 export interface CompanyLogoProps {
   /** Company name */
@@ -36,7 +32,7 @@ const sizeVariants = {
 
 /**
  * CompanyLogo
- * Displays company logo image or gradient-filled initials
+ * Displays company logo image or initials on a state tone
  */
 export function CompanyLogo({
   company,
@@ -44,8 +40,6 @@ export function CompanyLogo({
   size = "md",
   className = "",
 }: CompanyLogoProps): JSX.Element {
-  const gradient = getCompanyLogoGradient(company);
-  const { from, to } = getGradientColors(gradient);
   const initials = getCompanyInitials(company);
   const sizeClass = sizeVariants[size];
 
@@ -53,12 +47,7 @@ export function CompanyLogo({
 
   return (
     <div
-      className={`flex flex-shrink-0 items-center justify-center overflow-hidden rounded-lg font-bold shadow-lg ${hasLogo ? "bg-white" : "text-white"} ${sizeClass} ${className}`}
-      style={
-        hasLogo
-          ? undefined
-          : { background: `linear-gradient(135deg, ${from}, ${to})` }
-      }
+      className={`rounded-control border-rule flex flex-shrink-0 items-center justify-center overflow-hidden border font-mono ${hasLogo ? "bg-white" : "bg-state text-signal"} ${sizeClass} ${className}`}
     >
       {companyLogo?.url ? (
         <img
@@ -67,7 +56,7 @@ export function CompanyLogo({
           className="h-full w-full object-cover"
         />
       ) : (
-        initials
+        <span aria-hidden="true">{initials}</span>
       )}
     </div>
   );

@@ -30,7 +30,7 @@ export function ExperienceCard({
       hover
       clickable
       padding="none"
-      className="block p-3 text-inherit no-underline md:p-4"
+      className="hover:border-signal block p-3 text-inherit no-underline md:p-4"
     >
       <div className="flex items-center gap-3 md:gap-4">
         {/* Company Logo */}
@@ -43,13 +43,13 @@ export function ExperienceCard({
 
         {/* Experience Info */}
         <div className="flex flex-grow flex-col gap-1">
-          <h3 className="text-sm font-bold text-white md:text-lg">
+          <h3 className="text-foreground text-sm font-semibold md:text-lg">
             {experience.position}
           </h3>
-          <span className="text-xs text-cyan-400 md:text-sm">
+          <span className="text-signal text-xs md:text-sm">
             {experience.company}
           </span>
-          <p className="text-xs text-gray-300 md:whitespace-nowrap">
+          <p className="text-muted-foreground font-mono text-xs md:whitespace-nowrap">
             {formatDate(experience.startDate)} -{" "}
             {experience.isCurrent
               ? "Present"
@@ -58,7 +58,7 @@ export function ExperienceCard({
 
           {/* Metadata: Location & Employment Type */}
           {(experience.location || experience.employmentType) && (
-            <div className="hidden flex-wrap items-center gap-2 text-xs text-gray-400 md:flex">
+            <div className="text-muted-foreground hidden flex-wrap items-center gap-2 text-xs md:flex">
               {experience.employmentType && (
                 <div className="flex items-center gap-1">
                   <Briefcase className="h-3 w-3" />
@@ -77,7 +77,10 @@ export function ExperienceCard({
 
         {/* Click Indicator */}
         <div className="flex-shrink-0">
-          <ChevronRight className="h-4 w-4 text-cyan-400 md:h-5 md:w-5" />
+          <ChevronRight
+            className="text-signal h-4 w-4 md:h-5 md:w-5"
+            aria-hidden="true"
+          />
         </div>
       </div>
     </GlassCard>
