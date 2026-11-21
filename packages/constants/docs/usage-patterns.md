@@ -684,7 +684,7 @@ function createHealthCheckMiddleware() {
 ### Test Pattern 1: Constant Value Tests
 
 ```typescript
-import { ROUTES, STORAGE_KEYS, AI_MODELS } from '@aazucena/constants';
+import { ROUTES, STORAGE_KEYS, CLAUDE_MODELS } from '@aazucena/constants';
 
 describe('Constants Integrity', () => {
   test('ROUTES should have unique values', () => {
@@ -700,11 +700,9 @@ describe('Constants Integrity', () => {
     });
   });
 
-  test('AI_MODELS should follow provider/model format', () => {
-    Object.values(AI_MODELS).forEach((model) => {
-      if (model !== AI_MODELS.BRAIN) {
-        expect(model).toMatch(/^\w+\/[\w-]+$/);
-      }
+  test('CLAUDE_MODELS ids follow provider/model format', () => {
+    CLAUDE_MODELS.forEach(({ id }) => {
+      expect(id).toMatch(/^anthropic\/[\w.-]+$/);
     });
   });
 });
@@ -742,17 +740,13 @@ describe('Type Safety', () => {
 ### Test Pattern 3: Integration Tests
 
 ```typescript
-import { AI_MODELS, AI_PRICING } from '@aazucena/constants';
+import { DEFAULT_CHAT_MODEL } from '@aazucena/constants';
+import { calculateAiCost as calculateCost } from '@aazucena/utils';
 
 describe('AI Cost Calculator Integration', () => {
-  function calculateCost(model: string, inputTokens: number, outputTokens: number): number {
-    const pricing = AI_PRICING[model] || AI_PRICING.default;
-    return (inputTokens / 1_000_000) * pricing.in + (outputTokens / 1_000_000) * pricing.out;
-  }
-
-  test('should calculate Claude 3.5 Sonnet cost correctly', () => {
-    const cost = calculateCost(AI_MODELS.CLAUDE_3_SONNET, 500_000, 250_000);
-    expect(cost).toBeCloseTo(5.25, 2); // (0.5M * $3) + (0.25M * $15) = $5.25
+  test('should calculate Claude Sonnet 5.5 cost correctly', () => {
+    const cost = calculateCost(DEFAULT_CHAT_MODEL, 500_000, 250_000);
+    expect(cost).toBeCloseTo(3.5, 2); // (0.5M * $2) + (0.25M * $10) = $3.50
   });
 
   test('should handle unknown model with default pricing', () => {
