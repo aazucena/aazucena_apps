@@ -35,3 +35,6 @@ pnpm-debug.log*
 /playwright/.auth/
 .vercel
 .env*.local
+
+# visual-check screenshots
+.shots/
