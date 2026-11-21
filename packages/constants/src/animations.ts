@@ -276,7 +276,6 @@ export const CTA_CLICK_REPEAT = 1;
 // Resume Button Animation
 export const RESUME_BUTTON_SCALE = 1.1;
 export const RESUME_BUTTON_DURATION = 0.2;
-export const RESUME_BUTTON_COLOR = '#059669'; // Tailwind emerald-600
 export const RESUME_OPEN_DELAY = 400; // ms delay before opening resume
 
 // Scroll Navigation

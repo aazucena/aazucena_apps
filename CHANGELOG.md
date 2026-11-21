@@ -262,6 +262,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(design-system)_ The portfolio guard covers every file
 - _(design-system)_ Portfolio token-layer guards
 - _(design-system)_ Ratcheting avra token guard for the portfolio
 - _(design-system)_ The analytics guard covers every file
