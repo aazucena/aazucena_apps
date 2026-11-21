@@ -28,6 +28,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Chat route accepts only catalogue models
 - _(storybook)_ Stories use radix data-state selectors; guard scans stories
 - _(analytics)_ Kpi value keeps its colour, glyph carries the trend
 - _(analytics)_ Drop legacy cyber badges; live badges follow query state

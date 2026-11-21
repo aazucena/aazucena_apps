@@ -14,6 +14,7 @@ import {
   Skeleton,
   Textarea,
 } from '@aazucena/ui';
+import { CLAUDE_MODELS, DEFAULT_CHAT_MODEL, type ChatModelId } from '@aazucena/constants';
 import { cn } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/common/MarkdownRenderer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,10 +27,6 @@ import {
   type Conversation,
 } from '@/store';
 
-const AVAILABLE_MODELS = [
-  { id: 'anthropic/claude-3-5-sonnet', name: 'Claude 3.5 Sonnet', provider: 'Anthropic' },
-];
-
 function AiTerminalContent() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -40,7 +37,7 @@ function AiTerminalContent() {
   const activeConversationId = useSelector((state: RootState) => state.chat.activeConversationId);
   const activeConv = activeConversationId ? conversations[activeConversationId] : null;
 
-  const [selectedModel, setSelectedModel] = useState(AVAILABLE_MODELS[0]!.id);
+  const [selectedModel, setSelectedModel] = useState<ChatModelId>(DEFAULT_CHAT_MODEL);
   const [input, setInput] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -104,7 +101,7 @@ function AiTerminalContent() {
   }, [q, isLoading, isMounted, sendQuery, searchParams, router]);
 
   const liveIdx = messages[messages.length - 1]?.role === 'assistant' ? messages.length - 1 : -1;
-  const activeModel = AVAILABLE_MODELS.find((m) => m.id === selectedModel);
+  const activeModel = CLAUDE_MODELS.find((m) => m.id === selectedModel);
   const isDisabled = isLoading || (isMounted && !activeConversationId);
 
   const renderMessage = (m: (typeof messages)[number]) => {
@@ -273,12 +270,12 @@ function AiTerminalContent() {
               <select
                 id="ai-model-compact"
                 value={selectedModel}
-                onChange={(e) => setSelectedModel(e.target.value)}
+                onChange={(e) => setSelectedModel(e.target.value as ChatModelId)}
                 className="border border-rule-strong h-control-sm rounded-control text-foreground focus-visible:outline-signal bg-transparent px-3 text-sm outline-none focus-visible:outline-1"
               >
-                {AVAILABLE_MODELS.map((model) => (
+                {CLAUDE_MODELS.map((model) => (
                   <option key={model.id} value={model.id} className="bg-panel">
-                    {model.name}
+                    {model.name} · {model.role}
                   </option>
                 ))}
               </select>
@@ -378,16 +375,16 @@ function AiTerminalContent() {
             <select
               id="ai-model"
               value={selectedModel}
-              onChange={(e) => setSelectedModel(e.target.value)}
+              onChange={(e) => setSelectedModel(e.target.value as ChatModelId)}
               className="border border-rule-strong h-control rounded-control text-foreground focus-visible:outline-signal bg-transparent px-3 text-sm outline-none focus-visible:outline-1"
             >
-              {AVAILABLE_MODELS.map((model) => (
+              {CLAUDE_MODELS.map((model) => (
                 <option key={model.id} value={model.id} className="bg-panel">
-                  {model.name}
+                  {model.name} · {model.role}
                 </option>
               ))}
             </select>
-            <span className="micro-label text-muted-foreground">{activeModel?.provider}</span>
+            <span className="micro-label text-muted-foreground">{activeModel?.role}</span>
           </div>
           <dl className="flex flex-col gap-3">
             {['TOKENS IN', 'TOKENS OUT', 'LATENCY', 'COST'].map((k) => (
