@@ -1,12 +1,10 @@
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 /**
- * Ratcheting guard for the analytics app's move onto the Avra design system.
- * Files in PENDING still carry stock palette classes, glass, big radii or literal colours.
- * Each restyle removes its files from PENDING; a finished file that regresses fails test 1,
- * and a listed file that is already clean fails test 2, so the list only shrinks.
+ * Guard for the analytics app's Avra token usage. Every .tsx file under apps/analytics/src
+ * must stay free of stock palette classes, glass, big radii and literal colours.
  */
 const ROOT = join(__dirname, '../../../..');
 const SRC = join(ROOT, 'apps/analytics/src');
@@ -26,9 +24,6 @@ const RULES: Array<[name: string, re: RegExp]> = [
   ['width cap', /\bmax-w-7xl\b/g],
   ['literal colour', /#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b|\brgba?\(/g],
 ];
-
-/** Paths relative to apps/analytics/src, POSIX separators, sorted. */
-export const PENDING = new Set<string>([]);
 
 function tsxFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
@@ -59,16 +54,9 @@ export function violations(file: string): string[] {
 const ALL = tsxFiles(SRC).map(rel).sort();
 
 describe('analytics app Avra token usage', () => {
-  it('uses Avra tokens in every finished file', () => {
-    for (const file of ALL.filter((f) => !PENDING.has(f))) {
+  it('uses Avra tokens in every file', () => {
+    for (const file of ALL) {
       expect({ file, hits: violations(file) }).toEqual({ file, hits: [] });
-    }
-  });
-
-  it('lists only files that still need work', () => {
-    for (const file of PENDING) {
-      expect({ file, exists: existsSync(join(SRC, file)) }).toEqual({ file, exists: true });
-      expect({ file, dirty: violations(file).length > 0 }).toEqual({ file, dirty: true });
     }
   });
 
