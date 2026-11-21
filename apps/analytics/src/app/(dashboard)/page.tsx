@@ -63,20 +63,16 @@ export default function DashboardPage() {
           className="rounded-none border-0"
           label="Unique Entities"
           value={summary?.visitors?.toLocaleString() || '0'}
-          delta="14% SIGNAL_STRENGTH"
-          trend="up"
         />
         <MetricCard
           className="rounded-none border-0"
           label="Signal Streams"
           value={summary?.music_plays?.toLocaleString() || '0'}
-          description="AVG_45S_PLAYBACK"
         />
         <MetricCard
           className="rounded-none border-0"
           label="Core Integrity"
-          value={summary?.api_health || '100%'}
-          description="LATENCY_42MS_STABLE"
+          value={summary?.api_health || '—'}
         />
         <MetricCard
           className="rounded-none border-0"
