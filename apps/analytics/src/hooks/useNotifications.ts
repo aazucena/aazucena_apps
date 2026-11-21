@@ -16,11 +16,11 @@ import type { RootState } from '@/store';
 function iconForSource(sourceType: StoredNotification['sourceType']): React.ReactNode {
   switch (sourceType) {
     case 'form':
-      return React.createElement(Mail, { size: 14, className: 'text-primary-500' });
+      return React.createElement(Mail, { size: 14, className: 'text-signal' });
     case 'socket':
-      return React.createElement(Bell, { size: 14, className: 'text-amber-500' });
+      return React.createElement(Bell, { size: 14, className: 'text-warning' });
     default:
-      return React.createElement(Bell, { size: 14, className: 'text-zinc-400' });
+      return React.createElement(Bell, { size: 14, className: 'text-muted-foreground' });
   }
 }
 

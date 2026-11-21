@@ -25,13 +25,13 @@ const RULES: Array<[name: string, re: RegExp]> = [
   ['literal colour', /#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b|\brgba?\(/g],
 ];
 
-function tsxFiles(dir: string): string[] {
+function sourceFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
     const full = join(dir, name);
     if (statSync(full).isDirectory()) {
-      return full === join(SRC, 'app/api') ? [] : tsxFiles(full);
+      return full === join(SRC, 'app/api') ? [] : sourceFiles(full);
     }
-    return name.endsWith('.tsx') ? [full] : [];
+    return /\.tsx?$/.test(name) && !name.endsWith('.d.ts') ? [full] : [];
   });
 }
 
@@ -51,7 +51,7 @@ export function violations(file: string): string[] {
   return RULES.flatMap(([name, re]) => Array.from(code.matchAll(re), (m) => `${name}: ${m[0]}`));
 }
 
-const ALL = tsxFiles(SRC).map(rel).sort();
+const ALL = sourceFiles(SRC).map(rel).sort();
 
 describe('analytics app Avra token usage', () => {
   it('uses Avra tokens in every file', () => {
