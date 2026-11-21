@@ -26,15 +26,7 @@ const pageTitle = "Contact";
 const pageDescription = `Let's build something together. Currently ${portfolio.availabilityStatus.toLowerCase()} and interesting collaborations.`;
 
 // Availability: same marker treatment as the Footer (mono line, status tone)
-const rawIndicator = getAvailabilityIndicator(portfolio.availabilityStatus);
-const availability = rawIndicator.color.includes("green")
-  ? { marker: "●", tone: "text-success" }
-  : rawIndicator.color.includes("yellow") ||
-      rawIndicator.color.includes("orange")
-    ? { marker: "◆", tone: "text-warning" }
-    : rawIndicator.color.includes("blue")
-      ? { marker: "●", tone: "text-signal" }
-      : { marker: "●", tone: "text-muted-foreground" };
+const availability = getAvailabilityIndicator(portfolio.availabilityStatus);
 
 const localTime = new Date().toLocaleTimeString("en-US", {
   timeZone: portfolio?.timezone ?? "America/Edmonton",

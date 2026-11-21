@@ -29,6 +29,10 @@ export interface AvailabilityIndicator {
   color: string;
   pulse: boolean;
   label: string;
+  /** Avra status marker: ● info/ok, ◆ warning. */
+  marker: '●' | '◆';
+  /** Avra token text class for the marker: success, warning, signal or muted. */
+  tone: 'text-success' | 'text-warning' | 'text-signal' | 'text-muted-foreground';
 }
 
 /**
@@ -40,6 +44,9 @@ export interface AvailabilityIndicator {
  * - 'On Break / Personal Time' -> Orange
  * - 'Looking for Collaborations' -> Blue + Pulse
  * - 'Unavailable' -> Red
+ *
+ * `marker` and `tone` carry the Avra treatment: open and collaboration are ● success/signal,
+ * busy and break are ◆ warning, unavailable and unknown are ● muted.
  * - Default -> Gray
  */
 export function getAvailabilityIndicator(status?: string): AvailabilityIndicator {
@@ -49,6 +56,8 @@ export function getAvailabilityIndicator(status?: string): AvailabilityIndicator
   if (normalizedStatus.includes('open') || normalizedStatus.includes('opportunities')) {
     return {
       color: 'bg-green-500',
+      marker: '●',
+      tone: 'text-success',
       pulse: true,
       label: status || 'Open to Opportunities',
     };
@@ -57,6 +66,8 @@ export function getAvailabilityIndicator(status?: string): AvailabilityIndicator
   if (normalizedStatus.includes('busy') || normalizedStatus.includes('working')) {
     return {
       color: 'bg-yellow-500',
+      marker: '◆',
+      tone: 'text-warning',
       pulse: false,
       label: status || 'Busy',
     };
@@ -65,6 +76,8 @@ export function getAvailabilityIndicator(status?: string): AvailabilityIndicator
   if (normalizedStatus.includes('break') || normalizedStatus.includes('personal')) {
     return {
       color: 'bg-orange-500',
+      marker: '◆',
+      tone: 'text-warning',
       pulse: false,
       label: status || 'On Break',
     };
@@ -73,6 +86,8 @@ export function getAvailabilityIndicator(status?: string): AvailabilityIndicator
   if (normalizedStatus.includes('collaboration')) {
     return {
       color: 'bg-blue-500',
+      marker: '●',
+      tone: 'text-signal',
       pulse: true,
       label: status || 'Collaborating',
     };
@@ -81,6 +96,8 @@ export function getAvailabilityIndicator(status?: string): AvailabilityIndicator
   if (normalizedStatus.includes('unavailable') || normalizedStatus.includes('closed')) {
     return {
       color: 'bg-red-500',
+      marker: '●',
+      tone: 'text-muted-foreground',
       pulse: false,
       label: status || 'Unavailable',
     };
@@ -89,6 +106,8 @@ export function getAvailabilityIndicator(status?: string): AvailabilityIndicator
   // Default fallback
   return {
     color: 'bg-gray-400',
+    marker: '●',
+    tone: 'text-muted-foreground',
     pulse: false,
     label: status || 'Status Unknown',
   };

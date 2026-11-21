@@ -60,16 +60,7 @@ const utilityLinks = footerSections.flatMap(
 const currentYear = new Date().getFullYear();
 
 // Get dynamic indicator styles
-const rawIndicator = getAvailabilityIndicator(availabilityStatus);
-// Map the util's status colour onto Avra status tokens (marker + text colour)
-const indicator = rawIndicator.color.includes("green")
-  ? { marker: "●", tone: "text-success" }
-  : rawIndicator.color.includes("yellow") ||
-      rawIndicator.color.includes("orange")
-    ? { marker: "◆", tone: "text-warning" }
-    : rawIndicator.color.includes("blue")
-      ? { marker: "●", tone: "text-signal" }
-      : { marker: "●", tone: "text-muted-foreground" };
+const indicator = getAvailabilityIndicator(availabilityStatus);
 
 // Platform icons component mapping
 const getPlatformIcon = (platform: string) => {

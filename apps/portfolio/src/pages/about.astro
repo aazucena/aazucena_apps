@@ -51,15 +51,7 @@ const pageTitle = "About";
 const pageDescription = about.tagline;
 
 // Availability: same marker treatment as the Footer (mono line, status tone)
-const rawIndicator = getAvailabilityIndicator(portfolio.availabilityStatus);
-const availability = rawIndicator.color.includes("green")
-  ? { marker: "●", tone: "text-success" }
-  : rawIndicator.color.includes("yellow") ||
-      rawIndicator.color.includes("orange")
-    ? { marker: "◆", tone: "text-warning" }
-    : rawIndicator.color.includes("blue")
-      ? { marker: "●", tone: "text-signal" }
-      : { marker: "●", tone: "text-muted-foreground" };
+const availability = getAvailabilityIndicator(portfolio.availabilityStatus);
 
 // Sort education by start date descending
 const sortedEducation = [...education].sort((a, b) => {
