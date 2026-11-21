@@ -109,13 +109,16 @@ export function LoginOverlay() {
   };
 
   // Opaque cover for the server HTML and first client render, so the shell never shows un-inerted
-  if (!mounted) return <div aria-hidden className="bg-background fixed inset-0 z-50" />;
+  if (!mounted)
+    return (
+      <div aria-hidden data-login-overlay className="bg-background fixed inset-0 z-(--z-modal)" />
+    );
 
   return createPortal(
     <div
       ref={rootRef}
       data-login-overlay
-      className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="bg-background/80 fixed inset-0 z-(--z-modal) flex items-center justify-center p-4"
     >
       {/* Top bar: live clock + theme toggle */}
       <div className="absolute top-4 right-4 left-4 flex items-center justify-between">

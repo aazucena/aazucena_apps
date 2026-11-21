@@ -20,14 +20,20 @@ export function CommandPalette() {
 
   // 1. Toggle palette visibility
   useEffect(() => {
+    // The login overlay is modal: no shortcut or event may open another layer over it.
+    const locked = () => document.querySelector('[data-login-overlay]') !== null;
+
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        if (locked()) return;
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
 
-    const handleOpenPalette = () => setOpen(true);
+    const handleOpenPalette = () => {
+      if (!locked()) setOpen(true);
+    };
 
     document.addEventListener('keydown', down);
     window.addEventListener('open-command-palette', handleOpenPalette);
