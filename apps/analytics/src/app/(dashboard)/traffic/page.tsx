@@ -169,10 +169,28 @@ export default function TrafficPage() {
         <PanelBody className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-4">
             <Tabs value={metric} onValueChange={setMetric}>
-              <TabsList aria-label="Map metric">
-                <TabsTrigger value="visitors">VISITORS</TabsTrigger>
-                <TabsTrigger value="pageviews">PAGEVIEWS</TabsTrigger>
-                <TabsTrigger value="sessions">SESSIONS</TabsTrigger>
+              <TabsList
+                aria-label="Map metric"
+                className="border-rule bg-panel h-[34px] border p-0.5"
+              >
+                <TabsTrigger
+                  value="visitors"
+                  className="text-muted-foreground data-[state=active]:bg-signal data-[state=active]:text-signal-foreground h-full px-4 font-mono text-[10px] leading-[14px] font-normal tracking-[0.2em] uppercase"
+                >
+                  VISITORS
+                </TabsTrigger>
+                <TabsTrigger
+                  value="pageviews"
+                  className="text-muted-foreground data-[state=active]:bg-signal data-[state=active]:text-signal-foreground h-full px-4 font-mono text-[10px] leading-[14px] font-normal tracking-[0.2em] uppercase"
+                >
+                  PAGEVIEWS
+                </TabsTrigger>
+                <TabsTrigger
+                  value="sessions"
+                  className="text-muted-foreground data-[state=active]:bg-signal data-[state=active]:text-signal-foreground h-full px-4 font-mono text-[10px] leading-[14px] font-normal tracking-[0.2em] uppercase"
+                >
+                  SESSIONS
+                </TabsTrigger>
               </TabsList>
             </Tabs>
             <div className="micro-label flex items-center gap-2 text-muted-foreground">
