@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { StateNote } from '@/components/common/StateNote';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { Panel, PanelBody, PanelHeader, Button } from '@aazucena/ui';
@@ -40,10 +41,6 @@ function formatWhen(iso: string): string {
   });
 }
 
-function Note({ children }: { children: React.ReactNode }) {
-  return <p className="micro-label text-muted-foreground p-6 text-center">{children}</p>;
-}
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function EasterEggsPage() {
@@ -80,9 +77,7 @@ export default function EasterEggsPage() {
     return (
       <>
         {header}
-        <p role="alert" className="micro-label text-alert">
-          ▲ Easter egg feed offline. The stats fetch failed.
-        </p>
+        <StateNote kind="fault">Easter egg feed offline. The stats fetch failed.</StateNote>
       </>
     );
   }
@@ -121,9 +116,9 @@ export default function EasterEggsPage() {
           label={`EGG LEADERBOARD // COMPLETIONS${eggs.length ? ` // ${eggs.length} EGGS` : ''}`}
         >
           {isLoading ? (
-            <Note>Loading eggs…</Note>
+            <StateNote kind="empty">Loading eggs…</StateNote>
           ) : eggs.length === 0 ? (
-            <Note>No eggs discovered yet.</Note>
+            <StateNote kind="empty">No eggs discovered yet.</StateNote>
           ) : (
             <div className="flex flex-col gap-3">
               {eggs.map((egg) => (
@@ -141,9 +136,9 @@ export default function EasterEggsPage() {
 
         <Panel label={`BY TRIGGER${triggers.length ? ` // ${triggers.length} TYPES` : ''}`}>
           {isLoading ? (
-            <Note>Scanning…</Note>
+            <StateNote kind="empty">Scanning…</StateNote>
           ) : triggers.length === 0 ? (
-            <Note>No trigger data.</Note>
+            <StateNote kind="empty">No trigger data.</StateNote>
           ) : (
             <div className="flex flex-col gap-3">
               {triggers.map((t, i) => (
@@ -163,9 +158,9 @@ export default function EasterEggsPage() {
       <div className="grid grid-cols-1 items-start gap-4 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Panel label="30-DAY UNLOCK TREND // DAILY COMPLETIONS">
           {isLoading ? (
-            <Note>Loading trend…</Note>
+            <StateNote kind="empty">Loading trend…</StateNote>
           ) : trend.length === 0 ? (
-            <Note>No trend data.</Note>
+            <StateNote kind="empty">No trend data.</StateNote>
           ) : (
             <>
               <StackedColumns
@@ -198,9 +193,9 @@ export default function EasterEggsPage() {
             aria-label="RECENT UNLOCKS"
           >
             {isLoading ? (
-              <Note>Loading feed…</Note>
+              <StateNote kind="empty">Loading feed…</StateNote>
             ) : recent.length === 0 ? (
-              <Note>No recent unlocks.</Note>
+              <StateNote kind="empty">No recent unlocks.</StateNote>
             ) : (
               <ul className="divide-rule flex flex-col divide-y">
                 {recent.map((item, i) => (

@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Overview kpis show only real values
 - _(analytics)_ Notification icons use avra tokens; guard walks .ts
 - _(analytics)_ Honest failure states and status colours
 - _(analytics)_ No peak line when every column is zero

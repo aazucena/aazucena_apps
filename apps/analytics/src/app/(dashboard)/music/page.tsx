@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { StateNote } from '@/components/common/StateNote';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import { Panel, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@aazucena/ui';
@@ -9,10 +10,6 @@ import { PageHeader } from '@/components/common/PageHeader';
 import { RankBar } from '@/components/common/RankBar';
 import { MetricCard } from '@/components/widgets/MetricCard';
 import { useMusicStats } from '@/hooks/useTelemetry';
-
-function Note({ children }: { children: React.ReactNode }) {
-  return <p className="micro-label text-muted-foreground p-6 text-center">{children}</p>;
-}
 
 export default function MusicPage() {
   const dispatch = useDispatch();
@@ -29,11 +26,11 @@ export default function MusicPage() {
   const num = (v: unknown) => (typeof v === 'number' ? v.toLocaleString() : '—');
   const empty = (text: string) =>
     isLoading ? (
-      <Note>Syncing audio nodes…</Note>
+      <StateNote kind="empty">Syncing audio nodes…</StateNote>
     ) : error ? (
-      <Note>▲ Audio telemetry unavailable. The fetch failed.</Note>
+      <StateNote kind="fault">Audio telemetry unavailable. The fetch failed.</StateNote>
     ) : (
-      <Note>{text}</Note>
+      <StateNote kind="empty">{text}</StateNote>
     );
 
   return (

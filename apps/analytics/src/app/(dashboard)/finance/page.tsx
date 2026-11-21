@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useEffect } from 'react';
+import { StateNote } from '@/components/common/StateNote';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import {
@@ -22,10 +23,6 @@ import { useFinanceStats } from '@/hooks/useFinance';
 
 const WEEKS = 13;
 const DAY_MS = 86_400_000;
-
-function Note({ children }: { children: React.ReactNode }) {
-  return <p className="micro-label text-muted-foreground p-6 text-center">{children}</p>;
-}
 
 /** Amount in its own currency; refunds and chargebacks get an explicit minus, neutral colour. */
 function formatAmount(amount: number, currency: string, negative: boolean): string {
@@ -89,11 +86,11 @@ export default function FinancePage() {
   const summary = stats?.summary;
   const empty = (text: string) =>
     isLoading ? (
-      <Note>Syncing ledger…</Note>
+      <StateNote kind="empty">Syncing ledger…</StateNote>
     ) : error ? (
-      <Note>▲ Ledger unavailable. The fetch failed.</Note>
+      <StateNote kind="fault">Ledger unavailable. The fetch failed.</StateNote>
     ) : (
-      <Note>{text}</Note>
+      <StateNote kind="empty">{text}</StateNote>
     );
 
   return (

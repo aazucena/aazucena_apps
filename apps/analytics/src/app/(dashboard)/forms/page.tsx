@@ -23,6 +23,7 @@ import {
 } from '@aazucena/ui';
 import { formatDistanceToNow } from 'date-fns';
 import { PageHeader } from '@/components/common/PageHeader';
+import { StateNote } from '@/components/common/StateNote';
 import { FormButton, FormErrorSummary, ControlledInput, ControlledTextarea } from '@aazucena/forms';
 import {
   useForms,
@@ -376,7 +377,7 @@ export default function FormsPage() {
           meta="PORTFOLIO CONTACT TRANSMISSIONS & RESPONSE TERMINAL"
         />
         <Panel label="TRANSMISSIONS" status="alert">
-          <p className="micro-label text-alert">▲ Inbox_Connection_Failed</p>
+          <StateNote kind="fault">Inbox connection failed.</StateNote>
         </Panel>
       </div>
     );

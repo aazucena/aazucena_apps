@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { StateNote } from '@/components/common/StateNote';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
 import {
@@ -30,10 +31,6 @@ import {
 import { formatDistanceToNow } from 'date-fns';
 
 const EMPTY = '—';
-
-function EmptyNote({ children }: { children: React.ReactNode }) {
-  return <p className="micro-label text-muted-foreground p-6 text-center">{children}</p>;
-}
 
 export default function JourneyPage() {
   const dispatch = useDispatch();
@@ -139,9 +136,11 @@ export default function JourneyPage() {
                 ))}
               </div>
             ) : journeysError ? (
-              <EmptyNote>▲ Identities unavailable. The telemetry fetch failed.</EmptyNote>
+              <StateNote kind="fault">
+                Identities unavailable. The telemetry fetch failed.
+              </StateNote>
             ) : filteredJourneys?.length === 0 ? (
-              <EmptyNote>No identities found.</EmptyNote>
+              <StateNote kind="empty">No identities found.</StateNote>
             ) : (
               <Table>
                 <TableHeader>
@@ -225,7 +224,7 @@ export default function JourneyPage() {
             )}
           </PanelHeader>
           {!selectedSid ? (
-            <EmptyNote>Select an identity to read its session.</EmptyNote>
+            <StateNote kind="empty">Select an identity to read its session.</StateNote>
           ) : (
             <div
               // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- keyboard users must be able to scroll this region
@@ -269,11 +268,9 @@ export default function JourneyPage() {
                     <Skeleton className="h-10 w-full" />
                   </div>
                 ) : detailError ? (
-                  <p role="alert" className="micro-label text-alert">
-                    ▲ Session events failed to load.
-                  </p>
+                  <StateNote kind="fault">Session events failed to load.</StateNote>
                 ) : events.length === 0 ? (
-                  <EmptyNote>No events logged.</EmptyNote>
+                  <StateNote kind="empty">No events logged.</StateNote>
                 ) : (
                   <Timeline>
                     {events.map((ev: any, idx: number) => {

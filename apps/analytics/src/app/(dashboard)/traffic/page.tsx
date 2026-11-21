@@ -8,6 +8,7 @@ import { MetricCard } from '@/components/widgets/MetricCard';
 import { StreamGraph, ChoroplethMap, chartTheme } from '@aazucena/visualizations';
 import { Panel, PanelBody, PanelHeader, Progress, Tabs, TabsList, TabsTrigger } from '@aazucena/ui';
 import { PageHeader } from '@/components/common/PageHeader';
+import { StateNote } from '@/components/common/StateNote';
 import { useTrafficStats } from '@/hooks/useTraffic';
 import type { GenericTimeSeriesStep, MapRegion } from '@aazucena/types';
 
@@ -68,7 +69,7 @@ const ISO2_TO_NAME: Record<string, string> = {
 
 export default function TrafficPage() {
   const dispatch = useDispatch();
-  const { data: stats, isLoading } = useTrafficStats();
+  const { data: stats, isLoading, error } = useTrafficStats();
   const [geoJson, setGeoJson] = useState<any>(null);
   const [metric, setMetric] = useState('visitors');
 
@@ -128,22 +129,24 @@ export default function TrafficPage() {
     <>
       <PageHeader title="TRAFFIC_CENTER" meta="Audience Engagement & Reach Intelligence" />
 
+      {error && <StateNote kind="fault">Traffic stats unavailable. The fetch failed.</StateNote>}
+
       {/* KPI strip */}
       <div className="grid grid-cols-1 divide-y divide-rule overflow-hidden rounded-card border border-rule bg-panel md:grid-cols-3 md:divide-y-0 lg:grid-cols-5 lg:divide-x">
         <MetricCard
           className="rounded-none border-0"
           label="Unique Visitors · 30D"
-          value={stats?.summary?.total_visitors?.toLocaleString() || '0'}
+          value={error ? '—' : stats?.summary?.total_visitors?.toLocaleString() || '0'}
         />
         <MetricCard
           className="rounded-none border-0"
           label="Total Pageviews · 30D"
-          value={stats?.summary?.total_pageviews?.toLocaleString() || '0'}
+          value={error ? '—' : stats?.summary?.total_pageviews?.toLocaleString() || '0'}
         />
         <MetricCard
           className="rounded-none border-0"
           label="Direct Traffic"
-          value={direct.toLocaleString()}
+          value={error ? '—' : direct.toLocaleString()}
           description={
             visitors ? `${Math.round((direct / visitors) * 100)}% OF VISITORS` : undefined
           }
@@ -241,8 +244,12 @@ export default function TrafficPage() {
           </Panel>
         ))}
         {topRegions.length === 0 && (
-          <div className="micro-label col-span-full rounded-card border border-rule bg-panel py-6 text-center text-muted-foreground">
-            No geographic data ingested yet.
+          <div className="col-span-full rounded-card border border-rule bg-panel">
+            {error ? (
+              <StateNote kind="fault">Geographic data unavailable. The fetch failed.</StateNote>
+            ) : (
+              <StateNote kind="empty">No geographic data ingested yet.</StateNote>
+            )}
           </div>
         )}
       </div>

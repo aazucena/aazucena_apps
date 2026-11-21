@@ -9,6 +9,7 @@ import { StreamGraph } from '@aazucena/visualizations';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
 import { ExternalLink } from '@aazucena/icons';
 import { PageHeader } from '@/components/common/PageHeader';
+import { StateNote } from '@/components/common/StateNote';
 import { usePerformanceStats } from '@/hooks/usePerformance';
 import { cn } from '@/lib/utils';
 
@@ -114,7 +115,7 @@ const levelMarker = (level: string) =>
 
 export default function PerformancePage() {
   const dispatch = useDispatch();
-  const { data: stats, isLoading } = usePerformanceStats();
+  const { data: stats, isLoading, error } = usePerformanceStats();
 
   useEffect(() => {
     dispatch(setCategoryPreset('PERFORMANCE'));
@@ -173,6 +174,10 @@ export default function PerformancePage() {
         }
       />
 
+      {error && (
+        <StateNote kind="fault">Performance stats unavailable. The fetch failed.</StateNote>
+      )}
+
       {/* Core Web Vitals */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         {VITALS.map((v) => {
@@ -209,7 +214,8 @@ export default function PerformancePage() {
         <Panel status={totalErrors > 0 ? 'alert' : 'none'}>
           <PanelHeader label="ERROR_TRACES // 24H">
             <span className="micro-label text-muted-foreground">
-              {totalErrors > 0 ? `▲ ${totalErrors}` : totalErrors} · FATAL {fatalErrors}
+              {error ? '—' : totalErrors > 0 ? `▲ ${totalErrors}` : totalErrors} · FATAL{' '}
+              {error ? '—' : fatalErrors}
             </span>
           </PanelHeader>
           <div>
@@ -248,9 +254,11 @@ export default function PerformancePage() {
                 })}
               </ul>
             ) : (
-              <p className="micro-label px-panel py-8 text-center text-muted-foreground">
-                No error traces detected. System nominal.
-              </p>
+              <StateNote kind={error ? 'fault' : 'empty'}>
+                {error
+                  ? 'Error traces unavailable. The fetch failed.'
+                  : 'No error traces detected. System nominal.'}
+              </StateNote>
             )}
           </div>
         </Panel>
@@ -263,9 +271,11 @@ export default function PerformancePage() {
           </PanelHeader>
           <PanelBody>
             {services.length === 0 ? (
-              <p className="micro-label py-8 text-center text-muted-foreground">
-                No heartbeat signals detected...
-              </p>
+              <StateNote kind={error ? 'fault' : 'empty'}>
+                {error
+                  ? 'Heartbeats unavailable. The fetch failed.'
+                  : 'No heartbeat signals detected...'}
+              </StateNote>
             ) : (
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
                 {services.map((item: any, idx: number) => {

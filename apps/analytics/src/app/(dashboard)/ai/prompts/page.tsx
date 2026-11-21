@@ -4,7 +4,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { ChevronRight, Refresh, Save } from '@aazucena/icons';
 import {
-  Badge,
   Button,
   Panel,
   PanelBody,
@@ -19,6 +18,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { PageHeader } from '@/components/common/PageHeader';
+import { StateNote } from '@/components/common/StateNote';
 import { usePrompts, useUpdatePrompt } from '@/hooks/usePrompts';
 
 export default function PromptManagerPage() {
@@ -127,7 +127,7 @@ export default function PromptManagerPage() {
   if (promptsError)
     return (
       <div className="flex h-[50vh] items-center justify-center">
-        <Badge variant="destructive">PROMPT HUB UNREACHABLE</Badge>
+        <StateNote kind="fault">Prompt hub unreachable. The fetch failed.</StateNote>
       </div>
     );
 

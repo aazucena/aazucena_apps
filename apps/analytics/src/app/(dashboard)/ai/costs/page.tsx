@@ -17,6 +17,7 @@ import {
 } from '@aazucena/ui';
 import { MetricCard } from '@/components/widgets/MetricCard';
 import { PageHeader } from '@/components/common/PageHeader';
+import { StateNote } from '@/components/common/StateNote';
 import { StreamGraph } from '@aazucena/visualizations';
 import { useAiStats } from '@/hooks/useAiStats';
 import type { GenericTimeSeriesStep } from '@aazucena/types';
@@ -31,7 +32,7 @@ function Bar({ pct, tone }: { pct: number; tone: string }) {
 
 export default function AiCostCenterPage() {
   const dispatch = useDispatch();
-  const { data: stats, isLoading } = useAiStats();
+  const { data: stats, isLoading, error } = useAiStats();
 
   useEffect(() => {
     dispatch(setCategoryPreset('PERFORMANCE')); // Use high-integrity preset
@@ -39,19 +40,21 @@ export default function AiCostCenterPage() {
 
   // AiIntelligenceStats field names (package type)
   const totalSpendNum = stats?.summary?.total_cost_usd || (stats as any)?.summary?.total_spend || 0;
-  const totalSpend = totalSpendNum.toFixed(4);
+  const totalSpend = error ? '—' : `$${totalSpendNum.toFixed(4)}`;
   const totalSavingsNum = (stats as any)?.summary?.total_savings || 0;
-  const totalSavings = totalSavingsNum.toFixed(4);
-  const totalTokens = stats?.summary?.total_tokens?.toLocaleString() || '0';
+  const totalSavings = error ? '—' : `$${totalSavingsNum.toFixed(4)}`;
+  const totalTokens = error ? '—' : stats?.summary?.total_tokens?.toLocaleString() || '0';
 
   // Calculate Monthly Projection (24h burn * 30)
   const monthlyProjection = (totalSpendNum * 30).toFixed(2);
+  const monthlyLabel = error ? '—' : `$${monthlyProjection}`;
 
   // Calculate Efficiency Score (Savings / (Spend + Savings))
   const efficiencyScore =
     totalSpendNum + totalSavingsNum > 0
       ? ((totalSavingsNum / (totalSpendNum + totalSavingsNum)) * 100).toFixed(1)
       : '0';
+  const efficiencyLabel = error ? '—' : `${efficiencyScore}%`;
 
   // The stats payload carries no budget yet; without one the meter stays empty.
   const budgetNum: number | null = Number((stats as any)?.summary?.budget_usd) || null;
@@ -99,6 +102,8 @@ export default function AiCostCenterPage() {
         }
       />
 
+      {error && <StateNote kind="fault">Fiscal telemetry unavailable. The fetch failed.</StateNote>}
+
       {/* BUDGET LEDGER */}
       <Panel
         label="BUDGET // LEDGER"
@@ -110,7 +115,7 @@ export default function AiCostCenterPage() {
             <div>
               <div className="micro-label text-muted-foreground">SPENT · 24H</div>
               <div className="flex items-baseline gap-3">
-                <span className="font-mono text-4xl font-light tabular-nums">${totalSpend}</span>
+                <span className="font-mono text-4xl font-light tabular-nums">{totalSpend}</span>
                 <span className="micro-label text-muted-foreground">
                   {budgetNum ? `OF $${budgetNum.toFixed(2)}` : 'NO BUDGET SET'}
                 </span>
@@ -125,17 +130,17 @@ export default function AiCostCenterPage() {
               <MetricCard
                 className="border-0 bg-transparent p-0"
                 label="Efficiency Score"
-                value={`${efficiencyScore}%`}
+                value={efficiencyLabel}
               />
               <MetricCard
                 className="border-0 bg-transparent p-0"
                 label="Fiscal Savings"
-                value={`$${totalSavings}`}
+                value={totalSavings}
               />
               <MetricCard
                 className="border-0 bg-transparent p-0"
                 label="Monthly Projection"
-                value={`$${monthlyProjection}`}
+                value={monthlyLabel}
               />
             </div>
           </div>
@@ -227,7 +232,13 @@ export default function AiCostCenterPage() {
                     </TableCell>
                   </TableRow>
                 ))}
-                {models.length === 0 && emptyRow(4, 'FISCAL TELEMETRY INGESTION PENDING...')}
+                {models.length === 0 &&
+                  emptyRow(
+                    4,
+                    error
+                      ? '▲ FISCAL TELEMETRY UNAVAILABLE'
+                      : 'FISCAL TELEMETRY INGESTION PENDING...',
+                  )}
               </TableBody>
             </Table>
           </PanelBody>
@@ -256,7 +267,11 @@ export default function AiCostCenterPage() {
                     </TableCell>
                   </TableRow>
                 ))}
-                {agents.length === 0 && emptyRow(3, 'AGENT FISCAL MAPPING PENDING...')}
+                {agents.length === 0 &&
+                  emptyRow(
+                    3,
+                    error ? '▲ AGENT MAPPING UNAVAILABLE' : 'AGENT FISCAL MAPPING PENDING...',
+                  )}
               </TableBody>
             </Table>
           </PanelBody>
