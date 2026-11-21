@@ -80,6 +80,20 @@ export function Sidebar() {
     }
   }, [clientNavMode, reduxNavMode, dispatch]);
 
+  // Navigating switches to the group that owns the route. Manual switches stay until the
+  // next navigation, so this runs on pathname changes only.
+  useEffect(() => {
+    const owner: NavMode | undefined = activeHref(pathname, INTELLIGENCE_NAV)
+      ? 'INTELLIGENCE'
+      : activeHref(pathname, SYSTEM_NAV)
+        ? 'SYSTEM'
+        : undefined;
+    if (owner && owner !== navModeStore.getSnapshot()) {
+      navModeStore.set(owner);
+      dispatch(setNavMode(owner));
+    }
+  }, [pathname, dispatch]);
+
   // Use clientNavMode for rendering once mounted to ensure no hydration flicker
   const displayNavMode = isMounted ? clientNavMode : 'SYSTEM';
   const navItems = displayNavMode === 'SYSTEM' ? SYSTEM_NAV : INTELLIGENCE_NAV;
