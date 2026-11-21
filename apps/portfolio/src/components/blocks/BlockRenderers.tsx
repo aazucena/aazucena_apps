@@ -97,12 +97,12 @@ export const defaultBlockRenderers: Parameters<
   ),
 
   // Code blocks: keyboard-scrollable when they overflow
-  code: ({ children, language }) => (
+  code: ({ children }) => (
     <pre
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
       tabIndex={0}
       role="region"
-      aria-label={language ? `Code sample, ${language}` : "Code sample"}
+      aria-label="Code sample"
       className="border-rule bg-state rounded-control focus-visible:outline-signal mb-4 overflow-x-auto border p-4 focus-visible:outline-1"
     >
       <code className="text-foreground font-mono text-sm">{children}</code>
