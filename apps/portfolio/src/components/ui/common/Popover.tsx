@@ -79,19 +79,19 @@ function getArrowClasses(position: PopoverPosition): string {
   switch (position) {
     case "top-right":
       // Arrow points upward toward toolbar (right side)
-      return "absolute -top-2 right-12 w-4 h-4 bg-black/90 backdrop-blur-lg rotate-45 border-t border-l border-white/20";
+      return "absolute -top-2 right-12 w-4 h-4 bg-panel rotate-45 border-t border-l border-rule-strong";
     case "top-left":
       // Arrow points upward toward toolbar (left side)
-      return "absolute -top-2 left-12 w-4 h-4 bg-black/90 backdrop-blur-lg rotate-45 border-t border-l border-white/20";
+      return "absolute -top-2 left-12 w-4 h-4 bg-panel rotate-45 border-t border-l border-rule-strong";
     case "bottom-right":
     case "bottom-left":
-      return "absolute -bottom-2 right-6 w-4 h-4 bg-black/90 backdrop-blur-lg rotate-45 border-b border-r border-white/20";
+      return "absolute -bottom-2 right-6 w-4 h-4 bg-panel rotate-45 border-b border-r border-rule-strong";
     case "right-top":
-      return "absolute top-6 -right-2 w-4 h-4 bg-black/90 backdrop-blur-lg rotate-45 border-t border-r border-white/20";
+      return "absolute top-6 -right-2 w-4 h-4 bg-panel rotate-45 border-t border-r border-rule-strong";
     case "left-top":
-      return "absolute top-6 -left-2 w-4 h-4 bg-black/90 backdrop-blur-lg rotate-45 border-t border-l border-white/20";
+      return "absolute top-6 -left-2 w-4 h-4 bg-panel rotate-45 border-t border-l border-rule-strong";
     default:
-      return "absolute -top-2 right-12 w-4 h-4 bg-black/90 backdrop-blur-lg rotate-45 border-t border-l border-white/20";
+      return "absolute -top-2 right-12 w-4 h-4 bg-panel rotate-45 border-t border-l border-rule-strong";
   }
 }
 
@@ -171,7 +171,7 @@ export function Popover({
             {showArrow && <div className={arrowClasses} />}
 
             {/* Content wrapper with overflow handling */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-black/90 shadow-2xl backdrop-blur-lg">
+            <div className="rounded-card border-rule-strong bg-panel relative overflow-hidden border drop-shadow-lg">
               {children}
             </div>
           </motion.div>

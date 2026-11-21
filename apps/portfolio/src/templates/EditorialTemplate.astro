@@ -52,10 +52,9 @@ const {
 >
   <!-- Editorial Header: Clean centered title -->
   <div slot="header" class="space-y-8 text-center">
-    <h1
-      class="text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
-    >
-      {title}<span class="text-blue-600">.</span>
+    <h1 class="text-foreground text-5xl leading-none font-black tracking-tighter md:text-8xl">
+      {title}
+      <span class="text-signal">.</span>
     </h1>
   </div>
 
@@ -63,7 +62,7 @@ const {
   <Fragment slot="content">
     <article
       id="dynamic-content"
-      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 max-w-none"
+      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-signal max-w-none"
     >
       <MarkdownRenderer content={content} />
     </article>

@@ -1,16 +1,16 @@
 /**
- * Panel Component
- * Shared wrapper for all UI panels (Settings, Info, Social)
+ * SlidePanel Component
+ * Shared slide-in drawer wrapper for all UI panels (Settings, Info, Social)
  * Provides consistent backdrop, animations, and behavior
  */
 
 import { useEffect, useState, type JSX, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export type PanelPosition = "left" | "right" | "top" | "bottom" | "center";
-export type PanelState = "closed" | "opening" | "open" | "closing";
+export type SlidePanelPosition = "left" | "right" | "top" | "bottom" | "center";
+export type SlidePanelState = "closed" | "opening" | "open" | "closing";
 
-export interface PanelProps {
+export interface SlidePanelProps {
   /** Whether the panel is open */
   isOpen: boolean;
 
@@ -18,7 +18,7 @@ export interface PanelProps {
   onClose: () => void;
 
   /** Where the panel slides in from */
-  position?: PanelPosition;
+  position?: SlidePanelPosition;
 
   /** Panel content */
   children: ReactNode;
@@ -48,7 +48,7 @@ export interface PanelProps {
 /**
  * Get animation variants based on panel position
  */
-function getAnimationVariants(position: PanelPosition) {
+function getAnimationVariants(position: SlidePanelPosition) {
   const slideDistance = "100%";
 
   switch (position) {
@@ -99,7 +99,7 @@ function getAnimationVariants(position: PanelPosition) {
 /**
  * Get positioning classes based on panel position
  */
-function getPositionClasses(position: PanelPosition): string {
+function getPositionClasses(position: SlidePanelPosition): string {
   switch (position) {
     case "left":
       return "left-0 top-0 h-full";
@@ -116,7 +116,7 @@ function getPositionClasses(position: PanelPosition): string {
   }
 }
 
-export function Panel({
+export function SlidePanel({
   isOpen,
   onClose,
   position = "right",
@@ -128,8 +128,8 @@ export function Panel({
   width,
   height,
   className = "",
-}: PanelProps): JSX.Element | null {
-  const [panelState, setPanelState] = useState<PanelState>("closed");
+}: SlidePanelProps): JSX.Element | null {
+  const [panelState, setSlidePanelState] = useState<SlidePanelState>("closed");
 
   // Handle Escape key
   useEffect(() => {
@@ -172,14 +172,14 @@ export function Panel({
   // Update panel state based on isOpen prop
   useEffect(() => {
     if (isOpen && panelState === "closed") {
-      setPanelState("opening");
+      setSlidePanelState("opening");
       // Transition to 'open' after animation completes
-      const timer = setTimeout(() => setPanelState("open"), 200);
+      const timer = setTimeout(() => setSlidePanelState("open"), 200);
       return () => clearTimeout(timer);
     } else if (!isOpen && (panelState === "open" || panelState === "opening")) {
-      setPanelState("closing");
+      setSlidePanelState("closing");
       // Transition to 'closed' after animation completes
-      const timer = setTimeout(() => setPanelState("closed"), 200);
+      const timer = setTimeout(() => setSlidePanelState("closed"), 200);
       return () => clearTimeout(timer);
     }
   }, [isOpen, panelState]);
@@ -216,7 +216,7 @@ export function Panel({
           {/* Backdrop */}
           {backdrop && (
             <motion.div
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              className="bg-background/80 absolute inset-0"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

@@ -61,35 +61,32 @@ const {
 >
   <!-- Hero Header: Large centered title with optional CTA -->
   <div slot="header" class="space-y-12 text-center">
-    <h1
-      class="text-6xl leading-none font-black tracking-tighter text-gray-900 md:text-9xl dark:text-white"
-    >
-      {title}<span class="text-blue-600">.</span>
+    <h1 class="text-foreground text-6xl leading-none font-black tracking-tighter md:text-9xl">
+      {title}
+      <span class="text-signal">.</span>
     </h1>
 
     <!-- TODO: Add hero subtitle/description -->
     <!-- TODO: Add background image/video support -->
 
     <!-- Optional CTA Button -->
-    {
-      heroCta && (
-        <div class="flex justify-center">
-          <a
-            href={heroCta.href}
-            class="inline-flex items-center rounded-full bg-blue-600 px-8 py-4 text-lg font-black tracking-[0.2em] text-white uppercase shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl"
-          >
-            {heroCta.text}
-          </a>
-        </div>
-      )
-    }
+    {heroCta && (
+      <div class="flex justify-center">
+        <a
+          href={heroCta.href}
+          class="bg-signal text-signal-foreground h-control-lg rounded-control micro-label hover:bg-signal/90 focus-visible:outline-signal inline-flex items-center px-6 transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+        >
+          {heroCta.text}
+        </a>
+      </div>
+    )}
   </div>
 
   <!-- Content: Wide prose-styled content -->
   <Fragment slot="content">
     <article
       id="dynamic-content"
-      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 max-w-none"
+      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-signal max-w-none"
     >
       <MarkdownRenderer content={content} />
     </article>

@@ -4,7 +4,11 @@
  * Used for skills, tags, categories, status indicators
  */
 
-import type { JSX } from "react";
+import type { JSX, KeyboardEvent } from "react";
+import {
+  Badge as UiBadge,
+  type BadgeProps as UiBadgeProps,
+} from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 
 export type BadgeVariant =
@@ -34,36 +38,35 @@ export interface BadgeProps {
 }
 
 /**
- * Variant color mappings
- * Pre-defined for Tailwind JIT compatibility
+ * Legacy hue names map onto Avra badge variants. Tags carry no status, so no
+ * variant here is `warning` or `destructive` (those need their markers).
  */
-const variantStyles: Record<BadgeVariant, string> = {
-  cyan: "bg-cyan-400/20 text-cyan-400",
-  blue: "bg-blue-400/20 text-blue-400",
-  emerald: "bg-emerald-400/20 text-emerald-400",
-  purple: "bg-purple-400/20 text-purple-400",
-  pink: "bg-pink-400/20 text-pink-400",
-  yellow: "bg-yellow-400/20 text-yellow-400",
-  orange: "bg-orange-400/20 text-orange-400",
-  gray: "bg-gray-400/20 text-gray-400",
-  white: "bg-white/10 text-gray-400",
+const variantMap: Record<BadgeVariant, UiBadgeProps["variant"]> = {
+  cyan: "cyber",
+  blue: "sky",
+  emerald: "success",
+  purple: "indigo",
+  pink: "rose",
+  yellow: "outline",
+  orange: "outline",
+  gray: "secondary",
+  white: "outline",
 };
 
-const sizeStyles: Record<BadgeSize, string> = {
-  xs: "px-2 py-0.5 text-xs",
-  sm: "px-3 py-1 text-sm",
-  md: "px-4 py-1.5 text-base",
-  lg: "px-5 py-2 text-lg",
+const sizeMap: Record<BadgeSize, UiBadgeProps["size"]> = {
+  xs: "xs",
+  sm: "sm",
+  md: "md",
+  lg: "lg",
 };
 
 /**
  * Badge
  *
- * Versatile pill-shaped badge component:
- * - 9 color variants
+ * Tag badge over the ui Badge:
+ * - 9 legacy hue names mapped to Avra variants
  * - 4 size variants
  * - Optional interactive (clickable)
- * - Consistent rounded-full styling
  *
  * Used for:
  * - Skill tags (AboutSection, SkillsSection, ExperienceSection)
@@ -94,26 +97,28 @@ export function Badge({
 }: BadgeProps): JSX.Element {
   const isInteractive = Boolean(onClick);
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (onClick && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      onClick();
+    }
+  };
+
   return (
-    <span
+    <UiBadge
+      variant={variantMap[variant]}
+      size={sizeMap[size]}
       className={cn(
-        // Base styling
-        "inline-flex items-center justify-center rounded-full font-medium",
-        "transition-colors duration-200",
-        // Size
-        sizeStyles[size],
-        // Color variant
-        variantStyles[variant],
-        // Interactive
-        isInteractive && "cursor-pointer hover:brightness-110",
-        // Custom classes
+        "justify-center",
+        isInteractive && "hover:bg-state cursor-pointer",
         className,
       )}
       onClick={onClick}
+      onKeyDown={isInteractive ? handleKeyDown : undefined}
       role={isInteractive ? "button" : undefined}
       tabIndex={isInteractive ? 0 : undefined}
     >
       {children}
-    </span>
+    </UiBadge>
   );
 }

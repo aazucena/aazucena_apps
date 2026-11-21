@@ -15,29 +15,31 @@ const { items, class: className } = Astro.props;
 
 <nav
   class:list={[
-    "mb-12 flex text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:text-gray-500 print:hidden",
+    "micro-label text-muted-foreground mb-10 flex print:hidden",
     className,
   ]}
   aria-label="Breadcrumb"
 >
   <ol class="flex items-center gap-2">
-    {
-      items.map((item, index) => (
-        <li class="flex items-center gap-2">
-          {item.href ? (
-            <a href={item.href} class="transition-colors hover:text-blue-600">
-              {item.label}
-            </a>
-          ) : (
-            <span
-              class={`max-w-[150px] truncate text-blue-600 ${item.class || ""}`}
-            >
-              {item.label}
-            </span>
-          )}
-          {index < items.length - 1 && <span aria-hidden="true">/</span>}
-        </li>
-      ))
-    }
+    {items.map((item, index) => (
+      <li class="flex items-center gap-2">
+        {item.href ? (
+          <a
+            href={item.href}
+            class="hover:text-signal focus-visible:outline-signal transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+          >
+            {item.label}
+          </a>
+        ) : (
+          <span
+            class={`text-foreground max-w-[150px] truncate ${item.class || ""}`}
+            aria-current="page"
+          >
+            {item.label}
+          </span>
+        )}
+        {index < items.length - 1 && <span aria-hidden="true">/</span>}
+      </li>
+    ))}
   </ol>
 </nav>

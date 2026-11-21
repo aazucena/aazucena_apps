@@ -32,10 +32,7 @@ const RULES: Array<[name: string, re: RegExp]> = [
 
 /** Files not yet on Avra tokens (paths relative to apps/portfolio/src). */
 const PENDING: string[] = [
-  'components/BrandIconLoader.astro',
-  'components/Button.astro',
   'components/Footer.astro',
-  'components/IntegrityBadge.tsx',
   'components/JourneyDashboard.tsx',
   'components/assistant/AssistantInput.tsx',
   'components/assistant/AssistantIntro.tsx',
@@ -44,9 +41,6 @@ const PENDING: string[] = [
   'components/assistant/variants.ts',
   'components/blocks/BlockRenderers.tsx',
   'components/blocks/SimpleRichTextRenderer.tsx',
-  'components/common/Breadcrumbs.astro',
-  'components/common/DetailNavigation.astro',
-  'components/common/GradientAccent.astro',
   'components/homepage/overlays/AtmosphericOverlays.tsx',
   'components/homepage/overlays/NavigationToolbar.tsx',
   'components/homepage/overlays/UIOverlays.tsx',
@@ -64,7 +58,6 @@ const PENDING: string[] = [
   'components/ui/InfiniteMovingCards.tsx',
   'components/ui/InfoPanel.tsx',
   'components/ui/InteractiveCard.tsx',
-  'components/ui/MetricCard.astro',
   'components/ui/Navbar.tsx',
   'components/ui/PhoneDialTabs.tsx',
   'components/ui/RelatedLinks.tsx',
@@ -74,7 +67,6 @@ const PENDING: string[] = [
   'components/ui/ServiceTabs.tsx',
   'components/ui/SettingsPanel.tsx',
   'components/ui/SocialMenu.tsx',
-  'components/ui/StatusBadge.astro',
   'components/ui/TechStackDistribution.tsx',
   'components/ui/TestimonialCard.tsx',
   'components/ui/WorkingStyleSection.tsx',
@@ -86,10 +78,6 @@ const PENDING: string[] = [
   'components/ui/blog/BlogCard.tsx',
   'components/ui/blog/NewspaperStack.tsx',
   'components/ui/blog/ViewAllButton.tsx',
-  'components/ui/common/Badge.tsx',
-  'components/ui/common/GlassCard.tsx',
-  'components/ui/common/Panel.tsx',
-  'components/ui/common/Popover.tsx',
   'components/ui/experience/CompanyLogo.tsx',
   'components/ui/experience/ExperienceActions.tsx',
   'components/ui/experience/ExperienceCard.tsx',
@@ -108,8 +96,6 @@ const PENDING: string[] = [
   'components/ui/projects/ProjectCard.tsx',
   'components/ui/projects/ViewMoreCard.tsx',
   'config/animations.ts',
-  'layouts/DetailLayout.astro',
-  'layouts/ListLayout.astro',
   'pages/404.astro',
   'pages/500.astro',
   'pages/about.astro',
@@ -125,9 +111,6 @@ const PENDING: string[] = [
   'pages/projects/index.astro',
   'pages/skills/index.astro',
   'pages/support.astro',
-  'templates/EditorialTemplate.astro',
-  'templates/LandingTemplate.astro',
-  'templates/LegalTemplate.astro',
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */

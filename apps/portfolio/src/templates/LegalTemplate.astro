@@ -60,22 +60,15 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("en-US", {
 >
   <!-- Legal Header: Title + Revision Badge -->
   <div slot="header" class="space-y-8 text-center">
-    <h1
-      class="text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
-    >
-      {title}<span class="text-blue-600">.</span>
+    <h1 class="text-foreground text-5xl leading-none font-black tracking-tighter md:text-8xl">
+      {title}
+      <span class="text-signal">.</span>
     </h1>
 
     <!-- Revision Badge with Pulse Indicator -->
-    <div
-      class="mx-auto inline-flex items-center justify-center gap-3 rounded-full border border-gray-100 bg-gray-50 px-4 py-2 shadow-sm dark:border-gray-800 dark:bg-gray-800/50"
-    >
-      <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-500"></div>
-      <p
-        class="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase dark:text-gray-500"
-      >
-        Revised: {formattedDate}
-      </p>
+    <div class="border-rule bg-panel rounded-control mx-auto inline-flex items-center justify-center gap-3 border px-3 py-1.5">
+      <div class="bg-signal h-1.5 w-1.5 rounded-full" aria-hidden="true"></div>
+      <p class="micro-label text-muted-foreground">Revised: {formattedDate}</p>
     </div>
   </div>
 
@@ -84,22 +77,18 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("en-US", {
     <!-- Prose-styled Article -->
     <article
       id="dynamic-content"
-      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 print:prose-sm max-w-none"
+      class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-signal print:prose-sm max-w-none"
     >
       <MarkdownRenderer content={content} />
     </article>
 
     <!-- Back to Home Button -->
-    <div
-      class="mt-20 flex justify-center border-t border-gray-100 pt-12 dark:border-gray-900"
-    >
+    <div class="border-rule mt-16 flex justify-center border-t pt-8">
       <a
         href="/"
-        class="group flex items-center gap-3 text-xs font-black tracking-[0.3em] text-gray-400 uppercase transition-all hover:text-blue-600"
+        class="group micro-label text-muted-foreground hover:text-signal focus-visible:outline-signal flex items-center gap-3 transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
       >
-        <div
-          class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 transition-all group-hover:bg-blue-600 group-hover:text-white dark:bg-gray-900"
-        >
+        <div class="bg-panel border-rule rounded-control group-hover:bg-state flex h-8 w-8 items-center justify-center border transition-colors">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
@@ -158,7 +147,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("en-US", {
     }
 
     article {
-      color: #1f2937 !important;
+      color: black !important;
     }
   }
 </style>

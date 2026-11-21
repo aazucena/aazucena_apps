@@ -1,10 +1,11 @@
 /**
  * GlassCard Component
- * Base card with glass-morphism styling
+ * Base card on the ui Panel surface (name kept for existing imports)
  * Reusable across all sections for consistent card appearance
  */
 
 import type { JSX, ElementType, ComponentPropsWithoutRef } from "react";
+import { Panel, panelVariants } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 
 export interface GlassCardProps<T extends ElementType = "div"> {
@@ -12,7 +13,7 @@ export interface GlassCardProps<T extends ElementType = "div"> {
   as?: T;
   /** Card content */
   children: React.ReactNode;
-  /** Enable hover effect (lift + background brighten) */
+  /** Enable hover effect (state tone) */
   hover?: boolean;
   /** Enable cursor pointer */
   clickable?: boolean;
@@ -25,21 +26,20 @@ export interface GlassCardProps<T extends ElementType = "div"> {
 const paddingVariants = {
   none: "",
   sm: "p-3",
-  md: "p-4",
+  md: "p-panel",
   lg: "p-6",
 } as const;
 
 /**
  * GlassCard
  *
- * Base card component with glass-morphism styling:
- * - Frosted glass background (`bg-white/5`)
- * - Backdrop blur effect
- * - Subtle border
- * - Optional hover effects
+ * Base card over the ui `Panel` surface:
+ * - Flat panel tone with a 1px rule, no blur or shadow
+ * - Optional hover tone (`bg-state`)
  * - Configurable padding
  *
- * Used across multiple sections for consistent card styling.
+ * Renders the ui `Panel` for a div; other elements (`as`) take the same
+ * `panelVariants` classes so the surface is identical.
  *
  * @example
  * ```tsx
@@ -67,26 +67,26 @@ export function GlassCard<T extends ElementType = "div">({
   ...props
 }: GlassCardProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof GlassCardProps<T>>): JSX.Element {
-  const Component = (as || "div") as any;
   const paddingClass = paddingVariants[padding];
+  const classes = cn(
+    "border-rule border",
+    paddingClass,
+    hover && "hover:bg-state transition-colors duration-(--motion-base)",
+    clickable && "cursor-pointer",
+    className,
+  );
 
+  if (!as || as === "div") {
+    return (
+      <Panel className={classes} {...(props as object)}>
+        {children}
+      </Panel>
+    );
+  }
+
+  const Component = as as ElementType;
   return (
-    <Component
-      className={cn(
-        // Base glass-morphism styling
-        "rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm",
-        // Padding
-        paddingClass,
-        // Hover effects
-        hover && "transition-all duration-300 hover:bg-white/10",
-        hover && "hover:scale-[1.02]",
-        // Cursor
-        clickable && "cursor-pointer",
-        // Custom classes
-        className,
-      )}
-      {...props}
-    >
+    <Component className={cn(panelVariants(), classes)} {...props}>
       {children}
     </Component>
   );

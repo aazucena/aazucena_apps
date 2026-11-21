@@ -26,51 +26,46 @@ const {
 const normalizedBasePath = basePath.replace(/\/$/, "");
 ---
 
-{
-  (nextItem || prevItem) && (
-    <nav
-      class="mt-20 border-t border-gray-100 pt-12 dark:border-gray-900"
-      aria-label="Pagination"
-    >
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {prevItem ? (
-          <a
-            href={`${normalizedBasePath}/${prevItem.slug}`}
-            class="group space-y-2 rounded-[2rem] border border-gray-100 p-8 text-left transition-all hover:border-blue-500/20 dark:border-gray-800"
-          >
-            <div class="flex items-center gap-2 text-[9px] font-black tracking-[0.3em] text-gray-400 uppercase">
-              <ArrowLeft
-                size={14}
-                className="group-hover:-translate-x-1 transition-transform"
-              />
-              {prevLabel}
-            </div>
-            <div class="line-clamp-2 text-xl font-bold tracking-tighter text-gray-900 dark:text-white">
-              {prevItem.title}
-            </div>
-          </a>
-        ) : (
-          <div aria-hidden="true" />
-        )}
+{(nextItem || prevItem) && (
+  <nav class="border-rule mt-16 border-t pt-8" aria-label="Pagination">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {prevItem ? (
+        <a
+          href={`${normalizedBasePath}/${prevItem.slug}`}
+          class="group border-rule bg-panel rounded-card hover:bg-state hover:border-rule-strong focus-visible:outline-signal space-y-2 border p-4 text-left transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+        >
+          <div class="micro-label text-muted-foreground flex items-center gap-2">
+            <ArrowLeft
+              size={14}
+              className="group-hover:-translate-x-1 transition-transform"
+            />
+            {prevLabel}
+          </div>
+          <div class="text-foreground line-clamp-2 text-xl font-bold tracking-tight">
+            {prevItem.title}
+          </div>
+        </a>
+      ) : (
+        <div aria-hidden="true" />
+      )}
 
-        {nextItem && (
-          <a
-            href={`${normalizedBasePath}/${nextItem.slug}`}
-            class="group space-y-2 rounded-[2rem] border border-gray-100 p-8 text-right transition-all hover:border-blue-500/20 dark:border-gray-800"
-          >
-            <div class="flex items-center justify-end gap-2 text-[9px] font-black tracking-[0.3em] text-gray-400 uppercase">
-              {nextLabel}
-              <ArrowRight
-                size={14}
-                className="group-hover:translate-x-1 transition-transform"
-              />
-            </div>
-            <div class="line-clamp-2 text-xl font-bold tracking-tighter text-gray-900 dark:text-white">
-              {nextItem.title}
-            </div>
-          </a>
-        )}
-      </div>
-    </nav>
-  )
-}
+      {nextItem && (
+        <a
+          href={`${normalizedBasePath}/${nextItem.slug}`}
+          class="group border-rule bg-panel rounded-card hover:bg-state hover:border-rule-strong focus-visible:outline-signal space-y-2 border p-4 text-right transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+        >
+          <div class="micro-label text-muted-foreground flex items-center justify-end gap-2">
+            {nextLabel}
+            <ArrowRight
+              size={14}
+              className="group-hover:translate-x-1 transition-transform"
+            />
+          </div>
+          <div class="text-foreground line-clamp-2 text-xl font-bold tracking-tight">
+            {nextItem.title}
+          </div>
+        </a>
+      )}
+    </div>
+  </nav>
+)}

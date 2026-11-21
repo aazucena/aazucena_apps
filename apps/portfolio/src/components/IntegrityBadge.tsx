@@ -4,6 +4,7 @@ import { SYSTEM_STATUS_METADATA } from "@aazucena/constants";
 import { TelemetryProvider } from "@aazucena/context";
 import { useSystemStatus } from "@aazucena/hooks";
 import { Shield } from "@aazucena/icons";
+import { Badge } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 
 interface IntegrityBadgeProps {
@@ -11,29 +12,51 @@ interface IntegrityBadgeProps {
   showLabel?: boolean;
 }
 
+type BadgeStyle = {
+  variant: "success" | "warning" | "outline" | "cyber";
+  /** Marker the status grammar requires (warnings carry a diamond). */
+  marker?: string;
+};
+
+/** Maps the system status onto the Avra status grammar. */
+const STATUS_BADGE: Record<string, BadgeStyle> = {
+  OPERATIONAL: { variant: "success" },
+  DEGRADED: { variant: "warning", marker: "◆" },
+  UNKNOWN: { variant: "outline" },
+  LOADING: { variant: "cyber" },
+};
+
 function IntegrityBadgeInner({
   className,
   showLabel = true,
 }: IntegrityBadgeProps) {
   const { status, baseUrl } = useSystemStatus();
-  const { label, colorClass } = SYSTEM_STATUS_METADATA[status];
+  const { label } = SYSTEM_STATUS_METADATA[status];
+  const style = STATUS_BADGE[status] ?? STATUS_BADGE.UNKNOWN!;
 
   return (
     <a
       href={baseUrl ? `${baseUrl}/status` : "/status"}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={label}
       className={cn(
-        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[9px] font-black tracking-[0.2em] uppercase transition-all hover:bg-white hover:shadow-lg active:scale-95 dark:hover:bg-gray-800",
-        colorClass,
+        "focus-visible:outline-signal rounded-badge inline-flex focus-visible:outline-1 focus-visible:outline-offset-2",
         className,
       )}
     >
-      <Shield
-        size={12}
-        className={cn(status === "OPERATIONAL" && "animate-pulse")}
-      />
-      {showLabel && <span>{label}</span>}
+      <Badge variant={style.variant} size="md" className="hover:bg-state">
+        <Shield
+          size={12}
+          className={cn(status === "LOADING" && "motion-safe:animate-pulse")}
+        />
+        {showLabel && (
+          <span>
+            {style.marker ? `${style.marker} ` : ""}
+            {label}
+          </span>
+        )}
+      </Badge>
     </a>
   );
 }

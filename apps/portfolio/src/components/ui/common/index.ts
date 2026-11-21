@@ -6,5 +6,5 @@
 export * from "./GlassCard";
 export * from "./Badge";
 export * from "./ResponsiveGrid";
-export * from "./Panel";
+export * from "./SlidePanel";
 export * from "./Popover";
