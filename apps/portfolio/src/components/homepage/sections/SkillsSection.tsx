@@ -35,6 +35,7 @@ export function SkillsSection({
     id: String(category.id),
     name: category.name,
     label: category.label,
+    count: category.skills.length,
     icon: (
       <IconRenderer
         icon={

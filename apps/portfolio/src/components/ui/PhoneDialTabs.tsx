@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Panel } from "@aazucena/ui";
+import { Panel, PanelBody, PanelHeader } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
 
 export interface PhoneDialTab {
@@ -10,6 +10,8 @@ export interface PhoneDialTab {
   label: string;
   name: string;
   icon?: React.ReactNode;
+  /** Number of items in the tab, shown in the content panel header when above zero. */
+  count?: number;
   content: React.ReactNode;
 }
 
@@ -298,6 +300,8 @@ export function PhoneDialTabs({
     tabs.find((tab) => tab.name === activeTab)?.label ?? ""
   ).toUpperCase();
 
+  const activeTabCount = tabs.find((tab) => tab.name === activeTab)?.count ?? 0;
+
   return (
     <div className={cn("relative w-full", className)}>
       {/* Tabs Container - Semicircle Layout */}
@@ -478,13 +482,25 @@ export function PhoneDialTabs({
         </div>
       </div>
 
+      <p className="micro-label text-muted-foreground -mt-4 mb-4 text-center">
+        Drag or pick a domain
+      </p>
+
       {/* Tab Content */}
       <div ref={contentRef} className="w-full pt-4">
         <Panel
-          label={`STACK // ${activeTabLabel}`}
+          role="region"
+          aria-label={`STACK // ${activeTabLabel}`}
           className="border-rule border"
         >
-          {activeTabContent}
+          <PanelHeader label={`STACK // ${activeTabLabel}`}>
+            {activeTabCount > 0 && (
+              <span className="micro-label text-signal">
+                {activeTabCount} {activeTabCount === 1 ? "TOOL" : "TOOLS"}
+              </span>
+            )}
+          </PanelHeader>
+          <PanelBody>{activeTabContent}</PanelBody>
         </Panel>
       </div>
     </div>
