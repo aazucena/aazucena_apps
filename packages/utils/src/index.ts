@@ -1,6 +1,7 @@
 export * from './about';
 export * from './animations';
 export * from './blog';
+export * from './color';
 export * from './contact';
 export * from './content';
 export * from './date';
