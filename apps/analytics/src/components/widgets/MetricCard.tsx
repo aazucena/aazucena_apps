@@ -15,7 +15,7 @@ interface MetricCardProps {
   /** Movement text without the glyph (`12% VS PRIOR`); needs `trend`. */
   delta?: string;
   trend?: 'up' | 'down';
-  /** Which direction is good for this metric. Coral shows only for the bad direction. */
+  /** Which direction is good for this metric. Coral shows only for the bad direction, on the glyph and delta, never on the value. */
   goodDirection?: 'up' | 'down';
   /** Kept for existing callers; the instrument cell carries no icon. */
   icon?: JSX.Element;
@@ -45,14 +45,7 @@ export function MetricCard({
     >
       <div className="micro-label text-muted-foreground">{label}</div>
       <div className="flex min-w-0 flex-wrap items-baseline gap-x-3">
-        <div
-          className={cn(
-            'font-mono text-2xl font-light tabular-nums',
-            isBad ? 'text-alert' : 'text-foreground',
-          )}
-        >
-          {value}
-        </div>
+        <div className="font-mono text-2xl font-light tabular-nums text-foreground">{value}</div>
         {trend && (
           <div
             className={cn(

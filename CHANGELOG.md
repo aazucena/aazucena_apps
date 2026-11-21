@@ -27,6 +27,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Drop legacy cyber badges; live badges follow query state
 - _(analytics)_ Login overlay stays modal over the command palette
 - _(analytics)_ Overview kpis show only real values
 - _(analytics)_ Notification icons use avra tokens; guard walks .ts
