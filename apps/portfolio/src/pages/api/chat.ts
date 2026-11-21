@@ -7,6 +7,7 @@ import {
 } from "ai";
 import { getSecret } from "astro:env/server";
 import { setStrapiConfig } from "@aazucena/api";
+import { DEFAULT_CHAT_MODEL } from "@aazucena/constants";
 import { fetchChatContext, fetchRagContext } from "~/lib/utils/chat/context";
 import { createChatTools } from "~/lib/utils/chat/tools";
 
@@ -65,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
   const last10Messages = safeMessages.slice(-10);
 
   const result = streamText({
-    model: gateway("anthropic/claude-sonnet-4.6"),
+    model: gateway(DEFAULT_CHAT_MODEL),
     instructions: ragContext
       ? `${systemPrompt}\n\n--- KNOWLEDGE BASE ---\n${ragContext}`
       : systemPrompt,
