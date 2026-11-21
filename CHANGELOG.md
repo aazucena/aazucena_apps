@@ -29,6 +29,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Preloaders follow the resolved theme and release the body background
 - _(portfolio)_ Inner pages paint the theme background under the navbar
 - _(portfolio)_ Hero subtitle readable after the palette removal
 - _(portfolio)_ Homepage wrapper scopes dark tokens without hiding the scene

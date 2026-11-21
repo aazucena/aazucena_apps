@@ -30,13 +30,6 @@
     min-height: 100%;
   }
 
-  /* The preloader writes its own theme colour to body's inline background and keeps it after it
-     finishes (its mode is fixed server-side, so it is light on inner pages even in dark mode).
-     Inner pages follow the resolved theme; the preloader overlay paints its own colour. */
-  html.content-page body {
-    background: var(--background) !important;
-  }
-
   body {
     @apply bg-background text-foreground;
   }

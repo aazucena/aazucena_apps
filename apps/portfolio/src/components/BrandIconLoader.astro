@@ -27,6 +27,12 @@ export interface Props {
   backgroundColor: string;
 
   /**
+   * Background used when the page resolves to dark (`html.dark`, set by the
+   * blocking theme script before first paint). Defaults to `backgroundColor`.
+   */
+  darkBackgroundColor?: string;
+
+  /**
    * Whether this is a CMS failure state (extends display time)
    */
   isCmsFallback?: boolean;
@@ -35,6 +41,7 @@ export interface Props {
 const {
   logoUrl = "/icon.svg", // Default to public/icon.svg
   backgroundColor,
+  darkBackgroundColor = backgroundColor,
   isCmsFallback = false,
 } = Astro.props;
 
@@ -45,7 +52,10 @@ const animationDuration = isCmsFallback ? "2s" : "1.5s";
 <div
   id="brand-icon-loader"
   class="brand-icon-loader"
-  style={{ backgroundColor }}
+  style={{
+    "--brand-loader-bg": backgroundColor,
+    "--brand-loader-bg-dark": darkBackgroundColor,
+  }}
   data-cms-fallback={isCmsFallback}
 >
   <div class="brand-icon-container">
@@ -66,6 +76,7 @@ const animationDuration = isCmsFallback ? "2s" : "1.5s";
     left: 0;
     right: 0;
     bottom: 0;
+    background-color: var(--brand-loader-bg);
     z-index: 10000; /* Above everything except preloader */
     display: flex;
     align-items: center;
@@ -73,6 +84,11 @@ const animationDuration = isCmsFallback ? "2s" : "1.5s";
     opacity: 1;
     transition: opacity 0.6s ease-out;
     pointer-events: none; /* Don't block interactions */
+  }
+
+  /* The theme script puts .dark on <html> before first paint */
+  :global(html.dark) .brand-icon-loader {
+    background-color: var(--brand-loader-bg-dark);
   }
 
   /* Hide when preloader is ready */
