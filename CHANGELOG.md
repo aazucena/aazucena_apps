@@ -192,6 +192,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(constants)_ One claude model catalogue with prices
 - _(utils)_ Cn merges avra token classes
 - _(visualizations)_ Choropleth hover tooltip and hideHeader
 - _(storybook)_ Show where the apps use each component
