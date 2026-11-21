@@ -1,160 +1,212 @@
-// apps/analytics/src/app/finance/page.tsx
 'use client';
 
 import React, { useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryPreset } from '@/store';
+import {
+  Badge,
+  Panel,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@aazucena/ui';
+import { categorical } from '@aazucena/visualizations';
+import { formatCurrency } from '@aazucena/utils';
+import { PageHeader } from '@/components/common/PageHeader';
+import { StackedColumns, type ColumnDatum } from '@/components/common/StackedColumns';
 import { MetricCard } from '@/components/widgets/MetricCard';
-import { StreamGraph } from '@aazucena/visualizations';
-import type { GenericTimeSeriesStep } from '@aazucena/types';
 import { useFinanceStats } from '@/hooks/useFinance';
-import { Database, CreditCard, Dollar, TrendingUp } from '@aazucena/icons';
-import { cn } from '@/lib/utils';
+
+const WEEKS = 13;
+const DAY_MS = 86_400_000;
+
+function Note({ children }: { children: React.ReactNode }) {
+  return <p className="micro-label text-muted-foreground p-6 text-center">{children}</p>;
+}
+
+/** Amount in its own currency; refunds and chargebacks get an explicit minus, neutral colour. */
+function formatAmount(amount: number, currency: string, negative: boolean): string {
+  const abs = Math.abs(amount);
+  let text: string;
+  try {
+    text = new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(abs);
+  } catch {
+    text = `${abs.toFixed(2)} ${currency}`;
+    return `${negative ? '−' : ''}${text}`;
+  }
+  return `${negative ? '−' : ''}${text} ${currency}`;
+}
+
+/** Monday (UTC) of the week holding `d`, as a timestamp. */
+function weekStart(d: Date): number {
+  const day = (d.getUTCDay() + 6) % 7;
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - day * DAY_MS;
+}
 
 export default function FinancePage() {
   const dispatch = useDispatch();
-  const { data: stats, isLoading } = useFinanceStats();
+  const { data: stats, isLoading, error } = useFinanceStats();
 
   useEffect(() => {
     dispatch(setCategoryPreset('INTELLIGENCE'));
   }, [dispatch]);
 
-  // Group by date → GenericTimeSeriesStep[] (provider as category key)
-  const chartData = useMemo((): GenericTimeSeriesStep[] => {
-    if (!stats?.trends) return [];
-    const map = new Map<string, Record<string, number>>();
-    (stats.trends as any[]).forEach((d) => {
-      const key = new Date(d.date).toISOString();
-      if (!map.has(key)) map.set(key, {});
-      map.get(key)![d.provider] = d.revenue ?? 0;
+  // Weekly revenue per provider; Stripe takes series 1, every other provider the next series.
+  const { columns, providers } = useMemo(() => {
+    const trends = (stats?.trends ?? []) as { date: string; revenue: number; provider: string }[];
+    const names = Array.from(new Set(trends.map((d) => d.provider)));
+    names.sort((a, b) => (a === 'STRIPE' ? -1 : b === 'STRIPE' ? 1 : a.localeCompare(b)));
+    const colorOf = (name: string) => categorical[names.indexOf(name) % categorical.length];
+    const weeks = new Map<number, Map<string, number>>();
+    trends.forEach((d) => {
+      const wk = weekStart(new Date(d.date));
+      const row = weeks.get(wk) ?? new Map<string, number>();
+      row.set(d.provider, (row.get(d.provider) ?? 0) + (d.revenue ?? 0));
+      weeks.set(wk, row);
     });
-    return Array.from(map.entries()).map(([date, values]) => ({
-      timestamp: new Date(date),
-      values,
-    }));
+    const cols: ColumnDatum[] = Array.from(weeks.entries())
+      .sort(([a], [b]) => a - b)
+      .slice(-WEEKS)
+      .map(([wk, row]) => ({
+        key: String(wk),
+        label: `Week of ${new Date(wk).toLocaleDateString(undefined, {
+          month: 'short',
+          day: '2-digit',
+          timeZone: 'UTC',
+        })}`,
+        segments: names.map((n) => ({ name: n, value: row.get(n) ?? 0, color: colorOf(n) })),
+      }));
+    return { columns: cols, providers: names.map((n) => ({ name: n, color: colorOf(n) })) };
   }, [stats]);
 
+  const history = stats?.history ?? [];
+  const summary = stats?.summary;
+  const empty = (text: string) =>
+    isLoading ? (
+      <Note>Syncing ledger…</Note>
+    ) : error ? (
+      <Note>▲ Ledger unavailable. The fetch failed.</Note>
+    ) : (
+      <Note>{text}</Note>
+    );
+
   return (
-    <div className="space-y-10 pb-20">
-      {/* HEADER */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter uppercase">
-            FINANCIAL_LEDGER
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-[10px] font-mono mt-2 tracking-[0.3em] uppercase font-bold">
-            Revenue Performance & Capital Tracking
-          </p>
-        </div>
-      </div>
+    <>
+      <PageHeader title="FINANCIAL_LEDGER" meta="Revenue Performance & Capital Tracking" />
 
-      {/* KPI METRICS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="divide-rule border-rule bg-panel grid grid-cols-1 divide-y overflow-hidden rounded-card border md:grid-cols-3 md:divide-y-0 md:divide-x">
         <MetricCard
+          className="rounded-none border-0"
           label="Total Revenue"
-          value={`$${stats?.summary?.total_revenue?.toLocaleString() || '0'}`}
-          description="CUMULATIVE_EARNINGS"
-          icon={<Dollar size={24} />}
+          value={summary ? formatCurrency(summary.total_revenue ?? 0) : '—'}
         />
         <MetricCard
+          className="rounded-none border-0"
           label="Transaction Count"
-          value={stats?.summary?.transaction_count?.toLocaleString() || '0'}
-          description="TOTAL_EVENTS"
-          variant="secondary"
-          icon={<Database size={24} />}
+          value={summary ? (summary.transaction_count ?? 0).toLocaleString() : '—'}
         />
         <MetricCard
+          className="rounded-none border-0"
           label="Avg Transaction"
-          value={`$${stats?.summary?.avg_transaction?.toFixed(2) || '0.00'}`}
-          description="UNIT_ECONOMICS"
-          icon={<TrendingUp size={24} />}
+          value={summary ? formatCurrency(summary.avg_transaction ?? 0) : '—'}
         />
       </div>
 
-      {/* REVENUE GRAPH */}
-      <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 backdrop-blur-md shadow-sm">
-        <div className="flex items-center justify-between mb-8 px-2">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500">
-              <CreditCard size={18} />
-            </div>
-            <h3 className="text-xs font-black text-zinc-900 dark:text-zinc-300 uppercase tracking-[0.2em]">
-              Revenue Velocity
-            </h3>
-          </div>
-          <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 uppercase font-bold">
-            {isLoading ? 'SYNCING_LEDGER_DATA...' : 'Source: Multi_Provider_Webhooks'}
-          </span>
-        </div>
-        <div className="min-h-[450px]">
-          <StreamGraph data={chartData} />
-        </div>
-      </div>
-
-      {/* TRANSACTION FEED */}
-      <div className="bg-white/50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 backdrop-blur-md">
-        <h3 className="text-xs font-black text-zinc-500 uppercase tracking-widest mb-8 px-2">
-          Recent Transactions
-        </h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left font-mono text-[10px]">
-            <thead>
-              <tr className="border-b border-zinc-200 dark:border-zinc-800 text-zinc-400 uppercase">
-                <th className="py-4 px-4 font-black">Timestamp</th>
-                <th className="py-4 px-4 font-black">Provider</th>
-                <th className="py-4 px-4 font-black">Amount</th>
-                <th className="py-4 px-4 font-black">Identifier</th>
-                <th className="py-4 px-4 font-black text-right">Context</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-zinc-100 dark:divide-zinc-900">
-              {stats?.history?.map((t, idx) => (
-                <tr
-                  key={t.transaction_id || idx}
-                  className="hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors group"
-                >
-                  <td className="py-4 px-4 text-zinc-500 dark:text-zinc-400">
-                    {new Date(t.timestamp).toLocaleString()}
-                  </td>
-                  <td className="py-4 px-4">
-                    <span
-                      className={cn(
-                        'px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-tighter',
-                        t.provider === 'STRIPE'
-                          ? 'bg-indigo-500/10 text-indigo-500'
-                          : 'bg-sky-500/10 text-sky-500',
-                      )}
-                    >
-                      {t.provider}
-                    </span>
-                  </td>
-                  <td className="py-4 px-4 font-bold text-zinc-900 dark:text-zinc-100">
-                    ${t.amount.toFixed(2)} {t.currency}
-                  </td>
-                  <td className="py-4 px-4 text-zinc-400 text-[8px] truncate max-w-[150px]">
-                    {t.transaction_id}
-                  </td>
-                  <td className="py-4 px-4 text-right">
-                    <span className="text-zinc-500 dark:text-zinc-500 italic truncate max-w-[200px]">
-                      {t.customer_email || 'anonymous_contributor'}
-                    </span>
-                  </td>
-                </tr>
+      <Panel
+        label={`REVENUE VELOCITY // WEEKLY${columns.length ? ` // ${columns.length} WEEKS` : ''}`}
+      >
+        {columns.length === 0 ? (
+          empty('No revenue recorded yet.')
+        ) : (
+          <>
+            <ul className="micro-label text-muted-foreground flex flex-wrap gap-x-4 gap-y-1">
+              {providers.map((p) => (
+                <li key={p.name} className="flex items-center gap-1.5">
+                  <span aria-hidden className="h-0.5 w-3" style={{ backgroundColor: p.color }} />
+                  {p.name}
+                </li>
               ))}
-              {(!stats?.history || stats.history.length === 0) && (
-                <tr>
-                  <td
-                    colSpan={5}
-                    className="py-20 text-center text-zinc-500 font-mono text-xs uppercase"
+            </ul>
+            <StackedColumns
+              height={200}
+              data={columns}
+              format={(v) => formatCurrency(v)}
+              summary={`Weekly revenue by provider, ${columns.length} weeks, ${providers
+                .map((p) => p.name)
+                .join(' and ')}`}
+            />
+            <div className="micro-label text-muted-foreground flex justify-between pt-1">
+              <span>{columns[0]!.label}</span>
+              <span>{columns[columns.length - 1]!.label}</span>
+            </div>
+          </>
+        )}
+      </Panel>
+
+      <Panel label={`RECENT TRANSACTIONS${history.length ? ` // ${history.length}` : ''}`}>
+        {history.length === 0 ? (
+          empty('No financial events detected yet.')
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow className="border-rule">
+                {['Timestamp', 'Provider', 'Amount', 'Identifier', 'Context'].map((h) => (
+                  <TableHead
+                    key={h}
+                    scope="col"
+                    className={`micro-label h-9 px-2 font-normal uppercase ${
+                      h === 'Amount' ? 'text-right' : ''
+                    }`}
                   >
-                    No financial events detected yet.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+                    {h}
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {history.map((t, idx) => {
+                const reversal = /refund|chargeback/i.test(t.type ?? '');
+                const failed = /fail/i.test(t.type ?? '');
+                return (
+                  <TableRow key={t.transaction_id || idx} className="border-rule">
+                    <TableCell className="text-muted-foreground px-2 font-mono text-xs whitespace-nowrap">
+                      {new Date(t.timestamp).toLocaleString(undefined, {
+                        month: 'short',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </TableCell>
+                    <TableCell className="px-2">
+                      <Badge variant={t.provider === 'STRIPE' ? 'primary' : 'outline'} size="xs">
+                        {t.provider}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="px-2 text-right font-mono text-xs whitespace-nowrap tabular-nums">
+                      {formatAmount(t.amount, t.currency, reversal)}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground max-w-40 truncate px-2 font-mono text-xs">
+                      {t.transaction_id}
+                    </TableCell>
+                    <TableCell className="px-2 text-sm">
+                      {failed && (
+                        <Badge variant="destructive" size="xs" className="mr-2">
+                          Failed
+                        </Badge>
+                      )}
+                      <span className="micro-label text-muted-foreground mr-2">{t.type}</span>
+                      {t.customer_email || '—'}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        )}
+      </Panel>
+    </>
   );
 }
