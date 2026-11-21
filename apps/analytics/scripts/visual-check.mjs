@@ -2,6 +2,8 @@
 // Run from apps/analytics with the dev server on :8080:
 //   node --env-file=.env scripts/visual-check.mjs / /traffic
 // Add --signed-out to skip the session cookie (shows the login overlay on /).
+// Exits 1 on horizontal overflow, failed navigation or an uncaught page exception.
+// Failed fetches and console errors are printed but do not fail the run.
 import { mkdirSync } from 'node:fs';
 import { chromium } from '@playwright/test';
 
@@ -42,10 +44,14 @@ try {
         await context.addInitScript((t) => localStorage.setItem('theme', t), theme);
         const page = await context.newPage();
         const errors = [];
+        const uncaught = [];
         page.on('console', (m) => {
           if (m.type() === 'error') errors.push(m.text());
         });
-        page.on('pageerror', (e) => errors.push(String(e)));
+        page.on('pageerror', (e) => {
+          errors.push(String(e));
+          uncaught.push(String(e));
+        });
         let overflow = 0;
         try {
           await page.goto(BASE + route, { waitUntil: 'load' });
@@ -69,6 +75,10 @@ try {
         console.log(`${route} ${theme} ${width} overflow=${overflow} errors=${errors.length}`);
         for (const e of errors) console.log(`  ${e.split('\n')[0]}`);
         if (overflow > 0) failed = true;
+        if (uncaught.length > 0) {
+          failed = true;
+          console.log(`  UNCAUGHT EXCEPTION on ${route} (${theme} ${width}): ${uncaught.length}`);
+        }
         await context.close();
       }
     }
