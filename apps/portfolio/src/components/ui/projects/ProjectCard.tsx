@@ -60,17 +60,21 @@ export function ProjectCard({
       clickable
       padding="lg"
       className={cn(
-        "w-[min(85vw,320px)] text-left hover:border-cyan-400/30 md:w-[420px]",
+        "hover:border-signal w-[min(85vw,320px)] text-left md:w-[420px]",
         className,
       )}
       onClick={() => onClick(project.slug)}
     >
-      <h3 className="mb-3 text-2xl font-bold text-white">{project.title}</h3>
-      <p className="mb-4 line-clamp-2 text-gray-300">{project.description}</p>
+      <h3 className="text-foreground mb-3 text-2xl font-semibold">
+        {project.title}
+      </h3>
+      <p className="text-muted-foreground mb-4 line-clamp-2">
+        {project.description}
+      </p>
 
       <div className="flex flex-wrap gap-2">
         {visibleTags.map((tag, tagIndex) => (
-          <Badge key={tagIndex} variant="cyan" size="sm">
+          <Badge key={tagIndex} variant="gray" size="sm">
             {tag.label}
           </Badge>
         ))}
@@ -82,9 +86,9 @@ export function ProjectCard({
         )}
       </div>
 
-      <div className="mt-3 flex items-center gap-1 text-xs font-medium text-cyan-400 md:hidden">
+      <div className="text-signal mt-3 flex items-center gap-1 text-xs font-medium md:hidden">
         <span>View Project</span>
-        <ArrowRight className="h-3 w-3" />
+        <ArrowRight className="h-3 w-3" aria-hidden="true" />
       </div>
     </GlassCard>
   );

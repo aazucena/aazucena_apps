@@ -20,7 +20,7 @@ export interface ViewMoreCardProps {
 /**
  * ViewMoreCard
  *
- * Large gradient card that links to the full projects list page.
+ * Flat panel card that links to the full projects list page.
  * Designed to fill a project card slot on the last carousel page.
  *
  * @example
@@ -42,12 +42,12 @@ export function ViewMoreCard({
   return (
     <a
       href={href}
-      className="block flex w-[min(85vw,320px)] cursor-pointer items-center justify-center rounded-lg border border-cyan-400/30 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 p-6 text-left no-underline backdrop-blur-sm transition-all duration-300 hover:from-cyan-400/30 hover:to-blue-500/30 md:w-[420px]"
+      className="bg-panel border-rule rounded-card hover:border-signal hover:bg-state focus-visible:outline-signal flex w-[min(85vw,320px)] cursor-pointer items-center justify-center border p-6 text-left no-underline transition-colors focus-visible:outline-1 md:w-[420px]"
       onClick={onClick}
     >
       <div className="text-center">
-        <h3 className="mb-2 text-3xl font-bold text-white">{title}</h3>
-        <p className="text-gray-300">{subtitle}</p>
+        <h3 className="text-foreground mb-2 text-3xl font-semibold">{title}</h3>
+        <p className="text-muted-foreground">{subtitle}</p>
       </div>
     </a>
   );

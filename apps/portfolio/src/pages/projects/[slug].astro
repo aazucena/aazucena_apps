@@ -5,6 +5,7 @@
  */
 import { BrandGithub, Briefcase, ExternalLink } from "@aazucena/icons";
 import { MarkdownRenderer, Gallery } from "@aazucena/ui";
+import PanelBox from "~/components/common/PanelBox.astro";
 import MetricCard from "~/components/ui/MetricCard.astro";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
@@ -91,49 +92,44 @@ const seoDescription = project.seo?.description || project.shortDescription;
   >
     <div class="flex-1 space-y-6">
       <div class="flex items-center gap-3">
-        <span
-          class="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-[10px] font-black tracking-widest text-blue-600 uppercase dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
-        >
-          {project.projectType}
-        </span>
-        {
-          project.display === "featured" && (
-            <span class="rounded-full border border-yellow-400/20 bg-yellow-400/10 px-3 py-1 text-[10px] font-black tracking-widest text-yellow-600 uppercase">
-              Featured
-            </span>
-          )
-        }
+        {project.projectType && (
+          <span class="rounded-badge border-rule micro-label text-muted-foreground border px-2 py-0.5">
+            {project.projectType}
+          </span>
+        )}
+        {project.display === "featured" && (
+          <span class="rounded-badge border-signal/60 micro-label text-signal border px-2 py-0.5">
+            ● Featured
+          </span>
+        )}
       </div>
 
-      <h1
-        class="text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
-      >
-        {project.title}<span class="text-blue-600">.</span>
+      <h1 class="text-foreground text-5xl leading-none font-semibold tracking-tighter md:text-7xl">
+        {project.title}
+        <span class="text-signal">.</span>
       </h1>
 
-      <div class="flex flex-wrap gap-4 pt-4 print:hidden">
-        {
-          project.liveDemoUrl && (
-            <a
-              href={project.liveDemoUrl}
-              target="_blank"
-              class="inline-flex items-center gap-3 rounded-[1.5rem] bg-blue-600 px-10 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-2xl shadow-blue-500/20 transition-all hover:bg-blue-500 active:scale-95"
-            >
-              <ExternalLink size={20} /> Live Demo
-            </a>
-          )
-        }
-        {
-          project.repositoryUrl && (
-            <a
-              href={project.repositoryUrl}
-              target="_blank"
-              class="inline-flex items-center gap-3 rounded-[1.5rem] bg-gray-900 px-10 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-xl transition-all hover:bg-blue-600 active:scale-95 dark:bg-white dark:text-gray-900 dark:hover:bg-blue-50"
-            >
-              <BrandGithub size={20} /> Source
-            </a>
-          )
-        }
+      <div class="flex flex-wrap gap-3 pt-2 print:hidden">
+        {project.liveDemoUrl && (
+          <a
+            href={project.liveDemoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-signal text-signal-foreground h-control rounded-control hover:bg-signal/90 focus-visible:outline-signal inline-flex items-center gap-2 px-4 text-sm font-medium transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+          >
+            <ExternalLink size={16} aria-hidden="true" /> Live demo
+          </a>
+        )}
+        {project.repositoryUrl && (
+          <a
+            href={project.repositoryUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border-rule-strong text-foreground h-control rounded-control hover:bg-state focus-visible:outline-signal inline-flex items-center gap-2 border px-4 text-sm font-medium transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+          >
+            <BrandGithub size={16} aria-hidden="true" /> Source
+          </a>
+        )}
       </div>
     </div>
   </div>
@@ -141,139 +137,102 @@ const seoDescription = project.seo?.description || project.shortDescription;
   <!-- Content slot: cover image, overview, metrics, screenshots -->
   <Fragment slot="content">
     <!-- Hero Image -->
-    {
-      project.coverImage?.url && (
-        <div class="group relative overflow-hidden rounded-[2.5rem] border border-gray-100 shadow-2xl dark:border-gray-800">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent" />
-          <img
-            src={project.coverImage.url}
-            alt={project.title}
-            class="h-auto w-full transition-transform duration-1000 group-hover:scale-[1.02]"
-          />
-        </div>
-      )
-    }
+    {project.coverImage?.url && (
+      <div class="border-rule rounded-card overflow-hidden border">
+        <img
+          src={project.coverImage.url}
+          alt={project.coverImage.alt || project.title}
+          class="h-auto w-full"
+        />
+      </div>
+    )}
 
     <!-- Narrative Overview -->
-    <section id="overview" class="space-y-8">
-      <h2
-        class="text-3xl font-black tracking-tighter text-gray-900 dark:text-white"
-      >
+    <section id="overview" class="space-y-6">
+      <h2 class="text-foreground text-2xl font-semibold tracking-tight">
         Case Study Overview
       </h2>
-      <article
-        class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black max-w-none"
-      >
+      <article class="prose prose-lg dark:prose-invert prose-p:leading-relaxed max-w-none">
         <MarkdownRenderer content={project.description as string} />
       </article>
     </section>
 
     <!-- Metrics -->
-    {
-      project.metrics && project.metrics.length > 0 && (
-        <section id="impact" class="space-y-10">
-          <h2 class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
-            Success Metrics
-          </h2>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {project.metrics.map((metric) => (
-              <MetricCard {...metric} />
-            ))}
-          </div>
-        </section>
-      )
-    }
+    {project.metrics && project.metrics.length > 0 && (
+      <section id="impact" class="space-y-4">
+        <h2 class="micro-label text-muted-foreground">SUCCESS // METRICS</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {project.metrics.map((metric) => (
+            <MetricCard {...metric} />
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- Visual Showcase -->
-    {
-      project.screenshots && project.screenshots.length > 0 && (
-        <section id="gallery" class="space-y-12">
-          <h2 class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
-            Visual Deep Dive
-          </h2>
-          <div class="space-y-12">
-            {project.screenshots.map(
-              (shot, idx) =>
-                shot?.url && (
-                  <figure class="group space-y-4">
-                    <div class="overflow-hidden rounded-[2rem] border border-gray-100 shadow-xl transition-all duration-700 hover:shadow-2xl dark:border-gray-800">
-                      <img
-                        src={shot.url}
-                        alt={shot.alt}
-                        class="h-auto w-full"
-                        loading="lazy"
-                      />
-                    </div>
-                    {shot.alt && (
-                      <figcaption class="text-center text-[10px] font-black tracking-widest text-gray-400 uppercase opacity-50 transition-opacity group-hover:opacity-100">
-                        Visual {idx + 1}: {shot.alt}
-                      </figcaption>
-                    )}
-                  </figure>
-                ),
-            )}
-          </div>
-        </section>
-      )
-    }
+    {project.screenshots && project.screenshots.length > 0 && (
+      <section id="gallery" class="space-y-6">
+        <h2 class="micro-label text-muted-foreground">VISUAL // DEEP DIVE</h2>
+        <div class="space-y-8">
+          {project.screenshots.map(
+            (shot, idx) =>
+              shot?.url && (
+                <figure class="space-y-3">
+                  <div class="border-rule rounded-card overflow-hidden border">
+                    <img
+                      src={shot.url}
+                      alt={shot.alt}
+                      class="h-auto w-full"
+                      loading="lazy"
+                    />
+                  </div>
+                  {shot.alt && (
+                    <figcaption class="micro-label text-muted-foreground">
+                      Visual {idx + 1}: {shot.alt}
+                    </figcaption>
+                  )}
+                </figure>
+              ),
+          )}
+        </div>
+      </section>
+    )}
     <!-- Project Gallery -->
-    {
-      project.gallery && project.gallery.length > 0 && (
-        <section id="project-gallery" class="space-y-8">
-          <h2 class="text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white">
-            Project Gallery
-          </h2>
-          <Gallery
-            client:load
-            items={project.gallery.map((img) => ({
-              src: img.url!,
-              alt: img.alt || project.title,
-            }))}
-          />
-        </section>
-      )
-    }
+    {project.gallery && project.gallery.length > 0 && (
+      <section id="project-gallery" class="space-y-4">
+        <h2 class="micro-label text-muted-foreground">PROJECT // GALLERY</h2>
+        <Gallery
+          client:load
+          items={project.gallery.map((img) => ({
+            src: img.url!,
+            alt: img.alt || project.title,
+          }))}
+        />
+      </section>
+    )}
   </Fragment>
 
   <!-- Sidebar slot: tech stack, metadata, related links -->
   <Fragment slot="sidebar">
-    <!-- Stack -->
-    <div
-      class="space-y-8 rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
-    >
-      <h2
-        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
-      >
-        Development Stack
-      </h2>
+    <PanelBox label="DEVELOPMENT // STACK">
       <TechStackDistribution skills={project.techStack} client:visible />
-    </div>
+    </PanelBox>
 
-    <!-- Metadata -->
-    <div
-      class="space-y-8 rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
-    >
-      <h2
-        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
-      >
-        Project Brief
-      </h2>
-      <div class="space-y-6">
-        {
-          [
-            { label: "Status", value: project.projectStatus, isPill: true },
-            {
-              label: "Timeline",
-              value: `${startDateFormatted} — ${endDateFormatted}`,
-            },
-            { label: "Platform", value: project.projectType },
-          ].map(
-            (item) =>
-              item.value && (
-                <div>
-                  <div class="mb-1 text-[9px] font-black tracking-widest text-gray-400 uppercase">
-                    {item.label}
-                  </div>
+    <PanelBox label="PROJECT // BRIEF">
+      <dl class="flex flex-col gap-3">
+        {[
+          { label: "Status", value: project.projectStatus, isPill: true },
+          {
+            label: "Timeline",
+            value: `${startDateFormatted} — ${endDateFormatted ?? "—"}`,
+          },
+          { label: "Platform", value: project.projectType },
+        ].map(
+          (item) =>
+            item.value && (
+              <div class="flex items-center justify-between gap-3">
+                <dt class="micro-label text-muted-foreground">{item.label}</dt>
+                <dd class="text-foreground text-right font-mono text-xs">
                   {item.isPill ? (
                     <StatusBadge
                       label={project.projectStatus}
@@ -285,38 +244,33 @@ const seoDescription = project.seo?.description || project.shortDescription;
                       size="sm"
                     />
                   ) : (
-                    <div class="text-sm font-bold text-gray-900 dark:text-white">
-                      {item.value}
-                    </div>
+                    item.value
                   )}
-                </div>
-              ),
-          )
-        }
-      </div>
-
-      {/* Context Callout */}
-      {
-        project.experience && (
-          <div class="border-t border-gray-100 pt-6 dark:border-gray-800">
-            <div class="flex items-start gap-4 rounded-2xl border border-blue-100 bg-blue-50/50 p-5 dark:border-blue-800/50 dark:bg-blue-900/10">
-              <Briefcase size={18} className="text-blue-600 mt-0.5" />
-              <div>
-                <div class="mb-1 text-[9px] font-black tracking-widest text-blue-600 uppercase">
-                  Context
-                </div>
-                <div class="text-xs leading-tight font-bold text-gray-900 dark:text-white">
-                  {project.experience.position}
-                </div>
-                <div class="text-[10px] text-gray-500">
-                  {project.experience.company}
-                </div>
+                </dd>
               </div>
+            ),
+        )}
+      </dl>
+
+      {project.experience && (
+        <div class="border-rule mt-2 flex items-start gap-3 border-t pt-4">
+          <Briefcase
+            size={16}
+            className="text-muted-foreground mt-0.5"
+            aria-hidden="true"
+          />
+          <div>
+            <div class="micro-label text-muted-foreground">Context</div>
+            <div class="text-foreground text-sm font-medium">
+              {project.experience.position}
+            </div>
+            <div class="text-muted-foreground text-xs">
+              {project.experience.company}
             </div>
           </div>
-        )
-      }
-    </div>
+        </div>
+      )}
+    </PanelBox>
 
     <RelatedLinks links={project.relatedLinks} />
   </Fragment>

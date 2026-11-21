@@ -7,12 +7,11 @@ import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig } from "~/layouts/ListLayout.astro";
 import { getProjects } from "@aazucena/api";
 import type { Project } from "@aazucena/types";
-import { getTagColorClasses } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
-import { getCompanyLogoGradient, getCompanyInitials } from "@aazucena/utils";
+import { getCompanyInitials } from "@aazucena/utils";
 import { getProjectStatusVariant, formatProjectDate } from "@aazucena/utils";
 import StatusBadge from "~/components/ui/StatusBadge.astro";
-import { Star, Calendar, ArrowRight } from "@aazucena/icons";
+import { ArrowRight } from "@aazucena/icons";
 
 // Fetch all publicly listed projects
 let projects: Project[] = [];
@@ -46,107 +45,105 @@ const filters: FilterConfig[] = [
   maxWidth="7xl"
   hasItems={projects.length > 0}
 >
-  {
-    projects.map((project) => (
-      <article
-        class="item-card group relative flex flex-col overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-blue-500/20 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900"
-        data-filter-type={project.projectType || ""}
-        data-filter-status={project.projectStatus || ""}
-        data-search={`${project.title} ${project.shortDescription} ${project.tags.map((t) => t.label).join(" ")} ${project.techStack.map((s) => (typeof s === "string" ? s : s.name)).join(" ")}`.toLowerCase()}
-      >
-        {/* Cover Image */}
-        <div class="relative aspect-[16/10] overflow-hidden">
-          {project.coverImage?.url ? (
-            <img
-              src={project.coverImage.url}
-              alt={project.coverImage.alt || project.title}
-              class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              loading="lazy"
-            />
-          ) : (
-            <div
-              class={`h-full w-full bg-gradient-to-br ${getCompanyLogoGradient(project.title)} relative flex items-center justify-center opacity-90`}
+  {projects.map((project) => (
+    <article
+      class="item-card group bg-panel border-rule rounded-card hover:border-signal focus-within:border-signal relative flex flex-col overflow-hidden border transition-[border-color]"
+      data-filter-type={project.projectType || ""}
+      data-filter-status={project.projectStatus || ""}
+      data-search={`${project.title} ${project.shortDescription} ${project.tags.map((t) => t.label).join(" ")} ${project.techStack.map((s) => (typeof s === "string" ? s : s.name)).join(" ")}`.toLowerCase()}
+    >
+      {/* Cover Image */}
+      <div class="border-rule relative aspect-[16/10] overflow-hidden border-b">
+        {project.coverImage?.url ? (
+          <img
+            src={project.coverImage.url}
+            alt={project.coverImage.alt || project.title}
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <div class="bg-state flex h-full w-full items-center justify-center">
+            <span
+              class="text-muted-foreground font-mono text-5xl font-semibold tracking-tighter select-none"
+              aria-hidden="true"
             >
-              <div class="absolute inset-0 bg-black/10" />
-              <span class="text-6xl font-black tracking-tighter text-white/30 select-none">
-                {getCompanyInitials(project.title)}
-              </span>
-            </div>
-          )}
-
-          <div class="absolute top-6 left-6 flex flex-col gap-2">
-            {project.display === "featured" && (
-              <span class="flex items-center gap-1.5 rounded-xl bg-yellow-400 px-3 py-1.5 text-[10px] font-black tracking-[0.2em] text-yellow-950 uppercase shadow-xl">
-                <Star size={12} /> Featured
-              </span>
-            )}
-            <span class="rounded-xl border border-white/10 bg-black/40 px-3 py-1.5 text-[10px] font-black tracking-[0.2em] text-white uppercase backdrop-blur-md">
-              {project.projectType}
+              {getCompanyInitials(project.title)}
             </span>
           </div>
-        </div>
+        )}
+      </div>
 
-        <div class="flex flex-1 flex-col p-8">
-          <div class="mb-4 flex items-center gap-2 text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase">
-            <Calendar size={14} />
+      <div class="p-panel flex flex-1 flex-col gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          {project.projectType && (
+            <span class="rounded-badge border-rule micro-label text-muted-foreground border px-2 py-0.5">
+              {project.projectType}
+            </span>
+          )}
+          {project.display === "featured" && (
+            <span class="rounded-badge border-signal/60 micro-label text-signal border px-2 py-0.5">
+              ● Featured
+            </span>
+          )}
+          <span class="micro-label text-muted-foreground">
             {formatProjectDate(project.startDate)}{" "}
             {project.endDate
               ? `— ${formatProjectDate(project.endDate)}`
               : "— Present"}
-          </div>
+          </span>
+        </div>
 
-          <h3 class="mb-3 text-2xl leading-tight font-black tracking-tighter text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-            <a href={`/projects/${project.slug}`}>
-              {toTitleCase(project.title)}
-            </a>
-          </h3>
+        <h3 class="text-foreground text-base font-semibold tracking-tight">
+          <a
+            href={`/projects/${project.slug}`}
+            class="after:absolute after:inset-0 focus-visible:outline-none"
+          >
+            {toTitleCase(project.title)}
+          </a>
+        </h3>
 
-          <p class="mb-6 line-clamp-3 text-sm leading-relaxed font-medium text-gray-600 dark:text-gray-400">
-            {project.shortDescription}
-          </p>
+        <p class="text-muted-foreground line-clamp-3 text-sm">
+          {project.shortDescription}
+        </p>
 
-          <div class="mt-auto space-y-6">
-            {/* Tags */}
+        <div class="mt-auto flex flex-col gap-3">
+          {project.tags.length > 0 && (
             <div class="flex flex-wrap gap-1.5">
               {project.tags.slice(0, 3).map((tag) => (
-                <span
-                  class={`inline-flex items-center rounded-md border px-2 py-0.5 text-[9px] font-black tracking-wider uppercase ${getTagColorClasses(tag.color)}`}
-                >
+                <span class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5">
                   {tag.label}
                 </span>
               ))}
               {project.tags.length > 3 && (
-                <span class="py-0.5 text-[9px] font-black tracking-widest text-gray-400 uppercase">
-                  + {project.tags.length - 3} more
+                <span class="micro-label text-muted-foreground py-0.5">
+                  +{project.tags.length - 3}
                 </span>
               )}
             </div>
+          )}
 
-            <div class="flex items-center justify-between border-t border-gray-100 pt-6 dark:border-gray-800">
+          <div class="border-rule flex items-center justify-between border-t pt-3">
+            {project.projectStatus ? (
               <StatusBadge
                 label={project.projectStatus}
-                variant={getProjectStatusVariant(project.projectStatus!)}
+                variant={getProjectStatusVariant(project.projectStatus)}
                 animated={
                   project.projectStatus === "Released" ||
                   project.projectStatus === "In Progress"
                 }
                 size="sm"
               />
+            ) : (
+              <span class="micro-label text-muted-foreground">—</span>
+            )}
 
-              <a
-                href={`/projects/${project.slug}`}
-                class="group/link flex items-center gap-2 text-xs font-black tracking-widest text-blue-600 uppercase hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                Case Study
-                <ArrowRight
-                  size={16}
-                  className="transform group-hover/link:translate-x-1 transition-transform"
-                />
-              </a>
-            </div>
+            <span class="micro-label text-signal flex items-center gap-1.5">
+              Case Study
+              <ArrowRight size={12} aria-hidden="true" />
+            </span>
           </div>
         </div>
-      </article>
-    ))
-  }
+      </div>
+    </article>
+  ))}
 </ListLayout>

@@ -19,8 +19,8 @@ export interface PageIndicatorsProps {
  * PageIndicators
  *
  * Displays a row of dots representing pages in a carousel.
- * - Active dot: elongated, cyan color
- * - Inactive dots: circular, semi-transparent
+ * - Active dot: elongated, signal color
+ * - Inactive dots: circular, rule-toned
  * - All dots are clickable for direct navigation
  *
  * @example
@@ -43,11 +43,12 @@ export function PageIndicators({
         <button
           key={pageIndex}
           onClick={() => onPageClick(pageIndex)}
-          className={`rounded-full transition-all duration-300 ${
+          className={`rounded-full transition-[width,background-color] duration-(--motion-base) ${
             currentPage === pageIndex
-              ? "h-2 w-8 bg-cyan-400"
-              : "h-2 w-2 bg-white/30 hover:bg-white/50"
+              ? "bg-signal h-2 w-8"
+              : "bg-rule-strong hover:bg-muted-foreground h-2 w-2"
           }`}
+          aria-current={currentPage === pageIndex ? "true" : undefined}
           aria-label={`Go to page ${pageIndex + 1}`}
         />
       ))}

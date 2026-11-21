@@ -1,73 +1,73 @@
 /**
  * RelatedLinks.tsx
- * Displays a list of related links (WebLink objects) with icons.
+ * Displays a list of related links (WebLink objects) with icons, in a ui Panel.
  */
 
 import { ExternalLink, getIconComponent } from "@aazucena/icons";
 import type { WebLink } from "@aazucena/types";
+import { Panel, PanelHeader, PanelBody } from "@aazucena/ui";
 import type { JSX } from "react";
 
 interface RelatedLinksProps {
   links?: WebLink[];
+  /** Panel label in the copy voice. */
   title?: string;
   className?: string;
 }
 
 export function RelatedLinks({
   links,
-  title = "Related Links",
-  className = "",
+  title = "RELATED // LINKS",
+  className,
 }: RelatedLinksProps): JSX.Element | null {
   if (!links || links.length === 0) {
     return null;
   }
 
   return (
-    <div
-      className={`rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 ${className}`}
-    >
-      <h2 className="mb-4 border-b border-gray-200 pb-3 text-lg font-bold text-gray-900 dark:border-gray-700 dark:text-white">
-        {title}
-      </h2>
-      <ul className="space-y-3">
-        {links.map((link, index) => {
-          // Determine icon: Use CMS icon if provided, otherwise fallback to ExternalLink
-          const Icon = (
-            (link.icon as { name?: string } | null | undefined)?.name
-              ? getIconComponent((link.icon as { name: string }).name)
-              : ExternalLink
-          ) as React.ElementType | string;
+    <Panel className={className}>
+      <PanelHeader label={title} />
+      <PanelBody>
+        <ul className="flex flex-col gap-1">
+          {links.map((link, index) => {
+            // Determine icon: Use CMS icon if provided, otherwise fallback to ExternalLink
+            const Icon = (
+              (link.icon as { name?: string } | null | undefined)?.name
+                ? getIconComponent((link.icon as { name: string }).name)
+                : ExternalLink
+            ) as React.ElementType | string;
 
-          return (
-            <li key={index}>
-              <a
-                href={link.url}
-                target={link.openInNewTab ? "_blank" : undefined}
-                rel={link.openInNewTab ? "noopener noreferrer" : undefined}
-                className="group flex items-start gap-3 rounded-lg border border-transparent p-3 transition-colors hover:border-gray-100 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-gray-700/50"
-              >
-                <span className="mt-0.5 text-blue-600 transition-transform group-hover:scale-110 dark:text-blue-400">
-                  {typeof Icon === "string" ? (
-                    <span dangerouslySetInnerHTML={{ __html: Icon }} />
-                  ) : (
-                    <Icon size={18} />
-                  )}
-                </span>
-                <div>
-                  <div className="text-sm font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-                    {link.text}
-                  </div>
-                  {link.description && (
-                    <div className="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
-                      {link.description}
+            return (
+              <li key={index}>
+                <a
+                  href={link.url}
+                  target={link.openInNewTab ? "_blank" : undefined}
+                  rel={link.openInNewTab ? "noopener noreferrer" : undefined}
+                  className="group rounded-control hover:bg-state focus-visible:outline-signal flex items-start gap-3 p-2 transition-colors focus-visible:outline-1"
+                >
+                  <span className="text-signal mt-0.5">
+                    {typeof Icon === "string" ? (
+                      <span dangerouslySetInnerHTML={{ __html: Icon }} />
+                    ) : (
+                      <Icon size={16} aria-hidden="true" />
+                    )}
+                  </span>
+                  <div>
+                    <div className="text-signal text-sm font-medium group-hover:underline">
+                      {link.text}
                     </div>
-                  )}
-                </div>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+                    {link.description && (
+                      <div className="text-muted-foreground mt-0.5 line-clamp-2 text-xs">
+                        {link.description}
+                      </div>
+                    )}
+                  </div>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </PanelBody>
+    </Panel>
   );
 }
