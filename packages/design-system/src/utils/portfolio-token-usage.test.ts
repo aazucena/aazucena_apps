@@ -32,7 +32,6 @@ const RULES: Array<[name: string, re: RegExp]> = [
 
 /** Files not yet on Avra tokens (paths relative to apps/portfolio/src). */
 const PENDING: string[] = [
-  'components/Footer.astro',
   'components/JourneyDashboard.tsx',
   'components/assistant/AssistantInput.tsx',
   'components/assistant/AssistantIntro.tsx',
@@ -58,15 +57,12 @@ const PENDING: string[] = [
   'components/ui/InfiniteMovingCards.tsx',
   'components/ui/InfoPanel.tsx',
   'components/ui/InteractiveCard.tsx',
-  'components/ui/Navbar.tsx',
   'components/ui/PhoneDialTabs.tsx',
   'components/ui/RelatedLinks.tsx',
   'components/ui/ScrollIndicators.tsx',
   'components/ui/SectionNavFAB.tsx',
   'components/ui/ServiceCard.tsx',
   'components/ui/ServiceTabs.tsx',
-  'components/ui/SettingsPanel.tsx',
-  'components/ui/SocialMenu.tsx',
   'components/ui/TechStackDistribution.tsx',
   'components/ui/TestimonialCard.tsx',
   'components/ui/WorkingStyleSection.tsx',

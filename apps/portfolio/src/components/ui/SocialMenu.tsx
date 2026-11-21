@@ -9,6 +9,7 @@
 import type { JSX } from "react";
 import type { SocialLink } from "@aazucena/types";
 import { X } from "@aazucena/icons";
+import { Button } from "@aazucena/ui";
 
 export interface SocialMenuProps {
   /** Callback when menu should close */
@@ -30,7 +31,7 @@ const platformIcons: Record<
     description: "View my repositories",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -42,7 +43,7 @@ const platformIcons: Record<
     description: "Connect professionally",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -54,7 +55,7 @@ const platformIcons: Record<
     description: "Follow me on Twitter",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -66,7 +67,7 @@ const platformIcons: Record<
     description: "Watch my videos",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -78,7 +79,7 @@ const platformIcons: Record<
     description: "Follow on Instagram",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -90,7 +91,7 @@ const platformIcons: Record<
     description: "Connect on Facebook",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -102,7 +103,7 @@ const platformIcons: Record<
     description: "Follow on TikTok",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -114,7 +115,7 @@ const platformIcons: Record<
     description: "Join my Discord",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -126,7 +127,7 @@ const platformIcons: Record<
     description: "Watch my streams",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -138,7 +139,7 @@ const platformIcons: Record<
     description: "Follow on Mastodon",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="currentColor"
         viewBox="0 0 24 24"
       >
@@ -152,7 +153,7 @@ const platformIcons: Record<
     description: "Send me a message",
     icon: (
       <svg
-        className="h-6 w-6 text-white"
+        className="text-foreground h-6 w-6"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -213,14 +214,15 @@ export function SocialMenu({
   return (
     <div className="max-h-[85vh] overflow-y-auto p-4">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-bold text-white">Connect</h3>
-        <button
+        <h3 className="micro-label text-foreground">Connect</h3>
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onClose}
-          className="text-white/60 transition-colors hover:text-white"
           aria-label="Close social menu"
         >
           <X className="h-5 w-5" />
-        </button>
+        </Button>
       </div>
 
       <div className="space-y-3">
@@ -239,21 +241,22 @@ export function SocialMenu({
                     ? "noopener noreferrer"
                     : undefined
                 }
-                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 transition-all duration-300 hover:border-white/20 hover:bg-white/10"
+                className="group border-rule bg-panel hover:bg-state focus-visible:outline-signal rounded-card flex items-center gap-3 border p-3 transition-[background-color] duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 transition-colors group-hover:bg-white/20">
+                <div className="bg-state rounded-control flex h-10 w-10 items-center justify-center">
                   {platformConfig.icon}
                 </div>
                 <div className="flex-1">
-                  <div className="font-semibold text-white transition-colors group-hover:text-cyan-400">
+                  <div className="text-foreground group-hover:text-signal font-medium transition-colors">
                     {link.text || link.platform}
                   </div>
-                  <div className="text-xs text-white/60">
+                  <div className="text-muted-foreground text-xs">
                     {link.description || platformConfig.description}
                   </div>
                 </div>
                 <svg
-                  className="h-5 w-5 text-white/40 transition-colors group-hover:text-white/80"
+                  aria-hidden="true"
+                  className="text-muted-foreground group-hover:text-foreground h-5 w-5 transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -269,7 +272,7 @@ export function SocialMenu({
             );
           })
         ) : (
-          <div className="py-4 text-center text-white/60">
+          <div className="text-muted-foreground py-4 text-center">
             No social links available
           </div>
         )}
