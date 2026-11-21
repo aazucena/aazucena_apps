@@ -8,6 +8,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### ♻️ Refactor
 
+- _(analytics,api)_ Price ai calls from the shared catalogue
 - _(analytics)_ One state note for empty and failed panels
 - _(ui)_ Animate with tw-animate-css instead of the tailwindcss-animate plugin
 - _(portfolio)_ Use the shared RinCharacter and Rin constants

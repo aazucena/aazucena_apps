@@ -14,6 +14,7 @@ export * from './export';
 export * from './function';
 export * from './journey/index';
 export * from './math';
+export * from './ai';
 export * from './number';
 export * from './preloader';
 export * from './projects';

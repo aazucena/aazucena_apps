@@ -1,9 +1,21 @@
 import { streamText, convertToModelMessages } from 'ai';
+import { resolveChatModel } from '@aazucena/utils';
 import { gateway } from '@/lib/services/ai/gateway';
 
 export async function POST(req: Request) {
   try {
-    const { messages, modelId = 'anthropic/claude-sonnet-4.6' } = await req.json();
+    const body = await req.json();
+    const { messages } = body;
+
+    // Only catalogue models reach the gateway; no model → the default chat model
+    const resolved = resolveChatModel(body.modelId);
+    if (!resolved.ok) {
+      return new Response(JSON.stringify({ error: 'Unknown model' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    const modelId = resolved.id;
     const startTime = Date.now();
     const traceId = `trace_${crypto.randomUUID().slice(0, 8)}`;
 
