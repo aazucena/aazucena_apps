@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Honest failure states and status colours
 - _(analytics)_ No peak line when every column is zero
 - _(analytics)_ Finance weeks zero-filled, current week to date
 - _(analytics)_ Chart values readable without hover
