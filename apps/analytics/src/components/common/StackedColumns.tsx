@@ -22,6 +22,8 @@ interface StackedColumnsProps {
   format?: (value: number) => string;
   /** Accessible summary of the whole chart. */
   summary: string;
+  /** Shown instead of the peak when every column is zero. */
+  emptyLabel?: string;
   className?: string;
 }
 
@@ -34,6 +36,7 @@ export function StackedColumns({
   height = 180,
   format = (v) => v.toLocaleString(),
   summary,
+  emptyLabel = 'No values in window',
   className,
 }: StackedColumnsProps) {
   const totals = data.map((d) => d.segments.reduce((s, x) => s + x.value, 0));
@@ -45,10 +48,12 @@ export function StackedColumns({
   const multi = names.length > 1;
   return (
     <div className={className}>
-      {peak && (
+      {peak && Math.max(...totals) > 0 ? (
         <p className="micro-label text-muted-foreground pb-2">
           PEAK {format(totals[peakIdx] ?? 0)} · {labelOf(peak).toUpperCase()}
         </p>
+      ) : (
+        <p className="micro-label text-muted-foreground pb-2">{emptyLabel.toUpperCase()}</p>
       )}
       <div aria-hidden className="border-rule flex items-end gap-1 border-b" style={{ height }}>
         {data.map((d, i) => (

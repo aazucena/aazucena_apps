@@ -132,6 +132,7 @@ export default function FinancePage() {
               ))}
             </ul>
             <StackedColumns
+              emptyLabel="No revenue in window"
               height={200}
               data={columns}
               format={(v) => formatCurrency(v)}

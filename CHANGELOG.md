@@ -26,6 +26,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(analytics)_ Finance weeks zero-filled, current week to date
 - _(analytics)_ Chart values readable without hover
 - _(analytics)_ Prompt lab labels say what they are
 - _(analytics)_ Trajectory rewards read neutral, scroll regions focusable

@@ -24,7 +24,11 @@ export function RankBar({ label, value, percent, color, hint, className }: RankB
     >
       <div className="min-w-0">
         <div className="truncate text-sm">{label}</div>
-        {hint && <div className="micro-label text-muted-foreground truncate">{hint}</div>}
+        {hint && (
+          <div className="micro-label text-muted-foreground truncate" title={hint}>
+            {hint}
+          </div>
+        )}
       </div>
       <div aria-hidden className="bg-state h-1.5 overflow-hidden">
         <div
