@@ -22,9 +22,10 @@ export function RankBar({ label, value, percent, color, hint, className }: RankB
         className,
       )}
     >
-      <span className="truncate text-sm" title={hint ? `${label} (${hint})` : label}>
-        {label}
-      </span>
+      <div className="min-w-0">
+        <div className="truncate text-sm">{label}</div>
+        {hint && <div className="micro-label text-muted-foreground truncate">{hint}</div>}
+      </div>
       <div aria-hidden className="bg-state h-1.5 overflow-hidden">
         <div
           className={cn('h-full', !color && 'bg-signal')}
