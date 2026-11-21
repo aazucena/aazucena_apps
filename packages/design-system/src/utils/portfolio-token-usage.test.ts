@@ -108,7 +108,6 @@ const PENDING: string[] = [
   'components/ui/projects/ProjectCard.tsx',
   'components/ui/projects/ViewMoreCard.tsx',
   'config/animations.ts',
-  'config/site.ts',
   'layouts/DetailLayout.astro',
   'layouts/ListLayout.astro',
   'pages/404.astro',
@@ -188,5 +187,17 @@ describe('portfolio Avra token usage', () => {
       expect({ file, exists: existsSync(join(SRC, file)) }).toEqual({ file, exists: true });
       expect({ file, reason: reason.trim().length > 0 }).toEqual({ file, reason: true });
     }
+  });
+
+  it('loads Avra through ui globals', () => {
+    const css = readFileSync(join(SRC, 'styles/globals.css'), 'utf8');
+    expect(css).toMatch(/@import ['"]@aazucena\/ui\/globals\.css['"]/);
+    expect(css).not.toMatch(/--(?:primary|secondary|neutral|destructive|success)-\d{2,3}\s*:/);
+    expect(css).not.toMatch(/@theme inline/);
+  });
+
+  it('keeps the homepage content dark', () => {
+    const layout = readFileSync(join(SRC, 'layouts/HomeLayout.astro'), 'utf8');
+    expect(layout).toMatch(/class(?::list)?=[^>]*\bdark\b/);
   });
 });
