@@ -11,11 +11,12 @@ import {
   BrandGithub,
   Twitter,
   Send,
-  Location,
   Globe,
-  MessageDots,
+  ArrowRight,
 } from "@aazucena/icons";
+import { Button, Input, Label, Textarea } from "@aazucena/ui";
 import DetailLayout from "~/layouts/DetailLayout.astro";
+import PanelBox from "~/components/common/PanelBox.astro";
 import { getPortfolio } from "@aazucena/api";
 import { getAvailabilityIndicator } from "@aazucena/utils";
 
@@ -24,7 +25,16 @@ const portfolio = await getPortfolio();
 const pageTitle = "Contact";
 const pageDescription = `Let's build something together. Currently ${portfolio.availabilityStatus.toLowerCase()} and interesting collaborations.`;
 
-const statusIndicator = getAvailabilityIndicator(portfolio.availabilityStatus);
+// Availability: same marker treatment as the Footer (mono line, status tone)
+const rawIndicator = getAvailabilityIndicator(portfolio.availabilityStatus);
+const availability = rawIndicator.color.includes("green")
+  ? { marker: "●", tone: "text-success" }
+  : rawIndicator.color.includes("yellow") ||
+      rawIndicator.color.includes("orange")
+    ? { marker: "◆", tone: "text-warning" }
+    : rawIndicator.color.includes("blue")
+      ? { marker: "●", tone: "text-signal" }
+      : { marker: "●", tone: "text-muted-foreground" };
 
 const localTime = new Date().toLocaleTimeString("en-US", {
   timeZone: portfolio?.timezone ?? "America/Edmonton",
@@ -62,139 +72,139 @@ const jsonLd = {
 >
   <!-- Hero Header Slot -->
   <div slot="header" class="text-center md:text-left">
-    <h1
-      class="mb-8 text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
-    >
-      Let's build <br class="hidden md:block" /><span
-        class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-        >together.</span
-      >
+    <h1 class="text-foreground mb-6 text-5xl leading-none font-bold tracking-tight md:text-7xl">
+      Let's build <br class="hidden md:block" />
+      <span class="text-signal">together.</span>
     </h1>
-    <p
-      class="max-w-2xl text-xl leading-relaxed font-medium text-gray-600 md:text-2xl dark:text-gray-400"
-    >
+    <p class="text-muted-foreground max-w-2xl text-lg leading-relaxed">
       {pageDescription}
     </p>
   </div>
 
   <!-- Main Content Slot: Form -->
   <Fragment slot="content">
-    <section id="message" class="space-y-8">
-      <h2
-        class="flex items-center gap-3 text-2xl font-black tracking-[0.2em] text-gray-900 uppercase dark:text-white"
-      >
-        <MessageDots size={24} className="text-blue-600" />
-        Send a Message
-      </h2>
-
-      <div
-        id="contact-success"
-        hidden
-        class="rounded-2xl border border-green-200 bg-green-50 px-6 py-4 text-sm font-semibold text-green-800 dark:border-green-800/40 dark:bg-green-900/20 dark:text-green-300"
-      >
-        Message sent! I'll get back to you soon.
-      </div>
-
-      <div
-        id="contact-error"
-        hidden
-        class="rounded-2xl border border-red-200 bg-red-50 px-6 py-4 text-sm font-semibold text-red-800 dark:border-red-800/40 dark:bg-red-900/20 dark:text-red-300"
-      >
-        Something went wrong. Please try again or reach out directly via email.
-      </div>
-
-      <form id="contact-form" class="space-y-6">
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div class="space-y-2">
-            <label
-              for="name"
-              class="ml-4 block text-[10px] font-black tracking-widest text-gray-400 uppercase"
-            >
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="John Doe"
-              required
-              autocomplete="name"
-              class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-            />
-            <p id="name-error" class="ml-4 text-[10px] font-bold text-red-500">
-            </p>
-          </div>
-          <div class="space-y-2">
-            <label
-              for="email"
-              class="ml-4 block text-[10px] font-black tracking-widest text-gray-400 uppercase"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="john@example.com"
-              required
-              autocomplete="email"
-              class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-            />
-            <p id="email-error" class="ml-4 text-[10px] font-bold text-red-500">
-            </p>
-          </div>
-        </div>
-        <div class="space-y-2">
-          <label
-            for="subject"
-            class="ml-4 block text-[10px] font-black tracking-widest text-gray-400 uppercase"
-          >
-            Subject
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            placeholder="How can I help?"
-            required
-            autocomplete="off"
-            class="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-          />
-          <p id="subject-error" class="ml-4 text-[10px] font-bold text-red-500">
-          </p>
-        </div>
-        <div class="space-y-2">
-          <label
-            for="message"
-            class="ml-4 block text-[10px] font-black tracking-widest text-gray-400 uppercase"
-          >
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="6"
-            placeholder="Tell me about your project..."
-            required
-            minlength="10"
-            class="w-full resize-none rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
-          ></textarea>
-          <p id="message-error" class="ml-4 text-[10px] font-bold text-red-500">
-          </p>
-        </div>
-
-        <button
-          id="contact-submit"
-          type="submit"
-          class="group flex w-full items-center justify-center gap-3 rounded-2xl bg-gray-900 px-12 py-5 text-xs font-black tracking-[0.2em] text-white uppercase shadow-xl transition-all hover:bg-blue-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto dark:bg-white dark:text-gray-900 dark:hover:bg-blue-50"
+    <section id="message">
+      <PanelBox label="SEND // A MESSAGE">
+        <div
+          id="contact-success"
+          role="status"
+          hidden
+          class="border-rule text-success rounded-control mb-4 border px-4 py-3 text-sm"
         >
-          <Send
-            size={18}
-            className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-          />
-          <span id="contact-submit-label">Send Message</span>
-        </button>
-      </form>
+          OK Message sent! I'll get back to you soon.
+        </div>
+
+        <div
+          id="contact-error"
+          role="alert"
+          hidden
+          class="border-alert text-alert rounded-control mb-4 border px-4 py-3 text-sm"
+        >
+          ▲ Something went wrong. Please try again or reach out directly via
+          email.
+        </div>
+
+        <form id="contact-form" class="flex flex-col gap-4">
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <Label
+                htmlFor="name"
+                className="micro-label text-muted-foreground"
+              >
+                Full Name
+              </Label>
+              <Input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Jane Doe"
+                required
+                autoComplete="name"
+                aria-describedby="name-error"
+              />
+              <p
+                id="name-error"
+                role="alert"
+                class="text-alert micro-label"
+              ></p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <Label
+                htmlFor="email"
+                className="micro-label text-muted-foreground"
+              >
+                Email Address
+              </Label>
+              <Input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="jane@example.com"
+                required
+                autoComplete="email"
+                aria-describedby="email-error"
+              />
+              <p
+                id="email-error"
+                role="alert"
+                class="text-alert micro-label"
+              ></p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <Label
+              htmlFor="subject"
+              className="micro-label text-muted-foreground"
+            >
+              Subject
+            </Label>
+            <Input
+              type="text"
+              id="subject"
+              name="subject"
+              placeholder="How can I help?"
+              required
+              autoComplete="off"
+              aria-describedby="subject-error"
+            />
+            <p
+              id="subject-error"
+              role="alert"
+              class="text-alert micro-label"
+            ></p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <Label
+              htmlFor="message"
+              className="micro-label text-muted-foreground"
+            >
+              Message
+            </Label>
+            <Textarea
+              id="message"
+              name="message"
+              rows={5}
+              placeholder="Tell me about your project..."
+              required
+              minLength={10}
+              aria-describedby="message-error"
+              className="resize-none"
+            />
+            <p
+              id="message-error"
+              role="alert"
+              class="text-alert micro-label"
+            ></p>
+          </div>
+
+          <div>
+            <Button id="contact-submit" type="submit">
+              <Send size={16} />
+              <span id="contact-submit-label">Send Message</span>
+            </Button>
+          </div>
+        </form>
+      </PanelBox>
 
       <script>
         import { actions, isInputError } from "astro:actions";
@@ -214,35 +224,15 @@ const jsonLd = {
         function setFieldError(field: string, message: string) {
           const input = document.getElementById(field);
           const errorEl = document.getElementById(`${field}-error`);
-          input?.classList.add(
-            "border-red-400",
-            "focus:border-red-500",
-            "focus:ring-red-500/20",
-          );
-          input?.classList.remove(
-            "border-gray-100",
-            "focus:border-blue-500",
-            "focus:ring-blue-500/20",
-            "dark:border-gray-800",
-          );
-          if (errorEl) errorEl.textContent = message;
+          input?.setAttribute("aria-invalid", "true");
+          if (errorEl) errorEl.textContent = `▲ ${message}`;
         }
 
         function clearErrors() {
           for (const f of FIELDS) {
             const input = document.getElementById(f);
             const errorEl = document.getElementById(`${f}-error`);
-            input?.classList.remove(
-              "border-red-400",
-              "focus:border-red-500",
-              "focus:ring-red-500/20",
-            );
-            input?.classList.add(
-              "border-gray-100",
-              "focus:border-blue-500",
-              "focus:ring-blue-500/20",
-              "dark:border-gray-800",
-            );
+            input?.removeAttribute("aria-invalid");
             if (errorEl) errorEl.textContent = "";
           }
           if (successBanner) successBanner.hidden = true;
@@ -282,140 +272,90 @@ const jsonLd = {
   <!-- Sidebar Slot -->
   <Fragment slot="sidebar">
     <!-- Availability -->
-    <div
-      class="space-y-8 rounded-3xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
-    >
-      <h2
-        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
-      >
-        Presence
-      </h2>
-      <div class="space-y-6">
-        <div class="group flex items-center gap-4">
-          <div
-            class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 transition-transform group-hover:scale-110 dark:bg-gray-900/20"
-          >
-            <div class="relative flex h-2 w-2">
-              {
-                statusIndicator.pulse && (
-                  <span
-                    class={`absolute inline-flex h-full w-full animate-ping rounded-full ${statusIndicator.color} opacity-75`}
-                  />
-                )
-              }
-              <span
-                class={`relative inline-flex rounded-full h-2 w-2 ${statusIndicator.color}`}
-              ></span>
-            </div>
-          </div>
-          <div>
-            <div
-              class="text-[10px] font-black tracking-wider text-gray-400 uppercase"
-            >
-              Status
-            </div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">
+    <PanelBox label="PRESENCE">
+      <dl class="flex flex-col gap-3">
+        <div class="flex items-baseline justify-between gap-3">
+          <dt class="micro-label text-muted-foreground">STATUS</dt>
+          <dd class="micro-label flex items-center gap-1.5 font-mono">
+            <span class={availability.tone} aria-hidden="true">
+              {availability.marker}
+            </span>
+            <span class="text-muted-foreground">
               {portfolio.availabilityStatus}
-            </div>
-          </div>
+            </span>
+          </dd>
         </div>
-
-        <div class="group flex items-center gap-4">
-          <div
-            class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20"
-          >
-            <Globe size={20} />
-          </div>
-          <div>
-            <div
-              class="text-[10px] font-black tracking-wider text-gray-400 uppercase"
-            >
-              Local Time
-            </div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">
-              {localTime} (MST)
-            </div>
-          </div>
+        <div class="flex items-baseline justify-between gap-3">
+          <dt class="micro-label text-muted-foreground">LOCAL TIME</dt>
+          <dd class="text-foreground font-mono text-sm">{localTime} (MST)</dd>
         </div>
-
-        {
-          portfolio.location && (
-            <div class="group flex items-center gap-4">
-              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-900/20">
-                <Location size={20} />
-              </div>
-              <div>
-                <div class="text-[10px] font-black tracking-wider text-gray-400 uppercase">
-                  HQ
-                </div>
-                <div class="text-sm font-bold text-gray-900 dark:text-white">
-                  {portfolio.location}
-                </div>
-              </div>
-            </div>
-          )
-        }
-      </div>
-    </div>
+        {portfolio.location && (
+          <div class="flex items-baseline justify-between gap-3">
+            <dt class="micro-label text-muted-foreground">HQ</dt>
+            <dd class="text-foreground font-mono text-sm">
+              {portfolio.location}
+            </dd>
+          </div>
+        )}
+      </dl>
+    </PanelBox>
 
     <!-- Direct Channels -->
-    <div
-      class="space-y-8 rounded-3xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    <PanelBox
+      label="DIRECT // CHANNELS"
+      meta={String((portfolio.socialLinks?.length ?? 0) + 1)}
     >
-      <h2
-        class="border-b border-gray-100 pb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase dark:border-gray-800 dark:text-gray-500"
-      >
-        Direct Channels
-      </h2>
-      <div class="space-y-4">
-        <a
-          href={`mailto:${portfolio.email}`}
-          class="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50/50 p-4 transition-all hover:border-blue-500/20 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-900"
-        >
-          <div
-            class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20"
+      <ul class="-m-panel flex flex-col">
+        <li>
+          <a
+            href={`mailto:${portfolio.email}`}
+            class="hover:bg-state border-rule px-panel focus-visible:outline-signal flex items-center justify-between gap-3 border-b py-3 transition-colors focus-visible:outline-1 focus-visible:-outline-offset-2"
           >
-            <Envelope size={20} />
-          </div>
-          <div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">
-              Email
-            </div>
-            <div
-              class="text-[10px] font-black tracking-wider text-gray-400 uppercase"
-            >
-              Direct Message
-            </div>
-          </div>
-        </a>
-
-        {
-          portfolio.socialLinks?.map((link) => (
+            <span class="flex items-center gap-3">
+              <Envelope size={18} className="text-muted-foreground" />
+              <span>
+                <span class="text-foreground block text-sm font-semibold">
+                  Email
+                </span>
+                <span class="micro-label text-muted-foreground">
+                  DIRECT MESSAGE
+                </span>
+              </span>
+            </span>
+            <ArrowRight size={14} className="text-signal" />
+          </a>
+        </li>
+        {portfolio.socialLinks?.map((link) => (
+          <li class="border-rule border-b last:border-b-0">
             <a
               href={link.url}
               target="_blank"
-              class="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50/50 p-4 transition-all hover:border-blue-500/20 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-900"
+              rel="noopener noreferrer"
+              class="hover:bg-state px-panel focus-visible:outline-signal flex items-center justify-between gap-3 py-3 transition-colors focus-visible:outline-1 focus-visible:-outline-offset-2"
             >
-              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 group-hover:text-blue-600 dark:bg-gray-800 dark:text-gray-400">
-                {link.platform === "LinkedIn" && <BrandLinkedin size={20} />}
-                {link.platform === "GitHub" && <BrandGithub size={20} />}
-                {link.platform === "Twitter" && <Twitter size={20} />}
-                {!["LinkedIn", "GitHub", "Twitter"].includes(link.platform) && (
-                  <Globe size={20} />
-                )}
-              </div>
-              <div>
-                <div class="text-sm font-bold text-gray-900 dark:text-white">
-                  {link.platform}
-                </div>
-                <div class="text-[10px] font-black tracking-wider text-gray-400 uppercase">
-                  {link.text || "Professional Profile"}
-                </div>
-              </div>
+              <span class="flex items-center gap-3">
+                <span class="text-muted-foreground">
+                  {link.platform === "LinkedIn" && <BrandLinkedin size={18} />}
+                  {link.platform === "GitHub" && <BrandGithub size={18} />}
+                  {link.platform === "Twitter" && <Twitter size={18} />}
+                  {!["LinkedIn", "GitHub", "Twitter"].includes(
+                    link.platform,
+                  ) && <Globe size={18} />}
+                </span>
+                <span>
+                  <span class="text-foreground block text-sm font-semibold">
+                    {link.platform}
+                  </span>
+                  <span class="micro-label text-muted-foreground">
+                    {link.text || "Professional Profile"}
+                  </span>
+                </span>
+              </span>
+              <ArrowRight size={14} className="text-signal" />
             </a>
-          ))
-        }
-      </div>
-    </div>
+          </li>
+        ))}
+      </ul>
+    </PanelBox>
   </Fragment>
 </DetailLayout>

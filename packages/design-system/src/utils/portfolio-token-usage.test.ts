@@ -91,7 +91,6 @@ const PENDING: string[] = [
   'pages/blog/[slug].astro',
   'pages/blog/index.astro',
   'pages/changelog.astro',
-  'pages/contact.astro',
   'pages/experiences/[slug].astro',
   'pages/experiences/index.astro',
   'pages/journey.astro',
@@ -99,7 +98,6 @@ const PENDING: string[] = [
   'pages/projects/[slug].astro',
   'pages/projects/index.astro',
   'pages/skills/index.astro',
-  'pages/support.astro',
 ];
 
 /** Files whose literal colours are scene imagery. path -> one-line reason. */

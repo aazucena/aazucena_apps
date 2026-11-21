@@ -8,6 +8,7 @@ export const prerender = false;
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getPageBySlug, getPortfolio } from "@aazucena/api";
 import { MarkdownRenderer } from "@aazucena/ui";
+import PanelBox from "~/components/common/PanelBox.astro";
 
 const [page, portfolio] = await Promise.all([
   getPageBySlug("support"),
@@ -57,10 +58,9 @@ const jsonLd = {
 >
   <!-- Hero Header -->
   <div slot="header" class="space-y-8 text-left">
-    <h1
-      class="mb-8 text-5xl leading-none font-black tracking-tighter text-gray-900 md:text-8xl dark:text-white"
-    >
-      {title}<span class="text-blue-600">.</span>
+    <h1 class="text-foreground mb-4 text-5xl leading-none font-bold tracking-tight md:text-7xl">
+      {title}
+      <span class="text-signal">.</span>
     </h1>
   </div>
 
@@ -69,25 +69,26 @@ const jsonLd = {
     <div class="space-y-6">
       <article
         id="dynamic-content"
-        class="prose prose-lg dark:prose-invert prose-p:leading-relaxed prose-headings:font-black prose-a:text-blue-600 max-w-none"
+        class="prose prose-lg dark:prose-invert prose-p:leading-relaxed max-w-none"
       >
         <MarkdownRenderer content={content} />
       </article>
-      {
-        kofiEmbedUrl && (
-          <div class="rounded-2xl">
-            <iframe
-              id="kofiframe"
-              src={kofiEmbedUrl}
-              style="box-shadow: 0 0 #0000 !important;border:none;width:100%;padding:4px;background:#ffffff;"
-              height="712"
-              title="aazucena"
-              loading="lazy"
-              allow="payment; autoplay; fullscreen"
-            />
-          </div>
-        )
-      }
+      {kofiEmbedUrl && (
+        <PanelBox label="KO-FI // TIP JAR" meta="EMBED">
+          <iframe
+            id="kofiframe"
+            src={kofiEmbedUrl}
+            style="border:none;width:100%;padding:4px;box-shadow:none;"
+            height="712"
+            title="aazucena"
+            loading="lazy"
+            allow="payment; autoplay; fullscreen"
+          />
+          <p class="micro-label text-muted-foreground text-center">
+            THIRD-PARTY IFRAME // KO-FI CONTROLS ITS STYLING
+          </p>
+        </PanelBox>
+      )}
     </div>
   </Fragment>
 </DetailLayout>
