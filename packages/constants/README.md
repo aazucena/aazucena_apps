@@ -427,7 +427,10 @@ against the Vercel AI Gateway model list (`https://ai-gateway.vercel.sh/v1/model
 
 - `CLAUDE_MODELS`, `ChatModelId`, `ModelRole`, `ModelPrice`
 - `DEFAULT_CHAT_MODEL` (`anthropic/claude-sonnet-5.5`)
-- `SAVINGS_BASELINE_MODEL` (`anthropic/claude-opus-5.5`): savings are measured against the deep tier
+- `SAVINGS_BASELINE_MODEL` (`anthropic/claude-opus-5.5`): savings are measured against the deep tier.
+  The analytics ingest stores `cost_usd` and `savings_usd` per event when it arrives, so rows from
+  before the 2026-11 catalogue keep the old baseline (Opus 4.7) and old prices; totals that span that
+  date step down for the same usage.
 - `MODEL_PRICES`: the catalogue plus retired models (Claude 4.x and 3.x, OpenAI, Google, Voyage
   embeddings), so history still gets a cost. Retired models are priced, never offered.
 - `isChatModel(id)`, `priceFor(model)` (case-insensitive; unknown ids cost 0), `isPriced(model)`
