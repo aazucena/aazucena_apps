@@ -1,5 +1,4 @@
 ---
-/* eslint-disable jsx-a11y/no-noninteractive-tabindex -- scrollable debug pane must be keyboard-focusable */
 import PageLayout from "~/layouts/PageLayout.astro";
 import { Home, Refresh } from "@aazucena/icons";
 import { Badge, buttonVariants } from "@aazucena/ui";
@@ -45,19 +44,23 @@ const { error } = Astro.props;
 
       <!-- Error Detail (DEV ONLY) -->
       {import.meta.env.DEV && error && (
-        <div
-          aria-label="Debug info"
-          role="region"
-          tabindex="0"
-          class="bg-panel border-rule rounded-card focus-visible:outline-signal mb-12 max-h-64 overflow-auto border p-4 text-left focus-visible:outline-1 focus-visible:outline-offset-2"
-        >
-          <p class="micro-label text-alert mb-3">▲ DEBUG INFO</p>
-          <pre class="text-muted-foreground font-mono text-xs">
+        <>
+          {/* eslint-disable jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable */}
+          <div
+            aria-label="Debug info"
+            role="region"
+            tabindex="0"
+            class="bg-panel border-rule rounded-card focus-visible:outline-signal mb-12 max-h-64 overflow-auto border p-4 text-left focus-visible:outline-1 focus-visible:outline-offset-2"
+          >
+            <p class="micro-label text-alert mb-3">▲ DEBUG INFO</p>
+            <pre class="text-muted-foreground font-mono text-xs">
               {error instanceof Error
                 ? error.stack
                 : JSON.stringify(error, null, 2)}
             </pre>
-        </div>
+          </div>
+          {/* eslint-enable jsx-a11y/no-noninteractive-tabindex */}
+        </>
       )}
 
       <!-- Action Buttons -->
