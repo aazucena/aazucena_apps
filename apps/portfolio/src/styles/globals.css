@@ -4,6 +4,9 @@
 /* Scan @aazucena/* workspace packages for dynamically-generated Tailwind classes */
 @source "../../../../packages/utils/src";
 @source "../../../../packages/ui/src";
+@source "../../../../packages/visualizations/src";
+@source "../../../../packages/animations/src";
+@source "../../../../packages/icons/src";
 
 /* Short laptop screens (720px and under): the pinned homepage sections have to fit one screen */
 @custom-variant short (@media (max-height: 760px));

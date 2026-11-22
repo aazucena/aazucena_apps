@@ -95,4 +95,36 @@ describe('portfolio Avra token usage', () => {
     const layout = readFileSync(join(SRC, 'layouts/HomeLayout.astro'), 'utf8');
     expect(layout).toMatch(/class(?::list)?=[^>]*\bdark\b/);
   });
+
+  it('scans enough files for the walk to mean something', () => {
+    expect(CHECKED.length).toBeGreaterThan(100);
+  });
+
+  it('generates Tailwind classes for every workspace package with markup the portfolio imports', () => {
+    const css = readFileSync(join(SRC, 'styles/globals.css'), 'utf8');
+    const imported = new Set<string>();
+    for (const file of ALL) {
+      const code = readFileSync(join(SRC, file), 'utf8');
+      for (const m of code.matchAll(/from ['"]@aazucena\/([a-z-]+)/g)) imported.add(m[1]!);
+    }
+    const withMarkup = Array.from(imported).filter((pkg) => {
+      const dir = join(ROOT, 'packages', pkg, 'src');
+      if (!existsSync(dir)) return false;
+      const walk = (d: string): boolean =>
+        readdirSync(d).some((n) => {
+          const f = join(d, n);
+          if (statSync(f).isDirectory()) return walk(f);
+          return (
+            /\.tsx$/.test(n) &&
+            !/\.(?:test|stories)\.tsx$/.test(n) &&
+            /className=/.test(readFileSync(f, 'utf8'))
+          );
+        });
+      return walk(dir);
+    });
+    expect(withMarkup).toContain('visualizations');
+    for (const pkg of withMarkup) {
+      expect({ pkg, source: css.includes(`packages/${pkg}/src`) }).toEqual({ pkg, source: true });
+    }
+  });
 });
