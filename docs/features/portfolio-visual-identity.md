@@ -1,6 +1,6 @@
 # Portfolio visual identity
 
-Status: **proposal; homepage reach, Rin color and availability decided 2026-11-12; Figma review gate still open**. Figma: [Avra Design System → Portfolio page](https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G?node-id=45-2).
+Status: **R5 built on `phase-5/next-release`, final whole-branch review pending; decisions of 2026-11-12 and 2026-11-21 below; four owner questions open**. Figma: [Avra Design System → Portfolio page](https://www.figma.com/design/KIKPyhRdGbeBhj8dS0km2G?node-id=45-2).
 
 ## Problem
 
@@ -29,9 +29,9 @@ The content layer also runs on its own token island. `apps/portfolio/src/styles/
 
 ## Availability status (decided 2026-11-12)
 
-`availabilityStatus` (Strapi enum) drives the footer, About Vital Stats and Contact Presence. Today `getAvailabilityIndicator` in `packages/utils/src/content.ts` maps it to stock palette classes (`bg-green-500` … `bg-red-500`). In the redesign it maps to status tokens, so coral stays reserved for alerts:
+`availabilityStatus` (Strapi enum) drives the footer, About Vital Stats and Contact Presence. `getAvailabilityIndicator` in `packages/utils/src/content.ts` still returns the stock `color` class (`bg-green-500` … `bg-red-500`) and a `pulse` flag, and now also returns a `marker` (● or ◆) and a `tone` token class. The footer, About and Contact render the marker in the tone class and do not use `color` or `pulse`, so no pulse ring is drawn today. The mapping below is what the tones implement, so coral stays reserved for alerts:
 
-| Status                     | Today        | Redesign                |
+| Status                     | Old          | Redesign                |
 | -------------------------- | ------------ | ----------------------- |
 | Open to Opportunities      | green, pulse | `success` ●, pulse ring |
 | Looking for Collaborations | blue, pulse  | `signal` ●, pulse ring  |
@@ -40,7 +40,7 @@ The content layer also runs on its own token island. `apps/portfolio/src/styles/
 | Unavailable                | red          | `muted-foreground` ●    |
 | Unknown (fallback)         | gray         | `muted-foreground` ●    |
 
-Busy and On Break share amber, and the label tells them apart. Unavailable goes muted grey rather than red, because coral would read as an error. Figma: `Shared / Availability` on the Portfolio page, one variant per status. Phase 5 changes `getAvailabilityIndicator` to return these tokens.
+Busy and On Break share amber, and the label tells them apart. Unavailable goes muted grey rather than red, because coral would read as an error. Figma: `Shared / Availability` on the Portfolio page, one variant per status. The status comes from the CMS `portfolio.availabilityStatus`; the owner has yet to review it.
 
 ## Decisions (owner, 2026-11-12)
 
@@ -48,7 +48,46 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
    - **Text on a scene uses `foreground`; signal stays inside panels.** The cyan subtitles failed contrast on the bright blue sky scenes (Projects, Experience, What I do). Rejected: a scrim behind each heading block (adds a translucent layer the instrument rules avoid) and flat ink backdrops (loses the altitude story).
 2. **Rin trigger: signal cyan outline, with Rin's face and "Chat"** (owner, 2026-11-12: the face is Rin's identity on the button, and "Chat" is the clearest label for first-time visitors). The open state reads ✕ "Close". Coral stays reserved for alerts. Rejected: coral as a brand exception and a dedicated Rin accent.
 
-3. **The homepage is always dark (owner, 2026-11-12).** Its content sits on the Three.js / Pixi scenes, and the live sections already hard-code light-on-dark, so it looks the same whichever theme the visitor picked. In Phase 5, bind the homepage content layer to the Dark mode of the tokens instead of following the site theme. Inner pages, the Rin chat and mobile inner pages follow the theme and have light frames.
+3. **The homepage is always dark (owner, 2026-11-12).** Its content sits on the Three.js / Pixi scenes, and the live sections already hard-code light-on-dark, so it looks the same whichever theme the visitor picked. R5 binds the homepage content layer to the Dark mode of the tokens with a `.dark` wrapper in `HomeLayout.astro`, so it no longer follows the site theme. Inner pages, the Rin chat and mobile inner pages follow the theme and have light frames.
+
+## Decisions (owner, 2026-11-21)
+
+1. **Watermark.** Header watermarks stay everywhere they existed (list, detail, Journey with its CMS field, 404, 500); the footer keeps its own. Recipe: Fira Sans Black, `rule` colour at 28%, -4% tracking, fitted to 94% of the header's width and height (404 capped at 480px). Option 2, a panel band under the navbar, for list, detail, About and Journey; 404 and 500 have no band. 500 has no frame and follows the 404 treatment. About's word is ALDRIN. The mark is hidden below 640px on blog posts and project details. One component, `WatermarkBackground.astro`, serves headers and footer.
+2. **A frame that omits existing decoration or content is not a decision to remove it.** Such removals go to the owner (the band was removed once on that reading and restored).
+3. **Navbar:** hamburger menu below 1024px (D1).
+4. **Journey (D2):** keeps the coded milestone timeline. Figma now shows it: dark `207:7379`, light `207:7483`; the superseded layers are hidden, not deleted.
+5. **Home Experience (D4):** keeps the logo cards on a timeline rail. Figma: `207:7587`. RAD Intel stays as the frames' preview content, not in the CMS.
+6. **After R5 (backlog):** the blog post Contents rail and mobile Contents bar (D3); mobile menu counts and Dark/Light control, footer link style and preloader panel and rings (D5). See `docs/next-release-backlog.md`.
+7. **Footer** follows the same watermark recipe; the code had drifted to bold foreground at 4%.
+
+## Frames compared
+
+Fira Sans and Fira Code did not render on the branch from `d0e46dc4` (Task 3) to `432e64ae`: the font variables went through `define:vars` and never resolved. **Every comparison made in that span used the fallback system font's metrics**, including each per-task review. The 2026-11-21 frame pass in 11b was one of them, and its report wrongly blamed the missing font on the machine being offline.
+
+Compared in that pass (fallback font), by outcome:
+
+- Match: About `77:521` (CMS copy differs), 404 `77:2015`, Journey `113:4022` (top of the page only), Blog `47:413`, Home hero `77:429`, menus `77:453` and `155:5108`, Toolbar `145:3904`, Home About `46:67` (after a fix).
+- Changed to match: Contact, Support, Changelog, Projects, Project detail, Experience, Experience detail (spacing, quote tint, Support two columns), Expertise (alignment), Blog post mobile `77:490` (title size).
+- Left on purpose: Blog post `77:1374` (frame has an inline Contents rail), Home Experience `46:175`, preloader Splash, Loading and Ready in dark and light.
+- Never compared: the two Error preloader frames `121:3638` and `121:3732` (not reachable locally), `155:5074` beyond the menu shot, the full length of the Journey page, light frames in Tasks 5, 7 and 10 (fetched or skipped), 390px frames in Task 10, and a full-length check of every route against its frame in any mode.
+
+At most 26 frames were compared in the 11b pass; an earlier figure of 28 of 29 was wrong.
+
+Redone after `432e64ae`, with the real font:
+
+- Computed fonts on 16 routes at two widths in both themes (body, headings and watermark Fira Sans; labels and code Fira Code; six Sans weights and two Code weights loaded).
+- Watermark matrix: 16 routes at 390, 768 and 1440, light and dark; no overflow and no cropped word.
+- Page titles set from the Figma text styles and measured on nine routes at 1440 and 390 (About 56, Contact 56, Blog post 52, Journey 64, List 56; tracking -0.02em).
+- Navbar clear of clipping from 768 to 1280.
+
+Not redone: the per-frame side-by-side comparisons of the pass above. Legal, Editorial and Landing templates got tracking only; their title sizes were not compared. Printing, real CMS watermark words other than current data and the Astro build output were not checked, and no production build was run.
+
+## Open owner questions
+
+- **RAD Intel entry.** The role is in the frames but not in the Strapi data. Add the CMS entry, or drop it from the frames.
+- **Mobile watermark marks.** At 390px the title or description text sits over part of the mark on Projects, Writings, Skills, Experience, Contact, Support, Privacy, Terms, Changelog, Experience detail, 404 and 500, and the image covers the middle on About; on About, Journey, Changelog and Experience detail only fragments remain. Keep, move or hide them.
+- **Legal and Editorial title size.** The templates still use 56-96px titles that no frame specifies.
+- **Push.** One push, to `f993bf2a`, was made on the owner's instruction. Later commits are local, and the owner has not approved another push.
 
 ## Frames
 
@@ -100,4 +139,4 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
 
   Content comes only from the public bio at lickly.com/our-team/aldrin-azucena, with no invented outcomes. The live site doesn't list the role yet; each frame carries a canvas note until the Strapi entry exists.
 
-Not drawn: `/maintenance`, `/500` and the legal template. Their content wasn't reachable locally.
+Not drawn: `/maintenance`, `/500` (follows the 404 treatment) and the legal template. Their content wasn't reachable locally.
