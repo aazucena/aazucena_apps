@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Trim older chat messages instead of rejecting them
 - _(portfolio)_ Show unknown for a system status the badge doesn't know
 - _(assistant)_ Write the code point limit in decimal
 - _(assistant)_ Never tokenise html in rin markdown

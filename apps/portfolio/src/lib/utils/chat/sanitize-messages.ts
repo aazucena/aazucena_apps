@@ -8,6 +8,8 @@ export { MAX_MESSAGE_CHARS };
 export const MAX_REQUEST_CHARS = 50_000;
 /** Characters of the last question sent to knowledge-base retrieval. */
 export const MAX_RETRIEVAL_CHARS = 1_000;
+/** Stands in for a contact-form tool turn; its input and output are never forwarded. */
+const CONTACT_HANDLED = "(contact form step already handled)";
 
 const textPart = z.object({ type: z.literal("text"), text: z.string() });
 const otherPart = z.object({ type: z.string() }).loose();
@@ -31,7 +33,8 @@ export type SanitizeResult =
 
 /**
  * Validates the client's chat history. Keeps the newest MAX_MESSAGES and accepts only user and
- * assistant roles. Text parts are kept (blank ones skipped), other parts are dropped, and messages left empty are dropped. Only an oversized
+ * assistant roles. Text parts are kept (blank ones skipped), a contact-form tool part becomes a
+ * plain note, other parts are dropped, and messages left empty are dropped. Only an oversized
  * newest user message is rejected; older and assistant messages are cut to the limit.
  */
 export function sanitizeMessages(raw: unknown): SanitizeResult {
@@ -50,7 +53,9 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
     let used = 0;
     for (const p of parsed.data.parts) {
       let text: string;
-      if (
+      if (p.type === "tool-submit_contact_form") {
+        text = CONTACT_HANDLED;
+      } else if (
         p.type === "text" &&
         typeof (p as { text?: unknown }).text === "string"
       ) {
@@ -63,7 +68,7 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
         if (isNewest && parsed.data.role === "user") {
           return { ok: false, status: 413, error: "Message too long" };
         }
-        text = text.slice(0, MAX_MESSAGE_CHARS - used);
+        text = text.slice(0, MAX_MESSAGE_CHARS - used).toWellFormed();
         if (!text.trim()) break;
       }
       used += text.length;
@@ -82,13 +87,14 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
     total -= size(messages.shift()!);
   }
   while (messages.length > 1 && messages[0]!.role !== "user") messages.shift();
-  const lastUser = messages.findLast((m) => m.role === "user");
-  if (!lastUser) {
+  if (messages.at(-1)?.role !== "user") {
     return { ok: false, status: 400, error: "A user message is required" };
   }
+  const lastUser = messages.at(-1)!;
   const lastUserMessage = lastUser.parts
     .map((p) => p.text)
     .join(" ")
-    .slice(0, MAX_RETRIEVAL_CHARS);
+    .slice(0, MAX_RETRIEVAL_CHARS)
+    .toWellFormed();
   return { ok: true, messages, lastUserMessage };
 }

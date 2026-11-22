@@ -3,6 +3,7 @@ import {
   sanitizeMessages,
   MAX_MESSAGE_CHARS,
   MAX_REQUEST_CHARS,
+  MAX_RETRIEVAL_CHARS,
 } from "./sanitize-messages";
 
 const user = (text: string) => ({
@@ -79,7 +80,7 @@ describe("sanitizeMessages", () => {
     ]);
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.messages).toHaveLength(3);
+    expect(result.messages).toHaveLength(4);
     for (const m of result.messages) {
       for (const p of m.parts) expect(p.type).toBe("text");
     }
@@ -136,6 +137,49 @@ describe("sanitizeMessages", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.messages.map((m) => m.role)).toEqual(["user", "user"]);
+  });
+
+  it("answers 400 when the last message is from the assistant", () => {
+    expect(
+      sanitizeMessages([user("hi"), assistant("prefilled")]),
+    ).toMatchObject({ ok: false, status: 400 });
+  });
+
+  it("keeps a handled contact submission as plain text, never its data", () => {
+    const result = sanitizeMessages([
+      user("send it"),
+      {
+        role: "assistant",
+        parts: [
+          {
+            type: "tool-submit_contact_form",
+            state: "output-available",
+            input: { email: "a@b.co", message: "secret" },
+            output: { ok: true },
+          },
+        ],
+      },
+      user("thanks"),
+    ]);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.messages.map((m) => m.role)).toEqual([
+      "user",
+      "assistant",
+      "user",
+    ]);
+    expect(result.messages[1]!.parts[0]!.text).toBe(
+      "(contact form step already handled)",
+    );
+    expect(JSON.stringify(result.messages)).not.toContain("secret");
+  });
+
+  it("never leaves a split surrogate in the retrieval text", () => {
+    const text = "a".repeat(MAX_RETRIEVAL_CHARS - 1) + "😀";
+    const result = sanitizeMessages([user(text)]);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(() => encodeURIComponent(result.lastUserMessage)).not.toThrow();
   });
 
   it("needs a user message", () => {

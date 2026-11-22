@@ -24,7 +24,9 @@ const gateway = createGateway({ apiKey: getSecret("AI_GATEWAY_API_KEY") });
 export const POST: APIRoute = async ({ request }) => {
   let body: Record<string, unknown>;
   try {
-    body = await request.json();
+    const parsed: unknown = await request.json();
+    if (typeof parsed !== "object" || parsed === null) throw new Error();
+    body = parsed as Record<string, unknown>;
   } catch {
     return new Response(JSON.stringify({ error: "Invalid request body" }), {
       status: 400,
