@@ -47,7 +47,7 @@ export function SkillsSection({
     content: (
       <SkillBadgeList
         skills={category.skills}
-        variant={mapGradientToVariant(category.gradient)}
+        variant={mapGradientToVariant(category.gradient ?? "")}
       />
     ),
   }));
@@ -114,7 +114,9 @@ export function SkillsSection({
             <div className="flex flex-wrap justify-center gap-2">
               <SkillBadgeList
                 skills={mobileSkills}
-                variant={mapGradientToVariant(activeMobileCategory.gradient)}
+                variant={mapGradientToVariant(
+                  activeMobileCategory.gradient ?? "",
+                )}
                 size="sm"
               />
               {!mobileSkillsExpanded && hiddenSkillsCount > 0 && (

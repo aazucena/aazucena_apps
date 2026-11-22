@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Put the homepage skip link and loaders in the dark token scope
 - _(assistant)_ Clear the error on Clear and keep Retry from throwing
 - _(assistant)_ Validate the chat body and keep the history well formed
 - _(assistant)_ Trim older chat messages instead of rejecting them

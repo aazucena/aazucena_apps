@@ -42,7 +42,7 @@ export function groupSkillsByCategory(cmsSkills: StrapiSkill[]): SkillCategory[]
           name: categoryData?.name || 'other',
           label: categoryName,
           display: categoryDisplay,
-          gradient: (categoryData?.variant as GradientVariant) || 'blue-cyan',
+          gradient: (categoryData?.variant as GradientVariant) || undefined,
           icon: categoryData?.icon ?? undefined,
           skills: [],
         };

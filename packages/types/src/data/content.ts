@@ -274,7 +274,7 @@ export interface SkillCategory {
   documentId?: string;
   label: string;
   display: string;
-  gradient: string;
+  gradient?: string;
   icon?: string;
   skills: Skill[];
 }
