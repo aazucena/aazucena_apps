@@ -257,6 +257,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Bring back the turning wrench and a monitoring line on maintenance
 - _(portfolio)_ Add hover-spin and spin-slow motion classes
 - _(portfolio)_ Pulse the shield while systems are operational
 - _(portfolio)_ Grow the section dots on hover and focus
