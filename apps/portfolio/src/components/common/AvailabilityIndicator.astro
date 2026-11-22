@@ -1,0 +1,22 @@
+---
+/**
+ * Availability marker in the status tone. When `pulse` is set (open to work), a ring pings
+ * behind the marker; under reduced motion the marker stays steady.
+ */
+interface Props {
+  tone: string;
+  marker: string;
+  pulse?: boolean;
+}
+const { tone, marker, pulse = false } = Astro.props;
+---
+
+<span
+  class={`relative inline-flex items-center justify-center ${tone}`}
+  aria-hidden="true"
+>
+  {pulse && (
+    <span class="absolute inline-flex size-2.5 rounded-full bg-current opacity-60 motion-safe:animate-ping" />
+  )}
+  <span class="relative">{marker}</span>
+</span>

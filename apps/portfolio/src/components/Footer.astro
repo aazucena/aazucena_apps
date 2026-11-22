@@ -1,5 +1,6 @@
 ---
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
+import AvailabilityIndicator from "~/components/common/AvailabilityIndicator.astro";
 import {
   ArrowUpRight,
   BrandGithub,
@@ -105,9 +106,11 @@ const getPlatformIcon = (platform: string) => {
 
         <!-- Status Indicator -->
         <p class="micro-label text-muted-foreground flex justify-center gap-2 md:justify-start">
-          <span class={indicator.tone} aria-hidden="true">
-            {indicator.marker}
-          </span>
+          <AvailabilityIndicator
+            tone={indicator.tone}
+            marker={indicator.marker}
+            pulse={indicator.pulse}
+          />
           <span>{availabilityStatus}</span>
         </p>
       </div>
