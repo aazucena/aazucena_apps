@@ -79,3 +79,11 @@
 :root {
   --logo-plate: #fff;
 }
+
+/* Rendered markdown quotes read as a signal-ruled note, as in the frames. */
+.prose blockquote {
+  border-left-color: var(--signal);
+  background-color: var(--signal-subtle);
+  backdrop-filter: none;
+  border-radius: 0 var(--radius-control) var(--radius-control) 0;
+}
