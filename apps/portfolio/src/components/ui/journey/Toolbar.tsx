@@ -6,6 +6,7 @@ import {
   resetCategories,
   skillSearchQueryStore,
 } from "~/store/journey";
+import { Filter, Search } from "@aazucena/icons";
 import { toTitleCase } from "@aazucena/utils";
 import { Button, Input } from "@aazucena/ui";
 
@@ -43,6 +44,7 @@ export function Toolbar({ categories }: ToolbarProps) {
           aria-controls="journey-domain-filter"
           className="shrink-0 lg:hidden"
         >
+          <Filter aria-hidden />
           Filters
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +70,12 @@ export function Toolbar({ categories }: ToolbarProps) {
             placeholder="Search technology…"
             value={searchQuery}
             onChange={(e) => skillSearchQueryStore.set(e.target.value)}
-            className="font-mono"
+            className="pl-8 font-mono"
+          />
+          <Search
+            aria-hidden
+            size={14}
+            className={`pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 transition-colors ${searchQuery ? "text-signal" : "text-muted-foreground"}`}
           />
           {searchQuery && (
             <button
