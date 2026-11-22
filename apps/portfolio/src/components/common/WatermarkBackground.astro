@@ -1,29 +1,41 @@
 ---
+/**
+ * Watermark word behind a header, the 404/500 pages and the footer. Put it inside a `relative
+ * overflow-hidden` parent; it fills that parent and sizes the word to at most 94% of its width and
+ * height with container query units, no JavaScript, for any word. Fira Sans Black, `--rule` at 28%,
+ * tracking -0.04em, line-height 0.78 (the Figma recipe). It is hidden in print.
+ */
+import { watermarkEmWidth } from "~/lib/utils/watermark";
+
 interface Props {
   text: string;
-  size?: "small" | "medium" | "large" | "huge";
+  /** Upper bound for the font size, any CSS length (404 and 500 use 30rem). */
+  max?: string;
   class?: string;
 }
 
-const { text, size = "large", class: className } = Astro.props;
-
-const sizeClasses = {
-  small: "text-[15rem] md:text-[25rem]",
-  medium: "text-[20rem]",
-  large: "text-[25rem]",
-  huge: "text-[30rem] md:text-[40rem]",
-};
+const { text, max, class: className } = Astro.props;
+const word = text.trim().toUpperCase();
+const em = watermarkEmWidth(word);
+const fit = `calc(94cqw / ${em.toFixed(3)}), calc(94cqh / 0.78)`;
+const fontSize = max ? `min(${fit}, ${max})` : `min(${fit})`;
 ---
 
-<div
-  class:list={[
-    "pointer-events-none absolute top-1/2 left-1/2 z-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.02] select-none dark:opacity-[0.05]",
-    className,
-  ]}
-  aria-hidden="true"
->
-  <span
-    class={`${sizeClasses[size]} font-black uppercase tracking-tighter italic`}
-    >{text}</span
+{word && (
+  <div
+    class:list={[
+      "pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden select-none print:hidden",
+      className,
+    ]}
+    style="container-type: size"
+    aria-hidden="true"
+    data-watermark
   >
-</div>
+    <span
+      class="text-rule block font-black whitespace-nowrap uppercase opacity-[0.28]"
+      style={`font-size: ${fontSize}; line-height: 0.78; letter-spacing: -0.04em; font-style: normal`}
+    >
+      {word}
+    </span>
+  </div>
+)}
