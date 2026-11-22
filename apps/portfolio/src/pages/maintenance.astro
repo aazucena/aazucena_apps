@@ -2,7 +2,7 @@
 import PageLayout from "~/layouts/PageLayout.astro";
 import { MarkdownRenderer } from "@aazucena/ui";
 import { getMaintenance } from "@aazucena/api";
-import { Refresh, Envelope } from "@aazucena/icons";
+import { Refresh, Envelope, Wrench } from "@aazucena/icons";
 import { buttonVariants } from "@aazucena/ui";
 
 export const prerender = false;
@@ -34,6 +34,10 @@ const pageDescription = maintenance.message;
         MAINTENANCE // WINDOW
       </p>
 
+      <div class="rounded-card border-rule bg-panel text-signal mx-auto mb-8 flex size-20 items-center justify-center border">
+        <Wrench size={36} aria-hidden="true" className="spin-slow" />
+      </div>
+
       <!-- Status Message -->
       <h1 class="text-foreground mb-8 text-5xl leading-none font-bold tracking-tight md:text-6xl">
         Refining the <br class="hidden md:block" />
@@ -62,15 +66,26 @@ const pageDescription = maintenance.message;
       <div class="mb-12 flex flex-col justify-center gap-3 sm:flex-row">
         <button
           onclick="window.location.reload()"
-          class={buttonVariants({ variant: "default" })}
+          class={buttonVariants({ variant: "default", class: "group press" })}
         >
-          <Refresh size={16} />
+          <Refresh
+            size={16}
+            aria-hidden="true"
+            className="hover-spin [--spin:180deg]"
+          />
           Check Status
         </button>
       </div>
 
       <!-- Footer Info -->
       <div class="border-rule border-t pt-8">
+        <p class="micro-label text-muted-foreground mb-6 flex items-center justify-center gap-3">
+          <span class="relative flex size-2" aria-hidden="true">
+            <span class="bg-signal absolute inline-flex size-full rounded-full opacity-60 motion-safe:animate-ping" />
+            <span class="bg-signal relative inline-flex size-2 rounded-full" />
+          </span>
+          Checks every 30 seconds
+        </p>
         <p class="micro-label text-muted-foreground mb-2">REACH OUT DIRECTLY</p>
         <a
           href="mailto:contact@aazucena.com"

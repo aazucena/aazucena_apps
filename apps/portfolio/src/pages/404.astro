@@ -1,5 +1,5 @@
 ---
-import { ArrowLeft, Home } from "@aazucena/icons";
+import { ArrowLeft, Compass, Home } from "@aazucena/icons";
 import { Badge, buttonVariants } from "@aazucena/ui";
 import PageLayout from "~/layouts/PageLayout.astro";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
@@ -37,22 +37,38 @@ const pageDescription =
 
       <!-- Action Buttons -->
       <div class="mb-16 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <a href="/" class={buttonVariants({ variant: "default" })}>
-          <Home size={16} />
+        <a
+          href="/"
+          class={buttonVariants({ variant: "default", class: "group press" })}
+        >
+          <Home
+            size={16}
+            aria-hidden="true"
+            className="hover-nudge [--nudge-x:0px] [--nudge-y:-2px]"
+          />
           Back to Safety
         </a>
         <button
           onclick="history.back()"
-          class={buttonVariants({ variant: "outline" })}
+          class={buttonVariants({ variant: "outline", class: "group press" })}
         >
-          <ArrowLeft size={16} />
+          <ArrowLeft
+            size={16}
+            aria-hidden="true"
+            className="hover-nudge [--nudge-x:-4px]"
+          />
           Previous Page
         </button>
       </div>
 
       <!-- Navigation Beacon -->
       <div>
-        <p class="micro-label text-muted-foreground mb-4">
+        <p class="micro-label text-muted-foreground mb-4 flex items-center justify-center gap-2">
+          <Compass
+            size={14}
+            aria-hidden="true"
+            className="spin-slow text-signal"
+          />
           NAVIGATION // BEACON
         </p>
         <div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
@@ -65,9 +81,13 @@ const pageDescription =
           ].map((link) => (
             <a
               href={link.href}
-              class="text-foreground hover:text-signal focus-visible:outline-signal text-sm font-medium tracking-wide uppercase transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+              class="group text-foreground hover:text-signal focus-visible:outline-signal relative text-sm font-medium tracking-wide uppercase transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
             >
               {link.label}
+              <span
+                aria-hidden="true"
+                class="bg-signal absolute -bottom-1 left-0 h-0.5 w-0 motion-safe:transition-[width] motion-safe:duration-(--motion-base) group-hover:w-full group-focus-visible:w-full"
+              />
             </a>
           ))}
         </div>
