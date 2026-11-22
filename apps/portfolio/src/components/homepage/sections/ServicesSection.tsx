@@ -151,6 +151,7 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
           <Button
             asChild
             size="sm"
+            className="press"
             variant={
               service.cta.variant === "primary" ||
               service.cta.variant === "secondary"

@@ -70,7 +70,7 @@ export function ProjectsSection({
               <a
                 key={index}
                 href={`/projects/${p.slug}`}
-                className="rounded-card border-rule bg-panel hover:bg-state focus-visible:outline-signal flex items-center gap-3 border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
+                className="press rounded-card border-rule bg-panel hover:bg-state focus-visible:outline-signal flex items-center gap-3 border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
               >
                 <div className="micro-label rounded-control border-rule bg-state text-foreground flex h-9 w-9 flex-shrink-0 items-center justify-center border">
                   {getCompanyInitials(p.title)}

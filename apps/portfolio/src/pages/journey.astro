@@ -302,6 +302,7 @@ const phases =
                 class={buttonVariants({
                   variant: button.variant === "primary" ? "default" : "outline",
                   size: "lg",
+                  class: "press",
                 })}
               >
                 {button.label}
@@ -314,19 +315,31 @@ const phases =
             <>
               <a
                 href="/projects"
-                class={buttonVariants({ variant: "default", size: "lg" })}
+                class={buttonVariants({
+                  variant: "default",
+                  size: "lg",
+                  class: "press",
+                })}
               >
                 Portfolio
               </a>
               <a
                 href="/experiences"
-                class={buttonVariants({ variant: "outline", size: "lg" })}
+                class={buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                  class: "press",
+                })}
               >
                 Full history
               </a>
               <a
                 href="/contact"
-                class={buttonVariants({ variant: "outline", size: "lg" })}
+                class={buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                  class: "press",
+                })}
               >
                 Get in touch
                 <Send size={16} aria-hidden="true" />

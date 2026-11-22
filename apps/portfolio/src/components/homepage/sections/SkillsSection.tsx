@@ -95,7 +95,7 @@ export function SkillsSection({
                 style={{ scrollSnapAlign: "center" }}
                 aria-pressed={mobileActiveTab === tab.name}
                 className={cn(
-                  "rounded-control h-control focus-visible:outline-signal flex flex-shrink-0 items-center gap-2 border px-4 text-sm font-medium whitespace-nowrap transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2",
+                  "press rounded-control h-control focus-visible:outline-signal flex flex-shrink-0 items-center gap-2 border px-4 text-sm font-medium whitespace-nowrap transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2",
                   mobileActiveTab === tab.name
                     ? "border-signal bg-state text-foreground"
                     : "border-rule bg-panel text-muted-foreground",

@@ -85,7 +85,7 @@ export function SectionNavFAB({
         }
         aria-expanded={open}
         data-testid="section-nav-fab-trigger"
-        className="rounded-control border-rule-strong bg-panel text-foreground hover:bg-state focus-visible:outline-signal flex size-12 items-center justify-center border transition-[background-color] duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
+        className="press rounded-control border-rule-strong bg-panel text-foreground hover:bg-state focus-visible:outline-signal flex size-12 items-center justify-center border transition-[background-color] duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
       >
         {open ? (
           <X size={14} aria-hidden="true" />
