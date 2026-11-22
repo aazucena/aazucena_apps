@@ -72,53 +72,58 @@ export function LearnMoreCard({
   variant,
 }: LearnMoreCardProps): JSX.Element {
   return (
-    <a
-      href={href}
-      className={cn(
-        "press group bg-panel border-rule rounded-card hover:bg-state focus-visible:outline-signal block border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 md:p-4",
-        className,
-      )}
-    >
-      {/* Header row: icon + title, arrow inline on mobile */}
-      <div className="flex items-center justify-between gap-3 md:mb-2 md:justify-start">
-        <div className="flex items-center gap-3">
-          <div
-            className={cn(
-              "text-signal flex h-6 w-6 flex-shrink-0 items-center justify-center md:h-8 md:w-8",
-              iconClassName,
-            )}
-            style={{ color: cmsTone(variant) ?? undefined }}
-          >
-            <IconRenderer icon={icon} className="h-4 w-4 md:h-5 md:w-5" />
-          </div>
-          <h4 className="text-foreground text-sm font-semibold md:text-base">
-            {title}
-          </h4>
-        </div>
-        <ArrowRight className="text-signal h-3 w-3 flex-shrink-0 md:hidden" />
-      </div>
-
-      {/* Description: desktop only */}
-      {children && (
-        <p className="text-muted-foreground mb-2 hidden text-sm md:block">
-          {children}
-        </p>
-      )}
-
-      {/* Button row: desktop only */}
-      <div
+    <div className="linked-card hover-grow [--grow:1.02]">
+      <a
+        href={href}
         className={cn(
-          "text-signal hidden items-center gap-2 text-xs font-medium md:flex",
-          buttonClassName,
+          "press group bg-panel border-rule rounded-card hover:bg-state focus-visible:outline-signal block h-full border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 md:p-4",
+          className,
         )}
       >
-        <span>{buttonText}</span>
-        {buttonIcon ? (
-          <IconRenderer icon={buttonIcon} className="h-3 w-3" />
-        ) : (
-          <ArrowRight className="h-3 w-3" />
+        {/* Header row: icon + title, arrow inline on mobile */}
+        <div className="flex items-center justify-between gap-3 md:mb-2 md:justify-start">
+          <div className="flex items-center gap-3">
+            <div
+              className={cn(
+                "text-signal flex h-6 w-6 flex-shrink-0 items-center justify-center md:h-8 md:w-8",
+                iconClassName,
+              )}
+              style={{ color: cmsTone(variant) ?? undefined }}
+            >
+              <IconRenderer icon={icon} className="h-4 w-4 md:h-5 md:w-5" />
+            </div>
+            <h4 className="text-foreground text-sm font-semibold md:text-base">
+              {title}
+            </h4>
+          </div>
+          <ArrowRight className="text-signal hover-nudge h-3 w-3 flex-shrink-0 [--nudge-x:4px] md:hidden" />
+        </div>
+
+        {/* Description: desktop only */}
+        {children && (
+          <p className="text-muted-foreground mb-2 hidden text-sm md:block">
+            {children}
+          </p>
         )}
-      </div>
-    </a>
+
+        {/* Button row: desktop only */}
+        <div
+          className={cn(
+            "text-signal hidden items-center gap-2 text-xs font-medium md:flex",
+            buttonClassName,
+          )}
+        >
+          <span>{buttonText}</span>
+          {buttonIcon ? (
+            <IconRenderer
+              icon={buttonIcon}
+              className="hover-nudge h-3 w-3 [--nudge-x:4px]"
+            />
+          ) : (
+            <ArrowRight className="hover-nudge h-3 w-3 [--nudge-x:4px]" />
+          )}
+        </div>
+      </a>
+    </div>
   );
 }

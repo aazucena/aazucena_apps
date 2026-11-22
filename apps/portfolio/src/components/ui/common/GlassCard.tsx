@@ -71,7 +71,8 @@ export function GlassCard<T extends ElementType = "div">({
   const classes = cn(
     "border-rule border",
     paddingClass,
-    hover && "hover:bg-state transition-colors duration-(--motion-base)",
+    hover &&
+      "hover:bg-state hover-grow [--grow:1.02] [--transition-also:color,background-color,border-color]",
     clickable && "cursor-pointer",
     className,
   );
