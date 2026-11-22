@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Touch storage only in the top frame in visual-check
 - _(portfolio)_ Put the Rin popover on the fixed z tier
 - _(portfolio)_ Resolve the font variables so Fira Sans and Fira Code render
 - _(portfolio)_ Rin announces only the finished reply

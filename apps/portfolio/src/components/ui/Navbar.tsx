@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { ArrowRight, Menu } from "@aazucena/icons";
+import { ArrowRight, Menu, X } from "@aazucena/icons";
 import {
   Button,
   Sheet,
+  SheetClose,
   SheetContent,
   SheetTitle,
   SheetTrigger,
@@ -48,6 +49,16 @@ export function Navbar({
     setIsMobileMenuOpen(false);
   }, [currentPath]);
 
+  // The sheet is hidden from lg up; close it so its scrim and scroll lock don't outlive it
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1024px)");
+    const close = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsMobileMenuOpen(false);
+    };
+    query.addEventListener("change", close);
+    return () => query.removeEventListener("change", close);
+  }, []);
+
   const externalProps = (type?: string) =>
     type === "EXTERNAL"
       ? { target: "_blank", rel: "noopener noreferrer" }
@@ -76,7 +87,7 @@ export function Navbar({
         {logo}
 
         {/* Desktop Navigation */}
-        <div className="hidden items-stretch gap-1 self-stretch md:flex">
+        <div className="hidden items-stretch gap-1 self-stretch lg:flex">
           {regularNavItems.map((item) => {
             const isActive = currentPath.startsWith(item.path || "");
             const Icon = item.iconComponent;
@@ -138,7 +149,7 @@ export function Navbar({
               <Button
                 variant="outline"
                 size="icon"
-                className="border-signal text-signal md:hidden"
+                className="border-signal text-signal lg:hidden"
                 aria-label="Open menu"
                 data-testid="navbar-mobile-toggle"
               >
@@ -149,13 +160,24 @@ export function Navbar({
               side="right"
               data-testid="navbar-mobile-menu"
               aria-describedby={undefined}
-              className="flex w-full max-w-none flex-col gap-0 p-0 sm:max-w-none md:hidden"
+              className="flex w-full max-w-none flex-col gap-0 p-0 sm:max-w-none lg:hidden [&>button.absolute]:hidden"
             >
-              <div className="border-rule flex h-16 items-center border-b px-4">
+              <div className="border-rule flex h-14 items-center justify-between border-b px-4">
                 <img src={logoUrl} alt="" className="h-8 w-auto" />
                 <SheetTitle className="sr-only">
                   {toTitleCase(siteName)}
                 </SheetTitle>
+                <SheetClose asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-control h-9 w-9"
+                    aria-label="Close menu"
+                    data-testid="navbar-mobile-close"
+                  >
+                    <X size={18} aria-hidden="true" />
+                  </Button>
+                </SheetClose>
               </div>
               <div className="flex flex-col overflow-y-auto">
                 {regularNavItems.map((item) => {
