@@ -336,7 +336,7 @@ onSubmit: async ({ value }: { value: any }) => { ... }
 
 **Current Branch:** `phase-5/next-release` (Phase 5 testing + analytics UI redesign + features + maintenance)
 **CI/CD:** CircleCI — currently prechecks only; Railway handles Docker builds
-**Frontend:** Vercel (auto-deploy from GitHub)
+**Frontend:** Vercel (auto-deploy from GitHub). Previews are off for `phase-5/next-release` to save build cost, through `git.deploymentEnabled` in the `vercel.json` of portfolio, analytics and storybook; delete that rule from all three to get previews back. `main` still deploys.
 **Backend:** Railway
 
 ### Commits
