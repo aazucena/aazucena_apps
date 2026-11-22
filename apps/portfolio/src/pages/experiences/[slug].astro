@@ -1,4 +1,6 @@
 ---
+import { IconRenderer } from "@aazucena/ui";
+import type { IconComponent } from "@aazucena/types";
 import { ArrowRight } from "@aazucena/icons";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
@@ -61,6 +63,8 @@ const extractedMetrics = (experience.achievements || [])
     return {
       value,
       label,
+      description: achievement.description,
+      icon: achievement.icon as IconComponent | undefined,
     };
   })
   .filter(Boolean);
@@ -194,9 +198,7 @@ const breadcrumbs = [
     <!-- Impact -->
     {extractedMetrics.length > 0 && (
       <section id="impact" class="space-y-4">
-        <h2 class="micro-label text-muted-foreground">
-          ARCHITECTURE // IMPACT
-        </h2>
+        <h2 class="micro-label text-muted-foreground">CORE IMPACT</h2>
         <PanelBox
           label="IMPACT"
           meta={`${extractedMetrics.length} ${extractedMetrics.length === 1 ? "OUTCOME" : "OUTCOMES"}`}
@@ -207,7 +209,19 @@ const breadcrumbs = [
                 <span class="text-signal w-16 shrink-0 font-mono text-lg">
                   {metric!.value}
                 </span>
-                <span class="text-foreground text-sm">{metric!.label}</span>
+                {metric!.icon && (
+                  <span class="text-signal shrink-0 self-center">
+                    <IconRenderer client:only="react" icon={metric!.icon} />
+                  </span>
+                )}
+                <span class="flex flex-col gap-1">
+                  <span class="text-foreground text-sm">{metric!.label}</span>
+                  {metric!.description && (
+                    <span class="text-muted-foreground text-xs leading-relaxed">
+                      {metric!.description}
+                    </span>
+                  )}
+                </span>
               </li>
             ))}
           </ul>
