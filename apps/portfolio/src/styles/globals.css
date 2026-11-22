@@ -63,6 +63,26 @@
   }
 }
 
+/* hover-spin: turns to var(--spin, 180deg) on its own hover/focus-visible or an ancestor .group's
+   (refresh and sync icons). */
+@utility hover-spin {
+  @media (prefers-reduced-motion: no-preference) {
+    transition-property: rotate;
+    transition-duration: var(--motion-draw);
+    &:is(:hover, :focus-visible),
+    :where(.group):is(:hover, :focus-visible) & {
+      rotate: var(--spin, 180deg);
+    }
+  }
+}
+
+/* spin-slow: one full turn every 8 seconds, forever (compass, wrench). Reduced motion keeps it still. */
+@utility spin-slow {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: spin 8s linear infinite;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
