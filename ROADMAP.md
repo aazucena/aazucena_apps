@@ -91,6 +91,8 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 
 Branch `phase-5/next-release` also carries the analytics UI redesign, new features, and maintenance. Avra redesign R4 is done (2026-11-20): every analytics page uses the Avra tokens and a test guards it.
 
+Avra redesign R5 (portfolio): built, final review pending (2026-11-21).
+
 - Vitest unit tests (hooks, utilities) — 70-80% coverage target
 - Playwright E2E (critical user flows — 100% coverage target)
 - Chromatic visual regression (first baseline + CircleCI job)
