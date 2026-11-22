@@ -55,6 +55,10 @@ export const SYSTEM_STATUS_METADATA: Record<SystemStatus, { label: string; color
     label: 'System: Offline',
     colorClass: 'text-zinc-500 bg-zinc-500/5 border-zinc-500/10',
   },
+  MAINTENANCE: {
+    label: 'System: No Signal',
+    colorClass: 'text-zinc-500 bg-zinc-500/5 border-zinc-500/10',
+  },
   LOADING: {
     label: 'System: Auditing',
     colorClass: 'text-blue-500 bg-blue-500/5 border-blue-500/10 animate-pulse',

@@ -4,12 +4,7 @@
  */
 
 export type Telemetry_EventType =
-  | 'PageView'
-  | 'Interaction'
-  | 'ClientError'
-  | 'PerformanceMetric'
-  | 'Heartbeat'
-  | 'CustomEvent';
+  'PageView' | 'Interaction' | 'ClientError' | 'PerformanceMetric' | 'Heartbeat' | 'CustomEvent';
 
 export interface Telemetry_BasePayload {
   sessionId?: string;
@@ -80,12 +75,7 @@ export interface EasterEgg_CompletionPayload extends Telemetry_BasePayload {
   egg_id: string;
   egg_name: string;
   trigger_type:
-    | 'konami'
-    | 'click_sequence'
-    | 'terminal_command'
-    | 'idle'
-    | 'cursor_pattern'
-    | 'rive';
+    'konami' | 'click_sequence' | 'terminal_command' | 'idle' | 'cursor_pattern' | 'rive';
   completion_time_ms?: number;
   attempt_count?: number;
   metadata?: Record<string, unknown>;
@@ -174,7 +164,7 @@ export interface KofiEvent {
 
 // --- DASHBOARD UI TYPES ---
 
-export type SystemStatus = 'OPERATIONAL' | 'DEGRADED' | 'UNKNOWN' | 'LOADING';
+export type SystemStatus = 'OPERATIONAL' | 'DEGRADED' | 'UNKNOWN' | 'LOADING' | 'MAINTENANCE';
 
 export type Telemetry_TimeRange = '1h' | '24h' | '7d' | '30d' | 'all';
 

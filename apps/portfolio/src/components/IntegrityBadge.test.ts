@@ -26,8 +26,11 @@ describe("IntegrityBadge", () => {
     expect(render("OPERATIONAL")).toContain("System: Nominal");
   });
 
-  // The health route sends MAINTENANCE, which SystemStatus doesn't list.
-  it.each(["MAINTENANCE", "SOMETHING_NEW", "constructor"])(
+  it("shows No Signal while the health route reports maintenance", () => {
+    expect(render("MAINTENANCE")).toContain("System: No Signal");
+  });
+
+  it.each(["SOMETHING_NEW", "constructor"])(
     "falls back to the unknown status for %s",
     (status) => {
       expect(render(status)).toContain("System: Offline");

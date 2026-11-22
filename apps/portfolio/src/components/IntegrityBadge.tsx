@@ -23,6 +23,7 @@ const STATUS_BADGE: Record<string, BadgeStyle> = {
   OPERATIONAL: { variant: "success" },
   DEGRADED: { variant: "warning", marker: "◆" },
   UNKNOWN: { variant: "outline" },
+  MAINTENANCE: { variant: "outline" },
   LOADING: { variant: "cyber" },
 };
 
