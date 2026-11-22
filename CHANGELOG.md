@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Map cms tone names to signal and series colours
 - _(portfolio)_ Restore about root icons, cms tones and the name fallback
 - _(portfolio)_ Use the availability indicator on the contact page
 - _(portfolio)_ Bring back the availability pulse ring

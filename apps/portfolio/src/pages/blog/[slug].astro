@@ -1,4 +1,5 @@
 ---
+import { cmsTone } from "~/lib/utils/cms-tone";
 import { BrandLinkedin, Twitter } from "@aazucena/icons";
 import { MarkdownRenderer } from "@aazucena/ui";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
@@ -79,7 +80,14 @@ const jsonLd = {
     {post.tags.length > 0 && (
       <div class="flex flex-wrap gap-1.5">
         {post.tags.map((tag: any) => (
-          <span class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5">
+          <span
+            class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5"
+            style={
+              cmsTone(tag.color)
+                ? `border-color: ${cmsTone(tag.color)}`
+                : undefined
+            }
+          >
             {tag.label}
           </span>
         ))}

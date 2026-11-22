@@ -1,4 +1,5 @@
 ---
+import { cmsTone } from "~/lib/utils/cms-tone";
 /**
  * Projects list page - displays all publicly listed projects with filtering.
  * Fetches from CMS and groups by type/status.
@@ -110,7 +111,14 @@ const filters: FilterConfig[] = [
           {project.tags.length > 0 && (
             <div class="flex flex-wrap gap-1.5">
               {project.tags.slice(0, 3).map((tag) => (
-                <span class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5">
+                <span
+                  class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5"
+                  style={
+                    cmsTone(tag.color)
+                      ? `border-color: ${cmsTone(tag.color)}`
+                      : undefined
+                  }
+                >
                   {tag.label}
                 </span>
               ))}

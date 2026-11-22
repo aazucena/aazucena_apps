@@ -25,6 +25,8 @@ import { buttonVariants } from "@aazucena/ui";
 import { Send } from "@aazucena/icons";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import PanelBox from "~/components/common/PanelBox.astro";
+import { IconRenderer } from "@aazucena/ui";
+import { cmsTone } from "~/lib/utils/cms-tone";
 import PageLayout from "~/layouts/PageLayout.astro";
 import { fetchEducation as getEducation } from "@aazucena/api";
 import { getExperiences } from "@aazucena/api";
@@ -136,21 +138,25 @@ const phases =
           items: [
             {
               title: "Embrace Complexity",
+              icon: "Lamp",
               description:
                 "Complex problems aren't obstacles; they're opportunities for innovation. The most rewarding solutions often lie behind the most daunting challenges.",
             },
             {
               title: "Collective Intelligence",
+              icon: "Heart",
               description:
                 "Diverse perspectives are the secret ingredient to building truly resilient systems. I prioritize team growth as much as technical excellence.",
             },
             {
               title: "Iterative Velocity",
+              icon: "Rocket",
               description:
                 "Perfection is the enemy of progress. I prioritize getting working software into users' hands fast, using real feedback as the driver for refinement.",
             },
             {
               title: "Relentless Curiosity",
+              icon: "Compass",
               description:
                 "Staying static is moving backward. I treat every project as a classroom, and every bug as a vital lesson in architecture and logic.",
             },
@@ -245,6 +251,18 @@ const phases =
               <PanelBox
                 label={`${String(i + 1).padStart(2, "0")} // PRINCIPLE`}
               >
+                {item.icon && (
+                  <div
+                    class="bg-state text-signal rounded-control flex size-10 items-center justify-center"
+                    style={
+                      cmsTone(item.variant)
+                        ? `color: ${cmsTone(item.variant)}`
+                        : undefined
+                    }
+                  >
+                    <IconRenderer client:only="react" icon={item.icon} />
+                  </div>
+                )}
                 <h3 class="text-foreground text-xl font-semibold tracking-tight">
                   {item.title}
                 </h3>
