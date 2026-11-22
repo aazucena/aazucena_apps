@@ -13,6 +13,7 @@ import {
 } from "@aazucena/design-system";
 import { getLayoutData } from "~/lib/services/layout";
 import { formatPageTitle } from "~/config/site";
+import { fontVariablesCss, googleFontsUrl } from "~/lib/utils/fonts";
 import PlausibleScript from "~/components/common/PlausibleScript.astro";
 import AssistantChat from "~/components/assistant/AssistantChat";
 import { PageViewTracker } from "@aazucena/analytics";
@@ -60,12 +61,8 @@ const pageDescription = description || websiteConfig.defaultSEO?.description;
 const isDetailPage = path.includes("[slug]") || /\/[^/]+\/[^/]+/.test(path); // e.g., /projects/foo, /blog/bar
 const pageType = isHomepage ? "homepage" : isDetailPage ? "detail" : "list";
 
-const themeStyles = {
-  fontSans: siteConfig.theme.fonts.sans,
-  fontSerif: siteConfig.theme.fonts.serif,
-  fontHeading: siteConfig.theme.fonts.heading,
-  fontCode: siteConfig.theme.fonts.code,
-};
+const fontCss = fontVariablesCss(siteConfig.theme.fonts);
+const fontsUrl = googleFontsUrl(siteConfig.theme.fonts);
 ---
 
 <html
@@ -127,37 +124,21 @@ const themeStyles = {
     {/* Font Optimization - Asynchronous loading for better performance */}
     <link
       rel="stylesheet"
-      href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(" ", "+")}&family=${siteConfig.theme.fonts.sans.replace(" ", "+")}:wght@400;700&display=swap`}
+      href={fontsUrl}
       media="print"
       onload="this.media='all'"
     />
     <noscript>
-      <link
-        rel="stylesheet"
-        href={`https://fonts.googleapis.com/css2?family=${siteConfig.theme.fonts.code.replace(" ", "+")}&family=${siteConfig.theme.fonts.sans.replace(" ", "+")}:wght@400;700&display=swap`}
-      />
+      <link rel="stylesheet" href={fontsUrl} />
     </noscript>
 
-    {/* Dynamic Theme Variables - Injected from CMS configuration */}
-    <style is:inline define:vars={themeStyles}>
-      /* Prevent white flash - match preloader background immediately */
+    {/* Font variables from the CMS config, validated in lib/utils/fonts.ts. Plain <style>, no
+        Astro vars helper, so the output is identical in dev and in `astro build`. */}
+    <style is:inline set:html={fontCss}></style>
+    <style is:inline>
       body {
         margin: 0;
         padding: 0;
-      }
-
-      /* Theme CSS Variables - DYNAMIC from CMS */
-      :root {
-        --font-sans:
-          var(--fontSans), -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, "Helvetica Neue", Arial, sans-serif;
-        --font-serif: var(--fontSerif), Georgia, "Times New Roman", serif;
-        --font-heading:
-          var(--fontHeading), -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, sans-serif;
-        --font-code:
-          var(--fontCode), "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
-          Courier, monospace;
       }
     </style>
   </head>
