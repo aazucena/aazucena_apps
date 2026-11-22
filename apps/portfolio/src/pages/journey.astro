@@ -22,6 +22,7 @@ import {
   type SkillNode,
 } from "~/lib/transformers";
 import { buttonVariants } from "@aazucena/ui";
+import { Send } from "@aazucena/icons";
 import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import PanelBox from "~/components/common/PanelBox.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
@@ -163,7 +164,7 @@ const phases =
     <!-- Hero Header -->
     <header class="bg-panel border-rule relative overflow-hidden border-b pt-10 pb-12 md:pt-14 print:border-b-0 print:bg-transparent">
       <div class="relative z-10 mx-auto max-w-[1120px] px-6">
-        <h1 class="text-foreground text-5xl leading-none font-bold tracking-[-0.02em] md:text-[56px]">
+        <h1 class="text-foreground text-5xl leading-none font-bold tracking-[-0.02em] md:text-[64px] md:leading-[normal]">
           <span
             class="after:text-signal after:content-['.']"
             set:text={pageTitle}
@@ -258,10 +259,10 @@ const phases =
     ))}
 
     <!-- Explore band -->
-    <section class="bg-signal-faint border-rule border-y py-20">
+    <section class="bg-signal-faint border-rule border-y py-[72px]">
       <div class="mx-auto max-w-4xl px-6 text-center">
         <p class="micro-label text-signal mb-4">NEXT // EXPLORE</p>
-        <h2 class="text-foreground mb-6 text-4xl font-bold tracking-tighter md:text-5xl">
+        <h2 class="text-foreground mb-6 text-4xl font-bold tracking-[-0.02em] md:text-5xl">
           <span
             class="after:text-signal after:content-['.']"
             set:text={(
@@ -269,7 +270,7 @@ const phases =
             ).replace(/\.$/, "")}
           />
         </h2>
-        <p class="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg">
+        <p class="text-muted-foreground mx-auto mb-10 max-w-2xl text-base">
           {journeyConfig?.callToAction?.description ||
             "Dive deeper into specific case studies, technical writings, or get in touch to discuss a collaboration."}
         </p>
@@ -286,6 +287,9 @@ const phases =
                 })}
               >
                 {button.label}
+                {button.url.startsWith("/contact") && (
+                  <Send size={16} aria-hidden="true" />
+                )}
               </a>
             ))
           ) : (
@@ -307,6 +311,7 @@ const phases =
                 class={buttonVariants({ variant: "outline", size: "lg" })}
               >
                 Get in touch
+                <Send size={16} aria-hidden="true" />
               </a>
             </>
           )}
