@@ -257,6 +257,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Turn the toolbar hamburger into an X when it opens
 - _(portfolio)_ Press buttons and cards in when tapped
 - _(portfolio)_ Bring back swipe to close, icons and hover motion in the navbar
 - _(portfolio)_ Add press, hover-grow and hover-nudge motion classes
