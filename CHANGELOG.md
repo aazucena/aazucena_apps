@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Use the availability indicator on the contact page
 - _(portfolio)_ Bring back the availability pulse ring
 - _(assistant)_ Cap chat size per message and per request
 - _(portfolio)_ Honour reduced motion in framer, gsap and count-up animations
