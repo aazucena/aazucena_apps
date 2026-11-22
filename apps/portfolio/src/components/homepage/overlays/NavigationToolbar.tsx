@@ -218,7 +218,7 @@ export function NavigationToolbar({
                   x2="20"
                   y2={y}
                   className={cn(
-                    "origin-center [transform-box:fill-box] motion-safe:transition-[transform,opacity] motion-safe:duration-(--motion-base)",
+                    "origin-center [transform-box:fill-box] motion-safe:transition-[translate,rotate,scale,opacity] motion-safe:duration-(--motion-base)",
                     isExpanded && shut,
                   )}
                 />
