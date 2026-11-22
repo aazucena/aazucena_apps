@@ -3,7 +3,15 @@
  * About page - displays personal biography, focus areas, interests, and education.
  * Dynamic content is fetched from Strapi CMS.
  */
-import { Download } from "@aazucena/icons";
+import {
+  BookOpen,
+  Download,
+  Globe,
+  LayersOne as Layers,
+  Location,
+  SmileSquare,
+  Wrench,
+} from "@aazucena/icons";
 import { cmsTone } from "~/lib/utils/cms-tone";
 import AvailabilityIndicator from "~/components/common/AvailabilityIndicator.astro";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
@@ -123,11 +131,11 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
     class="flex flex-col items-center gap-8 md:flex-row md:items-start"
   >
     {portfolio.profileImage?.url && (
-      <div class="border-rule-strong rounded-card h-48 w-48 flex-shrink-0 overflow-hidden border md:h-56 md:w-56">
+      <div class="group border-rule-strong rounded-card h-48 w-48 flex-shrink-0 overflow-hidden border md:h-56 md:w-56">
         <img
           src={portfolio.profileImage.url}
           alt={portfolio.fullName}
-          class="h-full w-full object-cover"
+          class="hover-grow h-full w-full object-cover"
         />
       </div>
     )}
@@ -199,20 +207,23 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
     <section id="mastery" class="space-y-4">
       <h2
         data-toc-label="Focus areas"
-        class="micro-label text-muted-foreground"
+        class="micro-label text-muted-foreground flex items-center gap-2"
       >
+        <Layers size={14} aria-hidden="true" />
         FOCUS // AREAS
       </h2>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         {mastery.map((item) => (
-          <PanelBox label="EXPERIENCE">
+          <PanelBox label="EXPERIENCE" class="group">
             <div
               class="text-signal text-3xl font-light"
               style={item.tone ? `color: ${item.tone}` : undefined}
             >
               {item.exp}
             </div>
-            <h3 class="text-foreground text-base font-semibold">{item.name}</h3>
+            <h3 class="text-foreground group-hover:text-signal text-base font-semibold motion-safe:transition-[color]">
+              {item.name}
+            </h3>
             <p class="text-muted-foreground text-xs leading-relaxed">
               {item.description}
             </p>
@@ -228,7 +239,10 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
           data-toc-label="WHAT I OFFER"
           class="micro-label text-muted-foreground flex items-center gap-3"
         >
-          WHAT I OFFER
+          <span class="flex items-center gap-2">
+            <Wrench size={14} aria-hidden="true" />
+            WHAT I OFFER
+          </span>
           <span class="text-signal">
             ● {servicesData.services.length} SERVICES
           </span>
@@ -248,7 +262,10 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
 
     <!-- 5. Beyond the Screen -->
     <section id="interests" class="space-y-4">
-      <h2 class="micro-label text-muted-foreground">BEYOND // THE SCREEN</h2>
+      <h2 class="micro-label text-muted-foreground flex items-center gap-2">
+        <SmileSquare size={14} aria-hidden="true" />
+        BEYOND // THE SCREEN
+      </h2>
       <PanelBox label="INTERESTS">
         <p class="text-foreground text-sm leading-relaxed">
           My creative life often feels like it's coming full circle. I'm finding
@@ -280,7 +297,8 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
     <!-- 6. Education -->
     {sortedEducation && sortedEducation.length > 0 && (
       <section id="education" class="space-y-4">
-        <h2 class="micro-label text-muted-foreground">
+        <h2 class="micro-label text-muted-foreground flex items-center gap-2">
+          <BookOpen size={14} aria-hidden="true" />
           ACADEMIC // BACKGROUND
         </h2>
         <div class="flex flex-col gap-4">
@@ -295,9 +313,21 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
   <!-- Sidebar Slot -->
   <Fragment slot="sidebar">
     <!-- CV Action -->
-    <PanelBox label="RESUME // DOWNLOAD" meta="PDF">
-      <h3 class="text-foreground text-lg font-semibold">Curriculum Vitae</h3>
-      <p class="text-muted-foreground mb-3 text-sm leading-relaxed">
+    <PanelBox
+      label="RESUME // DOWNLOAD"
+      meta="PDF"
+      class="group linked-card relative overflow-hidden"
+    >
+      <span
+        class="hover-spin text-rule pointer-events-none absolute top-12 right-3 rotate-12 [--spin:0deg]"
+        aria-hidden="true"
+      >
+        <Download size={48} />
+      </span>
+      <h3 class="text-foreground pr-16 text-lg font-semibold">
+        Curriculum Vitae
+      </h3>
+      <p class="text-muted-foreground mb-3 pr-16 text-sm leading-relaxed">
         Need a copy for your records? Grab the full technical breakdown here.
       </p>
       {portfolio.resumeUrl && (
@@ -317,8 +347,16 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
     <PanelBox label="VITAL // STATS">
       <dl class="flex flex-col gap-3">
         {portfolio.location && (
-          <div class="flex items-baseline justify-between gap-3">
-            <dt class="micro-label text-muted-foreground">BASED IN</dt>
+          <div class="group flex items-center justify-between gap-3">
+            <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
+              <span
+                class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
+                aria-hidden="true"
+              >
+                <Location size={16} />
+              </span>
+              BASED IN
+            </dt>
             <dd class="text-foreground font-mono text-sm">
               {portfolio.location}
             </dd>
@@ -345,9 +383,14 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
       <PanelBox label="MODERN // WORKFLOW" meta={`${workflow.length} TOOLS`}>
         <ul class="flex flex-col gap-3">
           {workflow.map((item) => (
-            <li>
-              <div class="text-foreground text-sm font-semibold">
+            <li class="group">
+              <div class="text-foreground flex items-center justify-between gap-3 text-sm font-semibold">
                 {item.name}
+                <Wrench
+                  size={14}
+                  className="text-muted-foreground group-hover:text-signal motion-safe:transition-[color]"
+                  aria-hidden="true"
+                />
               </div>
               <div class="text-muted-foreground text-xs">{item.detail}</div>
             </li>
@@ -361,8 +404,16 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
       <PanelBox label="COMMUNICATION">
         <dl class="flex flex-col gap-3">
           {languages.map((lang) => (
-            <div class="flex items-baseline justify-between gap-3">
-              <dt class="micro-label text-muted-foreground">{lang.name}</dt>
+            <div class="group flex items-center justify-between gap-3">
+              <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
+                <span
+                  class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <Globe size={16} />
+                </span>
+                {lang.name}
+              </dt>
               <dd class="text-foreground font-mono text-sm">{lang.level}</dd>
             </div>
           ))}

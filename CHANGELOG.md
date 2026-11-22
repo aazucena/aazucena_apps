@@ -260,6 +260,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Restore card motion, cover zoom and metadata icons on list pages
 - _(portfolio)_ Add hover-lift and focus-visible triggers for linked cards
 - _(portfolio)_ Bring back the turning wrench and a monitoring line on maintenance
 - _(portfolio)_ Add hover-spin and spin-slow motion classes
