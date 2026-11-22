@@ -8,8 +8,21 @@ export { MAX_MESSAGE_CHARS };
 export const MAX_REQUEST_CHARS = 50_000;
 /** Characters of the last question sent to knowledge-base retrieval. */
 export const MAX_RETRIEVAL_CHARS = 1_000;
-/** Stands in for a contact-form tool turn; its input and output are never forwarded. */
-const CONTACT_HANDLED = "(contact form step already handled)";
+/** Stand in for a contact-form tool turn; its input and output are never forwarded. */
+const CONTACT_SENT = "(an earlier contact message was sent)";
+const CONTACT_NOT_SENT =
+  "(an earlier contact submission did not complete; nothing was confirmed as sent)";
+
+/** Sent only when the tool finished and reported success: anything else may need sending again. */
+function contactNote(toolPart: object): string {
+  const { state, output } = toolPart as {
+    state?: unknown;
+    output?: { success?: unknown } | null;
+  };
+  return state === "output-available" && output?.success === true
+    ? CONTACT_SENT
+    : CONTACT_NOT_SENT;
+}
 
 const textPart = z.object({ type: z.literal("text"), text: z.string() });
 const otherPart = z.object({ type: z.string() }).loose();
@@ -54,7 +67,7 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
     for (const p of parsed.data.parts) {
       let text: string;
       if (p.type === "tool-submit_contact_form") {
-        text = CONTACT_HANDLED;
+        text = contactNote(p);
       } else if (
         p.type === "text" &&
         typeof (p as { text?: unknown }).text === "string"

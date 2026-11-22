@@ -155,7 +155,7 @@ describe("sanitizeMessages", () => {
             type: "tool-submit_contact_form",
             state: "output-available",
             input: { email: "a@b.co", message: "secret" },
-            output: { ok: true },
+            output: { success: true },
           },
         ],
       },
@@ -169,7 +169,7 @@ describe("sanitizeMessages", () => {
       "user",
     ]);
     expect(result.messages[1]!.parts[0]!.text).toBe(
-      "(contact form step already handled)",
+      "(an earlier contact message was sent)",
     );
     expect(JSON.stringify(result.messages)).not.toContain("secret");
   });
@@ -230,5 +230,27 @@ describe("sanitizeMessages", () => {
     expect(result.messages.length).toBeLessThan(raw.length);
     expect(result.lastUserMessage.startsWith("newest")).toBe(true);
     expect(result.messages[result.messages.length - 1]!.role).toBe("user");
+  });
+
+  it.each([
+    ["output-error", { errorText: "503" }],
+    ["input-streaming", { input: { name: "A" } }],
+    ["input-available", {}],
+    ["output-available", { output: { success: false } }],
+    ["output-available", { output: null }],
+  ])("never says a %s contact submission was sent", (state, extra) => {
+    const result = sanitizeMessages([
+      user("send it"),
+      {
+        role: "assistant",
+        parts: [{ type: "tool-submit_contact_form", state, ...extra }],
+      },
+      user("try again"),
+    ]);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.messages[1]!.parts[0]!.text).toBe(
+      "(an earlier contact submission did not complete; nothing was confirmed as sent)",
+    );
   });
 });

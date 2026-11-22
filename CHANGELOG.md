@@ -33,33 +33,33 @@ All notable changes to this project are documented here, grouped by phase milest
 ### 🐛 Bug Fixes
 
 - _(portfolio)_ Show no signal for a system under maintenance
-- _(portfolio)_ Require a digit in the experience key outcome
+- _(portfolio)_ Tighten the key outcome and cms tone lookups
 - _(api)_ Keep an empty skill category variant empty
 - _(portfolio)_ Put the homepage skip link and loaders in the dark token scope
-- _(assistant)_ Clear the error on Clear and keep Retry from throwing
+- _(assistant)_ Clear the error on clear and keep retry from throwing
 - _(assistant)_ Validate the chat body and keep the history well formed
 - _(assistant)_ Trim older chat messages instead of rejecting them
 - _(portfolio)_ Show unknown for a system status the badge doesn't know
 - _(assistant)_ Write the code point limit in decimal
 - _(assistant)_ Never tokenise html in rin markdown
 - _(ui)_ Release the body background for a skipped preloader
-- _(portfolio)_ Clear the nav bar on content pages and use one main landmark
+- _(portfolio)_ Clear the nav bar on content pages and drop the detail layout main
 - _(portfolio)_ Restore the experience key outcome and achievement detail
 - _(portfolio)_ Restore skills lane icons and proficiency grading
 - _(portfolio)_ Restore journey principle icons and tag tones, quiet the blog featured mark
 - _(portfolio)_ Map cms tone names to signal and series colours
-- _(portfolio)_ Restore about root icons, cms tones and the name fallback
+- _(portfolio)_ Restore about root icons, cms tones and the availability indicator
 - _(portfolio)_ Use the availability indicator on the contact page
 - _(portfolio)_ Bring back the availability pulse ring
 - _(assistant)_ Cap chat size per message and per request
-- _(portfolio)_ Honour reduced motion in framer, gsap and count-up animations
-- _(portfolio)_ Give the home popover panels a dialog role and a name
+- _(portfolio)_ Honour reduced motion in seven animated components
+- _(portfolio)_ Name the home popover dialogs and honour reduced motion in them
 - _(assistant)_ Validate the chat history and keep the newest messages
 - _(portfolio)_ Give section, page and post dots 24px targets
 - _(portfolio)_ Use a gentler tracking on the journey phase titles
 - _(visualizations)_ Space timeline lanes 136px so dots stop covering labels
 - _(assistant)_ Inert chat behind overlays, show reply errors, ignore ime escape
-- _(assistant)_ Focus the overlay close button and make the chat behind it inert
+- _(assistant)_ Focus the overlay close button when it opens
 - _(portfolio)_ Let rin follow the theme on the homepage and use signal for focus
 - _(portfolio)_ Generate tailwind classes for the chart, animation and icon packages
 - _(assistant)_ Render rin markdown without raw html
