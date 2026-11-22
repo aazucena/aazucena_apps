@@ -5,6 +5,9 @@
 @source "../../../../packages/utils/src";
 @source "../../../../packages/ui/src";
 
+/* Short laptop screens (720px and under): the pinned homepage sections have to fit one screen */
+@custom-variant short (@media (max-height: 760px));
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

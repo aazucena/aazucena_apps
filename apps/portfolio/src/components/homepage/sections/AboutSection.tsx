@@ -35,8 +35,10 @@ export function AboutSection({
       title={title}
       subtitle={subtitle || about.tagline}
       contentWidth="medium"
+      headingClassName="short:mb-3 short:text-4xl"
+      subtitleClassName="short:mt-1 short:text-2xl"
     >
-      <div className="flex flex-col gap-3 text-center text-sm md:grid md:grid-cols-2 md:items-start md:gap-4 md:text-xl">
+      <div className="short:md:gap-3 flex flex-col gap-3 text-center text-sm md:grid md:grid-cols-2 md:items-start md:gap-4 md:text-xl">
         {/* Stats — order-2 mobile, order-3 desktop | 2-col mobile, dynamic desktop */}
         <ResponsiveGrid
           cols={{ sm: 2, md: Math.min(about.stats.length, 4) as 1 | 2 | 3 | 4 }}
@@ -79,7 +81,7 @@ export function AboutSection({
         </ResponsiveGrid>
 
         {/* Description — order-1 on both | first paragraph on mobile, full on desktop */}
-        <div className="border-rule bg-panel rounded-card order-1 border text-left [&_p]:text-sm md:[&_p]:text-base">
+        <div className="border-rule bg-panel rounded-card short:md:[&_p]:text-sm order-1 border text-left [&_p]:text-sm md:[&_p]:text-base">
           <div className="border-rule h-panel-header px-panel micro-label text-muted-foreground flex items-center border-b">
             Bio
           </div>

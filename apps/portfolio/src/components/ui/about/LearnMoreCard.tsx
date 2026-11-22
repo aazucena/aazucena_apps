@@ -97,7 +97,7 @@ export function LearnMoreCard({
 
       {/* Description: desktop only */}
       {children && (
-        <p className="text-muted-foreground mb-2 hidden text-sm md:block">
+        <p className="text-muted-foreground short:hidden mb-2 hidden text-sm md:block">
           {children}
         </p>
       )}

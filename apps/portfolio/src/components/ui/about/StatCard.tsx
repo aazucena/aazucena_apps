@@ -30,7 +30,7 @@ export interface StatCardProps {
  */
 export function StatCard({ value, label }: StatCardProps): JSX.Element {
   return (
-    <GlassCard padding="none" className="p-3 md:p-4">
+    <GlassCard padding="none" className="short:md:p-2 p-3 md:p-4">
       <div className="text-signal mb-1 text-xl font-light md:mb-2 md:text-2xl">
         {value}
       </div>
