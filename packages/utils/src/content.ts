@@ -38,16 +38,13 @@ export interface AvailabilityIndicator {
 /**
  * Get visual indicator properties based on availability status string
  *
- * Mappings:
- * - 'Open to Opportunities' -> Green + Pulse
- * - 'Busy / Working on Projects' -> Yellow
- * - 'On Break / Personal Time' -> Orange
- * - 'Looking for Collaborations' -> Blue + Pulse
- * - 'Unavailable' -> Red
- *
- * `marker` and `tone` carry the Avra treatment: open and collaboration are ● success/signal,
- * busy and break are ◆ warning, unavailable and unknown are ● muted.
- * - Default -> Gray
+ * Mappings (`marker` and `tone` carry the Avra treatment):
+ * - 'Open to Opportunities' -> ● success, with a pulse
+ * - 'Looking for Collaborations' -> ● signal, with a pulse
+ * - 'Busy / Working on Projects' -> ◆ warning
+ * - 'On Break / Personal Time' -> ◆ warning
+ * - 'Unavailable' -> ● muted
+ * - Default (unknown) -> ● muted
  */
 export function getAvailabilityIndicator(status?: string): AvailabilityIndicator {
   // Normalize input
