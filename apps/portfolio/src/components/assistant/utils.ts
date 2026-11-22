@@ -64,7 +64,7 @@ function decodeEntities(value: string): string {
           body[1]?.toLowerCase() === "x"
             ? parseInt(body.slice(2), 16)
             : parseInt(body.slice(1), 10);
-        return Number.isFinite(code) && code <= 1114111
+        return Number.isFinite(code) && code <= 0x10ffff
           ? String.fromCodePoint(code)
           : "";
       }
@@ -96,9 +96,8 @@ function safeUrl(raw: string | null | undefined): string | null {
       // keep the value as is
     }
   }
-  // eslint-disable-next-line no-control-regex
   const probe = value.replace(
-    /[\u0000-\u0020\u007f-\u009f\u200b-\u200f\u2028\u2029\ufeff]/g,
+    /[\p{Cc}\u0020\u200b-\u200f\u2028\u2029\ufeff]/gu,
     "",
   );
   const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(probe);
@@ -112,6 +111,11 @@ function safeUrl(raw: string | null | undefined): string | null {
 }
 
 chatMarked.use({
+  // Rin writes markdown, so HTML is plain text.
+  tokenizer: {
+    html: () => undefined,
+    tag: () => undefined,
+  },
   renderer: {
     // Raw HTML, block or inline, is shown as text.
     html({ text }) {
@@ -119,16 +123,16 @@ chatMarked.use({
     },
     link({ href, title, tokens }) {
       const inner = this.parser.parseInline(tokens);
-      const url = safeUrl(href);
+      const url = safeUrl(decodeEntities(href));
       if (!url) return inner;
       const t = title ? ` title="${escapeAttr(title)}"` : "";
-      return `<a href="${escapeAttr(decodeEntities(url))}"${t}>${inner}</a>`;
+      return `<a href="${escapeAttr(url)}"${t}>${inner}</a>`;
     },
     image({ href, title, text }) {
-      const url = safeUrl(href);
+      const url = safeUrl(decodeEntities(href));
       if (!url || /^mailto:/i.test(url)) return escapeAttr(text);
       const t = title ? ` title="${escapeAttr(title)}"` : "";
-      return `<img src="${escapeAttr(decodeEntities(url))}" alt="${escapeAttr(text)}"${t}>`;
+      return `<img src="${escapeAttr(url)}" alt="${escapeAttr(text)}"${t}>`;
     },
   },
 });

@@ -84,4 +84,28 @@ describe("renderMarkdown", () => {
     );
     expect(html).not.toMatch(/\sonerror=/);
   });
+
+  it("never emits raw html after tags that change how marked lexes text", () => {
+    for (const tag of ["code", "pre", "kbd", "script", "KBD"]) {
+      const inner = `a <${tag}><img/data-x src=y>`;
+      for (const input of [
+        inner,
+        `[${inner}](https://a.test)`,
+        `**${inner}**`,
+        `- ${inner}`,
+        `|h|\n|-|\n|${inner}|`,
+        `> ${inner}`,
+      ]) {
+        const html = renderMarkdown(input);
+        expect(html, input).not.toContain("<img");
+        expect(html, input).toContain("&lt;img");
+      }
+    }
+  });
+
+  it("keeps query strings in links intact", () => {
+    expect(renderMarkdown("[t](https://a.test/?a=1&b=2)")).toContain(
+      'href="https://a.test/?a=1&amp;b=2"',
+    );
+  });
 });
