@@ -197,7 +197,7 @@ export function NewspaperStack({
 
       {/* Dot indicators + cycle hint — only shown when there are multiple posts */}
       {canCycle && (
-        <div className="mt-2 flex items-center gap-3">
+        <div className="mt-2 flex items-center gap-0">
           {displayPosts.map((_, i) => (
             <button
               key={i}
@@ -225,12 +225,17 @@ export function NewspaperStack({
                 });
               }}
               aria-label={`Show post ${i + 1}`}
-              className={`focus-visible:outline-signal h-1.5 rounded-full transition-[width,background-color] duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 ${
-                i === frontIndex
-                  ? "bg-signal w-6"
-                  : "bg-rule-strong hover:bg-muted-foreground w-1.5"
-              }`}
-            />
+              className="group focus-visible:outline-signal flex min-h-6 min-w-6 items-center justify-center focus-visible:outline-1 focus-visible:outline-offset-2"
+            >
+              <span
+                aria-hidden="true"
+                className={`h-1.5 rounded-full transition-[width,background-color] duration-(--motion-base) ${
+                  i === frontIndex
+                    ? "bg-signal w-6"
+                    : "bg-rule-strong group-hover:bg-muted-foreground w-1.5"
+                }`}
+              />
+            </button>
           ))}
           <span className="micro-label text-muted-foreground ml-1">
             Tap to browse

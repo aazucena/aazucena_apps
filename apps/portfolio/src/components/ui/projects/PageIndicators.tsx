@@ -38,19 +38,24 @@ export function PageIndicators({
   onPageClick,
 }: PageIndicatorsProps): JSX.Element {
   return (
-    <div className="mt-6 flex items-center justify-center gap-2">
+    <div className="mt-6 flex items-center justify-center gap-0">
       {Array.from({ length: totalPages }).map((_, pageIndex) => (
         <button
           key={pageIndex}
           onClick={() => onPageClick(pageIndex)}
-          className={`rounded-full transition-[width,background-color] duration-(--motion-base) ${
-            currentPage === pageIndex
-              ? "bg-signal h-2 w-8"
-              : "bg-rule-strong hover:bg-muted-foreground h-2 w-2"
-          }`}
+          className="group focus-visible:outline-signal flex min-h-6 min-w-6 items-center justify-center focus-visible:outline-1 focus-visible:outline-offset-2"
           aria-current={currentPage === pageIndex ? "true" : undefined}
           aria-label={`Go to page ${pageIndex + 1}`}
-        />
+        >
+          <span
+            aria-hidden="true"
+            className={`rounded-full transition-[width,background-color] duration-(--motion-base) ${
+              currentPage === pageIndex
+                ? "bg-signal h-2 w-8"
+                : "bg-rule-strong group-hover:bg-muted-foreground h-2 w-2"
+            }`}
+          />
+        </button>
       ))}
     </div>
   );

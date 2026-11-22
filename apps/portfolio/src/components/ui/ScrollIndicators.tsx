@@ -27,7 +27,7 @@ export function ScrollIndicators({
           key={section}
           onClick={() => onSectionClick(index)}
           aria-current={currentSection === index ? "step" : undefined}
-          className="group focus-visible:outline-signal relative flex items-center justify-center p-1.5 focus-visible:outline-1 focus-visible:outline-offset-2"
+          className="group focus-visible:outline-signal relative flex min-h-6 min-w-6 items-center justify-center p-1.5 focus-visible:outline-1 focus-visible:outline-offset-2"
           aria-label={`Go to ${section} section`}
         >
           {/* Tick: the current section is a tall signal bar, the rest are dots */}

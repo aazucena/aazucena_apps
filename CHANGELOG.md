@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Use a gentler tracking on the journey phase titles
 - _(visualizations)_ Space timeline lanes 136px so dots stop covering labels
 - _(assistant)_ Inert chat behind overlays, show reply errors, ignore ime escape
 - _(assistant)_ Focus the overlay close button and make the chat behind it inert
