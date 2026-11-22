@@ -49,6 +49,9 @@ try {
         });
         await context.addInitScript(
           ({ t, skipPreloader }) => {
+            // Init scripts also run in cross-origin iframes (Ko-fi embed), where touching storage
+            // throws a SecurityError; only the top frame needs the theme and preloader flags.
+            if (window.top !== window) return;
             localStorage.setItem("aazucena-theme", t);
             if (skipPreloader) {
               sessionStorage.setItem("portfolio-preloader-seen", "true");
