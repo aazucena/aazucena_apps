@@ -131,7 +131,7 @@ export function HeatmapInfoPanel({ cell, years }: HeatmapInfoPanelProps) {
 
               <div className="pt-6">
                 <p className="text-muted-foreground text-xs">
-                  Tip: hover or focus any filled square to see which technology
+                  Tip: hover over any filled square to see which technology
                   categories dominated that specific month.
                 </p>
               </div>

@@ -163,7 +163,7 @@ export function Navbar({
               className="flex w-full max-w-none flex-col gap-0 p-0 sm:max-w-none lg:hidden [&>button.absolute]:hidden"
             >
               <div className="border-rule flex h-14 items-center justify-between border-b px-4">
-                <img src={logoUrl} alt="" className="h-8 w-auto" />
+                {logo}
                 <SheetTitle className="sr-only">
                   {toTitleCase(siteName)}
                 </SheetTitle>

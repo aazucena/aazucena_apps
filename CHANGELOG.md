@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Restore the experience key outcome and achievement detail
 - _(portfolio)_ Restore skills lane icons and proficiency grading
 - _(portfolio)_ Restore journey principle icons and tag tones, quiet the blog featured mark
 - _(portfolio)_ Map cms tone names to signal and series colours

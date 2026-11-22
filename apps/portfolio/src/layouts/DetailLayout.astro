@@ -84,7 +84,7 @@ const maxWidthClass = containerClasses[maxWidth];
   />
   {showReadingProgress && <ReadingProgress client:load />}
 
-  <main class="bg-background min-h-screen">
+  <div class="bg-background min-h-screen">
     <!-- Hero Header -->
     <header class="bg-panel border-rule relative overflow-hidden border-b pt-10 pb-8 md:pt-14 print:border-b-0 print:bg-transparent">
       <div
@@ -142,5 +142,5 @@ const maxWidthClass = containerClasses[maxWidth];
         nextLabel={nextLabel}
       />
     </div>
-  </main>
+  </div>
 </PageLayout>
