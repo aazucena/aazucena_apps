@@ -45,6 +45,8 @@ export default function AssistantChat() {
     behavior,
     currentEmotion,
     wordCount,
+    charCount,
+    isOverCharLimit,
     isOverWordLimit,
     transparencyOpen,
     setTransparencyOpen,
@@ -249,6 +251,8 @@ export default function AssistantChat() {
               onKeyDown={handleKeyDown}
               isLoading={isLoading}
               wordCount={wordCount}
+              charCount={charCount}
+              isOverCharLimit={isOverCharLimit}
               isOverWordLimit={isOverWordLimit}
             />
           </Chat>

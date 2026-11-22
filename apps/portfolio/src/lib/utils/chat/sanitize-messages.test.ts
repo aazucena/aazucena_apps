@@ -85,10 +85,57 @@ describe("sanitizeMessages", () => {
     }
   });
 
-  it("answers 413 for an oversized message", () => {
+  it("answers 413 only for an oversized newest user message", () => {
     expect(
       sanitizeMessages([user("x".repeat(MAX_MESSAGE_CHARS + 1))]),
     ).toMatchObject({ ok: false, status: 413 });
+  });
+
+  it("truncates an over-cap older user message instead of rejecting", () => {
+    const result = sanitizeMessages([
+      user("x".repeat(MAX_MESSAGE_CHARS + 500)),
+      assistant("ok"),
+      user("short"),
+    ]);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.messages[0]!.parts[0]!.text.length).toBe(MAX_MESSAGE_CHARS);
+  });
+
+  it("accepts an 8,200 char assistant reply followed by short user turns", () => {
+    const long = assistant("r".repeat(8_200));
+    const first = sanitizeMessages([user("q1"), long, user("q2")]);
+    expect(first.ok).toBe(true);
+    const second = sanitizeMessages([
+      user("q1"),
+      long,
+      user("q2"),
+      assistant("fine"),
+      user("q3"),
+    ]);
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.lastUserMessage).toBe("q3");
+    for (const m of second.messages)
+      for (const p of m.parts)
+        expect(p.text.length).toBeLessThanOrEqual(MAX_MESSAGE_CHARS);
+  });
+
+  it("skips blank text parts and drops the message they leave", () => {
+    const result = sanitizeMessages([
+      user("hi"),
+      {
+        role: "assistant",
+        parts: [
+          { type: "text", text: "  " },
+          { type: "tool-set_emotion", state: "output-available", output: {} },
+        ],
+      },
+      user("again"),
+    ]);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.messages.map((m) => m.role)).toEqual(["user", "user"]);
   });
 
   it("needs a user message", () => {
@@ -106,7 +153,7 @@ describe("sanitizeMessages", () => {
       expect(result.lastUserMessage.length).toBeLessThanOrEqual(1000);
   });
 
-  it("counts all text parts of one message toward its limit", () => {
+  it("counts all text parts of the newest message toward its limit", () => {
     const parts = Array.from({ length: 10 }, () => ({
       type: "text",
       text: "x".repeat(MAX_MESSAGE_CHARS - 1),
@@ -139,12 +186,5 @@ describe("sanitizeMessages", () => {
     expect(result.messages.length).toBeLessThan(raw.length);
     expect(result.lastUserMessage.startsWith("newest")).toBe(true);
     expect(result.messages[result.messages.length - 1]!.role).toBe("user");
-  });
-
-  it("answers 413 when the newest message alone is too big for the request", () => {
-    // each message is under the per-message cap, so only the request cap can reject it
-    expect(MAX_REQUEST_CHARS).toBeGreaterThanOrEqual(MAX_MESSAGE_CHARS);
-    const result = sanitizeMessages([user("x".repeat(MAX_MESSAGE_CHARS + 1))]);
-    expect(result).toMatchObject({ ok: false, status: 413 });
   });
 });

@@ -9,6 +9,7 @@ import {
   ChatInputSubmit,
 } from "@aazucena/ui";
 import { MAX_INPUT_WORDS } from "./constants";
+import { MAX_MESSAGE_CHARS } from "~/lib/utils/chat/limits";
 
 interface AssistantInputProps {
   value: string;
@@ -17,6 +18,8 @@ interface AssistantInputProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   isLoading: boolean;
   wordCount: number;
+  charCount: number;
+  isOverCharLimit: boolean;
   isOverWordLimit: boolean;
 }
 
@@ -27,6 +30,8 @@ export function AssistantInput({
   onKeyDown,
   isLoading,
   wordCount,
+  charCount,
+  isOverCharLimit,
   isOverWordLimit,
 }: AssistantInputProps) {
   return (
@@ -59,7 +64,9 @@ export function AssistantInput({
             : wordCount >= MAX_INPUT_WORDS * 0.8
               ? "◆ "
               : ""}
-          {wordCount} / {MAX_INPUT_WORDS} words
+          {isOverCharLimit
+            ? `${charCount} / ${MAX_MESSAGE_CHARS} characters`
+            : `${wordCount} / ${MAX_INPUT_WORDS} words`}
         </span>
         <ChatInputSubmit
           type="button"

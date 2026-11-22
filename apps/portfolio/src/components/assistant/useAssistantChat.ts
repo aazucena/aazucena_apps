@@ -11,6 +11,7 @@ import {
   MAX_INPUT_WORDS,
   countWords,
 } from "./constants";
+import { MAX_MESSAGE_CHARS } from "~/lib/utils/chat/limits";
 import { getToolOutput, loadPersistedMessages } from "./utils";
 import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
 import type { RinBehavior } from "@aazucena/constants";
@@ -79,7 +80,9 @@ export function useAssistantChat() {
 
   const deferredInput = React.useDeferredValue(input);
   const wordCount = countWords(deferredInput);
-  const isOverWordLimit = wordCount > MAX_INPUT_WORDS;
+  const charCount = deferredInput.trim().length;
+  const isOverCharLimit = charCount > MAX_MESSAGE_CHARS;
+  const isOverWordLimit = wordCount > MAX_INPUT_WORDS || isOverCharLimit;
 
   React.useEffect(() => {
     try {
@@ -166,7 +169,13 @@ export function useAssistantChat() {
 
   function handleSend() {
     const text = input.trim();
-    if (!text || isLoading || isOverWordLimit) return;
+    if (
+      !text ||
+      isLoading ||
+      countWords(text) > MAX_INPUT_WORDS ||
+      text.length > MAX_MESSAGE_CHARS
+    )
+      return;
     setInput("");
     sendMessage({ text });
   }
@@ -215,6 +224,8 @@ export function useAssistantChat() {
     behavior,
     currentEmotion,
     wordCount,
+    charCount,
+    isOverCharLimit,
     isOverWordLimit,
     transparencyOpen,
     setTransparencyOpen,
