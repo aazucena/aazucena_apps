@@ -76,7 +76,6 @@ const filters = [
   searchPlaceholder="Search technologies (e.g. React, PostgreSQL)..."
   layout="none"
   maxWidth="7xl"
-  ignoreMaxWidth={true}
   hasItems={skillCategories.length > 0}
 >
   {/* eslint-disable jsx-a11y/no-noninteractive-tabindex -- scrollable panes must be keyboard-focusable */}
@@ -86,7 +85,7 @@ const filters = [
 
     <!-- Board of domain lanes; keyboard-scrollable -->
     <div
-      class="kanban-board custom-scrollbar focus-visible:outline-signal flex cursor-grab snap-x gap-4 overflow-x-auto px-4 pt-4 pb-6 focus-visible:outline-1 focus-visible:outline-offset-2 active:cursor-grabbing sm:px-6 lg:px-8"
+      class="kanban-board custom-scrollbar focus-visible:outline-signal flex cursor-grab snap-x gap-4 overflow-x-auto pt-4 pb-6 focus-visible:outline-1 focus-visible:outline-offset-2 active:cursor-grabbing"
       tabindex="0"
       role="region"
       aria-label="Skill domains, scroll horizontally"
