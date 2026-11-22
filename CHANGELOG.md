@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Show no signal for a system under maintenance
 - _(portfolio)_ Require a digit in the experience key outcome
 - _(api)_ Keep an empty skill category variant empty
 - _(portfolio)_ Put the homepage skip link and loaders in the dark token scope
