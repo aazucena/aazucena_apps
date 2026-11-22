@@ -6,17 +6,7 @@ import { getExperiences } from "@aazucena/api";
 import { calculateDuration, getCompanyInitials } from "@aazucena/utils";
 import { toTitleCase } from "@aazucena/utils";
 import type { Experience } from "@aazucena/types";
-
-// First metric found in the achievements, shown as the card's key outcome
-function getTopMetric(experience: Experience) {
-  const re = /([$+]?[\d.,]+(?:%|\+|x|k|M|B)?)/;
-  const metric = (experience.achievements || []).find((a) => re.test(a.title));
-  if (!metric) return null;
-  const match = metric.title.match(re);
-  return match
-    ? { value: match[0], label: metric.title.replace(match[0], "").trim() }
-    : null;
-}
+import { getTopMetric } from "~/lib/utils/experience-metric";
 
 // Fetch all experiences
 let experiences: Experience[] = [];

@@ -47,7 +47,7 @@ export function AssistantMessageList({ messages }: AssistantMessageListProps) {
                         <span>{part.text}</span>
                       ) : (
                         // Content from Claude via controlled Vercel AI Gateway.
-                        // renderMarkdown strips script/iframe tags as extra defence.
+                        // renderMarkdown shows raw HTML as text.
                         <div
                           className="[&_a]:text-signal [&_code]:bg-muted [&_em]:text-muted-foreground text-xs [&_a]:underline [&_code]:rounded [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[10px] [&_li]:mb-0.5 [&_li]:text-xs [&_ol]:mb-1.5 [&_ol]:list-decimal [&_ol]:pl-4 [&_ol]:text-xs [&_p]:mb-1.5 [&_p]:text-xs [&_p]:last:mb-0 [&_strong]:font-semibold [&_ul]:mb-1.5 [&_ul]:list-disc [&_ul]:pl-4 [&_ul]:text-xs"
                           dangerouslySetInnerHTML={{

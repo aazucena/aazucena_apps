@@ -25,5 +25,5 @@ const HUE_TONE: Record<string, string> = {
 export function cmsTone(value?: string | null): string | null {
   if (!value) return null;
   const hue = value.trim().toLowerCase().split(/[-\s]/)[0] ?? "";
-  return HUE_TONE[hue] ?? null;
+  return Object.hasOwn(HUE_TONE, hue) ? HUE_TONE[hue]! : null;
 }

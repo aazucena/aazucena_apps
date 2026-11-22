@@ -33,6 +33,9 @@ describe("cmsTone", () => {
       const out = cmsTone(v as string | undefined | null);
       expect(out === null || !/alert/.test(out)).toBe(true);
     }
+    expect(cmsTone("constructor")).toBeNull();
+    expect(cmsTone("__proto__")).toBeNull();
+    expect(cmsTone("toString-x")).toBeNull();
     expect(cmsTone("red")).toBeNull();
     expect(cmsTone(undefined)).toBeNull();
     expect(cmsTone("banana")).toBeNull();
