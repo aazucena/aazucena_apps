@@ -1,5 +1,6 @@
 ---
 import PageLayout from "~/layouts/PageLayout.astro";
+import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import { Home, Refresh } from "@aazucena/icons";
 import { Badge, buttonVariants } from "@aazucena/ui";
 
@@ -19,6 +20,7 @@ const { error } = Astro.props;
 
 <PageLayout title={pageTitle} description={pageDescription}>
   <main class="bg-background relative flex min-h-screen flex-col items-center justify-center overflow-hidden text-center">
+    <WatermarkBackground text="ERROR" max="30rem" />
     <div class="relative z-10 mx-auto max-w-xl px-4 py-16 sm:px-6 lg:px-8">
       <p class="micro-label text-muted-foreground mb-8">SYSTEM // FAULT</p>
 

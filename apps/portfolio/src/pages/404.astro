@@ -2,6 +2,7 @@
 import { ArrowLeft, Home } from "@aazucena/icons";
 import { Badge, buttonVariants } from "@aazucena/ui";
 import PageLayout from "~/layouts/PageLayout.astro";
+import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 
 const pageTitle = "404 - Page Not Found";
 const pageDescription =
@@ -10,6 +11,7 @@ const pageDescription =
 
 <PageLayout title={pageTitle} description={pageDescription}>
   <main class="bg-background relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
+    <WatermarkBackground text="LOST" max="30rem" />
     <div class="relative z-10 mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
       <p class="micro-label text-muted-foreground mb-8">LOST // SIGNAL</p>
 

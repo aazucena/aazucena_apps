@@ -4,13 +4,14 @@
  * Provides consistent structure with flexible content via named slots.
  *
  * Structure:
- * 1. Gradient accent bar
- * 2. Hero header with breadcrumbs
+ * 1. Hero header band (bg-panel) with breadcrumbs and the watermark word
+ * 2. (spacer)
  * 3. Table of contents (optional)
  * 4. Main content area with optional sidebar
  * 5. Detail navigation (prev/next)
  */
 import { ReadingProgress, TableOfContents } from "@aazucena/ui";
+import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import Breadcrumbs from "~/components/common/Breadcrumbs.astro";
 import DetailNavigation from "~/components/common/DetailNavigation.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
@@ -25,7 +26,10 @@ interface Props {
   // Header
   breadcrumbs: BreadcrumbItem[];
   watermarkText: string;
+  /** Accepted for the templates; the watermark now fits its header, so the size is not used. */
   watermarkSize?: "small" | "medium" | "large" | "huge";
+  /** Hide the watermark below 640px (articles and project pages, where the title covers it). */
+  hideWatermarkOnMobile?: boolean;
 
   // Layout
   maxWidth?: "4xl" | "5xl" | "7xl";
@@ -50,7 +54,7 @@ const {
   jsonLd,
   breadcrumbs,
   watermarkText,
-  watermarkSize = "medium",
+  hideWatermarkOnMobile = false,
   maxWidth = "5xl",
   hasSidebar = false,
   prevItem,
@@ -82,7 +86,7 @@ const maxWidthClass = containerClasses[maxWidth];
 
   <main class="bg-background min-h-screen">
     <!-- Hero Header -->
-    <header class="relative pt-10 md:pt-14">
+    <header class="bg-panel border-rule relative overflow-hidden border-b pt-10 pb-8 md:pt-14 print:border-b-0 print:bg-transparent">
       <div
         class={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 relative z-10`}
       >
@@ -91,6 +95,11 @@ const maxWidthClass = containerClasses[maxWidth];
         <!-- Header Content - Fully customizable via slot -->
         <slot name="header" />
       </div>
+
+      <WatermarkBackground
+        text={watermarkText}
+        class={hideWatermarkOnMobile ? "max-sm:hidden" : undefined}
+      />
     </header>
 
     {showTableOfContents && (

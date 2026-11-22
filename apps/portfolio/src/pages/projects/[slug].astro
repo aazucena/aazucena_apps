@@ -76,6 +76,7 @@ const seoDescription = project.seo?.description || project.shortDescription;
   breadcrumbs={breadcrumbs}
   watermarkText="PROJECT"
   watermarkSize="medium"
+  hideWatermarkOnMobile
   maxWidth="5xl"
   hasSidebar={true}
   prevItem={prevProject}
@@ -104,10 +105,9 @@ const seoDescription = project.seo?.description || project.shortDescription;
         )}
       </div>
 
-      <h1 class="text-foreground text-5xl leading-none font-semibold tracking-tighter md:text-7xl">
-        {project.title}
-        <span class="text-signal">.</span>
-      </h1>
+      <!-- prettier-ignore -->
+
+      <h1 class="text-foreground text-5xl leading-none font-semibold tracking-tighter md:text-7xl">{project.title}<span class="text-signal">.</span></h1>
 
       <div class="flex flex-wrap gap-3 pt-2 print:hidden">
         {project.liveDemoUrl && (

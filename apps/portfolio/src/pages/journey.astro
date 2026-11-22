@@ -22,6 +22,7 @@ import {
   type SkillNode,
 } from "~/lib/transformers";
 import { buttonVariants } from "@aazucena/ui";
+import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import PanelBox from "~/components/common/PanelBox.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
 import { fetchEducation as getEducation } from "@aazucena/api";
@@ -160,22 +161,27 @@ const phases =
 <PageLayout title={pageTitle} description={pageDescription}>
   <main class="bg-background min-h-screen">
     <!-- Hero Header -->
-    <header class="mx-auto max-w-[1120px] px-6 pt-0">
-      <h1 class="text-foreground text-5xl leading-none font-bold tracking-tighter md:text-7xl">
-        <span
-          class="after:text-signal after:content-['.']"
-          set:text={pageTitle}
-        />
-      </h1>
-      {pageDescription && (
-        <p class="text-muted-foreground mt-6 max-w-3xl text-xl leading-relaxed">
-          {pageDescription}
-        </p>
-      )}
+    <header class="bg-panel border-rule relative overflow-hidden border-b pt-10 pb-12 md:pt-14 print:border-b-0 print:bg-transparent">
+      <div class="relative z-10 mx-auto max-w-[1120px] px-6">
+        <h1 class="text-foreground text-5xl leading-none font-bold tracking-[-0.02em] md:text-[56px]">
+          <span
+            class="after:text-signal after:content-['.']"
+            set:text={pageTitle}
+          />
+        </h1>
+        {pageDescription && (
+          <p class="text-muted-foreground mt-6 max-w-3xl text-xl leading-relaxed">
+            {pageDescription}
+          </p>
+        )}
 
-      <div class="mt-12">
-        <CareerStats stats={careerStats} client:only="react" />
+        <div class="mt-12">
+          <CareerStats stats={careerStats} client:only="react" />
+        </div>
       </div>
+      <WatermarkBackground
+        text={journeyConfig?.header?.watermark || "JOURNEY"}
+      />
     </header>
 
     <!-- Dynamic Phases from CMS -->

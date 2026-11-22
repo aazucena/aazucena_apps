@@ -56,6 +56,7 @@ const jsonLd = {
   breadcrumbs={breadcrumbs}
   watermarkText="ARTICLE"
   watermarkSize="medium"
+  hideWatermarkOnMobile
   maxWidth="4xl"
   hasSidebar={false}
   prevItem={
@@ -85,10 +86,9 @@ const jsonLd = {
       </div>
     )}
 
-    <h1 class="text-foreground text-3xl leading-none font-semibold tracking-tighter md:text-6xl">
-      {post.title}
-      <span class="text-signal">.</span>
-    </h1>
+    <!-- prettier-ignore -->
+
+    <h1 class="text-foreground text-3xl leading-none font-semibold tracking-tighter md:text-6xl">{post.title}<span class="text-signal">.</span></h1>
 
     <div class="micro-label text-muted-foreground flex flex-wrap items-center gap-3">
       <time datetime={getPostDateTime(post)}>
@@ -113,7 +113,7 @@ const jsonLd = {
 
     <article
       id="article-content"
-      class="prose prose-lg prose-p:leading-relaxed prose-headings:text-foreground prose-headings:font-semibold prose-headings:tracking-tight prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-signal prose-a:underline prose-a:underline-offset-2 prose-blockquote:text-muted-foreground prose-blockquote:border-signal prose-code:text-signal prose-code:before:content-none prose-code:after:content-none [&_h2]:text-[1.75rem] [&_h2]:leading-tight [&_h3]:text-[1.375rem] [&_h3]:leading-snug max-w-none"
+      class="prose prose-lg prose-p:leading-relaxed prose-headings:text-foreground prose-headings:font-semibold prose-headings:tracking-tight prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-signal prose-a:underline prose-a:underline-offset-2 prose-code:text-signal prose-code:before:content-none prose-code:after:content-none [&_h2]:text-[1.75rem] [&_h2]:leading-tight [&_h3]:text-[1.375rem] [&_h3]:leading-snug max-w-none"
     >
       <MarkdownRenderer content={post.description as string} />
     </article>

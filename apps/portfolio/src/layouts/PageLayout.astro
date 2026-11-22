@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname;
     client:load
   />
 
-  <div class="pt-20 md:pt-28">
+  <div class="pt-14 md:pt-16">
     <slot />
   </div>
 
@@ -44,7 +44,9 @@ const currentPath = Astro.url.pathname;
     footerBrandDescription={websiteConfig.footerBrandDescription}
     footerLocationTagline={websiteConfig.footerLocationTagline}
     footerBuiltWithLabel={websiteConfig.footerBuiltWithLabel}
-    techStack={websiteConfig.techStack as import("@aazucena/types").TechStackItem[]}
+    techStack={
+      websiteConfig.techStack as import("@aazucena/types").TechStackItem[]
+    }
   />
   <BackToTop client:load />
 </BaseLayout>
