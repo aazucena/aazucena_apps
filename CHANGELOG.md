@@ -30,6 +30,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Resolve the font variables so Fira Sans and Fira Code render
 - _(portfolio)_ Rin announces only the finished reply
 - _(portfolio)_ Homepage text and body follow the dark tokens
 - _(portfolio)_ Blocks code renderer type-checks

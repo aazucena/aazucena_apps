@@ -49,6 +49,11 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 
 - [x] **Rin's About and Transparency copy now matches the canon (2026-11-12).** `AssistantLoreOverlay.tsx` follows `docs/features/rin.md`: the name line is fixed, "residue of the person" is gone, and a "Rin's nature" section is added. `AssistantTransparencyOverlay.tsx` no longer calls Rin "it".
 - [x] **Rin's trigger greeting uses the canon register (2026-11-12).** "Hi! I'm Rin. What brings you here today?" replaces "Ask me anything about Aldrin's work."
+- [ ] **Blog post Contents rail and mobile Contents bar (frames 113:3619, 77:490).** The Figma blog post has an inline Contents rail beside the article and a sticky Contents bar on mobile. The code keeps the floating `TableOfContents` panel from `@aazucena/ui`. Owner decision 2026-11-21: build after R5, no change in the round.
+- [ ] **Portfolio shell details that differ from the frames (owner: keep the code for now, 2026-11-21).** Revisit together after R5:
+  - Mobile menu: the frames show section counts and a Dark/Light control; the code has neither.
+  - Footer links: the frames use a different link style from the code's.
+  - Preloader: the frames draw a panel and rings; the code keeps its own wrapper and rings.
 
 ## Features
 
