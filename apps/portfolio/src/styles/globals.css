@@ -29,6 +29,10 @@
    specificity). press carries the colour transitions itself; on a hover-* element that
    transitions something else too, list it: [--transition-also:height,background-color]. */
 
+/* linked-card: marks a card whose title link is stretched over it. With .group it makes the
+   hover-* classes answer a focus-visible link inside the card (cover photo, arrow, icon, and
+   the card itself). Mouse focus doesn't trigger it, since :focus-visible only matches keys. */
+
 /* press: the element sinks to 97% while it is pressed (buttons, cards, FAB). It keeps the
    colour transitions that buttons and cards already have next to the scale. */
 @utility press {
@@ -54,12 +58,15 @@
       transition-duration: var(--motion-base);
     }
     &:focus-visible,
-    :where(.group):focus-visible & {
+    &:where(.linked-card):has(:focus-visible),
+    :where(.group):focus-visible &,
+    :where(.linked-card):has(:focus-visible) & {
       scale: var(--grow, 1.1);
     }
     @media (hover: hover) {
       &:hover,
-      :where(.group):hover & {
+      :where(.group):hover &,
+      :where(.linked-card):hover & {
         scale: var(--grow, 1.1);
       }
     }
@@ -76,13 +83,38 @@
       transition-duration: var(--motion-base);
     }
     &:focus-visible,
-    :where(.group):focus-visible & {
+    &:where(.linked-card):has(:focus-visible),
+    :where(.group):focus-visible &,
+    :where(.linked-card):has(:focus-visible) & {
       translate: var(--nudge-x, 2px) var(--nudge-y, 0px);
     }
     @media (hover: hover) {
       &:hover,
-      :where(.group):hover & {
+      :where(.group):hover &,
+      :where(.linked-card):hover & {
         translate: var(--nudge-x, 2px) var(--nudge-y, 0px);
+      }
+    }
+  }
+}
+
+/* hover-lift: a card rises by var(--lift, 2px), on its own hover or when a link inside it has
+   keyboard focus (linked-card). It uses its own property so a hover-nudge arrow inside the card
+   doesn't inherit the vertical move. List other transitions in [--transition-also:border-color]. */
+@utility hover-lift {
+  @media (prefers-reduced-motion: no-preference) {
+    &:not([data-no-motion]) {
+      transition-property:
+        var(--transition-also, opacity), scale, translate, rotate;
+      transition-duration: var(--motion-base);
+    }
+    &:focus-visible,
+    &:where(.linked-card):has(:focus-visible) {
+      translate: 0 calc(var(--lift, 2px) * -1);
+    }
+    @media (hover: hover) {
+      &:hover {
+        translate: 0 calc(var(--lift, 2px) * -1);
       }
     }
   }
@@ -98,12 +130,15 @@
       transition-duration: var(--motion-draw);
     }
     &:focus-visible,
-    :where(.group):focus-visible & {
+    &:where(.linked-card):has(:focus-visible),
+    :where(.group):focus-visible &,
+    :where(.linked-card):has(:focus-visible) & {
       rotate: var(--spin, 180deg);
     }
     @media (hover: hover) {
       &:hover,
-      :where(.group):hover & {
+      :where(.group):hover &,
+      :where(.linked-card):hover & {
         rotate: var(--spin, 180deg);
       }
     }

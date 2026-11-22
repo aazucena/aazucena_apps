@@ -8,6 +8,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### ♻️ Refactor
 
+- _(portfolio)_ Drop the unused group on mobile menu rows
 - _(portfolio)_ Replace negative-margin spacing with real spacing
 - _(portfolio)_ Scope the quote style to the markdown renderer
 - _(portfolio)_ Logo plates use one variable, no guard exemptions
