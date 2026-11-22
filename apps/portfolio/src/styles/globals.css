@@ -145,15 +145,23 @@
   }
 }
 
-/* bar-grow: a bar replays its growth from zero to the width it already has. */
+/* bar-grow: a bar grows from zero to the width it already has once BarGrowObserver marks it
+   data-seen (on screen). The width is in the markup, so it shows in full with script off, with
+   script blocked and under reduced motion; only with script enabled and motion allowed is it held
+   at zero until it is seen. */
 @keyframes bar-grow {
   from {
     width: 0;
   }
 }
 @utility bar-grow {
-  @media (prefers-reduced-motion: no-preference) {
-    animation: bar-grow var(--motion-draw) ease-out;
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    &:not([data-seen]) {
+      width: 0 !important;
+    }
+    &[data-seen] {
+      animation: bar-grow var(--motion-draw) ease-out;
+    }
   }
 }
 

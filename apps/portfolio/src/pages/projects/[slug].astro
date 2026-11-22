@@ -9,6 +9,7 @@ import PanelBox from "~/components/common/PanelBox.astro";
 import MetricCard from "~/components/ui/MetricCard.astro";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import { TechStackDistribution } from "~/components/ui/TechStackDistribution";
+import BarGrowObserver from "~/components/common/BarGrowObserver.astro";
 import StatusBadge from "~/components/ui/StatusBadge.astro";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import { getProjects } from "@aazucena/api";
@@ -216,6 +217,7 @@ const seoDescription = project.seo?.description || project.shortDescription;
   <Fragment slot="sidebar">
     <PanelBox label="DEVELOPMENT // STACK">
       <TechStackDistribution skills={project.techStack} client:visible />
+      <BarGrowObserver />
     </PanelBox>
 
     <PanelBox label="PROJECT // BRIEF">

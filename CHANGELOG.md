@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Keep the working-style headings as headings
 - _(portfolio)_ Fix the skills board's edge, alignment and dark contrast
 - _(portfolio)_ Restore the featured work and related link hovers
 - _(portfolio)_ Show the stack bars' share without script

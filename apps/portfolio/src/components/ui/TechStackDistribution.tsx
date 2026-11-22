@@ -4,7 +4,6 @@
  * and displays skill badges with icons categorized by usage.
  */
 
-import { useEffect, useState } from "react";
 import {
   Cloud,
   Database,
@@ -69,10 +68,8 @@ export function TechStackDistribution({
     .sort((a, b) => b.count - a.count) // Sort by most used
     .slice(0, 4); // Take top 4 for the chart
 
-  // The markup holds each bar's real width, so the data shows without JS. Hydration happens when
-  // the card comes on screen, and only then do the bars replay their growth from zero.
-  const [replay, setReplay] = useState(false);
-  useEffect(() => setReplay(true), []);
+  // The markup holds each bar's real width, so the share shows without script. The page's
+  // BarGrowObserver marks a bar data-seen once it is on screen, and styles replay the growth then.
 
   return (
     <div className="space-y-4">
@@ -101,7 +98,7 @@ export function TechStackDistribution({
                   className="bg-state h-1.5 w-full overflow-hidden"
                 >
                   <div
-                    className={`h-full ${replay ? "bar-grow" : ""} ${SERIES_BG[i % SERIES_BG.length]}`}
+                    className={`bar-grow h-full ${SERIES_BG[i % SERIES_BG.length]}`}
                     style={{ width: `${item.percentage}%` }}
                   />
                 </div>
