@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(ui)_ Release the body background for a skipped preloader
 - _(portfolio)_ Clear the nav bar on content pages and use one main landmark
 - _(portfolio)_ Restore the experience key outcome and achievement detail
 - _(portfolio)_ Restore skills lane icons and proficiency grading
