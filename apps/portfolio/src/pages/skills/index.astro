@@ -1,4 +1,5 @@
 ---
+import { BookOpen, Briefcase, Star } from "@aazucena/icons";
 import ListLayout from "~/layouts/ListLayout.astro";
 import { fetchEducation } from "@aazucena/api";
 import { getExperiences } from "@aazucena/api";
@@ -89,6 +90,7 @@ const filters = [
   searchPlaceholder="Search technologies (e.g. React, PostgreSQL)..."
   layout="none"
   maxWidth="7xl"
+  ignoreMaxWidth={true}
   hasItems={skillCategories.length > 0}
 >
   {/* eslint-disable jsx-a11y/no-noninteractive-tabindex -- scrollable panes must be keyboard-focusable */}
@@ -98,14 +100,14 @@ const filters = [
 
     <!-- Board of domain lanes; keyboard-scrollable -->
     <div
-      class="kanban-board custom-scrollbar focus-visible:outline-signal flex cursor-grab snap-x gap-4 overflow-x-auto pt-4 pb-6 focus-visible:outline-1 focus-visible:outline-offset-2 active:cursor-grabbing"
+      class="kanban-board custom-scrollbar focus-visible:outline-signal flex cursor-grab snap-x gap-4 overflow-x-auto px-4 pt-4 pb-6 sm:px-6 lg:px-8 focus-visible:outline-1 focus-visible:outline-offset-2 active:cursor-grabbing"
       tabindex="0"
       role="region"
       aria-label="Skill domains, scroll horizontally"
     >
       {skillCategories.map((category, index) => (
         <section
-          class="item-card kanban-lane w-[80vw] flex-shrink-0 snap-start md:w-[250px]"
+          class="item-card kanban-lane group w-[80vw] flex-shrink-0 snap-start md:w-[340px]"
           data-filter-domain={category.label}
           data-search={`${category.label} ${getAllSkillNames(category)}`.toLowerCase()}
         >
@@ -114,7 +116,7 @@ const filters = [
             <div class="border-rule h-panel-header px-panel flex items-center justify-between gap-3 border-b">
               <h2 class="text-foreground flex items-center gap-2 text-sm font-semibold">
                 <span
-                  class="bg-state border-rule rounded-control flex size-7 flex-shrink-0 items-center justify-center border"
+                  class="hover-grow bg-state border-rule rounded-control flex size-7 flex-shrink-0 items-center justify-center border"
                   style={`color: ${cmsTone(category.gradient) ?? `var(--series-${(index % 4) + 1})`}`}
                   aria-hidden="true"
                 >
@@ -140,11 +142,11 @@ const filters = [
                 const eduCount = skillEducationCounts.get(skill.name) || 0;
 
                 return (
-                  <div class="kanban-card border-rule bg-state rounded-control hover:border-rule-strong border p-3 transition-[border-color]">
+                  <div class="kanban-card group/skill border-rule bg-state rounded-control hover:border-rule-strong border p-3 transition-[border-color]">
                     {/* Header: name and years */}
                     <div class="mb-2 flex items-start justify-between gap-3">
                       <div class="flex min-w-0 flex-col gap-1.5">
-                        <span class="text-foreground text-sm font-semibold">
+                        <span class="text-foreground group-hover/skill:text-signal text-sm font-semibold motion-safe:transition-[color]">
                           {skill.name}
                         </span>
                         <span
@@ -205,27 +207,30 @@ const filters = [
                         {expCount > 0 && (
                           <a
                             href={`/experiences?search=${skill.name.toLowerCase()}`}
-                            class="micro-label text-signal hover:underline focus-visible:outline-signal focus-visible:outline-1"
+                            class="flex items-center gap-1.5 rounded-badge border border-signal/40 px-2 py-1 micro-label text-signal hover:bg-signal hover:text-signal-foreground focus-visible:bg-signal focus-visible:text-signal-foreground focus-visible:outline-signal focus-visible:outline-1 focus-visible:outline-offset-2 motion-safe:transition-[background-color,color]"
                             title={`${expCount} professional roles`}
                           >
+                            <Briefcase size={12} aria-hidden="true" />
                             {expCount} {expCount === 1 ? "Role" : "Roles"}
                           </a>
                         )}
                         {projectCount > 0 && (
                           <a
                             href={`/projects?search=${skill.name.toLowerCase()}`}
-                            class="micro-label text-signal hover:underline focus-visible:outline-signal focus-visible:outline-1"
+                            class="flex items-center gap-1.5 rounded-badge border border-signal/40 px-2 py-1 micro-label text-signal hover:bg-signal hover:text-signal-foreground focus-visible:bg-signal focus-visible:text-signal-foreground focus-visible:outline-signal focus-visible:outline-1 focus-visible:outline-offset-2 motion-safe:transition-[background-color,color]"
                             title={`${projectCount} public projects`}
                           >
+                            <Star size={12} aria-hidden="true" />
                             {projectCount}{" "}
                             {projectCount === 1 ? "Proj" : "Projs"}
                           </a>
                         )}
                         {eduCount > 0 && (
                           <span
-                            class="micro-label text-signal"
+                            class="micro-label text-muted-foreground border-rule rounded-badge flex items-center gap-1.5 border px-2 py-1"
                             title={`${eduCount} academic background entries`}
                           >
+                            <BookOpen size={12} aria-hidden="true" />
                             {eduCount} EDU
                           </span>
                         )}
