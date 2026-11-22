@@ -34,14 +34,14 @@ export function AboutSection({
     <SectionLayout
       title={title}
       subtitle={subtitle || about.tagline}
-      contentWidth="narrow"
+      contentWidth="medium"
     >
-      <div className="flex flex-col gap-3 text-center text-sm md:gap-4 md:text-xl">
+      <div className="flex flex-col gap-3 text-center text-sm md:grid md:grid-cols-2 md:items-start md:gap-4 md:text-xl">
         {/* Stats — order-2 mobile, order-3 desktop | 2-col mobile, dynamic desktop */}
         <ResponsiveGrid
           cols={{ sm: 2, md: Math.min(about.stats.length, 4) as 1 | 2 | 3 | 4 }}
           gap="sm"
-          className="order-2 md:order-3 md:gap-4"
+          className="order-2 md:order-3 md:col-span-2 md:gap-4"
         >
           {about.stats.map((stat, index) => (
             <div
@@ -61,7 +61,7 @@ export function AboutSection({
         <ResponsiveGrid
           cols={{ sm: 1, md: 2 }}
           gap="sm"
-          className="order-3 md:order-4"
+          className="order-3 md:order-4 md:col-span-2"
         >
           {about.learnMoreCards.map((card, index) => (
             <LearnMoreCard
@@ -100,7 +100,7 @@ export function AboutSection({
         </div>
 
         {/* Highlights Panel — hidden on mobile, order-2 desktop */}
-        <div className="hidden md:order-2 md:block">
+        <div className="hidden md:order-2 md:block [&>*]:mt-0">
           <HighlightsPanel highlights={about.highlights} />
         </div>
       </div>
