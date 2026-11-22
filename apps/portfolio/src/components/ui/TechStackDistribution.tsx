@@ -4,6 +4,7 @@
  * and displays skill badges with icons categorized by usage.
  */
 
+import { useEffect, useState } from "react";
 import {
   Cloud,
   Database,
@@ -68,6 +69,14 @@ export function TechStackDistribution({
     .sort((a, b) => b.count - a.count) // Sort by most used
     .slice(0, 4); // Take top 4 for the chart
 
+  // The bars start empty and grow to their share once the card is on screen. Under reduced
+  // motion the transition is off, so they jump to the final width.
+  const [grown, setGrown] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setGrown(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   return (
     <div className="space-y-4">
       {/* Distribution chart */}
@@ -95,8 +104,8 @@ export function TechStackDistribution({
                   className="bg-state h-1.5 w-full overflow-hidden"
                 >
                   <div
-                    className={`h-full ${SERIES_BG[i % SERIES_BG.length]}`}
-                    style={{ width: `${item.percentage}%` }}
+                    className={`h-full motion-safe:transition-[width] motion-safe:duration-(--motion-draw) motion-safe:ease-out ${SERIES_BG[i % SERIES_BG.length]}`}
+                    style={{ width: grown ? `${item.percentage}%` : "0%" }}
                   />
                 </div>
               </div>
