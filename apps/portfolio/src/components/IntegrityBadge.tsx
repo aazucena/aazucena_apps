@@ -46,14 +46,18 @@ function IntegrityBadgeInner({
       rel="noopener noreferrer"
       aria-label={label}
       className={cn(
-        "focus-visible:outline-signal rounded-badge inline-flex focus-visible:outline-1 focus-visible:outline-offset-2",
+        "press focus-visible:outline-signal rounded-badge inline-flex focus-visible:outline-1 focus-visible:outline-offset-2",
         className,
       )}
     >
       <Badge variant={style.variant} size="md" className="hover:bg-state">
         <Shield
           size={12}
-          className={cn(status === "LOADING" && "motion-safe:animate-pulse")}
+          aria-hidden="true"
+          className={cn(
+            (status === "OPERATIONAL" || status === "LOADING") &&
+              "motion-safe:animate-pulse",
+          )}
         />
         {showLabel && (
           <span>
