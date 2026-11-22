@@ -193,8 +193,14 @@ const phases =
     </header>
 
     <!-- Dynamic Phases from CMS -->
-    {phases.map((phase) => (
-      <section class="py-16 md:py-24">
+    {phases.map((phase, index) => (
+      <section
+        class:list={[
+          "py-16 md:py-24",
+          // Every second phase sits on a panel band, so the phases read as separate stretches
+          index % 2 === 1 && "bg-panel border-rule border-y",
+        ]}
+      >
         <div class="mx-auto mb-10 max-w-[1120px] px-6">
           {phase.badge && (
             <p class="micro-label text-signal mb-4">
@@ -250,11 +256,12 @@ const phases =
           <div class="mx-auto grid max-w-[1120px] grid-cols-1 gap-4 px-6 md:grid-cols-2">
             {phase.items.map((item, i) => (
               <PanelBox
+                class="group"
                 label={`${String(i + 1).padStart(2, "0")} // PRINCIPLE`}
               >
                 {item.icon && (
                   <div
-                    class="bg-state text-signal rounded-control flex size-10 items-center justify-center"
+                    class="hover-grow bg-state text-signal rounded-control flex size-10 items-center justify-center"
                     style={
                       cmsTone(item.variant)
                         ? `color: ${cmsTone(item.variant)}`
