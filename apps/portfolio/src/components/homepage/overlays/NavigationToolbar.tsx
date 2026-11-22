@@ -215,6 +215,7 @@ export function NavigationToolbar({
       {/* Popovers — shared, render as fixed overlays independent of toolbar */}
       <Popover
         isOpen={showInfoPanel}
+        ariaLabel="About this site"
         onClose={() => togglePanel("info")}
         position="top-right"
         width="320px"
@@ -227,6 +228,7 @@ export function NavigationToolbar({
 
       <Popover
         isOpen={showSettingsPanel}
+        ariaLabel="Settings"
         onClose={() => togglePanel("settings")}
         position="top-right"
         width="320px"
@@ -240,6 +242,7 @@ export function NavigationToolbar({
 
       <Popover
         isOpen={showSocialMenu}
+        ariaLabel="Social links"
         onClose={() => togglePanel("social")}
         position="top-right"
         width="320px"

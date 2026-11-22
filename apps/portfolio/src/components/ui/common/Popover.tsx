@@ -5,7 +5,7 @@
  */
 
 import { useEffect, type JSX, type ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 
 export type PopoverPosition =
   | "top-left"
@@ -39,6 +39,9 @@ export interface PopoverProps {
 
   /** Custom z-index (default: 50) */
   zIndex?: number;
+
+  /** Accessible name for the dialog panel */
+  ariaLabel?: string;
 
   /** Show arrow pointer */
   showArrow?: boolean;
@@ -105,6 +108,7 @@ export function Popover({
   closeOnEscape = true,
   zIndex = 50,
   showArrow = false,
+  ariaLabel,
   width = "320px",
   className = "",
 }: PopoverProps): JSX.Element | null {
@@ -133,50 +137,54 @@ export function Popover({
   const arrowClasses = getArrowClasses(position);
 
   return (
-    <AnimatePresence mode="wait">
-      {isOpen && (
-        <>
-          {/* Subtle backdrop (optional) */}
-          {backdrop && (
+    <MotionConfig reducedMotion="user">
+      <AnimatePresence mode="wait">
+        {isOpen && (
+          <>
+            {/* Subtle backdrop (optional) */}
+            {backdrop && (
+              <motion.div
+                className="fixed inset-0"
+                style={{ zIndex: zIndex - 1 }}
+                onClick={handleBackdropClick}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              />
+            )}
+
+            {/* Popover Content */}
             <motion.div
-              className="fixed inset-0"
-              style={{ zIndex: zIndex - 1 }}
-              onClick={handleBackdropClick}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-            />
-          )}
+              role="dialog"
+              aria-label={ariaLabel}
+              className={`fixed max-h-[calc(100vh-14rem)] max-w-[calc(100vw-2rem)] sm:max-h-[85vh] sm:max-w-[90vw] ${positionClasses} ${className}`}
+              style={{
+                zIndex,
+                width,
+              }}
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{
+                type: "spring",
+                damping: 20,
+                stiffness: 300,
+                duration: 0.15,
+              }}
+              onClick={(e) => e.stopPropagation()} // Prevent backdrop click
+            >
+              {/* Arrow pointer */}
+              {showArrow && <div className={arrowClasses} />}
 
-          {/* Popover Content */}
-          <motion.div
-            className={`fixed max-h-[calc(100vh-14rem)] max-w-[calc(100vw-2rem)] sm:max-h-[85vh] sm:max-w-[90vw] ${positionClasses} ${className}`}
-            style={{
-              zIndex,
-              width,
-            }}
-            initial={{ opacity: 0, scale: 0.95, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            transition={{
-              type: "spring",
-              damping: 20,
-              stiffness: 300,
-              duration: 0.15,
-            }}
-            onClick={(e) => e.stopPropagation()} // Prevent backdrop click
-          >
-            {/* Arrow pointer */}
-            {showArrow && <div className={arrowClasses} />}
-
-            {/* Content wrapper with overflow handling */}
-            <div className="rounded-card border-rule-strong bg-panel relative overflow-hidden border drop-shadow-lg">
-              {children}
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+              {/* Content wrapper with overflow handling */}
+              <div className="rounded-card border-rule-strong bg-panel relative overflow-hidden border drop-shadow-lg">
+                {children}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </MotionConfig>
   );
 }
