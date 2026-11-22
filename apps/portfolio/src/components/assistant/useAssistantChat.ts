@@ -45,7 +45,7 @@ export function useAssistantChat() {
       ? "/api/brain"
       : "/api/chat";
 
-  const { messages, sendMessage, status, setMessages } = useChat({
+  const { messages, sendMessage, status, setMessages, regenerate } = useChat({
     transport: new DefaultChatTransport({
       api: chatApi,
       body: { pathname },
@@ -209,6 +209,8 @@ export function useAssistantChat() {
     pathname,
     messages,
     sendMessage,
+    regenerate,
+    hasError: status === "error",
     isLoading,
     behavior,
     currentEmotion,

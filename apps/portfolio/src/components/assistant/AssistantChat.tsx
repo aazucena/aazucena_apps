@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Chat, ChatFeed } from "@aazucena/ui";
+import { Button, Chat, ChatFeed } from "@aazucena/ui";
 import { AssistantLoreOverlay } from "./AssistantLoreOverlay";
 import { AssistantTransparencyOverlay } from "./AssistantTransparencyOverlay";
 import { AssistantHeader } from "./AssistantHeader";
@@ -39,6 +39,8 @@ export default function AssistantChat() {
     pathname,
     messages,
     sendMessage,
+    regenerate,
+    hasError,
     isLoading,
     behavior,
     currentEmotion,
@@ -60,6 +62,7 @@ export default function AssistantChat() {
   const [announcement, setAnnouncement] = React.useState("");
   const wasLoading = React.useRef(false);
   React.useEffect(() => {
+    if (!wasLoading.current && isLoading) setAnnouncement("");
     if (wasLoading.current && !isLoading) {
       const last = messages[messages.length - 1];
       if (last?.role === "assistant") {
@@ -77,13 +80,20 @@ export default function AssistantChat() {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const wasOpen = React.useRef(false);
 
-  // Focus moves into the composer on open and back to the trigger on close.
+  const overlayOpen = loreDialogOpen || transparencyOpen;
+  const hadOverlay = React.useRef(false);
+
+  // Focus moves into the composer on open and back to the trigger on close. While an overlay
+  // (Lore, Transparency) covers the chat, the controls behind it are inert and focus sits in the
+  // overlay (it focuses its own Close button); closing the overlay returns focus to the composer.
   React.useEffect(() => {
     const root = rootRef.current;
-    if (isOpen) {
+    const focusComposer = () =>
       root
         ?.querySelector<HTMLTextAreaElement>('[data-testid="assistant-input"]')
         ?.focus();
+    if (isOpen) {
+      if (!overlayOpen) focusComposer();
     } else if (wasOpen.current) {
       root
         ?.querySelector<HTMLButtonElement>(
@@ -92,14 +102,34 @@ export default function AssistantChat() {
         ?.focus();
     }
     wasOpen.current = isOpen;
-  }, [isOpen]);
+  }, [isOpen, overlayOpen]);
+
+  React.useEffect(() => {
+    const region = rootRef.current?.querySelector<HTMLElement>(
+      '[aria-label="Chat with Rin"]',
+    );
+    if (!region) return;
+    const behind = Array.from(region.children).filter(
+      (el) => el.getAttribute("role") !== "dialog",
+    ) as HTMLElement[];
+    for (const el of behind) el.inert = overlayOpen;
+    if (hadOverlay.current && !overlayOpen && isOpen) {
+      region
+        .querySelector<HTMLTextAreaElement>('[data-testid="assistant-input"]')
+        ?.focus();
+    }
+    hadOverlay.current = overlayOpen;
+    return () => {
+      for (const el of behind) el.inert = false;
+    };
+  }, [overlayOpen, isOpen]);
 
   // Escape closes the top overlay first, then the chat. Menus and the clear
   // dialog handle their own Escape.
   React.useEffect(() => {
     if (!isOpen) return;
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key !== "Escape" || e.defaultPrevented) return;
+      if (e.key !== "Escape" || e.defaultPrevented || e.isComposing) return;
       if (dropdownOpen || clearDialogOpen) return;
       if (loreDialogOpen) setLoreDialogOpen(false);
       else if (transparencyOpen) setTransparencyOpen(false);
@@ -188,6 +218,27 @@ export default function AssistantChat() {
               <AssistantMessageList messages={messages} />
               {isLoading && (
                 <AssistantLoadingBubble statusIdx={loadingStatusIdx} />
+              )}
+              {hasError && !isLoading && (
+                <div
+                  role="alert"
+                  className="border-alert text-foreground flex flex-wrap items-center gap-3 border-l-2 px-3 py-2 text-sm"
+                >
+                  <span>
+                    <span aria-hidden="true" className="text-alert">
+                      ▲{" "}
+                    </span>
+                    Rin couldn&apos;t reply. Try again.
+                  </span>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => regenerate()}
+                  >
+                    Retry
+                  </Button>
+                </div>
               )}
             </ChatFeed>
 
