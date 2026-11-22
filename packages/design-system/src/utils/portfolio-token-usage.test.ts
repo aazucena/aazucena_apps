@@ -91,9 +91,28 @@ describe('portfolio Avra token usage', () => {
     expect(css).not.toMatch(/@theme inline/);
   });
 
-  it('keeps the homepage content dark', () => {
+  it('binds the dark tokens on the homepage wrapper only, never on body', () => {
     const layout = readFileSync(join(SRC, 'layouts/HomeLayout.astro'), 'utf8');
-    expect(layout).toMatch(/class(?::list)?=[^>]*\bdark\b/);
+    expect(layout).toMatch(/<div class="dark text-foreground">/);
+    const base = readFileSync(join(SRC, 'layouts/BaseLayout.astro'), 'utf8');
+    const body = /<body[^>]*>/.exec(base)?.[0] ?? '';
+    expect(body).not.toBe('');
+    expect(body).not.toMatch(/\bdark\b/);
+  });
+
+  it('keeps public/styles on Avra tokens', () => {
+    const dir = join(ROOT, 'apps/portfolio/public/styles');
+    const files = readdirSync(dir).filter((n) => n.endsWith('.css'));
+    expect(files.length).toBeGreaterThan(0);
+    for (const name of files) {
+      const css = readFileSync(join(dir, name), 'utf8');
+      // unlayered sheet: a theme alias here resolves at :root and beats every utility
+      expect({ name, hits: css.match(/var\(--color-[a-z-]+/g) ?? [] }).toEqual({ name, hits: [] });
+      expect({ name, hits: css.match(/#[0-9a-fA-F]{3,8}\b|\brgba?\(/g) ?? [] }).toEqual({
+        name,
+        hits: [],
+      });
+    }
   });
 
   it('scans enough files for the walk to mean something', () => {

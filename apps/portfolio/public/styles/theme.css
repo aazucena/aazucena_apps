@@ -13,9 +13,10 @@ html.homepage {
   color-scheme: dark;
 }
 
-/* body carries the .dark class on the homepage (BaseLayout), so --background is the dark token. */
+/* The homepage content binds the dark tokens in HomeLayout; the body behind it takes the dark ink
+   primitive, so body itself stays theme-neutral and Rin (a sibling of the content) follows the theme. */
 html.homepage body {
-  background: var(--background);
+  background: var(--ink-950);
 }
 
 /* Content pages: Respect user theme preference */
@@ -153,9 +154,8 @@ html.content-page[data-page-type="detail"]::view-transition-new(root) {
 
 /* Enhanced keyboard focus indicators */
 *:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--signal);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
 /* Remove focus styles for mouse users */
@@ -168,8 +168,8 @@ html.content-page[data-page-type="detail"]::view-transition-new(root) {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--color-accent);
-  color: white;
+  background: var(--signal);
+  color: var(--signal-foreground);
   padding: 8px 16px;
   text-decoration: none;
   z-index: 9999;

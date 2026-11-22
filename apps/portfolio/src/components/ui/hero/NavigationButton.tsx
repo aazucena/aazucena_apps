@@ -150,7 +150,7 @@ export function NavigationButton({
           const dropdownElement = (
             <div
               style={dropdownStyle}
-              className="bg-panel border-rule-strong rounded-card z-[500] max-h-[216px] overflow-y-auto border sm:min-w-[280px]"
+              className="dark bg-panel border-rule-strong rounded-card z-[500] max-h-[216px] overflow-y-auto border sm:min-w-[280px]"
             >
               {otherOptions.map((option) => {
                 return (

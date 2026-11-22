@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Generate tailwind classes for the chart, animation and icon packages
 - _(assistant)_ Render rin markdown without raw html
 - _(portfolio)_ Reserve About's overlay space wherever Chat or the FAB overlaps
 - _(portfolio)_ Reserve About's overlay space on short screens only

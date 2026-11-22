@@ -11,6 +11,8 @@ import {
  * Regression guard for the Fira Sans loss in d0e46dc4: BaseLayout set the font variables through
  * `define:vars`, which never produced a working `--font-sans`, so the site fell back to system
  * fonts. The variables now come from plain CSS built from validated CMS names.
+ * It checks the strings only; it does not prove that a build resolves them. The Vercel preview
+ * font check stays a merge gate.
  */
 const SRC = join(__dirname, '../../../..', 'apps/portfolio/src');
 

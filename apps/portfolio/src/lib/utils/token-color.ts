@@ -1,6 +1,6 @@
 /**
  * Reads a design token (a CSS custom property) as a 0xRRGGBB number for three.js and Pixi.
- * It reads from body, which carries the homepage's `dark` class, so the particles get the dark
+ * It reads from the homepage's `.dark` content wrapper (HomeLayout), so the particles get the dark
  * tokens whatever the site theme is. Call it once when a scene starts; the colour does not
  * follow later theme changes.
  */
@@ -19,7 +19,9 @@ function paintToNumber(value: string): number | null {
 
 export function readTokenColor(name: string, fallback: number): number {
   if (typeof document === "undefined") return fallback;
-  const raw = getComputedStyle(document.body).getPropertyValue(name).trim();
+  const raw = getComputedStyle(document.querySelector(".dark") ?? document.body)
+    .getPropertyValue(name)
+    .trim();
   if (!raw) return fallback;
   const direct = parseCssColor(raw);
   if (direct !== null) return direct;

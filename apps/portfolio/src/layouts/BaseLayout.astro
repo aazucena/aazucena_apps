@@ -144,8 +144,7 @@ const fontsUrl = googleFontsUrl(siteConfig.theme.fonts);
   </head>
 
   <body
-    class={isHomepage ? "dark" : undefined}
-    style={`background: var(--background);`}
+    style={`background: var(${isHomepage ? "--ink-950" : "--background"});`}
   >
     <!-- Skip to main content (accessibility) -->
     <a href="#main-content" class="skip-to-main">
