@@ -299,6 +299,31 @@ export function JourneyDashboard({
                     showYearControls
                     height={chartHeight}
                   />
+                  <div className="sr-only">
+                    <table>
+                      <caption>
+                        Skill growth by year: the value of each category
+                      </caption>
+                      <thead>
+                        <tr>
+                          <th scope="col">Year</th>
+                          <th scope="col">Category</th>
+                          <th scope="col">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {spiderData.flatMap((d) =>
+                          d.axes.map((a) => (
+                            <tr key={`${d.name}-${a.axis}`}>
+                              <th scope="row">{d.name}</th>
+                              <td>{a.axis}</td>
+                              <td>{a.value}</td>
+                            </tr>
+                          )),
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="network" className="mt-0">
