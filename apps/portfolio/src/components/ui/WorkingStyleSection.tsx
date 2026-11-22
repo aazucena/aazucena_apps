@@ -1,5 +1,6 @@
 import { Users, Zap, Message } from "@aazucena/icons";
-import { IconRenderer, Panel } from "@aazucena/ui";
+import { IconRenderer } from "@aazucena/ui";
+import { InteractiveCard } from "./InteractiveCard";
 import type { WorkingStyleItem } from "@aazucena/types";
 import { cmsTone } from "~/lib/utils/cms-tone";
 
@@ -63,26 +64,17 @@ export function WorkingStyleSection({
       : defaultWorkingStyle;
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-      {items.map((style, index) => {
-        const Icon = style.icon;
-        return (
-          <Panel key={index} label={style.subtitle.toUpperCase()}>
-            <div
-              className="text-signal"
-              style={{ color: ("tone" in style && style.tone) || undefined }}
-            >
-              <Icon size={20} />
-            </div>
-            <h3 className="text-foreground text-base font-semibold">
-              {style.title}
-            </h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              {style.description}
-            </p>
-          </Panel>
-        );
-      })}
+    <div className="grid grid-cols-1 gap-4">
+      {items.map((style, index) => (
+        <InteractiveCard
+          key={index}
+          title={style.title}
+          subtitle={style.subtitle.toUpperCase()}
+          description={style.description}
+          icon={style.icon}
+          tone={("tone" in style && style.tone) || undefined}
+        />
+      ))}
     </div>
   );
 }
