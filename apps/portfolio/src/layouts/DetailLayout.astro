@@ -86,7 +86,7 @@ const maxWidthClass = containerClasses[maxWidth];
     <GradientAccent variant="print-hidden" />
 
     <!-- Hero Header -->
-    <header class="border-rule bg-panel relative overflow-hidden border-b py-16 md:py-28">
+    <header class="border-rule bg-panel relative overflow-hidden border-b py-10 md:py-14">
       <div
         class={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 relative z-10`}
       >
@@ -100,7 +100,11 @@ const maxWidthClass = containerClasses[maxWidth];
     </header>
 
     {showTableOfContents && (
-      <TableOfContents containerSelector={tocSelector} client:idle />
+      <TableOfContents
+        containerSelector={tocSelector}
+        className="bg-panel dark:bg-panel border-rule dark:border-rule"
+        client:idle
+      />
     )}
 
     <!-- Main Content Area -->
