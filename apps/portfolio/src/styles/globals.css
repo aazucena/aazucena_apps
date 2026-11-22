@@ -90,8 +90,10 @@
   --logo-plate: #fff;
 }
 
-/* Rendered markdown quotes read as a signal-ruled note, as in the frames. */
-.prose blockquote {
+/* Quotes from the markdown renderer (@aazucena/ui) read as a signal-ruled note, as in the frames.
+   The renderer's own classes still ask for the stock primary ramp and a glass panel; this rule,
+   scoped to its .markdown-content wrapper, replaces them. */
+.markdown-content blockquote {
   border-left-color: var(--signal);
   background-color: var(--signal-subtle);
   backdrop-filter: none;
