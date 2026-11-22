@@ -152,7 +152,8 @@ export function Navbar({
               className="flex w-full max-w-none flex-col gap-0 p-0 sm:max-w-none md:hidden"
             >
               <div className="border-rule flex h-16 items-center border-b px-4">
-                <SheetTitle className="micro-label">
+                <img src={logoUrl} alt="" className="h-8 w-auto" />
+                <SheetTitle className="sr-only">
                   {toTitleCase(siteName)}
                 </SheetTitle>
               </div>
