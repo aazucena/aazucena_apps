@@ -258,7 +258,7 @@ export function Navbar({
                       key={item.id}
                       href={item.path || undefined}
                       aria-current={isActive ? "page" : undefined}
-                      className={`border-rule focus-visible:outline-signal group flex items-center gap-3 border-b px-5 py-4 font-mono text-sm tracking-[0.12em] uppercase focus-visible:outline-1 focus-visible:-outline-offset-2 ${
+                      className={`border-rule focus-visible:outline-signal flex items-center gap-3 border-b px-5 py-4 font-mono text-sm tracking-[0.12em] uppercase focus-visible:outline-1 focus-visible:-outline-offset-2 ${
                         isActive
                           ? "bg-state text-signal border-l-signal border-l-2"
                           : "text-foreground hover:bg-state"
