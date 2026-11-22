@@ -292,6 +292,9 @@ export function JourneyDashboard({
               </aside>
 
               <div className="min-w-0">
+                <p className="text-muted-foreground mb-4 text-sm">
+                  {activeMeta?.description}
+                </p>
                 <TabsContent value="evolution" className="mt-0">
                   <SpiderChart
                     data={spiderData}

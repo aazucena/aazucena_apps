@@ -265,6 +265,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Replace the growth cards' emoji with line icons
 - _(portfolio)_ Pulse the resume icon on hover and focus
 - _(portfolio)_ Bring back the journey stat icons and the pulsing currently dot
 - _(portfolio)_ Thicken the award hexagon outline on hover and focus
