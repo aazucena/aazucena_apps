@@ -50,14 +50,14 @@ export function HexagonCard({
           points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
           strokeWidth="2"
           strokeDasharray={dashed ? "8,4" : undefined}
-          className={`fill-panel group-hover:fill-state transition-[fill] duration-(--motion-base) ${hue.stroke}`}
+          className={`fill-panel group-hover:fill-state group-focus-visible:fill-state transition-[fill] duration-(--motion-base) group-hover:stroke-[3] group-focus-visible:stroke-[3] motion-safe:transition-[fill,stroke-width] ${hue.stroke}`}
         />
       </svg>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center p-6 text-center">
         <div
-          className={`border-rule bg-state rounded-control mb-3 flex h-16 w-16 items-center justify-center border ${hue.text}`}
+          className={`hover-grow border-rule bg-state rounded-control mb-3 flex h-16 w-16 items-center justify-center border ${hue.text}`}
         >
           <svg
             className="h-8 w-8"
