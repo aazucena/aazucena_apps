@@ -36,7 +36,7 @@ export function AboutSection({
       aria-label="About"
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
       tabIndex={0}
-      className="focus-visible:outline-signal short:pt-24 short:pb-40 max-h-[100dvh] w-full overflow-y-auto focus-visible:outline-1 focus-visible:-outline-offset-2"
+      className="focus-visible:outline-signal overlaid:pt-24 overlaid:pb-40 max-h-[100dvh] w-full overflow-y-auto focus-visible:outline-1 focus-visible:-outline-offset-2"
     >
       <SectionLayout
         title={title}
