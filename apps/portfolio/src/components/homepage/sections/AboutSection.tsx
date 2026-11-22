@@ -31,81 +31,93 @@ export function AboutSection({
   const { about } = useSectionData();
 
   return (
-    <SectionLayout
-      title={title}
-      subtitle={subtitle || about.tagline}
-      contentWidth="medium"
-      headingClassName="short:mb-3 short:text-4xl"
-      subtitleClassName="short:mt-1 short:text-2xl"
+    <div
+      role="region"
+      aria-label="About"
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
+      tabIndex={0}
+      className="focus-visible:outline-signal max-h-[100dvh] w-full overflow-y-auto pt-24 pb-40 focus-visible:outline-1 focus-visible:-outline-offset-2"
     >
-      <div className="short:md:gap-3 flex flex-col gap-3 text-center text-sm md:grid md:grid-cols-2 md:items-start md:gap-4 md:text-xl">
-        {/* Stats — order-2 mobile, order-3 desktop | 2-col mobile, dynamic desktop */}
-        <ResponsiveGrid
-          cols={{ sm: 2, md: Math.min(about.stats.length, 4) as 1 | 2 | 3 | 4 }}
-          gap="sm"
-          className="order-2 md:order-3 md:col-span-2 md:gap-4"
-        >
-          {about.stats.map((stat, index) => (
-            <div
-              key={index}
-              className={
-                index === about.stats.length - 1 && about.stats.length % 2 !== 0
-                  ? "col-span-2 md:col-span-1"
-                  : ""
-              }
-            >
-              <StatCard value={stat.value} label={stat.label} />
+      <SectionLayout
+        title={title}
+        subtitle={subtitle || about.tagline}
+        contentWidth="medium"
+        headingClassName="short:mb-3 short:text-4xl"
+        subtitleClassName="short:mt-1 short:text-2xl"
+      >
+        <div className="short:md:gap-3 flex flex-col gap-3 text-center text-sm md:grid md:grid-cols-2 md:items-start md:gap-4 md:text-xl">
+          {/* Stats — order-2 mobile, order-3 desktop | 2-col mobile, dynamic desktop */}
+          <ResponsiveGrid
+            cols={{
+              sm: 2,
+              md: Math.min(about.stats.length, 4) as 1 | 2 | 3 | 4,
+            }}
+            gap="sm"
+            className="order-2 md:order-3 md:col-span-2 md:gap-4"
+          >
+            {about.stats.map((stat, index) => (
+              <div
+                key={index}
+                className={
+                  index === about.stats.length - 1 &&
+                  about.stats.length % 2 !== 0
+                    ? "col-span-2 md:col-span-1"
+                    : ""
+                }
+              >
+                <StatCard value={stat.value} label={stat.label} />
+              </div>
+            ))}
+          </ResponsiveGrid>
+
+          {/* Learn More Cards — order-2 mobile, order-4 desktop | stacked → 2-col grid */}
+          <ResponsiveGrid
+            cols={{ sm: 1, md: 2 }}
+            gap="sm"
+            className="order-3 md:order-4 md:col-span-2"
+          >
+            {about.learnMoreCards.map((card, index) => (
+              <LearnMoreCard
+                key={index}
+                href={card.button.url}
+                title={toTitleCase(card.title)}
+                variant={card.variant as LearnMoreCardVariant}
+                icon={card.icon as IconComponent}
+                buttonText={card.button.label}
+                buttonIcon={card.button.icon as IconComponent | undefined}
+              >
+                {card.description}
+              </LearnMoreCard>
+            ))}
+          </ResponsiveGrid>
+
+          {/* Description — order-1 on both | first paragraph on mobile, full on desktop */}
+          <div className="border-rule bg-panel rounded-card short:md:[&_p]:text-sm order-1 border text-left [&_p]:text-sm md:[&_p]:text-base">
+            <div className="border-rule h-panel-header px-panel micro-label text-muted-foreground flex items-center border-b">
+              Bio
             </div>
-          ))}
-        </ResponsiveGrid>
-
-        {/* Learn More Cards — order-2 mobile, order-4 desktop | stacked → 2-col grid */}
-        <ResponsiveGrid
-          cols={{ sm: 1, md: 2 }}
-          gap="sm"
-          className="order-3 md:order-4 md:col-span-2"
-        >
-          {about.learnMoreCards.map((card, index) => (
-            <LearnMoreCard
-              key={index}
-              href={card.button.url}
-              title={toTitleCase(card.title)}
-              variant={card.variant as LearnMoreCardVariant}
-              icon={card.icon as IconComponent}
-              buttonText={card.button.label}
-              buttonIcon={card.button.icon as IconComponent | undefined}
-            >
-              {card.description}
-            </LearnMoreCard>
-          ))}
-        </ResponsiveGrid>
-
-        {/* Description — order-1 on both | first paragraph on mobile, full on desktop */}
-        <div className="border-rule bg-panel rounded-card short:md:[&_p]:text-sm order-1 border text-left [&_p]:text-sm md:[&_p]:text-base">
-          <div className="border-rule h-panel-header px-panel micro-label text-muted-foreground flex items-center border-b">
-            Bio
+            <div className="p-panel">
+              <div className="md:hidden">
+                <BlocksRenderer
+                  content={(about.descriptions as BlocksContent).slice(0, 1)}
+                  blocks={darkBlockRenderers}
+                />
+              </div>
+              <div className="hidden md:block">
+                <BlocksRenderer
+                  content={about.descriptions as BlocksContent}
+                  blocks={darkBlockRenderers}
+                />
+              </div>
+            </div>
           </div>
-          <div className="p-panel">
-            <div className="md:hidden">
-              <BlocksRenderer
-                content={(about.descriptions as BlocksContent).slice(0, 1)}
-                blocks={darkBlockRenderers}
-              />
-            </div>
-            <div className="hidden md:block">
-              <BlocksRenderer
-                content={about.descriptions as BlocksContent}
-                blocks={darkBlockRenderers}
-              />
-            </div>
+
+          {/* Highlights Panel — hidden on mobile, order-2 desktop */}
+          <div className="hidden md:order-2 md:block">
+            <HighlightsPanel highlights={about.highlights} />
           </div>
         </div>
-
-        {/* Highlights Panel — hidden on mobile, order-2 desktop */}
-        <div className="hidden md:order-2 md:block">
-          <HighlightsPanel highlights={about.highlights} />
-        </div>
-      </div>
-    </SectionLayout>
+      </SectionLayout>
+    </div>
   );
 }
