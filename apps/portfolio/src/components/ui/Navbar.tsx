@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import type { CSSProperties, PointerEvent } from "react";
 import { ArrowRight, Menu, X } from "@aazucena/icons";
 import {
   Button,
@@ -33,6 +34,37 @@ export function Navbar({
   navItems,
 }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // Swipe right on the open menu closes it; the panel follows the finger while it moves
+  const swipe = useRef<{ x: number; y: number; t: number } | null>(null);
+  const swiped = useRef(false);
+  const [swipeX, setSwipeX] = useState(0);
+  const reducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const onSwipeStart = (event: PointerEvent) => {
+    swiped.current = false;
+    swipe.current = { x: event.clientX, y: event.clientY, t: event.timeStamp };
+  };
+  const onSwipeMove = (event: PointerEvent) => {
+    const start = swipe.current;
+    if (!start || reducedMotion()) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    setSwipeX(dx > 0 && dx > Math.abs(dy) ? dx : 0);
+  };
+  const onSwipeEnd = (event: PointerEvent) => {
+    const start = swipe.current;
+    swipe.current = null;
+    setSwipeX(0);
+    if (!start) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    swiped.current = Math.abs(dx) > 10;
+    const speed = dx / Math.max(event.timeStamp - start.t, 1);
+    if (dx > Math.abs(dy) && (dx > 80 || (dx > 30 && speed > 0.5))) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   // Map navigation items with icon components
   const navItemsWithIcons = navItems.map((item) => ({
@@ -65,11 +97,19 @@ export function Navbar({
       : undefined;
 
   const logo = (
-    <a href="/" className="flex items-center gap-3" aria-label={siteName}>
+    <a
+      href="/"
+      className="group focus-visible:outline-signal flex items-center gap-3 focus-visible:outline-1 focus-visible:outline-offset-4"
+      aria-label={siteName}
+    >
       {logoUrl ? (
-        <img src={logoUrl} alt={siteName} className="h-10 w-auto" />
+        <img
+          src={logoUrl}
+          alt={siteName}
+          className="hover-grow h-10 w-auto [--grow:1.05]"
+        />
       ) : (
-        <span className="text-foreground text-xl font-semibold tracking-tight">
+        <span className="text-foreground hover-grow text-xl font-semibold tracking-tight [--grow:1.05]">
           {toTitleCase(siteName)}
           <span className="text-signal">.</span>
         </span>
@@ -130,13 +170,20 @@ export function Navbar({
                 key={button.id}
                 asChild
                 variant={ctaVariant[button.buttonStyle || "primary"]}
-                className="hidden sm:inline-flex"
+                className="press hidden sm:inline-flex"
               >
                 <a
                   href={button.path || undefined}
+                  className="group"
                   {...externalProps(button.type)}
                 >
-                  {Icon && <Icon size={14} />}
+                  {Icon && (
+                    <Icon
+                      size={14}
+                      aria-hidden="true"
+                      className="hover-nudge [--nudge-y:-2px]"
+                    />
+                  )}
                   {toTitleCase(button.title)}
                 </a>
               </Button>
@@ -160,7 +207,30 @@ export function Navbar({
               side="right"
               data-testid="navbar-mobile-menu"
               aria-describedby={undefined}
-              className="flex w-full max-w-none flex-col gap-0 p-0 sm:max-w-none lg:hidden [&>button.absolute]:hidden"
+              className="flex w-full max-w-none touch-pan-y flex-col gap-0 p-0 sm:max-w-none lg:hidden [&>button.absolute]:hidden"
+              style={
+                swipeX
+                  ? ({
+                      translate: `${swipeX}px 0`,
+                      transition: "none",
+                    } as CSSProperties)
+                  : undefined
+              }
+              onDragStart={(event) => event.preventDefault()}
+              onClickCapture={(event) => {
+                if (swiped.current) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  swiped.current = false;
+                }
+              }}
+              onPointerDown={onSwipeStart}
+              onPointerMove={onSwipeMove}
+              onPointerUp={onSwipeEnd}
+              onPointerCancel={() => {
+                swipe.current = null;
+                setSwipeX(0);
+              }}
             >
               <div className="border-rule flex h-14 items-center justify-between border-b px-4">
                 {logo}
@@ -182,41 +252,55 @@ export function Navbar({
               <div className="flex flex-col overflow-y-auto">
                 {regularNavItems.map((item) => {
                   const isActive = currentPath.startsWith(item.path || "");
+                  const Icon = item.iconComponent;
                   return (
                     <a
                       key={item.id}
                       href={item.path || undefined}
                       aria-current={isActive ? "page" : undefined}
-                      className={`border-rule focus-visible:outline-signal flex items-center justify-between border-b px-5 py-4 font-mono text-sm tracking-[0.12em] uppercase focus-visible:outline-1 focus-visible:-outline-offset-2 ${
+                      className={`border-rule focus-visible:outline-signal group flex items-center gap-3 border-b px-5 py-4 font-mono text-sm tracking-[0.12em] uppercase focus-visible:outline-1 focus-visible:-outline-offset-2 ${
                         isActive
                           ? "bg-state text-signal border-l-signal border-l-2"
                           : "text-foreground hover:bg-state"
                       }`}
                       {...externalProps(item.type)}
                     >
-                      {toTitleCase(item.title)}
+                      {Icon && (
+                        <Icon
+                          size={16}
+                          aria-hidden="true"
+                          className={
+                            isActive ? "text-signal" : "text-muted-foreground"
+                          }
+                        />
+                      )}
+                      <span className="flex-1">{toTitleCase(item.title)}</span>
                       <ArrowRight size={14} aria-hidden="true" />
                     </a>
                   );
                 })}
               </div>
               <div className="flex flex-col gap-4 p-5">
-                {ctaButtons.map((button) => (
-                  <Button
-                    key={button.id}
-                    asChild
-                    variant={ctaVariant[button.buttonStyle || "primary"]}
-                    size="lg"
-                    className="w-full"
-                  >
-                    <a
-                      href={button.path || undefined}
-                      {...externalProps(button.type)}
+                {ctaButtons.map((button) => {
+                  const Icon = button.iconComponent;
+                  return (
+                    <Button
+                      key={button.id}
+                      asChild
+                      variant={ctaVariant[button.buttonStyle || "primary"]}
+                      size="lg"
+                      className="press w-full"
                     >
-                      {toTitleCase(button.title)}
-                    </a>
-                  </Button>
-                ))}
+                      <a
+                        href={button.path || undefined}
+                        {...externalProps(button.type)}
+                      >
+                        {Icon && <Icon size={16} aria-hidden="true" />}
+                        {toTitleCase(button.title)}
+                      </a>
+                    </Button>
+                  );
+                })}
                 <div className="flex items-center justify-between">
                   <span className="micro-label text-muted-foreground">
                     Theme

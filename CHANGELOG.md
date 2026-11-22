@@ -257,6 +257,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Add press, hover-grow and hover-nudge motion classes
 - _(portfolio)_ Add a text table for the journey growth chart
 - _(portfolio)_ Header bands and watermarks back on list, detail and journey pages
 - _(portfolio)_ One watermark component sized to fit, used by the footer
