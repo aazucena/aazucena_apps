@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Inert chat behind overlays, show reply errors, ignore ime escape
 - _(assistant)_ Focus the overlay close button and make the chat behind it inert
 - _(portfolio)_ Let rin follow the theme on the homepage and use signal for focus
 - _(portfolio)_ Generate tailwind classes for the chart, animation and icon packages

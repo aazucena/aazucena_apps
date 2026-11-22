@@ -20,7 +20,7 @@ export interface UseInteractiveTimelineOptions {
 const LABEL_BUFFER_RIGHT = 60;
 const LABEL_BUFFER_LEFT = 50;
 const NODE_GAP = 40;
-const LANE_STEP = 110;
+const LANE_STEP = 136;
 
 export function useInteractiveTimeline<T extends TimelineEvent>(
   svgRef: React.RefObject<SVGSVGElement | null>,
