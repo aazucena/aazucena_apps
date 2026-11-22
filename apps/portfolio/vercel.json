@@ -1,4 +1,9 @@
 {
+  "git": {
+    "deploymentEnabled": {
+      "phase-5/next-release": false
+    }
+  },
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
