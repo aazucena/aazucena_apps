@@ -10,6 +10,7 @@
  * education field+GPA+honors.
  */
 
+import { AwardBadge } from "@aazucena/icons";
 import { Badge } from "@aazucena/ui";
 import type { TimelineEvent } from "@aazucena/visualizations";
 
@@ -136,7 +137,16 @@ export function TimelineEventTooltip({
               <span className="text-foreground">GPA:</span> {gpa.toFixed(2)}
             </p>
           )}
-          {honors && <p className="text-foreground text-xs">{honors}</p>}
+          {honors && (
+            <p className="text-foreground flex items-center gap-1.5 text-xs">
+              <AwardBadge
+                aria-hidden
+                size={14}
+                className="text-signal shrink-0"
+              />
+              {honors}
+            </p>
+          )}
         </div>
       )}
     </div>
