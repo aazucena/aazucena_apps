@@ -163,6 +163,12 @@ pnpm dlx playwright test --headed
 
 **Analytics runs on Avra.** `apps/analytics/src/styles/globals.css` imports `@aazucena/ui/globals.css`, and `packages/design-system/src/utils/analytics-token-usage.test.ts` fails on stock palette, glass, big radii and literal colours in any analytics `.tsx` file.
 
+**Portfolio runs on Avra.** `apps/portfolio/src/styles/globals.css` imports `@aazucena/ui/globals.css`, and `packages/design-system/src/utils/portfolio-token-usage.test.ts` fails on stock palette, glass, big radii and literal colours in any portfolio `.astro`, `.tsx` or `.ts` file; `SCENE_EXEMPT` lists the two files whose colours are scene imagery. Fonts come from `lib/utils/fonts.ts` through `fontVariablesCss` (plain CSS in `BaseLayout`), never `define:vars`, whose variables never resolved and left the system font on the branch; `portfolio-fonts.test.ts` guards it. A visual check must confirm the computed `font-family` (Fira Sans, Fira Code), because a fallback font looks plausible.
+
+**Portfolio headers and footer use `WatermarkBackground`.** A Figma frame that omits an existing decoration or content is not permission to remove it: ask the owner.
+
+**Tailwind `@custom-variant` with a comma media list needs the block form** (`@custom-variant x { @media (a), (b) { @slot; } }`). The one-line shorthand drops comma media lists.
+
 **Storybook visual tests run on Argos.** `argosVitestPlugin` in `apps/storybook/vitest.config.ts` screenshots every story the Vitest run renders. It uploads only when `CI` is set, using `ARGOS_TOKEN` (a CircleCI project env var, never committed); local runs write `apps/storybook/screenshots/` (gitignored). CI runs on main only, so the latest main build is the baseline and changes are reviewed after merge.
 
 ```typescript
