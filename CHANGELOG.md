@@ -265,6 +265,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Thicken the award hexagon outline on hover and focus
 - _(portfolio)_ Slide the exit and read-article arrows on hover and focus
 - _(portfolio)_ Grow the homepage cards 2% on hover and focus
 - _(portfolio)_ Grow the stack distribution bars to their share
