@@ -60,10 +60,8 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("en-US", {
 >
   <!-- Legal Header: Title + Revision Badge -->
   <div slot="header" class="space-y-8 text-center">
-    <h1 class="text-foreground text-5xl leading-none font-black tracking-tighter md:text-8xl">
-      {title}
-      <span class="text-signal">.</span>
-    </h1>
+    <!-- prettier-ignore -->
+    <h1 class="text-foreground text-5xl leading-none font-black tracking-tighter md:text-8xl">{title}<span class="text-signal">.</span></h1>
 
     <!-- Revision Badge with Pulse Indicator -->
     <div class="border-rule bg-panel rounded-control mx-auto inline-flex items-center justify-center gap-3 border px-3 py-1.5">
