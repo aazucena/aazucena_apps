@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Restore the featured work and related link hovers
 - _(portfolio)_ Show the stack bars' share without script
 - _(portfolio)_ Animate the toolbar bars into the X
 - _(portfolio)_ Animate press and hover motion instead of snapping
