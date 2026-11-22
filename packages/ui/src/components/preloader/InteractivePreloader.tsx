@@ -132,10 +132,11 @@ export default function InteractivePreloader({
     startLoading,
   });
 
+  // A skipped preloader (show-once, seen before) renders nothing, so it must not capture keys either
   useKeyboardNavigation({
     enableSkip,
     isReady,
-    isVisible,
+    isVisible: isVisible && !(showOnce && hasSeenBefore && !isChecking),
     onSkip: handleSkip,
     onContinue: handleContinue,
   });

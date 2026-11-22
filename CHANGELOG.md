@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Stop the Rin greeting from taking focus or closing on focus moves
 - _(portfolio)_ Add footer bottom space so the last links clear the Chat button
 - _(portfolio)_ Let the list filter header grow when its count wraps
 - _(portfolio)_ Keep the About card text and scroll the section clear of the overlays
