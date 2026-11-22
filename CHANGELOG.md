@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Say a contact message was sent only when it was
 - _(portfolio)_ Show no signal for a system under maintenance
 - _(portfolio)_ Tighten the key outcome and cms tone lookups
 - _(api)_ Keep an empty skill category variant empty

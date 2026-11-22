@@ -253,4 +253,31 @@ describe("sanitizeMessages", () => {
       "(an earlier contact submission did not complete; nothing was confirmed as sent)",
     );
   });
+
+  it("cuts an older message with over 50 parts instead of rejecting it", () => {
+    const parts = Array.from({ length: 120 }, (_, i) => ({
+      type: "text",
+      text: `part ${i}`,
+    }));
+    const result = sanitizeMessages([
+      user("hi"),
+      { role: "assistant", parts },
+      user("next"),
+    ]);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.messages[1]!.parts).toHaveLength(50);
+    expect(result.messages[1]!.parts[49]!.text).toBe("part 119");
+  });
+
+  it("answers 413 when a part follows a newest message already at the limit", () => {
+    const parts = [
+      { type: "text", text: "x".repeat(MAX_MESSAGE_CHARS) },
+      { type: "text", text: "more" },
+    ];
+    expect(sanitizeMessages([{ role: "user", parts }])).toMatchObject({
+      ok: false,
+      status: 413,
+    });
+  });
 });

@@ -4,6 +4,8 @@ import { MAX_MESSAGE_CHARS } from "./limits";
 /** Messages Rin sees: the newest ones only. */
 export const MAX_MESSAGES = 10;
 export { MAX_MESSAGE_CHARS };
+/** Parts read from one message: the newest ones only. */
+const MAX_PARTS = 50;
 /** Characters of text in all retained messages together. */
 export const MAX_REQUEST_CHARS = 50_000;
 /** Characters of the last question sent to knowledge-base retrieval. */
@@ -31,7 +33,7 @@ const part = z.union([textPart, otherPart]);
 const message = z.object({
   id: z.string().max(200).optional(),
   role: z.enum(["user", "assistant"]),
-  parts: z.array(part).max(50),
+  parts: z.array(z.unknown()),
 });
 
 export interface CleanMessage {
@@ -61,10 +63,17 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
     if (!parsed.success) {
       return { ok: false, status: 400, error: "Invalid message" };
     }
-    const isNewest = index === kept.length - 1;
+    const recentParts = z
+      .array(part)
+      .safeParse(parsed.data.parts.slice(-MAX_PARTS));
+    if (!recentParts.success) {
+      return { ok: false, status: 400, error: "Invalid message" };
+    }
+    const isNewestUser =
+      index === kept.length - 1 && parsed.data.role === "user";
     const parts: CleanMessage["parts"] = [];
     let used = 0;
-    for (const p of parsed.data.parts) {
+    for (const p of recentParts.data) {
       let text: string;
       if (p.type === "tool-submit_contact_form") {
         text = contactNote(p);
@@ -78,7 +87,7 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
       }
       if (!text.trim()) continue;
       if (used + text.length > MAX_MESSAGE_CHARS) {
-        if (isNewest && parsed.data.role === "user") {
+        if (isNewestUser) {
           return { ok: false, status: 413, error: "Message too long" };
         }
         text = text.slice(0, MAX_MESSAGE_CHARS - used).toWellFormed();
@@ -86,7 +95,8 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
       }
       used += text.length;
       parts.push({ type: "text", text });
-      if (used >= MAX_MESSAGE_CHARS) break;
+      // the newest user message reads on, so text past the limit is a 413
+      if (used >= MAX_MESSAGE_CHARS && !isNewestUser) break;
     }
     if (parts.length === 0) continue;
     messages.push({ id: parsed.data.id, role: parsed.data.role, parts });
