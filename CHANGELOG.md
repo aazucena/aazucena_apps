@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Let the list filter header grow when its count wraps
 - _(portfolio)_ Keep the About card text and scroll the section clear of the overlays
 - _(portfolio)_ Fit the home About section on short laptop screens
 - _(portfolio)_ Switch the navbar to a menu below 1024px and add the frame's close button
