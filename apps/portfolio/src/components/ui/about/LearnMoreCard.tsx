@@ -9,6 +9,7 @@ import { IconRenderer } from "@aazucena/ui";
 import { ArrowRight } from "@aazucena/icons";
 import { cn } from "@aazucena/utils";
 import type { IconComponent } from "@aazucena/types";
+import { cmsTone } from "~/lib/utils/cms-tone";
 
 export type LearnMoreCardVariant =
   "cyan-blue" | "emerald-teal" | "purple-pink" | "orange-red" | "indigo-purple";
@@ -18,7 +19,7 @@ export interface LearnMoreCardProps {
   href?: string;
   /** Card title */
   title: string;
-  /** Retained for existing callers; every variant takes the signal tone. */
+  /** CMS colour name; mapped to a signal or series tone, neutral signal when unknown. */
   variant?: LearnMoreCardVariant;
   /** Card description */
   children?: React.ReactNode;
@@ -68,6 +69,7 @@ export function LearnMoreCard({
   icon,
   buttonText,
   buttonIcon,
+  variant,
 }: LearnMoreCardProps): JSX.Element {
   return (
     <a
@@ -85,6 +87,7 @@ export function LearnMoreCard({
               "text-signal flex h-6 w-6 flex-shrink-0 items-center justify-center md:h-8 md:w-8",
               iconClassName,
             )}
+            style={{ color: cmsTone(variant) ?? undefined }}
           >
             <IconRenderer icon={icon} className="h-4 w-4 md:h-5 md:w-5" />
           </div>

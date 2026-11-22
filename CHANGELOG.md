@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Restore about root icons, cms tones and the name fallback
 - _(portfolio)_ Use the availability indicator on the contact page
 - _(portfolio)_ Bring back the availability pulse ring
 - _(assistant)_ Cap chat size per message and per request

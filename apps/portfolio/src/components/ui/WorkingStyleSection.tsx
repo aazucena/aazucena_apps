@@ -1,6 +1,7 @@
 import { Users, Zap, Message } from "@aazucena/icons";
 import { IconRenderer, Panel } from "@aazucena/ui";
 import type { WorkingStyleItem } from "@aazucena/types";
+import { cmsTone } from "~/lib/utils/cms-tone";
 
 interface WorkingStyleSectionProps {
   workingStyle?: WorkingStyleItem[];
@@ -57,6 +58,7 @@ export function WorkingStyleSection({
           subtitle: style.subtitle,
           description: style.description,
           icon: getIconComponent(style.icon as string | null | undefined),
+          tone: cmsTone(style.variant),
         }))
       : defaultWorkingStyle;
 
@@ -66,7 +68,10 @@ export function WorkingStyleSection({
         const Icon = style.icon;
         return (
           <Panel key={index} label={style.subtitle.toUpperCase()}>
-            <div className="text-signal">
+            <div
+              className="text-signal"
+              style={{ color: ("tone" in style && style.tone) || undefined }}
+            >
               <Icon size={20} />
             </div>
             <h3 className="text-foreground text-base font-semibold">
