@@ -46,14 +46,21 @@ export function useAssistantChat() {
       ? "/api/brain"
       : "/api/chat";
 
-  const { messages, sendMessage, status, setMessages, regenerate, clearError } =
-    useChat({
-      transport: new DefaultChatTransport({
-        api: chatApi,
-        body: { pathname },
-      }),
-      messages: loadPersistedMessages(),
-    });
+  const {
+    messages,
+    sendMessage,
+    status,
+    setMessages,
+    regenerate,
+    clearError,
+    stop,
+  } = useChat({
+    transport: new DefaultChatTransport({
+      api: chatApi,
+      body: { pathname },
+    }),
+    messages: loadPersistedMessages(),
+  });
 
   const isLoading = status === "streaming" || status === "submitted";
 
@@ -163,6 +170,13 @@ export function useAssistantChat() {
   }
 
   function handleClear() {
+    if (isLoading) {
+      // a reply that is still arriving writes itself back, so clear again once it has stopped
+      void stop().then(() => {
+        setMessages([]);
+        clearError();
+      });
+    }
     setMessages([]);
     clearError();
     setClearDialogOpen(false);
