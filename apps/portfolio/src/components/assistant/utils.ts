@@ -64,7 +64,7 @@ function decodeEntities(value: string): string {
           body[1]?.toLowerCase() === "x"
             ? parseInt(body.slice(2), 16)
             : parseInt(body.slice(1), 10);
-        return Number.isFinite(code) && code <= 0x10ffff
+        return Number.isFinite(code) && code <= 1114111
           ? String.fromCodePoint(code)
           : "";
       }
