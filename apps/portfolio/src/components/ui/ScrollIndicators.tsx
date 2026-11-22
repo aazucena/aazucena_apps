@@ -33,7 +33,7 @@ export function ScrollIndicators({
           {/* Tick: the current section is a tall signal bar, the rest are dots */}
           <span
             aria-hidden="true"
-            className={`hover-grow block rounded-full transition-[height,background-color] duration-(--motion-base) [--grow:1.75] ${
+            className={`hover-grow block rounded-full transition-[height,background-color] duration-(--motion-base) [--grow:1.75] [--transition-also:height,background-color] ${
               currentSection === index
                 ? "bg-signal h-4 w-0.5"
                 : "bg-muted-foreground group-hover:bg-foreground group-focus-visible:bg-foreground size-1.5"
