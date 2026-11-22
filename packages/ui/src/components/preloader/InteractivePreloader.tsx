@@ -177,7 +177,10 @@ export default function InteractivePreloader({
 
   // Sync body background with preloader theme to prevent flash during hydration.
   // Released as soon as the preloader hides, not only on unmount.
-  usePreloaderBodyBackground(themeStyles.backgroundStyle.background as string, isVisible);
+  usePreloaderBodyBackground(
+    themeStyles.backgroundStyle.background as string,
+    isVisible && !(showOnce && hasSeenBefore && !isChecking),
+  );
 
   // ============================================================================
   // CONDITIONAL RENDERING (after all hooks and effects)
