@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { text, max, class: className } = Astro.props;
-const word = text.trim().toUpperCase();
+const word = (text ?? "").trim().toUpperCase();
 const em = watermarkEmWidth(word);
 const fit = `calc(94cqw / ${em.toFixed(3)}), calc(94cqh / 0.78)`;
 const fontSize = max ? `min(${fit}, ${max})` : `min(${fit})`;
