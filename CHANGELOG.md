@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Fit the home About section on short laptop screens
 - _(portfolio)_ Switch the navbar to a menu below 1024px and add the frame's close button
 - _(portfolio)_ Touch storage only in the top frame in visual-check
 - _(portfolio)_ Put the Rin popover on the fixed z tier
