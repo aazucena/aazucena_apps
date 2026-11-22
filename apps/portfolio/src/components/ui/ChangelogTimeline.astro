@@ -19,12 +19,22 @@ const { entries } = Astro.props;
     {entries.map((entry) => (
       <div class="relative">
         <div class="absolute top-2 -left-8 flex w-4 items-center justify-center md:-left-10">
-          <span
-            class:list={[
-              "bg-background inline-flex h-2.5 w-2.5 rounded-full border-2",
-              entry.isPhase ? "border-rule-strong" : "border-signal",
-            ]}
-          />
+          <span class="relative flex h-2.5 w-2.5">
+            {!entry.isPhase && (
+              <span
+                class="bg-signal/40 absolute inline-flex h-full w-full rounded-full motion-safe:animate-ping"
+                aria-hidden="true"
+              />
+            )}
+            <span
+              class:list={[
+                "bg-background relative inline-flex h-2.5 w-2.5 rounded-full border-2",
+                entry.isPhase
+                  ? "border-rule-strong ring-rule ring-4"
+                  : "border-signal",
+              ]}
+            />
+          </span>
         </div>
 
         <div class="mb-4 flex flex-wrap items-baseline gap-3">
@@ -40,7 +50,7 @@ const { entries } = Astro.props;
               )}
             </>
           ) : (
-            <h2 class="text-foreground text-xl font-semibold tracking-tight">
+            <h2 class="text-signal text-xl font-semibold tracking-tight">
               Latest
             </h2>
           )}

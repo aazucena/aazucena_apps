@@ -260,6 +260,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Open and close the working-style cards on click
 - _(portfolio)_ Restore the contact heading, sidebar icons and send icon motion
 - _(portfolio)_ Restore photo zoom, heading icons and sidebar icons on about
 - _(portfolio)_ Restore card motion, cover zoom and metadata icons on list pages
