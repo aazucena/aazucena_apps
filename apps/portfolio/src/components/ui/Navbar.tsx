@@ -171,7 +171,7 @@ export function Navbar({
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-control h-9 w-9"
+                    className="rounded-control border-signal text-signal h-9 w-9"
                     aria-label="Close menu"
                     data-testid="navbar-mobile-close"
                   >

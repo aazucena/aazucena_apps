@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Tolerate a missing watermark text
 - _(ui)_ Stop a skipped preloader from capturing Enter and Space
 - _(portfolio)_ Stop the Rin greeting from taking focus or closing on focus moves
 - _(portfolio)_ Add footer bottom space so the last links clear the Chat button
