@@ -45,7 +45,8 @@ export function AssistantInput({
           placeholder="Ask about Aldrin's work…"
           minRows={1}
           maxRows={4}
-          disabled={isLoading}
+          // readOnly, because a disabled textarea drops focus to the page body
+          readOnly={isLoading}
           data-testid="assistant-input"
           className="pb-10 text-base md:text-xs"
         />

@@ -82,6 +82,12 @@ export default function AssistantChat() {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const wasOpen = React.useRef(false);
 
+  const focusComposer = React.useCallback(() => {
+    rootRef.current
+      ?.querySelector<HTMLTextAreaElement>('[data-testid="assistant-input"]')
+      ?.focus();
+  }, []);
+
   const overlayOpen = loreDialogOpen || transparencyOpen;
   const hadOverlay = React.useRef(false);
 
@@ -90,10 +96,6 @@ export default function AssistantChat() {
   // overlay (it focuses its own Close button); closing the overlay returns focus to the composer.
   React.useEffect(() => {
     const root = rootRef.current;
-    const focusComposer = () =>
-      root
-        ?.querySelector<HTMLTextAreaElement>('[data-testid="assistant-input"]')
-        ?.focus();
     if (isOpen) {
       if (!overlayOpen) focusComposer();
     } else if (wasOpen.current) {
@@ -104,7 +106,7 @@ export default function AssistantChat() {
         ?.focus();
     }
     wasOpen.current = isOpen;
-  }, [isOpen, overlayOpen]);
+  }, [isOpen, overlayOpen, focusComposer]);
 
   React.useEffect(() => {
     const region = rootRef.current?.querySelector<HTMLElement>(
@@ -239,11 +241,7 @@ export default function AssistantChat() {
                     onClick={() => {
                       void handleRetry();
                       // the Retry button unmounts with the alert, so focus goes back to the composer
-                      rootRef.current
-                        ?.querySelector<HTMLTextAreaElement>(
-                          '[data-testid="assistant-input"]',
-                        )
-                        ?.focus();
+                      focusComposer();
                     }}
                   >
                     Retry
@@ -275,6 +273,7 @@ export default function AssistantChat() {
         open={clearDialogOpen}
         onOpenChange={setClearDialogOpen}
         onConfirm={handleClear}
+        onCloseFocus={focusComposer}
       />
 
       {chatMode === "floating" && (

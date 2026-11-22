@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Keep retry from sending a delivered contact message twice
 - _(assistant)_ Read the newest 50 parts and count past an exact limit
 - _(assistant)_ Say a contact message was sent only when it was
 - _(portfolio)_ Show no signal for a system under maintenance

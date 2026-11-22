@@ -16,12 +16,15 @@ interface AssistantClearDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
+  /** Runs when the dialog has closed, in place of Radix returning focus to the opener. */
+  onCloseFocus: () => void;
 }
 
 export function AssistantClearDialog({
   open,
   onOpenChange,
   onConfirm,
+  onCloseFocus,
 }: AssistantClearDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -29,6 +32,10 @@ export function AssistantClearDialog({
         size="sm"
         className="z-[200]"
         overlayClassName="z-[200]"
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          onCloseFocus();
+        }}
       >
         <AlertDialogHeader>
           <AlertDialogTitle>Clear conversation?</AlertDialogTitle>
