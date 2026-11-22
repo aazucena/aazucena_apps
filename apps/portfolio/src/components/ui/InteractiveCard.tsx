@@ -36,37 +36,44 @@ export function InteractiveCard({
           isExpanded ? "border-rule-strong" : "hover:border-rule-strong",
         )}
       >
-        <button
-          type="button"
-          onClick={() => setIsExpanded(!isExpanded)}
-          aria-expanded={isExpanded}
-          aria-controls={bodyId}
-          className="focus-visible:outline-signal rounded-control flex w-full items-start gap-4 text-left focus-visible:outline-1 focus-visible:outline-offset-2"
-        >
-          <div
-            className={cn(
-              "hover-grow border-rule bg-state text-signal rounded-control flex h-12 w-12 flex-shrink-0 items-center justify-center border",
-              color,
-            )}
-            style={tone ? { color: tone } : undefined}
-            aria-hidden="true"
+        <h3>
+          <button
+            type="button"
+            onClick={() => setIsExpanded(!isExpanded)}
+            aria-expanded={isExpanded}
+            // the body only exists while it is open
+            aria-controls={isExpanded ? bodyId : undefined}
+            className="focus-visible:outline-signal rounded-control flex w-full items-start gap-4 text-left focus-visible:outline-1 focus-visible:outline-offset-2"
           >
-            <Icon size={24} />
-          </div>
-          <div className="flex-grow pt-1">
-            <div className="flex items-center justify-between">
-              <h3 className="text-foreground text-lg font-semibold">{title}</h3>
-              <ChevronDown
-                size={18}
-                aria-hidden="true"
-                className={`text-muted-foreground motion-safe:transition-transform motion-safe:duration-300 ${isExpanded ? "rotate-180" : ""}`}
-              />
-            </div>
-            {subtitle && (
-              <p className="micro-label text-signal mt-1">{subtitle}</p>
-            )}
-          </div>
-        </button>
+            <span
+              className={cn(
+                "hover-grow border-rule bg-state text-signal rounded-control flex h-12 w-12 flex-shrink-0 items-center justify-center border",
+                color,
+              )}
+              style={tone ? { color: tone } : undefined}
+              aria-hidden="true"
+            >
+              <Icon size={24} />
+            </span>
+            <span className="block flex-grow pt-1">
+              <span className="flex items-center justify-between">
+                <span className="text-foreground text-lg font-semibold">
+                  {title}
+                </span>
+                <ChevronDown
+                  size={18}
+                  aria-hidden="true"
+                  className={`text-muted-foreground motion-safe:transition-transform motion-safe:duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                />
+              </span>
+              {subtitle && (
+                <span className="micro-label text-signal mt-1 block">
+                  {subtitle}
+                </span>
+              )}
+            </span>
+          </button>
+        </h3>
 
         <AnimatePresence>
           {isExpanded && (
