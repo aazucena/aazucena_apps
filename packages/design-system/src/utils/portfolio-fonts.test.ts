@@ -78,4 +78,13 @@ describe('portfolio fonts', () => {
       /h1,\s*h2,\s*h3,\s*h4,\s*h5,\s*h6\s*\{\s*font-family: var\(--font-heading\)/,
     );
   });
+
+  it('keeps the rules that consume the font variables in ui core.css and portfolio globals.css', () => {
+    const core = readFileSync(join(__dirname, '../../../ui/src/styles/core.css'), 'utf8');
+    expect(core).toMatch(/body\s*\{[^}]*font-family:\s*var\(--font-sans\)/);
+    const globals = readFileSync(join(SRC, 'styles/globals.css'), 'utf8');
+    expect(globals).toMatch(
+      /h1,\s*h2,\s*h3,\s*h4,\s*h5,\s*h6\s*\{\s*font-family: var\(--font-heading\)/,
+    );
+  });
 });
