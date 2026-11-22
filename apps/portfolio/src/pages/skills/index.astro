@@ -5,6 +5,8 @@ import { getExperiences } from "@aazucena/api";
 import { getProjects } from "@aazucena/api";
 import { getSkills } from "@aazucena/api";
 import type { SkillCategory } from "@aazucena/types";
+import { IconRenderer } from "@aazucena/ui";
+import { cmsTone } from "~/lib/utils/cms-tone";
 
 // Fetch skills, projects, experiences, and education to calculate usage
 const [skillCategories, projects, experiences, education] = await Promise.all([
@@ -13,6 +15,17 @@ const [skillCategories, projects, experiences, education] = await Promise.all([
   getExperiences(),
   fetchEducation(),
 ]);
+
+// Proficiency grading in Avra tokens: expert is the signal badge, then outline, raised and a
+// quiet outline (the glass step has no token equivalent).
+const proficiencyClass: Record<string, string> = {
+  expert: "border-signal/60 bg-signal-faint text-signal",
+  proficient: "border-rule text-foreground",
+  competent: "border-transparent bg-panel-raised text-foreground",
+  learning: "border-rule-strong text-muted-foreground",
+};
+const proficiencyTone = (value?: string) =>
+  proficiencyClass[(value ?? "").toLowerCase()] ?? proficiencyClass.learning;
 
 const pageTitle = "Technical Expertise";
 const pageDescription =
@@ -101,10 +114,12 @@ const filters = [
             <div class="border-rule h-panel-header px-panel flex items-center justify-between gap-3 border-b">
               <h2 class="text-foreground flex items-center gap-2 text-sm font-semibold">
                 <span
-                  class="h-2 w-2 flex-shrink-0"
-                  style={`background: var(--series-${(index % 4) + 1})`}
+                  class="bg-state border-rule rounded-control flex size-7 flex-shrink-0 items-center justify-center border"
+                  style={`color: ${cmsTone(category.gradient) ?? `var(--series-${(index % 4) + 1})`}`}
                   aria-hidden="true"
-                />
+                >
+                  <IconRenderer client:only="react" icon={category.icon} />
+                </span>
                 {category.label}
               </h2>
               <span class="micro-label text-muted-foreground">
@@ -132,7 +147,9 @@ const filters = [
                         <span class="text-foreground text-sm font-semibold">
                           {skill.name}
                         </span>
-                        <span class="micro-label border-rule-strong text-muted-foreground rounded-control w-fit border px-1.5 py-0.5">
+                        <span
+                          class={`micro-label rounded-badge w-fit border px-1.5 py-0.5 ${proficiencyTone(skill.proficiency)}`}
+                        >
                           {skill.proficiency}
                         </span>
                       </div>
