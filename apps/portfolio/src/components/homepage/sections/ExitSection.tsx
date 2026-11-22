@@ -61,7 +61,7 @@ function DestinationCard({
       </div>
       <ArrowRight
         size={16}
-        className="text-muted-foreground group-hover:text-foreground flex-shrink-0 transition-transform duration-(--motion-base) group-hover:translate-x-1 sm:size-[18px]"
+        className="text-muted-foreground group-hover:text-foreground group-focus-visible:text-foreground hover-nudge flex-shrink-0 [--nudge-x:4px] [--transition-also:color] sm:size-[18px]"
       />
     </a>
   );

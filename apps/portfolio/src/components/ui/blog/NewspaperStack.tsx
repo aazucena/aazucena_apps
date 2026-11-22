@@ -321,11 +321,11 @@ function PostContent({
         target={post.isExternal ? "_blank" : "_self"}
         rel={post.isExternal ? "noopener noreferrer" : undefined}
         onClick={(e) => e.stopPropagation()}
-        className="micro-label text-signal hover:text-foreground mt-4 inline-flex items-center gap-1.5 transition-colors"
+        className="micro-label text-signal hover:text-foreground focus-visible:text-foreground group mt-4 inline-flex items-center gap-1.5 transition-colors"
       >
         Read Article
         <svg
-          className="h-3 w-3 transition-transform group-hover:translate-x-1"
+          className="hover-nudge h-3 w-3 [--nudge-x:4px]"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

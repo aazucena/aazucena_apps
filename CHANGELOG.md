@@ -265,6 +265,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Grow the homepage cards 2% on hover and focus
 - _(portfolio)_ Grow the stack distribution bars to their share
 - _(portfolio)_ Restore skill usage icons, the full-width board and lane motion
 - _(portfolio)_ Ping the latest changelog node and halo the phase nodes
