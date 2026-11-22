@@ -42,22 +42,94 @@ export function exportTranscript(messages: UIMessage[]): void {
 // Isolated Marked instance — avoids the global marked.use() in MarkdownRenderer
 // which patches the singleton with page-level heading classes (text-4xl etc.).
 const chatMarked = new Marked({ gfm: true, breaks: true, silent: true });
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  colon: ":",
+  tab: "\t",
+  newline: "\n",
+  lpar: "(",
+  rpar: ")",
+};
+
+function decodeEntities(value: string): string {
+  return value.replace(
+    /&(#x[0-9a-f]+|#\d+|[a-z]+);?/gi,
+    (match, body: string) => {
+      if (body[0] === "#") {
+        const code =
+          body[1]?.toLowerCase() === "x"
+            ? parseInt(body.slice(2), 16)
+            : parseInt(body.slice(1), 10);
+        return Number.isFinite(code) && code <= 0x10ffff
+          ? String.fromCodePoint(code)
+          : "";
+      }
+      return NAMED_ENTITIES[body.toLowerCase()] ?? match;
+    },
+  );
+}
+
+function escapeAttr(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Returns the URL when it is http, https, mailto or relative, otherwise null. */
+function safeUrl(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  let value = raw;
+  // Decode entities and percent escapes (twice, for double encoding), then strip
+  // control characters and whitespace before reading the scheme.
+  for (let i = 0; i < 2; i += 1) {
+    value = decodeEntities(value);
+    try {
+      value = decodeURIComponent(value);
+    } catch {
+      // keep the value as is
+    }
+  }
+  // eslint-disable-next-line no-control-regex
+  const probe = value.replace(
+    /[\u0000-\u0020\u007f-\u009f\u200b-\u200f\u2028\u2029\ufeff]/g,
+    "",
+  );
+  const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(probe);
+  if (
+    scheme &&
+    !["http", "https", "mailto"].includes(scheme[1]!.toLowerCase())
+  ) {
+    return null;
+  }
+  return raw;
+}
+
 chatMarked.use({
-  hooks: {
-    postprocess: (html) =>
-      html
-        .replace(/<script[\s\S]*?<\/script>/gi, "")
-        .replace(/<iframe[\s\S]*?<\/iframe>/gi, "")
-        .replace(/<object[\s\S]*?<\/object>/gi, "")
-        .replace(/<embed[^>]*>/gi, "")
-        .replace(/<base[^>]*>/gi, "")
-        .replace(/\s+on\w+\s*=\s*"[^"]*"/gi, "")
-        .replace(/\s+on\w+\s*=\s*'[^']*'/gi, "")
-        .replace(/\s+on\w+\s*=\s*[^\s>]*/gi, "")
-        .replace(
-          /(href|src|action)\s*=\s*["']\s*(javascript|data):[^"']*/gi,
-          '$1="#"',
-        ),
+  renderer: {
+    // Raw HTML, block or inline, is shown as text.
+    html({ text }) {
+      return escapeAttr(text);
+    },
+    link({ href, title, tokens }) {
+      const inner = this.parser.parseInline(tokens);
+      const url = safeUrl(href);
+      if (!url) return inner;
+      const t = title ? ` title="${escapeAttr(title)}"` : "";
+      return `<a href="${escapeAttr(decodeEntities(url))}"${t}>${inner}</a>`;
+    },
+    image({ href, title, text }) {
+      const url = safeUrl(href);
+      if (!url || /^mailto:/i.test(url)) return escapeAttr(text);
+      const t = title ? ` title="${escapeAttr(title)}"` : "";
+      return `<img src="${escapeAttr(decodeEntities(url))}" alt="${escapeAttr(text)}"${t}>`;
+    },
   },
 });
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getToolOutput } from "./utils";
+import { getToolOutput, renderMarkdown } from "./utils";
 
 describe("getToolOutput", () => {
   it("returns the output of a finished tool call (AI SDK 7 output-available)", () => {
@@ -25,5 +25,63 @@ describe("getToolOutput", () => {
       output: { success: true },
     };
     expect(getToolOutput(part, "set_emotion")).toBeUndefined();
+  });
+});
+
+describe("renderMarkdown", () => {
+  it("keeps ordinary markdown", () => {
+    const html = renderMarkdown("**bold** and [site](https://example.com)");
+    expect(html).toContain("<strong>bold</strong>");
+    expect(html).toContain('href="https://example.com"');
+  });
+
+  it("escapes raw html blocks", () => {
+    const html = renderMarkdown("<div onclick=x>hi</div>");
+    expect(html).not.toContain("<div");
+    expect(html).toContain("&lt;div");
+  });
+
+  it("escapes inline raw html", () => {
+    const html = renderMarkdown("a <img/onerror=x src=y> b");
+    expect(html).not.toContain("<img");
+  });
+
+  it("keeps allowed link targets", () => {
+    for (const href of [
+      "https://a.test/x",
+      "http://a.test",
+      "mailto:a@b.test",
+      "/about",
+      "#top",
+      "page",
+    ]) {
+      expect(renderMarkdown(`[t](${href})`)).toContain(`href="${href}"`);
+    }
+  });
+
+  it("drops other link schemes, including encoded and padded ones", () => {
+    for (const href of [
+      "javascript:alert(1)",
+      "JaVaScRiPt:alert(1)",
+      "&#106;avascript:alert(1)",
+      "java&#x09;script:alert(1)",
+      "%6Aavascript:alert(1)",
+      "data:text/html,x",
+      "vbscript:x",
+    ]) {
+      const html = renderMarkdown(`[t](<${href}>)`);
+      expect(html).not.toMatch(/href="[^"]*(script|data:)/i);
+      expect(html).not.toMatch(/href="&/i);
+    }
+  });
+
+  it("drops disallowed image sources and escapes attributes", () => {
+    expect(renderMarkdown("![a](javascript:x)")).not.toMatch(
+      /src="[^"]*script/i,
+    );
+    const html = renderMarkdown(
+      '![a"onerror="x](https://a.test/i.png "t\\"x")',
+    );
+    expect(html).not.toMatch(/\sonerror=/);
   });
 });
