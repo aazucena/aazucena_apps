@@ -43,9 +43,9 @@ export function RelatedLinks({
                   href={link.url}
                   target={link.openInNewTab ? "_blank" : undefined}
                   rel={link.openInNewTab ? "noopener noreferrer" : undefined}
-                  className="group rounded-control hover:bg-state focus-visible:outline-signal flex items-start gap-3 p-2 transition-colors focus-visible:outline-1"
+                  className="group rounded-control hover:bg-background focus-visible:outline-signal flex items-start gap-3 p-2 transition-colors focus-visible:outline-1"
                 >
-                  <span className="text-signal mt-0.5">
+                  <span className="hover-grow text-signal mt-0.5">
                     {typeof Icon === "string" ? (
                       <span dangerouslySetInnerHTML={{ __html: Icon }} />
                     ) : (
@@ -53,7 +53,7 @@ export function RelatedLinks({
                     )}
                   </span>
                   <div>
-                    <div className="text-signal text-sm font-medium group-hover:underline">
+                    <div className="text-foreground group-hover:text-signal group-focus-visible:text-signal text-sm font-medium group-hover:underline motion-safe:transition-[color]">
                       {link.text}
                     </div>
                     {link.description && (

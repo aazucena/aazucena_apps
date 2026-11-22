@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Show the stack bars' share without script
 - _(portfolio)_ Animate the toolbar bars into the X
 - _(portfolio)_ Animate press and hover motion instead of snapping
 - _(assistant)_ Keep focus in the composer after the send button and suggestions

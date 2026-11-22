@@ -273,7 +273,7 @@ const breadcrumbs = [
               href={`/projects/${project.slug}`}
               class="group bg-panel border-rule rounded-card hover:border-signal focus-visible:outline-signal p-panel flex h-full flex-col gap-2 border transition-[border-color] focus-visible:outline-1"
             >
-              <h3 class="text-foreground text-base font-semibold">
+              <h3 class="text-foreground group-hover:text-signal group-focus-visible:text-signal text-base font-semibold motion-safe:transition-[color]">
                 {project.title}
               </h3>
               <p class="text-muted-foreground line-clamp-2 flex-grow text-sm">
@@ -281,7 +281,11 @@ const breadcrumbs = [
               </p>
               <div class="micro-label text-signal flex items-center gap-1.5">
                 View Study
-                <ArrowRight size={12} aria-hidden="true" />
+                <ArrowRight
+                  size={12}
+                  className="hover-nudge"
+                  aria-hidden="true"
+                />
               </div>
             </a>
           ))}
