@@ -55,6 +55,11 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
   - Footer links: the frames use a different link style from the code's.
   - Preloader: the frames draw a panel and rings; the code keeps its own wrapper and rings.
 
+- [ ] **R5 final-review leftovers (2026-11-22).** Not done in the final fix wave:
+  - `ui/EducationItem.tsx`: the `role=button` wraps the heading and the expanded prose (nested links, lost heading). Make it heading > button with the body outside.
+  - `awards/HexagonCard.tsx`: the button holds block elements. Use spans and give the tooltip text through `aria-describedby`.
+  - `contact.astro`: validation does not move focus to the first invalid field.
+  - Rename `SettingsPanel` and `GlassCard` (names and comments still say glass).
 - [ ] **R5 follow-ups (2026-11-21).** Found during the portfolio adoption, not fixed in it:
   - **Vibe contrast over the watermark.** The portfolio applies no vibe today (no `data-vibe`, no `ThemeManager` in `src`). If it ever does, 34 of 272 checks fail over the mark in other vibes (lowest 3.09:1, glass dark, signal on panel); the default vibe passes (lowest 4.86:1). Lower the mark's opacity per vibe or accept.
   - **Watermark crop on the fallback font.** The width table in `lib/utils/watermark.ts` is for Fira Sans Black; the word may crop while or if the web font fails.
