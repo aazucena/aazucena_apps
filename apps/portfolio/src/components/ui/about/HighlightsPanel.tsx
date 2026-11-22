@@ -38,7 +38,7 @@ export function HighlightsPanel({
   highlights,
 }: HighlightsPanelProps): JSX.Element {
   return (
-    <Panel label={title.toUpperCase()} className="mt-8">
+    <Panel label={title.toUpperCase()}>
       <div className="grid grid-cols-1 gap-3 text-left text-base md:grid-cols-2">
         <BlocksRenderer
           content={highlights}

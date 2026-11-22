@@ -83,19 +83,21 @@ export function InfoPanel({
       </div>
 
       <div className="space-y-4 p-4">
-        <div className="micro-label text-muted-foreground">Current Layer</div>
-        <div className="border-signal bg-signal-faint rounded-control -mt-2 border p-3">
-          <div className="flex items-baseline justify-between gap-3">
-            <div className="text-foreground text-sm font-semibold">
-              {info.title}
+        <div className="space-y-2">
+          <div className="micro-label text-muted-foreground">Current Layer</div>
+          <div className="border-signal bg-signal-faint rounded-control border p-3">
+            <div className="flex items-baseline justify-between gap-3">
+              <div className="text-foreground text-sm font-semibold">
+                {info.title}
+              </div>
+              <div className="text-signal font-mono text-[11px] tracking-wider uppercase">
+                {info.altitude.replace(" - ", " \u2013 ")}
+              </div>
             </div>
-            <div className="text-signal font-mono text-[11px] tracking-wider uppercase">
-              {info.altitude.replace(" - ", " \u2013 ")}
-            </div>
+            <p className="text-muted-foreground mt-1 text-xs leading-relaxed">
+              {info.description}
+            </p>
           </div>
-          <p className="text-muted-foreground mt-1 text-xs leading-relaxed">
-            {info.description}
-          </p>
         </div>
 
         <div>

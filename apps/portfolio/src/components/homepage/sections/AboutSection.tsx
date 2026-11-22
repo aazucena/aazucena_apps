@@ -100,7 +100,7 @@ export function AboutSection({
         </div>
 
         {/* Highlights Panel — hidden on mobile, order-2 desktop */}
-        <div className="hidden md:order-2 md:block [&>*]:mt-0">
+        <div className="hidden md:order-2 md:block">
           <HighlightsPanel highlights={about.highlights} />
         </div>
       </div>
