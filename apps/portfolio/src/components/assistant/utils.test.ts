@@ -130,6 +130,34 @@ describe("retryLast", () => {
     expect(clearError).not.toHaveBeenCalled();
   });
 
+  it("never sends a delivered contact message again", async () => {
+    const regenerate = vi.fn().mockResolvedValue(undefined);
+    const clearError = vi.fn();
+    const sent = {
+      role: "assistant",
+      parts: [
+        {
+          type: "tool-submit_contact_form",
+          state: "output-available",
+          output: { success: true },
+        },
+      ],
+    };
+    await retryLast([{ role: "user" }, sent], regenerate, clearError);
+    expect(regenerate).not.toHaveBeenCalled();
+    expect(clearError).toHaveBeenCalledOnce();
+  });
+
+  it("still retries a contact message that failed", async () => {
+    const regenerate = vi.fn().mockResolvedValue(undefined);
+    const failed = {
+      role: "assistant",
+      parts: [{ type: "tool-submit_contact_form", state: "output-error" }],
+    };
+    await retryLast([failed], regenerate, vi.fn());
+    expect(regenerate).toHaveBeenCalledOnce();
+  });
+
   it("never throws when regenerate rejects", async () => {
     const regenerate = vi.fn().mockRejectedValue(new Error("boom"));
     const clearError = vi.fn();

@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Read the newest 50 parts and count past an exact limit
 - _(assistant)_ Say a contact message was sent only when it was
 - _(portfolio)_ Show no signal for a system under maintenance
 - _(portfolio)_ Tighten the key outcome and cms tone lookups

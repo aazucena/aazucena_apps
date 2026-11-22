@@ -171,7 +171,18 @@ export async function retryLast(
   regenerate: () => Promise<unknown>,
   clearError: () => void,
 ): Promise<void> {
-  if (messages.length === 0) {
+  const last = messages.at(-1) as
+    { role?: string; parts?: unknown[] } | undefined;
+  // Regenerating drops the last assistant turn. If it sent a contact message, that would send it
+  // again, and the chat already shows "Message sent".
+  const alreadySent =
+    last?.role === "assistant" &&
+    last.parts?.some(
+      (p) =>
+        getToolOutput<{ success?: boolean }>(p, "submit_contact_form")
+          ?.success === true,
+    );
+  if (!last || alreadySent) {
     clearError();
     return;
   }
