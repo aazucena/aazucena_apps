@@ -43,10 +43,13 @@ export function ResumeButton({
     <Button
       variant="outline"
       onClick={handleClick}
-      className="sm:h-control-lg w-full sm:w-auto sm:px-6"
+      className="group sm:h-control-lg w-full sm:w-auto sm:px-6"
       aria-label="View my resume"
     >
-      <Download aria-hidden />
+      <Download
+        aria-hidden
+        className="motion-safe:group-hover:animate-pulse motion-safe:group-focus-visible:animate-pulse"
+      />
       {children ?? "View Resume"}
     </Button>
   );
