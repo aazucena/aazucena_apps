@@ -10,6 +10,7 @@ import { setStrapiConfig } from "@aazucena/api";
 import { DEFAULT_CHAT_MODEL } from "@aazucena/constants";
 import { fetchChatContext, fetchRagContext } from "~/lib/utils/chat/context";
 import { createChatTools } from "~/lib/utils/chat/tools";
+import { sanitizeMessages } from "~/lib/utils/chat/sanitize-messages";
 
 export const prerender = false;
 
@@ -37,14 +38,14 @@ export const POST: APIRoute = async ({ request }) => {
   const pathname =
     rawPathname.replace(/[^a-zA-Z0-9\-_/[\].~%]/g, "").slice(0, 200) || "/";
 
-  // Validate messages is an array and reject oversized payloads (token-stuffing)
-  const rawMessages = body.messages;
-  const safeMessages = (() => {
-    if (!Array.isArray(rawMessages)) return [];
-    const serialized = JSON.stringify(rawMessages);
-    if (serialized.length > 50_000) return [];
-    return rawMessages.slice(0, 50);
-  })();
+  // Validate the history: newest messages, user/assistant roles, text parts only
+  const sanitized = sanitizeMessages(body.messages);
+  if (!sanitized.ok) {
+    return new Response(JSON.stringify({ error: sanitized.error }), {
+      status: sanitized.status,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
   setStrapiConfig({
     url: import.meta.env.STRAPI_URL || "http://localhost:1337",
@@ -52,25 +53,19 @@ export const POST: APIRoute = async ({ request }) => {
     token: import.meta.env.STRAPI_TOKEN || "",
   });
 
-  const lastUserMsg = safeMessages.findLast((m: any) => m.role === "user");
-  const lastUserMessage: string =
-    (typeof lastUserMsg?.content === "string" && lastUserMsg.content) ||
-    lastUserMsg?.parts?.find((p: any) => p.type === "text")?.text ||
-    "";
+  const { lastUserMessage } = sanitized;
 
   const [{ systemPrompt }, ragContext] = await Promise.all([
     fetchChatContext(pathname),
     fetchRagContext(lastUserMessage),
   ]);
 
-  const last10Messages = safeMessages.slice(-10);
-
   const result = streamText({
     model: gateway(DEFAULT_CHAT_MODEL),
     instructions: ragContext
       ? `${systemPrompt}\n\n--- KNOWLEDGE BASE ---\n${ragContext}`
       : systemPrompt,
-    messages: await convertToModelMessages(last10Messages),
+    messages: await convertToModelMessages(sanitized.messages),
     maxOutputTokens: 1024,
     stopWhen: isStepCount(3),
     tools: createChatTools(pathname),
