@@ -69,13 +69,10 @@ export function TechStackDistribution({
     .sort((a, b) => b.count - a.count) // Sort by most used
     .slice(0, 4); // Take top 4 for the chart
 
-  // The bars start empty and grow to their share once the card is on screen. Under reduced
-  // motion the transition is off, so they jump to the final width.
-  const [grown, setGrown] = useState(false);
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setGrown(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
+  // The markup holds each bar's real width, so the data shows without JS. Hydration happens when
+  // the card comes on screen, and only then do the bars replay their growth from zero.
+  const [replay, setReplay] = useState(false);
+  useEffect(() => setReplay(true), []);
 
   return (
     <div className="space-y-4">
@@ -104,8 +101,8 @@ export function TechStackDistribution({
                   className="bg-state h-1.5 w-full overflow-hidden"
                 >
                   <div
-                    className={`h-full motion-safe:transition-[width] motion-safe:duration-(--motion-draw) motion-safe:ease-out ${SERIES_BG[i % SERIES_BG.length]}`}
-                    style={{ width: grown ? `${item.percentage}%` : "0%" }}
+                    className={`h-full ${replay ? "bar-grow" : ""} ${SERIES_BG[i % SERIES_BG.length]}`}
+                    style={{ width: `${item.percentage}%` }}
                   />
                 </div>
               </div>

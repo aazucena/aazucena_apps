@@ -145,6 +145,18 @@
   }
 }
 
+/* bar-grow: a bar replays its growth from zero to the width it already has. */
+@keyframes bar-grow {
+  from {
+    width: 0;
+  }
+}
+@utility bar-grow {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: bar-grow var(--motion-draw) ease-out;
+  }
+}
+
 /* spin-slow: one full turn every 8 seconds, forever (compass, wrench). Reduced motion keeps it still. */
 @utility spin-slow {
   @media (prefers-reduced-motion: no-preference) {
