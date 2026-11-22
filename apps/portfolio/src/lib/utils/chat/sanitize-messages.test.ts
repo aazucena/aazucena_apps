@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { sanitizeMessages, MAX_MESSAGE_CHARS } from "./sanitize-messages";
+import {
+  sanitizeMessages,
+  MAX_MESSAGE_CHARS,
+  MAX_REQUEST_CHARS,
+} from "./sanitize-messages";
 
 const user = (text: string) => ({
   id: "u",
@@ -100,5 +104,47 @@ describe("sanitizeMessages", () => {
     expect(result.ok).toBe(true);
     if (result.ok)
       expect(result.lastUserMessage.length).toBeLessThanOrEqual(1000);
+  });
+
+  it("counts all text parts of one message toward its limit", () => {
+    const parts = Array.from({ length: 10 }, () => ({
+      type: "text",
+      text: "x".repeat(MAX_MESSAGE_CHARS - 1),
+    }));
+    expect(sanitizeMessages([{ role: "user", parts }])).toMatchObject({
+      ok: false,
+      status: 413,
+    });
+  });
+
+  it("drops the oldest messages to fit the request cap and keeps the newest", () => {
+    const size = MAX_MESSAGE_CHARS - 1;
+    const raw = [
+      user("oldest".padEnd(size, "o")),
+      assistant("a".repeat(size)),
+      user("b".repeat(size)),
+      assistant("c".repeat(size)),
+      user("d".repeat(size)),
+      assistant("e".repeat(size)),
+      user("newest".padEnd(size, "n")),
+    ];
+    const result = sanitizeMessages(raw);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const total = result.messages.reduce(
+      (n, m) => n + m.parts.reduce((k, p) => k + p.text.length, 0),
+      0,
+    );
+    expect(total).toBeLessThanOrEqual(MAX_REQUEST_CHARS);
+    expect(result.messages.length).toBeLessThan(raw.length);
+    expect(result.lastUserMessage.startsWith("newest")).toBe(true);
+    expect(result.messages[result.messages.length - 1]!.role).toBe("user");
+  });
+
+  it("answers 413 when the newest message alone is too big for the request", () => {
+    // each message is under the per-message cap, so only the request cap can reject it
+    expect(MAX_REQUEST_CHARS).toBeGreaterThanOrEqual(MAX_MESSAGE_CHARS);
+    const result = sanitizeMessages([user("x".repeat(MAX_MESSAGE_CHARS + 1))]);
+    expect(result).toMatchObject({ ok: false, status: 413 });
   });
 });

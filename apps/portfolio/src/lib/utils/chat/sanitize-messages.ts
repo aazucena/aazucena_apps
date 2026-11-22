@@ -2,9 +2,11 @@ import { z } from "zod";
 
 /** Messages Rin sees: the newest ones only. */
 export const MAX_MESSAGES = 10;
-/** Characters of text in one message. */
+/** Characters of text in one message, summed over its text parts. */
 export const MAX_MESSAGE_CHARS = 8_000;
 /** Characters of the last question sent to knowledge-base retrieval. */
+/** Characters of text in all retained messages together. */
+export const MAX_REQUEST_CHARS = 50_000;
 export const MAX_RETRIEVAL_CHARS = 1_000;
 
 const textPart = z.object({ type: z.literal("text"), text: z.string() });
@@ -43,6 +45,7 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
       return { ok: false, status: 400, error: "Invalid message" };
     }
     const parts: CleanMessage["parts"] = [];
+    let chars = 0;
     for (const p of parsed.data.parts) {
       if (
         p.type !== "text" ||
@@ -50,7 +53,8 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
       )
         continue;
       const text = (p as { text: string }).text;
-      if (text.length > MAX_MESSAGE_CHARS) {
+      chars += text.length;
+      if (chars > MAX_MESSAGE_CHARS) {
         return { ok: false, status: 413, error: "Message too long" };
       }
       parts.push({ type: "text", text });
@@ -58,6 +62,17 @@ export function sanitizeMessages(raw: unknown): SanitizeResult {
     if (parts.length === 0) continue;
     messages.push({ id: parsed.data.id, role: parsed.data.role, parts });
   }
+  // Fit the request cap by dropping the oldest messages; the newest always stays
+  const size = (m: CleanMessage) =>
+    m.parts.reduce((n, p) => n + p.text.length, 0);
+  let total = messages.reduce((n, m) => n + size(m), 0);
+  while (total > MAX_REQUEST_CHARS && messages.length > 1) {
+    total -= size(messages.shift()!);
+  }
+  if (total > MAX_REQUEST_CHARS) {
+    return { ok: false, status: 413, error: "Request too large" };
+  }
+  while (messages.length > 1 && messages[0]!.role !== "user") messages.shift();
   const lastUser = messages.findLast((m) => m.role === "user");
   if (!lastUser) {
     return { ok: false, status: 400, error: "A user message is required" };
