@@ -79,18 +79,23 @@ export function AboutSection({
         </ResponsiveGrid>
 
         {/* Description — order-1 on both | first paragraph on mobile, full on desktop */}
-        <div className="order-1 [&_p]:text-sm md:[&_p]:text-base">
-          <div className="md:hidden">
-            <BlocksRenderer
-              content={(about.descriptions as BlocksContent).slice(0, 1)}
-              blocks={darkBlockRenderers}
-            />
+        <div className="border-rule bg-panel rounded-card order-1 border text-left [&_p]:text-sm md:[&_p]:text-base">
+          <div className="border-rule h-panel-header px-panel micro-label text-muted-foreground flex items-center border-b">
+            Bio
           </div>
-          <div className="hidden md:block">
-            <BlocksRenderer
-              content={about.descriptions as BlocksContent}
-              blocks={darkBlockRenderers}
-            />
+          <div className="p-panel">
+            <div className="md:hidden">
+              <BlocksRenderer
+                content={(about.descriptions as BlocksContent).slice(0, 1)}
+                blocks={darkBlockRenderers}
+              />
+            </div>
+            <div className="hidden md:block">
+              <BlocksRenderer
+                content={about.descriptions as BlocksContent}
+                blocks={darkBlockRenderers}
+              />
+            </div>
           </div>
         </div>
 

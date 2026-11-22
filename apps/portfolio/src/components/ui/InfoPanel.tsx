@@ -49,6 +49,9 @@ const phaseInfo: Record<
   },
 };
 
+const compactRange = (altitude: string): string =>
+  altitude.replace(/^(\S+) km - (\S+) km$/, "$1\u2013$2 km");
+
 export function InfoPanel({
   onClose,
   currentPhase,
@@ -62,10 +65,10 @@ export function InfoPanel({
       tabIndex={0}
       role="region"
       aria-label="Atmospheric layers"
-      className="focus-visible:outline-signal max-h-[calc(100vh-14rem)] overflow-y-auto p-4 focus-visible:outline-1 focus-visible:-outline-offset-2 sm:max-h-[85vh] sm:p-6"
+      className="focus-visible:outline-signal max-h-[calc(100vh-14rem)] overflow-y-auto focus-visible:outline-1 focus-visible:-outline-offset-2 sm:max-h-[85vh]"
     >
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <h3 className="text-foreground text-lg font-semibold">
+      <div className="border-rule flex items-center justify-between gap-3 border-b px-4 py-2">
+        <h3 className="text-foreground text-sm font-semibold">
           Journey Through Earth's Atmosphere
         </h3>
         <Button
@@ -75,59 +78,60 @@ export function InfoPanel({
           aria-label="Close info panel"
           data-testid="info-panel-close"
         >
-          <X className="h-5 w-5" />
+          <X className="h-4 w-4" />
         </Button>
       </div>
 
-      <div className="space-y-4">
-        {/* Current Layer */}
-        <div className="border-signal bg-signal-faint rounded-control border p-4">
-          <div className="micro-label text-signal mb-1">Current Layer</div>
-          <div className="text-foreground text-lg font-semibold">
-            {info.title}
+      <div className="space-y-4 p-4">
+        <div className="micro-label text-muted-foreground">Current Layer</div>
+        <div className="border-signal bg-signal-faint rounded-control -mt-2 border p-3">
+          <div className="flex items-baseline justify-between gap-3">
+            <div className="text-foreground text-sm font-semibold">
+              {info.title}
+            </div>
+            <div className="text-signal font-mono text-[11px] tracking-wider uppercase">
+              {info.altitude.replace(" - ", " \u2013 ")}
+            </div>
           </div>
-          <div className="text-muted-foreground mt-1 text-xs">
-            {info.altitude}
-          </div>
+          <p className="text-muted-foreground mt-1 text-xs leading-relaxed">
+            {info.description}
+          </p>
         </div>
 
-        {/* Description */}
-        <div className="text-muted-foreground text-sm leading-relaxed">
-          {info.description}
-        </div>
-
-        {/* All Layers */}
-        <div className="border-rule border-t pt-4">
-          <div className="micro-label text-muted-foreground mb-3">
+        <div>
+          <div className="micro-label text-muted-foreground mb-2">
             All Atmospheric Layers
           </div>
-          <div className="space-y-2">
+          <ul className="divide-rule divide-y">
             {Object.entries(phaseInfo).map(([phase, data]) => (
-              <div
+              <li
                 key={phase}
                 aria-current={phase === currentPhase ? "true" : undefined}
-                className={`rounded-control border p-2 transition-[border-color] ${
-                  phase === currentPhase
-                    ? "border-signal bg-signal-faint"
-                    : "border-rule bg-state"
-                }`}
+                className="flex items-center gap-2 py-2 text-sm"
               >
-                <div
-                  className={`text-sm font-medium ${
-                    phase === currentPhase ? "text-signal" : "text-foreground"
+                <span
+                  aria-hidden="true"
+                  className={`size-1.5 shrink-0 rounded-full ${
+                    phase === currentPhase ? "bg-signal" : "bg-muted-foreground"
                   }`}
+                />
+                <span
+                  className={
+                    phase === currentPhase
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  }
                 >
                   {data.title}
-                </div>
-                <div className="text-muted-foreground text-xs">
-                  {data.altitude}
-                </div>
-              </div>
+                </span>
+                <span className="text-muted-foreground ml-auto font-mono text-[11px]">
+                  {compactRange(data.altitude)}
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
-        {/* Scroll Tip */}
         <div className="border-rule bg-state rounded-control border p-3">
           <div className="text-muted-foreground text-center text-xs">
             <span className="sm:hidden">
