@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Write the code point limit in decimal
 - _(assistant)_ Never tokenise html in rin markdown
 - _(ui)_ Release the body background for a skipped preloader
 - _(portfolio)_ Clear the nav bar on content pages and use one main landmark

@@ -30,7 +30,11 @@ function IntegrityBadgeInner({
   className,
   showLabel = true,
 }: IntegrityBadgeProps) {
-  const { status, baseUrl } = useSystemStatus();
+  const { status: reported, baseUrl } = useSystemStatus();
+  // The health API can send a status the metadata doesn't list.
+  const status = Object.hasOwn(SYSTEM_STATUS_METADATA, reported)
+    ? reported
+    : "UNKNOWN";
   const { label } = SYSTEM_STATUS_METADATA[status];
   const style = STATUS_BADGE[status] ?? STATUS_BADGE.UNKNOWN!;
 
