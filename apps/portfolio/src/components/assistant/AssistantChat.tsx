@@ -213,7 +213,11 @@ export default function AssistantChat() {
                 <AssistantIntro
                   pathname={pathname}
                   isLoading={isLoading}
-                  onSendMessage={(text) => sendMessage({ text })}
+                  onSendMessage={(text) => {
+                    sendMessage({ text });
+                    // the suggestion unmounts with the intro
+                    focusComposer();
+                  }}
                   currentEmotion={currentEmotion}
                   behavior={behavior}
                   rinSrc={RIN_SRC}
@@ -253,7 +257,11 @@ export default function AssistantChat() {
             <AssistantInput
               value={input}
               onChange={setInput}
-              onSend={handleSend}
+              onSend={() => {
+                handleSend();
+                // the Send button disables itself while Rin replies
+                focusComposer();
+              }}
               onKeyDown={handleKeyDown}
               isLoading={isLoading}
               wordCount={wordCount}
