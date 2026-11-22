@@ -164,3 +164,20 @@ export function getToolOutput<T = unknown>(
     ? p.output
     : undefined;
 }
+
+/** Retry the last turn. An empty chat has nothing to resend, and a rejected resend only clears the error. */
+export async function retryLast(
+  messages: readonly unknown[],
+  regenerate: () => Promise<unknown>,
+  clearError: () => void,
+): Promise<void> {
+  if (messages.length === 0) {
+    clearError();
+    return;
+  }
+  try {
+    await regenerate();
+  } catch {
+    clearError();
+  }
+}

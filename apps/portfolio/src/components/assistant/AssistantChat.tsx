@@ -39,7 +39,7 @@ export default function AssistantChat() {
     pathname,
     messages,
     sendMessage,
-    regenerate,
+    handleRetry,
     hasError,
     isLoading,
     behavior,
@@ -236,7 +236,15 @@ export default function AssistantChat() {
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => regenerate()}
+                    onClick={() => {
+                      void handleRetry();
+                      // the Retry button unmounts with the alert, so focus goes back to the composer
+                      rootRef.current
+                        ?.querySelector<HTMLTextAreaElement>(
+                          '[data-testid="assistant-input"]',
+                        )
+                        ?.focus();
+                    }}
                   >
                     Retry
                   </Button>

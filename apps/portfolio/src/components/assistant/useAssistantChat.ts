@@ -12,7 +12,7 @@ import {
   countWords,
 } from "./constants";
 import { MAX_MESSAGE_CHARS } from "~/lib/utils/chat/limits";
-import { getToolOutput, loadPersistedMessages } from "./utils";
+import { getToolOutput, loadPersistedMessages, retryLast } from "./utils";
 import type { RinEmotion } from "~/lib/utils/chat/tools/set-emotion";
 import type { RinBehavior } from "@aazucena/constants";
 
@@ -46,13 +46,14 @@ export function useAssistantChat() {
       ? "/api/brain"
       : "/api/chat";
 
-  const { messages, sendMessage, status, setMessages, regenerate } = useChat({
-    transport: new DefaultChatTransport({
-      api: chatApi,
-      body: { pathname },
-    }),
-    messages: loadPersistedMessages(),
-  });
+  const { messages, sendMessage, status, setMessages, regenerate, clearError } =
+    useChat({
+      transport: new DefaultChatTransport({
+        api: chatApi,
+        body: { pathname },
+      }),
+      messages: loadPersistedMessages(),
+    });
 
   const isLoading = status === "streaming" || status === "submitted";
 
@@ -157,8 +158,13 @@ export function useAssistantChat() {
     };
   }, []);
 
+  function handleRetry() {
+    return retryLast(messages, regenerate, clearError);
+  }
+
   function handleClear() {
     setMessages([]);
+    clearError();
     setClearDialogOpen(false);
     try {
       localStorage.removeItem(STORAGE_KEY);
@@ -218,7 +224,7 @@ export function useAssistantChat() {
     pathname,
     messages,
     sendMessage,
-    regenerate,
+    handleRetry,
     hasError: status === "error",
     isLoading,
     behavior,

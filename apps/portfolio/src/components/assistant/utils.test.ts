@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { getToolOutput, renderMarkdown } from "./utils";
+import { vi } from "vitest";
+import { getToolOutput, renderMarkdown, retryLast } from "./utils";
 
 describe("getToolOutput", () => {
   it("returns the output of a finished tool call (AI SDK 7 output-available)", () => {
@@ -107,5 +108,34 @@ describe("renderMarkdown", () => {
     expect(renderMarkdown("[t](https://a.test/?a=1&b=2)")).toContain(
       'href="https://a.test/?a=1&amp;b=2"',
     );
+  });
+});
+
+describe("retryLast", () => {
+  it("clears the error and does not regenerate an empty chat", async () => {
+    const regenerate = vi.fn().mockRejectedValue(new Error("no messages"));
+    const clearError = vi.fn();
+    await expect(
+      retryLast([], regenerate, clearError),
+    ).resolves.toBeUndefined();
+    expect(regenerate).not.toHaveBeenCalled();
+    expect(clearError).toHaveBeenCalledOnce();
+  });
+
+  it("regenerates when there is a history", async () => {
+    const regenerate = vi.fn().mockResolvedValue(undefined);
+    const clearError = vi.fn();
+    await retryLast([{ id: "1" }], regenerate, clearError);
+    expect(regenerate).toHaveBeenCalledOnce();
+    expect(clearError).not.toHaveBeenCalled();
+  });
+
+  it("never throws when regenerate rejects", async () => {
+    const regenerate = vi.fn().mockRejectedValue(new Error("boom"));
+    const clearError = vi.fn();
+    await expect(
+      retryLast([{ id: "1" }], regenerate, clearError),
+    ).resolves.toBeUndefined();
+    expect(clearError).toHaveBeenCalledOnce();
   });
 });
