@@ -5,15 +5,13 @@
  *
  * Structure:
  * 1. Gradient accent bar
- * 2. Hero header with breadcrumbs + watermark
+ * 2. Hero header with breadcrumbs
  * 3. Table of contents (optional)
  * 4. Main content area with optional sidebar
  * 5. Detail navigation (prev/next)
  */
 import { ReadingProgress, TableOfContents } from "@aazucena/ui";
 import Breadcrumbs from "~/components/common/Breadcrumbs.astro";
-import GradientAccent from "~/components/common/GradientAccent.astro";
-import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import DetailNavigation from "~/components/common/DetailNavigation.astro";
 import PageLayout from "~/layouts/PageLayout.astro";
 import type { BreadcrumbItem } from "~/components/common/Breadcrumbs.astro";
@@ -83,10 +81,8 @@ const maxWidthClass = containerClasses[maxWidth];
   {showReadingProgress && <ReadingProgress client:load />}
 
   <main class="bg-background min-h-screen">
-    <GradientAccent variant="print-hidden" />
-
     <!-- Hero Header -->
-    <header class="border-rule bg-panel relative overflow-hidden border-b py-10 md:py-14">
+    <header class="relative py-10 md:py-14">
       <div
         class={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 relative z-10`}
       >
@@ -95,8 +91,6 @@ const maxWidthClass = containerClasses[maxWidth];
         <!-- Header Content - Fully customizable via slot -->
         <slot name="header" />
       </div>
-
-      <WatermarkBackground text={watermarkText} size={watermarkSize} />
     </header>
 
     {showTableOfContents && (

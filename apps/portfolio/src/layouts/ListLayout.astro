@@ -1,7 +1,5 @@
 ---
 import PageLayout from "./PageLayout.astro";
-import GradientAccent from "~/components/common/GradientAccent.astro";
-import WatermarkBackground from "~/components/common/WatermarkBackground.astro";
 import { pluralize } from "@aazucena/utils";
 
 export interface FilterConfig {
@@ -68,10 +66,8 @@ const searchColSpan =
 
 <PageLayout title={title} description={description}>
   <div class="bg-background min-h-screen">
-    <GradientAccent />
-
     <!-- Header -->
-    <div class="border-rule bg-panel relative overflow-hidden border-b">
+    <div class="relative">
       <div
         class={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 relative z-10`}
       >
@@ -83,8 +79,6 @@ const searchColSpan =
           {description}
         </p>
       </div>
-
-      {watermark && <WatermarkBackground text={watermark} size="small" />}
     </div>
 
     {hasItems ? (

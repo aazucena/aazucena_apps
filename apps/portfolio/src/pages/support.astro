@@ -66,7 +66,7 @@ const jsonLd = {
 
   <!-- Ko-fi Embed -->
   <Fragment slot="content">
-    <div class="space-y-6">
+    <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-16">
       <article
         id="dynamic-content"
         class="prose prose-lg dark:prose-invert prose-p:leading-relaxed max-w-none"
@@ -74,20 +74,22 @@ const jsonLd = {
         <MarkdownRenderer content={content} />
       </article>
       {kofiEmbedUrl && (
-        <PanelBox label="KO-FI // TIP JAR" meta="EMBED">
-          <iframe
-            id="kofiframe"
-            src={kofiEmbedUrl}
-            style="border:none;width:100%;padding:4px;box-shadow:none;"
-            height="712"
-            title="aazucena"
-            loading="lazy"
-            allow="payment; autoplay; fullscreen"
-          />
-          <p class="micro-label text-muted-foreground text-center">
-            THIRD-PARTY IFRAME // KO-FI CONTROLS ITS STYLING
-          </p>
-        </PanelBox>
+        <div class="w-full max-w-md lg:justify-self-end">
+          <PanelBox label="KO-FI // TIP JAR" meta="EMBED">
+            <iframe
+              id="kofiframe"
+              src={kofiEmbedUrl}
+              style="border:none;width:100%;padding:4px;box-shadow:none;"
+              height="712"
+              title="aazucena"
+              loading="lazy"
+              allow="payment; autoplay; fullscreen"
+            />
+            <p class="micro-label text-muted-foreground text-center">
+              THIRD-PARTY IFRAME // KO-FI CONTROLS ITS STYLING
+            </p>
+          </PanelBox>
+        </div>
       )}
     </div>
   </Fragment>
