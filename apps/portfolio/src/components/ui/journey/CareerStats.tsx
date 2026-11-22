@@ -4,6 +4,7 @@
  */
 
 import { Panel, PanelHeader } from "@aazucena/ui";
+import { usePrefersReducedMotion } from "@aazucena/hooks";
 import CountUp from "./countUp";
 import type { CareerStat as CareerStatsType } from "@aazucena/types";
 
@@ -13,6 +14,7 @@ interface CareerStatsProps {
 }
 
 export function CareerStats({ stats }: CareerStatsProps) {
+  const reduceMotion = usePrefersReducedMotion();
   const statsData = [
     {
       value: stats.totalYears,
@@ -55,7 +57,7 @@ export function CareerStats({ stats }: CareerStatsProps) {
               <CountUp
                 end={stat.value}
                 decimals={stat.decimals}
-                duration={2}
+                duration={reduceMotion ? 0 : 2}
                 suffix={stat.suffix}
               />
             </dd>

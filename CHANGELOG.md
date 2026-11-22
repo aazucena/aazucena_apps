@@ -32,6 +32,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Give the home popover panels a dialog role and a name
 - _(assistant)_ Validate the chat history and keep the newest messages
 - _(portfolio)_ Give section, page and post dots 24px targets
 - _(portfolio)_ Use a gentler tracking on the journey phase titles

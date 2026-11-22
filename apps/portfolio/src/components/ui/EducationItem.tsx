@@ -4,7 +4,7 @@
  */
 
 import { Calendar, ChevronDown, ClockCircle as Clock } from "@aazucena/icons";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useState } from "react";
 import { MarkdownRenderer } from "@aazucena/ui";
 import { calculateDuration } from "@aazucena/utils";
@@ -113,29 +113,31 @@ export function EducationItem({ edu }: EducationItemProps) {
           </div>
         </div>
 
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              <div className="border-rule mt-4 border-t py-4">
-                {edu.description ? (
-                  <div className="prose prose-sm dark:prose-invert text-muted-foreground max-w-none leading-relaxed">
-                    <MarkdownRenderer content={edu.description} />
-                  </div>
-                ) : (
-                  <p className="text-muted-foreground text-sm italic">
-                    No additional details provided.
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <MotionConfig reducedMotion="user">
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="border-rule mt-4 border-t py-4">
+                  {edu.description ? (
+                    <div className="prose prose-sm dark:prose-invert text-muted-foreground max-w-none leading-relaxed">
+                      <MarkdownRenderer content={edu.description} />
+                    </div>
+                  ) : (
+                    <p className="text-muted-foreground text-sm italic">
+                      No additional details provided.
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </MotionConfig>
       </div>
     </div>
   );

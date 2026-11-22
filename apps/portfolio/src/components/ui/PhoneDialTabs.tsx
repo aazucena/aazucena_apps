@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Panel, PanelBody, PanelHeader } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
+import { usePrefersReducedMotion } from "@aazucena/hooks";
 
 export interface PhoneDialTab {
   id: string;
@@ -40,6 +41,8 @@ export function PhoneDialTabs({
   const lastAngleRef = useRef(0);
   const rotationTweenRef = useRef<gsap.core.Tween | null>(null);
   const lastHapticStepRef = useRef(0);
+  // GSAP ignores the reduced-motion media query, so the dial jumps instead of turning
+  const reduceMotion = usePrefersReducedMotion();
 
   const radius = 200;
   const totalTabs = tabs.length;
@@ -124,7 +127,7 @@ export function PhoneDialTabs({
       rotationTweenRef.current.kill();
     }
 
-    if (immediate) {
+    if (immediate || reduceMotion) {
       setRotation(targetRotation);
       setCurrentStepIndex(clampedIndex);
       setActiveTab(tabs[clampedIndex]!.name);
@@ -277,10 +280,15 @@ export function PhoneDialTabs({
       gsap.fromTo(
         contentRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+        {
+          opacity: 1,
+          y: 0,
+          duration: reduceMotion ? 0 : 0.5,
+          ease: "power2.out",
+        },
       );
     }
-  }, [activeTab]);
+  }, [activeTab, reduceMotion]);
 
   const handleTabClick = (_tabId: string, index: number) => {
     if (isDragging) return;

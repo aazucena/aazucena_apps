@@ -14,7 +14,7 @@ import {
   RESUME_BUTTON_SCALE,
 } from "~/config/animations";
 import { useHomepageData, usePortfolioData, useSectionData } from "~/contexts";
-import { useGSAPEntrance } from "@aazucena/hooks";
+import { useGSAPEntrance, usePrefersReducedMotion } from "@aazucena/hooks";
 import { FlipWords } from "@aazucena/ui";
 import { NavigationButton, ResumeButton } from "~/components/ui";
 import type { NavigationDropdownOption } from "~/components/ui/hero/NavigationButton";
@@ -52,7 +52,10 @@ export function HeroSection({
     { label: "Contact", href: "/contact" },
   ] as const;
 
+  const reduceMotion = usePrefersReducedMotion();
+
   const onNavigate = () => {
+    if (reduceMotion) return;
     if (ctaRef.current) {
       gsap.to(ctaRef.current.children, {
         scale: CTA_CLICK_SCALE,
@@ -64,6 +67,7 @@ export function HeroSection({
   };
 
   const onViewResumeClick = () => {
+    if (reduceMotion) return;
     const resumeButton = ctaRef.current?.children[1];
     if (resumeButton) {
       const tl = gsap.timeline();

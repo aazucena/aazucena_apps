@@ -4,6 +4,7 @@
  */
 
 import { Panel } from "@aazucena/ui";
+import { usePrefersReducedMotion } from "@aazucena/hooks";
 import CountUp from "./countUp";
 import type { GrowthData } from "@aazucena/types";
 
@@ -12,6 +13,7 @@ interface GrowthMetricsProps {
 }
 
 export function GrowthMetrics({ metrics }: GrowthMetricsProps) {
+  const reduceMotion = usePrefersReducedMotion();
   const cards = [
     {
       label: "PRIMARY DOMAIN",
@@ -48,7 +50,7 @@ export function GrowthMetrics({ metrics }: GrowthMetricsProps) {
               <CountUp
                 end={card.value}
                 decimals={0}
-                duration={2}
+                duration={reduceMotion ? 0 : 2}
                 suffix={card.suffix}
               />
             ) : (

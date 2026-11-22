@@ -6,6 +6,7 @@
 
 import { useState, useRef, useEffect, type JSX } from "react";
 import { gsap } from "gsap";
+import { usePrefersReducedMotion } from "@aazucena/hooks";
 import type { BlogPost } from "@aazucena/types";
 import type { BlogConfigData } from "@aazucena/types";
 import {
@@ -70,6 +71,8 @@ export function NewspaperStack({
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const [frontIndex, setFrontIndex] = useState(0);
+  // GSAP ignores the reduced-motion media query: a zero duration jumps to the end state
+  const motionScale = usePrefersReducedMotion() ? 0 : 1;
   const isCycling = useRef(false);
 
   // Cap the stack at 3 posts
@@ -90,7 +93,7 @@ export function NewspaperStack({
           rotation: FANNED[i]?.rotate ?? 0,
           x: FANNED[i]?.x ?? 0,
           y: FANNED[i]?.y ?? 0,
-          duration: 0.5,
+          duration: 0.5 * motionScale,
           ease: "power2.out",
         });
       });
@@ -103,7 +106,7 @@ export function NewspaperStack({
           rotation: REST[i]?.rotate ?? 0,
           x: 0,
           y: 0,
-          duration: 0.6,
+          duration: 0.6 * motionScale,
           ease: "power2.inOut",
         });
       });
@@ -115,7 +118,7 @@ export function NewspaperStack({
       container.removeEventListener("mouseenter", onEnter);
       container.removeEventListener("mouseleave", onLeave);
     };
-  }, []);
+  }, [motionScale]);
 
   // Animate the new front card in every time frontIndex changes
   useEffect(() => {
@@ -124,9 +127,15 @@ export function NewspaperStack({
     gsap.fromTo(
       front,
       { y: -16, opacity: 0, scale: 0.97 },
-      { y: 0, opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.35 * motionScale,
+        ease: "power2.out",
+      },
     );
-  }, [frontIndex]);
+  }, [frontIndex, motionScale]);
 
   const cycle = () => {
     if (!canCycle || isCycling.current) return;
@@ -143,7 +152,7 @@ export function NewspaperStack({
       y: 24,
       opacity: 0,
       scale: 0.95,
-      duration: 0.22,
+      duration: 0.22 * motionScale,
       ease: "power2.in",
       onComplete: () => {
         setFrontIndex((prev) => (prev + 1) % count);
@@ -215,7 +224,7 @@ export function NewspaperStack({
                   y: 24,
                   opacity: 0,
                   scale: 0.95,
-                  duration: 0.22,
+                  duration: 0.22 * motionScale,
                   ease: "power2.in",
                   onComplete: () => {
                     setFrontIndex(i);
