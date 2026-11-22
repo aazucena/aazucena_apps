@@ -196,9 +196,34 @@ export function NavigationToolbar({
             aria-label={isExpanded ? "Collapse toolbar" : "Expand toolbar"}
             aria-expanded={isExpanded}
           >
-            {icon(
-              isExpanded ? "M6 6l12 12M18 6L6 18" : "M4 7h16M4 12h16M4 17h16",
-            )}
+            {/* Three bars that turn into an X: the outer two meet and cross, the middle one leaves */}
+            <svg
+              className="size-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.75}
+              strokeLinecap="round"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              {[
+                { y: 7, shut: "translate-y-[5px] rotate-45" },
+                { y: 12, shut: "scale-x-0 opacity-0" },
+                { y: 17, shut: "-translate-y-[5px] -rotate-45" },
+              ].map(({ y, shut }) => (
+                <line
+                  key={y}
+                  x1="4"
+                  y1={y}
+                  x2="20"
+                  y2={y}
+                  className={cn(
+                    "origin-center [transform-box:fill-box] motion-safe:transition-[transform,opacity] motion-safe:duration-(--motion-base)",
+                    isExpanded && shut,
+                  )}
+                />
+              ))}
+            </svg>
           </Button>
         </div>
         {hint("Ambient sound — tap ☰ to enable")}
