@@ -155,15 +155,17 @@ Done 2026-11-20 (R4, `docs/superpowers/plans/2026-11-20-r4-analytics-adoption.md
 
 ## Phase 5: Portfolio
 
-- [ ] **Token layer:**
+- [x] **Token layer:**
   - `apps/portfolio/src/styles/globals.css` imports `@aazucena/design-system/css-vars.css` + `@aazucena/ui/globals.css`.
   - Its own `--primary-*`/`--secondary-*`/`--chart-1..5` palette becomes aliases of Avra roles, then is removed once there are no consumers.
   - Move the `site.ts` theme hex values (`#60a5fa`, `#a78bfa`, `#22d3ee`) to tokens. Fonts already match (Fira).
-- [ ] **Shared chrome first** (highest fan-out): `layouts/` (Base, Page, Detail, List, Home), `templates/`, `Footer.astro`, `components/common/`, `ui/common/` (GlassCard → ui `Card`/`Panel` treatment; the local drawer `Panel.tsx` is renamed `SlidePanel` to avoid confusion with the ui Panel).
-- [ ] **Pages:** `src/pages/` (about 420 gray and 143 white/black utilities), then `ui/journey` (144 gray), `ui/blog`, and the homepage sections + overlays, following the Phase 2 frames.
-- [ ] **Animation colors:** move `config/animations.ts` `PARTICLE_PRESETS` (16 `0x` hex values) and the inline colors in `NewspaperStack`/`PhoneDialTabs` to values from the signal and series roles. Read them at runtime via `getComputedStyle` once at scene init, since Three.js needs numbers rather than `var()`.
-- [ ] **Guard:** a stock-hue grep over `apps/portfolio/src` (blue 362, purple, red, …) reaches 0 outside documented exceptions.
+- [x] **Shared chrome first** (highest fan-out): `layouts/` (Base, Page, Detail, List, Home), `templates/`, `Footer.astro`, `components/common/`, `ui/common/` (GlassCard → ui `Card`/`Panel` treatment; the local drawer `Panel.tsx` is renamed `SlidePanel` to avoid confusion with the ui Panel).
+- [x] **Pages:** `src/pages/` (about 420 gray and 143 white/black utilities), then `ui/journey` (144 gray), `ui/blog`, and the homepage sections + overlays, following the Phase 2 frames.
+- [x] **Animation colors:** move `config/animations.ts` `PARTICLE_PRESETS` (16 `0x` hex values) and the inline colors in `NewspaperStack`/`PhoneDialTabs` to values from the signal and series roles. Read them at runtime via `getComputedStyle` once at scene init, since Three.js needs numbers rather than `var()`.
+- [x] **Guard:** a stock-hue grep over `apps/portfolio/src` (blue 362, purple, red, …) reaches 0 outside documented exceptions.
 - [ ] **Gate:** `pnpm --filter portfolio type-check` (builds OOM locally; Vercel preview is the build check), and dev-server screenshots of `/`, `/journey`, `/blog`, `/about` with the repo Playwright, light and dark.
+
+Status 2026-11-21 (plan: `docs/superpowers/plans/2026-11-21-r5-portfolio-adoption.md`): R5 is built, final review pending. Guard: `portfolio-token-usage.test.ts` covers every portfolio source file, with two scene exemptions. Gate: type-check and lint pass and dev-server screenshots exist, but frame comparisons from Task 3 to `432e64ae` used fallback font metrics (see `docs/features/portfolio-visual-identity.md`). No production build was run (Astro builds OOM locally, branch previews are off), so the Gate stays open until a Vercel build and the whole-branch review.
 
 ## Verification
 
