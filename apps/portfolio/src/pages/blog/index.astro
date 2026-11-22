@@ -1,6 +1,13 @@
 ---
 import { cmsTone } from "~/lib/utils/cms-tone";
-import { ArrowRight, ExternalLink } from "@aazucena/icons";
+import {
+  ArrowRight,
+  BookOpen,
+  ClockCircle as Clock,
+  ExternalLink,
+  FileText,
+  Star,
+} from "@aazucena/icons";
 import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig, SortConfig } from "~/layouts/ListLayout.astro";
 import { getPosts } from "@aazucena/api";
@@ -55,29 +62,37 @@ const sortOptions: SortConfig[] = [
 >
   {posts.map((post) => (
     <article
-      class="item-card group bg-panel border-rule rounded-card hover:border-signal focus-within:border-signal relative flex flex-col overflow-hidden border transition-[border-color]"
+      class="item-card group linked-card hover-lift bg-panel border-rule rounded-card hover:border-signal focus-within:border-signal relative flex flex-col overflow-hidden border [--transition-also:border-color]"
       data-filter-tag={post.tags.map((t: any) => t.label).join(",")}
       data-sort-title={post.title.toLowerCase()}
       data-sort-date={getPostDateTime(post)}
       data-search={`${post.title} ${getPostExcerpt(post.description, 500)} ${post.tags.map((t) => t.label).join(" ")}`.toLowerCase()}
     >
-      {post.coverImage?.url && (
-        <div class="border-rule h-48 overflow-hidden border-b">
+      <div class="border-rule h-48 overflow-hidden border-b">
+        {post.coverImage?.url ? (
           <img
             src={post.coverImage.url}
             alt={post.coverImage.alt ?? post.title}
-            class="h-full w-full object-cover"
+            class="hover-grow h-full w-full object-cover"
             loading="lazy"
           />
-        </div>
-      )}
+        ) : (
+          <div class="bg-state flex h-full w-full items-center justify-center">
+            <FileText
+              size={48}
+              className="text-muted-foreground"
+              aria-hidden="true"
+            />
+          </div>
+        )}
+      </div>
 
       <div class="p-panel flex flex-1 flex-col gap-3">
         {(post.featured || post.isExternal || post.tags.length > 0) && (
           <div class="flex flex-wrap gap-1.5">
             {post.featured && (
-              <span class="rounded-badge border-signal/60 micro-label text-signal border px-2 py-0.5">
-                ● Featured
+              <span class="rounded-badge border-signal/60 micro-label text-signal flex items-center gap-1 border px-2 py-0.5">
+                <Star size={10} aria-hidden="true" /> Featured
               </span>
             )}
             {post.isExternal && (
@@ -105,18 +120,25 @@ const sortOptions: SortConfig[] = [
             href={post.url}
             target={post.isExternal ? "_blank" : undefined}
             rel={post.isExternal ? "noopener noreferrer" : undefined}
-            class="after:absolute after:inset-0 focus-visible:outline-none"
+            class="group-hover:text-signal group-has-[:focus-visible]:text-signal motion-safe:transition-[color] after:absolute after:inset-0 focus-visible:outline-none"
           >
             {toTitleCase(post.title)}
           </a>
         </h2>
 
         <div class="micro-label text-muted-foreground flex items-center gap-3">
-          <time datetime={getPostDateTime(post)}>
+          <time
+            datetime={getPostDateTime(post)}
+            class="flex items-center gap-1.5"
+          >
+            <Clock size={12} aria-hidden="true" />
             {formatPostDate(post as { publishedAt: string })}
           </time>
           <span aria-hidden="true">//</span>
-          <span>{calculateReadTime(post.description)}</span>
+          <span class="flex items-center gap-1.5">
+            <BookOpen size={12} aria-hidden="true" />
+            {calculateReadTime(post.description)}
+          </span>
         </div>
 
         <p class="text-muted-foreground line-clamp-3 text-sm leading-relaxed">
@@ -125,7 +147,7 @@ const sortOptions: SortConfig[] = [
 
         <span class="micro-label text-signal mt-auto flex items-center gap-1.5 pt-1">
           Read
-          <ArrowRight size={12} aria-hidden="true" />
+          <ArrowRight size={12} className="hover-nudge" aria-hidden="true" />
         </span>
       </div>
     </article>

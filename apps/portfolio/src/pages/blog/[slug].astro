@@ -1,6 +1,11 @@
 ---
 import { cmsTone } from "~/lib/utils/cms-tone";
-import { BrandLinkedin, Twitter } from "@aazucena/icons";
+import {
+  BookOpen,
+  BrandLinkedin,
+  ClockCircle as Clock,
+  Twitter,
+} from "@aazucena/icons";
 import { MarkdownRenderer } from "@aazucena/ui";
 import { RelatedLinks } from "~/components/ui/RelatedLinks";
 import DetailLayout from "~/layouts/DetailLayout.astro";
@@ -99,11 +104,15 @@ const jsonLd = {
     <h1 class="text-foreground text-3xl leading-[1.1] font-bold tracking-[-0.02em] md:text-[52px] md:leading-[1.08]">{post.title}<span class="text-signal">.</span></h1>
 
     <div class="micro-label text-muted-foreground flex flex-wrap items-center gap-3">
-      <time datetime={getPostDateTime(post)}>
+      <time datetime={getPostDateTime(post)} class="flex items-center gap-1.5">
+        <Clock size={12} aria-hidden="true" />
         {formatPostDate(post as { publishedAt: string })}
       </time>
       <span aria-hidden="true">//</span>
-      <span>{calculateReadTime(post.description)}</span>
+      <span class="flex items-center gap-1.5">
+        <BookOpen size={12} aria-hidden="true" />
+        {calculateReadTime(post.description)}
+      </span>
     </div>
   </div>
 

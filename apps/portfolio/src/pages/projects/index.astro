@@ -12,7 +12,7 @@ import { toTitleCase } from "@aazucena/utils";
 import { getCompanyInitials } from "@aazucena/utils";
 import { getProjectStatusVariant, formatProjectDate } from "@aazucena/utils";
 import StatusBadge from "~/components/ui/StatusBadge.astro";
-import { ArrowRight } from "@aazucena/icons";
+import { ArrowRight, Calendar, Star } from "@aazucena/icons";
 
 // Fetch all publicly listed projects
 let projects: Project[] = [];
@@ -48,7 +48,7 @@ const filters: FilterConfig[] = [
 >
   {projects.map((project) => (
     <article
-      class="item-card group bg-panel border-rule rounded-card hover:border-signal focus-within:border-signal relative flex flex-col overflow-hidden border transition-[border-color]"
+      class="item-card group linked-card hover-lift bg-panel border-rule rounded-card hover:border-signal focus-within:border-signal relative flex flex-col overflow-hidden border [--transition-also:border-color]"
       data-filter-type={project.projectType || ""}
       data-filter-status={project.projectStatus || ""}
       data-search={`${project.title} ${project.shortDescription} ${project.tags.map((t) => t.label).join(" ")} ${project.techStack.map((s) => (typeof s === "string" ? s : s.name)).join(" ")}`.toLowerCase()}
@@ -59,7 +59,7 @@ const filters: FilterConfig[] = [
           <img
             src={project.coverImage.url}
             alt={project.coverImage.alt || project.title}
-            class="h-full w-full object-cover"
+            class="hover-grow h-full w-full object-cover"
             loading="lazy"
           />
         ) : (
@@ -82,11 +82,12 @@ const filters: FilterConfig[] = [
             </span>
           )}
           {project.display === "featured" && (
-            <span class="rounded-badge border-signal/60 micro-label text-signal border px-2 py-0.5">
-              ● Featured
+            <span class="rounded-badge border-signal/60 micro-label text-signal flex items-center gap-1 border px-2 py-0.5">
+              <Star size={10} aria-hidden="true" /> Featured
             </span>
           )}
-          <span class="micro-label text-muted-foreground">
+          <span class="micro-label text-muted-foreground flex items-center gap-1.5">
+            <Calendar size={12} aria-hidden="true" />
             {formatProjectDate(project.startDate)}{" "}
             {project.endDate
               ? `— ${formatProjectDate(project.endDate)}`
@@ -97,7 +98,7 @@ const filters: FilterConfig[] = [
         <h3 class="text-foreground text-base font-semibold tracking-tight">
           <a
             href={`/projects/${project.slug}`}
-            class="after:absolute after:inset-0 focus-visible:outline-none"
+            class="group-hover:text-signal group-has-[:focus-visible]:text-signal motion-safe:transition-[color] after:absolute after:inset-0 focus-visible:outline-none"
           >
             {toTitleCase(project.title)}
           </a>
@@ -147,7 +148,11 @@ const filters: FilterConfig[] = [
 
             <span class="micro-label text-signal flex items-center gap-1.5">
               Case Study
-              <ArrowRight size={12} aria-hidden="true" />
+              <ArrowRight
+                size={12}
+                className="hover-nudge"
+                aria-hidden="true"
+              />
             </span>
           </div>
         </div>

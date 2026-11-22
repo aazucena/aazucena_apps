@@ -1,7 +1,13 @@
 ---
 import { IconRenderer } from "@aazucena/ui";
 import type { IconComponent } from "@aazucena/types";
-import { ArrowRight } from "@aazucena/icons";
+import {
+  ArrowRight,
+  Briefcase,
+  Calendar,
+  Globe,
+  Location,
+} from "@aazucena/icons";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { defaultBlockRenderers } from "~/components/blocks/BlockRenderers";
 import { MarkdownRenderer } from "@aazucena/ui";
@@ -164,13 +170,21 @@ const breadcrumbs = [
             experience.endDate,
             !experience.endDate,
           ),
+          icon: Calendar,
         },
-        { label: "Location", value: experience.location },
-        { label: "Engagement", value: experience.employmentType },
-        { label: "Environment", value: experience.workMode },
+        { label: "Location", value: experience.location, icon: Location },
+        {
+          label: "Engagement",
+          value: experience.employmentType,
+          icon: Briefcase,
+        },
+        { label: "Environment", value: experience.workMode, icon: Globe },
       ].map((stat) => (
         <div class="border-rule p-panel flex flex-col gap-1 border-r last:border-r-0 max-md:nth-[2n]:border-r-0">
-          <dt class="micro-label text-muted-foreground">{stat.label}</dt>
+          <dt class="micro-label text-muted-foreground flex items-center gap-1.5">
+            <stat.icon size={12} aria-hidden="true" />
+            {stat.label}
+          </dt>
           <dd
             class:list={[
               "font-mono text-sm",

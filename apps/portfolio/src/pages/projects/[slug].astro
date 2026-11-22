@@ -138,11 +138,11 @@ const seoDescription = project.seo?.description || project.shortDescription;
   <Fragment slot="content">
     <!-- Hero Image -->
     {project.coverImage?.url && (
-      <div class="border-rule rounded-card overflow-hidden border">
+      <div class="group border-rule rounded-card overflow-hidden border">
         <img
           src={project.coverImage.url}
           alt={project.coverImage.alt || project.title}
-          class="h-auto w-full"
+          class="hover-grow h-auto w-full [--grow:1.02]"
         />
       </div>
     )}

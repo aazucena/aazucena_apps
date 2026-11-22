@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, Zap } from "@aazucena/icons";
+import { ArrowRight, Briefcase, Location, Zap } from "@aazucena/icons";
 import ListLayout from "~/layouts/ListLayout.astro";
 import type { FilterConfig } from "~/layouts/ListLayout.astro";
 import { getExperiences } from "@aazucena/api";
@@ -43,7 +43,7 @@ const filters: FilterConfig[] = [
     const topMetric = getTopMetric(experience);
     return (
       <div
-        class="item-card group relative pl-12"
+        class="item-card group linked-card relative pl-12"
         data-filter-company={experience.company}
         data-filter-type={experience.employmentType || ""}
         data-search={`${experience.company} ${experience.position} ${experience.skills.map((s) => s.name).join(" ")} ${experience.location || ""}`.toLowerCase()}
@@ -51,7 +51,7 @@ const filters: FilterConfig[] = [
         {/* Timeline Node */}
         <div
           class:list={[
-            "absolute top-8 left-1 z-10 size-[11px] rounded-full border-2",
+            "hover-grow absolute top-8 left-1 z-10 size-[11px] rounded-full border-2 [--grow:1.25] [--transition-also:border-color]",
             isCurrent
               ? "border-signal bg-signal"
               : "border-rule-strong bg-background group-hover:border-signal",
@@ -64,7 +64,7 @@ const filters: FilterConfig[] = [
             {/* Company mark: CMS logos keep their own colours */}
             <div
               class:list={[
-                "rounded-control border-rule flex size-10 shrink-0 items-center justify-center overflow-hidden border font-mono text-xs",
+                "hover-grow rounded-control border-rule flex size-10 shrink-0 items-center justify-center overflow-hidden border font-mono text-xs",
                 experience.companyLogo?.url
                   ? "bg-(--logo-plate)"
                   : "bg-state text-signal",
@@ -87,12 +87,13 @@ const filters: FilterConfig[] = [
               <h3 class="text-foreground text-base font-semibold tracking-tight">
                 <a
                   href={`/experiences/${experience.slug}`}
-                  class="after:absolute after:inset-0 focus-visible:outline-none"
+                  class="group-hover:text-signal group-has-[:focus-visible]:text-signal motion-safe:transition-[color] after:absolute after:inset-0 focus-visible:outline-none"
                 >
                   {toTitleCase(experience.position)}
                 </a>
               </h3>
-              <div class="text-signal text-sm">
+              <div class="text-signal flex items-center gap-1.5 text-sm">
+                <Briefcase size={12} aria-hidden="true" />
                 {toTitleCase(experience.company)}
               </div>
             </div>
@@ -148,11 +149,18 @@ const filters: FilterConfig[] = [
             </div>
             <div class="micro-label text-muted-foreground flex items-center gap-3">
               {experience.location && (
-                <span class="truncate">{experience.location}</span>
+                <span class="flex items-center gap-1.5 truncate">
+                  <Location size={12} aria-hidden="true" />
+                  {experience.location}
+                </span>
               )}
               <span class="text-signal flex items-center gap-1.5">
                 Case Study
-                <ArrowRight size={12} aria-hidden="true" />
+                <ArrowRight
+                  size={12}
+                  className="hover-nudge"
+                  aria-hidden="true"
+                />
               </span>
             </div>
           </div>
