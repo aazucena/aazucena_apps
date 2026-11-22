@@ -36,6 +36,10 @@ export function AssistantOverlay({
   children,
   footer,
 }: AssistantOverlayProps) {
+  const closeRef = React.useRef<HTMLButtonElement>(null);
+  React.useEffect(() => {
+    closeRef.current?.focus();
+  }, []);
   return (
     <div
       role="dialog"
@@ -50,6 +54,7 @@ export function AssistantOverlay({
           <p className="text-muted-foreground text-xs">{subtitle}</p>
         </div>
         <Button
+          ref={closeRef}
           variant="ghost"
           size="icon"
           onClick={onClose}
