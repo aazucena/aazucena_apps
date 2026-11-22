@@ -58,7 +58,7 @@ export function AssistantTriggerPopover({
         sideOffset={16}
         align="start"
         collisionPadding={16}
-        className="w-52 p-0"
+        className="z-[100] w-52 p-0"
       >
         <div className="relative px-3 pt-3 pb-3">
           {/* Speech bubble arrow at bottom-left, pointing down toward the trigger */}
