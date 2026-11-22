@@ -19,6 +19,7 @@ import DetailLayout from "~/layouts/DetailLayout.astro";
 import PanelBox from "~/components/common/PanelBox.astro";
 import { getPortfolio } from "@aazucena/api";
 import { getAvailabilityIndicator } from "@aazucena/utils";
+import AvailabilityIndicator from "~/components/common/AvailabilityIndicator.astro";
 
 const portfolio = await getPortfolio();
 
@@ -269,9 +270,11 @@ const jsonLd = {
         <div class="flex items-baseline justify-between gap-3">
           <dt class="micro-label text-muted-foreground">STATUS</dt>
           <dd class="micro-label flex items-center gap-1.5 font-mono">
-            <span class={availability.tone} aria-hidden="true">
-              {availability.marker}
-            </span>
+            <AvailabilityIndicator
+              tone={availability.tone}
+              marker={availability.marker}
+              pulse={availability.pulse}
+            />
             <span class="text-muted-foreground">
               {portfolio.availabilityStatus}
             </span>
