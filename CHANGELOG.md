@@ -301,6 +301,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🧪 Tests
 
+- _(portfolio)_ Cover watermark sizing
 - _(design-system)_ Guard the body and heading rules that consume the font variables
 - _(design-system)_ The portfolio guard covers every file
 - _(design-system)_ Portfolio token-layer guards

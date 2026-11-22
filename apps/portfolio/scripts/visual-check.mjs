@@ -93,9 +93,6 @@ try {
               document.documentElement.scrollWidth -
               document.documentElement.clientWidth,
           );
-          await page.screenshot({
-            path: `.shots/${slug(route)}-${theme}-${width}.png`,
-          });
         } catch (e) {
           const msg = String(e);
           if (first && /ERR_CONNECTION|ECONNREFUSED/.test(msg)) {
