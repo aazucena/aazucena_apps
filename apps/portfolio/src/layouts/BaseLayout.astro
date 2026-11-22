@@ -146,30 +146,33 @@ const fontsUrl = googleFontsUrl(siteConfig.theme.fonts);
   <body
     style={`background: var(${isHomepage ? "--ink-950" : "--background"});`}
   >
-    <!-- Skip to main content (accessibility) -->
-    <a href="#main-content" class="skip-to-main">
-      {" "}
-      Skip to main content{" "}
-    </a>
-    <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
-    <!-- Once hidden and removed, it won't reappear -->
-    <!-- Note: transition:persist removed due to React 19 compatibility issues -->
-    <BrandIconLoader
-      logoUrl={brandLogoUrl}
-      backgroundColor={preloaderBackground}
-      darkBackgroundColor={preloaderDarkBackground}
-      isCmsFallback={isCmsFallback}
-    />
+    {/* On the homepage the skip link, loader and preloader sit on the dark scene whatever the site theme is, so they read the dark tokens. Rin stays outside and follows the theme. */}
+    <div class={isHomepage ? "dark" : undefined} style="display: contents">
+      <!-- Skip to main content (accessibility) -->
+      <a href="#main-content" class="skip-to-main">
+        {" "}
+        Skip to main content{" "}
+      </a>
+      <!-- Brand Icon Loader - Shows immediately (CSS-only, no JS required) -->
+      <!-- Once hidden and removed, it won't reappear -->
+      <!-- Note: transition:persist removed due to React 19 compatibility issues -->
+      <BrandIconLoader
+        logoUrl={brandLogoUrl}
+        backgroundColor={preloaderBackground}
+        darkBackgroundColor={preloaderDarkBackground}
+        isCmsFallback={isCmsFallback}
+      />
 
-    <!-- Preloader - Hydrates with React (client:only) -->
-    <!-- Pass current path to enable homepage-specific behavior -->
-    <!-- Preloader re-renders on navigation to check currentPath and apply show-once logic -->
-    <Preloader
-      {...preloaderConfig}
-      currentPath={Astro.url.pathname}
-      mode={mode}
-      client:only="react"
-    />
+      <!-- Preloader - Hydrates with React (client:only) -->
+      <!-- Pass current path to enable homepage-specific behavior -->
+      <!-- Preloader re-renders on navigation to check currentPath and apply show-once logic -->
+      <Preloader
+        {...preloaderConfig}
+        currentPath={Astro.url.pathname}
+        mode={mode}
+        client:only="react"
+      />
+    </div>
 
     <!-- Main content - hidden until preloader completes -->
     <main
