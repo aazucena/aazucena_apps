@@ -13,6 +13,9 @@ import {
   Send,
   Globe,
   ArrowRight,
+  ClockCircle as Clock,
+  Location,
+  MessageDots,
 } from "@aazucena/icons";
 import { Button, Input, Label, Textarea } from "@aazucena/ui";
 import DetailLayout from "~/layouts/DetailLayout.astro";
@@ -76,8 +79,12 @@ const jsonLd = {
 
   <!-- Main Content Slot: Form -->
   <Fragment slot="content">
-    <section id="message">
-      <PanelBox label="SEND // A MESSAGE">
+    <section id="message" class="space-y-4">
+      <h2 class="micro-label text-muted-foreground flex items-center gap-2">
+        <MessageDots size={14} aria-hidden="true" />
+        SEND // A MESSAGE
+      </h2>
+      <PanelBox>
         <div
           id="contact-success"
           role="status"
@@ -191,8 +198,12 @@ const jsonLd = {
           </div>
 
           <div>
-            <Button id="contact-submit" type="submit" className="press">
-              <Send size={16} />
+            <Button id="contact-submit" type="submit" className="press group">
+              <Send
+                size={16}
+                className="hover-nudge [--nudge-x:4px] [--nudge-y:-4px]"
+                aria-hidden="true"
+              />
               <span id="contact-submit-label">Send Message</span>
             </Button>
           </div>
@@ -280,13 +291,29 @@ const jsonLd = {
             </span>
           </dd>
         </div>
-        <div class="flex items-baseline justify-between gap-3">
-          <dt class="micro-label text-muted-foreground">LOCAL TIME</dt>
+        <div class="group flex items-center justify-between gap-3">
+          <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
+            <span
+              class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
+              aria-hidden="true"
+            >
+              <Clock size={16} />
+            </span>
+            LOCAL TIME
+          </dt>
           <dd class="text-foreground font-mono text-sm">{localTime} (MST)</dd>
         </div>
         {portfolio.location && (
-          <div class="flex items-baseline justify-between gap-3">
-            <dt class="micro-label text-muted-foreground">HQ</dt>
+          <div class="group flex items-center justify-between gap-3">
+            <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
+              <span
+                class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
+                aria-hidden="true"
+              >
+                <Location size={16} />
+              </span>
+              HQ
+            </dt>
             <dd class="text-foreground font-mono text-sm">
               {portfolio.location}
             </dd>
@@ -304,10 +331,12 @@ const jsonLd = {
         <li>
           <a
             href={`mailto:${portfolio.email}`}
-            class="hover:bg-state border-rule px-panel focus-visible:outline-signal flex items-center justify-between gap-3 border-b py-3 transition-colors focus-visible:outline-1 focus-visible:-outline-offset-2"
+            class="group hover:bg-state border-rule px-panel focus-visible:outline-signal flex items-center justify-between gap-3 border-b py-3 transition-colors focus-visible:outline-1 focus-visible:-outline-offset-2"
           >
             <span class="flex items-center gap-3">
-              <Envelope size={18} className="text-muted-foreground" />
+              <span class="hover-grow text-muted-foreground" aria-hidden="true">
+                <Envelope size={18} />
+              </span>
               <span>
                 <span class="text-foreground block text-sm font-semibold">
                   Email
@@ -317,7 +346,11 @@ const jsonLd = {
                 </span>
               </span>
             </span>
-            <ArrowRight size={14} className="text-signal" />
+            <ArrowRight
+              size={14}
+              className="hover-nudge text-signal"
+              aria-hidden="true"
+            />
           </a>
         </li>
         {portfolio.socialLinks?.map((link) => (
@@ -326,10 +359,13 @@ const jsonLd = {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="hover:bg-state px-panel focus-visible:outline-signal flex items-center justify-between gap-3 py-3 transition-colors focus-visible:outline-1 focus-visible:-outline-offset-2"
+              class="group hover:bg-state px-panel focus-visible:outline-signal flex items-center justify-between gap-3 py-3 transition-colors focus-visible:outline-1 focus-visible:-outline-offset-2"
             >
               <span class="flex items-center gap-3">
-                <span class="text-muted-foreground">
+                <span
+                  class="hover-grow text-muted-foreground"
+                  aria-hidden="true"
+                >
                   {link.platform === "LinkedIn" && <BrandLinkedin size={18} />}
                   {link.platform === "GitHub" && <BrandGithub size={18} />}
                   {link.platform === "Twitter" && <Twitter size={18} />}
@@ -346,7 +382,11 @@ const jsonLd = {
                   </span>
                 </span>
               </span>
-              <ArrowRight size={14} className="text-signal" />
+              <ArrowRight
+                size={14}
+                className="hover-nudge text-signal"
+                aria-hidden="true"
+              />
             </a>
           </li>
         ))}
