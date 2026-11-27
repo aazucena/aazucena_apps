@@ -156,7 +156,7 @@
 }
 @utility bar-grow {
   @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-    &:not([data-seen]) {
+    :where(.bars-armed) &:not([data-seen]) {
       width: 0 !important;
     }
     &[data-seen] {

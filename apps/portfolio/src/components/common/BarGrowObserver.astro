@@ -33,5 +33,8 @@
     bars.forEach(function (bar) {
       io.observe(bar.parentElement);
     });
+    // Hold the bars at zero only once the observer is watching: if anything above throws,
+    // the class never arrives and the bars keep their full width.
+    document.documentElement.classList.add("bars-armed");
   })();
 </script>
