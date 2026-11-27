@@ -34,6 +34,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Stack the contact presence stats like the about ones
 - _(portfolio)_ Give the list keywords input the selects' type
 - _(portfolio)_ Give every experience card the same footer
 - _(portfolio)_ Keep the rin chat button opaque on hover

@@ -1,0 +1,35 @@
+---
+/**
+ * Brand icon for a CMS social link platform (footer Connect, contact Direct Channels).
+ * Unknown platforms get a globe. Decorative: name the link, not the icon.
+ */
+import {
+  BrandGithub,
+  BrandLinkedin,
+  Globe,
+  Instagram,
+  Kofi,
+  Twitter,
+  Youtube,
+} from "@aazucena/icons";
+
+interface Props {
+  platform: string;
+  size?: number;
+}
+
+const { platform, size = 20 } = Astro.props;
+
+const icons = {
+  GitHub: BrandGithub,
+  LinkedIn: BrandLinkedin,
+  Twitter,
+  Instagram,
+  YouTube: Youtube,
+  "Ko-fi": Kofi,
+} as const;
+
+const Icon = icons[platform as keyof typeof icons] ?? Globe;
+---
+
+<Icon size={size} aria-hidden="true" />
