@@ -7,11 +7,7 @@
 export const prerender = false;
 import {
   Envelope,
-  BrandLinkedin,
-  BrandGithub,
-  Twitter,
   Send,
-  Globe,
   ArrowRight,
   ClockCircle as Clock,
   Location,
@@ -21,6 +17,7 @@ import { Button, Input, Label, Textarea } from "@aazucena/ui";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import PanelBox from "~/components/common/PanelBox.astro";
 import StatRow from "~/components/common/StatRow.astro";
+import PlatformIcon from "~/components/common/PlatformIcon.astro";
 import { getPortfolio } from "@aazucena/api";
 import { getAvailabilityIndicator } from "@aazucena/utils";
 import AvailabilityIndicator from "~/components/common/AvailabilityIndicator.astro";
@@ -345,12 +342,7 @@ const jsonLd = {
                   class="hover-grow text-muted-foreground"
                   aria-hidden="true"
                 >
-                  {link.platform === "LinkedIn" && <BrandLinkedin size={18} />}
-                  {link.platform === "GitHub" && <BrandGithub size={18} />}
-                  {link.platform === "Twitter" && <Twitter size={18} />}
-                  {!["LinkedIn", "GitHub", "Twitter"].includes(
-                    link.platform,
-                  ) && <Globe size={18} />}
+                  <PlatformIcon platform={link.platform} size={18} />
                 </span>
                 <span>
                   <span class="text-foreground block text-sm font-semibold">
