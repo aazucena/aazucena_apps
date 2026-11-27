@@ -171,15 +171,19 @@ const searchColSpan =
 
               {/* Search Input */}
               <div class={searchColSpan}>
-                <label class="micro-label text-muted-foreground mb-2 block">
+                {/* Label beside the input, as for the selects: inside it, the input inherited micro-label's mono font and tracking */}
+                <label
+                  for="search-input"
+                  class="micro-label text-muted-foreground mb-2 block"
+                >
                   Keywords
-                  <input
-                    type="text"
-                    id="search-input"
-                    placeholder={searchPlaceholder}
-                    class="border-rule-strong bg-background text-foreground placeholder:text-muted-foreground h-control rounded-control focus-visible:outline-signal mt-2 w-full border px-3 text-sm normal-case focus-visible:outline-1 focus-visible:outline-offset-2"
-                  />
                 </label>
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder={searchPlaceholder}
+                  class="border-rule-strong bg-background text-foreground placeholder:text-muted-foreground h-control rounded-control focus-visible:outline-signal w-full border px-3 text-sm focus-visible:outline-1 focus-visible:outline-offset-2"
+                />
               </div>
             </div>
           </div>
