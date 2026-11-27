@@ -62,6 +62,8 @@ const breakAfterSlashes = (text: string) =>
 
 // Series fills by rank; every bar also carries its category name and percentage as text
 const SERIES_BG = ["bg-series-1", "bg-series-2", "bg-series-3", "bg-series-4"];
+// Each tooltip takes its bar's colour. Panel-coloured text is AA (4.6:1 or more) on every
+// series colour in both modes, so one text colour serves all four.
 
 export function TechStackDistribution({
   skills,
@@ -140,7 +142,10 @@ export function TechStackDistribution({
                         </div>
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent side="top" className="font-mono">
+                    <TooltipContent
+                      side="top"
+                      className={`text-panel font-mono ${SERIES_BG[i % SERIES_BG.length]}`}
+                    >
                       {item.percentage}% of skills
                     </TooltipContent>
                   </Tooltip>
