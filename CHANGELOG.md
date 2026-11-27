@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Draw the list select chevrons in the system text colour in forced colors
 - _(portfolio)_ Space the list filter and sort carets like the ui select
 - _(portfolio)_ Don't replay the stack bars when their observer reports late
 - _(assistant)_ Don't nest a link when an image sits inside one
@@ -41,9 +42,9 @@ All notable changes to this project are documented here, grouped by phase milest
 - _(assistant)_ Don't send on the enter that confirms an ime composition
 - _(assistant)_ Show images in rin's replies as links
 - _(portfolio)_ Stop the projects carousel clipping its cards' hover growth
-- _(portfolio)_ Keep the stack bars full if their observer fails
+- _(portfolio)_ Keep the stack bars full if their observer throws
 - _(portfolio)_ Keep the learn more and exit card text readable on hover
-- _(portfolio)_ Keep card text readable on hover, and colour blog titles on focus
+- _(portfolio)_ Keep glass card text readable on hover, and mark blog cards on hover and focus
 - _(portfolio)_ Grow the stack bars when seen, never full then empty
 - _(portfolio)_ Keep the working-style headings as headings
 - _(portfolio)_ Fix the skills board's edge, alignment and dark contrast
@@ -297,7 +298,7 @@ All notable changes to this project are documented here, grouped by phase milest
 - _(portfolio)_ Restore photo zoom, heading icons and sidebar icons on about
 - _(portfolio)_ Restore card motion, cover zoom and metadata icons on list pages
 - _(portfolio)_ Add hover-lift and focus-visible triggers for linked cards
-- _(portfolio)_ Bring back the turning wrench and a monitoring line on maintenance
+- _(portfolio)_ Bring back the motion and icons on the 404, 500 and maintenance pages
 - _(portfolio)_ Add hover-spin and spin-slow motion classes
 - _(portfolio)_ Pulse the shield while systems are operational
 - _(portfolio)_ Grow the section dots on hover and focus
