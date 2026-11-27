@@ -47,7 +47,7 @@ function DestinationCard({
     <a
       href={href}
       className={cn(
-        "press group rounded-card bg-panel hover:bg-state focus-visible:outline-signal flex items-center justify-between border p-3.5 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 sm:p-5",
+        "press group rounded-card bg-panel focus-visible:outline-signal flex items-center justify-between border p-3.5 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 sm:p-5",
         highlight ? "border-signal" : "border-rule hover:border-rule-strong",
       )}
     >

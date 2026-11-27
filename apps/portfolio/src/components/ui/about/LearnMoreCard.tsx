@@ -76,7 +76,7 @@ export function LearnMoreCard({
       <a
         href={href}
         className={cn(
-          "press group bg-panel border-rule rounded-card hover:bg-state focus-visible:outline-signal block h-full border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 md:p-4",
+          "press group bg-panel border-rule rounded-card hover:border-rule-strong focus-visible:outline-signal block h-full border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 md:p-4",
           className,
         )}
       >
