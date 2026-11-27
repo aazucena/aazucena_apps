@@ -20,6 +20,7 @@ import {
 import { Button, Input, Label, Textarea } from "@aazucena/ui";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import PanelBox from "~/components/common/PanelBox.astro";
+import StatRow from "~/components/common/StatRow.astro";
 import { getPortfolio } from "@aazucena/api";
 import { getAvailabilityIndicator } from "@aazucena/utils";
 import AvailabilityIndicator from "~/components/common/AvailabilityIndicator.astro";
@@ -278,46 +279,24 @@ const jsonLd = {
     <!-- Availability -->
     <PanelBox label="PRESENCE">
       <dl class="flex flex-col gap-3">
-        <div class="flex items-baseline justify-between gap-3">
-          <dt class="micro-label text-muted-foreground">STATUS</dt>
-          <dd class="micro-label flex items-center gap-1.5 font-mono">
-            <AvailabilityIndicator
-              tone={availability.tone}
-              marker={availability.marker}
-              pulse={availability.pulse}
-            />
-            <span class="text-muted-foreground">
-              {portfolio.availabilityStatus}
-            </span>
-          </dd>
-        </div>
-        <div class="group flex items-center justify-between gap-3">
-          <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
-            <span
-              class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
-              aria-hidden="true"
-            >
-              <Clock size={16} />
-            </span>
-            LOCAL TIME
-          </dt>
-          <dd class="text-foreground font-mono text-sm">{localTime} (MST)</dd>
-        </div>
+        <StatRow label="STATUS">
+          <AvailabilityIndicator
+            slot="tile"
+            tone={availability.tone}
+            marker={availability.marker}
+            pulse={availability.pulse}
+          />
+          {portfolio.availabilityStatus}
+        </StatRow>
+        <StatRow label="LOCAL TIME" tileClass="text-signal">
+          <Clock slot="tile" size={16} />
+          {localTime} (MST)
+        </StatRow>
         {portfolio.location && (
-          <div class="group flex items-center justify-between gap-3">
-            <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
-              <span
-                class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
-                aria-hidden="true"
-              >
-                <Location size={16} />
-              </span>
-              HQ
-            </dt>
-            <dd class="text-foreground font-mono text-sm">
-              {portfolio.location}
-            </dd>
-          </div>
+          <StatRow label="HQ" tileClass="text-signal">
+            <Location slot="tile" size={16} />
+            {portfolio.location}
+          </StatRow>
         )}
       </dl>
     </PanelBox>
