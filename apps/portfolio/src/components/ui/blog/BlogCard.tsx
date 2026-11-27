@@ -53,7 +53,7 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
       hover
       clickable
       padding="lg"
-      className="group text-left"
+      className="group hover:border-signal text-left"
     >
       {/* Tags Row - Conditionally shown based on CMS config */}
       {displayConfig.showTags && post.tags.length > 0 && (
@@ -74,12 +74,12 @@ export function BlogCard({ post, displayConfig }: BlogCardProps): JSX.Element {
 
       {/* Title with External Link Icon */}
       <div className="mb-2 flex items-start justify-between gap-2">
-        <h3 className="text-foreground group-hover:text-signal text-lg font-semibold tracking-tight transition-colors">
+        <h3 className="text-foreground group-hover:text-signal group-focus-visible:text-signal text-lg font-semibold tracking-tight transition-colors">
           {post.title}
         </h3>
         {post.isExternal && (
           <ExternalLink
-            className="text-muted-foreground group-hover:text-signal mt-1 size-4 shrink-0 transition-colors"
+            className="text-muted-foreground group-hover:text-signal group-focus-visible:text-signal mt-1 size-4 shrink-0 transition-colors"
             aria-hidden="true"
           />
         )}

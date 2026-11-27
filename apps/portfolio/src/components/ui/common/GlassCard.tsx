@@ -35,7 +35,7 @@ const paddingVariants = {
  *
  * Base card over the ui `Panel` surface:
  * - Flat panel tone with a 1px rule, no blur or shadow
- * - Optional hover tone (`bg-state`)
+ * - Optional hover (border strengthens, grows 2%); the surface stays `bg-panel` so muted and signal text keep their contrast
  * - Configurable padding
  *
  * Renders the ui `Panel` for a div; other elements (`as`) take the same
@@ -72,7 +72,7 @@ export function GlassCard<T extends ElementType = "div">({
     "border-rule border",
     paddingClass,
     hover &&
-      "hover:bg-state hover-grow [--grow:1.02] [--transition-also:color,background-color,border-color]",
+      "hover:border-rule-strong hover-grow [--grow:1.02] [--transition-also:color,background-color,border-color]",
     clickable && "cursor-pointer",
     className,
   );
