@@ -35,6 +35,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Keep the award hexagon buttons to phrasing content
 - _(portfolio)_ Make each education item's toggle a real button in its heading
 - _(portfolio)_ Match the home about highlights panel to the bio panel
 - _(portfolio)_ Update the popover anchor ref in an effect, not during render

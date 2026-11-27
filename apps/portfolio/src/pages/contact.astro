@@ -77,7 +77,7 @@ const jsonLd = {
 
   <!-- Main Content Slot: Form -->
   <Fragment slot="content">
-    <section id="message" class="space-y-4">
+    <section id="send-message" class="space-y-4">
       <h2 class="micro-label text-muted-foreground flex items-center gap-2">
         <MessageDots size={14} aria-hidden="true" />
         SEND // A MESSAGE
@@ -260,6 +260,10 @@ const jsonLd = {
             for (const [field, messages] of Object.entries(error.fields)) {
               setFieldError(field, String(messages?.[0] ?? ""));
             }
+            // Take the visitor to the first field to fix, in form order; its error is
+            // read out through aria-describedby
+            const first = FIELDS.find((f) => f in error.fields);
+            if (first) document.getElementById(first)?.focus();
           } else {
             if (errorBanner) errorBanner.hidden = false;
           }
