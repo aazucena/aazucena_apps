@@ -109,6 +109,15 @@ describe("renderMarkdown", () => {
       'href="https://a.test/?a=1&amp;b=2"',
     );
   });
+  it("shows images from model output as links, never loading them", () => {
+    const html = renderMarkdown("![chart](https://a.test/c.png)");
+    expect(html).not.toContain("<img");
+    expect(html).toContain('<a href="https://a.test/c.png">chart</a>');
+    expect(renderMarkdown("![](https://a.test/c.png)")).toContain(
+      ">https://a.test/c.png</a>",
+    );
+    expect(renderMarkdown("![x](javascript:alert(1))")).not.toMatch(/<a|<img/);
+  });
 });
 
 describe("retryLast", () => {

@@ -131,8 +131,10 @@ chatMarked.use({
     image({ href, title, text }) {
       const url = safeUrl(decodeEntities(href));
       if (!url || /^mailto:/i.test(url)) return escapeAttr(text);
+      // A link, not an <img>: an image would load on its own, so a manipulated reply could send
+      // the conversation to another site without a click.
       const t = title ? ` title="${escapeAttr(title)}"` : "";
-      return `<img src="${escapeAttr(url)}" alt="${escapeAttr(text)}"${t}>`;
+      return `<a href="${escapeAttr(url)}"${t}>${escapeAttr(text || url)}</a>`;
     },
   },
 });
