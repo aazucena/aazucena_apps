@@ -35,6 +35,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Left-align the about learn more cards and put their icon back in a tile
 - _(portfolio)_ Give the focus distribution categories their own line
 - _(portfolio)_ Centre each experience timeline dot on its card
 - _(portfolio)_ Make the footer rss and sitemap links look like links

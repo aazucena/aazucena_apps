@@ -34,9 +34,10 @@ export function AboutSection({
     <div
       role="region"
       aria-label="About"
+      // pb-2: room for the cards' 2% hover growth; flush against the bottom, it made the pane scroll by 1px
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable pane must be keyboard-focusable
       tabIndex={0}
-      className="focus-visible:outline-signal overlaid:pt-24 overlaid:pb-40 max-h-[100dvh] w-full overflow-y-auto focus-visible:outline-1 focus-visible:-outline-offset-2"
+      className="focus-visible:outline-signal overlaid:pt-24 overlaid:pb-40 max-h-[100dvh] w-full overflow-y-auto pb-2 focus-visible:outline-1 focus-visible:-outline-offset-2"
     >
       <SectionLayout
         title={title}
