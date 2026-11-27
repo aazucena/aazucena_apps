@@ -81,6 +81,7 @@ export default function AssistantChat() {
 
   const rootRef = React.useRef<HTMLDivElement>(null);
   const wasOpen = React.useRef(false);
+  const focusTriggerPending = React.useRef(false);
 
   const focusComposer = React.useCallback(() => {
     rootRef.current
@@ -99,14 +100,21 @@ export default function AssistantChat() {
     if (isOpen) {
       if (!overlayOpen) focusComposer();
     } else if (wasOpen.current) {
-      root
-        ?.querySelector<HTMLButtonElement>(
-          'button[aria-haspopup="dialog"][aria-expanded]',
-        )
-        ?.focus();
+      // The Chat button only renders in floating mode, and closing from the side panel or full
+      // screen switches back to floating a render later, so wait for the button to exist.
+      focusTriggerPending.current = true;
+    }
+    if (focusTriggerPending.current) {
+      const trigger = root?.querySelector<HTMLButtonElement>(
+        'button[aria-haspopup="dialog"][aria-expanded]',
+      );
+      if (trigger) {
+        trigger.focus();
+        focusTriggerPending.current = false;
+      }
     }
     wasOpen.current = isOpen;
-  }, [isOpen, overlayOpen, focusComposer]);
+  }, [isOpen, overlayOpen, focusComposer, chatMode]);
 
   React.useEffect(() => {
     const region = rootRef.current?.querySelector<HTMLElement>(

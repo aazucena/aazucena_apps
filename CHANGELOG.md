@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Don't send on the enter that confirms an ime composition
 - _(assistant)_ Show images in rin's replies as links
 - _(portfolio)_ Stop the projects carousel clipping its cards' hover growth
 - _(portfolio)_ Keep the stack bars full if their observer fails
