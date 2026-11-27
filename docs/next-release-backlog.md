@@ -57,9 +57,7 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
 
 - [ ] **RAD Intel in the CMS (owner).** Add the Front End Developer role at RAD Intel · Lickly to the Strapi experience data; the Figma frames already show it.
 - [ ] **R5 final-review leftovers (2026-11-22).** Not done in the final fix wave:
-  - `ui/EducationItem.tsx`: the `role=button` wraps the heading and the expanded prose (nested links, lost heading). Make it heading > button with the body outside.
-  - `awards/HexagonCard.tsx`: the button holds block elements. Use spans and give the tooltip text through `aria-describedby`.
-  - `contact.astro`: validation does not move focus to the first invalid field.
+  - Done 2026-11-27: `EducationItem` toggle is a button in its h3 with the details outside (46d449a6); `HexagonCard` holds phrasing content and is described by its tooltip (04d8b55f); the contact form focuses the first field the server rejects, and its duplicate `id="message"` is gone (a61ccae6). The dead code went in d91fa412; `DetailLayout.watermarkSize` is unused but kept under the watermark rule.
   - Rename `SettingsPanel` and `GlassCard` (names and comments still say glass).
 - [ ] **R5 follow-ups (2026-11-21).** Found during the portfolio adoption, not fixed in it:
   - **Vibe contrast over the watermark.** The portfolio applies no vibe today (no `data-vibe`, no `ThemeManager` in `src`). If it ever does, 34 of 272 checks fail over the mark in other vibes (lowest 3.09:1, glass dark, signal on panel); the default vibe passes (lowest 4.86:1). Lower the mark's opacity per vibe or accept.
