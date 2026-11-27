@@ -107,7 +107,11 @@ Not redone: the per-frame side-by-side comparisons of the pass above. Legal, Edi
 ## Open owner questions
 
 - **RAD Intel entry.** Owner task: add the role to the Strapi data (the frames already show it). It is a CMS entry, not a code change.
-- **Push.** One push, to `f993bf2a`, was made on the owner's instruction. Later commits are local, and the owner has not approved another push.
+
+Decided 2026-11-26 (owner): images in Rin's replies show as links and never load on their own;
+Enter that confirms an IME composition doesn't send; closing Rin from the side panel or full screen
+returns focus to the Chat button; the server finishing a reply after Clear is in the backlog. The
+branch is pushed after each reviewed batch, with the owner's approval.
 
 ## Frames
 

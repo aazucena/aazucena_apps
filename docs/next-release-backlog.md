@@ -76,7 +76,9 @@ Phase 5 testing plus the work that piled up during a ~5 month break: analytics U
   - **O1, reduced motion.** `useGSAPEntrance` (packages/hooks) still runs the 2s hero entrance, and the section transitions come from shared hooks; neither reads `prefers-reduced-motion`.
   - **O2, landmarks.** Journey (2 measured), 404, 500 and maintenance still nest a `<main>` inside the layout's `<main>`.
   - **O3, `/api/brain`.** It keeps the old `slice(0, 50)` message validation; it runs only with `PUBLIC_USE_BRAIN_ENDPOINT`.
-  - **O4, chat images.** Decide which hosts chat images may load: markdown images may load from any https host today.
+  - **Chat Clear stops only the browser.** `pages/api/chat.ts` passes no abort signal, so the server
+    can still finish a reply after the visitor clears the chat. Handle a contact submission already
+    in progress before adding one.
 
 ## Features
 

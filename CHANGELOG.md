@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Return focus to chat after closing from the side panel or full screen
 - _(assistant)_ Don't send on the enter that confirms an ime composition
 - _(assistant)_ Show images in rin's replies as links
 - _(portfolio)_ Stop the projects carousel clipping its cards' hover growth
