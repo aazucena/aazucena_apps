@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Space the list filter and sort carets like the ui select
 - _(portfolio)_ Don't replay the stack bars when their observer reports late
 - _(assistant)_ Don't nest a link when an image sits inside one
 - _(portfolio)_ Hold the stack bars at zero from first paint, full if the observer is silent
