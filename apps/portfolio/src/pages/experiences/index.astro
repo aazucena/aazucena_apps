@@ -92,9 +92,18 @@ const filters: FilterConfig[] = [
                   {toTitleCase(experience.position)}
                 </a>
               </h3>
-              <div class="text-signal flex items-center gap-1.5 text-sm">
-                <Briefcase size={12} aria-hidden="true" />
-                {toTitleCase(experience.company)}
+              {/* Where: company and location together, so the footer keeps one shape */}
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm">
+                <span class="text-signal flex items-center gap-1.5">
+                  <Briefcase size={12} aria-hidden="true" />
+                  {toTitleCase(experience.company)}
+                </span>
+                {experience.location && (
+                  <span class="text-muted-foreground flex items-center gap-1.5">
+                    <Location size={12} aria-hidden="true" />
+                    {experience.location}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -134,10 +143,10 @@ const filters: FilterConfig[] = [
             </div>
           )}
 
-          <div class="border-rule px-panel flex flex-wrap items-center justify-between gap-3 border-t py-2.5">
-            <div class="flex flex-wrap gap-1.5">
+          <div class="border-rule px-panel flex flex-col gap-2 border-t py-2.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+            <div class="flex min-w-0 flex-1 flex-wrap gap-1.5">
               {experience.skills.slice(0, 5).map((skill) => (
-                <span class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5">
+                <span class="rounded-badge border-rule bg-state micro-label text-muted-foreground border px-2 py-0.5 whitespace-nowrap">
                   {skill.name}
                 </span>
               ))}
@@ -147,22 +156,15 @@ const filters: FilterConfig[] = [
                 </span>
               )}
             </div>
-            <div class="micro-label text-muted-foreground flex items-center gap-3">
-              {experience.location && (
-                <span class="flex items-center gap-1.5 truncate">
-                  <Location size={12} aria-hidden="true" />
-                  {experience.location}
-                </span>
-              )}
-              <span class="text-signal flex items-center gap-1.5">
-                Case Study
-                <ArrowRight
-                  size={12}
-                  className="hover-nudge"
-                  aria-hidden="true"
-                />
-              </span>
-            </div>
+            {/* Same box as a tag, so it lines up with the first tag row; below the tags on phones */}
+            <span class="micro-label text-signal flex shrink-0 items-center gap-1.5 border border-transparent py-0.5">
+              Case Study
+              <ArrowRight
+                size={12}
+                className="hover-nudge"
+                aria-hidden="true"
+              />
+            </span>
           </div>
         </article>
       </div>
