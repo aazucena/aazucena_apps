@@ -265,6 +265,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Give Rin's suggestion chips four series borders
 - _(portfolio)_ Make the hero stars white again
 - _(portfolio)_ Colour project initials and service icons with flat series hues
 - _(portfolio)_ Add the search and filter icons to the journey toolbar

@@ -11,7 +11,7 @@ export const outerVariants = cva("fixed z-[100]", {
 });
 
 export const innerVariants = cva(
-  "bg-panel text-foreground border-rule rounded-card relative flex flex-col overflow-hidden border",
+  "bg-panel text-foreground border-rule rounded-card relative flex flex-col overflow-hidden border motion-safe:transition-[width,height,max-height,border-radius] motion-safe:duration-(--motion-base)",
   {
     variants: {
       mode: {
