@@ -122,7 +122,19 @@ chatMarked.use({
       return escapeAttr(text);
     },
     link({ href, title, tokens }) {
-      const inner = this.parser.parseInline(tokens);
+      // An image inside a link shows its alt text, so the image's own link doesn't nest
+      const inner = this.parser.parseInline(
+        tokens.map((t) =>
+          t.type === "image"
+            ? {
+                type: "text",
+                raw: t.raw,
+                text: t.text || t.href,
+                escaped: false,
+              }
+            : t,
+        ),
+      );
       const url = safeUrl(decodeEntities(href));
       if (!url) return inner;
       const t = title ? ` title="${escapeAttr(title)}"` : "";

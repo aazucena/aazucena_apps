@@ -109,6 +109,14 @@ describe("renderMarkdown", () => {
       'href="https://a.test/?a=1&amp;b=2"',
     );
   });
+  it("never nests a link when an image sits inside one", () => {
+    const html = renderMarkdown(
+      "[![logo](https://a.test/l.png)](https://a.test)",
+    );
+    expect(html.match(/<a /g)).toHaveLength(1);
+    expect(html).toContain('<a href="https://a.test">logo</a>');
+  });
+
   it("shows images from model output as links, never loading them", () => {
     const html = renderMarkdown("![chart](https://a.test/c.png)");
     expect(html).not.toContain("<img");
