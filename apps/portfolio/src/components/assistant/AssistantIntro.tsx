@@ -68,7 +68,10 @@ export function AssistantIntro({
           if (!isLoading) onSendMessage(s);
         }}
         chipColors={[
-          "border-signal text-signal hover:bg-signal-faint rounded-control h-8 border bg-transparent px-2.5 text-xs",
+          "border-series-1 text-foreground hover:bg-state rounded-control h-8 border bg-transparent px-2.5 text-xs",
+          "border-series-2 text-foreground hover:bg-state rounded-control h-8 border bg-transparent px-2.5 text-xs",
+          "border-series-3 text-foreground hover:bg-state rounded-control h-8 border bg-transparent px-2.5 text-xs",
+          "border-series-4 text-foreground hover:bg-state rounded-control h-8 border bg-transparent px-2.5 text-xs",
         ]}
         className="justify-center"
       />
