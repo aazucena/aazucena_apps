@@ -35,6 +35,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Match the home about highlights panel to the bio panel
 - _(portfolio)_ Update the popover anchor ref in an effect, not during render
 - _(portfolio)_ Open the home toolbar popovers just below the toolbar
 - _(portfolio)_ Stop the home about pane scrolling when a card grows on hover
