@@ -17,6 +17,7 @@ import {
   MarkdownRenderer,
 } from "@aazucena/ui";
 import { cn } from "@aazucena/utils";
+import { categoryTone } from "~/lib/utils/series-tone";
 
 export interface ServicesSectionProps extends SectionProps {}
 
@@ -36,6 +37,7 @@ const FEATURES_CAP = 3;
 
 function ServicePanel({ service }: { service: Service }): JSX.Element {
   const categoryLabel = CATEGORY_LABELS[service.category] ?? service.category;
+  const tone = categoryTone(service.category);
   const [featuresExpanded, setFeaturesExpanded] = useState(false);
   const [descExpanded, setDescExpanded] = useState(false);
   const hasMore = service.features.length > FEATURES_CAP;
@@ -61,9 +63,8 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
       <div className="flex items-start gap-3">
         {!!service.icon && (
           <div
-            className={cn(
-              "bg-state text-signal border-rule rounded-control flex h-10 w-10 flex-shrink-0 items-center justify-center border sm:h-12 sm:w-12",
-            )}
+            className="text-background rounded-control flex h-10 w-10 flex-shrink-0 items-center justify-center sm:h-12 sm:w-12"
+            style={{ backgroundColor: tone }}
           >
             <IconRenderer icon={service.icon as string} size={20} aria-hidden />
           </div>
@@ -126,7 +127,8 @@ function ServicePanel({ service }: { service: Service }): JSX.Element {
               >
                 <span
                   aria-hidden
-                  className="bg-signal h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                  className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                  style={{ backgroundColor: tone }}
                 />
                 {feature}
               </li>

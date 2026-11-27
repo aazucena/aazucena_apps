@@ -12,6 +12,7 @@ import type { JSX } from "react";
 import { useSectionData } from "~/contexts";
 import { useDragToSwipe } from "@aazucena/hooks";
 import { getCompanyInitials } from "@aazucena/utils";
+import { seriesTone } from "~/lib/utils/series-tone";
 import { Button } from "@aazucena/ui";
 import { ProjectCard, ViewMoreCard, PageIndicators } from "~/components/ui";
 import { SectionLayout } from "./SectionLayout";
@@ -72,7 +73,10 @@ export function ProjectsSection({
                 href={`/projects/${p.slug}`}
                 className="press rounded-card border-rule bg-panel hover:bg-state focus-visible:outline-signal flex items-center gap-3 border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2"
               >
-                <div className="micro-label rounded-control border-rule bg-state text-foreground flex h-9 w-9 flex-shrink-0 items-center justify-center border">
+                <div
+                  className="micro-label rounded-control text-background flex h-9 w-9 flex-shrink-0 items-center justify-center"
+                  style={{ backgroundColor: seriesTone(p.title) }}
+                >
                   {getCompanyInitials(p.title)}
                 </div>
                 <h4 className="text-foreground line-clamp-2 text-sm leading-tight font-bold">

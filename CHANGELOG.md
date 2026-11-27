@@ -4,7 +4,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ---
 
-## 2026-11-22
+## 2026-11-26
 
 ### ♻️ Refactor
 
@@ -265,6 +265,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Add the search and filter icons to the journey toolbar
 - _(portfolio)_ Mark honours in the timeline tooltip with an award icon
 - _(portfolio)_ Explain each journey chart under its title
 - _(portfolio)_ Replace the growth cards' emoji with line icons
