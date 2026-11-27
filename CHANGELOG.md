@@ -4,7 +4,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ---
 
-## 2026-11-26
+## 2026-11-27
 
 ### ♻️ Refactor
 
@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Stack the about vital stats so the location fits, and align their tiles
 - _(portfolio)_ Draw the list select chevrons in the system text colour in forced colors
 - _(portfolio)_ Space the list filter and sort carets like the ui select
 - _(portfolio)_ Don't replay the stack bars when their observer reports late

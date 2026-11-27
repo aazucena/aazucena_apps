@@ -49,7 +49,7 @@ export function AssistantTriggerPopover({
           label="Chat"
           closeLabel="Close"
           tooltipSide="right"
-          className="border-signal bg-background text-signal hover:bg-signal-faint focus-visible:ring-ring rounded-control h-control-lg relative right-auto bottom-auto left-auto w-auto !rotate-0 border px-4 outline-none hover:scale-100 focus-visible:ring-2 focus-visible:ring-offset-2"
+          className="border-signal bg-background text-signal focus-visible:ring-ring rounded-control h-control-lg relative right-auto bottom-auto left-auto w-auto !rotate-0 border px-4 outline-none hover:scale-100 hover:bg-[linear-gradient(var(--signal-faint),var(--signal-faint))] focus-visible:ring-2 focus-visible:ring-offset-2"
           onClick={onTriggerClick}
         />
       </PopoverAnchor>
