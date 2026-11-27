@@ -23,6 +23,7 @@ import { ServiceTabs } from "~/components/ui/ServiceTabs";
 import { WorkingStyleSection } from "~/components/ui/WorkingStyleSection";
 import DetailLayout from "~/layouts/DetailLayout.astro";
 import PanelBox from "~/components/common/PanelBox.astro";
+import StatRow from "~/components/common/StatRow.astro";
 import { getAbout } from "@aazucena/api";
 import { fetchEducation } from "@aazucena/api";
 import { getPortfolio } from "@aazucena/api";
@@ -345,44 +346,22 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
 
     <!-- Professional Meta -->
     <PanelBox label="VITAL // STATS">
-      {/* Tile on the left, label above value, as on main: the sidebar is too narrow to put a
-          location like "Alberta, Canada" beside its label. The tile sits inside the dt so the
-          list stays valid HTML. */}
       <dl class="flex flex-col gap-3">
         {portfolio.location && (
-          <div class="group relative flex min-h-8 flex-col justify-center pl-10.5">
-            <dt class="micro-label text-muted-foreground">
-              <span
-                class="hover-grow bg-state text-signal rounded-control absolute top-1/2 left-0 flex size-8 -translate-y-1/2 items-center justify-center"
-                aria-hidden="true"
-              >
-                <Location size={16} />
-              </span>
-              BASED IN
-            </dt>
-            <dd class="text-foreground font-mono text-sm">
-              {portfolio.location}
-            </dd>
-          </div>
+          <StatRow label="BASED IN" tileClass="text-signal">
+            <Location slot="tile" size={16} />
+            {portfolio.location}
+          </StatRow>
         )}
-        <div class="group relative flex min-h-8 flex-col justify-center pl-10.5">
-          <dt class="micro-label text-muted-foreground">
-            <span
-              class="hover-grow bg-state rounded-control absolute top-1/2 left-0 flex size-8 -translate-y-1/2 items-center justify-center"
-              aria-hidden="true"
-            >
-              <AvailabilityIndicator
-                tone={availability.tone}
-                marker={availability.marker}
-                pulse={availability.pulse}
-              />
-            </span>
-            AVAILABILITY
-          </dt>
-          <dd class="text-foreground font-mono text-sm">
-            {portfolio.availabilityStatus}
-          </dd>
-        </div>
+        <StatRow label="AVAILABILITY">
+          <AvailabilityIndicator
+            slot="tile"
+            tone={availability.tone}
+            marker={availability.marker}
+            pulse={availability.pulse}
+          />
+          {portfolio.availabilityStatus}
+        </StatRow>
       </dl>
     </PanelBox>
 

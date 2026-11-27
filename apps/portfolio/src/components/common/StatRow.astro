@@ -1,0 +1,35 @@
+---
+/**
+ * One term/value row for sidebar stat lists (About VITAL // STATS, Contact PRESENCE).
+ * Tile on the left, label above value: sidebars are too narrow to put a value like
+ * "Alberta, Canada" beside its label. Use inside a <dl>. The tile sits inside the dt,
+ * because a div in a dl may only hold dt and dd.
+ *
+ * Slots: `tile` for the icon or marker, default for the value.
+ */
+interface Props {
+  label: string;
+  /** Extra classes for the tile, e.g. `text-signal` to colour an icon. */
+  tileClass?: string;
+}
+
+const { label, tileClass } = Astro.props;
+---
+
+<div class="group relative flex min-h-8 flex-col justify-center pl-10.5">
+  <dt class="micro-label text-muted-foreground">
+    <span
+      class:list={[
+        "hover-grow bg-state rounded-control absolute top-1/2 left-0 flex size-8 -translate-y-1/2 items-center justify-center",
+        tileClass,
+      ]}
+      aria-hidden="true"
+    >
+      <slot name="tile" />
+    </span>
+    {label}
+  </dt>
+  <dd class="text-foreground font-mono text-sm">
+    <slot />
+  </dd>
+</div>
