@@ -42,7 +42,7 @@ export interface LearnMoreCardProps {
  *
  * Interactive card with:
  * - Flat panel surface with a rule border
- * - Icon in the signal tone
+ * - Icon in a state tile, in its CMS tone
  * - Title, description, and CTA button
  * - Hover state tone
  *
@@ -76,21 +76,23 @@ export function LearnMoreCard({
       <a
         href={href}
         className={cn(
-          "press group bg-panel border-rule rounded-card hover:border-rule-strong focus-visible:outline-signal block h-full border p-3 transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 md:p-4",
+          "press group bg-panel border-rule rounded-card hover:border-rule-strong focus-visible:outline-signal block h-full border p-3 text-left transition-colors duration-(--motion-base) focus-visible:outline-1 focus-visible:outline-offset-2 md:p-4",
           className,
         )}
       >
+        {/* Left-aligned whatever the section sets (the About grid centres its stats).
+            Icon in a tile, as on main and in the sidebar stat rows. */}
         {/* Header row: icon + title, arrow inline on mobile */}
         <div className="flex items-center justify-between gap-3 md:mb-2 md:justify-start">
           <div className="flex items-center gap-3">
             <div
               className={cn(
-                "text-signal flex h-6 w-6 flex-shrink-0 items-center justify-center md:h-8 md:w-8",
+                "text-signal bg-state rounded-control flex h-6 w-6 flex-shrink-0 items-center justify-center md:h-8 md:w-8",
                 iconClassName,
               )}
               style={{ color: cmsTone(variant) ?? undefined }}
             >
-              <IconRenderer icon={icon} className="h-4 w-4 md:h-5 md:w-5" />
+              <IconRenderer icon={icon} className="h-3.5 w-3.5 md:h-5 md:w-5" />
             </div>
             <h4 className="text-foreground text-sm font-semibold md:text-base">
               {title}
