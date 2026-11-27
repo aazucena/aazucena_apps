@@ -35,6 +35,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Centre each experience timeline dot on its card
 - _(portfolio)_ Make the footer rss and sitemap links look like links
 - _(portfolio)_ Show brand icons for every contact channel
 - _(portfolio)_ Stack the contact presence stats like the about ones

@@ -15,7 +15,7 @@ import {
   Terminal,
   Wrench,
 } from "@aazucena/icons";
-import type { JSX } from "react";
+import { Fragment, type JSX } from "react";
 import { Badge, Panel } from "@aazucena/ui";
 
 interface Skill {
@@ -39,6 +39,19 @@ const CATEGORY_ICONS: Record<string, any> = {
   Core: Grid,
   Other: Terminal,
 };
+
+// Lets "Hardware/Embedded" wrap after the slash rather than mid-word
+const breakAfterSlashes = (text: string) =>
+  text.split("/").map((part, i, parts) => (
+    <Fragment key={i}>
+      {part}
+      {i < parts.length - 1 && (
+        <>
+          /<wbr />
+        </>
+      )}
+    </Fragment>
+  ));
 
 // Series fills by rank; every bar also carries its category name and percentage as text
 const SERIES_BG = ["bg-series-1", "bg-series-2", "bg-series-3", "bg-series-4"];
@@ -80,27 +93,35 @@ export function TechStackDistribution({
             const Icon = CATEGORY_ICONS[item.category] || Terminal;
             return (
               <div key={item.category} className="space-y-1.5">
-                <div className="flex justify-between text-sm">
-                  <span className="text-foreground flex items-center gap-2 font-medium">
-                    <Icon size={14} className="text-muted-foreground" />
-                    {item.category}
-                  </span>
-                  <span className="micro-label text-muted-foreground">
-                    {item.count} / {totalSkills} · {item.percentage}%
+                {/* Category on its own line at full width, the count beside the bar: the
+                    sidebar is too narrow for a name like "Hardware/Embedded" and the count
+                    on one line */}
+                <div className="text-foreground flex items-start gap-2 text-sm font-medium">
+                  <Icon
+                    size={14}
+                    className="text-muted-foreground mt-[3px] shrink-0"
+                  />
+                  <span className="min-w-0">
+                    {breakAfterSlashes(item.category)}
                   </span>
                 </div>
-                <div
-                  role="progressbar"
-                  aria-label={`${item.category} share of skills`}
-                  aria-valuenow={item.percentage}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  className="bg-state h-1.5 w-full overflow-hidden"
-                >
+                <div className="flex items-center gap-3">
                   <div
-                    className={`bar-grow h-full ${SERIES_BG[i % SERIES_BG.length]}`}
-                    style={{ width: `${item.percentage}%` }}
-                  />
+                    role="progressbar"
+                    aria-label={`${item.category} share of skills`}
+                    aria-valuenow={item.percentage}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    className="bg-state h-1.5 min-w-0 flex-1 overflow-hidden"
+                  >
+                    <div
+                      className={`bar-grow h-full ${SERIES_BG[i % SERIES_BG.length]}`}
+                      style={{ width: `${item.percentage}%` }}
+                    />
+                  </div>
+                  <span className="micro-label text-muted-foreground shrink-0 whitespace-nowrap">
+                    {item.count} / {totalSkills} · {item.percentage}%
+                  </span>
                 </div>
               </div>
             );
