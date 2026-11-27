@@ -14,19 +14,16 @@
     function show(bar) {
       bar.setAttribute("data-seen", "");
     }
-    function showAll() {
-      root.classList.remove("bars-armed");
-      bars.forEach(show);
-    }
     // BaseLayout armed the bars; without that (no observer, reduced motion, or it gave up)
     // they keep their full width.
-    if (!root.classList.contains("bars-armed")) return showAll();
+    if (!root.classList.contains("bars-armed")) return;
     try {
       var io = new IntersectionObserver(
         function (entries) {
           // An observer reports every target once as soon as it starts, seen or not
           window.__barsReported = true;
-          if (!root.classList.contains("bars-armed")) return showAll();
+          // Too late: BaseLayout already gave up and the bars show full, so don't replay the growth
+          if (!root.classList.contains("bars-armed")) return;
           entries.forEach(function (entry) {
             if (!entry.isIntersecting) return;
             show(entry.target.firstElementChild);
@@ -39,7 +36,7 @@
         io.observe(bar.parentElement);
       });
     } catch (_) {
-      showAll();
+      root.classList.remove("bars-armed");
     }
   })();
 </script>

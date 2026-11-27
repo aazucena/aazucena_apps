@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(assistant)_ Don't nest a link when an image sits inside one
 - _(portfolio)_ Hold the stack bars at zero from first paint, full if the observer is silent
 - _(assistant)_ Return focus to chat after closing from the side panel or full screen
 - _(assistant)_ Don't send on the enter that confirms an ime composition
