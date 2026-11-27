@@ -3,7 +3,7 @@
  * Specialized hexagonal award/certification card with SVG gradients and hover effects
  */
 
-import React, { type JSX } from "react";
+import React, { useId, type JSX } from "react";
 import type { Award } from "@aazucena/types";
 
 export interface HexagonCardProps {
@@ -32,12 +32,14 @@ export function HexagonCard({
   onClick,
 }: HexagonCardProps): JSX.Element {
   const hue = AWARD_HUE[award.type];
+  const tipId = useId();
 
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={`${award.title}, ${award.organization}, ${award.year}`}
+      aria-describedby={tipId}
       className="group focus-visible:outline-signal relative flex h-52 w-48 cursor-pointer items-center justify-center focus-visible:outline-1 focus-visible:outline-offset-2"
     >
       {/* Hexagon SVG */}
@@ -54,9 +56,10 @@ export function HexagonCard({
         />
       </svg>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center p-6 text-center">
-        <div
+      {/* Content: phrasing elements only, as a button allows. The aria-label names it,
+          and the tooltip text describes it through aria-describedby. */}
+      <span className="relative z-10 flex flex-col items-center p-6 text-center">
+        <span
           className={`hover-grow border-rule bg-state rounded-control mb-3 flex h-16 w-16 items-center justify-center border ${hue.text}`}
         >
           <svg
@@ -73,27 +76,28 @@ export function HexagonCard({
               d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
             />
           </svg>
-        </div>
-        <h3 className="text-foreground mb-1 text-sm font-semibold">
+        </span>
+        <span className="text-foreground mb-1 block text-sm font-semibold">
           {award.shortTitle}
-        </h3>
-        <p className={`micro-label ${hue.text}`}>{award.year}</p>
-      </div>
+        </span>
+        <span className={`micro-label block ${hue.text}`}>{award.year}</span>
+      </span>
 
       {/* Tooltip on hover or keyboard focus */}
-      <div
-        className={`border-rule-strong bg-panel rounded-card pointer-events-none absolute top-full left-1/2 z-20 mt-4 w-64 -translate-x-1/2 border p-4 text-left opacity-0 transition-opacity duration-(--motion-base) group-hover:opacity-100 group-focus-visible:opacity-100`}
+      <span
+        id={tipId}
+        className={`border-rule-strong bg-panel rounded-card pointer-events-none absolute top-full left-1/2 z-20 mt-4 block w-64 -translate-x-1/2 border p-4 text-left opacity-0 transition-opacity duration-(--motion-base) group-hover:opacity-100 group-focus-visible:opacity-100`}
       >
-        <h4 className="text-foreground mb-2 text-base font-semibold">
+        <span className="text-foreground mb-2 block text-base font-semibold">
           {award.title}
-        </h4>
-        <p className={`micro-label mb-2 ${hue.text}`}>
+        </span>
+        <span className={`micro-label mb-2 block ${hue.text}`}>
           {award.organization} • {award.year}
-        </p>
-        <p className="text-muted-foreground text-xs">
+        </span>
+        <span className="text-muted-foreground block text-xs">
           {award.description as React.ReactNode}
-        </p>
-      </div>
+        </span>
+      </span>
     </button>
   );
 }
