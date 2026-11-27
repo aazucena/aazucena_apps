@@ -16,7 +16,14 @@ import {
   Wrench,
 } from "@aazucena/icons";
 import { Fragment, type JSX } from "react";
-import { Badge, Panel } from "@aazucena/ui";
+import {
+  Badge,
+  Panel,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@aazucena/ui";
 
 interface Skill {
   name: string;
@@ -88,45 +95,60 @@ export function TechStackDistribution({
     <div className="space-y-4">
       {/* Distribution chart */}
       <Panel label="Focus // Distribution" className="border-rule border">
-        <div className="space-y-4">
-          {distribution.map((item, i) => {
-            const Icon = CATEGORY_ICONS[item.category] || Terminal;
-            return (
-              <div key={item.category} className="space-y-1.5">
-                {/* Category on its own line at full width, the count beside the bar: the
-                    sidebar is too narrow for a name like "Hardware/Embedded" and the count
-                    on one line */}
-                <div className="text-foreground flex items-start gap-2 text-sm font-medium">
-                  <Icon
-                    size={14}
-                    className="text-muted-foreground mt-[3px] shrink-0"
-                  />
-                  <span className="min-w-0">
-                    {breakAfterSlashes(item.category)}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div
-                    role="progressbar"
-                    aria-label={`${item.category} share of skills`}
-                    aria-valuenow={item.percentage}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    className="bg-state h-1.5 min-w-0 flex-1 overflow-hidden"
-                  >
-                    <div
-                      className={`bar-grow h-full ${SERIES_BG[i % SERIES_BG.length]}`}
-                      style={{ width: `${item.percentage}%` }}
-                    />
+        <TooltipProvider delayDuration={150}>
+          <div className="space-y-2.5">
+            {distribution.map((item, i) => {
+              const Icon = CATEGORY_ICONS[item.category] || Terminal;
+              return (
+                <div key={item.category}>
+                  {/* Count beside the category; the bar gets the full width, so every
+                    track is the same length and the bars compare */}
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="text-foreground flex min-w-0 items-start gap-2 text-sm font-medium">
+                      <Icon
+                        size={14}
+                        className="text-muted-foreground mt-[3px] shrink-0"
+                      />
+                      <span className="min-w-0">
+                        {breakAfterSlashes(item.category)}
+                      </span>
+                    </span>
+                    <span className="micro-label text-muted-foreground shrink-0 pt-0.5 whitespace-nowrap">
+                      {item.count} / {totalSkills}
+                    </span>
                   </div>
-                  <span className="micro-label text-muted-foreground shrink-0 whitespace-nowrap">
-                    {item.count} / {totalSkills} · {item.percentage}%
-                  </span>
+                  {/* The exact share shows in a tooltip on hover or focus; the count above
+                    already gives the numbers. The trigger pads the 6px track so it is
+                    easy to hover. */}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div
+                        role="progressbar"
+                        aria-label={`${item.category} share of skills`}
+                        aria-valuenow={item.percentage}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-valuetext={`${item.percentage}%`}
+                        tabIndex={0}
+                        className="focus-visible:outline-signal cursor-default py-1.5 focus-visible:outline-1 focus-visible:outline-offset-2"
+                      >
+                        <div className="bg-state h-1.5 w-full overflow-hidden">
+                          <div
+                            className={`bar-grow h-full ${SERIES_BG[i % SERIES_BG.length]}`}
+                            style={{ width: `${item.percentage}%` }}
+                          />
+                        </div>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="font-mono">
+                      {item.percentage}% of skills
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </TooltipProvider>
       </Panel>
 
       {/* Tech stack grid */}
