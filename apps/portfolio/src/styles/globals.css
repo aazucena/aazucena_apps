@@ -146,9 +146,9 @@
 }
 
 /* bar-grow: a bar grows from zero to the width it already has once BarGrowObserver marks it
-   data-seen (on screen). The width is in the markup, so it shows in full with script off, with
-   script blocked and under reduced motion; only with script enabled and motion allowed is it held
-   at zero until it is seen. */
+   data-seen (on screen). The width is in the markup. BaseLayout's head script adds .bars-armed
+   before first paint, only when an observer exists and motion is allowed; only then is a bar held
+   at zero until seen. No script, a failed or silent observer, or reduced motion: full width. */
 @keyframes bar-grow {
   from {
     width: 0;

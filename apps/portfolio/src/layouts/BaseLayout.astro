@@ -93,6 +93,26 @@ const fontsUrl = googleFontsUrl(siteConfig.theme.fonts);
       })();
     </script>
 
+    {/* Stack bars (bar-grow) are held at zero before first paint, so they never paint full and
+        then drop. BarGrowObserver grows them when seen; if its observer hasn't reported within
+        1.5s of the page being parsed, the class goes and the bars show their full width. */}
+    <script is:inline>
+      (function () {
+        if (
+          !("IntersectionObserver" in window) ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        )
+          return;
+        var root = document.documentElement;
+        root.classList.add("bars-armed");
+        document.addEventListener("DOMContentLoaded", function () {
+          setTimeout(function () {
+            if (!window.__barsReported) root.classList.remove("bars-armed");
+          }, 1500);
+        });
+      })();
+    </script>
+
     {/* Resource Hints - DNS prefetch, preconnect, preload for performance */}
     <ResourceHints />
 
