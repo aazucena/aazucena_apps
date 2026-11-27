@@ -29,6 +29,13 @@ export function NavigationToolbar({
   const [isExpanded, setIsExpanded] = useState(false);
   const [showSoundHint, setShowSoundHint] = useState(false);
   const lastTrigger = useRef<HTMLElement | null>(null);
+  // The popovers open beneath whichever toolbar is showing (mobile or desktop)
+  const mobileBar = useRef<HTMLDivElement>(null);
+  const desktopBar = useRef<HTMLDivElement>(null);
+  const visibleBar = () =>
+    [mobileBar.current, desktopBar.current].find(
+      (el) => el && el.getClientRects().length > 0,
+    ) ?? null;
   const anyPanelOpen = showInfoPanel || showSettingsPanel || showSocialMenu;
   const wasOpen = useRef(false);
 
@@ -167,7 +174,10 @@ export function NavigationToolbar({
     <>
       {/* ── Mobile: collapsible panel (top-right) ── */}
       <div className="fixed top-6 right-4 z-50 md:hidden">
-        <div className="rounded-card border-rule-strong bg-panel relative flex flex-row items-center gap-2 border p-2">
+        <div
+          ref={mobileBar}
+          className="rounded-card border-rule-strong bg-panel relative flex flex-row items-center gap-2 border p-2"
+        >
           {/* Buttons expand to the LEFT of the toggle */}
           <div
             inert={!isExpanded}
@@ -231,7 +241,10 @@ export function NavigationToolbar({
 
       {/* ── Desktop: full panel always visible (top-right) ── */}
       <div className="fixed top-8 right-8 z-50 hidden md:block">
-        <div className="rounded-card border-rule-strong bg-panel flex flex-row gap-2 border p-2">
+        <div
+          ref={desktopBar}
+          className="rounded-card border-rule-strong bg-panel flex flex-row gap-2 border p-2"
+        >
           {buttons}
         </div>
         {hint("Ambient sound — click 🔊 to enable")}
@@ -243,6 +256,7 @@ export function NavigationToolbar({
         ariaLabel="About this site"
         onClose={() => togglePanel("info")}
         position="top-right"
+        anchor={visibleBar}
         width="320px"
       >
         <InfoPanel
@@ -256,6 +270,7 @@ export function NavigationToolbar({
         ariaLabel="Settings"
         onClose={() => togglePanel("settings")}
         position="top-right"
+        anchor={visibleBar}
         width="320px"
       >
         <SettingsPanel
@@ -270,6 +285,7 @@ export function NavigationToolbar({
         ariaLabel="Social links"
         onClose={() => togglePanel("social")}
         position="top-right"
+        anchor={visibleBar}
         width="320px"
       >
         <SocialMenu

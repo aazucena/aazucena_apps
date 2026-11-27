@@ -4,7 +4,18 @@
  * Designed for toolbar panels (Settings, Info, Social)
  */
 
-import { useEffect, type JSX, type ReactNode } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type JSX,
+  type ReactNode,
+} from "react";
+
+// Layout effect in the browser so an anchored popover is placed before it paints
+const useIsoLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 
 export type PopoverPosition =
@@ -51,6 +62,15 @@ export interface PopoverProps {
 
   /** Additional CSS classes */
   className?: string;
+
+  /**
+   * Element to open beneath, right edges aligned, `gap` px below it. Overrides
+   * `position` while open; re-placed on resize. Return null to fall back to `position`.
+   */
+  anchor?: () => HTMLElement | null;
+
+  /** Space between the anchor and the popover, in px (default 8) */
+  gap?: number;
 }
 
 /**
@@ -111,7 +131,35 @@ export function Popover({
   ariaLabel,
   width = "320px",
   className = "",
+  anchor,
+  gap = 8,
 }: PopoverProps): JSX.Element | null {
+  // Keep the latest anchor getter without re-running the effect on every render
+  const anchorRef = useRef(anchor);
+  anchorRef.current = anchor;
+  const [placed, setPlaced] = useState<{ top: number; right: number } | null>(
+    null,
+  );
+
+  useIsoLayoutEffect(() => {
+    if (!isOpen || !anchorRef.current) {
+      setPlaced(null);
+      return;
+    }
+    const place = () => {
+      const el = anchorRef.current?.();
+      if (!el) return setPlaced(null);
+      const r = el.getBoundingClientRect();
+      setPlaced({
+        top: Math.round(r.bottom + gap),
+        right: Math.round(document.documentElement.clientWidth - r.right),
+      });
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [isOpen, gap]);
+
   // Handle Escape key
   useEffect(() => {
     if (!closeOnEscape || !isOpen) return;
@@ -162,6 +210,11 @@ export function Popover({
               style={{
                 zIndex,
                 width,
+                ...(placed && {
+                  top: placed.top,
+                  right: placed.right,
+                  maxHeight: `calc(100dvh - ${placed.top + 16}px)`,
+                }),
               }}
               initial={{ opacity: 0, scale: 0.95, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
