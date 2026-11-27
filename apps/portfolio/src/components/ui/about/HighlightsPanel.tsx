@@ -38,7 +38,8 @@ export function HighlightsPanel({
   highlights,
 }: HighlightsPanelProps): JSX.Element {
   return (
-    <Panel label={title.toUpperCase()}>
+    // Border and full height to match the Bio panel beside it
+    <Panel label={title.toUpperCase()} className="border-rule h-full border">
       <div className="short:gap-2 short:text-sm grid grid-cols-1 gap-3 text-left text-base md:grid-cols-2">
         <BlocksRenderer
           content={highlights}

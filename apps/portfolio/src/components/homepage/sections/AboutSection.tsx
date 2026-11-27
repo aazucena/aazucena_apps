@@ -114,7 +114,7 @@ export function AboutSection({
           </div>
 
           {/* Highlights Panel — hidden on mobile, order-2 desktop */}
-          <div className="hidden md:order-2 md:block">
+          <div className="hidden md:order-2 md:block md:self-stretch">
             <HighlightsPanel highlights={about.highlights} />
           </div>
         </div>
