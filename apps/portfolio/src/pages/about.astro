@@ -345,12 +345,15 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
 
     <!-- Professional Meta -->
     <PanelBox label="VITAL // STATS">
+      {/* Tile on the left, label above value, as on main: the sidebar is too narrow to put a
+          location like "Alberta, Canada" beside its label. The tile sits inside the dt so the
+          list stays valid HTML. */}
       <dl class="flex flex-col gap-3">
         {portfolio.location && (
-          <div class="group flex items-center justify-between gap-3">
-            <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
+          <div class="group relative flex min-h-8 flex-col justify-center pl-10.5">
+            <dt class="micro-label text-muted-foreground">
               <span
-                class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
+                class="hover-grow bg-state text-signal rounded-control absolute top-1/2 left-0 flex size-8 -translate-y-1/2 items-center justify-center"
                 aria-hidden="true"
               >
                 <Location size={16} />
@@ -362,17 +365,22 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
             </dd>
           </div>
         )}
-        <div class="flex items-baseline justify-between gap-3">
-          <dt class="micro-label text-muted-foreground">AVAILABILITY</dt>
-          <dd class="micro-label flex items-center gap-1.5 font-mono">
-            <AvailabilityIndicator
-              tone={availability.tone}
-              marker={availability.marker}
-              pulse={availability.pulse}
-            />
-            <span class="text-muted-foreground">
-              {portfolio.availabilityStatus}
+        <div class="group relative flex min-h-8 flex-col justify-center pl-10.5">
+          <dt class="micro-label text-muted-foreground">
+            <span
+              class="hover-grow bg-state rounded-control absolute top-1/2 left-0 flex size-8 -translate-y-1/2 items-center justify-center"
+              aria-hidden="true"
+            >
+              <AvailabilityIndicator
+                tone={availability.tone}
+                marker={availability.marker}
+                pulse={availability.pulse}
+              />
             </span>
+            AVAILABILITY
+          </dt>
+          <dd class="text-foreground font-mono text-sm">
+            {portfolio.availabilityStatus}
           </dd>
         </div>
       </dl>
@@ -405,7 +413,7 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
         <dl class="flex flex-col gap-3">
           {languages.map((lang) => (
             <div class="group flex items-center justify-between gap-3">
-              <dt class="micro-label text-muted-foreground flex items-center gap-2.5">
+              <dt class="micro-label text-muted-foreground flex shrink-0 items-center gap-2.5 whitespace-nowrap">
                 <span
                   class="hover-grow bg-state text-signal rounded-control flex size-8 shrink-0 items-center justify-center"
                   aria-hidden="true"
@@ -414,7 +422,9 @@ const [firstName /*lastName*/] = portfolio.fullName.split(" ");
                 </span>
                 {lang.name}
               </dt>
-              <dd class="text-foreground font-mono text-sm">{lang.level}</dd>
+              <dd class="text-foreground min-w-0 text-right font-mono text-sm">
+                {lang.level}
+              </dd>
             </div>
           ))}
         </dl>
