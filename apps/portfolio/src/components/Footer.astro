@@ -160,18 +160,20 @@ const indicator = getAvailabilityIndicator(availabilityStatus);
             </p>
           )}
         </div>
+        {/* Signal colour and an arrow, so these read as links next to the plain copyright text */}
         {utilityLinks.length > 0 && (
           <div class="flex items-center gap-4">
             {utilityLinks.map((link) => (
               <a
                 href={link.path || undefined}
-                class="micro-label text-muted-foreground hover:text-foreground focus-visible:outline-signal transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+                class="micro-label text-signal focus-visible:outline-signal flex items-center gap-1 underline-offset-4 transition-colors hover:underline focus-visible:outline-1 focus-visible:outline-offset-2"
                 target={link.type === "EXTERNAL" ? "_blank" : undefined}
                 rel={
                   link.type === "EXTERNAL" ? "noopener noreferrer" : undefined
                 }
               >
                 {link.title}
+                <ArrowUpRight size={12} aria-hidden="true" />
               </a>
             ))}
           </div>
