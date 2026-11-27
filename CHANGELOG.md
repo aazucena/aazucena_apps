@@ -35,6 +35,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Open the home toolbar popovers just below the toolbar
 - _(portfolio)_ Stop the home about pane scrolling when a card grows on hover
 - _(portfolio)_ Left-align the about learn more cards and put their icon back in a tile
 - _(portfolio)_ Give the focus distribution categories their own line

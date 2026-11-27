@@ -134,9 +134,12 @@ export function Popover({
   anchor,
   gap = 8,
 }: PopoverProps): JSX.Element | null {
-  // Keep the latest anchor getter without re-running the effect on every render
+  // Keep the latest anchor getter without re-running the placement effect on every
+  // render. Updated in a layout effect declared first, so it is current when that runs.
   const anchorRef = useRef(anchor);
-  anchorRef.current = anchor;
+  useIsoLayoutEffect(() => {
+    anchorRef.current = anchor;
+  });
   const [placed, setPlaced] = useState<{ top: number; right: number } | null>(
     null,
   );
