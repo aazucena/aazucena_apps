@@ -29,13 +29,8 @@ export const PARTICLE_PRESETS = {
     size: 2,
     speed: 0.3,
     opacity: 0.8,
-    colors: [
-      ["--signal", 0x88ffff], // Cyan
-      ["--series-1", 0xe0f0ff], // Blue-white
-      ["--series-2", 0xffffff], // White
-      ["--series-3", 0xfffacd], // Pale yellow
-      ["--series-4", 0xddeeff], // Icy blue
-    ] as readonly ParticleColor[],
+    // Stars are white again: one foreground token, read from the dark homepage wrapper
+    colors: [["--foreground", 0xffffff]] as readonly ParticleColor[],
     twinkling: true,
     twinkleSpeed: { min: 0.5, max: 2.0 },
   },

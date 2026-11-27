@@ -265,6 +265,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🚀 Features
 
+- _(portfolio)_ Colour project initials and service icons with flat series hues
 - _(portfolio)_ Add the search and filter icons to the journey toolbar
 - _(portfolio)_ Mark honours in the timeline tooltip with an award icon
 - _(portfolio)_ Explain each journey chart under its title
