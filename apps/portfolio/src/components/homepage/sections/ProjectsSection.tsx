@@ -107,7 +107,7 @@ export function ProjectsSection({
         </div>
 
         <div
-          className={`relative z-10 mx-auto mt-4 overflow-hidden select-none ${
+          className={`relative z-10 mx-auto mt-3 overflow-hidden py-1 select-none ${
             isDragging ? "!cursor-grabbing" : "!cursor-grab"
           }`}
           style={{ maxWidth: "min(880px, 100%)", minHeight: "auto" }}
