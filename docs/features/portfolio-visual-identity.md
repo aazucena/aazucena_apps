@@ -60,6 +60,27 @@ Busy and On Break share amber, and the label tells them apart. Unavailable goes 
 6. **After R5 (backlog):** the blog post Contents rail and mobile Contents bar (D3); mobile menu counts and Dark/Light control, footer link style and preloader panel and rings (D5). See `docs/next-release-backlog.md`.
 7. **Footer** follows the same watermark recipe; the code had drifted to bold foreground at 4%.
 
+## Decisions (owner, 2026-11-22): the 69 removals
+
+The R5 pass found 69 things the old portfolio had that the Avra rebuild dropped. The owner took the recommendation for each: 47 restored, 18 dropped, 4 kept (two with a detail restored). Restores use Avra tokens, motion only behind `motion-safe:`, and the same affordance on focus-visible as on hover. Shared classes in `apps/portfolio/src/styles/globals.css`: `press`, `hover-grow`, `hover-nudge`, `hover-lift`, `hover-spin`, `spin-slow`, `bar-grow`, `linked-card`.
+
+**Restored.**
+
+- Chrome and menus: C1 swipe right closes the mobile menu, C3 and C4 menu icons, C6 logo hover (size kept), C7 "Let's Talk" nudge, C9 press-in on buttons and cards, C20 hamburger to X, C21 section dot growth (tooltip pointer dropped), C23 shield pulse.
+- Error and maintenance pages: C52 compass and underline, C54 hover motion on the buttons, C55 static alert and terminal icons, C56 wrench, C57 "Checks every 30 seconds".
+- Inner pages: C10 card lift, C11 and C12 photo zoom, C14 icon growth (About, Contact, Journey, skills, awards, experience), C15 arrows that slide, C16 titles that turn signal, C22 working-style cards open on click, C26 ping on the Latest changelog node, C37 to C42 About and Contact icons, h2 heading and send icon, C44 placeholder art, C47 metadata icons, C49 skill usage icons, C50 edge-to-edge skill board, C51 stack bars grow.
+- Homepage, Journey and Rin: C13 cards grow 2% (cards only, buttons keep press), C17 resume icon pulse (shine sweep dropped), C19 award outline thickens, C27 pulsing dot on Currently only, C28 alternate panel bands (badge hues dropped), C29 stat icons, C31 growth icons as line icons (checks dropped), C33 chart explanation line, C34 search and filter icons, C36 honours icon in the tooltip (the award badge line icon; the icon set has no trophy), C60 project initials and service icons on flat series hues, C63 white stars (the foreground token), C65 four series borders on Rin's chips, C66 chat window size transition.
+
+**Dropped (18).** C2, C5, C8, C18, C24, C25, C30, C32, C35, C43, C46, C53, C58, C59, C61 (the cream blog paper was personality, but a literal colour), C67, C68, C69.
+
+**Kept (4).** C45 badges stay below the cover, with the Featured star restored; C48 the experience rail stays, with node growth restored; C62 the loader mark stays at 132px; C64 the rewritten Rin lore copy stands (owner to confirm the wording).
+
+**Marks and titles.** Below 640px the header watermark is hidden on About, Journey, Changelog and Experience detail (the band stays); every other page keeps it. Legal and Editorial titles are 56px (md and up), weight 700, tracking -0.02em, and 36px below md so they fit 390; Landing is unchanged.
+
+**Stack bars.** The bars hold their real width in the markup, so the share shows with script off or blocked. `BarGrowObserver` marks a bar when it is on screen, and only then does CSS hold it at zero and grow it; reduced motion shows it full.
+
+**Contrast.** Muted and signal text are 3.6:1 on `bg-state` in dark, so neither goes on it. Glass cards keep `bg-panel` on hover and strengthen the border instead.
+
 ## Frames compared
 
 Fira Sans and Fira Code did not render on the branch from `d0e46dc4` (Task 3) to `432e64ae`: the font variables went through `define:vars` and never resolved. **Every comparison made in that span used the fallback system font's metrics**, including each per-task review. The 2026-11-21 frame pass in 11b was one of them, and its report wrongly blamed the missing font on the machine being offline.
@@ -85,9 +106,7 @@ Not redone: the per-frame side-by-side comparisons of the pass above. Legal, Edi
 
 ## Open owner questions
 
-- **RAD Intel entry.** The role is in the frames but not in the Strapi data. Add the CMS entry, or drop it from the frames.
-- **Mobile watermark marks.** At 390px the title or description text sits over part of the mark on Projects, Writings, Skills, Experience, Contact, Support, Privacy, Terms, Changelog, Experience detail, 404 and 500, and the image covers the middle on About; on About, Journey, Changelog and Experience detail only fragments remain. Keep, move or hide them.
-- **Legal and Editorial title size.** The templates still use 56-96px titles that no frame specifies.
+- **RAD Intel entry.** Owner task: add the role to the Strapi data (the frames already show it). It is a CMS entry, not a code change.
 - **Push.** One push, to `f993bf2a`, was made on the owner's instruction. Later commits are local, and the owner has not approved another push.
 
 ## Frames

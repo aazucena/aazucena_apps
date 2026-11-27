@@ -33,6 +33,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### 🐛 Bug Fixes
 
+- _(portfolio)_ Keep card text readable on hover, and colour blog titles on focus
 - _(portfolio)_ Grow the stack bars when seen, never full then empty
 - _(portfolio)_ Keep the working-style headings as headings
 - _(portfolio)_ Fix the skills board's edge, alignment and dark contrast
