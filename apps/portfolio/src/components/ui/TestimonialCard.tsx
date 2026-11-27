@@ -15,8 +15,6 @@ export interface TestimonialCardProps {
   title: string;
   /** Avatar text (usually initials) */
   avatar: string;
-  /** Retained for existing callers; avatars use the state tone. */
-  gradient?: string;
 }
 
 /**

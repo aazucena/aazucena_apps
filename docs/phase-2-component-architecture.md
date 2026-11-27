@@ -15,6 +15,7 @@ Optimized component structure, standardized patterns across sections, and improv
 ## Final Status (2026-02-02)
 
 ### ✅ Completed Tasks
+
 1. **Template System** - 3 operational templates (Editorial, Legal, Landing)
 2. **Utility Refactoring** - Split monolithic files into 15 specialized modules
 3. **Common Components** - 7 new reusable components
@@ -44,21 +45,25 @@ Optimized component structure, standardized patterns across sections, and improv
    - Journey components reorganized with type-first pattern (ui/journey, visualizations/journey)
    - All component files renamed for scope clarity
 10. **Scene Directory Flattening (2026-02-02):**
-   - Deleted legacy ground/ directory (7 unused files)
-   - Deleted 6 .BACKUP.tsx files from layers
-   - Deleted scene/utilities/ redirect barrel export
-   - Moved 5 layer files from scene/layers/ → scene/ (depth 3 → 2)
-   - Updated 7 files with corrected import paths
-   - Final structure: Max depth 2, ~70 files reorganized, ~24 legacy files deleted
+
+- Deleted legacy ground/ directory (7 unused files)
+- Deleted 6 .BACKUP.tsx files from layers
+- Deleted scene/utilities/ redirect barrel export
+- Moved 5 layer files from scene/layers/ → scene/ (depth 3 → 2)
+- Updated 7 files with corrected import paths
+- Final structure: Max depth 2, ~70 files reorganized, ~24 legacy files deleted
+
 11. **Component Extraction Complete:**
-   - All 8 sections now <120 lines (Hero: 105, Projects: 120, About: 70, Awards: 69, etc.)
-   - Build verified: 35.89s, all 18 pages rendered, zero TypeScript errors
+
+- All 8 sections now <120 lines (Hero: 105, Projects: 120, About: 70, Awards: 69, etc.)
+- Build verified: 35.89s, all 18 pages rendered, zero TypeScript errors
 
 ## Implementation Plan
 
 ### 2.0 Infrastructure & Foundation (COMPLETED ✅)
 
 **Completed Tasks:**
+
 - ✅ **Template System** - Created 3 operational templates
   - `EditorialTemplate.astro` - Default content pages
   - `LegalTemplate.astro` - Legal documents with revision badge & print styles
@@ -71,7 +76,7 @@ Optimized component structure, standardized patterns across sections, and improv
   - `StatusBadge.tsx` - Status indicators with variants (green/blue/gray/yellow/red)
   - `ThemeToggle.tsx` - Dark/light mode switcher with smooth transitions
   - `Breadcrumbs.astro` - Navigation breadcrumbs
-  - `GradientAccent.astro` - Gradient decorative elements
+  - `GradientAccent.astro` - Gradient decorative elements (removed 2026-11-27: unused after the Avra redesign)
   - `WatermarkBackground.astro` - Branded watermarks
   - `DetailNavigation.astro` - Back/forward navigation
   - `telemetry/IntegrityBadge.tsx` - Real-time system health indicator (2026-02-04)
@@ -91,6 +96,7 @@ Optimized component structure, standardized patterns across sections, and improv
 **Goal:** Replace hardcoded navigation with CMS-driven navigation via Strapi plugin
 
 **Implementation:**
+
 - **Plugin:** `strapi-plugin-navigation` v3.2.4
 - **Architecture:** WRAPPER-based footer sections (2 containers vs 3)
 - **Custom Fields:**
@@ -111,6 +117,7 @@ Optimized component structure, standardized patterns across sections, and improv
   - `components/Footer.astro` - WRAPPER section rendering with dynamic links
 
 **Key Features:**
+
 - **WRAPPER Architecture:**
   - Top-level WRAPPERs = section groupings (Explore, Resources)
   - Nested WRAPPERs = static files (RSS, Sitemap) - not CMS content types
@@ -121,15 +128,18 @@ Optimized component structure, standardized patterns across sections, and improv
 - **Graceful Fallbacks:** Default navigation if CMS unavailable
 
 **Performance:**
+
 - Reduced API calls from 3 → 2 (33% improvement)
 - Parallel fetching with `Promise.all()`
 - SSG caching with `force-cache`
 
 **Navigation Containers:**
+
 1. `main-navigation` - Header navigation (5 items + optional CTA buttons)
 2. `footer-navigation` - Single footer container with WRAPPER sections
 
 **Benefits:**
+
 - ✅ No hardcoded navigation arrays in components
 - ✅ CMS control over all navigation (header + footer)
 - ✅ A/B testing ready (change labels/CTAs without deployment)
@@ -147,18 +157,21 @@ Optimized component structure, standardized patterns across sections, and improv
 **Objective:** Move hardcoded Footer content to Strapi CMS while maintaining zero API overhead.
 
 **Implementation:**
+
 - Extended `website-configuration` single type with 4 footer fields
 - Created `ui.tech-stack-item` repeatable component
 - Renamed `order` → `sort` for clarity
 - Zero additional API calls (reuses existing website-config fetch)
 
 **Architecture Decision:**
+
 - `siteConfig` (from `config/site.ts`) → Static theme (colors, fonts)
 - `websiteConfig` (from Strapi API) → Dynamic content (footer, SEO, branding)
 - Both configs used in `BaseLayout` and `PageLayout`
 
 **Files Modified (9 total):**
 Frontend (5):
+
 - `src/lib/validators/website-config.ts` - Added TechStackSchema
 - `src/lib/transformers/website-config.ts` - Transform logic + defaults
 - `src/lib/api/website-config.ts` - Populate query update
@@ -166,20 +179,24 @@ Frontend (5):
 - `src/layouts/PageLayout.astro` - Props wiring
 
 Backend (2):
+
 - `src/layouts/BaseLayout.astro` - Uses websiteConfig
 - `src/lib/services/layout.ts` - Returns both configs
 
 CMS Schemas (2):
+
 - `apps/cms/src/api/website-configuration/.../schema.json` - Footer fields
 - `apps/cms/src/components/ui/tech-stack-item.json` - New component
 
 **Benefits:**
+
 - ✅ Content editors can update footer without code changes
 - ✅ Type-safe with Zod validation
 - ✅ Graceful fallbacks to defaults
 - ✅ No performance impact (zero additional API calls)
 
 **CMS Configuration Required:**
+
 1. Restart Strapi to load new schemas
 2. Populate Website Configuration with footer fields
 3. Add tech stack items (Astro, React, Tailwind CSS, Vite)
@@ -189,15 +206,18 @@ CMS Schemas (2):
 ### 2.1 Break Down Section.tsx (324 lines → ~150 lines) - 🔥 NEXT
 
 **Current Issues:**
+
 - Section.tsx already reduced to 174 lines in Phase 1
 - Still some opportunities for extraction
 
 **Refactor Strategy:**
+
 - Further optimize Scene.tsx component organization
 - Standardize section component patterns
 - Extract remaining reusable patterns
 
 **Already Extracted (Phase 1):**
+
 ```
 Section.tsx (174 lines - orchestration)
 ├── DynamicBackground.tsx ✅
@@ -216,12 +236,14 @@ Section.tsx (174 lines - orchestration)
 **Goal:** Optimize Three.js scene rendering and organization
 
 **Tasks:**
+
 - Split `Scene.tsx` into smaller layer-specific renderers
 - Create `SceneManager.tsx` to handle layer switching logic
 - Optimize re-renders with `React.memo` for static layers
 - Implement lazy loading for heavy 3D components
 
 **Benefits:**
+
 - Better performance
 - Easier to understand
 - Modular 3D layers
@@ -234,6 +256,7 @@ Section.tsx (174 lines - orchestration)
 **Goal:** Consistent patterns across all 8 section components
 
 **Sections:**
+
 1. HeroSection
 2. AboutSection
 3. ProjectsSection
@@ -244,12 +267,14 @@ Section.tsx (174 lines - orchestration)
 8. AwardsSection
 
 **Tasks:**
+
 - Create base `SectionWrapper` component for common layout
 - Standardize section heading styles into `SectionHeading` component
 - Extract common animation patterns into shared utilities
 - Ensure all sections follow same prop interface pattern
 
 **Example Pattern:**
+
 ```typescript
 interface SectionProps {
   isActive: boolean;
@@ -276,12 +301,14 @@ export function AboutSection({ isActive, atmosphericLayer, capabilities }: Secti
 **Implementation:** 2 days (14 hours planned, completed in ~4 hours)
 
 **Problem Solved:**
+
 - `[slug].astro` was 113 lines with embedded template logic scattered throughout slots
 - Template-specific features (legal revision badge, back button) mixed with routing logic
 - Difficult to add new page templates without modifying router
 - No type safety for template-specific props
 
 **Solution Architecture:**
+
 ```
 src/
 ├── pages/
@@ -314,6 +341,7 @@ src/
    - Stub implementation ready for future enhancement
 
 **Router Pattern:**
+
 ```typescript
 // Router computes shared concerns (SEO, breadcrumbs, JSON-LD)
 const sharedProps = {
@@ -332,6 +360,7 @@ const sharedProps = {
 ```
 
 **Adding New Templates:**
+
 1. Add template name to `PageTemplateEnum` in `src/lib/validators/enums.ts`
 2. Create `[TemplateName]Template.astro` in `src/templates/`
 3. Define props interface extending `BaseTemplateProps` in `src/templates/index.ts`
@@ -339,6 +368,7 @@ const sharedProps = {
 5. Update router conditional rendering in `[slug].astro`
 
 **Results:**
+
 - ✅ **35% code reduction**: Router logic reduced from 113 → 73 lines
 - ✅ **Type safety**: Explicit props contracts per template (no union type errors)
 - ✅ **Maintainability**: Self-contained, testable template components
@@ -348,12 +378,14 @@ const sharedProps = {
 - ✅ **Production verified**: Build succeeds, legal pages render correctly with all features
 
 **Files Created:**
+
 - `src/templates/index.ts` (150 lines - types, registry, documentation)
 - `src/templates/EditorialTemplate.astro` (70 lines)
 - `src/templates/LegalTemplate.astro` (140 lines with print styles)
 - `src/templates/LandingTemplate.astro` (100 lines with TODO stubs)
 
 **Files Modified:**
+
 - `src/pages/[slug].astro` (refactored from 113 → 114 total lines, 73 logic lines)
 
 ---
@@ -365,46 +397,50 @@ const sharedProps = {
 **Implementation:** 5 days
 
 **Problem Solved:**
+
 - Fragmented visibility into AI model usage, costs, and reasoning.
 - Lack of centralized management for technical personas and agent instructions.
 - Manual verification of agent decision-making was opaque and time-consuming.
 
 **Solution Architecture:**
+
 - **AI Core Terminal:** Developed a model-agnostic command center using Next.js 15 and Vercel AI SDK. Integrated Vercel AI Gateway for unified access to GPT-4o, Claude 3.5, and Gemini 1.5.
 - **Prompt IDE:** Built a centralized laboratory for managing LLM instructions. Implemented bi-directional sync between Strapi v5 (content storage) and LangSmith Hub (engine versioning).
 - **Trajectory Labs:** Created a visual playback system for agentic reasoning. Developed a dynamic D3 Neural Map to trace LangGraph execution paths and highlighted SHADES ground-truth data in observations.
 - **Telemetry Bridge:** Implemented a high-performance ingestion pipeline using ClickHouse for write-heavy event streams. Configured `async_insert` for low-latency metric pulsing from Python and TypeScript nodes.
 
 **Key Components:**
+
 - `apps/analytics/src/app/ai/prompts/page.tsx`: The Prompt IDE with "Force_Reset" and estimated costing.
 - `apps/analytics/src/app/ai/trajectories/page.tsx`: Playback UI for agent decisions.
 - `apps/cms/services/intel-engine/app/core/brain.py`: The LangGraph state machine with automatic Strapi-to-Hub sync.
 - `apps/cms/services/intel-bridge/main.py`: FastAPI-based telemetry gateway for Python agents.
 
 **Results:**
+
 - ✅ **Real-time Observability:** Instant visibility into AI costs, latency, and token volume.
 - ✅ **Centralized Control:** Unified prompt management with versioned sync to production hubs.
 - ✅ **Trace Fidelity:** Full visual audit of agent cognitive steps, allowing for rapid logic debugging.
 - ✅ **Infrastructure Integrity:** Service heartbeats and error traces consolidated into a single engineering view.
 
 **Files Created/Modified:**
+
 - `apps/analytics/src/app/ai/*` (New intelligence dashboard pages)
 - `apps/cms/services/intel-engine/*` (Agentic brain and sync logic)
 - `apps/cms/services/intel-bridge/*` (Python telemetry bridge)
 - `apps/cms/services/clickhouse/scripts/01_init_analytics_schema.sql` (Unified schema)
 - `docs/features/azucena-lytics-plan.md` (Updated strategic roadmap)
 
-
 ---
 
 ## Timeline Summary
 
-| Task | Duration | Status |
-|------|----------|--------|
-| 2.4 Page Template Component System | 2 days | ✅ Completed (2026-01-25) |
-| 2.1 Break Down Section.tsx | 3-4 days | 🔄 Pending |
-| 2.2 Scene Component Optimization | 2-3 days | 🔄 Pending |
-| 2.3 Section Components Standardization | 1-2 days | 🔄 Pending |
+| Task                                   | Duration | Status                    |
+| -------------------------------------- | -------- | ------------------------- |
+| 2.4 Page Template Component System     | 2 days   | ✅ Completed (2026-01-25) |
+| 2.1 Break Down Section.tsx             | 3-4 days | 🔄 Pending                |
+| 2.2 Scene Component Optimization       | 2-3 days | 🔄 Pending                |
+| 2.3 Section Components Standardization | 1-2 days | 🔄 Pending                |
 
 **Total Planned:** 8-11 days
 **Completed:** 2 days (18% complete)
@@ -414,12 +450,14 @@ const sharedProps = {
 ## Success Metrics
 
 **Before:**
+
 - `[slug].astro`: 113 lines with embedded template logic
 - Section.tsx: 324 lines
 - Scene.tsx: Complex, monolithic
 - Sections: Inconsistent patterns
 
 **After Phase 2 (In Progress):**
+
 - ✅ `[slug].astro`: 73 lines of logic (35% reduction) - **COMPLETED**
 - ✅ Template components: Self-contained, type-safe - **COMPLETED**
 - ✅ 3 reusable templates implemented - **COMPLETED**
@@ -444,6 +482,7 @@ const sharedProps = {
 **Goal:** Add real-time system health monitoring to Footer
 
 **Implementation:**
+
 - **Component:** `src/components/telemetry/IntegrityBadge.tsx`
 - **Location:** Footer component (bottom left, near copyright)
 - **API Endpoint:** `/api/health/public` (AZUCENA_LYTICS)
@@ -454,6 +493,7 @@ const sharedProps = {
   - `LOADING` - Blue pulse, initial fetch
 
 **Features:**
+
 - Client-side React component with `useEffect` polling
 - Environment variable configuration: `PUBLIC_ANALYTICS_API_URL`
 - Clickable badge links to full status dashboard
@@ -462,16 +502,19 @@ const sharedProps = {
 - Dark mode compatible
 
 **Files Modified:**
+
 - `apps/portfolio/src/components/Footer.astro` - Added `<IntegrityBadge client:load />`
 - `apps/portfolio/src/components/telemetry/IntegrityBadge.tsx` - NEW component
 
 **Integration Pattern:**
+
 ```astro
 <!-- Footer.astro -->
 <IntegrityBadge client:load />
 ```
 
 **Benefits:**
+
 - Real-time visibility into analytics health
 - User-facing transparency (no hidden monitoring)
 - Professional status page aesthetic
@@ -480,6 +523,7 @@ const sharedProps = {
 ---
 
 **Related Documentation:**
+
 - [ROADMAP.md - Full Phase 2 Details](../ROADMAP.md#phase-2-component-architecture-improvements-priority-high)
 - [Phase 1: Animations Refactoring](./phase-1-animations-refactoring.md)
 - [Phase 3: Performance Optimization](./phase-3-performance.md)

@@ -7,7 +7,6 @@ export interface Testimonial {
   name: string;
   title: string;
   avatar: string;
-  gradient: string;
 }
 
 interface InfiniteMovingCardsProps {
@@ -102,7 +101,6 @@ export function InfiniteMovingCards({
             name={item.name}
             title={item.title}
             avatar={item.avatar}
-            gradient={item.gradient}
           />
         ))}
       </ul>

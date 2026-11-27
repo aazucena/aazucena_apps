@@ -288,7 +288,6 @@ const searchColSpan =
       ) as HTMLButtonElement;
       const resultsCountDisplay = document.getElementById("results-count");
       const listContainer = document.getElementById("list-container");
-      const layout = listContainer?.dataset.layout;
 
       if (!listItems.length && !filterSelects.length && !searchInput) return;
 
@@ -398,26 +397,6 @@ const searchColSpan =
           item.style.display = isVisible ? "" : "none";
 
           if (isVisible) {
-            // Update alternating classes for timeline layout
-            if (layout === "timeline") {
-              const contentWrapper = item.querySelector(
-                ".timeline-content-wrapper",
-              );
-              if (contentWrapper) {
-                contentWrapper.classList.remove(
-                  "md:mr-auto",
-                  "md:pr-16",
-                  "md:ml-auto",
-                  "md:pl-16",
-                );
-
-                if (visibleCount % 2 === 0) {
-                  contentWrapper.classList.add("md:mr-auto", "md:pr-16");
-                } else {
-                  contentWrapper.classList.add("md:ml-auto", "md:pl-16");
-                }
-              }
-            }
             visibleCount++;
           }
         });
