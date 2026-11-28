@@ -42,8 +42,7 @@ aazucena_apps/
 │   ├── websocket/      # Real-time WebSocket server (TypeScript)
 │   ├── intel-engine/   # Python AI/ML engine (LangChain + LangGraph)
 │   ├── intel-bridge/   # Python bridge connecting intel-engine to the stack
-│   ├── ollama/         # Local LLM runtime (dropped — compose kept for reference)
-│   └── plausible/      # Self-hosted privacy analytics
+│   └── ollama/         # Local LLM runtime (dropped — compose kept for reference)
 │
 │  ── Documentation ──
 ├── docs/
