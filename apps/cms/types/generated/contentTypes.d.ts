@@ -560,14 +560,6 @@ export interface ApiAnalyticAnalytic extends Struct.SingleTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::analytic.analytic'> &
       Schema.Attribute.Private;
-    plausibleDomain: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
-      }>;
-    plausibleEnabled: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     sentryEnabled: Schema.Attribute.Boolean &
       Schema.Attribute.Required &

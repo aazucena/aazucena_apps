@@ -42,26 +42,6 @@
       "required": true,
       "default": true
     },
-    "plausibleEnabled": {
-      "type": "boolean",
-      "required": true,
-      "default": false
-    },
-    "plausibleDomain": {
-      "type": "string",
-      "conditions": {
-        "visible": {
-          "!=": [
-            {
-              "var": "plausibleEnabled"
-            },
-            false
-          ]
-        }
-      },
-      "maxLength": 200,
-      "required": true
-    },
     "sentryEnabled": {
       "type": "boolean",
       "required": true,
