@@ -12,23 +12,23 @@ class Sage:
         return any(kw in query_lower for kw in self.ENTITY_KEYWORDS)
 
     async def get_traffic_summary(self) -> str:
-        """Fetches a summary of traffic from Plausible."""
+        """Fetches a summary of traffic from first-party telemetry (visits and page views)."""
         try:
-            client = ch_core.get_plausible_client()
-            # Query unique visitors and pageviews for the last 24 hours
+            client = ch_core.get_analytics_client()
+            # Visits (per-tab sessions) and page views for the last 24 hours. Unique visitors
+            # come with the visitor-experience lab's daily-salt count.
             query = """
-                SELECT 
-                    count(DISTINCT user_id) as visitors,
-                    count() as pageviews
-                FROM plausible_events_db.events_v2
+                SELECT
+                    uniqIf(sessionId, event = 'PageView') as visits,
+                    countIf(event = 'PageView') as page_views
+                FROM analytics.telemetry_events
                 WHERE timestamp >= subtractHours(now(), 24)
             """
             result = client.query(query)
-            if not result.result_rows:
+            row = result.result_rows[0] if result.result_rows else (0, 0)
+            if not row[1]:
                 return "No traffic data recorded in the last 24 hours."
-            
-            row = result.result_rows[0]
-            return f"Traffic (24h): {row[0]} unique visitors, {row[1]} pageviews."
+            return f"Traffic (24h): {row[0]} visits, {row[1]} page views."
         except Exception as e:
             return f"Error fetching traffic: {str(e)}"
 
