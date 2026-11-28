@@ -8,7 +8,7 @@
 
 **Tech Stack:** Astro 7, Next.js 16, TypeScript, Zod 4, Strapi 5, Python 3.11 (FastAPI, clickhouse-connect), pytest, Changesets.
 
-**Spec:** `docs/features/plausible-removal.md`
+**Spec:** `docs/features/plausible-removal.md` (its "Why remove it" section holds the rationale: cost, a dead service still wired into four apps, duplicated infrastructure, data that cannot join the lab, privacy-model fit)
 
 ## Global Constraints
 
