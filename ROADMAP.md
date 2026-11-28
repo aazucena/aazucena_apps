@@ -81,7 +81,7 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 - ✅ Portfolio & CMS version upgrades complete
 - ✅ Public Storybook hosting live
 - ⏳ Chromatic — deferred (requires paid plan)
-- ⏳ Figma Design System — unblocked (Figma seat, 2026-11), scheduled for the next release
+- ✅ Figma Design System — Avra kits and app frames (2026-11, with the Avra redesign)
 
 ---
 
@@ -91,11 +91,14 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for a full history of completed milestone
 
 Branch `phase-5/next-release` also carries the analytics UI redesign, new features, and maintenance. Avra redesign R4 is done (2026-11-20): every analytics page uses the Avra tokens and a test guards it.
 
-Avra redesign R5 (portfolio): built, final review pending (2026-11-21).
+Avra redesign R5 (portfolio) is done (2026-11-27): reviewed, the owner-approved restores landed, and the accessibility leftovers are fixed. Before merging to main, check one Vercel preview ([backlog](./docs/next-release-backlog.md)). Avra distribution P1 (cleanup and ui 0.3.0) has 2 of 8 tasks done (declared dependencies, `tw-animate-css`).
 
-- Vitest unit tests (hooks, utilities) — 70-80% coverage target
-- Playwright E2E (critical user flows — 100% coverage target)
-- Chromatic visual regression (first baseline + CircleCI job)
+Status (2026-11-27):
+
+- 🟡 Vitest: set up in 8 workspaces, 31 test files (portfolio 65 tests, design-system 181, utils 41, hooks 4), mostly guard tests; the 70–80% coverage target for hooks and utilities is not measured yet, and `ui` has no unit tests
+- 🟡 Storybook interaction tests: 60 story files, axe at `error`
+- ⏳ Playwright E2E: not started (`apps/portfolio/tests/example.spec.ts` is the template); 100% critical-flow target and the 10 smoke tests carried over from Phase 4 are open
+- Visual regression runs on Argos (Storybook, CI on main); Chromatic stays deferred
 
 ---
 
@@ -173,4 +176,4 @@ Features (as needed)        →  3-40 days each
 
 ---
 
-**Last Updated:** 2026-11-11 | **Next Milestone:** Phase 5 (Testing) on `phase-5/next-release`
+**Last Updated:** 2026-11-27 | **Next Milestone:** Phase 5 (Testing) on `phase-5/next-release`

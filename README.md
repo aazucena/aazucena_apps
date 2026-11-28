@@ -337,13 +337,15 @@ Features (as needed) → 3-40 days each
   - ✅ Public Storybook hosting live
   - ✅ Portfolio & CMS version upgrades complete
   - ⏳ Chromatic — deferred (paid plan required)
-  - ⏳ Figma Design System — deferred
+  - ✅ Figma Design System — Avra kits and app frames (2026-11, with the Avra redesign)
 
 ### In Progress 🔥
 
-- **Phase 5:** Testing & Quality — CURRENT PRIORITY
-  - ⏳ Vitest unit tests (hooks, utilities — 70–80% coverage target)
-  - ⏳ Playwright E2E (critical user flows — 100% coverage target)
+- **Phase 5:** Testing & Quality — CURRENT PRIORITY (status 2026-11-27)
+  - 🟡 Vitest: set up in 8 workspaces, 31 test files (portfolio 65 tests, design-system 181, utils 41, hooks 4), mostly guard tests; the 70–80% coverage target for hooks and utilities is not measured yet, and `ui` has no unit tests
+  - 🟡 Storybook interaction tests: 60 story files, axe at `error`
+  - ⏳ Playwright E2E: not started (`apps/portfolio/tests/example.spec.ts` is the template); 100% critical-flow target and the 10 smoke tests carried over from Phase 4 are open
+- **Avra redesign:** R0–R5 done (analytics 2026-11-20, portfolio 2026-11-27); see [ROADMAP](./ROADMAP.md)
 
 ---
 
@@ -395,7 +397,7 @@ This is a personal portfolio project. For major changes or suggestions:
 
 ---
 
-**Last Updated:** 2026-05-11
+**Last Updated:** 2026-11-27
 
 See **[CHANGELOG.md](./CHANGELOG.md)** for the full history of changes.
 

@@ -405,17 +405,19 @@ No AI-attributed authoring anywhere in the repo. AI assistants (Claude, Gemini, 
 
 ## Current Status
 
-**Last Updated:** 2026-05-11
+**Last Updated:** 2026-11-27
 
 ### Completed ✅
 
 - Phases 0→3 (Infrastructure, Animations, Components, Performance)
 - AZUCENA_LYTICS v1 (all 5 phases: ingestion, AI observability, external data, advanced features, hardening)
 - **Phase 4:** Developer Experience — 16 packages + 373+ Storybook stories + public Storybook hosting + portfolio/CMS upgrades
+- **Avra redesign R0–R5** (2026-11): tokens, ui pass, Figma kits and app frames, charts on `chartTheme`, analytics (R4, 2026-11-20) and portfolio (R5, 2026-11-27) on Avra. Before merging to main, check one Vercel preview (backlog).
 
 ### In Progress 🔥
 
 - **Phase 5:** Testing & Quality
-  - ⏳ Vitest unit tests (hooks, utilities — 70–80% coverage target)
-  - ⏳ Playwright E2E (critical user flows — 100% coverage target)
-  - ⏳ 10 Playwright smoke tests (carried over from Phase 4)
+  - 🟡 Vitest: set up in 8 workspaces, 31 test files (portfolio 65 tests, design-system 181, utils 41, hooks 4), mostly guard tests; the 70–80% coverage target for hooks and utilities is not measured yet, and `ui` has no unit tests
+  - 🟡 Storybook interaction tests: 60 story files, axe at `error`
+  - ⏳ Playwright E2E: not started (`apps/portfolio/tests/example.spec.ts` is the template); 100% critical-flow target and the 10 smoke tests carried over from Phase 4 are open
+- **Avra distribution P1** (cleanup and ui 0.3.0): 2 of 8 tasks done (declared dependencies, `tw-animate-css`); the legacy-variant removal, registry prep and release notes are next
