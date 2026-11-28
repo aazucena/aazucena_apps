@@ -11,20 +11,10 @@ const SERVICE_DISPLAY_NAMES: Record<string, string> = {
   // ClickHouse — main analytics OLAP database
   clickhouse: 'Analytics DB',
   'clickhouse-olap': 'ClickHouse OLAP',
-  // Plausible ClickHouse — separate instance for Plausible analytics
-  'plausible-clickhouse': 'Plausible',
-  'clickhouse-plausible': 'Plausible',
-  plausible_clickhouse: 'Plausible',
-  plausible: 'Plausible',
 };
 
 function getDisplayName(name: string): string {
-  if (SERVICE_DISPLAY_NAMES[name]) return SERVICE_DISPLAY_NAMES[name];
-  // Auto-detect: any service name containing both "plausible" and "clickhouse"
-  if (name.toLowerCase().includes('plausible') && name.toLowerCase().includes('clickhouse')) {
-    return 'Plausible';
-  }
-  return name;
+  return SERVICE_DISPLAY_NAMES[name] ?? name;
 }
 
 const DAYS = 90;

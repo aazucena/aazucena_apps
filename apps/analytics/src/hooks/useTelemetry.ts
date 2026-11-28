@@ -64,23 +64,7 @@ export function useSentinel() {
   return _useSentinel({ isLive });
 }
 
-// Journey and Plausible hooks — not yet in @aazucena/hooks, kept local
-
-export function usePlausibleStats() {
-  const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);
-
-  return useQuery({
-    queryKey: ['plausible-stats'],
-    queryFn: async ({ signal }) => {
-      const res = await fetch('/api/stats/plausible', { signal });
-      if (!res.ok) throw new Error('FAILED_PLAUSIBLE_FETCH');
-      const json = await res.json();
-      return json.data.map((d: any) => ({ ...d, date: new Date(d.date) }));
-    },
-    staleTime: 5 * 60 * 1000,
-    refetchInterval: isLive ? 60000 : false,
-  });
-}
+// Journey hooks — not yet in @aazucena/hooks, kept local
 
 export function useJourneys() {
   const isLive = useSelector((state: RootState) => state.dashboard.status.isLive);

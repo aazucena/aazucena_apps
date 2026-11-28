@@ -1,4 +1,4 @@
-import { initClickHouseClients, viewerClient, ingestClient, plausibleClient } from '@aazucena/api';
+import { initClickHouseClients, viewerClient, ingestClient } from '@aazucena/api';
 
 // Initialize with analytics app environment variables
 initClickHouseClients({
@@ -24,16 +24,9 @@ initClickHouseClients({
       wait_for_async_insert: 0,
     },
   },
-  plausible: {
-    host: process.env.PLAUSIBLE_CLICKHOUSE_HOST || 'http://aazucena-plausible-clickhouse:8123',
-    username: process.env.PLAUSIBLE_CLICKHOUSE_USER || 'default',
-    password: process.env.PLAUSIBLE_CLICKHOUSE_PASSWORD || '',
-    database: process.env.PLAUSIBLE_CLICKHOUSE_DB || 'plausible_events_db',
-  },
 });
 
 // Backwards-compat aliases — all API routes use these names
 // Cast to any to match original any-typed clients (preserves query().json() returning any)
 export const mainClickhouseClient = viewerClient as any;
 export const ingestClickhouseClient = ingestClient as any;
-export const plausibleClickhouseClient = plausibleClient as any;
