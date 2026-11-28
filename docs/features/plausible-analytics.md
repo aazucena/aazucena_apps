@@ -1,5 +1,7 @@
 # Self-Hosted Plausible Analytics
 
+> **Removed (2026-11-27).** The owner decided to remove Plausible; see [plausible-removal.md](./plausible-removal.md). First-party traffic panels come from the [visitor-experience lab](./visitor-experience-lab.md). This page is kept as history.
+
 ## Overview
 
 This document describes the integration of self-hosted Plausible Analytics alongside the existing Vercel Analytics and Vercel Speed Insights for comprehensive, privacy-friendly traffic analysis.
@@ -12,11 +14,11 @@ This document describes the integration of self-hosted Plausible Analytics along
 
 The portfolio uses a complementary three-tool analytics strategy:
 
-| Tool | Primary Focus | Key Benefits |
-|------|---------------|--------------|
-| **Vercel Analytics** | Real User Monitoring (RUM) | Audience insights, geographic data, device breakdown, Vercel-native integration |
-| **Vercel Speed Insights** | Performance Metrics | Core Web Vitals (LCP, FID, CLS, TTFB), performance scoring, field data collection |
-| **Plausible Analytics** | Traffic Analytics | Privacy-friendly, UTM tracking, goals/events, referrer data, campaign attribution |
+| Tool                      | Primary Focus              | Key Benefits                                                                      |
+| ------------------------- | -------------------------- | --------------------------------------------------------------------------------- |
+| **Vercel Analytics**      | Real User Monitoring (RUM) | Audience insights, geographic data, device breakdown, Vercel-native integration   |
+| **Vercel Speed Insights** | Performance Metrics        | Core Web Vitals (LCP, FID, CLS, TTFB), performance scoring, field data collection |
+| **Plausible Analytics**   | Traffic Analytics          | Privacy-friendly, UTM tracking, goals/events, referrer data, campaign attribution |
 
 ### Why Not Just Use One?
 
@@ -25,6 +27,7 @@ The portfolio uses a complementary three-tool analytics strategy:
 3. **Plausible** provides comprehensive traffic analytics without cookies or personal data collection
 
 **Combined Value:**
+
 - Complete picture of both performance AND traffic
 - GDPR/CCPA compliant without cookie banners
 - Own your data with self-hosting
@@ -72,7 +75,7 @@ services:
     image: ghcr.io/plausible/community-edition:v2.1.3
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - '8000:8000'
     environment:
       BASE_URL: http://localhost:8000
       SECRET_KEY_BASE: ${PLAUSIBLE_SECRET_KEY_BASE}
@@ -118,8 +121,8 @@ services:
     image: mailhog/mailhog:latest
     restart: unless-stopped
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - '1025:1025'
+      - '8025:8025'
 
 volumes:
   # ... existing volumes ...
@@ -191,11 +194,13 @@ openssl rand -base64 32
 ### Initial Setup
 
 1. **Start the services:**
+
    ```bash
    docker compose up -d
    ```
 
 2. **Create admin account:**
+
    ```bash
    docker compose exec plausible /app/bin/plausible createsite \
      --domain localhost \
@@ -273,10 +278,10 @@ SMTP_USER_PWD=${SMTP_PASSWORD}
 
 ### Database Requirements
 
-| Database | Purpose | Size Estimate | Railway Plan |
-|----------|---------|---------------|--------------|
-| PostgreSQL | Plausible metadata, users, sites | ~100MB | Starter |
-| ClickHouse | Event storage, analytics data | ~1GB/100k pageviews | Starter |
+| Database   | Purpose                          | Size Estimate       | Railway Plan |
+| ---------- | -------------------------------- | ------------------- | ------------ |
+| PostgreSQL | Plausible metadata, users, sites | ~100MB              | Starter      |
+| ClickHouse | Event storage, analytics data    | ~1GB/100k pageviews | Starter      |
 
 **Note:** ClickHouse is highly efficient for time-series analytics data. Expect ~10 bytes per pageview.
 
@@ -408,7 +413,7 @@ Create a utility for tracking custom events:
 // Plausible custom event tracking
 export function trackEvent(
   eventName: string,
-  props?: Record<string, string | number | boolean>
+  props?: Record<string, string | number | boolean>,
 ): void {
   if (typeof window !== 'undefined' && window.plausible) {
     window.plausible(eventName, { props });
@@ -447,14 +452,14 @@ export function trackSectionView(sectionName: string): void {
 export function trackProjectClick(projectId: string, projectName: string): void {
   trackEvent(AnalyticsEvents.PROJECT_CLICK, {
     id: projectId,
-    name: projectName
+    name: projectName,
   });
 }
 
 export function trackCompositionPlay(trackId: string, trackName: string): void {
   trackEvent(AnalyticsEvents.COMPOSITION_PLAY, {
     id: trackId,
-    name: trackName
+    name: trackName,
   });
 }
 ```
@@ -546,17 +551,17 @@ Create a custom Strapi admin page to view content performance:
 // Example: Fetch page views for a specific blog post
 const response = await fetch(
   `${PLAUSIBLE_API_HOST}/api/v1/stats/breakdown?` +
-  new URLSearchParams({
-    site_id: 'yourdomain.com',
-    period: '30d',
-    property: 'event:page',
-    filters: 'event:page==/blog/my-post',
-  }),
+    new URLSearchParams({
+      site_id: 'yourdomain.com',
+      period: '30d',
+      property: 'event:page',
+      filters: 'event:page==/blog/my-post',
+    }),
   {
     headers: {
       Authorization: `Bearer ${PLAUSIBLE_API_KEY}`,
     },
-  }
+  },
 );
 ```
 
@@ -571,18 +576,18 @@ const response = await fetch(
 
 ### Key Metrics from Each Tool
 
-| Metric | Vercel Analytics | Vercel Speed Insights | Plausible |
-|--------|------------------|----------------------|-----------|
-| Page Views | Yes | No | Yes |
-| Unique Visitors | Yes | No | Yes |
-| Bounce Rate | No | No | Yes |
-| Session Duration | No | No | Yes |
-| LCP/FID/CLS | No | Yes | No |
-| Performance Score | No | Yes | No |
-| UTM Parameters | Limited | No | Yes |
-| Custom Events | No | No | Yes |
-| Conversion Goals | No | No | Yes |
-| Referrer Details | Basic | No | Detailed |
+| Metric            | Vercel Analytics | Vercel Speed Insights | Plausible |
+| ----------------- | ---------------- | --------------------- | --------- |
+| Page Views        | Yes              | No                    | Yes       |
+| Unique Visitors   | Yes              | No                    | Yes       |
+| Bounce Rate       | No               | No                    | Yes       |
+| Session Duration  | No               | No                    | Yes       |
+| LCP/FID/CLS       | No               | Yes                   | No        |
+| Performance Score | No               | Yes                   | No        |
+| UTM Parameters    | Limited          | No                    | Yes       |
+| Custom Events     | No               | No                    | Yes       |
+| Conversion Goals  | No               | No                    | Yes       |
+| Referrer Details  | Basic            | No                    | Detailed  |
 
 ### Recommended Dashboard Setup
 
@@ -627,11 +632,11 @@ const response = await fetch(
 
 ### Cookie Banner Requirements
 
-| Tool | Requires Cookie Banner |
-|------|------------------------|
-| Vercel Analytics | No (privacy-friendly, no cookies) |
+| Tool                  | Requires Cookie Banner                   |
+| --------------------- | ---------------------------------------- |
+| Vercel Analytics      | No (privacy-friendly, no cookies)        |
 | Vercel Speed Insights | No (uses web-vitals library, no cookies) |
-| Plausible | No (no cookies, no personal data) |
+| Plausible             | No (no cookies, no personal data)        |
 
 **Result:** No cookie banner needed for analytics when using all three tools together.
 
@@ -645,16 +650,19 @@ Add the following to your privacy policy:
 We use privacy-friendly analytics tools that do not use cookies or collect personal data:
 
 ### Vercel Analytics
+
 - Collects aggregate, anonymized visitor data
 - Does not use cookies
 - Data processed in accordance with Vercel's privacy policy
 
 ### Vercel Speed Insights
+
 - Measures Core Web Vitals performance metrics
 - Does not collect personal data
 - Uses the web-vitals JavaScript library
 
 ### Plausible Analytics (Self-hosted)
+
 - Open-source, privacy-first analytics
 - No cookies, no personal data collection
 - IP addresses are never stored
@@ -662,6 +670,7 @@ We use privacy-friendly analytics tools that do not use cookies or collect perso
 - Compliant with GDPR, CCPA, and PECR
 
 We do not:
+
 - Use any third-party advertising trackers
 - Sell or share analytics data
 - Build user profiles for advertising
@@ -717,36 +726,37 @@ We do not:
 
 ### Self-Hosted Costs (Railway)
 
-| Service | Railway Plan | Estimated Monthly Cost |
-|---------|--------------|------------------------|
-| Plausible Web | Starter | ~$5 |
-| PostgreSQL (Plausible) | Starter | ~$5 |
-| ClickHouse | Starter | ~$7 |
-| **Total** | | **~$17/month** |
+| Service                | Railway Plan | Estimated Monthly Cost |
+| ---------------------- | ------------ | ---------------------- |
+| Plausible Web          | Starter      | ~$5                    |
+| PostgreSQL (Plausible) | Starter      | ~$5                    |
+| ClickHouse             | Starter      | ~$7                    |
+| **Total**              |              | **~$17/month**         |
 
 **Note:** Railway charges based on usage. The above estimates are for a portfolio with ~10,000 pageviews/month.
 
 ### Plausible Cloud Pricing (Alternative)
 
-| Plan | Page Views | Monthly Cost |
-|------|------------|--------------|
-| Personal | 10,000 | $9 |
-| Startup | 100,000 | $19 |
-| Business | 1,000,000 | $69 |
+| Plan     | Page Views | Monthly Cost |
+| -------- | ---------- | ------------ |
+| Personal | 10,000     | $9           |
+| Startup  | 100,000    | $19          |
+| Business | 1,000,000  | $69          |
 
 **Self-hosted vs Cloud:**
+
 - Self-hosted is cheaper for high traffic (>50,000 pageviews)
 - Cloud is simpler to manage and includes automatic updates
 - Self-hosted gives full data ownership and control
 
 ### Total Analytics Cost
 
-| Tool | Monthly Cost |
-|------|--------------|
-| Vercel Analytics | Free (Hobby) / $0 |
-| Vercel Speed Insights | Free (Hobby) / $0 |
-| Plausible (Self-hosted) | ~$17 |
-| **Total** | **~$17/month** |
+| Tool                    | Monthly Cost      |
+| ----------------------- | ----------------- |
+| Vercel Analytics        | Free (Hobby) / $0 |
+| Vercel Speed Insights   | Free (Hobby) / $0 |
+| Plausible (Self-hosted) | ~$17              |
+| **Total**               | **~$17/month**    |
 
 ---
 
@@ -847,5 +857,6 @@ This is negligible and will not impact Lighthouse scores.
 **Status:** Planned
 
 **Dependencies:**
+
 - Phase 0.2.1: Docker Compose setup must be complete
 - Railway account with services for production deployment

@@ -153,6 +153,17 @@ All 14 monorepo packages have comprehensive Intelligence-themed documentation (~
 
 ### Feature Documentation
 
+#### Next release designs (2026-11) 🧭
+
+Designed 2026-11-27, owner-approved, not yet built. Each gets a build plan in `docs/superpowers/plans/`.
+
+- **[Remove Plausible](./features/plausible-removal.md)** - Remove the disabled Plausible service and every reference to it
+- **[Retrieval and Models](./features/retrieval-and-models.md)** - Open embeddings behind one interface (Voyage vs Qwen comparison gate), Strapi content indexed with source links, Kimi and Qwen through the AI Gateway
+- **[Strapi Update and Icon Field](./features/strapi-update-and-icon-field.md)** - Strapi 5.64, unused plugin and GraphQL removal, our own name-based icon field (step 1 of [Icons Field v2.0](./features/strapi-plugin-icons-field/README.md)), Renovate for icon updates
+- **[ClickHouse and intel-bridge](./features/clickhouse-and-intel-bridge.md)** - Memory cap, one pinned version, versioned migrations, Railway bucket backups; intel-bridge becomes the single health owner
+- **[Websocket Realtime](./features/websocket-realtime.md)** - Realtime-only Socket.IO service: login to listen, rooms, locked-down emit, resilient client
+- **[Visitor-Experience Lab](./features/visitor-experience-lab.md)** - Consent-tiered interaction analytics, per-page reports, system friction traced to server logs, Rin feedback features
+
 #### Design System 🎨
 
 - **[Avra Distribution](./features/avra-distribution.md)** - Use the design system outside this repo: shadcn registry, theme and vibe CSS for any framework, llms files, an Avra skill (after Phase 4)
@@ -162,7 +173,7 @@ All 14 monorepo packages have comprehensive Intelligence-themed documentation (~
 - **[AZUCENA_LYTICS Overview](/apps/analytics/README.md)** - Engineering Intelligence Terminal architecture and setup (Next.js/ClickHouse/D3.js)
 - **[AZUCENA_LYTICS Roadmap](./features/azucena-lytics-plan.md)** - Detailed 5-phase implementation plan (100% COMPLETE)
 - **[Logging & Monitoring](./features/logging-monitoring.md)** - Sentry, Vercel Analytics, Pino, Redis (3-4 days)
-- **[Plausible Analytics](./features/plausible-analytics.md)** - Self-hosted privacy-friendly traffic analytics (2-3 days)
+- **[Plausible Analytics](./features/plausible-analytics.md)** - Removed (2026-11-27); see [Remove Plausible](./features/plausible-removal.md)
 
 #### Music & Compositions 🎵
 
@@ -177,7 +188,7 @@ All 14 monorepo packages have comprehensive Intelligence-themed documentation (~
 #### Infrastructure & Monitoring 📊
 
 - **[Logging & Monitoring](./features/logging-monitoring.md)** - Sentry, Vercel Analytics, Pino, Redis (3-4 days)
-- **[Plausible Analytics](./features/plausible-analytics.md)** - Self-hosted privacy-friendly traffic analytics (2-3 days)
+- **[Plausible Analytics](./features/plausible-analytics.md)** - Removed (2026-11-27); see [Remove Plausible](./features/plausible-removal.md)
 
 #### Plugin Improvements 🔌
 

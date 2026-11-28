@@ -4,6 +4,8 @@
 
 Phase 5 testing plus the work that piled up during a ~5 month break: analytics UI redesign, new features, and maintenance. Phase 5 testing scope lives in [phase-5-testing.md](./phase-5-testing.md).
 
+**Service and intelligence work (designed 2026-11-27, owner-approved, not yet built):** [Remove Plausible](./features/plausible-removal.md) · [Retrieval and models](./features/retrieval-and-models.md) · [Strapi update and icon field](./features/strapi-update-and-icon-field.md) · [ClickHouse and intel-bridge](./features/clickhouse-and-intel-bridge.md) · [Websocket realtime](./features/websocket-realtime.md) · [Visitor-experience lab](./features/visitor-experience-lab.md). Suggested build order: Plausible removal, ClickHouse and intel-bridge, then the rest. Urgent first item inside the ClickHouse design: the two passwords committed in `services/clickhouse/scripts/03_rbac_security.sql` move to environment variables and get rotated.
+
 ---
 
 ## Analytics UI

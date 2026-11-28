@@ -4,6 +4,8 @@
 
 ---
 
+> **Step 1 is designed (2026-11-27):** [Strapi update and icon field](../strapi-update-and-icon-field.md) builds a small local field that stores icon names, generates the icon list from installed packages at build time (this plan's Phase B.0, automatic discovery), migrates stored SVGs to names, and keeps the CMS and portfolio on the same icon version through Renovate. The later phases here (sanitising, enterprise features, distribution) remain future work.
+
 ## 📋 Quick Overview
 
 - **Current Version:** v1.1.5
@@ -27,6 +29,7 @@
 ### Implementation Phases
 
 #### Phase A: Critical Fixes & Performance (5-7 days)
+
 - **[Phase A: Critical Fixes](./phase-a-critical-fixes.md)**
   - Icon caching system (95%+ faster loading)
   - SVG sanitization & security (XSS protection)
@@ -34,6 +37,7 @@
   - Performance testing & benchmarking
 
 #### Phase B: Advanced Features (17-21 days) 🔥
+
 - **[Phase B.0: Automatic Icon Discovery](./phase-b-0-automatic-discovery.md)** ⭐ **GAME CHANGER**
   - Automatic node_modules discovery (eliminates icons.sh script)
   - Hybrid development/production approach
@@ -54,12 +58,14 @@
   - Internationalization (i18n)
 
 #### Phase C: Developer Experience (6-8 days)
+
 - **[Phase C: Developer Experience](./phase-c-developer-experience.md)**
   - Comprehensive testing suite (85%+ coverage)
   - Storybook component library
   - Developer documentation & API reference
 
 #### Phase D: Enterprise Features (5-7 days)
+
 - **[Phase D: Enterprise Features](./phase-d-enterprise.md)**
   - Icon versioning & history
   - CDN integration (Cloudinary)
@@ -67,6 +73,7 @@
   - Icon presets & templates
 
 #### Phase E: Documentation & Distribution (3-5 days)
+
 - **[Phase E: Distribution](./phase-e-distribution.md)**
   - Comprehensive documentation
   - npm package publishing
@@ -86,18 +93,21 @@
 ### Major New Features
 
 **1. 🔥 Automatic Icon Discovery** (GAME CHANGER)
+
 - Eliminates manual `icons.sh` script (96%+ faster)
 - Zero configuration for Docker/monorepos
 - Hot-reloading in development (<200ms)
 - **Developer time saved:** 15+ min/day → <200ms
 
 **2. Icon Set Management**
+
 - Google Fonts-inspired organization
 - License and usage rights display
 - 8 variant types support
 - Icon set comparison view
 
 **3. Advanced 5-Dimensional Filtering**
+
 - Tags (animated, padding, precise, strokes)
 - Grid size optimization (16px-64px)
 - Palette (monotone/multicolor)
@@ -105,6 +115,7 @@
 - Attribution requirements
 
 **4. Enhanced Developer Experience**
+
 - 85%+ test coverage
 - Storybook component library
 - Comprehensive documentation
@@ -113,17 +124,20 @@
 ### Impact Metrics
 
 **Development:**
+
 - Setup time: **5+ min → <200ms** (96%+ faster)
 - Build failures: **100% reduction**
 - Hot-reload: **Enabled** (<200ms)
 - Test coverage: **85%+**
 
 **User Experience:**
+
 - Icon selection: **40% faster**
 - Filter usage: **80%+ users**
 - Icon set browsing: **70%+ engagement**
 
 **Technical:**
+
 - Package managers: **npm/yarn/pnpm** ✅
 - Monorepo support: **Full** ✅
 - Docker support: **Zero config** ✅
