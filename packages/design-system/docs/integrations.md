@@ -65,7 +65,6 @@ The following integrations are pre-configured and exported from `@aazucena/desig
 | **LinkedIn**  | `linkedin/`  | Social sharing widget and card branding.               |
 | **Email**     | `email/`     | Inline-safe style objects for React Email / Resend.    |
 | **WakaTime**  | `wakatime/`  | Badge and coding activity chart branding.              |
-| **Plausible** | `plausible/` | Public analytics dashboard CSS overrides.              |
 | **Sentry**    | `sentry/`    | Error observability project branding configuration.    |
 | **Webhooks**  | `webhooks/`  | Slack (HEX) and Discord (Decimal) notification colors. |
 | **reCAPTCHA** | `recaptcha/` | Security badge theme and positioning sync.             |

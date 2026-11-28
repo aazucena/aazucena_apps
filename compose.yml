@@ -8,7 +8,6 @@ name: cms
 
 include:
   - services/clickhouse/compose.yml
-  - services/plausible/compose.yml
   - services/websocket/compose.yml
   - services/intel-bridge/compose.yml
   - services/intel-engine/compose.yml
@@ -24,16 +23,6 @@ services:
       - aazucena-network
     env_file: apps/cms/.env
 
-  plausible:
-    networks:
-      - aazucena-network
-    env_file: apps/cms/.env
-      
-  plausible-clickhouse:
-    networks:
-      - aazucena-network
-    env_file: apps/cms/.env
-      
   websocket:
     networks:
       - aazucena-network

@@ -13,7 +13,6 @@ export * from './mapbox/theme';
 export * from './shiki/theme';
 export * from './audio/config';
 export * from './wakatime/config';
-export * from './plausible/theme';
 export * from './vercel-og/theme';
 export * from './cli/colors';
 export * from './scalar/theme';

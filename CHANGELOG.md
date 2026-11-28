@@ -8,6 +8,7 @@ All notable changes to this project are documented here, grouped by phase milest
 
 ### ♻️ Refactor
 
+- _(intel-engine)_ Sage reads traffic from first-party telemetry
 - _(portfolio)_ Share the footer's platform icon map as PlatformIcon
 - _(portfolio)_ Share the sidebar stat row as StatRow
 - _(portfolio)_ Drop the unused group on mobile menu rows
