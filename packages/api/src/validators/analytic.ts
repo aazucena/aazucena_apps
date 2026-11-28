@@ -10,8 +10,6 @@ export const StrapiAnalyticSchema = z.object({
   googleAnalyticsId: z.string().max(50).optional().nullable(),
   vercelAnalyticsEnabled: z.boolean().default(true),
   vercelSpeedInsightsEnabled: z.boolean().default(true),
-  plausibleEnabled: z.boolean().default(false),
-  plausibleDomain: z.string().max(200).optional().nullable(),
   sentryEnabled: z.boolean().default(false),
   createdAt: z.string(),
   updatedAt: z.string(),

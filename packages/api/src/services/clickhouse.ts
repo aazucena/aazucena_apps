@@ -31,8 +31,6 @@ export interface ClickHouseConfig {
   viewer: ClickHouseClientConfig;
   /** Telemetry ingestion client config (INSERT-only) */
   ingest: ClickHouseClientConfig;
-  /** Plausible analytics client config (optional) */
-  plausible?: ClickHouseClientConfig;
 }
 
 // Type for the web client returned by createClient
@@ -42,7 +40,6 @@ type CHClient = ReturnType<typeof createClient>;
 const globalForClickHouse = global as unknown as {
   viewerClient?: CHClient;
   ingestClient?: CHClient;
-  plausibleClient?: CHClient;
   configInitialized?: boolean;
 };
 
@@ -68,12 +65,6 @@ const globalForClickHouse = global as unknown as {
  *       async_insert: 1,
  *       wait_for_async_insert: 0,
  *     },
- *   },
- *   plausible: {
- *     host: process.env.PLAUSIBLE_CLICKHOUSE_HOST!,
- *     username: process.env.PLAUSIBLE_CLICKHOUSE_USER!,
- *     password: process.env.PLAUSIBLE_CLICKHOUSE_PASSWORD!,
- *     database: process.env.PLAUSIBLE_CLICKHOUSE_DB!,
  *   },
  * });
  * ```
@@ -111,11 +102,6 @@ export function initClickHouseClients(config: ClickHouseConfig): void {
     globalForClickHouse.ingestClient = createClient(config.ingest);
   }
 
-  // Create plausible client (optional)
-  if (config.plausible && !globalForClickHouse.plausibleClient) {
-    globalForClickHouse.plausibleClient = createClient(config.plausible);
-  }
-
   globalForClickHouse.configInitialized = true;
 }
 
@@ -146,19 +132,6 @@ export function getIngestClient(): CHClient {
 }
 
 /**
- * Get the Plausible analytics client
- * @throws Error if clients not initialized or plausible not configured
- */
-export function getPlausibleClient(): CHClient {
-  if (!globalForClickHouse.plausibleClient) {
-    throw new Error(
-      'ClickHouse plausible client not initialized. Ensure plausible config is provided to initClickHouseClients().',
-    );
-  }
-  return globalForClickHouse.plausibleClient;
-}
-
-/**
  * Check if ClickHouse clients have been initialized
  */
 export function isClickHouseInitialized(): boolean {
@@ -167,7 +140,7 @@ export function isClickHouseInitialized(): boolean {
 
 /**
  * Legacy exports for backward compatibility
- * @deprecated Use getViewerClient(), getIngestClient(), getPlausibleClient() instead
+ * @deprecated Use getViewerClient(), getIngestClient() instead
  */
 export const viewerClient = new Proxy({} as CHClient, {
   get: (_, prop) => {
@@ -179,13 +152,6 @@ export const viewerClient = new Proxy({} as CHClient, {
 export const ingestClient = new Proxy({} as CHClient, {
   get: (_, prop) => {
     const client = getIngestClient();
-    return (client as any)[prop];
-  },
-});
-
-export const plausibleClient = new Proxy({} as CHClient, {
-  get: (_, prop) => {
-    const client = getPlausibleClient();
     return (client as any)[prop];
   },
 });
